@@ -1,2 +1,8 @@
 export PORT=3000
 export CUSTOM_VAR="example"
+
+export FACEBOOK_APP_ID="361617237358681"
+export FACEBOOK_APP_SECRET="e423c7e0e40372eeb51f241f0febb64d"
+
+export LINKEDIN_API_KEY="77llc0vucc0zi6"
+export LINKEDIN_SECRET_KEY="zsLKqLDm2cKPnx5S"

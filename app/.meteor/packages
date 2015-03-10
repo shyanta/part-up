@@ -12,3 +12,8 @@ partup:intro
 partup:utils
 partup:partups
 tap:i18n
+accounts-password
+accounts-ui
+accounts-facebook
+pauli:accounts-linkedin
+service-configuration
