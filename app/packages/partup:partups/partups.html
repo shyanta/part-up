@@ -1,0 +1,20 @@
+<template name="partups">
+<div>
+</div>
+<ul>
+    {{#each partups}}
+    <li>
+        <header>
+            <date>Actief tot {{endDate}}</date>
+            <h2>{{name}}</h2>
+            <p>{{description}}</p>
+            {{#each tags}}
+            <span>#{{name}}</span>
+            {{/each}}
+        </header> 
+    </li>
+    {{else}}
+    <li>no partups added yet</li>
+    {{/each}}
+</ul>
+</template>
