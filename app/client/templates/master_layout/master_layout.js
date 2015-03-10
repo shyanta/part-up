@@ -7,6 +7,12 @@ Template.MasterLayout.events({
             // Handle the situation
             console.log(error_message);
         });
+    },
+    'click [data-logout]': function(event, template) {
+        Meteor.logout();
+    },
+    'click [data-login]': function(event, template) {
+        Meteor.loginWithLinkedin();
     }
 
 });
