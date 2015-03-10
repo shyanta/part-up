@@ -10,3 +10,23 @@ Router.route('/', {
     action: 'action',
     where: 'client'
 });
+
+Router.route('/start', {
+    onBeforeAction: function() {
+        Router.go('/start/details')
+    }
+});
+
+Router.route('/start/details', {
+    name: 'startDetails',
+    controller: 'StartController',
+    action: 'details',
+    where: 'client'
+});
+
+Router.route('/start/activities', {
+    name: 'startActivities',
+    controller: 'StartController',
+    action: 'activities',
+    where: 'client'
+});
