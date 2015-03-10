@@ -11,3 +11,4 @@ iron:router
 partup:intro
 partup:utils
 partup:partups
+tap:i18n
