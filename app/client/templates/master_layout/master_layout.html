@@ -1,20 +1,5 @@
 <template name="MasterLayout">
-<header>
-    {{# if currentUser }}
-        {{ currentUser.profile.firstName }} - <a data-logout>Logout</a>
-    {{ else }}
-        {{#if loggingIn}}
-            Logging in
-        {{ else }}
-            <a data-login>inloggen</a>
-            <a data-signup>aanmelden</a>
-        {{/if}}
-    {{/if}}
-</header>
-<p>this variable is overwritten from within a template: {{> yield "title" }}</p>
-<button class="js-translate" data-language="nl">nl</button><button class="js-translate" data-language="en">en</button>
-<div>
-  {{> yield}}
-</div>
+	{{> header}}
+	{{> yield}}
 
 </template>

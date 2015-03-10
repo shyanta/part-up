@@ -1,0 +1,16 @@
+<template name="header">
+<header>
+    {{# if currentUser }}
+        <a href="start">Start een Part-up</a>
+        {{ currentUser.profile.firstName }} - <a data-logout>Logout</a>
+    {{ else }}
+        {{#if loggingIn}}
+            Logging in
+        {{ else }}
+            <a data-login>inloggen</a>
+            <a data-signup>aanmelden</a>
+        {{/if}}
+    {{/if}}
+    <button data-translate="nl">nl</button><button data-translate="en">en</button>
+</header>
+</template>
