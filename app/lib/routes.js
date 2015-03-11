@@ -11,6 +11,13 @@ Router.route('/', {
     where: 'client'
 });
 
+Router.route('/register', {
+    name: 'register',
+    controller: 'RegisterController',
+    action: 'action',
+    where: 'client'
+});
+
 Router.route('/start', {
     onBeforeAction: function() {
         Router.go('/start/details')

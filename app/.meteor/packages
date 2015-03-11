@@ -17,3 +17,4 @@ pauli:accounts-linkedin
 service-configuration
 partup:start
 fourseven:scss
+partup:register

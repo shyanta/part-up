@@ -1,0 +1,76 @@
+.pu-header-progress
+    .pu-link
+        display: inline-block
+        color: $color-dusty-gray
+        text-decoration: none
+        padding: 8px 10px 5px
+
+        &:hover
+            color: lighten($color-dusty-gray, 20%)
+
+.pu-progresspager
+    width: 770px
+    margin: auto
+    position: relative
+    @extend %clearfix
+    transform: translateY(50%)
+    margin-bottom: 100px
+
+    &-item
+        position: relative
+        width: 33.33%
+        height: 18px
+        float: left
+
+        a
+            position: absolute
+            padding-top: 30px
+            right: 0
+            display: block
+            color: $color-downy
+            text-decoration: none
+            transform: translateX(50%)
+            z-index: 2
+
+            &:hover
+                color: lighten($color-downy, 20%)
+
+        &:after
+            content: ''
+            display: block
+            background-color: $color-downy
+            border: 4px solid $color-white
+            border-radius: 50%
+            width: 10px
+            height: 10px
+            position: absolute
+            right: -10px
+            z-index: 1
+
+        &:first-child
+            position: absolute
+            right: 100%
+
+        + .pu-progresspager-item
+            &:before
+                content: ''
+                position: absolute
+                top: 50%
+                display: block
+                height: 2px
+                background-color: $color-downy
+                width: 100%
+                right: 0
+
+        &-active ~ .pu-progresspager-item
+            a
+                color: $color-scorpion
+
+                &:hover
+                    color: lighten($color-scorpion, 20%)
+
+            &:before
+                background-color: $color-silver
+
+            &:after
+                background-color: $color-scorpion

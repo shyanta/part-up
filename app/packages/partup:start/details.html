@@ -1,81 +1,65 @@
 <template name="__startDetails">
 <div class="pu-container pu-container-small">
-    <h1 class="pu-title">Hoi Pim, mogen we je leren kennen?</h1>
+    <h1 class="pu-title">Pim, gaaf dat je een Part-up start!</h1>
 
-    <p class="pu-paragraph">Jouw account is aangemaakt. Na deze stap start je met Part-up! Vul onderstaande velden in, zodat je een betrouwbaar profiel hebt en wij je de juiste Part-ups kunnen voorstellen.</p>
+    <p class="pu-paragraph">We kennen je nu een beetje, maar wat wil je gaan doen? Beschrijf hier waar jouw Part-up over gaat. Wij gebruiken dit om Uppers aan je voor te stellen die kunnen bijdragen.</p>
 
     <form class="pu-form" action="">
-        <div class="pu-formfield">
-            <span class="pu-label">Geef ons jouw glimlach</span>
-            <div class="pu-upload">
-                <img src="http://placehold.it/200x200/ffffff/FFA724" alt="">
-                <button class="pu-button pu-button-secondary">Foto vanaf jouw computer</button>
-                <p class="pu-paragraph">Makkelijk, gebruik jouw Facebook of LinkedIn foto.</p>
-            </div>
-        </div>
-
         <label class="pu-formfield">
-            <span class="pu-label">Waar wil je meedoen in Part-ups?</span>
-            <input class="pu-input" type="text" placeholder="Bijvoorbeeld in je woonplaats of regio">
-            <a class="pu-hint">waarom</a>
+            <span class="pu-label">Hoe wil je jouw Part-up noemen?</span>
+            <input class="pu-input" type="text" placeholder="Wees niet té creatief, je wilt wel dat Uppers het meteen snappen">
+            <a class="pu-hint">maximaal 40 tekens</a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Stel jezelf eens voor :-)</span>
-            <textarea class="pu-textarea" placeholder="Een korte omschrijving van wie je bent en wat je kunt"></textarea>
-            <a class="pu-hint">hulp</a>
+            <span class="pu-label">Wat wil je met jouw Part-up bereiken?</span>
+            <textarea class="pu-textarea" placeholder="Wees zo kort maar zo krachtig mogelijk"></textarea>
+            <a class="pu-hint">maximaal 40 tekens</a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Jij, in vijf woorden</span>
+            <span class="pu-label">Jouw Part-up, in vijf woorden</span>
             <div class="pu-inputholder">
-                <input class="pu-input" type="text" placeholder="Even scheiden door een komma alsjeblieft">
+                <input class="pu-input" type="text" placeholder="Graag even scheiden door een komma">
             </div>
+            <a class="pu-hint">waarom</a>
+        </label>
+
+        <label class="pu-formfield">
+            <span class="pu-label">Wanneer wil je ongeveer klaar zijn?</span>
+            <div class="pu-inputholder pu-inputholder-lefticon">
+                <input class="pu-input" type="text" placeholder="Prik een einddatum">
+                <span class="pu-icon"><i class="fa fa-calendar"></i></span>
+            </div>
+            <a class="pu-hint">waarom</a>
+        </label>
+
+        <label class="pu-formfield">
+            <span class="pu-label">Waar is jouw Part-up?</span>
+            <input class="pu-input" type="text" placeholder="Online, Nederland of in jouw plaats">
+        </label>
+
+        <label class="pu-formfield">
+            <span class="pu-label">Aan welk netwerk wil je jouw Part-up toevoegen?</span>
+            <input class="pu-input" type="text" placeholder="1. Aan Part-up.com (openbaar)">
             <a class="pu-hint">waarom</a>
         </label>
 
         <div class="pu-formfield">
-            <label>
-                <span class="pu-label">Jouw social media profielen</span>
-                <div class="pu-inputholder pu-inputholder-lefticon">
-                    <input class="pu-input" type="text" placeholder="facebook.com/jouwnaam">
-                    <span class="pu-icon"><i class="fa fa-facebook"></i></span>
-                </div>
-            </label>
-            <div class="pu-inputholder pu-inputholder-lefticon">
-                <input class="pu-input" type="text" placeholder="twitter.com/jouwnaam">
-                <span class="pu-icon"><i class="fa fa-twitter"></i></span>
+            <span class="pu-label">Kies een mooie en herkenbare foto voor jouw Part-up</span>
+            <div class="pu-upload pu-upload-large">
+                <button class="pu-button pu-button-secondary">Foto vanaf jouw computer</button>
+                <span>Wel minimaal 1000 pixels</span>
             </div>
-            <div class="pu-inputholder pu-inputholder-lefticon">
-                <input class="pu-input" type="text" placeholder="instagram.com/jouwnaam">
-                <span class="pu-icon"><i class="fa fa-instagram"></i></span>
-            </div>
-            <div class="pu-inputholder pu-inputholder-lefticon">
-                <input class="pu-input" type="text" placeholder="linkedin.com/jouwnaam">
-                <span class="pu-icon"><i class="fa fa-linkedin"></i></span>
-            </div>
-            <a class="pu-hint">waarom</a>
         </div>
 
-        <label class="pu-formfield">
-            <span class="pu-label">Heb je een eigen website of blog?</span>
-            <input class="pu-input" type="text" placeholder="www.mijn-blog-of-website.nl">
-            <a class="pu-hint">waarom</a>
-        </label>
+        <div class="pu-divider"><span>of kies een van de vijf suggesties</span></div>
 
-        <label class="pu-formfield">
-            <span class="pu-label">Mogen Uppers je bellen (of appen)?</span>
-            <input class="pu-input" type="text" placeholder="06-12345678">
-            <a class="pu-hint">waarom</a>
-        </label>
+        <div class="pu-imageselector">
+            <img src="http://placehold.it/570x235" alt="">
+        </div>
 
-        <label class="pu-formfield">
-            <span class="pu-label">Gebruik je Skype?</span>
-            <input class="pu-input" type="text" placeholder="Jouw Skypenaam">
-            <a class="pu-hint">waarom</a>
-        </label>
-
-        <input class="pu-button pu-button-primary" type="submit" value="Hup, start of zoek een Part-up!">
+        <input class="pu-button pu-button-primary" type="submit" value="Ingevuld, op naar de activiteiten">
     </form>
 </div>
 </template>
