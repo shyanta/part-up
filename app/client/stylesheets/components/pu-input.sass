@@ -1,8 +1,20 @@
-.pu-input
+.pu-input, .pu-textarea
     border: 2px solid $color-gallery
-    border-radius: 5px
+    border-radius: 4px
     padding: 13px
     outline: none
+    width: 100%
+    max-width: 100%
+    min-width: 100%
+    display: block
+    font-size: 16px
+    position: relative
+
+    &::placeholder
+        color: rgba($color-mine-shaft, .5)
+
+    &:hover
+        border-color: darken($color-gallery, 5%)
 
     &:focus
         border-color: $color-silver

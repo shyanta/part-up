@@ -1,0 +1,42 @@
+.pu-inputholder
+    position: relative
+
+    .pu-icon
+        display: block
+        z-index: 2
+        position: absolute
+        top: 0
+        bottom: 0
+        width: 40px
+        pointer-events: none
+        color: lighten($color-dusty-gray, 10%)
+
+        > *
+            display: block
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+
+    &-lefticon
+        input
+            padding-left: 55px
+
+        .pu-icon
+            left: 2px
+            border-right: 2px solid $color-gallery
+
+    &-righticon
+        input
+            padding-right: 55px
+
+        .pu-icon
+            right: 2px
+
+    input:hover + .pu-icon
+        border-color: darken($color-gallery, 10%)
+        color: $color-dusty-gray
+    
+    input:focus + .pu-icon
+        border-color: $color-silver
+        color: darken($color-dusty-gray, 25%)

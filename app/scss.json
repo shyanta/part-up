@@ -1,5 +1,5 @@
 {
-  "useIndex" : true,
-  "indexFilePath" : "client/stylesheets/main.scss",
-  "enableAutoprefixer": true
+    "useIndex" : true,
+    "indexFilePath" : "client/stylesheets/main.scss",
+    "enableAutoprefixer": true
 }
