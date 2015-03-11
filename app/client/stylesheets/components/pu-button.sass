@@ -7,6 +7,8 @@
     font-size: 14px
     color: $color-white
     cursor: pointer
+    transition: background-color $animation-duration, box-shadow $animation-duration
+    box-shadow: inset 0 0 0 1px rgba(white, 0)
 
     &:focus
         box-shadow: inset 0 0 0 1px rgba(white, .5)
@@ -22,9 +24,6 @@
 
     &-secondary
         background-color: $color-downy
-
-        &:focus
-            border-color: darken($color-downy, 10%)
 
         &:hover
             background-color: lighten($color-downy, 10%)
