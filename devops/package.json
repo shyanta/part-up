@@ -1,0 +1,22 @@
+{
+  "name": "partup-devops",
+  "author": "Lifely",
+  "contributors": [
+    {
+      "name": "Bryan te Beek",
+      "mail": "bryan@lifely.nl"
+    },
+    {
+      "name": "Peter Peerdeman",
+      "mail": "peter@lifely.nl"
+    }
+  ],
+  "engines": {
+    "node": "0.12.*",
+    "npm": "1.4.*"
+  },
+  "dependencies": {
+    "colors": "^1.0.3",
+    "commander": "2.7.1"
+  }
+}

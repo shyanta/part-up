@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+var colors = require('colors');
+var program = require('commander');
+var spawn = require('child_process').spawn;
+
+var PROJECT_NAME = "Part-Up"
+var PROJECT_TEMPLATE = "{project} ({environment})";
+
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+program
+    .command('deploy <environment>')
+    .description('Deploy the application to Modulus.io')
+    .action(function(environment) {
+        var arguments = [];
+
+        var project = PROJECT_TEMPLATE.replace('{project}', PROJECT_NAME).replace('{environment}', environment.capitalizeFirstLetter());
+
+        arguments.push('deploy');
+        arguments.push(__dirname + '/../app');
+        arguments.push('-p', project);
+
+        var shell = spawn('modulus', arguments, { stdio: 'inherit' });
+
+        shell.on('error', function(error) {
+            if (error.code === 'ENOENT') {
+                console.log('Modulus'.magenta + ' is not found, installing it now.');
+
+                spawn('npm', ['install', '-g', 'modulus']).on('close', function(status) {
+                    console.log('Finished installing, please log in with "modulus login" command.'.gray);
+                });
+            }
+        });
+    });
+
+program.parse(process.argv);
