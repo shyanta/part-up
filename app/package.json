@@ -5,9 +5,6 @@
     "type": "git",
     "url": "git@bitbucket.org:lifelynl/partup.git"
   },
-  "scripts": {
-      "start": "./start"
-  },
   "engines": {
     "node" : "0.10.36"
   }
