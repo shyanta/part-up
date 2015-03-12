@@ -29,8 +29,18 @@ program
             if (error.code === 'ENOENT') {
                 console.log('Modulus'.magenta + ' is not found, installing it now.');
 
-                spawn('npm', ['install', '-g', 'modulus']).on('close', function(status) {
-                    console.log('Finished installing, please log in with "modulus login" command.'.gray);
+                var install = spawn('npm', ['install', '-g', 'modulus']);
+
+                install.on('error', function(error) {
+                    if (error.code === 'ENOENT') {
+                        console.log('Npm is not installed, are you sure Node.js is installed on your system?'.red);
+                    }
+                });
+
+                install.on('close', function(status) {
+                    if (status === 0) {
+                        console.log('Finished installing, please log in with "modulus login" command.'.gray);
+                    }
                 });
             }
         });
