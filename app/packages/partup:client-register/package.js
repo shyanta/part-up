@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:start',
+    name: 'partup:client-register',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -8,9 +8,7 @@ Package.describe({
 Package.onUse(function(api) {
     api.use(['templating'], 'client');
     api.addFiles([
-    	'start.html',
-    	'progress.html',
-    	'details.html',
+    	'register.html',
     ], 'client');
-    api.addFiles('start.js', 'client');
+    api.addFiles('register.js', 'client');
 });

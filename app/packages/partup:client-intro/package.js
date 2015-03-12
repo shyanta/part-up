@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:intro',
+    name: 'partup:client-intro',
     version: '0.0.1',
     summary: '',
     git: '',

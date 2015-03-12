@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:partups',
+    name: 'partup:client-partups',
     version: '0.0.1',
     summary: '',
     documentation: null

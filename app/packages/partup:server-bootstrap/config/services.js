@@ -1,9 +1,5 @@
-Meteor.startup(function () {
-
-});
-
 ServiceConfiguration.configurations.upsert({
-    service: 'facebook' 
+    service: 'facebook'
 },{
     $set: {
         appId: process.env['FACEBOOK_APP_ID'],
@@ -13,7 +9,7 @@ ServiceConfiguration.configurations.upsert({
 });
 
 ServiceConfiguration.configurations.upsert({
-    service: 'linkedin' 
+    service: 'linkedin'
 },{
     $set: {
         clientId: process.env['LINKEDIN_API_KEY'],
