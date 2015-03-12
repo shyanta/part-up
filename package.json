@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git@bitbucket.org:lifelynl/partup.git"
   },
-  "engine": {
+  "engines": {
     "node" : "0.10.36"
   }
 }
