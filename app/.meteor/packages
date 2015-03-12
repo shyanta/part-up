@@ -6,15 +6,17 @@
 
 meteor-platform
 iron:router
-partup:intro
-partup:utils
-partup:partups
 tap:i18n
 accounts-password
 accounts-ui
 accounts-facebook
 pauli:accounts-linkedin
 service-configuration
-partup:start
 fourseven:scss
-partup:register
+
+partup:client-start
+partup:client-intro
+partup:client-utils
+partup:client-partups
+partup:client-register
+partup:server-bootstrap
