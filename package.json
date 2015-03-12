@@ -1,10 +1,12 @@
 {
   "name": "Part-Up",
   "version": "0.0.1",
-  "main": "./start",
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:lifelynl/partup.git"
+  },
+  "scripts": {
+      "start": "./start"
   },
   "engines": {
     "node" : "0.10.36"
