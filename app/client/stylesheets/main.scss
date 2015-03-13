@@ -1,3 +1,7 @@
+@import "client/stylesheets/font-faces/opensans.sass";
+@import "client/stylesheets/font-faces/proximanova.sass";
+@import "client/stylesheets/font-faces/font-awesome/scss/font-awesome.scss";
+
 @import "client/stylesheets/variables/colors.sass";
 @import "client/stylesheets/variables/fonts.sass";
 @import "client/stylesheets/variables/animations.sass";
@@ -11,7 +15,6 @@
 @import "client/stylesheets/components/pu-hint.sass";
 @import "client/stylesheets/components/pu-button.sass";
 @import "client/stylesheets/components/pu-inputholder.sass";
-@import "client/stylesheets/font-awesome/scss/font-awesome.scss";
 @import "client/stylesheets/components/pu-label.sass";
 @import "client/stylesheets/components/pu-upload.sass";
 @import "client/stylesheets/components/pu-container.sass";
