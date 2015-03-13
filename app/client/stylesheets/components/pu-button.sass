@@ -5,28 +5,31 @@
     outline: none
     display: block
     font-size: 14px
+    line-height: 14px
     color: $color-white
     cursor: pointer
     transition: background-color $animation-duration, box-shadow $animation-duration
     box-shadow: inset 0 0 0 1px rgba(white, 0)
 
+    i
+        margin-right: 10px
+        font-size: 18px
+        line-height: 14px
+        vertical-align: middle
+        
     &:focus
         box-shadow: inset 0 0 0 1px rgba(white, .5)
 
-    &-primary
-        background-color: $color-sunshade
+    // Button subclasses with colors: 
+    $pu-button-subclasses: primary secondary facebook linkedin
+    $pu-button-subclasses-colors: $color-sunshade $color-downy $color-chambray $color-lochmara
 
-        &:hover
-            background-color: lighten($color-sunshade, 10%)
+    @for $i from 1 through length($pu-button-subclasses)
+        &-#{nth($pu-button-subclasses, $i)}
+            background-color: nth($pu-button-subclasses-colors, $i)
 
-        &:active
-            background-color: darken($color-sunshade, 10%)
+            &:hover
+                background-color: lighten(nth($pu-button-subclasses-colors, $i), 10%)
 
-    &-secondary
-        background-color: $color-downy
-
-        &:hover
-            background-color: lighten($color-downy, 10%)
-
-        &:active
-            background-color: darken($color-downy, 10%)
+            &:active
+                background-color: darken(nth($pu-button-subclasses-colors, $i), 10%)
