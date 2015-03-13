@@ -7,5 +7,5 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-    api.addFiles('config/services.js');
+    api.addFiles(['config/services.js'], ['server']);
 });
