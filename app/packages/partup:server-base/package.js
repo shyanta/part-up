@@ -11,6 +11,7 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'bootstrap.js',
+        'helpers.js',
         'event_listeners/any.js',
         'event_listeners/collections_partups.js',
         'methods/collections/partups.js',
