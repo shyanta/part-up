@@ -12,7 +12,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'bootstrap.js',
         'event_listeners/any.js',
-        'event_listeners/collections_partups_insert.js',
+        'event_listeners/collections_partups.js',
         'methods/collections/partups.js',
         'test.js'
     ], ['server']);
