@@ -1,15 +1,29 @@
 Meteor.methods({
 
-    'collections.partups.insert': function (data) {
-        // Authorized?
+    'collections.partups.insert': function (fields) {
+        // TODO: Authorisation & Validation
 
-        Event.emit('collections.partups.insert', data);
+        Event.emitCollectionInsert(Partups, fields);
+    },
+
+    'collections.partups.update': function (partupId, fields) {
+        // TODO: Authorisation & Validation
+
+        var partup = Partups.findOne(partupId);
+
+        if (! partup) return;
+
+        Event.emitCollectionUpdate(Partups, partup, fields);
     },
 
     'collections.partups.remove': function (partupId) {
-        // Authorized?
+        // TODO: Authorisation
 
-        Event.emit('collections.partups.remove', partupId);
+        var partup = Partups.findOne(partupId);
+
+        if (! partup) return;
+
+        Event.emitCollectionRemove(Partups, partup);
     }
 
 });

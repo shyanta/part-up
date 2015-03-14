@@ -11,9 +11,9 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'bootstrap.js',
-        'helpers.js',
-        'event_listeners/any.js',
-        'event_listeners/collections_partups.js',
+        'event.js',
+        'event_handlers/any_handler.js',
+        'event_handlers/collections_partups_handler.js',
         'methods/collections/partups.js',
         'test.js'
     ], ['server']);
@@ -21,5 +21,6 @@ Package.onUse(function(api) {
 
 Npm.depends({
     'eventemitter2': '0.4.14',
-    'colors': '1.0.3'
+    'colors': '1.0.3',
+    'equals': '1.0.0'
 });
