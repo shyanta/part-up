@@ -1,4 +1,7 @@
 *.swp
 
+# NPM
+app/packages/*/.npm
+
 # JetBrains Editors
 .idea/
