@@ -21,4 +21,5 @@ partup:client-intro
 partup:client-utils
 partup:client-partups
 partup:client-register
-partup:server-bootstrap
+
+partup:server-base

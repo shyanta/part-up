@@ -60,7 +60,8 @@ partup:client-partups@0.0.1
 partup:client-register@0.0.1
 partup:client-start@0.0.1
 partup:client-utils@0.0.1
-partup:server-bootstrap@0.0.1
+partup:lib@0.0.1
+partup:server-base@0.0.1
 pauli:accounts-linkedin@1.1.1
 pauli:linkedin@1.1.1
 random@1.0.2
