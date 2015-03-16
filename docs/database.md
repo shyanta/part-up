@@ -52,14 +52,11 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
     - upper
         - ID
         - name
-    - wants (bool)
-    - can
-        - amount (int)
-        - description (string)
-    - has
-        - amount (int)
-        - description
-        - donation (bool)
+    - types (array of objects)
+        - type (string: wants/has/can)
+        - meta_data
+            - amount (int)
+            - description (string)
     - feedback
         - upper
             - ID
@@ -146,7 +143,10 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
     - ID
     - name
     - image
-- message (string)
+- type (string)
+- meta_data (object)
+    - (not sure yet)
+    - (not sure yet)
 - created_at (ISODate)
 - updated_at (ISODate)
 - new (bool)
