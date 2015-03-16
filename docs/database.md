@@ -1,43 +1,166 @@
-# Database Design
+Part-Up
+=======
 
-## User
+## Collections
 
-## Relations
+### Partups
+- ID
+- name (string)
+- description (string)
+- location (object)
+    - city (string)
+    - country (string)
+- networks (array of objects)
+    - ID
+    - name
+- tags (array of tag IDs, tag ID is the name of the tag so need for extra query)
+- start_date (ISODate)
+- end_date (ISODate)
+- image (object)
+- uppers (array of user IDs. Since online status has to be fetched anyway, there is no use for embedding) 
+- supporters (object)
+    - ID
+    - name
+    - image
+- updates (array of update IDs)
+- activities (array of activity IDs)
+- anticontracts (array of object)
+    - ID
+    - activities (array of activity IDs)
+    - signed_by_all (bool)
+    - uppers_signed
+        - ID
+        - name
+        - image
+        - date (ISODate)
+- status (string)
+- created_at (ISODate)
+- updated_at (ISODate)
 
-- Notifications: fully embedded.
-- Tags: name embedded. Name is linked directly to the name field in the Tags collection.
-- Networks: just id. Id links to Networks collection.
-- Partups: just id. Id links to Partups collection.
-- Followers: just id. Id links to Users collection.
-- Follows: just id. Id links to Users collection.
-- Supports: just id. Id links to Users collection.
+Note: the budget can be built from array of activities, so no need for including those separate IDs.
+If we would choose to embed the budget, it would be pretty write-heavy because it has to be updated on each activity addition/update.
 
-## Notifications
+### Activities
+- ID
+- partup_id
+- name (string)
+- created_by (upper_id)
+- description (string)
+- begin_date (ISODate)
+- end_date (ISODate)
+- contributions (array of objects)
+    - upper
+        - ID
+        - name
+    - wants (bool)
+    - can
+        - amount (int)
+        - description (string)
+    - has
+        - amount (int)
+        - description
+        - donation (bool)
+    - feedback
+        - upper
+            - ID
+            - name
+        - rating
+        - description
+    - created_at (ISODate)
+    - updated_at (ISODate)
+- created_at (ISODate)
+- updated_at (ISODate)
 
-## Partup
+### Updates
+- ID
+- partup_id
+- date (ISODate)
+- title (string)
+- type (string: update/message/etc)
+- content (string)
+- upper 
+    - ID
+    - name
+    - image
+- meta_data (object)
+    - old_value (string)
+    - new_value (string)
+- comments (array of objects)
+    - ID
+    - upper
+        - ID
+        - name
+    - comment
+    - created_at (ISODate)
+    - updated_at (ISODate)
 
-### Relations
+### Uppers
+- ID
+- name (string)
+- email (string)
+- password (string)
+- description (string)
+- location (string or object)
+- image (object)
+- networks (array of objects)
+    - ID
+    - name
+- website (string)
+- phone (string)
+- tags (array of tag IDs, tag ID is the name of the tag so need for extra query)
+- partups (array of partup IDs)
+- supports (array of partup IDs
+- followers (array of upper IDs)
+- follows (array of upper IDs)
+- facebook (string)
+- twitter (string)
+- instagram (string)
+- linked_in (string)
+- skype (string)
+- online (bool)
+- notification_settings
+    - mention (bool)
+    - activity_update (bool)
+    - contribution_update (bool)
+    - new_message (bool)
+    - new_comment (bool)
+    - anticontract_signed (bool)
+    - new_watcher (bool)
+    - new_follower (bool)
+    - partup_invite (bool)
+    - daily_partup_overview (bool)
+    - newsletter (bool)
+- created_at (ISODate)
+- updated_at (ISODate)
 
-- Tags: name embedded. Name is linked directly to the name field in the Tags collection.
-- Network: just id. Id links to Networks collection.
-- Activities: fully embedded.
-- Updates: fully embedded.
-- Uppers: id, name and image embedded. Id links to Users collection.
-- Supporters: id, name and image embedded. Id links to Users collection.
-- Budget: fully embedded.
+### Tags
+- ID (name of tag)
+- count
+- created_at (ISODate)
+- updated_at (ISODate)
 
-## Update
+### Notifications
+- ID
+- for_upper_id
+- by_upper
+    - ID
+    - name
+    - image
+- message (string)
+- created_at (ISODate)
+- updated_at (ISODate)
+- new (bool)
 
-### Relations
+### Networks
+- ID
+- name (string)
+- accessibility (not sure yet)
 
-- Actor: id, name and image embedded. Id links to Users collection.
 
-## Comment
 
-- User: id and name. Id links to Users collection.
-
-# Comments
-
+## Comments and questions
 - Invitations to Partups are not saved.
 - Comments on Activity or Update?
 - Updates history?
+- Does the budget reflect the current situation, or the latest signed anti-contract? 
+- What are the 2 covered questions in 20-partup-starten1.png? 
