@@ -57,9 +57,9 @@ observe-sequence@1.0.4
 ordered-dict@1.0.2
 partup:client-intro@0.0.1
 partup:client-partups@0.0.1
-partup:client-register@0.0.1
-partup:client-start@0.0.1
 partup:client-utils@0.0.1
+partup:client-widgets-register@0.0.1
+partup:client-widgets-startdetails@0.0.1
 partup:lib@0.0.1
 partup:server-base@0.0.1
 pauli:accounts-linkedin@1.1.1

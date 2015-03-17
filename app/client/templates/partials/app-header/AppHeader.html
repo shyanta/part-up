@@ -1,0 +1,62 @@
+<template name="PartialsAppHeader">
+    <header class="pu-header">
+        <section>
+            <ul>
+                <li>
+                    <!-- Logo -->
+                    <h1>Part-up</h1>
+                </li>
+                <li>
+                    <!-- Button: menu -->
+                    <a class="pu-button pu-button-icon pu-button-header">
+                        <!-- hamburger menu icon -->
+                        Menu
+                    </a>
+                </li>
+                <li>
+                    <!-- Button: ontdek -->
+                    <a class="pu-button pu-button-icon pu-button-header">
+                        <!-- tiles icon -->
+                        Ontdek
+                    </a>
+                </li>
+                <li>
+                    <!-- Button: start -->
+                    <a href="/startpartup" class="pu-button pu-button-icon pu-button-header">
+                        <!-- flag icon -->
+                        Start
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <aside>
+            <ul>
+                <!-- <li>
+                    <button data-translate="nl">nl</button>
+                    <button data-translate="en">en</button>
+                </li> -->
+                <li>
+                    <!-- Button: notificaties -->
+                    <a class="pu-button pu-button-icon pu-button-header">
+                        <!-- bell icon -->
+                        Notificaties
+                    </a>
+                </li>
+                <li>
+                    {{#if currentUser }}
+                        <!-- Button: profile -->
+                        <a class="pu-button pu-button-avatar pu-button-header">
+                            <!-- avatar -->
+                            {{ currentUser.profile.firstName }}
+                        </a>
+                    {{ else }}
+                        <!-- Button: login -->
+                        <a class="pu-button pu-button-header" data-login>
+                            Inloggen
+                        </a>
+                    {{/if }}
+                </li>
+            </ul>
+        </aside>
+    </header>
+</template>
