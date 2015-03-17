@@ -1,0 +1,2 @@
+Partup = {};
+Partup.schemas = {};

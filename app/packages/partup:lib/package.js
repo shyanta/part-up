@@ -11,7 +11,9 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'collections/partups.js'
+        'namespace.js',
     ]);
 
     api.export('Partups');
+    api.export('Partup');
 });
