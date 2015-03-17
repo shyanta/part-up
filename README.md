@@ -7,17 +7,6 @@ Part-Up
 - `cd app`
 - `meteor`
 
-## Routing
-- Functionaliteit en herbruikbare componenten worden een package
-- Layouts beschrijven de verschillende pagina types en bevatten een yield voor routing
-- Paginas zijn composities van package functionaliteiten met een route
-
-## Styling
-- generieke componenten (buttons / inputvelden etc.) komen in de generieke components styling map
-- positionering van componenten in een pagina gebeurt in de private stylesheet van de pagina
-- positionering van componenten in een component gebeurt in de stylesheet van het component
-
-
 # Frontend
 ## Backend flow, regarding Collections
 
@@ -35,7 +24,7 @@ We have four types of application parts: *layout*, *page*, *widget* and *small c
 Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The Sass file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality.
 
 ### Page
-Pages can contain single components with page-specific functionality, widgets (packages) and sub-pages. A page, in fact, only represents a composition. Therefore, the Sass file should only contain position defenitions of the inside components. The js file should handle the page states and navigation functionality if subpages are present.
+Pages can contain single components with page-specific functionality, widgets (packages) and sub-pages. A page, in fact, only represents a composition. Therefore, the Sass file should only contain position defenitions of the inside components. The js file should handle the page states and navigation functionality if subpages are present. Pages are directly binded to routes.
 
 ### Widget (packages)
 With a funcionality, you can think of a widget which will fulfill one standalone functionality. Functionalities that tie the app together (like a navigation bar) should not be declared as a package, because it’s not a widget with a standalone functionality. The Sass file may only contain component composition rules. When a widget is called WidgetsPartupActivities, the package should be called partup:client-widgets-partup-activities.
