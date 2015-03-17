@@ -1,7 +1,7 @@
 Meteor.methods({
 
     'collections.partups.insert': function (fields) {
-        // TODO: Authorisation & Validation
+        check(fields, Partup.schemas.partup);
 
         Event.emitCollectionInsert(Partups, fields);
     },

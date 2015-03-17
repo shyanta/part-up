@@ -7,11 +7,14 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-    api.use(['mongo']);
+    api.use('aldeed:simple-schema');
+    api.use('check');
+    api.use('mongo');
 
     api.addFiles([
-        'collections/partups.js'
         'namespace.js',
+        'collections/partups.js',
+        'schemas/partup_schema.js'
     ]);
 
     api.addFiles([
