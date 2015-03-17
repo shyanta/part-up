@@ -2,7 +2,7 @@ HomeController = RouteController.extend({
     layoutTemplate: 'MasterLayout',
 
     subscriptions: function() {
-        this.subscribe('partups');
+        this.subscribe('partups.all');
     },
 
     action: function() {

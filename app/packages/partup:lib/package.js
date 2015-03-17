@@ -14,6 +14,10 @@ Package.onUse(function(api) {
         'namespace.js',
     ]);
 
+    api.addFiles([
+        'publishes/partups.js'
+    ], 'server');
+
     api.export('Partups');
     api.export('Partup');
 });
