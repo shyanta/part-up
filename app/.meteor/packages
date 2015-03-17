@@ -16,11 +16,11 @@ fourseven:scss
 
 partup:lib
 
-partup:client-start
+partup:client-widgets-startdetails
+partup:client-widgets-register
 partup:client-intro
 partup:client-utils
 partup:client-partups
-partup:client-register
 
 partup:server-base
 aldeed:simple-schema

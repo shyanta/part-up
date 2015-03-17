@@ -1,4 +1,22 @@
 .pu-header
+    background-color: $color-primary
+    color: $color-text-inverted
+    @extend %clearfix
+
+    > section,
+    > aside
+        > ul
+            @extend %clearfix
+
+            > li
+                float: left
+
+    > section
+        float: left
+
+    > aside
+        float: right
+
     &-secondary
         background-color: $color-alabaster
         text-align: center
