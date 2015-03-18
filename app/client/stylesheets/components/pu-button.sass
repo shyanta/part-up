@@ -3,7 +3,7 @@
     border-radius: 4px
     padding: 11px 15px
     outline: none
-    display: inline-block
+    display: block
     font-family: $font-secondary
     font-size: 14px
     line-height: 14px
@@ -82,13 +82,19 @@
 
     &-text
         background-color: transparent
-        color: $color-scorpion
+        color: $color-sunshade
         padding-left: 0
         padding-right: 0
 
         &:hover, &:active
             background-color: transparent
-            color: darken($color-scorpion, 50%)
+            color: darken($color-sunshade, 10%)
+
+        &-gray
+            color: $color-scorpion
+
+            &:hover, &:active
+                color: darken($color-scorpion, 50%)
 
     &-disabled
         pointer-events: none

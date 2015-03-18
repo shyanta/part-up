@@ -1,0 +1,36 @@
+.pu-checkbox
+    display: none
+
+    + span
+        border: 2px solid $color-gallery
+        display: inline-block
+        width: 30px
+        height: 30px
+        border-radius: 5px
+        cursor: pointer
+        position: relative
+        transition: background-color $animation-duration, border-color $animation-duration
+
+        &:before
+            content: "\f00c"
+            display: block
+            position: absolute
+            color: darken($color-white, 20%)
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            font: normal normal normal 20px/1 FontAwesome
+            opacity: 0
+            transition: color $animation-duration, opacity $animation-duration
+
+        &:hover
+            &:before
+                opacity: .5
+
+    &:checked + span
+        background-color: $color-primary
+        border-color: $color-primary
+
+        &:before
+            color: $color-white
+            opacity: 1
