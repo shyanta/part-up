@@ -10,6 +10,7 @@
 
 @import "client/stylesheets/components/all.sass";
 @import "client/stylesheets/components/body.sass";
+@import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-button.sass";
 @import "client/stylesheets/components/pu-container.sass";
 @import "client/stylesheets/components/pu-divider.sass";
@@ -17,6 +18,7 @@
 @import "client/stylesheets/components/pu-formfield.sass";
 @import "client/stylesheets/components/pu-header.sass";
 @import "client/stylesheets/components/pu-hint.sass";
+@import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-imageselector.sass";
 @import "client/stylesheets/components/pu-input.sass";
 @import "client/stylesheets/components/pu-inputholder.sass";
@@ -45,5 +47,3 @@
 @import "client/templates/pages/start-partup/details/Details.sass";
 @import "client/templates/pages/start-partup/promotion/Promotion.sass";
 @import "client/templates/pages/start-partup/StartPartup.sass";
-@import "client/stylesheets/components/pu-brand.sass";
-@import "client/stylesheets/components/pu-icon.sass";
