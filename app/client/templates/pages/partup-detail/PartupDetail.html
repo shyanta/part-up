@@ -1,5 +1,13 @@
 <template name="PagesPartupDetail">
-    <h2>Page: Partup Detail</h2>
-    {{> yield region='partup-page' }}
-    
+
+    <article class="pu-layout">
+        <div class="pu-sub-left">
+            {{> PartialsPartupDetailNavigation }}
+            {{> yield region='partup-page' }}
+        </div>
+        <div class="pu-sub-right">
+            {{> PartialsPartupDetailSidebar partup=partup }}
+        </div>
+    </article>
+
 </template>
