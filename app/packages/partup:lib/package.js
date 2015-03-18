@@ -17,7 +17,7 @@ Package.onUse(function(api) {
     ]);
 
     api.addFiles([
-        'publishes/partups.js'
+        'publications/partups.js'
     ], 'server');
 
     api.export('Partups');
