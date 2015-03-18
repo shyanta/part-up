@@ -8,12 +8,15 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use('aldeed:simple-schema');
+    api.use('aldeed:autoform');
+    api.use('comerc:autoform-fixtures');
     api.use('mongo');
 
     api.addFiles([
         'namespace.js',
         'collections/partups.js',
-        'schemas/partup_schema.js'
+        'schemas/partup_schema.js',
+        'collections/fixtures.js'
     ]);
 
     api.addFiles([
