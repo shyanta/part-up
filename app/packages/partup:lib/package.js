@@ -15,12 +15,12 @@ Package.onUse(function(api) {
     api.addFiles([
         'namespace.js',
         'collections/partups.js',
-        'schemas/partup_schema.js',
-        'collections/fixtures.js'
+        'schemas/partup_schema.js'
     ]);
 
     api.addFiles([
-        'publications/partups.js'
+        'publications/partups.js',
+        'collections/fixtures.js'
     ], 'server');
 
     api.export('Partups');
