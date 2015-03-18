@@ -1,14 +1,13 @@
 Template.WidgetsStartdetails.helpers({
     'placeholderHelper': function() {
         console.log('placeholderhelper', this);
-    }
-})
+    },
+    'Partup': Partup
+});
 
 Template.WidgetsStartdetails.events({
     //
 });
-
-Template.registerHelper('Partup', Partup);
 
 Template.WidgetsStartdetails.render = function() {
 }
