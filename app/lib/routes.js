@@ -7,6 +7,9 @@ Router.route('/', {
     layoutTemplate: 'LayoutsApp',
     yieldRegions: { 
         'PagesHome': { to: 'page' },
+    },
+    subscriptions: function () {
+        this.subscribe('partups.all');
     }
 });
 
