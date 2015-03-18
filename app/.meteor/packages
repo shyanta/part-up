@@ -24,3 +24,4 @@ partup:client-partups
 
 partup:server-base
 aldeed:simple-schema
+aldeed:autoform
