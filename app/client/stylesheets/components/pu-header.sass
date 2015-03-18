@@ -1,6 +1,7 @@
 .pu-header
     background-color: $color-primary
     color: $color-text-inverted
+    height: 60px
     @extend %clearfix
 
     > section,
@@ -10,6 +11,22 @@
 
             > li
                 float: left
+                position: relative
+                margin-right: 2px
+
+                &:after
+                    content: ''
+                    background-color: #79cdd4
+                    height: 20px
+                    width: 2px
+                    position: absolute
+                    top: 0
+                    right: -2px
+
+                &:last-child
+                    margin-right: 0
+                    &:after
+                        display: none
 
     > section
         float: left
