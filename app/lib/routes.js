@@ -7,19 +7,25 @@ Router.route('/', {
     layoutTemplate: 'LayoutsApp',
     yieldRegions: { 
         'PagesHome': { to: 'page' },
+    },
+    subscriptions: function () {
+        this.subscribe('partups.all');
     }
 });
 
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
-Router.route('/partups/:id', {
+Router.route('/partups/:_id', {
     name: 'partup-detail',
     where: 'client',
     layoutTemplate: 'LayoutsApp',
     yieldRegions: {
         'PagesPartupDetail': { to: 'page' },
         'PagesPartupDetailUpdates': { to: 'partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', this.params._id);
     }
 });
 
@@ -30,6 +36,9 @@ Router.route('/partups/:id/activities', {
     yieldRegions: {
         'PagesPartupDetail': { to: 'page' },
         'PagesPartupDetailActivities': { to: 'partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', this.params._id);
     }
 });
 
@@ -40,6 +49,9 @@ Router.route('/partups/:id/budget', {
     yieldRegions: {
         'PagesPartupDetail': { to: 'page' },
         'PagesPartupDetailBudget': { to: 'partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', this.params._id);
     }
 });
 
@@ -50,6 +62,9 @@ Router.route('/partups/:id/anticontract', {
     yieldRegions: {
         'PagesPartupDetail': { to: 'page' },
         'PagesPartupDetailAnticontract': { to: 'partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', this.params._id);
     }
 });
 

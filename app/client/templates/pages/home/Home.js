@@ -2,7 +2,11 @@
 /* Page helpers */
 /*************************************************************/
 Template.PagesHome.helpers({
-    //
+    
+    firstPartup: function () {
+        return Partups.findOne();
+    }
+
 });
 
 
