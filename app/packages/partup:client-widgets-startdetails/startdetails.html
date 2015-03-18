@@ -1,17 +1,20 @@
 <template name="WidgetsStartdetails">
 <div class="pu-container pu-container-small">
-    <h1 class="pu-title">Pim, gaaf dat je een Part-up start!</h1>
+    <h1 class="pu-title">{{_ 'startdetails-coolyouarestarting' 'Pim'}}</h1>
 
-    <p class="pu-paragraph">We kennen je nu een beetje, maar wat wil je gaan doen? Beschrijf hier waar jouw Part-up over gaat. Wij gebruiken dit om Uppers aan je voor te stellen die kunnen bijdragen.</p>
+    <p class="pu-paragraph">{{_ 'startdetails-explainingpartup'}}</p>
 
-    <form class="pu-form">
+    {{#autoForm schema=Partup.schemas.partup id="partupForm" class="pu-form" }}
+
         <label class="pu-formfield">
-            <span class="pu-label">Hoe wil je jouw Part-up noemen?</span>
-            <input class="pu-input" type="text" placeholder="Wees niet té creatief, je wilt wel dat Uppers het meteen snappen">
-            <a class="pu-hint pu-tooltip">maximaal 40 tekens
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">hier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooi</p></span>
+            <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
+            {{> afFieldInput name='name'  class="pu-input" }}
+            <a class="pu-hint pu-tooltip">{{_ 'startdetails-form-name-validation' Partup.schemas.partup._schema.name.max }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
             </a>
         </label>
+
+        <!-- TODO: all following fields still have to be autoformed: -->
 
         <label class="pu-formfield">
             <span class="pu-label">Wat wil je met jouw Part-up bereiken?</span>
@@ -70,6 +73,7 @@
         </div>
 
         <input class="pu-button pu-button-primary" type="submit" value="Ingevuld, op naar de activiteiten">
-    </form>
+    {{/autoForm}}
+
 </div>
 </template>

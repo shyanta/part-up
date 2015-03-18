@@ -6,9 +6,19 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-    api.use(['templating'], 'client');
-    api.addFiles([
-    	'startdetails.html'
+
+    api.use([
+        'templating',
+        'aldeed:autoform',
+        'partup:lib',
+        'tap:i18n'
     ], 'client');
-    api.addFiles('startdetails.js', 'client');
+
+    api.addFiles([
+        'package-tap.i18n',
+    	'startdetails.html',
+        'startdetails.js',
+        'i18n/en.i18n.json',
+        'i18n/nl.i18n.json'
+    ], 'client');
 });
