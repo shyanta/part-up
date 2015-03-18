@@ -1,0 +1,7 @@
+{
+  "startdetails-coolyouarestarting": "%s, gaaf dat je een Part-up start!",
+  "startdetails-explainingpartup": "We kennen je nu een beetje, maar wat wil je gaan doen? Beschrijf hier waar jouw Part-up over gaat. Wij gebruiken dit om Uppers aan je voor te stellen die kunnen bijdragen.",
+  "startdetails-form-name-label": "Hoe wil je jouw Part-up noemen?",
+  "startdetails-form-name-validation": "maximaal %d tekens",
+  "startdetails-form-name-tooltip": "this is a tooltip"
+}
