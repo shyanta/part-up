@@ -1,4 +1,5 @@
 <template name="PagesStartPartup">
+
     <div class="pu-header pu-header-secondary pu-header-progress">
         <a class="pu-link" href="#">Overslaan <i class="fa fa-caret-right"></i></a>
         <ol class="pu-progresspager">
@@ -8,5 +9,7 @@
             <li class="pu-progresspager-item {{#if currentPage='/startpartup/promoten'}}pu-progresspager-item-active{{/if}}"><a href="#">Promoten</a></li>
         </ol>
     </div>
-    {{> yield }}
+
+    {{> yield region='start-partup-page' }}
+
 </template>
