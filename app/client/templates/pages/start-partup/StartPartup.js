@@ -9,21 +9,21 @@ Template.PagesStartPartup.helpers({
                 return true;
             }
         },
-        activiteiten: function() {
+        activities: function() {
             var router = Router.current().route.path(this);
-            if (router == '/startpartup/activiteiten') {
+            if (router == '/startpartup/activities') {
                 return true;
             }
         },
-        bijdragen: function() {
+        contribute: function() {
             var router = Router.current().route.path(this);
-            if (router == '/startpartup/bijdragen') {
+            if (router == '/startpartup/contribute') {
                 return true;
             }
         },
-        promoten: function() {
+        promote: function() {
             var router = Router.current().route.path(this);
-            if (router == '/startpartup/promoten') {
+            if (router == '/startpartup/promote') {
                 return true;
             }
         }
