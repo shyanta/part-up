@@ -33,4 +33,19 @@
 
         &:before
             color: $color-white
-            opacity: 1
+            opacity: 1 !important
+
+    &-field
+        cursor: pointer
+
+        > .pu-checkbox + span
+            margin-right: 15px
+            vertical-align: middle
+
+            + i
+                margin-right: 10px
+
+        &:hover
+            > .pu-checkbox + span
+                &:before
+                    opacity: .5
