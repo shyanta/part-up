@@ -1,5 +1,5 @@
-@import "client/stylesheets/font-faces/opensans.sass";
-@import "client/stylesheets/font-faces/proximanova.sass";
+@import "client/stylesheets/font-faces/open-sans.sass";
+@import "client/stylesheets/font-faces/proxima-nova.sass";
 @import "client/stylesheets/font-faces/font-awesome/scss/font-awesome.scss";
 
 @import "client/stylesheets/variables/colors.sass";
@@ -11,6 +11,8 @@
 
 @import "client/stylesheets/components/all.sass";
 @import "client/stylesheets/components/body.sass";
+@import "client/stylesheets/components/pu-activity.sass";
+@import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-button.sass";
 @import "client/stylesheets/components/pu-container.sass";
@@ -19,6 +21,7 @@
 @import "client/stylesheets/components/pu-formfield.sass";
 @import "client/stylesheets/components/pu-header.sass";
 @import "client/stylesheets/components/pu-hint.sass";
+@import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-imageselector.sass";
 @import "client/stylesheets/components/pu-input.sass";

@@ -1,23 +1,30 @@
+Template.WidgetsStartdetails.helpers({
+    'placeholderHelper': function() {
+        console.log('placeholderhelper', this);
+    }
+})
+
 Template.WidgetsStartdetails.events({
-	'submit form': function(event, template) {
-		event.preventDefault();
+    //
+});
 
-        var fields = {
-            name: template.find('input').value
-        };
+Template.registerHelper('Partup', Partup);
 
-        Meteor.call('collections.partups.insert', fields, function(err, res){
-            if(err) {
-                if(err.error == 400) {
-                    //TODO: error handling
-                    console.log('validation failed: ' + error.message);
+Template.WidgetsStartdetails.render = function() {
+}
 
+AutoForm.hooks({
+    partupForm: {
+        onSubmit: function(insertDoc, updateDoc, currentDoc) {
+            event.preventDefault();
+
+            Meteor.call('collections.partups.insert', insertDoc, function(err, res){
+                if(err) {
+                    console.log('something went wrong', error);
+                    return false;
                 }
-                console.log('something went wrong', error);
-                return false;
-            }
-            Router.go('/');
-        });
-
-	}
+                Router.go('/');
+            });
+        }
+    }
 });

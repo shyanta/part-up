@@ -1,3 +1,3 @@
 Event.onAny(function() {
-    console.log('Event fired: '.red + this.event.green, arguments);
+    console.log('Event fired: '.white + this.event.green, arguments);
 })
