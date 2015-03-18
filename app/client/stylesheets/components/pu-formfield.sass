@@ -1,6 +1,7 @@
 .pu-formfield
     display: block
     position: relative
+    @extend %clearfix
 
     .pu-label
         margin-bottom: 7px
@@ -12,3 +13,11 @@
         position: absolute
         top: 0
         right: 0
+
+    &-left
+        float: left
+        clear: left
+
+    &-right
+        float: right
+        clear: right

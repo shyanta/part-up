@@ -1,3 +1,13 @@
 .pu-form
-    .pu-formfield
-        margin: 30px 0
+    .pu-formfield + .pu-formfield
+        margin-top: 30px
+
+    &-highlighted
+        background-color: $color-gallery
+        padding: $spacing-large
+        border-radius: 5px
+        margin-bottom: $spacing-large
+        margin-top: $spacing-default
+
+        &:last-child
+            margin-bottom: 0

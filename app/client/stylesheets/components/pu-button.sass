@@ -1,19 +1,21 @@
-.pu-button
+.pu-button, a.pu-button
     border: 2px solid transparent
     border-radius: 4px
     padding: 11px 15px
     outline: none
-    display: block
-    font-size: 16px
+    display: inline-block
+    font-family: $font-secondary
+    font-size: 14px
     line-height: 14px
-    color: $color-white
     cursor: pointer
     transition: background-color $animation-duration, box-shadow $animation-duration, color $animation-duration, border-color $animation-duration
-    box-shadow: inset 0 0 0 1px rgba(white, 0)
+    box-shadow: inset 0 0 0 1px rgba($color-white, 0)
     background-color: $color-sunshade
     text-decoration: none
-    font-family: $font-primary
     letter-spacing: 0.6px
+    margin-bottom: $spacing-default
+    user-select: none
+    color: $color-white
 
     i
         margin-right: 10px
@@ -22,10 +24,11 @@
         vertical-align: middle
     
     &:hover
+        color: $color-white
         background-color: darken($color-sunshade, 5%)
 
     &:focus
-        box-shadow: inset 0 0 0 1px rgba(white, .5)
+        box-shadow: inset 0 0 0 1px rgba($color-white, .5)
     
     &-icon
         &:before 
@@ -38,7 +41,12 @@
         background-color: $color-header
         padding: 21px 30px
         border-radius: 0
+        font-size: 16px
+        font-family: $font-primary
         min-height: 60px
+
+        &:focus
+            box-shadow: none
 
         &:hover
             background-color: darken($color-header, 5%)
@@ -60,34 +68,29 @@
     
     &-facebook
         background-color: $color-facebook
+
         &:hover
-            background-color: darken($color-facebook, 5%)
+            background-color: lighten($color-facebook, 10%)
+
+        &:active
+            background-color: darken($color-facebook, 10%)
 
     &-linkedin
         background-color: $color-linkedin
 
         &:hover
-            background-color: darken($color-linkedin, 5%)
+            background-color: lighten($color-linkedin, 10%)
+
+        &:active
+            background-color: darken($color-linkedin, 10%)
 
     &-disabled
-        pointer-events: none;
+        pointer-events: none
         background-color: $color-disabled
 
         &:hover
             background-color: $color-disabled
             cursor: not-allowed
 
-    // Button subclasses with colors: 
-    // OMG WTF IS DIS
-    // $pu-button-subclasses: primary secondary facebook linkedin
-    // $pu-button-subclasses-colors: $color-sunshade $color-downy $color-chambray $color-lochmara
-
-    // @for $i from 1 through length($pu-button-subclasses)
-    //     &-#{nth($pu-button-subclasses, $i)}
-    //         background-color: nth($pu-button-subclasses-colors, $i)
-
-    //         &:hover
-    //             background-color: lighten(nth($pu-button-subclasses-colors, $i), 10%)
-
-    //         &:active
-    //             background-color: darken(nth($pu-button-subclasses-colors, $i), 10%)
+    &:last-child
+        margin-bottom: 0

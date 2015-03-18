@@ -8,7 +8,7 @@ Package.describe({
 Package.onUse(function(api) {
     api.use(['templating'], 'client');
     api.addFiles([
-    	'startdetails.html',
+    	'startdetails.html'
     ], 'client');
     api.addFiles('startdetails.js', 'client');
 });
