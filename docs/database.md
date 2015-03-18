@@ -18,7 +18,7 @@ Part-Up
 - end_date (ISODate)
 - image (object)
 - uppers (array of user IDs. Since online status has to be fetched anyway, there is no use for embedding) 
-- supporters (object)
+- supporters (array of user objects)
     - ID
     - name
     - image
@@ -28,7 +28,7 @@ Part-Up
     - ID
     - activities (array of activity IDs)
     - signed_by_all (bool)
-    - uppers_signed
+    - uppers_signed (array of user objects)
         - ID
         - name
         - image

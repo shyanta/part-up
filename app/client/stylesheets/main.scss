@@ -1,25 +1,32 @@
+@import "client/stylesheets/font-faces/font-awesome/scss/font-awesome.scss";
 @import "client/stylesheets/font-faces/open-sans.sass";
 @import "client/stylesheets/font-faces/proxima-nova.sass";
-@import "client/stylesheets/font-faces/font-awesome/scss/font-awesome.scss";
 
+@import "client/stylesheets/variables/animations.sass";
 @import "client/stylesheets/variables/colors.sass";
 @import "client/stylesheets/variables/fonts.sass";
-@import "client/stylesheets/variables/animations.sass";
 @import "client/stylesheets/variables/spacing.sass";
+
+@import "client/stylesheets/defaults/all.sass";
+@import "client/stylesheets/defaults/body.sass";
+@import "client/stylesheets/defaults/typography.sass";
 
 @import "client/stylesheets/extends/clearfix.sass";
 
-@import "client/stylesheets/components/all.sass";
-@import "client/stylesheets/components/body.sass";
+@import "client/stylesheets/components/pu-activity.sass";
+@import "client/stylesheets/components/pu-block.sass";
+@import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-button.sass";
+@import "client/stylesheets/components/pu-checkbox.sass";
 @import "client/stylesheets/components/pu-container.sass";
 @import "client/stylesheets/components/pu-divider.sass";
 @import "client/stylesheets/components/pu-form.sass";
 @import "client/stylesheets/components/pu-formfield.sass";
 @import "client/stylesheets/components/pu-header.sass";
 @import "client/stylesheets/components/pu-hint.sass";
+@import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-imageselector.sass";
@@ -38,10 +45,6 @@
 @import "client/stylesheets/components/pu-title.sass";
 @import "client/stylesheets/components/pu-tooltip.sass";
 @import "client/stylesheets/components/pu-upload.sass";
-@import "client/stylesheets/components/pu-brand.sass";
-@import "client/stylesheets/components/pu-icon.sass";
-@import "client/stylesheets/components/pu-block.sass";
-@import "client/stylesheets/components/pu-checkbox.sass";
 
 @import "client/templates/pages/discover/Discover.sass";
 @import "client/templates/pages/home/Home.sass";

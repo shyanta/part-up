@@ -1,6 +1,7 @@
 Meteor.methods({
 
     'collections.partups.insert': function (fields) {
+        // TODO AUTHORIZATION
         check(fields, Partup.schemas.partup);
 
         Event.emitCollectionInsert(Partups, fields);

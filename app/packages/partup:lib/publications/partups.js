@@ -3,7 +3,7 @@ Meteor.publish('partups.all', function () {
 });
 
 Meteor.publish('partups.recent', function () {
-    return Partups.find({}, {sort: {createdAt: -1}, limit:3});
+    return Partups.find({}, {sort: {createdAt: -1}, limit: 3});
 });
 
 Meteor.publish('partups.supported', function () {
@@ -11,5 +11,5 @@ Meteor.publish('partups.supported', function () {
 });
 
 Meteor.publish('partups.detail', function (partupId) {
-    return Partups.find({_id:partupId});
+    return Partups.find({_id: partupId});
 });
