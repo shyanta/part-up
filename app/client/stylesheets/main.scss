@@ -11,7 +11,6 @@
 
 @import "client/stylesheets/components/all.sass";
 @import "client/stylesheets/components/body.sass";
-@import "client/stylesheets/components/pu-activity.sass";
 @import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-button.sass";
@@ -39,6 +38,10 @@
 @import "client/stylesheets/components/pu-title.sass";
 @import "client/stylesheets/components/pu-tooltip.sass";
 @import "client/stylesheets/components/pu-upload.sass";
+@import "client/stylesheets/components/pu-brand.sass";
+@import "client/stylesheets/components/pu-icon.sass";
+@import "client/stylesheets/components/pu-block.sass";
+@import "client/stylesheets/components/pu-checkbox.sass";
 
 @import "client/templates/pages/discover/Discover.sass";
 @import "client/templates/pages/home/Home.sass";
@@ -55,7 +58,3 @@
 @import "client/templates/pages/start-partup/details/Details.sass";
 @import "client/templates/pages/start-partup/promotion/Promotion.sass";
 @import "client/templates/pages/start-partup/StartPartup.sass";
-@import "client/stylesheets/components/pu-brand.sass";
-@import "client/stylesheets/components/pu-icon.sass";
-@import "client/stylesheets/components/pu-block.sass";
-@import "client/stylesheets/components/pu-checkbox.sass";
