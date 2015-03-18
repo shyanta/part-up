@@ -1,0 +1,8 @@
+{
+  "startdetails-coolyouarestarting": "Cool you are starting a partup, %s!",
+  "startdetails-explainingpartup": "Alright, we got to know you now. What do you want to do in this partup? We use these answers to recommend some Uppers that could contribute.",
+  "startdetails-form-name-label": "What do you want to call your partup?",
+  "startdetails-form-name-placeholder": "",
+  "startdetails-form-name-validation": "max %d characters",
+  "startdetails-form-name-tooltip": "this is a tooltip"
+}
