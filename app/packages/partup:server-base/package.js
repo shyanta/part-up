@@ -7,6 +7,7 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
+    api.use('check');
     api.use(['partup:lib'], ['server']);
 
     api.addFiles([

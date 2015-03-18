@@ -8,7 +8,6 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use('aldeed:simple-schema');
-    api.use('check');
     api.use('mongo');
 
     api.addFiles([
