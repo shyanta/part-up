@@ -1,15 +1,17 @@
-.pu-button
+.pu-button, a.pu-button
     border: 2px solid transparent
     border-radius: 5px
     padding: 10px 15px
     outline: none
-    display: block
+    display: inline-block
+    font-family: $font-secondary
     font-size: 14px
     line-height: 14px
-    color: $color-white
     cursor: pointer
     transition: background-color $animation-duration, box-shadow $animation-duration
     box-shadow: inset 0 0 0 1px rgba(white, 0)
+    text-decoration: none
+    margin-bottom: $spacing-default
 
     i
         margin-right: 10px
@@ -27,9 +29,15 @@
     @for $i from 1 through length($pu-button-subclasses)
         &-#{nth($pu-button-subclasses, $i)}
             background-color: nth($pu-button-subclasses-colors, $i)
+            color: $color-white
 
             &:hover
                 background-color: lighten(nth($pu-button-subclasses-colors, $i), 10%)
+                color: $color-white
 
             &:active
                 background-color: darken(nth($pu-button-subclasses-colors, $i), 10%)
+                color: $color-white
+
+    &:last-child
+        margin-bottom: 0
