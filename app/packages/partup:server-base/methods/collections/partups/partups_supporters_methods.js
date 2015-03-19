@@ -44,15 +44,8 @@ Meteor.methods({
         if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
 
         try {
-            var supporters = partup.supporters || [];
-
-            if (supporters.length === 0 || supporters.indexOf(upperId) > -1) {
-                supporters.splice(supporters.indexOf(upperId), 1);
-
-                Partups.update(partupId, { $set: { 'supporters': supporters } });
-
-                Event.emit('collections.partups.supporters.removed', partup, upper);
-            }
+            Partups.update(partupId, { $pull: { 'supporters': upperId } });
+            Event.emit('collections.partups.supporters.removed', partup, upper);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Upper [' + upperId + '] could not be remove as a supporter from Partup [' + partupId + '].');
