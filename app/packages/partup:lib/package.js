@@ -22,6 +22,7 @@ Package.onUse(function(api) {
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/tag.js',
+        'schemas/network.js',
         'services/placeholder_service.js',
         'collections/fixtures.js'
     ]);
