@@ -9,6 +9,8 @@
     > section,
     > aside
         > ul
+            list-style: none
+            padding-left: 0
             @extend %clearfix
 
             > li
@@ -17,6 +19,7 @@
                 margin-right: 2px
 
                 &:after
+                    display: block
                     content: ''
                     background-color: #79cdd4
                     height: 20px
