@@ -1,10 +1,44 @@
 <template name="PartialsPartupDetailSidebar">
     <header class="pu-partupheader">
-        <figure class="pu-sub-picture" style="width: {{ backgroundWidth }}px; background-image: url('http://lorempixel.com/output/nature-q-c-640-480-5.jpg')"></figure>
+        <figure class="pu-sub-picture" style="width: {{ backgroundWidth }}px; background-image: url('https://unsplash.imgix.net/photo-1422728221357-57980993ea99?q=75&fm=jpg&s=b4a34018d745e33048bcfc326cb9907b')"></figure>
         <h1>{{ partup.name }}</h1>
     </header>
     <aside class="pu-sidebar">
-        <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
-        <p>Lorem ipsum dolor sit amet, <a href="http://google.com" target="_blank">consectetur adipisicing</a> elit. Ducimus iusto nihil voluptate quae quos expedita distinctio repellat, tenetur quo natus maxime! Consequatur dolore odio, incidunt, sit, perferendis repudiandae odit minus vero necessitatibus quam voluptates id doloremque esse dicta. Nostrum provident sint saepe a at maxime eaque eos delectus culpa quibusdam!</p>
+        <section class="pu-sub-dark">
+            <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
+            <section>
+                <p class="pu-sub-abstract">{{ partup.description }}</p>
+            </section>
+            <section>
+                <h3>{{_ 'partup-detail-uppers-title' }}</h3>
+                <ul>
+                    <li>Pim Verlaan</li>
+                    <li>Ralph Boeije</li>
+                    <li>Nick de Bruijn</li>
+                    <li>Bekijk de suggesties</li>
+                </ul>
+                <a href="" class="pu-button">{{_ 'partup-detail-uppers-invitebutton' }}</a>
+            </section>
+            <section>
+                <p>Deze Part-up is actief tot <strong>1 augustus 2015</strong> in omgeving <strong>Den Haag</strong>. Deze Part-up is onderdeel van het <strong>publieke netwerk</strong> en is open voor iedereen.</p>
+                <ul>
+                    {{#each partup.tags}}
+                        <li><a href="" class="pu-button pu-button-tag">{{ . }}</a></li>
+                    {{/each}}
+                </ul>
+            </section>
+        </section>
+        <section class="pu-sub-light">
+            <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
+            <section>
+                <p>{{ partup.description }}</p>
+            </section>
+            <section>
+                <p>{{ partup.description }}</p>
+            </section>
+            <section>
+                <p>{{ partup.description }}</p>
+            </section>
+        </section>
     </aside>
 </template>
