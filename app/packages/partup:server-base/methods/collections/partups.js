@@ -1,16 +1,17 @@
 Meteor.methods({
 
     'collections.partups.insert': function (fields) {
-        // TODO AUTHORIZATION
+        // TODO: Authorisation
         check(fields, Partup.schemas.partup);
 
-        Partups.insert(fields, function (error, id) {
-            if (error) throw new Meteor.Error(400, 'Partup could not be inserted.');
+        try {
+            fields._id = Partups.insert(fields);
 
-            var partup = Partups.findOne(id);
-
-            Event.emitCollectionInsert(Partups, partup);
-        });
+            Event.emitCollectionInsert(Partups, fields);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Partup could not be inserted.');
+        }
     },
 
     'collections.partups.update': function (partupId, fields) {
@@ -18,13 +19,17 @@ Meteor.methods({
 
         var partup = Partups.findOne(partupId);
 
-        if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
+        if (! partup) {
+            throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
+        }
 
-        Partups.update(partupId, { $set: fields }, function (error) {
-            if (error) throw new Meteor.Error(400, 'Partup could not be updated.');
-
+        try {
+            Partups.update(partupId, { $set: fields });
             Event.emitCollectionUpdate(Partups, partup, fields);
-        });
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Partup could not be updated.');
+        }
     },
 
     'collections.partups.remove': function (partupId) {
@@ -34,11 +39,13 @@ Meteor.methods({
 
         if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
 
-        Partups.remove(partupId, function (error) {
-            if (error) throw new Meteor.Error(400, 'Partup could not be removed.');
-
+        try {
+            Partups.remove(partupId);
             Event.emitCollectionRemove(Partups, partup);
-        });
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Partup could not be removed.');
+        }
     }
 
 });
