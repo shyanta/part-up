@@ -3,7 +3,7 @@ Meteor.methods({
     /**
      * Insert a Partup
      *
-     * @param {[mixed]} fields
+     * @param {mixed[]} fields
      */
     'collections.partups.insert': function (fields) {
         // TODO: Authorisation
@@ -23,7 +23,7 @@ Meteor.methods({
      * Update a Partup
      *
      * @param {integer} partupId
-     * @param {[mixed]} fields
+     * @param {mixed[]} fields
      */
     'collections.partups.update': function (partupId, fields) {
         // TODO: Authorisation & Validation
