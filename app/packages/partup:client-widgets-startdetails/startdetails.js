@@ -20,7 +20,7 @@ AutoForm.hooks({
                     console.log('something went wrong', error);
                     return false;
                 }
-                Router.go('/');
+                Router.go('home');
             });
         }
     }

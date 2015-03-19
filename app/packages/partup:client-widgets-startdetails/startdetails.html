@@ -4,12 +4,13 @@
 
     <p class="pu-paragraph">{{_ 'startdetails-explainingpartup'}}</p>
 
-    {{#autoForm schema=Partup.schemas.partup id="partupForm" class="pu-form" }}
+    {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" class="pu-form" theme="plain"}}
 
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
             {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
-            <a class="pu-hint pu-tooltip">{{_ 'startdetails-form-name-validation' Partup.schemas.partup._schema.name.max }}
+            <a class="pu-hint pu-tooltip">
+                {{_ 'startdetails-form-name-validation' Partup.schemas.partup._schema.name.max }}
                 <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
             </a>
         </label>
@@ -17,35 +18,45 @@
         <!-- TODO: all following fields still have to be autoformed: -->
 
         <label class="pu-formfield">
-            <span class="pu-label">Wat wil je met jouw Part-up bereiken?</span>
-            <textarea class="pu-textarea" placeholder="Wees zo kort maar zo krachtig mogelijk"></textarea>
-            <a class="pu-hint">maximaal 140 tekens</a>
+            <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
+            {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
+            <a class="pu-hint pu-tooltip">
+                {{_ 'startdetails-form-description-validation' Partup.schemas.partup._schema.description.max }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-description-tooltip' }}</p></span>
+            </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Jouw Part-up, in vijf woorden</span>
+            <span class="pu-label">{{_ 'startdetails-form-tags_input-label'}}</span>
             <div class="pu-inputholder">
-                <input class="pu-input" type="text" placeholder="Graag even scheiden door een komma">
+                {{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}
             </div>
-            <a class="pu-hint">waarom</a>
+            <a class="pu-hint pu-tooltip">
+                {{_ 'startdetails-form-tags_input-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-tags_input-tooltip' }}</p></span>
+            </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Wanneer wil je ongeveer klaar zijn?</span>
+            <span class="pu-label">{{_ 'startdetails-form-end_date-label'}}</span>
             <div class="pu-inputholder pu-inputholder-lefticon">
-                <input class="pu-input" type="text" placeholder="Prik een einddatum">
+                {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input" data-datepicker="" }}
                 <span class="pu-icon"><i class="fa fa-calendar"></i></span>
             </div>
-            <a class="pu-hint">waarom</a>
+            <a class="pu-hint pu-tooltip">
+                {{_ 'startdetails-form-end_date-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-end_date-tooltip' }}</p></span>
+            </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Waar is jouw Part-up?</span>
-            <input class="pu-input" type="text" placeholder="Online, Nederland of in jouw plaats">
+            <span class="pu-label">{{_ 'startdetails-form-location_input-label'}}</span>
+            {{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}
         </label>
 
+        <!-- TODO: NETWORK IMPLEMENTATION
         <label class="pu-formfield">
-            <span class="pu-label">Aan welk netwerk wil je jouw Part-up toevoegen?</span>
+            <span class="pu-label">{{_ 'startdetails-form-network-label' }}</span>
             <div class="pu-inputholder pu-inputholder-righticon">
                 <select class="pu-select">
                     <option value="1">1. Aan Part-up.com (openbaar)</option>
@@ -55,24 +66,33 @@
                 </select>
                 <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
             </div>
-            <a class="pu-hint">waarom</a>
+            <a class="pu-hint pu-tooltip">
+                {{_ 'startdetails-form-network-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-network-tooltip' }}</p></span>
+            </a>
         </label>
+        -->
 
+
+        <!-- TODO: IMAGE IMPLEMENTATION
         <div class="pu-formfield">
-            <span class="pu-label">Kies een mooie en herkenbare foto voor jouw Part-up</span>
+            <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
             <div class="pu-upload pu-upload-large">
-                <button class="pu-button pu-button-browse">Foto vanaf jouw computer</button>
-                <span>Wel minimaal 1000 pixels</span>
+                <button class="pu-button pu-button-browse">{{_ 'startdetails-image-button'}}</button>
+                <span>{{_ 'startdetails-image-validation'}}</span>
             </div>
         </div>
+        -->
 
-        <div class="pu-divider"><span>of kies een van de vijf suggesties</span></div>
+        <!-- TODO: SUGGESTION IMPLEMENTATION
+        <div class="pu-divider"><span>{{_ 'startdetails-suggestion-label'}}</span></div>
 
         <div class="pu-imageselector">
             <img src="http://placehold.it/570x235" alt="">
         </div>
+        -->
 
-        <input class="pu-button pu-button-primary" type="submit" value="Ingevuld, op naar de activiteiten">
+        <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
     {{/autoForm}}
 
 </div>
