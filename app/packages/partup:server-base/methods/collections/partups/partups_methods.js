@@ -7,12 +7,14 @@ Meteor.methods({
      */
     'collections.partups.insert': function (fields) {
         // TODO: Authorisation
-        check(fields, Partup.schemas.partup);
+        check(fields, Partup.schemas.forms.startPartup);
 
         try {
             fields._id = Partups.insert(fields);
 
             Event.emitCollectionInsert(Partups, fields);
+
+            return fields;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup could not be inserted.');

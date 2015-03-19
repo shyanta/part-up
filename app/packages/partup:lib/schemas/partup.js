@@ -1,45 +1,15 @@
 // Define the base Partup schema
 var partupBaseSchema = new SimpleSchema({
-    name: {
-        type: String,
-        max: 200
-    },
     description: {
-        type: String
-    },
-    tags: {
-        type: [String],
-        minCount: 5
-    },
-    networks: {
-        type: [Object],
-        minCount: 1
-    },
-        "networks.$._id": {
-            type: String
-        },
-        "networks.$.name": {
-            type: String
-        },
-    start_date: {
-        type: Date
+        type: String,
+        max:140
     },
     end_date: {
         type: Date
     },
-    image: {
-        type: Object,
-        optional: true
-    },
-    status: {
-        type: String
-    },
-    created_at: {
-        type: Date,
-        defaultValue: Date.now()
-    },
-    updated_at: {
-        type: Date
+    name: {
+        type: String,
+        max: 40
     }
 });
 
@@ -48,47 +18,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-    location: {
-        type: Object,
-        optional: true
-    },
-        "location.city": {
-            type: String
-        },
-        "location.country": {
-            type: String
-        },
-    uppers: {
-        type: [Object],
-        optional: true
-    },
-        "uppers.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-    supporters: {
-        type: [Object],
-        optional: true
-    },
-        "supporters.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-        "supporters.$.name": {
-            type: String
-        },
-        "supporters.$.image": {
-            type: Object,
-            optional: true
-        },
-    updates: {
-        type: [Object],
-        optional: true
-    },
-        "updates.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
+
     activities: {
         type: [Object],
         optional: true
@@ -129,9 +59,91 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
             },
             "anticontracts.$.uppers_signed.$.date": {
                 type: Date
-            }
+            },
+
+    created_at: {
+        type: Date,
+        defaultValue: Date.now()
+    },
+    image: {
+        type: Object,
+        optional: true
+    },
+    location: {
+        type: Object,
+        optional: true
+    },
+        "location.city": {
+            type: String
+        },
+        "location.country": {
+            type: String
+        },
+    network: {
+        type: Object,
+    },
+        "network._id": {
+            type: String
+        },
+        "network.name": {
+            type: String
+        },
+    start_date: {
+        type: Date
+    },
+    status: {
+        type: String
+    },
+
+    supporters: {
+        type: [Object],
+        optional: true
+    },
+        "supporters.$._id": {
+            type: String,
+            regEx: SimpleSchema.RegEx.Id
+        },
+        "supporters.$.name": {
+            type: String
+        },
+        "supporters.$.image": {
+            type: Object,
+            optional: true
+        },
+
+    tags: {
+        type: [String],
+        minCount: 1
+    },
+    updated_at: {
+        type: Date
+    },
+    updates: {
+        type: [Object],
+        optional: true
+    },
+        "updates.$._id": {
+            type: String,
+            regEx: SimpleSchema.RegEx.Id
+        },
+    uppers: {
+        type: [Object],
+        optional: true
+    },
+        "uppers.$._id": {
+            type: String,
+            regEx: SimpleSchema.RegEx.Id
+        }
+
 }]);
 
 Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
-    // Take it away Pete!
+    tags_input: {
+        type: String,
+        max: 255
+    },
+    location_input: {
+        type:String,
+        max: 255
+    }
 }]);
