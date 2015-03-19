@@ -14,6 +14,7 @@ Meteor.methods({
 
         try {
             fields.creator_id = upper._id;
+            fields.uppers = [upper._id];
             fields._id = Partups.insert(fields);
 
             Event.emitCollectionInsert(Partups, fields);
