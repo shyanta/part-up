@@ -15,8 +15,9 @@ Package.onUse(function(api) {
         'bootstrap.js',
         'event.js',
         'event_handlers/any_handler.js',
-        'event_handlers/collections_partups_handler.js',
-        'methods/collections/partups.js',
+        'event_handlers/collections/partups/partups_handler.js',
+        'methods/collections/partups/partups_methods.js',
+        'methods/collections/partups/partups_supporters_methods.js',
         'test.js'
     ], ['server']);
 
