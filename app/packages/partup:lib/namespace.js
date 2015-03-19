@@ -4,3 +4,4 @@ Partup.schemas = {
     entities: {}
 };
 Partup.services = {};
+Partup.ui = {};

@@ -1,0 +1,79 @@
+<template name="WidgetProfile">
+    <a class="pu-button pu-button-avatar pu-button-header {{#if menuOpen}}pu-button-header-active{{/if}}" data-toggle-menu>
+        <figure class="pu-avatar pu-avatar-small"></figure>
+        {{ currentUser._id }}
+    </a>
+    <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+        <!-- <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li> -->
+        <section>
+            <p>Upper Part-ups</p>
+            <ul>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+            </ul>
+            <p>Supporter Part-ups</p>
+            <ul>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>Interne innovatie wedstrijd organiseren</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        
+        <footer>
+            <ul class="pu-headernav">
+                <li class="pu-button pu-button-header">Mijn profiel</li>
+                <li class="pu-button pu-button-header">Instellingen</li>
+                <li class="pu-button pu-button-header" data-logout>Uitloggen</li>
+            </ul>
+        </footer>
+    </div>
+</template>

@@ -48,6 +48,16 @@
         font-size: 16px
         font-family: $font-primary
         font-weight: bold
+// =======
+//         border: 0
+//         background-color: $color-header
+//         padding: 24px 30px
+//         border-radius: 0
+//         max-height: 60px
+//         overflow: hidden
+//         font-size: 15.5px
+//         font-family: $font-secondary
+// >>>>>>> ft-dropdowns
 
         &:active
             padding-top: 22px
@@ -55,6 +65,31 @@
 
         &:hover
             background-color: darken($color-header, 5%)
+
+        &-active
+            border-bottom: 0px
+            position: relative
+            z-index: 1
+            color: $color-solid-black
+
+            &:hover
+                background-color: $color-header
+                color: $color-solid-black
+
+            &:after
+                content: ''
+                position: absolute
+                border: 16px solid $color-header
+                background-color: $color-white
+                border-top-left-radius: 16px + 4px
+                border-top-right-radius: 16px + 4px
+                border-bottom: 0
+                left:0
+                right:0
+                bottom:0
+                top:-9px
+                max-height: 60px - 16px + 7px
+                z-index: -1
 
     &-browse
         background-color: $color-browse
@@ -102,6 +137,14 @@
 
             &:hover, &:active
                 color: darken($color-scorpion, 50%)
+    
+    &-avatar
+        figure 
+            display: inline-block
+            margin-top: -9px
+            margin-bottom: -9px
+            margin-right: 5px
+
 
     &-disabled
         pointer-events: none

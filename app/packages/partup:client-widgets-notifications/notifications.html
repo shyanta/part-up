@@ -1,0 +1,26 @@
+<template name="WidgetNotifications">
+    <a class="pu-button pu-button-icon pu-button-header pu-icon-bell" data-toggle-menu>
+        <!-- bell icon -->
+        Notificaties
+    </a>
+    <ul class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+        {{#each notifications}}
+            <li class="pu-notification">
+                <a href="">
+                    <figure class="pu-avatar"></figure>
+                    <article>
+                        <p>{{title}}</p>
+                        <time>{{time}}</time>
+                    </article>
+                </a>
+            </li>
+        {{else}}
+            <li class="pu-notification pu-notification-empty">
+                <p>Nog geen notificaties</p>
+            </li>
+        {{/each}}
+        <li>
+            <a href="">Beheer meldingen</a>
+        </li>
+    </ul>
+</template>

@@ -25,10 +25,6 @@ Template.PartialsAppHeader.events({
         });
     },
 
-    'click [data-logout]': function EventClickLogout (event, template) {
-        Meteor.logout();
-    },
-
     'click [data-login]': function EventClickLogin (event, template) {
         Meteor.loginWithLinkedin();
     }

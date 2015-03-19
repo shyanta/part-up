@@ -24,6 +24,8 @@ partup:client-partups
 
 partup:server-base
 aldeed:simple-schema
+partup:client-widgets-notifications
 aldeed:autoform
 comerc:autoform-fixtures
 zimme:iron-router-active
+partup:client-widgets-profile

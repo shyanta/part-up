@@ -25,7 +25,12 @@ Package.onUse(function(api) {
         'schemas/network.js',
         'services/placeholder_service.js',
         'collections/fixtures.js'
+        
     ]);
+
+    api.addFiles([
+        'ui/dropdown.js'
+    ], 'client');
 
     api.addFiles([
         'publications/notifications.js',

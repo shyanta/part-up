@@ -1,0 +1,77 @@
+.pu-dropdown
+    display: none
+    position: absolute
+    left: 14px;
+    background-color: $color-white
+    border: 2px solid $color-header
+    border-top: 0
+    border-bottom-left-radius: 4px
+    border-bottom-right-radius: 4px
+    border-top-right-radius: 4px
+    padding-top: 10px
+    padding-bottom: 10px
+    min-width: 240px - 2px
+    z-index: 2
+    top: 55px
+    max-height: 546px
+
+    // &:after 
+    //     content: ''
+    //     width: 50%
+    //     height: 60px
+    //     top: -60px
+    //     position: absolute
+    //     background-color: #f0f
+
+    &-active
+        display: block
+
+    &-profile
+        min-width: 445px
+        left: auto
+        right: 14px
+        border-top-right-radius: 0
+        border-top-left-radius: 4px
+        padding-top: 0
+        padding-bottom: 0
+
+    &-notifications
+        min-width: 440px - 3px
+        left: -188px
+        border: 0
+        box-shadow: 0 2px 5px rgba(#000, 0.1)
+        border-radius: 4px
+        padding-top: 0
+        padding-bottom: 0
+
+        &:before 
+            content: ''
+            top:-5px
+            left: 50%
+            height: 10px
+            width: 10px
+            transform: rotate(45deg)
+            position: absolute
+            background-color: inherit
+            z-index: -1
+
+        li:first-child
+            border-top-left-radius: 4px
+            border-top-right-radius: 4px
+
+        li:last-child
+            border-bottom-left-radius: 4px
+            border-bottom-right-radius: 4px
+
+        li:last-child
+            a 
+                padding: 20px
+                font-weight: bold
+                color: #494949
+                text-decoration: none
+                display: block
+                transition: background-color $animation-duration
+
+                &:hover
+                    background-color: $color-dark-white
+        

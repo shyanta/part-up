@@ -1,7 +1,7 @@
 <template name="PartialsAppHeader">
     <header class="pu-header">
         <section>
-            <ul class="pu-list pu-list-horizontal">
+            <ul class="pu-headernav pu-list pu-list-horizontal">
                 <li>
                     <!-- Logo -->
                     <a class="pu-button pu-button-header pu-brand" href="{{pathFor 'home'}}">
@@ -9,10 +9,8 @@
                     </a>
                 </li>
                 <li>
-                    <!-- Button: menu -->
-                    <a class="pu-button pu-button-icon pu-button-header">
-                        <i class="fa fa-bars"></i> Menu
-                    </a>
+                    <!-- Menu dropdown -->
+                    {{> PartialsDropdownMenu }}
                 </li>
                 <li>
                     <!-- Button: menu -->
@@ -30,29 +28,28 @@
             </ul>
         </section>
         <aside>
-            <ul class="pu-list pu-list-horizontal">
+            <ul class="pu-headernav pu-list pu-list-horizontal">
                 <!-- <li>
                     <button data-translate="nl">nl</button>
                     <button data-translate="en">en</button>
                 </li> -->
                 <li>
                     <!-- Button: notificaties -->
-                    <a class="pu-button pu-button-icon pu-button-header">
+                    <!-- <a class="pu-button pu-button-icon pu-button-header">
                         <i class="fa fa-bell"></i> Notificaties
                         {{#each notifications }}
                             {{#if type = 'partups.supporters.new' }}
                                 {{ type_data.supporter.name }} support nu {{ type_data.partup.name }}!
                             {{/if }}
                         {{/each}}
-                    </a>
+                    </a> -->
+
+                    {{> WidgetNotifications }}
                 </li>
                 <li>
                     {{#if currentUser }}
                         <!-- Button: profile -->
-                        <a class="pu-button pu-button-avatar pu-button-header">
-                            <!-- avatar -->
-                            {{ currentUser.profile.firstName }}
-                        </a>
+                        {{> WidgetProfile}}
                     {{ else }}
                         <!-- Button: login -->
                         <a class="pu-button pu-button-header" data-login>
