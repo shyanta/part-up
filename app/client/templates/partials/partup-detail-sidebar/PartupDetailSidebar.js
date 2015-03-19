@@ -32,6 +32,8 @@ Template.PartialsPartupDetailSidebar.helpers({
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.events({
     
-    //
+    'click [data-joinsupporters]': function clickJoinsupporters () {
+        Meteor.call('collections.partups.supporters.insert', Router.current().params._id);
+    }
     
 });
