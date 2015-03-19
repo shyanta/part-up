@@ -1,10 +1,19 @@
 .pu-layout
+    width: 100%
+    overflow: hidden
     @extend %clearfix;
+
+    .pu-sub-page
+        min-width: $grid-column * 10 + $grid-gap * 9
+        max-width: $grid-column * 12 + $grid-gap * 11
+        margin-left: auto
+        margin-right: auto
+        @extend %clearfix;
 
     .pu-sub-left
         float: left
-        width: 70%
+        width: calc(100% - 380px)
 
     .pu-sub-right
         float: left
-        width: 30%
+        width: 380px
