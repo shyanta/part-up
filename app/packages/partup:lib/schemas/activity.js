@@ -1,9 +1,5 @@
 // Define the Activity schema
-Partup.schemas.activity = new SimpleSchema({
-    _id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
+var activityBaseSchema = new SimpleSchema({
     partup_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
@@ -16,10 +12,12 @@ Partup.schemas.activity = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Id
     },
     description: {
-        type: String
+        type: String,
+        optional: true
     },
     start_date: {
-        type: Date
+        type: Date,
+        optional: true
     },
     end_date: {
         type: Date,
@@ -32,10 +30,6 @@ Partup.schemas.activity = new SimpleSchema({
         "contributions.$.upper": {
             type: Object
         },
-            "contributions.$.upper._id": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            },
             "contributions.$.upper.name": {
                 type: String,
                 regEx: SimpleSchema.RegEx.Id
@@ -55,22 +49,20 @@ Partup.schemas.activity = new SimpleSchema({
             },
                 "contributions.$.types.$.meta_data.$.amount": {
                     type: Number,
-                    min: 0
+                    min: 0,
+                    optional: true
                 },
                 "contributions.$.types.$.description": {
                     type: String,
                     optional: true
                 },
         "contributions.$.feedbacks": {
-            type: [Object]
+            type: [Object],
+            optional: true
         },
             "contributions.feedbacks.$.upper": {
                 type: Object
             },
-                "contributions.feedbacks.$.upper._id": {
-                    type: String,
-                    regEx: SimpleSchema.RegEx.Id
-                },
                 "contributions.feedbacks.$.upper.name": {
                     type: String,
                     regEx: SimpleSchema.RegEx.Id
@@ -93,7 +85,8 @@ Partup.schemas.activity = new SimpleSchema({
             defaultValue: Date.now()
         },
         "contributions.$.updated_at": {
-            type: Date
+            type: Date,
+            defaultValue: Date.now()
         },
     created_at: {
         type: Date,
@@ -103,3 +96,24 @@ Partup.schemas.activity = new SimpleSchema({
         type: Date
     }
 });
+
+// Activity entity schema
+Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
+    _id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    "contributions.$.upper._id": {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    "contributions.feedbacks.$.upper._id": {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+}]);
+
+// Activity form schema
+Partup.schemas.forms.activity = new SimpleSchema([activityBaseSchema, {
+    //
+}]);
