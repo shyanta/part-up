@@ -15,10 +15,10 @@ Event = new events.EventEmitter2({
  * Helper to handle the event emitting for an insertion of a collection document.
  *
  * @param collection (Mongo.Collection)
- * @param fields
+ * @param document
  */
-Event.emitCollectionInsert = function (collection, fields) {
-    Event.emit('collections.' + collection._name + '.insert', fields);
+Event.emitCollectionInsert = function (collection, document) {
+    Event.emit('collections.' + collection._name + '.inserted', document);
 };
 
 /**
@@ -31,7 +31,7 @@ Event.emitCollectionInsert = function (collection, fields) {
 Event.emitCollectionUpdate = function (collection, document, fields) {
     if (equal(document, fields)) return;
 
-    Event.emit('collections.' + collection._name + '.update', document._id, fields);
+    Event.emit('collections.' + collection._name + '.updated', document, fields);
 
     Object.keys(fields).forEach(function (key) {
         var value = {
@@ -42,7 +42,7 @@ Event.emitCollectionUpdate = function (collection, document, fields) {
 
         if (equal(value.old, value.new)) return;
 
-        Event.emit('collections.' + collection._name + '.' + key + '.update', document._id, value);
+        Event.emit('collections.' + collection._name + '.' + key + '.updated', document, value);
     });
 };
 
@@ -53,5 +53,5 @@ Event.emitCollectionUpdate = function (collection, document, fields) {
  * @param document
  */
 Event.emitCollectionRemove = function (collection, document) {
-    Event.emit('collections.' + collection._name + '.remove', document._id);
+    Event.emit('collections.' + collection._name + '.removed', document);
 };
