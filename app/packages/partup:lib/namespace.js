@@ -1,3 +1,6 @@
 Partup = {};
-Partup.schemas = {};
+Partup.schemas = {
+    forms: {},
+    entities: {}
+};
 Partup.services = {};
