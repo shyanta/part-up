@@ -1,5 +1,9 @@
-// Define the schema
+// Define the Partup schema
 Partup.schemas.partup = new SimpleSchema({
+    id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     name: {
         type: String,
         max: 200
@@ -90,10 +94,7 @@ Partup.schemas.partup = new SimpleSchema({
         "anticontracts.$.activities": {
             type: [Object]
         },
-            "anticontracts.$.activities.$.id": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            },
+            // TODO copy activity state
         "anticontracts.$.signed_by_all": {
             type: Boolean
         },
