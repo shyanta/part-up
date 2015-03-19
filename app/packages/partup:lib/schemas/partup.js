@@ -1,15 +1,52 @@
-// Define the Partup schema
-Partup.schemas.partup = new SimpleSchema({
-    _id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
+// Define the base Partup schema
+var partupBaseSchema = new SimpleSchema({
     name: {
         type: String,
         max: 200
     },
     description: {
         type: String
+    },
+    tags: {
+        type: [String],
+        minCount: 5
+    },
+    networks: {
+        type: [Object],
+        minCount: 1
+    },
+        "networks.$._id": {
+            type: String
+        },
+        "networks.$.name": {
+            type: String
+        },
+    start_date: {
+        type: Date
+    },
+    end_date: {
+        type: Date
+    },
+    image: {
+        type: Object,
+        optional: true
+    },
+    status: {
+        type: String
+    },
+    created_at: {
+        type: Date,
+        defaultValue: Date.now()
+    },
+    updated_at: {
+        type: Date
+    }
+});
+
+Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
+    _id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
     },
     location: {
         type: Object,
@@ -21,32 +58,9 @@ Partup.schemas.partup = new SimpleSchema({
         "location.country": {
             type: String
         },
-    networks: {
-        type: [Object],
-        minCount: 1
-    },
-        "networks.$._id": {
-            type: String
-        },
-        "networks.$.name": {
-            type: String
-        },
-    tags: {
-        type: [String],
-        minCount: 5
-    },
-    start_date: {
-        type: Date
-    },
-    end_date: {
-        type: Date
-    },
-    image: {
-        type: Object,
-        optional: true
-    },
     uppers: {
-        type: [Object]
+        type: [Object],
+        optional: true
     },
         "uppers.$._id": {
             type: String,
@@ -94,7 +108,7 @@ Partup.schemas.partup = new SimpleSchema({
         "anticontracts.$.activities": {
             type: [Object]
         },
-            // TODO copy activity state
+        // TODO copy activity state
         "anticontracts.$.signed_by_all": {
             type: Boolean
         },
@@ -115,15 +129,9 @@ Partup.schemas.partup = new SimpleSchema({
             },
             "anticontracts.$.uppers_signed.$.date": {
                 type: Date
-            },
-    status: {
-        type: String
-    },
-    created_at: {
-        type: Date,
-        defaultValue: Date.now()
-    },
-    updated_at: {
-        type: Date
-    }
-});
+            }
+}]);
+
+Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
+    // Take it away Pete!
+}]);
