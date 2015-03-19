@@ -1,3 +1,6 @@
+/**
+ * Generate a Notification for each upper in a Partup when there is a new Supporter.
+ */
 Event.on('collections.partups.supporters.inserted', function (partup, upper) {
     var notification = {
         type: 'partups.supporters.new',
