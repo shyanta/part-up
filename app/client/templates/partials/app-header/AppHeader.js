@@ -2,9 +2,11 @@
 /* Partial helpers */
 /*************************************************************/
 Template.PartialsAppHeader.helpers({
-    
-    //
-    
+
+    notifications: function () {
+        return Notifications.find();
+    }
+
 });
 
 

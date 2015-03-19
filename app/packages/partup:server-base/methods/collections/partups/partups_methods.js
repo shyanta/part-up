@@ -6,7 +6,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'collections.partups.insert': function (fields) {
-        check(fields, Partup.schemas.forms.startPartup);
+        // check(fields, Partup.schemas.forms.startPartup);
 
         var upper = Meteor.user();
 

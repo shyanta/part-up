@@ -39,6 +39,11 @@
                     <!-- Button: notificaties -->
                     <a class="pu-button pu-button-icon pu-button-header">
                         <i class="fa fa-bell"></i> Notificaties
+                        {{#each notifications }}
+                            {{#if type = 'partups.supporters.new' }}
+                                {{ type_data.supporter.name }} support nu {{ type_data.partup.name }}!
+                            {{/if }}
+                        {{/each}}
                     </a>
                 </li>
                 <li>

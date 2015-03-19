@@ -27,6 +27,7 @@ Package.onUse(function(api) {
     ]);
 
     api.addFiles([
+        'publications/notifications.js',
         'publications/partups.js'
     ], 'server');
 
