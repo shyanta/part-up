@@ -6,7 +6,6 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'collections.partups.insert': function (fields) {
-        // TODO: Authorisation
         check(fields, Partup.schemas.forms.startPartup);
 
         var upper = Meteor.user();
@@ -33,7 +32,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'collections.partups.update': function (partupId, fields) {
-        // TODO: Authorisation & Validation
+        // TODO: Validation
 
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
@@ -59,8 +58,6 @@ Meteor.methods({
      * @param {integer} partupId
      */
     'collections.partups.remove': function (partupId) {
-        // TODO: Authorisation
-
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 

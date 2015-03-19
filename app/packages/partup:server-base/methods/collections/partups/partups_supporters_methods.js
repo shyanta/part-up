@@ -6,7 +6,7 @@ Meteor.methods({
      * @param {integer} partupId
      */
     'collections.partups.supporters.insert': function (partupId) {
-        // TODO: Authorisation & Validation
+        // TODO: Validation
 
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
@@ -28,7 +28,7 @@ Meteor.methods({
      * @param {integer} partupId
      */
     'collections.partups.supporters.remove': function (partupId) {
-        // TODO: Authorisation & Validation
+        // TODO: Validation
 
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
