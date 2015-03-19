@@ -1,6 +1,6 @@
 // Define the Partup schema
 Partup.schemas.partup = new SimpleSchema({
-    id: {
+    _id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
@@ -25,7 +25,7 @@ Partup.schemas.partup = new SimpleSchema({
         type: [Object],
         minCount: 1
     },
-        "networks.$.id": {
+        "networks.$._id": {
             type: String
         },
         "networks.$.name": {
@@ -48,7 +48,7 @@ Partup.schemas.partup = new SimpleSchema({
     uppers: {
         type: [Object]
     },
-        "uppers.$.id": {
+        "uppers.$._id": {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
@@ -56,7 +56,7 @@ Partup.schemas.partup = new SimpleSchema({
         type: [Object],
         optional: true
     },
-        "supporters.$.id": {
+        "supporters.$._id": {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
@@ -71,7 +71,7 @@ Partup.schemas.partup = new SimpleSchema({
         type: [Object],
         optional: true
     },
-        "updates.$.id": {
+        "updates.$._id": {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
@@ -79,7 +79,7 @@ Partup.schemas.partup = new SimpleSchema({
         type: [Object],
         optional: true
     },
-        "activities.$.id": {
+        "activities.$._id": {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
@@ -87,7 +87,7 @@ Partup.schemas.partup = new SimpleSchema({
         type: [Object],
         optional: true
     },
-        "anticontracts.$.id": {
+        "anticontracts.$._id": {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
@@ -102,7 +102,7 @@ Partup.schemas.partup = new SimpleSchema({
             type: [Object],
             optional: true
         },
-            "anticontracts.$.uppers_signed.$.id": {
+            "anticontracts.$.uppers_signed.$._id": {
                 type: String,
                 regEx: SimpleSchema.RegEx.Id
             },

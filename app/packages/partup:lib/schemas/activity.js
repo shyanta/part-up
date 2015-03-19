@@ -1,6 +1,6 @@
 // Define the Activity schema
 Partup.schemas.activity = new SimpleSchema({
-    id: {
+    _id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
@@ -32,7 +32,7 @@ Partup.schemas.activity = new SimpleSchema({
         "contributions.$.upper": {
             type: Object
         },
-            "contributions.$.upper.id": {
+            "contributions.$.upper._id": {
                 type: String,
                 regEx: SimpleSchema.RegEx.Id
             },
@@ -67,7 +67,7 @@ Partup.schemas.activity = new SimpleSchema({
             "contributions.feedbacks.$.upper": {
                 type: Object
             },
-                "contributions.feedbacks.$.upper.id": {
+                "contributions.feedbacks.$.upper._id": {
                     type: String,
                     regEx: SimpleSchema.RegEx.Id
                 },
