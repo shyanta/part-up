@@ -17,6 +17,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'namespace.js',
         'collections/partups.js',
+        'collections/notifications.js',
         'schemas/partup.js',
         'schemas/activity.js',
         'services/placeholder_service.js',
@@ -27,6 +28,10 @@ Package.onUse(function(api) {
         'publications/partups.js'
     ], 'server');
 
-    api.export('Partups');
+    // Namespace
     api.export('Partup');
+
+    // Collections
+    api.export('Partups');
+    api.export('Notifications');
 });
