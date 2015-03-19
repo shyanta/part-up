@@ -9,12 +9,7 @@
     > section,
     > aside
         > ul
-            list-style: none
-            padding-left: 0
-            @extend %clearfix
-
             > li
-                float: left
                 position: relative
                 margin-right: 2px
 
@@ -30,6 +25,7 @@
 
                 &:last-child
                     margin-right: 0
+                    
                     &:after
                         display: none
 
