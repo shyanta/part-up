@@ -4,10 +4,10 @@
 Template.PartialsPartupDetailNavigation.rendered = function() {
     var OFFSET = 100;
     var pageElm = document.querySelector('.pu-layout .pu-sub-page');
-    var navElm = pageElm.querySelector('.pu-navigation');
+    var leftElm = pageElm.querySelector('.pu-sub-partupdetail-left');
 
     var calculateBackgroundWidth = function calculateBackgroundWidth () {
-        var backgroundWidth = (window.innerWidth - pageElm.offsetWidth) / 2 + navElm.offsetWidth + OFFSET;
+        var backgroundWidth = (window.innerWidth - pageElm.offsetWidth) / 2 + leftElm.offsetWidth + OFFSET;
         Session.set('partials.partup-detail-navigation.background-width', backgroundWidth);
     };
     

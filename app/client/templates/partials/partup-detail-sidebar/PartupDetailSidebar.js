@@ -4,10 +4,10 @@
 Template.PartialsPartupDetailSidebar.rendered = function() {
     var OFFSET = 100;
     var pageElm = document.querySelector('.pu-layout > .pu-sub-page');
-    var sideElm = pageElm.querySelector('.pu-sub-right');
+    var rightElm = pageElm.querySelector('.pu-sub-partupdetail-right');
 
     var calculateBackgroundWidth = function calculateBackgroundWidth () {
-        var backgroundWidth = (window.innerWidth - pageElm.offsetWidth) / 2 + sideElm.offsetWidth + OFFSET;
+        var backgroundWidth = (window.innerWidth - pageElm.offsetWidth) / 2 + rightElm.offsetWidth + OFFSET;
         Session.set('partials.partup-detail-sidebar.background-width', backgroundWidth);
     };
     

@@ -1,19 +1,28 @@
 .pu-layout
-    width: 100%
-    overflow: hidden
-    @extend %clearfix;
+    $page-padding: 40px
 
     .pu-sub-page
-        min-width: $grid-column * 10 + $grid-gap * 9
+        min-width: $grid-column * 9 + $grid-gap * 8 + $page-padding * 2
         max-width: $grid-column * 12 + $grid-gap * 11
         margin-left: auto
         margin-right: auto
         @extend %clearfix;
+        overflow-x: hidden
 
-    .pu-sub-left
-        float: left
-        width: calc(100% - 380px)
+        .pu-sub-partupdetail-left,
+        .pu-sub-partupdetail-right
+            float: left
 
-    .pu-sub-right
-        float: left
-        width: 380px
+        .pu-sub-partupdetail-left
+            $sidebar-width: 380px + $page-padding
+            width: calc(100% - #{$sidebar-width})
+
+        .pu-sub-partupdetail-right
+            $sidebar-width: 380px + $page-padding
+            width: $sidebar-width
+    
+    @media screen and (min-width: $grid-column * 9 + $grid-gap * 8 + $page-padding * 2)
+        overflow-x: hidden
+
+        .pu-sub-page
+            overflow-x: visible
