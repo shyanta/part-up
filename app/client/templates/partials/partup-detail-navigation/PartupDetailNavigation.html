@@ -2,5 +2,19 @@
     <nav class="pu-navigation">
         <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
         <p>Partup Detail Navigation</p>
+        <ul>
+            <li class="{{# if isActiveRoute regex='partup-detail$'}}active{{/if}}">
+                <a href="{{pathFor 'partup-detail' _id=partup._id}}">Updates</a>
+            </li>
+            <li class="{{# if isActiveRoute regex='partup-detail-activities'}}active{{/if}}">
+                <a href="{{pathFor 'partup-detail-activities' _id=partup._id}}">Activities</a>
+            </li>
+            <li class="{{# if isActiveRoute regex='partup-detail-budget'}}active{{/if}}">
+                <a href="{{pathFor 'partup-detail-budget' _id=partup._id}}">Budget</a>
+            </li>
+            <li class="{{# if isActiveRoute regex='partup-detail-anticontract'}}active{{/if}}">
+                <a href="{{pathFor 'partup-detail-anticontract' _id=partup._id}}">Anticontract</a>
+            </li>
+        </ul>
     </nav>
 </template>

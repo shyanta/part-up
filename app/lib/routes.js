@@ -29,7 +29,7 @@ Router.route('/partups/:_id', {
     }
 });
 
-Router.route('/partups/:id/activities', {
+Router.route('/partups/:_id/activities', {
     name: 'partup-detail-activities',
     where: 'client',
     layoutTemplate: 'LayoutsApp',
@@ -42,7 +42,7 @@ Router.route('/partups/:id/activities', {
     }
 });
 
-Router.route('/partups/:id/budget', {
+Router.route('/partups/:_id/budget', {
     name: 'partup-detail-budget',
     where: 'client',
     layoutTemplate: 'LayoutsApp',
@@ -55,7 +55,7 @@ Router.route('/partups/:id/budget', {
     }
 });
 
-Router.route('/partups/:id/anticontract', {
+Router.route('/partups/:_id/anticontract', {
     name: 'partup-detail-anticontract',
     where: 'client',
     layoutTemplate: 'LayoutsApp',
