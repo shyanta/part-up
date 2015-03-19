@@ -1,3 +1,16 @@
 <template name="PagesDiscover">
     <h2>Discover</h2>
+    {{#each partups}}
+        <li>
+            <header>
+                <h2><a href="{{pathFor 'partup-detail' _id=_id}}">{{name}}</a></h2>
+                <p>{{description}}</p>
+                {{#each tags}}
+                    <span>#{{name}}</span>
+                {{/each}}
+            </header>
+        </li>
+    {{else}}
+        <li>no partups added yet</li>
+    {{/each}}
 </template>

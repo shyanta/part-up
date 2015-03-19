@@ -6,7 +6,22 @@ Router.route('/', {
     where: 'client',
     layoutTemplate: 'LayoutsApp',
     yieldRegions: { 
-        'PagesHome': { to: 'page' },
+        'PagesHome': { to: 'page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.all');
+    }
+});
+
+/*************************************************************/
+/* Discover */
+/*************************************************************/
+Router.route('/discover', {
+    name: 'discover',
+    where: 'client',
+    layoutTemplate: 'LayoutsApp',
+    yieldRegions: {
+        'PagesDiscover': { to: 'page' }
     },
     subscriptions: function () {
         this.subscribe('partups.all');
