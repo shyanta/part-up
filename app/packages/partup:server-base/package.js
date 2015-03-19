@@ -11,6 +11,7 @@ Package.onUse(function(api) {
     api.use(['partup:lib'], ['server']);
 
     api.addFiles([
+        'logs.js',
         'bootstrap.js',
         'event.js',
         'event_handlers/any_handler.js',
@@ -18,10 +19,13 @@ Package.onUse(function(api) {
         'methods/collections/partups.js',
         'test.js'
     ], ['server']);
+
+    api.export('Log', ['server']);
 });
 
 Npm.depends({
     'eventemitter2': '0.4.14',
     'colors': '1.0.3',
-    'equals': '1.0.0'
+    'equals': '1.0.0',
+    'winston': '0.9.0',
 });
