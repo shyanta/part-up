@@ -5,6 +5,7 @@ Part-Up
 
 ### Partups
 - ID
+- creator_id
 - name (string)
 - description (string)
 - location (object)
@@ -22,7 +23,6 @@ Part-Up
     - ID
     - name
     - image
-- updates (array of update IDs)
 - activities (array of activity IDs)
 - anticontracts (array of object)
     - ID
@@ -30,6 +30,9 @@ Part-Up
         - ID
         - name
         - created_by
+            - ID
+            - name
+            - image
         - contributions
             - upper
                 - ID
@@ -57,7 +60,10 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - ID
 - partup_id
 - name (string)
-- created_by (upper_id)
+- created_by
+    - ID
+    - name
+    - image
 - description (string)
 - start_date (ISODate)
 - end_date (ISODate)
@@ -89,18 +95,18 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - date (ISODate)
 - type (string: update/message/etc)
 - type_data (object)
-    - old_value (string)
-    - new_value (string)
     - upper 
         - ID
         - name
         - image
+    - old_value (string)
+    - new_value (string)
 - comments (array of objects)
     - ID
     - upper
         - ID
         - name
-    - comment
+    - content
     - date (ISODate)
 - created_at (ISODate)
 - updated_at (ISODate)
