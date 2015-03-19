@@ -5,3 +5,6 @@ app/packages/*/.npm
 
 # JetBrains Editors
 .idea/
+
+# Generated Docs
+docs/methods
