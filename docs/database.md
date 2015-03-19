@@ -26,7 +26,20 @@ Part-Up
 - activities (array of activity IDs)
 - anticontracts (array of object)
     - ID
-    - activities (array of activity IDs)
+    - activities (array of current activity copy objects)
+        - ID
+        - name
+        - created_by
+        - contributions
+            - upper
+                - ID
+                - name
+                - image
+            - types (array of objects)
+                - type (string: wants/has/can)
+                - meta_data
+                    - amount (int)
+                    - description (string) 
     - signed_by_all (bool)
     - uppers_signed (array of user objects)
         - ID
@@ -46,21 +59,23 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - name (string)
 - created_by (upper_id)
 - description (string)
-- begin_date (ISODate)
+- start_date (ISODate)
 - end_date (ISODate)
 - contributions (array of objects)
     - upper
         - ID
         - name
+        - image
     - types (array of objects)
         - type (string: wants/has/can)
         - meta_data
             - amount (int)
             - description (string)
-    - feedback
+    - feedbacks (array of objects)
         - upper
             - ID
             - name
+            - image
         - rating
         - description
     - created_at (ISODate)
