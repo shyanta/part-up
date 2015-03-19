@@ -1,12 +1,12 @@
 <template name="PagesStartPartup">
 
     <div class="pu-header pu-header-secondary pu-header-progress">
-        <a class="pu-link" href="#">Overslaan <i class="fa fa-caret-right"></i></a>
+        <a class="pu-link" href="#">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
         <ol class="pu-progresspager">
-            <li class="pu-progresspager-item {{#if currentPage samePage='/startpartup'}}pu-progresspager-item-active{{/if}}"><a href="/startpartup">Start</a></li>
-            <li class="pu-progresspager-item {{#if currentPage samePage='/startpartup/activities'}}pu-progresspager-item-active{{/if}}"><a href="/startpartup/activities">Activiteiten</a></li>
-            <li class="pu-progresspager-item {{#if currentPage samePage='/startpartup/contributions'}}pu-progresspager-item-active{{/if}}"><a href="/startpartup/contributions">Bijdragen</a></li>
-            <li class="pu-progresspager-item {{#if currentPage samePage='/startpartup/promotion'}}pu-progresspager-item-active{{/if}}"><a href="/startpartup/promotion">Promoten</a></li>
+            <li class="pu-progresspager-item {{#if isActiveRoute regex='start$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start'}}">{{_ 'start-partup-start' }}</a></li>
+            <li class="pu-progresspager-item {{#if isActiveRoute regex='activities$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start-activities'}}">{{_ 'start-partup-activities' }}</a></li>
+            <li class="pu-progresspager-item {{#if isActiveRoute regex='contribute$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start-contribute'}}">{{_ 'start-partup-contribute' }}</a></li>
+            <li class="pu-progresspager-item {{#if isActiveRoute regex='promote$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start-promote'}}">{{_ 'start-partup-promote' }}</a></li>
         </ol>
     </div>
 

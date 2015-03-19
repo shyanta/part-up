@@ -71,8 +71,8 @@ Router.route('/partups/:id/anticontract', {
 /*************************************************************/
 /* Start Partup */
 /*************************************************************/
-Router.route('/startpartup', {
-    name: 'startpartup',
+Router.route('/start', {
+    name: 'start',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
@@ -81,8 +81,8 @@ Router.route('/startpartup', {
     }
 });
 
-Router.route('/startpartup/activities', {
-    name: 'startpartup-activities',
+Router.route('/start/activities', {
+    name: 'start-activities',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
@@ -91,8 +91,8 @@ Router.route('/startpartup/activities', {
     }
 });
 
-Router.route('/startpartup/contributions', {
-    name: 'startpartup-contributions',
+Router.route('/start/contribute', {
+    name: 'start-contribute',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
@@ -101,8 +101,8 @@ Router.route('/startpartup/contributions', {
     }
 });
 
-Router.route('/startpartup/promotion', {
-    name: 'startpartup-promotion',
+Router.route('/startpartup/promote', {
+    name: 'start-promote',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
@@ -124,12 +124,12 @@ Router.route('/register', {
     }
 });
 
-Router.route('/register/optional', {
-    name: 'register-optional',
+Router.route('/register/details', {
+    name: 'register-details',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
         'PagesRegister': { to: 'page' },
-        'PagesRegisterRequired': { to: 'register-page' }
+        'PagesRegisterOptional': { to: 'register-page' }
     }
 });
