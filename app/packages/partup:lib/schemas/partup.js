@@ -18,7 +18,6 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-
     activities: {
         type: [Object],
         optional: true
@@ -50,20 +49,23 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
                 type: String,
                 regEx: SimpleSchema.RegEx.Id
             },
-            "anticontracts.$.uppers_signed.$.name": {
-                type: String
+            "anticontracts.$.uppers_signed.$.date": {
+                type: Date
             },
             "anticontracts.$.uppers_signed.$.image": {
                 type: Object,
                 optional: true
             },
-            "anticontracts.$.uppers_signed.$.date": {
-                type: Date
+            "anticontracts.$.uppers_signed.$.name": {
+                type: String
             },
-
     created_at: {
         type: Date,
         defaultValue: Date.now()
+    },
+    creator_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
     },
     image: {
         type: Object,
@@ -80,7 +82,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
             type: String
         },
     network: {
-        type: Object,
+        type: Object
     },
         "network._id": {
             type: String
@@ -94,7 +96,6 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     status: {
         type: String
     },
-
     supporters: {
         type: [Object],
         optional: true
@@ -103,29 +104,21 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
-        "supporters.$.name": {
-            type: String
-        },
         "supporters.$.image": {
             type: Object,
             optional: true
         },
-
+        "supporters.$.name": {
+            type: String
+        },
     tags: {
         type: [String],
         minCount: 1
     },
     updated_at: {
-        type: Date
+        type: Date,
+        defaultValue: Date.now()
     },
-    updates: {
-        type: [Object],
-        optional: true
-    },
-        "updates.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
     uppers: {
         type: [Object],
         optional: true
@@ -134,16 +127,15 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         }
-
 }]);
 
 Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
-    tags_input: {
-        type: String,
-        max: 255
-    },
     location_input: {
         type:String,
+        max: 255
+    },
+    tags_input: {
+        type: String,
         max: 255
     }
 }]);
