@@ -1,17 +1,27 @@
 <template name="PagesStartPartup">
 
-    <div class="pu-header pu-header-secondary pu-header-progress">
-        {{#if currentPartup }}
-        <a class="pu-link" href="#" data-skip>{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
-        {{/if}}
-        <ol class="pu-progresspager">
-            <li class="pu-progresspager-item {{#if isActiveRoute regex='start$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start'}}">{{_ 'start-partup-start' }}</a></li>
-            <li class="pu-progresspager-item {{#if isActiveRoute regex='activities$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start-activities' _id=currentPartup}}">{{_ 'start-partup-activities' }}</a></li>
-            <li class="pu-progresspager-item {{#if isActiveRoute regex='contribute$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start-contribute' _id=currentPartup}}">{{_ 'start-partup-contribute' }}</a></li>
-            <li class="pu-progresspager-item {{#if isActiveRoute regex='promote$'}}pu-progresspager-item-active{{/if}}"><a href="{{pathFor 'start-promote' _id=currentPartup}}">{{_ 'start-partup-promote' }}</a></li>
-        </ol>
-    </div>
+    <nav class="pu-header pu-header-modal pu-header-progress">
+        <a href="#" class="pu-button pu-button-iconright pu-button-text pu-button-text-gray">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
+        <div class="pu-progresspager">
+            <ol>
+                <li class="{{#if isActiveRoute regex='start$'}}pu-state-active{{/if}}">
+                    <a href="{{pathFor 'start'}}">{{_ 'start-partup-start' }}</a>
+                </li>
+                <li class="{{#if isActiveRoute regex='activities$'}}pu-state-active{{/if}}">
+                    <a href="{{pathFor 'start-activities'}}">{{_ 'start-partup-activities' }}</a>
+                </li>
+                <li class="{{#if isActiveRoute regex='contribute$'}}pu-state-active{{/if}}">
+                    <a href="{{pathFor 'start-contribute'}}">{{_ 'start-partup-contribute' }}</a>
+                </li>
+                <li class="{{#if isActiveRoute regex='promote$'}}pu-state-active{{/if}}">
+                    <a href="{{pathFor 'start-promote'}}">{{_ 'start-partup-promote' }}</a>
+                </li>
+            </ol>
+        </div>
+    </nav>
 
-    {{> yield region='start-partup-page' }}
+    <article class="pu-page pu-page-modal">
+        {{> yield region='start-partup-page' }}
+    </article>
 
 </template>
