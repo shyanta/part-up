@@ -13,6 +13,7 @@ var partupBaseSchema = new SimpleSchema({
     }
 });
 
+// Partup entity schema
 Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     _id: {
         type: String,
@@ -129,6 +130,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         }
 }]);
 
+// Partup form schema
 Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
     location_input: {
         type:String,

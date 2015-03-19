@@ -20,6 +20,8 @@ Package.onUse(function(api) {
         'collections/notifications.js',
         'schemas/partup.js',
         'schemas/activity.js',
+        'schemas/update.js',
+        'schemas/tag.js',
         'services/placeholder_service.js',
         'collections/fixtures.js'
     ]);

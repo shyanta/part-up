@@ -153,7 +153,6 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - ID (name of tag)
 - count
 - created_at (ISODate)
-- updated_at (ISODate)
 
 ### Notifications
 - ID
