@@ -92,7 +92,6 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 ### Updates
 - ID
 - partup_id
-- date (ISODate)
 - type (string: update/message/etc)
 - type_data (object)
     - upper 
