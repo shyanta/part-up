@@ -8,11 +8,16 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use('check');
-    api.use(['partup:lib'], ['server']);
+
+    api.use([
+        'mongo',
+        'partup:lib'
+    ], ['server']);
 
     api.addFiles([
         'logs.js',
         'bootstrap.js',
+        'helpers/collection.js',
         'event.js',
         'event_handlers/any_handler.js',
         'event_handlers/collections/partups/partups_handler.js',
@@ -29,4 +34,5 @@ Npm.depends({
     'colors': '1.0.3',
     'equals': '1.0.0',
     'winston': '0.9.0',
+    'pluralize': '1.1.2'
 });
