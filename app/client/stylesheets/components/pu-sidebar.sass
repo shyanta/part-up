@@ -1,12 +1,41 @@
 .pu-sidebar
-    position: relative
-    background-color: $color-background-secondary
-    padding: 40px
+    > section
+        position: relative
 
-    > .pu-sub-background
-        background-color: $color-background-secondary
-        position: absolute
-        left: 0
-        top: 0
-        bottom: 0
-        z-index: -1
+        > .pu-sub-background
+            position: absolute
+            left: 0
+            top: 0
+            bottom: 0
+            z-index: -1
+
+        > section
+            position: relative
+            padding: 40px
+
+            &:after
+                content: ''
+                position: absolute
+                display: block
+                bottom: 0
+                left: 0
+                width: 60px
+                height: 3px
+                background-color: $color-background
+
+            &:last-of-type
+                &:after
+                    display: none
+
+        &.pu-sub-dark,
+        &.pu-sub-dark > .pu-sub-background
+            background-color: $color-background-secondary
+
+        &.pu-sub-light,
+        &.pu-sub-light > .pu-sub-background
+            background-color: $color-background-tertiery
+
+            > section
+                &:after
+                    background-color: $color-background-secondary
+
