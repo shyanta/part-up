@@ -37,7 +37,7 @@ Part-Up
                 - image
             - types (array of objects)
                 - type (string: wants/has/can)
-                - meta_data
+                - type_data
                     - amount (int)
                     - description (string) 
     - signed_by_all (bool)
@@ -68,7 +68,7 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
         - image
     - types (array of objects)
         - type (string: wants/has/can)
-        - meta_data
+        - type_data
             - amount (int)
             - description (string)
     - feedbacks (array of objects)
@@ -87,24 +87,23 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - ID
 - partup_id
 - date (ISODate)
-- title (string)
 - type (string: update/message/etc)
-- content (string)
-- upper 
-    - ID
-    - name
-    - image
-- meta_data (object)
+- type_data (object)
     - old_value (string)
     - new_value (string)
+    - upper 
+        - ID
+        - name
+        - image
 - comments (array of objects)
     - ID
     - upper
         - ID
         - name
     - comment
-    - created_at (ISODate)
-    - updated_at (ISODate)
+    - date (ISODate)
+- created_at (ISODate)
+- updated_at (ISODate)
 
 ### Uppers
 - ID
@@ -155,7 +154,7 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - ID
 - for_upper_id
 - type (string)
-- meta_data (object)
+- type_data (object)
     - by_upper
         - ID
         - name
