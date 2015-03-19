@@ -10,12 +10,9 @@ Meteor.methods({
         // TODO: Authorisation & Validation
 
         // TODO: Update as soon as the users are ready
-        // var upper = Users.findOne(upperId);
+        // var upper = Users.findOneOrFail(upperId);
         var upper = { _id: upperId };
-        if (! upper) throw new Meteor.Error(404, 'Upper [' + upperId + '] was not found.');
-
-        var partup = Partups.findOne(partupId);
-        if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
+        var partup = Partups.findOneOrFail(partupId);
 
         try {
             Partups.update(partupId, { $addToSet: { 'supporters': upperId } });
@@ -36,12 +33,9 @@ Meteor.methods({
         // TODO: Authorisation & Validation
 
         // TODO: Update as soon as the users are ready
-        // var upper = Users.findOne(upperId);
+        // var upper = Users.findOneOrFail(upperId);
         var upper = { _id: upperId };
-        if (! upper) throw new Meteor.Error(404, 'Upper [' + upperId + '] was not found.');
-
-        var partup = Partups.findOne(partupId);
-        if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
+        var partup = Partups.findOneOrFail(partupId);
 
         try {
             Partups.update(partupId, { $pull: { 'supporters': upperId } });

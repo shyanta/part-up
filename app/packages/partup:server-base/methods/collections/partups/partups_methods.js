@@ -28,11 +28,7 @@ Meteor.methods({
     'collections.partups.update': function (partupId, fields) {
         // TODO: Authorisation & Validation
 
-        var partup = Partups.findOne(partupId);
-
-        if (! partup) {
-            throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
-        }
+        var partup = Partups.findOneOrFail(partupId);
 
         try {
             Partups.update(partupId, { $set: fields });
@@ -51,9 +47,7 @@ Meteor.methods({
     'collections.partups.remove': function (partupId) {
         // TODO: Authorisation
 
-        var partup = Partups.findOne(partupId);
-
-        if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
+        var partup = Partups.findOneOrFail(partupId);
 
         try {
             Partups.remove(partupId);
