@@ -1,5 +1,10 @@
 Meteor.methods({
 
+    /**
+     * Insert a Partup
+     *
+     * @param {[mixed]} fields
+     */
     'collections.partups.insert': function (fields) {
         // TODO: Authorisation
         check(fields, Partup.schemas.partup);
@@ -14,6 +19,12 @@ Meteor.methods({
         }
     },
 
+    /**
+     * Update a Partup
+     *
+     * @param {integer} partupId
+     * @param {[mixed]} fields
+     */
     'collections.partups.update': function (partupId, fields) {
         // TODO: Authorisation & Validation
 
@@ -32,6 +43,11 @@ Meteor.methods({
         }
     },
 
+    /**
+     * Remove a Partup
+     *
+     * @param {integer} partupId
+     */
     'collections.partups.remove': function (partupId) {
         // TODO: Authorisation
 
@@ -48,6 +64,12 @@ Meteor.methods({
         }
     },
 
+    /**
+     * Add a Supporter to a Partup
+     *
+     * @param {integer} partupId
+     * @param {integer} upperId
+     */
     'collections.partups.supporters.insert': function (partupId, upperId) {
         // TODO: Authorisation & Validation
 
@@ -75,6 +97,12 @@ Meteor.methods({
         }
     },
 
+    /**
+     * Remove a Supporter from a Partup
+     *
+     * @param {integer} partupId
+     * @param {integer} upperId
+     */
     'collections.partups.supporters.remove': function (partupId, upperId) {
         // TODO: Authorisation & Validation
 
