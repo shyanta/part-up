@@ -46,6 +46,60 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be removed.');
         }
+    },
+
+    'collections.partups.supporters.insert': function (partupId, upperId) {
+        // TODO: Authorisation & Validation
+
+        // TODO: Update as soon as the users are ready
+        // var upper = Users.findOne(upperId);
+        var upper = { _id: upperId };
+        if (! upper) throw new Meteor.Error(404, 'Upper [' + upperId + '] was not found.');
+
+        var partup = Partups.findOne(partupId);
+        if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
+
+        try {
+            var supporters = partup.supporters || [];
+
+            if (supporters.indexOf(upperId) === -1) {
+                supporters.push(upperId);
+
+                Partups.update(partupId, { $set: { 'supporters': supporters } });
+
+                Event.emit('collections.partups.supporters.inserted', partup, upper);
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Upper [' + upperId + '] could not be added as a supporter to Partup [' + partupId + '].');
+        }
+    },
+
+    'collections.partups.supporters.remove': function (partupId, upperId) {
+        // TODO: Authorisation & Validation
+
+        // TODO: Update as soon as the users are ready
+        // var upper = Users.findOne(upperId);
+        var upper = { _id: upperId };
+        if (! upper) throw new Meteor.Error(404, 'Upper [' + upperId + '] was not found.');
+
+        var partup = Partups.findOne(partupId);
+        if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
+
+        try {
+            var supporters = partup.supporters || [];
+
+            if (supporters.length === 0 || supporters.indexOf(upperId) > -1) {
+                supporters.splice(supporters.indexOf(upperId), 1);
+
+                Partups.update(partupId, { $set: { 'supporters': supporters } });
+
+                Event.emit('collections.partups.supporters.removed', partup, upper);
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Upper [' + upperId + '] could not be added as a supporter to Partup [' + partupId + '].');
+        }
     }
 
 });
