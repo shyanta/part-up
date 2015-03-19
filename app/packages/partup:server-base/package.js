@@ -23,9 +23,12 @@ Package.onUse(function(api) {
         'event_handlers/collections/partups/partups_handler.js',
         'event_handlers/collections/partups/partups_supporters_handler.js',
         'methods/collections/partups/partups_methods.js',
-        'methods/collections/partups/partups_supporters_methods.js',
-        'test.js'
+        'methods/collections/partups/partups_supporters_methods.js'
     ], ['server']);
+
+    api.addFiles([
+        'test.js'
+    ], ['client']);
 
     api.export('Log', ['server']);
 });
