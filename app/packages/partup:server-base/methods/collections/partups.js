@@ -28,7 +28,7 @@ Meteor.methods({
             Event.emitCollectionUpdate(Partups, partup, fields);
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Partup could not be updated.');
+            throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be updated.');
         }
     },
 
@@ -44,7 +44,7 @@ Meteor.methods({
             Event.emitCollectionRemove(Partups, partup);
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Partup could not be removed.');
+            throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be removed.');
         }
     }
 
