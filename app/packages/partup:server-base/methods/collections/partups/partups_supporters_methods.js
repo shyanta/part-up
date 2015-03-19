@@ -18,15 +18,8 @@ Meteor.methods({
         if (! partup) throw new Meteor.Error(404, 'Partup [' + partupId + '] was not found.');
 
         try {
-            var supporters = partup.supporters || [];
-
-            if (supporters.indexOf(upperId) === -1) {
-                supporters.push(upperId);
-
-                Partups.update(partupId, { $set: { 'supporters': supporters } });
-
-                Event.emit('collections.partups.supporters.inserted', partup, upper);
-            }
+            Partups.update(partupId, { $addToSet: { 'supporters': upperId } });
+            Event.emit('collections.partups.supporters.inserted', partup, upper);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Upper [' + upperId + '] could not be added as a supporter to Partup [' + partupId + '].');
