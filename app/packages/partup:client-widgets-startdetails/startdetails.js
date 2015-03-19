@@ -20,7 +20,8 @@ AutoForm.hooks({
                     console.log('something went wrong', error);
                     return false;
                 }
-                Router.go('home');
+                Session.set('partials.start-partup.current-partup', res._id);
+                Router.go('start-activities', {_id:res._id});
             });
         }
     }

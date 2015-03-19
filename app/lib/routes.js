@@ -93,36 +93,60 @@ Router.route('/start', {
     yieldRegions: {
         'PagesStartPartup': { to: 'page' },
         'PagesStartPartupDetails': { to: 'start-partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', Session.get('StartPartup.currentPartup'));
     }
 });
 
-Router.route('/start/activities', {
+Router.route('/start/:_id/activities', {
     name: 'start-activities',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
         'PagesStartPartup': { to: 'page' },
         'PagesStartPartupActivities': { to: 'start-partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', this.params._id);
+    },
+    action: function() {
+        Session.set('partials.start-partup.current-partup', this.params._id);
+        this.render();
     }
 });
 
-Router.route('/start/contribute', {
+Router.route('/start/:_id/contribute', {
     name: 'start-contribute',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
         'PagesStartPartup': { to: 'page' },
         'PagesStartPartupContributions': { to: 'start-partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', this.params._id);
+    },
+    action: function() {
+        Session.set('partials.start-partup.current-partup', this.params._id);
+        this.render();
     }
 });
 
-Router.route('/startpartup/promote', {
+Router.route('/start/:_id/promote', {
     name: 'start-promote',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
         'PagesStartPartup': { to: 'page' },
         'PagesStartPartupPromotion': { to: 'start-partup-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('partups.detail', this.params._id);
+    },
+    action: function() {
+        Session.set('partials.start-partup.current-partup', this.params._id);
+        this.render();
     }
 });
 
