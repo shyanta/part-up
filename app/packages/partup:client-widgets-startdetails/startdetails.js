@@ -1,8 +1,6 @@
 Template.WidgetsStartdetails.helpers({
-    'placeholderHelper': function() {
-        console.log('placeholderhelper', this);
-    },
-    'Partup': Partup
+    'Partup': Partup,
+    'placeholders': Partup.services.placeholders.startdetails
 });
 
 Template.WidgetsStartdetails.events({

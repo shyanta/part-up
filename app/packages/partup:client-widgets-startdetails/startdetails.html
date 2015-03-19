@@ -8,7 +8,7 @@
 
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
-            {{> afFieldInput name='name'  class="pu-input" }}
+            {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
             <a class="pu-hint pu-tooltip">{{_ 'startdetails-form-name-validation' Partup.schemas.partup._schema.name.max }}
                 <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
             </a>

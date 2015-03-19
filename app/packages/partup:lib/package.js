@@ -15,7 +15,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'namespace.js',
         'collections/partups.js',
-        'schemas/partup_schema.js'
+        'schemas/partup_schema.js',
+        'services/placeholder_service.js'
     ]);
 
     api.addFiles([
