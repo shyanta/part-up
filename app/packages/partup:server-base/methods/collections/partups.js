@@ -98,7 +98,7 @@ Meteor.methods({
             }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Upper [' + upperId + '] could not be added as a supporter to Partup [' + partupId + '].');
+            throw new Meteor.Error(400, 'Upper [' + upperId + '] could not be remove as a supporter from Partup [' + partupId + '].');
         }
     }
 
