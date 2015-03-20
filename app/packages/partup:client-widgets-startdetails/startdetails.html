@@ -1,9 +1,6 @@
 <template name="WidgetsStartdetails">
-<div class="pu-container pu-container-small">
     <h1 class="pu-title">{{_ 'startdetails-coolyouarestarting' 'Pim'}}</h1>
-
     <p class="pu-paragraph">{{_ 'startdetails-explainingpartup'}}</p>
-
     {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" class="pu-form" theme="plain"}}
 
         <label class="pu-formfield">
@@ -94,6 +91,4 @@
 
         <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
     {{/autoForm}}
-
-</div>
 </template>
