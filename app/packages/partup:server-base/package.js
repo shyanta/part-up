@@ -11,7 +11,8 @@ Package.onUse(function(api) {
 
     api.use([
         'mongo',
-        'partup:lib'
+        'partup:lib',
+        'service-configuration'
     ], ['server']);
 
     api.addFiles([
