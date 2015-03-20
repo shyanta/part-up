@@ -10,7 +10,7 @@ Template.PartialsPartupDetailSidebar.rendered = function() {
         var backgroundWidth = (window.innerWidth - pageElm.offsetWidth) / 2 + rightElm.offsetWidth + OFFSET;
         Session.set('partials.partup-detail-sidebar.background-width', backgroundWidth);
     };
-    
+
     window.addEventListener('resize', calculateBackgroundWidth);
     calculateBackgroundWidth();
 };
@@ -19,11 +19,11 @@ Template.PartialsPartupDetailSidebar.rendered = function() {
 /* Partial helpers */
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.helpers({
-    
+
     backgroundWidth: function () {
         return Session.get('partials.partup-detail-sidebar.background-width') || 0;
     }
-    
+
 });
 
 
@@ -31,9 +31,9 @@ Template.PartialsPartupDetailSidebar.helpers({
 /* Partial events */
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.events({
-    
+
     'click [data-joinsupporters]': function clickJoinsupporters () {
-        Meteor.call('collections.partups.supporters.insert', Router.current().params._id);
+        Meteor.call('partups.supporters.insert', Router.current().params._id);
     }
-    
+
 });

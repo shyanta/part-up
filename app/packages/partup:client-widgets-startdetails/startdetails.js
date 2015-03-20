@@ -15,7 +15,7 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             event.preventDefault();
 
-            Meteor.call('collections.partups.insert', insertDoc, function(err, res){
+            Meteor.call('partups.insert', insertDoc, function(err, res){
                 if(err) {
                     console.log('something went wrong', error);
                     return false;
