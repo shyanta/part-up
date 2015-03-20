@@ -26,10 +26,6 @@ Package.onUse(function(api) {
         'methods/collections/partups/partups_supporters_methods.js'
     ], ['server']);
 
-    api.addFiles([
-        'test.js'
-    ], ['client']);
-
     api.export('Log', ['server']);
 });
 
