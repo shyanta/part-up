@@ -2,9 +2,8 @@
     position: relative
     display: inline-block
     height: 40px
-    border: 2px solid transparent
     border-radius: 4px
-    padding: 10px 14px 11px 14px
+    padding: 11px 15px 12px 15px
     outline: none
     font-family: $font-secondary
     font-size: 15px
@@ -29,8 +28,8 @@
         background-color: darken($color-sunshade, 5%)
 
     &:active
-        padding-top: 11px
-        padding-bottom: 10px
+        padding-top: 12px
+        padding-bottom: 11px
 
     &-iconright
         i
@@ -38,18 +37,22 @@
             margin-left: 1px
 
     &-large
-        padding: 21px 30px
+        padding: 22px 31px
 
     &-header
         display: block
         background-color: $color-header
         height: 60px
-        padding: 22px 32px
+        padding: 23px 33px
         border-radius: 0
         font-size: 16px
         font-family: $font-primary
         font-weight: bold
         position: relative
+
+        span
+            position: relative
+            z-index: 1
 
         &:after
             content: ''
@@ -70,15 +73,31 @@
             z-index: 0
 
         &:active
-            padding-top: 22px
-            padding-bottom: 20px
+            padding-top: 23px
+            padding-bottom: 21px
 
         &:hover
             background-color: darken($color-header, 5%)
 
-        span
-            position: relative
-            z-index: 1
+        &-secondary
+            background-color: transparent
+            color: $color-text
+            padding-left: 0
+            padding-right: 0
+            padding-top: 25px
+            padding-bottom: 17px
+            transition: border $animation-duration
+
+            &:active
+                padding-top: 26px
+                padding-bottom: 16px
+
+            &:hover
+                color: $color-text
+                background-color: transparent
+
+            &.pu-state-active
+                border-bottom: 2px solid #696969
 
         &-active
             color: $color-solid-black
@@ -156,7 +175,7 @@
 
     &-tag
         height: 30px
-        padding: 6px 5px 6px 7px
+        padding: 7px 6px 7px 8px
         background-color: $color-background
         font-size: 14px
         font-weight: 600
@@ -168,7 +187,6 @@
             position: absolute
             right: -6px
             top: 0
-            margin-top: -2px
             display: block
             width: 11px
             height: inherit
@@ -184,5 +202,5 @@
                 background-color: darken($color-background, 3%)
 
         &:active
-            padding-top: 7px
-            padding-bottom: 5px
+            padding-top: 8px
+            padding-bottom: 6px
