@@ -19,7 +19,7 @@
         text-align: center
 
         // Text
-        a
+        .pu-sub-pagelink
             display: inline-block
             color: $color-primary
             text-decoration: none
@@ -27,6 +27,19 @@
             margin-top: - (20px - 4px)
             padding-top: (20px - 4px) * 2
             transition: color $animation-duration
+
+        // Skip button
+        .pu-sub-skiplink
+            display: inline-block
+            position: absolute
+            bottom: 100%
+            margin-bottom: 10px
+            left: 50%
+            transform: translateX(-50%)
+            margin-left: 5px
+            opacity: 0
+            pointer-events: none
+            transition: opacity $animation-duration, color $animation-duration
 
         // Line
         &:before
@@ -54,16 +67,26 @@
             z-index: 1
             pointer-events: none
 
-        // If this item active, de-activate all next items
-        &.pu-state-active ~ li
-            a
-                color: #494949
+        // If this item active
+        &.pu-state-active
+            .pu-sub-skiplink
+                opacity: 1
+                pointer-events: all
 
-            &:before
-                background-color: $color-border
+            .pu-sub-pagelink
+                pointer-events: none
 
-            &:after
-                background-color: #494949
+            // De-activate all next items
+            ~ li
+                .pu-sub-pagelink
+                    color: #494949
+                    pointer-events: none
+
+                &:before
+                    background-color: $color-border
+
+                &:after
+                    background-color: #494949
 
         // First child has no tail (line)
         &:first-child
