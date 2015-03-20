@@ -1,7 +1,9 @@
 <template name="WidgetDropdownProfile">
     <a class="pu-button pu-button-avatar pu-button-header {{#if menuOpen}}pu-button-header-active{{/if}}" data-toggle-menu>
-        <figure class="pu-avatar pu-avatar-small"></figure>
-        {{ currentUser._id }}
+        <span>
+            <figure class="pu-avatar pu-avatar-small"></figure>
+            {{ currentUser._id }}
+        </span>
     </a>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}} {{#if animationDone}}hidden{{/if}}" data-clickoutside-close>
         <!-- <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li> -->
