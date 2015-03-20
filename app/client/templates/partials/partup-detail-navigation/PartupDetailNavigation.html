@@ -3,16 +3,28 @@
         <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
         <ul class="pu-list pu-list-horizontal">
             <li>
-                <a href="{{pathFor 'partup-detail' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail$'}}pu-state-active{{/if}}">Updates</a>
+                <a href="{{pathFor 'partup-detail' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail$'}}pu-state-active{{/if}}">
+                    <i class="fa fa-globe"></i>
+                    Updates
+                </a>
             </li>
             <li>
-                <a href="{{pathFor 'partup-detail-activities' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail-activities'}}pu-state-active{{/if}}">Activities</a>
+                <a href="{{pathFor 'partup-detail-activities' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail-activities'}}pu-state-active{{/if}}">
+                    <i class="fa fa-globe"></i>
+                    Activities
+                </a>
             </li>
             <li>
-                <a href="{{pathFor 'partup-detail-budget' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail-budget'}}pu-state-active{{/if}}">Budget</a>
+                <a href="{{pathFor 'partup-detail-budget' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail-budget'}}pu-state-active{{/if}}">
+                    <i class="fa fa-globe"></i>
+                    Budget
+                </a>
             </li>
             <li>
-                <a href="{{pathFor 'partup-detail-anticontract' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail-anticontract'}}pu-state-active{{/if}}">Anticontract</a>
+                <a href="{{pathFor 'partup-detail-anticontract' _id=partup._id}}" class="pu-button pu-button-header pu-button-header-secondary {{# if isActiveRoute regex='partup-detail-anticontract'}}pu-state-active{{/if}}">
+                    <i class="fa fa-globe"></i>
+                    Anticontract
+                </a>
             </li>
         </ul>
     </nav>
