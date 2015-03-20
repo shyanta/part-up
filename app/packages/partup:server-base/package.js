@@ -33,7 +33,7 @@ Package.onUse(function(api) {
 Npm.depends({
     'eventemitter2': '0.4.14',
     'colors': '1.0.3',
-    'equals': '1.0.0',
+    'deeper': '1.0.2',
     'winston': '0.9.0',
     'pluralize': '1.1.2'
 });

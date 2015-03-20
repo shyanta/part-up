@@ -1,4 +1,4 @@
-var equal = Npm.require('equals');
+var equal = Npm.require('deeper');
 var events = Npm.require('eventemitter2');
 
 /**
