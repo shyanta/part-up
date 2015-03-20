@@ -1,7 +1,8 @@
-<template name="WidgetsStartdetails">
+<template name="WidgetStartDetails">
     <h1 class="pu-title">{{_ 'startdetails-coolyouarestarting' 'Pim'}}</h1>
     <p class="pu-paragraph">{{_ 'startdetails-explainingpartup'}}</p>
-    {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" class="pu-form" theme="plain"}}
+
+    {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" theme="plain"}}
 
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
@@ -13,7 +14,6 @@
         </label>
 
         <!-- TODO: all following fields still have to be autoformed: -->
-
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
             {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
