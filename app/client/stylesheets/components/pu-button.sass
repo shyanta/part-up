@@ -1,4 +1,5 @@
 .pu-button
+    position: relative
     display: inline-block
     height: 40px
     border: 2px solid transparent
@@ -158,9 +159,26 @@
         color: $color-text
         border-radius: 2px
 
+        &:after
+            content: ''
+            position: absolute
+            right: -5px
+            top: 0
+            margin-top: -2px
+            display: block
+            width: 11px
+            height: inherit
+            border-radius: 50%
+            background-color: white
+            z-index: -1
+            transition: background-color $animation-duration
+
         &:hover
             color: $color-text
             background-color: darken($color-background, 3%)
+
+            &:after
+                background-color: darken($color-background, 3%)
 
         &:active
             padding-top: 7px
