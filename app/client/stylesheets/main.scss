@@ -14,19 +14,19 @@
 
 @import "client/stylesheets/extends/clearfix.sass";
 
+@import "client/stylesheets/components/pu-avatar.sass";
 @import "client/stylesheets/components/pu-block.sass";
-@import "client/stylesheets/components/pu-brand.sass";
-@import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-brand.sass";
 @import "client/stylesheets/components/pu-button.sass";
 @import "client/stylesheets/components/pu-checkbox.sass";
 @import "client/stylesheets/components/pu-divider.sass";
+@import "client/stylesheets/components/pu-dropdown.sass";
+@import "client/stylesheets/components/pu-dropdownitem.sass";
 @import "client/stylesheets/components/pu-form.sass";
 @import "client/stylesheets/components/pu-formfield.sass";
 @import "client/stylesheets/components/pu-header.sass";
+@import "client/stylesheets/components/pu-headernav.sass";
 @import "client/stylesheets/components/pu-hint.sass";
-@import "client/stylesheets/components/pu-icon.sass";
-@import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-imageselector.sass";
 @import "client/stylesheets/components/pu-input.sass";
@@ -36,9 +36,11 @@
 @import "client/stylesheets/components/pu-link.sass";
 @import "client/stylesheets/components/pu-list.sass";
 @import "client/stylesheets/components/pu-navigation.sass";
+@import "client/stylesheets/components/pu-notification.sass";
 @import "client/stylesheets/components/pu-page.sass";
 @import "client/stylesheets/components/pu-paragraph.sass";
 @import "client/stylesheets/components/pu-partupheader.sass";
+@import "client/stylesheets/components/pu-profilemenu.sass";
 @import "client/stylesheets/components/pu-progresspager.sass";
 @import "client/stylesheets/components/pu-select.sass";
 @import "client/stylesheets/components/pu-sidebar.sass";
@@ -46,14 +48,3 @@
 @import "client/stylesheets/components/pu-title.sass";
 @import "client/stylesheets/components/pu-tooltip.sass";
 @import "client/stylesheets/components/pu-upload.sass";
-
-@import "client/stylesheets/components/pu-brand.sass";
-@import "client/stylesheets/components/pu-icon.sass";
-
-@import "client/stylesheets/components/pu-dropdown.sass";
-@import "client/stylesheets/components/pu-dropdownitem.sass";
-@import "client/stylesheets/components/pu-notification.sass";
-@import "client/stylesheets/components/pu-avatar.sass";
-
-@import "client/stylesheets/components/pu-headernav.sass";
-@import "client/stylesheets/components/pu-profilemenu.sass";
