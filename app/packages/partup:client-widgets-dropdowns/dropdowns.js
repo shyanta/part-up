@@ -32,20 +32,8 @@ ClientWidgetsDropdowns = {
     },
     dropdownClickHandler: function(event, template){
         // get current state of the dropdown
-        var currentState = Session.get(template.dropdownToggleBool);
-        if(currentState){
-            Session.set(template.dropdownToggleBool, !currentState);
-        } else {
-            Session.set(template.animationToggleBool, currentState);
-        }
+        var dropdownOpen = Session.get(template.dropdownToggleBool);
+        Session.set(template.dropdownToggleBool, !dropdownOpen);
         template.buttonClicked = true;
-
-        Meteor.setTimeout(function(){
-            if(currentState){
-                Session.set(template.animationToggleBool, currentState);
-            } else {
-                Session.set(template.dropdownToggleBool, !currentState);
-            }
-        },200);
     }
 };

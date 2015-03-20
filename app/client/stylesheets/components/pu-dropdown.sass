@@ -17,6 +17,8 @@
     padding-right: 0
     padding-left: 0
     display: block
+    // visibility: visible
+    pointer-events: none
     transform: translateY(5px)
     transition: opacity 0.2s, transform .2s
 
@@ -26,9 +28,7 @@
     &-active
         opacity: 1
         transform: translateY(0px)
-
-    &.hidden
-        display: none
+        pointer-events: all
 
     &-profile
         min-width: 445px
