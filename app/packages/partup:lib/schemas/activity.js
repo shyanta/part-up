@@ -123,6 +123,6 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
 }]);
 
 // Activity form schema
-Partup.schemas.forms.activity = new SimpleSchema([activityBaseSchema, {
+Partup.schemas.forms.startActivities = new SimpleSchema([activityBaseSchema, {
     //
 }]);
