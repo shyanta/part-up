@@ -1,8 +1,10 @@
 <template name="WidgetDropdownMenu">
     <a class="pu-button pu-button-icon pu-button-header {{#if menuOpen}}pu-button-header-active{{/if}}" data-toggle-menu>
         <!-- hamburger menu icon -->
-        <i class="fa fa-bars"></i>
-        Menu
+        <span>
+            <i class="fa fa-bars"></i>
+            Menu
+        </span>
     </a>
     <ul class="pu-dropdown pu-list 
     {{#if menuOpen}}pu-dropdown-active{{/if}} 

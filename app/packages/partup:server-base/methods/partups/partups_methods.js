@@ -6,21 +6,24 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.insert': function (fields) {
-        // check(fields, Partup.schemas.forms.startPartup);
+        check(fields, Partup.schemas.forms.startPartup);
 
         var upper = Meteor.user();
 
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
-            // TODO: Set all partup fields.
-            fields.creator_id = upper._id;
-            fields.uppers = [upper._id];
-            fields._id = Partups.insert(fields);
+            var newPartup = Partup.transformers.partup.fromFormStartPartup(fields, upper);
 
-            Event.emit('partups.inserted', fields);
+            //check(newPartup, Partup.schemas.entities.partup);
 
-            return fields._id;
+            newPartup._id = Partups.insert(newPartup);
+
+            Event.emit('partups.inserted', newPartup);
+
+            return {
+                _id: newPartup._id
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup could not be inserted.');
@@ -39,13 +42,14 @@ Meteor.methods({
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (! upper || partup.creator_id !== upper.creator_id) {
+        if (! upper || partup.creator_id !== upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
         try {
-            // TODO: Set all partup fields.
-            Partups.update(partupId, { $set: fields });
+            var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields, upper);
+
+            Partups.update(partupId, { $set: newPartupFields });
             Event.emit('partups.updated', partup, fields);
 
             return partup._id;
@@ -64,7 +68,7 @@ Meteor.methods({
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (! upper || partup.creator_id !== upper.creator_id) {
+        if (! upper || partup.creator_id !== upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 

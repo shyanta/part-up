@@ -101,7 +101,10 @@ Router.route('/start', {
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
     subscriptions: function () {
-        this.subscribe('partups.detail', Session.get('StartPartup.currentPartup'));
+        this.subscribe('partups.detail', Session.get('partials.start-partup.current-partup'));
+    },
+    data: function() {
+        return Partups.find({_id:Session.get('partials.start-partup.current-partup')});
     }
 });
 
