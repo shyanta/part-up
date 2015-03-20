@@ -34,7 +34,7 @@
                 <h3>{{_ 'partup-detail-supporters-title' partup.supporters.length }}</h3>
                 <ul class="pu-list pu-list-horizontal">
                     {{#each partup.supporters }}
-                        <li>{{ name }}</li>
+                        <li>{{ . }}</li>
                     {{/each }}
                 </ul>
                 <a data-joinsupporters class="pu-button">{{_ 'partup-detail-supporters-join' }}</a>
