@@ -49,6 +49,12 @@
         font-family: $font-primary
         font-weight: bold
 
+        &:after
+            content: ''
+            opacity: 0
+            transition: opacity 0.2s
+
+
         &:active
             padding-top: 22px
             padding-bottom: 20px
@@ -57,7 +63,6 @@
             background-color: darken($color-header, 5%)
 
         &-active
-            border-bottom: 0px
             position: relative
             z-index: 1
             color: $color-solid-black
@@ -67,7 +72,7 @@
                 color: $color-solid-black
 
             &:after
-                content: ''
+                opacity: 1
                 position: absolute
                 border: 13px solid $color-header
                 background-color: $color-white
@@ -143,7 +148,7 @@
         &:hover
             background-color: $color-disabled
             cursor: not-allowed
-            
+
     &-tag
         height: 30px
         padding: 6px 7px 6px 7px

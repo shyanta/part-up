@@ -1,5 +1,5 @@
 .pu-dropdown
-    display: none
+    opacity: 0
     position: absolute
     left: 13px;
     background-color: $color-white
@@ -16,12 +16,19 @@
     max-height: 546px
     padding-right: 0
     padding-left: 0
+    display: block
+    transform: translateY(5px)
+    transition: opacity 0.2s, transform .2s
 
     > li 
         width: 100%
 
     &-active
-        display: block
+        opacity: 1
+        transform: translateY(0px)
+
+    &.hidden
+        display: none
 
     &-profile
         min-width: 445px
