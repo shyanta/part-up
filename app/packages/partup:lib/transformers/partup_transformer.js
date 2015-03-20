@@ -3,8 +3,7 @@ Partup.transformers.partup = {
     /**
      * Transform partup to start partup form
      *
-     * @param {mixed[]} fields
-     * @param {object} upper
+     * @param {object} partup
      */
     'toFormStartPartup':function(partup) {
         return {
