@@ -1,0 +1,15 @@
+<template name="WidgetDropdownMenu">
+    <a class="pu-button pu-button-icon pu-button-header pu-icon-hamburger {{#if menuOpen}}pu-button-header-active{{/if}}" data-toggle-menu>
+        <!-- hamburger menu icon -->
+        Menu
+    </a>
+    <ul class="pu-dropdown pu-list 
+    {{#if menuOpen}}pu-dropdown-active{{/if}} 
+    {{#if animationDone}}hidden{{/if}}" data-clickoutside-close>
+        <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li>
+        <li class="pu-dropdownitem"><a href="">Over Part-up</a></li>
+        <li class="pu-dropdownitem"><a href="">Hulp/vragen</a></li>
+        <li class="pu-dropdownitem"><a href="">Blog</a></li>
+        <li class="pu-dropdownitem"><a href="">Contact</a></li>
+    </ul>
+</template>
