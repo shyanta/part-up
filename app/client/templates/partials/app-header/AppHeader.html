@@ -10,7 +10,7 @@
                 </li>
                 <li>
                     <!-- Menu dropdown -->
-                    {{> PartialsDropdownMenu }}
+                    {{> WidgetDropdownMenu }}
                 </li>
                 <li>
                     <!-- Button: menu -->
@@ -44,12 +44,12 @@
                         {{/each}}
                     </a> -->
 
-                    {{> WidgetNotifications }}
+                    {{> WidgetDropdownNotifications }}
                 </li>
                 <li>
                     {{#if currentUser }}
                         <!-- Button: profile -->
-                        {{> WidgetProfile}}
+                        {{> WidgetDropdownProfile}}
                     {{ else }}
                         <!-- Button: login -->
                         <a class="pu-button pu-button-header" data-login>
