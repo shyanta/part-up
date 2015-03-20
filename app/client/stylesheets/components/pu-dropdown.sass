@@ -1,7 +1,7 @@
 .pu-dropdown
     display: none
     position: absolute
-    left: 14px;
+    left: 13px;
     background-color: $color-white
     border: 2px solid $color-header
     border-top: 0
@@ -14,14 +14,11 @@
     z-index: 2
     top: 55px
     max-height: 546px
+    padding-right: 0
+    padding-left: 0
 
-    // &:after 
-    //     content: ''
-    //     width: 50%
-    //     height: 60px
-    //     top: -60px
-    //     position: absolute
-    //     background-color: #f0f
+    > li 
+        width: 100%
 
     &-active
         display: block
@@ -29,7 +26,7 @@
     &-profile
         min-width: 445px
         left: auto
-        right: 14px
+        right: 13px
         border-top-right-radius: 0
         border-top-left-radius: 4px
         padding-top: 0
