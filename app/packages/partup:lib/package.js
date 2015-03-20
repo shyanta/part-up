@@ -25,6 +25,8 @@ Package.onUse(function(api) {
         'schemas/tag.js',
         'schemas/network.js',
         'services/placeholder_service.js',
+        'services/partup_service.js',
+        'transformers/partup_transformer.js',
         'collections/fixtures.js'
     ]);
 

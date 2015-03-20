@@ -4,4 +4,5 @@ Partup.schemas = {
     entities: {}
 };
 Partup.services = {};
+Partup.transformers = {};
 Partup.ui = {};
