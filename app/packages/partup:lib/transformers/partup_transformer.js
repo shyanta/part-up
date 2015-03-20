@@ -38,5 +38,5 @@ Partup.transformers.partup = {
             uppers: [upper._id]
         }
     }
-    
+
 };
