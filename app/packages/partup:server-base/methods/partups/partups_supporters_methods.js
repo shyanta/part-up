@@ -5,7 +5,7 @@ Meteor.methods({
      *
      * @param {integer} partupId
      */
-    'collections.partups.supporters.insert': function (partupId) {
+    'partups.supporters.insert': function (partupId) {
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
@@ -17,7 +17,7 @@ Meteor.methods({
 
             if (! isAlreadySupporter) {
                 Partups.update(partupId, { $push: { 'supporters': upper._id } });
-                Event.emit('collections.partups.supporters.inserted', partup, upper);
+                Event.emit('partups.supporters.inserted', partup, upper);
             }
         } catch (error) {
             Log.error(error);
@@ -30,7 +30,7 @@ Meteor.methods({
      *
      * @param {integer} partupId
      */
-    'collections.partups.supporters.remove': function (partupId) {
+    'partups.supporters.remove': function (partupId) {
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
@@ -42,7 +42,7 @@ Meteor.methods({
 
             if (! isAlreadySupporter) {
                 Partups.update(partupId, { $pull: { 'supporters': upper._id } });
-                Event.emit('collections.partups.supporters.removed', partup, upper);
+                Event.emit('partups.supporters.removed', partup, upper);
             }
         } catch (error) {
             Log.error(error);

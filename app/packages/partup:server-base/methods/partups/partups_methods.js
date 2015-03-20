@@ -5,7 +5,7 @@ Meteor.methods({
      *
      * @param {mixed[]} fields
      */
-    'collections.partups.insert': function (fields) {
+    'partups.insert': function (fields) {
         // check(fields, Partup.schemas.forms.startPartup);
 
         var upper = Meteor.user();
@@ -13,11 +13,12 @@ Meteor.methods({
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
+            // TODO: Set all partup fields.
             fields.creator_id = upper._id;
             fields.uppers = [upper._id];
             fields._id = Partups.insert(fields);
 
-            Event.emitCollectionInsert(Partups, fields);
+            Event.emit('partups.inserted', fields);
 
             return fields._id;
         } catch (error) {
@@ -32,7 +33,7 @@ Meteor.methods({
      * @param {integer} partupId
      * @param {mixed[]} fields
      */
-    'collections.partups.update': function (partupId, fields) {
+    'partups.update': function (partupId, fields) {
         // TODO: Validation
 
         var upper = Meteor.user();
@@ -43,8 +44,9 @@ Meteor.methods({
         }
 
         try {
+            // TODO: Set all partup fields.
             Partups.update(partupId, { $set: fields });
-            Event.emitCollectionUpdate(Partups, partup, fields);
+            Event.emit('partups.updated', partup, fields);
 
             return partup._id;
         } catch (error) {
@@ -58,7 +60,7 @@ Meteor.methods({
      *
      * @param {integer} partupId
      */
-    'collections.partups.remove': function (partupId) {
+    'partups.remove': function (partupId) {
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
@@ -68,7 +70,7 @@ Meteor.methods({
 
         try {
             Partups.remove(partupId);
-            Event.emitCollectionRemove(Partups, partup);
+            Event.emit('partups.removed', partup);
 
             return partup._id;
         } catch (error) {

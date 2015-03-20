@@ -12,16 +12,6 @@ Event = new events.EventEmitter2({
 });
 
 /**
- * Helper to handle the event emitting for an insertion of a collection document.
- *
- * @param collection (Mongo.Collection)
- * @param document
- */
-Event.emitCollectionInsert = function (collection, document) {
-    Event.emit('collections.' + collection._name + '.inserted', document);
-};
-
-/**
  * Helper to handle the event emitting for an update of a collection document.
  *
  * @param collection (Mongo.Collection)
@@ -44,14 +34,4 @@ Event.emitCollectionUpdate = function (collection, document, fields) {
 
         Event.emit('collections.' + collection._name + '.' + key + '.updated', document, value);
     });
-};
-
-/**
- * Helper to handle the event emitting for a removal in a collection document.
- *
- * @param collection
- * @param document
- */
-Event.emitCollectionRemove = function (collection, document) {
-    Event.emit('collections.' + collection._name + '.removed', document);
 };
