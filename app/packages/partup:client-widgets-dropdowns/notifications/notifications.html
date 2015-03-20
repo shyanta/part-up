@@ -2,7 +2,7 @@
     <a class="pu-button pu-button-icon pu-button-header" data-toggle-menu>
         <!-- bell icon -->
         <i class="fa fa-bell"></i>
-        Notificaties
+        {{_ 'dropdown-notifications-button-opennotificationsdropdown'}}
     </a>
     <ul class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         {{#each notifications}}
@@ -20,11 +20,11 @@
             </li>
         {{else}}
             <li class="pu-notification pu-notification-empty">
-                <p>Nog geen notificaties</p>
+                <p>{{_ 'dropdown-notifications-placeholder-nonotifications'}}</p>
             </li>
         {{/each}}
         <li>
-            <a href="">Beheer meldingen</a>
+            <a href="">{{_ 'dropdown-notifications-button-managenotifications'}}</a>
         </li>
     </ul>
 </template>

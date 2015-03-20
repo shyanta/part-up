@@ -1,4 +1,18 @@
 {
     "dropdown-profile-title-upperpartups": "Upper Part-ups",
-    "dropdown-profile-title-supporterpartups": "Supporter Part-ups"
+    "dropdown-profile-title-supporterpartups": "Supporter Part-ups",
+    "dropdown-profile-button-myprofile": "Mijn profiel",
+    "dropdown-profile-button-settings": "Instellingen",
+    "dropdown-profile-button-logout": "Uitloggen",
+
+    "dropdown-notifications-button-opennotificationsdropdown": "Notificaties",
+    "dropdown-notifications-placeholder-nonotifications": "Er zijn nog geen notificaties",
+    "dropdown-notifications-button-managenotifications": "Beheer meldingen",
+
+    "dropdown-menu-button-openmenudropdown": "Menu",
+    "dropdown-menu-button-registernetwork": "Netwerk aanmelden",
+    "dropdown-menu-button-aboutpartup": "Over Part-up",
+    "dropdown-menu-button-questions": "Hulp/vragen",
+    "dropdown-menu-button-blog": "Blog",
+    "dropdown-menu-button-contact": "Contact"
 }

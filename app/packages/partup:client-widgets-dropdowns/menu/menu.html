@@ -3,15 +3,15 @@
         <!-- hamburger menu icon -->
         <span>
             <i class="fa fa-bars"></i>
-            Menu
+            {{_ 'dropdown-menu-button-openmenudropdown'}}
         </span>
     </a>
     <ul class="pu-dropdown pu-list 
     {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-        <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li>
-        <li class="pu-dropdownitem"><a href="">Over Part-up</a></li>
-        <li class="pu-dropdownitem"><a href="">Hulp/vragen</a></li>
-        <li class="pu-dropdownitem"><a href="">Blog</a></li>
-        <li class="pu-dropdownitem"><a href="">Contact</a></li>
+        <li class="pu-dropdownitem"><a href="">{{_ 'dropdown-menu-button-registernetwork'}}</a></li>
+        <li class="pu-dropdownitem"><a href="">{{_ 'dropdown-menu-button-aboutpartup'}}</a></li>
+        <li class="pu-dropdownitem"><a href="">{{_ 'dropdown-menu-button-questions'}}</a></li>
+        <li class="pu-dropdownitem"><a href="">{{_ 'dropdown-menu-button-blog'}}</a></li>
+        <li class="pu-dropdownitem"><a href="">{{_ 'dropdown-menu-button-contact'}}</a></li>
     </ul>
 </template>

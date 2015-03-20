@@ -28,7 +28,5 @@ Template.WidgetDropdownProfile.helpers({
     },
     upperPartups: function(){
         return Partups.find();
-    },
-    Partup: Partup,
-    placeholders: Partup.services.placeholders.dropdowns
+    }
 });

@@ -1,4 +1,18 @@
 {
     "dropdown-profile-title-upperpartups": "Upper Part-ups",
-    "dropdown-profile-title-supporterpartups": "gfdssgfgdsdfg"
+    "dropdown-profile-title-supporterpartups": "Supporter Part-ups",
+    "dropdown-profile-button-myprofile": "My profile",
+    "dropdown-profile-button-settings": "Settings",
+    "dropdown-profile-button-logout": "Log out",
+
+    "dropdown-notifications-button-opennotificationsdropdown": "Notifications",
+    "dropdown-notifications-placeholder-nonotifications": "No notifications yet",
+    "dropdown-notifications-button-managenotifications": "Manage notifications",
+
+    "dropdown-menu-button-openmenudropdown": "Menu",
+    "dropdown-menu-button-registernetwork": "Register network",
+    "dropdown-menu-button-aboutpartup": "About Part-up",
+    "dropdown-menu-button-questions": "Help/questions",
+    "dropdown-menu-button-blog": "Blog",
+    "dropdown-menu-button-contact": "Contact"
 }
