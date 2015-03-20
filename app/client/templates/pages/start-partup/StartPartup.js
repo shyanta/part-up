@@ -2,7 +2,7 @@
 /* Page helpers */
 /*************************************************************/
 Template.PagesStartPartup.helpers({
-    'currentPartup': function() {
+    'partupId': function() {
         return Session.get('partials.start-partup.current-partup');
     }
 });

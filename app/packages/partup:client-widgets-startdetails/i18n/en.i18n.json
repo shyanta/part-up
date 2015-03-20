@@ -1,39 +1,39 @@
 {
-  "startdetails-coolyouarestarting": "Cool you are starting a partup, %s!",
-  "startdetails-explainingpartup": "Alright, we got to know you now. What do you want to do in this partup? We use these answers to recommend some Uppers that could contribute.",
-  "startdetails-form-name-label": "What do you want to call your partup?",
-  "startdetails-form-name-placeholder": "this is the placeholder for name",
-  "startdetails-form-name-validation": "max %d characters",
-  "startdetails-form-name-tooltip": "this is a tooltip",
+    "startdetails-coolyouarestarting": "Hi %s, awesome you are starting a Part-up!",
+    "startdetails-explainingpartup": "We know you a little by now, but what are you up to? Tell the world what your part-up is all about. We use your words to suggest you Uppers who can contribute.",
+    "startdetails-form-name-label": "What will you name your part-up?",
+    "startdetails-form-name-placeholder": "Don't be overly creative, you want other Uppers to get it right away.",
+    "startdetails-form-name-validation": "max %d characters",
+    "startdetails-form-name-tooltip": "this is a tooltip",
 
-    "startdetails-form-description-label": "Wat wil je met jouw Part-up bereiken?",
-    "startdetails-form-description-placeholder": "Wees zo kort maar zo krachtig mogelijk",
+    "startdetails-form-description-label": "What do you want to accomplish in this part-up?",
+    "startdetails-form-description-placeholder": "Be short and sharp",
     "startdetails-form-description-validation": "maximaal %d tekens",
     "startdetails-form-description-tooltip": "description toolttip",
 
-    "startdetails-form-tags_input-label": "Jouw Part-up, in vijf woorden",
-    "startdetails-form-tags_input-placeholder": "Graag even scheiden door een komma",
-    "startdetails-form-tags_input-validation": "waarom",
-    "startdetails-form-tags_input-tooltip": "tags tooltip",
+    "startdetails-form-tags_input-label": "Your Part-up, in five words",
+    "startdetails-form-tags_input-placeholder": "Separate them by a comma, please",
+    "startdetails-form-tags_input-validation": "why",
+    "startdetails-form-tags_input-tooltip": "We use these words to check which Uppers match your part-up. So think about the right words for a second.",
 
-    "startdetails-form-end_date-label": "Wanneer wil je ongeveer klaar zijn?",
-    "startdetails-form-end_date-placeholder": "Prik een einddatum",
-    "startdetails-form-end_date-validation": "waarom",
+    "startdetails-form-end_date-label": "When do you prefer to be ready?",
+    "startdetails-form-end_date-placeholder": "Pick an end date",
+    "startdetails-form-end_date-validation": "why",
     "startdetails-form-end_date-tooltip": "end_date tooltip",
 
-    "startdetails-form-location_input-label": "Waar is jouw Part-up?",
-    "startdetails-form-location_input-placeholder": "In Nederland, in jouw regio of in jouw plaats",
+    "startdetails-form-location_input-label": "Where is your part-up located?",
+    "startdetails-form-location_input-placeholder": "Online, Netherlands, or your spot",
 
-    "startdetails-form-network-label": "Aan welk netwerk wil je jouw Part-up toevoegen?",
+    "startdetails-form-network-label": "To which network does your part-up belong?",
     "startdetails-form-network-placeholder": "x",
-    "startdetails-form-network-validation": "waarom",
+    "startdetails-form-network-validation": "why",
     "startdetails-form-network-tooltip": "network tooltip",
 
-    "startdetails-image-label": "Kies een mooie en herkenbare foto voor jouw Part-up",
-    "startdetails-image-button": "Foto vanaf jouw computer",
-    "startdetails-image-validation": "Wel minimaal 1000 pixels",
+    "startdetails-image-label": "Pick a beautiful and meaningful picture for your part-up",
+    "startdetails-image-button": "Upload a picture from your computer",
+    "startdetails-image-validation": "You need a minimum of 1000 pixels",
 
-    "startdetails-suggestion-label": "of kies een van de vijf suggesties",
+    "startdetails-suggestion-label": "Or pick one of the five suggestions",
 
-    "startdetails-form-submit": "Ingevuld, op naar de activiteiten"
+    "startdetails-form-submit": "Done, let's move on to activities"
 }
