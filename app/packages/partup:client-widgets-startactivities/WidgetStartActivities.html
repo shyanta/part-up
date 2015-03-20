@@ -1,6 +1,5 @@
 <template name="WidgetStartActivities">
     <h1 class="pu-title">{{_ 'startactivities-heading-title'}}</h1>
-
     <p class="pu-paragraph">{{_ 'startactivities-heading-paragraph'}}</p>
 
     {{#autoForm schema=Partup.schemas.forms.startActivities id="activitySubmitForm" class="pu-form" theme="plain"}}
@@ -10,29 +9,27 @@
                 <span class="pu-label">{{_ 'startactivities-form-name-label'}}</span>
                 {{> afFieldInput name="name" placeholder=placeholders.name class="pu-input" }}
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startactivities-form-name-validation' Partup.schemas.partup._schema.name.max }}
+                    {{_ 'startactivities-form-name-validation' Partup.schemas.activity._schema.name.max }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startactivities-form-name-tooltip' }}</p></span>
                 </a>
             </label>
 
             <label class="pu-formfield">
-                <span class="pu-label">Beschrijf de activiteit</span>
-                <textarea class="pu-textarea" placeholder="Hou het kort en krachtig"></textarea>
-                <a class="pu-hint pu-tooltip">maximaal 140 tekens
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">hier hele mooie tekst heel mooihier hele
-                        mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele
-                        mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooihier hele
-                        mooie tekst heel mooihier hele mooie tekst heel mooihier hele mooie tekst heel mooi</p></span>
+                <span class="pu-label">{{_ 'startactivities-form-description-label'}}</span>
+                {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
+                <a class="pu-hint pu-tooltip">
+                    {{_ 'startactivities-form-description-validation' Partup.schemas.activity._schema.description.max }}
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startactivities-form-description-tooltip' }}</p></span>
                 </a>
             </label>
 
             <div class="pu-formfield">
                 <div class="pu-formfield-left">
                     <a class="pu-button pu-button-text pu-button-text-gray pu-button-icon"><i
-                            class="fa fa-calendar"></i>Voeg eventueel een datum toe</a>
+                            class="fa fa-calendar"></i>{{_ 'startactivities-form-end_date-label' }}</a>
                 </div>
                 <div class="pu-formfield-right">
-                    <input class="pu-button pu-button-primary" type="submit" value="Maak activiteit aan">
+                    <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startactivities-form-submit' }}">
                 </div>
             </div>
         </form>
