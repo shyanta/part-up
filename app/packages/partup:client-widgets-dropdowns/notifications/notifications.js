@@ -22,5 +22,8 @@ Template.WidgetDropdownNotifications.helpers({
     },
     animationDone: function(){
         return Session.get('partials.dropdown.notifications.animationDone');
+    },
+    notifications: function () {
+        return Notifications.find();
     }
 });
