@@ -53,7 +53,8 @@
         &:after
             content: ''
             opacity: 0
-            transition: opacity 0.2s
+            transform: translateY(5px)
+            transition: opacity 0.2s, transform 0.2s
 
 
         &:active
@@ -86,6 +87,7 @@
                 top:-8px
                 max-height: 60px - 16px + 7px
                 z-index: -1
+                transform: translateY(0px)
 
     &-browse
         background-color: $color-browse

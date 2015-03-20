@@ -1,6 +1,6 @@
 Template.WidgetDropdownProfile.rendered = function(){
     // this = template
-    this.dropdownToggleBool = 'partials.dropdown.profile.opened';
+    this.dropdownToggleBool = 'widget-dropdown-profile.opened';
     
     // set default boolean values    
     Session.set(this.dropdownToggleBool, false);
@@ -24,7 +24,7 @@ Template.WidgetDropdownProfile.events({
 
 Template.WidgetDropdownProfile.helpers({
     menuOpen: function(){
-        return Session.get('partials.dropdown.profile.opened');
+        return Session.get('widget-dropdown-profile.opened');
     }
     // placeholders: Partup.services.placeholders.dropdowns
 });

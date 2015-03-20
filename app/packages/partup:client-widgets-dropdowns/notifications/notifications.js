@@ -1,6 +1,6 @@
 Template.WidgetDropdownNotifications.rendered = function(){
     // this = template
-    this.dropdownToggleBool = 'partials.dropdown.notifications.opened';
+    this.dropdownToggleBool = 'widget-dropdown-notifications.opened';
 
     // set default boolean values    
     Session.set(this.dropdownToggleBool, false);
@@ -20,7 +20,7 @@ Template.WidgetDropdownNotifications.events({
 
 Template.WidgetDropdownNotifications.helpers({
     menuOpen: function(){
-        return Session.get('partials.dropdown.notifications.opened');
+        return Session.get('widget-dropdown-notifications.opened');
     },
     notifications: function () {
         return Notifications.find();

@@ -1,6 +1,6 @@
 Template.WidgetDropdownMenu.rendered = function(){
     // this = template
-    this.dropdownToggleBool = 'partials.dropdown.menu.opened';
+    this.dropdownToggleBool = 'widget-dropdown-menu.opened';
 
     // set default boolean values    
     Session.set(this.dropdownToggleBool, false);
@@ -20,6 +20,6 @@ Template.WidgetDropdownMenu.events({
 
 Template.WidgetDropdownMenu.helpers({
     menuOpen: function(){
-        return Session.get('partials.dropdown.menu.opened');
+        return Session.get('widget-dropdown-menu.opened');
     }
 });
