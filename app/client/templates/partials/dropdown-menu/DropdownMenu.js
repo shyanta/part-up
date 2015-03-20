@@ -1,10 +1,10 @@
 Template.PartialsDropdownMenu.rendered = function(){
-    Partup.ui.dropdown(this);
+    Partup.ui.dropdown.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
 }
 
 Template.PartialsDropdownMenu.destroyed = function(){
     // remove click handler on destroy
-    document.removeEventListener('click', this.documentClickHandler);
+    Partup.ui.dropdown.removeOutsideDropdownClickHandler(this);
 }
 Template.PartialsDropdownMenu.events({
     'click [data-toggle-menu]': function eventClickOpenMenu(event, template) {

@@ -1,10 +1,11 @@
 Template.WidgetProfile.rendered = function(){
-    Partup.ui.dropdown(this);
+    Partup.ui.dropdown.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
+    //
 }
 
 Template.WidgetProfile.destroyed = function(){
     // remove click handler on destroy
-    document.removeEventListener('click', this.documentClickHandler);
+    Partup.ui.dropdown.removeOutsideDropdownClickHandler(this);
 }
 
 Template.WidgetProfile.events({
