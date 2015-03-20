@@ -6,13 +6,16 @@
     <ul class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         {{#each notifications}}
             <li class="pu-notification">
-                <a href="">
-                    <figure class="pu-avatar"></figure>
-                    <article>
-                        <p>{{title}}</p>
-                        <time>{{time}}</time>
-                    </article>
-                </a>
+                {{#if type = 'partups.supporters.new' }}
+                <!-- TODO: Improve structure and add translations -->
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <article>
+                            <p>{{type_data.supporter.name}} is een supporter geworden van {{type_data.partup.name}}!</p>
+                            <time>{{time}}</time>
+                        </article>
+                    </a>
+                {{/if}}
             </li>
         {{else}}
             <li class="pu-notification pu-notification-empty">

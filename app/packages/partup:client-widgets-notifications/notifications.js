@@ -21,5 +21,8 @@ Template.WidgetNotifications.events({
 Template.WidgetNotifications.helpers({
     menuOpen: function(){
         return Session.get('partials.dropdown.notifications.opened');
+    },
+    notifications: function(){
+        return Notifications.find();
     }
 });
