@@ -25,6 +25,10 @@ Template.WidgetDropdownProfile.events({
 Template.WidgetDropdownProfile.helpers({
     menuOpen: function(){
         return Session.get('widget-dropdown-profile.opened');
-    }
-    // placeholders: Partup.services.placeholders.dropdowns
+    },
+    upperPartups: function(){
+        return Partups.find();
+    },
+    Partup: Partup,
+    placeholders: Partup.services.placeholders.dropdowns
 });

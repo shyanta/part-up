@@ -5,10 +5,10 @@
             {{ currentUser._id }}
         </span>
     </a>
-    <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}} {{#if animationDone}}hidden{{/if}}" data-clickoutside-close>
+    <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <!-- <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li> -->
         <section>
-            <p>Upper Part-ups</p>
+            <p>{{_ 'dropdown-profile-title-upperpartups'}}</p>
             <ul class="pu-list">
                 <li class="pu-dropdownitem">
                     <a href="">
@@ -23,7 +23,7 @@
                     </a>
                 </li>
             </ul>
-            <p>Supporter Part-ups</p>
+            <p>{{_ 'dropdown-profile-title-supporterpartups'}}</p>
             <ul class="pu-list">
                 <li class="pu-dropdownitem">
                     <a href="">
