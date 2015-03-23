@@ -23,7 +23,7 @@ Meteor.methods({
 
             return {
                 _id: newPartup._id
-            };
+	    }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup could not be inserted.');
@@ -52,7 +52,9 @@ Meteor.methods({
             Partups.update(partupId, { $set: newPartupFields });
             Event.emit('partups.updated', partup, fields);
 
-            return partup._id;
+	    return {
+		_id: partup._id
+	    }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be updated.');
@@ -76,7 +78,9 @@ Meteor.methods({
             Partups.remove(partupId);
             Event.emit('partups.removed', partup);
 
-            return partup._id;
+	    return {
+		_id: partup._id
+	    }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be removed.');
