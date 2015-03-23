@@ -24,7 +24,7 @@ Meteor.publish('partups.detail', function (partupId) {
             var uppersCursor = Meteor.users.find({ _id: { $in: uppers }});
             uppersHandle[id] = Meteor.Collection._publishCursor(uppersCursor, subscription, 'users');
 
-            // P\ublish all Supporters in a Partup
+            // Publish all Supporters in a Partup
             var supporters = partup.supporters || [];
             var supportersCursor = Meteor.users.find({ _id: { $in: supporters }});
             supportersHandle[id] = Meteor.Collection._publishCursor(supportersCursor, subscription, 'users');
