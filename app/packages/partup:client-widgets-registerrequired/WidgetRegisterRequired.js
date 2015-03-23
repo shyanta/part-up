@@ -1,4 +1,4 @@
-Template.WidgetRegisteRequired.helpers({
+Template.WidgetRegisterRequired.helpers({
     //placeholders: Partup.services.placeholders.registerrequired,
     numberOfUppers: function() {
         return 42;
