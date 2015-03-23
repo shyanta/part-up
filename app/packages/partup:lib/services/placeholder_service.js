@@ -1,5 +1,0 @@
-Partup.services.placeholders = {
-    
-    
-
-};

@@ -21,7 +21,9 @@ Meteor.methods({
 
             Event.emit('partups.activities.inserted', fields);
 
-            return fields._id;
+            return {
+                _id: fields._id
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Activity could not be inserted.');

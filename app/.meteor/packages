@@ -4,6 +4,17 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
+partup:lib
+
+partup:client-widgets-startdetails
+partup:client-intro
+partup:client-utils
+partup:client-partups
+partup:client-widgets-startactivities
+partup:client-widgets-registerrequired
+partup:client-widgets-registeroptional
+partup:server-base
+
 meteor-platform
 iron:router
 tap:i18n
@@ -13,16 +24,6 @@ accounts-facebook
 pauli:accounts-linkedin
 service-configuration
 fourseven:scss
-
-partup:lib
-
-partup:client-widgets-startdetails
-partup:client-widgets-register
-partup:client-intro
-partup:client-utils
-partup:client-partups
-
-partup:server-base
 aldeed:simple-schema
 aldeed:autoform
 comerc:autoform-fixtures
@@ -31,6 +32,6 @@ partup:client-widgets-dropdowns
 stevezhu:lodash
 mike:mocha
 velocity:console-reporter
-partup:client-widgets-startactivities
 momentjs:moment
 chrismbeckett:toastr
+splendido:accounts-meld

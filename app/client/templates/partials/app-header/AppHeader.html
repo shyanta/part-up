@@ -28,6 +28,7 @@
         </section>
         <aside>
             <ul class="pu-headernav pu-list pu-list-horizontal">
+                {{#if currentUser }}
                 <li>
                     <!-- Button: notificaties -->
                     <!-- <a class="pu-button pu-button-icon pu-button-header">
@@ -42,16 +43,24 @@
                     {{> WidgetDropdownNotifications }}
                 </li>
                 <li>
-                    {{#if currentUser }}
                         <!-- Button: profile -->
                         {{> WidgetDropdownProfile}}
-                    {{ else }}
-                        <!-- Button: login -->
-                        <a class="pu-button pu-button-header" data-login>
-                            Inloggen
-                        </a>
-                    {{/if }}
                 </li>
+                {{ else }}
+                <li>
+                    <!-- Button: login -->
+                    <a class="pu-button pu-button-header" data-login>
+                        Inloggen
+                    </a>
+                </li>
+                <li>
+                    <!-- Button: register -->
+                    <a class="pu-button pu-button-header" href="{{pathFor 'register'}}">
+                        Gratis aanmelden
+                    </a>
+                </li>
+
+                {{/if }}
             </ul>
         </aside>
     </header>

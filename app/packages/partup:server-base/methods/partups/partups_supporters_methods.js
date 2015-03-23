@@ -18,7 +18,11 @@ Meteor.methods({
             if (! isAlreadySupporter) {
                 Partups.update(partupId, { $push: { 'supporters': upper._id } });
                 Event.emit('partups.supporters.inserted', partup, upper);
+
+                return true;
             }
+
+            return false;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be added as a supporter to Partup [' + partupId + '].');
@@ -43,7 +47,11 @@ Meteor.methods({
             if (! isAlreadySupporter) {
                 Partups.update(partupId, { $pull: { 'supporters': upper._id } });
                 Event.emit('partups.supporters.removed', partup, upper);
+
+                return true;
             }
+
+            return false;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be remove as a supporter from Partup [' + partupId + '].');

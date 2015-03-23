@@ -1,4 +1,9 @@
-// Define the base Update schema
+/**
+ * Base Update schema
+ * @name updateBaseSchema
+ * @memberOf partup.schemas
+ * @private
+ */
 var updateBaseSchema = new SimpleSchema({
     type: {
         type: String
@@ -29,7 +34,11 @@ var updateBaseSchema = new SimpleSchema({
             }
 });
 
-// Update entity schema
+/**
+ * Update entity schema
+ * @name update
+ * @memberOf partup.schemas.entities
+ */
 Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
     _id: {
         type: String,
@@ -74,9 +83,4 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
         type: Date,
         defaultValue: Date.now()
     }
-}]);
-
-// Update form schema
-Partup.schemas.forms.update = new SimpleSchema([updateBaseSchema, {
-    //
 }]);

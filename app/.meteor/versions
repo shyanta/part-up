@@ -52,7 +52,7 @@ mike:mocha@0.5.2
 minifiers@1.1.4
 minimongo@1.0.7
 mobile-status-bar@1.0.3
-momentjs:moment@2.8.4
+momentjs:moment@2.9.0
 mongo@1.1.0
 npm-bcrypt@0.7.8_1
 oauth@1.1.4
@@ -63,7 +63,8 @@ partup:client-intro@0.0.1
 partup:client-partups@0.0.1
 partup:client-utils@0.0.1
 partup:client-widgets-dropdowns@0.0.1
-partup:client-widgets-register@0.0.1
+partup:client-widgets-registeroptional@0.0.1
+partup:client-widgets-registerrequired@0.0.1
 partup:client-widgets-startactivities@0.0.1
 partup:client-widgets-startdetails@0.0.1
 partup:lib@0.0.1
@@ -83,6 +84,7 @@ session@1.1.0
 sha@1.0.3
 spacebars@1.0.6
 spacebars-compiler@1.0.5
+splendido:accounts-meld@1.2.0
 srp@1.0.3
 stevezhu:lodash@3.5.0
 tap:i18n@1.4.1

@@ -1,4 +1,9 @@
-// Define the base Partup schema
+/**
+ * Base Partup schema
+ * @name partupBaseSchema
+ * @memberOf partup.schemas
+ * @private
+ */
 var partupBaseSchema = new SimpleSchema({
     description: {
         type: String,
@@ -13,7 +18,11 @@ var partupBaseSchema = new SimpleSchema({
     }
 });
 
-// Partup entity schema
+/**
+ * Partup entity schema
+ * @name partup
+ * @memberOf partup.schemas.entities
+ */
 Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     _id: {
         type: String,
@@ -130,7 +139,11 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         }
 }]);
 
-// Partup form schema
+/**
+ * start partup form schema
+ * @name startPartup
+ * @memberOf partup.schemas.forms
+ */
 Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
     location_input: {
         type:String,

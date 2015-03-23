@@ -1,9 +1,51 @@
+/**
+ @namespace Partup
+ @name partup
+ */
 Partup = {};
+
+/**
+ @namespace Schemas
+ @name partup.schemas
+ */
 Partup.schemas = {
+    /**
+     @namespace schema.forms namespace
+     @name partup.schemas.forms
+     */
     forms: {},
+    /**
+     @namespace schema.entities namespace
+     @name partup.schemas.entities
+     */
     entities: {}
 };
+
+/**
+ @namespace Services
+ @name partup.services
+ */
 Partup.services = {};
+
+/**
+ @namespace Transformers
+ @name partup.transformers
+ */
 Partup.transformers = {};
-Partup.ui = {};
+
+/**
+ @namespace Notify
+ @name partup.notify
+ */
 Partup.notify = {};
+
+/**
+ @namespace UI
+ @name partup.ui
+ */
+Partup.ui = {};
+
+/**
+ @namespace Meteor
+ @name Meteor
+ */
