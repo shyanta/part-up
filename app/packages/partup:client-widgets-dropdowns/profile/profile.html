@@ -1,8 +1,10 @@
 <template name="WidgetDropdownProfile">
     <a class="pu-button pu-button-avatar pu-button-header {{#if menuOpen}}pu-button-header-active{{/if}}" data-toggle-menu>
         <span>
-            <figure class="pu-avatar pu-avatar-small"></figure>
-            {{ currentUser._id }}
+            <figure class="pu-avatar pu-avatar-small">
+                <!-- TODO: <img src="{{ currentUser.profile.pictureUrl }}" /> -->
+            </figure>
+            {{ currentUser.profile.name }}
         </span>
     </a>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
@@ -39,7 +41,7 @@
                 </li>
             </ul>
         </section>
-        
+
         <footer>
             <ul class="pu-headernav pu-list pu-list-horizontal">
                 <li><a class="pu-button pu-button-header" href="">{{_ 'dropdown-profile-button-myprofile'}}</a></li>

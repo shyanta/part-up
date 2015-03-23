@@ -12,12 +12,14 @@ Package.onUse(function(api) {
     api.use([
         'mongo',
         'partup:lib',
+        'accounts-base',
         'service-configuration'
     ], ['server']);
 
     api.addFiles([
         'logs.js',
         'bootstrap.js',
+        'accounts.js',
         'helpers/collection.js',
         'event.js',
         'event_handlers/any_handler.js',
