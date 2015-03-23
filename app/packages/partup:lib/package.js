@@ -17,18 +17,20 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
-        'collections/partups.js',
         'collections/activities.js',
+        'collections/fixtures.js',
         'collections/notifications.js',
-        'schemas/partup.js',
+        'collections/partups.js',
+        'notify/notify.js',
         'schemas/activity.js',
-        'schemas/update.js',
-        'schemas/tag.js',
         'schemas/network.js',
-        'services/placeholder.js',
+        'schemas/partup.js',
+        'schemas/register.js',
+        'schemas/tag.js',
+        'schemas/update.js',
         'services/partup.js',
-        'transformers/partup.js',
-        'collections/fixtures.js'
+        'services/placeholder.js',
+        'transformers/partup.js'
     ]);
 
     api.addFiles([

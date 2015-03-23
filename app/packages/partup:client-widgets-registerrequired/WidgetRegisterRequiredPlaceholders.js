@@ -1,17 +1,14 @@
-Partup.services.placeholders.startdetails = {
+Partup.services.placeholders.registerrequired = {
     'name': function () {
-        return __('startdetails-form-name-placeholder');
+        return __('registerrequired-form-name-placeholder');
     },
-    'description': function () {
-        return __('startdetails-form-description-placeholder');
+    'email': function () {
+        return __('registerrequired-form-email-placeholder');
     },
-    'tags_input': function () {
-        return __('startdetails-form-tags_input-placeholder');
+    'password': function () {
+        return __('registerrequired-form-password-placeholder');
     },
-    'end_date': function () {
-        return __('startdetails-form-end_date-placeholder');
-    },
-    'location_input': function () {
-        return __('startdetails-form-location_input-placeholder');
+    'network': function () {
+        return __('registerrequired-form-network-placeholder');
     }
 }

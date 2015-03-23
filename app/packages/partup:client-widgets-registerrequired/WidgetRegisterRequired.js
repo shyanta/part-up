@@ -1,35 +1,61 @@
 Template.WidgetRegisterRequired.helpers({
-    //placeholders: Partup.services.placeholders.registerrequired,
-    numberOfUppers: function() {
+    formSchema: Partup.schemas.forms.registerrequired,
+    placeholders: Partup.services.placeholders.registerrequired,
+    totalNumberOfUppers: function() {
         return 42;
     }
 });
+
+Template.WidgetRegisterRequired.events({
+    'click [data-signupfacebook]': function(event) {
+        Meteor.loginWithFacebook({
+            requestPermissions: ['email']
+        }, function(error) {
+
+            if(error) {
+                Partup.notify.iError('generic-error');
+                return;
+            }
+
+            Router.go('register-details');
+
+        });
+    },
+    'click [data-signuplinkedin]': function(event) {
+        Meteor.loginWithLinkedin({
+            requestPermissions: ['email']
+        }, function(error) {
+
+            if(error) {
+                Partup.notify.iError('generic-error');
+                return false;
+            }
+
+            Router.go('register-details');
+        });
+    }
+})
 
 AutoForm.hooks({
     registerRequiredForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             event.preventDefault();
 
-            var partupId = Session.get('partials.start-partup.current-partup');
+            Accounts.createUser({
+                email: insertDoc.email,
+                password: insertDoc.password,
+                profile: {
+                    name: insertDoc.name,
+                    network: insertDoc.network
+                }
+            }, function(error) {
+                if (error) {
+                    Partup.notify.iError('generic-error');
+                    return false;
+                }
 
-            if(partupId) {
-                Meteor.call('partups.update', partupId, insertDoc, function(error, res){
-                    if(error) {
-                        console.log('something went wrong', error);
-                        return false;
-                    }
-                    Router.go('start-activities', {_id:partupId});
-                });
-            } else {
-                Meteor.call('partups.insert', insertDoc, function(error, res){
-                    if(error) {
-                        console.log('something went wrong', error);
-                        return false;
-                    }
-                    Session.set('partials.start-partup.current-partup', res._id);
-                    Router.go('start-activities', {_id:res._id});
-                })
-            }
+                Router.go('register-details');
+            })
         }
     }
 });

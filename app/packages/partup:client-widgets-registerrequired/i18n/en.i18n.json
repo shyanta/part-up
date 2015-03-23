@@ -1,8 +1,30 @@
 {
-    "registerrequired-becomethexthupper": "Wordt de %dste Upper!",
-    "registerrequired-fillindetailsaccount": "Joehoe! Super tof dat je mee wilt doen aan de Part-up beweging. Vul wat gegevens in om een nieuw account te maken",
+    "registerrequired-becomethexthupper": "Become the %drd Upper!",
+    "registerrequired-fillindetailsaccount": "Cool! You want to be part of the Part-up movement! Fill in some more details, so we can call you by name and complete your account.",
 
-    "registerrequired-signupfacebook": "Aanmelden met Facebook",
-    "registerrequired-signuplinkedin": "Aanmelden met Linkedin",
-    "registerrequired-or": "of"
+    "registerrequired-signupfacebook": "Sign up with Facebook",
+    "registerrequired-signuplinkedin": "Sign up with Linkedin",
+    "registerrequired-or": "or",
+
+    "registerrequired-form-name-label": "First and last name",
+    "registerrequired-form-name-placeholder": "Example: John Johnson",
+    "registerrequired-form-name-validation": "why",
+    "registerrequired-form-name-tooltip": "register required helptext",
+
+    "registerrequired-form-email-label": "Email address",
+    "registerrequired-form-email-placeholder": "We only send you emails if you want us to",
+    "registerrequired-form-email-validation": "why",
+    "registerrequired-form-email-tooltip": "email helptext",
+
+    "registerrequired-form-password-label": "Password",
+    "registerrequired-form-password-placeholder": "Don't make it too easy to guess",
+    "registerrequired-form-password-validation": "why",
+    "registerrequired-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Try using special characters, numbers and capitals in your password.",
+
+    "registerrequired-form-network-label": "Wil je nu al aansluiten bij een (organisatie)netwerk?",
+    "registerrequired-form-network-placeholder": "Kies hier een netwerk",
+    "registerrequired-form-network-validation": "why",
+    "registerrequired-form-network-tooltip": "Even without a network, you can start your own Part-ups and we suggest Part-ups you can contribute to. By joining an existing network, you also get access to the wishes, talents and means of that network.",
+
+    "registerrequired-form-submit": "Sign up"
 }

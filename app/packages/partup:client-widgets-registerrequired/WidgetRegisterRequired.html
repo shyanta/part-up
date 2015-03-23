@@ -2,60 +2,41 @@
     <h1 class="pu-title">{{_ 'registerrequired-becomethexthupper' totalNumberOfUppers }}</h1>
     <p class="pu-paragraph">{{_ 'registerrequired-fillindetailsaccount'}}</p>
 
-    <button data-signupfacebook>{{_ 'registerrequired-signupfacebook'}}</button>
-    <button data-signuplinkedin>{{_ 'registerrequired-signuplinkedin'}}</button>
+    <button class="pu-button pu-button-facebook" data-signupfacebook>{{_ 'registerrequired-signupfacebook'}}</button>
+    <button class="pu-button pu-button-linkedin" data-signuplinkedin>{{_ 'registerrequired-signuplinkedin'}}</button>
 
-    <span>{{_ 'registerrequired-or'}}</span>
-        <!--
-    {{#autoForm schema=Partup.schemas.forms.registerRequired id="registerRequiredForm" class="pu-form" theme="plain"}}
+    <p class="pu-paragraph">{{_ 'registerrequired-or'}}</p>
 
+    {{#autoForm schema=formSchema id="registerRequiredForm" class="pu-form" theme="plain"}}
         <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
+            <span class="pu-label">{{_ 'registerrequired-form-name-label'}}</span>
             {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
             <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-name-validation' Partup.schemas.partup._schema.name.max }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
+                {{_ 'registerrequired-form-name-validation'}}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-name-tooltip' }}</p></span>
             </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
-            {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
+            <span class="pu-label">{{_ 'registerrequired-form-email-label'}}</span>
+            {{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}
             <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-description-validation' Partup.schemas.partup._schema.description.max }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-description-tooltip' }}</p></span>
+                {{_ 'registerrequired-form-email-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-email-tooltip' }}</p></span>
             </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-tags_input-label'}}</span>
+            <span class="pu-label">{{_ 'registerrequired-form-password-label'}}</span>
             <div class="pu-inputholder">
-                {{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}
+                {{> afFieldInput name='password' placeholder=placeholders.password class="pu-input" }}
             </div>
             <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-tags_input-validation' }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-tags_input-tooltip' }}</p></span>
+                {{_ 'registerrequired-form-password-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-password-tooltip' }}</p></span>
             </a>
         </label>
 
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-end_date-label'}}</span>
-            <div class="pu-inputholder pu-inputholder-lefticon">
-                {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input" data-datepicker="" }}
-                <span class="pu-icon"><i class="fa fa-calendar"></i></span>
-            </div>
-            <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-end_date-validation' }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-end_date-tooltip' }}</p></span>
-            </a>
-        </label>
-
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-location_input-label'}}</span>
-            {{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}
-        </label>
-
-        <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
+        <input class="pu-button pu-button-primary" type="submit" value="{{_ 'registerrequired-form-submit'}}">
     {{/autoForm}}
-    -->
 </template>
