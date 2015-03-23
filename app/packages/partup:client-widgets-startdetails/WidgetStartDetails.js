@@ -19,7 +19,8 @@ Template.WidgetStartDetails.events({
     //
 });
 
-Template.WidgetStartDetails.render = function() {
+Template.WidgetStartDetails.rendered = function() {
+    //
 };
 
 AutoForm.hooks({
