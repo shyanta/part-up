@@ -12,9 +12,10 @@ Meteor.publish('partups.supported', function () {
 
 Meteor.publish('partups.detail', function (partupId) {
     var subscription = this;
-    var uppersHandle = [];
-    var activitiesHandle = [];
     var partupHandle = null;
+    var uppersHandle = [];
+    var supportersHandle = [];
+    var activitiesHandle = [];
 
     partupHandle = Partups.find({ _id: partupId }).observeChanges({
         added: function(id, partup) {
@@ -22,6 +23,11 @@ Meteor.publish('partups.detail', function (partupId) {
             var uppers = partup.uppers || [];
             var uppersCursor = Meteor.users.find({ _id: { $in: uppers }});
             uppersHandle[id] = Meteor.Collection._publishCursor(uppersCursor, subscription, 'users');
+
+            // P\ublish all Supporters in a Partup
+            var supporters = partup.supporters || [];
+            var supportersCursor = Meteor.users.find({ _id: { $in: supporters }});
+            supportersHandle[id] = Meteor.Collection._publishCursor(supportersCursor, subscription, 'users');
 
             // Publish all Activities in a Partup
             var activitiesCursor = Activities.find({ partup_id: id });
