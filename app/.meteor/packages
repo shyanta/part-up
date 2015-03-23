@@ -17,7 +17,6 @@ fourseven:scss
 partup:lib
 
 partup:client-widgets-startdetails
-partup:client-widgets-register
 partup:client-intro
 partup:client-utils
 partup:client-partups
@@ -31,6 +30,8 @@ partup:client-widgets-dropdowns
 stevezhu:lodash
 mike:mocha
 velocity:console-reporter
-partup:client-widgets-startactivities
 momentjs:moment
 splendido:accounts-meld
+partup:client-widgets-startactivities
+partup:client-widgets-registerrequired
+partup:client-widgets-registeroptional

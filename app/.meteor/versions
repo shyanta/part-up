@@ -62,7 +62,8 @@ partup:client-intro@0.0.1
 partup:client-partups@0.0.1
 partup:client-utils@0.0.1
 partup:client-widgets-dropdowns@0.0.1
-partup:client-widgets-register@0.0.1
+partup:client-widgets-registeroptional@0.0.1
+partup:client-widgets-registerrequired@0.0.1
 partup:client-widgets-startactivities@0.0.1
 partup:client-widgets-startdetails@0.0.1
 partup:lib@0.0.1
