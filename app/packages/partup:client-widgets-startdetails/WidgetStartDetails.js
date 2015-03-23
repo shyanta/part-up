@@ -20,7 +20,7 @@ Template.WidgetStartDetails.events({
 });
 
 Template.WidgetStartDetails.render = function() {
-}
+};
 
 AutoForm.hooks({
     partupForm: {
