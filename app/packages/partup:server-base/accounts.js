@@ -13,3 +13,9 @@ Accounts.onCreateUser(function(options, user) {
 
     return user;
 });
+
+Accounts.validateNewUser(function (user) {
+    if(Meteor.users.findOne({email: user.email})) {
+        throw new Meteor.Error(403, "Email already exists");
+    }
+});

@@ -10,9 +10,6 @@ partup:client-widgets-startdetails
 partup:client-intro
 partup:client-utils
 partup:client-partups
-partup:client-widgets-startactivities
-partup:client-widgets-registerrequired
-partup:client-widgets-registeroptional
 partup:server-base
 
 meteor-platform
@@ -35,3 +32,11 @@ velocity:console-reporter
 momentjs:moment
 chrismbeckett:toastr
 splendido:accounts-meld
+
+partup:client-widgets-startactivities
+partup:client-widgets-registerrequired
+partup:client-widgets-registeroptional
+
+cfs:standard-packages
+cfs:s3
+cfs:filesystem

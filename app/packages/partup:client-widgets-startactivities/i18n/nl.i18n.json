@@ -19,5 +19,6 @@
     "startactivities-form-end_date-validation": "Een datum in het verleden is niet mogelijk",
     "startactivities-form-end_date-tooltip": "deadline tooltip",
 
-    "startactivities-form-submit": "Maak activiteit aan"
+    "startactivities-form-submit": "Maak activiteit aan",
+    "startactivities-button-next_page": "Wat ga jij bijdragen?"
 }

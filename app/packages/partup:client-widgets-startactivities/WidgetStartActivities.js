@@ -1,27 +1,48 @@
 Template.WidgetStartActivities.helpers({
     'Partup': Partup,
-    'placeholders': Partup.services.placeholders.startactivities
+    'placeholders': Partup.services.placeholders.startactivities,
+    'partupActivities': function () {
+        var partupId = Session.get('partials.start-partup.current-partup');
+        return Activities.find({ partup_id: partupId }, {sort: { created_at: -1 }});
+    },
+    'showDateButton': function () {
+        return Session.get('showDateButton');
+    }
 });
 
 Template.WidgetStartActivities.events({
-    //
+    'click #nextPage': function () {
+        Router.go('start-contribute', {_id: Session.get('partials.start-partup.current-partup')});
+    },
+    'click .end-date-button': function(event) {
+        event.preventDefault();
+        Session.set('showDateButton', false);
+    }
 });
 
-Template.WidgetStartActivities.render = function() {
+Template.WidgetStartActivities.rendered = function () {
+    Session.set('showDateButton', true);
 };
 
 AutoForm.hooks({
-    activitySubmitForm: {
-        onSubmit: function(insertDoc, updateDoc, currentDoc) {
+    activityForm: {
+        onSubmit: function (insertDoc, updateDoc, currentDoc) {
             event.preventDefault();
+            var partupId = Session.get('partials.start-partup.current-partup');
+            var self = this;
 
-            Meteor.call('collections.activities.insert', insertDoc, function(err, res){
-                if(err) {
+            Meteor.call('partups.activities.insert', partupId, insertDoc, function (error, result) {
+                if (error) {
                     console.log('something went wrong', error);
                     return false;
                 }
-                Router.go('start-contribute', {_id:res._id});
+
+                Session.set('showDateButton', true);
+                AutoForm.resetForm('activityForm');
+                self.done();
             });
+
+            return false;
         }
     }
 });

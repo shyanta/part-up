@@ -8,7 +8,7 @@
             <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
             {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
             <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-name-validation' Partup.schemas.partup._schema.name.max }}
+		{{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
                 <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
             </a>
         </label>
@@ -17,7 +17,7 @@
             <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
             {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
             <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-description-validation' Partup.schemas.partup._schema.description.max }}
+		{{_ 'startdetails-form-description-validation' Partup.schemas.entities.partup._schema.description.max }}
                 <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-description-tooltip' }}</p></span>
             </a>
         </label>
@@ -69,16 +69,14 @@
         </label>
         -->
 
-
-        <!-- TODO: IMAGE IMPLEMENTATION
+        <!-- TODO: IMAGE IMPLEMENTATION -->
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
             <div class="pu-upload pu-upload-large">
-                <button class="pu-button pu-button-browse">{{_ 'startdetails-image-button'}}</button>
+                {{> afFieldInput name="image" class="pu-button pu-button-browse" type="file"}}
                 <span>{{_ 'startdetails-image-validation'}}</span>
             </div>
         </div>
-        -->
 
         <!-- TODO: SUGGESTION IMPLEMENTATION
         <div class="pu-divider"><span>{{_ 'startdetails-suggestion-label'}}</span></div>

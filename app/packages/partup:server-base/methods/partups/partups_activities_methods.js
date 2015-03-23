@@ -1,7 +1,6 @@
 Meteor.methods({
-
     /**
-     * Insert a Activity
+     * Insert an Activity
      *
      * @param {mixed[]} fields
      */
@@ -14,8 +13,12 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         try {
-            // TODO: Set all activity fields
-
+            var created_by = {};
+            created_by._id = upper._id;
+            created_by.name = upper.name;
+            fields.created_by = created_by;
+            fields.created_at = Date.now();
+            fields.updated_at = Date.now();
             fields.partup_id = partup._id;
             fields._id = Activities.insert(fields);
 
