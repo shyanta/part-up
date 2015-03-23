@@ -9,8 +9,6 @@ Accounts.onCreateUser(function(options, user) {
         user.profile = { name: name };
     }
 
-    Event.emit('users.inserted', user);
-
     return user;
 });
 
@@ -18,4 +16,8 @@ Accounts.validateNewUser(function (user) {
     if(Meteor.users.findOne({email: user.email})) {
         throw new Meteor.Error(403, "Email already exists");
     }
+
+    Event.emit('users.inserted', user);
+
+    return true;
 });
