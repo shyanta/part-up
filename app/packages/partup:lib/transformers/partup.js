@@ -39,6 +39,7 @@ Partup.transformers.partup = {
             location: {
                 country: fields.location_input
             },
+            image: fields.image,
             // meta fields
             created_at: new Date(),
             creator_id: upper._id,

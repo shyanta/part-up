@@ -35,3 +35,7 @@ velocity:console-reporter
 momentjs:moment
 chrismbeckett:toastr
 splendido:accounts-meld
+
+cfs:standard-packages
+cfs:s3
+cfs:filesystem
