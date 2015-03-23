@@ -8,7 +8,7 @@ ServiceConfiguration.configurations.upsert({
     $set: {
         appId: process.env['FACEBOOK_APP_ID'],
         loginStyle: "popup",
-        appSecret: process.env['FACEBOOK_APP_SECRET'],
+        secret: process.env['FACEBOOK_APP_SECRET'],
     }
 });
 
