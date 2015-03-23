@@ -40,6 +40,7 @@ AutoForm.hooks({
     registerRequiredForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             event.preventDefault();
+            var self = this
 
             Accounts.createUser({
                 email: insertDoc.email,
@@ -53,7 +54,7 @@ AutoForm.hooks({
                     Partup.notify.iError('generic-error');
                     return false;
                 }
-
+                self.done();
                 Router.go('register-details');
             })
         }
