@@ -82,6 +82,7 @@ session@1.1.0
 sha@1.0.3
 spacebars@1.0.6
 spacebars-compiler@1.0.5
+splendido:accounts-meld@1.2.0
 srp@1.0.3
 stevezhu:lodash@3.5.0
 tap:i18n@1.4.1
