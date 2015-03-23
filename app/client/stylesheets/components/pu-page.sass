@@ -1,8 +1,18 @@
 .pu-page
+    background-color: $color-background
+    position: relative
+    z-index: 0
     padding-left: 40px
     padding-right: $grid-column
     padding-top: 50px
     padding-bottom: 50px
+
+    h1
+        margin-top: -10px
+
+    .pu-form-highlighted
+        margin-left: -40px
+        margin-right: -40px
 
     &-modal
         padding-top: 50px
@@ -12,9 +22,29 @@
         &-haspager
             padding-top: 90px
 
-    h1
-        margin-top: -10px
+    &-timeline
+        &:after
+            content: ''
+            display: block
+            position: absolute
+            top: 0
+            bottom: 0
+            left: 40px + 20px // 40px is the page padding
+            width: 1px
+            border-left: 1px dotted #ccc
+            z-index: -1
 
-    .pu-form-highlighted
-        margin-left: -40px
-        margin-right: -40px
+        > header
+            background-color: $color-background
+            padding: 5px 0
+            margin: -5px 0 (-5px + 40px) 0 // 40px is the margin-bottom
+
+        .pu-update
+            .pu-avatar
+                border: 5px solid $color-background
+                width: 50px
+                height: 50px
+                margin: -5px
+
+            + .pu-update
+                margin-top: -5px + 50px

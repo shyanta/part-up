@@ -1,5 +1,40 @@
 <template name="PagesPartupDetailUpdates">
-    <div class="pu-page">
-        <h2>Updates</h2>
+    <div class="pu-page pu-page-timeline">
+
+        <!-- Header buttons -->
+        <header class="pu-pageheader">
+            <section><a class="pu-button" href="#">Nieuw bericht</a></section>
+            <aside><a class="pu-button" href="#">Alle acties</a></aside>
+        </header>
+
+        <!-- For each update -->
+        {{#each updates }}
+
+            <!-- If new day: day switch separator -->
+
+            <section class="pu-update">
+                <aside>
+                    <figure class="pu-avatar" style="background-image: url('https://media.licdn.com/mpr/mpr/shrink_200_200/p/1/005/0ac/377/3229da5.jpg');">
+                        <a href="#" rel="author" title="Erik Soonieus" data-fullname="Erik Soonieus"></a>
+                    </figure>
+                    <p class="pu-sub-time">
+                        <time datetime="2008-02-14 20:00">10 min</time>
+                    </p>
+                </aside>
+                <section>
+                    <header>
+                        <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
+                        <a class="pu-button pu-button-text" href="#">Reageren</a>
+                    </header>
+                    <section>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae eveniet id officia tempore? Aliquam deserunt dolor laborum, porro tempore veniam.</p>
+                    </section>
+                    <footer>
+                        <!-- Comments -->
+                    </footer>
+                </section>
+            </section>
+        {{/each }}
+
     </div>
 </template>
