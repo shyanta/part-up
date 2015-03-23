@@ -8,20 +8,22 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
+        'mongo',
         'aldeed:simple-schema',
         'aldeed:autoform',
         'comerc:autoform-fixtures',
-        'mongo',
-        'chrismbeckett:toastr'
+        'chrismbeckett:toastr',
+        'cfs:standard-packages'
     ]);
 
     api.addFiles([
         'namespace.js',
+        'notify/notify.js',
         'collections/activities.js',
         'collections/fixtures.js',
         'collections/notifications.js',
         'collections/partups.js',
-        'notify/notify.js',
+        'collections/images.js',
         'schemas/activity.js',
         'schemas/network.js',
         'schemas/partup.js',
@@ -50,4 +52,5 @@ Package.onUse(function(api) {
     api.export('Partups');
     api.export('Activities');
     api.export('Notifications');
+    api.export('Images');
 });

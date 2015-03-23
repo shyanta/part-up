@@ -78,7 +78,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         regEx: SimpleSchema.RegEx.Id
     },
     image: {
-        type: Object,
+        type: String,
         optional: true
     },
     location: {
