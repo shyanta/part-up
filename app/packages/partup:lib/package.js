@@ -28,11 +28,11 @@ Package.onUse(function(api) {
         'services/placeholder.js',
         'services/partup.js',
         'transformers/partup.js',
-        'collections/fixtures.js',
-        'notify/notify.js'
+        'collections/fixtures.js'
     ]);
 
     api.addFiles([
+        'notify/notify.js',
         'ui/dropdown.js'
     ], 'client');
 
