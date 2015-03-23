@@ -3,11 +3,11 @@
     <article class="pu-layout">
         <div class="pu-sub-page">
             <div class="pu-sub-partupdetail-left">
-                {{> PartialsPartupDetailNavigation partup=partup partupSupporters=partupSupporters }}
+		{{> PartialsPartupDetailNavigation partup=partup partupSupporters=partupSupporters }}
                 {{> yield region='partup-page' }}
             </div>
             <div class="pu-sub-partupdetail-right">
-                {{> PartialsPartupDetailSidebar partup=partup }}
+                {{> PartialsPartupDetailSidebar partup=partup partupSupporters=partupSupporters partupUppers=partupUppers }}
             </div>
         </div>
     </article>

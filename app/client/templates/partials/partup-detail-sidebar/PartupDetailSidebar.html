@@ -12,10 +12,9 @@
             <section>
                 <h3>{{_ 'partup-detail-uppers-title' }}</h3>
                 <ul>
-                    <li>Pim Verlaan</li>
-                    <li>Ralph Boeije</li>
-                    <li>Nick de Bruijn</li>
-                    <li>Bekijk de suggesties</li>
+                    {{#each partupUppers }}
+                        <li>{{ profile.name }}</li>
+                    {{/each }}
                 </ul>
                 <a href="" class="pu-button">{{_ 'partup-detail-uppers-invitebutton' }}</a>
             </section>
@@ -34,7 +33,7 @@
                 <h3>{{_ 'partup-detail-supporters-title' partup.supporters.length }}</h3>
                 <ul class="pu-list pu-list-horizontal">
                     {{#each partupSupporters }}
-                        <li>{{ name }}</li>
+                        <li>{{ profile.name }}</li>
                     {{/each }}
                 </ul>
                 <a data-joinsupporters class="pu-button">{{_ 'partup-detail-supporters-join' }}</a>

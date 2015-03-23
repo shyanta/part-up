@@ -15,9 +15,24 @@ Template.PagesPartupDetail.helpers({
         return getPartup;
     },
 
+    partupUppers: function () {
+        var partup = getPartup();
+
+        if (! partup) return [];
+
+        var uppers = partup.uppers || [];
+
+        return Meteor.users.find({ _id: { $in: uppers } });
+    },
+
     partupSupporters: function () {
         var partup = getPartup();
-        return partup ? Meteor.users.find({ _id: { $in: partup.supporters} }) : [];
+
+        if (! partup) return [];
+
+        var supporters = partup.supporters || [];
+
+        return Meteor.users.find({ _id: { $in: supporters } });
     }
 
 });
