@@ -7,8 +7,7 @@
 var activityBaseSchema = new SimpleSchema({
     description: {
         type: String,
-        max: 500,
-        optional: true
+        max: 500
     },
     end_date: {
         type: Date,
