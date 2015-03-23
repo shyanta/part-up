@@ -3,7 +3,7 @@ Template.WidgetStartActivities.helpers({
     'placeholders': Partup.services.placeholders.startactivities,
     'partupActivities': function () {
         var partupId = Session.get('partials.start-partup.current-partup');
-        return Activities.find({partup_id: partupId});
+        return Activities.find({ partup_id: partupId }, {sort: { created_at: -1 }});
     },
     'showDateButton': function () {
         return Session.get('showDateButton');
