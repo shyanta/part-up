@@ -6,3 +6,4 @@ Partup.schemas = {
 Partup.services = {};
 Partup.transformers = {};
 Partup.ui = {};
+Partup.notify = {};
