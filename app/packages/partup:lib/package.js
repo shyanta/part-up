@@ -11,7 +11,8 @@ Package.onUse(function(api) {
         'aldeed:simple-schema',
         'aldeed:autoform',
         'comerc:autoform-fixtures',
-        'mongo'
+        'mongo',
+        'chrismbeckett:toastr'
     ]);
 
     api.addFiles([
@@ -27,7 +28,8 @@ Package.onUse(function(api) {
         'services/placeholder_service.js',
         'services/partup_service.js',
         'transformers/partup_transformer.js',
-        'collections/fixtures.js'
+        'collections/fixtures.js',
+        'notify/notify.js'
     ]);
 
     api.addFiles([
