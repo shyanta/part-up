@@ -9,5 +9,7 @@ Accounts.onCreateUser(function(options, user) {
         user.profile = { name: name };
     }
 
+    Event.emit('users.inserted', user);
+
     return user;
 });
