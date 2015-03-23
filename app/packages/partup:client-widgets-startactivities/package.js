@@ -10,6 +10,7 @@ Package.onUse(function (api) {
         'templating',
         'aldeed:autoform',
         'partup:lib',
+        'partup:client-utils',
         'tap:i18n'
     ], 'client');
 
