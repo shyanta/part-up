@@ -14,24 +14,29 @@
 
             <section class="pu-update">
                 <aside>
-                    <figure class="pu-avatar" style="background-image: url('https://media.licdn.com/mpr/mpr/shrink_200_200/p/1/005/0ac/377/3229da5.jpg');">
-                        <a href="#" rel="author" title="Erik Soonieus" data-fullname="Erik Soonieus"></a>
+                    <figure class="pu-avatar" style="background-image: url('{{ user.avatar }}');">
+                        <a href="#" rel="author" title="{{ user.fullname }}" data-fullname="{{ user.fullname }}"></a>
                     </figure>
                     <p class="pu-sub-time">
-                        <time datetime="2008-02-14 20:00">10 min</time>
+                        <time datetime="yyyy-mm-dd hh:mm">{{ updateTime time }}</time><!-- todo: nice format -->
                     </p>
                 </aside>
                 <section>
                     <header>
-                        <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                        <a class="pu-button pu-button-text" href="#">Reageren</a>
+                        <h3><a href="#">{{ title }}</a></h3>
+                        <a class="pu-button pu-button-text" href="#">{{_ 'partup-detail-updates-comment-button' }}</a>
                     </header>
-                    <section>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae eveniet id officia tempore? Aliquam deserunt dolor laborum, porro tempore veniam.</p>
-                    </section>
-                    <footer>
-                        <!-- Comments -->
-                    </footer>
+
+                    <!-- Type dependent content -->
+                    {{#if equals type 'changed_description' }}
+                        <section>
+                            <p>{{ data.description }}</p>
+                        </section>
+                    {{/if }}
+
+
+                    <!-- Comments -->
+                    <footer></footer>
                 </section>
             </section>
         {{/each }}

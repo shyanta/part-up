@@ -1,3 +1,7 @@
+Template.registerHelper("equals", function (a, b) {
+    return (a == b);
+});
+
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
@@ -10,11 +14,12 @@ Template.PagesPartupDetailUpdates.helpers({
             {
                 id: 'j1hb233hb2j3h4',
                 user: {
-                    fullname: 'Jesse de Vries',
+                    fullname: 'Erik Soonieus',
                     profile_url: '',
-                    avatar: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p320x320/10372513_10152630117689315_2823570313206588958_n.jpg?oh=e76400243d7ed2678ba0d74edd6640b1&oe=55B4CF02&__gda__=1437886258_2a6463042ac4dcef71cdbee34d6c55c7'
+                    avatar: 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/1/005/0ac/377/3229da5.jpg'
                 },
                 title: 'Anti-contract getekend',
+                type: 'signed_anticontract',
                 data: {
                     //
                 },
@@ -28,11 +33,12 @@ Template.PagesPartupDetailUpdates.helpers({
                 user: {
                     fullname: 'Jesse de Vries',
                     profile_url: '',
-                    avatar: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p320x320/10372513_10152630117689315_2823570313206588958_n.jpg?oh=e76400243d7ed2678ba0d74edd6640b1&oe=55B4CF02&__gda__=1437886258_2a6463042ac4dcef71cdbee34d6c55c7'
+                    avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg'
                 },
-                title: 'Anti-contract getekend',
+                title: 'Omschrijving gewijzigd',
+                type: 'changed_description',
                 data: {
-                    //
+                    description: 'Wie helpt mij in een Part-up om een complete huisstijl te bedenken, ontwikkelen en uit te werken voor onze goed nieuwe start-up?'
                 },
                 time: '2015-03-23T14:39:41.711Z',
                 comments: [
@@ -40,6 +46,11 @@ Template.PagesPartupDetailUpdates.helpers({
                 ]
             }
         ];
+    },
+
+    'updateTime': function(input) {
+        // todo
+        return '10 min';
     }
 
 });
