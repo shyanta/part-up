@@ -18,11 +18,8 @@ Part-Up
 - start_date (ISODate)
 - end_date (ISODate)
 - image (object)
-- uppers (array of user IDs. Since online status has to be fetched anyway, there is no use for embedding) 
-- supporters (array of user objects)
-    - ID
-    - name
-    - image
+- uppers (array of user IDs. Since online status has to be fetched anyway, there is no use for embedding)
+- supporters (array of user IDs)
 - activities (array of activity IDs)
 - anticontracts (array of object)
     - ID
@@ -42,7 +39,7 @@ Part-Up
                 - type (string: wants/has/can)
                 - type_data
                     - amount (int)
-                    - description (string) 
+                    - description (string)
     - signed_by_all (bool)
     - uppers_signed (array of user objects)
         - ID
@@ -94,7 +91,7 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - partup_id
 - type (string: update/message/etc)
 - type_data (object)
-    - upper 
+    - upper
         - ID
         - name
         - image
@@ -178,5 +175,5 @@ If we would choose to embed the budget, it would be pretty write-heavy because i
 - Invitations to Partups are not saved.
 - Comments on Activity or Update?
 - Updates history?
-- Does the budget reflect the current situation, or the latest signed anti-contract? 
-- What are the 2 covered questions in 20-partup-starten1.png? 
+- Does the budget reflect the current situation, or the latest signed anti-contract?
+- What are the 2 covered questions in 20-partup-starten1.png?
