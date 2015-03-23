@@ -24,9 +24,9 @@ Package.onUse(function(api) {
         'schemas/update.js',
         'schemas/tag.js',
         'schemas/network.js',
-        'services/placeholder_service.js',
-        'services/partup_service.js',
-        'transformers/partup_transformer.js',
+        'services/placeholder.js',
+        'services/partup.js',
+        'transformers/partup.js',
         'collections/fixtures.js'
     ]);
 

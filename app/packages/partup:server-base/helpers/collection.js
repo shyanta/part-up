@@ -3,6 +3,7 @@ var pluralize = Npm.require('pluralize');
 /**
  * Find one document, throw an error if it doesn't exist.
  *
+ * @method findOneOrFail
  * @return {mixed}
  */
 Mongo.Collection.prototype.findOneOrFail = function(selector, options) {

@@ -1,4 +1,9 @@
-// Define the base Activity schema
+/**
+ * Base Activity schema
+ * @name partupBaseSchema
+ * @memberOf partup.schemas
+ * @private
+ */
 var activityBaseSchema = new SimpleSchema({
     description: {
         type: String,
@@ -19,7 +24,11 @@ var activityBaseSchema = new SimpleSchema({
     }
 });
 
-// Activity entity schema
+/**
+ * Activity entity schema
+ * @name activity
+ * @memberOf partup.schemas.entities
+ */
 Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
     _id: {
         type: String,
@@ -124,7 +133,11 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
     }
 }]);
 
-// Activity form schema
+/**
+ * Activity form schema
+ * @name startActivities
+ * @memberOf partup.schemas.forms
+ */
 Partup.schemas.forms.startActivities = new SimpleSchema([activityBaseSchema, {
     //
 }]);

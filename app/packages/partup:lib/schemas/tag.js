@@ -1,4 +1,9 @@
-// Define the base Tag schema
+/**
+ * Base Tag schema
+ * @name tagBaseSchema
+ * @memberOf partup.schemas
+ * @private
+ */
 var tagBaseSchema = new SimpleSchema({
     _id: {
         type: String,
@@ -6,7 +11,11 @@ var tagBaseSchema = new SimpleSchema({
     }
 });
 
-// Tag entity schema
+/**
+ * Tag entity schema
+ * @name tag
+ * @memberOf partup.schemas.entities
+ */
 Partup.schemas.entities.tag = new SimpleSchema([tagBaseSchema, {
     count: {
         type: Number,
@@ -18,7 +27,11 @@ Partup.schemas.entities.tag = new SimpleSchema([tagBaseSchema, {
     }
 }]);
 
-// Tag form schema
+/**
+ * tag form schema
+ * @name tag
+ * @memberOf partup.schemas.forms
+ */
 Partup.schemas.forms.tag = new SimpleSchema([tagBaseSchema, {
     //
 }]);

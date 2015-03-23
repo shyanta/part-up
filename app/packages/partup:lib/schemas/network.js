@@ -1,4 +1,9 @@
-// Define the base Network schema
+/**
+ * Base Network schema
+ * @name networkBaseSchema
+ * @memberOf partup.schemas
+ * @private
+ */
 var networkBaseSchema = new SimpleSchema({
     name: {
         type: String,
@@ -6,7 +11,11 @@ var networkBaseSchema = new SimpleSchema({
     }
 });
 
-// Network entity schema
+/**
+ * Network entity schema
+ * @name network
+ * @memberOf partup.schemas.entities
+ */
 Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
     _id: {
         type: String,
@@ -18,7 +27,11 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
     }
 }]);
 
-// Network form schema
+/**
+ * network form schema
+ * @name network
+ * @memberOf partup.schemas.forms
+ */
 Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
     //
 }]);
