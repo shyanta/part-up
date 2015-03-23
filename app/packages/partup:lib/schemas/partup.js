@@ -15,6 +15,10 @@ var partupBaseSchema = new SimpleSchema({
     name: {
         type: String,
         max: 40
+    },
+    image: {
+        type: String,
+        optional: true
     }
 });
 
@@ -76,10 +80,6 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     creator_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
-    },
-    image: {
-        type: String,
-        optional: true
     },
     location: {
         type: Object,
