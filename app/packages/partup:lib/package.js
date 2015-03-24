@@ -14,7 +14,8 @@ Package.onUse(function(api) {
         'comerc:autoform-fixtures',
         'chrismbeckett:toastr',
         'cfs:standard-packages',
-        'momentjs:moment'
+        'momentjs:moment',
+        'tap:i18n'
     ]);
 
     api.use([
@@ -43,7 +44,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'notify/notify.js',
         'ui/dropdown.js',
-        'ui/dateFormatters.js'
+        'ui/dateFormatters.js',
+        'ui/helpers.js'
     ], 'client');
 
     api.addFiles([
