@@ -6,7 +6,6 @@
 
 partup:lib
 
-partup:client-widgets-startdetails
 partup:client-intro
 partup:client-utils
 partup:client-partups
@@ -33,6 +32,7 @@ momentjs:moment
 chrismbeckett:toastr
 splendido:accounts-meld
 
+partup:client-widgets-startdetails
 partup:client-widgets-startactivities
 partup:client-widgets-registerrequired
 partup:client-widgets-registeroptional
@@ -40,3 +40,4 @@ partup:client-widgets-registeroptional
 cfs:standard-packages
 cfs:s3
 cfs:filesystem
+cfs:graphicsmagick
