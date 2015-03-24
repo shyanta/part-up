@@ -17,8 +17,9 @@ Template.PartialDropdownUpdatesActions.destroyed = function(){
 
 Template.PartialDropdownUpdatesActions.events({
     'click [data-toggle-menu]': ClientWidgetsDropdowns.dropdownClickHandler,
-    'click [data-logout]': function eventClickLogout (event, template) {
-        Meteor.logout();
+    'click [data-select-option]': function eventSelectOption(event, template){
+        var key = $(event.target).data("translate");
+        Session.set('partial-dropdown-updates-actions.selected', key);
     }
 })
 
@@ -26,7 +27,10 @@ Template.PartialDropdownUpdatesActions.helpers({
     menuOpen: function(){
         return Session.get('partial-dropdown-updates-actions.opened');
     },
-    upperPartups: function(){
-        return Partups.find();
+    selectedAction: function(){
+        return Session.get('partial-dropdown-updates-actions.selected') ? TAPi18n.__(Session.get('partial-dropdown-updates-actions.selected')) : false;
+    },
+    notSelected: function(a){
+        return a !== Session.get('partial-dropdown-updates-actions.selected');
     }
 });
