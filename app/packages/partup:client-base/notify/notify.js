@@ -1,4 +1,4 @@
-if (Meteor.isClient && toastr) {
+if (toastr && jQuery) {
 
     // Wrapper for Toastr
     Partup.notify.info = function notifyInfo(msg) {
