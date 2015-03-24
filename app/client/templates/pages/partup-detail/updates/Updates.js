@@ -9,8 +9,7 @@ Template.PagesPartupDetailUpdates.helpers({
 
     'updates': function helperUpdates () {
 
-        // Stub data:
-        return [
+        var DATA = [
             {
                 id: 'j1hb233hb2j3h4',
                 user: {
@@ -46,11 +45,27 @@ Template.PagesPartupDetailUpdates.helpers({
                 ]
             }
         ];
+
+        var indexify = function indexify (updates) {
+            return _.map(updates, function (update, idx) {
+                update.arrayIndex = idx;
+                return update;
+            });
+        };
+
+        // Stub data:
+        return indexify(DATA);
     },
 
-    'updateTime': function(input) {
-        // todo
-        return '10 min';
+    'anotherDay': function (update, updates) {
+        var previousUpdate = updates[update.arrayIndex - 1];
+        var previousMoment = moment();
+        if(previousUpdate) {
+            previousMoment = moment(previousUpdate.time);
+        }
+        var currentMoment= moment(update.time);
+
+        return previousMoment.diff(currentMoment) > 24 * 60 * 60 * 1000;
     }
 
 });

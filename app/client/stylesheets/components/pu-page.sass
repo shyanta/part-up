@@ -23,6 +23,8 @@
             padding-top: 90px
 
     &-timeline
+        $dotted-line-color: #ccc
+
         &:after
             content: ''
             display: block
@@ -31,7 +33,7 @@
             bottom: 0
             left: 40px + 20px // 40px is the page padding
             width: 1px
-            border-left: 1px dotted #ccc
+            border-left: 1px dotted $dotted-line-color
             z-index: -1
 
         > header
@@ -46,5 +48,30 @@
                 height: 50px
                 margin: -5px
 
-            + .pu-update
+        .pu-sub-separator
+            position: relative
+            padding-left: 20px + 40px
+            font-size: 12px
+            font-family: $font-primary
+            letter-spacing: 0.6px
+            color: #494949
+
+            &:after
+                content: ''
+                display: block
+                position: absolute
+                top: 50%
+                left: 1px + 20px // position of vertical line
+                width: 40px - 8px
+                height: 1px
+                border-top: 1px dotted $dotted-line-color
+
+            .fa
+                margin-left: 3px
+                font-size: 10px
+
+        .pu-update,
+        .pu-sub-separator
+            + .pu-update,
+            + .pu-sub-separator
                 margin-top: -5px + 50px

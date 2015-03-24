@@ -9,8 +9,12 @@
 
         <!-- For each update -->
         {{#each updates }}
-
-            <!-- If new day: day switch separator -->
+            {{#if anotherDay . updates }}
+                <section class="pu-sub-separator">
+                    {{ partupDatePartupTimeline time }}
+                    <span class="fa fa-long-arrow-down"></span>
+                </section>
+            {{/if }}
 
             <section class="pu-update">
                 <aside>
