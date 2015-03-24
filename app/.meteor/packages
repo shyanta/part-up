@@ -8,7 +8,6 @@ partup:lib
 
 partup:client-widgets-startdetails
 partup:client-intro
-partup:client-utils
 partup:client-partups
 partup:server-base
 
