@@ -14,7 +14,15 @@ AutoForm.hooks({
     registerOptionalForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             event.preventDefault();
-            var self = this
+            var self = this;
+
+            Meteor.call('users.update', insertDoc, function(error, res){
+                if(error) {
+                    console.log('something went wrong', error);
+                    return false;
+                }
+                Router.go('discover');
+            });
 
             //TODO
 
