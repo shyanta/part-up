@@ -7,9 +7,11 @@
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
             <div class="pu-upload">
-                <img src="{{ userImage.url }}" alt="">
-                <button class="pu-button pu-button-secondary">{{_ 'registeroptional-form-image-button'}}</button>
+                <img src="{{ profilePicture.url }}" alt="" data-image-placeholder>
+                <button class="pu-button pu-button-browse" data-browse-photos>{{_ 'registeroptional-form-image-button'}}</button>
+                <input type="file" class="pu-fileinput" data-profile-picture-input>
                 <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
+                {{> afFieldInput name="image" type="hidden"}}
             </div>
         </div>
 

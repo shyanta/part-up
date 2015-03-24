@@ -4,7 +4,13 @@ Template.WidgetRegisterOptional.helpers({
     profile: function() {
         return Meteor.user().profile;
     },
-    userImage: function() {
+    profilePicture: function() {
+        var uploadedImageID = Session.get('partials.register-optional.uploaded-image');
+
+        if (uploadedImageID) {
+            return Images.findOne({ _id: uploadedImageID });
+        }
+
         var user = Meteor.user();
 
         if (user && user.profile && user.profile.image) {
@@ -14,7 +20,24 @@ Template.WidgetRegisterOptional.helpers({
 });
 
 Template.WidgetRegisterOptional.events({
-    //
+    'click [data-browse-photos]': function eventClickBrowse(event, template){
+        event.preventDefault();
+
+        // in stead fire click event on file input
+        var input = $('input[data-profile-picture-input]');
+        input.click();
+    },
+    'change [data-profile-picture-input]': function eventChangeFile(event, template){
+        FS.Utility.eachFile(event, function (file) {
+            Images.insert(file, function (error, image) {
+                // TODO: Handle error in frontend
+                // TODO: Somehow show the image in frontend
+                template.$('input[name=image]').val(image._id);
+                Meteor.subscribe('images.one', image._id);
+                Session.set('partials.register-optional.uploaded-image', image._id);
+            });
+        });
+    }
 });
 
 AutoForm.hooks({

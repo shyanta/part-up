@@ -28,6 +28,10 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
  * @memberOf partup.schemas.forms
  */
 Partup.schemas.forms.registerOptional = new SimpleSchema({
+    image: {
+        type:String,
+        max: 255
+    },
     location_input: {
         type:String,
         max: 255
