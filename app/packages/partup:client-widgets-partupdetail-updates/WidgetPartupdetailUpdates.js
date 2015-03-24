@@ -15,10 +15,12 @@ Template.WidgetPartupdetailUpdates.helpers({
     'anotherDay': function (update, updates) {
         var previousUpdate = updates[update.arrayIndex - 1];
         var previousMoment = moment();
-        if(previousUpdate) {
+
+        if (previousUpdate) {
             previousMoment = moment(previousUpdate.time);
         }
-        var currentMoment= moment(update.time);
+
+        var currentMoment = moment(update.time);
 
         return previousMoment.diff(currentMoment) > 24 * 60 * 60 * 1000;
     }
