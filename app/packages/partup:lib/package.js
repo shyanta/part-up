@@ -46,7 +46,6 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'autorun.js',
-        'notify/notify.js',
         'ui/dropdown.js'
     ], 'client');
 
