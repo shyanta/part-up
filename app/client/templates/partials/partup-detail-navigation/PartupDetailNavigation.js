@@ -2,9 +2,13 @@
 /* Partial rendered */
 /*************************************************************/
 Template.PartialsPartupDetailNavigation.rendered = function() {
+    if(!window || !document) return;
+
     var OFFSET = 100;
     var pageElm = document.querySelector('.pu-layout .pu-sub-page');
+    if(!pageElm) return;
     var leftElm = pageElm.querySelector('.pu-sub-partupdetail-left');
+    if(!leftElm) return;
 
     var calculateBackgroundWidth = function calculateBackgroundWidth () {
         var backgroundWidth = (window.innerWidth - pageElm.offsetWidth) / 2 + leftElm.offsetWidth + OFFSET;

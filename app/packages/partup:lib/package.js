@@ -18,11 +18,16 @@ Package.onUse(function(api) {
         'cfs:s3',
         'cfs:filesystem',
         'cfs:graphicsmagick',
+        'momentjs:moment',
+        'tap:i18n'
     ]);
+
+    api.use([
+        'templating'
+    ], 'client');
 
     api.addFiles([
         'namespace.js',
-        'notify/notify.js',
         'collections/activities.js',
         'collections/fixtures.js',
         'collections/notifications.js',
@@ -42,7 +47,6 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'autorun.js',
-        'notify/notify.js',
         'ui/dropdown.js'
     ], 'client');
 

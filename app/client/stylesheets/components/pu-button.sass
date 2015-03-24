@@ -9,7 +9,7 @@
     font-size: 15px
     line-height: 1em
     cursor: pointer
-    transition: background-color $animation-duration, color $animation-duration, border-color $animation-duration
+    transition: background-color $animation-duration, color $animation-duration, border-color $animation-duration, opacity $animation-duration
     box-shadow: inset 0 0 0 1px transparent
     background-color: $color-sunshade
     text-decoration: none
@@ -227,3 +227,10 @@
     &-no-side-padding
         padding-left: 0
         padding-right: 0
+
+    &-contribute
+        background-color: $color-disabled
+        transition: background-color $animation-duration-slow
+
+        &:hover
+            background-color: darken($color-sunshade, 5%)

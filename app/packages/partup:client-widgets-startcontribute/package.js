@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-startactivities',
+    name: 'partup:client-widgets-startcontribute',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -15,9 +15,9 @@ Package.onUse(function (api) {
 
     api.addFiles([
         'package-tap.i18n',
-        'WidgetStartActivitiesPlaceholders.js',
-        'WidgetStartActivities.html',
-        'WidgetStartActivities.js',
+        'WidgetStartContributePlaceholders.js',
+        'WidgetStartContribute.html',
+        'WidgetStartContribute.js',
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], 'client');

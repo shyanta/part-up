@@ -1,12 +1,24 @@
 .pu-avatar
-    padding: 20px
-    border-radius: 20px
+    display: inline-block
+    width: 40px
+    height: 40px
+    border-radius: 50%
     background-color: $color-solid-gray
-    max-width: 40px
-    max-height: 40px
+    overflow: hidden
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+
+    img
+        width: 100%
+        min-width: 100%
+        min-height: 100%
+
+    a
+        display: block
+        width: inherit
+        height: inherit
 
     &-small
-        padding: 15px
-        border-radius: 15px
-        max-height: 30px
-        max-width: 30px
+        width: 30px
+        height: 30px

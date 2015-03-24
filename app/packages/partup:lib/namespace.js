@@ -34,12 +34,6 @@ Partup.services = {};
 Partup.transformers = {};
 
 /**
- @namespace Notify
- @name partup.notify
- */
-Partup.notify = {};
-
-/**
  @namespace UI
  @name partup.ui
  */
