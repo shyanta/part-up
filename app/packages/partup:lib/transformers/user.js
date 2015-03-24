@@ -11,20 +11,20 @@ Partup.transformers.profile = {
      * @memberOf partup.transformers.partup
      * @param {object} user
      */
-    'toFormOptional':function(user) {
+    'toFormRegisterOptional':function(user) {
         return {
             _id: user.profile._id,
             image: user.profile.image,
             location_input: Partup.services.partup.locationToLocationInput(user.profile.location),
-            description: partup.description,
-            tags_input: partup.tags.join(','),
+            description: user.profile.description,
+            tags_input: user.profile.tags.join(','),
             facebook: user.profile.facebook,
             twitter: user.profile.twitter,
             instagram: user.profile.instagram,
             linkedin: user.profile.linkedin,
             website: user.profile.website,
+            phonenumber: user.profile.phonenumber,
             skype: user.profile.skype
-
         };
     },
 
@@ -48,6 +48,7 @@ Partup.transformers.profile = {
             'profile.instagram': fields.instagram,
             'profile.linkedin': fields.linkedin,
             'profile.website': fields.website,
+            'profile.phonenumber': fields.phonenumber,
             'profile.skype': fields.skype
         }
     }

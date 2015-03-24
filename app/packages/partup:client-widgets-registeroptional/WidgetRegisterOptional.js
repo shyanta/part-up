@@ -16,7 +16,14 @@ Template.WidgetRegisterOptional.helpers({
         if (user && user.profile && user.profile.image) {
             return Images.findOne({ _id: user.profile.image });
         }
-    }
+    },
+    fieldsFromUser: function() {
+        var user = Meteor.user();
+        if (user) {
+            return Partup.transformers.profile.toFormRegisterOptional(user);
+        }
+        return undefined;
+    },
 });
 
 Template.WidgetRegisterOptional.events({
