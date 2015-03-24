@@ -1,0 +1,14 @@
+<template name="PartialDropdownUpdatesActions">
+    <div class="pu-formdropdown">
+        <button class="pu-button pu-button-dropdown {{#if menuOpen}}pu-button-dropdown-active{{/if}}" data-toggle-menu>
+            Alle acties
+            <i class="fa {{#if menuOpen}}fa-caret-up {{else}}fa-caret-down{{/if}}"></i>
+        </button>
+        <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+            <li class="pu-dropdownitem"><a href="" data-toggle-menu>Hele lange actie bla bla</a></li>
+            <li class="pu-dropdownitem"><a href="" data-toggle-menu>Actie 2</a></li>
+            <li class="pu-dropdownitem"><a href="" data-toggle-menu>Actie 3</a></li>
+            <li class="pu-dropdownitem"><a href="" data-toggle-menu>Actie 4</a></li>
+        </ul>
+    </div>
+</template>

@@ -39,6 +39,9 @@ Package.onUse(function(api) {
         'menu/menu.html',
         'menu/menu.js',
 
+        'partials/updates-actions/updates-actions.html',
+        'partials/updates-actions/updates-actions.js',
+
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], 'client');
