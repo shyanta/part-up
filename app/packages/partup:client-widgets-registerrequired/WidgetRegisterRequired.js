@@ -1,6 +1,6 @@
 Template.WidgetRegisterRequired.helpers({
-    formSchema: Partup.schemas.forms.registerrequired,
-    placeholders: Partup.services.placeholders.registerrequired,
+    formSchema: Partup.schemas.forms.registerRequired,
+    placeholders: Partup.services.placeholders.registerRequired,
     totalNumberOfUppers: function() {
         return 42;
     }
