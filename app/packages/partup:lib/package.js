@@ -41,8 +41,6 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'ui/dropdown.js',
-        'ui/dateFormatters.js',
-        'ui/helpers.js'
     ], 'client');
 
     api.addFiles([

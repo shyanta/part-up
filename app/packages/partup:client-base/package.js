@@ -13,7 +13,8 @@ Package.onUse(function(api) {
         'partup:lib',
         'tap:i18n',
         'momentjs:moment',
-        'chrismbeckett:toastr'
+        'chrismbeckett:toastr',
+        'templating'
     ], ['client']);
 
     api.addFiles([
