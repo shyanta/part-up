@@ -179,12 +179,14 @@ Router.route('/register/details', {
     yieldRegions: {
         'PagesRegister': { to: 'page' },
         'PagesRegisterOptional': { to: 'register-page' }
-    },
-    onBeforeAction: function (pause) {
-        if (!Meteor.user()) {
-            pause();
+    }
+    /*
+    ,onBeforeAction: function () {
+        var user = Meteor.user();
+        if (! user) {
             Router.go('register');
         }
         this.next();
     }
+    */
 });
