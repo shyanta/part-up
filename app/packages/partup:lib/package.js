@@ -9,6 +9,7 @@ Package.describe({
 Package.onUse(function(api) {
     api.use([
         'mongo',
+        'tracker',
         'aldeed:simple-schema',
         'aldeed:autoform',
         'comerc:autoform-fixtures',
@@ -16,6 +17,7 @@ Package.onUse(function(api) {
         'cfs:standard-packages',
         'cfs:s3',
         'cfs:filesystem',
+        'cfs:graphicsmagick',
     ]);
 
     api.addFiles([
@@ -39,6 +41,7 @@ Package.onUse(function(api) {
     ]);
 
     api.addFiles([
+        'autorun.js',
         'notify/notify.js',
         'ui/dropdown.js'
     ], 'client');
@@ -46,7 +49,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'publications/notifications.js',
         'publications/partups.js',
-        'publications/images.js'
+        'publications/images.js',
+        'publications/users.js'
     ], 'server');
 
     // Namespace

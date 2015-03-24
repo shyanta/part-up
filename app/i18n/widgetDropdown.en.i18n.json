@@ -14,5 +14,11 @@
     "dropdown-menu-button-aboutpartup": "About Part-up",
     "dropdown-menu-button-questions": "Help/questions",
     "dropdown-menu-button-blog": "Blog",
-    "dropdown-menu-button-contact": "Contact"
+    "dropdown-menu-button-contact": "Contact",
+
+    "dropdown-updatesactions-option-default": "No action selected",
+    "dropdown-updatesactions-option-action1": "Action 1",
+    "dropdown-updatesactions-option-action2": "Action 2",
+    "dropdown-updatesactions-option-action3": "Action 3",
+    "dropdown-updatesactions-option-action4": "Action 4"
 }

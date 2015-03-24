@@ -23,7 +23,7 @@ Template.WidgetRegisterRequired.events({
     },
     'click [data-signuplinkedin]': function(event) {
         Meteor.loginWithLinkedin({
-            requestPermissions: ['email']
+            requestPermissions: ['r_emailaddress']
         }, function(error) {
 
             if(error) {

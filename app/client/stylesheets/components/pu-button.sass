@@ -122,10 +122,27 @@
         background-color: $color-background
         border: 2px solid $color-faded-gray
         color: $color-dusty-gray
+        display: block
 
         &:hover
+            color: $color-solid-black
             border-color: $color-solid-gray
             background-color: $color-background
+
+        &-active
+            border-color: $color-solid-gray
+            color: $color-solid-black
+            border-bottom: 0
+            border-bottom-left-radius: 0
+            border-bottom-right-radius: 0
+
+        i
+            display: inline-block
+            line-height: 17px
+            font-size: 16px
+            margin-left: 5px
+            margin-right: 0
+            float: right
     
     &-facebook
         background-color: $color-facebook
