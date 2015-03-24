@@ -33,7 +33,10 @@ Template.WidgetStartDetails.events({
 });
 
 Template.WidgetStartDetails.rendered = function() {
-    //
+    this.$('.pu-datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        
+    });
 };
 
 AutoForm.hooks({
