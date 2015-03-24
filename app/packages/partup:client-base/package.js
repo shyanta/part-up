@@ -15,5 +15,6 @@ Package.onUse(function(api) {
     ], ['client']);
 
     api.addFiles([
+        'bootstrap.js'
     ], ['client']);
 });
