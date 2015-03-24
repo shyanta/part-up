@@ -1,9 +1,9 @@
 /**
- * Contribute Form Required
- * @name contributeRequired
+ * Contribute Form
+ * @name contribute
  * @memberOf partup.schemas.forms
  */
-Partup.schemas.forms.contributeRequired = new SimpleSchema({
+Partup.schemas.forms.contribute = new SimpleSchema({
     name: {
         type: String,
         max: 255
@@ -16,13 +16,4 @@ Partup.schemas.forms.contributeRequired = new SimpleSchema({
         type: String,
         max: 255
     }
-});
-
-/**
- * Contribute Form Optional
- * @name contributeOptional
- * @memberOf partup.schemas.forms
- */
-Partup.schemas.forms.contributeOptional = new SimpleSchema({
-
 });

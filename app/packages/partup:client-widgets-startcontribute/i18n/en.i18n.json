@@ -1,24 +1,15 @@
 {
-    "startcontribute-heading-title": "What needs to be done?",
-    "startcontribute-heading-paragraph": "The goal of your part-up is clear now. Do you have an idea on what needs to be done? It's okay if you don't know it all. The other uppers will help you later to complement the activities.",
+    "startcontribute-heading-title": "What do you want to contribute?",
+    "startcontribute-heading-paragraph": "To get the job done, you most likely need others. Other uppers will add their contributions later. Together you make this part-up a big success.",
 
-    "startcontribute-button-adopt_activities": "Copy all activities from an existing part-up.",
+    "startcontribute-button-donate": "Just donate",
+    "startcontribute-button-contribute": "Contribute",
 
     "startcontribute-form-name-label": "Name the activity",
     "startcontribute-form-name-placeholder": "Try to use verbs",
     "startcontribute-form-name-validation": "max %d characters",
     "startcontribute-form-name-tooltip": "name tooltip",
 
-    "startcontribute-form-description-label": "Describe the activity",
-    "startcontribute-form-description-placeholder": "Let's keep it short and sharp",
-    "startcontribute-form-description-validation": "max %d characters",
-    "startcontribute-form-description-tooltip": "description toolttip",
-
-    "startcontribute-form-end_date-label": "Add a date if you like",
-    "startcontribute-form-end_date-placeholder": "Add a date if you like",
-    "startcontribute-form-end_date-validation": "Only dates in he future allowed",
-    "startcontribute-form-end_date-tooltip": "end_date tooltip",
-
-    "startcontribute-form-submit": "Create activity",
-    "startcontribute-button-next_page": "What will you contribute?"
+    "startcontribute-form-submit": "Save",
+    "startcontribute-button-next_page": "Find fellow Uppers"
 }
