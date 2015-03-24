@@ -22,7 +22,7 @@
                         <a href="#" rel="author" title="{{ user.fullname }}" data-fullname="{{ user.fullname }}"></a>
                     </figure>
                     <p class="pu-sub-time">
-                        <time datetime="{{ partupDateISO time }}">{{ partupDateActivity time }}</time>
+                        <time datetime="{{ partupDateISO time }}">{{ partupDatePartupActivity time }}</time>
                     </p>
                 </aside>
                 <section>
@@ -32,7 +32,7 @@
                     </header>
 
                     <!-- Type dependent content -->
-                    {{#if equals type 'changed_description' }}
+                    {{#if partupEquals type 'changed_description' }}
                         <section>
                             <p>{{ data.description }}</p>
                         </section>
