@@ -5,6 +5,9 @@ Template.PartialDropdownUpdatesActions.rendered = function(){
     // set default boolean values    
     Session.set(this.dropdownToggleBool, false);
 
+    // you can define a default selection here
+    // Session.set('partial-dropdown-updates-actions.selected', "dropdown-updatesactions-option-action1");
+
     ClientWidgetsDropdowns.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
 }
 
