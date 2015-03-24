@@ -5,7 +5,7 @@
  */
 Partup.schemas.forms.registerRequired = new SimpleSchema({
     name: {
-        type:String,
+        type: String,
         max: 255
     },
     email: {
