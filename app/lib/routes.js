@@ -179,5 +179,11 @@ Router.route('/register/details', {
     yieldRegions: {
         'PagesRegister': { to: 'page' },
         'PagesRegisterOptional': { to: 'register-page' }
+    },
+    onBeforeAction: function (pause) {
+        if (!Meteor.user()) {
+            // render the login template but keep the url in the browser the same
+            Router.go('register');
+        }
     }
 });
