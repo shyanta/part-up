@@ -43,3 +43,4 @@ cfs:s3
 cfs:filesystem
 cfs:graphicsmagick
 reactive-var
+deepwell:bootstrap-datepicker2
