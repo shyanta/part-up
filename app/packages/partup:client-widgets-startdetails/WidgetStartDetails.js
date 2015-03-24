@@ -12,6 +12,9 @@ Template.WidgetStartDetails.helpers({
             return Partup.transformers.partup.toFormStartPartup(partup);
         }
         return undefined;
+    },
+    uploadedImage: function() {
+        return Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
     }
 });
 
@@ -23,6 +26,7 @@ Template.WidgetStartDetails.events({
                 // TODO: Somehow show the image in frontend
                 template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
+                Session.set('partials.start-partup.uploaded-image', image._id);
             });
         });
     }
