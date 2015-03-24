@@ -1,0 +1,24 @@
+{
+    "startcontribute-heading-title": "Wat wil jij bijdragen?",
+    "startcontribute-heading-paragraph": "Om de activiteiten uit te voeren, heb je anderen nodig. Geef hieronder aan wat je zelf gaat doen. De andere Uppers voegen straks ook hun bijdragen aan de activiteiten toe. Samen maken jullie deze part-up tot een succes.",
+
+    "startcontribute-button-donate": "Ik doneer",
+
+    "startcontribute-form-name-label": "Geef de activiteit een naam",
+    "startcontribute-form-name-placeholder": "Probeer in werkwoorden te denken",
+    "startcontribute-form-name-validation": "maximaal %d tekens",
+    "startcontribute-form-name-tooltip": "name tooltip",
+
+    "startcontribute-form-description-label": "Beschrijf de activiteit",
+    "startcontribute-form-description-placeholder": "Hou het kort en krachtig",
+    "startcontribute-form-description-validation": "maximaal %d tekens",
+    "startcontribute-form-description-tooltip": "description toolttip",
+
+    "startcontribute-form-end_date-label": "Voeg eventueel een datum toe",
+    "startcontribute-form-end_date-placeholder": "Voeg eventueel een datum toe",
+    "startcontribute-form-end_date-validation": "Een datum in het verleden is niet mogelijk",
+    "startcontribute-form-end_date-tooltip": "deadline tooltip",
+
+    "startcontribute-form-submit": "Maak activiteit aan",
+    "startcontribute-button-next_page": "Wat ga jij bijdragen?"
+}

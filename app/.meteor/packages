@@ -42,3 +42,4 @@ cfs:s3
 cfs:filesystem
 cfs:graphicsmagick
 partup:client-widgets-startcontribute
+reactive-var

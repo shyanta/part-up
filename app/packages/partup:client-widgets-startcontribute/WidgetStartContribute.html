@@ -1,0 +1,36 @@
+<template name="WidgetStartContribute">
+    <h1 class="pu-title">{{_ 'startcontribute-heading-title'}}</h1>
+
+    <p class="pu-paragraph">{{_ 'startcontribute-heading-paragraph'}}</p>
+
+    <button class="pu-button pu-button-icon"><i class="fa fa-gift"></i>{{_ 'startcontribute-botton-donate'}}</button>
+
+    {{#each partupActivities}}
+        <article class="pu-block">
+            <h2 class="pu-block-title">{{name}}</h2>
+            <p class="pu-paragraph">{{description}}</p>
+            <time>{{end_date}}</time>
+
+            {{#unless contributionForm}}
+                <p><button class="pu-button pu-button-icon pu-button-contribute"><i class="fa fa-heart"></i>Bijdragen</button></p>
+            {{else}}
+                <form class="pu-form pu-form-block">
+                    <label class="pu-formfield pu-checkbox-field"><input type="checkbox" class="pu-checkbox"><span></span><i
+                            class="fa fa-magic"></i>Ik wil dit</label>
+                    <label class="pu-formfield pu-checkbox-field"><input type="checkbox" class="pu-checkbox"><span></span><i
+                            class="fa fa-user-plus"></i>Ik kan dit doen voor &euro;</label>
+                    <label class="pu-formfield pu-checkbox-field"><input type="checkbox" class="pu-checkbox"
+                                                                         checked><span></span><i class="fa fa-wrench"></i>Ik heb
+                        hiervoor beschikbaar</label>
+
+                    <button class="pu-button pu-button-icon"><i class="fa fa-heart"></i>Opslaan</button>
+                </form>
+            {{/unless}}
+        </article>
+    {{/each}}
+
+
+    <button href="#" class="pu-button pu-button-primary"
+            id="nextPage">{{_ 'startactivities-button-next_page' }}</button>
+
+</template>
