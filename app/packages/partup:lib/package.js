@@ -16,6 +16,7 @@ Package.onUse(function(api) {
         'cfs:standard-packages',
         'cfs:s3',
         'cfs:filesystem',
+        'cfs:graphicsmagick',
     ]);
 
     api.addFiles([

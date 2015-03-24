@@ -40,3 +40,4 @@ partup:client-widgets-registeroptional
 cfs:standard-packages
 cfs:s3
 cfs:filesystem
+cfs:graphicsmagick
