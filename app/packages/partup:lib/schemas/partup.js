@@ -107,20 +107,10 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String
     },
     supporters: {
-        type: [Object],
-        optional: true
+        type: [String],
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
     },
-        "supporters.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-        "supporters.$.image": {
-            type: Object,
-            optional: true
-        },
-        "supporters.$.name": {
-            type: String
-        },
     tags: {
         type: [String],
         minCount: 1
@@ -130,13 +120,10 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         defaultValue: Date.now()
     },
     uppers: {
-        type: [Object],
-        optional: true
-    },
-        "uppers.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        }
+        type: [String],
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
+    }
 }]);
 
 /**
@@ -146,7 +133,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
  */
 Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
     location_input: {
-        type:String,
+        type: String,
         max: 255
     },
     tags_input: {

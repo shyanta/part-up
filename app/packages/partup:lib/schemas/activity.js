@@ -110,7 +110,7 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         type: Date,
         defaultValue: Date.now()
     },
-    created_by: {
+    creator_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },

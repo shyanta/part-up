@@ -13,7 +13,10 @@ Package.onUse(function(api) {
         'aldeed:autoform',
         'comerc:autoform-fixtures',
         'chrismbeckett:toastr',
-        'cfs:standard-packages'
+        'cfs:standard-packages',
+        'cfs:s3',
+        'cfs:filesystem',
+        'cfs:graphicsmagick',
     ]);
 
     api.addFiles([
@@ -42,7 +45,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'publications/notifications.js',
-        'publications/partups.js'
+        'publications/partups.js',
+        'publications/images.js'
     ], 'server');
 
     // Namespace

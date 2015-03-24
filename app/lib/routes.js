@@ -131,7 +131,7 @@ Router.route('/start/:_id/contribute', {
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
         'PagesStartPartup': { to: 'page' },
-        'PagesStartPartupContributions': { to: 'start-partup-page' }
+        'PagesStartPartupContribute': { to: 'start-partup-page' }
     },
     subscriptions: function () {
         this.subscribe('partups.detail', this.params._id);
@@ -148,7 +148,7 @@ Router.route('/start/:_id/promote', {
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
         'PagesStartPartup': { to: 'page' },
-        'PagesStartPartupPromotion': { to: 'start-partup-page' }
+        'PagesStartPartupPromote': { to: 'start-partup-page' }
     },
     subscriptions: function () {
         this.subscribe('partups.detail', this.params._id);

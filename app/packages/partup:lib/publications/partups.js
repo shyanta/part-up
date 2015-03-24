@@ -16,6 +16,7 @@ Meteor.publish('partups.detail', function (partupId) {
     var uppersHandle = [];
     var supportersHandle = [];
     var activitiesHandle = [];
+    var imagesHandle = [];
 
     partupHandle = Partups.find({ _id: partupId }).observeChanges({
         added: function(id, partup) {
@@ -32,6 +33,10 @@ Meteor.publish('partups.detail', function (partupId) {
             // Publish all Activities in a Partup
             var activitiesCursor = Activities.find({ partup_id: id });
             activitiesHandle[id] = Meteor.Collection._publishCursor(activitiesCursor, subscription, 'activities');
+
+            // Publish the Cover in a Partup
+            var imagesCursor = Images.find({ _id: partup.image });
+            imagesHandle[id] = Meteor.Collection._publishCursor(imagesCursor, subscription, Images.files._name);
 
             subscription.added('partups', id, partup);
         },

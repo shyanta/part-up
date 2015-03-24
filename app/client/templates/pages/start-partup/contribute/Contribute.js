@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesStartPartupPromotion.helpers({
+Template.PagesStartPartupContribute.helpers({
     //
 });
 
@@ -9,6 +9,6 @@ Template.PagesStartPartupPromotion.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesStartPartupPromotion.events({
+Template.PagesStartPartupContribute.events({
     //
 });

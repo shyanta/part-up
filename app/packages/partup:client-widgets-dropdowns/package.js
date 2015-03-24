@@ -9,21 +9,11 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup:lib',
+        // 'tap:i18n'
     ], 'client');
 
-    api.use([
-        'tap:i18n'
-    ], ['client', 'server']);
-
-
     api.addFiles([
-        'package-tap.i18n',
-        'i18n/en.i18n.json',
-        'i18n/nl.i18n.json'
-    ], 'server');
-
-    api.addFiles([
-        'package-tap.i18n',
+        // 'package-tap.i18n',
 
         'dropdowns.js',
 
@@ -39,7 +29,7 @@ Package.onUse(function(api) {
         'menu/menu.html',
         'menu/menu.js',
 
-        'i18n/en.i18n.json',
-        'i18n/nl.i18n.json'
+        'partials/updates-actions/updates-actions.html',
+        'partials/updates-actions/updates-actions.js'
     ], 'client');
 });
