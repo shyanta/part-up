@@ -13,12 +13,9 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         try {
-            var created_by = {};
-            created_by._id = upper._id;
-            created_by.name = upper.name;
-            fields.created_by = created_by;
             fields.created_at = Date.now();
             fields.updated_at = Date.now();
+            fields.creator_id = upper._id;
             fields.partup_id = partup._id;
             fields._id = Activities.insert(fields);
 

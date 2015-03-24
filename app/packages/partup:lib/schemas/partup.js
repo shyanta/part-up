@@ -146,7 +146,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
  */
 Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
     location_input: {
-        type:String,
+        type: String,
         max: 255
     },
     tags_input: {
