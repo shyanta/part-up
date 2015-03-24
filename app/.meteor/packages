@@ -36,10 +36,10 @@ partup:client-widgets-startdetails
 partup:client-widgets-startactivities
 partup:client-widgets-registerrequired
 partup:client-widgets-registeroptional
+partup:client-widgets-startcontribute
 
 cfs:standard-packages
 cfs:s3
 cfs:filesystem
 cfs:graphicsmagick
-partup:client-widgets-startcontribute
 reactive-var
