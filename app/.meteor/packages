@@ -40,3 +40,4 @@ cfs:standard-packages
 cfs:s3
 cfs:filesystem
 partup:client-base
+partup:client-widgets-partupdetail-updates
