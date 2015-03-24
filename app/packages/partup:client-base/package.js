@@ -18,7 +18,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
+        'bootstrap.js',
         'notify/notify.js',
-        'bootstrap.js'
+        'helpers/dateFormatters.js',
     ], ['client']);
 });
