@@ -3,10 +3,6 @@
 /*************************************************************/
 Template.PartialsAppHeader.helpers({
 
-    notifications: function () {
-        return Notifications.find();
-    }
-
 });
 
 
