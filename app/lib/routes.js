@@ -182,8 +182,9 @@ Router.route('/register/details', {
     },
     onBeforeAction: function (pause) {
         if (!Meteor.user()) {
-            // render the login template but keep the url in the browser the same
+            pause();
             Router.go('register');
         }
+        this.next();
     }
 });
