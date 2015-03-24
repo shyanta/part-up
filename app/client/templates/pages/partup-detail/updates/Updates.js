@@ -23,7 +23,7 @@ Template.PagesPartupDetailUpdates.helpers({
                 data: {
                     //
                 },
-                time: '2015-03-23T14:39:41.711Z',
+                time: new Date(1427191514721),
                 comments: [
                     //
                 ]
@@ -40,7 +40,7 @@ Template.PagesPartupDetailUpdates.helpers({
                 data: {
                     description: 'Wie helpt mij in een Part-up om een complete huisstijl te bedenken, ontwikkelen en uit te werken voor onze goed nieuwe start-up?'
                 },
-                time: '2015-03-23T14:39:41.711Z',
+                time: new Date(1425184414721),
                 comments: [
                     //
                 ]
