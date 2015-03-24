@@ -21,6 +21,7 @@ Template.WidgetStartDetails.events({
             Images.insert(file, function (error, image) {
                 // TODO: Handle error in frontend
                 // TODO: Somehow show the image in frontend
+                template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
             });
         });

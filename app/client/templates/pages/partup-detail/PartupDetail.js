@@ -33,6 +33,18 @@ Template.PagesPartupDetail.helpers({
         var supporters = partup.supporters || [];
 
         return Meteor.users.find({ _id: { $in: supporters } });
+    },
+
+    partupCover: function () {
+        var partup = getPartup();
+
+        console.log(partup);
+
+        if (! partup || ! partup.image) return null;
+
+        console.log(partup.image);
+
+        return Images.findOne({ _id: partup.image });
     }
 
 });
