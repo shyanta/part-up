@@ -1,10 +1,8 @@
 Template.WidgetRegisterOptional.helpers({
     formSchema: Partup.schemas.forms.registerOptional,
     placeholders: Partup.services.placeholders.registerOptional,
-    user: function() {
-        return {
-            name: "bla"
-        };
+    profile: function() {
+        return Meteor.user().profile;
     }
 });
 
