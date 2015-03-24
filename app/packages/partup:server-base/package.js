@@ -27,7 +27,7 @@ Package.onUse(function(api) {
         'event_handlers/partups/partups_supporters_handler.js',
         'methods/partups/partups_methods.js',
         'methods/partups/partups_activities_methods.js',
-        'methods/partups/partups_supporters_methods.js'
+        'methods/partups/partups_supporters_methods.js',
     ], ['server']);
 
     api.export('Log', ['server']);

@@ -16,7 +16,15 @@ Template.WidgetStartDetails.helpers({
 });
 
 Template.WidgetStartDetails.events({
-    //
+    'change [data-imageupload]': function (event, template) {
+        FS.Utility.eachFile(event, function (file) {
+            Images.insert(file, function (error, image) {
+                // TODO: Handle error in frontend
+                // TODO: Somehow show the image in frontend
+                Meteor.subscribe('images.one', image._id);
+            });
+        });
+    }
 });
 
 Template.WidgetStartDetails.rendered = function() {
