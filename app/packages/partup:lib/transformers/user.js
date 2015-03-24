@@ -14,7 +14,7 @@ Partup.transformers.profile = {
     'toFormOptional':function(user) {
         return {
             _id: user.profile._id,
-            image: profile.image,
+            image: user.profile.image,
             location_input: Partup.services.partup.locationToLocationInput(user.profile.location),
             description: partup.description,
             tags_input: partup.tags.join(','),
