@@ -3,6 +3,13 @@ Template.WidgetRegisterOptional.helpers({
     placeholders: Partup.services.placeholders.registerOptional,
     profile: function() {
         return Meteor.user().profile;
+    },
+    userImage: function() {
+        var user = Meteor.user();
+
+        if (user && user.profile && user.profile.image) {
+            return Images.findOne({ _id: user.profile.image });
+        }
     }
 });
 
