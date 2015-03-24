@@ -6,6 +6,7 @@
     display: block
     background-color:$color-background
     border: 2px solid $color-faded-gray
+    transition: border-color $animation-duration
     float: right
 
     .pu-button,
@@ -23,3 +24,6 @@
         color: $color-solid-black
         border-color: $color-solid-gray
         background-color: $color-background
+
+    &-active 
+        border-color: $color-solid-gray
