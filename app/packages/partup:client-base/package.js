@@ -10,11 +10,15 @@ Package.onUse(function(api) {
     api.use('check');
 
     api.use([
+        'partup:lib',
         'tap:i18n',
-        'momentjs:moment'
+        'momentjs:moment',
+        'chrismbeckett:toastr'
     ], ['client']);
 
     api.addFiles([
+        'namespace.js',
+        'notify/notify.js',
         'bootstrap.js'
     ], ['client']);
 });

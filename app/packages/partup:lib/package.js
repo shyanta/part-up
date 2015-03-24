@@ -12,7 +12,6 @@ Package.onUse(function(api) {
         'aldeed:simple-schema',
         'aldeed:autoform',
         'comerc:autoform-fixtures',
-        'chrismbeckett:toastr',
         'cfs:standard-packages',
         'momentjs:moment',
         'tap:i18n'
@@ -24,7 +23,6 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
-        'notify/notify.js',
         'collections/activities.js',
         'collections/fixtures.js',
         'collections/notifications.js',
@@ -42,7 +40,6 @@ Package.onUse(function(api) {
     ]);
 
     api.addFiles([
-        'notify/notify.js',
         'ui/dropdown.js',
         'ui/dateFormatters.js',
         'ui/helpers.js'
