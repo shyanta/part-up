@@ -38,11 +38,7 @@ Template.PagesPartupDetail.helpers({
     partupCover: function () {
         var partup = getPartup();
 
-        console.log(partup);
-
         if (! partup || ! partup.image) return null;
-
-        console.log(partup.image);
 
         return Images.findOne({ _id: partup.image });
     }
