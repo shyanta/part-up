@@ -13,8 +13,13 @@ Package.onUse(function(api) {
         'aldeed:autoform',
         'comerc:autoform-fixtures',
         'chrismbeckett:toastr',
-        'cfs:standard-packages'
+        'cfs:standard-packages',
+        'momentjs:moment'
     ]);
+
+    api.use([
+        'templating'
+    ], 'client');
 
     api.addFiles([
         'namespace.js',
@@ -37,7 +42,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'notify/notify.js',
-        'ui/dropdown.js'
+        'ui/dropdown.js',
+        'ui/dateFormatters.js'
     ], 'client');
 
     api.addFiles([
