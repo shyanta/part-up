@@ -1,6 +1,6 @@
 <template name="PartialsPartupDetailSidebar">
     <header class="pu-partupheader">
-        <figure class="pu-sub-picture" style="width: {{ backgroundWidth }}px; background-image: url('{{ partupCover.url store='1200x520' }}')"></figure>
+        <figure class="pu-sub-picture" style="width: {{ backgroundWidth }}px; {{#if partupCover}}background-image: url('{{ partupCover.url store='1200x520' }}');{{/if}}"></figure>
         <h1>{{ partup.name }}</h1>
     </header>
     <aside class="pu-sidebar">
