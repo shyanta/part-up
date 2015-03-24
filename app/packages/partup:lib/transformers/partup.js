@@ -37,7 +37,7 @@ Partup.transformers.partup = {
             tags: fields.tags_input.split(','),
             end_date: fields.end_date,
             location: {
-                country: fields.location_input
+                city: fields.location_input
             },
             image: fields.image,
             // meta fields
