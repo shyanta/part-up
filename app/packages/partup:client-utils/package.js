@@ -12,7 +12,16 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.versionsFrom('1.0.3.2');
-    api.addFiles('partup:utils.js');
+
+    api.use([
+        'templating',
+        'momentjs:moment'
+    ], 'client');
+
+    api.addFiles([
+        'partup:utils.js',
+        //'helpers/dateFormatters.js'
+    ]);
 });
 
 Package.onTest(function(api) {

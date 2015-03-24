@@ -1,5 +1,14 @@
 <template name="PagesPartupDetailActivities">
+
     <div class="pu-page">
-        <h2>Activities</h2>
+        {{#each activities}}
+            <article class="pu-block">
+                <h2 class="pu-block-title">{{name}}</h2>
+
+                <p class="pu-paragraph">{{description}}</p>
+                <time>{{end_date}}</time>
+            </article>
+        {{/each}}
     </div>
+
 </template>
