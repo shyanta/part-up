@@ -11,7 +11,7 @@ Partup.services.partup = {
      * @param {Object} location
      */
     locationToLocationInput: function(location) {
-        return location.country;
+        return location.city;
     }
 
 };

@@ -41,7 +41,8 @@ Package.onUse(function(api) {
         'schemas/update.js',
         'services/partup.js',
         'services/placeholder.js',
-        'transformers/partup.js'
+        'transformers/partup.js',
+        'transformers/user.js'
     ]);
 
     api.addFiles([

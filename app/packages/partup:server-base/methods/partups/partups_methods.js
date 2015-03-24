@@ -37,7 +37,8 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.update': function (partupId, fields) {
-        // TODO: Validation
+
+        check(fields, Partup.schemas.forms.startPartup);
 
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);

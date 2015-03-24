@@ -5,12 +5,12 @@
     "startdetails-form-name-label": "Hoe wil je jouw Part-up noemen?",
     "startdetails-form-name-placeholder": "Wees niet té creatief, je wilt wel dat Uppers het meteen snappen",
     "startdetails-form-name-validation": "maximaal %d tekens",
-    "startdetails-form-name-tooltip": "this is a tooltip",
+    "startdetails-form-name-tooltip": "@@@this is a tooltip",
 
     "startdetails-form-description-label": "Wat wil je met jouw Part-up bereiken?",
     "startdetails-form-description-placeholder": "Wees zo kort maar zo krachtig mogelijk",
     "startdetails-form-description-validation": "maximaal %d tekens",
-    "startdetails-form-description-tooltip": "description toolttip",
+    "startdetails-form-description-tooltip": "@@@description toolttip",
 
     "startdetails-form-tags_input-label": "Jouw Part-up, in vijf woorden",
     "startdetails-form-tags_input-placeholder": "Graag even scheiden door een komma",
@@ -20,7 +20,7 @@
     "startdetails-form-end_date-label": "Wanneer wil je ongeveer klaar zijn?",
     "startdetails-form-end_date-placeholder": "Prik een einddatum",
     "startdetails-form-end_date-validation": "waarom",
-    "startdetails-form-end_date-tooltip": "end_date tooltip",
+    "startdetails-form-end_date-tooltip": "@@@end_date tooltip",
 
     "startdetails-form-location_input-label": "Waar is jouw Part-up?",
     "startdetails-form-location_input-placeholder": "In Nederland, in jouw regio of in jouw plaats",
@@ -28,7 +28,7 @@
     "startdetails-form-network-label": "Aan welk netwerk wil je jouw Part-up toevoegen?",
     "startdetails-form-network-placeholder": "x",
     "startdetails-form-network-validation": "waarom",
-    "startdetails-form-network-tooltip": "network tooltip",
+    "startdetails-form-network-tooltip": "@@@network tooltip",
 
     "startdetails-image-label": "Kies een mooie en herkenbare foto voor jouw Part-up",
     "startdetails-image-button": "Foto vanaf jouw computer",

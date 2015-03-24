@@ -180,4 +180,13 @@ Router.route('/register/details', {
         'PagesRegister': { to: 'page' },
         'PagesRegisterOptional': { to: 'register-page' }
     }
+    /*
+    ,onBeforeAction: function () {
+        var user = Meteor.user();
+        if (! user) {
+            Router.go('register');
+        }
+        this.next();
+    }
+    */
 });

@@ -19,6 +19,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'package-tap.i18n',
 
+        'WidgetRegisterOptionalPlaceholder.js',
         'WidgetRegisterOptional.html',
         'WidgetRegisterOptional.js',
 
