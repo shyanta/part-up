@@ -29,6 +29,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'namespace.js',
         'collections/activities.js',
+        'collections/updates.js',
         'collections/fixtures.js',
         'collections/notifications.js',
         'collections/partups.js',
@@ -65,4 +66,5 @@ Package.onUse(function(api) {
     api.export('Activities');
     api.export('Notifications');
     api.export('Images');
+    api.export('Updates');
 });

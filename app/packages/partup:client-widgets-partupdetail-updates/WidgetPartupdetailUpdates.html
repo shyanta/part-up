@@ -15,18 +15,19 @@
             </section>
         {{/if }}
 
+        {{#if type = 'partups.supporters.new' }}
         <section class="pu-update">
             <aside>
                 <figure class="pu-avatar" style="background-image: url('{{ user.avatar }}');">
                     <a href="#" rel="author" title="{{ user.fullname }}" data-fullname="{{ user.fullname }}"></a>
                 </figure>
                 <p class="pu-sub-time">
-                    <time datetime="{{ partupDateISO time }}">{{ partupDatePartupActivity time }}</time>
+                    <time datetime="{{ partupDateISO created_at }}">{{ partupDatePartupActivity created_at }}</time>
                 </p>
             </aside>
             <section>
                 <header>
-                    <h3><a href="#">{{ title }}</a></h3>
+                    <h3><a href="#">{{ type }}</a></h3>
                     <a class="pu-button pu-button-text" href="#">{{_ 'partup-detail-updates-comment-button' }}</a>
                 </header>
 
@@ -42,6 +43,7 @@
                 <footer></footer>
             </section>
         </section>
+        {{/if}}
     {{/each }}
 
 </template>
