@@ -2,6 +2,7 @@
     font-family: $font-primary
     padding: 0
     border: 0 !important
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important
 
     &:before,
     &:after
@@ -20,7 +21,7 @@
     table
         thead
             display: block
-            padding: 10px
+            padding: 7px 10px
             background-color: $color-header
             border-top-left-radius: 4px 
             border-top-right-radius: 4px
@@ -48,10 +49,11 @@
             tr 
                 .dow 
                     color: rgba(#fff, 0.8)
+                    padding: 8px 5px 0
 
         tbody
             display: block
-            padding: 5px 10px
+            padding: 12px 13px 5px 
 
             tr
                 td 
@@ -75,9 +77,8 @@
                     
 
                 td.day
-                    line-height: 0
+                    line-height: 28px
                     width: 40px
-                    height: 40px
                     border-radius: 20px
                     letter-spacing: 0
                     vertical-align: middle
@@ -88,13 +89,46 @@
                     font-size: 16px
                     color: $color-solid-black
                     text-shadow: none !important
+                    position: relative
                     &.new.day,
                     &.old.day
                         color: lighten($color-solid-black, 50%)
+
+                    &:after
+                        content: ''
+                        position: absolute
+                        width: 0
+                        height: 0
+                        background-color: #f0f
+                        padding: 18px
+                        top: -2px
+                        left: 1px
+                        bottom: 0
+                        border-radius: 18px
+                        z-index: -1
+                        right: 0
+                        background-color: $color-dark-white
+                        display: block
+                        opacity: 0
+                        transition: opacity $animation-duration, background-color $animation-duration
+                    
+                    &:hover
+                        background-color: transparent
+
+                        &:after 
+                            opacity: 1
                     
                     &.active.day
-                        background-color: $color-header
+                        background-color: transparent
                         color: #fff
 
+                        &:after 
+                            background-color: $color-header
+                            opacity: 1
+
                         &:hover
-                            background-color: darken($color-header, 5%)
+                            background-color: transparent
+
+                            &:after 
+                                opacity: 1
+                                background-color: darken($color-header, 5%)
