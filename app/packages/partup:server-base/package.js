@@ -26,6 +26,7 @@ Package.onUse(function(api) {
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
         'methods/activities/activities_methods.js',
+        'methods/activities/contributions_methods.js',
         'methods/partups/partups_methods.js',
         'methods/partups/partups_supporters_methods.js',
         'methods/users/users_methods.js',
