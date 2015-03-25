@@ -1,8 +1,47 @@
 {
-    "registerrequired-becomethexthupper": "Wordt de %dste Upper!",
-    "registerrequired-fillindetailsaccount": "Joehoe! Super tof dat je mee wilt doen aan de Part-up beweging. Vul wat gegevens in om een nieuw account te maken",
+    "registeroptional-maywegettoknowyou": "Hoi %s, mogen we je leren kennen?",
+    "registeroptional-optionalexplanation": "Jouw account is aangemaakt. Na deze stap start je met Part-up! Vul onderstaande velden in, zodat je een betrouwbaar profiel hebt en wij je de juiste Part-ups kunnen voorstellen.",
 
-    "registerrequired-signupfacebook": "Aanmelden met Facebook",
-    "registerrequired-signuplinkedin": "Aanmelden met Linkedin",
-    "registerrequired-or": "of"
+    "registeroptional-form-image-label": "Geef ons jouw glimlach",
+    "registeroptional-form-image-import": "Makkelijk, gebruik jouw <a href='#' data-imagefacebook>Facebook</a> of <a href='#' data-imagelinkedin>LinkedIn</a> foto.",
+    "registeroptional-form-image-button": "Foto vanaf jouw computer",
+
+    "registeroptional-form-location_input-label": "Waar wil je meedoen in Part-ups?",
+    "registeroptional-form-location_input-placeholder": "Bijvoorbeeld in je woonplaats of regio",
+    "registeroptional-form-location_input-validation": "waarom",
+    "registeroptional-form-location_input-tooltip": "We stellen je graag voor aan interessante Part-ups. We denken aan het milieu en jouw gemak en zetten de Part-ups bij jou in de buurt daarom bovenaan.",
+
+    "registeroptional-form-description-label": "Stel jezelf eens voor",
+    "registeroptional-form-description-placeholder": "Een korte omschrijving van wie je bent en wat je kunt",
+    "registeroptional-form-description-validation": "waarom",
+    "registeroptional-form-description-tooltip": "Andere Uppers willen graag weten met wie ze samenwerken. Wat wil jij ze vertellen? Verkoop jezelf door eerlijk te zijn.",
+
+    "registeroptional-form-tags_input-label": "Jij, in vijf woorden",
+    "registeroptional-form-tags_input-placeholder": "Even scheiden door een komma alsjeblieft",
+    "registeroptional-form-tags_input-validation": "waarom",
+    "registeroptional-form-tags_input-tooltip": "We gebruiken deze woorden om te kijken welke Part-ups goed bij jou passen. Kies woorden die gaan over jouw bijdrage aan Part-ups. Het hoeft niet perfect te zijn, je vult jouw profiel automatisch aan door te gaan samenwerken.",
+
+    "registeroptional-form-socials-label": "Jouw social media profielen",
+    "registeroptional-form-socials-validation": "waarom",
+    "registeroptional-form-socials-tooltip": "Jouw social media profielen laten zien wie je bent en wat je kunt. Zo kunnen andere Uppers kiezen of zij met jou willen samenwerken.",
+
+    "registeroptional-form-facebook-placeholder": "Facebook.com/jouwnaam",
+    "registeroptional-form-twitter-placeholder": "Twitter.com/jouwnaam",
+    "registeroptional-form-instagram-placeholder": "Instagram.com/jouwnaam",
+    "registeroptional-form-linkedin-placeholder": "LinkedIn/in/jouwnaam",
+
+    "registeroptional-form-website-label": "Heb je een eigen website of blog?",
+    "registeroptional-form-website-placeholder": "www.mijn-blog-of-website.nl",
+
+    "registeroptional-form-phonenumber-label": "Mogen Uppers je bellen (of appen)?",
+    "registeroptional-form-phonenumber-placeholder": "06-12345678",
+    "registeroptional-form-phonenumber-validation": "waarom",
+    "registeroptional-form-phonenumber-tooltip": "Goede bereikbaarheid is belangrijk in samenwerking. Privacy ook. We laten je nummer daarom alleen zien aan de Uppers in jouw actieve Part-ups.",
+
+    "registeroptional-form-skype-label": "Gebruik je Skype?",
+    "registeroptional-form-skype-placeholder": "Jouw Skypenaam",
+    "registeroptional-form-skype-validation": "waarom",
+    "registeroptional-form-skype-tooltip": "%%skype tooltip%%",
+
+    "registeroptional-form-submit": "Hup, start een Part-up!"
 }

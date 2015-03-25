@@ -1,8 +1,47 @@
 {
-    "registerrequired-becomethexthupper": "Wordt de %dste Upper!",
-    "registerrequired-fillindetailsaccount": "Joehoe! Super tof dat je mee wilt doen aan de Part-up beweging. Vul wat gegevens in om een nieuw account te maken",
+    "registeroptional-maywegettoknowyou": "Hi %s, may we get to know you?",
+    "registeroptional-optionalexplanation": "We have made an account for you. You can Part-up soon. Share some details of who you are. Other Uppers will appreciate it and it makes it possible for us to introduce you to the best Part-ups.",
 
-    "registerrequired-signupfacebook": "Aanmelden met Facebook",
-    "registerrequired-signuplinkedin": "Aanmelden met Linkedin",
-    "registerrequired-or": "of"
+    "registeroptional-form-image-label": "Give us your smile",
+    "registeroptional-form-image-import": "Easy, connect and use your <a href='#' data-imagefacebook>Facebook</a> or <a href='#' data-imagelinkedin>LinkedIn</a> profile photo.",
+    "registeroptional-form-image-button": "Photo from my computer",
+
+    "registeroptional-form-location_input-label": "Where do you want to join Part-ups?",
+    "registeroptional-form-location_input-placeholder": "For example in your home town of region",
+    "registeroptional-form-location_input-validation": "why",
+    "registeroptional-form-location_input-tooltip": "We love to introduce you to the most interesting Part-ups in your area. And we think of you and the environment, so we will promote the Part-ups near you.",
+
+    "registeroptional-form-description-label": "Introduce yourself",
+    "registeroptional-form-description-placeholder": "Give us a short discription of who you are and what your good at",
+    "registeroptional-form-description-validation": "why",
+    "registeroptional-form-description-tooltip": "Other Uppers would like to know who they are working with. What can you tell them about you? Promote yourself by being honest.",
+
+    "registeroptional-form-tags_input-label": "You, in just five words",
+    "registeroptional-form-tags_input-placeholder": "Please seperate with a comma",
+    "registeroptional-form-tags_input-validation": "why",
+    "registeroptional-form-tags_input-tooltip": "We use these words to see which Part-ups are a match. So choose words that represent what you can contribute in a Part-up. No need for perfection. You automatically complete your profile by collaborating in Part-ups.",
+
+    "registeroptional-form-socials-label": "Your social media",
+    "registeroptional-form-socials-validation": "why",
+    "registeroptional-form-socials-tooltip": "Your profiles on social media tell something about who you are and what you are good at. Other Uppers have a change to get to know you even before you worked together.",
+
+    "registeroptional-form-facebook-placeholder": "Facebook.com/yourname",
+    "registeroptional-form-twitter-placeholder": "Twitter.com/yourname",
+    "registeroptional-form-instagram-placeholder": "Intragramm.com/yourname",
+    "registeroptional-form-linkedin-placeholder": "LinkedIn/in/yourname",
+
+    "registeroptional-form-website-label": "Do you have a website or blog?",
+    "registeroptional-form-website-placeholder": "www.my-blog-or-website.com",
+
+    "registeroptional-form-phonenumber-label": "@@@Mogen Uppers je bellen (of appen)?",
+    "registeroptional-form-phonenumber-placeholder": "@@@06-12345678",
+    "registeroptional-form-phonenumber-validation": "@@@waarom",
+    "registeroptional-form-phonenumber-tooltip": "@@@Goede bereikbaarheid is belangrijk in samenwerking. Privacy ook. We laten je nummer daarom alleen zien aan de Uppers in jouw actieve Part-ups.",
+
+    "registeroptional-form-skype-label": "@@@Gebruik je Skype?",
+    "registeroptional-form-skype-placeholder": "@@@Jouw Skypenaam",
+    "registeroptional-form-skype-validation": "@@@waarom",
+    "registeroptional-form-skype-tooltip": "@@@skype tooltip",
+
+    "registeroptional-form-submit": "@@@Hup, start een Part-up!"
 }

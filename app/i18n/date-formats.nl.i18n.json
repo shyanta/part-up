@@ -1,0 +1,10 @@
+{
+    "date-format-partup-activity-s": "Nu",
+    "date-format-partup-activity-m": "1 min",
+    "date-format-partup-activity-mm": "%d min",
+    "date-format-partup-activity-h": "1 uur",
+    "date-format-partup-activity-hh": "%d uur",
+
+    "date-format-partup-timeline-d": "Gisteren",
+    "date-format-partup-timeline-dd": "%d dagen geleden"
+}

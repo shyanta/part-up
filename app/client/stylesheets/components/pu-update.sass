@@ -1,0 +1,51 @@
+.pu-update
+    @extend %clearfix
+
+    > aside
+        width: 130px
+        float: left
+        @extend %clearfix
+
+        .pu-avatar
+            float: left
+
+        .pu-sub-time
+            display: inline-block
+            margin-left: 20px
+            color: #7f7f7f
+            font-size: 12px
+            font-family: $font-primary
+            line-height: 40px
+            letter-spacing: 0.6px
+
+    > section
+        float: left
+        width: calc(100% - 130px)
+
+        > header
+            @extend %clearfix
+
+            h3
+                float: left
+                font-size: 18px
+                color: $color-secondary
+                font-weight: 600
+                line-height: 40px
+
+                a
+                    color: $color-secondary
+                    text-decoration: none
+
+            .pu-button-text
+                float: right
+                color: #999
+                opacity: 0
+                pointer-events: none
+
+                &:hover
+                    color: #595959
+
+    &:hover
+        > section > header .pu-button-text
+            opacity: 1
+            pointer-events: visible

@@ -19,8 +19,7 @@ Meteor.publish('users.loggedin', function () {
         },
 
         removed: function(id) {
-            uppersHandle[id] && uppersHandle[id].stop();
-            activitiesHandle[id] && activitiesHandle[id].stop();
+            imagesHandle[id] && imagesHandle[id].stop();
             subscription.removed('users', id);
         }
     });

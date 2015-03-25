@@ -18,9 +18,9 @@ Template.PagesHome.events({
     'click [data-translate]': function clickTranslate (event, template) {
         var language = $(event.currentTarget).data("translate");
         TAPi18n.setLanguage(language).done(function () {
-            // success
+            moment.locale(language);
         }).fail(function (error_message) {
-            // failed to switch language
+            Partup.notify.error('Could not load the language "' + language + '"');
         });
     }
 

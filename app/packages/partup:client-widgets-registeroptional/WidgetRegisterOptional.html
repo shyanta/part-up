@@ -1,79 +1,100 @@
 <template name="WidgetRegisterOptional">
-    <h1 class="pu-title">Hoi Pim, mogen we je leren kennen?</h1>
+    <h1 class="pu-title">{{_ 'registeroptional-maywegettoknowyou' profile.name }}</h1>
 
-    <p class="pu-paragraph">Jouw account is aangemaakt. Na deze stap start je met Part-up! Vul onderstaande velden in, zodat je een betrouwbaar profiel hebt en wij je de juiste Part-ups kunnen voorstellen.</p>
+    <p class="pu-paragraph">{{_ 'registeroptional-optionalexplanation' }}</p>
 
-    <form class="pu-form" action="">
+    {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser theme="plain"}}
         <div class="pu-formfield">
-            <span class="pu-label">Geef ons jouw glimlach</span>
+            <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
             <div class="pu-upload">
-                <img src="http://placehold.it/200x200/ffffff/FFA724" alt="">
-                <button class="pu-button pu-button-secondary">Foto vanaf jouw computer</button>
-                <p class="pu-paragraph">Makkelijk, gebruik jouw <a href="#">Facebook</a> of <a href="#">LinkedIn</a> foto.</p>
+                <img src="{{ profilePicture.url }}" alt="" data-image-placeholder>
+                <button class="pu-button pu-button-browse" data-browse-photos>{{_ 'registeroptional-form-image-button'}}</button>
+                <input type="file" class="pu-fileinput" data-profile-picture-input>
+                <!-- TODO DISABLED UNTIL IMPLEMENTED
+                <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
+                -->
+                {{> afFieldInput name="image" type="hidden"}}
             </div>
         </div>
 
         <label class="pu-formfield">
-            <span class="pu-label">Waar wil je meedoen in Part-ups?</span>
-            <input class="pu-input" type="text" placeholder="Bijvoorbeeld in je woonplaats of regio">
-            <a class="pu-hint">waarom</a>
+            <span class="pu-label">{{_ 'registeroptional-form-location_input-label' }}</span>
+            {{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}
+            <a class="pu-hint pu-tooltip">
+                {{_ 'registeroptional-form-location_input-validation'}}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-location_input-tooltip' }}</p></span>
+            </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Stel jezelf eens voor :-)</span>
-            <textarea class="pu-textarea" placeholder="Een korte omschrijving van wie je bent en wat je kunt"></textarea>
-            <a class="pu-hint">hulp</a>
+            <span class="pu-label">{{_ 'registeroptional-form-description-label' }}</span>
+            {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
+            <a class="pu-hint pu-tooltip">
+                {{_ 'registeroptional-form-description-validation'}}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-description-tooltip' }}</p></span>
+            </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Jij, in vijf woorden</span>
+            <span class="pu-label">{{_ 'registeroptional-form-tags_input-label'}}</span>
             <div class="pu-inputholder">
-                <input class="pu-input" type="text" placeholder="Even scheiden door een komma alsjeblieft">
+                {{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}
             </div>
-            <a class="pu-hint">waarom</a>
+            <a class="pu-hint pu-tooltip">
+                {{_ 'registeroptional-form-tags_input-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-tags_input-tooltip' }}</p></span>
+            </a>
         </label>
 
         <div class="pu-formfield">
             <label>
-                <span class="pu-label">Jouw social media profielen</span>
+                <span class="pu-label">{{_ 'registeroptional-form-socials-label' }}</span>
                 <div class="pu-inputholder pu-inputholder-lefticon">
-                    <input class="pu-input" type="text" placeholder="facebook.com/jouwnaam">
+                    {{> afFieldInput name='facebook' placeholder=placeholders.facebook class="pu-input" }}
                     <span class="pu-icon"><i class="fa fa-facebook"></i></span>
                 </div>
             </label>
             <div class="pu-inputholder pu-inputholder-lefticon">
-                <input class="pu-input" type="text" placeholder="twitter.com/jouwnaam">
+                {{> afFieldInput name='twitter' placeholder=placeholders.twitter class="pu-input" }}
                 <span class="pu-icon"><i class="fa fa-twitter"></i></span>
             </div>
             <div class="pu-inputholder pu-inputholder-lefticon">
-                <input class="pu-input" type="text" placeholder="instagram.com/jouwnaam">
+                {{> afFieldInput name='instagram' placeholder=placeholders.instagram class="pu-input" }}
                 <span class="pu-icon"><i class="fa fa-instagram"></i></span>
             </div>
             <div class="pu-inputholder pu-inputholder-lefticon">
-                <input class="pu-input" type="text" placeholder="linkedin.com/jouwnaam">
+                {{> afFieldInput name='linkedin' placeholder=placeholders.linkedin class="pu-input" }}
                 <span class="pu-icon"><i class="fa fa-linkedin"></i></span>
             </div>
-            <a class="pu-hint">waarom</a>
+            <a class="pu-hint pu-tooltip">
+                {{_ 'registeroptional-form-socials-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-socials-tooltip' }}</p></span>
+            </a>
         </div>
 
         <label class="pu-formfield">
-            <span class="pu-label">Heb je een eigen website of blog?</span>
-            <input class="pu-input" type="text" placeholder="www.mijn-blog-of-website.nl">
-            <a class="pu-hint">waarom</a>
+            <span class="pu-label">{{_ 'registeroptional-form-website-label' }}</span>
+            {{> afFieldInput name='website' placeholder=placeholders.website class="pu-input" }}
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Mogen Uppers je bellen (of appen)?</span>
-            <input class="pu-input" type="text" placeholder="06-12345678">
-            <a class="pu-hint">waarom</a>
+            <span class="pu-label">{{_ 'registeroptional-form-phonenumber-label' }}</span>
+            {{> afFieldInput name='phonenumber' placeholder=placeholders.phonenumber class="pu-input" }}
+            <a class="pu-hint pu-tooltip">
+                {{_ 'registeroptional-form-phonenumber-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-phonenumber-tooltip' }}</p></span>
+            </a>
         </label>
 
         <label class="pu-formfield">
-            <span class="pu-label">Gebruik je Skype?</span>
-            <input class="pu-input" type="text" placeholder="Jouw Skypenaam">
-            <a class="pu-hint">waarom</a>
+            <span class="pu-label">{{_ 'registeroptional-form-skype-label' }}</span>
+            {{> afFieldInput name='skype' placeholder=placeholders.skype class="pu-input" }}
+            <a class="pu-hint pu-tooltip">
+                {{_ 'registeroptional-form-skype-validation' }}
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-skype-tooltip' }}</p></span>
+            </a>
         </label>
 
-        <input class="pu-button pu-button-primary" type="submit" value="Hup, start of zoek een Part-up!">
-    </form>
+        <input class="pu-button pu-button-primary" type="submit" value="{{_ 'registeroptional-form-submit' }}">
+    {{/autoForm}}
 </template>

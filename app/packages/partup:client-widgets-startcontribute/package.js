@@ -10,8 +10,8 @@ Package.onUse(function (api) {
         'templating',
         'aldeed:autoform',
         'partup:lib',
-        'partup:client-utils',
-        'tap:i18n'
+        'tap:i18n',
+        'reactive-var'
     ], 'client');
 
     api.addFiles([

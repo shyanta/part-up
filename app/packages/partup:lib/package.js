@@ -18,12 +18,18 @@ Package.onUse(function(api) {
         'cfs:s3',
         'cfs:filesystem',
         'cfs:graphicsmagick',
+        'momentjs:moment',
+        'tap:i18n'
     ]);
+
+    api.use([
+        'templating'
+    ], 'client');
 
     api.addFiles([
         'namespace.js',
-        'notify/notify.js',
         'collections/activities.js',
+        'collections/updates.js',
         'collections/fixtures.js',
         'collections/notifications.js',
         'collections/partups.js',
@@ -36,12 +42,12 @@ Package.onUse(function(api) {
         'schemas/update.js',
         'services/partup.js',
         'services/placeholder.js',
-        'transformers/partup.js'
+        'transformers/partup.js',
+        'transformers/user.js'
     ]);
 
     api.addFiles([
         'autorun.js',
-        'notify/notify.js',
         'ui/dropdown.js'
     ], 'client');
 
@@ -60,4 +66,5 @@ Package.onUse(function(api) {
     api.export('Activities');
     api.export('Notifications');
     api.export('Images');
+    api.export('Updates');
 });
