@@ -1,5 +1,6 @@
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribute,
+    'placeholders': Partup.services.placeholders.startcontribute,
     'showContributeButton': function () {
         return Template.instance().showContributeButton.get();
     },
@@ -20,30 +21,26 @@ Template.ActivityContribution.events({
 });
 
 Template.ActivityContribution.created = function () {
-    this.showContributeButton = new ReactiveVar(true);
+    this.showContributeButton = new ReactiveVar(false);
     //var activityId = this.activityId;
     //console.log(activityId);
 };
 
-AutoForm.hooks({
-    null: {
+AutoForm.addHooks(
+    null, {
         onSubmit: function (insertDoc, updateDoc, currentDoc) {
             event.preventDefault();
-            console.log(this.formId);
-            console.log(this.template.activityId);
-            var activityId = Session.get('partials.start-partup.current-partup');
+            var activityId = this.formId;
             var self = this;
 
-            Meteor.call('activities.contribution.insert', partupId, insertDoc, function (error, result) {
+            Meteor.call('activities.contributions.insert', activityId, insertDoc, function (error, result) {
                 if (error) {
                     console.log('something went wrong', error);
                     return false;
                 }
-                self.template.showContributeButton.set(true);
                 self.done();
             });
 
             return false;
         }
-    }
 });

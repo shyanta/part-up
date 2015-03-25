@@ -3,16 +3,16 @@
     "startcontribute-heading-paragraph": "To get the job done, you most likely need others. Other uppers will add their contributions later. Together you make this part-up a big success.",
 
     "startcontribute-button-donate": "Just donate",
-    "startcontribute-button-contribute": "Contribute",
 
     "startcontribute-form-want-label": "I'm up for this",
 
-    "startcontribute-form-have-label": "I bring in",
-    "startcontribute-form-have-placeholder": "I bring in",
-
     "startcontribute-form-can-label": "I can do this",
-    "startcontribute-form-can-placeholder": "I can do this",
+    "startcontribute-form-can_amount-placeholder": "0",
 
-    "startcontribute-form-submit": "Save",
+    "startcontribute-form-have_amount-label": "I bring in",
+    "startcontribute-form-have_amount-placeholder": "0",
+    "startcontribute-form-have_description-label": "or / and",
+    "startcontribute-form-have_description-placeholder": "e.g. I have a car",
+
     "startcontribute-button-next_page": "Find fellow Uppers"
 }
