@@ -4,7 +4,7 @@ Meteor.methods({
      *
      * @param {mixed[]} fields
      */
-    'partups.activities.insert': function (partupId, fields) {
+    'activities.insert': function (partupId, fields) {
         // TODO: Validation
 
         var upper = Meteor.user();

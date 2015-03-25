@@ -31,7 +31,7 @@ AutoForm.hooks({
             var partupId = Session.get('partials.start-partup.current-partup');
             var self = this;
 
-            Meteor.call('partups.activities.insert', partupId, insertDoc, function (error, result) {
+            Meteor.call('activities.insert', partupId, insertDoc, function (error, result) {
                 if (error) {
                     console.log('something went wrong', error);
                     return false;
