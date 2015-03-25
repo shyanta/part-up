@@ -37,6 +37,10 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         type: [Object],
         optional: true
     },
+        "contributions.$._id": {
+            type: String,
+            regEx: SimpleSchema.RegEx.Id
+        },
         "contributions.$.created_at": {
             type: Date,
             defaultValue: Date.now()
