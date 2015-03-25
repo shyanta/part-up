@@ -4,16 +4,34 @@
  * @memberOf partup.schemas.forms
  */
 Partup.schemas.forms.contribute = new SimpleSchema({
-    name: {
-        type: String,
-        max: 255
+    type_want: {
+        type: Boolean,
+        optional: true
     },
-    email: {
-        type: String,
-        max: 255
+    type_have: {
+        type: Boolean,
+        optional: true
     },
-    password: {
-        type: String,
-        max: 255
-    }
+        type_have_amount: {
+            type: Number,
+            optional: true
+        },
+        type_have_description: {
+            type: String,
+            max: 255,
+            optional: true
+        },
+    type_can: {
+        type: Boolean,
+        optional: true
+    },
+        type_can_amount: {
+            type: Number,
+            optional: true
+        },
+        type_can_description: {
+            type: String,
+            max: 255,
+            optional: true
+        }
 });
