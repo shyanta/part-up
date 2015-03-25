@@ -1,0 +1,29 @@
+<template name="ActivityContribution">
+    <article class="pu-block">
+        <h2 class="pu-block-title">{{name}}</h2>
+
+        <p class="pu-paragraph">{{description}}</p>
+
+        <time>{{end_date}}</time>
+
+        {{#if showContributeButton}}
+            <p>
+                <button class="pu-button pu-button-icon pu-button-contribute"><i
+                        class="fa fa-heart"></i>{{_ 'startcontribute-button-contribute'}}</button>
+            </p>
+        {{else}}
+            {{#autoForm schema=formSchema class="pu-form" theme="plain"}}
+                <label class="pu-formfield pu-checkbox-field">
+                    <input type="checkbox" class="pu-checkbox">
+                    <i class="fa fa-magic"></i>{{_ 'startcontribute-form-want-label'}}</label>
+                <label class="pu-formfield pu-checkbox-field"><input type="checkbox" class="pu-checkbox"><span></span>
+                    <i class="fa fa-user-plus"></i>{{_ 'startcontribute-form-can-label'}}</label>
+                <label class="pu-formfield pu-checkbox-field"><input type="checkbox" class="pu-checkbox" checked><span></span>
+                    <i class="fa fa-wrench"></i>{{_ 'startcontribute-form-have-label'}}</label>
+
+                <input class="pu-button pu-button-icon pu-button-save" type="submit"
+                       value="{{_ 'startcontribute-form-submit' }}">
+            {{/autoForm}}
+        {{/if}}
+    </article>
+</template>
