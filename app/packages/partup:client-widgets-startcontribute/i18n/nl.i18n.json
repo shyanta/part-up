@@ -5,10 +5,13 @@
     "startcontribute-button-donate": "Ik doneer",
     "startcontribute-button-contribute": "Bijdragen",
 
-    "startcontribute-form-name-label": "Geef de activiteit een naam",
-    "startcontribute-form-name-placeholder": "Probeer in werkwoorden te denken",
-    "startcontribute-form-name-validation": "maximaal %d tekens",
-    "startcontribute-form-name-tooltip": "name tooltip",
+    "startcontribute-form-want-label": "Ik doe mee",
+
+    "startcontribute-form-have-label": "Ik breng in",
+    "startcontribute-form-have-placeholder": "Ik breng in",
+
+    "startcontribute-form-can-label": "Ik kan dit doen",
+    "startcontribute-form-can-placeholder": "Ik kan dit doen",
 
     "startcontribute-form-submit": "Opslaan",
     "startcontribute-button-next_page": "Vind mede Uppers"

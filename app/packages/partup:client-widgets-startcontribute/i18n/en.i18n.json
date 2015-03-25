@@ -5,10 +5,13 @@
     "startcontribute-button-donate": "Just donate",
     "startcontribute-button-contribute": "Contribute",
 
-    "startcontribute-form-name-label": "Name the activity",
-    "startcontribute-form-name-placeholder": "Try to use verbs",
-    "startcontribute-form-name-validation": "max %d characters",
-    "startcontribute-form-name-tooltip": "name tooltip",
+    "startcontribute-form-want-label": "I'm up for this",
+
+    "startcontribute-form-have-label": "I bring in",
+    "startcontribute-form-have-placeholder": "I bring in",
+
+    "startcontribute-form-can-label": "I can do this",
+    "startcontribute-form-can-placeholder": "I can do this",
 
     "startcontribute-form-submit": "Save",
     "startcontribute-button-next_page": "Find fellow Uppers"
