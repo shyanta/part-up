@@ -11,12 +11,12 @@
         {{#each updates }}
             {{#if anotherDay . updates }}
                 <section class="pu-sub-separator">
-                    {{ partupDatePartupTimeline time }}
+                    {{ partupDatePartupTimeline created_at }}
                     <span class="fa fa-long-arrow-down"></span>
                 </section>
             {{/if }}
 
-            {{#if type = 'partups.supporters.new' }}
+        
             <section class="pu-update">
                 <aside>
                     <figure class="pu-avatar" style="background-image: url('{{ user.avatar }}');">
@@ -33,7 +33,7 @@
                     </header>
 
                     <!-- Type dependent content -->
-                    {{#if partupEquals type 'changed_description' }}
+                    {{#if type = 'partups.supporters.new' }}
                         <section>
                             <p>{{ data.description }}</p>
                         </section>
@@ -44,7 +44,8 @@
                     <footer></footer>
                 </section>
             </section>
-            {{/if}}
+
+
         {{/each }}
 
     </div>
