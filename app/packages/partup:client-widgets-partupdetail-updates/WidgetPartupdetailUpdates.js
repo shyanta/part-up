@@ -12,7 +12,7 @@ Template.WidgetPartupdetailUpdates.helpers({
         });
     },
 
-    'anotherDay': function (update, updates) {
+    'anotherDay': function helperAnotherday (update, updates) {
         var previousUpdate = updates[update.arrayIndex - 1];
         var previousMoment = moment();
 
