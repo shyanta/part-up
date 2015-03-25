@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Language configuration */
 /*************************************************************/
-if(TAPi18n && moment) {
+if(TAPi18n && Partup) {
     var language = TAPi18n.getLanguage() || 'en';
-    moment.locale(language);
+    Partup.language.changeLanguage(language);
 }
