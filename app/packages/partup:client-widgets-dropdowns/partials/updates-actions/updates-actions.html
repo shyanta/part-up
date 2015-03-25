@@ -1,43 +1,44 @@
 <template name="PartialDropdownUpdatesActions">
     <div class="pu-formdropdown {{#if menuOpen}}pu-formdropdown-active{{/if}}">
-        <button class="pu-button pu-button-bordered pu-button-dropdown {{#if menuOpen}}pu-button-dropdown-active{{/if}}" data-toggle-menu>
-            {{#if selectedAction}}
-                {{ selectedAction }}
-            {{else}}
-                {{_ 'dropdown-updatesactions-option-default'}}
-            {{/if}}
-            <i class="fa {{#if menuOpen}} fa-caret-up {{else}} fa-caret-down {{/if}}"></i>
-
-        </button>
-        <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-            {{#if notSelected "dropdown-updatesactions-option-action1"}}
-                <li class="pu-dropdownitem">
-                    <a href="" data-select-option data-translate="dropdown-updatesactions-option-action1" data-toggle-menu>
-                        {{_ 'dropdown-updatesactions-option-action1'}}
-                    </a>
-                </li>
-            {{/if}}
-            {{#if notSelected "dropdown-updatesactions-option-action2"}}
-                <li class="pu-dropdownitem">
-                    <a href="" data-select-option data-translate="dropdown-updatesactions-option-action2" data-toggle-menu>
-                        {{_ 'dropdown-updatesactions-option-action2'}}
-                    </a>
-                </li>
-            {{/if}}
-            {{#if notSelected "dropdown-updatesactions-option-action3"}}
-                <li class="pu-dropdownitem">
-                    <a href="" data-select-option data-translate="dropdown-updatesactions-option-action3" data-toggle-menu>
-                        {{_ 'dropdown-updatesactions-option-action3'}}
-                    </a>
-                </li>
-            {{/if}}
-            {{#if notSelected "dropdown-updatesactions-option-action4"}}
-                <li class="pu-dropdownitem">
-                    <a href="" data-select-option data-translate="dropdown-updatesactions-option-action4" data-toggle-menu>
-                        {{_ 'dropdown-updatesactions-option-action4'}}
-                    </a>
-                </li>
-            {{/if}}
-        </ul>
+        <div class="pu-sub-container">
+            <button class="pu-button pu-button-bordered pu-button-dropdown {{#if menuOpen}}pu-button-dropdown-active{{/if}}" data-toggle-menu>
+                {{#if selectedAction}}
+                    {{ selectedAction }}
+                {{else}}
+                    {{_ 'dropdown-updatesactions-option-default'}}
+                {{/if}}
+                <i class="fa {{#if menuOpen}} fa-caret-up {{else}} fa-caret-down {{/if}}"></i>
+            </button>
+            <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+                {{#if notSelected "dropdown-updatesactions-option-action1"}}
+                    <li class="pu-dropdownitem">
+                        <a href="" data-select-option data-translate="dropdown-updatesactions-option-action1" data-toggle-menu>
+                            {{_ 'dropdown-updatesactions-option-action1'}}
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if notSelected "dropdown-updatesactions-option-action2"}}
+                    <li class="pu-dropdownitem">
+                        <a href="" data-select-option data-translate="dropdown-updatesactions-option-action2" data-toggle-menu>
+                            {{_ 'dropdown-updatesactions-option-action2'}}
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if notSelected "dropdown-updatesactions-option-action3"}}
+                    <li class="pu-dropdownitem">
+                        <a href="" data-select-option data-translate="dropdown-updatesactions-option-action3" data-toggle-menu>
+                            {{_ 'dropdown-updatesactions-option-action3'}}
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if notSelected "dropdown-updatesactions-option-action4"}}
+                    <li class="pu-dropdownitem">
+                        <a href="" data-select-option data-translate="dropdown-updatesactions-option-action4" data-toggle-menu>
+                            {{_ 'dropdown-updatesactions-option-action4'}}
+                        </a>
+                    </li>
+                {{/if}}
+            </ul>
+        </div>
     </div>
 </template>
