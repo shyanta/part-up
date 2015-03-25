@@ -1,11 +1,11 @@
 Partup.services.placeholders.startcontribute = {
-    'name': function () {
-        return __('startcontribute-form-name-placeholder');
+    'can_amount': function () {
+        return __('startcontribute-form-can_amount-placeholder');
     },
-    'description': function () {
-        return __('startcontribute-form-description-placeholder');
+    'have_amount': function () {
+        return __('startcontribute-form-have_amount-placeholder');
     },
-    'end_date': function () {
-        return __('startcontribute-form-end_date-placeholder');
+    'have_description': function () {
+        return __('startcontribute-form-have_description-placeholder');
     }
-}
+};
