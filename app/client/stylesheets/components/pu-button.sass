@@ -40,6 +40,15 @@
     &-large
         padding: 22px 31px
 
+    &-bordered
+        border: 2px solid transparent
+        padding: 11px 14px 12px 14px
+        height: 40px - 2 * 2px
+
+        &:active
+            padding-top: 12px
+            padding-bottom: 11px
+
     &-header
         display: block
         background-color: $color-header
@@ -161,6 +170,14 @@
 
         &:active
             background-color: darken($color-linkedin, 10%)
+
+    &-modalheader
+        background-color: transparent
+        color: #999999
+
+        &:hover, &:active
+            background-color: transparent
+            color: darken(#999999, 20%)
 
     &-text
         background-color: transparent

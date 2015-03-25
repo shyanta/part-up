@@ -1,93 +1,99 @@
 <template name="WidgetStartDetails">
-    <h1 class="pu-title">{{_ 'startdetails-coolyouarestarting' 'Pim'}}</h1>
-    <p class="pu-paragraph">{{_ 'startdetails-explainingpartup'}}</p>
+    <div class="pu-composition pu-composition-defaultmodal">
 
-    {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" theme="plain"}}
+        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' 'Pim'}}</h2>
+        <p>{{_ 'startdetails-explainingpartup'}}</p>
 
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
-            {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
-            <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
-            </a>
-        </label>
+        {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" theme="plain"}}
 
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
-            {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
-            <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-description-validation' Partup.schemas.entities.partup._schema.description.max }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-description-tooltip' }}</p></span>
-            </a>
-        </label>
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
+                {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
+                <a class="pu-hint pu-tooltip">
+                    {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
+                </a>
+            </label>
 
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-tags_input-label'}}</span>
-            <div class="pu-inputholder">
-                {{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
+                {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
+                <a class="pu-hint pu-tooltip">
+                    {{_ 'startdetails-form-description-validation' Partup.schemas.entities.partup._schema.description.max }}
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-description-tooltip' }}</p></span>
+                </a>
+            </label>
+            
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startdetails-form-tags_input-label'}}</span>
+                <div class="pu-inputholder">
+                    {{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input pu-datepicker" data-datepicker="" }}
+                </div>
+                <a class="pu-hint pu-tooltip">
+                    {{_ 'startdetails-form-tags_input-validation' }}
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-tags_input-tooltip' }}</p></span>
+                </a>
+            </label>
+
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startdetails-form-end_date-label'}}</span>
+                <div class="pu-inputholder pu-inputholder-lefticon">
+                    {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input" data-datepicker="" }}
+                    <span class="pu-icon"><i class="fa fa-calendar"></i></span>
+                </div>
+                <a class="pu-hint pu-tooltip">
+                    {{_ 'startdetails-form-end_date-validation' }}
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-end_date-tooltip' }}</p></span>
+                </a>
+            </label>
+
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startdetails-form-location_input-label'}}</span>
+                {{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}
+            </label>
+
+            <!-- TODO: NETWORK IMPLEMENTATION
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startdetails-form-network-label' }}</span>
+                <div class="pu-inputholder pu-inputholder-righticon">
+                    <select class="pu-select">
+                        <option value="1">1. Aan Part-up.com (openbaar)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
+                </div>
+                <a class="pu-hint pu-tooltip">
+                    {{_ 'startdetails-form-network-validation' }}
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-network-tooltip' }}</p></span>
+                </a>
+            </label>
+            -->
+
+            <!-- TODO: IMAGE IMPLEMENTATION -->
+            <div class="pu-formfield">
+                <img src="{{ uploadedImage.url }}" data-coverimage>
+                <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
+                <div class="pu-upload pu-upload-large">
+                    <input type="file" class="pu-button pu-button-browse" data-imageupload>
+                    <span>{{_ 'startdetails-image-validation'}}</span>
+                    {{> afFieldInput name="image" type="hidden"}}
+                </div>
             </div>
-            <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-tags_input-validation' }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-tags_input-tooltip' }}</p></span>
-            </a>
-        </label>
 
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-end_date-label'}}</span>
-            <div class="pu-inputholder pu-inputholder-lefticon">
-                {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
-                <span class="pu-icon"><i class="fa fa-calendar"></i></span>
+            <!-- TODO: SUGGESTION IMPLEMENTATION
+            <div class="pu-divider"><span>{{_ 'startdetails-suggestion-label'}}</span></div>
+
+            <div class="pu-imageselector">
+                <img src="http://placehold.it/570x235" alt="">
             </div>
-            <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-end_date-validation' }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-end_date-tooltip' }}</p></span>
-            </a>
-        </label>
+            -->
+            
+            <footer>
+                <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
+            </footer>
+        {{/autoForm}}
 
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-location_input-label'}}</span>
-            {{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}
-        </label>
-
-        <!-- TODO: NETWORK IMPLEMENTATION
-        <label class="pu-formfield">
-            <span class="pu-label">{{_ 'startdetails-form-network-label' }}</span>
-            <div class="pu-inputholder pu-inputholder-righticon">
-                <select class="pu-select">
-                    <option value="1">1. Aan Part-up.com (openbaar)</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-                <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
-            </div>
-            <a class="pu-hint pu-tooltip">
-                {{_ 'startdetails-form-network-validation' }}
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-network-tooltip' }}</p></span>
-            </a>
-        </label>
-        -->
-
-        <!-- TODO: IMAGE IMPLEMENTATION -->
-        <div class="pu-formfield">
-            <img src="{{ uploadedImage.url }}" data-coverimage>
-            <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
-            <div class="pu-upload pu-upload-large">
-                <input type="file" class="pu-button pu-button-browse" data-imageupload>
-                <span>{{_ 'startdetails-image-validation'}}</span>
-                {{> afFieldInput name="image" type="hidden"}}
-            </div>
-        </div>
-
-        <!-- TODO: SUGGESTION IMPLEMENTATION
-        <div class="pu-divider"><span>{{_ 'startdetails-suggestion-label'}}</span></div>
-
-        <div class="pu-imageselector">
-            <img src="http://placehold.it/570x235" alt="">
-        </div>
-        -->
-
-        <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
-    {{/autoForm}}
+    </div>
 </template>

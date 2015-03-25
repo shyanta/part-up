@@ -6,11 +6,10 @@
 
 partup:lib
 
-partup:client-intro
-partup:client-partups
 partup:server-base
 partup:client-base
 
+partup:client-widgets-intro
 partup:client-widgets-partupdetail-updates
 partup:client-widgets-startdetails
 partup:client-widgets-startactivities

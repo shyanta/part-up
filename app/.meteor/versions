@@ -80,9 +80,8 @@ oauth2@1.1.3
 observe-sequence@1.0.5
 ordered-dict@1.0.3
 partup:client-base@0.0.1
-partup:client-intro@0.0.1
-partup:client-partups@0.0.1
 partup:client-widgets-dropdowns@0.0.1
+partup:client-widgets-intro@0.0.1
 partup:client-widgets-partupdetail-updates@0.0.1
 partup:client-widgets-registeroptional@0.0.1
 partup:client-widgets-registerrequired@0.0.1

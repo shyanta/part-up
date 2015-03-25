@@ -1,13 +1,18 @@
 .pu-formdropdown
-    border-radius: 4px
-    overflow: hidden
     position: relative
     z-index: 1
     display: block
-    background-color:$color-background
-    border: 2px solid $color-faded-gray
     transition: border-color $animation-duration
-    float: right
+    max-height: 40px
+
+    .pu-sub-container
+        content: ''
+        display: block
+        background-color: $color-background
+        border: 2px solid $color-faded-gray
+        z-index: 0
+        border-radius: 4px
+        overflow: hidden
 
     .pu-button,
     .pu-dropdown
@@ -16,6 +21,9 @@
         text-align: left
 
     .pu-dropdown
+        padding-left: 0
+        list-style: none
+
         .pu-dropdownitem
             a
                 padding-left: 15px
