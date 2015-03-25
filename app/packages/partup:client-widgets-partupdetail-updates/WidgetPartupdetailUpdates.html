@@ -1,49 +1,51 @@
 <template name="WidgetPartupdetailUpdates">
+    <div class="pu-composition pu-composition-partupdetailupdates">
 
-    <!-- Header buttons -->
-    <header class="pu-pageheader">
-        <section><a class="pu-button" href="#">{{_ 'partup-detail-updates-newmessage-button' }}</a></section>
-        <aside>{{> PartialDropdownUpdatesActions}}</aside>
-    </header>
+        <!-- Header buttons -->
+        <header class="pu-pageheader">
+            <section><a class="pu-button" href="#">{{_ 'partup-detail-updates-newmessage-button' }}</a></section>
+            <aside>{{> PartialDropdownUpdatesActions}}</aside>
+        </header>
 
-    <!-- For each update -->
-    {{#each updates }}
-        {{#if anotherDay . updates }}
-            <section class="pu-sub-separator">
-                {{ partupDatePartupTimeline time }}
-                <span class="fa fa-long-arrow-down"></span>
+        <!-- For each update -->
+        {{#each updates }}
+            {{#if anotherDay . updates }}
+                <section class="pu-sub-separator">
+                    {{ partupDatePartupTimeline time }}
+                    <span class="fa fa-long-arrow-down"></span>
+                </section>
+            {{/if }}
+
+            {{#if type = 'partups.supporters.new' }}
+            <section class="pu-update">
+                <aside>
+                    <figure class="pu-avatar" style="background-image: url('{{ user.avatar }}');">
+                        <a href="#" rel="author" title="{{ user.fullname }}" data-fullname="{{ user.fullname }}"></a>
+                    </figure>
+                    <p class="pu-sub-time">
+                        <time datetime="{{ partupDateISO created_at }}">{{ partupDatePartupActivity created_at }}</time>
+                    </p>
+                </aside>
+                <section>
+                    <header>
+                        <h3><a href="#">{{ type }}</a></h3>
+                        <a class="pu-button pu-button-text" href="#">{{_ 'partup-detail-updates-comment-button' }}</a>
+                    </header>
+
+                    <!-- Type dependent content -->
+                    {{#if partupEquals type 'changed_description' }}
+                        <section>
+                            <p>{{ data.description }}</p>
+                        </section>
+                    {{/if }}
+
+
+                    <!-- Comments -->
+                    <footer></footer>
+                </section>
             </section>
-        {{/if }}
+            {{/if}}
+        {{/each }}
 
-        {{#if type = 'partups.supporters.new' }}
-        <section class="pu-update">
-            <aside>
-                <figure class="pu-avatar" style="background-image: url('{{ user.avatar }}');">
-                    <a href="#" rel="author" title="{{ user.fullname }}" data-fullname="{{ user.fullname }}"></a>
-                </figure>
-                <p class="pu-sub-time">
-                    <time datetime="{{ partupDateISO created_at }}">{{ partupDatePartupActivity created_at }}</time>
-                </p>
-            </aside>
-            <section>
-                <header>
-                    <h3><a href="#">{{ type }}</a></h3>
-                    <a class="pu-button pu-button-text" href="#">{{_ 'partup-detail-updates-comment-button' }}</a>
-                </header>
-
-                <!-- Type dependent content -->
-                {{#if partupEquals type 'changed_description' }}
-                    <section>
-                        <p>{{ data.description }}</p>
-                    </section>
-                {{/if }}
-
-
-                <!-- Comments -->
-                <footer></footer>
-            </section>
-        </section>
-        {{/if}}
-    {{/each }}
-
+    </div>
 </template>

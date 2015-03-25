@@ -1,0 +1,21 @@
+.pu-textline
+    position: relative
+    display: block
+    font-size: 12px
+    font-family: $font-primary
+    letter-spacing: 0.6px
+    text-align: center
+
+    span
+        display: inline-block
+        background-color: $color-background
+        padding: 0 10px
+
+    &:after
+        content: ''
+        position: absolute
+        top: 50%
+        left: 0
+        right: 0
+        border-top: 1px dotted #ccc
+        z-index: -1
