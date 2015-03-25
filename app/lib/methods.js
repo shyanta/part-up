@@ -16,17 +16,3 @@ Meteor.methods({
      * }
      */
 });
-if(Meteor.isClient){
-     // Tracker.autorun(function () {
-     //      console.log('change')
-     //      $.fn.datepicker.dates[moment.locale()] = {
-     //           days: moment.weekdays(),
-     //           daysShort: moment.weekdaysShort(),
-     //           daysMin: moment.weekdaysMin(),
-     //           months: moment.months(),
-     //           monthsShort: moment.monthsShort(),
-     //           today: "Today",
-     //           clear: "Clear"
-     //      };
-     // });
-}

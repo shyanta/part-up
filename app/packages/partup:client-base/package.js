@@ -19,9 +19,10 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
-        'bootstrap.js',
         'notify/notify.js',
+        'services/language.js',
+        'bootstrap.js',
         'helpers/dateFormatters.js',
-        'helpers/equality.js'
+        'helpers/equality.js',
     ], ['client']);
 });

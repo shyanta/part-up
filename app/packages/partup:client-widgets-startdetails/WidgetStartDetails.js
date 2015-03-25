@@ -33,7 +33,6 @@ Template.WidgetStartDetails.events({
 });
 
 Template.WidgetStartDetails.rendered = function() {
-    
     this.$('.pu-datepicker').datepicker({
         language: moment.locale(),
         format: "yyyy-mm-dd",
