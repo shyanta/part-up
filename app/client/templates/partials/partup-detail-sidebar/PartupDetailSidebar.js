@@ -3,8 +3,11 @@
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.rendered = function() {
     var OFFSET = 100;
+    if(!document) return;
     var pageElm = document.querySelector('.pu-layout > .pu-sub-page');
+    if(!pageElm) return;
     var rightElm = pageElm.querySelector('.pu-sub-partupdetail-right');
+    if(!rightElm) return;
 
     var calculateBackgroundWidth = function calculateBackgroundWidth () {
         var backgroundWidth = (window.innerWidth - pageElm.offsetWidth) / 2 + rightElm.offsetWidth + OFFSET;
