@@ -13,8 +13,8 @@
         <section>
             <header>
                 <h3><a href="#">{{_ titleKey }}</a></h3>
-                {{ #if update.comments }}{{ else }}
-                    <a class="pu-button pu-button-text" data-extendcomment>{{_ 'partupdetail-update-item-comment-button' }}</a>
+                {{ #if commentsExpanded }}{{ else }}
+                    <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
                 {{ /if }}
             </header>
 
@@ -26,7 +26,7 @@
             {{/if }}
 
             <!-- Comments -->
-            {{ #if update.comments }}
+            {{ #if commentsExpanded }}
                 <footer>
                     <ul class="pu-list pu-list-comments">
                         {{ #each update.comments }}
@@ -38,6 +38,7 @@
                         </li>
                         {{ /each }}
                     </ul>
+                    <p><strong>comment-field</strong></p>
                 </footer>
             {{/if}}
         </section>
