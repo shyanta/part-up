@@ -36,7 +36,7 @@ var drawCircle = function drawCircle (canvas) {
 
     // Settings
     var settings = {
-        percent: $canvas.data('percent') || 0,
+        percent: $canvas.data('percent') || 0.000001, // This is needed to draw Arc 2 when percent = 0
         linewidth: 2,
         firstcolor: '#ffa725',
         secondcolor: '#eeeeee',
