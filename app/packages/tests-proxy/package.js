@@ -7,5 +7,10 @@ Package.describe({
 
 Package.onUse(function (api) {
 	api.use("coffeescript", ["client", "server"]);
-	api.add_files("tests/mocha/server/PartupsTest.js",["server"]);
+	api.add_files("tests/mocha/client/routingTest.js",["client"]);
+	api.add_files("tests/mocha/client/start-partup/detailsTest.js",["client"]);
+	api.add_files("tests/mocha/server/collectionTest.js",["server"]);
+	api.add_files("tests/mocha/server/methods/partupMethodsTest.js",["server"]);
+	api.add_files("tests/mocha/server/services/partupServiceTest.js",["server"]);
+	api.add_files("tests/mocha/server/stubTest.js",["server"]);
 });
