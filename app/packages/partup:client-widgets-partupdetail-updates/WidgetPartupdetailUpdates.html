@@ -3,47 +3,20 @@
 
         <!-- Header buttons -->
         <header class="pu-pageheader">
-            <section><a class="pu-button" href="#">{{_ 'partup-detail-updates-newmessage-button' }}</a></section>
+            <section><a class="pu-button" href="#">{{_ 'partupdetail-updates-newmessage-button' }}</a></section>
             <aside>{{> PartialDropdownUpdatesActions}}</aside>
         </header>
 
         <!-- For each update -->
         {{#each updates }}
-            {{#if anotherDay . updates }}
+            {{#if anotherDay . }}
                 <section class="pu-sub-separator">
                     {{ partupDatePartupTimeline created_at }}
                     <span class="fa fa-long-arrow-down"></span>
                 </section>
             {{/if }}
 
-            <section class="pu-update">
-                <aside>
-                    <figure class="pu-avatar">
-                        <a href="#" rel="author" class="pu-sub-image" style="background-image: url('{{ user.avatar }}');"></a>
-                        <span class="pu-sub-label">{{ user.fullname }}</span>
-                    </figure>
-                    <p class="pu-sub-time">
-                        <time datetime="{{ partupDateISO created_at }}">{{ partupDatePartupActivity created_at }}</time>
-                    </p>
-                </aside>
-                <section>
-                    <header>
-                        <h3><a href="#">{{ type }}</a></h3>
-                        <a class="pu-button pu-button-text" href="#">{{_ 'partup-detail-updates-comment-button' }}</a>
-                    </header>
-
-                    <!-- Type dependent content -->
-                    {{#if type = 'partups.supporters.new' }}
-                        <section>
-                            <p>{{ data.description }}</p>
-                        </section>
-                    {{/if }}
-
-
-                    <!-- Comments -->
-                    <footer></footer>
-                </section>
-            </section>
+            {{> WidgetPartupdetailUpdateItem update=. }}
 
 
         {{/each }}
