@@ -4,7 +4,7 @@
 
     "startcontribute-button-donate": "Losse donatie",
 
-    "startcontribute-form-want-label": "Ik doe mee",
+    "startcontribute-form-want-label": "Ik neem deel",
 
     "startcontribute-form-can-label": "Ik kan dit doen",
     "startcontribute-form-can_amount-placeholder": "0",
@@ -14,5 +14,5 @@
     "startcontribute-form-have_description-label": "of / en",
     "startcontribute-form-have_description-placeholder": "Bijvoorbeeld: een auto te leen",
 
-    "startcontribute-button-next_page": "Vind mede Uppers"
+    "startcontribute-button-next_page": "Vind Uppers"
 }
