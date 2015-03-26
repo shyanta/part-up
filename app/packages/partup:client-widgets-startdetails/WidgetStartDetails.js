@@ -9,7 +9,11 @@ Template.WidgetStartDetails.helpers({
         var partupId = Session.get('partials.start-partup.current-partup');
         if (partupId) {
             var partup = Partups.findOne({_id: partupId});
-            return Partup.transformers.partup.toFormStartPartup(partup);
+            if(partup) {
+                return Partup.transformers.partup.toFormStartPartup(partup);
+            } else {
+                return undefined;
+            }
         }
         return undefined;
     },
