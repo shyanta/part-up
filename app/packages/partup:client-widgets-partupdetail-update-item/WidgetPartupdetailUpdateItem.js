@@ -1,11 +1,14 @@
-var commentsExpandedValue, commentsExpandedTracker = new Tracker.Dependency;
+/*************************************************************/
+/* Widget reactives */
+/*************************************************************/
+var commentsExpandedDict = new ReactiveDict;
+
 
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.onRendered(function () {
-    commentsExpandedValue = this.data.update.comments.length > 0;
-    commentsExpandedTracker.changed();
+    commentsExpandedDict.set(this.data.update._id, this.data.update.comments.length > 0);
 });
 
 
@@ -19,8 +22,7 @@ Template.WidgetPartupdetailUpdateItem.helpers({
     },
 
     'commentsExpanded': function commentsExpanded () {
-        commentsExpandedTracker.depend();
-        return commentsExpandedValue;
+        return commentsExpandedDict.get(this.update._id);
     }
 
 });
@@ -31,9 +33,23 @@ Template.WidgetPartupdetailUpdateItem.helpers({
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.events({
     
-    'click [data-expand-comment-field]': function eventClickExpandCommentField (event) {
-        // commentsExpandedValue = true;
-        // commentsExpandedTracker.changed();
+    'click [data-expand-comment-field]': function eventClickExpandCommentField (event, template) {
+        commentsExpandedDict.set(template.data.update._id, true);
+    },
+
+    'submit [data-addcomment]': function eventSubmitAddComment (event, template) {
+        event.preventDefault();
+        var form = event.currentTarget;
+        var commentValue = lodash.find(form, {name: 'commentValue'}).value;
+        var updates = template.data.updateVar.get();
+        lodash.find(updates, { _id: template.data.update._id }).comments.push({
+            user: {
+                fullname: 'Testgebruiker'
+            },
+            content: commentValue
+        });
+        template.data.updateVar.set(updates);
+        form.reset();
     }
 
 });

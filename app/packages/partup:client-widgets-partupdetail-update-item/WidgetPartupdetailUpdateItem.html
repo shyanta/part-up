@@ -13,32 +13,37 @@
         <section>
             <header>
                 <h3><a href="#">{{_ titleKey }}</a></h3>
-                {{ #if commentsExpanded }}{{ else }}
+                {{#if commentsExpanded }}{{ else }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
-                {{ /if }}
+                {{/if }}
             </header>
 
             <!-- Type dependent content -->
-            {{ #if type = 'partups.supporters.new' }}
+            {{#if type = 'partups.supporters.new' }}
                 <section>
                     <p>{{ update.data.description }}</p>
                 </section>
             {{/if }}
 
             <!-- Comments -->
-            {{ #if commentsExpanded }}
+            {{#if commentsExpanded }}
                 <footer>
                     <ul class="pu-list pu-list-comments">
-                        {{ #each update.comments }}
+                        {{#each update.comments }}
                         <li>
                             <p>
                                 <span rel="author">{{ user.fullname }}</span>
                                 {{ content }}
                             </p>
                         </li>
-                        {{ /each }}
+                        {{/each }}
                     </ul>
-                    <p><strong>comment-field</strong></p>
+                    <form data-addcomment name="addComment">
+                        <ul class="pu-list pu-list-fieldwithbutton">
+                            <li><input type="text" class="pu-input" name="commentValue"></li>
+                            <li><input type="submit" class="pu-button pu-button-inputheight" value="Plaats"></li>
+                        </ul>
+                    </form>
                 </footer>
             {{/if}}
         </section>

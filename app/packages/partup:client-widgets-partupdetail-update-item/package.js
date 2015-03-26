@@ -13,7 +13,8 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup:lib',
-        'tracker'
+        'tracker',
+        'reactive-dict'
     ], 'client');
 
     api.addFiles([
