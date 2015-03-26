@@ -23,6 +23,7 @@ Package.onUse(function(api) {
         'ui/language.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
-        'helpers/scrollBottom.js'
+        'helpers/scrollBottom.js',
+        'autorun.js'
     ], ['client']);
 });
