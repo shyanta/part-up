@@ -5,7 +5,7 @@ Meteor.startup(function() {
     /*************************************************************/
     if(TAPi18n && Partup) {
         var language = TAPi18n.getLanguage() || 'en';
-        Partup.language.changeLanguage(language);
+        Partup.ui.language.changeLanguage(language);
     }
     
 });

@@ -13,7 +13,7 @@ Template.WidgetRegisterRequired.events({
         }, function(error) {
 
             if(error) {
-                Partup.notify.iError('generic-error');
+                Partup.ui.notify.iError('generic-error');
                 return;
             }
 
@@ -27,7 +27,7 @@ Template.WidgetRegisterRequired.events({
         }, function(error) {
 
             if(error) {
-                Partup.notify.iError('generic-error');
+                Partup.ui.notify.iError('generic-error');
                 return false;
             }
 
@@ -51,7 +51,7 @@ AutoForm.hooks({
                 }
             }, function(error) {
                 if (error) {
-                    Partup.notify.iError('generic-error');
+                    Partup.ui.notify.iError('generic-error');
                     return false;
                 }
                 self.done();

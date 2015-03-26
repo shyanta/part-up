@@ -19,8 +19,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
-        'notify/notify.js',
-        'services/language.js',
+        'ui/notify.js',
+        'ui/language.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js'
     ], ['client']);

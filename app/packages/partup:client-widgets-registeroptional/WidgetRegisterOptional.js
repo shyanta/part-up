@@ -74,7 +74,7 @@ AutoForm.hooks({
             //    }
             //}, function(error) {
             //    if (error) {
-            //        Partup.notify.iError('generic-error');
+            //        Partup.ui.notify.iError('generic-error');
             //        return false;
             //    }
             //    Router.go('register-details');
