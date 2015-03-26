@@ -4,20 +4,26 @@
         <div class="pu-sub-pagecontainer">
             <div class="pu-page">
                 
-                <h2>Discover</h2>
+                <section class="pu-composition pu-composition-discover">
+                    <header>
+                        <h2 class="pu-title pu-title-home">
+                            Discover
+                        </h2>
+                    </header>
 
-                <section>
-                    {{#if partups }}
-                        <ul class="pu-list pu-list-horizontal pu-list-discover">
-                            {{#each partups }}
-                                <li>
-                                    {{> WidgetPartuptile partup = . }}
-                                </li>
-                            {{/each }}
-                        </ul>
-                    {{ else }}
-                        <p>No partups added yet.</p>
-                    {{ /if }}
+                    <section>
+                        {{#if partups }}
+                            <ul class="pu-list pu-list-horizontal pu-list-discover">
+                                {{#each partups }}
+                                    <li>
+                                        {{> WidgetPartuptile partup = . }}
+                                    </li>
+                                {{/each }}
+                            </ul>
+                        {{ else }}
+                            <p>No partups added yet.</p>
+                        {{ /if }}
+                    </section>
                 </section>
 
             </div>
