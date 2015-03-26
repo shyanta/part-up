@@ -30,7 +30,6 @@ Package.onUse(function(api) {
         'namespace.js',
         'collections/activities.js',
         'collections/updates.js',
-        'collections/fixtures.js',
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
