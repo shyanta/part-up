@@ -6,33 +6,26 @@
 
         <time>{{end_date}}</time>
 
-        {{#if showContributeButton}}
-            <p>
-                <button class="pu-button pu-button-icon pu-button-contribute"><i
-                        class="fa fa-heart"></i>{{_ 'startcontribute-button-contribute'}}</button>
-            </p>
-        {{else}}
-            {{#autoForm id=activityId schema=formSchema class="pu-form" theme="plain"}}
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'startcontribute-form-can-label'}}</span>
-                    {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" }}
-                </label>
+        {{#autoForm id=activityId schema=formSchema class="pu-form" theme="plain"}}
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startcontribute-form-can-label'}}</span>
+                {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" }}
+            </label>
 
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'startcontribute-form-have_amount-label'}}</span>
-                    {{> afFieldInput name='type_have_amount' placeholder=placeholders.have_amount class="pu-input" }}
-                </label>
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startcontribute-form-have_amount-label'}}</span>
+                {{> afFieldInput name='type_have_amount' placeholder=placeholders.have_amount class="pu-input" }}
+            </label>
 
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'startcontribute-form-have_description-label'}}</span>
-                    {{> afFieldInput name='type_have_description' placeholder=placeholders.have_description class="pu-input" }}
-                </label>
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startcontribute-form-have_description-label'}}</span>
+                {{> afFieldInput name='type_have_description' placeholder=placeholders.have_description class="pu-input" }}
+            </label>
 
-                <div class="pu-formfield-right">
-                    <input class="pu-button pu-button-primary" type="submit"
-                           value="Save">
-                </div>
-            {{/autoForm}}
-        {{/if}}
+            <div class="pu-formfield-right">
+                <input class="pu-button pu-button-primary" type="submit"
+                       value="Save">
+            </div>
+        {{/autoForm}}
     </article>
 </template>
