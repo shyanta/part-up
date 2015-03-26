@@ -1,5 +1,5 @@
 <template name="WidgetStartContribute">
-    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
 
         <h2 class="pu-title">{{_ 'startcontribute-heading-title'}}</h2>
         <p>{{_ 'startcontribute-heading-paragraph'}}</p>
@@ -13,10 +13,12 @@
             {{>ActivityContribution}}
         {{/each}}
 
-        <footer class="pu-sub-modalfooter">
-            <button href="#" class="pu-button pu-button-primary" id="nextPage">
-                {{_ 'startcontribute-button-next_page' }}
-            </button>
+        <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
+            <div class="pu-sub-footer-container">
+                <button href="#" class="pu-button pu-button-primary" id="nextPage">
+                    {{_ 'startcontribute-button-next_page' }}
+                </button>
+            </div>
         </footer>
 
     </div>
