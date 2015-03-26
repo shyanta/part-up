@@ -8,25 +8,17 @@ Partup.schemas.forms.contribute = new SimpleSchema({
         type: Boolean,
         optional: true
     },
-    type_can: {
-        type: Boolean,
+    type_can_amount: {
+        type: Number,
         optional: true
     },
-        type_can_amount: {
-            type: Number,
-            optional: true
-        },
-    type_have: {
-        type: Boolean,
+    type_have_amount: {
+        type: Number,
         optional: true
     },
-        type_have_amount: {
-            type: Number,
-            optional: true
-        },
-        type_have_description: {
-            type: String,
-            max: 255,
-            optional: true
-        }
+    type_have_description: {
+        type: String,
+        max: 255,
+        optional: true
+    }
 });
