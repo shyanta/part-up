@@ -2,7 +2,13 @@
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetPartuptile.helpers({
-    //
+    partupCover: function () {
+        var data = this;
+        if (!data) return null;
+        var partup = data.partup;
+        if (!partup || !partup.image) return null;
+        return Images.findOne({ _id: partup.image });
+    }
 });
 
 /*************************************************************/
@@ -17,41 +23,55 @@ Template.WidgetPartuptile.events({
 /*************************************************************/
 Template.WidgetPartuptile.onRendered(function () {
     var canvasElm = this.find('canvas.pu-sub-radial');
-    if(canvasElm) renderCircle(canvasElm);
+    if (canvasElm) drawCircle(canvasElm);
 });
 
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-renderCircle = function renderCircle (canvas) {
+var drawCircle = function drawCircle (canvas) {
+
+    // jQuery object
     var $canvas = $(canvas);
+
+    // Settings
     var settings = {
-        percent: $canvas.data('percent'),
-        linewidth: $canvas.data('linewidth'),
-        firstcolor: $canvas.data('firstcolor'),
-        secondcolor: $canvas.data('secondcolor')
+        percent: $canvas.data('percent') || 0,
+        linewidth: 2,
+        firstcolor: '#ffa725',
+        secondcolor: '#eeeeee',
+        width: $canvas.width(),
+        height: $canvas.height()
     };
 
+    // Create context
     var ctx = canvas.getContext('2d');
-    var imd = null;
+
+    // Circle calculations
     var circ = Math.PI * 2;
     var quart = circ / 4;
     var endingAngle = ((circ) * settings.percent / 100) - quart;
-    var convertedLinewidth = settings.linewidth * 3.4;
+    var radius = settings.width / 2;
+
+    // Set canvas dimensions
+    canvas.width = settings.width;
+    canvas.height = settings.height;
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // Arc 1
     ctx.beginPath();
-    ctx.arc(320, 320, 320 - convertedLinewidth / 2, -(quart), endingAngle, false);
+    ctx.arc(radius, radius, radius - settings.linewidth / 2, -(quart), endingAngle, false);
     ctx.strokeStyle = settings.firstcolor;
-    ctx.lineWidth = convertedLinewidth;
+    ctx.lineWidth = settings.linewidth;
     ctx.stroke();
     ctx.closePath();
 
     // Arc 2
     ctx.beginPath();
-    ctx.arc(320, 320, 320 - convertedLinewidth / 2, endingAngle, -(quart), false);
+    ctx.arc(radius, radius, radius - settings.linewidth / 2, endingAngle, -(quart), false);
     ctx.strokeStyle = settings.secondcolor;
-    ctx.lineWidth = convertedLinewidth;
+    ctx.lineWidth = settings.linewidth;
     ctx.stroke();
     ctx.closePath();
+
 };

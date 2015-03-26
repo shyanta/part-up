@@ -2,33 +2,25 @@
 
     <article class="pu-partuptile">
         <header>
-            <h2>Interne innovatiewedstrijd organiseren</h2>
+            <h2>
+                <a href="{{pathFor 'partup-detail' _id=partup._id }}">{{ partup.name }}</a>
+            </h2>
         </header>
         <section>
-            <figure class="pu-partupcircle">
-                <canvas class="pu-sub-radial" data-percent="{{ partup.progress }}" data-linewidth="2" data-firstcolor="#ffa725" data-secondcolor="#eeeeee" width="640" height="640"></canvas>
-                <div class="pu-sub-inner">
-                    <div class="pu-sub-picture" style=""></div>
-                </div>
+            <div class="pu-partupcircle">
+                <canvas class="pu-sub-radial" data-percent="{{ partup.progress }}"></canvas>
+                <figure class="pu-sub-inner" style="{{#if partupCover }}background-image: url('{{ partupCover.url }}');{{/if }}"></figure>
                 <!-- Uppers
                 <ul>
                     <li></li>
                 </ul>
                 -->
-            </figure>
-            <p>Voor een grote verzekeraar ben ik gevraagd om een innovatiewedstrijd te organiseren. Ik heb hiervoor diverse ideeën maar zoek ondersteuning in techniek en communicatie.</p>
+            </div>
+            <p>{{ partup.description }}</p>
         </section>
-        <footer>
+        <!-- <footer>
             <p>Lifely</p>
-        </footer>
+        </footer> -->
     </article>
-    
-    <!-- <header>
-        <h2><a href="{{pathFor 'partup-detail' _id=_id }}">{{ name }}</a></h2>
-        <p>{{ description }}</p>
-        {{#each tags }}
-            <span>#{{ . }}</span>
-        {{/each }}
-    </header> -->
 
 </template>
