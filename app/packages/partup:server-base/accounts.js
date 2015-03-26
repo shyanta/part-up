@@ -27,7 +27,11 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 Accounts.validateNewUser(function (user) {
-    if (Meteor.users.findOne({ email: user.email })) {
+    var emailAddress = findPossibleEmailAddresses(user);
+
+    var socialUser = Meteor.users.findOne({ 'emails.address': emailAddress });
+    var passwordUser = Meteor.users.findOne({ 'registered_emails.address': emailAddress })
+    if (socialUser || passwordUser) {
         throw new Meteor.Error(403, 'Email already exists');
     }
 
@@ -35,3 +39,16 @@ Accounts.validateNewUser(function (user) {
 
     return true;
 });
+
+function findPossibleEmailAddresses(user) {
+    if(user.emails && user.emails.length > 0) {
+        return user.emails[0].address;
+    }
+    if(user.services && user.services.linkedin) {
+        return user.services.linkedin.emailAddress;
+    }
+    if(user.services && user.services.facebook) {
+        return user.services.facebook.email;
+    }
+    return false;
+}
