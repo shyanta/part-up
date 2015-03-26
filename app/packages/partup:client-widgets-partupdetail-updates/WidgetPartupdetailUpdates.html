@@ -18,8 +18,9 @@
 
             <section class="pu-update">
                 <aside>
-                    <figure class="pu-avatar" style="background-image: url('{{ user.avatar }}');">
-                        <a href="#" rel="author" title="{{ user.fullname }}" data-fullname="{{ user.fullname }}"></a>
+                    <figure class="pu-avatar">
+                        <a href="#" rel="author" class="pu-sub-image" style="background-image: url('{{ user.avatar }}');"></a>
+                        <span class="pu-sub-label">{{ user.fullname }}</span>
                     </figure>
                     <p class="pu-sub-time">
                         <time datetime="{{ partupDateISO created_at }}">{{ partupDatePartupActivity created_at }}</time>

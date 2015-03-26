@@ -9,8 +9,8 @@ Template.WidgetPartupdetailUpdates.helpers({
             {
                 arrayIndex: 0,
                 user: {
-                    avatar: '',
-                    fullname: '',
+                    avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+                    fullname: 'Jesse de Vries',
                 },
                 created_at: new Date(),
                 type: 'henk'
@@ -18,8 +18,8 @@ Template.WidgetPartupdetailUpdates.helpers({
             {
                 arrayIndex: 1,
                 user: {
-                    avatar: '',
-                    fullname: '',
+                    avatar: 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/0a7/057/33f4a9e.jpg',
+                    fullname: 'Leon Smit',
                 },
                 created_at: new Date(1426949113548),
                 type: 'henk'
