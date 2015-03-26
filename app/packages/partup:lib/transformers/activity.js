@@ -45,7 +45,11 @@ Partup.transformers.activity.contribution = {
      */
     'toFormActivityContribution':function(contribution) {
         return {
-
+            _id: contribution._id,
+            type_want: contribution.types.$.type_want,
+            type_can_amount: contribution.types.$.type_can_amount,
+            type_have_amount: contribution.types.$.type_have_amount,
+            type_have_description: contribution.types.$.type_have_description
         };
     },
 
@@ -57,10 +61,6 @@ Partup.transformers.activity.contribution = {
      */
     'fromFormActivityContribution': function(fields) {
         var contribution = {};
-        contribution._id = Random.id();
-        contribution.created_at = Date.now();
-        contribution.updated_at = Date.now();
-        contribution.upper_id = upper._id;
 
         if (fields.type_want) {
             contribution.types = [
@@ -81,13 +81,23 @@ Partup.transformers.activity.contribution = {
             ];
         }
 
-        if (fields.type_have_amount || fields.type_have_description) {
+        if (fields.type_have_amount) {
             contribution.types = [
                 {
                     'type': 'have',
                     'type_data': {
                         'amount': fields.type_have_amount,
-                        'description': fields.type_have_description
+                    }
+                }
+            ];
+        }
+
+        if (fields.type_have_description) {
+            contribution.types = [
+                {
+                    'type': 'have',
+                    'type_data': {
+                        'description': fields.type_have_description,
                     }
                 }
             ];
