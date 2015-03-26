@@ -22,6 +22,7 @@ Package.onUse(function(api) {
         'notify/notify.js',
         'services/language.js',
         'helpers/dateFormatters.js',
-        'helpers/equality.js'
+        'helpers/equality.js',
+        'helpers/scrollBottom.js'
     ], ['client']);
 });
