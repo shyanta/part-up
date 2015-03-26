@@ -20,7 +20,6 @@ Partup.language = {
             };
 
         }).fail(function (error_message) {
-            // console.log(error_message);
             Partup.notify.error('Could not load the language "' + language + '"');
         });
     }

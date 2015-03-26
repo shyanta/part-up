@@ -21,8 +21,7 @@ Package.onUse(function(api) {
         'namespace.js',
         'notify/notify.js',
         'services/language.js',
-        'bootstrap.js',
         'helpers/dateFormatters.js',
-        'helpers/equality.js',
+        'helpers/equality.js'
     ], ['client']);
 });
