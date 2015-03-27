@@ -104,7 +104,10 @@ updatesVar.set([
         },
         created_at: new Date(1426949113550),
         type: 'changed_ending_date',
-        data: {},
+        data: {
+            old_date: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 40), // 40 days
+            new_date: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 30), // 30 days
+        },
         comments: []
     },
     {
