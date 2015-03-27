@@ -14,9 +14,20 @@ Template.WidgetStartActivities.events({
     'click #nextPage': function () {
         Router.go('start-contribute', {_id: Session.get('partials.start-partup.current-partup')});
     },
-    'click .end-date-button': function(event) {
+    'click [data-end-date-button]': function(event, template) {
         event.preventDefault();
         Session.set('showDateButton', false);
+
+        // defer is nessesary to wait for template re rendering
+        lodash.defer(function(){
+
+            // init datepicker
+            template.$('.pu-datepicker').datepicker({
+                language: moment.locale(),
+                format: "yyyy-mm-dd",
+            });
+        })
+        
     }
 });
 
