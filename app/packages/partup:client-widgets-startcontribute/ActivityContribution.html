@@ -1,26 +1,54 @@
 <template name="ActivityContribution">
-    <article class="pu-block">
-        <h2 class="pu-block-title">{{name}}</h2>
+    <article class="pu-block pu-block-container">
+        <div class="pu-block-container-child">
+            <h2 class="pu-block-title">{{name}}</h2>
 
-        <p class="pu-paragraph">{{description}}</p>
+            <p class="pu-paragraph">{{description}}</p>
 
-        <time>{{end_date}}</time>
+            <time>{{end_date}}</time>
+        </div>
+        <div class="pu-block-container-child">
+            {{#autoForm schema=formSchema class="pu-form pu-form-contribution" theme="plain" autosaveOnKeyup=true trimStrings=false}}
 
-        {{#if showContributeButton}}
-            <p>
-                <button class="pu-button pu-button-icon pu-button-contribute"><i
-                        class="fa fa-heart"></i>{{_ 'startcontribute-button-contribute'}}</button>
-            </p>
-        {{else}}
-            {{#autoForm schema=formSchema class="pu-form" theme="plain" autosaveOnKeyup=true trimStrings=false}}
-                <label class="pu-formfield pu-checkbox-field">
-                    <input type="checkbox" class="pu-checkbox">
-                    <i class="fa fa-magic"></i>{{_ 'startcontribute-form-want-label'}}</label>
-                <label class="pu-formfield pu-checkbox-field"><input type="checkbox" class="pu-checkbox"><span></span>
-                    <i class="fa fa-user-plus"></i>{{_ 'startcontribute-form-can-label'}}</label>
-                <label class="pu-formfield pu-checkbox-field"><input type="checkbox" class="pu-checkbox" checked><span></span>
-                    <i class="fa fa-wrench"></i>{{_ 'startcontribute-form-have-label'}}</label>
+                <!-- want -->
+                <input type="checkbox" class="pu-checkbox" id="pu-contribution-want">
+                <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-want">
+                    <i class="fa fa-magic"></i>
+                    {{_ 'startcontribute-form-want-label'}}
+                </label>
+                
+                <!-- can -->
+                <input type="checkbox" class="pu-checkbox" id="pu-contribution-can" {{contributionCanChecked}}>
+                <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-can" data-open-contribution-can>
+                    <i class="fa fa-user-plus"></i>
+                    {{_ 'startcontribute-form-can-label'}}
+                </label>
+                <div class="pu-popover {{#if showContributeCan}}pu-popover-show{{/if}}" data-contribution-can>
+                    <span>I can do this for</span>
+                    <input type="number" class="pu-input" data-input-contribution-can>
+                </div>
+                
+                <!-- have -->
+                <input type="checkbox" class="pu-checkbox" id="pu-contribution-have">
+                <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-have" data-open-contribution-have>
+                    <i class="fa fa-wrench"></i>
+                    {{_ 'startcontribute-form-have-label'}}
+                </label>
+                <div class="pu-popover {{#if showContributeHave}}pu-popover-show{{/if}}" data-contribution-have>
+                    <span>I bring in</span>
+                    <input type="number" class="pu-input">
+                    <span>or/and</span>
+                    <input type="text" class="pu-input">
+                </div>
             {{/autoForm}}
-        {{/if}}
+        </div>
+        <!-- <div class="pu-block-container-bottom">
+            <ul>
+                <li>jaja</li>
+                <li>jaja</li>
+                <li>jaja</li>
+                <li>jaja</li>
+            </ul>
+        </div> -->
     </article>
 </template>
