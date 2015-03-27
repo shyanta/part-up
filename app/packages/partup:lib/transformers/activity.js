@@ -44,13 +44,18 @@ Partup.transformers.activity.contribution = {
      * @param {object} contribution
      */
     'toFormActivityContribution':function(contribution) {
-        return {
-            _id: contribution._id,
-            type_want: contribution.types.$.type_want,
-            type_can_amount: contribution.types.$.type_can_amount,
-            type_have_amount: contribution.types.$.type_have_amount,
-            type_have_description: contribution.types.$.type_have_description
-        };
+        var contributionValues = {};
+
+        contributionValues._id = contribution._id;
+
+        contribution.types.forEach(function(type) {
+            if (type.type == 'want') contributionValues.type_want = true;
+            if (type.type == 'can' && type.type_data.amount) contributionValues.type_can_amount = type.type_data.amount;
+            if (type.type == 'have' && type.type_data.amount) contributionValues.type_have_amount = type.type_data.amount;
+            if (type.type == 'have' && type.type_data.description) contributionValues.type_have_description = type.type_data.description;
+        });
+
+        return contributionValues;
     },
 
     /**
