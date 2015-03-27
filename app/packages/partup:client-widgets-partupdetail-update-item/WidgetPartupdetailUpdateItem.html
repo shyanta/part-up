@@ -29,7 +29,7 @@
             {{#if commentInputFieldExpanded }}
                 <footer>
                     {{#if showExpandButton }}
-                        <p><a data-expand-comments>Bekijk alle {{ update.comments.length }} reacties</a></p>
+                        <p><a data-expand-comments>{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
                     {{/if }}
                     <ul class="pu-list pu-list-comments">
                         {{#each shownComments }}

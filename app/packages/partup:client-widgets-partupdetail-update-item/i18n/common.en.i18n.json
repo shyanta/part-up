@@ -1,5 +1,6 @@
 {
     "partupdetail-update-item-comment-button": "Comment",
     "partupdetail-update-item-comment-postbutton": "Post",
-    "partupdetail-update-item-comment-placeholder": "Write a comment"
+    "partupdetail-update-item-comment-placeholder": "Write a comment",
+    "partupdetail-update-item-comment-viewall-button": "View all %s comments"
 }
