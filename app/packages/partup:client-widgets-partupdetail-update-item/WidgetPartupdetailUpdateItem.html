@@ -68,6 +68,15 @@
                 {{/with}}
             {{/if }}
 
+            <!-- changed_description -->
+            {{#if partupEqualsExactly update.type 'changed_description' }}
+                {{#with update.data }}
+                    <section>
+                        <p class="pu-paragraph pu-paragraph-large">{{ description }}</p>
+                    </section>
+                {{/with}}
+            {{/if }}
+
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->

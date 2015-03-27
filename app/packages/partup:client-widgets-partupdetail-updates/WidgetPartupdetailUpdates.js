@@ -131,7 +131,9 @@ updatesVar.set([
         },
         created_at: new Date(1426949113550),
         type: 'changed_description',
-        data: {},
+        data: {
+            description: 'Wie helpt mij in een Part-up om een complete huisstijl te bedenken, ontwikkelen en uit te werken voor onze goed nieuwe start-up?'
+        },
         comments: []
     },
     {
