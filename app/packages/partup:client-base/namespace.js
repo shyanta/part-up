@@ -1,6 +1,5 @@
 /**
- @namespace Notify
- @name partup.notify
+ @namespace Ui
+ @name partup.ui
  */
-Partup.notify = {};
-Partup.language = {};
+Partup.ui = {};

@@ -19,10 +19,11 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
-        'notify/notify.js',
-        'services/language.js',
-        'bootstrap.js',
+        'ui/notify.js',
+        'ui/language.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
+        'helpers/scrollBottom.js',
+        'autorun.js'
     ], ['client']);
 });

@@ -4,20 +4,27 @@
         <div class="pu-sub-pagecontainer">
             <div class="pu-page">
                 
-                <h2>Discover</h2>
-                {{#each partups}}
-                    <li>
-                        <header>
-                            <h2><a href="{{pathFor 'partup-detail' _id=_id}}">{{name}}</a></h2>
-                            <p>{{description}}</p>
-                            {{#each tags}}
-                                <span>#{{name}}</span>
-                            {{/each}}
-                        </header>
-                    </li>
-                {{else}}
-                    <li>no partups added yet</li>
-                {{/each}}
+                <section class="pu-composition pu-composition-discover">
+                    <header>
+                        <h2 class="pu-title pu-title-home">
+                            Discover
+                        </h2>
+                    </header>
+
+                    <section>
+                        {{#if partups }}
+                            <ul class="pu-list pu-list-horizontal pu-list-discover">
+                                {{#each partups }}
+                                    <li>
+                                        {{> WidgetPartuptile partup = . }}
+                                    </li>
+                                {{/each }}
+                            </ul>
+                        {{ else }}
+                            <p>No partups added yet.</p>
+                        {{ /if }}
+                    </section>
+                </section>
 
             </div>
         </div>

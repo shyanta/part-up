@@ -30,7 +30,6 @@ Package.onUse(function(api) {
         'namespace.js',
         'collections/activities.js',
         'collections/updates.js',
-        'collections/fixtures.js',
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
@@ -47,11 +46,6 @@ Package.onUse(function(api) {
         'transformers/user.js',
         'transformers/activity.js'
     ]);
-
-    api.addFiles([
-        'autorun.js',
-        'ui/dropdown.js'
-    ], 'client');
 
     api.addFiles([
         'publications/notifications.js',

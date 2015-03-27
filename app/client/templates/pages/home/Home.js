@@ -17,7 +17,7 @@ Template.PagesHome.events({
 
     'click [data-translate]': function clickTranslate (event, template) {
         var language = $(event.currentTarget).data("translate");
-        Partup.language.changeLanguage(language);
+        Partup.ui.language.changeLanguage(language);
     }
 
 });

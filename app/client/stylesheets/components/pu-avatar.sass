@@ -1,23 +1,69 @@
 .pu-avatar
+    position: relative
     display: inline-block
     width: 40px
     height: 40px
     border-radius: 50%
     background-color: $color-solid-gray
-    overflow: hidden
     background-size: cover
     background-position: center
     background-repeat: no-repeat
 
-    img
-        width: 100%
-        min-width: 100%
-        min-height: 100%
-
-    a
+    .pu-sub-image
         display: block
-        width: inherit
-        height: inherit
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background-color: $color-solid-gray
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        border-radius: 50%
+        z-index: 1
+
+    .pu-sub-label
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        top: 50%
+        right: 100%
+        margin-right: 10px - 3px
+        display: inline-block
+        background-color: $color-secondary
+        color: $color-text-inverted
+        white-space: nowrap
+        border-radius: 2px
+        padding-top: 10px - 2px
+        padding-bottom: 10px - 3px
+        padding-left: 10px
+        padding-right: 15px
+        font-weight: 600
+        font-size: 14px
+        z-index: -1
+        transform: rotateZ(-7deg) translate3d(0, -50%, 0)
+        transform-origin: calc(100% + 24px) 4px
+        transition: transform $animation-duration-slide, opacity $animation-duration-slide
+
+        &:after
+            content: ''
+            display: block
+            position: absolute
+            background-color: white
+            width: 50px
+            height: 50px
+            top: 50%
+            transform: translateY(-50%)
+            left: 100%
+            margin-left: -3px
+            border-radius: 50%
+
+    &:hover
+        .pu-sub-label
+            transform: translate3d(0, -50%, 0)
+            opacity: 1
+            pointer-events: auto
 
     &-small
         width: 30px

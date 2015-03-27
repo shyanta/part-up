@@ -16,6 +16,7 @@ partup:client-widgets-startactivities
 partup:client-widgets-registerrequired
 partup:client-widgets-registeroptional
 partup:client-widgets-startcontribute
+partup:client-widgets-partuptile
 
 meteor-platform
 iron:router

@@ -1,8 +1,8 @@
-Partup.language = {
+Partup.ui.language = {
     /**
      * Set the language of partup
      *
-     * @memberOf services.partup
+     * @memberOf partup.ui
      * @param {String} language
      */
     changeLanguage: function(language){
@@ -20,8 +20,7 @@ Partup.language = {
             };
 
         }).fail(function (error_message) {
-            // console.log(error_message);
-            Partup.notify.error('Could not load the language "' + language + '"');
+            Partup.ui.notify.error('Could not load the language "' + language + '"');
         });
     }
 };
