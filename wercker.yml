@@ -15,3 +15,7 @@ build:
         code: |
           cd app
           meteor run --test
+  after-steps:
+    - kobim/slack-post:
+        url: $SLACK_URL
+        channel: notifications
