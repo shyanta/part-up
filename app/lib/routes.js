@@ -169,6 +169,9 @@ Router.route('/register', {
     yieldRegions: {
         'PagesRegister': { to: 'page' },
         'PagesRegisterRequired': { to: 'register-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('users.count');
     }
 });
 

@@ -1,3 +1,7 @@
+Meteor.publish('users.count', function() {
+    Counts.publish(this, 'users', Meteor.users.find());
+});
+
 Meteor.publish('users.loggedin', function () {
     var subscription = this;
     var userHandle = null;

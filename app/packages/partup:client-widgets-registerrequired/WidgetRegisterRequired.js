@@ -2,7 +2,7 @@ Template.WidgetRegisterRequired.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: Partup.services.placeholders.registerRequired,
     totalNumberOfUppers: function() {
-        return 42;
+        return Counts.get('users');
     }
 });
 
