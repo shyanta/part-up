@@ -2,6 +2,7 @@
 /* Widget reactives */
 /*************************************************************/
 var commentsExpandedDict = new ReactiveDict;
+var commentPostButtonActiveDict = new ReactiveDict;
 
 
 /*************************************************************/
@@ -9,6 +10,7 @@ var commentsExpandedDict = new ReactiveDict;
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.onRendered(function () {
     commentsExpandedDict.set(this.data.update._id, this.data.update.comments.length > 0);
+    commentPostButtonActiveDict.set(this.data.update._id, false);
 });
 
 
@@ -17,13 +19,17 @@ Template.WidgetPartupdetailUpdateItem.onRendered(function () {
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.helpers({
 
-    'titleKey': function titleKey () {
+    'titleKey': function helperTitleKey () {
         return 'partupdetail-update-item-type-' + this.update.type + '-title';
     },
 
-    'commentsExpanded': function commentsExpanded () {
+    'commentsExpanded': function helperCommentsExpanded () {
         return commentsExpandedDict.get(this.update._id);
-    }
+    },
+
+    'commentPostButtonActive': function helperCommentPostButtonActive () {
+        return commentPostButtonActiveDict.get(this.update._id);
+    },
 
 });
 
@@ -35,6 +41,11 @@ Template.WidgetPartupdetailUpdateItem.events({
     
     'click [data-expand-comment-field]': function eventClickExpandCommentField (event, template) {
         commentsExpandedDict.set(template.data.update._id, true);
+    },
+
+    'input [data-commentfield]': function eventChangeCommentField (event, template) {
+        var hasValue = event.currentTarget.value ? true : false;
+        commentPostButtonActiveDict.set(template.data.update._id, hasValue);
     },
 
     'submit [data-addcomment]': function eventSubmitAddComment (event, template) {
@@ -57,6 +68,8 @@ Template.WidgetPartupdetailUpdateItem.events({
         // todo: mongo implementation
         // --
 
+        // Reset
+        commentPostButtonActiveDict.set(template.data.update._id, false);
         form.reset();
     }
 

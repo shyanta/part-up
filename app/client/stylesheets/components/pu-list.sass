@@ -55,4 +55,21 @@
 
             &:first-child
                 width: 100%
-                padding-right: $grid-gap
+
+            &:nth-child(n+2)
+                padding-left: $grid-gap
+
+        &-init-inactive
+            li:nth-child(n+2)
+                max-width: 0
+                overflow: hidden
+                padding: 0
+                $d: $animation-duration-slide
+                transition: max-width $d, padding $d, opacity $d
+                opacity: 0
+
+        &-state-active
+            li:nth-child(n+2)
+                max-width: 120px
+                padding-left: $grid-gap
+                opacity: 1

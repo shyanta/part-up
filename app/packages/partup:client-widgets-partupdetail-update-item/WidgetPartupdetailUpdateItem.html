@@ -39,8 +39,8 @@
                         {{/each }}
                     </ul>
                     <form data-addcomment name="addComment">
-                        <ul class="pu-list pu-list-fieldwithbutton">
-                            <li><input type="text" class="pu-input" name="commentValue"></li>
+                        <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
+                            <li><input type="text" class="pu-input" name="commentValue" data-commentfield></li>
                             <li><input type="submit" class="pu-button pu-button-inputheight" value="Plaats"></li>
                         </ul>
                     </form>
