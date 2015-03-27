@@ -47,11 +47,6 @@ Package.onUse(function(api) {
     ]);
 
     api.addFiles([
-        'autorun.js',
-        'ui/dropdown.js'
-    ], 'client');
-
-    api.addFiles([
         'publications/notifications.js',
         'publications/partups.js',
         'publications/images.js',
