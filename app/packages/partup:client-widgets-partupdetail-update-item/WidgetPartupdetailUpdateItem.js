@@ -39,12 +39,12 @@ Template.WidgetPartupdetailUpdateItem.helpers({
     },
 
     'shownComments': function helperShownComments () {
+        var allComments = this.update.comments;
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        // todo: reverse comments sort
         if(commentsExpanded)
-            return this.update.comments;
+            return allComments;
         else
-            return this.update.comments.slice(0, MAX_COLLAPSED_COMMENTS);
+            return allComments.slice(- MAX_COLLAPSED_COMMENTS);
     },
 
     'showExpandButton': function helperShowExpandButton () {
@@ -85,7 +85,7 @@ Template.WidgetPartupdetailUpdateItem.events({
         var updates = template.data.updateVar.get();
         lodash.find(updates, { _id: template.data.update._id }).comments.push({
             user: {
-                fullname: 'Testgebruiker'
+                fullname: Meteor.user().profile.name
             },
             content: commentValue
         });
