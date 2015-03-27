@@ -1,7 +1,7 @@
 <template name="WidgetStartDetails">
     <div class="pu-composition pu-composition-defaultmodal">
 
-        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' 'Pim'}}</h2>
+        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name}}</h2>
         <p>{{_ 'startdetails-explainingpartup'}}</p>
 
         {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" theme="plain"}}
