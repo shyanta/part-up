@@ -14,7 +14,8 @@ Package.onUse(function(api) {
         'tap:i18n',
         'momentjs:moment',
         'chrismbeckett:toastr',
-        'templating'
+        'templating',
+        'tracker'
     ], ['client']);
 
     api.addFiles([
@@ -23,6 +24,7 @@ Package.onUse(function(api) {
         'ui/language.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
-        'helpers/scrollBottom.js'
+        'helpers/scrollBottom.js',
+        'autorun.js'
     ], ['client']);
 });

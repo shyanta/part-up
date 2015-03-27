@@ -19,6 +19,9 @@ Template.WidgetStartDetails.helpers({
     },
     uploadedImage: function() {
         return Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+    },
+    user: function() {
+        return Meteor.user();
     }
 });
 
