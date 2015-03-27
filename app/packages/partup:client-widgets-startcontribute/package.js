@@ -9,6 +9,7 @@ Package.onUse(function (api) {
     api.use([
         'templating',
         'aldeed:autoform',
+        'aldeed:template-extension',
         'partup:lib',
         'tap:i18n',
         'reactive-var'
