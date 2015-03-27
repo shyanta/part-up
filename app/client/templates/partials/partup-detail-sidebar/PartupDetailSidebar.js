@@ -36,12 +36,13 @@ Template.PartialsPartupDetailSidebar.helpers({
 
     'prettyEndDate': function helperPrettyEndDate () {
         var partup = this.partup();
-        console.log(partup);
+        if(!partup) return '...';
         return moment(partup.end_date).format('LL'); // see: helpers/dateFormatters.js -> partupDateNormal
     },
 
     'prettyVisibility': function helperPrettyVisibility () {
         var partup = this.partup();
+        if(!partup) return '...';
         return TAPi18n.__('partup-detail-visibility-' + partup.visibility);
     }
 
