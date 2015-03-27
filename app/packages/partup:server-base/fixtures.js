@@ -56,7 +56,14 @@ Meteor.startup(function () {
             },
             image: null,
             created_at : new Date("2015-03-26T16:25:07.816Z"),
-            end_date: Date.now()
+            end_date: new Date("2015-06-01T10:00:07.100Z"),
+            network: {
+                name: 'superheroes',
+                icon: {
+                    url: 'http://vignette1.wikia.nocookie.net/clubpenguin/images/8/87/Superhero_Pin_icon.png/revision/latest?cb=20120614132335'
+                }
+            },
+            visibility: 'private'
         };
         var firstPartupId = Partups.insert(firstPartup);
 
@@ -73,7 +80,14 @@ Meteor.startup(function () {
             image: null,
             created_at : new Date("2015-03-26T16:25:07.816Z"),
             supporters: [user2Id],
-            end_date: Date.now()
+            end_date: new Date("2015-08-01T10:00:07.100Z"),
+            network: {
+                name: 'lifely',
+                icon: {
+                    url: 'http://lifely.nl/bundles/lifelywebsite/frontend/resources/img/icons/icon76.png'
+                }
+            },
+            visibility: 'public'
         };
         var secondPartupId = Partups.insert(secondPartup);
     }

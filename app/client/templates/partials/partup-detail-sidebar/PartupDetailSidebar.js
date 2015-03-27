@@ -24,13 +24,25 @@ Template.PartialsPartupDetailSidebar.rendered = function() {
     calculateBackgroundWidth();
 };
 
+
 /*************************************************************/
 /* Partial helpers */
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.helpers({
 
-    backgroundWidth: function () {
+    'backgroundWidth': function helperBackgroundWidth () {
         return Session.get('partials.partup-detail-sidebar.background-width') || 0;
+    },
+
+    'prettyEndDate': function helperPrettyEndDate () {
+        var partup = this.partup();
+        console.log(partup);
+        return moment(partup.end_date).format('LL'); // see: helpers/dateFormatters.js -> partupDateNormal
+    },
+
+    'prettyVisibility': function helperPrettyVisibility () {
+        var partup = this.partup();
+        return TAPi18n.__('partup-detail-visibility-' + partup.visibility);
     }
 
 });

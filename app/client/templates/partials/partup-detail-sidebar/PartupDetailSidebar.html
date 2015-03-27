@@ -19,7 +19,7 @@
                 <a href="" class="pu-button">{{_ 'partup-detail-uppers-invitebutton' }}</a>
             </section>
             <section>
-                <p>Deze Part-up is actief tot <strong>1 augustus 2015</strong> in omgeving <strong>Den Haag</strong>. Deze Part-up is onderdeel van het <strong>publieke netwerk</strong> en is open voor iedereen.</p>
+                <p>{{{_ 'partup-detail-status-text' prettyEndDate partup.location.city prettyVisibility partup.network.name }}}</p>
                 <ul class="pu-list pu-list-horizontal pu-list-tags">
                     {{#each partup.tags }}
                         <li><a href="" class="pu-tag pu-tag-inverted">{{ . }}</a></li>
