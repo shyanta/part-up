@@ -1,36 +1,32 @@
 // temp reactive var until mongo implementation
 var updatesVar = new ReactiveVar;
+var stubUser = {
+    name: 'Jesse de Vries',
+    image: {
+        url: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p320x320/10372513_10152630117689315_2823570313206588958_n.jpg?oh=e76400243d7ed2678ba0d74edd6640b1&oe=55B4CF02&__gda__=1437886258_2a6463042ac4dcef71cdbee34d6c55c7'
+    }
+};
 updatesVar.set([
     {
         _id: '98234bwef',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(),
         type: 'anticontract_signed',
         data: {},
         comments: [
             {
-                user: {
-                    fullname: 'Leon Smit'
-                },
+                author: stubUser,
                 content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet obcaecati cumque aliquam, corporis dolorum ab, quam totam recusandae culpa hic!'
             },
             {
-                user: {
-                    fullname: 'Jesse de Vries'
-                },
+                author: stubUser,
                 content: 'Lorem ipsum dolor sit amet'
             }
         ]
     },
     {
         _id: 'p9un4wf9',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/0a7/057/33f4a9e.jpg',
-            fullname: 'Leon Smit',
-        },
+        user: stubUser,
         created_at: new Date(1426949113548),
         type: 'new_supporter',
         data: {},
@@ -38,10 +34,7 @@ updatesVar.set([
     },
     {
         _id: 'pieunrg9',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/0a7/057/33f4a9e.jpg',
-            fullname: 'Leon Smit',
-        },
+        user: stubUser,
         created_at: new Date(1426949113549),
         type: 'new_upper',
         data: {},
@@ -49,10 +42,7 @@ updatesVar.set([
     },
     {
         _id: 'q0983b4f',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/0a7/057/33f4a9e.jpg',
-            fullname: 'Leon Smit',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'new_tag',
         data: {
@@ -62,10 +52,7 @@ updatesVar.set([
     },
     {
         _id: '0s8dfkas',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'changed_tag',
         data: {
@@ -76,10 +63,7 @@ updatesVar.set([
     },
     {
         _id: '54twerv',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'network_public',
         data: {},
@@ -87,10 +71,7 @@ updatesVar.set([
     },
     {
         _id: '34ct3',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'network_private',
         data: {},
@@ -98,10 +79,7 @@ updatesVar.set([
     },
     {
         _id: 'sdfsdr',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'changed_ending_date',
         data: {
@@ -112,10 +90,7 @@ updatesVar.set([
     },
     {
         _id: '4by5r5y',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'changed_title',
         data: {
@@ -125,10 +100,7 @@ updatesVar.set([
     },
     {
         _id: '67ijrtrsn',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'changed_description',
         data: {
@@ -138,10 +110,7 @@ updatesVar.set([
     },
     {
         _id: '34vta4t',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'changed_picture',
         data: {},
@@ -149,10 +118,7 @@ updatesVar.set([
     },
     {
         _id: '57n68yl',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'new_activity',
         data: {},
@@ -160,10 +126,7 @@ updatesVar.set([
     },
     {
         _id: 'wc4AWTVA',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'changed_activity',
         data: {},
@@ -171,10 +134,7 @@ updatesVar.set([
     },
     {
         _id: '6RUTF7I',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'added_resource_to_activity',
         data: {},
@@ -182,10 +142,7 @@ updatesVar.set([
     },
     {
         _id: 'rtnr6nu',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'added_contribution_to_activity',
         data: {},
@@ -193,10 +150,7 @@ updatesVar.set([
     },
     {
         _id: 't34ebtn',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'changed_region',
         data: {},
@@ -204,10 +158,7 @@ updatesVar.set([
     },
     {
         _id: 'wrebtsrnu',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'rated',
         data: {},
@@ -215,10 +166,7 @@ updatesVar.set([
     },
     {
         _id: 'W4TVBSERY',
-        user: {
-            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
-            fullname: 'Jesse de Vries',
-        },
+        user: stubUser,
         created_at: new Date(1426949113550),
         type: 'new_message',
         data: {},

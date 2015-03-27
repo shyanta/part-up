@@ -51,6 +51,10 @@ Template.WidgetPartupdetailUpdateItem.helpers({
         var hiddenComments = this.update.comments.length - MAX_COLLAPSED_COMMENTS > 0;
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
         return hiddenComments && !commentsExpanded;
+    },
+
+    'currentUser': function helperUser () {
+        return Meteor.user();
     }
 
 });
@@ -84,8 +88,11 @@ Template.WidgetPartupdetailUpdateItem.events({
         // temp reactive var until mongo implementation
         var updates = template.data.updateVar.get();
         lodash.find(updates, { _id: template.data.update._id }).comments.push({
-            user: {
-                fullname: Meteor.user().profile.name
+            author: {
+                name: 'Jesse de Vries',
+                image: {
+                    url: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p320x320/10372513_10152630117689315_2823570313206588958_n.jpg?oh=e76400243d7ed2678ba0d74edd6640b1&oe=55B4CF02&__gda__=1437886258_2a6463042ac4dcef71cdbee34d6c55c7'
+                }
             },
             content: commentValue
         });

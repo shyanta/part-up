@@ -5,8 +5,8 @@
 
             <!-- User -->
             <figure class="pu-avatar">
-                <a href="#" rel="author" class="pu-sub-image" style="background-image: url('{{ update.user.avatar }}');"></a>
-                <span class="pu-sub-label">{{ update.user.fullname }}</span>
+                <a href="#" rel="author" class="pu-sub-image" style="{{#if update.user.image}}background-image: url('{{ update.user.image.url }}');{{/if}}"></a>
+                <span class="pu-sub-label">{{ update.user.name }}</span>
             </figure>
 
             <!-- Time -->
@@ -80,35 +80,37 @@
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
-            {{#if commentInputFieldExpanded }}
-                <footer>
+            <footer>
 
-                    <!-- View all n comments -->
-                    {{#if showExpandButton }}
-                        <p class="pu-sub-view-all-comments-button"><a data-expand-comments>{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
-                    {{/if }}
+                <!-- View all n comments -->
+                {{#if showExpandButton }}
+                    <p class="pu-sub-view-all-comments-button"><a data-expand-comments>{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
+                {{/if }}
 
-                    <!-- Comments list -->
-                    <ul class="pu-list pu-list-comments">
-                        {{#each shownComments }}
-                        <li>
-                            <p>
-                                <span rel="author">{{ user.fullname }}</span>
-                                {{ content }}
-                            </p>
-                        </li>
-                        {{/each }}
-                    </ul>
+                <!-- Comments list -->
+                <ul class="pu-list pu-list-comments">
+                    {{#each shownComments }}
+                    <li>
+                        <p>
+                            <span rel="author">{{ author.name }}</span>
+                            {{ content }}
+                        </p>
+                    </li>
+                    {{/each }}
+                </ul>
 
-                    <!-- Add comment field -->
-                    <form data-addcomment name="addComment">
-                        <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
-                            <li><input type="text" class="pu-input" name="commentValue" data-commentfield></li>
-                            <li><input type="submit" class="pu-button pu-button-inputheight" value="Plaats"></li>
-                        </ul>
-                    </form>
-                </footer>
-            {{/if}}
+                <!-- Add comment field -->
+                {{#if currentUser }}
+                    {{#if commentInputFieldExpanded }}
+                        <form data-addcomment name="addComment">
+                            <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
+                                <li><input type="text" class="pu-input" name="commentValue" data-commentfield></li>
+                                <li><input type="submit" class="pu-button pu-button-inputheight" value="Plaats"></li>
+                            </ul>
+                        </form>
+                    {{/if}}
+                {{/if}}
+            </footer>
         </section>
     </section>
 
