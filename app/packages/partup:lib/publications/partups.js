@@ -22,12 +22,12 @@ Meteor.publish('partups.detail', function (partupId) {
         added: function(id, partup) {
             // Publish all Uppers in a Partup
             var uppers = partup.uppers || [];
-            var uppersCursor = Meteor.users.find({ _id: { $in: uppers }}, {fields: {'services': 0}});
+            var uppersCursor = Meteor.users.find({ _id: { $in: uppers }}, {fields: {'profile.name': 1}});
             uppersHandle[id] = Meteor.Collection._publishCursor(uppersCursor, subscription, 'users');
 
             // Publish all Supporters in a Partup
             var supporters = partup.supporters || [];
-            var supportersCursor = Meteor.users.find({ _id: { $in: supporters }}, {fields: {'services': 0}});
+            var supportersCursor = Meteor.users.find({ _id: { $in: supporters }}, {fields: {'profile.name': 1}});
             supportersHandle[id] = Meteor.Collection._publishCursor(supportersCursor, subscription, 'users');
 
             // Publish all Activities in a Partup
