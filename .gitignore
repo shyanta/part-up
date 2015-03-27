@@ -16,3 +16,6 @@ app/packages/tests-proxy
 _builds/
 _projects/
 _steps/
+
+# generated packages
+app/packages/tests-proxy/
