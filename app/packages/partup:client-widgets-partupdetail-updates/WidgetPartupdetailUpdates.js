@@ -1,6 +1,4 @@
-/*************************************************************/
-/* Widget reactives */
-/*************************************************************/
+// temp reactive var until mongo implementation
 var updatesVar = new ReactiveVar;
 updatesVar.set([
     {
@@ -105,9 +103,11 @@ updatesVar.set([
 Template.WidgetPartupdetailUpdates.helpers({
 
     'updates': function helperUpdates () {
-        return updatesVar.get(); // getUpdates()
+        return updatesVar.get(); // temp reactive var until mongo implementation
+        return getUpdates();
     },
 
+    // temp reactive var until mongo implementation
     'reactiveUpdatesVar': function helperReactiveUpdatesVar () {
         return updatesVar;
     },

@@ -41,6 +41,9 @@ Template.WidgetPartupdetailUpdateItem.events({
         event.preventDefault();
         var form = event.currentTarget;
         var commentValue = lodash.find(form, {name: 'commentValue'}).value;
+
+
+        // temp reactive var until mongo implementation
         var updates = template.data.updateVar.get();
         lodash.find(updates, { _id: template.data.update._id }).comments.push({
             user: {
@@ -49,6 +52,11 @@ Template.WidgetPartupdetailUpdateItem.events({
             content: commentValue
         });
         template.data.updateVar.set(updates);
+        
+
+        // todo: mongo implementation
+        // --
+
         form.reset();
     }
 
