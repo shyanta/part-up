@@ -82,6 +82,7 @@ ordered-dict@1.0.3
 partup:client-base@0.0.1
 partup:client-widgets-dropdowns@0.0.1
 partup:client-widgets-intro@0.0.1
+partup:client-widgets-partupdetail-update-item@0.0.1
 partup:client-widgets-partupdetail-updates@0.0.1
 partup:client-widgets-partuptile@0.0.1
 partup:client-widgets-registeroptional@0.0.1

@@ -15,14 +15,22 @@
 
     &-tags
         margin-bottom: -10px
-        margin-right: -14px
+        margin-right: -16px
 
         li
-            margin-right: 14px
+            margin-right: 16px
             margin-bottom: 10px
 
             .pu-button
                 margin-top: 0
+
+        &-angular
+            margin-bottom: -10px
+            margin-right: -10px
+
+            li
+                margin-right: 10px
+                margin-bottom: 10px
 
     &-buttons
         margin-bottom: -20px
@@ -42,3 +50,52 @@
         li
             margin-right: $grid-gap
             margin-bottom: $grid-gap
+
+    &-comments
+        li
+            + li
+                margin-top: 20px - 9px
+
+            p
+                margin-top: -6px
+
+    &-fieldwithbutton
+        li
+            display: table-cell
+            vertical-align: top
+
+            &:first-child
+                width: 100%
+
+            &:nth-child(n+2)
+                padding-left: $grid-gap
+
+        &-init-inactive
+            li:nth-child(n+2)
+                max-width: 0
+                overflow: hidden
+                padding: 0
+                $d: $animation-duration-slide
+                transition: max-width $d, padding $d, opacity $d
+                opacity: 0
+
+        &-state-active
+            li:nth-child(n+2)
+                max-width: 120px
+                padding-left: $grid-gap
+                opacity: 1
+
+    &-arrows
+        li
+            + li
+                position: relative
+                margin-left: 25px
+
+                &:before
+                    content: '\f178'
+                    font: normal normal normal 14px/1 FontAwesome
+                    position: absolute
+                    top: 8px
+                    right: 100%
+                    margin-right: 10px
+                    color: #ccc

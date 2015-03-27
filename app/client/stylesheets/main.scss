@@ -35,6 +35,7 @@
 @import "client/stylesheets/components/pu-headernav.sass";
 @import "client/stylesheets/components/pu-hint.sass";
 @import "client/stylesheets/components/pu-icon.sass";
+@import "client/stylesheets/components/pu-imagepreview.sass";
 @import "client/stylesheets/components/pu-imageselector.sass";
 @import "client/stylesheets/components/pu-input.sass";
 @import "client/stylesheets/components/pu-inputholder.sass";
@@ -47,7 +48,6 @@
 @import "client/stylesheets/components/pu-notifycontainer.sass";
 @import "client/stylesheets/components/pu-page.sass";
 @import "client/stylesheets/components/pu-pageheader.sass";
-@import "client/stylesheets/components/pu-paragraph.sass";
 @import "client/stylesheets/components/pu-partupcircle.sass";
 @import "client/stylesheets/components/pu-partupheader.sass";
 @import "client/stylesheets/components/pu-partuptile.sass";
@@ -55,14 +55,12 @@
 @import "client/stylesheets/components/pu-progresspager.sass";
 @import "client/stylesheets/components/pu-select.sass";
 @import "client/stylesheets/components/pu-sidebar.sass";
+@import "client/stylesheets/components/pu-suggestionsgallery.sass";
+@import "client/stylesheets/components/pu-tag.sass";
 @import "client/stylesheets/components/pu-textarea.sass";
 @import "client/stylesheets/components/pu-textline.sass";
-@import "client/stylesheets/components/pu-title.sass";
 @import "client/stylesheets/components/pu-toast.sass";
 @import "client/stylesheets/components/pu-tooltip.sass";
 @import "client/stylesheets/components/pu-update.sass";
 @import "client/stylesheets/components/pu-upload.sass";
 @import "client/stylesheets/components/velocity-status-widget.sass";
-
-@import "client/stylesheets/components/pu-suggestionsgallery.sass";
-@import "client/stylesheets/components/pu-imagepreview.sass";

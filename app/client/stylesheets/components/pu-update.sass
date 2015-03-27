@@ -30,7 +30,8 @@
                 font-size: 18px
                 color: $color-secondary
                 font-weight: 600
-                line-height: 40px
+                margin-top: 6px
+                margin-bottom: -6px
 
                 a
                     color: $color-secondary
@@ -41,9 +42,48 @@
                 color: #999
                 opacity: 0
                 pointer-events: none
+                margin-bottom: -18px
 
                 &:hover
                     color: #595959
+
+        > section
+            margin-top: 20px
+
+            // Type-specific
+            .pu-title-large
+                margin-top: -9px
+                margin-bottom: -5px
+
+            .pu-paragraph-large
+                margin-top: -7px
+                margin-bottom: -9px
+
+        > footer
+            .pu-sub-view-all-comments-button
+                font-size: 14px
+                color: $color-secondary
+                margin-top: 20px - 5px
+                margin-bottom: -11px
+
+                a
+                    color: $color-secondary
+
+            .pu-list-comments
+                li:first-child
+                    margin-top: 20px
+
+                li:last-child
+                    margin-bottom: -8px
+
+                p
+                    margin-top: -6px
+
+                span
+                    font-weight: 600
+
+            .pu-list-fieldwithbutton
+                margin-top: 20px
 
     &:hover
         > section > header .pu-button-text

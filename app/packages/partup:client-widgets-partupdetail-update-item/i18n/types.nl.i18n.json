@@ -1,0 +1,29 @@
+{
+    "partupdetail-update-item-type-anticontract_signed-title": "Anti-contract getekend",
+
+    "partupdetail-update-item-type-new_supporter-title": "Nieuwe supporter",
+    "partupdetail-update-item-type-new_upper-title": "Nieuwe upper",
+
+    "partupdetail-update-item-type-new_tag-title": "Nieuw label",
+    "partupdetail-update-item-type-changed_tag-title": "Label veranderd",
+
+    "partupdetail-update-item-type-network_public-title": "Deze Part-up is nu vindbaar voor het publiek",
+    "partupdetail-update-item-type-network_private-title": "Deze Part-up is nu niet meer vindbaar voor het publiek",
+
+    "partupdetail-update-item-type-changed_ending_date-title": "Einddatum gewijzigd",
+
+    "partupdetail-update-item-type-changed_title-title": "Titel gewijzigd",
+    "partupdetail-update-item-type-changed_description-title": "Omschrijving gewijzigd",
+    "partupdetail-update-item-type-changed_picture-title": "Foto gewijzigd",
+
+    "partupdetail-update-item-type-new_activity-title": "Activiteit toegevoegd",
+    "partupdetail-update-item-type-changed_activity-title": "Activiteit gewijzigd",
+    "partupdetail-update-item-type-added_resource_to_activity-title": "Middel toegevoegd aan activiteit",
+    "partupdetail-update-item-type-added_contribution_to_activity-title": "Bijdrage aan activiteit toevoegd",
+
+    "partupdetail-update-item-type-changed_region-title": "Regio gewijzigd",
+
+    "partupdetail-update-item-type-rated-title": "Waardering uitgebracht",
+
+    "partupdetail-update-item-type-new_message-title": "Bericht"
+}
