@@ -23,7 +23,14 @@ Template.WidgetStartDetails.helpers({
 });
 
 Template.WidgetStartDetails.events({
-    'change [data-imageupload]': function (event, template) {
+    'click [data-browse-photos]': function eventClickBrowse(event, template){
+        event.preventDefault();
+
+        // in stead fire click event on file input
+        var input = $('input[data-imageupload]');
+        input.click();
+    },
+    'change [data-imageupload]': function eventChangeFile(event, template){
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
                 // TODO: Handle error in frontend
