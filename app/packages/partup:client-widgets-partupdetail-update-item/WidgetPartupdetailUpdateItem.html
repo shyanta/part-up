@@ -24,12 +24,30 @@
                 {{/if }}
             </header>
 
-            <!-- Type dependent content -->
-            {{#if type = 'partups.supporters.new' }}
-                <section>
-                    <p>{{ update.data.description }}</p>
-                </section>
+            <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
+
+            <!-- new_tag -->
+            {{#if partupEqualsExactly update.type 'new_tag' }}
+                {{#with update.data }}
+                    <section>
+                        <span class="pu-tag">{{ tag }}</span>
+                    </section>
+                {{/with}}
             {{/if }}
+
+            <!-- changed_tag -->
+            {{#if partupEqualsExactly update.type 'changed_tag' }}
+                {{#with update.data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag">{{ old_tag }}</span></li>
+                            <li><span class="pu-tag">{{ new_tag }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
             {{#if commentInputFieldExpanded }}

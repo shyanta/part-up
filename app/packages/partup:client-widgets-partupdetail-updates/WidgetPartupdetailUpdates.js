@@ -9,9 +9,7 @@ updatesVar.set([
         },
         created_at: new Date(),
         type: 'anticontract_signed',
-        data: {
-            //
-        },
+        data: {},
         comments: [
             {
                 user: {
@@ -34,18 +32,9 @@ updatesVar.set([
             fullname: 'Leon Smit',
         },
         created_at: new Date(1426949113548),
-        type: 'anticontract_signed',
-        data: {
-            //
-        },
-        comments: [
-            {
-                user: {
-                    fullname: 'Jesse de Vries'
-                },
-                content: 'Lorem ipsum dolor sit amet'
-            }
-        ]
+        type: 'new_supporter',
+        data: {},
+        comments: []
     },
     {
         _id: 'pieunrg9',
@@ -54,10 +43,8 @@ updatesVar.set([
             fullname: 'Leon Smit',
         },
         created_at: new Date(1426949113549),
-        type: 'anticontract_signed',
-        data: {
-            //
-        },
+        type: 'new_upper',
+        data: {},
         comments: []
     },
     {
@@ -67,18 +54,168 @@ updatesVar.set([
             fullname: 'Leon Smit',
         },
         created_at: new Date(1426949113550),
-        type: 'anticontract_signed',
+        type: 'new_tag',
         data: {
-            //
+            tag: 'Design'
         },
-        comments: [
-            {
-                user: {
-                    fullname: 'Jesse de Vries'
-                },
-                content: 'Lorem ipsum dolor sit amet'
-            }
-        ]
+        comments: []
+    },
+    {
+        _id: '0s8dfkas',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'changed_tag',
+        data: {
+            old_tag: 'Huisstyle',
+            new_tag: 'Huisstijl'
+        },
+        comments: []
+    },
+    {
+        _id: '54twerv',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'network_public',
+        data: {},
+        comments: []
+    },
+    {
+        _id: '34ct3',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'network_private',
+        data: {},
+        comments: []
+    },
+    {
+        _id: 'sdfsdr',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'changed_ending_date',
+        data: {},
+        comments: []
+    },
+    {
+        _id: '4by5r5y',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'changed_title',
+        data: {},
+        comments: []
+    },
+    {
+        _id: '67ijrtrsn',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'changed_description',
+        data: {},
+        comments: []
+    },
+    {
+        _id: '34vta4t',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'changed_picture',
+        data: {},
+        comments: []
+    },
+    {
+        _id: '57n68yl',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'new_activity',
+        data: {},
+        comments: []
+    },
+    {
+        _id: 'wc4AWTVA',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'changed_activity',
+        data: {},
+        comments: []
+    },
+    {
+        _id: '6RUTF7I',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'added_resource_to_activity',
+        data: {},
+        comments: []
+    },
+    {
+        _id: 'rtnr6nu',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'added_contribution_to_activity',
+        data: {},
+        comments: []
+    },
+    {
+        _id: 't34ebtn',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'changed_region',
+        data: {},
+        comments: []
+    },
+    {
+        _id: 'wrebtsrnu',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'rated',
+        data: {},
+        comments: []
+    },
+    {
+        _id: 'W4TVBSERY',
+        user: {
+            avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/3/005/0b2/1b0/1d80474.jpg',
+            fullname: 'Jesse de Vries',
+        },
+        created_at: new Date(1426949113550),
+        type: 'new_message',
+        data: {},
+        comments: []
     }
 ]);
 

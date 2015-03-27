@@ -200,7 +200,6 @@
             margin-bottom: -9px
             margin-right: 5px
 
-
     &-disabled
         pointer-events: none
         background-color: $color-disabled
@@ -208,38 +207,6 @@
         &:hover
             background-color: $color-disabled
             cursor: not-allowed
-
-    &-tag
-        height: 30px
-        padding: 7px 6px 7px 8px
-        background-color: $color-background
-        font-size: 14px
-        font-weight: 600
-        color: $color-text
-        border-radius: 2px
-
-        &:after
-            content: ''
-            position: absolute
-            right: -6px
-            top: 0
-            display: block
-            width: 11px
-            height: inherit
-            border-radius: 50%
-            background-color: white
-            transition: background-color $animation-duration
-
-        &:hover
-            color: $color-text
-            background-color: darken($color-background, 3%)
-
-            &:after
-                background-color: darken($color-background, 3%)
-
-        &:active
-            padding-top: 8px
-            padding-bottom: 6px
 
     &-no-side-padding
         padding-left: 0

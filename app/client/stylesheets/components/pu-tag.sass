@@ -1,0 +1,29 @@
+.pu-tag
+    display: inline-block
+    position: relative
+    height: 30px
+    padding: 8px 6px 6px 8px
+    background-color: $color-background-secondary
+    font-size: 14px
+    font-weight: 600
+    color: $color-text
+    border-radius: 2px
+    text-decoration: none
+
+    &:after
+        content: ''
+        position: absolute
+        right: -6px
+        top: 0
+        display: block
+        width: 11px
+        height: inherit
+        border-radius: 50%
+        background-color: $color-background-secondary
+        transition: background-color $animation-duration
+
+    &-inverted
+        background-color: $color-background
+
+        &:after
+            background-color: $color-background
