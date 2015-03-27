@@ -118,7 +118,9 @@ updatesVar.set([
         },
         created_at: new Date(1426949113550),
         type: 'changed_title',
-        data: {},
+        data: {
+            title: 'Ontwikkelen huisstijl voor onze start-up'
+        },
         comments: []
     },
     {
