@@ -44,3 +44,4 @@ cfs:filesystem
 cfs:graphicsmagick
 reactive-var
 deepwell:bootstrap-datepicker2
+aldeed:template-extension
