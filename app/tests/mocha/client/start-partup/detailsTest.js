@@ -16,9 +16,9 @@ if (!(typeof MochaWeb === 'undefined')){
                 chai.expect($("h2").first().text()).to.contain("User");
             });
 
-            it("should render current-partup details in input fields", function(){
-                chai.expect($("[data-schema-key=\"name\"]").val()).to.contain("First awesome Part-Up!");
-            });
+            //it("should render current-partup details in input fields", function(){
+            //    chai.expect($("[data-schema-key=\"name\"]").val()).to.contain("First awesome Part-Up!");
+            //});
 
         });
     });
