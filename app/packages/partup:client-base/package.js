@@ -14,7 +14,8 @@ Package.onUse(function(api) {
         'tap:i18n',
         'momentjs:moment',
         'chrismbeckett:toastr',
-        'templating'
+        'templating',
+        'tracker'
     ], ['client']);
 
     api.addFiles([
