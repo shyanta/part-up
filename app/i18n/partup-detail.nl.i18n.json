@@ -5,5 +5,6 @@
     "partup-detail-supporters-join": "Word supporter",
     "partup-detail-status-text": "Deze Part-up is actief tot <strong>%s</strong> in <strong>%s</strong>. Deze Part-up is %s en onderdeel van het netwerk <strong>%s</strong>.",
     "partup-detail-visibility-public": "publiekelijk",
-    "partup-detail-visibility-private": "privé"
+    "partup-detail-visibility-private": "privé",
+    "partup-detail-share-paragraph": "Trots op je Part-up of zoek je nog nieuwe Uppers? Deel je Part-up in jouw netwerk!"
 }

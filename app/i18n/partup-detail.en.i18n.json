@@ -5,5 +5,6 @@
     "partup-detail-supporters-join": "Become a supporter",
     "partup-detail-status-text": "This Part-up is active untill <strong>%s</strong> at <strong>%s</strong>. This Part-up is %s and part of the network <strong>%s</strong>.",
     "partup-detail-visibility-public": "public",
-    "partup-detail-visibility-private": "private"
+    "partup-detail-visibility-private": "private",
+    "partup-detail-share-paragraph": "Loving your Part-up or seeking for new Uppers? Share your Part-up in your network!"
 }
