@@ -2,15 +2,21 @@
 
     <section class="pu-update">
         <aside>
+
+            <!-- User -->
             <figure class="pu-avatar">
                 <a href="#" rel="author" class="pu-sub-image" style="background-image: url('{{ update.user.avatar }}');"></a>
                 <span class="pu-sub-label">{{ update.user.fullname }}</span>
             </figure>
+
+            <!-- Time -->
             <p class="pu-sub-time">
                 <time datetime="{{ partupDateISO created_at }}">{{ partupDatePartupActivity update.created_at }}</time>
             </p>
         </aside>
         <section>
+
+            <!-- Title & first comment button -->
             <header>
                 <h3><a href="#">{{_ titleKey }}</a></h3>
                 {{#if commentInputFieldExpanded }}{{ else }}
@@ -28,9 +34,13 @@
             <!-- Comments -->
             {{#if commentInputFieldExpanded }}
                 <footer>
+
+                    <!-- View all n comments -->
                     {{#if showExpandButton }}
                         <p><a data-expand-comments>{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
                     {{/if }}
+
+                    <!-- Comments list -->
                     <ul class="pu-list pu-list-comments">
                         {{#each shownComments }}
                         <li>
@@ -41,6 +51,8 @@
                         </li>
                         {{/each }}
                     </ul>
+
+                    <!-- Add comment field -->
                     <form data-addcomment name="addComment">
                         <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
                             <li><input type="text" class="pu-input" name="commentValue" data-commentfield></li>
