@@ -1,3 +1,11 @@
 {
-    "partupdetail-update-item-type-anticontract_signed-title": "Signed anticontract"
+    "partupdetail-update-item-type-anticontract_signed-title": "Signed anticontract",
+
+    "partupdetail-update-item-type-new_supporter-title": "New supporter",
+    "partupdetail-update-item-type-new_upper-title": "New upper",
+    "partupdetail-update-item-type-new_label-title": "New label",
+    "partupdetail-update-item-type-changed_label-title": "Label changed",
+
+    "partupdetail-update-item-type-network_public-title": "This Part-up is now public",
+    "partupdetail-update-item-type-network_private-title": "This Part-up is no longer public"
 }

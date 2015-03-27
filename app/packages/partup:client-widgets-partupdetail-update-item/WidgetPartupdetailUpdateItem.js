@@ -1,7 +1,13 @@
 /*************************************************************/
+/* Widget constants */
+/*************************************************************/
+var MAX_COLLAPSED_COMMENTS = 2;
+
+/*************************************************************/
 /* Widget reactives */
 /*************************************************************/
 var commentsExpandedDict = new ReactiveDict;
+var commentInputFieldExpandedDict = new ReactiveDict;
 var commentPostButtonActiveDict = new ReactiveDict;
 
 
@@ -9,7 +15,8 @@ var commentPostButtonActiveDict = new ReactiveDict;
 /* Widget rendered */
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.onRendered(function () {
-    commentsExpandedDict.set(this.data.update._id, this.data.update.comments.length > 0);
+    commentsExpandedDict.set(this.data.update._id, false);
+    commentInputFieldExpandedDict.set(this.data.update._id, this.data.update.comments.length > 0);
     commentPostButtonActiveDict.set(this.data.update._id, false);
 });
 
@@ -23,13 +30,28 @@ Template.WidgetPartupdetailUpdateItem.helpers({
         return 'partupdetail-update-item-type-' + this.update.type + '-title';
     },
 
-    'commentsExpanded': function helperCommentsExpanded () {
-        return commentsExpandedDict.get(this.update._id);
+    'commentInputFieldExpanded': function helperCommentInputFieldExpanded () {
+        return commentInputFieldExpandedDict.get(this.update._id);
     },
 
     'commentPostButtonActive': function helperCommentPostButtonActive () {
         return commentPostButtonActiveDict.get(this.update._id);
     },
+
+    'shownComments': function helperShownComments () {
+        var commentsExpanded = commentsExpandedDict.get(this.update._id);
+        // todo: reverse comments sort
+        if(commentsExpanded)
+            return this.update.comments;
+        else
+            return this.update.comments.slice(0, MAX_COLLAPSED_COMMENTS);
+    },
+
+    'showExpandButton': function helperShowExpandButton () {
+        var hiddenComments = this.update.comments.length - MAX_COLLAPSED_COMMENTS > 0;
+        var commentsExpanded = commentsExpandedDict.get(this.update._id);
+        return hiddenComments && !commentsExpanded;
+    }
 
 });
 
@@ -40,6 +62,10 @@ Template.WidgetPartupdetailUpdateItem.helpers({
 Template.WidgetPartupdetailUpdateItem.events({
     
     'click [data-expand-comment-field]': function eventClickExpandCommentField (event, template) {
+        commentInputFieldExpandedDict.set(template.data.update._id, true);
+    },
+
+    'click [data-expand-comments]': function eventClickExpandComments (event, template) {
         commentsExpandedDict.set(template.data.update._id, true);
     },
 
@@ -52,6 +78,7 @@ Template.WidgetPartupdetailUpdateItem.events({
         event.preventDefault();
         var form = event.currentTarget;
         var commentValue = lodash.find(form, {name: 'commentValue'}).value;
+        if(!commentValue) return;
 
 
         // temp reactive var until mongo implementation

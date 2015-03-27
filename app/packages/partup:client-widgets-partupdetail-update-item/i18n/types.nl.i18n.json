@@ -1,3 +1,11 @@
 {
-    "partupdetail-update-item-type-anticontract_signed-title": "Anti-contract getekend"
+    "partupdetail-update-item-type-anticontract_signed-title": "Anti-contract getekend",
+
+    "partupdetail-update-item-type-new_supporter-title": "Nieuwe supporter",
+    "partupdetail-update-item-type-new_upper-title": "Nieuwe upper",
+    "partupdetail-update-item-type-new_label-title": "Nieuw label",
+    "partupdetail-update-item-type-changed_label-title": "Label veranderd",
+
+    "partupdetail-update-item-type-network_public-title": "Deze Part-up is nu vindbaar voor het publiek",
+    "partupdetail-update-item-type-network_private-title": "Deze Part-up is nu niet meer vindbaar voor het publiek"
 }
