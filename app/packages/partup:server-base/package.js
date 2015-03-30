@@ -13,7 +13,8 @@ Package.onUse(function(api) {
         'mongo',
         'partup:lib',
         'accounts-base',
-        'service-configuration'
+        'service-configuration',
+        'cfs:standard-packages'
     ], ['server']);
 
     api.addFiles([
