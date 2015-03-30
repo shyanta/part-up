@@ -8,7 +8,7 @@
 
     "startdetails-form-description-label": "What do you want to accomplish in this part-up?",
     "startdetails-form-description-placeholder": "Be short and sharp",
-    "startdetails-form-description-validation": "maximaal %d tekens",
+    "startdetails-form-description-validation": "max %d characters",
     "startdetails-form-description-tooltip": "description toolttip",
 
     "startdetails-form-tags_input-label": "Your Part-up, in five words",
