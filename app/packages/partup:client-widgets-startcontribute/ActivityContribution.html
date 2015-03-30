@@ -6,7 +6,7 @@
 
         <time>{{end_date}}</time>
 
-        {{#autoForm id=activityId schema=formSchema class="pu-form" theme="plain"}}
+        {{#autoForm id=formId schema=formSchema doc=fieldsFromContributionActivity class="pu-form" theme="plain"}}
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startcontribute-form-can-label'}}</span>
                 {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" }}
@@ -21,6 +21,16 @@
                 <span class="pu-label">{{_ 'startcontribute-form-have_description-label'}}</span>
                 {{> afFieldInput name='type_have_description' placeholder=placeholders.have_description class="pu-input" }}
             </label>
+
+            {{#each contributions}}
+                {{# if checkContributionUser upper_id}}
+                    <span>Upper: {{_id}}</span>
+                    <p>Types</p>
+                    {{#each types}}
+                        <span>{{type}}: &euro;{{type_data.amount}},- and {{type_data.description}}</span>
+                    {{/each}}
+                {{/ if}}
+            {{/each }}
 
             <div class="pu-formfield-right">
                 <input class="pu-button pu-button-primary" type="submit"
