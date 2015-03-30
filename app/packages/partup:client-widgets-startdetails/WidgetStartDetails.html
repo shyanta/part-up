@@ -69,13 +69,11 @@
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-network-tooltip' }}</p></span>
                 </a>
             </label>
-            -->
-
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
                 <div class="pu-upload pu-upload-large">
                     <!-- <img src="{{ profilePicture.url }}" alt="" data-image-placeholder> -->
-                    <button class="pu-button pu-button-browse" data-browse-photos>{{_ 'startdetails-image-button'}}</button>
+                    <button class="pu-button pu-button-secondary" data-browse-photos>{{_ 'startdetails-image-button'}}</button>
                     <span>{{_ 'startdetails-image-validation'}}</span>
                     <input type="file" class="pu-fileinput" data-imageupload>
                     {{> afFieldInput name="image" type="hidden"}}

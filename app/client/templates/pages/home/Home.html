@@ -4,14 +4,14 @@
         <div class="pu-sub-pagecontainer">
             <div class="pu-page">
     
-                <h2>Home</h2>
+                <h2>Home</h2><br><br>
                 <p>
                     {{#with firstPartup}}
-                        <a href="/partups/{{_id}}">Snelle link naar eerstgevonden partup "{{name}}"</a>
+                        <a href="/partups/{{_id}}" class="pu-button">Snelle link naar eerstgevonden partup "{{name}}"</a>
                     {{/with}}
-                </p>
-                <button data-translate="nl">nl</button>
-                <button data-translate="en">en</button>
+                </p><br>
+                <button data-translate="nl" class="pu-button pu-button-secondary">nl</button>
+                <button data-translate="en" class="pu-button pu-button-secondary">en</button><br><br>
                 <li>{{> loginButtons }}</li>
 
             </div>

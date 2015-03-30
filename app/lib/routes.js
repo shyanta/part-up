@@ -193,3 +193,16 @@ Router.route('/register/details', {
     }
     */
 });
+
+
+/*************************************************************/
+/* Styleguide */
+/*************************************************************/
+Router.route('/styleguide', {
+    name: 'styleguide',
+    where: 'client',
+    layoutTemplate: 'LayoutsApp',
+    yieldRegions: {
+        'PagesStyleguide': { to: 'page' }
+    }
+});
