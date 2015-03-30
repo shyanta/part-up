@@ -82,8 +82,10 @@
                 {{#if uploadedImage.url}}
                     <img class="pu-imagepreview pu-imagepreview-large" src="{{#if uploadedImage.url}}{{ uploadedImage.url }}{{else}}http://placehold.it/1140x476/CCCCCC/494949{{/if}}">
                 {{else}}
+
+                    <!-- TODO: SUGGESTION IMPLEMENTATION
+                    <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                     <div class="pu-suggestionsgallery">
-                        <span>{{_ 'startdetails-suggestion-label'}}</span>
                         <ul>
                             <li><div><img src="http://lorempixel.com/1140/476/city/1" alt=""></div></li>
                             <li><div><img src="http://lorempixel.com/1140/476/city/2" alt=""></div></li>
@@ -92,16 +94,11 @@
                             <li><div><img src="http://lorempixel.com/1140/476/city/5" alt=""></div></li>
                         </ul>
                     </div>
+                    -->
                 {{/if}}
             </div>
 
-            <!-- TODO: SUGGESTION IMPLEMENTATION
-            <div class="pu-divider"><span>{{_ 'startdetails-suggestion-label'}}</span></div>
 
-            <div class="pu-imageselector">
-                <img src="http://placehold.it/570x235" alt="">
-            </div>
-            -->
             
             <footer>
                 <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
