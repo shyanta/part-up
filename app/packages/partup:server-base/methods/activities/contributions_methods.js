@@ -4,61 +4,58 @@ Meteor.methods({
      *
      * @param {mixed[]} fields
      */
-    'activities.contributions.insert': function (activityId, fields) {
+    'contributions.insert': function (fields) {
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var activity = Activities.findOneOrFail(activityId);
+        check(fields, Partup.schemas.forms.contribution);
 
         try {
-            var newContribution = Partup.transformers.activity.contribution.fromFormActivityContribution(fields);
+            var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
 
-            //check(newContribution, Partup.schemas.entities.activities);
-
-            newContribution._id = Random.id();
             newContribution.created_at = Date.now();
-            newContribution.updated_at = Date.now();
             newContribution.upper_id = upper._id;
 
-            Activities.update(activityId, {$push: {'contributions': newContribution}});
-            Event.emit('activities.contributions.inserted', activity.name, newContribution);
+            Contributions.insert(newContribution);
+            Event.emit('contributions.inserted', newContribution);
 
-            return newContribution._id;
-        } catch (error) {
+            return {
+                _id: newContribution._id
+            }
+         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be inserted.');
         }
     },
 
     /**
-     * Update a contribution in an Activity
+     * Update a Contribution
      *
      * @param {mixed[]} fields
      */
-    'activities.contributions.update': function (contributionId, fields) {
+    'contributions.update': function (contributionId, fields) {
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
-        console.log('edit');
-        ////var activity = Activities.findOneOrFail(activityId);
-        ////
-        ////try {
-        ////    var newContribution = Partup.transformers.activity.contribution.fromFormActivityContribution(fields, upper);
-        ////
-        ////    check(newContribution, Partup.schemas.entities.activities);
-        ////
-        ////    newContribution._id = Random.id();
-        ////    newContribution.created_at = Date.now();
-        ////    newContribution.updated_at = Date.now();
-        ////    newContribution.upper_id = upper._id;
-        ////
-        ////    Activities.update(activityId, {$push: {'contributions': newContribution}});
-        ////    Event.emit('activities.contributions.inserted', activity.name, newContribution);
-        ////
-        ////    return newContribution._id;
-        //} catch (error) {
-        //    Log.error(error);
-        //    throw new Meteor.Error(400, 'Contribution could not be inserted.');
-        //}
-    }
+        var contribution = Contributions.findOneOrFail(contributionId);
 
+        if (!upper || contribution.upper_id !== upper._id) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        check(fields, Partup.schemas.forms.contribution);
+
+        try {
+            var newContribution = Partup.transformers.contribution.fromFormContribution(fields, upper);
+            newContribution.updated_at = Date.now();
+
+            Contributions.update(contributionId, { $set: newContribution });
+            Event.emit('contributions.updated', contribution, fields);
+
+            return {
+                _id: contribution._id
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Contribution could not be updated.');
+        }
+    }
 });
