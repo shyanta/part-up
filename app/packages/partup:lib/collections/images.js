@@ -1,23 +1,24 @@
 var stores = [];
 
-if(Meteor.isServer && process.env.NODE_ENV == 'staging') {
+if(Meteor.isServer && (process.env.NODE_ENV.match(/staging|acceptance|production/)) ) {
     console.log('Creating Image store with S3');
+
     stores.push(new FS.Store.S3('original', {
-        region: 'eu-west-1',
-        bucket: 'pu-development'
+        region: process.env.AWS_BUCKET_REGION,
+        bucket: process.env.AWS_BUCKET_NAME
     }));
 
     stores.push(new FS.Store.S3('1200x520', {
-        region: 'eu-west-1',
-        bucket: 'pu-development',
+        region: process.env.AWS_BUCKET_REGION,
+        bucket: process.env.AWS_BUCKET_NAME,
         transformWrite: function (image, readStream, writeStream) {
             gm(readStream, image.name()).resize(1200, 520).stream().pipe(writeStream);
         }
     }));
 
     stores.push(new FS.Store.S3('360x360', {
-        region: 'eu-west-1',
-        bucket: 'pu-development',
+        region: process.env.AWS_BUCKET_REGION,
+        bucket: process.env.AWS_BUCKET_NAME,
         transformWrite: function (image, readStream, writeStream) {
             gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
         }
