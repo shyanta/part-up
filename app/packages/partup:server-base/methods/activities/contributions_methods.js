@@ -1,11 +1,14 @@
 Meteor.methods({
     /**
-     * Insert a contribution in an Activity
+     * Insert a Contribution
      *
+     * @param {integer} activityId
      * @param {mixed[]} fields
      */
-    'contributions.insert': function (fields) {
+    'contributions.insert': function (activityId, fields) {
         var upper = Meteor.user();
+        var activity = Activities.findOneOrFail(activityId);
+
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         check(fields, Partup.schemas.forms.contribution);
@@ -14,9 +17,13 @@ Meteor.methods({
             var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
 
             newContribution.created_at = Date.now();
+            newContribution.activity_id = activityId;
             newContribution.upper_id = upper._id;
+            newContribution.partup_id = activity.partup_id;
 
-            Contributions.insert(newContribution);
+            newContribution._id = Contributions.insert(newContribution);
+            Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
+
             Event.emit('contributions.inserted', newContribution);
 
             return {
@@ -31,6 +38,7 @@ Meteor.methods({
     /**
      * Update a Contribution
      *
+     * @param {integer} contributionId
      * @param {mixed[]} fields
      */
     'contributions.update': function (contributionId, fields) {
@@ -44,7 +52,7 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.contribution);
 
         try {
-            var newContribution = Partup.transformers.contribution.fromFormContribution(fields, upper);
+            var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
             newContribution.updated_at = Date.now();
 
             Contributions.update(contributionId, { $set: newContribution });

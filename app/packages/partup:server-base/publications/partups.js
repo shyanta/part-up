@@ -30,6 +30,7 @@ Meteor.publish('partups.detail', function (partupId) {
             var supportersCursor = Meteor.users.find({ _id: { $in: supporters }}, {fields: {'profile.name': 1}});
             supportersHandle[id] = Meteor.Collection._publishCursor(supportersCursor, subscription, 'users');
 
+            // TODO separate activities do it's own publication
             // Publish all Activities in a Partup
             var activitiesCursor = Activities.find({ partup_id: id });
             activitiesHandle[id] = Meteor.Collection._publishCursor(activitiesCursor, subscription, 'activities');

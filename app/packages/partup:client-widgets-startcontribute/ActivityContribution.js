@@ -1,11 +1,11 @@
 Template.ActivityContribution.helpers({
-    'formSchema': Partup.schemas.forms.contribute,
+    'formSchema': Partup.schemas.forms.contribution,
     'placeholders': Partup.services.placeholders.startcontribute,
-    'formId': function () {
-        return Template.instance().contributionId.get() ? Template.instance().contributionId.get() : this._id;
+    'activityId': function () {
+        return this._id + ' ' + Meteor.user()._id;
     },
-    'contributionId': function () {
-        return Template.instance().contributionId.get() ? Template.instance().contributionId.get() : null;
+    'formId': function () {
+        return Template.instance().contributionId.get();
     },
     'fieldsFromContributionActivity': function () {
         //var contributionId = Template.instance().contributionId.get();
@@ -27,21 +27,15 @@ Template.ActivityContribution.events({
 });
 
 Template.ActivityContribution.created = function () {
-    var contribution = Activities.findOne({
-            contributions: {
-                $elemMatch: {
-                    upper_id: Meteor.user()._id
-                }
-            }
-        }, {
-            "contributions.$": 1
-        }
-    );
+    var activityId = this.data._id;
 
+    var contribution = Contributions.findOne({ activity_id: "qeGoZ5b6XSYqpEWer", upper_id: "iJ9gKXtagn6GC7qnK" });
+    console.log(contribution);
+    // Set form ID to the contribution for update operations, or default to activity ID for an insert
     if (contribution) {
         this.contributionId = new ReactiveVar(contribution._id);
     } else {
-        this.contributionId = new ReactiveVar(null);
+        this.contributionId = new ReactiveVar(activityId);
     }
 };
 
@@ -49,12 +43,15 @@ AutoForm.addHooks(
     null, {
         onSubmit: function (insertDoc, updateDoc, currentDoc) {
             this.event.preventDefault();
+            var activityId = this.template.parent().data._id;
             var self = this;
+            var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
+            console.log(contribution);
 
-            if (self.template.parent().contributionId.get()) {
+            if (contribution) {
                 console.log('update');
-                var contributionId = self.formId;
-                Meteor.call('activities.contributions.update', contributionId, insertDoc, function (error, result) {
+                var contributionId = this.formId;
+                Meteor.call('contributions.update', contributionId, insertDoc, function (error, result) {
                     if (error) {
                         console.log('something went wrong', error);
                         return false;
@@ -63,13 +60,13 @@ AutoForm.addHooks(
                 });
             } else {
                 console.log('insert');
-                var activityId = self.formId;
-                Meteor.call('activities.contributions.insert', activityId, insertDoc, function (error, contributionId) {
+                Meteor.call('contributions.insert', activityId, insertDoc, function (error, result) {
                     if (error) {
                         console.log('something went wrong', error);
                         return false;
                     }
-                    self.template.parent().contributionId.set(contributionId);
+                    self.template.parent().contributionId.set(result._id);
+                    console.log(self.template.parent().contributionId.get());
                 });
             }
 
@@ -78,4 +75,4 @@ AutoForm.addHooks(
 
             return false;
         }
-    });
+});

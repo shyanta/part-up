@@ -135,6 +135,7 @@ Router.route('/start/:_id/contribute', {
     },
     subscriptions: function () {
         this.subscribe('partups.detail', this.params._id);
+        this.subscribe('contributions.perpartup', this.params._id);
     },
     action: function() {
         Session.set('partials.start-partup.current-partup', this.params._id);
