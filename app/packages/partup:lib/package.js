@@ -46,13 +46,6 @@ Package.onUse(function(api) {
         'transformers/user.js'
     ]);
 
-    api.addFiles([
-        'publications/notifications.js',
-        'publications/partups.js',
-        'publications/images.js',
-        'publications/users.js'
-    ], 'server');
-
     // Namespace
     api.export('Partup');
 
