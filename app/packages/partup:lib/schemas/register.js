@@ -30,46 +30,57 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
 Partup.schemas.forms.registerOptional = new SimpleSchema({
     image: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     location_input: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     description: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     tags_input: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     facebook: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     twitter: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     instagram: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     linkedin: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     website: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     phonenumber: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     },
     skype: {
         type:String,
-        max: 255
+        max: 255,
+        optional: true
     }
 });
