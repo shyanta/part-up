@@ -4,98 +4,17 @@
  * @memberOf partup.schemas
  * @private
  */
-var activityBaseSchema = new SimpleSchema({
-    description: {
-        type: String,
-        max: 500
-    },
-    end_date: {
-        type: Date,
-        optional: true
-    },
-    name: {
-        type: String,
-        max: 250
-    },
-    start_date: {
-        type: Date,
-        optional: true
-    }
+var contributionBaseSchema = new SimpleSchema({
+    //
 });
 
 /**
- * Activity entity schema
- * @name activity
+ * Contribution entity schema
+ * @name contribution
  * @memberOf partup.schemas.entities
  */
-Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
+Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema, {
     _id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
-    contributions: {
-        type: [String],
-        optional: true
-    },
-    "contributions.$._id": {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
-    "contributions.$.created_at": {
-        type: Date,
-        defaultValue: Date.now()
-    },
-    "contributions.$.feedbacks": {
-        type: [Object],
-        optional: true
-    },
-    "contributions.feedbacks.$.description": {
-        type: String,
-        optional: true
-    },
-    "contributions.feedbacks.$.rating": {
-        type: Number,
-        decimal: true,
-        optional: true
-    },
-    "contributions.feedbacks.$.upper": {
-        type: Object
-    },
-    "contributions.feedbacks.$.upper._id": {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
-    "contributions.feedbacks.$.upper.image": {
-        type: Object,
-        optional: true
-    },
-    "contributions.feedbacks.$.upper.name": {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
-    "contributions.$.types": {
-        type: [Object]
-    },
-    "contributions.$.types.$.type": {
-        type: String
-    },
-    "contributions.$.types.$.type_data": {
-        type: Object
-    },
-    "contributions.$.types.$.type_data.amount": {
-        type: Number,
-        min: 0,
-        optional: true
-    },
-    "contributions.$.types.$.type_data.description": {
-        type: String,
-        optional: true
-    },
-    "contributions.$.updated_at": {
-        type: Date,
-        defaultValue: Date.now()
-    },
-    "contributions.$.upper_id": {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
@@ -103,37 +22,57 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         type: Date,
         defaultValue: Date.now()
     },
-    creator_id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
+    feedbacks: {
+        type: [Object],
+        optional: true
     },
-    partup_id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
+        "feedbacks.$.description": {
+            type: String,
+            optional: true
+        },
+        "feedbacks.$.rating": {
+            type: Number,
+            decimal: true,
+            optional: true
+        },
+        "feedbacks.$.upper_id": {
+            type: String,
+            regEx: SimpleSchema.RegEx.Id
+        },
+    types: {
+        type: [Object]
     },
+        "types.$.type": {
+            type: String
+        },
+        "types.$.type_data": {
+            type: Object
+        },
+            "types.$.type_data.amount": {
+                type: Number,
+                min: 0,
+                optional: true
+            },
+            "types.$.type_data.description": {
+                type: String,
+                optional: true
+            },
     updated_at: {
         type: Date,
         defaultValue: Date.now()
+    },
+    upper_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
     }
 }]);
 
 /**
- * Activity form schema
- * @name startActivities
- * @memberOf partup.schemas.forms
- */
-Partup.schemas.forms.startActivities = new SimpleSchema([activityBaseSchema, {
-    //
-}]);
-
-
-
-/**
- * Contribute Form
+ * Contribution Form
  * @name contribute
  * @memberOf partup.schemas.forms
  */
-Partup.schemas.forms.contribute = new SimpleSchema({
+Partup.schemas.forms.contribution = new SimpleSchema({
     type_want: {
         type: Boolean,
         optional: true
