@@ -71,17 +71,6 @@
             </label>
             -->
 
-            <!-- TODO: IMAGE IMPLEMENTATION -->
-            <!-- <div class="pu-formfield">
-                <img src="{{ uploadedImage.url }}" data-coverimage>
-                <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
-                <div class="pu-upload pu-upload-large">
-                    <input type="file" class="pu-button pu-button-browse" data-imageupload>
-                    <span>{{_ 'startdetails-image-validation'}}</span>
-                    {{> afFieldInput name="image" type="hidden"}}
-                </div>
-            </div> -->
-
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
                 <div class="pu-upload pu-upload-large">
@@ -89,9 +78,6 @@
                     <button class="pu-button pu-button-browse" data-browse-photos>{{_ 'startdetails-image-button'}}</button>
                     <span>{{_ 'startdetails-image-validation'}}</span>
                     <input type="file" class="pu-fileinput" data-imageupload>
-                    <!-- TODO DISABLED UNTIL IMPLEMENTED
-                    <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
-                    -->
                     {{> afFieldInput name="image" type="hidden"}}
                 </div>
                 {{#if uploadedImage.url}}
