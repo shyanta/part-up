@@ -92,6 +92,15 @@ Router.route('/partups/:_id/anticontract', {
 /*************************************************************/
 /* Start Partup */
 /*************************************************************/
+Router.route('/start-intro', {
+    name: 'start-intro',
+    where: 'client',
+    layoutTemplate: 'LayoutsFullpage',
+    yieldRegions: {
+        'PagesStartPartupIntro': { to: 'page' },
+    },
+});
+
 Router.route('/start', {
     name: 'start',
     where: 'client',
