@@ -11,6 +11,7 @@ partup:client-base
 
 partup:client-widgets-intro
 partup:client-widgets-partupdetail-updates
+partup:client-widgets-partupdetail-update-item
 partup:client-widgets-startdetails
 partup:client-widgets-startactivities
 partup:client-widgets-registerrequired
@@ -45,3 +46,4 @@ cfs:graphicsmagick
 reactive-var
 deepwell:bootstrap-datepicker2
 aldeed:template-extension
+tmeasday:publish-counts

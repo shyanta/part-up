@@ -47,13 +47,6 @@ Package.onUse(function(api) {
         'transformers/activity.js'
     ]);
 
-    api.addFiles([
-        'publications/notifications.js',
-        'publications/partups.js',
-        'publications/images.js',
-        'publications/users.js'
-    ], 'server');
-
     // Namespace
     api.export('Partup');
 

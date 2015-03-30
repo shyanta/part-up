@@ -157,27 +157,29 @@
         background-color: $color-facebook
 
         &:hover
-            background-color: lighten($color-facebook, 10%)
-
-        &:active
-            background-color: darken($color-facebook, 10%)
+            background-color: darken($color-facebook, 5%)
 
     &-linkedin
         background-color: $color-linkedin
 
         &:hover
-            background-color: lighten($color-linkedin, 10%)
-
-        &:active
-            background-color: darken($color-linkedin, 10%)
+            background-color: darken($color-linkedin, 5%)
 
     &-modalheader
         background-color: transparent
         color: #999999
+        font-weight: 600
+        padding-top: 22px
+        padding-bottom: 22px
+        height: 60px
 
         &:hover, &:active
             background-color: transparent
             color: darken(#999999, 20%)
+
+        &:active
+            padding-top: 23px
+            padding-bottom: 21px
 
     &-text
         background-color: transparent
@@ -200,6 +202,32 @@
             margin-bottom: -9px
             margin-right: 5px
 
+    &-social
+        background-color: transparent
+        background-image: url(images/border-dot.png)
+        background-size: cover
+        padding: 20px
+        border-radius: 50%
+        line-height: 0
+        font-size: 0
+        max-width: 40px
+        
+        i 
+            font-size: 22px
+            color: $color-solid-black
+            text-align: center
+            transition: color $animation-duration
+            display: inline-block
+            line-height: 0
+            width: 40px
+            position: absolute
+            left: 0
+
+        &:hover
+            background-color: transparent
+
+            i 
+                color: #000
 
     &-disabled
         pointer-events: none
@@ -208,38 +236,6 @@
         &:hover
             background-color: $color-disabled
             cursor: not-allowed
-
-    &-tag
-        height: 30px
-        padding: 7px 6px 7px 8px
-        background-color: $color-background
-        font-size: 14px
-        font-weight: 600
-        color: $color-text
-        border-radius: 2px
-
-        &:after
-            content: ''
-            position: absolute
-            right: -6px
-            top: 0
-            display: block
-            width: 11px
-            height: inherit
-            border-radius: 50%
-            background-color: white
-            transition: background-color $animation-duration
-
-        &:hover
-            color: $color-text
-            background-color: darken($color-background, 3%)
-
-            &:after
-                background-color: darken($color-background, 3%)
-
-        &:active
-            padding-top: 8px
-            padding-bottom: 6px
 
     &-no-side-padding
         padding-left: 0
@@ -251,3 +247,6 @@
 
         &:hover
             background-color: darken($color-sunshade, 5%)
+
+    &-inputheight
+        height: 46px

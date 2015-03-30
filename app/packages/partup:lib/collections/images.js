@@ -1,6 +1,7 @@
 var stores = [];
 
 if(Meteor.isServer && process.env.NODE_ENV == 'staging') {
+    console.log('Creating Image store with S3');
     stores.push(new FS.Store.S3('original', {
         region: 'eu-west-1',
         bucket: 'pu-development'
@@ -22,6 +23,7 @@ if(Meteor.isServer && process.env.NODE_ENV == 'staging') {
         }
     }));
 } else {
+    console.log('Creating Image store with filesystem');
     stores.push(new FS.Store.FileSystem('original', {
     }));
 

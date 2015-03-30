@@ -24,6 +24,10 @@ var localCustomizedMoment = function localCustomizedMoment (language, customizat
 /*************************************************************/
 /* Global date formatter helpers */
 /*************************************************************/
+Template.registerHelper('partupDateNormal', function(date) {
+    return moment(date).format('LL');
+});
+
 Template.registerHelper('partupDateISO', function(date) {
     return moment(date).toISOString();
 });

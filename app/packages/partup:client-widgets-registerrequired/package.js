@@ -14,7 +14,8 @@ Package.onUse(function(api) {
         'templating',
         'aldeed:autoform',
         'accounts-password',
-        'partup:lib'
+        'partup:lib',
+        'tmeasday:publish-counts'
     ], 'client');
 
     api.addFiles([

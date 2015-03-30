@@ -1,0 +1,117 @@
+<template name="WidgetPartupdetailUpdateItem">
+
+    <section class="pu-update">
+        <aside>
+
+            <!-- User -->
+            <figure class="pu-avatar">
+                <a href="#" rel="author" class="pu-sub-image" style="{{#if update.user.image}}background-image: url('{{ update.user.image.url }}');{{/if}}"></a>
+                <span class="pu-sub-label">{{ update.user.name }}</span>
+            </figure>
+
+            <!-- Time -->
+            <p class="pu-sub-time">
+                <time datetime="{{ partupDateISO created_at }}">{{ partupDatePartupActivity update.created_at }}</time>
+            </p>
+        </aside>
+        <section>
+
+            <!-- Title & first comment button -->
+            <header>
+                <h3><a href="#">{{_ titleKey }}</a></h3>
+                {{#if commentInputFieldExpanded }}{{ else }}
+                    <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
+                {{/if }}
+            </header>
+
+            <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
+
+            <!-- new_tag -->
+            {{#if partupEqualsExactly update.type 'new_tag' }}
+                {{#with update.data }}
+                    <section>
+                        <span class="pu-tag">{{ tag }}</span>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- changed_tag -->
+            {{#if partupEqualsExactly update.type 'changed_tag' }}
+                {{#with update.data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag">{{ old_tag }}</span></li>
+                            <li><span class="pu-tag">{{ new_tag }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- changed_ending_date -->
+            {{#if partupEqualsExactly update.type 'changed_ending_date' }}
+                {{#with update.data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-tags-angular pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal old_date }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal new_date }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- changed_title -->
+            {{#if partupEqualsExactly update.type 'changed_title' }}
+                {{#with update.data }}
+                    <section>
+                        <p class="pu-title pu-title-updateitem">{{ title }}</p>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- changed_description -->
+            {{#if partupEqualsExactly update.type 'changed_description' }}
+                {{#with update.data }}
+                    <section>
+                        <p class="pu-paragraph pu-paragraph-large">{{ description }}</p>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
+
+            <!-- Comments -->
+            <footer>
+
+                <!-- View all n comments -->
+                {{#if showExpandButton }}
+                    <p class="pu-sub-view-all-comments-button"><a data-expand-comments>{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
+                {{/if }}
+
+                <!-- Comments list -->
+                <ul class="pu-list pu-list-comments">
+                    {{#each shownComments }}
+                    <li>
+                        <p>
+                            <span rel="author">{{ author.name }}</span>
+                            {{ content }}
+                        </p>
+                    </li>
+                    {{/each }}
+                </ul>
+
+                <!-- Add comment field -->
+                {{#if currentUser }}
+                    {{#if commentInputFieldExpanded }}
+                        <form data-addcomment name="addComment">
+                            <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
+                                <li><input type="text" class="pu-input" name="commentValue" data-commentfield></li>
+                                <li><input type="submit" class="pu-button pu-button-inputheight" value="Plaats"></li>
+                            </ul>
+                        </form>
+                    {{/if}}
+                {{/if}}
+            </footer>
+        </section>
+    </section>
+
+</template>

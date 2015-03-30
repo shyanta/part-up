@@ -4,9 +4,34 @@ body
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
 
-h1, h2, h3, h4, h5, h6
+h1, h2, h3, h4, h5, h6,
+.pu-title
+    font-size: 22px
+    line-height: 1.4em
     font-weight: bold
-    line-height: 1.6em
+    font-family: $font-secondary
+
+    &-modal
+        font-size: 28px
+
+        u
+            position: relative
+            text-decoration: none
+            
+            &:after
+                content: ''
+                position: absolute
+                bottom: - (10px - 6px)
+                left: 0
+                right: 0
+                height: 3px
+                background-color: $color-text
+
+    &-updateitem
+        font-size: 28px
+
+    &-home
+        font-weight: normal
 
 h1
     font-size: 28px
@@ -16,7 +41,8 @@ h2
     font-size: 22px
     line-height: 1.4em
 
-p
+p,
+.pu-paragraph
     line-height: 1.6em
 
     strong, b
@@ -28,9 +54,13 @@ p
     a
         text-decoration: underline
         color: $color-text-link
+        cursor: pointer
 
         &:hover, &:active, &:focus
             color: $color-text-link-active
+
+    &-large
+        font-size: 18px
 
 ol, ul
     padding-left: 16px

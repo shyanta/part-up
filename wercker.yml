@@ -1,0 +1,21 @@
+box: danieldent/meteor
+build:
+  steps:
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+    - script:
+        name: echo meteor information
+        code: |
+          echo "meteor version $(meteor -v) running"
+    - script:
+        name: run meteor tests
+        code: |
+          cd app
+          meteor run --test
+  after-steps:
+    - kobim/slack-post:
+        url: $SLACK_URL
+        channel: notifications

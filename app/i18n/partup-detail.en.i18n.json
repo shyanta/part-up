@@ -3,8 +3,8 @@
     "partup-detail-uppers-invitebutton": "Invite uppers",
     "partup-detail-supporters-title": "Supporters (%s)",
     "partup-detail-supporters-join": "Become a supporter",
-    "partup-detail-updates-newmessage-button": "New message",
-    "partup-detail-updates-comment-button": "Comment",
-    "partup-detail-updates-comment-postbutton": "Post",
-    "partup-detail-updates-comment-placeholder": "Write a comment"
+    "partup-detail-status-text": "This Part-up is active untill <strong>%s</strong> at <strong>%s</strong>. This Part-up is %s and part of the network <strong>%s</strong>.",
+    "partup-detail-visibility-public": "public",
+    "partup-detail-visibility-private": "private",
+    "partup-detail-share-paragraph": "Loving your Part-up or seeking for new Uppers? Share your Part-up in your network!"
 }

@@ -13,7 +13,8 @@ Package.onUse(function(api) {
         'mongo',
         'partup:lib',
         'accounts-base',
-        'service-configuration'
+        'service-configuration',
+        'cfs:standard-packages'
     ], ['server']);
 
     api.addFiles([
@@ -25,6 +26,10 @@ Package.onUse(function(api) {
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
+        'publications/notifications.js',
+        'publications/partups.js',
+        'publications/images.js',
+        'publications/users.js',
         'methods/activities/activities_methods.js',
         'methods/activities/contributions_methods.js',
         'methods/partups/partups_methods.js',

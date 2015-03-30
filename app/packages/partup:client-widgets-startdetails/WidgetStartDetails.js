@@ -19,11 +19,21 @@ Template.WidgetStartDetails.helpers({
     },
     uploadedImage: function() {
         return Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+    },
+    user: function() {
+        return Meteor.user();
     }
 });
 
 Template.WidgetStartDetails.events({
-    'change [data-imageupload]': function (event, template) {
+    'click [data-browse-photos]': function eventClickBrowse(event, template){
+        event.preventDefault();
+
+        // in stead fire click event on file input
+        var input = $('input[data-imageupload]');
+        input.click();
+    },
+    'change [data-imageupload]': function eventChangeFile(event, template){
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
                 // TODO: Handle error in frontend
