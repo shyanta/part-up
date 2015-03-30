@@ -29,12 +29,13 @@ Package.onUse(function(api) {
     api.addFiles([
         'namespace.js',
         'collections/activities.js',
+        'collections/contributions.js',
         'collections/updates.js',
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
         'schemas/activity.js',
-        'schemas/contribute.js',
+        'schemas/contribution.js',
         'schemas/network.js',
         'schemas/partup.js',
         'schemas/register.js',
@@ -44,7 +45,8 @@ Package.onUse(function(api) {
         'services/placeholder.js',
         'transformers/partup.js',
         'transformers/user.js',
-        'transformers/activity.js'
+        'transformers/activity.js',
+        'transformers/contributions.js'
     ]);
 
     // Namespace
@@ -53,6 +55,7 @@ Package.onUse(function(api) {
     // Collections
     api.export('Partups');
     api.export('Activities');
+    api.export('Contributions');
     api.export('Notifications');
     api.export('Images');
     api.export('Updates');
