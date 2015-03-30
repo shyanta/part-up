@@ -11,7 +11,23 @@ h1, h2, h3, h4, h5, h6,
     font-weight: bold
     font-family: $font-secondary
 
-    &-large
+    &-modal
+        font-size: 28px
+
+        u
+            position: relative
+            text-decoration: none
+            
+            &:after
+                content: ''
+                position: absolute
+                bottom: - (10px - 6px)
+                left: 0
+                right: 0
+                height: 3px
+                background-color: $color-text
+
+    &-updateitem
         font-size: 28px
 
     &-home
