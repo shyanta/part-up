@@ -1,7 +1,10 @@
 <template name="PagesStartPartupIntro">
 
     <nav class="pu-header pu-header-modal">
-        <!---->
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+            <i class="fa fa-times"></i>
+            @!@Pagina sluiten
+        </a>
     </nav>
 
     <article class="pu-layout">
@@ -9,7 +12,7 @@
             <!---->
             <!-- Button: menu -->
             <a class="pu-button" href="{{pathFor 'start'}}">
-                Aan de slag
+                @!@Aan de slag
             </a>
         </section>
     </article>
