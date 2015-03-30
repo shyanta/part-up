@@ -16,7 +16,7 @@ Partup.transformers.partup = {
             _id: partup._id,
             description: partup.description,
             end_date: moment(partup.end_date).format('YYYY-MM-DD'),
-            location_input: Partup.services.partup.locationToLocationInput(partup.location),
+            location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
             tags_input: partup.tags.join(',')
         };
@@ -49,7 +49,7 @@ Partup.transformers.partup = {
         }
 
         if (fields.location_input) {
-            partup.location = Partup.services.partup.locationInputToLocation(fields.location_input);
+            partup.location = Partup.services.location.locationInputToLocation(fields.location_input);
         }
         return partup;
     }

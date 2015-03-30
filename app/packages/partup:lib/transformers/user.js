@@ -26,7 +26,7 @@ Partup.transformers.profile = {
         };
 
         if(user.profile.location) {
-            fields.location_input = Partup.services.partup.locationToLocationInput(user.profile.location);
+            fields.location_input = Partup.services.location.locationToLocationInput(user.profile.location);
         }
 
         if(user.profile.tags) {
@@ -56,7 +56,7 @@ Partup.transformers.profile = {
             'profile.skype': fields.skype
         };
         if(fields.location_input) {
-            user['profile.location'] = Partup.services.partup.locationInputToLocation(fields.location_input);
+            user['profile.location'] = Partup.services.location.locationInputToLocation(fields.location_input);
         }
         if(fields.tags_input) {
             user['profile.tags'] = fields.tags_input.split(',');

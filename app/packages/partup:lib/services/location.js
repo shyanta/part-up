@@ -1,13 +1,13 @@
 /**
  @namespace Partup helper service
- @name partup.services.partup
+ @name Partup.services.location
  @memberOf partup.services
  */
-Partup.services.partup = {
+Partup.services.location = {
     /**
-     * Transform a partup location object into a display string
+     * Transform a location object into a display string
      *
-     * @memberOf services.partup
+     * @memberOf services.location
      * @param {Object} location
      */
     locationToLocationInput: function(location) {
@@ -21,7 +21,7 @@ Partup.services.partup = {
     /**
      * Transform a location input into location object
      *
-     * @memberOf services.partup
+     * @memberOf services.location
      * @param {String} location_input
      */
     locationInputToLocation: function(location_input) {
