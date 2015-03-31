@@ -1,8 +1,26 @@
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
+var dirtyStates = new ReactiveDict;
+var blurredStates = new ReactiveDict;
+var focusedStates = new ReactiveDict;
 Template.WidgetLogin.helpers({
     formSchema: Partup.schemas.forms.login,
-    placeholders: Partup.services.placeholders.login
+    placeholders: Partup.services.placeholders.login,
+    afFieldDirtyClass: function (fieldName) {
+        return dirtyStates.get(fieldName) ? 'pu-state-dirty' : '';
+    },
+    afFieldBlurredClass: function (fieldName) {
+        return blurredStates.get(fieldName) ? 'pu-state-blurred' : '';
+    },
+    afFieldFocusedClass: function (fieldName) {
+        return focusedStates.get(fieldName) ? 'pu-state-focused' : '';
+    }
 });
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.WidgetLogin.events({
     'click [data-loginfacebook]': function(event) {
         Meteor.loginWithFacebook({
@@ -38,17 +56,30 @@ Template.WidgetLogin.events({
                 Router.go('register-details');
             }
         });
-    }
+    },
+    'input input, input textarea': function () {
+        dirtyStates.set(this.name, true);
+    },
+    'blur input, blur textarea': function () {
+        blurredStates.set(this.name, true);
+        focusedStates.set(this.name, false);
+    },
+    'focus input, focus textarea': function () {
+        focusedStates.set(this.name, true);
+    },
 })
 
-function optionalDetailsFilledIn() {
+/*************************************************************/
+/* Widget functions */
+/*************************************************************/
+var optionalDetailsFilledIn = function optionalDetailsFilledIn () {
     var user = Meteor.user();
     if (user.profile.settings && user.profile.settings.optionalDetailsCompleted) {
         return true;
     } else {
         return false;
     }
-}
+};
 
 AutoForm.hooks({
     loginForm: {

@@ -19,20 +19,20 @@
         </ul>
         <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
 
-        {{#autoForm schema=formSchema id="loginForm" class="pu-form" theme="plain"}}
-            <label class="pu-formfield {{#if afFieldIsInvalid name='email'}}pu-formfield-invalid{{/if}}">
+        {{#autoForm schema=formSchema id="loginForm" class="pu-form" theme="plain" validation="keyup" }}
+            <label class="pu-formfield {{#if afFieldIsInvalid name='email'}}pu-state-invalid{{/if}} {{ afFieldDirtyClass 'email' }} {{ afFieldBlurredClass 'email' }} {{ afFieldFocusedClass 'email' }}">
                 <span class="pu-label">{{_ 'login-form-email-label'}}</span>
-                {{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}
+                <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
                 {{#if afFieldIsInvalid name='email'}}
-                    <span>{{afFieldMessage name='email'}}</span>
+                    <span class="pu-sub-error">{{afFieldMessage name='email'}}</span>
                 {{/if}}
             </label>
 
-            <label class="pu-formfield {{#if afFieldIsInvalid name='email'}}pu-formfield-invalid{{/if}}">
+            <label class="pu-formfield {{#if afFieldIsInvalid name='password'}}pu-state-invalid{{/if}} {{ afFieldDirtyClass 'password' }} {{ afFieldBlurredClass 'password' }} {{ afFieldFocusedClass 'password' }}">
                 <span class="pu-label">{{_ 'login-form-password-label'}}</span>
-                {{> afFieldInput name='password' placeholder=placeholders.password class="pu-input" }}
+                <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                 {{#if afFieldIsInvalid name='password'}}
-                    <span>{{afFieldMessage name='password'}}</span>
+                    <span class="pu-sub-error">{{afFieldMessage name='password'}}</span>
                 {{/if}}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'login-form-password-validation' }}
