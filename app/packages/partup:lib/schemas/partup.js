@@ -138,6 +138,7 @@ Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
     },
     tags_input: {
         type: String,
-        max: 255
+        max: 255,
+        regEx: Partup.services.validators.tagsSeparatedByComma
     }
 }]);

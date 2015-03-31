@@ -4,5 +4,5 @@
  @memberOf partup.services
  */
 Partup.services.validators = {
-    tagsSeparatedByComma: /^\s*\w(\s*,?\s*\w)*\s*$/
+    tagsSeparatedByComma: /^\s*\w*(\s*,?\s*\w*)*\s*$/
 };

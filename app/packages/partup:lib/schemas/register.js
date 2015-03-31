@@ -10,7 +10,8 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
     },
     email: {
         type: String,
-        max: 255
+        max: 255,
+        regEx: SimpleSchema.RegEx.Email
     },
     password: {
         type: String,
@@ -46,7 +47,8 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
     tags_input: {
         type:String,
         max: 255,
-        optional: true
+        optional: true,
+        regEx: Partup.services.validators.tagsSeparatedByComma
     },
     facebook: {
         type:String,
@@ -71,7 +73,8 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
     website: {
         type:String,
         max: 255,
-        optional: true
+        optional: true,
+        regEx: SimpleSchema.RegEx.Url
     },
     phonenumber: {
         type:String,
