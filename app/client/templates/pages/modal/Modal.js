@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Layout helpers */
 /*************************************************************/
-Template.LayoutsFullpage.helpers({
+Template.PagesModal.helpers({
     
     //
     
@@ -11,7 +11,7 @@ Template.LayoutsFullpage.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.LayoutsFullpage.events({
+Template.PagesModal.events({
     
     //
     
@@ -21,9 +21,9 @@ Template.LayoutsFullpage.events({
 /*************************************************************/
 /* Layout body class */
 /*************************************************************/
-Template.LayoutsFullpage.onRendered(function() {
-    $('body').addClass('pu-currentlayout-fullpage');
+Template.PagesModal.onRendered(function() {
+    $('body').addClass('pu-currentlayout-modal');
 });
-Template.LayoutsFullpage.onDestroyed(function() {
-    $('body').removeClass('pu-currentlayout-fullpage');
+Template.PagesModal.onDestroyed(function() {
+    $('body').removeClass('pu-currentlayout-modal');
 });

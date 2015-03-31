@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Layout helpers */
 /*************************************************************/
-Template.LayoutsApp.helpers({
+Template.PagesApp.helpers({
     
     //
     
@@ -11,7 +11,7 @@ Template.LayoutsApp.helpers({
 /*************************************************************/
 /* Layout events */
 /*************************************************************/
-Template.LayoutsApp.events({
+Template.PagesApp.events({
     
     //
     
@@ -21,9 +21,9 @@ Template.LayoutsApp.events({
 /*************************************************************/
 /* Layout body class */
 /*************************************************************/
-Template.LayoutsApp.onRendered(function() {
+Template.PagesApp.onRendered(function() {
     $('body').addClass('pu-currentlayout-app');
 });
-Template.LayoutsApp.onDestroyed(function() {
+Template.PagesApp.onDestroyed(function() {
     $('body').removeClass('pu-currentlayout-app');
 });

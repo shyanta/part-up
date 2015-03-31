@@ -1,14 +1,16 @@
-<template name="LayoutsApp">
+<template name="PagesApp">
+
     <main class="pu-app">
 
         <!-- Header -->
         {{> PartialsAppHeader }}
 
         <!-- Page -->
-        {{> yield region='page' }}
+        {{> yield region='app-page' }}
 
         <!-- Footer -->
         {{> PartialsAppFooter }}
 
     </main>
+    
 </template>
