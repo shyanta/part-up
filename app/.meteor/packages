@@ -18,7 +18,7 @@ partup:client-widgets-registerrequired
 partup:client-widgets-registeroptional
 partup:client-widgets-startcontribute
 partup:client-widgets-partuptile
-meteor-bender
+partup:meteor-bender
 
 meteor-platform
 iron:router

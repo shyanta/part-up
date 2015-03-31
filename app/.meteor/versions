@@ -66,7 +66,6 @@ livedata@1.0.13
 localstorage@1.0.3
 logging@1.0.7
 meteor@1.1.5
-meteor-bender@0.1.7
 meteor-platform@1.2.2
 mike:mocha@0.5.2
 minifiers@1.1.4
@@ -92,6 +91,7 @@ partup:client-widgets-startactivities@0.0.1
 partup:client-widgets-startcontribute@0.0.1
 partup:client-widgets-startdetails@0.0.1
 partup:lib@0.0.1
+partup:meteor-bender@0.1.7
 partup:server-base@0.0.1
 pauli:accounts-linkedin@1.1.2
 pauli:linkedin@1.1.2
