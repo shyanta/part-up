@@ -1,0 +1,52 @@
+<template name="WidgetLogin">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-login">
+
+        <h2 class="pu-title pu-title-modal">{{_ 'login-loginwithpartup' }}</h2>
+        <p>{{_ 'login-logingoodyouareback'}}</p>
+        <ul class="pu-list pu-list-horizontal pu-list-buttons">
+            <li>
+                <button class="pu-button pu-button-facebook" data-loginfacebook>
+                    <i class="fa fa-facebook"></i>
+                    {{_ 'login-loginfacebook'}}
+                </button>
+            </li>
+            <li>
+                <button class="pu-button pu-button-linkedin" data-loginlinkedin>
+                    <i class="fa fa-linkedin"></i>
+                    {{_ 'login-loginlinkedin'}}
+                </button>
+            </li>
+        </ul>
+        <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
+
+        {{#autoForm schema=formSchema id="loginForm" class="pu-form" theme="plain"}}
+            <label class="pu-formfield {{#if afFieldIsInvalid name='email'}}pu-formfield-invalid{{/if}}">
+                <span class="pu-label">{{_ 'login-form-email-label'}}</span>
+                {{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}
+                {{#if afFieldIsInvalid name='email'}}
+                    <span>{{afFieldMessage name='email'}}</span>
+                {{/if}}
+            </label>
+
+            <label class="pu-formfield {{#if afFieldIsInvalid name='email'}}pu-formfield-invalid{{/if}}">
+                <span class="pu-label">{{_ 'login-form-password-label'}}</span>
+                {{> afFieldInput name='password' placeholder=placeholders.password class="pu-input" }}
+                {{#if afFieldIsInvalid name='password'}}
+                    <span>{{afFieldMessage name='password'}}</span>
+                {{/if}}
+                <a class="pu-hint pu-tooltip">
+                    {{_ 'login-form-password-validation' }}
+                    <span class="pu-tooltip-wrapper">
+                        <!-- TODO: password reset -->
+                        password reset form here
+                    </span>
+                </a>
+            </label>
+
+            <footer>
+                <input class="pu-button pu-button-primary" type="submit" value="{{_ 'login-form-submit'}}">
+            </footer>
+        {{/autoForm}}
+
+    </div>
+</template>
