@@ -18,6 +18,7 @@ partup:client-widgets-registerrequired
 partup:client-widgets-registeroptional
 partup:client-widgets-startcontribute
 partup:client-widgets-partuptile
+meteor-bender
 
 meteor-platform
 iron:router
@@ -46,4 +47,3 @@ cfs:graphicsmagick
 reactive-var
 deepwell:bootstrap-datepicker2
 tmeasday:publish-counts
-gabrielpoca:bender

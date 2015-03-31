@@ -16,3 +16,10 @@ Template.LayoutsMain.events({
     //
     
 });
+
+/*************************************************************/
+/* Layout rendered */
+/*************************************************************/
+Template.LayoutsMain.rendered = function() {
+    Bender.initialize(this.find('.pu-main'));
+};  
