@@ -187,9 +187,10 @@ Router.route('/start/:_id/promote', {
 Router.route('/login', {
     name: 'login',
     where: 'client',
-    layoutTemplate: 'LayoutsFullpage',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesLogin': { to: 'page' }
+        'PagesModal': { to: 'page' },
+        'PagesLogin': { to: 'modal-page' }
     }
 });
 
