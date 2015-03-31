@@ -59,7 +59,7 @@ Partup.transformers.profile = {
             user['profile.location'] = Partup.services.location.locationInputToLocation(fields.location_input);
         }
         if(fields.tags_input) {
-            user['profile.tags'] = fields.tags_input.split(',');
+            user['profile.tags'] = Partup.services.tags.tagInputToArray(fields.tags_input);
         }
         return user;
     }

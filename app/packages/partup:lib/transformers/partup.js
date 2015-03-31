@@ -45,7 +45,7 @@ Partup.transformers.partup = {
         };
 
         if (fields.tags_input) {
-            partup.tags = fields.tags_input.split(',')
+            partup.tags = Partup.services.tags.tagInputToArray(fields.tags_input);
         }
 
         if (fields.location_input) {
