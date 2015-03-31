@@ -3,18 +3,18 @@
     <nav class="pu-header pu-header-modal pu-header-progress">
         <div class="pu-progresspager">
             <ol>
-                <li class="{{#if isActiveRoute regex='start$'}}pu-state-active{{/if}}">
+                <li class="{{#if isActiveRoute regex='start-details$'}}pu-state-active{{/if}}">
                     <a class="pu-sub-pagelink" href="{{pathFor 'start'}}">{{_ 'start-partup-start' }}</a>
                 </li>
-                <li class="{{#if isActiveRoute regex='activities$'}}pu-state-active{{/if}}">
+                <li class="{{#if isActiveRoute regex='start-activities$'}}pu-state-active{{/if}}">
                     <a class="pu-sub-skiplink pu-button pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'start-contribute' _id=partupId}}">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
                     <a class="pu-sub-pagelink" href="{{pathFor 'start-activities' _id=partupId}}">{{_ 'start-partup-activities' }}</a>
                 </li>
-                <li class="{{#if isActiveRoute regex='contribute$'}}pu-state-active{{/if}}">
+                <li class="{{#if isActiveRoute regex='start-contribute$'}}pu-state-active{{/if}}">
                     <a class="pu-sub-skiplink pu-button pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'start-promote' _id=partupId}}">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
                     <a class="pu-sub-pagelink" href="{{pathFor 'start-contribute' _id=partupId}}">{{_ 'start-partup-contribute' }}</a>
                 </li>
-                <li class="{{#if isActiveRoute regex='promote$'}}pu-state-active{{/if}}">
+                <li class="{{#if isActiveRoute regex='start-promote$'}}pu-state-active{{/if}}">
                     <a class="pu-sub-skiplink pu-button pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'partup-detail' _id=partupId}}">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
                     <a class="pu-sub-pagelink" href="{{pathFor 'start-promote' _id=partupId}}">{{_ 'start-partup-promote' }}</a>
                 </li>

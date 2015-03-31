@@ -92,17 +92,17 @@ Router.route('/partups/:_id/anticontract', {
 /*************************************************************/
 /* Start Partup */
 /*************************************************************/
-Router.route('/start-intro', {
-    name: 'start-intro',
+Router.route('/start', {
+    name: 'start',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
-        'PagesStartPartupIntro': { to: 'page' },
-    },
+        'PagesStartPartupIntro': { to: 'page' }
+    }
 });
 
-Router.route('/start', {
-    name: 'start',
+Router.route('/start/details', {
+    name: 'start-details',
     where: 'client',
     layoutTemplate: 'LayoutsFullpage',
     yieldRegions: {
@@ -116,6 +116,7 @@ Router.route('/start', {
         return Partups.find({_id:Session.get('partials.start-partup.current-partup')});
     }
 });
+
 
 Router.route('/start/:_id/activities', {
     name: 'start-activities',
