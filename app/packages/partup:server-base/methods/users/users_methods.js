@@ -16,8 +16,11 @@ Meteor.methods({
 
         try {
             var profileFields = Partup.transformers.profile.fromFormRegisterOptional(fields);
-            Meteor.users.update(upper._id, {$set:profileFields});
-            Event.emit('users.updated', upper._id, profileFields);
+
+            var newProfile = _.extend(upper.profile, profileFields);
+
+            Meteor.users.update(upper._id, {$set:newProfile});
+            Event.emit('users.updated', upper._id, newProfile);
 
             return {
                 _id: upper._id

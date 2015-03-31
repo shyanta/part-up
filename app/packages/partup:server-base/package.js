@@ -26,6 +26,7 @@ Package.onUse(function(api) {
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
+        'event_handlers/users/users_settings_handler.js',
         'publications/notifications.js',
         'publications/partups.js',
         'publications/images.js',

@@ -47,7 +47,10 @@ AutoForm.hooks({
                 password: insertDoc.password,
                 profile: {
                     name: insertDoc.name,
-                    network: insertDoc.network
+                    network: insertDoc.network,
+                    settings: {
+                        optionalDetailsCompleted: false
+                    }
                 }
             }, function(error) {
                 if (error) {
