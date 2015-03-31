@@ -3,7 +3,7 @@
     <nav class="pu-header pu-header-modal">
         <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
             <i class="fa fa-times"></i>
-            Pagina sluiten
+            {{_ 'start-partup-intro-closepage' }}
         </a>
     </nav>
 
@@ -14,40 +14,40 @@
                 <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartupintro pu-composition-startpartupintromodal">
 
                     <!-- Title -->
-                    <h2 class="pu-title pu-title-modal">Pim, gaaf dat je een partup start!</h2>
+                    <h2 class="pu-title pu-title-modal">{{_ 'start-partup-intro-title' user.profile.name }}</h2>
 
                     <!-- Intro paragraphs -->
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem vitae praesentium placeat quisquam nemo, amet dolores quidem cum. Nesciunt vero molestias, obcaecati dolorum illo dolores deleniti soluta culpa odio quas incidunt, dignissimos vel harum rem sit, totam porro ipsam. Ipsum asperiores quo voluptates ipsam, optio id assumenda harum blanditiis ullam.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p>{{_ 'start-partup-intro-paragraph' }}</p>
+                    <p>{{_ 'start-partup-intro-explanation' }}</p>
 
                     <!-- Features list -->
                     <ul class="pu-list pu-list-horizontal pu-list-features">
                         <li class="pu-feature">
                             <i class="fa fa-rocket"></i>
-                            <h3>Start</h3>
-                            <p>Welke doelen stel je voor je part-up?</p>
+                            <h3>{{_ 'start-partup-intro-start-title' }}</h3>
+                            <p>{{_ 'start-partup-intro-start-explanation' }}</p>
                         </li>
                         <li class="pu-feature">
                             <i class="fa fa-check-square"></i>
-                            <h3>Activiteiten</h3>
-                            <p>Wat moet er gedaan worden?</p>
+                            <h3>{{_ 'start-partup-intro-activities-title' }}</h3>
+                            <p>{{_ 'start-partup-intro-activities-explanation' }}</p>
                         </li>
                         <li class="pu-feature">
                             <i class="fa fa-users"></i>
-                            <h3>Bijdragen</h3>
-                            <p>Wat kunnen de uppers bijdragen aan de activiteiten?</p>
+                            <h3>{{_ 'start-partup-intro-contribute-title' }}</h3>
+                            <p>{{_ 'start-partup-intro-contribute-explanation' }}</p>
                         </li>
                         <li class="pu-feature">
                             <i class="fa fa-globe"></i>
-                            <h3>Promoten</h3>
-                            <p>Vind de uppers die bij jouw part-up passen!</p>
+                            <h3>{{_ 'start-partup-intro-promote-title' }}</h3>
+                            <p>{{_ 'start-partup-intro-promote-explanation' }}</p>
                         </li>
                     </ul>
 
                     <!-- Button: menu -->
                     <p class="pu-sub-buttoncontainer">
                         <a class="pu-button" href="{{pathFor 'start'}}">
-                            Aan de slag
+                            {{_ 'start-partup-intro-action-button' }}
                         </a>
                     </p>
 

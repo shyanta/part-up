@@ -1,4 +1,19 @@
 {
+    "start-partup-intro-closepage": "Close",
+    "start-partup-intro-title": "Hi %s, awesome you start a part-up!",
+    "start-partup-intro-paragraph": "Part-up is a joined effort, but someone has to start. Awesome that you're the one! To find the right uppers for your part-up, you have to give the part-up some direction. Other uppers will join you soon and help you to elaborate. Together you can make it work.",
+    "start-partup-intro-explanation": "Go through this four steps and start collaborating with your dream team.",
+    "start-partup-intro-action-button": "Let's go!",
+    
+    "start-partup-intro-start-title": "Start",
+    "start-partup-intro-start-explanation": "What are your goals for this part-up?",
+    "start-partup-intro-activities-title": "Activities",
+    "start-partup-intro-activities-explanation": "What can the uppers do?",
+    "start-partup-intro-contribute-title": "Contributions",
+    "start-partup-intro-contribute-explanation": "What can uppers contribute?",
+    "start-partup-intro-promote-title": "Promote",
+    "start-partup-intro-promote-explanation": "Find your dream team uppers!",
+
     "start-partup-skip": "Skip",
     "start-partup-start": "Start",
     "start-partup-activities": "Activities",

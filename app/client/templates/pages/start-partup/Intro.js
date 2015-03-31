@@ -2,7 +2,9 @@
 /* Page helpers */
 /*************************************************************/
 Template.PagesStartPartupIntro.helpers({
-    //
+    'user': function helperUser () {
+        return Meteor.user();
+    }
 });
 
 
@@ -10,7 +12,7 @@ Template.PagesStartPartupIntro.helpers({
 /* Page events */
 /*************************************************************/
 Template.PagesStartPartupIntro.events({
-    'click [data-closepage]': function (event, template) {
+    'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
         Router.go('home');
     }

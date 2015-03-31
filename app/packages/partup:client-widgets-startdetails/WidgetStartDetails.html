@@ -1,13 +1,13 @@
 <template name="WidgetStartDetails">
     <div class="pu-composition pu-composition-defaultmodal">
 
-        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name}}</h2>
-        <p>{{_ 'startdetails-explainingpartup'}}</p>
+        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name }}</h2>
+        <p>{{_ 'startdetails-explainingpartup' }}</p>
 
         {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" theme="plain"}}
 
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
+                <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
                 {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
