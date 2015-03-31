@@ -44,6 +44,7 @@ Package.onUse(function(api) {
         'schemas/network.js',
         'schemas/partup.js',
         'schemas/register.js',
+        'schemas/resetPassword.js',
         'schemas/tag.js',
         'schemas/update.js',
         'transformers/partup.js',

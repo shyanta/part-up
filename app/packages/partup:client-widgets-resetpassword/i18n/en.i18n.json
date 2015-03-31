@@ -1,0 +1,11 @@
+{
+    "resetpassword-heading": "@@@Wachtwoord reset",
+    "resetpassword-introparagraph": "@@@Vul maar snel een nieuw wachtwoord in en je bent zo weer aan het partuppen!",
+
+    "resetpassword-form-password-label": "@@@Nieuw Wachtwoord",
+    "resetpassword-form-password-placeholder": "@@@Maak het niet té makkelijk",
+    "resetpassword-form-password-validation": "@@@WMinimaal 8 karakters en minstens 1 getal",
+    "resetpassword-form-password-tooltip": "@@@Veiligheid wachtwoorden",
+
+    "login-form-submit": "@@@Wachtwoord opslaan"
+}

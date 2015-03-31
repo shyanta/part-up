@@ -208,6 +208,16 @@ Router.route('/forgot-password', {
     }
 });
 
+Router.route('/reset-password/:token', {
+    name: 'reset-password',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesResetPassword': { to: 'modal-page' }
+    }
+});
+
 /*************************************************************/
 /* Register flow */
 /*************************************************************/
