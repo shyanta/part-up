@@ -34,12 +34,8 @@
                 {{#if afFieldIsInvalid name='password'}}
                     <span class="pu-sub-error">{{afFieldMessage name='password'}}</span>
                 {{/if}}
-                <a class="pu-hint pu-tooltip">
+                <a class="pu-hint pu-tooltip" href="{{pathFor 'forgot-password'}}">
                     {{_ 'login-form-password-validation' }}
-                    <span class="pu-tooltip-wrapper">
-                        <!-- TODO: password reset -->
-                        password reset form here
-                    </span>
                 </a>
             </label>
 

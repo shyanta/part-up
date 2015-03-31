@@ -194,6 +194,20 @@ Router.route('/login', {
     }
 });
 
+
+/*************************************************************/
+/* Password reset */
+/*************************************************************/
+Router.route('/forgot-password', {
+    name: 'forgot-password',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesForgotPassword': { to: 'modal-page' }
+    }
+});
+
 /*************************************************************/
 /* Register flow */
 /*************************************************************/

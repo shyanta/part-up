@@ -13,9 +13,5 @@
     "login-form-password-placeholder": "@@@Dezelfde als vorige keer",
     "login-form-password-validation": "@@@Wachtwoord vergeten?",
 
-    "login-reset-label": "@@@Met welk e-mailadres heb je je aangemeld?",
-    "login-reset-placeholder": "@@@Wat is je emailadres?",
-    "login-reset-button": "@@@Reset link versturen",
-
     "login-form-submit": "@@@Inloggen"
 }
