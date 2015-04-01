@@ -12,7 +12,8 @@ Package.onUse(function (api) {
         'aldeed:template-extension',
         'partup:lib',
         'tap:i18n',
-        'reactive-var'
+        'reactive-var',
+        'reactive-dict'
     ], 'client');
 
     api.addFiles([
