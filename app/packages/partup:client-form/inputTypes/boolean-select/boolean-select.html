@@ -1,0 +1,7 @@
+<template name="PartupFormAfBooleanSelect">
+  <select {{this.atts}}>
+    {{#each this.items}}
+    <option {{afSelectOptionAtts}}>{{this.label}}</option>
+    {{/each}}
+  </select>
+</template>
