@@ -1,4 +1,6 @@
 Template.ActivityContribution.created = function () {
+    // contribute want init values
+    this.contributeWantValue = new ReactiveVar(false);
 
     // contribute can init values
     this.showContributeCan = new ReactiveVar(false);
@@ -12,9 +14,6 @@ Template.ActivityContribution.created = function () {
 
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribute,
-    'showContributeButton': function () {
-        return Template.instance().showContributeButton.get();
-    },
     'activityId': function() {
         return this._id;
     },
@@ -29,10 +28,31 @@ Template.ActivityContribution.helpers({
     },
     'contributionHaveChecked': function(){
         return (Template.instance().contributeHaveValue.get() > 0) ? 'checked' : '';
+    },
+    'contributions': function(){
+        var want = Template.instance().contributeWantValue.get() ? true : false;
+        var can = Template.instance().contributeCanValue.get() ? true : false;
+        var have = Template.instance().contributeHaveValue.get() ? true : false;
+        return want || can || have;
+    },
+    'want': function(){
+        return Template.instance().contributeWantValue.get() || false;
+    },
+    'can': function(){
+        return Template.instance().contributeCanValue.get() || false;
+    },
+    'have': function(){
+        return {
+            'value':Template.instance().contributeHaveValue.get(),
+            'extra':Template.instance().contributeHaveExtraValue.get()
+        }
     }
 });
 
 Template.ActivityContribution.events({
+    'click [data-change-contribution]': function stopFromBubbling(event, template){
+        event.stopPropagation()
+    },
     'click [data-open-contribution]': function clickContribution(event, template){
         // show the popover on click
 
@@ -40,7 +60,7 @@ Template.ActivityContribution.events({
         event.preventDefault();
 
         // focus on the first input field
-        $(event.currentTarget).find('input[data-input-contribution]:first').focus();
+        $(event.currentTarget).find('input[data-change-contribution]:first').focus();
 
         // get the key for the boolean wich is associated with this field
         var booleanKey = $(event.currentTarget).data("open-contribution");
@@ -72,12 +92,16 @@ Template.ActivityContribution.events({
 
         // set reactive var boolean to false to hide popover
         template[booleanKey].set(false);
-
     },
-    'keyup [data-input-contribution]': function changeContrinutionCan(event, template){
-        var valueKey = $(event.currentTarget).data("input-contribution");
+    'keyup [data-change-contribution]': function changeContrinution(event, template){
+        var valueKey = $(event.currentTarget).data("change-contribution");
         console.log(valueKey,event.target.value)
         template[valueKey].set(event.target.value);
+    },
+    'change [data-check-contribution]': function checkContribution(event, template){
+        // event.preventDefault();
+        var valueKey = $(event.currentTarget).data("check-contribution");
+        template[valueKey].set(event.target.checked);
     }
 });
 
