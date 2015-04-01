@@ -268,6 +268,7 @@ Router.route('/styleguide', {
 var partupRouterHooks = {
     loginRequired: function() {
         if (!Meteor.userId()) {
+            Session.set('application.return-url', this.url);
             Router.go('login');
         }
         else {
