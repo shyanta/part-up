@@ -49,7 +49,7 @@
         {{#if contributions}}
             <div class="pu-block-container-child">
                 <div class="pu-contributionlist">
-                    <figure class="pu-avatar pu-avatar-small"></figure>
+                    <figure class="pu-avatar pu-avatar-small" style="{{#if userImage}}background-image:url('{{userImage.url}}');{{/if}}"></figure>
                     <ul class="pu-list">
                         {{#if want}}
                             <li>
@@ -59,17 +59,17 @@
                         {{#if can}}
                             <li>
                                 <span>can do this for</span>
-                                <a href="" class="pu-button pu-button-label">{{ can }}</a>
+                                <a href="" class="pu-button pu-button-label" data-clear="contributeCanValue">{{ can }}</a>
                             </li>
                         {{/if}}
-                        {{#if have.value}}
+                        {{#if partupHasTrueValues have}}
                             <li>
                                 <span>brings in</span>
                                 {{#if have.value }}
-                                    <a href="" class="pu-button pu-button-label">{{ have.value }}</a>
+                                    <a href="" class="pu-button pu-button-label" data-clear="contributeHaveValue">{{ have.value }}</a>
                                 {{/if}}
                                 {{#if have.extra }}
-                                    <a href="" class="pu-button pu-button-label pu-button-label-secondary">{{ have.extra }}</a>
+                                    <a href="" class="pu-button pu-button-label pu-button-label-secondary" data-clear="contributeHaveExtraValue">{{ have.extra }}</a>
                                 {{/if}}
                             </li>
                         {{/if}}

@@ -32,7 +32,7 @@ Template.ActivityContribution.helpers({
     'contributions': function(){
         var want = Template.instance().contributeWantValue.get() ? true : false;
         var can = Template.instance().contributeCanValue.get() ? true : false;
-        var have = Template.instance().contributeHaveValue.get() ? true : false;
+        var have = (Template.instance().contributeHaveValue.get() || Template.instance().contributeHaveExtraValue.get()) ? true : false;
         return want || can || have;
     },
     'want': function(){
@@ -46,12 +46,20 @@ Template.ActivityContribution.helpers({
             'value':Template.instance().contributeHaveValue.get(),
             'extra':Template.instance().contributeHaveExtraValue.get()
         }
+    },
+    userImage: function () {
+        var user = Meteor.user();
+
+        if (user && user.profile && user.profile.image) {
+            return Images.findOne({ _id: user.profile.image });
+        }
     }
 });
 
 Template.ActivityContribution.events({
     'click [data-change-contribution]': function stopFromBubbling(event, template){
-        event.stopPropagation()
+        // prevent autofocus(clickContribution) on click
+        event.stopPropagation();
     },
     'click [data-open-contribution]': function clickContribution(event, template){
         // show the popover on click
@@ -94,14 +102,26 @@ Template.ActivityContribution.events({
         template[booleanKey].set(false);
     },
     'keyup [data-change-contribution]': function changeContrinution(event, template){
-        var valueKey = $(event.currentTarget).data("change-contribution");
-        console.log(valueKey,event.target.value)
-        template[valueKey].set(event.target.value);
+        if(event.keyCode === 13){
+            // do something on return key
+        } else {
+            var valueKey = $(event.currentTarget).data("change-contribution");
+            console.log(valueKey,event.target.value)
+            template[valueKey].set(event.target.value);
+        }
     },
     'change [data-check-contribution]': function checkContribution(event, template){
-        // event.preventDefault();
         var valueKey = $(event.currentTarget).data("check-contribution");
         template[valueKey].set(event.target.checked);
+    },
+    'click [data-clear]': function clearContribution(event, template){
+        // reset field by data key
+        var valueKey = $(event.currentTarget).data("clear");
+        template[valueKey].set(false);
+
+        // reset input associated with the data key
+        var input = template.find('input[data-change-contribution='+valueKey+']');
+        $(input).val('');
     }
 });
 
