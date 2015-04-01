@@ -38,7 +38,7 @@ Template.afFieldInput.onDestroyed(function() {
 });
 
 Template.afFieldInput.events({
-    'keydown [data-schema-key], blur [data-schema-key]': function (event, template) {
+    'keyup [data-schema-key], blur [data-schema-key]': function (event, template) {
         var context = getContext(event);
         if(!context) return;
 
