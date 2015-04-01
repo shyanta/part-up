@@ -1,39 +1,81 @@
 <template name="ActivityContribution">
-    <article class="pu-block">
-        <h2 class="pu-block-title">{{name}}</h2>
+    <article class="pu-block pu-block-container pu-contribution">
+        <div class="pu-block-container-child">
+            <h2 class="pu-block-title">{{name}}</h2>
 
-        <p class="pu-paragraph">{{description}}</p>
+            <p class="pu-paragraph">{{description}}</p>
 
-        <time>{{end_date}}</time>
+            <time>{{end_date}}</time>
+        </div>
+        <div class="pu-block-container-child">
+            {{#autoForm id=activityId schema=formSchema doc=fieldsFromContribution class="pu-form" theme="plain"}}
+                <!-- want -->
+                <input type="checkbox" class="pu-checkbox" {{contributionWantChecked}}>
+                <label class="pu-button pu-button-icon pu-button-checkbox" data-check-contribution="contributeWantValue">
+                    <i class="fa fa-thumbs-up"></i>
+                    {{_ 'startcontribute-form-want-label'}}
+                </label>
+                
+                <!-- can -->
+                <div class="pu-popover" data-open-contribution="showContributeCan">
+                    <input type="checkbox" class="pu-checkbox" {{contributionCanChecked}}>
+                    <label class="pu-button pu-button-icon pu-button-checkbox">
+                        <i class="fa fa-wrench"></i>
+                        {{_ 'startcontribute-form-can-label'}}
+                    </label>
+                    <div class="pu-popover-inner {{#if showContributeCan}}pu-popover-inner-show{{/if}}"> <!-- data-contribution-can -->
+                        <span>I can do this for</span>
+                        {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" }}
+                    </div>
+                </div>
+                
+                <!-- have -->
+                <div class="pu-popover" data-open-contribution="showContributeHave">
+                    <input type="checkbox" class="pu-checkbox" {{contributionHaveChecked}}>
+                    <label class="pu-button pu-button-icon pu-button-checkbox">
+                        <i class="fa fa-user-plus"></i>
+                        {{_ 'startcontribute-form-have-label'}}
+                    </label>
+                    <div class="pu-popover-inner {{#if showContributeHave}}pu-popover-inner-show{{/if}}">
+                        <span>I bring in</span>
+                        {{> afFieldInput name='type_have_amount' placeholder=placeholders.have_amount class="pu-input" }}
+                        <span>or/and</span>
+                        {{> afFieldInput name='type_have_description' placeholder=placeholders.have_description class="pu-input" }}
+                    </div>
+                </div>
+            {{/autoForm}}
+        </div>
 
-        {{#autoForm id=activityId schema=formSchema doc=fieldsFromContribution class="pu-form" theme="plain"}}
-            <label class="pu-formfield">
-                <span class="pu-label">{{_ 'startcontribute-form-can-label'}}</span>
-                {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" }}
-            </label>
-
-            <label class="pu-formfield">
-                <span class="pu-label">{{_ 'startcontribute-form-have_amount-label'}}</span>
-                {{> afFieldInput name='type_have_amount' placeholder=placeholders.have_amount class="pu-input" }}
-            </label>
-
-            <label class="pu-formfield">
-                <span class="pu-label">{{_ 'startcontribute-form-have_description-label'}}</span>
-                {{> afFieldInput name='type_have_description' placeholder=placeholders.have_description class="pu-input" }}
-            </label>
-
-            <!--{{!#each contribution}}-->
-                <!--<span>Upper: {{!_id}}</span>-->
-                <!--<p>Types</p>-->
-                <!--{{!#each types}}-->
-                    <!--<span>{{!type}}: &euro;{{!type_data.amount}},- and {{!type_data.description}}</span>-->
-                <!--{{!/each}}-->
-            <!--{{!/each }}-->
-
-            <div class="pu-formfield-right">
-                <input class="pu-button pu-button-primary" type="submit"
-                       value="Save">
+        {{#if contributions}}
+            <div class="pu-block-container-child">
+                <div class="pu-contributionlist">
+                    <figure class="pu-avatar pu-avatar-small" style="{{#if userImage}}background-image:url('{{userImage.url}}');{{/if}}"></figure>
+                    <ul class="pu-list">
+                        {{#if want}}
+                            <li>
+                                <span>is up for it</span>
+                            </li>
+                        {{/if}}
+                        {{#if can}}
+                            <li>
+                                <span>can do this for</span>
+                                <a href="" class="pu-button pu-button-label" data-clear="contributeCanValue">{{ can }}</a>
+                            </li>
+                        {{/if}}
+                        {{#if partupHasTrueValues have}}
+                            <li>
+                                <span>brings in</span>
+                                {{#if have.value }}
+                                    <a href="" class="pu-button pu-button-label" data-clear="contributeHaveValue">{{ have.value }}</a>
+                                {{/if}}
+                                {{#if have.extra }}
+                                    <a href="" class="pu-button pu-button-label pu-button-label-secondary" data-clear="contributeHaveExtraValue">{{ have.extra }}</a>
+                                {{/if}}
+                            </li>
+                        {{/if}}
+                    </ul>
+                </div>
             </div>
-        {{/autoForm}}
+        {{/if}}
     </article>
 </template>

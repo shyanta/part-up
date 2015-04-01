@@ -1,13 +1,13 @@
 <template name="WidgetStartDetails">
     <div class="pu-composition pu-composition-defaultmodal">
 
-        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name}}</h2>
-        <p>{{_ 'startdetails-explainingpartup'}}</p>
+        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name }}</h2>
+        <p>{{_ 'startdetails-explainingpartup' }}</p>
 
         {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" theme="plain"}}
 
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'startdetails-form-name-label'}}</span>
+                <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
                 {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
@@ -70,35 +70,22 @@
                 </a>
             </label>
             -->
-
-            <!-- TODO: IMAGE IMPLEMENTATION -->
-            <!-- <div class="pu-formfield">
-                <img src="{{ uploadedImage.url }}" data-coverimage>
-                <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
-                <div class="pu-upload pu-upload-large">
-                    <input type="file" class="pu-button pu-button-browse" data-imageupload>
-                    <span>{{_ 'startdetails-image-validation'}}</span>
-                    {{> afFieldInput name="image" type="hidden"}}
-                </div>
-            </div> -->
-
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
                 <div class="pu-upload pu-upload-large">
                     <!-- <img src="{{ profilePicture.url }}" alt="" data-image-placeholder> -->
-                    <button class="pu-button pu-button-browse" data-browse-photos>{{_ 'startdetails-image-button'}}</button>
+                    <button class="pu-button pu-button-secondary" data-browse-photos>{{_ 'startdetails-image-button'}}</button>
                     <span>{{_ 'startdetails-image-validation'}}</span>
                     <input type="file" class="pu-fileinput" data-imageupload>
-                    <!-- TODO DISABLED UNTIL IMPLEMENTED
-                    <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
-                    -->
                     {{> afFieldInput name="image" type="hidden"}}
                 </div>
                 {{#if uploadedImage.url}}
                     <img class="pu-imagepreview pu-imagepreview-large" src="{{#if uploadedImage.url}}{{ uploadedImage.url }}{{else}}http://placehold.it/1140x476/CCCCCC/494949{{/if}}">
                 {{else}}
+
+                    <!-- TODO: SUGGESTION IMPLEMENTATION
+                    <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                     <div class="pu-suggestionsgallery">
-                        <span>{{_ 'startdetails-suggestion-label'}}</span>
                         <ul>
                             <li><div><img src="http://lorempixel.com/1140/476/city/1" alt=""></div></li>
                             <li><div><img src="http://lorempixel.com/1140/476/city/2" alt=""></div></li>
@@ -107,16 +94,11 @@
                             <li><div><img src="http://lorempixel.com/1140/476/city/5" alt=""></div></li>
                         </ul>
                     </div>
+                    -->
                 {{/if}}
             </div>
 
-            <!-- TODO: SUGGESTION IMPLEMENTATION
-            <div class="pu-divider"><span>{{_ 'startdetails-suggestion-label'}}</span></div>
 
-            <div class="pu-imageselector">
-                <img src="http://placehold.it/570x235" alt="">
-            </div>
-            -->
             
             <footer>
                 <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">

@@ -9,9 +9,6 @@ app/packages/*/.npm
 # Generated Docs
 docs/methods
 
-# Meteor Tests
-app/packages/tests-proxy
-
 # Wercker builds
 _builds/
 _projects/

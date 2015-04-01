@@ -28,6 +28,10 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
+        'services/location.js',
+        'services/placeholder.js',
+        'services/tags.js',
+        'services/validators.js',
         'collections/activities.js',
         'collections/contributions.js',
         'collections/updates.js',
@@ -41,8 +45,6 @@ Package.onUse(function(api) {
         'schemas/register.js',
         'schemas/tag.js',
         'schemas/update.js',
-        'services/partup.js',
-        'services/placeholder.js',
         'transformers/partup.js',
         'transformers/user.js',
         'transformers/activity.js',

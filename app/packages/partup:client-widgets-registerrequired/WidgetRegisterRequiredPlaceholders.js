@@ -1,4 +1,4 @@
-Partup.services.placeholders.registerrequired = {
+Partup.services.placeholders.registerRequired = {
     'name': function () {
         return __('registerrequired-form-name-placeholder');
     },

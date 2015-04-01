@@ -23,6 +23,21 @@ Part-Up
 - Backend emits an event that corresponds with the given CRUD operation, e.g. `inserted, updated or removed` (inside a Meteor method).
 - Handlers are created that have to react to these created events, for instance when inserting an update or notification.
 
+## Required server environment variables
+```
+NODE_ENV
+MONGO_URL
+ROOT_URL
+FACEBOOK_APP_ID
+FACEBOOK_APP_SECRET
+LINKEDIN_API_KEY
+LINKEDIN_SECRET_KEY
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_BUCKET_NAME
+AWS_BUCKET_REGION
+```
+
 # Frontend
 
 ## Structure

@@ -4,9 +4,10 @@
 Router.route('/', {
     name: 'home',
     where: 'client',
-    layoutTemplate: 'LayoutsApp',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesHome': { to: 'page' }
+        'PagesApp': { to: 'page' },
+        'PagesHome': { to: 'app-page' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -20,9 +21,10 @@ Router.route('/', {
 Router.route('/discover', {
     name: 'discover',
     where: 'client',
-    layoutTemplate: 'LayoutsApp',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesDiscover': { to: 'page' }
+        'PagesApp': { to: 'page' },
+        'PagesDiscover': { to: 'app-page' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -36,9 +38,10 @@ Router.route('/discover', {
 Router.route('/partups/:_id', {
     name: 'partup-detail',
     where: 'client',
-    layoutTemplate: 'LayoutsApp',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesPartupDetail': { to: 'page' },
+        'PagesApp': { to: 'page' },
+        'PagesPartupDetail': { to: 'app-page' },
         'PagesPartupDetailUpdates': { to: 'partup-page' }
     },
     subscriptions: function () {
@@ -50,9 +53,10 @@ Router.route('/partups/:_id', {
 Router.route('/partups/:_id/activities', {
     name: 'partup-detail-activities',
     where: 'client',
-    layoutTemplate: 'LayoutsApp',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesPartupDetail': { to: 'page' },
+        'PagesApp': { to: 'page' },
+        'PagesPartupDetail': { to: 'app-page' },
         'PagesPartupDetailActivities': { to: 'partup-page' }
     },
     subscriptions: function () {
@@ -64,9 +68,10 @@ Router.route('/partups/:_id/activities', {
 Router.route('/partups/:_id/budget', {
     name: 'partup-detail-budget',
     where: 'client',
-    layoutTemplate: 'LayoutsApp',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesPartupDetail': { to: 'page' },
+        'PagesApp': { to: 'page' },
+        'PagesPartupDetail': { to: 'app-page' },
         'PagesPartupDetailBudget': { to: 'partup-page' }
     },
     subscriptions: function () {
@@ -78,9 +83,10 @@ Router.route('/partups/:_id/budget', {
 Router.route('/partups/:_id/anticontract', {
     name: 'partup-detail-anticontract',
     where: 'client',
-    layoutTemplate: 'LayoutsApp',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesPartupDetail': { to: 'page' },
+        'PagesApp': { to: 'page' },
+        'PagesPartupDetail': { to: 'app-page' },
         'PagesPartupDetailAnticontract': { to: 'partup-page' }
     },
     subscriptions: function () {
@@ -95,9 +101,20 @@ Router.route('/partups/:_id/anticontract', {
 Router.route('/start', {
     name: 'start',
     where: 'client',
-    layoutTemplate: 'LayoutsFullpage',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesStartPartup': { to: 'page' },
+        'PagesModal': { to: 'page' },
+        'PagesStartPartupIntro': { to: 'modal-page' }
+    }
+});
+
+Router.route('/start/details', {
+    name: 'start-details',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
     subscriptions: function () {
@@ -108,12 +125,14 @@ Router.route('/start', {
     }
 });
 
+
 Router.route('/start/:_id/activities', {
     name: 'start-activities',
     where: 'client',
-    layoutTemplate: 'LayoutsFullpage',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesStartPartup': { to: 'page' },
+        'PagesModal': { to: 'page' },
+        'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupActivities': { to: 'start-partup-page' }
     },
     subscriptions: function () {
@@ -128,9 +147,10 @@ Router.route('/start/:_id/activities', {
 Router.route('/start/:_id/contribute', {
     name: 'start-contribute',
     where: 'client',
-    layoutTemplate: 'LayoutsFullpage',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesStartPartup': { to: 'page' },
+        'PagesModal': { to: 'page' },
+        'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupContribute': { to: 'start-partup-page' }
     },
     subscriptions: function () {
@@ -146,9 +166,10 @@ Router.route('/start/:_id/contribute', {
 Router.route('/start/:_id/promote', {
     name: 'start-promote',
     where: 'client',
-    layoutTemplate: 'LayoutsFullpage',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesStartPartup': { to: 'page' },
+        'PagesModal': { to: 'page' },
+        'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupPromote': { to: 'start-partup-page' }
     },
     subscriptions: function () {
@@ -166,9 +187,10 @@ Router.route('/start/:_id/promote', {
 Router.route('/register', {
     name: 'register',
     where: 'client',
-    layoutTemplate: 'LayoutsFullpage',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesRegister': { to: 'page' },
+        'PagesModal': { to: 'page' },
+        'PagesRegister': { to: 'modal-page' },
         'PagesRegisterRequired': { to: 'register-page' }
     },
     subscriptions: function () {
@@ -179,9 +201,10 @@ Router.route('/register', {
 Router.route('/register/details', {
     name: 'register-details',
     where: 'client',
-    layoutTemplate: 'LayoutsFullpage',
+    layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesRegister': { to: 'page' },
+        'PagesModal': { to: 'page' },
+        'PagesRegister': { to: 'modal-page' },
         'PagesRegisterOptional': { to: 'register-page' }
     }
     /*
@@ -193,4 +216,18 @@ Router.route('/register/details', {
         this.next();
     }
     */
+});
+
+
+/*************************************************************/
+/* Styleguide */
+/*************************************************************/
+Router.route('/styleguide', {
+    name: 'styleguide',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesApp': { to: 'page' },
+        'PagesStyleguide': { to: 'app-page' }
+    }
 });

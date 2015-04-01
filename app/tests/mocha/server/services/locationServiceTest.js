@@ -7,7 +7,7 @@ if (!(typeof MochaWeb === 'undefined')){
                     city: 'amsterdam',
                     country: 'netherlands'
                 };
-                chai.assert.equal(Partup.services.partup.locationToLocationInput(location) , 'amsterdam');
+                chai.assert.equal(Partup.services.location.locationToLocationInput(location) , 'amsterdam');
             });
         });
     });

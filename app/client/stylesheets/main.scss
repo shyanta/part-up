@@ -14,6 +14,8 @@
 
 @import "client/stylesheets/extends/clearfix.sass";
 
+@import "client/stylesheets/mixins/input.sass";
+
 @import "client/stylesheets/components/datepicker.sass";
 @import "client/stylesheets/components/pu-app.sass";
 @import "client/stylesheets/components/pu-avatar.sass";
@@ -25,12 +27,12 @@
 @import "client/stylesheets/components/pu-divider.sass";
 @import "client/stylesheets/components/pu-dropdown.sass";
 @import "client/stylesheets/components/pu-dropdownitem.sass";
+@import "client/stylesheets/components/pu-feature.sass";
 @import "client/stylesheets/components/pu-fileinput.sass";
 @import "client/stylesheets/components/pu-footer.sass";
 @import "client/stylesheets/components/pu-form.sass";
 @import "client/stylesheets/components/pu-formdropdown.sass";
 @import "client/stylesheets/components/pu-formfield.sass";
-@import "client/stylesheets/components/pu-fullpage.sass";
 @import "client/stylesheets/components/pu-header.sass";
 @import "client/stylesheets/components/pu-headernav.sass";
 @import "client/stylesheets/components/pu-hint.sass";
@@ -43,6 +45,8 @@
 @import "client/stylesheets/components/pu-layout.sass";
 @import "client/stylesheets/components/pu-link.sass";
 @import "client/stylesheets/components/pu-list.sass";
+@import "client/stylesheets/components/pu-main.sass";
+@import "client/stylesheets/components/pu-modal.sass";
 @import "client/stylesheets/components/pu-navigation.sass";
 @import "client/stylesheets/components/pu-notification.sass";
 @import "client/stylesheets/components/pu-notifycontainer.sass";
@@ -64,3 +68,8 @@
 @import "client/stylesheets/components/pu-update.sass";
 @import "client/stylesheets/components/pu-upload.sass";
 @import "client/stylesheets/components/velocity-status-widget.sass";
+@import "client/stylesheets/components/pu-suggestionsgallery.sass";
+@import "client/stylesheets/components/pu-imagepreview.sass";
+@import "client/stylesheets/components/pu-popover.sass";
+@import "client/stylesheets/components/pu-contribution.sass";
+@import "client/stylesheets/components/pu-contributionlist.sass";

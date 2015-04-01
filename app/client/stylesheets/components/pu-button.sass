@@ -1,64 +1,81 @@
 .pu-button
+    // Dimensions
     position: relative
     display: inline-block
+    vertical-align: top
+    padding: 13px 15px
     height: 40px
+
+    // Cosmetics
     border-radius: 4px
-    padding: 12px 15px 13px 15px
     outline: none
+    box-shadow: inset 0 0 0 1px transparent
+    background-color: $color-secondary
+    border: none
+
+    // Font
     font-family: $font-secondary
     font-size: 15px
     line-height: 1em
-    cursor: pointer
-    transition: background-color $animation-duration, color $animation-duration, border-color $animation-duration, opacity $animation-duration
-    box-shadow: inset 0 0 0 1px transparent
-    background-color: $color-sunshade
     text-decoration: none
-    user-select: none
     color: $color-text-inverted
     font-weight: bold
-    border: none
 
+    // Other
+    cursor: pointer
+    user-select: none
+    transition: background-color $animation-duration, color $animation-duration, border-color $animation-duration, opacity $animation-duration
+
+    // Icon
     i
+        vertical-align: top
+        font-size: 14px
         margin-right: 10px - 5px
-        font-size: 18px
-        line-height: 14px
-        vertical-align: middle
     
+    // Hover state
     &:hover
+        background-color: darken($color-secondary, 7%)
         color: $color-text-inverted
-        background-color: darken($color-sunshade, 5%)
 
+    // Active state
     &:active
-        padding-top: 13px
-        padding-bottom: 12px
+        transform: translateY(2px)
+        transition-duration: 0
+        background-color: darken($color-secondary, 11%)
 
+    // State: loaidng
+    &.pu-state-loading
+        pointer-events: none
+        opacity: .5
+
+        &:after
+            content: '...'
+
+    // Type: right sided icon
     &-iconright
         i
+            margin-left: 10px - 5px
             margin-right: 0
-            margin-left: 1px
 
+    // Type: large button (e.g. for homepage cover)
     &-large
-        padding: 22px 31px
-
-    &-bordered
-        border: 2px solid transparent
-        padding: 11px 14px 12px 14px
-        height: 40px - 2 * 2px
-
-        &:active
-            padding-top: 12px
-            padding-bottom: 11px
-
-    &-header
-        display: block
-        background-color: $color-header
+        padding: 23px 30px
         height: 60px
-        padding: 23px 33px
-        border-radius: 0
-        font-size: 16px
-        font-family: $font-primary
-        font-weight: bold
+
+    // Type: header button
+    &-header
         position: relative
+        background-color: $color-header
+        padding: 21px 29px
+        height: 60px
+        border-radius: 0
+        color: rgba($color-text-inverted, .8)
+        font-size: 16px
+        overflow: hidden
+        text-align: center
+
+        i
+            margin-top: 2px
 
         span
             position: relative
@@ -82,126 +99,152 @@
             max-height: 48px
             z-index: 0
 
-        &:active
-            padding-top: 23px
-            padding-bottom: 21px
-
         &:hover
-            background-color: darken($color-header, 5%)
+            background-color: $color-header
+            color: $color-text-inverted
 
-        &-secondary
-            background-color: transparent
-            color: $color-text
-            padding-left: 0
-            padding-right: 0
-            padding-top: 25px
-            padding-bottom: 17px
-            transition: border $animation-duration
+        &:active
+            background-color: $color-header
+            transform: none
+            color: $color-primary-dark
 
-            &:active
-                padding-top: 26px
-                padding-bottom: 16px
+        &.pu-state-menu-active
+            color: $color-text-secondary
 
             &:hover
-                color: $color-text
-                background-color: transparent
-
-            &.pu-state-active
-                border-bottom: 2px solid #696969
-
-        &-active
-            color: $color-solid-black
-
-            &:hover
-                background-color: $color-header
-                color: $color-solid-black
+                color: $color-text-secondary
 
             &:after
                 opacity: 1
                 transform: translateY(0)
-                max-height: 53px
+                max-height: 55px
 
-    &-browse
-        background-color: $color-browse
+        // Subtype: header-modal
+        &-modal
+            background-color: $color-background-tertiery
+            color: $color-text-subtle
+
+            &:hover
+                background-color: $color-background-tertiery
+                color: darken($color-text-subtle, 7%)
+
+            &:active
+                background-color: $color-background-tertiery
+                color: darken($color-text-subtle, 20%)
+    
+    // Type: navigation button
+    &-nav
+        height: 70px
+        padding: 35px 0 0
+        background-color: $color-background-secondary
+        color: $color-text-secondary
+        border-radius: 0
+        border-bottom: 2px solid transparent
 
         &:hover
-            background-color: darken($color-browse, 5%)
+            color: $color-text-secondary
+            background-color: $color-background-secondary
+            border-color: rgba($color-text-secondary, .2)
 
-    &-dropdown
-        background-color: $color-background
-        border: 2px solid $color-faded-gray
-        color: $color-dusty-gray
-        display: block
+        &:active
+            transform: none
+            background-color: $color-background-secondary
+            color: $color-text-secondary
+            border-color: rgba($color-text-secondary, .5)
+
+        &.pu-state-active
+            border-color: $color-text-secondary
+            cursor: default
+
+    // Type: secondary button
+    &-secondary
+        background-color: $color-primary
 
         &:hover
-            color: $color-solid-black
-            border-color: $color-solid-gray
-            background-color: $color-background
+            background-color: darken($color-primary, 7%)
 
-        &-active
-            border-color: $color-solid-gray
-            color: $color-solid-black
-            border-bottom: 0
-            border-bottom-left-radius: 0
-            border-bottom-right-radius: 0
+        &:active
+            background-color: darken($color-primary, 11%)
+
+    // Type: input lookalike button
+    &-input
+        @include input()
+        @extend %clearfix
+        color: $color-text-subtle
+        font-weight: bold
+        border-color: $color-border
 
         i
-            display: inline-block
-            line-height: 17px
-            font-size: 16px
-            margin-left: 5px
-            margin-right: 0
+            display: block
             float: right
+            margin-right: 0
+            margin-left: 10px - 5px
+
+        &:hover
+            background-color: $color-background
+            border-color: darken($color-border, 11%)
+            color: $color-text-subtle
+
+        &:active
+            transform: none
+            transition-duration: 0
+            background-color: $color-background
+            border-color: darken($color-border, 20%)
     
+    // Type: facebook
     &-facebook
         background-color: $color-facebook
 
         &:hover
-            background-color: darken($color-facebook, 5%)
+            background-color: darken($color-facebook, 7%)
 
+        &:active
+            background-color: darken($color-facebook, 11%)
+
+    // Type: linkedin
     &-linkedin
         background-color: $color-linkedin
 
         &:hover
-            background-color: darken($color-linkedin, 5%)
-
-    &-modalheader
-        background-color: transparent
-        color: #999999
-        font-weight: 600
-        padding-top: 22px
-        padding-bottom: 22px
-        height: 60px
-
-        &:hover, &:active
-            background-color: transparent
-            color: darken(#999999, 20%)
+            background-color: darken($color-linkedin, 7%)
 
         &:active
-            padding-top: 23px
-            padding-bottom: 21px
+            background-color: darken($color-linkedin, 11%)
 
+    // Type: text
     &-text
+        padding-left: 0
+        padding-right: 0
         background-color: transparent
-        color: $color-sunshade
+        color: $color-secondary
 
-        &:hover, &:active
+        &:hover
             background-color: transparent
-            color: darken($color-sunshade, 10%)
+            color: darken($color-secondary, 10%)
+
+        &:active
+            background-color: transparent
+            transform: none
+            color: $color-text-subtle
 
         &-gray
-            color: $color-scorpion
+            color: $color-text-secondary
 
-            &:hover, &:active
-                color: darken($color-scorpion, 50%)
+            &:hover
+                color: darken($color-text-secondary, 10%)
+
+            &:active
+                color: $color-text-subtle
     
+    // Type: avatar
     &-avatar
         figure 
             display: inline-block
             margin-top: -9px
             margin-bottom: -9px
-            margin-right: 5px
+            margin-right: 10px - 4px
 
+    // Type: avatar
     &-social
         background-color: transparent
         background-image: url(images/border-dot.png)
@@ -229,13 +272,58 @@
             i 
                 color: #000
 
+        &:active
+            background-color: transparent
+            transform: scale(.95)
+
+    // Type: disabled
     &-disabled
         pointer-events: none
-        background-color: $color-disabled
+        background-color: $color-background-secondary
 
         &:hover
-            background-color: $color-disabled
+            background-color: $color-background-secondary
             cursor: not-allowed
+
+    // Type: inputheight
+    &-inputheight
+        padding-top: 15px
+        padding-bottom: 15px
+        height: 46px
+
+    // Type: contribute
+    // &-contribute
+    //     height: 32px
+    //     padding-top: 9px
+    //     padding-bottom: 8px
+    //     color: $color-text
+    //     background-color: transparent
+    //     text-align: center
+    //     font-weight: normal
+
+    //     &:hover
+    //         background-color: $color-background-tertiery
+    //         color: $color-text
+
+    //     &:active
+    //         transform: none
+    //         transition-duration: 0
+    //         background-color: darken($color-background-tertiery, 5%)
+
+    &-label
+        background-color: $color-browse
+        padding: 8px
+        height: auto
+        &:hover
+            background-color: darken($color-browse, 5%)
+
+        &:active 
+            padding: 8px
+        &-secondary 
+            background-color: $color-solid-gray
+
+            &:hover
+                background-color: darken($color-solid-gray, 5%)
 
     &-no-side-padding
         padding-left: 0
@@ -248,5 +336,10 @@
         &:hover
             background-color: darken($color-sunshade, 5%)
 
-    &-inputheight
-        height: 46px
+    &-checkbox
+        background-color: transparent
+        color: $color-solid-black
+
+        &:hover
+            background-color: $color-dark-white
+            color: $color-solid-black

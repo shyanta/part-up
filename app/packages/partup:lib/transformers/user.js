@@ -12,12 +12,10 @@ Partup.transformers.profile = {
      * @param {object} user
      */
     'toFormRegisterOptional':function(user) {
-        return {
+        var fields = {
             _id: user.profile._id,
             image: user.profile.image,
-            location_input: Partup.services.partup.locationToLocationInput(user.profile.location),
             description: user.profile.description,
-            tags_input: user.profile.tags.join(','),
             facebook: user.profile.facebook,
             twitter: user.profile.twitter,
             instagram: user.profile.instagram,
@@ -26,6 +24,16 @@ Partup.transformers.profile = {
             phonenumber: user.profile.phonenumber,
             skype: user.profile.skype
         };
+
+        if(user.profile.location) {
+            fields.location_input = Partup.services.location.locationToLocationInput(user.profile.location);
+        }
+
+        if(user.profile.tags) {
+            fields.tags_input = user.profile.tags.join(',');
+        }
+
+        return fields;
     },
 
     /**
@@ -35,14 +43,10 @@ Partup.transformers.profile = {
      * @param {mixed[]} fields
      */
     'fromFormRegisterOptional': function(fields) {
-        return {
+        var user = {
             // form fields
             'profile.image': fields.image,
-            'profile.location': {
-                city: fields.location_input
-            },
             'profile.description': fields.description,
-            'profile.tags': fields.tags_input.split(','),
             'profile.facebook': fields.facebook,
             'profile.twitter': fields.twitter,
             'profile.instagram': fields.instagram,
@@ -50,7 +54,14 @@ Partup.transformers.profile = {
             'profile.website': fields.website,
             'profile.phonenumber': fields.phonenumber,
             'profile.skype': fields.skype
+        };
+        if(fields.location_input) {
+            user['profile.location'] = Partup.services.location.locationInputToLocation(fields.location_input);
         }
+        if(fields.tags_input) {
+            user['profile.tags'] = Partup.services.tags.tagInputToArray(fields.tags_input);
+        }
+        return user;
     }
 
 };

@@ -1,0 +1,21 @@
+<template name="PagesHome">
+
+    <article class="pu-layout">
+        <div class="pu-sub-pagecontainer">
+            <div class="pu-page">
+    
+                <h2>Home</h2><br><br>
+                <p>
+                    {{#with firstPartup}}
+                        <a href="/partups/{{_id}}" class="pu-button">Snelle link naar eerstgevonden partup "{{name}}"</a>
+                    {{/with}}
+                </p><br>
+                <button data-translate="nl" class="pu-button pu-button-secondary">nl</button>
+                <button data-translate="en" class="pu-button pu-button-secondary">en</button><br><br>
+                <li>{{> loginButtons }}</li>
+
+            </div>
+        </div>
+    </article>
+    
+</template>

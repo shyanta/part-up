@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Layout helpers */
 /*************************************************************/
-Template.LayoutsApp.helpers({
+Template.PagesModal.helpers({
     
     //
     
@@ -9,21 +9,19 @@ Template.LayoutsApp.helpers({
 
 
 /*************************************************************/
-/* Layout events */
+/* Page events */
 /*************************************************************/
-Template.LayoutsApp.events({
+Template.PagesModal.events({
     
     //
     
 });
 
-
 /*************************************************************/
-/* Layout body class */
+/* Page rendered */
 /*************************************************************/
-Template.LayoutsApp.onRendered(function() {
-    $('body').addClass('pu-currentlayout-app');
-});
-Template.LayoutsApp.onDestroyed(function() {
-    $('body').removeClass('pu-currentlayout-app');
+Template.PagesModal.onRendered(function () {
+    var $body = $('body');
+    $body.removeClass('pu-state-currentlayout-app');
+    $body.addClass('pu-state-currentlayout-modal');
 });

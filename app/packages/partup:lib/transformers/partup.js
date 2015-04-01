@@ -15,8 +15,8 @@ Partup.transformers.partup = {
         return {
             _id: partup._id,
             description: partup.description,
-            end_date: partup.end_date,
-            location_input: Partup.services.partup.locationToLocationInput(partup.location),
+            end_date: moment(partup.end_date).format('YYYY-MM-DD'),
+            location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
             tags_input: partup.tags.join(',')
         };
@@ -30,21 +30,28 @@ Partup.transformers.partup = {
      * @param {object} upper
      */
     'fromFormStartPartup': function(fields, upper) {
-        return {
+        var partup = {
+
             // form fields
             name: fields.name,
             description: fields.description,
-            tags: fields.tags_input.split(','),
             end_date: fields.end_date,
-            location: {
-                city: fields.location_input
-            },
             image: fields.image,
+
             // meta fields
             created_at: new Date(),
             creator_id: upper._id,
             uppers: [upper._id]
+        };
+
+        if (fields.tags_input) {
+            partup.tags = Partup.services.tags.tagInputToArray(fields.tags_input);
         }
+
+        if (fields.location_input) {
+            partup.location = Partup.services.location.locationInputToLocation(fields.location_input);
+        }
+        return partup;
     }
 
 };
