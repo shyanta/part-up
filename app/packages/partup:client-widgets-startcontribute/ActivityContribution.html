@@ -18,30 +18,30 @@
                 </label>
                 
                 <!-- can -->
-                <div class="pu-popover" data-hover-contribution="showContributeCan">
+                <div class="pu-popover" data-open-contribution="showContributeCan">
                     <input type="checkbox" class="pu-checkbox" id="pu-contribution-can" {{contributionCanChecked}}>
-                    <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-can" data-click-contribution="showContributeCan">
+                    <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-can">
                         <i class="fa fa-user-plus"></i>
                         {{_ 'startcontribute-form-can-label'}}
                     </label>
                     <div class="pu-popover-inner {{#if showContributeCan}}pu-popover-inner-show{{/if}}"> <!-- data-contribution-can -->
                         <span>I can do this for</span>
-                        <input type="number" class="pu-input" data-input-contribution-can>
+                        <input type="number" class="pu-input" data-input-contribution="contributeCanValue">
                     </div>
                 </div>
                 
                 <!-- have -->
-                <div class="pu-popover" data-hover-contribution="showContributeHave">
-                    <input type="checkbox" class="pu-checkbox" id="pu-contribution-have">
-                    <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-have" data-click-contribution="showContributeHave">
+                <div class="pu-popover" data-open-contribution="showContributeHave">
+                    <input type="checkbox" class="pu-checkbox" id="pu-contribution-have" {{contributionHaveChecked}}>
+                    <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-have">
                         <i class="fa fa-wrench"></i>
                         {{_ 'startcontribute-form-have-label'}}
                     </label>
                     <div class="pu-popover-inner {{#if showContributeHave}}pu-popover-inner-show{{/if}}">
                         <span>I bring in</span>
-                        <input type="number" class="pu-input">
+                        <input type="number" class="pu-input" data-input-contribution="contributeHaveValue">
                         <span>or/and</span>
-                        <input type="text" class="pu-input">
+                        <input type="text" class="pu-input" data-input-contribution="contributeHaveExtraValue">
                     </div>
                 </div>
             {{/autoForm}}
