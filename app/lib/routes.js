@@ -244,15 +244,6 @@ Router.route('/register/details', {
         'PagesRegister': { to: 'modal-page' },
         'PagesRegisterOptional': { to: 'register-page' }
     }
-    /*
-    ,onBeforeAction: function () {
-        var user = Meteor.user();
-        if (! user) {
-            Router.go('register');
-        }
-        this.next();
-    }
-    */
 });
 
 
@@ -268,3 +259,31 @@ Router.route('/styleguide', {
         'PagesStyleguide': { to: 'app-page' }
     }
 });
+
+
+/*************************************************************/
+/* Route protection */
+/*************************************************************/
+
+var partupRouterHooks = {
+    loginRequired: function() {
+        if (!Meteor.userId()) {
+            Router.go('login');
+        }
+        else {
+            this.next();
+        }
+    }
+}
+
+Router.onBeforeAction(partupRouterHooks.loginRequired, {
+    only: [
+        'start',
+        'start-details',
+        'start-activities',
+        'start-contribute',
+        'start-promote',
+        'register-details',
+    ]
+});
+
