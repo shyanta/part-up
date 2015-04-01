@@ -10,16 +10,16 @@
         <div class="pu-block-container-child">
             {{#autoForm schema=formSchema class="pu-form pu-form-contribution" theme="plain" autosaveOnKeyup=true trimStrings=false}}
                 <!-- want -->
-                <input type="checkbox" class="pu-checkbox" id="pu-contribution-want" data-check-contribution="contributeWantValue">
-                <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-want">
+                <input type="checkbox" class="pu-checkbox" {{contributionWantChecked}}>
+                <label class="pu-button pu-button-icon pu-button-checkbox" data-check-contribution="contributeWantValue">
                     <i class="fa fa-thumbs-up"></i>
                     {{_ 'startcontribute-form-want-label'}}
                 </label>
                 
                 <!-- can -->
                 <div class="pu-popover" data-open-contribution="showContributeCan">
-                    <input type="checkbox" class="pu-checkbox" id="pu-contribution-can" {{contributionCanChecked}}>
-                    <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-can">
+                    <input type="checkbox" class="pu-checkbox" {{contributionCanChecked}}>
+                    <label class="pu-button pu-button-icon pu-button-checkbox">
                         <i class="fa fa-wrench"></i>
                         {{_ 'startcontribute-form-can-label'}}
                     </label>
@@ -31,8 +31,8 @@
                 
                 <!-- have -->
                 <div class="pu-popover" data-open-contribution="showContributeHave">
-                    <input type="checkbox" class="pu-checkbox" id="pu-contribution-have" {{contributionHaveChecked}}>
-                    <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-have">
+                    <input type="checkbox" class="pu-checkbox" {{contributionHaveChecked}}>
+                    <label class="pu-button pu-button-icon pu-button-checkbox">
                         <i class="fa fa-user-plus"></i>
                         {{_ 'startcontribute-form-have-label'}}
                     </label>

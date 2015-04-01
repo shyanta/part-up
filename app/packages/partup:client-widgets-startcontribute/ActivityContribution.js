@@ -23,11 +23,14 @@ Template.ActivityContribution.helpers({
     'showContributeCan': function(){
         return Template.instance().showContributeCan.get();
     },
+    'contributionWantChecked': function(){
+        return Template.instance().contributeWantValue.get() ? 'checked' : '';
+    },
     'contributionCanChecked': function(){
         return (Template.instance().contributeCanValue.get() > 0) ? 'checked' : '';
     },
     'contributionHaveChecked': function(){
-        return (Template.instance().contributeHaveValue.get() > 0) ? 'checked' : '';
+        return ((Template.instance().contributeHaveValue.get() > 0) || Template.instance().contributeHaveExtraValue.get()) ? 'checked' : '';
     },
     'contributions': function(){
         var want = Template.instance().contributeWantValue.get() ? true : false;
@@ -110,9 +113,9 @@ Template.ActivityContribution.events({
             template[valueKey].set(event.target.value);
         }
     },
-    'change [data-check-contribution]': function checkContribution(event, template){
+    'click [data-check-contribution]': function checkContribution(event, template){
         var valueKey = $(event.currentTarget).data("check-contribution");
-        template[valueKey].set(event.target.checked);
+        template[valueKey].set(!template[valueKey].get());
     },
     'click [data-clear]': function clearContribution(event, template){
         // reset field by data key
