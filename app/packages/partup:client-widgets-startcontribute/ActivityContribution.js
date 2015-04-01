@@ -1,3 +1,9 @@
+Template.ActivityContribution.created = function () {
+    this.showContributeHave = new ReactiveVar(false);
+    this.showContributeCan = new ReactiveVar(false);
+    this.contributeCanValue = new ReactiveVar(0);
+};
+
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribute,
     'showContributeButton': function () {
@@ -18,68 +24,44 @@ Template.ActivityContribution.helpers({
 });
 
 Template.ActivityContribution.events({
-    'click [data-open-contribution-have]': function openContributionHave(event, template){
+    'click [data-click-contribution]': function clickContribution(event, template){
+        // show the popover on click
+
+        // prevent any form actions and checkbox selections
         event.preventDefault();
-        var bool = template.showContributeHave.get()
-        template.showContributeHave.set(!bool)
+
+        // get the key for the boolean wich is associated with this field
+        var booleanKey = $(event.currentTarget).data("click-contribution");
+
+        // set reactive var boolean to true to open popover
+        template[booleanKey].set(true)
     },
-    'mouseenter [data-open-contribution-have]': function mouseenterOpenContributionHave(event, template){
-        template.showTimeout = Meteor.setTimeout(function(){
-            template.showContributeHave.set(true);
-        },1000);
+    'mouseenter [data-hover-contribution]': function hoverContribution(event, template){
+        // this event handler does almost the same as the 
+        // click handler, except it's on hover and with a delay
+        var booleanKey = $(event.currentTarget).data("hover-contribution");
+        if(!template[booleanKey].get()){
+            template.showTimeout = Meteor.setTimeout(function(){
+                template[booleanKey].set(true);
+            },1000);
+        }
     },
-    'mouseleave [data-open-contribution-have]': function mouseleaveContributionHave(event, template){
+    'mouseleave [data-hover-contribution]': function mouseleaveContributionCan(event, template){
+        // hide the popover on mouse leave
+
+        // get the key for the boolean wich is associated with this field
+        var booleanKey = $(event.currentTarget).data("hover-contribution");
+
+        // cancel any timeout that will show the current popover
         Meteor.clearTimeout(template.showTimeout);
-    },
-    'mouseleave [data-contribution-have]': function mouseleaveContributionHave(event, template){
-        template.hideTimeout = Meteor.setTimeout(function(){
-            template.showContributeHave.set(false);
-        },1000);
-    },
-    'mouseenter [data-contribution-have]': function mouseenterContrinutionHave(event, template){
-        Meteor.clearTimeout(template.hideTimeout);
-    },
-    'click [data-open-contribution-can]': function openContributionCan(event, template){
-        event.preventDefault();
-        var bool = template.showContributeCan.get()
-        template.showContributeCan.set(!bool)
-    },
-    'mouseenter [data-open-contribution-can]': function mouseenterOpenContributionCan(event, template){
-        template.showTimeout = Meteor.setTimeout(function(){
-            template.showContributeCan.set(true);
-        },1000);
-    },
-    'mouseleave [data-open-contribution-can]': function mouseleaveContributionCan(event, template){
-        Meteor.clearTimeout(template.showTimeout);
-    },
-    'mouseleave [data-contribution-can]': function mouseleaveContributionCan(event, template){
-        template.hideTimeout = Meteor.setTimeout(function(){
-            template.showContributeCan.set(false);
-        },1000);
-    },
-    'mouseenter [data-contribution-can]': function mouseenterContrinutionCan(event, template){
-        Meteor.clearTimeout(template.hideTimeout);
+
+        // set reactive var boolean to false to hide popover
+        template[booleanKey].set(false);
     },
     'change [data-input-contribution-can]': function changeContrinutionCan(event, template){
         template.contributeCanValue.set(event.target.value);
-    },
-    // 'click .pu-button-contribute': function(event, template) {
-    //     event.preventDefault();
-    //     template.showContributeButton.set(false);
-    // },
-    // 'click .pu-button-save': function(event, template) {
-    //     event.preventDefault();
-    //     template.showContributeButton.set(true);
-    // }
+    }
 });
-
-Template.ActivityContribution.created = function () {
-    this.showContributeHave = new ReactiveVar(false);
-    this.showContributeCan = new ReactiveVar(false);
-    this.contributeCanValue = new ReactiveVar(0);
-    //var activityId = this.activityId;
-    //console.log(activityId);
-};
 
 AutoForm.hooks({
     null: {
