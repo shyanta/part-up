@@ -3,7 +3,7 @@
     position: relative
     display: inline-block
     vertical-align: top
-    padding: 13px 15px
+    padding: 12px 15px
     height: 40px
 
     // Cosmetics
@@ -42,6 +42,11 @@
         transform: translateY(2px)
         transition-duration: 0
         background-color: darken($color-secondary, 11%)
+        color: $color-text-inverted
+
+    // Focus state
+    &:focus
+        color: $color-text-inverted        
 
     // State: loaidng
     &.pu-state-loading
@@ -190,6 +195,10 @@
             transition-duration: 0
             background-color: $color-background
             border-color: darken($color-border, 20%)
+            color: $color-text-subtle
+
+        &:focus
+            color: $color-text-subtle
     
     // Type: facebook
     &-facebook
@@ -309,6 +318,10 @@
             transform: none
             transition-duration: 0
             background-color: darken($color-background-tertiery, 5%)
+            color: $color-text
+
+        &:focus
+            color: $color-text
 
         &.pu-state-active
             color: $color-primary
