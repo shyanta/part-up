@@ -1,14 +1,17 @@
 /*************************************************************/
-/* Partial helpers */
+/* Page helpers */
 /*************************************************************/
-Template.PartialsAppHeader.helpers({
-
+Template.PagesRegister.helpers({
+    //
 });
 
 
 /*************************************************************/
-/* Partial events */
+/* Page events */
 /*************************************************************/
-Template.PartialsAppHeader.events({
-
+Template.PagesRegister.events({
+    'click [data-closepage]': function (event, template) {
+        event.preventDefault();
+        Router.go('home');
+    }
 });

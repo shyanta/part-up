@@ -27,3 +27,54 @@
 
     img 
         max-width: 100%
+
+    .pu-sub-error
+        display: none
+        color: $color-alert-error
+        font-size: 14px
+        margin-top: 10px
+
+    .pu-sub-input
+        position: relative
+        display: block
+
+        // Valid-mark
+        &:after
+            content: '\f00c'
+            display: none
+            font: normal normal normal 14px/1 FontAwesome
+            font-size: inherit
+            text-rendering: auto
+            position: absolute
+            top: 50%
+            right: 13px
+            font-size: 20px
+            margin-top: -11px
+    
+    // States
+    &.pu-state
+        &-dirty,
+        &-onceblurred
+            .pu-sub-input:after
+                display: block // green valid-mark
+                color: $color-alert-success
+
+        &-invalid
+            .pu-sub-input
+                &:after
+                    display: none // cancel green valid-mark
+
+            &.pu-state-focused
+                .pu-sub-input:after
+                    display: block
+                    color: $color-background-secondary // gray valid-mark
+
+            &.pu-state-onceblurred
+                .pu-input
+                    border-color: $color-alert-error // red border
+
+                .pu-sub-input:after
+                    display: none // cancel valid-mark
+                
+                .pu-sub-error
+                    display: block // show error message

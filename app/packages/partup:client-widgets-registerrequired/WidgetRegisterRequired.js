@@ -39,20 +39,23 @@ Template.WidgetRegisterRequired.events({
 AutoForm.hooks({
     registerRequiredForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
-            event.preventDefault();
-            var self = this
+            var self = this;
+            self.event.preventDefault();
 
             Accounts.createUser({
                 email: insertDoc.email,
                 password: insertDoc.password,
                 profile: {
                     name: insertDoc.name,
-                    network: insertDoc.network
+                    network: insertDoc.network,
+                    settings: {
+                        optionalDetailsCompleted: false
+                    }
                 }
             }, function(error) {
                 if (error) {
-                    Partup.ui.notify.iError('generic-error');
-                    return false;
+                    Partup.ui.notify.iError(error.reason);
+                    self.done(new Error(error.reason));
                 }
                 self.done();
                 Router.go('register-details');

@@ -9,12 +9,12 @@
     "registerrequired-form-name-label": "Voor- en achternaam",
     "registerrequired-form-name-placeholder": "Bijvoorbeeld: Johannes Jansen",
     "registerrequired-form-name-validation": "hulp",
-    "registerrequired-form-name-tooltip": "register required helptext",
+    "registerrequired-form-name-tooltip": "@register required helptext",
 
     "registerrequired-form-email-label": "E-mailadres",
     "registerrequired-form-email-placeholder": "Wij sturen je alleen mails als jij dat wilt",
     "registerrequired-form-email-validation": "hulp",
-    "registerrequired-form-email-tooltip": "email helptext",
+    "registerrequired-form-email-tooltip": "@email helptext",
 
     "registerrequired-form-password-label": "Wachtwoord",
     "registerrequired-form-password-placeholder": "Maak het niet té makkelijk",

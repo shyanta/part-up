@@ -14,11 +14,15 @@ partup:client-widgets-partupdetail-updates
 partup:client-widgets-partupdetail-update-item
 partup:client-widgets-startdetails
 partup:client-widgets-startactivities
+partup:client-widgets-login
 partup:client-widgets-registerrequired
 partup:client-widgets-registeroptional
 partup:client-widgets-startcontribute
 partup:client-widgets-partuptile
 partup:meteor-bender
+partup:client-widgets-forgotpassword
+partup:client-widgets-resetpassword
+partup:client-form
 
 meteor-platform
 iron:router

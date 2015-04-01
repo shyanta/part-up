@@ -1,0 +1,20 @@
+{
+    "login-loginwithpartup": "Inloggen bij Part-up",
+    "login-logingoodyouareback": "Joehoe! Goed dat je weer terug bent. Je kan met één klik inloggen via de socials of natuurlijk met je emailadres en wachtwoord.",
+    "login-createaccount": "Maak een Part-up profiel.",
+
+    "login-loginfacebook": "Inloggen met Facebook",
+    "login-loginlinkedin": "Inloggen met Linkedin",
+    "login-or": "of",
+
+    "login-form-email-label": "E-mailadres",
+    "login-form-email-placeholder": "Waarmee je aangemeld bent",
+
+    "login-form-password-label": "Wachtwoord",
+    "login-form-password-placeholder": "Dezelfde als vorige keer",
+    "login-form-password-validation": "Wachtwoord vergeten?",
+
+    "login-form-submit": "Inloggen",
+
+    "login-forgotpassword": "Help: ik kan niet inloggen, ik ben mijn wachtwoord vergeten."
+}
