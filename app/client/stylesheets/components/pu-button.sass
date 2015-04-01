@@ -324,6 +324,29 @@
 
             &:hover
                 background-color: darken($color-solid-gray, 5%)
+        &-removable
+            position: relative
+            i
+                opacity: 0
+                color: #ffffff
+                position: absolute
+                transition: opacity $animation-duration
+                top: 0
+                right: 0
+                bottom: 0
+                left: 0
+                height: 100%
+                width: 100%
+                text-align: center
+                line-height: 31px
+                font-size: 26px
+
+            &:hover
+                i 
+                    opacity: 1
+                span 
+                    transition: opacity $animation-duration
+                    opacity: 0
 
     &-no-side-padding
         padding-left: 0
