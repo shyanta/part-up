@@ -19,14 +19,22 @@
         input 
             min-width: 200px
 
-        span,input
+        >span//,input
             display: table-cell
         
-        span
+        >span
             padding-right: 10px
+            position: relative
 
-        span:nth-child(3)
+        >span:nth-child(3)
             padding-left: 10px
+
+        > span span
+            position: absolute
+            top: 50%
+            transform: translateY(-50%)
+            right: 0
+            margin-right: 25px
 
         &:before 
             content: ''
