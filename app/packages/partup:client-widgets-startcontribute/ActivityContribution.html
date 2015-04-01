@@ -1,5 +1,5 @@
 <template name="ActivityContribution">
-    <article class="pu-block pu-block-container">
+    <article class="pu-block pu-block-container pu-contribution">
         <div class="pu-block-container-child">
             <h2 class="pu-block-title">{{name}}</h2>
 
@@ -11,9 +11,9 @@
             {{#autoForm schema=formSchema class="pu-form pu-form-contribution" theme="plain" autosaveOnKeyup=true trimStrings=false}}
 
                 <!-- want -->
-                <input type="checkbox" class="pu-checkbox" id="pu-contribution-want">
+                <input type="checkbox" class="pu-checkbox" id="pu-contribution-want" data-check-contribution="contributeWantValue">
                 <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-want">
-                    <i class="fa fa-magic"></i>
+                    <i class="fa fa-thumbs-up"></i>
                     {{_ 'startcontribute-form-want-label'}}
                 </label>
                 
@@ -21,12 +21,12 @@
                 <div class="pu-popover" data-open-contribution="showContributeCan">
                     <input type="checkbox" class="pu-checkbox" id="pu-contribution-can" {{contributionCanChecked}}>
                     <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-can">
-                        <i class="fa fa-user-plus"></i>
+                        <i class="fa fa-wrench"></i>
                         {{_ 'startcontribute-form-can-label'}}
                     </label>
                     <div class="pu-popover-inner {{#if showContributeCan}}pu-popover-inner-show{{/if}}"> <!-- data-contribution-can -->
                         <span>I can do this for</span>
-                        <input type="number" class="pu-input" data-input-contribution="contributeCanValue">
+                        <input type="number" class="pu-input" placeholder="0" data-change-contribution="contributeCanValue">
                     </div>
                 </div>
                 
@@ -34,25 +34,48 @@
                 <div class="pu-popover" data-open-contribution="showContributeHave">
                     <input type="checkbox" class="pu-checkbox" id="pu-contribution-have" {{contributionHaveChecked}}>
                     <label class="pu-button pu-button-icon pu-button-checkbox" for="pu-contribution-have">
-                        <i class="fa fa-wrench"></i>
+                        <i class="fa fa-user-plus"></i>
                         {{_ 'startcontribute-form-have-label'}}
                     </label>
                     <div class="pu-popover-inner {{#if showContributeHave}}pu-popover-inner-show{{/if}}">
                         <span>I bring in</span>
-                        <input type="number" class="pu-input" data-input-contribution="contributeHaveValue">
+                        <input type="number" class="pu-input" placeholder="0" data-change-contribution="contributeHaveValue">
                         <span>or/and</span>
-                        <input type="text" class="pu-input" data-input-contribution="contributeHaveExtraValue">
+                        <input type="text" class="pu-input" placeholder="Bijv: auto te leen" data-change-contribution="contributeHaveExtraValue">
                     </div>
                 </div>
             {{/autoForm}}
         </div>
-        <!-- <div class="pu-block-container-bottom">
-            <ul>
-                <li>jaja</li>
-                <li>jaja</li>
-                <li>jaja</li>
-                <li>jaja</li>
-            </ul>
-        </div> -->
+        {{#if contributions}}
+            <div class="pu-block-container-child">
+                <div class="pu-contributionlist">
+                    <figure class="pu-avatar pu-avatar-small"></figure>
+                    <ul class="pu-list">
+                        {{#if want}}
+                            <li>
+                                <span>is up for it</span>
+                            </li>
+                        {{/if}}
+                        {{#if can}}
+                            <li>
+                                <span>can do this for</span>
+                                <a href="" class="pu-button pu-button-label">{{ can }}</a>
+                            </li>
+                        {{/if}}
+                        {{#if have.value}}
+                            <li>
+                                <span>brings in</span>
+                                {{#if have.value }}
+                                    <a href="" class="pu-button pu-button-label">{{ have.value }}</a>
+                                {{/if}}
+                                {{#if have.extra }}
+                                    <a href="" class="pu-button pu-button-label pu-button-label-secondary">{{ have.extra }}</a>
+                                {{/if}}
+                            </li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+        {{/if}}
     </article>
 </template>
