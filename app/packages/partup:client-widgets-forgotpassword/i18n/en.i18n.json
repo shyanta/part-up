@@ -1,6 +1,8 @@
 {
-    "forgotpassword-form-email-label": "@@@Met welk e-mailadres heb je je aangemeld?",
-    "forgotpassword-form-email-placeholder": "@@@Wat is je emailadres?",
+    "forgotpassword-heading": "@Wachtwoord vergeten",
+    "forgotpassword-paragraph": "@Iedereen vergeet zijn wachtwoord wel eens, geen zorgen.",
+    "forgotpassword-form-email-label": "@Met welk e-mailadres heb je je aangemeld?",
+    "forgotpassword-form-email-placeholder": "@Wat is je emailadres?",
 
-    "forgotpassword-form-submit": "@@@Reset link versturen"
+    "forgotpassword-form-submit": "@Reset link versturen"
 }
