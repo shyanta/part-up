@@ -15,7 +15,6 @@ Meteor.methods({
 
         try {
             var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
-
             newContribution.created_at = Date.now();
             newContribution.activity_id = activityId;
             newContribution.upper_id = upper._id;
@@ -26,9 +25,7 @@ Meteor.methods({
 
             Event.emit('contributions.inserted', newContribution);
 
-            return {
-                _id: newContribution._id
-            }
+            return newContribution;
          } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be inserted.');
@@ -52,15 +49,13 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.contribution);
 
         try {
-            var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
-            newContribution.updated_at = Date.now();
+            var updatedContribution = Partup.transformers.contribution.fromFormContribution(fields);
+            updatedContribution.updated_at = Date.now();
 
-            Contributions.update(contributionId, { $set: newContribution });
-            Event.emit('contributions.updated', contribution, fields);
+            Contributions.update(contribution, { $set: updatedContribution });
+            Event.emit('contributions.updated', updatedContribution, fields);
 
-            return {
-                _id: contribution._id
-            }
+            return contribution;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be updated.');
