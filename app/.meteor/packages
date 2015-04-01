@@ -20,6 +20,9 @@ partup:client-widgets-registeroptional
 partup:client-widgets-startcontribute
 partup:client-widgets-partuptile
 partup:meteor-bender
+partup:client-widgets-forgotpassword
+partup:client-widgets-resetpassword
+partup:client-form
 
 meteor-platform
 iron:router
@@ -49,5 +52,3 @@ reactive-var
 deepwell:bootstrap-datepicker2
 tmeasday:publish-counts
 fastclick
-partup:client-widgets-forgotpassword
-partup:client-widgets-resetpassword

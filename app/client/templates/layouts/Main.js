@@ -20,6 +20,6 @@ Template.LayoutsMain.events({
 /*************************************************************/
 /* Layout rendered */
 /*************************************************************/
-Template.LayoutsMain.rendered = function() {
+Template.LayoutsMain.onRendered(function() {
     Bender.initialize(this.find('.pu-main'));
-};  
+});

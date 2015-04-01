@@ -54,7 +54,7 @@
     // States
     &.pu-state
         &-dirty,
-        &-blurred
+        &-onceblurred
             .pu-sub-input:after
                 display: block // green valid-mark
                 color: $color-alert-success
@@ -69,7 +69,7 @@
                     display: block
                     color: $color-background-secondary // gray valid-mark
 
-            &.pu-state-blurred
+            &.pu-state-onceblurred
                 .pu-input
                     border-color: $color-alert-error // red border
 

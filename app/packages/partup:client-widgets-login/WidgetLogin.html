@@ -20,7 +20,8 @@
         <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
 
         {{#autoForm schema=formSchema id="loginForm" class="pu-form" validation="keyup" }}
-            <label class="pu-formfield {{#if afFieldIsInvalid name='email'}}pu-state-invalid{{/if}} {{ afFieldDirtyClass 'email' }} {{ afFieldBlurredClass 'email' }} {{ afFieldFocusedClass 'email' }}">
+            <!--{{#if afFieldIsInvalid name='email'}}pu-state-invalid{{/if}} {{#if afFieldIsDirty name='email' }}pu-state-dirty{{/if}} {{#if afFieldIsOnceBlurred name='email' }}pu-state-onceblurred{{/if}} {{#if afFieldIsFocused name='email' }}pu-state-focused{{/if}}-->
+            <label class="pu-formfield {{ PartupFieldClasses name='email' }}">
                 <span class="pu-label">{{_ 'login-form-email-label'}}</span>
                 <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
                 {{#if afFieldIsInvalid name='email'}}
@@ -28,7 +29,7 @@
                 {{/if}}
             </label>
 
-            <label class="pu-formfield {{#if afFieldIsInvalid name='password'}}pu-state-invalid{{/if}} {{ afFieldDirtyClass 'password' }} {{ afFieldBlurredClass 'password' }} {{ afFieldFocusedClass 'password' }}">
+            <label class="pu-formfield {{ PartupFieldClasses name='password' }}">
                 <span class="pu-label">{{_ 'login-form-password-label'}}</span>
                 <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                 {{#if afFieldIsInvalid name='password'}}
