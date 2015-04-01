@@ -292,24 +292,54 @@
         height: 46px
 
     // Type: contribute
+    // &-contribute
+    //     height: 32px
+    //     padding-top: 9px
+    //     padding-bottom: 8px
+    //     color: $color-text
+    //     background-color: transparent
+    //     text-align: center
+    //     font-weight: normal
+
+    //     &:hover
+    //         background-color: $color-background-tertiery
+    //         color: $color-text
+
+    //     &:active
+    //         transform: none
+    //         transition-duration: 0
+    //         background-color: darken($color-background-tertiery, 5%)
+
+    &-label
+        background-color: $color-browse
+        padding: 8px
+        height: auto
+        &:hover
+            background-color: darken($color-browse, 5%)
+
+        &:active 
+            padding: 8px
+        &-secondary 
+            background-color: $color-solid-gray
+
+            &:hover
+                background-color: darken($color-solid-gray, 5%)
+
+    &-no-side-padding
+        padding-left: 0
+        padding-right: 0
+
     &-contribute
-        height: 32px
-        padding-top: 9px
-        padding-bottom: 8px
-        color: $color-text
-        background-color: transparent
-        text-align: center
-        font-weight: normal
+        background-color: $color-disabled
+        transition: background-color $animation-duration-slow
 
         &:hover
-            background-color: $color-background-tertiery
-            color: $color-text
+            background-color: darken($color-sunshade, 5%)
 
-        &:active
-            transform: none
-            transition-duration: 0
-            background-color: darken($color-background-tertiery, 5%)
+    &-checkbox
+        background-color: transparent
+        color: $color-solid-black
 
-        &.pu-state-active
-            color: $color-primary
-            font-weight: 600
+        &:hover
+            background-color: $color-dark-white
+            color: $color-solid-black
