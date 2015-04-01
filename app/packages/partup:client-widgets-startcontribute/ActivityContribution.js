@@ -1,24 +1,23 @@
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribution,
     'placeholders': Partup.services.placeholders.startcontribute,
-    'activityId': function () {
-        return this._id + ' ' + Meteor.user()._id;
+    'activityId': function  () {
+        return this._id;
     },
-    'formId': function () {
-        return Template.instance().contributionId.get();
+    'fieldsFromContribution': function () {
+        var contribution = Contributions.findOne({ activity_id: this._id, upper_id: Meteor.user()._id });
+        if (contribution) {
+            Template.instance().contribution.set(contribution);
+            var fields = Partup.transformers.contribution.toFormContribution(Template.instance().contribution.get());
+            console.log('fields:');
+            console.log(fields);
+            return fields;
+        } else {
+            return undefined;
+        }
     },
-    'fieldsFromContributionActivity': function () {
-        //var contributionId = Template.instance().contributionId.get();
-        //if (contributionId) {
-        //    console.log(contributionId);
-            //var contribution = Activities.findOne({"contribution._id": contributionId});
-            //return Template.instance().contributionId.get() ? Partup.transformers.activity.contribution.toFormActivityContribution(contribution) : null;
-        //} else {
-        //    return null;
-        //}
-    },
-    'checkContributionUser': function(upper_id) {
-        return upper_id == Meteor.user()._id;
+    'contribution': function () {
+        //return Contributions.findOne({ activity_id: this._id, upper_id: Meteor.user()._id });
     }
 });
 
@@ -27,48 +26,41 @@ Template.ActivityContribution.events({
 });
 
 Template.ActivityContribution.created = function () {
-    var activityId = this.data._id;
-
-    var contribution = Contributions.findOne({ activity_id: "qeGoZ5b6XSYqpEWer", upper_id: "iJ9gKXtagn6GC7qnK" });
-    console.log(contribution);
-    // Set form ID to the contribution for update operations, or default to activity ID for an insert
-    if (contribution) {
-        this.contributionId = new ReactiveVar(contribution._id);
-    } else {
-        this.contributionId = new ReactiveVar(activityId);
-    }
+    this.contribution = new ReactiveVar();
 };
 
 AutoForm.addHooks(
     null, {
         onSubmit: function (insertDoc, updateDoc, currentDoc) {
             this.event.preventDefault();
-            var activityId = this.template.parent().data._id;
+            console.log(this);
+            console.log(this.formId);
+            var activityId = this.formId;
             var self = this;
             var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
-            console.log(contribution);
 
             if (contribution) {
                 console.log('update');
-                var contributionId = this.formId;
-                Meteor.call('contributions.update', contributionId, insertDoc, function (error, result) {
+                var contributionId = contribution._id;
+                Meteor.call('contributions.update', contributionId, insertDoc, function (error, updatedContribution) {
                     if (error) {
                         console.log('something went wrong', error);
                         return false;
                     }
-                    console.log(result);
+                    self.template.parent().contribution.set(updatedContribution);
                 });
             } else {
                 console.log('insert');
-                Meteor.call('contributions.insert', activityId, insertDoc, function (error, result) {
+                Meteor.call('contributions.insert', activityId, insertDoc, function (error, newContribution) {
                     if (error) {
                         console.log('something went wrong', error);
                         return false;
                     }
-                    self.template.parent().contributionId.set(result._id);
-                    console.log(self.template.parent().contributionId.get());
+                    self.template.parent().contribution.set(newContribution);
                 });
             }
+
+            console.log(this.template.parent().contribution.get());
 
             AutoForm.resetForm(this.formId);
             this.done();
