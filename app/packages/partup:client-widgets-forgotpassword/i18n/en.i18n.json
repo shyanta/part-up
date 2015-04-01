@@ -1,8 +1,13 @@
 {
-    "forgotpassword-heading": "@Wachtwoord vergeten",
-    "forgotpassword-paragraph": "@Iedereen vergeet zijn wachtwoord wel eens, geen zorgen.",
-    "forgotpassword-form-email-label": "@Met welk e-mailadres heb je je aangemeld?",
-    "forgotpassword-form-email-placeholder": "@Wat is je emailadres?",
+    "forgotpassword-heading": "@Lukt het niet om in te loggen?",
+    "forgotpassword-paragraph": "@Ben je je wachtwoord vergeten? Dat kan gebeuren. Vul je e-mailadres in waarmee je je hebt aangemeld, dan sturen we je instructies om een nieuw wachtwoord aan te maken.",
+    "forgotpassword-form-email-label": "@Email-adres",
+    "forgotpassword-form-email-placeholder": "@Wat is je email-adres?",
 
-    "forgotpassword-form-submit": "@Reset link versturen"
+    "forgotpassword-form-submit": "@Reset link versturen",
+
+    "forgotpassword-backtologin": "@Laat maar, terug naar inloggen",
+
+    "forgotpassword-instructionssent-heading": "@Mail is verzonden!",
+    "forgotpassword-instructionssent-paragraph": "@Volg de instructies in de mail om je wachtwoord te herstellen. Mocht je de mail niet ontvangen hebben. Wacht paar minuten en kijk ook even in je spamfilter."
 }
