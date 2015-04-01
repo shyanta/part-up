@@ -22,6 +22,21 @@ var getContext = function getContext (event) {
     return output;
 };
 
+Template.afFieldInput.onRendered(function() {
+    var inputElm = this.find('[data-schema-key]');
+    var formId = inputElm.form.id;
+    var fieldName = inputElm.dataset.schemaKey;
+    var reactiveKey = formId + '_' + fieldName;
+    this.reactiveKey = reactiveKey;
+});
+
+Template.afFieldInput.onDestroyed(function() {
+    dirtyStates.set(this.reactiveKey, false);
+    onceBlurredStates.set(this.reactiveKey, false);
+    focusedStates.set(this.reactiveKey, false);
+    invalidStates.set(this.reactiveKey, false);
+});
+
 Template.afFieldInput.events({
     'keydown [data-schema-key], blur [data-schema-key]': function (event, template) {
         var context = getContext(event);

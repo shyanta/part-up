@@ -20,7 +20,6 @@
         <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
 
         {{#autoForm schema=formSchema id="loginForm" class="pu-form" validation="keyup" }}
-            <!--{{#if afFieldIsInvalid name='email'}}pu-state-invalid{{/if}} {{#if afFieldIsDirty name='email' }}pu-state-dirty{{/if}} {{#if afFieldIsOnceBlurred name='email' }}pu-state-onceblurred{{/if}} {{#if afFieldIsFocused name='email' }}pu-state-focused{{/if}}-->
             <label class="pu-formfield {{ PartupFieldClasses name='email' }}">
                 <span class="pu-label">{{_ 'login-form-email-label'}}</span>
                 <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
