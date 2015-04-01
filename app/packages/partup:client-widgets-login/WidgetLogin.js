@@ -40,7 +40,7 @@ Template.WidgetLogin.events({
 
         });
     },
-    'click [data-signuplinkedin]': function(event) {
+    'click [data-loginlinkedin]': function(event) {
         Meteor.loginWithLinkedin({
             requestPermissions: ['r_emailaddress']
         }, function(error) {
