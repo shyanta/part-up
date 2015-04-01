@@ -9,12 +9,12 @@
     "registerrequired-form-name-label": "First and last name",
     "registerrequired-form-name-placeholder": "Example: John Johnson",
     "registerrequired-form-name-validation": "why",
-    "registerrequired-form-name-tooltip": "register required helptext",
+    "registerrequired-form-name-tooltip": "@register required helptext",
 
     "registerrequired-form-email-label": "Email address",
     "registerrequired-form-email-placeholder": "We only send you emails if you want us to",
     "registerrequired-form-email-validation": "why",
-    "registerrequired-form-email-tooltip": "email helptext",
+    "registerrequired-form-email-tooltip": "@email helptext",
 
     "registerrequired-form-password-label": "Password",
     "registerrequired-form-password-placeholder": "Don't make it too easy to guess",

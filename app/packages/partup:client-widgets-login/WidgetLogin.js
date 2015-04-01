@@ -33,14 +33,14 @@ Template.WidgetLogin.events({
             }
 
             if(optionalDetailsFilledIn()) {
-                Router.go('home');
+                goToReturnUrlOrHome()
             } else {
                 Router.go('register-details');
             }
 
         });
     },
-    'click [data-signuplinkedin]': function(event) {
+    'click [data-loginlinkedin]': function(event) {
         Meteor.loginWithLinkedin({
             requestPermissions: ['r_emailaddress']
         }, function(error) {
@@ -51,7 +51,7 @@ Template.WidgetLogin.events({
             }
 
             if(optionalDetailsFilledIn()) {
-                Router.go('home');
+                goToReturnUrlOrHome()
             } else {
                 Router.go('register-details');
             }
@@ -72,7 +72,7 @@ Template.WidgetLogin.events({
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-var optionalDetailsFilledIn = function optionalDetailsFilledIn () {
+function optionalDetailsFilledIn() {
     var user = Meteor.user();
     if (user.profile.settings && user.profile.settings.optionalDetailsCompleted) {
         return true;
@@ -80,6 +80,16 @@ var optionalDetailsFilledIn = function optionalDetailsFilledIn () {
         return false;
     }
 };
+
+function goToReturnUrlOrHome() {
+    var returnUrl = Session.get('application.return-url');
+    if(returnUrl) {
+        Session.set('application.return-url', undefined);
+        Router.go(returnUrl);
+    } else {
+        Router.go('home');
+    }
+}
 
 AutoForm.hooks({
     loginForm: {
@@ -94,7 +104,7 @@ AutoForm.hooks({
                 }
 
                 if(optionalDetailsFilledIn()) {
-                    Router.go('home');
+                    goToReturnUrlOrHome()
                 } else {
                     Router.go('register-details');
                 }

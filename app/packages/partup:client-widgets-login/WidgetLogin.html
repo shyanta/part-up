@@ -2,7 +2,7 @@
     <div class="pu-composition pu-composition-defaultmodal pu-composition-login">
 
         <h2 class="pu-title pu-title-modal">{{_ 'login-loginwithpartup' }}</h2>
-        <p>{{_ 'login-logingoodyouareback'}}</p>
+        <p>{{_ 'login-logingoodyouareback'}}&nbsp;<a href="{{pathFor 'register'}}">{{_ 'login-createaccount'}}</a></p>
         <ul class="pu-list pu-list-horizontal pu-list-buttons">
             <li>
                 <button class="pu-button pu-button-facebook" data-loginfacebook>
@@ -34,19 +34,13 @@
                 {{#if afFieldIsInvalid name='password'}}
                     <span class="pu-sub-error">{{afFieldMessage name='password'}}</span>
                 {{/if}}
-                <a class="pu-hint pu-tooltip">
-                    {{_ 'login-form-password-validation' }}
-                    <span class="pu-tooltip-wrapper">
-                        <!-- TODO: password reset -->
-                        password reset form here
-                    </span>
-                </a>
             </label>
 
             <footer>
                 <input class="pu-button pu-button-primary" type="submit" value="{{_ 'login-form-submit'}}">
             </footer>
         {{/autoForm}}
+        <p><a href="{{pathFor 'forgot-password'}}">{{_ 'login-forgotpassword'}}</a></p>
 
     </div>
 </template>

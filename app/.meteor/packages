@@ -49,3 +49,5 @@ reactive-var
 deepwell:bootstrap-datepicker2
 tmeasday:publish-counts
 fastclick
+partup:client-widgets-forgotpassword
+partup:client-widgets-resetpassword
