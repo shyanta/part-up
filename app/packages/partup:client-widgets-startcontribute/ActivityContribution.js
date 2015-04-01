@@ -28,7 +28,7 @@ Template.ActivityContribution.helpers({
         return (Template.instance().contributeCanValue.get() > 0) ? 'checked' : '';
     },
     'contributionHaveChecked': function(){
-        return (Template.instance().contributeCanValue.get() > 0) ? 'checked' : '';
+        return (Template.instance().contributeHaveValue.get() > 0) ? 'checked' : '';
     }
 });
 
