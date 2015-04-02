@@ -78,6 +78,12 @@ Template.ActivityContribution.helpers({
 });
 
 Template.ActivityContribution.events({
+    'keyup :input': function submitInput(event, template) {
+        if (event.which === 13 || event.which === 9) {
+            // Submit form when user pressed enter or tab
+            $('#' + template.data._id).submit();
+        }
+    },
     'click [data-change-contribution]': function stopFromBubbling(event, template) {
         // prevent autofocus(clickContribution) on click
         event.stopPropagation();
@@ -150,8 +156,6 @@ AutoForm.addHooks(
     null, {
         onSubmit: function (insertDoc, updateDoc, currentDoc) {
             this.event.preventDefault();
-            console.log(this);
-            console.log(this.formId);
             var activityId = this.formId;
             var self = this;
             var contribution = Contributions.findOne({activity_id: activityId, upper_id: Meteor.user()._id});
