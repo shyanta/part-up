@@ -35,6 +35,37 @@ var updateBaseSchema = new SimpleSchema({
 });
 
 /**
+ * Update Comment entity schema
+ * @name updateComment
+ * @memberOf partup.schemas.entities
+ */
+Partup.schemas.entities.updateComment = new SimpleSchema({
+    _id: {
+        type: String
+    },
+    content: {
+        type: String
+    },
+    creator: {
+        type: Object
+    },
+        "creator._id": {
+            type: String
+        },
+        "creator.name": {
+            type: String
+        },
+    created_at: {
+        type: Date,
+        defaultValue: new Date()
+    },
+    updated_at: {
+        type: Date,
+        defaultValue: new Date()
+    }
+});
+
+/**
  * Update entity schema
  * @name update
  * @memberOf partup.schemas.entities
@@ -45,35 +76,12 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
         regEx: SimpleSchema.RegEx.Id
     },
     comments: {
-        type: [Object],
+        type: [Partup.schemas.entities.updateComment],
         optional: true
     },
-        "comments.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-        "comments.$.content": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-        "comments.$.date": {
-            type: Date,
-            defaultValue: Date.now()
-        },
-        "comments.$.upper": {
-            type: Object
-        },
-            "comments.$.upper._id": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            },
-            "comments.$.upper.name": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            },
     created_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     },
     partup_id: {
         type: String,
@@ -81,6 +89,17 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
     },
     updated_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     }
 }]);
+
+/**
+ * Insert Update Comment form schema
+ * @name updateComment
+ * @memberOf partup.schemas.forms
+ */
+Partup.schemas.forms.updateComment = new SimpleSchema({
+    content: {
+        type: String
+    }
+});

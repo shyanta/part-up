@@ -5,36 +5,35 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'updates.comments.insert': function (updateId, fields) {
-        // TODO: Validation
+        check(fields, Partup.schemas.forms.updateComment);
 
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var update = Updates.findOneOrFail(updateId);
 
+        var comment = {
+            _id: Random.id(),
+            content: fields.content,
+            creator: {
+                _id: upper._id,
+                name: upper.profile.name
+            },
+            created_at: new Date(),
+            updated_at: new Date()
+        }
+
+        check(comment, Partup.schemas.entities.updateComment);
+
+        var comments = update.comments || [];
+
         try {
-            fields.created_at = Date.now();
-            fields.updated_at = Date.now();
-            fields.update_id = update._id;
+            Updates.update(updateId, { $push: { 'comments': comment }});
 
-            fields.creator = {
-                _id: upper._id
-            };
-
-            if (upper.profile && upper.profile.name) {
-                fields.creator.name = upper.profile.name;
-            }
-
-            fields._id = new Meteor.Collection.ObjectID();
-
-            var comments = update.comments || [];
-
-            Updates.update(updateId, { $push: { 'comments': fields }});
-
-            Event.emit('updates.comments.inserted', fields);
+            Event.emit('updates.comments.inserted', comment);
 
             return {
-                _id: fields._id
+                _id: comment._id
             }
         } catch (error) {
             Log.error(error);
