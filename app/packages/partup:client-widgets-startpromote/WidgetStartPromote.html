@@ -4,6 +4,24 @@
         <h2 class="pu-title pu-title-modal">{{_ 'startpromote-heading-title'}}</h2>
         <p>{{_ 'startpromote-text-intro'}}</p>
         <p>{{_ 'startpromote-text-intro2'}}</p>
+        <article class="pu-form pu-form-highlighted">
+            
+        </article>
+        <article class="pu-form">
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startpromote-title-sharebuttons' }}</span>
+                <a href="" class="pu-button">{{_ 'startpromote-button-twitter' }}</a>
+                <a href="" class="pu-button">{{_ 'startpromote-button-facebook' }}</a>
+                <a href="" class="pu-button">{{_ 'startpromote-button-linkedin' }}</a>
+            </label>
+        </article>
+
+        <article class="pu-form">
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startpromote-title-sharelink' }}</span>
+                <input type="text" value="{{partupUrl}}" class="pu-input">
+            </label>
+        </article>
 
         <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
             <div class="pu-sub-footer-container">
