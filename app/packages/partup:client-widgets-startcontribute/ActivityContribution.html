@@ -46,45 +46,47 @@
             {{/autoForm}}
         </div>
 
-        {{#if contributions}}
+        {{#each contributions}}
             <div class="pu-block-container-child">
                 <div class="pu-contributionlist">
                     <figure class="pu-avatar pu-avatar-small" style="{{#if userImage}}background-image:url('{{userImage.url}}');{{/if}}"></figure>
                     <ul class="pu-list">
-                        {{#if want}}
-                            <li>
-                                <span>is up for it</span>
-                            </li>
-                        {{/if}}
-                        {{#if can}}
-                            <li>
-                                <span>can do this for</span>
-                                <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeCanValue">
-                                    <span>€ {{ can }}</span>
-                                    <i class="fa fa-remove"></i>
-                                </a>
-                            </li>
-                        {{/if}}
-                        {{#if partupHasTrueValues have}}
-                            <li>
-                                <span>brings in</span>
-                                {{#if have.value }}
-                                    <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeHaveValue">
-                                        <span>€ {{ have.value }}</span>
+                        {{#each this.types}}
+                            {{#if partupEquals this.type 'want'}}
+                                <li>
+                                    <span>{{_ 'startcontribute-summary-want-label'}}</span>
+                                </li>
+                            {{/if}}
+                            {{#if partupEquals this.type 'can'}}
+                                <li>
+                                    <span>{{_ 'startcontribute-summary-can-label'}}</span>
+                                    <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeCanAmount">
+                                        <span>€ {{ this.type_data.amount }}</span>
                                         <i class="fa fa-remove"></i>
                                     </a>
-                                {{/if}}
-                                {{#if have.extra }}
-                                    <a href="" class="pu-button pu-button-label pu-button-label-secondary pu-button-label-removable" data-clear="contributeHaveExtraValue">
-                                        <span>{{ have.extra }}</span>
-                                        <i class="fa fa-remove"></i>
-                                    </a>
-                                {{/if}}
-                            </li>
-                        {{/if}}
+                                </li>
+                            {{/if}}
+                            {{#if partupEquals this.type 'have'}}
+                                <li>
+                                    <span>{{_ 'startcontribute-summary-have-label'}}</span>
+                                    {{#if this.type_data.amount }}
+                                        <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeHaveAmount">
+                                            <span>€ {{ this.type_data.amount }}</span>
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                    {{/if}}
+                                    {{#if this.type_data.description }}
+                                        <a href="" class="pu-button pu-button-label pu-button-label-secondary pu-button-label-removable" data-clear="contributeHaveDescription">
+                                            <span>{{ this.type_data.description }}</span>
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                    {{/if}}
+                                </li>
+                            {{/if}}
+                        {{/each}}
                     </ul>
                 </div>
             </div>
-        {{/if}}
+        {{/each}}
     </article>
 </template>
