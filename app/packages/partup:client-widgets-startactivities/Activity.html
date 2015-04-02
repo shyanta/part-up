@@ -33,7 +33,9 @@
             <a class="pu-button pu-button-edit" data-enable-edit-mode>{{_ 'startactivities-button-edit'}}</a>
 
             <p class="pu-paragraph">{{description}}</p>
-            <time>{{end_date}}</time>
+            {{# if end_date }}
+            <time datetime="{{ partupDateISO end_date }}">{{ partupDateNormal end_date }}</time>
+            {{/if}}
         </article>
     {{/if}}
 </template>
