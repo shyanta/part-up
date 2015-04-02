@@ -1,3 +1,16 @@
 <template name="WidgetStartPromote">
-    aww yea
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promotion {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
+
+        <h2 class="pu-title pu-title-modal">{{_ 'startpromote-heading-title'}}</h2>
+        <p>{{_ 'startpromote-text-intro'}}</p>
+        <p>{{_ 'startpromote-text-intro2'}}</p>
+
+        <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
+            <div class="pu-sub-footer-container">
+                <button href="#" class="pu-button pu-button-primary" id="nextPage">
+                    {{_ 'startpromote-button-done' }}
+                </button>
+            </div>
+        </footer>
+    </div>
 </template>
