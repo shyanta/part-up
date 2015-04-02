@@ -25,6 +25,9 @@ Template.ActivityContribution.helpers({
         if (contribution) {
             Template.instance().contributions.set('fields', contribution);
             var fields = Partup.transformers.contribution.toFormContribution(Template.instance().contributions.get('fields'));
+            if (fields.type_want) {
+                Template.instance().contributeWantEnabled.set(true);
+            }
             console.log('fields:');
             console.log(fields);
             return fields;
@@ -47,7 +50,7 @@ Template.ActivityContribution.helpers({
     'contributeCanEnabled': function () {
         return Template.instance().contributeCanEnabled.get();
     },
-    'contributionWantChecked': function () {
+    'contributeWantChecked': function () {
         return Template.instance().contributeWantEnabled.get() ? 'checked' : '';
     },
     userImage: function () {
