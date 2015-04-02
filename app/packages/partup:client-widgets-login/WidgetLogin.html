@@ -24,7 +24,7 @@
                 <span class="pu-label">{{_ 'login-form-email-label'}}</span>
                 <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
                 {{#if afFieldIsInvalid name='email'}}
-                    <span class="pu-sub-error">{{afFieldMessage name='email'}}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
                 {{/if}}
             </label>
 
@@ -32,7 +32,7 @@
                 <span class="pu-label">{{_ 'login-form-password-label'}}</span>
                 <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                 {{#if afFieldIsInvalid name='password'}}
-                    <span class="pu-sub-error">{{afFieldMessage name='password'}}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
                 {{/if}}
             </label>
 
