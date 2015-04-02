@@ -11,6 +11,7 @@ Package.onUse(function (api) {
         'aldeed:autoform',
         'aldeed:template-extension',
         'partup:lib',
+        'partup:client-base',
         'tap:i18n',
         'reactive-var',
         'reactive-dict'
