@@ -27,5 +27,7 @@
     "error-ss-regex-IPv4": "Dit IP-adres is ongeldig",
     "error-ss-regex-IPv6": "Dit IP-adres is ongeldig",
     "error-ss-regex-Url": "Deze URL is ongeldig",
-    "error-ss-regex-Id": "Dit ID is ongeldig"
+    "error-ss-regex-Id": "Dit ID is ongeldig",
+
+    "error-ss-passwordMismatch": "De wachtwoorden komen niet overeen"
 }

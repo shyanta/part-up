@@ -55,7 +55,8 @@ Partup.ui.language = {
                     {exp: SimpleSchema.RegEx.IPv6,       msg: TAPi18n.__('error-ss-regex-IPv6')},
                     {exp: SimpleSchema.RegEx.Url,        msg: TAPi18n.__('error-ss-regex-Url')},
                     {exp: SimpleSchema.RegEx.Id,         msg: TAPi18n.__('error-ss-regex-Id')},
-                ]
+                ],
+                passwordMismatch:      TAPi18n.__('error-ss-passwordMismatch')
             });
 
         }).fail(function (error_message) {

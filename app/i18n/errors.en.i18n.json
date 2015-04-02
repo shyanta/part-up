@@ -27,5 +27,7 @@
     "error-ss-regex-IPv4": "This value must be a valid IP address",
     "error-ss-regex-IPv6": "This value must be a valid IP address",
     "error-ss-regex-Url": "This value must be a valid URL",
-    "error-ss-regex-Id": "This value must be a valid ID"
+    "error-ss-regex-Id": "This value must be a valid ID",
+
+    "error-ss-passwordMismatch": "The passwords do not match"
 }
