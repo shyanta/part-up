@@ -54,12 +54,20 @@ AutoForm.hooks({
                 }
             }, function(error) {
                 if (error) {
+                    if(error.message == 'Email already exists [403]') {
+                        self.addStickyValidationError('email', 'emailExists');
+                        AutoForm.validateForm("registerRequiredForm");
+                    }
                     Partup.ui.notify.error(error.reason);
-                    self.done(new Error(error.reason));
+                    //self.done(new Error(error.reason));
+                    return false;
+                    self.done(err);
+                } else {
+                    self.done();
+                    Router.go('register-details');
                 }
-                self.done();
-                Router.go('register-details');
-            })
+            });
+            return false;
         }
     }
 });

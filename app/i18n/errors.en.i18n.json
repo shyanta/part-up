@@ -1,5 +1,6 @@
 {
     "error-method-register-Accounts-LoginCancelledError": "Login cancelled",
+    "error-method-updates-comments-insert-failure": "Could not add the comment",
 
     "error-ss-required": "This field is required",
     "error-ss-minString": "This value must be at least [min] characters",
@@ -32,6 +33,5 @@
     "error-ss-regex-Id": "This value must be a valid ID",
 
     "error-ss-passwordMismatch": "The passwords do not match",
-
-    "error-method-updates-comments-insert-failure": "Could not add the comment"
+    "error-ss-emailExists": "This email already exists"
 }

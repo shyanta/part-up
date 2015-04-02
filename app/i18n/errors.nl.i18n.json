@@ -1,5 +1,6 @@
 {
     "error-method-register-Accounts-LoginCancelledError": "Inloggen geannuleerd",
+    "error-method-updates-comments-insert-failure": "Comment kon niet toegevoegd worden",
 
     "error-ss-required": "Dit veld is vereist",
     "error-ss-minString": "Dit veld moet uit minimaal [min] karakters bestaan",
@@ -31,5 +32,6 @@
     "error-ss-regex-Url": "Deze URL is ongeldig",
     "error-ss-regex-Id": "Dit ID is ongeldig",
 
-    "error-ss-passwordMismatch": "De wachtwoorden komen niet overeen"
+    "error-ss-passwordMismatch": "De wachtwoorden komen niet overeen",
+    "error-ss-emailExists": "Er is al een gebruiker met dit emailadres"
 }
