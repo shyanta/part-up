@@ -8,22 +8,25 @@
             <time>{{end_date}}</time>
         </div>
         <div class="pu-block-container-child">
-            {{#autoForm id=activityId name=activityId schema=formSchema doc=fieldsFromContribution class="pu-form  pu-form-contribution" theme="plain"}}
+            {{#autoForm id=activityId schema=formSchema doc=fieldsFromContribution class="pu-form  pu-form-contribution" theme="plain"}}
                 <!-- want -->
-                <input type="checkbox" class="pu-checkbox" {{contributionWantChecked}}>
-                <label class="pu-button pu-button-icon pu-button-checkbox" data-check-contribution="contributeWantEnabled">
+                <input type="checkbox" class="pu-checkbox" {{contributeWantEnabled}}>
+                <label class="pu-button pu-button-icon pu-button-checkbox"
+                       data-check-contribution="contributeWantEnabled">
                     <i class="fa fa-thumbs-up"></i>
                     {{_ 'startcontribute-form-want-label'}}
                 </label>
-                
+
                 <!-- can -->
                 <div class="pu-popover" data-open-contribution="contributeCanEnabled">
-                    <input type="checkbox" class="pu-checkbox" {{contributionCanChecked}}>
+                    <input type="checkbox" class="pu-checkbox">
                     <label class="pu-button pu-button-icon pu-button-checkbox">
                         <i class="fa fa-wrench"></i>
                         {{_ 'startcontribute-form-can-label'}}
                     </label>
-                    <div class="pu-popover-inner {{#if contributeCanEnabled}}pu-popover-inner-show{{/if}}"> <!-- data-contribution-can -->
+
+                    <div class="pu-popover-inner {{#if contributeCanEnabled}}pu-popover-inner-show{{/if}}">
+                        <!-- data-contribution-can -->
                         <span>{{_ 'startcontribute-form-can_amount-label'}}</span>
                         {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" data-change-contribution="contributeCanAmount" }}
                     </div>
@@ -36,6 +39,7 @@
                         <i class="fa fa-user-plus"></i>
                         {{_ 'startcontribute-form-have-label'}}
                     </label>
+
                     <div class="pu-popover-inner {{#if contributeHaveEnabled}}pu-popover-inner-show{{/if}}">
                         <span>{{_ 'startcontribute-form-have_amount-label'}}</span>
                         {{> afFieldInput name='type_have_amount' placeholder=placeholders.have_amount class="pu-input" data-change-contribution="contributeHaveAmount" }}
@@ -46,47 +50,54 @@
             {{/autoForm}}
         </div>
 
-        {{#each contributions}}
-            <div class="pu-block-container-child">
-                <div class="pu-contributionlist">
-                    <figure class="pu-avatar pu-avatar-small" style="{{#if userImage}}background-image:url('{{userImage.url}}');{{/if}}"></figure>
-                    <ul class="pu-list">
-                        {{#each this.types}}
-                            {{#if partupEquals this.type 'want'}}
-                                <li>
-                                    <span>{{_ 'startcontribute-summary-want-label'}}</span>
-                                </li>
-                            {{/if}}
-                            {{#if partupEquals this.type 'can'}}
-                                <li>
-                                    <span>{{_ 'startcontribute-summary-can-label'}}</span>
-                                    <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeCanAmount">
-                                        <span>€ {{ this.type_data.amount }}</span>
-                                        <i class="fa fa-remove"></i>
-                                    </a>
-                                </li>
-                            {{/if}}
-                            {{#if partupEquals this.type 'have'}}
-                                <li>
-                                    <span>{{_ 'startcontribute-summary-have-label'}}</span>
-                                    {{#if this.type_data.amount }}
-                                        <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeHaveAmount">
+        {{#if activityHasContributions}}
+            {{#each contributions}}
+                <div class="pu-block-container-child">
+                    <div class="pu-contributionlist">
+                        <figure class="pu-avatar pu-avatar-small"
+                                style="{{#if userImage}}background-image:url('{{userImage.url}}');{{/if}}"></figure>
+                        <ul class="pu-list">
+                            {{#each this.types}}
+                                {{#if partupEquals this.type 'want'}}
+                                    <li>
+                                        <span>{{_ 'startcontribute-summary-want-label'}}</span>
+                                    </li>
+                                {{/if}}
+                                {{#if partupEquals this.type 'can'}}
+                                    <li>
+                                        <span>{{_ 'startcontribute-summary-can-label'}}</span>
+                                        <a href="" class="pu-button pu-button-label pu-button-label-removable"
+                                           data-clear="contributeCanAmount">
                                             <span>€ {{ this.type_data.amount }}</span>
                                             <i class="fa fa-remove"></i>
                                         </a>
-                                    {{/if}}
-                                    {{#if this.type_data.description }}
-                                        <a href="" class="pu-button pu-button-label pu-button-label-secondary pu-button-label-removable" data-clear="contributeHaveDescription">
-                                            <span>{{ this.type_data.description }}</span>
-                                            <i class="fa fa-remove"></i>
-                                        </a>
-                                    {{/if}}
-                                </li>
-                            {{/if}}
-                        {{/each}}
-                    </ul>
+                                    </li>
+                                {{/if}}
+                                {{#if partupEquals this.type 'have'}}
+                                    <li>
+                                        <span>{{_ 'startcontribute-summary-have-label'}}</span>
+                                        {{#if this.type_data.amount }}
+                                            <a href="" class="pu-button pu-button-label pu-button-label-removable"
+                                               data-clear="contributeHaveAmount">
+                                                <span>€ {{ this.type_data.amount }}</span>
+                                                <i class="fa fa-remove"></i>
+                                            </a>
+                                        {{/if}}
+                                        {{#if this.type_data.description }}
+                                            <a href=""
+                                               class="pu-button pu-button-label pu-button-label-secondary pu-button-label-removable"
+                                               data-clear="contributeHaveDescription">
+                                                <span>{{ this.type_data.description }}</span>
+                                                <i class="fa fa-remove"></i>
+                                            </a>
+                                        {{/if}}
+                                    </li>
+                                {{/if}}
+                            {{/each}}
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        {{/each}}
+            {{/each}}
+        {{/if}}
     </article>
 </template>

@@ -32,6 +32,12 @@ Template.ActivityContribution.helpers({
             return undefined;
         }
     },
+    'activityHasContributions': function () {
+        return Template.instance().contributions.get('fields').types.length > 0;
+    },
+    'currentUpperContribution': function () {
+        return Contributions.find({ activity_id: this._id, upper_id: Meteor.user()._id });
+    },
     'contributions': function () {
         return Contributions.find({ activity_id: this._id });
     },
@@ -43,30 +49,6 @@ Template.ActivityContribution.helpers({
     },
     'contributionWantChecked': function () {
         return Template.instance().contributeWantEnabled.get() ? 'checked' : '';
-    },
-    'contributionCanChecked': function () {
-        return (Template.instance().contributeCanAmount.get() > 0) ? 'checked' : '';
-    },
-    'contributionHaveChecked': function () {
-        return ((Template.instance().contributeHaveAmount.get() > 0) || Template.instance().contributeHaveDescription.get()) ? 'checked' : '';
-    },
-    'contributions': function () {
-        var want = Template.instance().contributeWantEnabled.get() ? true : false;
-        var can = Template.instance().contributeCanAmount.get() ? true : false;
-        var have = (Template.instance().contributeHaveAmount.get() || Template.instance().contributeHaveDescription.get()) ? true : false;
-        return want || can || have;
-    },
-    'want': function () {
-        return Template.instance().contributeWantEnabled.get() || false;
-    },
-    'can': function () {
-        return Template.instance().contributeCanAmount.get() || false;
-    },
-    'have': function () {
-        return {
-            'value': Template.instance().contributeHaveAmount.get(),
-            'extra': Template.instance().contributeHaveDescription.get()
-        }
     },
     userImage: function () {
         var user = Meteor.user();
@@ -82,18 +64,6 @@ var beginFirst;
 var beginLast;
 
 Template.ActivityContribution.events({
-    'click .pu-checkbox': function submitUp(event, template) {
-        if (event.currentTarget.name === 'type_want') {
-            // Submit form when user clicked the 'up for this' button
-            $('#' + template.data._id).submit();
-        }
-    },
-    'keyup :input': function submitInput(event, template) {
-        //if (event.which === 13 || event.which === 9) {
-        //    // Submit form when user pressed enter or tab
-        //    $('#' + template.data._id).submit();
-        //}
-    },
     'click [data-change-contribution]': function stopFromBubbling(event, template) {
         // prevent autofocus(clickContribution) on click
         event.stopPropagation();
@@ -154,17 +124,23 @@ Template.ActivityContribution.events({
         // set reactive var boolean to false to hide popover
         template[booleanKey].set(false);
     },
-    'keyup [data-change-contribution]': function changeContrinution(event, template) {
-        if (event.keyCode === 13) {
-            // do something on return key
+    'keyup [data-change-contribution]': function changeContribution(event, template) {
+        if (event.which === 13 || event.which === 9) {
+            // Submit form when user pressed enter or tab
+            //$('#' + template.data._id).submit();
         } else {
             var valueKey = $(event.currentTarget).data("change-contribution");
-            // console.log(valueKey,event.target.value)
             template[valueKey].set(event.target.value);
         }
     },
     'click [data-check-contribution]': function checkContribution(event, template) {
         var valueKey = $(event.currentTarget).data("check-contribution");
+
+        if (valueKey === 'contributeWantEnabled') {
+            // Submit form when user clicked the 'up for this' button
+            $('#' + template.data._id).submit();
+        }
+
         template[valueKey].set(!template[valueKey].get());
     },
     'click [data-clear]': function clearContribution(event, template) {
@@ -187,7 +163,7 @@ AutoForm.addHooks(
             this.event.preventDefault();
             var activityId = this.formId;
             var self = this;
-            var contribution = Contributions.findOne({activity_id: activityId, upper_id: Meteor.user()._id});
+            var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
 
             if (contribution) {
                 console.log('update');

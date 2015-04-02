@@ -48,7 +48,7 @@ Partup.transformers.contribution = {
                 }
             });
         }
-        if (fields.type_have) {
+        if (fields.type_have_amount || fields.type_have_description) {
             types.push({
                 'type': 'have',
                 'type_data': {
