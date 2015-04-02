@@ -35,15 +35,25 @@ var updateBaseSchema = new SimpleSchema({
 });
 
 /**
+ * Base Comment Update schema
+ * @name updateCommentBaseSchema
+ * @memberOf partup.schemas
+ * @private
+ */
+var updateCommentBaseSchema = new SimpleSchema({
+    content: {
+        type: String,
+        max: 250
+    }
+});
+
+/**
  * Update Comment entity schema
  * @name updateComment
  * @memberOf partup.schemas.entities
  */
-Partup.schemas.entities.updateComment = new SimpleSchema({
+Partup.schemas.entities.updateComment = new SimpleSchema([updateCommentBaseSchema, {
     _id: {
-        type: String
-    },
-    content: {
         type: String
     },
     creator: {
@@ -63,7 +73,7 @@ Partup.schemas.entities.updateComment = new SimpleSchema({
         type: Date,
         defaultValue: new Date()
     }
-});
+}]);
 
 /**
  * Update entity schema
@@ -98,8 +108,4 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
  * @name updateComment
  * @memberOf partup.schemas.forms
  */
-Partup.schemas.forms.updateComment = new SimpleSchema({
-    content: {
-        type: String
-    }
-});
+Partup.schemas.forms.updateComment = new SimpleSchema([updateCommentBaseSchema]);
