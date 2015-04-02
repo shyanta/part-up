@@ -8,7 +8,7 @@
             <time>{{end_date}}</time>
         </div>
         <div class="pu-block-container-child">
-            {{#autoForm id=activityId schema=formSchema doc=fieldsFromContribution class="pu-form" theme="plain"}}
+            {{#autoForm id=activityId name=activityId schema=formSchema doc=fieldsFromContribution class="pu-form  pu-form-contribution" theme="plain"}}
                 <!-- want -->
                 <input type="checkbox" class="pu-checkbox" {{contributionWantChecked}}>
                 <label class="pu-button pu-button-icon pu-button-checkbox" data-check-contribution="contributeWantEnabled">
