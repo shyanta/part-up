@@ -25,10 +25,10 @@
                     </label>
                     <div class="pu-popover-inner {{#if contributeCanEnabled}}pu-popover-inner-show{{/if}}"> <!-- data-contribution-can -->
                         <span>I can do this for</span>
-                        {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" }}
+                        {{> afFieldInput name='type_can_amount' placeholder=placeholders.can_amount class="pu-input" data-change-contribution="contributeCanAmount" }}
                     </div>
                 </div>
-                
+
                 <!-- have -->
                 <div class="pu-popover" data-open-contribution="contributeHaveEnabled">
                     <input type="checkbox" class="pu-checkbox" {{contributionHaveChecked}}>
@@ -42,11 +42,6 @@
                         <span>or/and</span>
                         {{> afFieldInput name='type_have_description' placeholder=placeholders.have_description class="pu-input" data-change-contribution="contributeHaveDescription" }}
                     </div>
-                </div>
-
-                <div class="pu-formfield-right">
-                    <input class="pu-button pu-button-primary" type="submit"
-                           value="Save">
                 </div>
             {{/autoForm}}
         </div>
@@ -64,17 +59,26 @@
                         {{#if can}}
                             <li>
                                 <span>can do this for</span>
-                                <a href="" class="pu-button pu-button-label" data-clear="contributeCanValue">{{ can }}</a>
+                                <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeCanValue">
+                                    <span>€ {{ can }}</span>
+                                    <i class="fa fa-remove"></i>
+                                </a>
                             </li>
                         {{/if}}
                         {{#if partupHasTrueValues have}}
                             <li>
                                 <span>brings in</span>
                                 {{#if have.value }}
-                                    <a href="" class="pu-button pu-button-label" data-clear="contributeHaveValue">{{ have.value }}</a>
+                                    <a href="" class="pu-button pu-button-label pu-button-label-removable" data-clear="contributeHaveValue">
+                                        <span>€ {{ have.value }}</span>
+                                        <i class="fa fa-remove"></i>
+                                    </a>
                                 {{/if}}
                                 {{#if have.extra }}
-                                    <a href="" class="pu-button pu-button-label pu-button-label-secondary" data-clear="contributeHaveExtraValue">{{ have.extra }}</a>
+                                    <a href="" class="pu-button pu-button-label pu-button-label-secondary pu-button-label-removable" data-clear="contributeHaveExtraValue">
+                                        <span>{{ have.extra }}</span>
+                                        <i class="fa fa-remove"></i>
+                                    </a>
                                 {{/if}}
                             </li>
                         {{/if}}

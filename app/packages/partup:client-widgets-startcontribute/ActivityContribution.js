@@ -127,7 +127,7 @@ Template.ActivityContribution.events({
             // do something on return key
         } else {
             var valueKey = $(event.currentTarget).data("change-contribution");
-            console.log(valueKey, event.target.value)
+            // console.log(valueKey,event.target.value)
             template[valueKey].set(event.target.value);
         }
     },

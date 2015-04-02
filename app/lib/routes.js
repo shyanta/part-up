@@ -181,6 +181,44 @@ Router.route('/start/:_id/promote', {
     }
 });
 
+
+/*************************************************************/
+/* Login flow */
+/*************************************************************/
+Router.route('/login', {
+    name: 'login',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesLogin': { to: 'modal-page' }
+    }
+});
+
+
+/*************************************************************/
+/* Password reset */
+/*************************************************************/
+Router.route('/forgot-password', {
+    name: 'forgot-password',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesForgotPassword': { to: 'modal-page' }
+    }
+});
+
+Router.route('/reset-password/:token', {
+    name: 'reset-password',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesResetPassword': { to: 'modal-page' }
+    }
+});
+
 /*************************************************************/
 /* Register flow */
 /*************************************************************/
@@ -207,15 +245,6 @@ Router.route('/register/details', {
         'PagesRegister': { to: 'modal-page' },
         'PagesRegisterOptional': { to: 'register-page' }
     }
-    /*
-    ,onBeforeAction: function () {
-        var user = Meteor.user();
-        if (! user) {
-            Router.go('register');
-        }
-        this.next();
-    }
-    */
 });
 
 
@@ -231,3 +260,32 @@ Router.route('/styleguide', {
         'PagesStyleguide': { to: 'app-page' }
     }
 });
+
+
+/*************************************************************/
+/* Route protection */
+/*************************************************************/
+
+var partupRouterHooks = {
+    loginRequired: function() {
+        if (!Meteor.userId()) {
+            Session.set('application.return-url', this.url);
+            Router.go('login');
+        }
+        else {
+            this.next();
+        }
+    }
+}
+
+Router.onBeforeAction(partupRouterHooks.loginRequired, {
+    only: [
+        'start',
+        'start-details',
+        'start-activities',
+        'start-contribute',
+        'start-promote',
+        'register-details',
+    ]
+});
+

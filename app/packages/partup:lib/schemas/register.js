@@ -15,7 +15,8 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
     },
     password: {
         type: String,
-        max: 255
+        max: 255,
+        regEx: Partup.services.validators.password
     }
     //network: {
     //    type: String,

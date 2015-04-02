@@ -1,0 +1,46 @@
+<template name="WidgetLogin">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-login">
+
+        <h2 class="pu-title pu-title-modal">{{_ 'login-loginwithpartup' }}</h2>
+        <p>{{_ 'login-logingoodyouareback'}}&nbsp;<a href="{{pathFor 'register'}}">{{_ 'login-createaccount'}}</a></p>
+        <ul class="pu-list pu-list-horizontal pu-list-buttons">
+            <li>
+                <button class="pu-button pu-button-facebook" data-loginfacebook>
+                    <i class="fa fa-facebook"></i>
+                    {{_ 'login-loginfacebook'}}
+                </button>
+            </li>
+            <li>
+                <button class="pu-button pu-button-linkedin" data-loginlinkedin>
+                    <i class="fa fa-linkedin"></i>
+                    {{_ 'login-loginlinkedin'}}
+                </button>
+            </li>
+        </ul>
+        <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
+
+        {{#autoForm schema=formSchema id="loginForm" class="pu-form" validation="keyup" }}
+            <label class="pu-formfield {{ PartupFieldClasses name='email' }}">
+                <span class="pu-label">{{_ 'login-form-email-label'}}</span>
+                <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
+                {{#if afFieldIsInvalid name='email'}}
+                    <span class="pu-sub-error">{{afFieldMessage name='email'}}</span>
+                {{/if}}
+            </label>
+
+            <label class="pu-formfield {{ PartupFieldClasses name='password' }}">
+                <span class="pu-label">{{_ 'login-form-password-label'}}</span>
+                <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
+                {{#if afFieldIsInvalid name='password'}}
+                    <span class="pu-sub-error">{{afFieldMessage name='password'}}</span>
+                {{/if}}
+            </label>
+
+            <footer>
+                <input class="pu-button pu-button-primary" type="submit" value="{{_ 'login-form-submit'}}">
+            </footer>
+        {{/autoForm}}
+        <p><a href="{{pathFor 'forgot-password'}}">{{_ 'login-forgotpassword'}}</a></p>
+
+    </div>
+</template>

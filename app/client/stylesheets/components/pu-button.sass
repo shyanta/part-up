@@ -3,7 +3,7 @@
     position: relative
     display: inline-block
     vertical-align: top
-    padding: 13px 15px
+    padding: 12px 15px
     height: 40px
 
     // Cosmetics
@@ -42,6 +42,11 @@
         transform: translateY(2px)
         transition-duration: 0
         background-color: darken($color-secondary, 11%)
+        color: $color-text-inverted
+
+    // Focus state
+    &:focus
+        color: $color-text-inverted        
 
     // State: loaidng
     &.pu-state-loading
@@ -152,6 +157,9 @@
             color: $color-text-secondary
             border-color: rgba($color-text-secondary, .5)
 
+        &:focus
+            color: $color-text-secondary
+
         &.pu-state-active
             border-color: $color-text-secondary
             cursor: default
@@ -190,6 +198,10 @@
             transition-duration: 0
             background-color: $color-background
             border-color: darken($color-border, 20%)
+            color: $color-text-subtle
+
+        &:focus
+            color: $color-text-subtle
     
     // Type: facebook
     &-facebook
@@ -324,6 +336,29 @@
 
             &:hover
                 background-color: darken($color-solid-gray, 5%)
+        &-removable
+            position: relative
+            i
+                opacity: 0
+                color: #ffffff
+                position: absolute
+                transition: opacity $animation-duration
+                top: 0
+                right: 0
+                bottom: 0
+                left: 0
+                height: 100%
+                width: 100%
+                text-align: center
+                line-height: 31px
+                font-size: 26px
+
+            &:hover
+                i 
+                    opacity: 1
+                span 
+                    transition: opacity $animation-duration
+                    opacity: 0
 
     &-no-side-padding
         padding-left: 0
@@ -343,3 +378,14 @@
         &:hover
             background-color: $color-dark-white
             color: $color-solid-black
+
+        &:active
+            transform: none
+            transition-duration: 0
+            background-color: darken($color-background-tertiery, 5%)
+            color: $color-solid-black
+
+        &:focus
+            color: $color-solid-black
+
+
