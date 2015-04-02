@@ -5,7 +5,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'activities.insert': function (partupId, fields) {
-        // TODO: Validation
+        check(fields, Partup.schemas.forms.startActivities);
 
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
