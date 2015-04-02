@@ -77,6 +77,10 @@ Template.ActivityContribution.helpers({
     }
 });
 
+// Initialize beginvalue variables
+var beginFirst;
+var beginLast;
+
 Template.ActivityContribution.events({
     'click .pu-checkbox': function submitUp(event, template) {
         if (event.currentTarget.name === 'type_want') {
@@ -100,6 +104,10 @@ Template.ActivityContribution.events({
         // prevent any form actions and checkbox selections
         event.preventDefault();
 
+        // Temporarily save the begin values
+        beginFirst = $(event.currentTarget).find('input[data-change-contribution]:first').val();
+        beginLast = $(event.currentTarget).find('input[data-change-contribution]:last').val();
+
         // focus on the first input field
         $(event.currentTarget).find('input[data-change-contribution]:first').focus();
 
@@ -113,6 +121,11 @@ Template.ActivityContribution.events({
         // this event handler does almost the same as the
         // click handler, except it's on hover and with a delay
         var booleanKey = $(event.currentTarget).data("open-contribution");
+
+        // Temporarily save the begin values
+        beginFirst = $(event.currentTarget).find('input[data-change-contribution]:first').val();
+        beginLast = $(event.currentTarget).find('input[data-change-contribution]:last').val();
+
         if (!template[booleanKey].get()) {
             template.showTimeout = Meteor.setTimeout(function () {
                 template[booleanKey].set(true);
@@ -121,6 +134,13 @@ Template.ActivityContribution.events({
     },
     'mouseleave [data-open-contribution]': function mouseLeaveContribution(event, template) {
         // hide the popover on mouse leave
+
+        // Submit form to save values if changed
+        var endFirst = $(event.currentTarget).find('input[data-change-contribution]:first').val();
+        var endLast = $(event.currentTarget).find('input[data-change-contribution]:last').val();
+        if (beginFirst !== endFirst || beginLast !== endLast) {
+            $('#' + template.data._id).submit();
+        }
 
         // blur input fields to prevent accidental input change by user
         $(event.currentTarget).find('input[data-input-contribution]').blur();
