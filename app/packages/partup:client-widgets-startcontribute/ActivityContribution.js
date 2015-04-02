@@ -78,11 +78,17 @@ Template.ActivityContribution.helpers({
 });
 
 Template.ActivityContribution.events({
-    'keyup :input': function submitInput(event, template) {
-        if (event.which === 13 || event.which === 9) {
-            // Submit form when user pressed enter or tab
+    'click .pu-checkbox': function submitUp(event, template) {
+        if (event.currentTarget.name === 'type_want') {
+            // Submit form when user clicked the 'up for this' button
             $('#' + template.data._id).submit();
         }
+    },
+    'keyup :input': function submitInput(event, template) {
+        //if (event.which === 13 || event.which === 9) {
+        //    // Submit form when user pressed enter or tab
+        //    $('#' + template.data._id).submit();
+        //}
     },
     'click [data-change-contribution]': function stopFromBubbling(event, template) {
         // prevent autofocus(clickContribution) on click
