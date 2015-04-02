@@ -32,8 +32,8 @@ Template.ActivityContribution.helpers({
             return undefined;
         }
     },
-    'contribution': function () {
-        //return Contributions.findOne({ activity_id: this._id, upper_id: Meteor.user()._id });
+    'contributions': function () {
+        return Contributions.find({ activity_id: this._id });
     },
     'contributeHaveEnabled': function () {
         return Template.instance().contributeHaveEnabled.get();
