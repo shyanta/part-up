@@ -4,8 +4,9 @@
     "partupdetail-update-item-type-partups_supporters_new-title": "Became supporter",
     "partupdetail-update-item-type-new_upper-title": "Became upper",
 
-    "partupdetail-update-item-type-new_tag-title": "Added label",
-    "partupdetail-update-item-type-changed_tag-title": "Changed label",
+    "partupdetail-update-item-type-partup_tag_added-title": "Added label",
+    "partupdetail-update-item-type-partup_tag_removed-title": "Removed label",
+    "partupdetail-update-item-type-partup_tag_changed-title": "Changed label",
 
     "partupdetail-update-item-type-network_public-title": "This Part-up is now public",
     "partupdetail-update-item-type-network_private-title": "This Part-up is no longer public",

@@ -15,7 +15,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
         update._id = id;
 
         Event.emit('partups.updates.inserted', update);
-        Log.debug('Update generated for Partup [' + partup._id + '] with type [partups.supporters.new].');
+        Log.debug('Update generated for Partup [' + partup._id + '] with type [partups_supporters_new].');
     });
 });
 
@@ -24,7 +24,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
  */
 Event.on('partups.supporters.inserted', function (partup, upper) {
     var notification = {
-        type: 'partups.supporters.new',
+        type: 'partups_supporters_new',
         type_data: {
             partup: {
                 name: partup.name
@@ -45,7 +45,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
             Notifications.insert(notification, function (error) {
                 if (error) return Log.error(error);
 
-                Log.debug('Notification generated for User [' + upperId + '] with type [partups.supporters.new].');
+                Log.debug('Notification generated for User [' + upperId + '] with type [partups_supporters_new].');
             });
         });
     }

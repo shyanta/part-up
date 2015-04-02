@@ -1,3 +1,5 @@
+var equal = Npm.require('deeper');
+
 Meteor.methods({
 
     /**
@@ -51,7 +53,19 @@ Meteor.methods({
             var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields, upper);
 
             Partups.update(partupId, { $set: newPartupFields });
-            Event.emit('partups.updated', partup, fields);
+            Event.emit('partups.updated', partup, newPartupFields);
+
+            Object.keys(newPartupFields).forEach(function (key) {
+                var value = {
+                    'name': key,
+                    'old': partup[key],
+                    'new': newPartupFields[key]
+                };
+
+                if (equal(value.old, value.new)) return;
+
+                Event.emit('partups.' + key + '.updated', partup, value);
+            });
 
             return {
                 _id: partup._id

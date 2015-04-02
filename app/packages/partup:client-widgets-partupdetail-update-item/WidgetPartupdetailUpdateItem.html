@@ -26,17 +26,26 @@
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
 
-            <!-- new_tag -->
-            {{#if partupEqualsExactly update.type 'new_tag' }}
+            <!-- partup_tag_added -->
+            {{#if partupEqualsExactly update.type 'partup_tag_added' }}
                 {{#with update.type_data }}
                     <section>
-                        <span class="pu-tag">{{ tag }}</span>
+                        <span class="pu-tag">{{ new_tag }}</span>
                     </section>
                 {{/with}}
             {{/if }}
 
-            <!-- changed_tag -->
-            {{#if partupEqualsExactly update.type 'changed_tag' }}
+            <!-- partup_tag_removed -->
+            {{#if partupEqualsExactly update.type 'partup_tag_removed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <span class="pu-tag">{{ old_tag }}</span>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partup_tag_changed -->
+            {{#if partupEqualsExactly update.type 'partup_tag_changed' }}
                 {{#with update.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
