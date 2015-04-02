@@ -43,7 +43,7 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         },
         "contributions.$.created_at": {
             type: Date,
-            defaultValue: Date.now()
+            defaultValue: new Date()
         },
         "contributions.$.feedbacks": {
             type: [Object],
@@ -93,7 +93,7 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
                 },
         "contributions.$.updated_at": {
             type: Date,
-            defaultValue: Date.now()
+            defaultValue: new Date()
         },
         "contributions.$.upper_id": {
             type: String,
@@ -101,7 +101,7 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         },
     created_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     },
     creator_id: {
         type: String,
@@ -113,7 +113,7 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
     },
     updated_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     }
 }]);
 

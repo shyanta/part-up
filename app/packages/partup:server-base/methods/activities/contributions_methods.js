@@ -14,8 +14,8 @@ Meteor.methods({
 
         try {
             var contribution = {};
-            contribution.created_at = Date.now();
-            contribution.updated_at = Date.now();
+            contribution.created_at = new Date();
+            contribution.updated_at = new Date();
             contribution.upper_id = upper._id;
 
             var types = [];

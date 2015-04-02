@@ -23,7 +23,7 @@ Partup.schemas.entities.tag = new SimpleSchema([tagBaseSchema, {
     },
     created_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     }
 }]);
 

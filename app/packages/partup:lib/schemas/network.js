@@ -23,7 +23,7 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
     },
     created_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     }
 }]);
 

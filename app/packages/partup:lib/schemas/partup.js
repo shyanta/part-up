@@ -75,7 +75,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
             },
     created_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     },
     creator_id: {
         type: String,
@@ -117,7 +117,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     },
     updated_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     },
     uppers: {
         type: [String],

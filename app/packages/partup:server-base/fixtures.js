@@ -99,7 +99,7 @@ Meteor.startup(function () {
             name: 'First activity',
             description: 'We need to define some activities here.',
             creator_id: user1Id,
-            end_date: Date.now()
+            end_date: new Date()
         };
         Activities.insert(firstActivity);
 
@@ -109,7 +109,7 @@ Meteor.startup(function () {
             name: 'And another activity to demonstrate this concept',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus elit, fringilla maximus diam ac, porttitor pellentesque velit. Pellentesque vehicula id urna et varius. Donec feugiat neque pulvinar suscipit blandit. Donec sed libero id mauris tincidunt euismod. Proin non nunc orci.',
             creator_id: user2Id,
-            end_date: Date.now()
+            end_date: new Date()
         };
         Activities.insert(secondActivity);
 
@@ -119,7 +119,7 @@ Meteor.startup(function () {
             name: 'We are all about activities',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus elit, fringilla maximus diam ac, porttitor pellentesque velit. Pellentesque vehicula id urna et varius. Donec feugiat neque pulvinar suscipit blandit. Donec sed libero id mauris tincidunt euismod. Proin non nunc orci.',
             creator_id: user1Id,
-            end_date: Date.now()
+            end_date: new Date()
         };
         Activities.insert(thirdActivity);
     }

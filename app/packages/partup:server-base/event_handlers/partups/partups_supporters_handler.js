@@ -6,7 +6,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
         partup_id: partup._id,
         upper_id: upper._id,
         type: 'partups_supporters_new',
-        created_at: Date.now()
+        created_at: new Date()
     };
 
     // TODO: Validation
@@ -36,7 +36,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
             }
         },
         new: true,
-        created_at: Date.now()
+        created_at: new Date()
     }
 
     if (partup.uppers) {
