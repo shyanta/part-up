@@ -7,17 +7,17 @@
     "startactivities-form-name-label": "Geef de activiteit een naam",
     "startactivities-form-name-placeholder": "Probeer in werkwoorden te denken",
     "startactivities-form-name-validation": "maximaal %d tekens",
-    "startactivities-form-name-tooltip": "name tooltip",
+    "startactivities-form-name-tooltip": "@name tooltip",
 
     "startactivities-form-description-label": "Beschrijf de activiteit",
     "startactivities-form-description-placeholder": "Hou het kort en krachtig",
     "startactivities-form-description-validation": "maximaal %d tekens",
-    "startactivities-form-description-tooltip": "description toolttip",
+    "startactivities-form-description-tooltip": "@description toolttip",
 
     "startactivities-form-end_date-label": "Voeg eventueel een datum toe",
     "startactivities-form-end_date-placeholder": "Voeg eventueel een datum toe",
     "startactivities-form-end_date-validation": "Een datum in het verleden is niet mogelijk",
-    "startactivities-form-end_date-tooltip": "deadline tooltip",
+    "startactivities-form-end_date-tooltip": "@deadline tooltip",
 
     "startactivities-form-submit": "Maak activiteit aan",
     "startactivities-form-save": "@Opslaan",

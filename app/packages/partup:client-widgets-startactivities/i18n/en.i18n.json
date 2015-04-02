@@ -7,17 +7,17 @@
     "startactivities-form-name-label": "Name the activity",
     "startactivities-form-name-placeholder": "Try to use verbs",
     "startactivities-form-name-validation": "max %d characters",
-    "startactivities-form-name-tooltip": "name tooltip",
+    "startactivities-form-name-tooltip": "@name tooltip",
 
     "startactivities-form-description-label": "Describe the activity",
     "startactivities-form-description-placeholder": "Let's keep it short and sharp",
     "startactivities-form-description-validation": "max %d characters",
-    "startactivities-form-description-tooltip": "description toolttip",
+    "startactivities-form-description-tooltip": "@description toolttip",
 
     "startactivities-form-end_date-label": "Add a date if you like",
     "startactivities-form-end_date-placeholder": "Add a date if you like",
     "startactivities-form-end_date-validation": "Only dates in he future allowed",
-    "startactivities-form-end_date-tooltip": "end_date tooltip",
+    "startactivities-form-end_date-tooltip": "@end_date tooltip",
 
     "startactivities-form-submit": "Create activity",
     "startactivities-form-save": "@Save",
