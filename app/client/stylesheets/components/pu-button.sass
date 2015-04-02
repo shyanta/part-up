@@ -232,17 +232,28 @@
         &:active
             background-color: darken($color-twitter, 11%)
     
-    &-twitter,
-    &-linkedin,
-    &-facebook
+    &-share
+        i
+            font-size: 22px
+            line-height: 15px
+
+        i:nth-child(2)
+            float: right
+            opacity: 0
+            transition: opacity $animation-duration
+
         &.pu-state-shared
             background-color: $color-alert-success
+            
+            i 
+                opacity: 1
 
             &:hover
                 background-color: darken($color-alert-success, 7%)
 
             &:active
                 background-color: darken($color-alert-success, 11%)
+
 
 
     // Type: text
