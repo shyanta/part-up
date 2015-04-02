@@ -7,5 +7,8 @@ Template.WidgetStartPromote.helpers({
     },
     uploadedImage: function() {
         return Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+    },
+    partupUrl: function(){
+        return 'http://part-up.com/' + Session.get('partials.start-partup.current-partup');
     }
 });
