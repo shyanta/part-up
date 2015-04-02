@@ -1,37 +1,43 @@
 <template name="WidgetStartPromote">
-    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promotion {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promote {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
 
         <h2 class="pu-title pu-title-modal">{{_ 'startpromote-heading-title'}}</h2>
         <p>{{_ 'startpromote-text-intro'}}</p>
         <p>{{_ 'startpromote-text-intro2'}}</p>
-        <article class="pu-form pu-form-highlighted">
+        <article class="pu-previewpost">
             <h3>{{ partup.name }}</h3>
-            <img src="{{partup.image}}" alt="">
+            <img src="http://lorempixel.com/1000/500" alt="">
             <p>{{ partup.description }}</p>
         </article>
         <article class="pu-form">
-            <label class="pu-formfield">
+            <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startpromote-title-sharebuttons' }}</span>
-                <a href="" class="pu-button pu-button-twitter pu-button-icon">
-                    <i class="fa fa-twitter"></i>
-                    {{_ 'startpromote-button-twitter' }}
-                </a>
-                <a href="" class="pu-button pu-button-facebook pu-button-icon">
-                    <i class="fa fa-facebook"></i>
-                    {{_ 'startpromote-button-facebook' }}
-                </a>
-                <a href="" class="pu-button pu-button-linkedin pu-button-icon">
-                    <i class="fa fa-linkedin"></i>
-                    {{_ 'startpromote-button-linkedin' }}
-                </a>
-            </label>
-        </article>
+                <ul class="pu-list">
+                    <li>
+                        <a data-share="twitter" class="pu-button pu-button-twitter pu-button-icon {{#if shared.twitter}}pu-state-shared{{/if}}">
+                            <i class="fa fa-twitter"></i>
+                            {{_ 'startpromote-button-twitter' }}
+                        </a>
+                    </li>
+                    <li>
+                        <a data-share="facebook" class="pu-button pu-button-facebook pu-button-icon {{#if shared.facebook}}pu-state-shared{{/if}}">
+                            <i class="fa fa-facebook"></i>
+                            {{_ 'startpromote-button-facebook' }}
+                        </a>
+                    </li>
+                    <li>
+                        <a data-share="linkedin" class="pu-button pu-button-linkedin pu-button-icon {{#if shared.linkedin}}pu-state-shared{{/if}}">
+                            <i class="fa fa-linkedin"></i>
+                            {{_ 'startpromote-button-linkedin' }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-        <article class="pu-form">
-            <label class="pu-formfield">
+            <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startpromote-title-sharelink' }}</span>
                 <input type="text" value="{{partupUrl}}" class="pu-input">
-            </label>
+            </div>
         </article>
 
         <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
