@@ -28,7 +28,6 @@ meteor-platform
 iron:router
 tap:i18n
 accounts-password
-accounts-ui
 accounts-facebook
 pauli:accounts-linkedin
 service-configuration
