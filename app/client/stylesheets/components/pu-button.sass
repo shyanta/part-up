@@ -231,6 +231,19 @@
 
         &:active
             background-color: darken($color-twitter, 11%)
+    
+    &-twitter,
+    &-linkedin,
+    &-facebook
+        &.pu-state-shared
+            background-color: $color-alert-success
+
+            &:hover
+                background-color: darken($color-alert-success, 7%)
+
+            &:active
+                background-color: darken($color-alert-success, 11%)
+
 
     // Type: text
     &-text
