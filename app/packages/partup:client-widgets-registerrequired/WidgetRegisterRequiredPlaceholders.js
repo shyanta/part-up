@@ -8,6 +8,9 @@ Partup.services.placeholders.registerRequired = {
     'password': function () {
         return __('registerrequired-form-password-placeholder');
     },
+    'confirmPassword': function () {
+        return __('registerrequired-form-confirmPassword-placeholder');
+    },
     'network': function () {
         return __('registerrequired-form-network-placeholder');
     }

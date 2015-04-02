@@ -1,6 +1,6 @@
 Template.WidgetResetPassword.helpers({
     formSchema: Partup.schemas.forms.resetPassword,
-    placeholders: Partup.services.placeholders.resetPassword,
+    placeholders: Partup.services.placeholders.resetPassword
 });
 
 Template.WidgetResetPassword.events({

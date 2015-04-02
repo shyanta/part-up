@@ -21,6 +21,8 @@
     "registerrequired-form-password-validation": "hulp",
     "registerrequired-form-password-tooltip": "Je weet dat de datadieven steeds slimmer worden. Kies daarom een wachtwoord dat niet te makkelijk is. Gebruik bijvoorbeeld speciale tekens, cijfers en hoofdletters in je wachtwoord.",
 
+    "registerrequired-form-confirmPassword-placeholder": "En herhaal hem asjeblieft nog een keertje",
+
     "registerrequired-form-network-label": "Wil je nu al aansluiten bij een (organisatie)netwerk?",
     "registerrequired-form-network-placeholder": "Kies hier een netwerk",
     "registerrequired-form-network-validation": "waarom",

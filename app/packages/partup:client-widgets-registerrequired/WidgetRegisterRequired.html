@@ -22,7 +22,10 @@
         {{#autoForm schema=formSchema id="registerRequiredForm" class="pu-form" theme="plain"}}
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registerrequired-form-name-label'}}</span>
-                {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
+                <span class="pu-sub-input {{ PartupFieldClasses name='name' }}" >{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
+                {{#if afFieldIsInvalid name='name'}}
+                    <span class="pu-sub-error">{{afFieldMessage name='name'}}</span>
+                {{/if}}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'registerrequired-form-name-validation'}}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-name-tooltip' }}</p></span>
@@ -38,17 +41,28 @@
                 </a>
             </label>
 
-            <label class="pu-formfield">
-                <span class="pu-label">{{_ 'registerrequired-form-password-label'}}</span>
+            <fieldset class="pu-formfield">
+                <label for="pu-password">
+                    <span class="pu-label">{{_ 'registerrequired-form-password-label'}}</span>
+                </label>
                 <div class="pu-inputholder">
-                    {{> afFieldInput name='password' placeholder=placeholders.password class="pu-input" }}
+                    {{> afFieldInput id="pu-password" name='password' placeholder=placeholders.password class="pu-input" }}
                 </div>
+                {{#if afFieldIsInvalid name='password'}}
+                    <span class="pu-sub-error">{{afFieldMessage name='password'}}</span>
+                {{/if}}
+                <div class="pu-inputholder">
+                    {{> afFieldInput name='confirmPassword' placeholder=placeholders.confirmPassword class="pu-input" }}
+                </div>
+                {{#if afFieldIsInvalid name='confirmPassword'}}
+                    <span class="pu-sub-error">{{afFieldMessage name='confirmPassword'}}</span>
+                {{/if}}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'registerrequired-form-password-validation' }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-password-tooltip' }}</p></span>
                 </a>
-            </label>
-    
+            </fieldset>
+
             <footer>
                 <input class="pu-button pu-button-primary" type="submit" value="{{_ 'registerrequired-form-submit'}}">
             </footer>

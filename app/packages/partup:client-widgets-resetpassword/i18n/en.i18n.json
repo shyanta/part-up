@@ -7,5 +7,7 @@
     "resetpassword-form-password-validation": "@Minimaal 8 karakters, 1 getal en 1 hoofdletter",
     "resetpassword-form-password-tooltip": "@Veiligheid wachtwoorden",
 
+    "resetpassword-form-confirmPassword-placeholder": "@And repeat it once please",
+
     "resetpassword-form-submit": "@Wachtwoord opslaan"
 }

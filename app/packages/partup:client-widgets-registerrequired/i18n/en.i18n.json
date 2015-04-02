@@ -21,6 +21,8 @@
     "registerrequired-form-password-validation": "why",
     "registerrequired-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Try using special characters, numbers and capitals in your password.",
 
+    "registerrequired-form-confirmPassword-placeholder": "And repeat it once please",
+
     "registerrequired-form-network-label": "Wil je nu al aansluiten bij een (organisatie)netwerk?",
     "registerrequired-form-network-placeholder": "Kies hier een netwerk",
     "registerrequired-form-network-validation": "why",
