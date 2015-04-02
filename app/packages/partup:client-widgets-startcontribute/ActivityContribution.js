@@ -175,6 +175,9 @@ Template.ActivityContribution.events({
         // reset input associated with the data key
         var input = template.find('input[data-change-contribution=' + valueKey + ']');
         $(input).val('');
+
+        // Submit form to save
+        $('#' + template.data._id).submit();
     }
 });
 
