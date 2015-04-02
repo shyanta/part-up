@@ -13,7 +13,7 @@ Template.WidgetRegisterRequired.events({
         }, function(error) {
 
             if(error) {
-                Partup.ui.notify.iError('generic-error');
+                Partup.ui.notify.iError('error-method-register-' + Partup.ui.strings.slugify(error.name));
                 return;
             }
 
@@ -27,7 +27,7 @@ Template.WidgetRegisterRequired.events({
         }, function(error) {
 
             if(error) {
-                Partup.ui.notify.iError('generic-error');
+                Partup.ui.notify.iError('error-method-register-' + Partup.ui.strings.slugify(error.name));
                 return false;
             }
 
@@ -54,7 +54,7 @@ AutoForm.hooks({
                 }
             }, function(error) {
                 if (error) {
-                    Partup.ui.notify.iError(error.reason);
+                    Partup.ui.notify.error(error.reason);
                     self.done(new Error(error.reason));
                 }
                 self.done();

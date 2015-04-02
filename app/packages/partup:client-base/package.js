@@ -22,6 +22,7 @@ Package.onUse(function(api) {
         'namespace.js',
         'ui/notify.js',
         'ui/language.js',
+        'ui/strings.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',

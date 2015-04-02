@@ -1,4 +1,6 @@
 {
+    "error-method-register-Accounts-LoginCancelledError": "Login cancelled",
+
     "error-ss-required": "This field is required",
     "error-ss-minString": "This value must be at least [min] characters",
     "error-ss-maxString": "This value cannot exceed [max] characters",
@@ -19,8 +21,8 @@
     "error-ss-expectedConstructor": "This value does not meet the requirements",
     "error-ss-keyNotInSchema": "This field doesn't belong to this data",
     "error-ss-regex-default": "This value does not meet the requirements",
-    "error-ss-regex-Email": "This value must be a valid e-mail address",
-    "error-ss-regex-WeakEmail": "This value must be a valid e-mail address",
+    "error-ss-regex-Email": "This value must be a valid email address",
+    "error-ss-regex-WeakEmail": "This value must be a valid email address",
     "error-ss-regex-Domain": "This value must be a valid domain",
     "error-ss-regex-WeakDomain": "This value must be a valid domain",
     "error-ss-regex-IP": "This value must be a valid IP address",
