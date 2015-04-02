@@ -28,8 +28,18 @@ Template.WidgetStartPromote.events({
     'click [data-share]': function sharePartup(event, template){
         var socialTarget = $(event.currentTarget).data("share");
         var sharedSocials = template.shared.get();
-        sharedSocials[socialTarget] = !sharedSocials[socialTarget];
-        template.shared.set(sharedSocials);
+
+        if(!sharedSocials[socialTarget]){
+            sharedSocials[socialTarget] = true;
+            template.shared.set(sharedSocials);
+            Partup.ui.notify.success(__('startpromote-notify-shared-success', socialTarget));
+        } else {
+            Partup.ui.notify.error(__('startpromote-notify-shared-error', socialTarget));
+        }
+    },
+    'click [data-copy-to-clipboard]': function copyToClipboard(event, template){
+            Partup.ui.notify.error(__('startpromote-notify-copy-to-clipboard-error'));
+
     }
 });
 

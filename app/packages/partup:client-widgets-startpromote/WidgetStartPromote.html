@@ -14,21 +14,24 @@
                 <span class="pu-label">{{_ 'startpromote-title-sharebuttons' }}</span>
                 <ul class="pu-list">
                     <li>
-                        <a data-share="twitter" class="pu-button pu-button-twitter pu-button-icon {{#if shared.twitter}}pu-state-shared{{/if}}">
+                        <a data-share="twitter" class="pu-button pu-button-share pu-button-twitter pu-button-icon {{#if shared.twitter}}pu-state-shared{{/if}}">
                             <i class="fa fa-twitter"></i>
                             {{_ 'startpromote-button-twitter' }}
+                            <i class="fa fa-check"></i>
                         </a>
                     </li>
                     <li>
-                        <a data-share="facebook" class="pu-button pu-button-facebook pu-button-icon {{#if shared.facebook}}pu-state-shared{{/if}}">
+                        <a data-share="facebook" class="pu-button pu-button-share pu-button-facebook pu-button-icon {{#if shared.facebook}}pu-state-shared{{/if}}">
                             <i class="fa fa-facebook"></i>
                             {{_ 'startpromote-button-facebook' }}
+                            <i class="fa fa-check"></i>
                         </a>
                     </li>
                     <li>
-                        <a data-share="linkedin" class="pu-button pu-button-linkedin pu-button-icon {{#if shared.linkedin}}pu-state-shared{{/if}}">
+                        <a data-share="linkedin" class="pu-button pu-button-share pu-button-linkedin pu-button-icon {{#if shared.linkedin}}pu-state-shared{{/if}}">
                             <i class="fa fa-linkedin"></i>
                             {{_ 'startpromote-button-linkedin' }}
+                            <i class="fa fa-check"></i>
                         </a>
                     </li>
                 </ul>
@@ -36,7 +39,7 @@
 
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startpromote-title-sharelink' }}</span>
-                <input type="text" value="{{partupUrl}}" class="pu-input">
+                <a class="pu-input" data-copy-to-clipboard>{{partupUrl}}</a>
             </div>
         </article>
 
