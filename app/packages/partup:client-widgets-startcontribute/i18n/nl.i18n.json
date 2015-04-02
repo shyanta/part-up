@@ -7,6 +7,7 @@
     "startcontribute-form-want-label": "Ik neem deel",
 
     "startcontribute-form-can-label": "Ik kan dit doen",
+    "startcontribute-form-can_amount-label": "Ik kan dit doen voor",
     "startcontribute-form-can_amount-placeholder": "0",
 
     "startcontribute-form-have-label": "Ik breng in",
@@ -14,6 +15,10 @@
     "startcontribute-form-have_amount-placeholder": "0",
     "startcontribute-form-have_description-label": "of / en",
     "startcontribute-form-have_description-placeholder": "Bijvoorbeeld: een auto te leen",
+
+    "startcontribute-summary-want-label": "neemt deel",
+    "startcontribute-summary-can-label": "kan dit doen voor",
+    "startcontribute-summary-have-label": "brengt in",
 
     "startcontribute-button-next_page": "Vind Uppers"
 }
