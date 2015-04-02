@@ -2,16 +2,17 @@ Template.ActivityContribution.created = function () {
     this.contributions = new ReactiveDict();
 
     // contribute want init values
-    this.contributeWantEnabled = new ReactiveVar(false);
+    this.contributeWantChecked = new ReactiveVar(false);
 
     // contribute can init values
-    this.contributeCanEnabled = new ReactiveVar(false);
-    this.contributeCanAmount = new ReactiveVar(0);
+    this.showCanContribute = new ReactiveVar(false);
+    this.contributeCanChecked = new ReactiveVar(false);
 
     // contribute have init values
-    this.contributeHaveEnabled = new ReactiveVar(false);
-    this.contributeHaveAmount = new ReactiveVar(0);
-    this.contributeHaveDescription = new ReactiveVar('');
+    this.showHaveContribute = new ReactiveVar(false);
+    this.contributeHaveChecked = new ReactiveVar(false);
+
+    //TODO need amount and desc values to reset.
 };
 
 Template.ActivityContribution.helpers({
@@ -26,7 +27,13 @@ Template.ActivityContribution.helpers({
             Template.instance().contributions.set('fields', contribution);
             var fields = Partup.transformers.contribution.toFormContribution(Template.instance().contributions.get('fields'));
             if (fields.type_want) {
-                Template.instance().contributeWantEnabled.set(true);
+                Template.instance().contributeWantChecked.set(true);
+            }
+            if (fields.type_can) {
+                Template.instance().contributeCanChecked.set(true);
+            }
+            if (fields.type_have) {
+                Template.instance().contributeHaveChecked.set(true);
             }
             console.log('fields:');
             console.log(fields);
@@ -36,7 +43,8 @@ Template.ActivityContribution.helpers({
         }
     },
     'activityHasContributions': function () {
-        return Template.instance().contributions.get('fields').types.length > 0;
+        var contributions = Template.instance().contributions.get('fields').types;
+        return contributions.length > 0;
     },
     'currentUpperContribution': function () {
         return Contributions.find({ activity_id: this._id, upper_id: Meteor.user()._id });
@@ -44,14 +52,20 @@ Template.ActivityContribution.helpers({
     'contributions': function () {
         return Contributions.find({ activity_id: this._id });
     },
-    'contributeHaveEnabled': function () {
-        return Template.instance().contributeHaveEnabled.get();
+    'showCanContribute': function () {
+        return Template.instance().showCanContribute.get() ? true : false;
     },
-    'contributeCanEnabled': function () {
-        return Template.instance().contributeCanEnabled.get();
+    'showHaveContribute': function () {
+        return Template.instance().showHaveContribute.get() ? true : false;
     },
     'contributeWantChecked': function () {
-        return Template.instance().contributeWantEnabled.get() ? 'checked' : '';
+        return Template.instance().contributeWantChecked.get() ? 'checked' : '';
+    },
+    'contributeCanChecked': function () {
+        return Template.instance().contributeCanChecked.get() ? 'checked' : '';
+    },
+    'contributeHaveChecked': function () {
+        return Template.instance().contributeHaveChecked.get() ? 'checked' : '';
     },
     userImage: function () {
         var user = Meteor.user();
@@ -139,7 +153,7 @@ Template.ActivityContribution.events({
     'click [data-check-contribution]': function checkContribution(event, template) {
         var valueKey = $(event.currentTarget).data("check-contribution");
 
-        if (valueKey === 'contributeWantEnabled') {
+        if (valueKey === 'contributeWantChecked') {
             // Submit form when user clicked the 'up for this' button
             $('#' + template.data._id).submit();
         }
@@ -149,6 +163,7 @@ Template.ActivityContribution.events({
     'click [data-clear]': function clearContribution(event, template) {
         // reset field by data key
         var valueKey = $(event.currentTarget).data("clear");
+        console.log(template[valueKey]);
         template[valueKey].set(false);
 
         // reset input associated with the data key
@@ -189,7 +204,7 @@ AutoForm.addHooks(
                 });
             }
 
-            console.log(this.template.parent().contributions.get());
+            console.log(this.template.parent().contributions.get('fields'));
 
             AutoForm.resetForm(this.formId);
             this.done();

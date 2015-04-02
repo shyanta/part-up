@@ -15,7 +15,7 @@ Meteor.methods({
 
         try {
             var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
-            newContribution.created_at = Date.now();
+            newContribution.created_at = new Date();
             newContribution.activity_id = activityId;
             newContribution.upper_id = upper._id;
             newContribution.partup_id = activity.partup_id;
@@ -50,7 +50,7 @@ Meteor.methods({
 
         try {
             var updatedContribution = Partup.transformers.contribution.fromFormContribution(fields);
-            updatedContribution.updated_at = Date.now();
+            updatedContribution.updated_at = new Date();
 
             Contributions.update(contribution, { $set: updatedContribution });
             Event.emit('contributions.updated', updatedContribution, fields);
