@@ -18,7 +18,9 @@ Partup.transformers.contribution = {
 
         contribution.types.forEach(function (type) {
             if (type.type == 'want') contributionValues.type_want = true;
+            if (type.type == 'can') contributionValues.type_can = true;
             if (type.type == 'can' && type.type_data.amount) contributionValues.type_can_amount = type.type_data.amount;
+            if (type.type == 'have') contributionValues.type_have = true;
             if (type.type == 'have' && type.type_data.amount) contributionValues.type_have_amount = type.type_data.amount;
             if (type.type == 'have' && type.type_data.description) contributionValues.type_have_description = type.type_data.description;
             if (type.type == 'donate' && type.type_data.amount) contributionValues.type_donate_amount = type.type_data.amount;
@@ -38,7 +40,6 @@ Partup.transformers.contribution = {
         var types = [];
 
         if (fields.type_want) types.push({'type': 'want'});
-
         if (fields.type_can_amount) {
             types.push({
                 'type': 'can',
@@ -47,34 +48,14 @@ Partup.transformers.contribution = {
                 }
             });
         }
-        if (fields.type_have_amount && fields.type_have_description) {
-            types.push(
-                {
-                    'type': 'have',
-                    'type_data': {
-                        'amount': fields.type_have_amount,
-                        'description': fields.type_have_description
-                    }
+        if (fields.type_have) {
+            types.push({
+                'type': 'have',
+                'type_data': {
+                    'amount': fields.type_have_amount,
+                    'description': fields.type_have_description
                 }
-            );
-        } else if (fields.type_have_amount) {
-            types.push(
-                {
-                    'type': 'have',
-                    'type_data': {
-                        'amount': fields.type_have_amount
-                    }
-                }
-            );
-        } else if (fields.type_have_description) {
-            types.push(
-                {
-                    'type': 'have',
-                    'type_data': {
-                        'description': fields.type_have_description
-                    }
-                }
-            );
+            });
         }
 
         contribution.types = types;
