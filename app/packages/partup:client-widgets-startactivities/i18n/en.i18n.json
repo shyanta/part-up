@@ -20,5 +20,8 @@
     "startactivities-form-end_date-tooltip": "end_date tooltip",
 
     "startactivities-form-submit": "Create activity",
-    "startactivities-button-next_page": "What will you contribute?"
+    "startactivities-form-save": "@Save",
+    "startactivities-button-next_page": "What will you contribute?",
+    "startactivities-button-edit": "@Edit",
+    "startactivities-button-remove": "@Remove activity"
 }

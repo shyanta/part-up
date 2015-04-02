@@ -20,5 +20,8 @@
     "startactivities-form-end_date-tooltip": "deadline tooltip",
 
     "startactivities-form-submit": "Maak activiteit aan",
-    "startactivities-button-next_page": "Wat ga jij bijdragen?"
+    "startactivities-form-save": "@Opslaan",
+    "startactivities-button-next_page": "Wat ga jij bijdragen?",
+    "startactivities-button-edit": "@Bewerken",
+    "startactivities-button-remove": "@Verwijderen"
 }
