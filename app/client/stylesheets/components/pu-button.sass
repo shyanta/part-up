@@ -247,7 +247,9 @@
 
             &:active
                 color: $color-text-subtle
-    
+
+        &-subtle 
+            color: $color-text-subtle
     // Type: avatar
     &-avatar
         figure 
@@ -360,6 +362,21 @@
                 span 
                     transition: opacity $animation-duration
                     opacity: 0
+
+    &-edit 
+        color: $color-text-subtle
+        font-weight: bold
+        background-color: transparent
+        cursor: pointer
+        &:hover
+            background-color: transparent
+            color: $color-text
+
+        &:active
+            transform: none
+            transition-duration: 0
+            background-color: transparent
+
 
     &-no-side-padding
         padding-left: 0
