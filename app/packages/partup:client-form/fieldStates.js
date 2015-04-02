@@ -3,33 +3,20 @@ var onceBlurredStates = new ReactiveDict;
 var focusedStates = new ReactiveDict;
 var invalidStates = new ReactiveDict;
 
-var getContext = function getContext (event) {
-    if(!event || !event.currentTarget
-    || !event.currentTarget.form || !event.currentTarget.form.id
-    || !event.currentTarget.dataset || !event.currentTarget.dataset.schemaKey) {
-        return false;
-    }
-
-    var formId = event.currentTarget.form.id;
-    var fieldName = event.currentTarget.dataset.schemaKey;
-
-    var output = {
-        formId: formId,
-        fieldName: fieldName,
-        reactiveKey: formId + '_' + fieldName
-    };
-
-    return output;
-};
-
+/*
+ * Field find reactiveKey
+ */
 Template.afFieldInput.onRendered(function() {
     var inputElm = this.find('[data-schema-key]');
-    var formId = inputElm.form.id;
+    var formId = AutoForm.getFormId();
     var fieldName = inputElm.dataset.schemaKey;
     var reactiveKey = formId + '_' + fieldName;
     this.reactiveKey = reactiveKey;
 });
 
+/*
+ * Field unset states
+ */
 Template.afFieldInput.onDestroyed(function() {
     dirtyStates.set(this.reactiveKey, false);
     onceBlurredStates.set(this.reactiveKey, false);
@@ -37,34 +24,24 @@ Template.afFieldInput.onDestroyed(function() {
     invalidStates.set(this.reactiveKey, false);
 });
 
+/*
+ * Extra field events
+ */
 Template.afFieldInput.events({
     'keyup [data-schema-key], blur [data-schema-key]': function (event, template) {
-        var context = getContext(event);
-        if(!context) return;
+        var fieldName = event.currentTarget.dataset.schemaKey;
+        var formId = AutoForm.getFormId();
+        var invalid = !AutoForm.validateField(formId, fieldName);
 
-        // Dirty state
-        dirtyStates.set(context.reactiveKey, true);
-
-        // Invalid state
-        var valid = AutoForm.validateField(context.formId, context.fieldName);
-        invalidStates.set(context.reactiveKey, !valid);
+        dirtyStates.set(template.reactiveKey, true);
+        invalidStates.set(template.reactiveKey, invalid);
     },
     'blur [data-schema-key]': function (event, template) {
-        var context = getContext(event);
-        if(!context) return;
-
-        // Once blurred state
-        onceBlurredStates.set(context.reactiveKey, true);
-
-        // Focused state
-        focusedStates.set(context.reactiveKey, false);
+        onceBlurredStates.set(template.reactiveKey, true);
+        focusedStates.set(template.reactiveKey, false);
     },
     'focus [data-schema-key]': function (event, template) {
-        var context = getContext(event);
-        if(!context) return;
-
-        // Focused state
-        focusedStates.set(context.reactiveKey, true);
+        focusedStates.set(template.reactiveKey, true);
     }
 });
 
@@ -72,13 +49,14 @@ Template.afFieldInput.events({
  * afFieldClasses
  */
 Template.registerHelper('PartupFieldClasses', function autoFormFieldClasses(options) {
+
+    var formId = AutoForm.getFormId();
     if(!options
     || !options.hash || !options.hash.name
-    || !this._af || !this._af.formId) {
+    || !formId) {
         return false;
     }
 
-    var formId = this._af.formId;
     var fieldName = options.hash.name;
     var reactiveKey = formId + '_' + fieldName;
 
