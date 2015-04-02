@@ -38,7 +38,7 @@ Meteor.methods({
             }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Comment could not be inserted.');
+            throw new Meteor.Error(400, 'updates-comments-insert-failure');
         }
     },
 

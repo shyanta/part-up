@@ -92,24 +92,12 @@ Template.WidgetPartupdetailUpdateItem.events({
         event.preventDefault();
         var form = event.currentTarget;
         var commentValue = lodash.find(form, {name: 'commentValue'}).value;
-        if(!commentValue) return;
 
+        if (! commentValue) return;
 
-        // temp reactive var until mongo implementation
-        // var updates = template.data.updateVar.get();
-        // lodash.find(updates, { _id: template.data.update._id }).comments.push({
-        //     creator: {
-        //         name: 'Jesse de Vries',
-        //         image: {
-        //             url: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p320x320/10372513_10152630117689315_2823570313206588958_n.jpg?oh=e76400243d7ed2678ba0d74edd6640b1&oe=55B4CF02&__gda__=1437886258_2a6463042ac4dcef71cdbee34d6c55c7'
-        //         }
-        //     },
-        //     content: commentValue
-        // });
-        // template.data.updateVar.set(updates);
-
-        // todo: mongo implementation
-        Meteor.call('updates.comments.insert', template.data.update._id, { content: commentValue });
+        Meteor.call('updates.comments.insert', template.data.update._id, { content: commentValue }, function (error, result) {
+            if (error) return Partup.ui.notify.iError('error-method-' + error.reason);
+        });
 
         // Reset
         commentPostButtonActiveDict.set(template.data.update._id, false);

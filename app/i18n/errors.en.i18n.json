@@ -31,5 +31,7 @@
     "error-ss-regex-Url": "This value must be a valid URL",
     "error-ss-regex-Id": "This value must be a valid ID",
 
-    "error-ss-passwordMismatch": "The passwords do not match"
+    "error-ss-passwordMismatch": "The passwords do not match",
+
+    "error-method-updates-comments-insert-failure": "Could not add the comment"
 }
