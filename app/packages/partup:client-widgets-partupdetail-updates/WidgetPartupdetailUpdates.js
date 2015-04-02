@@ -1,9 +1,11 @@
 // temp reactive var until mongo implementation
 var updatesVar = new ReactiveVar;
 var stubUser = {
-    name: 'Jesse de Vries',
-    image: {
-        url: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p320x320/10372513_10152630117689315_2823570313206588958_n.jpg?oh=e76400243d7ed2678ba0d74edd6640b1&oe=55B4CF02&__gda__=1437886258_2a6463042ac4dcef71cdbee34d6c55c7'
+    profile: {
+        name: 'Jesse de Vries',
+        image: {
+            url: 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p320x320/10372513_10152630117689315_2823570313206588958_n.jpg?oh=e76400243d7ed2678ba0d74edd6640b1&oe=55B4CF02&__gda__=1437886258_2a6463042ac4dcef71cdbee34d6c55c7'
+        }
     }
 };
 updatesVar.set([
@@ -177,17 +179,17 @@ updatesVar.set([
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-// var getUpdates = function getUpdates () {
+var getUpdates = function getUpdates () {
 
-//     // Real data
-//     var partupId = Router.current().params._id;
+    // Real data
+    var partupId = Router.current().params._id;
 
-//     return Updates.find({ partup_id: partupId }).map(function (update, idx) {
-//         update.arrayIndex = idx;
-//         return update;
-//     });
+    return Updates.find({ partup_id: partupId }).map(function (update, idx) {
+        update.arrayIndex = idx;
+        return update;
+    });
 
-// };
+};
 
 /*************************************************************/
 /* Widget helpers */
@@ -195,19 +197,19 @@ updatesVar.set([
 Template.WidgetPartupdetailUpdates.helpers({
 
     'updates': function helperUpdates () {
-        return updatesVar.get(); // temp reactive var until mongo implementation
+        // return updatesVar.get(); // temp reactive var until mongo implementation
         return getUpdates();
     },
 
     // temp reactive var until mongo implementation
     'reactiveUpdatesVar': function helperReactiveUpdatesVar () {
-        return updatesVar;
+        return getUpdates();
     },
 
     'anotherDay': function helperAnotherday (update) {
         var TIME_FIELD = 'created_at';
-        
-        var updates = updatesVar.get(); // getUpdates()
+
+        var updates = getUpdates(); //updatesVar.get(); // getUpdates()
         var currentIndex = lodash.findIndex(updates, update);
         var previousUpdate = updates[currentIndex - 1];
         var previousMoment = moment();

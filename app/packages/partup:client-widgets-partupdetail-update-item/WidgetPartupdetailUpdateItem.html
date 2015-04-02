@@ -5,8 +5,8 @@
 
             <!-- User -->
             <figure class="pu-avatar">
-                <a href="#" rel="author" class="pu-sub-image" style="{{#if update.user.image}}background-image: url('{{ update.user.image.url }}');{{/if}}"></a>
-                <span class="pu-sub-label">{{ update.user.name }}</span>
+                <a href="#" rel="author" class="pu-sub-image" style="{{#if updateUpper.profile.image}}background-image: url('{{ updateUpper.profile.image.url }}');{{/if}}"></a>
+                <span class="pu-sub-label">{{ updateUpper.profile.name }}</span>
             </figure>
 
             <!-- Time -->
@@ -28,7 +28,7 @@
 
             <!-- new_tag -->
             {{#if partupEqualsExactly update.type 'new_tag' }}
-                {{#with update.data }}
+                {{#with update.type_data }}
                     <section>
                         <span class="pu-tag">{{ tag }}</span>
                     </section>
@@ -37,7 +37,7 @@
 
             <!-- changed_tag -->
             {{#if partupEqualsExactly update.type 'changed_tag' }}
-                {{#with update.data }}
+                {{#with update.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
                             <li><span class="pu-tag">{{ old_tag }}</span></li>
@@ -49,7 +49,7 @@
 
             <!-- changed_ending_date -->
             {{#if partupEqualsExactly update.type 'changed_ending_date' }}
-                {{#with update.data }}
+                {{#with update.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
                             <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal old_date }}</span></li>
@@ -61,7 +61,7 @@
 
             <!-- changed_title -->
             {{#if partupEqualsExactly update.type 'changed_title' }}
-                {{#with update.data }}
+                {{#with update.type_data }}
                     <section>
                         <p class="pu-title pu-title-updateitem">{{ title }}</p>
                     </section>
@@ -70,7 +70,7 @@
 
             <!-- changed_description -->
             {{#if partupEqualsExactly update.type 'changed_description' }}
-                {{#with update.data }}
+                {{#with update.type_data }}
                     <section>
                         <p class="pu-paragraph pu-paragraph-large">{{ description }}</p>
                     </section>

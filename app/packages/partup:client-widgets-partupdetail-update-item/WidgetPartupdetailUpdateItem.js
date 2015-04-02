@@ -55,7 +55,17 @@ Template.WidgetPartupdetailUpdateItem.helpers({
 
     'currentUser': function helperUser () {
         return Meteor.user();
-    }
+    },
+
+    'updateUpper': function getUpdateUpper () {
+        var user = Meteor.users.findOne({ _id: this.update.upper_id });
+
+        if (user.profile && user.profile.image) {
+            user.profile.image = Images.findOne({ _id: user.profile.image });
+        }
+
+        return user;
+    },
 
 });
 
@@ -64,7 +74,7 @@ Template.WidgetPartupdetailUpdateItem.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.events({
-    
+
     'click [data-expand-comment-field]': function eventClickExpandCommentField (event, template) {
         commentInputFieldExpandedDict.set(template.data.update._id, true);
     },
@@ -97,7 +107,7 @@ Template.WidgetPartupdetailUpdateItem.events({
             content: commentValue
         });
         template.data.updateVar.set(updates);
-        
+
 
         // todo: mongo implementation
         // --

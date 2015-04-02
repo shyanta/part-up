@@ -4,8 +4,8 @@
 Event.on('partups.supporters.inserted', function (partup, upper) {
     var update = {
         partup_id: partup._id,
-        type: 'partups.supporters.new',
-        supporter: upper._id,
+        upper_id: upper._id,
+        type: 'partups_supporters_new',
         created_at: Date.now()
     };
 
@@ -36,6 +36,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
             }
         },
         new: true,
+        created_at: Date.now()
     }
 
     if (partup.uppers) {
