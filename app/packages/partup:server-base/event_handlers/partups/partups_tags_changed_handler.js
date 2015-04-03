@@ -1,4 +1,4 @@
-Event.on('partups.tags.updated', function (partup, value) {
+Event.on('partups.tags.changed', function (partup, value) {
     var upper = Meteor.user();
     if (! upper) return;
 
@@ -12,7 +12,7 @@ Event.on('partups.tags.updated', function (partup, value) {
         };
 
         if (change.type === 'changed') {
-            update.type = 'partup_tag_changed';
+            update.type = 'partups_tags_changed';
             update.type_data = {
                 old_tag: change.old_tag,
                 new_tag: change.new_tag
@@ -20,14 +20,14 @@ Event.on('partups.tags.updated', function (partup, value) {
         }
 
         if (change.type === 'added') {
-            update.type = 'partup_tag_added';
+            update.type = 'partups_tags_added';
             update.type_data = {
                 new_tag: change.new_tag
             }
         }
 
         if (change.type === 'removed') {
-            update.type = 'partup_tag_removed';
+            update.type = 'partups_tags_removed';
             update.type_data = {
                 old_tag: change.old_tag
             }

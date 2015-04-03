@@ -5,18 +5,13 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
     var update = {
         partup_id: partup._id,
         upper_id: upper._id,
-        type: 'partups_supporters_new',
+        type: 'partups_supporters_added',
         created_at: new Date()
     };
 
     // TODO: Validation
 
-    Updates.insert(update, function (error, id) {
-        update._id = id;
-
-        Event.emit('partups.updates.inserted', update);
-        Log.debug('Update generated for Partup [' + partup._id + '] with type [partups_supporters_new].');
-    });
+    Updates.insert(update);
 });
 
 /**
@@ -24,7 +19,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
  */
 Event.on('partups.supporters.inserted', function (partup, upper) {
     var notification = {
-        type: 'partups_supporters_new',
+        type: 'partups_supporters_added',
         type_data: {
             partup: {
                 name: partup.name

@@ -38,7 +38,7 @@ var basicAfterUpdate = function (namespace) {
 
                 if (equal(value.old, value.new)) return;
 
-                Event.emit(namespace + '.' + key + '.updated', document, value);
+                Event.emit(namespace + '.' + key + '.changed', document, value);
             });
         }
     }

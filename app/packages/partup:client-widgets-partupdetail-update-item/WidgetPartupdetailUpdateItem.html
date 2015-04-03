@@ -26,8 +26,8 @@
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
 
-            <!-- partup_tag_added -->
-            {{#if partupEqualsExactly update.type 'partup_tag_added' }}
+            <!-- partups_tags_added -->
+            {{#if partupEqualsExactly update.type 'partups_tags_added' }}
                 {{#with update.type_data }}
                     <section>
                         <span class="pu-tag">{{ new_tag }}</span>
@@ -35,8 +35,8 @@
                 {{/with}}
             {{/if }}
 
-            <!-- partup_tag_removed -->
-            {{#if partupEqualsExactly update.type 'partup_tag_removed' }}
+            <!-- partups_tags_removed -->
+            {{#if partupEqualsExactly update.type 'partups_tags_removed' }}
                 {{#with update.type_data }}
                     <section>
                         <span class="pu-tag">{{ old_tag }}</span>
@@ -44,8 +44,8 @@
                 {{/with}}
             {{/if }}
 
-            <!-- partup_tag_changed -->
-            {{#if partupEqualsExactly update.type 'partup_tag_changed' }}
+            <!-- partups_tags_changed -->
+            {{#if partupEqualsExactly update.type 'partups_tags_changed' }}
                 {{#with update.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
@@ -56,32 +56,32 @@
                 {{/with}}
             {{/if }}
 
-            <!-- changed_ending_date -->
-            {{#if partupEqualsExactly update.type 'changed_ending_date' }}
+            <!-- partups_end_date_changed -->
+            {{#if partupEqualsExactly update.type 'partups_end_date_changed' }}
                 {{#with update.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
-                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal old_date }}</span></li>
-                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal new_date }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal old_end_date }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal new_end_date }}</span></li>
                         </ul>
                     </section>
                 {{/with}}
             {{/if }}
 
-            <!-- changed_title -->
-            {{#if partupEqualsExactly update.type 'changed_title' }}
+            <!-- partups_name_changed -->
+            {{#if partupEqualsExactly update.type 'partups_name_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        <p class="pu-title pu-title-updateitem">{{ title }}</p>
+                        <p class="pu-title pu-title-updateitem">{{ new_name }}</p>
                     </section>
                 {{/with}}
             {{/if }}
 
-            <!-- changed_description -->
-            {{#if partupEqualsExactly update.type 'changed_description' }}
+            <!-- partups_description_changed -->
+            {{#if partupEqualsExactly update.type 'partups_description_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        <p class="pu-paragraph pu-paragraph-large">{{ description }}</p>
+                        <p class="pu-paragraph pu-paragraph-large">{{ new_description }}</p>
                     </section>
                 {{/with}}
             {{/if }}
