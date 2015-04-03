@@ -14,6 +14,10 @@ Meteor.publish('partups.one.activities', function (partupId) {
     return Activities.find({ partup_id: partupId });
 });
 
+Meteor.publish('partups.one.contributions', function (partupId) {
+    return Contributions.find({ partup_id: partupId });
+});
+
 Meteor.publish('partups.one.updates', function (partupId) {
     var subscription = this;
     var updatesHandle = null;
@@ -75,9 +79,7 @@ Meteor.publish('partups.one', function (partupId) {
         removed: function(id) {
             uppersHandle[id] && uppersHandle[id].stop();
             supportersHandle[id] && supportersHandle[id].stop();
-            activitiesHandle[id] && activitiesHandle[id].stop();
             imagesHandle[id] && imagesHandle[id].stop();
-            updatesHandle[id] && updatesHandle.stop();
 
             subscription.removed(Partups._name, id);
         }

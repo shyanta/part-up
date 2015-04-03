@@ -33,12 +33,13 @@ Package.onUse(function(api) {
         'services/tags.js',
         'services/validators.js',
         'collections/activities.js',
+        'collections/contributions.js',
         'collections/updates.js',
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
         'schemas/activity.js',
-        'schemas/contribute.js',
+        'schemas/contribution.js',
         'schemas/forgotPassword.js',
         'schemas/login.js',
         'schemas/network.js',
@@ -48,7 +49,9 @@ Package.onUse(function(api) {
         'schemas/tag.js',
         'schemas/update.js',
         'transformers/partup.js',
-        'transformers/user.js'
+        'transformers/user.js',
+        'transformers/activity.js',
+        'transformers/contributions.js'
     ]);
 
     // Namespace
@@ -57,6 +60,7 @@ Package.onUse(function(api) {
     // Collections
     api.export('Partups');
     api.export('Activities');
+    api.export('Contributions');
     api.export('Notifications');
     api.export('Images');
     api.export('Updates');

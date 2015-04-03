@@ -1,6 +1,6 @@
 /**
  * Base Activity schema
- * @name partupBaseSchema
+ * @name activityBaseSchema
  * @memberOf partup.schemas
  * @private
  */
@@ -30,71 +30,9 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         regEx: SimpleSchema.RegEx.Id
     },
     contributions: {
-        type: [Object],
+        type: [String],
         optional: true
     },
-        "contributions.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-        "contributions.$.created_at": {
-            type: Date,
-            defaultValue: new Date()
-        },
-        "contributions.$.feedbacks": {
-            type: [Object],
-            optional: true
-        },
-            "contributions.feedbacks.$.description": {
-                type: String,
-                optional: true
-            },
-            "contributions.feedbacks.$.rating": {
-                type: Number,
-                decimal: true,
-                optional: true
-            },
-            "contributions.feedbacks.$.upper": {
-                type: Object
-            },
-                "contributions.feedbacks.$.upper._id": {
-                    type: String,
-                    regEx: SimpleSchema.RegEx.Id
-                },
-                "contributions.feedbacks.$.upper.image": {
-                    type: Object,
-                    optional: true
-                },
-                "contributions.feedbacks.$.upper.name": {
-                    type: String,
-                    regEx: SimpleSchema.RegEx.Id
-                },
-        "contributions.$.types": {
-            type: [Object]
-        },
-            "contributions.$.types.$.type": {
-                type: String
-            },
-            "contributions.$.types.$.type_data": {
-                type: Object
-            },
-                "contributions.$.types.$.type_data.amount": {
-                    type: Number,
-                    min: 0,
-                    optional: true
-                },
-                "contributions.$.types.$.type_data.description": {
-                    type: String,
-                    optional: true
-                },
-        "contributions.$.updated_at": {
-            type: Date,
-            defaultValue: new Date()
-        },
-        "contributions.$.upper_id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
     created_at: {
         type: Date,
         defaultValue: new Date()

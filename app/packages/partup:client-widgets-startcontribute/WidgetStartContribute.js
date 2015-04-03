@@ -1,6 +1,5 @@
 Template.WidgetStartContribute.helpers({
     'Partup': Partup,
-    'placeholders': Partup.services.placeholders.startcontribute,
     'partupActivities': function () {
         var partupId = Session.get('partials.start-partup.current-partup');
         return Activities.find({ partup_id: partupId }, {sort: { created_at: -1 }});

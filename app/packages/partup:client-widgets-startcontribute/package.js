@@ -9,9 +9,12 @@ Package.onUse(function (api) {
     api.use([
         'templating',
         'aldeed:autoform',
+        'aldeed:template-extension',
         'partup:lib',
+        'partup:client-base',
         'tap:i18n',
-        'reactive-var'
+        'reactive-var',
+        'reactive-dict'
     ], 'client');
 
     api.addFiles([

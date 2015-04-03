@@ -1,58 +1,64 @@
 Meteor.methods({
     /**
-     * Insert a contribution in an Activity
+     * Insert a Contribution
      *
+     * @param {integer} activityId
      * @param {mixed[]} fields
      */
-    'activities.contributions.insert': function (activityId, fields) {
+    'contributions.insert': function (activityId, fields) {
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
-
-        // TODO: Validation
-
         var activity = Activities.findOneOrFail(activityId);
 
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+
+        check(fields, Partup.schemas.forms.contribution);
+
         try {
-            var contribution = {};
-            contribution.created_at = new Date();
-            contribution.updated_at = new Date();
-            contribution.upper_id = upper._id;
+            var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
+            newContribution.created_at = new Date();
+            newContribution.activity_id = activityId;
+            newContribution.upper_id = upper._id;
+            newContribution.partup_id = activity.partup_id;
 
-            var types = [];
-            if (fields.want) {
-                types.push({
-                    'type': 'want'
-                });
-            }
-            if (fields.have) {
-                types.push({
-                    'type': 'have',
-                    'type_data': {
-                        'amount': fields.type_have_amount,
-                        'description': fields.type_have_description
-                    }
-                });
-            }
-            if (fields.can) {
-                types.push({
-                    'type': 'can',
-                    'type_data': {
-                        'amount': fields.type_can_amount,
-                        'description': fields.type_can_description
-                    }
-                });
-            }
+            newContribution._id = Contributions.insert(newContribution);
+            Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
 
-            contribution.types = types;
+            Event.emit('contributions.inserted', newContribution);
 
-            Activities.update(activityId, {$push: {'contributions': contribution}});
-            Event.emit('partups.activities.contributions.inserted', activity, contribution);
-
-            return true;
-        } catch (error) {
+            return newContribution;
+         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be inserted.');
         }
     },
 
+    /**
+     * Update a Contribution
+     *
+     * @param {integer} contributionId
+     * @param {mixed[]} fields
+     */
+    'contributions.update': function (contributionId, fields) {
+        var upper = Meteor.user();
+        var contribution = Contributions.findOneOrFail(contributionId);
+
+        if (!upper || contribution.upper_id !== upper._id) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        check(fields, Partup.schemas.forms.contribution);
+
+        try {
+            var updatedContribution = Partup.transformers.contribution.fromFormContribution(fields);
+            updatedContribution.updated_at = new Date();
+
+            Contributions.update(contribution, { $set: updatedContribution });
+            Event.emit('contributions.updated', updatedContribution, fields);
+
+            return contribution;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Contribution could not be updated.');
+        }
+    }
 });
