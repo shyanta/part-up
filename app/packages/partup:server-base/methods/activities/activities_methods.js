@@ -19,8 +19,6 @@ Meteor.methods({
             fields.partup_id = partup._id;
             fields._id = Activities.insert(fields);
 
-            Event.emit('partups.activities.inserted', fields);
-
             return {
                 _id: fields._id
             }

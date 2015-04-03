@@ -33,11 +33,7 @@ Event.on('partups.tags.updated', function (partup, value) {
             }
         }
 
-        Updates.insert(update, function (error, id) {
-            update._id = id;
-
-            Event.emit('partups.updates.inserted', update);
-            Log.debug('Update generated for Partup [' + partup._id + '] with type [' + update.type + '].');
-        });
+        Updates.insert(update);
+        Log.debug('Update generated for Partup [' + partup._id + '] with type [' + update.type + '].');
     });
 });
