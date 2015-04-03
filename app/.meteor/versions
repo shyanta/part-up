@@ -93,6 +93,7 @@ partup:client-widgets-startactivities@0.0.1
 partup:client-widgets-startcontribute@0.0.1
 partup:client-widgets-startdetails@0.0.1
 partup:client-widgets-startpromote@0.0.1
+partup:copy-to-clipboard@0.0.1
 partup:lib@0.0.1
 partup:meteor-bender@0.1.7
 partup:server-base@0.0.1
