@@ -56,6 +56,25 @@ Template.PartialsPartupDetailSidebar.events({
 
     'click [data-joinsupporters]': function clickJoinsupporters () {
         Meteor.call('partups.supporters.insert', Router.current().params._id);
+    },
+
+    'click [data-share-facebook]': function clickShareFacebook (template, event) {
+        var url = Router.current().location.get().path;
+        var facebookUrl = Partup.ui.socials.generateFacebookShareUrl(url);
+        window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
+    },
+
+    'click [data-share-twitter]': function clickShareFacebook (template, event) {
+        var url = Router.current().location.get().path;
+        // TODO: I18n + wording
+        var twitterUrl = Partup.ui.socials.generateTwitterShareUrl('Deel deze partup op twitter!', url);
+        window.open(twitterUrl, 'pop', 'width=600, height=400, scrollbars=no');
+    },
+
+    'click [data-share-linkedin]': function clickShareFacebook (template, event) {
+        var url = Router.current().location.get().path;
+        var linkedInUrl = Partup.ui.socials.generateLinkedInShareUrl(url);
+        window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
     }
 
 });

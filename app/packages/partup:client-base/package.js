@@ -16,11 +16,12 @@ Package.onUse(function(api) {
         'chrismbeckett:toastr',
         'partup:copy-to-clipboard',
         'templating',
-        'tracker'
+	'tracker'
     ], ['client']);
 
     api.addFiles([
         'namespace.js',
+        'ui/socials.js',
         'ui/notify.js',
         'ui/language.js',
         'ui/strings.js',
