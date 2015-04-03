@@ -20,20 +20,20 @@
         <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
 
         {{#autoForm schema=formSchema id="loginForm" class="pu-form" validation="keyup" }}
-            <label class="pu-formfield {{ PartupFieldClasses name='email' }}">
+            <label class="pu-formfield">
                 <span class="pu-label">{{_ 'login-form-email-label'}}</span>
-                <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
-                {{#if afFieldIsInvalid name='email'}}
-                    <span class="pu-sub-error">{{afFieldMessage name='email'}}</span>
-                {{/if}}
+                <div class="pu-sub-validations {{ PartupFieldClasses name='email' }}">
+                    <span class="pu-sub-input pu-sub-input-nocheckmark">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
+                </div>
             </label>
 
             <label class="pu-formfield {{ PartupFieldClasses name='password' }}">
                 <span class="pu-label">{{_ 'login-form-password-label'}}</span>
-                <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
-                {{#if afFieldIsInvalid name='password'}}
-                    <span class="pu-sub-error">{{afFieldMessage name='password'}}</span>
-                {{/if}}
+                <div class="pu-sub-validations {{ PartupFieldClasses name='password' }}">
+                    <span class="pu-sub-input pu-sub-input-nocheckmark">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
+                </div>
             </label>
 
             <footer>

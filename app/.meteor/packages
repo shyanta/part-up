@@ -28,14 +28,11 @@ meteor-platform
 iron:router
 tap:i18n
 accounts-password
-accounts-ui
 accounts-facebook
 pauli:accounts-linkedin
 service-configuration
 fourseven:scss
 aldeed:simple-schema
-aldeed:autoform
-comerc:autoform-fixtures
 zimme:iron-router-active
 partup:client-widgets-dropdowns
 stevezhu:lodash
@@ -53,3 +50,7 @@ deepwell:bootstrap-datepicker2
 aldeed:template-extension
 tmeasday:publish-counts
 fastclick
+aldeed:autoform@5.1.2
+partup:client-widgets-startpromote
+matb33:collection-hooks
+partup:copy-to-clipboard

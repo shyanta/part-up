@@ -6,8 +6,7 @@
 Partup.schemas.forms.login = new SimpleSchema({
     email: {
         type: String,
-        max: 255,
-        regEx: SimpleSchema.RegEx.Email
+        max: 255
     },
     password: {
         type: String,

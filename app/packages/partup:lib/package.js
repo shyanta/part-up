@@ -12,14 +12,14 @@ Package.onUse(function(api) {
         'tracker',
         'aldeed:simple-schema',
         'aldeed:autoform',
-        'comerc:autoform-fixtures',
         'chrismbeckett:toastr',
         'cfs:standard-packages',
         'cfs:s3',
         'cfs:filesystem',
         'cfs:graphicsmagick',
         'momentjs:moment',
-        'tap:i18n'
+        'tap:i18n',
+        'matb33:collection-hooks'
     ]);
 
     api.use([

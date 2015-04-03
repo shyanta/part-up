@@ -222,6 +222,39 @@
 
         &:active
             background-color: darken($color-linkedin, 11%)
+    // Type: twitter
+    &-twitter
+        background-color: $color-twitter
+
+        &:hover
+            background-color: darken($color-twitter, 7%)
+
+        &:active
+            background-color: darken($color-twitter, 11%)
+    
+    &-share
+        i
+            font-size: 22px
+            line-height: 15px
+
+        i:nth-child(2)
+            float: right
+            opacity: 0
+            transition: opacity $animation-duration
+
+        &.pu-state-shared
+            background-color: $color-alert-success
+            
+            i 
+                opacity: 1
+
+            &:hover
+                background-color: darken($color-alert-success, 7%)
+
+            &:active
+                background-color: darken($color-alert-success, 11%)
+
+
 
     // Type: text
     &-text
@@ -247,7 +280,9 @@
 
             &:active
                 color: $color-text-subtle
-    
+
+        &-subtle 
+            color: $color-text-subtle
     // Type: avatar
     &-avatar
         figure 
@@ -304,23 +339,24 @@
         height: 46px
 
     // Type: contribute
-    // &-contribute
-    //     height: 32px
-    //     padding-top: 9px
-    //     padding-bottom: 8px
-    //     color: $color-text
-    //     background-color: transparent
-    //     text-align: center
-    //     font-weight: normal
+    &-contribute,
+    &-checkbox
+        height: 32px
+        padding-top: 9px
+        padding-bottom: 8px
+        color: $color-text
+        background-color: transparent
+        text-align: center
+        font-weight: normal
 
-    //     &:hover
-    //         background-color: $color-background-tertiery
-    //         color: $color-text
+        &:hover
+            background-color: $color-background-tertiery
+            color: $color-text
 
-    //     &:active
-    //         transform: none
-    //         transition-duration: 0
-    //         background-color: darken($color-background-tertiery, 5%)
+        &:active
+            transform: none
+            transition-duration: 0
+            background-color: darken($color-background-tertiery, 5%)
 
     &-label
         background-color: $color-browse
@@ -360,32 +396,47 @@
                     transition: opacity $animation-duration
                     opacity: 0
 
-    &-no-side-padding
-        padding-left: 0
-        padding-right: 0
-
-    &-contribute
-        background-color: $color-disabled
-        transition: background-color $animation-duration-slow
-
-        &:hover
-            background-color: darken($color-sunshade, 5%)
-
-    &-checkbox
+    &-edit 
+        color: $color-text-subtle
+        font-weight: bold
         background-color: transparent
-        color: $color-solid-black
-
+        cursor: pointer
         &:hover
-            background-color: $color-dark-white
-            color: $color-solid-black
+            background-color: transparent
+            color: $color-text
 
         &:active
             transform: none
             transition-duration: 0
-            background-color: darken($color-background-tertiery, 5%)
-            color: $color-solid-black
+            background-color: transparent
 
-        &:focus
-            color: $color-solid-black
+
+    &-no-side-padding
+        padding-left: 0
+        padding-right: 0
+
+    // &-contribute
+    //     background-color: $color-disabled
+    //     transition: background-color $animation-duration-slow
+
+    //     &:hover
+    //         background-color: darken($color-sunshade, 5%)
+
+    // &-checkbox
+    //     background-color: transparent
+    //     color: $color-solid-black
+
+    //     &:hover
+    //         background-color: $color-dark-white
+    //         color: $color-solid-black
+
+    //     &:active
+    //         transform: none
+    //         transition-duration: 0
+    //         background-color: darken($color-background-tertiery, 5%)
+    //         color: $color-solid-black
+
+    //     &:focus
+    //         color: $color-solid-black
 
 

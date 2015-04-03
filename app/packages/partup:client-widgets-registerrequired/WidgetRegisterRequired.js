@@ -13,7 +13,7 @@ Template.WidgetRegisterRequired.events({
         }, function(error) {
 
             if(error) {
-                Partup.ui.notify.iError('generic-error');
+                Partup.ui.notify.iError('error-method-register-' + Partup.ui.strings.slugify(error.name));
                 return;
             }
 
@@ -27,7 +27,7 @@ Template.WidgetRegisterRequired.events({
         }, function(error) {
 
             if(error) {
-                Partup.ui.notify.iError('generic-error');
+                Partup.ui.notify.iError('error-method-register-' + Partup.ui.strings.slugify(error.name));
                 return false;
             }
 
@@ -54,12 +54,22 @@ AutoForm.hooks({
                 }
             }, function(error) {
                 if (error) {
-                    Partup.ui.notify.iError(error.reason);
-                    self.done(new Error(error.reason));
+                    if(error.message == 'Email already exists [403]') {
+                        self.addStickyValidationError('email', 'emailExists');
+                        AutoForm.validateForm("registerRequiredForm");
+                        // var $input = $('[data-schema-key=email]');
+                        // $input.trigger('validate');
+                    }
+                    Partup.ui.notify.error(error.reason);
+                    return false;
+                    self.done(err);
+                } else {
+                    self.done();
+                    Router.go('register-details');
                 }
-                self.done();
-                Router.go('register-details');
-            })
+            });
+
+            return false;
         }
     }
 });

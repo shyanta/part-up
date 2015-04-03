@@ -4,19 +4,14 @@
 Event.on('partups.supporters.inserted', function (partup, upper) {
     var update = {
         partup_id: partup._id,
-        type: 'partups.supporters.new',
-        supporter: upper._id,
-        created_at: Date.now()
+        upper_id: upper._id,
+        type: 'partups_supporters_added',
+        created_at: new Date()
     };
 
     // TODO: Validation
 
-    Updates.insert(update, function (error, id) {
-        update._id = id;
-
-        Event.emit('partups.updates.inserted', update);
-        Log.debug('Update generated for Partup [' + partup._id + '] with type [partups.supporters.new].');
-    });
+    Updates.insert(update);
 });
 
 /**
@@ -24,7 +19,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
  */
 Event.on('partups.supporters.inserted', function (partup, upper) {
     var notification = {
-        type: 'partups.supporters.new',
+        type: 'partups_supporters_added',
         type_data: {
             partup: {
                 name: partup.name
@@ -36,6 +31,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
             }
         },
         new: true,
+        created_at: new Date()
     }
 
     if (partup.uppers) {
@@ -44,7 +40,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
             Notifications.insert(notification, function (error) {
                 if (error) return Log.error(error);
 
-                Log.debug('Notification generated for User [' + upperId + '] with type [partups.supporters.new].');
+                Log.debug('Notification generated for User [' + upperId + '] with type [partups_supporters_new].');
             });
         });
     }

@@ -1,0 +1,54 @@
+<template name="WidgetStartPromote">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promote {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
+
+        <h2 class="pu-title pu-title-modal">{{_ 'startpromote-heading-title'}}</h2>
+        <p>{{_ 'startpromote-text-intro'}}</p>
+        <p>{{_ 'startpromote-text-intro2'}}</p>
+        <article class="pu-previewpost">
+            <h3>{{ partup.name }}</h3>
+            <img src="http://lorempixel.com/1000/500" alt="">
+            <p>{{ partup.description }}</p>
+        </article>
+        <article class="pu-form">
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'startpromote-title-sharebuttons' }}</span>
+                <ul class="pu-list">
+                    <li>
+                        <a data-share="twitter" class="pu-button pu-button-share pu-button-twitter pu-button-icon {{#if shared.twitter}}pu-state-shared{{/if}}">
+                            <i class="fa fa-twitter"></i>
+                            {{_ 'startpromote-button-twitter' }}
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-share="facebook" class="pu-button pu-button-share pu-button-facebook pu-button-icon {{#if shared.facebook}}pu-state-shared{{/if}}">
+                            <i class="fa fa-facebook"></i>
+                            {{_ 'startpromote-button-facebook' }}
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-share="linkedin" class="pu-button pu-button-share pu-button-linkedin pu-button-icon {{#if shared.linkedin}}pu-state-shared{{/if}}">
+                            <i class="fa fa-linkedin"></i>
+                            {{_ 'startpromote-button-linkedin' }}
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'startpromote-title-sharelink' }}</span>
+                <input type="text" value="{{partupUrl}}" class="pu-input" data-copy-to-clipboard readonly />
+            </div>
+        </article>
+
+        <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
+            <div class="pu-sub-footer-container">
+                <button href="#" class="pu-button pu-button-primary" id="nextPage">
+                    {{_ 'startpromote-button-done' }}
+                </button>
+            </div>
+        </footer>
+    </div>
+</template>

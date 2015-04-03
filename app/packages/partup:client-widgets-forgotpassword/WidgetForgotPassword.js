@@ -22,10 +22,11 @@ AutoForm.hooks({
                 if(error) {
                     Partup.ui.notify.error(error.reason);
                     self.done(new Error(error.reason));
+                } else {
+                    self.done();
+                    resetSentSuccessful.set(true);
                 }
 
-                resetSentSuccessful.set(true);
-                self.done();
             });
         }
     }

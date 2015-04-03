@@ -2,4 +2,4 @@
  @namespace Updates
  @name Updates
  */
-Updates = new Meteor.Collection('updates');
+Updates = new Mongo.Collection('updates');

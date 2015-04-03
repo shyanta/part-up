@@ -19,8 +19,6 @@ Meteor.methods({
 
             newPartup._id = Partups.insert(newPartup);
 
-            Event.emit('partups.inserted', newPartup);
-
             return {
                 _id: newPartup._id
 	        }
@@ -51,7 +49,6 @@ Meteor.methods({
             var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields, upper);
 
             Partups.update(partupId, { $set: newPartupFields });
-            Event.emit('partups.updated', partup, fields);
 
             return {
                 _id: partup._id
@@ -77,7 +74,6 @@ Meteor.methods({
 
         try {
             Partups.remove(partupId);
-            Event.emit('partups.removed', partup);
 
             return {
                 _id: partup._id

@@ -2,7 +2,7 @@ Accounts.emailTemplates.from = 'Part-up <noreply@part-up.com>';
 Accounts.emailTemplates.resetPassword.subject = function(user) {
     return 'Reset Part-up password';
 }
-Accounts.emailTemplates.resetPassword.html = function(user, url) {
+Accounts.emailTemplates.resetPassword.text = function(user, url) {
     return [
         'Hello ' + user.profile.name + '\n',
         '\n',

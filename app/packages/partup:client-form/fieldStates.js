@@ -1,96 +1,77 @@
+var errorHookedAutoform = new ReactiveDict;
 var dirtyStates = new ReactiveDict;
 var onceBlurredStates = new ReactiveDict;
 var focusedStates = new ReactiveDict;
 var invalidStates = new ReactiveDict;
 
-var getContext = function getContext (event) {
-    if(!event || !event.currentTarget
-    || !event.currentTarget.form || !event.currentTarget.form.id
-    || !event.currentTarget.dataset || !event.currentTarget.dataset.schemaKey) {
-        return false;
-    }
+/*
+ * Form onError hook
+ */
+AutoForm.hooks({
+    
+});
 
-    var formId = event.currentTarget.form.id;
-    var fieldName = event.currentTarget.dataset.schemaKey;
-
-    var output = {
-        formId: formId,
-        fieldName: fieldName,
-        reactiveKey: formId + '_' + fieldName
-    };
-
-    return output;
-};
-
+/*
+ * Field find stateKey
+ */
 Template.afFieldInput.onRendered(function() {
-    var inputElm = this.find('[data-schema-key]');
-    var formId = inputElm.form.id;
-    var fieldName = inputElm.dataset.schemaKey;
-    var reactiveKey = formId + '_' + fieldName;
-    this.reactiveKey = reactiveKey;
+    var formId = AutoForm.getFormId();
+    var fieldName = this.data.name;
+    var stateKey = formId + '_' + fieldName;
+    this.stateKey = stateKey;
+
+    dirtyStates.setDefault(this.stateKey, false);
+    onceBlurredStates.setDefault(this.stateKey, false);
+    focusedStates.setDefault(this.stateKey, false);
+    invalidStates.setDefault(this.stateKey, false);
 });
 
+/*
+ * Field unset states
+ */
 Template.afFieldInput.onDestroyed(function() {
-    dirtyStates.set(this.reactiveKey, false);
-    onceBlurredStates.set(this.reactiveKey, false);
-    focusedStates.set(this.reactiveKey, false);
-    invalidStates.set(this.reactiveKey, false);
+    dirtyStates.set(this.stateKey, false);
+    onceBlurredStates.set(this.stateKey, false);
+    focusedStates.set(this.stateKey, false);
+    invalidStates.set(this.stateKey, false);
 });
 
+/*
+ * Extra field events
+ */
 Template.afFieldInput.events({
     'keyup [data-schema-key], blur [data-schema-key]': function (event, template) {
-        var context = getContext(event);
-        if(!context) return;
-
-        // Dirty state
-        dirtyStates.set(context.reactiveKey, true);
-
-        // Invalid state
-        var valid = AutoForm.validateField(context.formId, context.fieldName);
-        invalidStates.set(context.reactiveKey, !valid);
+        dirtyStates.set(template.stateKey, true);
+        invalidStates.set(template.stateKey, !AutoForm.validateField(false, this.name));
     },
     'blur [data-schema-key]': function (event, template) {
-        var context = getContext(event);
-        if(!context) return;
-
-        // Once blurred state
-        onceBlurredStates.set(context.reactiveKey, true);
-
-        // Focused state
-        focusedStates.set(context.reactiveKey, false);
+        onceBlurredStates.set(template.stateKey, true);
+        focusedStates.set(template.stateKey, false);
     },
     'focus [data-schema-key]': function (event, template) {
-        var context = getContext(event);
-        if(!context) return;
-
-        // Focused state
-        focusedStates.set(context.reactiveKey, true);
-    }
+        focusedStates.set(template.stateKey, true);
+    },
+    'error [data-schema-key]': function (event, template) {
+        dirtyStates.set(template.stateKey, true);
+        onceBlurredStates.set(template.stateKey, true);
+        invalidStates.set(template.stateKey, true);
+    },
 });
 
 /*
  * afFieldClasses
  */
 Template.registerHelper('PartupFieldClasses', function autoFormFieldClasses(options) {
-    if(!options
-    || !options.hash || !options.hash.name
-    || !this._af || !this._af.formId) {
-        return false;
-    }
 
-    var formId = this._af.formId;
-    var fieldName = options.hash.name;
-    var reactiveKey = formId + '_' + fieldName;
+    var formId = AutoForm.getFormId();
+    if(!options || !options.hash || !options.hash.name || !formId) return false;
 
-    var invalid = invalidStates.get(reactiveKey);
-    var dirty = dirtyStates.get(reactiveKey);
-    var onceBlurred = onceBlurredStates.get(reactiveKey);
-    var focused = focusedStates.get(reactiveKey);
+    var stateKey = formId + '_' + options.hash.name;
 
     return [
-        invalid ? 'pu-state-invalid' : '',
-        dirty ? 'pu-state-dirty' : '',
-        onceBlurred ? 'pu-state-onceblurred' : '',
-        focused ? 'pu-state-focused' : ''
+        invalidStates.get(stateKey) ?      'pu-state-invalid' : '',
+        dirtyStates.get(stateKey) ?       'pu-state-dirty' : '',
+        onceBlurredStates.get(stateKey) ? 'pu-state-onceblurred' : '',
+        focusedStates.get(stateKey) ?     'pu-state-focused' : ''
     ].join(' ');
 });

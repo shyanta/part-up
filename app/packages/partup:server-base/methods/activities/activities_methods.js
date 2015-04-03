@@ -5,7 +5,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'activities.insert': function (partupId, fields) {
-        // TODO: Validation
+        check(fields, Partup.schemas.forms.startActivities);
 
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
@@ -13,13 +13,11 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         try {
-            fields.created_at = Date.now();
-            fields.updated_at = Date.now();
+            fields.created_at = new Date();
+            fields.updated_at = new Date();
             fields.creator_id = upper._id;
             fields.partup_id = partup._id;
             fields._id = Activities.insert(fields);
-
-            Event.emit('partups.activities.inserted', fields);
 
             return {
                 _id: fields._id

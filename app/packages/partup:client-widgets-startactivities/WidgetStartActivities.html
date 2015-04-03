@@ -4,9 +4,11 @@
         <h2 class="pu-title pu-title-modal">{{_ 'startactivities-heading-title'}}</h2>
         <p>{{_ 'startactivities-heading-paragraph'}}</p>
 
+        <!-- TODO: DISABLED UNTIL IMPLEMENTED
         <a class="pu-button pu-button-text pu-button-no-side-padding" href="#">{{_ 'startactivities-button-adopt_activities' }}</a>
+        -->
 
-        {{#autoForm schema=Partup.schemas.forms.startActivities id="activityForm" class="pu-form pu-form-highlighted" theme="plain"}}
+        {{#autoForm schema=formSchema id="activityForm" class="pu-form pu-form-highlighted" theme="plain"}}
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startactivities-form-name-label'}}</span>
                 {{> afFieldInput name="name" placeholder=placeholders.name class="pu-input" }}
@@ -28,7 +30,7 @@
             </label>
 
             <div class="pu-formfield">
-                {{#if showDateButton}}
+                {{#unless showDatePicker}}
                     <div class="pu-formfield-left" data-end-date-button>
                         <a class="pu-button pu-button-text pu-button-text-gray"><i
                                 class="fa fa-calendar"></i>{{_ 'startactivities-form-end_date-label' }}</a>
@@ -47,7 +49,7 @@
                             </a>
                         </label>
                     </div>
-                {{/if}}
+                {{/unless}}
 
                 <div class="pu-formfield-right">
                     <input class="pu-button pu-button-primary" type="submit"
@@ -57,19 +59,14 @@
         {{/autoForm}}
 
         {{#each partupActivities}}
-            <article class="pu-block">
-                <h2 class="pu-block-title">{{name}}</h2>
-
-                <p class="pu-paragraph">{{description}}</p>
-                <time>{{end_date}}</time>
-            </article>
+            {{> Activity}}
         {{/each}}
 
         <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
             <div class="pu-sub-footer-container">
-                <button href="#" class="pu-button pu-button-primary" id="nextPage">
+                <a href="{{pathFor 'start-contribute' _id=currentPartupId }}" class="pu-button pu-button-primary">
                     {{_ 'startactivities-button-next_page' }}
-                </button>
+                </a>
             </div>
         </footer>
     

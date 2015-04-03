@@ -39,7 +39,7 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
     },
     created_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     },
     creator_id: {
         type: String,
@@ -51,7 +51,7 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
     },
     updated_at: {
         type: Date,
-        defaultValue: Date.now()
+        defaultValue: new Date()
     }
 }]);
 

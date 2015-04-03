@@ -45,8 +45,11 @@ Router.route('/partups/:_id', {
         'PagesPartupDetailUpdates': { to: 'partup-page' }
     },
     subscriptions: function () {
+        var partupId = this.params._id;
+
         this.subscribe('notifications.user');
-        this.subscribe('partups.detail', this.params._id);
+        this.subscribe('partups.one', partupId);
+        this.subscribe('partups.one.updates', partupId);
     }
 });
 
@@ -60,8 +63,11 @@ Router.route('/partups/:_id/activities', {
         'PagesPartupDetailActivities': { to: 'partup-page' }
     },
     subscriptions: function () {
+        var partupId = this.params._id;
+
         this.subscribe('notifications.user');
-        this.subscribe('partups.detail', this.params._id);
+        this.subscribe('partups.one', partupId);
+        this.subscribe('partups.one.activities', partupId);
     }
 });
 
@@ -76,7 +82,7 @@ Router.route('/partups/:_id/budget', {
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
-        this.subscribe('partups.detail', this.params._id);
+        this.subscribe('partups.one', this.params._id);
     }
 });
 
@@ -91,7 +97,7 @@ Router.route('/partups/:_id/anticontract', {
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
-        this.subscribe('partups.detail', this.params._id);
+        this.subscribe('partups.one', this.params._id);
     }
 });
 
@@ -118,7 +124,7 @@ Router.route('/start/details', {
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
     subscriptions: function () {
-        this.subscribe('partups.detail', Session.get('partials.start-partup.current-partup'));
+        this.subscribe('partups.one', Session.get('partials.start-partup.current-partup'));
     },
     data: function() {
         return Partups.find({_id:Session.get('partials.start-partup.current-partup')});
@@ -136,7 +142,8 @@ Router.route('/start/:_id/activities', {
         'PagesStartPartupActivities': { to: 'start-partup-page' }
     },
     subscriptions: function () {
-        this.subscribe('partups.detail', this.params._id);
+        this.subscribe('partups.one', this.params._id);
+        this.subscribe('partups.one.activities', this.params._id);
     },
     action: function() {
         Session.set('partials.start-partup.current-partup', this.params._id);
@@ -154,8 +161,9 @@ Router.route('/start/:_id/contribute', {
         'PagesStartPartupContribute': { to: 'start-partup-page' }
     },
     subscriptions: function () {
-        this.subscribe('partups.detail', this.params._id);
-        this.subscribe('contributions.perpartup', this.params._id);
+        this.subscribe('partups.one', this.params._id);
+        this.subscribe('partups.one.activities', this.params._id);
+        this.subscribe('partups.one.contributions', this.params._id);
     },
     action: function() {
         Session.set('partials.start-partup.current-partup', this.params._id);
@@ -173,7 +181,7 @@ Router.route('/start/:_id/promote', {
         'PagesStartPartupPromote': { to: 'start-partup-page' }
     },
     subscriptions: function () {
-        this.subscribe('partups.detail', this.params._id);
+        this.subscribe('partups.one', this.params._id);
     },
     action: function() {
         Session.set('partials.start-partup.current-partup', this.params._id);

@@ -51,6 +51,7 @@ Partup.transformers.partup = {
         if (fields.location_input) {
             partup.location = Partup.services.location.locationInputToLocation(fields.location_input);
         }
+
         return partup;
     }
 

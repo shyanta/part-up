@@ -1,11 +1,9 @@
 Meteor.startup(function(){
     var windowScrollChecker = function windowScrollChecker(event){
-
         // Router does not pass an event, that way we can assume it's the initial call
         if(event){
-
             // check if the page is scrolled down
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
                 Session.set('window.scrollBottom', true);
             } else {
                 Session.set('window.scrollBottom', false);
@@ -35,7 +33,7 @@ Meteor.startup(function(){
         var check = function check(){
 
             // set new height
-            newHeight = document.body.clientHeight;
+            newHeight = document.body.scrollHeight;
 
             // call the callback function when the document height has changed
             if( lastHeight != newHeight ){
