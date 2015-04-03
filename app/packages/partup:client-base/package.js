@@ -28,6 +28,7 @@ Package.onUse(function(api) {
         'ui/clipboard.js',
         'ui/forms.js',
         'ui/datepicker.js',
+        'ui/spinner.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',
