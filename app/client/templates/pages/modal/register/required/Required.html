@@ -1,4 +1,8 @@
 <template name="PagesRegisterRequired">
+    {{#contentFor "closeButton"}}
+        <i class="fa fa-times"></i>
+        {{_ 'register-closepage'}}
+    {{/contentFor}}
     <article class="pu-page pu-page-modal">
         {{> WidgetRegisterRequired }}
     </article>
