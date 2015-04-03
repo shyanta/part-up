@@ -21,12 +21,19 @@ Meteor.publish('partups.one.contributions', function (partupId) {
 Meteor.publish('partups.one.updates', function (partupId) {
     var subscription = this;
     var updatesHandle = null;
-    var updatesUpperHandle = [];
+    var upperHandle = [];
+    var imageHandle = [];
 
     updatesHandle = Updates.find({ partup_id: partupId }).observeChanges({
         added: function(id, update) {
-            var updatesUpperCursor = Meteor.users.find({ _id: update.upper_id }, { fields: { 'profile.name': 1 } });
-            updatesUpperHandle[id] = Meteor.Collection._publishCursor(updatesUpperCursor, subscription, Meteor.users._name);
+            var upperCursor = Meteor.users.find({ _id: update.upper_id }, { fields: { 'profile.name': 1 } });
+            upperHandle[id] = Meteor.Collection._publishCursor(upperCursor, subscription, Meteor.users._name);
+
+            if (update.type === 'partups_image_changed') {
+                var imageIds = [update.type_data.old_image, update.type_data.new_image];
+                var imageCursor = Images.find({ _id: { $in: imageIds } });
+                imageHandle[id] = Meteor.Collection._publishCursor(imageCursor, subscription, Images.files._name);
+            }
 
             subscription.added(Updates._name, id, update);
         },
@@ -36,7 +43,8 @@ Meteor.publish('partups.one.updates', function (partupId) {
         },
 
         removed: function(id) {
-            updatesUpperHandle[id] && updatesUpperHandle[id].stop();
+            upperHandle[id] && upperHandle[id].stop();
+            imageHandle[id] && imageHandle[id].stop();
 
             subscription.removed(Updates._name, id);
         }

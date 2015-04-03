@@ -67,6 +67,10 @@ Template.WidgetPartupdetailUpdateItem.helpers({
         return user;
     },
 
+    'getImageUrlById': function getImageUrlById (imageId) {
+        return Images.findOne({ _id: imageId }).url();
+    },
+
 });
 
 
