@@ -6,7 +6,7 @@ if(process.env.NODE_ENV !== 'development') {
     console.log('setting tempstore to match with modulus temporary folder')
     FS.TempStore.Storage = new FS.Store.FileSystem("_tempstore", {
         internal :  true,
-        path : process.env.CLOUD_DIR
+        path : process.env['CLOUD_DIR']
     });
 }
 
