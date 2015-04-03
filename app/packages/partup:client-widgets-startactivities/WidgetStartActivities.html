@@ -8,52 +8,61 @@
         <a class="pu-button pu-button-text pu-button-no-side-padding" href="#">{{_ 'startactivities-button-adopt_activities' }}</a>
         -->
 
-        {{#autoForm schema=formSchema id="activityForm" class="pu-form pu-form-highlighted" theme="plain"}}
+        {{#autoForm schema=formSchema id="activityForm" class="pu-form pu-form-highlighted" validation="keyup"}}
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startactivities-form-name-label'}}</span>
-                {{> afFieldInput name="name" placeholder=placeholders.name class="pu-input" }}
+                <div class="pu-sub-validations {{ PartupFieldClasses name='name' }}">
+                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+                </div>
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startactivities-form-name-validation' Partup.schemas.entities.activity._schema.name.max }}
-                    <span class="pu-tooltip-wrapper"><p
-                            class="pu-paragraph">{{_ 'startactivities-form-name-tooltip' }}</p></span>
+                    {{_ 'startactivities-form-name-validation' Partup.schemas.forms.startActivities._schema.name.max }}
+                    <span class="pu-tooltip-wrapper">
+                        <p class="pu-paragraph">{{_ 'startactivities-form-name-tooltip' }}</p>
+                    </span>
                 </a>
             </label>
 
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startactivities-form-description-label'}}</span>
-                {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
+                <div class="pu-sub-validations {{ PartupFieldClasses name='description' }}">
+                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                </div>
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startactivities-form-description-validation' Partup.schemas.entities.activity._schema.description.max }}
-                    <span class="pu-tooltip-wrapper"><p
-                            class="pu-paragraph">{{_ 'startactivities-form-description-tooltip' }}</p></span>
+                    {{_ 'startactivities-form-description-validation' Partup.schemas.forms.startActivities._schema.description.max }}
+                    <span class="pu-tooltip-wrapper">
+                        <p class="pu-paragraph">{{_ 'startactivities-form-description-tooltip' }}</p>
+                    </span>
                 </a>
             </label>
 
             <div class="pu-formfield">
                 {{#unless showDatePicker}}
                     <div class="pu-formfield-left" data-end-date-button>
-                        <a class="pu-button pu-button-text pu-button-text-gray"><i
-                                class="fa fa-calendar"></i>{{_ 'startactivities-form-end_date-label' }}</a>
+                        <a class="pu-button pu-button-text pu-button-text-gray">
+                            <i class="fa fa-calendar"></i>
+                            {{_ 'startactivities-form-end_date-label' }}
+                        </a>
                     </div>
                 {{else}}
                     <div class="end-date-field">
                         <label class="pu-formfield">
                             <span class="pu-label">{{_ 'startactivities-form-end_date-label'}}</span>
                             <div class="pu-inputholder pu-inputholder-lefticon">
-                                {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
+                                <div class="pu-sub-validations {{ PartupFieldClasses name='end_date' }}">
+                                    <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}</span>
+                                    <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
+                                </div>
+
                                 <span class="pu-icon"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <a class="pu-hint pu-tooltip">
-                                {{_ 'startactivities-form-end_date-validation' }}
-                                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startactivities-form-end_date-tooltip' }}</p></span>
-                            </a>
                         </label>
                     </div>
                 {{/unless}}
 
                 <div class="pu-formfield-right">
-                    <input class="pu-button pu-button-primary" type="submit"
-                           value="{{_ 'startactivities-form-submit' }}">
+                    <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startactivities-form-submit' }}">
                 </div>
             </div>
         {{/autoForm}}
