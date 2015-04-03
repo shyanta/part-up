@@ -1,0 +1,77 @@
+// For the collection events documentation, see [https://github.com/matb33/meteor-collection-hooks].
+
+var equal = Npm.require('deeper');
+
+/**
+ * Generate a basic after insert handler.
+ *
+ * @param {String} namespace
+ *
+ * @return {function}
+ */
+var basicAfterInsert = function (namespace) {
+    return function (userId, document) {
+        Event.emit(namespace + '.inserted', document);
+    }
+}
+
+/**
+ * Generate a basic after update handler.
+ *
+ * @param {String} namespace
+ *
+ * @return {function}
+ */
+var basicAfterUpdate = function (namespace) {
+    return function (userId, document, fieldNames, modifier, options) {
+        Event.emit(namespace + '.updated', document);
+
+        if (this.previous) {
+            var previous = this.previous;
+
+            fieldNames.forEach(function (key) {
+                var value = {
+                    'name': key,
+                    'old': previous[key],
+                    'new': document[key]
+                };
+
+                if (equal(value.old, value.new)) return;
+
+                Event.emit(namespace + '.' + key + '.updated', document, value);
+            });
+        }
+    }
+}
+
+/**
+ * Generate a basic after remove handler.
+ *
+ * @param {String} namespace
+ *
+ * @return {function}
+ */
+var basicAfterRemove = function (namespace) {
+    return function (userId, document) {
+        Event.emit(namespace + '.removed', document);
+    }
+}
+
+
+
+// Partup Events
+Partups.after.insert(basicAfterInsert('partups'));
+Partups.after.update(basicAfterUpdate('partups'));
+Partups.after.remove(basicAfterRemove('partups'));
+
+// Activity Events
+Activities.hookOptions.after.update = { fetchPrevious: false };
+Activities.after.insert(basicAfterInsert('partups.activities'));
+Activities.after.update(basicAfterUpdate('partups.activities'));
+Activities.after.remove(basicAfterRemove('partups.activities'));
+
+// Update Events
+Updates.hookOptions.after.update = { fetchPrevious: false };
+Updates.after.insert(basicAfterInsert('partups.updates'));
+Updates.after.update(basicAfterUpdate('partups.updates'));
+Updates.after.remove(basicAfterRemove('partups.updates'));

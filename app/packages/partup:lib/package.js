@@ -18,7 +18,8 @@ Package.onUse(function(api) {
         'cfs:filesystem',
         'cfs:graphicsmagick',
         'momentjs:moment',
-        'tap:i18n'
+        'tap:i18n',
+        'matb33:collection-hooks'
     ]);
 
     api.use([

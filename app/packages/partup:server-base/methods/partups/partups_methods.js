@@ -1,5 +1,3 @@
-var equal = Npm.require('deeper');
-
 Meteor.methods({
 
     /**
@@ -20,8 +18,6 @@ Meteor.methods({
             //check(newPartup, Partup.schemas.entities.partup);
 
             newPartup._id = Partups.insert(newPartup);
-
-            Event.emit('partups.inserted', newPartup);
 
             return {
                 _id: newPartup._id
@@ -53,19 +49,6 @@ Meteor.methods({
             var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields, upper);
 
             Partups.update(partupId, { $set: newPartupFields });
-            Event.emit('partups.updated', partup, newPartupFields);
-
-            Object.keys(newPartupFields).forEach(function (key) {
-                var value = {
-                    'name': key,
-                    'old': partup[key],
-                    'new': newPartupFields[key]
-                };
-
-                if (equal(value.old, value.new)) return;
-
-                Event.emit('partups.' + key + '.updated', partup, value);
-            });
 
             return {
                 _id: partup._id
@@ -91,7 +74,6 @@ Meteor.methods({
 
         try {
             Partups.remove(partupId);
-            Event.emit('partups.removed', partup);
 
             return {
                 _id: partup._id
