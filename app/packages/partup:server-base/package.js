@@ -23,6 +23,7 @@ Package.onUse(function(api) {
         'accounts.js',
         'helpers/collection.js',
         'event.js',
+        'collection-hooks.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_tags_handler.js',
