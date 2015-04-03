@@ -23,7 +23,7 @@
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'login-form-email-label'}}</span>
                 <div class="pu-sub-validations {{ PartupFieldClasses name='email' }}">
-                    <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
+                    <span class="pu-sub-input pu-sub-input-nocheckmark">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
                 </div>
             </label>
@@ -31,7 +31,7 @@
             <label class="pu-formfield {{ PartupFieldClasses name='password' }}">
                 <span class="pu-label">{{_ 'login-form-password-label'}}</span>
                 <div class="pu-sub-validations {{ PartupFieldClasses name='password' }}">
-                    <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
+                    <span class="pu-sub-input pu-sub-input-nocheckmark">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
                 </div>
             </label>

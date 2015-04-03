@@ -33,5 +33,6 @@
     "error-ss-regex-Id": "Dit ID is ongeldig",
 
     "error-ss-passwordMismatch": "De wachtwoorden komen niet overeen",
-    "error-ss-emailExists": "Er is al een gebruiker met dit emailadres"
+    "error-ss-emailExists": "Er is al een gebruiker met dit emailadres",
+    "error-ss-emailNotFound": "Er bestaat geen gebruiker met dit e-mailadres"
 }

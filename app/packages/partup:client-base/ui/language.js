@@ -57,7 +57,8 @@ Partup.ui.language = {
                     {exp: SimpleSchema.RegEx.Id,         msg: TAPi18n.__('error-ss-regex-Id')},
                 ],
                 passwordMismatch:       TAPi18n.__('error-ss-passwordMismatch'),
-                emailExists:            TAPi18n.__('error-ss-emailExists')
+                emailExists:            TAPi18n.__('error-ss-emailExists'),
+                emailNotFound:          TAPi18n.__('error-ss-emailNotFound')
             });
 
         }).fail(function (error_message) {

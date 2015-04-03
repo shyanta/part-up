@@ -25,6 +25,7 @@ Package.onUse(function(api) {
         'ui/language.js',
         'ui/strings.js',
         'ui/clipboard.js',
+        'ui/forms.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',

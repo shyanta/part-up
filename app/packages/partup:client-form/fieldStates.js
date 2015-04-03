@@ -1,7 +1,15 @@
+var errorHookedAutoform = new ReactiveDict;
 var dirtyStates = new ReactiveDict;
 var onceBlurredStates = new ReactiveDict;
 var focusedStates = new ReactiveDict;
 var invalidStates = new ReactiveDict;
+
+/*
+ * Form onError hook
+ */
+AutoForm.hooks({
+    
+});
 
 /*
  * Field find stateKey
@@ -9,7 +17,8 @@ var invalidStates = new ReactiveDict;
 Template.afFieldInput.onRendered(function() {
     var formId = AutoForm.getFormId();
     var fieldName = this.data.name;
-    this.stateKey = formId + '_' + fieldName;
+    var stateKey = formId + '_' + fieldName;
+    this.stateKey = stateKey;
 
     dirtyStates.setDefault(this.stateKey, false);
     onceBlurredStates.setDefault(this.stateKey, false);
@@ -41,7 +50,12 @@ Template.afFieldInput.events({
     },
     'focus [data-schema-key]': function (event, template) {
         focusedStates.set(template.stateKey, true);
-    }
+    },
+    'error [data-schema-key]': function (event, template) {
+        dirtyStates.set(template.stateKey, true);
+        onceBlurredStates.set(template.stateKey, true);
+        invalidStates.set(template.stateKey, true);
+    },
 });
 
 /*

@@ -33,5 +33,6 @@
     "error-ss-regex-Id": "This value must be a valid ID",
 
     "error-ss-passwordMismatch": "The passwords do not match",
-    "error-ss-emailExists": "This email already exists"
+    "error-ss-emailExists": "This email already exists",
+    "error-ss-emailNotFound": "This user is not found"
 }

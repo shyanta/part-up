@@ -72,17 +72,22 @@ function goToReturnUrlOrHome() {
 AutoForm.hooks({
     loginForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
-            event.preventDefault();
+            var self = this;
+            self.event.preventDefault();
             Meteor.loginWithPassword(insertDoc.email, insertDoc.password, function(error) {
 
                 if(error) {
-                    Partup.ui.notify.error(error.reason);
-                    //this.resetForm();
-                    this.done(new Error(error.reason));
+                    if(error.message == 'User not found [403]') {
+                        Partup.ui.forms.addCustomFieldError(self, 'email', 'emailNotFound');
+                    } else {
+                        Partup.ui.notify.error(error.reason);   
+                    }
+                    self.done(new Error(error.reason));
+                    return;
                 }
 
                 if(optionalDetailsFilledIn()) {
-                    goToReturnUrlOrHome()
+                    goToReturnUrlOrHome();
                 } else {
                     Router.go('register-details');
                 }

@@ -57,9 +57,10 @@ AutoForm.hooks({
                     if(error.message == 'Email already exists [403]') {
                         self.addStickyValidationError('email', 'emailExists');
                         AutoForm.validateForm("registerRequiredForm");
+                        // var $input = $('[data-schema-key=email]');
+                        // $input.trigger('validate');
                     }
                     Partup.ui.notify.error(error.reason);
-                    //self.done(new Error(error.reason));
                     return false;
                     self.done(err);
                 } else {
@@ -67,6 +68,7 @@ AutoForm.hooks({
                     Router.go('register-details');
                 }
             });
+
             return false;
         }
     }
