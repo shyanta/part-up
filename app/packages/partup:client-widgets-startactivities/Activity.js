@@ -13,15 +13,8 @@ Template.Activity.helpers({
 Template.Activity.events({
     'click [data-enable-edit-mode]': function editMode(event, template){
         template.editMode.set(true);
-        // defer is nessesary to wait for template re rendering
-        lodash.defer(function(){
-
-            // init datepicker
-            template.$('.pu-datepicker').datepicker({
-                language: moment.locale(),
-                format: "yyyy-mm-dd",
-            });
-        })
+        // // defer is nessesary to wait for template re rendering
+        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
     },
     'click [data-save-and-disable-edit-mode]': function saveActivity(event, template){
 
