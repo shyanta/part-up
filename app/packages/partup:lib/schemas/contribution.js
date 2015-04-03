@@ -43,6 +43,10 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
+    partup_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     types: {
         type: [Object]
     },
