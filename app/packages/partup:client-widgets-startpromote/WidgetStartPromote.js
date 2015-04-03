@@ -6,6 +6,13 @@ Template.WidgetStartPromote.onCreated(function(){
     });
 });
 
+Template.WidgetStartPromote.onRendered(function(){
+    var clipboardCopyElement = $(this.find('[data-copy-to-clipboard]'));
+    Partup.ui.clipboard.applyToElement(clipboardCopyElement, function copyCallBack(){
+        Partup.ui.notify.success(__('startpromote-notify-copy-to-clipboard-success'));
+    });
+})
+
 Template.WidgetStartPromote.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.startdetails,
@@ -36,10 +43,6 @@ Template.WidgetStartPromote.events({
         } else {
             Partup.ui.notify.error(__('startpromote-notify-shared-error', socialTarget));
         }
-    },
-    'click [data-copy-to-clipboard]': function copyToClipboard(event, template){
-            Partup.ui.notify.error(__('startpromote-notify-copy-to-clipboard-error'));
-
     }
 });
 
