@@ -1,5 +1,5 @@
 <template name="WidgetStartDetails">
-    <div class="pu-composition pu-composition-defaultmodal">
+    <div class="pu-composition pu-composition-defaultmodal {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
 
         <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name }}</h2>
         <p>{{_ 'startdetails-explainingpartup' }}</p>
@@ -100,8 +100,10 @@
 
 
             
-            <footer>
-                <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
+            <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
+                <div class="pu-sub-footer-container">
+                    <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">
+                </div>
             </footer>
         {{/autoForm}}
 
