@@ -48,10 +48,10 @@ Package.onUse(function(api) {
         'schemas/resetPassword.js',
         'schemas/tag.js',
         'schemas/update.js',
+        'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
-        'transformers/activity.js',
-        'transformers/contributions.js'
+        'transformers/contributions.js',
     ]);
 
     // Namespace

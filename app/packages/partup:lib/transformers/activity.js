@@ -6,26 +6,21 @@
 Partup.transformers.activity = {
 
     /**
-     * Transform activity to optional details form
-     *
-     * @memberOf partup.transformers.activity
-     * @param {object} activity
-     */
-    'toFormActivity':function(activity) {
-        return {
-
-        };
-    },
-
-    /**
-     * Transform form to activity fields
+     * Transform form to activity
      *
      * @memberOf partup.transformers.activity
      * @param {mixed[]} fields
+     * @param {object} upper
+     * @param {object} partup
      */
-    'fromFormActivity': function(fields) {
-        return {
+    'fromForm': function(fields, upper, partup) {
 
-        }
+        fields.created_at = new Date();
+        fields.updated_at = new Date();
+        fields.creator_id = upper._id;
+        fields.partup_id = partup._id;
+
+        return fields;
     }
+
 };
