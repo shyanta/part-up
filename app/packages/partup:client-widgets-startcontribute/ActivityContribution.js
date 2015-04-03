@@ -7,18 +7,19 @@ Template.ActivityContribution.created = function () {
     // contribute can init values
     this.showCanContribute = new ReactiveVar(false);
     this.contributeCanChecked = new ReactiveVar(false);
+    this.contributeCanAmount = new ReactiveVar(false);
 
     // contribute have init values
     this.showHaveContribute = new ReactiveVar(false);
     this.contributeHaveChecked = new ReactiveVar(false);
-
-    //TODO need amount and desc values to reset.
+    this.contributeHaveAmount = new ReactiveVar(false);
+    this.contributeHaveDescription = new ReactiveVar(false);
 };
 
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribution,
     'placeholders': Partup.services.placeholders.startcontribute,
-    'activityId': function () {
+    'formId': function () {
         return this._id;
     },
     'fieldsFromContribution': function () {
@@ -31,9 +32,12 @@ Template.ActivityContribution.helpers({
             }
             if (fields.type_can) {
                 Template.instance().contributeCanChecked.set(true);
+                Template.instance().contributeCanAmount.set(fields.type_can_amount);
             }
             if (fields.type_have) {
                 Template.instance().contributeHaveChecked.set(true);
+                Template.instance().contributeHaveAmount.set(fields.type_have_amount);
+                Template.instance().contributeHaveDescription.set(fields.type_have_description);
             }
             console.log('fields:');
             console.log(fields);
@@ -57,6 +61,9 @@ Template.ActivityContribution.helpers({
     },
     'showHaveContribute': function () {
         return Template.instance().showHaveContribute.get() ? true : false;
+    },
+    'contributeWantValue': function () {
+        return Template.instance().contributeWantChecked.get() ? 1 : 0;
     },
     'contributeWantChecked': function () {
         return Template.instance().contributeWantChecked.get() ? 'checked' : '';
@@ -142,12 +149,9 @@ Template.ActivityContribution.events({
         template[booleanKey].set(false);
     },
     'keyup [data-change-contribution]': function changeContribution(event, template) {
-        if (event.which === 13 || event.which === 9) {
-            // Submit form when user pressed enter or tab
-            //$('#' + template.data._id).submit();
-        } else {
-            var valueKey = $(event.currentTarget).data("change-contribution");
-            template[valueKey].set(event.target.value);
+        if (event.which === 13) {
+            // Submit form when user pressed enter
+            $('#' + template.data._id).submit();
         }
     },
     'click [data-check-contribution]': function checkContribution(event, template) {
@@ -179,6 +183,11 @@ AutoForm.addHooks(
     null, {
         onSubmit: function (insertDoc, updateDoc, currentDoc) {
             this.event.preventDefault();
+
+            //var formNameParts = this.formId.split('-');
+            //console.log(formNameParts);
+            //if(formNameParts.length !== 2 || formNameParts[0] !== 'contributeForm') return;
+
             var activityId = this.formId;
             var self = this;
             var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
