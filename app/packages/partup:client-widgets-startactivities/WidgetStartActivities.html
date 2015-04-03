@@ -13,7 +13,7 @@
                 <span class="pu-label">{{_ 'startactivities-form-name-label'}}</span>
                 {{> afFieldInput name="name" placeholder=placeholders.name class="pu-input" }}
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startactivities-form-name-validation' Partup.schemas.entities.activity._schema.name.max }}
+                    {{_ 'startactivities-form-name-validation' Partup.schemas.forms.startActivities._schema.name.max }}
                     <span class="pu-tooltip-wrapper"><p
                             class="pu-paragraph">{{_ 'startactivities-form-name-tooltip' }}</p></span>
                 </a>
@@ -23,7 +23,7 @@
                 <span class="pu-label">{{_ 'startactivities-form-description-label'}}</span>
                 {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startactivities-form-description-validation' Partup.schemas.entities.activity._schema.description.max }}
+                    {{_ 'startactivities-form-description-validation' Partup.schemas.forms.startActivities._schema.description.max }}
                     <span class="pu-tooltip-wrapper"><p
                             class="pu-paragraph">{{_ 'startactivities-form-description-tooltip' }}</p></span>
                 </a>
@@ -43,10 +43,6 @@
                                 {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
                                 <span class="pu-icon"><i class="fa fa-calendar"></i></span>
                             </div>
-                            <a class="pu-hint pu-tooltip">
-                                {{_ 'startactivities-form-end_date-validation' }}
-                                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startactivities-form-end_date-tooltip' }}</p></span>
-                            </a>
                         </label>
                     </div>
                 {{/unless}}

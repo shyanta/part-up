@@ -1,6 +1,7 @@
 var showDatePicker = new ReactiveVar(false);
 
 Template.WidgetStartActivities.helpers({
+    'Partup': Partup,
     'formSchema': Partup.schemas.forms.startActivities,
     'placeholders': Partup.services.placeholders.startactivities,
     'partupActivities': function () {
