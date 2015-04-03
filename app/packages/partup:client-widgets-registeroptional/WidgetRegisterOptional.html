@@ -8,7 +8,8 @@
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
                 <div class="pu-upload">
-                    <img src="{{ profilePicture.url }}" alt="" data-image-placeholder class="pu-imagepreview">
+                    <img src="{{#if profilePicture.url }}{{ profilePicture.url }}{{else}}/images/smile.svg{{/if}}" alt="" data-image-placeholder class="pu-imagepreview">
+                    <!-- <img src="/images/smile.svg" alt="" data-image-placeholder class="pu-imagepreview"> -->
                     <button class="pu-button pu-button-browse" data-browse-photos>{{_ 'registeroptional-form-image-button'}}</button>
                     <input type="file" class="pu-fileinput" data-profile-picture-input>
                     <!-- TODO DISABLED UNTIL IMPLEMENTED

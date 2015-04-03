@@ -20,16 +20,7 @@ Template.WidgetStartActivities.events({
     'click [data-end-date-button]': function(event, template) {
         event.preventDefault();
         showDatePicker.set(true);
-
-        // defer is nessesary to wait for template re rendering
-        Meteor.defer(function(){
-
-            // init datepicker
-            template.$('.pu-datepicker').datepicker({
-                language: moment.locale(),
-                format: "yyyy-mm-dd"
-            });
-        })
+        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
         
     }
 });

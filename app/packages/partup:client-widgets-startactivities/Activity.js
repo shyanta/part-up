@@ -15,15 +15,7 @@ Template.Activity.events({
     'click [data-edit]': function(event, template){
         activityEditModes.set(template.data._id, true);
 
-        // defer is nessesary to wait for template re rendering
-        lodash.defer(function(){
-
-            // init datepicker
-            template.$('.pu-datepicker').datepicker({
-                language: moment.locale(),
-                format: "yyyy-mm-dd",
-            });
-        })
+		Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
     },
     'click [data-remove]': function (event, template){
         var activityId = template.data._id;

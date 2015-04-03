@@ -1,20 +1,20 @@
 {
     "partupdetail-update-item-type-anticontract_signed-title": "Signed anticontract",
 
-    "partupdetail-update-item-type-partups_supporters_new-title": "Became supporter",
+    "partupdetail-update-item-type-partups_supporters_added-title": "Became supporter",
     "partupdetail-update-item-type-new_upper-title": "Became upper",
 
-    "partupdetail-update-item-type-partup_tag_added-title": "Added label",
-    "partupdetail-update-item-type-partup_tag_removed-title": "Removed label",
-    "partupdetail-update-item-type-partup_tag_changed-title": "Changed label",
+    "partupdetail-update-item-type-partups_tags_added-title": "Added label",
+    "partupdetail-update-item-type-partups_tags_removed-title": "Removed label",
+    "partupdetail-update-item-type-partups_tags_changed-title": "Changed label",
 
     "partupdetail-update-item-type-network_public-title": "This Part-up is now public",
     "partupdetail-update-item-type-network_private-title": "This Part-up is no longer public",
 
-    "partupdetail-update-item-type-changed_ending_date-title": "Changed ending date",
+    "partupdetail-update-item-type-partups_end_date_changed-title": "Changed ending date",
 
-    "partupdetail-update-item-type-changed_title-title": "Changed title",
-    "partupdetail-update-item-type-changed_description-title": "Changed description",
+    "partupdetail-update-item-type-partups_name_changed-title": "Changed title",
+    "partupdetail-update-item-type-partups_description_changed-title": "Changed description",
     "partupdetail-update-item-type-changed_picture-title": "Changed picture",
 
     "partupdetail-update-item-type-new_activity-title": "Added activity",
