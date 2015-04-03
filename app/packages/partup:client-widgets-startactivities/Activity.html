@@ -1,28 +1,37 @@
 <template name="Activity">
     {{#if editMode}}
         <article class="pu-block pu-block-active">
-            {{#autoForm schema=Partup.schemas.forms.startActivities id="activityEditForm" class="pu-form pu-form-condensed" theme="plain"}}
+            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed"}}
                 <label class="pu-formfield">
-                    {{> afFieldInput name="name" value=name placeholder=placeholders.name class="pu-input pu-input-accent" }}
+                    <div class="pu-sub-validations {{ PartupFieldClasses name='name' }}">
+                        <span class="pu-sub-input">{{> afFieldInput name="name" value=name placeholder=placeholders.name class="pu-input pu-input-accent" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+                    </div>
                 </label>
                 <label class="pu-formfield">
-                    {{> afFieldInput name='description' value=description placeholder=placeholders.description class="pu-textarea"  rows=3 }}
+                    <div class="pu-sub-validations {{ PartupFieldClasses name='description' }}">
+                        <span class="pu-sub-input">{{> afFieldInput name='description' value=description placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                    </div>
                 </label>
 
                 <div class="pu-formfield">
                     <div class="end-date-field">
                         <label class="pu-formfield">
                             <div class="pu-inputholder pu-inputholder-lefticon">
-                                {{> afFieldInput name='end_date' value=end_date placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
+                                <div class="pu-sub-validations {{ PartupFieldClasses name='end_date' }}">
+                                    <span class="pu-sub-input">{{> afFieldInput name='end_date' value=end_date placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}</span>
+                                    <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
+                                </div>
                                 <span class="pu-icon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </label>
                     </div>
 
                     <div class="pu-formfield-right">
-                        <a class="pu-button pu-button-text pu-button-text-subtle" data-remove-activity>{{_ 'startactivities-button-remove'}}</a>
+                        <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>{{_ 'startactivities-button-remove'}}</a>
                         <input class="pu-button pu-button-primary" type="submit"
-                               value="{{_ 'startactivities-form-save' }}" data-save-and-disable-edit-mode>
+                               value="{{_ 'startactivities-form-save' }}">
                     </div>
                 </div>
             {{/autoForm}}
@@ -30,7 +39,7 @@
     {{else}}
         <article class="pu-block">
             <h2 class="pu-block-title">{{name}}</h2>
-            <a class="pu-button pu-button-edit" data-enable-edit-mode>{{_ 'startactivities-button-edit'}}</a>
+            <a class="pu-button pu-button-edit" data-edit>{{_ 'startactivities-button-edit'}}</a>
 
             <p class="pu-paragraph">{{description}}</p>
             {{# if end_date }}
