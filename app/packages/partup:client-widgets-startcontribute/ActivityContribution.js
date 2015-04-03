@@ -19,7 +19,7 @@ Template.ActivityContribution.created = function () {
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribution,
     'placeholders': Partup.services.placeholders.startcontribute,
-    'formId': function () {
+    'generateFormId': function () {
         return this._id;
     },
     'fieldsFromContribution': function () {
@@ -88,6 +88,20 @@ var beginFirst;
 var beginLast;
 
 Template.ActivityContribution.events({
+
+    'click [data-toggle-want]': function checkContribution(event, template) {
+        var valueKey = $(event.currentTarget).data("check-contribution");
+
+        if (valueKey === 'contributeWantChecked') {
+            // Submit form when user clicked the 'up for this' button
+            $('#' + template.data._id).submit();
+        }
+
+        template[valueKey].set(!template[valueKey].get());
+    },
+
+
+
     'click [data-change-contribution]': function stopFromBubbling(event, template) {
         // prevent autofocus(clickContribution) on click
         event.stopPropagation();
@@ -126,6 +140,7 @@ Template.ActivityContribution.events({
             }, 1000);
         }
     },
+
     'mouseleave [data-open-contribution]': function mouseLeaveContribution(event, template) {
         // hide the popover on mouse leave
 
@@ -148,21 +163,12 @@ Template.ActivityContribution.events({
         // set reactive var boolean to false to hide popover
         template[booleanKey].set(false);
     },
+
     'keyup [data-change-contribution]': function changeContribution(event, template) {
         if (event.which === 13) {
             // Submit form when user pressed enter
             $('#' + template.data._id).submit();
         }
-    },
-    'click [data-check-contribution]': function checkContribution(event, template) {
-        var valueKey = $(event.currentTarget).data("check-contribution");
-
-        if (valueKey === 'contributeWantChecked') {
-            // Submit form when user clicked the 'up for this' button
-            $('#' + template.data._id).submit();
-        }
-
-        template[valueKey].set(!template[valueKey].get());
     },
     'click [data-clear]': function clearContribution(event, template) {
         // reset field by data key

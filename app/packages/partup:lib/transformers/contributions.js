@@ -12,21 +12,16 @@ Partup.transformers.contribution = {
      * @param {object} contribution
      */
     'toFormContribution': function (contribution) {
-        var contributionValues = {};
+        return contributionValues = {
+            _id: contribution._id,
 
-        contributionValues._id = contribution._id;
-
-        contribution.types.forEach(function (type) {
-            if (type.type == 'want') contributionValues.type_want = true;
-            if (type.type == 'can') contributionValues.type_can = true;
-            if (type.type == 'can' && type.type_data.amount) contributionValues.type_can_amount = type.type_data.amount;
-            if (type.type == 'have') contributionValues.type_have = true;
-            if (type.type == 'have' && type.type_data.amount) contributionValues.type_have_amount = type.type_data.amount;
-            if (type.type == 'have' && type.type_data.description) contributionValues.type_have_description = type.type_data.description;
-            if (type.type == 'donate' && type.type_data.amount) contributionValues.type_donate_amount = type.type_data.amount;
-        });
-
-        return contributionValues;
+            types_want_enabled: contribution.types.want.enabled,
+            types_can_enabled: contribution.types.can.enabled,
+            types_can_amount: contribution.types.can.amount,
+            types_have_enabled: contribution.types.have.enabled,
+            types_have_amount: contribution.types.have.amount,
+            types_have_description: contribution.types.have.description
+        };
     },
 
     /**
@@ -36,29 +31,43 @@ Partup.transformers.contribution = {
      * @param {mixed[]} fields
      */
     'fromFormContribution': function (fields) {
-        var contribution = {};
-        var types = [];
+        var contribution = {
+            types: {}
+        };
 
-        if (fields.type_want) types.push({'type': 'want'});
-        if (fields.type_can_amount) {
-            types.push({
-                'type': 'can',
-                'type_data': {
-                    'amount': fields.type_can_amount
-                }
-            });
-        }
-        if (fields.type_have_amount || fields.type_have_description) {
-            types.push({
-                'type': 'have',
-                'type_data': {
-                    'amount': fields.type_have_amount,
-                    'description': fields.type_have_description
-                }
-            });
+        // create "want" field
+        if (fields.types_want_enabled) {
+            contribution.types.want = {
+                enabled: true
+            };
+        } else {
+            contribution.types.want = {
+                enabled: false
+            };
         }
 
-        contribution.types = types;
+        if (fields.types_can_enabled) {
+            contribution.types.can = {
+                enabled: true,
+                amount: fields.types_can_amount
+            }
+        } else {
+            contribution.types.can = {
+                enabled: false
+            }
+        }
+
+        if (fields.types_have_enabled) {
+            contribution.types.have = {
+                enabled: true,
+                amount: fields.types_have_amount,
+                description: fields.types_have_description
+            };
+        } else {
+            contribution.types.have = {
+                enabled: false
+            };
+        }
 
         return contribution;
     }
