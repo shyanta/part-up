@@ -51,3 +51,4 @@ tmeasday:publish-counts
 fastclick
 aldeed:autoform@5.1.2
 partup:client-widgets-startpromote
+partup:copy-to-clipboard

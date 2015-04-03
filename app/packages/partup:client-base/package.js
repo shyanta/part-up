@@ -14,6 +14,7 @@ Package.onUse(function(api) {
         'tap:i18n',
         'momentjs:moment',
         'chrismbeckett:toastr',
+        'partup:copy-to-clipboard',
         'templating',
         'tracker'
     ], ['client']);
@@ -23,6 +24,7 @@ Package.onUse(function(api) {
         'ui/notify.js',
         'ui/language.js',
         'ui/strings.js',
+        'ui/clipboard.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',
