@@ -12,6 +12,7 @@
     "startpromote-button-done": "@To your Part-up",
 
     "startpromote-notify-copy-to-clipboard-error": "@Copy to clipboard does not work yet",
+    "startpromote-notify-copy-to-clipboard-success": "@Link copied",
     "startpromote-notify-shared-error": "@Your Part-up is already shared on %s",
     "startpromote-notify-shared-success": "@Your Part-up is shared on %s"
 }
