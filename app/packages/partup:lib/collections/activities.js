@@ -2,4 +2,4 @@
  @namespace Activities
  @name Activities
  */
-Activities = new Meteor.Collection('activities');
+Activities = new Mongo.Collection('activities');

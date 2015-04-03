@@ -2,4 +2,4 @@
  @namespace Notifications
  @name Notifications
  */
-Notifications = new Meteor.Collection('notifications');
+Notifications = new Mongo.Collection('notifications');
