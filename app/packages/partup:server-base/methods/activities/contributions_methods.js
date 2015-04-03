@@ -46,7 +46,7 @@ Meteor.methods({
             contribution.types = types;
 
             Activities.update(activityId, {$push: {'contributions': contribution}});
-            Event.emit('activities.contributions.inserted', activity, contribution);
+            Event.emit('partups.activities.contributions.inserted', activity, contribution);
 
             return true;
         } catch (error) {
