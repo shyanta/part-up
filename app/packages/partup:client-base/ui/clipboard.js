@@ -10,6 +10,7 @@ Partup.ui.clipboard = {
             path: '/extra/jquery.clipboard.swf',
 
             copy: function() {
+                $(this).select();
                 var copyText = $(this).text();
                 copyCallBack();
                 return copyText;
