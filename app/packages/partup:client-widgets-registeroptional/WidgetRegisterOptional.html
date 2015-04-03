@@ -3,14 +3,18 @@
 
         <h2 class="pu-title pu-title-modal">{{_ 'registeroptional-maywegettoknowyou' profile.name }}</h2>
         <p>{{_ 'registeroptional-optionalexplanation' }}</p>
-
         {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser theme="plain"}}
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
                 <div class="pu-upload">
                     <img src="{{#if profilePicture.url }}{{ profilePicture.url }}{{else}}/images/smile.svg{{/if}}" alt="" data-image-placeholder class="pu-imagepreview">
                     <!-- <img src="/images/smile.svg" alt="" data-image-placeholder class="pu-imagepreview"> -->
-                    <button class="pu-button pu-button-browse" data-browse-photos>{{_ 'registeroptional-form-image-button'}}</button>
+                    <button class="pu-button pu-button-browse {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
+                        <span>{{_ 'registeroptional-form-image-button'}}</span>
+                        {{#if uploadingProfilePicture}}
+                            {{> WidgetSpinnerInverted}}
+                        {{/if}}
+                    </button>
                     <input type="file" class="pu-fileinput" data-profile-picture-input>
                     <!-- TODO DISABLED UNTIL IMPLEMENTED
                     <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>

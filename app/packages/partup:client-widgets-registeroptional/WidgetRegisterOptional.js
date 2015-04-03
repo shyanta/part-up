@@ -1,8 +1,12 @@
+Template.WidgetRegisterOptional.onCreated(function(){
+    this.uploadingProfilePicture = new ReactiveVar(false);
+});
 Template.WidgetRegisterOptional.helpers({
     formSchema: Partup.schemas.forms.registerOptional,
     placeholders: Partup.services.placeholders.registerOptional,
     profile: function() {
-        return Meteor.user().profile;
+        var user = Meteor.user()
+        return user ? user.profile : {};
     },
     profilePicture: function() {
         var uploadedImageID = Session.get('partials.register-optional.uploaded-image');
@@ -24,6 +28,9 @@ Template.WidgetRegisterOptional.helpers({
         }
         return undefined;
     },
+    uploadingProfilePicture: function(){
+        return Template.instance().uploadingProfilePicture.get();
+    }
 });
 
 Template.WidgetRegisterOptional.events({
@@ -35,6 +42,8 @@ Template.WidgetRegisterOptional.events({
         input.click();
     },
     'change [data-profile-picture-input]': function eventChangeFile(event, template){
+        template.uploadingProfilePicture.set(true);
+        
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
                 // TODO: Handle error in frontend
@@ -42,6 +51,8 @@ Template.WidgetRegisterOptional.events({
                 template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
                 Session.set('partials.register-optional.uploaded-image', image._id);
+
+                template.uploadingProfilePicture.set(false);
             });
         });
     }

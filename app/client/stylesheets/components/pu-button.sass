@@ -51,10 +51,12 @@
     // State: loaidng
     &.pu-state-loading
         pointer-events: none
-        opacity: .5
-
-        &:after
-            content: '...'
+        // opacity: .5
+        
+        span
+            opacity:0.5
+        // &:after
+        //     content: '...'
 
     // Type: right sided icon
     &-iconright
@@ -415,28 +417,6 @@
         padding-left: 0
         padding-right: 0
 
-    // &-contribute
-    //     background-color: $color-disabled
-    //     transition: background-color $animation-duration-slow
 
-    //     &:hover
-    //         background-color: darken($color-sunshade, 5%)
-
-    // &-checkbox
-    //     background-color: transparent
-    //     color: $color-solid-black
-
-    //     &:hover
-    //         background-color: $color-dark-white
-    //         color: $color-solid-black
-
-    //     &:active
-    //         transform: none
-    //         transition-duration: 0
-    //         background-color: darken($color-background-tertiery, 5%)
-    //         color: $color-solid-black
-
-    //     &:focus
-    //         color: $color-solid-black
 
 
