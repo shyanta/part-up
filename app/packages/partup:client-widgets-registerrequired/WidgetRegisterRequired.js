@@ -40,7 +40,7 @@ AutoForm.hooks({
     registerRequiredForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
-            self.event.preventDefault();
+            console.log('Hi. This is partup.');
 
             Accounts.createUser({
                 email: insertDoc.email,
@@ -53,20 +53,21 @@ AutoForm.hooks({
                     }
                 }
             }, function(error) {
+                // Error cases
                 if (error) {
-                    if(error.message == 'Email already exists [403]') {
+                    if(error.message === 'Email already exists [403]') {
                         self.addStickyValidationError('email', 'emailExists');
-                        AutoForm.validateForm("registerRequiredForm");
-                        // var $input = $('[data-schema-key=email]');
-                        // $input.trigger('validate');
+                        AutoForm.validateForm(self.formId);
+                    } else {
+                        Partup.ui.notify.error(error);
                     }
-                    Partup.ui.notify.error(error.reason);
-                    return false;
-                    self.done(err);
-                } else {
-                    self.done();
-                    Router.go('register-details');
+                    // self.done(new Error(error.message));
+                    return;
                 }
+                
+                // Success
+                self.done();
+                Router.go('register-details');
             });
 
             return false;
