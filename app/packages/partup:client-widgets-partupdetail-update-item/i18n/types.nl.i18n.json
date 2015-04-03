@@ -1,19 +1,20 @@
 {
     "partupdetail-update-item-type-anticontract_signed-title": "Anti-contract getekend",
 
-    "partupdetail-update-item-type-partups_supporters_new-title": "Nieuwe supporter",
+    "partupdetail-update-item-type-partups_supporters_added-title": "Nieuwe supporter",
     "partupdetail-update-item-type-new_upper-title": "Nieuwe upper",
 
-    "partupdetail-update-item-type-new_tag-title": "Nieuw label",
-    "partupdetail-update-item-type-changed_tag-title": "Label veranderd",
+    "partupdetail-update-item-type-partups_tags_added-title": "Nieuw label",
+    "partupdetail-update-item-type-partups_tags_removed-title": "Label verwijderd",
+    "partupdetail-update-item-type-partups_tags_changed-title": "Label veranderd",
 
     "partupdetail-update-item-type-network_public-title": "Deze Part-up is nu vindbaar voor het publiek",
     "partupdetail-update-item-type-network_private-title": "Deze Part-up is nu niet meer vindbaar voor het publiek",
 
-    "partupdetail-update-item-type-changed_ending_date-title": "Einddatum gewijzigd",
+    "partupdetail-update-item-type-partups_end_date_changed-title": "Einddatum gewijzigd",
 
-    "partupdetail-update-item-type-changed_title-title": "Titel gewijzigd",
-    "partupdetail-update-item-type-changed_description-title": "Omschrijving gewijzigd",
+    "partupdetail-update-item-type-partups_name_changed-title": "Titel gewijzigd",
+    "partupdetail-update-item-type-partups_description_changed-title": "Omschrijving gewijzigd",
     "partupdetail-update-item-type-changed_picture-title": "Foto gewijzigd",
 
     "partupdetail-update-item-type-new_activity-title": "Activiteit toegevoegd",
