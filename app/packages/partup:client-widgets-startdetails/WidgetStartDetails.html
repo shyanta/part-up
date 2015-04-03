@@ -74,7 +74,12 @@
                 <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
                 <div class="pu-upload pu-upload-large">
                     <!-- <img src="{{ profilePicture.url }}" alt="" data-image-placeholder> -->
-                    <button class="pu-button pu-button-secondary" data-browse-photos>{{_ 'startdetails-image-button'}}</button>
+                    <button class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}" data-browse-photos>
+                        <span>{{_ 'startdetails-image-button'}}</span>
+                        {{#if uploadingPictures}}
+                            {{> WidgetSpinnerInverted}}
+                        {{/if}}
+                    </button>
                     <span>{{_ 'startdetails-image-validation'}}</span>
                     <input type="file" class="pu-fileinput" data-imageupload>
                     {{> afFieldInput name="image" type="hidden"}}

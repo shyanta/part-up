@@ -1,3 +1,6 @@
+Template.WidgetStartDetails.onCreated(function(){
+    this.uploadingPictures = new ReactiveVar(false);
+});
 Template.WidgetStartDetails.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.startdetails,
@@ -22,6 +25,9 @@ Template.WidgetStartDetails.helpers({
     },
     user: function() {
         return Meteor.user();
+    },
+    uploadingPictures: function(){
+        return Template.instance().uploadingPictures.get();
     }
 });
 
@@ -34,6 +40,8 @@ Template.WidgetStartDetails.events({
         input.click();
     },
     'change [data-imageupload]': function eventChangeFile(event, template){
+        template.uploadingPictures.set(true);
+
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
                 // TODO: Handle error in frontend
@@ -41,6 +49,10 @@ Template.WidgetStartDetails.events({
                 template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
                 Session.set('partials.start-partup.uploaded-image', image._id);
+
+
+                template.uploadingPictures.set(false);
+
             });
         });
     }
