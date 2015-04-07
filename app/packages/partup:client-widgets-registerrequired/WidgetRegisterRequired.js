@@ -1,3 +1,6 @@
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.WidgetRegisterRequired.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: Partup.services.placeholders.registerRequired,
@@ -6,6 +9,9 @@ Template.WidgetRegisterRequired.helpers({
     }
 });
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.WidgetRegisterRequired.events({
     'click [data-signupfacebook]': function(event) {
         Meteor.loginWithFacebook({
@@ -36,11 +42,13 @@ Template.WidgetRegisterRequired.events({
     }
 })
 
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.hooks({
     registerRequiredForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
-            self.event.preventDefault();
 
             Accounts.createUser({
                 email: insertDoc.email,
@@ -53,20 +61,24 @@ AutoForm.hooks({
                     }
                 }
             }, function(error) {
-                if (error) {
-                    if(error.message == 'Email already exists [403]') {
-                        self.addStickyValidationError('email', 'emailExists');
-                        AutoForm.validateForm("registerRequiredForm");
-                        // var $input = $('[data-schema-key=email]');
-                        // $input.trigger('validate');
+
+                // Error cases
+                if(error && error.message) {
+                    switch (error.message) {
+                        case 'Email already exists [403]':
+                            Partup.ui.forms.addStickyFieldError(self, 'email', 'emailExists');
+                            break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
                     }
-                    Partup.ui.notify.error(error.reason);
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
                     return false;
-                    self.done(err);
-                } else {
-                    self.done();
-                    Router.go('register-details');
                 }
+
+                // Success
+                self.done();
+                Router.go('register-details');
             });
 
             return false;

@@ -19,7 +19,7 @@
         </ul>
         <p class="pu-textline"><span>{{_ 'registerrequired-or'}}</span></p>
 
-        {{#autoForm schema=formSchema id="registerRequiredForm" class="pu-form" validation="keyup" }}
+        {{#autoForm schema=formSchema id="registerRequiredForm" class="pu-form" validation="blur" }}
 
             <!-- First and last name -->
             <label class="pu-formfield">
@@ -28,9 +28,9 @@
                     {{_ 'registerrequired-form-name-validation'}}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-name-tooltip' }}</p></span>
                 </a>
-                <div class="pu-sub-validations {{ PartupFieldClasses name='name' }}">
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
-                    <span class="pu-sub-error">{{afFieldMessage name='name'}}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                 </div>
             </label>
 
@@ -41,9 +41,9 @@
                     {{_ 'registerrequired-form-email-validation' }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-email-tooltip' }}</p></span>
                 </a>
-                <div class="pu-sub-validations {{ PartupFieldClasses name='email' }}">
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
-                    <span class="pu-sub-error">{{afFieldMessage name='email'}}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
                 </div>
             </label>
 
@@ -55,12 +55,12 @@
                         {{_ 'registerrequired-form-password-validation' }}
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-password-tooltip' }}</p></span>
                     </a>
-                    <div class="pu-sub-validations {{ PartupFieldClasses name='password' }}">
-                        <span class="pu-sub-input">{{> afFieldInput name='password' placeholder=placeholders.password class="pu-input" }}</span>
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='password' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
                     </div>
-                    <div class="pu-sub-validations {{ PartupFieldClasses name='confirmPassword' }}">
-                        <span class="pu-sub-input">{{> afFieldInput name='confirmPassword' placeholder=placeholders.confirmPassword class="pu-input" }}</span>
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='confirmPassword' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput type='password' name='confirmPassword' placeholder=placeholders.confirmPassword class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='confirmPassword' }}</span>
                     </div>
                 </label>

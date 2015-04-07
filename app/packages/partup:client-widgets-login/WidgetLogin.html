@@ -19,19 +19,19 @@
         </ul>
         <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
 
-        {{#autoForm schema=formSchema id="loginForm" class="pu-form" validation="keyup" }}
+        {{#autoForm schema=formSchema id="loginForm" class="pu-form" validation="blur" }}
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'login-form-email-label'}}</span>
-                <div class="pu-sub-validations {{ PartupFieldClasses name='email' }}">
-                    <span class="pu-sub-input pu-sub-input-nocheckmark">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
                 </div>
             </label>
 
-            <label class="pu-formfield {{ PartupFieldClasses name='password' }}">
+            <label class="pu-formfield">
                 <span class="pu-label">{{_ 'login-form-password-label'}}</span>
-                <div class="pu-sub-validations {{ PartupFieldClasses name='password' }}">
-                    <span class="pu-sub-input pu-sub-input-nocheckmark">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='password' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
                 </div>
             </label>

@@ -8,6 +8,7 @@ Template.ActivityContribution.helpers({
         return 'contributionEditForm-' + this._id;
     },
     'fieldsFromContribution': function () {
+        console.log(this);
         var contribution = Contributions.findOne({activity_id: this._id, upper_id: Meteor.user()._id});
         return Partup.transformers.contribution.toFormContribution(contribution);
     },

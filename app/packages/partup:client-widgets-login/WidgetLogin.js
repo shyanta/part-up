@@ -20,12 +20,7 @@ Template.WidgetLogin.events({
                 return;
             }
 
-            if(optionalDetailsFilledIn()) {
-                goToReturnUrlOrHome()
-            } else {
-                Router.go('register-details');
-            }
-
+            continueLogin();
         });
     },
     'click [data-loginlinkedin]': function(event) {
@@ -38,11 +33,7 @@ Template.WidgetLogin.events({
                 return false;
             }
 
-            if(optionalDetailsFilledIn()) {
-                goToReturnUrlOrHome()
-            } else {
-                Router.go('register-details');
-            }
+            continueLogin();
         });
     }
 })
@@ -50,48 +41,65 @@ Template.WidgetLogin.events({
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-function optionalDetailsFilledIn() {
+var continueLogin = function() {
     var user = Meteor.user();
-    if (user.profile.settings && user.profile.settings.optionalDetailsCompleted) {
-        return true;
+    if(!user) return;
+
+    var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
+    var returnUrl = Session.get('application.return-url');
+
+    if(returnUrl) {
+
+        // Intent
+        Session.set('application.return-url', undefined);
+        Router.go(returnUrl);
+
+    } else if(!optionalDetailsFilledIn) {
+
+        // Fill-in optional details
+        Router.go('register-details');
+
     } else {
-        return false;
+
+        // Home fallback
+        Router.go('home');
+
     }
 };
 
-function goToReturnUrlOrHome() {
-    var returnUrl = Session.get('application.return-url');
-    if(returnUrl) {
-        Session.set('application.return-url', undefined);
-        Router.go(returnUrl);
-    } else {
-        Router.go('home');
-    }
-}
-
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.hooks({
     loginForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
-            self.event.preventDefault();
+
             Meteor.loginWithPassword(insertDoc.email, insertDoc.password, function(error) {
 
-                if(error) {
-                    if(error.message == 'User not found [403]') {
-                        Partup.ui.forms.addCustomFieldError(self, 'email', 'emailNotFound');
-                    } else {
-                        Partup.ui.notify.error(error.reason);   
+                // Error cases
+                if(error && error.message) {
+                    switch (error.message) {
+                        case 'User not found [403]':
+                            Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                            break;
+                        case 'Incorrect password [403]':
+                            Partup.ui.forms.addStickyFieldError(self, 'password', 'passwordIncorrect');
+                            break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
                     }
-                    self.done(new Error(error.reason));
-                    return;
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return false;
                 }
 
-                if(optionalDetailsFilledIn()) {
-                    goToReturnUrlOrHome();
-                } else {
-                    Router.go('register-details');
-                }
+                // Success
+                self.done();
+                continueLogin();
             });
+
+            return false;
         }
     }
 });

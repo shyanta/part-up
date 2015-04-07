@@ -33,6 +33,7 @@ Package.onUse(function(api) {
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',
+        'helpers/forms.js',
         'autorun.js'
     ], ['client']);
 });

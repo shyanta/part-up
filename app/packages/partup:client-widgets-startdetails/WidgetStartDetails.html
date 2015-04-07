@@ -4,52 +4,70 @@
         <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name }}</h2>
         <p>{{_ 'startdetails-explainingpartup' }}</p>
 
-        {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" theme="plain"}}
-
+        {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="blur" }}
+            
+            <!-- Name -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
-                {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-name-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+                </div>
             </label>
 
+            <!-- Description -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
-                {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startdetails-form-description-validation' Partup.schemas.entities.partup._schema.description.max }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-description-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                </div>
             </label>
             
+            <!-- Tags -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-tags_input-label'}}</span>
-                <div class="pu-inputholder">
-                    {{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}
-                </div>
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startdetails-form-tags_input-validation' }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-tags_input-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+                </div>
             </label>
 
+            <!-- End date -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-end_date-label'}}</span>
-                <div class="pu-inputholder pu-inputholder-lefticon">
-                    {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
-                    <span class="pu-icon"><i class="fa fa-calendar"></i></span>
-                </div>
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startdetails-form-end_date-validation' }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-end_date-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
+                    <div class="pu-inputholder pu-inputholder-lefticon">
+                        {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
+                        <span class="pu-icon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                    <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
+                </div>
             </label>
 
+            <!-- Location -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-location_input-label'}}</span>
-                {{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
+                </div>
             </label>
 
             <!-- TODO: NETWORK IMPLEMENTATION
@@ -70,10 +88,11 @@
                 </a>
             </label>
             -->
+
+            <!-- Image -->
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
                 <div class="pu-upload pu-upload-large">
-                    <!-- <img src="{{ profilePicture.url }}" alt="" data-image-placeholder> -->
                     <button class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}" data-browse-photos>
                         <span>{{_ 'startdetails-image-button'}}</span>
                         {{#if uploadingPictures}}
@@ -103,8 +122,7 @@
                 {{/if}}
             </div>
 
-
-            
+            <!-- Submit button -->
             <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
                 <div class="pu-sub-footer-container">
                     <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startdetails-form-submit'}}">

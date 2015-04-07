@@ -1,6 +1,13 @@
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
 Template.WidgetRegisterOptional.onCreated(function(){
     this.uploadingProfilePicture = new ReactiveVar(false);
 });
+
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.WidgetRegisterOptional.helpers({
     formSchema: Partup.schemas.forms.registerOptional,
     placeholders: Partup.services.placeholders.registerOptional,
@@ -33,6 +40,9 @@ Template.WidgetRegisterOptional.helpers({
     }
 });
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.WidgetRegisterOptional.events({
     'click [data-browse-photos]': function eventClickBrowse(event, template){
         event.preventDefault();
@@ -46,50 +56,67 @@ Template.WidgetRegisterOptional.events({
         
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
-                // TODO: Handle error in frontend
-                // TODO: Somehow show the image in frontend
                 template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
                 Session.set('partials.register-optional.uploaded-image', image._id);
-
                 template.uploadingProfilePicture.set(false);
             });
         });
     }
 });
 
+
+/*************************************************************/
+/* Widget functions */
+/*************************************************************/
+var continueRegister = function() {
+    var user = Meteor.user();
+    if(!user) return;
+
+    var returnUrl = Session.get('application.return-url');
+
+    if(returnUrl) {
+
+        // Intent
+        Session.set('application.return-url', undefined);
+        Router.go(returnUrl);
+
+    } else {
+
+        // Home fallback
+        Router.go('home');
+
+    }
+};
+
+
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.hooks({
     registerOptionalForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
-            event.preventDefault();
             var self = this;
 
             Meteor.call('users.update', insertDoc, function(error, res){
-                if(error) {
-                    console.log('something went wrong', error);
-                    return false;
+                if(error && error.message) {
+                    switch (error.message) {
+                        // case 'User not found [403]':
+                        //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                        //     break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
+                    }
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return;
                 }
-                Router.go('discover');
+
+                self.done();
+                continueRegister();
             });
 
-            //TODO
-
-            self.done();
-
-            //Accounts.createUser({
-            //    email: insertDoc.email,
-            //    password: insertDoc.password,
-            //    profile: {
-            //        name: insertDoc.name,
-            //        network: insertDoc.network
-            //    }
-            //}, function(error) {
-            //    if (error) {
-            //        Partup.ui.notify.iError('generic-error');
-            //        return false;
-            //    }
-            //    Router.go('register-details');
-            //})
+            return false;
         }
     }
 });

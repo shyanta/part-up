@@ -3,104 +3,146 @@
 
         <h2 class="pu-title pu-title-modal">{{_ 'registeroptional-maywegettoknowyou' profile.name }}</h2>
         <p>{{_ 'registeroptional-optionalexplanation' }}</p>
-        {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser theme="plain"}}
+
+
+        {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser validation="blur" }}
+
+            <!-- User avatar -->
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
                 <div class="pu-upload">
                     <img src="{{#if profilePicture.url }}{{ profilePicture.url }}{{else}}/images/smile.svg{{/if}}" alt="" data-image-placeholder class="pu-imagepreview">
-                    <!-- <img src="/images/smile.svg" alt="" data-image-placeholder class="pu-imagepreview"> -->
                     <button class="pu-button pu-button-browse {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
                         <span>{{_ 'registeroptional-form-image-button'}}</span>
                         {{#if uploadingProfilePicture}}
                             {{> WidgetSpinnerInverted}}
                         {{/if}}
                     </button>
+
                     <input type="file" class="pu-fileinput" data-profile-picture-input>
                     <!-- TODO DISABLED UNTIL IMPLEMENTED
-                    <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
+                        <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
                     -->
-                    {{> afFieldInput name="image" type="hidden"}}
+                    {{> afFieldInput name="image" type="hidden" }}
                 </div>
             </div>
 
+            <!-- Region -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-location_input-label' }}</span>
-                {{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'registeroptional-form-location_input-validation'}}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-location_input-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
+                </div>
             </label>
 
+            <!-- Bio -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-description-label' }}</span>
-                {{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'registeroptional-form-description-validation'}}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-description-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                </div>
             </label>
 
+            <!-- Tags -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-tags_input-label'}}</span>
-                <div class="pu-inputholder">
-                    {{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}
-                </div>
                 <a class="pu-hint pu-tooltip">
                     {{_ 'registeroptional-form-tags_input-validation' }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-tags_input-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+                </div>
             </label>
 
+            <!-- Socials -->
             <fieldset class="pu-formfield">
-                <label for="pu-facebookfield">
-                    <span class="pu-label">{{_ 'registeroptional-form-socials-label' }}</span>
-                </label>
-                <div class="pu-inputholder pu-inputholder-lefticon">
-                    {{> afFieldInput id='pu-facebookfield' name='facebook' placeholder=placeholders.facebook class="pu-input" }}
-                    <span class="pu-icon"><i class="fa fa-facebook"></i></span>
-                </div>
-                <div class="pu-inputholder pu-inputholder-lefticon">
-                    {{> afFieldInput name='twitter' placeholder=placeholders.twitter class="pu-input" }}
-                    <span class="pu-icon"><i class="fa fa-twitter"></i></span>
-                </div>
-                <div class="pu-inputholder pu-inputholder-lefticon">
-                    {{> afFieldInput name='instagram' placeholder=placeholders.instagram class="pu-input" }}
-                    <span class="pu-icon"><i class="fa fa-instagram"></i></span>
-                </div>
-                <div class="pu-inputholder pu-inputholder-lefticon">
-                    {{> afFieldInput name='linkedin' placeholder=placeholders.linkedin class="pu-input" }}
-                    <span class="pu-icon"><i class="fa fa-linkedin"></i></span>
-                </div>
+                <label class="pu-label" for="pu-sub-facebookfield">{{_ 'registeroptional-form-socials-label' }}</label>
                 <a class="pu-hint pu-tooltip">
                     {{_ 'registeroptional-form-socials-validation' }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-socials-tooltip' }}</p></span>
                 </a>
+
+                <!-- Facebook -->
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook' }}pu-state-invalid{{/if}}">
+                    <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                        {{> afFieldInput id='pu-sub-facebookfield' name='facebook' placeholder=placeholders.facebook class="pu-input" }}
+                        <span class="pu-icon"><i class="fa fa-facebook"></i></span>
+                    </div>
+                    <span class="pu-sub-error">{{ afFieldMessage name='facebook' }}</span>
+                </div>
+
+                <!-- Twitter -->
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='twitter' }}pu-state-invalid{{/if}}">
+                    <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                        {{> afFieldInput name='twitter' placeholder=placeholders.twitter class="pu-input" }}
+                        <span class="pu-icon"><i class="fa fa-twitter"></i></span>
+                    </div>
+                    <span class="pu-sub-error">{{ afFieldMessage name='twitter' }}</span>
+                </div>
+
+                <!-- Instagram -->
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='instagram' }}pu-state-invalid{{/if}}">
+                    <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                        {{> afFieldInput name='instagram' placeholder=placeholders.instagram class="pu-input" }}
+                        <span class="pu-icon"><i class="fa fa-instagram"></i></span>
+                    </div>
+                    <span class="pu-sub-error">{{ afFieldMessage name='instagram' }}</span>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='linkedin' }}pu-state-invalid{{/if}}">
+                    <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                        {{> afFieldInput name='linkedin' placeholder=placeholders.linkedin class="pu-input" }}
+                        <span class="pu-icon"><i class="fa fa-linkedin"></i></span>
+                    </div>
+                    <span class="pu-sub-error">{{ afFieldMessage name='linkedin' }}</span>
+                </div>
             </fieldset>
 
+            <!-- Site URL -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-website-label' }}</span>
-                {{> afFieldInput name='website' placeholder=placeholders.website class="pu-input" }}
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='website' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='website' placeholder=placeholders.website class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='website' }}</span>
+                </div>
             </label>
 
+            <!-- Phone number -->            
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-phonenumber-label' }}</span>
-                {{> afFieldInput name='phonenumber' placeholder=placeholders.phonenumber class="pu-input" }}
-                <a class="pu-hint pu-tooltip">
-                    {{_ 'registeroptional-form-phonenumber-validation' }}
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-phonenumber-tooltip' }}</p></span>
-                </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='phonenumber' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='phonenumber' placeholder=placeholders.phonenumber class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='phonenumber' }}</span>
+                </div>
             </label>
 
+            <!-- Skype username -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-skype-label' }}</span>
-                {{> afFieldInput name='skype' placeholder=placeholders.skype class="pu-input" }}
                 <a class="pu-hint pu-tooltip">
                     {{_ 'registeroptional-form-skype-validation' }}
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-skype-tooltip' }}</p></span>
                 </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='skype' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='skype' placeholder=placeholders.skype class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='skype' }}</span>
+                </div>
             </label>
 
+            <!-- Submit form button -->
             <footer>
                 <input class="pu-button pu-button-primary" type="submit" value="{{_ 'registeroptional-form-submit' }}">
             </footer>
