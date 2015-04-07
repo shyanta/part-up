@@ -1,5 +1,11 @@
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
 var activityEditModes = new ReactiveDict();
 
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.Activity.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.startactivities,
@@ -9,8 +15,11 @@ Template.Activity.helpers({
     editMode: function(){
         return activityEditModes.get(this._id);
     }
-})
+});
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.Activity.events({
     'click [data-edit]': function(event, template){
         activityEditModes.set(template.data._id, true);
@@ -21,31 +30,43 @@ Template.Activity.events({
         var activityId = template.data._id;
         Meteor.call('activities.remove', activityId, function (error) {
             if (error) {
-                Partup.ui.notify.iError(error.reason);
+                Partup.ui.notify.error(error.reason);
             }
         });
     }
-})
+});
 
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.addHooks(null, {
     onSubmit: function(doc) {
         var self = this;
         var formNameParts = self.formId.split('-');
         if(formNameParts.length !== 2 || formNameParts[0] !== 'activityEditForm') return;
 
-        self.event.preventDefault();
-
         var activityId = formNameParts[1];
 
         Meteor.call('activities.update', activityId, doc, function (error) {
-             if (error) {
-                 Partup.ui.notify.iError(error.reason);
-             } else {
-                 activityEditModes.set(activityId, false);
-                 AutoForm.resetForm('activityEditForm');
-                 self.done();
 
-             }
+            // Error
+            if(error && error.message) {
+                switch (error.message) {
+                    // case 'User not found [403]':
+                    //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                    //     break;
+                    default:
+                        Partup.ui.notify.error(error.reason);
+                }
+                AutoForm.validateForm(self.formId);
+                self.done(new Error(error.message));
+                return;
+            }
+
+            // Success
+            activityEditModes.set(activityId, false);
+            AutoForm.resetForm('activityEditForm');
+            self.done();
 
         });
 

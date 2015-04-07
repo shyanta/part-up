@@ -1,25 +1,30 @@
 <template name="Activity">
     {{#if editMode}}
         <article class="pu-block pu-block-active">
-            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed"}}
+            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed" validation="blur" }}
+
+                <!-- Activity name -->
                 <label class="pu-formfield">
-                    <div class="pu-sub-validations {{ PartupFieldClasses name='name' }}">
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name="name" value=name placeholder=placeholders.name class="pu-input pu-input-accent" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                     </div>
                 </label>
+
+                <!-- Activity description -->
                 <label class="pu-formfield">
-                    <div class="pu-sub-validations {{ PartupFieldClasses name='description' }}">
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name='description' value=description placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
                     </div>
                 </label>
 
+                <!-- Activity end date -->
                 <div class="pu-formfield">
                     <div class="end-date-field">
                         <label class="pu-formfield">
                             <div class="pu-inputholder pu-inputholder-lefticon">
-                                <div class="pu-sub-validations {{ PartupFieldClasses name='end_date' }}">
+                                <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                                     <span class="pu-sub-input">{{> afFieldInput name='end_date' value=end_date placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}</span>
                                     <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
                                 </div>
@@ -34,17 +39,21 @@
                                value="{{_ 'startactivities-form-save' }}">
                     </div>
                 </div>
+
             {{/autoForm}}
         </article>
+
     {{else}}
+
         <article class="pu-block">
             <h2 class="pu-block-title">{{name}}</h2>
             <a class="pu-button pu-button-edit" data-edit>{{_ 'startactivities-button-edit'}}</a>
 
             <p class="pu-paragraph">{{description}}</p>
             {{# if end_date }}
-            <time datetime="{{ partupDateISO end_date }}">{{ partupDateNormal end_date }}</time>
+                <time datetime="{{ partupDateISO end_date }}">{{ partupDateNormal end_date }}</time>
             {{/if}}
         </article>
+
     {{/if}}
 </template>
