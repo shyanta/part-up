@@ -12,6 +12,7 @@ Partup.transformers.contribution = {
      * @param {object} contribution
      */
     'toFormContribution': function (contribution) {
+        if(!contribution) return undefined;
         return contributionValues = {
             _id: contribution._id,
 

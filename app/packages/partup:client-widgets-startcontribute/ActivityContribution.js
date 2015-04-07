@@ -1,7 +1,5 @@
-Template.ActivityContribution.created = function () {
-    this.canDropdownEnabled = new ReactiveVar(false);
-    this.haveDropdownEnabled = new ReactiveVar(false);
-};
+var canDropdownEnabledValues = new ReactiveDict();
+var haveDropdownEnabledValues = new ReactiveDict();
 
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribution,
@@ -14,19 +12,19 @@ Template.ActivityContribution.helpers({
         return Partup.transformers.contribution.toFormContribution(contribution);
     },
     'canDropdownEnabled': function () {
-        return Template.instance().canDropdownEnabled.get() ? true : false;
+        return canDropdownEnabledValues.get(this._id);
     },
     'haveDropdownEnabled': function () {
-        return Template.instance().haveDropdownEnabled.get() ? true : false;
+        return haveDropdownEnabledValues.get(this._id);
     },
     'contributions': function () {
         return Contributions.find({ activity_id: this._id });
     },
+    /*
     'activityHasContributions': function () {
         var contributions = Template.instance().contributions.get('fields').types;
         return contributions.length > 0;
     },
-    /*
     'currentUpperContribution': function () {
         return Contributions.find({ activity_id: this._id, upper_id: Meteor.user()._id });
     },
@@ -51,18 +49,47 @@ Template.ActivityContribution.helpers({
     }
 });
 
-// Initialize beginvalue variables
-var beginFirst;
-var beginLast;
-
 Template.ActivityContribution.events({
 
-    'click [data-toggle-want]': function (event, template) {
+    'click [data-toggle-want]': function (event) {
         var $button = $(event.currentTarget);
         var $input = $button.prev();
         $input.prop("checked", !$input.prop("checked"));
         $button.closest('form').submit();
-    }
+    },
+
+    'click [data-toggle-can]': function (event, template) {
+        var $button = $(event.currentTarget);
+        var $input = $button.prev();
+
+        if(canDropdownEnabledValues.get(this._id)) {
+            canDropdownEnabledValues.set(this._id, false);
+        } else {
+            $input.prop("checked", true);
+            canDropdownEnabledValues.set(this._id, true);
+            var $canAmount = $button.parent().find('[name="types_can_amount"]');
+            $canAmount.focus();
+        }
+    },
+    'click [data-remove-can]': function (event, template) {
+        var $button = $(event.currentTarget);
+        var $amountInput = $button.prev();
+        var $canEnabled = $button.closest('.pu-popover').find('[name="types_can_enabled"]');
+
+        // clear "can" contribution
+        $canEnabled.prop("checked", false);
+        $amountInput.val(undefined);
+        canDropdownEnabledValues.set(this._id, false);
+        $button.closest('form').submit();
+    },
+    'keyup [name="types_can_amount"]': function (event) {
+        var $input = $(event.currentTarget);
+        // Submit form when user pressed enter
+        if (event.which === 13) {
+            $input.closest('form').submit();
+        }
+    },
+
 
 /*
 
@@ -127,26 +154,6 @@ Template.ActivityContribution.events({
         // set reactive var boolean to false to hide popover
         template[booleanKey].set(false);
     },
-
-    'keyup [data-change-contribution]': function changeContribution(event, template) {
-        if (event.which === 13) {
-            // Submit form when user pressed enter
-            $('#' + template.data._id).submit();
-        }
-    },
-    'click [data-clear]': function clearContribution(event, template) {
-        // reset field by data key
-        var valueKey = $(event.currentTarget).data("clear");
-        console.log(template[valueKey]);
-        template[valueKey].set(false);
-
-        // reset input associated with the data key
-        var input = template.find('input[data-change-contribution=' + valueKey + ']');
-        $(input).val('');
-
-        // Submit form to save
-        $('#' + template.data._id).submit();
-    }
     */
 });
 
@@ -177,6 +184,8 @@ AutoForm.addHooks(
                     }
                 });
             }
+            canDropdownEnabledValues.set(activityId, false);
+            haveDropdownEnabledValues.set(activityId, false);
 
             AutoForm.resetForm(this.formId);
             this.done();

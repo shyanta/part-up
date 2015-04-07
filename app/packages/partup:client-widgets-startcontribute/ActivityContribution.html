@@ -19,15 +19,15 @@
                 <!-- can -->
                 <div class="pu-popover">
                     {{> afFieldInput name='types_can_enabled' template="partup" }}
-                    <button type="button" class="pu-button pu-button-icon pu-button-checkbox">
+                    <button type="button" class="pu-button pu-button-icon pu-button-checkbox" data-toggle-can>
                         <i class="fa fa-wrench"></i>
                         {{_ 'startcontribute-form-can-label'}}
                     </button>
 
-                    <div class="pu-popover-inner {{#if afFieldValueIs name="types_can_amount" value=true}}pu-popover-inner-show{{/if}}">
-                        <!-- data-contribution-can -->
+                    <div class="pu-popover-inner {{#if canDropdownEnabled}}pu-popover-inner-show{{/if}}">
                         <span>{{_ 'startcontribute-form-can_amount-label'}}</span>
-                        {{> afFieldInput name='types_can_amount' placeholder=placeholders.can_amount class="pu-input" data-change-contribution="contributeCanAmount" }}
+                        {{> afFieldInput name='types_can_amount' placeholder=placeholders.can_amount class="pu-input"}}
+                        <button type="button" data-remove-can>x</button>
                     </div>
                 </div>
 
@@ -66,10 +66,8 @@
                         {{#if types.can.enabled}}
                             <li>
                                 <span>{{_ 'startcontribute-summary-can-label'}}</span>
-                                <a href="" class="pu-button pu-button-label pu-button-label-removable"
-                                   data-clear="contributeCanAmount">
-                                    <span>€ {{ types.can.amount }}</span>
-                                    <i class="fa fa-remove"></i>
+                                <a href="#" class="pu-button pu-button-label">
+                                <span>€ {{ types.can.amount }}</span>
                                 </a>
                             </li>
                         {{/if}}
@@ -77,10 +75,8 @@
                             <li>
                                 <span>{{_ 'startcontribute-summary-have-label'}}</span>
                                 {{#if types.have.amount }}
-                                    <a href="" class="pu-button pu-button-label pu-button-label-removable"
-                                       data-clear="contributeHaveAmount">
+                                    <a href="" class="pu-button pu-button-label">
                                         <span>€ {{ types.have.amount }}</span>
-                                        <i class="fa fa-remove"></i>
                                     </a>
                                 {{/if}}
                                 {{#if types.have.description }}
@@ -88,7 +84,6 @@
                                        class="pu-button pu-button-label pu-button-label-secondary pu-button-label-removable"
                                        data-clear="contributeHaveDescription">
                                         <span>{{ types.have.description }}</span>
-                                        <i class="fa fa-remove"></i>
                                     </a>
                                 {{/if}}
                             </li>
