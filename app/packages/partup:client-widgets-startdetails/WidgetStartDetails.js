@@ -1,6 +1,17 @@
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
 Template.WidgetStartDetails.onCreated(function(){
     this.uploadingPictures = new ReactiveVar(false);
 });
+
+Template.WidgetStartDetails.rendered = function() {
+    Partup.ui.datepicker.applyToInput(this, '.pu-datepicker');
+};
+
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.WidgetStartDetails.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.startdetails,
@@ -31,6 +42,9 @@ Template.WidgetStartDetails.helpers({
     }
 });
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.WidgetStartDetails.events({
     'click [data-browse-photos]': function eventClickBrowse(event, template){
         event.preventDefault();
@@ -58,10 +72,9 @@ Template.WidgetStartDetails.events({
     }
 });
 
-Template.WidgetStartDetails.rendered = function() {
-    Partup.ui.datepicker.applyToInput(this, '.pu-datepicker');
-};
-
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.hooks({
     partupForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
@@ -71,18 +84,36 @@ AutoForm.hooks({
 
             if(partupId) {
                 Meteor.call('partups.update', partupId, insertDoc, function(error, res){
-                    if(error) {
-                        console.log('something went wrong', error);
-                        return false;
+                    if(error && error.message) {
+                        switch (error.message) {
+                            // case 'User not found [403]':
+                            //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                            //     break;
+                            default:
+                                Partup.ui.notify.error(error.reason);
+                        }
+                        AutoForm.validateForm(self.formId);
+                        self.done(new Error(error.message));
+                        return;
                     }
+                    
                     Router.go('start-activities', {_id:partupId});
                 });
             } else {
                 Meteor.call('partups.insert', insertDoc, function(error, res){
-                    if(error) {
-                        console.log('something went wrong', error);
-                        return false;
+                    if(error && error.message) {
+                        switch (error.message) {
+                            // case 'User not found [403]':
+                            //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                            //     break;
+                            default:
+                                Partup.ui.notify.error(error.reason);
+                        }
+                        AutoForm.validateForm(self.formId);
+                        self.done(new Error(error.message));
+                        return;
                     }
+
                     Session.set('partials.start-partup.current-partup', res._id);
                     Router.go('start-activities', {_id:res._id});
                 })
