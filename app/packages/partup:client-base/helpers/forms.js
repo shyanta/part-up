@@ -9,4 +9,13 @@ Meteor.startup(function(){
         }
     });
 
+    /*************************************************************/
+    /* Global autoform rendered callback */
+    /*************************************************************/
+    Template.autoForm.onRendered(function() {
+        this.findAll('form').forEach(function(form) {
+            AutoForm.resetForm(form.id);
+        });
+    });
+
 });

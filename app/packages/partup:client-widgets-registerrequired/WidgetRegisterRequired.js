@@ -1,11 +1,4 @@
 /*************************************************************/
-/* Widget initial */
-/*************************************************************/
-Template.WidgetRegisterRequired.onRendered(function() {
-    AutoForm.resetForm("registerRequiredForm");
-});
-
-/*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetRegisterRequired.helpers({

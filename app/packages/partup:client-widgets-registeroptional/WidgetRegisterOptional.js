@@ -1,10 +1,6 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetRegisterOptional.onRendered(function() {
-    AutoForm.resetForm("registerOptionalForm");
-});
-
 Template.WidgetRegisterOptional.onCreated(function(){
     this.uploadingProfilePicture = new ReactiveVar(false);
 });

@@ -3,11 +3,6 @@
 /*************************************************************/
 var resetSentSuccessful = new ReactiveVar(false);
 
-Template.WidgetForgotPassword.onRendered(function() {
-    AutoForm.resetForm("forgotPasswordForm");
-});
-
-
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/

@@ -1,11 +1,4 @@
 /*************************************************************/
-/* Widget initial */
-/*************************************************************/
-Template.WidgetRegisterOptional.onRendered(function() {
-    AutoForm.resetForm("registerOptionalForm");
-});
-
-/*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetResetPassword.helpers({
