@@ -38,9 +38,11 @@ Template.WidgetRegisterRequired.events({
 
 AutoForm.hooks({
     registerRequiredForm: {
+        beginSubmit: function() {
+            this.removeStickyValidationError('email');
+        },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
-            console.log('Hi. This is partup.');
 
             Accounts.createUser({
                 email: insertDoc.email,
@@ -61,10 +63,10 @@ AutoForm.hooks({
                     } else {
                         Partup.ui.notify.error(error);
                     }
-                    // self.done(new Error(error.message));
+                    self.done(new Error(error.message));
                     return;
                 }
-                
+
                 // Success
                 self.done();
                 Router.go('register-details');
