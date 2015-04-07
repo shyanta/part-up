@@ -5,9 +5,9 @@ Template.WidgetStartDetails.onCreated(function(){
     this.uploadingPictures = new ReactiveVar(false);
 });
 
-Template.WidgetStartDetails.rendered = function() {
+Template.WidgetStartDetails.onRendered(function() {
     Partup.ui.datepicker.applyToInput(this, '.pu-datepicker');
-};
+});
 
 /*************************************************************/
 /* Widget helpers */
