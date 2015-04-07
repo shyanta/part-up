@@ -46,13 +46,12 @@ var continueLogin = function() {
     if(!user) return;
 
     var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
-    var returnUrl = Session.get('application.return-url');
+    var hasIntent = Partup.ui.modal.hasIntentCallback('login');
 
-    if(returnUrl) {
+    if(hasIntent) {
 
         // Intent
-        Session.set('application.return-url', undefined);
-        Router.go(returnUrl);
+        Partup.ui.modal.executeIntentCallback('login');
 
     } else if(!optionalDetailsFilledIn) {
 
@@ -61,8 +60,8 @@ var continueLogin = function() {
 
     } else {
 
-        // Home fallback
-        Router.go('home');
+        // Fallback
+        Partup.ui.modal.executeDefaultCallback();
 
     }
 };
