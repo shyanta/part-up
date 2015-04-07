@@ -83,7 +83,6 @@ AutoForm.hooks({
                         Partup.ui.notify.error(error.reason);   
                     }
                     self.done(new Error(error.reason));
-                    return;
                 }
 
                 if(optionalDetailsFilledIn()) {

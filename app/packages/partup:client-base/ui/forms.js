@@ -10,9 +10,9 @@ Partup.ui.forms = {
      */
     addCustomFieldError: function(form, fieldName, errorReason) {
         form.addStickyValidationError(fieldName, errorReason);
-        AutoForm.validateForm(form.formId);
-        var input = form.template.find('[data-schema-key=' + fieldName + ']');
-        $(input).trigger('error');
+        // AutoForm.validateForm(form.formId);
+        // var input = form.template.find('[data-schema-key=' + fieldName + ']');
+        // $(input).trigger('sticky-error');
     }
 
 };
