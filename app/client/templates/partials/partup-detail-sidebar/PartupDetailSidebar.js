@@ -44,6 +44,11 @@ Template.PartialsPartupDetailSidebar.helpers({
         var partup = this.partup();
         if(!partup) return '...';
         return TAPi18n.__('partup-detail-visibility-' + partup.visibility);
+    },
+
+    'numberOfSupporters': function() {
+        var partup = this.partup();
+        return partup.supporters ? partup.supporters.length : '0';
     }
 
 });

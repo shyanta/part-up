@@ -30,7 +30,7 @@
         <section class="pu-sub-light">
             <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
             <section>
-                <h3>{{_ 'partup-detail-supporters-title' partup.supporters.length }}</h3>
+                <h3>{{_ 'partup-detail-supporters-title'}} ({{ numberOfSupporters }})</h3>
                 <ul class="pu-list pu-list-horizontal">
                     {{#each partupSupporters }}
                         <li>{{ profile.name }}</li>
