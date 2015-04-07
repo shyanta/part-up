@@ -97,7 +97,7 @@ AutoForm.hooks({
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
-                    return;
+                    return false;
                 }
 
                 // Success
