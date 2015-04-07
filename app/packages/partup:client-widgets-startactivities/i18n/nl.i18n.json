@@ -1,27 +1,24 @@
 {
     "startactivities-heading-title": "Wat moet er gebeuren?",
-    "startactivities-heading-paragraph": "Het doel van je Part-up is nu duidelijk. Weet je al wat er moet gebeuren? Het is niet erg als je nog niet precies alle activiteiten weet. De andere Uppers gaan je straks helpen om de activiteiten aan te vullen.",
+    "startactivities-heading-paragraph": "Het doel van je part-up is nu duidelijk. Weet je al wat er moet gebeuren? Het is niet erg als je nog niet precies alle activiteiten weet. De andere uppers gaan je straks helpen om de activiteiten aan te vullen.",
 
-    "startactivities-button-adopt_activities": "Neem alle activiteiten over van een bestaande part-up.",
+    "startactivities-button-adopt_activities": "Kopieer alle activiteiten van een bestaande part-up.",
 
     "startactivities-form-name-label": "Geef de activiteit een naam",
     "startactivities-form-name-placeholder": "Probeer in werkwoorden te denken",
     "startactivities-form-name-validation": "maximaal %d tekens",
-    "startactivities-form-name-tooltip": "@name tooltip",
 
     "startactivities-form-description-label": "Beschrijf de activiteit",
     "startactivities-form-description-placeholder": "Hou het kort en krachtig",
     "startactivities-form-description-validation": "maximaal %d tekens",
-    "startactivities-form-description-tooltip": "@description toolttip",
 
     "startactivities-form-end_date-label": "Voeg eventueel een datum toe",
     "startactivities-form-end_date-placeholder": "Voeg eventueel een datum toe",
     "startactivities-form-end_date-validation": "Een datum in het verleden is niet mogelijk",
-    "startactivities-form-end_date-tooltip": "@deadline tooltip",
 
     "startactivities-form-submit": "Maak activiteit aan",
-    "startactivities-form-save": "@Opslaan",
+    "startactivities-form-save": "Opslaan",
     "startactivities-button-next_page": "Wat ga jij bijdragen?",
-    "startactivities-button-edit": "@Bewerken",
-    "startactivities-button-remove": "@Verwijderen"
+    "startactivities-button-edit": "Wijzig activiteit",
+    "startactivities-button-remove": "Verwijderen"
 }

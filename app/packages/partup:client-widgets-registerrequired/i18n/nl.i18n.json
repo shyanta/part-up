@@ -1,6 +1,6 @@
 {
-    "registerrequired-becomethexthupper": "Word de <u>%dste</u> Upper!",
-    "registerrequired-fillindetailsaccount": "Joehoe! Super tof dat je mee wilt doen aan de Part-up beweging. Vul wat gegevens in om een nieuw account te maken",
+    "registerrequired-becomethexthupper": "Word de <u>%dste</u> upper!",
+    "registerrequired-fillindetailsaccount": "Joehoe! Super tof dat je mee wilt doen aan de part-up beweging. Maak hier je part-up profiel aan.",
 
     "registerrequired-signupfacebook": "Aanmelden met Facebook",
     "registerrequired-signuplinkedin": "Aanmelden met Linkedin",
@@ -8,25 +8,20 @@
 
     "registerrequired-form-name-label": "Voor- en achternaam",
     "registerrequired-form-name-placeholder": "Bijvoorbeeld: Johannes Jansen",
-    "registerrequired-form-name-validation": "hulp",
-    "registerrequired-form-name-tooltip": "@register required helptext",
+    "registerrequired-form-name-validation": "",
+    "registerrequired-form-name-tooltip": "",
 
     "registerrequired-form-email-label": "E-mailadres",
-    "registerrequired-form-email-placeholder": "Wij sturen je alleen mails als jij dat wilt",
-    "registerrequired-form-email-validation": "hulp",
-    "registerrequired-form-email-tooltip": "@email helptext",
+    "registerrequired-form-email-placeholder": "Wij sturen je alleen e-mails als jij dat wilt",
+    "registerrequired-form-email-validation": "",
+    "registerrequired-form-email-tooltip": "",
 
     "registerrequired-form-password-label": "Wachtwoord",
     "registerrequired-form-password-placeholder": "Maak het niet té makkelijk",
-    "registerrequired-form-password-validation": "hulp",
-    "registerrequired-form-password-tooltip": "Je weet dat de datadieven steeds slimmer worden. Kies daarom een wachtwoord dat niet te makkelijk is. Gebruik bijvoorbeeld speciale tekens, cijfers en hoofdletters in je wachtwoord.",
+    "registerrequired-form-password-validation": "waarom",
+    "registerrequired-form-password-tooltip": "Je weet dat de datadieven steeds slimmer worden. Kies daarom een wachtwoord dat niet te makkelijk is. Gebruik minimaal 8 karakters, 1 getal en 1 hoofdletter",
 
-    "registerrequired-form-confirmPassword-placeholder": "En herhaal hem asjeblieft nog een keertje",
-
-    "registerrequired-form-network-label": "Wil je nu al aansluiten bij een (organisatie)netwerk?",
-    "registerrequired-form-network-placeholder": "Kies hier een netwerk",
-    "registerrequired-form-network-validation": "waarom",
-    "registerrequired-form-network-tooltip": "Je kunt sowieso zelf Part-ups aanmaken en wij stellen interessante Part-ups aan je voor. Door je aan te sluiten bij een bestaand netwerk heb je ook toegang tot de wensen, talenten en middelen van dat netwerk.",
+    "registerrequired-form-confirmPassword-placeholder": "En herhaal hem alsjeblieft nog een keertje",
 
     "registerrequired-form-submit": "Aanmelden"
 }

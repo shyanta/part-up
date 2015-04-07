@@ -1,20 +1,20 @@
 {
-    "login-loginwithpartup": "@Login with Part-up",
-    "login-logingoodyouareback": "@Joehoe! Goed dat je weer terug bent. Je kan met één klik inloggen via de socials of natuurlijk met je emailadres en wachtwoord.",
-    "login-createaccount": "@Maak een Part-up profiel.",
+    "login-loginwithpartup": "Log in with your Part-up profile",
+    "login-logingoodyouareback": "Yeah! Great to have you back. Use the Facebook or Linkedin one-click login, or use your email address and password. Are you new around here?",
+    "login-createaccount": "Create a Part-up profile",
 
-    "login-loginfacebook": "@Inloggen met Facebook",
-    "login-loginlinkedin": "@Inloggen met Linkedin",
+    "login-loginfacebook": "Log in using Facebook",
+    "login-loginlinkedin": "Log in using Linkedin",
     "login-or": "or",
 
-    "login-form-email-label": "@E-mailadres",
-    "login-form-email-placeholder": "@Waarmee je aangemeld bent",
+    "login-form-email-label": "Email address",
+    "login-form-email-placeholder": "The one you used to sign up",
 
-    "login-form-password-label": "@Wachtwoord",
-    "login-form-password-placeholder": "@Dezelfde als vorige keer",
-    "login-form-password-validation": "@Wachtwoord vergeten?",
+    "login-form-password-label": "Password",
+    "login-form-password-placeholder": "The same you used last time",
+    "login-form-password-validation": "Forgot your password?",
 
-    "login-form-submit": "@Inloggen",
+    "login-form-submit": "Log in",
 
-    "login-forgotpassword": "@Help: ik kan niet inloggen, ik ben mijn wachtwoord vergeten."
+    "login-forgotpassword": "Help, I can't log in, I seem to have forgotten my password."
 }

@@ -1,14 +1,15 @@
 {
     "startcontribute-heading-title": "Wat wil jij bijdragen?",
-    "startcontribute-heading-paragraph": "Om de activiteiten uit te voeren, heb je anderen nodig. Geef hieronder aan wat je zelf gaat doen. De andere Uppers voegen straks ook hun bijdragen aan de activiteiten toe. Samen maken jullie deze part-up tot een succes.",
+    "startcontribute-heading-paragraph": "Om de activiteiten uit te voeren, heb je anderen nodig. Geef hieronder aan wat je zelf gaat doen. De andere uppers voegen straks ook hun bijdragen aan de activiteiten toe. Samen maken jullie deze part-up tot een succes.",
 
-    "startcontribute-button-donate": "Losse donatie",
+    "startcontribute-form-want-label": "Up",
 
-    "startcontribute-form-want-label": "Ik neem deel",
+    "startcontribute-form-have-label": "Breng in",
+    "startcontribute-form-have-placeholder": "Ik breng in",
 
-    "startcontribute-form-can-label": "Ik kan dit doen",
     "startcontribute-form-can_amount-label": "Ik kan dit doen voor",
     "startcontribute-form-can_amount-placeholder": "0",
+    "startcontribute-form-can-label": "Doe",
 
     "startcontribute-form-have-label": "Ik breng in",
     "startcontribute-form-have_amount-label": "Ik breng in",
@@ -20,5 +21,6 @@
     "startcontribute-summary-can-label": "kan dit doen voor",
     "startcontribute-summary-have-label": "brengt in",
 
-    "startcontribute-button-next_page": "Vind Uppers"
+    "startcontribute-form-submit": "Opslaan",
+    "startcontribute-button-next_page": "Vind uppers"
 }

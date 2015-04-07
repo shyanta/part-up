@@ -1,18 +1,18 @@
 {
-    "startpromote-heading-title": "@Deel deze Part-up met jouw netwerk",
-    "startpromote-text-intro": "@Check! Je bent klaar om te gaan samenwerken. Wij gaan jouw Part-up koppelen aan andere Uppers. Promoot hem zelf ook!",
-    "startpromote-text-intro2": "@Dit is hoe jouw post eruit zal zien.",
+    "startpromote-heading-title": "Deel jouw part-up in jouw netwerk",
+    "startpromote-text-intro": "Check! Je bent nu klaar om samen te werken in jouw part-up. Wij stellen hem voor aan andere uppers. Promoot hem zelf ook in jouw netwerk!",
+    "startpromote-text-intro2": "Dit is hoe jouw post eruit zal zien.",
     
-    "startpromote-title-sharebuttons": "@Deel jouw Part-up op:",
-    "startpromote-title-sharelink": "@Of deel een directe link:",
+    "startpromote-title-sharebuttons": "Deel jouw part-up op:",
+    "startpromote-title-sharelink": "Of deel een directe link:",
 
-    "startpromote-button-twitter": "@Twitter",
-    "startpromote-button-facebook": "@Facebook",
-    "startpromote-button-linkedin": "@LinkedIn",
-    "startpromote-button-done": "@Op naar jouw part-up",
+    "startpromote-button-twitter": "Twitter",
+    "startpromote-button-facebook": "Facebook",
+    "startpromote-button-linkedin": "LinkedIn",
+    "startpromote-button-done": "Op naar jouw part-up",
 
     "startpromote-notify-copy-to-clipboard-error": "@Copy to clipboard werkt nog niet",
     "startpromote-notify-copy-to-clipboard-success": "@De link is gekopieerd",
-    "startpromote-notify-shared-error": "@Je Part-up is al gedeeld via %s",
-    "startpromote-notify-shared-success": "@Je Part-up is gedeeld via %s"
+    "startpromote-notify-shared-error": "Je heb je part-up al gedeeld op %s",
+    "startpromote-notify-shared-success": "Je part-up is nu gedeeld op %s"
 }

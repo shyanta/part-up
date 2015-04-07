@@ -1,27 +1,24 @@
 {
     "startactivities-heading-title": "What needs to be done?",
-    "startactivities-heading-paragraph": "The goal of your part-up is clear now. Do you have an idea on what needs to be done? It's okay if you don't know it all. The other uppers will help you later to complement the activities.",
+    "startactivities-heading-paragraph": "The goal of your part-up is clear now. Do you already have ideas on what needs to be done? It's okay if you don't know it all yet. The other uppers will help you later on to complement the activities.",
 
     "startactivities-button-adopt_activities": "Copy all activities from an existing part-up.",
 
     "startactivities-form-name-label": "Name the activity",
     "startactivities-form-name-placeholder": "Try to use verbs",
     "startactivities-form-name-validation": "max %d characters",
-    "startactivities-form-name-tooltip": "@name tooltip",
 
     "startactivities-form-description-label": "Describe the activity",
     "startactivities-form-description-placeholder": "Let's keep it short and sharp",
     "startactivities-form-description-validation": "max %d characters",
-    "startactivities-form-description-tooltip": "@description toolttip",
 
     "startactivities-form-end_date-label": "Add a date if you like",
     "startactivities-form-end_date-placeholder": "Add a date if you like",
-    "startactivities-form-end_date-validation": "Only dates in he future allowed",
-    "startactivities-form-end_date-tooltip": "@end_date tooltip",
+    "startactivities-form-end_date-validation": "Only future dates are allowed",
 
     "startactivities-form-submit": "Create activity",
-    "startactivities-form-save": "@Save",
+    "startactivities-form-save": "Save",
     "startactivities-button-next_page": "What will you contribute?",
-    "startactivities-button-edit": "@Edit",
-    "startactivities-button-remove": "@Remove activity"
+    "startactivities-button-edit": "Edit",
+    "startactivities-button-remove": "Remove activity"
 }

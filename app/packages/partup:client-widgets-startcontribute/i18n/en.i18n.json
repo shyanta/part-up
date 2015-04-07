@@ -2,13 +2,14 @@
     "startcontribute-heading-title": "What do you want to contribute?",
     "startcontribute-heading-paragraph": "To get the job done, you most likely need others. Other uppers will add their contributions later. Together you make this part-up a big success.",
 
-    "startcontribute-button-donate": "Just donate",
+    "startcontribute-form-want-label": "Up",
 
-    "startcontribute-form-want-label": "I'm up for this",
+    "startcontribute-form-have-label": "Bring in",
+    "startcontribute-form-have-placeholder": "I bring in",
 
-    "startcontribute-form-can-label": "I can do this",
     "startcontribute-form-can_amount-label": "I can do this for",
     "startcontribute-form-can_amount-placeholder": "0",
+    "startcontribute-form-can-label": "Do",
 
     "startcontribute-form-have-label": "I bring in",
     "startcontribute-form-have_amount-label": "I bring in",
@@ -20,5 +21,5 @@
     "startcontribute-summary-can-label": "can do this for",
     "startcontribute-summary-have-label": "brings in",
 
-    "startcontribute-button-next_page": "Find Uppers"
+    "startcontribute-button-next_page": "Find uppers"
 }

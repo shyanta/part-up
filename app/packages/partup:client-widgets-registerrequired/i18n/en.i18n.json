@@ -1,6 +1,6 @@
 {
-    "registerrequired-becomethexthupper": "Become the <u>%dth</u> Upper!",
-    "registerrequired-fillindetailsaccount": "Cool! You want to be part of the Part-up movement! Fill in some more details, so we can call you by name and complete your account.",
+    "registerrequired-becomethexthupper": "Become the <u>%dth</u> upper!",
+    "registerrequired-fillindetailsaccount": "Yeah! Awesome you want to be part of the part-up movement! Create your part-up profile here.",
 
     "registerrequired-signupfacebook": "Sign up with Facebook",
     "registerrequired-signuplinkedin": "Sign up with Linkedin",
@@ -8,25 +8,20 @@
 
     "registerrequired-form-name-label": "First and last name",
     "registerrequired-form-name-placeholder": "Example: John Johnson",
-    "registerrequired-form-name-validation": "why",
-    "registerrequired-form-name-tooltip": "@register required helptext",
+    "registerrequired-form-name-validation": "",
+    "registerrequired-form-name-tooltip": "",
 
     "registerrequired-form-email-label": "Email address",
-    "registerrequired-form-email-placeholder": "We only send you emails if you want us to",
-    "registerrequired-form-email-validation": "why",
-    "registerrequired-form-email-tooltip": "@email helptext",
+    "registerrequired-form-email-placeholder": "We only send you email if you want us to",
+    "registerrequired-form-email-validation": "",
+    "registerrequired-form-email-tooltip": "",
 
     "registerrequired-form-password-label": "Password",
     "registerrequired-form-password-placeholder": "Don't make it too easy to guess",
     "registerrequired-form-password-validation": "why",
-    "registerrequired-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Try using special characters, numbers and capitals in your password.",
+    "registerrequired-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Use at least 8 characters, 1 number en 1 capital.",
 
     "registerrequired-form-confirmPassword-placeholder": "And repeat it once please",
-
-    "registerrequired-form-network-label": "Wil je nu al aansluiten bij een (organisatie)netwerk?",
-    "registerrequired-form-network-placeholder": "Kies hier een netwerk",
-    "registerrequired-form-network-validation": "why",
-    "registerrequired-form-network-tooltip": "Even without a network, you can start your own Part-ups and we suggest Part-ups you can contribute to. By joining an existing network, you also get access to the wishes, talents and means of that network.",
 
     "registerrequired-form-submit": "Sign up"
 }

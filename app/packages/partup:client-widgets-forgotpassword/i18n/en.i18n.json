@@ -1,13 +1,13 @@
 {
-    "forgotpassword-heading": "@Lukt het niet om in te loggen?",
-    "forgotpassword-paragraph": "@Ben je je wachtwoord vergeten? Dat kan gebeuren. Vul je e-mailadres in waarmee je je hebt aangemeld, dan sturen we je instructies om een nieuw wachtwoord aan te maken.",
-    "forgotpassword-form-email-label": "@Email-adres",
-    "forgotpassword-form-email-placeholder": "@Wat is je email-adres?",
+    "forgotpassword-heading": "Can't login?",
+    "forgotpassword-paragraph": "Forgot your password? No problem. Just enter the email address you signed up with. We'll send you instructions for resetting your password.",
+    "forgotpassword-form-email-label": "Email address",
+    "forgotpassword-form-email-placeholder": "What is your email address?",
 
-    "forgotpassword-form-submit": "@Reset link versturen",
+    "forgotpassword-form-submit": "Send instructions",
 
-    "forgotpassword-backtologin": "@Laat maar, terug naar inloggen",
+    "forgotpassword-backtologin": "I think I remember my password",
 
-    "forgotpassword-instructionssent-heading": "@Mail is verzonden!",
-    "forgotpassword-instructionssent-paragraph": "@Volg de instructies in de mail om je wachtwoord te herstellen. Mocht je de mail niet ontvangen hebben. Wacht paar minuten en kijk ook even in je spamfilter."
+    "forgotpassword-instructionssent-heading": "Check your inbox!",
+    "forgotpassword-instructionssent-paragraph": "Follow the instructions to reset your password. Didn't receive the email yet? Wait for a minute and don't forget to check your spam folder."
 }

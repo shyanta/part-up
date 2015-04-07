@@ -1,13 +1,13 @@
 {
-    "resetpassword-heading": "@Wachtwoord reset",
-    "resetpassword-introparagraph": "@Vul maar snel een nieuw wachtwoord in en je bent zo weer aan het partuppen!",
+    "resetpassword-heading": "Reset your password",
+    "resetpassword-introparagraph": "We are ready for your new password. Please fill it in so you can part-up again!",
 
-    "resetpassword-form-password-label": "@Nieuw Wachtwoord",
-    "resetpassword-form-password-placeholder": "@Maak het niet té makkelijk",
-    "resetpassword-form-password-validation": "@Minimaal 8 karakters, 1 getal en 1 hoofdletter",
-    "resetpassword-form-password-tooltip": "@Veiligheid wachtwoorden",
+    "resetpassword-form-password-label": "New password",
+    "resetpassword-form-password-placeholder": "Don't make it too easy",
+    "resetpassword-form-password-validation": "why",
+    "resetpassword-form-password-tooltip": "Use at least 8 characters, 1 number and 1 capital",
 
-    "resetpassword-form-confirmPassword-placeholder": "@And repeat it once please",
+    "resetpassword-form-confirmPassword-placeholder": "And repeat it once please",
 
-    "resetpassword-form-submit": "@Wachtwoord opslaan"
+    "resetpassword-form-submit": "Save password"
 }
