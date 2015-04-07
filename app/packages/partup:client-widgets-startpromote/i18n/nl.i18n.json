@@ -11,8 +11,8 @@
     "startpromote-button-linkedin": "LinkedIn",
     "startpromote-button-done": "Op naar jouw part-up",
 
-    "startpromote-notify-copy-to-clipboard-error": "@Copy to clipboard werkt nog niet",
-    "startpromote-notify-copy-to-clipboard-success": "@De link is gekopieerd",
+    "startpromote-notify-copy-to-clipboard-error": "@Het is ons niet gelukt om de Part-up link naar je klembord te kopiëren",
+    "startpromote-notify-copy-to-clipboard-success": "@De Part-up link is naar de klembord gekopieërd",
     "startpromote-notify-shared-error": "Je heb je part-up al gedeeld op %s",
     "startpromote-notify-shared-success": "Je part-up is nu gedeeld op %s"
 }

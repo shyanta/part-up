@@ -19,7 +19,8 @@ Package.onUse(function(api) {
         'cfs:graphicsmagick',
         'momentjs:moment',
         'tap:i18n',
-        'matb33:collection-hooks'
+        'matb33:collection-hooks',
+        'partup:copy-to-clipboard',
     ]);
 
     api.use([

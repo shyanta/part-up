@@ -1,4 +1,18 @@
-Template.WidgetStartPromote.onCreated(function(){
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
+Template.WidgetStartPromote.onRendered(function () {
+    var elm = this.find('[data-copy-to-clipboard]');
+
+    // Copy to clipboard
+    Partup.ui.clipboard.applyToElement(elm, elm.value, function onCopySuccess () {
+        Partup.ui.notify.success(__('startpromote-notify-copy-to-clipboard-success'));
+    }, function onCopyError () {
+        Partup.ui.notify.error(__('startpromote-notify-copy-to-clipboard-error'));
+    });
+});
+
+Template.WidgetStartPromote.onCreated(function (){
     this.shared = new ReactiveVar({
         twitter: false,
         facebook: false,
@@ -6,13 +20,9 @@ Template.WidgetStartPromote.onCreated(function(){
     });
 });
 
-Template.WidgetStartPromote.onRendered(function(){
-    var clipboardCopyElement = $(this.find('[data-copy-to-clipboard]'));
-    Partup.ui.clipboard.applyToElement(clipboardCopyElement, function copyCallBack(){
-        Partup.ui.notify.success(__('startpromote-notify-copy-to-clipboard-success'));
-    });
-})
-
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.WidgetStartPromote.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.startdetails,
@@ -31,7 +41,11 @@ Template.WidgetStartPromote.helpers({
     }
 });
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.WidgetStartPromote.events({
+
     'click [data-share]': function sharePartup(event, template){
         var socialTarget = $(event.currentTarget).data("share");
         var sharedSocials = template.shared.get();
@@ -43,7 +57,13 @@ Template.WidgetStartPromote.events({
         } else {
             Partup.ui.notify.error(__('startpromote-notify-shared-error', socialTarget));
         }
+    },
+
+    'click [data-copy-to-clipboard]': function eventCopyToClipboard (event) {
+        var elm = event.currentTarget;
+
+        // Select elements text
+        elm.select();
     }
+
 });
-
-

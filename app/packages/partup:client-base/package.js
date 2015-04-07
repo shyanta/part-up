@@ -14,7 +14,6 @@ Package.onUse(function(api) {
         'tap:i18n',
         'momentjs:moment',
         'chrismbeckett:toastr',
-        'partup:copy-to-clipboard',
         'templating',
 	'tracker'
     ], ['client']);
