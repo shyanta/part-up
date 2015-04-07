@@ -22,7 +22,6 @@ partup:client-widgets-partuptile
 partup:meteor-bender
 partup:client-widgets-forgotpassword
 partup:client-widgets-resetpassword
-partup:client-form
 
 meteor-platform
 iron:router
