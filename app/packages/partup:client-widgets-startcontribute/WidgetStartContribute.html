@@ -10,9 +10,7 @@
 
         <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
             <div class="pu-sub-footer-container">
-                <button href="#" class="pu-button pu-button-primary" id="nextPage">
-                    {{_ 'startcontribute-button-next_page' }}
-                </button>
+                <a href="{{pathFor 'start-promote' _id=currentPartupId}}" class="pu-button pu-button-primary"> {{_ 'startcontribute-button-next_page' }} </a>
             </div>
         </footer>
 
