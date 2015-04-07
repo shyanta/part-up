@@ -1,10 +1,11 @@
 Partup.ui.forms = {
 
+
     /**
      * Add sticky error to field helper
      *
      * @memberOf partup.ui
-     * @param {Objecgt} form
+     * @param {Object} form
      * @param {String} fieldName
      * @param {String} errorReason
      */
