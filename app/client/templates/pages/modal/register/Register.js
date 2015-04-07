@@ -12,6 +12,6 @@ Template.PagesRegister.helpers({
 Template.PagesRegister.events({
     'click [data-closepage]': function (event, template) {
         event.preventDefault();
-        Router.go('home');
+        Partup.ui.modal.executeIntentCallback('register');
     }
 });
