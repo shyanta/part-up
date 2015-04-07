@@ -14,7 +14,8 @@ Package.onUse(function(api) {
         'templating',
         'partup:lib',
         'tracker',
-        'reactive-dict'
+        'reactive-dict',
+        'aldeed:autoform'
     ], 'client');
 
     api.addFiles([

@@ -21,7 +21,7 @@ Meteor.methods({
             },
             created_at: new Date(),
             updated_at: new Date()
-        }
+        };
 
         check(comment, Partup.schemas.entities.updateComment);
 

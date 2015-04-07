@@ -123,12 +123,14 @@
                 <!-- Add comment field -->
                 {{#if currentUser }}
                     {{#if commentInputFieldExpanded }}
-                        <form data-addcomment name="addComment">
+
+                        {{#autoForm schema=formSchema id=generateFormId }}
                             <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
-                                <li><input type="text" class="pu-input" name="commentValue" data-commentfield></li>
-                                <li><input type="submit" class="pu-button pu-button-inputheight" value="Plaats"></li>
+                                <li>{{> afFieldInput name="content" class="pu-input" data="commentfield" }}</li>
+                                <li><input type="submit" class="pu-button pu-button-inputheight" value="{{_ 'partupdetail-update-item-comment-postbutton'}}"></li>
                             </ul>
-                        </form>
+                        {{/autoForm}}
+
                     {{/if}}
                 {{/if}}
             </footer>
