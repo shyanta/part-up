@@ -12,18 +12,16 @@
                 <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
                 <div class="pu-upload">
                     <img src="{{#if profilePicture.url }}{{ profilePicture.url }}{{else}}/images/smile.svg{{/if}}" alt="" data-image-placeholder class="pu-imagepreview">
-                    <!-- <img src="/images/smile.svg" alt="" data-image-placeholder class="pu-imagepreview"> -->
                     <button class="pu-button pu-button-browse {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
                         <span>{{_ 'registeroptional-form-image-button'}}</span>
                         {{#if uploadingProfilePicture}}
                             {{> WidgetSpinnerInverted}}
                         {{/if}}
                     </button>
-                    <span class="pu-sub-error">{{ afFieldMessage name='image' }}</span>
 
                     <input type="file" class="pu-fileinput" data-profile-picture-input>
                     <!-- TODO DISABLED UNTIL IMPLEMENTED
-                    <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
+                        <p class="pu-paragraph">{{{_ 'registeroptional-form-image-import' }}}</p>
                     -->
                     {{> afFieldInput name="image" type="hidden" }}
                 </div>
