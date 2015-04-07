@@ -58,7 +58,8 @@ Partup.ui.language = {
                 ],
                 passwordMismatch:       TAPi18n.__('error-ss-passwordMismatch'),
                 emailExists:            TAPi18n.__('error-ss-emailExists'),
-                emailNotFound:          TAPi18n.__('error-ss-emailNotFound')
+                emailNotFound:          TAPi18n.__('error-ss-emailNotFound'),
+                passwordIncorrect:      TAPi18n.__('error-ss-passwordIncorrect')
             });
 
         }).fail(function (error_message) {

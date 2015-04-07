@@ -34,5 +34,6 @@
 
     "error-ss-passwordMismatch": "The passwords do not match",
     "error-ss-emailExists": "This email already exists",
-    "error-ss-emailNotFound": "This user is not found"
+    "error-ss-emailNotFound": "This user is not found",
+    "error-ss-passwordIncorrect": "This password is incorrect"
 }

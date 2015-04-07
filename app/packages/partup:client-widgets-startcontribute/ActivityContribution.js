@@ -23,6 +23,7 @@ Template.ActivityContribution.helpers({
         return this._id;
     },
     'fieldsFromContribution': function () {
+        console.log(this);
         var contribution = Contributions.findOne({activity_id: this._id, upper_id: Meteor.user()._id});
         if (contribution) {
             Template.instance().contributions.set('fields', contribution);

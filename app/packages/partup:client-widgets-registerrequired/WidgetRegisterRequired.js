@@ -1,3 +1,7 @@
+Template.WidgetRegisterRequired.onRendered(function() {
+    AutoForm.resetForm("registerRequiredForm");
+});
+
 Template.WidgetRegisterRequired.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: Partup.services.placeholders.registerRequired,
@@ -39,7 +43,7 @@ Template.WidgetRegisterRequired.events({
 AutoForm.hooks({
     registerRequiredForm: {
         beginSubmit: function() {
-            this.removeStickyValidationError('email');
+            Partup.ui.forms.removeAllStickyFieldErrors(this);
         },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
@@ -55,14 +59,17 @@ AutoForm.hooks({
                     }
                 }
             }, function(error) {
+
                 // Error cases
-                if (error) {
-                    if(error.message === 'Email already exists [403]') {
-                        self.addStickyValidationError('email', 'emailExists');
-                        AutoForm.validateForm(self.formId);
-                    } else {
-                        Partup.ui.notify.error(error);
+                if(error && error.message) {
+                    switch (error.message) {
+                        case 'Email already exists [403]':
+                            Partup.ui.forms.addStickyFieldError(self, 'email', 'emailExists');
+                            break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
                     }
+                    AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
                     return;
                 }

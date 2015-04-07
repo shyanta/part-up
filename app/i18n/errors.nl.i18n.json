@@ -34,5 +34,6 @@
 
     "error-ss-passwordMismatch": "De wachtwoorden komen niet overeen",
     "error-ss-emailExists": "Er is al een gebruiker met dit emailadres",
-    "error-ss-emailNotFound": "Er bestaat geen gebruiker met dit e-mailadres"
+    "error-ss-emailNotFound": "Er bestaat geen gebruiker met dit e-mailadres",
+    "error-ss-passwordIncorrect": "Dit wachtwoord is niet correct"
 }

@@ -56,11 +56,11 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registerrequired-form-password-tooltip' }}</p></span>
                     </a>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='password' }}pu-state-invalid{{/if}}">
-                        <span class="pu-sub-input">{{> afFieldInput name='password' placeholder=placeholders.password class="pu-input" }}</span>
+                        <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
                     </div>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='confirmPassword' }}pu-state-invalid{{/if}}">
-                        <span class="pu-sub-input">{{> afFieldInput name='confirmPassword' placeholder=placeholders.confirmPassword class="pu-input" }}</span>
+                        <span class="pu-sub-input">{{> afFieldInput type='password' name='confirmPassword' placeholder=placeholders.confirmPassword class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='confirmPassword' }}</span>
                     </div>
                 </label>

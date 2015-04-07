@@ -1,18 +1,38 @@
 Partup.ui.forms = {
 
     /**
-     * Add custom error to field helper
+     * Add sticky error to field helper
+     *
+     * @memberOf partup.ui
+     * @param {Objecgt} form
+     * @param {String} fieldName
+     * @param {String} errorReason
+     */
+    addStickyFieldError: function(form, fieldName, errorReason) {
+        form.addStickyValidationError(fieldName, errorReason);
+    },
+
+    /**
+     * Remove sticky error from field
      *
      * @memberOf partup.ui
      * @param {Object} form
      * @param {String} fieldName
-     * @param {String} errorReason
      */
-    addCustomFieldError: function(form, fieldName, errorReason) {
-        form.addStickyValidationError(fieldName, errorReason);
-        // AutoForm.validateForm(form.formId);
-        // var input = form.template.find('[data-schema-key=' + fieldName + ']');
-        // $(input).trigger('sticky-error');
+    removeStickyFieldError: function(form, fieldName) {
+        form.removeStickyValidationError(fieldName);
+    },
+
+    /**
+     * Remove all sticky errors
+     *
+     * @memberOf partup.ui
+     * @param {Object} form
+     */
+    removeAllStickyFieldErrors: function(form) {
+        lodash.each(form._stickyErrors, function(value, key) {
+            form.removeStickyValidationError(key);
+        });
     }
 
 };

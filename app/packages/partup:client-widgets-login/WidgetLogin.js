@@ -1,3 +1,7 @@
+Template.WidgetLogin.onRendered(function() {
+    AutoForm.resetForm("loginForm");
+});
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -71,26 +75,41 @@ function goToReturnUrlOrHome() {
 
 AutoForm.hooks({
     loginForm: {
+        beginSubmit: function() {
+            Partup.ui.forms.removeAllStickyFieldErrors(this);
+        },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
-            self.event.preventDefault();
+
             Meteor.loginWithPassword(insertDoc.email, insertDoc.password, function(error) {
 
-                if(error) {
-                    if(error.message == 'User not found [403]') {
-                        Partup.ui.forms.addCustomFieldError(self, 'email', 'emailNotFound');
-                    } else {
-                        Partup.ui.notify.error(error.reason);   
+                // Error cases
+                if(error && error.message) {
+                    switch (error.message) {
+                        case 'User not found [403]':
+                            Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                            break;
+                        case 'Incorrect password [403]':
+                            Partup.ui.forms.addStickyFieldError(self, 'password', 'passwordIncorrect');
+                            break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
                     }
-                    self.done(new Error(error.reason));
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return;
                 }
 
+                // Success
+                self.done();
                 if(optionalDetailsFilledIn()) {
                     goToReturnUrlOrHome();
                 } else {
                     Router.go('register-details');
                 }
             });
+
+            return false;
         }
     }
 });
