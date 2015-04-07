@@ -27,12 +27,7 @@ Template.WidgetLogin.events({
                 return;
             }
 
-            if(optionalDetailsFilledIn()) {
-                goToReturnUrlOrHome()
-            } else {
-                Router.go('register-details');
-            }
-
+            continueLogin();
         });
     },
     'click [data-loginlinkedin]': function(event) {
@@ -45,11 +40,7 @@ Template.WidgetLogin.events({
                 return false;
             }
 
-            if(optionalDetailsFilledIn()) {
-                goToReturnUrlOrHome()
-            } else {
-                Router.go('register-details');
-            }
+            continueLogin();
         });
     }
 })
@@ -57,24 +48,31 @@ Template.WidgetLogin.events({
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-function optionalDetailsFilledIn() {
+var continueLogin = function() {
     var user = Meteor.user();
-    if (user.profile.settings && user.profile.settings.optionalDetailsCompleted) {
-        return true;
-    } else {
-        return false;
-    }
-};
+    if(!user) return;
 
-function goToReturnUrlOrHome() {
+    var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
     var returnUrl = Session.get('application.return-url');
+
     if(returnUrl) {
+
+        // Intent
         Session.set('application.return-url', undefined);
         Router.go(returnUrl);
+
+    } else if(!optionalDetailsFilledIn) {
+
+        // Fill-in optional details
+        Router.go('register-details');
+
     } else {
+
+        // Home fallback
         Router.go('home');
+
     }
-}
+};
 
 /*************************************************************/
 /* Widget form hooks */
@@ -108,11 +106,7 @@ AutoForm.hooks({
 
                 // Success
                 self.done();
-                if(optionalDetailsFilledIn()) {
-                    goToReturnUrlOrHome();
-                } else {
-                    Router.go('register-details');
-                }
+                continueLogin();
             });
 
             return false;
