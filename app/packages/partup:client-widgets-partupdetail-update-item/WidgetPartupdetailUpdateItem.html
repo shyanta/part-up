@@ -86,6 +86,18 @@
                 {{/with}}
             {{/if }}
 
+            <!-- partups_image_changed -->
+            {{#if partupEqualsExactly update.type 'partups_image_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <b>OLD</b>
+                        <img src="{{ getImageUrlById old_image }}">
+                        <b>NEW</b>
+                        <img src="{{ getImageUrlById new_image }}">
+                    </section>
+                {{/with}}
+            {{/if }}
+
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->

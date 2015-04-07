@@ -13,7 +13,8 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'aldeed:autoform',
-        'partup:lib'
+        'partup:lib',
+        'reactive-var'
     ], 'client');
 
     api.addFiles([
