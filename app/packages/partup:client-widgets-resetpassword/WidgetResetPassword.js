@@ -25,9 +25,6 @@ Template.WidgetResetPassword.events({
 /*************************************************************/
 AutoForm.hooks({
     resetPasswordForm: {
-        beginSubmit: function() {
-            Partup.ui.forms.removeAllStickyFieldErrors(this);
-        },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 

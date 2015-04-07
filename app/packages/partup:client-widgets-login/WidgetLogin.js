@@ -79,9 +79,6 @@ var continueLogin = function() {
 /*************************************************************/
 AutoForm.hooks({
     loginForm: {
-        beginSubmit: function() {
-            Partup.ui.forms.removeAllStickyFieldErrors(this);
-        },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 

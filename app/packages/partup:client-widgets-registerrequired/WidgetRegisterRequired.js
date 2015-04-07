@@ -54,9 +54,6 @@ Template.WidgetRegisterRequired.events({
 /*************************************************************/
 AutoForm.hooks({
     registerRequiredForm: {
-        beginSubmit: function() {
-            Partup.ui.forms.removeAllStickyFieldErrors(this);
-        },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 

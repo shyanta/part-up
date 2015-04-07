@@ -99,9 +99,6 @@ var continueRegister = function() {
 /*************************************************************/
 AutoForm.hooks({
     registerOptionalForm: {
-        beginSubmit: function() {
-            Partup.ui.forms.removeAllStickyFieldErrors(this);
-        },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 

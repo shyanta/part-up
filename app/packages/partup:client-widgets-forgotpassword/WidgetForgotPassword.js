@@ -31,9 +31,6 @@ Template.WidgetForgotPassword.events({
 /*************************************************************/
 AutoForm.hooks({
     forgotPasswordForm: {
-        beginSubmit: function() {
-            Partup.ui.forms.removeAllStickyFieldErrors(this);
-        },
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 
