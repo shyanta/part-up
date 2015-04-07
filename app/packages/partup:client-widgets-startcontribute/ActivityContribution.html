@@ -11,7 +11,7 @@
             {{#autoForm id=generateFormId schema=formSchema doc=fieldsFromContribution class="pu-form  pu-form-contribution"}}
                 <!-- want -->
                 {{> afFieldInput name='types_want_enabled' template="partup" }}
-                <button class="pu-button pu-button-icon pu-button-checkbox" data-toggle-want="types_want_enabled">
+                <button type="button" class="pu-button pu-button-icon pu-button-checkbox" data-toggle-want="types_want_enabled">
                     <i class="fa fa-thumbs-up"></i>
                     {{_ 'startcontribute-form-want-label'}}
                 </button>
@@ -19,7 +19,7 @@
                 <!-- can -->
                 <div class="pu-popover">
                     {{> afFieldInput name='types_can_enabled' template="partup" }}
-                    <button class="pu-button pu-button-icon pu-button-checkbox">
+                    <button type="button" class="pu-button pu-button-icon pu-button-checkbox">
                         <i class="fa fa-wrench"></i>
                         {{_ 'startcontribute-form-can-label'}}
                     </button>
@@ -34,10 +34,10 @@
                 <!-- have -->
                 <div class="pu-popover" data-open-contribution="showHaveContribute">
                     {{> afFieldInput name='types_have_enabled' template="partup" }}
-                    <label class="pu-button pu-button-icon pu-button-checkbox">
+                    <button type="button" class="pu-button pu-button-icon pu-button-checkbox">
                         <i class="fa fa-user-plus"></i>
                         {{_ 'startcontribute-form-have-label'}}
-                    </label>
+                    </button>
 
                     <div class="pu-popover-inner {{#if showHaveContribute}}pu-popover-inner-show{{/if}}">
                         <span>{{_ 'startcontribute-form-have_amount-label'}}</span>
@@ -46,14 +46,17 @@
                         {{> afFieldInput name='types_have_description' placeholder=placeholders.have_description class="pu-input" data-change-contribution="contributeHaveDescription" }}
                     </div>
                 </div>
-                <input type="submit" value="submit contribute form"/>
             {{/autoForm}}
         </div>
 
         {{#each contributions}}
             <div class="pu-block-container-child">
                 <div class="pu-contributionlist">
-                    <figure class="pu-avatar pu-avatar-small" style="{{#if userImage}}background-image:url('{{userImage.url}}');{{/if}}"></figure>
+                    {{#if userImage}}
+                        <figure class="pu-avatar pu-avatar-small" style="background-image:url('{{userImage.url}}');"></figure>
+                    {{else}}
+                        <figure class="pu-avatar pu-avatar-small" alt="{{upper_id}}"></figure>
+                    {{/if}}
                     <ul class="pu-list">
                         {{#if types.want.enabled}}
                             <li>

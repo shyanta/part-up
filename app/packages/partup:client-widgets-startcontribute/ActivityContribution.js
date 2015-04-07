@@ -1,66 +1,34 @@
 Template.ActivityContribution.created = function () {
-    this.contributions = new ReactiveDict();
-
-    // contribute want init values
-    this.contributeWantChecked = new ReactiveVar(false);
-
-    // contribute can init values
-    this.showCanContribute = new ReactiveVar(false);
-    this.contributeCanChecked = new ReactiveVar(false);
-    this.contributeCanAmount = new ReactiveVar(false);
-
-    // contribute have init values
-    this.showHaveContribute = new ReactiveVar(false);
-    this.contributeHaveChecked = new ReactiveVar(false);
-    this.contributeHaveAmount = new ReactiveVar(false);
-    this.contributeHaveDescription = new ReactiveVar(false);
+    this.canDropdownEnabled = new ReactiveVar(false);
+    this.haveDropdownEnabled = new ReactiveVar(false);
 };
 
 Template.ActivityContribution.helpers({
     'formSchema': Partup.schemas.forms.contribution,
     'placeholders': Partup.services.placeholders.startcontribute,
     'generateFormId': function () {
-        return this._id;
+        return 'contributionEditForm-' + this._id;
     },
     'fieldsFromContribution': function () {
         var contribution = Contributions.findOne({activity_id: this._id, upper_id: Meteor.user()._id});
-        if (contribution) {
-            Template.instance().contributions.set('fields', contribution);
-            var fields = Partup.transformers.contribution.toFormContribution(Template.instance().contributions.get('fields'));
-            if (fields.type_want) {
-                Template.instance().contributeWantChecked.set(true);
-            }
-            if (fields.type_can) {
-                Template.instance().contributeCanChecked.set(true);
-                Template.instance().contributeCanAmount.set(fields.type_can_amount);
-            }
-            if (fields.type_have) {
-                Template.instance().contributeHaveChecked.set(true);
-                Template.instance().contributeHaveAmount.set(fields.type_have_amount);
-                Template.instance().contributeHaveDescription.set(fields.type_have_description);
-            }
-            console.log('fields:');
-            console.log(fields);
-            return fields;
-        } else {
-            return undefined;
-        }
+        return Partup.transformers.contribution.toFormContribution(contribution);
+    },
+    'canDropdownEnabled': function () {
+        return Template.instance().canDropdownEnabled.get() ? true : false;
+    },
+    'haveDropdownEnabled': function () {
+        return Template.instance().haveDropdownEnabled.get() ? true : false;
+    },
+    'contributions': function () {
+        return Contributions.find({ activity_id: this._id });
     },
     'activityHasContributions': function () {
         var contributions = Template.instance().contributions.get('fields').types;
         return contributions.length > 0;
     },
+    /*
     'currentUpperContribution': function () {
         return Contributions.find({ activity_id: this._id, upper_id: Meteor.user()._id });
-    },
-    'contributions': function () {
-        return Contributions.find({ activity_id: this._id });
-    },
-    'showCanContribute': function () {
-        return Template.instance().showCanContribute.get() ? true : false;
-    },
-    'showHaveContribute': function () {
-        return Template.instance().showHaveContribute.get() ? true : false;
     },
     'contributeWantValue': function () {
         return Template.instance().contributeWantChecked.get() ? 1 : 0;
@@ -74,9 +42,9 @@ Template.ActivityContribution.helpers({
     'contributeHaveChecked': function () {
         return Template.instance().contributeHaveChecked.get() ? 'checked' : '';
     },
+    */
     userImage: function () {
-        var user = Meteor.user();
-
+        var user = Meteor.users.findOne(this.upper_id);
         if (user && user.profile && user.profile.image) {
             return Images.findOne({_id: user.profile.image});
         }
@@ -89,18 +57,14 @@ var beginLast;
 
 Template.ActivityContribution.events({
 
-    'click [data-toggle-want]': function checkContribution(event, template) {
-        var valueKey = $(event.currentTarget).data("check-contribution");
+    'click [data-toggle-want]': function (event, template) {
+        var $button = $(event.currentTarget);
+        var $input = $button.prev();
+        $input.prop("checked", !$input.prop("checked"));
+        $button.closest('form').submit();
+    }
 
-        if (valueKey === 'contributeWantChecked') {
-            // Submit form when user clicked the 'up for this' button
-            $('#' + template.data._id).submit();
-        }
-
-        template[valueKey].set(!template[valueKey].get());
-    },
-
-
+/*
 
     'click [data-change-contribution]': function stopFromBubbling(event, template) {
         // prevent autofocus(clickContribution) on click
@@ -125,21 +89,21 @@ Template.ActivityContribution.events({
         // set reactive var boolean to true to open popover
         template[booleanKey].set(true)
     },
-    'mouseenter [data-open-contribution]': function mouseEnterContribution(event, template) {
-        // this event handler does almost the same as the
-        // click handler, except it's on hover and with a delay
-        var booleanKey = $(event.currentTarget).data("open-contribution");
-
-        // Temporarily save the begin values
-        beginFirst = $(event.currentTarget).find('input[data-change-contribution]:first').val();
-        beginLast = $(event.currentTarget).find('input[data-change-contribution]:last').val();
-
-        if (!template[booleanKey].get()) {
-            template.showTimeout = Meteor.setTimeout(function () {
-                template[booleanKey].set(true);
-            }, 1000);
-        }
-    },
+    //'mouseenter [data-open-contribution]': function mouseEnterContribution(event, template) {
+    //    // this event handler does almost the same as the
+    //    // click handler, except it's on hover and with a delay
+    //    var booleanKey = $(event.currentTarget).data("open-contribution");
+    //
+    //    // Temporarily save the begin values
+    //    beginFirst = $(event.currentTarget).find('input[data-change-contribution]:first').val();
+    //    beginLast = $(event.currentTarget).find('input[data-change-contribution]:last').val();
+    //
+    //    if (!template[booleanKey].get()) {
+    //        template.showTimeout = Meteor.setTimeout(function () {
+    //            template[booleanKey].set(true);
+    //        }, 1000);
+    //    }
+    //},
 
     'mouseleave [data-open-contribution]': function mouseLeaveContribution(event, template) {
         // hide the popover on mouse leave
@@ -183,47 +147,39 @@ Template.ActivityContribution.events({
         // Submit form to save
         $('#' + template.data._id).submit();
     }
+    */
 });
 
 AutoForm.addHooks(
     null, {
-        onSubmit: function (insertDoc, updateDoc, currentDoc) {
-            this.event.preventDefault();
-
-            //var formNameParts = this.formId.split('-');
-            //console.log(formNameParts);
-            //if(formNameParts.length !== 2 || formNameParts[0] !== 'contributeForm') return;
-
-            var activityId = this.formId;
+        onSubmit: function (doc) {
             var self = this;
-            var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
+            var formNameParts = self.formId.split('-');
+            if(formNameParts.length !== 2 || formNameParts[0] !== 'contributionEditForm') return;
 
+            self.event.preventDefault();
+
+            var activityId = formNameParts[1];
+            var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
             if (contribution) {
-                console.log('update');
                 var contributionId = contribution._id;
-                Meteor.call('contributions.update', contributionId, insertDoc, function (error, updatedContribution) {
+                Meteor.call('contributions.update', contributionId, doc, function (error, updatedContribution) {
                     if (error) {
-                        console.log('something went wrong', error);
+                        Partup.ui.notify.iError(error.reason);
                         return false;
                     }
-                    self.template.parent().contributions.set('fields', updatedContribution);
                 });
             } else {
-                console.log('insert');
-                Meteor.call('contributions.insert', activityId, insertDoc, function (error, newContribution) {
+                Meteor.call('contributions.insert', activityId, doc, function (error, newContribution) {
                     if (error) {
-                        console.log('something went wrong', error);
+                        Partup.ui.notify.iError(error.reason);
                         return false;
                     }
-                    self.template.parent().contributions.set('fields', newContribution);
                 });
             }
 
-            console.log(this.template.parent().contributions.get('fields'));
-
             AutoForm.resetForm(this.formId);
             this.done();
-
             return false;
         }
     });
