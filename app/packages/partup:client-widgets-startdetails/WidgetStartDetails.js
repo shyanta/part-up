@@ -78,11 +78,12 @@ Template.WidgetStartDetails.events({
 AutoForm.hooks({
     partupForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
-            event.preventDefault();
-
+            var self = this;
             var partupId = Session.get('partials.start-partup.current-partup');
 
             if(partupId) {
+
+                // Partup already exists. Update.
                 Meteor.call('partups.update', partupId, insertDoc, function(error, res){
                     if(error && error.message) {
                         switch (error.message) {
@@ -99,7 +100,10 @@ AutoForm.hooks({
                     
                     Router.go('start-activities', {_id:partupId});
                 });
+
             } else {
+
+                // Partup does not exists yet. Insert.
                 Meteor.call('partups.insert', insertDoc, function(error, res){
                     if(error && error.message) {
                         switch (error.message) {
@@ -116,8 +120,11 @@ AutoForm.hooks({
 
                     Session.set('partials.start-partup.current-partup', res._id);
                     Router.go('start-activities', {_id:res._id});
-                })
+                });
+
             }
+
+            return false;
         }
     }
 });
