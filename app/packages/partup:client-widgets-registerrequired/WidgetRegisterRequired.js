@@ -1,7 +1,13 @@
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
 Template.WidgetRegisterRequired.onRendered(function() {
     AutoForm.resetForm("registerRequiredForm");
 });
 
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.WidgetRegisterRequired.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: Partup.services.placeholders.registerRequired,
@@ -10,6 +16,9 @@ Template.WidgetRegisterRequired.helpers({
     }
 });
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.WidgetRegisterRequired.events({
     'click [data-signupfacebook]': function(event) {
         Meteor.loginWithFacebook({
@@ -40,6 +49,9 @@ Template.WidgetRegisterRequired.events({
     }
 })
 
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.hooks({
     registerRequiredForm: {
         beginSubmit: function() {

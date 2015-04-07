@@ -1,3 +1,6 @@
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
 Template.WidgetLogin.onRendered(function() {
     AutoForm.resetForm("loginForm");
 });
@@ -73,6 +76,9 @@ function goToReturnUrlOrHome() {
     }
 }
 
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.hooks({
     loginForm: {
         beginSubmit: function() {
