@@ -1,6 +1,7 @@
 {
     "error-method-register-Accounts-LoginCancelledError": "Inloggen geannuleerd",
     "error-method-updates-comments-insert-failure": "Comment kon niet toegevoegd worden",
+    "error-method-updates-messages-insert-failure": "Bericht kon niet geplaatst worden",
 
     "error-ss-required": "Dit veld is vereist",
     "error-ss-minString": "Dit veld moet uit minimaal [min] karakters bestaan",
