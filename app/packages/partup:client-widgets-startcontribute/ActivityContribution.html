@@ -10,19 +10,19 @@
         <div class="pu-block-container-child">
             {{#autoForm id=generateFormId schema=formSchema doc=fieldsFromContribution class="pu-form  pu-form-contribution"}}
                 <!-- want -->
-                {{> afFieldInput name='types_want_enabled' class="pu-checkbox" theme="partup" }}
+                {{> afFieldInput name='types_want_enabled' template="partup" }}
                 <button class="pu-button pu-button-icon pu-button-checkbox" data-toggle-want="types_want_enabled">
                     <i class="fa fa-thumbs-up"></i>
                     {{_ 'startcontribute-form-want-label'}}
                 </button>
 
                 <!-- can -->
-                <div class="pu-popover" data-open-contribution="showCanContribute">
-                    {{> afFieldInput name='types_can_enabled' class="pu-checkbox" }}
-                    <label class="pu-button pu-button-icon pu-button-checkbox">
+                <div class="pu-popover">
+                    {{> afFieldInput name='types_can_enabled' template="partup" }}
+                    <button class="pu-button pu-button-icon pu-button-checkbox">
                         <i class="fa fa-wrench"></i>
                         {{_ 'startcontribute-form-can-label'}}
-                    </label>
+                    </button>
 
                     <div class="pu-popover-inner {{#if afFieldValueIs name="types_can_amount" value=true}}pu-popover-inner-show{{/if}}">
                         <!-- data-contribution-can -->
@@ -33,7 +33,7 @@
 
                 <!-- have -->
                 <div class="pu-popover" data-open-contribution="showHaveContribute">
-                    {{> afFieldInput name='types_have_enabled' class="pu-checkbox" }}
+                    {{> afFieldInput name='types_have_enabled' template="partup" }}
                     <label class="pu-button pu-button-icon pu-button-checkbox">
                         <i class="fa fa-user-plus"></i>
                         {{_ 'startcontribute-form-have-label'}}
@@ -95,8 +95,4 @@
             </div>
         {{/each}}
     </article>
-</template>
-
-<template name="afCheckbox_partup">
-    <input type="checkbox" value="true" {{atts}} />
 </template>
