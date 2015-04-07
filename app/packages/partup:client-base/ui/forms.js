@@ -30,7 +30,8 @@ Partup.ui.forms = {
      * @param {Object} form
      */
     removeAllStickyFieldErrors: function(form) {
-        lodash.each(form._stickyErrors, function(value, key) {
+        var templateInstanceForForm = AutoForm.templateInstanceForForm(form.formId);
+        lodash.each(templateInstanceForForm._stickyErrors, function(value, key) {
             form.removeStickyValidationError(key);
         });
     }
