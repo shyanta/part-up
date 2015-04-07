@@ -1,5 +1,11 @@
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
 var showDatePicker = new ReactiveVar(false);
 
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.WidgetStartActivities.helpers({
     'Partup': Partup,
     'formSchema': Partup.schemas.forms.startActivities,
@@ -16,6 +22,9 @@ Template.WidgetStartActivities.helpers({
     }
 });
 
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.WidgetStartActivities.events({
     'click [data-end-date-button]': function(event, template) {
         event.preventDefault();
@@ -25,26 +34,32 @@ Template.WidgetStartActivities.events({
     }
 });
 
-Template.WidgetStartActivities.onCreated(function () {
-
-});
-
+/*************************************************************/
+/* Widget form hooks */
+/*************************************************************/
 AutoForm.hooks({
     activityForm: {
         onSubmit: function (insertDoc) {
             var self = this;
-            self.event.preventDefault();
             var partupId = Session.get('partials.start-partup.current-partup');
 
             Meteor.call('activities.insert', partupId, insertDoc, function (error) {
-                if (error) {
-                    Partup.ui.notify.error(error.reason);
-                    self.done(error);
-                } else {
-                    showDatePicker.set(false);
-                    AutoForm.resetForm('activityForm');
-                    self.done();
+                if(error && error.message) {
+                    switch (error.message) {
+                        // case 'User not found [403]':
+                        //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                        //     break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
+                    }
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return;
                 }
+                
+                showDatePicker.set(false);
+                AutoForm.resetForm('activityForm');
+                self.done();
             });
 
             return false;
