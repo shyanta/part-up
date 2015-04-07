@@ -70,23 +70,10 @@ Template.WidgetRegisterOptional.events({
 /* Widget functions */
 /*************************************************************/
 var continueRegister = function() {
-    var user = Meteor.user();
-    if(!user) return;
-
-    var returnUrl = Session.get('application.return-url');
-
-    if(returnUrl) {
-
-        // Intent
-        Session.set('application.return-url', undefined);
-        Router.go(returnUrl);
-
-    } else {
-
-        // Home fallback
-        Router.go('home');
-
-    }
+    
+    // Execute intent callback
+    Partup.ui.modal.executeIntentCallback('register');
+    
 };
 
 
