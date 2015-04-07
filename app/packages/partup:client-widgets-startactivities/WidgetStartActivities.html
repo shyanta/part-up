@@ -15,9 +15,6 @@
                 <span class="pu-label">{{_ 'startactivities-form-name-label'}}</span>
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startactivities-form-name-validation' Partup.schemas.forms.startActivities._schema.name.max }}
-                    <span class="pu-tooltip-wrapper">
-                        <p class="pu-paragraph">{{_ 'startactivities-form-name-tooltip' }}</p>
-                    </span>
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
@@ -30,9 +27,6 @@
                 <span class="pu-label">{{_ 'startactivities-form-description-label'}}</span>
                 <a class="pu-hint pu-tooltip">
                     {{_ 'startactivities-form-description-validation' Partup.schemas.forms.startActivities._schema.description.max }}
-                    <span class="pu-tooltip-wrapper">
-                        <p class="pu-paragraph">{{_ 'startactivities-form-description-tooltip' }}</p>
-                    </span>
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 }}</span>
