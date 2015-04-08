@@ -33,84 +33,49 @@ Template.ActivityContribution.helpers({
     }
 });
 
+var updateStatesForForm = function (form) {
+    // todo: check states for form, update them
+};
+
 Template.ActivityContribution.events({
 
-    'click [data-toggle-want]': function (event) {
-        var $button = $(event.currentTarget);
-        var $input = $button.prev();
-        $input.prop("checked", !$input.prop("checked"));
-        $button.closest('form').submit();
+    // Toggle 'want' button handler
+    'click [data-toggle-want]': function (event, template) {
+        var form = template.find('#contributionEditForm-' + this._id);                        // get form
+        form.elements.types_want_enabled.checked = !form.elements.types_want_enabled.checked; // toggle 'want' checkbox
+        // $(form).submit();
     },
 
+    // Empty field button handler
+    'click [data-empty-field]': function (event, template) {
+        var form = template.find('#contributionEditForm-' + this._id);        // get form
+        var fieldName = event.currentTarget.getAttribute('data-empty-field'); // get fieldname to empty
+        form.elements[fieldName].value = '';                                  // empty field
+        // $(form).submit();
+    },
+
+    // Open can-popover
     'click [data-toggle-can]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $input = $button.prev();
-
-        if(canDropdownEnabledValues.get(this._id)) {
-            canDropdownEnabledValues.set(this._id, false);
-        } else {
-            $input.prop("checked", true);
-            canDropdownEnabledValues.set(this._id, true);
-            var $canAmount = $button.parent().find('[name="types_can_amount"]');
-            $canAmount.focus();
-        }
+        var form = template.find('#contributionEditForm-' + this._id); // get form
+        var newState = !canDropdownEnabledValues.get(this._id);        // define new state
+        canDropdownEnabledValues.set(this._id, newState);              // set new state
+        if(newState) form.elements.types_can_amount.focus();           // focus first field
     },
-    'click [data-remove-can]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $amountInput = $button.prev();
-        var $canEnabled = $button.parent().parent().find('[name="types_can_enabled"]');
 
-        // clear "can" contribution
-        $canEnabled.prop("checked", false);
-        $amountInput.val(undefined);
-        canDropdownEnabledValues.set(this._id, false);
-        $button.closest('form').submit();
+    // Open have-popover
+    'click [data-toggle-have]': function (event, template) {
+        var form = template.find('#contributionEditForm-' + this._id); // get form
+        var newState = !haveDropdownEnabledValues.get(this._id);       // define new state
+        haveDropdownEnabledValues.set(this._id, newState);             // set new state
+        if(newState) form.elements.types_have_amount.focus();          // focus first field
     },
+
+
     'keyup [name="types_can_amount"]': function (event) {
         var $input = $(event.currentTarget);
         // Submit form when user pressed enter
         if (event.which === 13) {
             $input.closest('form').submit();
-        }
-    },
-
-    'click [data-toggle-have]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $input = $button.prev();
-
-        if(haveDropdownEnabledValues.get(this._id)) {
-            haveDropdownEnabledValues.set(this._id, false);
-        } else {
-            $input.prop("checked", true);
-            haveDropdownEnabledValues.set(this._id, true);
-            var $haveAmount = $button.parent().find('[name="types_have_amount"]');
-            $haveAmount.focus();
-        }
-    },
-    'click [data-remove-have-amount]': function (event, template) {
-        // Find enclosing form
-        var form = template.find('#contributionEditForm-' + this._id);
-
-        // Empty amount
-        form.elements.types_have_amount.value = 0;
-
-        // Disable if description is also empty
-        if(!form.elements.types_have_description.value.trim()) {
-            form.elements.types_have_enabled.value = false;
-            haveDropdownEnabledValues.set(this._id, false);
-        }
-    },
-    'click [data-remove-have-description]': function (event, template) {
-        // Find enclosing form
-        var form = template.find('#contributionEditForm-' + this._id);
-
-        // Empty amount
-        form.elements.types_have_description.value = 0;
-
-        // Disable if description is also empty
-        if(!form.elements.types_have_amount.value.trim()) {
-            form.elements.types_have_enabled.value = false;
-            haveDropdownEnabledValues.set(this._id, false);
         }
     },
     'keyup [name="types_have_amount"]': function (event) {
@@ -134,7 +99,9 @@ AutoForm.addHooks(
         onSubmit: function (doc) {
             var self = this;
             var formNameParts = self.formId.split('-');
-            if(formNameParts.length !== 2 || formNameParts[0] !== 'contributionEditForm') return;
+            if(formNameParts.length !== 2 || formNameParts[0] !== 'contributionEditForm') {
+                return false;
+            }
 
             var activityId = formNameParts[1];
             var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
