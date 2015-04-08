@@ -67,22 +67,13 @@ Template.WidgetStartPromote.events({
     },
 
     'click [data-action-topartup]': function eventToPartup () {
-
         var partupId = Router.current().params._id;
-        var hasIntent = Partup.ui.modal.hasIntentCallback('start');
-
-        if(hasIntent) {
-
-            // Execute intent
-            Partup.ui.modal.executeIntentCallback('start', partupId);
-
-        } else {
+        Partup.ui.modal.executeIntentCallback('start', partupId, function () {
 
             // Router go
             Router.go('partup-detail', { _id: partupId });
 
-        }
-
+        });
     }
 
 });
