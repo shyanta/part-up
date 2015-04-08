@@ -70,7 +70,7 @@ Template.PartialsPartupDetailSidebar.events({
         window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-twitter]': function clickShareFacebook(event, template) {
+    'click [data-share-twitter]': function clickShareTwitter(event, template) {
         var url = Router.current().location.get().href;
         var message = template.data.partup().name;
         // TODO: I18n + wording
