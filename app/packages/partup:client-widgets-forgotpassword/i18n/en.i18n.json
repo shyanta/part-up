@@ -9,5 +9,6 @@
     "forgotpassword-backtologin": "I think I remember my password",
 
     "forgotpassword-instructionssent-heading": "Check your inbox!",
-    "forgotpassword-instructionssent-paragraph": "Follow the instructions to reset your password. Didn't receive the email yet? Wait for a minute and don't forget to check your spam folder."
+    "forgotpassword-instructionssent-paragraph": "Follow the instructions to reset your password. Didn't receive the email yet? Wait for a minute and don't forget to check your spam folder.",
+    "forgotpassword-instructionssent-backtologin": "@Back to login"
 }

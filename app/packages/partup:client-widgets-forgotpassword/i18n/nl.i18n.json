@@ -9,5 +9,6 @@
     "forgotpassword-backtologin": "Ik denk dat ik mijn wachtwoord toch weer weet",
 
     "forgotpassword-instructionssent-heading": "Controleer je mail!",
-    "forgotpassword-instructionssent-paragraph": "Volg de instructies om een nieuw wachtwoord aan te maken. Heb je de mail nog niet ontvangen? Wacht een paar minuten en kijk ook even tussen je spam."
+    "forgotpassword-instructionssent-paragraph": "Volg de instructies om een nieuw wachtwoord aan te maken. Heb je de mail nog niet ontvangen? Wacht een paar minuten en kijk ook even tussen je spam.",
+    "forgotpassword-instructionssent-backtologin": "@Terug naar loginscherm"
 }
