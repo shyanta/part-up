@@ -48,6 +48,7 @@ Template.PartialsPartupDetailSidebar.helpers({
 
     'numberOfSupporters': function() {
         var partup = this.partup();
+        if(!partup) return '...'
         return partup.supporters ? partup.supporters.length : '0';
     }
 
