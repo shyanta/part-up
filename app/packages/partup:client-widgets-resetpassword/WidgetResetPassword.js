@@ -36,8 +36,16 @@ AutoForm.hooks({
                     return;
                 }
 
-                self.done();
-                Router.go('home');
+                // Login
+                var email = '';
+                // Todo: implement auto-login using token call
+                // Meteor.loginWithPassword(email, insertDoc.password, function(error) {
+
+                    // Done
+                    self.done();
+                    Partup.ui.modal.executeIntentCallback('reset-password');
+
+                // });
             });
 
             return false;
