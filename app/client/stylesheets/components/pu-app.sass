@@ -3,6 +3,9 @@
     $page-padding: 40px
     min-width: $grid-column * 10 + $grid-gap * 9
 
+    .pu-layout
+        min-height: 100vh
+
     #pu-notifycontainer
         position: fixed
         bottom: 30px
@@ -11,7 +14,8 @@
         pointer-events: all
 
     @media screen and (min-width: $grid-column * 9 + $grid-gap * 8 + $page-padding * 2)
-        padding-top: 60px
+        .pu-layout
+            padding-top: 60px
 
         .pu-header
             position: fixed
