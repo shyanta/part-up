@@ -7,7 +7,7 @@ Partup.ui.socials = {
      * @param {String} urlToShare URL to be shared
      */
     generateFacebookShareUrl: function (urlToShare) {
-        var base = "https://www.facebook.com/sharer/sharer.php"
+        var base = "https://www.facebook.com/sharer/sharer.php";
         return base + "?s=100&p[url]=" + urlToShare;
 
         //TODO: use new facebook api

@@ -6,7 +6,7 @@ Package.describe({
     documentation: null
 });
 
-Package.onUse(function(api) {
+Package.onUse(function (api) {
     api.use('check');
 
     api.use([
@@ -15,7 +15,7 @@ Package.onUse(function(api) {
         'momentjs:moment',
         'chrismbeckett:toastr',
         'templating',
-	'tracker'
+        'tracker'
     ], ['client']);
 
     api.addFiles([
