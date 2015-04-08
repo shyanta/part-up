@@ -23,27 +23,22 @@ Partup.ui.modal = {
      * @memberOf partup.ui
      * @param {String} key of callback
      * @param {Object} arguments to pass to the callback
+     * @param {Function} custom fallback callback
      */
-    executeIntentCallback: function(key, args) {
+    executeIntentCallback: function(key, args, customFallback) {
         var cb = _intentCallbacks[key],
             args = args || {};
-        if(typeof cb !== 'function') {
-            _defaultIntentCallback(args);
-        } else {
+        if(typeof cb === 'function') {
             cb(args);
+        } else {
+            if(typeof customFallback === 'function') {
+                customFallback(args);
+            } else {
+                _defaultIntentCallback(args);
+            }
         }
 
         delete _intentCallbacks[key];
-    },
-
-    /**
-     * Check if intent callback exists
-     *
-     * @memberOf partup.ui
-     * @param {String} key of callback
-     */
-    hasIntentCallback: function(key) {
-        return _intentCallbacks.hasOwnProperty(key);
     },
 
     /**

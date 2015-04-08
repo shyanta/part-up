@@ -46,24 +46,21 @@ var continueLogin = function() {
     if(!user) return;
 
     var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
-    var hasIntent = Partup.ui.modal.hasIntentCallback('login');
 
-    if(hasIntent) {
+    // Intent
+    Partup.ui.modal.executeIntentCallback('login', {}, function () {
+        if(!optionalDetailsFilledIn) {
 
-        // Intent
-        Partup.ui.modal.executeIntentCallback('login');
+            // Fill-in optional details
+            Router.go('register-details');
 
-    } else if(!optionalDetailsFilledIn) {
+        } else {
 
-        // Fill-in optional details
-        Router.go('register-details');
+            // Fallback
+            Partup.ui.modal.executeDefaultCallback();
 
-    } else {
-
-        // Fallback
-        Partup.ui.modal.executeDefaultCallback();
-
-    }
+        }
+    });
 };
 
 /*************************************************************/
