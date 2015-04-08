@@ -50,12 +50,6 @@ Template.PartialsPartupDetailSidebar.helpers({
         var partup = this.partup();
         if (!partup) return '...';
         return partup.supporters ? partup.supporters.length : '0';
-    },
-
-    partupCover: function () {
-        var partup = this.partup();
-        if (! partup || ! partup.image) return null;
-        return Images.findOne({ _id: partup.image });
     }
 
 });
