@@ -33,17 +33,25 @@ var getPartup = function () {
 /*************************************************************/
 Template.WidgetStartPromote.helpers({
     Partup: Partup,
+
     placeholders: Partup.services.placeholders.startdetails,
+
     partup: getPartup,
-    uploadedImage: function () {
-        return Images.findOne({_id: Session.get('partials.start-partup.uploaded-image')});
-    },
+
     partupUrl: function () {
         return 'http://part-up.com/' + Session.get('partials.start-partup.current-partup');
     },
+
     shared: function () {
         return Template.instance().shared.get();
+    },
+
+    partupCover: function () {
+        var imageId = getPartup().image;
+        if (!imageId) return null;
+        return Images.findOne({ _id: imageId });
     }
+
 });
 
 /*************************************************************/
