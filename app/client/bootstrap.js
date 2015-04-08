@@ -49,5 +49,31 @@ Meteor.startup(function() {
         this.next();
         previousTemplateName = nextTemplateName;
     });
-    
+
+    /*************************************************************/
+    /* Seo configuration */
+    /*************************************************************/
+    SEO.config({
+        title: 'Part-up',
+        meta: {
+            'description': 'Just organize!',
+            'image': '/images/logo.png',
+            'title': 'Part-up'
+        },
+        og: {
+            'site_name': location.hostname,
+            'type': 'article'
+        },
+        twitter: {
+            'card': 'summary',
+            'site' : 'Part-up',
+            'creator': '@Partupcom'
+        },
+        auto: {
+            twitter: true,
+            og: true,
+            set: ['description', 'url', 'title', 'image']
+        }
+    });
+
 });
