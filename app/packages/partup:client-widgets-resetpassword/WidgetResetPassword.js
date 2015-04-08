@@ -36,16 +36,19 @@ AutoForm.hooks({
                     return;
                 }
 
-                // Login
-                var email = '';
-                // Todo: implement auto-login using token call
-                // Meteor.loginWithPassword(email, insertDoc.password, function(error) {
-
-                    // Done
+                // Done
+                var done = function() {
                     self.done();
                     Partup.ui.modal.executeIntentCallback('reset-password');
+                };
 
-                // });
+                // Try for auto login
+                var email = Meteor.call('users.email.form.token', token);
+                if(typeof email === 'string') {
+                    Meteor.loginWithPassword(email, insertDoc.password, done);
+                } else {
+                    done();
+                }
             });
 
             return false;
