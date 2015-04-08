@@ -8,7 +8,7 @@
             <time datetime="{{ partupDateISO end_date }}">{{ partupDateNormal end_date }}</time>
         </div>
         <div class="pu-block-container-child">
-            {{#autoForm id=generateFormId schema=formSchema doc=fieldsFromContribution class="pu-form  pu-form-contribution"}}
+            {{#autoForm id=generateFormId schema=formSchema doc=fieldsFromContribution class="pu-form  pu-form-contribution" autosaveOnKeyup="true" type="update" }}
                 <!-- want -->
                 {{> afFieldInput name='types_want_enabled' template="partup" }}
                 <button type="button" class="pu-button pu-button-icon pu-button-checkbox" data-toggle-want="types_want_enabled">
@@ -27,8 +27,10 @@
 
                         <div class="pu-popover-inner {{#if canDropdownEnabled}}pu-popover-inner-show{{/if}}">
                             <span>{{_ 'startcontribute-form-can_amount-label'}}</span>
-                            {{> afFieldInput name='types_can_amount' placeholder=placeholders.can_amount class="pu-input"}}
-                            <button type="button" data-remove-can>x</button>
+                            <span class="pu-inputholder">
+                                {{> afFieldInput name='types_can_amount' placeholder=placeholders.can_amount class="pu-input"}}
+                                <a data-remove-can><i class="fa fa-times"></i></a>
+                            </span>
                         </div>
                     </div>
                 {{/unless}}
@@ -43,10 +45,15 @@
 
                     <div class="pu-popover-inner {{#unless donation}}pu-popover-inner-last{{/unless}} {{#if haveDropdownEnabled}}pu-popover-inner-show{{/if}}">
                         <span>{{_ 'startcontribute-form-have_amount-label'}}</span>
-                        {{> afFieldInput name='types_have_amount' placeholder=placeholders.have_amount class="pu-input" }}
+                        <span class="pu-inputholder">
+                            {{> afFieldInput name='types_have_amount' placeholder=placeholders.have_amount class="pu-input" }}
+                            <a data-remove-have-amount><i class="fa fa-times"></i></a>
+                        </span>
                         <span>{{_ 'startcontribute-form-have_description-label'}}</span>
-                        {{> afFieldInput name='types_have_description' placeholder=placeholders.have_description class="pu-input" }}
-                        <button type="button" data-remove-have>x</button>
+                        <span class="pu-inputholder">
+                            {{> afFieldInput name='types_have_description' placeholder=placeholders.have_description class="pu-input" }}
+                            <a data-remove-have-description><i class="fa fa-times"></i></a>
+                        </span>
                     </div>
                 </div>
             {{/autoForm}}

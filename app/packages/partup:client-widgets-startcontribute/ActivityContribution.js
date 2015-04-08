@@ -8,7 +8,6 @@ Template.ActivityContribution.helpers({
         return 'contributionEditForm-' + this._id;
     },
     'fieldsFromContribution': function () {
-        console.log(this);
         var contribution = Contributions.findOne({activity_id: this._id, upper_id: Meteor.user()._id});
         return Partup.transformers.contribution.toFormContribution(contribution);
     },
@@ -88,18 +87,31 @@ Template.ActivityContribution.events({
             $haveAmount.focus();
         }
     },
-    'click [data-remove-have]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $amountInput = $button.prev();
-        var $descriptionInput = $button.parent().parent().find('[name="types_have_description"]');
-        var $haveEnabled = $button.parent().parent().find('[name="types_have_enabled"]');
+    'click [data-remove-have-amount]': function (event, template) {
+        // Find enclosing form
+        var form = template.find('#contributionEditForm-' + this._id);
 
-        // clear "have" contribution
-        $haveEnabled.prop("checked", false);
-        $amountInput.val(undefined);
-        $descriptionInput.val(undefined);
-        haveDropdownEnabledValues.set(this._id, false);
-        $button.closest('form').submit();
+        // Empty amount
+        form.elements.types_have_amount.value = 0;
+
+        // Disable if description is also empty
+        if(!form.elements.types_have_description.value.trim()) {
+            form.elements.types_have_enabled.value = false;
+            haveDropdownEnabledValues.set(this._id, false);
+        }
+    },
+    'click [data-remove-have-description]': function (event, template) {
+        // Find enclosing form
+        var form = template.find('#contributionEditForm-' + this._id);
+
+        // Empty amount
+        form.elements.types_have_description.value = 0;
+
+        // Disable if description is also empty
+        if(!form.elements.types_have_amount.value.trim()) {
+            form.elements.types_have_enabled.value = false;
+            haveDropdownEnabledValues.set(this._id, false);
+        }
     },
     'keyup [name="types_have_amount"]': function (event) {
         var $input = $(event.currentTarget);
@@ -124,8 +136,6 @@ AutoForm.addHooks(
             var formNameParts = self.formId.split('-');
             if(formNameParts.length !== 2 || formNameParts[0] !== 'contributionEditForm') return;
 
-            self.event.preventDefault();
-
             var activityId = formNameParts[1];
             var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
             if (contribution) {
@@ -149,6 +159,7 @@ AutoForm.addHooks(
 
             AutoForm.resetForm(this.formId);
             this.done();
+
             return false;
         }
     });

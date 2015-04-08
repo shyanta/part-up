@@ -15,19 +15,30 @@
         z-index: 1
         pointer-events: none
         transition: opacity $animation-duration, transform $animation-duration
+        white-space: nowrap
+
+        .fa
+            color: $color-text-subtle-active
+            font-size: 22px
+            vertical-align: top
+            margin-top: -3px
+            margin-left: 10px
+
+            &:hover
+                color: $color-text-subtle
 
         input 
             min-width: 200px
 
         >span//,input
             display: table-cell
+
+            &:last-child
+                padding-right: 0
         
         >span
             padding-right: 10px
             position: relative
-
-        >span:nth-child(3)
-            padding-left: 10px
 
         > span span
             position: absolute
