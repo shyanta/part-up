@@ -4,7 +4,7 @@ Partup.ui.socials = {
      * Generate a link to share a URL on Facebook
      *
      * @memberOf partup.ui
-     * @param {String} URL to be shared
+     * @param {String} urlToShare URL to be shared
      */
     generateFacebookShareUrl: function (urlToShare) {
         var base = "https://www.facebook.com/sharer/sharer.php"
@@ -20,7 +20,8 @@ Partup.ui.socials = {
      * Generate a link to share a URL on Twitter
      *
      * @memberOf partup.ui
-     * @param {String} Message to be shared
+     * @param {String} messageToShare Message to be shared
+     * @param {String} urlToShare URL to be shared
      */
     generateTwitterShareUrl: function (messageToShare, urlToShare) {
         return 'http://twitter.com/share?text=' + messageToShare + '&url=' + urlToShare + '&hashtags=part-up';
@@ -30,7 +31,7 @@ Partup.ui.socials = {
      * Generate a link to share a URL on LinkedIn
      *
      * @memberOf partup.ui
-     * @param {String} URL to be shared
+     * @param {String} urlToShare URL to be shared
      */
     generateLinkedInShareUrl: function (urlToShare) {
         return 'https://www.linkedin.com/shareArticle?mini=true&url=' + urlToShare;
