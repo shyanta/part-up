@@ -40,7 +40,10 @@
                 <input class="pu-button pu-button-primary" type="submit" value="{{_ 'login-form-submit'}}">
             </footer>
         {{/autoForm}}
-        <p><a href="{{pathFor 'forgot-password'}}">{{_ 'login-forgotpassword'}}</a></p>
+        <p class="pu-paragraph pu-paragraph-subtle">
+            <strong>{{_ 'login-forgotpassword-help'}}</strong>
+            <a href="{{pathFor 'forgot-password'}}">{{_ 'login-forgotpassword-link'}}</a>
+        </p>
 
     </div>
 </template>
