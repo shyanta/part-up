@@ -14,7 +14,8 @@ Package.onUse(function(api) {
         'partup:lib',
         'accounts-base',
         'service-configuration',
-        'cfs:standard-packages'
+        'cfs:standard-packages',
+        'tap:i18n'
     ], ['server']);
 
     api.addFiles([
@@ -26,6 +27,7 @@ Package.onUse(function(api) {
         'collection-hooks.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
+        'event_handlers/partups/partups_donations_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
         'event_handlers/partups/partups_name_changed_handler.js',
         'event_handlers/partups/partups_description_changed_handler.js',
@@ -44,7 +46,10 @@ Package.onUse(function(api) {
         'methods/partups/partups_methods.js',
         'methods/partups/partups_supporters_methods.js',
         'methods/users/users_methods.js',
-        'fixtures.js'
+        'fixtures.js',
+        'package-tap.i18n',
+        'i18n/en.i18n.json',
+        'i18n/nl.i18n.json'
     ], ['server']);
 
     api.export('Log', ['server']);

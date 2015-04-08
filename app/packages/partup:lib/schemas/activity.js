@@ -41,6 +41,10 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    donation: {
+        type: Boolean,
+        optional: true
+    },
     partup_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
