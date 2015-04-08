@@ -14,6 +14,14 @@ Template.Activity.helpers({
     },
     editMode: function(){
         return activityEditModes.get(this._id);
+    },
+    fieldsFromActivity: function() {
+        var activity = this;
+        if(activity._id) {
+            return this;
+        } else {
+            return undefined
+        }
     }
 });
 
