@@ -11,8 +11,8 @@
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
                 <div class="pu-upload">
-                    <img src="{{#if profilePicture.url }}{{ profilePicture.url }}{{else}}/images/smile.svg{{/if}}" alt="" data-image-placeholder class="pu-imagepreview">
-                    <button class="pu-button pu-button-browse {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
+                    <img src="{{#if profilePicture.url }}{{ profilePicture.url }}{{else}}/images/smile.png{{/if}}" alt="" data-image-placeholder class="pu-imagepreview">
+                    <button class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
                         <span>{{_ 'registeroptional-form-image-button'}}</span>
                         {{#if uploadingProfilePicture}}
                             {{> WidgetSpinnerInverted}}
