@@ -46,6 +46,7 @@ Package.onUse(function(api) {
         'methods/partups/partups_methods.js',
         'methods/partups/partups_supporters_methods.js',
         'methods/users/users_methods.js',
+        'methods/users/users_accounts_methods.js',
         'fixtures.js',
         'package-tap.i18n',
         'i18n/en.i18n.json',
