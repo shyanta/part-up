@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesRegister.helpers({
+Template.PagesForgotPassword.helpers({
     //
 });
 
@@ -9,6 +9,9 @@ Template.PagesRegister.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesRegister.events({
-
+Template.PagesForgotPassword.events({
+    'click [data-closepage]': function (event, template) {
+        event.preventDefault();
+        Partup.ui.modal.executeIntentCallback('login');
+    }
 });
