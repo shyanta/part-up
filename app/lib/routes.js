@@ -44,12 +44,45 @@ Router.route('/partups/:_id', {
         'PagesPartupDetail': { to: 'app-page' },
         'PagesPartupDetailUpdates': { to: 'partup-page' }
     },
-    subscriptions: function () {
+    waitOn: function () {
         var partupId = this.params._id;
 
-        this.subscribe('notifications.user');
-        this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.updates', partupId);
+        return [
+            this.subscribe('notifications.user'),
+            this.subscribe('partups.one', partupId),
+            this.subscribe('partups.one.updates', partupId)
+        ]
+    },
+    data: function() {
+        var partup = Partups.findOne({_id: this.params._id});
+        if(partup) {
+            var image = Images.findOne({_id: partup.image});
+        }
+        return {
+            partup: partup,
+            image: image
+        }
+    },
+    onAfterAction: function() {
+        if (!Meteor.isClient) return;
+
+        var partup = this.data().partup;
+        if (!partup) return;
+
+        var image = this.data().image;
+        var seoMetaData = {
+            title: partup.name,
+            meta: {
+                'title': partup.name,
+                'description': partup.description
+            }
+        };
+        if(image) {
+            seoMetaData.meta.image = image.url();
+        }
+        SEO.set(seoMetaData);
+
+
     }
 });
 
@@ -308,4 +341,3 @@ Router.onBeforeAction(partupRouterHooks.loginRequired, {
         'register-details',
     ]
 });
-

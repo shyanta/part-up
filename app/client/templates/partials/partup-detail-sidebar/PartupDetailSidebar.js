@@ -48,6 +48,7 @@ Template.PartialsPartupDetailSidebar.helpers({
 
     'numberOfSupporters': function() {
         var partup = this.partup();
+        if(!partup) return '...'
         return partup.supporters ? partup.supporters.length : '0';
     }
 
@@ -63,21 +64,22 @@ Template.PartialsPartupDetailSidebar.events({
         Meteor.call('partups.supporters.insert', Router.current().params._id);
     },
 
-    'click [data-share-facebook]': function clickShareFacebook (template, event) {
-        var url = Router.current().location.get().path;
+    'click [data-share-facebook]': function clickShareFacebook () {
+        var url = Router.current().location.get().href;
         var facebookUrl = Partup.ui.socials.generateFacebookShareUrl(url);
         window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-twitter]': function clickShareFacebook (template, event) {
-        var url = Router.current().location.get().path;
+    'click [data-share-twitter]': function clickShareFacebook (event, template) {
+        var url = Router.current().location.get().href;
+        var message = template.data.partup().name;
         // TODO: I18n + wording
-        var twitterUrl = Partup.ui.socials.generateTwitterShareUrl('Deel deze partup op twitter!', url);
+        var twitterUrl = Partup.ui.socials.generateTwitterShareUrl(message, url);
         window.open(twitterUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-linkedin]': function clickShareFacebook (template, event) {
-        var url = Router.current().location.get().path;
+    'click [data-share-linkedin]': function clickShareLinkedin () {
+        var url = Router.current().location.get().href;
         var linkedInUrl = Partup.ui.socials.generateLinkedInShareUrl(url);
         window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
     }
