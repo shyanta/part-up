@@ -64,10 +64,11 @@ Router.route('/partups/:_id', {
         }
     },
     onAfterAction: function() {
-        if (!Meteor.isClient) {
-            return;
-        }
+        if (!Meteor.isClient) return;
+
         var partup = this.data().partup;
+        if (!partup) return;
+
         var image = this.data().image;
         var seoMetaData = {
             title: partup.name,
