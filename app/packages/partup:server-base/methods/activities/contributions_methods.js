@@ -23,8 +23,6 @@ Meteor.methods({
             newContribution._id = Contributions.insert(newContribution);
             Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
 
-            Event.emit('contributions.inserted', newContribution);
-
             return newContribution;
          } catch (error) {
             Log.error(error);
@@ -35,7 +33,7 @@ Meteor.methods({
     /**
      * Update a Contribution
      *
-     * @param {integer} contributionId
+     * @param {string} contributionId
      * @param {mixed[]} fields
      */
     'contributions.update': function (contributionId, fields) {
@@ -53,7 +51,6 @@ Meteor.methods({
             updatedContribution.updated_at = new Date();
 
             Contributions.update(contribution, { $set: updatedContribution });
-            Event.emit('contributions.updated', updatedContribution, fields);
 
             return contribution;
         } catch (error) {
