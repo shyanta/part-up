@@ -28,6 +28,11 @@ var getPartup = function () {
     return Partups.findOne({ _id: partupId });
 };
 
+var partupUrl = function() {
+    var partupId = Router.current().params._id;
+    return Router.url('partup-detail', {_id:partupId});
+}
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -39,7 +44,7 @@ Template.WidgetStartPromote.helpers({
     partup: getPartup,
 
     partupUrl: function () {
-        return 'http://part-up.com/' + Session.get('partials.start-partup.current-partup');
+        return partupUrl();
     },
 
     shared: function () {
@@ -90,13 +95,13 @@ Template.WidgetStartPromote.events({
     },
 
     'click [data-share-facebook]': function clickShareFacebook() {
-        var url = Router.current().location.get().href;
+        var url = partupUrl();
         var facebookUrl = Partup.ui.socials.generateFacebookShareUrl(url);
         window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
     'click [data-share-twitter]': function clickShareTwitter(event, template) {
-        var url = Router.current().location.get().href;
+        var url = partupUrl();
         var message = getPartup().name;
         // TODO: I18n + wording
         var twitterUrl = Partup.ui.socials.generateTwitterShareUrl(message, url);
@@ -104,7 +109,7 @@ Template.WidgetStartPromote.events({
     },
 
     'click [data-share-linkedin]': function clickShareLinkedin() {
-        var url = Router.current().location.get().href;
+        var url = partupUrl();
         var linkedInUrl = Partup.ui.socials.generateLinkedInShareUrl(url);
         window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
     }
