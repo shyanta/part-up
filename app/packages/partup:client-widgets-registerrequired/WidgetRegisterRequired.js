@@ -5,7 +5,11 @@ Template.WidgetRegisterRequired.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: Partup.services.placeholders.registerRequired,
     totalNumberOfUppers: function() {
-        return Counts.get('users') + 1;
+        var count = Counts.get('users');
+        if(count)
+            return count + 1;
+        else
+            return "";
     }
 });
 

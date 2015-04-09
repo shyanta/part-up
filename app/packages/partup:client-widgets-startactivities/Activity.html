@@ -1,7 +1,7 @@
 <template name="Activity">
     {{#if editMode}}
         <article class="pu-block pu-block-active">
-            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed" validation="blur" doc=fieldsFromActivity }}
+            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed" doc=fieldsFromActivity validation="submitThenKeyup"}}
 
                 <!-- Activity name -->
                 <label class="pu-formfield">

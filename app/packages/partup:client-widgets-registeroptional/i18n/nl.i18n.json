@@ -25,10 +25,10 @@
     "registeroptional-form-socials-validation": "waarom",
     "registeroptional-form-socials-tooltip": "Jouw social media profielen laten zien wie je bent en wat je kunt. Andere uppers leren je zo al een beetje kennen.",
 
-    "registeroptional-form-facebook-placeholder": "Facebook.com/jouwnaam",
-    "registeroptional-form-twitter-placeholder": "Twitter.com/jouwnaam",
-    "registeroptional-form-instagram-placeholder": "Instagram.com/jouwnaam",
-    "registeroptional-form-linkedin-placeholder": "Linkedin.com/in/jouwnaam",
+    "registeroptional-form-facebook-placeholder": "jouwfacebooknaam",
+    "registeroptional-form-twitter-placeholder": "jouwtwitternaam",
+    "registeroptional-form-instagram-placeholder": "jouwinstagramnaam",
+    "registeroptional-form-linkedin-placeholder": "jouwlinkedinnaam",
 
     "registeroptional-form-website-label": "Heb je een eigen website of blog?",
     "registeroptional-form-website-placeholder": "www.mijn-blog-of-website.nl",

@@ -1,17 +1,17 @@
 <template name="WidgetRegisterOptional">
     <div class="pu-composition pu-composition-defaultmodal pu-composition-register">
 
-        <h2 class="pu-title pu-title-modal">{{_ 'registeroptional-maywegettoknowyou' profile.name }}</h2>
+        <h2 class="pu-title pu-title-modal">{{_ 'registeroptional-maywegettoknowyou' firstName }}</h2>
         <p>{{_ 'registeroptional-optionalexplanation' }}</p>
 
 
-        {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser validation="blur" }}
+        {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser validation="submitThenBlur" }}
 
             <!-- User avatar -->
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-image-label' }}</span>
                 <div class="pu-upload">
-                   {{#if profilePicture.url }}
+                    {{#if profilePicture.url }}
                         <img src="{{ profilePicture.url store='360x360'}}" alt="" data-image-placeholder class="pu-imagepreview">
                     {{else}}
                         <img src="/images/smile.png" alt="" data-image-placeholder class="pu-imagepreview">

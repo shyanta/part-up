@@ -9,7 +9,8 @@ Package.onUse(function(api) {
   api.versionsFrom('METEOR@1');
 
   api.use([
-    'percolate:velocityjs@1.0.0'
+    'percolate:velocityjs@1.0.0',
+    'partup:lib'
   ], 'client');
 
   api.addFiles([

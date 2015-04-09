@@ -24,7 +24,8 @@ Router.route('/discover', {
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
         'PagesApp': { to: 'page' },
-        'PagesDiscover': { to: 'app-page' }
+        'PagesUnderConstruction': { to: 'app-page' }
+        //'PagesDiscover': { to: 'app-page' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -41,8 +42,9 @@ Router.route('/partups/:_id', {
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
         'PagesApp': { to: 'page' },
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailUpdates': { to: 'partup-page' }
+        'PagesUnderConstruction': { to: 'app-page' }
+        //'PagesPartupDetail': { to: 'app-page' },
+        //'PagesPartupDetailUpdates': { to: 'partup-page' }
     },
     waitOn: function () {
         var partupId = this.params._id;
@@ -92,8 +94,9 @@ Router.route('/partups/:_id/activities', {
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
         'PagesApp': { to: 'page' },
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailActivities': { to: 'partup-page' }
+        'PagesUnderConstruction': { to: 'app-page' }
+        //'PagesPartupDetail': { to: 'app-page' },
+        //'PagesPartupDetailActivities': { to: 'partup-page' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
@@ -110,8 +113,9 @@ Router.route('/partups/:_id/budget', {
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
         'PagesApp': { to: 'page' },
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailBudget': { to: 'partup-page' }
+        'PagesUnderConstruction': { to: 'app-page' }
+        //'PagesPartupDetail': { to: 'app-page' },
+        //'PagesPartupDetailBudget': { to: 'partup-page' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -125,8 +129,9 @@ Router.route('/partups/:_id/anticontract', {
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
         'PagesApp': { to: 'page' },
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailAnticontract': { to: 'partup-page' }
+        'PagesUnderConstruction': { to: 'app-page' }
+        //'PagesPartupDetail': { to: 'app-page' },
+        //'PagesPartupDetailAnticontract': { to: 'partup-page' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');

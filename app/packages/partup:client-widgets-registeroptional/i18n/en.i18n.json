@@ -25,10 +25,10 @@
     "registeroptional-form-socials-validation": "why",
     "registeroptional-form-socials-tooltip": "Your social media profiles show who you are and what you are good at. Other uppers can get to know you a little.",
 
-    "registeroptional-form-facebook-placeholder": "Facebook.com/yourname",
-    "registeroptional-form-twitter-placeholder": "Twitter.com/yourname",
-    "registeroptional-form-instagram-placeholder": "Instagramm.com/yourname",
-    "registeroptional-form-linkedin-placeholder": "Linkedin.com/in/yourname",
+    "registeroptional-form-facebook-placeholder": "yourfacebookname",
+    "registeroptional-form-twitter-placeholder": "yourtwitterhandle",
+    "registeroptional-form-instagram-placeholder": "yourinstagramname",
+    "registeroptional-form-linkedin-placeholder": "yourlinkedinname",
 
     "registeroptional-form-website-label": "Do you have a website or blog?",
     "registeroptional-form-website-placeholder": "www.my-blog-or-website.com",

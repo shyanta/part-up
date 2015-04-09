@@ -9,7 +9,7 @@ SlideOver = (function() {
 
   SlideOver.animations = ['slideOverUp', 'slideOverDown'];
 
-  SlideOver.prototype.animationDuration = 600;
+  SlideOver.prototype.animationDuration = Partup.ui.modal.settings.openAnimationDuration;
 
   function SlideOver(_at_animation, startCallback, endCallback) {
     this.animation = _at_animation;
