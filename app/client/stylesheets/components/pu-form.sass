@@ -29,3 +29,19 @@
 
         .pu-button-text-subtle
             margin-right: 10px
+
+    &:invalid
+        input[type="submit"]
+            // pointer-events: none
+            background-color: $color-background-secondary
+
+            &:hover
+                background-color: $color-background-secondary
+                cursor: not-allowed
+    &:valid
+        input[type="submit"]
+            // pointer-events: all
+            background-color: $color-secondary
+
+            &:hover
+                background-color: darken($color-secondary, 7%)
