@@ -1,12 +1,15 @@
 // Load the colors on the String prototype now, so we can use
 // things like 'this is a string'.gray in the console.
-Npm.require('colors');
+var colors = Npm.require('colors');
 
-if(process.env.NODE_ENV !== 'development') {
-    console.log('setting tempstore to match with modulus temporary folder')
-    FS.TempStore.Storage = new FS.Store.FileSystem("_tempstore", {
-        internal :  true,
-        path : process.env['CLOUD_DIR']
+if (process.env.NODE_ENV !== 'development') {
+    colors.enabled = false;
+
+    Log.debug('Setting tempstore to match with Modulus.io temporary folder.');
+
+    FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
+        internal: true,
+        path: process.env['CLOUD_DIR']
     });
 }
 
@@ -15,7 +18,7 @@ ServiceConfiguration.configurations.upsert({
 },{
     $set: {
         appId: process.env['FACEBOOK_APP_ID'],
-        loginStyle: "popup",
+        loginStyle: 'popup',
         secret: process.env['FACEBOOK_APP_SECRET'],
     }
 });
@@ -25,7 +28,7 @@ ServiceConfiguration.configurations.upsert({
 },{
     $set: {
         clientId: process.env['LINKEDIN_API_KEY'],
-        loginStyle: "popup",
+        loginStyle: 'popup',
         secret: process.env['LINKEDIN_SECRET_KEY'],
     }
 });
