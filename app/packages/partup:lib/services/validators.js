@@ -10,8 +10,8 @@ Partup.services.validators = {
     password: /(?=^.{8,}$)(?=.*\d)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
 
     // Facebook usernames can only contain a-z A-Z 0-9 and .
-    // limit is 0 (not validated)
-    facebookUsername: /^[a-zA-Z0-9.]{1,}$/,
+    // minimum is 5 and max is infinity (not validated)
+    facebookUsername: /^[a-zA-Z0-9.]{5,}$/,
 
     // Instagram usernames can only contain a-z A-Z . and _
     // limit is 0 (not validated)
