@@ -14,8 +14,8 @@ Partup.services.validators = {
     facebookUsername: /^[a-zA-Z0-9.]{5,}$/,
 
     // Instagram usernames can only contain a-z A-Z . and _
-    // limit is 0 (not validated)
-    instagramUsername: /^[a-zA-Z._]{1,}$/,
+    // max length is 30 characters
+    instagramUsername: /^[a-zA-Z._]{1,30}$/,
 
     // Linkedin usernames can only contain a-z A-Z 0-9
     // min is 5 chars and max is 30 chars according to linkedin guidelines
