@@ -9,7 +9,7 @@
             <!-- Name -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
-                <a class="pu-hint pu-tooltip">
+                <a class="pu-hint">
                     {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
@@ -21,7 +21,7 @@
             <!-- Description -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
-                <a class="pu-hint pu-tooltip">
+                <a class="pu-hint">
                     {{_ 'startdetails-form-description-validation' Partup.schemas.entities.partup._schema.description.max }}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
