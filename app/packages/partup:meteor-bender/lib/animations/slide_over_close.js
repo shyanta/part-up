@@ -9,7 +9,7 @@ SlideOverClose = (function() {
 
   SlideOverClose.animations = ['slideOverUpClose', 'slideOverDownClose'];
 
-  SlideOverClose.prototype.animationDuration = 600;
+  SlideOverClose.prototype.animationDuration = Partup.ui.modal.settings.closeAnimationDuration;
 
   function SlideOverClose(_at_animation, startCallback, endCallback) {
     this.animation = _at_animation;
