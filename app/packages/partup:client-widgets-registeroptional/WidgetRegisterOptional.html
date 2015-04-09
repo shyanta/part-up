@@ -5,7 +5,7 @@
         <p>{{_ 'registeroptional-optionalexplanation' }}</p>
 
 
-        {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser validation="blur" }}
+        {{#autoForm schema=formSchema id="registerOptionalForm" class="pu-form" doc=fieldsFromUser validation="submitThenBlur" }}
 
             <!-- User avatar -->
             <div class="pu-formfield">

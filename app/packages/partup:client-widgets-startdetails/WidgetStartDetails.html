@@ -4,7 +4,7 @@
         <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name }}</h2>
         <p>{{_ 'startdetails-explainingpartup' }}</p>
 
-        {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="blur" }}
+        {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
             
             <!-- Name -->
             <label class="pu-formfield">
