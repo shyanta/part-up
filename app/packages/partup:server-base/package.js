@@ -36,6 +36,7 @@ Package.onUse(function(api) {
         'event_handlers/partups/partups_image_changed_handler.js',
         'event_handlers/users/users_settings_handler.js',
         'event_handlers/activities/activities_handler.js',
+        'fixtures.js',
         'publications/notifications.js',
         'publications/partups.js',
         'publications/images.js',
@@ -51,10 +52,6 @@ Package.onUse(function(api) {
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], ['server']);
-
-    if (process.env.NODE_ENV.match(/development|staging/)) {
-        api.addFiles(['fixtures.js', 'server']);
-    }
 
     api.export('Log', ['server']);
 });
