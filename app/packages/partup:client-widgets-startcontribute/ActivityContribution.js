@@ -19,8 +19,13 @@ Template.ActivityContribution.onRendered(function() {
     Session.set(this.havePopoverToggleBool, false);
 
     // Add click-outside handlers
-    Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(this, '[data-popover=can]', '[data-toggle-popover=can]', 'canPopoverToggleBool');
-    Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(this, '[data-popover=have]', '[data-toggle-popover=have]', 'havePopoverToggleBool');
+    // var formId = ACTIVITY_FORM_ID_PREFIX + this.data._id;
+    // Template.autoForm.onRendered(function() {
+    //     debugger;
+    //     if(this.data.id !== formId) return;
+    //     Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(self, '[data-popover=can]', '[data-toggle-popover=can]', 'canPopoverToggleBool');
+    //     Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(self, '[data-popover=have]', '[data-toggle-popover=have]', 'havePopoverToggleBool');
+    // });
 });
 
 
@@ -34,7 +39,7 @@ Template.ActivityContribution.onDestroyed(function() {
     Session.set(this.havePopoverToggleBool, false);
 
     // Add click-outside handlers
-    Partup.ui.ClientWidgetsDropdowns.removeOutsideDropdownClickHandler(this);
+    // Partup.ui.ClientWidgetsDropdowns.removeOutsideDropdownClickHandler(this);
 });
 
 
@@ -147,7 +152,15 @@ Template.ActivityContribution.events({
         var newPopoverState = Partup.ui.ClientWidgetsDropdowns.customDropdownSwitch(template, popoverKey); // trigger dropdown-click-handler
 
         var form = template.find('#' + ACTIVITY_FORM_ID_PREFIX + template.data._id); // get form
-        if(newPopoverState) form.elements['types_' + type + '_amount'].focus();      // focus first field
+        if(newPopoverState) {
+            form.elements['types_' + type + '_amount'].focus();      // focus first field
+
+            if(type === 'can') {
+                Session.set(template.havePopoverToggleBool, false);
+            } else if(type === 'have') {
+                Session.set(template.canPopoverToggleBool, false);
+            }
+        }
     },
 });
 

@@ -1,9 +1,12 @@
 ClientWidgetsDropdowns = {
-    addOutsideDropdownClickHandler: function(template, dropdownSelector, buttonSelector, altkey){
+    addOutsideDropdownClickHandler: function(template, dropdownSelector, buttonSelector, altkey) {
         // remember myself
         var self = template;
+
         // find the dropdown
         var dropdown = template.find(dropdownSelector);
+        console.log('dropdown', dropdown);
+
         // find the toggle button
         var button = template.find(buttonSelector);
         
