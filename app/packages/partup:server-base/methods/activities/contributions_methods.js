@@ -47,13 +47,16 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.contribution);
 
         try {
+            console.log('-------------------- fields', fields);
             var updatedContribution = Partup.transformers.contribution.fromFormContribution(fields);
             updatedContribution.updated_at = new Date();
 
-            if (!updatedContribution.types.want.enabled && !updatedContribution.types.can.enabled && !updatedContribution.types.have.enabled) {
+            console.log('-------------------- updatedContribution', updatedContribution);
+
+            if (!updatedContribution.types.want.enabled && !updatedContribution.types.can.amount && !updatedContribution.types.have.amount && !updatedContribution.types.have.description) {
                 Contributions.remove(contributionId);
             } else {
-                Contributions.update( {_id: contributionId}, { $set: updatedContribution });
+                Contributions.update(contribution, { $set: updatedContribution });
             }
 
             return {
