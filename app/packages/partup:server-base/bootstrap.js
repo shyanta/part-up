@@ -2,17 +2,6 @@
 // things like 'this is a string'.gray in the console.
 var colors = Npm.require('colors');
 
-if (process.env.NODE_ENV !== 'development') {
-    colors.enabled = false;
-
-    Log.debug('Setting tempstore to match with Modulus.io temporary folder.');
-
-    FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
-        internal: true,
-        path: process.env['CLOUD_DIR']
-    });
-}
-
 ServiceConfiguration.configurations.upsert({
     service: 'facebook'
 },{

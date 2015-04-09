@@ -19,7 +19,7 @@ Accounts.onCreateUser(function(options, user) {
         var data = user.services.facebook;
 
         try {
-            var image = Images.insert('https://graph.facebook.com/' + data.id + '/picture?width=1500');
+            var image = Images.insert('https://graph.facebook.com/' + data.id + '/picture?width=750');
             user.profile.image = image._id;
         } catch (error) {
             Log.error(error.message);
