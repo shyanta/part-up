@@ -5,7 +5,6 @@ ClientWidgetsDropdowns = {
 
         // find the dropdown
         var dropdown = template.find(dropdownSelector);
-        console.log('dropdown', dropdown);
 
         // find the toggle button
         var button = template.find(buttonSelector);
