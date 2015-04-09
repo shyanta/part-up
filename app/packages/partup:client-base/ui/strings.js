@@ -19,6 +19,14 @@ Partup.ui.strings = {
             .replace(/\-\-+/g, '-')         // Replace multiple - with single -
             .replace(/^-+/, '')             // Trim - from start of text
             .replace(/-+$/, '');            // Trim - from end of text
+    },
+
+    firstName: function(fullName) {
+        if (fullName && fullName.match(/.*\s.*/)) {
+            return fullName.split(' ')[0]
+        } else {
+            return fullName
+        }
     }
 
 };

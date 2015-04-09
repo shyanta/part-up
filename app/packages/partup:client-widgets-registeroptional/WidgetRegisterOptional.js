@@ -37,6 +37,11 @@ Template.WidgetRegisterOptional.helpers({
     },
     uploadingProfilePicture: function(){
         return Template.instance().uploadingProfilePicture.get();
+    },
+    firstName: function(){
+        var user = Meteor.user();
+        var username = user.profile.name || user.name;
+        return Partup.ui.strings.firstName(username);
     }
 });
 
