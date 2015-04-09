@@ -1,48 +1,83 @@
 #!/usr/bin/env node
 
 var colors = require('colors');
+var prompt = require('prompt');
 var program = require('commander');
 var spawn = require('child_process').spawn;
+var git = require('simple-git')(__dirname + '/../');
 
 var PROJECT_NAME = "Part-Up"
 var PROJECT_TEMPLATE = "{project} ({environment})";
 
-String.prototype.capitalizeFirstLetter = function() {
+String.prototype.capitalizeFirstLetter = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
 program
     .command('deploy <environment>')
     .description('Deploy the application to Modulus.io')
-    .action(function(environment) {
-        var arguments = [];
+    .option('-f, --force', 'Skip the git file confirmation')
+    .action(function (environment) {
+        var action = this;
+        var modulusArgs = [];
+        var environment = environment.capitalizeFirstLetter();
 
-        var project = PROJECT_TEMPLATE.replace('{project}', PROJECT_NAME).replace('{environment}', environment.capitalizeFirstLetter());
-
-        arguments.push('deploy');
-        arguments.push(__dirname + '/../app');
-        arguments.push('-p', project);
-
-        var shell = spawn('modulus', arguments, { stdio: 'inherit' });
-
-        shell.on('error', function(error) {
-            if (error.code === 'ENOENT') {
-                console.log('Modulus'.magenta + ' is not found, installing it now.');
-
-                var install = spawn('npm', ['install', '-g', 'modulus']);
-
-                install.on('error', function(error) {
-                    if (error.code === 'ENOENT') {
-                        console.log('Npm is not installed, are you sure Node.js is installed on your system?'.red);
-                    }
-                });
-
-                install.on('close', function(status) {
-                    if (status === 0) {
-                        console.log('Finished installing, please log in with "modulus login" command.'.gray);
-                    }
-                });
+        git.status(function (error, status) {
+            if (error) {
+                console.log('Git returned an error: ' + error.message);
+                process.exit(1);
             }
+
+            var added = !! (status.not_added && status.not_added.length !== 0);
+            var deleted = !! (status.deleted && status.deleted.length !== 0);
+            var modified = !! (status.modified && status.modified.length !== 0);
+            var created = !! (status.created && status.created.length !== 0);
+
+            if (added) console.log('Files have been added compared to the latest git checkout.'.bgRed);
+            if (deleted) console.log('Files have been deleted compared to the latest git checkout.'.bgRed);
+            if (modified) console.log('Files have been modified compared to the latest git checkout.'.bgRed);
+            if (created) console.log('Files have been created compared to the latest git checkout.'.bgRed);
+
+            if ((! action.force) && (added || deleted || modified || created)) {
+                console.log('Rejecting deployment.'.red + ' Provide the -f option if you want to force the deployment without checking for pending git changes.'.gray);
+                process.exit(1);
+            }
+
+            prompt.start();
+            prompt.get({ properties: { confirm: { description: 'Are you sure you want to deploy your current /app directory? (n/Y)', pattern: /^(y|Y|yes|Yes|YES)$/, message: 'Deployment must be confirmed.', required: true }}}, function (error, result) {
+                if (error) {
+                    console.log(error.message);
+                    process.exit(1);
+                }
+
+                var project = PROJECT_TEMPLATE.replace('{project}', PROJECT_NAME).replace('{environment}', environment);
+
+                modulusArgs.push('deploy');
+                modulusArgs.push(__dirname + '/../app');
+                modulusArgs.push('-p', project);
+
+                var shell = spawn('modulus', modulusArgs, { stdio: 'inherit' });
+
+                shell.on('error', function (error) {
+                    if (error.code === 'ENOENT') {
+                        console.log('Modulus'.magenta + ' is not found, installing it now.');
+
+                        var install = spawn('npm', ['install', '-g', 'modulus']);
+
+                        install.on('error', function (error) {
+                            if (error.code === 'ENOENT') {
+                                console.log('Npm is not installed, are you sure Node.js is installed on your system?'.red);
+                            }
+                        });
+
+                        install.on('close', function (status) {
+                            if (status === 0) {
+                                console.log('Finished installing, please log in with "modulus login" command and rerun the deployment.'.gray);
+                            }
+                        });
+                    }
+                });
+            });
         });
     });
 
