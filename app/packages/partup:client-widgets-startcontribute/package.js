@@ -12,6 +12,7 @@ Package.onUse(function (api) {
         'aldeed:template-extension',
         'partup:lib',
         'partup:client-base',
+        'partup:client-widgets-dropdowns',
         'tap:i18n',
         'reactive-var',
         'reactive-dict'

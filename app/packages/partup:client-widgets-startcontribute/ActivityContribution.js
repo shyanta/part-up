@@ -1,154 +1,195 @@
-var canDropdownEnabledValues = new ReactiveDict();
-var haveDropdownEnabledValues = new ReactiveDict();
+/*************************************************************/
+/* Widget initial */
+/*************************************************************/
+var ACTIVITY_FORM_ID_PREFIX = 'contributionEditForm-';
 
+
+/*************************************************************/
+/* Widget rendered */
+/*************************************************************/
+Template.ActivityContribution.onRendered(function() {
+
+    // Compose unique popover keys
+    var activityId = this.data._id;
+    this.canPopoverToggleBool = 'widget-activity-popover-can-' + activityId;
+    this.havePopoverToggleBool = 'widget-activity-popover-have-' + activityId;
+
+    // Set default boolean values    
+    Session.set(this.canPopoverToggleBool, false);
+    Session.set(this.havePopoverToggleBool, false);
+
+    // Add click-outside handlers
+    // var formId = ACTIVITY_FORM_ID_PREFIX + this.data._id;
+    // Template.autoForm.onRendered(function() {
+    //     debugger;
+    //     if(this.data.id !== formId) return;
+    //     Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(self, '[data-popover=can]', '[data-toggle-popover=can]', 'canPopoverToggleBool');
+    //     Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(self, '[data-popover=have]', '[data-toggle-popover=have]', 'havePopoverToggleBool');
+    // });
+});
+
+
+/*************************************************************/
+/* Widget destroyed */
+/*************************************************************/
+Template.ActivityContribution.onDestroyed(function() {
+
+    // Set default boolean values    
+    Session.set(this.canPopoverToggleBool, false);
+    Session.set(this.havePopoverToggleBool, false);
+
+    // Add click-outside handlers
+    // Partup.ui.ClientWidgetsDropdowns.removeOutsideDropdownClickHandler(this);
+});
+
+
+/*************************************************************/
+/* Widget functions */
+/*************************************************************/
+var getCurrentUserContribution = function(activityId) {
+    var user = Meteor.user();
+    if(!user) return;
+    return Contributions.findOne({activity_id: activityId, upper_id: user._id});
+};
+
+var submitForm = function (event, template) {
+    var form = template.find('#' + ACTIVITY_FORM_ID_PREFIX + template.data._id); // get form
+    $(form).submit();                                                            // trigger form submit
+};
+
+
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
 Template.ActivityContribution.helpers({
-    'formSchema': Partup.schemas.forms.contribution,
-    'placeholders': Partup.services.placeholders.startcontribute,
-    'generateFormId': function () {
-        return 'contributionEditForm-' + this._id;
+
+    /******************************/
+    /* User contribution controls */
+    /******************************/
+    formSchema: Partup.schemas.forms.contribution,
+    placeholders: Partup.services.placeholders.startcontribute,
+    activityFormId: function () {
+        return ACTIVITY_FORM_ID_PREFIX + this._id;
     },
-    'fieldsFromContribution': function () {
-        console.log(this);
-        var contribution = Contributions.findOne({activity_id: this._id, upper_id: Meteor.user()._id});
+    fieldsFromContribution: function () {
+        var contribution = getCurrentUserContribution(this._id);
+        if(!contribution) return;
+
         return Partup.transformers.contribution.toFormContribution(contribution);
     },
-    'canDropdownEnabled': function () {
-        return canDropdownEnabledValues.get(this._id);
+    popoverEnabled: function (type) {
+        var activityId = this._id;
+        return Session.get('widget-activity-popover-' + type + '-' + activityId);
     },
-    'haveDropdownEnabled': function () {
-        return haveDropdownEnabledValues.get(this._id);
+    userWantEnabled: function () {
+        var activityId = this._id;
+        var contribution = getCurrentUserContribution(activityId);
+        return contribution && contribution.types.want.enabled;
     },
-    'contributions': function () {
-        return Contributions.find({ activity_id: this._id });
+    userCanEnabled: function () {
+        var activityId = this._id;
+        var contribution = getCurrentUserContribution(activityId);
+        return contribution && contribution.types.can.amount;
     },
-    'validContributionExists': function() {
-        var contribution = Contributions.findOne(this._id);
-        return contribution.types.want.enabled || contribution.types.can.enabled || contribution.types.have.enabled;
+    userHaveEnabled: function () {
+        var activityId = this._id;
+        var contribution = getCurrentUserContribution(activityId);
+        return contribution && (contribution.types.have.amount || contribution.types.have.description);
+    },
 
+    /*********************/
+    /* All contributions */
+    /*********************/
+    contributions: function () {
+        var activityId = this._id;
+        return Contributions.find({ activity_id: activityId });
     },
     userImage: function () {
         var user = Meteor.users.findOne(this.upper_id);
         if (user && user.profile && user.profile.image) {
             return Images.findOne({_id: user.profile.image});
         }
+    },
+    contributionCanEnabled: function () {
+        return this && this.types.can.amount;
+    },
+    contributionHaveEnabled: function () {
+        return this && (this.types.have.amount || this.types.have.description);
     }
+
 });
 
+
+/*************************************************************/
+/* Widget events */
+/*************************************************************/
 Template.ActivityContribution.events({
 
-    'click [data-toggle-want]': function (event) {
-        var $button = $(event.currentTarget);
-        var $input = $button.prev();
-        $input.prop("checked", !$input.prop("checked"));
-        $button.closest('form').submit();
+    // Submit form on toggle want field
+    'click [data-want-toggle]': function (event, template) {
+        var form = template.find('#' + ACTIVITY_FORM_ID_PREFIX + template.data._id);          // get form
+        form.elements.types_want_enabled.checked = !form.elements.types_want_enabled.checked; // switch toggle
+        $(form).submit();                                                                     // trigger form submit
     },
 
-    'click [data-toggle-can]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $input = $button.prev();
+    // Submit form on input field keyup
+    'keyup [data-schema-key=types_can_amount]': submitForm,
+    'keyup [data-schema-key=types_have_amount]': submitForm,
+    'keyup [data-schema-key=types_have_description]': submitForm,
 
-        if(canDropdownEnabledValues.get(this._id)) {
-            canDropdownEnabledValues.set(this._id, false);
-        } else {
-            $input.prop("checked", true);
-            canDropdownEnabledValues.set(this._id, true);
-            var $canAmount = $button.parent().find('[name="types_can_amount"]');
-            $canAmount.focus();
+    // Empty field button handler
+    'click [data-empty-field]': function (event, template) {
+        var form = template.find('#' + ACTIVITY_FORM_ID_PREFIX + template.data._id);   // get form
+        var fieldName = event.currentTarget.getAttribute('data-empty-field'); // get fieldname to empty
+        form.elements[fieldName].value = '';                                  // empty field
+        $(form).submit();
+    },
+
+    // Open popover and focus on first field
+    'click [data-toggle-popover]': function (event, template) {
+        var type = event.currentTarget.getAttribute('data-toggle-popover');
+        var popoverKey = type + 'PopoverToggleBool';
+        var newPopoverState = Partup.ui.ClientWidgetsDropdowns.customDropdownSwitch(template, popoverKey); // trigger dropdown-click-handler
+
+        var form = template.find('#' + ACTIVITY_FORM_ID_PREFIX + template.data._id); // get form
+        if(newPopoverState) {
+            form.elements['types_' + type + '_amount'].focus();      // focus first field
+
+            if(type === 'can') {
+                Session.set(template.havePopoverToggleBool, false);
+            } else if(type === 'have') {
+                Session.set(template.canPopoverToggleBool, false);
+            }
         }
     },
-    'click [data-remove-can]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $amountInput = $button.prev();
-        var $canEnabled = $button.parent().parent().find('[name="types_can_enabled"]');
-
-        // clear "can" contribution
-        $canEnabled.prop("checked", false);
-        $amountInput.val(undefined);
-        canDropdownEnabledValues.set(this._id, false);
-        $button.closest('form').submit();
-    },
-    'keyup [name="types_can_amount"]': function (event) {
-        var $input = $(event.currentTarget);
-        // Submit form when user pressed enter
-        if (event.which === 13) {
-            $input.closest('form').submit();
-        }
-    },
-
-    'click [data-toggle-have]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $input = $button.prev();
-
-        if(haveDropdownEnabledValues.get(this._id)) {
-            haveDropdownEnabledValues.set(this._id, false);
-        } else {
-            $input.prop("checked", true);
-            haveDropdownEnabledValues.set(this._id, true);
-            var $haveAmount = $button.parent().find('[name="types_have_amount"]');
-            $haveAmount.focus();
-        }
-    },
-    'click [data-remove-have]': function (event, template) {
-        var $button = $(event.currentTarget);
-        var $amountInput = $button.prev();
-        var $descriptionInput = $button.parent().parent().find('[name="types_have_description"]');
-        var $haveEnabled = $button.parent().parent().find('[name="types_have_enabled"]');
-
-        // clear "have" contribution
-        $haveEnabled.prop("checked", false);
-        $amountInput.val(undefined);
-        $descriptionInput.val(undefined);
-        haveDropdownEnabledValues.set(this._id, false);
-        $button.closest('form').submit();
-    },
-    'keyup [name="types_have_amount"]': function (event) {
-        var $input = $(event.currentTarget);
-        // Submit form when user pressed enter
-        if (event.which === 13) {
-            $input.closest('form').submit();
-        }
-    },
-    'keyup [name="types_have_description"]': function (event) {
-        var $input = $(event.currentTarget);
-        // Submit form when user pressed enter
-        if (event.which === 13) {
-            $input.closest('form').submit();
-        }
-    }
 });
 
-AutoForm.addHooks(
-    null, {
-        onSubmit: function (doc) {
-            var self = this;
-            var formNameParts = self.formId.split('-');
-            if(formNameParts.length !== 2 || formNameParts[0] !== 'contributionEditForm') return;
+AutoForm.addHooks(null, {
+    onSubmit: function (doc) {
+        var self = this;
+        self.event.preventDefault();
 
-            self.event.preventDefault();
+        // Get activityId
+        if(self.formId.indexOf(ACTIVITY_FORM_ID_PREFIX) === -1) return;
+        var activityId = self.formId.replace(ACTIVITY_FORM_ID_PREFIX, '');
 
-            var activityId = formNameParts[1];
-            var contribution = Contributions.findOne({ activity_id: activityId, upper_id: Meteor.user()._id });
-            if (contribution) {
-                var contributionId = contribution._id;
-                Meteor.call('contributions.update', contributionId, doc, function (error, updatedContribution) {
-                    if (error) {
-                        Partup.ui.notify.iError(error.reason);
-                        return false;
-                    }
-                });
-            } else {
-                Meteor.call('contributions.insert', activityId, doc, function (error, newContribution) {
-                    if (error) {
-                        Partup.ui.notify.iError(error.reason);
-                        return false;
-                    }
-                });
+        // Get upperId
+        var user = Meteor.user();
+        if(!user) return;
+        var upperId = user._id;
+
+        // Submit contribution
+        Meteor.call('activity.contribution.update', activityId, doc, function (error, updatedContribution) {
+            if (error) {
+                Partup.ui.notify.iError(error.reason);
+                self.done(new Error(error.message));
+                return;
             }
-            canDropdownEnabledValues.set(activityId, false);
-            haveDropdownEnabledValues.set(activityId, false);
 
-            AutoForm.resetForm(this.formId);
-            this.done();
-            return false;
-        }
-    });
+            self.done();
+        });
+
+        // Prevent default
+        return false;
+    }
+});

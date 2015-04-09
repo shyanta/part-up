@@ -17,9 +17,7 @@ Partup.transformers.contribution = {
             _id: contribution._id,
 
             types_want_enabled: contribution.types.want.enabled,
-            types_can_enabled: contribution.types.can.enabled,
             types_can_amount: contribution.types.can.amount,
-            types_have_enabled: contribution.types.have.enabled,
             types_have_amount: contribution.types.have.amount,
             types_have_description: contribution.types.have.description
         };
@@ -37,38 +35,20 @@ Partup.transformers.contribution = {
         };
 
         // create "want" field
-        if (fields.types_want_enabled) {
-            contribution.types.want = {
-                enabled: true
-            };
-        } else {
-            contribution.types.want = {
-                enabled: false
-            };
-        }
+        contribution.types.want = {
+            enabled: fields.types_want_enabled
+        };
+        
+        // create "can" field
+        contribution.types.can = {
+            amount: fields.types_can_amount
+        };
 
-        if (fields.types_can_enabled) {
-            contribution.types.can = {
-                enabled: true,
-                amount: fields.types_can_amount
-            }
-        } else {
-            contribution.types.can = {
-                enabled: false
-            }
-        }
-
-        if (fields.types_have_enabled) {
-            contribution.types.have = {
-                enabled: true,
-                amount: fields.types_have_amount,
-                description: fields.types_have_description
-            };
-        } else {
-            contribution.types.have = {
-                enabled: false
-            };
-        }
+        // create "have" field
+        contribution.types.have = {
+            amount: fields.types_have_amount,
+            description: fields.types_have_description
+        };
 
         return contribution;
     }

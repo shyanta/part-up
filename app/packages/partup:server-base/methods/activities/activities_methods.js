@@ -78,6 +78,54 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be removed.');
         }
+    },
+
+    /**
+     * Add current user contribution to activity
+     *
+     * @param {integer} activityId
+     * @param {mixed[]} fields
+     */
+    'activity.contribution.update': function (activityId, fields) {
+        var upper = Meteor.user();
+        var activity = Activities.findOneOrFail(activityId);
+
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+
+        var contribution = Contributions.findOne({ activity_id: activityId, upper_id: upper._id });
+        check(fields, Partup.schemas.forms.contribution);
+
+        try {
+            newContribution = Partup.transformers.contribution.fromFormContribution(fields);
+            var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
+
+            if(contribution) {
+
+                // Delete contribution
+                if(isEmpty) {
+                    Contributions.remove(contribution._id);
+
+                // Update contribution
+                } else {
+                    newContribution.updated_at = new Date();
+                    Contributions.update(contribution, { $set: newContribution });
+                }                
+
+            // Insert contribution
+            } else {
+                newContribution.created_at = new Date();
+                newContribution.activity_id = activityId;
+                newContribution.upper_id = upper._id;
+                newContribution.partup_id = activity.partup_id;
+
+                newContribution._id = Contributions.insert(newContribution);
+                Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
+            }
+
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Contribution could not be updated.');
+        }
     }
 
 });
