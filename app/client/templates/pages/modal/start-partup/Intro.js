@@ -4,6 +4,14 @@
 Template.PagesStartPartupIntro.helpers({
     'user': function helperUser () {
         return Meteor.user();
+    },
+    'first_name': function helpFirstName(){
+        var user = Meteor.user();
+        if(user.profile.name){
+            return user.profile.name.split(' ')[0];
+        } else if(user.name){
+            return user.name.split(' ')[0];
+        }
     }
 });
 
