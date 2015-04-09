@@ -24,7 +24,7 @@ Partup.ui.socials = {
      * @param {String} urlToShare URL to be shared
      */
     generateTwitterShareUrl: function (messageToShare, urlToShare) {
-        return 'http://twitter.com/share?text=' + messageToShare + '&url=' + urlToShare + '&hashtags=part-up';
+        return 'http://twitter.com/share?text=' + messageToShare + '&url=' + encodeURIComponent(urlToShare) + '&hashtags=part-up&via=partupcom';
     },
 
     /**
