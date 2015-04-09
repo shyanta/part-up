@@ -11,7 +11,6 @@ var popoverEnabled = new ReactiveVar(false);
 var getCurrentUserContribution = function(activityId) {
     var user = Meteor.user();
     if(!user) return;
-
     return Contributions.findOne({activity_id: activityId, upper_id: user._id});
 };
 
@@ -38,9 +37,7 @@ Template.ActivityContribution.helpers({
         var contribution = getCurrentUserContribution(this._id);
         if(!contribution) return;
 
-        var fields = Partup.transformers.contribution.toFormContribution(contribution);
-        console.log('fields', fields);
-        return fields;
+        return Partup.transformers.contribution.toFormContribution(contribution);
     },
     popoverEnabled: function (type) {
         var activityId = this._id;
@@ -81,6 +78,7 @@ Template.ActivityContribution.helpers({
     contributionHaveEnabled: function () {
         return this && (this.types.have.amount || this.types.have.description);
     }
+
 });
 
 
@@ -127,50 +125,26 @@ AutoForm.addHooks(null, {
     onSubmit: function (doc) {
         var self = this;
         self.event.preventDefault();
-        console.log('submit start');
 
         // Get activityId
         if(self.formId.indexOf(ACTIVITY_FORM_ID_PREFIX) === -1) return;
         var activityId = self.formId.replace(ACTIVITY_FORM_ID_PREFIX, '');
-        console.log('submit activity id', activityId);
 
         // Get upperId
         var user = Meteor.user();
         if(!user) return;
         var upperId = user._id;
-        console.log('submit upper id', upperId);
 
-        // Find contribution by activityId
-        var contribution = Contributions.findOne({ activity_id: activityId, upper_id: upperId });
-        console.log('submit contribution', contribution);
+        // Submit contribution
+        Meteor.call('activity.contribution.update', activityId, doc, function (error, updatedContribution) {
+            if (error) {
+                Partup.ui.notify.iError(error.reason);
+                self.done(new Error(error.message));
+                return;
+            }
 
-        // Contribution exists, so update
-        if (contribution) {
-            var contributionId = contribution._id;
-            console.log('submit contribution updating', doc);
-            Meteor.call('contributions.update', contributionId, doc, function (error, updatedContribution) {
-                if (error) {
-                    Partup.ui.notify.iError(error.reason);
-                    self.done(new Error(error.message));
-                    return;
-                }
-
-                self.done();
-            });
-
-        // Contribution doesn't exist, so insert
-        } else {
-            console.log('submit contribution inserting', doc);
-            Meteor.call('contributions.insert', activityId, doc, function (error, newContribution) {
-                if (error) {
-                    Partup.ui.notify.iError(error.reason);
-                    self.done(new Error(error.message));
-                    return;
-                }
-
-                self.done();
-            });
-        }
+            self.done();
+        });
 
         // Prevent default
         return false;
