@@ -2,7 +2,7 @@ Meteor.methods({
     /**
      * Insert a Contribution
      *
-     * @param {integer} activityId
+     * @param {string} activityId
      * @param {mixed[]} fields
      */
     'contributions.insert': function (activityId, fields) {
