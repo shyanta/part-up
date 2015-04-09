@@ -13,7 +13,7 @@ var basicAfterInsert = function (namespace) {
     return function (userId, document) {
         Event.emit(namespace + '.inserted', document);
     }
-}
+};
 
 /**
  * Generate a basic after update handler.
@@ -75,3 +75,8 @@ Updates.hookOptions.after.update = { fetchPrevious: false };
 Updates.after.insert(basicAfterInsert('partups.updates'));
 Updates.after.update(basicAfterUpdate('partups.updates'));
 Updates.after.remove(basicAfterRemove('partups.updates'));
+
+// Contributions Events
+Contributions.after.insert(basicAfterInsert('partups.contributions'));
+Contributions.after.update(basicAfterUpdate('partups.contributions'));
+Contributions.after.remove(basicAfterRemove('partups.contributions'));

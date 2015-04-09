@@ -23,8 +23,6 @@ Meteor.methods({
             newContribution._id = Contributions.insert(newContribution);
             Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
 
-            Event.emit('contributions.inserted', newContribution);
-
             return newContribution;
          } catch (error) {
             Log.error(error);
@@ -35,7 +33,7 @@ Meteor.methods({
     /**
      * Update a Contribution
      *
-     * @param {integer} contributionId
+     * @param {string} contributionId
      * @param {mixed[]} fields
      */
     'contributions.update': function (contributionId, fields) {
@@ -52,10 +50,15 @@ Meteor.methods({
             var updatedContribution = Partup.transformers.contribution.fromFormContribution(fields);
             updatedContribution.updated_at = new Date();
 
-            Contributions.update(contribution, { $set: updatedContribution });
-            Event.emit('contributions.updated', updatedContribution, fields);
+            if (!updatedContribution.types.want.enabled && !updatedContribution.types.can.enabled && !updatedContribution.types.have.enabled) {
+                Contributions.remove(contributionId);
+            } else {
+                Contributions.update( {_id: contributionId}, { $set: updatedContribution });
+            }
 
-            return contribution;
+            return {
+                _id: contributionId
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be updated.');
