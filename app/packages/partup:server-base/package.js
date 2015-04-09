@@ -48,6 +48,7 @@ Package.onUse(function(api) {
         'methods/users/users_methods.js',
         'methods/users/users_accounts_methods.js',
         'fixtures.js',
+        'methods/services/flickr_methods.js',
         'package-tap.i18n',
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
@@ -61,5 +62,6 @@ Npm.depends({
     'colors': '1.0.3',
     'deeper': '1.0.2',
     'winston': '0.9.0',
-    'pluralize': '1.1.2'
+    'pluralize': '1.1.2',
+    'node-flickr': '0.0.2'
 });

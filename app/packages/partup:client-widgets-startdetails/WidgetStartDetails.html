@@ -106,18 +106,16 @@
                 {{else}}
                     <div class="pu-imagepreview pu-imagepreview-large pu-imagepreview-placeholder"></div>
 
-                    <!-- TODO: SUGGESTION IMPLEMENTATION
+                    <!--&lt;!&ndash; TODO: SUGGESTION IMPLEMENTATION-->
                     <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                     <div class="pu-suggestionsgallery">
                         <ul>
-                            <li><div><img src="http://lorempixel.com/1140/476/city/1" alt=""></div></li>
-                            <li><div><img src="http://lorempixel.com/1140/476/city/2" alt=""></div></li>
-                            <li><div><img src="http://lorempixel.com/1140/476/city/3" alt=""></div></li>
-                            <li><div><img src="http://lorempixel.com/1140/476/city/4" alt=""></div></li>
-                            <li><div><img src="http://lorempixel.com/1140/476/city/5" alt=""></div></li>
+                            {{#each suggestedImages}}
+                                <li><div><img src="{{imageUrl}}" alt=""></div></li>
+                            {{/each}}
                         </ul>
                     </div>
-                    -->
+                    <!--&ndash;&gt;-->
                 {{/if}}
             </div>
 
