@@ -1,5 +1,8 @@
 {
     "generic-error": "Er ging iets verkeerd",
     "generic-login": "Inloggen",
-    "generic-signup": "Gratis aanmelden"
+    "generic-signup": "Gratis aanmelden",
+
+    "generic-underconstructionheading": "Deze functionaliteit is nog niet ontwikkeld",
+    "generic-underconstructionparagraph": "We zijn druk bezig om deze functionaliteit af te maken. Kom later nog eens terug!"
 }
