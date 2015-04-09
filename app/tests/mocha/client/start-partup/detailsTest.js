@@ -13,7 +13,7 @@ if (!(typeof MochaWeb === 'undefined')){
             beforeEach(waitForRouter);
 
             it("should greet the currently loggedin user", function(){
-                chai.expect($("h2").first().text()).to.contain("User");
+                chai.expect($("h2").first().text()).to.contain("Default");
             });
 
             //it("should render current-partup details in input fields", function(){
