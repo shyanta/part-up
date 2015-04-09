@@ -92,21 +92,24 @@ Meteor.methods({
 
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var contribution = Contributions.findOneOrFail({ activity_id: activityId, upper_id: upper._id });
+        var contribution = Contributions.findOne({ activity_id: activityId, upper_id: upper._id });
         check(fields, Partup.schemas.forms.contribution);
 
         try {
             newContribution = Partup.transformers.contribution.fromFormContribution(fields);
             var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
 
-            // Delete contribution
-            if(contribution && isEmpty) {
-                Contributions.remove(contribution._id);
+            if(contribution) {
 
-            // Update contribution
-            } else if(contribution) {
-                newContribution.updated_at = new Date();
-                Contributions.update(contribution, { $set: newContribution });
+                // Delete contribution
+                if(isEmpty) {
+                    Contributions.remove(contribution._id);
+
+                // Update contribution
+                } else {
+                    newContribution.updated_at = new Date();
+                    Contributions.update(contribution, { $set: newContribution });
+                }                
 
             // Insert contribution
             } else {
