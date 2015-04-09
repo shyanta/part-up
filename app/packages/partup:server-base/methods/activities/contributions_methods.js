@@ -50,9 +50,15 @@ Meteor.methods({
             var updatedContribution = Partup.transformers.contribution.fromFormContribution(fields);
             updatedContribution.updated_at = new Date();
 
-            Contributions.update(contribution, { $set: updatedContribution });
+            if (!updatedContribution.types.want.enabled && !updatedContribution.types.can.enabled && !updatedContribution.types.have.enabled) {
+                Contributions.remove(contributionId);
+            } else {
+                Contributions.update( {_id: contributionId}, { $set: updatedContribution });
+            }
 
-            return contribution;
+            return {
+                _id: contributionId
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be updated.');
