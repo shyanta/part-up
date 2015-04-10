@@ -62,22 +62,26 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
     facebook: {
         type:String,
         max: 255,
-        optional: true
+        optional: true,
+        regEx: Partup.services.validators.facebookUsername
     },
     twitter: {
         type:String,
         max: 255,
-        optional: true
+        optional: true,
+        regEx: Partup.services.validators.twitterUsername
     },
     instagram: {
         type:String,
         max: 255,
-        optional: true
+        optional: true,
+        regEx: Partup.services.validators.instagramUsername
     },
     linkedin: {
         type:String,
         max: 255,
-        optional: true
+        optional: true,
+        regEx: Partup.services.validators.linkedinUsername
     },
     website: {
         type:String,

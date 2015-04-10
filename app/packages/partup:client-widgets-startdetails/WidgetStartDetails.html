@@ -4,12 +4,12 @@
         <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name }}</h2>
         <p>{{_ 'startdetails-explainingpartup' }}</p>
 
-        {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="blur" }}
+        {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
             
             <!-- Name -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
-                <a class="pu-hint pu-tooltip">
+                <a class="pu-hint">
                     {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
@@ -21,7 +21,7 @@
             <!-- Description -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
-                <a class="pu-hint pu-tooltip">
+                <a class="pu-hint">
                     {{_ 'startdetails-form-description-validation' Partup.schemas.entities.partup._schema.description.max }}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
@@ -52,7 +52,7 @@
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                     <div class="pu-inputholder pu-inputholder-lefticon">
-                        {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
+                        {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}
                         <span class="pu-icon"><i class="fa fa-calendar"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>

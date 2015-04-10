@@ -15,7 +15,7 @@ Package.onUse(function(api) {
         'chrismbeckett:toastr',
         'cfs:standard-packages',
         'cfs:s3',
-        'cfs:filesystem',
+        'cfs:gridfs',
         'cfs:graphicsmagick',
         'momentjs:moment',
         'tap:i18n',

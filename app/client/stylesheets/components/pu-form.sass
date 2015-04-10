@@ -12,6 +12,9 @@
         &:last-child
             margin-bottom: 0
 
+        .pu-input
+            border-color: $color-border
+
     &-block
         border-top: 2px solid $color-gallery
         padding-top: $spacing-default
@@ -26,3 +29,34 @@
 
         .pu-button-text-subtle
             margin-right: 10px
+
+    &:not(.pu-form-disableinvalidstates):invalid
+        input[type="submit"]
+            // pointer-events: none
+            background-color: $color-background-secondary
+
+            &:hover
+                background-color: $color-background-secondary
+                cursor: not-allowed
+    &-highlighted
+        &:not(.pu-form-disableinvalidstates):invalid
+            input[type="submit"]
+                // pointer-events: none
+                background-color: darken($color-gallery, 5%)
+
+                &:hover
+                    background-color: darken($color-gallery, 5%)
+                        cursor: not-allowed
+
+    &.pu-form-disableinvalidstates,
+    &:valid
+        input[type="submit"]
+            // pointer-events: all
+            background-color: $color-secondary
+
+            &:hover
+                background-color: darken($color-secondary, 7%)
+
+    &-contribution
+        .pu-button
+            width: 32%

@@ -30,9 +30,13 @@ Template.Activity.helpers({
 /*************************************************************/
 Template.Activity.events({
     'click [data-edit]': function(event, template){
+        // event.preventDefault();
         activityEditModes.set(template.data._id, true);
 
-		Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
+		// Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
+        // console.log(template.find('.pu-datepicker'))
+
+        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker', 500);
     },
     'click [data-remove]': function (event, template){
         var activityId = template.data._id;

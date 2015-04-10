@@ -4,6 +4,11 @@
 Template.PagesStartPartupIntro.helpers({
     'user': function helperUser () {
         return Meteor.user();
+    },
+    'first_name': function helpFirstName(){
+        var user = Meteor.user();
+        var username = user.profile.name || user.name;
+        return Partup.ui.strings.firstName(username);
     }
 });
 

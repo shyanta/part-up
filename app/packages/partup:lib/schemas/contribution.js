@@ -81,24 +81,20 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
  * @memberOf partup.schemas.forms
  */
 Partup.schemas.forms.contribution = new SimpleSchema({
+
+    // want
     types_want_enabled: {
         type: Boolean,
         optional: true
     },
 
-    types_can_enabled: {
-        type: Boolean,
-        optional: true
-    },
+    // can
     types_can_amount: {
         type: Number,
         optional: true
     },
 
-    types_have_enabled: {
-        type: Boolean,
-        optional: true
-    },
+    // have
     types_have_amount: {
         type: Number,
         optional: true

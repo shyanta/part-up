@@ -42,7 +42,6 @@ chrismbeckett:toastr
 splendido:accounts-meld
 cfs:standard-packages
 cfs:s3
-cfs:filesystem
 cfs:graphicsmagick
 reactive-var
 deepwell:bootstrap-datepicker2
@@ -56,3 +55,4 @@ partup:copy-to-clipboard
 partup:client-widget-spinner
 spiderable
 manuelschoebel:ms-seo
+cfs:gridfs

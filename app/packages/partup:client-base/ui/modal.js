@@ -5,6 +5,17 @@ var _defaultIntentCallback = function () {
 var _intentCallbacks = {};
 
 Partup.ui.modal = {
+    /**
+     * Settings for modal animation
+     *
+     * @memberOf partup.ui
+     * @param {Number} open animation duration
+     * @param {Number} close animation duration
+     */
+    settings: {
+        openAnimationDuration: 400,
+        closeAnimationDuration: 400
+    },
 
     /**
      * Execute default callback

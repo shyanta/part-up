@@ -6,7 +6,11 @@
         <p>{{_ 'startpromote-text-intro2'}}</p>
         <article class="pu-previewpost">
             <h3>{{ partup.name }}</h3>
-            <img src="http://lorempixel.com/1000/500" alt="">
+
+            {{#if partupCover}}
+                <img src="{{partupCover.url store='1200x520'}}" alt=""/>
+            {{/if}}
+
             <p>{{ partup.description }}</p>
         </article>
 

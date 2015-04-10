@@ -43,3 +43,22 @@
         &:focus + .pu-icon
             border-color: $color-silver
             color: $color-text-secondary
+
+    &-insideaction
+        a
+            position: absolute
+            top: 14px
+            right: 14px
+            opacity: 0
+            transition: opacity .2s
+
+        &:hover
+            a
+                opacity: 1
+
+.pu-state-invalid
+    .pu-inputholder
+        &-lefticon,
+        &-righticon
+            .pu-icon
+                border-color: $color-alert-error

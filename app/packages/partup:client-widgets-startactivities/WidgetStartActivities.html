@@ -8,12 +8,12 @@
         <a class="pu-button pu-button-text pu-button-no-side-padding" href="#">{{_ 'startactivities-button-adopt_activities' }}</a>
         -->
 
-        {{#autoForm schema=formSchema id="activityForm" class="pu-form pu-form-highlighted" validation="submit" }}
+        {{#autoForm schema=formSchema id="activityForm" class="pu-form pu-form-highlighted" alidation="submitThenKeyup" }}
 
             <!-- Activity name --> 
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startactivities-form-name-label'}}</span>
-                <a class="pu-hint pu-tooltip">
+                <a class="pu-hint">
                     {{_ 'startactivities-form-name-validation' Partup.schemas.forms.startActivities._schema.name.max }}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
@@ -25,7 +25,7 @@
             <!-- Activity description -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startactivities-form-description-label'}}</span>
-                <a class="pu-hint pu-tooltip">
+                <a class="pu-hint">
                     {{_ 'startactivities-form-description-validation' Partup.schemas.forms.startActivities._schema.description.max }}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
@@ -49,7 +49,7 @@
                             <span class="pu-label">{{_ 'startactivities-form-end_date-label'}}</span>
                             <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                                 <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                                    {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}
+                                    {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}
                                     <span class="pu-icon"><i class="fa fa-calendar"></i></span>
                                 </div>
                                 <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>

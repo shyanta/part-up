@@ -1,7 +1,7 @@
 <template name="Activity">
     {{#if editMode}}
         <article class="pu-block pu-block-active">
-            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed" validation="blur" doc=fieldsFromActivity }}
+            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed" doc=fieldsFromActivity validation="submitThenKeyup"}}
 
                 <!-- Activity name -->
                 <label class="pu-formfield">
@@ -25,7 +25,7 @@
                         <label class="pu-formfield">
                             <div class="pu-inputholder pu-inputholder-lefticon">
                                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
-                                    <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" }}</span>
+                                    <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}</span>
                                     <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
                                 </div>
                                 <span class="pu-icon"><i class="fa fa-calendar"></i></span>
