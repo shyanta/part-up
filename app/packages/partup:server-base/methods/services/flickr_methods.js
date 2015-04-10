@@ -14,36 +14,47 @@ Meteor.methods({
      * @param {string[]} tags
      * @param {number} count Number of results to return
      */
-    'partups.images.tags.search': function (tags, count) {
+    'partups.images.tags.search': function (tags, count, fallbackTags) {
 
-        var searchByTags = function (tags, count, photos, callback) {
-            var searchableTags = tags.join(',');
+        var lookupTags = Meteor.wrapAsync(function (tags, count, callback) {
 
-            flickr.get('photos.search', {
-                'tags': searchableTags,
-                'tag_mode': 'all',
-                'media': 'photos'
-            }, function (result) {
-                result.photos.photo.forEach(function (photo) {
-                    photos.push({
-                        'imageUrl': 'https://farm' +photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg'
+            var searchByTags = function (tags, count, photos) {
+
+                var searchableTags = tags.join(',');
+                flickr.get('photos.search', {
+                    'tags': searchableTags,
+                    'tag_mode': 'all',
+                    'media': 'photos',
+                    'sort': 'interestingness-desc',
+                    'license': 4, // Attribution License
+                    'content_type': 1 // Photos only
+                }, function (result) {
+                    result.photos.photo.forEach(function (photo) {
+                        photos.push({
+                            'imageUrl': 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg',
+                            'authorUrl': 'https://www.flickr.com/photos/' + photo.owner
+                        });
                     });
+
+                    if (photos.length < count) {
+                        tags.pop();
+
+                        if (tags.length == 0) {
+                            // Fallback to provided default tags
+                            return searchByTags(fallbackTags, count, photos);
+                        }
+
+                        return searchByTags(tags, count, photos);
+                    }
+
+                    return callback(null, photos.slice(0, count));
                 });
+            };
 
-                if (photos.length < count) {
-                    tags.pop();
-                    return searchByTags(tags, count, photos, callback);
-                }
-
-                return callback(photos.slice(0, count));
-            });
-        };
-
-        var resultPhotos = searchByTags(tags, count, [], function (photos) {
-            console.log(photos);
-            return photos;
+            searchByTags(tags, count, []);
         });
 
+        return lookupTags(tags, count);
     }
 
 });

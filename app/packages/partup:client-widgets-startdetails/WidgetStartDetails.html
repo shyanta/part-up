@@ -106,16 +106,17 @@
                 {{else}}
                     <div class="pu-imagepreview pu-imagepreview-large pu-imagepreview-placeholder"></div>
 
-                    <!--&lt;!&ndash; TODO: SUGGESTION IMPLEMENTATION-->
-                    <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
-                    <div class="pu-suggestionsgallery">
-                        <ul>
-                            {{#each suggestedImages}}
-                                <li><div><img src="{{imageUrl}}" alt=""></div></li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                    <!--&ndash;&gt;-->
+                    {{#if suggestedImagesAvailable}}
+                        <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
+                        <div class="pu-suggestionsgallery">
+                            <ul>
+                                {{#each suggestedImages}}
+                                    <li><div><img src="{{imageUrl}}" alt="{{authorUrl}}"></div></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    {{/if}}
+
                 {{/if}}
             </div>
 

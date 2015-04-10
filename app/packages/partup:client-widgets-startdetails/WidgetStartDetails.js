@@ -3,7 +3,6 @@
 /*************************************************************/
 Template.WidgetStartDetails.onCreated(function(){
     this.uploadingPictures = new ReactiveVar(false);
-    this.suggestedCovers = new ReactiveVar();
 });
 
 Template.WidgetStartDetails.onRendered(function() {
@@ -32,10 +31,11 @@ Template.WidgetStartDetails.helpers({
         }
         return undefined;
     },
+    suggestedImagesAvailable: function () {
+        return undefined !== Session.get('partials.start-partup.suggested-images');
+    },
     suggestedImages: function () {
-        var images = Template.instance().suggestedCovers.get();
-        console.log(images);
-        return Template.instance().suggestedCovers.get();
+        return Session.get('partials.start-partup.suggested-images');
     },
     uploadedImage: function() {
         return Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
@@ -78,8 +78,8 @@ Template.WidgetStartDetails.events({
     },
     'blur input[name=tags_input]': function searchFlickerByTags(event, template) {
         var tags = template.$('input[name=tags_input]').val().replace(/\s/g, '').split(',');
-        Meteor.call('partups.images.tags.search', tags, 5, function(error, result){
-            template.suggestedCovers.set(result);
+        Meteor.call('partups.images.tags.search', tags, 5, ['teamwork', 'group', 'team'], function(error, result) {
+            Session.set('partials.start-partup.suggested-images', result);
         });
     }
 });
