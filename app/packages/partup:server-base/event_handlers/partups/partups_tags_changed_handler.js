@@ -1,13 +1,12 @@
-Event.on('partups.tags.changed', function (partup, value) {
-    var upper = Meteor.user();
-    if (! upper) return;
+Event.on('partups.tags.changed', function (userId, partup, value) {
+    if (! userId) return;
 
     var changes = Partup.services.tags.calculateChanges(value.old, value.new);
 
     changes.forEach(function (change) {
         var update = {
             partup_id: partup._id,
-            upper_id: upper._id,
+            upper_id: userId,
             created_at: new Date()
         };
 

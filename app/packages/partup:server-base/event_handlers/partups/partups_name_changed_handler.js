@@ -1,10 +1,9 @@
-Event.on('partups.name.changed', function (partup, value) {
-    var upper = Meteor.user();
-    if (! upper) return;
+Event.on('partups.name.changed', function (userId, partup, value) {
+    if (! userId) return;
 
     var update = {
         partup_id: partup._id,
-        upper_id: upper._id,
+        upper_id: userId,
         type: 'partups_name_changed',
         type_data: {
             old_name: value.old,

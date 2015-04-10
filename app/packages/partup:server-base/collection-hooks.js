@@ -11,7 +11,7 @@ var equal = Npm.require('deeper');
  */
 var basicAfterInsert = function (namespace) {
     return function (userId, document) {
-        Event.emit(namespace + '.inserted', document);
+        Event.emit(namespace + '.inserted', userId, document);
     }
 };
 
@@ -24,7 +24,7 @@ var basicAfterInsert = function (namespace) {
  */
 var basicAfterUpdate = function (namespace) {
     return function (userId, document, fieldNames, modifier, options) {
-        Event.emit(namespace + '.updated', document);
+        Event.emit(namespace + '.updated', userId, document);
 
         if (this.previous) {
             var previous = this.previous;
@@ -38,7 +38,7 @@ var basicAfterUpdate = function (namespace) {
 
                 if (equal(value.old, value.new)) return;
 
-                Event.emit(namespace + '.' + key + '.changed', document, value);
+                Event.emit(namespace + '.' + key + '.changed', userId, document, value);
             });
         }
     }
@@ -53,7 +53,7 @@ var basicAfterUpdate = function (namespace) {
  */
 var basicAfterRemove = function (namespace) {
     return function (userId, document) {
-        Event.emit(namespace + '.removed', document);
+        Event.emit(namespace + '.removed', userId, document);
     }
 }
 

@@ -1,10 +1,9 @@
-Event.on('partups.activities.inserted', function (activity) {
-    var upper = Meteor.user();
-    if (! upper) return;
+Event.on('partups.activities.inserted', function (userId, activity) {
+    if (! userId) return;
 
     var update = {
         partup_id: activity.partup_id,
-        upper_id: upper._id,
+        upper_id: userId,
         type: 'partups_activities_added',
         type_data: {
             activity_id: activity._id

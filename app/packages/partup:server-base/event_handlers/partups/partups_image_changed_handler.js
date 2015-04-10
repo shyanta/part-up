@@ -1,10 +1,9 @@
-Event.on('partups.image.changed', function (partup, value) {
-    var upper = Meteor.user();
-    if (! upper) return;
+Event.on('partups.image.changed', function (userId, partup, value) {
+    if (! userId) return;
 
     var update = {
         partup_id: partup._id,
-        upper_id: upper._id,
+        upper_id: userId,
         type: 'partups_image_changed',
         type_data: {
             old_image: value.old,
