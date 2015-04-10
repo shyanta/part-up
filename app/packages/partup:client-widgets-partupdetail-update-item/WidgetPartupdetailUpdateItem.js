@@ -37,7 +37,7 @@ Template.WidgetPartupdetailUpdateItem.helpers({
     'formSchema': Partup.schemas.forms.updateComment,
 
     'commentInputFieldExpanded': function helperCommentInputFieldExpanded() {
-        return commentInputFieldExpandedDict.get(this.update._id);
+        return commentInputFieldExpandedDict.get(this.update._id) ? 'pu-state-expanded' : '';
     },
 
     'commentPostButtonActive': function helperCommentPostButtonActive() {
@@ -87,6 +87,12 @@ Template.WidgetPartupdetailUpdateItem.events({
 
     'click [data-expand-comment-field]': function eventClickExpandCommentField(event, template) {
         commentInputFieldExpandedDict.set(template.data.update._id, true);
+
+        // focus on input
+        var input = template.find('[data="commentfield"]');
+        Meteor.defer(function(){
+            $(input).focus();
+        });
     },
 
     'click [data-expand-comments]': function eventClickExpandComments(event, template) {
