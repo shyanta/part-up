@@ -21,13 +21,13 @@
 
                 {{#unless donation}}
                     <!-- can -->
-                    <div class="pu-popover">
+                    <div class="pu-popover" data-popover="can">
                         <button type="button" class="pu-button pu-button-icon pu-button-toggle {{#if userCanEnabled }}pu-button-toggle-active{{/if}}" data-toggle-popover="can">
                             <i class="fa fa-wrench"></i>
                             {{_ 'startcontribute-form-can-label'}}
                         </button>
 
-                        <div class="pu-popover-inner {{#if popoverEnabled 'can' }}pu-popover-inner-show{{/if}}" data-popover="can">
+                        <div class="pu-popover-inner {{#if popoverEnabled 'can' }}pu-popover-inner-show{{/if}}">
                             <span>{{_ 'startcontribute-form-can_amount-label'}}</span>
                             <div class="pu-inputholder pu-inputholder-insideaction">
                                 {{> afFieldInput name='types_can_amount' placeholder=placeholders.can_amount class="pu-input" }}
@@ -38,13 +38,13 @@
                 {{/unless}}
 
                 <!-- have -->
-                <div class="pu-popover">
+                <div class="pu-popover" data-popover="have">
                     <button type="button" class="pu-button pu-button-icon pu-button-toggle {{#if userHaveEnabled }}pu-button-toggle-active{{/if}}" data-toggle-popover="have">
                         <i class="fa fa-user-plus"></i>
                         {{_ 'startcontribute-form-have-label'}}
                     </button>
 
-                    <div class="pu-popover-inner {{#unless donation}}pu-popover-inner-last{{/unless}} {{#if popoverEnabled 'have' }}pu-popover-inner-show{{/if}}" data-popover="have">
+                    <div class="pu-popover-inner {{#unless donation}}pu-popover-inner-last{{/unless}} {{#if popoverEnabled 'have' }}pu-popover-inner-show{{/if}}">
                         <span>{{_ 'startcontribute-form-have_amount-label'}}</span>
                         <div class="pu-inputholder pu-inputholder-insideaction">
                             {{> afFieldInput name='types_have_amount' placeholder=placeholders.have_amount class="pu-input" }}

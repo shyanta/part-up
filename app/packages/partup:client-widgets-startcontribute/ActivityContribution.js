@@ -2,30 +2,36 @@
 /* Widget initial */
 /*************************************************************/
 var ACTIVITY_FORM_ID_PREFIX = 'contributionEditForm-';
-
+var documentClickHandler;
 
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
 Template.ActivityContribution.onRendered(function() {
 
-    // Compose unique popover keys
+    // Get activity id
     var activityId = this.data._id;
-    this.canPopoverToggleBool = 'widget-activity-popover-can-' + activityId;
-    this.havePopoverToggleBool = 'widget-activity-popover-have-' + activityId;
 
-    // Set default boolean values    
-    Session.set(this.canPopoverToggleBool, false);
-    Session.set(this.havePopoverToggleBool, false);
+    // Set default boolean values
+    Session.set('widget-activity-toolip-can-' + activityId, false);
+    Session.set('widget-activity-toolip-have-' + activityId, false);
 
     // Add click-outside handlers
-    // var formId = ACTIVITY_FORM_ID_PREFIX + this.data._id;
-    // Template.autoForm.onRendered(function() {
-    //     debugger;
-    //     if(this.data.id !== formId) return;
-    //     Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(self, '[data-popover=can]', '[data-toggle-popover=can]', 'canPopoverToggleBool');
-    //     Partup.ui.ClientWidgetsDropdowns.addOutsideDropdownClickHandler(self, '[data-popover=have]', '[data-toggle-popover=have]', 'havePopoverToggleBool');
-    // });
+    documentClickHandler = function documentClickHandler ($event) {
+        // Can
+        var canElementIsBelow = Partup.ui.elements.checkIfElementIsBelow($event.target, '#' + ACTIVITY_FORM_ID_PREFIX + activityId + ' [data-popover="can"]');
+        if(!canElementIsBelow) {
+            Session.set('widget-activity-toolip-can-' + activityId, false);
+        }
+
+        // Have
+        var haveElementIsBelow = Partup.ui.elements.checkIfElementIsBelow($event.target, '#' + ACTIVITY_FORM_ID_PREFIX + activityId + ' [data-popover="have"]');
+        if(!haveElementIsBelow) {
+            Session.set('widget-activity-toolip-have-' + activityId, false);
+        }
+    };
+
+    $(document).on('click', documentClickHandler);
 });
 
 
@@ -34,12 +40,16 @@ Template.ActivityContribution.onRendered(function() {
 /*************************************************************/
 Template.ActivityContribution.onDestroyed(function() {
 
-    // Set default boolean values    
-    Session.set(this.canPopoverToggleBool, false);
-    Session.set(this.havePopoverToggleBool, false);
+    // Get activity id
+    var activityId = this.data._id;
 
-    // Add click-outside handlers
-    // Partup.ui.ClientWidgetsDropdowns.removeOutsideDropdownClickHandler(this);
+    // Set default boolean values
+    delete Session.keys['widget-activity-toolip-can-' + activityId];
+    delete Session.keys['widget-activity-toolip-have-' + activityId];
+
+    // Remove doc handler 
+    $(document).off('click', documentClickHandler);
+
 });
 
 
@@ -79,7 +89,7 @@ Template.ActivityContribution.helpers({
     },
     popoverEnabled: function (type) {
         var activityId = this._id;
-        return Session.get('widget-activity-popover-' + type + '-' + activityId);
+        return Session.get('widget-activity-toolip-' + type + '-' + activityId);
     },
     userWantEnabled: function () {
         var activityId = this._id;
@@ -148,18 +158,17 @@ Template.ActivityContribution.events({
     // Open popover and focus on first field
     'click [data-toggle-popover]': function (event, template) {
         var type = event.currentTarget.getAttribute('data-toggle-popover');
-        var popoverKey = type + 'PopoverToggleBool';
-        var newPopoverState = Partup.ui.ClientWidgetsDropdowns.customDropdownSwitch(template, popoverKey); // trigger dropdown-click-handler
+        var activityId = template.data._id;
+        var tooltipKey = 'widget-activity-toolip-' + type + '-' + activityId;
 
+        // Switch popover
+        var newState = !Session.get(tooltipKey);
+        Session.set(tooltipKey, newState);
+
+        // Focus field
         var form = template.find('#' + ACTIVITY_FORM_ID_PREFIX + template.data._id); // get form
-        if(newPopoverState) {
+        if(newState === true) {
             form.elements['types_' + type + '_amount'].focus();      // focus first field
-
-            if(type === 'can') {
-                Session.set(template.havePopoverToggleBool, false);
-            } else if(type === 'have') {
-                Session.set(template.canPopoverToggleBool, false);
-            }
         }
     },
 });
