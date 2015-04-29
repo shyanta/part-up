@@ -5,6 +5,7 @@
     "startdetails-form-name-label": "Hoe wil je jouw part-up noemen?",
     "startdetails-form-name-placeholder": "Wees niet té creatief, je wilt wel dat uppers het meteen snappen",
     "startdetails-form-name-validation": "maximaal %d tekens",
+    "startdetails-form-name-validation-left": "nog %d tekens over",
 
     "startdetails-form-description-label": "Wat wil je met jouw part-up bereiken?",
     "startdetails-form-description-placeholder": "Wees zo kort maar zo krachtig mogelijk",

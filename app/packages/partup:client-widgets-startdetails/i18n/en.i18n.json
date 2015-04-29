@@ -5,6 +5,7 @@
     "startdetails-form-name-label": "What will you name your part-up?",
     "startdetails-form-name-placeholder": "Don't be overly creative, you want other uppers to get it right away.",
     "startdetails-form-name-validation": "max %d characters",
+    "startdetails-form-name-validation-left": "%d characters left",
 
     "startdetails-form-description-label": "What do you want to accomplish in this part-up?",
     "startdetails-form-description-placeholder": "Be short and sharp",

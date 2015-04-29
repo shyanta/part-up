@@ -10,10 +10,14 @@
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
                 <a class="pu-hint">
-                    {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
+                    {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.name.max}}
+                        {{_ 'startdetails-form-name-validation-left' nameCharactersLeft }}
+                    {{else}}
+                        {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
+                    {{/if}}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
+                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.name.max" data-characters-left-var="nameCharactersLeft" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                 </div>
             </label>
@@ -22,10 +26,14 @@
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-description-label'}}</span>
                 <a class="pu-hint">
-                    {{_ 'startdetails-form-description-validation' Partup.schemas.entities.partup._schema.description.max }}
+                    {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.description.max}}
+                        {{_ 'startdetails-form-name-validation-left' descriptionCharactersLeft }}
+                    {{else}}
+                        {{_ 'startdetails-form-name-validation' Partup.schemas.entities.partup._schema.description.max }}
+                    {{/if}}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
+                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3  data-max="Partup.schemas.entities.partup._schema.description.max" data-characters-left-var="descriptionCharactersLeft" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
                 </div>
             </label>

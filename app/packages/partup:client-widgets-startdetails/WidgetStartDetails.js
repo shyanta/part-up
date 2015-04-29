@@ -3,6 +3,10 @@
 /*************************************************************/
 Template.WidgetStartDetails.onCreated(function(){
     this.uploadingPictures = new ReactiveVar(false);
+
+    this.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
+
+    this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
 });
 
 Template.WidgetStartDetails.onRendered(function() {
@@ -45,6 +49,12 @@ Template.WidgetStartDetails.helpers({
     },
     uploadingPictures: function(){
         return Template.instance().uploadingPictures.get();
+    },
+    nameCharactersLeft: function(){
+        return Template.instance().nameCharactersLeft.get();
+    },
+    descriptionCharactersLeft: function(){
+        return Template.instance().descriptionCharactersLeft.get();
     }
 });
 
@@ -81,6 +91,12 @@ Template.WidgetStartDetails.events({
         Meteor.call('partups.images.tags.search', tags, 5, ['teamwork', 'group', 'team'], function(error, result) {
             Session.set('partials.start-partup.suggested-images', result);
         });
+    },
+    'keyup [data-max]': function updateMax(event, template){
+        var max = eval($(event.target).data("max"));
+        var charactersLeftVar = $(event.target).data("characters-left-var");
+
+        template[charactersLeftVar].set(max - $(event.target).val().length);
     }
 });
 

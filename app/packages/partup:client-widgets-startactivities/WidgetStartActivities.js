@@ -3,6 +3,12 @@
 /*************************************************************/
 var showDatePicker = new ReactiveVar(false);
 
+Template.WidgetStartActivities.onCreated(function(){
+    this.nameCharactersLeft = new ReactiveVar(Partup.schemas.forms.startActivities._schema.name.max);
+
+    this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.forms.startActivities._schema.description.max);
+})
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -19,6 +25,12 @@ Template.WidgetStartActivities.helpers({
     },
     showDatePicker: function helperShowDatePicker () {
         return showDatePicker.get();
+    },
+    nameCharactersLeft: function(){
+        return Template.instance().nameCharactersLeft.get();
+    },
+    descriptionCharactersLeft: function(){
+        return Template.instance().descriptionCharactersLeft.get();
     }
 });
 
@@ -31,6 +43,12 @@ Template.WidgetStartActivities.events({
         showDatePicker.set(true);
         Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
         
+    },
+    'keyup [data-max]': function updateMax(event, template){
+        var max = eval($(event.target).data("max"));
+        var charactersLeftVar = $(event.target).data("characters-left-var");
+
+        template[charactersLeftVar].set(max - $(event.target).val().length);
     }
 });
 
