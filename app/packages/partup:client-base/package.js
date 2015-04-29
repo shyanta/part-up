@@ -30,6 +30,7 @@ Package.onUse(function (api) {
         'ui/datepicker.js',
         'ui/spinner.js',
         'ui/modal.js',
+        'ui/elements.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',
