@@ -21,3 +21,11 @@ Template.registerHelper("partupHasTrueValues", function (object) {
     });
     return empty
 });
+
+Template.registerHelper("partupHigherThan", function (a, b) {
+    return (a > b);
+});
+
+Template.registerHelper("partupLowerThan", function (a, b) {
+    return (a < b);
+});
