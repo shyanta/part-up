@@ -15,9 +15,11 @@ var commentPostButtonActiveDict = new ReactiveDict;
 /* Widget rendered */
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.onRendered(function () {
-    commentsExpandedDict.set(this.data.update._id, false);
-    commentInputFieldExpandedDict.set(this.data.update._id, this.data.update.comments.length > 0);
-    commentPostButtonActiveDict.set(this.data.update._id, false);
+    var update = this.data.update;
+    var comments = update.comments || [];
+    commentsExpandedDict.set(update._id, false);
+    commentInputFieldExpandedDict.set(update._id, comments.length > 0);
+    commentPostButtonActiveDict.set(update._id, false);
 });
 
 
@@ -45,7 +47,7 @@ Template.WidgetPartupdetailUpdateItem.helpers({
     },
 
     'shownComments': function helperShownComments() {
-        var allComments = this.update.comments;
+        var allComments = this.update.comments || [];
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
         if (commentsExpanded)
             return allComments;
@@ -54,7 +56,10 @@ Template.WidgetPartupdetailUpdateItem.helpers({
     },
 
     'showExpandButton': function helperShowExpandButton() {
-        var hiddenComments = this.update.comments.length - MAX_COLLAPSED_COMMENTS > 0;
+        var hiddenComments = 0;
+        if(this.update && this.update.comments && this.update.comments.length) {
+            hiddenComments = this.update.comments.length - MAX_COLLAPSED_COMMENTS > 0;
+        }
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
         return hiddenComments && !commentsExpanded;
     },
