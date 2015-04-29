@@ -11,8 +11,6 @@ Partup.ui.datepicker = {
     applyToInput: function(template, selector, delay){
         var deferDelay = delay ? delay : 0;
         Meteor.setTimeout(function(){
-            console.log(template.$(selector))
-            console.log(template.find(selector))
             template.$(selector).datepicker({
                 language: moment.locale(),
                 format: "yyyy-mm-dd",
