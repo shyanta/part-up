@@ -1,31 +1,71 @@
 .pu-footer
-    background-color: $color-primary
-    min-height: 100px
-    padding: 80px 40px
-    text-align: center
+    background-color: $color-background-footer
     color: $color-text-inverted
+    padding: 60px 0
+    // min-height: 100px
+    // padding: 80px 40px
+    // text-align: center
+    // color: $color-text-inverted
 
-    section
-        max-width: $grid-column * 8 + $grid-gap * 7
+    .pu-sub-footer
+        max-width: $grid-column * 12 + $grid-gap * 11
         margin-left: auto
         margin-right: auto
+        padding: 0 40px
 
-    h1
-        font-size: 36px
+        &:after
+            content: ''
+            display: block
+            clear: both
 
-    p
-        font-size: 18px
-        margin-top: 40px - 22px
+    section
+        float: left
 
-        a
-            color: $color-text-inverted
+        figure
+            margin-bottom: 10px
 
-    .pu-sub-action
-        margin-top: 40px - 9px
+        h2
+            font-size: 18px
+            margin-bottom: 30px - 11px
 
-        .pu-button
-            margin-right: 15px - 5px
+        h3
+            font-size: 16px
+            margin-bottom: 20px - 11px
 
-        span
-            display: inline-block
-            margin-top: 6px
+        p
+            margin-bottom: 20px - 8px
+
+        &.pu-sub-description
+            width: 40%
+            padding-right: 80px
+
+        &.pu-sub-companylinks
+            width: 15%
+            padding-right: 40px
+
+        &.pu-sub-sociallinks
+            width: 15%
+            padding-right: 40px
+
+        &.pu-sub-feedback
+            width: 30%
+
+    // h1
+    //     font-size: 36px
+
+    // p
+    //     font-size: 18px
+    //     margin-top: 40px - 22px
+
+    //     a
+    //         color: $color-text-inverted
+
+    // .pu-sub-action
+    //     margin-top: 40px - 9px
+
+    //     .pu-button
+    //         margin-right: 15px - 5px
+
+    //     span
+    //         display: inline-block
+    //         margin-top: 6px
