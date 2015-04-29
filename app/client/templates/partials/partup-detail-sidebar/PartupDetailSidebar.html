@@ -10,10 +10,13 @@
                 <p class="pu-sub-abstract">{{ partup.description }}</p>
             </section>
             <section>
-                <h3>{{_ 'partup-detail-uppers-title' }}</h3>
-                <ul>
+                <h2>{{_ 'partup-detail-uppers-title' }}</h2>
+                <ul class="pu-list pu-list-users">
                     {{#each partupUppers }}
-                        <li>{{ profile.name }}</li>
+                        <li>
+                            <figure class="pu-avatar" style="background-image: url({{ profile.image }})"></figure>
+                            <p>{{ profile.name }}</p>
+                        </li>
                     {{/each }}
                 </ul>
                 <a href="" class="pu-button">{{_ 'partup-detail-uppers-invitebutton' }}</a>
@@ -30,10 +33,10 @@
         <section class="pu-sub-light">
             <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
             <section>
-                <h3>{{_ 'partup-detail-supporters-title'}} ({{ numberOfSupporters }})</h3>
-                <ul class="pu-list pu-list-horizontal">
+                <h2>{{_ 'partup-detail-supporters-title'}} ({{ numberOfSupporters }})</h2>
+                <ul class="pu-list pu-list-horizontal pu-list-avatars">
                     {{#each partupSupporters }}
-                        <li>{{ profile.name }}</li>
+                        <li><figure class="pu-avatar" style="background-image: url({{ profile.image }})"></figure></li>
                     {{/each }}
                 </ul>
                 {{#if isSupporter }}
