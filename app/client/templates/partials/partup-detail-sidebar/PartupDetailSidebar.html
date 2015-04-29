@@ -36,7 +36,11 @@
                         <li>{{ profile.name }}</li>
                     {{/each }}
                 </ul>
-                <a data-joinsupporters class="pu-button">{{_ 'partup-detail-supporters-join' }}</a>
+                {{#if isSupporter }}
+                    <a data-leavesupporters class="pu-button">{{_ 'partup-detail-supporters-leave' }}</a>
+                {{ else }}
+                    <a data-joinsupporters class="pu-button">{{_ 'partup-detail-supporters-join' }}</a>
+                {{/if}}
             </section>
             <section>
                 <p>{{_ 'partup-detail-share-paragraph' }}</p>

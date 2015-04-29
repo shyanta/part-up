@@ -30,26 +30,33 @@ Template.PartialsPartupDetailSidebar.rendered = function () {
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.helpers({
 
-    'backgroundWidth': function helperBackgroundWidth() {
+    backgroundWidth: function helperBackgroundWidth() {
         return Session.get('partials.partup-detail-sidebar.background-width') || 0;
     },
 
-    'prettyEndDate': function helperPrettyEndDate() {
+    prettyEndDate: function helperPrettyEndDate() {
         var partup = this.partup();
         if (!partup) return '...';
         return moment(partup.end_date).format('LL'); // see: helpers/dateFormatters.js -> partupDateNormal
     },
 
-    'prettyVisibility': function helperPrettyVisibility() {
+    prettyVisibility: function helperPrettyVisibility() {
         var partup = this.partup();
         if (!partup) return '...';
         return TAPi18n.__('partup-detail-visibility-' + partup.visibility);
     },
 
-    'numberOfSupporters': function () {
+    numberOfSupporters: function helperNumberOfSupporters () {
         var partup = this.partup();
         if (!partup) return '...';
         return partup.supporters ? partup.supporters.length : '0';
+    },
+
+    isSupporter: function helperIsSupporter () {
+        var partup = this.partup();
+        if (!partup || !partup.supporters) return false;
+        var currentUserId = Meteor.user()._id;
+        return partup.supporters.indexOf(currentUserId) > -1;
     }
 
 });
@@ -60,8 +67,12 @@ Template.PartialsPartupDetailSidebar.helpers({
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.events({
 
-    'click [data-joinsupporters]': function clickJoinsupporters() {
+    'click [data-joinsupporters]': function clickJoinSupporters() {
         Meteor.call('partups.supporters.insert', Router.current().params._id);
+    },
+
+    'click [data-leavesupporters]': function clickLeaveSupporters() {
+        Meteor.call('partups.supporters.remove', Router.current().params._id);
     },
 
     'click [data-share-facebook]': function clickShareFacebook() {

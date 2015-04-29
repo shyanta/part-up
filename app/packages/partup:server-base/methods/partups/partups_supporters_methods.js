@@ -42,9 +42,9 @@ Meteor.methods({
 
         try {
             var supporters = partup.supporters || [];
-            var isAlreadySupporter = !! (supporters.indexOf(upper._id) > -1);
+            var isSupporter = !! (supporters.indexOf(upper._id) > -1);
 
-            if (! isAlreadySupporter) {
+            if (isSupporter) {
                 Partups.update(partupId, { $pull: { 'supporters': upper._id } });
                 Event.emit('partups.supporters.removed', partup, upper);
 
