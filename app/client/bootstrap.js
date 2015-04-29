@@ -6,9 +6,9 @@ Meteor.startup(function() {
     if(TAPi18n && Partup) {
         var detectedLocale = navigator.language || navigator.userLanguage;
         if(detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {
-            var detectedLanguage = detectedLocale.split('-')[0];
+            detectedLocale = detectedLocale.split('-')[0];
         }
-        var language = detectedLanguage || 'nl';
+        var language = detectedLocale || 'nl';
 
         Partup.ui.language.changeLanguage(language);
     }
@@ -50,7 +50,7 @@ Meteor.startup(function() {
         } else if(nextTemplateName === 'app') {
             Bender.animate('slideOverUpClose', addClass, removeClass);
         }
-        
+
         this.next();
         previousTemplateName = nextTemplateName;
     });
