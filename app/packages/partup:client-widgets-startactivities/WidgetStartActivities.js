@@ -7,17 +7,17 @@ var showDatePicker = new ReactiveVar(false);
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetStartActivities.helpers({
-    'Partup': Partup,
-    'formSchema': Partup.schemas.forms.startActivities,
-    'placeholders': Partup.services.placeholders.startactivities,
-    'partupActivities': function () {
+    Partup: Partup,
+    formSchema: Partup.schemas.forms.startActivities,
+    placeholders: Partup.services.placeholders.startactivities,
+    partupActivities: function helperPartupActivities () {
         var partupId = Session.get('partials.start-partup.current-partup');
         return Activities.find({ partup_id: partupId }, {sort: { created_at: -1 }});
     },
-    'currentPartupId': function() {
+    currentPartupId: function helperCurrentPartupId () {
         return Session.get('partials.start-partup.current-partup');
     },
-    'showDatePicker': function() {
+    showDatePicker: function helperShowDatePicker () {
         return showDatePicker.get();
     }
 });
@@ -26,7 +26,7 @@ Template.WidgetStartActivities.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetStartActivities.events({
-    'click [data-end-date-button]': function(event, template) {
+    'click [data-end-date-button]': function eventClickEndDateButton (event, template) {
         event.preventDefault();
         showDatePicker.set(true);
         Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
