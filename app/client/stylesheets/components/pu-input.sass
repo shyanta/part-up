@@ -3,4 +3,49 @@
 
     &-accent 
         font-weight: bold
-        
+    
+    &-preholder
+        color: rgba($color-text, .5)
+        cursor: text
+        // display: table
+        white-space: nowrap
+        overflow: hidden
+        padding: 12px
+        line-height: 0
+        font-size: 0
+            
+        span 
+            float: left
+            display: block
+            overflow: hidden
+            line-height: normal
+            font-size: 16px
+            + span
+                float: none
+
+        input 
+            // Dimensions
+            position: relative
+            // margin-left: -5px
+            float: right
+            width: 100%
+            margin: 0 
+            padding: 0
+
+            // Cosmetics
+            background-color: $color-background
+            outline: none
+            border: 0
+
+            // Font
+            font-size: 16px
+            font-family: $font-primary
+            color: $color-text
+            font-weight: normal
+            text-decoration: none
+
+            // Other
+            transition: color $animation-duration
+
+            &::placeholder
+                color: rgba($color-text, .5)

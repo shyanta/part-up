@@ -81,7 +81,11 @@
                 <!-- Facebook -->
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook' }}pu-state-invalid{{/if}}">
                     <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                        {{> afFieldInput id='pu-sub-facebookfield' name='facebook' placeholder=placeholders.facebook class="pu-input" }}
+                        <label class="pu-input pu-input-preholder">
+                            <span>{{_ 'registeroptional-form-facebook-url-placeholder' }}</span>
+                            <span>{{> afFieldInput id='pu-sub-facebookfield' name='facebook'  }}</span>
+                        </label>
+                        
                         <span class="pu-icon"><i class="fa fa-facebook"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='facebook' }}</span>
@@ -90,7 +94,10 @@
                 <!-- Twitter -->
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='twitter' }}pu-state-invalid{{/if}}">
                     <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                        {{> afFieldInput name='twitter' placeholder=placeholders.twitter class="pu-input" }}
+                        <label class="pu-input pu-input-preholder">
+                            <span>{{_ 'registeroptional-form-twitter-url-placeholder' }}</span>
+                            <span>{{> afFieldInput name='twitter' }}</span>
+                        </label>
                         <span class="pu-icon"><i class="fa fa-twitter"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='twitter' }}</span>
@@ -99,7 +106,10 @@
                 <!-- Instagram -->
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='instagram' }}pu-state-invalid{{/if}}">
                     <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                        {{> afFieldInput name='instagram' placeholder=placeholders.instagram class="pu-input" }}
+                        <label class="pu-input pu-input-preholder">
+                            <span>{{_ 'registeroptional-form-instagram-url-placeholder' }}</span>
+                            <span>{{> afFieldInput name='instagram' }}</span>
+                        </label>
                         <span class="pu-icon"><i class="fa fa-instagram"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='instagram' }}</span>
@@ -108,7 +118,10 @@
                 <!-- LinkedIn -->
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='linkedin' }}pu-state-invalid{{/if}}">
                     <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                        {{> afFieldInput name='linkedin' placeholder=placeholders.linkedin class="pu-input" }}
+                        <label class="pu-input pu-input-preholder">
+                            <span>{{_ 'registeroptional-form-linkedin-url-placeholder' }}</span>
+                            <span>{{> afFieldInput name='linkedin' }}</span>
+                        </label>
                         <span class="pu-icon"><i class="fa fa-linkedin"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='linkedin' }}</span>
