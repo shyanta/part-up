@@ -1,18 +1,27 @@
 .pu-contribution
-    
     .pu-form
-
         .pu-button-checkbox
             width: 32%
+
         input 
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button
                 display: none
 
-    .pu-list
-        li
-            line-height: 40px
+    .pu-sub-contribution
+        > li
+            height: 31px
+            margin-bottom: 10px
 
-            >span
-                display: inline-block
-                width: 40%
+            .pu-sub-contributionlabel
+                line-height: 31px
+                width: 150px
+
+            .pu-button-label
+                margin-right: 10px - 4px
+
+                &:last-child
+                    margin-right: 0
+
+            &:last-child
+                margin-bottom: 0

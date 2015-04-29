@@ -47,25 +47,24 @@
             border-radius: 5px
             padding: $spacing-default
 
-        &-child:first-child
-            border-bottom-left-radius: 0
-            border-bottom-right-radius: 0
-            border-bottom: 0
-            padding-bottom: 10px
+            &:first-child
+                border-bottom-left-radius: 0
+                border-bottom-right-radius: 0
+                border-bottom: 0
+                padding-bottom: 10px
 
-        &-child:nth-child(2)
-            border-radius: 0
-            border-bottom: 0
-            padding-top: 10px
-            padding-bottom: 10px
+            &:nth-child(2)
+                border-radius: 0
+                border-bottom: 0
+                padding-top: 10px
+                padding-bottom: 10px
 
-        &-child:last-child
-            padding-top: 10px
-            border-top-left-radius: 0
-            border-top-right-radius: 0
-            border: 2px solid $color-gallery
-            border-bottom-left-radius: 5px
-            border-bottom-right-radius: 5px
+            &:last-child
+                border-top-left-radius: 0
+                border-top-right-radius: 0
+                border: 2px solid $color-gallery
+                border-bottom-left-radius: 5px
+                border-bottom-right-radius: 5px
 
         &:hover
             .pu-button-checkbox

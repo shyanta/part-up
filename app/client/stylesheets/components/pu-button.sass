@@ -46,7 +46,7 @@
 
     // Focus state
     &:focus
-        color: $color-text-inverted        
+        color: $color-text-inverted
 
     // State: loaidng
     &.pu-state-loading
@@ -379,13 +379,16 @@
 
         &:active 
             padding: 8px
+
         &-secondary 
             background-color: $color-solid-gray
 
             &:hover
                 background-color: darken($color-solid-gray, 5%)
+
         &-removable
             position: relative
+
             i
                 opacity: 0
                 color: #ffffff
@@ -407,6 +410,28 @@
                 span 
                     transition: opacity $animation-duration
                     opacity: 0
+
+        &-nointeraction
+            cursor: auto
+
+            &:active,
+            &:focus,
+            &:hover
+                background-color: $color-browse
+                color: $color-text-inverted
+
+            &:active
+                transform: none
+
+            &.pu-button-label-secondary
+                &:active,
+                &:focus,
+                &:hover
+                    background-color: $color-solid-gray
+                    color: $color-text-inverted
+
+                &:active
+                    transform: none
 
     &-edit 
         color: $color-text-subtle

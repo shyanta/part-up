@@ -74,33 +74,43 @@
                     {{/if}}
 
                     <!-- Horizontal list of contributions -->
-                    <ul class="pu-list">
+                    <ul class="pu-sub-contribution pu-list">
                         {{#if types.want.enabled }}
                             <li>
-                                <span>{{_ 'startcontribute-summary-want-label'}}</span>
+                                <ul class="pu-list pu-list-horizontal">
+                                    <li class="pu-sub-contributionlabel">{{_ 'startcontribute-summary-want-label'}}</li>
+                                </ul>
                             </li>
                         {{/if}}
                         {{#if contributionCanEnabled }}
                             <li>
-                                <span>{{_ 'startcontribute-summary-can-label'}}</span>
-                                <a href="#" class="pu-button pu-button-label">
-                                <span>€ {{ types.can.amount }}</span>
-                                </a>
+                                <ul class="pu-list pu-list-horizontal">
+                                    <li class="pu-sub-contributionlabel">{{_ 'startcontribute-summary-can-label'}}</li>
+                                    <li>
+                                        <span href="#" class="pu-button pu-button-label pu-button-label-nointeraction">
+                                            <span>€ {{ types.can.amount }}</span>
+                                        </span>
+                                    </li>
+                                </ul>
                             </li>
                         {{/if}}
                         {{#if contributionHaveEnabled }}
                             <li>
-                                <span>{{_ 'startcontribute-summary-have-label'}}</span>
-                                {{#if types.have.amount }}
-                                    <a class="pu-button pu-button-label">
-                                        € {{ types.have.amount }}
-                                    </a>
-                                {{/if}}
-                                {{#if types.have.description }}
-                                    <a class="pu-button pu-button-label pu-button-label-secondary">
-                                        {{ types.have.description }}
-                                    </a>
-                                {{/if}}
+                                <ul class="pu-list pu-list-horizontal">
+                                    <li class="pu-sub-contributionlabel">{{_ 'startcontribute-summary-have-label'}}</li>
+                                    <li>
+                                        {{#if types.have.amount }}
+                                                <span class="pu-button pu-button-label pu-button-label-nointeraction">
+                                                    € {{ types.have.amount }}
+                                                </span>
+                                        {{/if}}
+                                        {{#if types.have.description }}
+                                                <span class="pu-button pu-button-label pu-button-label-nointeraction pu-button-label-secondary">
+                                                    {{ types.have.description }}
+                                                </span>
+                                        {{/if}}
+                                    </li>
+                                </ul>
                             </li>
                         {{/if}}
                     </ul>
