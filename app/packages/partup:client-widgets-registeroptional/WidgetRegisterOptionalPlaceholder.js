@@ -9,16 +9,16 @@ Partup.services.placeholders.registerOptional = {
         return __('registeroptional-form-tags_input-placeholder');
     },
     'facebook': function () {
-        return __('registeroptional-form-facebook-placeholder');
+        return __('registeroptional-form-facebook-url-placeholder');
     },
     'twitter': function () {
-        return __('registeroptional-form-twitter-placeholder');
+        return __('registeroptional-form-twitter-url-placeholder');
     },
     'instagram': function () {
-        return __('registeroptional-form-instagram-placeholder');
+        return __('registeroptional-form-instagram-url-placeholder');
     },
     'linkedin': function () {
-        return __('registeroptional-form-linkedin-placeholder');
+        return __('registeroptional-form-linkedin-url-placeholder');
     },
     'website': function () {
         return __('registeroptional-form-website-placeholder');
