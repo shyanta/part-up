@@ -30,6 +30,11 @@
     "registeroptional-form-instagram-placeholder": "yourinstagramname",
     "registeroptional-form-linkedin-placeholder": "yourlinkedinname",
 
+    "registeroptional-form-facebook-url-placeholder": "https://www.facebook.com/",
+    "registeroptional-form-twitter-url-placeholder": "https://twitter.com/",
+    "registeroptional-form-instagram-url-placeholder": "https://instagram.com/",
+    "registeroptional-form-linkedin-url-placeholder": "https://www.linkedin.com/in/",
+
     "registeroptional-form-website-label": "Do you have a website or blog?",
     "registeroptional-form-website-placeholder": "www.my-blog-or-website.com",
 

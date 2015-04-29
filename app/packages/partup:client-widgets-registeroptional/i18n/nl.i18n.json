@@ -29,6 +29,11 @@
     "registeroptional-form-twitter-placeholder": "jouwtwitternaam",
     "registeroptional-form-instagram-placeholder": "jouwinstagramnaam",
     "registeroptional-form-linkedin-placeholder": "jouwlinkedinnaam",
+    
+    "registeroptional-form-facebook-url-placeholder": "https://www.facebook.com/",
+    "registeroptional-form-twitter-url-placeholder": "https://twitter.com/",
+    "registeroptional-form-instagram-url-placeholder": "https://instagram.com/",
+    "registeroptional-form-linkedin-url-placeholder": "https://www.linkedin.com/in/",
 
     "registeroptional-form-website-label": "Heb je een eigen website of blog?",
     "registeroptional-form-website-placeholder": "www.mijn-blog-of-website.nl",
