@@ -3,9 +3,14 @@ Part-Up
 
 # Installation
 
+- ensure [graphicsmagick][gm] or [imagemagic][im] is installed (OS X: `brew
+  install graphicsmagick`)
 - ensure [meteor](https://www.meteor.com/install) is installed
 - `cd app`
 - `meteor`
+
+[gm]: http://www.graphicsmagick.org/
+[im]: http://www.imagemagick.org/
 
 # Deployment
 - `cd devops`
