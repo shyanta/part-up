@@ -32,26 +32,16 @@
 
     &:not(.pu-form-disableinvalidstates):invalid
         input[type="submit"]
-            // pointer-events: none
-            background-color: $color-background-secondary
+
+            pointer-events: none
+            color: rgba($color-text-inverted, .5)
 
             &:hover
-                background-color: $color-background-secondary
-                cursor: not-allowed
-    &-highlighted
-        &:not(.pu-form-disableinvalidstates):invalid
-            input[type="submit"]
-                // pointer-events: none
-                background-color: darken($color-gallery, 5%)
-
-                &:hover
-                    background-color: darken($color-gallery, 5%)
-                        cursor: not-allowed
+                color: rgba($color-text-inverted, .5)
 
     &.pu-form-disableinvalidstates,
     &:valid
         input[type="submit"]
-            // pointer-events: all
             background-color: $color-secondary
 
             &:hover
