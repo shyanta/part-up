@@ -10,12 +10,12 @@ Accounts.onCreateUser(function(options, user) {
         try {
             var image = new FS.File();
             image.attachData(profile.pictureUrl);
-            image.name(data.id + '.jpg');
+            image.name(data.id + '.jpg', { save: false });
 
             var savedImage = Images.insert(image);
             user.profile.image = savedImage._id;
         } catch (error) {
-            Log.error(error.message);
+            Log.error(error);
         }
     }
 
@@ -25,12 +25,12 @@ Accounts.onCreateUser(function(options, user) {
         try {
             var image = new FS.File();
             image.attachData('https://graph.facebook.com/' + data.id + '/picture?width=750');
-            image.name(data.id + '.jpg');
+            image.name(data.id + '.jpg', { save: false });
 
             var savedImage = Images.insert(image);
             user.profile.image = savedImage._id;
         } catch (error) {
-            Log.error(error.message);
+            Log.error(error);
         }
     }
 
