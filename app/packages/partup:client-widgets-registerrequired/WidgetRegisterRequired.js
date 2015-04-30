@@ -53,6 +53,7 @@ AutoForm.hooks({
     registerRequiredForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
+            var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
 
             Accounts.createUser({
                 email: insertDoc.email,
@@ -61,6 +62,7 @@ AutoForm.hooks({
                     name: insertDoc.name,
                     network: insertDoc.network,
                     settings: {
+                        locale: locale,
                         optionalDetailsCompleted: false
                     }
                 }
