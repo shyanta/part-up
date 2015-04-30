@@ -143,9 +143,9 @@ Template.ActivityContribution.events({
     },
 
     // Submit form on input field keyup
-    'keyup [data-schema-key=types_can_amount]': submitForm,
-    'keyup [data-schema-key=types_have_amount]': submitForm,
-    'keyup [data-schema-key=types_have_description]': submitForm,
+    'blur [data-schema-key=types_can_amount]': submitForm,
+    'blur [data-schema-key=types_have_amount]': submitForm,
+    'blur [data-schema-key=types_have_description]': submitForm,
 
     // Empty field button handler
     'click [data-empty-field]': function (event, template) {
