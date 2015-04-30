@@ -1,7 +1,7 @@
 var stores = [];
 
-if (process.env.NODE_ENV.match(/development/)) {
-    if (Meteor.isServer) {
+if (Meteor.isServer) {
+    if (process.env.NODE_ENV.match(/development/)) {
         console.log('Creating Image store with GridFS');
 
         stores.push(new FS.Store.GridFS('original', {
@@ -24,15 +24,9 @@ if (process.env.NODE_ENV.match(/development/)) {
                 gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
             }
         }));
-    } else {
-        stores.push(new FS.Store.GridFS('original'));
-        stores.push(new FS.Store.GridFS('1200x520'));
-        stores.push(new FS.Store.GridFS('360x360'));
     }
-}
 
-if (process.env.NODE_ENV.match(/staging|acceptance|production/)) {
-    if (Meteor.isServer) {
+    if (process.env.NODE_ENV.match(/staging|acceptance|production/)) {
         console.log('Creating Image store with S3');
 
         stores.push(new FS.Store.S3('original', {
@@ -55,11 +49,11 @@ if (process.env.NODE_ENV.match(/staging|acceptance|production/)) {
                 gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
             }
         }));
-    } else {
-        stores.push(new FS.Store.S3('original'));
-        stores.push(new FS.Store.S3('1200x520'));
-        stores.push(new FS.Store.S3('360x360'));
     }
+} else {
+    stores.push(new FS.Store.GridFS('original'));
+    stores.push(new FS.Store.GridFS('1200x520'));
+    stores.push(new FS.Store.GridFS('360x360'));
 }
 
 Images = new FS.Collection('images', {
