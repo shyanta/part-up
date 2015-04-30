@@ -31,7 +31,7 @@ if (process.env.NODE_ENV.match(/development/)) {
     }
 }
 
-if (process.env.NODE_ENV.match(/staging|acceptance|production/)) ) {
+if (process.env.NODE_ENV.match(/staging|acceptance|production/)) {
     if (Meteor.isServer) {
         console.log('Creating Image store with S3');
 
