@@ -28,6 +28,14 @@ Template.registerHelper('partupDateNormal', function(date) {
     return moment(date).format('LL');
 });
 
+Template.registerHelper('partupDateFull', function(date) {
+    return moment(date).format('LLL');
+});
+
+Template.registerHelper('partupDateCustom', function(date, format) {
+    return moment(date).format(format);
+});
+
 Template.registerHelper('partupDateISO', function(date) {
     return moment(date).toISOString();
 });
