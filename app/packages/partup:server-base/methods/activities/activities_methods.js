@@ -87,6 +87,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'activity.contribution.update': function (activityId, fields) {
+        console.log('activity.contribution.update');
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -98,6 +99,7 @@ Meteor.methods({
         try {
             newContribution = Partup.transformers.contribution.fromFormContribution(fields);
             var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
+            console.log('isEmpty ', isEmpty);
 
             if(contribution) {
 
@@ -112,7 +114,7 @@ Meteor.methods({
                 }                
 
             // Insert contribution
-            } else {
+            } else if(!isEmpty) {
                 newContribution.created_at = new Date();
                 newContribution.activity_id = activityId;
                 newContribution.upper_id = upper._id;
