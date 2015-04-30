@@ -2,6 +2,7 @@ Accounts.onCreateUser(function(options, user) {
     var profile = options.profile;
 
     user.profile = profile;
+    if (!user.profile.settings) user.profile.settings = {};
 
     if ('linkedin' in user.services) {
         user.profile = {};
@@ -21,6 +22,8 @@ Accounts.onCreateUser(function(options, user) {
 
     if ('facebook' in user.services) {
         var data = user.services.facebook;
+
+        user.profile.settings.locale = Partup.helpers.parseLocale(data.locale);
 
         try {
             var image = new FS.File();
