@@ -47,7 +47,10 @@
 
         <article class="pu-block">
             <h2 class="pu-block-title">{{name}}</h2>
-            <a class="pu-button pu-button-edit" data-edit>{{_ 'startactivities-button-edit'}}</a>
+
+            {{#unless donation}}
+                <a class="pu-button pu-button-edit" data-edit>{{_ 'startactivities-button-edit'}}</a>
+            {{/unless}}
 
             <p class="pu-paragraph">{{description}}</p>
             {{# if end_date }}
