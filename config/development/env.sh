@@ -1,5 +1,7 @@
 export PORT=3000
 
+export TEMP_DIR=/tmp
+
 export FACEBOOK_APP_ID="361617237358681"
 export FACEBOOK_APP_SECRET="56eb9b45da0ce70ff5e2ab6d13a4882e"
 
