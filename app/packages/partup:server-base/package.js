@@ -15,7 +15,8 @@ Package.onUse(function(api) {
         'accounts-base',
         'service-configuration',
         'cfs:standard-packages',
-        'tap:i18n'
+        'tap:i18n',
+        'http'
     ], ['server']);
 
     api.addFiles([
