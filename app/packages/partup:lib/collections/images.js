@@ -1,55 +1,24 @@
 var stores = [];
 
 if (Meteor.isServer) {
-    if (process.env.NODE_ENV.match(/development/)) {
-        console.log('Creating Image store with GridFS');
+    console.log('Creating Image store with GridFS');
 
-        stores.push(new FS.Store.GridFS('original', {
-            region: process.env.AWS_BUCKET_REGION,
-            bucket: process.env.AWS_BUCKET_NAME
-        }));
+    stores.push(new FS.Store.GridFS('original', {
+        region: process.env.AWS_BUCKET_REGION,
+        bucket: process.env.AWS_BUCKET_NAME
+    }));
 
-        stores.push(new FS.Store.GridFS('1200x520', {
-            region: process.env.AWS_BUCKET_REGION,
-            bucket: process.env.AWS_BUCKET_NAME,
-            transformWrite: function (image, readStream, writeStream) {
-                gm(readStream, image.name()).resize(1200, 520).stream().pipe(writeStream);
-            }
-        }));
+    stores.push(new FS.Store.GridFS('1200x520', {
+        transformWrite: function (image, readStream, writeStream) {
+            gm(readStream, image.name()).resize(1200, 520).stream().pipe(writeStream);
+        }
+    }));
 
-        stores.push(new FS.Store.GridFS('360x360', {
-            region: process.env.AWS_BUCKET_REGION,
-            bucket: process.env.AWS_BUCKET_NAME,
-            transformWrite: function (image, readStream, writeStream) {
-                gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
-            }
-        }));
-    }
-
-    if (process.env.NODE_ENV.match(/staging|acceptance|production/)) {
-        console.log('Creating Image store with S3');
-
-        stores.push(new FS.Store.S3('original', {
-            region: process.env.AWS_BUCKET_REGION,
-            bucket: process.env.AWS_BUCKET_NAME
-        }));
-
-        stores.push(new FS.Store.S3('1200x520', {
-            region: process.env.AWS_BUCKET_REGION,
-            bucket: process.env.AWS_BUCKET_NAME,
-            transformWrite: function (image, readStream, writeStream) {
-                gm(readStream, image.name()).resize(1200, 520).stream().pipe(writeStream);
-            }
-        }));
-
-        stores.push(new FS.Store.S3('360x360', {
-            region: process.env.AWS_BUCKET_REGION,
-            bucket: process.env.AWS_BUCKET_NAME,
-            transformWrite: function (image, readStream, writeStream) {
-                gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
-            }
-        }));
-    }
+    stores.push(new FS.Store.GridFS('360x360', {
+        transformWrite: function (image, readStream, writeStream) {
+            gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
+        }
+    }));
 } else {
     stores.push(new FS.Store.GridFS('original'));
     stores.push(new FS.Store.GridFS('1200x520'));
