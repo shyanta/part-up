@@ -1,15 +1,19 @@
 Accounts.onCreateUser(function(options, user) {
     var profile = options.profile;
 
-    user.profile = options.profile;
+    user.profile = profile;
 
     if ('linkedin' in user.services) {
         user.profile = {};
         user.profile.name = profile.firstName + ' ' + profile.lastName;
 
         try {
-            var image = Images.insert(profile.pictureUrl);
-            user.profile.image = image._id;
+            var image = new FS.File();
+            image.attachData(profile.pictureUrl);
+            image.name(data.id + '.jpg');
+
+            var savedImage = Images.insert(image);
+            user.profile.image = savedImage._id;
         } catch (error) {
             Log.error(error.message);
         }
@@ -19,8 +23,12 @@ Accounts.onCreateUser(function(options, user) {
         var data = user.services.facebook;
 
         try {
-            var image = Images.insert('https://graph.facebook.com/' + data.id + '/picture?width=750');
-            user.profile.image = image._id;
+            var image = new FS.File();
+            image.attachData('https://graph.facebook.com/' + data.id + '/picture?width=750');
+            image.name(data.id + '.jpg');
+
+            var savedImage = Images.insert(image);
+            user.profile.image = savedImage._id;
         } catch (error) {
             Log.error(error.message);
         }
