@@ -31,9 +31,9 @@ if (Meteor.isServer) {
         }
     }));
 } else {
-    stores.push(new FS.Store.FileSystem('original', { path: process.env.CLOUD_DIR }));
-    stores.push(new FS.Store.FileSystem('1200x520', { path: process.env.CLOUD_DIR }));
-    stores.push(new FS.Store.FileSystem('360x360', { path: process.env.CLOUD_DIR }));
+    stores.push(new FS.Store.FileSystem('original'));
+    stores.push(new FS.Store.FileSystem('1200x520'));
+    stores.push(new FS.Store.FileSystem('360x360'));
 }
 
 Images = new FS.Collection('images', {
