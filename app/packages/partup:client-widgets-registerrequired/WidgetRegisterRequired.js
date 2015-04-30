@@ -41,7 +41,14 @@ Template.WidgetRegisterRequired.events({
                 return false;
             }
 
-            Router.go('register-details');
+            var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
+            Meteor.call('settings.update', { locale: locale }, function(err){
+                if (err){
+                    Partup.ui.notify.iError('error-method-register' + Partup.ui.strings.slugify('failed to update locale'));
+                    return false;
+                }
+                Router.go('register-details');
+            });
         });
     }
 });
