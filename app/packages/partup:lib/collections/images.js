@@ -15,23 +15,25 @@ if (Meteor.isServer) {
         });
     }
 
-    stores.push(new FS.Store.FileSystem('original'));
+    stores.push(new FS.Store.FileSystem('original', { path: process.env.CLOUD_DIR }));
 
     stores.push(new FS.Store.FileSystem('1200x520', {
+        path: process.env.CLOUD_DIR,
         transformWrite: function (image, readStream, writeStream) {
             gm(readStream, image.name()).resize(1200, 520).stream().pipe(writeStream);
         }
     }));
 
     stores.push(new FS.Store.FileSystem('360x360', {
+        path: process.env.CLOUD_DIR,
         transformWrite: function (image, readStream, writeStream) {
             gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
         }
     }));
 } else {
-    stores.push(new FS.Store.FileSystem('original'));
-    stores.push(new FS.Store.FileSystem('1200x520'));
-    stores.push(new FS.Store.FileSystem('360x360'));
+    stores.push(new FS.Store.FileSystem('original', { path: process.env.CLOUD_DIR }));
+    stores.push(new FS.Store.FileSystem('1200x520', { path: process.env.CLOUD_DIR }));
+    stores.push(new FS.Store.FileSystem('360x360', { path: process.env.CLOUD_DIR }));
 }
 
 Images = new FS.Collection('images', {
