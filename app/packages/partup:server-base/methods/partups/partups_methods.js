@@ -21,7 +21,7 @@ Meteor.methods({
 
             return {
                 _id: newPartup._id
-	        }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup could not be inserted.');
@@ -52,7 +52,7 @@ Meteor.methods({
 
             return {
                 _id: partup._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be updated.');
@@ -77,7 +77,7 @@ Meteor.methods({
 
             return {
                 _id: partup._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be removed.');
