@@ -1,5 +1,6 @@
 Accounts.onCreateUser(function(options, user) {
     var profile = options.profile;
+    var image, savedImage;
 
     user.profile = profile;
     if (!user.profile.settings) user.profile.settings = {};
@@ -9,11 +10,11 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.name = profile.firstName + ' ' + profile.lastName;
 
         try {
-            var image = new FS.File();
+            image = new FS.File();
             image.attachData(profile.pictureUrl);
             image.name(user.id + '.jpg', { save: false });
 
-            var savedImage = Images.insert(image);
+            savedImage = Images.insert(image);
             user.profile.image = savedImage._id;
         } catch (error) {
             Log.error(error);
@@ -26,11 +27,11 @@ Accounts.onCreateUser(function(options, user) {
         user.profile.settings.locale = Partup.helpers.parseLocale(data.locale);
 
         try {
-            var image = new FS.File();
+            image = new FS.File();
             image.attachData('https://graph.facebook.com/' + data.id + '/picture?width=750');
             image.name(user.id + '.jpg', { save: false });
 
-            var savedImage = Images.insert(image);
+            savedImage = Images.insert(image);
             user.profile.image = savedImage._id;
         } catch (error) {
             Log.error(error);
