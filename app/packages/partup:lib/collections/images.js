@@ -6,7 +6,7 @@ if (Meteor.isServer) {
     if (process.env.NODE_ENV.match(/staging|acceptance|production/)) {
         FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
             internal :  true,
-            path : '/app-storage/tmp',
+            path : '/mnt/data/tmp',
         });
     } else {
         FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
