@@ -53,6 +53,7 @@ Package.onUse(function(api) {
         'transformers/partup.js',
         'transformers/user.js',
         'transformers/contributions.js',
+        'helpers/parselocale.js'
     ]);
 
     // Namespace
