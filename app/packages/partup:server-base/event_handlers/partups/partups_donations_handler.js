@@ -2,11 +2,13 @@
  * Generate a donation Activity on Partup creation.
  */
 Event.on('partups.inserted', function (userId, partup) {
+    var upper = Meteor.users.findOne({_id: userId});
+    var locale = upper.profile.settings.locale;
     var donationActivity = {
         created_at: new Date(),
-        description: __('activities-donation-description', { lng: 'nl'}),
+        description: __('activities-donation-description', { lng: locale }),
         donation: true,
-        name: __('activities-donation-name', { lng: 'nl'}),
+        name: __('activities-donation-name', { lng: locale }),
         partup_id: partup._id,
         upper_id: userId
     };
