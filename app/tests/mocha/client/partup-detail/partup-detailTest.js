@@ -9,7 +9,7 @@ if (!(typeof MochaWeb === 'undefined')){
 
             beforeEach(waitForRouter);
 
-            it("should render the title of the partup", function(){
+            xit("should render the title of the partup", function(){
                 chai.expect($(".pu-partupheader h1").first().text()).to.contain("First awesome Part-Up!");
             });
 

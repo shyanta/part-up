@@ -9,11 +9,11 @@ if (!(typeof MochaWeb === 'undefined')){
 
             beforeEach(waitForRouter);
 
-            it("should contain signup button", function(){
+            xit("should contain signup button", function(){
                 chai.expect($("[type=\"submit\"]").length).to.be.above(0);
             });
 
-            it("should be able to close the page", function(){
+            xit("should be able to close the page", function(){
                 chai.expect($("[data-closepage]").length).to.be.above(0);
             });
 
