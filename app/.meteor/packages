@@ -55,6 +55,6 @@ partup:copy-to-clipboard
 partup:client-widget-spinner
 spiderable
 manuelschoebel:ms-seo
+cfs:gridfs
 lifely:mout
 http
-cfs:filesystem
