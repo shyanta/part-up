@@ -5,7 +5,9 @@
         <div class="pu-block-container-child">
             <h2 class="pu-block-title">{{name}}</h2>
             <p class="pu-paragraph">{{description}}</p>
-            <time datetime="{{ partupDateISO end_date }}">{{ partupDateNormal end_date }}</time>
+            {{#unless donation}}
+                <time datetime="{{ partupDateISO end_date }}">{{ partupDateNormal end_date }}</time>
+            {{/unless}}
         </div>
 
         <!-- User contribution controls -->
