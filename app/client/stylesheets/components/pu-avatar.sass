@@ -8,6 +8,7 @@
     background-size: cover
     background-position: center
     background-repeat: no-repeat
+    $label_position: translate3d(-3px, -14px, 0)
 
     .pu-sub-image
         display: block
@@ -22,13 +23,14 @@
         background-repeat: no-repeat
         border-radius: 50%
         z-index: 1
+        border: 5px solid #fff
 
     .pu-sub-label
         opacity: 0
         pointer-events: none
         position: absolute
         top: 50%
-        right: 100%
+        left: 100%
         margin-right: 10px - 3px
         display: inline-block
         background-color: $color-secondary
@@ -37,34 +39,40 @@
         border-radius: 2px
         padding-top: 10px - 2px
         padding-bottom: 10px - 3px
-        padding-left: 10px
-        padding-right: 15px
+        padding-left: 15px
+        padding-right: 10px
         font-weight: 600
         font-size: 14px
-        z-index: -1
-        transform: rotateZ(-7deg) translate3d(0, -50%, 0)
-        transform-origin: calc(100% + 24px) 4px
+        transform: rotateZ(7deg) $label_position
+        transform-origin: -25px 0px
         transition: transform $animation-duration-slide, opacity $animation-duration-slide
-
-        &:after
-            content: ''
-            display: block
-            position: absolute
-            background-color: white
-            width: 50px
-            height: 50px
-            top: 50%
-            transform: translateY(-50%)
-            left: 100%
-            margin-left: -3px
-            border-radius: 50%
 
     &:hover
         .pu-sub-label
-            transform: translate3d(0, -50%, 0)
+            transform: $label_position
             opacity: 1
             pointer-events: auto
+
+    &-label
+        width: 50px
+        height: 50px
+        background-color: transparent
 
     &-small
         width: 30px
         height: 30px
+
+    @media screen and (min-width: 1400px)
+        $label_position: translate3d(10px, -50%, 0)
+
+        .pu-sub-label
+            left: auto
+            right: 100%
+            transform: rotateZ(-7deg) $label_position
+            transform-origin: calc(100% + 24px) 4px
+            padding-left: 10px
+            padding-right: 15px
+
+        &:hover
+            .pu-sub-label
+                transform: $label_position
