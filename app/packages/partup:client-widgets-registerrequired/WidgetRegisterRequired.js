@@ -44,7 +44,7 @@ Template.WidgetRegisterRequired.events({
             Router.go('register-details');
         });
     }
-})
+});
 
 /*************************************************************/
 /* Widget form hooks */
