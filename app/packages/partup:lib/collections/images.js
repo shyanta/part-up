@@ -3,10 +3,7 @@ var stores = [];
 if (Meteor.isServer) {
     console.log('Creating Image store with GridFS');
 
-    stores.push(new FS.Store.GridFS('original', {
-        region: process.env.AWS_BUCKET_REGION,
-        bucket: process.env.AWS_BUCKET_NAME
-    }));
+    stores.push(new FS.Store.GridFS('original'));
 
     stores.push(new FS.Store.GridFS('1200x520', {
         transformWrite: function (image, readStream, writeStream) {
