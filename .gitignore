@@ -22,3 +22,6 @@ app/public/VERSION
 
 # backups
 backups
+
+# saved pictures
+app/uploads

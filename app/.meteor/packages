@@ -41,7 +41,6 @@ aldeed:autoform@5.1.2
 aldeed:simple-schema
 aldeed:template-extension
 cfs:graphicsmagick
-cfs:gridfs
 cfs:s3
 cfs:file
 chrismbeckett:toastr
@@ -74,3 +73,4 @@ partup:client-widgets-commentfield
 cfs:standard-packages
 partup:client-widget-hovercard
 partup:client-widgets-inviteuppers
+cfs:filesystem
