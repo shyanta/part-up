@@ -87,20 +87,20 @@ Template.WidgetStartDetails.events({
         });
     },
     'blur input[name=tags_input]': function searchFlickerByTags(event, template) {
-        var suggestions = [];
-        var tags = template.$('input[name=tags_input]').val().replace(/\s/g, '').split(',');
-
-        Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
-            suggestions = suggestions.concat(result);
-            if (suggestions.length >= 5) {
-                Session.set('partials.start-partup.suggested-images', suggestions);
-            } else {
-                Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    suggestions = suggestions.concat(result).slice(0, 5);
-                    Session.set('partials.start-partup.suggested-images', suggestions);
-                });
-            }
-        });
+        //var suggestions = [];
+        //var tags = template.$('input[name=tags_input]').val().replace(/\s/g, '').split(',');
+        //
+        //Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
+        //    suggestions = suggestions.concat(result);
+        //    if (suggestions.length >= 5) {
+        //        Session.set('partials.start-partup.suggested-images', suggestions);
+        //    } else {
+        //        Meteor.call('partups.services.flickr.search', tags, function(error, result) {
+        //            suggestions = suggestions.concat(result).slice(0, 5);
+        //            Session.set('partials.start-partup.suggested-images', suggestions);
+        //        });
+        //    }
+        //});
     },
     'keyup [data-max]': function updateMax(event, template){
         var max = eval($(event.target).data("max"));
