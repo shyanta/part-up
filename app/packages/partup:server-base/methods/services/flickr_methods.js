@@ -1,7 +1,7 @@
 var Flickr = Npm.require('node-flickr');
 var keys = {
     'api_key': process.env.FLICKR_API_KEY,
-    'secret': process.env.FLICKR_SECRET_KsEY
+    'secret': process.env.FLICKR_SECRET_KEY
 };
 
 flickr = new Flickr(keys);
@@ -16,6 +16,13 @@ Meteor.methods({
      * @param {string[]} fallbackTags Tags
      */
     'partups.services.flickr.search': function (tags, count, fallbackTags) {
+
+        if (!flickr.apiKey) {
+            var error = 'Error while getting photos from Flickr: No API Key defined';
+            Log.error(error);
+            throw new Meteor.Error(400, error);
+        }
+
         // Set default values
         count = count || 5;
         fallbackTags = fallbackTags || ['teamwork', 'group', 'team'];
