@@ -31,6 +31,7 @@ Package.onUse(function (api) {
         'ui/spinner.js',
         'ui/modal.js',
         'ui/elements.js',
+        'ui/popup.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',
