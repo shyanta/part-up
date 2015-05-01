@@ -78,6 +78,10 @@ AutoForm.hooks({
                 showDatePicker.set(false);
                 AutoForm.resetForm('activityForm');
                 self.done();
+
+                $('html, body').animate({
+                    scrollTop: $("#activityForm").offset().top - 37
+                }, 500);
             });
 
             return false;

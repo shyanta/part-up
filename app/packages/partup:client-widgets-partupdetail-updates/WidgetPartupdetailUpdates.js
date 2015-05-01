@@ -122,7 +122,7 @@ updatesVar.set([
         _id: '57n68yl',
         user: stubUser,
         created_at: new Date(1426949113550),
-        type: 'new_activity',
+        type: 'partups_activities_added',
         data: {},
         comments: []
     },
@@ -130,7 +130,7 @@ updatesVar.set([
         _id: 'wc4AWTVA',
         user: stubUser,
         created_at: new Date(1426949113550),
-        type: 'changed_activity',
+        type: 'partups_activities_changed',
         data: {},
         comments: []
     },
@@ -138,7 +138,7 @@ updatesVar.set([
         _id: '6RUTF7I',
         user: stubUser,
         created_at: new Date(1426949113550),
-        type: 'added_resource_to_activity',
+        type: 'partups_activities_added_resource',
         data: {},
         comments: []
     },
@@ -146,7 +146,7 @@ updatesVar.set([
         _id: 'rtnr6nu',
         user: stubUser,
         created_at: new Date(1426949113550),
-        type: 'added_contribution_to_activity',
+        type: 'partups_activities_added_contribution',
         data: {},
         comments: []
     },

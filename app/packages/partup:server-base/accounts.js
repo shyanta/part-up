@@ -10,7 +10,7 @@ Accounts.onCreateUser(function(options, user) {
         try {
             var image = new FS.File();
             image.attachData(profile.pictureUrl);
-            image.name(data.id + '.jpg', { save: false });
+            image.name(user.id + '.jpg', { save: false });
 
             var savedImage = Images.insert(image);
             user.profile.image = savedImage._id;
@@ -25,7 +25,7 @@ Accounts.onCreateUser(function(options, user) {
         try {
             var image = new FS.File();
             image.attachData('https://graph.facebook.com/' + data.id + '/picture?width=750');
-            image.name(data.id + '.jpg', { save: false });
+            image.name(user.id + '.jpg', { save: false });
 
             var savedImage = Images.insert(image);
             user.profile.image = savedImage._id;

@@ -31,17 +31,20 @@
             margin-right: 10px
 
     &:not(.pu-form-disableinvalidstates):invalid
-        input[type="submit"]
+        [type="submit"]
 
             pointer-events: none
             color: rgba($color-text-inverted, .5)
+
+            &:after
+                color: rgba($color-text-inverted, .5)
 
             &:hover
                 color: rgba($color-text-inverted, .5)
 
     &.pu-form-disableinvalidstates,
     &:valid
-        input[type="submit"]
+        [type="submit"]
             background-color: $color-secondary
 
             &:hover

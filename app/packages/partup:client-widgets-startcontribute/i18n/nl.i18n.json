@@ -4,14 +4,11 @@
 
     "startcontribute-form-want-label": "Up",
 
-    "startcontribute-form-have-label": "Breng in",
-    "startcontribute-form-have-placeholder": "Ik breng in",
-
     "startcontribute-form-can_amount-label": "Ik kan dit doen voor",
     "startcontribute-form-can_amount-placeholder": "0",
-    "startcontribute-form-can-label": "Doe",
+    "startcontribute-form-can-label": "Can",
 
-    "startcontribute-form-have-label": "Ik breng in",
+    "startcontribute-form-have-label": "Bring",
     "startcontribute-form-have_amount-label": "Ik breng in",
     "startcontribute-form-have_amount-placeholder": "0",
     "startcontribute-form-have_description-label": "of / en",

@@ -4,22 +4,26 @@
         <div class="pu-sub-pagecontainer">
             <div class="pu-page">
 
-                <!-- <h2> {{_ 'generic-homeheading'}} </h2>
+                <h2> {{_ 'generic-homeheading'}} </h2>
                 <br>
                 <br>
-                <p> {{_ 'generic-homeparagraph'}}</p> -->
-                
-                <h2>Home</h2><br><br>
-                <p>
-                    {{#with firstPartup}}
-                        <a href="/partups/{{_id}}" class="pu-button">Snelle link naar eerstgevonden partup "{{name}}"</a>
-                    {{/with}}
-                </p><br>
-                <button data-translate="nl" class="pu-button pu-button-secondary">nl</button>
-                <button data-translate="en" class="pu-button pu-button-secondary">en</button><br><br>
-                
+                {{{_ 'generic-homeparagraph'}}}
+
+                <img src="/images/dashboard-partup_720.png" alt="Partup dasboard" style="display: block; margin: 60px 0 0;">
+                <p style="margin: 60px 0 0;">
+                    <button data-translate="nl" class="pu-button pu-button-secondary">nl</button>
+                    <button data-translate="en" class="pu-button pu-button-secondary">en</button><br><br>
+                </p>
+
+                <!-- <h2>Home</h2><br><br> -->
+                <!-- <p> -->
+                <!--     {{#with firstPartup}} -->
+                <!--         <a href="/partups/{{_id}}" class="pu-button pu-button-arrow">Snelle link naar eerstgevonden partup "{{name}}"</a> -->
+                <!--     {{/with}} -->
+                <!-- </p><br> -->
+
             </div>
         </div>
     </article>
-    
+
 </template>

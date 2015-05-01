@@ -67,7 +67,7 @@
                 {{/unless}}
 
                 <div class="pu-formfield-right">
-                    <input class="pu-button pu-button-primary" type="submit" value="{{_ 'startactivities-form-submit' }}">
+                    <input class="pu-button" type="submit" value="{{_ 'startactivities-form-submit' }}">
                 </div>
             </div>
         {{/autoForm}}
@@ -79,7 +79,7 @@
         <!-- Continue button -->
         <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
             <div class="pu-sub-footer-container">
-                <a href="{{pathFor 'start-contribute' _id=currentPartupId }}" class="pu-button pu-button-primary">
+                <a href="{{pathFor 'start-contribute' _id=currentPartupId }}" class="pu-button pu-button-arrow">
                     {{_ 'startactivities-button-next_page' }}
                 </a>
             </div>

@@ -439,6 +439,7 @@
     &-edit 
         color: $color-text-subtle
         font-weight: bold
+        padding-right: 0
         background-color: transparent
         cursor: pointer
         &:hover
@@ -455,6 +456,19 @@
         padding-left: 0
         padding-right: 0
 
+    &-arrow
+        padding-right: 35px
 
+        &:after
+            content: '\f054'
+            font-family: 'FontAwesome'
+            color: white
+            position: absolute
+            top: 50%
+            right: 15px
+            margin-top: -7px
+            transition: transform .2s, color .2s
 
-
+        &:hover
+            &:after
+                transform: translateX(2px)

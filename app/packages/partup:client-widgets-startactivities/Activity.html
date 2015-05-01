@@ -25,7 +25,13 @@
                         <label class="pu-formfield">
                             <div class="pu-inputholder pu-inputholder-lefticon">
                                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
-                                    <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}</span>
+
+                                    {{#if end_date}}
+                                        <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="date" }}</span>
+                                    {{else}}
+                                        <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}</span>
+                                    {{/if}}
+
                                     <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
                                 </div>
                                 <span class="pu-icon"><i class="fa fa-calendar"></i></span>
@@ -35,8 +41,7 @@
 
                     <div class="pu-formfield-right">
                         <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>{{_ 'startactivities-button-remove'}}</a>
-                        <input class="pu-button pu-button-primary" type="submit"
-                               value="{{_ 'startactivities-form-save' }}">
+                        <button type="submit" class="pu-button pu-button-arrow">{{_ 'startactivities-form-save' }}</button>
                     </div>
                 </div>
 
@@ -47,7 +52,10 @@
 
         <article class="pu-block">
             <h2 class="pu-block-title">{{name}}</h2>
-            <a class="pu-button pu-button-edit" data-edit>{{_ 'startactivities-button-edit'}}</a>
+
+            {{#unless donation}}
+                <a class="pu-button pu-button-edit" data-edit>{{_ 'startactivities-button-edit'}}</a>
+            {{/unless}}
 
             <p class="pu-paragraph">{{description}}</p>
             {{# if end_date }}
