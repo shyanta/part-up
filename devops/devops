@@ -75,7 +75,7 @@ program
                             process.exit(1);
                         }
 
-                        console.log('Created version file', versionFile);
+                        console.log('Created version file', JSON.stringify(versionFile).gray);
 
                         var project = PROJECT_TEMPLATE.replace('{project}', PROJECT_NAME).replace('{environment}', environment);
 
