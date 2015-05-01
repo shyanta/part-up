@@ -273,7 +273,8 @@
             background-color: transparent
             color: darken($color-secondary, 10%)
 
-        &:active
+        &:active,
+        &:focus
             background-color: transparent
             transform: none
             color: $color-text-subtle
@@ -284,7 +285,8 @@
             &:hover
                 color: darken($color-text-secondary, 10%)
 
-            &:active
+            &:active,
+            &:focus
                 color: $color-text-subtle
 
         &-subtle
@@ -293,7 +295,8 @@
             &:hover
                 color: darken($color-text-subtle, 10%)
 
-            &:active
+            &:active,
+            &:focus
                 color: $color-text-subtle
 
 
@@ -481,3 +484,13 @@
         &:hover
             &:after
                 transform: translateX(2px)
+
+    &-skipbutton
+        .fa
+            transition: margin .2s
+
+        &:hover
+            .fa
+                margin-left: 8px
+                margin-right: -3px
+                // transform: translateX(3px)
