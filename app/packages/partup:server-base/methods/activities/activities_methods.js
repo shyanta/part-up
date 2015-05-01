@@ -97,7 +97,7 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.contribution);
 
         try {
-            newContribution = Partup.transformers.contribution.fromFormContribution(fields);
+            var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
             var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
 
             if(contribution) {
