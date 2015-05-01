@@ -45,6 +45,10 @@ program
                 process.exit(1);
             }
 
+            if (process.env.FORCE_DEPLOY) {
+                prompt.override = { confirm: 'Y' };
+            }
+
             prompt.start();
             prompt.get({ properties: { confirm: { description: 'Are you sure you want to deploy your current /app directory? (n/Y)', pattern: /^(y|Y|yes|Yes|YES)$/, message: 'Deployment must be confirmed.', required: true }}}, function (error, result) {
                 if (error) {
@@ -52,10 +56,10 @@ program
                     process.exit(1);
                 }
 
-                exec('git describe --always', { cwd: __dirname }, function (err, stdout, stderr) {
+                exec('git describe --always', { cwd: __dirname }, function (error, stdout, stderr) {
                     var gitString = stdout.split('\n').join('');
 
-                    if (!gitString) {
+                    if (! gitString) {
                         console.log(error.message);
                         process.exit(1);
                     }
@@ -65,11 +69,13 @@ program
                         deploydate: new Date().toISOString()
                     };
 
-                    fs.writeFile("../app/public/VERSION", JSON.stringify(versionFile), function(err) {
-                        if(err) {
-                            return console.log(err);
+                    fs.writeFile(__dirname + '/../app/public/VERSION', JSON.stringify(versionFile), function (error) {
+                        if (error) {
+                            console.log(error);
+                            process.exit(1);
                         }
-                        console.log("created version file");
+
+                        console.log('Created version file', JSON.stringify(versionFile).gray);
 
                         var project = PROJECT_TEMPLATE.replace('{project}', PROJECT_NAME).replace('{environment}', environment);
 

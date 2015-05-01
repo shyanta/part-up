@@ -2,13 +2,14 @@ Meteor.methods({
     /**
      * Insert an Activity
      *
+     * @param {string} partupId
      * @param {mixed[]} fields
      */
     'activities.insert': function (partupId, fields) {
         check(fields, Partup.schemas.forms.startActivities);
 
         var upper = Meteor.user();
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var partup = Partups.findOneOrFail(partupId);
 
@@ -29,6 +30,7 @@ Meteor.methods({
     /**
      * Update an Activity
      *
+     * @param {string} activityId
      * @param {mixed[]} fields
      */
     'activities.update': function (activityId, fields) {
@@ -36,13 +38,13 @@ Meteor.methods({
 
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
-        if (! upper || ! activity.creator_id == upper._id) {
+        if (!upper || !activity.creator_id == upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
         try {
             fields.updated_at = new Date();
-            Activities.update(activityId, { $set: fields });
+            Activities.update(activityId, {$set: fields});
             Event.emit('activities.updated', activity, fields);
 
             return {
@@ -57,13 +59,13 @@ Meteor.methods({
     /**
      * Remove an Activity
      *
-     * @param {integer} activityId
+     * @param {string} activityId
      */
     'activities.remove': function (activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
-        if (! upper || activity.creator_id !== upper._id) {
+        if (!upper || activity.creator_id !== upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
@@ -83,7 +85,7 @@ Meteor.methods({
     /**
      * Add current user contribution to activity
      *
-     * @param {integer} activityId
+     * @param {string} activityId
      * @param {mixed[]} fields
      */
     'activity.contribution.update': function (activityId, fields) {
@@ -93,35 +95,33 @@ Meteor.methods({
 
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var contribution = Contributions.findOne({ activity_id: activityId, upper_id: upper._id });
+        var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
         check(fields, Partup.schemas.forms.contribution);
 
         try {
-            newContribution = Partup.transformers.contribution.fromFormContribution(fields);
+            var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
             var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
-            console.log('isEmpty ', isEmpty);
 
-            if(contribution) {
+            if (contribution) {
 
-                // Delete contribution
-                if(isEmpty) {
+                if (isEmpty) {
+                    // Delete contribution
                     Contributions.remove(contribution._id);
-
-                // Update contribution
                 } else {
+                    // Update contribution
                     newContribution.updated_at = new Date();
-                    Contributions.update(contribution, { $set: newContribution });
-                }                
+                    Contributions.update(contribution, {$set: newContribution});
+                }
 
-            // Insert contribution
-            } else if(!isEmpty) {
+            } else if (!isEmpty) {
+                // Insert contribution
                 newContribution.created_at = new Date();
                 newContribution.activity_id = activityId;
                 newContribution.upper_id = upper._id;
                 newContribution.partup_id = activity.partup_id;
 
                 newContribution._id = Contributions.insert(newContribution);
-                Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
+                Activities.update(activityId, {$push: {'contributions': newContribution._id}});
             }
 
         } catch (error) {

@@ -1,0 +1,13 @@
+<template name="WidgetPopup">
+    <article class="pu-popup">
+        <header>
+            <h4>
+                {{> yield region="WidgetPopupTitle" }}
+            </h4>
+            <button class="pu-button pu-button-close" data-close><i class="fa fa-times"></i></button>
+        </header>
+        <article>
+            {{> yield region="WidgetPopupContent" }}
+        </article>
+    </article>
+</template>

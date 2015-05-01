@@ -265,6 +265,21 @@ Router.route('/reset-password/:token', {
     }
 });
 
+
+/*************************************************************/
+/* Verify Account */
+/*************************************************************/
+Router.route('/verify-email/:token', {
+    name: 'verify-email',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesForgotPassword': { to: 'modal-page' }
+    }
+});
+
+
 /*************************************************************/
 /* Register flow */
 /*************************************************************/

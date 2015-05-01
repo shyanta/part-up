@@ -1,0 +1,15 @@
+.pu-overlay
+    position: fixed
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background-color: rgba(#000, 0.5)
+    z-index: 100
+    opacity: 0
+    transition: opacity $animation-duration-slide
+    pointer-events: none
+
+    &-active
+        opacity: 1
+        pointer-events: all

@@ -25,6 +25,9 @@ Package.onUse(function (api) {
         'WidgetStartActivities.html',
         'WidgetStartActivities.js',
 
+        'CopyActivityPopup.html',
+        'CopyActivityPopup.js',
+
         'Activity.html',
         'Activity.js',
 
