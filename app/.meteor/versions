@@ -68,6 +68,7 @@ manuelschoebel:ms-seo@0.4.1
 matb33:collection-hooks@0.7.13
 meteor@1.1.6
 meteor-platform@1.2.2
+meteorhacks:ssr@2.1.2
 mike:mocha@0.5.4
 minifiers@1.1.5
 minimongo@1.0.8
