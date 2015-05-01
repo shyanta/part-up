@@ -47,6 +47,9 @@ Template.WidgetStartActivities.events({
         var max = eval($(event.target).data("max"));
         var charactersLeftVar = $(event.target).data("characters-left-var");
         charactersLeft.set(charactersLeftVar, max - $(event.target).val().length);
+    },
+    'click [data-popup]': function openPopup (event, template){
+        Partup.ui.popup.open();
     }
 });
 
