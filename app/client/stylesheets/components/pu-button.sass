@@ -263,6 +263,7 @@
 
     // Type: text
     &-text
+        font-size: 14px
         padding-left: 0
         padding-right: 0
         background-color: transparent
@@ -286,8 +287,16 @@
             &:active
                 color: $color-text-subtle
 
-        &-subtle 
+        &-subtle
             color: $color-text-subtle
+
+            &:hover
+                color: darken($color-text-subtle, 10%)
+
+            &:active
+                color: $color-text-subtle
+
+
     // Type: avatar
     &-avatar
         figure 
