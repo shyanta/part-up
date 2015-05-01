@@ -5,6 +5,12 @@ Accounts.onCreateUser(function(options, user) {
     var liData = mout.object.get(user, 'services.linkedin');
     var fbData = mout.object.get(user, 'services.facebook');
 
+    if (! liData && ! fbData) {
+        Meteor.setTimeout(function () {
+            Accounts.sendVerificationEmail(user._id);
+        }, 5000);
+    }
+
     if (liData) {
         profile = {
             name: liData.firstName + ' ' + liData.lastName,
