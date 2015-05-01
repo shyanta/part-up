@@ -45,6 +45,10 @@ program
                 process.exit(1);
             }
 
+            if (process.env.FORCE_DEPLOY) {
+                prompt.override.confirm = 'Y';
+            }
+
             prompt.start();
             prompt.get({ properties: { confirm: { description: 'Are you sure you want to deploy your current /app directory? (n/Y)', pattern: /^(y|Y|yes|Yes|YES)$/, message: 'Deployment must be confirmed.', required: true }}}, function (error, result) {
                 if (error) {
