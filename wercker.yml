@@ -14,7 +14,7 @@ build:
         name: build application
         code: |
           cd app
-          meteor build .
+          meteor build /tmp
   after-steps:
     - kobim/slack-post:
         url: $SLACK_URL
