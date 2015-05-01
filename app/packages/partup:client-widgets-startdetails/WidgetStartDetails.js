@@ -86,6 +86,13 @@ Template.WidgetStartDetails.helpers({
     },
     descriptionCharactersLeft: function(){
         return Template.instance().descriptionCharactersLeft.get();
+    },
+    currentImage: function helperCurrentImage () {
+        var savedImage = Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+        var uploadedImage = Template.instance().uploadedImageUrl.get();
+
+        if(savedImage) return savedImage.url();
+        if(uploadedImage) return uploadedImage;
     }
 });
 
@@ -120,12 +127,14 @@ Template.WidgetStartDetails.events({
         var tags = template.$('input[name=tags_input]').val().replace(/\s/g, '').split(',');
 
         Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
+            console.log('splashbase result', result);
             suggestions = suggestions.concat(result);
             if (suggestions.length >= 5) {
                 Session.set('partials.start-partup.suggested-images', suggestions);
             } else {
                 Meteor.call('partups.services.flickr.search', tags, function(error, result) {
                     suggestions = suggestions.concat(result).slice(0, 5);
+                    console.log('flickr result', result);
                     Session.set('partials.start-partup.suggested-images', suggestions);
                 });
             }
