@@ -2,11 +2,37 @@
 /* Widget initial */
 /*************************************************************/
 Template.WidgetStartDetails.onCreated(function(){
-    this.uploadingPictures = new ReactiveVar(false);
+    var template = this;
 
-    this.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
+    // loading boolean
+    template.uploadingPictures = new ReactiveVar(false);
+    // uploaded picture url
+    template.uploadedImageUrl = new ReactiveVar('');
 
-    this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
+    // character countdown
+    template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
+    template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
+
+    // runs after image is updated
+    template.autorun(function(){
+        // get the current image
+        var image = Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+        if(!image) return;
+
+        // load image from url
+        var loadImage = new Image;
+        loadImage.onload = function() {
+            // this = image
+            var src = this.src;
+
+            // set image url
+            template.uploadedImageUrl.set(src);
+            // set loading false
+            template.uploadingPictures.set(false);
+        };
+        // set image url to be loaded
+        loadImage.src = image.url();
+    })
 });
 
 Template.WidgetStartDetails.onRendered(function() {
@@ -41,8 +67,13 @@ Template.WidgetStartDetails.helpers({
     suggestedImages: function () {
         return Session.get('partials.start-partup.suggested-images');
     },
-    uploadedImage: function() {
-        return Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+    uploadedImageUrl: function() {
+        var image = Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+        if(image) {
+            return image.url();
+        } else {
+            return Template.instance().uploadedImageUrl.get();
+        }
     },
     user: function() {
         return Meteor.user();
@@ -70,6 +101,7 @@ Template.WidgetStartDetails.events({
         input.click();
     },
     'change [data-imageupload]': function eventChangeFile(event, template){
+        // set loading true
         template.uploadingPictures.set(true);
 
         FS.Utility.eachFile(event, function (file) {
@@ -79,9 +111,6 @@ Template.WidgetStartDetails.events({
                 template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
                 Session.set('partials.start-partup.uploaded-image', image._id);
-
-
-                template.uploadingPictures.set(false);
 
             });
         });
