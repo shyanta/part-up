@@ -29,7 +29,12 @@ SlideOver = (function() {
     }, {
       duration: this.animationDuration,
       easing: 'ease-in-out',
-      queue: false
+      queue: false,
+      complete: function () {
+        if(this[0].style.cssText.indexOf('translateY(0px)') > -1) {
+          this[0].style.cssText = '';
+        }
+      }
     });
   };
 
