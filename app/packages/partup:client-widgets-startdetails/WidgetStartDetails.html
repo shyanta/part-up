@@ -109,8 +109,8 @@
                     <input type="file" class="pu-fileinput" data-imageupload>
                     {{> afFieldInput name="image" type="hidden"}}
                 </div>
-                {{#if uploadedImage.url}}
-                    <figure class="pu-imagepreview pu-imagepreview-large" style="background-image: url('{{ uploadedImage.url }}')"></figure>
+                {{#if uploadedImageUrl}}
+                    <figure class="pu-imagepreview pu-imagepreview-large" style="background-image: url('{{ uploadedImageUrl }}')"></figure>
                 {{else}}
                     <div class="pu-imagepreview pu-imagepreview-large pu-imagepreview-placeholder"></div>
 

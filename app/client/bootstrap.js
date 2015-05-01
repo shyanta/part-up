@@ -8,7 +8,10 @@ Meteor.startup(function() {
         if(detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {
             detectedLocale = detectedLocale.split('-')[0];
         }
-        var language = detectedLocale || 'nl';
+
+        //USERTEST DEFAULT IN DUTCH
+        //var language = detectedLocale || 'nl';
+        var language = 'nl';
 
         Partup.ui.language.changeLanguage(language);
     }
