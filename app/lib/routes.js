@@ -346,3 +346,10 @@ Router.onBeforeAction(partupRouterHooks.loginRequired, {
         'register-details',
     ]
 });
+
+if(Meteor.isClient) {
+    Router.onBeforeAction(function() {
+        window.scrollTo(0, 0);
+        this.next();
+    });
+};
