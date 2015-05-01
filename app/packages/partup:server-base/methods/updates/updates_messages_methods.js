@@ -13,7 +13,6 @@ Meteor.methods({
 
         try {
             newMessage._id = Updates.insert(newMessage);
-            Event.emit('updates.messages.inserted', newMessage);
 
             return {
                 _id: newMessage._id

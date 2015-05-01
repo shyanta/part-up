@@ -109,13 +109,16 @@
                     <input type="file" class="pu-fileinput" data-imageupload>
                     {{> afFieldInput name="image" type="hidden"}}
                 </div>
-                {{#if uploadedImageUrl}}
-                    <figure class="pu-imagepreview pu-imagepreview-large" style="background-image: url('{{ uploadedImageUrl }}')"></figure>
+                <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
+                
+                <figure class="pu-imagepreview pu-imagepreview-cover" style="{{#if currentImage }}background-image:url('{{ currentImage }}'){{/if}}"></figure>
+
+                <!--{{#if uploadedImageUrl}}
+                    <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image: url('{{ uploadedImageUrl }}')"></figure>
                 {{else}}
-                    <div class="pu-imagepreview pu-imagepreview-large pu-imagepreview-placeholder"></div>
+                    <div class="pu-imagepreview pu-imagepreview-cover"></div>
 
                     {{#if suggestedImagesAvailable}}
-                        <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                         <div class="pu-suggestionsgallery">
                             <ul>
                                 {{#each suggestedImages}}
@@ -125,7 +128,7 @@
                         </div>
                     {{/if}}
 
-                {{/if}}
+                {{/if}}-->
             </div>
 
             <!-- Submit button -->

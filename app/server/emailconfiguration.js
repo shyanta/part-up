@@ -1,17 +1,26 @@
+/**
+ * Generic Email Configuration
+ */
 Accounts.emailTemplates.from = 'Part-up <noreply@part-up.com>';
 
-Accounts.emailTemplates.resetPassword.subject = function(user) {
+/**
+ * Password Reset Email
+ */
+Accounts.emailTemplates.resetPassword.subject = function (user) {
     return 'Reset Part-up password';
-}
+};
+Accounts.emailTemplates.resetPassword.html = function (user, url) {
+    return SSR.render('resetPasswordEmail', { user: user, url: url.replace('/#', '') });
+};
+SSR.compileTemplate('resetPasswordEmail', Assets.getText('emails/ResetPassword.html'));
 
-Accounts.emailTemplates.resetPassword.html = function(user, url) {
-    return SSR.render('emailText', { user: user, url: url.replace('/#', '') });
-}
-
-SSR.compileTemplate('emailText', Assets.getText('emails/ResetPassword.html'));
-
-// Template.emailText.helpers({
-//     time: function() {
-//         return new Date().toString();
-//     }
-// });
+/**
+ * Verify Email
+ */
+Accounts.emailTemplates.verifyEmail.subject = function (user) {
+    return 'Confirm Part-up account';
+};
+Accounts.emailTemplates.verifyEmail.html = function (user, url) {
+    return SSR.render('verifyAccountEmail', { user: user, url: url.replace('/#', '') });
+};
+SSR.compileTemplate('verifyAccountEmail', Assets.getText('emails/VerifyAccount.html'));

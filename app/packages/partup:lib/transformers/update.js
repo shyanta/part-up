@@ -18,7 +18,7 @@ Partup.transformers.update = {
         return {
             created_at: new Date(),
             partup_id: partupId,
-            type: 'partups_image_changed',
+            type: 'message',
             type_data: {
                 new_value: fields.content
             },

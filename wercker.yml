@@ -22,6 +22,10 @@ build:
 deploy:
   steps:
     - script:
+        name: install modulus-cli
+        code: |
+          npm install modulus -g
+    - script:
         name: deploy to given environment
         code: |
           ./devops deploy ${WERCKER_DEPLOYTARGET_NAME}
