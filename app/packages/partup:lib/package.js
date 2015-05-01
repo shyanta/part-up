@@ -20,7 +20,7 @@ Package.onUse(function(api) {
         'momentjs:moment',
         'tap:i18n',
         'matb33:collection-hooks',
-        'partup:copy-to-clipboard',
+        'partup:copy-to-clipboard'
     ]);
 
     api.use([
@@ -53,6 +53,7 @@ Package.onUse(function(api) {
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
+        'transformers/update.js',
         'transformers/contributions.js',
         'helpers/parselocale.js'
     ]);

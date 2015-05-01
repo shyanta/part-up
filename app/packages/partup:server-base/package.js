@@ -43,6 +43,7 @@ Package.onUse(function(api) {
         'publications/images.js',
         'publications/users.js',
         'methods/updates/updates_comments_methods.js',
+        'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
         'methods/partups/partups_methods.js',
         'methods/partups/partups_supporters_methods.js',
