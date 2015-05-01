@@ -8,7 +8,7 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.startActivities);
 
         var upper = Meteor.user();
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var partup = Partups.findOneOrFail(partupId);
 
@@ -36,13 +36,13 @@ Meteor.methods({
 
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
-        if (! upper || ! activity.creator_id == upper._id) {
+        if (!upper || !activity.creator_id == upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
         try {
             fields.updated_at = new Date();
-            Activities.update(activityId, { $set: fields });
+            Activities.update(activityId, {$set: fields});
             Event.emit('activities.updated', activity, fields);
 
             return {
@@ -63,7 +63,7 @@ Meteor.methods({
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
-        if (! upper || activity.creator_id !== upper._id) {
+        if (!upper || activity.creator_id !== upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
@@ -93,34 +93,34 @@ Meteor.methods({
 
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var contribution = Contributions.findOne({ activity_id: activityId, upper_id: upper._id });
+        var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
         check(fields, Partup.schemas.forms.contribution);
 
         try {
             var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
             var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
 
-            if(contribution) {
+            if (contribution) {
 
                 // Delete contribution
-                if(isEmpty) {
+                if (isEmpty) {
                     Contributions.remove(contribution._id);
 
-                // Update contribution
+                    // Update contribution
                 } else {
                     newContribution.updated_at = new Date();
-                    Contributions.update(contribution, { $set: newContribution });
-                }                
+                    Contributions.update(contribution, {$set: newContribution});
+                }
 
-            // Insert contribution
-            } else if(!isEmpty) {
+                // Insert contribution
+            } else if (!isEmpty) {
                 newContribution.created_at = new Date();
                 newContribution.activity_id = activityId;
                 newContribution.upper_id = upper._id;
                 newContribution.partup_id = activity.partup_id;
 
                 newContribution._id = Contributions.insert(newContribution);
-                Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
+                Activities.update(activityId, {$push: {'contributions': newContribution._id}});
             }
 
         } catch (error) {
