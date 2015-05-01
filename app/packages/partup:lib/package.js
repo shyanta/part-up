@@ -47,12 +47,14 @@ Package.onUse(function(api) {
         'schemas/partup.js',
         'schemas/register.js',
         'schemas/resetPassword.js',
+        'schemas/settings.js',
         'schemas/tag.js',
         'schemas/update.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
         'transformers/contributions.js',
+        'helpers/parselocale.js'
     ]);
 
     // Namespace

@@ -50,6 +50,7 @@ Package.onUse(function(api) {
         'methods/users/users_accounts_methods.js',
         // 'methods/services/flickr_methods.js',
         'methods/services/splashbase_methods.js',
+        'methods/settings/settings_methods.js',
         'package-tap.i18n',
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

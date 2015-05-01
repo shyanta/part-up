@@ -5,6 +5,12 @@
 Partup = {};
 
 /**
+ @namespace Helpers
+ @name partup.helpers
+ */
+Partup.helpers = {};
+
+/**
  @namespace Schemas
  @name partup.schemas
  */
