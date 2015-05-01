@@ -23,7 +23,8 @@ deploy:
   steps:
     - script:
         name: deploy to given environment
-        code: ./devops deploy ${WERCKER_DEPLOYTARGET_NAME}
+        code: |
+          ./devops deploy ${WERCKER_DEPLOYTARGET_NAME}
         cwd: devops
   after-steps:
     - kobim/slack-post:
