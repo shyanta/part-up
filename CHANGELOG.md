@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1
+- new contribution adding UI pattern
+- bugfixes
+    - loads of small bugs for usertest
+
 ## 1.0
 
 - start-intro
