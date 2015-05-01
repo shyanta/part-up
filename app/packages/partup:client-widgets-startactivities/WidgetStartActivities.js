@@ -2,12 +2,12 @@
 /* Widget initial */
 /*************************************************************/
 var showDatePicker = new ReactiveVar(false);
+var maxNameCount = Partup.schemas.forms.startActivities._schema.name.max;
+var maxDescriptionCount = Partup.schemas.forms.startActivities._schema.description.max;
 
-Template.WidgetStartActivities.onCreated(function(){
-    this.nameCharactersLeft = new ReactiveVar(Partup.schemas.forms.startActivities._schema.name.max);
-
-    this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.forms.startActivities._schema.description.max);
-})
+var charactersLeft = new ReactiveDict();
+charactersLeft.set('name', maxNameCount);
+charactersLeft.set('description', maxDescriptionCount);
 
 /*************************************************************/
 /* Widget helpers */
@@ -26,11 +26,11 @@ Template.WidgetStartActivities.helpers({
     showDatePicker: function helperShowDatePicker () {
         return showDatePicker.get();
     },
-    nameCharactersLeft: function(){
-        return Template.instance().nameCharactersLeft.get();
+    nameCharactersLeft: function() {
+        return charactersLeft.get('name');
     },
-    descriptionCharactersLeft: function(){
-        return Template.instance().descriptionCharactersLeft.get();
+    descriptionCharactersLeft: function() {
+        return charactersLeft.get('description');
     }
 });
 
@@ -42,13 +42,11 @@ Template.WidgetStartActivities.events({
         event.preventDefault();
         showDatePicker.set(true);
         Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
-        
     },
     'keyup [data-max]': function updateMax(event, template){
         var max = eval($(event.target).data("max"));
         var charactersLeftVar = $(event.target).data("characters-left-var");
-
-        template[charactersLeftVar].set(max - $(event.target).val().length);
+        charactersLeft.set(charactersLeftVar, max - $(event.target).val().length);
     }
 });
 
@@ -77,6 +75,8 @@ AutoForm.hooks({
                 
                 showDatePicker.set(false);
                 AutoForm.resetForm('activityForm');
+                charactersLeft.set('name', maxNameCount);
+                charactersLeft.set('description', maxDescriptionCount);
                 self.done();
 
                 $('html, body').animate({

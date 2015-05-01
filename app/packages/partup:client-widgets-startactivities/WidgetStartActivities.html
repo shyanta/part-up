@@ -21,7 +21,7 @@
                     {{/if}}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input"  data-max="Partup.schemas.forms.startActivities._schema.name.max" data-characters-left-var="nameCharactersLeft" }}</span>
+                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input"  data-max="Partup.schemas.forms.startActivities._schema.name.max" data-characters-left-var="name" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                 </div>
             </label>
@@ -37,7 +37,7 @@
                     {{/if}}
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 data-max="Partup.schemas.forms.startActivities._schema.description.max" data-characters-left-var="descriptionCharactersLeft"  }}</span>
+                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 data-max="Partup.schemas.forms.startActivities._schema.description.max" data-characters-left-var="description"  }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
                 </div>
             </label>
