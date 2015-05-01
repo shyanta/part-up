@@ -1,5 +1,5 @@
 <template name="WidgetStartPromote">
-    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promote {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promote {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
 
         <h2 class="pu-title pu-title-modal">{{_ 'startpromote-heading-title'}}</h2>
         <p>{{_ 'startpromote-text-intro'}}</p>
@@ -49,7 +49,7 @@
             </div>
         </article>
 
-        <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
+        <footer class="pu-sub-modalfooter {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-sub-modalfooter-fixed{{/if}}">
             <div class="pu-sub-footer-container">
                 <button class="pu-button pu-button-arrow" id="nextPage" data-action-topartup>
                     {{_ 'startpromote-button-done' }}

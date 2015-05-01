@@ -1,5 +1,5 @@
 <template name="WidgetStartActivities">
-    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupEquals windowScrollBottom false }}pu-composition-fixedfooter{{/if}}">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
 
         <h2 class="pu-title pu-title-modal">{{_ 'startactivities-heading-title'}}</h2>
         <p>{{_ 'startactivities-heading-paragraph'}}</p>
@@ -77,7 +77,7 @@
         {{/each}}
 
         <!-- Continue button -->
-        <footer class="pu-sub-modalfooter {{#if partupEquals windowScrollBottom false }}pu-sub-modalfooter-fixed{{/if}}">
+        <footer class="pu-sub-modalfooter {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-sub-modalfooter-fixed{{/if}}">
             <div class="pu-sub-footer-container">
                 <a href="{{pathFor 'start-contribute' _id=currentPartupId }}" class="pu-button pu-button-arrow">
                     {{_ 'startactivities-button-next_page' }}

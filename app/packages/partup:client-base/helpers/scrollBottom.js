@@ -1,9 +1,15 @@
 Meteor.startup(function(){
     var windowScrollChecker = function windowScrollChecker(event){
+        var windowHeight = window.innerHeight,
+            windowScrollY = window.scrollY,
+            bodyScrollHeight = document.body.scrollHeight,
+            bottomOffset = (bodyScrollHeight - (windowHeight + windowScrollY));
+
+        Session.set('window.scrollBottomOffset', bottomOffset);
         // Router does not pass an event, that way we can assume it's the initial call
         if(event){
             // check if the page is scrolled down
-            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+            if ((windowHeight + windowScrollY) >= bodyScrollHeight) {
                 Session.set('window.scrollBottom', true);
             } else {
                 Session.set('window.scrollBottom', false);
@@ -12,7 +18,7 @@ Meteor.startup(function(){
         // when Router onAfterAction is called, check if document can 
         // be scrolled and set default values accordingly
         } else {
-            if(document.body.offsetHeight < window.innerHeight){
+            if(document.body.offsetHeight < windowHeight){
                 Session.set('window.scrollBottom', false);
             } else {
                 Session.set('window.scrollBottom', true);
@@ -23,7 +29,6 @@ Meteor.startup(function(){
 
     // Nasty document height change listener
     var onDocumentHeightChange = function onDocumentHeightChange(callback){
-
         // init vars
         var lastHeight = document.body.clientHeight, 
             newHeight, 
@@ -64,4 +69,7 @@ Meteor.startup(function(){
 
 Template.registerHelper('windowScrollBottom', function() {
     return Session.get('window.scrollBottom');
+});
+Template.registerHelper('windowScrollBottomOffset', function() {
+    return Session.get('window.scrollBottomOffset');
 });
