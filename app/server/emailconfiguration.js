@@ -4,7 +4,7 @@ Accounts.emailTemplates.resetPassword.subject = function(user) {
     return 'Reset Part-up password';
 }
 
-Accounts.emailTemplates.resetPassword.text = function(user, url) {
+Accounts.emailTemplates.resetPassword.html = function(user, url) {
     return SSR.render('emailText', { user: user, url: url.replace('/#', '') });
 }
 
