@@ -32,7 +32,7 @@ Template.WidgetStartDetails.onCreated(function(){
         };
         // set image url to be loaded
         loadImage.src = image.url();
-    })
+    });
 });
 
 Template.WidgetStartDetails.onRendered(function() {

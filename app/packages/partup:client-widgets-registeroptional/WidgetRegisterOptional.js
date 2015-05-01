@@ -2,7 +2,33 @@
 /* Widget initial */
 /*************************************************************/
 Template.WidgetRegisterOptional.onCreated(function(){
-    this.uploadingProfilePicture = new ReactiveVar(false);
+    var template = this;
+
+    template.uploadingProfilePicture = new ReactiveVar(false);
+
+    // uploaded picture url
+    template.profilePictureUrl = new ReactiveVar('');
+
+    // runs after image is updated
+    template.autorun(function(){
+        // get the current image
+        var image = Images.findOne({_id:Session.get('partials.register-optional.uploaded-image')});
+        if(!image) return;
+
+        // load image from url
+        var loadImage = new Image;
+        loadImage.onload = function() {
+            // this = image
+            var src = this.src;
+
+            // set image url
+            template.profilePictureUrl.set(src);
+            // set loading false
+            template.uploadingProfilePicture.set(false);
+        };
+        // set image url to be loaded
+        loadImage.src = image.url();
+    });
 });
 
 /*************************************************************/
@@ -15,17 +41,18 @@ Template.WidgetRegisterOptional.helpers({
         var user = Meteor.user()
         return user ? user.profile : {};
     },
-    profilePicture: function() {
+    profilePictureUrl: function() {
         var uploadedImageID = Session.get('partials.register-optional.uploaded-image');
 
         if (uploadedImageID) {
-            return Images.findOne({ _id: uploadedImageID });
+            console.log(Images.findOne({ _id: uploadedImageID }).url({store:'360x360'}))
+            return Images.findOne({ _id: uploadedImageID }).url();
         }
 
         var user = Meteor.user();
 
         if (user && user.profile && user.profile.image) {
-            return Images.findOne({ _id: user.profile.image });
+            return Images.findOne({ _id: user.profile.image }).url();
         }
     },
     fieldsFromUser: function() {
@@ -40,7 +67,8 @@ Template.WidgetRegisterOptional.helpers({
     },
     firstName: function(){
         var user = Meteor.user();
-        var username = user.profile.name || user.name;
+        if(!user) return false;
+        var username = mout.object.get(user, 'profile.name') || mout.object.get(user, 'name');
         return Partup.ui.strings.firstName(username);
     }
 });
@@ -64,7 +92,7 @@ Template.WidgetRegisterOptional.events({
                 template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
                 Session.set('partials.register-optional.uploaded-image', image._id);
-                template.uploadingProfilePicture.set(false);
+                // template.uploadingProfilePicture.set(false);
             });
         });
     }
