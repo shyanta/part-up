@@ -64,6 +64,20 @@
             margin-left: 10px - 5px
             margin-right: 0
 
+    &-close
+        background-color: transparent 
+        i
+            font-size: 16px
+            color: $color-dusty-gray
+            transition: color $animation-duration
+
+        &:hover,
+        &:active
+            background-color: transparent 
+
+            i 
+                color: darken($color-dusty-gray, 10%)
+
     // Type: large button (e.g. for homepage cover)
     &-large
         padding: 23px 30px
