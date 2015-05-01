@@ -16,3 +16,6 @@ _steps/
 
 # generated packages
 app/packages/tests-proxy/
+
+# generated version file
+app/public/VERSION
