@@ -99,7 +99,6 @@ Meteor.methods({
         try {
             newContribution = Partup.transformers.contribution.fromFormContribution(fields);
             var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
-            console.log('isEmpty ', isEmpty);
 
             if(contribution) {
 
