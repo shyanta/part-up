@@ -2,6 +2,7 @@ Meteor.methods({
     /**
      * Insert an Activity
      *
+     * @param {string} partupId
      * @param {mixed[]} fields
      */
     'activities.insert': function (partupId, fields) {
@@ -29,6 +30,7 @@ Meteor.methods({
     /**
      * Update an Activity
      *
+     * @param {string} activityId
      * @param {mixed[]} fields
      */
     'activities.update': function (activityId, fields) {
@@ -57,7 +59,7 @@ Meteor.methods({
     /**
      * Remove an Activity
      *
-     * @param {integer} activityId
+     * @param {string} activityId
      */
     'activities.remove': function (activityId) {
         var upper = Meteor.user();
@@ -83,7 +85,7 @@ Meteor.methods({
     /**
      * Add current user contribution to activity
      *
-     * @param {integer} activityId
+     * @param {string} activityId
      * @param {mixed[]} fields
      */
     'activity.contribution.update': function (activityId, fields) {
@@ -102,18 +104,17 @@ Meteor.methods({
 
             if (contribution) {
 
-                // Delete contribution
                 if (isEmpty) {
+                    // Delete contribution
                     Contributions.remove(contribution._id);
-
-                    // Update contribution
                 } else {
+                    // Update contribution
                     newContribution.updated_at = new Date();
                     Contributions.update(contribution, {$set: newContribution});
                 }
 
-                // Insert contribution
             } else if (!isEmpty) {
+                // Insert contribution
                 newContribution.created_at = new Date();
                 newContribution.activity_id = activityId;
                 newContribution.upper_id = upper._id;
