@@ -46,7 +46,7 @@ program
             }
 
             if (process.env.FORCE_DEPLOY) {
-                prompt.override.confirm = 'Y';
+                prompt.override = { confirm: 'Y' };
             }
 
             prompt.start();
