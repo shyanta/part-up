@@ -13,6 +13,7 @@ Package.onUse(function(api) {
         'mongo',
         'partup:lib',
         'accounts-base',
+        'splendido:accounts-meld',
         'service-configuration',
         'cfs:standard-packages',
         'tap:i18n',

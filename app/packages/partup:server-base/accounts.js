@@ -5,6 +5,8 @@ Accounts.onCreateUser(function(options, user) {
     var liData = mout.object.get(user, 'services.linkedin');
     var fbData = mout.object.get(user, 'services.facebook');
 
+    user.emails = user.emails || [];
+
     if (! liData && ! fbData) {
         Meteor.setTimeout(function () {
             Accounts.sendVerificationEmail(user._id);
@@ -19,6 +21,7 @@ Accounts.onCreateUser(function(options, user) {
             }
         };
         imagePath = liData.pictureUrl;
+        user.emails.push({ address: liData.emailAddress, verified: true });
     }
 
     if (fbData) {
@@ -29,6 +32,7 @@ Accounts.onCreateUser(function(options, user) {
             }
         };
         imagePath = 'https://graph.facebook.com/' + fbData.id + '/picture?width=750';
+        user.emails.push({ address: fbData.email, verified: true });
     }
 
     try {
