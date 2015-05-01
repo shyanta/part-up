@@ -11,10 +11,20 @@ build:
         code: |
           echo "meteor version $(meteor -v) running"
     - script:
-        name: run meteor tests
+        name: build application
         code: |
           cd app
-          meteor run --test
+          meteor build .
+  after-steps:
+    - kobim/slack-post:
+        url: $SLACK_URL
+        channel: notifications
+deploy:
+  steps:
+    - script:
+        name: deploy to given enfironment
+        code: ./devops deploy ${WERCKER_DEPLOYTARGET_NAME}
+        cwd: devops
   after-steps:
     - kobim/slack-post:
         url: $SLACK_URL
