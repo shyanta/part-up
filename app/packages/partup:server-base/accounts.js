@@ -1,5 +1,7 @@
 Accounts.onCreateUser(function(options, user) {
-    var profile, imagePath;
+    var imagePath;
+    var profile = options.profile;
+
     var liData = mout.object.get(user, 'services.linkedin');
     var fbData = mout.object.get(user, 'services.facebook');
 
@@ -35,6 +37,7 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     user.profile = profile;
+
     return user;
 });
 
