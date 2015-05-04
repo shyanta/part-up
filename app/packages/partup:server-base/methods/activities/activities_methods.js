@@ -96,6 +96,8 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
+        var isUpperInPartup = Partups.findOne({ _id: activity.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
+        
         check(fields, Partup.schemas.forms.contribution);
 
         try {
@@ -119,10 +121,13 @@ Meteor.methods({
                 newContribution.activity_id = activityId;
                 newContribution.upper_id = upper._id;
                 newContribution.partup_id = activity.partup_id;
+                newContribution.verified = isUpperInPartup;
 
                 newContribution._id = Contributions.insert(newContribution);
                 Activities.update(activityId, {$push: {'contributions': newContribution._id}});
             }
+
+            return newContribution;
 
         } catch (error) {
             Log.error(error);
