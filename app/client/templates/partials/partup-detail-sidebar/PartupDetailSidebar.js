@@ -46,13 +46,13 @@ Template.PartialsPartupDetailSidebar.helpers({
         return TAPi18n.__('partup-detail-visibility-' + partup.visibility);
     },
 
-    numberOfSupporters: function helperNumberOfSupporters () {
+    numberOfSupporters: function helperNumberOfSupporters() {
         var partup = this.partup();
         if (!partup) return '...';
         return partup.supporters ? partup.supporters.length : '0';
     },
 
-    isSupporter: function helperIsSupporter () {
+    isSupporter: function helperIsSupporter() {
         var partup = this.partup();
         if (!partup || !partup.supporters) return false;
         var currentUserId = Meteor.user()._id;
