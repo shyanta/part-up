@@ -15,7 +15,7 @@ Meteor.methods({
             var supporters = partup.supporters || [];
             var isAlreadySupporter = !! (supporters.indexOf(upper._id) > -1);
 
-            if (! isAlreadySupporter) {
+            if (!isAlreadySupporter && partup.creator_id !== upper._id) {
                 Partups.update(partupId, { $push: { 'supporters': upper._id } });
                 Event.emit('partups.supporters.inserted', partup, upper);
 

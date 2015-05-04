@@ -184,15 +184,19 @@ AutoForm.addHooks(null, {
 
         // Get upperId
         var user = Meteor.user();
-        if(!user) return;
-        var upperId = user._id;
+        if (!user) return;
 
         // Submit contribution
-        Meteor.call('activity.contribution.update', activityId, doc, function (error, updatedContribution) {
+        Meteor.call('activity.contribution.update', activityId, doc, function (error, contribution) {
             if (error) {
                 Partup.ui.notify.iError(error.reason);
                 self.done(new Error(error.message));
                 return;
+            }
+
+            // Make upper supporter if he/she is not yet part of this part-up
+            if (!contribution.verified) {
+                Meteor.call('partups.supporters.insert', contribution.partup_id);
             }
 
             self.done();
