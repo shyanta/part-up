@@ -57,6 +57,11 @@ Template.PartialsPartupDetailSidebar.helpers({
         if (!partup || !partup.supporters) return false;
         var currentUserId = Meteor.user()._id;
         return partup.supporters.indexOf(currentUserId) > -1;
+    },
+
+    isUpperInPartup: function helperIsUpperInPartup() {
+        var partup = this.partup();
+        return partup.uppers.indexOf(Meteor.user()._id) > -1;
     }
 
 });
