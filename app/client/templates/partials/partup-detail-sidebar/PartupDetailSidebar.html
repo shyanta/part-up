@@ -39,11 +39,13 @@
                         <li><figure class="pu-avatar" style="background-image: url({{ profile.image }})"></figure></li>
                     {{/each }}
                 </ul>
-                {{#if isSupporter }}
-                    <a data-leavesupporters class="pu-button">{{_ 'partup-detail-supporters-leave' }}</a>
-                {{ else }}
-                    <a data-joinsupporters class="pu-button">{{_ 'partup-detail-supporters-join' }}</a>
-                {{/if}}
+                {{#unless isUpperInPartup}}
+                    {{#if isSupporter }}
+                        <a data-leavesupporters class="pu-button">{{_ 'partup-detail-supporters-leave' }}</a>
+                    {{ else }}
+                        <a data-joinsupporters class="pu-button">{{_ 'partup-detail-supporters-join' }}</a>
+                    {{/if}}
+                {{/unless}}
             </section>
             <section>
                 <p>{{_ 'partup-detail-share-paragraph' }}</p>
