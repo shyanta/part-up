@@ -72,6 +72,10 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
     upper_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
+    },
+    verified: {
+        type: Boolean,
+        defaultValue: false
     }
 }]);
 
