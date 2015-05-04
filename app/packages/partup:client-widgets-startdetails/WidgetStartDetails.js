@@ -123,8 +123,9 @@ Template.WidgetStartDetails.events({
         });
     },
     'blur input[name=tags_input]': function searchFlickerByTags(event, template) {
-        var suggestions = [];
+        if (Router.current().route.path(this) !== '/start/details') return; // Only trigger this functionality on correct route
         var tags = template.$('input[name=tags_input]').val().replace(/\s/g, '').split(',');
+        var suggestions = [];
 
         Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
             console.log('splashbase result', result);
@@ -133,8 +134,8 @@ Template.WidgetStartDetails.events({
                 Session.set('partials.start-partup.suggested-images', suggestions);
             } else {
                 Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    suggestions = suggestions.concat(result).slice(0, 5);
                     console.log('flickr result', result);
+                    suggestions = suggestions.concat(result).slice(0, 5);
                     Session.set('partials.start-partup.suggested-images', suggestions);
                 });
             }
