@@ -1,22 +1,22 @@
 <template name="CopyActivityPopup">
     {{#contentFor "WidgetPopupTitle"}}
-        Kopieer alle activiteiten van een bestaande Part-up
+        {{_ 'startactivities-popup-title'}}
     {{/contentFor}}
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat odio in nisi pulvinar, sit amet tempor massa porta. Ut erat ex, laoreet non dictum pharetra, cursus in nibh. Fusce iaculis lacus eu molestie euismod. Phasellus eget sapien rutrum, tempus tellus a, volutpat augue.</p>
+    <p>{{_ 'startactivities-popup-description'}}</p>
     <form class="pu-form">
         <label class="pu-formfield">
-            <span class="pu-label">Van welke part-up wil je activiteiten kopiëren?</span>
+            <span class="pu-label">{{_ 'startactivities-popup-form-copy-label'}}</span>
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
-                    <input class="pu-input" type="text" placeholder="Zoek een part-up">
+                    <input class="pu-input" type="text" placeholder="{{_ 'startactivities-popup-form-copy-placeholder'}}">
                 </span>
                 <span class="pu-sub-error">ERROR</span>
             </div>
         </label>
         <div class="pu-formfield">
             <div class="pu-formfield-right">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-close>sluiten</a>
-                <input class="pu-button" type="submit" value="Kopieer activiteiten">
+                <a class="pu-button pu-button-text pu-button-text-subtle" data-close>{{_ 'startactivities-popup-close'}}</a>
+                <input class="pu-button" type="submit" value="{{_ 'startactivities-popup-form-copy-confirm'}}">
             </div>
         </div>
     </form>

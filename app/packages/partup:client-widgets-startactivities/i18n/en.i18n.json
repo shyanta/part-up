@@ -22,5 +22,12 @@
     "startactivities-form-save": "Save",
     "startactivities-button-next_page": "What will you contribute?",
     "startactivities-button-edit": "Edit",
-    "startactivities-button-remove": "Remove activity"
+    "startactivities-button-remove": "Remove activity",
+
+    "startactivities-popup-title": "@Copy all activities from an existing Part-up",
+    "startactivities-popup-description": "@Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat odio in nisi pulvinar, sit amet tempor massa porta. Ut erat ex, laoreet non dictum pharetra, cursus in nibh. Fusce iaculis lacus eu molestie euismod. Phasellus eget sapien rutrum, tempus tellus a, volutpat augue.",
+    "startactivities-popup-form-copy-label": "@From wich part-up would you like to copy activities?",
+    "startactivities-popup-form-copy-placeholder": "@Search a part-up",
+    "startactivities-popup-form-copy-confirm": "@Copy activities",
+    "startactivities-popup-close": "@close"
 }

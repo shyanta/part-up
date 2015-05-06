@@ -22,5 +22,12 @@
     "startactivities-form-save": "Opslaan",
     "startactivities-button-next_page": "Wat ga jij bijdragen?",
     "startactivities-button-edit": "Wijzig activiteit",
-    "startactivities-button-remove": "Verwijderen"
+    "startactivities-button-remove": "Verwijderen",
+
+    "startactivities-popup-title": "@Kopieer alle activiteiten van een bestaande Part-up",
+    "startactivities-popup-description": "@Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat odio in nisi pulvinar, sit amet tempor massa porta. Ut erat ex, laoreet non dictum pharetra, cursus in nibh. Fusce iaculis lacus eu molestie euismod. Phasellus eget sapien rutrum, tempus tellus a, volutpat augue.",
+    "startactivities-popup-form-copy-label": "@Van welke part-up wil je activiteiten kopiëren?",
+    "startactivities-popup-form-copy-placeholder": "@Zoek een part-up",
+    "startactivities-popup-form-copy-confirm": "@Kopieer activiteiten",
+    "startactivities-popup-close": "@sluiten"
 }
