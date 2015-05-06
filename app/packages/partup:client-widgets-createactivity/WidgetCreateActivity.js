@@ -5,6 +5,15 @@ var maxDescriptionCount = Partup.schemas.forms.startActivities._schema.descripti
 var charactersLeft = new ReactiveDict();
 charactersLeft.set('name', maxNameCount);
 charactersLeft.set('description', maxDescriptionCount);
+var templateData = new ReactiveVar(false);
+
+Template.WidgetCreateActivity.onCreated(function () {
+    var self = this;
+    this.autorun(function () {
+
+        templateData.set(Template.currentData());
+    });
+});
 
 Template.WidgetCreateActivity.helpers({
     Partup: Partup,
@@ -58,6 +67,11 @@ AutoForm.hooks({
                 charactersLeft.set('name', maxNameCount);
                 charactersLeft.set('description', maxDescriptionCount);
                 self.done();
+                // debugger;
+                var formContext = templateData.get();
+                if(formContext && formContext.popup){
+                    Partup.ui.popup.close();
+                }
 
                 // $('html, body').animate({
                 //     scrollTop: $("#activityForm").offset().top - 37
