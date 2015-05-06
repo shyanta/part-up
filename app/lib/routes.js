@@ -46,14 +46,12 @@ Router.route('/partups/:_id', {
         'PagesPartupDetail': { to: 'app-page' },
         'PagesPartupDetailUpdates': { to: 'partup-page' }
     },
-    waitOn: function () {
+    subscriptions: function () {
         var partupId = this.params._id;
-
-        return [
-            this.subscribe('notifications.user'),
-            this.subscribe('partups.one', partupId),
-            this.subscribe('partups.one.updates', partupId)
-        ]
+        
+        this.subscribe('notifications.user');
+        this.subscribe('partups.one', partupId);
+        this.subscribe('partups.one.updates', partupId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
@@ -83,8 +81,6 @@ Router.route('/partups/:_id', {
             seoMetaData.meta.image = image.url();
         }
         SEO.set(seoMetaData);
-
-
     }
 });
 
