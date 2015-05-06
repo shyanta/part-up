@@ -232,12 +232,5 @@ Template.WidgetPartupdetailUpdates.helpers({
 Template.WidgetPartupdetailUpdates.events({
     'click [data-newmessage]': function openNewMessagePopup(event, template){
         Partup.ui.popup.open();
-        console.log("opening popup")
     }
-})
-Template.WidgetPartupdetailUpdates.onRendered(function(){
-    console.log('render')
-})
-Template.WidgetPartupdetailUpdates.onCreated(function(){
-    console.log('created')
 })
