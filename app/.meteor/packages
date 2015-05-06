@@ -22,6 +22,11 @@ partup:client-widgets-partuptile
 partup:meteor-bender
 partup:client-widgets-forgotpassword
 partup:client-widgets-resetpassword
+partup:client-widgets-dropdowns
+partup:client-widgets-startpromote
+partup:copy-to-clipboard
+partup:client-widget-spinner
+partup:popup
 
 meteor-platform
 iron:router
@@ -33,7 +38,6 @@ service-configuration
 fourseven:scss
 aldeed:simple-schema
 zimme:iron-router-active
-partup:client-widgets-dropdowns
 stevezhu:lodash
 mike:mocha
 velocity:console-reporter
@@ -49,14 +53,10 @@ aldeed:template-extension
 tmeasday:publish-counts
 fastclick
 aldeed:autoform@5.1.2
-partup:client-widgets-startpromote
 matb33:collection-hooks
-partup:copy-to-clipboard
-partup:client-widget-spinner
 spiderable
 manuelschoebel:ms-seo
 cfs:gridfs
 lifely:mout
 http
 meteorhacks:ssr
-partup:popup
