@@ -1,7 +1,7 @@
 <template name="WidgetStartDetails">
     <div class="pu-composition pu-composition-defaultmodal">
 
-        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' user.profile.name }}</h2>
+        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' currentUser.profile.name }}</h2>
         <p>{{_ 'startdetails-explainingpartup' }}</p>
 
         {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
@@ -98,37 +98,58 @@
             <!-- Image -->
             <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-image-label' }}</span>
-                <div class="pu-upload pu-upload-large">
-                    <button class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}" data-browse-photos>
-                        <span>{{_ 'startdetails-image-button'}}</span>
-                        {{#if uploadingPictures}}
-                            {{> WidgetSpinnerInverted}}
+                {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImage.currentImageId.get }}
+                <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
+
+                {{#if partupImage.upload.get }}
+                    <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImage.upload.get }}')">
+                        <label for="imageFileInput" class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
+                            <span>{{_ 'startdetails-image-button'}}</span>
+                            {{#if uploadingPictures}}
+                                {{> WidgetSpinnerInverted}}
+                            {{/if}}
+                        </label>
+                        <button class="pu-button pu-button-tertiery" type="button" data-imageremove>
+                            <span>Remove image</span>
+                        </button>
+                    </figure>
+                {{ else }}
+                    <div class="pu-upload pu-upload-large">
+                        <label for="imageFileInput" class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
+                            <span>{{_ 'startdetails-image-button'}}</span>
+                            {{#if uploadingPictures}}
+                                {{> WidgetSpinnerInverted}}
+                            {{/if}}
+                        </label>
+                        <span>{{_ 'startdetails-image-validation'}}</span>
+                    </div>
+                    <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
+                    <!-- <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImage.suggestion.get }}')"></figure> -->
+                    <ul>
+                        {{#each partupImage.availableSuggestions.get }}
+                            <li>
+                                <img src="{{ . }}" alt="Suggestion">
+                            </li>
+                        {{/each }}
+                    </ul>
+
+                    <!--{{#if uploadedImageUrl}}
+                        <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image: url('{{ uploadedImageUrl }}')"></figure>
+                    {{else}}
+                        <div class="pu-imagepreview pu-imagepreview-cover"></div>
+
+                        {{#if suggestedImagesAvailable}}
+                            <div class="pu-suggestionsgallery">
+                                <ul>
+                                    {{#each suggestedImages}}
+                                        <li><div><img src="{{imageUrl}}" alt="{{authorUrl}}"></div></li>
+                                    {{/each}}
+                                </ul>
+                            </div>
                         {{/if}}
-                    </button>
-                    <span>{{_ 'startdetails-image-validation'}}</span>
-                    <input type="file" class="pu-fileinput" data-imageupload>
-                    {{> afFieldInput name="image" type="hidden"}}
-                </div>
-                <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
-                
-                <figure class="pu-imagepreview pu-imagepreview-cover" style="{{#if currentImage }}background-image:url('{{ currentImage }}'){{/if}}"></figure>
 
-                <!--{{#if uploadedImageUrl}}
-                    <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image: url('{{ uploadedImageUrl }}')"></figure>
-                {{else}}
-                    <div class="pu-imagepreview pu-imagepreview-cover"></div>
-
-                    {{#if suggestedImagesAvailable}}
-                        <div class="pu-suggestionsgallery">
-                            <ul>
-                                {{#each suggestedImages}}
-                                    <li><div><img src="{{imageUrl}}" alt="{{authorUrl}}"></div></li>
-                                {{/each}}
-                            </ul>
-                        </div>
-                    {{/if}}
-
-                {{/if}}-->
+                    {{/if}}-->
+                {{/if }}
             </div>
 
             <!-- Submit button -->

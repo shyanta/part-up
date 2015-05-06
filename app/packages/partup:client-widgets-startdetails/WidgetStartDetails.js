@@ -1,40 +1,73 @@
 /*************************************************************/
-/* Widget initial */
+/* Widget image system */
 /*************************************************************/
-Template.WidgetStartDetails.onCreated(function(){
-    var template = this;
+var ImageSystem = function ImageSystemConstructor () {
+    var self = this;
 
-    // loading boolean
-    template.uploadingPictures = new ReactiveVar(false);
-    // uploaded picture url
-    template.uploadedImageUrl = new ReactiveVar('');
+    this.currentImageId = new ReactiveVar(false);
+    this.uploadedImageId = new ReactiveVar(false);
+    this.upload = new ReactiveVar(false);
+    this.suggestion = new ReactiveVar(false);
+    this.availableSuggestions = new ReactiveVar([]);
 
-    // character countdown
-    template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
-    template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
+    this.addAvailableSuggestions = function (suggestions) {
+        var newSuggestionsArray = mout.array.combine(self.availableSuggestions.get(), suggestions).slice(0, 5);
+        self.availableSuggestions.set(newSuggestionsArray);
+    };
 
-    // runs after image is updated
-    template.autorun(function(){
-        // get the current image
-        var image = Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
+    this.updateSuggestions = function (tags) {
+        Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
+            if (result.length >= 5) {
+                self.addAvailableSuggestions(lodash.map(result, 'imageUrl'));
+            } else {
+                Meteor.call('partups.services.flickr.search', tags, function(error, result) {
+                    self.addAvailableSuggestions(lodash.map(result, 'imageUrl'));
+                });
+            }
+        });
+    };
+
+    this.unsetUploadedPicture = function () {
+        self.upload.set(false);
+        self.currentImageId.set(false);
+    };
+};
+
+/*************************************************************/
+/* Widget on created */
+/*************************************************************/
+Template.WidgetStartDetails.onCreated(function() {
+    var self = this;
+
+    this.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
+    this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
+    this.imageSystem = new ImageSystem();
+    this.currentPartup = new ReactiveVar({});
+
+    this.autorun(function () {
+        var partup = Partups.findOne({ _id: Session.get('partials.start-partup.current-partup') });
+        if(partup) {
+            self.currentPartup.set(partup);
+            self.imageSystem.uploadedImageId.set(partup.image);
+            self.imageSystem.updateSuggestions(partup.tags);
+        }
+    });
+
+    this.autorun(function () {
+        var imageId = self.imageSystem.uploadedImageId.get();
+        if(!imageId) return;
+
+        var image = Images.findOne({ _id: imageId });
         if(!image) return;
 
-        // load image from url
-        var loadImage = new Image;
-        loadImage.onload = function() {
-            // this = image
-            var src = this.src;
-
-            // set image url
-            template.uploadedImageUrl.set(src);
-            // set loading false
-            template.uploadingPictures.set(false);
-        };
-        // set image url to be loaded
-        loadImage.src = image.url();
+        self.imageSystem.currentImageId.set(imageId);
+        self.imageSystem.upload.set(image.url());
     });
 });
 
+/*************************************************************/
+/* Widget on rendered */
+/*************************************************************/
 Template.WidgetStartDetails.onRendered(function() {
     Partup.ui.datepicker.applyToInput(this, '.pu-datepicker');
 });
@@ -45,41 +78,14 @@ Template.WidgetStartDetails.onRendered(function() {
 Template.WidgetStartDetails.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.startdetails,
-    partup: function () {
-        var partupId = Session.get('partials.start-partup.current-partup');
-        return Partups.findOne({ _id: partupId });
+    currentPartup: function () {
+        return Template.instance().currentPartup.get();
     },
     fieldsFromPartup: function() {
-        var partupId = Session.get('partials.start-partup.current-partup');
-        if (partupId) {
-            var partup = Partups.findOne({_id: partupId});
-            if(partup) {
-                return Partup.transformers.partup.toFormStartPartup(partup);
-            } else {
-                return undefined;
-            }
+        var partup = Template.instance().currentPartup.get();
+        if (partup) {
+            return Partup.transformers.partup.toFormStartPartup(partup);
         }
-        return undefined;
-    },
-    suggestedImagesAvailable: function () {
-        return undefined !== Session.get('partials.start-partup.suggested-images');
-    },
-    suggestedImages: function () {
-        return Session.get('partials.start-partup.suggested-images');
-    },
-    uploadedImageUrl: function() {
-        var image = Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
-        if(image) {
-            return image.url();
-        } else {
-            return Template.instance().uploadedImageUrl.get();
-        }
-    },
-    user: function() {
-        return Meteor.user();
-    },
-    uploadingPictures: function(){
-        return Template.instance().uploadingPictures.get();
     },
     nameCharactersLeft: function(){
         return Template.instance().nameCharactersLeft.get();
@@ -87,17 +93,8 @@ Template.WidgetStartDetails.helpers({
     descriptionCharactersLeft: function(){
         return Template.instance().descriptionCharactersLeft.get();
     },
-    currentImage: function helperCurrentImage () {
-        var savedImage = Images.findOne({_id: Session.get('partials.start-partup.uploaded-image')});
-        var newlyUploadedImage = Template.instance().uploadedImageUrl.get();
-        var suggestedImageIndex = Session.get('partials.start-partup.current-suggestion');
-        var suggestedImages = Session.get('partials.start-partup.suggested-images');
-
-        if(savedImage) return savedImage.url();
-        if(newlyUploadedImage) return newlyUploadedImage;
-        if(mout.lang.isNumber(suggestedImageIndex) && mout.lang.isArray(suggestedImages)) return mout.object.get(suggestedImages[suggestedImageIndex], 'imageUrl');
-
-        return undefined;
+    partupImage: function () {
+        return Template.instance().imageSystem;
     }
 });
 
@@ -105,54 +102,27 @@ Template.WidgetStartDetails.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetStartDetails.events({
-    'click [data-browse-photos]': function eventClickBrowse(event, template){
-        event.preventDefault();
-
-        // in stead fire click event on file input
-        var input = $('input[data-imageupload]');
-        input.click();
+    'keyup [data-max]': function updateMax(event, template) {
+        var max = eval($(event.target).data("max"));
+        var charactersLeftVar = $(event.target).data("characters-left-var");
+        template[charactersLeftVar].set(max - $(event.target).val().length);
     },
-    'change [data-imageupload]': function eventChangeFile(event, template){
-        // set loading true
-        template.uploadingPictures.set(true);
-
+    'change [data-imageupload]': function eventChangeFile(event, template) {
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
-                // TODO: Handle error in frontend
-                // TODO: Somehow show the image in frontend
-                template.$('input[name=image]').val(image._id);
-                Meteor.subscribe('images.one', image._id);
-                Session.set('partials.start-partup.uploaded-image', image._id);
-
+                var imageId = image._id;
+                Meteor.subscribe('images.one', imageId);
+                template.imageSystem.uploadedImageId.set(imageId);
             });
         });
+    },
+    'click [data-imageremove]': function eventChangeFile(event, template) {
+        template.imageSystem.unsetUploadedPicture();
     },
     'blur input[name=tags_input]': function searchFlickerByTags(event, template) {
         if (Router.current().route.path(this) !== '/start/details') return; // Only trigger this functionality on correct route
         var tags = template.$('input[name=tags_input]').val().replace(/\s/g, '').split(',');
-        var suggestions = [];
-
-        Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
-            console.log('splashbase result', result);
-            suggestions = suggestions.concat(result);
-            if (suggestions.length >= 5) {
-                Session.set('partials.start-partup.suggested-images', suggestions);
-                Session.set('partials.start-partup.current-suggestion', 0);
-            } else {
-                Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    console.log('flickr result', result);
-                    suggestions = suggestions.concat(result).slice(0, 5);
-                    Session.set('partials.start-partup.suggested-images', suggestions);
-                    Session.set('partials.start-partup.current-suggestion', 0);
-                });
-            }
-        });
-    },
-    'keyup [data-max]': function updateMax(event, template){
-        var max = eval($(event.target).data("max"));
-        var charactersLeftVar = $(event.target).data("characters-left-var");
-
-        template[charactersLeftVar].set(max - $(event.target).val().length);
+        Template.instance().imageSystem.updateSuggestions(tags);
     }
 });
 
