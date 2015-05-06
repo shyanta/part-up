@@ -10,6 +10,23 @@
     background-repeat: no-repeat
     $label_position: translate3d(-3px, -14px, 0)
 
+    &-online:after,
+    &-offline:after
+        content: ''
+        position: absolute
+        right: 1px
+        bottom: 1px
+        width: 8px
+        height: 8px
+        border: 2px solid $color-solid-gray
+        border-radius: 50%
+
+    &-online:after
+        background: #5bb581
+
+    &-offline:after
+        background: #ea7575
+
     .pu-sub-image
         display: block
         position: absolute
