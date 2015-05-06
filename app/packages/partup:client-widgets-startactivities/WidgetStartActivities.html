@@ -12,70 +12,8 @@
         <!-- TODO: DISABLED UNTIL IMPLEMENTED
         -->
         <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup>{{_ 'startactivities-button-adopt_activities' }}</a>
-
-        {{#autoForm schema=formSchema id="activityForm" class="pu-form pu-form-highlighted" alidation="submitThenKeyup" }}
-
-            <!-- Activity name --> 
-            <label class="pu-formfield">
-                <span class="pu-label">{{_ 'startactivities-form-name-label'}}</span>
-                <a class="pu-hint">
-                    {{#if partupLowerThan nameCharactersLeft Partup.schemas.forms.startActivities._schema.name.max}}
-                        {{_ 'startactivities-form-name-validation-left' nameCharactersLeft }}
-                    {{else}}
-                        {{_ 'startactivities-form-name-validation-left' Partup.schemas.forms.startActivities._schema.name.max }}
-                    {{/if}}
-                </a>
-                <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input"  data-max="Partup.schemas.forms.startActivities._schema.name.max" data-characters-left-var="name" }}</span>
-                    <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
-                </div>
-            </label>
-
-            <!-- Activity description -->
-            <label class="pu-formfield">
-                <span class="pu-label">{{_ 'startactivities-form-description-label'}}</span>
-                <a class="pu-hint">
-                    {{#if partupLowerThan descriptionCharactersLeft Partup.schemas.forms.startActivities._schema.description.max}}
-                        {{_ 'startactivities-form-description-validation-left' descriptionCharactersLeft }}
-                    {{else}}
-                        {{_ 'startactivities-form-description-validation-left' Partup.schemas.forms.startActivities._schema.description.max }}
-                    {{/if}}
-                </a>
-                <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 data-max="Partup.schemas.forms.startActivities._schema.description.max" data-characters-left-var="description"  }}</span>
-                    <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
-                </div>
-            </label>
-
-            <!-- Activity end date -->
-            <div class="pu-formfield">
-                {{#unless showDatePicker}}
-                    <div class="pu-formfield-left" data-end-date-button>
-                        <a class="pu-button pu-button-text pu-button-text-gray">
-                            <i class="fa fa-calendar"></i>
-                            {{_ 'startactivities-form-end_date-label' }}
-                        </a>
-                    </div>
-                {{else}}
-                    <div class="end-date-field">
-                        <label class="pu-formfield">
-                            <span class="pu-label">{{_ 'startactivities-form-end_date-label'}}</span>
-                            <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
-                                <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                                    {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}
-                                    <span class="pu-icon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                                <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
-                            </div>
-                        </label>
-                    </div>
-                {{/unless}}
-
-                <div class="pu-formfield-right">
-                    <input class="pu-button" type="submit" value="{{_ 'startactivities-form-submit' }}">
-                </div>
-            </div>
-        {{/autoForm}}
+            
+        {{> WidgetCreateActivity}}
 
         {{#each partupActivities}}
             {{> Activity}}
