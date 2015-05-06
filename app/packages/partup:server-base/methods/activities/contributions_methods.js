@@ -53,7 +53,7 @@ Meteor.methods({
     },
 
     /**
-     * Allow a concept-contribution
+     * Allow a concept contribution
      *
      * @param {string} partupId
      * @param {string} userId
@@ -66,7 +66,7 @@ Meteor.methods({
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
-            // Allowing contribution means that all concept-contributions of this user will be allowed
+            // Allowing contribution means that all concept contributions of this user will be allowed
             var conceptContributions = Contributions.find({ partup_id: partupId, upper_id: userId, verified: false }, { _id: 1 });
 
             Contributions.update(
@@ -77,6 +77,28 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while allowing contributions.');
+        }
+    },
+
+    /**
+     * Reject a concept contribution
+     *
+     * @param {string} contributionId
+     */
+    'activity.contribution.reject': function (contributionId) {
+        console.log('activity.contribution.reject');
+        var upper = Meteor.user();
+        var contribution = Contributions.findOneOrFail(contributionId);
+        var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
+
+        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+
+        try {
+            // Remove contribution
+            Contributions.remove(contribution._id);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'An error occurred while rejecting contribution.');
         }
     }
 
