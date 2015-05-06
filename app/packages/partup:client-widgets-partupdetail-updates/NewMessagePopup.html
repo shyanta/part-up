@@ -1,14 +1,14 @@
 <template name="NewMessagePopup">
     {{#contentFor "WidgetPopupTitle"}}
-        Plaats een nieuw bericht
+        {{_ 'partupdetail-updates-popup-newmessage-title'}}
     {{/contentFor}}
     <form class="pu-form">
         <label class="pu-formfield">
-            <span class="pu-label">Inhoud bericht</span>
+            <span class="pu-label">{{_ 'partupdetail-updates-popup-newmessage-label'}}</span>
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
                     <div class="pu-message">
-                        <textarea class="pu-textarea" type="text" placeholder="Wat zou je graag willen delen?"></textarea>
+                        <textarea class="pu-textarea" type="text" placeholder="{{_ 'partupdetail-updates-popup-newmessage-placeholder'}}"></textarea>
                         <ul class="pu-sub-photos">
                             {{#each uploadedPhotos}}
                             <li>
@@ -23,15 +23,15 @@
         </label>
         <div class="pu-formfield">
             <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}}" data-browse-photos>
-                <span>Foto toevoegen</span>
+                <span>{{_ 'partupdetail-updates-popup-newmessage-addphoto'}}</span>
                 {{#if uploadingPhotos}}
                     {{> WidgetSpinnerInverted}}
                 {{/if}}
             </button>
             <input type="file" class="pu-fileinput" multiple data-photo-input>
             <div class="pu-formfield-right">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-close>sluiten</a>
-                <input class="pu-button" type="submit" value="Plaats bericht">
+                <a class="pu-button pu-button-text pu-button-text-subtle" data-close>{{_ 'partupdetail-updates-popup-newmessage-close'}}</a>
+                <input class="pu-button" type="submit" value="{{_ 'partupdetail-updates-popup-newmessage-submit'}}">
             </div>
         </div>
     </form>
