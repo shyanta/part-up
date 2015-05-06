@@ -36,6 +36,7 @@ var partupDetailLayout = {
 
         // fake onscrollend
         window.addEventListener('scroll', mout.function.debounce(function(){
+            self.checkInterval();
             self.scrolling = false;
         }, 100));
     },
@@ -87,10 +88,6 @@ var partupDetailLayout = {
             this.initialRect[scol].top,
             r[lcol].bottom - br.top - r[scol].height
         ];
-
-        if (r[scol].height < window.innerHeight - r[scol].top){
-            this.constrainScroll[1] += (window.innerHeight - r[scol].height - r[scol].top);
-        }
     },
 
     checkScroll: function(){
@@ -110,7 +107,7 @@ var partupDetailLayout = {
         }
 
         if (direction === this.lastDirection){
-            if (direction === 'down' && r[scol].bottom - iH < 0){
+            if (direction === 'down' && r[scol].bottom < iH){
                 pos = 'fixed';
                 if (r[scol].height < (iH - this.initialRect[scol].top)){
                     top = this.initialRect[scol].top;
@@ -129,6 +126,11 @@ var partupDetailLayout = {
         if (scrollTop >= this.constrainScroll[1]){
             pos = 'absolute';
             top = this.constrainPos[1];
+        }
+
+        if (r[scol].height < r[lcol].bottom - this.initialRect[lcol].top){
+            pos = 'fixed';
+            top = this.initialRect[scol].top;
         }
 
         this[scol].style.position = pos;
