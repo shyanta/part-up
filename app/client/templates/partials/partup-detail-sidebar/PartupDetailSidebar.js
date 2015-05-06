@@ -153,10 +153,6 @@ Template.PartialsPartupDetailSidebar.rendered = function () {
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.helpers({
 
-    backgroundWidth: function helperBackgroundWidth() {
-        return Session.get('partials.partup-detail-sidebar.background-width') || 0;
-    },
-
     prettyEndDate: function helperPrettyEndDate() {
         var partup = this.partup();
         if (!partup) return '...';
