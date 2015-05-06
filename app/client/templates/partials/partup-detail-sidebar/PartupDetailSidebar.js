@@ -12,7 +12,13 @@ var partupDetailLayout = {
         this.right = this.container.querySelector('.pu-sub-partupdetail-right');
         if (!this.left || !this.right) return;
 
-        this.initialRect = this.getRects();
+        var r = this.getRects();
+        var br = document.body.getBoundingClientRect();
+        this.initialTops = {
+            left: r.left.top - br.top,
+            right: r.right.top - br.top
+        };
+
         this.setContainerHeight();
         this.preScroll(); // actually needs to be called ONCE on scroll start
         this.checkScroll();
@@ -85,7 +91,7 @@ var partupDetailLayout = {
             r[lcol].bottom - br.top - window.innerHeight
         ];
         this.constrainPos = [
-            this.initialRect[scol].top,
+            this.initialTops[scol],
             r[lcol].bottom - br.top - r[scol].height
         ];
     },
@@ -109,14 +115,14 @@ var partupDetailLayout = {
         if (direction === this.lastDirection){
             if (direction === 'down' && r[scol].bottom < iH){
                 pos = 'fixed';
-                if (r[scol].height < (iH - this.initialRect[scol].top)){
-                    top = this.initialRect[scol].top;
+                if (r[scol].height < (iH - this.initialTops[scol])){
+                    top = this.initialTops[scol];
                 } else {
                     top = iH - r[scol].height;
                 }
-            } else if (direction === 'up' && r[scol].top > this.initialRect[scol].top){
+            } else if (direction === 'up' && r[scol].top > this.initialTops[scol]){
                 pos = 'fixed';
-                top = this.initialRect[scol].top;
+                top = this.initialTops[scol];
             }
         } else {
             pos = 'absolute';
@@ -128,16 +134,16 @@ var partupDetailLayout = {
             top = this.constrainPos[1];
         }
 
-        if (r[scol].height < r[lcol].bottom - this.initialRect[lcol].top){
+        if (r[scol].height < r[lcol].bottom - this.initialTops[lcol]){
             pos = 'fixed';
-            top = this.initialRect[scol].top;
+            top = this.initialTops[scol];
         }
 
         this[scol].style.position = pos;
         this[scol].style.top = top + 'px';
 
         this[lcol].style.position = 'absolute';
-        this[lcol].style.top = this.initialRect[lcol].top;
+        this[lcol].style.top = this.initialTops[lcol];
 
         this.lastDirection = direction;
         this.lastScrollTop = scrollTop;
