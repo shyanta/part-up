@@ -1,0 +1,21 @@
+{
+    "startactivities-form-name-label": "Name the activity",
+    "startactivities-form-name-placeholder": "Try to use verbs",
+    "startactivities-form-name-validation": "max %d characters",
+    "startactivities-form-name-validation-left": "%d characters left",
+
+    "startactivities-form-description-label": "Describe the activity",
+    "startactivities-form-description-placeholder": "Let's keep it short and sharp",
+    "startactivities-form-description-validation": "max %d characters",
+    "startactivities-form-description-validation-left": "%d characters left",
+
+    "startactivities-form-end_date-label": "Add a date if you like",
+    "startactivities-form-end_date-placeholder": "Add a date if you like",
+    "startactivities-form-end_date-validation": "Only future dates are allowed",
+
+    "startactivities-form-submit": "Create activity",
+    "startactivities-form-save": "Save",
+    "startactivities-button-next_page": "What will you contribute?",
+    "startactivities-button-edit": "Edit",
+    "startactivities-button-remove": "Remove activity"
+}
