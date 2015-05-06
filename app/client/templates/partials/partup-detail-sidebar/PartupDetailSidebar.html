@@ -14,7 +14,7 @@
                     <ul class="pu-list pu-list-users">
                         {{#each partupUppers }}
                             <li>
-                                <figure class="pu-avatar" style="background-image: url({{ profile.image }})"></figure>
+                                <figure class="pu-avatar" style="background-image: url({{ partupImageById profile.image }})"></figure>
                                 <p>{{ profile.name }}</p>
                             </li>
                         {{/each }}
@@ -37,7 +37,7 @@
                     <h2>{{_ 'partup-detail-supporters-title'}} ({{ numberOfSupporters }})</h2>
                     <ul class="pu-list pu-list-horizontal pu-list-avatars">
                         {{#each partupSupporters }}
-                            <li><figure class="pu-avatar" style="background-image: url({{ profile.image }})"></figure></li>
+                            <li><figure class="pu-avatar" style="background-image: url({{ partupImageById profile.image }})"></figure></li>
                         {{/each }}
                     </ul>
                     {{#unless isUpperInPartup}}
