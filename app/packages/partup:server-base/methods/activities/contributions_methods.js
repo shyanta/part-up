@@ -50,5 +50,34 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be updated.');
         }
+    },
+
+    /**
+     * Allow a concept-contribution
+     *
+     * @param {string} partupId
+     * @param {string} userId
+     * */
+    'activity.contribution.allow': function (partupId, userId) {
+        console.log('activity.contribution.allow');
+        var upper = Meteor.user();
+        var isUpperInPartup = Partups.findOne({ _id: partupId, uppers: { $in: [upper._id] } }) ? true : false;
+
+        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+
+        try {
+            // Allowing contribution means that all concept-contributions of this user will be allowed
+            var conceptContributions = Contributions.find({ partup_id: partupId, upper_id: userId, verified: false }, { _id: 1 });
+
+            Contributions.update(
+                { _id: { $in: conceptContributions } },
+                { $set: { verified: true } },
+                { multi: true }
+            );
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'An error occurred while allowing contributions.');
+        }
     }
+
 });
