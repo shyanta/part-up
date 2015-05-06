@@ -3,28 +3,37 @@
     $page-padding: 40px
 
     .pu-sub-pagecontainer
+        display: table
         min-width: $grid-column * 9 + $grid-gap * 8 + $page-padding * 2
         max-width: $grid-column * 12 + $grid-gap * 11
         margin-left: auto
         margin-right: auto
-        @extend %clearfix;
-        overflow: hidden
 
         .pu-sub-partupdetail-left
-            position: absolute
-            top: $header-height
-            left: 0
-            right: 420px
+            display: table-cell
 
         .pu-sub-partupdetail-right
-            position: absolute
-            top: $header-height
-            right: 0
+            display: table-cell
             width: 420px
 
         &-modal
             min-width: 0
             width: $grid-column * 6 + $grid-gap * 5 + $page-padding * 2
+
+    @media screen and (min-width: $grid-column * 10 + $grid-gap * 9)
+        .pu-sub-pagecontainer
+            .pu-sub-partupdetail-left
+                position: absolute
+                top: $header-height
+                left: 0
+                right: 420px
+
+            .pu-sub-partupdetail-right
+                float: none;
+                position: absolute
+                top: $header-height
+                right: 0
+                width: 420px
 
     @media screen and (min-width: $grid-column * 12 + $grid-gap * 11)
         .pu-sub-pagecontainer

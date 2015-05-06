@@ -12,6 +12,12 @@ var partupDetailLayout = {
         this.right = this.container.querySelector('.pu-sub-partupdetail-right');
         if (!this.left || !this.right) return;
 
+        this.bound = {
+            onResize: mout.function.bind(this.onResize, this),
+            onScrollStart: mout.function.debounce(mout.function.bind(this.onScrollStart, this), 100, true),
+            onScrollEnd: mout.function.debounce(mout.function.bind(this.onScrollEnd, this), 100)
+        };
+
         var r = this.getRects();
         var br = document.body.getBoundingClientRect();
         this.initialTops = {
@@ -19,32 +25,62 @@ var partupDetailLayout = {
             right: r.right.top - br.top
         };
 
-        this.setContainerHeight();
-        this.preScroll(); // actually needs to be called ONCE on scroll start
-        this.checkScroll();
-        this.setEvents();
-    },
-
-    setEvents: function(){
         var self = this;
         window.addEventListener('resize', function(){
-            self.setContainerHeight();
-            self.preScroll();
+            if (window.innerWidth >= 962){
+                self.attach();
+            } else {
+                self.detach();
+            }
         });
 
-        // fake onscrollstart
-        window.addEventListener('scroll', mout.function.debounce(function(){
-            self.setContainerHeight();
-            self.preScroll();
-            self.scrolling = true;
-            self.checkInterval();
-        }, 100, true));
+        if (window.innerWidth >= 962){
+            this.attach();
+        }
+    },
 
-        // fake onscrollend
-        window.addEventListener('scroll', mout.function.debounce(function(){
-            self.checkInterval();
-            self.scrolling = false;
-        }, 100));
+    attach: function(){
+        if (this.attached) return;
+        this.attached = true;
+        this.setContainerHeight();
+        this.preScroll();
+        this.checkScroll();
+
+        window.addEventListener('resize', this.bound.onResize);
+        window.addEventListener('scroll', this.bound.onScrollStart);
+        window.addEventListener('scroll', this.bound.onScrollEnd);
+    },
+
+    detach: function(){
+        if (!this.attached) return;
+        this.attached = false;
+
+        this.container.style.height = '';
+        this.left.style.position = '';
+        this.left.style.top = '';
+        this.right.style.position = '';
+        this.right.style.top = '';
+
+        window.removeEventListener('resize', this.bound.onResize);
+        window.removeEventListener('scroll', this.bound.onScrollStart);
+        window.removeEventListener('scroll', this.bound.onScrollEnd);
+    },
+
+    onResize: function(){
+        this.setContainerHeight();
+        this.preScroll();
+    },
+
+    onScrollStart: function(){
+        this.setContainerHeight();
+        this.preScroll();
+        this.scrolling = true;
+        this.checkInterval();
+    },
+
+    onScrollEnd: function(){
+        this.checkInterval();
+        this.scrolling = false;
     },
 
     getRects: function(){
