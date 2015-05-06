@@ -134,7 +134,7 @@ var partupDetailLayout = {
             top = this.constrainPos[1];
         }
 
-        if (r[scol].height < r[lcol].bottom - this.initialTops[lcol]){
+        if ((r[scol].height < r[lcol].bottom - this.initialTops[lcol]) && (r[scol].bottom < iH)){
             pos = 'fixed';
             top = this.initialTops[scol];
         }
