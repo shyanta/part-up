@@ -1,13 +1,7 @@
 .pu-sidebar
-    > section
-        position: relative
 
-        > .pu-sub-background
-            position: absolute
-            left: 0
-            top: 0
-            bottom: 0
-            z-index: -1
+    .pu-sidebar-wrap
+        width: 420px;
 
         > section
             position: relative
@@ -27,21 +21,15 @@
                 &:after
                     display: none
 
-        &.pu-sub-dark,
-        &.pu-sub-light
-            z-index: 0
+    .pu-sub-dark
+        background-color: $color-background-secondary
 
-        &.pu-sub-dark,
-        &.pu-sub-dark > .pu-sub-background
-            background-color: $color-background-secondary
+    .pu-sub-light
+        background-color: $color-background-tertiery
 
-        &.pu-sub-light,
-        &.pu-sub-light > .pu-sub-background
-            background-color: $color-background-tertiery
-
-            > section
-                &:after
-                    background-color: $color-background-secondary
+        > .pu-sidebar-wrap > section
+            &:after
+                background-color: $color-background-secondary
 
     .pu-sub-abstract
         font-size: 18px
@@ -57,7 +45,7 @@
 
     .pu-list-users
         margin-top: 25px - 12px
-        margin-bottom: -2px        
+        margin-bottom: -2px
 
     .pu-button
         margin-top: 20px - 8px
