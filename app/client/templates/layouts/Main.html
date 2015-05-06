@@ -2,7 +2,5 @@
     <main class="pu-main">
         {{> yield region='page' }}
     </main>
-    <section class="pu-overlay {{#if popupOpen}}pu-overlay-active{{/if}}" data-close-popup>
-        {{> WidgetPopup}}
-    </section>
+    {{> WidgetPopup}}
 </template>
