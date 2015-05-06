@@ -88,11 +88,16 @@ Template.WidgetStartDetails.helpers({
         return Template.instance().descriptionCharactersLeft.get();
     },
     currentImage: function helperCurrentImage () {
-        var savedImage = Images.findOne({_id:Session.get('partials.start-partup.uploaded-image')});
-        var uploadedImage = Template.instance().uploadedImageUrl.get();
+        var savedImage = Images.findOne({_id: Session.get('partials.start-partup.uploaded-image')});
+        var newlyUploadedImage = Template.instance().uploadedImageUrl.get();
+        var suggestedImageIndex = Session.get('partials.start-partup.current-suggestion');
+        var suggestedImages = Session.get('partials.start-partup.suggested-images');
 
         if(savedImage) return savedImage.url();
-        if(uploadedImage) return uploadedImage;
+        if(newlyUploadedImage) return newlyUploadedImage;
+        if(mout.lang.isNumber(suggestedImageIndex) && mout.lang.isArray(suggestedImages)) return mout.object.get(suggestedImages[suggestedImageIndex], 'imageUrl');
+
+        return undefined;
     }
 });
 
@@ -132,11 +137,13 @@ Template.WidgetStartDetails.events({
             suggestions = suggestions.concat(result);
             if (suggestions.length >= 5) {
                 Session.set('partials.start-partup.suggested-images', suggestions);
+                Session.set('partials.start-partup.current-suggestion', 0);
             } else {
                 Meteor.call('partups.services.flickr.search', tags, function(error, result) {
                     console.log('flickr result', result);
                     suggestions = suggestions.concat(result).slice(0, 5);
                     Session.set('partials.start-partup.suggested-images', suggestions);
+                    Session.set('partials.start-partup.current-suggestion', 0);
                 });
             }
         });
