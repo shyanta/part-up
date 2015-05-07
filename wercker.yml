@@ -11,10 +11,10 @@ build:
         code: |
           echo "meteor version $(meteor -v) running"
     - script:
-        name: build application
+        name: run velocity tests
         code: |
           cd app
-          meteor build /tmp
+          meteor run --test
   after-steps:
     - kobim/slack-post:
         url: $SLACK_URL
