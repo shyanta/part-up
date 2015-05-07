@@ -29,7 +29,7 @@ Meteor.methods({
                 } else {
                     // Update contribution
                     newContribution.updated_at = new Date();
-                    Contributions.update(contribution, {$set: newContribution});
+                    Contributions.update(contribution, { $set: newContribution });
                 }
 
             } else if (!isEmpty) {
@@ -41,7 +41,7 @@ Meteor.methods({
                 newContribution.verified = isUpperInPartup;
 
                 newContribution._id = Contributions.insert(newContribution);
-                Activities.update(activityId, {$push: {'contributions': newContribution._id}});
+                Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
             }
 
             return newContribution;
@@ -66,7 +66,7 @@ Meteor.methods({
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
-            // Allowing contribution means that all concept contributions of this user will be allowed
+            // Allowing contribution means that all concept contributions by this user will be allowed
             var conceptContributions = Contributions.find({ partup_id: partupId, upper_id: userId, verified: false }, { _id: 1 });
 
             Contributions.update(
