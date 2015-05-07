@@ -189,6 +189,23 @@ var getUpdates = function getUpdates () {
         update.arrayIndex = idx;
         return update;
     }).filter(function (update, idx) {
+        if (option === 'default') return true;
+
+        if (option === 'activities') {
+            return update.type && update.type.indexOf('activities') > -1;
+        }
+
+        if (option === 'partup-changes') {
+            var isPartupChange = (  update.type.indexOf('tags') > -1 ||
+                                    update.type.indexOf('end_date') > -1 ||
+                                    update.type.indexOf('name') > -1 ||
+                                    update.type.indexOf('description') > -1 ||
+                                    update.type.indexOf('image') > -1
+                                    );
+
+            return update.type && isPartupChange;
+        }
+
         if (option === 'messages') {
             return update.type && update.type.indexOf('message') > -1;
         }
