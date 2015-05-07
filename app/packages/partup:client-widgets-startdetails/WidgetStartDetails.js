@@ -7,8 +7,8 @@ var ImageSystem = function ImageSystemConstructor () {
     this.currentImageId = new ReactiveVar(false);
     this.uploadedImageId = new ReactiveVar(false);
     this.upload = new ReactiveVar(false);
-    this.suggestion = new ReactiveVar(false);
     this.availableSuggestions = new ReactiveVar([]);
+    Session.set('current-suggestion', 0);
 
     this.updateSuggestions = function (tags, done) {
         var newSuggestionsArray = [];
@@ -34,7 +34,16 @@ var ImageSystem = function ImageSystemConstructor () {
         });
     };
 
-    this.setSuggestion = function (index) {
+    this.unsetUploadedPicture = function (tags) {
+        self.updateSuggestions(tags, function () {
+            self.upload.set(false);
+            Session.set('current-suggestion', 0);
+        });
+    };
+
+    Meteor.autorun(function() {
+        var index = Session.get('current-suggestion');
+
         var suggestions = self.availableSuggestions.get();
         if(!mout.lang.isArray(suggestions)) return;
 
@@ -52,16 +61,11 @@ var ImageSystem = function ImageSystemConstructor () {
             Images.insert(newFile, function (error, image) {
                 Meteor.subscribe('images.one', image._id);
                 self.currentImageId.set(image._id);
+                Session.set('current-suggestion', index);
+                console.log('Set new image for partup:', image);
             });
         });
-    };
-
-    this.unsetUploadedPicture = function (tags) {
-        self.updateSuggestions(tags, function () {
-            self.upload.set(false);
-            self.setSuggestion(0);
-        });
-    };
+    });
 };
 
 /*************************************************************/
@@ -82,9 +86,10 @@ Template.WidgetStartDetails.onCreated(function() {
 
             if(partup.image) {
                 self.imageSystem.uploadedImageId.set(partup.image);
+                Session.set('current-suggestion', 0);
             } else {
                 self.imageSystem.updateSuggestions(partup.tags, function () {
-                    self.imageSystem.setSuggestion(0);
+                    Session.set('current-suggestion', 0);
                 });
             }
         }
@@ -132,6 +137,14 @@ Template.WidgetStartDetails.helpers({
     },
     partupImage: function () {
         return Template.instance().imageSystem;
+    },
+    suggestionSetter: function () {
+        return function (index) {
+            Session.set('current-suggestion', index);
+        }
+    },
+    currentSuggestion: function () {
+        return Session.get('current-suggestion');
     }
 });
 

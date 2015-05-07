@@ -129,32 +129,8 @@
 
                     {{#if partupImage.availableSuggestions.get }}
                         <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
-                        <!-- <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImage.suggestion.get }}')"></figure> -->
-                        <ul>
-                            {{#each partupImage.availableSuggestions.get }}
-                                <li>
-                                    <img src="{{ . }}" alt="Suggestion">
-                                </li>
-                            {{/each }}
-                        </ul>
+                        {{> WidgetGallery pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter }}
                     {{/if }}
-
-                    <!--{{#if uploadedImageUrl}}
-                        <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image: url('{{ uploadedImageUrl }}')"></figure>
-                    {{else}}
-                        <div class="pu-imagepreview pu-imagepreview-cover"></div>
-
-                        {{#if suggestedImagesAvailable}}
-                            <div class="pu-suggestionsgallery">
-                                <ul>
-                                    {{#each suggestedImages}}
-                                        <li><div><img src="{{imageUrl}}" alt="{{authorUrl}}"></div></li>
-                                    {{/each}}
-                                </ul>
-                            </div>
-                        {{/if}}
-
-                    {{/if}}-->
                     
                 {{/if }}
             </div>

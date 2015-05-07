@@ -89,6 +89,7 @@ partup:client-widget-spinner@0.0.1
 partup:client-widgets-createactivity@0.0.1
 partup:client-widgets-dropdowns@0.0.1
 partup:client-widgets-forgotpassword@0.0.1
+partup:client-widgets-gallery@0.0.1
 partup:client-widgets-intro@0.0.1
 partup:client-widgets-login@0.0.1
 partup:client-widgets-partupdetail-activities@0.0.1

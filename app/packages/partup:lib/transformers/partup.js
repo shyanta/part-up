@@ -18,7 +18,7 @@ Partup.transformers.partup = {
             end_date: moment(partup.end_date).format('YYYY-MM-DD'),
             location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
-            tags_input: partup.tags.join(',')
+            tags_input: (partup.tags || []).join(', ')
         };
     },
 
