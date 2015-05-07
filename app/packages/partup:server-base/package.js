@@ -26,7 +26,7 @@ Package.onUse(function(api) {
         'accounts.js',
         'helpers/collection.js',
         'event.js',
-        'collection-hooks.js',
+        'collection_hooks.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_donations_handler.js',
