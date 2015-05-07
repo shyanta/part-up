@@ -16,25 +16,22 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
  * Generate a Notification for each upper in a Partup when there is a new Supporter.
  */
 Event.on('partups.supporters.inserted', function (partup, upper) {
-    var notification = {
-        type: 'partups_supporters_added',
-        type_data: {
-            partup: {
-                name: partup.name
-            },
-            supporter: {
-                id: upper._id,
-                name: upper.profile.name,
-                image: upper.profile.image
-            }
+    var notificationType = 'partups_supporters_added';
+    var notificationTypeData = {
+        partup: {
+            name: partup.name
         },
-        new: true,
-        created_at: new Date()
-    }
+        supporter: {
+            id: upper._id,
+            name: upper.profile.name,
+            image: upper.profile.image
+        }
+    };
 
     if (partup.uppers) {
         partup.uppers.forEach(function (upperId) {
-            notification.for_upper_id = upperId;
+            var notification = Partup.factories.notificationsFactory.make(upperId, notificationType, notificationTypeData);
+
             Notifications.insert(notification, function (error) {
                 if (error) return Log.error(error);
 
