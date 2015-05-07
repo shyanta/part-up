@@ -10,6 +10,7 @@ Meteor.methods({
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var newMessage = Partup.transformers.update.fromFormNewMessage(fields, upper, partupId);
+        newMessage.type = 'partups_message_added';
 
         try {
             newMessage._id = Updates.insert(newMessage);
