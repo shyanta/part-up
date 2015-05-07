@@ -5,7 +5,11 @@
                 <li class="{{#if isCurrent }}pu-state-active{{/if }}" style="background-image: url({{ . }})"></li>
             {{/each }}
         </ul>
-        <a href="" class="pu-sub-button pu-sub-button-left" data-previous>&lt;</a>
-        <a href="" class="pu-sub-button pu-sub-button-right" data-next>&gt;</a>
+        <a href="" class="pu-sub-button pu-sub-button-left" data-previous>
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a href="" class="pu-sub-button pu-sub-button-right" data-next>
+            <i class="fa fa-chevron-right"></i>
+        </a>
     </figure>
 </template>

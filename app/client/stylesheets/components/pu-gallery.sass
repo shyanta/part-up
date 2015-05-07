@@ -1,32 +1,45 @@
 .pu-gallery
     position: relative
-    height: 236px
-    overflow: hidden
 
-    li
-        display: block
-        position: absolute
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
-        background-size: cover
-        background-position: center
-        border-radius: 3px
-        opacity: 0
-        pointer-events: none
-        transition: opacity .2s
+    ul
+        position: relative
+        overflow: hidden
+        height: 236px
 
-        &.pu-state-active
-            pointer-events: auto
-            opacity: 1
+        li
+            display: block
+            position: absolute
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+            background-size: cover
+            background-position: center
+            border-radius: 4px
+            opacity: 0
+            pointer-events: none
+            transition: opacity .2s
+
+            &.pu-state-active
+                pointer-events: auto
+                opacity: 1
 
     .pu-sub-button
         position: absolute
         top: 50%
+        margin-top: -10px
+        opacity: .5
+        transition: opacity .2s
+
+        i
+            color: $color-text-secondary
+            font-size: 34px
+
+        &:hover
+            opacity: 1
 
         &-left
-            left: 0
+            left: -42px
 
         &-right
-            right: 0
+            right: -42px
