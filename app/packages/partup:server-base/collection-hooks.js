@@ -24,7 +24,7 @@ var basicAfterInsert = function (namespace) {
  */
 var basicAfterUpdate = function (namespace) {
     return function (userId, document, fieldNames, modifier, options) {
-        Event.emit(namespace + '.updated', userId, document);
+        Event.emit(namespace + '.updated', userId, document, this.previous);
 
         if (this.previous) {
             var previous = this.previous;
@@ -65,7 +65,6 @@ Partups.after.update(basicAfterUpdate('partups'));
 Partups.after.remove(basicAfterRemove('partups'));
 
 // Activity Events
-Activities.hookOptions.after.update = { fetchPrevious: false };
 Activities.after.insert(basicAfterInsert('partups.activities'));
 Activities.after.update(basicAfterUpdate('partups.activities'));
 Activities.after.remove(basicAfterRemove('partups.activities'));
