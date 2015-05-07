@@ -3,7 +3,8 @@
  */
 Event.on('partups.inserted', function (userId, partup) {
     var upper = Meteor.users.findOne({_id: userId});
-    var locale = upper.profile.settings.locale;
+    var locale = mout.object.get(upper, 'profile.settings.locale') || 'en';
+
     var donationActivity = {
         created_at: new Date(),
         description: __('activities-donation-description', { lng: locale }),
