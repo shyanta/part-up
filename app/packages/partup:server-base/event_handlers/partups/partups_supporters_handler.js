@@ -2,10 +2,10 @@
  * Generate an Update in a Partup when there is a new Supporter.
  */
 Event.on('partups.supporters.inserted', function (partup, upper) {
-    var type = 'partups_supporters_added';
-    var typeData = { };
+    var updateType = 'partups_supporters_added';
+    var updateTypeData = { };
 
-    var update = Partup.factories.updatesFactory.make(userId, partup._id, type, typeData);
+    var update = Partup.factories.updatesFactory.make(userId, partup._id, updateType, updateTypeData);
 
     // TODO: Validation
 
