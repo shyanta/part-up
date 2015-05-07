@@ -2,13 +2,14 @@
     {{#contentFor "WidgetPopupTitle"}}
         {{_ 'partupdetail-updates-popup-newmessage-title'}}
     {{/contentFor}}
-    <form class="pu-form pu-form-popup">
+
+    {{#autoForm schema=formSchema id="newMessageForm" class="pu-form pu-form-popup" }}
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'partupdetail-updates-popup-newmessage-label'}}</span>
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
                     <div class="pu-message">
-                        <textarea class="pu-textarea" type="text" placeholder="{{_ 'partupdetail-updates-popup-newmessage-placeholder'}}"></textarea>
+                        {{> afFieldInput name="text" placeholder=placeholders.text class="pu-textarea" rows=3 }}
                         <ul class="pu-sub-photos">
                             {{#each uploadedPhotos}}
                             <li>
@@ -31,8 +32,8 @@
             <input type="file" class="pu-fileinput" multiple data-photo-input>
             <div class="pu-formfield-right">
                 <a class="pu-button pu-button-text pu-button-text-subtle" data-close>{{_ 'partupdetail-updates-popup-newmessage-close'}}</a>
-                <input class="pu-button" type="submit" value="{{_ 'partupdetail-updates-popup-newmessage-submit'}}">
+                <input type="submit" class="pu-button" value="{{_ 'partupdetail-updates-popup-newmessage-submit'}}">
             </div>
         </div>
-    </form>
+    {{/autoForm}}
 </template>

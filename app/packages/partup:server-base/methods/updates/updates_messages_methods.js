@@ -30,7 +30,7 @@ Meteor.methods({
      * @param {string} updateId
      * @param {mixed[]} fields
      */
-    'updates.messages.update': function (updateId, fields) {
+    'updates.messages.edit': function (updateId, fields) {
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
@@ -45,8 +45,9 @@ Meteor.methods({
                         type: 'partups_message_updated',
                         type_data: {
                             old_value: update.new_value,
-                            new_value: fields.content
-                        }
+                            new_value: fields.text
+                        },
+                        updated_at: new Date()
                     }
                 }
             );

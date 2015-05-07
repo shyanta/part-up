@@ -19,7 +19,7 @@ Partup.transformers.update = {
             created_at: new Date(),
             partup_id: partupId,
             type_data: {
-                new_value: fields.content
+                new_value: fields.text
             },
             upper_id: upper._id
         };

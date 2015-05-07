@@ -13,7 +13,8 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup:lib',
-        'reactive-var'
+        'reactive-var',
+        'aldeed:autoform'
     ], 'client');
 
     api.addFiles([
@@ -24,6 +25,7 @@ Package.onUse(function(api) {
 
         'NewMessagePopup.html',
         'NewMessagePopup.js',
+        'NewMessagePlaceholders.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
