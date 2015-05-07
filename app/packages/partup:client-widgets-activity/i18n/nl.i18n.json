@@ -1,0 +1,21 @@
+{
+    "activity-form-name-label": "Geef de activiteit een naam",
+    "activity-form-name-placeholder": "Probeer in werkwoorden te denken",
+    "activity-form-name-validation": "maximaal %d tekens",
+    "activity-form-name-validation-left": "nog %d tekens",
+
+    "activity-form-description-label": "Beschrijf de activiteit",
+    "activity-form-description-placeholder": "Hou het kort en krachtig",
+    "activity-form-description-validation": "maximaal %d tekens",
+    "activity-form-description-validation-left": "nog %d tekens",
+
+    "activity-form-end_date-label": "Voeg eventueel een datum toe",
+    "activity-form-end_date-placeholder": "Voeg eventueel een datum toe",
+    "activity-form-end_date-validation": "Een datum in het verleden is niet mogelijk",
+
+    "activity-form-submit": "Maak activiteit aan",
+    "activity-form-save": "Opslaan",
+    "activity-button-next_page": "Wat ga jij bijdragen?",
+    "activity-button-edit": "Wijzig activiteit",
+    "activity-button-remove": "Verwijderen"
+}

@@ -8,4 +8,4 @@ Partup.services.placeholders.startactivities = {
     'end_date': function () {
         return __('startactivities-form-end_date-placeholder');
     }
-}
+};

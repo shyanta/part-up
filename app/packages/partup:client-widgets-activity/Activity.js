@@ -8,19 +8,17 @@ var activityEditModes = new ReactiveDict();
 /*************************************************************/
 Template.Activity.helpers({
     Partup: Partup,
-    placeholders: Partup.services.placeholders.startactivities,
-    generateFormId: function() {
-        return "activityEditForm-" + this._id;
+    placeholders: Partup.services.placeholders.activity,
+    generateFormId: function(){
+        return 'activityEditForm-' + this._id;
     },
     editMode: function(){
         return activityEditModes.get(this._id);
     },
-    fieldsFromActivity: function() {
+    fieldsFromActivity: function(){
         var activity = this;
-        if(activity._id) {
+        if (activity._id){
             return this;
-        } else {
-            return undefined
         }
     }
 });
@@ -30,15 +28,13 @@ Template.Activity.helpers({
 /*************************************************************/
 Template.Activity.events({
     'click [data-edit]': function(event, template){
-        // event.preventDefault();
         activityEditModes.set(template.data._id, true);
-
-        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
+        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker', 500);
     },
-    'click [data-remove]': function (event, template){
+    'click [data-remove]': function(event, template){
         var activityId = template.data._id;
-        Meteor.call('activities.archive', activityId, function (error) {
-            if (error) {
+        Meteor.call('activities.archive', activityId, function(error){
+            if (error){
                 Partup.ui.notify.error(error.reason);
             }
         });
@@ -49,18 +45,17 @@ Template.Activity.events({
 /* Widget form hooks */
 /*************************************************************/
 AutoForm.addHooks(null, {
-    onSubmit: function(doc) {
+    onSubmit: function(doc){
         var self = this;
         var formNameParts = self.formId.split('-');
-        if(formNameParts.length !== 2 || formNameParts[0] !== 'activityEditForm') return;
+        if (formNameParts.length !== 2 || formNameParts[0] !== 'activityEditForm') return;
 
         var activityId = formNameParts[1];
 
         Meteor.call('activities.update', activityId, doc, function (error) {
 
-            // Error
-            if(error && error.message) {
-                switch (error.message) {
+            if (error && error.message){
+                switch (error.message){
                     // case 'User not found [403]':
                     //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                     //     break;

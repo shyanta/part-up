@@ -1,10 +1,18 @@
 <template name="Activity">
     {{#if editMode}}
         <article class="pu-block pu-block-active">
-            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form pu-form-condensed" doc=fieldsFromActivity validation="submitThenKeyup"}}
+            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form" doc=fieldsFromActivity validation="submitThenKeyup"}}
 
                 <!-- Activity name -->
                 <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'activity-form-name-label'}}</span>
+                    <a class="pu-hint">
+                        {{#if partupLowerThan nameCharactersLeft Partup.schemas.forms.startActivities._schema.name.max}}
+                            {{_ 'activity-form-name-validation-left' nameCharactersLeft }}
+                        {{else}}
+                            {{_ 'activity-form-name-validation-left' Partup.schemas.forms.startActivities._schema.name.max }}
+                        {{/if}}
+                    </a>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name="name" placeholder=placeholders.name class="pu-input pu-input-accent" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
@@ -13,6 +21,14 @@
 
                 <!-- Activity description -->
                 <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'activity-form-description-label'}}</span>
+                    <a class="pu-hint">
+                        {{#if partupLowerThan descriptionCharactersLeft Partup.schemas.forms.startActivities._schema.description.max}}
+                            {{_ 'activity-form-description-validation-left' descriptionCharactersLeft }}
+                        {{else}}
+                            {{_ 'activity-form-description-validation-left' Partup.schemas.forms.startActivities._schema.description.max }}
+                        {{/if}}
+                    </a>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
@@ -23,6 +39,7 @@
                 <div class="pu-formfield">
                     <div class="end-date-field">
                         <label class="pu-formfield">
+                            <span class="pu-label">{{_ 'activity-form-end_date-label'}}</span>
                             <div class="pu-inputholder pu-inputholder-lefticon">
                                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
 
@@ -40,8 +57,8 @@
                     </div>
 
                     <div class="pu-formfield-right">
-                        <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>{{_ 'startactivities-button-remove'}}</a>
-                        <button type="submit" class="pu-button">{{_ 'startactivities-form-save' }}</button>
+                        <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>{{_ 'activity-button-remove'}}</a>
+                        <button type="submit" class="pu-button">{{_ 'activity-form-save' }}</button>
                     </div>
                 </div>
 
@@ -54,7 +71,7 @@
             <h2 class="pu-block-title">{{name}}</h2>
 
             {{#unless donation}}
-                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-edit>{{_ 'startactivities-button-edit'}}</a>
+                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-edit>{{_ 'activity-button-edit'}}</a>
             {{/unless}}
 
             <p class="pu-paragraph">{{description}}</p>
