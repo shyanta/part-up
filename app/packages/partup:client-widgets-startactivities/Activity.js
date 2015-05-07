@@ -40,7 +40,7 @@ Template.Activity.events({
     },
     'click [data-remove]': function (event, template){
         var activityId = template.data._id;
-        Meteor.call('activities.remove', activityId, function (error) {
+        Meteor.call('activities.archive', activityId, function (error) {
             if (error) {
                 Partup.ui.notify.error(error.reason);
             }

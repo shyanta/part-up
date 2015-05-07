@@ -19,6 +19,7 @@ Partup.transformers.activity = {
         fields.updated_at = new Date();
         fields.creator_id = upper._id;
         fields.partup_id = partup._id;
+        fields.archived = false;
 
         return fields;
     }

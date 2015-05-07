@@ -80,6 +80,31 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be removed.');
         }
+    },
+
+    /**
+     * Archive an Activity
+     *
+     * @param  {string} activityId
+     */
+    'activities.archive': function (activityId) {
+        var upper = Meteor.user();
+        var activity = Activities.findOneOrFail(activityId);
+
+        if (!upper || activity.creator_id !== upper._id) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        try {
+            Activities.update(activityId, {$set: { archived: true } });
+
+            return {
+                _id: activity._id
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be archived.');
+        }
     }
 
 });
