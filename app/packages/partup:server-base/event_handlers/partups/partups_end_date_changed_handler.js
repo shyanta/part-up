@@ -9,7 +9,8 @@ Event.on('partups.end_date.changed', function (userId, partup, value) {
             old_end_date: value.old,
             new_end_date: value.new
         },
-        created_at: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
     };
 
     Updates.insert(update);

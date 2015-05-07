@@ -9,7 +9,8 @@ Event.on('partups.description.changed', function (userId, partup, value) {
             old_description: value.old,
             new_description: value.new
         },
-        created_at: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
     };
 
     Updates.insert(update);

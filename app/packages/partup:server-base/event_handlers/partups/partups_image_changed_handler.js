@@ -9,7 +9,8 @@ Event.on('partups.image.changed', function (userId, partup, value) {
             old_image: value.old,
             new_image: value.new
         },
-        created_at: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
     };
 
     Updates.insert(update);

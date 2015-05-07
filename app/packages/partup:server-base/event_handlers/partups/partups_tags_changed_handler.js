@@ -7,7 +7,8 @@ Event.on('partups.tags.changed', function (userId, partup, value) {
         var update = {
             partup_id: partup._id,
             upper_id: userId,
-            created_at: new Date()
+            created_at: new Date(),
+            updated_at: new Date()
         };
 
         if (change.type === 'changed') {
