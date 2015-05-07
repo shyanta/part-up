@@ -49,6 +49,10 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         type: Boolean,
         defaultValue: false
     },
+    update_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     partup_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
