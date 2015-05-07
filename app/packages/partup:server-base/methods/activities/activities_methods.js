@@ -38,13 +38,16 @@ Meteor.methods({
 
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
-        if (!upper || !activity.creator_id == upper._id) {
+
+        if (! upper || activity.creator_id != upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
         try {
             fields.updated_at = new Date();
-            Activities.update(activityId, {$set: fields});
+            if (! fields.end_date) fields.end_date = null;
+
+            Activities.update(activityId, { $set: fields });
 
             return {
                 _id: activity._id
