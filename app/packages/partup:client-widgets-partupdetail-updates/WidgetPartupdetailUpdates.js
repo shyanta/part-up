@@ -189,8 +189,8 @@ var getUpdates = function getUpdates () {
         update.arrayIndex = idx;
         return update;
     }).filter(function (update, idx) {
-        if (option === 'action1') {
-            if ('something' === 'something') return false;
+        if (option === 'messages') {
+            return update.type && update.type.indexOf('message') > -1;
         }
 
         return true;
