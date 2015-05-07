@@ -180,15 +180,21 @@ updatesVar.set([
 /* Widget functions */
 /*************************************************************/
 var getUpdates = function getUpdates () {
-
-    // Real data
     var partupId = Router.current().params._id;
+
+    // Get the option that is selected in the filter dropdown
+    var option = Session.get('partial-dropdown-updates-actions.selected');
 
     return Updates.find({ partup_id: partupId }).map(function (update, idx) {
         update.arrayIndex = idx;
         return update;
-    });
+    }).filter(function (update, idx) {
+        if (option === 'action1') {
+            if ('something' === 'something') return false;
+        }
 
+        return true;
+    });
 };
 
 /*************************************************************/

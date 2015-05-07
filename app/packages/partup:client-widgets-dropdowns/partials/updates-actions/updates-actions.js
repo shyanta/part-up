@@ -1,8 +1,8 @@
 Template.PartialDropdownUpdatesActions.rendered = function(){
     // this = template
     this.dropdownToggleBool = 'partial-dropdown-updates-actions.opened';
-    
-    // set default boolean values    
+
+    // set default boolean values
     Session.set(this.dropdownToggleBool, false);
 
     // you can define a default selection here
@@ -21,7 +21,7 @@ Template.PartialDropdownUpdatesActions.destroyed = function(){
 Template.PartialDropdownUpdatesActions.events({
     'click [data-toggle-menu]': ClientWidgetsDropdowns.dropdownClickHandler,
     'click [data-select-option]': function eventSelectOption(event, template){
-        var key = $(event.target).data("translate");
+        var key = $(event.target).data("translate").replace('dropdown-updatesactions-option-', '');
         Session.set('partial-dropdown-updates-actions.selected', key);
     }
 })
