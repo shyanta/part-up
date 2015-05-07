@@ -45,7 +45,6 @@ Meteor.methods({
         try {
             fields.updated_at = new Date();
             Activities.update(activityId, {$set: fields});
-            Event.emit('activities.updated', activity, fields);
 
             return {
                 _id: activity._id
@@ -71,7 +70,6 @@ Meteor.methods({
 
         try {
             Activities.remove(activityId);
-            Event.emit('activities.removed', activity);
 
             return {
                 _id: activity._id
