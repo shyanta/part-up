@@ -28,7 +28,7 @@ Meteor.methods({
         var comments = update.comments || [];
 
         try {
-            Updates.update(updateId, { $push: { 'comments': comment }});
+            Updates.update(updateId, { $set: { 'updated_at': new Date() }, $push: { 'comments': comment }});
 
             Event.emit('updates.comments.inserted', comment);
 
