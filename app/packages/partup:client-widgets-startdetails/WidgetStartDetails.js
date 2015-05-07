@@ -62,7 +62,6 @@ var ImageSystem = function ImageSystemConstructor () {
                 Meteor.subscribe('images.one', image._id);
                 self.currentImageId.set(image._id);
                 Session.set('current-suggestion', index);
-                console.log('Set new image for partup:', image);
             });
         });
     });
