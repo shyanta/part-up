@@ -1,12 +1,12 @@
 Event.on('partups.activities.inserted', function (userId, activity) {
     if (! userId) return;
 
-    var type = 'partups_activities_added';
-    var typeData = {
+    var updateType = 'partups_activities_added';
+    var updateTypeData = {
         activity_id: activity._id
     };
 
-    var update = Partup.factories.updatesFactory.make(userId, activity.partup_id, type, typeData);
+    var update = Partup.factories.updatesFactory.make(userId, activity.partup_id, updateType, updateTypeData);
     var updateId = Updates.insert(update);
 
     Activities.update({ _id: activity._id }, { $set: { update_id: updateId }});
