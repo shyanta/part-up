@@ -34,13 +34,6 @@ Meteor.methods({
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-
-        message.type = 'partups_message_updated';
-        message.type_data = {
-            old_value: message.new_value,
-            new_value: fields.content
-        };
-
         try {
             var update = Updates.findOneOrFail(updateId);
 

@@ -23,7 +23,7 @@ Event.on('partups.activities.updated', function (userId, activity, oldActivity) 
     var set = {
         upper_id: userId,
         type: 'partups_activities_changed',
-        updated_at: new Date(),
+        updated_at: new Date()
     };
 
     Updates.update({ _id: activity.update_id }, { $set: set });
