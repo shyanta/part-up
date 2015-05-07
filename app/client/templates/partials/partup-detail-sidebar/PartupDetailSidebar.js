@@ -227,6 +227,7 @@ Template.PartialsPartupDetailSidebar.helpers({
 
     isUpperInPartup: function helperIsUpperInPartup() {
         var partup = this.partup();
+        if (!partup || !partup.uppers) return false;
         return partup.uppers.indexOf(Meteor.user()._id) > -1;
     }
 
