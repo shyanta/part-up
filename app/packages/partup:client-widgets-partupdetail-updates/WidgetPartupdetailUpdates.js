@@ -185,7 +185,7 @@ var getUpdates = function getUpdates () {
     // Get the option that is selected in the filter dropdown
     var option = Session.get('partial-dropdown-updates-actions.selected');
 
-    return Updates.find({ partup_id: partupId }).map(function (update, idx) {
+    return Updates.find({ partup_id: partupId }, { sort: { updated_at: 1 } }).map(function (update, idx) {
         update.arrayIndex = idx;
         return update;
     }).filter(function (update, idx) {
