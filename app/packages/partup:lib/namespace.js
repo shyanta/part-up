@@ -34,6 +34,12 @@ Partup.schemas = {
 Partup.services = {};
 
 /**
+ @namespace Factories
+ @name partup.factories
+ */
+Partup.factories = {};
+
+/**
  @namespace Transformers
  @name partup.transformers
  */

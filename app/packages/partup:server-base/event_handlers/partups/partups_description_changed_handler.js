@@ -1,17 +1,13 @@
 Event.on('partups.description.changed', function (userId, partup, value) {
     if (! userId) return;
 
-    var update = {
-        partup_id: partup._id,
-        upper_id: userId,
-        type: 'partups_description_changed',
-        type_data: {
-            old_description: value.old,
-            new_description: value.new
-        },
-        created_at: new Date(),
-        updated_at: new Date()
+    var type = 'partups_description_changed';
+    var typeData = {
+        old_description: value.old,
+        new_description: value.new
     };
+
+    var update = Partup.factories.updatesFactory.make(userId, partup._id, type, typeData);
 
     Updates.insert(update);
 });
