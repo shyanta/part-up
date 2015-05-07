@@ -102,6 +102,7 @@
                 <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
 
                 {{#if partupImage.upload.get }}
+
                     <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImage.upload.get }}')">
                         <label for="imageFileInput" class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
                             <span>{{_ 'startdetails-image-button'}}</span>
@@ -113,7 +114,9 @@
                             <span>Remove image</span>
                         </button>
                     </figure>
+
                 {{ else }}
+
                     <div class="pu-upload pu-upload-large">
                         <label for="imageFileInput" class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
                             <span>{{_ 'startdetails-image-button'}}</span>
@@ -123,15 +126,18 @@
                         </label>
                         <span>{{_ 'startdetails-image-validation'}}</span>
                     </div>
-                    <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
-                    <!-- <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImage.suggestion.get }}')"></figure> -->
-                    <ul>
-                        {{#each partupImage.availableSuggestions.get }}
-                            <li>
-                                <img src="{{ . }}" alt="Suggestion">
-                            </li>
-                        {{/each }}
-                    </ul>
+
+                    {{#if partupImage.availableSuggestions.get }}
+                        <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
+                        <!-- <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImage.suggestion.get }}')"></figure> -->
+                        <ul>
+                            {{#each partupImage.availableSuggestions.get }}
+                                <li>
+                                    <img src="{{ . }}" alt="Suggestion">
+                                </li>
+                            {{/each }}
+                        </ul>
+                    {{/if }}
 
                     <!--{{#if uploadedImageUrl}}
                         <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image: url('{{ uploadedImageUrl }}')"></figure>
@@ -149,6 +155,7 @@
                         {{/if}}
 
                     {{/if}}-->
+                    
                 {{/if }}
             </div>
 

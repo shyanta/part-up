@@ -27,6 +27,10 @@ Partup.ui.strings = {
         } else {
             return fullName
         }
+    },
+
+    tagsStringToArray: function(tagString) {
+        return tagString.replace(/\s/g, '').split(',');
     }
 
 };

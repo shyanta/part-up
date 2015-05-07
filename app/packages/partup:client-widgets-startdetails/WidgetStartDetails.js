@@ -10,26 +10,57 @@ var ImageSystem = function ImageSystemConstructor () {
     this.suggestion = new ReactiveVar(false);
     this.availableSuggestions = new ReactiveVar([]);
 
-    this.addAvailableSuggestions = function (suggestions) {
-        var newSuggestionsArray = mout.array.combine(self.availableSuggestions.get(), suggestions).slice(0, 5);
-        self.availableSuggestions.set(newSuggestionsArray);
-    };
+    this.updateSuggestions = function (tags, done) {
+        var newSuggestionsArray = [];
 
-    this.updateSuggestions = function (tags) {
+        var addResults = function (result, isFinal) {
+            newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
+
+            if(isFinal) {
+                self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
+                if(mout.lang.isFunction(done)) done();
+            }
+        };
+
         Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
-            if (result.length >= 5) {
-                self.addAvailableSuggestions(lodash.map(result, 'imageUrl'));
+            if (!error && result.length >= 5) {
+                addResults(result, true);
             } else {
+                addResults(result);
                 Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    self.addAvailableSuggestions(lodash.map(result, 'imageUrl'));
+                    if(!error) addResults(result, true);
                 });
             }
         });
     };
 
-    this.unsetUploadedPicture = function () {
-        self.upload.set(false);
-        self.currentImageId.set(false);
+    this.setSuggestion = function (index) {
+        var suggestions = self.availableSuggestions.get();
+        if(!mout.lang.isArray(suggestions)) return;
+
+        var url = suggestions[index];
+        if(!mout.lang.isString(url)) return;
+
+        var newFile = new FS.File();
+        newFile.attachData(url, function (error) {
+
+            var dummyLink = document.createElement('a');
+            dummyLink.href = url;
+            var pathnameParts = dummyLink.pathname.split('/');
+            var filename = pathnameParts[pathnameParts.length - 1];
+            newFile.name(filename);
+            Images.insert(newFile, function (error, image) {
+                Meteor.subscribe('images.one', image._id);
+                self.currentImageId.set(image._id);
+            });
+        });
+    };
+
+    this.unsetUploadedPicture = function (tags) {
+        self.updateSuggestions(tags, function () {
+            self.upload.set(false);
+            self.setSuggestion(0);
+        });
     };
 };
 
@@ -48,8 +79,14 @@ Template.WidgetStartDetails.onCreated(function() {
         var partup = Partups.findOne({ _id: Session.get('partials.start-partup.current-partup') });
         if(partup) {
             self.currentPartup.set(partup);
-            self.imageSystem.uploadedImageId.set(partup.image);
-            self.imageSystem.updateSuggestions(partup.tags);
+
+            if(partup.image) {
+                self.imageSystem.uploadedImageId.set(partup.image);
+            } else {
+                self.imageSystem.updateSuggestions(partup.tags, function () {
+                    self.imageSystem.setSuggestion(0);
+                });
+            }
         }
     });
 
@@ -110,18 +147,17 @@ Template.WidgetStartDetails.events({
     'change [data-imageupload]': function eventChangeFile(event, template) {
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
-                var imageId = image._id;
-                Meteor.subscribe('images.one', imageId);
-                template.imageSystem.uploadedImageId.set(imageId);
+                Meteor.subscribe('images.one', image._id);
+                template.imageSystem.uploadedImageId.set(image._id);
             });
         });
     },
     'click [data-imageremove]': function eventChangeFile(event, template) {
-        template.imageSystem.unsetUploadedPicture();
+        var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget.form).find('[name=tags_input]').val());
+        template.imageSystem.unsetUploadedPicture(tags);
     },
-    'blur input[name=tags_input]': function searchFlickerByTags(event, template) {
-        if (Router.current().route.path(this) !== '/start/details') return; // Only trigger this functionality on correct route
-        var tags = template.$('input[name=tags_input]').val().replace(/\s/g, '').split(',');
+    'blur [name=tags_input]': function searchFlickerByTags(event, template) {
+        var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget).val());
         Template.instance().imageSystem.updateSuggestions(tags);
     }
 });

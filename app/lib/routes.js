@@ -161,7 +161,7 @@ Router.route('/start/details', {
         this.subscribe('partups.one', Session.get('partials.start-partup.current-partup'));
     },
     data: function() {
-        return Partups.find({_id:Session.get('partials.start-partup.current-partup')});
+        return Partups.find({ _id: Session.get('partials.start-partup.current-partup') });
     }
 });
 
