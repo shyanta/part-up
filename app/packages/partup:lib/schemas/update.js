@@ -89,13 +89,13 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
         type: [Partup.schemas.entities.updateComment],
         optional: true
     },
-    created_at: {
-        type: Date,
-        defaultValue: new Date()
-    },
     partup_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
+    },
+    created_at: {
+        type: Date,
+        defaultValue: new Date()
     },
     updated_at: {
         type: Date,
