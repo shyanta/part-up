@@ -32,7 +32,9 @@
                     <section>
                         <article class="pu-block">
                             <p class="pu-paragraph">{{ new_value }}</p>
-                            <img class="pu-image" src="http://lorempixel.com/800/200" alt="">
+                            {{#each images}}
+                                <img class="pu-image" src="{{ partupImageById . }}" alt="">
+                            {{/each}}
                         </article>
                     </section>
                 {{/with}}

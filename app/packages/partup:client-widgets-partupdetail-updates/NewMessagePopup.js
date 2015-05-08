@@ -2,14 +2,7 @@ Template.NewMessagePopup.onCreated(function(){
     var template = this;
 
     template.uploadingPhotos = new ReactiveVar(false);
-    template.uploadedPhotos = new ReactiveVar([
-        {
-            url: 'http://lorempixel.com/200/200/people/1'
-        },
-        {
-            url: 'http://lorempixel.com/200/200/people/2'
-        }
-    ]);
+    template.uploadedPhotos = new ReactiveVar([]);
 });
 
 // helpers
@@ -35,11 +28,17 @@ Template.NewMessagePopup.events({
     },
     'change [data-photo-input]': function eventChangeFile(event, template){
         template.uploadingPhotos.set(true);
-        
-        Meteor.setTimeout(function(){
-            template.uploadingPhotos.set(false);
-
-        }, 1000);
+        FS.Utility.eachFile(event, function (file) {
+            Partup.ui.uploader.uploadImage(file, function (error, image) {
+                var uploaded = template.uploadedPhotos.get();
+                uploaded.push(image._id);
+                template.uploadedPhotos.set(uploaded);
+                template.uploadingPhotos.set(false);
+            });
+        });
+    },
+    'click [data-close]': function clearForm(event, template){
+        template.uploadedPhotos.set([]);
     }
 });
 
@@ -51,7 +50,8 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var partupId = Router.current().params._id;
             var self = this;
-
+            var uploadedPhotos = Template.instance().parent().uploadedPhotos.get();
+            insertDoc.images = uploadedPhotos;
             Meteor.call('updates.messages.insert', partupId, insertDoc, function (error) {
                 // Error
                 if (error) {
@@ -60,7 +60,7 @@ AutoForm.hooks({
 
                     return;
                 }
-
+                Template.instance().parent().uploadedPhotos.set([]);
                 // Success
                 AutoForm.resetForm('newMessageForm');
                 self.done();
