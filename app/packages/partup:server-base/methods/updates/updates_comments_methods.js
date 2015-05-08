@@ -2,6 +2,7 @@ Meteor.methods({
     /**
      * Insert a Comment on an Update
      *
+     * @param {string} updateId
      * @param {mixed[]} fields
      */
     'updates.comments.insert': function (updateId, fields) {
