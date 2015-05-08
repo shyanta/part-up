@@ -45,7 +45,8 @@ Meteor.methods({
                         type: 'partups_message_updated',
                         type_data: {
                             old_value: update.new_value,
-                            new_value: fields.text
+                            new_value: fields.text,
+                            images: fields.images
                         },
                         updated_at: new Date()
                     }
