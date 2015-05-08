@@ -9,11 +9,14 @@ Meteor.methods({
         var upper = Meteor.user();
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var newMessage = Partup.transformers.update.fromFormNewMessage(fields, upper, partupId);
+        var partup = Partups.findOneOrFail(partupId);
+        var newMessage = Partup.transformers.update.fromFormNewMessage(fields, upper, partup._id);
         newMessage.type = 'partups_message_added';
 
         try {
             newMessage._id = Updates.insert(newMessage);
+
+            Event.emit('partups.messages.insert', partup, upper);
 
             return {
                 _id: newMessage._id
