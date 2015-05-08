@@ -16,6 +16,9 @@ Accounts.onCreateUser(function(options, user) {
     if (liData) {
         profile = {
             name: liData.firstName + ' ' + liData.lastName,
+            firstname: liData.firstName,
+            lastname: liData.lastName,
+            location: liData.location.name,
             settings: {
                 locale: 'en'
             }
@@ -27,6 +30,9 @@ Accounts.onCreateUser(function(options, user) {
     if (fbData) {
         profile = {
             name: fbData.name,
+            firstname: fbData.first_name,
+            lastname: fbData.last_name,
+            gender: fbData.gender,
             settings: {
                 locale: Partup.helpers.parseLocale(fbData.locale)
             }
