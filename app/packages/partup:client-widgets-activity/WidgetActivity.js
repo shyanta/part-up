@@ -1,38 +1,52 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-var activityEditModes = new ReactiveDict();
+Template.WidgetActivity.onCreated(function(){
+    this.edit = new ReactiveVar(false);
+    this.showDatePicker = new ReactiveVar(this.data.CREATE ? false : true);
+});
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.Activity.helpers({
+Template.WidgetActivity.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.activity,
     generateFormId: function(){
-        return 'activityEditForm-' + this._id;
+        if (this.CREATE){
+            return 'activityCreateForm';
+        }
+        return 'activityEditForm-' + this.activity._id;
+    },
+    showForm: function(){
+        return !!this.CREATE || Template.instance().edit.get();
     },
     editMode: function(){
-        return activityEditModes.get(this._id);
+        return Template.instance().edit.get();
     },
     fieldsFromActivity: function(){
-        var activity = this;
-        if (activity._id){
-            return this;
-        }
+        return this.activity;
+    },
+    showDatePicker: function(){
+        return Template.instance().showDatePicker.get();
     }
 });
 
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.Activity.events({
+Template.WidgetActivity.events({
     'click [data-edit]': function(event, template){
-        activityEditModes.set(template.data._id, true);
+        template.edit.set(true);
         Partup.ui.datepicker.applyToInput(template, '.pu-datepicker', 500);
     },
+    'click [data-end-date-button]': function(event, template){
+        event.preventDefault();
+        template.showDatePicker.set(true);
+        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
+    },
     'click [data-remove]': function(event, template){
-        var activityId = template.data._id;
+        var activityId = template.data.activity._id;
         Meteor.call('activities.archive', activityId, function(error){
             if (error){
                 Partup.ui.notify.error(error.reason);
@@ -47,13 +61,10 @@ Template.Activity.events({
 AutoForm.addHooks(null, {
     onSubmit: function(doc){
         var self = this;
-        var formNameParts = self.formId.split('-');
-        if (formNameParts.length !== 2 || formNameParts[0] !== 'activityEditForm') return;
-
-        var activityId = formNameParts[1];
+        var template = this.template.parentTemplate();
+        var activityId = template.data.activity._id;
 
         Meteor.call('activities.update', activityId, doc, function (error) {
-
             if (error && error.message){
                 switch (error.message){
                     // case 'User not found [403]':
@@ -62,16 +73,15 @@ AutoForm.addHooks(null, {
                     default:
                         Partup.ui.notify.error(error.reason);
                 }
+
                 AutoForm.validateForm(self.formId);
                 self.done(new Error(error.message));
                 return;
             }
 
-            // Success
-            activityEditModes.set(activityId, false);
-            AutoForm.resetForm('activityEditForm');
+            template.edit.set(false);
+            AutoForm.resetForm(self.formId);
             self.done();
-
         });
 
         return false;

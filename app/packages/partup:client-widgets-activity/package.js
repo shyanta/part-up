@@ -21,9 +21,9 @@ Package.onUse(function (api) {
     api.addFiles([
         'package-tap.i18n',
 
-        'ActivityPlaceholders.js',
-        'Activity.html',
-        'Activity.js',
+        'WidgetActivityPlaceholders.js',
+        'WidgetActivity.html',
+        'WidgetActivity.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
