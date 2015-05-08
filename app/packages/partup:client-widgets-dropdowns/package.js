@@ -9,7 +9,7 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup:lib',
-        // 'tap:i18n'
+        'reactive-var'
     ], 'client');
 
     api.addFiles([
