@@ -12,12 +12,12 @@ None = (function() {
   None.animations = ['none'];
 
   None.prototype.insertElement = function(node, next) {
-    if(this.startCallback) this.startCallback();
+    if(typeof this.startCallback === 'function') this.startCallback();
     return $(node).insertBefore(next);
   };
 
   None.prototype.removeElement = function(node) {
-    if(this.endCallback) this.endCallback();
+    if(typeof this.endCallback === 'function') this.endCallback();
     return $(node).remove();
   };
 
