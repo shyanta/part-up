@@ -26,6 +26,18 @@
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
 
+            <!-- partups_message_added -->
+            {{#if partupEqualsExactly update.type 'partups_message_added' }}
+                {{#with update.type_data }}
+                    <section>
+                        <article class="pu-block">
+                            <p class="pu-paragraph">{{ new_value }}</p>
+                            <img class="pu-image" src="http://lorempixel.com/800/200" alt="">
+                        </article>
+                    </section>
+                {{/with}}
+            {{/if }}
+
             <!-- partups_tags_added -->
             {{#if partupEqualsExactly update.type 'partups_tags_added' }}
                 {{#with update.type_data }}
