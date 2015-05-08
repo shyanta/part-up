@@ -8,7 +8,12 @@
 
         <!-- Header buttons -->
         <header class="pu-pageheader">
-            <section><a class="pu-button" href="#" data-newmessage>{{_ 'partupdetail-updates-newmessage-button' }}</a></section>
+            <section>
+                <a class="pu-button pu-button-icon" href="#" data-newmessage>
+                    <i class="fa fa-comment"></i>
+                    {{_ 'partupdetail-updates-newmessage-button' }}
+                </a>
+            </section>
             <aside>{{> PartialDropdownUpdatesActions}}</aside>
         </header>
 

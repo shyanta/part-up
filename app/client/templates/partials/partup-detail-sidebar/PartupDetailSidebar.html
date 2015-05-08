@@ -19,7 +19,10 @@
                             </li>
                         {{/each }}
                     </ul>
-                    <a href="" class="pu-button">{{_ 'partup-detail-uppers-invitebutton' }}</a>
+                    <a href="" class="pu-button pu-button-icon">
+                        <i class="fa fa-user-plus"></i>
+                        {{_ 'partup-detail-uppers-invitebutton' }}
+                    </a>
                 </section>
                 <section>
                     <p>{{{_ 'partup-detail-status-text' prettyEndDate partup.location.city prettyVisibility partup.network.name }}}</p>
@@ -42,9 +45,15 @@
                     </ul>
                     {{#unless isUpperInPartup}}
                         {{#if isSupporter }}
-                            <a data-leavesupporters class="pu-button">{{_ 'partup-detail-supporters-leave' }}</a>
+                            <a data-leavesupporters class="pu-button">
+                                <i class="fa fa-times"></i>
+                                {{_ 'partup-detail-supporters-leave' }}
+                            </a>
                         {{ else }}
-                            <a data-joinsupporters class="pu-button">{{_ 'partup-detail-supporters-join' }}</a>
+                            <a data-joinsupporters class="pu-button">
+                                <i class="fa fa-bullhorn"></i>
+                                {{_ 'partup-detail-supporters-join' }}
+                            </a>
                         {{/if}}
                     {{/unless}}
                 </section>
