@@ -39,7 +39,7 @@ var ImageSystem = function ImageSystemConstructor () {
     };
 
     // Set suggestion
-    var setSuggestionByIndex = function (index, callback) {
+    var setSuggestionByIndex = function (index) {
 
         var suggestions = self.availableSuggestions.get();
         if(!mout.lang.isArray(suggestions)) return;
@@ -47,18 +47,8 @@ var ImageSystem = function ImageSystemConstructor () {
         var url = suggestions[index];
         if(!mout.lang.isString(url)) return;
 
-        var newFile = new FS.File();
-        newFile.attachData(url, function (error) {
-
-            var dummyLink = document.createElement('a');
-            dummyLink.href = url;
-            var pathnameParts = dummyLink.pathname.split('/');
-            var filename = pathnameParts[pathnameParts.length - 1];
-            newFile.name(filename);
-
-            Images.insert(newFile, function (error, image) {
-                callback(image._id)
-            });
+        Partup.ui.uploader.uploadImageByUrl(url, function (error, image) {
+            self.currentImageId.set(image._id);
         });
     };
 
@@ -68,10 +58,7 @@ var ImageSystem = function ImageSystemConstructor () {
         if(mout.lang.isNumber(suggestionIndex) && !mout.lang.isNaN(suggestionIndex) && !self.uploaded.get()) {
             self.currentImageId.set(false);
             self.uploaded.set(false);
-            setSuggestionByIndex(suggestionIndex, function (imageId) {
-                Meteor.subscribe('images.one', imageId);
-                self.currentImageId.set(imageId);
-            });
+            setSuggestionByIndex(suggestionIndex);
         }
     });
 };
@@ -149,8 +136,7 @@ Template.WidgetStartDetails.events({
     },
     'change [data-imageupload]': function eventChangeFile(event, template) {
         FS.Utility.eachFile(event, function (file) {
-            Images.insert(file, function (error, image) {
-                Meteor.subscribe('images.one', image._id);
+            Partup.ui.uploader.uploadImage(file, function (error, image) {
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);
             });

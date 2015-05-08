@@ -32,6 +32,7 @@ Package.onUse(function (api) {
         'ui/modal.js',
         'ui/elements.js',
         'ui/popup.js',
+        'ui/uploader.js',
         'helpers/dateFormatters.js',
         'helpers/equality.js',
         'helpers/scrollBottom.js',
