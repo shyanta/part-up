@@ -35,6 +35,12 @@ Meteor.publish('partups.one.updates', function (partupId) {
                 imageHandle[id] = Meteor.Collection._publishCursor(imageCursor, subscription, Images.files._name);
             }
 
+            if (update.type === 'partups_message_added') {
+                var imageIds = update.type_data.images;
+                var imageCursor = Images.find({ _id: { $in: imageIds } });
+                imageHandle[id] = Meteor.Collection._publishCursor(imageCursor, subscription, Images.files._name);
+            }
+
             subscription.added(Updates._name, id, update);
         },
 
