@@ -2,11 +2,7 @@
     <div class="pu-formdropdown {{#if menuOpen}}pu-formdropdown-active{{/if}}">
         <div class="pu-sub-container">
             <button class="pu-button pu-button-input" data-toggle-menu>
-                <!-- {{#if selectedAction}} -->
-                    {{ selectedAction }}
-                <!-- {{else}}
-                    {{_ 'dropdown-updatesactions-option-default'}}
-                {{/if}} -->
+                {{ selectedAction }}
                 <i class="fa {{#if menuOpen}} fa-caret-up {{else}} fa-caret-down {{/if}}"></i>
             </button>
             <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>

@@ -30,6 +30,8 @@ Package.onUse(function(api) {
         'menu/menu.js',
 
         'partials/updates-actions/updates-actions.html',
-        'partials/updates-actions/updates-actions.js'
+        'partials/updates-actions/updates-actions.js',
+        'partials/activities-actions/activities-actions.html',
+        'partials/activities-actions/activities-actions.js'
     ], 'client');
 });

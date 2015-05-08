@@ -19,5 +19,10 @@
     "dropdown-updatesactions-option-default": "All updates",
     "dropdown-updatesactions-option-messages": "All messages",
     "dropdown-updatesactions-option-activities": "All activity updates",
-    "dropdown-updatesactions-option-partup-changes": "All partup updates"
+    "dropdown-updatesactions-option-partup-changes": "All partup updates",
+
+    "dropdown-activitiesactions-option-default": "@Activity action 1",
+    "dropdown-activitiesactions-option-messages": "@Activity action 2",
+    "dropdown-activitiesactions-option-activities": "@Activity action 3",
+    "dropdown-activitiesactions-option-partup-changes": "@Activity action 4"
 }
