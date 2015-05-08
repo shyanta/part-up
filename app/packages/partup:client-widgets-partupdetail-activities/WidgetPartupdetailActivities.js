@@ -4,7 +4,22 @@
 var getActivities = function getActivities () {
     var partupId = Router.current().params._id;
 
-    return Activities.find({ partup_id: partupId }, { sort: { end_date: -1 } });
+    // Get the option that is selected in the filter dropdown
+    var option = Session.get('partial-dropdown-activities-actions.selected');
+
+    return Activities.find({ partup_id: partupId }, { sort: { end_date: -1 } }).filter(function (activity, idx) {
+        if (option === 'default') return true;
+
+        if (option === 'my-activities') {
+            return activity.creator_id && activity.creator_id === Meteor.user()._id;
+        }
+
+        if (option === 'no-end-date') {
+            return ! activity.end_date;
+        }
+
+        return true;
+    });
 };
 
 /*************************************************************/
