@@ -90,10 +90,10 @@
             {{#if partupEqualsExactly update.type 'partups_image_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        <b>OLD</b>
-                        <img src="{{ getImageUrlById old_image }}">
-                        <b>NEW</b>
-                        <img src="{{ getImageUrlById new_image }}">
+                        <!-- <b>OLD</b>
+                        <img src="{{ getImageUrlById old_image }}"> -->
+                        <!-- <b>NEW</b> -->
+                        <img class="pu-image" src="{{ getImageUrlById new_image }}">
                     </section>
                 {{/with}}
             {{/if }}
