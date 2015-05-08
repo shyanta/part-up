@@ -57,8 +57,10 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var partupId = Router.current().params._id;
             var self = this;
-            var uploadedPhotos = Template.instance().parent().uploadedPhotos.get();
+            var parent = Template.instance().parent()
+            var uploadedPhotos = parent.uploadedPhotos.get();
             insertDoc.images = uploadedPhotos;
+            
             Meteor.call('updates.messages.insert', partupId, insertDoc, function (error) {
                 // Error
                 if (error) {
@@ -67,10 +69,10 @@ AutoForm.hooks({
 
                     return;
                 }
-                Template.instance().parent().uploadedPhotos.set([]);
                 // Success
                 AutoForm.resetForm('newMessageForm');
                 self.done();
+                parent.uploadedPhotos.set([]);
                 Partup.ui.popup.close();
             });
 
