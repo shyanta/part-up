@@ -10,15 +10,18 @@
                 <span class="pu-sub-input">
                     <div class="pu-message">
                         {{> afFieldInput name="text" placeholder=placeholders.text class="pu-textarea" rows=3 }}
-                        <ul class="pu-sub-photos">
-                            {{#each uploadedPhotos}}
-                            <li>
-                                <figure class="pu-thumbnail pu-thumbnail-removable" style="background-image:url({{ partupImageById . }})" data-remove-upload="{{ . }}">
-                                    
-                                </figure>
-                            </li>
-                            {{/each}}
-                        </ul>
+                        {{#if uploadedPhotos.length}}
+                            <ul class="pu-sub-photos">
+                            
+                                {{#each uploadedPhotos}}
+                                    <li>
+                                        <figure class="pu-thumbnail pu-thumbnail-removable" style="background-image:url({{ partupImageById . }})" data-remove-upload="{{ . }}">
+                                            
+                                        </figure>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}
                     </div>
                 </span>
                 <span class="pu-sub-error">ERROR</span>
