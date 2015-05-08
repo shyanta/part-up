@@ -52,8 +52,8 @@ Template.WidgetStartPromote.helpers({
     },
 
     partupCover: function () {
+        if (!getPartup() || !getPartup().image) return null;
         var imageId = getPartup().image;
-        if (!imageId) return null;
         return Images.findOne({ _id: imageId });
     }
 
