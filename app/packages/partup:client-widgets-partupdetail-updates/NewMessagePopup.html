@@ -13,7 +13,9 @@
                         <ul class="pu-sub-photos">
                             {{#each uploadedPhotos}}
                             <li>
-                                <figure class="pu-thumbnail pu-thumbnail-removable" style="background-image:url({{ partupImageById . }})"></figure>
+                                <figure class="pu-thumbnail pu-thumbnail-removable" style="background-image:url({{ partupImageById . }})" data-remove-upload="{{ . }}">
+                                    
+                                </figure>
                             </li>
                             {{/each}}
                         </ul>

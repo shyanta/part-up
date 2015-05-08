@@ -39,6 +39,13 @@ Template.NewMessagePopup.events({
     },
     'click [data-close]': function clearForm(event, template){
         template.uploadedPhotos.set([]);
+    },
+    'click [data-remove-upload]': function removeUpload(event, template){
+        var imageId = $(event.target).data('remove-upload');
+        // template.uploadedPhotos.set([]);
+        var uploadedPhotos = template.uploadedPhotos.get();
+        mout.array.remove(uploadedPhotos, imageId);
+        template.uploadedPhotos.set(uploadedPhotos);
     }
 });
 
