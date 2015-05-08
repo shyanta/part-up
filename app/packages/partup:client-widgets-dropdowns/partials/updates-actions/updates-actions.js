@@ -39,7 +39,7 @@ Template.PartialDropdownUpdatesActions.events({
         template.selectedOption.set(key);
 
         // change layout
-        Session.set('partial-dropdown-updates-actions.selected', key);
+        Session.set('partial-dropdown-updates-actions.selected', key.replace(optionsPrefix, ''));
     }
 })
 
