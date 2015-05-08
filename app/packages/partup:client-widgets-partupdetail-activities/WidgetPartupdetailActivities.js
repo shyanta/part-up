@@ -4,7 +4,7 @@
 var getActivities = function getActivities () {
     var partupId = Router.current().params._id;
 
-    return Activities.find({ partup_id: partupId }, { sort: { updated_at: -1 } });
+    return Activities.find({ partup_id: partupId }, { sort: { end_date: -1 } });
 };
 
 /*************************************************************/
