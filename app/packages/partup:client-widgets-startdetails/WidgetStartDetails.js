@@ -84,12 +84,15 @@ Template.WidgetStartDetails.onCreated(function() {
     }
 
     this.currentPartup = new ReactiveVar(partup || {});
+
+    
 });
 
-/*************************************************************/
-/* Widget on rendered */
-/*************************************************************/
-Template.WidgetStartDetails.onRendered(function() {
+// Activate datepicker
+Template.autoForm.onRendered(function () {
+    if(this.data.id !== 'partupForm') return;
+
+    // Add datepicker to field
     Partup.ui.datepicker.applyToInput(this, '.pu-datepicker');
 });
 
