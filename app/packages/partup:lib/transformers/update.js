@@ -16,12 +16,13 @@ Partup.transformers.update = {
     'fromFormNewMessage': function(fields, upper, partupId) {
 
         return {
-            created_at: new Date(),
             partup_id: partupId,
             type_data: {
                 new_value: fields.text
             },
-            upper_id: upper._id
+            upper_id: upper._id,
+            created_at: new Date(),
+            updated_at: new Date()
         };
 
     }
