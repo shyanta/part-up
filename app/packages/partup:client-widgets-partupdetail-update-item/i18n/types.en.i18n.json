@@ -26,5 +26,7 @@
 
     "partupdetail-update-item-type-rated-title": "Rated",
 
-    "partupdetail-update-item-type-new_message-title": "Message"
+    "partupdetail-update-item-type-new_message-title": "Message",
+
+    "partupdetail-update-item-type-partups_message_added-title": "@New message"
 }
