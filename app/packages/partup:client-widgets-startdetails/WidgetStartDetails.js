@@ -40,7 +40,6 @@ var ImageSystem = function ImageSystemConstructor () {
 
     // Set suggestion
     var setSuggestionByIndex = function (index, callback) {
-        console.log('trying to set suggestion', index);
 
         var suggestions = self.availableSuggestions.get();
         if(!mout.lang.isArray(suggestions)) return;
@@ -48,20 +47,16 @@ var ImageSystem = function ImageSystemConstructor () {
         var url = suggestions[index];
         if(!mout.lang.isString(url)) return;
 
-        console.log('passed validation, attaching url', url);
         var newFile = new FS.File();
         newFile.attachData(url, function (error) {
 
-            console.log('attached url');
             var dummyLink = document.createElement('a');
             dummyLink.href = url;
             var pathnameParts = dummyLink.pathname.split('/');
             var filename = pathnameParts[pathnameParts.length - 1];
             newFile.name(filename);
-            console.log('attached filename', filename);
 
             Images.insert(newFile, function (error, image) {
-                console.log('inserted image', image);
                 callback(image._id)
             });
         });
@@ -76,7 +71,6 @@ var ImageSystem = function ImageSystemConstructor () {
             setSuggestionByIndex(suggestionIndex, function (imageId) {
                 Meteor.subscribe('images.one', imageId);
                 self.currentImageId.set(imageId);
-                console.log('callback')
             });
         }
     });
