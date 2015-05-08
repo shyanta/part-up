@@ -5,20 +5,20 @@ var ImageSystem = function ImageSystemConstructor () {
     var self = this;
 
     this.currentImageId = new ReactiveVar(false);
-    this.uploadedImageId = new ReactiveVar(false);
-    this.upload = new ReactiveVar(false);
+    this.uploaded = new ReactiveVar(false);
     this.availableSuggestions = new ReactiveVar([]);
-    Session.set('current-suggestion', 0);
 
-    this.updateSuggestions = function (tags, done) {
+    this.getSuggestions = function (tags) {
         var newSuggestionsArray = [];
+        self.currentImageId.set(false);
+        self.uploaded.set(false);
 
         var addResults = function (result, isFinal) {
             newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
 
             if(isFinal) {
                 self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
-                if(mout.lang.isFunction(done)) done();
+                Session.set('partials.start-partup.current-suggestion', 0);
             }
         };
 
@@ -35,14 +35,12 @@ var ImageSystem = function ImageSystemConstructor () {
     };
 
     this.unsetUploadedPicture = function (tags) {
-        self.updateSuggestions(tags, function () {
-            self.upload.set(false);
-            Session.set('current-suggestion', 0);
-        });
+        self.getSuggestions(tags);
     };
 
-    Meteor.autorun(function() {
-        var index = Session.get('current-suggestion');
+    // Set suggestion
+    var setSuggestionByIndex = function (index, callback) {
+        console.log('trying to set suggestion', index);
 
         var suggestions = self.availableSuggestions.get();
         if(!mout.lang.isArray(suggestions)) return;
@@ -50,20 +48,37 @@ var ImageSystem = function ImageSystemConstructor () {
         var url = suggestions[index];
         if(!mout.lang.isString(url)) return;
 
+        console.log('passed validation, attaching url', url);
         var newFile = new FS.File();
         newFile.attachData(url, function (error) {
 
+            console.log('attached url');
             var dummyLink = document.createElement('a');
             dummyLink.href = url;
             var pathnameParts = dummyLink.pathname.split('/');
             var filename = pathnameParts[pathnameParts.length - 1];
             newFile.name(filename);
+            console.log('attached filename', filename);
+
             Images.insert(newFile, function (error, image) {
-                Meteor.subscribe('images.one', image._id);
-                self.currentImageId.set(image._id);
-                Session.set('current-suggestion', index);
+                console.log('inserted image', image);
+                callback(image._id)
             });
         });
+    };
+
+    Meteor.autorun(function() {
+        var suggestionIndex = Session.get('partials.start-partup.current-suggestion');
+
+        if(mout.lang.isNumber(suggestionIndex) && !mout.lang.isNaN(suggestionIndex) && !self.uploaded.get()) {
+            self.currentImageId.set(false);
+            self.uploaded.set(false);
+            setSuggestionByIndex(suggestionIndex, function (imageId) {
+                Meteor.subscribe('images.one', imageId);
+                self.currentImageId.set(imageId);
+                console.log('callback')
+            });
+        }
     });
 };
 
@@ -71,39 +86,23 @@ var ImageSystem = function ImageSystemConstructor () {
 /* Widget on created */
 /*************************************************************/
 Template.WidgetStartDetails.onCreated(function() {
-    var self = this;
 
     this.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
     this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     this.imageSystem = new ImageSystem();
-    this.currentPartup = new ReactiveVar({});
 
-    this.autorun(function () {
-        var partup = Partups.findOne({ _id: Session.get('partials.start-partup.current-partup') });
-        if(partup) {
-            self.currentPartup.set(partup);
-
-            if(partup.image) {
-                self.imageSystem.uploadedImageId.set(partup.image);
-                Session.set('current-suggestion', 0);
-            } else {
-                self.imageSystem.updateSuggestions(partup.tags, function () {
-                    Session.set('current-suggestion', 0);
-                });
-            }
+    // When current-partup is known
+    var partup = Partups.findOne({ _id: Session.get('partials.start-partup.current-partup') });
+    if(partup) {
+        if(partup.image) {
+            this.imageSystem.currentImageId.set(partup.image);
+            this.imageSystem.uploaded.set(true);
+        } else {
+            this.imageSystem.getSuggestions(partup.tags);
         }
-    });
+    }
 
-    this.autorun(function () {
-        var imageId = self.imageSystem.uploadedImageId.get();
-        if(!imageId) return;
-
-        var image = Images.findOne({ _id: imageId });
-        if(!image) return;
-
-        self.imageSystem.currentImageId.set(imageId);
-        self.imageSystem.upload.set(image.url());
-    });
+    this.currentPartup = new ReactiveVar(partup || {});
 });
 
 /*************************************************************/
@@ -124,9 +123,7 @@ Template.WidgetStartDetails.helpers({
     },
     fieldsFromPartup: function() {
         var partup = Template.instance().currentPartup.get();
-        if (partup) {
-            return Partup.transformers.partup.toFormStartPartup(partup);
-        }
+        return partup ? Partup.transformers.partup.toFormStartPartup(partup) : {};
     },
     nameCharactersLeft: function(){
         return Template.instance().nameCharactersLeft.get();
@@ -139,11 +136,11 @@ Template.WidgetStartDetails.helpers({
     },
     suggestionSetter: function () {
         return function (index) {
-            Session.set('current-suggestion', index);
+            Session.set('partials.start-partup.current-suggestion', index);
         }
     },
     currentSuggestion: function () {
-        return Session.get('current-suggestion');
+        return Session.get('partials.start-partup.current-suggestion');
     }
 });
 
@@ -160,7 +157,8 @@ Template.WidgetStartDetails.events({
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
                 Meteor.subscribe('images.one', image._id);
-                template.imageSystem.uploadedImageId.set(image._id);
+                template.imageSystem.currentImageId.set(image._id);
+                template.imageSystem.uploaded.set(true);
             });
         });
     },
@@ -170,7 +168,7 @@ Template.WidgetStartDetails.events({
     },
     'blur [name=tags_input]': function searchFlickerByTags(event, template) {
         var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget).val());
-        Template.instance().imageSystem.updateSuggestions(tags);
+        Template.instance().imageSystem.getSuggestions(tags);
     }
 });
 

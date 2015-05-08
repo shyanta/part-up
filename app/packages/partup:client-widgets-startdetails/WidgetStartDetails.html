@@ -101,9 +101,9 @@
                 {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImage.currentImageId.get }}
                 <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
 
-                {{#if partupImage.upload.get }}
+                {{#if partupImage.uploaded.get }}
 
-                    <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImage.upload.get }}')">
+                    <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImageById partupImage.currentImageId.get }}')">
                         <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
                             <span>{{_ 'startdetails-image-button'}}</span>
                             {{#if uploadingPictures}}

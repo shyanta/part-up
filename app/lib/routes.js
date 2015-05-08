@@ -159,12 +159,8 @@ Router.route('/start/details', {
     },
     subscriptions: function () {
         this.subscribe('partups.one', Session.get('partials.start-partup.current-partup'));
-    },
-    data: function() {
-        return Partups.find({ _id: Session.get('partials.start-partup.current-partup') });
     }
 });
-
 
 Router.route('/start/:_id/activities', {
     name: 'start-activities',

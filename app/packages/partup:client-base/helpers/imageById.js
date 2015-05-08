@@ -1,3 +1,6 @@
 Template.registerHelper('partupImageById', function(id){
-    return Images.findOne({ _id: id }).url();
+    if(!id) return '';
+    var image = Images.findOne({ _id: id });
+    if(!image) return;
+    return image.url();
 });
