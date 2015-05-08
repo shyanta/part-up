@@ -7,7 +7,10 @@ var getActivities = function getActivities () {
     // Get the option that is selected in the filter dropdown
     var option = Session.get('partial-dropdown-activities-actions.selected');
 
-    return Activities.find({ partup_id: partupId }, { sort: { end_date: -1 } }).filter(function (activity, idx) {
+    return Activities.find({ partup_id: partupId }, { sort: { end_date: -1 } }).map(function (activity, idx) {
+        activity.arrayIndex = idx;
+        return activity;
+    }).filter(function (activity, idx) {
         if (option === 'default') return true;
 
         if (option === 'my-activities') {

@@ -16,13 +16,12 @@
     "dropdown-menu-button-blog": "Blog",
     "dropdown-menu-button-contact": "Contact",
 
-    "dropdown-updatesactions-option-default": "Alle updates",
-    "dropdown-updatesactions-option-messages": "Alle berichten",
-    "dropdown-updatesactions-option-activities": "Alle activiteit updates",
-    "dropdown-updatesactions-option-partup-changes": "Alle partup updates",
+    "dropdown-updatesactions-option-default": "@Alle updates",
+    "dropdown-updatesactions-option-messages": "@Alle berichten",
+    "dropdown-updatesactions-option-activities": "@Alle activiteit updates",
+    "dropdown-updatesactions-option-partup-changes": "@Alle partup updates",
 
-    "dropdown-activitiesactions-option-default": "@Activity actie 1",
-    "dropdown-activitiesactions-option-messages": "@Activity actie 2",
-    "dropdown-activitiesactions-option-activities": "@Activity actie 3",
-    "dropdown-activitiesactions-option-partup-changes": "@Activity actie 4"
+    "dropdown-activitiesactions-option-default": "@Alle activiteiten",
+    "dropdown-activitiesactions-option-my-activities": "@Mijn activiteiten",
+    "dropdown-activitiesactions-option-no-end-date": "@Activiteiten zonder eind datum"
 }

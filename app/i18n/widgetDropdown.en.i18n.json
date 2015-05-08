@@ -21,8 +21,7 @@
     "dropdown-updatesactions-option-activities": "All activity updates",
     "dropdown-updatesactions-option-partup-changes": "All partup updates",
 
-    "dropdown-activitiesactions-option-default": "@Activity action 1",
-    "dropdown-activitiesactions-option-messages": "@Activity action 2",
-    "dropdown-activitiesactions-option-activities": "@Activity action 3",
-    "dropdown-activitiesactions-option-partup-changes": "@Activity action 4"
+    "dropdown-activitiesactions-option-default": "@All activities",
+    "dropdown-activitiesactions-option-my-activities": "@My activities",
+    "dropdown-activitiesactions-option-no-end-date": "@Activities without end date"
 }
