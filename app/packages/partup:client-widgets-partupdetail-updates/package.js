@@ -23,9 +23,9 @@ Package.onUse(function(api) {
         'WidgetPartupdetailUpdates.html',
         'WidgetPartupdetailUpdates.js',
 
+        'NewMessagePlaceholders.js',
         'NewMessagePopup.html',
         'NewMessagePopup.js',
-        'NewMessagePlaceholders.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
