@@ -59,9 +59,9 @@
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-budget-tooltip' }}</p></span>
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_amount' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='budget_type' class="pu-input" }}</span>
+                    <span class="pu-sub-input"><span class="pu-inputcontainer pu-inputcontainer-select">{{> afFieldInput type='select' firstOption="" name='budget_type' class="pu-input pu-input-select" options='allowed' }}</span></span>
                     {{#if budgetType }}
-                        <span class="pu-sub-input">{{> afFieldInput name='budget_amount' placeholder=placeholders.budget_amount class="pu-input" }}</span>
+                        <span class="pu-sub-input pu-sub-input-half">{{> afFieldInput name='budget_amount' placeholder=placeholders.budget_amount class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='budget_amount' }}</span>
                     {{/if }}
                 </div>

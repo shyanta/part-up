@@ -7,7 +7,6 @@
     &-preholder
         color: rgba($color-text, .5)
         cursor: text
-        // display: table
         white-space: nowrap
         overflow: hidden
         padding: 12px
@@ -26,7 +25,6 @@
         input 
             // Dimensions
             position: relative
-            // margin-left: -5px
             float: right
             width: 100%
             margin: 0 
@@ -52,3 +50,30 @@
 
     &-hidden
         display: none
+
+    &-select
+        -webkit-appearance: none // autoprefixer doesn't take care of these
+        -moz-appearance: none
+        appearance: none
+        padding-right: 35px
+
+    &container
+        &-select
+            position: relative
+            display: block
+
+            &:after
+                content: '\f0d7'
+                font-family: 'FontAwesome'
+                color: $color-text-subtle
+                position: absolute
+                top: 50%
+                right: 20px
+                margin-top: -8px
+                pointer-events: none
+
+            .pu-input
+                webkit-appearance: none // autoprefixer doesn't take care of these
+                -moz-appearance: none
+                appearance: none
+                padding-right: 35px

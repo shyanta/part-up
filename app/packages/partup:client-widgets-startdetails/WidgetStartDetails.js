@@ -148,10 +148,14 @@ Template.WidgetStartDetails.events({
             });
         });
     },
-    'input [name=budget_type]': function eventChangeBudgetType(event, template) {
+    'change [name=budget_type]': function eventChangeBudgetType(event, template) {
         var budgetType = $(event.currentTarget).val();
         if(budgetType === 'money' || budgetType === 'hours') {
             template.budgetType.set(budgetType);
+            setTimeout(function() {
+                var budgetAmountField = template.find('[name=budget_amount]');
+                budgetAmountField.focus();
+            });
         } else {
             template.budgetType.set('');
         }
