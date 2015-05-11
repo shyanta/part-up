@@ -6,13 +6,7 @@
                 <!-- Activity name -->
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'activity-form-name-label'}}</span>
-                    <a class="pu-hint">
-                        {{#if partupLowerThan nameCharactersLeft Partup.schemas.forms.startActivities._schema.name.max}}
-                            {{_ 'activity-form-name-validation-left' nameCharactersLeft }}
-                        {{else}}
-                            {{_ 'activity-form-name-validation-left' Partup.schemas.forms.startActivities._schema.name.max }}
-                        {{/if}}
-                    </a>
+                    <a class="pu-hint">{{_ 'activity-form-name-validation-left' charactersLeftName }}</a>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name="name" placeholder=placeholders.name class="pu-input pu-input-accent" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
@@ -22,13 +16,7 @@
                 <!-- Activity description -->
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'activity-form-description-label'}}</span>
-                    <a class="pu-hint">
-                        {{#if partupLowerThan descriptionCharactersLeft Partup.schemas.forms.startActivities._schema.description.max}}
-                            {{_ 'activity-form-description-validation-left' descriptionCharactersLeft }}
-                        {{else}}
-                            {{_ 'activity-form-description-validation-left' Partup.schemas.forms.startActivities._schema.description.max }}
-                        {{/if}}
-                    </a>
+                    <a class="pu-hint">{{_ 'activity-form-description-validation-left' charactersLeftDescription }}</a>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>

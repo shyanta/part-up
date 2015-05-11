@@ -1,9 +1,17 @@
+var maxLength = {
+    name: Partup.schemas.forms.startActivities._schema.name.max,
+    description: Partup.schemas.forms.startActivities._schema.description.max
+};
+
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
 Template.WidgetActivity.onCreated(function(){
     this.edit = new ReactiveVar(false);
     this.showDatePicker = new ReactiveVar(this.data.CREATE ? false : true);
+    this.charactersLeft = new ReactiveDict();
+    this.charactersLeft.set('name', maxLength.name);
+    this.charactersLeft.set('description', maxLength.description);
 });
 
 /*************************************************************/
@@ -17,6 +25,12 @@ Template.WidgetActivity.helpers({
             return 'activityCreateForm';
         }
         return 'activityEditForm-' + this.activity._id;
+    },
+    charactersLeftName: function(){
+        return Template.instance().charactersLeft.get('name');
+    },
+    charactersLeftDescription: function(){
+        return Template.instance().charactersLeft.get('description');
     },
     showForm: function(){
         return !!this.CREATE || Template.instance().edit.get();
@@ -37,6 +51,8 @@ Template.WidgetActivity.helpers({
 /*************************************************************/
 Template.WidgetActivity.events({
     'click [data-edit]': function(event, template){
+        template.charactersLeft.set('name', maxLength.name - template.data.activity.name.length);
+        template.charactersLeft.set('description', maxLength.description - template.data.activity.description.length);
         template.edit.set(true);
         Partup.ui.datepicker.applyToInput(template, '.pu-datepicker', 500);
     },
@@ -52,6 +68,10 @@ Template.WidgetActivity.events({
                 Partup.ui.notify.error(error.reason);
             }
         });
+    },
+    'input [maxlength]': function(event, template){
+        var target = event.target;
+        template.charactersLeft.set(target.name, maxLength[target.name] - target.value.length);
     }
 });
 
