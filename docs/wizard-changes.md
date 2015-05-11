@@ -1,8 +1,8 @@
 # Changes wizard
 v 1 stap weghalen uit 'Aan de slag'-scherm
-- eventueel copy veranderen
-- budget veld toevoegen
+v copy veranderen
 v extra knop toevoegen om direct naar je partup te gaan (alleen op stap 1)
+- budget veld toevoegen
 - nieuwe activiteiten widget
     - create
         - omschrijving verbergen zoals datum
