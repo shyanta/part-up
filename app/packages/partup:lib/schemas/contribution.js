@@ -26,20 +26,20 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
         type: Date,
         defaultValue: Date.now()
     },
-    feedbacks: {
+    ratings: {
         type: [Object],
         optional: true
     },
-        "feedbacks.$.description": {
+        "ratings.$.feedback": {
             type: String,
             optional: true
         },
-        "feedbacks.$.rating": {
+        "ratings.$.rating": {
             type: Number,
             decimal: true,
             optional: true
         },
-        "feedbacks.$.upper_id": {
+        "ratings.$.upper_id": {
             type: String,
             regEx: SimpleSchema.RegEx.Id
         },
