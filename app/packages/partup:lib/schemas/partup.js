@@ -11,6 +11,7 @@ var partupBaseSchema = new SimpleSchema({
     },
     budget_type: {
         type: String,
+        allowedValues: ['money', 'hours'],
         optional: true
     },
     budget_amount: {
