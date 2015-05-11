@@ -84,7 +84,7 @@ Template.WidgetStartDetails.onCreated(function() {
     }
 
     this.currentPartup = new ReactiveVar(partup || {});
-
+    this.budgetType = new ReactiveVar(partup ? partup.budget_type || '' : '');
     
 });
 
@@ -125,6 +125,9 @@ Template.WidgetStartDetails.helpers({
     },
     currentSuggestion: function () {
         return Session.get('partials.start-partup.current-suggestion');
+    },
+    budgetType: function () {
+        return Template.instance().budgetType.get();
     }
 });
 
@@ -144,6 +147,14 @@ Template.WidgetStartDetails.events({
                 template.imageSystem.uploaded.set(true);
             });
         });
+    },
+    'input [name=budget_type]': function eventChangeBudgetType(event, template) {
+        var budgetType = $(event.currentTarget).val();
+        if(budgetType === 'money' || budgetType === 'hours') {
+            template.budgetType.set(budgetType);
+        } else {
+            template.budgetType.set('');
+        }
     },
     'click [data-imageremove]': function eventChangeFile(event, template) {
         var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget.form).find('[name=tags_input]').val());

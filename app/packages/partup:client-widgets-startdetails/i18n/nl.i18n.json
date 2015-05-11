@@ -15,6 +15,15 @@
     "startdetails-form-tags_input-placeholder": "Graag even scheiden door een komma",
     "startdetails-form-tags_input-tooltip": "We gebruiken deze woorden om te kijken welke uppers bij de part-up passen. Denk er dus even goed over na.",
 
+    "startdetails-form-budget-label": "Heb je al een budget voor je part-up?",
+    "startdetails-form-budget-type-nobudget": "Geen budget",
+    "startdetails-form-budget-type-money": "Ja, in geld",
+    "startdetails-form-budget-type-hours": "Ja, in user",
+    "startdetails-form-budget-unit-euro": "euro",
+    "startdetails-form-budget-unit-hours": "uren",
+    "startdetails-form-budget_amount-placeholder": "0",
+    "startdetails-form-budget-tooltip": "Blahblah budget tooltip inhoud",
+
     "startdetails-form-end_date-label": "Wanneer wil je ongeveer klaar zijn?",
     "startdetails-form-end_date-placeholder": "Prik een einddatum",
     "startdetails-form-end_date-tooltip": "Een part-up is altijd een tijdelijke samenwerking. De einddatum houdt de vaart en energie erin.",

@@ -15,6 +15,15 @@
     "startdetails-form-tags_input-placeholder": "Separate them by a comma, please",
     "startdetails-form-tags_input-tooltip": "We use these words to check which uppers match your part-up. So think about the right words for a second.",
 
+    "startdetails-form-budget-label": "Do you already have a budget for your part-up?",
+    "startdetails-form-budget-type-nobudget": "No budget",
+    "startdetails-form-budget-type-money": "Yes, in money",
+    "startdetails-form-budget-type-hours": "Yes, in hours",
+    "startdetails-form-budget-unit-euro": "euro",
+    "startdetails-form-budget-unit-hours": "hours",
+    "startdetails-form-budget_amount-placeholder": "0",
+    "startdetails-form-budget-tooltip": "Blahblah budget tooltip content",
+
     "startdetails-form-end_date-label": "When do you prefer to be ready?",
     "startdetails-form-end_date-placeholder": "Pick an end date",
     "startdetails-form-end_date-tooltip": "A part-up is a temporary collaboration. The end date helps to move forwared and keep energy high.",

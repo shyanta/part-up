@@ -9,6 +9,15 @@ var partupBaseSchema = new SimpleSchema({
         type: String,
         max: 250
     },
+    budget_type: {
+        type: String,
+        optional: true
+    },
+    budget_amount: {
+        type: Number,
+        min: 0,
+        optional: true
+    },
     end_date: {
         type: Date
     },
