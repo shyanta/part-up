@@ -30,5 +30,7 @@
 
     "startdetails-suggestion-label": "of kies een van de vijf suggesties",
 
-    "startdetails-form-submit": "Ingevuld, op naar de activiteiten"
+    "startdetails-form-submit-next": "Naar de volgende stap",
+    "startdetails-form-submit-or": "of",
+    "startdetails-form-submit-skip": "Direct naar je part-up"
 }

@@ -138,7 +138,9 @@
             <!-- Submit button -->
             <footer class="pu-sub-modalfooter">
                 <div class="pu-sub-footer-container">
-                    <button type="submit" class="pu-button pu-button-arrow">{{_ 'startdetails-form-submit' }}</button>
+                    <button type="submit" class="pu-button" data-submission-type="skip">{{_ 'startdetails-form-submit-skip' }}</button>
+                    <span class="pu-sub-plain">{{_ 'startdetails-form-submit-or'}}</span>
+                    <button type="submit" class="pu-button pu-button-arrow" data-submission-type="next">{{_ 'startdetails-form-submit-next' }}</button>
                 </div>
             </footer>
         {{/autoForm}}

@@ -30,5 +30,7 @@
 
     "startdetails-suggestion-label": "Or pick one of the five suggestions",
 
-    "startdetails-form-submit": "Done, let's move on to activities"
+    "startdetails-form-submit-next": "Next step",
+    "startdetails-form-submit-or": "or",
+    "startdetails-form-submit-skip": "To partup"
 }

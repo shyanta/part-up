@@ -152,61 +152,80 @@ Template.WidgetStartDetails.events({
     'blur [name=tags_input]': function searchFlickerByTags(event, template) {
         var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget).val());
         Template.instance().imageSystem.getSuggestions(tags);
+    },
+    'click [data-submission-type]': function eventClickSetSubmissionType (event) {
+        var submissionType = event.currentTarget.getAttribute('data-submission-type');
+        Session.set('partials.start-partup.submission-type', submissionType);
     }
 });
+
+/*************************************************************/
+/* Widget create partup */
+/*************************************************************/
+var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, callback) {
+    if(partupId) {
+
+        // Partup already exists. Update.
+        Meteor.call('partups.update', partupId, insertDoc, function(error, res){
+            if(error && error.message) {
+                switch (error.message) {
+                    // case 'User not found [403]':
+                    //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                    //     break;
+                    default:
+                        Partup.ui.notify.error(error.reason);
+                }
+                AutoForm.validateForm(self.formId);
+                self.done(new Error(error.message));
+                return;
+            }
+            
+            callback(partupId);
+        });
+
+    } else {
+
+        // Partup does not exists yet. Insert.
+        Meteor.call('partups.insert', insertDoc, function(error, res){
+            if(error && error.message) {
+                switch (error.message) {
+                    // case 'User not found [403]':
+                    //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                    //     break;
+                    default:
+                        Partup.ui.notify.error(error.reason);
+                }
+                AutoForm.validateForm(self.formId);
+                self.done(new Error(error.message));
+                return;
+            }
+
+            Session.set('partials.start-partup.current-partup', res._id);
+            callback(res._id);
+        });
+
+    }
+};
 
 /*************************************************************/
 /* Widget form hooks */
 /*************************************************************/
 AutoForm.hooks({
     partupForm: {
-        onSubmit: function(insertDoc, updateDoc, currentDoc) {
+        onSubmit: function(insertDoc) {
             var self = this;
             var partupId = Session.get('partials.start-partup.current-partup');
+            var submissionType = Session.get('partials.start-partup.submission-type') || 'next';
 
-            if(partupId) {
+            createOrUpdatePartup(partupId, insertDoc, function (id) {
+                if(submissionType === 'next') {
+                    Router.go('start-activities', {_id: id});
+                } else if (submissionType === 'skip') {
+                    Router.go('partup-detail', {_id: id});
+                }
+            });
 
-                // Partup already exists. Update.
-                Meteor.call('partups.update', partupId, insertDoc, function(error, res){
-                    if(error && error.message) {
-                        switch (error.message) {
-                            // case 'User not found [403]':
-                            //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
-                            //     break;
-                            default:
-                                Partup.ui.notify.error(error.reason);
-                        }
-                        AutoForm.validateForm(self.formId);
-                        self.done(new Error(error.message));
-                        return;
-                    }
-                    
-                    Router.go('start-activities', {_id:partupId});
-                });
-
-            } else {
-
-                // Partup does not exists yet. Insert.
-                Meteor.call('partups.insert', insertDoc, function(error, res){
-                    if(error && error.message) {
-                        switch (error.message) {
-                            // case 'User not found [403]':
-                            //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
-                            //     break;
-                            default:
-                                Partup.ui.notify.error(error.reason);
-                        }
-                        AutoForm.validateForm(self.formId);
-                        self.done(new Error(error.message));
-                        return;
-                    }
-
-                    Session.set('partials.start-partup.current-partup', res._id);
-                    Router.go('start-activities', {_id:res._id});
-                });
-
-            }
-
+            this.event.preventDefault();
             return false;
         }
     }
