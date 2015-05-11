@@ -12,7 +12,7 @@ Meteor.methods({
 
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var contribution = Contributions.findOneOrFail({ activity_id: activityId, upper_id: upper._id });
+        var contribution = Contributions.findOne({ activity_id: activityId, upper_id: upper._id });
         var isUpperInPartup = Partups.findOne({ _id: activity.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
         
         check(fields, Partup.schemas.forms.contribution);
