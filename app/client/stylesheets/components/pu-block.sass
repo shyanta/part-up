@@ -5,6 +5,12 @@
     margin-bottom: $spacing-default
     position: relative
 
+    &-highlighted
+        margin-top: $spacing-default
+        padding: $spacing-large
+        border: 0;
+        background-color: $color-gallery
+
     &-title
         font-size: 22px
     h2
@@ -14,10 +20,10 @@
         margin-bottom: 10px
         word-wrap: break-word
 
-    time 
+    time
         line-height: 1.6em
         color: $color-text-subtle
-        font-weight: bold 
+        font-weight: bold
         font-size: 14px
 
     .pu-sub-editbutton
@@ -26,12 +32,12 @@
         top: $spacing-default - 8px
         right: $spacing-default
         transition: opacity $animation-duration
-    
+
     &-container
         padding: 0
         border: 0
 
-        p 
+        p
             margin-bottom: $spacing-default
 
         .pu-form.pu-form-contribution
