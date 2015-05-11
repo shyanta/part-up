@@ -1,0 +1,86 @@
+<template name="WidgetActivity">
+    {{#if showForm}}
+        <article class="pu-block {{#if editMode }}pu-block-active{{else}}pu-block-highlighted{{/if }}">
+            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form" doc=fieldsFromActivity validation="submitThenKeyup"}}
+
+                <!-- Activity name -->
+                <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'activity-form-name-label'}}</span>
+                    <a class="pu-hint">{{_ 'activity-form-name-validation-left' charactersLeftName }}</a>
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name="name" placeholder=placeholders.name class="pu-input pu-input-accent" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+                    </div>
+                </label>
+
+                <!-- Activity description -->
+                <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'activity-form-description-label'}}</span>
+                    <a class="pu-hint">{{_ 'activity-form-description-validation-left' charactersLeftDescription }}</a>
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                    </div>
+                </label>
+
+                <!-- Activity end date -->
+                <div class="pu-formfield">
+                    {{#unless showDatePicker}}
+                        <div class="pu-formfield-left" data-end-date-button>
+                            <a class="pu-button pu-button-text pu-button-text-gray">
+                                <i class="fa fa-calendar"></i>
+                                {{_ 'activity-form-end_date-label' }}
+                            </a>
+                        </div>
+                    {{else}}
+
+                        <div class="end-date-field">
+                            <label class="pu-formfield">
+                                <span class="pu-label">{{_ 'activity-form-end_date-label'}}</span>
+                                <div class="pu-inputholder pu-inputholder-lefticon">
+                                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
+
+                                        {{#if activity.end_date}}
+                                            <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="date" }}</span>
+                                        {{else}}
+                                            <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}</span>
+                                        {{/if}}
+
+                                        <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
+                                    </div>
+                                    <span class="pu-icon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </label>
+                        </div>
+                    {{/unless}}
+
+                    <div class="pu-formfield-right">
+                        {{#if editMode }}
+                            <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>{{_ 'activity-button-remove'}}</a>
+                            <button type="submit" class="pu-button">{{_ 'activity-form-save' }}</button>
+                        {{else}}
+                            <input class="pu-button" type="submit" value="{{_ 'activity-form-submit' }}">
+                        {{/if}}
+                    </div>
+                </div>
+
+            {{/autoForm}}
+        </article>
+
+    {{else}}
+
+        <article class="pu-block">
+            <h2 class="pu-block-title">{{activity.name}}</h2>
+
+            {{#unless activity.donation}}
+                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-edit>{{_ 'activity-button-edit'}}</a>
+            {{/unless}}
+
+            <p class="pu-paragraph">{{activity.description}}</p>
+            {{# if activity.end_date }}
+                <time datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+            {{/if}}
+        </article>
+
+    {{/if}}
+</template>

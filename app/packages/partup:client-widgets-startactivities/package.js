@@ -28,9 +28,6 @@ Package.onUse(function (api) {
         'CopyActivityPopup.html',
         'CopyActivityPopup.js',
 
-        'Activity.html',
-        'Activity.js',
-
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], 'client');
