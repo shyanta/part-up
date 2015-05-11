@@ -14,7 +14,7 @@
 
     "start-partup-skip": "Overslaan",
     "start-partup-skip-start": "Klaar",
-    "start-partup-start": "Start",
-    "start-partup-activities": "Activiteiten",
-    "start-partup-promote": "Promoten"
+    "start-partup-start": "1. Beschrijf je part-up",
+    "start-partup-activities": "2. Bepaal de activiteiten",
+    "start-partup-promote": "3. Promoot je part-up"
 }

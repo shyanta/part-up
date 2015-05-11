@@ -14,7 +14,7 @@
 
     "start-partup-skip": "Skip",
     "start-partup-skip-start": "Done",
-    "start-partup-start": "Start",
-    "start-partup-activities": "Activities",
-    "start-partup-promote": "Promote"
+    "start-partup-start": "Step 1. Describe your part-up",
+    "start-partup-activities": "Step 2. Define your activities",
+    "start-partup-promote": "Step 3. Promote your part-up"
 }
