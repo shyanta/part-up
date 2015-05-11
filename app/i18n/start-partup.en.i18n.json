@@ -7,7 +7,7 @@
     
     "start-partup-intro-start-title": "1. Describe your part-up",
     "start-partup-intro-start-explanation": "What is the goal of your part-up?",
-    "start-partup-intro-activities-title": "2. Set your activities",
+    "start-partup-intro-activities-title": "2. Define your activities",
     "start-partup-intro-activities-explanation": "What are you going to do?",
     "start-partup-intro-promote-title": "3. Promote your part-up",
     "start-partup-intro-promote-explanation": "Find uppers for your dream team!",
@@ -16,6 +16,5 @@
     "start-partup-skip-start": "Done",
     "start-partup-start": "Start",
     "start-partup-activities": "Activities",
-    "start-partup-contribute": "Contribute",
     "start-partup-promote": "Promote"
 }
