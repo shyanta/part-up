@@ -58,6 +58,8 @@
         padding-right: 35px
 
     &container
+        display: block
+
         &-select
             position: relative
             display: block
@@ -77,3 +79,14 @@
                 -moz-appearance: none
                 appearance: none
                 padding-right: 35px
+
+        &-text
+            position: relative
+
+            .pu-sub-text
+                position: absolute
+                top: 50%
+                right: 30px
+                z-index: 1
+                color: $color-text-subtle
+                margin-top: -8px

@@ -128,6 +128,32 @@ Template.WidgetStartDetails.helpers({
     },
     budgetType: function () {
         return Template.instance().budgetType.get();
+    },
+    budgetOptions: function () {
+        return [
+            {
+                label: 'Geen budget',
+                value: ''
+            },
+            {
+                label: 'Ja, in geld',
+                value: 'money'
+            },
+            {
+                label: 'Ja, in uren',
+                value: 'hours'
+            }
+        ];
+    },
+    budgetUnitI18nKey: function () {
+        switch(Template.instance().budgetType.get()) {
+            case 'money':
+                return __('startdetails-form-budget-unit-euro');
+            case 'hours':
+                return __('startdetails-form-budget-unit-hours');
+            case '':
+                return '';
+        }
     }
 });
 
@@ -157,6 +183,8 @@ Template.WidgetStartDetails.events({
                 budgetAmountField.focus();
             });
         } else {
+            var budgetAmountField = template.find('[name=budget_amount]');
+            $(budgetAmountField).val('');
             template.budgetType.set('');
         }
     },
