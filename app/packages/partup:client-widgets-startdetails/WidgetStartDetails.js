@@ -181,6 +181,7 @@ Template.WidgetStartDetails.events({
             setTimeout(function() {
                 var budgetAmountField = template.find('[name=budget_amount]');
                 budgetAmountField.focus();
+                $(budgetAmountField).val('');
             });
         } else {
             var budgetAmountField = template.find('[name=budget_amount]');
