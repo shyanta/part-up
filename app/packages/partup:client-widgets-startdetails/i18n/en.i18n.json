@@ -13,12 +13,10 @@
 
     "startdetails-form-tags_input-label": "Your part-up, in five words",
     "startdetails-form-tags_input-placeholder": "Separate them by a comma, please",
-    "startdetails-form-tags_input-validation": "why",
     "startdetails-form-tags_input-tooltip": "We use these words to check which uppers match your part-up. So think about the right words for a second.",
 
     "startdetails-form-end_date-label": "When do you prefer to be ready?",
     "startdetails-form-end_date-placeholder": "Pick an end date",
-    "startdetails-form-end_date-validation": "why",
     "startdetails-form-end_date-tooltip": "A part-up is a temporary collaboration. The end date helps to move forwared and keep energy high.",
 
     "startdetails-form-location_input-label": "Where is your part-up located?",
