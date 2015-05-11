@@ -7,7 +7,7 @@
 var partupBaseSchema = new SimpleSchema({
     description: {
         type: String,
-        max:140
+        max: 250
     },
     end_date: {
         type: Date
