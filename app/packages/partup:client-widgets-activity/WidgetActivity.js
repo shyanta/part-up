@@ -81,28 +81,58 @@ Template.WidgetActivity.events({
 AutoForm.addHooks(null, {
     onSubmit: function(doc){
         var self = this;
-        var template = this.template.parentTemplate();
-        var activityId = template.data.activity._id;
+        var template = self.template.parentTemplate();
 
-        Meteor.call('activities.update', activityId, doc, function (error) {
-            if (error && error.message){
-                switch (error.message){
-                    // case 'User not found [403]':
-                    //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
-                    //     break;
-                    default:
-                        Partup.ui.notify.error(error.reason);
+        if (template.data && template.data.activity){
+            var activityId = template.data.activity._id;
+
+            Meteor.call('activities.update', activityId, doc, function(error){
+                if (error && error.message){
+                    switch (error.message){
+                        // case 'User not found [403]':
+                        //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                        //     break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
+                    }
+
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return;
                 }
 
-                AutoForm.validateForm(self.formId);
-                self.done(new Error(error.message));
-                return;
-            }
+                template.edit.set(false);
+                AutoForm.resetForm(self.formId);
+                self.done();
+            });
+        } else {
+            var partupId = Session.get('partials.start-partup.current-partup') || Router.current().params._id;
 
-            template.edit.set(false);
-            AutoForm.resetForm(self.formId);
-            self.done();
-        });
+            Meteor.call('activities.insert', partupId, doc, function(error){
+                if (error && error.message){
+                    switch (error.message){
+                        // case 'User not found [403]':
+                        //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                        //     break;
+                        default:
+                            Partup.ui.notify.error(error.reason);
+                    }
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return;
+                }
+
+                template.charactersLeft.set('name', maxLength.name);
+                template.charactersLeft.set('description', maxLength.description);
+                template.showDatePicker.set(false);
+                AutoForm.resetForm(self.formId);
+                self.done();
+
+                if(template.data.popup){
+                    Partup.ui.popup.close();
+                }
+            });
+        }
 
         return false;
     }
