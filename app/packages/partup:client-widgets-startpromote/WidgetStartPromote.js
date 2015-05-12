@@ -84,12 +84,13 @@ Template.WidgetStartPromote.events({
         elm.select();
     },
 
-    'click [data-action-topartup]': function eventToPartup() {
+    'click [data-action-topartup]': function eventToPartup(event) {
+        event.preventDefault();
         var partupId = Router.current().params._id;
-        Partup.ui.modal.executeIntentCallback('start', partupId, function () {
+        Partup.ui.modal.executeIntentCallback('start', partupId, function (id) {
 
             // Router go
-            Router.go('partup-detail', { _id: partupId });
+            Router.go('partup-detail', { _id: id });
 
         });
     },
