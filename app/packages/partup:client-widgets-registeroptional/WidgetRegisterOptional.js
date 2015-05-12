@@ -45,7 +45,6 @@ Template.WidgetRegisterOptional.helpers({
         var uploadedImageID = Session.get('partials.register-optional.uploaded-image');
 
         if (uploadedImageID) {
-            console.log(Images.findOne({ _id: uploadedImageID }).url({store:'360x360'}))
             return Images.findOne({ _id: uploadedImageID }).url();
         }
 
