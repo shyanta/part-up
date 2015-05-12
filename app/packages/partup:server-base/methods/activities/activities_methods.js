@@ -14,12 +14,12 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         try {
-            activity = Partup.transformers.activity.fromForm(fields, upper, partup);
+            var activity = Partup.transformers.activity.fromForm(fields, upper, partup);
 
             activity._id = Activities.insert(activity);
 
             return {
-                _id: fields._id
+                _id: activity._id
             }
         } catch (error) {
             Log.error(error);
