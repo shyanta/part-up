@@ -13,6 +13,7 @@
     "activity-form-end_date-placeholder": "Add a date if you like",
     "activity-form-end_date-validation": "Only future dates are allowed",
 
+    "activity-form-optional-fields": "add a description and/or date",
     "activity-form-submit": "Create activity",
     "activity-form-save": "Save",
     "activity-button-next_page": "What will you contribute?",

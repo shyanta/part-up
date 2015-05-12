@@ -8,7 +8,7 @@ var maxLength = {
 /*************************************************************/
 Template.WidgetActivity.onCreated(function(){
     this.edit = new ReactiveVar(false);
-    this.showDatePicker = new ReactiveVar(this.data.CREATE ? false : true);
+    this.showExtraFields = new ReactiveVar(this.data.CREATE ? false : true);
     this.charactersLeft = new ReactiveDict();
     this.charactersLeft.set('name', maxLength.name);
     this.charactersLeft.set('description', maxLength.description);
@@ -41,8 +41,8 @@ Template.WidgetActivity.helpers({
     fieldsFromActivity: function(){
         return this.activity;
     },
-    showDatePicker: function(){
-        return Template.instance().showDatePicker.get();
+    showExtraFields: function(){
+        return Template.instance().showExtraFields.get();
     }
 });
 
@@ -52,13 +52,13 @@ Template.WidgetActivity.helpers({
 Template.WidgetActivity.events({
     'click [data-edit]': function(event, template){
         template.charactersLeft.set('name', maxLength.name - template.data.activity.name.length);
-        template.charactersLeft.set('description', maxLength.description - template.data.activity.description.length);
+        template.charactersLeft.set('description', maxLength.description - (mout.object.get(template.data, 'activity.description.length') || 0));
         template.edit.set(true);
         Partup.ui.datepicker.applyToInput(template, '.pu-datepicker', 500);
     },
-    'click [data-end-date-button]': function(event, template){
+    'click [data-extra-fields-button]': function(event, template){
         event.preventDefault();
-        template.showDatePicker.set(true);
+        template.showExtraFields.set(true);
         Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
     },
     'click [data-remove]': function(event, template){
@@ -124,7 +124,7 @@ AutoForm.addHooks(null, {
 
                 template.charactersLeft.set('name', maxLength.name);
                 template.charactersLeft.set('description', maxLength.description);
-                template.showDatePicker.set(false);
+                template.showExtraFields.set(false);
                 AutoForm.resetForm(self.formId);
                 self.done();
 
