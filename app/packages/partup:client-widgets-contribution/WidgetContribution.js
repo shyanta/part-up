@@ -9,6 +9,10 @@ Template.WidgetContribution.onCreated(function(){
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetContribution.helpers({
+    placeholders: Partup.services.placeholders.contribution,
+    generateFormId: function(){
+        return 'addContribution';
+    },
     showForm: function(event, template){
         return Template.instance().showForm.get();
     }

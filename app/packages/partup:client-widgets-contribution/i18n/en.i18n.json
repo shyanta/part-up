@@ -1,1 +1,7 @@
-{}
+{
+    "contribution-form-hours-label": "@Amount of hours (optional)",
+    "contribution-form-hours-placeholder": "@Only numbers allowed",
+
+    "contribution-form-rate-label": "@Hourly rate (optional)",
+    "contribution-form-rate-placeholder": "@Only numbers allowed"
+}

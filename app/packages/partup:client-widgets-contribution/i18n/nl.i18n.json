@@ -1,1 +1,7 @@
-{}
+{
+    "contribution-form-hours-label": "Aantal uren (optioneel)",
+    "contribution-form-hours-placeholder": "Alleen cijfers mogelijk",
+
+    "contribution-form-rate-label": "Uurtarief (optioneel)",
+    "contribution-form-rate-placeholder": "Alleen cijfers mogelijk"
+}
