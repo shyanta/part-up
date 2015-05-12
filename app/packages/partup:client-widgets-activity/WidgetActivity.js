@@ -72,6 +72,9 @@ Template.WidgetActivity.events({
     'input [maxlength]': function(event, template){
         var target = event.target;
         template.charactersLeft.set(target.name, maxLength[target.name] - target.value.length);
+    },
+    'click [data-close]': function(event, template){
+        template.edit.set(false);
     }
 });
 
