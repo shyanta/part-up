@@ -25,10 +25,6 @@ Package.onUse(function(api) {
         'profile/profile.html',
         'profile/profile.js', 
 
-        'menu/menu-placeholders.js',
-        'menu/menu.html',
-        'menu/menu.js',
-
         'partials/updates-actions/updates-actions.html',
         'partials/updates-actions/updates-actions.js',
         'partials/activities-actions/activities-actions.html',
