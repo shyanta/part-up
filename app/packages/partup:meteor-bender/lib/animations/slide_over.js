@@ -43,7 +43,7 @@ SlideOver = (function() {
     return setTimeout((function(_this) {
       return function() {
         return $('.velocity-animating').promise().done(function() {
-          if(endCallback) endCallback();
+          if(typeof endCallback === 'function') endCallback();
           return $(node).remove();
         });
       };

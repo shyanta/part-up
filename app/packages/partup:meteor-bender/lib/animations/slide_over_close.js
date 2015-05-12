@@ -35,7 +35,7 @@ SlideOverClose = (function() {
       easing: 'ease-in-out',
       queue: false,
       complete: function() {
-        if(endCallback) endCallback();
+        if(typeof endCallback === 'function') endCallback();
         return $(node).remove();
       }
     });
