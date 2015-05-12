@@ -79,9 +79,22 @@
             {{/unless}}
 
             <p class="pu-paragraph">{{activity.description}}</p>
+
             {{# if activity.end_date }}
                 <time datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
             {{/if}}
+
+            {{# if showContributions }}
+                <div class="pu-block-inner">
+                    {{# each activity.contribution }}
+                        {{> WidgetContribution contribution=. }}
+                    {{/ each }}
+
+                    {{# unless userContributed }}
+                        {{> WidgetContribution PLACEHOLDER=true }}
+                    {{/ unless }}
+                </div>
+            {{/ if }}
         </article>
 
     {{/if}}

@@ -43,6 +43,18 @@ Template.WidgetActivity.helpers({
     },
     showExtraFields: function(){
         return Template.instance().showExtraFields.get();
+    },
+    showContributions: function(){
+        return !!this.CONTRIBUTIONS;
+    },
+    userContributed: function(){
+        var contributions = this.activity.contributions;
+        if (!contributions || !contributions.length) return false;
+
+        var user = Meteor.user();
+        for (var i = 0; i < contributions.length; i++){
+            if (contributions[i].upper_id === user._id) return true;
+        }
     }
 });
 
