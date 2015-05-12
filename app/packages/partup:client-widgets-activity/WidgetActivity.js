@@ -54,12 +54,10 @@ Template.WidgetActivity.events({
         template.charactersLeft.set('name', maxLength.name - template.data.activity.name.length);
         template.charactersLeft.set('description', maxLength.description - (mout.object.get(template.data, 'activity.description.length') || 0));
         template.edit.set(true);
-        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker', 500);
     },
     'click [data-extra-fields-button]': function(event, template){
         event.preventDefault();
         template.showExtraFields.set(true);
-        Partup.ui.datepicker.applyToInput(template, '.pu-datepicker');
     },
     'click [data-remove]': function(event, template){
         var activityId = template.data.activity._id;

@@ -49,6 +49,7 @@ cfs:s3
 cfs:graphicsmagick
 reactive-var
 deepwell:bootstrap-datepicker2
+aldeed:autoform-bs-datepicker
 aldeed:template-extension
 tmeasday:publish-counts
 fastclick

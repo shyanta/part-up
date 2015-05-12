@@ -88,14 +88,6 @@ Template.WidgetStartDetails.onCreated(function() {
     
 });
 
-// Activate datepicker
-Template.autoForm.onRendered(function () {
-    if(this.data.id !== 'partupForm') return;
-
-    // Add datepicker to field
-    Partup.ui.datepicker.applyToInput(this, '.pu-datepicker');
-});
-
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/

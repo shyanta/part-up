@@ -33,13 +33,7 @@
                                 <span class="pu-label">{{_ 'activity-form-end_date-label'}}</span>
                                 <div class="pu-inputholder pu-inputholder-lefticon">
                                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
-
-                                        {{#if activity.end_date}}
-                                            <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="date" }}</span>
-                                        {{else}}
-                                            <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" data-datepicker="" type="text" onfocus="(this.type='date')"}}</span>
-                                        {{/if}}
-
+                                        <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" type="bootstrap-datepicker" datePickerOptions=partupDatepickerOptions}}</span>
                                         <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
                                     </div>
                                     <span class="pu-icon"><i class="fa fa-calendar"></i></span>
