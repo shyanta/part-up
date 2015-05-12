@@ -28,16 +28,16 @@
             </div>
         </label>
         <div class="pu-formfield">
-            <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}}" data-browse-photos>
-                <span>{{_ 'partupdetail-updates-popup-newmessage-addphoto'}}</span>
-                {{#if uploadingPhotos}}
-                    {{> WidgetSpinnerInverted}}
-                {{/if}}
-            </button>
-            <input type="file" class="pu-fileinput" multiple data-photo-input>
+            <input type="submit" class="pu-button" value="{{_ 'partupdetail-updates-popup-newmessage-submit'}}">
+            <a class="pu-button pu-button-gray" data-close>{{_ 'partupdetail-updates-popup-newmessage-close'}}</a>
             <div class="pu-formfield-right">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-close>{{_ 'partupdetail-updates-popup-newmessage-close'}}</a>
-                <input type="submit" class="pu-button" value="{{_ 'partupdetail-updates-popup-newmessage-submit'}}">
+                <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}}" data-browse-photos>
+                    <span>{{_ 'partupdetail-updates-popup-newmessage-addphoto'}}</span>
+                    {{#if uploadingPhotos}}
+                        {{> WidgetSpinnerInverted}}
+                    {{/if}}
+                </button>
+                <input type="file" class="pu-fileinput" multiple data-photo-input>
             </div>
         </div>
     {{/autoForm}}
