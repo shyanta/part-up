@@ -1,9 +1,27 @@
 /**
- * Activity entity schema
- * @name activity
+ * Base Rating schema
+ * @name ratingBaseSchema
+ * @memberOf partup.schemas
+ * @private
+ */
+var ratingBaseSchema = new SimpleSchema({
+    feedback: {
+        type: String,
+        optional: true
+    },
+    rating: {
+        type: Number,
+        decimal: true,
+        optional: true
+    }
+});
+
+/**
+ * Rating entity schema
+ * @name rating
  * @memberOf partup.schemas.entities
  */
-Partup.schemas.entities.rating = new SimpleSchema([activityBaseSchema, {
+Partup.schemas.entities.rating = new SimpleSchema([ratingBaseSchema, {
     _id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
@@ -20,18 +38,9 @@ Partup.schemas.entities.rating = new SimpleSchema([activityBaseSchema, {
         type: Date,
         defaultValue: new Date()
     },
-    feedback: {
-        type: String,
-        optional: true
-    },
     partup_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
-    },
-    rating: {
-        type: Number,
-        decimal: true,
-        optional: true
     },
     updated_at: {
         type: Date,
@@ -48,14 +57,6 @@ Partup.schemas.entities.rating = new SimpleSchema([activityBaseSchema, {
  * @name rating
  * @memberOf partup.schemas.forms
  */
-Partup.schemas.forms.rating = new SimpleSchema({
-    rating: {
-        type: Number,
-        min: 1,
-        max: 100
-    },
-    feedback: {
-        type: String,
-        optional: true
-    }
-});
+Partup.schemas.forms.rating = new SimpleSchema([ratingBaseSchema, {
+    //
+}]);
