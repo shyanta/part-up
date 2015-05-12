@@ -31,7 +31,7 @@
         vertical-align: top
         font-size: 14px
         margin-right: 10px - 5px
-    
+
     // Hover state
     &:hover
         background-color: darken($color-secondary, 7%)
@@ -52,7 +52,7 @@
     &.pu-state-loading
         pointer-events: none
         // opacity: .5
-        
+
         span
             opacity:0 !important
         // &:after
@@ -74,9 +74,9 @@
 
         &:hover,
         &:active
-            background-color: transparent 
+            background-color: transparent
 
-            i 
+            i
                 color: darken($color-dusty-gray, 10%)
 
     &-icononly
@@ -161,7 +161,7 @@
 
         &-brand
             padding: 16px 31px
-    
+
     // Type: navigation button
     &-nav
         height: 70px
@@ -199,6 +199,16 @@
         &:active
             background-color: darken($color-primary, 11%)
 
+    // Type: secondary button
+    &-gray
+        background-color: $color-solid-gray
+
+        &:hover
+            background-color: darken($color-solid-gray, 7%)
+
+        &:active
+            background-color: darken($color-solid-gray, 11%)
+
     // Type: input lookalike button
     &-input
         @include input()
@@ -227,7 +237,7 @@
 
         &:focus
             color: $color-text-subtle
-    
+
     // Type: facebook
     &-facebook
         background-color: $color-facebook
@@ -256,7 +266,7 @@
 
         &:active
             background-color: darken($color-twitter, 11%)
-    
+
     &-share
         padding: 15px 20px
         height: 46px
@@ -275,8 +285,8 @@
 
         &.pu-state-shared
             background-color: $color-alert-success
-            
-            i 
+
+            i
                 opacity: 1
 
             &:hover
@@ -328,7 +338,7 @@
 
     // Type: avatar
     &-avatar
-        figure 
+        figure
             display: inline-block
             margin-top: -9px
             margin-bottom: -9px
@@ -344,8 +354,8 @@
         line-height: 0
         font-size: 0
         max-width: 40px
-        
-        i 
+
+        i
             font-size: 22px
             color: $color-solid-black
             text-align: center
@@ -359,7 +369,7 @@
         &:hover
             background-color: transparent
 
-            i 
+            i
                 color: #000
 
         &:active
@@ -418,10 +428,10 @@
         &:hover
             background-color: darken($color-browse, 5%)
 
-        &:active 
+        &:active
             padding: 8px
 
-        &-secondary 
+        &-secondary
             background-color: $color-solid-gray
 
             &:hover
@@ -446,9 +456,9 @@
                 font-size: 26px
 
             &:hover
-                i 
+                i
                     opacity: 1
-                span 
+                span
                     transition: opacity $animation-duration
                     opacity: 0
 
@@ -474,7 +484,7 @@
                 &:active
                     transform: none
 
-    &-edit 
+    &-edit
         color: $color-text-subtle
         font-weight: bold
         padding-right: 0
