@@ -265,7 +265,9 @@ AutoForm.hooks({
                 if(submissionType === 'next') {
                     Router.go('start-activities', {_id: id});
                 } else if (submissionType === 'skip') {
-                    Router.go('partup-detail', {_id: id});
+                    Partup.ui.modal.executeIntentCallback('start', id, function () {
+                        Router.go('partup-detail', { _id: id });
+                    });
                 }
             });
 

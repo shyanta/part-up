@@ -89,7 +89,7 @@ Template.WidgetStartPromote.events({
         Partup.ui.modal.executeIntentCallback('start', partupId, function () {
 
             // Router go
-            Router.go('partup-detail', {_id: partupId});
+            Router.go('partup-detail', { _id: partupId });
 
         });
     },
