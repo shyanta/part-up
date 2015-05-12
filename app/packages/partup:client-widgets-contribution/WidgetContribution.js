@@ -1,18 +1,26 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetContribution.onCreated(function(){});
+Template.WidgetContribution.onCreated(function(){
+    this.showForm = new ReactiveVar(false);
+});
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetContribution.helpers({
+    showForm: function(event, template){
+        return Template.instance().showForm.get();
+    }
 });
 
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
 Template.WidgetContribution.events({
+    'click .pu-contribution-placeholder': function(event, template){
+        template.showForm.set(true);
+    }
 });
 
 /*************************************************************/

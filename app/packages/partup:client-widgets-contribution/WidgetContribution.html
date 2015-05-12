@@ -1,2 +1,10 @@
 <template name="WidgetContribution">
+    {{# if showForm }}
+    {{ else }}
+        {{# if PLACEHOLDER }}
+            <div class="pu-contribution pu-contribution-placeholder">
+                <figure class="pu-avatar pu-avatar-small"></figure>
+            </div>
+        {{/ if }}
+    {{/ if }}
 </template>
