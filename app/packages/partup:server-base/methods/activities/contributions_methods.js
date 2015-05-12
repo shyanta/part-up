@@ -6,7 +6,6 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'activity.contribution.update': function (activityId, fields) {
-        console.log('activity.contribution.update');
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -19,20 +18,12 @@ Meteor.methods({
 
         try {
             var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
-            var isEmpty = !newContribution.types.want.enabled && !newContribution.types.can.amount && !newContribution.types.have.amount && !newContribution.types.have.description;
 
             if (contribution) {
-
-                if (isEmpty) {
-                    // Delete contribution
-                    Contributions.remove(contribution._id);
-                } else {
-                    // Update contribution
-                    newContribution.updated_at = new Date();
-                    Contributions.update(contribution, { $set: newContribution });
-                }
-
-            } else if (!isEmpty) {
+                // Update contribution
+                newContribution.updated_at = new Date();
+                Contributions.update(contribution._id, { $set: newContribution });
+            } else {
                 // Insert contribution
                 newContribution.created_at = new Date();
                 newContribution.activity_id = activityId;
@@ -59,7 +50,6 @@ Meteor.methods({
      * @param {string} userId
      * */
     'activity.contribution.allow': function (partupId, userId) {
-        console.log('activity.contribution.allow');
         var upper = Meteor.user();
         var isUpperInPartup = Partups.findOne({ _id: partupId, uppers: { $in: [upper._id] } }) ? true : false;
 
