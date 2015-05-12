@@ -150,9 +150,15 @@
                         <span>{{_ 'startdetails-image-validation'}}</span>
                     </div>
 
+                    <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                     {{#if partupImage.availableSuggestions.get }}
-                        <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                         {{> WidgetGallery pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter }}
+                    {{ else }}
+                        <figure class="pu-gallery pu-gallery-placeholder">
+                            <figcaption>
+                                <p>{{_ 'startdetails-suggestion-placeholder'}}</p>
+                            </figcaption>
+                        </figure>
                     {{/if }}
                     
                 {{/if }}
