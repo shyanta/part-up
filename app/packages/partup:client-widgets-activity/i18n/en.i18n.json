@@ -1,5 +1,5 @@
 {
-    "activity-form-name-label": "Name the activity",
+    "activity-form-name-label": "Add one activity at a time",
     "activity-form-name-placeholder": "Try to use verbs",
     "activity-form-name-validation": "max %d characters",
     "activity-form-name-validation-left": "%d characters left",
@@ -13,8 +13,10 @@
     "activity-form-end_date-placeholder": "Add a date if you like",
     "activity-form-end_date-validation": "Only future dates are allowed",
 
-    "activity-form-submit": "Create activity",
+    "activity-form-optional-fields": "add a description and/or date",
+    "activity-form-submit": "Add activity",
     "activity-form-save": "Save",
+    "activity-form-close": "Close",
     "activity-button-next_page": "What will you contribute?",
     "activity-button-edit": "Edit",
     "activity-button-remove": "Remove activity"

@@ -1,23 +1,20 @@
 {
-    "start-partup-intro-closepage": "Sluiten",
+    "start-partup-intro-closepage": "Pagina sluiten",
     "start-partup-intro-title": "%s, gaaf dat je een part-up start!",
     "start-partup-intro-paragraph": "Een part-up is teamwork, en dat begint bij jou! Andere uppers sluiten zich bij jouw part-up aan als jij vertelt wat je wilt bereiken en wat je denkt te gaan doen. Samen werk je dit verder uit.",
-    "start-partup-intro-explanation": "In vier stappen geef je jouw dreamteam een boost.",
-    "start-partup-intro-action-button": "Aan de slag!",
+    "start-partup-intro-explanation": "Klik op de oranje knop 'Start een part-up' om te beginnen.",
+    "start-partup-intro-action-button": "Start een part-up",
     
-    "start-partup-intro-start-title": "Start",
-    "start-partup-intro-start-explanation": "Wat is het doel van je part-up?",
-    "start-partup-intro-activities-title": "Activiteiten",
-    "start-partup-intro-activities-explanation": "Wat gaan jullie samen doen?",
-    "start-partup-intro-contribute-title": "Bijdragen",
-    "start-partup-intro-contribute-explanation": "Wat ga jij bijdragen?",
-    "start-partup-intro-promote-title": "Promoten",
-    "start-partup-intro-promote-explanation": "Vind uppers die bij jouw part-up passen!",
+    "start-partup-intro-start-title": "1. Beschrijf je part-up",
+    "start-partup-intro-start-explanation": "Geef je nieuwe part-up een naam, doel en korte omschrijving. Bepaal waar het project plaatsvindt en wanneer je het wilt afronden.",
+    "start-partup-intro-activities-title": "2. Bepaal de activiteiten",
+    "start-partup-intro-activities-explanation": "Voeg activiteiten toe aan de part-up en bepaal zo wat er allemaal moet gebeuren om van jouw project een groot succes te maken.",
+    "start-partup-intro-promote-title": "3. Promoot je part-up",
+    "start-partup-intro-promote-explanation": "Je bent nu klaar om samen te werken! Promoot zelf je part-up door de link te delen met je netwerk of op social media",
 
     "start-partup-skip": "Overslaan",
     "start-partup-skip-start": "Klaar",
-    "start-partup-start": "Start",
-    "start-partup-activities": "Activiteiten",
-    "start-partup-contribute": "Bijdragen",
-    "start-partup-promote": "Promoten"
+    "start-partup-start": "1. Beschrijf je part-up",
+    "start-partup-activities": "2. Bepaal de activiteiten",
+    "start-partup-promote": "3. Promoot je part-up"
 }

@@ -11,12 +11,8 @@
                     <a class="pu-sub-pagelink" href="{{pathFor 'start-details'}}">{{_ 'start-partup-start' }}</a>
                 </li>
                 <li class="{{#if isActiveRoute regex='start-activities$'}}pu-state-active{{/if}}">
-                    <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'start-contribute' _id=partupId}}">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
-                    <a class="pu-sub-pagelink" href="{{pathFor 'start-activities' _id=partupId}}">{{_ 'start-partup-activities' }}</a>
-                </li>
-                <li class="{{#if isActiveRoute regex='start-contribute$'}}pu-state-active{{/if}}">
                     <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'start-promote' _id=partupId}}">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>
-                    <a class="pu-sub-pagelink" href="{{pathFor 'start-contribute' _id=partupId}}">{{_ 'start-partup-contribute' }}</a>
+                    <a class="pu-sub-pagelink" href="{{pathFor 'start-activities' _id=partupId}}">{{_ 'start-partup-activities' }}</a>
                 </li>
                 <li class="{{#if isActiveRoute regex='start-promote$'}}pu-state-active{{/if}}">
                     <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'partup-detail' _id=partupId}}">{{_ 'start-partup-skip' }} <i class="fa fa-caret-right"></i></a>

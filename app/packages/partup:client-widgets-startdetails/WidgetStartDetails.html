@@ -1,7 +1,7 @@
 <template name="WidgetStartDetails">
     <div class="pu-composition pu-composition-defaultmodal">
 
-        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-coolyouarestarting' currentUser.profile.name }}</h2>
+        <h2 class="pu-title pu-title-modal">{{_ 'startdetails-title' currentUser.profile.name }}</h2>
         <p>{{_ 'startdetails-explainingpartup' }}</p>
 
         {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
@@ -42,7 +42,7 @@
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-tags_input-label'}}</span>
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startdetails-form-tags_input-validation' }}
+                    <i class="fa fa-question-circle"></i>
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-tags_input-tooltip' }}</p></span>
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
@@ -51,11 +51,34 @@
                 </div>
             </label>
 
+            <!-- Budget -->
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'startdetails-form-budget-label'}}</span>
+                <a class="pu-hint pu-tooltip">
+                    <i class="fa fa-question-circle"></i>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-budget-tooltip' }}</p></span>
+                </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_amount' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input"><span class="pu-inputcontainer pu-inputcontainer-select">{{> afFieldInput type='select' firstOption=false name='budget_type' class="pu-input pu-input-select" options=budgetOptions }}</span></span>
+                    {{#if budgetType }}
+                        <span class="pu-sub-input pu-sub-input-half">
+                            <span class="pu-inputcontainer pu-inputcontainer-text">
+                                <span class="pu-sub-text">
+                                    {{_ budgetUnitI18nKey }}
+                                </span>
+                                {{> afFieldInput name='budget_amount' placeholder=placeholders.budget_amount class="pu-input" }}
+                            </span>
+                        </span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='budget_amount' }}</span>
+                    {{/if }}
+                </div>
+            </label>
+
             <!-- End date -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-end_date-label'}}</span>
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startdetails-form-end_date-validation' }}
+                    <i class="fa fa-question-circle"></i>
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-end_date-tooltip' }}</p></span>
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
@@ -89,7 +112,7 @@
                     <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
                 </div>
                 <a class="pu-hint pu-tooltip">
-                    {{_ 'startdetails-form-network-validation' }}
+                    <i class="fa fa-question-circle"></i>
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-network-tooltip' }}</p></span>
                 </a>
             </label>
@@ -138,7 +161,9 @@
             <!-- Submit button -->
             <footer class="pu-sub-modalfooter">
                 <div class="pu-sub-footer-container">
-                    <button type="submit" class="pu-button pu-button-arrow">{{_ 'startdetails-form-submit' }}</button>
+                    <button type="submit" class="pu-button" data-submission-type="skip">{{_ 'startdetails-form-submit-skip' }}</button>
+                    <span class="pu-sub-plain">{{_ 'startdetails-form-submit-or'}}</span>
+                    <button type="submit" class="pu-button pu-button-arrow" data-submission-type="next">{{_ 'startdetails-form-submit-next' }}</button>
                 </div>
             </footer>
         {{/autoForm}}

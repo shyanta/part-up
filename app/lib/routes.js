@@ -181,26 +181,6 @@ Router.route('/start/:_id/activities', {
     }
 });
 
-Router.route('/start/:_id/contribute', {
-    name: 'start-contribute',
-    where: 'client',
-    layoutTemplate: 'LayoutsMain',
-    yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesStartPartup': { to: 'modal-page' },
-        'PagesStartPartupContribute': { to: 'start-partup-page' }
-    },
-    subscriptions: function () {
-        this.subscribe('partups.one', this.params._id);
-        this.subscribe('partups.one.activities', this.params._id);
-        this.subscribe('partups.one.contributions', this.params._id);
-    },
-    action: function() {
-        Session.set('partials.start-partup.current-partup', this.params._id);
-        this.render();
-    }
-});
-
 Router.route('/start/:_id/promote', {
     name: 'start-promote',
     where: 'client',

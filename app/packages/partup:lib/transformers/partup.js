@@ -15,6 +15,8 @@ Partup.transformers.partup = {
         return {
             _id: partup._id,
             description: partup.description,
+            budget_type: partup.budget_type,
+            budget_amount: partup.budget_amount,
             end_date: moment(partup.end_date).format('YYYY-MM-DD'),
             location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
@@ -35,6 +37,8 @@ Partup.transformers.partup = {
             // form fields
             name: fields.name,
             description: fields.description,
+            budget_type: fields.budget_type,
+            budget_amount: fields.budget_amount,
             end_date: fields.end_date,
             image: fields.image,
 

@@ -31,7 +31,6 @@ Package.onUse(function(api) {
         'services/notifications_service.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
-        'event_handlers/partups/partups_donations_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
         'event_handlers/partups/partups_name_changed_handler.js',
         'event_handlers/partups/partups_description_changed_handler.js',

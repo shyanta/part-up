@@ -94,8 +94,11 @@
 
     &-features
         li
-            width: $grid-column * 2 + $grid-gap * 1
-            margin-right: $grid-gap
+            $item-count: 3
+            $width: ($grid-column * 8 + $grid-gap * 7) / $item-count
+            $gap: $grid-gap * 2
+            width: $width - $gap * (($item-count - 1) / $item-count)
+            margin-right: $gap
 
             &:last-child
                 margin-right: 0

@@ -2,7 +2,7 @@
 /* Page helpers */
 /*************************************************************/
 Template.PagesStartPartup.helpers({
-    'partupId': function() {
+    partupId: function() {
         return Session.get('partials.start-partup.current-partup');
     }
 });
@@ -21,9 +21,6 @@ Template.PagesStartPartup.events({
                 Router.go('start-activities', {_id:currentPartup});
                 break;
             case 'start-activities':
-                Router.go('start-contribute', {_id:currentPartup});
-                break;
-            case 'start-contribute':
                 Router.go('start-promote', {_id:currentPartup});
                 break;
             case 'start-promote':
