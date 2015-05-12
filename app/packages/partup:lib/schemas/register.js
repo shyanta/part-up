@@ -49,8 +49,8 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
         optional: true
     },
     description: {
-        type:String,
-        max: 255,
+        type: String,
+        max: 650,
         optional: true
     },
     tags_input: {
