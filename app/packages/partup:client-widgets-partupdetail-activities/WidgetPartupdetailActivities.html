@@ -12,13 +12,7 @@
         <aside>{{> PartialDropdownActivitiesActions}}</aside>
     </header>
 
-    <!-- For each activity -->
-    {{#each activities}}
-        <article class="pu-block">
-            <h2 class="pu-block-title">{{name}}</h2>
-
-            <p class="pu-paragraph">{{description}}</p>
-            <time>{{end_date}}</time>
-        </article>
-    {{/each}}
+    {{# each activities }}
+        {{> WidgetActivity activity=. CONTRIBUTIONS=true }}
+    {{/ each }}
 </template>
