@@ -38,14 +38,15 @@ Template.WidgetRegisterOptional.helpers({
     formSchema: Partup.schemas.forms.registerOptional,
     placeholders: Partup.services.placeholders.registerOptional,
     profile: function() {
-        var user = Meteor.user()
+        var user = Meteor.user();
         return user ? user.profile : {};
     },
     profilePictureUrl: function() {
         var uploadedImageID = Session.get('partials.register-optional.uploaded-image');
 
         if (uploadedImageID) {
-            return Images.findOne({ _id: uploadedImageID }).url();
+            var image = Images.findOne({ _id: uploadedImageID });
+            return image ? image.url() : null;
         }
 
         var user = Meteor.user();
