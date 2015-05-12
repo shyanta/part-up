@@ -5,7 +5,16 @@
  * @private
  */
 var contributionBaseSchema = new SimpleSchema({
-    //
+    hours: {
+        type: Number,
+        min: 1,
+        optional: true
+    },
+    rate: {
+        type: Number,
+        min: 1,
+        optional: true
+    }
 });
 
 /**
@@ -34,24 +43,6 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
         type: [String],
         optional: true
     },
-    types: {
-        type: [Object]
-    },
-        "types.$.type": {
-            type: String
-        },
-        "types.$.type_data": {
-            type: Object
-        },
-            "types.$.type_data.amount": {
-                type: Number,
-                min: 0,
-                optional: true
-            },
-            "types.$.type_data.description": {
-                type: String,
-                optional: true
-            },
     updated_at: {
         type: Date,
         defaultValue: Date.now()
@@ -71,28 +62,6 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
  * @name contribute
  * @memberOf partup.schemas.forms
  */
-Partup.schemas.forms.contribution = new SimpleSchema({
-
-    // want
-    types_want_enabled: {
-        type: Boolean,
-        optional: true
-    },
-
-    // can
-    types_can_amount: {
-        type: Number,
-        optional: true
-    },
-
-    // have
-    types_have_amount: {
-        type: Number,
-        optional: true
-    },
-    types_have_description: {
-        type: String,
-        max: 255,
-        optional: true
-    }
-});
+Partup.schemas.forms.contribution = new SimpleSchema([contributionBaseSchema, {
+    //
+}]);
