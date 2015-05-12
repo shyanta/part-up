@@ -1,17 +1,16 @@
 <template name="WidgetStartActivities">
     <!-- popup -->
-    {{#contentFor "WidgetPopupContent"}}
+    <!-- {{#contentFor "WidgetPopupContent"}}
         {{> CopyActivityPopup}}
-    {{/contentFor}}
+    {{/contentFor}} -->
 
     <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
 
         <h2 class="pu-title pu-title-modal">{{_ 'startactivities-heading-title'}}</h2>
         <p>{{_ 'startactivities-heading-paragraph'}}</p>
 
-        <!-- TODO: DISABLED UNTIL IMPLEMENTED
-        -->
-        <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup>{{_ 'startactivities-button-adopt_activities' }}</a>
+        <!-- TODO: DISABLED UNTIL IMPLEMENTED -->
+        <!-- <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup>{{_ 'startactivities-button-adopt_activities' }}</a> -->
 
         {{> WidgetActivity CREATE=true}}
 
