@@ -83,6 +83,8 @@ Template.WidgetActivity.events({
 /*************************************************************/
 AutoForm.addHooks(null, {
     onSubmit: function(doc){
+        if(this.formId.indexOf('activityCreateForm') < 0 || this.formId.indexOf('activityEditForm-') < 0) return;
+
         var self = this;
         var template = self.template.parentTemplate();
 
