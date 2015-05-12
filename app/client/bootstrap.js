@@ -47,7 +47,7 @@ Meteor.startup(function() {
 
         // Compare previous template with next template, then set Bender animation
         if(nextTemplateName === previousTemplateName) {
-            Bender.animate('none', addClass, removeClass);
+            // no animation yet
         } else if(nextTemplateName === 'modal') {
             Bender.animate('slideOverUp', addClass, removeClass);
         } else if(nextTemplateName === 'app') {

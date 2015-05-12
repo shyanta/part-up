@@ -2,7 +2,8 @@ var None,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 None = (function() {
-  function None(startCallback, endCallback) {
+  function None(_at_animation, startCallback, endCallback) {
+    this.animation = _at_animation;
     this.removeElement = __bind(this.removeElement, this);
     this.insertElement = __bind(this.insertElement, this);
     this.startCallback = startCallback;
@@ -17,7 +18,10 @@ None = (function() {
   };
 
   None.prototype.removeElement = function(node) {
-    if(typeof this.endCallback === 'function') this.endCallback();
+    var endCallback = this.endCallback;
+    setTimeout(function () {
+      if(typeof endCallback === 'function') endCallback();
+    });
     return $(node).remove();
   };
 
