@@ -2,5 +2,8 @@
     "partupdetail-update-item-comment-button": "Comment",
     "partupdetail-update-item-comment-postbutton": "Post",
     "partupdetail-update-item-comment-placeholder": "Write a comment",
-    "partupdetail-update-item-comment-viewall-button": "View all %s comments"
+    "partupdetail-update-item-comment-viewall-button": "View all %s comments",
+
+    "partupdetail-update-item-budget-type-hours": "%s hours",
+    "partupdetail-update-item-budget-type-money": "%s euro"
 }

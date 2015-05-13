@@ -2,5 +2,8 @@
     "partupdetail-update-item-comment-button": "Reageren",
     "partupdetail-update-item-comment-postbutton": "Plaats",
     "partupdetail-update-item-comment-placeholder": "Schrijf een reactie",
-    "partupdetail-update-item-comment-viewall-button": "Toon alle %s reacties"
+    "partupdetail-update-item-comment-viewall-button": "Toon alle %s reacties",
+
+    "partupdetail-update-item-budget-type-hours": "%s uur",
+    "partupdetail-update-item-budget-type-money": "%s euro"
 }

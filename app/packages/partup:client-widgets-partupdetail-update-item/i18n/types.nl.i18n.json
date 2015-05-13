@@ -28,5 +28,7 @@
 
     "partupdetail-update-item-type-new_message-title": "Bericht",
 
-    "partupdetail-update-item-type-partups_message_added-title": "@Nieuw bericht"
+    "partupdetail-update-item-type-partups_message_added-title": "@Nieuw bericht",
+
+    "partupdetail-update-item-type-partups_budget_changed-title": "@Budget veranderd"
 }
