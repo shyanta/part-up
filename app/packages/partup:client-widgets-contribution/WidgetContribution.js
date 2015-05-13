@@ -53,7 +53,7 @@ Template.WidgetContribution.events({
         template.showForm.set(true);
     },
     'click [data-contribution-remove]': function(event, template){
-        Meteor.call('contributions.remove', template.data.contribution._id, function(){
+        Meteor.call('contributions.remove', template.data.contribution._id, function(error){
             if (error){
                 console.error(err);
             }
