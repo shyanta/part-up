@@ -18,6 +18,9 @@ Template.WidgetContribution.helpers({
     showForm: function(event, template){
         return Template.instance().showForm.get();
     },
+    addsValue: function(){
+        return this.contribution.hours || this.contribution.rate;
+    },
     showSplit: function(){
         return this.contribution.hours && this.contribution.rate;
     },
@@ -35,7 +38,11 @@ Template.WidgetContribution.helpers({
 /*************************************************************/
 Template.WidgetContribution.events({
     'click .pu-contribution-placeholder': function(event, template){
-        template.showForm.set(true);
+        template.updateContribution({}, function(error){
+            if (error){
+                console.error(error);
+            }
+        });
     },
     'click [data-contribution-close]': function(event, template){
         template.showForm.set(false);

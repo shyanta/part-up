@@ -42,16 +42,34 @@
                 <p>{{ currentUser.profile.name }}</p>
             </div>
         {{ else }}
-            <div class="pu-contribution {{# if upperContribution }}pu-contribution-own{{/ if }}">
-                <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
-                    {{# if upperContribution }}<i class="fa fa-pencil"></i>{{/ if }}
-                </figure>
-                <p>
-                    {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
-                    {{# if showSplit }} &mdash; {{/ if }}
-                    {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
-                </p>
-            </div>
+            {{# if upperContribution }}
+                <div class="pu-contribution pu-contribution-own">
+                    <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
+                        <i class="fa fa-pencil"></i>
+                    </figure>
+                    <p class="{{# if addsValue }}pu-contribution-none{{/ if }}">
+                        {{# if addsValue }}
+                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                            {{# if showSplit }} &mdash; {{/ if }}
+                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                        {{ else }}
+                            Voeg uren toe
+                        {{/ if }}
+                    </p>
+                </div>
+            {{ else }}
+                <div class="pu-contribution">
+                    <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
+                    {{# if addsValue }}
+                        <p class="{{# if addsValue }}pu-contribution-none{{/ if }}">
+                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                            {{# if showSplit }} &mdash; {{/ if }}
+                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                        </p>
+                    {{/ if }}
+                </div>
+
+            {{/ if }}
         {{/ if }}
     {{/ if }}
 </template>
