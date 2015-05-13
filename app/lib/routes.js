@@ -36,7 +36,7 @@ Router.route('/discover', {
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
-Router.route('/partups/:_id', {
+Router.route('/partups/:_id/updates', {
     name: 'partup-detail',
     where: 'client',
     layoutTemplate: 'LayoutsMain',
@@ -82,6 +82,37 @@ Router.route('/partups/:_id', {
         }
         SEO.set(seoMetaData);
     }
+});
+
+Router.route('/partups/:_id/updates/:update_id', {
+    name: 'partup-detail-update',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesApp': { to: 'page' },
+        // 'PagesUnderConstruction': { to: 'app-page' }
+        'PagesPartupDetail': { to: 'app-page' },
+        'PagesPartupDetailUpdatesItemDetail': { to: 'partup-page' }
+    },
+    subscriptions: function () {
+        var partupId = this.params._id;
+        var updateId = this.params.update_id;
+
+        this.subscribe('notifications.user');
+        this.subscribe('partups.one', partupId);
+        this.subscribe('partups.one.updates.one', updateId);
+
+    },
+    data: function() {
+        var partup = Partups.findOne({_id: this.params._id});
+        if(partup) {
+            var image = Images.findOne({_id: partup.image});
+        }
+        return {
+            partup: partup,
+            image: image
+        }
+    },
 });
 
 Router.route('/partups/:_id/activities', {
