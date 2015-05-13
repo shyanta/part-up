@@ -87,7 +87,7 @@ Template.WidgetActivity.events({
     'click [data-close]': function(event, template){
         template.edit.set(false);
     },
-    'click [data-trolldown]': function(event, template){
+    'click [data-expander]': function(event, template){
         var opened = template.showContributions.get();
         template.showContributions.set(!opened);
     }
