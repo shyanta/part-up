@@ -13,7 +13,7 @@ Template.WidgetContribution.helpers({
     formSchema: Partup.schemas.forms.contribution,
     placeholders: Partup.services.placeholders.contribution,
     generateFormId: function(){
-        return 'addContribution';
+        return 'editContributionForm-' + this.contribution._id;
     },
     showForm: function(event, template){
         return Template.instance().showForm.get();
@@ -66,6 +66,8 @@ Template.WidgetContribution.events({
 /*************************************************************/
 AutoForm.addHooks(null, {
     onSubmit: function(doc){
+        if (!/editContributionForm-/.test(this.formId)) return;
+
         var template = this.template.parentTemplate();
         template.updateContribution(doc, function(error){
             if (error){
