@@ -69,7 +69,7 @@ Template.WidgetActivity.helpers({
         }
     },
     updateContribution: function(){
-        var activityId = this.activity._id;
+        var activityId = this.activity ? this.activity._id : this.activity_id;
         return function(contribution, cb){
             Meteor.call('activity.contribution.update', activityId, contribution, cb);
         };
