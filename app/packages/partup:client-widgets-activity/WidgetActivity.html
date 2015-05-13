@@ -95,9 +95,9 @@
                         {{> WidgetContribution contribution=. updateContribution=updateContribution }}
                     {{/ each }}
 
-                    {{# unless userContributed }}
+                    {{# if showPlaceholderContribution }}
                         {{> WidgetContribution PLACEHOLDER=true updateContribution=updateContribution }}
-                    {{/ unless }}
+                    {{/ if }}
                 </div>
             {{/ if }}
         </article>

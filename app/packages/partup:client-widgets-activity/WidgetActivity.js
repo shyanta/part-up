@@ -57,16 +57,20 @@ Template.WidgetActivity.helpers({
 
         return Contributions.find({ _id: { $in: contributions }}).fetch();
     },
-    userContributed: function(){
+    showPlaceholderContribution: function(){
+        var user = Meteor.user();
+        if (!user) return false;
+
         var contributions = this.activity.contributions;
-        if (!contributions || !contributions.length) return false;
+        if (!contributions || !contributions.length) return true;
 
         contributions = Contributions.find({ _id: { $in: contributions }}).fetch();
 
-        var user = Meteor.user();
         for (var i = 0; i < contributions.length; i++){
-            if (contributions[i].upper_id === user._id) return true;
+            if (contributions[i].upper_id === user._id) return false;
         }
+
+        return true;
     },
     updateContribution: function(){
         var activityId = this.activity ? this.activity._id : this.activity_id;
