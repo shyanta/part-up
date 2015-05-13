@@ -64,6 +64,7 @@ Meteor.methods({
                 { $set: { verified: true } },
                 { multi: true }
             );
+            Event.emit('partups.contributions.allowed', upper._id, partupId, userId);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while allowing contributions.');
