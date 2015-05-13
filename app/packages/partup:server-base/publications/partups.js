@@ -15,7 +15,31 @@ Meteor.publish('partups.one.activities', function (partupId) {
 });
 
 Meteor.publish('partups.one.contributions', function (partupId) {
-    return Contributions.find({ partup_id: partupId });
+    var subscription = this;
+    var contributionsHandle = null;
+    var upperHandle = [];
+
+    contributionsHandle =  Contributions.find({ partup_id: partupId }).observeChanges({
+        added: function(id, contribution) {
+            var upperCursor = Meteor.users.find({ _id: contribution.upper_id }, { fields: { 'profile': 1 } });
+            upperHandle[id] = Meteor.Collection._publishCursor(upperCursor, subscription, Meteor.users._name);
+
+            subscription.added(Updates._name, id, contribution);
+        },
+
+        changed: function(id, fields) {
+            subscription.changed(Updates._name, id, fields);
+        },
+
+        removed: function(id) {
+            upperHandle[id] && upperHandle[id].stop();
+
+            subscription.removed(Updates._name, id);
+        }
+    });
+
+    subscription.ready();
+    subscription.onStop(function() { contributionsHandle.stop(); });
 });
 
 Meteor.publish('partups.one.updates', function (partupId) {
@@ -26,7 +50,7 @@ Meteor.publish('partups.one.updates', function (partupId) {
 
     updatesHandle = Updates.find({ partup_id: partupId }).observeChanges({
         added: function(id, update) {
-            var upperCursor = Meteor.users.find({ _id: update.upper_id }, { fields: { 'profile.name': 1 } });
+            var upperCursor = Meteor.users.find({ _id: update.upper_id }, { fields: { 'profile': 1 } });
             upperHandle[id] = Meteor.Collection._publishCursor(upperCursor, subscription, Meteor.users._name);
 
             if (update.type === 'partups_image_changed') {
@@ -71,12 +95,12 @@ Meteor.publish('partups.one', function (partupId) {
         added: function(id, partup) {
             // Publish all Uppers in a Partup
             var uppers = partup.uppers || [];
-            var uppersCursor = Meteor.users.find({ _id: { $in: uppers }}, { fields: { 'profile.name': 1 } });
+            var uppersCursor = Meteor.users.find({ _id: { $in: uppers }}, { fields: { 'profile': 1 } });
             uppersHandle[id] = Meteor.Collection._publishCursor(uppersCursor, subscription, Meteor.users._name);
 
             // Publish all Supporters in a Partup
             var supporters = partup.supporters || [];
-            var supportersCursor = Meteor.users.find({ _id: { $in: supporters }}, { fields: { 'profile.name': 1 } });
+            var supportersCursor = Meteor.users.find({ _id: { $in: supporters }}, { fields: { 'profile': 1 } });
             supportersHandle[id] = Meteor.Collection._publishCursor(supportersCursor, subscription, Meteor.users._name);
 
             // Publish the Cover in a Partup
