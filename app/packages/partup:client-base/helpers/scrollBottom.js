@@ -11,8 +11,10 @@ Meteor.startup(function(){
             // check if the page is scrolled down
             if ((windowHeight + windowScrollY) >= bodyScrollHeight) {
                 Session.set('window.scrollBottom', true);
+                $('body').addClass('pu-scrollbottom');
             } else {
                 Session.set('window.scrollBottom', false);
+                $('body').removeClass('pu-scrollbottom');
             }
 
         // when Router onAfterAction is called, check if document can 
@@ -20,9 +22,10 @@ Meteor.startup(function(){
         } else {
             if(document.body.offsetHeight < windowHeight){
                 Session.set('window.scrollBottom', false);
+                $('body').removeClass('pu-scrollbottom');
             } else {
                 Session.set('window.scrollBottom', true);
-
+                $('body').addClass('pu-scrollbottom');
             }
         }
     };
