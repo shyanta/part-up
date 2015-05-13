@@ -3,5 +3,9 @@
     "contribution-form-hours-placeholder": "@Only numbers allowed",
 
     "contribution-form-rate-label": "@Hourly rate (optional)",
-    "contribution-form-rate-placeholder": "@Only numbers allowed"
+    "contribution-form-rate-placeholder": "@Only numbers allowed",
+
+    "contribution-form-submit": "Save",
+    "contribution-form-close": "Close",
+    "contribution-form-remove": "Remove"
 }

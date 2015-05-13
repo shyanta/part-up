@@ -1,6 +1,6 @@
 <template name="WidgetContribution">
     {{# if showForm }}
-        <div class="pu-contribution pu-contribution-placeholder">
+        <div class="pu-contribution">
             <figure class="pu-avatar pu-avatar-small"></figure>
 
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
@@ -19,6 +19,20 @@
                         <span class="pu-sub-error">{{ afFieldMessage name='rate' }}</span>
                     </div>
                 </label>
+
+                <div class="pu-formfield">
+                    <div class="pu-formfield-left">
+                        <button type="submit" class="pu-button">{{_ 'contribution-form-submit' }}</button>
+                        <button type="button" class="pu-button pu-button-gray" data-contribution-close>{{_ 'contribution-form-close' }}</button>
+                    </div>
+
+                    {{# unless PLACEHOLDER }}
+                        <div class="pu-formfield-right">
+                            <button type="button" class="pu-button pu-button-text pu-button-text-subtle" data-contribution-remove>{{_ 'contribution-form-remove' }}</button>
+                        </div>
+                    {{/ unless }}
+                </div>
+
             {{/ autoForm }}
         </div>
     {{ else }}

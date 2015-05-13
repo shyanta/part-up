@@ -3,5 +3,9 @@
     "contribution-form-hours-placeholder": "Alleen cijfers mogelijk",
 
     "contribution-form-rate-label": "Uurtarief (optioneel)",
-    "contribution-form-rate-placeholder": "Alleen cijfers mogelijk"
+    "contribution-form-rate-placeholder": "Alleen cijfers mogelijk",
+
+    "contribution-form-submit": "Opslaan",
+    "contribution-form-close": "Sluiten",
+    "contribution-form-remove": "Verwijder"
 }

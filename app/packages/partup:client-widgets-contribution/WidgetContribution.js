@@ -25,6 +25,9 @@ Template.WidgetContribution.helpers({
 Template.WidgetContribution.events({
     'click .pu-contribution-placeholder': function(event, template){
         template.showForm.set(true);
+    },
+    'click [data-contribution-close]': function(event, template){
+        template.showForm.set(false);
     }
 });
 
