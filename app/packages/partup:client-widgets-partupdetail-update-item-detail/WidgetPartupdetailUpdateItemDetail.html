@@ -9,6 +9,9 @@
                 </a>
             </section>
         </header>
-        Dit is een update detail van {{partup.name}}
+        {{#if update}}
+            {{> WidgetPartupdetailUpdateItem update=update updateVar=false }}
+        {{/if}}
+
     </div>
 </template>

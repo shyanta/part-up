@@ -96,11 +96,11 @@ Router.route('/partups/:_id/updates/:update_id', {
     },
     subscriptions: function () {
         var partupId = this.params._id;
-        var updateId = this.params.update_id;
+        // var updateId = this.params.update_id;
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.updates.one', updateId);
+        this.subscribe('partups.one.updates', partupId);
 
     },
     data: function() {
