@@ -29,6 +29,8 @@ Template.WidgetContribution.helpers({
         return upper;
     },
     upperContribution: function(){
+        var user = Meteor.user();
+        if (!user) return false;
         return Meteor.user()._id === this.contribution.upper_id;
     }
 });
