@@ -16,10 +16,11 @@
     "dropdown-menu-button-blog": "Blog",
     "dropdown-menu-button-contact": "Contact",
 
-    "dropdown-updatesactions-option-default": "All updates",
-    "dropdown-updatesactions-option-messages": "All messages",
-    "dropdown-updatesactions-option-activities": "All activity updates",
-    "dropdown-updatesactions-option-partup-changes": "All partup updates",
+    "dropdown-updatesactions-option-default": "@All updates",
+    "dropdown-updatesactions-option-messages": "@Messages",
+    "dropdown-updatesactions-option-activities": "@All activity updates",
+    "dropdown-updatesactions-option-partup-changes": "@All partup updates",
+    "dropdown-updatesactions-option-my-updates": "@My updates",
 
     "dropdown-activitiesactions-option-default": "@All activities",
     "dropdown-activitiesactions-option-my-activities": "@My activities",

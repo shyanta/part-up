@@ -191,6 +191,10 @@ var getUpdates = function getUpdates () {
     }).filter(function (update, idx) {
         if (option === 'default') return true;
 
+        if (option === 'my-updates') {
+            return update.upper_id === Meteor.user()._id;
+        }
+
         if (option === 'activities') {
             return update.type && update.type.indexOf('activities') > -1;
         }
