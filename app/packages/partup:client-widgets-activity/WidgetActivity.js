@@ -61,6 +61,12 @@ Template.WidgetActivity.helpers({
         for (var i = 0; i < contributions.length; i++){
             if (contributions[i].upper_id === user._id) return true;
         }
+    },
+    updateContribution: function(){
+        var activityId = this.activity._id;
+        return function(contribution, cb){
+            Meteor.call('activity.contribution.update', activityId, contribution, cb);
+        };
     }
 });
 

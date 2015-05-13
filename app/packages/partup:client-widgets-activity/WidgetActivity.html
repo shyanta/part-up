@@ -92,11 +92,11 @@
             {{# if showContributions }}
                 <div class="pu-block-inner">
                     {{# each activity.contribution }}
-                        {{> WidgetContribution contribution=. }}
+                        {{> WidgetContribution contribution=. updateContribution=updateContribution }}
                     {{/ each }}
 
                     {{# unless userContributed }}
-                        {{> WidgetContribution PLACEHOLDER=true }}
+                        {{> WidgetContribution PLACEHOLDER=true updateContribution=updateContribution }}
                     {{/ unless }}
                 </div>
             {{/ if }}
