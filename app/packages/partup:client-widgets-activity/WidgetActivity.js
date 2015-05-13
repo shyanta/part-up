@@ -9,6 +9,7 @@ var maxLength = {
 Template.WidgetActivity.onCreated(function(){
     this.edit = new ReactiveVar(false);
     this.showExtraFields = new ReactiveVar(this.data.CREATE ? false : true);
+    this.showContributions = new ReactiveVar(false);
     this.charactersLeft = new ReactiveDict();
     this.charactersLeft.set('name', maxLength.name);
     this.charactersLeft.set('description', maxLength.description);
@@ -45,7 +46,7 @@ Template.WidgetActivity.helpers({
         return Template.instance().showExtraFields.get();
     },
     showContributions: function(){
-        return !!this.CONTRIBUTIONS;
+        return Template.instance().showContributions.get() || this.CONTRIBUTIONS;
     },
     userContributed: function(){
         var contributions = this.activity.contributions;
@@ -85,6 +86,10 @@ Template.WidgetActivity.events({
     },
     'click [data-close]': function(event, template){
         template.edit.set(false);
+    },
+    'click [data-trolldown]': function(event, template){
+        var opened = template.showContributions.get();
+        template.showContributions.set(!opened);
     }
 });
 
