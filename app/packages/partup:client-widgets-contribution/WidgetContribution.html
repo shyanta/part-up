@@ -1,24 +1,26 @@
 <template name="WidgetContribution">
     {{# if showForm }}
-        <div class="pu-contribution">
+        <div class="pu-contribution pu-contribution-form">
             <figure class="pu-avatar pu-avatar-small" style="background-image: url({{ partupImageById currentUser.profile.image }})"></figure>
 
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'contribution-form-hours-label' }}</span>
-                    <div class="pu-sub-validations {{# if afFieldIsInvalid name='hours' }}pu-state-invalid{{/ if }}">
-                        <span class="pu-sub-input">{{> afFieldInput name='hours' placeholder=placeholders.hours class='pu-input pu-input-accent' }}</span>
-                        <span class="pu-sub-error">{{ afFieldMessage name='hours' }}</span>
-                    </div>
-                </label>
+                <div class="pu-formfield pu-contribution-fields">
+                    <label class="pu-formfield-left">
+                        <span class="pu-label">{{_ 'contribution-form-hours-label' }}</span>
+                        <div class="pu-sub-validations {{# if afFieldIsInvalid name='hours' }}pu-state-invalid{{/ if }}">
+                            <span class="pu-sub-input">{{> afFieldInput name='hours' placeholder=placeholders.hours class='pu-input pu-input-accent' }}</span>
+                            <span class="pu-sub-error">{{ afFieldMessage name='hours' }}</span>
+                        </div>
+                    </label>
 
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'contribution-form-rate-label' }}</span>
-                    <div class="pu-sub-validations {{# if afFieldIsInvalid name='rate' }}pu-state-invalid{{/ if }}">
-                        <span class="pu-sub-input">{{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' }}</span>
-                        <span class="pu-sub-error">{{ afFieldMessage name='rate' }}</span>
-                    </div>
-                </label>
+                    <label class="pu-formfield-right">
+                        <span class="pu-label">{{_ 'contribution-form-rate-label' }}</span>
+                        <div class="pu-sub-validations {{# if afFieldIsInvalid name='rate' }}pu-state-invalid{{/ if }}">
+                            <span class="pu-sub-input">{{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' }}</span>
+                            <span class="pu-sub-error">{{ afFieldMessage name='rate' }}</span>
+                        </div>
+                    </label>
+                </div>
 
                 <div class="pu-formfield">
                     <div class="pu-formfield-left">
