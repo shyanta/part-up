@@ -116,6 +116,30 @@
                 {{/with}}
             {{/if }}
 
+            <!-- partups_budget_money_changed -->
+            {{#if partupEqualsExactly update.type 'partups_budget_money_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ old_budget_money }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ new_budget_money }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_budget_hours_changed -->
+            {{#if partupEqualsExactly update.type 'partups_budget_hours_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ old_budget_hours }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ new_budget_hours }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
