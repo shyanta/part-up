@@ -278,8 +278,18 @@ Router.route('/verify-email/:token', {
     where: 'client',
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesForgotPassword': { to: 'modal-page' }
+        'PagesApp': { to: 'page' }
+    },
+    onBeforeAction: function () {
+        Accounts.verifyEmail(Router.current().params.token, function (error) {
+            if(error) {
+                Partup.ui.notify.iError('error-ss-invalidEmailVerificationToken');
+            } else {
+                Partup.ui.notify.iSuccess('error-ss-invalidEmailVerificationToken');
+            }
+
+            Router.go('home'); // todo: < change to profile when we have that page
+        });
     }
 });
 
