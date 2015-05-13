@@ -17,9 +17,10 @@
     "dropdown-menu-button-contact": "Contact",
 
     "dropdown-updatesactions-option-default": "@Alle updates",
-    "dropdown-updatesactions-option-messages": "@Alle berichten",
+    "dropdown-updatesactions-option-messages": "@Berichten",
     "dropdown-updatesactions-option-activities": "@Alle activiteit updates",
     "dropdown-updatesactions-option-partup-changes": "@Alle partup updates",
+    "dropdown-updatesactions-option-my-updates": "@Mijn updates",
 
     "dropdown-activitiesactions-option-default": "@Alle activiteiten",
     "dropdown-activitiesactions-option-my-activities": "@Mijn activiteiten",
