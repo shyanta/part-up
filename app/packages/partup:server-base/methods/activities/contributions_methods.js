@@ -77,7 +77,6 @@ Meteor.methods({
      * @param {string} contributionId
      */
     'activity.contribution.reject': function (contributionId) {
-        console.log('activity.contribution.reject');
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
@@ -85,8 +84,9 @@ Meteor.methods({
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
-            // Remove contribution
+            // Remove contribution and emit event for the notification to be triggered
             Contributions.remove(contribution._id);
+            Event.emit('partups.contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while rejecting contribution.');
