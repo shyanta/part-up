@@ -51,6 +51,12 @@ Template.WidgetActivity.helpers({
     showContributions: function(){
         return Template.instance().showContributions.get() && !!this.CONTRIBUTIONS;
     },
+    contributions: function(){
+        var contributions = this.activity.contributions;
+        if (!contributions || !contributions.length) return [];
+
+        return Contributions.find({ _id: { $in: contributions }}).fetch();
+    },
     userContributed: function(){
         var contributions = this.activity.contributions;
         if (!contributions || !contributions.length) return false;
