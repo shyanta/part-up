@@ -3,6 +3,7 @@
 /*************************************************************/
 Template.WidgetContribution.onCreated(function(){
     this.showForm = new ReactiveVar(false);
+    this.updateContribution = this.data.updateContribution;
 });
 
 /*************************************************************/
@@ -36,6 +37,12 @@ Template.WidgetContribution.events({
 /*************************************************************/
 AutoForm.addHooks(null, {
     onSubmit: function(doc){
+        var template = this.template.parentTemplate();
+        template.updateContribution(doc, function(error){
+            if (error){
+                console.error(error);
+            }
+        });
         return false;
     }
 });
