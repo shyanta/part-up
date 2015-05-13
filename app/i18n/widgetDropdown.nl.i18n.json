@@ -23,5 +23,5 @@
 
     "dropdown-activitiesactions-option-default": "@Alle activiteiten",
     "dropdown-activitiesactions-option-my-activities": "@Mijn activiteiten",
-    "dropdown-activitiesactions-option-no-end-date": "@Activiteiten zonder eind datum"
+    "dropdown-activitiesactions-option-open-activities": "@Open activiteiten"
 }

@@ -23,5 +23,5 @@
 
     "dropdown-activitiesactions-option-default": "@All activities",
     "dropdown-activitiesactions-option-my-activities": "@My activities",
-    "dropdown-activitiesactions-option-no-end-date": "@Activities without end date"
+    "dropdown-activitiesactions-option-open-activities": "@Open activities"
 }
