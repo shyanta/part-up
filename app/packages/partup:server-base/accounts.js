@@ -29,6 +29,7 @@ Accounts.onCreateUser(function(options, user) {
 
     if (fbData) {
         profile = {
+            facebook_id: fbData.id,
             name: fbData.name,
             firstname: fbData.first_name,
             lastname: fbData.last_name,
