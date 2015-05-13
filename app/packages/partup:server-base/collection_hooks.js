@@ -42,7 +42,7 @@ var basicAfterUpdate = function (namespace) {
             });
         }
     }
-}
+};
 
 /**
  * Generate a basic after remove handler.
@@ -55,9 +55,7 @@ var basicAfterRemove = function (namespace) {
     return function (userId, document) {
         Event.emit(namespace + '.removed', userId, document);
     }
-}
-
-
+};
 
 // Partup Events
 Partups.after.insert(basicAfterInsert('partups'));
@@ -75,7 +73,7 @@ Updates.after.insert(basicAfterInsert('partups.updates'));
 Updates.after.update(basicAfterUpdate('partups.updates'));
 Updates.after.remove(basicAfterRemove('partups.updates'));
 
-// Contributions Events
+// Contribution Events
 Contributions.after.insert(basicAfterInsert('partups.contributions'));
 Contributions.after.update(basicAfterUpdate('partups.contributions'));
 Contributions.after.remove(basicAfterRemove('partups.contributions'));
