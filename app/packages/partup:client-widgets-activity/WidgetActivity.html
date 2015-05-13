@@ -61,7 +61,7 @@
 
                     {{#if editMode}}
                         <div class="pu-formfield-right">
-                            <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>{{_ 'activity-button-remove'}}</a>
+                            <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-remove>{{_ 'activity-button-remove'}}</a>
                         </div>
                     {{/if}}
                 </div>
@@ -80,7 +80,7 @@
             </h2>
 
             {{#unless activity.donation}}
-                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-edit>{{_ 'activity-button-edit'}}</a>
+                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
             {{/unless}}
 
             <p class="pu-paragraph">{{activity.description}}</p>

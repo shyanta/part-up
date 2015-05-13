@@ -66,7 +66,7 @@ Template.WidgetActivity.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetActivity.events({
-    'click [data-edit]': function(event, template){
+    'click [data-activity-edit]': function(event, template){
         template.charactersLeft.set('name', maxLength.name - template.data.activity.name.length);
         template.charactersLeft.set('description', maxLength.description - (mout.object.get(template.data, 'activity.description.length') || 0));
         template.edit.set(true);
@@ -75,7 +75,7 @@ Template.WidgetActivity.events({
         event.preventDefault();
         template.showExtraFields.set(true);
     },
-    'click [data-remove]': function(event, template){
+    'click [data-activity-remove]': function(event, template){
         var activityId = template.data.activity._id;
         Meteor.call('activities.archive', activityId, function(error){
             if (error){
