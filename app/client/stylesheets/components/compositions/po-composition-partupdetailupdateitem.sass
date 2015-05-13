@@ -1,0 +1,32 @@
+.pu-composition-partupdetailupdateitem
+    $dotted-line-color: #ccc
+    $dot-color: #292929
+
+    .pu-pageheader
+        margin-bottom: 20px
+
+    .pu-update
+        padding-top: 40px
+        aside
+            position: relative
+            &:after 
+                content: ''
+                font-size: 50px
+                position: absolute
+                top: -40px
+                height: 10px
+                left: 21px // 40px is the page padding
+                width: 10px
+                border-radius: 50%
+                background-color: $dot-color
+            &:before
+                content:''
+                letter-spacing: 0
+                display: block
+                position: absolute
+                top: -40px
+                height: 40px
+                left: 25px // 40px is the page padding
+                width: 0px
+                border-left: 1px dotted $dotted-line-color
+                z-index: -1
