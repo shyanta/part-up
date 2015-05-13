@@ -18,7 +18,11 @@
 
             <!-- Title & first comment button -->
             <header>
-                <h3><a href="#">{{_ titleKey }}</a></h3>
+                <h3>
+                    <a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">
+                        {{_ titleKey }}
+                    </a>
+                </h3>
                 {{#if commentInputFieldExpanded }}{{ else }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
                 {{/if }}

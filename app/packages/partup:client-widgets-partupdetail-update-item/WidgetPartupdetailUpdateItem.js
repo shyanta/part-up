@@ -27,7 +27,9 @@ Template.WidgetPartupdetailUpdateItem.onRendered(function () {
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.helpers({
-
+    'partupId': function(){
+        return Router.current().params._id;
+    },
     'titleKey': function helperTitleKey() {
         return 'partupdetail-update-item-type-' + this.update.type + '-title';
     },

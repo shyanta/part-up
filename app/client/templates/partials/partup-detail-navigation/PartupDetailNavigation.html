@@ -3,7 +3,7 @@
         <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
         <ul class="pu-list pu-list-horizontal">
             <li>
-                <a href="{{pathFor 'partup-detail' _id=partup._id}}" class="pu-button pu-button-nav {{# if isActiveRoute regex='partup-detail$'}}pu-state-active{{/if}}">
+                <a href="{{pathFor 'partup-detail' _id=partup._id}}" class="pu-button pu-button-nav {{# if isActiveRoute regex='partup-detail$'}}pu-state-active{{/if}} {{# if isActiveRoute regex='partup-detail-update'}}pu-state-active{{/if}}">
                     <i class="fa fa-globe"></i>
                     Updates
                 </a>
