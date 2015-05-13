@@ -1,7 +1,7 @@
 <template name="WidgetContribution">
     {{# if showForm }}
         <div class="pu-contribution">
-            <figure class="pu-avatar pu-avatar-small"></figure>
+            <figure class="pu-avatar pu-avatar-small" style="background-image: url({{ partupImageById currentUser.profile.image }})"></figure>
 
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
                 <label class="pu-formfield">

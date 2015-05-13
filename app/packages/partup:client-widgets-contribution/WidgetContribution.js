@@ -48,6 +48,9 @@ Template.WidgetContribution.events({
     },
     'click [data-contribution-close]': function(event, template){
         template.showForm.set(false);
+    },
+    'click .pu-contribution-own': function(event, template){
+        template.showForm.set(true);
     }
 });
 
