@@ -7,5 +7,9 @@
 
     "contribution-form-submit": "Save",
     "contribution-form-close": "Close",
-    "contribution-form-remove": "Remove"
+    "contribution-form-remove": "Remove",
+
+    "contribution-hour": "__count__ @hour",
+    "contribution-hour_plural": "__count__ @hours",
+    "contribution-hourly-rate": "@euro per hour"
 }

@@ -7,5 +7,9 @@
 
     "contribution-form-submit": "Opslaan",
     "contribution-form-close": "Sluiten",
-    "contribution-form-remove": "Verwijder"
+    "contribution-form-remove": "Verwijder",
+
+    "contribution-hour": "__count__ uur",
+    "contribution-hour_plural": "__count__ uur",
+    "contribution-hourly-rate": "euro per uur"
 }

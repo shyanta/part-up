@@ -39,6 +39,16 @@
         {{# if PLACEHOLDER }}
             <div class="pu-contribution pu-contribution-placeholder">
                 <figure class="pu-avatar pu-avatar-small"></figure>
+                <p>{{ currentUser.profile.name }}</p>
+            </div>
+        {{ else }}
+            <div class="pu-contribution">
+                <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
+                <p>
+                    {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                    {{# if showSplit }} &mdash; {{/ if }}
+                    {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                </p>
             </div>
         {{/ if }}
     {{/ if }}

@@ -17,6 +17,13 @@ Template.WidgetContribution.helpers({
     },
     showForm: function(event, template){
         return Template.instance().showForm.get();
+    },
+    showSplit: function(){
+        return this.contribution.hours && this.contribution.rate;
+    },
+    upper: function(event, template){
+        var upper = Meteor.users.findOne({ _id: this.contribution.upper_id });
+        return upper;
     }
 });
 
