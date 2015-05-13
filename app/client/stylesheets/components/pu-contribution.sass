@@ -4,6 +4,37 @@
     &:first-child
         border-top: 0
 
+    &-own
+        .pu-avatar
+            position: relative
+            line-height: 30px
+            text-align: center
+
+            &:before
+                content: ''
+                position: absolute
+                z-index: 1
+                top: 0
+                left: 0
+                right: 0
+                bottom: 0
+                border-radius: 50%
+                background: rgba(#000, .2)
+                opacity: 0
+                transition: opacity .2s ease-out
+
+            .fa-pencil
+                position: relative
+                z-index: 2
+                color: #fff
+                opacity: 0
+                transition: opacity .2s ease-out
+
+        &:hover .pu-avatar
+            &:before,
+            .fa-pencil
+                opacity: 1
+
     p,
     .pu-avatar
         vertical-align: top

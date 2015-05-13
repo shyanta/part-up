@@ -24,6 +24,9 @@ Template.WidgetContribution.helpers({
     upper: function(event, template){
         var upper = Meteor.users.findOne({ _id: this.contribution.upper_id });
         return upper;
+    },
+    upperContribution: function(){
+        return Meteor.user()._id === this.contribution.upper_id;
     }
 });
 

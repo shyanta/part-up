@@ -42,8 +42,10 @@
                 <p>{{ currentUser.profile.name }}</p>
             </div>
         {{ else }}
-            <div class="pu-contribution">
-                <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
+            <div class="pu-contribution {{# if upperContribution }}pu-contribution-own{{/ if }}">
+                <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
+                    {{# if upperContribution }}<i class="fa fa-pencil"></i>{{/ if }}
+                </figure>
                 <p>
                     {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
                     {{# if showSplit }} &mdash; {{/ if }}
