@@ -34,6 +34,7 @@ Package.onUse(function(api) {
         'event_handlers/partups/partups_supporters_handler.js',
         'event_handlers/partups/partups_name_changed_handler.js',
         'event_handlers/partups/partups_description_changed_handler.js',
+        'event_handlers/partups/partups_budget_changed_handler.js',
         'event_handlers/partups/partups_tags_changed_handler.js',
         'event_handlers/partups/partups_end_date_changed_handler.js',
         'event_handlers/partups/partups_image_changed_handler.js',
