@@ -204,7 +204,8 @@ var getUpdates = function getUpdates () {
                                     update.type.indexOf('end_date') > -1 ||
                                     update.type.indexOf('name') > -1 ||
                                     update.type.indexOf('description') > -1 ||
-                                    update.type.indexOf('image') > -1
+                                    update.type.indexOf('image') > -1 ||
+                                    update.type.indexOf('budget') > -1
                                     );
 
             return update.type && isPartupChange;
