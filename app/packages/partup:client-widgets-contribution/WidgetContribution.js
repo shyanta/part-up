@@ -73,6 +73,8 @@ AutoForm.addHooks(null, {
             if (error){
                 console.error(error);
             }
+
+            template.showForm.set(false);
         });
         return false;
     }
