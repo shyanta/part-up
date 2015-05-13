@@ -4,11 +4,18 @@
     &:first-child
         border-top: 0
 
+    &-none
+        color: #aaa
+        font-size: 14px
+        font-weight: 600
+        transition: color .2s ease-out
+
     &-placeholder
         color: #aaa
         cursor: pointer
 
     &-own
+        cursor: pointer
         .pu-avatar
             position: relative
             line-height: 30px
@@ -34,10 +41,14 @@
                 opacity: 0
                 transition: opacity .2s ease-out
 
-        &:hover .pu-avatar
-            &:before,
-            .fa-pencil
-                opacity: 1
+        &:hover
+            .pu-avatar
+                &:before,
+                .fa-pencil
+                    opacity: 1
+
+            .pu-contribution-none
+                color: $color-text
 
     p,
     .pu-avatar

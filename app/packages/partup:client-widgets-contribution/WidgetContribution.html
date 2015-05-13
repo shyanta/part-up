@@ -47,21 +47,21 @@
                     <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
                         <i class="fa fa-pencil"></i>
                     </figure>
-                    <p class="{{# if addsValue }}pu-contribution-none{{/ if }}">
-                        {{# if addsValue }}
+                    {{# if addsValue }}
+                        <p>
                             {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
                             {{# if showSplit }} &mdash; {{/ if }}
                             {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
-                        {{ else }}
-                            Voeg uren toe
-                        {{/ if }}
-                    </p>
+                        </p>
+                    {{ else }}
+                        <p class="pu-contribution-none">Voeg uren toe</p>
+                    {{/ if }}
                 </div>
             {{ else }}
                 <div class="pu-contribution">
                     <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
                     {{# if addsValue }}
-                        <p class="{{# if addsValue }}pu-contribution-none{{/ if }}">
+                        <p>
                             {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
                             {{# if showSplit }} &mdash; {{/ if }}
                             {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
