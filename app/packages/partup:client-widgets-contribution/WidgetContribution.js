@@ -51,6 +51,13 @@ Template.WidgetContribution.events({
     },
     'click .pu-contribution-own': function(event, template){
         template.showForm.set(true);
+    },
+    'click [data-contribution-remove]': function(event, template){
+        Meteor.call('activity.contribution.remove', template.data.contribution._id, function(){
+            if (error){
+                console.error(err);
+            }
+        });
     }
 });
 
