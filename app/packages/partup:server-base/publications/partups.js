@@ -24,17 +24,17 @@ Meteor.publish('partups.one.contributions', function (partupId) {
             var upperCursor = Meteor.users.find({ _id: contribution.upper_id }, { fields: { 'profile': 1 } });
             upperHandle[id] = Meteor.Collection._publishCursor(upperCursor, subscription, Meteor.users._name);
 
-            subscription.added(Updates._name, id, contribution);
+            subscription.added(Contributions._name, id, contribution);
         },
 
         changed: function(id, fields) {
-            subscription.changed(Updates._name, id, fields);
+            subscription.changed(Contributions._name, id, fields);
         },
 
         removed: function(id) {
             upperHandle[id] && upperHandle[id].stop();
 
-            subscription.removed(Updates._name, id);
+            subscription.removed(Contributions._name, id);
         }
     });
 
