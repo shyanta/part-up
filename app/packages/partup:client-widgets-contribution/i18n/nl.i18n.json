@@ -1,0 +1,15 @@
+{
+    "contribution-form-hours-label": "Aantal uren (optioneel)",
+    "contribution-form-hours-placeholder": "Alleen cijfers mogelijk",
+
+    "contribution-form-rate-label": "Uurtarief (optioneel)",
+    "contribution-form-rate-placeholder": "Alleen cijfers mogelijk",
+
+    "contribution-form-submit": "Opslaan",
+    "contribution-form-close": "Sluiten",
+    "contribution-form-remove": "Verwijder",
+
+    "contribution-hour": "__count__ uur",
+    "contribution-hour_plural": "__count__ uur",
+    "contribution-hourly-rate": "euro per uur"
+}

@@ -1,27 +1,78 @@
 .pu-contribution
-    .pu-form
-        .pu-button-checkbox
-            width: 32%
+    border-top: 2px solid $color-gallery
 
-        input 
-            &::-webkit-outer-spin-button,
-            &::-webkit-inner-spin-button
-                display: none
+    &:first-child
+        border-top: 0
 
-    .pu-sub-contribution
-        > li
-            height: 31px
-            margin-bottom: 10px
+    &-none
+        color: #aaa
+        font-size: 14px
+        font-weight: 600
+        transition: color .2s ease-out
 
-            .pu-sub-contributionlabel
-                line-height: 31px
-                width: 150px
+    &-placeholder
+        color: #aaa
+        cursor: pointer
 
-            .pu-button-label
-                margin-right: 10px - 4px
+    &-own
+        cursor: pointer
+        .pu-avatar
+            position: relative
+            line-height: 30px
+            text-align: center
 
-                &:last-child
-                    margin-right: 0
+            &:before
+                content: ''
+                position: absolute
+                z-index: 1
+                top: 0
+                left: 0
+                right: 0
+                bottom: 0
+                border-radius: 50%
+                background: rgba(#000, .2)
+                opacity: 0
+                transition: opacity .2s ease-out
 
-            &:last-child
-                margin-bottom: 0
+            .fa-pencil
+                position: relative
+                z-index: 2
+                color: #fff
+                opacity: 0
+                transition: opacity .2s ease-out
+
+        &:hover
+            .pu-avatar
+                &:before,
+                .fa-pencil
+                    opacity: 1
+
+            .pu-contribution-none
+                color: $color-text
+
+    &-form
+        position: relative
+        padding: 8px 0 0
+        .pu-avatar
+            position: absolute
+            top: 0
+            left: 0
+
+        .pu-form
+            margin-left: 48px
+
+    &-fields
+        margin: 0 -10px
+        .pu-formfield-left,
+        .pu-formfield-right
+            width: 50%
+            padding: 0 10px
+
+    p,
+    .pu-avatar
+        vertical-align: top
+
+    p
+        display: inline-block
+        margin-left: 8px
+        line-height: 30px

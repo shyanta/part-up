@@ -8,13 +8,34 @@
     &-highlighted
         margin-top: $spacing-default
         padding: $spacing-large
-        border: 0;
+        border: 0
         background-color: $color-gallery
+
+    &-inner
+        margin: $spacing-default (-$spacing-default) (-$spacing-default)
+        padding: $spacing-default
+        border-top: 2px solid $color-gallery
 
     &-title
         font-size: 22px
     h2
         margin-bottom: 10px
+
+        &.pu-expander
+            cursor: pointer
+            transition: color $animation-duration
+
+            .pu-chevron
+                font-size: 11px
+                vertical-align: middle
+                color: $color-text-subtle
+                transition: color $animation-duration
+
+            &:hover
+                color: darken($color-text, 5%)
+
+                .pu-chevron
+                    color: darken($color-text-subtle, 5%)
 
     .pu-paragraph
         margin-bottom: 10px

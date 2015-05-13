@@ -91,6 +91,32 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while rejecting contribution.');
         }
+    },
+
+    /**
+     * Remove a Contribution
+     *
+     * @param {string} contributionId
+     */
+    'contributions.remove': function (contributionId) {
+        var upper = Meteor.user();
+        var contribution = Contributions.findOneOrFail(contributionId);
+
+        if (!upper || contribution.upper_id !== upper._id) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        try {
+            Contributions.remove(contributionId);
+            Activities.update(contribution.activity_id, { $pull: { 'contributions': contributionId } });
+
+            return {
+                _id: contribution._id
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be removed.');
+        }
     }
 
 });

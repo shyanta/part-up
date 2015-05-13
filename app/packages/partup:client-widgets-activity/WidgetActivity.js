@@ -9,6 +9,7 @@ var maxLength = {
 Template.WidgetActivity.onCreated(function(){
     this.edit = new ReactiveVar(false);
     this.showExtraFields = new ReactiveVar(this.data.CREATE ? false : true);
+    this.showContributions = new ReactiveVar(false);
     this.charactersLeft = new ReactiveDict();
     this.charactersLeft.set('name', maxLength.name);
     this.charactersLeft.set('description', maxLength.description);
@@ -43,6 +44,39 @@ Template.WidgetActivity.helpers({
     },
     showExtraFields: function(){
         return Template.instance().showExtraFields.get();
+    },
+    contributionsActive: function(){
+        return !!this.CONTRIBUTIONS;
+    },
+    showContributions: function(){
+        return Template.instance().showContributions.get() && !!this.CONTRIBUTIONS;
+    },
+    contributions: function(){
+        var contributions = this.activity.contributions;
+        if (!contributions || !contributions.length) return [];
+
+        return Contributions.find({ _id: { $in: contributions }}).fetch();
+    },
+    showPlaceholderContribution: function(){
+        var user = Meteor.user();
+        if (!user) return false;
+
+        var contributions = this.activity.contributions;
+        if (!contributions || !contributions.length) return true;
+
+        contributions = Contributions.find({ _id: { $in: contributions }}).fetch();
+
+        for (var i = 0; i < contributions.length; i++){
+            if (contributions[i].upper_id === user._id) return false;
+        }
+
+        return true;
+    },
+    updateContribution: function(){
+        var activityId = this.activity ? this.activity._id : this.activity_id;
+        return function(contribution, cb){
+            Meteor.call('activity.contribution.update', activityId, contribution, cb);
+        };
     }
 });
 
@@ -50,7 +84,7 @@ Template.WidgetActivity.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetActivity.events({
-    'click [data-edit]': function(event, template){
+    'click [data-activity-edit]': function(event, template){
         template.charactersLeft.set('name', maxLength.name - template.data.activity.name.length);
         template.charactersLeft.set('description', maxLength.description - (mout.object.get(template.data, 'activity.description.length') || 0));
         template.edit.set(true);
@@ -59,7 +93,7 @@ Template.WidgetActivity.events({
         event.preventDefault();
         template.showExtraFields.set(true);
     },
-    'click [data-remove]': function(event, template){
+    'click [data-activity-remove]': function(event, template){
         var activityId = template.data.activity._id;
         Meteor.call('activities.archive', activityId, function(error){
             if (error){
@@ -73,6 +107,10 @@ Template.WidgetActivity.events({
     },
     'click [data-close]': function(event, template){
         template.edit.set(false);
+    },
+    'click [data-expander]': function(event, template){
+        var opened = template.showContributions.get();
+        template.showContributions.set(!opened);
     }
 });
 

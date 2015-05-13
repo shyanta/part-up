@@ -61,7 +61,7 @@
 
                     {{#if editMode}}
                         <div class="pu-formfield-right">
-                            <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>{{_ 'activity-button-remove'}}</a>
+                            <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-remove>{{_ 'activity-button-remove'}}</a>
                         </div>
                     {{/if}}
                 </div>
@@ -72,16 +72,34 @@
     {{else}}
 
         <article class="pu-block">
-            <h2 class="pu-block-title">{{activity.name}}</h2>
+            <h2 class="pu-block-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
+                {{activity.name}}
+                {{#if contributionsActive}}
+                    <i class="pu-chevron fa {{#if showContributions}}fa-chevron-down{{else}}fa-chevron-up{{/if}}"></i>
+                {{/if}}
+            </h2>
 
             {{#unless activity.donation}}
-                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-edit>{{_ 'activity-button-edit'}}</a>
+                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
             {{/unless}}
 
             <p class="pu-paragraph">{{activity.description}}</p>
+
             {{# if activity.end_date }}
                 <time datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
             {{/if}}
+
+            {{# if showContributions }}
+                <div class="pu-block-inner">
+                    {{# each contributions }}
+                        {{> WidgetContribution contribution=. updateContribution=updateContribution }}
+                    {{/ each }}
+
+                    {{# if showPlaceholderContribution }}
+                        {{> WidgetContribution PLACEHOLDER=true updateContribution=updateContribution }}
+                    {{/ if }}
+                </div>
+            {{/ if }}
         </article>
 
     {{/if}}
