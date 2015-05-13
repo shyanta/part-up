@@ -18,7 +18,11 @@
 
             <!-- Title & first comment button -->
             <header>
-                <h3><a href="#">{{_ titleKey }}</a></h3>
+                <h3>
+                    <a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">
+                        {{_ titleKey }}
+                    </a>
+                </h3>
                 {{#if commentInputFieldExpanded }}{{ else }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
                 {{/if }}
@@ -108,6 +112,30 @@
                         <img src="{{ getImageUrlById old_image }}"> -->
                         <!-- <b>NEW</b> -->
                         <img class="pu-image" src="{{ getImageUrlById new_image }}">
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_budget_money_changed -->
+            {{#if partupEqualsExactly update.type 'partups_budget_money_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ old_budget_money }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ new_budget_money }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_budget_hours_changed -->
+            {{#if partupEqualsExactly update.type 'partups_budget_hours_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ old_budget_hours }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ new_budget_hours }}</span></li>
+                        </ul>
                     </section>
                 {{/with}}
             {{/if }}

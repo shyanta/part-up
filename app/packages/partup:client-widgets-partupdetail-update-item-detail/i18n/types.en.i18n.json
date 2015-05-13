@@ -1,0 +1,32 @@
+{
+    "partupdetail-update-item-type-anticontract_signed-title": "Signed anticontract",
+
+    "partupdetail-update-item-type-partups_supporters_added-title": "Became supporter",
+    "partupdetail-update-item-type-new_upper-title": "Became upper",
+
+    "partupdetail-update-item-type-partups_tags_added-title": "Added label",
+    "partupdetail-update-item-type-partups_tags_removed-title": "Removed label",
+    "partupdetail-update-item-type-partups_tags_changed-title": "Changed label",
+
+    "partupdetail-update-item-type-network_public-title": "This Part-up is now public",
+    "partupdetail-update-item-type-network_private-title": "This Part-up is no longer public",
+
+    "partupdetail-update-item-type-partups_end_date_changed-title": "Changed ending date",
+
+    "partupdetail-update-item-type-partups_name_changed-title": "Changed title",
+    "partupdetail-update-item-type-partups_description_changed-title": "Changed description",
+    "partupdetail-update-item-type-partups_image_changed-title": "Changed picture",
+
+    "partupdetail-update-item-type-partups_activities_added-title": "Added activity",
+    "partupdetail-update-item-type-partups_activities_changed-title": "Changed activity",
+    "partupdetail-update-item-type-partups_activities_added_resource-title": "Added resource to activity",
+    "partupdetail-update-item-type-partups_activities_added_contribution-title": "Added contribution to activity",
+
+    "partupdetail-update-item-type-changed_region-title": "Changed region",
+
+    "partupdetail-update-item-type-rated-title": "Rated",
+
+    "partupdetail-update-item-type-new_message-title": "Message",
+
+    "partupdetail-update-item-type-partups_message_added-title": "@New message"
+}

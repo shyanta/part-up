@@ -95,6 +95,7 @@ partup:client-widgets-intro@0.0.1
 partup:client-widgets-login@0.0.1
 partup:client-widgets-partupdetail-activities@0.0.1
 partup:client-widgets-partupdetail-update-item@0.0.1
+partup:client-widgets-partupdetail-update-item-detail@0.0.1
 partup:client-widgets-partupdetail-updates@0.0.1
 partup:client-widgets-partuptile@0.0.1
 partup:client-widgets-registeroptional@0.0.1
