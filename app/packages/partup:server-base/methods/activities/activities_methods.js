@@ -73,6 +73,7 @@ Meteor.methods({
 
         try {
             Activities.remove(activityId);
+            Partups.update(activity.partup_id, { $pull: { 'activities': activityId } });
 
             return {
                 _id: activity._id

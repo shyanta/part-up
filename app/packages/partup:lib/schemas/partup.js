@@ -43,13 +43,9 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         regEx: SimpleSchema.RegEx.Id
     },
     activities: {
-        type: [Object],
+        type: [String],
         optional: true
     },
-        "activities.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
     anticontracts: {
         type: [Object],
         optional: true
