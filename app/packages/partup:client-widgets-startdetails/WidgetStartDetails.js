@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Widget image system */
 /*************************************************************/
-var ImageSystem = function ImageSystemConstructor () {
+var ImageSystem = function ImageSystemConstructor (template) {
     var self = this;
 
     this.currentImageId = new ReactiveVar(false);
@@ -12,6 +12,7 @@ var ImageSystem = function ImageSystemConstructor () {
         var newSuggestionsArray = [];
         self.currentImageId.set(false);
         self.uploaded.set(false);
+        template.loading.set('suggesting-images', true);
 
         var addResults = function (result, isFinal) {
             newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
@@ -19,6 +20,7 @@ var ImageSystem = function ImageSystemConstructor () {
             if(isFinal) {
                 self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
                 Session.set('partials.start-partup.current-suggestion', 0);
+                template.loading.set('suggesting-images', false);
             }
         };
 
@@ -41,6 +43,7 @@ var ImageSystem = function ImageSystemConstructor () {
     // Set suggestion
     var setSuggestionByIndex = function (index) {
 
+        template.loading.set('setting-suggestion', true);
         var suggestions = self.availableSuggestions.get();
         if(!mout.lang.isArray(suggestions)) return;
 
@@ -49,10 +52,11 @@ var ImageSystem = function ImageSystemConstructor () {
 
         Partup.ui.uploader.uploadImageByUrl(url, function (error, image) {
             self.currentImageId.set(image._id);
+            template.loading.set('setting-suggestion', false);
         });
     };
 
-    Meteor.autorun(function() {
+    template.autorun(function() {
         var suggestionIndex = Session.get('partials.start-partup.current-suggestion');
 
         if(mout.lang.isNumber(suggestionIndex) && !mout.lang.isNaN(suggestionIndex) && !self.uploaded.get()) {
@@ -70,7 +74,7 @@ Template.WidgetStartDetails.onCreated(function() {
 
     this.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
     this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
-    this.imageSystem = new ImageSystem();
+    this.imageSystem = new ImageSystem(this);
 
     // When current-partup is known
     var partup = Partups.findOne({ _id: Session.get('partials.start-partup.current-partup') });
@@ -146,6 +150,14 @@ Template.WidgetStartDetails.helpers({
             case '':
                 return '';
         }
+    },
+    galleryIsLoading: function () {
+        var template = Template.instance();
+        return template.loading
+            && (    template.loading.get('suggesting-images')
+                 || template.loading.get('image-uploading')
+                 || template.loading.get('setting-suggestion')
+                );
     }
 });
 
@@ -159,10 +171,12 @@ Template.WidgetStartDetails.events({
         template[charactersLeftVar].set(max - $(event.target).val().length);
     },
     'change [data-imageupload]': function eventChangeFile(event, template) {
+        template.loading.set('image-uploading', true);
         FS.Utility.eachFile(event, function (file) {
             Partup.ui.uploader.uploadImage(file, function (error, image) {
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);
+                template.loading.set('image-uploading', false);
             });
         });
     },

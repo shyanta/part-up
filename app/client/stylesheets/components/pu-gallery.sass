@@ -1,10 +1,12 @@
 .pu-gallery
+    display: block
     position: relative
+    height: 236px
 
     ul
         position: relative
         overflow: hidden
-        height: 236px
+        height: 100%
         padding-left: 0
 
         li
@@ -45,10 +47,29 @@
         &-right
             right: -42px
 
+    .pu-sub-loadercontainer
+        display: block
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        z-index: 1
+        background-color: rgba(white, .75)
+        text-align: center
+        pointer-events: none
+        opacity: 0
+        transition: opacity .2s
+
+        .pu-loader
+            margin-top: 103px
+
+        &-active
+            opacity: 1
+
     &-placeholder
         display: table
         width: 100%
-        height: 236px
         border-radius: 4px
         background-color: $color-background-secondary
 

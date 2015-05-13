@@ -1,5 +1,8 @@
 <template name="WidgetGallery">
     <figure class="pu-gallery">
+        <div class="pu-sub-loadercontainer {{#if loading }}pu-sub-loadercontainer-active{{/if}}">
+            {{> WidgetLoader }}
+        </div>
         <ul>
             {{#each pictures }}
                 <li class="{{#if isCurrent }}pu-state-active{{/if }}" style="background-image: url({{ . }})"></li>

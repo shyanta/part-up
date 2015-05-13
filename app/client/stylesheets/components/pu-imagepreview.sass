@@ -33,3 +33,23 @@
 
         .pu-sub-right
             right: 20px
+
+        .pu-sub-loadercontainer
+            display: block
+            position: absolute
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+            z-index: 1
+            background-color: rgba(white, .8)
+            text-align: center
+            pointer-events: none
+            opacity: 0
+            transition: opacity .2s
+
+            .pu-loader
+                margin-top: 103px
+
+            &-active
+                opacity: 1

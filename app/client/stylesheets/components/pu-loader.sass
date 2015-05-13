@@ -1,0 +1,67 @@
+@include keyframes(dots)
+    from
+        opacity: 1
+
+    to
+        opacity: 0
+
+@include keyframes(rotate)
+    from
+        transform: none
+
+    to
+        transform: rotate(360deg)
+
+.pu-loader
+    display: inline-block
+    position: relative
+    width: 32px
+    height: 32px
+    background-image: url(/images/loader-blue.png)
+    background-repeat: no-repeat
+    background-position: center
+    background-size: contain
+    animation-name: rotate
+    animation-duration: 1.5s
+    animation-iteration-count: infinite
+    animation-timing-function: cubic-bezier(.94,.01,.47,.99)
+    transform-origin: 50% 51%
+
+    span
+        position: absolute
+        width: 12px
+        height: 12px
+        border-radius: 50%
+        background-color: $color-primary
+        animation-name: dots
+        animation-duration: .75s
+        animation-iteration-count: infinite
+        animation-timing-function: cubic-bezier(.56,0,.61,1)
+        animation-direction: alternate
+        transform: scale(.5)
+        
+        &:nth-child(1)
+            top: -2px
+            left: 16px
+            animation-delay: .4s
+        
+        &:nth-child(2)
+            top: 14px
+            left: -3px
+            animation-delay: .2s
+
+        &:nth-child(3)
+            top: 20px
+            left: 21px
+
+    &-white
+        background-image: url(/images/loader-white.png)
+
+        span
+            background-color: $color-background
+
+    &-orange
+        background-image: url(/images/loader-orange.png)
+
+        span
+            background-color: $color-secondary

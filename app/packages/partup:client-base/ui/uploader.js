@@ -8,9 +8,17 @@ Partup.ui.uploader = {
      * @param {Function} callback
      */
     uploadImage: function(file, callback) {
-        Images.insert(file, function (error, image) {
-            callback(error, image);
-            if(!error) Meteor.subscribe('images.one', image._id);
+        Images.insert(file, function (error, dbImage) {
+            if(error) return callback(error);
+
+            Meteor.subscribe('images.one', dbImage._id);
+            Meteor.autorun(function (computation) {
+                var image = Images.findOne({_id: dbImage._id});
+                if(image && image.isUploaded() && image.url()) {
+                    callback(null, image);
+                    computation.stop();
+                }
+            });
         });
     },
 
@@ -22,14 +30,16 @@ Partup.ui.uploader = {
      * @param {Function} callback
      */
     uploadImageByUrl: function(url, callback) {
+        var dummyLink = document.createElement('a');
+        dummyLink.href = url;
+        var pathnameParts = dummyLink.pathname.split('/');
+        var filename = pathnameParts[pathnameParts.length - 1];
         var newFile = new FS.File();
-        newFile.attachData(url, function (error) {
-            var dummyLink = document.createElement('a');
-            dummyLink.href = url;
-            var pathnameParts = dummyLink.pathname.split('/');
-            var filename = pathnameParts[pathnameParts.length - 1];
+        
+        newFile.attachData(url, {
+            type: 'image/jpeg'
+        }, function (error) {            
             newFile.name(filename);
-
             Partup.ui.uploader.uploadImage(newFile, function (error, image) {
                 callback(error, image);
             });

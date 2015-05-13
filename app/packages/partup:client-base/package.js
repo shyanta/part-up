@@ -15,7 +15,8 @@ Package.onUse(function (api) {
         'momentjs:moment',
         'chrismbeckett:toastr',
         'templating',
-        'tracker'
+        'tracker',
+        'reactive-dict'
     ], ['client']);
 
     api.addFiles([
@@ -38,6 +39,7 @@ Package.onUse(function (api) {
         'helpers/scrollBottom.js',
         'helpers/forms.js',
         'helpers/imageById.js',
+        'helpers/loading.js',
         'autorun.js'
     ], ['client']);
 });

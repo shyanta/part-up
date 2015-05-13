@@ -127,6 +127,9 @@
                 {{#if partupImage.uploaded.get }}
 
                     <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImageById partupImage.currentImageId.get }}')">
+                        <div class="pu-sub-loadercontainer {{#if partupLoading 'image-uploading' 'setting-suggestion' }}pu-sub-loadercontainer-active{{/if}}">
+                            {{> WidgetLoader }}
+                        </div>
                         <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
                             <span>{{_ 'startdetails-image-button'}}</span>
                             {{#if uploadingPictures}}
@@ -152,9 +155,12 @@
 
                     <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                     {{#if partupImage.availableSuggestions.get }}
-                        {{> WidgetGallery pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter }}
+                        {{> WidgetGallery loading=galleryIsLoading pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter }}
                     {{ else }}
                         <figure class="pu-gallery pu-gallery-placeholder">
+                            <div class="pu-sub-loadercontainer {{#if partupLoading 'suggesting-images' 'image-uploading' }}pu-sub-loadercontainer-active{{/if}}">
+                                {{> WidgetLoader }}
+                            </div>
                             <figcaption>
                                 <p>{{_ 'startdetails-suggestion-placeholder'}}</p>
                             </figcaption>
