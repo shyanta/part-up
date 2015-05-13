@@ -9,6 +9,7 @@ Template.WidgetContribution.onCreated(function(){
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetContribution.helpers({
+    formSchema: Partup.schemas.forms.contribution,
     placeholders: Partup.services.placeholders.contribution,
     generateFormId: function(){
         return 'addContribution';

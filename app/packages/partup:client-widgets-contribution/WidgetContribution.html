@@ -3,7 +3,7 @@
         <div class="pu-contribution pu-contribution-placeholder">
             <figure class="pu-avatar pu-avatar-small"></figure>
 
-            {{# autoForm schema=Partup.schemas.forms.contribution id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
+            {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'contribution-form-hours-label' }}</span>
                     <div class="pu-sub-validations {{# if afFieldIsInvalid name='hours' }}pu-state-invalid{{/ if }}">
