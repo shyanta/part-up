@@ -17,7 +17,8 @@ Package.onUse(function(api) {
         'service-configuration',
         'cfs:standard-packages',
         'tap:i18n',
-        'http'
+        'http',
+        'reywood:publish-composite'
     ], ['server']);
 
     api.addFiles([
