@@ -72,9 +72,11 @@
     {{else}}
 
         <article class="pu-block">
-            <h2 class="pu-block-title pu-expander" data-expander>
+            <h2 class="pu-block-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
                 {{activity.name}}
-                <i class="pu-chevron fa {{#if showContributions}}fa-chevron-down{{else}}fa-chevron-up{{/if}}"></i>
+                {{#if contributionsActive}}
+                    <i class="pu-chevron fa {{#if showContributions}}fa-chevron-down{{else}}fa-chevron-up{{/if}}"></i>
+                {{/if}}
             </h2>
 
             {{#unless activity.donation}}

@@ -45,8 +45,11 @@ Template.WidgetActivity.helpers({
     showExtraFields: function(){
         return Template.instance().showExtraFields.get();
     },
+    contributionsActive: function(){
+        return !!this.CONTRIBUTIONS;
+    },
     showContributions: function(){
-        return Template.instance().showContributions.get() || this.CONTRIBUTIONS;
+        return Template.instance().showContributions.get() && !!this.CONTRIBUTIONS;
     },
     userContributed: function(){
         var contributions = this.activity.contributions;
