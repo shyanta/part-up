@@ -10,7 +10,12 @@
             </section>
         </header>
         {{#if activity}}
-            {{> WidgetActivity activity=activity CONTRIBUTIONS=false }}
+            {{> WidgetActivity activity=activity CONTRIBUTIONS=true EXPANDED=true }}
+        {{/if}}
+
+        <!-- comments -->
+        {{#if activityUpdates}}
+            {{> WidgetCommentField update=activityUpdates expandedComments=true}}
         {{/if}}
 
     </div>
