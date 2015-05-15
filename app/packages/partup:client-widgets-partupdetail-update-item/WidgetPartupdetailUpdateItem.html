@@ -19,9 +19,29 @@
             <!-- Title & first comment button -->
             <header>
                 <h3>
+                <!-- check if update type is activity or (new)user -->
+                {{ #if partupContainsOne update.type 'partups_activities' 'partups_newuser' }}
+                    <!-- path to activity -->
+                    {{ #if partupContains update.type 'partups_activities' }}
+                        <a href="{{pathFor route='partup-detail-activities-detail' _id=partupId activity_id=update.type_data.activity_id }}">
+                            {{_ titleKey }}
+                        </a>
+                    {{/if}}
+
+                    <!-- path to user profile -->
+                    <!-- NEEDS IMPLEMENTATION -->
+                    {{ #if partupContains update.type 'partups_newuser' }}
+                        <a href="{{pathFor route='profile' _id=user_id }}">
+                            {{_ titleKey }}
+                        </a>
+                    {{/if}}
+                {{else}}
+                    <!-- default path to update detail -->
                     <a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">
                         {{_ titleKey }}
                     </a>
+                {{/if}}
+                    
                 </h3>
                 <!-- {{#if commentInputFieldExpanded }}{{ else }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
@@ -178,7 +198,11 @@
                 <!-- View all n comments -->
                 {{#if showExpandButton }}
                     <!-- data-expand-comments -->
-                    <p class="pu-sub-view-all-comments-button"><a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
+                    <p class="pu-sub-view-all-comments-button">
+                        <a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">
+                            {{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}
+                        </a>
+                    </p>
                 {{/if }}
 
                 <!-- Comments list -->
