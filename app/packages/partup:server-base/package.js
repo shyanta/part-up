@@ -46,6 +46,7 @@ Package.onUse(function(api) {
         'publications/notifications.js',
         'publications/partups.js',
         'publications/images.js',
+        'publications/updates.js',
         'publications/users.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
