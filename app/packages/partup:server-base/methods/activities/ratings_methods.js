@@ -38,7 +38,6 @@ Meteor.methods({
                 };
 
                 newRating = Ratings.insert(newRating);
-                Contributions.insert(contributionId, { $push: { 'ratings': newRating._id } });
             }
 
             return newRating;
