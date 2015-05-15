@@ -93,10 +93,12 @@ Meteor.methods({
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
+        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
+
         Email.send({
             to: email,
             subject: '@Invitation to Partup',
-            html: '#yolo'
+            html: SSR.render('inviteUserEmail', { name: name })
         });
     }
 

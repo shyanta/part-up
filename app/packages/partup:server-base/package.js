@@ -23,6 +23,10 @@ Package.onUse(function(api) {
     ], ['server']);
 
     api.addFiles([
+        'private/emails/InviteUser.html'
+    ], ['server'], { isAsset: true });
+
+    api.addFiles([
         'logs.js',
         'bootstrap.js',
         'accounts.js',
