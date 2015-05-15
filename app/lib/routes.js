@@ -114,7 +114,7 @@ Router.route('/partups/:_id/updates/:update_id', {
             partup: partup,
             image: image
         }
-    },
+    }
 });
 
 Router.route('/partups/:_id/activities', {
@@ -134,6 +134,48 @@ Router.route('/partups/:_id/activities', {
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
+    },
+    data: function() {
+        var partup = Partups.findOne({_id: this.params._id});
+        if(partup) {
+            var image = Images.findOne({_id: partup.image});
+        }
+        return {
+            partup: partup,
+            image: image
+        }
+    }
+});
+
+Router.route('/partups/:_id/activities/:activity_id', {
+    name: 'partup-detail-activities-detail',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesApp': { to: 'page' },
+        // 'PagesUnderConstruction': { to: 'app-page' }
+        'PagesPartupDetail': { to: 'app-page' },
+        'PagesPartupDetailActivitiesDetail': { to: 'partup-page' }
+    },
+    subscriptions: function () {
+        var partupId = this.params._id;
+
+        this.subscribe('notifications.user');
+        this.subscribe('partups.one', partupId);
+        this.subscribe('partups.one.activities', partupId);
+        this.subscribe('partups.one.contributions', partupId);
+    },
+    data: function() {
+        var partup = Partups.findOne({_id: this.params._id});
+        if(partup) {
+            var image = Images.findOne({_id: partup.image});
+            var activity = Activities.findOne({_id: this.params.activity_id});
+        }
+        return {
+            partup: partup,
+            image: image,
+            activity: activity
+        }
     }
 });
 
