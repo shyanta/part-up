@@ -69,3 +69,4 @@ tap:i18n
 tmeasday:publish-counts
 velocity:console-reporter
 zimme:iron-router-active
+partup:client-widgets-partupdetail-activities-detail
