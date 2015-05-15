@@ -32,7 +32,6 @@ Meteor.methods({
                 newContribution.verified = isUpperInPartup;
 
                 newContribution._id = Contributions.insert(newContribution);
-                Activities.update(activityId, { $push: { 'contributions': newContribution._id } });
             }
 
             return newContribution;
@@ -108,7 +107,6 @@ Meteor.methods({
 
         try {
             Contributions.remove(contributionId);
-            Activities.update(contribution.activity_id, { $pull: { 'contributions': contributionId } });
 
             return {
                 _id: contribution._id
