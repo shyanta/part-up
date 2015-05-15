@@ -52,6 +52,7 @@ Router.route('/partups/:_id/updates', {
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.updates', partupId);
+        this.subscribe('partups.one.activities', partupId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
