@@ -162,6 +162,7 @@ Router.route('/partups/:_id/activities/:activity_id', {
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
+        this.subscribe('partups.one.updates', partupId);
         this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
     },
