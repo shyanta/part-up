@@ -139,6 +139,18 @@
                 {{/with}}
             {{/if }}
 
+            <!-- partups_location_changed -->
+            {{#if partupEqualsExactly update.type 'partups_location_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ old_location.city }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ new_location.city }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
