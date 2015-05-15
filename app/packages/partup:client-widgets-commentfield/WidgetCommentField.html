@@ -6,19 +6,19 @@
             <!-- data-expand-comments -->
             <p class="pu-sub-view-all-comments-button">
                 <!-- Determine the correct pathFor -->
-                <!-- <a href="
+                <a href="
                     {{ #if partupContainsOne update.type 'partups_activities' 'partups_newuser' }}
                         {{ #if partupContains update.type 'partups_activities' }}
-                            {{pathFor route='partup-detail-activities-detail' _id=partupId activity_id=update.type_data.activity_id }}
+                            {{pathFor route='partup-detail-activities-detail' _id=update.partup_id activity_id=update.type_data.activity_id }}
                         {{else}}
                             {{pathFor route='profile' _id=user_id }}
                         {{/if}}
                     {{else}}
-                        {{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}
+                        {{pathFor route='partup-detail-update' _id=update.partup_id update_id=update._id }}
                     {{/if}}
                 ">
                     {{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}
-                </a> -->
+                </a>
             </p>
         {{/if }}
 
