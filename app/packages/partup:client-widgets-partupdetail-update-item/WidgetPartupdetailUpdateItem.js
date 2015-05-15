@@ -45,9 +45,9 @@ Template.WidgetPartupdetailUpdateItem.helpers({
 
     'formSchema': Partup.schemas.forms.updateComment,
 
-    'commentInputFieldExpanded': function helperCommentInputFieldExpanded() {
-        return commentInputFieldExpandedDict.get(this.update._id) ? 'pu-state-expanded' : '';
-    },
+    // 'commentInputFieldExpanded': function helperCommentInputFieldExpanded() {
+    //     return commentInputFieldExpandedDict.get(this.update._id) ? 'pu-state-expanded' : '';
+    // },
 
     'commentPostButtonActive': function helperCommentPostButtonActive() {
         return commentPostButtonActiveDict.get(this.update._id);
@@ -56,7 +56,7 @@ Template.WidgetPartupdetailUpdateItem.helpers({
     'shownComments': function helperShownComments() {
         var allComments = this.update.comments || [];
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        if (commentsExpanded)
+        if (commentsExpanded || Template.instance().data.expandedComments)
             return allComments;
         else
             return allComments.slice(-MAX_COLLAPSED_COMMENTS);
@@ -68,7 +68,7 @@ Template.WidgetPartupdetailUpdateItem.helpers({
             hiddenComments = this.update.comments.length - MAX_COLLAPSED_COMMENTS > 0;
         }
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        return hiddenComments && !commentsExpanded;
+        return Template.instance().data.expandedComments ? false : hiddenComments && !commentsExpanded;
     },
 
     'currentUser': function helperUser() {

@@ -23,9 +23,9 @@
                         {{_ titleKey }}
                     </a>
                 </h3>
-                {{#if commentInputFieldExpanded }}{{ else }}
+                <!-- {{#if commentInputFieldExpanded }}{{ else }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
-                {{/if }}
+                {{/if }} -->
             </header>
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
@@ -177,7 +177,8 @@
 
                 <!-- View all n comments -->
                 {{#if showExpandButton }}
-                    <p class="pu-sub-view-all-comments-button"><a data-expand-comments>{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
+                    <!-- data-expand-comments -->
+                    <p class="pu-sub-view-all-comments-button"><a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
                 {{/if }}
 
                 <!-- Comments list -->
@@ -196,9 +197,9 @@
                 {{#if currentUser }}
                     <!-- {{#if commentInputFieldExpanded }} -->
 
-                        {{#autoForm schema=formSchema id=generateFormId class=commentInputFieldExpanded }}
+                        {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
                             <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
-                                <li>{{> afFieldInput name="content" class="pu-input" data="commentfield" }}</li>
+                                <li>{{> afFieldInput name="content" class="pu-input" data="commentfield" placeholder="@Schrijf een reactie"}}</li>
                                 <li><input type="submit" class="pu-button pu-button-inputheight" value="{{_ 'partupdetail-update-item-comment-postbutton'}}"></li>
                             </ul>
                         {{/autoForm}}
