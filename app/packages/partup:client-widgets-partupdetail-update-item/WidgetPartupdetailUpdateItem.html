@@ -19,28 +19,20 @@
             <!-- Title & first comment button -->
             <header>
                 <h3>
-                <!-- check if update type is activity or (new)user -->
-                {{ #if partupContainsOne update.type 'partups_activities' 'partups_newuser' }}
-                    <!-- path to activity -->
-                    {{ #if partupContains update.type 'partups_activities' }}
-                        <a href="{{pathFor route='partup-detail-activities-detail' _id=partupId activity_id=update.type_data.activity_id }}">
-                            {{_ titleKey }}
-                        </a>
+                <!-- Determine the correct pathFor -->
+                <a href="
+                    {{ #if partupContainsOne update.type 'partups_activities' 'partups_newuser' }}
+                        {{ #if partupContains update.type 'partups_activities' }}
+                            {{pathFor route='partup-detail-activities-detail' _id=partupId activity_id=update.type_data.activity_id }}
+                        {{else}}
+                            {{pathFor route='profile' _id=user_id }}
+                        {{/if}}
+                    {{else}}
+                        {{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}
                     {{/if}}
-
-                    <!-- path to user profile -->
-                    <!-- NEEDS IMPLEMENTATION -->
-                    {{ #if partupContains update.type 'partups_newuser' }}
-                        <a href="{{pathFor route='profile' _id=user_id }}">
-                            {{_ titleKey }}
-                        </a>
-                    {{/if}}
-                {{else}}
-                    <!-- default path to update detail -->
-                    <a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">
-                        {{_ titleKey }}
-                    </a>
-                {{/if}}
+                ">
+                    {{_ titleKey }}
+                </a>
                     
                 </h3>
                 <!-- {{#if commentInputFieldExpanded }}{{ else }}
@@ -199,7 +191,18 @@
                 {{#if showExpandButton }}
                     <!-- data-expand-comments -->
                     <p class="pu-sub-view-all-comments-button">
-                        <a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">
+                        <!-- Determine the correct pathFor -->
+                        <a href="
+                            {{ #if partupContainsOne update.type 'partups_activities' 'partups_newuser' }}
+                                {{ #if partupContains update.type 'partups_activities' }}
+                                    {{pathFor route='partup-detail-activities-detail' _id=partupId activity_id=update.type_data.activity_id }}
+                                {{else}}
+                                    {{pathFor route='profile' _id=user_id }}
+                                {{/if}}
+                            {{else}}
+                                {{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}
+                            {{/if}}
+                        ">
                             {{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}
                         </a>
                     </p>
