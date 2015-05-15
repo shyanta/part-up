@@ -6,20 +6,31 @@
     position: relative
 
     &-highlighted
-        margin-top: $spacing-default
-        padding: $spacing-large
+        margin-top: $spacing-large
+        margin-bottom: $spacing-large
+        padding: $spacing-default $spacing-large
         border: 0
         background-color: $color-gallery
+
+        .pu-input
+            border-color: $color-border
+
+            &:hover,
+            &:focus,
+            &:active
+                border-color: darken($color-border, 20%)
 
     &-inner
         margin: $spacing-default (-$spacing-default) (-$spacing-default)
         padding: $spacing-default
         border-top: 2px solid $color-gallery
 
-    &-title
+    .pu-sub-title
         font-size: 22px
-    h2
+        margin-top: -3px
         margin-bottom: 10px
+        width: 100%
+        overflow: hidden
 
         &.pu-expander
             cursor: pointer
@@ -110,3 +121,8 @@
 
     &:last-child
         margin-bottom: 0
+
+    &-activity
+        width: 570px
+        margin-bottom: 10px
+        font-size: 18px

@@ -8,7 +8,7 @@
                     <span class="pu-label">{{_ 'activity-form-name-label'}}</span>
                     <a class="pu-hint">{{_ 'activity-form-name-validation-left' charactersLeftName }}</a>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
-                        <span class="pu-sub-input">{{> afFieldInput name="name" placeholder=placeholders.name class="pu-input pu-input-accent" }}</span>
+                        <span class="pu-sub-input">{{> afFieldInput name="name" placeholder=placeholders.name class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                     </div>
                 </label>
@@ -71,13 +71,13 @@
 
     {{else}}
 
-        <article class="pu-block">
-            <h2 class="pu-block-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
+        <article class="pu-block pu-block-activity">
+            <h3 class="pu-sub-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
                 {{activity.name}}
                 {{#if contributionsActive}}
                     <i class="pu-chevron fa {{#if showContributions}}fa-chevron-down{{else}}fa-chevron-up{{/if}}"></i>
                 {{/if}}
-            </h2>
+            </h3>
 
             {{#unless activity.donation}}
                 <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
