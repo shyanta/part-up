@@ -102,6 +102,7 @@ Router.route('/partups/:_id/updates/:update_id', {
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.updates', partupId);
+        this.subscribe('partups.one.activities', partupId);
 
     },
     data: function() {
