@@ -10,15 +10,16 @@ Package.onUse(function(api) {
     api.use('check');
 
     api.use([
+        'accounts-base',
+        'cfs:standard-packages',
+        'email',
+        'http',
         'mongo',
         'partup:lib',
-        'accounts-base',
-        'splendido:accounts-meld',
+        'reywood:publish-composite',
         'service-configuration',
-        'cfs:standard-packages',
-        'tap:i18n',
-        'http',
-        'reywood:publish-composite'
+        'splendido:accounts-meld',
+        'tap:i18n'
     ], ['server']);
 
     api.addFiles([

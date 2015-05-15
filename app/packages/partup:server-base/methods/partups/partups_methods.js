@@ -93,9 +93,11 @@ Meteor.methods({
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        // TODO: Authorisation
-
-
+        Email.send({
+            to: email,
+            subject: '@Invitation to Partup',
+            html: '#yolo'
+        });
     }
 
 });
