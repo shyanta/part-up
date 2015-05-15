@@ -49,7 +49,7 @@ Template.WidgetActivity.helpers({
         return !!this.CONTRIBUTIONS;
     },
     showContributions: function(){
-        return Template.instance().showContributions.get() && !!this.CONTRIBUTIONS;
+        return this.EXPANDED || (Template.instance().showContributions.get() && !!this.CONTRIBUTIONS);
     },
     contributions: function(){
         var contributions = this.activity.contributions;
