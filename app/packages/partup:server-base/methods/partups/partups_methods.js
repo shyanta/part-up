@@ -82,6 +82,20 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be removed.');
         }
+    },
+
+    /**
+     * Invite a someone to a Partup
+     *
+     * @param  {String} partupId
+     */
+    'partups.invite': function (partupId, email, name) {
+        var upper = Meteor.user();
+        var partup = Partups.findOneOrFail(partupId);
+
+        // TODO: Authorisation
+
+
     }
 
 });
