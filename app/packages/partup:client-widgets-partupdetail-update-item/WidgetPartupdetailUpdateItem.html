@@ -151,6 +151,25 @@
                 {{/with}}
             {{/if }}
 
+            <!-- partups_activities_added -->
+            {{#if partupEqualsExactly update.type 'partups_activities_added' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=false }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_activities_changed -->
+            {{#if partupEqualsExactly update.type 'partups_activities_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=false }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
