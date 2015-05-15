@@ -1,0 +1,47 @@
+<template name="WidgetCommentField">
+    <!-- Comments -->
+    <footer>
+        <!-- View all n comments -->
+        {{#if showExpandButton }}
+            <!-- data-expand-comments -->
+            <p class="pu-sub-view-all-comments-button">
+                <!-- Determine the correct pathFor -->
+                <!-- <a href="
+                    {{ #if partupContainsOne update.type 'partups_activities' 'partups_newuser' }}
+                        {{ #if partupContains update.type 'partups_activities' }}
+                            {{pathFor route='partup-detail-activities-detail' _id=partupId activity_id=update.type_data.activity_id }}
+                        {{else}}
+                            {{pathFor route='profile' _id=user_id }}
+                        {{/if}}
+                    {{else}}
+                        {{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}
+                    {{/if}}
+                ">
+                    {{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}
+                </a> -->
+            </p>
+        {{/if }}
+
+        <!-- Comments list -->
+        <ul class="pu-list pu-list-comments">
+            {{#each shownComments }}
+            <li>
+                <p>
+                    <span rel="author">{{ creator.name }}</span>
+                    {{ content }}
+                </p>
+            </li>
+            {{/each }}
+        </ul>
+
+        <!-- Add comment field -->
+        {{#if currentUser }}
+            {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
+                <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
+                    <li>{{> afFieldInput name="content" class="pu-input" data="commentfield" placeholder="@Schrijf een reactie"}}</li>
+                    <li><input type="submit" class="pu-button pu-button-inputheight" value="{{_ 'partupdetail-update-item-comment-postbutton'}}"></li>
+                </ul>
+            {{/autoForm}}
+        {{/if}}
+    </footer>
+</template>

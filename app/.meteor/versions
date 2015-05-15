@@ -88,6 +88,7 @@ package-version-parser@3.0.3
 partup:client-base@0.0.1
 partup:client-widget-spinner@0.0.1
 partup:client-widgets-activity@0.0.1
+partup:client-widgets-commentfield@0.0.1
 partup:client-widgets-contribution@0.0.1
 partup:client-widgets-dropdowns@0.0.1
 partup:client-widgets-forgotpassword@0.0.1
