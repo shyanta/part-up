@@ -6,7 +6,7 @@ Meteor.methods({
      * @param {string} contributionId
      * @param {mixed[]} fields
      */
-    'contribution.rating.upsert': function (contributionId, fields) {
+    'ratings.upsert': function (contributionId, fields) {
         var upper = Meteor.user();
         var contribution = Contributions.findOne(contributionId);
         var rating = Ratings.findOne(ratingId);
