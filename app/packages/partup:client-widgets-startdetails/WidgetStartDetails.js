@@ -12,7 +12,6 @@ var ImageSystem = function ImageSystemConstructor (template) {
         var newSuggestionsArray = [];
         self.currentImageId.set(false);
         self.uploaded.set(false);
-        template.loading.set('suggesting-images', true);
 
         var addResults = function (result, isFinal) {
             newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
@@ -24,6 +23,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
             }
         };
 
+        template.loading.set('suggesting-images', true);
         Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
             if (!error && result.length >= 5) {
                 addResults(result, true);
@@ -43,13 +43,13 @@ var ImageSystem = function ImageSystemConstructor (template) {
     // Set suggestion
     var setSuggestionByIndex = function (index) {
 
-        template.loading.set('setting-suggestion', true);
         var suggestions = self.availableSuggestions.get();
         if(!mout.lang.isArray(suggestions)) return;
 
         var url = suggestions[index];
         if(!mout.lang.isString(url)) return;
 
+        template.loading.set('setting-suggestion', true);
         Partup.ui.uploader.uploadImageByUrl(url, function (error, image) {
             self.currentImageId.set(image._id);
             template.loading.set('setting-suggestion', false);
@@ -72,6 +72,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
 /*************************************************************/
 Template.WidgetStartDetails.onCreated(function() {
 
+    this.loading = new ReactiveDict();
     this.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
     this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     this.imageSystem = new ImageSystem(this);
@@ -171,8 +172,8 @@ Template.WidgetStartDetails.events({
         template[charactersLeftVar].set(max - $(event.target).val().length);
     },
     'change [data-imageupload]': function eventChangeFile(event, template) {
-        template.loading.set('image-uploading', true);
         FS.Utility.eachFile(event, function (file) {
+            template.loading.set('image-uploading', true);
             Partup.ui.uploader.uploadImage(file, function (error, image) {
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);
