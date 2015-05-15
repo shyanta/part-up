@@ -64,6 +64,12 @@
         top: $spacing-default - 8px
         right: $spacing-default
         transition: opacity $animation-duration
+        background-color: #fff
+        box-shadow: -8px 8px 32px 20px #fff
+        pointer-events: none
+
+        &:hover
+            background-color: #fff
 
     &-container
         padding: 0
@@ -115,6 +121,7 @@
     &:hover
         .pu-sub-editbutton
             opacity: 1
+            pointer-events: auto
 
     &-active
         border-color: $color-solid-gray
