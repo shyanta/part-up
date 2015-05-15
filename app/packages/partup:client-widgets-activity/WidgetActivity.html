@@ -71,7 +71,7 @@
 
     {{else}}
 
-        <article class="pu-block pu-block-activity">
+        <article class="pu-block {{#if START_PARTUP}}pu-block-activity{{/if}}">
             <h3 class="pu-sub-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
                 {{activity.name}}
                 {{#if contributionsActive}}

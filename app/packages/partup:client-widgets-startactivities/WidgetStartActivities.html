@@ -17,7 +17,7 @@
         <p class="pu-sub-activitiestitle">Overzicht toegevoegde activiteiten:</p>
 
         {{#each partupActivities}}
-            {{> WidgetActivity activity=.}}
+            {{> WidgetActivity activity=. START_PARTUP=true}}
         {{/each}}
 
         <!-- Continue button -->
