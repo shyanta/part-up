@@ -88,19 +88,13 @@ Template.WidgetActivity.helpers({
         return this.EXPANDED || (Template.instance().showContributions.get() && !!this.CONTRIBUTIONS);
     },
     contributions: function(){
-        var contributions = this.activity.contributions;
-        if (!contributions || !contributions.length) return [];
-
-        return Contributions.find({ _id: { $in: contributions }}).fetch();
+        return Contributions.find({ activity_id: this.activity._id });
     },
     showPlaceholderContribution: function(){
         var user = Meteor.user();
         if (!user) return false;
 
-        var contributions = this.activity.contributions;
-        if (!contributions || !contributions.length) return true;
-
-        contributions = Contributions.find({ _id: { $in: contributions }}).fetch();
+        contributions = Contributions.find({ activity_id: this.activity._id }).fetch();
 
         for (var i = 0; i < contributions.length; i++){
             if (contributions[i].upper_id === user._id) return false;
