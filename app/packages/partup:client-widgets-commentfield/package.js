@@ -21,8 +21,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'package-tap.i18n',
 
-        'WidgetCommentfield.html',
-        'WidgetCommentfield.js',
+        'WidgetCommentField.html',
+        'WidgetCommentField.js',
 
         'i18n/common.en.i18n.json',
         'i18n/common.nl.i18n.json',
