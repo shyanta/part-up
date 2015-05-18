@@ -26,16 +26,21 @@ Template.WidgetActivity.onCreated(function(){
             Partup.ui.focuslayer.enable();
 
             // scroll
+            var DELAY = 250;
+            var DURATION = 750;
             setTimeout(function () {
-                var activityElm = $(self.find('[data-activity-id]'));
-                if(!activityElm) return;
-                var activityOffset = activityElm.offset().top;
-                var maxScroll = $(document).height() - window.innerHeight;
+                var elm = $(self.find('[data-activity-id]'));
+                if(!elm) return;
+
+                var offset = elm.offset().top;
+                var max = $(document).height() - window.innerHeight;
+                var pos = Math.min(offset - 50, max);
 
                 $('html, body').animate({
-                    scrollTop: Math.min(activityOffset - 50, maxScroll)
-                }, 750, "swing");
-            });
+                    scrollTop: pos
+                }, DURATION);
+            }, DELAY);
+
         } else {
             Partup.ui.focuslayer.disable();
         }
@@ -122,6 +127,7 @@ Template.WidgetActivity.events({
     },
     'click [data-activity-remove]': function(event, template){
         var activityId = template.data.activity._id;
+        template.edit.set(false);
         Meteor.call('activities.archive', activityId, function(error){
             if (error){
                 Partup.ui.notify.error(error.reason);
