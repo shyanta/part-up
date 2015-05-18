@@ -43,6 +43,7 @@ aldeed:template-extension
 cfs:graphicsmagick
 cfs:gridfs
 cfs:s3
+cfs:file
 chrismbeckett:toastr
 deepwell:bootstrap-datepicker2
 fastclick

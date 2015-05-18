@@ -1,7 +1,0 @@
-{
-  "packages": {
-    "cfs:standard-packages": {
-      "git": "https://github.com/bryantebeek/Meteor-CollectionFS.git"
-    }
-  }
-}
