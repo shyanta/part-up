@@ -16,6 +16,7 @@ Package.onUse(function (api) {
         'chrismbeckett:toastr',
         'templating',
         'tracker',
+        'reactive-var',
         'reactive-dict'
     ], ['client']);
 
@@ -33,6 +34,7 @@ Package.onUse(function (api) {
         'ui/elements.js',
         'ui/popup.js',
         'ui/uploader.js',
+        'ui/focuslayer.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',

@@ -13,6 +13,33 @@ Template.WidgetActivity.onCreated(function(){
     this.charactersLeft = new ReactiveDict();
     this.charactersLeft.set('name', maxLength.name);
     this.charactersLeft.set('description', maxLength.description);
+
+    var self = this;
+    this.autorun(function () {
+        if(!Partup.ui.focuslayer.state.get()) {
+            self.edit.set(false);
+        }
+    });
+
+    this.autorun(function () {
+        if(self.edit.get()) {
+            Partup.ui.focuslayer.enable();
+
+            // scroll
+            setTimeout(function () {
+                var activityElm = $(self.find('[data-activity-id]'));
+                if(!activityElm) return;
+                var activityOffset = activityElm.offset().top;
+                var maxScroll = $(document).height() - window.innerHeight;
+
+                $('html, body').animate({
+                    scrollTop: Math.min(activityOffset - 50, maxScroll)
+                }, 750, "swing");
+            });
+        } else {
+            Partup.ui.focuslayer.disable();
+        }
+    });
 });
 
 /*************************************************************/
