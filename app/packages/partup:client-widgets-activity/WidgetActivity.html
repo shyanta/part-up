@@ -111,6 +111,10 @@
                 <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
             {{/if}}
 
+            {{# if showCommentsLink }}
+                <a href="#">5 reacties</a>
+            {{/ if }}
+
             {{# if showContributions }}
                 <div class="pu-block-inner">
                     {{# each contributions }}

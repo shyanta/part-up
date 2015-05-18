@@ -84,6 +84,9 @@ Template.WidgetActivity.helpers({
     showContributions: function(){
         return this.EXPANDED || (Template.instance().showContributions.get() && !!this.CONTRIBUTIONS);
     },
+    showCommentsLink: function(){
+        return !!this.COMMENTS_LINK;
+    },
     contributions: function(){
         return Contributions.find({ activity_id: this.activity._id });
     },
