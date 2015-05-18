@@ -15,9 +15,9 @@ Template.PagesModal.helpers({
 /*************************************************************/
 Template.PagesModal.events({
     
-    // 'click [data-focuslayer]': function eventsClickFocuslayer () {
-    //     Partup.ui.focuslayer.disable();
-    // }
+    'click [data-focuslayer]': function eventsClickFocuslayer () {
+        Partup.ui.focuslayer.disable();
+    }
     
 });
 
