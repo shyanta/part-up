@@ -72,6 +72,10 @@
     {{else}}
 
         <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}}">
+            {{#unless activity.donation}}
+                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
+            {{/unless}}
+            
             <h3 class="pu-sub-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
                 {{activity.name}}
                 {{#if contributionsActive}}
@@ -79,16 +83,12 @@
                 {{/if}}
             </h3>
 
-            {{#unless activity.donation}}
-                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
-            {{/unless}}
-
             {{#if activity.description }}
                 <p class="pu-sub-description pu-paragraph">{{activity.description}}</p>
             {{/if }}
 
             {{# if activity.end_date }}
-                <time datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+                <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
             {{/if}}
 
             {{# if showContributions }}

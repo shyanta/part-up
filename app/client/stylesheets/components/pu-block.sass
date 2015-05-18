@@ -5,29 +5,14 @@
     margin-bottom: $spacing-default
     position: relative
 
-    &-highlighted
-        margin-top: $spacing-large
-        margin-bottom: $spacing-large
-        padding: $spacing-default $spacing-large
-        border: 0
-        background-color: $color-gallery
-
-        .pu-input
-            border-color: $color-border
-
-            &:hover,
-            &:focus,
-            &:active
-                border-color: darken($color-border, 20%)
-
-    &-inner
-        margin: $spacing-default (-$spacing-default) (-$spacing-default)
-        padding: $spacing-default
-        border-top: 2px solid $color-gallery
+    &:hover
+        .pu-sub-editbutton
+            opacity: 1
+            pointer-events: auto
 
     .pu-sub-title
         font-size: 22px
-        margin-top: -3px
+        margin-top: -4px
         margin-bottom: 10px
         width: 100%
         overflow: hidden
@@ -53,6 +38,8 @@
         word-wrap: break-word
 
     time
+        display: inline-block
+        margin-bottom: 10px
         line-height: 1.65em
         color: $color-text-subtle
         font-weight: bold
@@ -71,6 +58,29 @@
 
         &:hover
             background-color: $bgc
+
+    &:last-child
+        margin-bottom: 0
+
+    &-highlighted
+        margin-top: $spacing-large
+        margin-bottom: $spacing-large
+        padding: $spacing-default $spacing-large
+        border: 0
+        background-color: $color-gallery
+
+        .pu-input
+            border-color: $color-border
+
+            &:hover,
+            &:focus,
+            &:active
+                border-color: darken($color-border, 20%)
+
+    &-inner
+        margin: $spacing-default (-$spacing-default) (-$spacing-default)
+        padding: $spacing-default
+        border-top: 2px solid $color-gallery
 
     &-container
         padding: 0
@@ -119,27 +129,25 @@
             .pu-checkbox:checked + .pu-button-checkbox
                 color: $color-header
 
-    &:hover
-        .pu-sub-editbutton
-            opacity: 1
-            pointer-events: auto
-
     &-active
         border-color: $color-solid-gray
 
-    &:last-child
-        margin-bottom: 0
-
-    &-activity-in-startpartup-modal
-        width: 570px
-
     &-activity
+        padding-bottom: 15px
         margin-bottom: 10px
         font-size: 18px
 
         .pu-sub-title
-            margin-bottom: -3px
-            font-size: 18px
+            font-size: 19px
 
         .pu-sub-description
-            margin-top: 10px
+            margin-top: -7px
+            font-size: 16px
+
+        .pu-sub-date
+            display: block
+            margin-top: -10px
+            margin-bottom: 0
+
+        &-in-startup-modal
+            width: 570px
