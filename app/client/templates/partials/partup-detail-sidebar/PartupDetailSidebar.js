@@ -5,7 +5,7 @@ var getScrollTop = function(){
 var partupDetailLayout = {
 
     init: function(){
-        this.container = document.querySelector('.pu-sub-pagecontainer');
+        this.container = document.querySelector('.pu-app .pu-sub-pagecontainer');
         if (!this.container) return;
 
         this.left = this.container.querySelector('.pu-sub-partupdetail-left');
@@ -214,9 +214,9 @@ var partupDetailLayout = {
 /*************************************************************/
 /* Partial rendered */
 /*************************************************************/
-Template.PartialsPartupDetailSidebar.rendered = function () {
+Template.PartialsPartupDetailSidebar.onRendered(function(){
     partupDetailLayout.init();
-};
+});
 
 
 /*************************************************************/
