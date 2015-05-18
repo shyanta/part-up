@@ -8,11 +8,22 @@
 
     <!-- Header buttons -->
     <header class="pu-pageheader">
-        <section><a class="pu-button pu-button-icon" href="#" data-newactivity><i class="fa fa-line-chart"></i>Nieuwe Activiteit</a></section>
+        <section><a class="pu-button pu-button-icon" href="#" data-newactivity><i class="fa fa-line-chart"></i>{{_ "partupdetail-activities-newactivity-button"}}</a></section>
         <aside>{{> PartialDropdownActivitiesActions}}</aside>
     </header>
 
     {{# each activities }}
+        {{> WidgetActivity activity=. CONTRIBUTIONS=true }}
+    {{/ each }}
+
+    <p class="pu-textline">
+        <span>
+            {{_ "partupdetail-activities-archivedactivities-heading" }}
+            <span class="fa fa-long-arrow-down"></span>
+        </span>
+    </p>
+
+    {{# each archivedActivities }}
         {{> WidgetActivity activity=. CONTRIBUTIONS=true }}
     {{/ each }}
 </template>
