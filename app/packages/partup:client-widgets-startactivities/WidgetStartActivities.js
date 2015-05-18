@@ -20,13 +20,14 @@ Template.WidgetStartActivities.helpers({
         var template = Template.instance();
         return function (activityId) {
             setTimeout(function () {
+                var activityCreateElm = $('.pu-block-activity-create');
                 var activityElm = $('[data-activity-id=' + activityId + ']');
-                var activityOffset = activityElm.offset().top;
+                var activityOffset = activityCreateElm.offset().top;
                 var maxScroll = $(document).height() - window.innerHeight;
 
                 $('html, body').animate({
-                    scrollTop: Math.min(activityOffset - 50, maxScroll)
-                }, 750, "swing", function () {
+                    scrollTop: Math.min(activityOffset - 20, maxScroll)
+                }, 250, "swing", function () {
                     activityElm.addClass('pu-state-highlight');
                 });
             });
