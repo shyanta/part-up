@@ -64,11 +64,13 @@
 
                     {{#if editMode}}
                         <div class="cell">
-                            {{# if activity.archived }}
-                                <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-unarchive>{{_ 'activity-button-unarchive'}}</a>
-                            {{else}}
-                                <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-archive>{{_ 'activity-button-archive'}}</a>
-                            {{/if}}
+                            {{#unless START_PARTUP}}
+                                {{#if activity.archived }}
+                                    <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-unarchive>{{_ 'activity-button-unarchive'}}</a>
+                                {{ else }}
+                                    <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-archive>{{_ 'activity-button-archive'}}</a>
+                                {{/if }}
+                            {{/unless }}
                             
                             <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-remove>{{_ 'activity-button-remove'}}</a>
                         </div>
