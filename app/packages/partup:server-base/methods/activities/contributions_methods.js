@@ -22,6 +22,12 @@ Meteor.methods({
             if (contribution) {
                 // Update contribution
                 newContribution.updated_at = new Date();
+
+                // Unarchive contribution if it was archived
+                if (contribution.archived) {
+                    newContribution.archived = false;
+                }
+
                 Contributions.update(contribution._id, { $set: newContribution });
             } else {
                 // Insert contribution
