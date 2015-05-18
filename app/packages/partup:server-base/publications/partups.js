@@ -10,8 +10,19 @@ Meteor.publish('partups.supported', function () {
     return Partups.find({});
 });
 
-Meteor.publish('partups.one.activities', function (partupId) {
-    return Activities.find({ partup_id: partupId });
+Meteor.publishComposite('partups.one.activities', function (partupId) {
+    return {
+        find: function() {
+            return Activities.find({ partup_id: partupId });
+        },
+        children: [
+            {
+                find: function(activity) {
+                    return Updates.find({ _id: activity.update_id }, { limit: 1, fields: { 'comments': 1 } });
+                }
+            }
+        ]
+    };
 });
 
 Meteor.publishComposite('partups.one.contributions', function(partupId) {
