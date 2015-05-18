@@ -1,3 +1,14 @@
+@keyframes highlight
+    0%
+        background-color: transparent
+        border-color: $color-gallery
+        transform: none
+
+    100%
+        background-color: rgba($color-secondary, .1)
+        border-color: rgba($color-secondary, .3)
+        transform: scale(1.03)
+
 .pu-block
     border: 2px solid $color-gallery
     border-radius: 5px
@@ -58,6 +69,14 @@
 
         &:hover
             background-color: $bgc
+
+    &.pu-state-highlight
+        animation-name: highlight
+        animation-duration: .3s
+        animation-delay: .1s
+        animation-direction: alternate
+        animation-iteration-count: 2
+        animation-timing-function: ease-out
 
     &:last-child
         margin-bottom: 0

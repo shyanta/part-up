@@ -15,6 +15,22 @@ Template.WidgetStartActivities.helpers({
     },
     currentPartupId: function helperCurrentPartupId () {
         return Session.get('partials.start-partup.current-partup');
+    },
+    createCallback: function helperCreateCallback () {
+        var template = Template.instance();
+        return function (activityId) {
+            setTimeout(function () {
+                var activityElm = $('[data-activity-id=' + activityId + ']');
+                var activityOffset = activityElm.offset().top;
+                var maxScroll = $(document).height() - window.innerHeight;
+
+                $('html, body').animate({
+                    scrollTop: Math.min(activityOffset - 50, maxScroll)
+                }, 750, "swing", function () {
+                    activityElm.addClass('pu-state-highlight');
+                });
+            });
+        };
     }
 });
 

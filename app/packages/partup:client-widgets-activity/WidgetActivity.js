@@ -149,7 +149,7 @@ AutoForm.addHooks(null, {
         } else {
             var partupId = Session.get('partials.start-partup.current-partup') || Router.current().params._id;
 
-            Meteor.call('activities.insert', partupId, doc, function(error){
+            Meteor.call('activities.insert', partupId, doc, function(error, output) {
                 if (error && error.message){
                     switch (error.message){
                         // case 'User not found [403]':
@@ -169,8 +169,12 @@ AutoForm.addHooks(null, {
                 AutoForm.resetForm(self.formId);
                 self.done();
 
-                if(template.data.POPUP){
+                if(template.data.POPUP) {
                     Partup.ui.popup.close();
+                }
+
+                if(mout.lang.isFunction(template.data.createCallback)) {
+                    template.data.createCallback(output._id);
                 }
             });
         }

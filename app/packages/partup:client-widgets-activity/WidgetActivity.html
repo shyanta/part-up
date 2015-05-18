@@ -1,6 +1,8 @@
 <template name="WidgetActivity">
+
     {{#if showForm}}
-        <article class="pu-block {{#if editMode }}pu-block-active{{else}}pu-block-highlighted{{/if }}">
+
+        <article class="pu-block {{#if editMode }}pu-block-active{{else}}pu-block-highlighted{{/if }}" data-activity-id="{{ activity._id }}">
             {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form" doc=fieldsFromActivity validation="submitThenKeyup"}}
 
                 <!-- Activity name -->
@@ -65,7 +67,7 @@
                             <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-remove>{{_ 'activity-button-remove'}}</a>
                         </div>
                     {{/if}}
-                    
+
                 </footer>
 
             {{/autoForm}}
@@ -73,7 +75,7 @@
 
     {{else}}
 
-        <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}}">
+        <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}}" data-activity-id="{{ activity._id }}">
             {{#unless activity.donation}}
                 <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
             {{/unless}}
@@ -107,4 +109,5 @@
         </article>
 
     {{/if}}
+
 </template>
