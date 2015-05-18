@@ -1,13 +1,20 @@
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-var getActivities = function getActivities () {
+var getActivities = function getActivities (options) {
     var partupId = Router.current().params._id;
 
     // Get the option that is selected in the filter dropdown
     var option = Session.get('partial-dropdown-activities-actions.selected');
 
-    return Activities.find({ partup_id: partupId }, { sort: { end_date: -1 } }).map(function (activity, idx) {
+    var query = { 
+        partup_id: partupId,
+        archived: false
+    }; 
+    if(options && options.archived) {
+       query.archived = true; 
+    }
+    return Activities.find(query, { sort: { end_date: -1 } }).map(function (activity, idx) {
         activity.arrayIndex = idx;
         return activity;
     }).filter(function (activity, idx) {
@@ -32,6 +39,9 @@ Template.WidgetPartupdetailActivities.helpers({
 
     'activities': function helperActivities () {
         return getActivities();
+    },
+    'archivedActivities': function helperActivities () {
+        return getActivities({archived:true});
     }
 
 });

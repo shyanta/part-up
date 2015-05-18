@@ -11,7 +11,7 @@ Meteor.publish('partups.supported', function () {
 });
 
 Meteor.publish('partups.one.activities', function (partupId) {
-    return Activities.find({ partup_id: partupId, archived: false });
+    return Activities.find({ partup_id: partupId });
 });
 
 Meteor.publishComposite('partups.one.contributions', function(partupId) {

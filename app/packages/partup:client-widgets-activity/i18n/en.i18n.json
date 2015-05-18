@@ -19,5 +19,7 @@
     "activity-form-close": "Close",
     "activity-button-next_page": "What will you contribute?",
     "activity-button-edit": "Edit",
-    "activity-button-remove": "Remove activity"
+    "activity-button-archive": "Archive",
+    "activity-button-unarchive": "@Reactivate",
+    "activity-button-remove": "Remove"
 }
