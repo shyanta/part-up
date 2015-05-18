@@ -64,6 +64,12 @@
 
                     {{#if editMode}}
                         <div class="cell">
+                            {{# if activity.archived }}
+                                <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-unarchive>{{_ 'activity-button-unarchive'}}</a>
+                            {{else}}
+                                <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-archive>{{_ 'activity-button-archive'}}</a>
+                            {{/if}}
+                            
                             <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-remove>{{_ 'activity-button-remove'}}</a>
                         </div>
                     {{/if}}
@@ -75,7 +81,7 @@
 
     {{else}}
 
-        <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}}" data-activity-id="{{ activity._id }}">
+        <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if activity.archived }}pu-block-activity-archived{{/if }}" data-activity-id="{{ activity._id }}">
             {{#unless activity.donation}}
                 <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
             {{/unless}}

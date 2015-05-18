@@ -125,10 +125,26 @@ Template.WidgetActivity.events({
         event.preventDefault();
         template.showExtraFields.set(true);
     },
-    'click [data-activity-remove]': function(event, template){
+    'click [data-activity-archive]': function(event, template){
         var activityId = template.data.activity._id;
         template.edit.set(false);
         Meteor.call('activities.archive', activityId, function(error){
+            if (error){
+                Partup.ui.notify.error(error.reason);
+            }
+        });
+    },
+    'click [data-activity-unarchive]': function(event, template){
+        var activityId = template.data.activity._id;
+        Meteor.call('activities.unarchive', activityId, function(error){
+            if (error){
+                Partup.ui.notify.error(error.reason);
+            }
+        });
+    },
+    'click [data-activity-remove]': function(event, template){
+        var activityId = template.data.activity._id;
+        Meteor.call('activities.remove', activityId, function(error){
             if (error){
                 Partup.ui.notify.error(error.reason);
             }
