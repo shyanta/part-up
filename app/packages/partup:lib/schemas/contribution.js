@@ -31,6 +31,10 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    archived: {
+        type: Boolean,
+        defaultValue: false
+    },
     created_at: {
         type: Date,
         defaultValue: Date.now()
