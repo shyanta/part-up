@@ -148,6 +148,7 @@ Template.WidgetActivity.events({
     },
     'click [data-activity-remove]': function(event, template){
         var activityId = template.data.activity._id;
+        template.edit.set(false);
         Meteor.call('activities.remove', activityId, function(error){
             if (error){
                 Partup.ui.notify.error(error.reason);
