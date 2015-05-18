@@ -43,7 +43,6 @@ aldeed:template-extension
 cfs:graphicsmagick
 cfs:gridfs
 cfs:s3
-cfs:standard-packages
 chrismbeckett:toastr
 deepwell:bootstrap-datepicker2
 fastclick
@@ -71,3 +70,4 @@ velocity:console-reporter
 zimme:iron-router-active
 partup:client-widgets-partupdetail-activities-detail
 partup:client-widgets-commentfield
+cfs:standard-packages

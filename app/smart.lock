@@ -1,0 +1,18 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "cfs:standard-packages": {
+        "git": "https://github.com/bryantebeek/Meteor-CollectionFS.git",
+        "branch": "master"
+      }
+    },
+    "packages": {
+      "cfs:standard-packages": {
+        "git": "https://github.com/bryantebeek/Meteor-CollectionFS.git",
+        "branch": "master",
+        "commit": "ead7f7888c40bae0f6696d44c524300aca64c203"
+      }
+    }
+  }
+}
