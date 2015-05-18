@@ -26,19 +26,23 @@ Template.WidgetActivity.onCreated(function(){
             Partup.ui.focuslayer.enable();
 
             // scroll
-            var DELAY = 250;
+            var DELAY = 100;
             var DURATION = 750;
             setTimeout(function () {
                 var elm = $(self.find('[data-activity-id]'));
                 if(!elm) return;
 
                 var offset = elm.offset().top;
-                var max = $(document).height() - window.innerHeight;
-                var pos = Math.min(offset - 50, max);
+                var elmIsCompletelyInView = offset >= window.scrollY && offset + elm.outerHeight() <= window.scrollY + window.innerHeight;
 
-                $('html, body').animate({
-                    scrollTop: pos
-                }, DURATION);
+                if(!elmIsCompletelyInView) {
+                    var max = $(document).height() - window.innerHeight;
+                    var pos = Math.min(offset - 50, max);
+
+                    $('html, body').animate({
+                        scrollTop: pos
+                    }, DURATION);
+                }
             }, DELAY);
 
         } else {
