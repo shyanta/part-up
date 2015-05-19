@@ -17,7 +17,7 @@ Partup.transformers.partup = {
             description: partup.description,
             budget_type: partup.budget_type,
             budget_amount: partup.budget_amount,
-            end_date: moment(partup.end_date).format('YYYY-MM-DD'),
+            end_date: partup.end_date,
             location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
             tags_input: (partup.tags || []).join(', ')
