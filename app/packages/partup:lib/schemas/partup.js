@@ -17,7 +17,13 @@ var partupBaseSchema = new SimpleSchema({
     budget_amount: {
         type: Number,
         min: 0,
-        optional: true
+        optional: true,
+        custom: function () {
+            var required = this.field('budget_type').isSet;
+            if(required && !this.isSet) {
+                return "required";
+            }
+        }
     },
     end_date: {
         type: Date
