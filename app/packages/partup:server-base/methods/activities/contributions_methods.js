@@ -29,6 +29,29 @@ Meteor.methods({
                 }
 
                 Contributions.update(contribution._id, { $set: newContribution });
+
+                // Generate a bot message
+                var update = Updates.findOneOrFail(activity.update_id);
+                Updates.update(update._id, {
+                    $set: {
+                        'updated_at': new Date()
+                    },
+                    $push: {
+                        'comments': {
+                            _id: Random.id(),
+                            content: 'bot_contributions_updated',
+                            creator: {
+                                _id: 'SYSTEM',
+                                name: upper.profile.name
+                            },
+                            created_at: new Date(),
+                            updated_at: new Date()
+                        }
+                    },
+                    $inc: {
+                        'comments_count': 1
+                    }
+                });
             } else {
                 // Insert contribution
                 newContribution.created_at = new Date();
