@@ -3,7 +3,7 @@
     {{#if showForm}}
 
         <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if CREATE}}pu-block-activity-create{{/if}} {{#if editMode }}pu-block-active{{else}}pu-block-highlighted{{/if }}" data-activity-id="{{ activity._id }}">
-            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form" doc=fieldsFromActivity validation="submitThenKeyup"}}
+            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form" doc=activity validation="submitThenKeyup"}}
 
                 <!-- Activity name -->
                 <label class="pu-formfield">

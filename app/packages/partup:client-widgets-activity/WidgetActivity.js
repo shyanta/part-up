@@ -75,9 +75,6 @@ Template.WidgetActivity.helpers({
     editMode: function(){
         return Template.instance().edit.get();
     },
-    fieldsFromActivity: function(){
-        return this.activity;
-    },
     showExtraFields: function(){
         return Template.instance().showExtraFields.get();
     },
