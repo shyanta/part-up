@@ -126,7 +126,7 @@
 
                 {{#if partupImage.uploaded.get }}
 
-                    <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImageById partupImage.currentImageId.get }}')">
+                    <figure class="pu-imagepreview pu-imagepreview-cover" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}">
                         <div class="pu-sub-loadercontainer {{#if partupLoading 'image-uploading' 'setting-suggestion' }}pu-sub-loadercontainer-active{{/if}}">
                             {{> WidgetLoader }}
                         </div>
