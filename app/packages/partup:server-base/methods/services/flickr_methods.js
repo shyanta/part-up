@@ -16,6 +16,11 @@ Meteor.methods({
      * @param {string[]} fallbackTags Tags
      */
     'partups.services.flickr.search': function (tags, count, fallbackTags) {
+        if(!tags || !tags.length || !tags[0] || !tags[0].length) {
+            var error = 'No tags given';
+            Log.error(error);
+            throw new Meteor.Error(400, error);
+        }
 
         if (!flickr.apiKey) {
             var error = 'Error while getting photos from Flickr: No API Key defined';
