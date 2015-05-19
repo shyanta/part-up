@@ -20,7 +20,7 @@ Template.WidgetProfileHoverCard.helpers({
                 }
             },
             left: function(){
-                var left = settings.x;
+                var left = settings.x + (settings.width / 2);
                 return 'left:' + left + 'px;';
             },
             positionTop: positionTop
