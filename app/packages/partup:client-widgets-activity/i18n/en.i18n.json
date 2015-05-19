@@ -21,5 +21,7 @@
     "activity-button-edit": "Edit",
     "activity-button-archive": "Archive",
     "activity-button-unarchive": "@Reactivate",
-    "activity-button-remove": "Remove"
+    "activity-button-remove": "Remove",
+    "activity-comment": "1 comment",
+    "activity-comment_plural": "__count__ comments"
 }

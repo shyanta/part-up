@@ -107,9 +107,17 @@
                 <p class="pu-sub-description pu-paragraph">{{activity.description}}</p>
             {{/if }}
 
-            {{# if activity.end_date }}
-                <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
-            {{/if}}
+            {{# if showMetaData }}
+                <p class="pu-block-meta">
+                    {{# if activity.end_date }}
+                        <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+                    {{/if}}
+
+                    {{# if showCommentsLink }}
+                        <a class="pu-activity-comments" href="#">{{_ 'activity-comment' count=commentsCount }}</a>
+                    {{/ if }}
+                </p>
+            {{/ if }}
 
             {{# if showContributions }}
                 <div class="pu-block-inner">

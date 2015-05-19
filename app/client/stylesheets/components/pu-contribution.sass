@@ -1,4 +1,5 @@
 .pu-contribution
+    padding: $spacing-default 0
     border-top: 2px solid $color-gallery
 
     &:first-child
@@ -16,6 +17,7 @@
 
     &-own
         cursor: pointer
+
         .pu-avatar
             position: relative
             line-height: 30px
@@ -52,10 +54,11 @@
 
     &-form
         position: relative
-        padding: 8px 0 0
+        padding-top: 28px
+
         .pu-avatar
             position: absolute
-            top: 0
+            top: $spacing-default
             left: 0
 
         .pu-form
