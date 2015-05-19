@@ -8,8 +8,11 @@ Partup.services.placeholders.startdetails = {
     'tags_input': function () {
         return __('startdetails-form-tags_input-placeholder');
     },
-    'budget_amount': function () {
-        return __('startdetails-form-budget_amount-placeholder');
+    'budget_money': function () {
+        return __('startdetails-form-budget_money-placeholder');
+    },
+    'budget_hours': function () {
+        return __('startdetails-form-budget_hours-placeholder');
     },
     'end_date': function () {
         return __('startdetails-form-end_date-placeholder');

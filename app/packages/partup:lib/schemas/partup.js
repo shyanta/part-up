@@ -14,12 +14,23 @@ var partupBaseSchema = new SimpleSchema({
         allowedValues: ['money', 'hours'],
         optional: true
     },
-    budget_amount: {
+    budget_money: {
         type: Number,
         min: 0,
         optional: true,
         custom: function () {
-            var required = this.field('budget_type').isSet;
+            var required = this.field('budget_type').value === 'money';
+            if(required && !this.isSet) {
+                return "required";
+            }
+        }
+    },
+    budget_hours: {
+        type: Number,
+        min: 0,
+        optional: true,
+        custom: function () {
+            var required = this.field('budget_type').value === 'hours';
             if(required && !this.isSet) {
                 return "required";
             }
