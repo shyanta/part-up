@@ -36,6 +36,9 @@ Router.route('/discover', {
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
+Router.route('/partups/:_id', function(){
+    this.redirect('partup-detail', {_id: this.params._id});
+});
 Router.route('/partups/:_id/updates', {
     name: 'partup-detail',
     where: 'client',
