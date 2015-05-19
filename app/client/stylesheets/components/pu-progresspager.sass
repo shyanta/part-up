@@ -1,7 +1,11 @@
 .pu-progresspager
+    $cutoff: 0 // use this to cut off the sides when the progresspager box is too wide
     $item-count: 3
-    $grid: $grid-column * 8 + $grid-gap * 7
+    $grid: $grid-column * 6 + $grid-gap * 5
     $single: ($grid - 10px) / ($item-count - 1)
+
+    width: $single * $item-count - $cutoff * 2
+    overflow: hidden
 
     ol
         width: $single * $item-count
@@ -9,8 +13,7 @@
         list-style: none
         padding-left: 0
         @extend %clearfix
-        margin-left: - $single / 2
-        margin-right: - $single / 2
+        margin-left: - $cutoff
 
     li
         position: relative
