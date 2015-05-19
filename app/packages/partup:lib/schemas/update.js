@@ -89,6 +89,10 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
         type: [Partup.schemas.entities.updateComment],
         optional: true
     },
+    comments_count: {
+        type: Number,
+        defaultValue: 0
+    },
     partup_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id

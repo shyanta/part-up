@@ -29,7 +29,17 @@ Meteor.methods({
         var comments = update.comments || [];
 
         try {
-            Updates.update(updateId, { $set: { 'updated_at': new Date() }, $push: { 'comments': comment }});
+            Updates.update(updateId, {
+                $set: {
+                    'updated_at': new Date()
+                },
+                $push: {
+                    'comments': comment
+                },
+                $inc: {
+                    'comments_count': 1
+                }
+            });
 
             Event.emit('updates.comments.inserted', comment);
 
