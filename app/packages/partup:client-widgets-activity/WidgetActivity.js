@@ -96,6 +96,9 @@ Template.WidgetActivity.helpers({
     showMetaData: function(){
         return this.activity.end_date || this.COMMENTS_LINK;
     },
+    showUpdateLink: function(){
+        return this.UPDATE_LINK;
+    },
     showPlaceholderContribution: function(){
         var user = Meteor.user();
         if (!user) return false;
