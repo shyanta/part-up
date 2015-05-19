@@ -22,8 +22,8 @@ Package.onUse(function (api) {
     api.addFiles([
         'package-tap.i18n',
         
-        'WidgetProfileHoverCard.html',
-        'WidgetProfileHoverCard.js',
+        'WidgetHoverCard.html',
+        'WidgetHoverCard.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
