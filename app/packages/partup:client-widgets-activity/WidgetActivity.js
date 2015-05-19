@@ -107,6 +107,9 @@ Template.WidgetActivity.helpers({
         return function(contribution, cb){
             Meteor.call('activity.contribution.update', activityId, contribution, cb);
         };
+    },
+    upper: function(event, template){
+        return Meteor.users.findOne({ _id: this.upper_id });
     }
 });
 

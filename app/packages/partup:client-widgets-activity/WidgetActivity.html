@@ -71,7 +71,7 @@
                                     <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-archive>{{_ 'activity-button-archive'}}</a>
                                 {{/if }}
                             {{/unless }}
-                            
+
                             <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-remove>{{_ 'activity-button-remove'}}</a>
                         </div>
                     {{/if}}
@@ -83,10 +83,18 @@
 
     {{else}}
 
-        <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if activity.archived }}pu-block-activity-archived{{/if }}" data-activity-id="{{ activity._id }}">
+        <article class="pu-block pu-block-activity {{#if showContributions}}pu-block-activity-expanded{{/if}} {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if activity.archived }}pu-block-activity-archived{{/if }}" data-activity-id="{{ activity._id }}">
             {{#unless activity.donation}}
                 <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
             {{/unless}}
+
+            {{# if contributionsActive }}
+                <ul class="pu-avatar-stack">
+                    {{# each contributions }}
+                        <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }});"></li>
+                    {{/ each }}
+                </ul>
+            {{/ if }}
 
             <h3 class="pu-sub-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
                 {{activity.name}}

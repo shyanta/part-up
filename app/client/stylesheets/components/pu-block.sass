@@ -157,6 +157,14 @@
         margin-bottom: 10px
         font-size: 18px
 
+        .pu-sub-editbutton
+            display: none
+
+        .pu-avatar-stack
+            position: absolute
+            top: $spacing-default
+            right: $spacing-default
+
         .pu-label
             font-size: 14px
 
@@ -177,6 +185,13 @@
             display: block
             margin-top: -10px
             margin-bottom: 0
+
+        &-expanded
+            .pu-sub-editbutton
+                display: block
+
+            .pu-avatar-stack
+                display: none
 
         &-create
             margin-top: 40px

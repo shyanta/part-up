@@ -36,6 +36,29 @@
     &-offline:after
         background: #ea7575
 
+    &-stack
+        list-style: none
+        padding: 0
+
+        .pu-avatar
+            float: right
+            width: 24px
+            height: 24px
+            margin-right: -12px
+            border: 2px solid #fff
+            transition: margin .15s ease-out
+
+            &:first-child
+                margin-right: 0
+
+        &:hover
+            .pu-avatar
+                margin-right: 3px
+
+                &:first-child
+                    margin-right: 0
+
+
     .pu-sub-image
         display: block
         position: absolute
