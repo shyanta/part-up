@@ -42,6 +42,7 @@ Package.onUse(function (api) {
         'helpers/forms.js',
         'helpers/imageById.js',
         'helpers/loading.js',
+        'helpers/Partup.js',
         'autorun.js'
     ], ['client']);
 });
