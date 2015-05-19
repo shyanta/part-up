@@ -10,6 +10,14 @@ Template.WidgetPartupdetailUpdateItem.helpers({
         // debugger;
         return Activities.findOne({_id: activityId});
     },
+    isDetail: function(){
+        var update_id = Router.current().params.update_id;
+        if(update_id) {
+            return true;
+        } else {
+            return false;
+        }
+    },
     'titleKey': function helperTitleKey() {
         return 'partupdetail-update-item-type-' + this.update.type + '-title';
     },

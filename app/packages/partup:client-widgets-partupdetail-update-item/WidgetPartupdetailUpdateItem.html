@@ -163,7 +163,7 @@
             {{#if partupEqualsExactly update.type 'partups_activities_added' }}
                 {{#with update.type_data }}
                     <section>
-                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=false }}
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail }}
                     </section>
                 {{/with}}
             {{/if }}
@@ -172,7 +172,7 @@
             {{#if partupEqualsExactly update.type 'partups_activities_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=false }}
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail }}
                     </section>
                 {{/with}}
             {{/if }}
