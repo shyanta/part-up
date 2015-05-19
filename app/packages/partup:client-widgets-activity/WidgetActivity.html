@@ -114,7 +114,7 @@
                     {{/if}}
 
                     {{# if showCommentsLink }}
-                        <a class="pu-activity-comments" href="#">{{_ 'activity-comment' count=commentsCount }}</a>
+                        <a class="pu-activity-comments" href="{{pathFor route='partup-detail-update' _id=activity.partup_id update_id=activity.update_id }}">{{_ 'activity-comment' count=commentsCount }}</a>
                     {{/ if }}
                 </p>
             {{/ if }}
