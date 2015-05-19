@@ -16,9 +16,8 @@ var commentPostButtonActiveDict = new ReactiveDict;
 /*************************************************************/
 Template.WidgetCommentField.onRendered(function () {
     var update = this.data.update;
-    var comments = update.comments || [];
     commentsExpandedDict.set(update._id, false);
-    commentInputFieldExpandedDict.set(update._id, comments.length > 0);
+    commentInputFieldExpandedDict.set(update._id, update.comments_count > 0);
     commentPostButtonActiveDict.set(update._id, false);
 });
 
@@ -48,8 +47,8 @@ Template.WidgetCommentField.helpers({
 
     'showExpandButton': function helperShowExpandButton() {
         var hiddenComments = 0;
-        if(this.update && this.update.comments && this.update.comments.length) {
-            hiddenComments = this.update.comments.length - MAX_COLLAPSED_COMMENTS > 0;
+        if(this.update && this.update.comments && this.update.comments_count) {
+            hiddenComments = this.update.comments_count - MAX_COLLAPSED_COMMENTS > 0;
         }
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
         return Template.instance().data.expandedComments ? false : hiddenComments && !commentsExpanded;
