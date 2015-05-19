@@ -9,31 +9,40 @@ var ImageSystem = function ImageSystemConstructor (template) {
     this.availableSuggestions = new ReactiveVar([]);
 
     this.getSuggestions = function (tags) {
-        var newSuggestionsArray = [];
-
         if(!tags || !tags.length) {
-            this.availableSuggestions.set(newSuggestionsArray);
+            this.availableSuggestions.set([]);
             return;
         }
 
-        var addResults = function (result, isFinal) {
-            newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
+        var newSuggestionsArray = [];
 
-            if(isFinal) {
-                self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
-                Session.set('partials.start-partup.current-suggestion', 0);
-                template.loading.set('suggesting-images', false);
+        var addSuggestions = function (suggestions) {
+            if(!suggestions) return;
+            newSuggestionsArray = newSuggestionsArray.concat(lodash.map(suggestions, 'imageUrl'));
+        };
+
+        var setAvailableSuggestions = function () {
+            template.loading.set('suggesting-images', false);
+
+            if(!newSuggestionsArray.length) {
+                Partup.ui.notify.warning('Could not find any images suggestions.');
+                return;
             }
+
+            self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
+            Session.set('partials.start-partup.current-suggestion', 0);
         };
 
         template.loading.set('suggesting-images', true);
         Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
-            if (!error && result.length >= 5) {
-                addResults(result, true);
+            if (!error) addSuggestions(result);
+
+            if (newSuggestionsArray.length >= 5) {
+                setAvailableSuggestions();
             } else {
-                addResults(result);
                 Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    if(!error) addResults(result, true);
+                    if(!error) addSuggestions(result);
+                    setAvailableSuggestions();
                 });
             }
         });
