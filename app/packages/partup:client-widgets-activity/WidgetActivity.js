@@ -87,8 +87,14 @@ Template.WidgetActivity.helpers({
     showCommentsLink: function(){
         return !!this.COMMENTS_LINK;
     },
+    commentsCount: function(){
+        return Updates.findOne({ _id: this.activity.update_id }).comments_count;
+    },
     contributions: function(){
         return Contributions.find({ activity_id: this.activity._id });
+    },
+    showMetaData: function(){
+        return this.activity.end_date || this.COMMENTS_LINK;
     },
     showPlaceholderContribution: function(){
         var user = Meteor.user();
