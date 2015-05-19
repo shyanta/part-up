@@ -172,6 +172,7 @@ Template.WidgetStartDetails.events({
         template[charactersLeftVar].set(max - $(event.target).val().length);
     },
     'change [data-imageupload]': function eventChangeFile(event, template) {
+        $("[data-imageupload]").replaceWith($("[data-imageupload]").clone(true));
         FS.Utility.eachFile(event, function (file) {
             template.loading.set('image-uploading', true);
             Partup.ui.uploader.uploadImage(file, function (error, image) {
