@@ -451,6 +451,7 @@ Router.onBeforeAction(partupRouterHooks.loginRequired, {
 if(Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
+        Partup.ui.focuslayer.disable();
         this.next();
     });
 };
