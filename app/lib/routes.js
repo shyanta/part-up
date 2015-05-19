@@ -34,6 +34,30 @@ Router.route('/discover', {
 });
 
 /*************************************************************/
+/* Profile */
+/*************************************************************/
+Router.route('/profile', function(){
+    this.redirect('profile-detail', {_id: Meteor.userId()});
+});
+
+Router.route('/profile/:_id', {
+    name: 'profile-detail',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesApp': { to: 'page' },
+        // 'PagesUnderConstruction': { to: 'app-page' }
+        'PagesProfile': { to: 'app-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('notifications.user');
+        this.subscribe('partups.all');
+    }
+});
+
+
+
+/*************************************************************/
 /* Partup detail */
 /*************************************************************/
 Router.route('/partups/:_id', function(){
