@@ -10,18 +10,11 @@ var ImageSystem = function ImageSystemConstructor (template) {
 
     this.getSuggestions = function (tags) {
         var newSuggestionsArray = [];
-        self.currentImageId.set(false);
-        self.uploaded.set(false);
-
 
         if(!tags || !tags.length) {
             this.availableSuggestions.set(newSuggestionsArray);
             return;
         }
-
-        var newSuggestionsArray = [];
-        self.currentImageId.set(false);
-        self.uploaded.set(false);
 
         var addResults = function (result, isFinal) {
             newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
@@ -48,6 +41,8 @@ var ImageSystem = function ImageSystemConstructor (template) {
 
     this.unsetUploadedPicture = function (tags) {
         self.getSuggestions(tags);
+        self.currentImageId.set(false);
+        self.uploaded.set(false);
     };
 
     // Set suggestion
