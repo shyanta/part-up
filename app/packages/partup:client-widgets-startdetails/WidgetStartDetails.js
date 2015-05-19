@@ -13,6 +13,16 @@ var ImageSystem = function ImageSystemConstructor (template) {
         self.currentImageId.set(false);
         self.uploaded.set(false);
 
+
+        if(!tags || !tags.length) {
+            this.availableSuggestions.set(newSuggestionsArray);
+            return;
+        }
+
+        var newSuggestionsArray = [];
+        self.currentImageId.set(false);
+        self.uploaded.set(false);
+
         var addResults = function (result, isFinal) {
             newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
 
