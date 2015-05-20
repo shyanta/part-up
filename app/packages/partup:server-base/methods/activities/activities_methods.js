@@ -49,28 +49,8 @@ Meteor.methods({
 
             Activities.update(activityId, { $set: fields });
 
-            // Generate a bot message
-            var update = Updates.findOneOrFail(activity.update_id);
-            Updates.update(update._id, {
-                $set: {
-                    'updated_at': new Date()
-                },
-                $push: {
-                    'comments': {
-                        _id: Random.id(),
-                        content: 'bot_activities_updated',
-                        creator: {
-                            _id: 'SYSTEM',
-                            name: upper.profile.name
-                        },
-                        created_at: new Date(),
-                        updated_at: new Date()
-                    }
-                },
-                $inc: {
-                    'comments_count': 1
-                }
-            });
+            // Post system message
+            Meteor.call('updates.system.message.insert', activity.update_id, 'system_activities_updated');
 
             return {
                 _id: activity._id
@@ -97,6 +77,9 @@ Meteor.methods({
         try {
             Activities.remove(activityId);
 
+            // Post system message
+            Meteor.call('updates.system.message.insert', activity.update_id, 'system_activities_removed');
+
             return {
                 _id: activity._id
             }
@@ -122,6 +105,9 @@ Meteor.methods({
         try {
             Activities.update(activityId, {$set: { archived: false } });
 
+            // Post system message
+            Meteor.call('updates.system.message.insert', activity.update_id, 'system_activities_unarchived');
+
             return {
                 _id: activity._id
             }
@@ -146,6 +132,9 @@ Meteor.methods({
 
         try {
             Activities.update(activityId, {$set: { archived: true } });
+
+            // Post system message
+            Meteor.call('updates.system.message.insert', activity.update_id, 'system_activities_archived');
 
             return {
                 _id: activity._id
