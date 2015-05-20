@@ -39,9 +39,6 @@ Template.WidgetStartActivities.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetStartActivities.events({
-    'click [data-popup]': function openPopup (event, template){
-        Partup.ui.popup.open();
-    }
 });
 
 /*************************************************************/
