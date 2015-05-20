@@ -15,6 +15,7 @@ Accounts.onCreateUser(function(options, user) {
 
     if (liData) {
         profile = {
+            linkedin_id: liData.id,
             name: liData.firstName + ' ' + liData.lastName,
             firstname: liData.firstName,
             lastname: liData.lastName,
