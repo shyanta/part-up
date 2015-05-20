@@ -82,6 +82,28 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be removed.');
         }
+    },
+
+    /**
+     * Invite someone to a Partup
+     *
+     * @param  {String} partupId
+     */
+    'partups.invite': function (partupId, email, name) {
+        var upper = Meteor.user();
+        var partup = Partups.findOneOrFail(partupId);
+
+        if (! upper || partup.creator_id !== upper._id) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
+
+        Email.send({
+            to: email,
+            subject: '@Invitation to Partup',
+            html: SSR.render('inviteUserEmail', { name: name })
+        });
     }
 
 });
