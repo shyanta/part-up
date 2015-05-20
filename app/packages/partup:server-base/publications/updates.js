@@ -6,7 +6,7 @@ Meteor.publishComposite('updates.one', function(updateId) {
         children: [
             {
                 find: function(update) {
-                    return Meteor.users.find({ _id: update.upper_id }, { limit: 1, fields: { 'profile': 1, 'status.online': 1, 'supporterOf': 1 } });
+                    return Meteor.users.find({ _id: update.upper_id }, { limit: 1, fields: { 'profile': 1, 'status.online': 1, 'partups': 1, 'supporterOf': 1 } });
                 },
                 children: [
                     {
