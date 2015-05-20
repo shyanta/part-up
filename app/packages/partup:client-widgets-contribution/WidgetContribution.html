@@ -56,7 +56,7 @@
                             {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
                         </p>
                     {{ else }}
-                        <p class="pu-contribution-none">Voeg uren toe</p>
+                    <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
                     {{/ if }}
                 </div>
             {{ else }}
@@ -68,6 +68,12 @@
                             {{# if showSplit }} &mdash; {{/ if }}
                             {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
                         </p>
+                    {{/ if }}
+                    {{# if canVerifyContribution }}
+                    <div class="pu-sub-acceptbuttons">
+                        <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>
+                        <a class="pu-button pu-button-text pu-button-text-subtle" data-contribution-reject>{{_ 'contribution-reject'}}</a>
+                    </div>
                     {{/ if }}
                 </div>
 
