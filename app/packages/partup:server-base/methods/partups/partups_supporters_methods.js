@@ -17,7 +17,7 @@ Meteor.methods({
 
             if (! isAlreadySupporter && partup.creator_id !== upper._id) {
                 Partups.update(partupId, { $push: { 'supporters': upper._id } });
-                Meteor.users.update(upper._id, { $push: { 'supporter_of': partupId } });
+                Meteor.users.update(upper._id, { $push: { 'supporterOf': partupId } });
 
                 Event.emit('partups.supporters.inserted', partup, upper);
 
@@ -48,7 +48,7 @@ Meteor.methods({
 
             if (isSupporter) {
                 Partups.update(partupId, { $pull: { 'supporters': upper._id } });
-                Meteor.users.update(upper._id, { $pull: { 'supporter_of': partupId } });
+                Meteor.users.update(upper._id, { $pull: { 'supporterOf': partupId } });
 
                 Event.emit('partups.supporters.removed', partup, upper);
 
