@@ -97,6 +97,19 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
+        var invites = partup.invites || [];
+        var invitedEmails = mout.array.pluck(invites, 'email');
+
+        if (invitedEmails.indexOf(email) > -1) {
+            throw new Meteor.Error(403, 'Email is already invited to the given partup.');
+        }
+
+        var invite = {
+            name: name,
+            email: email
+        }
+
+        // Compile the E-mail template and send the email
         SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
 
         Email.send({
@@ -104,6 +117,13 @@ Meteor.methods({
             subject: '@Invitation to Partup',
             html: SSR.render('inviteUserEmail', { name: name })
         });
+
+        // Save the invite on the partup for further references
+        Partups.update(partupId, { $push: { 'invites': invite } });
+
+        Event.emit('partups.invited', upper._id, { 'partup': partupId, 'email': email, 'name': name });
+
+        return true;
     }
 
 });
