@@ -79,6 +79,7 @@
                         </label>
                         <span class="pu-sub-error">{{ afFieldMessage name='budget_money' }}</span>
                     </div>
+                    {{#if budgetTypeChanged }}<script>$('[name=budget_money]').focus();</script>{{/if}}
                 {{/if }}
 
                 <!-- Budget amount: hours -->
@@ -94,6 +95,7 @@
                         </label>
                         <span class="pu-sub-error">{{ afFieldMessage name='budget_hours' }}</span>
                     </div>
+                    {{#if budgetTypeChanged }}<script>$('[name=budget_hours]').focus();</script>{{/if}}
                 {{/if }}
 
             </div>

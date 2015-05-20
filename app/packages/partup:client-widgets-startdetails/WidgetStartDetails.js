@@ -93,6 +93,7 @@ Template.WidgetStartDetails.onCreated(function() {
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     template.imageSystem = new ImageSystem(template);
     template.budgetType = new ReactiveVar();
+    template.budgetTypeChanged = new ReactiveVar();
 
     template.autorun(function () {
         var pId = Session.get('partials.start-partup.current-partup');
@@ -116,9 +117,15 @@ Template.WidgetStartDetails.onCreated(function() {
     Template.autoForm.onCreated(function () {
         if(mout.object.get(this, 'data.id') !== 'partupForm') return;
 
+        // Oh. My. God. Look at that hack.
+        // Don't change any of these rules!
         this.autorun(function () {
-            var budget_type = AutoForm.getFieldValue('budget_type');
-            template.budgetType.set(budget_type);
+            AutoForm.getFieldValue('budget_type');
+
+            setTimeout(function () {
+                var budget_type = AutoForm.getFieldValue('budget_type', 'partupForm');
+                template.budgetType.set(budget_type);
+            }, 0);
         });
     });
     
@@ -181,6 +188,9 @@ Template.WidgetStartDetails.helpers({
     },
     budgetType: function () {
         return Template.instance().budgetType.get();
+    },
+    budgetTypeChanged: function () {
+        return Template.instance().budgetTypeChanged.get();
     }
 });
 
@@ -205,15 +215,7 @@ Template.WidgetStartDetails.events({
         });
     },
     'change [name=budget_type]': function eventChangeBudgetType(event, template) {
-        var budgetType = $(event.currentTarget).val();
-        setTimeout(function() {
-            var budgetAmountField = template.find('[name=budget_' + budgetType + ']');
-
-            if(budgetType) {
-                $(budgetAmountField).val('');
-                budgetAmountField.focus();
-            }
-        });
+        template.budgetTypeChanged.set(true);
     },
     'click [data-imageremove]': function eventChangeFile(event, template) {
         var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget.form).find('[name=tags_input]').val());
