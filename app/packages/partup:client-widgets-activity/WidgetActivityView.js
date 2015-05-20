@@ -2,15 +2,15 @@
 /* Widget initial */
 /*************************************************************/
 Template.WidgetActivityView.onCreated(function(){
-    this.showContributions = new ReactiveVar(false);
+    this.expanded = new ReactiveVar(false);
 });
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetActivityView.helpers({
-    showContributions: function(){
-        return this.EXPANDED || (Template.instance().showContributions.get() && !!this.CONTRIBUTIONS);
+    expanded: function(){
+        return this.EXPANDED || (Template.instance().expanded.get() && !!this.CONTRIBUTIONS);
     },
     commentsCount: function(){
         var update = Updates.findOne({ _id: this.activity.update_id });
@@ -57,7 +57,7 @@ Template.WidgetActivityView.events({
         template.data.edit.set(true);
     },
     'click [data-expander]': function(event, template){
-        var opened = template.showContributions.get();
-        template.showContributions.set(!opened);
+        var opened = template.expanded.get();
+        template.expanded.set(!opened);
     }
 });
