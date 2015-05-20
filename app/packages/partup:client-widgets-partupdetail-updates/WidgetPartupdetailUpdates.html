@@ -2,14 +2,16 @@
     <div class="pu-composition pu-composition-partupdetailupdates">
 
         <!-- new message popup -->
-        {{#contentFor "WidgetPopupContent"}}
-            {{> NewMessagePopup}}
-        {{/contentFor}}
+        {{#if partupPopupActive 'popup.new-message' }}
+            {{#contentFor "WidgetPopupContent"}}
+                {{> NewMessagePopup}}
+            {{/contentFor}}
+        {{/if}}
 
         <!-- Header buttons -->
         <header class="pu-pageheader">
             <section>
-                <a class="pu-button pu-button-icon" href="#" data-newmessage>
+                <a class="pu-button pu-button-icon" href="#" data-popup="popup.new-message">
                     <i class="fa fa-comment"></i>
                     {{_ 'partupdetail-updates-newmessage-button' }}
                 </a>

@@ -2,13 +2,15 @@
     <div class="pu-composition pu-composition-partupdetailactivities"></div>
 
     <!-- new message popup -->
-    {{#contentFor "WidgetPopupContent"}}
-        {{> NewActivityPopup}}
-    {{/contentFor}}
+    {{#if partupPopupActive 'popup.new-activity' }}
+        {{#contentFor "WidgetPopupContent"}}
+            {{> NewActivityPopup}}
+        {{/contentFor}}
+    {{/if}}
 
     <!-- Header buttons -->
     <header class="pu-pageheader">
-        <section><a class="pu-button pu-button-icon" href="#" data-newactivity><i class="fa fa-line-chart"></i>{{_ "partupdetail-activities-newactivity-button"}}</a></section>
+        <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "partupdetail-activities-newactivity-button"}}</a></section>
         <aside>{{> PartialDropdownActivitiesActions}}</aside>
     </header>
 

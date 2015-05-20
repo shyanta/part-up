@@ -1,7 +1,10 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-
+var getActivities = function () {
+    var partupId = Session.get('partials.start-partup.current-partup');
+    return Activities.find({ partup_id: partupId }, {sort: { created_at: -1 }});
+};
 //
 
 /*************************************************************/
@@ -10,8 +13,7 @@
 Template.WidgetStartActivities.helpers({
     Partup: Partup,
     partupActivities: function helperPartupActivities () {
-        var partupId = Session.get('partials.start-partup.current-partup');
-        return Activities.find({ partup_id: partupId }, {sort: { created_at: -1 }});
+        return getActivities();
     },
     currentPartupId: function helperCurrentPartupId () {
         return Session.get('partials.start-partup.current-partup');
@@ -32,6 +34,15 @@ Template.WidgetStartActivities.helpers({
                 });
             });
         };
+    },
+    showActivityPlaceholder: function helperShowActivityPlaceholder () {
+        return getActivities().count() === 0;
+    },
+    placeholderActivity: function helperPlaceholderActivity () {
+        return {
+            name: 'Lorem ipsum',
+            description: 'Lorem ipsum dolor'
+        }
     }
 });
 
@@ -39,9 +50,6 @@ Template.WidgetStartActivities.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetStartActivities.events({
-    'click [data-popup]': function openPopup (event, template){
-        Partup.ui.popup.open();
-    }
 });
 
 /*************************************************************/

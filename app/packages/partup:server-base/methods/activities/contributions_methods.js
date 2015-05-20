@@ -30,28 +30,8 @@ Meteor.methods({
 
                 Contributions.update(contribution._id, { $set: newContribution });
 
-                // Generate a bot message
-                var update = Updates.findOneOrFail(activity.update_id);
-                Updates.update(update._id, {
-                    $set: {
-                        'updated_at': new Date()
-                    },
-                    $push: {
-                        'comments': {
-                            _id: Random.id(),
-                            content: 'bot_contributions_updated',
-                            creator: {
-                                _id: 'SYSTEM',
-                                name: upper.profile.name
-                            },
-                            created_at: new Date(),
-                            updated_at: new Date()
-                        }
-                    },
-                    $inc: {
-                        'comments_count': 1
-                    }
-                });
+                // Post system message
+                Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_updated');
             } else {
                 // Insert contribution
                 newContribution.created_at = new Date();
@@ -93,7 +73,14 @@ Meteor.methods({
             }, { fields: { _id: 1 } }).fetch();
             var conceptContributionsIdArray = _.pluck(conceptContributions, '_id');
             Contributions.update( { _id: { $in: conceptContributionsIdArray } }, { $set: { verified: true } }, { multi: true });
-            Event.emit('contributions.allowed', upper._id, contribution._id);
+
+            Event.emit('contributions.allowed', upper._id, conceptContributionsIdArray);
+
+			// TODO: refactor the following to event handler
+            // Post system message for each accepted contribution
+            // conceptContributions.forEach(function (contribution) {
+            //     Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_accepted');
+            // });
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while allowing contributions.');
@@ -115,7 +102,11 @@ Meteor.methods({
         try {
             // Remove contribution and emit event for the notification to be triggered
             Contributions.remove(contribution._id);
-            Event.emit('contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
+
+            // Post system message
+            Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_rejected');
+
+            Event.emit('partups.contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while rejecting contribution.');
@@ -137,6 +128,9 @@ Meteor.methods({
 
         try {
             Contributions.update(contribution._id, { $set: { archived: true } });
+
+            // Post system message
+            Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_archived');
 
             return {
                 _id: contribution._id
@@ -162,6 +156,9 @@ Meteor.methods({
 
         try {
             Contributions.remove(contributionId);
+
+            // Post system message
+            Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_removed');
 
             return {
                 _id: contribution._id

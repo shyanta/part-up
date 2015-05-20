@@ -80,7 +80,4 @@ Template.WidgetPartupdetailUpdates.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetPartupdetailUpdates.events({
-    'click [data-newmessage]': function openNewMessagePopup(event, template){
-        Partup.ui.popup.open();
-    }
-})
+});

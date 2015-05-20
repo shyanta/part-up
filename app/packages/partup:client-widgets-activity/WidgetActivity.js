@@ -70,7 +70,7 @@ Template.WidgetActivity.helpers({
         return Template.instance().charactersLeft.get('description');
     },
     showForm: function(){
-        return !!this.CREATE || Template.instance().edit.get();
+        return !this.READONLY && (!!this.CREATE || Template.instance().edit.get());
     },
     editMode: function(){
         return Template.instance().edit.get();
@@ -119,6 +119,9 @@ Template.WidgetActivity.helpers({
     },
     upper: function(event, template){
         return Meteor.users.findOne({ _id: this.upper_id });
+    },
+    showEditButton: function () {
+        return !this.READONLY && !this.CREATE;
     }
 });
 

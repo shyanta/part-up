@@ -19,7 +19,12 @@
                             </li>
                         {{/each }}
                     </ul>
-                    <a href="" class="pu-button pu-button-icon">
+                    {{#if partupPopupActive 'popup.invite-uppers' }}
+                        {{#contentFor "WidgetPopupContent"}}
+                            Invite uppers
+                        {{/contentFor}}
+                    {{/if}}
+                    <a href="" class="pu-button pu-button-icon" data-popup="popup.invite-uppers">
                         <i class="fa fa-user-plus"></i>
                         {{_ 'partup-detail-uppers-invitebutton' }}
                     </a>

@@ -48,6 +48,7 @@ Package.onUse(function(api) {
         'event_handlers/partups/partups_image_changed_handler.js',
         'event_handlers/users/users_settings_handler.js',
         'event_handlers/activities/activities_handler.js',
+        'event_handlers/activities/contributions_handler.js',
         'fixtures.js',
         'publications/notifications.js',
         'publications/partups.js',
