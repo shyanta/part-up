@@ -32,5 +32,7 @@
 
     "partupdetail-update-item-type-partups_budget_changed-title": "@Budget changed",
 
-    "partupdetail-update-item-type-partups_location_changed-title": "@Location changed"
+    "partupdetail-update-item-type-partups_location_changed-title": "@Location changed",
+
+    "partupdetail-update-item-type-partups_invited-title": "@Invited %s for this part-up"
 }

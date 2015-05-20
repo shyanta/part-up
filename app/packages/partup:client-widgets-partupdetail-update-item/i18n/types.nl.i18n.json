@@ -32,5 +32,7 @@
 
     "partupdetail-update-item-type-partups_budget_changed-title": "@Budget veranderd",
 
-    "partupdetail-update-item-type-partups_location_changed-title": "@Regio veranderd"
+    "partupdetail-update-item-type-partups_location_changed-title": "@Regio veranderd",
+
+    "partupdetail-update-item-type-partups_invited-title": "@Nodigde %s uit voor deze part-up"
 }
