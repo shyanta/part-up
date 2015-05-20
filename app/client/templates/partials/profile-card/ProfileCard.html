@@ -1,6 +1,24 @@
 <template name="PartialProfileCard">
-    {{data.profile.name}}
-    {{data.profile.location.city}}
-    {{data.profile.description}}
-    <img src="{{partupImageById data.profile.image}}" alt="">
+    <div class="pu-profilecard">
+        <header>
+            <figure class="pu-avatar pu-avatar-large" style="background-image: url({{partupImageById data.profile.image}});"></figure>
+            <h4>{{data.profile.name}}</h4>
+            <p>{{data.profile.location.city}}</p>
+        </header>
+        <article>
+            <p>{{data.profile.description}}</p>
+        </article>
+        <footer>
+            <ul class="pu-stats">
+                <li>
+                    <span>5</span>
+                    <span>Part-ups</span>
+                </li>
+                <li>
+                    <span>11</span>
+                    <span>supporter</span>
+                </li>
+            </ul>
+        </footer>
+    </div>
 </template>
