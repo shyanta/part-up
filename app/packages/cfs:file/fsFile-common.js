@@ -75,6 +75,10 @@ FS.File.prototype.attachData = function fsFileAttachData(data, options, callback
         throw new Error('FS.File.attachData requires a callback when attaching a URL on the client');
       }
       var result = Meteor.call('_cfs_getUrlInfo', data, urlOpts);
+      result.type = result.type || options.type;
+      if (! result.type) {
+        throw new Error('FS.File.attachData got a URL for which it could not determine the MIME type and none was provided using options.type');
+      }
       FS.Utility.extend(self, {original: result});
       setData(result.type);
     } else {
@@ -83,12 +87,12 @@ FS.File.prototype.attachData = function fsFileAttachData(data, options, callback
         if (error) {
           callback(error);
         } else {
-          var type = result.type || options.type;
-          if (! type) {
+          result.type = result.type || options.type;
+          if (! result.type) {
             throw new Error('FS.File.attachData got a URL for which it could not determine the MIME type and none was provided using options.type');
           }
           FS.Utility.extend(self, {original: result});
-          setData(type);
+          setData(result.type);
         }
       });
     }
