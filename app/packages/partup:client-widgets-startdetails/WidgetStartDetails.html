@@ -5,7 +5,7 @@
         <p>{{_ 'startdetails-explainingpartup' }}</p>
 
         {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
-            
+
             <!-- Name -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
@@ -21,7 +21,6 @@
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                 </div>
             </label>
-            {{ name }}
 
             <!-- Description -->
             <label class="pu-formfield">
@@ -74,12 +73,11 @@
                                 <span class="pu-sub-text">
                                     {{_ 'startdetails-form-budget-unit-euro' }}
                                 </span>
-                                {{> afFieldInput name='budget_money' type='text' placeholder=placeholders.budget_money class="pu-input" }}
+                                {{> afFieldInput name='budget_money' type='text' placeholder=placeholders.budget_money class="pu-input" focusOnRender=budgetTypeChanged }}
                             </span>
                         </label>
                         <span class="pu-sub-error">{{ afFieldMessage name='budget_money' }}</span>
                     </div>
-                    {{#if budgetTypeChanged }}<script>$('[name=budget_money]').focus();</script>{{/if}}
                 {{/if }}
 
                 <!-- Budget amount: hours -->
@@ -90,12 +88,11 @@
                                 <span class="pu-sub-text">
                                     {{_ 'startdetails-form-budget-unit-hours' }}
                                 </span>
-                                {{> afFieldInput name='budget_hours' type='text' placeholder=placeholders.budget_hours class="pu-input" }}
+                                {{> afFieldInput name='budget_hours' type='text' placeholder=placeholders.budget_hours class="pu-input" focusOnRender=budgetTypeChanged }}
                             </span>
                         </label>
                         <span class="pu-sub-error">{{ afFieldMessage name='budget_hours' }}</span>
                     </div>
-                    {{#if budgetTypeChanged }}<script>$('[name=budget_hours]').focus();</script>{{/if}}
                 {{/if }}
 
             </div>
