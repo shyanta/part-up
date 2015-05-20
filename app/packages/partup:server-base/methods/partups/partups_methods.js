@@ -75,7 +75,9 @@ Meteor.methods({
 
         try {
             Partups.remove(partupId);
+
             Meteor.users.update(upper._id, { $pull: { 'partups': partupId } });
+            Meteor.users.update({ _id: { $in: partup.supporters } }, { $pull: { 'supporterOf': partupId } }, { multi: true });
 
             return {
                 _id: partup._id
