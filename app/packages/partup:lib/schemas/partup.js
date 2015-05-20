@@ -7,7 +7,7 @@
 var partupBaseSchema = new SimpleSchema({
     description: {
         type: String,
-        max: 250
+        max: 650
     },
     budget_type: {
         type: String,
