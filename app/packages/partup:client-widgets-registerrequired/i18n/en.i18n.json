@@ -8,17 +8,12 @@
 
     "registerrequired-form-name-label": "First and last name",
     "registerrequired-form-name-placeholder": "Example: John Johnson",
-    "registerrequired-form-name-validation": "",
-    "registerrequired-form-name-tooltip": "",
 
     "registerrequired-form-email-label": "Email address",
     "registerrequired-form-email-placeholder": "We only send you email if you want us to",
-    "registerrequired-form-email-validation": "",
-    "registerrequired-form-email-tooltip": "",
 
     "registerrequired-form-password-label": "Password",
     "registerrequired-form-password-placeholder": "Don't make it too easy to guess",
-    "registerrequired-form-password-validation": "why",
     "registerrequired-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Use at least 8 characters, 1 number en 1 capital.",
 
     "registerrequired-form-confirmPassword-placeholder": "And repeat it once please",
