@@ -65,8 +65,13 @@ var ImageSystem = function ImageSystemConstructor (template) {
 
         template.loading.set('setting-suggestion', true);
         Partup.ui.uploader.uploadImageByUrl(url, function (error, image) {
-            self.currentImageId.set(image._id);
             template.loading.set('setting-suggestion', false);
+
+            if(error) {
+                Partup.ui.notify.error('Some error occured');
+                return;
+            }
+            self.currentImageId.set(image._id);
         });
     };
 
