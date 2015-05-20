@@ -7,10 +7,13 @@ Meteor.methods({
      */
     'ratings.insert': function (contributionId, fields) {
         var upper = Meteor.user();
+
+        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+
         var contribution = Contributions.findOneOrFail(contributionId);
         var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
 
-        if (!upper || !isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+        if (! isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         check(fields, Partup.schemas.forms.rating);
 
