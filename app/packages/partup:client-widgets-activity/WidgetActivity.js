@@ -1,3 +1,19 @@
+/**
+ * Widget to render a single activity
+ *
+ * You can pass the widget a few options which enable various functionalities
+ *
+ * @param {Object} activity   The activity to render
+ * @param {Function} createCallback   A function which is executed after a new activity has been added
+ * @param {Boolean} COMMENTS_LINK   Whether the widget should display the link to comments
+ * @param {Boolean} CONTRIBUTIONS   Whether the widget should display contributions
+ * @param {Boolean} CREATE   Whether the widget should be shown in create mode
+ * @param {Boolean} EXPANDED   Whether the widget should render in expanded state
+ * @param {Boolean} POPUP   Whether the widget is being rendered inside of a modal
+ * @param {Boolean} READONLY   Whether the widget should contain an edit mode
+ * @param {Boolean} START_PARTUP   Whether the widget is being rendered in the start partup flow
+ * @param {Boolean} UPDATE_LINK   Whether the widget is being rendered in the start partup flow
+ */
 
 /*************************************************************/
 /* Widget initial */
