@@ -5,7 +5,7 @@ Meteor.methods({
      * @param {string} activityId
      * @param {mixed[]} fields
      */
-    'activity.contribution.update': function (activityId, fields) {
+    'contribution.update': function (activityId, fields) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -52,33 +52,35 @@ Meteor.methods({
     },
 
     /**
-     * Allow a concept contribution
+     * Accept a contribution from non partupper and make that user a partupper
      *
-     * @param {string} partupId
-     * @param {string} userId
+     * @param {string} contributionId
      * */
-    'activity.contribution.allow': function (partupId, userId) {
+    'contribution.accept': function (contributionId) {
         var upper = Meteor.user();
-        var isUpperInPartup = Partups.findOne({ _id: partupId, uppers: { $in: [upper._id] } }) ? true : false;
+        var contribution = Contributions.findOneOrFail(contributionId);
+        var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
 
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+        var activity = Activities.findOne({_id: contribution.activity_id});
 
         try {
             // Allowing contribution means that all concept contributions by this user will be allowed
-            var conceptContributions = Contributions.find({ partup_id: partupId, upper_id: userId, verified: false }, { _id: 1 });
+            var conceptContributions = Contributions.find({ 
+                partup_id: activity.partup_id, 
+                upper_id: contribution.upper_id, 
+                verified: false 
+            }, { fields: { _id: 1 } }).fetch();
+            var conceptContributionsIdArray = _.pluck(conceptContributions, '_id');
+            Contributions.update( { _id: { $in: conceptContributionsIdArray } }, { $set: { verified: true } }, { multi: true });
 
-            Contributions.update(
-                { _id: { $in: conceptContributions } },
-                { $set: { verified: true } },
-                { multi: true }
-            );
+            Event.emit('contributions.allowed', upper._id, conceptContributionsIdArray);
 
+			// TODO: refactor the following to event handler
             // Post system message for each accepted contribution
-            conceptContributions.forEach(function (contribution) {
-                Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_accepted');
-            });
-
-            Event.emit('partups.contributions.allowed', upper._id, partupId, userId);
+            // conceptContributions.forEach(function (contribution) {
+            //     Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_accepted');
+            // });
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while allowing contributions.');
@@ -90,7 +92,7 @@ Meteor.methods({
      *
      * @param {string} contributionId
      */
-    'activity.contribution.reject': function (contributionId) {
+    'contribution.reject': function (contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;

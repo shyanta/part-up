@@ -32,6 +32,16 @@ Template.WidgetContribution.helpers({
         var user = Meteor.user();
         if (!user) return false;
         return Meteor.user()._id === this.contribution.upper_id;
+    },
+    canVerifyContribution: function canVerifyContribution() {
+        var user = Meteor.user();
+        if (!user) return false;
+        var activity = Activities.findOne({_id: this.contribution.activity_id});
+        if (!activity) return false;
+        var partup = Partups.findOne({_id: activity.partup_id});
+        if (!partup) return false;
+        userIsPartupper = _.contains(partup.uppers, user._id);
+        return this.contribution.verified == false && userIsPartupper;
     }
 });
 
@@ -55,10 +65,25 @@ Template.WidgetContribution.events({
     'click [data-contribution-remove]': function(event, template){
         Meteor.call('contributions.remove', template.data.contribution._id, function(error){
             if (error){
-                console.error(err);
+                console.error(error);
+            }
+        });
+    },
+    'click [data-contribution-accept]': function acceptContribution(event, template) {
+        Meteor.call('contribution.accept', template.data.contribution._id, function(error) {
+            if (error){
+                console.error(error);
+            }
+        });
+    },
+    'click [data-contribution-reject]': function rejectContribution(event, template) {
+        Meteor.call('contribution.reject', template.data.contribution._id, function(error) {
+            if (error){
+                console.error(error);
             }
         });
     }
+
 });
 
 /*************************************************************/
