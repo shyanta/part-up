@@ -121,7 +121,7 @@ Meteor.methods({
         // Save the invite on the partup for further references
         Partups.update(partupId, { $push: { 'invites': invite } });
 
-        Event.emit('partups.invited', upper._id, { 'partup': partupId, 'email': email, 'name': name });
+        Event.emit('partups.invited', upper._id, partupId, email, name);
 
         return true;
     }
