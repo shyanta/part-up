@@ -1,7 +1,3 @@
-var maxLength = {
-    name: Partup.schemas.forms.startActivities._schema.name.max,
-    description: Partup.schemas.forms.startActivities._schema.description.max
-};
 
 /*************************************************************/
 /* Widget initial */
@@ -9,9 +5,6 @@ var maxLength = {
 Template.WidgetActivity.onCreated(function(){
     this.edit = new ReactiveVar(false);
     this.showContributions = new ReactiveVar(false);
-    this.charactersLeft = new ReactiveDict();
-    this.charactersLeft.set('name', maxLength.name);
-    this.charactersLeft.set('description', maxLength.description);
 
     var self = this;
     this.autorun(function () {
@@ -109,8 +102,6 @@ Template.WidgetActivity.helpers({
 /*************************************************************/
 Template.WidgetActivity.events({
     'click [data-activity-edit]': function(event, template){
-        template.charactersLeft.set('name', maxLength.name - template.data.activity.name.length);
-        template.charactersLeft.set('description', maxLength.description - (mout.object.get(template.data, 'activity.description.length') || 0));
         template.edit.set(true);
     },
     'click [data-expander]': function(event, template){
