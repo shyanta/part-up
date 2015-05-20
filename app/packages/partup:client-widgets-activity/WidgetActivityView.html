@@ -1,5 +1,5 @@
 <template name="WidgetActivityView">
-    <article class="pu-block pu-block-activity {{# if showContributions }}pu-block-activity-expanded{{/ if }} {{# if START_PARTUP }}pu-block-activity-in-startpartup-modal{{/ if }} {{# if activity.archived }}pu-block-activity-archived{{/ if }}" data-activity-id="{{ activity._id }}">
+    <article class="pu-block pu-block-activity {{# if CONTRIBUTIONS }}pu-state-contributions{{/ if }} {{# if showContributions }}pu-state-expanded{{/ if }} {{# if START_PARTUP }}pu-block-activity-in-startpartup-modal{{/ if }} {{# if activity.archived }}pu-block-activity-archived{{/ if }}" data-activity-id="{{ activity._id }}">
         {{# if showEditButton }}
             <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
         {{/ if }}

@@ -62,7 +62,6 @@
         font-size: 14px
 
     .pu-sub-editbutton
-        display: none
         opacity: 0
         position: absolute
         top: $spacing-default - 8px
@@ -195,12 +194,16 @@
         .pu-sub-date
             margin-right: 6px
 
-        &-expanded
+        &.pu-state-contributions
             .pu-sub-editbutton
-                display: block
-
-            .pu-avatar-stack
                 display: none
+
+            &.pu-state-expanded
+                .pu-sub-editbutton
+                    display: block
+
+                .pu-avatar-stack
+                    display: none
 
         &-create
             margin-top: 40px
