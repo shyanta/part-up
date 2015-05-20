@@ -33,6 +33,7 @@ Package.onUse(function(api) {
         'services/placeholder.js',
         'services/tags.js',
         'services/validators.js',
+        'services/website.js',
         'collections/activities.js',
         'collections/contributions.js',
         'collections/updates.js',

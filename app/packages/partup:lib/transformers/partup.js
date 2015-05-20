@@ -21,7 +21,7 @@ Partup.transformers.partup = {
             end_date: partup.end_date,
             location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
-            tags_input: (partup.tags || []).join(', ')
+            tags_input: Partup.services.tags.tagArrayToInput(partup.tags)
         };
     },
 
@@ -43,20 +43,14 @@ Partup.transformers.partup = {
             budget_hours: fields.budget_hours,
             end_date: fields.end_date,
             image: fields.image,
+            tags: Partup.services.tags.tagInputToArray(fields.tags_input),
+            location: Partup.services.location.locationInputToLocation(fields.location_input),
 
             // meta fields
             created_at: new Date(),
             creator_id: upper._id,
             uppers: [upper._id]
         };
-
-        if (fields.tags_input) {
-            partup.tags = Partup.services.tags.tagInputToArray(fields.tags_input);
-        }
-
-        if (fields.location_input) {
-            partup.location = Partup.services.location.locationInputToLocation(fields.location_input);
-        }
 
         return partup;
     }

@@ -11,11 +11,7 @@ Partup.services.location = {
      * @param {Object} location
      */
     locationToLocationInput: function(location) {
-        if(location) {
-            return location.city;
-        } else {
-            return '';
-        }
+        return location && location.city ? location.city : '';
     },
 
     /**
@@ -26,8 +22,8 @@ Partup.services.location = {
      */
     locationInputToLocation: function(location_input) {
         return {
-            city: location_input,
-            country: undefined
+            city: location_input || null,
+            country: null
         };
     }
 
