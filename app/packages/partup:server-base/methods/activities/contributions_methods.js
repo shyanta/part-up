@@ -31,7 +31,7 @@ Meteor.methods({
                 Contributions.update(contribution._id, { $set: newContribution });
 
                 // Generate a bot message
-                var update = Updates.findOneOrFail(activity.update_id);
+                var update = Updates.findOneOrFail(contribution.update_id);
                 Updates.update(update._id, {
                     $set: {
                         'updated_at': new Date()
