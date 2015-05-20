@@ -8,7 +8,14 @@ Meteor.methods({
      * @return {String} imageId
      */
     'images.insertByUrl': function (url) {
-        console.log(Images.insert(url));
+        var fileRef = new FS.File();
+        fileRef.attachData(url, { type: 'image/jpeg' });
+
+        var image = Images.insert(fileRef);
+
+        return {
+            _id: image._id
+        };
     }
 
 });

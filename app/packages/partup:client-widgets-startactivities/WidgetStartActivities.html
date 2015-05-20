@@ -16,10 +16,14 @@
 
         {{> WidgetActivity CREATE=true createCallback=createCallback }}
 
-        <p class="pu-sub-activitiestitle">Overzicht toegevoegde activiteiten:</p>
+        <p class="pu-sub-activitiestitle">{{_ 'startactivities-popup-activities-heading' }}</p>
+
+        {{#if showActivityPlaceholder}}
+            {{> WidgetActivity activity=placeholderActivity START_PARTUP=true READONLY=true }}
+        {{/if }}
 
         {{#each partupActivities}}
-            {{> WidgetActivity activity=. START_PARTUP=true}}
+            {{> WidgetActivity activity=. START_PARTUP=true }}
         {{/each}}
 
         <!-- Continue button -->

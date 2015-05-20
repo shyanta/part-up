@@ -1,4 +1,22 @@
 /**
+ * Create the update for the contribution
+ */
+Event.on('partups.contributions.inserted', function (userId, contribution) {
+    if (! userId) return;
+
+    var updateType = 'partups_contributions_added';
+    var updateTypeData = {
+        activity_id: contribution.activity_id,
+        contribution_id: contribution._id
+    };
+
+    var update = Partup.factories.updatesFactory.make(userId, contribution.partup_id, updateType, updateTypeData);
+    var updateId = Updates.insert(update);
+
+    Contributions.update({ _id: contribution._id }, { $set: { update_id: updateId }});
+});
+
+/**
  * Generate a Notification for an Upper when his contribution gets rejected
  */
 Event.on('partups.contributions.rejected', function (userId, activityId, upperId) {

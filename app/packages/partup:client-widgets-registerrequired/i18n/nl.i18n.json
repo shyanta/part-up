@@ -8,13 +8,9 @@
 
     "registerrequired-form-name-label": "Voor- en achternaam",
     "registerrequired-form-name-placeholder": "Bijvoorbeeld: Johannes Jansen",
-    "registerrequired-form-name-validation": "",
-    "registerrequired-form-name-tooltip": "",
 
     "registerrequired-form-email-label": "E-mailadres",
     "registerrequired-form-email-placeholder": "Wij sturen je alleen e-mails als jij dat wilt",
-    "registerrequired-form-email-validation": "",
-    "registerrequired-form-email-tooltip": "",
 
     "registerrequired-form-password-label": "Wachtwoord",
     "registerrequired-form-password-placeholder": "Maak het niet té makkelijk",

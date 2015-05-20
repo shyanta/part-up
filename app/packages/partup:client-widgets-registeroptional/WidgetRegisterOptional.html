@@ -32,19 +32,6 @@
                 </div>
             </div>
 
-            <!-- Region -->
-            <label class="pu-formfield">
-                <span class="pu-label">{{_ 'registeroptional-form-location_input-label' }}</span>
-                <a class="pu-hint pu-tooltip">
-                    <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-location_input-tooltip' }}</p></span>
-                </a>
-                <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
-                    <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
-                </div>
-            </label>
-
             <!-- Bio -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'registeroptional-form-description-label' }}</span>
@@ -68,6 +55,19 @@
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+                </div>
+            </label>
+
+            <!-- Region -->
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'registeroptional-form-location_input-label' }}</span>
+                <a class="pu-hint pu-tooltip">
+                    <i class="fa fa-question-circle"></i>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-location_input-tooltip' }}</p></span>
+                </a>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
                 </div>
             </label>
 

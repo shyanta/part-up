@@ -18,6 +18,7 @@ Meteor.methods({
             //check(newPartup, Partup.schemas.entities.partup);
 
             newPartup._id = Partups.insert(newPartup);
+            Meteor.users.update(upper._id, { $push: { 'partups': newPartup._id } });
 
             return {
                 _id: newPartup._id
@@ -74,6 +75,9 @@ Meteor.methods({
 
         try {
             Partups.remove(partupId);
+
+            Meteor.users.update(upper._id, { $pull: { 'partups': partupId } });
+            Meteor.users.update({ _id: { $in: partup.supporters } }, { $pull: { 'supporterOf': partupId } }, { multi: true });
 
             return {
                 _id: partup._id
