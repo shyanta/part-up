@@ -19,12 +19,6 @@
                             </li>
                         {{/each }}
                     </ul>
-                    {{#if partupPopupActive 'popup.invite-uppers' }}
-                        {{#contentFor "WidgetPopupContent"}}
-                            Invite uppers
-                        {{/contentFor}}
-                    {{/if}}
-                    <!-- data-popup="popup.invite-uppers" -->
                     <a href="{{pathFor route='partup-detail-invite' _id=partup._id}}" class="pu-button pu-button-icon"> 
                         <i class="fa fa-user-plus"></i>
                         {{_ 'partup-detail-uppers-invitebutton' }}
