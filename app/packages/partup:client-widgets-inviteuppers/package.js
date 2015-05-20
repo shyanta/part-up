@@ -12,7 +12,8 @@ Package.onUse(function(api) {
 
     api.use([
         'templating',
-        'partup:lib'
+        'partup:lib',
+        'aldeed:autoform'
     ], 'client');
 
     api.addFiles([

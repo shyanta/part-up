@@ -53,6 +53,7 @@ Package.onUse(function(api) {
         'schemas/tag.js',
         'schemas/update.js',
         'schemas/newMessage.js',
+        'schemas/inviteUpper.js',
         'schemas/rating.js',
         'transformers/activity.js',
         'transformers/partup.js',
