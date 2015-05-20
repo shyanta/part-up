@@ -88,7 +88,7 @@
                 <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
             {{/if}}
 
-            {{# if contributionsActive }}
+            {{# if CONTRIBUTIONS }}
                 <ul class="pu-avatar-stack">
                     {{# each contributions }}
                         <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }});"></li>
@@ -96,17 +96,17 @@
                 </ul>
             {{/ if }}
 
-            <h3 class="pu-sub-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
-                {{# if showUpdateLink }}
+            <h3 class="pu-sub-title {{#if CONTRIBUTIONS}}pu-expander{{/if}}" data-expander>
+                {{# if UPDATE_LINK }}
                     <a href="{{ pathFor route='partup-detail-update' _id=activity.partup_id update_id=activity.update_id }}">{{ activity.name }}</a>
                     <i class="pu-chevron fa fa-chevron-right"></i>
                 {{ else }}
                     {{ activity.name }}
                 {{/ if }}
 
-                {{#if contributionsActive}}
+                {{# if CONTRIBUTIONS }}
                     <i class="pu-chevron fa {{#if showContributions}}fa-chevron-up{{else}}fa-chevron-down{{/if}}"></i>
-                {{/if}}
+                {{/ if }}
             </h3>
 
             {{#if activity.description }}
@@ -119,7 +119,7 @@
                         <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
                     {{/if}}
 
-                    {{# if showCommentsLink }}
+                    {{# if COMMENTS_LINK }}
                         <a class="pu-activity-comments" href="{{pathFor route='partup-detail-update' _id=activity.partup_id update_id=activity.update_id }}">{{_ 'activity-comment' count=commentsCount }}</a>
                     {{/ if }}
                 </p>

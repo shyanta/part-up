@@ -78,14 +78,8 @@ Template.WidgetActivity.helpers({
     showExtraFields: function(){
         return Template.instance().showExtraFields.get();
     },
-    contributionsActive: function(){
-        return !!this.CONTRIBUTIONS;
-    },
     showContributions: function(){
         return this.EXPANDED || (Template.instance().showContributions.get() && !!this.CONTRIBUTIONS);
-    },
-    showCommentsLink: function(){
-        return !!this.COMMENTS_LINK;
     },
     commentsCount: function(){
         return Updates.findOne({ _id: this.activity.update_id }).comments_count;
@@ -95,9 +89,6 @@ Template.WidgetActivity.helpers({
     },
     showMetaData: function(){
         return this.activity.end_date || this.COMMENTS_LINK;
-    },
-    showUpdateLink: function(){
-        return this.UPDATE_LINK;
     },
     showPlaceholderContribution: function(){
         var user = Meteor.user();
