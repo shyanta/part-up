@@ -59,6 +59,7 @@ Package.onUse(function(api) {
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
         'methods/activities/contributions_methods.js',
+        'methods/activities/ratings_methods.js',
         'methods/partups/partups_methods.js',
         'methods/partups/partups_supporters_methods.js',
         'methods/users/users_methods.js',
