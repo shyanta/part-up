@@ -43,6 +43,18 @@ Meteor.methods({
                 newContribution._id = Contributions.insert(newContribution);
             }
 
+            // Make supporter if not yet part of the Partup
+            if (!isUpperInPartup) {
+                var partup = Partups.findOneOrFail(activity.partup_id);
+                var supporters = partup.supporters || [];
+                var isAlreadySupporter = !!(supporters.indexOf(upper._id) > -1);
+
+                if (!isAlreadySupporter && partup.creator_id !== upper._id) {
+                    Partups.update(partup._id, { $push: { 'supporters': upper._id } });
+                    Meteor.users.update(upper._id, { $push: { 'supporterOf': partup._id } });
+                }
+            }
+
             return newContribution;
 
         } catch (error) {
