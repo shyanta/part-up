@@ -27,7 +27,15 @@
                         {{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}
                     {{/if}}
                 ">
-                    {{_ titleKey }}
+                    {{#if partupEqualsExactly update.type 'partups_invited' }}
+                        <!-- {{#with update.type_data }} -->
+                            <!-- no template, only title -->
+                            {{_ titleKey update.type_data.name}}
+                        <!-- {{/with}} -->
+                    {{else}}
+                        {{_ titleKey }}
+                    {{/if }}
+
                 </a>
 
                 </h3>
@@ -156,6 +164,13 @@
                             <li><span class="pu-tag pu-tag-angular">{{ new_location.city }}</span></li>
                         </ul>
                     </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_invited -->
+            {{#if partupEqualsExactly update.type 'partups_invited' }}
+                {{#with update.type_data }}
+                    <!-- no template, only title -->
                 {{/with}}
             {{/if }}
 
