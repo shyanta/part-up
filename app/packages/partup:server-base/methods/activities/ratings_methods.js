@@ -29,6 +29,9 @@ Meteor.methods({
 
             newRating = Ratings.insert(newRating);
 
+            // Post system message
+            Meteor.call('updates.system.message.insert', contribution.update_id, 'system_ratings_inserted');
+
             return newRating;
         } catch (error) {
             Log.error(error);
@@ -45,6 +48,7 @@ Meteor.methods({
     'ratings.update': function (ratingId, fields) {
         var upper = Meteor.user();
         var rating = Ratings.findOneOrFail(ratingId);
+        var contribution = Contributions.findOneOrFail(rating.contribution_id);
         var isUpperInPartup = Partups.findOne({ _id: rating.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
 
         if (!upper || !isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
@@ -61,6 +65,9 @@ Meteor.methods({
                 newRating.updated_at = new Date();
 
                 Ratings.update(rating, { $set: newRating });
+
+                // Post system message
+                Meteor.call('updates.system.message.insert', contribution.update_id, 'system_ratings_updated');
             }
 
             return newRating;

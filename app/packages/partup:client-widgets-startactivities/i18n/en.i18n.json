@@ -29,5 +29,6 @@
     "startactivities-popup-form-copy-label": "@From wich part-up would you like to copy activities?",
     "startactivities-popup-form-copy-placeholder": "@Search a part-up",
     "startactivities-popup-form-copy-confirm": "@Copy activities",
+    "startactivities-popup-activities-heading": "@List of added activities:",
     "startactivities-popup-close": "@close"
 }

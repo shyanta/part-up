@@ -5,7 +5,7 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
     var updateType = 'partups_supporters_added';
     var updateTypeData = { };
 
-    var update = Partup.factories.updatesFactory.make(userId, partup._id, updateType, updateTypeData);
+    var update = Partup.factories.updatesFactory.make(upper._id, partup._id, updateType, updateTypeData);
 
     // TODO: Validation
 
