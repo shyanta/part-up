@@ -11,10 +11,8 @@ Meteor.methods({
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var partup = Partups.findOneOrFail(partupId);
-
         try {
-            var activity = Partup.transformers.activity.fromForm(fields, upper, partup);
+            var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
 
             activity._id = Activities.insert(activity);
 
@@ -39,15 +37,19 @@ Meteor.methods({
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
+        if (! activity) {
+            throw new Meteor.Error(404, 'Could not find activity.');
+        }
+
         if (! upper || activity.creator_id != upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
         try {
-            fields.updated_at = new Date();
-            if (! fields.end_date) fields.end_date = null;
+            var updatedActivity = Partup.transformers.activity.fromForm(fields, activity.creator_id, activity.partup_id);
+            updatedActivity.updated_at = new Date();
 
-            Activities.update(activityId, { $set: fields });
+            Activities.update(activityId, { $set: updatedActivity });
 
             // Post system message
             Meteor.call('updates.system.message.insert', activity.update_id, 'system_activities_updated');
