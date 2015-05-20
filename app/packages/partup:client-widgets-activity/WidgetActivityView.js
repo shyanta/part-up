@@ -45,7 +45,7 @@ Template.WidgetActivityView.helpers({
         return Meteor.users.findOne({ _id: this.upper_id });
     },
     showEditButton: function () {
-        return !this.READONLY && !this.CREATE;
+        return !this.READONLY;
     }
 });
 
