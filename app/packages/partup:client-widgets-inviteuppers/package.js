@@ -21,6 +21,9 @@ Package.onUse(function(api) {
         'WidgetInviteUppers.html',
         'WidgetInviteUppers.js',
 
+        'InviteUppersPopup.html',
+        'InviteUppersPopup.js',
+
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], 'client');

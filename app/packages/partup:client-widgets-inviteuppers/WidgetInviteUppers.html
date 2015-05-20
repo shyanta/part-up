@@ -1,7 +1,7 @@
 <template name="WidgetInviteUppers">
     {{#if partupPopupActive 'popup.invite-uppers' }}
         {{#contentFor "WidgetPopupContent"}}
-            Invite uppers
+            {{> InviteUppersPopup}}
         {{/contentFor}}
     {{/if}}
     <div class="pu-composition pu-composition-defaultmodal">
