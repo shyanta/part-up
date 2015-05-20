@@ -1,7 +1,7 @@
 <template name="WidgetHoverCard">
-    <article class="pu-hovercard {{#if cardOpen}}pu-hovercard-active{{/if}} {{#if settings.positionTop}}pu-hovercard-position-top{{else}}pu-hovercard-position-bottom{{/if}}" style="{{ settings.top }}{{ settings.left }}">
-        {{#if data}}
+    {{#if data}}
+        <article class="pu-hovercard {{#if cardOpen}}pu-hovercard-active{{/if}} {{#if settings.positionTop}}pu-hovercard-position-top{{else}}pu-hovercard-position-bottom{{/if}}" style="{{ settings.top }}{{ settings.left }}">
             {{> PartialProfileCard _id=data}}
-        {{/if}}
-    </article>
+        </article>
+    {{/if}}
 </template>
