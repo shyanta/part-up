@@ -15,7 +15,7 @@ Event.on('partups.uppers.inserted', function (partup, upper) {
 /**
  * Generate a Notification for an Upper when his contribution is allowed.
  */
-Event.on('partups.contributions.allowed', function (userId, partupId, upperId) {
+Event.on('contributions.allowed', function (userId, partupId, upperId) {
     var partup = Partups.findOneOrFail(partupId);
     var notificationOptions = {
         type: 'partups_contributions_allowed',

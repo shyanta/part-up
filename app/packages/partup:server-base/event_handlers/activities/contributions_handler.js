@@ -1,7 +1,7 @@
 /**
  * Generate a Notification for an Upper when his contribution gets rejected
  */
-Event.on('partups.contributions.rejected', function (userId, activityId, upperId) {
+Event.on('contributions.rejected', function (userId, activityId, upperId) {
     var activity = Activity.findOneOrFail(activityId);
     var partup = Partups.findOneOrFail(activity.partup_id);
     var notificationOptions = {
