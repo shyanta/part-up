@@ -24,7 +24,8 @@
                             Invite uppers
                         {{/contentFor}}
                     {{/if}}
-                    <a href="" class="pu-button pu-button-icon" data-popup="popup.invite-uppers">
+                    <!-- data-popup="popup.invite-uppers" -->
+                    <a href="{{pathFor route='partup-detail-invite' _id=partup._id}}" class="pu-button pu-button-icon"> 
                         <i class="fa fa-user-plus"></i>
                         {{_ 'partup-detail-uppers-invitebutton' }}
                     </a>
