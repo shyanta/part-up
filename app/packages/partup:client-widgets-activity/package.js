@@ -24,6 +24,8 @@ Package.onUse(function (api) {
         'WidgetActivityFormPlaceholders.js',
         'WidgetActivityForm.html',
         'WidgetActivityForm.js',
+        'WidgetActivityView.html',
+        'WidgetActivityView.js',
         'WidgetActivity.html',
         'WidgetActivity.js',
 
