@@ -261,11 +261,9 @@ Router.route('/start/details', {
         'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
-    waitOn: function () {
+    subscriptions: function () {
         var partupId = Session.get('partials.start-partup.current-partup');
-        if(!partupId) return new Function;
-
-        return Meteor.subscribe('partups.one', partupId);
+        this.subscribe('partups.one', partupId);
     }
 });
 

@@ -87,15 +87,16 @@ var ImageSystem = function ImageSystemConstructor (template) {
 Template.WidgetStartDetails.onCreated(function() {
     var template = this;
 
-    template.data = template.data || {};
-    template.data.currentPartup = Partups.findOne({ _id: Session.get('partials.start-partup.current-partup') });
+    template.currentPartup = new ReactiveVar();
     template.loading = new ReactiveDict();
     template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     template.imageSystem = new ImageSystem(template);
+    template.budgetType = new ReactiveVar();
 
     template.autorun(function () {
-        var p = template.data.currentPartup;
+        var pId = Session.get('partials.start-partup.current-partup');
+        var p = Partups.findOne({ _id: pId });
 
         if(!p) return;
 
@@ -105,28 +106,22 @@ Template.WidgetStartDetails.onCreated(function() {
         } else {
             template.imageSystem.getSuggestions(p.tags);
         }
+
+        template.currentPartup.set(p);
     });
 
-    template.budgetType = new ReactiveVar();
+    /*************************************************************/
+    /* AutoForm on rendered */
+    /*************************************************************/
+    Template.autoForm.onCreated(function () {
+        if(mout.object.get(this, 'data.id') !== 'partupForm') return;
+
+        this.autorun(function () {
+            var budget_type = AutoForm.getFieldValue('budget_type');
+            template.budgetType.set(budget_type);
+        });
+    });
     
-});
-
-/*************************************************************/
-/* AutoForm on rendered */
-/*************************************************************/
-Template.autoForm.onRendered(function () {
-    if(this.data.id !== 'partupForm') return;
-
-    var widgetTemplate = this.parent();
-
-    this.autorun(function () {
-        var formId = AutoForm.getFormId();
-        if(!formId) return;
-
-        var budget_type = AutoForm.getFieldValue('budget_type');
-        widgetTemplate.budgetType.set(budget_type);
-    });
-
 });
 
 /*************************************************************/
@@ -135,9 +130,13 @@ Template.autoForm.onRendered(function () {
 Template.WidgetStartDetails.helpers({
     Partup: Partup,
     placeholders: Partup.services.placeholders.startdetails,
+    currentPartup: function () {
+        return Template.instance().currentPartup.get();
+    },
     fieldsFromPartup: function() {
-        var p = this.currentPartup;
-        return p ? Partup.transformers.partup.toFormStartPartup(p) : {};
+        var p = Template.instance().currentPartup.get();
+        if(!p) return;
+        return Partup.transformers.partup.toFormStartPartup(p);
     },
     nameCharactersLeft: function(){
         return Template.instance().nameCharactersLeft.get();
