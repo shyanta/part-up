@@ -85,13 +85,17 @@ Meteor.methods({
     },
 
     /**
-     * Invite a someone to a Partup
+     * Invite someone to a Partup
      *
      * @param  {String} partupId
      */
     'partups.invite': function (partupId, email, name) {
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
+
+        if (! upper || partup.creator_id !== upper._id) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
 
         SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
 
