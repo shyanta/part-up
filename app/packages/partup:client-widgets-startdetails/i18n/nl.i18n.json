@@ -21,7 +21,8 @@
     "startdetails-form-budget-type-hours": "Ja, in user",
     "startdetails-form-budget-unit-euro": "euro",
     "startdetails-form-budget-unit-hours": "uren",
-    "startdetails-form-budget_amount-placeholder": "0",
+    "startdetails-form-budget_money-placeholder": "0",
+    "startdetails-form-budget_hours-placeholder": "0",
     "startdetails-form-budget-tooltip": "Blahblah budget tooltip inhoud",
 
     "startdetails-form-end_date-label": "Wanneer wil je ongeveer klaar zijn?",

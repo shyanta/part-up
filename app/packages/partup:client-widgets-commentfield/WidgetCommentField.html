@@ -23,7 +23,7 @@
             {{#each shownComments }}
             <li>
                 <p>
-                    <span rel="author">{{ creator.name }}</span>
+                    <span rel="author" data-hovercard="{{creator._id}}">{{ creator.name }}</span>
                     {{ content }}
                 </p>
             </li>

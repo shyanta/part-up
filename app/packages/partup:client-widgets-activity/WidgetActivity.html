@@ -97,7 +97,13 @@
             {{/ if }}
 
             <h3 class="pu-sub-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
-                {{activity.name}}
+                {{# if showUpdateLink }}
+                    <a href="{{ pathFor route='partup-detail-update' _id=activity.partup_id update_id=activity.update_id }}">{{ activity.name }}</a>
+                    <i class="pu-chevron fa fa-chevron-right"></i>
+                {{ else }}
+                    {{ activity.name }}
+                {{/ if }}
+
                 {{#if contributionsActive}}
                     <i class="pu-chevron fa {{#if showContributions}}fa-chevron-up{{else}}fa-chevron-down{{/if}}"></i>
                 {{/if}}
@@ -107,9 +113,17 @@
                 <p class="pu-sub-description pu-paragraph">{{activity.description}}</p>
             {{/if }}
 
-            {{# if activity.end_date }}
-                <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
-            {{/if}}
+            {{# if showMetaData }}
+                <p class="pu-block-meta">
+                    {{# if activity.end_date }}
+                        <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+                    {{/if}}
+
+                    {{# if showCommentsLink }}
+                        <a class="pu-activity-comments" href="{{pathFor route='partup-detail-update' _id=activity.partup_id update_id=activity.update_id }}">{{_ 'activity-comment' count=commentsCount }}</a>
+                    {{/ if }}
+                </p>
+            {{/ if }}
 
             {{# if showContributions }}
                 <div class="pu-block-inner">

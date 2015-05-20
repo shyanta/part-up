@@ -21,5 +21,7 @@
     "activity-button-edit": "Wijzig activiteit",
     "activity-button-archive": "Archiveren",
     "activity-button-unarchive": "@Heractiveren",
-    "activity-button-remove": "Verwijderen"
+    "activity-button-remove": "Verwijderen",
+    "activity-comment": "1 reactie",
+    "activity-comment_plural": "__count__ reacties"
 }

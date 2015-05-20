@@ -5,8 +5,8 @@
 
             <!-- User -->
             <figure class="pu-avatar pu-avatar-label">
-                <a href="#" rel="author" class="pu-sub-image" style="{{#if updateUpper.profile.image}}background-image: url('{{ updateUpper.profile.image.url }}');{{/if}}"></a>
-                <span class="pu-sub-label">{{ updateUpper.profile.name }}</span>
+                <a href="#" rel="author" data-hovercard="{{ updateUpper._id }}" class="pu-sub-image" style="{{#if updateUpper.profile.image}}background-image: url('{{ updateUpper.profile.image.url }}');{{/if}}"></a>
+                <!-- <span class="pu-sub-label">{{ updateUpper.profile.name }}</span> -->
             </figure>
 
             <!-- Time -->
@@ -29,7 +29,7 @@
                 ">
                     {{_ titleKey }}
                 </a>
-                    
+
                 </h3>
                 <!-- {{#if commentInputFieldExpanded }}{{ else }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
@@ -163,7 +163,7 @@
             {{#if partupEqualsExactly update.type 'partups_activities_added' }}
                 {{#with update.type_data }}
                     <section>
-                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail }}
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=true }}
                     </section>
                 {{/with}}
             {{/if }}
@@ -172,7 +172,7 @@
             {{#if partupEqualsExactly update.type 'partups_activities_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail }}
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=true }}
                     </section>
                 {{/with}}
             {{/if }}
