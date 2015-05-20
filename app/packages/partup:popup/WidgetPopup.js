@@ -1,3 +1,15 @@
+Template.registerHelper('partupPopupActive', function(name){
+    return name === Session.get('partup.popup-active');
+});
+
+Template.body.onRendered(function(){
+    $('body').on('click', '[data-popup]', function(e){
+        var popupId = $(this).data('popup');
+        Partup.ui.popup.open();
+        Session.set('partup.popup-active', popupId);
+    });
+});
+
 Template.WidgetPopup.helpers({
     popupOpen: function(){
         return Session.get('main.popup-open');
