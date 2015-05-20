@@ -51,7 +51,6 @@ Partup.transformers.profile = {
             'profile.twitter': fields.twitter,
             'profile.instagram': fields.instagram,
             'profile.linkedin': fields.linkedin,
-            'profile.website': fields.website,
             'profile.phonenumber': fields.phonenumber,
             'profile.skype': fields.skype
         };
@@ -60,6 +59,16 @@ Partup.transformers.profile = {
         }
         if(fields.tags_input) {
             user['profile.tags'] = Partup.services.tags.tagInputToArray(fields.tags_input);
+        }
+        if(fields.website) {
+            var url = fields.website;
+            if(url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+                url = 'http://' + url;
+            }
+            user['profile.website'] = url;
+            if(Meteor.isClient) {
+                debugger;
+            }
         }
         return user;
     }

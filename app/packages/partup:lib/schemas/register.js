@@ -87,7 +87,7 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
         type:String,
         max: 255,
         optional: true,
-        regEx: SimpleSchema.RegEx.Url
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol
     },
     phonenumber: {
         type:String,
