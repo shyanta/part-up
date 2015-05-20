@@ -23,6 +23,7 @@ Package.onUse(function (api) {
     api.addFiles([
         'namespace.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
+        'autoform/afFieldInput.js',
         'ui/socials.js',
         'ui/notify.js',
         'ui/language.js',
