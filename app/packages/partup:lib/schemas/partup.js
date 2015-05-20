@@ -7,17 +7,34 @@
 var partupBaseSchema = new SimpleSchema({
     description: {
         type: String,
-        max: 250
+        max: 650
     },
     budget_type: {
         type: String,
         allowedValues: ['money', 'hours'],
         optional: true
     },
-    budget_amount: {
+    budget_money: {
         type: Number,
         min: 0,
-        optional: true
+        optional: true,
+        custom: function () {
+            var required = this.field('budget_type').value === 'money';
+            if(required && !this.isSet) {
+                return "required";
+            }
+        }
+    },
+    budget_hours: {
+        type: Number,
+        min: 0,
+        optional: true,
+        custom: function () {
+            var required = this.field('budget_type').value === 'hours';
+            if(required && !this.isSet) {
+                return "required";
+            }
+        }
     },
     end_date: {
         type: Date

@@ -29,15 +29,19 @@
         width: 100%
         overflow: hidden
 
+        a
+            color: $color-solid-black
+            text-decoration: none
+
+        .pu-chevron
+            font-size: 11px
+            vertical-align: middle
+            color: $color-text-subtle
+            transition: color $animation-duration
+
         &.pu-expander
             cursor: pointer
             transition: color $animation-duration
-
-            .pu-chevron
-                font-size: 11px
-                vertical-align: middle
-                color: $color-text-subtle
-                transition: color $animation-duration
 
             &:hover
                 color: darken($color-text, 5%)
@@ -99,7 +103,7 @@
 
     &-inner
         margin: $spacing-default (-$spacing-default) (-$spacing-default)
-        padding: $spacing-default
+        padding: 0 $spacing-default
         border-top: 2px solid $color-gallery
 
     &-container
@@ -152,6 +156,10 @@
     &-active
         border-color: $color-solid-gray
 
+    &-meta
+        font-size: 14px
+        margin-bottom: 0
+
     &-activity
         padding-bottom: 15px
         margin-bottom: 10px
@@ -182,9 +190,7 @@
                 margin-bottom: 0
 
         .pu-sub-date
-            display: block
-            margin-top: -10px
-            margin-bottom: 0
+            margin-right: 6px
 
         &-expanded
             .pu-sub-editbutton
@@ -203,8 +209,6 @@
                     margin-bottom: 5px
 
         &-in-startpartup-modal
-            width: 570px
-
             &.pu-block-active
                 position: relative
                 z-index: 5

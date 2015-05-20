@@ -18,7 +18,7 @@ Meteor.publishComposite('partups.one.activities', function (partupId) {
         children: [
             {
                 find: function(activity) {
-                    return Updates.find({ _id: activity.update_id }, { limit: 1, fields: { 'comments': 1 } });
+                    return Updates.find({ _id: activity.update_id }, { limit: 1, fields: { 'comments_count': 1 } });
                 }
             }
         ]

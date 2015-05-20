@@ -8,21 +8,17 @@
 
     "registeroptional-form-location_input-label": "Waar wil je meedoen in part-ups?",
     "registeroptional-form-location_input-placeholder": "Bijvoorbeeld in je woonplaats of regio",
-    "registeroptional-form-location_input-validation": "waarom",
     "registeroptional-form-location_input-tooltip": "We stellen je graag voor aan interessante part-ups. We denken aan het milieu en jouw gemak en zetten de part-ups bij jou in de buurt daarom bovenaan.",
 
     "registeroptional-form-description-label": "Stel jezelf eens voor",
     "registeroptional-form-description-placeholder": "Een korte omschrijving van wie je bent en wat je kunt",
-    "registeroptional-form-description-validation": "waarom",
     "registeroptional-form-description-tooltip": "Andere uppers willen graag weten met wie ze samenwerken. Wat wil jij ze vertellen? Verkoop jezelf door eerlijk te zijn.",
 
     "registeroptional-form-tags_input-label": "Jij, in vijf woorden",
     "registeroptional-form-tags_input-placeholder": "Even scheiden door een komma alsjeblieft",
-    "registeroptional-form-tags_input-validation": "waarom",
     "registeroptional-form-tags_input-tooltip": "We gebruiken deze woorden als startpunt om te kijken welke part-ups goed bij jou passen. Kies woorden die gaan over jouw bijdrage aan part-ups. Het hoeft niet perfect te zijn, je vult jouw profiel automatisch aan door te gaan samenwerken.",
 
     "registeroptional-form-socials-label": "Jouw social media profielen",
-    "registeroptional-form-socials-validation": "waarom",
     "registeroptional-form-socials-tooltip": "Jouw social media profielen laten zien wie je bent en wat je kunt. Andere uppers leren je zo al een beetje kennen.",
 
     "registeroptional-form-facebook-placeholder": "jouwfacebooknaam",
@@ -40,12 +36,10 @@
 
     "registeroptional-form-phonenumber-label": "Mogen uppers je bellen (of appen)?",
     "registeroptional-form-phonenumber-placeholder": "+31612345678",
-    "registeroptional-form-phonenumber-validation": "waarom",
     "registeroptional-form-phonenumber-tooltip": "Goede bereikbaarheid is belangrijk in samenwerking. Privacy ook. We laten je nummer daarom alleen zien aan je partners. Dit zijn de uppers in jouw actieve part-ups.",
 
     "registeroptional-form-skype-label": "Gebruik je Skype?",
     "registeroptional-form-skype-placeholder": "Jouw Skypenaam",
-    "registeroptional-form-skype-validation": "waarom",
     "registeroptional-form-skype-tooltip": "Net als je telefoonnummer laten we je Skypenaam alleen zien aan aan je partners. Dit zijn de uppers in jouw actieve part-ups.",
 
     "registeroptional-form-submit": "Klaar, laat mijn profiel zien!"

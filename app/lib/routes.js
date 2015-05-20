@@ -262,7 +262,8 @@ Router.route('/start/details', {
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
     subscriptions: function () {
-        this.subscribe('partups.one', Session.get('partials.start-partup.current-partup'));
+        var partupId = Session.get('partials.start-partup.current-partup');
+        this.subscribe('partups.one', partupId);
     }
 });
 
@@ -451,6 +452,7 @@ Router.onBeforeAction(partupRouterHooks.loginRequired, {
 if(Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
+        Partup.ui.focuslayer.disable();
         this.next();
     });
 };

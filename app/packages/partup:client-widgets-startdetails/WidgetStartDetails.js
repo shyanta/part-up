@@ -9,31 +9,40 @@ var ImageSystem = function ImageSystemConstructor (template) {
     this.availableSuggestions = new ReactiveVar([]);
 
     this.getSuggestions = function (tags) {
-        var newSuggestionsArray = [];
-
         if(!tags || !tags.length) {
-            this.availableSuggestions.set(newSuggestionsArray);
+            this.availableSuggestions.set([]);
             return;
         }
 
-        var addResults = function (result, isFinal) {
-            newSuggestionsArray = newSuggestionsArray.concat(lodash.map(result, 'imageUrl'));
+        var newSuggestionsArray = [];
 
-            if(isFinal) {
-                self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
-                Session.set('partials.start-partup.current-suggestion', 0);
-                template.loading.set('suggesting-images', false);
+        var addSuggestions = function (suggestions) {
+            if(!suggestions) return;
+            newSuggestionsArray = newSuggestionsArray.concat(lodash.map(suggestions, 'imageUrl'));
+        };
+
+        var setAvailableSuggestions = function () {
+            template.loading.set('suggesting-images', false);
+
+            if(!newSuggestionsArray.length) {
+                Partup.ui.notify.warning('Could not find any images suggestions.');
+                return;
             }
+
+            self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
+            Session.set('partials.start-partup.current-suggestion', 0);
         };
 
         template.loading.set('suggesting-images', true);
         Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
-            if (!error && result.length >= 5) {
-                addResults(result, true);
+            if (!error) addSuggestions(result);
+
+            if (newSuggestionsArray.length >= 5) {
+                setAvailableSuggestions();
             } else {
-                addResults(result);
                 Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    if(!error) addResults(result, true);
+                    if(!error) addSuggestions(result);
+                    setAvailableSuggestions();
                 });
             }
         });
@@ -76,25 +85,49 @@ var ImageSystem = function ImageSystemConstructor (template) {
 /* Widget on created */
 /*************************************************************/
 Template.WidgetStartDetails.onCreated(function() {
+    var template = this;
 
-    this.loading = new ReactiveDict();
-    this.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
-    this.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
-    this.imageSystem = new ImageSystem(this);
+    template.currentPartup = new ReactiveVar();
+    template.loading = new ReactiveDict();
+    template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
+    template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
+    template.imageSystem = new ImageSystem(template);
+    template.budgetType = new ReactiveVar();
+    template.budgetTypeChanged = new ReactiveVar();
 
-    // When current-partup is known
-    var partup = Partups.findOne({ _id: Session.get('partials.start-partup.current-partup') });
-    if(partup) {
-        if(partup.image) {
-            this.imageSystem.currentImageId.set(partup.image);
-            this.imageSystem.uploaded.set(true);
+    template.autorun(function () {
+        var pId = Session.get('partials.start-partup.current-partup');
+        var p = Partups.findOne({ _id: pId });
+
+        if(!p) return;
+
+        if(p.image) {
+            template.imageSystem.currentImageId.set(p.image);
+            template.imageSystem.uploaded.set(true);
         } else {
-            this.imageSystem.getSuggestions(partup.tags);
+            template.imageSystem.getSuggestions(p.tags);
         }
-    }
 
-    this.currentPartup = new ReactiveVar(partup || {});
-    this.budgetType = new ReactiveVar(partup ? partup.budget_type || '' : '');
+        template.currentPartup.set(p);
+    });
+
+    /*************************************************************/
+    /* AutoForm on rendered */
+    /*************************************************************/
+    Template.autoForm.onCreated(function () {
+        if(mout.object.get(this, 'data.id') !== 'partupForm') return;
+
+        // Oh. My. God. Look at that hack.
+        // Don't change any of these rules!
+        this.autorun(function () {
+            AutoForm.getFieldValue('budget_type');
+
+            setTimeout(function () {
+                var budget_type = AutoForm.getFieldValue('budget_type', 'partupForm');
+                template.budgetType.set(budget_type);
+            }, 0);
+        });
+    });
     
 });
 
@@ -108,8 +141,9 @@ Template.WidgetStartDetails.helpers({
         return Template.instance().currentPartup.get();
     },
     fieldsFromPartup: function() {
-        var partup = Template.instance().currentPartup.get();
-        return partup ? Partup.transformers.partup.toFormStartPartup(partup) : {};
+        var p = Template.instance().currentPartup.get();
+        if(!p) return;
+        return Partup.transformers.partup.toFormStartPartup(p);
     },
     nameCharactersLeft: function(){
         return Template.instance().nameCharactersLeft.get();
@@ -128,9 +162,6 @@ Template.WidgetStartDetails.helpers({
     currentSuggestion: function () {
         return Session.get('partials.start-partup.current-suggestion');
     },
-    budgetType: function () {
-        return Template.instance().budgetType.get();
-    },
     budgetOptions: function () {
         return [
             {
@@ -147,16 +178,6 @@ Template.WidgetStartDetails.helpers({
             }
         ];
     },
-    budgetUnitI18nKey: function () {
-        switch(Template.instance().budgetType.get()) {
-            case 'money':
-                return __('startdetails-form-budget-unit-euro');
-            case 'hours':
-                return __('startdetails-form-budget-unit-hours');
-            case '':
-                return '';
-        }
-    },
     galleryIsLoading: function () {
         var template = Template.instance();
         return template.loading
@@ -164,6 +185,12 @@ Template.WidgetStartDetails.helpers({
                  || template.loading.get('image-uploading')
                  || template.loading.get('setting-suggestion')
                 );
+    },
+    budgetType: function () {
+        return Template.instance().budgetType.get();
+    },
+    budgetTypeChanged: function () {
+        return Template.instance().budgetTypeChanged.get();
     }
 });
 
@@ -188,19 +215,7 @@ Template.WidgetStartDetails.events({
         });
     },
     'change [name=budget_type]': function eventChangeBudgetType(event, template) {
-        var budgetType = $(event.currentTarget).val();
-        if(budgetType === 'money' || budgetType === 'hours') {
-            template.budgetType.set(budgetType);
-            setTimeout(function() {
-                var budgetAmountField = template.find('[name=budget_amount]');
-                budgetAmountField.focus();
-                $(budgetAmountField).val('');
-            });
-        } else {
-            var budgetAmountField = template.find('[name=budget_amount]');
-            $(budgetAmountField).val('');
-            template.budgetType.set('');
-        }
+        template.budgetTypeChanged.set(true);
     },
     'click [data-imageremove]': function eventChangeFile(event, template) {
         var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget.form).find('[name=tags_input]').val());

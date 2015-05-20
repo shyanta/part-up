@@ -36,16 +36,16 @@
         
 
     &:not(.pu-form-disableinvalidstates):invalid
-        [type="submit"]
+        // TEMPORARY DISABLED UNTILL THE FORM HAS LIVE VALIDATION
+        // [type="submit"]
+        //     pointer-events: none
+        //     color: rgba($color-text-inverted, .5)
 
-            pointer-events: none
-            color: rgba($color-text-inverted, .5)
+        //     &:after
+        //         color: rgba($color-text-inverted, .5)
 
-            &:after
-                color: rgba($color-text-inverted, .5)
-
-            &:hover
-                color: rgba($color-text-inverted, .5)
+        //     &:hover
+        //         color: rgba($color-text-inverted, .5)
 
     &.pu-form-disableinvalidstates,
     &:valid

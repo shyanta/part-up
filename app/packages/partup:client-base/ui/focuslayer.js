@@ -13,11 +13,3 @@ Partup.ui.focuslayer = {
     }
 
 };
-
-// Make sure the focuslayer cannot survive page switches
-Meteor.startup(function () {
-    Router.onBeforeAction(function () {
-        Partup.ui.focuslayer.disable();
-        this.next();
-    });
-});
