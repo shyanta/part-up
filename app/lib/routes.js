@@ -174,39 +174,6 @@ Router.route('/partups/:_id/activities', {
     }
 });
 
-// Router.route('/partups/:_id/activities/:activity_id', {
-//     name: 'partup-detail-activities-detail',
-//     where: 'client',
-//     layoutTemplate: 'LayoutsMain',
-//     yieldRegions: {
-//         'PagesApp': { to: 'page' },
-//         // 'PagesUnderConstruction': { to: 'app-page' }
-//         'PagesPartupDetail': { to: 'app-page' },
-//         'PagesPartupDetailUpdatesItemDetail': { to: 'partup-page' }
-//     },
-//     subscriptions: function () {
-//         var partupId = this.params._id;
-
-//         this.subscribe('notifications.user');
-//         this.subscribe('partups.one', partupId);
-//         this.subscribe('partups.one.updates', partupId);
-//         this.subscribe('partups.one.activities', partupId);
-//         this.subscribe('partups.one.contributions', partupId);
-//     },
-//     data: function() {
-//         var partup = Partups.findOne({_id: this.params._id});
-//         if(partup) {
-//             var image = Images.findOne({_id: partup.image});
-//             var activity = Activities.findOne({_id: this.params.activity_id});
-//         }
-//         return {
-//             partup: partup,
-//             image: image,
-//             activity: activity
-//         }
-//     }
-// });
-
 Router.route('/partups/:_id/budget', {
     name: 'partup-detail-budget',
     where: 'client',
@@ -236,6 +203,23 @@ Router.route('/partups/:_id/anticontract', {
     subscriptions: function () {
         this.subscribe('notifications.user');
         this.subscribe('partups.one', this.params._id);
+    }
+});
+
+/*************************************************************/
+/* Invite uppers */
+/*************************************************************/
+Router.route('/partups/:_id/invite', {
+    name: 'partup-detail-invite',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesModal': { to: 'page' },
+        'PagesPartupInviteUppers': { to: 'modal-page' },
+        // 'PagesPartupInviteUppers': { to: 'register-page' }
+    },
+    subscriptions: function () {
+        // this.subscribe('users.count');
     }
 });
 
