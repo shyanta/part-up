@@ -24,6 +24,9 @@
     "startactivities-button-edit": "Wijzig activiteit",
     "startactivities-button-remove": "Verwijderen",
 
+    "startactivities-placeholder-name": "@Maak je eerste activiteit aan",
+    "startactivities-placeholder-description": "@Maak hierboven je eerste activiteit aan om te beginnen.",
+
     "startactivities-popup-title": "@Kopieer alle activiteiten van een bestaande Part-up",
     "startactivities-popup-description": "@Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat odio in nisi pulvinar, sit amet tempor massa porta. Ut erat ex, laoreet non dictum pharetra, cursus in nibh. Fusce iaculis lacus eu molestie euismod. Phasellus eget sapien rutrum, tempus tellus a, volutpat augue.",
     "startactivities-popup-form-copy-label": "@Van welke part-up wil je activiteiten kopiëren?",

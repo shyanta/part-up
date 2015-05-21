@@ -40,8 +40,8 @@ Template.WidgetStartActivities.helpers({
     },
     placeholderActivity: function helperPlaceholderActivity () {
         return {
-            name: 'Lorem ipsum',
-            description: 'Lorem ipsum dolor'
+            name: __('startactivities-placeholder-name'),
+            description: __('startactivities-placeholder-description')
         }
     }
 });
