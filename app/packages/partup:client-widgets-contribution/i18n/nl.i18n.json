@@ -15,5 +15,7 @@
     "contribution-none": "Voeg uren toe",
 
     "contribution-accept": "Accepteren",
-    "contribution-reject": "Weigeren"
+    "contribution-reject": "Weigeren",
+
+    "contribution-removed": "Bijdrage is verwijderd"
 }

@@ -80,16 +80,18 @@ Router.route('/partups/:_id/updates', {
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.updates', partupId);
         this.subscribe('partups.one.activities', partupId);
+        this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
+        var image;
         if(partup) {
-            var image = Images.findOne({_id: partup.image});
+            image = Images.findOne({_id: partup.image});
         }
         return {
             partup: partup,
             image: image
-        }
+        };
     },
     onAfterAction: function() {
         if (!Meteor.isClient) return;
@@ -134,13 +136,14 @@ Router.route('/partups/:_id/updates/:update_id', {
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
+        var image;
         if(partup) {
-            var image = Images.findOne({_id: partup.image});
+            image = Images.findOne({_id: partup.image});
         }
         return {
             partup: partup,
             image: image
-        }
+        };
     }
 });
 
@@ -164,13 +167,14 @@ Router.route('/partups/:_id/activities', {
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
+        var image;
         if(partup) {
-            var image = Images.findOne({_id: partup.image});
+            image = Images.findOne({_id: partup.image});
         }
         return {
             partup: partup,
             image: image
-        }
+        };
     }
 });
 
@@ -414,7 +418,7 @@ Router.onBeforeAction(function () {
         var route = this.route.getName();
         var params = this.route.params();
         var options = this.route.options;
-        
+
         Partup.ui.intent.go({ route: 'login' }, function (success) {
             if(success) {
                 Router.go(route, params, options);
@@ -446,4 +450,4 @@ if(Meteor.isClient) {
         Partup.ui.focuslayer.disable();
         this.next();
     });
-};
+}

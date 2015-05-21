@@ -5,6 +5,7 @@
  *
  * @param {Object} activity   The activity to render
  * @param {Function} createCallback   A function which is executed after a new activity has been added
+ * @param {String} contribution_id   Contribution id to render, if only one should be rendered
  * @param {Boolean} COMMENTS_LINK   Whether the widget should display the link to comments
  * @param {Boolean} CONTRIBUTIONS   Whether the widget should display contributions
  * @param {Boolean} CREATE   Whether the widget should be shown in create mode

@@ -18,19 +18,26 @@ Template.WidgetActivityView.helpers({
         return update.comments_count;
     },
     contributions: function(){
-        return Contributions.find({ activity_id: this.activity._id });
+        if (this.contribution_id){
+            return Contributions.find({ _id: this.contribution_id });
+        }
+
+        if (!this.activity) return;
+        return Contributions.find({ activity_id: this.activity._id, archived: { $ne: true } });
     },
     showMetaData: function(){
-        return this.activity.end_date || this.COMMENTS_LINK;
+        return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
     },
     showPlaceholderContribution: function(){
+        if (this.contribution_id) return false;
+
         var user = Meteor.user();
         if (!user) return false;
 
         contributions = Contributions.find({ activity_id: this.activity._id }).fetch();
 
         for (var i = 0; i < contributions.length; i++){
-            if (contributions[i].upper_id === user._id) return false;
+            if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
         }
 
         return true;
