@@ -17,12 +17,10 @@ Template.WidgetPartupdetailUpdateItem.helpers({
         return Activities.findOne({_id: activityId});
     },
     isDetail: function helperIsDetail (){
-        var update_id = Router.current().params.update_id;
-        if(update_id) {
-            return true;
-        } else {
-            return false;
-        }
+        return !!Router.current().params.update_id;
+    },
+    isNotDetail: function helperIsDetail (){
+        return !Router.current().params.update_id;
     },
     titleKey: function helperTitleKey() {
         return 'partupdetail-update-item-type-' + this.update.type + '-title';
