@@ -201,8 +201,8 @@
                 {{/with}}
             {{/if }}
 
-            <!-- partups_contributions_updated -->
-            {{#if partupEqualsExactly update.type 'partups_contributions_updated' }}
+            <!-- partups_contributions_changed -->
+            {{#if partupEqualsExactly update.type 'partups_contributions_changed' }}
                 {{#with update.type_data }}
                     <section>
                         {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true UPDATE_LINK=true }}
