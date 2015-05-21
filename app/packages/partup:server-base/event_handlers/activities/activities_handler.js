@@ -24,3 +24,16 @@ Event.on('partups.activities.updated', function (userId, activity, oldActivity) 
 
     Updates.update({ _id: activity.update_id }, { $set: set });
 });
+
+Event.on('partups.activities.removed', function (userId, activity) {
+    if (! userId) return;
+    if (! activity.update_id) return;
+
+    var set = {
+        upper_id: userId,
+        type: 'partups_activities_removed',
+        updated_at: new Date()
+    };
+
+    Updates.update({ _id: activity.update_id }, { $set: set });
+});
