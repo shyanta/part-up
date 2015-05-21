@@ -49,6 +49,13 @@ var partupDetailLayout = {
         window.addEventListener('resize', this.bound.onResize);
         window.addEventListener('scroll', this.bound.onScrollStart);
         window.addEventListener('scroll', this.bound.onScrollEnd);
+
+        var self = this;
+        this.interval = setInterval(function(){
+            self.setContainerHeight();
+            self.preScroll();
+            self.checkInterval();
+        }, 250);
     },
 
     detach: function(){
@@ -64,6 +71,8 @@ var partupDetailLayout = {
         window.removeEventListener('resize', this.bound.onResize);
         window.removeEventListener('scroll', this.bound.onScrollStart);
         window.removeEventListener('scroll', this.bound.onScrollEnd);
+
+        clearInterval(this.interval);
     },
 
     onResize: function(){
