@@ -71,9 +71,6 @@ Template.WidgetStartPromote.events({
         if (!sharedSocials[socialTarget]) {
             sharedSocials[socialTarget] = true;
             template.shared.set(sharedSocials);
-            Partup.ui.notify.success(__('startpromote-notify-shared-success', socialTarget));
-        } else {
-            Partup.ui.notify.error(__('startpromote-notify-shared-error', socialTarget));
         }
     },
 
