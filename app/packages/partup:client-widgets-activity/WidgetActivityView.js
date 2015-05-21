@@ -18,12 +18,19 @@ Template.WidgetActivityView.helpers({
         return update.comments_count;
     },
     contributions: function(){
+        if (this.contribution_id){
+            return Contributions.find({ _id: this.contribution_id });
+        }
+
+        if (!this.activity) return;
         return Contributions.find({ activity_id: this.activity._id });
     },
     showMetaData: function(){
         return this.activity.end_date || this.COMMENTS_LINK;
     },
     showPlaceholderContribution: function(){
+        if (this.contribution_id) return false;
+
         var user = Meteor.user();
         if (!user) return false;
 
