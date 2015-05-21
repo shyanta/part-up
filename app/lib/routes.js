@@ -409,30 +409,37 @@ Router.route('/close', {
 /*************************************************************/
 /* Route protection */
 /*************************************************************/
-
-var partupRouterHooks = {
-    loginRequired: function() {
-        if (!Meteor.userId()) {
-            Session.set('application.return-url', this.url);
-            Router.go('login');
-        }
-        else {
-            this.next();
-        }
+Router.onBeforeAction(function () {
+    if (!Meteor.userId()) {
+        var route = this.route.getName();
+        var params = this.route.params();
+        var options = this.route.options;
+        
+        Partup.ui.modal.open({ route: 'login' }, function (success) {
+            if(success) {
+                Router.go(route, params, options);
+            } else {
+                Partup.ui.modal.executeIntentCallback(route);
+            }
+        });
     }
-}
-
-Router.onBeforeAction(partupRouterHooks.loginRequired, {
+    else {
+        this.next();
+    }
+}, {
     only: [
         'start',
         'start-details',
         'start-activities',
         'start-contribute',
         'start-promote',
-        'register-details',
+        'register-details'
     ]
 });
 
+/*************************************************************/
+/* Miscellaneous */
+/*************************************************************/
 if(Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);

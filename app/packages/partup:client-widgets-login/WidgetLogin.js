@@ -48,7 +48,7 @@ var continueLogin = function() {
     var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
 
     // Intent
-    Partup.ui.modal.executeIntentCallback('login', {}, function () {
+    Partup.ui.modal.executeIntentCallback('login', [true], function () {
         if(!optionalDetailsFilledIn) {
 
             // Fill-in optional details

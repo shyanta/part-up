@@ -6,12 +6,12 @@
  * For example, when the user wants to access restricted content and has to login first.
  * 
  * Flow:
- * - Call Partup.ui.modal.open(); (for documentation, scroll down)
+ * - Call Partup.ui.modal.open(); (for arguments, scroll down)
  * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
- * - Call Partup.ui.modal.executeIntentCallback(); (for documentation, scroll down)
+ * - Call Partup.ui.modal.executeIntentCallback(); (for arguments, scroll down)
  *     when you want the intent callback to be executed.
  *     (for example: when the user has logged in successfully)
- *     When no intentCallback or fallbackCallback is provided, the _defaultIntentCallback will be executed.
+ *     When no intentCallback exists and no fallbackCallback is provided, the _defaultIntentCallback will be executed.
  *
  */
 
@@ -22,6 +22,7 @@ var _defaultIntentCallback = function () {
 var _intentCallbacks = {};
 
 Partup.ui.modal = {
+
     /**
      * Settings for modal animation
      *
@@ -49,45 +50,44 @@ Partup.ui.modal = {
      * Execute intent callback for route
      *
      * @memberOf partup.ui
-     * @param {String} key of callback
-     * @param {Object} arguments to pass to the callback
+     * @param {String} original name of the route the modal was opened with
+     * @param {Array} arguments to pass to the callback
      * @param {Function} custom fallback callback
      */
-    executeIntentCallback: function(key, args, customFallback) {
-        var cb = _intentCallbacks[key],
-            args = args || {};
-        if(typeof cb === 'function') {
-            cb(args);
+    executeIntentCallback: function(route, arguments, customFallback) {
+        var cb = _intentCallbacks[route],
+            arguments = arguments || {};
+
+        if(mout.lang.isFunction(cb)) {
+            cb.apply(window, arguments);
         } else {
-            if(typeof customFallback === 'function') {
-                customFallback(args);
+            if(mout.lang.isFunction(customFallback)) {
+                customFallback.apply(window, arguments);
             } else {
-                _defaultIntentCallback(args);
+                _defaultIntentCallback.apply(window, arguments);
             }
         }
 
-        delete _intentCallbacks[key];
+        delete _intentCallbacks[route];
     },
 
     /**
      * Modal open
      *
      * @memberOf partup.ui
-     * @param {Array} arguments for Router.go()
-     * @param {String} key for callback
+     * @param {Object} arguments for Router.go() (path, params and options)
      * @param {Function} callback
      */
-    open: function(routerGoArguments, intentKey, intentCallback) {
+    open: function(args, callback) {
+        if(!args || !args.route) return console.warn('Partup.ui.modal.open: please provide a route');
 
         // Save intent callback
-        _intentCallbacks[intentKey] = intentCallback;
+        if(typeof callback === 'function') {
+            _intentCallbacks[args.route] = callback;
+        }
 
-        // Router GO
-        var path = routerGoArguments[0];
-        if(!path) return false;
-        var params = routerGoArguments[1] || {};
-        var options = routerGoArguments[2] || {};
-        Router.go(path, params, options);
+        // Perform router.go
+        Router.go(args.route, args.params, args.options);
 
     }
 
