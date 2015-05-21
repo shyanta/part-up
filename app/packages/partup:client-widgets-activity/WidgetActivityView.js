@@ -23,7 +23,7 @@ Template.WidgetActivityView.helpers({
         }
 
         if (!this.activity) return;
-        return Contributions.find({ activity_id: this.activity._id });
+        return Contributions.find({ activity_id: this.activity._id, archived: { $ne: true } });
     },
     showMetaData: function(){
         return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
