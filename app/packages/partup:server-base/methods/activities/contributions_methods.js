@@ -144,7 +144,7 @@ Meteor.methods({
             // Post system message
             Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_removed');
 
-            Event.emit('partups.contributions.archived', upper._id, contribution.activity_id, contribution.upper_id);
+            Event.emit('partups.contributions.archived', upper._id, contribution);
 
             return {
                 _id: contribution._id
