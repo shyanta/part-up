@@ -60,6 +60,31 @@
         + .pu-sub-input
             margin-top: 10px
 
+        .pu-sub-remove
+            position: absolute
+            top: 50%
+            right: 15px
+            margin-top: -11px
+            border: 0
+            padding: 0
+            background-color: transparent
+            box-shadow: none
+            color: #ccc
+            font-size: 20px
+            transition: color .2s, opacity .2s
+            cursor: pointer
+            outline: none
+            opacity: 0
+            pointer-events: none
+
+            &:hover
+                color: darken(#ccc, 10%)
+
+        &:hover
+            .pu-sub-remove
+                opacity: 1
+                pointer-events: auto
+
         &-half
             width: 50%
 

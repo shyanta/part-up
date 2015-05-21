@@ -237,6 +237,10 @@ Template.WidgetStartDetails.events({
     'click [data-submission-type]': function eventClickSetSubmissionType (event) {
         var submissionType = event.currentTarget.getAttribute('data-submission-type');
         Session.set('partials.start-partup.submission-type', submissionType);
+    },
+    'click [data-removedate]': function eventsClickRemoveDate (event, template) {
+        event.preventDefault();
+        template.find('[name=end_date]').value = '';
     }
 });
 

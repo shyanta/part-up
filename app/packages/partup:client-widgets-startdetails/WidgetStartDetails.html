@@ -106,7 +106,10 @@
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                     <div class="pu-inputholder pu-inputholder-lefticon">
-                        {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" type="bootstrap-datepicker" datePickerOptions=partupDatepickerOptions }}
+                        <span class="pu-sub-input">
+                            {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" type="bootstrap-datepicker" datePickerOptions=partupDatepickerOptions }}
+                            <button class="pu-sub-remove fa fa-remove" data-removedate></button>
+                        </span>
                         <span class="pu-icon"><i class="fa fa-calendar"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
