@@ -1,3 +1,20 @@
+/**
+ *
+ * Guide to use the modal correctly
+ *
+ * Use this modal when you want to perform a route change with an intention.
+ * For example, when the user wants to access restricted content and has to login first.
+ * 
+ * Flow:
+ * - Call Partup.ui.modal.open(); (for documentation, scroll down)
+ * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
+ * - Call Partup.ui.modal.executeIntentCallback(); (for documentation, scroll down)
+ *     when you want the intent callback to be executed.
+ *     (for example: when the user has logged in successfully)
+ *     When no intentCallback or fallbackCallback is provided, the _defaultIntentCallback will be executed.
+ *
+ */
+
 var _defaultIntentCallback = function () {
     Router.go('home');
 };
