@@ -11,6 +11,8 @@ Partup.services.website = {
      * @param {String} full url
      */
     cleanUrlToFullUrl: function(cleanUrl) {
+        if(!cleanUrl) return '';
+
         var fullUrl = cleanUrl;
         if(cleanUrl.indexOf('http://') !== 0 && cleanUrl.indexOf('https://') !== 0) {
             fullUrl = 'http://' + cleanUrl;
@@ -25,6 +27,8 @@ Partup.services.website = {
      * @param {String} clean url
      */
     fullUrlToCleanUrl: function(fullUrl) {
+        if(!fullUrl) return '';
+        
         return fullUrl.replace(/^(http:\/\/|https:\/\/)/i, '');
     }
 
