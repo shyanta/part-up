@@ -32,6 +32,23 @@ Event.on('partups.contributions.updated', function (userId, contribution, oldCon
     Updates.update({ _id: contribution.update_id }, { $set: set });
 });
 
+/**
+ * Change update_type of Update when the Contribution is removed
+ */
+Event.on('partups.contributions.removed', function (userId, contribution) {
+    if (! userId) return;
+    if (! contribution.update_id) return;
+
+    var set = {
+        upper_id: userId,
+        type: 'partups_contributions_removed',
+        updated_at: new Date()
+    };
+
+    Updates.update({ _id: contribution.update_id }, { $set: set });
+});
+
+/**
  * Generate a Notification for an Upper when his contribution gets rejected
  */
 Event.on('contributions.rejected', function (userId, activityId, upperId) {
