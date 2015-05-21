@@ -21,6 +21,17 @@ Event.on('partups.supporters.inserted', function (partup, upper) {
 });
 
 /**
+ * Update the Update in a Partup when a Supporter stops supporting.
+ */
+Event.on('partups.supporters.removed', function (partup, upper) {
+    var existingUpdateId = Updates.findOne({ type: 'partups_supporters_added', partup_id: partup._id, upper_id: upper._id }, { _id: 1 });
+    
+    if (existingUpdateId) {
+        Partup.services.system_messages.send(upper, existingUpdateId, 'system_supporters_removed');
+    }
+});
+
+/**
  * Generate a Notification for each upper in a Partup when there is a new Supporter.
  */
 Event.on('partups.supporters.inserted', function (partup, upper) {
