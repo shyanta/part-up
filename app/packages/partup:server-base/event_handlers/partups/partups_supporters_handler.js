@@ -4,6 +4,14 @@
 Event.on('partups.supporters.inserted', function (partup, upper) {
     var updateType = 'partups_supporters_added';
     var updateTypeData = { };
+    var existingUpdateId = Updates.findOne({ type: updateType, partup_id: partup._id, upper_id: upper._id }, { _id: 1 });
+
+    // Update the update if one exists
+    if (existingUpdateId) {
+        Partup.services.system_messages.send(upper, existingUpdateId, 'system_supporters_added');
+
+        return;
+    }
 
     var update = Partup.factories.updatesFactory.make(upper._id, partup._id, updateType, updateTypeData);
 
