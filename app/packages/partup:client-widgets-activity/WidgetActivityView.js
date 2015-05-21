@@ -53,6 +53,9 @@ Template.WidgetActivityView.helpers({
     },
     showEditButton: function () {
         return !this.READONLY;
+    },
+    showChevron: function () {
+        return this.CONTRIBUTIONS && !this.EXPANDED;
     }
 });
 
