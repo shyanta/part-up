@@ -5,7 +5,7 @@ Meteor.methods({
      * @param {string} activityId
      * @param {mixed[]} fields
      */
-    'contribution.update': function (activityId, fields) {
+    'contributions.update': function (activityId, fields) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -68,7 +68,7 @@ Meteor.methods({
      *
      * @param {string} contributionId
      * */
-    'contribution.accept': function (contributionId) {
+    'contributions.accept': function (contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
@@ -104,7 +104,7 @@ Meteor.methods({
      *
      * @param {string} contributionId
      */
-    'contribution.reject': function (contributionId) {
+    'contributions.reject': function (contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;

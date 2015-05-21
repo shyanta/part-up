@@ -70,14 +70,14 @@ Template.WidgetContribution.events({
         });
     },
     'click [data-contribution-accept]': function acceptContribution(event, template) {
-        Meteor.call('contribution.accept', template.data.contribution._id, function(error) {
+        Meteor.call('contributions.accept', template.data.contribution._id, function(error) {
             if (error){
                 console.error(error);
             }
         });
     },
     'click [data-contribution-reject]': function rejectContribution(event, template) {
-        Meteor.call('contribution.reject', template.data.contribution._id, function(error) {
+        Meteor.call('contributions.reject', template.data.contribution._id, function(error) {
             if (error){
                 console.error(error);
             }
