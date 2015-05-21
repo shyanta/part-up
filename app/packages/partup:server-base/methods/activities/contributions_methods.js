@@ -144,14 +144,14 @@ Meteor.methods({
             // Post system message
             Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_removed');
 
-            Event.emit('partups.contributions.removed', upper._id, contribution.activity_id, contribution.upper_id);
+            Event.emit('partups.contributions.archived', upper._id, contribution.activity_id, contribution.upper_id);
 
             return {
                 _id: contribution._id
             }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be removed.');
+            throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be archived.');
         }
     },
 

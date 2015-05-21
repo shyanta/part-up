@@ -33,9 +33,9 @@ Event.on('partups.contributions.updated', function (userId, contribution, oldCon
 });
 
 /**
- * Change update_type of Update when the Contribution is removed
+ * Change update_type of Update when the Contribution is archived
  */
-Event.on('partups.contributions.removed', function (userId, contribution) {
+Event.on('partups.contributions.archived', function (userId, contribution) {
     if (! userId) return;
     if (! contribution.update_id) return;
 
