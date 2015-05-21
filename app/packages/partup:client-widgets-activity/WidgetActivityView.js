@@ -37,7 +37,7 @@ Template.WidgetActivityView.helpers({
         contributions = Contributions.find({ activity_id: this.activity._id }).fetch();
 
         for (var i = 0; i < contributions.length; i++){
-            if (contributions[i].upper_id === user._id) return false;
+            if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
         }
 
         return true;
