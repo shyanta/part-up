@@ -51,11 +51,6 @@ Template.WidgetPartupdetailUpdates.helpers({
         return getUpdates();
     },
 
-    // temp reactive var until mongo implementation
-    'reactiveUpdatesVar': function helperReactiveUpdatesVar () {
-        return getUpdates();
-    },
-
     'anotherDay': function helperAnotherday (update) {
         var TIME_FIELD = 'created_at';
 
