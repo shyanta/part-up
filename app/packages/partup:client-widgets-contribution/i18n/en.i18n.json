@@ -15,5 +15,7 @@
     "contribution-none": "@Add hours",
 
     "contribution-accept": "Accept",
-    "contribution-reject": "Reject"
+    "contribution-reject": "Reject",
+
+    "contribution-removed": "Contribution removed"
 }
