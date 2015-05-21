@@ -31,7 +31,7 @@ Meteor.methods({
                 Contributions.update(contribution._id, { $set: newContribution });
 
                 // Post system message
-                Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_updated');
+                Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_updated');
             } else {
                 // Insert contribution
                 newContribution.created_at = new Date();
@@ -84,15 +84,14 @@ Meteor.methods({
                 verified: false 
             }, { fields: { _id: 1 } }).fetch();
             var conceptContributionsIdArray = _.pluck(conceptContributions, '_id');
-            Contributions.update( { _id: { $in: conceptContributionsIdArray } }, { $set: { verified: true } }, { multi: true });
 
+            Contributions.update( { _id: { $in: conceptContributionsIdArray } }, { $set: { verified: true } }, { multi: true });
             Event.emit('contributions.allowed', upper._id, conceptContributionsIdArray);
 
-			// TODO: refactor the following to event handler
             // Post system message for each accepted contribution
-            // conceptContributions.forEach(function (contribution) {
-            //     Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_accepted');
-            // });
+            conceptContributions.forEach(function (contribution) {
+                Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_accepted');
+            });
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while allowing contributions.');
@@ -116,7 +115,7 @@ Meteor.methods({
             Contributions.remove(contribution._id);
 
             // Post system message
-            Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_rejected');
+            Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_rejected');
 
             Event.emit('partups.contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
         } catch (error) {
@@ -142,7 +141,7 @@ Meteor.methods({
             Contributions.update(contribution._id, { $set: { archived: true } });
 
             // Post system message
-            Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_removed');
+            Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_removed');
 
             Event.emit('partups.contributions.archived', upper._id, contribution);
 
@@ -172,7 +171,7 @@ Meteor.methods({
             Contributions.remove(contributionId);
 
             // Post system message
-            Meteor.call('updates.system.message.insert', contribution.update_id, 'system_contributions_removed');
+            Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_removed');
 
             return {
                 _id: contribution._id

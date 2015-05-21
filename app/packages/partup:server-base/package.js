@@ -35,6 +35,7 @@ Package.onUse(function(api) {
         'collection_hooks.js',
         'factories/updates_factory.js',
         'services/notifications_service.js',
+        'services/system_messages_service.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
