@@ -26,7 +26,7 @@ Template.WidgetActivityView.helpers({
         return Contributions.find({ activity_id: this.activity._id });
     },
     showMetaData: function(){
-        return this.activity.end_date || this.COMMENTS_LINK;
+        return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
     },
     showPlaceholderContribution: function(){
         if (this.contribution_id) return false;
