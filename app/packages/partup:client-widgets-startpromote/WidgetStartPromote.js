@@ -84,7 +84,7 @@ Template.WidgetStartPromote.events({
     'click [data-action-topartup]': function eventToPartup(event) {
         event.preventDefault();
         var partupId = Router.current().params._id;
-        Partup.ui.modal.executeIntentCallback('start', [partupId], function (id) {
+        Partup.ui.intent.executeIntentCallback('start', [partupId], function (id) {
 
             // Router go
             Router.go('partup-detail', { _id: id });

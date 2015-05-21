@@ -1,14 +1,14 @@
 /**
  *
- * Guide to use the modal correctly
+ * Guide to use the intent correctly
  *
- * Use this modal when you want to perform a route change with an intention.
+ * Use this service when you want to perform a route change with an intention.
  * For example, when the user wants to access restricted content and has to login first.
  * 
  * Flow:
- * - Call Partup.ui.modal.open(); (for arguments, scroll down)
+ * - Call Partup.ui.intent.open(); (for arguments, scroll down)
  * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
- * - Call Partup.ui.modal.executeIntentCallback(); (for arguments, scroll down)
+ * - Call Partup.ui.intent.executeIntentCallback(); (for arguments, scroll down)
  *     when you want the intent callback to be executed.
  *     (for example: when the user has logged in successfully)
  *     When no intentCallback exists and no fallbackCallback is provided, the _defaultIntentCallback will be executed.
@@ -21,10 +21,10 @@ var _defaultIntentCallback = function () {
 
 var _intentCallbacks = {};
 
-Partup.ui.modal = {
+Partup.ui.intent = {
 
     /**
-     * Settings for modal animation
+     * Settings for modal animation when a modal is in the game
      *
      * @memberOf partup.ui
      * @param {Number} open animation duration
@@ -50,7 +50,7 @@ Partup.ui.modal = {
      * Execute intent callback for route
      *
      * @memberOf partup.ui
-     * @param {String} original name of the route the modal was opened with
+     * @param {String} original name of the route the page was opened with
      * @param {Array} arguments to pass to the callback
      * @param {Function} custom fallback callback
      */
@@ -72,14 +72,14 @@ Partup.ui.modal = {
     },
 
     /**
-     * Modal open
+     * Go with intent
      *
      * @memberOf partup.ui
      * @param {Object} arguments for Router.go() (path, params and options)
      * @param {Function} callback
      */
-    open: function(args, callback) {
-        if(!args || !args.route) return console.warn('Partup.ui.modal.open: please provide a route');
+    go: function(args, callback) {
+        if(!args || !args.route) return console.warn('Partup.ui.intent.open: please provide a route');
 
         // Save intent callback
         if(typeof callback === 'function') {

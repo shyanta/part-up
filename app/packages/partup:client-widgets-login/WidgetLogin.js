@@ -48,7 +48,7 @@ var continueLogin = function() {
     var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
 
     // Intent
-    Partup.ui.modal.executeIntentCallback('login', [true], function () {
+    Partup.ui.intent.executeIntentCallback('login', [true], function () {
         if(!optionalDetailsFilledIn) {
 
             // Fill-in optional details
@@ -57,7 +57,7 @@ var continueLogin = function() {
         } else {
 
             // Fallback
-            Partup.ui.modal.executeDefaultCallback();
+            Partup.ui.intent.executeDefaultCallback();
 
         }
     });

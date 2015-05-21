@@ -415,11 +415,11 @@ Router.onBeforeAction(function () {
         var params = this.route.params();
         var options = this.route.options;
         
-        Partup.ui.modal.open({ route: 'login' }, function (success) {
+        Partup.ui.intent.go({ route: 'login' }, function (success) {
             if(success) {
                 Router.go(route, params, options);
             } else {
-                Partup.ui.modal.executeIntentCallback(route);
+                Partup.ui.intent.executeIntentCallback(route);
             }
         });
     }

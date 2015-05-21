@@ -31,7 +31,7 @@ Package.onUse(function (api) {
         'ui/clipboard.js',
         'ui/forms.js',
         'ui/spinner.js',
-        'ui/modal.js',
+        'ui/intent.js',
         'ui/elements.js',
         'ui/popup.js',
         'ui/uploader.js',

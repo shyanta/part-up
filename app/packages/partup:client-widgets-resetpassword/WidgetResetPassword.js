@@ -39,7 +39,7 @@ AutoForm.hooks({
                 // Done
                 var done = function() {
                     self.done();
-                    Partup.ui.modal.executeIntentCallback('reset-password');
+                    Partup.ui.intent.executeIntentCallback('reset-password');
                 };
 
                 // Try for auto login

@@ -12,6 +12,6 @@ Template.PagesLogin.helpers({
 Template.PagesLogin.events({
     'click [data-closepage]': function (event, template) {
         event.preventDefault();
-        Partup.ui.modal.executeIntentCallback('login');
+        Partup.ui.intent.executeIntentCallback('login');
     }
 });
