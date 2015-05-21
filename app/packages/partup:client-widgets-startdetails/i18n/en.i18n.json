@@ -34,6 +34,7 @@
 
     "startdetails-image-label": "Pick a beautiful and meaningful picture for your part-up",
     "startdetails-image-button": "Upload a picture from your computer",
+    "startdetails-image-button-overwrite": "Change picture",
     "startdetails-image-validation": "You need a minimum of 1000 pixels",
 
     "startdetails-suggestion-label": "Or pick one of the five suggestions",

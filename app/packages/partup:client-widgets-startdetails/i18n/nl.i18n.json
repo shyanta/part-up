@@ -34,6 +34,7 @@
 
     "startdetails-image-label": "Kies een mooie en herkenbare foto voor jouw part-up",
     "startdetails-image-button": "Foto vanaf jouw computer",
+    "startdetails-image-button-overwrite": "Foto veranderen",
     "startdetails-image-validation": "Wel minimaal 1000 pixels",
 
     "startdetails-suggestion-label": "of kies een van de vijf suggesties",
