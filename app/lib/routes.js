@@ -80,6 +80,7 @@ Router.route('/partups/:_id/updates', {
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.updates', partupId);
         this.subscribe('partups.one.activities', partupId);
+        this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
