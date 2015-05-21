@@ -59,39 +59,6 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-    anticontracts: {
-        type: [Object],
-        optional: true
-    },
-        "anticontracts.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-        "anticontracts.$.activities": {
-            type: [Object]
-        },
-        // TODO copy activity state
-        "anticontracts.$.signed_by_all": {
-            type: Boolean
-        },
-        "anticontracts.$.uppers_signed": {
-            type: [Object],
-            optional: true
-        },
-            "anticontracts.$.uppers_signed.$._id": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            },
-            "anticontracts.$.uppers_signed.$.date": {
-                type: Date
-            },
-            "anticontracts.$.uppers_signed.$.image": {
-                type: Object,
-                optional: true
-            },
-            "anticontracts.$.uppers_signed.$.name": {
-                type: String
-            },
     created_at: {
         type: Date,
         defaultValue: new Date()

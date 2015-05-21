@@ -178,22 +178,6 @@ Router.route('/partups/:_id/activities', {
     }
 });
 
-Router.route('/partups/:_id/anticontract', {
-    name: 'partup-detail-anticontract',
-    where: 'client',
-    layoutTemplate: 'LayoutsMain',
-    yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailAnticontract': { to: 'partup-page' }
-    },
-    subscriptions: function () {
-        this.subscribe('notifications.user');
-        this.subscribe('partups.one', this.params._id);
-    }
-});
-
 /*************************************************************/
 /* Invite uppers */
 /*************************************************************/
