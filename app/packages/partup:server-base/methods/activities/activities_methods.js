@@ -141,6 +141,8 @@ Meteor.methods({
             // Post system message
             Meteor.call('updates.system.message.insert', activity.update_id, 'system_activities_archived');
 
+            Event.emit('partups.activities.archived', upper._id, activity);
+
             return {
                 _id: activity._id
             }
