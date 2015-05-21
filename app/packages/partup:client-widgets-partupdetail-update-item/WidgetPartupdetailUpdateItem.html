@@ -39,9 +39,9 @@
                 </a>
 
                 </h3>
-                <!-- {{#if commentInputFieldExpanded }}{{ else }}
+                {{#unless commentInputFieldExpanded }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
-                {{/if }} -->
+                {{/unless }}
             </header>
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
@@ -196,7 +196,9 @@
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
-            {{> WidgetCommentField update=update expandedComments=expandedComments}}
+            {{#if commentInputFieldExpanded }}
+                {{> WidgetCommentField update=update expandedComments=expandedComments}}
+            {{/if }}
         </section>
     </section>
 
