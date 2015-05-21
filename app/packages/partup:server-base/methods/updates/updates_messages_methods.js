@@ -16,6 +16,17 @@ Meteor.methods({
         try {
             newMessage._id = Updates.insert(newMessage);
 
+            // Make user Supporter if its not yet an Upper or Supporter of the Partup
+            var isUpperInPartup = Partups.findOne({ _id: partup._id, uppers: { $in: [upper._id] } }) ? true : false;
+            var isUpperSupporterInPartup = Partups.findOne({ _id: partup._id, supporters: { $in: [upper._id] } }) ? true : false;
+
+            if (!isUpperInPartup && !isUpperSupporterInPartup) {
+                Partups.update(partup._id, { $push: { 'supporters': upper._id } });
+                Meteor.users.update(upper._id, { $push: { 'supporterOf': partup._id } });
+
+                Event.emit('partups.supporters.inserted', partup, upper);
+            }
+
             Event.emit('partups.messages.insert', partup, upper);
 
             return {
