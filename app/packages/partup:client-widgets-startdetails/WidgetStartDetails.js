@@ -191,6 +191,10 @@ Template.WidgetStartDetails.helpers({
                  || template.loading.get('setting-suggestion')
                 );
     },
+    uploadingPicture: function () {
+        var template = Template.instance();
+        return template.loading && template.loading.get('image-uploading');
+    },
     budgetType: function () {
         return Template.instance().budgetType.get();
     },

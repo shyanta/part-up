@@ -153,9 +153,9 @@
                         <div class="pu-sub-loadercontainer {{#if partupLoading 'image-uploading' 'setting-suggestion' }}pu-sub-loadercontainer-active{{/if}}">
                             {{> WidgetLoader }}
                         </div>
-                        <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
+                        <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
                             <span>{{_ 'startdetails-image-button'}}</span>
-                            {{#if uploadingPictures}}
+                            {{#if uploadingPicture}}
                                 {{> WidgetSpinnerInverted}}
                             {{/if}}
                         </label>
@@ -167,11 +167,8 @@
                 {{ else }}
 
                     <div class="pu-upload pu-upload-large">
-                        <label for="imageFileInput" class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
+                        <label for="imageFileInput" class="pu-button pu-button-secondary">
                             <span>{{_ 'startdetails-image-button'}}</span>
-                            {{#if uploadingPictures}}
-                                {{> WidgetSpinnerInverted}}
-                            {{/if}}
                         </label>
                         <span>{{_ 'startdetails-image-validation'}}</span>
                     </div>
