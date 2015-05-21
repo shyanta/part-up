@@ -50,3 +50,16 @@ Event.on('partups.activities.archived', function (userId, activity) {
 
     Updates.update({ _id: activity.update_id }, { $set: set });
 });
+
+Event.on('partups.activities.unarchived', function (userId, activity) {
+    if (! userId) return;
+    if (! activity.update_id) return;
+
+    var set = {
+        upper_id: userId,
+        type: 'partups_activities_unarchived',
+        updated_at: new Date()
+    };
+
+    Updates.update({ _id: activity.update_id }, { $set: set });
+});

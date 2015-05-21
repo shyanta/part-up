@@ -113,6 +113,8 @@ Meteor.methods({
             // Post system message
             Meteor.call('updates.system.message.insert', activity.update_id, 'system_activities_unarchived');
 
+            Event.emit('partups.activities.unarchived', upper._id, activity);
+
             return {
                 _id: activity._id
             }
