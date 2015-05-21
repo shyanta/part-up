@@ -36,5 +36,7 @@
 
     "partupdetail-update-item-type-partups_invited-title": "@Nodigde %s uit voor deze part-up",
 
-    "partupdetail-update-item-type-partups_contributions_added-title": "@Voegde een bijdrage toe"
+    "partupdetail-update-item-type-partups_contributions_added-title": "@Voegde een bijdrage toe",
+
+    "partupdetail-update-item-type-partups_contributions_updated-title": "@Wijzigde een bijdrage"
 }
