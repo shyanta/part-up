@@ -11,6 +11,9 @@ Meteor.methods({
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
+        var isUpperInPartup = Partups.findOne({ _id: partupId, uppers: { $in: [upper._id] } }) ? true : false;
+        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+
         try {
             var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
 
