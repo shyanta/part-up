@@ -111,8 +111,8 @@ Meteor.methods({
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
-            // Remove contribution and emit event for the notification to be triggered
-            Contributions.remove(contribution._id);
+            // Archive contribution instead of removing
+            Contributions.update(contribution._id, { $set: { archived: true } });
 
             // Post system message
             Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_rejected');
