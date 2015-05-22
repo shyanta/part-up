@@ -19,6 +19,7 @@ Meteor.methods({
 
             newPartup._id = Partups.insert(newPartup);
             Meteor.users.update(upper._id, { $push: { 'partups': newPartup._id } });
+            Meteor.users.update(upper._id, { $push: { 'upperOf': newPartup._id } });
 
             return {
                 _id: newPartup._id
