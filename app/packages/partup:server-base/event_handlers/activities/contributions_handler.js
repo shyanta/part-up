@@ -49,6 +49,30 @@ Event.on('partups.contributions.archived', function (userId, contribution) {
 });
 
 /**
+ * Generate a Notification for an Upper when his contribution(s) get(s) accepted
+ */
+Event.on('contributions.accepted', function (userId, partupId, upperId) {
+    var partup = Partups.findOneOrFail(partupId);
+    var notificationOptions = {
+        type: 'partups_contributions_accepted',
+        typeData: {
+            partup: {
+                name: partup.name,
+                image: partup.image
+            }
+        }
+    };
+
+    notificationOptions.userId = upperId;
+
+    Partup.services.notifications.send(notificationOptions, function (error) {
+        if (error) return Log.error(error);
+
+        Log.debug('Notification generated for User [' + upperId + '] with type [' + notificationOptions.type + '].');
+    });
+});
+
+/**
  * Generate a Notification for an Upper when his contribution gets rejected
  */
 Event.on('contributions.rejected', function (userId, activityId, upperId) {
