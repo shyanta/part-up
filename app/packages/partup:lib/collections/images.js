@@ -35,11 +35,7 @@ Images.allow({
     insert: function (userId, document) {
         return !! userId;
     },
-    update: function(userId, document) {
-        return !! userId;
-    },
     download: function () {
         return true;
-    },
-    fetch: null
+    }
 });
