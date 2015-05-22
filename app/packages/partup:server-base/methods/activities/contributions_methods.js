@@ -86,7 +86,10 @@ Meteor.methods({
             var conceptContributionsIdArray = _.pluck(conceptContributions, '_id');
 
             Contributions.update( { _id: { $in: conceptContributionsIdArray } }, { $set: { verified: true } }, { multi: true });
-            Event.emit('contributions.allowed', upper._id, conceptContributionsIdArray);
+
+            // Promote the user from Supporter to Upper
+            Partups.update(contribution.partup_id, { $pull: { 'supporters': contribution.upper_id }, $push: { 'uppers': contribution.upper_id } });
+            Meteor.users.update(contribution.upper_id, { $pull: { 'supporterOf': contribution.partup_id }, $push: { 'upperOf': contribution.partup_id } });
 
             // Post system message for each accepted contribution
             conceptContributions.forEach(function (contribution) {
