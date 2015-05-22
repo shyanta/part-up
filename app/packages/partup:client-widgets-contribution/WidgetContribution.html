@@ -74,6 +74,7 @@
                                 {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
                             </p>
                         {{/ if }}
+                        {{> WidgetRatings ratings=ratings }}
                         {{# if canVerifyContribution }}
                         <div class="pu-sub-acceptbuttons">
                             <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>
