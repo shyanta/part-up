@@ -82,7 +82,7 @@ Meteor.methods({
                 partup_id: activity.partup_id, 
                 upper_id: contribution.upper_id, 
                 verified: false 
-            }, { fields: { _id: 1 } }).fetch();
+            }, { fields: { _id: 1, update_id: 1 } }).fetch();
             var conceptContributionsIdArray = _.pluck(conceptContributions, '_id');
 
             Contributions.update( { _id: { $in: conceptContributionsIdArray } }, { $set: { verified: true } }, { multi: true });
@@ -90,6 +90,9 @@ Meteor.methods({
             // Promote the user from Supporter to Upper
             Partups.update(contribution.partup_id, { $pull: { 'supporters': contribution.upper_id }, $push: { 'uppers': contribution.upper_id } });
             Meteor.users.update(contribution.upper_id, { $pull: { 'supporterOf': contribution.partup_id }, $push: { 'upperOf': contribution.partup_id } });
+
+            Event.emit('partups.uppers.inserted', contribution.partup_id, contribution.upper_id);
+            Event.emit('contributions.accepted', upper._id, contribution.partup_id, contribution.upper_id);
 
             // Post system message for each accepted contribution
             conceptContributions.forEach(function (contribution) {
