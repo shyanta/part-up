@@ -71,9 +71,6 @@ Template.WidgetStartPromote.events({
         if (!sharedSocials[socialTarget]) {
             sharedSocials[socialTarget] = true;
             template.shared.set(sharedSocials);
-            Partup.ui.notify.success(__('startpromote-notify-shared-success', socialTarget));
-        } else {
-            Partup.ui.notify.error(__('startpromote-notify-shared-error', socialTarget));
         }
     },
 
@@ -87,7 +84,7 @@ Template.WidgetStartPromote.events({
     'click [data-action-topartup]': function eventToPartup(event) {
         event.preventDefault();
         var partupId = Router.current().params._id;
-        Partup.ui.modal.executeIntentCallback('start', partupId, function (id) {
+        Partup.ui.intent.executeIntentCallback('start', [partupId], function (id) {
 
             // Router go
             Router.go('partup-detail', { _id: id });

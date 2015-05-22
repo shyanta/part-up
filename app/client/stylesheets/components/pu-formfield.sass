@@ -24,10 +24,23 @@
     &-left
         float: left
         clear: left
+        margin: -5px
 
     &-right
         float: right
         clear: right
+    
+    &-double
+        .pu-formfield-left,
+        .pu-formfield-right
+            display: inline-block
+            float: none
+            width: 50%
+
+        .pu-formfield-left
+            width: calc(50% - 5px)
+            margin-right: 0px
+            margin-left: 0px
 
     .end-date-field
         margin-bottom: 15px
@@ -46,6 +59,32 @@
 
         + .pu-sub-input
             margin-top: 10px
+
+        .pu-sub-remove
+            position: absolute
+            top: 50%
+            right: 15px
+            margin-top: -11px
+            border: 0
+            padding: 0
+            background-color: transparent
+            box-shadow: none
+            color: #ccc
+            font-size: 20px
+            transition: color .2s, opacity .2s
+            cursor: pointer
+            outline: none
+            opacity: 0
+            pointer-events: none
+            text-decoration: none
+
+            &:hover
+                color: darken(#ccc, 10%)
+
+        &:hover
+            .pu-sub-remove
+                opacity: 1
+                pointer-events: auto
 
         &-half
             width: 50%

@@ -1,106 +1,28 @@
 <template name="WidgetActivity">
-    {{#if showForm}}
-        <article class="pu-block {{#if editMode }}pu-block-active{{else}}pu-block-highlighted{{/if }}">
-            {{#autoForm schema=Partup.schemas.forms.startActivities id=generateFormId class="pu-form" doc=fieldsFromActivity validation="submitThenKeyup"}}
+    {{# if showForm }}
 
-                <!-- Activity name -->
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'activity-form-name-label'}}</span>
-                    <a class="pu-hint">{{_ 'activity-form-name-validation-left' charactersLeftName }}</a>
-                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
-                        <span class="pu-sub-input">{{> afFieldInput name="name" placeholder=placeholders.name class="pu-input pu-input-accent" }}</span>
-                        <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
-                    </div>
-                </label>
+        {{> WidgetActivityForm
+            activity=activity
+            edit=edit
+            CREATE=CREATE
+            POPUP=POPUP
+            START_PARTUP=START_PARTUP
+            createCallback=createCallback
+        }}
 
-                {{#if showExtraFields}}
-                    <!-- Activity description -->
-                    <label class="pu-formfield">
-                        <span class="pu-label">{{_ 'activity-form-description-label'}}</span>
-                        <a class="pu-hint">{{_ 'activity-form-description-validation-left' charactersLeftDescription }}</a>
-                        <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
-                            <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 }}</span>
-                            <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
-                        </div>
-                    </label>
-                {{/if}}
+    {{ else }}
 
-                <!-- Activity end date -->
-                <div class="pu-formfield">
-                    {{#if showExtraFields}}
-                        <div class="end-date-field">
-                            <label class="pu-formfield">
-                                <span class="pu-label">{{_ 'activity-form-end_date-label'}}</span>
-                                <div class="pu-inputholder pu-inputholder-lefticon">
-                                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
-                                        <span class="pu-sub-input">{{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" type="bootstrap-datepicker" datePickerOptions=partupDatepickerOptions}}</span>
-                                        <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
-                                    </div>
-                                    <span class="pu-icon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </label>
-                        </div>
-                    {{/if}}
+        {{> WidgetActivityView
+            activity=activity
+            contribution_id=contribution_id
+            edit=edit
+            COMMENTS_LINK=COMMENTS_LINK
+            CONTRIBUTIONS=CONTRIBUTIONS
+            EXPANDED=EXPANDED
+            READONLY=READONLY
+            START_PARTUP=START_PARTUP
+            UPDATE_LINK=UPDATE_LINK
+        }}
 
-                    <div class="pu-formfield-left">
-                        {{#if editMode }}
-                            <button type="submit" class="pu-button">{{_ 'activity-form-save' }}</button>
-                            <button type="button" class="pu-button pu-button-gray" data-close>{{_ 'activity-form-close' }}</button>
-                        {{else}}
-                            <button type="submit" class="pu-button">{{_ 'activity-form-submit' }}</button>
-                        {{/if}}
-                    </div>
-
-                    {{#unless showExtraFields}}
-                        <div class="pu-formfield-right" data-extra-fields-button>
-                            <a class="pu-button pu-button-text pu-button-text-gray">
-                                {{_ 'activity-form-optional-fields' }}
-                            </a>
-                        </div>
-                    {{/unless}}
-
-                    {{#if editMode}}
-                        <div class="pu-formfield-right">
-                            <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-remove>{{_ 'activity-button-remove'}}</a>
-                        </div>
-                    {{/if}}
-                </div>
-
-            {{/autoForm}}
-        </article>
-
-    {{else}}
-
-        <article class="pu-block">
-            <h2 class="pu-block-title {{#if contributionsActive}}pu-expander{{/if}}" data-expander>
-                {{activity.name}}
-                {{#if contributionsActive}}
-                    <i class="pu-chevron fa {{#if showContributions}}fa-chevron-down{{else}}fa-chevron-up{{/if}}"></i>
-                {{/if}}
-            </h2>
-
-            {{#unless activity.donation}}
-                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit'}}</a>
-            {{/unless}}
-
-            <p class="pu-paragraph">{{activity.description}}</p>
-
-            {{# if activity.end_date }}
-                <time datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
-            {{/if}}
-
-            {{# if showContributions }}
-                <div class="pu-block-inner">
-                    {{# each contributions }}
-                        {{> WidgetContribution contribution=. updateContribution=updateContribution }}
-                    {{/ each }}
-
-                    {{# if showPlaceholderContribution }}
-                        {{> WidgetContribution PLACEHOLDER=true updateContribution=updateContribution }}
-                    {{/ if }}
-                </div>
-            {{/ if }}
-        </article>
-
-    {{/if}}
+    {{/ if }}
 </template>

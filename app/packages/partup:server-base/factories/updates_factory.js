@@ -27,6 +27,7 @@ Partup.factories.updatesFactory = {
         update.partup_id = partupId;
         update.type = updateType;
         update.type_data = updateTypeData;
+        update.comments_count = 0;
         update.created_at = new Date();
         update.updated_at = new Date();
 

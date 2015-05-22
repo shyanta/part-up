@@ -5,8 +5,8 @@
 
             <!-- User -->
             <figure class="pu-avatar pu-avatar-label">
-                <a href="#" rel="author" class="pu-sub-image" style="{{#if updateUpper.profile.image}}background-image: url('{{ updateUpper.profile.image.url }}');{{/if}}"></a>
-                <span class="pu-sub-label">{{ updateUpper.profile.name }}</span>
+                <a href="#" rel="author" data-hovercard="{{ updateUpper._id }}" class="pu-sub-image" style="{{#if updateUpper.profile.image}}background-image: url('{{ updateUpper.profile.image.url }}');{{/if}}"></a>
+                <!-- <span class="pu-sub-label">{{ updateUpper.profile.name }}</span> -->
             </figure>
 
             <!-- Time -->
@@ -19,13 +19,29 @@
             <!-- Title & first comment button -->
             <header>
                 <h3>
-                    <a href="{{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}">
+                <!-- Determine the correct pathFor -->
+                <a href="
+                    {{ #if partupContainsOne update.type 'partups_newuser' }}
+                        {{pathFor route='profile' _id=user_id }}
+                    {{else}}
+                        {{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}
+                    {{/if}}
+                ">
+                    {{#if partupEqualsExactly update.type 'partups_invited' }}
+                        <!-- {{#with update.type_data }} -->
+                            <!-- no template, only title -->
+                            {{_ titleKey update.type_data.name}}
+                        <!-- {{/with}} -->
+                    {{else}}
                         {{_ titleKey }}
-                    </a>
+                    {{/if }}
+
+                </a>
+
                 </h3>
-                {{#if commentInputFieldExpanded }}{{ else }}
+                {{#unless commentInputFieldExpanded }}
                     <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
-                {{/if }}
+                {{/unless }}
             </header>
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
@@ -139,42 +155,76 @@
                 {{/with}}
             {{/if }}
 
+            <!-- partups_location_changed -->
+            {{#if partupEqualsExactly update.type 'partups_location_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ old_location.city }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ new_location.city }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_invited -->
+            {{#if partupEqualsExactly update.type 'partups_invited' }}
+                {{#with update.type_data }}
+                    <!-- no template, only title -->
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_activities_added -->
+            {{#if partupEqualsExactly update.type 'partups_activities_added' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_activities_changed -->
+            {{#if partupEqualsExactly update.type 'partups_activities_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_contributions_added -->
+            {{#if partupEqualsExactly update.type 'partups_contributions_added' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true UPDATE_LINK=isNotDetail }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_contributions_changed -->
+            {{#if partupEqualsExactly update.type 'partups_contributions_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true UPDATE_LINK=isNotDetail }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_contributions_removed -->
+            {{#if partupEqualsExactly update.type 'partups_contributions_removed' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true UPDATE_LINK=isNotDetail }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
-            <footer>
-
-                <!-- View all n comments -->
-                {{#if showExpandButton }}
-                    <p class="pu-sub-view-all-comments-button"><a data-expand-comments>{{_ 'partupdetail-update-item-comment-viewall-button' update.comments.length }}</a></p>
-                {{/if }}
-
-                <!-- Comments list -->
-                <ul class="pu-list pu-list-comments">
-                    {{#each shownComments }}
-                    <li>
-                        <p>
-                            <span rel="author">{{ creator.name }}</span>
-                            {{ content }}
-                        </p>
-                    </li>
-                    {{/each }}
-                </ul>
-
-                <!-- Add comment field -->
-                {{#if currentUser }}
-                    <!-- {{#if commentInputFieldExpanded }} -->
-
-                        {{#autoForm schema=formSchema id=generateFormId class=commentInputFieldExpanded }}
-                            <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
-                                <li>{{> afFieldInput name="content" class="pu-input" data="commentfield" }}</li>
-                                <li><input type="submit" class="pu-button pu-button-inputheight" value="{{_ 'partupdetail-update-item-comment-postbutton'}}"></li>
-                            </ul>
-                        {{/autoForm}}
-
-                    <!-- {{/if}} -->
-                {{/if}}
-            </footer>
+            {{#if commentInputFieldExpanded }}
+                {{> WidgetCommentField update=update expandedComments=expandedComments}}
+            {{/if }}
         </section>
     </section>
 

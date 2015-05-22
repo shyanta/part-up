@@ -1,7 +1,7 @@
 .pu-form
     .pu-formfield + .pu-formfield,
     footer
-        margin-top: 30px
+        margin-top: 20px
 
         .pu-button-text-subtle
             margin-right: 20px - 4px
@@ -14,9 +14,6 @@
 
         &:last-child
             margin-bottom: 0
-
-        .pu-input
-            border-color: $color-border
 
     &-popup
         padding: 40px
@@ -33,19 +30,19 @@
         footer
             margin-top: 10px
 
-        
+
 
     &:not(.pu-form-disableinvalidstates):invalid
-        [type="submit"]
+        // TEMPORARY DISABLED UNTILL THE FORM HAS LIVE VALIDATION
+        // [type="submit"]
+        //     pointer-events: none
+        //     color: rgba($color-text-inverted, .5)
 
-            pointer-events: none
-            color: rgba($color-text-inverted, .5)
+        //     &:after
+        //         color: rgba($color-text-inverted, .5)
 
-            &:after
-                color: rgba($color-text-inverted, .5)
-
-            &:hover
-                color: rgba($color-text-inverted, .5)
+        //     &:hover
+        //         color: rgba($color-text-inverted, .5)
 
     &.pu-form-disableinvalidstates,
     &:valid

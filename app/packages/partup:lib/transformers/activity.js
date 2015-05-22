@@ -13,15 +13,17 @@ Partup.transformers.activity = {
      * @param {object} upper
      * @param {object} partup
      */
-    'fromForm': function(fields, upper, partup) {
-
-        fields.created_at = new Date();
-        fields.updated_at = new Date();
-        fields.creator_id = upper._id;
-        fields.partup_id = partup._id;
-        fields.archived = false;
-
-        return fields;
+    'fromForm': function(fields, upperId, partupId) {
+        return {
+            name: fields.name,
+            description: fields.description,
+            end_date: fields.end_date,
+            created_at: new Date(),
+            updated_at: new Date(),
+            creator_id: upperId,
+            partup_id: partupId,
+            archived: false
+        };
     }
 
 };

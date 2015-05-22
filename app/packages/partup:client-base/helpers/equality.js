@@ -29,3 +29,17 @@ Template.registerHelper("partupHigherThan", function (a, b) {
 Template.registerHelper("partupLowerThan", function (a, b) {
     return (a < b);
 });
+
+Template.registerHelper("partupContains", function (a, b) {
+    return a.indexOf(b) > -1;
+});
+
+Template.registerHelper("partupContainsOne", function (a, b) {
+    var contains = false;
+    for (var i = 1; i < arguments.length; i++) {
+        if(a.indexOf(arguments[i]) > -1){
+            contains = true;
+        }
+    };
+    return contains;
+});

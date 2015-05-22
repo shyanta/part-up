@@ -16,12 +16,14 @@ Package.onUse(function (api) {
         'chrismbeckett:toastr',
         'templating',
         'tracker',
+        'reactive-var',
         'reactive-dict'
     ], ['client']);
 
     api.addFiles([
         'namespace.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
+        'autoform/afFieldInput.js',
         'ui/socials.js',
         'ui/notify.js',
         'ui/language.js',
@@ -29,10 +31,11 @@ Package.onUse(function (api) {
         'ui/clipboard.js',
         'ui/forms.js',
         'ui/spinner.js',
-        'ui/modal.js',
+        'ui/intent.js',
         'ui/elements.js',
         'ui/popup.js',
         'ui/uploader.js',
+        'ui/focuslayer.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',
@@ -40,6 +43,7 @@ Package.onUse(function (api) {
         'helpers/forms.js',
         'helpers/imageById.js',
         'helpers/loading.js',
+        'helpers/Partup.js',
         'autorun.js'
     ], ['client']);
 });

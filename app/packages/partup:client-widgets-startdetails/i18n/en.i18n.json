@@ -21,7 +21,8 @@
     "startdetails-form-budget-type-hours": "Yes, in hours",
     "startdetails-form-budget-unit-euro": "euro",
     "startdetails-form-budget-unit-hours": "hours",
-    "startdetails-form-budget_amount-placeholder": "0",
+    "startdetails-form-budget_money-placeholder": "0",
+    "startdetails-form-budget_hours-placeholder": "0",
     "startdetails-form-budget-tooltip": "Blahblah budget tooltip content",
 
     "startdetails-form-end_date-label": "When do you prefer to be ready?",
@@ -33,6 +34,7 @@
 
     "startdetails-image-label": "Pick a beautiful and meaningful picture for your part-up",
     "startdetails-image-button": "Upload a picture from your computer",
+    "startdetails-image-button-overwrite": "Change picture",
     "startdetails-image-validation": "You need a minimum of 1000 pixels",
 
     "startdetails-suggestion-label": "Or pick one of the five suggestions",

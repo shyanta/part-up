@@ -21,6 +21,7 @@ Partup.transformers.update = {
                 new_value: fields.text,
                 images: fields.images
             },
+            comments_count: 0,
             upper_id: upper._id,
             created_at: new Date(),
             updated_at: new Date()

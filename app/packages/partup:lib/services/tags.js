@@ -60,16 +60,28 @@ Partup.services.tags = {
      * @param {String} tags_input
      */
     tagInputToArray: function(tags_input) {
+        if(!tags_input) return [];
+        
         var _tags = tags_input.split(',');
-        if (_tags.length > 0) {
-            return _tags.map(function(elem) {
-                return elem.trim();
-            }).filter(function(elem) {
-                return !!elem;
-            });
-        } else {
-            return [];
-        }
+
+        if (_tags.length === 0) return [];
+
+        return _tags.map(function(elem) {
+            return elem.trim();
+        }).filter(function(elem) {
+            return !!elem;
+        });
+    },
+
+        /**
+     * Transform a comma separated string into an array of tags
+     *
+     * @memberOf services.tags
+     * @param {String} tags_input
+     */
+    tagArrayToInput: function(tags) {
+        if(!tags || !tags.length) return '';
+        return tags.join(', ');
     }
 
 };

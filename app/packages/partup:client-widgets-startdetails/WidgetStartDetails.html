@@ -5,7 +5,7 @@
         <p>{{_ 'startdetails-explainingpartup' }}</p>
 
         {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
-            
+
             <!-- Name -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-name-label' }}</span>
@@ -37,7 +37,7 @@
                     <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
                 </div>
             </label>
-            
+
             <!-- Tags -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-tags_input-label'}}</span>
@@ -52,27 +52,50 @@
             </label>
 
             <!-- Budget -->
-            <label class="pu-formfield">
+            <div class="pu-formfield">
                 <span class="pu-label">{{_ 'startdetails-form-budget-label'}}</span>
                 <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-budget-tooltip' }}</p></span>
                 </a>
-                <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_amount' }}pu-state-invalid{{/if}}">
-                    <span class="pu-sub-input"><span class="pu-inputcontainer pu-inputcontainer-select">{{> afFieldInput type='select' firstOption=false name='budget_type' class="pu-input pu-input-select" options=budgetOptions }}</span></span>
-                    {{#if budgetType }}
-                        <span class="pu-sub-input pu-sub-input-half">
+
+                <!-- Budget type selector -->
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_type' }}pu-state-invalid{{/if}}">
+                    <label class="pu-sub-input"><span class="pu-inputcontainer pu-inputcontainer-select">{{> afFieldInput type='select' firstOption=false name='budget_type' class="pu-input pu-input-select" options=budgetOptions }}</span></label>
+                    <span class="pu-sub-error">{{ afFieldMessage name='budget_type' }}</span>
+                </div>
+
+                <!-- Budget amount: money -->
+                {{#if partupEquals budgetType 'money'}}
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_money' }}pu-state-invalid{{/if}}">
+                        <label class="pu-sub-input pu-sub-input-half">
                             <span class="pu-inputcontainer pu-inputcontainer-text">
                                 <span class="pu-sub-text">
-                                    {{_ budgetUnitI18nKey }}
+                                    {{_ 'startdetails-form-budget-unit-euro' }}
                                 </span>
-                                {{> afFieldInput name='budget_amount' placeholder=placeholders.budget_amount class="pu-input" }}
+                                {{> afFieldInput name='budget_money' type='text' placeholder=placeholders.budget_money class="pu-input" focusOnRender=budgetTypeChanged }}
                             </span>
-                        </span>
-                        <span class="pu-sub-error">{{ afFieldMessage name='budget_amount' }}</span>
-                    {{/if }}
-                </div>
-            </label>
+                        </label>
+                        <span class="pu-sub-error">{{ afFieldMessage name='budget_money' }}</span>
+                    </div>
+                {{/if }}
+
+                <!-- Budget amount: hours -->
+                {{#if partupEquals budgetType 'hours'}}
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_hours' }}pu-state-invalid{{/if}}">
+                        <label class="pu-sub-input pu-sub-input-half">
+                            <span class="pu-inputcontainer pu-inputcontainer-text">
+                                <span class="pu-sub-text">
+                                    {{_ 'startdetails-form-budget-unit-hours' }}
+                                </span>
+                                {{> afFieldInput name='budget_hours' type='text' placeholder=placeholders.budget_hours class="pu-input" focusOnRender=budgetTypeChanged }}
+                            </span>
+                        </label>
+                        <span class="pu-sub-error">{{ afFieldMessage name='budget_hours' }}</span>
+                    </div>
+                {{/if }}
+
+            </div>
 
             <!-- End date -->
             <label class="pu-formfield">
@@ -83,7 +106,10 @@
                 </a>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                     <div class="pu-inputholder pu-inputholder-lefticon">
-                        {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" type="bootstrap-datepicker" datePickerOptions=partupDatepickerOptions }}
+                        <span class="pu-sub-input">
+                            {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" type="bootstrap-datepicker" datePickerOptions=partupDatepickerOptions }}
+                            <a href="#" class="pu-sub-remove fa fa-remove" data-removedate></a>
+                        </span>
                         <span class="pu-icon"><i class="fa fa-calendar"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
@@ -126,13 +152,13 @@
 
                 {{#if partupImage.uploaded.get }}
 
-                    <figure class="pu-imagepreview pu-imagepreview-cover" style="background-image:url('{{ partupImageById partupImage.currentImageId.get }}')">
+                    <figure class="pu-imagepreview pu-imagepreview-cover" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}">
                         <div class="pu-sub-loadercontainer {{#if partupLoading 'image-uploading' 'setting-suggestion' }}pu-sub-loadercontainer-active{{/if}}">
                             {{> WidgetLoader }}
                         </div>
-                        <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
-                            <span>{{_ 'startdetails-image-button'}}</span>
-                            {{#if uploadingPictures}}
+                        <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
+                            <span>{{_ 'startdetails-image-button-overwrite'}}</span>
+                            {{#if uploadingPicture}}
                                 {{> WidgetSpinnerInverted}}
                             {{/if}}
                         </label>
@@ -144,11 +170,8 @@
                 {{ else }}
 
                     <div class="pu-upload pu-upload-large">
-                        <label for="imageFileInput" class="pu-button pu-button-secondary {{#if uploadingPictures}}pu-state-loading{{/if}}">
+                        <label for="imageFileInput" class="pu-button pu-button-secondary">
                             <span>{{_ 'startdetails-image-button'}}</span>
-                            {{#if uploadingPictures}}
-                                {{> WidgetSpinnerInverted}}
-                            {{/if}}
                         </label>
                         <span>{{_ 'startdetails-image-validation'}}</span>
                     </div>

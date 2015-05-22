@@ -1,8 +1,6 @@
 {
-    "partupdetail-update-item-type-anticontract_signed-title": "Signed anticontract",
-
     "partupdetail-update-item-type-partups_supporters_added-title": "Became supporter",
-    "partupdetail-update-item-type-new_upper-title": "Became upper",
+    "partupdetail-update-item-type-partups_uppers_added-title": "Became upper",
 
     "partupdetail-update-item-type-partups_tags_added-title": "Added label",
     "partupdetail-update-item-type-partups_tags_removed-title": "Removed label",
@@ -19,6 +17,7 @@
 
     "partupdetail-update-item-type-partups_activities_added-title": "Added activity",
     "partupdetail-update-item-type-partups_activities_changed-title": "Changed activity",
+    "partupdetail-update-item-type-partups_activities_removed-title": "@Removed an activity",
     "partupdetail-update-item-type-partups_activities_added_resource-title": "Added resource to activity",
     "partupdetail-update-item-type-partups_activities_added_contribution-title": "Added contribution to activity",
 
@@ -30,5 +29,15 @@
 
     "partupdetail-update-item-type-partups_message_added-title": "@New message",
 
-    "partupdetail-update-item-type-partups_budget_changed-title": "@Budget changed"
+    "partupdetail-update-item-type-partups_budget_changed-title": "@Budget changed",
+
+    "partupdetail-update-item-type-partups_location_changed-title": "@Location changed",
+
+    "partupdetail-update-item-type-partups_invited-title": "@Invited %s for this part-up",
+
+    "partupdetail-update-item-type-partups_contributions_added-title": "@Added a contribution",
+
+    "partupdetail-update-item-type-partups_contributions_changed-title": "@Updated a contribution",
+
+    "partupdetail-update-item-type-partups_contributions_removed-title": "@Removed a contribution"
 }

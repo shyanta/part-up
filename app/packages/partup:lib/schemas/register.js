@@ -39,12 +39,12 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
  */
 Partup.schemas.forms.registerOptional = new SimpleSchema({
     image: {
-        type:String,
+        type: String,
         max: 255,
         optional: true
     },
     location_input: {
-        type:String,
+        type: String,
         max: 255,
         optional: true
     },
@@ -54,48 +54,48 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
         optional: true
     },
     tags_input: {
-        type:String,
+        type: String,
         max: 255,
         optional: true,
         regEx: Partup.services.validators.tagsSeparatedByComma
     },
     facebook: {
-        type:String,
+        type: String,
         max: 255,
         optional: true,
         regEx: Partup.services.validators.facebookUsername
     },
     twitter: {
-        type:String,
+        type: String,
         max: 255,
         optional: true,
         regEx: Partup.services.validators.twitterUsername
     },
     instagram: {
-        type:String,
+        type: String,
         max: 255,
         optional: true,
         regEx: Partup.services.validators.instagramUsername
     },
     linkedin: {
-        type:String,
+        type: String,
         max: 255,
         optional: true,
         regEx: Partup.services.validators.linkedinUsername
     },
     website: {
-        type:String,
+        type: String,
         max: 255,
         optional: true,
-        regEx: SimpleSchema.RegEx.Url
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol
     },
     phonenumber: {
-        type:String,
+        type: String,
         max: 255,
         optional: true
     },
     skype: {
-        type:String,
+        type: String,
         max: 255,
         optional: true
     }

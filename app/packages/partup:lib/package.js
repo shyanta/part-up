@@ -20,7 +20,8 @@ Package.onUse(function(api) {
         'momentjs:moment',
         'tap:i18n',
         'matb33:collection-hooks',
-        'partup:copy-to-clipboard'
+        'partup:copy-to-clipboard',
+        'lifely:mout'
     ]);
 
     api.use([
@@ -33,6 +34,7 @@ Package.onUse(function(api) {
         'services/placeholder.js',
         'services/tags.js',
         'services/validators.js',
+        'services/website.js',
         'collections/activities.js',
         'collections/contributions.js',
         'collections/updates.js',
@@ -52,6 +54,7 @@ Package.onUse(function(api) {
         'schemas/tag.js',
         'schemas/update.js',
         'schemas/newMessage.js',
+        'schemas/inviteUpper.js',
         'schemas/rating.js',
         'transformers/activity.js',
         'transformers/partup.js',

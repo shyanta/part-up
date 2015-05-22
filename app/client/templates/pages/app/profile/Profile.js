@@ -1,14 +1,16 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesPartupDetailAnticontract.helpers({
-    //
+Template.PagesProfile.helpers({
+    profileId: function(){
+        return Router.current().params._id;
+    }
 });
 
 
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesPartupDetailAnticontract.events({
+Template.PagesProfile.events({
     //
 });

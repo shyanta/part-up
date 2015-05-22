@@ -30,10 +30,6 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-    contributions: {
-        type: [String],
-        optional: true
-    },
     created_at: {
         type: Date,
         defaultValue: new Date()
@@ -41,10 +37,6 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
     creator_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
-    },
-    donation: {
-        type: Boolean,
-        optional: true
     },
     archived: {
         type: Boolean,

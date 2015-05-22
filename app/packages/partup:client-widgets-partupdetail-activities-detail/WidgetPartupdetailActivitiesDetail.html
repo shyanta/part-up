@@ -1,0 +1,22 @@
+<template name="WidgetPartupdetailActivitiesDetail">
+    <div class="pu-composition pu-composition-partupdetailupdateitem">
+
+        <!-- Header buttons -->
+        <header class="pu-pageheader">
+            <section>
+                <a class="pu-button" href="{{pathFor 'partup-detail-activities' _id=partup._id}}">
+                    Alle activiteiten bekijken
+                </a>
+            </section>
+        </header>
+        {{#if activity}}
+            {{> WidgetActivity activity=activity CONTRIBUTIONS=true EXPANDED=true }}
+        {{/if}}
+
+        <!-- comments -->
+        {{#if activityUpdates}}
+            {{> WidgetCommentField update=activityUpdates expandedComments=true}}
+        {{/if}}
+
+    </div>
+</template>

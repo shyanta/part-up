@@ -24,7 +24,7 @@
     // Other
     cursor: pointer
     user-select: none
-    transition: background-color $animation-duration, color $animation-duration, border-color $animation-duration, opacity $animation-duration
+    transition: box-shadow $animation-duration, background $animation-duration, color $animation-duration, border $animation-duration, opacity $animation-duration
 
     // Icon
     i
@@ -150,12 +150,14 @@
         &-modal
             background-color: $color-background-tertiery
             color: $color-text-subtle
+            padding-top: 24px
 
             &:hover
                 background-color: $color-background-tertiery
                 color: darken($color-text-subtle, 7%)
 
-            &:active
+            &:active,
+            &:focus
                 background-color: $color-background-tertiery
                 color: darken($color-text-subtle, 20%)
 
@@ -272,6 +274,7 @@
         height: 46px
 
         i
+            width: 20px
             font-size: 22px
             line-height: 15px
             margin-right: 20px - 4px
@@ -304,6 +307,7 @@
         padding-right: 0
         background-color: transparent
         color: $color-secondary
+        font-weight: 600
 
         &:hover
             background-color: transparent
@@ -315,6 +319,12 @@
             transform: none
             color: $color-text-subtle
 
+        + .pu-button-text
+            &:before
+                display: inline-block
+                margin-right: 13px
+                content: '|'
+        
         &-gray
             color: $color-text-secondary
 

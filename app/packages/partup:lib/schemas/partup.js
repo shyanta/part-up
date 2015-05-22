@@ -14,17 +14,34 @@ var partupBaseSchema = new SimpleSchema({
         allowedValues: ['money', 'hours'],
         optional: true
     },
-    budget_amount: {
+    budget_money: {
         type: Number,
         min: 0,
-        optional: true
+        optional: true,
+        custom: function () {
+            var required = this.field('budget_type').value === 'money';
+            if(required && !this.isSet) {
+                return "required";
+            }
+        }
+    },
+    budget_hours: {
+        type: Number,
+        min: 0,
+        optional: true,
+        custom: function () {
+            var required = this.field('budget_type').value === 'hours';
+            if(required && !this.isSet) {
+                return "required";
+            }
+        }
     },
     end_date: {
         type: Date
     },
     name: {
         type: String,
-        max: 40
+        max: 60
     },
     image: {
         type: String,
@@ -42,43 +59,6 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-    activities: {
-        type: [String],
-        optional: true
-    },
-    anticontracts: {
-        type: [Object],
-        optional: true
-    },
-        "anticontracts.$._id": {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id
-        },
-        "anticontracts.$.activities": {
-            type: [Object]
-        },
-        // TODO copy activity state
-        "anticontracts.$.signed_by_all": {
-            type: Boolean
-        },
-        "anticontracts.$.uppers_signed": {
-            type: [Object],
-            optional: true
-        },
-            "anticontracts.$.uppers_signed.$._id": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            },
-            "anticontracts.$.uppers_signed.$.date": {
-                type: Date
-            },
-            "anticontracts.$.uppers_signed.$.image": {
-                type: Object,
-                optional: true
-            },
-            "anticontracts.$.uppers_signed.$.name": {
-                type: String
-            },
     created_at: {
         type: Date,
         defaultValue: new Date()

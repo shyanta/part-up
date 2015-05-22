@@ -1,21 +1,29 @@
 <template name="WidgetStartActivities">
     <!-- popup -->
-    <!-- {{#contentFor "WidgetPopupContent"}}
-        {{> CopyActivityPopup}}
-    {{/contentFor}} -->
+    {{#if partupPopupActive 'popup.start-activity' }}
+        {{#contentFor "WidgetPopupContent"}}
+            {{> CopyActivityPopup}}
+        {{/contentFor}}
+    {{/if}}
 
     <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
 
         <h2 class="pu-title pu-title-modal">{{_ 'startactivities-heading-title'}}</h2>
-        <p>{{_ 'startactivities-heading-paragraph'}}</p>
+        <p class="pu-sub-activitiesparagraph">{{_ 'startactivities-heading-paragraph'}}</p>
 
         <!-- TODO: DISABLED UNTIL IMPLEMENTED -->
-        <!-- <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup>{{_ 'startactivities-button-adopt_activities' }}</a> -->
+        <!-- <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.start-activity">{{_ 'startactivities-button-adopt_activities' }}</a> -->
 
-        {{> WidgetActivity CREATE=true}}
+        {{> WidgetActivity CREATE=true createCallback=createCallback }}
+
+        <p class="pu-sub-activitiestitle">{{_ 'startactivities-popup-activities-heading' }}</p>
+
+        {{#if showActivityPlaceholder}}
+            {{> WidgetActivity activity=placeholderActivity START_PARTUP=true READONLY=true }}
+        {{/if }}
 
         {{#each partupActivities}}
-            {{> WidgetActivity activity=.}}
+            {{> WidgetActivity activity=. START_PARTUP=true }}
         {{/each}}
 
         <!-- Continue button -->

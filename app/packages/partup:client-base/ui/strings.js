@@ -30,7 +30,7 @@ Partup.ui.strings = {
     },
 
     tagsStringToArray: function(tagString) {
-        return tagString.replace(/\s/g, '').split(',');
+        return tagString ? tagString.replace(/\s/g, '').split(',') : [];
     }
 
 };

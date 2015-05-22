@@ -105,7 +105,7 @@ Template.WidgetRegisterOptional.events({
 var continueRegister = function() {
     
     // Execute intent callback
-    Partup.ui.modal.executeIntentCallback('register');
+    Partup.ui.intent.executeIntentCallback('register');
     
 };
 

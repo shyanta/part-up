@@ -5,7 +5,7 @@ var getScrollTop = function(){
 var partupDetailLayout = {
 
     init: function(){
-        this.container = document.querySelector('.pu-sub-pagecontainer');
+        this.container = document.querySelector('.pu-app .pu-sub-pagecontainer');
         if (!this.container) return;
 
         this.left = this.container.querySelector('.pu-sub-partupdetail-left');
@@ -49,6 +49,13 @@ var partupDetailLayout = {
         window.addEventListener('resize', this.bound.onResize);
         window.addEventListener('scroll', this.bound.onScrollStart);
         window.addEventListener('scroll', this.bound.onScrollEnd);
+
+        var self = this;
+        this.interval = setInterval(function(){
+            self.setContainerHeight();
+            self.preScroll();
+            self.checkInterval();
+        }, 250);
     },
 
     detach: function(){
@@ -64,6 +71,8 @@ var partupDetailLayout = {
         window.removeEventListener('resize', this.bound.onResize);
         window.removeEventListener('scroll', this.bound.onScrollStart);
         window.removeEventListener('scroll', this.bound.onScrollEnd);
+
+        clearInterval(this.interval);
     },
 
     onResize: function(){
@@ -133,13 +142,16 @@ var partupDetailLayout = {
     },
 
     checkScroll: function(){
+        this.lastDirection = this.lastDirection || 'down';
         var scrollTop = getScrollTop();
         var r = this.getRects();
         var br = document.body.getBoundingClientRect();
         var iH = window.innerHeight;
-        var direction = scrollTop > this.lastScrollTop ? 'down' : 'up';
+        var direction = (scrollTop === this.lastScrollTop) ? this.lastDirection :
+            scrollTop > this.lastScrollTop ? 'down' : 'up';
         var top, pos, scol, lcol;
 
+        // First we have to detemine which column is shorter
         if (r.left.height > r.right.height){
             scol = 'right';
             lcol = 'left';
@@ -148,14 +160,18 @@ var partupDetailLayout = {
             lcol = 'right';
         }
 
+        // Going in the same direction as our previous scroll
         if (direction === this.lastDirection){
+            //  Going down and short column bottom is smaller than viewport height
             if (direction === 'down' && r[scol].bottom < iH){
                 pos = 'fixed';
+                // Short column height is smaller than viewport height minus initial top
                 if (r[scol].height < (iH - this.initialTops[scol])){
                     top = this.initialTops[scol];
                 } else {
                     top = iH - r[scol].height;
                 }
+            // Going up and short column top is larger than initial position on page
             } else if (direction === 'up' && r[scol].top > this.initialTops[scol]){
                 pos = 'fixed';
                 top = this.initialTops[scol];
@@ -170,7 +186,24 @@ var partupDetailLayout = {
             top = this.constrainPos[1];
         }
 
-        if ((r[scol].height < r[lcol].bottom - this.initialTops[lcol]) && (r[scol].bottom < iH)){
+        // This fixes very short columns
+        //
+        // 1. short column height is smaller than viewport height minus initial top position
+        // 2. short column bottom has to be smaller than long column bottom
+        // 3. short column bottom is inside viewport
+        // 4. short column top is larger than initial pos
+        if (
+            (r[scol].height < iH - this.initialTops[scol]) && // 1
+            (
+                (
+                    (r[scol].bottom < r[lcol].bottom) && // 2
+                    (r[scol].bottom < iH) // 3
+                ) ||
+                (
+                    (r[scol].top > this.initialTops[scol]) // 4
+                )
+            )
+        ){
             pos = 'fixed';
             top = this.initialTops[scol];
         }
@@ -190,9 +223,9 @@ var partupDetailLayout = {
 /*************************************************************/
 /* Partial rendered */
 /*************************************************************/
-Template.PartialsPartupDetailSidebar.rendered = function () {
+Template.PartialsPartupDetailSidebar.onRendered(function(){
     partupDetailLayout.init();
-};
+});
 
 
 /*************************************************************/

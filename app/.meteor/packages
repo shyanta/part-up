@@ -41,9 +41,8 @@ aldeed:autoform@5.1.2
 aldeed:simple-schema
 aldeed:template-extension
 cfs:graphicsmagick
-cfs:gridfs
 cfs:s3
-cfs:standard-packages
+cfs:file
 chrismbeckett:toastr
 deepwell:bootstrap-datepicker2
 fastclick
@@ -70,3 +69,9 @@ tmeasday:publish-counts
 velocity:console-reporter
 zimme:iron-router-active
 sergeyt:typeahead
+partup:client-widgets-partupdetail-activities-detail
+partup:client-widgets-commentfield
+cfs:standard-packages
+partup:client-widget-hovercard
+partup:client-widgets-inviteuppers
+cfs:filesystem

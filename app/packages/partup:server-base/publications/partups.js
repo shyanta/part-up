@@ -10,8 +10,19 @@ Meteor.publish('partups.supported', function () {
     return Partups.find({});
 });
 
-Meteor.publish('partups.one.activities', function (partupId) {
-    return Activities.find({ partup_id: partupId, archived: false });
+Meteor.publishComposite('partups.one.activities', function (partupId) {
+    return {
+        find: function() {
+            return Activities.find({ partup_id: partupId });
+        },
+        children: [
+            {
+                find: function(activity) {
+                    return Updates.find({ _id: activity.update_id }, { limit: 1, fields: { 'comments_count': 1 } });
+                }
+            }
+        ]
+    };
 });
 
 Meteor.publishComposite('partups.one.contributions', function(partupId) {
@@ -22,7 +33,7 @@ Meteor.publishComposite('partups.one.contributions', function(partupId) {
         children: [
             {
                 find: function(contribution) {
-                    return Meteor.users.find({ _id: contribution.upper_id }, { limit: 1, fields: { 'profile': 1, 'online.status': 1 } });
+                    return Meteor.users.find({ _id: contribution.upper_id }, { limit: 1, fields: { 'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1 } });
                 },
                 children: [
                     {
@@ -44,7 +55,7 @@ Meteor.publishComposite('partups.one.updates', function(partupId) {
         children: [
             {
                 find: function(update) {
-                    return Meteor.users.find({ _id: update.upper_id }, { limit: 1, fields: { 'profile': 1, 'online.status': 1 } });
+                    return Meteor.users.find({ _id: update.upper_id }, { limit: 1, fields: { 'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1 } });
                 },
                 children: [
                     {
@@ -87,7 +98,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
             {
                 find: function(partup) {
                     var uppers = partup.uppers || [];
-                    return Meteor.users.find({ _id: { $in: uppers }}, { fields: { 'profile': 1, 'status.online': 1 } });
+                    return Meteor.users.find({ _id: { $in: uppers }}, { fields: { 'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1 } });
                 },
                 children: [
                     {
@@ -100,7 +111,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
             {
                 find: function(partup) {
                     var supporters = partup.supporters || [];
-                    return Meteor.users.find({ _id: { $in: supporters }}, { fields: { 'profile': 1, 'status.online': 1 } });
+                    return Meteor.users.find({ _id: { $in: supporters }}, { fields: { 'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1 } });
                 },
                 children: [
                     {

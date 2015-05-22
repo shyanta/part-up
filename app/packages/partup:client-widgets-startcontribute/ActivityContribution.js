@@ -187,7 +187,7 @@ AutoForm.addHooks(null, {
         if (!user) return;
 
         // Submit contribution
-        Meteor.call('activity.contribution.update', activityId, doc, function (error, contribution) {
+        Meteor.call('contributions.update', activityId, doc, function (error, contribution) {
             if (error) {
                 Partup.ui.notify.iError(error.reason);
                 self.done(new Error(error.message));

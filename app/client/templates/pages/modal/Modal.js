@@ -3,7 +3,9 @@
 /*************************************************************/
 Template.PagesModal.helpers({
     
-    //
+    focusLayerEnabled: function helperFocusLayerEnabled () {
+        return Partup.ui.focuslayer.state.get();
+    }
     
 });
 
@@ -13,7 +15,9 @@ Template.PagesModal.helpers({
 /*************************************************************/
 Template.PagesModal.events({
     
-    //
+    'click [data-focuslayer]': function eventsClickFocuslayer () {
+        Partup.ui.focuslayer.disable();
+    }
     
 });
 

@@ -34,8 +34,35 @@ Router.route('/discover', {
 });
 
 /*************************************************************/
+/* Profile */
+/*************************************************************/
+Router.route('/profile', function(){
+    this.redirect('profile-detail', {_id: Meteor.userId()});
+});
+
+Router.route('/profile/:_id', {
+    name: 'profile-detail',
+    where: 'client',
+    layoutTemplate: 'LayoutsMain',
+    yieldRegions: {
+        'PagesApp': { to: 'page' },
+        // 'PagesUnderConstruction': { to: 'app-page' }
+        'PagesProfile': { to: 'app-page' }
+    },
+    subscriptions: function () {
+        this.subscribe('notifications.user');
+        this.subscribe('partups.all');
+    }
+});
+
+
+
+/*************************************************************/
 /* Partup detail */
 /*************************************************************/
+Router.route('/partups/:_id', function(){
+    this.redirect('partup-detail', {_id: this.params._id});
+});
 Router.route('/partups/:_id/updates', {
     name: 'partup-detail',
     where: 'client',
@@ -52,16 +79,19 @@ Router.route('/partups/:_id/updates', {
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.updates', partupId);
+        this.subscribe('partups.one.activities', partupId);
+        this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
+        var image;
         if(partup) {
-            var image = Images.findOne({_id: partup.image});
+            image = Images.findOne({_id: partup.image});
         }
         return {
             partup: partup,
             image: image
-        }
+        };
     },
     onAfterAction: function() {
         if (!Meteor.isClient) return;
@@ -101,18 +131,20 @@ Router.route('/partups/:_id/updates/:update_id', {
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.updates', partupId);
-
+        this.subscribe('partups.one.activities', partupId);
+        this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
+        var image;
         if(partup) {
-            var image = Images.findOne({_id: partup.image});
+            image = Images.findOne({_id: partup.image});
         }
         return {
             partup: partup,
             image: image
-        }
-    },
+        };
+    }
 });
 
 Router.route('/partups/:_id/activities', {
@@ -132,38 +164,34 @@ Router.route('/partups/:_id/activities', {
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
+    },
+    data: function() {
+        var partup = Partups.findOne({_id: this.params._id});
+        var image;
+        if(partup) {
+            image = Images.findOne({_id: partup.image});
+        }
+        return {
+            partup: partup,
+            image: image
+        };
     }
 });
 
-Router.route('/partups/:_id/budget', {
-    name: 'partup-detail-budget',
+/*************************************************************/
+/* Invite uppers */
+/*************************************************************/
+Router.route('/partups/:_id/invite', {
+    name: 'partup-detail-invite',
     where: 'client',
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailBudget': { to: 'partup-page' }
+        'PagesModal': { to: 'page' },
+        'PagesPartupInviteUppers': { to: 'modal-page' },
+        // 'PagesPartupInviteUppers': { to: 'register-page' }
     },
     subscriptions: function () {
-        this.subscribe('notifications.user');
-        this.subscribe('partups.one', this.params._id);
-    }
-});
-
-Router.route('/partups/:_id/anticontract', {
-    name: 'partup-detail-anticontract',
-    where: 'client',
-    layoutTemplate: 'LayoutsMain',
-    yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailAnticontract': { to: 'partup-page' }
-    },
-    subscriptions: function () {
-        this.subscribe('notifications.user');
-        this.subscribe('partups.one', this.params._id);
+        // this.subscribe('users.count');
     }
 });
 
@@ -190,7 +218,8 @@ Router.route('/start/details', {
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
     subscriptions: function () {
-        this.subscribe('partups.one', Session.get('partials.start-partup.current-partup'));
+        var partupId = Session.get('partials.start-partup.current-partup');
+        this.subscribe('partups.one', partupId);
     }
 });
 
@@ -352,33 +381,41 @@ Router.route('/close', {
 /*************************************************************/
 /* Route protection */
 /*************************************************************/
+Router.onBeforeAction(function () {
+    if (!Meteor.userId()) {
+        var route = this.route.getName();
+        var params = this.route.params();
+        var options = this.route.options;
 
-var partupRouterHooks = {
-    loginRequired: function() {
-        if (!Meteor.userId()) {
-            Session.set('application.return-url', this.url);
-            Router.go('login');
-        }
-        else {
-            this.next();
-        }
+        Partup.ui.intent.go({ route: 'login' }, function (success) {
+            if(success) {
+                Router.go(route, params, options);
+            } else {
+                Partup.ui.intent.executeIntentCallback(route);
+            }
+        });
     }
-}
-
-Router.onBeforeAction(partupRouterHooks.loginRequired, {
+    else {
+        this.next();
+    }
+}, {
     only: [
         'start',
         'start-details',
         'start-activities',
         'start-contribute',
         'start-promote',
-        'register-details',
+        'register-details'
     ]
 });
 
+/*************************************************************/
+/* Miscellaneous */
+/*************************************************************/
 if(Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
+        Partup.ui.focuslayer.disable();
         this.next();
     });
-};
+}

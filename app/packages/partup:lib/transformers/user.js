@@ -22,16 +22,10 @@ Partup.transformers.profile = {
             linkedin: user.profile.linkedin,
             website: user.profile.website,
             phonenumber: user.profile.phonenumber,
-            skype: user.profile.skype
+            skype: user.profile.skype,
+            tags_input: Partup.services.tags.tagArrayToInput(user.profile.tags),
+            location_input: Partup.services.location.locationToLocationInput(user.profile.location)
         };
-
-        if(user.profile.location) {
-            fields.location_input = Partup.services.location.locationToLocationInput(user.profile.location);
-        }
-
-        if(user.profile.tags) {
-            fields.tags_input = user.profile.tags.join(',');
-        }
 
         return fields;
     },
@@ -47,20 +41,16 @@ Partup.transformers.profile = {
             // form fields
             'profile.image': fields.image,
             'profile.description': fields.description,
+            'profile.tags': Partup.services.tags.tagInputToArray(fields.tags_input),
+            'profile.location': Partup.services.location.locationInputToLocation(fields.location_input),
             'profile.facebook': fields.facebook,
             'profile.twitter': fields.twitter,
             'profile.instagram': fields.instagram,
             'profile.linkedin': fields.linkedin,
-            'profile.website': fields.website,
             'profile.phonenumber': fields.phonenumber,
+            'profile.website': Partup.services.website.cleanUrlToFullUrl(fields.website),
             'profile.skype': fields.skype
         };
-        if(fields.location_input) {
-            user['profile.location'] = Partup.services.location.locationInputToLocation(fields.location_input);
-        }
-        if(fields.tags_input) {
-            user['profile.tags'] = Partup.services.tags.tagInputToArray(fields.tags_input);
-        }
         return user;
     }
 

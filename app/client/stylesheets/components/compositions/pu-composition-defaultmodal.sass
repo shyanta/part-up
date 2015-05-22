@@ -1,9 +1,12 @@
 .pu-composition-defaultmodal
+    width: 570px
+    
     h2
+        margin-top: -10px
         margin-bottom: 20px
 
     .pu-form
-        margin-top: 40px
+        margin-top: 40px - 8px
 
     .pu-sub-modalfooter
         margin-top: 40px
@@ -11,20 +14,20 @@
 
         .pu-sub-plain
             line-height: 40px
-            padding: 0 10px
+            padding: 0 15px
             color: $color-text-subtle
             font-weight: bold
         
         &-fixed
-            z-index: 99
+            z-index: 2
             margin-top: 0
             position: fixed
             bottom: 0
             left: 0 
             right: 0
             padding: 25px 20px
-            border-top: 2px solid $color-faded-gray
-            background-color: #fff
+            transition: background .1s
+            background-color: #eee
 
             .pu-sub-footer-container
                 width: 570px

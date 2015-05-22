@@ -11,5 +11,11 @@
 
     "contribution-hour": "__count__ uur",
     "contribution-hour_plural": "__count__ uur",
-    "contribution-hourly-rate": "euro per uur"
+    "contribution-hourly-rate": "euro per uur",
+    "contribution-none": "Voeg uren toe",
+
+    "contribution-accept": "Accepteren",
+    "contribution-reject": "Weigeren",
+
+    "contribution-removed": "Bijdrage is verwijderd"
 }

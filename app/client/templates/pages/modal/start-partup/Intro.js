@@ -19,6 +19,6 @@ Template.PagesStartPartupIntro.helpers({
 Template.PagesStartPartupIntro.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
-        Router.go('home');
+        Partup.ui.intent.executeIntentCallback('start');
     }
 });

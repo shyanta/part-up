@@ -11,10 +11,11 @@ Meteor.methods({
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var partup = Partups.findOneOrFail(partupId);
+        var isUpperInPartup = Partups.findOne({ _id: partupId, uppers: { $in: [upper._id] } }) ? true : false;
+        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
-            var activity = Partup.transformers.activity.fromForm(fields, upper, partup);
+            var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
 
             activity._id = Activities.insert(activity);
 
@@ -39,15 +40,22 @@ Meteor.methods({
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
+        if (! activity) {
+            throw new Meteor.Error(404, 'Could not find activity.');
+        }
+
         if (! upper || activity.creator_id != upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
         try {
-            fields.updated_at = new Date();
-            if (! fields.end_date) fields.end_date = null;
+            var updatedActivity = Partup.transformers.activity.fromForm(fields, activity.creator_id, activity.partup_id);
+            updatedActivity.updated_at = new Date();
 
-            Activities.update(activityId, { $set: fields });
+            Activities.update(activityId, { $set: updatedActivity });
+
+            // Post system message
+            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_updated');
 
             return {
                 _id: activity._id
@@ -73,7 +81,9 @@ Meteor.methods({
 
         try {
             Activities.remove(activityId);
-            Partups.update(activity.partup_id, { $pull: { 'activities': activityId } });
+
+            // Post system message
+            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_removed');
 
             return {
                 _id: activity._id
@@ -81,6 +91,36 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be removed.');
+        }
+    },
+
+    /**
+     * Unarchive an Activity
+     *
+     * @param  {string} activityId
+     */
+    'activities.unarchive': function (activityId) {
+        var upper = Meteor.user();
+        var activity = Activities.findOneOrFail(activityId);
+
+        if (!upper || activity.creator_id !== upper._id) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        try {
+            Activities.update(activityId, {$set: { archived: false } });
+
+            // Post system message
+            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_unarchived');
+
+            Event.emit('partups.activities.unarchived', upper._id, activity);
+
+            return {
+                _id: activity._id
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be unarchived.');
         }
     },
 
@@ -99,6 +139,11 @@ Meteor.methods({
 
         try {
             Activities.update(activityId, {$set: { archived: true } });
+
+            // Post system message
+            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_archived');
+
+            Event.emit('partups.activities.archived', upper._id, activity);
 
             return {
                 _id: activity._id

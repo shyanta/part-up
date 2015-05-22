@@ -1,8 +1,6 @@
 {
-    "partupdetail-update-item-type-anticontract_signed-title": "Anti-contract getekend",
-
-    "partupdetail-update-item-type-partups_supporters_added-title": "Nieuwe supporter",
-    "partupdetail-update-item-type-new_upper-title": "Nieuwe upper",
+    "partupdetail-update-item-type-partups_supporters_added-title": "Is een supporter geworden",
+    "partupdetail-update-item-type-partups_uppers_added-title": "Is lid geworden van de part-up",
 
     "partupdetail-update-item-type-partups_tags_added-title": "Nieuw label",
     "partupdetail-update-item-type-partups_tags_removed-title": "Label verwijderd",
@@ -17,10 +15,11 @@
     "partupdetail-update-item-type-partups_description_changed-title": "Omschrijving gewijzigd",
     "partupdetail-update-item-type-partups_image_changed-title": "Foto gewijzigd",
 
-    "partupdetail-update-item-type-partups_activities_added-title": "Activiteit toegevoegd",
-    "partupdetail-update-item-type-partups_activities_changed-title": "Activiteit gewijzigd",
+    "partupdetail-update-item-type-partups_activities_added-title": "Voegde een activiteit toe",
+    "partupdetail-update-item-type-partups_activities_changed-title": "Wijzigde een activiteit",
+    "partupdetail-update-item-type-partups_activities_removed-title": "Verwijderde een activiteit",
     "partupdetail-update-item-type-partups_activities_added_resource-title": "Middel toegevoegd aan activiteit",
-    "partupdetail-update-item-type-partups_activities_added_contribution-title": "Bijdrage aan activiteit toevoegd",
+    "partupdetail-update-item-type-partups_activities_added_contribution-title": "Bijdrage aan activiteit toegevoegd",
 
     "partupdetail-update-item-type-changed_region-title": "Regio gewijzigd",
 
@@ -30,5 +29,15 @@
 
     "partupdetail-update-item-type-partups_message_added-title": "@Nieuw bericht",
 
-    "partupdetail-update-item-type-partups_budget_changed-title": "@Budget veranderd"
+    "partupdetail-update-item-type-partups_budget_changed-title": "@Budget veranderd",
+
+    "partupdetail-update-item-type-partups_location_changed-title": "@Regio veranderd",
+
+    "partupdetail-update-item-type-partups_invited-title": "@Nodigde %s uit voor deze part-up",
+
+    "partupdetail-update-item-type-partups_contributions_added-title": "@Voegde een bijdrage toe",
+
+    "partupdetail-update-item-type-partups_contributions_changed-title": "@Wijzigde een bijdrage",
+
+    "partupdetail-update-item-type-partups_contributions_removed-title": "@Verwijderde een bijdrage"
 }

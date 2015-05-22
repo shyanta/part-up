@@ -14,12 +14,12 @@
                     <ul class="pu-list pu-list-users">
                         {{#each partupUppers }}
                             <li>
-                                <figure class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure>
-                                <p>{{ profile.name }}</p>
+                                <figure data-hovercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure>
+                                <p data-hovercard="{{ _id }}">{{ profile.name }}</p>
                             </li>
                         {{/each }}
                     </ul>
-                    <a href="" class="pu-button pu-button-icon">
+                    <a href="{{pathFor route='partup-detail-invite' _id=partup._id}}" class="pu-button pu-button-icon"> 
                         <i class="fa fa-user-plus"></i>
                         {{_ 'partup-detail-uppers-invitebutton' }}
                     </a>
@@ -40,7 +40,7 @@
                     <h2>{{_ 'partup-detail-supporters-title'}} ({{ numberOfSupporters }})</h2>
                     <ul class="pu-list pu-list-horizontal pu-list-avatars">
                         {{#each partupSupporters }}
-                            <li><figure class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure></li>
+                            <li><figure data-hovercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure></li>
                         {{/each }}
                     </ul>
                     {{#unless isUpperInPartup}}

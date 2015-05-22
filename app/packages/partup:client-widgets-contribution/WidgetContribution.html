@@ -44,33 +44,45 @@
                 <p>{{ currentUser.profile.name }}</p>
             </div>
         {{ else }}
-            {{# if upperContribution }}
-                <div class="pu-contribution pu-contribution-own">
-                    <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
-                        <i class="fa fa-pencil"></i>
-                    </figure>
-                    {{# if addsValue }}
-                        <p>
-                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
-                            {{# if showSplit }} &mdash; {{/ if }}
-                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
-                        </p>
-                    {{ else }}
-                        <p class="pu-contribution-none">Voeg uren toe</p>
-                    {{/ if }}
+            {{# if contribution.archived }}
+                <div class="pu-contribution pu-contribution-removed">
+                    <p>{{_ 'contribution-removed' }}</p>
                 </div>
             {{ else }}
-                <div class="pu-contribution">
-                    <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
-                    {{# if addsValue }}
-                        <p>
-                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
-                            {{# if showSplit }} &mdash; {{/ if }}
-                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
-                        </p>
-                    {{/ if }}
-                </div>
+                {{# if upperContribution }}
+                    <div class="pu-contribution pu-contribution-own">
+                        <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
+                            <i class="fa fa-pencil"></i>
+                        </figure>
+                        {{# if addsValue }}
+                            <p>
+                                {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                                {{# if showSplit }} &mdash; {{/ if }}
+                                {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                            </p>
+                        {{ else }}
+                        <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
+                        {{/ if }}
+                    </div>
+                {{ else }}
+                    <div class="pu-contribution">
+                        <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
+                        {{# if addsValue }}
+                            <p>
+                                {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                                {{# if showSplit }} &mdash; {{/ if }}
+                                {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                            </p>
+                        {{/ if }}
+                        {{# if canVerifyContribution }}
+                        <div class="pu-sub-acceptbuttons">
+                            <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>
+                            <a class="pu-button pu-button-text pu-button-text-subtle" data-contribution-reject>{{_ 'contribution-reject'}}</a>
+                        </div>
+                        {{/ if }}
+                    </div>
 
+                {{/ if }}
             {{/ if }}
         {{/ if }}
     {{/ if }}

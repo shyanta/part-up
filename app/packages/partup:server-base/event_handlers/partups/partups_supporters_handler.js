@@ -4,12 +4,31 @@
 Event.on('partups.supporters.inserted', function (partup, upper) {
     var updateType = 'partups_supporters_added';
     var updateTypeData = { };
+    var existingUpdateId = Updates.findOne({ type: updateType, partup_id: partup._id, upper_id: upper._id }, { _id: 1 });
 
-    var update = Partup.factories.updatesFactory.make(userId, partup._id, updateType, updateTypeData);
+    // Update the update if one exists
+    if (existingUpdateId) {
+        Partup.services.system_messages.send(upper, existingUpdateId, 'system_supporters_added');
+
+        return;
+    }
+
+    var update = Partup.factories.updatesFactory.make(upper._id, partup._id, updateType, updateTypeData);
 
     // TODO: Validation
 
     Updates.insert(update);
+});
+
+/**
+ * Update the Update in a Partup when a Supporter stops supporting.
+ */
+Event.on('partups.supporters.removed', function (partup, upper) {
+    var existingUpdateId = Updates.findOne({ type: 'partups_supporters_added', partup_id: partup._id, upper_id: upper._id }, { _id: 1 });
+    
+    if (existingUpdateId) {
+        Partup.services.system_messages.send(upper, existingUpdateId, 'system_supporters_removed');
+    }
 });
 
 /**

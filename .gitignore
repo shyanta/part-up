@@ -19,3 +19,9 @@ app/packages/tests-proxy/
 
 # generated version file
 app/public/VERSION
+
+# backups
+backups
+
+# saved pictures
+app/uploads
