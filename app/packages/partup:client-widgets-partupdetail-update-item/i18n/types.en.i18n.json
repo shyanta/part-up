@@ -17,6 +17,7 @@
 
     "partupdetail-update-item-type-partups_activities_added-title": "Added activity",
     "partupdetail-update-item-type-partups_activities_changed-title": "Changed activity",
+    "partupdetail-update-item-type-partups_activities_removed-title": "@Removed an activity",
     "partupdetail-update-item-type-partups_activities_added_resource-title": "Added resource to activity",
     "partupdetail-update-item-type-partups_activities_added_contribution-title": "Added contribution to activity",
 
