@@ -1,5 +1,5 @@
 Accounts.onCreateUser(function(options, user) {
-    var imagePath;
+    var imageUrl;
     var profile = options.profile;
 
     var liData = mout.object.get(user, 'services.linkedin');
@@ -24,7 +24,7 @@ Accounts.onCreateUser(function(options, user) {
                 locale: 'en'
             }
         };
-        imagePath = liData.pictureUrl;
+        imageUrl = liData.pictureUrl;
         user.emails.push({ address: liData.emailAddress, verified: true });
     }
 
@@ -39,17 +39,20 @@ Accounts.onCreateUser(function(options, user) {
                 locale: Partup.helpers.parseLocale(fbData.locale)
             }
         };
-        imagePath = 'https://graph.facebook.com/' + fbData.id + '/picture?width=750';
+        imageUrl = 'https://graph.facebook.com/' + fbData.id + '/picture?width=750';
         user.emails.push({ address: fbData.email, verified: true });
     }
 
     try {
-        var image = new FS.File();
-        image.attachData(imagePath);
-        image.name(user.id + '.jpg', { save: false });
+        var result = HTTP.get(imageUrl, { 'npmRequestOptions': { 'encoding': null } });
+        var buffer = new Buffer(result.content, 'binary');
 
-        var savedImage = Images.insert(image);
-        profile.image = savedImage._id;
+        var ref = new FS.File();
+        ref.attachData(buffer, { type: 'image/jpeg' });
+        ref.name(user._id + '.jpg');
+
+        var image = Images.insert(ref);
+        profile.image = image._id;
     } catch (error) {
         Log.error(error.message);
     }
