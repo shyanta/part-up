@@ -109,21 +109,27 @@ Meteor.methods({
             throw new Meteor.Error(403, 'Email is already invited to the given partup.');
         }
 
+        // Compile the E-mail template and send the email
+        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
+        var url = Meteor.absoluteUrl() + 'partups/' + partup._id ;
+
+        Email.send({
+            to: email,
+            subject: 'Uitnodiging voor Part-up' + partup.name,
+            html: SSR.render('inviteUserEmail', { 
+                name: name,
+                partupName: partup.name,
+                partupDescription: partup.description,
+                inviterName: upper.name,
+                url: url
+            })
+        });
+
+        // Save the invite on the partup for further references
         var invite = {
             name: name,
             email: email
         }
-
-        // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
-
-        Email.send({
-            to: email,
-            subject: '@Invitation to Partup',
-            html: SSR.render('inviteUserEmail', { name: name })
-        });
-
-        // Save the invite on the partup for further references
         Partups.update(partupId, { $push: { 'invites': invite } });
 
         Event.emit('partups.invited', upper._id, partupId, email, name);
