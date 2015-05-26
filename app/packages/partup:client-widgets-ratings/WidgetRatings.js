@@ -8,6 +8,7 @@
 /* Widget initial */
 /*************************************************************/
 Template.WidgetRatings.onCreated(function(){
+    this.showHoverCard = new ReactiveVar(false);
 });
 
 /*************************************************************/
@@ -22,6 +23,9 @@ Template.WidgetRatings.helpers({
         if (!partup) return false;
 
         return mout.array.contains(partup.uppers, user._id);
+    },
+    showHoverCard: function(){
+        return Template.instance().showHoverCard.get();
     }
 });
 
@@ -29,4 +33,10 @@ Template.WidgetRatings.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetRatings.events({
+    'click .pu-avatar-icon': function(event, template){
+        // check if the click is inside the hovercard
+        if ($(event.target).closest('.pu-hovercard').length) return;
+
+        template.showHoverCard.set(!template.showHoverCard.get());
+    }
 });

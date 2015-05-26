@@ -5,6 +5,9 @@
             {{# if canRate }}
                 <li class="pu-avatar pu-avatar-icon">
                     <i class="fa fa-plus"></i>
+                    <article class="pu-hovercard pu-hovercard-position-bottom {{# if showHoverCard }}pu-hovercard-active{{/ if }}">
+                        {{> WidgetRating contribution=contribution }}
+                    </article>
                 </li>
             {{/ if }}
         </ul>

@@ -11,7 +11,24 @@
         float: left
 
     .pu-avatar
+        position: relative
         cursor: pointer
         font-size: 12px
         line-height: 24px
         text-align: center
+
+    .pu-hovercard
+        position: absolute
+        top: 100%
+        left: -104px
+        width: 230px
+        margin: 10px 0 0
+        padding: 20px
+
+        &:before,
+        &:after
+            left: 50%
+            margin-left: -10px
+
+        &:before
+            margin-left: -11px
