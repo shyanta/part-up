@@ -1,0 +1,1 @@
+Partup.services.placeholders.rating = {};

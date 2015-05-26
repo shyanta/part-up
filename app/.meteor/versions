@@ -107,6 +107,7 @@ partup:client-widgets-partupdetail-update-item@0.0.1
 partup:client-widgets-partupdetail-update-item-detail@0.0.1
 partup:client-widgets-partupdetail-updates@0.0.1
 partup:client-widgets-partuptile@0.0.1
+partup:client-widgets-rating@0.0.1
 partup:client-widgets-ratings@0.0.1
 partup:client-widgets-registeroptional@0.0.1
 partup:client-widgets-registerrequired@0.0.1
