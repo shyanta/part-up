@@ -32,6 +32,8 @@ Meteor.methods({
 
             newRating = Ratings.insert(newRating);
 
+            Event.emit('partups.ratings.inserted', upper._id, contribution.update_id, contribution.activity_id, contribution._id, newRating._id);
+
             // Post system message
             Partup.services.system_messages.send(upper, contribution.update_id, 'system_ratings_inserted');
 
@@ -71,6 +73,8 @@ Meteor.methods({
 
                 // Post system message
                 Partup.services.system_messages.send(upper, contribution.update_id, 'system_ratings_updated');
+
+                Event.emit('partups.ratings.updated', upper._id, contribution.update_id, contribution.activity_id, contribution._id, ratingId);
             }
 
             return newRating;
