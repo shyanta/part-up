@@ -1,5 +1,17 @@
 .pu-ratings
     font-size: 14px
+    @extend %clearfix
 
-    &-none
+    .pu-sub-no-rating
+        float: left
+        margin: 0 6px 0 0
         color: $color-solid-gray
+
+    .pu-avatar-stack
+        float: left
+
+    .pu-avatar
+        cursor: pointer
+        font-size: 12px
+        line-height: 24px
+        text-align: center
