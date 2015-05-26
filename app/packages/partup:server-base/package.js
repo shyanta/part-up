@@ -75,6 +75,10 @@ Package.onUse(function(api) {
         'i18n/nl.i18n.json'
     ], ['server']);
 
+    api.addFiles([
+        'methods/latencycompensation.js',
+    ], ['client']);
+
     api.export('Log', ['server']);
 });
 
