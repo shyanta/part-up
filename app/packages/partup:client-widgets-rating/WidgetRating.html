@@ -1,2 +1,13 @@
 <template name="WidgetRating">
+    {{# if canEdit }}
+        {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=rating validation='submitThenKeyup' }}
+            <figure class="pu-avatar pu-avatar-large" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
+
+            {{> afFieldInput type='range' name='rating' class='pu-input' }}
+            {{> afFieldInput name='feedback' class='pu-textarea' placeholder=placeholders.feedback rows=2 }}
+            <button type="submit" class="pu-button">{{_ 'rating-form-submit' }}</button>
+        {{/ autoForm }}
+    {{ else }}
+        rating view
+    {{/ if }}
 </template>
