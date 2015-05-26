@@ -36,19 +36,9 @@ AutoForm.hooks({
                     return false;
                 }
 
-                // Done
-                var done = function() {
-                    self.done();
-                    Partup.ui.intent.executeIntentCallback('reset-password');
-                };
+                self.done();
+                Partup.ui.intent.executeIntentCallback('reset-password');
 
-                // Try for auto login
-                var email = Meteor.call('users.email.form.token', token);
-                if(typeof email === 'string') {
-                    Meteor.loginWithPassword(email, insertDoc.password, done);
-                } else {
-                    done();
-                }
             });
 
             return false;
