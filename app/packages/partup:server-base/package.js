@@ -51,6 +51,7 @@ Package.onUse(function(api) {
         'event_handlers/users/users_settings_handler.js',
         'event_handlers/activities/activities_handler.js',
         'event_handlers/activities/contributions_handler.js',
+        'event_handlers/activities/ratings_handler.js',
         'fixtures.js',
         'publications/notifications.js',
         'publications/partups.js',
@@ -65,7 +66,6 @@ Package.onUse(function(api) {
         'methods/partups/partups_methods.js',
         'methods/partups/partups_supporters_methods.js',
         'methods/users/users_methods.js',
-        'methods/users/users_accounts_methods.js',
         'methods/services/flickr_methods.js',
         'methods/services/splashbase_methods.js',
         'methods/settings/settings_methods.js',
@@ -74,6 +74,10 @@ Package.onUse(function(api) {
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], ['server']);
+
+    api.addFiles([
+        'methods/latencycompensation.js',
+    ], ['client']);
 
     api.export('Log', ['server']);
 });
