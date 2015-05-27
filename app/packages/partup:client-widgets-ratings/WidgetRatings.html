@@ -11,7 +11,11 @@
                 </li>
             {{/ if }}
             {{# each ratings }}
-                <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></li>
+                <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})" data-rating-id="{{ _id }}">
+                    <article class="pu-hovercard pu-hovercard-position-bottom {{# if showHoverCard }}pu-hovercard-active{{/ if }}">
+                        {{> WidgetRating contribution=contribution rating=. }}
+                    </article>
+                </li>
             {{/ each }}
         </ul>
     </div>

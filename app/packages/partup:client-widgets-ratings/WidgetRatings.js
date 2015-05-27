@@ -9,7 +9,7 @@
 /* Widget initial */
 /*************************************************************/
 Template.WidgetRatings.onCreated(function(){
-    this.showHoverCard = new ReactiveVar(false);
+    this.showHoverCards = new ReactiveDict();
 });
 
 /*************************************************************/
@@ -20,7 +20,8 @@ Template.WidgetRatings.helpers({
         return Template.instance().data.contribution;
     },
     showHoverCard: function(){
-        return Template.instance().showHoverCard.get();
+        var id = this._id || 'new';
+        return Template.instance().showHoverCards.get(id);
     },
     showNewRating: function(){
         var user = Meteor.user();
@@ -46,10 +47,11 @@ Template.WidgetRatings.helpers({
 /* Widget events */
 /*************************************************************/
 Template.WidgetRatings.events({
-    'click .pu-avatar-icon': function(event, template){
+    'click .pu-avatar': function(event, template){
         // check if the click is inside the hovercard
         if ($(event.target).closest('.pu-hovercard').length) return;
 
-        template.showHoverCard.set(!template.showHoverCard.get());
+        var id = $(event.target).closest('.pu-avatar').data('rating-id') || 'new';
+        template.showHoverCards.set(id, !template.showHoverCards.get(id));
     }
 });
