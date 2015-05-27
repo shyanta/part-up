@@ -11,6 +11,29 @@ Template.WidgetFocuspoint.onCreated(function () {
 /*************************************************************/
 Template.WidgetFocuspoint.onRendered(function () {
     var template = this;
+
+    // Function to find image
+    var findImage = function () {
+        s
+        // Set focuspoint when image is found in mongo
+        template.dragged.set(false);
+        if (!template.data.imageId) return;
+
+        // Find image
+        var image = Images.findOne({ _id: template.data.imageId });
+        if (!image) return;
+
+        // Set dragged to true if the values aren't exactly 0.5
+        if (image.focuspoint && mout.lang.isNumber(image.focuspoint.x) && mout.lang.isNumber(image.focuspoint.y)) {
+            if (template.focuspoint) {
+                template.focuspoint.set(image.focuspoint.x, image.focuspoint.y);
+            }
+
+            if (image.focuspoint.x !== 0.5 || image.focuspoint.y !== 0.5) {
+                template.dragged.set(true);
+            }
+        }
+    };
     
     // Initialize focuspoint
     var focuspoint_edit = template.find('[data-focuspoint-edit]');
@@ -39,29 +62,11 @@ Template.WidgetFocuspoint.onRendered(function () {
             });
 
             template.data.focuspoint(template.focuspoint);
+
+            // Set focuspoint when image is found in mongo
+            template.autorun(findImage);
         });
     }
-
-    // Set focuspoint when image is found in mongo
-    template.autorun(function () {
-        template.dragged.set(false);
-        if (!template.data.imageId) return;
-
-        // Find image
-        var image = Images.findOne({ _id: template.data.imageId });
-        if (!image) return;
-
-        // Set dragged to true if the values aren't exactly 0.5
-        if (image.focuspoint && mout.lang.isNumber(image.focuspoint.x) && mout.lang.isNumber(image.focuspoint.y)) {
-            if (template.focupoint) {
-                template.focuspoint.set(image.focuspoint.x, image.focuspoint.y);
-            }
-
-            if (image.focuspoint.x !== 0.5 || image.focuspoint.y !== 0.5) {
-                template.dragged.set(true);
-            }
-        }
-    });
 });
 
 /*************************************************************/
