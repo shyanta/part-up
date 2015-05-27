@@ -14,7 +14,8 @@ Package.onUse(function(api){
         'templating',
         'aldeed:autoform',
         'partup:lib',
-        'reactive-var'
+        'reactive-var',
+        'lifely:mout'
     ], 'client');
 
     api.addFiles([

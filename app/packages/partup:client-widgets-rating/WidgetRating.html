@@ -1,6 +1,6 @@
 <template name="WidgetRating">
     {{# if canEdit }}
-        {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=rating validation='submitThenKeyup' }}
+        {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=rating }}
             <figure class="pu-avatar pu-avatar-large" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
 
             {{> afFieldInput type='range' name='rating' class='pu-input' }}

@@ -9,6 +9,7 @@
 /* Widget initial */
 /*************************************************************/
 Template.WidgetRating.onCreated(function(){
+    this.contribution = this.data.contribution;
 });
 
 /*************************************************************/
@@ -41,7 +42,14 @@ Template.WidgetRating.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
+var save = function(event, template){
+    var form = template.find('#ratingCreateForm-' + template.data.contribution._id);
+    $(form).submit();
+};
+
 Template.WidgetRating.events({
+    'blur [name=feedback]': save,
+    'blur [name=rating]': save
 });
 
 /*************************************************************/
@@ -50,6 +58,17 @@ Template.WidgetRating.events({
 AutoForm.addHooks(null, {
     onSubmit: function(doc){
         if (!/rating(Create|Edit)Form/.test(this.formId)) return;
+
+        var self = this;
+        var template = this.template.parentTemplate();
+
+        Meteor.call('ratings.insert', template.contribution._id, doc, function(error){
+            if (error){
+                return console.error(error);
+            }
+
+            self.done();
+        });
 
         return false;
     }
