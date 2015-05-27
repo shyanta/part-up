@@ -10,6 +10,10 @@ Meteor.publish('partups.supported', function () {
     return Partups.find({});
 });
 
+Meteor.publish('partups.list', function () {
+    return Partups.find({}, { _id: 1, name: 1 });
+});
+
 Meteor.publishComposite('partups.one.activities', function (partupId) {
     return {
         find: function() {
