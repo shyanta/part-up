@@ -1,9 +1,4 @@
 /*************************************************************/
-/* Widget initial */
-/*************************************************************/
-
-
-/*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.CopyActivityPopup.helpers({
@@ -20,5 +15,10 @@ Template.CopyActivityPopup.rendered = function() {
 };
 
 /*************************************************************/
-/* Widget form hooks */
+/* Widget events */
 /*************************************************************/
+Template.CopyActivityPopup.events({
+    'click [data-copyactivities]': function clickCopyActivities(event, template) {
+        Meteor.call('activities.copy', template.find('[name=partup]').value, Router.current().params._id);
+    }
+});
