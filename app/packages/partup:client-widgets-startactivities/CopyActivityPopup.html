@@ -9,9 +9,10 @@
             <span class="pu-label">{{_ 'startactivities-popup-form-copy-label'}}</span>
 
             <div class="pu-sub-validations">
-                <span class="pu-sub-input">
-                    {{> afFieldInput name='fromPartupId' placeholder=placeholders.search_partup class='pu-input typeahead'
-                    autocomplete="off" spellcheck="off" data-source="partups" }}
+                <span class="pu-sub-input pu-autocomplete">
+                    <input class="pu-input typeahead" name="partup" type="text"
+                           placeholder="{{_ 'startactivities-popup-form-copy-placeholder'}}" autocomplete="off" spellcheck="off"
+                           data-source="partups"/>
                 </span>
                 <span class="pu-sub-error">ERROR</span>
             </div>
