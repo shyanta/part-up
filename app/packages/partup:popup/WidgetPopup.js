@@ -2,7 +2,7 @@ Template.registerHelper('partupPopupActive', function(name){
     return name === Session.get('partup.popup-active');
 });
 
-Template.body.onRendered(function(){
+Meteor.startup(function () {
     $('body').on('click', '[data-popup]', function(e){
         console.log(e, 'click');
         var popupId = $(this).data('popup');

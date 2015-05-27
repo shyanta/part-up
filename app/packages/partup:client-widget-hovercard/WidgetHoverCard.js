@@ -1,4 +1,4 @@
-Template.body.onRendered(function(){
+Meteor.startup(function () {
     // remember the timeout id
     var showProfileTimeout;
 
