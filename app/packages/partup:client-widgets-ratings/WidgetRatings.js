@@ -24,7 +24,7 @@ Template.WidgetRatings.helpers({
     },
     showNewRating: function(){
         var user = Meteor.user();
-        if (!user) return false;
+        if (!user || user._id === this.contribution.upper_id) return false;
 
         var partup = Partups.findOne({_id: this.contribution.partup_id});
         if (!partup) return false;
