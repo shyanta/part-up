@@ -152,20 +152,22 @@
 
                 {{#if partupImage.uploaded.get }}
 
-                    <figure class="pu-imagepreview pu-imagepreview-cover" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}" data-focuspoint-view>
+                    <figure class="pu-imagepreview pu-imagepreview-cover {{#if draggingFocuspoint}}pu-imagepreview-draggingfocuspoint{{/if}}" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}" data-focuspoint-view>
                         <div class="pu-sub-loadercontainer {{#if partupLoading 'image-uploading' 'setting-suggestion' }}pu-sub-loadercontainer-active{{/if}}">
                             {{> WidgetLoader }}
                         </div>
                         {{> WidgetFocuspoint imageId=partupImage.currentImageId.get view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
-                        <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
-                            <span>{{_ 'startdetails-image-button-overwrite'}}</span>
-                            {{#if uploadingPicture}}
-                                {{> WidgetSpinnerInverted}}
-                            {{/if}}
-                        </label>
-                        <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
-                            <i class="fa fa-remove"></i>
-                        </button>
+                        <div class="pu-sub-buttons">
+                            <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
+                                <span>{{_ 'startdetails-image-button-overwrite'}}</span>
+                                {{#if uploadingPicture}}
+                                    {{> WidgetSpinnerInverted}}
+                                {{/if}}
+                            </label>
+                            <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
+                                <i class="fa fa-remove"></i>
+                            </button>
+                        </div>
                     </figure>
 
                 {{ else }}

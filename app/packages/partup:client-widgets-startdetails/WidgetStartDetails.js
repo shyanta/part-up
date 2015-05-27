@@ -107,6 +107,7 @@ Template.WidgetStartDetails.onCreated(function() {
     template.imageSystem = new ImageSystem(template);
     template.budgetType = new ReactiveVar();
     template.budgetTypeChanged = new ReactiveVar();
+    template.draggingFocuspoint = new ReactiveVar(false);
 
     template.autorun(function () {
         var pId = Session.get('partials.start-partup.current-partup');
@@ -143,7 +144,13 @@ Template.WidgetStartDetails.onCreated(function() {
     });
 
     template.setFocuspoint = function (focuspoint) {
-        focuspoint.on('drag:end', template.imageSystem.storeFocuspoint);
+        focuspoint.on('drag:start', function () {
+            template.draggingFocuspoint.set(true);
+        });
+        focuspoint.on('drag:end', function (x, y) {
+            template.draggingFocuspoint.set(false); 
+            template.imageSystem.storeFocuspoint(x, y);
+        });
         template.focuspoint = focuspoint;
     };
 
@@ -241,6 +248,9 @@ Template.WidgetStartDetails.helpers({
     },
     onFocuspointUpdate: function () {
         return Template.instance().imageSystem.storeFocuspoint;
+    },
+    draggingFocuspoint: function () {
+        return Template.instance().draggingFocuspoint.get();
     }
 });
 

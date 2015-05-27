@@ -31,16 +31,23 @@
         height: 236px
         border: none
 
-        .pu-sub-left,
-        .pu-sub-right
+        .pu-sub-buttons
             position: absolute
-            bottom: 20px
-
-        .pu-sub-left
             left: 20px
-
-        .pu-sub-right
             right: 20px
+            bottom: 20px
+            transition: opacity .2s
+
+            .pu-sub-left
+                float: left
+
+            .pu-sub-right
+                float: right
+
+            &:after
+                content: ''
+                display: block
+                clear: both
 
         .pu-sub-loadercontainer
             display: block
@@ -61,3 +68,8 @@
 
             &-active
                 opacity: 1
+
+        &.pu-imagepreview-draggingfocuspoint
+            .pu-sub-buttons
+                opacity: .2
+                pointer-events: none
