@@ -1,6 +1,8 @@
 /*************************************************************/
 /* Router Helpers */
 /*************************************************************/
+// if more than one route needs the same settings (for Abstract route behaviour)
+// Redirects cause buggy browser back button
 var settingsWithName = function(settingsObj, name){
     settingsObj.name = name;
     return settingsObj;
@@ -63,7 +65,7 @@ var profileSettings = {
         this.next();
     }
 };
-// Abstract route behaviour
+// Abstract route behaviour, redirects cause buggy back buttons in browser
 Router.route('/profile', settingsWithName(profileSettings, 'profile'));
 Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
 
@@ -122,7 +124,7 @@ var partupSettings = {
     }
 };
 // this way both /partups/id and partups/id/updates are the default updates page
-// Abstract route behaviour
+// Abstract route behaviour, redirects cause buggy back buttons in browser
 Router.route('/partups/:_id', settingsWithName(partupSettings, 'partup'));
 Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-detail'));
 
