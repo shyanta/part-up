@@ -7,6 +7,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
     this.currentImageId = new ReactiveVar(false);
     this.uploaded = new ReactiveVar(false);
     this.availableSuggestions = new ReactiveVar([]);
+    this.focuspoint = new ReactiveDict();
 
     this.getSuggestions = function (tags) {
         if(!tags || !tags.length) {
@@ -54,6 +55,11 @@ var ImageSystem = function ImageSystemConstructor (template) {
         self.uploaded.set(false);
     };
 
+    this.storeFocuspoint = function (x, y) {
+        self.focuspoint.set('x', x);
+        self.focuspoint.set('y', y);
+    };
+
     // Set suggestion
     var setSuggestionByIndex = function (index) {
 
@@ -82,9 +88,11 @@ var ImageSystem = function ImageSystemConstructor (template) {
             self.currentImageId.set(false);
             self.uploaded.set(false);
             setSuggestionByIndex(suggestionIndex);
+            self.storeFocuspoint(0.5, 0.5);
         }
     });
 };
+
 
 /*************************************************************/
 /* Widget on created */
@@ -99,6 +107,7 @@ Template.WidgetStartDetails.onCreated(function() {
     template.imageSystem = new ImageSystem(template);
     template.budgetType = new ReactiveVar();
     template.budgetTypeChanged = new ReactiveVar();
+    template.draggingFocuspoint = new ReactiveVar(false);
 
     template.autorun(function () {
         var pId = Session.get('partials.start-partup.current-partup');
@@ -133,8 +142,32 @@ Template.WidgetStartDetails.onCreated(function() {
             }, 0);
         });
     });
-    
+
+    template.setFocuspoint = function (focuspoint) {
+        focuspoint.on('drag:start', function () {
+            template.draggingFocuspoint.set(true);
+        });
+        focuspoint.on('drag:end', function (x, y) {
+            template.draggingFocuspoint.set(false); 
+            template.imageSystem.storeFocuspoint(x, y);
+        });
+        template.focuspoint = focuspoint;
+    };
+
+    template.unsetFocuspoint = function () {
+        template.focuspoint = undefined;
+    };
+
+    template.autorun(function () {
+        var imageId = template.imageSystem.currentImageId.get();
+
+        if (imageId && template.focuspoint) {
+            template.focuspoint.set(0.5, 0.5);
+        }
+    });
+
 });
+
 
 /*************************************************************/
 /* Widget helpers */
@@ -200,6 +233,24 @@ Template.WidgetStartDetails.helpers({
     },
     budgetTypeChanged: function () {
         return Template.instance().budgetTypeChanged.get();
+    },
+    setFocuspoint: function () {
+        return Template.instance().setFocuspoint;
+    },
+    unsetFocuspoint: function () {
+        return Template.instance().unsetFocuspoint;
+    },
+    focuspointView: function () {
+        return {
+            template: Template.instance(),
+            selector: '[data-focuspoint-view]'
+        };
+    },
+    onFocuspointUpdate: function () {
+        return Template.instance().imageSystem.storeFocuspoint;
+    },
+    draggingFocuspoint: function () {
+        return Template.instance().draggingFocuspoint.get();
     }
 });
 
@@ -219,6 +270,7 @@ Template.WidgetStartDetails.events({
             Partup.ui.uploader.uploadImage(file, function (error, image) {
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);
+                template.imageSystem.storeFocuspoint(0.5, 0.5);
                 template.loading.set('image-uploading', false);
             });
         });
@@ -247,11 +299,11 @@ Template.WidgetStartDetails.events({
 /*************************************************************/
 /* Widget create partup */
 /*************************************************************/
-var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, callback) {
+var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, extraDoc, callback) {
     if(partupId) {
 
         // Partup already exists. Update.
-        Meteor.call('partups.update', partupId, insertDoc, function(error, res){
+        Meteor.call('partups.update', partupId, insertDoc, extraDoc, function(error, res){
             if(error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
@@ -271,7 +323,7 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
     } else {
 
         // Partup does not exists yet. Insert.
-        Meteor.call('partups.insert', insertDoc, function(error, res){
+        Meteor.call('partups.insert', insertDoc, extraDoc, function(error, res){
             if(error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
@@ -302,7 +354,21 @@ AutoForm.hooks({
             var partupId = Session.get('partials.start-partup.current-partup');
             var submissionType = Session.get('partials.start-partup.submission-type') || 'next';
 
-            createOrUpdatePartup(partupId, insertDoc, function (id) {
+            var parentTemplate = this.template.parent();
+            var focuspointDict = mout.object.get(parentTemplate, 'imageSystem.focuspoint');
+
+            var extraDoc = {};
+            if (focuspointDict) {
+                var x = focuspointDict.get('x');
+                var y = focuspointDict.get('y');
+                if (mout.lang.isNumber(x) && mout.lang.isNumber(y)) {
+                    extraDoc.focuspoint_x = x;
+                    extraDoc.focuspoint_y = y;
+                }
+            }
+
+            createOrUpdatePartup(partupId, insertDoc, extraDoc, function (id) {
+
                 if(submissionType === 'next') {
                     Router.go('start-activities', {_id: id});
                 } else if (submissionType === 'skip') {
