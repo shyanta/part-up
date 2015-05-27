@@ -152,6 +152,31 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be archived.');
         }
+    },
+
+    /**
+     * Copy activities from one Partup to another
+     *
+     * @param  {string} fromPartupId
+     * @param  {string} toPartupId
+     */
+    'activities.copy': function (fromPartupId, toPartupId) {
+        var upper = Meteor.user();
+        if (!upper) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        try {
+            Activities.find( { partup_id: fromPartupId } ).forEach(function (activity) {
+                activity.partup_id = toPartupId;
+                Activities.insert(activity);
+            });
+
+            return true;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'Activities from Partup [' + fromPartupId + '] could not be copied.');
+        }
     }
 
 });
