@@ -22,6 +22,17 @@ Template.CopyActivityPopup.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
+Template.CopyActivityPopup.events({
+    'submit form': function(event, template) {
+        return false;
+    },
+    'click [data-copyactivities]': function clickCopyActivities(event, template) {
+        Meteor.call('activities.copy', selectedPartup, Router.current().params._id, function (error, result) {
+            if (error) {
+                return Partup.ui.notify.iError('error-method-' + error.reason);
+            } else {
+                template.find('[name=partup]').value = null;
+                Partup.ui.popup.close();
             }
         });
     }
