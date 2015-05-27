@@ -22,6 +22,7 @@ Template.WidgetCommentField.onRendered(function () {
 });
 
 Template.WidgetCommentField.helpers({
+    placeholders: Partup.services.placeholders.commentfield,
     'generateFormId': function () {
         return 'commentForm-' + this.update._id;
     },
