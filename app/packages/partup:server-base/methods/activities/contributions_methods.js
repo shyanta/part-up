@@ -96,7 +96,9 @@ Meteor.methods({
 
             // Post system message for each accepted contribution
             conceptContributions.forEach(function (contribution) {
-                Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_accepted');
+                if (contribution.update_id) {
+                    Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_accepted');
+                }
             });
         } catch (error) {
             Log.error(error);
