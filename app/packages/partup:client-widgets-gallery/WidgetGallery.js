@@ -50,7 +50,7 @@ Template.WidgetGallery.helpers({
             template: Template.instance(),
             selector: '[data-focuspoint-view]'
         };
-    },
+    }
 });
 
 

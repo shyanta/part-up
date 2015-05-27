@@ -156,7 +156,7 @@
                         <div class="pu-sub-loadercontainer {{#if partupLoading 'image-uploading' 'setting-suggestion' }}pu-sub-loadercontainer-active{{/if}}">
                             {{> WidgetLoader }}
                         </div>
-                        {{> WidgetFocuspoint x=0.5 y=0.5 view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
+                        {{> WidgetFocuspoint imageId=partupImage.currentImageId.get view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
                         <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
                             <span>{{_ 'startdetails-image-button-overwrite'}}</span>
                             {{#if uploadingPicture}}
