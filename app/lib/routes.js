@@ -249,6 +249,7 @@ Router.route('/start/:_id/activities', {
     subscriptions: function () {
         this.subscribe('partups.one', this.params._id);
         this.subscribe('partups.one.activities', this.params._id);
+        this.subscribe('partups.list');
     },
     action: function() {
         Session.set('partials.start-partup.current-partup', this.params._id);

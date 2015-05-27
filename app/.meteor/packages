@@ -68,6 +68,7 @@ tap:i18n
 tmeasday:publish-counts
 velocity:console-reporter
 zimme:iron-router-active
+sergeyt:typeahead
 partup:client-widgets-partupdetail-activities-detail
 partup:client-widgets-commentfield
 cfs:standard-packages
