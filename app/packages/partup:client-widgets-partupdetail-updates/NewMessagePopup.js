@@ -3,6 +3,8 @@ Template.NewMessagePopup.onCreated(function(){
 
     template.uploadingPhotos = new ReactiveVar(false);
     template.uploadedPhotos = new ReactiveVar([]);
+    template.maxPhotos = 4;
+    template.totalPhotos = new ReactiveVar(0);
 });
 
 // helpers
@@ -14,6 +16,9 @@ Template.NewMessagePopup.helpers({
     },
     uploadedPhotos: function(){
         return Template.instance().uploadedPhotos.get();
+    },
+    photoLimitReached: function(){
+        return (Template.instance().totalPhotos.get() === 4) ? true : false;
     }
 });
 
@@ -28,13 +33,18 @@ Template.NewMessagePopup.events({
     },
     'change [data-photo-input]': function eventChangeFile(event, template){
         template.uploadingPhotos.set(true);
+        var total = Template.instance().totalPhotos.get();
         FS.Utility.eachFile(event, function (file) {
+            if(total === template.maxPhotos) return;
+
             Partup.ui.uploader.uploadImage(file, function (error, image) {
                 var uploaded = template.uploadedPhotos.get();
                 uploaded.push(image._id);
                 template.uploadedPhotos.set(uploaded);
                 template.uploadingPhotos.set(false);
             });
+            total++;
+            Template.instance().totalPhotos.set(total);
         });
     },
     'click [data-close]': function clearForm(event, template){
@@ -46,6 +56,9 @@ Template.NewMessagePopup.events({
         var uploadedPhotos = template.uploadedPhotos.get();
         mout.array.remove(uploadedPhotos, imageId);
         template.uploadedPhotos.set(uploadedPhotos);
+        var total = Template.instance().totalPhotos.get();
+        total--;
+        Template.instance().totalPhotos.set(total);
     }
 });
 

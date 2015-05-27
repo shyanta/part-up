@@ -9,7 +9,7 @@
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
                     <div class="pu-message">
-                        {{> afFieldInput name="text" placeholder=placeholders.text class="pu-textarea" rows=3 }}
+                        {{> afFieldInput name="text" placeholder=placeholders.text class="pu-textarea" rows=3}}
                         {{#if uploadedPhotos.length}}
                             <ul class="pu-sub-photos">
                             
@@ -31,7 +31,7 @@
             <input type="submit" class="pu-button" value="{{_ 'partupdetail-updates-popup-newmessage-submit'}}">
             <a class="pu-button pu-button-gray" data-close>{{_ 'partupdetail-updates-popup-newmessage-close'}}</a>
             <div class="pu-formfield-right">
-                <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}}" data-browse-photos>
+                <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}} {{#if photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
                     <span>{{_ 'partupdetail-updates-popup-newmessage-addphoto'}}</span>
                     {{#if uploadingPhotos}}
                         {{> WidgetSpinnerInverted}}
