@@ -166,6 +166,10 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
+        // Check if both Partup IDs are valid
+        Partups.findOneOrFail(fromPartupId);
+        Partups.findOneOrFail(toPartupId);
+
         try {
             Activities.find( { partup_id: fromPartupId } ).forEach(function (activity) {
                 activity.partup_id = toPartupId;
