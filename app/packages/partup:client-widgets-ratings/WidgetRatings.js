@@ -48,6 +48,7 @@ Template.WidgetRatings.helpers({
 /*************************************************************/
 Template.WidgetRatings.events({
     'click .pu-avatar': function(event, template){
+        event.stopPropagation();
         // check if the click is inside the hovercard
         if ($(event.target).closest('.pu-hovercard').length) return;
 
