@@ -5,20 +5,32 @@ if (!(typeof MochaWeb === 'undefined')){
 
             beforeEach(function (done) {
                 Meteor.loginWithPassword('user@example.com', 'user');
-                Session.set('partials.create-partup.current-partup', '1111');
-                Router.go('start');
-                Tracker.afterFlush(done);
+                done();
             });
 
-            beforeEach(waitForRouter);
+            it("should render the partup form", function(done){
+                var div = document.createElement("DIV");
+                Blaze.render(Template.WidgetStartDetails, div);
 
-            xit("should greet the currently loggedin user", function(){
-                chai.expect($(".pu-title").first().text()).to.contain("Default");
+                console.log('hit');
+                console.log(div);
+                chai.expect($(div).find("#partupForm").first()).to.be.defined;
+                done();
             });
 
-            //it("should render current-partup details in input fields", function(){
-            //    chai.expect($("[data-schema-key=\"name\"]").val()).to.contain("First awesome Part-Up!");
-            //});
+            it("should be able to go to the next wizard step", function(done){
+                var div = document.createElement("DIV");
+                Blaze.render(Template.WidgetStartDetails, div);
+
+                chai.expect($(div).find('[data-submission-type="next"]').first()).to.be.defined;
+                done();
+            });
+
+            it("should render current-partup details in input fields", function(done){
+                Session.set('partials.start-partup.current-partup', '1111');
+                chai.expect($("[data-schema-key=\"name\"]").val()).to.contain("First awesome Part-Up!");
+                done();
+            });
 
         });
     });
