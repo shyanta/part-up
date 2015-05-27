@@ -152,10 +152,11 @@
 
                 {{#if partupImage.uploaded.get }}
 
-                    <figure class="pu-imagepreview pu-imagepreview-cover" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}">
+                    <figure class="pu-imagepreview pu-imagepreview-cover" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}" data-focuspoint-view>
                         <div class="pu-sub-loadercontainer {{#if partupLoading 'image-uploading' 'setting-suggestion' }}pu-sub-loadercontainer-active{{/if}}">
                             {{> WidgetLoader }}
                         </div>
+                        {{> WidgetFocuspoint x=0.5 y=0.5 view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
                         <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
                             <span>{{_ 'startdetails-image-button-overwrite'}}</span>
                             {{#if uploadingPicture}}
@@ -178,7 +179,7 @@
 
                     <p class="pu-textline"><span>{{_ 'startdetails-suggestion-label'}}</span></p>
                     {{#if partupImage.availableSuggestions.get }}
-                        {{> WidgetGallery loading=galleryIsLoading pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter }}
+                        {{> WidgetGallery loading=galleryIsLoading pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter fp_update=onFocuspointUpdate }}
                     {{ else }}
                         <figure class="pu-gallery pu-gallery-placeholder">
                             <div class="pu-sub-loadercontainer {{#if partupLoading 'suggesting-images' 'image-uploading' }}pu-sub-loadercontainer-active{{/if}}">

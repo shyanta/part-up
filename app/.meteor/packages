@@ -74,3 +74,5 @@ cfs:standard-packages
 partup:client-widget-hovercard
 partup:client-widgets-inviteuppers
 cfs:filesystem
+lifely:focuspoint
+partup:client-widgets-focuspoint

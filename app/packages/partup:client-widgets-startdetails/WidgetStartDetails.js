@@ -86,6 +86,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
     });
 };
 
+
 /*************************************************************/
 /* Widget on created */
 /*************************************************************/
@@ -133,8 +134,30 @@ Template.WidgetStartDetails.onCreated(function() {
             }, 0);
         });
     });
-    
+
+    template.onFocuspointUpdate = function (x, y) {
+        console.log('updated focuspoint', x, y);
+    };
+
+    template.setFocuspoint = function (focuspoint) {
+        focuspoint.on('drag:end', template.onFocuspointUpdate);
+        template.focuspoint = focuspoint;
+    };
+
+    template.unsetFocuspoint = function () {
+        template.focuspoint = undefined;
+    };
+
+    template.autorun(function () {
+        var imageId = template.imageSystem.currentImageId.get();
+
+        if (imageId && template.focuspoint) {
+            template.focuspoint.set(0.5, 0.5);
+        }
+    });
+
 });
+
 
 /*************************************************************/
 /* Widget helpers */
@@ -200,6 +223,21 @@ Template.WidgetStartDetails.helpers({
     },
     budgetTypeChanged: function () {
         return Template.instance().budgetTypeChanged.get();
+    },
+    setFocuspoint: function () {
+        return Template.instance().setFocuspoint;
+    },
+    unsetFocuspoint: function () {
+        return Template.instance().unsetFocuspoint;
+    },
+    focuspointView: function () {
+        return {
+            template: Template.instance(),
+            selector: '[data-focuspoint-view]'
+        };
+    },
+    onFocuspointUpdate: function () {
+        return Template.instance().onFocuspointUpdate;
     }
 });
 
