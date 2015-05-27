@@ -64,15 +64,3 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
 Partup.schemas.forms.startActivities = new SimpleSchema([activityBaseSchema, {
     //
 }]);
-
-/**
- * Activity copy schema
- * @name copyActivities
- * @memberOf partup.schemas.forms
- */
-Partup.schemas.forms.copyActivities = new SimpleSchema({
-    fromPartupId: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    }
-});

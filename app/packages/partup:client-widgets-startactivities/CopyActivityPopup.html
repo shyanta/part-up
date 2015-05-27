@@ -4,7 +4,7 @@
     {{/contentFor}}
     <p>{{_ 'startactivities-popup-description'}}</p>
 
-    {{#autoForm schema=formSchema id=generateFormId class='pu-form pu-form-popup' }}
+    <form class="pu-form pu-form-popup">
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'startactivities-popup-form-copy-label'}}</span>
 
@@ -25,5 +25,5 @@
                 <input class="pu-button" type="submit" value="{{_ 'startactivities-popup-form-copy-confirm'}}">
             </div>
         </div>
-    {{/autoForm}}
+    </form>
 </template>
