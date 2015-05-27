@@ -1,4 +1,12 @@
 /*************************************************************/
+/* Router Helpers */
+/*************************************************************/
+var settingsWithName = function(settingsObj, name){
+    settingsObj.name = name;
+    return settingsObj;
+};
+
+/*************************************************************/
 /* Home */
 /*************************************************************/
 Router.route('/', {
@@ -36,12 +44,7 @@ Router.route('/discover', {
 /*************************************************************/
 /* Profile */
 /*************************************************************/
-Router.route('/profile', function(){
-    this.redirect('profile-detail', {_id: Meteor.userId()});
-});
-
-Router.route('/profile/:_id', {
-    name: 'profile-detail',
+var profileSettings = {
     where: 'client',
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
@@ -52,19 +55,24 @@ Router.route('/profile/:_id', {
     subscriptions: function () {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
+    },
+    onBeforeAction: function(){
+        if(!this.params._id){
+            this.params._id = Meteor.userId();
+        }
+        this.next();
     }
-});
+};
+// Abstract route behaviour
+Router.route('/profile', settingsWithName(profileSettings, 'profile'));
+Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
 
 
 
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
-Router.route('/partups/:_id', function(){
-    this.redirect('partup-detail', {_id: this.params._id});
-});
-Router.route('/partups/:_id/updates', {
-    name: 'partup-detail',
+var partupSettings = {
     where: 'client',
     layoutTemplate: 'LayoutsMain',
     yieldRegions: {
@@ -112,7 +120,11 @@ Router.route('/partups/:_id/updates', {
         }
         SEO.set(seoMetaData);
     }
-});
+};
+// this way both /partups/id and partups/id/updates are the default updates page
+// Abstract route behaviour
+Router.route('/partups/:_id', settingsWithName(partupSettings, 'partup'));
+Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-detail'));
 
 Router.route('/partups/:_id/updates/:update_id', {
     name: 'partup-detail-update',
