@@ -290,9 +290,13 @@ Template.WidgetStartDetails.events({
         var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget).val());
         Template.instance().imageSystem.getSuggestions(tags);
     },
-    'click [data-submission-type]': function eventClickSetSubmissionType (event) {
-        var submissionType = event.currentTarget.getAttribute('data-submission-type');
+    'click [data-submission-type]': function eventClickSetSubmissionType (event, template) {
+        var button = event.currentTarget;
+        var submissionType = button.getAttribute('data-submission-type');
         Session.set('partials.start-partup.submission-type', submissionType);
+
+        var form = template.find('#partupForm');
+        $(form).submit();
     },
     'click [data-removedate]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();
