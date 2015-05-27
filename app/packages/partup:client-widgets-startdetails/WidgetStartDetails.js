@@ -136,10 +136,14 @@ Template.WidgetStartDetails.onCreated(function() {
         this.autorun(function () {
             AutoForm.getFieldValue('budget_type');
 
-            setTimeout(function () {
-                var budget_type = AutoForm.getFieldValue('budget_type', 'partupForm');
-                template.budgetType.set(budget_type);
-            }, 0);
+            Meteor.setTimeout(function () {
+                try {
+                    var budget_type = AutoForm.getFieldValue('budget_type', 'partupForm');
+                    template.budgetType.set(budget_type);
+                } catch (e) {
+                    return;
+                }
+            });
         });
     });
 
