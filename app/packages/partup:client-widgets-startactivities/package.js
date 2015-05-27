@@ -15,7 +15,8 @@ Package.onUse(function (api) {
         'aldeed:autoform',
         'partup:lib',
         'reactive-var',
-        'reactive-dict'
+        'reactive-dict',
+        'sergeyt:typeahead'
     ], 'client');
 
     api.addFiles([

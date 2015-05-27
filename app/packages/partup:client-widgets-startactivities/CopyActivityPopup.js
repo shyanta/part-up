@@ -1,17 +1,19 @@
+Template.CopyActivityPopup.onRendered(function() {
+    Meteor.typeahead.inject();
+});
+
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.CopyActivityPopup.helpers({
     partups: function () {
-        return Partups.find().fetch().map(function (partup) {
+        return Partups.find({}).map(function (partup) {
+            console.log(partup);
             return { id: partup._id, value: partup.name };
         });
     }
 });
-
-Template.CopyActivityPopup.rendered = function() {
-    Meteor.typeahead.inject();
-};
 
 /*************************************************************/
 /* Widget events */
