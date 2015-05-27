@@ -3,19 +3,25 @@
         {{_ 'startactivities-popup-title'}}
     {{/contentFor}}
     <p>{{_ 'startactivities-popup-description'}}</p>
+
     <form class="pu-form pu-form-popup">
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'startactivities-popup-form-copy-label'}}</span>
+
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
-                    <input class="pu-input" type="text" placeholder="{{_ 'startactivities-popup-form-copy-placeholder'}}">
+                    <input class="pu-input typeahead" name="partups" type="text"
+                           placeholder="{{_ 'startactivities-popup-form-copy-placeholder'}}" autocomplete="off" spellcheck="off"
+                           data-source="partups"/>
                 </span>
                 <span class="pu-sub-error">ERROR</span>
             </div>
         </label>
+
         <div class="pu-formfield">
             <div class="pu-formfield-right">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-close>{{_ 'startactivities-popup-close'}}</a>
+                <a class="pu-button pu-button-text pu-button-text-subtle"
+                   data-close>{{_ 'startactivities-popup-close'}}</a>
                 <input class="pu-button" type="submit" value="{{_ 'startactivities-popup-form-copy-confirm'}}">
             </div>
         </div>
