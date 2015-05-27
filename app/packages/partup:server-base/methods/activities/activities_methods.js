@@ -171,9 +171,20 @@ Meteor.methods({
         Partups.findOneOrFail(toPartupId);
 
         try {
-            Activities.find( { partup_id: fromPartupId } ).forEach(function (activity) {
-                activity.partup_id = toPartupId;
-                Activities.insert(activity);
+            var existingActivities = Activities.find( { partup_id: fromPartupId } );
+            existingActivities.forEach(function (activity) {
+                var newActivity = {
+                    name: activity.name,
+                    description: activity.description,
+                    end_date: activity.end_date,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                    creator_id: upper._id,
+                    partup_id: toPartupId,
+                    archived: false
+                };
+
+                Activities.insert(newActivity);
             });
 
             return true;
