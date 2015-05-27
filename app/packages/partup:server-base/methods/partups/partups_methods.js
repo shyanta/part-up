@@ -17,8 +17,12 @@ Meteor.methods({
             //check(newPartup, Partup.schemas.entities.partup);
 
             // Check focuspoint values if given
+            var focusX, focusY;
             if (extraFields && extraFields.focuspoint_x && extraFields.focuspoint_y) {
-                if (!mout.lang.isNumber(focuspoint_x) || !mout.lang.isNumber(focuspoint_y) || focuspoint_x < 0 || focuspoint_x > 1 || focuspoint_y < 0 || focuspoint_y > 1) {
+                focusX = extraFields.focuspoint_x;
+                focusY = extraFields.focuspoint_y;
+
+                if (!mout.lang.isNumber(focusX) || !mout.lang.isNumber(focusY) || focusX < 0 || focusX > 1 || focusY < 0 || focusY > 1) {
                     throw new Meteor.Error(400, 'Invalid focus input.');
                 }
             }
@@ -28,11 +32,11 @@ Meteor.methods({
             Meteor.users.update(upper._id, { $push: { 'upperOf': newPartup._id } });
 
             // Update focuspoint by imageId
-            if (extraFields && extraFields.focuspoint_x && extraFields.focuspoint_y) {
+            if (mout.lang.isNumber(focusX) && mout.lang.isNumber(focusY)) {
                 Images.update({ _id: newPartup.image }, {
                     $set: { focuspoint: {
-                            x: extraFields.focuspoint_x,
-                            y: extraFields.focuspoint_y
+                            x: focusX,
+                            y: focusY
                     }}
                 });
             }
