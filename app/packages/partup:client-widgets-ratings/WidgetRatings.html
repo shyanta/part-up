@@ -10,6 +10,9 @@
                     </article>
                 </li>
             {{/ if }}
+            {{# each ratings }}
+                <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></li>
+            {{/ each }}
         </ul>
     </div>
 </template>

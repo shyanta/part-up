@@ -36,6 +36,9 @@ Template.WidgetRatings.helpers({
         if (mout.array.contains(ratingUppers, user._id)) return false;
 
         return mout.array.contains(partup.uppers, user._id);
+    },
+    upper: function(){
+        return Meteor.users.findOne({ _id: this.upper_id });
     }
 });
 
