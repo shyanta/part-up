@@ -4,27 +4,29 @@
         <i class="fa fa-bell"></i>
         {{_ 'dropdown-notifications-button-opennotificationsdropdown'}}
     </a>
-    <ul class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-        {{#each notifications}}
-            <li class="pu-notification">
-                {{#if type = 'partups.supporters.new' }}
-                <!-- TODO: Improve structure and add translations -->
-                    <a href="">
-                        <figure class="pu-avatar"></figure>
-                        <article>
-                            <p>{{type_data.supporter.name}} is een supporter geworden van {{type_data.partup.name}}!</p>
-                            <time>{{time}}</time>
-                        </article>
-                    </a>
-                {{/if}}
-            </li>
-        {{else}}
-            <li class="pu-notification pu-notification-empty">
-                <p>{{_ 'dropdown-notifications-placeholder-nonotifications'}}</p>
-            </li>
-        {{/each}}
-        <li>
+    <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+        <ul>
+            {{#each notifications}}
+                <li class="pu-notification">
+                    {{#if type = 'partups.supporters.new' }}
+                    <!-- TODO: Improve structure and add translations -->
+                        <a href="">
+                            <figure class="pu-avatar"></figure>
+                            <article>
+                                <p>{{type_data.supporter.name}} is een supporter geworden van {{type_data.partup.name}}!</p>
+                                <time>{{time}}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                </li>
+            {{else}}
+                <li class="pu-notification pu-notification-empty">
+                    <p>{{_ 'dropdown-notifications-placeholder-nonotifications'}}</p>
+                </li>
+            {{/each}}
+        </ul>
+        <footer>
             <a href="">{{_ 'dropdown-notifications-button-managenotifications'}}</a>
-        </li>
-    </ul>
+        </footer>
+    </div>
 </template>
