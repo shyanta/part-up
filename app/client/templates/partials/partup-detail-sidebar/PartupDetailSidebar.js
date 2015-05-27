@@ -269,15 +269,16 @@ Template.PartialsPartupDetailSidebar.helpers({
 
     isSupporter: function helperIsSupporter() {
         var partup = this.partup();
-        if (!partup || !partup.supporters) return false;
-        var currentUserId = Meteor.user()._id;
-        return partup.supporters.indexOf(currentUserId) > -1;
+        var user = Meteor.user();
+        if (!partup || !partup.supporters || !user) return false;
+        return partup.supporters.indexOf(Meteor.user()._id) > -1;
     },
 
     isUpperInPartup: function helperIsUpperInPartup() {
         var partup = this.partup();
-        if (!partup || !partup.uppers) return false;
-        return partup.uppers.indexOf(Meteor.user()._id) > -1;
+        var user = Meteor.user();
+        if (!partup || !partup.uppers || !user) return false;
+        return partup.uppers.indexOf(user._id) > -1;
     }
 
 });
