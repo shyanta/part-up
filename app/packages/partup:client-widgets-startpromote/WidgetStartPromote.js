@@ -2,7 +2,9 @@
 /* Widget initial */
 /*************************************************************/
 Template.WidgetStartPromote.onRendered(function () {
-    var elm = this.find('[data-copy-to-clipboard]');
+    var template = this;
+
+    var elm = template.find('[data-copy-to-clipboard]');
 
     // Copy to clipboard
     Partup.ui.clipboard.applyToElement(elm, elm.value, function onCopySuccess() {
@@ -10,10 +12,28 @@ Template.WidgetStartPromote.onRendered(function () {
     }, function onCopyError() {
         Partup.ui.notify.error(__('startpromote-notify-copy-to-clipboard-error'));
     });
+
+    template.autorun(function () {
+        var partup = getPartup();
+
+        if (partup) {
+            var image = Images.findOne({ _id: partup.image });
+
+            if (image) {
+                var focuspointElm = template.find('[data-partupcover-focuspoint]');
+                template.focuspoint = new Focuspoint.View(focuspointElm, {
+                    x: image.focuspoint.x,
+                    y: image.focuspoint.y
+                });
+            }
+        }
+    });
 });
 
 Template.WidgetStartPromote.onCreated(function () {
-    this.shared = new ReactiveVar({
+    var template = this;
+
+    template.shared = new ReactiveVar({
         twitter: false,
         facebook: false,
         linkedin: false
@@ -49,12 +69,6 @@ Template.WidgetStartPromote.helpers({
 
     shared: function () {
         return Template.instance().shared.get();
-    },
-
-    partupCover: function () {
-        if (!getPartup() || !getPartup().image) return null;
-        var imageId = getPartup().image;
-        return Images.findOne({ _id: imageId });
     }
 
 });
