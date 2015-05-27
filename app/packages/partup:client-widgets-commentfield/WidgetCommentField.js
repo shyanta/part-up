@@ -15,10 +15,25 @@ var commentPostButtonActiveDict = new ReactiveDict;
 /* Widget rendered */
 /*************************************************************/
 Template.WidgetCommentField.onRendered(function () {
-    var update = this.data.update;
+    var template = this;
+    var update = template.data.update;
     commentsExpandedDict.set(update._id, false);
     commentInputFieldExpandedDict.set(update._id, update.comments_count > 0);
     commentPostButtonActiveDict.set(update._id, false);
+
+    template.highlight = function(){
+        if(template.data.expandedComments) return;
+        var element = template.find('.pu-commentfield');
+        var doc = document.documentElement;
+        var scrollDuration = ((window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) / 2;
+        $("html, body").animate({ scrollTop: 0 }, scrollDuration, function(e){
+            $(element).addClass('pu-state-highlight');
+            Meteor.setTimeout(function(){
+                $(element).removeClass('pu-state-highlight');
+            }, 1000);
+        });
+        
+    };
 });
 
 Template.WidgetCommentField.helpers({
@@ -99,6 +114,8 @@ AutoForm.addHooks(
                 } else {
                     commentPostButtonActiveDict.set(updateId, false);
                     AutoForm.resetForm(self.formId);
+                    self.template.parent().highlight();
+                    
                 }
             });
 
