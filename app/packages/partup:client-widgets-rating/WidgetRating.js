@@ -37,7 +37,7 @@ Template.WidgetRating.helpers({
     },
     placeholders: Partup.services.placeholders.rating,
     upper: function(){
-        return Meteor.user();
+        return !this.rating ? Meteor.user() : Meteor.users.findOne({ _id: this.rating.upper_id });
     }
 });
 
