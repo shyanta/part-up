@@ -1,8 +1,7 @@
 <template name="WidgetRating">
+    <figure class="pu-avatar pu-avatar-large" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
     {{# if canEdit }}
         {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=rating }}
-            <figure class="pu-avatar pu-avatar-large" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
-
             {{> afFieldInput type='range' name='rating' class='pu-input' }}
             {{> afFieldInput name='feedback' class='pu-textarea' placeholder=placeholders.feedback rows=2 }}
         {{/ autoForm }}

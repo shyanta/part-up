@@ -20,6 +20,8 @@ Template.WidgetRating.helpers({
         var user = Meteor.user();
         if (!user) return false;
 
+        if (this.rating && this.rating.upper_id !== user._id) return false;
+
         var partup = Partups.findOne({_id: this.contribution.partup_id});
         if (!partup) return false;
 
