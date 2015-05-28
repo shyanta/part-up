@@ -45,7 +45,12 @@ Template.WidgetRating.helpers({
 /* Widget events */
 /*************************************************************/
 var save = function(event, template){
-    var form = template.find('#ratingCreateForm-' + template.data.contribution._id);
+    var formId = '#ratingCreateForm-' + template.data.contribution._id;
+    if (template.data.rating){
+        formId = '#ratingEditForm-' + template.data.rating._id;
+    }
+
+    var form = template.find(formId);
     $(form).submit();
 };
 
@@ -63,8 +68,15 @@ AutoForm.addHooks(null, {
 
         var self = this;
         var template = this.template.parentTemplate();
+        var method = 'ratings.insert';
+        var id = template.contribution._id;
 
-        Meteor.call('ratings.insert', template.contribution._id, doc, function(error){
+        if (template.data.rating){
+            method = 'ratings.update';
+            id = template.data.rating._id;
+        }
+
+        Meteor.call(method, id, doc, function(error){
             if (error){
                 return console.error(error);
             }
