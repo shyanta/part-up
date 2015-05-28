@@ -35,7 +35,6 @@ Partup.transformers.partup = {
      *
      * @memberOf partup.transformers.partup
      * @param {mixed[]} fields
-     * @param {object} upper
      */
     'fromFormStartPartup': function (fields) {
         var partup = {
