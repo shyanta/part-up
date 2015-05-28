@@ -1,20 +1,20 @@
 {
-    "start-partup-intro-closepage": "Close page",
+    "start-partup-intro-closepage": "Close",
     "start-partup-intro-title": "Hi %s, awesome you start a part-up!",
-    "start-partup-intro-paragraph": "Part-up is all about teamwork, and you are the one to kick it off! Other uppers will join your part-up if you share your goals and first thoughts on the activities. Together you make it work.",
-    "start-partup-intro-explanation": "Click the orange button 'Start a part-up' to begin.",
+    "start-partup-intro-paragraph": "Part-up is all about teamwork, and you are the one to kick it off! Other uppers can join your part-up once you have shared your goals and first thoughts on the activities. Together you make it work.",
+    "start-partup-intro-explanation": "Click the button 'Start a part-up' to get started.",
     "start-partup-intro-action-button": "Start a part-up",
     
-    "start-partup-intro-start-title": "1. Describe your part-up",
-    "start-partup-intro-start-explanation": "What is the goal of your part-up?",
-    "start-partup-intro-activities-title": "2. Define your activities",
-    "start-partup-intro-activities-explanation": "What are you going to do?",
-    "start-partup-intro-promote-title": "3. Promote your part-up",
-    "start-partup-intro-promote-explanation": "Find uppers for your dream team!",
+    "start-partup-intro-start-title": "Outline your part-up",
+    "start-partup-intro-start-explanation": "Provide a name, goal and short description for you part-up. Determine where the part-up takes place and when it ends.",
+    "start-partup-intro-activities-title": "Define the activities",
+    "start-partup-intro-activities-explanation": "Add activities to your part-up and define what needs to be done to be succesful",
+    "start-partup-intro-promote-title": "Share your part-up",
+    "start-partup-intro-promote-explanation": "You are now ready to get your team together! Share your part-up with your network or social media.",
 
     "start-partup-skip": "Skip",
     "start-partup-skip-start": "Done",
-    "start-partup-start": "Step 1. Describe your part-up",
-    "start-partup-activities": "Step 2. Define your activities",
-    "start-partup-promote": "Step 3. Promote your part-up"
+    "start-partup-start": "Outline your part-up",
+    "start-partup-activities": "Define the activities",
+    "start-partup-promote": "Share your part-up"
 }

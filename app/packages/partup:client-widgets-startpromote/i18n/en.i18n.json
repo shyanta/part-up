@@ -1,6 +1,6 @@
 {
-    "startpromote-heading-title": "Step 3. Promote your part-up",
-    "startpromote-text-intro": "Check! You are ready to part-up. We'll share your part-up with other uppers. You can also share it in your own network.",
+    "startpromote-heading-title": "Step 3. Share your part-up",
+    "startpromote-text-intro": "Check! You are ready to part-up. We'll share your part-up with other uppers. You can also share it in your own network or social media",
     "startpromote-text-intro2": "This is what your post looks like.",
     
     "startpromote-title-sharebuttons": "Share your part-up:",
@@ -11,8 +11,8 @@
     "startpromote-button-linkedin": "LinkedIn",
     "startpromote-button-done": "Done, up to your part-up",
 
-    "startpromote-notify-copy-to-clipboard-error": "@Failed to copy the Part-up URL to your clipboard",
-    "startpromote-notify-copy-to-clipboard-success": "@Copied Part-up URL",
-    "startpromote-notify-shared-error": "You already shared your part-up on %s",
-    "startpromote-notify-shared-success": "Your part-up is now shared on %s"
+    "startpromote-notify-copy-to-clipboard-error": "Somehow copying the part-up link failed. Please try again.",
+    "startpromote-notify-copy-to-clipboard-success": "Copied the part-up link.",
+    "startpromote-notify-shared-error": "You already shared your part-up on %s.",
+    "startpromote-notify-shared-success": "Your part-up is now shared on %s."
 }

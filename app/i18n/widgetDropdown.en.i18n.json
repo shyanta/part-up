@@ -1,5 +1,5 @@
 {
-    "dropdown-profile-title-upperpartups": "Upper Part-ups",
+    "dropdown-profile-title-upperpartups": "Upper part-ups",
     "dropdown-profile-title-supporterpartups": "Supporter Part-ups",
     "dropdown-profile-button-myprofile": "My profile",
     "dropdown-profile-button-settings": "Settings",
@@ -9,21 +9,13 @@
     "dropdown-notifications-placeholder-nonotifications": "No notifications yet",
     "dropdown-notifications-button-managenotifications": "Manage notifications",
 
-    "dropdown-menu-button-openmenudropdown": "Menu",
-    "dropdown-menu-button-registernetwork": "Register network",
-    "dropdown-menu-button-aboutpartup": "About Part-up",
-    "dropdown-menu-button-questions": "Help/questions",
-    "dropdown-menu-button-blog": "Blog",
-    "dropdown-menu-button-contact": "Contact",
+    "dropdown-updatesactions-option-default": "All updates",
+    "dropdown-updatesactions-option-messages": "Just messages",
+    "dropdown-updatesactions-option-activities": "Just activity updates",
+    "dropdown-updatesactions-option-partup-changes": "Just part-up updates",
+    "dropdown-updatesactions-option-my-updates": "My updates",
 
-    "dropdown-updatesactions-option-default": "@All updates",
-    "dropdown-updatesactions-option-messages": "@Messages",
-    "dropdown-updatesactions-option-activities": "@All activity updates",
-    "dropdown-updatesactions-option-partup-changes": "@All partup updates",
-    "dropdown-updatesactions-option-contributions": "@Contributions",
-    "dropdown-updatesactions-option-my-updates": "@My updates",
-
-    "dropdown-activitiesactions-option-default": "@All activities",
-    "dropdown-activitiesactions-option-my-activities": "@My activities",
-    "dropdown-activitiesactions-option-open-activities": "@Open activities"
+    "dropdown-activitiesactions-option-default": "All activities",
+    "dropdown-activitiesactions-option-my-activities": "My activities",
+    "dropdown-activitiesactions-option-open-activities": "Open activities"
 }

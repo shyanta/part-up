@@ -14,7 +14,7 @@
 
     "registerrequired-form-password-label": "Wachtwoord",
     "registerrequired-form-password-placeholder": "Maak het niet té makkelijk",
-    "registerrequired-form-password-validation": "waarom",
+    "registerrequired-form-password-validation": "tips",
     "registerrequired-form-password-tooltip": "Je weet dat de datadieven steeds slimmer worden. Kies daarom een wachtwoord dat niet te makkelijk is. Gebruik minimaal 8 karakters, 1 getal en 1 hoofdletter",
 
     "registerrequired-form-confirmPassword-placeholder": "En herhaal hem alsjeblieft nog een keertje",

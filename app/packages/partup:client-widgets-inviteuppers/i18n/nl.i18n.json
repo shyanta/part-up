@@ -1,16 +1,16 @@
 {
-     "inviteuppers-title": "@Vind mede uppers",
-     "inviteuppers-explaination": "@Je werkt natuurlijk graag samen met goede mensen. Aan de hand van de ingevoerde gegevens over de Part-up stellen wij de tien beste matches voot. Zit jouw match er niet bij? Kijk dan gerust verder.",
-     "inviteuppers-button-invite": "@Persoonlijk Uppers uitnodigen via e-mail",
+     "inviteuppers-title": "Nodig uppers uit voor jouw part-up",
+     "inviteuppers-explaination": "Je werkt natuurlijk graag samen met goede en gemotiveerde uppers. Hier stellen we je aan de tien beste matches voor. Wij analyseerden daarvoor alle inhoud in je part-up en de profielen van alle uppers. Zit jouw match er toch niet bij? Je kunt natuurlijk ook zelf zoeken op trefwoord.",
+     "inviteuppers-button-invite": "Persoonlijk uppers uitnodigen via e-mail",
 
 
-     "inviteuppers-popup-title": "@Wie moeten er meedoen?",
-     "inviteuppers-popup-explaination": "@We kunnen ons voorstellen dat je graag samenwerkt met iemand die nog niet actief is op Part-up. Je kunt daarom nieuwe Uppers uitnodigen om deel te nemen aan jouw Part-up. We hebben vast een voorbeeldmail voor je gemaakt. Aanpassen kan natuurlijk!",
-     "inviteuppers-popup-input-message": "@Bericht",
+     "inviteuppers-popup-title": "Nodig iemand uit voor jouw part-up",
+     "inviteuppers-popup-explaination": "We kunnen ons voorstellen dat je graag samenwerkt met iemand die je kent en nog niet actief is op Part-up. Je kunt hem of haar hier vragen upper te worden en gelijk uitnodigen om bij te dragen aan jouw Part-up. We hebben vast een voorbeeldmail voor je gemaakt. Voeg je persoonlijke noot toe en stuur hem op!",
+     "inviteuppers-popup-input-message": "Persoonlijke uitnodiging",
 
-     "inviteuppers-popup-close": "@sluiten",
-     "inviteuppers-popup-form-copy-confirm": "@Op de bus",
-     "inviteuppers-popup-input-name": "@Voornaam",
-     "inviteuppers-popup-input-email": "@Email-adres"
+     "inviteuppers-popup-close": "Sluiten",
+     "inviteuppers-popup-form-copy-confirm": "Op de bus",
+     "inviteuppers-popup-input-name": "Voornaam",
+     "inviteuppers-popup-input-email": "E-mailadres"
 
 }

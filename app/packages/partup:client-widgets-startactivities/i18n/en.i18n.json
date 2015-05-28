@@ -1,11 +1,11 @@
 {
-    "startactivities-heading-title": "Step 2. Define your activities",
-    "startactivities-heading-paragraph": "The goal of your part-up is clear now. Do you already have ideas on what needs to be done? It's okay if you don't know it all yet. The other uppers will help you later on to complement the activities.",
+    "startactivities-heading-title": "Step 2. Define the activities",
+    "startactivities-heading-paragraph": "Do you know what needs to be done? It's okay if you don't know it all yet. The other uppers will help you complement the activities.",
 
     "startactivities-button-adopt_activities": "Copy all activities from an existing part-up.",
 
-    "startactivities-form-name-label": "Name the activity",
-    "startactivities-form-name-placeholder": "Try to use verbs",
+    "startactivities-form-name-label": "Add one activity at a time",
+    "startactivities-form-name-placeholder": "Tip: start with a verb",
     "startactivities-form-name-validation": "max %d characters",
     "startactivities-form-name-validation-left": "%d characters left",
 
@@ -18,20 +18,20 @@
     "startactivities-form-end_date-placeholder": "Add a date if you like",
     "startactivities-form-end_date-validation": "Only future dates are allowed",
 
-    "startactivities-form-submit": "Create activity",
+    "startactivities-form-submit": "Add activity",
     "startactivities-form-save": "Save",
     "startactivities-button-next_page": "Next step",
     "startactivities-button-edit": "Edit",
     "startactivities-button-remove": "Remove activity",
 
-    "startactivities-placeholder-name": "@Create your first activity",
-    "startactivities-placeholder-description": "@To start, create your very first activity in the little form above.",
+    "startactivities-placeholder-name": "Create your first activity",
+    "startactivities-placeholder-description": "To start, create your very first activity above.",
 
-    "startactivities-popup-title": "@Copy all activities from an existing Part-up",
-    "startactivities-popup-description": "@Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat odio in nisi pulvinar, sit amet tempor massa porta. Ut erat ex, laoreet non dictum pharetra, cursus in nibh. Fusce iaculis lacus eu molestie euismod. Phasellus eget sapien rutrum, tempus tellus a, volutpat augue.",
-    "startactivities-popup-form-copy-label": "@From wich part-up would you like to copy activities?",
-    "startactivities-popup-form-copy-placeholder": "@Search a part-up",
-    "startactivities-popup-form-copy-confirm": "@Copy activities",
-    "startactivities-popup-activities-heading": "@List of added activities:",
-    "startactivities-popup-close": "@close"
+    "startactivities-popup-title": "Copy all activities from an existing Part-up",
+    "startactivities-popup-description": "There is no need to reinvent the wheel over and over. Find a part-up with a similar goal and copy the activities to get a head start.",
+    "startactivities-popup-form-copy-label": "From wich part-up would you like to copy activities?",
+    "startactivities-popup-form-copy-placeholder": "Find a part-up",
+    "startactivities-popup-form-copy-confirm": "Copy activities",
+    "startactivities-popup-activities-heading": "List of added activities:",
+    "startactivities-popup-close": "Close"
 }

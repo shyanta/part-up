@@ -1,6 +1,6 @@
 {
     "startdetails-title": "Stap 1. Describe your part-up",
-    "startdetails-explainingpartup": "Obviously your first goal is for other uppers to join your part-up. So tell the world what your part-up is all about and we use it to introduce you to great team members",
+    "startdetails-explainingpartup": "Tell the world what your part-up is all about and we use it to introduce you to matching uppers.",
     
     "startdetails-form-name-label": "What will you name your part-up?",
     "startdetails-form-name-placeholder": "Don't be overly creative, you want other uppers to get it right away.",
@@ -11,11 +11,11 @@
     "startdetails-form-description-placeholder": "Be short and sharp",
     "startdetails-form-description-validation": "max %d characters",
 
-    "startdetails-form-tags_input-label": "Your part-up, in five words",
+    "startdetails-form-tags_input-label": "What (five) keywords describe your part-up best?",
     "startdetails-form-tags_input-placeholder": "Separate them by a comma, please",
     "startdetails-form-tags_input-tooltip": "We use these words to check which uppers match your part-up. So think about the right words for a second.",
 
-    "startdetails-form-budget-label": "Do you already have a budget for your part-up?",
+    "startdetails-form-budget-label": "Do you have a budget in mind for your part-up?",
     "startdetails-form-budget-type-nobudget": "No budget",
     "startdetails-form-budget-type-money": "Yes, in money",
     "startdetails-form-budget-type-hours": "Yes, in hours",
@@ -23,24 +23,24 @@
     "startdetails-form-budget-unit-hours": "hours",
     "startdetails-form-budget_money-placeholder": "0",
     "startdetails-form-budget_hours-placeholder": "0",
-    "startdetails-form-budget-tooltip": "Blahblah budget tooltip content",
+    "startdetails-form-budget-tooltip": "Working together in a part-up takes time. By telling if you have a budget (in cash, or for many organizations hourly). This way, every upper has the right expectations when joining your part-up.",
 
-    "startdetails-form-end_date-label": "When do you prefer to be ready?",
+    "startdetails-form-end_date-label": "When do you want to be ready?",
     "startdetails-form-end_date-placeholder": "Pick an end date",
-    "startdetails-form-end_date-tooltip": "A part-up is a temporary collaboration. The end date helps to move forwared and keep energy high.",
+    "startdetails-form-end_date-tooltip": "A part-up is a temporary collaboration. The end date helps to move forward and keep energy high.",
 
     "startdetails-form-location_input-label": "Where is your part-up located?",
     "startdetails-form-location_input-placeholder": "Online, Netherlands, or your city",
 
-    "startdetails-image-label": "Pick a beautiful and meaningful picture for your part-up",
+    "startdetails-image-label": "What picture suits your part-up best?",
     "startdetails-image-button": "Upload a picture from your computer",
     "startdetails-image-button-overwrite": "Change picture",
     "startdetails-image-validation": "You need a minimum of 1000 pixels",
 
     "startdetails-suggestion-label": "Or pick one of the five suggestions",
-    "startdetails-suggestion-placeholder": "Add some tags, so we can suggest some beautiful images for your part-up!",
+    "startdetails-suggestion-placeholder": "Add keywords to your part-up, so we can suggest some beautiful images for your part-up!",
 
-    "startdetails-form-submit-next": "Next step",
+    "startdetails-form-submit-next": "On to the next step",
     "startdetails-form-submit-or": "or",
-    "startdetails-form-submit-skip": "To partup"
+    "startdetails-form-submit-skip": "Straight to my part-up"
 }

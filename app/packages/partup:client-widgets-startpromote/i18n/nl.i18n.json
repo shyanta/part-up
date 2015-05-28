@@ -1,6 +1,6 @@
 {
-    "startpromote-heading-title": "Stap 3. Promoot je part-up",
-    "startpromote-text-intro": "Check! Je bent nu klaar om samen te werken in jouw part-up. Wij stellen hem voor aan andere uppers. Promoot hem zelf ook in jouw netwerk!",
+    "startpromote-heading-title": "Stap 3. Deel je part-up",
+    "startpromote-text-intro": "Check! Je bent nu klaar om samen te werken in jouw part-up. Wij stellen hem voor aan andere uppers. Deel hem zelf ook in jouw netwerk of op social media!",
     "startpromote-text-intro2": "Dit is hoe jouw post eruit zal zien.",
     
     "startpromote-title-sharebuttons": "Deel jouw part-up op:",
@@ -11,8 +11,8 @@
     "startpromote-button-linkedin": "LinkedIn",
     "startpromote-button-done": "Klaar, op naar jouw part-up",
 
-    "startpromote-notify-copy-to-clipboard-error": "@Het is ons niet gelukt om de Part-up link naar je klembord te kopiëren",
-    "startpromote-notify-copy-to-clipboard-success": "@De Part-up link is naar de klembord gekopieërd",
-    "startpromote-notify-shared-error": "Je heb je part-up al gedeeld op %s",
-    "startpromote-notify-shared-success": "Je part-up is nu gedeeld op %s"
+    "startpromote-notify-copy-to-clipboard-error": "Het is ons niet gelukt om de part-up link te kopiëren. Probeer het nog een keer.",
+    "startpromote-notify-copy-to-clipboard-success": "De part-up link is gekopieërd.",
+    "startpromote-notify-shared-error": "Je heb je part-up al gedeeld op %s.",
+    "startpromote-notify-shared-success": "Je part-up is nu gedeeld op %s."
 }

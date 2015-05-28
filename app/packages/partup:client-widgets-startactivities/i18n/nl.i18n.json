@@ -1,11 +1,11 @@
 {
     "startactivities-heading-title": "Stap 2. Bepaal de activiteiten",
-    "startactivities-heading-paragraph": "Het doel van je part-up is nu duidelijk. Weet je al wat er moet gebeuren? Het is niet erg als je nog niet precies alle activiteiten weet. De andere uppers gaan je straks helpen om de activiteiten aan te vullen.",
+    "startactivities-heading-paragraph": "Weet je al wat er moet gebeuren om er een groot succes van te maken? Het is niet erg als je nog niet precies alle activiteiten weet. De andere uppers gaan je straks helpen om de activiteiten aan te vullen.",
 
     "startactivities-button-adopt_activities": "Kopieer alle activiteiten van een bestaande part-up.",
 
-    "startactivities-form-name-label": "Geef de activiteit een naam",
-    "startactivities-form-name-placeholder": "Probeer in werkwoorden te denken",
+    "startactivities-form-name-label": "Voeg één activiteit tegelijk toe",
+    "startactivities-form-name-placeholder": "Tip: begin met een werkwoord",
     "startactivities-form-name-validation": "maximaal %d tekens",
     "startactivities-form-name-validation-left": "nog %d tekens",
 
@@ -18,20 +18,20 @@
     "startactivities-form-end_date-placeholder": "Voeg eventueel een datum toe",
     "startactivities-form-end_date-validation": "Een datum in het verleden is niet mogelijk",
 
-    "startactivities-form-submit": "Maak activiteit aan",
+    "startactivities-form-submit": "Voeg activiteit toe",
     "startactivities-form-save": "Opslaan",
     "startactivities-button-next_page": "Naar de volgende stap",
     "startactivities-button-edit": "Wijzig activiteit",
     "startactivities-button-remove": "Verwijderen",
 
-    "startactivities-placeholder-name": "@Maak je eerste activiteit aan",
-    "startactivities-placeholder-description": "@Maak hierboven je eerste activiteit aan om te beginnen.",
+    "startactivities-placeholder-name": "Maak je eerste activiteit aan",
+    "startactivities-placeholder-description": "Maak hierboven je eerste activiteit aan om te beginnen.",
 
-    "startactivities-popup-title": "@Kopieer alle activiteiten van een bestaande Part-up",
-    "startactivities-popup-description": "@Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat odio in nisi pulvinar, sit amet tempor massa porta. Ut erat ex, laoreet non dictum pharetra, cursus in nibh. Fusce iaculis lacus eu molestie euismod. Phasellus eget sapien rutrum, tempus tellus a, volutpat augue.",
-    "startactivities-popup-form-copy-label": "@Van welke part-up wil je activiteiten kopiëren?",
-    "startactivities-popup-form-copy-placeholder": "@Zoek een part-up",
-    "startactivities-popup-form-copy-confirm": "@Kopieer activiteiten",
-    "startactivities-popup-activities-heading": "@Overzicht toegevoegde activiteiten:",
-    "startactivities-popup-close": "@sluiten"
+    "startactivities-popup-title": "Kopieer alle activiteiten van een bestaande Part-up",
+    "startactivities-popup-description": "Je hoeft het wiel niet altijd zelf uit te vinden. Zoek een part-up met een vegelijkbaar doel en neem de activiteiten over om een vliegende start te maken.",
+    "startactivities-popup-form-copy-label": "Van welke part-up wil je activiteiten kopiëren?",
+    "startactivities-popup-form-copy-placeholder": "Zoek een part-up",
+    "startactivities-popup-form-copy-confirm": "Kopieer activiteiten",
+    "startactivities-popup-activities-heading": "Overzicht toegevoegde activiteiten:",
+    "startactivities-popup-close": "Sluiten"
 }

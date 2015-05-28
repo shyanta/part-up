@@ -1,16 +1,16 @@
 {
-     "inviteuppers-title": "@Find uppers",
-     "inviteuppers-explaination": "@English, Je werkt natuurlijk graag samen met goede mensen. Aan de hand van de ingevoerde gegevens over de Part-up stellen wij de tien beste matches voot. Zit jouw match er niet bij? Kijk dan gerust verder.",
-     "inviteuppers-button-invite": "@Invite Uppers personally via e-mail",
+     "inviteuppers-title": "Invite uppers to your part-up",
+     "inviteuppers-explaination": "Obviously you need people with the right skills and motivation to get job done. We give you ten uppers that match you and your part-up best. We base our suggestions upon the analysis of all of your part-up's content and all upper profiles. No match found? No worries, you can always look for matches yourself.",
+     "inviteuppers-button-invite": "Invite Uppers directly by email",
 
 
-     "inviteuppers-popup-title": "@Who has to participate?",
-     "inviteuppers-popup-explaination": "@English, We kunnen ons voorstellen dat je graag samenwerkt met iemand die nog niet actief is op Part-up. Je kunt daarom nieuwe Uppers uitnodigen om deel te nemen aan jouw Part-up. We hebben vast een voorbeeldmail voor je gemaakt. Aanpassen kan natuurlijk!",
-     "inviteuppers-popup-input-message": "@Message",
+     "inviteuppers-popup-title": "Invite people to join your part-up",
+     "inviteuppers-popup-explaination": "You might want to work with someone you know, but who is not an upper yet. Here you can invite them to become upper and join your part-up. We drafted an invitation email for you. Add your personal note and send it!",
+     "inviteuppers-popup-input-message": "Personal invatation",
 
-     "inviteuppers-popup-close": "@Close",
-     "inviteuppers-popup-form-copy-confirm": "@Send",
-     "inviteuppers-popup-input-name": "@Firstname",
-     "inviteuppers-popup-input-email": "@Email address"
+     "inviteuppers-popup-close": "Close",
+     "inviteuppers-popup-form-copy-confirm": "Send it!",
+     "inviteuppers-popup-input-name": "First name",
+     "inviteuppers-popup-input-email": "Email address"
 
 }

@@ -1,6 +1,6 @@
 {
     "error-method-register-Accounts-LoginCancelledError": "Inloggen geannuleerd",
-    "error-method-register-Error": "Een login fout is opgetreden",
+    "error-method-register-Error": "Het inloggen is mislukt. Probeer het nog een keer.",
     "error-method-updates-comments-insert-failure": "Comment kon niet toegevoegd worden",
     "error-method-updates-messages-insert-failure": "Bericht kon niet geplaatst worden",
 

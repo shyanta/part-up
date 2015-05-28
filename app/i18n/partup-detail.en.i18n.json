@@ -1,11 +1,11 @@
 {
-    "partup-detail-uppers-title": "Uppers in this Part-up",
+    "partup-detail-uppers-title": "Uppers in this part-up",
     "partup-detail-uppers-invitebutton": "Invite uppers",
     "partup-detail-supporters-title": "Supporters",
-    "partup-detail-supporters-join": "Become a supporter",
+    "partup-detail-supporters-join": "Support this part-up",
     "partup-detail-supporters-leave": "Stop supporting",
-    "partup-detail-status-text": "This Part-up is active untill <strong>%s</strong> at <strong>%s</strong>. This Part-up is %s and part of the network <strong>%s</strong>.",
-    "partup-detail-visibility-public": "public",
-    "partup-detail-visibility-private": "private",
-    "partup-detail-share-paragraph": "Loving your Part-up or seeking for new Uppers? Share your Part-up in your network!"
+    "partup-detail-status-text": "This part-up is active untill <strong>%s</strong> in the area of <strong>%s</strong>.",
+    "partup-detail-visibility-public": "everyone",
+    "partup-detail-visibility-private": "invited uppers only",
+    "partup-detail-share-paragraph": "Are you proud of your part-up or in need of new uppers? Share your part-up in your network!"
 }

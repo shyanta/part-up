@@ -1,10 +1,9 @@
 {
     "partupdetail-updates-newmessage-button": "New message",
 
-    "partupdetail-updates-popup-newmessage-title": "@Place a new message",
-    "partupdetail-updates-popup-newmessage-label": "@Message",
-    "partupdetail-updates-popup-newmessage-placeholder": "@What would you like to share?",
-    "partupdetail-updates-popup-newmessage-addphoto": "@Add photo",
-    "partupdetail-updates-popup-newmessage-close": "@close",
-    "partupdetail-updates-popup-newmessage-submit": "@Place message"
+    "partupdetail-updates-popup-newmessage-title": "Post a new message",
+    "partupdetail-updates-popup-newmessage-placeholder": "What would you like to share?",
+    "partupdetail-updates-popup-newmessage-addphoto": "Add photo",
+    "partupdetail-updates-popup-newmessage-close": "Close",
+    "partupdetail-updates-popup-newmessage-submit": "Post message"
 }

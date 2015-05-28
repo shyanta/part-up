@@ -9,21 +9,13 @@
     "dropdown-notifications-placeholder-nonotifications": "Er zijn nog geen notificaties",
     "dropdown-notifications-button-managenotifications": "Beheer meldingen",
 
-    "dropdown-menu-button-openmenudropdown": "Menu",
-    "dropdown-menu-button-registernetwork": "Netwerk aanmelden",
-    "dropdown-menu-button-aboutpartup": "Over Part-up",
-    "dropdown-menu-button-questions": "Hulp/vragen",
-    "dropdown-menu-button-blog": "Blog",
-    "dropdown-menu-button-contact": "Contact",
+    "dropdown-updatesactions-option-default": "Alle updates",
+    "dropdown-updatesactions-option-messages": "Alleen de berichten",
+    "dropdown-updatesactions-option-activities": "Alleen activiteiten updates",
+    "dropdown-updatesactions-option-partup-changes": "Alleen part-up updates",
+    "dropdown-updatesactions-option-my-updates": "Mijn updates",
 
-    "dropdown-updatesactions-option-default": "@Alle updates",
-    "dropdown-updatesactions-option-messages": "@Berichten",
-    "dropdown-updatesactions-option-activities": "@Alle activiteit updates",
-    "dropdown-updatesactions-option-partup-changes": "@Alle partup updates",
-    "dropdown-updatesactions-option-contributions": "@Bijdragen",
-    "dropdown-updatesactions-option-my-updates": "@Mijn updates",
-
-    "dropdown-activitiesactions-option-default": "@Alle activiteiten",
-    "dropdown-activitiesactions-option-my-activities": "@Mijn activiteiten",
-    "dropdown-activitiesactions-option-open-activities": "@Open activiteiten"
+    "dropdown-activitiesactions-option-default": "Alle activiteiten",
+    "dropdown-activitiesactions-option-my-activities": "Mijn activiteiten",
+    "dropdown-activitiesactions-option-open-activities": "Open activiteiten"
 }

@@ -1,23 +1,23 @@
 {
-    "contribution-form-hours-label": "@Amount of hours (optional)",
-    "contribution-form-hours-placeholder": "@Only numbers allowed",
+    "contribution-form-hours-label": "Number of hours (optional)",
+    "contribution-form-hours-placeholder": "Only numerical values allowed",
 
-    "contribution-form-rate-label": "@Hourly rate (optional)",
-    "contribution-form-rate-placeholder": "@Only numbers allowed",
+    "contribution-form-rate-label": "Hourly rate (optional)",
+    "contribution-form-rate-placeholder": "Only numerical values allowed",
 
     "contribution-form-submit": "Save",
     "contribution-form-close": "Close",
     "contribution-form-remove": "Remove",
 
-    "contribution-hour": "__count__ @hour",
-    "contribution-hour_plural": "__count__ @hours",
-    "contribution-hourly-rate": "@euro per hour",
-    "contribution-none": "@Add hours",
+    "contribution-hour": "__count__ hour",
+    "contribution-hour_plural": "__count__ hours",
+    "contribution-hourly-rate": "euro per hour",
+    "contribution-none": "Add hours",
 
     "contribution-accept": "Accept",
     "contribution-reject": "Reject",
 
-    "contribution-removed": "Contribution has been removed",
+    "contribution-removed": "Contribution deleted",
 
     "contribution-comments": "__count__ comment",
     "contribution-comments_plural": "__count__ comments"

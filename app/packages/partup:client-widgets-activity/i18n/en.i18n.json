@@ -1,6 +1,6 @@
 {
     "activity-form-name-label": "Add one activity at a time",
-    "activity-form-name-placeholder": "Try to use verbs",
+    "activity-form-name-placeholder": "Tip: start with a verb",
     "activity-form-name-validation": "max %d characters",
     "activity-form-name-validation-left": "%d characters left",
 
@@ -17,10 +17,10 @@
     "activity-form-submit": "Add activity",
     "activity-form-save": "Save",
     "activity-form-close": "Close",
-    "activity-button-next_page": "What will you contribute?",
+    "activity-button-next_page": "Next step",
     "activity-button-edit": "Edit",
     "activity-button-archive": "Archive",
-    "activity-button-unarchive": "@Reactivate",
+    "activity-button-unarchive": "Reactivate",
     "activity-button-remove": "Remove",
     "activity-comment": "1 comment",
     "activity-comment_plural": "__count__ comments"

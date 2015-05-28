@@ -14,6 +14,7 @@
 
     "registerrequired-form-password-label": "Password",
     "registerrequired-form-password-placeholder": "Don't make it too easy to guess",
+    "registerrequired-form-password-validation": "tips",
     "registerrequired-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Use at least 8 characters, 1 number en 1 capital.",
 
     "registerrequired-form-confirmPassword-placeholder": "And repeat it once please",

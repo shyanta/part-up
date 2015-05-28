@@ -1,23 +1,23 @@
 {
-    "footer-subtitle": "@Build pop-up teams instantly.",
-    "footer-description": "@Je vindt hier altijd de juiste mensen om mee samen te werken. Samen bepaal je de activiteiten en waardeer elkaar. Jouw profiel laat zien wat je kunt en hoe anderen jouw bijdragen waarderen.",
+    "footer-subtitle": "Start working together!",
+    "footer-description": "On a mission to give you a future full of jobs and your best teams ever!",
 
-    "footer-feedback-title": "@Feedback",
-    "footer-feedback-paragraph": "@We are very pleased that you use Part-up. It's not finished yet, we've only just begun.",
-    "footer-feedback-button": "@Give feedback",
-    "footer-feedback-button-mailto": "@ralph@partup.com",
+    "footer-feedback-title": "Feedback",
+    "footer-feedback-paragraph": "Awesome! You managed your way down to the very bottom of this page. You must be full of ideas on how to improve Part-up. Feel free to share them with our development team.",
+    "footer-feedback-button": "Give feedback",
+    "footer-feedback-button-mailto": "ralph@partup.com",
 
-    "footer-menu-title-company": "@Company",
-    "footer-menu-company-pricing": "@Pricing",
-    "footer-menu-company-about": "@About",
-    "footer-menu-company-help": "@FAQ",
-    "footer-menu-company-blog": "@Blog",
-    "footer-menu-company-contact": "@Contact",
+    "footer-menu-company-pricing": "Pricing",
+    "footer-menu-company-about": "About",
+    "footer-menu-company-help": "FAQ",
+    "footer-menu-company-blog": "Blog",
+    "footer-menu-company-contact": "Contact",
 
-    "footer-menu-title-social": "@Social",
-    "footer-menu-social-twitter": "@Twitter",
-    "footer-menu-social-facebook": "@Facebook",
-    "footer-menu-social-youtube": "@YouTube",
-    "footer-menu-social-googleplus": "@Google Plus",
-    "footer-menu-social-linkedin": "@LinkedIn"
+    "footer-menu-title-company": "Company",
+    "footer-menu-title-social": "Social",
+    "footer-menu-social-twitter": "Twitter",
+    "footer-menu-social-facebook": "Facebook",
+    "footer-menu-social-youtube": "YouTube",
+    "footer-menu-social-googleplus": "Google Plus",
+    "footer-menu-social-linkedin": "LinkedIn"
 }

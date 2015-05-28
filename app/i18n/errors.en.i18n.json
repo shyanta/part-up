@@ -1,7 +1,7 @@
 {
     "error-method-register-Accounts-LoginCancelledError": "Login cancelled",
-    "error-method-register-Error": "Some login error occured",
-    "error-method-updates-comments-insert-failure": "Could not add the comment",
+    "error-method-register-Error": "Login failed. Please try again.",
+    "error-method-updates-comments-insert-failure": "Could not add comment",
     "error-method-updates-messages-insert-failure": "Could not add message",
 
     "error-ss-required": "This field is required",

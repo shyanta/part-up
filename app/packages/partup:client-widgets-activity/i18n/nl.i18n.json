@@ -1,6 +1,6 @@
 {
     "activity-form-name-label": "Voeg één activiteit tegelijk toe",
-    "activity-form-name-placeholder": "Probeer in werkwoorden te denken",
+    "activity-form-name-placeholder": "Tip: start met een werkwoord",
     "activity-form-name-validation": "maximaal %d tekens",
     "activity-form-name-validation-left": "nog %d tekens",
 
@@ -20,7 +20,7 @@
     "activity-button-next_page": "Wat ga jij bijdragen?",
     "activity-button-edit": "Wijzig activiteit",
     "activity-button-archive": "Archiveren",
-    "activity-button-unarchive": "@Heractiveren",
+    "activity-button-unarchive": "Maak weer actief",
     "activity-button-remove": "Verwijderen",
     "activity-comment": "1 reactie",
     "activity-comment_plural": "__count__ reacties"
