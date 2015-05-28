@@ -6,6 +6,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.insert': function (fields, extraFields) {
+
         check(fields, Partup.schemas.forms.startPartup);
 
         var upper = Meteor.user();
@@ -18,7 +19,7 @@ Meteor.methods({
 
             // Check focuspoint values if given
             var focusX, focusY;
-            if (extraFields && extraFields.focuspoint_x && extraFields.focuspoint_y) {
+            if (extraFields && mout.lang.isNumber(extraFields.focuspoint_x) && mout.lang.isNumber(extraFields.focuspoint_y)) {
                 focusX = extraFields.focuspoint_x;
                 focusY = extraFields.focuspoint_y;
 
@@ -70,7 +71,7 @@ Meteor.methods({
 
         // Check focuspoint values if given
         var focusX, focusY;
-        if (extraFields && extraFields.focuspoint_x && extraFields.focuspoint_y) {
+        if (extraFields && mout.lang.isNumber(extraFields.focuspoint_x) && mout.lang.isNumber(extraFields.focuspoint_y)) {
             focusX = extraFields.focuspoint_x;
             focusY = extraFields.focuspoint_y;
 
