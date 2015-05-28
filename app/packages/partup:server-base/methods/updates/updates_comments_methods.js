@@ -29,15 +29,12 @@ Meteor.methods({
         var comments = update.comments || [];
 
         try {
-            // Check if the comment is made on an activity or contribution
-            var typeTitle;
+            // Check if the comment is made on an activity or contribution to change update title, or leave it as it is
+            var typeTitle = update.type;
             if (update.type_data.activity_id && update.type_data.contribution_id) {
                 typeTitle = 'partups_contributions_comments_added';
             } else if (update.type_data.activity_id) {
                 typeTitle = 'partups_activities_comments_added';
-            } else {
-                // Default
-                typeTitle = 'partups_comments_added';
             }
 
             Updates.update(updateId, {
