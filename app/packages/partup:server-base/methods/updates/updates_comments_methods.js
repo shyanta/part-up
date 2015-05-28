@@ -30,19 +30,21 @@ Meteor.methods({
 
         try {
             // Check if the comment is made on an activity or contribution to change update title, or leave it as it is
-            var typeTitle = update.type;
+            // Also leave the upper_id to the original user if it's not
+            var updateFields = {
+                updated_at: new Date(),
+                type: update.type
+            };
             if (update.type_data.activity_id && update.type_data.contribution_id) {
-                typeTitle = 'partups_contributions_comments_added';
+                updateFields.type = 'partups_contributions_comments_added';
+                updateFields.upper_id = upper._id;
             } else if (update.type_data.activity_id) {
-                typeTitle = 'partups_activities_comments_added';
+                updateFields.type = 'partups_activities_comments_added';
+                updateFields.upper_id = upper._id;
             }
 
             Updates.update(updateId, {
-                $set: {
-                    updated_at: new Date(),
-                    upper_id: upper._id,
-                    type: typeTitle
-                },
+                $set: updateFields,
                 $push: {
                     comments: comment
                 },
