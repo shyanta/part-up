@@ -115,8 +115,9 @@ Meteor.methods({
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id ;
 
         Email.send({
+            from: 'Part-up <noreply@part-up.com>',
             to: email,
-            subject: 'Uitnodiging voor Part-up' + partup.name,
+            subject: 'Uitnodiging voor Part-up ' + partup.name,
             html: SSR.render('inviteUserEmail', {
                 name: name,
                 partupName: partup.name,
