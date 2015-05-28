@@ -37,7 +37,7 @@ Partup.transformers.partup = {
      * @param {mixed[]} fields
      * @param {object} upper
      */
-    'fromFormStartPartup': function (fields, upper) {
+    'fromFormStartPartup': function (fields) {
         var partup = {
 
             // form fields
@@ -53,8 +53,7 @@ Partup.transformers.partup = {
 
             // meta fields
             created_at: new Date(),
-            creator_id: upper._id,
-            uppers: [upper._id]
+            creator_id: upper._id
         };
 
         // Save focuspoint
