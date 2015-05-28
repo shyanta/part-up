@@ -10,9 +10,10 @@
     "dropdown-notifications-button-managenotifications": "Beheer meldingen",
 
     "dropdown-updatesactions-option-default": "Alle updates",
-    "dropdown-updatesactions-option-messages": "Alleen de berichten",
+    "dropdown-updatesactions-option-messages": "Alleen berichten",
     "dropdown-updatesactions-option-activities": "Alleen activiteiten updates",
     "dropdown-updatesactions-option-partup-changes": "Alleen part-up updates",
+    "dropdown-updatesactions-option-contributions": "Alleen bijdrage updates",
     "dropdown-updatesactions-option-my-updates": "Mijn updates",
 
     "dropdown-activitiesactions-option-default": "Alle activiteiten",

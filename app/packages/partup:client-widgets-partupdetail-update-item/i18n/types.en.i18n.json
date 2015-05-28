@@ -35,11 +35,11 @@
 
     "partupdetail-update-item-type-partups_invited-title": "@Invited %s for this part-up",
 
-    "partupdetail-update-item-type-partups_contributions_added-title": "@Added a contribution",
+    "partupdetail-update-item-type-partups_contributions_added-title": "Added contribution",
+    "partupdetail-update-item-type-partups_contributions_changed-title": "Changed contribution",
+    "partupdetail-update-item-type-partups_contributions_removed-title": "Removed contribution",
 
-    "partupdetail-update-item-type-partups_contributions_changed-title": "@Updated a contribution",
-
-    "partupdetail-update-item-type-partups_contributions_removed-title": "@Removed a contribution",
+    "partupdetail-update-item-type-partups_ratings_changed-title": "Changed rating",
 
     "partupdetail-update-item-type-partups_comments_added-title": "Replied"
 }

@@ -27,19 +27,19 @@
 
     "partupdetail-update-item-type-new_message-title": "Bericht",
 
-    "partupdetail-update-item-type-partups_message_added-title": "@Nieuw bericht",
+    "partupdetail-update-item-type-partups_message_added-title": "Voegde een bericht toe",
 
-    "partupdetail-update-item-type-partups_budget_changed-title": "@Budget veranderd",
+    "partupdetail-update-item-type-partups_budget_changed-title": "Wijzigde budget",
 
-    "partupdetail-update-item-type-partups_location_changed-title": "@Regio veranderd",
+    "partupdetail-update-item-type-partups_location_changed-title": "Wijzigde locatie",
 
-    "partupdetail-update-item-type-partups_invited-title": "@Nodigde %s uit voor deze part-up",
+    "partupdetail-update-item-type-partups_invited-title": "Nodigde %s uit voor deze part-up",
 
-    "partupdetail-update-item-type-partups_contributions_added-title": "@Voegde een bijdrage toe",
+    "partupdetail-update-item-type-partups_contributions_added-title": "Voegde een bijdrage toe",
+    "partupdetail-update-item-type-partups_contributions_changed-title": "Wijzigde een bijdrage",
+    "partupdetail-update-item-type-partups_contributions_removed-title": "Verwijderde een bijdrage",
 
-    "partupdetail-update-item-type-partups_contributions_changed-title": "@Wijzigde een bijdrage",
-
-    "partupdetail-update-item-type-partups_contributions_removed-title": "@Verwijderde een bijdrage",
+    "partupdetail-update-item-type-partups_ratings_changed-title": "Wijzigde een waardering",
 
     "partupdetail-update-item-type-partups_comments_added-title": "Reageerde"
 }
