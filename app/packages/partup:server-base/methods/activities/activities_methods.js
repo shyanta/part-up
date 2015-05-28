@@ -39,12 +39,13 @@ Meteor.methods({
 
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
+        var isUpperInPartup = Partups.findOne({ _id: activity.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
 
         if (! activity) {
             throw new Meteor.Error(404, 'Could not find activity.');
         }
 
-        if (! upper || activity.creator_id != upper._id) {
+        if (! upper || !isUpperInPartup) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
