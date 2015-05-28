@@ -3,7 +3,7 @@
         {{# if hasRatings }}
             <ul class="pu-sub-ratings-average">
                 {{# each averageRatings }}
-                <li class="{{# if . }}pu-state-active{{/ if }}"></li>
+                    <li class="{{ . }}"></li>
                 {{/ each }}
             </ul>
         {{ else }}

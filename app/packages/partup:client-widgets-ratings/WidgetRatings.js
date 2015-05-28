@@ -28,7 +28,7 @@ Template.WidgetRatings.helpers({
         var items = [];
 
         for (i = 10; i <= 100; i += 10){
-            items.push(i <= average);
+            items.push(i <= average ? 'pu-state-active': '');
         }
 
         return items;
