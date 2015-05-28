@@ -20,7 +20,7 @@ Accounts.onCreateUser(function(options, user) {
             var locationParts = liData.location.name.split(',');
 
             if (locationParts.length === 2) {
-                location.city = locationParts[0].trim();
+                location.city = locationParts[0].trim().replace(' Area', '');
                 location.country = locationParts[1].trim();
             }
         };
