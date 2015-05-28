@@ -19,14 +19,15 @@ Partup.services.system_messages = {
 
             Updates.update(update._id, {
                 $set: {
-                    'updated_at': new Date()
+                    updated_at: new Date()
                 },
                 $push: {
-                    'comments': {
+                    comments: {
                         _id: Random.id(),
                         content: content,
+                        system: true,
                         creator: {
-                            _id: 'SYSTEM',
+                            _id: upper._id,
                             name: upper.profile.name
                         },
                         created_at: new Date(),
@@ -34,7 +35,7 @@ Partup.services.system_messages = {
                     }
                 },
                 $inc: {
-                    'comments_count': 1
+                    comments_count: 1
                 }
             });
         } catch (error) {
