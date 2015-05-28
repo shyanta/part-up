@@ -1,5 +1,5 @@
 <template name="WidgetActivityForm">
-    <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if CREATE}}pu-block-activity-create pu-block-highlighted {{# if POPUP }}pu-block-activity-create-popup{{/ if }}{{/if}} {{# unless CREATE }}pu-block-active{{/if }}" data-activity-id="{{ activity._id }}">
+    <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if CREATE}}pu-block-activity-create pu-block-highlighted {{# if POPUP }}pu-block-activity-create-popup{{/ if }}{{/ if }} {{# unless CREATE }}pu-block-active{{/unless }}" data-activity-id="{{ activity._id }}">
         {{# autoForm schema=schema id=generateFormId doc=activity validation="submitThenKeyup" class="pu-form" }}
 
             <!-- Activity name -->
