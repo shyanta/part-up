@@ -224,7 +224,23 @@ var partupDetailLayout = {
 /* Partial rendered */
 /*************************************************************/
 Template.PartialsPartupDetailSidebar.onRendered(function(){
+    var template = this;
+
     partupDetailLayout.init();
+
+    template.autorun(function () {
+        var partup = template.data.partup();
+        if (!partup) return;
+
+        var image = Images.findOne({ _id: partup.image });
+        if (!image) return;
+
+        var focuspointElm = template.find('[data-partupcover-focuspoint]');
+        template.focuspoint = new Focuspoint.View(focuspointElm, {
+            x: image.focuspoint.x,
+            y: image.focuspoint.y
+        });
+    });
 });
 
 

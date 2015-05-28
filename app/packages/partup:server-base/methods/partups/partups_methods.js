@@ -87,8 +87,8 @@ Meteor.methods({
             if (mout.lang.isNumber(focusX) && mout.lang.isNumber(focusY)) {
                 Images.update({ _id: newPartupFields.image }, {
                     $set: { focuspoint: {
-                            x: focusX,
-                            y: focusY
+                        x: focusX,
+                        y: focusY
                     }}
                 });
             }
