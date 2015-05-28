@@ -11,7 +11,7 @@ Meteor.publishComposite('notifications.user', function() {
                     var images = [];
 
                     if (notification.type === 'partups_supporters_added') {
-                        images.push(type_data.supporter.image);
+                        images.push(notification.type_data.supporter.image);
                     }
 
                     return Images.find({ _id: { $in: images } });
