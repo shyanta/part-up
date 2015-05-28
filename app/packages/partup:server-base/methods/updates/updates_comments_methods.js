@@ -36,6 +36,7 @@ Meteor.methods({
             } else if (update.type_data.activity_id) {
                 typeTitle = 'partups_activities_comments_added';
             } else {
+                // Default
                 typeTitle = 'partups_comments_added';
             }
 
