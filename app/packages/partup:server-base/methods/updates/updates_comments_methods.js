@@ -29,11 +29,21 @@ Meteor.methods({
         var comments = update.comments || [];
 
         try {
+            // Check if the comment is made on an activity or contribution
+            var typeTitle;
+            if (update.type_data.activity_id && update.type_data.contribution_id) {
+                typeTitle = 'partups_contributions_comments_added';
+            } else if (update.type_data.activity_id) {
+                typeTitle = 'partups_activities_comments_added';
+            } else {
+                typeTitle = 'partups_comments_added';
+            }
+
             Updates.update(updateId, {
                 $set: {
                     updated_at: new Date(),
                     upper_id: upper._id,
-                    type: 'partups_comments_added'
+                    type: typeTitle
                 },
                 $push: {
                     comments: comment
