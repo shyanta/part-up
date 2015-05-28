@@ -1,31 +1,31 @@
 {
-    "partupdetail-update-item-type-partups_supporters_added-title": "Is een supporter geworden",
-    "partupdetail-update-item-type-partups_uppers_added-title": "Is lid geworden van de part-up",
+    "partupdetail-update-item-type-partups_supporters_added-title": "Is nu een supporter",
+    "partupdetail-update-item-type-partups_uppers_added-title": "Is nu lid van de part-up",
 
     "partupdetail-update-item-type-partups_tags_added-title": "Nieuw label",
-    "partupdetail-update-item-type-partups_tags_removed-title": "Label verwijderd",
-    "partupdetail-update-item-type-partups_tags_changed-title": "Label veranderd",
+    "partupdetail-update-item-type-partups_tags_removed-title": "Verwijderde een part-up label",
+    "partupdetail-update-item-type-partups_tags_changed-title": "Verandere een part-up Label",
 
-    "partupdetail-update-item-type-network_public-title": "Deze Part-up is nu vindbaar voor het publiek",
-    "partupdetail-update-item-type-network_private-title": "Deze Part-up is nu niet meer vindbaar voor het publiek",
+    "partupdetail-update-item-type-network_public-title": "Deze Part-up is nu zichtbaar voor iedereen",
+    "partupdetail-update-item-type-network_private-title": "Deze Part-up is nu alleen zichtbaar voor uigenodigde uppers",
 
-    "partupdetail-update-item-type-partups_end_date_changed-title": "Einddatum gewijzigd",
+    "partupdetail-update-item-type-partups_end_date_changed-title": "Part-up einddatum gewijzigd",
 
-    "partupdetail-update-item-type-partups_name_changed-title": "Titel gewijzigd",
-    "partupdetail-update-item-type-partups_description_changed-title": "Omschrijving gewijzigd",
-    "partupdetail-update-item-type-partups_image_changed-title": "Foto gewijzigd",
+    "partupdetail-update-item-type-partups_name_changed-title": "Wijzigde de part-up titel",
+    "partupdetail-update-item-type-partups_description_changed-title": "Wijzigde de part-up omschrijving",
+    "partupdetail-update-item-type-partups_image_changed-title": "Wijzigde de part-up foto",
 
-    "partupdetail-update-item-type-partups_activities_added-title": "Voegde een activiteit toe",
-    "partupdetail-update-item-type-partups_activities_changed-title": "Wijzigde een activiteit",
     "partupdetail-update-item-type-partups_activities_removed-title": "Verwijderde een activiteit",
-    "partupdetail-update-item-type-partups_activities_added_resource-title": "Middel toegevoegd aan activiteit",
-    "partupdetail-update-item-type-partups_activities_added_contribution-title": "Bijdrage aan activiteit toegevoegd",
+    "partupdetail-update-item-type-partups_activities_added-title": "Voegde activiteit toe",
+    "partupdetail-update-item-type-partups_activities_changed-title": "Wijzigde activiteit",
+    "partupdetail-update-item-type-partups_activities_added_contribution-title": "Voegde bijdrage aan activiteit toe",
+    "partupdetail-update-item-type-partups_activities_archived-title": "Archiveerde activiteit",
 
-    "partupdetail-update-item-type-changed_region-title": "Regio gewijzigd",
+    "partupdetail-update-item-type-changed_region-title": "Wijzigde part-up regio",
 
-    "partupdetail-update-item-type-rated-title": "Waardering uitgebracht",
+    "partupdetail-update-item-type-rated-title": "Voegde waardering toe",
 
-    "partupdetail-update-item-type-new_message-title": "Bericht",
+    "partupdetail-update-item-type-new_message-title": "Plaatste bericht",
 
     "partupdetail-update-item-type-partups_message_added-title": "Voegde een bericht toe",
 
@@ -41,5 +41,18 @@
 
     "partupdetail-update-item-type-partups_ratings_changed-title": "Wijzigde een waardering",
 
-    "partupdetail-update-item-type-partups_comments_added-title": "Reageerde"
+    "partupdetail-update-item-type-partups_comments_added-title": "Reageerde",
+        
+    "comment-field-content-system_activities_updated": "wijzigde de activiteit",
+    "comment-field-content-system_activities_removed": "verwijderde de activiteit",
+    "comment-field-content-system_activities_archived": "archiveerde de activiteit",
+    "comment-field-content-system_activities_unarchived": "heractiveerde de activiteit",
+    "comment-field-content-system_contributions_updated": "wijzigde een bijdrage",
+    "comment-field-content-system_contributions_accepted": "accepteerde de bijdrage",
+    "comment-field-content-system_contributions_rejected": "weigerde de bijdrage",
+    "comment-field-content-system_contributions_removed": "verwijderde de bijdrage",
+    "comment-field-content-system_supporters_added": "is weer supporter geworden",
+    "comment-field-content-system_supporters_removed": "is geen supporter meer",
+    "comment-field-content-system_ratings_inserted": "voegde een waardering toe",
+    "comment-field-content-system_ratings_updated": "wijzigde de waardering"
 }

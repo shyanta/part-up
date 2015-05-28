@@ -1,39 +1,39 @@
 {
-    "partupdetail-update-item-type-partups_supporters_added-title": "Became supporter",
-    "partupdetail-update-item-type-partups_uppers_added-title": "Became upper",
+    "partupdetail-update-item-type-partups_supporters_added-title": "Is supporter now",
+    "partupdetail-update-item-type-partups_uppers_added-title": "Is part of this part-up now",
 
     "partupdetail-update-item-type-partups_tags_added-title": "Added label",
     "partupdetail-update-item-type-partups_tags_removed-title": "Removed label",
     "partupdetail-update-item-type-partups_tags_changed-title": "Changed label",
 
-    "partupdetail-update-item-type-network_public-title": "This Part-up is now public",
-    "partupdetail-update-item-type-network_private-title": "This Part-up is no longer public",
+    "partupdetail-update-item-type-network_public-title": "This Part-up is now visible for everyone",
+    "partupdetail-update-item-type-network_private-title": "This Part-up is now only visible for invited uppers",
 
-    "partupdetail-update-item-type-partups_end_date_changed-title": "Changed ending date",
+    "partupdetail-update-item-type-partups_end_date_changed-title": "Changed end date",
 
-    "partupdetail-update-item-type-partups_name_changed-title": "Changed title",
-    "partupdetail-update-item-type-partups_description_changed-title": "Changed description",
-    "partupdetail-update-item-type-partups_image_changed-title": "Changed picture",
+    "partupdetail-update-item-type-partups_name_changed-title": "Changed part-up title",
+    "partupdetail-update-item-type-partups_description_changed-title": "Changed part-up description",
+    "partupdetail-update-item-type-partups_image_changed-title": "Changed part-up picture",
 
+    "partupdetail-update-item-type-partups_activities_removed-title": "Removed activity",
     "partupdetail-update-item-type-partups_activities_added-title": "Added activity",
     "partupdetail-update-item-type-partups_activities_changed-title": "Changed activity",
-    "partupdetail-update-item-type-partups_activities_removed-title": "@Removed an activity",
-    "partupdetail-update-item-type-partups_activities_added_resource-title": "Added resource to activity",
     "partupdetail-update-item-type-partups_activities_added_contribution-title": "Added contribution to activity",
+    "partupdetail-update-item-type-partups_activities_archived-title": "Archived activity",
 
-    "partupdetail-update-item-type-changed_region-title": "Changed region",
+    "partupdetail-update-item-type-changed_region-title": "Changed part-up region",
 
-    "partupdetail-update-item-type-rated-title": "Rated",
+    "partupdetail-update-item-type-rated-title": "Added rating",
 
     "partupdetail-update-item-type-new_message-title": "Message",
 
-    "partupdetail-update-item-type-partups_message_added-title": "@New message",
+    "partupdetail-update-item-type-partups_message_added-title": "Added message",
 
-    "partupdetail-update-item-type-partups_budget_changed-title": "@Budget changed",
+    "partupdetail-update-item-type-partups_budget_changed-title": "Changed budget",
 
-    "partupdetail-update-item-type-partups_location_changed-title": "@Location changed",
+    "partupdetail-update-item-type-partups_location_changed-title": "Changed part-up region",
 
-    "partupdetail-update-item-type-partups_invited-title": "@Invited %s for this part-up",
+    "partupdetail-update-item-type-partups_invited-title": "Invited %s for this part-up",
 
     "partupdetail-update-item-type-partups_contributions_added-title": "Added contribution",
     "partupdetail-update-item-type-partups_contributions_changed-title": "Changed contribution",
@@ -41,5 +41,18 @@
 
     "partupdetail-update-item-type-partups_ratings_changed-title": "Changed rating",
 
-    "partupdetail-update-item-type-partups_comments_added-title": "Replied"
+    "partupdetail-update-item-type-partups_comments_added-title": "Replied",
+
+    "comment-field-content-system_activities_updated": "updated the activity",
+    "comment-field-content-system_activities_removed": "removed the activity",
+    "comment-field-content-system_activities_archived": "archived the activity",
+    "comment-field-content-system_activities_unarchived": "reactivated the activity",
+    "comment-field-content-system_contributions_updated": "updated the contribution",
+    "comment-field-content-system_contributions_accepted": "accepted the contribution",
+    "comment-field-content-system_contributions_rejected": "rejected the contribution",
+    "comment-field-content-system_contributions_removed": "removed the contribution",
+    "comment-field-content-system_supporters_added": "is a supporter now",
+    "comment-field-content-system_supporters_removed": "is not a supporter anymore",
+    "comment-field-content-system_ratings_inserted": "added a rating",
+    "comment-field-content-system_ratings_updated": "updated the rating"
 }
