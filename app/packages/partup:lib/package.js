@@ -74,4 +74,5 @@ Package.onUse(function(api) {
     api.export('Notifications');
     api.export('Images');
     api.export('Updates');
+    api.export('Ratings');
 });

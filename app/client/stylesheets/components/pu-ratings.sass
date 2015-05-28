@@ -1,0 +1,55 @@
+.pu-ratings
+    font-size: 14px
+    @extend %clearfix
+
+    .pu-sub-no-rating
+        float: left
+        margin: 0 6px 0 0
+        color: $color-solid-gray
+
+    .pu-avatar-stack
+        float: left
+
+    .pu-avatar
+        position: relative
+        cursor: pointer
+        font-size: 12px
+        line-height: 24px
+        text-align: center
+
+    .pu-hovercard
+        position: absolute
+        top: 100%
+        left: -104px
+        width: 230px
+        margin: 10px 0 0
+        padding: 20px
+        cursor: default
+
+        &:before,
+        &:after
+            left: 50%
+            margin-left: -10px
+
+        &:before
+            margin-left: -11px
+
+        .pu-button
+            width: 100%
+            margin-top: 10px
+
+.pu-rating
+    .pu-slider
+        margin: 20px 0
+
+    span
+        display: block
+        height: 5px
+        border-radius: 3px
+        background: #ccc
+
+    .pu-sub-rating
+        margin: 20px 0
+
+        span
+            background: $color-primary

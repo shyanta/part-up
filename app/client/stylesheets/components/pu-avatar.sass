@@ -23,6 +23,10 @@
         background-color: transparent
         background-image: url(/images/avatar-placeholder.png)
 
+    &-icon
+        border: 1px dotted $color-silver
+        background-color: transparent
+
     &-online:after,
     &-offline:after
         content: ''
@@ -44,7 +48,7 @@
         list-style: none
         padding: 0
 
-        .pu-avatar
+        > .pu-avatar
             float: right
             width: 24px
             height: 24px
@@ -54,6 +58,9 @@
 
             &:first-child
                 margin-right: 0
+
+            &-icon
+                border: 1px dotted $color-silver
 
         &:hover
             .pu-avatar

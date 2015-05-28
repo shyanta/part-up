@@ -46,6 +46,11 @@ Meteor.publishComposite('partups.one.contributions', function(partupId) {
                         }
                     }
                 ]
+            },
+            {
+                find: function(contribution) {
+                    return Ratings.find({ contribution_id: contribution._id });
+                }
             }
         ]
     };

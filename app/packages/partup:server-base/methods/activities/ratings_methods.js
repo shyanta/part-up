@@ -27,7 +27,7 @@ Meteor.methods({
                 contribution_id: contributionId,
                 rating: fields.rating,
                 feedback: fields.feedback,
-                upper_id: fields.upper_id
+                upper_id: upper._id
             };
 
             newRating = Ratings.insert(newRating);

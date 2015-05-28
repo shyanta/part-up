@@ -1,0 +1,22 @@
+<template name="WidgetRatings">
+    <div class="pu-ratings">
+        <p class="pu-sub-no-rating">{{_ 'ratings-none' }}</p>
+        <ul class="pu-avatar-stack">
+            {{# if showNewRating }}
+                <li class="pu-avatar pu-avatar-icon">
+                    <i class="fa fa-plus"></i>
+                    <article class="pu-hovercard pu-hovercard-position-bottom {{# if showHoverCard }}pu-hovercard-active{{/ if }}">
+                        {{> WidgetRating contribution=contribution }}
+                    </article>
+                </li>
+            {{/ if }}
+            {{# each ratings }}
+                <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})" data-rating-id="{{ _id }}">
+                    <article class="pu-hovercard pu-hovercard-position-bottom {{# if showHoverCard }}pu-hovercard-active{{/ if }}">
+                        {{> WidgetRating contribution=contribution rating=. }}
+                    </article>
+                </li>
+            {{/ each }}
+        </ul>
+    </div>
+</template>
