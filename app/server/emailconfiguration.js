@@ -39,10 +39,10 @@ Accounts.emailTemplates.verifyEmail.html = function (user, url) {
  * Helpers
  */
 var getUserLocale = function(user) {
-    var locale = mout.object.get(user, 'profile.settings.locale') || 'en';
+    var locale = mout.object.get(user, 'profile.settings.locale') || 'nl';
 
     if (! mout.object.has(TAPi18n.getLanguages(), locale)) {
-        locale = 'en';
+        locale = 'nl';
     }
 
     return locale;
