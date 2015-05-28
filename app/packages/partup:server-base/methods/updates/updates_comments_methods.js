@@ -32,7 +32,8 @@ Meteor.methods({
             Updates.update(updateId, {
                 $set: {
                     updated_at: new Date(),
-                    upper_id: upper._id
+                    upper_id: upper._id,
+                    type: 'partups_comments_added'
                 },
                 $push: {
                     comments: comment
