@@ -1,31 +1,31 @@
 <template name="WidgetPartupdetailActivities">
-    <div class="pu-composition pu-composition-partupdetailactivities"></div>
+    <div class="pu-composition pu-composition-partupdetailactivities">
+        <!-- new message popup -->
+        {{#if partupPopupActive 'popup.new-activity' }}
+            {{#contentFor "WidgetPopupContent"}}
+                {{> NewActivityPopup}}
+            {{/contentFor}}
+        {{/if}}
 
-    <!-- new message popup -->
-    {{#if partupPopupActive 'popup.new-activity' }}
-        {{#contentFor "WidgetPopupContent"}}
-            {{> NewActivityPopup}}
-        {{/contentFor}}
-    {{/if}}
+        <!-- Header buttons -->
+        <header class="pu-pageheader">
+            <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "partupdetail-activities-newactivity-button"}}</a></section>
+            <aside>{{> PartialDropdownActivitiesActions}}</aside>
+        </header>
 
-    <!-- Header buttons -->
-    <header class="pu-pageheader">
-        <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "partupdetail-activities-newactivity-button"}}</a></section>
-        <aside>{{> PartialDropdownActivitiesActions}}</aside>
-    </header>
+        {{# each activities }}
+            {{> WidgetActivity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true }}
+        {{/ each }}
 
-    {{# each activities }}
-        {{> WidgetActivity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true }}
-    {{/ each }}
+        <p class="pu-textline">
+            <span>
+                {{_ "partupdetail-activities-archivedactivities-heading" }}
+                <span class="fa fa-long-arrow-down"></span>
+            </span>
+        </p>
 
-    <p class="pu-textline">
-        <span>
-            {{_ "partupdetail-activities-archivedactivities-heading" }}
-            <span class="fa fa-long-arrow-down"></span>
-        </span>
-    </p>
-
-    {{# each archivedActivities }}
-        {{> WidgetActivity activity=. CONTRIBUTIONS=true }}
-    {{/ each }}
+        {{# each archivedActivities }}
+            {{> WidgetActivity activity=. CONTRIBUTIONS=true }}
+        {{/ each }}
+    </div>
 </template>
