@@ -62,8 +62,9 @@ Meteor.methods({
 
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
+        var uppers = partup.uppers || [];
 
-        if (! upper || partup.creator_id !== upper._id) {
+        if (! upper || uppers.indexOf(upper._id) === -1) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
@@ -157,7 +158,7 @@ Meteor.methods({
         Email.send({
             to: email,
             subject: 'Uitnodiging voor Part-up' + partup.name,
-            html: SSR.render('inviteUserEmail', { 
+            html: SSR.render('inviteUserEmail', {
                 name: name,
                 partupName: partup.name,
                 partupDescription: partup.description,
