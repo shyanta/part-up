@@ -7,20 +7,43 @@ Accounts.emailTemplates.from = 'Part-up <noreply@part-up.com>';
  * Password Reset Email
  */
 Accounts.emailTemplates.resetPassword.subject = function (user) {
-    return 'Reset Part-up password';
+    var locale = getUserLocale(user);
+
+    return TAPi18n.__('emails-reset-password-subject', {}, locale);
 };
 Accounts.emailTemplates.resetPassword.html = function (user, url) {
+    var locale = getUserLocale(user);
+
+    SSR.compileTemplate('resetPasswordEmail', Assets.getText('emails/ResetPassword.' + locale + '.html'));
+
     return SSR.render('resetPasswordEmail', { user: user, url: url.replace('/#', '') });
 };
-SSR.compileTemplate('resetPasswordEmail', Assets.getText('emails/ResetPassword.html'));
 
 /**
  * Verify Email
  */
 Accounts.emailTemplates.verifyEmail.subject = function (user) {
-    return 'Confirm Part-up account';
+    var locale = getUserLocale(user);
+
+    return TAPi18n.__('emails-verify-account-subject', {}, locale);
 };
 Accounts.emailTemplates.verifyEmail.html = function (user, url) {
+    var locale = getUserLocale(user);
+
+    SSR.compileTemplate('verifyAccountEmail', Assets.getText('emails/VerifyAccount.' + locale + '.html'));
+
     return SSR.render('verifyAccountEmail', { user: user, url: url.replace('/#', '') });
 };
-SSR.compileTemplate('verifyAccountEmail', Assets.getText('emails/VerifyAccount.html'));
+
+/**
+ * Helpers
+ */
+var getUserLocale = function(user) {
+    var locale = mout.object.get(user, 'profile.settings.locale') || 'en';
+
+    if (! mout.object.has(TAPi18n.getLanguages(), locale)) {
+        locale = 'en';
+    }
+
+    return locale;
+}
