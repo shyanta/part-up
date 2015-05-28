@@ -15,6 +15,8 @@ Meteor.methods({
         try {
             var newPartup = Partup.transformers.partup.fromFormStartPartup(fields);
             newPartup.uppers = [upper._id];
+            newPartup.creator_id = upper._id;
+            newPartup.created_at = new Date();
 
             //check(newPartup, Partup.schemas.entities.partup);
 
