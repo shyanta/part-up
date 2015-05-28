@@ -310,11 +310,11 @@ Template.WidgetStartDetails.events({
 /*************************************************************/
 /* Widget create partup */
 /*************************************************************/
-var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, extraDoc, callback) {
+var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, callback) {
     if(partupId) {
 
         // Partup already exists. Update.
-        Meteor.call('partups.update', partupId, insertDoc, extraDoc, function(error, res){
+        Meteor.call('partups.update', partupId, insertDoc, function(error, res){
             if(error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
@@ -334,7 +334,7 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, e
     } else {
 
         // Partup does not exists yet. Insert.
-        Meteor.call('partups.insert', insertDoc, extraDoc, function(error, res){
+        Meteor.call('partups.insert', insertDoc, function(error, res){
             if(error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
@@ -365,20 +365,7 @@ AutoForm.hooks({
             var partupId = Session.get('partials.start-partup.current-partup');
             var submissionType = Session.get('partials.start-partup.submission-type') || 'next';
 
-            var parentTemplate = this.template.parent();
-            var focuspointDict = mout.object.get(parentTemplate, 'imageSystem.focuspoint');
-
-            var extraDoc = {};
-            if (focuspointDict) {
-                var x = focuspointDict.get('x');
-                var y = focuspointDict.get('y');
-                if (mout.lang.isNumber(x) && mout.lang.isNumber(y)) {
-                    extraDoc.focuspoint_x = x;
-                    extraDoc.focuspoint_y = y;
-                }
-            }
-
-            createOrUpdatePartup(partupId, insertDoc, extraDoc, function (id) {
+            createOrUpdatePartup(partupId, insertDoc, function (id) {
 
                 if(submissionType === 'next') {
                     Router.go('start-activities', {_id: id});

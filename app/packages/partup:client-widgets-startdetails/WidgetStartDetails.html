@@ -150,6 +150,13 @@
                 {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImage.currentImageId.get }}
                 <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
 
+                {{#with partupImage.focuspoint.get 'x'}}
+                    {{> afFieldInput name="focuspoint_x_input" value=. type="hidden" }}
+                {{/with}}
+                {{#with partupImage.focuspoint.get 'y'}}
+                    {{> afFieldInput name="focuspoint_y_input" value=. type="hidden" }}
+                {{/with}}
+
                 {{#if partupImage.uploaded.get }}
 
                     <figure class="pu-imagepreview pu-imagepreview-cover {{#if draggingFocuspoint}}pu-imagepreview-draggingfocuspoint{{/if}}" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}" data-focuspoint-view>

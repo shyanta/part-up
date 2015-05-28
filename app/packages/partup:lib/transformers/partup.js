@@ -11,7 +11,10 @@ Partup.transformers.partup = {
      * @memberOf partup.transformers.partup
      * @param {object} partup
      */
-    'toFormStartPartup':function(partup) {
+    'toFormStartPartup': function (partup) {
+        // Find image for focuspoint
+        var image = Images.findOne({_id: partup.image});
+
         return {
             _id: partup._id,
             description: partup.description,
@@ -21,7 +24,9 @@ Partup.transformers.partup = {
             end_date: partup.end_date,
             location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
-            tags_input: Partup.services.tags.tagArrayToInput(partup.tags)
+            tags_input: Partup.services.tags.tagArrayToInput(partup.tags),
+            focuspoint_x_input: mout.object.get(image, 'focuspoint.x') || 0,
+            focuspoint_y_input: mout.object.get(image, 'focuspoint.y') || 0
         };
     },
 
@@ -32,7 +37,7 @@ Partup.transformers.partup = {
      * @param {mixed[]} fields
      * @param {object} upper
      */
-    'fromFormStartPartup': function(fields, upper) {
+    'fromFormStartPartup': function (fields, upper) {
         var partup = {
 
             // form fields
@@ -51,6 +56,9 @@ Partup.transformers.partup = {
             creator_id: upper._id,
             uppers: [upper._id]
         };
+
+        // Save focuspoint
+        Partup.services.images.storeFocuspoint(partup.image, fields.focuspoint_x_input || 0, fields.focuspoint_y_input || 0);
 
         return partup;
     }

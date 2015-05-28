@@ -17,30 +17,9 @@ Meteor.methods({
 
             //check(newPartup, Partup.schemas.entities.partup);
 
-            // Check focuspoint values if given
-            var focusX, focusY;
-            if (extraFields && mout.lang.isNumber(extraFields.focuspoint_x) && mout.lang.isNumber(extraFields.focuspoint_y)) {
-                focusX = extraFields.focuspoint_x;
-                focusY = extraFields.focuspoint_y;
-
-                if (!mout.lang.isNumber(focusX) || !mout.lang.isNumber(focusY) || focusX < 0 || focusX > 1 || focusY < 0 || focusY > 1) {
-                    throw new Meteor.Error(400, 'Invalid focus input.');
-                }
-            }
-
             newPartup._id = Partups.insert(newPartup);
             Meteor.users.update(upper._id, { $push: { 'partups': newPartup._id } });
             Meteor.users.update(upper._id, { $push: { 'upperOf': newPartup._id } });
-
-            // Update focuspoint by imageId
-            if (mout.lang.isNumber(focusX) && mout.lang.isNumber(focusY)) {
-                Images.update({ _id: newPartup.image }, {
-                    $set: { focuspoint: {
-                            x: focusX,
-                            y: focusY
-                    }}
-                });
-            }
 
             return {
                 _id: newPartup._id
@@ -69,31 +48,10 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
-        // Check focuspoint values if given
-        var focusX, focusY;
-        if (extraFields && mout.lang.isNumber(extraFields.focuspoint_x) && mout.lang.isNumber(extraFields.focuspoint_y)) {
-            focusX = extraFields.focuspoint_x;
-            focusY = extraFields.focuspoint_y;
-
-            if (!mout.lang.isNumber(focusX) || !mout.lang.isNumber(focusY) || focusX < 0 || focusX > 1 || focusY < 0 || focusY > 1) {
-                throw new Meteor.Error(400, 'Invalid focus input.');
-            }
-        }
-
         try {
             var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields, upper);
 
             Partups.update(partupId, { $set: newPartupFields });
-
-            // Update focuspoint by imageId
-            if (mout.lang.isNumber(focusX) && mout.lang.isNumber(focusY)) {
-                Images.update({ _id: newPartupFields.image }, {
-                    $set: { focuspoint: {
-                        x: focusX,
-                        y: focusY
-                    }}
-                });
-            }
 
             return {
                 _id: partup._id

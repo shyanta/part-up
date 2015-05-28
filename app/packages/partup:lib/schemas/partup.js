@@ -126,5 +126,19 @@ Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
         type: String,
         max: 255,
         regEx: Partup.services.validators.tagsSeparatedByComma
+    },
+    focuspoint_x_input: {
+        type: Number,
+        min: 0,
+        max: 1,
+        decimal: true,
+        optional: true
+    },
+    focuspoint_y_input: {
+        type: Number,
+        min: 0,
+        max: 1,
+        decimal: true,
+        optional: true
     }
 }]);
