@@ -17,7 +17,5 @@
     "contribution-accept": "Accepteren",
     "contribution-reject": "Weigeren",
 
-    "contribution-removed": "Bijdrage verwijderd",
-    "contribution-comments": "__count__ reactie",
-    "contribution-comments_plural": "__count__ reacties"
+    "contribution-removed": "Bijdrage verwijderd"
 }
