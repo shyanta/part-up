@@ -43,6 +43,18 @@ Template.WidgetStartActivities.helpers({
             name: __('startactivities-placeholder-name'),
             description: __('startactivities-placeholder-description')
         }
+    },
+    isUpper: function isUpper () {
+        var user = Meteor.user();
+        if (!user) return false;
+
+        var partupId = Session.get('partials.start-partup.current-partup');
+        if (!partupId) return false
+            
+        var partup = Partups.findOne(partupId);
+        if (!partup) return false;
+
+        return partup.uppers.indexOf(user._id) > -1;
     }
 });
 
