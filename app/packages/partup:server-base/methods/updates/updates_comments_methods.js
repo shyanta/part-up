@@ -31,13 +31,14 @@ Meteor.methods({
         try {
             Updates.update(updateId, {
                 $set: {
-                    'updated_at': new Date()
+                    updated_at: new Date(),
+                    upper_id: upper._id
                 },
                 $push: {
-                    'comments': comment
+                    comments: comment
                 },
                 $inc: {
-                    'comments_count': 1
+                    comments_count: 1
                 }
             });
 
