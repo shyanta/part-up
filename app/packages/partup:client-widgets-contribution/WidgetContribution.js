@@ -10,6 +10,11 @@ Template.WidgetContribution.onCreated(function(){
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetContribution.helpers({
+    commentsCount: function(){
+        var update = Updates.findOne({ _id: this.contribution.update_id });
+        if (!update) return;
+        return update.comments_count;
+    },
     formSchema: Partup.schemas.forms.contribution,
     placeholders: Partup.services.placeholders.contribution,
     generateFormId: function(){

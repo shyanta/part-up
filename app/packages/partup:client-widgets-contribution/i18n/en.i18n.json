@@ -17,5 +17,8 @@
     "contribution-accept": "Accept",
     "contribution-reject": "Reject",
 
-    "contribution-removed": "Contribution has been removed"
+    "contribution-removed": "Contribution has been removed",
+
+    "contribution-comments": "__count__ comment",
+    "contribution-comments_plural": "__count__ comments"
 }

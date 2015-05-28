@@ -51,6 +51,11 @@ Meteor.publishComposite('partups.one.contributions', function(partupId) {
                 find: function(contribution) {
                     return Ratings.find({ contribution_id: contribution._id });
                 }
+            },
+            {
+                find: function(contribution) {
+                    return Updates.find({ _id: contribution.update_id });
+                }
             }
         ]
     };

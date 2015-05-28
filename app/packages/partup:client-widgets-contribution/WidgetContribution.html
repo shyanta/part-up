@@ -63,6 +63,9 @@
                         {{ else }}
                             <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
                         {{/ if }}
+                        <p class="pu-sub-contribution-comments">
+                            <a href="{{ pathFor route='partup-detail-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{_ 'contribution-comments' count=commentsCount }}</a>
+                        </p>
                         {{> WidgetRatings contribution=contribution ratings=ratings }}
                     </div>
                 {{ else }}
@@ -75,6 +78,9 @@
                                 {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
                             </p>
                         {{/ if }}
+                        <p class="pu-sub-contribution-comments">
+                            <a href="{{ pathFor route='partup-detail-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{_ 'contribution-comments' count=commentsCount }}</a>
+                        </p>
                         {{> WidgetRatings contribution=contribution ratings=ratings }}
                         {{# if canVerifyContribution }}
                         <div class="pu-sub-acceptbuttons">
