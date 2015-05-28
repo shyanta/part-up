@@ -61,12 +61,12 @@ Template.WidgetGallery.events({
 
     'click [data-previous]': function eventsClickNext (event, template) {
         template.setNewCurrent(-1);
-        if (template.focuspoint) template.focuspoint.set(0.5, 0.5);
+        if (template.focuspoint) template.focuspoint.reset();
     },
 
     'click [data-next]': function eventsClickNext (event, template) {
         template.setNewCurrent(1);
-        if (template.focuspoint) template.focuspoint.set(0.5, 0.5);
+        if (template.focuspoint) template.focuspoint.reset();
     }
 
 });

@@ -14,7 +14,7 @@ Template.WidgetFocuspoint.onRendered(function () {
 
     // Function to find image
     var findImage = function () {
-        s
+        
         // Set focuspoint when image is found in mongo
         template.dragged.set(false);
         if (!template.data.imageId) return;
@@ -61,6 +61,13 @@ Template.WidgetFocuspoint.onRendered(function () {
                 }
             });
 
+            // Extend focuspoint with a reset function
+            template.focuspoint.reset = function () {
+                template.dragged.set(false);
+                template.focuspoint.set(0.5, 0.5);
+            };
+            
+            // Set focuspoint
             template.data.focuspoint(template.focuspoint);
 
             // Set focuspoint when image is found in mongo

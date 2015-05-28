@@ -88,7 +88,9 @@ var ImageSystem = function ImageSystemConstructor (template) {
             self.currentImageId.set(false);
             self.uploaded.set(false);
             setSuggestionByIndex(suggestionIndex);
-            self.storeFocuspoint(0.5, 0.5);
+
+            var focuspoint = self.focuspoint.get();
+            if (focuspoint) focuspoint.reset();
         }
     });
 };
@@ -166,7 +168,7 @@ Template.WidgetStartDetails.onCreated(function() {
         var imageId = template.imageSystem.currentImageId.get();
 
         if (imageId && template.focuspoint) {
-            template.focuspoint.set(0.5, 0.5);
+            template.focuspoint.reset();
         }
     });
 
@@ -272,10 +274,11 @@ Template.WidgetStartDetails.events({
         FS.Utility.eachFile(event, function (file) {
             template.loading.set('image-uploading', true);
             Partup.ui.uploader.uploadImage(file, function (error, image) {
+                template.loading.set('image-uploading', false);
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);
-                template.imageSystem.storeFocuspoint(0.5, 0.5);
-                template.loading.set('image-uploading', false);
+                var focuspoint = template.imageSystem.focuspoint.get();
+                if (focuspoint) focuspoint.reset();
             });
         });
     },
