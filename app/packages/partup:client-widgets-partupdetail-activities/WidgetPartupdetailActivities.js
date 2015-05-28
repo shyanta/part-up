@@ -42,6 +42,16 @@ Template.WidgetPartupdetailActivities.helpers({
     },
     'archivedActivities': function helperActivities () {
         return getActivities({archived:true});
+    },
+
+    isUpper: function helperIsUpper () {
+        var user = Meteor.user();
+        if (!user) return false;
+
+        var partup = Partups.findOne(Router.current().params._id);
+        if (!partup) return false;
+
+        return partup.uppers.indexOf(user._id) > -1;
     }
 
 });

@@ -14,15 +14,17 @@
         </header>
 
         {{# each activities }}
-            {{> WidgetActivity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true }}
+            {{> WidgetActivity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true isUpper=isUpper }}
         {{/ each }}
 
-        <p class="pu-textline">
-            <span>
-                {{_ "partupdetail-activities-archivedactivities-heading" }}
-                <span class="fa fa-long-arrow-down"></span>
-            </span>
-        </p>
+        {{# if archivedActivities }}
+            <p class="pu-textline">
+                <span>
+                    {{_ "partupdetail-activities-archivedactivities-heading" }}
+                    <span class="fa fa-long-arrow-down"></span>
+                </span>
+            </p>
+        {{/ if }}
 
         {{# each archivedActivities }}
             {{> WidgetActivity activity=. CONTRIBUTIONS=true }}
