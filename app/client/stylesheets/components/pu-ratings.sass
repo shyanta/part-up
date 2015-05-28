@@ -2,6 +2,22 @@
     font-size: 14px
     @extend %clearfix
 
+    .pu-sub-ratings-average
+        float: left
+        margin: 7px 5px 0 0
+        padding: 0
+        list-style: none
+
+        li
+            float: left
+            width: 2px
+            height: 8px
+            margin: 0 0 0 3px
+            background: #ccc
+
+            &.pu-state-active
+                background: $color-primary
+
     .pu-sub-no-rating
         float: left
         margin: 0 6px 0 0

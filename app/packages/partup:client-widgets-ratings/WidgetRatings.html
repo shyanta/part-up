@@ -1,6 +1,14 @@
 <template name="WidgetRatings">
     <div class="pu-ratings">
-        <p class="pu-sub-no-rating">{{_ 'ratings-none' }}</p>
+        {{# if hasRatings }}
+            <ul class="pu-sub-ratings-average">
+                {{# each averageRatings }}
+                <li class="{{# if . }}pu-state-active{{/ if }}"></li>
+                {{/ each }}
+            </ul>
+        {{ else }}
+            <p class="pu-sub-no-rating">{{_ 'ratings-none' }}</p>
+        {{/ if }}
         <ul class="pu-avatar-stack">
             {{# if showNewRating }}
                 <li class="pu-avatar pu-avatar-icon">

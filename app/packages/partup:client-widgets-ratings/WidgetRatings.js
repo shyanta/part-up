@@ -16,8 +16,28 @@ Template.WidgetRatings.onCreated(function(){
 /* Widget helpers */
 /*************************************************************/
 Template.WidgetRatings.helpers({
+    averageRatings: function(){
+        var sum = 0;
+        var ratings = this.ratings.fetch();
+
+        for (var i = 0; i < ratings.length; i++){
+            sum += ratings[i].rating;
+        }
+
+        var average = sum / ratings.length;
+        var items = [];
+
+        for (i = 10; i <= 100; i += 10){
+            items.push(i <= average);
+        }
+
+        return items;
+    },
     contribution: function(){
         return Template.instance().data.contribution;
+    },
+    hasRatings: function(){
+        return !!this.ratings.fetch().length;
     },
     showHoverCard: function(){
         var id = this._id || 'new';
