@@ -46,6 +46,16 @@ Template.WidgetPartupdetailUpdateItem.helpers({
         var commentsPresent = this.update.comments && this.update.comments.length > 0;
         var commentButtonPressed = Template.instance().commentInputFieldExpanded.get();
         return commentsPresent || commentButtonPressed;
+    },
+
+    isUpper: function helperIsUpper () {
+        var user = Meteor.user();
+        if (!user) return false;
+
+        var partup = Partups.findOne(Router.current().params._id);
+        if (!partup) return false;
+
+        return partup.uppers.indexOf(user._id) > -1;
     }
 
 });
@@ -56,6 +66,5 @@ Template.WidgetPartupdetailUpdateItem.helpers({
 Template.WidgetPartupdetailUpdateItem.events({
     'click [data-expand-comment-field]': function eventClickExpandCommentField (event, template) {
         template.commentInputFieldExpanded.set(true);
-        console.log(template);
     }
 });

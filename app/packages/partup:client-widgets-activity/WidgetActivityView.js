@@ -52,10 +52,10 @@ Template.WidgetActivityView.helpers({
         return Meteor.users.findOne({ _id: this.upper_id });
     },
     showEditButton: function () {
-        return !this.READONLY;
+        return !this.READONLY && this.isUpper;
     },
     showChevron: function () {
-        return this.CONTRIBUTIONS && !this.EXPANDED;
+        return this.CONTRIBUTIONS && !this.EXPANDED && !this.contribution_id;
     }
 });
 
