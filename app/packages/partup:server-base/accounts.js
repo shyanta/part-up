@@ -14,16 +14,28 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     if (liData) {
+        var location = {};
+
+        if (liData.location && liData.location.name) {
+            var locationParts = liData.location.name.split(',');
+
+            if (locationParts.length === 2) {
+                location.city = locationParts[0].trim();
+                location.country = locationParts[1].trim();
+            }
+        }
+
         profile = {
             linkedin_id: liData.id,
             name: liData.firstName + ' ' + liData.lastName,
             firstname: liData.firstName,
             lastname: liData.lastName,
-            location: liData.location.name,
+            location: location,
             settings: {
                 locale: 'en'
             }
         };
+
         imageUrl = liData.pictureUrl;
         user.emails.push({ address: liData.emailAddress, verified: true });
     }
@@ -39,6 +51,7 @@ Accounts.onCreateUser(function(options, user) {
                 locale: Partup.helpers.parseLocale(fbData.locale)
             }
         };
+
         imageUrl = 'https://graph.facebook.com/' + fbData.id + '/picture?width=750';
         user.emails.push({ address: fbData.email, verified: true });
     }
