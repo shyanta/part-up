@@ -6,7 +6,7 @@
         <p>{{_ 'startpromote-text-intro2'}}</p>
         <article class="pu-previewpost">
             <h3>{{ partup.name }}</h3>
-            <figure class="pu-sub-image" style="background-image: url({{partupImageById partup.image}})" data-partupcover-focuspoint></figure>
+            <figure class="pu-sub-image" style="{{#if partup.image }}background-image: url({{partupImageById partup.image}});{{/if}}" data-partupcover-focuspoint></figure>
             <p>{{ partup.description }}</p>
         </article>
 
