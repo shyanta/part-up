@@ -24,18 +24,14 @@ Package.onUse(function(api) {
         'WidgetPartupdetailUpdateItemDetail.html',
         'WidgetPartupdetailUpdateItemDetail.js',
 
-        'i18n/common.en.i18n.json',
-        'i18n/common.nl.i18n.json',
-        'i18n/types.en.i18n.json',
-        'i18n/types.nl.i18n.json'
+        'i18n/en.i18n.json',
+        'i18n/nl.i18n.json',
     ], 'client');
 
     api.addFiles([
         'package-tap.i18n',
         
-        'i18n/common.en.i18n.json',
-        'i18n/common.nl.i18n.json',
-        'i18n/types.en.i18n.json',
-        'i18n/types.nl.i18n.json'
+        'i18n/en.i18n.json',
+        'i18n/nl.i18n.json',
     ], 'server');
 });
