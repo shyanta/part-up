@@ -13,7 +13,8 @@ Meteor.methods({
         if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
-            var newPartup = Partup.transformers.partup.fromFormStartPartup(fields, upper);
+            var newPartup = Partup.transformers.partup.fromFormStartPartup(fields);
+            newPartup.uppers = [upper._id];
 
             //check(newPartup, Partup.schemas.entities.partup);
 
@@ -49,7 +50,7 @@ Meteor.methods({
         }
 
         try {
-            var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields, upper);
+            var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields);
 
             Partups.update(partupId, { $set: newPartupFields });
 
