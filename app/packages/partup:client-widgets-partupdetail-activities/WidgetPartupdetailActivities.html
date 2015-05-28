@@ -9,7 +9,9 @@
 
         <!-- Header buttons -->
         <header class="pu-pageheader">
-            <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "partupdetail-activities-newactivity-button"}}</a></section>
+            {{# if isUpper }}
+                <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "partupdetail-activities-newactivity-button"}}</a></section>
+            {{/ if}}
             <aside>{{> PartialDropdownActivitiesActions}}</aside>
         </header>
 

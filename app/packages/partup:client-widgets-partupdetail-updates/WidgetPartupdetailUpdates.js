@@ -70,6 +70,16 @@ Template.WidgetPartupdetailUpdates.helpers({
         var currentMoment = moment(update[TIME_FIELD]);
 
         return previousMoment.diff(currentMoment) > 24 * 60 * 60 * 1000;
+    },
+
+    'isUpper': function helperIsUpper () {
+        var user = Meteor.user();
+        if (!user) return false;
+
+        var partup = Partups.findOne(Router.current().params._id);
+        if (!partup) return false;
+
+        return partup.uppers.indexOf(user._id) > -1;
     }
 
 });

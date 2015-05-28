@@ -11,10 +11,12 @@
         <!-- Header buttons -->
         <header class="pu-pageheader">
             <section>
-                <a class="pu-button pu-button-icon" href="#" data-popup="popup.new-message">
-                    <i class="fa fa-comment"></i>
-                    {{_ 'partupdetail-updates-newmessage-button' }}
-                </a>
+                {{#if isUpper }}
+                    <a class="pu-button pu-button-icon" href="#" data-popup="popup.new-message">
+                        <i class="fa fa-comment"></i>
+                        {{_ 'partupdetail-updates-newmessage-button' }}
+                    </a>
+                {{/if }}
             </section>
             <aside>{{> PartialDropdownUpdatesActions}}</aside>
         </header>
