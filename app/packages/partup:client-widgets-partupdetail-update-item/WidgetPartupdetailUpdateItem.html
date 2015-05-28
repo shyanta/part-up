@@ -219,6 +219,24 @@
                 {{/with}}
             {{/if }}
 
+            <!-- partups_ratings_changed -->
+            {{#if partupEqualsExactly update.type 'partups_ratings_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_activities_archived -->
+            {{#if partupEqualsExactly update.type 'partups_activities_archived' }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
