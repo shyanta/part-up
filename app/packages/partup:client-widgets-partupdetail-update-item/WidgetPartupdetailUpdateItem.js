@@ -16,6 +16,14 @@ Template.WidgetPartupdetailUpdateItem.helpers({
         var activityId = Template.instance().data.update.type_data.activity_id;
         return Activities.findOne({_id: activityId});
     },
+    isActivityUpdate: function(){
+        return /^partups_activities/.test(this.update.type) ||
+            (this.update.type === 'partups_comments_added' && !this.update.type_data.contribution_id);
+    },
+    isContributionUpdate: function(){
+        return /^partups_(contributions|ratings)/.test(this.update.type) ||
+            (this.update.type === 'partups_comments_added' && this.update.type_data.contribution_id);
+    },
     isDetail: function helperIsDetail (){
         return !!Router.current().params.update_id;
     },

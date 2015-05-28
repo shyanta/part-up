@@ -174,8 +174,8 @@
                 {{/with}}
             {{/if }}
 
-            <!-- partups_activities_added -->
-            {{#if partupEqualsExactly update.type 'partups_activities_added' }}
+            <!-- activity related updates -->
+            {{# if isActivityUpdate }}
                 {{#with update.type_data }}
                     <section>
                         {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
@@ -183,56 +183,11 @@
                 {{/with}}
             {{/if }}
 
-            <!-- partups_activities_changed -->
-            {{#if partupEqualsExactly update.type 'partups_activities_changed' }}
-                {{#with update.type_data }}
-                    <section>
-                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
-                    </section>
-                {{/with}}
-            {{/if }}
-
-            <!-- partups_contributions_added -->
-            {{#if partupEqualsExactly update.type 'partups_contributions_added' }}
+            <!-- contribution related updates -->
+            {{#if isContributionUpdate }}
                 {{#with update.type_data }}
                     <section>
                         {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
-                    </section>
-                {{/with}}
-            {{/if }}
-
-            <!-- partups_contributions_changed -->
-            {{#if partupEqualsExactly update.type 'partups_contributions_changed' }}
-                {{#with update.type_data }}
-                    <section>
-                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
-                    </section>
-                {{/with}}
-            {{/if }}
-
-            <!-- partups_contributions_removed -->
-            {{#if partupEqualsExactly update.type 'partups_contributions_removed' }}
-                {{#with update.type_data }}
-                    <section>
-                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
-                    </section>
-                {{/with}}
-            {{/if }}
-
-            <!-- partups_ratings_changed -->
-            {{#if partupEqualsExactly update.type 'partups_ratings_changed' }}
-                {{#with update.type_data }}
-                    <section>
-                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
-                    </section>
-                {{/with}}
-            {{/if }}
-
-            <!-- partups_activities_archived -->
-            {{#if partupEqualsExactly update.type 'partups_activities_archived' }}
-                {{#with update.type_data }}
-                    <section>
-                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
                     </section>
                 {{/with}}
             {{/if }}
