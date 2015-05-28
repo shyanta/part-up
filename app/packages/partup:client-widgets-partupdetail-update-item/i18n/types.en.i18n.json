@@ -39,5 +39,7 @@
 
     "partupdetail-update-item-type-partups_contributions_changed-title": "@Updated a contribution",
 
-    "partupdetail-update-item-type-partups_contributions_removed-title": "@Removed a contribution"
+    "partupdetail-update-item-type-partups_contributions_removed-title": "@Removed a contribution",
+
+    "partupdetail-update-item-type-partups_comments_added-title": "Replied"
 }

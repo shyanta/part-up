@@ -39,5 +39,7 @@
 
     "partupdetail-update-item-type-partups_contributions_changed-title": "@Wijzigde een bijdrage",
 
-    "partupdetail-update-item-type-partups_contributions_removed-title": "@Verwijderde een bijdrage"
+    "partupdetail-update-item-type-partups_contributions_removed-title": "@Verwijderde een bijdrage",
+
+    "partupdetail-update-item-type-partups_comments_added-title": "Reageerde"
 }

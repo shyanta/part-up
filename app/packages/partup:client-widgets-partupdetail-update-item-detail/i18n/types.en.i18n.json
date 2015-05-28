@@ -25,5 +25,7 @@
 
     "partupdetail-update-item-type-new_message-title": "Posted Message",
 
-    "partupdetail-update-item-type-partups_message_added-title": "New message"
+    "partupdetail-update-item-type-partups_message_added-title": "New message",
+
+    "partupdetail-update-item-type-partups_comments_added-title": "Replied"
 }
