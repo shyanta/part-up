@@ -20,6 +20,7 @@
     "dropdown-updatesactions-option-messages": "@Messages",
     "dropdown-updatesactions-option-activities": "@All activity updates",
     "dropdown-updatesactions-option-partup-changes": "@All partup updates",
+    "dropdown-updatesactions-option-contributions": "@Contributions",
     "dropdown-updatesactions-option-my-updates": "@My updates",
 
     "dropdown-activitiesactions-option-default": "@All activities",

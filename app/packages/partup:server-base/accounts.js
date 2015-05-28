@@ -23,7 +23,7 @@ Accounts.onCreateUser(function(options, user) {
                 location.city = locationParts[0].trim();
                 location.country = locationParts[1].trim();
             }
-        }
+        };
 
         profile = {
             linkedin_id: liData.id,

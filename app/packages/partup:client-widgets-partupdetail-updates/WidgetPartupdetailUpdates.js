@@ -37,6 +37,10 @@ var getUpdates = function getUpdates () {
             return update.type && update.type.indexOf('message') > -1;
         }
 
+        if (option === 'contributions') {
+            return update.type && update.type.indexOf('contributions') > -1;
+        }
+
         return true;
     });
 };
