@@ -22,6 +22,7 @@ Meteor.methods({
             if (contribution) {
                 // Update contribution
                 newContribution.updated_at = new Date();
+                newContribution.verified = isUpperInPartup;
 
                 // Unarchive contribution if it was archived
                 if (contribution.archived) {
