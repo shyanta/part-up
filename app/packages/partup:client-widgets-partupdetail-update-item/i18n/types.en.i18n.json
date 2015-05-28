@@ -41,5 +41,7 @@
 
     "partupdetail-update-item-type-partups_ratings_changed-title": "Changed rating",
 
-    "partupdetail-update-item-type-partups_comments_added-title": "Replied"
+    "partupdetail-update-item-type-partups_comments_added-title": "Replied",
+    "partupdetail-update-item-type-partups_activities_comments_added-title": "Replied on an activity",
+    "partupdetail-update-item-type-partups_contributions_comments_added-title": "Replied on a contribution"
 }
