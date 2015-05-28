@@ -41,18 +41,5 @@
 
     "partupdetail-update-item-type-partups_ratings_changed-title": "Changed rating",
 
-    "partupdetail-update-item-type-partups_comments_added-title": "Replied",
-
-    "comment-field-content-system_activities_updated": "updated the activity",
-    "comment-field-content-system_activities_removed": "removed the activity",
-    "comment-field-content-system_activities_archived": "archived the activity",
-    "comment-field-content-system_activities_unarchived": "reactivated the activity",
-    "comment-field-content-system_contributions_updated": "updated the contribution",
-    "comment-field-content-system_contributions_accepted": "accepted the contribution",
-    "comment-field-content-system_contributions_rejected": "rejected the contribution",
-    "comment-field-content-system_contributions_removed": "removed the contribution",
-    "comment-field-content-system_supporters_added": "is a supporter now",
-    "comment-field-content-system_supporters_removed": "is not a supporter anymore",
-    "comment-field-content-system_ratings_inserted": "added a rating",
-    "comment-field-content-system_ratings_updated": "updated the rating"
+    "partupdetail-update-item-type-partups_comments_added-title": "Replied"
 }

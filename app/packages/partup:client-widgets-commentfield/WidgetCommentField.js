@@ -38,21 +38,21 @@ Template.WidgetCommentField.onRendered(function () {
 
 Template.WidgetCommentField.helpers({
     placeholders: Partup.services.placeholders.commentfield,
-    'generateFormId': function () {
+    generateFormId: function () {
         return 'commentForm-' + this.update._id;
     },
 
-    'formSchema': Partup.schemas.forms.updateComment,
+    formSchema: Partup.schemas.forms.updateComment,
 
-    // 'commentInputFieldExpanded': function helperCommentInputFieldExpanded() {
+    // commentInputFieldExpanded: function helperCommentInputFieldExpanded() {
     //     return commentInputFieldExpandedDict.get(this.update._id) ? 'pu-state-expanded' : '';
     // },
 
-    'commentPostButtonActive': function helperCommentPostButtonActive() {
+    commentPostButtonActive: function helperCommentPostButtonActive() {
         return commentPostButtonActiveDict.get(this.update._id);
     },
 
-    'shownComments': function helperShownComments() {
+    shownComments: function helperShownComments() {
         var allComments = this.update.comments || [];
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
         if (commentsExpanded || Template.instance().data.expandedComments)
@@ -61,7 +61,7 @@ Template.WidgetCommentField.helpers({
             return allComments.slice(-MAX_COLLAPSED_COMMENTS);
     },
 
-    'showExpandButton': function helperShowExpandButton() {
+    showExpandButton: function helperShowExpandButton() {
         var hiddenComments = 0;
         if(this.update && this.update.comments && this.update.comments_count) {
             hiddenComments = this.update.comments_count - MAX_COLLAPSED_COMMENTS > 0;
@@ -70,9 +70,13 @@ Template.WidgetCommentField.helpers({
         return Template.instance().data.expandedComments ? false : hiddenComments && !commentsExpanded;
     },
 
-    'currentUser': function helperUser() {
+    currentUser: function helperUser() {
         return Meteor.user();
     },
+
+    systemMessage: function helperSystemMessage (content) {
+        return __('comment-field-content-' + content);
+    }
 });
 
 Template.WidgetCommentField.events({

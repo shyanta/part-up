@@ -1,0 +1,14 @@
+{
+    "comment-field-content-system_activities_updated": "wijzigde de activiteit",
+    "comment-field-content-system_activities_removed": "verwijderde de activiteit",
+    "comment-field-content-system_activities_archived": "archiveerde de activiteit",
+    "comment-field-content-system_activities_unarchived": "heractiveerde de activiteit",
+    "comment-field-content-system_contributions_updated": "wijzigde een bijdrage",
+    "comment-field-content-system_contributions_accepted": "accepteerde de bijdrage",
+    "comment-field-content-system_contributions_rejected": "weigerde de bijdrage",
+    "comment-field-content-system_contributions_removed": "verwijderde de bijdrage",
+    "comment-field-content-system_supporters_added": "is weer supporter geworden",
+    "comment-field-content-system_supporters_removed": "is geen supporter meer",
+    "comment-field-content-system_ratings_inserted": "voegde een waardering toe",
+    "comment-field-content-system_ratings_updated": "wijzigde de waardering"
+}

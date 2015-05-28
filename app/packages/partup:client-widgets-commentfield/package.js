@@ -27,6 +27,8 @@ Package.onUse(function(api) {
 
         'i18n/common.en.i18n.json',
         'i18n/common.nl.i18n.json',
+        'i18n/types.en.i18n.json',
+        'i18n/types.nl.i18n.json',
     ], 'client');
 
     api.addFiles([
@@ -34,5 +36,7 @@ Package.onUse(function(api) {
         
         'i18n/common.en.i18n.json',
         'i18n/common.nl.i18n.json',
+        'i18n/types.en.i18n.json',
+        'i18n/types.nl.i18n.json',
     ], 'server');
 });

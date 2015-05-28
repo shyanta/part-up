@@ -22,9 +22,13 @@
         <ul class="pu-list pu-list-comments">
             {{#each shownComments }}
             <li>
-                <p>
+                <p class="{{# if system }}pu-sub-systemmessage{{/ if}}">
                     <span rel="author" data-hovercard="{{creator._id}}">{{ creator.name }}</span>
-                    {{ content }}
+                    {{# if system }}
+                        {{ systemMessage content }}
+                    {{else}}
+                        {{ content }}
+                    {{/ if}}
                 </p>
             </li>
             {{/each }}
