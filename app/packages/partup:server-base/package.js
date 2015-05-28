@@ -89,5 +89,5 @@ Npm.depends({
     'deeper': '1.0.2',
     'winston': '0.9.0',
     'pluralize': '1.1.2',
-    'node-flickr': '0.0.2'
+    'node-flickr': '0.0.3'
 });
