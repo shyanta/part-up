@@ -298,8 +298,10 @@ Template.WidgetStartDetails.events({
         var submissionType = button.getAttribute('data-submission-type');
         Session.set('partials.start-partup.submission-type', submissionType);
 
-        var form = template.find('#partupForm');
-        $(form).submit();
+        if (button.type !== 'submit') {
+            var form = template.find('#partupForm');
+            $(form).submit();
+        }
     },
     'click [data-removedate]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();
