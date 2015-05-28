@@ -71,7 +71,10 @@ Template.WidgetPartupdetailUpdates.helpers({
 
         return previousMoment.diff(currentMoment) > 24 * 60 * 60 * 1000;
     },
-
+    'isLoggedIn': function helperIsLoggedIn() {
+        var user= Meteor.user();
+        return !!user;
+    },
     'isUpper': function helperIsUpper () {
         var user = Meteor.user();
         if (!user) return false;
