@@ -49,11 +49,7 @@ Partup.transformers.partup = {
             end_date: fields.end_date,
             image: fields.image,
             tags: Partup.services.tags.tagInputToArray(fields.tags_input),
-            location: Partup.services.location.locationInputToLocation(fields.location_input),
-
-            // meta fields
-            created_at: new Date(),
-            creator_id: upper._id
+            location: Partup.services.location.locationInputToLocation(fields.location_input)
         };
 
         // Save focuspoint
