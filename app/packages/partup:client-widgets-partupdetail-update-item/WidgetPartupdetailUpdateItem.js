@@ -3,6 +3,12 @@
 /*************************************************************/
 Template.WidgetPartupdetailUpdateItem.onCreated(function () {
     this.commentInputFieldExpanded = new ReactiveVar(false);
+
+    var update = this.data.update;
+    if (update.type === 'partups_budget_changed') {
+        update.type_data.old_value = update.type_data.old_value || 0;
+        update.type_data.new_value = update.type_data.new_value || 0;
+    }
 });
 
 /*************************************************************/
