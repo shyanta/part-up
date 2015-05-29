@@ -230,6 +230,13 @@ Template.WidgetStartDetails.helpers({
                  || template.loading.get('setting-suggestion')
                 );
     },
+    imagepreviewIsLoading: function () {
+        var template = Template.instance();
+        return template.loading
+            && (    template.loading.get('image-uploading')
+                 || template.loading.get('setting-suggestion')
+                );
+    },
     uploadingPicture: function () {
         var template = Template.instance();
         return template.loading && template.loading.get('image-uploading');

@@ -6,7 +6,9 @@
         margin-left: -25px
         border: 2px solid #ffe2ab
         background-color: #ffa92a
-        transition: background .2s
+        $transition-normal: background .2s, opacity .2s ease .2s
+        $transition-buttonhidden: background .2s, opacity .2s
+        transition: $transition-normal
         z-index: 1
 
         span
@@ -31,6 +33,11 @@
         &:hover
             span
                 background-color: rgba(#000, .2)
+
+        &.pu-state-hide
+            opacity: 0
+            pointer-events: none
+            transition: $transition-buttonhidden
         
     &-dragged
         .lfy-focuspoint-button

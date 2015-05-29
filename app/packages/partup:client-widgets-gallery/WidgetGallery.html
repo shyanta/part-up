@@ -8,7 +8,7 @@
                 <li class="{{#if isCurrent }}pu-state-active{{/if }}" style="background-image: url({{ . }})" data-focuspoint-view></li>
             {{/each }}
         </ul>
-        {{> WidgetFocuspoint view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
+        {{> WidgetFocuspoint view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint loading=loading }}
         <a href="" class="pu-sub-button pu-sub-button-left" data-previous>
             <i class="fa fa-chevron-left"></i>
         </a>
