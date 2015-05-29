@@ -30,7 +30,7 @@ Meteor.methods({
 
         // Set default values
         count = count || 5;
-        fallbackTags = fallbackTags || ['teamwork', 'group', 'team'];
+        fallbackTags = fallbackTags || ['nature'];
 
         var lookupTags = Meteor.wrapAsync(function (tags, count, callback) {
             var searchByTags = function (tags, count, photos) {

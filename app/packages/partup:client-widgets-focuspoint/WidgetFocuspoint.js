@@ -40,9 +40,11 @@ Template.WidgetFocuspoint.onRendered(function () {
     if (focuspoint_edit) {
         Meteor.setTimeout(function () {
             var view_elms = template.data.view_elm.template.findAll(template.data.view_elm.selector);
+            var button_elm = template.find('[data-focuspoint-button]');
 
             template.focuspoint = new Focuspoint.Edit(focuspoint_edit, {
-                view_elm: view_elms || undefined
+                view_elm: view_elms || undefined,
+                button_elm: button_elm || undefined
             });
 
             template.focuspoint.on('drag:start', function (x, y) {
