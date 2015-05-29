@@ -3,8 +3,15 @@ Template.NewMessagePopup.onCreated(function(){
 
     template.uploadingPhotos = new ReactiveVar(false);
     template.uploadedPhotos = new ReactiveVar([]);
-    template.maxPhotos = 4;
     template.totalPhotos = new ReactiveVar(0);
+    template.maxPhotos = 4;
+
+    // reset on close popup
+    Partup.ui.popup.onClose = function(){
+        template.uploadingPhotos.set(false);
+        template.uploadedPhotos.set([]);
+        template.totalPhotos.set(0);
+    };
 });
 
 // helpers

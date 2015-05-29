@@ -4,9 +4,17 @@ Partup.ui.popup = {
     },
     close: function(){
         Session.set('main.popup-open', false);
+        if(typeof this.onClose == 'function'){
+            this.onClose();
+            this.onClose = undefined;
+        }
     },
     toggle: function(){
         var open = Session.get('main.popup-open');
-        Session.set('main.popup-open', !open);
+        if(open) {
+            this.close();
+        } else {
+            this.open();
+        }
     }
 }

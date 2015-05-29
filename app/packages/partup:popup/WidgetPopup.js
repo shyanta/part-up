@@ -4,7 +4,6 @@ Template.registerHelper('partupPopupActive', function(name){
 
 Meteor.startup(function () {
     $('body').on('click', '[data-popup]', function(e){
-        console.log(e, 'click');
         var popupId = $(this).data('popup');
         Partup.ui.popup.open();
         Session.set('partup.popup-active', popupId);
