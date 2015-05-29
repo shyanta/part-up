@@ -23,7 +23,6 @@ Template.WidgetDropdownNotifications.helpers({
         return Session.get('widget-dropdown-notifications.opened');
     },
     notifications: function () {
-        return []; // disabled feature
-        // return Notifications.find();
+        return Notifications.find();
     }
 });
