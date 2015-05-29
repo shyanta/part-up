@@ -20,8 +20,5 @@ Template.PagesStartPartupIntro.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
         Partup.ui.intent.executeIntentCallback('start');
-    },
-    'click [data-start-new]': function startPartup(event,template){
-        Router.go('start-details');
     }
 });
