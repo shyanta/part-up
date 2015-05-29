@@ -1,4 +1,17 @@
 # CHANGELOG
+## 1.2
+- profile hover card
+- new activity flow
+- new contribution flow
+- focuspoint
+- picturesuggestions
+- invite uppers
+- partup-detail updates
+- update detail
+- partup-detail activities
+- ratings
+- discover v1
+- system messages
 
 ## 1.1
 - new contribution adding UI pattern
