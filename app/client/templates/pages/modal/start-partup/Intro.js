@@ -22,7 +22,6 @@ Template.PagesStartPartupIntro.events({
         Partup.ui.intent.executeIntentCallback('start');
     },
     'click [data-start-new]': function startPartup(event,template){
-        Session.set('partials.start-partup.current-partup', undefined);
         Router.go('start-details');
     }
 });
