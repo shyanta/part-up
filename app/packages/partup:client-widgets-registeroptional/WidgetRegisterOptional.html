@@ -34,11 +34,14 @@
 
             <!-- Bio -->
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'registeroptional-form-description-label' }}</span>
-                <a class="pu-hint pu-tooltip">
-                    <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-description-tooltip' }}</p></span>
-                </a>
+                <span class="pu-label">
+                    {{_ 'registeroptional-form-description-label' }}
+                    <a class="pu-hint pu-tooltip">
+                        <i class="fa fa-question-circle"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-description-tooltip' }}</p></span>
+                    </a>
+                </span>
+                
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
@@ -47,11 +50,14 @@
 
             <!-- Tags -->
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'registeroptional-form-tags_input-label'}}</span>
-                <a class="pu-hint pu-tooltip">
+                <span class="pu-label">
+                    {{_ 'registeroptional-form-tags_input-label'}}
+                    <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-tags_input-tooltip' }}</p></span>
                 </a>
+                </span>
+                
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
@@ -60,11 +66,14 @@
 
             <!-- Region -->
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'registeroptional-form-location_input-label' }}</span>
-                <a class="pu-hint pu-tooltip">
-                    <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-location_input-tooltip' }}</p></span>
-                </a>
+                <span class="pu-label">
+                    {{_ 'registeroptional-form-location_input-label' }}
+                    <a class="pu-hint pu-tooltip">
+                        <i class="fa fa-question-circle"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-location_input-tooltip' }}</p></span>
+                    </a>
+                </span>
+                
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
@@ -73,11 +82,14 @@
 
             <!-- Socials -->
             <fieldset class="pu-formfield">
-                <label class="pu-label" for="pu-sub-facebookfield">{{_ 'registeroptional-form-socials-label' }}</label>
-                <a class="pu-hint pu-tooltip">
-                    <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-socials-tooltip' }}</p></span>
-                </a>
+                <label class="pu-label" for="pu-sub-facebookfield">
+                    {{_ 'registeroptional-form-socials-label' }}
+                    <a class="pu-hint pu-tooltip">
+                        <i class="fa fa-question-circle"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-socials-tooltip' }}</p></span>
+                    </a>
+                </label>
+                
 
                 <!-- Facebook -->
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook' }}pu-state-invalid{{/if}}">
@@ -140,11 +152,14 @@
 
             <!-- Phone number -->
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'registeroptional-form-phonenumber-label' }}</span>
-                <a class="pu-hint pu-tooltip">
-                    <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-phonenumber-tooltip' }}</p></span>
-                </a>
+                <span class="pu-label">
+                    {{_ 'registeroptional-form-phonenumber-label' }}
+                    <a class="pu-hint pu-tooltip">
+                        <i class="fa fa-question-circle"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-phonenumber-tooltip' }}</p></span>
+                    </a>
+                </span>
+                
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='phonenumber' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='phonenumber' placeholder=placeholders.phonenumber class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='phonenumber' }}</span>
@@ -153,11 +168,14 @@
 
             <!-- Skype username -->
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'registeroptional-form-skype-label' }}</span>
-                <a class="pu-hint pu-tooltip">
-                    <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-skype-tooltip' }}</p></span>
-                </a>
+                <span class="pu-label">
+                    {{_ 'registeroptional-form-skype-label' }}
+                    <a class="pu-hint pu-tooltip">
+                        <i class="fa fa-question-circle"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-skype-tooltip' }}</p></span>
+                    </a>
+                </span>
+                
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='skype' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='skype' placeholder=placeholders.skype class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='skype' }}</span>
