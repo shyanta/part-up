@@ -37,7 +37,7 @@
                     {{/if}}
 
                     {{# if COMMENTS_LINK }}
-                        <a class="pu-activity-comments" href="{{ pathFor route='partup-detail-update' _id=activity.partup_id update_id=activity.update_id }}"><i class="fa fa-comment"></i> {{_ 'activity-comment' count=commentsCount }}</a>
+                        <a class="pu-sub-comments" href="{{ pathFor route='partup-detail-update' _id=activity.partup_id update_id=activity.update_id }}"><i class="fa fa-comment"></i> {{_ 'activity-comment' count=commentsCount }}</a>
                     {{/ if }}
                 </p>
             {{/ if }}
