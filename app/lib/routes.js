@@ -424,6 +424,18 @@ Router.onBeforeAction(function () {
         'register-details'
     ]
 });
+// reset start-partup id to reset the start partup flow
+Router.onBeforeAction(function () {
+    Session.set('partials.start-partup.current-partup', undefined);
+    this.next();
+}, {
+    except: [
+        'start-details',
+        'start-activities',
+        'start-contribute',
+        'start-promote'
+    ]
+});
 
 /*************************************************************/
 /* Miscellaneous */

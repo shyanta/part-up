@@ -24,7 +24,7 @@ Template.PagesStartPartup.events({
                 Router.go('start-promote', {_id:currentPartup});
                 break;
             case 'start-promote':
-                Session.set('partials.start-partup.current-partup', undefined)
+                Session.set('partials.start-partup.current-partup', undefined);
                 Router.go('partup-detail', {_id:currentPartup});
                 break;
         }
