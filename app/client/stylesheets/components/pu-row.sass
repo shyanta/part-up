@@ -30,3 +30,16 @@
     
     .stretch 
         width: 100%
+
+    &-scalable
+        display: block
+        overflow: auto
+
+        .cell
+            display: inline-block
+
+        .stretch
+            width: auto
+
+        .stretch + .cell
+            float: right
