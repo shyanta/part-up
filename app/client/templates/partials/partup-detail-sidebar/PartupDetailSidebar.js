@@ -20,10 +20,7 @@ var partupDetailLayout = {
 
         var r = this.getRects();
         var br = document.body.getBoundingClientRect();
-        this.initialTops = {
-            left: r.left.top - br.top,
-            right: r.right.top - br.top
-        };
+        this.initialTop = r.left.top - br.top;
 
         var self = this;
         window.addEventListener('resize', function(){
@@ -136,7 +133,7 @@ var partupDetailLayout = {
             r[lcol].bottom - br.top - window.innerHeight
         ];
         this.constrainPos = [
-            this.initialTops[scol],
+            this.initialTop,
             r[lcol].bottom - br.top - r[scol].height
         ];
     },
@@ -166,15 +163,15 @@ var partupDetailLayout = {
             if (direction === 'down' && r[scol].bottom < iH){
                 pos = 'fixed';
                 // Short column height is smaller than viewport height minus initial top
-                if (r[scol].height < (iH - this.initialTops[scol])){
-                    top = this.initialTops[scol];
+                if (r[scol].height < (iH - this.initialTop)){
+                    top = this.initialTop;
                 } else {
                     top = iH - r[scol].height;
                 }
             // Going up and short column top is larger than initial position on page
-            } else if (direction === 'up' && r[scol].top > this.initialTops[scol]){
+            } else if (direction === 'up' && r[scol].top > this.initialTop){
                 pos = 'fixed';
-                top = this.initialTops[scol];
+                top = this.initialTop;
             }
         } else {
             pos = 'absolute';
@@ -193,26 +190,26 @@ var partupDetailLayout = {
         // 3. short column bottom is inside viewport
         // 4. short column top is larger than initial pos
         if (
-            (r[scol].height < iH - this.initialTops[scol]) && // 1
+            (r[scol].height < iH - this.initialTop) && // 1
             (
                 (
                     (r[scol].bottom < r[lcol].bottom) && // 2
                     (r[scol].bottom < iH) // 3
                 ) ||
                 (
-                    (r[scol].top > this.initialTops[scol]) // 4
+                    (r[scol].top > this.initialTop) // 4
                 )
             )
         ){
             pos = 'fixed';
-            top = this.initialTops[scol];
+            top = this.initialTop;
         }
 
         this[scol].style.position = pos;
         this[scol].style.top = top + 'px';
 
         this[lcol].style.position = 'absolute';
-        this[lcol].style.top = this.initialTops[lcol];
+        this[lcol].style.top = this.initialTop;
 
         this.lastDirection = direction;
         this.lastScrollTop = scrollTop;
