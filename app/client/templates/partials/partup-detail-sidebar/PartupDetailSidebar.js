@@ -209,7 +209,7 @@ var partupDetailLayout = {
         this[scol].style.top = top + 'px';
 
         this[lcol].style.position = 'absolute';
-        this[lcol].style.top = this.initialTop;
+        this[lcol].style.top = this.initialTop + 'px';
 
         this.lastDirection = direction;
         this.lastScrollTop = scrollTop;
