@@ -12,8 +12,10 @@
                             Discover
                         </h2>
                     </header>
-
-                    <section>
+                    {{#if partups }}
+                        {{> ReactiveLayout items=partups }}
+                    {{/if}}
+                    <!-- <section>
                         {{#if partups }}
                             <ul class="pu-list pu-list-horizontal pu-list-discover">
                                 {{#each partups }}
@@ -25,7 +27,7 @@
                         {{ else }}
                             <p>No partups added yet.</p>
                         {{ /if }}
-                    </section>
+                    </section> -->
                 </section>
 
             </div>
