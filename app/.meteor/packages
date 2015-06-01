@@ -10,8 +10,8 @@ partup:client-base
 partup:server-base
 
 partup:client-activity
+partup:client-contribution
 partup:client-widget-spinner
-partup:client-widgets-contribution
 partup:client-widgets-dropdowns
 partup:client-widgets-forgotpassword
 partup:client-widgets-gallery

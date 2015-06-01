@@ -46,11 +46,11 @@
         {{# if expanded }}
             <div class="pu-block-inner">
                 {{# each contributions }}
-                    {{> WidgetContribution contribution=. updateContribution=updateContribution }}
+                    {{> Contribution contribution=. updateContribution=updateContribution }}
                 {{/ each }}
 
                 {{# if showPlaceholderContribution }}
-                    {{> WidgetContribution PLACEHOLDER=true updateContribution=updateContribution }}
+                    {{> Contribution PLACEHOLDER=true updateContribution=updateContribution }}
                 {{/ if }}
             </div>
         {{/ if }}

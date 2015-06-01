@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetContribution.onCreated(function(){
+Template.Contribution.onCreated(function(){
     this.showForm = new ReactiveVar(false);
     this.updateContribution = this.data.updateContribution;
 });
@@ -9,7 +9,7 @@ Template.WidgetContribution.onCreated(function(){
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetContribution.helpers({
+Template.Contribution.helpers({
     commentsCount: function(){
         var update = Updates.findOne({ _id: this.contribution.update_id });
         if (!update) return;
@@ -46,7 +46,7 @@ Template.WidgetContribution.helpers({
         var partup = Partups.findOne({_id: activity.partup_id});
         if (!partup) return false;
         userIsPartupper = _.contains(partup.uppers, user._id);
-        return this.contribution.verified == false && userIsPartupper;
+        return this.contribution.verified === false && userIsPartupper;
     },
     ratings: function(){
         return Ratings.find({ contribution_id: this.contribution._id });
@@ -56,7 +56,7 @@ Template.WidgetContribution.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetContribution.events({
+Template.Contribution.events({
     'click .pu-contribution-placeholder': function(event, template){
         template.updateContribution({}, function(error){
             if (error){
