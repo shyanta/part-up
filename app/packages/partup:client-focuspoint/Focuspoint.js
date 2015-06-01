@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Widget on created */
 /*************************************************************/
-Template.WidgetFocuspoint.onCreated(function () {
+Template.Focuspoint.onCreated(function () {
     var template = this;
     template.dragged = new ReactiveVar(false);
 });
@@ -9,12 +9,12 @@ Template.WidgetFocuspoint.onCreated(function () {
 /*************************************************************/
 /* Widget on rendered */
 /*************************************************************/
-Template.WidgetFocuspoint.onRendered(function () {
+Template.Focuspoint.onRendered(function () {
     var template = this;
 
     // Function to find image
     var findImage = function () {
-        
+
         // Set focuspoint when image is found in mongo
         template.dragged.set(false);
         if (!template.data.imageId) return;
@@ -34,7 +34,7 @@ Template.WidgetFocuspoint.onRendered(function () {
             }
         }
     };
-    
+
     // Initialize focuspoint
     var focuspoint_edit = template.find('[data-focuspoint-edit]');
     if (focuspoint_edit) {
@@ -68,7 +68,7 @@ Template.WidgetFocuspoint.onRendered(function () {
                 template.dragged.set(false);
                 template.focuspoint.set(0.5, 0.5);
             };
-            
+
             // Set focuspoint
             template.data.focuspoint(template.focuspoint);
 
@@ -81,7 +81,7 @@ Template.WidgetFocuspoint.onRendered(function () {
 /*************************************************************/
 /* Widget on destroyed */
 /*************************************************************/
-Template.WidgetFocuspoint.onDestroyed(function () {
+Template.Focuspoint.onDestroyed(function () {
     var template = this;
 
     if (template.focuspoint) {
@@ -93,7 +93,7 @@ Template.WidgetFocuspoint.onDestroyed(function () {
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetFocuspoint.helpers({
+Template.Focuspoint.helpers({
     dragged: function () {
         return Template.instance().dragged.get();
     }

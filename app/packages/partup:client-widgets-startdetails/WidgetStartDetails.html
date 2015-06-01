@@ -178,7 +178,7 @@
                         <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
                             {{> WidgetLoader }}
                         </div>
-                        {{> WidgetFocuspoint loading=imagepreviewIsLoading imageId=partupImage.currentImageId.get view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
+                        {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImage.currentImageId.get view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
                         <div class="pu-sub-buttons">
                             <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
                                 <span>{{_ 'startdetails-image-button-overwrite'}}</span>

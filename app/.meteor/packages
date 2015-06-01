@@ -14,6 +14,7 @@ partup:client-activity
 partup:client-commentfield
 partup:client-contribution
 partup:client-dropdowns
+partup:client-focuspoint
 partup:client-rating
 partup:client-ratings
 partup:client-spinner
@@ -75,4 +76,3 @@ cfs:standard-packages
 partup:client-widgets-inviteuppers
 cfs:filesystem
 lifely:focuspoint
-partup:client-widgets-focuspoint

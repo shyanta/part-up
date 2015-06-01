@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-focuspoint',
+    name: 'partup:client-focuspoint',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -12,7 +12,7 @@ Package.onUse(function (api) {
     ], ['client']);
 
     api.addFiles([
-        'WidgetFocuspoint.html',
-        'WidgetFocuspoint.js'
+        'Focuspoint.html',
+        'Focuspoint.js'
     ], 'client');
 });
