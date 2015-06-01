@@ -68,7 +68,7 @@ Meteor.methods({
     /**
      * Remove a Partup
      *
-     * @param {integer} partupId
+     * @param {string} partupId
      */
     'partups.remove': function (partupId) {
         var upper = Meteor.user();
@@ -79,11 +79,13 @@ Meteor.methods({
         }
 
         try {
-            Partups.remove(partupId);
-            Images.remove(partup.image);
+            var supporters = partup.supporters || [];
+            var uppers = partup.uppers || [];
+            Meteor.users.update({ _id: { $in: supporters } }, { $pull: { 'supporterOf': partupId } }, { multi: true });
+            Meteor.users.update({ _id: { $in: uppers } }, { $pull: { 'upperOf': partupId } }, { multi: true });
 
-            Meteor.users.update({ _id: { $in: partup.supporters } }, { $pull: { 'supporterOf': partupId } }, { multi: true });
-            Meteor.users.update({ _id: { $in: partup.uppers } }, { $pull: { 'upperOf': partupId } }, { multi: true });
+            Images.remove(partup.image);
+            Partups.remove(partupId);
 
             return {
                 _id: partup._id
