@@ -196,8 +196,8 @@ Router.route('/partups/:_id/invite', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesPartupInviteUppers': { to: 'modal-page' },
+        'modal': { to: 'main' },
+        'PagesPartupInviteUppers': { to: 'modal' },
     },
     subscriptions: function () {
         // this.subscribe('users.count');
@@ -212,8 +212,8 @@ Router.route('/start', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesStartPartupIntro': { to: 'modal-page' }
+        'modal': { to: 'main' },
+        'PagesStartPartupIntro': { to: 'modal' }
     }
 });
 
@@ -222,8 +222,8 @@ Router.route('/start/details', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesStartPartup': { to: 'modal-page' },
+        'modal': { to: 'main' },
+        'PagesStartPartup': { to: 'modal' },
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
     subscriptions: function () {
@@ -237,8 +237,8 @@ Router.route('/start/:_id/activities', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesStartPartup': { to: 'modal-page' },
+        'modal': { to: 'main' },
+        'PagesStartPartup': { to: 'modal' },
         'PagesStartPartupActivities': { to: 'start-partup-page' }
     },
     subscriptions: function () {
@@ -257,8 +257,8 @@ Router.route('/start/:_id/promote', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesStartPartup': { to: 'modal-page' },
+        'modal': { to: 'main' },
+        'PagesStartPartup': { to: 'modal' },
         'PagesStartPartupPromote': { to: 'start-partup-page' }
     },
     subscriptions: function () {
@@ -279,8 +279,8 @@ Router.route('/login', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesLogin': { to: 'modal-page' }
+        'modal': { to: 'main' },
+        'PagesLogin': { to: 'modal' }
     }
 });
 
@@ -293,8 +293,8 @@ Router.route('/forgot-password', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesForgotPassword': { to: 'modal-page' }
+        'modal': { to: 'main' },
+        'PagesForgotPassword': { to: 'modal' }
     }
 });
 
@@ -303,8 +303,8 @@ Router.route('/reset-password/:token', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesResetPassword': { to: 'modal-page' }
+        'modal': { to: 'main' },
+        'PagesResetPassword': { to: 'modal' }
     }
 });
 
@@ -341,8 +341,8 @@ Router.route('/register', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesRegister': { to: 'modal-page' },
+        'modal': { to: 'main' },
+        'PagesRegister': { to: 'modal' },
         'PagesRegisterRequired': { to: 'register-page' }
     },
     subscriptions: function () {
@@ -355,8 +355,8 @@ Router.route('/register/details', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'main' },
-        'PagesRegister': { to: 'modal-page' },
+        'modal': { to: 'main' },
+        'PagesRegister': { to: 'modal' },
         'PagesRegisterOptional': { to: 'register-page' }
     }
 });

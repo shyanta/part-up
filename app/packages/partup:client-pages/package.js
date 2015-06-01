@@ -37,6 +37,8 @@ Package.onUse(function(api) {
         'app/partup/update/update.js',
         'app/partup/activities/activities.html',
         'app/partup/activities/activities.js',
+        'modal/modal.html',
+        'modal/modal.js',
     ];
 
     var languageFiles = [

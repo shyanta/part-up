@@ -1,31 +1,29 @@
 /*************************************************************/
-/* Layout helpers */
+/* modal on rendered */
 /*************************************************************/
-Template.PagesModal.helpers({
-    
-    focusLayerEnabled: function helperFocusLayerEnabled () {
-        return Partup.ui.focuslayer.state.get();
-    }
-    
-});
-
-
-/*************************************************************/
-/* Page events */
-/*************************************************************/
-Template.PagesModal.events({
-    
-    'click [data-focuslayer]': function eventsClickFocuslayer () {
-        Partup.ui.focuslayer.disable();
-    }
-    
-});
-
-/*************************************************************/
-/* Page rendered */
-/*************************************************************/
-Template.PagesModal.onRendered(function () {
+Template.modal.onRendered(function () {
     var $body = $('body');
     $body.removeClass('pu-state-currentlayout-app');
     $body.addClass('pu-state-currentlayout-modal');
+});
+
+/*************************************************************/
+/* modal helpers */
+/*************************************************************/
+Template.modal.helpers({
+    focusLayerEnabled: function helperFocusLayerEnabled () {
+        return Partup.ui.focuslayer.state.get();
+    }
+});
+
+
+/*************************************************************/
+/* modal events */
+/*************************************************************/
+Template.modal.events({
+
+    'click [data-focuslayer]': function eventsClickFocuslayer () {
+        Partup.ui.focuslayer.disable();
+    }
+
 });

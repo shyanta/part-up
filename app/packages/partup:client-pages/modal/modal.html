@@ -1,13 +1,13 @@
-<template name="PagesModal">
+<template name="modal">
+
     <div class="pu-modal">
 
         <!-- Page -->
-        {{> yield region='modal-page' }}
+        {{> yield region='modal' }}
 
         <!-- Focuslayer -->
-        
         <div class="pu-sub-focuslayer {{#if focusLayerEnabled }}pu-sub-focuslayer-active{{/if }}" data-focuslayer></div>
-        
 
     </div>
+
 </template>
