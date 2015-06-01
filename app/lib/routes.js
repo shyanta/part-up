@@ -17,7 +17,7 @@ Router.route('/', {
     layoutTemplate: 'LayoutMain',
     yieldRegions: {
         'app': { to: 'main' },
-        'PagesHome': { to: 'page-app' }
+        'app_home': { to: 'page-app' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');

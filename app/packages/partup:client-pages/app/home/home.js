@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesHome.helpers({
+Template.app_home.helpers({
     
     firstPartup: function () {
         return Partups.findOne();
@@ -13,7 +13,7 @@ Template.PagesHome.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesHome.events({
+Template.app_home.events({
 
     'click [data-translate]': function clickTranslate (event, template) {
         var language = $(event.currentTarget).data("translate");
