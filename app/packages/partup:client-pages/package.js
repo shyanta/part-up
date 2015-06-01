@@ -43,6 +43,8 @@ Package.onUse(function(api) {
         'modal/login/login.js',
         'modal/forgotpassword/forgotpassword.html',
         'modal/forgotpassword/forgotpassword.js',
+        'modal/resetpassword/resetpassword.html',
+        'modal/resetpassword/resetpassword.js',
     ];
 
     var languageFiles = [
@@ -62,6 +64,8 @@ Package.onUse(function(api) {
         'i18n/modal-login.nl.i18n.json',
         'i18n/modal-forgotpassword.en.i18n.json',
         'i18n/modal-forgotpassword.nl.i18n.json',
+        'i18n/modal-resetpassword.en.i18n.json',
+        'i18n/modal-resetpassword.nl.i18n.json',
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');

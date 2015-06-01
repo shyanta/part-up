@@ -303,8 +303,8 @@ Router.route('/reset-password/:token', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesResetPassword': { to: 'modal' }
+        'modal':               { to: 'main' },
+        'modal_resetpassword': { to: 'modal' }
     }
 });
 

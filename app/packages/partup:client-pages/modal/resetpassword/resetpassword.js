@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesResetPassword.helpers({
+Template.modal_resetpassword.helpers({
     //
 });
 
@@ -9,7 +9,7 @@ Template.PagesResetPassword.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesResetPassword.events({
+Template.modal_resetpassword.events({
     'click [data-closepage]': function (event, template) {
         event.preventDefault();
         Partup.ui.intent.executeIntentCallback('reset-password');
