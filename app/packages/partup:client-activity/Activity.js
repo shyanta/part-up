@@ -19,32 +19,32 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.Activity.onCreated(function(){
+Template.Activity.onCreated(function() {
     this.edit = new ReactiveVar(false);
     this.showContributions = new ReactiveVar(false);
 
     var self = this;
-    this.autorun(function () {
-        if(!Partup.ui.focuslayer.state.get()) {
+    this.autorun(function() {
+        if (!Partup.ui.focuslayer.state.get()) {
             self.edit.set(false);
         }
     });
 
-    this.autorun(function () {
-        if(self.edit.get()) {
+    this.autorun(function() {
+        if (self.edit.get()) {
             Partup.ui.focuslayer.enable();
 
             // scroll
             var DELAY = 100;
             var DURATION = 750;
-            setTimeout(function () {
+            setTimeout(function() {
                 var elm = $(self.find('[data-activity-id]'));
-                if(!elm) return;
+                if (!elm) return;
 
                 var offset = elm.offset().top;
                 var elmIsCompletelyInView = offset >= window.scrollY && offset + elm.outerHeight() <= window.scrollY + window.innerHeight;
 
-                if(!elmIsCompletelyInView) {
+                if (!elmIsCompletelyInView) {
                     var max = $(document).height() - window.innerHeight;
                     var pos = Math.min(offset - 50, max);
 
@@ -64,13 +64,13 @@ Template.Activity.onCreated(function(){
 /* Widget helpers */
 /*************************************************************/
 Template.Activity.helpers({
-    edit: function(){
+    edit: function() {
         return Template.instance().edit;
     },
-    showForm: function(){
+    showForm: function() {
         return !this.READONLY && (!!this.CREATE || Template.instance().edit.get());
     },
-    createCallback: function(){
+    createCallback: function() {
         return this.createCallback;
     }
 });
