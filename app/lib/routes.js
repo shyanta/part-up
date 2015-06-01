@@ -46,26 +46,26 @@ Router.route('/discover', {
 /*************************************************************/
 /* Profile (on hold) */
 /*************************************************************/
-// var profileSettings = {
-//     where: 'client',
-//     layoutTemplate: 'main',
-//     yieldRegions: {
-//         'app': { to: 'main' },
-//         'PagesProfile': { to: 'app' }
-//     },
-//     subscriptions: function () {
-//         this.subscribe('notifications.user');
-//         this.subscribe('partups.all');
-//     },
-//     onBeforeAction: function(){
-//         if(!this.params._id){
-//             this.params._id = Meteor.userId();
-//         }
-//         this.next();
-//     }
-// };
-// // Abstract route behaviour, redirects cause buggy back buttons in browser
-// Router.route('/profile', settingsWithName(profileSettings, 'profile'));
+var profileSettings = {
+    where: 'client',
+    layoutTemplate: 'main',
+    yieldRegions: {
+        'app': { to: 'main' },
+        'PagesProfile': { to: 'app' }
+    },
+    subscriptions: function () {
+        this.subscribe('notifications.user');
+        this.subscribe('partups.all');
+    },
+    onBeforeAction: function(){
+        if(!this.params._id){
+            this.params._id = Meteor.userId();
+        }
+        this.next();
+    }
+};
+// Abstract route behaviour, redirects cause buggy back buttons in browser
+Router.route('/profile', settingsWithName(profileSettings, 'profile'));
 // Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
 
 
