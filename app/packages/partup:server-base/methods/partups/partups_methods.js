@@ -74,7 +74,7 @@ Meteor.methods({
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (! upper || partup.creator_id !== upper._id) {
+        if (!upper && partup.creator_id !== upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
