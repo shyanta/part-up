@@ -18,18 +18,24 @@ Meteor.startup(function() {
 
 
     /*************************************************************/
-    /* Router transition configuration */
+    /* Router animation */
     /*************************************************************/
-    var previousTemplateName = '';
+    var previousLayout = '';
     Router.onBeforeAction(function() {
         var yieldRegions = this.route.options.yieldRegions;
-        var nextTemplateName = '';
+        var nextLayout = '';
 
         // Check current template
-        if(yieldRegions && yieldRegions.hasOwnProperty('PagesModal')) {
-            nextTemplateName = 'modal';
-        } else if (yieldRegions && yieldRegions.hasOwnProperty('PageApp')) {
-            nextTemplateName = 'app';
+        if(yieldRegions && yieldRegions.hasOwnProperty('modal')) {
+            nextLayout = 'modal';
+        } else if (yieldRegions && yieldRegions.hasOwnProperty('app')) {
+            nextLayout = 'app';
+        }
+
+        // Check if previous layout and next layout aren't the same
+        if (previousLayout === nextLayout) {
+            this.next();
+            return;
         }
 
         // Find body
@@ -45,17 +51,14 @@ Meteor.startup(function() {
             $body.removeClass('bender-animating');
         };
 
-        // Compare previous template with next template, then set Bender animation
-        if(nextTemplateName === previousTemplateName) {
-            // no animation yet
-        } else if(nextTemplateName === 'modal') {
+        if(nextLayout === 'modal') {
             Bender.animate('slideOverUp', addClass, removeClass);
-        } else if(nextTemplateName === 'app') {
+        } else if(nextLayout === 'app') {
             Bender.animate('slideOverUpClose', addClass, removeClass);
         }
 
+        previousLayout = nextLayout;
         this.next();
-        previousTemplateName = nextTemplateName;
     });
 
     /*************************************************************/

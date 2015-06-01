@@ -44,6 +44,7 @@ Package.onUse(function (api) {
         'helpers/imageById.js',
         'helpers/loading.js',
         'helpers/Partup.js',
-        'autorun.js'
+        'autorun.js',
+        'bootstrap.js'
     ], ['client']);
 });

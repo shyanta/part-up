@@ -29,6 +29,6 @@
 ## Javascript code styling
 - Trim spaties op save.
 - 4 spaties indentation.
-- Zorgen dat file eindigt met newline character (http://www.sublimetext.com/forum/viewtopic.php?f=3&t=12118)
+- Zorgen dat file eindigt met newline character (in Sublime config file: `"ensure_newline_at_eof_on_save": true`)
 - jscs integratie in editor (http://jscs.info/)
 - Gebruik duidelijke variabelen i.p.v. ingewikkelde `if ()`-statements. Bijvoorbeeld: `var isUpper = ...; if (isUpper)` i.p.v. `if (...)`.

@@ -14,10 +14,10 @@ var settingsWithName = function(settingsObj, name){
 Router.route('/', {
     name: 'home',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'app':      { to: 'main' },
-        'app_home': { to: 'page-app' }
+        'app_home': { to: 'app' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -31,10 +31,10 @@ Router.route('/', {
 Router.route('/discover', {
     name: 'discover',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'app':          { to: 'main' },
-        'app_discover': { to: 'page-app' }
+        'app_discover': { to: 'app' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -44,29 +44,29 @@ Router.route('/discover', {
 });
 
 /*************************************************************/
-/* Profile */
+/* Profile (on hold) */
 /*************************************************************/
-var profileSettings = {
-    where: 'client',
-    layoutTemplate: 'LayoutMain',
-    yieldRegions: {
-        'app': { to: 'main' },
-        'PagesProfile': { to: 'page-app' }
-    },
-    subscriptions: function () {
-        this.subscribe('notifications.user');
-        this.subscribe('partups.all');
-    },
-    onBeforeAction: function(){
-        if(!this.params._id){
-            this.params._id = Meteor.userId();
-        }
-        this.next();
-    }
-};
-// Abstract route behaviour, redirects cause buggy back buttons in browser
-Router.route('/profile', settingsWithName(profileSettings, 'profile'));
-Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
+// var profileSettings = {
+//     where: 'client',
+//     layoutTemplate: 'main',
+//     yieldRegions: {
+//         'app': { to: 'main' },
+//         'PagesProfile': { to: 'app' }
+//     },
+//     subscriptions: function () {
+//         this.subscribe('notifications.user');
+//         this.subscribe('partups.all');
+//     },
+//     onBeforeAction: function(){
+//         if(!this.params._id){
+//             this.params._id = Meteor.userId();
+//         }
+//         this.next();
+//     }
+// };
+// // Abstract route behaviour, redirects cause buggy back buttons in browser
+// Router.route('/profile', settingsWithName(profileSettings, 'profile'));
+// Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
 
 
 
@@ -75,11 +75,11 @@ Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'
 /*************************************************************/
 var partupSettings = {
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'app':                { to: 'main' },
-        'app_partup':         { to: 'page-app' },
-        'app_partup_updates': { to: 'page-partup' }
+        'app_partup':         { to: 'app' },
+        'app_partup_updates': { to: 'app_partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
@@ -130,11 +130,11 @@ Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-u
 Router.route('/partups/:_id/updates/:update_id', {
     name: 'partup-update',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'app':               { to: 'main' },
-        'app_partup':        { to: 'page-app' },
-        'app_partup_update': { to: 'page-partup' }
+        'app_partup':        { to: 'app' },
+        'app_partup_update': { to: 'app_partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
@@ -161,11 +161,11 @@ Router.route('/partups/:_id/updates/:update_id', {
 Router.route('/partups/:_id/activities', {
     name: 'partup-activities',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'app':                   { to: 'main' },
-        'app_partup':            { to: 'page-app' },
-        'app_partup_activities': { to: 'page-partup' }
+        'app_partup':            { to: 'app' },
+        'app_partup_activities': { to: 'app_partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
@@ -194,7 +194,7 @@ Router.route('/partups/:_id/activities', {
 Router.route('/partups/:_id/invite', {
     name: 'partup-invite',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesPartupInviteUppers': { to: 'modal-page' },
@@ -210,7 +210,7 @@ Router.route('/partups/:_id/invite', {
 Router.route('/start', {
     name: 'start',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesStartPartupIntro': { to: 'modal-page' }
@@ -220,7 +220,7 @@ Router.route('/start', {
 Router.route('/start/details', {
     name: 'start-details',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesStartPartup': { to: 'modal-page' },
@@ -235,7 +235,7 @@ Router.route('/start/details', {
 Router.route('/start/:_id/activities', {
     name: 'start-activities',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesStartPartup': { to: 'modal-page' },
@@ -255,7 +255,7 @@ Router.route('/start/:_id/activities', {
 Router.route('/start/:_id/promote', {
     name: 'start-promote',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesStartPartup': { to: 'modal-page' },
@@ -277,7 +277,7 @@ Router.route('/start/:_id/promote', {
 Router.route('/login', {
     name: 'login',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesLogin': { to: 'modal-page' }
@@ -291,7 +291,7 @@ Router.route('/login', {
 Router.route('/forgot-password', {
     name: 'forgot-password',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesForgotPassword': { to: 'modal-page' }
@@ -301,7 +301,7 @@ Router.route('/forgot-password', {
 Router.route('/reset-password/:token', {
     name: 'reset-password',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesResetPassword': { to: 'modal-page' }
@@ -315,7 +315,7 @@ Router.route('/reset-password/:token', {
 Router.route('/verify-email/:token', {
     name: 'verify-email',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'app': { to: 'main' }
     },
@@ -339,7 +339,7 @@ Router.route('/verify-email/:token', {
 Router.route('/register', {
     name: 'register',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesRegister': { to: 'modal-page' },
@@ -353,7 +353,7 @@ Router.route('/register', {
 Router.route('/register/details', {
     name: 'register-details',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesRegister': { to: 'modal-page' },
@@ -368,7 +368,7 @@ Router.route('/register/details', {
 Router.route('/styleguide', {
     name: 'styleguide',
     where: 'client',
-    layoutTemplate: 'LayoutMain',
+    layoutTemplate: 'main',
     yieldRegions: {
         'app': { to: 'main' },
         'PagesStyleguide': { to: 'page-app' }
