@@ -14,10 +14,10 @@ var settingsWithName = function(settingsObj, name){
 Router.route('/', {
     name: 'home',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        'PagesHome': { to: 'app-page' }
+        'app': { to: 'main' },
+        'PagesHome': { to: 'page-app' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -31,11 +31,11 @@ Router.route('/', {
 Router.route('/discover', {
     name: 'discover',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesDiscover': { to: 'app-page' }
+        'app': { to: 'main' },
+        // 'PagesUnderConstruction': { to: 'page-app' }
+        'PagesDiscover': { to: 'page-app' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -49,11 +49,11 @@ Router.route('/discover', {
 /*************************************************************/
 var profileSettings = {
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesProfile': { to: 'app-page' }
+        'app': { to: 'main' },
+        // 'PagesUnderConstruction': { to: 'page-app' }
+        'PagesProfile': { to: 'page-app' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -77,12 +77,12 @@ Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'
 /*************************************************************/
 var partupSettings = {
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailUpdates': { to: 'partup-page' }
+        'app':                { to: 'main' },
+        // 'PagesUnderConstruction': { to: 'page-app' }
+        'app_partup':         { to: 'page-app' },
+        'app_partup_updates': { to: 'page-partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
@@ -124,20 +124,21 @@ var partupSettings = {
         SEO.set(seoMetaData);
     }
 };
+
 // this way both /partups/id and partups/id/updates are the default updates page
 // Abstract route behaviour, redirects cause buggy back buttons in browser
 Router.route('/partups/:_id', settingsWithName(partupSettings, 'partup'));
-Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-detail'));
+Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-updates'));
 
 Router.route('/partups/:_id/updates/:update_id', {
     name: 'partup-detail-update',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailUpdatesItemDetail': { to: 'partup-page' }
+        'app': { to: 'main' },
+        // 'PagesUnderConstruction': { to: 'page-app' }
+        'PagesPartupDetail': { to: 'page-app' },
+        'PagesPartupDetailUpdatesItemDetail': { to: 'page-partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
@@ -163,14 +164,13 @@ Router.route('/partups/:_id/updates/:update_id', {
 });
 
 Router.route('/partups/:_id/activities', {
-    name: 'partup-detail-activities',
+    name: 'partup-activities',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailActivities': { to: 'partup-page' }
+        'app':                   { to: 'main' },
+        'app_partup':            { to: 'page-app' },
+        'app_partup_activities': { to: 'page-partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
@@ -197,11 +197,11 @@ Router.route('/partups/:_id/activities', {
 /* Invite uppers */
 /*************************************************************/
 Router.route('/partups/:_id/invite', {
-    name: 'partup-detail-invite',
+    name: 'partup-invite',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesPartupInviteUppers': { to: 'modal-page' },
         // 'PagesPartupInviteUppers': { to: 'register-page' }
     },
@@ -216,9 +216,9 @@ Router.route('/partups/:_id/invite', {
 Router.route('/start', {
     name: 'start',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesStartPartupIntro': { to: 'modal-page' }
     }
 });
@@ -226,9 +226,9 @@ Router.route('/start', {
 Router.route('/start/details', {
     name: 'start-details',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupDetails': { to: 'start-partup-page' }
     },
@@ -241,9 +241,9 @@ Router.route('/start/details', {
 Router.route('/start/:_id/activities', {
     name: 'start-activities',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupActivities': { to: 'start-partup-page' }
     },
@@ -261,9 +261,9 @@ Router.route('/start/:_id/activities', {
 Router.route('/start/:_id/promote', {
     name: 'start-promote',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesStartPartup': { to: 'modal-page' },
         'PagesStartPartupPromote': { to: 'start-partup-page' }
     },
@@ -283,9 +283,9 @@ Router.route('/start/:_id/promote', {
 Router.route('/login', {
     name: 'login',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesLogin': { to: 'modal-page' }
     }
 });
@@ -297,9 +297,9 @@ Router.route('/login', {
 Router.route('/forgot-password', {
     name: 'forgot-password',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesForgotPassword': { to: 'modal-page' }
     }
 });
@@ -307,9 +307,9 @@ Router.route('/forgot-password', {
 Router.route('/reset-password/:token', {
     name: 'reset-password',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesResetPassword': { to: 'modal-page' }
     }
 });
@@ -321,9 +321,9 @@ Router.route('/reset-password/:token', {
 Router.route('/verify-email/:token', {
     name: 'verify-email',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' }
+        'app': { to: 'main' }
     },
     onBeforeAction: function () {
         Accounts.verifyEmail(Router.current().params.token, function (error) {
@@ -345,9 +345,9 @@ Router.route('/verify-email/:token', {
 Router.route('/register', {
     name: 'register',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesRegister': { to: 'modal-page' },
         'PagesRegisterRequired': { to: 'register-page' }
     },
@@ -359,9 +359,9 @@ Router.route('/register', {
 Router.route('/register/details', {
     name: 'register-details',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
+        'PagesModal': { to: 'main' },
         'PagesRegister': { to: 'modal-page' },
         'PagesRegisterOptional': { to: 'register-page' }
     }
@@ -374,10 +374,10 @@ Router.route('/register/details', {
 Router.route('/styleguide', {
     name: 'styleguide',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        'PagesStyleguide': { to: 'app-page' }
+        'app': { to: 'main' },
+        'PagesStyleguide': { to: 'page-app' }
     }
 });
 

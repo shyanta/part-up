@@ -28,7 +28,7 @@ Meteor.startup(function() {
         // Check current template
         if(yieldRegions && yieldRegions.hasOwnProperty('PagesModal')) {
             nextTemplateName = 'modal';
-        } else if (yieldRegions && yieldRegions.hasOwnProperty('PagesApp')) {
+        } else if (yieldRegions && yieldRegions.hasOwnProperty('PageApp')) {
             nextTemplateName = 'app';
         }
 

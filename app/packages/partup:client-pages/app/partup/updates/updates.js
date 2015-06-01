@@ -48,7 +48,7 @@ var getUpdates = function getUpdates () {
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetPartupdetailUpdates.helpers({
+Template.app_partup_updates.helpers({
 
     'updates': function helperUpdates () {
         // return updatesVar.get(); // temp reactive var until mongo implementation
@@ -91,5 +91,5 @@ Template.WidgetPartupdetailUpdates.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetPartupdetailUpdates.events({
+Template.app_partup_updates.events({
 });

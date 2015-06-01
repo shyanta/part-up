@@ -1,6 +1,6 @@
-<template name="NewMessagePopup">
+<template name="app_partup_update_newmessage">
     {{#contentFor "WidgetPopupTitle"}}
-        {{_ 'partupdetail-updates-popup-newmessage-title'}}
+        {{_ 'pages-app-partup-updates-newmessage-title'}}
     {{/contentFor}}
 
     {{#autoForm schema=formSchema id="newMessageForm" class="pu-form pu-form-popup" }}
@@ -27,11 +27,11 @@
             </div>
         </label>
         <div class="pu-formfield">
-            <input type="submit" class="pu-button" value="{{_ 'partupdetail-updates-popup-newmessage-submit'}}">
-            <a class="pu-button pu-button-gray" data-close>{{_ 'partupdetail-updates-popup-newmessage-close'}}</a>
+            <input type="submit" class="pu-button" value="{{_ 'pages-app-partup-updates-newmessage-submit'}}">
+            <a class="pu-button pu-button-gray" data-close>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
             <div class="pu-formfield-right">
                 <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}} {{#if photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
-                    <span>{{_ 'partupdetail-updates-popup-newmessage-addphoto'}}</span>
+                    <span>{{_ 'pages-app-partup-updates-newmessage-addphoto'}}</span>
                     {{#if uploadingPhotos}}
                         {{> WidgetSpinnerInverted}}
                     {{/if}}

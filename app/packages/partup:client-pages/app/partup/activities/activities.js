@@ -35,7 +35,7 @@ var getActivities = function getActivities (options) {
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetPartupdetailActivities.helpers({
+Template.app_partup_activities.helpers({
 
     'activities': function helperActivities () {
         return getActivities();
@@ -59,5 +59,5 @@ Template.WidgetPartupdetailActivities.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetPartupdetailActivities.events({
+Template.app_partup_activities.events({
 })

@@ -1,4 +1,10 @@
-Template.NewMessagePopup.onCreated(function(){
+var placeholders = {
+    'text': function () {
+        return __('pages-app-partup-updates-newmessage-placeholder');
+    }
+};
+
+Template.app_partup_update_newmessage.onCreated(function(){
     var template = this;
 
     template.uploadingPhotos = new ReactiveVar(false);
@@ -15,9 +21,9 @@ Template.NewMessagePopup.onCreated(function(){
 });
 
 // helpers
-Template.NewMessagePopup.helpers({
+Template.app_partup_update_newmessage.helpers({
     formSchema: Partup.schemas.forms.newMessage,
-    placeholders: Partup.services.placeholders.newMessage,
+    placeholders: placeholders,
     uploadingPhotos: function(){
         return Template.instance().uploadingPhotos.get();
     },
@@ -30,7 +36,7 @@ Template.NewMessagePopup.helpers({
 });
 
 // events
-Template.NewMessagePopup.events({
+Template.app_partup_update_newmessage.events({
     'click [data-browse-photos]': function eventClickBrowse(event, template){
         event.preventDefault();
 

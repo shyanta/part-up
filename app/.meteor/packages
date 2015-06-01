@@ -6,8 +6,9 @@
 
 partup:lib
 
-partup:client-base
 partup:server-base
+partup:client-base
+partup:client-pages
 
 partup:client-activity
 partup:client-commentfield
@@ -22,10 +23,8 @@ partup:client-widgets-gallery
 partup:client-widgets-intro
 partup:client-widgets-loader
 partup:client-widgets-login
-partup:client-widgets-partupdetail-activities
 partup:client-widgets-partupdetail-update-item
 partup:client-widgets-partupdetail-update-item-detail
-partup:client-widgets-partupdetail-updates
 partup:client-widgets-partuptile
 partup:client-widgets-registeroptional
 partup:client-widgets-registerrequired

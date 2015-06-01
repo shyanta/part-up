@@ -9,7 +9,7 @@ var getPartup = function getPartup () {
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesPartupDetail.helpers({
+Template.app_partup.helpers({
 
     partup: function () {
         return getPartup;
@@ -49,6 +49,6 @@ Template.PagesPartupDetail.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesPartupDetail.events({
+Template.app_partup.events({
     //
 });
