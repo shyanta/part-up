@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-loader',
+    name: 'partup:client-loader',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -12,6 +12,6 @@ Package.onUse(function (api) {
     ], 'client');
 
     api.addFiles([
-        'WidgetLoader.html'
+        'Loader.html'
     ], 'client');
 });

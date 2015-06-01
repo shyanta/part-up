@@ -176,7 +176,7 @@
 
                     <figure class="pu-imagepreview pu-imagepreview-cover {{#if draggingFocuspoint}}pu-imagepreview-draggingfocuspoint{{/if}}" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}" data-focuspoint-view>
                         <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
-                            {{> WidgetLoader }}
+                            {{> Loader }}
                         </div>
                         {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImage.currentImageId.get view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
                         <div class="pu-sub-buttons">
@@ -207,7 +207,7 @@
                     {{ else }}
                         <figure class="pu-gallery pu-gallery-placeholder">
                             <div class="pu-sub-loadercontainer {{#if partupLoading 'suggesting-images' 'image-uploading' }}pu-sub-loadercontainer-active{{/if}}">
-                                {{> WidgetLoader }}
+                                {{> Loader }}
                             </div>
                             <figcaption>
                                 <p>{{_ 'startdetails-suggestion-placeholder'}}</p>
