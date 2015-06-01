@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-partuptile',
+    name: 'partup:client-partup-tile',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -12,7 +12,7 @@ Package.onUse(function (api) {
     ], 'client');
 
     api.addFiles([
-        'WidgetPartuptile.html',
-        'WidgetPartuptile.js'
+        'PartupTile.html',
+        'PartupTile.js'
     ], 'client');
 });

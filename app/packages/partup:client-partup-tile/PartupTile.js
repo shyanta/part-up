@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetPartuptile.helpers({
+Template.PartupTile.helpers({
     partupCover: function () {
         var data = this;
         if (!data) return null;
@@ -14,14 +14,14 @@ Template.WidgetPartuptile.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetPartuptile.events({
+Template.PartupTile.events({
     //
 });
 
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
-Template.WidgetPartuptile.onRendered(function () {
+Template.PartupTile.onRendered(function () {
     var canvasElm = this.find('canvas.pu-sub-radial');
     if (canvasElm) drawCircle(canvasElm);
 });

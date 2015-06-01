@@ -17,6 +17,7 @@ partup:client-dropdowns
 partup:client-focuspoint
 partup:client-gallery
 partup:client-loader
+partup:client-partup-tile
 partup:client-rating
 partup:client-ratings
 partup:client-spinner
@@ -25,7 +26,6 @@ partup:client-usercard
 partup:client-widgets-forgotpassword
 partup:client-widgets-intro
 partup:client-widgets-login
-partup:client-widgets-partuptile
 partup:client-widgets-registeroptional
 partup:client-widgets-registerrequired
 partup:client-widgets-resetpassword
