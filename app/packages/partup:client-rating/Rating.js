@@ -8,14 +8,14 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetRating.onCreated(function(){
+Template.Rating.onCreated(function(){
     this.contribution = this.data.contribution;
 });
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetRating.helpers({
+Template.Rating.helpers({
     canEdit: function(){
         var user = Meteor.user();
         if (!user) return false;
@@ -54,7 +54,7 @@ var save = function(event, template){
     $(form).submit();
 };
 
-Template.WidgetRating.events({
+Template.Rating.events({
     'blur [name=feedback]': save,
     'blur [name=rating]': save
 });

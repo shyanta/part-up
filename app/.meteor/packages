@@ -11,6 +11,7 @@ partup:server-base
 
 partup:client-activity
 partup:client-contribution
+partup:client-rating
 partup:client-ratings
 partup:client-widget-spinner
 partup:client-widgets-dropdowns
@@ -78,4 +79,3 @@ partup:client-widgets-inviteuppers
 cfs:filesystem
 lifely:focuspoint
 partup:client-widgets-focuspoint
-partup:client-widgets-rating
