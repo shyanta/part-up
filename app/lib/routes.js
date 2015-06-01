@@ -293,8 +293,8 @@ Router.route('/forgot-password', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesForgotPassword': { to: 'modal' }
+        'modal':                { to: 'main' },
+        'modal_forgotpassword': { to: 'modal' }
     }
 });
 
