@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-ratings',
+    name: 'partup:client-ratings',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -19,8 +19,8 @@ Package.onUse(function(api){
     api.addFiles([
         'package-tap.i18n',
 
-        'WidgetRatings.html',
-        'WidgetRatings.js',
+        'Ratings.html',
+        'Ratings.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

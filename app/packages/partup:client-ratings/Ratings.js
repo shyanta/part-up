@@ -8,14 +8,14 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetRatings.onCreated(function(){
+Template.Ratings.onCreated(function(){
     this.showHoverCards = new ReactiveDict();
 });
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetRatings.helpers({
+Template.Ratings.helpers({
     averageRatings: function(){
         var sum = 0;
         var ratings = this.ratings.fetch();
@@ -66,7 +66,7 @@ Template.WidgetRatings.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetRatings.events({
+Template.Ratings.events({
     'click .pu-avatar': function(event, template){
         event.stopPropagation();
         // check if the click is inside the hovercard

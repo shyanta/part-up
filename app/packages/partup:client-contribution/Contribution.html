@@ -66,7 +66,7 @@
                         <p class="pu-sub-contribution-comments">
                             <a href="{{ pathFor route='partup-detail-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
                         </p>
-                        {{> WidgetRatings contribution=contribution ratings=ratings }}
+                        {{> Ratings contribution=contribution ratings=ratings }}
                     </div>
                 {{ else }}
                     <div class="pu-contribution">
@@ -81,7 +81,7 @@
                         <p class="pu-sub-contribution-comments">
                             <a href="{{ pathFor route='partup-detail-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
                         </p>
-                        {{> WidgetRatings contribution=contribution ratings=ratings }}
+                        {{> Ratings contribution=contribution ratings=ratings }}
                         {{# if canVerifyContribution }}
                         <div class="pu-sub-acceptbuttons">
                             <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>

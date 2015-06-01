@@ -90,6 +90,7 @@ package-version-parser@3.0.3
 partup:client-activity@0.0.1
 partup:client-base@0.0.1
 partup:client-contribution@0.0.1
+partup:client-ratings@0.0.1
 partup:client-widget-hovercard@0.0.1
 partup:client-widget-spinner@0.0.1
 partup:client-widgets-commentfield@0.0.1
@@ -108,7 +109,6 @@ partup:client-widgets-partupdetail-update-item-detail@0.0.1
 partup:client-widgets-partupdetail-updates@0.0.1
 partup:client-widgets-partuptile@0.0.1
 partup:client-widgets-rating@0.0.1
-partup:client-widgets-ratings@0.0.1
 partup:client-widgets-registeroptional@0.0.1
 partup:client-widgets-registerrequired@0.0.1
 partup:client-widgets-resetpassword@0.0.1
