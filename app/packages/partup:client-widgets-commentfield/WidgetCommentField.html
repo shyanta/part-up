@@ -23,7 +23,7 @@
             {{#each shownComments }}
             <li>
                 <p class="{{# if system }}pu-sub-systemmessage{{/ if}}">
-                    <span rel="author" data-hovercard="{{creator._id}}">{{ creator.name }}</span>
+                    <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
                     {{# if system }}
                         {{ systemMessage content }}
                     {{else}}

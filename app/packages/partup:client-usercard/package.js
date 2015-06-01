@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'partup:client-widget-hovercard',
+  name: 'partup:client-usercard',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -21,9 +21,9 @@ Package.onUse(function (api) {
 
     api.addFiles([
         'package-tap.i18n',
-        
-        'WidgetHoverCard.html',
-        'WidgetHoverCard.js',
+
+        'UserCard.html',
+        'UserCard.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

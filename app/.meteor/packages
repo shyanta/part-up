@@ -13,6 +13,7 @@ partup:client-activity
 partup:client-contribution
 partup:client-rating
 partup:client-ratings
+partup:client-usercard
 partup:client-widget-spinner
 partup:client-widgets-dropdowns
 partup:client-widgets-forgotpassword
@@ -74,7 +75,6 @@ sergeyt:typeahead
 partup:client-widgets-partupdetail-activities-detail
 partup:client-widgets-commentfield
 cfs:standard-packages
-partup:client-widget-hovercard
 partup:client-widgets-inviteuppers
 cfs:filesystem
 lifely:focuspoint
