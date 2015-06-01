@@ -98,6 +98,7 @@ partup:client-gallery@0.0.1
 partup:client-loader@0.0.1
 partup:client-pages@0.0.1
 partup:client-partup-tile@0.0.1
+partup:client-popup@0.0.1
 partup:client-rating@0.0.1
 partup:client-ratings@0.0.1
 partup:client-spinner@0.0.1
@@ -116,7 +117,6 @@ partup:client-widgets-startdetails@0.0.1
 partup:client-widgets-startpromote@0.0.1
 partup:lib@0.0.1
 partup:meteor-bender@0.1.7
-partup:popup@0.0.1
 partup:server-base@0.0.1
 pauli:accounts-linkedin@1.1.2
 pauli:linkedin@1.1.2

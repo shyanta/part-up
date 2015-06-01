@@ -3,8 +3,8 @@
         <div class="pu-composition pu-composition-partupdetailactivities">
             <!-- new message popup -->
             {{#if partupPopupActive 'popup.new-activity' }}
-                {{#contentFor "WidgetPopupContent"}}
-                    {{#contentFor "WidgetPopupTitle"}}
+                {{#contentFor "PopupContent"}}
+                    {{#contentFor "PopupTitle"}}
                         {{_ "pages-partup-activities-newactivity_title"}}
                     {{/contentFor}}
                     {{> Activity CREATE=true POPUP=true}}

@@ -19,6 +19,7 @@ partup:client-focuspoint
 partup:client-gallery
 partup:client-loader
 partup:client-partup-tile
+partup:client-popup
 partup:client-rating
 partup:client-ratings
 partup:client-spinner
@@ -35,7 +36,6 @@ partup:client-widgets-startcontribute
 partup:client-widgets-startdetails
 partup:client-widgets-startpromote
 partup:meteor-bender
-partup:popup
 
 accounts-facebook
 accounts-password

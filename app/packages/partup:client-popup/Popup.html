@@ -1,14 +1,14 @@
-<template name="WidgetPopup">
+<template name="Popup">
     <section class="pu-overlay {{#if popupOpen}}pu-overlay-active{{/if}}" data-close-popup>
         <article class="pu-popup">
             <header>
                 <h4>
-                    {{> yield region="WidgetPopupTitle" }}
+                    {{> yield region="PopupTitle" }}
                 </h4>
                 <button class="pu-button pu-button-close" data-close><i class="fa fa-times"></i></button>
             </header>
             <article>
-                {{> yield region="WidgetPopupContent" }}
+                {{> yield region="PopupContent" }}
             </article>
         </article>
     </section>

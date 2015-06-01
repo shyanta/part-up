@@ -10,13 +10,13 @@ Meteor.startup(function () {
     });
 });
 
-Template.WidgetPopup.helpers({
+Template.Popup.helpers({
     popupOpen: function(){
         return Session.get('main.popup-open');
     }
 });
 
-Template.WidgetPopup.events({
+Template.Popup.events({
     'click [data-close]': function closePopup(event, template){
         Partup.ui.popup.close();
     },
