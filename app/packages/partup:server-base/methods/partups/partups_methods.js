@@ -143,6 +143,46 @@ Meteor.methods({
         Event.emit('partups.invited', upper._id, partupId, email, name);
 
         return true;
+    },
+
+    /**
+     * Search through Partups
+     *
+     * @param  {String} searchValue
+     */
+    'partups.search': function (searchValue) {
+        check(searchValue, String);
+
+        var upper = Meteor.user();
+        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+
+        if (!searchValue) {
+            return Partups.find({});
+        }
+
+        console.log('Searching for ', searchValue);
+
+        return Partups.find(
+            { $text: { $search: searchValue } },
+            {
+                /*
+                 * `fields` is where we can add MongoDB projections. Here we're causing
+                 * each document published to include a property named `score`, which
+                 * contains the document's search rank, a numerical value, with more
+                 * relevant documents having a higher score.
+                 */
+                fields: {
+                    score: { $meta: 'textScore' }
+                },
+                /*
+                 * This indicates that we wish the publication to be sorted by the
+                 * `score` property specified in the projection fields above.
+                 */
+                sort: {
+                    score: { $meta: 'textScore' }
+                }
+            }
+        );
     }
 
 });
