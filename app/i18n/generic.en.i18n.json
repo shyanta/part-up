@@ -1,8 +1,5 @@
 {
     "generic-error": "Something went wrong",
     "generic-login": "Login",
-    "generic-signup": "Register",
-
-    "generic-underconstructionheading": "This functionality has not been developed yet",
-    "generic-underconstructionparagraph": "We are working hard to bring you this functionality as soon as possible, stay tuned!"
+    "generic-signup": "Register"
 }
