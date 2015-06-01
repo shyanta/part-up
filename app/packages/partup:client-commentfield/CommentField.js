@@ -6,15 +6,15 @@ var MAX_COLLAPSED_COMMENTS = 2;
 /*************************************************************/
 /* Widget reactives */
 /*************************************************************/
-var commentsExpandedDict = new ReactiveDict;
-var commentInputFieldExpandedDict = new ReactiveDict;
-var commentPostButtonActiveDict = new ReactiveDict;
+var commentsExpandedDict = new ReactiveDict();
+var commentInputFieldExpandedDict = new ReactiveDict();
+var commentPostButtonActiveDict = new ReactiveDict();
 
 
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
-Template.WidgetCommentField.onRendered(function () {
+Template.CommentField.onRendered(function () {
     var template = this;
     var update = template.data.update;
     commentsExpandedDict.set(update._id, false);
@@ -32,11 +32,11 @@ Template.WidgetCommentField.onRendered(function () {
                 $(element).removeClass('pu-state-highlight');
             }, 1000);
         });
-        
+
     };
 });
 
-Template.WidgetCommentField.helpers({
+Template.CommentField.helpers({
     placeholders: Partup.services.placeholders.commentfield,
     generateFormId: function () {
         return 'commentForm-' + this.update._id;
@@ -79,7 +79,7 @@ Template.WidgetCommentField.helpers({
     }
 });
 
-Template.WidgetCommentField.events({
+Template.CommentField.events({
 
     'click [data-expand-comment-field]': function eventClickExpandCommentField(event, template) {
         commentInputFieldExpandedDict.set(template.data.update._id, true);
@@ -102,29 +102,27 @@ Template.WidgetCommentField.events({
 
 });
 
-AutoForm.addHooks(
-    null, {
-        onSubmit: function (insertDoc) {
-            var self = this;
-            self.event.preventDefault();
+AutoForm.addHooks(null, {
+    onSubmit: function (insertDoc) {
+        var self = this;
+        self.event.preventDefault();
 
-            var formNameParts = self.formId.split('-');
-            if (formNameParts.length !== 2 || formNameParts[0] !== 'commentForm') return;
-            var updateId = formNameParts[1];
+        var formNameParts = self.formId.split('-');
+        if (formNameParts.length !== 2 || formNameParts[0] !== 'commentForm') return;
+        var updateId = formNameParts[1];
 
-            Meteor.call('updates.comments.insert', updateId, insertDoc, function (error, result) {
-                if (error) {
-                    return Partup.ui.notify.iError('error-method-' + error.reason);
-                } else {
-                    commentPostButtonActiveDict.set(updateId, false);
-                    AutoForm.resetForm(self.formId);
-                    self.template.parent().highlight();
-                    
-                }
-            });
+        Meteor.call('updates.comments.insert', updateId, insertDoc, function (error, result) {
+            if (error) {
+                return Partup.ui.notify.iError('error-method-' + error.reason);
+            } else {
+                commentPostButtonActiveDict.set(updateId, false);
+                AutoForm.resetForm(self.formId);
+                self.template.parent().highlight();
 
-            self.done();
-            return false;
-        }
+            }
+        });
+
+        self.done();
+        return false;
     }
-);
+});

@@ -10,6 +10,7 @@ partup:client-base
 partup:server-base
 
 partup:client-activity
+partup:client-commentfield
 partup:client-contribution
 partup:client-rating
 partup:client-ratings
@@ -73,7 +74,6 @@ velocity:console-reporter
 zimme:iron-router-active
 sergeyt:typeahead
 partup:client-widgets-partupdetail-activities-detail
-partup:client-widgets-commentfield
 cfs:standard-packages
 partup:client-widgets-inviteuppers
 cfs:filesystem

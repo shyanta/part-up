@@ -89,12 +89,12 @@ ordered-dict@1.0.3
 package-version-parser@3.0.3
 partup:client-activity@0.0.1
 partup:client-base@0.0.1
+partup:client-commentfield@0.0.1
 partup:client-contribution@0.0.1
 partup:client-rating@0.0.1
 partup:client-ratings@0.0.1
 partup:client-usercard@0.0.1
 partup:client-widget-spinner@0.0.1
-partup:client-widgets-commentfield@0.0.1
 partup:client-widgets-dropdowns@0.0.1
 partup:client-widgets-focuspoint@0.0.1
 partup:client-widgets-forgotpassword@0.0.1
