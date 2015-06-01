@@ -24,7 +24,7 @@
                     {{ #if partupContainsOne update.type 'partups_newuser' }}
                         {{pathFor route='profile' _id=user_id }}
                     {{else}}
-                        {{pathFor route='partup-detail-update' _id=partupId update_id=update._id }}
+                        {{pathFor route='partup-update' _id=partupId update_id=update._id }}
                     {{/if}}
                 ">
                     {{#if partupEqualsExactly update.type 'partups_invited' }}

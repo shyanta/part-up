@@ -4,7 +4,7 @@ var placeholders = {
     }
 };
 
-Template.app_partup_update_newmessage.onCreated(function(){
+Template.app_partup_updates_newmessage.onCreated(function(){
     var template = this;
 
     template.uploadingPhotos = new ReactiveVar(false);
@@ -21,7 +21,7 @@ Template.app_partup_update_newmessage.onCreated(function(){
 });
 
 // helpers
-Template.app_partup_update_newmessage.helpers({
+Template.app_partup_updates_newmessage.helpers({
     formSchema: Partup.schemas.forms.newMessage,
     placeholders: placeholders,
     uploadingPhotos: function(){
@@ -36,7 +36,7 @@ Template.app_partup_update_newmessage.helpers({
 });
 
 // events
-Template.app_partup_update_newmessage.events({
+Template.app_partup_updates_newmessage.events({
     'click [data-browse-photos]': function eventClickBrowse(event, template){
         event.preventDefault();
 

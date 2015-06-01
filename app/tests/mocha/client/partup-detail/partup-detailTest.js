@@ -3,7 +3,7 @@ if (!(typeof MochaWeb === 'undefined')){
         describe("partup-detail updates", function(){
 
             beforeEach(function (done) {
-                Router.go('partup-detail', {_id:'1111'});
+                Router.go('partup', {_id:'1111'});
                 Tracker.afterFlush(done);
             });
 

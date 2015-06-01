@@ -131,14 +131,14 @@ Router.route('/partups/:_id', settingsWithName(partupSettings, 'partup'));
 Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-updates'));
 
 Router.route('/partups/:_id/updates/:update_id', {
-    name: 'partup-detail-update',
+    name: 'partup-update',
     where: 'client',
     layoutTemplate: 'LayoutMain',
     yieldRegions: {
         'app': { to: 'main' },
         // 'PagesUnderConstruction': { to: 'page-app' }
-        'PagesPartupDetail': { to: 'page-app' },
-        'PagesPartupDetailUpdatesItemDetail': { to: 'page-partup' }
+        'app_partup': { to: 'page-app' },
+        'app_partup_update': { to: 'page-partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;

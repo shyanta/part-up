@@ -64,7 +64,7 @@
                             <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
                         {{/ if }}
                         <p class="pu-sub-contribution-comments">
-                            <a href="{{ pathFor route='partup-detail-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
+                            <a href="{{ pathFor route='partup-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
                         </p>
                         {{> Ratings contribution=contribution ratings=ratings }}
                     </div>
@@ -79,7 +79,7 @@
                             </p>
                         {{/ if }}
                         <p class="pu-sub-contribution-comments">
-                            <a href="{{ pathFor route='partup-detail-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
+                            <a href="{{ pathFor route='partup-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
                         </p>
                         {{> Ratings contribution=contribution ratings=ratings }}
                         {{# if canVerifyContribution }}

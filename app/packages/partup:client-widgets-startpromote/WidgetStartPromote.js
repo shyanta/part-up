@@ -50,7 +50,7 @@ var getPartup = function () {
 
 var partupUrl = function() {
     var partupId = Router.current().params._id;
-    return Router.url('partup-detail', {_id:partupId});
+    return Router.url('partup', {_id:partupId});
 }
 
 /*************************************************************/
@@ -101,7 +101,7 @@ Template.WidgetStartPromote.events({
         Partup.ui.intent.executeIntentCallback('start', [partupId], function (id) {
 
             // Router go
-            Router.go('partup-detail', { _id: id });
+            Router.go('partup', { _id: id });
 
         });
     },

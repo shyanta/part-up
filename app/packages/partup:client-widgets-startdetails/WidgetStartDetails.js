@@ -380,7 +380,7 @@ AutoForm.hooks({
                     Router.go('start-activities', {_id: id});
                 } else if (submissionType === 'skip') {
                     Partup.ui.intent.executeIntentCallback('start', [id], function (id) {
-                        Router.go('partup-detail', { _id: id });
+                        Router.go('partup', { _id: id });
                     });
                 }
             });

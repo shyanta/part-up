@@ -10,7 +10,7 @@
                     {{ #if partupContainsOne update.type 'partups_newuser' }}
                         {{pathFor route='profile' _id=user_id }}
                     {{else}}
-                        {{pathFor route='partup-detail-update' _id=update.partup_id update_id=update._id }}
+                        {{pathFor route='partup-update' _id=update.partup_id update_id=update._id }}
                     {{/if}}
                 ">
                     {{_ 'widgetcommentfield-comment-viewall-button' update.comments_count }}

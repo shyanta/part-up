@@ -24,7 +24,6 @@ partup:client-widgets-intro
 partup:client-widgets-loader
 partup:client-widgets-login
 partup:client-widgets-partupdetail-update-item
-partup:client-widgets-partupdetail-update-item-detail
 partup:client-widgets-partuptile
 partup:client-widgets-registeroptional
 partup:client-widgets-registerrequired

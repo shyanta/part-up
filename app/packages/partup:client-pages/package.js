@@ -13,6 +13,8 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup:lib',
+        'reactive-dict',
+        'reactive-var',
         'aldeed:autoform',
     ], 'client');
 
@@ -28,6 +30,8 @@ Package.onUse(function(api) {
         'app/partup/updates/updates.js',
         'app/partup/updates/newmessage/newmessage.html',
         'app/partup/updates/newmessage/newmessage.js',
+        'app/partup/update/update.html',
+        'app/partup/update/update.js',
         'app/partup/activities/activities.html',
         'app/partup/activities/activities.js',
 
@@ -35,6 +39,8 @@ Package.onUse(function(api) {
         'i18n/app-partup-updates.nl.i18n.json',
         'i18n/app-partup-updates-newmessage.en.i18n.json',
         'i18n/app-partup-updates-newmessage.nl.i18n.json',
+        'i18n/app-partup-update.en.i18n.json',
+        'i18n/app-partup-update.nl.i18n.json',
         'i18n/app-partup-activities.en.i18n.json',
         'i18n/app-partup-activities.nl.i18n.json',
     ], 'client');
@@ -46,6 +52,8 @@ Package.onUse(function(api) {
         'i18n/app-partup-updates.nl.i18n.json',
         'i18n/app-partup-updates-newmessage.en.i18n.json',
         'i18n/app-partup-updates-newmessage.nl.i18n.json',
+        'i18n/app-partup-update.en.i18n.json',
+        'i18n/app-partup-update.nl.i18n.json',
         'i18n/app-partup-activities.en.i18n.json',
         'i18n/app-partup-activities.nl.i18n.json',
     ], 'server');
