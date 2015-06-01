@@ -1,5 +1,5 @@
 
-Template.WidgetSpinner.rendered = function () {
+Template.Spinner.rendered = function () {
   var options = _.extend(Partup.ui.spinner.defaultOptions, {
 
   }, this.data);
@@ -7,7 +7,7 @@ Template.WidgetSpinner.rendered = function () {
   this.spinner = new Spinner(options);
   this.spinner.spin(this.firstNode);
 };
-Template.WidgetSpinnerInverted.rendered = function () {
+Template.SpinnerInverted.rendered = function () {
   var options = _.extend(Partup.ui.spinner.defaultOptions,{
         color: '#fff'
     }, this.data);
@@ -16,7 +16,7 @@ Template.WidgetSpinnerInverted.rendered = function () {
   this.spinner.spin(this.firstNode);
 };
 
-Template.WidgetSpinnerLarge.rendered = function () {
+Template.SpinnerLarge.rendered = function () {
   var options = _.extend(Partup.ui.spinner.defaultOptions,{
         length: 8,
         width: 3,
@@ -28,12 +28,12 @@ Template.WidgetSpinnerLarge.rendered = function () {
 };
 
 
-Template.WidgetSpinner.destroyed = function () {
+Template.Spinner.destroyed = function () {
   this.spinner && this.spinner.stop();
 };
-Template.WidgetSpinnerInverted.destroyed = function () {
+Template.SpinnerInverted.destroyed = function () {
   this.spinner && this.spinner.stop();
 };
-Template.WidgetSpinnerLarge.destroyed = function () {
+Template.SpinnerLarge.destroyed = function () {
   this.spinner && this.spinner.stop();
 };

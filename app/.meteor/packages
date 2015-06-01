@@ -15,8 +15,8 @@ partup:client-commentfield
 partup:client-contribution
 partup:client-rating
 partup:client-ratings
+partup:client-spinner
 partup:client-usercard
-partup:client-widget-spinner
 partup:client-widgets-dropdowns
 partup:client-widgets-forgotpassword
 partup:client-widgets-gallery

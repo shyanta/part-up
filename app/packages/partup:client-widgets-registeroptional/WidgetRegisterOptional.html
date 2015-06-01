@@ -20,7 +20,7 @@
                     <button class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
                         <span>{{_ 'registeroptional-form-image-button'}}</span>
                         {{#if uploadingProfilePicture}}
-                            {{> WidgetSpinnerInverted}}
+                            {{> SpinnerInverted}}
                         {{/if}}
                     </button>
 
@@ -41,7 +41,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-description-tooltip' }}</p></span>
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
@@ -57,7 +57,7 @@
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-tags_input-tooltip' }}</p></span>
                 </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
@@ -73,7 +73,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-location_input-tooltip' }}</p></span>
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
@@ -89,7 +89,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-socials-tooltip' }}</p></span>
                     </a>
                 </label>
-                
+
 
                 <!-- Facebook -->
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook' }}pu-state-invalid{{/if}}">
@@ -98,7 +98,7 @@
                             <span>{{_ 'registeroptional-form-facebook-url-placeholder' }}</span>
                             <span>{{> afFieldInput id='pu-sub-facebookfield' name='facebook'  }}</span>
                         </label>
-                        
+
                         <span class="pu-icon"><i class="fa fa-facebook"></i></span>
                     </div>
                     <span class="pu-sub-error">{{ afFieldMessage name='facebook' }}</span>
@@ -159,7 +159,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-phonenumber-tooltip' }}</p></span>
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='phonenumber' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='phonenumber' placeholder=placeholders.phonenumber class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='phonenumber' }}</span>
@@ -175,7 +175,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'registeroptional-form-skype-tooltip' }}</p></span>
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='skype' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='skype' placeholder=placeholders.skype class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='skype' }}</span>

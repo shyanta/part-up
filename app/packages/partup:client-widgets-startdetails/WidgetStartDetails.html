@@ -18,7 +18,7 @@
                         {{/if}}
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.name.max" data-characters-left-var="nameCharactersLeft" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
@@ -37,7 +37,7 @@
                         {{/if}}
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3  data-max="Partup.schemas.entities.partup._schema.description.max" data-characters-left-var="descriptionCharactersLeft" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
@@ -53,7 +53,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-tags_input-tooltip' }}</p></span>
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
@@ -69,7 +69,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-budget-tooltip' }}</p></span>
                     </a>
                 </span>
-                
+
 
                 <!-- Budget type selector -->
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_type' }}pu-state-invalid{{/if}}">
@@ -118,7 +118,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'startdetails-form-end_date-tooltip' }}</p></span>
                     </a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                     <div class="pu-inputholder pu-inputholder-lefticon">
                         <span class="pu-sub-input">
@@ -183,7 +183,7 @@
                             <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
                                 <span>{{_ 'startdetails-image-button-overwrite'}}</span>
                                 {{#if uploadingPicture}}
-                                    {{> WidgetSpinnerInverted}}
+                                    {{> SpinnerInverted}}
                                 {{/if}}
                             </label>
                             <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
@@ -214,7 +214,7 @@
                             </figcaption>
                         </figure>
                     {{/if }}
-                    
+
                 {{/if }}
             </div>
 

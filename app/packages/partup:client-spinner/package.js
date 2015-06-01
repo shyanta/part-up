@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widget-spinner',
+    name: 'partup:client-spinner',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -17,7 +17,7 @@ Package.onUse(function (api, where) {
 
     api.addFiles([
         '.npm/package/node_modules/spin.js/spin.js',
-        'WidgetSpinner.html',
-        'WidgetSpinner.js'
+        'Spinner.html',
+        'Spinner.js'
     ], 'client');
 });
