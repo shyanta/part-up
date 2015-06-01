@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-Template.WidgetGallery.onCreated(function () {
+Template.Gallery.onCreated(function () {
     var template = this;
 
     template.setNewCurrent = function (relativePos) {
@@ -34,7 +34,7 @@ Template.WidgetGallery.onCreated(function () {
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetGallery.helpers({
+Template.Gallery.helpers({
     isCurrent: function () {
         var template = Template.instance();
         return template.data.current === template.data.pictures.indexOf(this.toString());
@@ -57,7 +57,7 @@ Template.WidgetGallery.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetGallery.events({
+Template.Gallery.events({
 
     'click [data-previous]': function eventsClickNext (event, template) {
         template.setNewCurrent(-1);

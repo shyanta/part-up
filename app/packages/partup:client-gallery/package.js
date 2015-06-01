@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-gallery',
+    name: 'partup:client-gallery',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -17,9 +17,9 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'package-tap.i18n',
-        
-        'WidgetGallery.html',
-        'WidgetGallery.js',
+
+        'Gallery.html',
+        'Gallery.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
