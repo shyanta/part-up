@@ -1,4 +1,4 @@
-ClientWidgetsDropdowns = {
+ClientDropdowns = {
     addOutsideDropdownClickHandler: function(template, dropdownSelector, buttonSelector, altkey) {
         // remember myself
         var self = template;
@@ -8,8 +8,8 @@ ClientWidgetsDropdowns = {
 
         // find the toggle button
         var button = template.find(buttonSelector);
-        
-        // put the documentClickHandler in the template namespace, 
+
+        // put the documentClickHandler in the template namespace,
         // so more than one documentclickhandlers dan be created
         template.documentClickHandler = function(e){
 
@@ -29,7 +29,7 @@ ClientWidgetsDropdowns = {
 
             // close the dropdown
             Session.set(self[altkey || 'dropdownToggleBool'], false);
-        }
+        };
         // add click handler
         document.addEventListener('click', template.documentClickHandler);
     },
@@ -53,4 +53,4 @@ ClientWidgetsDropdowns = {
     }
 };
 
-Partup.ui.ClientWidgetsDropdowns = ClientWidgetsDropdowns;
+Partup.ui.ClientDropdowns = ClientDropdowns;

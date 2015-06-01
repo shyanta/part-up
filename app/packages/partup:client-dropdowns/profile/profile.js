@@ -1,28 +1,28 @@
-Template.WidgetDropdownProfile.rendered = function(){
+Template.DropdownProfile.rendered = function(){
     // this = template
     this.dropdownToggleBool = 'widget-dropdown-profile.opened';
 
     // set default boolean values
     Session.set(this.dropdownToggleBool, false);
 
-    ClientWidgetsDropdowns.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
-}
+    ClientDropdowns.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
+};
 
-Template.WidgetDropdownProfile.destroyed = function(){
+Template.DropdownProfile.destroyed = function(){
     // this = template
     // remove click handler on destroy
     Session.set(this.dropdownToggleBool, false);
-    ClientWidgetsDropdowns.removeOutsideDropdownClickHandler(this);
-}
+    ClientDropdowns.removeOutsideDropdownClickHandler(this);
+};
 
-Template.WidgetDropdownProfile.events({
-    'click [data-toggle-menu]': ClientWidgetsDropdowns.dropdownClickHandler,
+Template.DropdownProfile.events({
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-logout]': function eventClickLogout (event, template) {
         Meteor.logout();
     }
 });
 
-Template.WidgetDropdownProfile.helpers({
+Template.DropdownProfile.helpers({
     notifications: function () {
         return Notifications.find();
     },

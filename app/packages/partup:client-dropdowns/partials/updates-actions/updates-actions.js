@@ -16,7 +16,7 @@ Template.PartialDropdownUpdatesActions.onCreated(function(){
 
 Template.PartialDropdownUpdatesActions.onRendered(function(){
     var template = this;
-    ClientWidgetsDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
 });
 
 Template.PartialDropdownUpdatesActions.destroyed = function(){
@@ -24,12 +24,12 @@ Template.PartialDropdownUpdatesActions.destroyed = function(){
     // remove click handler on destroy
     Session.set(this.dropdownToggleBool, false);
     Session.set('partial-dropdown-updates-actions.selected', 'default');
-    ClientWidgetsDropdowns.removeOutsideDropdownClickHandler(this);
+    ClientDropdowns.removeOutsideDropdownClickHandler(this);
     this.selectedOption = undefined;
-}
+};
 
 Template.PartialDropdownUpdatesActions.events({
-    'click [data-toggle-menu]': ClientWidgetsDropdowns.dropdownClickHandler,
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-select-option]': function eventSelectOption(event, template){
         var optionsPrefix = template.optionsPrefix;
 
@@ -41,7 +41,7 @@ Template.PartialDropdownUpdatesActions.events({
         // change layout
         Session.set('partial-dropdown-updates-actions.selected', key.replace(optionsPrefix, ''));
     }
-})
+});
 
 Template.PartialDropdownUpdatesActions.helpers({
     menuOpen: function(){

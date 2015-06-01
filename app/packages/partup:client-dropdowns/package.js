@@ -13,17 +13,13 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.addFiles([
-        // 'package-tap.i18n',
-
         'dropdowns.js',
 
-        'notifications/notifications-placeholders.js',
         'notifications/notifications.html',
-        'notifications/notifications.js', 
+        'notifications/notifications.js',
 
-        'profile/profile-placeholders.js', 
         'profile/profile.html',
-        'profile/profile.js', 
+        'profile/profile.js',
 
         'partials/updates-actions/updates-actions.html',
         'partials/updates-actions/updates-actions.js',
