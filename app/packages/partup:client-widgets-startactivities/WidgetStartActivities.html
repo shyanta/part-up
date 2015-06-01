@@ -13,16 +13,16 @@
 
          <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.start-activity">{{_ 'startactivities-button-adopt_activities' }}</a>
 
-        {{> WidgetActivity CREATE=true createCallback=createCallback }}
+        {{> Activity CREATE=true createCallback=createCallback }}
 
         <p class="pu-sub-activitiestitle">{{_ 'startactivities-popup-activities-heading' }}</p>
 
         {{#if showActivityPlaceholder}}
-            {{> WidgetActivity activity=placeholderActivity START_PARTUP=true READONLY=true }}
+            {{> Activity activity=placeholderActivity START_PARTUP=true READONLY=true }}
         {{/if }}
 
         {{#each partupActivities}}
-            {{> WidgetActivity activity=. START_PARTUP=true isUpper=isUpper }}
+            {{> Activity activity=. START_PARTUP=true isUpper=isUpper }}
         {{/each}}
 
         <!-- Continue button -->

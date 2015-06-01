@@ -1,7 +1,7 @@
-<template name="WidgetActivity">
+<template name="Activity">
     {{# if showForm }}
 
-        {{> WidgetActivityForm
+        {{> ActivityForm
             activity=activity
             edit=edit
             CREATE=CREATE
@@ -12,7 +12,7 @@
 
     {{ else }}
 
-        {{> WidgetActivityView
+        {{> ActivityView
             activity=activity
             contribution_id=contribution_id
             edit=edit

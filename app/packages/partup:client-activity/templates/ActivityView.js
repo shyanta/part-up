@@ -1,14 +1,14 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetActivityView.onCreated(function(){
+Template.ActivityView.onCreated(function(){
     this.expanded = new ReactiveVar(false);
 });
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetActivityView.helpers({
+Template.ActivityView.helpers({
     expanded: function(){
         return this.EXPANDED || (Template.instance().expanded.get() && !!this.CONTRIBUTIONS);
     },
@@ -62,7 +62,7 @@ Template.WidgetActivityView.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetActivityView.events({
+Template.ActivityView.events({
     'click [data-activity-edit]': function(event, template){
         template.data.edit.set(true);
     },

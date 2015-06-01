@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-activity',
+    name: 'partup:client-activity',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -21,13 +21,13 @@ Package.onUse(function (api) {
     api.addFiles([
         'package-tap.i18n',
 
-        'WidgetActivityFormPlaceholders.js',
-        'WidgetActivityForm.html',
-        'WidgetActivityForm.js',
-        'WidgetActivityView.html',
-        'WidgetActivityView.js',
-        'WidgetActivity.html',
-        'WidgetActivity.js',
+        'templates/ActivityFormPlaceholders.js',
+        'templates/ActivityForm.html',
+        'templates/ActivityForm.js',
+        'templates/ActivityView.html',
+        'templates/ActivityView.js',
+        'Activity.html',
+        'Activity.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

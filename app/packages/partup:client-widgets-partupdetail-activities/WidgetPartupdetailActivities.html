@@ -16,7 +16,7 @@
         </header>
 
         {{# each activities }}
-            {{> WidgetActivity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true isUpper=isUpper }}
+            {{> Activity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true isUpper=isUpper }}
         {{/ each }}
 
         {{# if archivedActivities }}
@@ -29,7 +29,7 @@
         {{/ if }}
 
         {{# each archivedActivities }}
-            {{> WidgetActivity activity=. CONTRIBUTIONS=true isUpper=isUpper }}
+            {{> Activity activity=. CONTRIBUTIONS=true isUpper=isUpper }}
         {{/ each }}
     </div>
 </template>

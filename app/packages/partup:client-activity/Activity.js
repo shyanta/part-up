@@ -19,7 +19,7 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetActivity.onCreated(function(){
+Template.Activity.onCreated(function(){
     this.edit = new ReactiveVar(false);
     this.showContributions = new ReactiveVar(false);
 
@@ -63,7 +63,7 @@ Template.WidgetActivity.onCreated(function(){
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetActivity.helpers({
+Template.Activity.helpers({
     edit: function(){
         return Template.instance().edit;
     },

@@ -178,7 +178,7 @@
             {{# if isActivityUpdate }}
                 {{#with update.type_data }}
                     <section>
-                        {{> WidgetActivity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
+                        {{> Activity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
                     </section>
                 {{/with}}
             {{/if }}
@@ -187,7 +187,7 @@
             {{#if isContributionUpdate }}
                 {{#with update.type_data }}
                     <section>
-                        {{> WidgetActivity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
+                        {{> Activity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
                     </section>
                 {{/with}}
             {{/if }}

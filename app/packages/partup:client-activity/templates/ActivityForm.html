@@ -1,4 +1,4 @@
-<template name="WidgetActivityForm">
+<template name="ActivityForm">
     <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if CREATE}}pu-block-activity-create pu-block-highlighted {{# if POPUP }}pu-block-activity-create-popup{{/ if }}{{/ if }} {{# unless CREATE }}pu-block-active{{/unless }}" data-activity-id="{{ activity._id }}">
         {{# autoForm schema=schema id=generateFormId doc=activity validation="submitThenKeyup" class="pu-form" }}
 
@@ -8,7 +8,7 @@
                     {{_ 'activity-form-name-label'}}
                     <a class="pu-hint">{{_ 'activity-form-name-validation-left' charactersLeftName }}</a>
                 </span>
-                
+
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name="name" placeholder=placeholders.name class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
@@ -22,7 +22,7 @@
                         {{_ 'activity-form-description-label'}}
                         <a class="pu-hint">{{_ 'activity-form-description-validation-left' charactersLeftDescription }}</a>
                     </span>
-                    
+
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea" rows=3 }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>

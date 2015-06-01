@@ -6,7 +6,7 @@ var maxLength = {
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetActivityForm.onCreated(function(){
+Template.ActivityForm.onCreated(function(){
     this.showExtraFields = new ReactiveVar(!this.data.CREATE);
 
     this.charactersLeft = new ReactiveDict();
@@ -23,7 +23,7 @@ Template.WidgetActivityForm.onCreated(function(){
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetActivityForm.helpers({
+Template.ActivityForm.helpers({
     schema: Partup.schemas.forms.startActivities,
     placeholders: Partup.services.placeholders.activity,
     generateFormId: function(){
@@ -46,7 +46,7 @@ Template.WidgetActivityForm.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetActivityForm.events({
+Template.ActivityForm.events({
     'click [data-extra-fields-button]': function(event, template){
         event.preventDefault();
         template.showExtraFields.set(true);
