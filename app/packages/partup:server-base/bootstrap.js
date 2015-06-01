@@ -21,3 +21,9 @@ ServiceConfiguration.configurations.upsert({
         secret: process.env['LINKEDIN_SECRET_KEY'],
     }
 });
+
+// Add indices
+Partups._ensureIndex({
+    'name': 'text',
+    'description': 'text'
+});
