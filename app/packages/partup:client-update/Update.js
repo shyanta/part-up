@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Widget onCreated */
 /*************************************************************/
-Template.WidgetPartupdetailUpdateItem.onCreated(function () {
+Template.Update.onCreated(function () {
     this.commentInputFieldExpanded = new ReactiveVar(false);
 
     var update = this.data.update;
@@ -14,7 +14,7 @@ Template.WidgetPartupdetailUpdateItem.onCreated(function () {
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetPartupdetailUpdateItem.helpers({
+Template.Update.helpers({
     partupId: function helperPartupId () {
         return Router.current().params._id;
     },
@@ -77,7 +77,7 @@ Template.WidgetPartupdetailUpdateItem.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetPartupdetailUpdateItem.events({
+Template.Update.events({
     'click [data-expand-comment-field]': function eventClickExpandCommentField (event, template) {
         template.commentInputFieldExpanded.set(true);
     }

@@ -96,6 +96,7 @@ partup:client-pages@0.0.1
 partup:client-rating@0.0.1
 partup:client-ratings@0.0.1
 partup:client-spinner@0.0.1
+partup:client-update@0.0.1
 partup:client-usercard@0.0.1
 partup:client-widgets-focuspoint@0.0.1
 partup:client-widgets-forgotpassword@0.0.1
@@ -104,7 +105,6 @@ partup:client-widgets-intro@0.0.1
 partup:client-widgets-inviteuppers@0.0.1
 partup:client-widgets-loader@0.0.1
 partup:client-widgets-login@0.0.1
-partup:client-widgets-partupdetail-update-item@0.0.1
 partup:client-widgets-partuptile@0.0.1
 partup:client-widgets-registeroptional@0.0.1
 partup:client-widgets-registerrequired@0.0.1
