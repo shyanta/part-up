@@ -15,16 +15,20 @@
 
 ## Javascript files
 - Zorg dat elke Javascript file in een flits goed leesbaar is. Plaats modulaire logica in *een service met logische naam* in client-base. Ook als de code (nog) maar één keer voorkomt.
-- *Data manipulatie en analyse* in partup:lib/repositories/user_repository.js plaatsen. Bijvoorbeeld: `Partup.repositories.user.isUpper(partup);`.
-
+- *Data analyse* in partup:lib/entities/user_entity.js plaatsen. Deze worden dat toegepast d.m.v. een meteor transform. Bijvoorbeeld:
+  ```json
+  Activities = new Mongo.Collection('activities', {
+      transform: function (doc) {
+          // do stuff to doc
+          return doc;
+      }
+  });
+  ```
+- Zet helper functies op alfabetische volgorde
 
 ## Javascript code styling
 - Trim spaties op save.
 - 4 spaties indentation.
+- Zorgen dat file eindigt met newline character (http://www.sublimetext.com/forum/viewtopic.php?f=3&t=12118)
+- jscs integratie in editor (http://jscs.info/)
 - Gebruik duidelijke variabelen i.p.v. ingewikkelde `if ()`-statements. Bijvoorbeeld: `var isUpper = ...; if (isUpper)` i.p.v. `if (...)`.
-
-## HTML files
-- 
-
-## HTML code styling
--
