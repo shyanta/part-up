@@ -52,6 +52,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'package-tap.i18n',
 
+        'i18n/app-home.en.i18n.json',
+        'i18n/app-home.nl.i18n.json',
         'i18n/app-partup-updates.en.i18n.json',
         'i18n/app-partup-updates.nl.i18n.json',
         'i18n/app-partup-updates-newmessage.en.i18n.json',
