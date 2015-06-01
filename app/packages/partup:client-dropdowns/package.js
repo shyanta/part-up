@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-dropdowns',
+    name: 'partup:client-dropdowns',
     version: '0.0.1',
     summary: '',
     documentation: null

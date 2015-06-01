@@ -13,11 +13,11 @@ partup:client-pages
 partup:client-activity
 partup:client-commentfield
 partup:client-contribution
+partup:client-dropdowns
 partup:client-rating
 partup:client-ratings
 partup:client-spinner
 partup:client-usercard
-partup:client-widgets-dropdowns
 partup:client-widgets-forgotpassword
 partup:client-widgets-gallery
 partup:client-widgets-intro
