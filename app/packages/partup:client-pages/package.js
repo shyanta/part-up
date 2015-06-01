@@ -18,14 +18,15 @@ Package.onUse(function(api) {
         'aldeed:autoform',
     ], 'client');
 
-    api.addFiles([
+    var clientFiles = [
         'package-tap.i18n',
 
-        // All pages
         'app/app.html',
         'app/app.js',
         'app/home/home.html',
         'app/home/home.js',
+        'app/discover/discover.html',
+        'app/discover/discover.js',
         'app/partup/partup.html',
         'app/partup/partup.js',
         'app/partup/updates/updates.html',
@@ -36,9 +37,13 @@ Package.onUse(function(api) {
         'app/partup/update/update.js',
         'app/partup/activities/activities.html',
         'app/partup/activities/activities.js',
+    ];
 
+    var languageFiles = [
         'i18n/app-home.en.i18n.json',
         'i18n/app-home.nl.i18n.json',
+        'i18n/app-discover.en.i18n.json',
+        'i18n/app-discover.nl.i18n.json',
         'i18n/app-partup-updates.en.i18n.json',
         'i18n/app-partup-updates.nl.i18n.json',
         'i18n/app-partup-updates-newmessage.en.i18n.json',
@@ -47,20 +52,13 @@ Package.onUse(function(api) {
         'i18n/app-partup-update.nl.i18n.json',
         'i18n/app-partup-activities.en.i18n.json',
         'i18n/app-partup-activities.nl.i18n.json',
-    ], 'client');
+    ];
 
-    api.addFiles([
-        'package-tap.i18n',
+    api.addFiles(clientFiles.concat(languageFiles), 'client');
 
-        'i18n/app-home.en.i18n.json',
-        'i18n/app-home.nl.i18n.json',
-        'i18n/app-partup-updates.en.i18n.json',
-        'i18n/app-partup-updates.nl.i18n.json',
-        'i18n/app-partup-updates-newmessage.en.i18n.json',
-        'i18n/app-partup-updates-newmessage.nl.i18n.json',
-        'i18n/app-partup-update.en.i18n.json',
-        'i18n/app-partup-update.nl.i18n.json',
-        'i18n/app-partup-activities.en.i18n.json',
-        'i18n/app-partup-activities.nl.i18n.json',
-    ], 'server');
+    var serverFiles = [
+        'package-tap.i18n'
+    ];
+
+    api.addFiles(serverFiles.concat(languageFiles), 'server');
 });

@@ -16,7 +16,7 @@ Router.route('/', {
     where: 'client',
     layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'app': { to: 'main' },
+        'app':      { to: 'main' },
         'app_home': { to: 'page-app' }
     },
     subscriptions: function () {
@@ -33,9 +33,8 @@ Router.route('/discover', {
     where: 'client',
     layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'app': { to: 'main' },
-        // 'PagesUnderConstruction': { to: 'page-app' }
-        'PagesDiscover': { to: 'page-app' }
+        'app':          { to: 'main' },
+        'app_discover': { to: 'page-app' }
     },
     subscriptions: function () {
         this.subscribe('notifications.user');
@@ -52,7 +51,6 @@ var profileSettings = {
     layoutTemplate: 'LayoutMain',
     yieldRegions: {
         'app': { to: 'main' },
-        // 'PagesUnderConstruction': { to: 'page-app' }
         'PagesProfile': { to: 'page-app' }
     },
     subscriptions: function () {
@@ -80,7 +78,6 @@ var partupSettings = {
     layoutTemplate: 'LayoutMain',
     yieldRegions: {
         'app':                { to: 'main' },
-        // 'PagesUnderConstruction': { to: 'page-app' }
         'app_partup':         { to: 'page-app' },
         'app_partup_updates': { to: 'page-partup' }
     },
@@ -135,14 +132,12 @@ Router.route('/partups/:_id/updates/:update_id', {
     where: 'client',
     layoutTemplate: 'LayoutMain',
     yieldRegions: {
-        'app': { to: 'main' },
-        // 'PagesUnderConstruction': { to: 'page-app' }
-        'app_partup': { to: 'page-app' },
+        'app':               { to: 'main' },
+        'app_partup':        { to: 'page-app' },
         'app_partup_update': { to: 'page-partup' }
     },
     subscriptions: function () {
         var partupId = this.params._id;
-        // var updateId = this.params.update_id;
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
@@ -203,7 +198,6 @@ Router.route('/partups/:_id/invite', {
     yieldRegions: {
         'PagesModal': { to: 'main' },
         'PagesPartupInviteUppers': { to: 'modal-page' },
-        // 'PagesPartupInviteUppers': { to: 'register-page' }
     },
     subscriptions: function () {
         // this.subscribe('users.count');
@@ -440,7 +434,7 @@ Router.onBeforeAction(function () {
 /*************************************************************/
 /* Miscellaneous */
 /*************************************************************/
-if(Meteor.isClient) {
+if (Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
         Partup.ui.focuslayer.disable();

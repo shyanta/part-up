@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesDiscover.helpers({
+Template.app_discover.helpers({
     partups: function() {
         return Partups.find();
     }
@@ -11,6 +11,6 @@ Template.PagesDiscover.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesDiscover.events({
+Template.app_discover.events({
     //
 });
