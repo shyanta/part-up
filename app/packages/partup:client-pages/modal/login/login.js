@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesLogin.helpers({
+Template.modal_login.helpers({
     //
 });
 
@@ -9,7 +9,7 @@ Template.PagesLogin.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesLogin.events({
+Template.modal_login.events({
     'click [data-closepage]': function (event, template) {
         event.preventDefault();
         Partup.ui.intent.executeIntentCallback('login');

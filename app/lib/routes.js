@@ -279,8 +279,8 @@ Router.route('/login', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesLogin': { to: 'modal' }
+        'modal':       { to: 'main' },
+        'modal_login': { to: 'modal' }
     }
 });
 

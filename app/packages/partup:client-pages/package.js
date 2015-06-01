@@ -39,6 +39,8 @@ Package.onUse(function(api) {
         'app/partup/activities/activities.js',
         'modal/modal.html',
         'modal/modal.js',
+        'modal/login/login.html',
+        'modal/login/login.js',
     ];
 
     var languageFiles = [
@@ -54,6 +56,8 @@ Package.onUse(function(api) {
         'i18n/app-partup-update.nl.i18n.json',
         'i18n/app-partup-activities.en.i18n.json',
         'i18n/app-partup-activities.nl.i18n.json',
+        'i18n/modal-login.en.i18n.json',
+        'i18n/modal-login.nl.i18n.json',
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');
