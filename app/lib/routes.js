@@ -341,9 +341,9 @@ Router.route('/register', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesRegister': { to: 'modal' },
-        'PagesRegisterRequired': { to: 'register-page' }
+        'modal':                 { to: 'main' },
+        'modal_register':        { to: 'modal' },
+        'modal_register_create': { to: 'modal_register' }
     },
     subscriptions: function () {
         this.subscribe('users.count');
@@ -355,9 +355,9 @@ Router.route('/register/details', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesRegister': { to: 'modal' },
-        'PagesRegisterOptional': { to: 'register-page' }
+        'modal':                  { to: 'main' },
+        'modal_register':         { to: 'modal' },
+        'modal_register_details': { to: 'modal_register' }
     }
 });
 

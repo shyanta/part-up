@@ -1,7 +1,16 @@
+var placeholders = {
+    'email': function () {
+        return __('login-form-email-placeholder');
+    },
+    'password': function () {
+        return __('login-form-password-placeholder');
+    }
+};
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetLogin.helpers({
+Template.Login.helpers({
     formSchema: Partup.schemas.forms.login,
     placeholders: Partup.services.placeholders.login
 });
@@ -9,7 +18,7 @@ Template.WidgetLogin.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetLogin.events({
+Template.Login.events({
     'click [data-loginfacebook]': function(event) {
         Meteor.loginWithFacebook({
             requestPermissions: ['email']

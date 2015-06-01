@@ -1,9 +1,27 @@
+var placeholders = {
+    'name': function () {
+        return __('pages-modal-register-create-form-name-placeholder');
+    },
+    'email': function () {
+        return __('pages-modal-register-create-form-email-placeholder');
+    },
+    'password': function () {
+        return __('pages-modal-register-create-form-password-placeholder');
+    },
+    'confirmPassword': function () {
+        return __('pages-modal-register-create-form-confirmPassword-placeholder');
+    },
+    'network': function () {
+        return __('pages-modal-register-create-form-network-placeholder');
+    }
+};
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetRegisterRequired.helpers({
+Template.modal_register_create.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
-    placeholders: Partup.services.placeholders.registerRequired,
+    placeholders: placeholders,
     totalNumberOfUppers: function() {
         var count = Counts.get('users');
         if(count)
@@ -16,7 +34,7 @@ Template.WidgetRegisterRequired.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetRegisterRequired.events({
+Template.modal_register_create.events({
     'click [data-signupfacebook]': function(event) {
         Meteor.loginWithFacebook({
             requestPermissions: ['email']

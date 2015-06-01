@@ -25,12 +25,8 @@ partup:client-ratings
 partup:client-spinner
 partup:client-update
 partup:client-usercard
-partup:client-widgets-forgotpassword
 partup:client-widgets-intro
 partup:client-widgets-login
-partup:client-widgets-registeroptional
-partup:client-widgets-registerrequired
-partup:client-widgets-resetpassword
 partup:client-widgets-startactivities
 partup:client-widgets-startcontribute
 partup:client-widgets-startdetails

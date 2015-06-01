@@ -1,7 +1,40 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetRegisterOptional.onCreated(function(){
+var placeholders = {
+    'location_input': function () {
+        return __('pages-modal-register-details-form-location_input-placeholder');
+    },
+    'description': function () {
+        return __('pages-modal-register-details-form-description-placeholder');
+    },
+    'tags_input': function () {
+        return __('pages-modal-register-details-form-tags_input-placeholder');
+    },
+    'facebook': function () {
+        return __('pages-modal-register-details-form-facebook-url-placeholder');
+    },
+    'twitter': function () {
+        return __('pages-modal-register-details-form-twitter-url-placeholder');
+    },
+    'instagram': function () {
+        return __('pages-modal-register-details-form-instagram-url-placeholder');
+    },
+    'linkedin': function () {
+        return __('pages-modal-register-details-form-linkedin-url-placeholder');
+    },
+    'website': function () {
+        return __('pages-modal-register-details-form-website-placeholder');
+    },
+    'phonenumber': function () {
+        return __('pages-modal-register-details-form-phonenumber-placeholder');
+    },
+    'skype': function () {
+        return __('pages-modal-register-details-form-skype-placeholder');
+    }
+};
+
+Template.modal_register_details.onCreated(function(){
     var template = this;
 
     template.uploadingProfilePicture = new ReactiveVar(false);
@@ -34,7 +67,7 @@ Template.WidgetRegisterOptional.onCreated(function(){
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetRegisterOptional.helpers({
+Template.modal_register_details.helpers({
     formSchema: Partup.schemas.forms.registerOptional,
     placeholders: Partup.services.placeholders.registerOptional,
     profile: function() {
@@ -76,7 +109,7 @@ Template.WidgetRegisterOptional.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetRegisterOptional.events({
+Template.modal_register_details.events({
     'click [data-browse-photos]': function eventClickBrowse(event, template){
         event.preventDefault();
 
@@ -86,7 +119,7 @@ Template.WidgetRegisterOptional.events({
     },
     'change [data-profile-picture-input]': function eventChangeFile(event, template){
         template.uploadingProfilePicture.set(true);
-        
+
         FS.Utility.eachFile(event, function (file) {
             Images.insert(file, function (error, image) {
                 template.$('input[name=image]').val(image._id);
@@ -103,10 +136,10 @@ Template.WidgetRegisterOptional.events({
 /* Widget functions */
 /*************************************************************/
 var continueRegister = function() {
-    
+
     // Execute intent callback
     Partup.ui.intent.executeIntentCallback('register');
-    
+
 };
 
 

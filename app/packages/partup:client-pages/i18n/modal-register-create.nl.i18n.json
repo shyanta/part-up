@@ -1,0 +1,25 @@
+{
+    "pages-modal-register-create-close": "Sluiten",
+
+    "pages-modal-register-create-becomethexthupper": "Word upper <u>#%d</u>",
+    "pages-modal-register-create-fillindetailsaccount": "Joehoe! Super tof dat je mee wilt doen aan de part-up beweging. Maak hier je part-up profiel aan.",
+
+    "pages-modal-register-create-signupfacebook": "Aanmelden met Facebook",
+    "pages-modal-register-create-signuplinkedin": "Aanmelden met Linkedin",
+    "pages-modal-register-create-or": "of",
+
+    "pages-modal-register-create-form-name-label": "Voor- en achternaam",
+    "pages-modal-register-create-form-name-placeholder": "Bijvoorbeeld: Johannes Jansen",
+
+    "pages-modal-register-create-form-email-label": "E-mailadres",
+    "pages-modal-register-create-form-email-placeholder": "Wij sturen je alleen e-mails als jij dat wilt",
+
+    "pages-modal-register-create-form-password-label": "Wachtwoord",
+    "pages-modal-register-create-form-password-placeholder": "Maak het niet té makkelijk",
+    "pages-modal-register-create-form-password-validation": "tips",
+    "pages-modal-register-create-form-password-tooltip": "Je weet dat de datadieven steeds slimmer worden. Kies daarom een wachtwoord dat niet te makkelijk is. Gebruik minimaal 8 karakters, 1 getal en 1 hoofdletter",
+
+    "pages-modal-register-create-form-confirmPassword-placeholder": "En herhaal hem alsjeblieft nog een keertje",
+
+    "pages-modal-register-create-form-submit": "Aanmelden"
+}
