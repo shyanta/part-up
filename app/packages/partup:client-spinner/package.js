@@ -6,10 +6,10 @@ Package.describe({
 });
 
 Npm.depends({
-    "spin.js": "2.0.1"
+    'spin.js': '2.0.1'
 });
 
-Package.onUse(function (api, where) {
+Package.onUse(function(api, where) {
     api.use([
         'templating',
         'underscore'
