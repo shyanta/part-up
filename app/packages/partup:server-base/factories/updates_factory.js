@@ -16,12 +16,12 @@ Partup.factories.updatesFactory = {
      * @return {Update}
      */
     make: function(userId, partupId, updateType, updateTypeData) {
-        var update = { };
+        var update = {};
 
-        if (! userId) throw new Meteor.Error(500, 'Required argument [userId] is missing for method [Partup.factories.updatesFactory::make]');
-        if (! partupId) throw new Meteor.Error(500, 'Required argument [partupId] is missing for method [Partup.factories.updatesFactory::make]');
-        if (! updateType) throw new Meteor.Error(500, 'Required argument [updateType] is missing for method [Partup.factories.updatesFactory::make]');
-        if (! updateTypeData) throw new Meteor.Error(500, 'Required argument [updateTypeData] is missing for method [Partup.factories.updatesFactory::make]');
+        if (!userId) throw new Meteor.Error(500, 'Required argument [userId] is missing for method [Partup.factories.updatesFactory::make]');
+        if (!partupId) throw new Meteor.Error(500, 'Required argument [partupId] is missing for method [Partup.factories.updatesFactory::make]');
+        if (!updateType) throw new Meteor.Error(500, 'Required argument [updateType] is missing for method [Partup.factories.updatesFactory::make]');
+        if (!updateTypeData) throw new Meteor.Error(500, 'Required argument [updateTypeData] is missing for method [Partup.factories.updatesFactory::make]');
 
         update.upper_id = userId;
         update.partup_id = partupId;
@@ -33,5 +33,4 @@ Partup.factories.updatesFactory = {
 
         return update;
     }
-
 };

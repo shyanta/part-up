@@ -7,7 +7,6 @@ var keys = {
 flickr = new Flickr(keys);
 
 Meteor.methods({
-
     /**
      * Return Flickr images based on tag relevancy
      *
@@ -15,8 +14,8 @@ Meteor.methods({
      * @param {number} count Number of results to return
      * @param {string[]} fallbackTags Tags
      */
-    'partups.services.flickr.search': function (tags, count, fallbackTags) {
-        if(!tags || !tags.length || !tags[0] || !tags[0].length) {
+    'partups.services.flickr.search': function(tags, count, fallbackTags) {
+        if (!tags || !tags.length || !tags[0] || !tags[0].length) {
             var error = 'No tags given';
             Log.error(error);
             throw new Meteor.Error(400, error);
@@ -32,8 +31,8 @@ Meteor.methods({
         count = count || 5;
         fallbackTags = fallbackTags || ['nature'];
 
-        var lookupTags = Meteor.wrapAsync(function (tags, count, callback) {
-            var searchByTags = function (tags, count, photos) {
+        var lookupTags = Meteor.wrapAsync(function(tags, count, callback) {
+            var searchByTags = function(tags, count, photos) {
                 var searchableTags = tags.join(' ');
 
                 flickr.get('photos.search', {
@@ -43,13 +42,13 @@ Meteor.methods({
                     'sort': 'relevance',
                     'license': [9, 4], // CC0 & Attribution License
                     'content_type': 1 // Photos only
-                }, function (result, error) {
+                }, function(result, error) {
                     if (error) {
                         Log.error(error);
                         throw new Meteor.Error(400, 'Error while getting photos from Flickr: ' + error);
                     }
 
-                    result.photos.photo.forEach(function (photo) {
+                    result.photos.photo.forEach(function(photo) {
                         if (!photo.url_l || (photo.height_l < photo.width_l)) return; // Only landscape photos
                         photos.push({
                             'imageUrl': photo.url_l,
@@ -82,5 +81,4 @@ Meteor.methods({
 
         return lookupTags(tags, count);
     }
-
 });

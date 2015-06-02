@@ -4,7 +4,6 @@
  @memberOf partup.services
  */
 Partup.services.images = {
-
     /**
      * Store a focuspoint in an image
      *
@@ -28,8 +27,7 @@ Partup.services.images = {
             y: focuspoint_y
         };
 
-        Images.update(imageId, { $set: { focuspoint: focuspoint }});
+        Images.update(imageId, {$set: {focuspoint: focuspoint}});
 
     }
-
 };

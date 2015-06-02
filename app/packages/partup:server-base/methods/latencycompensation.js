@@ -7,7 +7,7 @@
  * If a method fails on the server, the "fake" client side action is reverted
  */
 Meteor.methods({
-    'activities.insert': function (partupId, fields) {
+    'activities.insert': function(partupId, fields) {
         var upper = Meteor.user();
         var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
         activity._id = Activities.insert(activity);

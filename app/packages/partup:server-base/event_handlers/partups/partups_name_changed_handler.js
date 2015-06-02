@@ -1,5 +1,5 @@
-Event.on('partups.name.changed', function (userId, partup, value) {
-    if (! userId) return;
+Event.on('partups.name.changed', function(userId, partup, value) {
+    if (!userId) return;
 
     var updateType = 'partups_name_changed';
     var updateTypeData = {

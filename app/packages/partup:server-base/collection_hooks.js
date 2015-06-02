@@ -9,8 +9,8 @@ var equal = Npm.require('deeper');
  *
  * @return {function}
  */
-var basicAfterInsert = function (namespace) {
-    return function (userId, document) {
+var basicAfterInsert = function(namespace) {
+    return function(userId, document) {
         Event.emit(namespace + '.inserted', userId, document);
     }
 };
@@ -22,14 +22,14 @@ var basicAfterInsert = function (namespace) {
  *
  * @return {function}
  */
-var basicAfterUpdate = function (namespace) {
-    return function (userId, document, fieldNames, modifier, options) {
+var basicAfterUpdate = function(namespace) {
+    return function(userId, document, fieldNames, modifier, options) {
         Event.emit(namespace + '.updated', userId, document, this.previous);
 
         if (this.previous) {
             var previous = this.previous;
 
-            fieldNames.forEach(function (key) {
+            fieldNames.forEach(function(key) {
                 var value = {
                     'name': key,
                     'old': previous[key],
@@ -51,8 +51,8 @@ var basicAfterUpdate = function (namespace) {
  *
  * @return {function}
  */
-var basicAfterRemove = function (namespace) {
-    return function (userId, document) {
+var basicAfterRemove = function(namespace) {
+    return function(userId, document) {
         Event.emit(namespace + '.removed', userId, document);
     }
 };
@@ -68,7 +68,7 @@ Activities.after.update(basicAfterUpdate('partups.activities'));
 Activities.after.remove(basicAfterRemove('partups.activities'));
 
 // Update Events
-Updates.hookOptions.after.update = { fetchPrevious: false };
+Updates.hookOptions.after.update = {fetchPrevious: false};
 Updates.after.insert(basicAfterInsert('partups.updates'));
 Updates.after.update(basicAfterUpdate('partups.updates'));
 Updates.after.remove(basicAfterRemove('partups.updates'));

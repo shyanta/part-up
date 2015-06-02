@@ -1,9 +1,9 @@
-Event.on('partups.tags.changed', function (userId, partup, value) {
-    if (! userId) return;
+Event.on('partups.tags.changed', function(userId, partup, value) {
+    if (!userId) return;
 
     var changes = Partup.services.tags.calculateChanges(value.old, value.new);
 
-    changes.forEach(function (change) {
+    changes.forEach(function(change) {
         var updateType = false;
         var updateTypeData = {};
 

@@ -15,10 +15,10 @@ Meteor.methods({
         try {
             var settings = _.extend(upper.profile.settings, data);
 
-            Meteor.users.update(upper._id, { $set: { 'profile.settings': settings }});
+            Meteor.users.update(upper._id, {$set: {'profile.settings': settings}});
             Event.emit('settings.updated', upper._id, settings);
 
-            return { _id: upper._id };
+            return {_id: upper._id};
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be updated.');

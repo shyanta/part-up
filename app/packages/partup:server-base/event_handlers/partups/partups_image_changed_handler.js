@@ -1,5 +1,5 @@
-Event.on('partups.image.changed', function (userId, partup, value) {
-    if (! userId) return;
+Event.on('partups.image.changed', function(userId, partup, value) {
+    if (!userId) return;
 
     var updateType = 'partups_image_changed';
     var updateTypeData = {

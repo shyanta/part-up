@@ -1,43 +1,43 @@
-Meteor.startup(function () {
+Meteor.startup(function() {
     if (process.env.NODE_ENV.match(/development|staging/)) {
         // Users
         if (!Meteor.users.find().count()) {
             var user1 = {
-                "_id" : "K5c5M4Pbdg3B82wQH",
-                "createdAt" : new Date(),
-                "services" : {
-                    "password" : {
-                        "bcrypt" : "$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG"
+                '_id' : 'K5c5M4Pbdg3B82wQH',
+                'createdAt' : new Date(),
+                'services' : {
+                    'password' : {
+                        'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     }
                 },
-                "emails" : [
+                'emails' : [
                     {
-                        "address" : "user@example.com",
-                        "verified" : false
+                        'address' : 'user@example.com',
+                        'verified' : false
                     }
                 ],
-                "profile" : {
-                    "name" : "Default User"
+                'profile' : {
+                    'name' : 'Default User'
                 }
             };
             var user1Id = Meteor.users.insert(user1);
 
             var user2 = {
-                "_id" : "K5c5M4Pbdg3B82wQI",
-                "createdAt" : new Date(),
-                "services" : {
-                    "password" : {
-                        "bcrypt" : "$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG"
+                '_id' : 'K5c5M4Pbdg3B82wQI',
+                'createdAt' : new Date(),
+                'services' : {
+                    'password' : {
+                        'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     }
                 },
-                "emails" : [
+                'emails' : [
                     {
-                        "address" : "admin@example.com",
-                        "verified" : false
+                        'address' : 'admin@example.com',
+                        'verified' : false
                     }
                 ],
-                "profile" : {
-                    "name" : "Admin User"
+                'profile' : {
+                    'name' : 'Admin User'
                 }
             };
             var user2Id = Meteor.users.insert(user2);
@@ -48,16 +48,16 @@ Meteor.startup(function () {
             var firstPartup = {
                 _id: '1111',
                 name: 'First awesome Part-Up!',
-                description: "This describes just how great this Part-up is, so please join and let's make it the best part-up on the web.",
+                description: 'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
                 creator_id: user1Id,
                 tags: ['partup', 'online', 'awesome', 'test'],
                 uppers: [user1Id, user2Id],
                 location : {
-                    "city" : "amsterdam"
+                    'city' : 'amsterdam'
                 },
                 image: null,
-                created_at : new Date("2015-03-26T16:25:07.816Z"),
-                end_date: new Date("2015-06-01T10:00:07.100Z"),
+                created_at : new Date('2015-03-26T16:25:07.816Z'),
+                end_date: new Date('2015-06-01T10:00:07.100Z'),
                 network: {
                     name: 'superheroes',
                     icon: {
@@ -76,12 +76,12 @@ Meteor.startup(function () {
                 tags: ['test', 'lorem', 'ipsum'],
                 uppers: [user1Id],
                 location : {
-                    "city" : "amsterdam"
+                    'city' : 'amsterdam'
                 },
                 image: null,
-                created_at : new Date("2015-03-26T16:25:07.816Z"),
+                created_at : new Date('2015-03-26T16:25:07.816Z'),
                 supporters: [user2Id],
-                end_date: new Date("2015-08-01T10:00:07.100Z"),
+                end_date: new Date('2015-08-01T10:00:07.100Z'),
                 network: {
                     name: 'lifely',
                     icon: {

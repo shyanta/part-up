@@ -1,8 +1,8 @@
 /**
  * Create the update for the contribution
  */
-Event.on('partups.contributions.inserted', function (userId, contribution) {
-    if (! userId) return;
+Event.on('partups.contributions.inserted', function(userId, contribution) {
+    if (!userId) return;
 
     var updateType = 'partups_contributions_added';
     var updateTypeData = {
@@ -13,15 +13,15 @@ Event.on('partups.contributions.inserted', function (userId, contribution) {
     var update = Partup.factories.updatesFactory.make(userId, contribution.partup_id, updateType, updateTypeData);
     var updateId = Updates.insert(update);
 
-    Contributions.update({ _id: contribution._id }, { $set: { update_id: updateId }});
+    Contributions.update({_id: contribution._id}, {$set: {update_id: updateId}});
 });
 
 /**
  * Change update_type of Update when the Contribution is changed
  */
-Event.on('partups.contributions.updated', function (userId, contribution, oldContribution) {
-    if (! userId) return;
-    if (! oldContribution.update_id) return;
+Event.on('partups.contributions.updated', function(userId, contribution, oldContribution) {
+    if (!userId) return;
+    if (!oldContribution.update_id) return;
 
     var set = {
         upper_id: userId,
@@ -29,15 +29,15 @@ Event.on('partups.contributions.updated', function (userId, contribution, oldCon
         updated_at: new Date()
     };
 
-    Updates.update({ _id: contribution.update_id }, { $set: set });
+    Updates.update({_id: contribution.update_id}, {$set: set});
 });
 
 /**
  * Change update_type of Update when the Contribution is archived
  */
-Event.on('partups.contributions.archived', function (userId, contribution) {
-    if (! userId) return;
-    if (! contribution.update_id) return;
+Event.on('partups.contributions.archived', function(userId, contribution) {
+    if (!userId) return;
+    if (!contribution.update_id) return;
 
     var set = {
         upper_id: userId,
@@ -45,13 +45,13 @@ Event.on('partups.contributions.archived', function (userId, contribution) {
         updated_at: new Date()
     };
 
-    Updates.update({ _id: contribution.update_id }, { $set: set });
+    Updates.update({_id: contribution.update_id}, {$set: set});
 });
 
 /**
  * Generate a Notification for an Upper when his contribution(s) get(s) accepted
  */
-Event.on('contributions.accepted', function (userId, partupId, upperId) {
+Event.on('contributions.accepted', function(userId, partupId, upperId) {
     var partup = Partups.findOneOrFail(partupId);
     var notificationOptions = {
         type: 'partups_contributions_accepted',
@@ -65,7 +65,7 @@ Event.on('contributions.accepted', function (userId, partupId, upperId) {
 
     notificationOptions.userId = upperId;
 
-    Partup.services.notifications.send(notificationOptions, function (error) {
+    Partup.services.notifications.send(notificationOptions, function(error) {
         if (error) return Log.error(error);
 
         Log.debug('Notification generated for User [' + upperId + '] with type [' + notificationOptions.type + '].');
@@ -75,7 +75,7 @@ Event.on('contributions.accepted', function (userId, partupId, upperId) {
 /**
  * Generate a Notification for an Upper when his contribution gets rejected
  */
-Event.on('contributions.rejected', function (userId, activityId, upperId) {
+Event.on('contributions.rejected', function(userId, activityId, upperId) {
     var activity = Activity.findOneOrFail(activityId);
     var partup = Partups.findOneOrFail(activity.partup_id);
     var notificationOptions = {
@@ -93,7 +93,7 @@ Event.on('contributions.rejected', function (userId, activityId, upperId) {
 
     notificationOptions.userId = upperId;
 
-    Partup.services.notifications.send(notificationOptions, function (error) {
+    Partup.services.notifications.send(notificationOptions, function(error) {
         if (error) return Log.error(error);
 
         Log.debug('Notification generated for User [' + upperId + '] with type [' + notificationOptions.type + '].');

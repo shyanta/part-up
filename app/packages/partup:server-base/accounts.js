@@ -7,8 +7,8 @@ Accounts.onCreateUser(function(options, user) {
 
     user.emails = user.emails || [];
 
-    if (! liData && ! fbData) {
-        Meteor.setTimeout(function () {
+    if (!liData && !fbData) {
+        Meteor.setTimeout(function() {
             Accounts.sendVerificationEmail(user._id);
         }, 5000);
     }
@@ -23,7 +23,7 @@ Accounts.onCreateUser(function(options, user) {
                 location.city = locationParts[0].trim().replace(' Area', '');
                 location.country = locationParts[1].trim();
             }
-        };
+        }
 
         profile = {
             linkedin_id: liData.id,
@@ -37,7 +37,7 @@ Accounts.onCreateUser(function(options, user) {
         };
 
         imageUrl = liData.pictureUrl;
-        user.emails.push({ address: liData.emailAddress, verified: true });
+        user.emails.push({address: liData.emailAddress, verified: true});
     }
 
     if (fbData) {
@@ -53,15 +53,15 @@ Accounts.onCreateUser(function(options, user) {
         };
 
         imageUrl = 'https://graph.facebook.com/' + fbData.id + '/picture?width=750';
-        user.emails.push({ address: fbData.email, verified: true });
+        user.emails.push({address: fbData.email, verified: true});
     }
 
     try {
-        var result = HTTP.get(imageUrl, { 'npmRequestOptions': { 'encoding': null } });
+        var result = HTTP.get(imageUrl, {'npmRequestOptions': {'encoding': null}});
         var buffer = new Buffer(result.content, 'binary');
 
         var ref = new FS.File();
-        ref.attachData(buffer, { type: 'image/jpeg' });
+        ref.attachData(buffer, {type: 'image/jpeg'});
         ref.name(user._id + '.jpg');
 
         var image = Images.insert(ref);
@@ -75,11 +75,11 @@ Accounts.onCreateUser(function(options, user) {
     return user;
 });
 
-Accounts.validateNewUser(function (user) {
+Accounts.validateNewUser(function(user) {
     var emailAddress = findPossibleEmailAddresses(user);
 
-    var socialUser = Meteor.users.findOne({ 'emails.address': emailAddress });
-    var passwordUser = Meteor.users.findOne({ 'registered_emails.address': emailAddress });
+    var socialUser = Meteor.users.findOne({'emails.address': emailAddress});
+    var passwordUser = Meteor.users.findOne({'registered_emails.address': emailAddress});
 
     if (socialUser || passwordUser) {
         throw new Meteor.Error(403, 'Email already exists');

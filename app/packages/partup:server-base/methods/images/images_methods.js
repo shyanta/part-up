@@ -7,12 +7,12 @@ Meteor.methods({
      *
      * @return {String} imageId
      */
-    'images.insertByUrl': function (url) {
-        var result = HTTP.get(url, { 'npmRequestOptions': { 'encoding': null } });
+    'images.insertByUrl': function(url) {
+        var result = HTTP.get(url, {'npmRequestOptions': {'encoding': null}});
         var buffer = new Buffer(result.content, 'binary');
 
         var ref = new FS.File();
-        ref.attachData(buffer, { type: 'image/jpeg' });
+        ref.attachData(buffer, {type: 'image/jpeg'});
         ref.name(Random.id() + '.jpg');
 
         var image = Images.insert(ref);

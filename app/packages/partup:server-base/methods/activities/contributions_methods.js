@@ -5,15 +5,15 @@ Meteor.methods({
      * @param {string} activityId
      * @param {mixed[]} fields
      */
-    'contributions.update': function (activityId, fields) {
+    'contributions.update': function(activityId, fields) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var contribution = Contributions.findOne({ activity_id: activityId, upper_id: upper._id });
-        var isUpperInPartup = Partups.findOne({ _id: activity.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
-        
+        var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
+        var isUpperInPartup = Partups.findOne({_id: activity.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
+
         check(fields, Partup.schemas.forms.contribution);
 
         try {
@@ -29,7 +29,7 @@ Meteor.methods({
                     newContribution.archived = false;
                 }
 
-                Contributions.update(contribution._id, { $set: newContribution });
+                Contributions.update(contribution._id, {$set: newContribution});
 
                 // Post system message
                 Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_updated');
@@ -51,8 +51,8 @@ Meteor.methods({
                 var isAlreadySupporter = !!(supporters.indexOf(upper._id) > -1);
 
                 if (!isAlreadySupporter && partup.creator_id !== upper._id) {
-                    Partups.update(partup._id, { $push: { 'supporters': upper._id } });
-                    Meteor.users.update(upper._id, { $push: { 'supporterOf': partup._id } });
+                    Partups.update(partup._id, {$push: {'supporters': upper._id}});
+                    Meteor.users.update(upper._id, {$push: {'supporterOf': partup._id}});
                 }
             }
 
@@ -69,34 +69,34 @@ Meteor.methods({
      *
      * @param {string} contributionId
      * */
-    'contributions.accept': function (contributionId) {
+    'contributions.accept': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
-        var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
+        var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
         var activity = Activities.findOne({_id: contribution.activity_id});
 
         try {
             // Allowing contribution means that all concept contributions by this user will be allowed
-            var conceptContributions = Contributions.find({ 
-                partup_id: activity.partup_id, 
-                upper_id: contribution.upper_id, 
-                verified: false 
-            }, { fields: { _id: 1, update_id: 1 } }).fetch();
+            var conceptContributions = Contributions.find({
+                partup_id: activity.partup_id,
+                upper_id: contribution.upper_id,
+                verified: false
+            }, {fields: {_id: 1, update_id: 1}}).fetch();
             var conceptContributionsIdArray = _.pluck(conceptContributions, '_id');
 
-            Contributions.update( { _id: { $in: conceptContributionsIdArray } }, { $set: { verified: true } }, { multi: true });
+            Contributions.update({_id: {$in: conceptContributionsIdArray}}, {$set: {verified: true}}, {multi: true});
 
             // Promote the user from Supporter to Upper
-            Partups.update(contribution.partup_id, { $pull: { 'supporters': contribution.upper_id }, $push: { 'uppers': contribution.upper_id } });
-            Meteor.users.update(contribution.upper_id, { $pull: { 'supporterOf': contribution.partup_id }, $push: { 'upperOf': contribution.partup_id } });
+            Partups.update(contribution.partup_id, {$pull: {'supporters': contribution.upper_id}, $push: {'uppers': contribution.upper_id}});
+            Meteor.users.update(contribution.upper_id, {$pull: {'supporterOf': contribution.partup_id}, $push: {'upperOf': contribution.partup_id}});
 
             Event.emit('partups.uppers.inserted', contribution.partup_id, contribution.upper_id);
             Event.emit('contributions.accepted', upper._id, contribution.partup_id, contribution.upper_id);
 
             // Post system message for each accepted contribution
-            conceptContributions.forEach(function (contribution) {
+            conceptContributions.forEach(function(contribution) {
                 if (contribution.update_id) {
                     Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_accepted');
                 }
@@ -112,16 +112,16 @@ Meteor.methods({
      *
      * @param {string} contributionId
      */
-    'contributions.reject': function (contributionId) {
+    'contributions.reject': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
-        var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
+        var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
             // Archive contribution instead of removing
-            Contributions.update(contribution._id, { $set: { archived: true } });
+            Contributions.update(contribution._id, {$set: {archived: true}});
 
             // Post system message
             Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_rejected');
@@ -138,7 +138,7 @@ Meteor.methods({
      *
      * @param {string} contributionId
      */
-    'contributions.archive': function (contributionId) {
+    'contributions.archive': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
 
@@ -147,7 +147,7 @@ Meteor.methods({
         }
 
         try {
-            Contributions.update(contribution._id, { $set: { archived: true } });
+            Contributions.update(contribution._id, {$set: {archived: true}});
 
             // Post system message
             Partup.services.system_messages.send(upper, contribution.update_id, 'system_contributions_removed');
@@ -168,7 +168,7 @@ Meteor.methods({
      *
      * @param {string} contributionId
      */
-    'contributions.remove': function (contributionId) {
+    'contributions.remove': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
 

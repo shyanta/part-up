@@ -1,9 +1,9 @@
-Event.on('partups.updated', function (userId, partup, oldPartup) {
-    if (! userId) return;
+Event.on('partups.updated', function(userId, partup, oldPartup) {
+    if (!userId) return;
 
     // Return if nothing changed
-    if (partup.budget_type === oldPartup.budget_type
-     && partup['budget_' + partup.budget_type] === oldPartup['budget_' + oldPartup.budget_type])
+    if (partup.budget_type === oldPartup.budget_type &&
+        partup['budget_' + partup.budget_type] === oldPartup['budget_' + oldPartup.budget_type])
         return;
 
     var updateType = 'partups_budget_changed';

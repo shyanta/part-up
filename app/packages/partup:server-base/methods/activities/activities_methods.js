@@ -5,13 +5,13 @@ Meteor.methods({
      * @param {string} partupId
      * @param {mixed[]} fields
      */
-    'activities.insert': function (partupId, fields) {
+    'activities.insert': function(partupId, fields) {
         check(fields, Partup.schemas.forms.startActivities);
 
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
-        var isUpperInPartup = Partups.findOne({ _id: partupId, uppers: { $in: [upper._id] } }) ? true : false;
+        var isUpperInPartup = Partups.findOne({_id: partupId, uppers: {$in: [upper._id]}}) ? true : false;
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
@@ -34,18 +34,18 @@ Meteor.methods({
      * @param {string} activityId
      * @param {mixed[]} fields
      */
-    'activities.update': function (activityId, fields) {
+    'activities.update': function(activityId, fields) {
         check(fields, Partup.schemas.forms.startActivities);
-
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
-        var isUpperInPartup = Partups.findOne({ _id: activity.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
 
-        if (! activity) {
+        var isUpperInPartup = Partups.findOne({_id: activity.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
+
+        if (!activity) {
             throw new Meteor.Error(404, 'Could not find activity.');
         }
 
-        if (! upper || !isUpperInPartup) {
+        if (!upper || !isUpperInPartup) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
@@ -53,7 +53,7 @@ Meteor.methods({
             var updatedActivity = Partup.transformers.activity.fromForm(fields, activity.creator_id, activity.partup_id);
             updatedActivity.updated_at = new Date();
 
-            Activities.update(activityId, { $set: updatedActivity });
+            Activities.update(activityId, {$set: updatedActivity});
 
             // Post system message
             Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_updated');
@@ -72,7 +72,7 @@ Meteor.methods({
      *
      * @param {string} activityId
      */
-    'activities.remove': function (activityId) {
+    'activities.remove': function(activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -100,7 +100,7 @@ Meteor.methods({
      *
      * @param  {string} activityId
      */
-    'activities.unarchive': function (activityId) {
+    'activities.unarchive': function(activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -109,7 +109,7 @@ Meteor.methods({
         }
 
         try {
-            Activities.update(activityId, {$set: { archived: false } });
+            Activities.update(activityId, {$set: {archived: false}});
 
             // Post system message
             Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_unarchived');
@@ -130,7 +130,7 @@ Meteor.methods({
      *
      * @param  {string} activityId
      */
-    'activities.archive': function (activityId) {
+    'activities.archive': function(activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -139,7 +139,7 @@ Meteor.methods({
         }
 
         try {
-            Activities.update(activityId, {$set: { archived: true } });
+            Activities.update(activityId, {$set: {archived: true}});
 
             // Post system message
             Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_archived');
@@ -161,7 +161,7 @@ Meteor.methods({
      * @param  {string} fromPartupId
      * @param  {string} toPartupId
      */
-    'activities.copy': function (fromPartupId, toPartupId) {
+    'activities.copy': function(fromPartupId, toPartupId) {
         var upper = Meteor.user();
         if (!upper) {
             throw new Meteor.Error(401, 'Unauthorized.');
@@ -172,8 +172,8 @@ Meteor.methods({
         Partups.findOneOrFail(toPartupId);
 
         try {
-            var existingActivities = Activities.find( { partup_id: fromPartupId } );
-            existingActivities.forEach(function (activity) {
+            var existingActivities = Activities.find({partup_id: fromPartupId});
+            existingActivities.forEach(function(activity) {
                 var newActivity = {
                     name: activity.name,
                     description: activity.description,

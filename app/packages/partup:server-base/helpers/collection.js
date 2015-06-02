@@ -9,7 +9,7 @@ var pluralize = Npm.require('pluralize');
 Mongo.Collection.prototype.findOneOrFail = function(selector, options) {
     var partup = this.findOne(selector, options);
 
-    if (! partup) {
+    if (!partup) {
         var singular = pluralize.singular(this._name);
         var name = singular.charAt(0).toUpperCase() + singular.slice(1);
         throw new Meteor.Error(404, name + ' could not be found.');

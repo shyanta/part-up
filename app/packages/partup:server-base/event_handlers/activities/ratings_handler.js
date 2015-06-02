@@ -1,7 +1,7 @@
 /**
  * Update the contribution update with the new rating
  */
-Event.on('partups.ratings.inserted', function (userId, updateId, activityId, contributionId, ratingId) {
+Event.on('partups.ratings.inserted', function(userId, updateId, activityId, contributionId, ratingId) {
     if (!userId || !updateId || !activityId || !contributionId || !ratingId) return;
 
     var set = {
@@ -15,13 +15,13 @@ Event.on('partups.ratings.inserted', function (userId, updateId, activityId, con
         updated_at: new Date()
     };
 
-    Updates.update({ _id: updateId }, { $set: set });
+    Updates.update({_id: updateId}, {$set: set});
 });
 
 /**
  * Update the contribution update with the updated rating
  */
-Event.on('partups.ratings.updated', function (userId, updateId, activityId, contributionId, ratingId) {
+Event.on ('partups.ratings.updated', function(userId, updateId, activityId, contributionId, ratingId) {
     if (!userId || !updateId || !activityId || !contributionId || !ratingId) return;
 
     var set = {
@@ -35,5 +35,5 @@ Event.on('partups.ratings.updated', function (userId, updateId, activityId, cont
         updated_at: new Date()
     };
 
-    Updates.update({ _id: updateId }, { $set: set });
+    Updates.update({_id: updateId}, {$set: set});
 });

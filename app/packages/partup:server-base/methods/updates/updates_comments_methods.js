@@ -5,11 +5,11 @@ Meteor.methods({
      * @param {string} updateId
      * @param {mixed[]} fields
      */
-    'updates.comments.insert': function (updateId, fields) {
+    'updates.comments.insert': function(updateId, fields) {
         check(fields, Partup.schemas.forms.updateComment);
 
         var upper = Meteor.user();
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var update = Updates.findOneOrFail(updateId);
 
@@ -54,13 +54,13 @@ Meteor.methods({
             });
 
             // Make user Supporter if its not yet an Upper or Supporter of the Partup
-            var isUpperInPartup = Partups.findOne({ _id: update.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
-            var isUpperSupporterInPartup = Partups.findOne({ _id: update.partup_id, supporters: { $in: [upper._id] } }) ? true : false;
+            var isUpperInPartup = Partups.findOne({_id: update.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
+            var isUpperSupporterInPartup = Partups.findOne({_id: update.partup_id, supporters: {$in: [upper._id]}}) ? true : false;
 
             if (!isUpperInPartup && !isUpperSupporterInPartup) {
                 var partup = Partups.findOneOrFail(update.partup_id);
-                Partups.update(partup._id, { $push: { 'supporters': upper._id } });
-                Meteor.users.update(upper._id, { $push: { 'supporterOf': partup._id } });
+                Partups.update(partup._id, {$push: {'supporters': upper._id}});
+                Meteor.users.update(upper._id, {$push: {'supporterOf': partup._id}});
 
                 Event.emit('partups.supporters.inserted', partup, upper);
             }

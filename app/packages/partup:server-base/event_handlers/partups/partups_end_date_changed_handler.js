@@ -1,5 +1,5 @@
-Event.on('partups.end_date.changed', function (userId, partup, value) {
-    if (! userId) return;
+Event.on('partups.end_date.changed', function(userId, partup, value) {
+    if (!userId) return;
 
     var updateType = 'partups_end_date_changed';
     var updateTypeData = {

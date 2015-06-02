@@ -5,9 +5,9 @@ Meteor.methods({
      * @param {string} partupId
      * @param {mixed[]} fields
      */
-    'updates.messages.insert': function (partupId, fields) {
+    'updates.messages.insert': function(partupId, fields) {
         var upper = Meteor.user();
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var partup = Partups.findOneOrFail(partupId);
         var newMessage = Partup.transformers.update.fromFormNewMessage(fields, upper, partup._id);
@@ -17,12 +17,12 @@ Meteor.methods({
             newMessage._id = Updates.insert(newMessage);
 
             // Make user Supporter if its not yet an Upper or Supporter of the Partup
-            var isUpperInPartup = Partups.findOne({ _id: partup._id, uppers: { $in: [upper._id] } }) ? true : false;
-            var isUpperSupporterInPartup = Partups.findOne({ _id: partup._id, supporters: { $in: [upper._id] } }) ? true : false;
+            var isUpperInPartup = Partups.findOne({_id: partup._id, uppers: {$in: [upper._id]}}) ? true : false;
+            var isUpperSupporterInPartup = Partups.findOne({_id: partup._id, supporters: {$in: [upper._id]}}) ? true : false;
 
             if (!isUpperInPartup && !isUpperSupporterInPartup) {
-                Partups.update(partup._id, { $push: { 'supporters': upper._id } });
-                Meteor.users.update(upper._id, { $push: { 'supporterOf': partup._id } });
+                Partups.update(partup._id, {$push: {'supporters': upper._id}});
+                Meteor.users.update(upper._id, {$push: {'supporterOf': partup._id}});
 
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
@@ -44,9 +44,9 @@ Meteor.methods({
      * @param {string} updateId
      * @param {mixed[]} fields
      */
-    'updates.messages.edit': function (updateId, fields) {
+    'updates.messages.edit': function(updateId, fields) {
         var upper = Meteor.user();
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
             var update = Updates.findOneOrFail(updateId);
@@ -75,5 +75,4 @@ Meteor.methods({
             throw new Meteor.Error(400, 'error-method-updates-messages-insert-failure');
         }
     }
-
 });

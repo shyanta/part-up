@@ -3,7 +3,7 @@ Meteor.publishComposite('notifications.user', function() {
 
     return {
         find: function() {
-            return Notifications.find({ for_upper_id: self.userId }, { limit: 20 });
+            return Notifications.find({for_upper_id: self.userId}, {limit: 20});
         },
         children: [
             {
@@ -14,7 +14,7 @@ Meteor.publishComposite('notifications.user', function() {
                         images.push(notification.type_data.supporter.image);
                     }
 
-                    return Images.find({ _id: { $in: images } });
+                    return Images.find({_id: {$in: images}});
                 }
             }
         ]

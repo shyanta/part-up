@@ -5,15 +5,15 @@ Meteor.methods({
      * @param {string} contributionId
      * @param {mixed[]} fields
      */
-    'ratings.insert': function (contributionId, fields) {
+    'ratings.insert': function(contributionId, fields) {
         var upper = Meteor.user();
 
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var contribution = Contributions.findOneOrFail(contributionId);
-        var isUpperInPartup = Partups.findOne({ _id: contribution.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
+        var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
-        if (! isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
         check(fields, Partup.schemas.forms.rating);
 
@@ -50,11 +50,11 @@ Meteor.methods({
      * @param {string} ratingId
      * @param {mixed[]} fields
      */
-    'ratings.update': function (ratingId, fields) {
+    'ratings.update': function(ratingId, fields) {
         var upper = Meteor.user();
         var rating = Ratings.findOneOrFail(ratingId);
         var contribution = Contributions.findOneOrFail(rating.contribution_id);
-        var isUpperInPartup = Partups.findOne({ _id: rating.partup_id, uppers: { $in: [upper._id] } }) ? true : false;
+        var isUpperInPartup = Partups.findOne({_id: rating.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
         if (!upper || !isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
 
@@ -69,7 +69,7 @@ Meteor.methods({
                 newRating.feedback = fields.feedback;
                 newRating.updated_at = new Date();
 
-                Ratings.update(rating, { $set: newRating });
+                Ratings.update(rating, {$set: newRating});
 
                 // Post system message
                 Partup.services.system_messages.send(upper, contribution.update_id, 'system_ratings_updated');

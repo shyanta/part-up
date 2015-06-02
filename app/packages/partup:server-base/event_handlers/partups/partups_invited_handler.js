@@ -1,5 +1,5 @@
-Event.on('partups.invited', function (userId, partupId, email, name) {
-    if (! userId) return;
+Event.on('partups.invited', function(userId, partupId, email, name) {
+    if (!userId) return;
 
     var updateType = 'partups_invited';
     var updateTypeData = {

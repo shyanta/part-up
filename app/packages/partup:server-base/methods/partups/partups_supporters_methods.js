@@ -1,23 +1,22 @@
 Meteor.methods({
-
     /**
      * Add a Supporter to a Partup
      *
-     * @param {integer} partupId
+     * @param {string} partupId
      */
-    'partups.supporters.insert': function (partupId) {
+    'partups.supporters.insert': function(partupId) {
         var upper = Meteor.user();
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var partup = Partups.findOneOrFail(partupId);
 
         try {
             var supporters = partup.supporters || [];
-            var isAlreadySupporter = !! (supporters.indexOf(upper._id) > -1);
+            var isAlreadySupporter = !!(supporters.indexOf(upper._id) > -1);
 
-            if (! isAlreadySupporter && partup.creator_id !== upper._id) {
-                Partups.update(partupId, { $push: { 'supporters': upper._id } });
-                Meteor.users.update(upper._id, { $push: { 'supporterOf': partupId } });
+            if (!isAlreadySupporter && partup.creator_id !== upper._id) {
+                Partups.update(partupId, {$push: {'supporters': upper._id}});
+                Meteor.users.update(upper._id, {$push: {'supporterOf': partupId}});
 
                 Event.emit('partups.supporters.inserted', partup, upper);
 
@@ -34,21 +33,21 @@ Meteor.methods({
     /**
      * Remove a Supporter from a Partup
      *
-     * @param {integer} partupId
+     * @param {string} partupId
      */
-    'partups.supporters.remove': function (partupId) {
+    'partups.supporters.remove': function(partupId) {
         var upper = Meteor.user();
-        if (! upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var partup = Partups.findOneOrFail(partupId);
 
         try {
             var supporters = partup.supporters || [];
-            var isSupporter = !! (supporters.indexOf(upper._id) > -1);
+            var isSupporter = !!(supporters.indexOf(upper._id) > -1);
 
             if (isSupporter) {
-                Partups.update(partupId, { $pull: { 'supporters': upper._id } });
-                Meteor.users.update(upper._id, { $pull: { 'supporterOf': partupId } });
+                Partups.update(partupId, {$pull: {'supporters': upper._id}});
+                Meteor.users.update(upper._id, {$pull: {'supporterOf': partupId}});
 
                 Event.emit('partups.supporters.removed', partup, upper);
 
@@ -61,5 +60,4 @@ Meteor.methods({
             throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be remove as a supporter from Partup [' + partupId + '].');
         }
     }
-
 });

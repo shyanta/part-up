@@ -24,7 +24,7 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'private/emails/InviteUser.html'
-    ], ['server'], { isAsset: true });
+    ], ['server'], {isAsset: true});
 
     api.addFiles([
         'logs.js',

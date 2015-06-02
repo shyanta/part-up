@@ -4,13 +4,13 @@ Meteor.methods({
      *
      * @param {mixed[]} fields
      */
-    'users.update': function (fields) {
+    'users.update': function(fields) {
 
         check(fields, Partup.schemas.forms.registerOptional);
 
         var upper = Meteor.user();
 
-        if (! upper) {
+        if (!upper) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
