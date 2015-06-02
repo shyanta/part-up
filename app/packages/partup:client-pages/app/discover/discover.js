@@ -6,11 +6,3 @@ Template.app_discover.helpers({
         return Partups.find();
     }
 });
-
-
-/*************************************************************/
-/* Page events */
-/*************************************************************/
-Template.app_discover.events({
-    //
-});

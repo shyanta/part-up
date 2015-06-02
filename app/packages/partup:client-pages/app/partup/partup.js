@@ -3,7 +3,7 @@
 /*************************************************************/
 var getPartup = function getPartup () {
     var partupId = Router.current().params._id;
-    return Partups.findOne({ _id: partupId });
+    return Partups.findOne({_id: partupId});
 };
 
 /*************************************************************/
@@ -11,44 +11,36 @@ var getPartup = function getPartup () {
 /*************************************************************/
 Template.app_partup.helpers({
 
-    partup: function () {
+    partup: function() {
         return getPartup;
     },
 
-    partupUppers: function () {
+    partupUppers: function() {
         var partup = getPartup();
 
-        if (! partup) return [];
+        if (!partup) return [];
 
         var uppers = partup.uppers || [];
 
-        return Meteor.users.find({ _id: { $in: uppers } });
+        return Meteor.users.find({_id: {$in: uppers}});
     },
 
-    partupSupporters: function () {
+    partupSupporters: function() {
         var partup = getPartup();
 
-        if (! partup) return [];
+        if (!partup) return [];
 
         var supporters = partup.supporters || [];
 
-        return Meteor.users.find({ _id: { $in: supporters } });
+        return Meteor.users.find({_id: {$in: supporters}});
     },
 
-    partupCover: function () {
+    partupCover: function() {
         var partup = getPartup();
 
-        if (! partup || ! partup.image) return null;
+        if (!partup || !partup.image) return null;
 
-        return Images.findOne({ _id: partup.image });
+        return Images.findOne({_id: partup.image});
     }
 
-});
-
-
-/*************************************************************/
-/* Page events */
-/*************************************************************/
-Template.app_partup.events({
-    //
 });

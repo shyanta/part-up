@@ -7,17 +7,17 @@ var getActivities = function getActivities (options) {
     // Get the option that is selected in the filter dropdown
     var option = Session.get('partial-dropdown-activities-actions.selected');
 
-    var query = { 
+    var query = {
         partup_id: partupId,
         archived: false
-    }; 
-    if(options && options.archived) {
-       query.archived = true; 
+    };
+    if (options && options.archived) {
+        query.archived = true;
     }
-    return Activities.find(query, { sort: { end_date: -1 } }).map(function (activity, idx) {
+    return Activities.find(query, {sort: {end_date: -1}}).map(function(activity, idx) {
         activity.arrayIndex = idx;
         return activity;
-    }).filter(function (activity, idx) {
+    }).filter(function(activity, idx) {
         if (option === 'default') return true;
 
         if (option === 'my-activities') {
@@ -25,7 +25,7 @@ var getActivities = function getActivities (options) {
         }
 
         if (option === 'open-activities') {
-            return Contributions.find({ activity_id: activity._id }).count() === 0;
+            return Contributions.find({activity_id: activity._id}).count() === 0;
         }
 
         return true;
@@ -55,9 +55,3 @@ Template.app_partup_activities.helpers({
     }
 
 });
-
-/*************************************************************/
-/* Widget events */
-/*************************************************************/
-Template.app_partup_activities.events({
-})

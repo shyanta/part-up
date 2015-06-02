@@ -52,13 +52,13 @@ Template.Focuspoint.onRendered(function () {
             });
 
             template.focuspoint.on('drag:move', function (x, y) {
-                if(mout.lang.isFunction(template.data.move)) {
+                if (mout.lang.isFunction(template.data.move)) {
                     template.data.move(x, y);
                 }
             });
 
             template.focuspoint.on('drag:end', function (x, y) {
-                if(mout.lang.isFunction(template.data.update)) {
+                if (mout.lang.isFunction(template.data.update)) {
                     template.data.update(x, y);
                 }
             });

@@ -3,9 +3,9 @@ Meteor.startup(function() {
     /*************************************************************/
     /* Language configuration */
     /*************************************************************/
-    if(TAPi18n && Partup) {
+    if (TAPi18n && Partup) {
         var detectedLocale = navigator.language || navigator.userLanguage;
-        if(detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {
+        if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {
             detectedLocale = detectedLocale.split('-')[0];
         }
 
@@ -16,7 +16,6 @@ Meteor.startup(function() {
         Partup.ui.language.changeLanguage(language);
     }
 
-
     /*************************************************************/
     /* Router animation */
     /*************************************************************/
@@ -26,7 +25,7 @@ Meteor.startup(function() {
         var nextLayout = '';
 
         // Check current template
-        if(yieldRegions && yieldRegions.hasOwnProperty('modal')) {
+        if (yieldRegions && yieldRegions.hasOwnProperty('modal')) {
             nextLayout = 'modal';
         } else if (yieldRegions && yieldRegions.hasOwnProperty('app')) {
             nextLayout = 'app';
@@ -51,9 +50,9 @@ Meteor.startup(function() {
             $body.removeClass('bender-animating');
         };
 
-        if(nextLayout === 'modal') {
+        if (nextLayout === 'modal') {
             Bender.animate('slideOverUp', addClass, removeClass);
-        } else if(nextLayout === 'app') {
+        } else if (nextLayout === 'app') {
             Bender.animate('slideOverUpClose', addClass, removeClass);
         }
 

@@ -52,7 +52,7 @@ Template.Update.helpers({
 
     getImageUrlById: function helperGetImageUrlById(imageId) {
         var image = Images.findOne({_id: imageId});
-        if(image) return image.url();
+        if (image) return image.url();
         return '';
     },
 

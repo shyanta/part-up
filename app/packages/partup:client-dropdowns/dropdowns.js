@@ -14,8 +14,8 @@ ClientDropdowns = {
         template.documentClickHandler = function(e){
 
             // see if the click was on the dropdown button
-            if(altkey ? self[altkey + '-clicked'] : self.buttonClicked) {
-                if(altkey) {
+            if (altkey ? self[altkey + '-clicked'] : self.buttonClicked) {
+                if (altkey) {
                     self[altkey + '-clicked'] = false;
                 } else {
                     self.buttonClicked = false;
@@ -25,7 +25,7 @@ ClientDropdowns = {
 
             // check if a child element of the dropdown was clicked
             var dropdownClicked = $.inArray(dropdown, $(e.target).parents());
-            if(dropdownClicked > -1) return;
+            if (dropdownClicked > -1) return;
 
             // close the dropdown
             Session.set(self[altkey || 'dropdownToggleBool'], false);

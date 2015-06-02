@@ -25,6 +25,6 @@ Template.Popup.events({
             clickedElement = $(event.target);
 
         // close popup if overlay is clicked
-        if(clickedElement[0] === overlay[0]) Session.set('main.popup-open', false);
+        if (clickedElement[0] === overlay[0]) Session.set('main.popup-open', false);
     }
 });

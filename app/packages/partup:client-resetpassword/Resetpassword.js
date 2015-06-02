@@ -28,7 +28,7 @@ AutoForm.hooks({
 
             var token = Router.current().params.token;
             Accounts.resetPassword(token, insertDoc.password, function(error) {
-                if(error && error.message) {
+                if (error && error.message) {
                     switch (error.message) {
                         // case 'User not found [403]':
                         //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');

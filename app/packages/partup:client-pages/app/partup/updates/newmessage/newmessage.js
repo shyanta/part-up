@@ -1,10 +1,10 @@
 var placeholders = {
-    'text': function () {
+    'text': function() {
         return __('pages-app-partup-updates-newmessage-placeholder');
     }
 };
 
-Template.app_partup_updates_newmessage.onCreated(function(){
+Template.app_partup_updates_newmessage.onCreated(function() {
     var template = this;
 
     template.uploadingPhotos = new ReactiveVar(false);
@@ -13,7 +13,7 @@ Template.app_partup_updates_newmessage.onCreated(function(){
     template.maxPhotos = 4;
 
     // reset on close popup
-    Partup.ui.popup.onClose = function(){
+    Partup.ui.popup.onClose = function() {
         template.uploadingPhotos.set(false);
         template.uploadedPhotos.set([]);
         template.totalPhotos.set(0);
@@ -24,33 +24,33 @@ Template.app_partup_updates_newmessage.onCreated(function(){
 Template.app_partup_updates_newmessage.helpers({
     formSchema: Partup.schemas.forms.newMessage,
     placeholders: placeholders,
-    uploadingPhotos: function(){
+    uploadingPhotos: function() {
         return Template.instance().uploadingPhotos.get();
     },
-    uploadedPhotos: function(){
+    uploadedPhotos: function() {
         return Template.instance().uploadedPhotos.get();
     },
-    photoLimitReached: function(){
+    photoLimitReached: function() {
         return (Template.instance().totalPhotos.get() === 4) ? true : false;
     }
 });
 
 // events
 Template.app_partup_updates_newmessage.events({
-    'click [data-browse-photos]': function eventClickBrowse(event, template){
+    'click [data-browse-photos]': function eventClickBrowse(event, template) {
         event.preventDefault();
 
         // in stead fire click event on file input
         var input = $('input[data-photo-input]');
         input.click();
     },
-    'change [data-photo-input]': function eventChangeFile(event, template){
+    'change [data-photo-input]': function eventChangeFile(event, template) {
         template.uploadingPhotos.set(true);
         var total = Template.instance().totalPhotos.get();
-        FS.Utility.eachFile(event, function (file) {
-            if(total === template.maxPhotos) return;
+        FS.Utility.eachFile(event, function(file) {
+            if (total === template.maxPhotos) return;
 
-            Partup.ui.uploader.uploadImage(file, function (error, image) {
+            Partup.ui.uploader.uploadImage(file, function(error, image) {
                 var uploaded = template.uploadedPhotos.get();
                 uploaded.push(image._id);
                 template.uploadedPhotos.set(uploaded);
@@ -60,10 +60,10 @@ Template.app_partup_updates_newmessage.events({
             Template.instance().totalPhotos.set(total);
         });
     },
-    'click [data-close]': function clearForm(event, template){
+    'click [data-close]': function clearForm(event, template) {
         template.uploadedPhotos.set([]);
     },
-    'click [data-remove-upload]': function removeUpload(event, template){
+    'click [data-remove-upload]': function removeUpload(event, template) {
         var imageId = $(event.target).data('remove-upload');
         // template.uploadedPhotos.set([]);
         var uploadedPhotos = template.uploadedPhotos.get();
@@ -86,8 +86,8 @@ AutoForm.hooks({
             var parent = Template.instance().parent()
             var uploadedPhotos = parent.uploadedPhotos.get();
             insertDoc.images = uploadedPhotos;
-            
-            Meteor.call('updates.messages.insert', partupId, insertDoc, function (error) {
+
+            Meteor.call('updates.messages.insert', partupId, insertDoc, function(error) {
                 // Error
                 if (error) {
                     Partup.ui.notify.error(error.reason);

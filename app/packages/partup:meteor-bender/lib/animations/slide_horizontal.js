@@ -28,7 +28,7 @@ SlideHorizontal = (function() {
     var start;
     start = this.constructor.INSERT[this.animation];
     $.Velocity.hook(node, 'translateX', start);
-    if(this.startCallback) this.startCallback();
+    if (this.startCallback) this.startCallback();
     $(node).insertBefore(next);
     return $(node).velocity({
       translateX: [0, start]
@@ -50,7 +50,7 @@ SlideHorizontal = (function() {
       easing: 'ease-in-out',
       queue: false,
       complete: function() {
-        if(endCallback) endCallback();
+        if (endCallback) endCallback();
         return $(node).remove();
       }
     });

@@ -27,7 +27,7 @@ CrossFade = (function() {
   CrossFade.prototype.insertElement = function(node, next) {
     var start;
     start = this.constructor.INSERT[this.animation];
-    if(this.startCallback) this.startCallback();
+    if (this.startCallback) this.startCallback();
     $(node).insertBefore(next);
     return $(node).velocity('fadeIn', {
       duration: this.animationDuration,
@@ -45,7 +45,7 @@ CrossFade = (function() {
       easing: 'ease-in-out',
       queue: false,
       complete: function() {
-        if(endCallback) endCallback();
+        if (endCallback) endCallback();
         return $(node).remove();
       }
     });

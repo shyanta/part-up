@@ -1,7 +1,7 @@
 /*************************************************************/
 /* modal on rendered */
 /*************************************************************/
-Template.modal.onRendered(function () {
+Template.modal.onRendered(function() {
     var $body = $('body');
     $body.removeClass('pu-state-currentlayout-app');
     $body.addClass('pu-state-currentlayout-modal');
@@ -15,7 +15,6 @@ Template.modal.helpers({
         return Partup.ui.focuslayer.state.get();
     }
 });
-
 
 /*************************************************************/
 /* modal events */

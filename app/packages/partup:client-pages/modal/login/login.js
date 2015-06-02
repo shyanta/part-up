@@ -1,16 +1,8 @@
 /*************************************************************/
-/* Page helpers */
-/*************************************************************/
-Template.modal_login.helpers({
-    //
-});
-
-
-/*************************************************************/
 /* Page events */
 /*************************************************************/
 Template.modal_login.events({
-    'click [data-closepage]': function (event, template) {
+    'click [data-closepage]': function(event, template) {
         event.preventDefault();
         Partup.ui.intent.executeIntentCallback('login');
     }

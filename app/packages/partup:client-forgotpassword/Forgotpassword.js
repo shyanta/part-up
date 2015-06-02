@@ -31,7 +31,7 @@ AutoForm.hooks({
             Accounts.forgotPassword({email: insertDoc.email}, function(error) {
 
                 // Error cases
-                if(error && error.message) {
+                if (error && error.message) {
                     switch (error.message) {
                         case 'User not found [403]':
                             Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');

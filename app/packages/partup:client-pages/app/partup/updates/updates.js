@@ -7,10 +7,10 @@ var getUpdates = function getUpdates () {
     // Get the option that is selected in the filter dropdown
     var option = Session.get('partial-dropdown-updates-actions.selected');
 
-    return Updates.find({ partup_id: partupId }, { sort: { updated_at: -1 } }).map(function (update, idx) {
+    return Updates.find({partup_id: partupId}, {sort: {updated_at: -1}}).map(function(update, idx) {
         update.arrayIndex = idx;
         return update;
-    }).filter(function (update, idx) {
+    }).filter(function(update, idx) {
         if (option === 'default') return true;
 
         if (option === 'my-updates') {
@@ -22,13 +22,12 @@ var getUpdates = function getUpdates () {
         }
 
         if (option === 'partup-changes') {
-            var isPartupChange = (  update.type.indexOf('tags') > -1 ||
-                                    update.type.indexOf('end_date') > -1 ||
-                                    update.type.indexOf('name') > -1 ||
-                                    update.type.indexOf('description') > -1 ||
-                                    update.type.indexOf('image') > -1 ||
-                                    update.type.indexOf('budget') > -1
-                                    );
+            var isPartupChange = (update.type.indexOf('tags') > -1 ||
+                                  update.type.indexOf('end_date') > -1 ||
+                                  update.type.indexOf('name') > -1 ||
+                                  update.type.indexOf('description') > -1 ||
+                                  update.type.indexOf('image') > -1 ||
+                                  update.type.indexOf('budget') > -1);
 
             return update.type && isPartupChange;
         }
@@ -72,7 +71,7 @@ Template.app_partup_updates.helpers({
         return previousMoment.diff(currentMoment) > 24 * 60 * 60 * 1000;
     },
     'isLoggedIn': function helperIsLoggedIn() {
-        var user= Meteor.user();
+        var user = Meteor.user();
         return !!user;
     },
     'isUpper': function helperIsUpper () {
@@ -86,7 +85,6 @@ Template.app_partup_updates.helpers({
     }
 
 });
-
 
 /*************************************************************/
 /* Widget events */

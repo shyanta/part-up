@@ -28,7 +28,7 @@
         afterCopy: null,
         clickAfter: true
       }, (params || {}));
-      
+
       return this.each(function () {
         var o = $(this);
 
@@ -43,7 +43,7 @@
             o.bind('Clipboard_afterCopy',settings.afterCopy);
           }
 
-          if($clip === null) {
+          if ($clip === null) {
             $clip = new ZeroClipboard(null, {
               moviePath: settings.path,
               trustedDomains: '*',
@@ -55,22 +55,22 @@
               client.on('mouseover', function (client) {
                 $(this).trigger('mouseenter');
               });
-              
+
               client.on('mouseout', function (client) {
                 $(this).trigger('mouseleave');
               });
 
               client.on('mousedown', function (client) {
                 $(this).trigger('mousedown');
-                
+
                 if (!$.isFunction(settings.copy)) {
                    client.setText(settings.copy);
                 } else {
                    client.setText($(this).triggerHandler('Clipboard_copy'));
-                }                        
-                
+                }
+
                 if ($.isFunction(settings.beforeCopy)) {
-                    $(this).trigger('Clipboard_beforeCopy');                            
+                    $(this).trigger('Clipboard_beforeCopy');
                 }
               });
 

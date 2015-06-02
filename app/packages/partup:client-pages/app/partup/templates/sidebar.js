@@ -1,10 +1,10 @@
-var getScrollTop = function(){
+var getScrollTop = function() {
     return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 };
 
 var partupDetailLayout = {
 
-    init: function(){
+    init: function() {
         this.container = document.querySelector('.pu-app .pu-sub-pagecontainer');
         if (!this.container) return;
 
@@ -23,20 +23,20 @@ var partupDetailLayout = {
         this.initialTop = r.left.top - br.top;
 
         var self = this;
-        window.addEventListener('resize', function(){
-            if (window.innerWidth >= 962){
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 962) {
                 self.attach();
             } else {
                 self.detach();
             }
         });
 
-        if (window.innerWidth >= 962){
+        if (window.innerWidth >= 962) {
             this.attach();
         }
     },
 
-    attach: function(){
+    attach: function() {
         if (this.attached) return;
         this.attached = true;
         this.setContainerHeight();
@@ -48,14 +48,14 @@ var partupDetailLayout = {
         window.addEventListener('scroll', this.bound.onScrollEnd);
 
         var self = this;
-        this.interval = setInterval(function(){
+        this.interval = setInterval(function() {
             self.setContainerHeight();
             self.preScroll();
             self.checkInterval();
         }, 250);
     },
 
-    detach: function(){
+    detach: function() {
         if (!this.attached) return;
         this.attached = false;
 
@@ -72,24 +72,24 @@ var partupDetailLayout = {
         clearInterval(this.interval);
     },
 
-    onResize: function(){
+    onResize: function() {
         this.setContainerHeight();
         this.preScroll();
     },
 
-    onScrollStart: function(){
+    onScrollStart: function() {
         this.setContainerHeight();
         this.preScroll();
         this.scrolling = true;
         this.checkInterval();
     },
 
-    onScrollEnd: function(){
+    onScrollEnd: function() {
         this.checkInterval();
         this.scrolling = false;
     },
 
-    getRects: function(){
+    getRects: function() {
         var lr = this.left.getBoundingClientRect();
         var rr = this.right.getBoundingClientRect();
 
@@ -98,28 +98,29 @@ var partupDetailLayout = {
         if (!rr.width) rr.width = rr.right - rr.left;
         if (!rr.height) rr.height = rr.bottom - rr.top;
 
-        return { left: lr, right: rr };
+        return {left: lr, right: rr};
     },
 
-    setContainerHeight: function(){
+    setContainerHeight: function() {
         var r = this.getRects();
         this.container.style.height = Math.max(r.left.height, r.right.height) + 'px';
     },
 
-    checkInterval: function(){
+    checkInterval: function() {
         var self = this;
-        requestAnimationFrame(function(){
+        requestAnimationFrame(function() {
             self.checkScroll();
             if (self.scrolling) self.checkInterval();
         });
     },
 
-    preScroll: function(){
+    preScroll: function() {
         var r = this.getRects();
         var br = document.body.getBoundingClientRect();
-        var scol, lcol;
+        var scol;
+        var lcol;
 
-        if (r.left.height > r.right.height){
+        if (r.left.height > r.right.height) {
             scol = 'right';
             lcol = 'left';
         } else {
@@ -138,18 +139,20 @@ var partupDetailLayout = {
         ];
     },
 
-    checkScroll: function(){
+    checkScroll: function() {
         this.lastDirection = this.lastDirection || 'down';
         var scrollTop = getScrollTop();
         var r = this.getRects();
         var br = document.body.getBoundingClientRect();
         var iH = window.innerHeight;
-        var direction = (scrollTop === this.lastScrollTop) ? this.lastDirection :
-            scrollTop > this.lastScrollTop ? 'down' : 'up';
-        var top, pos, scol, lcol;
+        var direction = (scrollTop === this.lastScrollTop) ? this.lastDirection : scrollTop > this.lastScrollTop ? 'down' : 'up';
+        var top;
+        var pos;
+        var scol;
+        var lcol;
 
         // First we have to detemine which column is shorter
-        if (r.left.height > r.right.height){
+        if (r.left.height > r.right.height) {
             scol = 'right';
             lcol = 'left';
         } else {
@@ -158,18 +161,18 @@ var partupDetailLayout = {
         }
 
         // Going in the same direction as our previous scroll
-        if (direction === this.lastDirection){
+        if (direction === this.lastDirection) {
             //  Going down and short column bottom is smaller than viewport height
-            if (direction === 'down' && r[scol].bottom < iH){
+            if (direction === 'down' && r[scol].bottom < iH) {
                 pos = 'fixed';
                 // Short column height is smaller than viewport height minus initial top
-                if (r[scol].height < (iH - this.initialTop)){
+                if (r[scol].height < (iH - this.initialTop)) {
                     top = this.initialTop;
                 } else {
                     top = iH - r[scol].height;
                 }
             // Going up and short column top is larger than initial position on page
-            } else if (direction === 'up' && r[scol].top > this.initialTop){
+            } else if (direction === 'up' && r[scol].top > this.initialTop) {
                 pos = 'fixed';
                 top = this.initialTop;
             }
@@ -178,7 +181,7 @@ var partupDetailLayout = {
             top = r[scol].top - br.top;
         }
 
-        if (scrollTop >= this.constrainScroll[1]){
+        if (scrollTop >= this.constrainScroll[1]) {
             pos = 'absolute';
             top = this.constrainPos[1];
         }
@@ -200,7 +203,7 @@ var partupDetailLayout = {
                     (r[scol].top > this.initialTop) // 4
                 )
             )
-        ){
+        ) {
             pos = 'fixed';
             top = this.initialTop;
         }
@@ -216,20 +219,19 @@ var partupDetailLayout = {
     }
 };
 
-
 /*************************************************************/
 /* Partial rendered */
 /*************************************************************/
-Template.app_partup_sidebar.onRendered(function(){
+Template.app_partup_sidebar.onRendered(function() {
     var template = this;
 
     partupDetailLayout.init();
 
-    template.autorun(function () {
+    template.autorun(function() {
         var partup = template.data.partup();
         if (!partup) return;
 
-        var image = Images.findOne({ _id: partup.image });
+        var image = Images.findOne({_id: partup.image});
         if (!image) return;
 
         var focuspointElm = template.find('[data-partupcover-focuspoint]');
@@ -239,7 +241,6 @@ Template.app_partup_sidebar.onRendered(function(){
         });
     });
 });
-
 
 /*************************************************************/
 /* Partial helpers */
@@ -279,7 +280,6 @@ Template.app_partup_sidebar.helpers({
     }
 
 });
-
 
 /*************************************************************/
 /* Partial events */

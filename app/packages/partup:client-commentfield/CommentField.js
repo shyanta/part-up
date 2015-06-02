@@ -63,7 +63,7 @@ Template.CommentField.helpers({
 
     showExpandButton: function helperShowExpandButton() {
         var hiddenComments = 0;
-        if(this.update && this.update.comments && this.update.comments_count) {
+        if (this.update && this.update.comments && this.update.comments_count) {
             hiddenComments = this.update.comments_count - MAX_COLLAPSED_COMMENTS > 0;
         }
         var commentsExpanded = commentsExpandedDict.get(this.update._id);

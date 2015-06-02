@@ -9,11 +9,11 @@ Template.Gallery.onCreated(function () {
         var current = template.data.current;
         var newCurrent = current + relativePos;
 
-        if(relativePos > 0 && newCurrent > pictures.length - 1) {
+        if (relativePos > 0 && newCurrent > pictures.length - 1) {
             newCurrent = 0;
-        } else if(relativePos < 0 && newCurrent < 0) {
+        } else if (relativePos < 0 && newCurrent < 0) {
             newCurrent = pictures.length - 1;
-        } else if(newCurrent < 0 || newCurrent > pictures.length - 1) {
+        } else if (newCurrent < 0 || newCurrent > pictures.length - 1) {
             newCurrent = 0;
         }
 
