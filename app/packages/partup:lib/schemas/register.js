@@ -20,9 +20,9 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
     },
     confirmPassword: {
         type: String,
-        custom: function () {
+        custom: function() {
             if (this.value !== this.field('password').value) {
-                return "passwordMismatch";
+                return 'passwordMismatch';
             }
         }
     }

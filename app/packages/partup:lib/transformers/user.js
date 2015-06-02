@@ -4,15 +4,14 @@
  @memberOf partup.transformers
  */
 Partup.transformers.profile = {
-
     /**
      * Transform user profile to optional details form
      *
      * @memberOf partup.transformers.partup
      * @param {object} user
      */
-    'toFormRegisterOptional':function(user) {
-        var fields = {
+    'toFormRegisterOptional': function(user) {
+        return {
             _id: user.profile._id,
             image: user.profile.image,
             description: user.profile.description,
@@ -26,8 +25,6 @@ Partup.transformers.profile = {
             tags_input: Partup.services.tags.tagArrayToInput(user.profile.tags),
             location_input: Partup.services.location.locationToLocationInput(user.profile.location)
         };
-
-        return fields;
     },
 
     /**
@@ -37,7 +34,7 @@ Partup.transformers.profile = {
      * @param {mixed[]} fields
      */
     'fromFormRegisterOptional': function(fields) {
-        var user = {
+        return {
             // form fields
             'profile.image': fields.image,
             'profile.description': fields.description,
@@ -51,7 +48,5 @@ Partup.transformers.profile = {
             'profile.website': Partup.services.website.cleanUrlToFullUrl(fields.website),
             'profile.skype': fields.skype
         };
-        return user;
     }
-
 };

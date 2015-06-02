@@ -26,5 +26,4 @@ Partup.services.location = {
             country: null
         };
     }
-
 };

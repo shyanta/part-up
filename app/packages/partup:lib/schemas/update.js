@@ -11,27 +11,27 @@ var updateBaseSchema = new SimpleSchema({
     type_data: {
         type: Object
     },
-        "type_data.new_value": {
-            type: String
-        },
-        "type_data.old_value": {
-            type: String
-        },
-        "type_data.upper": {
-            type: Object
-        },
-            "type_data.upper._id": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            },
-            "type_data.upper.image": {
-                type: Object,
-                optional: true
-            },
-            "type_data.upper.name": {
-                type: String,
-                regEx: SimpleSchema.RegEx.Id
-            }
+    'type_data.new_value': {
+        type: String
+    },
+    'type_data.old_value': {
+        type: String
+    },
+    'type_data.upper': {
+        type: Object
+    },
+    'type_data.upper._id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'type_data.upper.image': {
+        type: Object,
+        optional: true
+    },
+    'type_data.upper.name': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    }
 });
 
 /**
@@ -59,12 +59,12 @@ Partup.schemas.entities.updateComment = new SimpleSchema([updateCommentBaseSchem
     creator: {
         type: Object
     },
-        "creator._id": {
-            type: String
-        },
-        "creator.name": {
-            type: String
-        },
+    'creator._id': {
+        type: String
+    },
+    'creator.name': {
+        type: String
+    },
     created_at: {
         type: Date,
         defaultValue: new Date()

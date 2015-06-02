@@ -4,5 +4,5 @@
  @memberOf partup.services
  */
 Partup.services.placeholders = {
-    
+
 };

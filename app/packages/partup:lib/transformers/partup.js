@@ -4,14 +4,13 @@
  @memberOf partup.transformers
  */
 Partup.transformers.partup = {
-
     /**
      * Transform partup to start partup form
      *
      * @memberOf partup.transformers.partup
      * @param {object} partup
      */
-    'toFormStartPartup': function (partup) {
+    'toFormStartPartup': function(partup) {
         // Find image for focuspoint
         var image = Images.findOne({_id: partup.image});
 
@@ -36,9 +35,8 @@ Partup.transformers.partup = {
      * @memberOf partup.transformers.partup
      * @param {mixed[]} fields
      */
-    'fromFormStartPartup': function (fields) {
+    'fromFormStartPartup': function(fields) {
         var partup = {
-
             // form fields
             name: fields.name,
             description: fields.description,
@@ -56,5 +54,4 @@ Partup.transformers.partup = {
 
         return partup;
     }
-
 };

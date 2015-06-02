@@ -11,7 +11,7 @@ Partup.schemas.forms.inviteUpper = new SimpleSchema({
         type: String,
         max: 255,
         regEx: SimpleSchema.RegEx.Email
-    },
+    }
     // message: {
     //     type: String,
     //     max: 250

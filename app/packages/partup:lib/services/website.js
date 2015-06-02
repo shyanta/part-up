@@ -8,13 +8,13 @@ Partup.services.website = {
      * Transform a clean url to a full url
      *
      * @memberOf services.website
-     * @param {String} full url
+     * @param {String} cleanUrl
      */
     cleanUrlToFullUrl: function(cleanUrl) {
-        if(!cleanUrl) return '';
+        if (!cleanUrl) return '';
 
         var fullUrl = cleanUrl;
-        if(cleanUrl.indexOf('http://') !== 0 && cleanUrl.indexOf('https://') !== 0) {
+        if (cleanUrl.indexOf('http://') !== 0 && cleanUrl.indexOf('https://') !== 0) {
             fullUrl = 'http://' + cleanUrl;
         }
         return fullUrl;
@@ -24,12 +24,11 @@ Partup.services.website = {
      * Transform a full url to a clean url
      *
      * @memberOf services.website
-     * @param {String} clean url
+     * @param {String} fullUrl
      */
     fullUrlToCleanUrl: function(fullUrl) {
-        if(!fullUrl) return '';
-        
+        if (!fullUrl) return '';
+
         return fullUrl.replace(/^(http:\/\/|https:\/\/)/i, '');
     }
-
 };

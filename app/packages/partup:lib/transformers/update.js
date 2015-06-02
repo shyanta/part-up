@@ -4,7 +4,6 @@
  @memberOf partup.transformers
  */
 Partup.transformers.update = {
-
     /**
      * Transform form to new message
      *
@@ -14,7 +13,6 @@ Partup.transformers.update = {
      * @param {string} partupId
      */
     'fromFormNewMessage': function(fields, upper, partupId) {
-
         return {
             partup_id: partupId,
             type_data: {
@@ -26,7 +24,5 @@ Partup.transformers.update = {
             created_at: new Date(),
             updated_at: new Date()
         };
-
     }
-
 };

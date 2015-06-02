@@ -4,19 +4,19 @@ if (Meteor.isServer) {
 
     FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
         internal: true,
-        path: process.env.TEMP_DIR,
+        path: process.env.TEMP_DIR
     });
 
     var Store = null;
     var args = {
         'original': {},
         '1200x520': {
-            transformWrite: function (image, readStream, writeStream) {
+            transformWrite: function(image, readStream, writeStream) {
                 gm(readStream, image.name()).resize(1200, 520).stream().pipe(writeStream);
             }
         },
         '360x360': {
-            transformWrite: function (image, readStream, writeStream) {
+            transformWrite: function(image, readStream, writeStream) {
                 gm(readStream, image.name()).resize(360, 360).stream().pipe(writeStream);
             }
         }
@@ -40,7 +40,7 @@ if (Meteor.isServer) {
                 region: process.env.AWS_BUCKET_REGION,
                 bucket: process.env.AWS_BUCKET_NAME,
                 folder: '360x360'
-            },
+            }
         });
     } else if (process.env.NODE_ENV.match(/development/)) {
         console.log('Creating Image store with Filesystem');
@@ -55,11 +55,11 @@ if (Meteor.isServer) {
             },
             '360x360': {
                 path: process.env.PWD + '/uploads/360x360'
-            },
+            }
         });
     }
 
-    if (! Store) throw new Error('A store for CFS has not been defined.');
+    if (!Store) throw new Error('A store for CFS has not been defined.');
 
     stores.push(new Store('original', args['original']));
     stores.push(new Store('1200x520', args['1200x520']));
@@ -84,10 +84,10 @@ Images = new FS.Collection('images', {
 });
 
 Images.allow({
-    insert: function (userId, document) {
-        return !! userId;
+    insert: function(userId, document) {
+        return !!userId;
     },
-    download: function () {
+    download: function() {
         return true;
     }
 });

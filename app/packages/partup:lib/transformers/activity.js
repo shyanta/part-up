@@ -4,14 +4,13 @@
  @memberOf partup.transformers
  */
 Partup.transformers.activity = {
-
     /**
      * Transform form to activity
      *
      * @memberOf partup.transformers.activity
      * @param {mixed[]} fields
-     * @param {object} upper
-     * @param {object} partup
+     * @param {string} upperId
+     * @param {string} partupId
      */
     'fromForm': function(fields, upperId, partupId) {
         return {
@@ -25,5 +24,4 @@ Partup.transformers.activity = {
             archived: false
         };
     }
-
 };

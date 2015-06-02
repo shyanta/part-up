@@ -18,10 +18,10 @@ var partupBaseSchema = new SimpleSchema({
         type: Number,
         min: 0,
         optional: true,
-        custom: function () {
+        custom: function() {
             var required = this.field('budget_type').value === 'money';
-            if(required && !this.isSet) {
-                return "required";
+            if (required && !this.isSet) {
+                return 'required';
             }
         }
     },
@@ -29,10 +29,10 @@ var partupBaseSchema = new SimpleSchema({
         type: Number,
         min: 0,
         optional: true,
-        custom: function () {
+        custom: function() {
             var required = this.field('budget_type').value === 'hours';
-            if(required && !this.isSet) {
-                return "required";
+            if (required && !this.isSet) {
+                return 'required';
             }
         }
     },
@@ -71,21 +71,21 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: Object,
         optional: true
     },
-        "location.city": {
+    'location.city': {
             type: String
         },
-        "location.country": {
+    'location.country': {
             type: String
         },
     network: {
         type: Object
     },
-        "network._id": {
-            type: String
-        },
-        "network.name": {
-            type: String
-        },
+    'network._id': {
+        type: String
+    },
+    'network.name': {
+        type: String
+    },
     start_date: {
         type: Date
     },
