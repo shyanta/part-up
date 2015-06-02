@@ -1,17 +1,16 @@
 Package.describe({
     name: 'partup:client-base',
     version: '0.0.1',
-    summary: '',
-    git: '',
-    documentation: null
+    summary: ''
 });
 
-Package.onUse(function (api) {
-    api.use('check');
+Package.onUse(function(api) {
+    api.use([
+        'tap:i18n'
+    ], ['client', 'server']);
 
     api.use([
         'partup:lib',
-        'tap:i18n',
         'momentjs:moment',
         'chrismbeckett:toastr',
         'templating',
@@ -21,6 +20,8 @@ Package.onUse(function (api) {
     ], ['client']);
 
     api.addFiles([
+        'package-tap.i18n',
+
         'namespace.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
         'autoform/afFieldInput.js',
@@ -45,6 +46,15 @@ Package.onUse(function (api) {
         'helpers/loading.js',
         'helpers/Partup.js',
         'autorun.js',
-        'bootstrap.js'
+        'bootstrap.js',
+
+        'i18n/helpers-dateFormatters.en.i18n.json',
+        'i18n/helpers-dateFormatters.nl.i18n.json'
     ], ['client']);
+
+    api.addFiles([
+        'package-tap.i18n',
+        'i18n/helpers-dateFormatters.en.i18n.json',
+        'i18n/helpers-dateFormatters.nl.i18n.json'
+    ], 'server');
 });

@@ -14,21 +14,21 @@ var commentPostButtonActiveDict = new ReactiveDict();
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
-Template.CommentField.onRendered(function () {
+Template.CommentField.onRendered(function() {
     var template = this;
     var update = template.data.update;
     commentsExpandedDict.set(update._id, false);
     commentInputFieldExpandedDict.set(update._id, update.comments_count > 0);
     commentPostButtonActiveDict.set(update._id, false);
 
-    template.highlight = function(){
-        if(template.data.expandedComments) return;
+    template.highlight = function() {
+        if (template.data.expandedComments) return;
         var element = template.find('.pu-commentfield');
         var doc = document.documentElement;
         var scrollDuration = ((window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) / 2;
-        $("html, body").animate({ scrollTop: 0 }, scrollDuration, function(e){
+        $('html, body').animate({scrollTop: 0}, scrollDuration, function(e) {
             $(element).addClass('pu-state-highlight');
-            Meteor.setTimeout(function(){
+            Meteor.setTimeout(function() {
                 $(element).removeClass('pu-state-highlight');
             }, 1000);
         });
@@ -38,7 +38,7 @@ Template.CommentField.onRendered(function () {
 
 Template.CommentField.helpers({
     placeholders: Partup.services.placeholders.commentfield,
-    generateFormId: function () {
+    generateFormId: function() {
         return 'commentForm-' + this.update._id;
     },
 
@@ -86,7 +86,7 @@ Template.CommentField.events({
 
         // focus on input
         var input = template.find('[data="commentfield"]');
-        Meteor.defer(function(){
+        Meteor.defer(function() {
             $(input).focus();
         });
     },
@@ -103,7 +103,7 @@ Template.CommentField.events({
 });
 
 AutoForm.addHooks(null, {
-    onSubmit: function (insertDoc) {
+    onSubmit: function(insertDoc) {
         var self = this;
         self.event.preventDefault();
 
@@ -113,7 +113,7 @@ AutoForm.addHooks(null, {
 
         Meteor.call('updates.comments.insert', updateId, insertDoc, function (error, result) {
             if (error) {
-                return Partup.ui.notify.iError('error-method-' + error.reason);
+                return Partup.ui.notify.error(__('error-method-' + error.reason));
             } else {
                 commentPostButtonActiveDict.set(updateId, false);
                 AutoForm.resetForm(self.formId);

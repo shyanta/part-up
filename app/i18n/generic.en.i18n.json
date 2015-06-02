@@ -1,5 +1,3 @@
 {
-    "generic-error": "Something went wrong",
-    "generic-login": "Login",
-    "generic-signup": "Register"
+    "generic-error": "Something went wrong"
 }

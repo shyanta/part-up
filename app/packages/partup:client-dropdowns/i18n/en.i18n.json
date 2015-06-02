@@ -1,0 +1,22 @@
+{
+    "dropdowns-profile-title-upperpartups": "Upper part-ups",
+    "dropdowns-profile-title-supporterpartups": "Supporter Part-ups",
+    "dropdowns-profile-button-myprofile": "My profile",
+    "dropdowns-profile-button-settings": "Settings",
+    "dropdowns-profile-button-logout": "Log out",
+
+    "dropdowns-notifications-button-opennotificationsdropdown": "Notifications",
+    "dropdowns-notifications-placeholder-nonotifications": "No notifications yet",
+    "dropdowns-notifications-button-managenotifications": "Manage notifications",
+
+    "dropdowns-updatesactions-option-default": "All updates",
+    "dropdowns-updatesactions-option-messages": "Just messages",
+    "dropdowns-updatesactions-option-activities": "Just activity updates",
+    "dropdowns-updatesactions-option-partup-changes": "Just part-up updates",
+    "dropdowns-updatesactions-option-contributions": "Just contribution updates",
+    "dropdowns-updatesactions-option-my-updates": "My updates",
+
+    "dropdowns-activitiesactions-option-default": "All activities",
+    "dropdowns-activitiesactions-option-my-activities": "My activities",
+    "dropdowns-activitiesactions-option-open-activities": "Open activities"
+}

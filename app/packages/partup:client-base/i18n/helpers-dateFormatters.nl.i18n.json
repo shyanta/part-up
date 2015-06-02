@@ -1,0 +1,10 @@
+{
+    "base-helpers-dateFormatters-partup-activity-s": "Nu",
+    "base-helpers-dateFormatters-partup-activity-m": "1 min",
+    "base-helpers-dateFormatters-partup-activity-mm": "%d min",
+    "base-helpers-dateFormatters-partup-activity-h": "1 uur",
+    "base-helpers-dateFormatters-partup-activity-hh": "%d uur",
+
+    "base-helpers-dateFormatters-partup-timeline-d": "Gisteren",
+    "base-helpers-dateFormatters-partup-timeline-dd": "%d dagen geleden"
+}

@@ -1,6 +1,6 @@
 Template.DropdownProfile.rendered = function(){
     // this = template
-    this.dropdownToggleBool = 'widget-dropdown-profile.opened';
+    this.dropdownToggleBool = 'widget-dropdowns-profile.opened';
 
     // set default boolean values
     Session.set(this.dropdownToggleBool, false);
@@ -36,7 +36,7 @@ Template.DropdownProfile.helpers({
     },
 
     menuOpen: function(){
-        return Session.get('widget-dropdown-profile.opened');
+        return Session.get('widget-dropdowns-profile.opened');
     },
 
     upperPartups: function(){

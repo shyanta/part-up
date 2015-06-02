@@ -6,8 +6,8 @@ Partup.ui.language = {
      * @memberOf partup.ui
      * @param {String} language
      */
-    changeLanguage: function(language){
-        TAPi18n.setLanguage(language).done(function () {
+    changeLanguage: function(language) {
+        TAPi18n.setLanguage(language).done(function() {
 
             // Change MomentJS language
             moment.locale(language);
@@ -19,8 +19,8 @@ Partup.ui.language = {
                 daysMin: moment.weekdaysMin(),
                 months: moment.months(),
                 monthsShort: moment.monthsShort(),
-                today: "Today",
-                clear: "Clear"
+                today: 'Today',
+                clear: 'Clear'
             };
 
             // Change SimpleSchema error messages language
@@ -45,7 +45,7 @@ Partup.ui.language = {
                 expectedConstructor: TAPi18n.__('error-ss-expectedConstructor'),
                 keyNotInSchema:      TAPi18n.__('error-ss-keyNotInSchema'),
                 regEx: [
-                    {                                    msg: TAPi18n.__('error-ss-regex-default')},
+                                                        {msg: TAPi18n.__('error-ss-regex-default')},
                     {exp: SimpleSchema.RegEx.Email,      msg: TAPi18n.__('error-ss-regex-Email')},
                     {exp: SimpleSchema.RegEx.WeakEmail,  msg: TAPi18n.__('error-ss-regex-WeakEmail')},
                     {exp: SimpleSchema.RegEx.Domain,     msg: TAPi18n.__('error-ss-regex-Domain')},
@@ -62,7 +62,7 @@ Partup.ui.language = {
                 passwordIncorrect:      TAPi18n.__('error-ss-passwordIncorrect')
             });
 
-        }).fail(function (error_message) {
+        }).fail(function(error_message) {
             Partup.ui.notify.error('Could not load the language "' + language + '"');
         });
     }

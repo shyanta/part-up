@@ -1,16 +1,16 @@
 Template.PartialDropdownUpdatesActions.onCreated(function(){
     // this = template
     var template = this;
-    template.dropdownToggleBool = 'partial-dropdown-updates-actions.opened';
+    template.dropdownToggleBool = 'partial-dropdowns-updates-actions.opened';
 
     // set default boolean values
     Session.set(template.dropdownToggleBool, false);
 
-    template.selectedOption = new ReactiveVar("dropdown-updatesactions-option-default");
+    template.selectedOption = new ReactiveVar("dropdowns-updatesactions-option-default");
     // init options
-    template.optionsPrefix = 'dropdown-updatesactions-option-';
+    template.optionsPrefix = 'dropdowns-updatesactions-option-';
     // set default selected option in session
-    Session.set('partial-dropdown-updates-actions.selected', 'default');
+    Session.set('partial-dropdowns-updates-actions.selected', 'default');
 
 });
 
@@ -23,7 +23,7 @@ Template.PartialDropdownUpdatesActions.destroyed = function(){
     // this = template
     // remove click handler on destroy
     Session.set(this.dropdownToggleBool, false);
-    Session.set('partial-dropdown-updates-actions.selected', 'default');
+    Session.set('partial-dropdowns-updates-actions.selected', 'default');
     ClientDropdowns.removeOutsideDropdownClickHandler(this);
     this.selectedOption = undefined;
 };
@@ -39,16 +39,16 @@ Template.PartialDropdownUpdatesActions.events({
         template.selectedOption.set(key);
 
         // change layout
-        Session.set('partial-dropdown-updates-actions.selected', key.replace(optionsPrefix, ''));
+        Session.set('partial-dropdowns-updates-actions.selected', key.replace(optionsPrefix, ''));
     }
 });
 
 Template.PartialDropdownUpdatesActions.helpers({
     menuOpen: function(){
-        return Session.get('partial-dropdown-updates-actions.opened');
+        return Session.get('partial-dropdowns-updates-actions.opened');
     },
     selectedAction: function(){
-        return Template.instance().selectedOption.get() ? TAPi18n.__(Template.instance().selectedOption.get()) : false;
+        return Template.instance().selectedOption.get() ? __(Template.instance().selectedOption.get()) : false;
     },
     notSelected: function(a){
         return a !== Template.instance().selectedOption.get();

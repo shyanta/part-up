@@ -2,9 +2,9 @@
     <a class="pu-button pu-button-header" data-toggle-menu>
         <!-- bell icon -->
         <i class="fa fa-bell"></i>
-        {{_ 'dropdown-notifications-button-opennotificationsdropdown'}}
+        {{_ 'dropdowns-notifications-button-opennotificationsdropdown'}}
     </a>
-    <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+    <div class="pu-dropdown pu-dropdowns-notifications {{#if menuOpen}}pu-dropdowns-active{{/if}}" data-clickoutside-close>
         <ul>
             {{#each notifications}}
                 <li class="pu-notification">
@@ -21,12 +21,12 @@
                 </li>
             {{else}}
                 <li class="pu-notification pu-notification-empty">
-                    <p>{{_ 'dropdown-notifications-placeholder-nonotifications'}}</p>
+                    <p>{{_ 'dropdowns-notifications-placeholder-nonotifications'}}</p>
                 </li>
             {{/each}}
         </ul>
         <footer>
-            <a href="">{{_ 'dropdown-notifications-button-managenotifications'}}</a>
+            <a href="">{{_ 'dropdowns-notifications-button-managenotifications'}}</a>
         </footer>
     </div>
 </template>

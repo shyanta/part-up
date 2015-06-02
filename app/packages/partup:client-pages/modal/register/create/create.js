@@ -1,17 +1,17 @@
 var placeholders = {
-    'name': function () {
+    'name': function() {
         return __('pages-modal-register-create-form-name-placeholder');
     },
-    'email': function () {
+    'email': function() {
         return __('pages-modal-register-create-form-email-placeholder');
     },
-    'password': function () {
+    'password': function() {
         return __('pages-modal-register-create-form-password-placeholder');
     },
-    'confirmPassword': function () {
+    'confirmPassword': function() {
         return __('pages-modal-register-create-form-confirmPassword-placeholder');
     },
-    'network': function () {
+    'network': function() {
         return __('pages-modal-register-create-form-network-placeholder');
     }
 };
@@ -24,10 +24,10 @@ Template.modal_register_create.helpers({
     placeholders: placeholders,
     totalNumberOfUppers: function() {
         var count = Counts.get('users');
-        if(count)
+        if (count)
             return count + 1;
         else
-            return "";
+            return '';
     }
 });
 
@@ -40,8 +40,8 @@ Template.modal_register_create.events({
             requestPermissions: ['email']
         }, function(error) {
 
-            if(error) {
-                Partup.ui.notify.iError('error-method-register-' + Partup.ui.strings.slugify(error.name));
+            if (error) {
+                Partup.ui.notify.error(__('error-method-register-' + Partup.ui.strings.slugify(error.name)));
                 return;
             }
 
@@ -54,15 +54,15 @@ Template.modal_register_create.events({
             requestPermissions: ['r_emailaddress']
         }, function(error) {
 
-            if(error) {
-                Partup.ui.notify.iError('error-method-register-' + Partup.ui.strings.slugify(error.name));
+            if (error) {
+                Partup.ui.notify.error(__('error-method-register-' + Partup.ui.strings.slugify(error.name)));
                 return false;
             }
 
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
-            Meteor.call('settings.update', { locale: locale }, function(err){
-                if (err){
-                    Partup.ui.notify.iError('error-method-register' + Partup.ui.strings.slugify('failed to update locale'));
+            Meteor.call('settings.update', {locale: locale}, function(err) {
+                if (err) {
+                    Partup.ui.notify.error(__('error-method-register' + Partup.ui.strings.slugify('failed to update locale')));
                     return false;
                 }
                 Router.go('register-details');
@@ -94,7 +94,7 @@ AutoForm.hooks({
             }, function(error) {
 
                 // Error cases
-                if(error && error.message) {
+                if (error && error.message) {
                     switch (error.message) {
                         case 'Email already exists [403]':
                             Partup.ui.forms.addStickyFieldError(self, 'email', 'emailExists');

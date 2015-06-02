@@ -255,7 +255,7 @@ Template.app_partup_sidebar.helpers({
     prettyVisibility: function helperPrettyVisibility() {
         var partup = this.partup();
         if (!partup) return '...';
-        return TAPi18n.__('partup-detail-visibility-' + partup.visibility);
+        return __('partup-detail-visibility-' + partup.visibility);
     },
 
     numberOfSupporters: function helperNumberOfSupporters() {

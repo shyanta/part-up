@@ -5,7 +5,7 @@ Package.describe({
     documentation: null
 });
 
-Package.onUse(function (api) {
+Package.onUse(function(api) {
     api.use([
         'tap:i18n'
     ], ['client', 'server']);
@@ -37,5 +37,5 @@ Package.onUse(function (api) {
         'package-tap.i18n',
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
-    ], 'server');
+    ]);
 });
