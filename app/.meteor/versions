@@ -116,6 +116,7 @@ pauli:linkedin@1.1.2
 percolate:velocityjs@1.0.0
 practicalmeteor:chai@1.9.2_3
 practicalmeteor:loglevel@1.1.0_3
+practicalmeteor:sinon@1.10.3_2
 raix:eventemitter@0.1.2
 random@1.0.3
 reactive-dict@1.1.0
