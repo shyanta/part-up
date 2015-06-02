@@ -312,6 +312,16 @@ Template.PartialsPartupDetailSidebar.events({
         var url = Router.current().location.get().href;
         var linkedInUrl = Partup.ui.socials.generateLinkedInShareUrl(url);
         window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
+    },
+
+    'click [data-invite]': function clickInvite(event, template) {
+        var partup = template.data.partup();
+        Partup.ui.intent.go({
+            route: 'partup-invite',
+            params: {_id: partup._id}
+        }, function() {
+            Router.go('partup', {_id: partup._id});
+        });
     }
 
 });

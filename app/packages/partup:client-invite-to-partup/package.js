@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-inviteuppers',
+    name: 'partup:client-invite-to-partup',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -19,11 +19,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'package-tap.i18n',
 
-        'WidgetInviteUppers.html',
-        'WidgetInviteUppers.js',
-
-        'InviteUppersPopup.html',
-        'InviteUppersPopup.js',
+        'InviteToPartup.html',
+        'InviteToPartup.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

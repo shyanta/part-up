@@ -194,8 +194,8 @@ Router.route('/partups/:_id/invite', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': {to: 'main'},
-        'PagesPartupInviteUppers': {to: 'modal'},
+        'modal':                  {to: 'main'},
+        'modal_invite_to_partup': {to: 'modal'},
     },
     subscriptions: function() {
         // this.subscribe('users.count');

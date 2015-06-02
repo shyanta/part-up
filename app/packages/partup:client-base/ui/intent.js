@@ -4,7 +4,6 @@
  *
  * Use this service when you want to perform a route change with an intention.
  * For example, when the user wants to access restricted content and has to login first.
- * 
  * Flow:
  * - Call Partup.ui.intent.open(); (for arguments, scroll down)
  * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
@@ -15,7 +14,7 @@
  *
  */
 
-var _defaultIntentCallback = function () {
+var _defaultIntentCallback = function() {
     Router.go('home');
 };
 
@@ -55,13 +54,13 @@ Partup.ui.intent = {
      * @param {Function} custom fallback callback
      */
     executeIntentCallback: function(route, arguments, customFallback) {
-        var cb = _intentCallbacks[route],
-            arguments = arguments || {};
+        var cb = _intentCallbacks[route];
+        var arguments = arguments || {};
 
-        if(mout.lang.isFunction(cb)) {
+        if (mout.lang.isFunction(cb)) {
             cb.apply(window, arguments);
         } else {
-            if(mout.lang.isFunction(customFallback)) {
+            if (mout.lang.isFunction(customFallback)) {
                 customFallback.apply(window, arguments);
             } else {
                 _defaultIntentCallback.apply(window, arguments);
@@ -79,10 +78,10 @@ Partup.ui.intent = {
      * @param {Function} callback
      */
     go: function(args, callback) {
-        if(!args || !args.route) return console.warn('Partup.ui.intent.open: please provide a route');
+        if (!args || !args.route) return console.warn('Partup.ui.intent.open: please provide a route');
 
         // Save intent callback
-        if(typeof callback === 'function') {
+        if (typeof callback === 'function') {
             _intentCallbacks[args.route] = callback;
         }
 

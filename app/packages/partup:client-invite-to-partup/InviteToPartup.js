@@ -1,4 +1,4 @@
-Template.InviteUppersPopup.helpers({
+Template.InviteUppers.helpers({
     formSchema: Partup.schemas.forms.inviteUpper
 });
 
