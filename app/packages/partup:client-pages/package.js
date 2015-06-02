@@ -24,9 +24,9 @@ Package.onUse(function(api) {
         // App
         'app/app.html',
         'app/app.js',
-        'app/templates/header.html',
-        'app/templates/header.js',
-        'app/templates/footer.html',
+        'app/app-header.html',
+        'app/app-header.js',
+        'app/app-footer.html',
 
         // App:home
         'app/home/home.html',
@@ -39,10 +39,10 @@ Package.onUse(function(api) {
         // App:partup
         'app/partup/partup.html',
         'app/partup/partup.js',
-        'app/partup/templates/navigation.html',
-        'app/partup/templates/navigation.js',
-        'app/partup/templates/sidebar.html',
-        'app/partup/templates/sidebar.js',
+        'app/partup/partup-navigation.html',
+        'app/partup/partup-navigation.js',
+        'app/partup/partup-sidebar.html',
+        'app/partup/partup-sidebar.js',
 
         // App:partup:updates
         'app/partup/updates/updates.html',
