@@ -29,10 +29,10 @@
 
     "pages-modal-create-activities-list-heading": "List of added activities:",
 
-    "pages-modal-create-activities-adopt-title": "Copy all activities from an existing Part-up",
-    "pages-modal-create-activities-adopt-description": "There is no need to reinvent the wheel over and over. Find a part-up with a similar goal and copy the activities to get a head start.",
-    "pages-modal-create-activities-adopt-form-copy-label": "From wich part-up would you like to copy activities?",
-    "pages-modal-create-activities-adopt-form-copy-placeholder": "Find a part-up",
-    "pages-modal-create-activities-adopt-form-copy-confirm": "Copy activities",
-    "pages-modal-create-activities-adopt-close": "Close"
+    "pages-modal-create-activities-copy-title": "Copy all activities from an existing Part-up",
+    "pages-modal-create-activities-copy-description": "There is no need to reinvent the wheel over and over. Find a part-up with a similar goal and copy the activities to get a head start.",
+    "pages-modal-create-activities-copy-form-copy-label": "From wich part-up would you like to copy activities?",
+    "pages-modal-create-activities-copy-form-copy-placeholder": "Find a part-up",
+    "pages-modal-create-activities-copy-form-copy-confirm": "Copy activities",
+    "pages-modal-create-activities-copy-close": "Close"
 }
