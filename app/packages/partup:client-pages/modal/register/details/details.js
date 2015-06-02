@@ -2,39 +2,39 @@
 /* Widget initial */
 /*************************************************************/
 var placeholders = {
-    'location_input': function () {
+    'location_input': function() {
         return __('pages-modal-register-details-form-location_input-placeholder');
     },
-    'description': function () {
+    'description': function() {
         return __('pages-modal-register-details-form-description-placeholder');
     },
-    'tags_input': function () {
+    'tags_input': function() {
         return __('pages-modal-register-details-form-tags_input-placeholder');
     },
-    'facebook': function () {
+    'facebook': function() {
         return __('pages-modal-register-details-form-facebook-url-placeholder');
     },
-    'twitter': function () {
+    'twitter': function() {
         return __('pages-modal-register-details-form-twitter-url-placeholder');
     },
-    'instagram': function () {
+    'instagram': function() {
         return __('pages-modal-register-details-form-instagram-url-placeholder');
     },
-    'linkedin': function () {
+    'linkedin': function() {
         return __('pages-modal-register-details-form-linkedin-url-placeholder');
     },
-    'website': function () {
+    'website': function() {
         return __('pages-modal-register-details-form-website-placeholder');
     },
-    'phonenumber': function () {
+    'phonenumber': function() {
         return __('pages-modal-register-details-form-phonenumber-placeholder');
     },
-    'skype': function () {
+    'skype': function() {
         return __('pages-modal-register-details-form-skype-placeholder');
     }
 };
 
-Template.modal_register_details.onCreated(function(){
+Template.modal_register_details.onCreated(function() {
     var template = this;
 
     template.uploadingProfilePicture = new ReactiveVar(false);
@@ -43,10 +43,10 @@ Template.modal_register_details.onCreated(function(){
     template.profilePictureUrl = new ReactiveVar('');
 
     // runs after image is updated
-    template.autorun(function(){
+    template.autorun(function() {
         // get the current image
         var image = Images.findOne({_id:Session.get('partials.register-optional.uploaded-image')});
-        if(!image) return;
+        if (!image) return;
 
         // load image from url
         var loadImage = new Image;
@@ -69,7 +69,7 @@ Template.modal_register_details.onCreated(function(){
 /*************************************************************/
 Template.modal_register_details.helpers({
     formSchema: Partup.schemas.forms.registerOptional,
-    placeholders: Partup.services.placeholders.registerOptional,
+    placeholders: placeholders,
     profile: function() {
         var user = Meteor.user();
         return user ? user.profile : {};
@@ -78,14 +78,14 @@ Template.modal_register_details.helpers({
         var uploadedImageID = Session.get('partials.register-optional.uploaded-image');
 
         if (uploadedImageID) {
-            var image = Images.findOne({ _id: uploadedImageID });
+            var image = Images.findOne({_id: uploadedImageID});
             return image ? image.url() : null;
         }
 
         var user = Meteor.user();
 
         if (user && user.profile && user.profile.image) {
-            return Images.findOne({ _id: user.profile.image }).url();
+            return Images.findOne({_id: user.profile.image}).url();
         }
     },
     fieldsFromUser: function() {
@@ -95,12 +95,12 @@ Template.modal_register_details.helpers({
         }
         return undefined;
     },
-    uploadingProfilePicture: function(){
+    uploadingProfilePicture: function() {
         return Template.instance().uploadingProfilePicture.get();
     },
-    firstName: function(){
+    firstName: function() {
         var user = Meteor.user();
-        if(!user) return false;
+        if (!user) return false;
         var username = mout.object.get(user, 'profile.name') || mout.object.get(user, 'name');
         return Partup.ui.strings.firstName(username);
     }
@@ -110,18 +110,18 @@ Template.modal_register_details.helpers({
 /* Widget events */
 /*************************************************************/
 Template.modal_register_details.events({
-    'click [data-browse-photos]': function eventClickBrowse(event, template){
+    'click [data-browse-photos]': function eventClickBrowse(event, template) {
         event.preventDefault();
 
         // in stead fire click event on file input
         var input = $('input[data-profile-picture-input]');
         input.click();
     },
-    'change [data-profile-picture-input]': function eventChangeFile(event, template){
+    'change [data-profile-picture-input]': function eventChangeFile(event, template) {
         template.uploadingProfilePicture.set(true);
 
-        FS.Utility.eachFile(event, function (file) {
-            Images.insert(file, function (error, image) {
+        FS.Utility.eachFile(event, function(file) {
+            Images.insert(file, function(error, image) {
                 template.$('input[name=image]').val(image._id);
                 Meteor.subscribe('images.one', image._id);
                 Session.set('partials.register-optional.uploaded-image', image._id);
@@ -130,7 +130,6 @@ Template.modal_register_details.events({
         });
     }
 });
-
 
 /*************************************************************/
 /* Widget functions */
@@ -142,7 +141,6 @@ var continueRegister = function() {
 
 };
 
-
 /*************************************************************/
 /* Widget form hooks */
 /*************************************************************/
@@ -151,8 +149,8 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 
-            Meteor.call('users.update', insertDoc, function(error, res){
-                if(error && error.message) {
+            Meteor.call('users.update', insertDoc, function(error, res) {
+                if (error && error.message) {
                     switch (error.message) {
                         // case 'User not found [403]':
                         //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');

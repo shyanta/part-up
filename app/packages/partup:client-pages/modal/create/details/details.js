@@ -1,3 +1,27 @@
+var placeholders = {
+    'name': function() {
+        return __('pages-modal-create-details-form-name-placeholder');
+    },
+    'description': function() {
+        return __('pages-modal-create-details-form-description-placeholder');
+    },
+    'tags_input': function() {
+        return __('pages-modal-create-details-form-tags_input-placeholder');
+    },
+    'budget_money': function() {
+        return __('pages-modal-create-details-form-budget_money-placeholder');
+    },
+    'budget_hours': function() {
+        return __('pages-modal-create-details-form-budget_hours-placeholder');
+    },
+    'end_date': function() {
+        return __('pages-modal-create-details-form-end_date-placeholder');
+    },
+    'location_input': function() {
+        return __('pages-modal-create-details-form-location_input-placeholder');
+    }
+};
+
 /*************************************************************/
 /* Widget image system */
 /*************************************************************/
@@ -9,23 +33,23 @@ var ImageSystem = function ImageSystemConstructor (template) {
     this.availableSuggestions = new ReactiveVar([]);
     this.focuspoint = new ReactiveDict();
 
-    this.getSuggestions = function (tags) {
-        if(!tags || !tags.length) {
+    this.getSuggestions = function(tags) {
+        if (!tags || !tags.length) {
             this.availableSuggestions.set([]);
             return;
         }
 
         var newSuggestionsArray = [];
 
-        var addSuggestions = function (suggestions) {
-            if(!suggestions) return;
+        var addSuggestions = function(suggestions) {
+            if (!suggestions) return;
             newSuggestionsArray = newSuggestionsArray.concat(lodash.map(suggestions, 'imageUrl'));
         };
 
-        var setAvailableSuggestions = function () {
+        var setAvailableSuggestions = function() {
             template.loading.set('suggesting-images', false);
 
-            if(!newSuggestionsArray.length) {
+            if (!newSuggestionsArray.length) {
                 Partup.ui.notify.warning('Could not find any images suggestions.');
                 return;
             }
@@ -42,38 +66,38 @@ var ImageSystem = function ImageSystemConstructor (template) {
                 setAvailableSuggestions();
             } else {
                 Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    if(!error) addSuggestions(result);
+                    if (!error) addSuggestions(result);
                     setAvailableSuggestions();
                 });
             }
         });
     };
 
-    this.unsetUploadedPicture = function (tags) {
+    this.unsetUploadedPicture = function(tags) {
         self.getSuggestions(tags);
         self.currentImageId.set(false);
         self.uploaded.set(false);
     };
 
-    this.storeFocuspoint = function (x, y) {
+    this.storeFocuspoint = function(x, y) {
         self.focuspoint.set('x', x);
         self.focuspoint.set('y', y);
     };
 
     // Set suggestion
-    var setSuggestionByIndex = function (index) {
+    var setSuggestionByIndex = function(index) {
 
         var suggestions = self.availableSuggestions.get();
-        if(!mout.lang.isArray(suggestions)) return;
+        if (!mout.lang.isArray(suggestions)) return;
 
         var url = suggestions[index];
-        if(!mout.lang.isString(url)) return;
+        if (!mout.lang.isString(url)) return;
 
         template.loading.set('setting-suggestion', true);
-        Partup.ui.uploader.uploadImageByUrl(url, function (error, image) {
+        Partup.ui.uploader.uploadImageByUrl(url, function(error, image) {
             template.loading.set('setting-suggestion', false);
 
-            if(error) {
+            if (error) {
                 Partup.ui.notify.error('Some error occured');
                 return;
             }
@@ -84,7 +108,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
     template.autorun(function() {
         var suggestionIndex = Session.get('partials.start-partup.current-suggestion');
 
-        if(mout.lang.isNumber(suggestionIndex) && !mout.lang.isNaN(suggestionIndex) && !self.uploaded.get()) {
+        if (mout.lang.isNumber(suggestionIndex) && !mout.lang.isNaN(suggestionIndex) && !self.uploaded.get()) {
             self.currentImageId.set(false);
             self.uploaded.set(false);
             setSuggestionByIndex(suggestionIndex);
@@ -99,7 +123,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
 /*************************************************************/
 /* Widget on created */
 /*************************************************************/
-Template.WidgetStartDetails.onCreated(function() {
+Template.modal_create_details.onCreated(function() {
     var template = this;
 
     template.currentPartup = new ReactiveVar();
@@ -111,13 +135,13 @@ Template.WidgetStartDetails.onCreated(function() {
     template.budgetTypeChanged = new ReactiveVar();
     template.draggingFocuspoint = new ReactiveVar(false);
 
-    template.autorun(function () {
+    template.autorun(function() {
         var pId = Session.get('partials.start-partup.current-partup');
-        var p = Partups.findOne({ _id: pId });
+        var p = Partups.findOne({_id: pId});
 
-        if(!p) return;
+        if (!p) return;
 
-        if(p.image) {
+        if (p.image) {
             template.imageSystem.currentImageId.set(p.image);
             template.imageSystem.uploaded.set(true);
         } else {
@@ -130,15 +154,15 @@ Template.WidgetStartDetails.onCreated(function() {
     /*************************************************************/
     /* AutoForm on rendered */
     /*************************************************************/
-    Template.autoForm.onCreated(function () {
-        if(mout.object.get(this, 'data.id') !== 'partupForm') return;
+    Template.autoForm.onCreated(function() {
+        if (mout.object.get(this, 'data.id') !== 'partupForm') return;
 
         // Oh. My. God. Look at that hack.
         // Don't change any of these rules!
-        this.autorun(function () {
+        this.autorun(function() {
             AutoForm.getFieldValue('budget_type');
 
-            Meteor.setTimeout(function () {
+            Meteor.setTimeout(function() {
                 try {
                     var budget_type = AutoForm.getFieldValue('budget_type', 'partupForm');
                     template.budgetType.set(budget_type);
@@ -149,22 +173,22 @@ Template.WidgetStartDetails.onCreated(function() {
         });
     });
 
-    template.setFocuspoint = function (focuspoint) {
-        focuspoint.on('drag:start', function () {
+    template.setFocuspoint = function(focuspoint) {
+        focuspoint.on('drag:start', function() {
             template.draggingFocuspoint.set(true);
         });
-        focuspoint.on('drag:end', function (x, y) {
-            template.draggingFocuspoint.set(false); 
+        focuspoint.on('drag:end', function(x, y) {
+            template.draggingFocuspoint.set(false);
             template.imageSystem.storeFocuspoint(x, y);
         });
         template.focuspoint = focuspoint;
     };
 
-    template.unsetFocuspoint = function () {
+    template.unsetFocuspoint = function() {
         template.focuspoint = undefined;
     };
 
-    template.autorun(function () {
+    template.autorun(function() {
         var imageId = template.imageSystem.currentImageId.get();
 
         if (imageId && template.focuspoint) {
@@ -174,39 +198,38 @@ Template.WidgetStartDetails.onCreated(function() {
 
 });
 
-
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetStartDetails.helpers({
+Template.modal_create_details.helpers({
     Partup: Partup,
-    placeholders: Partup.services.placeholders.startdetails,
-    currentPartup: function () {
+    placeholders: placeholders,
+    currentPartup: function() {
         return Template.instance().currentPartup.get();
     },
     fieldsFromPartup: function() {
         var p = Template.instance().currentPartup.get();
-        if(!p) return;
+        if (!p) return;
         return Partup.transformers.partup.toFormStartPartup(p);
     },
-    nameCharactersLeft: function(){
+    nameCharactersLeft: function() {
         return Template.instance().nameCharactersLeft.get();
     },
-    descriptionCharactersLeft: function(){
+    descriptionCharactersLeft: function() {
         return Template.instance().descriptionCharactersLeft.get();
     },
-    partupImage: function () {
+    partupImage: function() {
         return Template.instance().imageSystem;
     },
-    suggestionSetter: function () {
-        return function (index) {
+    suggestionSetter: function() {
+        return function(index) {
             Session.set('partials.start-partup.current-suggestion', index);
         }
     },
-    currentSuggestion: function () {
+    currentSuggestion: function() {
         return Session.get('partials.start-partup.current-suggestion');
     },
-    budgetOptions: function () {
+    budgetOptions: function() {
         return [
             {
                 label: 'Geen budget',
@@ -222,7 +245,7 @@ Template.WidgetStartDetails.helpers({
             }
         ];
     },
-    galleryIsLoading: function () {
+    galleryIsLoading: function() {
         var template = Template.instance();
         return template.loading
             && (    template.loading.get('suggesting-images')
@@ -230,39 +253,39 @@ Template.WidgetStartDetails.helpers({
                  || template.loading.get('setting-suggestion')
                 );
     },
-    imagepreviewIsLoading: function () {
+    imagepreviewIsLoading: function() {
         var template = Template.instance();
         return template.loading
             && (    template.loading.get('image-uploading')
                  || template.loading.get('setting-suggestion')
                 );
     },
-    uploadingPicture: function () {
+    uploadingPicture: function() {
         var template = Template.instance();
         return template.loading && template.loading.get('image-uploading');
     },
-    budgetType: function () {
+    budgetType: function() {
         return Template.instance().budgetType.get();
     },
-    budgetTypeChanged: function () {
+    budgetTypeChanged: function() {
         return Template.instance().budgetTypeChanged.get();
     },
-    setFocuspoint: function () {
+    setFocuspoint: function() {
         return Template.instance().setFocuspoint;
     },
-    unsetFocuspoint: function () {
+    unsetFocuspoint: function() {
         return Template.instance().unsetFocuspoint;
     },
-    focuspointView: function () {
+    focuspointView: function() {
         return {
             template: Template.instance(),
             selector: '[data-focuspoint-view]'
         };
     },
-    onFocuspointUpdate: function () {
+    onFocuspointUpdate: function() {
         return Template.instance().imageSystem.storeFocuspoint;
     },
-    draggingFocuspoint: function () {
+    draggingFocuspoint: function() {
         return Template.instance().draggingFocuspoint.get();
     }
 });
@@ -270,17 +293,17 @@ Template.WidgetStartDetails.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetStartDetails.events({
+Template.modal_create_details.events({
     'keyup [data-max]': function updateMax(event, template) {
-        var max = eval($(event.target).data("max"));
-        var charactersLeftVar = $(event.target).data("characters-left-var");
+        var max = eval($(event.target).data('max'));
+        var charactersLeftVar = $(event.target).data('characters-left-var');
         template[charactersLeftVar].set(max - $(event.target).val().length);
     },
     'change [data-imageupload]': function eventChangeFile(event, template) {
-        $("[data-imageupload]").replaceWith($("[data-imageupload]").clone(true));
-        FS.Utility.eachFile(event, function (file) {
+        $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
+        FS.Utility.eachFile(event, function(file) {
             template.loading.set('image-uploading', true);
-            Partup.ui.uploader.uploadImage(file, function (error, image) {
+            Partup.ui.uploader.uploadImage(file, function(error, image) {
                 template.loading.set('image-uploading', false);
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);
@@ -320,11 +343,11 @@ Template.WidgetStartDetails.events({
 /* Widget create partup */
 /*************************************************************/
 var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, callback) {
-    if(partupId) {
+    if (partupId) {
 
         // Partup already exists. Update.
-        Meteor.call('partups.update', partupId, insertDoc, function(error, res){
-            if(error && error.message) {
+        Meteor.call('partups.update', partupId, insertDoc, function(error, res) {
+            if (error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
                     //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
@@ -336,15 +359,15 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
                 self.done(new Error(error.message));
                 return;
             }
-            
+
             callback(partupId);
         });
 
     } else {
 
         // Partup does not exists yet. Insert.
-        Meteor.call('partups.insert', insertDoc, function(error, res){
-            if(error && error.message) {
+        Meteor.call('partups.insert', insertDoc, function(error, res) {
+            if (error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
                     //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
@@ -374,13 +397,13 @@ AutoForm.hooks({
             var partupId = Session.get('partials.start-partup.current-partup');
             var submissionType = Session.get('partials.start-partup.submission-type') || 'next';
 
-            createOrUpdatePartup(partupId, insertDoc, function (id) {
+            createOrUpdatePartup(partupId, insertDoc, function(id) {
 
-                if(submissionType === 'next') {
+                if (submissionType === 'next') {
                     Router.go('start-activities', {_id: id});
                 } else if (submissionType === 'skip') {
-                    Partup.ui.intent.executeIntentCallback('start', [id], function (id) {
-                        Router.go('partup', { _id: id });
+                    Partup.ui.intent.executeIntentCallback('start', [id], function(id) {
+                        Router.go('partup', {_id: id});
                     });
                 }
             });

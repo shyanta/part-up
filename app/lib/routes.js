@@ -3,7 +3,7 @@
 /*************************************************************/
 // if more than one route needs the same settings (for Abstract route behaviour)
 // Redirects cause buggy browser back button
-var settingsWithName = function(settingsObj, name){
+var settingsWithName = function(settingsObj, name) {
     settingsObj.name = name;
     return settingsObj;
 };
@@ -16,10 +16,10 @@ Router.route('/', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app':      { to: 'main' },
-        'app_home': { to: 'app' }
+        'app':      {to: 'main'},
+        'app_home': {to: 'app'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
     }
@@ -33,10 +33,10 @@ Router.route('/discover', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app':          { to: 'main' },
-        'app_discover': { to: 'app' }
+        'app':          {to: 'main'},
+        'app_discover': {to: 'app'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
         this.subscribe('images.all');
@@ -50,15 +50,15 @@ var profileSettings = {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app': { to: 'main' },
-        'PagesProfile': { to: 'app' }
+        'app': {to: 'main'},
+        'PagesProfile': {to: 'app'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
     },
-    onBeforeAction: function(){
-        if(!this.params._id){
+    onBeforeAction: function() {
+        if (!this.params._id) {
             this.params._id = Meteor.userId();
         }
         this.next();
@@ -68,8 +68,6 @@ var profileSettings = {
 Router.route('/profile', settingsWithName(profileSettings, 'profile'));
 // Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
 
-
-
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
@@ -77,11 +75,11 @@ var partupSettings = {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app':                { to: 'main' },
-        'app_partup':         { to: 'app' },
-        'app_partup_updates': { to: 'app_partup' }
+        'app':                {to: 'main'},
+        'app_partup':         {to: 'app'},
+        'app_partup_updates': {to: 'app_partup'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         var partupId = this.params._id;
 
         this.subscribe('notifications.user');
@@ -93,7 +91,7 @@ var partupSettings = {
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
         var image;
-        if(partup) {
+        if (partup) {
             image = Images.findOne({_id: partup.image});
         }
         return {
@@ -115,7 +113,7 @@ var partupSettings = {
                 'description': partup.description
             }
         };
-        if(image) {
+        if (image) {
             seoMetaData.meta.image = image.url();
         }
         SEO.set(seoMetaData);
@@ -132,11 +130,11 @@ Router.route('/partups/:_id/updates/:update_id', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app':               { to: 'main' },
-        'app_partup':        { to: 'app' },
-        'app_partup_update': { to: 'app_partup' }
+        'app':               {to: 'main'},
+        'app_partup':        {to: 'app'},
+        'app_partup_update': {to: 'app_partup'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         var partupId = this.params._id;
 
         this.subscribe('notifications.user');
@@ -148,7 +146,7 @@ Router.route('/partups/:_id/updates/:update_id', {
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
         var image;
-        if(partup) {
+        if (partup) {
             image = Images.findOne({_id: partup.image});
         }
         return {
@@ -163,11 +161,11 @@ Router.route('/partups/:_id/activities', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app':                   { to: 'main' },
-        'app_partup':            { to: 'app' },
-        'app_partup_activities': { to: 'app_partup' }
+        'app':                   {to: 'main'},
+        'app_partup':            {to: 'app'},
+        'app_partup_activities': {to: 'app_partup'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         var partupId = this.params._id;
 
         this.subscribe('notifications.user');
@@ -178,7 +176,7 @@ Router.route('/partups/:_id/activities', {
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
         var image;
-        if(partup) {
+        if (partup) {
             image = Images.findOne({_id: partup.image});
         }
         return {
@@ -196,10 +194,10 @@ Router.route('/partups/:_id/invite', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesPartupInviteUppers': { to: 'modal' },
+        'modal': {to: 'main'},
+        'PagesPartupInviteUppers': {to: 'modal'},
     },
-    subscriptions: function () {
+    subscriptions: function() {
         // this.subscribe('users.count');
     }
 });
@@ -212,8 +210,8 @@ Router.route('/start', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesStartPartupIntro': { to: 'modal' }
+        'modal':              {to: 'main'},
+        'modal_create_intro': {to: 'modal'}
     }
 });
 
@@ -222,11 +220,11 @@ Router.route('/start/details', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesStartPartup': { to: 'modal' },
-        'PagesStartPartupDetails': { to: 'start-partup-page' }
+        'modal':                {to: 'main'},
+        'modal_create':         {to: 'modal'},
+        'modal_create_details': {to: 'modal_create'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         var partupId = Session.get('partials.start-partup.current-partup');
         this.subscribe('partups.one', partupId);
     }
@@ -237,11 +235,11 @@ Router.route('/start/:_id/activities', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesStartPartup': { to: 'modal' },
-        'PagesStartPartupActivities': { to: 'start-partup-page' }
+        'modal': {to: 'main'},
+        'PagesStartPartup': {to: 'modal'},
+        'PagesStartPartupActivities': {to: 'start-partup-page'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
         this.subscribe('partups.one.activities', this.params._id);
         this.subscribe('partups.list');
@@ -257,11 +255,11 @@ Router.route('/start/:_id/promote', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': { to: 'main' },
-        'PagesStartPartup': { to: 'modal' },
-        'PagesStartPartupPromote': { to: 'start-partup-page' }
+        'modal': {to: 'main'},
+        'PagesStartPartup': {to: 'modal'},
+        'PagesStartPartupPromote': {to: 'start-partup-page'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
     },
     action: function() {
@@ -269,7 +267,6 @@ Router.route('/start/:_id/promote', {
         this.render();
     }
 });
-
 
 /*************************************************************/
 /* Login flow */
@@ -279,11 +276,10 @@ Router.route('/login', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal':       { to: 'main' },
-        'modal_login': { to: 'modal' }
+        'modal':       {to: 'main'},
+        'modal_login': {to: 'modal'}
     }
 });
-
 
 /*************************************************************/
 /* Password reset */
@@ -293,8 +289,8 @@ Router.route('/forgot-password', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal':                { to: 'main' },
-        'modal_forgotpassword': { to: 'modal' }
+        'modal':                {to: 'main'},
+        'modal_forgotpassword': {to: 'modal'}
     }
 });
 
@@ -303,11 +299,10 @@ Router.route('/reset-password/:token', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal':               { to: 'main' },
-        'modal_resetpassword': { to: 'modal' }
+        'modal':               {to: 'main'},
+        'modal_resetpassword': {to: 'modal'}
     }
 });
-
 
 /*************************************************************/
 /* Verify Account */
@@ -317,11 +312,11 @@ Router.route('/verify-email/:token', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app': { to: 'main' }
+        'app': {to: 'main'}
     },
-    onBeforeAction: function () {
-        Accounts.verifyEmail(Router.current().params.token, function (error) {
-            if(error) {
+    onBeforeAction: function() {
+        Accounts.verifyEmail(Router.current().params.token, function(error) {
+            if (error) {
                 Partup.ui.notify.iError('error-ss-invalidEmailVerificationToken');
             } else {
                 Partup.ui.notify.iSuccess('error-ss-invalidEmailVerificationToken');
@@ -332,7 +327,6 @@ Router.route('/verify-email/:token', {
     }
 });
 
-
 /*************************************************************/
 /* Register flow */
 /*************************************************************/
@@ -341,11 +335,11 @@ Router.route('/register', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal':                 { to: 'main' },
-        'modal_register':        { to: 'modal' },
-        'modal_register_create': { to: 'modal_register' }
+        'modal':                 {to: 'main'},
+        'modal_register':        {to: 'modal'},
+        'modal_register_create': {to: 'modal_register'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('users.count');
     }
 });
@@ -355,12 +349,11 @@ Router.route('/register/details', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal':                  { to: 'main' },
-        'modal_register':         { to: 'modal' },
-        'modal_register_details': { to: 'modal_register' }
+        'modal':                  {to: 'main'},
+        'modal_register':         {to: 'modal'},
+        'modal_register_details': {to: 'modal_register'}
     }
 });
-
 
 /*************************************************************/
 /* Styleguide */
@@ -370,11 +363,10 @@ Router.route('/styleguide', {
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'app': { to: 'main' },
-        'PagesStyleguide': { to: 'page-app' }
+        'app': {to: 'main'},
+        'PagesStyleguide': {to: 'page-app'}
     }
 });
-
 
 /*************************************************************/
 /* Close route */
@@ -382,30 +374,28 @@ Router.route('/styleguide', {
 Router.route('/close', {
     name: 'close',
     where: 'client',
-    onBeforeAction: function () {
+    onBeforeAction: function() {
         window.close();
     }
 });
 
-
 /*************************************************************/
 /* Route protection */
 /*************************************************************/
-Router.onBeforeAction(function () {
+Router.onBeforeAction(function() {
     if (!Meteor.userId()) {
         var route = this.route.getName();
         var params = this.route.params();
         var options = this.route.options;
 
-        Partup.ui.intent.go({ route: 'login' }, function (success) {
-            if(success) {
+        Partup.ui.intent.go({route: 'login'}, function(success) {
+            if (success) {
                 Router.go(route, params, options);
             } else {
                 Partup.ui.intent.executeIntentCallback(route);
             }
         });
-    }
-    else {
+    } else {
         this.next();
     }
 }, {
@@ -419,7 +409,7 @@ Router.onBeforeAction(function () {
     ]
 });
 // reset start-partup id to reset the start partup flow
-Router.onBeforeAction(function () {
+Router.onBeforeAction(function() {
     Session.set('partials.start-partup.current-partup', undefined);
     this.next();
 }, {

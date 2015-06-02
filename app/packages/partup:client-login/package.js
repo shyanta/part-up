@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-widgets-login',
+    name: 'partup:client-login',
     version: '0.0.1',
     summary: '',
     documentation: null

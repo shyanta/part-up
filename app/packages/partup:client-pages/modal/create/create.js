@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.PagesStartPartup.helpers({
+Template.modal_create.helpers({
     partupId: function() {
         return Session.get('partials.start-partup.current-partup');
     }
@@ -10,12 +10,12 @@ Template.PagesStartPartup.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.PagesStartPartup.events({
+Template.modal_create.events({
     'click [data-skip]': function(evt) {
         evt.preventDefault();
         var currentPartup = Session.get('partials.start-partup.current-partup');
 
-        switch(Router.current().route.getName()) {
+        switch (Router.current().route.getName()) {
 
             case 'start':
                 Router.go('start-activities', {_id:currentPartup});

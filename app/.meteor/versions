@@ -97,6 +97,7 @@ partup:client-focuspoint@0.0.1
 partup:client-forgotpassword@0.0.1
 partup:client-gallery@0.0.1
 partup:client-loader@0.0.1
+partup:client-login@0.0.1
 partup:client-pages@0.0.1
 partup:client-partup-tile@0.0.1
 partup:client-popup@0.0.1
@@ -106,12 +107,9 @@ partup:client-resetpassword@0.0.1
 partup:client-spinner@0.0.1
 partup:client-update@0.0.1
 partup:client-usercard@0.0.1
-partup:client-widgets-intro@0.0.1
 partup:client-widgets-inviteuppers@0.0.1
-partup:client-widgets-login@0.0.1
 partup:client-widgets-startactivities@0.0.1
 partup:client-widgets-startcontribute@0.0.1
-partup:client-widgets-startdetails@0.0.1
 partup:client-widgets-startpromote@0.0.1
 partup:lib@0.0.1
 partup:meteor-bender@0.1.7

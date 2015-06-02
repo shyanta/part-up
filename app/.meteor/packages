@@ -25,13 +25,12 @@ partup:client-ratings
 partup:client-spinner
 partup:client-update
 partup:client-usercard
+partup:client-login
 partup:client-forgotpassword
 partup:client-resetpassword
-partup:client-widgets-intro
-partup:client-widgets-login
+partup:client-widgets-inviteuppers
 partup:client-widgets-startactivities
 partup:client-widgets-startcontribute
-partup:client-widgets-startdetails
 partup:client-widgets-startpromote
 partup:meteor-bender
 
@@ -71,6 +70,5 @@ velocity:console-reporter
 zimme:iron-router-active
 sergeyt:typeahead
 cfs:standard-packages
-partup:client-widgets-inviteuppers
 cfs:filesystem
 lifely:focuspoint

@@ -51,6 +51,12 @@ Package.onUse(function(api) {
         'modal/forgotpassword/forgotpassword.js',
         'modal/resetpassword/resetpassword.html',
         'modal/resetpassword/resetpassword.js',
+        'modal/create_intro/create_intro.html',
+        'modal/create_intro/create_intro.js',
+        'modal/create/create.html',
+        'modal/create/create.js',
+        'modal/create/details/details.html',
+        'modal/create/details/details.js',
     ];
 
     var languageFiles = [
@@ -76,6 +82,12 @@ Package.onUse(function(api) {
         'i18n/modal-forgotpassword.nl.i18n.json',
         'i18n/modal-resetpassword.en.i18n.json',
         'i18n/modal-resetpassword.nl.i18n.json',
+        'i18n/modal-create_intro.en.i18n.json',
+        'i18n/modal-create_intro.nl.i18n.json',
+        'i18n/modal-create.en.i18n.json',
+        'i18n/modal-create.nl.i18n.json',
+        'i18n/modal-create-details.en.i18n.json',
+        'i18n/modal-create-details.nl.i18n.json',
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');
