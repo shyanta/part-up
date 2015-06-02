@@ -1,4 +1,4 @@
-Template.CopyActivityPopup.onRendered(function() {
+Template.modal_create_activities_adopt.onRendered(function() {
     Meteor.typeahead.inject();
 });
 
@@ -8,10 +8,10 @@ var selectedPartup;
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.CopyActivityPopup.helpers({
-    partups: function () {
-        return Partups.find({}).map(function (partup) {
-            return { id: partup._id, value: partup.name };
+Template.modal_create_activities_adopt.helpers({
+    partups: function() {
+        return Partups.find({}).map(function(partup) {
+            return {id: partup._id, value: partup.name};
         });
     },
     selected: function(event, suggestion) {
@@ -22,12 +22,12 @@ Template.CopyActivityPopup.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.CopyActivityPopup.events({
+Template.modal_create_activities_adopt.events({
     'submit form': function(event, template) {
         return false;
     },
     'click [data-copyactivities]': function clickCopyActivities(event, template) {
-        Meteor.call('activities.copy', selectedPartup, Router.current().params._id, function (error, result) {
+        Meteor.call('activities.copy', selectedPartup, Router.current().params._id, function(error, result) {
             if (error) {
                 return Partup.ui.notify.iError('error-method-' + error.reason);
             } else {

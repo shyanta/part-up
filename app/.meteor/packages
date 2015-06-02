@@ -29,9 +29,6 @@ partup:client-login
 partup:client-forgotpassword
 partup:client-resetpassword
 partup:client-widgets-inviteuppers
-partup:client-widgets-startactivities
-partup:client-widgets-startcontribute
-partup:client-widgets-startpromote
 partup:meteor-bender
 
 accounts-facebook

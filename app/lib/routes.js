@@ -203,10 +203,10 @@ Router.route('/partups/:_id/invite', {
 });
 
 /*************************************************************/
-/* Start Partup */
+/* Create Partup */
 /*************************************************************/
-Router.route('/start', {
-    name: 'start',
+Router.route('/create', {
+    name: 'create',
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
@@ -215,8 +215,8 @@ Router.route('/start', {
     }
 });
 
-Router.route('/start/details', {
-    name: 'start-details',
+Router.route('/create/details', {
+    name: 'create-details',
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
@@ -225,19 +225,19 @@ Router.route('/start/details', {
         'modal_create_details': {to: 'modal_create'}
     },
     subscriptions: function() {
-        var partupId = Session.get('partials.start-partup.current-partup');
+        var partupId = Session.get('partials.create-partup.current-partup');
         this.subscribe('partups.one', partupId);
     }
 });
 
-Router.route('/start/:_id/activities', {
-    name: 'start-activities',
+Router.route('/create/:_id/activities', {
+    name: 'create-activities',
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': {to: 'main'},
-        'PagesStartPartup': {to: 'modal'},
-        'PagesStartPartupActivities': {to: 'start-partup-page'}
+        'modal':                   {to: 'main'},
+        'modal_create':            {to: 'modal'},
+        'modal_create_activities': {to: 'modal_create'}
     },
     subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
@@ -245,25 +245,25 @@ Router.route('/start/:_id/activities', {
         this.subscribe('partups.list');
     },
     action: function() {
-        Session.set('partials.start-partup.current-partup', this.params._id);
+        Session.set('partials.create-partup.current-partup', this.params._id);
         this.render();
     }
 });
 
-Router.route('/start/:_id/promote', {
-    name: 'start-promote',
+Router.route('/create/:_id/promote', {
+    name: 'create-promote',
     where: 'client',
     layoutTemplate: 'main',
     yieldRegions: {
-        'modal': {to: 'main'},
-        'PagesStartPartup': {to: 'modal'},
-        'PagesStartPartupPromote': {to: 'start-partup-page'}
+        'modal':                {to: 'main'},
+        'modal_create':         {to: 'modal'},
+        'modal_create_promote': {to: 'modal_create'}
     },
     subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
     },
     action: function() {
-        Session.set('partials.start-partup.current-partup', this.params._id);
+        Session.set('partials.create-partup.current-partup', this.params._id);
         this.render();
     }
 });
@@ -400,24 +400,24 @@ Router.onBeforeAction(function() {
     }
 }, {
     only: [
-        'start',
-        'start-details',
-        'start-activities',
-        'start-contribute',
-        'start-promote',
+        'create',
+        'create-details',
+        'create-activities',
+        'create-contribute',
+        'create-promote',
         'register-details'
     ]
 });
-// reset start-partup id to reset the start partup flow
+// reset create-partup id to reset the create partup flow
 Router.onBeforeAction(function() {
-    Session.set('partials.start-partup.current-partup', undefined);
+    Session.set('partials.create-partup.current-partup', undefined);
     this.next();
 }, {
     except: [
-        'start-details',
-        'start-activities',
-        'start-contribute',
-        'start-promote'
+        'create-details',
+        'create-activities',
+        'create-contribute',
+        'create-promote'
     ]
 });
 

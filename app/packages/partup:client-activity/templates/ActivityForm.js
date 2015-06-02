@@ -112,7 +112,7 @@ AutoForm.addHooks(null, {
                 self.done();
             });
         } else {
-            var partupId = Session.get('partials.start-partup.current-partup') || Router.current().params._id;
+            var partupId = Session.get('partials.create-partup.current-partup') || Router.current().params._id;
 
             Meteor.call('activities.insert', partupId, doc, function(error, output) {
                 if (error && error.message) {

@@ -5,7 +5,7 @@ if (!(typeof MochaWeb === 'undefined')){
 
             beforeEach(function (done) {
                 Meteor.loginWithPassword('user@example.com', 'user');
-                Session.set('partials.start-partup.current-partup', '1111');
+                Session.set('partials.create-partup.current-partup', '1111');
                 Router.go('start');
                 Tracker.afterFlush(done);
             });

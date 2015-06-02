@@ -55,7 +55,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
             }
 
             self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
-            Session.set('partials.start-partup.current-suggestion', 0);
+            Session.set('partials.create-partup.current-suggestion', 0);
         };
 
         template.loading.set('suggesting-images', true);
@@ -106,7 +106,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
     };
 
     template.autorun(function() {
-        var suggestionIndex = Session.get('partials.start-partup.current-suggestion');
+        var suggestionIndex = Session.get('partials.create-partup.current-suggestion');
 
         if (mout.lang.isNumber(suggestionIndex) && !mout.lang.isNaN(suggestionIndex) && !self.uploaded.get()) {
             self.currentImageId.set(false);
@@ -136,7 +136,7 @@ Template.modal_create_details.onCreated(function() {
     template.draggingFocuspoint = new ReactiveVar(false);
 
     template.autorun(function() {
-        var pId = Session.get('partials.start-partup.current-partup');
+        var pId = Session.get('partials.create-partup.current-partup');
         var p = Partups.findOne({_id: pId});
 
         if (!p) return;
@@ -223,11 +223,11 @@ Template.modal_create_details.helpers({
     },
     suggestionSetter: function() {
         return function(index) {
-            Session.set('partials.start-partup.current-suggestion', index);
+            Session.set('partials.create-partup.current-suggestion', index);
         }
     },
     currentSuggestion: function() {
-        return Session.get('partials.start-partup.current-suggestion');
+        return Session.get('partials.create-partup.current-suggestion');
     },
     budgetOptions: function() {
         return [
@@ -326,7 +326,7 @@ Template.modal_create_details.events({
     'click [data-submission-type]': function eventClickSetSubmissionType (event, template) {
         var button = event.currentTarget;
         var submissionType = button.getAttribute('data-submission-type');
-        Session.set('partials.start-partup.submission-type', submissionType);
+        Session.set('partials.create-partup.submission-type', submissionType);
 
         if (button.type !== 'submit') {
             var form = template.find('#partupForm');
@@ -380,7 +380,7 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
                 return;
             }
 
-            Session.set('partials.start-partup.current-partup', res._id);
+            Session.set('partials.create-partup.current-partup', res._id);
             callback(res._id);
         });
 
@@ -394,15 +394,15 @@ AutoForm.hooks({
     partupForm: {
         onSubmit: function(insertDoc) {
             var self = this;
-            var partupId = Session.get('partials.start-partup.current-partup');
-            var submissionType = Session.get('partials.start-partup.submission-type') || 'next';
+            var partupId = Session.get('partials.create-partup.current-partup');
+            var submissionType = Session.get('partials.create-partup.submission-type') || 'next';
 
             createOrUpdatePartup(partupId, insertDoc, function(id) {
 
                 if (submissionType === 'next') {
-                    Router.go('start-activities', {_id: id});
+                    Router.go('create-activities', {_id: id});
                 } else if (submissionType === 'skip') {
-                    Partup.ui.intent.executeIntentCallback('start', [id], function(id) {
+                    Partup.ui.intent.executeIntentCallback('create', [id], function(id) {
                         Router.go('partup', {_id: id});
                     });
                 }

@@ -3,7 +3,7 @@
 /*************************************************************/
 Template.modal_create.helpers({
     partupId: function() {
-        return Session.get('partials.start-partup.current-partup');
+        return Session.get('partials.create-partup.current-partup');
     }
 });
 
@@ -13,19 +13,19 @@ Template.modal_create.helpers({
 Template.modal_create.events({
     'click [data-skip]': function(evt) {
         evt.preventDefault();
-        var currentPartup = Session.get('partials.start-partup.current-partup');
+        var currentPartup = Session.get('partials.create-partup.current-partup');
 
         switch (Router.current().route.getName()) {
 
-            case 'start':
-                Router.go('start-activities', {_id:currentPartup});
+            case 'create':
+                Router.go('create-activities', {_id:currentPartup});
                 break;
-            case 'start-activities':
-                Router.go('start-promote', {_id:currentPartup});
+            case 'create-activities':
+                Router.go('create-promote', {_id:currentPartup});
                 break;
-            case 'start-promote':
-                Session.set('partials.start-partup.current-partup', undefined);
-                Router.go('partup-detail', {_id:currentPartup});
+            case 'create-promote':
+                Session.set('partials.create-partup.current-partup', undefined);
+                Router.go('partup', {_id:currentPartup});
                 break;
         }
     }

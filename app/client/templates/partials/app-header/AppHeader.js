@@ -5,9 +5,9 @@ Template.PartialsAppHeader.events({
 
     'click [data-action-start]': function eventActionStart () {
         var currentUrl = Router.current().url;
-        Partup.ui.intent.go({ route: 'start' }, function(createdId) {
+        Partup.ui.intent.go({ route: 'create' }, function(createdId) {
             if(createdId) {
-                Router.go('partup-detail', {
+                Router.go('partup', {
                     _id: createdId
                 });
             } else {

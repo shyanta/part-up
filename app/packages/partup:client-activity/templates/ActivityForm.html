@@ -1,5 +1,5 @@
 <template name="ActivityForm">
-    <article class="pu-block pu-block-activity {{#if START_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if CREATE}}pu-block-activity-create pu-block-highlighted {{# if POPUP }}pu-block-activity-create-popup{{/ if }}{{/ if }} {{# unless CREATE }}pu-block-active{{/unless }}" data-activity-id="{{ activity._id }}">
+    <article class="pu-block pu-block-activity {{#if CREATE_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if CREATE}}pu-block-activity-create pu-block-highlighted {{# if POPUP }}pu-block-activity-create-popup{{/ if }}{{/ if }} {{# unless CREATE }}pu-block-active{{/unless }}" data-activity-id="{{ activity._id }}">
         {{# autoForm schema=schema id=generateFormId doc=activity validation="submitThenKeyup" class="pu-form" }}
 
             <!-- Activity name -->
@@ -64,7 +64,7 @@
 
                 {{# unless CREATE }}
                     <div class="cell">
-                        {{# unless START_PARTUP}}
+                        {{# unless CREATE_PARTUP}}
                             {{# if activity.archived }}
                                 <a class="pu-button pu-button-text pu-button-text-subtle" data-activity-unarchive>{{_ 'activity-button-unarchive'}}</a>
                             {{ else }}

@@ -1,23 +1,23 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.WidgetStartPromote.onRendered(function () {
+Template.modal_create_promote.onRendered(function() {
     var template = this;
 
     var elm = template.find('[data-copy-to-clipboard]');
 
     // Copy to clipboard
     Partup.ui.clipboard.applyToElement(elm, elm.value, function onCopySuccess() {
-        Partup.ui.notify.success(__('startpromote-notify-copy-to-clipboard-success'));
+        Partup.ui.notify.success(__('pages-modal-create-promote-notify-copy-to-clipboard-success'));
     }, function onCopyError() {
-        Partup.ui.notify.error(__('startpromote-notify-copy-to-clipboard-error'));
+        Partup.ui.notify.error(__('pages-modal-create-promote-notify-copy-to-clipboard-error'));
     });
 
-    template.autorun(function () {
+    template.autorun(function() {
         var partup = getPartup();
 
         if (partup) {
-            var image = Images.findOne({ _id: partup.image });
+            var image = Images.findOne({_id: partup.image});
 
             if (image) {
                 var focuspointElm = template.find('[data-partupcover-focuspoint]');
@@ -30,7 +30,7 @@ Template.WidgetStartPromote.onRendered(function () {
     });
 });
 
-Template.WidgetStartPromote.onCreated(function () {
+Template.modal_create_promote.onCreated(function() {
     var template = this;
 
     template.shared = new ReactiveVar({
@@ -43,9 +43,9 @@ Template.WidgetStartPromote.onCreated(function () {
 /*************************************************************/
 /* Widget Functions */
 /*************************************************************/
-var getPartup = function () {
-    var partupId = Session.get('partials.start-partup.current-partup');
-    return Partups.findOne({ _id: partupId });
+var getPartup = function() {
+    var partupId = Session.get('partials.create-partup.current-partup');
+    return Partups.findOne({_id: partupId});
 };
 
 var partupUrl = function() {
@@ -56,18 +56,16 @@ var partupUrl = function() {
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.WidgetStartPromote.helpers({
+Template.modal_create_promote.helpers({
     Partup: Partup,
-
-    placeholders: Partup.services.placeholders.startdetails,
 
     partup: getPartup,
 
-    partupUrl: function () {
+    partupUrl: function() {
         return partupUrl();
     },
 
-    shared: function () {
+    shared: function() {
         return Template.instance().shared.get();
     }
 
@@ -76,10 +74,10 @@ Template.WidgetStartPromote.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.WidgetStartPromote.events({
+Template.modal_create_promote.events({
 
     'click [data-share]': function sharePartup(event, template) {
-        var socialTarget = $(event.currentTarget).data("share");
+        var socialTarget = $(event.currentTarget).data('share');
         var sharedSocials = template.shared.get();
 
         if (!sharedSocials[socialTarget]) {
@@ -98,10 +96,10 @@ Template.WidgetStartPromote.events({
     'click [data-action-topartup]': function eventToPartup(event) {
         event.preventDefault();
         var partupId = Router.current().params._id;
-        Partup.ui.intent.executeIntentCallback('start', [partupId], function (id) {
+        Partup.ui.intent.executeIntentCallback('create', [partupId], function(id) {
 
             // Router go
-            Router.go('partup', { _id: id });
+            Router.go('partup', {_id: id});
 
         });
     },

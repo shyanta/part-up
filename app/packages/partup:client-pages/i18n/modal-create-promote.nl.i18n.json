@@ -1,0 +1,18 @@
+{
+    "pages-modal-create-promote-heading-title": "Stap 3. Deel je part-up",
+    "pages-modal-create-promote-text-intro": "Check! Je bent nu klaar om samen te werken in jouw part-up. Wij stellen hem voor aan andere uppers. Deel hem zelf ook in jouw netwerk of op social media!",
+    "pages-modal-create-promote-text-intro2": "Dit is hoe jouw post eruit zal zien.",
+
+    "pages-modal-create-promote-title-sharebuttons": "Deel jouw part-up op:",
+    "pages-modal-create-promote-title-sharelink": "Of deel een directe link:",
+
+    "pages-modal-create-promote-button-twitter": "Twitter",
+    "pages-modal-create-promote-button-facebook": "Facebook",
+    "pages-modal-create-promote-button-linkedin": "LinkedIn",
+    "pages-modal-create-promote-button-done": "Klaar, op naar jouw part-up",
+
+    "pages-modal-create-promote-notify-copy-to-clipboard-error": "Het is ons niet gelukt om de part-up link te kopiëren. Probeer het nog een keer.",
+    "pages-modal-create-promote-notify-copy-to-clipboard-success": "De part-up link is gekopieërd.",
+    "pages-modal-create-promote-notify-shared-error": "Je heb je part-up al gedeeld op %s.",
+    "pages-modal-create-promote-notify-shared-success": "Je part-up is nu gedeeld op %s."
+}

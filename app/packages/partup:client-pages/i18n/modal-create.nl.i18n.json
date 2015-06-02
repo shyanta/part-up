@@ -1,7 +1,7 @@
 {
     "pages-modal-create-skip": "Overslaan",
-    "pages-modal-create-skip_start": "Klaar",
-    "pages-modal-create-start": "Beschrijf je part-up",
+    "pages-modal-create-skip_details": "Klaar",
+    "pages-modal-create-details": "Beschrijf je part-up",
     "pages-modal-create-activities": "Bepaal de activiteiten",
     "pages-modal-create-promote": "Deel je part-up"
 }

@@ -12,7 +12,7 @@
  * @param {Boolean} EXPANDED   Whether the widget should render in expanded state
  * @param {Boolean} POPUP   Whether the widget is being rendered inside of a modal
  * @param {Boolean} READONLY   Whether the widget should contain an edit mode
- * @param {Boolean} START_PARTUP   Whether the widget is being rendered in the start partup flow
+ * @param {Boolean} CREATE_PARTUP   Whether the widget is being rendered in the start partup flow
  * @param {Boolean} UPDATE_LINK   Whether the widget is being rendered in the start partup flow
  */
 

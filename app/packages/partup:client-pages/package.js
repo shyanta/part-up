@@ -57,6 +57,12 @@ Package.onUse(function(api) {
         'modal/create/create.js',
         'modal/create/details/details.html',
         'modal/create/details/details.js',
+        'modal/create/activities/activities.html',
+        'modal/create/activities/activities.js',
+        'modal/create/activities/adopt/adopt.html',
+        'modal/create/activities/adopt/adopt.js',
+        'modal/create/promote/promote.html',
+        'modal/create/promote/promote.js',
     ];
 
     var languageFiles = [
@@ -88,6 +94,10 @@ Package.onUse(function(api) {
         'i18n/modal-create.nl.i18n.json',
         'i18n/modal-create-details.en.i18n.json',
         'i18n/modal-create-details.nl.i18n.json',
+        'i18n/modal-create-activities.en.i18n.json',
+        'i18n/modal-create-activities.nl.i18n.json',
+        'i18n/modal-create-promote.en.i18n.json',
+        'i18n/modal-create-promote.nl.i18n.json',
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');
