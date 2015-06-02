@@ -1,4 +1,4 @@
-Template.modal_create_activities_adopt.onRendered(function() {
+Template.modal_create_activities_copy.onRendered(function() {
     Meteor.typeahead.inject();
 });
 
@@ -8,7 +8,7 @@ var selectedPartup;
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.modal_create_activities_adopt.helpers({
+Template.modal_create_activities_copy.helpers({
     partups: function() {
         return Partups.find({}).map(function(partup) {
             return {id: partup._id, value: partup.name};
@@ -22,7 +22,7 @@ Template.modal_create_activities_adopt.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.modal_create_activities_adopt.events({
+Template.modal_create_activities_copy.events({
     'submit form': function(event, template) {
         return false;
     },

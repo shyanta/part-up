@@ -97,8 +97,8 @@ Package.onUse(function(api) {
         // Modal:create:activities
         'modal/create/activities/activities.html',
         'modal/create/activities/activities.js',
-        'modal/create/activities/adopt/adopt.html',
-        'modal/create/activities/adopt/adopt.js',
+        'modal/create/activities/copy/copy.html',
+        'modal/create/activities/copy/copy.js',
 
         // Modal:create:promote
         'modal/create/promote/promote.html',
