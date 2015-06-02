@@ -29,6 +29,8 @@ Package.onUse(function(api) {
         'app/discover/discover.js',
         'app/partup/partup.html',
         'app/partup/partup.js',
+        'app/partup/templates/navigation.html',
+        'app/partup/templates/navigation.js',
         'app/partup/updates/updates.html',
         'app/partup/updates/updates.js',
         'app/partup/updates/newmessage/newmessage.html',
