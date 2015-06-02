@@ -21,5 +21,8 @@
 
     "pages-modal-register-create-form-confirmPassword-placeholder": "And repeat it once please",
 
-    "pages-modal-register-create-form-submit": "Sign up"
+    "pages-modal-register-create-form-submit": "Sign up",
+
+    "pages-modal-register-create-error_Accounts-LoginCancelledError": "Login cancelled",
+    "pages-modal-register-create-error_Error": "Login failed, please try again"
 }

@@ -17,5 +17,7 @@
     "login-form-submit": "Inloggen",
 
     "login-forgotpassword-help": "Help:",
-    "login-forgotpassword-link": "Ik kan niet inloggen, volgens mij ben ik mijn wachtwoord vergeten."
+    "login-forgotpassword-link": "Ik kan niet inloggen, volgens mij ben ik mijn wachtwoord vergeten.",
+
+    "login-error": "Inloggen mislukt"
 }

@@ -41,7 +41,7 @@ Template.modal_register_create.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('error-method-register-' + Partup.ui.strings.slugify(error.name)));
+                Partup.ui.notify.error(__('pages-modal-register-create-error_' + Partup.ui.strings.slugify(error.name)));
                 return;
             }
 
@@ -55,14 +55,14 @@ Template.modal_register_create.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('error-method-register-' + Partup.ui.strings.slugify(error.name)));
+                Partup.ui.notify.error(__('pages-modal-register-create-error_' + Partup.ui.strings.slugify(error.name)));
                 return false;
             }
 
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
             Meteor.call('settings.update', {locale: locale}, function(err) {
                 if (err) {
-                    Partup.ui.notify.error(__('error-method-register' + Partup.ui.strings.slugify('failed to update locale')));
+                    Partup.ui.notify.error(__('pages-modal-register-create-error_' + Partup.ui.strings.slugify('failed to update locale')));
                     return false;
                 }
                 Router.go('register-details');

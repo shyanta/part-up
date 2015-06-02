@@ -25,7 +25,7 @@ Template.Login.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('generic-error'));
+                Partup.ui.notify.error(__('login-error'));
                 return;
             }
 
@@ -38,7 +38,7 @@ Template.Login.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('generic-error'));
+                Partup.ui.notify.error(__('login-error'));
                 return false;
             }
 

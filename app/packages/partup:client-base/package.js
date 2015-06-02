@@ -49,12 +49,16 @@ Package.onUse(function(api) {
         'bootstrap.js',
 
         'i18n/helpers-dateFormatters.en.i18n.json',
-        'i18n/helpers-dateFormatters.nl.i18n.json'
+        'i18n/helpers-dateFormatters.nl.i18n.json',
+        'i18n/ui-language.en.i18n.json',
+        'i18n/ui-language.nl.i18n.json'
     ], ['client']);
 
     api.addFiles([
         'package-tap.i18n',
         'i18n/helpers-dateFormatters.en.i18n.json',
-        'i18n/helpers-dateFormatters.nl.i18n.json'
+        'i18n/helpers-dateFormatters.nl.i18n.json',
+        'i18n/ui-language.en.i18n.json',
+        'i18n/ui-language.nl.i18n.json'
     ], 'server');
 });

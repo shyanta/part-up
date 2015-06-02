@@ -21,5 +21,8 @@
 
     "pages-modal-register-create-form-confirmPassword-placeholder": "En herhaal hem alsjeblieft nog een keertje",
 
-    "pages-modal-register-create-form-submit": "Aanmelden"
+    "pages-modal-register-create-form-submit": "Aanmelden",
+
+    "pages-modal-register-create-error_Accounts-LoginCancelledError": "Inloggen geannuleerd",
+    "pages-modal-register-create-error_Error": "Het inloggen is mislukt, probeer het nog een keer"
 }
