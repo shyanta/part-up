@@ -55,7 +55,7 @@ Event.on('partups.supporters.inserted', function(partup, upper) {
             Partup.services.notifications.send(notificationOptions, function(error) {
                 if (error) return Log.error(error);
 
-                Log.debug('Notification generated for User [' + upperId + '] with type [ ' + notificationOptions.type + '].');
+                Log.debug('Notification generated for User [' + upperId + '] with type [' + notificationOptions.type + '].');
             });
         });
     }
