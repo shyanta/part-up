@@ -1,0 +1,204 @@
+<template name="Update">
+
+    <section class="pu-update">
+        <aside>
+
+            <!-- User -->
+            <figure class="pu-avatar pu-avatar-label">
+                <a href="#" rel="author" data-usercard="{{ updateUpper._id }}" class="pu-sub-image" style="{{#if updateUpper.profile.image}}background-image: url('{{ updateUpper.profile.image.url }}');{{/if}}"></a>
+                <!-- <span class="pu-sub-label">{{ updateUpper.profile.name }}</span> -->
+            </figure>
+
+            <!-- Time -->
+            <p class="pu-sub-time">
+                <time datetime="{{ partupDateISO update.created_at }}" title="{{ partupDateFull update.created_at }}">{{ partupDatePartupActivity update.created_at }}</time>
+            </p>
+        </aside>
+        <section>
+
+            <!-- Title & first comment button -->
+            <header>
+                <h3>
+                <!-- Determine the correct pathFor -->
+                <a href="
+                    {{ #if partupContainsOne update.type 'partups_newuser' }}
+                        {{pathFor route='profile' _id=user_id }}
+                    {{else}}
+                        {{pathFor route='partup-update' _id=partupId update_id=update._id }}
+                    {{/if}}
+                ">
+                    {{#if partupEqualsExactly update.type 'partups_invited' }}
+                        <!-- {{#with update.type_data }} -->
+                            <!-- no template, only title -->
+                            {{_ titleKey update.type_data.name}}
+                        <!-- {{/with}} -->
+                    {{else}}
+                        {{_ titleKey }}
+                    {{/if }}
+
+                </a>
+
+                </h3>
+                {{#unless commentInputFieldExpanded }}
+                    <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
+                {{/unless }}
+            </header>
+
+            <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
+
+            <!-- partups_message_added -->
+            {{#if partupEqualsExactly update.type 'partups_message_added' }}
+                {{#with update.type_data }}
+                    <section>
+                        <article class="pu-block">
+                            <p class="pu-paragraph">{{ new_value }}</p>
+                            {{#each images}}
+                                <img class="pu-image" src="{{ partupImageById . }}" alt="">
+                            {{/each}}
+                        </article>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_tags_added -->
+            {{#if partupEqualsExactly update.type 'partups_tags_added' }}
+                {{#with update.type_data }}
+                    <section>
+                        <span class="pu-tag">{{ new_tag }}</span>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_tags_removed -->
+            {{#if partupEqualsExactly update.type 'partups_tags_removed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <span class="pu-tag">{{ old_tag }}</span>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_tags_changed -->
+            {{#if partupEqualsExactly update.type 'partups_tags_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag">{{ old_tag }}</span></li>
+                            <li><span class="pu-tag">{{ new_tag }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_end_date_changed -->
+            {{#if partupEqualsExactly update.type 'partups_end_date_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal old_end_date }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal new_end_date }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_name_changed -->
+            {{#if partupEqualsExactly update.type 'partups_name_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <p class="pu-title pu-title-updateitem">{{ new_name }}</p>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_description_changed -->
+            {{#if partupEqualsExactly update.type 'partups_description_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <p class="pu-paragraph pu-paragraph-large">{{ new_description }}</p>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_image_changed -->
+            {{#if partupEqualsExactly update.type 'partups_image_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <!-- <b>OLD</b>
+                        <img src="{{ getImageUrlById old_image }}"> -->
+                        <!-- <b>NEW</b> -->
+                        <img class="pu-image" src="{{ getImageUrlById new_image }}">
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_budget_changed -->
+            {{#if partupEqualsExactly update.type 'partups_budget_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <!-- OLD -->
+                            {{#if partupEquals old_type 'hours'}}
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-hours' old_value }}</span></li>
+                            {{else}}
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-money' old_value }}</span></li>
+                            {{/if}}
+
+                            <!-- NEW -->
+                            {{#if partupEquals new_type 'hours'}}
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-hours' new_value }}</span></li>
+                            {{else}}
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-money' new_value }}</span></li>
+                            {{/if}}
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_location_changed -->
+            {{#if partupEqualsExactly update.type 'partups_location_changed' }}
+                {{#with update.type_data }}
+                    <section>
+                        <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
+                            <li><span class="pu-tag pu-tag-angular">{{ old_location.city }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ new_location.city }}</span></li>
+                        </ul>
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- partups_invited -->
+            {{#if partupEqualsExactly update.type 'partups_invited' }}
+                {{#with update.type_data }}
+                    <!-- no template, only title -->
+                {{/with}}
+            {{/if }}
+
+            <!-- activity related updates -->
+            {{# if isActivityUpdate }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> Activity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- contribution related updates -->
+            {{#if isContributionUpdate }}
+                {{#with update.type_data }}
+                    <section>
+                        {{> Activity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
+                    </section>
+                {{/with}}
+            {{/if }}
+
+            <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
+
+            <!-- Comments -->
+            {{#if commentInputFieldExpanded }}
+                {{> CommentField update=update expandedComments=expandedComments}}
+            {{/if }}
+        </section>
+    </section>
+
+</template>

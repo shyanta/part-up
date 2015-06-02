@@ -1,0 +1,38 @@
+{
+    "pages-modal-create-activities-heading-title": "Step 2. Define the activities",
+    "pages-modal-create-activities-heading-paragraph": "Do you know what needs to be done? It's okay if you don't know it all yet. The other uppers will help you complement the activities.",
+
+    "pages-modal-create-activities-button-adopt_activities": "Copy all activities from an existing part-up.",
+
+    "pages-modal-create-activities-form-name-label": "Add one activity at a time",
+    "pages-modal-create-activities-form-name-placeholder": "Tip: start with a verb",
+    "pages-modal-create-activities-form-name-validation": "max %d characters",
+    "pages-modal-create-activities-form-name-validation-left": "%d characters left",
+
+    "pages-modal-create-activities-form-description-label": "Describe the activity",
+    "pages-modal-create-activities-form-description-placeholder": "Let's keep it short and sharp",
+    "pages-modal-create-activities-form-description-validation": "max %d characters",
+    "pages-modal-create-activities-form-description-validation-left": "%d characters left",
+
+    "pages-modal-create-activities-form-end_date-label": "Add a date if you like",
+    "pages-modal-create-activities-form-end_date-placeholder": "Add a date if you like",
+    "pages-modal-create-activities-form-end_date-validation": "Only future dates are allowed",
+
+    "pages-modal-create-activities-form-submit": "Add activity",
+    "pages-modal-create-activities-form-save": "Save",
+    "pages-modal-create-activities-button-next_page": "Next step",
+    "pages-modal-create-activities-button-edit": "Edit",
+    "pages-modal-create-activities-button-remove": "Remove activity",
+
+    "pages-modal-create-activities-placeholder-name": "Create your first activity",
+    "pages-modal-create-activities-placeholder-description": "To start, create your very first activity above.",
+
+    "pages-modal-create-activities-list-heading": "List of added activities:",
+
+    "pages-modal-create-activities-copy-title": "Copy all activities from an existing Part-up",
+    "pages-modal-create-activities-copy-description": "There is no need to reinvent the wheel over and over. Find a part-up with a similar goal and copy the activities to get a head start.",
+    "pages-modal-create-activities-copy-form-copy-label": "From wich part-up would you like to copy activities?",
+    "pages-modal-create-activities-copy-form-copy-placeholder": "Find a part-up",
+    "pages-modal-create-activities-copy-form-copy-confirm": "Copy activities",
+    "pages-modal-create-activities-copy-close": "Close"
+}

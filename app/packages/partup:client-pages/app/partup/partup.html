@@ -1,0 +1,13 @@
+<template name="app_partup">
+    <article class="pu-layout">
+        <div class="pu-sub-pagecontainer">
+            <div class="pu-sub-partupdetail-left">
+                {{> app_partup_navigation partup=partup partupSupporters=partupSupporters }}
+                {{> yield region='app_partup' }}
+            </div>
+            <div class="pu-sub-partupdetail-right">
+                {{> app_partup_sidebar partup=partup partupSupporters=partupSupporters partupUppers=partupUppers partupCover=partupCover }}
+            </div>
+        </div>
+    </article>
+</template>

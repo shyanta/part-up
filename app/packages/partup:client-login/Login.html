@@ -1,0 +1,49 @@
+<template name="Login">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-login">
+
+        <h2 class="pu-title pu-title-modal">{{_ 'login-loginwithpartup' }}</h2>
+        <p>{{_ 'login-logingoodyouareback'}}&nbsp;<a href="{{pathFor 'register'}}">{{_ 'login-createaccount'}}</a></p>
+        <ul class="pu-list pu-list-horizontal pu-list-buttons">
+            <li>
+                <button class="pu-button pu-button-facebook" data-loginfacebook>
+                    <i class="fa fa-facebook"></i>
+                    {{_ 'login-loginfacebook'}}
+                </button>
+            </li>
+            <li>
+                <button class="pu-button pu-button-linkedin" data-loginlinkedin>
+                    <i class="fa fa-linkedin"></i>
+                    {{_ 'login-loginlinkedin'}}
+                </button>
+            </li>
+        </ul>
+        <p class="pu-textline"><span>{{_ 'login-or'}}</span></p>
+
+        {{#autoForm schema=formSchema id="loginForm" class="pu-form" validation="submitThenBlur" }}
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'login-form-email-label'}}</span>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
+                </div>
+            </label>
+
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'login-form-password-label'}}</span>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='password' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
+                </div>
+            </label>
+
+            <footer>
+                <button type="submit" class="pu-button">{{_ 'login-form-submit' }}</button>
+            </footer>
+        {{/autoForm}}
+        <p class="pu-paragraph pu-paragraph-subtle">
+            <strong>{{_ 'login-forgotpassword-help'}}</strong>
+            <a href="{{pathFor 'forgot-password'}}">{{_ 'login-forgotpassword-link'}}</a>
+        </p>
+
+    </div>
+</template>

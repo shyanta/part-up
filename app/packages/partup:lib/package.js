@@ -20,7 +20,7 @@ Package.onUse(function(api) {
         'momentjs:moment',
         'tap:i18n',
         'matb33:collection-hooks',
-        'partup:copy-to-clipboard',
+        'partup:client-copy-to-clipboard',
         'lifely:mout'
     ]);
 

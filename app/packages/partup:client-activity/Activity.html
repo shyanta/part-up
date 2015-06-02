@@ -1,0 +1,29 @@
+<template name="Activity">
+    {{# if showForm }}
+
+        {{> ActivityForm
+            activity=activity
+            edit=edit
+            CREATE=CREATE
+            POPUP=POPUP
+            CREATE_PARTUP=CREATE_PARTUP
+            createCallback=createCallback
+        }}
+
+    {{ else }}
+
+        {{> ActivityView
+            activity=activity
+            contribution_id=contribution_id
+            edit=edit
+            COMMENTS_LINK=COMMENTS_LINK
+            CONTRIBUTIONS=CONTRIBUTIONS
+            EXPANDED=EXPANDED
+            READONLY=READONLY
+            CREATE_PARTUP=CREATE_PARTUP
+            UPDATE_LINK=UPDATE_LINK
+            isUpper=isUpper
+        }}
+
+    {{/ if }}
+</template>

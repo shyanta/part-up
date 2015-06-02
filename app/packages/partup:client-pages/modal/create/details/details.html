@@ -1,0 +1,235 @@
+<template name="modal_create_details">
+    <section class="pu-page pu-page-modal pu-page-modal-haspager">
+        <div class="pu-composition pu-composition-defaultmodal">
+
+            <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-details-title' currentUser.profile.name }}</h2>
+            <p>{{_ 'pages-modal-create-details-explainingpartup' }}</p>
+
+            {{#autoForm schema=Partup.schemas.forms.startPartup id="partupForm" doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
+
+                <!-- Name -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-create-details-form-name-label' }}
+                        <a class="pu-hint">
+                            {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.name.max}}
+                                {{_ 'pages-modal-create-details-form-name-validation-left' nameCharactersLeft }}
+                            {{else}}
+                                {{_ 'pages-modal-create-details-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
+                            {{/if}}
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.name.max" data-characters-left-var="nameCharactersLeft" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+                    </div>
+                </label>
+
+                <!-- Description -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-create-details-form-description-label'}}
+                        <a class="pu-hint">
+                            {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.description.max}}
+                                {{_ 'pages-modal-create-details-form-name-validation-left' descriptionCharactersLeft }}
+                            {{else}}
+                                {{_ 'pages-modal-create-details-form-name-validation' Partup.schemas.entities.partup._schema.description.max }}
+                            {{/if}}
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3  data-max="Partup.schemas.entities.partup._schema.description.max" data-characters-left-var="descriptionCharactersLeft" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                    </div>
+                </label>
+
+                <!-- Tags -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-create-details-form-tags_input-label'}}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-create-details-form-tags_input-tooltip' }}</p></span>
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+                    </div>
+                </label>
+
+                <!-- Budget -->
+                <div class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-create-details-form-budget-label'}}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-create-details-form-budget-tooltip' }}</p></span>
+                        </a>
+                    </span>
+
+
+                    <!-- Budget type selector -->
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_type' }}pu-state-invalid{{/if}}">
+                        <label class="pu-sub-input"><span class="pu-inputcontainer pu-inputcontainer-select">{{> afFieldInput type='select' firstOption=false name='budget_type' class="pu-input pu-input-select" options=budgetOptions }}</span></label>
+                        <span class="pu-sub-error">{{ afFieldMessage name='budget_type' }}</span>
+                    </div>
+
+                    <!-- Budget amount: money -->
+                    {{#if partupEquals budgetType 'money'}}
+                        <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_money' }}pu-state-invalid{{/if}}">
+                            <label class="pu-sub-input pu-sub-input-half">
+                                <span class="pu-inputcontainer pu-inputcontainer-text">
+                                    <span class="pu-sub-text">
+                                        {{_ 'pages-modal-create-details-form-budget-unit-euro' }}
+                                    </span>
+                                    {{> afFieldInput name='budget_money' type='text' placeholder=placeholders.budget_money class="pu-input" focusOnRender=budgetTypeChanged }}
+                                </span>
+                            </label>
+                            <span class="pu-sub-error">{{ afFieldMessage name='budget_money' }}</span>
+                        </div>
+                    {{/if }}
+
+                    <!-- Budget amount: hours -->
+                    {{#if partupEquals budgetType 'hours'}}
+                        <div class="pu-sub-validations {{#if afFieldIsInvalid name='budget_hours' }}pu-state-invalid{{/if}}">
+                            <label class="pu-sub-input pu-sub-input-half">
+                                <span class="pu-inputcontainer pu-inputcontainer-text">
+                                    <span class="pu-sub-text">
+                                        {{_ 'pages-modal-create-details-form-budget-unit-hours' }}
+                                    </span>
+                                    {{> afFieldInput name='budget_hours' type='text' placeholder=placeholders.budget_hours class="pu-input" focusOnRender=budgetTypeChanged }}
+                                </span>
+                            </label>
+                            <span class="pu-sub-error">{{ afFieldMessage name='budget_hours' }}</span>
+                        </div>
+                    {{/if }}
+
+                </div>
+
+                <!-- End date -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-create-details-form-end_date-label'}}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-create-details-form-end_date-tooltip' }}</p></span>
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
+                        <div class="pu-inputholder pu-inputholder-lefticon">
+                            <span class="pu-sub-input">
+                                {{> afFieldInput name='end_date' placeholder=placeholders.end_date class="pu-input pu-datepicker" type="bootstrap-datepicker" datePickerOptions=partupDatepickerOptions }}
+                                <a href="#" class="pu-sub-remove fa fa-remove" data-removedate></a>
+                            </span>
+                            <span class="pu-icon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                        <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
+                    </div>
+                </label>
+
+                <!-- Location -->
+                <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'pages-modal-create-details-form-location_input-label'}}</span>
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
+                    </div>
+                </label>
+
+                <!-- TODO: NETWORK IMPLEMENTATION
+                <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'pages-modal-create-details-form-network-label' }}</span>
+                    <div class="pu-inputholder pu-inputholder-righticon">
+                        <select class="pu-select">
+                            <option value="1">1. Aan Part-up.com (openbaar)</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
+                    </div>
+                    <a class="pu-hint pu-tooltip">
+                        <i class="fa fa-question-circle"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-create-details-form-network-tooltip' }}</p></span>
+                    </a>
+                </label>
+                -->
+
+                <!-- Image -->
+                <div class="pu-formfield">
+                    <span class="pu-label">{{_ 'pages-modal-create-details-image-label' }}</span>
+                    {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImage.currentImageId.get }}
+                    <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
+
+                    {{#with partupImage.focuspoint.get 'x'}}
+                        {{> afFieldInput name="focuspoint_x_input" value=. type="hidden" }}
+                    {{/with}}
+                    {{#with partupImage.focuspoint.get 'y'}}
+                        {{> afFieldInput name="focuspoint_y_input" value=. type="hidden" }}
+                    {{/with}}
+
+                    {{#if partupImage.uploaded.get }}
+
+                        <figure class="pu-imagepreview pu-imagepreview-cover {{#if draggingFocuspoint}}pu-imagepreview-draggingfocuspoint{{/if}}" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}" data-focuspoint-view>
+                            <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
+                                {{> Loader }}
+                            </div>
+                            {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImage.currentImageId.get view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
+                            <div class="pu-sub-buttons">
+                                <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
+                                    <span>{{_ 'pages-modal-create-details-image-button-overwrite'}}</span>
+                                    {{#if uploadingPicture}}
+                                        {{> SpinnerInverted}}
+                                    {{/if}}
+                                </label>
+                                <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </div>
+                        </figure>
+
+                    {{ else }}
+
+                        <div class="pu-upload pu-upload-large">
+                            <label for="imageFileInput" class="pu-button pu-button-secondary">
+                                <span>{{_ 'pages-modal-create-details-image-button'}}</span>
+                            </label>
+                            <span>{{_ 'pages-modal-create-details-image-validation'}}</span>
+                        </div>
+
+                        <p class="pu-textline"><span>{{_ 'pages-modal-create-details-suggestion-label'}}</span></p>
+                        {{#if partupImage.availableSuggestions.get }}
+                            {{> Gallery loading=galleryIsLoading pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter fp_update=onFocuspointUpdate }}
+                        {{ else }}
+                            <figure class="pu-gallery pu-gallery-placeholder">
+                                <div class="pu-sub-loadercontainer {{#if partupLoading 'suggesting-images' 'image-uploading' }}pu-sub-loadercontainer-active{{/if}}">
+                                    {{> Loader }}
+                                </div>
+                                <figcaption>
+                                    <p>{{_ 'pages-modal-create-details-suggestion-placeholder'}}</p>
+                                </figcaption>
+                            </figure>
+                        {{/if }}
+
+                    {{/if }}
+                </div>
+
+                <!-- Submit button -->
+                <footer class="pu-sub-modalfooter">
+                    <div class="pu-sub-footer-container">
+                        <button type="button" class="pu-button" data-submission-type="skip">{{_ 'pages-modal-create-details-form-submit-skip' }}</button>
+                        <span class="pu-sub-plain">{{_ 'pages-modal-create-details-form-submit-or'}}</span>
+                        <button type="submit" class="pu-button pu-button-arrow" data-submission-type="next">{{_ 'pages-modal-create-details-form-submit-next' }}</button>
+                    </div>
+                </footer>
+
+            {{/autoForm}}
+
+        </div>
+    </section>
+</template>

@@ -1,0 +1,39 @@
+<template name="DropdownProfile">
+    <a class="pu-button pu-button-avatar pu-button-header {{#if menuOpen}}pu-state-menu-active{{/if}}" data-toggle-menu>
+        <span>
+            <figure class="pu-avatar pu-avatar-small" style="{{#if userImage}}background-image:url('{{userImage.url store='360x360'}}');{{/if}}"></figure>
+            {{ currentUser.profile.name }}
+        </span>
+    </a>
+    <div class="pu-dropdown pu-dropdowns-profile pu-profilemenu {{#if menuOpen}}pu-dropdowns-active{{/if}}" data-clickoutside-close>
+        <!-- <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li> -->
+        <section>
+            <p>{{_ 'dropdowns-profile-title-upperpartups'}}</p>
+            <ul class="pu-list">
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>-</p>
+                    </a>
+                </li>
+            </ul>
+            <p>{{_ 'dropdowns-profile-title-supporterpartups'}}</p>
+            <ul class="pu-list">
+                <li class="pu-dropdownitem">
+                    <a href="">
+                        <figure class="pu-avatar"></figure>
+                        <p>-</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <footer>
+            <ul class="pu-headernav pu-list pu-list-horizontal">
+                <li><a class="pu-button pu-button-header" href="{{pathFor 'profile'}}">{{_ 'dropdowns-profile-button-myprofile'}}</a></li>
+                <li><a class="pu-button pu-button-header" href="">{{_ 'dropdowns-profile-button-settings'}}</a></li>
+                <li><a class="pu-button pu-button-header" href="" data-logout>{{_ 'dropdowns-profile-button-logout'}}</a></li>
+            </ul>
+        </footer>
+    </div>
+</template>

@@ -1,0 +1,26 @@
+<template name="modal_invite_to_partup">
+    <nav class="pu-header pu-header-modal">
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+            <i class="fa fa-times"></i>
+            {{_ 'pages-modal-invite_to_partup-closepage' }}
+        </a>
+    </nav>
+
+    <article class="pu-layout">
+        <section class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
+            <article class="pu-page pu-page-modal">
+                <div class="pu-composition pu-composition-defaultmodal">
+                    <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-invite_to_partup-title'}}</h2>
+                    <p>{{_ 'pages-modal-invite_to_partup-explanation'}}</p>
+                    <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.invite-to-partup">{{_ 'pages-modal-invite_to_partup-button_invite' }}</a>
+                </div>
+            </article>
+        </section>
+    </article>
+
+    {{#if partupPopupActive 'popup.invite-to-partup' }}
+        {{#contentFor "PopupContent"}}
+            {{> InviteToPartup }}
+        {{/contentFor}}
+    {{/if}}
+</template>

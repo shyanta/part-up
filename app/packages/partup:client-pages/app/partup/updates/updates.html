@@ -1,0 +1,39 @@
+<template name="app_partup_updates">
+    <div class="pu-page">
+        <div class="pu-composition pu-composition-partupdetailupdates">
+
+            <!-- new message popup -->
+            {{#if partupPopupActive 'popup.new-message' }}
+                {{#contentFor "PopupContent"}}
+                    {{> app_partup_updates_newmessage }}
+                {{/contentFor}}
+            {{/if}}
+
+            <!-- Header buttons -->
+            <header class="pu-pageheader">
+                <section>
+                    {{#if isLoggedIn }}
+                        <a class="pu-button pu-button-icon" href="#" data-popup="popup.new-message">
+                            <i class="fa fa-comment"></i>
+                            {{_ 'pages-app-partup-updates-new_message' }}
+                        </a>
+                    {{/if }}
+                </section>
+                <aside>{{> PartialDropdownUpdatesActions}}</aside>
+            </header>
+
+            <!-- For each update -->
+            {{#each updates }}
+                {{#if anotherDay . }}
+                    <section class="pu-sub-separator">
+                        {{ partupDatePartupTimeline created_at }}
+                        <span class="fa fa-long-arrow-down"></span>
+                    </section>
+                {{/if }}
+
+                {{> Update update=. expandedComments=false }}
+            {{/each }}
+
+        </div>
+    </div>
+</template>

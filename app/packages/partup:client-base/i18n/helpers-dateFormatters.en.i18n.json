@@ -1,0 +1,10 @@
+{
+    "base-helpers-dateFormatters-partup-activity-s": "Just now",
+    "base-helpers-dateFormatters-partup-activity-m": "1 min",
+    "base-helpers-dateFormatters-partup-activity-mm": "%d min",
+    "base-helpers-dateFormatters-partup-activity-h": "1 hour",
+    "base-helpers-dateFormatters-partup-activity-hh": "%d hours",
+
+    "base-helpers-dateFormatters-partup-timeline-d": "Yesterday",
+    "base-helpers-dateFormatters-partup-timeline-dd": "%d days ago"
+}

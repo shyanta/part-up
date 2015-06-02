@@ -1,0 +1,15 @@
+<template name="modal_register">
+
+    <nav class="pu-header pu-header-modal">
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+            {{>yield region="closeButton" }}
+        </a>
+    </nav>
+
+    <article class="pu-layout">
+        <section class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
+            {{> yield region='modal_register' }}
+        </section>
+    </article>
+
+</template>

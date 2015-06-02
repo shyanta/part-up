@@ -1,0 +1,42 @@
+<template name="modal_create_activities">
+    <section class="pu-page pu-page-modal pu-page-modal-haspager pu-page-modal-hasfixedfooter">
+
+        <!-- popup -->
+        {{#if partupPopupActive 'popup.create-activity' }}
+            {{#contentFor "PopupContent"}}
+                {{> modal_create_activities_adopt }}
+            {{/contentFor}}
+        {{/if}}
+
+        <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
+
+            <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-activities-heading-title'}}</h2>
+            <p class="pu-sub-activitiesparagraph">{{_ 'pages-modal-create-activities-heading-paragraph'}}</p>
+
+             <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.create-activity">{{_ 'pages-modal-create-activities-button-adopt_activities' }}</a>
+
+            {{> Activity CREATE=true createCallback=createCallback }}
+
+            <p class="pu-sub-activitiestitle">{{_ 'pages-modal-create-activities-list-heading' }}</p>
+
+            {{#if showActivityPlaceholder}}
+                {{> Activity activity=placeholderActivity CREATE_PARTUP=true READONLY=true }}
+            {{/if }}
+
+            {{#each partupActivities}}
+                {{> Activity activity=. CREATE_PARTUP=true isUpper=isUpper }}
+            {{/each}}
+
+            <!-- Continue button -->
+            <footer class="pu-sub-modalfooter {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-sub-modalfooter-fixed{{/if}}">
+                <div class="pu-sub-footer-container">
+                    <a href="{{pathFor 'create-promote' _id=currentPartupId }}" class="pu-button pu-button-arrow">
+                        {{_ 'pages-modal-create-activities-button-next_page' }}
+                    </a>
+                </div>
+            </footer>
+
+        </div>
+
+    </section>
+</template>

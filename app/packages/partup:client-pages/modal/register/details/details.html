@@ -1,0 +1,203 @@
+<template name="modal_register_details">
+
+    {{#contentFor "closeButton"}}
+        <i class="fa fa-forward"></i>
+        {{_ 'pages-modal-register-details-close'}}
+    {{/contentFor}}
+
+    <section class="pu-page pu-page-modal">
+
+        <div class="pu-composition pu-composition-defaultmodal pu-composition-register">
+
+            <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-register-details-maywegettoknowyou' firstName }}</h2>
+            <p>{{_ 'pages-modal-register-details-optionalexplanation' }}</p>
+
+
+            {{#autoForm schema=formSchema id="pages-modal-register-detailsForm" class="pu-form" doc=fieldsFromUser validation="submitThenBlur" }}
+
+                <!-- User avatar -->
+                <div class="pu-formfield">
+                    <span class="pu-label">{{_ 'pages-modal-register-details-form-image-label' }}</span>
+                    <div class="pu-upload">
+                        {{#if profilePictureUrl }}
+                            <!-- <img src="{{ profilePicture.url store='360x360'}}" alt="" data-image-placeholder class="pu-imagepreview"> -->
+                            <img src="{{ profilePictureUrl}}" alt="" data-image-placeholder class="pu-imagepreview">
+                        {{else}}
+                            <img src="/images/smile.png" alt="" data-image-placeholder class="pu-imagepreview">
+                        {{/if}}
+                        <button class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
+                            <span>{{_ 'pages-modal-register-details-form-image-button'}}</span>
+                            {{#if uploadingProfilePicture}}
+                                {{> SpinnerInverted}}
+                            {{/if}}
+                        </button>
+
+                        <input type="file" class="pu-fileinput" data-profile-picture-input>
+                        <!-- TODO DISABLED UNTIL IMPLEMENTED
+                            <p class="pu-paragraph">{{{_ 'pages-modal-register-details-form-image-import' }}}</p>
+                        -->
+                        {{> afFieldInput name="image" type="hidden" }}
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-register-details-form-description-label' }}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-description-tooltip' }}</p></span>
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3 }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                    </div>
+                </label>
+
+                <!-- Tags -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-register-details-form-tags_input-label'}}
+                        <a class="pu-hint pu-tooltip">
+                        <i class="fa fa-question-circle"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-tags_input-tooltip' }}</p></span>
+                    </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+                    </div>
+                </label>
+
+                <!-- Region -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-register-details-form-location_input-label' }}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-location_input-tooltip' }}</p></span>
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
+                    </div>
+                </label>
+
+                <!-- Socials -->
+                <fieldset class="pu-formfield">
+                    <label class="pu-label" for="pu-sub-facebookfield">
+                        {{_ 'pages-modal-register-details-form-socials-label' }}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-socials-tooltip' }}</p></span>
+                        </a>
+                    </label>
+
+
+                    <!-- Facebook -->
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook' }}pu-state-invalid{{/if}}">
+                        <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                            <label class="pu-input pu-input-preholder">
+                                <span>{{_ 'pages-modal-register-details-form-facebook-url-placeholder' }}</span>
+                                <span>{{> afFieldInput id='pu-sub-facebookfield' name='facebook'  }}</span>
+                            </label>
+
+                            <span class="pu-icon"><i class="fa fa-facebook"></i></span>
+                        </div>
+                        <span class="pu-sub-error">{{ afFieldMessage name='facebook' }}</span>
+                    </div>
+
+                    <!-- Twitter -->
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='twitter' }}pu-state-invalid{{/if}}">
+                        <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                            <label class="pu-input pu-input-preholder">
+                                <span>{{_ 'pages-modal-register-details-form-twitter-url-placeholder' }}</span>
+                                <span>{{> afFieldInput name='twitter' }}</span>
+                            </label>
+                            <span class="pu-icon"><i class="fa fa-twitter"></i></span>
+                        </div>
+                        <span class="pu-sub-error">{{ afFieldMessage name='twitter' }}</span>
+                    </div>
+
+                    <!-- Instagram -->
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='instagram' }}pu-state-invalid{{/if}}">
+                        <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                            <label class="pu-input pu-input-preholder">
+                                <span>{{_ 'pages-modal-register-details-form-instagram-url-placeholder' }}</span>
+                                <span>{{> afFieldInput name='instagram' }}</span>
+                            </label>
+                            <span class="pu-icon"><i class="fa fa-instagram"></i></span>
+                        </div>
+                        <span class="pu-sub-error">{{ afFieldMessage name='instagram' }}</span>
+                    </div>
+
+                    <!-- LinkedIn -->
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='linkedin' }}pu-state-invalid{{/if}}">
+                        <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                            <label class="pu-input pu-input-preholder">
+                                <span>{{_ 'pages-modal-register-details-form-linkedin-url-placeholder' }}</span>
+                                <span>{{> afFieldInput name='linkedin' }}</span>
+                            </label>
+                            <span class="pu-icon"><i class="fa fa-linkedin"></i></span>
+                        </div>
+                        <span class="pu-sub-error">{{ afFieldMessage name='linkedin' }}</span>
+                    </div>
+                </fieldset>
+
+                <!-- Site URL -->
+                <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'pages-modal-register-details-form-website-label' }}</span>
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='website' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='website' placeholder=placeholders.website class="pu-input" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='website' }}</span>
+                    </div>
+                </label>
+
+                <!-- Phone number -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-register-details-form-phonenumber-label' }}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-phonenumber-tooltip' }}</p></span>
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='phonenumber' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='phonenumber' placeholder=placeholders.phonenumber class="pu-input" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='phonenumber' }}</span>
+                    </div>
+                </label>
+
+                <!-- Skype username -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'pages-modal-register-details-form-skype-label' }}
+                        <a class="pu-hint pu-tooltip">
+                            <i class="fa fa-question-circle"></i>
+                            <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-skype-tooltip' }}</p></span>
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='skype' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='skype' placeholder=placeholders.skype class="pu-input" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='skype' }}</span>
+                    </div>
+                </label>
+
+                <!-- Submit form button -->
+                <footer>
+                    <button type="submit" class="pu-button">{{_ 'pages-modal-register-details-form-submit' }}</button>
+                </footer>
+            {{/autoForm}}
+
+        </div>
+
+    </section>
+
+</template>

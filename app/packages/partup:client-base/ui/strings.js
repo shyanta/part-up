@@ -8,7 +8,7 @@ Partup.ui.strings = {
      */
     slugify: function(stringToSlugify) {
 
-        if(typeof stringToSlugify !== 'string') {
+        if (typeof stringToSlugify !== 'string') {
             return stringToSlugify;
         }
 

@@ -1,0 +1,33 @@
+<template name="app_discover">
+
+    <article class="pu-layout">
+        <div class="pu-sub-pagecontainer">
+            <div class="pu-page">
+
+                <section class="pu-composition pu-composition-discover">
+                    <header>
+                        <h2 class="pu-title pu-title-home">
+                            Discover
+                        </h2>
+                    </header>
+
+                    <section>
+                        {{#if partups }}
+                            <ul class="pu-list pu-list-horizontal pu-list-discover">
+                                {{#each partups }}
+                                    <li>
+                                        {{> PartupTile partup = . }}
+                                    </li>
+                                {{/each }}
+                            </ul>
+                        {{ else }}
+                            <p>No partups added yet.</p>
+                        {{ /if }}
+                    </section>
+                </section>
+
+            </div>
+        </div>
+    </article>
+
+</template>

@@ -1,0 +1,38 @@
+{
+    "pages-modal-create-activities-heading-title": "Stap 2. Bepaal de activiteiten",
+    "pages-modal-create-activities-heading-paragraph": "Weet je al wat er moet gebeuren om er een groot succes van te maken? Het is niet erg als je nog niet precies alle activiteiten weet. De andere uppers gaan je straks helpen om de activiteiten aan te vullen.",
+
+    "pages-modal-create-activities-button-copy_activities": "Kopieer alle activiteiten van een bestaande part-up.",
+
+    "pages-modal-create-activities-form-name-label": "Voeg één activiteit tegelijk toe",
+    "pages-modal-create-activities-form-name-placeholder": "Tip: begin met een werkwoord",
+    "pages-modal-create-activities-form-name-validation": "maximaal %d tekens",
+    "pages-modal-create-activities-form-name-validation-left": "nog %d tekens",
+
+    "pages-modal-create-activities-form-description-label": "Beschrijf de activiteit",
+    "pages-modal-create-activities-form-description-placeholder": "Hou het kort en krachtig",
+    "pages-modal-create-activities-form-description-validation": "maximaal %d tekens",
+    "pages-modal-create-activities-form-description-validation-left": "nog %d tekens",
+
+    "pages-modal-create-activities-form-end_date-label": "Voeg eventueel een datum toe",
+    "pages-modal-create-activities-form-end_date-placeholder": "Voeg eventueel een datum toe",
+    "pages-modal-create-activities-form-end_date-validation": "Een datum in het verleden is niet mogelijk",
+
+    "pages-modal-create-activities-form-submit": "Voeg activiteit toe",
+    "pages-modal-create-activities-form-save": "Opslaan",
+    "pages-modal-create-activities-button-next_page": "Naar de volgende stap",
+    "pages-modal-create-activities-button-edit": "Wijzig activiteit",
+    "pages-modal-create-activities-button-remove": "Verwijderen",
+
+    "pages-modal-create-activities-placeholder-name": "Maak je eerste activiteit aan",
+    "pages-modal-create-activities-placeholder-description": "Maak hierboven je eerste activiteit aan om te beginnen.",
+
+    "pages-modal-create-activities-list-heading": "Overzicht toegevoegde activiteiten:",
+
+    "pages-modal-create-activities-copy-title": "Kopieer alle activiteiten van een bestaande Part-up",
+    "pages-modal-create-activities-copy-description": "Je hoeft het wiel niet altijd zelf uit te vinden. Zoek een part-up met een vegelijkbaar doel en neem de activiteiten over om een vliegende start te maken.",
+    "pages-modal-create-activities-copy-form-copy-label": "Van welke part-up wil je activiteiten kopiëren?",
+    "pages-modal-create-activities-copy-form-copy-placeholder": "Zoek een part-up",
+    "pages-modal-create-activities-copy-form-copy-confirm": "Kopieer activiteiten",
+    "pages-modal-create-activities-copy-close": "Sluiten"
+}

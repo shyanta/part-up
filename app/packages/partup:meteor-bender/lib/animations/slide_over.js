@@ -22,7 +22,7 @@ SlideOver = (function() {
   SlideOver.prototype.insertElement = function(node, next) {
     var start;
     start = this.constructor.INSERT[this.animation];
-    if(this.startCallback) this.startCallback();
+    if (this.startCallback) this.startCallback();
     $(node).insertBefore(next);
     return $(node).velocity({
       translateY: [0, start]
@@ -31,7 +31,7 @@ SlideOver = (function() {
       easing: 'ease-in-out',
       queue: false,
       complete: function () {
-        if(this[0].style.cssText.indexOf('translateY(0px)') > -1) {
+        if (this[0].style.cssText.indexOf('translateY(0px)') > -1) {
           this[0].style.cssText = '';
         }
       }
@@ -43,7 +43,7 @@ SlideOver = (function() {
     return setTimeout((function(_this) {
       return function() {
         return $('.velocity-animating').promise().done(function() {
-          if(typeof endCallback === 'function') endCallback();
+          if (typeof endCallback === 'function') endCallback();
           return $(node).remove();
         });
       };

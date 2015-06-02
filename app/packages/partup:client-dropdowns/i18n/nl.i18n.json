@@ -1,0 +1,22 @@
+{
+    "dropdowns-profile-title-upperpartups": "Upper Part-ups",
+    "dropdowns-profile-title-supporterpartups": "Supporter Part-ups",
+    "dropdowns-profile-button-myprofile": "Profiel",
+    "dropdowns-profile-button-settings": "Instellingen",
+    "dropdowns-profile-button-logout": "Uitloggen",
+
+    "dropdowns-notifications-button-opennotificationsdropdown": "Notificaties",
+    "dropdowns-notifications-placeholder-nonotifications": "Er zijn nog geen notificaties",
+    "dropdowns-notifications-button-managenotifications": "Beheer meldingen",
+
+    "dropdowns-updatesactions-option-default": "Alle updates",
+    "dropdowns-updatesactions-option-messages": "Alleen berichten",
+    "dropdowns-updatesactions-option-activities": "Alleen activiteiten updates",
+    "dropdowns-updatesactions-option-partup-changes": "Alleen part-up updates",
+    "dropdowns-updatesactions-option-contributions": "Alleen bijdrage updates",
+    "dropdowns-updatesactions-option-my-updates": "Mijn updates",
+
+    "dropdowns-activitiesactions-option-default": "Alle activiteiten",
+    "dropdowns-activitiesactions-option-my-activities": "Mijn activiteiten",
+    "dropdowns-activitiesactions-option-open-activities": "Open activiteiten"
+}

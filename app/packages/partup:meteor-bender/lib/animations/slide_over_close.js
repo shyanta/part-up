@@ -20,7 +20,7 @@ SlideOverClose = (function() {
   }
 
   SlideOverClose.prototype.insertElement = function(node, next) {
-    if(this.startCallback) this.startCallback();
+    if (this.startCallback) this.startCallback();
     return $(node).insertBefore(next);
   };
 
@@ -35,7 +35,7 @@ SlideOverClose = (function() {
       easing: 'ease-in-out',
       queue: false,
       complete: function() {
-        if(typeof endCallback === 'function') endCallback();
+        if (typeof endCallback === 'function') endCallback();
         return $(node).remove();
       }
     });

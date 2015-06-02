@@ -12,7 +12,7 @@ Partup.ui.elements = {
         $element = $(currentElement);
         var self = false;
         $(selector).each(function (idx, match) {
-            if(!self) {
+            if (!self) {
                 self = $element.get(0) === match;
                 return;
             }

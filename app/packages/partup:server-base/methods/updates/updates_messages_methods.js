@@ -34,7 +34,7 @@ Meteor.methods({
             }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'error-method-updates-messages-insert-failure');
+            throw new Meteor.Error(400, 'InsertFailure');
         }
     },
 
@@ -72,7 +72,7 @@ Meteor.methods({
             }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'error-method-updates-messages-insert-failure');
+            throw new Meteor.Error(400, 'InsertFailure');
         }
     }
 });

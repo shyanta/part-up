@@ -3,7 +3,7 @@
 /*************************************************************/
 // if more than one route needs the same settings (for Abstract route behaviour)
 // Redirects cause buggy browser back button
-var settingsWithName = function(settingsObj, name){
+var settingsWithName = function(settingsObj, name) {
     settingsObj.name = name;
     return settingsObj;
 };
@@ -14,12 +14,12 @@ var settingsWithName = function(settingsObj, name){
 Router.route('/', {
     name: 'home',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        'PagesHome': { to: 'app-page' }
+        'app':      {to: 'main'},
+        'app_home': {to: 'app'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
     }
@@ -31,13 +31,12 @@ Router.route('/', {
 Router.route('/discover', {
     name: 'discover',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesDiscover': { to: 'app-page' }
+        'app':          {to: 'main'},
+        'app_discover': {to: 'app'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
         this.subscribe('images.all');
@@ -45,22 +44,21 @@ Router.route('/discover', {
 });
 
 /*************************************************************/
-/* Profile */
+/* Profile (on hold) */
 /*************************************************************/
 var profileSettings = {
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesProfile': { to: 'app-page' }
+        'app': {to: 'main'},
+        'PagesProfile': {to: 'app'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
     },
-    onBeforeAction: function(){
-        if(!this.params._id){
+    onBeforeAction: function() {
+        if (!this.params._id) {
             this.params._id = Meteor.userId();
         }
         this.next();
@@ -68,23 +66,20 @@ var profileSettings = {
 };
 // Abstract route behaviour, redirects cause buggy back buttons in browser
 Router.route('/profile', settingsWithName(profileSettings, 'profile'));
-Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
-
-
+// Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
 
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
 var partupSettings = {
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailUpdates': { to: 'partup-page' }
+        'app':                {to: 'main'},
+        'app_partup':         {to: 'app'},
+        'app_partup_updates': {to: 'app_partup'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         var partupId = this.params._id;
 
         this.subscribe('notifications.user');
@@ -96,7 +91,7 @@ var partupSettings = {
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
         var image;
-        if(partup) {
+        if (partup) {
             image = Images.findOne({_id: partup.image});
         }
         return {
@@ -118,30 +113,29 @@ var partupSettings = {
                 'description': partup.description
             }
         };
-        if(image) {
+        if (image) {
             seoMetaData.meta.image = image.url();
         }
         SEO.set(seoMetaData);
     }
 };
+
 // this way both /partups/id and partups/id/updates are the default updates page
 // Abstract route behaviour, redirects cause buggy back buttons in browser
 Router.route('/partups/:_id', settingsWithName(partupSettings, 'partup'));
-Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-detail'));
+Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-updates'));
 
 Router.route('/partups/:_id/updates/:update_id', {
-    name: 'partup-detail-update',
+    name: 'partup-update',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailUpdatesItemDetail': { to: 'partup-page' }
+        'app':               {to: 'main'},
+        'app_partup':        {to: 'app'},
+        'app_partup_update': {to: 'app_partup'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         var partupId = this.params._id;
-        // var updateId = this.params.update_id;
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
@@ -152,7 +146,7 @@ Router.route('/partups/:_id/updates/:update_id', {
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
         var image;
-        if(partup) {
+        if (partup) {
             image = Images.findOne({_id: partup.image});
         }
         return {
@@ -163,16 +157,15 @@ Router.route('/partups/:_id/updates/:update_id', {
 });
 
 Router.route('/partups/:_id/activities', {
-    name: 'partup-detail-activities',
+    name: 'partup-activities',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesApp': { to: 'page' },
-        // 'PagesUnderConstruction': { to: 'app-page' }
-        'PagesPartupDetail': { to: 'app-page' },
-        'PagesPartupDetailActivities': { to: 'partup-page' }
+        'app':                   {to: 'main'},
+        'app_partup':            {to: 'app'},
+        'app_partup_activities': {to: 'app_partup'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         var partupId = this.params._id;
 
         this.subscribe('notifications.user');
@@ -183,7 +176,7 @@ Router.route('/partups/:_id/activities', {
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
         var image;
-        if(partup) {
+        if (partup) {
             image = Images.findOne({_id: partup.image});
         }
         return {
@@ -197,85 +190,83 @@ Router.route('/partups/:_id/activities', {
 /* Invite uppers */
 /*************************************************************/
 Router.route('/partups/:_id/invite', {
-    name: 'partup-detail-invite',
+    name: 'partup-invite',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesPartupInviteUppers': { to: 'modal-page' },
-        // 'PagesPartupInviteUppers': { to: 'register-page' }
+        'modal':                  {to: 'main'},
+        'modal_invite_to_partup': {to: 'modal'},
     },
-    subscriptions: function () {
+    subscriptions: function() {
         // this.subscribe('users.count');
     }
 });
 
 /*************************************************************/
-/* Start Partup */
+/* Create Partup */
 /*************************************************************/
 Router.route('/start', {
-    name: 'start',
+    name: 'create',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesStartPartupIntro': { to: 'modal-page' }
+        'modal':              {to: 'main'},
+        'modal_create_intro': {to: 'modal'}
     }
 });
 
 Router.route('/start/details', {
-    name: 'start-details',
+    name: 'create-details',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesStartPartup': { to: 'modal-page' },
-        'PagesStartPartupDetails': { to: 'start-partup-page' }
+        'modal':                {to: 'main'},
+        'modal_create':         {to: 'modal'},
+        'modal_create_details': {to: 'modal_create'}
     },
-    subscriptions: function () {
-        var partupId = Session.get('partials.start-partup.current-partup');
+    subscriptions: function() {
+        var partupId = Session.get('partials.create-partup.current-partup');
         this.subscribe('partups.one', partupId);
     }
 });
 
 Router.route('/start/:_id/activities', {
-    name: 'start-activities',
+    name: 'create-activities',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesStartPartup': { to: 'modal-page' },
-        'PagesStartPartupActivities': { to: 'start-partup-page' }
+        'modal':                   {to: 'main'},
+        'modal_create':            {to: 'modal'},
+        'modal_create_activities': {to: 'modal_create'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
         this.subscribe('partups.one.activities', this.params._id);
         this.subscribe('partups.list');
     },
     action: function() {
-        Session.set('partials.start-partup.current-partup', this.params._id);
+        Session.set('partials.create-partup.current-partup', this.params._id);
         this.render();
     }
 });
 
 Router.route('/start/:_id/promote', {
-    name: 'start-promote',
+    name: 'create-promote',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesStartPartup': { to: 'modal-page' },
-        'PagesStartPartupPromote': { to: 'start-partup-page' }
+        'modal':                {to: 'main'},
+        'modal_create':         {to: 'modal'},
+        'modal_create_promote': {to: 'modal_create'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
     },
     action: function() {
-        Session.set('partials.start-partup.current-partup', this.params._id);
+        Session.set('partials.create-partup.current-partup', this.params._id);
         this.render();
     }
 });
-
 
 /*************************************************************/
 /* Login flow */
@@ -283,13 +274,12 @@ Router.route('/start/:_id/promote', {
 Router.route('/login', {
     name: 'login',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesLogin': { to: 'modal-page' }
+        'modal':       {to: 'main'},
+        'modal_login': {to: 'modal'}
     }
 });
-
 
 /*************************************************************/
 /* Password reset */
@@ -297,23 +287,22 @@ Router.route('/login', {
 Router.route('/forgot-password', {
     name: 'forgot-password',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesForgotPassword': { to: 'modal-page' }
+        'modal':                {to: 'main'},
+        'modal_forgotpassword': {to: 'modal'}
     }
 });
 
 Router.route('/reset-password/:token', {
     name: 'reset-password',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesResetPassword': { to: 'modal-page' }
+        'modal':               {to: 'main'},
+        'modal_resetpassword': {to: 'modal'}
     }
 });
-
 
 /*************************************************************/
 /* Verify Account */
@@ -321,13 +310,13 @@ Router.route('/reset-password/:token', {
 Router.route('/verify-email/:token', {
     name: 'verify-email',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesApp': { to: 'page' }
+        'app': {to: 'main'}
     },
-    onBeforeAction: function () {
-        Accounts.verifyEmail(Router.current().params.token, function (error) {
-            if(error) {
+    onBeforeAction: function() {
+        Accounts.verifyEmail(Router.current().params.token, function(error) {
+            if (error) {
                 Partup.ui.notify.iError('error-ss-invalidEmailVerificationToken');
             } else {
                 Partup.ui.notify.iSuccess('error-ss-invalidEmailVerificationToken');
@@ -338,20 +327,19 @@ Router.route('/verify-email/:token', {
     }
 });
 
-
 /*************************************************************/
 /* Register flow */
 /*************************************************************/
 Router.route('/register', {
     name: 'register',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesRegister': { to: 'modal-page' },
-        'PagesRegisterRequired': { to: 'register-page' }
+        'modal':                 {to: 'main'},
+        'modal_register':        {to: 'modal'},
+        'modal_register_create': {to: 'modal_register'}
     },
-    subscriptions: function () {
+    subscriptions: function() {
         this.subscribe('users.count');
     }
 });
@@ -359,28 +347,13 @@ Router.route('/register', {
 Router.route('/register/details', {
     name: 'register-details',
     where: 'client',
-    layoutTemplate: 'LayoutsMain',
+    layoutTemplate: 'main',
     yieldRegions: {
-        'PagesModal': { to: 'page' },
-        'PagesRegister': { to: 'modal-page' },
-        'PagesRegisterOptional': { to: 'register-page' }
+        'modal':                  {to: 'main'},
+        'modal_register':         {to: 'modal'},
+        'modal_register_details': {to: 'modal_register'}
     }
 });
-
-
-/*************************************************************/
-/* Styleguide */
-/*************************************************************/
-Router.route('/styleguide', {
-    name: 'styleguide',
-    where: 'client',
-    layoutTemplate: 'LayoutsMain',
-    yieldRegions: {
-        'PagesApp': { to: 'page' },
-        'PagesStyleguide': { to: 'app-page' }
-    }
-});
-
 
 /*************************************************************/
 /* Close route */
@@ -388,59 +361,57 @@ Router.route('/styleguide', {
 Router.route('/close', {
     name: 'close',
     where: 'client',
-    onBeforeAction: function () {
+    onBeforeAction: function() {
         window.close();
     }
 });
 
-
 /*************************************************************/
 /* Route protection */
 /*************************************************************/
-Router.onBeforeAction(function () {
+Router.onBeforeAction(function() {
     if (!Meteor.userId()) {
         var route = this.route.getName();
         var params = this.route.params();
         var options = this.route.options;
 
-        Partup.ui.intent.go({ route: 'login' }, function (success) {
-            if(success) {
+        Partup.ui.intent.go({route: 'login'}, function(success) {
+            if (success) {
                 Router.go(route, params, options);
             } else {
                 Partup.ui.intent.executeIntentCallback(route);
             }
         });
-    }
-    else {
+    } else {
         this.next();
     }
 }, {
     only: [
-        'start',
-        'start-details',
-        'start-activities',
-        'start-contribute',
-        'start-promote',
+        'create',
+        'create-details',
+        'create-activities',
+        'create-contribute',
+        'create-promote',
         'register-details'
     ]
 });
-// reset start-partup id to reset the start partup flow
-Router.onBeforeAction(function () {
-    Session.set('partials.start-partup.current-partup', undefined);
+// reset create-partup id to reset the create partup flow
+Router.onBeforeAction(function() {
+    Session.set('partials.create-partup.current-partup', undefined);
     this.next();
 }, {
     except: [
-        'start-details',
-        'start-activities',
-        'start-contribute',
-        'start-promote'
+        'create-details',
+        'create-activities',
+        'create-contribute',
+        'create-promote'
     ]
 });
 
 /*************************************************************/
 /* Miscellaneous */
 /*************************************************************/
-if(Meteor.isClient) {
+if (Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
         Partup.ui.focuslayer.disable();

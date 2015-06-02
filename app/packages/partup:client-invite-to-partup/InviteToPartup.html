@@ -1,0 +1,45 @@
+<template name="InviteToPartup">
+    {{#contentFor "PopupTitle"}}
+        {{_ 'inviteuppers-popup-title'}}
+    {{/contentFor}}
+    <p>{{_ 'inviteuppers-popup-explaination'}}</p>
+
+    {{#autoForm schema=formSchema id="inviteUppersForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
+        <div class="pu-formfield pu-formfield-double">
+            <label class="pu-formfield-left">
+                <span class="pu-label">{{_ 'inviteuppers-popup-input-name'}}</span>
+                <div class="pu-sub-validations">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput name='name' class="pu-input" }}
+                    </span>
+                    <span class="pu-sub-error">ERROR</span>
+                </div>
+            </label>
+            <label class="pu-formfield-right">
+                <span class="pu-label">{{_ 'inviteuppers-popup-input-email'}}</span>
+                <div class="pu-sub-validations">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput name='email' class="pu-input" }}
+                    </span>
+                    <span class="pu-sub-error">ERROR</span>
+                </div>
+            </label>
+        </div>
+        <!-- NEEDS IMPLEMENTATION -->
+        <!-- <label class="pu-formfield">
+            <span class="pu-label">{{_ 'inviteuppers-popup-input-message'}}</span>
+            <div class="pu-sub-validations">
+                <span class="pu-sub-input">
+                    {{> afFieldInput name='message' class="pu-textarea"  rows=8 }}
+                </span>
+                <span class="pu-sub-error">ERROR</span>
+            </div>
+        </label> -->
+        <div class="pu-formfield">
+            <div class="pu-formfield-right">
+                <a class="pu-button pu-button-text pu-button-text-subtle" data-close>{{_ 'inviteuppers-popup-close'}}</a>
+                <input class="pu-button" type="submit" value="{{_ 'inviteuppers-popup-form-copy-confirm'}}">
+            </div>
+        </div>
+    {{/autoForm}}
+</template>

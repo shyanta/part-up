@@ -13,14 +13,14 @@ None = (function() {
   None.animations = ['none'];
 
   None.prototype.insertElement = function(node, next) {
-    if(typeof this.startCallback === 'function') this.startCallback();
+    if (typeof this.startCallback === 'function') this.startCallback();
     return $(node).insertBefore(next);
   };
 
   None.prototype.removeElement = function(node) {
     var endCallback = this.endCallback;
     setTimeout(function () {
-      if(typeof endCallback === 'function') endCallback();
+      if (typeof endCallback === 'function') endCallback();
     });
     return $(node).remove();
   };

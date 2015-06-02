@@ -1,5 +1,3 @@
-*.swp
-
 # NPM
 app/packages/*/.npm
 
@@ -14,14 +12,18 @@ _builds/
 _projects/
 _steps/
 
-# generated packages
+# Generated packages
 app/packages/tests-proxy/
 
-# generated version file
+# Generated version file
 app/public/VERSION
 
-# backups
+# Backups
 backups
 
-# saved pictures
+# Saved pictures
 app/uploads
+
+# Temp files
+*.swp
+*.orig
