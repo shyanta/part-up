@@ -356,19 +356,6 @@ Router.route('/register/details', {
 });
 
 /*************************************************************/
-/* Styleguide */
-/*************************************************************/
-Router.route('/styleguide', {
-    name: 'styleguide',
-    where: 'client',
-    layoutTemplate: 'main',
-    yieldRegions: {
-        'app': {to: 'main'},
-        'PagesStyleguide': {to: 'page-app'}
-    }
-});
-
-/*************************************************************/
 /* Close route */
 /*************************************************************/
 Router.route('/close', {
