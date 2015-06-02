@@ -21,57 +21,93 @@ Package.onUse(function(api) {
     var clientFiles = [
         'package-tap.i18n',
 
+        // App
         'app/app.html',
         'app/app.js',
+        'app/templates/header.html',
+        'app/templates/header.js',
+        'app/templates/footer.html',
+
+        // App:home
         'app/home/home.html',
         'app/home/home.js',
+
+        // App:discover
         'app/discover/discover.html',
         'app/discover/discover.js',
+
+        // App:partup
         'app/partup/partup.html',
         'app/partup/partup.js',
         'app/partup/templates/navigation.html',
         'app/partup/templates/navigation.js',
         'app/partup/templates/sidebar.html',
         'app/partup/templates/sidebar.js',
+
+        // App:partup:updates
         'app/partup/updates/updates.html',
         'app/partup/updates/updates.js',
         'app/partup/updates/newmessage/newmessage.html',
         'app/partup/updates/newmessage/newmessage.js',
         'app/partup/update/update.html',
         'app/partup/update/update.js',
+
+        // App:partup:activities
         'app/partup/activities/activities.html',
         'app/partup/activities/activities.js',
+
+        // Modal
         'modal/modal.html',
         'modal/modal.js',
+
+        // Modal:login
         'modal/login/login.html',
         'modal/login/login.js',
+
+        // Modal:register
         'modal/register/register.html',
         'modal/register/register.js',
         'modal/register/create/create.html',
         'modal/register/create/create.js',
         'modal/register/details/details.html',
         'modal/register/details/details.js',
+
+        // Modal:forgot/resetpasword
         'modal/forgotpassword/forgotpassword.html',
         'modal/forgotpassword/forgotpassword.js',
         'modal/resetpassword/resetpassword.html',
         'modal/resetpassword/resetpassword.js',
+
+        // Modal:invite_to_partup
         'modal/invite_to_partup/invite_to_partup.html',
         'modal/invite_to_partup/invite_to_partup.js',
+
+        // Modal:create_intro
         'modal/create_intro/create_intro.html',
         'modal/create_intro/create_intro.js',
+
+        // Modal:create
         'modal/create/create.html',
         'modal/create/create.js',
+
+        // Modal:create:details
         'modal/create/details/details.html',
         'modal/create/details/details.js',
+
+        // Modal:create:activities
         'modal/create/activities/activities.html',
         'modal/create/activities/activities.js',
         'modal/create/activities/adopt/adopt.html',
         'modal/create/activities/adopt/adopt.js',
+
+        // Modal:create:promote
         'modal/create/promote/promote.html',
         'modal/create/promote/promote.js',
     ];
 
     var languageFiles = [
+        'i18n/app.en.i18n.json',
+        'i18n/app.nl.i18n.json',
         'i18n/app-home.en.i18n.json',
         'i18n/app-home.nl.i18n.json',
         'i18n/app-discover.en.i18n.json',

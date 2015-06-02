@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Partial events */
 /*************************************************************/
-Template.PartialsAppHeader.events({
+Template.app_header.events({
 
     'click [data-action-start]': function eventActionStart () {
         var currentUrl = Router.current().url;

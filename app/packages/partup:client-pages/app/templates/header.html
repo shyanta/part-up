@@ -1,4 +1,4 @@
-<template name="PartialsAppHeader">
+<template name="app_header">
     <header class="pu-header">
         <section>
             <ul class="pu-headernav pu-list pu-list-horizontal">
@@ -6,20 +6,20 @@
                     <!-- Logo -->
                     <a class="pu-button pu-button-header pu-button-header-brand" href="{{pathFor 'home'}}">
                         <figure class="pu-brand">
-                            <h1>Part-up</h1>
+                            <h1>{{_ 'pages-app-title' }}</h1>
                         </figure>
                     </a>
                 </li>
                 <li>
                     <!-- Button: menu -->
                     <a class="pu-button pu-button-header" href="{{pathFor 'discover'}}">
-                        <i class="fa fa-th-large"></i> {{_ 'header-discover' }}
+                        <i class="fa fa-th-large"></i> {{_ 'pages-app-discover' }}
                     </a>
                 </li>
                 <li>
                     <!-- Button: menu -->
                     <a class="pu-button pu-button-header" data-action-start>
-                        <i class="fa fa-flag"></i> {{_ 'header-start-partup' }}
+                        <i class="fa fa-flag"></i> {{_ 'pages-app-start_partup' }}
                     </a>
                 </li>
             </ul>
