@@ -205,7 +205,7 @@ Router.route('/partups/:_id/invite', {
 /*************************************************************/
 /* Create Partup */
 /*************************************************************/
-Router.route('/create', {
+Router.route('/start', {
     name: 'create',
     where: 'client',
     layoutTemplate: 'main',
@@ -215,7 +215,7 @@ Router.route('/create', {
     }
 });
 
-Router.route('/create/details', {
+Router.route('/start/details', {
     name: 'create-details',
     where: 'client',
     layoutTemplate: 'main',
@@ -230,7 +230,7 @@ Router.route('/create/details', {
     }
 });
 
-Router.route('/create/:_id/activities', {
+Router.route('/start/:_id/activities', {
     name: 'create-activities',
     where: 'client',
     layoutTemplate: 'main',
@@ -250,7 +250,7 @@ Router.route('/create/:_id/activities', {
     }
 });
 
-Router.route('/create/:_id/promote', {
+Router.route('/start/:_id/promote', {
     name: 'create-promote',
     where: 'client',
     layoutTemplate: 'main',
