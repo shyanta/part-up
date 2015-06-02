@@ -101,7 +101,7 @@ AutoForm.addHooks(null, {
     onSubmit: function(doc){
         if (!/editContributionForm-/.test(this.formId)) return;
 
-        var template = this.template.parentTemplate();
+        var template = this.template.parent();
         template.updateContribution(doc, function(error){
             if (error){
                 console.error(error);

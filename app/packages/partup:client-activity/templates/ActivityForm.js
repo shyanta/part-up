@@ -95,7 +95,7 @@ AutoForm.addHooks(null, {
         if (!/^activity(Create|Edit)Form/.test(this.formId)) return;
 
         var self = this;
-        var template = self.template.parentTemplate();
+        var template = self.template.parent();
 
         if (template.data && template.data.activity) {
             Meteor.call('activities.update', template.data.activity._id, doc, function(error) {

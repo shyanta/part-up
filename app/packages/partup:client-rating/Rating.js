@@ -67,7 +67,7 @@ AutoForm.addHooks(null, {
         if (!/rating(Create|Edit)Form/.test(this.formId)) return;
 
         var self = this;
-        var template = this.template.parentTemplate();
+        var template = this.template.parent();
         var method = 'ratings.insert';
         var id = template.contribution._id;
 
