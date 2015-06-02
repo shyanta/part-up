@@ -1,4 +1,4 @@
-<template name="PartialsPartupDetailSidebar">
+<template name="app_partup_sidebar">
     <header class="pu-partupheader">
         <figure class="pu-sub-picture" style="{{#if partupCover}}background-image: url('{{ partupCover.url }}');{{/if}}" data-partupcover-focuspoint></figure>
         <h1>{{ partup.name }}</h1>
@@ -10,7 +10,7 @@
                     <p class="pu-sub-abstract">{{ partup.description }}</p>
                 </section>
                 <section>
-                    <h2>{{_ 'partup-detail-uppers-title' }}</h2>
+                    <h2>{{_ 'pages-app-partup-uppers_title' }}</h2>
                     <ul class="pu-list pu-list-users">
                         {{#each partupUppers }}
                             <li>
@@ -21,11 +21,11 @@
                     </ul>
                     <a data-invite class="pu-button pu-button-icon">
                         <i class="fa fa-user-plus"></i>
-                        {{_ 'partup-detail-uppers-invitebutton' }}
+                        {{_ 'pages-app-partup-uppers_invitebutton' }}
                     </a>
                 </section>
                 <section>
-                    <p>{{{_ 'partup-detail-status-text' prettyEndDate partup.location.city prettyVisibility partup.network.name }}}</p>
+                    <p>{{{_ 'pages-app-partup-status_text' prettyEndDate partup.location.city prettyVisibility partup.network.name }}}</p>
                     <ul class="pu-list pu-list-horizontal pu-list-tags">
                         {{#each partup.tags }}
                             <li><a href="" class="pu-tag pu-tag-inverted">{{ . }}</a></li>
@@ -37,7 +37,7 @@
         <section class="pu-sub-light">
             <div class="pu-sidebar-wrap">
                 <section>
-                    <h2>{{_ 'partup-detail-supporters-title'}} ({{ numberOfSupporters }})</h2>
+                    <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
                     <ul class="pu-list pu-list-horizontal pu-list-avatars">
                         {{#each partupSupporters }}
                             <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure></li>
@@ -47,18 +47,18 @@
                         {{#if isSupporter }}
                             <a data-leavesupporters class="pu-button">
                                 <i class="fa fa-times"></i>
-                                {{_ 'partup-detail-supporters-leave' }}
+                                {{_ 'pages-app-partup-supporters_leave' }}
                             </a>
                         {{ else }}
                             <a data-joinsupporters class="pu-button">
                                 <i class="fa fa-bullhorn"></i>
-                                {{_ 'partup-detail-supporters-join' }}
+                                {{_ 'pages-app-partup-supporters_join' }}
                             </a>
                         {{/if}}
                     {{/unless}}
                 </section>
                 <section>
-                    <p>{{_ 'partup-detail-share-paragraph' }}</p>
+                    <p>{{_ 'pages-app-partup-share_paragraph' }}</p>
                     <ul class="pu-list pu-list-horizontal">
                         <li><a class="pu-button pu-button-social" data-share-facebook><i class="fa fa-facebook"></i></a></li>
                         <li><a class="pu-button pu-button-social" data-share-twitter><i class="fa fa-twitter"></i></a></li>

@@ -220,7 +220,7 @@ var partupDetailLayout = {
 /*************************************************************/
 /* Partial rendered */
 /*************************************************************/
-Template.PartialsPartupDetailSidebar.onRendered(function(){
+Template.app_partup_sidebar.onRendered(function(){
     var template = this;
 
     partupDetailLayout.init();
@@ -244,7 +244,7 @@ Template.PartialsPartupDetailSidebar.onRendered(function(){
 /*************************************************************/
 /* Partial helpers */
 /*************************************************************/
-Template.PartialsPartupDetailSidebar.helpers({
+Template.app_partup_sidebar.helpers({
 
     prettyEndDate: function helperPrettyEndDate() {
         var partup = this.partup();
@@ -284,7 +284,7 @@ Template.PartialsPartupDetailSidebar.helpers({
 /*************************************************************/
 /* Partial events */
 /*************************************************************/
-Template.PartialsPartupDetailSidebar.events({
+Template.app_partup_sidebar.events({
 
     'click [data-joinsupporters]': function clickJoinSupporters() {
         Meteor.call('partups.supporters.insert', Router.current().params._id);
