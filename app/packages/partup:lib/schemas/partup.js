@@ -59,6 +59,10 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    activity_count: {
+        type: Number,
+        defaultValue: 0
+    },
     created_at: {
         type: Date,
         defaultValue: new Date()
