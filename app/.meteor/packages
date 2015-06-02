@@ -25,6 +25,8 @@ partup:client-ratings
 partup:client-spinner
 partup:client-update
 partup:client-usercard
+partup:client-forgotpassword
+partup:client-resetpassword
 partup:client-widgets-intro
 partup:client-widgets-login
 partup:client-widgets-startactivities

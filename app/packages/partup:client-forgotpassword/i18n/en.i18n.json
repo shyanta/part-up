@@ -1,0 +1,14 @@
+{
+    "forgotpassword-heading": "Can't login?",
+    "forgotpassword-paragraph": "Forgot your password? No problem. Just enter the email address you signed up with. We'll send you an email with a link to easily reset your password.",
+    "forgotpassword-form-email-label": "Email address",
+    "forgotpassword-form-email-placeholder": "What is your email address?",
+
+    "forgotpassword-form-submit": "Send reset link",
+
+    "forgotpassword-backtologin": "I think I remember my password",
+
+    "forgotpassword-instructionssent-heading": "Check your inbox!",
+    "forgotpassword-instructionssent-paragraph": "Use the link in the email we send you to reset your password. Didn't receive the email yet? Wait for a minute and don't forget to check your spam folder.",
+    "forgotpassword-instructionssent-backtologin": "Back to homepage"
+}
