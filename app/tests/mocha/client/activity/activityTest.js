@@ -4,7 +4,7 @@ if (!(typeof MochaWeb === 'undefined')) {
             var template;
             beforeEach(function() {
                 var template = document.createElement('div');
-                var comp = Blaze.renderWithData(Template.WidgetActivity, {
+                var comp = Blaze.renderWithData(Template.Activity, {
                     activity: function() {return false},
                     edit: function() {return true},
                     CREATE: function() {return true},
@@ -41,7 +41,7 @@ if (!(typeof MochaWeb === 'undefined')) {
 
             beforeEach(function() {
                 template = document.createElement('div');
-                var comp = Blaze.renderWithData(Template.WidgetActivity, {
+                var comp = Blaze.renderWithData(Template.Activity, {
                     activity: function() {return activityStub},
                     edit: function() {return true},
                     COMMENTS_LINK: function() {return true},

@@ -169,7 +169,7 @@ if (!(typeof MochaWeb === 'undefined')) {
 
             beforeEach(function() {
                 template = document.createElement('div');
-                var comp = Blaze.renderWithData(Template.PartialsPartupDetailSidebar, {
+                var comp = Blaze.renderWithData(Template.app_partup_sidebar, {
                     partup: function() {return partupStub},
                     partupSupporters: function() {return usersStub},
                     partupUppers: function() {return usersStub},
