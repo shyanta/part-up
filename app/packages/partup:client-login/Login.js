@@ -1,8 +1,8 @@
 var placeholders = {
-    'email': function () {
+    'email': function() {
         return __('login-form-email-placeholder');
     },
-    'password': function () {
+    'password': function() {
         return __('login-form-password-placeholder');
     }
 };
@@ -24,7 +24,7 @@ Template.Login.events({
             requestPermissions: ['email']
         }, function(error) {
 
-            if(error) {
+            if (error) {
                 Partup.ui.notify.iError('generic-error');
                 return;
             }
@@ -37,7 +37,7 @@ Template.Login.events({
             requestPermissions: ['r_emailaddress']
         }, function(error) {
 
-            if(error) {
+            if (error) {
                 Partup.ui.notify.iError('generic-error');
                 return false;
             }
@@ -52,13 +52,13 @@ Template.Login.events({
 /*************************************************************/
 var continueLogin = function() {
     var user = Meteor.user();
-    if(!user) return;
+    if (!user) return;
 
     var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
 
     // Intent
-    Partup.ui.intent.executeIntentCallback('login', [true], function () {
-        if(!optionalDetailsFilledIn) {
+    Partup.ui.intent.executeIntentCallback('login', [true], function() {
+        if (!optionalDetailsFilledIn) {
 
             // Fill-in optional details
             Router.go('register-details');
@@ -83,7 +83,7 @@ AutoForm.hooks({
             Meteor.loginWithPassword(insertDoc.email, insertDoc.password, function(error) {
 
                 // Error cases
-                if(error && error.message) {
+                if (error && error.message) {
                     switch (error.message) {
                         case 'User not found [403]':
                             Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');

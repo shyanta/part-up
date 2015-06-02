@@ -5,7 +5,7 @@ Package.describe({
     documentation: null
 });
 
-Package.onUse(function (api) {
+Package.onUse(function(api) {
     api.use([
         'templating',
         'partup:lib'
