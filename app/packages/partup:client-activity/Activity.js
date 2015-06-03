@@ -1,3 +1,4 @@
+// jscs:disable
 /**
  * Widget to render a single activity
  *
@@ -15,6 +16,7 @@
  * @param {Boolean} CREATE_PARTUP   Whether the widget is being rendered in the start partup flow
  * @param {Boolean} UPDATE_LINK   Whether the widget is being rendered in the start partup flow
  */
+// jscs:enable
 
 /*************************************************************/
 /* Widget initial */
@@ -42,7 +44,8 @@ Template.Activity.onCreated(function() {
                 if (!elm) return;
 
                 var offset = elm.offset().top;
-                var elmIsCompletelyInView = offset >= window.scrollY && offset + elm.outerHeight() <= window.scrollY + window.innerHeight;
+                var elmIsCompletelyInView = offset >= window.scrollY &&
+                    offset + elm.outerHeight() <= window.scrollY + window.innerHeight;
 
                 if (!elmIsCompletelyInView) {
                     var max = $(document).height() - window.innerHeight;
