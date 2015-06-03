@@ -26,20 +26,20 @@ Template.ActivityForm.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.ActivityForm.helpers({
-    schema: Partup.schemas.forms.startActivities,
-    placeholders: Partup.services.placeholders.activity,
-    generateFormId: function() {
-        if (this.CREATE) {
-            return 'activityCreateForm';
-        }
-        return 'activityEditForm-' + this.activity._id;
-    },
     charactersLeftName: function() {
         return Template.instance().charactersLeft.get('name');
     },
     charactersLeftDescription: function() {
         return Template.instance().charactersLeft.get('description');
     },
+    generateFormId: function() {
+        if (this.CREATE) {
+            return 'activityCreateForm';
+        }
+        return 'activityEditForm-' + this.activity._id;
+    },
+    placeholders: Partup.services.placeholders.activity,
+    schema: Partup.schemas.forms.startActivities,
     showExtraFields: function() {
         return Template.instance().showExtraFields.get();
     }
