@@ -15,8 +15,10 @@ Template.ActivityForm.onCreated(function() {
 
     if (this.data.activity) {
         var ac = this.data.activity;
-        this.charactersLeft.set('name', maxLength.name - (ac.name ? ac.name.length : 0));
-        this.charactersLeft.set('description', maxLength.description - (ac.description ? ac.description.length : 0));
+        var nameLength = maxLength.name - (ac.name ? ac.name.length : 0);
+        var descLength = maxLength.description - (ac.description ? ac.description.length : 0);
+        this.charactersLeft.set('name', nameLength);
+        this.charactersLeft.set('description', descLength);
     }
 });
 
@@ -112,7 +114,8 @@ AutoForm.addHooks(null, {
                 self.done();
             });
         } else {
-            var partupId = Session.get('partials.create-partup.current-partup') || Router.current().params._id;
+            var partupId = Session.get('partials.create-partup.current-partup') ||
+                Router.current().params._id;
 
             Meteor.call('activities.insert', partupId, doc, function(error, output) {
                 if (error && error.message) {
