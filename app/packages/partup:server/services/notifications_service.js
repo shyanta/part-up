@@ -1,9 +1,10 @@
 /**
- @namespace Partup notifications service
- @name Partup.services.notifications
- @memberOf partup.services
+ @namespace Partup server notifications service
+ @name Partup.server.services.notifications
+ @memberOf partup.server.services
  */
-Partup.services.notifications = {
+Partup.server.services.notifications = {
+
     /**
      * Make a new notification
      *
@@ -16,9 +17,9 @@ Partup.services.notifications = {
         var options = options || {};
         var notification = {};
 
-        if (!options.userId) return callback(new Error('Required argument [options.userId] is missing for method [Partup.services.notifications::send]'));
-        if (!options.type) return callback(new Error('Required argument [options.type] is missing for method [Partup.services.notifications::send]'));
-        if (!options.typeData) return callback(new Error('Required argument [options.typeData] is missing for method [Partup.services.notifications::send]'));
+        if (!options.userId) return callback(new Error('Required argument [options.userId] is missing for method [Partup.server.services.notifications::send]'));
+        if (!options.type) return callback(new Error('Required argument [options.type] is missing for method [Partup.server.services.notifications::send]'));
+        if (!options.typeData) return callback(new Error('Required argument [options.typeData] is missing for method [Partup.server.services.notifications::send]'));
 
         notification.for_upper_id = options.userId;
         notification.type = options.type;
@@ -28,4 +29,5 @@ Partup.services.notifications = {
 
         Notifications.insert(notification, callback);
     }
+
 };
