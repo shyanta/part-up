@@ -27,8 +27,8 @@ Package.onUse(function(api) {
     ], ['server'], {isAsset: true});
 
     api.addFiles([
-        'namespace.js',
         'logs.js',
+        'namespace.js',
         'bootstrap.js',
         'accounts.js',
         'helpers/collection.js',
