@@ -83,7 +83,7 @@ Template.ActivityForm.events({
     'click [data-activity-close]': function(event, template) {
         template.data.edit.set(false);
     },
-    'click [data-removedate]': function eventsClickRemoveDate (event, template) {
+    'click [data-activity-remove-date]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();
         template.find('[name=end_date]').value = '';
     }
