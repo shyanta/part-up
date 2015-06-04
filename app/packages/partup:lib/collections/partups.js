@@ -16,6 +16,26 @@ Partup.prototype.isRemovableBy = function(user) {
 };
 
 /**
+ * Check if given user is a supporter of this partup
+ *
+ * @param {String} partupId
+ * @return {Boolean}
+ */
+Partup.prototype.hasSupporter = function(userId) {
+    return mout.lang.isString(userId) && this.supporters.indexOf(userId) > -1;
+};
+
+/**
+ * Check if given user is an upper in this partup
+ *
+ * @param {String} partupId
+ * @return {Boolen}
+ */
+Partup.prototype.hasUpper = function(userId) {
+    return mout.lang.isString(userId) && this.uppers.indexOf(userId) > -1;
+};
+
+/**
  @namespace Partups
  @name Partups
  */
