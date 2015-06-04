@@ -61,9 +61,12 @@ Package.onUse(function(api) {
         'transformers/user.js',
         'transformers/update.js',
         'transformers/contributions.js',
-        'helpers/parselocale.js',
-        'startup/default_profile_pictures.js'
+        'helpers/parselocale.js'
     ]);
+
+    api.addFiles([
+        'startup/default_profile_pictures.js'
+    ], ['server']);
 
     for (var i = 1; i <= 15; i++) {
         api.addFiles('private/default_profile_pictures/Profielfoto' + i + '.png', 'server', {isAsset: true});
