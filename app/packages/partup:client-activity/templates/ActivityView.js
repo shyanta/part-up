@@ -9,9 +9,6 @@ Template.ActivityView.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.ActivityView.helpers({
-    expanded: function() {
-        return this.EXPANDED || (Template.instance().expanded.get() && !!this.CONTRIBUTIONS);
-    },
     commentsCount: function() {
         var update = Updates.findOne({_id: this.activity.update_id});
         if (!update) return;
@@ -24,6 +21,15 @@ Template.ActivityView.helpers({
 
         if (!this.activity) return;
         return Contributions.find({activity_id: this.activity._id, archived: {$ne: true}});
+    },
+    expanded: function() {
+        return this.EXPANDED || (Template.instance().expanded.get() && !!this.CONTRIBUTIONS);
+    },
+    showChevron: function() {
+        return this.CONTRIBUTIONS && !this.EXPANDED && !this.contribution_id;
+    },
+    showEditButton: function() {
+        return !this.READONLY && this.isUpper;
     },
     showMetaData: function() {
         return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
@@ -50,12 +56,6 @@ Template.ActivityView.helpers({
     },
     upper: function(event, template) {
         return Meteor.users.findOne({_id: this.upper_id});
-    },
-    showEditButton: function() {
-        return !this.READONLY && this.isUpper;
-    },
-    showChevron: function() {
-        return this.CONTRIBUTIONS && !this.EXPANDED && !this.contribution_id;
     }
 });
 
