@@ -24,3 +24,14 @@ Partups = new Mongo.Collection('partups', {
         return new Partup(document);
     }
 });
+
+/**
+ * Partups collection helpers
+ */
+Partups.prototype.recent = function(options) {
+    var criteria = {sort: {created_at: -1}, limit: 10};
+
+    options = mout.object.merge(options, criteria);
+
+    return this.find({}, options);
+};

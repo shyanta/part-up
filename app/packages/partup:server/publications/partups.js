@@ -19,11 +19,7 @@ Meteor.publishComposite('partups.all', function() {
 });
 
 Meteor.publish('partups.recent', function() {
-    return Partups.find({}, {sort: {createdAt: -1}, limit: 3});
-});
-
-Meteor.publish('partups.supported', function() {
-    return Partups.find({});
+    return Partups.recent({limit:3});
 });
 
 Meteor.publish('partups.list', function() {
