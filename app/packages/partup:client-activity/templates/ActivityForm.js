@@ -49,7 +49,7 @@ Template.ActivityForm.helpers({
 /* Widget events */
 /*************************************************************/
 Template.ActivityForm.events({
-    'click [data-extra-fields-button]': function(event, template) {
+    'click [data-activity-extra-fields]': function(event, template) {
         event.preventDefault();
         template.showExtraFields.set(true);
     },
@@ -80,7 +80,7 @@ Template.ActivityForm.events({
         var target = event.target;
         template.charactersLeft.set(target.name, maxLength[target.name] - target.value.length);
     },
-    'click [data-close]': function(event, template) {
+    'click [data-activity-close]': function(event, template) {
         template.data.edit.set(false);
     },
     'click [data-removedate]': function eventsClickRemoveDate (event, template) {
