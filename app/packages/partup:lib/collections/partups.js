@@ -1,7 +1,7 @@
 /**
  * Partup model
  */
-Partup = function(document) {
+var Partup = function(document) {
     _.extend(this, document);
 };
 

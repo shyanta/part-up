@@ -5,7 +5,7 @@
 Partup = Partup || {};
 
 /**
- @namespace Server
+ @namespace server
  @name partup.server
  */
 Partup.server = {};

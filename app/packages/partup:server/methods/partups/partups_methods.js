@@ -75,7 +75,7 @@ Meteor.methods({
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (!partup.isRemovableBy(user))
+        if (!partup.isRemovableBy(user)) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
