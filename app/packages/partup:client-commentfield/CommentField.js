@@ -71,10 +71,6 @@ Template.CommentField.helpers({
             hiddenComments && !commentsExpanded;
     },
 
-    currentUser: function helperUser() {
-        return Meteor.user();
-    },
-
     systemMessage: function helperSystemMessage (content) {
         return __('comment-field-content-' + content);
     }
