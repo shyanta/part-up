@@ -1,5 +1,21 @@
-Meteor.publish('partups.all', function() {
-    return Partups.find({});
+Meteor.publishComposite('partups.all', function() {
+    return {
+        find: function() {
+            return Partups.find({});
+        },
+        children: [
+            {
+                find: function(partup) {
+                    var uppers = partup.uppers || [];
+
+                    // We only want to publish the first x uppers as can be seen in the design
+                    uppers = uppers.slice(0, 4);
+
+                    return Meteor.users.find({ uppers: { $in: uppers }}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                }
+            }
+        ]
+    };
 });
 
 Meteor.publish('partups.recent', function() {
