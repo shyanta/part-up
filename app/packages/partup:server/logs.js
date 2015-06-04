@@ -2,7 +2,7 @@ var winston = Npm.require('winston');
 
 var transports = [];
 
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'acceptance') {
+if (process.env.NODE_ENV.match(/development|staging|acceptance/)) {
     transports.push(new (winston.transports.Console)({level: 'debug', prettyPrint: true, colorize: true, debugStdout: true}));
 }
 
