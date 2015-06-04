@@ -70,6 +70,14 @@ Accounts.onCreateUser(function(options, user) {
         Log.error(error.message);
     }
 
+    if (!profile.image) {
+        var query = {'meta.default_profile_picture': true};
+        var count = Images.count(query);
+        var random = Math.floor(Math.random() * count);
+        var image = Images.find(query).limit(1).skip(random);
+        profile.image = image._id;
+    }
+
     user.profile = profile;
 
     return user;

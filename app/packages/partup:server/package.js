@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:server-base',
+    name: 'partup:server',
     version: '0.0.1',
     summary: '',
     git: '',

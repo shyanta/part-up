@@ -6,7 +6,7 @@
 
 partup:lib
 
-partup:server-base
+partup:server
 partup:client-base
 partup:client-pages
 
