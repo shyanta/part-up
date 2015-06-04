@@ -14,6 +14,7 @@ Package.onUse(function(api) {
         'cfs:standard-packages',
         'email',
         'http',
+        'iron:router',
         'mongo',
         'partup:lib',
         'reywood:publish-composite',
