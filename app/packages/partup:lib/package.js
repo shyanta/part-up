@@ -61,8 +61,13 @@ Package.onUse(function(api) {
         'transformers/user.js',
         'transformers/update.js',
         'transformers/contributions.js',
-        'helpers/parselocale.js'
+        'helpers/parselocale.js',
+        'startup/default_profile_pictures.js'
     ]);
+
+    for (var i = 1; i <= 15; i++) {
+        api.addFiles('private/default_profile_pictures/Profielfoto' + i + '.png', 'server', {isAsset: true});
+    }
 
     // Namespace
     api.export('Partup');
