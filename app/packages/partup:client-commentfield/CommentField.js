@@ -36,30 +36,14 @@ Template.CommentField.onRendered(function() {
 });
 
 Template.CommentField.helpers({
-    placeholders: Partup.services.placeholders.commentfield,
-    generateFormId: function() {
-        return 'commentForm-' + this.update._id;
-    },
-
-    formSchema: Partup.schemas.forms.updateComment,
-
-    // commentInputFieldExpanded: function helperCommentInputFieldExpanded() {
-    //     return commentInputFieldExpandedDict.get(this.update._id) ? 'pu-state-expanded' : '';
-    // },
-
     commentPostButtonActive: function helperCommentPostButtonActive() {
         return commentPostButtonActiveDict.get(this.update._id);
     },
-
-    shownComments: function helperShownComments() {
-        var allComments = this.update.comments || [];
-        var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        if (commentsExpanded || Template.instance().data.expandedComments)
-            return allComments;
-        else
-            return allComments.slice(-MAX_COLLAPSED_COMMENTS);
+    formSchema: Partup.schemas.forms.updateComment,
+    generateFormId: function() {
+        return 'commentForm-' + this.update._id;
     },
-
+    placeholders: Partup.services.placeholders.commentfield,
     showExpandButton: function helperShowExpandButton() {
         var hiddenComments = 0;
         if (this.update && this.update.comments && this.update.comments_count) {
@@ -70,7 +54,14 @@ Template.CommentField.helpers({
             false :
             hiddenComments && !commentsExpanded;
     },
-
+    shownComments: function helperShownComments() {
+        var allComments = this.update.comments || [];
+        var commentsExpanded = commentsExpandedDict.get(this.update._id);
+        if (commentsExpanded || Template.instance().data.expandedComments)
+            return allComments;
+        else
+            return allComments.slice(-MAX_COLLAPSED_COMMENTS);
+    },
     systemMessage: function helperSystemMessage (content) {
         return __('comment-field-content-' + content);
     }
