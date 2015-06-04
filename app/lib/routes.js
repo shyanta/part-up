@@ -415,10 +415,8 @@ Router.onBeforeAction(function() {
 /*************************************************************/
 if (Meteor.isClient) {
     Router.onBeforeAction(function() {
-        if (Meteor.isClient) {
-            window.scrollTo(0, 0);
-            Partup.ui.focuslayer.disable();
-        }
+        window.scrollTo(0, 0);
+        Partup.ui.focuslayer.disable();
         this.next();
     });
 }
