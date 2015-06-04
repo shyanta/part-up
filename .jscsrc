@@ -3,5 +3,6 @@
     "requireCurlyBraces": null,
     "validateIndentation": 4,
     "requireCamelCaseOrUpperCaseIdentifiers": null,
-    "maximumLineLength": 100
+    "maximumLineLength": 100,
+    "requireSemicolons": true
 }
