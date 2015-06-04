@@ -29,8 +29,8 @@ Meteor.methods({
         var comments = update.comments || [];
 
         try {
-            // Check if the comment is made on an activity or contribution to change update title, or leave it as it is
-            // Also leave the upper_id to the original user if it's not
+            // Check if the comment is made on an activity or contribution to change update title,
+            // or leave it as it is. Also leave the upper_id to the original user if it's not
             var updateFields = {
                 updated_at: new Date(),
                 type: update.type
@@ -54,8 +54,14 @@ Meteor.methods({
             });
 
             // Make user Supporter if its not yet an Upper or Supporter of the Partup
-            var isUpperInPartup = Partups.findOne({_id: update.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
-            var isUpperSupporterInPartup = Partups.findOne({_id: update.partup_id, supporters: {$in: [upper._id]}}) ? true : false;
+            var isUpperInPartup = !!Partups.findOne({
+                _id: update.partup_id,
+                uppers: {$in: [upper._id]}
+            });
+            var isUpperSupporterInPartup = !!Partups.findOne({
+                _id: update.partup_id,
+                supporters: {$in: [upper._id]}
+            });
 
             if (!isUpperInPartup && !isUpperSupporterInPartup) {
                 var partup = Partups.findOneOrFail(update.partup_id);
@@ -69,7 +75,7 @@ Meteor.methods({
 
             return {
                 _id: comment._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'updates-comments-insert-failure');
