@@ -66,7 +66,7 @@ Template.ActivityView.events({
     'click [data-activity-edit]': function(event, template) {
         template.data.edit.set(true);
     },
-    'click [data-expander]': function(event, template) {
+    'click [data-activity-expander]': function(event, template) {
         var opened = template.expanded.get();
         template.expanded.set(!opened);
     }
