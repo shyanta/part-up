@@ -28,7 +28,7 @@ Partups = new Mongo.Collection('partups', {
 /**
  * Partups collection helpers
  */
-Partups.prototype.recent = function(options) {
+Partups.recent = function(options) {
     var criteria = {sort: {created_at: -1}, limit: 10};
 
     options = mout.object.merge(options, criteria);
