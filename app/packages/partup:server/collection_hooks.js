@@ -12,7 +12,7 @@ var equal = Npm.require('deeper');
 var basicAfterInsert = function(namespace) {
     return function(userId, document) {
         Event.emit(namespace + '.inserted', userId, document);
-    }
+    };
 };
 
 /**
@@ -41,7 +41,7 @@ var basicAfterUpdate = function(namespace) {
                 Event.emit(namespace + '.' + key + '.changed', userId, document, value);
             });
         }
-    }
+    };
 };
 
 /**
@@ -54,7 +54,7 @@ var basicAfterUpdate = function(namespace) {
 var basicAfterRemove = function(namespace) {
     return function(userId, document) {
         Event.emit(namespace + '.removed', userId, document);
-    }
+    };
 };
 
 // Partup Events

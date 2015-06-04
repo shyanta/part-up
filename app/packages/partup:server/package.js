@@ -27,7 +27,8 @@ Package.onUse(function(api) {
     ], ['server'], {isAsset: true});
 
     api.addFiles([
-        'logs.js',
+        'logger.js',
+        'namespace.js',
         'bootstrap.js',
         'accounts.js',
         'helpers/collection.js',
@@ -51,8 +52,8 @@ Package.onUse(function(api) {
         'event_handlers/partups/partups_image_changed_handler.js',
         'event_handlers/users/users_settings_handler.js',
         'event_handlers/activities/activities_handler.js',
-        'event_handlers/activities/contributions_handler.js',
-        'event_handlers/activities/ratings_handler.js',
+        'event_handlers/contributions/contributions_handler.js',
+        'event_handlers/ratings/ratings_handler.js',
         'fixtures.js',
         'publications/notifications.js',
         'publications/partups.js',
@@ -62,8 +63,8 @@ Package.onUse(function(api) {
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
-        'methods/activities/contributions_methods.js',
-        'methods/activities/ratings_methods.js',
+        'methods/contributions/contributions_methods.js',
+        'methods/ratings/ratings_methods.js',
         'methods/partups/partups_methods.js',
         'methods/partups/partups_supporters_methods.js',
         'methods/users/users_methods.js',

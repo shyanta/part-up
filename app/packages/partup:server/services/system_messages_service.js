@@ -1,9 +1,10 @@
 /**
- @namespace Partup system messages service
- @name Partup.services.system_messages
- @memberOf partup.services
+ @namespace Partup server system messages service
+ @name Partup.server.services.system_messages
+ @memberOf partup.server.services
  */
-Partup.services.system_messages = {
+Partup.server.services.system_messages = {
+
     /**
      * Create a system message
      *
@@ -43,4 +44,5 @@ Partup.services.system_messages = {
             throw new Meteor.Error(400, 'system-message-insert-failure');
         }
     }
+
 };

@@ -9,20 +9,20 @@ Meteor.methods({
 
         check(fields, Partup.schemas.forms.startPartup);
 
-        var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
             var newPartup = Partup.transformers.partup.fromFormStartPartup(fields);
-            newPartup.uppers = [upper._id];
-            newPartup.creator_id = upper._id;
+            newPartup.uppers = [user._id];
+            newPartup.creator_id = user._id;
             newPartup.created_at = new Date();
 
             //check(newPartup, Partup.schemas.entities.partup);
 
             newPartup._id = Partups.insert(newPartup);
-            Meteor.users.update(upper._id, {$push: {'partups': newPartup._id}});
-            Meteor.users.update(upper._id, {$push: {'upperOf': newPartup._id}});
+            Meteor.users.update(user._id, {$push: {'partups': newPartup._id}});
+            Meteor.users.update(user._id, {$push: {'upperOf': newPartup._id}});
 
             return {
                 _id: newPartup._id
@@ -44,11 +44,11 @@ Meteor.methods({
 
         check(fields, Partup.schemas.forms.startPartup);
 
-        var upper = Meteor.user();
+        var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
         var uppers = partup.uppers || [];
 
-        if (!upper || uppers.indexOf(upper._id) === -1) {
+        if (!partup.isEditableBy(user)) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
@@ -72,10 +72,10 @@ Meteor.methods({
      * @param {string} partupId
      */
     'partups.remove': function(partupId) {
-        var upper = Meteor.user();
+        var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (!upper || partup.creator_id !== upper._id) {
+        if (!partup.isRemovableBy(user)) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
@@ -105,10 +105,10 @@ Meteor.methods({
      * @param  {String} name
      */
     'partups.invite': function(partupId, email, name) {
-        var upper = Meteor.user();
+        var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (!upper) {
+        if (!user) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
@@ -131,7 +131,7 @@ Meteor.methods({
                 name: name,
                 partupName: partup.name,
                 partupDescription: partup.description,
-                inviterName: upper.name,
+                inviterName: user.name,
                 url: url
             })
         });
@@ -141,9 +141,10 @@ Meteor.methods({
             name: name,
             email: email
         };
+
         Partups.update(partupId, {$push: {'invites': invite}});
 
-        Event.emit('partups.invited', upper._id, partupId, email, name);
+        Event.emit('partups.invited', user._id, partupId, email, name);
 
         return true;
     },
@@ -156,11 +157,10 @@ Meteor.methods({
     'partups.search': function(searchValue) {
         check(searchValue, String);
 
-        var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        var user = Meteor.user();
 
-        if (!searchValue) {
-            return Partups.find({});
+        if (!user) {
+            throw new Meteor.Error(401, 'Unauthorized.');
         }
 
         console.log('Searching for ', searchValue);
