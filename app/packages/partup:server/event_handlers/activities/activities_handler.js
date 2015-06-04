@@ -1,3 +1,6 @@
+/**
+ * Generate a Partup update when an activity is inserted
+ */
 Event.on('partups.activities.inserted', function(userId, activity) {
     if (!userId) return;
 
@@ -12,6 +15,9 @@ Event.on('partups.activities.inserted', function(userId, activity) {
     Activities.update({_id: activity._id}, {$set: {update_id: updateId}});
 });
 
+/**
+ * Generate a Partup update when an activity is updated
+ */
 Event.on('partups.activities.updated', function(userId, activity, oldActivity) {
     if (!userId) return;
     if (!oldActivity.update_id) return;
@@ -25,6 +31,9 @@ Event.on('partups.activities.updated', function(userId, activity, oldActivity) {
     Updates.update({_id: activity.update_id}, {$set: set});
 });
 
+/**
+ * Generate a Partup update when an activity is removed
+ */
 Event.on('partups.activities.removed', function(userId, activity) {
     if (!userId) return;
     if (!activity.update_id) return;
@@ -38,6 +47,9 @@ Event.on('partups.activities.removed', function(userId, activity) {
     Updates.update({_id: activity.update_id}, {$set: set});
 });
 
+/**
+ * Generate a Partup update when an activity is archived
+ */
 Event.on('partups.activities.archived', function(userId, activity) {
     if (!userId) return;
     if (!activity.update_id) return;
@@ -51,6 +63,9 @@ Event.on('partups.activities.archived', function(userId, activity) {
     Updates.update({_id: activity.update_id}, {$set: set});
 });
 
+/**
+ * Generate a Partup update when an activity is unarchived
+ */
 Event.on('partups.activities.unarchived', function(userId, activity) {
     if (!userId) return;
     if (!activity.update_id) return;
