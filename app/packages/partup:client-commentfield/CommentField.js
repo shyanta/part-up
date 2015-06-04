@@ -10,7 +10,6 @@ var commentsExpandedDict = new ReactiveDict();
 var commentInputFieldExpandedDict = new ReactiveDict();
 var commentPostButtonActiveDict = new ReactiveDict();
 
-
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
@@ -67,7 +66,9 @@ Template.CommentField.helpers({
             hiddenComments = this.update.comments_count - MAX_COLLAPSED_COMMENTS > 0;
         }
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        return Template.instance().data.expandedComments ? false : hiddenComments && !commentsExpanded;
+        return Template.instance().data.expandedComments ?
+            false :
+            hiddenComments && !commentsExpanded;
     },
 
     currentUser: function helperUser() {
@@ -111,7 +112,7 @@ AutoForm.addHooks(null, {
         if (formNameParts.length !== 2 || formNameParts[0] !== 'commentForm') return;
         var updateId = formNameParts[1];
 
-        Meteor.call('updates.comments.insert', updateId, insertDoc, function (error, result) {
+        Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             if (error) {
                 return Partup.ui.notify.error(__('error-method-' + error.reason));
             } else {
