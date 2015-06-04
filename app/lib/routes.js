@@ -370,7 +370,7 @@ Router.route('/close', {
 /* Route protection */
 /*************************************************************/
 Router.onBeforeAction(function() {
-    if (!Meteor.userId()) {
+    if (!Meteor.userId() && Meteor.isClient) {
         var route = this.route.getName();
         var params = this.route.params();
         var options = this.route.options;
@@ -397,7 +397,9 @@ Router.onBeforeAction(function() {
 });
 // reset create-partup id to reset the create partup flow
 Router.onBeforeAction(function() {
-    Session.set('partials.create-partup.current-partup', undefined);
+    if (Meteor.isClient) {
+        Session.set('partials.create-partup.current-partup', undefined);
+    }
     this.next();
 }, {
     except: [
@@ -413,8 +415,10 @@ Router.onBeforeAction(function() {
 /*************************************************************/
 if (Meteor.isClient) {
     Router.onBeforeAction(function() {
-        window.scrollTo(0, 0);
-        Partup.ui.focuslayer.disable();
+        if (Meteor.isClient) {
+            window.scrollTo(0, 0);
+            Partup.ui.focuslayer.disable();
+        }
         this.next();
     });
 }
