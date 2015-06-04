@@ -67,13 +67,13 @@ Template.Activity.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.Activity.helpers({
+    createCallback: function() {
+        return this.createCallback;
+    },
     edit: function() {
         return Template.instance().edit;
     },
     showForm: function() {
         return !this.READONLY && (!!this.CREATE || Template.instance().edit.get());
-    },
-    createCallback: function() {
-        return this.createCallback;
     }
 });
