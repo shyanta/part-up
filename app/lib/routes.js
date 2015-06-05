@@ -1,4 +1,11 @@
 /*************************************************************/
+/* Configurations */
+/*************************************************************/
+Router.configure({
+    layoutTemplate: 'main'
+});
+
+/*************************************************************/
 /* Router Helpers */
 /*************************************************************/
 // if more than one route needs the same settings (for Abstract route behaviour)
@@ -14,7 +21,6 @@ var settingsWithName = function(settingsObj, name) {
 Router.route('/', {
     name: 'home',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'app':      {to: 'main'},
         'app_home': {to: 'app'}
@@ -31,7 +37,6 @@ Router.route('/', {
 Router.route('/discover', {
     name: 'discover',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'app':          {to: 'main'},
         'app_discover': {to: 'app'}
@@ -48,7 +53,6 @@ Router.route('/discover', {
 /*************************************************************/
 var profileSettings = {
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'app': {to: 'main'},
         'PagesProfile': {to: 'app'}
@@ -73,7 +77,6 @@ Router.route('/profile', settingsWithName(profileSettings, 'profile'));
 /*************************************************************/
 var partupSettings = {
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'app':                {to: 'main'},
         'app_partup':         {to: 'app'},
@@ -128,7 +131,6 @@ Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-u
 Router.route('/partups/:_id/updates/:update_id', {
     name: 'partup-update',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'app':               {to: 'main'},
         'app_partup':        {to: 'app'},
@@ -159,7 +161,6 @@ Router.route('/partups/:_id/updates/:update_id', {
 Router.route('/partups/:_id/activities', {
     name: 'partup-activities',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'app':                   {to: 'main'},
         'app_partup':            {to: 'app'},
@@ -192,7 +193,6 @@ Router.route('/partups/:_id/activities', {
 Router.route('/partups/:_id/invite', {
     name: 'partup-invite',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':                  {to: 'main'},
         'modal_invite_to_partup': {to: 'modal'},
@@ -208,7 +208,6 @@ Router.route('/partups/:_id/invite', {
 Router.route('/start', {
     name: 'create',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':              {to: 'main'},
         'modal_create_intro': {to: 'modal'}
@@ -218,7 +217,6 @@ Router.route('/start', {
 Router.route('/start/details', {
     name: 'create-details',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':                {to: 'main'},
         'modal_create':         {to: 'modal'},
@@ -233,7 +231,6 @@ Router.route('/start/details', {
 Router.route('/start/:_id/activities', {
     name: 'create-activities',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':                   {to: 'main'},
         'modal_create':            {to: 'modal'},
@@ -253,7 +250,6 @@ Router.route('/start/:_id/activities', {
 Router.route('/start/:_id/promote', {
     name: 'create-promote',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':                {to: 'main'},
         'modal_create':         {to: 'modal'},
@@ -274,7 +270,6 @@ Router.route('/start/:_id/promote', {
 Router.route('/login', {
     name: 'login',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':       {to: 'main'},
         'modal_login': {to: 'modal'}
@@ -287,7 +282,6 @@ Router.route('/login', {
 Router.route('/forgot-password', {
     name: 'forgot-password',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':                {to: 'main'},
         'modal_forgotpassword': {to: 'modal'}
@@ -297,7 +291,6 @@ Router.route('/forgot-password', {
 Router.route('/reset-password/:token', {
     name: 'reset-password',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':               {to: 'main'},
         'modal_resetpassword': {to: 'modal'}
@@ -310,7 +303,6 @@ Router.route('/reset-password/:token', {
 Router.route('/verify-email/:token', {
     name: 'verify-email',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'app': {to: 'main'}
     },
@@ -333,7 +325,6 @@ Router.route('/verify-email/:token', {
 Router.route('/register', {
     name: 'register',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':                 {to: 'main'},
         'modal_register':        {to: 'modal'},
@@ -347,7 +338,6 @@ Router.route('/register', {
 Router.route('/register/details', {
     name: 'register-details',
     where: 'client',
-    layoutTemplate: 'main',
     yieldRegions: {
         'modal':                  {to: 'main'},
         'modal_register':         {to: 'modal'},
