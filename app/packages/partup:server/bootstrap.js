@@ -31,3 +31,6 @@ Partups._ensureIndex({
 Router.route('/ping', function() {
     this.response.end();
 }, {where: 'server'});
+
+// Kick off the cronjobs
+SyncedCron.start();
