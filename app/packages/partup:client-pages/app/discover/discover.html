@@ -2,7 +2,7 @@
 
     <article class="pu-layout">
         <div class="pu-sub-pagecontainer">
-            <div class="pu-page">
+            <div class="pu-page pu-page-full">
 
                 <section class="pu-composition pu-composition-discover">
                     <header>
@@ -13,21 +13,14 @@
                         </h2>
                     </header>
                     {{#if partups }}
-                        {{> ReactiveLayout items=partups }}
+                        {{> ReactiveLayout
+                            items=partups
+                            columns=4
+                            columnClass="pu-column"
+                            templateName="PartupTile"
+                            templateDataKey="partup"
+                        }}
                     {{/if}}
-                    <!-- <section>
-                        {{#if partups }}
-                            <ul class="pu-list pu-list-horizontal pu-list-discover">
-                                {{#each partups }}
-                                    <li>
-                                        {{> PartupTile partup = . }}
-                                    </li>
-                                {{/each }}
-                            </ul>
-                        {{ else }}
-                            <p>No partups added yet.</p>
-                        {{ /if }}
-                    </section> -->
                 </section>
 
             </div>
