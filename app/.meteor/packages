@@ -71,3 +71,4 @@ tmeasday:publish-counts
 velocity:console-reporter
 zimme:iron-router-active
 percolate:synced-cron
+partup:client-reactive-layout
