@@ -120,6 +120,8 @@ var partupSettings = {
             seoMetaData.meta.image = image.url();
         }
         SEO.set(seoMetaData);
+
+        Meteor.call('partups.analytics.click', partup._id);
     }
 };
 
