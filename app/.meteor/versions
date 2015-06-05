@@ -114,6 +114,7 @@ partup:newrelic@0.0.1
 partup:server@0.0.1
 pauli:accounts-linkedin@1.1.2
 pauli:linkedin@1.1.2
+percolate:synced-cron@1.2.1
 percolate:velocityjs@1.0.0
 practicalmeteor:chai@1.9.2_3
 practicalmeteor:loglevel@1.1.0_3
