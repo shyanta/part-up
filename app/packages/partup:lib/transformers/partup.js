@@ -50,7 +50,7 @@ Partup.transformers.partup = {
         };
 
         // Save focuspoint
-        Partup.services.images.storeFocuspoint(partup.image, fields.focuspoint_x_input || 0, fields.focuspoint_y_input || 0);
+        Partup.server.services.images.storeFocuspoint(partup.image, fields.focuspoint_x_input || 0, fields.focuspoint_y_input || 0);
 
         return partup;
     }

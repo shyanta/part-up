@@ -63,7 +63,7 @@ Meteor.methods({
             Activities.update(activityId, {$set: updatedActivity});
 
             // Post system message
-            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_updated');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_activities_updated');
 
             return {
                 _id: activity._id
@@ -98,7 +98,7 @@ Meteor.methods({
             });
 
             // Post system message
-            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_removed');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_activities_removed');
 
             return {
                 _id: activity._id
@@ -126,7 +126,7 @@ Meteor.methods({
             Activities.update(activityId, {$set: {archived: false}});
 
             // Post system message
-            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_unarchived');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_activities_unarchived');
 
             Event.emit('partups.activities.unarchived', upper._id, activity);
 
@@ -156,7 +156,7 @@ Meteor.methods({
             Activities.update(activityId, {$set: {archived: true}});
 
             // Post system message
-            Partup.services.system_messages.send(upper, activity.update_id, 'system_activities_archived');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_activities_archived');
 
             Event.emit('partups.activities.archived', upper._id, activity);
 
