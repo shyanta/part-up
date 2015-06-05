@@ -307,14 +307,14 @@ Router.route('/verify-email/:token', {
         'app': {to: 'main'}
     },
     onBeforeAction: function() {
-        Accounts.verifyEmail(Router.current().params.token, function(error) {
-            if (error) {
-                Partup.ui.notify.iError('error-ss-invalidEmailVerificationToken');
-            } else {
-                Partup.ui.notify.iSuccess('error-ss-invalidEmailVerificationToken');
-            }
+        Router.go('home'); // todo: < change to profile when we have that page
 
-            Router.go('home'); // todo: < change to profile when we have that page
+        Accounts.verifyEmail(this.params.token, function(error) {
+            if (error) {
+                Partup.ui.notify.warning(TAPi18n.__('notification-verify-mail-warning'));
+            } else {
+                Partup.ui.notify.success(TAPi18n.__('notification-verify-mail-success'));
+            }
         });
     }
 });

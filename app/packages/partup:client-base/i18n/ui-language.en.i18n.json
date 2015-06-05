@@ -32,6 +32,5 @@
     "base-ui-language-ss-passwordMismatch": "The passwords do not match",
     "base-ui-language-ss-emailExists": "This email already exists",
     "base-ui-language-ss-emailNotFound": "This user is not found",
-    "base-ui-language-ss-passwordIncorrect": "This password is incorrect",
-    "base-ui-language-ss-invalidEmailVerificationToken": "This email verification token is invalid"
+    "base-ui-language-ss-passwordIncorrect": "This password is incorrect"
 }
