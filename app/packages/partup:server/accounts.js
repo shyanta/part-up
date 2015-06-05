@@ -70,6 +70,13 @@ Accounts.onCreateUser(function(options, user) {
         Log.error(error.message);
     }
 
+    if (!profile.image) {
+        var images = Images.find({'meta.default_profile_picture': true}).fetch();
+        image = mout.random.choice(images);
+        profile.image = image._id;
+        console.log('Setting user image', image);
+    }
+
     user.profile = profile;
 
     return user;
