@@ -1,0 +1,15 @@
+<template name="ReactiveLayout">
+    <section class="pu-reactivelayout">
+
+        {{#each columns}}
+            <ul class="{{ columnClass }}">
+                {{#each .}}
+                    <li>
+                        {{> ReactiveTile onRenderCallback=onRenderCallback templateName=templateName templateData=templateData}}
+                    </li>
+                {{/each}}
+            </ul>
+        {{/each}}
+
+    </section>
+</template>

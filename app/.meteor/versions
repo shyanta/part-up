@@ -104,6 +104,7 @@ partup:client-partup-tile@0.0.1
 partup:client-popup@0.0.1
 partup:client-rating@0.0.1
 partup:client-ratings@0.0.1
+partup:client-reactive-layout@0.0.1
 partup:client-resetpassword@0.0.1
 partup:client-spinner@0.0.1
 partup:client-update@0.0.1
