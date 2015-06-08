@@ -1,5 +1,10 @@
 {
     "public": {
-        "facebookAppId": "361617237358681"
+        "facebookAppId": "361617237358681",
+        "analyticsSettings": {
+            "Google Analytics": {
+                "trackingId": "UA-34557675-15"
+            }
+        }
     }
 }
