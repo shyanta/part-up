@@ -5,9 +5,37 @@
  * @private
  */
 var networkBaseSchema = new SimpleSchema({
+    description: {
+        type: String,
+        max: 250
+    },
+    location: {
+        type: Object,
+        optional: true
+    },
+    'location.city': {
+        type: String
+    },
+    'location.country': {
+        type: String
+    },
+    image: {
+        type: String,
+        optional: true
+    },
     name: {
         type: String,
         max: 150
+    },
+    tags: {
+        type: [String],
+        minCount: 1
+    },
+    website: {
+        type: String,
+        max: 255,
+        optional: true,
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol
     }
 });
 
@@ -21,9 +49,44 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    access_level: {
+        type: Number,
+        min: 0,
+        max: 4
+    },
+    admin_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     created_at: {
         type: Date,
         defaultValue: new Date()
+    },
+    invited_uppers: {
+        type: [Object],
+        optional: true
+    },
+    'invited_uppers._id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'invited_uppers.invited_by': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    partups: {
+        type: [String],
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    updated_at: {
+        type: Date,
+        defaultValue: new Date()
+    },
+    uppers: {
+        type: [String],
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
     }
 }]);
 
