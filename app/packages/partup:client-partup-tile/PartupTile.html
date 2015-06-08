@@ -10,11 +10,14 @@
             <div class="pu-partupcircle">
                 <canvas class="pu-sub-radial" data-percent="{{ partup.progress }}"></canvas>
                 <figure class="pu-sub-inner" style="{{#if partupCover }}background-image: url('{{ partupCover.url }}');{{/if }}"></figure>
-                <!-- Uppers
-                <ul>
-                    <li></li>
-                </ul>
-                -->
+                <!-- Uppers -->
+                {{# if uppers }}
+                    <ul class="pu-sub-avatar-list">
+                        {{# each uppers }}
+                            <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }}); top: {{ y }}px; left: {{ x }}px; transition-delay: {{ delay }}s;" data-usercard="{{ _id }}"></li>
+                        {{/ each }}
+                    </ul>
+                {{/ if }}
             </div>
             <p>{{ partup.description }}</p>
         </section>

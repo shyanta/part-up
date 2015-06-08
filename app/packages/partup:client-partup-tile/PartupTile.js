@@ -2,12 +2,32 @@
 /* Widget helpers */
 /*************************************************************/
 Template.PartupTile.helpers({
-    partupCover: function () {
+    partupCover: function() {
         var data = this;
         if (!data) return null;
         var partup = data.partup;
         if (!partup || !partup.image) return null;
-        return Images.findOne({ _id: partup.image });
+        return Images.findOne({_id: partup.image});
+    },
+    upper: function() {
+        return Meteor.users.findOne({_id: this._id});
+    },
+    uppers: function() {
+        if (!this.partup.uppers) return;
+
+        var uppers = [];
+        var coords;
+        for (var i = 0; i < this.partup.uppers.length; i++) {
+            coords = getAvatarCoordinates(this.partup.uppers.length, i, 0, 30, 95);
+            uppers.push({
+                _id: this.partup.uppers[i],
+                x: coords.x + 95,
+                y: coords.y + 95,
+                delay: .075 * i
+            });
+        }
+
+        return uppers;
     }
 });
 
@@ -72,5 +92,28 @@ var drawCircle = function drawCircle (canvas) {
     ctx.lineWidth = settings.linewidth;
     ctx.stroke();
     ctx.closePath();
+};
 
+/**
+ * Function to calculate x and y for an avatar
+ *
+ * @param {number} count   Number of total avatars
+ * @param {number} current   Index of current avatar (from 0)
+ * @param {number} base_angle   Base angle (in degrees)
+ * @param {number} distance_angle   Distance angle between each avatar (in degrees)
+ * @param {number} radius   Radius of the circle in pixels
+ * @returns {Object} coordinates   Coordinates for the center of the avatar in pixels
+ * @returns {Object} coordinates.x
+ * @returns {Object} coordinates.y
+ */
+var getAvatarCoordinates = function(count, current, base_angle, distance_angle, radius) {
+    var start_angle = distance_angle * ((count - 1) / 2) + base_angle;
+    var current_angle = start_angle - current * distance_angle;
+    var x = radius * Math.cos(current_angle * (Math.PI / 180));
+    var y = -radius * Math.sin(current_angle * (Math.PI / 180));
+
+    return {
+        x: x,
+        y: y
+    };
 };

@@ -6,7 +6,7 @@
 
     header
         padding: 20px
-        
+
         h2
             margin-top: -4px
             font-size: 16px
@@ -23,12 +23,17 @@
     section
         padding: 0 20px 20px
 
-        .pu-partupcircle
-            margin-bottom: 20px - 4px
-
         p
             font-size: 14px
             font-family: $font-primary
+
+    .pu-partupcircle
+        margin-bottom: 20px - 4px
+
+    .pu-sub-avatar-list li
+        position: absolute
+        margin: -20px 0 0 -20px
+        transition: transform .2s ease-out;
 
     footer
         padding: 20px
@@ -39,3 +44,6 @@
             font-family: $font-primary
             color: #494949
             font-weight: 600
+
+    &:hover .pu-sub-avatar-list li
+        transform: translateX(30px)
