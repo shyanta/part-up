@@ -45,7 +45,7 @@ Template.Login.events({
             continueLogin();
         });
     }
-})
+});
 
 /*************************************************************/
 /* Widget functions */
