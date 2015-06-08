@@ -22,7 +22,7 @@ An example directory structure for **partup:client-pages**:
         ├── partup-sidebar.html
         ├── partup-sidebar.js
         ├── updates
-        │   ├── updates.html            -->  This template is called "app_partup_update".
+        │   ├── updates.html            -->  This template is called "app_partup_updates".
         │   ├── updates.js
         │   └── newmessage
         │       ├── newmessage.html     -->  It doesn't matter that New message is not really a page, but a popup.
