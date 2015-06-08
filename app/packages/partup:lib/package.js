@@ -42,6 +42,7 @@ Package.onUse(function(api) {
         'collections/partups.js',
         'collections/images.js',
         'collections/ratings.js',
+        'collections/networks.js',
         'schemas/activity.js',
         'schemas/contribution.js',
         'schemas/forgotPassword.js',
