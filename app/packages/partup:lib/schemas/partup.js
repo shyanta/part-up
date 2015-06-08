@@ -76,11 +76,11 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         optional: true
     },
     'location.city': {
-            type: String
-        },
+        type: String
+    },
     'location.country': {
-            type: String
-        },
+        type: String
+    },
     network: {
         type: Object
     },
