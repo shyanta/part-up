@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Widget on created */
 /*************************************************************/
-Template.Focuspoint.onCreated(function () {
+Template.Focuspoint.onCreated(function() {
     var template = this;
     template.dragged = new ReactiveVar(false);
 });
@@ -9,18 +9,18 @@ Template.Focuspoint.onCreated(function () {
 /*************************************************************/
 /* Widget on rendered */
 /*************************************************************/
-Template.Focuspoint.onRendered(function () {
+Template.Focuspoint.onRendered(function() {
     var template = this;
 
     // Function to find image
-    var findImage = function () {
+    var findImage = function() {
 
         // Set focuspoint when image is found in mongo
         template.dragged.set(false);
         if (!template.data.imageId) return;
 
         // Find image
-        var image = Images.findOne({ _id: template.data.imageId });
+        var image = Images.findOne({_id: template.data.imageId});
         if (!image) return;
 
         // Set dragged to true if the values aren't exactly 0.5
@@ -38,7 +38,7 @@ Template.Focuspoint.onRendered(function () {
     // Initialize focuspoint
     var focuspoint_edit = template.find('[data-focuspoint-edit]');
     if (focuspoint_edit) {
-        Meteor.setTimeout(function () {
+        Meteor.setTimeout(function() {
             var view_elms = template.data.view_elm.template.findAll(template.data.view_elm.selector);
             var button_elm = template.find('[data-focuspoint-button]');
 
@@ -47,24 +47,24 @@ Template.Focuspoint.onRendered(function () {
                 button_elm: button_elm || undefined
             });
 
-            template.focuspoint.on('drag:start', function (x, y) {
+            template.focuspoint.on('drag:start', function(x, y) {
                 template.dragged.set(true);
             });
 
-            template.focuspoint.on('drag:move', function (x, y) {
+            template.focuspoint.on('drag:move', function(x, y) {
                 if (mout.lang.isFunction(template.data.move)) {
                     template.data.move(x, y);
                 }
             });
 
-            template.focuspoint.on('drag:end', function (x, y) {
+            template.focuspoint.on('drag:end', function(x, y) {
                 if (mout.lang.isFunction(template.data.update)) {
                     template.data.update(x, y);
                 }
             });
 
             // Extend focuspoint with a reset function
-            template.focuspoint.reset = function () {
+            template.focuspoint.reset = function() {
                 template.dragged.set(false);
                 template.focuspoint.set(0.5, 0.5);
             };
@@ -81,7 +81,7 @@ Template.Focuspoint.onRendered(function () {
 /*************************************************************/
 /* Widget on destroyed */
 /*************************************************************/
-Template.Focuspoint.onDestroyed(function () {
+Template.Focuspoint.onDestroyed(function() {
     var template = this;
 
     if (template.focuspoint) {
@@ -94,7 +94,7 @@ Template.Focuspoint.onDestroyed(function () {
 /* Widget helpers */
 /*************************************************************/
 Template.Focuspoint.helpers({
-    dragged: function () {
+    dragged: function() {
         return Template.instance().dragged.get();
     }
 });
