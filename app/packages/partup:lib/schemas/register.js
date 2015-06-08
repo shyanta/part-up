@@ -25,11 +25,11 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
         type: String,
         max: 255,
         regEx: Partup.services.validators.password
+    },
+    networks: {
+        type: [String],
+        regEx: SimpleSchema.RegEx.Id
     }
-    //network: {
-    //    type: String,
-    //    regEx: SimpleSchema.RegEx.Id
-    //}
 });
 
 /**
