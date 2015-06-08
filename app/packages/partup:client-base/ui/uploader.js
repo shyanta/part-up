@@ -8,11 +8,11 @@ Partup.ui.uploader = {
      * @param {Function} callback
      */
     uploadImage: function(file, callback) {
-        Images.insert(file, function (error, dbImage) {
+        Images.insert(file, function(error, dbImage) {
             if (error) return callback(error);
 
             Meteor.subscribe('images.one', dbImage._id);
-            Meteor.autorun(function (computation) {
+            Meteor.autorun(function(computation) {
                 var image = Images.findOne({_id: dbImage._id});
                 if (image && image.isUploaded() && image.url()) {
                     callback(null, image);
@@ -34,7 +34,7 @@ Partup.ui.uploader = {
             if (error || !output) return callback(error);
 
             Meteor.subscribe('images.one', output._id);
-            Meteor.autorun(function (computation) {
+            Meteor.autorun(function(computation) {
                 var image = Images.findOne({_id: output._id});
                 if (image && image.isUploaded() && image.url()) {
                     callback(null, image);
