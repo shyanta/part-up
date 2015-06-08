@@ -1,25 +1,25 @@
 var placeholders = {
     'name': function() {
-        return __('pages-modal-register-create-form-name-placeholder');
+        return __('pages-modal-register-signup-form-name-placeholder');
     },
     'email': function() {
-        return __('pages-modal-register-create-form-email-placeholder');
+        return __('pages-modal-register-signup-form-email-placeholder');
     },
     'password': function() {
-        return __('pages-modal-register-create-form-password-placeholder');
+        return __('pages-modal-register-signup-form-password-placeholder');
     },
     'confirmPassword': function() {
-        return __('pages-modal-register-create-form-confirmPassword-placeholder');
+        return __('pages-modal-register-signup-form-confirmPassword-placeholder');
     },
     'network': function() {
-        return __('pages-modal-register-create-form-network-placeholder');
+        return __('pages-modal-register-signup-form-network-placeholder');
     }
 };
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
-Template.modal_register_create.helpers({
+Template.modal_register_signup.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: placeholders,
     totalNumberOfUppers: function() {
@@ -34,14 +34,14 @@ Template.modal_register_create.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-Template.modal_register_create.events({
+Template.modal_register_signup.events({
     'click [data-signupfacebook]': function(event) {
         Meteor.loginWithFacebook({
             requestPermissions: ['email']
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('pages-modal-register-create-error_' + Partup.ui.strings.slugify(error.name)));
+                Partup.ui.notify.error(__('pages-modal-register-signup-error_' + Partup.ui.strings.slugify(error.name)));
                 return;
             }
 
@@ -55,14 +55,14 @@ Template.modal_register_create.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('pages-modal-register-create-error_' + Partup.ui.strings.slugify(error.name)));
+                Partup.ui.notify.error(__('pages-modal-register-signup-error_' + Partup.ui.strings.slugify(error.name)));
                 return false;
             }
 
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
             Meteor.call('settings.update', {locale: locale}, function(err) {
                 if (err) {
-                    Partup.ui.notify.error(__('pages-modal-register-create-error_' + Partup.ui.strings.slugify('failed to update locale')));
+                    Partup.ui.notify.error(__('pages-modal-register-signup-error_' + Partup.ui.strings.slugify('failed to update locale')));
                     return false;
                 }
                 Router.go('register-details');
@@ -75,7 +75,7 @@ Template.modal_register_create.events({
 /* Widget form hooks */
 /*************************************************************/
 AutoForm.hooks({
-    registerRequiredForm: {
+    'pages-modal-register-signupForm': {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);

@@ -1,35 +1,35 @@
-<template name="modal_register_create">
+<template name="modal_register_signup">
     {{#contentFor "closeButton"}}
         <i class="fa fa-times"></i>
-        {{_ 'pages-modal-register-create-close'}}
+        {{_ 'pages-modal-register-signup-close'}}
     {{/contentFor}}
     <article class="pu-page pu-page-modal">
 
         <div class="pu-composition pu-composition-defaultmodal pu-composition-register">
 
-            <h2 class="pu-title pu-title-modal">{{{_ 'pages-modal-register-create-becomethexthupper' totalNumberOfUppers }}}</h2>
-            <p>{{_ 'pages-modal-register-create-fillindetailsaccount'}}</p>
+            <h2 class="pu-title pu-title-modal">{{{_ 'pages-modal-register-signup-becomethexthupper' totalNumberOfUppers }}}</h2>
+            <p>{{_ 'pages-modal-register-signup-fillindetailsaccount'}}</p>
             <ul class="pu-list pu-list-horizontal pu-list-buttons">
                 <li>
                     <button class="pu-button pu-button-facebook" data-signupfacebook>
                         <i class="fa fa-facebook"></i>
-                        {{_ 'pages-modal-register-create-signupfacebook'}}
+                        {{_ 'pages-modal-register-signup-signupfacebook'}}
                     </button>
                 </li>
                 <li>
                     <button class="pu-button pu-button-linkedin" data-signuplinkedin>
                         <i class="fa fa-linkedin"></i>
-                        {{_ 'pages-modal-register-create-signuplinkedin'}}
+                        {{_ 'pages-modal-register-signup-signuplinkedin'}}
                     </button>
                 </li>
             </ul>
-            <p class="pu-textline"><span>{{_ 'pages-modal-register-create-or'}}</span></p>
+            <p class="pu-textline"><span>{{_ 'pages-modal-register-signup-or'}}</span></p>
 
-            {{#autoForm schema=formSchema id="registerRequiredForm" class="pu-form pu-form-disableinvalidstates" validation="submitThenBlur" }}
+            {{#autoForm schema=formSchema id="pages-modal-register-signupForm" class="pu-form pu-form-disableinvalidstates" validation="submitThenBlur" }}
 
                 <!-- First and last name -->
                 <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'pages-modal-register-create-form-name-label'}}</span>
+                    <span class="pu-label">{{_ 'pages-modal-register-signup-form-name-label'}}</span>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
@@ -38,7 +38,7 @@
 
                 <!-- Email address -->
                 <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'pages-modal-register-create-form-email-label'}}</span>
+                    <span class="pu-label">{{_ 'pages-modal-register-signup-form-email-label'}}</span>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput name='email' placeholder=placeholders.email class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
@@ -49,10 +49,10 @@
                 <fieldset class="pu-formfield">
                     <label>
                         <span class="pu-label">
-                            {{_ 'pages-modal-register-create-form-password-label'}}
+                            {{_ 'pages-modal-register-signup-form-password-label'}}
                             <a class="pu-hint pu-tooltip">
                                 <i class="fa fa-question-circle"></i>
-                                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-create-form-password-tooltip' }}</p></span>
+                                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-signup-form-password-tooltip' }}</p></span>
                             </a>
                         </span>
 
@@ -69,7 +69,7 @@
 
                 <!-- Submit -->
                 <footer>
-                    <button type="submit" class="pu-button">{{_ 'pages-modal-register-create-form-submit' }}</button>
+                    <button type="submit" class="pu-button">{{_ 'pages-modal-register-signup-form-submit' }}</button>
                 </footer>
             {{/autoForm}}
 

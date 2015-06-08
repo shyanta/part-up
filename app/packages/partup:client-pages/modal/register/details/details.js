@@ -145,7 +145,7 @@ var continueRegister = function() {
 /* Widget form hooks */
 /*************************************************************/
 AutoForm.hooks({
-    registerOptionalForm: {
+    'pages-modal-register-detailsForm': {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 

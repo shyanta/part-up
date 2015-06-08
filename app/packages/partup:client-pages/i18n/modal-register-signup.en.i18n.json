@@ -1,0 +1,28 @@
+{
+    "pages-modal-register-signup-close": "Close",
+
+    "pages-modal-register-signup-becomethexthupper": "Become upper <u>#%d</u>",
+    "pages-modal-register-signup-fillindetailsaccount": "Yeah! Awesome you want to be part of the part-up movement! Create your part-up profile here.",
+
+    "pages-modal-register-signup-signupfacebook": "Sign up with Facebook",
+    "pages-modal-register-signup-signuplinkedin": "Sign up with Linkedin",
+    "pages-modal-register-signup-or": "or",
+
+    "pages-modal-register-signup-form-name-label": "First and last name",
+    "pages-modal-register-signup-form-name-placeholder": "Example: John Johnson",
+
+    "pages-modal-register-signup-form-email-label": "Email address",
+    "pages-modal-register-signup-form-email-placeholder": "We only send you email if you want us to",
+
+    "pages-modal-register-signup-form-password-label": "Password",
+    "pages-modal-register-signup-form-password-placeholder": "Don't make it too easy to guess",
+    "pages-modal-register-signup-form-password-validation": "tips",
+    "pages-modal-register-signup-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Use at least 8 characters, 1 number en 1 capital.",
+
+    "pages-modal-register-signup-form-confirmPassword-placeholder": "And repeat it once please",
+
+    "pages-modal-register-signup-form-submit": "Sign up",
+
+    "pages-modal-register-signup-error_Accounts-LoginCancelledError": "Login cancelled",
+    "pages-modal-register-signup-error_Error": "Login failed, please try again"
+}

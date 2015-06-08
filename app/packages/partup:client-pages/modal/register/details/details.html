@@ -25,7 +25,7 @@
                         {{else}}
                             <img src="/images/smile.png" alt="" data-image-placeholder class="pu-imagepreview">
                         {{/if}}
-                        <button class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
+                        <button type="button" class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
                             <span>{{_ 'pages-modal-register-details-form-image-button'}}</span>
                             {{#if uploadingProfilePicture}}
                                 {{> SpinnerInverted}}

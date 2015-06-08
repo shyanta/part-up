@@ -67,8 +67,8 @@ Package.onUse(function(api) {
         // Modal:register
         'modal/register/register.html',
         'modal/register/register.js',
-        'modal/register/create/create.html',
-        'modal/register/create/create.js',
+        'modal/register/signup/signup.html',
+        'modal/register/signup/signup.js',
         'modal/register/details/details.html',
         'modal/register/details/details.js',
 
@@ -124,8 +124,8 @@ Package.onUse(function(api) {
         'i18n/app-partup-activities.nl.i18n.json',
         'i18n/modal-login.en.i18n.json',
         'i18n/modal-login.nl.i18n.json',
-        'i18n/modal-register-create.en.i18n.json',
-        'i18n/modal-register-create.nl.i18n.json',
+        'i18n/modal-register-signup.en.i18n.json',
+        'i18n/modal-register-signup.nl.i18n.json',
         'i18n/modal-register-details.en.i18n.json',
         'i18n/modal-register-details.nl.i18n.json',
         'i18n/modal-forgotpassword.en.i18n.json',
