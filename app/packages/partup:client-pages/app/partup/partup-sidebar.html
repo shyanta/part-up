@@ -1,4 +1,11 @@
 <template name="app_partup_sidebar">
+    <!-- take part popup -->
+    {{#if partupPopupActive 'popup.take-part' }}
+        {{#contentFor "PopupContent"}}
+            {{> app_partup_takepart }}
+        {{/contentFor}}
+    {{/if}}
+
     <header class="pu-partupheader">
         <figure class="pu-sub-picture" style="{{#if partupCover}}background-image: url('{{ partupCover.url }}');{{/if}}" data-partupcover-focuspoint></figure>
         <h1>{{ partup.name }}</h1>
@@ -8,6 +15,9 @@
             <div class="pu-sidebar-wrap">
                 <section>
                     <p class="pu-sub-abstract">{{ partup.description }}</p>
+                    <a class="pu-button pu-button-icon" data-popup="popup.take-part">
+                        {{_ 'pages-app-partup-take_part' }}
+                    </a>
                 </section>
                 <section>
                     <h2>{{_ 'pages-app-partup-uppers_title' }}</h2>

@@ -44,6 +44,10 @@ Package.onUse(function(api) {
         'app/partup/partup-sidebar.html',
         'app/partup/partup-sidebar.js',
 
+        // App:partup:takepart (modal)
+        'app/partup/takepart/takepart.html',
+        'app/partup/takepart/takepart.js',
+
         // App:partup:updates
         'app/partup/updates/updates.html',
         'app/partup/updates/updates.js',
@@ -114,6 +118,8 @@ Package.onUse(function(api) {
         'i18n/app-discover.nl.i18n.json',
         'i18n/app-partup.en.i18n.json',
         'i18n/app-partup.nl.i18n.json',
+        'i18n/app-partup-takepart.en.i18n.json',
+        'i18n/app-partup-takepart.nl.i18n.json',
         'i18n/app-partup-updates.en.i18n.json',
         'i18n/app-partup-updates.nl.i18n.json',
         'i18n/app-partup-updates-newmessage.en.i18n.json',
