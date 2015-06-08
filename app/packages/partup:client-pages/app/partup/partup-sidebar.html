@@ -25,12 +25,17 @@
                     </a> -->
                 </section>
                 <section>
-                    <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
-                    <ul class="pu-list pu-list-horizontal pu-list-avatars">
-                        {{#each partupSupporters }}
-                            <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure></li>
-                        {{/each }}
-                    </ul>
+                    {{#if partupSupporters.length }}
+                        <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
+                        <ul class="pu-list pu-list-horizontal pu-list-avatars">
+                            {{#each partupSupporters }}
+                                <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure></li>
+                            {{/each }}
+                        </ul>
+                    {{else}}
+                        <h2>{{_ 'pages-app-partup-supporters_title'}}</h2>
+                        <p>{{_ 'pages-app-partup-supporters_placeholder'}}</p>
+                    {{/if}}
                     {{#unless isUpperInPartup}}
                         {{#if isSupporter }}
                             <a data-leavesupporters class="pu-button">
