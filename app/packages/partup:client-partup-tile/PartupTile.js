@@ -21,7 +21,7 @@ Template.PartupTile.events({
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
-Template.PartupTile.onRendered(function () {
+Template.PartupTile.onRendered(function() {
     var canvasElm = this.find('canvas.pu-sub-radial');
     if (canvasElm) drawCircle(canvasElm);
 });
@@ -30,13 +30,12 @@ Template.PartupTile.onRendered(function () {
 /* Widget functions */
 /*************************************************************/
 var drawCircle = function drawCircle (canvas) {
-
     // jQuery object
     var $canvas = $(canvas);
 
     // Settings
     var settings = {
-        percent: $canvas.data('percent') || 0.000001, // This is needed to draw Arc 2 when percent = 0
+        percent: $canvas.data('percent') || 0.000001, // needed to draw Arc 2 when percent = 0
         linewidth: 2,
         firstcolor: '#ffa725',
         secondcolor: '#eeeeee',
