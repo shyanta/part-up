@@ -30,10 +30,25 @@
     .pu-partupcircle
         margin-bottom: 20px - 4px
 
-    .pu-sub-avatar-list li
+    .pu-sub-inner
+        z-index: 3
+
+    .pu-sub-radial
+        position: relative
+        z-index: 2
+
+    .pu-sub-avatar-list
         position: absolute
-        margin: -20px 0 0 -20px
-        transition: transform .2s ease-out;
+        z-index: 1
+        top: 0
+        left: 0
+
+        li
+            position: absolute
+            width: 32px
+            height: 32px
+            margin: -16px 0 0 -16px
+            transition: transform .2s ease-out;
 
     footer
         padding: 20px

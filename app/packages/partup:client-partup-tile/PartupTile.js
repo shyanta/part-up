@@ -18,7 +18,7 @@ Template.PartupTile.helpers({
         var uppers = [];
         var coords;
         for (var i = 0; i < this.partup.uppers.length; i++) {
-            coords = getAvatarCoordinates(this.partup.uppers.length, i, 0, 30, 95);
+            coords = getAvatarCoordinates(this.partup.uppers.length, i, 0, 24, 100);
             uppers.push({
                 _id: this.partup.uppers[i],
                 x: coords.x + 95,
@@ -77,9 +77,16 @@ var drawCircle = function drawCircle (canvas) {
     canvas.height = settings.height;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+    // Outer circle
+    ctx.beginPath();
+    ctx.arc(radius, radius, radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+    ctx.closePath();
+
     // Arc 1
     ctx.beginPath();
-    ctx.arc(radius, radius, radius - settings.linewidth / 2, -(quart), endingAngle, false);
+    ctx.arc(radius, radius, radius - 4 - settings.linewidth / 2, -(quart), endingAngle, false);
     ctx.strokeStyle = settings.firstcolor;
     ctx.lineWidth = settings.linewidth;
     ctx.stroke();
@@ -87,7 +94,7 @@ var drawCircle = function drawCircle (canvas) {
 
     // Arc 2
     ctx.beginPath();
-    ctx.arc(radius, radius, radius - settings.linewidth / 2, endingAngle, -(quart), false);
+    ctx.arc(radius, radius, radius - 4 - settings.linewidth / 2, endingAngle, -(quart), false);
     ctx.strokeStyle = settings.secondcolor;
     ctx.lineWidth = settings.linewidth;
     ctx.stroke();
