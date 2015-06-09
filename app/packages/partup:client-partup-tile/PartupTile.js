@@ -2,12 +2,24 @@
 /* Widget helpers */
 /*************************************************************/
 Template.PartupTile.helpers({
+    activityCount: function() {
+        return Activities.find({partup_id: this.partup._id}).count();
+    },
+    dayCount: function() {
+        var created = new Date(this.partup.created_at);
+        var now = new Date();
+        return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
+    },
     partupCover: function() {
         var data = this;
         if (!data) return null;
         var partup = data.partup;
         if (!partup || !partup.image) return null;
         return Images.findOne({_id: partup.image});
+    },
+    supporterCount: function() {
+        if (!this.partup.supporters) return 0;
+        return this.partup.supporters.length;
     },
     upper: function() {
         return Meteor.users.findOne({_id: this._id});
