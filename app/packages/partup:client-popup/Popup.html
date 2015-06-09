@@ -1,11 +1,11 @@
 <template name="Popup">
-    <section class="pu-overlay {{#if popupOpen}}pu-overlay-active{{/if}}" data-close-popup>
+    <section class="pu-overlay {{#if currentPopup}}pu-overlay-active{{/if}}" data-overlay-dismiss>
         <article class="pu-popup">
             <header>
                 <h4>
                     {{> yield region="PopupTitle" }}
                 </h4>
-                <button class="pu-button pu-button-close" data-close><i class="fa fa-times"></i></button>
+                <button class="pu-button pu-button-close" data-dismiss><i class="fa fa-times"></i></button>
             </header>
             <article>
                 {{> yield region="PopupContent" }}

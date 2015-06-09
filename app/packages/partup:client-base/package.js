@@ -25,6 +25,7 @@ Package.onUse(function(api) {
         'namespace.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
         'autoform/afFieldInput.js',
+        'ui/error.js',
         'ui/socials.js',
         'ui/notify.js',
         'ui/language.js',
@@ -45,6 +46,7 @@ Package.onUse(function(api) {
         'helpers/imageById.js',
         'helpers/loading.js',
         'helpers/Partup.js',
+        'helpers/isPopupActive.js',
         'autorun.js',
         'bootstrap.js',
 

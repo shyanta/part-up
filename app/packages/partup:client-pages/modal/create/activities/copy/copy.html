@@ -1,7 +1,4 @@
 <template name="modal_create_activities_copy">
-    {{#contentFor "PopupTitle"}}
-        {{_ 'pages-modal-create-activities-copy-title'}}
-    {{/contentFor}}
     <p>{{_ 'pages-modal-create-activities-copy-description'}}</p>
 
     <form class="pu-form pu-form-popup">
@@ -19,10 +16,10 @@
         </label>
 
         <div class="pu-formfield">
-            <div class="pu-formfield-right">
-                <a class="pu-button pu-button-text pu-button-text-subtle"
-                   data-close>{{_ 'pages-modal-create-activities-copy-close'}}</a>
+            <div class="pu-formfield-left">
                 <input data-copyactivities class="pu-button" type="submit" value="{{_ 'pages-modal-create-activities-copy-form-copy-confirm'}}">
+                <a class="pu-button pu-button-text pu-button-text-subtle"
+                   data-dismiss>{{_ 'pages-modal-create-activities-copy-close'}}</a>
             </div>
         </div>
     </form>

@@ -314,6 +314,14 @@ Template.app_partup_sidebar.events({
         window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
+    'click [data-open-takepart-popup]': function clickOpenTakepartPopup() {
+        Partup.ui.popup.open('take-part', function(open_new_message_popup) {
+            if (open_new_message_popup) {
+                Partup.ui.popup.open('new-message');
+            }
+        });
+    }
+
     // 'click [data-invite]': function clickInvite(event, template) {
     //     var partup = template.data.partup();
     //     Partup.ui.intent.go({

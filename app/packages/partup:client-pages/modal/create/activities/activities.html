@@ -2,9 +2,12 @@
     <section class="pu-page pu-page-modal pu-page-modal-haspager pu-page-modal-hasfixedfooter">
 
         <!-- popup -->
-        {{#if partupPopupActive 'popup.create-activity' }}
+        {{#if partupIsPopupActive 'create-activity' }}
+            {{#contentFor "PopupTitle"}}
+                {{_ 'pages-modal-create-activities-copy-title'}}
+            {{/contentFor}}
             {{#contentFor "PopupContent"}}
-                {{> modal_create_activities_adopt }}
+                {{> modal_create_activities_copy }}
             {{/contentFor}}
         {{/if}}
 
@@ -13,7 +16,7 @@
             <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-activities-heading-title'}}</h2>
             <p class="pu-sub-activitiesparagraph">{{_ 'pages-modal-create-activities-heading-paragraph'}}</p>
 
-             <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.create-activity">{{_ 'pages-modal-create-activities-button-adopt_activities' }}</a>
+             <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="create-activity">{{_ 'pages-modal-create-activities-button-adopt_activities' }}</a>
 
             {{> Activity CREATE=true createCallback=createCallback }}
 

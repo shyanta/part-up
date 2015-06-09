@@ -2,7 +2,7 @@
     <div class="pu-page">
         <div class="pu-composition pu-composition-partupdetailactivities">
             <!-- new message popup -->
-            {{#if partupPopupActive 'popup.new-activity' }}
+            {{#if partupIsPopupActive 'popup.new-activity' }}
                 {{#contentFor "PopupContent"}}
                     {{#contentFor "PopupTitle"}}
                         {{_ "pages-partup-activities-newactivity_title"}}
