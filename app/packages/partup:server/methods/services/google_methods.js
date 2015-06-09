@@ -12,7 +12,7 @@ Meteor.methods({
             if (!result.terms || result.terms < 1) return false;
 
             return {
-                id: result.id,
+                id: result.place_id,
                 city: result.terms[0].value
             };
         });
