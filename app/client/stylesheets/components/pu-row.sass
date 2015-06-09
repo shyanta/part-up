@@ -7,17 +7,24 @@
         vertical-align: middle
         display: table-cell
         white-space: nowrap
-        padding-right: 20px
+        padding-right: 10px
+
+        .pu-button
+            margin-right: 10px - 3px
+
+            &-text
+                padding-left: 10px
+                padding-right: 10px
+
+            &:last-child
+                margin-right: 0
 
         &.last,
         &:last-child
             padding-right: 0
 
-        .pu-button
-            margin-right: 10px - 3px
-
-            &:last-child
-                margin-right: 0
+            .pu-button-text
+                padding-right: 0
 
         &.bottom
             vertical-align: bottom

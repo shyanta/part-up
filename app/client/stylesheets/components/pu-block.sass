@@ -101,11 +101,6 @@
             &:active
                 border-color: darken($color-border, 20%)
 
-    &-inner
-        margin: $spacing-default (-$spacing-default) (-$spacing-default)
-        padding: 0 $spacing-default
-        border-top: 2px solid $color-gallery
-
     &-container
         padding: 0
         border: 0
@@ -197,6 +192,21 @@
 
         .pu-sub-date
             margin-right: 6px
+
+        .pu-sub-contributions
+            position: relative
+            margin-top: 10px
+            padding-top: 22px
+            padding-bottom: 6px
+
+            &:before
+                content: ''
+                display: block
+                position: absolute
+                top: 0
+                left: -20px
+                right: -20px
+                border-top: 2px solid $color-gallery
 
         .pu-sub-comments
             font-size: 12px
