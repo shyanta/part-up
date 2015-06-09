@@ -51,8 +51,8 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
     },
     access_level: {
         type: Number,
-        min: 0,
-        max: 4
+        min: 1,
+        max: 3
     },
     admin_id: {
         type: String,
@@ -75,6 +75,11 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         regEx: SimpleSchema.RegEx.Id
     },
     partups: {
+        type: [String],
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    pending_uppers: {
         type: [String],
         optional: true,
         regEx: SimpleSchema.RegEx.Id
