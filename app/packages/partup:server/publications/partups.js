@@ -53,6 +53,21 @@ Meteor.publish('partups.ids', function(partupIds) {
     };
 });
 
+Meteor.publishComposite('partups.all.activities', function() {
+    return {
+        find: function() {
+            return Partups.find();
+        },
+        children: [
+            {
+                find: function(partup) {
+                    return Activities.find({partup_id: partup._id});
+                }
+            }
+        ]
+    };
+});
+
 Meteor.publish('partups.recent', function() {
     return Partups.recent({limit:3});
 });
