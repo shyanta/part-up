@@ -44,6 +44,7 @@ Router.route('/discover', {
     subscriptions: function() {
         this.subscribe('notifications.user');
         this.subscribe('partups.all');
+        this.subscribe('partups.all.activities');
         this.subscribe('images.all');
     }
 });
