@@ -12,7 +12,7 @@ Partup.server.services.google = {
         var response = HTTP.get('https://maps.googleapis.com/maps/api/place/autocomplete/json?key=' + key + '&input=' + query + '&types=(cities)');
 
         if (response.statusCode !== 200) {
-            Logger.error('Google places api returned with a [' + response.statusCode + ']', response);
+            Log.error('Google places api returned with a [' + response.statusCode + ']', response);
             return [];
         }
 
@@ -26,7 +26,7 @@ Partup.server.services.google = {
         var response = HTTP.get('https://maps.googleapis.com/maps/api/place/details/json?key=' + key + '&placeid=' + googlePlaceId);
 
         if (response.statusCode !== 200) {
-            Logger.error('Google places api returned with a [' + response.statusCode + ']', response);
+            Log.error('Google places api returned with a [' + response.statusCode + ']', response);
             return {};
         }
 
