@@ -157,15 +157,9 @@ Meteor.methods({
     'partups.search': function(searchValue) {
         check(searchValue, String);
 
-        var user = Meteor.user();
+        Log.debug('Searching for [' + searchValue + ']');
 
-        if (!user) {
-            throw new Meteor.Error(401, 'Unauthorized.');
-        }
-
-        console.log('Searching for ', searchValue);
-
-        return Partups.find(
+        var partups = Partups.find(
             {$text: {$search: searchValue}},
             {
                 /*
@@ -185,6 +179,12 @@ Meteor.methods({
                     score: {$meta: 'textScore'}
                 }
             }
-        );
+        ).fetch();
+
+        var sortedPartupIds = partups.map(function(partup) {
+            return partup._id;
+        });
+
+        return sortedPartupIds;
     }
 });

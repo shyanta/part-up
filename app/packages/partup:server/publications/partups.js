@@ -25,6 +25,34 @@ Meteor.publishComposite('partups.all', function() {
     };
 });
 
+Meteor.publish('partups.ids', function(partupIds) {
+    return {
+        find: function() {
+            var partupIds = partupIds || [];
+            return Partups.find({_id: {$in: partupIds}});
+        },
+        children: [
+            {
+                find: function(partup) {
+                    var uppers = partup.uppers || [];
+
+                    // We only want to publish the first x uppers as can be seen in the design
+                    uppers = uppers.slice(0, 4);
+
+                    return Meteor.users.find({uppers: {$in: uppers}}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                }
+            },
+            {
+                find: function(partup) {
+                    var network = partup.network || {};
+
+                    return Networks.find({_id: network._id}, {limit: 1});
+                }
+            }
+        ]
+    };
+});
+
 Meteor.publish('partups.recent', function() {
     return Partups.recent({limit:3});
 });
