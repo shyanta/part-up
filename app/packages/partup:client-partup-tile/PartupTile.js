@@ -21,6 +21,19 @@ Template.PartupTile.helpers({
         if (!this.partup.supporters) return 0;
         return this.partup.supporters.length;
     },
+    tags: function() {
+        if (!this.partup.tags) return;
+
+        var tags = [];
+        for (var i = 0; i < this.partup.tags.length; i++) {
+            tags.push({
+                tag: this.partup.tags[i],
+                delay: .075 * i
+            });
+        }
+
+        return tags;
+    },
     upper: function() {
         return Meteor.users.findOne({_id: this._id});
     },

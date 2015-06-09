@@ -1,6 +1,13 @@
 <template name="PartupTile">
 
     <article class="pu-partuptile">
+        {{# if tags }}
+            <ul class="pu-sub-partup-tags">
+                {{# each tags }}
+                <li style="transition-delay: {{ delay }}s">{{ tag }}</li>
+                {{/ each }}
+            </ul>
+        {{/ if }}
         <header>
             <h2>
                 <a href="{{pathFor 'partup' _id=partup._id }}">{{ partup.name }}</a>
