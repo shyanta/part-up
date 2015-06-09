@@ -4,6 +4,9 @@
 
             <!-- new message popup -->
             {{#if partupIsPopupActive 'new-message' }}
+                {{#contentFor "PopupTitle"}}
+                    {{_ 'pages-app-partup-updates-newmessage-title'}}
+                {{/contentFor}}
                 {{#contentFor "PopupContent"}}
                     {{> app_partup_updates_newmessage }}
                 {{/contentFor}}
