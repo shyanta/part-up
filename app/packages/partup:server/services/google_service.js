@@ -7,6 +7,8 @@ Partup.server.services.google = {
 
     searchCities: function(query) {
         var key = process.env.GOOGLE_API_KEY;
+
+        // For more details: https://developers.google.com/places/webservice/autocomplete
         var response = HTTP.get('https://maps.googleapis.com/maps/api/place/autocomplete/json?key=' + key + '&input=' + query + '&types=(cities)');
 
         if (response.statusCode !== 200) {
@@ -19,6 +21,8 @@ Partup.server.services.google = {
 
     getCity: function(googlePlaceId) {
         var key = process.env.GOOGLE_API_KEY;
+
+        // For more details: https://developers.google.com/places/webservice/details
         var response = HTTP.get('https://maps.googleapis.com/maps/api/place/details/json?key=' + key + '&placeid=' + googlePlaceId);
 
         if (response.statusCode !== 200) {
