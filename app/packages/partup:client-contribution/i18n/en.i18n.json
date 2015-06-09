@@ -17,5 +17,7 @@
     "contribution-accept": "Accept",
     "contribution-reject": "Reject",
 
-    "contribution-removed": "Contribution deleted"
+    "contribution-removed": "Contribution deleted",
+
+    "contribution-contribute": "I want to do this"
 }
