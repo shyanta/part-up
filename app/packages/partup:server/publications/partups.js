@@ -11,7 +11,14 @@ Meteor.publishComposite('partups.all', function() {
                     // We only want to publish the first x uppers as can be seen in the design
                     uppers = uppers.slice(0, 4);
 
-                    return Meteor.users.find({ uppers: { $in: uppers }}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.find({uppers: {$in: uppers}}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                }
+            },
+            {
+                find: function(partup) {
+                    var network = partup.network || {};
+
+                    return Networks.find({_id: network._id}, {limit: 1});
                 }
             }
         ]
@@ -26,18 +33,11 @@ Meteor.publish('partups.list', function() {
     return Partups.find({}, {_id: 1, name: 1});
 });
 
-Meteor.publishComposite('partups.one.activities', function(partupId) {
+Meteor.publishComposite('partups.one.network', function(partupId) {
     return {
         find: function() {
-            return Activities.find({partup_id: partupId});
-        },
-        children: [
-            {
-                find: function(activity) {
-                    return Updates.find({_id: activity.update_id}, {limit: 1, fields: {'comments_count': 1}});
-                }
-            }
-        ]
+            return Network.find({partup_id: partupId});
+        }
     };
 });
 
