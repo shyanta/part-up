@@ -25,10 +25,11 @@ Meteor.publishComposite('partups.all', function() {
     };
 });
 
-Meteor.publish('partups.ids', function(partupIds) {
+Meteor.publishComposite('partups.ids', function(partupIds) {
     return {
         find: function() {
-            var partupIds = partupIds || [];
+            check(partupIds, Array);
+
             return Partups.find({_id: {$in: partupIds}});
         },
         children: [
