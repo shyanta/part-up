@@ -1,20 +1,17 @@
 <template name="app_partup_takepart">
-    {{#contentFor "PopupTitle"}}
-        {{_ 'pages-app-partup-takepart-title'}}
-    {{/contentFor}}
     <div class="pu-sub-takepart">
         <section>
             <h2>{{_ 'pages-app-partup-takepart-supporter_title'}}</h2>
             <p>{{_ 'pages-app-partup-takepart-supporter_paragraph'}}</p>
-            <a href="#" class="pu-button" data-close data-popup="popup.new-message-from-takepart">{{_ 'pages-app-partup-takepart-supporter_button'}}</a>
+            <a href="{{pathFor 'partup-updates' _id=partup._id}}" class="pu-button" data-newmessage>{{_ 'pages-app-partup-takepart-supporter_button'}}</a>
         </section>
         <section>
             <h2>{{_ 'pages-app-partup-takepart-upper_title'}}</h2>
             <p>{{_ 'pages-app-partup-takepart-upper_paragraph'}}</p>
-            <a href="{{pathFor 'partup-activities' _id=partup._id}}" class="pu-button" data-close>{{_ 'pages-app-partup-takepart-upper_button'}}</a>
+            <a href="{{pathFor 'partup-activities' _id=partup._id}}" class="pu-button" data-dismiss>{{_ 'pages-app-partup-takepart-upper_button'}}</a>
         </section>
         <footer>
-            <a href="#" class="pu-button pu-button-gray" data-close>{{_ 'pages-app-partup-takepart-close'}}</a>
+            <a href="#" class="pu-button pu-button-gray" data-dismiss>{{_ 'pages-app-partup-takepart-close'}}</a>
         </footer>
     </div>
 </template>

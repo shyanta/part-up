@@ -3,7 +3,7 @@
         <div class="pu-composition pu-composition-partupdetailupdates">
 
             <!-- new message popup -->
-            {{#if partupPopupActive 'popup.new-message' }}
+            {{#if partupIsPopupActive 'new-message' }}
                 {{#contentFor "PopupContent"}}
                     {{> app_partup_updates_newmessage }}
                 {{/contentFor}}
@@ -13,7 +13,7 @@
             <header class="pu-pageheader">
                 <section>
                     {{#if isLoggedIn }}
-                        <a class="pu-button pu-button-icon" href="#" data-popup="popup.new-message">
+                        <a class="pu-button pu-button-icon" href="#" data-popup="new-message">
                             <i class="fa fa-comment"></i>
                             {{_ 'pages-app-partup-updates-new_message' }}
                         </a>

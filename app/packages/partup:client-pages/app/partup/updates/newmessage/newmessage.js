@@ -11,13 +11,6 @@ Template.app_partup_updates_newmessage.onCreated(function() {
     template.uploadedPhotos = new ReactiveVar([]);
     template.totalPhotos = new ReactiveVar(0);
     template.maxPhotos = 4;
-
-    // reset on close popup
-    Partup.ui.popup.onClose = function() {
-        template.uploadingPhotos.set(false);
-        template.uploadedPhotos.set([]);
-        template.totalPhotos.set(0);
-    };
 });
 
 // helpers
@@ -60,7 +53,7 @@ Template.app_partup_updates_newmessage.events({
             Template.instance().totalPhotos.set(total);
         });
     },
-    'click [data-close]': function clearForm(event, template) {
+    'click [data-dismiss]': function clearForm(event, template) {
         template.uploadedPhotos.set([]);
     },
     'click [data-remove-upload]': function removeUpload(event, template) {
