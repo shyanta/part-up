@@ -62,6 +62,7 @@ Package.onUse(function(api) {
         'transformers/user.js',
         'transformers/update.js',
         'transformers/contributions.js',
+        'transformers/network.js',
         'helpers/parselocale.js'
     ]);
 
