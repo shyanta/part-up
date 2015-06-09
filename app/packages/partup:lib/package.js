@@ -81,6 +81,7 @@ Package.onUse(function(api) {
     api.export('Activities');
     api.export('Contributions');
     api.export('Notifications');
+    api.export('Networks');
     api.export('Images');
     api.export('Updates');
     api.export('Ratings');
