@@ -63,31 +63,6 @@ Meteor.methods({
     },
 
     /**
-     * Remove a Network
-     *
-     * @param {string} networkId
-     */
-    'networks.remove': function(networkId) {
-        var user = Meteor.user();
-        var network = Networks.findOneOrFail(networkId);
-
-        if (!network.isAdmin(user._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
-        }
-
-        try {
-            //
-
-            return {
-                _id: network._id
-            };
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, 'Network [' + networkId + '] could not be removed.');
-        }
-    },
-
-    /**
      * Invite someone to a Network
      *
      * @param  {String} networkId
