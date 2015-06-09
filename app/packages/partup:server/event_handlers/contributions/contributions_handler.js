@@ -14,6 +14,10 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
     var updateId = Updates.insert(update);
 
     Contributions.update({_id: contribution._id}, {$set: {update_id: updateId}});
+
+    var user = Meteor.users.findOneOrFail(userId);
+    var activity = Activities.findOneOrFail(contribution.activity_id);
+    Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_added');
 });
 
 /**
@@ -30,6 +34,10 @@ Event.on('partups.contributions.updated', function(userId, contribution, oldCont
     };
 
     Updates.update({_id: contribution.update_id}, {$set: set});
+
+    var user = Meteor.users.findOneOrFail(userId);
+    var activity = Activities.findOneOrFail(contribution.activity_id);
+    Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_updated');
 });
 
 /**
@@ -46,6 +54,10 @@ Event.on('partups.contributions.archived', function(userId, contribution) {
     };
 
     Updates.update({_id: contribution.update_id}, {$set: set});
+
+    var user = Meteor.users.findOneOrFail(userId);
+    var activity = Activities.findOneOrFail(contribution.activity_id);
+    Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_removed');
 });
 
 /**
