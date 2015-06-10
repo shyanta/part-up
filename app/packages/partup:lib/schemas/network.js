@@ -62,17 +62,9 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: Date,
         defaultValue: new Date()
     },
-    invited_uppers: {
+    invites: {
         type: [Object],
         optional: true
-    },
-    'invited_uppers._id': {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
-    'invited_uppers.invited_by': {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
     },
     partups: {
         type: [String],
