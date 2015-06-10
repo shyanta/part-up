@@ -141,7 +141,8 @@ Meteor.methods({
                 return Log.debug('This network is for invited members only.');
             }
 
-            if (network.isClosed()) {
+            if (network.isPublic()) {
+                // Allow user instantly
                 Networks.update(networkId, {$push: {uppers: user._id}});
                 Meteor.users.update(user._id, {$push: {'networks': network._id}});
                 return Log.debug('User added to network.');
