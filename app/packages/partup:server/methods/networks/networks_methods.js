@@ -123,19 +123,27 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.hasMember(user._id)) {
+        if (network.hasMember(user._id)) {
             throw new Meteor.Error(409, 'User is already member of this network.');
         }
 
         try {
-            // Add user to pending if it's a closed network
-            if (network.access_level === PRIVATE_CLOSED) {
-                if (!network.pending_uppers.indexOf(user._id) > -1) {
-                    Networks.update(networkId, {$push: {pending_uppers: user._id}});
-                }
+            switch (network.access_level) {
+                // Add user to pending if it's a closed network
+                case PRIVATE_CLOSED:
+                    if (!network.pending_uppers.indexOf(user._id) > -1) {
+                        Networks.update(networkId, {$push: {pending_uppers: user._id}});
+                        return Log.debug('User added to waiting list');
+                    }
+                    break;
+                case PRIVATE_INVITE:
+                    //throw new Meteor.Error(403, 'This network is for invited members only.');
+                    return Log.debug('This network is for invited members only.');
+                case PUBLIC_OPEN:
+                    Networks.update(networkId, {$push: {uppers: user._id}});
+                    Meteor.users.update(user._id, {$push: {'networks': network._id}});
+                    return Log.debug('User added to network.');
             }
-
-            //
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Network [' + networkId + '] could not be removed.');
