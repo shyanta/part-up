@@ -191,15 +191,22 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
+        if (!network.hasMember(user._id)) {
+            throw new Meteor.Error(400, 'User is not a member of this network.');
+        }
+
         try {
-            //
+            // Also remove from all Partups including ones with contributions?
+            Networks.update(networkId, {$pull: {uppers: user._id}});
+            Meteor.users.update(user._id, {$pull: {'networks': network._id}});
 
             return {
-                _id: network._id
+                network_id: network._id,
+                upper_id: user._id
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Network [' + networkId + '] could not be removed.');
+            throw new Meteor.Error(400, 'User [' + user._id + '] could not be removed from network ' + networkId + '.');
         }
     }
 });
