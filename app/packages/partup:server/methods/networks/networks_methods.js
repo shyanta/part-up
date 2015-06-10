@@ -63,13 +63,13 @@ Meteor.methods({
     },
 
     /**
-     * Invite someone to a Network
+     * Invite someone to a Network by email
      *
      * @param  {String} networkId
      * @param  {String} email
      * @param  {String} name
      */
-    'networks.invite': function(networkId, email, name) {
+    'networks.email_invite': function(networkId, email, name) {
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -103,7 +103,7 @@ Meteor.methods({
 
         // Save the invite on the network for further references
         var invite = {
-            _id: name,
+            name: name,
             email: email
         };
 
