@@ -154,6 +154,7 @@ Meteor.methods({
      * Accept a request to join network
      *
      * @param {string} networkId
+     * @param {string} upperId
      */
     'networks.accept': function(networkId, upperId) {
         var user = Meteor.user();
@@ -163,15 +164,21 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
+        if (network.hasMember(upperId)) {
+            throw new Meteor.Error(409, 'User is already member of this network.');
+        }
+
         try {
-            //
+            Networks.update(networkId, {$push: {uppers: upperId}});
+            Meteor.users.update(upperId, {$push: {'networks': network._id}});
 
             return {
-                _id: network._id
+                network_id: network._id,
+                upper_id: upperId
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Network [' + networkId + '] could not be removed.');
+            throw new Meteor.Error(400, 'User [' + upperId + '] could not be accepted for network ' + networkId + '.');
         }
     },
 
