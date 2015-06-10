@@ -35,31 +35,28 @@ Network.prototype.hasMember = function(userId) {
 /**
  * Check if given network has public access
  *
- * @param {String} networkId
  * @return {Boolean}
  */
-Network.prototype.isPublic = function(networkId) {
-    return mout.lang.isString(networkId) && this.access_level === PUBLIC_OPEN;
+Network.prototype.isPublic = function() {
+    return this.access_level === PUBLIC_OPEN;
 };
 
 /**
  * Check if given network is private and for invites only
  *
- * @param {String} networkId
  * @return {Boolean}
  */
-Network.prototype.isInvitational = function(networkId) {
-    return mout.lang.isString(networkId) && this.access_level === PRIVATE_INVITE;
+Network.prototype.isInvitational = function() {
+    return this.access_level === PRIVATE_INVITE;
 };
 
 /**
  * Check if given network is private and closed
  *
- * @param {String} networkId
  * @return {Boolean}
  */
-Network.prototype.isClosed = function(networkId) {
-    return mout.lang.isString(networkId) && this.access_level === PRIVATE_CLOSED;
+Network.prototype.isClosed = function() {
+    return this.access_level === PRIVATE_CLOSED;
 };
 
 /**
