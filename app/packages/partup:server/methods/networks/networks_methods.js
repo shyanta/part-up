@@ -128,22 +128,26 @@ Meteor.methods({
         }
 
         try {
-            switch (network.access_level) {
+            if (network.isClosed()) {
                 // Add user to pending if it's a closed network
-                case PRIVATE_CLOSED:
-                    if (!network.pending_uppers.indexOf(user._id) > -1) {
-                        Networks.update(networkId, {$push: {pending_uppers: user._id}});
-                        return Log.debug('User added to waiting list');
-                    }
-                    break;
-                case PRIVATE_INVITE:
-                    //throw new Meteor.Error(403, 'This network is for invited members only.');
-                    return Log.debug('This network is for invited members only.');
-                case PUBLIC_OPEN:
-                    Networks.update(networkId, {$push: {uppers: user._id}});
-                    Meteor.users.update(user._id, {$push: {'networks': network._id}});
-                    return Log.debug('User added to network.');
+                if (!network.pending_uppers.indexOf(user._id) > -1) {
+                    Networks.update(networkId, {$push: {pending_uppers: user._id}});
+                    return Log.debug('User added to waiting list');
+                }
             }
+
+            if (network.isInvitational()) {
+                //throw new Meteor.Error(403, 'This network is for invited members only.');
+                return Log.debug('This network is for invited members only.');
+            }
+
+            if (network.isClosed()) {
+                Networks.update(networkId, {$push: {uppers: user._id}});
+                Meteor.users.update(user._id, {$push: {'networks': network._id}});
+                return Log.debug('User added to network.');
+            }
+
+            return Log.debug('Unknown access level for this network: ' + network.access_level);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Network [' + networkId + '] could not be removed.');
