@@ -1,4 +1,4 @@
-Partup.ui.focuslayer = {
+Partup.client.focuslayer = {
 
     state: new ReactiveVar(),
 

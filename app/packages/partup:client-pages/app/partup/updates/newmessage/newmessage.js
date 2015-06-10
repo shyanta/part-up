@@ -43,7 +43,7 @@ Template.app_partup_updates_newmessage.events({
         FS.Utility.eachFile(event, function(file) {
             if (total === template.maxPhotos) return;
 
-            Partup.ui.uploader.uploadImage(file, function(error, image) {
+            Partup.client.uploader.uploadImage(file, function(error, image) {
                 var uploaded = template.uploadedPhotos.get();
                 uploaded.push(image._id);
                 template.uploadedPhotos.set(uploaded);
@@ -83,7 +83,7 @@ AutoForm.hooks({
             Meteor.call('updates.messages.insert', partupId, insertDoc, function(error) {
                 // Error
                 if (error) {
-                    Partup.ui.notify.error(error.reason);
+                    Partup.client.notify.error(error.reason);
                     self.done(new Error(error.message));
 
                     return;
@@ -92,7 +92,7 @@ AutoForm.hooks({
                 AutoForm.resetForm('newMessageForm');
                 self.done();
                 parent.uploadedPhotos.set([]);
-                Partup.ui.popup.close();
+                Partup.client.popup.close();
             });
 
             return false;

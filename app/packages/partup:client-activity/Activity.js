@@ -27,14 +27,14 @@ Template.Activity.onCreated(function() {
 
     var self = this;
     this.autorun(function() {
-        if (!Partup.ui.focuslayer.state.get()) {
+        if (!Partup.client.focuslayer.state.get()) {
             self.edit.set(false);
         }
     });
 
     this.autorun(function() {
         if (self.edit.get()) {
-            Partup.ui.focuslayer.enable();
+            Partup.client.focuslayer.enable();
 
             // scroll
             var DELAY = 100;
@@ -58,7 +58,7 @@ Template.Activity.onCreated(function() {
             }, DELAY);
 
         } else {
-            Partup.ui.focuslayer.disable();
+            Partup.client.focuslayer.disable();
         }
     });
 });

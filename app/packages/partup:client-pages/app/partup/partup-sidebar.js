@@ -296,7 +296,7 @@ Template.app_partup_sidebar.events({
 
     'click [data-share-facebook]': function clickShareFacebook() {
         var url = Router.current().location.get().href;
-        var facebookUrl = Partup.ui.socials.generateFacebookShareUrl(url);
+        var facebookUrl = Partup.client.socials.generateFacebookShareUrl(url);
         window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
@@ -304,27 +304,27 @@ Template.app_partup_sidebar.events({
         var url = Router.current().location.get().href;
         var message = template.data.partup().name;
         // TODO: I18n + wording
-        var twitterUrl = Partup.ui.socials.generateTwitterShareUrl(message, url);
+        var twitterUrl = Partup.client.socials.generateTwitterShareUrl(message, url);
         window.open(twitterUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
     'click [data-share-linkedin]': function clickShareLinkedin() {
         var url = Router.current().location.get().href;
-        var linkedInUrl = Partup.ui.socials.generateLinkedInShareUrl(url);
+        var linkedInUrl = Partup.client.socials.generateLinkedInShareUrl(url);
         window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
     'click [data-open-takepart-popup]': function clickOpenTakepartPopup() {
-        Partup.ui.popup.open('take-part', function(open_new_message_popup) {
+        Partup.client.popup.open('take-part', function(open_new_message_popup) {
             if (open_new_message_popup) {
-                Partup.ui.popup.open('new-message');
+                Partup.client.popup.open('new-message');
             }
         });
     }
 
     // 'click [data-invite]': function clickInvite(event, template) {
     //     var partup = template.data.partup();
-    //     Partup.ui.intent.go({
+    //     Partup.client.intent.go({
     //         route: 'partup-invite',
     //         params: {_id: partup._id}
     //     }, function() {

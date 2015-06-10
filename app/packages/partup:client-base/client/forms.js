@@ -1,10 +1,10 @@
-Partup.ui.forms = {
+Partup.client.forms = {
 
 
     /**
      * Add sticky error to field helper
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Object} form
      * @param {String} fieldName
      * @param {String} errorReason
@@ -16,7 +16,7 @@ Partup.ui.forms = {
     /**
      * Remove sticky error from field
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Object} form
      * @param {String} fieldName
      */
@@ -27,7 +27,7 @@ Partup.ui.forms = {
     /**
      * Remove all sticky errors
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Object} form
      */
     removeAllStickyFieldErrors: function(form) {

@@ -1,24 +1,24 @@
 if (toastr && jQuery) {
-    Partup.ui.notify = {};
+    Partup.client.notify = {};
 
     // Wrapper for Toastr
-    Partup.ui.notify.info = function notifyInfo(msg) {
+    Partup.client.notify.info = function notifyInfo(msg) {
         toastr.info(msg);
     };
 
-    Partup.ui.notify.warning = function notifyWarning(msg) {
+    Partup.client.notify.warning = function notifyWarning(msg) {
         toastr.warning(msg);
     };
 
-    Partup.ui.notify.success = function notifySuccess(msg) {
+    Partup.client.notify.success = function notifySuccess(msg) {
         toastr.success(msg);
     };
 
-    Partup.ui.notify.error = function notifyError(msg) {
+    Partup.client.notify.error = function notifyError(msg) {
         toastr.error(msg);
     };
 
-    Partup.ui.notify.clear = function notifyClear() {
+    Partup.client.notify.clear = function notifyClear() {
         toastr.clear();
     };
 

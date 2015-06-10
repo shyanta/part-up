@@ -25,7 +25,7 @@ Template.Login.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('login-error'));
+                Partup.client.notify.error(__('login-error'));
                 return;
             }
 
@@ -38,7 +38,7 @@ Template.Login.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('login-error'));
+                Partup.client.notify.error(__('login-error'));
                 return false;
             }
 
@@ -57,7 +57,7 @@ var continueLogin = function() {
     var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
 
     // Intent
-    Partup.ui.intent.executeIntentCallback('login', [true], function() {
+    Partup.client.intent.executeIntentCallback('login', [true], function() {
         if (!optionalDetailsFilledIn) {
 
             // Fill-in optional details
@@ -66,7 +66,7 @@ var continueLogin = function() {
         } else {
 
             // Fallback
-            Partup.ui.intent.executeDefaultCallback();
+            Partup.client.intent.executeDefaultCallback();
 
         }
     });
@@ -86,13 +86,13 @@ AutoForm.hooks({
                 if (error && error.message) {
                     switch (error.message) {
                         case 'User not found [403]':
-                            Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                            Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                             break;
                         case 'Incorrect password [403]':
-                            Partup.ui.forms.addStickyFieldError(self, 'password', 'passwordIncorrect');
+                            Partup.client.forms.addStickyFieldError(self, 'password', 'passwordIncorrect');
                             break;
                         default:
-                            Partup.ui.notify.error(error.reason);
+                            Partup.client.notify.error(error.reason);
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));

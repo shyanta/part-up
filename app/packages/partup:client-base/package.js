@@ -25,19 +25,19 @@ Package.onUse(function(api) {
         'namespace.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
         'autoform/afFieldInput.js',
-        'ui/error.js',
-        'ui/socials.js',
-        'ui/notify.js',
-        'ui/language.js',
-        'ui/strings.js',
-        'ui/clipboard.js',
-        'ui/forms.js',
-        'ui/spinner.js',
-        'ui/intent.js',
-        'ui/elements.js',
-        'ui/popup.js',
-        'ui/uploader.js',
-        'ui/focuslayer.js',
+        'client/error.js',
+        'client/socials.js',
+        'client/notify.js',
+        'client/language.js',
+        'client/strings.js',
+        'client/clipboard.js',
+        'client/forms.js',
+        'client/spinner.js',
+        'client/intent.js',
+        'client/elements.js',
+        'client/popup.js',
+        'client/uploader.js',
+        'client/focuslayer.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',
@@ -52,15 +52,15 @@ Package.onUse(function(api) {
 
         'i18n/helpers-dateFormatters.en.i18n.json',
         'i18n/helpers-dateFormatters.nl.i18n.json',
-        'i18n/ui-language.en.i18n.json',
-        'i18n/ui-language.nl.i18n.json'
+        'i18n/client-language.en.i18n.json',
+        'i18n/client-language.nl.i18n.json'
     ], ['client']);
 
     api.addFiles([
         'package-tap.i18n',
         'i18n/helpers-dateFormatters.en.i18n.json',
         'i18n/helpers-dateFormatters.nl.i18n.json',
-        'i18n/ui-language.en.i18n.json',
-        'i18n/ui-language.nl.i18n.json'
+        'i18n/client-language.en.i18n.json',
+        'i18n/client-language.nl.i18n.json'
     ], 'server');
 });

@@ -50,7 +50,7 @@ var ImageSystem = function ImageSystemConstructor (template) {
             template.loading.set('suggesting-images', false);
 
             if (!newSuggestionsArray.length) {
-                Partup.ui.notify.warning('Could not find any images suggestions.');
+                Partup.client.notify.warning('Could not find any images suggestions.');
                 return;
             }
 
@@ -94,11 +94,11 @@ var ImageSystem = function ImageSystemConstructor (template) {
         if (!mout.lang.isString(url)) return;
 
         template.loading.set('setting-suggestion', true);
-        Partup.ui.uploader.uploadImageByUrl(url, function(error, image) {
+        Partup.client.uploader.uploadImageByUrl(url, function(error, image) {
             template.loading.set('setting-suggestion', false);
 
             if (error) {
-                Partup.ui.notify.error('Some error occured');
+                Partup.client.notify.error('Some error occured');
                 return;
             }
             self.currentImageId.set(image._id);
@@ -303,7 +303,7 @@ Template.modal_create_details.events({
         $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
         FS.Utility.eachFile(event, function(file) {
             template.loading.set('image-uploading', true);
-            Partup.ui.uploader.uploadImage(file, function(error, image) {
+            Partup.client.uploader.uploadImage(file, function(error, image) {
                 template.loading.set('image-uploading', false);
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);
@@ -316,11 +316,11 @@ Template.modal_create_details.events({
         template.budgetTypeChanged.set(true);
     },
     'click [data-imageremove]': function eventChangeFile(event, template) {
-        var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget.form).find('[name=tags_input]').val());
+        var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget.form).find('[name=tags_input]').val());
         template.imageSystem.unsetUploadedPicture(tags);
     },
     'blur [name=tags_input]': function searchFlickerByTags(event, template) {
-        var tags = Partup.ui.strings.tagsStringToArray($(event.currentTarget).val());
+        var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
         Template.instance().imageSystem.getSuggestions(tags);
     },
     'click [data-submission-type]': function eventClickSetSubmissionType (event, template) {
@@ -350,10 +350,10 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
             if (error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
-                    //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                    //     Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                     //     break;
                     default:
-                        Partup.ui.notify.error(error.reason);
+                        Partup.client.notify.error(error.reason);
                 }
                 AutoForm.validateForm(self.formId);
                 self.done(new Error(error.message));
@@ -370,10 +370,10 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
             if (error && error.message) {
                 switch (error.message) {
                     // case 'User not found [403]':
-                    //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                    //     Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                     //     break;
                     default:
-                        Partup.ui.notify.error(error.reason);
+                        Partup.client.notify.error(error.reason);
                 }
                 AutoForm.validateForm(self.formId);
                 self.done(new Error(error.message));
@@ -402,7 +402,7 @@ AutoForm.hooks({
                 if (submissionType === 'next') {
                     Router.go('create-activities', {_id: id});
                 } else if (submissionType === 'skip') {
-                    Partup.ui.intent.executeIntentCallback('create', [id], function(id) {
+                    Partup.client.intent.executeIntentCallback('create', [id], function(id) {
                         Router.go('partup', {_id: id});
                     });
                 }

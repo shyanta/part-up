@@ -1,4 +1,4 @@
-Partup.ui.spinner = {
+Partup.client.spinner = {
     defaultOptions: {
         lines: 13,  // The number of lines to draw
         length: 6,  // The length of each line

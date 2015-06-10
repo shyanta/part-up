@@ -53,4 +53,4 @@ ClientDropdowns = {
     }
 };
 
-Partup.ui.ClientDropdowns = ClientDropdowns;
+Partup.client.ClientDropdowns = ClientDropdowns;

@@ -4,6 +4,6 @@
 Template.modal_forgotpassword.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
-        Partup.ui.intent.executeIntentCallback('login');
+        Partup.client.intent.executeIntentCallback('login');
     }
 });

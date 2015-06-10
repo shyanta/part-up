@@ -34,10 +34,10 @@ AutoForm.hooks({
                 if (error && error.message) {
                     switch (error.message) {
                         case 'User not found [403]':
-                            Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                            Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                             break;
                         default:
-                            Partup.ui.notify.error(error.reason);
+                            Partup.client.notify.error(error.reason);
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));

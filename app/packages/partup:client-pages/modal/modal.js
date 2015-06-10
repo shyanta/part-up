@@ -12,7 +12,7 @@ Template.modal.onRendered(function() {
 /*************************************************************/
 Template.modal.helpers({
     focusLayerEnabled: function helperFocusLayerEnabled () {
-        return Partup.ui.focuslayer.state.get();
+        return Partup.client.focuslayer.state.get();
     }
 });
 
@@ -22,7 +22,7 @@ Template.modal.helpers({
 Template.modal.events({
 
     'click [data-focuslayer]': function eventsClickFocuslayer () {
-        Partup.ui.focuslayer.disable();
+        Partup.client.focuslayer.disable();
     }
 
 });

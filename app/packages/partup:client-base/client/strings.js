@@ -1,9 +1,9 @@
-Partup.ui.strings = {
+Partup.client.strings = {
 
     /**
      * Slugify helper
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {String} string to slugify
      */
     slugify: function(stringToSlugify) {

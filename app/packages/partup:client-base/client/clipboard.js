@@ -1,9 +1,9 @@
-Partup.ui.clipboard = {
+Partup.client.clipboard = {
 
     /**
      * Create a copy to clipboard element width callback
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Element} target element to serve as the clickable element
      * @param {String} text to copy
      * @param {Function} callback

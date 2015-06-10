@@ -41,7 +41,7 @@ Template.modal_register_signup.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('pages-modal-register-signup-error_' + Partup.ui.strings.slugify(error.name)));
+                Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.name)));
                 return;
             }
 
@@ -55,14 +55,14 @@ Template.modal_register_signup.events({
         }, function(error) {
 
             if (error) {
-                Partup.ui.notify.error(__('pages-modal-register-signup-error_' + Partup.ui.strings.slugify(error.name)));
+                Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.name)));
                 return false;
             }
 
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
             Meteor.call('settings.update', {locale: locale}, function(err) {
                 if (err) {
-                    Partup.ui.notify.error(__('pages-modal-register-signup-error_' + Partup.ui.strings.slugify('failed to update locale')));
+                    Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify('failed to update locale')));
                     return false;
                 }
                 Router.go('register-details');
@@ -97,10 +97,10 @@ AutoForm.hooks({
                 if (error && error.message) {
                     switch (error.message) {
                         case 'Email already exists [403]':
-                            Partup.ui.forms.addStickyFieldError(self, 'email', 'emailExists');
+                            Partup.client.forms.addStickyFieldError(self, 'email', 'emailExists');
                             break;
                         default:
-                            Partup.ui.notify.error(error.reason);
+                            Partup.client.notify.error(error.reason);
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));

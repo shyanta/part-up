@@ -5,7 +5,7 @@ Meteor.startup(function(){
     /*************************************************************/
     AutoForm.addHooks(null, {
         beginSubmit: function() {
-            Partup.ui.forms.removeAllStickyFieldErrors(this);
+            Partup.client.forms.removeAllStickyFieldErrors(this);
         }
     });
 

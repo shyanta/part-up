@@ -2,16 +2,16 @@ Meteor.startup(function() {
     $('body').on('click', '[data-popup]', function(e) {
         try {
             var id = $(this).data('popup');
-            Partup.ui.popup.open(id);
+            Partup.client.popup.open(id);
         } catch (e) {
-            return Partup.ui.error('Global [data-popup] on click: ' + e);
+            return Partup.client.error('Global [data-popup] on click: ' + e);
         }
     });
 });
 
 Template.Popup.helpers({
     currentPopup: function() {
-        return Partup.ui.popup.current.get();
+        return Partup.client.popup.current.get();
     }
 });
 
@@ -20,16 +20,16 @@ Template.Popup.events({
         if (event.target !== event.currentTarget) return;
 
         try {
-            Partup.ui.popup.close();
+            Partup.client.popup.close();
         } catch (e) {
-            return Partup.ui.error('Popup [data-overlay-dismiss] on click: ' + e);
+            return Partup.client.error('Popup [data-overlay-dismiss] on click: ' + e);
         }
     },
     'click [data-dismiss]': function closePopup(event, template) {
         try {
-            Partup.ui.popup.close();
+            Partup.client.popup.close();
         } catch (e) {
-            return Partup.ui.error('Popup [data-dismiss] on click: ' + e);
+            return Partup.client.error('Popup [data-dismiss] on click: ' + e);
         }
     }
 });

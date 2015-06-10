@@ -7,7 +7,7 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
             Meteor.call('partups.invite', Router.current().params._id, insertDoc.email, insertDoc.name);
-            Partup.ui.popup.close();
+            Partup.client.popup.close();
 
             return false;
         }

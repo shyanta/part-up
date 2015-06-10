@@ -5,9 +5,9 @@
  * Use this service when you want to perform a route change with an intention.
  * For example, when the user wants to access restricted content and has to login first.
  * Flow:
- * - Call Partup.ui.intent.open(); (for arguments, scroll down)
+ * - Call Partup.client.intent.open(); (for arguments, scroll down)
  * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
- * - Call Partup.ui.intent.executeIntentCallback(); (for arguments, scroll down)
+ * - Call Partup.client.intent.executeIntentCallback(); (for arguments, scroll down)
  *     when you want the intent callback to be executed.
  *     (for example: when the user has logged in successfully)
  *     When no intentCallback exists and no fallbackCallback is provided, the _defaultIntentCallback will be executed.
@@ -20,12 +20,12 @@ var _defaultIntentCallback = function() {
 
 var _intentCallbacks = {};
 
-Partup.ui.intent = {
+Partup.client.intent = {
 
     /**
      * Settings for modal animation when a modal is in the game
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Number} open animation duration
      * @param {Number} close animation duration
      */
@@ -37,7 +37,7 @@ Partup.ui.intent = {
     /**
      * Execute default callback
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Object} arguments to pass to the callback
      */
     executeDefaultCallback: function(args) {
@@ -48,7 +48,7 @@ Partup.ui.intent = {
     /**
      * Execute intent callback for route
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {String} original name of the route the page was opened with
      * @param {Array} arguments to pass to the callback
      * @param {Function} custom fallback callback
@@ -73,12 +73,12 @@ Partup.ui.intent = {
     /**
      * Go with intent
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Object} arguments for Router.go() (path, params and options)
      * @param {Function} callback
      */
     go: function(args, callback) {
-        if (!args || !args.route) return console.warn('Partup.ui.intent.open: please provide a route');
+        if (!args || !args.route) return console.warn('Partup.client.intent.open: please provide a route');
 
         // Save intent callback
         if (typeof callback === 'function') {

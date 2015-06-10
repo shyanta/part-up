@@ -10,11 +10,11 @@
  * {{/if}}
  *
  */
-Partup.ui.popup = {
+Partup.client.popup = {
 
     /**
      * @var current
-     * @name Partup.ui.popup.current
+     * @name Partup.client.popup.current
      *
      * ReactiveVar which holds the id of the current popup. If no popup is opened, the value will be null.
      */
@@ -48,7 +48,7 @@ Partup.ui.popup = {
     close: function() {
         // Get current popup
         var current = this.current.curValue;
-        if (!current) throw '[Partup.ui.popup.close] No current popup found';
+        if (!current) throw '[Partup.client.popup.close] No current popup found';
 
         // Close popup
         this.current.set(null);

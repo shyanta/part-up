@@ -1,9 +1,9 @@
-Partup.ui.uploader = {
+Partup.client.uploader = {
 
     /**
      * Upload single image
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Object} file
      * @param {Function} callback
      */
@@ -25,7 +25,7 @@ Partup.ui.uploader = {
     /**
      * Upload single image by url
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {String} url
      * @param {Function} callback
      */

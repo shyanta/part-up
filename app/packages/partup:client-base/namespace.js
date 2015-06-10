@@ -1,5 +1,5 @@
 /**
  @namespace Ui
- @name partup.ui
+ @name Partup.client
  */
-Partup.ui = {};
+Partup.client = {};

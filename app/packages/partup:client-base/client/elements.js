@@ -1,9 +1,9 @@
-Partup.ui.elements = {
+Partup.client.elements = {
 
     /**
      * Helpers to check if an element is somewhere below another element
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {Element} target element to look below
      * @param {String} selector for element to search
      * @returns {Boolean} whether the element is somewhere below

@@ -7,10 +7,10 @@ Template.modal_create_promote.onRendered(function() {
     var elm = template.find('[data-copy-to-clipboard]');
 
     // Copy to clipboard
-    Partup.ui.clipboard.applyToElement(elm, elm.value, function onCopySuccess() {
-        Partup.ui.notify.success(__('pages-modal-create-promote-notify-copy-to-clipboard-success'));
+    Partup.client.clipboard.applyToElement(elm, elm.value, function onCopySuccess() {
+        Partup.client.notify.success(__('pages-modal-create-promote-notify-copy-to-clipboard-success'));
     }, function onCopyError() {
-        Partup.ui.notify.error(__('pages-modal-create-promote-notify-copy-to-clipboard-error'));
+        Partup.client.notify.error(__('pages-modal-create-promote-notify-copy-to-clipboard-error'));
     });
 
     template.autorun(function() {
@@ -96,7 +96,7 @@ Template.modal_create_promote.events({
     'click [data-action-topartup]': function eventToPartup(event) {
         event.preventDefault();
         var partupId = Router.current().params._id;
-        Partup.ui.intent.executeIntentCallback('create', [partupId], function(id) {
+        Partup.client.intent.executeIntentCallback('create', [partupId], function(id) {
 
             // Router go
             Router.go('partup', {_id: id});
@@ -106,7 +106,7 @@ Template.modal_create_promote.events({
 
     'click [data-share-facebook]': function clickShareFacebook() {
         var url = partupUrl();
-        var facebookUrl = Partup.ui.socials.generateFacebookShareUrl(url);
+        var facebookUrl = Partup.client.socials.generateFacebookShareUrl(url);
         window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
@@ -114,13 +114,13 @@ Template.modal_create_promote.events({
         var url = partupUrl();
         var message = getPartup().name;
         // TODO: I18n + wording
-        var twitterUrl = Partup.ui.socials.generateTwitterShareUrl(message, url);
+        var twitterUrl = Partup.client.socials.generateTwitterShareUrl(message, url);
         window.open(twitterUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
     'click [data-share-linkedin]': function clickShareLinkedin() {
         var url = partupUrl();
-        var linkedInUrl = Partup.ui.socials.generateLinkedInShareUrl(url);
+        var linkedInUrl = Partup.client.socials.generateLinkedInShareUrl(url);
         window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
     }
 

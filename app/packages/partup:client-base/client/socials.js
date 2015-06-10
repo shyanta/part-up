@@ -1,9 +1,9 @@
-Partup.ui.socials = {
+Partup.client.socials = {
 
     /**
      * Generate a link to share a URL on Facebook
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {String} urlToShare URL to be shared
      */
     generateFacebookShareUrl: function (urlToShare) {
@@ -19,7 +19,7 @@ Partup.ui.socials = {
     /**
      * Generate a link to share a URL on Twitter
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {String} messageToShare Message to be shared
      * @param {String} urlToShare URL to be shared
      */
@@ -30,7 +30,7 @@ Partup.ui.socials = {
     /**
      * Generate a link to share a URL on LinkedIn
      *
-     * @memberOf partup.ui
+     * @memberOf Partup.client
      * @param {String} urlToShare URL to be shared
      */
     generateLinkedInShareUrl: function (urlToShare) {

@@ -9,7 +9,7 @@ SlideOver = (function() {
 
   SlideOver.animations = ['slideOverUp', 'slideOverDown'];
 
-  SlideOver.prototype.animationDuration = Partup.ui.intent.settings.openAnimationDuration;
+  SlideOver.prototype.animationDuration = Partup.client.intent.settings.openAnimationDuration;
 
   function SlideOver(_at_animation, startCallback, endCallback) {
     this.animation = _at_animation;

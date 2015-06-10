@@ -13,7 +13,7 @@ Meteor.startup(function() {
         //var language = detectedLocale || 'nl';
         var language = 'nl';
 
-        Partup.ui.language.changeLanguage(language);
+        Partup.client.language.changeLanguage(language);
     }
 
     /*************************************************************/

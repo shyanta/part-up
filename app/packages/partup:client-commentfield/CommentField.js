@@ -101,7 +101,7 @@ AutoForm.addHooks(null, {
 
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             if (error) {
-                return Partup.ui.notify.error(__('error-method-' + error.reason));
+                return Partup.client.notify.error(__('error-method-' + error.reason));
             } else {
                 commentPostButtonActiveDict.set(updateId, false);
                 AutoForm.resetForm(self.formId);

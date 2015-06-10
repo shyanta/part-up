@@ -102,7 +102,7 @@ Template.modal_register_details.helpers({
         var user = Meteor.user();
         if (!user) return false;
         var username = mout.object.get(user, 'profile.name') || mout.object.get(user, 'name');
-        return Partup.ui.strings.firstName(username);
+        return Partup.client.strings.firstName(username);
     }
 });
 
@@ -137,7 +137,7 @@ Template.modal_register_details.events({
 var continueRegister = function() {
 
     // Execute intent callback
-    Partup.ui.intent.executeIntentCallback('register');
+    Partup.client.intent.executeIntentCallback('register');
 
 };
 
@@ -153,10 +153,10 @@ AutoForm.hooks({
                 if (error && error.message) {
                     switch (error.message) {
                         // case 'User not found [403]':
-                        //     Partup.ui.forms.addStickyFieldError(self, 'email', 'emailNotFound');
+                        //     Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                         //     break;
                         default:
-                            Partup.ui.notify.error(error.reason);
+                            Partup.client.notify.error(error.reason);
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));

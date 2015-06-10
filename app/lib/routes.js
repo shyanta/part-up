@@ -312,9 +312,9 @@ Router.route('/verify-email/:token', {
 
         Accounts.verifyEmail(this.params.token, function(error) {
             if (error) {
-                Partup.ui.notify.warning(TAPi18n.__('notification-verify-mail-warning'));
+                Partup.client.notify.warning(TAPi18n.__('notification-verify-mail-warning'));
             } else {
-                Partup.ui.notify.success(TAPi18n.__('notification-verify-mail-success'));
+                Partup.client.notify.success(TAPi18n.__('notification-verify-mail-success'));
             }
         });
     }
@@ -366,11 +366,11 @@ Router.onBeforeAction(function() {
         var params = this.route.params();
         var options = this.route.options;
 
-        Partup.ui.intent.go({route: 'login'}, function(success) {
+        Partup.client.intent.go({route: 'login'}, function(success) {
             if (success) {
                 Router.go(route, params, options);
             } else {
-                Partup.ui.intent.executeIntentCallback(route);
+                Partup.client.intent.executeIntentCallback(route);
             }
         });
     } else {
@@ -407,7 +407,7 @@ Router.onBeforeAction(function() {
 if (Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
-        Partup.ui.focuslayer.disable();
+        Partup.client.focuslayer.disable();
         this.next();
     });
 }

@@ -57,14 +57,14 @@ Template.ActivityForm.events({
         template.data.edit.set(false);
         Meteor.call('activities.archive', template.data.activity._id, function(error) {
             if (error) {
-                Partup.ui.notify.error(error.reason);
+                Partup.client.notify.error(error.reason);
             }
         });
     },
     'click [data-activity-unarchive]': function(event, template) {
         Meteor.call('activities.unarchive', template.data.activity._id, function(error) {
             if (error) {
-                Partup.ui.notify.error(error.reason);
+                Partup.client.notify.error(error.reason);
             }
         });
     },
@@ -72,7 +72,7 @@ Template.ActivityForm.events({
         template.data.edit.set(false);
         Meteor.call('activities.remove', template.data.activity._id, function(error) {
             if (error) {
-                Partup.ui.notify.error(error.reason);
+                Partup.client.notify.error(error.reason);
             }
         });
     },
@@ -102,7 +102,7 @@ AutoForm.addHooks(null, {
         if (template.data && template.data.activity) {
             Meteor.call('activities.update', template.data.activity._id, doc, function(error) {
                 if (error && error.message) {
-                    Partup.ui.notify.error(error.reason);
+                    Partup.client.notify.error(error.reason);
 
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
@@ -119,7 +119,7 @@ AutoForm.addHooks(null, {
 
             Meteor.call('activities.insert', partupId, doc, function(error, output) {
                 if (error && error.message) {
-                    Partup.ui.notify.error(error.reason);
+                    Partup.client.notify.error(error.reason);
 
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
@@ -132,7 +132,7 @@ AutoForm.addHooks(null, {
                 AutoForm.resetForm(self.formId);
 
                 if (template.data.POPUP) {
-                    Partup.ui.popup.close();
+                    Partup.client.popup.close();
                 }
 
                 if (mout.lang.isFunction(template.data.createCallback)) {

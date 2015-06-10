@@ -47,9 +47,9 @@ Partup.transformers = {};
 
 /**
  @namespace UI
- @name partup.ui
+ @name Partup.client
  */
-Partup.ui = {};
+Partup.client = {};
 
 /**
  @namespace Meteor

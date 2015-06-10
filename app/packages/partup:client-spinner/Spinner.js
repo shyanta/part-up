@@ -1,6 +1,6 @@
 
 Template.Spinner.rendered = function () {
-  var options = _.extend(Partup.ui.spinner.defaultOptions, {
+  var options = _.extend(Partup.client.spinner.defaultOptions, {
 
   }, this.data);
 
@@ -8,7 +8,7 @@ Template.Spinner.rendered = function () {
   this.spinner.spin(this.firstNode);
 };
 Template.SpinnerInverted.rendered = function () {
-  var options = _.extend(Partup.ui.spinner.defaultOptions,{
+  var options = _.extend(Partup.client.spinner.defaultOptions,{
         color: '#fff'
     }, this.data);
 
@@ -17,7 +17,7 @@ Template.SpinnerInverted.rendered = function () {
 };
 
 Template.SpinnerLarge.rendered = function () {
-  var options = _.extend(Partup.ui.spinner.defaultOptions,{
+  var options = _.extend(Partup.client.spinner.defaultOptions,{
         length: 8,
         width: 3,
         radius: 12
