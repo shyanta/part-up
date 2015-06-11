@@ -113,6 +113,11 @@ Template.app_partup_updates.helpers({
 /* Widget events */
 /*************************************************************/
 Template.app_partup_updates.events({
+    'click [data-newmessage-popup]': function(event, template) {
+        Partup.client.popup.open('new-message', function() {
+            template.shownUpdates.set(getUpdates());
+        });
+    },
     'click [data-reveal-new-updates]': function(event, template) {
         template.shownUpdates.set(template.allUpdates.curValue);
     }
