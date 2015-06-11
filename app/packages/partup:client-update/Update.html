@@ -5,13 +5,13 @@
 
             <!-- User -->
             <figure class="pu-avatar pu-avatar-label">
-                <a href="#" rel="author" data-usercard="{{ updateUpper._id }}" class="pu-sub-image" style="{{#if updateUpper.profile.image}}background-image: url('{{ updateUpper.profile.image.url }}');{{/if}}"></a>
-                <!-- <span class="pu-sub-label">{{ updateUpper.profile.name }}</span> -->
+                <a href="#" rel="author" data-usercard="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#if metadata.updateUpperImage}}background-image: url('{{ metadata.updateUpperImage.url }}');{{/if}}"></a>
+                <!-- <span class="pu-sub-label">{{ metadata.updateUpper.profile.name }}</span> -->
             </figure>
 
             <!-- Time -->
             <p class="pu-sub-time">
-                <time datetime="{{ partupDateISO update.created_at }}" title="{{ partupDateFull update.created_at }}">{{ partupDatePartupActivity update.created_at }}</time>
+                <time datetime="{{ partupDateISO update.updated_at }}" title="{{ partupDateFull update.updated_at }}">{{ partupDatePartupActivity update.updated_at }}</time>
             </p>
         </aside>
         <section>
@@ -20,27 +20,13 @@
             <header>
                 <h3>
                 <!-- Determine the correct pathFor -->
-                <a href="
-                    {{ #if partupContainsOne update.type 'partups_newuser' }}
-                        {{pathFor route='profile' _id=user_id }}
-                    {{else}}
-                        {{pathFor route='partup-update' _id=partupId update_id=update._id }}
-                    {{/if}}
-                ">
-                    {{#if partupEqualsExactly update.type 'partups_invited' }}
-                        <!-- {{#with update.type_data }} -->
-                            <!-- no template, only title -->
-                            {{_ titleKey update.type_data.name}}
-                        <!-- {{/with}} -->
-                    {{else}}
-                        {{_ titleKey }}
-                    {{/if }}
-
+                <a href="{{ metadata.path }}">
+                    {{ title }}
                 </a>
 
                 </h3>
                 {{#unless commentInputFieldExpanded }}
-                    <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'partupdetail-update-item-comment-button' }}</a>
+                    <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'update-comment-button' }}</a>
                 {{/unless }}
             </header>
 
@@ -124,10 +110,7 @@
             {{#if partupEqualsExactly update.type 'partups_image_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        <!-- <b>OLD</b>
-                        <img src="{{ getImageUrlById old_image }}"> -->
-                        <!-- <b>NEW</b> -->
-                        <img class="pu-image" src="{{ getImageUrlById new_image }}">
+                        <img class="pu-image" src="{{ partupImageById new_image }}">
                     </section>
                 {{/with}}
             {{/if }}
@@ -139,16 +122,16 @@
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
                             <!-- OLD -->
                             {{#if partupEquals old_type 'hours'}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-hours' old_value }}</span></li>
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-hours' old_value }}</span></li>
                             {{else}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-money' old_value }}</span></li>
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-money' old_value }}</span></li>
                             {{/if}}
 
                             <!-- NEW -->
                             {{#if partupEquals new_type 'hours'}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-hours' new_value }}</span></li>
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-hours' new_value }}</span></li>
                             {{else}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'partupdetail-update-item-budget-type-money' new_value }}</span></li>
+                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-money' new_value }}</span></li>
                             {{/if}}
                         </ul>
                     </section>

@@ -38,21 +38,19 @@ Template.PartupTile.helpers({
         return Meteor.users.findOne({_id: this._id});
     },
     uppers: function() {
-        if (!this.partup.uppers) return;
+        if (!this.partup || !this.partup.uppers) return;
+        var uppers = this.partup.uppers;
 
-        var uppers = [];
-        var coords;
-        for (var i = 0; i < this.partup.uppers.length; i++) {
-            coords = getAvatarCoordinates(this.partup.uppers.length, i, 0, 24, 100);
-            uppers.push({
-                _id: this.partup.uppers[i],
+        return lodash.map(uppers, function(upper, index) {
+            var coords = getAvatarCoordinates(uppers.length, index, 0, 24, 100);
+
+            return {
+                _id: upper,
                 x: coords.x + 95,
                 y: coords.y + 95,
-                delay: .075 * i
-            });
-        }
-
-        return uppers;
+                delay: .075 * index
+            };
+        });
     }
 });
 

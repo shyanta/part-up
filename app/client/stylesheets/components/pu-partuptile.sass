@@ -35,6 +35,7 @@
         padding: 0
         list-style: none
         z-index: 1
+        pointer-events: none
 
         li
             display: inline-block
@@ -114,5 +115,8 @@
             font-weight: 600
 
     &:hover
-        .pu-sub-partup-tags li
-            transform: translateX(0)
+        .pu-sub-partup-tags
+            pointer-events: auto
+
+            li
+                transform: translateX(0)

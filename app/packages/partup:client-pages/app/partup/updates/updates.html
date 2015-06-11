@@ -1,6 +1,6 @@
 <template name="app_partup_updates">
     <div class="pu-page">
-        <div class="pu-composition pu-composition-partupdetailupdates">
+        <div class="pu-composition pu-composition-partupdetailupdates {{#if newUpdatesCount }}pu-composition-partupdetailupdates-newupdatesavailable{{/if}}">
 
             <!-- new message popup -->
             {{#if partupIsPopupActive 'new-message' }}
@@ -16,7 +16,7 @@
             <header class="pu-pageheader">
                 <section>
                     {{#if isLoggedIn }}
-                        <a class="pu-button pu-button-icon" href="#" data-popup="new-message">
+                        <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
                             <i class="fa fa-comment"></i>
                             {{_ 'pages-app-partup-updates-new_message' }}
                         </a>
@@ -24,6 +24,14 @@
                 </section>
                 <aside>{{> PartialDropdownUpdatesActions}}</aside>
             </header>
+
+            <!-- Reveal new updates -->
+            {{#if newUpdatesCount }}
+                <p class="pu-update pu-sub-revealupdatesbutton">
+                    <aside></aside>
+                    <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
+                </p>
+            {{/if}}
 
             <!-- For each update -->
             {{#each updates }}
@@ -34,7 +42,7 @@
                     </section>
                 {{/if }}
 
-                {{> Update update=. expandedComments=false }}
+                {{> Update updateId=_id expandedComments=false metadata=metaDataForUpdate }}
             {{/each }}
 
         </div>

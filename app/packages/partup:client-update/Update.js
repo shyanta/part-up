@@ -1,64 +1,73 @@
 /*************************************************************/
 /* Widget onCreated */
 /*************************************************************/
-Template.Update.onCreated(function () {
-    this.commentInputFieldExpanded = new ReactiveVar(false);
+Template.Update.onCreated(function() {
+    var template = this;
+    template.commentInputFieldExpanded = new ReactiveVar(false);
 
-    var update = this.data.update;
-    if (update.type === 'partups_budget_changed') {
-        update.type_data.old_value = update.type_data.old_value || 0;
-        update.type_data.new_value = update.type_data.new_value || 0;
-    }
+    // Make it reactive
+    template.update = new ReactiveVar(false);
+    template.autorun(function() {
+        var updates = Updates.find({_id: template.data.updateId});
+        var update = updates.fetch()[0];
+        template.update.set(update);
+    });
 });
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.Update.helpers({
+    update: function helperUpdate() {
+        return Template.instance().update.get();
+    },
     partupId: function helperPartupId () {
         return Router.current().params._id;
     },
     activityData: function helperActivityData () {
-        var activityId = Template.instance().data.update.type_data.activity_id;
+        var update = Template.instance().update.get();
+        if (!update) return;
+
+        var activityId = update.type_data.activity_id;
         return Activities.findOne({_id: activityId});
     },
-    isActivityUpdate: function(){
-        return /^partups_activities/.test(this.update.type) ||
-            (this.update.type === 'partups_comments_added' && !this.update.type_data.contribution_id);
+    isActivityUpdate: function() {
+        var update = Template.instance().update.get();
+        if (!update) return;
+
+        return /^partups_activities/.test(update.type) ||
+            (update.type === 'partups_comments_added' && !update.type_data.contribution_id);
     },
-    isContributionUpdate: function(){
-        return /^partups_(contributions|ratings)/.test(this.update.type) ||
-            (this.update.type === 'partups_comments_added' && this.update.type_data.contribution_id);
+    isContributionUpdate: function() {
+        var update = Template.instance().update.get();
+        if (!update) return;
+
+        return /^partups_(contributions|ratings)/.test(update.type) ||
+            (update.type === 'partups_comments_added' && update.type_data.contribution_id);
     },
-    isDetail: function helperIsDetail (){
+    isDetail: function helperIsDetail () {
         return !!Router.current().params.update_id;
     },
-    isNotDetail: function helperIsDetail (){
+    isNotDetail: function helperIsDetail () {
         return !Router.current().params.update_id;
     },
-    titleKey: function helperTitleKey() {
-        return 'partupdetail-update-item-type-' + this.update.type + '-title';
-    },
+    title: function helperTitle() {
+        var titleKey = 'update-type-' + this.metadata.update_type + '-title';
 
-    updateUpper: function helperUpdateUpper() {
-        var user = Meteor.users.findOne({_id: this.update.upper_id});
-
-        if (user.profile && user.profile.image) {
-            user.profile.image = Images.findOne({_id: user.profile.image});
+        if (this.metadata.update_type === 'partups_invited') {
+            return __(titleKey, this.metadata.invited_name);
         }
 
-        return user;
-    },
-
-    getImageUrlById: function helperGetImageUrlById(imageId) {
-        var image = Images.findOne({_id: imageId});
-        if (image) return image.url();
-        return '';
+        return __(titleKey);
     },
 
     commentInputFieldExpanded: function helperCommentInputFieldExpanded () {
-        var commentsPresent = this.update.comments && this.update.comments.length > 0;
-        var commentButtonPressed = Template.instance().commentInputFieldExpanded.get();
+        var template = Template.instance();
+        var update = template.update.get();
+        if (!update) return;
+
+        var commentsPresent = update.comments && update.comments.length > 0;
+        var commentButtonPressed = template.commentInputFieldExpanded.get();
         return commentsPresent || commentButtonPressed;
     },
 

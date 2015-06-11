@@ -35,6 +35,8 @@ Template.registerHelper('partupContains', function(a, b) {
 });
 
 Template.registerHelper('partupContainsOne', function(a, b) {
+    if (!a || !b) return false;
+
     var contains = false;
     for (var i = 1; i < arguments.length; i++) {
         if (a.indexOf(arguments[i]) > -1) {

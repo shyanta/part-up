@@ -45,19 +45,50 @@ var getUpdates = function getUpdates () {
 };
 
 /*************************************************************/
+/* On created */
+/*************************************************************/
+Template.app_partup_updates.onCreated(function() {
+    var template = this;
+    template.allUpdates = new ReactiveVar();
+    template.shownUpdates = new ReactiveVar();
+    template.refreshDate = new ReactiveVar(new Date());
+
+    template.updateShownUpdates = function() {
+        template.shownUpdates.set(getUpdates());
+        template.refreshDate.set(new Date());
+    };
+
+    template.autorun(function() {
+        var updates = getUpdates();
+        template.allUpdates.set(updates);
+
+        if (!template.shownUpdates.curValue || !template.shownUpdates.curValue.length) {
+            template.updateShownUpdates();
+        }
+    });
+});
+
+/*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.app_partup_updates.helpers({
-
     'updates': function helperUpdates () {
-        // return updatesVar.get(); // temp reactive var until mongo implementation
-        return getUpdates();
+        var template = Template.instance();
+        return template.shownUpdates.get();
+    },
+
+    'newUpdatesCount': function newUpdatesCount() {
+        var template = Template.instance();
+        var refreshDate = template.refreshDate.get();
+        return lodash.filter(template.allUpdates.get(), function(update) {
+            return moment(update.updated_at).diff(refreshDate) > 0;
+        }).length;
     },
 
     'anotherDay': function helperAnotherday (update) {
         var TIME_FIELD = 'created_at';
 
-        var updates = getUpdates(); //updatesVar.get(); // getUpdates()
+        var updates = getUpdates();
         var currentIndex = lodash.findIndex(updates, update);
         var previousUpdate = updates[currentIndex - 1];
         var previousMoment = moment();
@@ -82,12 +113,40 @@ Template.app_partup_updates.helpers({
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
-    }
+    },
 
+    'metaDataForUpdate': function helperMetaDataForUpdate () {
+        var update = this;
+        var updateUpper = Meteor.users.findOne({_id: update.upper_id});
+
+        var path = '';
+        if (update.type === 'partups_newuser') {
+            path = Router.path('profile', {_id: update.upper_id});
+        } else {
+            path = Router.path('partup-update', {_id: update.partup_id, update_id: update._id});
+        }
+
+        return {
+            updateUpper: updateUpper,
+            updateUpperImage: Images.findOne({_id: updateUpper.profile.image}),
+            updated_at: update.updated_at,
+            path: path,
+            update_type: update.type,
+            invited_name: update.type_data.invited_name
+        };
+    }
 });
 
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
 Template.app_partup_updates.events({
+    'click [data-newmessage-popup]': function(event, template) {
+        Partup.client.popup.open('new-message', function() {
+            template.updateShownUpdates();
+        });
+    },
+    'click [data-reveal-new-updates]': function(event, template) {
+        template.updateShownUpdates();
+    }
 });
