@@ -8,5 +8,7 @@
     "pages-app-partup-status_text": "Deze part-up is actief tot <strong>%s</strong> in <strong>%s</strong>.",
     "pages-app-partup-visibility_public": "iedereen",
     "pages-app-partup-visibility_private": "uitgenodigde uppers",
+
+    "pages-app-partup-share_title": "Deel deze part-up",
     "pages-app-partup-share_paragraph": "Trots op je part-up of zoek je nog nieuwe uppers? Deel je part-up in jouw netwerk!"
 }

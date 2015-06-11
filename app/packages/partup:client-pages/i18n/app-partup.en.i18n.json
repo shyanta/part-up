@@ -8,5 +8,7 @@
     "pages-app-partup-status_text": "This part-up is active untill <strong>%s</strong> in the area of <strong>%s</strong>.",
     "pages-app-partup-visibility_public": "everyone",
     "pages-app-partup-visibility_private": "invited uppers only",
+
+    "pages-app-partup-share_title": "Share this part-up",
     "pages-app-partup-share_paragraph": "Are you proud of your part-up or in need of new uppers? Share your part-up in your network!"
 }
