@@ -12,6 +12,8 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
+        var activity = Activities.findOneOrFail(activityId);
+
         var isUpperInPartup = Partups.findOne({_id: activity.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
         check(fields, Partup.schemas.forms.contribution);
@@ -32,7 +34,7 @@ Meteor.methods({
                 Contributions.update(contribution._id, {$set: newContribution});
 
                 // Post system message
-                Partup.server.services.system_messages.send(upper, contribution.update_id, 'system_contributions_updated');
+                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_updated');
             } else {
                 // Insert contribution
                 newContribution.created_at = new Date();
@@ -105,7 +107,7 @@ Meteor.methods({
             // Post system message for each accepted contribution
             conceptContributions.forEach(function(contribution) {
                 if (contribution.update_id) {
-                    Partup.server.services.system_messages.send(upper, contribution.update_id, 'system_contributions_accepted');
+                    Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_accepted');
                 }
             });
         } catch (error) {
@@ -122,6 +124,7 @@ Meteor.methods({
     'contributions.reject': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
+        var activity = Activities.findOneOrFail(contribution.activity_id);
         var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
@@ -131,7 +134,7 @@ Meteor.methods({
             Contributions.update(contribution._id, {$set: {archived: true}});
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, contribution.update_id, 'system_contributions_rejected');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_rejected');
 
             Event.emit('partups.contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
         } catch (error) {
@@ -148,6 +151,7 @@ Meteor.methods({
     'contributions.archive': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
+        var activity = Activities.findOneOrFail(contribution.activity_id);
 
         if (!upper || contribution.upper_id !== upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
@@ -157,7 +161,7 @@ Meteor.methods({
             Contributions.update(contribution._id, {$set: {archived: true}});
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, contribution.update_id, 'system_contributions_removed');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed');
 
             Event.emit('partups.contributions.archived', upper._id, contribution);
 
@@ -178,6 +182,7 @@ Meteor.methods({
     'contributions.remove': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
+        var activity = Activity.findOneOrFail(contribution.activity_id);
 
         if (!upper || contribution.upper_id !== upper._id) {
             throw new Meteor.Error(401, 'Unauthorized.');
@@ -187,7 +192,7 @@ Meteor.methods({
             Contributions.remove(contributionId);
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, contribution.update_id, 'system_contributions_removed');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed');
 
             return {
                 _id: contribution._id

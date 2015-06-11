@@ -11,6 +11,8 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
 
         var contribution = Contributions.findOneOrFail(contributionId);
+        var activity = Activities.findOneOrFail(contribution.activity_id);
+
         var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
         if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
@@ -35,7 +37,7 @@ Meteor.methods({
             Event.emit('partups.ratings.inserted', upper._id, contribution.update_id, contribution.activity_id, contribution._id, newRating._id);
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, contribution.update_id, 'system_ratings_inserted');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_inserted');
 
             return newRating;
         } catch (error) {
@@ -54,6 +56,8 @@ Meteor.methods({
         var upper = Meteor.user();
         var rating = Ratings.findOneOrFail(ratingId);
         var contribution = Contributions.findOneOrFail(rating.contribution_id);
+        var activity = Activities.findOneOrFail(contribution.activity_id);
+
         var isUpperInPartup = Partups.findOne({_id: rating.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
         if (!upper || !isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
@@ -72,7 +76,7 @@ Meteor.methods({
                 Ratings.update(rating, {$set: newRating});
 
                 // Post system message
-                Partup.server.services.system_messages.send(upper, contribution.update_id, 'system_ratings_updated');
+                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_updated');
 
                 Event.emit('partups.ratings.updated', upper._id, contribution.update_id, contribution.activity_id, contribution._id, ratingId);
             }
