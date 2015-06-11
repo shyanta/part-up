@@ -57,7 +57,6 @@ Meteor.methods({
             }
 
             return newContribution;
-
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Contribution could not be updated.');
@@ -164,7 +163,7 @@ Meteor.methods({
 
             return {
                 _id: contribution._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be archived.');
@@ -192,7 +191,7 @@ Meteor.methods({
 
             return {
                 _id: contribution._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be removed.');
