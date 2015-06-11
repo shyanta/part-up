@@ -5,11 +5,12 @@ Template.Update.onCreated(function() {
     var template = this;
     template.commentInputFieldExpanded = new ReactiveVar(false);
 
-    template.update = false;
+    // Make it reactive
+    template.update = new ReactiveVar(false);
     template.autorun(function() {
         var updates = Updates.find({_id: template.data.updateId});
         var update = updates.fetch()[0];
-        template.update = update;
+        template.update.set(update);
     });
 });
 
@@ -18,27 +19,27 @@ Template.Update.onCreated(function() {
 /*************************************************************/
 Template.Update.helpers({
     update: function helperUpdate() {
-        return Template.instance().update;
+        return Template.instance().update.get();
     },
     partupId: function helperPartupId () {
         return Router.current().params._id;
     },
     activityData: function helperActivityData () {
-        var update = Template.instance().update;
+        var update = Template.instance().update.get();
         if (!update) return;
 
         var activityId = update.type_data.activity_id;
         return Activities.findOne({_id: activityId});
     },
     isActivityUpdate: function() {
-        var update = Template.instance().update;
+        var update = Template.instance().update.get();
         if (!update) return;
 
         return /^partups_activities/.test(update.type) ||
             (update.type === 'partups_comments_added' && !update.type_data.contribution_id);
     },
     isContributionUpdate: function() {
-        var update = Template.instance().update;
+        var update = Template.instance().update.get();
         if (!update) return;
 
         return /^partups_(contributions|ratings)/.test(update.type) ||
@@ -51,14 +52,14 @@ Template.Update.helpers({
         return !Router.current().params.update_id;
     },
     titleKey: function helperTitleKey() {
-        var update = Template.instance().update;
+        var update = Template.instance().update.get();
         if (!update) return;
 
         return 'partupdetail-update-item-type-' + update.type + '-title';
     },
 
     updateUpper: function helperUpdateUpper() {
-        var update = Template.instance().update;
+        var update = Template.instance().update.get();
         if (!update) return;
 
         var user = Meteor.users.findOne({_id: update.upper_id});
@@ -78,9 +79,10 @@ Template.Update.helpers({
 
     commentInputFieldExpanded: function helperCommentInputFieldExpanded () {
         var template = Template.instance();
-        if (!template.update) return;
+        var update = template.update.get();
+        if (!update) return;
 
-        var commentsPresent = template.update.comments && template.update.comments.length > 0;
+        var commentsPresent = update.comments && update.comments.length > 0;
         var commentButtonPressed = template.commentInputFieldExpanded.get();
         return commentsPresent || commentButtonPressed;
     },
