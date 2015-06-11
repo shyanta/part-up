@@ -3,6 +3,7 @@
     "comment-field-content-system_activities_removed": "removed the activity",
     "comment-field-content-system_activities_archived": "archived the activity",
     "comment-field-content-system_activities_unarchived": "reactivated the activity",
+    "comment-field-content-system_contributions_added": "added a contribution",
     "comment-field-content-system_contributions_updated": "updated the contribution",
     "comment-field-content-system_contributions_accepted": "accepted the contribution",
     "comment-field-content-system_contributions_rejected": "rejected the contribution",
