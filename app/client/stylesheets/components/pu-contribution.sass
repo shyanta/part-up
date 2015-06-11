@@ -1,14 +1,29 @@
 .pu-contribution
     border-top: 2px solid $color-gallery
+    padding: 20px 0
 
-    &:first-child
-        border-top: 0
+    .pu-sub-separator
+        display: inline-block
+        color: $color-text-subtle
+        height: 40px
+        padding: 12px 15px
+        font-weight:600
 
     .pu-sub-acceptbuttons
         margin-top:15px
 
         .pu-button-text
             margin-left: 15px
+
+    .pu-sub-contribution-comments a
+        color: #aaa
+        font-size: 14px
+        font-weight: bold
+        text-decoration: none
+        transition: color .2s ease-out
+
+        &:hover
+            color: #999
 
     > p,
     .pu-avatar
@@ -22,15 +37,13 @@
     .pu-ratings
         float: right
 
-    .pu-sub-contribution-comments a
-        color: #aaa
-        font-size: 14px
-        font-weight: bold
-        text-decoration: none
-        transition: color .2s ease-out
+    &:first-child
+        border-top: 0
+        padding-top: 0
 
-        &:hover
-            color: #999
+    &:last-child
+        border-top: 0
+        padding-bottom: 0
 
     &-none
         color: #aaa
@@ -40,7 +53,15 @@
 
     &-placeholder
         color: #aaa
-        cursor: pointer
+
+        &:before
+            content: ''
+            display: block
+            position: absolute
+            bottom: 65px
+            left: -20px
+            right: -20px
+            border-top: 2px solid $color-gallery
 
     &-removed
         p

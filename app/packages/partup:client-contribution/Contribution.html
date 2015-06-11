@@ -45,7 +45,11 @@
         </div>
     {{ else }}
         {{# if PLACEHOLDER }}
-            <a href="" class="pu-button" data-contribute="">{{_ 'contribution-contribute'}}</a>
+            <div class="pu-contribution pu-contribution-placeholder">
+                <a href="" class="pu-button" data-contribute="">{{_ 'contribution-contribute'}}</a>
+                <span class="pu-sub-separator">{{_ 'contribution-or'}}</span>
+                <a href="" class="pu-button" data-share="">{{_ 'contribution-share'}}</a>
+            </div>
         {{ else }}
             {{# if contribution.archived }}
                 <div class="pu-contribution pu-contribution-removed">
@@ -69,7 +73,13 @@
                         <p class="pu-sub-contribution-comments">
                             <a href="{{ pathFor route='partup-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
                         </p>
-                        {{> Ratings contribution=contribution ratings=ratings }}
+                        {{# if contribution.verified }}
+                            {{> Ratings contribution=contribution ratings=ratings }}
+                        {{ else }}
+                            <div class="pu-ratings">
+                                <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
+                            </div>
+                        {{/ if }}
                     </div>
                 {{ else }}
                     <div class="pu-contribution">
@@ -84,7 +94,15 @@
                         <p class="pu-sub-contribution-comments">
                             <a href="{{ pathFor route='partup-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
                         </p>
-                        {{> Ratings contribution=contribution ratings=ratings }}
+
+                        {{# if contribution.verified }}
+                            {{> Ratings contribution=contribution ratings=ratings }}
+                        {{ else }}
+                            <div class="pu-ratings">
+                                <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
+                            </div>
+                        {{/ if }}
+
                         {{# if canVerifyContribution }}
                         <div class="pu-sub-acceptbuttons pu-row">
                             <div class="cell">

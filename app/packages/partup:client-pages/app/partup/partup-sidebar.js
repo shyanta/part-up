@@ -328,15 +328,4 @@ Template.app_partup_sidebar.events({
             }
         });
     }
-
-    // 'click [data-invite]': function clickInvite(event, template) {
-    //     var partup = template.data.partup();
-    //     Partup.client.intent.go({
-    //         route: 'partup-invite',
-    //         params: {_id: partup._id}
-    //     }, function() {
-    //         Router.go('partup', {_id: partup._id});
-    //     });
-    // }
-
 });
