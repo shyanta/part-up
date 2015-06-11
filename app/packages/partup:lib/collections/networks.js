@@ -68,10 +68,3 @@ Networks = new Mongo.Collection('networks', {
         return new Network(document);
     }
 });
-
-/**
- * Networks collection helpers
- */
-Networks.getPublicNetworks = function(options) {
-    return this.find({'access_level': PUBLIC_OPEN}, options);
-};
