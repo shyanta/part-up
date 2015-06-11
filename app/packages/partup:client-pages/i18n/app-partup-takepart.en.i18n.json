@@ -1,13 +1,13 @@
 {
-    "pages-app-partup-takepart-title": "@Take part",
+    "pages-app-partup-takepart-title": "Taking part, the Part-up way",
 
-    "pages-app-partup-takepart-supporter_title": "@As supporter",
-    "pages-app-partup-takepart-supporter_paragraph": "@Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis excepturi quidem harum, repellat deserunt, perferendis inventore dolorem est maiores corrupti officia? Nulla quos repellat quis mollitia ratione nobis quidem, quam perspiciatis. Culpa laboriosam, incidunt nemo nam. Magnam voluptatum obcaecati esse laboriosam quis explicabo, fugit placeat, quia hic, deserunt nesciunt earum?",
-    "pages-app-partup-takepart-supporter_button": "@Post new message",
+    "pages-app-partup-takepart-supporter_title": "Part-up principle #1: Partners actively contribute",
+    "pages-app-partup-takepart-supporter_paragraph": "You only become partner in this part-up when you actively contribute to an activity. Do you want to take part? Go to the activities and add your contribution to an activity. Do you think an activity is missing? Just post your suggestion in a new message.",
+    "pages-app-partup-takepart-supporter_button": "New message",
 
-    "pages-app-partup-takepart-upper_title": "@As upper",
-    "pages-app-partup-takepart-upper_paragraph": "@Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis excepturi quidem harum, repellat deserunt, perferendis inventore dolorem est maiores corrupti officia? Nulla quos repellat quis mollitia ratione nobis quidem, quam perspiciatis. Culpa laboriosam, incidunt nemo nam. Magnam voluptatum obcaecati esse laboriosam quis explicabo, fugit placeat, quia hic, deserunt nesciunt earum?",
-    "pages-app-partup-takepart-upper_button": "@Go to activities",
+    "pages-app-partup-takepart-upper_title": "Part-up principle #2: Supporters give advice",
+    "pages-app-partup-takepart-upper_paragraph": "And that's why supporters are important for a part-up. Share your tips and suggestions in a comment on the updates, or post a new message. You will become supporter right away.",
+    "pages-app-partup-takepart-upper_button": "Check out the activities",
 
-    "pages-app-partup-takepart-close": "@Close"
+    "pages-app-partup-takepart-close": "Close"
 }
