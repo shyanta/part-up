@@ -1,6 +1,5 @@
 .pu-partuptile
     position: relative
-    z-index: 1
     border: 2px solid $color-border-light
     width: $grid-column * 3 + $grid-gap * 2
     border-radius: 4px
@@ -35,6 +34,7 @@
         left: 100%
         padding: 0
         list-style: none
+        z-index: 1
 
         li
             display: inline-block
@@ -114,10 +114,5 @@
             font-weight: 600
 
     &:hover
-        z-index: 2
-
-        .pu-sub-avatar-list li
-            transform: translateX(30px)
-
         .pu-sub-partup-tags li
             transform: translateX(0)
