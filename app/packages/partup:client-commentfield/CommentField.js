@@ -21,7 +21,7 @@ Template.CommentField.onRendered(function() {
     commentPostButtonActiveDict.set(update._id, false);
 
     template.highlight = function() {
-        if (template.data.expandedComments) return;
+        if (template.data.COMMENTS_EXPANDED) return;
         var element = template.find('.pu-commentfield');
         var doc = document.documentElement;
         var scrollDuration = ((window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) / 2;
@@ -50,14 +50,14 @@ Template.CommentField.helpers({
             hiddenComments = this.update.comments_count - MAX_COLLAPSED_COMMENTS > 0;
         }
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        return Template.instance().data.expandedComments ?
+        return Template.instance().data.COMMENTS_EXPANDED ?
             false :
             hiddenComments && !commentsExpanded;
     },
     shownComments: function helperShownComments() {
         var allComments = this.update.comments || [];
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        if (commentsExpanded || Template.instance().data.expandedComments)
+        if (commentsExpanded || Template.instance().data.COMMENTS_EXPANDED)
             return allComments;
         else
             return allComments.slice(-MAX_COLLAPSED_COMMENTS);

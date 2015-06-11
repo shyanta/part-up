@@ -21,16 +21,16 @@
         <!-- Comments list -->
         <ul class="pu-list pu-list-comments">
             {{#each shownComments }}
-            <li>
-                <p class="{{# if system }}pu-sub-systemmessage{{/ if}}">
-                    <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
-                    {{# if system }}
-                        {{ systemMessage content }}
-                    {{else}}
-                        {{ content }}
-                    {{/ if}}
-                </p>
-            </li>
+                <li>
+                    <p class="{{# if system }}pu-sub-systemmessage{{/ if}}">
+                        <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
+                        {{# if system }}
+                            {{ systemMessage content }}
+                        {{else}}
+                            {{ content }}
+                        {{/ if}}
+                    </p>
+                </li>
             {{/each }}
         </ul>
 

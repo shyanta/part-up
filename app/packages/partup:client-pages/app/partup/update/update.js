@@ -11,6 +11,9 @@ Template.app_partup_update.helpers({
         var path = '';
         if (update.type === 'partups_newuser') {
             path = Router.path('profile', {_id: update.upper_id});
+        } else if (update.type.indexOf('partups_contributions_') > -1) {
+            var activityUpdateId = Activities.findOne({_id: update.type_data.activity_id}).update_id;
+            path = Router.path('partup-update', {_id: update.partup_id, update_id: activityUpdateId});
         } else {
             path = Router.path('partup-update', {_id: update.partup_id, update_id: update._id});
         }
