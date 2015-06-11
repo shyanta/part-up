@@ -51,30 +51,14 @@ Template.Update.helpers({
     isNotDetail: function helperIsDetail () {
         return !Router.current().params.update_id;
     },
-    titleKey: function helperTitleKey() {
-        var update = Template.instance().update.get();
-        if (!update) return;
+    title: function helperTitle() {
+        var titleKey = 'update-type-' + this.metadata.update_type + '-title';
 
-        return 'partupdetail-update-item-type-' + update.type + '-title';
-    },
-
-    updateUpper: function helperUpdateUpper() {
-        var update = Template.instance().update.get();
-        if (!update) return;
-
-        var user = Meteor.users.findOne({_id: update.upper_id});
-
-        if (user.profile && user.profile.image) {
-            user.profile.image = Images.findOne({_id: user.profile.image});
+        if (this.metadata.update_type === 'partups_invited') {
+            return __(titleKey, this.metadata.invited_name);
         }
 
-        return user;
-    },
-
-    getImageUrlById: function helperGetImageUrlById(imageId) {
-        var image = Images.findOne({_id: imageId});
-        if (image) return image.url();
-        return '';
+        return __(titleKey);
     },
 
     commentInputFieldExpanded: function helperCommentInputFieldExpanded () {

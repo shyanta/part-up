@@ -1,50 +1,50 @@
 {
-    "partupdetail-update-item-type-partups_created-title": "Maakte de part-up aan",
+    "update-type-partups_created-title": "Maakte de part-up aan",
 
-    "partupdetail-update-item-type-partups_supporters_added-title": "Is nu een supporter",
-    "partupdetail-update-item-type-partups_uppers_added-title": "Is nu lid van de part-up",
+    "update-type-partups_supporters_added-title": "Is nu een supporter",
+    "update-type-partups_uppers_added-title": "Is nu lid van de part-up",
 
-    "partupdetail-update-item-type-partups_tags_added-title": "Nieuw label",
-    "partupdetail-update-item-type-partups_tags_removed-title": "Verwijderde een part-up label",
-    "partupdetail-update-item-type-partups_tags_changed-title": "Verandere een part-up Label",
+    "update-type-partups_tags_added-title": "Nieuw label",
+    "update-type-partups_tags_removed-title": "Verwijderde een part-up label",
+    "update-type-partups_tags_changed-title": "Verandere een part-up Label",
 
-    "partupdetail-update-item-type-network_public-title": "Deze Part-up is nu zichtbaar voor iedereen",
-    "partupdetail-update-item-type-network_private-title": "Deze Part-up is nu alleen zichtbaar voor uigenodigde uppers",
+    "update-type-network_public-title": "Deze Part-up is nu zichtbaar voor iedereen",
+    "update-type-network_private-title": "Deze Part-up is nu alleen zichtbaar voor uigenodigde uppers",
 
-    "partupdetail-update-item-type-partups_end_date_changed-title": "Part-up einddatum gewijzigd",
+    "update-type-partups_end_date_changed-title": "Part-up einddatum gewijzigd",
 
-    "partupdetail-update-item-type-partups_name_changed-title": "Wijzigde de part-up titel",
-    "partupdetail-update-item-type-partups_description_changed-title": "Wijzigde de part-up omschrijving",
-    "partupdetail-update-item-type-partups_image_changed-title": "Wijzigde de part-up foto",
+    "update-type-partups_name_changed-title": "Wijzigde de part-up titel",
+    "update-type-partups_description_changed-title": "Wijzigde de part-up omschrijving",
+    "update-type-partups_image_changed-title": "Wijzigde de part-up foto",
 
-    "partupdetail-update-item-type-partups_activities_removed-title": "Verwijderde een activiteit",
-    "partupdetail-update-item-type-partups_activities_added-title": "Voegde activiteit toe",
-    "partupdetail-update-item-type-partups_activities_changed-title": "Wijzigde activiteit",
-    "partupdetail-update-item-type-partups_activities_added_contribution-title": "Voegde bijdrage aan activiteit toe",
-    "partupdetail-update-item-type-partups_activities_archived-title": "Archiveerde activiteit",
-    "partupdetail-update-item-type-partups_activities_unarchived-title": "Heractiveerde activiteit",
+    "update-type-partups_activities_removed-title": "Verwijderde een activiteit",
+    "update-type-partups_activities_added-title": "Voegde activiteit toe",
+    "update-type-partups_activities_changed-title": "Wijzigde activiteit",
+    "update-type-partups_activities_added_contribution-title": "Voegde bijdrage aan activiteit toe",
+    "update-type-partups_activities_archived-title": "Archiveerde activiteit",
+    "update-type-partups_activities_unarchived-title": "Heractiveerde activiteit",
 
-    "partupdetail-update-item-type-changed_region-title": "Wijzigde part-up regio",
+    "update-type-changed_region-title": "Wijzigde part-up regio",
 
-    "partupdetail-update-item-type-rated-title": "Voegde waardering toe",
+    "update-type-rated-title": "Voegde waardering toe",
 
-    "partupdetail-update-item-type-new_message-title": "Plaatste bericht",
+    "update-type-new_message-title": "Plaatste bericht",
 
-    "partupdetail-update-item-type-partups_message_added-title": "Voegde een bericht toe",
+    "update-type-partups_message_added-title": "Voegde een bericht toe",
 
-    "partupdetail-update-item-type-partups_budget_changed-title": "Wijzigde budget",
+    "update-type-partups_budget_changed-title": "Wijzigde budget",
 
-    "partupdetail-update-item-type-partups_location_changed-title": "Wijzigde locatie",
+    "update-type-partups_location_changed-title": "Wijzigde locatie",
 
-    "partupdetail-update-item-type-partups_invited-title": "Nodigde %s uit voor deze part-up",
+    "update-type-partups_invited-title": "Nodigde %s uit voor deze part-up",
 
-    "partupdetail-update-item-type-partups_contributions_added-title": "Voegde een bijdrage toe",
-    "partupdetail-update-item-type-partups_contributions_changed-title": "Wijzigde een bijdrage",
-    "partupdetail-update-item-type-partups_contributions_removed-title": "Verwijderde een bijdrage",
+    "update-type-partups_contributions_added-title": "Voegde een bijdrage toe",
+    "update-type-partups_contributions_changed-title": "Wijzigde een bijdrage",
+    "update-type-partups_contributions_removed-title": "Verwijderde een bijdrage",
 
-    "partupdetail-update-item-type-partups_ratings_changed-title": "Wijzigde een waardering",
+    "update-type-partups_ratings_changed-title": "Wijzigde een waardering",
 
-    "partupdetail-update-item-type-partups_comments_added-title": "Reageerde",
-    "partupdetail-update-item-type-partups_activities_comments_added-title": "Reageerde op een activiteit",
-    "partupdetail-update-item-type-partups_contributions_comments_added-title": "Reageerde op een bijdrage"
+    "update-type-partups_comments_added-title": "Reageerde",
+    "update-type-partups_activities_comments_added-title": "Reageerde op een activiteit",
+    "update-type-partups_contributions_comments_added-title": "Reageerde op een bijdrage"
 }
