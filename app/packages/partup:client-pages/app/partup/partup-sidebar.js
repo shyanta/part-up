@@ -314,6 +314,13 @@ Template.app_partup_sidebar.events({
         window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
+    'click [data-share-mail]': function clickShareMail() {
+        var url = Router.current().location.get().href;
+        var body = 'Check out this Part-up!\n' + url;
+        var subject = '';
+        window.location.href = 'mailto:?body=' + encodeURIComponent(body) + '&subject=' + encodeURIComponent(subject);
+    },
+
     'click [data-open-takepart-popup]': function clickOpenTakepartPopup() {
         Partup.client.popup.open('take-part', function(open_new_message_popup) {
             if (open_new_message_popup) {
