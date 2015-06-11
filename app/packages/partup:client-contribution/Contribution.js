@@ -65,12 +65,11 @@ Template.Contribution.events({
         });
     },
     'click [data-share]': function(event, template) {
-        var activity = Activities.findOne({_id: template.data.contribution.activity_id});
-        if (!activity) return false;
-        var partup = Partups.findOne({_id: activity.partup_id});
-        Partup.ui.intent.go({
+        event.preventDefault();
+        var partup = Partups.findOne({_id: template.data.activity.partup_id});
+        Partup.client.intent.go({
             route: 'partup-invite',
-            params: {_id: partup._id, update_id: activity.update_id}
+            params: {_id: partup._id} //, update_id: template.data.activity.update_id}
         }, function() {
             Router.go('partup', {_id: partup._id});
         });
