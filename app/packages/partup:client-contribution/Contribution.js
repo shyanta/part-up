@@ -64,6 +64,16 @@ Template.Contribution.events({
             }
         });
     },
+    'click [data-share]': function(event, template) {
+        event.preventDefault();
+        var partup = Partups.findOne({_id: template.data.activity.partup_id});
+        Partup.client.intent.go({
+            route: 'partup-invite',
+            params: {_id: partup._id} //, update_id: template.data.activity.update_id}
+        }, function() {
+            Router.go('partup', {_id: partup._id});
+        });
+    },
     'click [data-contribution-close]': function(event, template) {
         template.showForm.set(false);
     },
