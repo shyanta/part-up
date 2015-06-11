@@ -5,6 +5,11 @@
  * @private
  */
 var networkBaseSchema = new SimpleSchema({
+    access_level: {
+        type: Number,
+        min: 1,
+        max: 3
+    },
     description: {
         type: String,
         max: 250
@@ -14,10 +19,12 @@ var networkBaseSchema = new SimpleSchema({
         optional: true
     },
     'location.city': {
-        type: String
+        type: String,
+        optional: true
     },
     'location.country': {
-        type: String
+        type: String,
+        optional: true
     },
     image: {
         type: String,
@@ -48,11 +55,6 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
     _id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
-    },
-    access_level: {
-        type: Number,
-        min: 1,
-        max: 3
     },
     admin_id: {
         type: String,
