@@ -54,6 +54,10 @@ Template.app_partup_updates.helpers({
         return getUpdates();
     },
 
+    'newUpdatesCount': function newUpdatesCount() {
+        return 5;
+    },
+
     'anotherDay': function helperAnotherday (update) {
         var TIME_FIELD = 'created_at';
 

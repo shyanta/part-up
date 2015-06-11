@@ -1,6 +1,6 @@
 <template name="app_partup_updates">
     <div class="pu-page">
-        <div class="pu-composition pu-composition-partupdetailupdates">
+        <div class="pu-composition pu-composition-partupdetailupdates {{#if newUpdatesCount }}pu-composition-partupdetailupdates-newupdatesavailable{{/if}}">
 
             <!-- new message popup -->
             {{#if partupIsPopupActive 'new-message' }}
@@ -24,6 +24,14 @@
                 </section>
                 <aside>{{> PartialDropdownUpdatesActions}}</aside>
             </header>
+
+            <!-- Reveal new updates -->
+            {{#if newUpdatesCount }}
+                <p class="pu-update pu-sub-revealupdatesbutton">
+                    <aside></aside>
+                    <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">Bekijk de 5 nieuwe updates</a></section>
+                </p>
+            {{/if}}
 
             <!-- For each update -->
             {{#each updates }}
