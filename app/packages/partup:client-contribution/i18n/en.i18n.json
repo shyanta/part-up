@@ -12,7 +12,7 @@
     "contribution-hour": "__count__ hour",
     "contribution-hour_plural": "__count__ hours",
     "contribution-hourly-rate": "euro per hour",
-    "contribution-none": "Add hours",
+    "contribution-none": "Optionally add hours",
 
     "contribution-accept": "Accept",
     "contribution-reject": "Reject",
