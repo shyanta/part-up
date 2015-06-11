@@ -3,21 +3,19 @@ Meteor.methods({
      * Insert a Network
      *
      * @param {mixed[]} fields
-     * @param {mixed[]} extraFields
      */
-    'networks.insert': function(fields, extraFields) {
-        check(fields, Partup.schemas.forms.network);
-
+    'networks.insert': function(fields) {
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
             var newNetwork = Network.transformers.network.fromFormNetwork(fields);
+            check(fields, Partup.schemas.forms.network);
             newNetwork.uppers = [user._id];
             newNetwork.admin_id = user._id;
             newNetwork.created_at = new Date();
-
-            //check(newNetwork, Network.schemas.entities.network);
+            newNetwork.updated_at = new Date();
+            check(newNetwork, Network.schemas.entities.network);
 
             newNetwork._id = Networks.insert(newNetwork);
             Meteor.users.update(user._id, {$push: {'networks': newNetwork._id}});
@@ -36,11 +34,8 @@ Meteor.methods({
      *
      * @param {string} networkId
      * @param {mixed[]} fields
-     * @param {mixed[]} extraFields
      */
-    'networks.update': function(networkId, fields, extraFields) {
-        check(fields, Network.schemas.forms.network);
-
+    'networks.update': function(networkId, fields) {
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -50,6 +45,7 @@ Meteor.methods({
 
         try {
             var newNetworkFields = Network.transformers.network.fromFormNetwork(fields);
+            check(fields, Network.schemas.forms.network);
 
             Networks.update(networkId, {$set: newNetworkFields});
 
@@ -81,7 +77,7 @@ Meteor.methods({
         var invitedEmails = mout.array.pluck(invites, 'email');
 
         if (invitedEmails.indexOf(email) > -1) {
-            throw new Meteor.Error(403, 'Email is already invited to the given network.');
+            throw new Meteor.Error(403, 'Email address is already invited to the given network.');
         }
 
         // Compile the E-mail template and send the email
