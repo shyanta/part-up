@@ -28,7 +28,8 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
     },
     networks: {
         type: [String],
-        regEx: SimpleSchema.RegEx.Id
+        regEx: SimpleSchema.RegEx.Id,
+        optional: true
     }
 });
 
