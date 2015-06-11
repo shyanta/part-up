@@ -92,6 +92,14 @@ Meteor.methods({
             Partups.update(contribution.partup_id, {$pull: {'supporters': contribution.upper_id}, $push: {'uppers': contribution.upper_id}});
             Meteor.users.update(contribution.upper_id, {$pull: {'supporterOf': contribution.partup_id}, $push: {'upperOf': contribution.partup_id}});
 
+            // Check if the Partup is part of a public Network (automatically join network)
+            var partup = Partups.findOne(contribution.partup_id);
+            var network = Networks.findOne(partup.network_id);
+            if (network.isPublic()) {
+                Networks.update(network._id, {$push: {uppers: contribution.upper_id}});
+                Meteor.users.update(contribution.upper_id, {$push: {networks: network._id}});
+            }
+
             Event.emit('partups.uppers.inserted', contribution.partup_id, contribution.upper_id);
             Event.emit('contributions.accepted', upper._id, contribution.partup_id, contribution.upper_id);
 
