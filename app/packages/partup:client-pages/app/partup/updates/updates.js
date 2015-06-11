@@ -45,17 +45,36 @@ var getUpdates = function getUpdates () {
 };
 
 /*************************************************************/
+/* On created */
+/*************************************************************/
+Template.app_partup_updates.onCreated(function() {
+    var template = this;
+    template.allUpdates = new ReactiveVar();
+    template.shownUpdates = new ReactiveVar();
+
+    template.autorun(function() {
+        var updates = getUpdates();
+        template.allUpdates.set(updates);
+
+        if (!template.shownUpdates.curValue || !template.shownUpdates.curValue.length) {
+            template.shownUpdates.set(updates);
+        }
+    });
+});
+
+/*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.app_partup_updates.helpers({
 
     'updates': function helperUpdates () {
-        // return updatesVar.get(); // temp reactive var until mongo implementation
-        return getUpdates();
+        var template = Template.instance();
+        return template.shownUpdates.get();
     },
 
     'newUpdatesCount': function newUpdatesCount() {
-        return 5;
+        var template = Template.instance();
+        return template.allUpdates.get().length - template.shownUpdates.get().length;
     },
 
     'anotherDay': function helperAnotherday (update) {
@@ -94,4 +113,7 @@ Template.app_partup_updates.helpers({
 /* Widget events */
 /*************************************************************/
 Template.app_partup_updates.events({
+    'click [data-reveal-new-updates]': function(event, template) {
+        template.shownUpdates.set(template.allUpdates.curValue);
+    }
 });
