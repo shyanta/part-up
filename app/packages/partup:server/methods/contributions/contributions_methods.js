@@ -96,7 +96,7 @@ Meteor.methods({
             // Check if the Partup is part of a public Network (automatically join network)
             var partup = Partups.findOne(contribution.partup_id);
             var network = Networks.findOne(partup.network_id);
-            if (network.isPublic()) {
+            if (network && network.isPublic()) {
                 Networks.update(network._id, {$push: {uppers: contribution.upper_id}});
                 Meteor.users.update(contribution.upper_id, {$push: {networks: network._id}});
             }
