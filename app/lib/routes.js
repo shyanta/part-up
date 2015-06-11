@@ -205,6 +205,23 @@ Router.route('/partups/:_id/invite', {
 });
 
 /*************************************************************/
+/* Partup settings */
+/*************************************************************/
+Router.route('/partups/:_id/settings', {
+    name: 'partup-settings',
+    where: 'client',
+    yieldRegions: {
+        'modal':                  {to: 'main'},
+        'modal_partup_settings': {to: 'modal'},
+    },
+    subscriptions: function() {
+        var partupId = this.params._id;
+
+        this.subscribe('partups.one', partupId);
+    }
+});
+
+/*************************************************************/
 /* Create Partup */
 /*************************************************************/
 Router.route('/start', {

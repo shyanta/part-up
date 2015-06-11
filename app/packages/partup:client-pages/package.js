@@ -82,6 +82,10 @@ Package.onUse(function(api) {
         'modal/resetpassword/resetpassword.html',
         'modal/resetpassword/resetpassword.js',
 
+        // Modal:partup_settings
+        'modal/partup_settings/partup_settings.html',
+        'modal/partup_settings/partup_settings.js',
+
         // Modal:invite_to_partup
         'modal/invite_to_partup/invite_to_partup.html',
         'modal/invite_to_partup/invite_to_partup.js',
