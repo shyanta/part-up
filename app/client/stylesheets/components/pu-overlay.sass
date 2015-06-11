@@ -9,7 +9,20 @@
     opacity: 0
     transition: opacity $animation-duration-slide
     pointer-events: none
+    overflow-y: auto
+
+    .pu-popup
+        position: absolute
+        top: 20%
+        right: 0
+        left: 0
+        transform: translate3d(0, -20px, 0)
+        margin-bottom: 40px
+        transition: transform $animation-duration
 
     &-active
         opacity: 1
         pointer-events: all
+
+        .pu-popup
+            transform: none

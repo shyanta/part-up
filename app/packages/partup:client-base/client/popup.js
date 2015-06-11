@@ -32,6 +32,9 @@ Partup.client.popup = {
         // Open popup
         this.current.set(id);
 
+        // Add class to body
+        $('body').addClass('pu-state-popupopen');
+
         // Save callback
         if (callback) {
             if (!mout.lang.isFunction(callback)) throw 'callback must be a function';
@@ -52,6 +55,9 @@ Partup.client.popup = {
 
         // Close popup
         this.current.set(null);
+
+        // Remove class to body
+        $('body').removeClass('pu-state-popupopen');
 
         // Save callback
         var callback = this._closeCallback;
