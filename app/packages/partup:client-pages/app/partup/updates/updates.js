@@ -51,13 +51,19 @@ Template.app_partup_updates.onCreated(function() {
     var template = this;
     template.allUpdates = new ReactiveVar();
     template.shownUpdates = new ReactiveVar();
+    template.refreshDate = new ReactiveVar(new Date());
+
+    template.updateShownUpdates = function() {
+        template.shownUpdates.set(getUpdates());
+        template.refreshDate.set(new Date());
+    };
 
     template.autorun(function() {
         var updates = getUpdates();
         template.allUpdates.set(updates);
 
         if (!template.shownUpdates.curValue || !template.shownUpdates.curValue.length) {
-            template.shownUpdates.set(updates);
+            template.updateShownUpdates();
         }
     });
 });
@@ -66,7 +72,6 @@ Template.app_partup_updates.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.app_partup_updates.helpers({
-
     'updates': function helperUpdates () {
         var template = Template.instance();
         return template.shownUpdates.get();
@@ -74,13 +79,16 @@ Template.app_partup_updates.helpers({
 
     'newUpdatesCount': function newUpdatesCount() {
         var template = Template.instance();
-        return template.allUpdates.get().length - template.shownUpdates.get().length;
+        var refreshDate = template.refreshDate.get();
+        return lodash.filter(template.allUpdates.get(), function(update) {
+            return moment(update.updated_at).diff(refreshDate) > 0;
+        }).length;
     },
 
     'anotherDay': function helperAnotherday (update) {
         var TIME_FIELD = 'created_at';
 
-        var updates = getUpdates(); //updatesVar.get(); // getUpdates()
+        var updates = getUpdates();
         var currentIndex = lodash.findIndex(updates, update);
         var previousUpdate = updates[currentIndex - 1];
         var previousMoment = moment();
@@ -115,10 +123,10 @@ Template.app_partup_updates.helpers({
 Template.app_partup_updates.events({
     'click [data-newmessage-popup]': function(event, template) {
         Partup.client.popup.open('new-message', function() {
-            template.shownUpdates.set(getUpdates());
+            template.updateShownUpdates();
         });
     },
     'click [data-reveal-new-updates]': function(event, template) {
-        template.shownUpdates.set(template.allUpdates.curValue);
+        template.updateShownUpdates();
     }
 });
