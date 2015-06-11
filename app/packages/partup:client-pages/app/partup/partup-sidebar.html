@@ -21,6 +21,11 @@
             <div class="pu-sidebar-wrap">
                 <section>
                     <p class="pu-sub-abstract">{{ partup.description }}</p>
+                    <ul class="pu-list pu-list-horizontal pu-list-tags">
+                        {{#each partup.tags }}
+                            <li><a href="" class="pu-tag pu-tag-inverted">{{ . }}</a></li>
+                        {{/each }}
+                    </ul>
                     <a class="pu-button pu-button-icon" data-open-takepart-popup>
                         {{_ 'pages-app-partup-take_part' }}
                     </a>
@@ -72,11 +77,6 @@
             <div class="pu-sidebar-wrap">
                 <section>
                     <p>{{{_ 'pages-app-partup-status_text' prettyEndDate partup.location.city prettyVisibility partup.network.name }}}</p>
-                    <ul class="pu-list pu-list-horizontal pu-list-tags">
-                        {{#each partup.tags }}
-                            <li><a href="" class="pu-tag pu-tag-inverted">{{ . }}</a></li>
-                        {{/each }}
-                    </ul>
                 </section>
                 <section>
                     <p>{{_ 'pages-app-partup-share_paragraph' }}</p>
