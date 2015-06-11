@@ -12,7 +12,7 @@ Partup.prototype.isEditableBy = function(user) {
 };
 
 Partup.prototype.isRemovableBy = function(user) {
-    return user && partup.creator_id === user._id;
+    return user && this.creator_id === user._id;
 };
 
 /**
