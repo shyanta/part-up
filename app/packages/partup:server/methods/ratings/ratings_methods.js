@@ -29,12 +29,11 @@ Meteor.methods({
                 contribution_id: contributionId,
                 rating: fields.rating,
                 feedback: fields.feedback,
-                upper_id: upper._id
+                upper_id: upper._id,
+                rated_upper_id: contribution.upper_id
             };
 
             newRating = Ratings.insert(newRating);
-
-            Event.emit('partups.ratings.inserted', upper._id, contribution.update_id, contribution.activity_id, contribution._id, newRating._id);
 
             // Post system message
             Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_inserted');
@@ -77,8 +76,6 @@ Meteor.methods({
 
                 // Post system message
                 Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_updated');
-
-                Event.emit('partups.ratings.updated', upper._id, contribution.update_id, contribution.activity_id, contribution._id, ratingId);
             }
 
             return newRating;
