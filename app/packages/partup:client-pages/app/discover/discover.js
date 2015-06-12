@@ -1,10 +1,10 @@
 /*************************************************************/
 /* Page initial */
 /*************************************************************/
-
 Template.app_discover.onCreated(function() {
     var template = this;
-    // template.limit = new ReactiveVar(10);
+    template.allPartupsSubscription = template.subscribe('partups.all');
+    template.limit = new ReactiveVar(1);
 });
 
 Template.app_discover.onRendered(function() {
@@ -16,9 +16,12 @@ Template.app_discover.onRendered(function() {
 /*************************************************************/
 Template.app_discover.helpers({
     partups: function() {
-        var self = this;
+        var subscriptionReady = Template.instance().allPartupsSubscription.ready();
+        var limit = Template.instance().limit.get();
+        console.log(limit)
+        if (!subscriptionReady) return;
         var partups = Partups.find({}, {
-            sort: {created_at: -1}
+            limit: 0
         }).fetch();
         return partups;
     }
