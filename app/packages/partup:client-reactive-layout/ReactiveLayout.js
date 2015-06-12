@@ -9,76 +9,14 @@
  * @param {string} ITEM_DATA_KEY    namespace for each item in items (each partup in partups)
  */
 
-Template.ReactiveLayout.onCreated(function() {
-    var template = this;
-
-    // create columns Array based on the TOTAL_COLUMNS constante
-    var generateColumns = function() {
-        var columnArray = [];
-        for (var i = 0; i < template.data.TOTAL_COLUMNS; i++) {
-            columnArray.push([]);
-        };
-        template.columns = new ReactiveVar(columnArray);
+ // generates a reactive column array based on TOTAL_COLUMNS constante
+var generateColumns = function(reactiveColumnsArray) {
+    var columnArray = reactiveColumnsArray.get();
+    for (var i = 0; i < template.data.TOTAL_COLUMNS; i++) {
+        columnArray.push([]);
     };
-    generateColumns();
-    // when count ReactiveVar is changed, this is fired
-    var onCountUpdate = function(oldValue, newValue) {
-        if (oldValue === newValue) return;
-        if (!template.data.items[newValue]) return;
-        if(newValue < 0) return;
-        addToReactiveLayout(template, template.data.items[newValue]);
-    };
-    // init value set to -1, when set to 0 the first item will be rendered
-    template.count = new ReactiveVar(-1, onCountUpdate);
-
-    // increments the count ReactiveVar by 1 to render the next item
-    template.addNextItem = function() {
-        var current = template.count.get();
-        if (template.data.items[current + 1]) {
-            current++;
-            template.count.set(current);
-        }
-    };
-
-    // totalItems ReactiveVar, is updated when new items are added to the items array
-    template.totalItems = new ReactiveVar(0, function(oldValue, newValue) {
-        if (oldValue === newValue) return;
-        if (newValue === 0) return;
-        template.addNextItem();
-    });
-
-    // when a ReactiveTile is rendered, the onRenderCallback is fired
-    template.onRenderCallback = function() {
-        template.addNextItem();
-    };
-
-    template.refresh = function() {
-        console.log('refresh');
-        template.count.set(-1);
-        generateColumns();
-        template.totalItems.set(0);
-    };
-});
-
-Template.ReactiveLayout.onRendered(function() {
-    var template = this;
-
-    // start rendering tiles
-    template.addNextItem();
-
-    // this autorun runs when the template data object changes
-    template.autorun(function() {
-        var data = Template.currentData();
-        if (data.items.length) {
-            // update totalItems ReactiveVar
-            template.totalItems.set(data.items.length);
-            // template.refresh();
-        }
-    });
-    // Meteor.setTimeout(function() {
-    //     template.refresh();
-    // }, 10000);
-});
+    reactiveColumnsArray.set(columnArray);
+};
 
 // compare all columns and return the index of the smallest
 var getShortestColumn = function(elements) {
@@ -86,10 +24,8 @@ var getShortestColumn = function(elements) {
     var prevHeight = 0;
     var smallestColumnIndex = 0;
 
-    // compare the height of each column
     $(elements).each(function(index) {
         var thisHeight = $(this).height();
-
         if (thisHeight < prevHeight || init) {
             init = false;
             smallestColumnIndex = index;
@@ -100,23 +36,69 @@ var getShortestColumn = function(elements) {
     return smallestColumnIndex;
 };
 
-// adds an item to the lowest(smallest) column in the reactive layout
-var addToReactiveLayout = function(template, item) {
-    // finds all generated columns in the template
-    var columnElements = template.findAll('[data-layout] > ul');
+// on created, initializer
+Template.ReactiveLayout.onCreated(function() {
+    var template = this;
 
-    // the columns array ReactiveVar
+    // create columns Array based on the TOTAL_COLUMNS constante
+    template.columns = new ReactiveVar([]);
+    generateColumns(template.columns);
+
+    // total tiles rendered
+    template.count = 0;
+    // total items in items array
+    template.total = template.data.items.length;
+
+    // adds tile to the reactive layout
+    template.addTile = function() {
+        // abort if there is no next item
+        if (!template.data.items[template.count + 1]) return;
+
+        // increment count when the item exists
+        template.count++;
+
+        // find all rendered uls in data-layout
+        var columnElements = template.findAll('[data-layout] > ul');
+
+        // index of the smallest rendered column
+        var index = getShortestColumn(columnElements);
+
+        // column array
+        var columnData = template.columns.get();
+
+        // add the item to the smallest column
+        columnData[index].push(template.data.items[template.count]);
+
+        // update column array reactive var
+        template.columns.set(columnData);
+    };
+
+    // when a ReactiveTile is rendered, the onRenderCallback is fired
+    template.onRenderCallback = function() {
+        template.addTile();
+    };
+});
+
+// when the template is rendered
+Template.ReactiveLayout.onRendered(function() {
+    var template = this;
+
+    // add the first column
     var columnData = template.columns.get();
-
-    // find smallest column
-    var lowestColumn = getShortestColumn(columnElements);
-
-    // add the item to the smallest column
-    columnData[lowestColumn].push(item);
-
-    // update
+    columnData[0].push(template.data.items[0]);
     template.columns.set(columnData);
-};
+
+    // this autorun runs when the template data object changes
+    // if more items are added to the items in the template.data obj
+    // kickstart the tile renderer
+    template.autorun(function() {
+        var data = Template.currentData();
+        if (data.items.length > template.total) {
+            template.total = data.items.length;
+            template.addTile();
+        }
+    });
+});
 
 Template.ReactiveLayout.helpers({
     columns: function() {
