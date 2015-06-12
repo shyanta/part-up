@@ -5,42 +5,10 @@ var getUpdates = function getUpdates () {
     var partupId = Router.current().params._id;
 
     // Get the option that is selected in the filter dropdown
-    var option = Session.get('partial-dropdown-updates-actions.selected');
 
-    return Updates.find({partup_id: partupId}, {sort: {updated_at: -1}}).map(function(update, idx) {
+    return Updates.find({}).map(function(update, idx) {
         update.arrayIndex = idx;
         return update;
-    }).filter(function(update, idx) {
-        if (option === 'default') return true;
-
-        if (option === 'my-updates') {
-            return update.upper_id === Meteor.user()._id;
-        }
-
-        if (option === 'activities') {
-            return update.type && update.type.indexOf('activities') > -1;
-        }
-
-        if (option === 'partup-changes') {
-            var isPartupChange = (update.type.indexOf('tags') > -1 ||
-                                  update.type.indexOf('end_date') > -1 ||
-                                  update.type.indexOf('name') > -1 ||
-                                  update.type.indexOf('description') > -1 ||
-                                  update.type.indexOf('image') > -1 ||
-                                  update.type.indexOf('budget') > -1);
-
-            return update.type && isPartupChange;
-        }
-
-        if (option === 'messages') {
-            return update.type && update.type.indexOf('message') > -1;
-        }
-
-        if (option === 'contributions') {
-            return update.type && update.type.indexOf('contributions') > -1;
-        }
-
-        return true;
     });
 };
 
@@ -49,6 +17,7 @@ var getUpdates = function getUpdates () {
 /*************************************************************/
 Template.app_partup_updates.onCreated(function() {
     var template = this;
+
     template.allUpdates = new ReactiveVar();
     template.shownUpdates = new ReactiveVar();
     template.refreshDate = new ReactiveVar(new Date());
@@ -66,6 +35,20 @@ Template.app_partup_updates.onCreated(function() {
         if (!shownUpdates || !shownUpdates.length) {
             template.updateShownUpdates();
         }
+    });
+
+    template.dropdownValue = new ReactiveVar(false, function(oldValue, newValue) {
+        if (oldValue === newValue) return;
+        if (template.subscription) template.subscription.stop();
+        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id, {filter: newValue});
+        template.updateShownUpdates();
+        console.log('ReactiveVar');
+    });
+
+    template.autorun(function(computation) {
+        var filter = Session.get('partial-dropdowns-updates-actions.selected');
+        template.dropdownValue.set(filter);
+        console.log('Computation', filter);
     });
 });
 

@@ -117,10 +117,31 @@ Meteor.publishComposite('partups.one.contributions', function(partupId) {
     };
 });
 
-Meteor.publishComposite('partups.one.updates', function(partupId) {
+Meteor.publishComposite('partups.one.updates', function(partupId, options) {
+    var options = options || {};
+    var limit = options.limit || 10;
+    var filter = options.filter || 'default';
+
+    var self = this;
+
     return {
         find: function() {
-            return Updates.find({partup_id: partupId});
+            var criteria = {partup_id: partupId};
+
+            if (filter === 'my-updates') {
+                criteria.upper_id = self.userId;
+            } else if (filter === 'activities') {
+                criteria.type = {$regex: '.*activities.*'};
+            } else if (filter === 'partup-changes') {
+                var regex = '.*(tags|end_date|name|description|image|budget).*';
+                criteria.type = {$regex: regex};
+            } else if (filter === 'messages') {
+                criteria.type = {$regex: '.*message.*'};
+            } else if (filter === 'contributions') {
+                criteria.type = {$regex: '.*contributions.*'};
+            }
+
+            return Updates.find(criteria);
         },
         children: [
             {
