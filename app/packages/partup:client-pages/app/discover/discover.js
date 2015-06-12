@@ -1,3 +1,7 @@
+/*************************************************************/
+/* Page initial */
+/*************************************************************/
+
 Template.app_discover.onCreated(function() {
     var template = this;
     // template.limit = new ReactiveVar(10);
@@ -8,21 +12,12 @@ Template.app_discover.onRendered(function() {
 });
 
 /*************************************************************/
-/* Page initial */
-/*************************************************************/
-// Template.app_discover.onCreated(function() {
-//     this.partups = Partups.find();
-//     this.subscription = Meteor.subscribe('partups.all');
-// });
-
-/*************************************************************/
 /* Page helpers */
 /*************************************************************/
 Template.app_discover.helpers({
     partups: function() {
         var self = this;
         var partups = Partups.find({}, {
-            limit: 10,
             sort: {created_at: -1}
         }).fetch();
         return partups;
