@@ -55,7 +55,6 @@ manuelschoebel:ms-seo
 matb33:collection-hooks
 meteor-platform
 meteorhacks:ssr
-mike:mocha
 mizzao:user-status
 momentjs:moment
 pauli:accounts-linkedin
@@ -68,7 +67,6 @@ splendido:accounts-meld
 stevezhu:lodash
 tap:i18n
 tmeasday:publish-counts
-velocity:console-reporter
 zimme:iron-router-active
 percolate:synced-cron
 partup:client-reactive-layout
