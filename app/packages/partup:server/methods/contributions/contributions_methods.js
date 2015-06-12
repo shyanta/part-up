@@ -160,6 +160,18 @@ Meteor.methods({
         try {
             Contributions.update(contribution._id, {$set: {archived: true}});
 
+            // Check if this was the user's last contribution to this Partup. If so, remove from partner list and add as supporter.
+            var contributionsLeft = Contributions.find({
+                partup_id: contribution.partup_id,
+                upper_id: upper._id,
+                verified: true,
+                archived: {$ne: true}
+            }).count();
+            if (!contributionsLeft) {
+                Partups.update(contribution.partup_id, {$pull: {uppers: upper._id}, $push: {supporters: upper._id}});
+                Meteor.users.update(upper._id, {$pull: {upperOf: contribution.partup_id}, $push: {supporterOf: contribution.partup_id}});
+            }
+
             // Post system message
             Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed');
 
