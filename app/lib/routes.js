@@ -43,6 +43,7 @@ Router.route('/discover', {
     },
     subscriptions: function() {
         this.subscribe('notifications.user');
+        this.subscribe('partups.all');
         this.subscribe('images.all');
         this.subscribe('networks.list');
     }

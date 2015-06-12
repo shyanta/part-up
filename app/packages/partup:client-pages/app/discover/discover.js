@@ -1,9 +1,14 @@
 /*************************************************************/
 /* Page initial */
 /*************************************************************/
+
 Template.app_discover.onCreated(function() {
-    this.partups = Partups.find();
-    this.subscription = Meteor.subscribe('partups.all');
+    var template = this;
+    // template.limit = new ReactiveVar(10);
+});
+
+Template.app_discover.onRendered(function() {
+    var template = this;
 });
 
 /*************************************************************/
@@ -11,7 +16,11 @@ Template.app_discover.onCreated(function() {
 /*************************************************************/
 Template.app_discover.helpers({
     partups: function() {
-        return Template.instance().partups;
+        var self = this;
+        var partups = Partups.find({}, {
+            sort: {created_at: -1}
+        }).fetch();
+        return partups;
     }
 });
 

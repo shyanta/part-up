@@ -1,8 +1,8 @@
 <template name="app_discover">
 
     <article class="pu-layout">
-        <div class="pu-sub-pagecontainer">
-            <div class="pu-page">
+        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
+            <div class="pu-page pu-page-full">
 
                 <section class="pu-composition pu-composition-discover">
                     <header>
@@ -12,20 +12,15 @@
                             Discover
                         </h2>
                     </header>
-
-                    <section>
-                        {{#if partups }}
-                            <ul class="pu-list pu-list-horizontal pu-list-discover">
-                                {{#each partups }}
-                                    <li>
-                                        {{> PartupTile partup = . }}
-                                    </li>
-                                {{/each }}
-                            </ul>
-                        {{ else }}
-                            <p>No partups added yet.</p>
-                        {{ /if }}
-                    </section>
+                    {{#if partups }}
+                        {{> ReactiveLayout
+                            items=partups
+                            TOTAL_COLUMNS=4
+                            COLUMN_CLASS="pu-column"
+                            ITEM_TEMPLATE="PartupTile"
+                            ITEM_DATA_KEY="partup"
+                        }}
+                    {{/if}}
                 </section>
 
             </div>
