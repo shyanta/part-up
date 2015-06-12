@@ -10,9 +10,9 @@
  */
 
  // generates a reactive column array based on TOTAL_COLUMNS constante
-var generateColumns = function(reactiveColumnsArray) {
+var generateColumns = function(totalColumns, reactiveColumnsArray) {
     var columnArray = reactiveColumnsArray.get();
-    for (var i = 0; i < template.data.TOTAL_COLUMNS; i++) {
+    for (var i = 0; i < totalColumns; i++) {
         columnArray.push([]);
     };
     reactiveColumnsArray.set(columnArray);
@@ -42,7 +42,7 @@ Template.ReactiveLayout.onCreated(function() {
 
     // create columns Array based on the TOTAL_COLUMNS constante
     template.columns = new ReactiveVar([]);
-    generateColumns(template.columns);
+    generateColumns(template.data.TOTAL_COLUMNS, template.columns);
 
     // total tiles rendered
     template.count = 0;
