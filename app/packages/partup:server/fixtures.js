@@ -91,6 +91,37 @@ Meteor.startup(function() {
                 visibility: 'public'
             };
             var secondPartupId = Partups.insert(secondPartup);
+
+            for (var i = 0; i < 20; i++) {
+                var descriptions = [
+                    'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
+                    'This describes just how great this Part-up is.',
+                    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima error veritatis ratione dolor perferendis inventore optio. Error omnis nostrum expedita.',
+                    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat libero consectetur temporibus quia fuga rem.'
+                ];
+
+                Partups.insert({
+                    _id: '1111' + i,
+                    name: 'Awesome Part-Up #' + i + '!',
+                    description: descriptions[Math.round(Math.random() * 3)],
+                    creator_id: user1Id,
+                    tags: ['partup', 'online', 'awesome', 'test'],
+                    uppers: [user1Id, user2Id],
+                    location : {
+                        'city' : 'amsterdam'
+                    },
+                    image: null,
+                    created_at : new Date('2015-03-26T16:25:07.816Z'),
+                    end_date: new Date('2015-06-01T10:00:07.100Z'),
+                    network: {
+                        name: 'superheroes',
+                        icon: {
+                            url: 'http://vignette1.wikia.nocookie.net/clubpenguin/images/8/87/Superhero_Pin_icon.png/revision/latest?cb=20120614132335'
+                        }
+                    },
+                    visibility: 'private'
+                });
+            };
         }
 
         if (!Activities.find().count()) {
