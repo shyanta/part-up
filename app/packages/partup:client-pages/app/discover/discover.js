@@ -18,7 +18,6 @@ Template.app_discover.helpers({
     partups: function() {
         var subscriptionReady = Template.instance().allPartupsSubscription.ready();
         var limit = Template.instance().limit.get();
-        console.log(limit)
         if (!subscriptionReady) return;
         var partups = Partups.find({}, {
             limit: 0
