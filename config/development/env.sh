@@ -17,7 +17,7 @@ export FLICKR_SECRET_KEY="94f9b96b1d18f0dc"
 
 export GOOGLE_API_KEY="AIzaSyApEesAwKyWqa4gzbDiG9dfbUbxfOQZhMk"
 
-export METEOR_SETTINGS="{\"public\":{\"ga\":{\"account\":\"UA-34557675-15\"}}}"
+export METEOR_SETTINGS="{\"public\":{\"analyticsSettings\":{\"Google Analytics\":{\"trackingId\":\"UA-34557675-15\"}}}}"
 
 export KADIRA_APP_ID="zcDKfyy9iNLkMficj"
 export KADIRA_APP_SECRET="2426dd9a-cb7f-4f0c-ab43-372addf7844c"
