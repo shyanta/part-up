@@ -2,11 +2,7 @@
 /* Widget functions */
 /*************************************************************/
 var getUpdates = function getUpdates () {
-    var partupId = Router.current().params._id;
-
-    // Get the option that is selected in the filter dropdown
-
-    return Updates.find({}).map(function(update, idx) {
+    return Updates.find().map(function(update, idx) {
         update.arrayIndex = idx;
         return update;
     });
@@ -27,28 +23,30 @@ Template.app_partup_updates.onCreated(function() {
         template.refreshDate.set(new Date());
     };
 
+    // Update subscription function
+    template.subscription;
+    template.updateSubscription = function(filter) {
+        if (template.subscription) template.subscription.stop();
+        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id, {filter: filter});
+        template.subscription.updated = true;
+    };
+
+    // Update subscription on filter change
+    template.filterValue = new ReactiveVar('default', function(oldFilter, newFilter) {
+        template.updateSubscription(newFilter);
+    });
+
+    // Set subscription once
+    template.updateSubscription(template.filterValue.get());
+
     template.autorun(function() {
         var updates = getUpdates();
         template.allUpdates.set(updates);
 
-        var shownUpdates = template.shownUpdates.curValue;
-        if (!shownUpdates || !shownUpdates.length) {
+        if (template.subscription.updated && template.subscription.ready()) {
             template.updateShownUpdates();
+            template.subscription.updated = false;
         }
-    });
-
-    template.dropdownValue = new ReactiveVar(false, function(oldValue, newValue) {
-        if (oldValue === newValue) return;
-        if (template.subscription) template.subscription.stop();
-        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id, {filter: newValue});
-        template.updateShownUpdates();
-        console.log('ReactiveVar');
-    });
-
-    template.autorun(function(computation) {
-        var filter = Session.get('partial-dropdowns-updates-actions.selected');
-        template.dropdownValue.set(filter);
-        console.log('Computation', filter);
     });
 });
 
@@ -124,6 +122,11 @@ Template.app_partup_updates.helpers({
             invited_name: update.type_data.invited_name,
             is_contribution: is_contribution
         };
+    },
+
+    'filterValueReactiveVar': function helperFilterValueReactiveVar () {
+        var template = Template.instance();
+        return template.filterValue;
     }
 });
 
