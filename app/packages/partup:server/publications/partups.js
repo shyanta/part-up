@@ -141,7 +141,7 @@ Meteor.publishComposite('partups.one.updates', function(partupId, options) {
                 criteria.type = {$regex: '.*contributions.*'};
             }
 
-            return Updates.find(criteria);
+            return Updates.find(criteria, {sort: {updated_at: -1}});
         },
         children: [
             {
