@@ -89,7 +89,6 @@ var partupSettings = {
         return [
             Meteor.subscribe('notifications.user'),
             Meteor.subscribe('partups.one', partupId),
-            Meteor.subscribe('partups.one.updates', partupId),
             Meteor.subscribe('partups.one.activities', partupId),
             Meteor.subscribe('partups.one.contributions', partupId)
         ];
@@ -146,7 +145,6 @@ Router.route('/partups/:_id/updates/:update_id', {
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.updates', partupId);
         this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
     },
