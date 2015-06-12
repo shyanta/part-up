@@ -62,7 +62,7 @@ Template.app_partup_updates.onCreated(function() {
         var updates = getUpdates();
         template.allUpdates.set(updates);
 
-        var shownUpdates = template.shownUpdates.get();
+        var shownUpdates = template.shownUpdates.curValue;
         if (!shownUpdates || !shownUpdates.length) {
             template.updateShownUpdates();
         }
