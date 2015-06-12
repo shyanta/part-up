@@ -13,16 +13,19 @@ Template.ReactiveLayout.onCreated(function() {
     var template = this;
 
     // create columns Array based on the TOTAL_COLUMNS constante
-    var columnArray = [];
-    for (var i = 0; i < template.data.TOTAL_COLUMNS; i++) {
-        columnArray.push([]);
+    var generateColumns = function() {
+        var columnArray = [];
+        for (var i = 0; i < template.data.TOTAL_COLUMNS; i++) {
+            columnArray.push([]);
+        };
+        template.columns = new ReactiveVar(columnArray);
     };
-    template.columns = new ReactiveVar(columnArray);
-
+    generateColumns();
     // when count ReactiveVar is changed, this is fired
     var onCountUpdate = function(oldValue, newValue) {
         if (oldValue === newValue) return;
         if (!template.data.items[newValue]) return;
+        if(newValue < 0) return;
         addToReactiveLayout(template, template.data.items[newValue]);
     };
     // init value set to -1, when set to 0 the first item will be rendered
@@ -40,12 +43,20 @@ Template.ReactiveLayout.onCreated(function() {
     // totalItems ReactiveVar, is updated when new items are added to the items array
     template.totalItems = new ReactiveVar(0, function(oldValue, newValue) {
         if (oldValue === newValue) return;
+        if (newValue === 0) return;
         template.addNextItem();
     });
 
     // when a ReactiveTile is rendered, the onRenderCallback is fired
     template.onRenderCallback = function() {
         template.addNextItem();
+    };
+
+    template.refresh = function() {
+        console.log('refresh');
+        template.count.set(-1);
+        generateColumns();
+        template.totalItems.set(0);
     };
 });
 
@@ -58,11 +69,15 @@ Template.ReactiveLayout.onRendered(function() {
     // this autorun runs when the template data object changes
     template.autorun(function() {
         var data = Template.currentData();
-        if (data.items) {
+        if (data.items.length) {
             // update totalItems ReactiveVar
             template.totalItems.set(data.items.length);
+            // template.refresh();
         }
     });
+    // Meteor.setTimeout(function() {
+    //     template.refresh();
+    // }, 10000);
 });
 
 // compare all columns and return the index of the smallest
