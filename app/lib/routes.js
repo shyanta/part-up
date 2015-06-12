@@ -83,14 +83,16 @@ var partupSettings = {
         'app_partup':         {to: 'app'},
         'app_partup_updates': {to: 'app_partup'}
     },
-    subscriptions: function() {
+    waitOn: function() {
         var partupId = this.params._id;
 
-        this.subscribe('notifications.user');
-        this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.updates', partupId);
-        this.subscribe('partups.one.activities', partupId);
-        this.subscribe('partups.one.contributions', partupId);
+        return [
+            Meteor.subscribe('notifications.user'),
+            Meteor.subscribe('partups.one', partupId),
+            Meteor.subscribe('partups.one.updates', partupId),
+            Meteor.subscribe('partups.one.activities', partupId),
+            Meteor.subscribe('partups.one.contributions', partupId)
+        ];
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
