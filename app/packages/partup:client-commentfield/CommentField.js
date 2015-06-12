@@ -20,19 +20,19 @@ Template.CommentField.onRendered(function() {
     commentInputFieldExpandedDict.set(update._id, update.comments_count > 0);
     commentPostButtonActiveDict.set(update._id, false);
 
-    template.highlight = function() {
-        if (template.data.COMMENTS_EXPANDED) return;
-        var element = template.find('.pu-commentfield');
-        var doc = document.documentElement;
-        var scrollDuration = ((window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) / 2;
-        $('html, body').animate({scrollTop: 0}, scrollDuration, function(e) {
-            $(element).addClass('pu-state-highlight');
-            Meteor.setTimeout(function() {
-                $(element).removeClass('pu-state-highlight');
-            }, 1000);
-        });
+    // template.highlight = function() {
+    //     if (template.data.COMMENTS_EXPANDED) return;
+    //     var element = template.find('.pu-commentfield');
+    //     var doc = document.documentElement;
+    //     var scrollDuration = ((window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) / 2;
+    //     $('html, body').animate({scrollTop: 0}, scrollDuration, function(e) {
+    //         $(element).addClass('pu-state-highlight');
+    //         Meteor.setTimeout(function() {
+    //             $(element).removeClass('pu-state-highlight');
+    //         }, 1000);
+    //     });
 
-    };
+    // };
 });
 
 Template.CommentField.helpers({
@@ -105,7 +105,7 @@ AutoForm.addHooks(null, {
             } else {
                 commentPostButtonActiveDict.set(updateId, false);
                 AutoForm.resetForm(self.formId);
-                self.template.parent().highlight();
+                // self.template.parent().highlight();
 
             }
         });
