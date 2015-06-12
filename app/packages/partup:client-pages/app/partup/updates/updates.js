@@ -58,12 +58,14 @@ Template.app_partup_updates.onCreated(function() {
         template.refreshDate.set(new Date());
     };
 
+    var createdDate = new Date();
     template.autorun(function() {
         var updates = getUpdates();
         template.allUpdates.set(updates);
 
+        // Quick fix for data problem: wait for 2.5 seconds
         var shownUpdates = template.shownUpdates.get();
-        if (!shownUpdates || !shownUpdates.length) {
+        if (!shownUpdates || !shownUpdates.length || moment().diff(moment(createdDate)) < 2500) {
             template.updateShownUpdates();
         }
     });
