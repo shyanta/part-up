@@ -71,7 +71,7 @@
                             <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
                         {{/ if }}
                         {{# if contribution.verified }}
-                            {{> Ratings contribution=contribution ratings=ratings }}
+                            {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
                         {{ else }}
                             <div class="pu-ratings">
                                 <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
@@ -89,7 +89,7 @@
                             </p>
                         {{/ if }}
                         {{# if contribution.verified }}
-                            {{> Ratings contribution=contribution ratings=ratings }}
+                            {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
                         {{ else }}
                             <div class="pu-ratings">
                                 <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>

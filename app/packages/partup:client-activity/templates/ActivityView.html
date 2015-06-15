@@ -46,7 +46,7 @@
         {{# if expanded }}
             <div class="pu-sub-contributions">
                 {{# each contributions }}
-                    {{> Contribution contribution=. updateContribution=updateContribution }}
+                    {{> Contribution contribution=. updateContribution=updateContribution READONLY=isReadOnly}}
                 {{/ each }}
 
                 {{# if showPlaceholderContribution }}

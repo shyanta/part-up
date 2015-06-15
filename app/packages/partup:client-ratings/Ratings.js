@@ -1,9 +1,12 @@
+// jscs:disable
 /**
  * A widget that will render all given ratings
  *
- * @param {Cursor} contribution   The contribution which is being rated
- * @param {Cursor} ratings   A Mongo Cursor object
+ * @param {Cursor} contribution The contribution which is being rated
+ * @param {Cursor} ratings      A Mongo Cursor object
+ * @param {Boolean} READONLY    Whether the widget should be rendered readonly 
  */
+// jscs:enable
 
 /*************************************************************/
 /* Widget initial */
@@ -44,6 +47,8 @@ Template.Ratings.helpers({
         return Template.instance().showHoverCards.get(id);
     },
     showNewRating: function(){
+        if (this.READONLY) return false;
+
         var user = Meteor.user();
         if (!user || user._id === this.contribution.upper_id) return false;
 
