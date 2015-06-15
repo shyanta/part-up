@@ -58,7 +58,7 @@
             {{ else }}
                 {{# if upperContribution }}
                     <div class="pu-contribution pu-contribution-own">
-                        <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
+                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
                             <i class="fa fa-pencil"></i>
                         </figure>
                         {{# if addsValue }}
@@ -80,7 +80,7 @@
                     </div>
                 {{ else }}
                     <div class="pu-contribution">
-                        <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
+                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
                         {{# if addsValue }}
                             <p>
                                 {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
