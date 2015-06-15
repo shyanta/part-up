@@ -26,11 +26,11 @@ Accounts.onCreateUser(function(options, user) {
         }
 
         profile = {
-            linkedin_id: liData.id,
-            name: liData.firstName + ' ' + liData.lastName,
             firstname: liData.firstName,
             lastname: liData.lastName,
+            linkedin_id: liData.id,
             location: location,
+            name: liData.firstName + ' ' + liData.lastName,
             settings: {
                 locale: 'en'
             }
@@ -43,10 +43,10 @@ Accounts.onCreateUser(function(options, user) {
     if (fbData) {
         profile = {
             facebook: fbData.id,
-            name: fbData.name,
             firstname: fbData.first_name,
-            lastname: fbData.last_name,
             gender: fbData.gender,
+            lastname: fbData.last_name,
+            name: fbData.name,
             settings: {
                 locale: Partup.helpers.parseLocale(fbData.locale)
             }
@@ -76,6 +76,8 @@ Accounts.onCreateUser(function(options, user) {
         profile.image = image._id;
         console.log('Setting user image', image);
     }
+
+    profile.completeness = 0;
 
     user.profile = profile;
 
