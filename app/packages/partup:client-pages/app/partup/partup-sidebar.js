@@ -248,35 +248,51 @@ Template.app_partup_sidebar.onRendered(function() {
 Template.app_partup_sidebar.helpers({
 
     prettyEndDate: function helperPrettyEndDate() {
-        var partup = this.partup();
+        var partup = this.partup;
         if (!partup) return '...';
         return moment(partup.end_date).format('LL'); // see: helpers/dateFormatters.js -> partupDateNormal
     },
 
     prettyVisibility: function helperPrettyVisibility() {
-        var partup = this.partup();
+        var partup = this.partup;
         if (!partup) return '...';
         return __('partup-detail-visibility-' + partup.visibility);
     },
 
     numberOfSupporters: function helperNumberOfSupporters() {
-        var partup = this.partup();
+        var partup = this.partup;
         if (!partup) return '...';
         return partup.supporters ? partup.supporters.length : '0';
     },
 
     isSupporter: function helperIsSupporter() {
-        var partup = this.partup();
         var user = Meteor.user();
-        if (!partup || !partup.supporters || !user) return false;
-        return partup.supporters.indexOf(Meteor.user()._id) > -1;
+        if (!this.partup || !this.partup.supporters || !user) return false;
+        return this.partup.supporters.indexOf(Meteor.user()._id) > -1;
     },
 
     isUpperInPartup: function helperIsUpperInPartup() {
-        var partup = this.partup();
         var user = Meteor.user();
-        if (!partup || !partup.uppers || !user) return false;
-        return partup.uppers.indexOf(user._id) > -1;
+        if (!user) return false;
+        var partup = this.partup;
+        if (!partup) return false;
+        return partup.hasUpper(user._id);
+    },
+
+    partupUppers: function() {
+        var uppers = this.partup.uppers || [];
+        return Meteor.users.findMultiplePublicProfiles(uppers);
+    },
+
+    partupSupporters: function() {
+        var supporters = this.partup.supporters || [];
+        return Meteor.users.findMultiplePublicProfiles(supporters);
+    },
+
+    partupCover: function() {
+        var partup = this.partup;
+        if (!partup || !partup.image) return null;
+        return Images.findOne({_id: partup.image});
     }
 
 });
