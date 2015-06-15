@@ -216,8 +216,12 @@ Router.route('/partups/:_id/settings', {
     },
     subscriptions: function() {
         var partupId = this.params._id;
-
         this.subscribe('partups.one', partupId);
+    },
+    data: function() {
+        return {
+            partupId: this.params._id
+        };
     }
 });
 

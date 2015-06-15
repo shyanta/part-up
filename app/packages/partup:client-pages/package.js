@@ -144,6 +144,8 @@ Package.onUse(function(api) {
         'i18n/modal-resetpassword.nl.i18n.json',
         'i18n/modal-invite_to_partup.en.i18n.json',
         'i18n/modal-invite_to_partup.nl.i18n.json',
+        'i18n/modal-partup_settings.en.i18n.json',
+        'i18n/modal-partup_settings.nl.i18n.json',
         'i18n/modal-create_intro.en.i18n.json',
         'i18n/modal-create_intro.nl.i18n.json',
         'i18n/modal-create.en.i18n.json',

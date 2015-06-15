@@ -3,7 +3,7 @@
     <nav class="pu-header pu-header-modal">
         <a class="pu-button pu-button-header pu-button-header-modal" data-closepage="" href="#">
             <i class="fa fa-times"></i>
-            Sluiten
+            {{_ 'pages-modal-partup_settings-discard' }}
         </a>
     </nav>
 
@@ -12,8 +12,27 @@
             <section class="pu-page pu-page-modal">
                 <div class="pu-composition pu-composition-defaultmodal">
 
-                    <h2>Settings</h2>
-                    <p class="pu-paragraph pu-paragraph-subtle"><a href="#" data-remove>Delete partup</a></p>
+                    <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-partup_settings-title' }}</h2>
+                    <p>{{_ 'pages-modal-partup_settings-explanation' }}</p>
+
+                    {{> Partupsettings FORM_ID='editPartupForm' currentPartup=currentPartup }}
+
+                    {{#contentFor "PartupsettingsFooter"}}
+
+                        <!-- Submit button -->
+                        <footer class="pu-sub-modalfooter pu-sub-modalfooter-alignleft">
+                            <div class="pu-sub-footer-container">
+                                <button class="pu-button">{{_ 'pages-modal-partup_settings-save'}}</button>
+                            </div>
+                        </footer>
+
+                    {{/contentFor}}
+
+                    {{#if isRemovableByUser}}
+                        <div class="pu-sub-footerlink">
+                            <p class="pu-paragraph"><a href="#" data-remove>{{_ 'pages-modal-partup_settings-delete'}}</a></p>
+                        </div>
+                    {{/if}}
 
                 </div>
             </section>
