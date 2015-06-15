@@ -58,7 +58,7 @@
             {{ else }}
                 {{# if upperContribution }}
                     <div class="pu-contribution pu-contribution-own">
-                        <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
+                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})">
                             <i class="fa fa-pencil"></i>
                         </figure>
                         {{# if addsValue }}
@@ -70,11 +70,8 @@
                         {{ else }}
                             <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
                         {{/ if }}
-                        <p class="pu-sub-contribution-comments">
-                            <a href="{{ pathFor route='partup-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
-                        </p>
                         {{# if contribution.verified }}
-                            {{> Ratings contribution=contribution ratings=ratings }}
+                            {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
                         {{ else }}
                             <div class="pu-ratings">
                                 <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
@@ -83,7 +80,7 @@
                     </div>
                 {{ else }}
                     <div class="pu-contribution">
-                        <figure class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
+                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }})"></figure>
                         {{# if addsValue }}
                             <p>
                                 {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
@@ -91,12 +88,8 @@
                                 {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
                             </p>
                         {{/ if }}
-                        <p class="pu-sub-contribution-comments">
-                            <a href="{{ pathFor route='partup-update' _id=contribution.partup_id update_id=contribution.update_id }}"><i class="fa fa-comment"></i> {{ commentsCount }}</a>
-                        </p>
-
                         {{# if contribution.verified }}
-                            {{> Ratings contribution=contribution ratings=ratings }}
+                            {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
                         {{ else }}
                             <div class="pu-ratings">
                                 <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>

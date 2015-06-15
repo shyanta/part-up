@@ -36,6 +36,7 @@ Template.ActivityView.helpers({
     },
     showPlaceholderContribution: function() {
         if (this.contribution_id) return false;
+        if (this.READONLY) return false;
 
         var user = Meteor.user();
         if (!user) return false;
@@ -56,7 +57,11 @@ Template.ActivityView.helpers({
     },
     upper: function(event, template) {
         return Meteor.users.findOne({_id: this.upper_id});
+    },
+    isReadOnly: function() {
+        return Template.instance().data.READONLY;
     }
+
 });
 
 /*************************************************************/
