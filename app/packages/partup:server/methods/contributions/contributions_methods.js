@@ -168,8 +168,11 @@ Meteor.methods({
                 archived: {$ne: true}
             }).count();
             if (!contributionsLeft) {
-                Partups.update(contribution.partup_id, {$pull: {uppers: upper._id}, $push: {supporters: upper._id}});
-                Meteor.users.update(upper._id, {$pull: {upperOf: contribution.partup_id}, $push: {supporterOf: contribution.partup_id}});
+                var partup = Partups.findOneOrFail(contribution.partup_id);
+                if (partup.uppers.length > 1) {
+                    Partups.update(partup._id, {$pull: {uppers: upper._id}, $push: {supporters: upper._id}});
+                    Meteor.users.update(upper._id, {$pull: {upperOf: partup._id}, $push: {supporterOf: partup._id}});
+                }
             }
 
             // Post system message
