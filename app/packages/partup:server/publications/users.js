@@ -2,12 +2,10 @@ Meteor.publish('users.count', function() {
     Counts.publish(this, 'users', Meteor.users.find());
 });
 
-Meteor.publishComposite('users.one', function() {
-    var self = this;
-
+Meteor.publishComposite('users.one', function(userId) {
     return {
         find: function() {
-            return Meteor.users.find({_id: self.userId}, {limit: 1, fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+            return Meteor.users.findSinglePublicProfile(userId);
         },
         children: [
             {
@@ -24,7 +22,7 @@ Meteor.publishComposite('users.loggedin', function() {
 
     return {
         find: function() {
-            return Meteor.users.find({_id: self.userId}, {limit: 1, fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+            return Meteor.users.findSinglePublicProfile(self.userId);
         },
         children: [
             {
