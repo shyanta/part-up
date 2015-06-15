@@ -1,15 +1,26 @@
-/**
- * Set the average rating on the user
- */
-Event.on('partups.contributions.ratings.updated', function(userId, rating) {
-    if (!userId) return;
-
+function updateUserAverageRating(rating) {
     // TODO: Aggregation for improved speed
     var ratings = Ratings.find({rated_upper_id: rating.rated_upper_id}).fetch();
     var sumRating = ratings.reduce(function(sum, rating) { return sum + rating.rating; }, 0);
     var averageRating = sumRating / ratings.length;
 
     Meteor.users.update({_id: rating.rated_upper_id}, {$set: {'average_rating': averageRating}});
+}
+
+/**
+ * Set the average rating when rating is inserted
+ */
+Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
+    if (!userId) return;
+    updateUserAverageRating(rating);
+});
+
+/**
+ * Set the average rating when rating is updated
+ */
+Event.on('partups.contributions.ratings.updated', function(userId, rating) {
+    if (!userId) return;
+    updateUserAverageRating(rating);
 });
 
 /**
