@@ -1,3 +1,16 @@
+// jscs:disable
+/**
+ * Widget to render a single contribution
+ *
+ * You can pass the widget a few options which enable various functionalities
+ *
+ * @param {Object} contribution         The contribution object to render
+ * @param {Object} activity             The contribution object to render
+ * @param {Function} updateContribution A function that is executed after the contribution has been updated
+ * @param {Boolean} READONLY            Whether the widget should be rendered readonly 
+ */
+// jscs:enable
+
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
