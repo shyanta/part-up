@@ -11,7 +11,7 @@ Meteor.publishComposite('partups.all', function() {
                     // We only want to publish the first x uppers as can be seen in the design
                     uppers = uppers.slice(0, 4);
 
-                    return Meteor.users.find({uppers: {$in: uppers}}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.findMultiplePublicProfiles(uppers);
                 }
             },
             {
@@ -39,8 +39,7 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
 
                     // We only want to publish the first x uppers as can be seen in the design
                     uppers = uppers.slice(0, 4);
-
-                    return Meteor.users.find({uppers: {$in: uppers}}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.findMultiplePublicProfiles(uppers);
                 }
             },
             {
@@ -93,7 +92,7 @@ Meteor.publishComposite('partups.one.contributions', function(partupId) {
         children: [
             {
                 find: function(contribution) {
-                    return Meteor.users.find({_id: contribution.upper_id}, {limit: 1, fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.findSinglePublicProfile(contribution.upper_id);
                 },
                 children: [
                     {
@@ -146,7 +145,7 @@ Meteor.publishComposite('partups.one.updates', function(partupId, options) {
         children: [
             {
                 find: function(update) {
-                    return Meteor.users.find({_id: update.upper_id}, {limit: 1, fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.findSinglePublicProfile(update.upper_id);
                 },
                 children: [
                     {
@@ -189,7 +188,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
             {
                 find: function(partup) {
                     var uppers = partup.uppers || [];
-                    return Meteor.users.find({_id: {$in: uppers}}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.findMultiplePublicProfiles(uppers);
                 },
                 children: [
                     {
@@ -202,7 +201,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
             {
                 find: function(partup) {
                     var supporters = partup.supporters || [];
-                    return Meteor.users.find({_id: {$in: supporters}}, {fields: {'profile': 1, 'status.online': 1, 'partups': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.findMultiplePublicProfiles(supporters);
                 },
                 children: [
                     {
