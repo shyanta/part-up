@@ -27,7 +27,6 @@ Router.route('/', {
     },
     subscriptions: function() {
         this.subscribe('notifications.user');
-        this.subscribe('partups.all');
     }
 });
 
