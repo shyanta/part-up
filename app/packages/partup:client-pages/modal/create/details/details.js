@@ -18,7 +18,6 @@ Template.modal_create_details.helpers({
 /*************************************************************/
 Template.modal_create_details.events({
     'click [data-submission-type]': function eventClickSetSubmissionType (event, template) {
-        debugger;
         var button = event.currentTarget;
         var submissionType = button.getAttribute('data-submission-type');
         Session.set('partials.create-partup.submission-type', submissionType);
