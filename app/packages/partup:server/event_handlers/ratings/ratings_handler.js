@@ -9,7 +9,7 @@ Event.on('partups.contributions.ratings.updated', function(userId, rating) {
     var sumRating = ratings.reduce(function(sum, rating) { return sum + rating.rating; }, 0);
     var averageRating = sumRating / ratings.length;
 
-    Meteor.users.update({_id: rating.rated_upper_id}, {$set: {'profile.average_rating': averageRating}});
+    Meteor.users.update({_id: rating.rated_upper_id}, {$set: {'average_rating': averageRating}});
 });
 
 /**
