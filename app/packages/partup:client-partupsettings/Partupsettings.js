@@ -121,15 +121,15 @@ Template.Partupsettings.helpers({
     budgetOptions: function() {
         return [
             {
-                label: 'Geen budget', // todo: i18n
+                label: __('partupsettings-form-budget-type-nobudget'), // todo: i18n
                 value: ''
             },
             {
-                label: 'Ja, in geld', // todo: i18n
+                label: __('partupsettings-form-budget-type-money'), // todo: i18n
                 value: 'money'
             },
             {
-                label: 'Ja, in uren', // todo: i18n
+                label: __('partupsettings-form-budget-type-hours'), // todo: i18n
                 value: 'hours'
             }
         ];
