@@ -78,6 +78,18 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         optional: true,
         regEx: SimpleSchema.RegEx.Id
     },
+    'pending_uppers._id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'pending_uppers.invited_at': {
+        type: Date,
+        defaultValue: new Date()
+    },
+    'pending_uppers.invited_by_id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     updated_at: {
         type: Date,
         defaultValue: new Date()
