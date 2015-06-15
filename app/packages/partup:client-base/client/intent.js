@@ -83,6 +83,15 @@ Partup.client.intent = {
         // Save intent callback
         if (typeof callback === 'function') {
             _intentCallbacks[args.route] = callback;
+        } else {
+            var currentRoute = Router.current();
+            var routeName = currentRoute.route.getName();
+            var routeParams = currentRoute.params;
+            var routeOptions = currentRoute.route.options;
+
+            _intentCallbacks[args.route] = function() {
+                Router.go(routeName, routeParams, routeOptions);
+            };
         }
 
         // Perform router.go
