@@ -72,3 +72,4 @@ percolate:synced-cron
 partup:client-reactive-layout
 meteorhacks:kadira
 okgrow:analytics
+partup:client-partupsettings
