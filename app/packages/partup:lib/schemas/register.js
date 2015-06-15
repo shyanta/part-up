@@ -39,13 +39,6 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
  * @memberOf partup.schemas.forms
  */
 Partup.schemas.forms.registerOptional = new SimpleSchema({
-    completeness: {
-        type: Number,
-        min: 0,
-        max: 100,
-        optional: true,
-        defaultValue: 0
-    },
     description: {
         type: String,
         max: 650,

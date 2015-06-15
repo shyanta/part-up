@@ -1,6 +1,6 @@
 .pu-composition-defaultmodal
     width: 570px
-    
+
     h2
         margin-top: -10px
         margin-bottom: 20px
@@ -17,13 +17,16 @@
             padding: 0 15px
             color: $color-text-subtle
             font-weight: bold
-        
+
+        &-alignleft
+            text-align: left
+
         &-fixed
             z-index: 2
             margin-top: 0
             position: fixed
             bottom: 0
-            left: 0 
+            left: 0
             right: 0
             padding: 25px 20px
             transition: background .1s
@@ -33,6 +36,12 @@
                 width: 570px
                 margin-left: auto
                 margin-right: auto
+
+    .pu-sub-footerlink
+        margin-top: 30px - 6px
+
+        a
+            color: $color-text
 
     &.pu-composition-fixedfooter
         margin-bottom: 80px

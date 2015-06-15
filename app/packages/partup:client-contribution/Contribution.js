@@ -1,3 +1,16 @@
+// jscs:disable
+/**
+ * Widget to render a single contribution
+ *
+ * You can pass the widget a few options which enable various functionalities
+ *
+ * @param {Object} contribution         The contribution object to render
+ * @param {Object} activity             The contribution object to render
+ * @param {Function} updateContribution A function that is executed after the contribution has been updated
+ * @param {Boolean} READONLY            Whether the widget should be rendered readonly 
+ */
+// jscs:enable
+
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
@@ -10,11 +23,6 @@ Template.Contribution.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.Contribution.helpers({
-    commentsCount: function() {
-        var update = Updates.findOne({_id: this.contribution.update_id});
-        if (!update) return;
-        return update.comments_count;
-    },
     formSchema: Partup.schemas.forms.contribution,
     placeholders: Partup.services.placeholders.contribution,
     generateFormId: function() {

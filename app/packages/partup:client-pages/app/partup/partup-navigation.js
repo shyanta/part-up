@@ -34,3 +34,23 @@ Template.app_partup_navigation.helpers({
     }
 
 });
+
+Template.app_partup_navigation.events({
+    'click [data-openpartupsettings]': function(event, template) {
+        event.preventDefault();
+
+        var currentRoute = Router.current();
+        var routeName = currentRoute.route.getName();
+        var routeParams = currentRoute.params;
+        var routeOptions = currentRoute.route.options;
+
+        Partup.client.intent.go({
+            route: 'partup-settings',
+            params: {
+                _id: Router.current().params._id
+            }
+        }, function() {
+            Router.go(routeName, routeParams, routeOptions);
+        });
+    }
+});

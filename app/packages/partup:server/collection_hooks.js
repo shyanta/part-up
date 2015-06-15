@@ -77,3 +77,8 @@ Updates.after.remove(basicAfterRemove('partups.updates'));
 Contributions.after.insert(basicAfterInsert('partups.contributions'));
 Contributions.after.update(basicAfterUpdate('partups.contributions'));
 Contributions.after.remove(basicAfterRemove('partups.contributions'));
+
+// Ratings Events
+Ratings.after.insert(basicAfterInsert('partups.contributions.ratings'));
+Ratings.after.update(basicAfterUpdate('partups.contributions.ratings'));
+Ratings.after.remove(basicAfterRemove('partups.contributions.ratings'));

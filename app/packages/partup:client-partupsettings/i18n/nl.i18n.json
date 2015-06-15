@@ -1,0 +1,39 @@
+{
+    "partupsettings-form-name-label": "Hoe wil je jouw part-up noemen?",
+    "partupsettings-form-name-placeholder": "Wees niet té creatief, je wilt wel dat uppers het meteen snappen",
+    "partupsettings-form-name-validation": "maximaal %d tekens",
+    "partupsettings-form-name-validation-left": "nog %d tekens over",
+
+    "partupsettings-form-description-label": "Wat wil je met jouw part-up bereiken?",
+    "partupsettings-form-description-placeholder": "Wees zo kort maar zo krachtig mogelijk",
+    "partupsettings-form-description-validation": "maximaal %d tekens",
+
+    "partupsettings-form-tags_input-label": "Welke (vijf) trefwoorden beschrijven jouw part-up?",
+    "partupsettings-form-tags_input-placeholder": "Graag even scheiden door een komma",
+    "partupsettings-form-tags_input-tooltip": "We gebruiken deze woorden om te kijken welke uppers bij de part-up passen. Denk er dus even goed over na.",
+
+    "partupsettings-form-budget-label": "Heb je al een budget voor je part-up?",
+    "partupsettings-form-budget-type-nobudget": "Geen budget",
+    "partupsettings-form-budget-type-money": "Ja, in geld",
+    "partupsettings-form-budget-type-hours": "Ja, in uren",
+    "partupsettings-form-budget-unit-euro": "euro",
+    "partupsettings-form-budget-unit-hours": "uren",
+    "partupsettings-form-budget_money-placeholder": "0",
+    "partupsettings-form-budget_hours-placeholder": "0",
+    "partupsettings-form-budget-tooltip": "Samenwerken in een part-up kost tijd. Geef aan of je hier budget voor hebt (in geld, of voor veel organisaties in uren). Zo zorg je dat uppers zich met de juiste verwachting bij je part-up aansluiten.",
+
+    "partupsettings-form-end_date-label": "Wanneer wil je ongeveer klaar zijn?",
+    "partupsettings-form-end_date-placeholder": "Prik een einddatum",
+    "partupsettings-form-end_date-tooltip": "Een part-up is altijd een tijdelijke samenwerking. De einddatum houdt de vaart en energie erin.",
+
+    "partupsettings-form-location_input-label": "Waar is jouw part-up?",
+    "partupsettings-form-location_input-placeholder": "In Nederland, in jouw regio of in jouw plaats",
+
+    "partupsettings-image-label": "Welke foto past goed bij jouw part-up?",
+    "partupsettings-image-button": "Foto vanaf jouw computer",
+    "partupsettings-image-button-overwrite": "Foto veranderen",
+    "partupsettings-image-validation": "Wel minimaal 1000 pixels",
+
+    "partupsettings-suggestion-label": "of kies een van de vijf suggesties",
+    "partupsettings-suggestion-placeholder": "Vul de trefwoorden van je part-up in zodat wij een aantal suggesties kunnen doen voor passende foto's!"
+}
