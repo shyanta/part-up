@@ -1,6 +1,6 @@
 if (!(typeof MochaWeb === 'undefined')) {
     MochaWeb.testOnly(function() {
-        describe('partup-detail sidebar', function() {
+        xdescribe('partup-detail sidebar', function() {
             var template;
 
             var partupStub = {
