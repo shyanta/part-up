@@ -97,6 +97,8 @@ Package.onUse(function(api) {
         // Modal:network
         'modal/network/create_network/create_network.html',
         'modal/network/create_network/create_network.js',
+        'modal/network/invite_uppers/invite_uppers.html',
+        'modal/network/invite_uppers/invite_uppers.js',
         // Modal:create_intro
         'modal/create_intro/create_intro.html',
         'modal/create_intro/create_intro.js',
