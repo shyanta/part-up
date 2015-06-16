@@ -101,8 +101,8 @@ Package.onUse(function(api) {
         'modal/network/pending_uppers/pending_uppers.js',
         'modal/network/upper_overview/upper_overview.html',
         'modal/network/upper_overview/upper_overview.js',
-        'modal/network/network_info/network_details.html',
-        'modal/network/network_info/network_details.js',
+        'modal/network/network_details/network_details.html',
+        'modal/network/network_details/network_details.js',
 
         // Modal:create_intro
         'modal/create_intro/create_intro.html',
