@@ -2,7 +2,8 @@
 /* Widget functions */
 /*************************************************************/
 var getUpdates = function getUpdates () {
-    return Updates.find().map(function(update, idx) {
+    var criteria = {};
+    return Updates.find(criteria, {sort: {updated_at: -1}}).map(function(update, idx) {
         update.arrayIndex = idx;
         return update;
     });
