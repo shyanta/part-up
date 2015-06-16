@@ -74,7 +74,7 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         regEx: SimpleSchema.RegEx.Id
     },
     pending_uppers: {
-        type: [String],
+        type: [Object],
         optional: true,
         regEx: SimpleSchema.RegEx.Id
     },
