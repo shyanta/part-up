@@ -228,7 +228,7 @@ Template.app_partup_sidebar.onRendered(function() {
     partupDetailLayout.init();
 
     template.autorun(function() {
-        var partup = template.data.partup();
+        var partup = template.data.partup;
         if (!partup) return;
 
         var image = Images.findOne({_id: partup.image});
@@ -247,31 +247,31 @@ Template.app_partup_sidebar.onRendered(function() {
 /*************************************************************/
 Template.app_partup_sidebar.helpers({
 
-    prettyEndDate: function helperPrettyEndDate() {
+    prettyEndDate: function() {
         var partup = this.partup;
         if (!partup) return '...';
         return moment(partup.end_date).format('LL'); // see: helpers/dateFormatters.js -> partupDateNormal
     },
 
-    prettyVisibility: function helperPrettyVisibility() {
+    prettyVisibility: function() {
         var partup = this.partup;
         if (!partup) return '...';
         return __('partup-detail-visibility-' + partup.visibility);
     },
 
-    numberOfSupporters: function helperNumberOfSupporters() {
+    numberOfSupporters: function() {
         var partup = this.partup;
         if (!partup) return '...';
         return partup.supporters ? partup.supporters.length : '0';
     },
 
-    isSupporter: function helperIsSupporter() {
+    isSupporter: function() {
         var user = Meteor.user();
         if (!this.partup || !this.partup.supporters || !user) return false;
         return this.partup.supporters.indexOf(Meteor.user()._id) > -1;
     },
 
-    isUpperInPartup: function helperIsUpperInPartup() {
+    isUpperInPartup: function() {
         var user = Meteor.user();
         if (!user) return false;
         var partup = this.partup;
@@ -280,11 +280,13 @@ Template.app_partup_sidebar.helpers({
     },
 
     partupUppers: function() {
+        if (!this.partup) return;
         var uppers = this.partup.uppers || [];
         return Meteor.users.findMultiplePublicProfiles(uppers);
     },
 
     partupSupporters: function() {
+        if (!this.partup) return;
         var supporters = this.partup.supporters || [];
         return Meteor.users.findMultiplePublicProfiles(supporters);
     },
