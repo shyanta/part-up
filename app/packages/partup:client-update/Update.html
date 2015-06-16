@@ -40,11 +40,15 @@
             {{#if partupEqualsExactly update.type 'partups_message_added' }}
                 {{#with update.type_data }}
                     <section>
-                        <article class="pu-block">
+                        <article class="pu-block pu-block-message">
                             <p class="pu-paragraph">{{ new_value }}</p>
-                            {{#each images}}
-                                <img class="pu-image" src="{{ partupImageById . }}" alt="">
-                            {{/each}}
+                            {{#if images}}
+                                <figure>
+                                    {{#each images}}
+                                        <img class="pu-image" src="{{ partupImageById . }}" alt="">
+                                    {{/each}}
+                                </figure>
+                            {{/if}}
                         </article>
                     </section>
                 {{/with}}
