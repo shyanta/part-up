@@ -22,8 +22,8 @@ Partup.transformers.contribution = {
      */
     'fromFormContribution': function(fields) {
         return {
-            hours: fields.hours,
-            rate: fields.rate
+            hours: fields.hours || null,
+            rate: fields.rate || null
         };
     }
 };

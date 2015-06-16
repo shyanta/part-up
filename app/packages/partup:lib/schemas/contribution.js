@@ -7,12 +7,12 @@
 var contributionBaseSchema = new SimpleSchema({
     hours: {
         type: Number,
-        min: 1,
+        min: 0,
         optional: true
     },
     rate: {
         type: Number,
-        min: 1,
+        min: 0,
         optional: true
     }
 });
