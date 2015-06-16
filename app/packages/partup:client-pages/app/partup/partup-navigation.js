@@ -31,6 +31,16 @@ Template.app_partup_navigation.helpers({
 
     backgroundWidth: function() {
         return Session.get('partials.partup-detail-navigation.background-width') || 0;
+    },
+
+    isEditableByUser: function() {
+        var partup = Partups.findOne({_id: Router.current().params._id});
+        if (!partup) return false;
+
+        var user = Meteor.user();
+        if (!user) return false;
+
+        return partup.isEditableBy(user);
     }
 
 });
