@@ -4,7 +4,7 @@
             <figure class="pu-avatar pu-avatar-small" style="{{#with currentUser.profile.image}}background-image: url({{ partupImageUrl id=. }});{{/with}}"></figure>
 
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
-                <div class="pu-row">
+                <div class="pu-row pu-row-top">
                     <div class="cell">
                         <label class="pu-formfield">
                             <span class="pu-label">{{_ 'contribution-form-hours-label' }}</span>
