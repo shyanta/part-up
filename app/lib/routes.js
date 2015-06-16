@@ -6,16 +6,6 @@ Router.configure({
 });
 
 /*************************************************************/
-/* Router Helpers */
-/*************************************************************/
-// if more than one route needs the same settings (for Abstract route behaviour)
-// Redirects cause buggy browser back button
-var settingsWithName = function(settingsObj, name) {
-    settingsObj.name = name;
-    return settingsObj;
-};
-
-/*************************************************************/
 /* Home */
 /*************************************************************/
 Router.route('/', {
@@ -49,9 +39,10 @@ Router.route('/discover', {
 });
 
 /*************************************************************/
-/* Profile (on hold) */
+/* Profile */
 /*************************************************************/
-var profileSettings = {
+Router.route('/profile', {
+    name: 'profile',
     where: 'client',
     yieldRegions: {
         'app': {to: 'main'},
@@ -67,15 +58,13 @@ var profileSettings = {
         }
         this.next();
     }
-};
-// Abstract route behaviour, redirects cause buggy back buttons in browser
-Router.route('/profile', settingsWithName(profileSettings, 'profile'));
-// Router.route('/profile/:_id', settingsWithName(profileSettings, 'profile-detail'));
+});
 
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
-var partupSettings = {
+Router.route('/partups/:_id', {
+    name: 'partup',
     where: 'client',
     yieldRegions: {
         'app':                {to: 'main'},
@@ -124,12 +113,7 @@ var partupSettings = {
 
         Meteor.call('partups.analytics.click', partup._id);
     }
-};
-
-// this way both /partups/id and partups/id/updates are the default updates page
-// Abstract route behaviour, redirects cause buggy back buttons in browser
-Router.route('/partups/:_id', settingsWithName(partupSettings, 'partup'));
-Router.route('/partups/:_id/updates', settingsWithName(partupSettings, 'partup-updates'));
+});
 
 Router.route('/partups/:_id/updates/:update_id', {
     name: 'partup-update',
@@ -189,9 +173,6 @@ Router.route('/partups/:_id/activities', {
     }
 });
 
-/*************************************************************/
-/* Invite uppers */
-/*************************************************************/
 Router.route('/partups/:_id/invite', {
     name: 'partup-invite',
     where: 'client',
@@ -204,9 +185,6 @@ Router.route('/partups/:_id/invite', {
     }
 });
 
-/*************************************************************/
-/* Partup settings */
-/*************************************************************/
 Router.route('/partups/:_id/settings', {
     name: 'partup-settings',
     where: 'client',
@@ -369,7 +347,7 @@ Router.route('/register/details', {
 });
 
 /*************************************************************/
-/* Close route */
+/* Close window route */
 /*************************************************************/
 Router.route('/close', {
     name: 'close',
