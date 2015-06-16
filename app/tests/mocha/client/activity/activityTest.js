@@ -1,6 +1,6 @@
 if (!(typeof MochaWeb === 'undefined')) {
     MochaWeb.testOnly(function() {
-        describe('activity in start partup form mode', function() {
+        xdescribe('activity in start partup form mode', function() {
             var template;
             beforeEach(function() {
                 var template = document.createElement('div');
@@ -23,7 +23,7 @@ if (!(typeof MochaWeb === 'undefined')) {
 
         });
 
-        describe('activity in start partup view mode', function() {
+        xdescribe('activity in start partup view mode', function() {
 
             var template;
             var activityStub = {

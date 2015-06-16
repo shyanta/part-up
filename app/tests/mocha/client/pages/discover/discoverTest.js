@@ -1,6 +1,6 @@
 if (!(typeof MochaWeb === 'undefined')){
     MochaWeb.testOnly(function(){
-        describe("discover", function(){
+        xdescribe("discover", function(){
 
             it("should show discover page", function(done){
                 var div = document.createElement("DIV");

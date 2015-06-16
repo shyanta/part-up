@@ -1,7 +1,7 @@
 if (!(typeof MochaWeb === 'undefined')) {
     MochaWeb.testOnly(function() {
 
-        describe('create details', function() {
+        xdescribe('create details', function() {
 
             beforeEach(function(done) {
                 Meteor.loginWithPassword('user@example.com', 'user');

@@ -122,11 +122,13 @@ Router.route('/partups/:_id/updates/:update_id', {
     },
     subscriptions: function() {
         var partupId = this.params._id;
+        var updateId = this.params.update_id;
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
         this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
+        this.subscribe('updates.one', updateId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
