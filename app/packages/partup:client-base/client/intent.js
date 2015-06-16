@@ -5,7 +5,7 @@
  * Use this service when you want to perform a route change with an intention.
  * For example, when the user wants to access restricted content and has to login first.
  * Flow:
- * - Call Partup.client.intent.open(); (for arguments, scroll down)
+ * - Call Partup.client.intent.go(); (for arguments, scroll down)
  * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
  * - Call Partup.client.intent.executeIntentCallback(); (for arguments, scroll down)
  *     when you want the intent callback to be executed.
@@ -23,15 +23,32 @@ var _intentCallbacks = {};
 Partup.client.intent = {
 
     /**
-     * Settings for modal animation when a modal is in the game
+     * Go with intent
      *
      * @memberOf Partup.client
-     * @param {Number} open animation duration
-     * @param {Number} close animation duration
+     * @param {Object} arguments for Router.go() (path, params and options)
+     * @param {Function} callback
      */
-    settings: {
-        openAnimationDuration: 400,
-        closeAnimationDuration: 400
+    go: function(args, callback) {
+        if (!args || !args.route) return console.warn('Partup.client.intent.open: please provide a route');
+
+        // Save intent callback
+        if (typeof callback === 'function') {
+            _intentCallbacks[args.route] = callback;
+        } else {
+            var currentRoute = Router.current();
+            var routeName = currentRoute.route.getName();
+            var routeParams = currentRoute.params;
+            var routeOptions = currentRoute.route.options;
+
+            _intentCallbacks[args.route] = function() {
+                Router.go(routeName, routeParams, routeOptions);
+            };
+        }
+
+        // Perform router.go
+        Router.go(args.route, args.params, args.options);
+
     },
 
     /**
@@ -68,35 +85,6 @@ Partup.client.intent = {
         }
 
         delete _intentCallbacks[route];
-    },
-
-    /**
-     * Go with intent
-     *
-     * @memberOf Partup.client
-     * @param {Object} arguments for Router.go() (path, params and options)
-     * @param {Function} callback
-     */
-    go: function(args, callback) {
-        if (!args || !args.route) return console.warn('Partup.client.intent.open: please provide a route');
-
-        // Save intent callback
-        if (typeof callback === 'function') {
-            _intentCallbacks[args.route] = callback;
-        } else {
-            var currentRoute = Router.current();
-            var routeName = currentRoute.route.getName();
-            var routeParams = currentRoute.params;
-            var routeOptions = currentRoute.route.options;
-
-            _intentCallbacks[args.route] = function() {
-                Router.go(routeName, routeParams, routeOptions);
-            };
-        }
-
-        // Perform router.go
-        Router.go(args.route, args.params, args.options);
-
     }
 
 };
