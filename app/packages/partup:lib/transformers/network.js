@@ -13,6 +13,7 @@ Partup.transformers.network = {
     'toFormNetwork': function(network) {
         return {
             _id: network._id,
+            access_level: network.access_level,
             description: network.description,
             location_input: Partup.services.location.locationToLocationInput(network.location),
             name: network.name,
@@ -29,6 +30,7 @@ Partup.transformers.network = {
     'fromFormNetwork': function(fields) {
         return {
             // form fields
+            access_level: fields.access_level,
             name: fields.name,
             description: fields.description,
             tags: Partup.services.tags.tagInputToArray(fields.tags_input),
