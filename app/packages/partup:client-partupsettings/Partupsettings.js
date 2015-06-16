@@ -190,6 +190,11 @@ Template.Partupsettings.events({
         FS.Utility.eachFile(event, function(file) {
             template.loading.set('image-uploading', true);
             Partup.client.uploader.uploadImage(file, function(error, image) {
+                if (error) {
+                    Partup.client.notify.error(__('partupsettings-image-error'));
+                    template.loading.set('image-uploading', false);
+                    return;
+                }
                 template.loading.set('image-uploading', false);
                 template.imageSystem.currentImageId.set(image._id);
                 template.imageSystem.uploaded.set(true);

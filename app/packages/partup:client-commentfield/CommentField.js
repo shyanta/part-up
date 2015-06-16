@@ -69,16 +69,6 @@ Template.CommentField.helpers({
 
 Template.CommentField.events({
 
-    'click [data-expand-comment-field]': function eventClickExpandCommentField(event, template) {
-        commentInputFieldExpandedDict.set(template.data.update._id, true);
-
-        // focus on input
-        var input = template.find('[data="commentfield"]');
-        Meteor.defer(function() {
-            $(input).focus();
-        });
-    },
-
     'click [data-expand-comments]': function eventClickExpandComments(event, template) {
         commentsExpandedDict.set(template.data.update._id, true);
     },

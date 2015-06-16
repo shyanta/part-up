@@ -34,17 +34,27 @@
             {{/if}}
 
             <!-- For each update -->
-            {{#each updates }}
-                {{#if anotherDay . }}
-                    <section class="pu-sub-separator">
-                        {{ partupDatePartupTimeline created_at }}
-                        <span class="fa fa-long-arrow-down"></span>
-                    </section>
-                {{/if }}
+            {{# if updates }}
+                {{#each updates }}
+                    {{#if anotherDay . }}
+                        <section class="pu-sub-separator">
+                            {{ partupDatePartupTimeline created_at }}
+                            <span class="fa fa-long-arrow-down"></span>
+                        </section>
+                    {{/if }}
 
-                {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
-            {{/each }}
-
+                    {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
+                {{/each }}
+            {{ else }}
+            <section class="pu-update">
+                <aside>
+                    &nbsp; 
+                </aside>
+                <section>
+                    {{_ 'pages-app-partup-updates-no_updates'}}
+                </section>
+            </section>
+            {{/ if }}
         </div>
     </div>
 </template>
