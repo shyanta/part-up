@@ -36,6 +36,10 @@ Package.onUse(function(api) {
         'app/discover/discover.html',
         'app/discover/discover.js',
 
+        // App:network
+        'app/network/network.html',
+        'app/network/network.js',
+
         // App:partup
         'app/partup/partup.html',
         'app/partup/partup.js',
