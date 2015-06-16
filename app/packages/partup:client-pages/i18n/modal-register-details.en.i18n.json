@@ -7,6 +7,7 @@
     "pages-modal-register-details-form-image-label": "Give us your smile",
     "pages-modal-register-details-form-image-import": "Just use your <a href='#' data-imagefacebook>Facebook</a> or <a href='#' data-imagelinkedin>LinkedIn</a> profile photo.",
     "pages-modal-register-details-form-image-button": "Photo from my computer",
+    "pages-modal-register-details-form-image-error": "Could not upload this file",
 
     "pages-modal-register-details-form-location_input-label": "Where do you want to join part-ups?",
     "pages-modal-register-details-form-location_input-placeholder": "For example in your home town or region",

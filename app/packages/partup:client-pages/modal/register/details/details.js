@@ -124,6 +124,11 @@ Template.modal_register_details.events({
             template.uploadingProfilePicture.set(true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
+                if (error) {
+                    Partup.client.notify.error(__('pages-modal-register-details-form-image-error'));
+                    template.uploadingProfilePicture.set(false);
+                    return;
+                }
                 template.$('input[name=image]').val(image._id);
                 template.currentImageId.set(image._id);
 
