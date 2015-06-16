@@ -1,7 +1,7 @@
 <template name="Contribution">
     {{# if showForm }}
         <div class="pu-contribution pu-contribution-form">
-            <figure class="pu-avatar pu-avatar-small" style="background-image: url({{ partupImageUrl id=currentUser.profile.image }})"></figure>
+            <figure class="pu-avatar pu-avatar-small" style="{{#with currentUser.profile.image}}background-image: url({{ partupImageUrl id=. }});{{/with}}"></figure>
 
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
                 <div class="pu-row">
