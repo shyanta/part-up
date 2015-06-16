@@ -8,17 +8,19 @@ Meteor.methods({
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'Unauthorized.');
 
+        check(fields, Partup.schemas.forms.network);
+
         try {
-            var newNetwork = Network.transformers.network.fromFormNetwork(fields);
-            check(fields, Partup.schemas.forms.network);
+            var newNetwork = Partup.transformers.network.fromFormNetwork(fields);
             newNetwork.uppers = [user._id];
             newNetwork.admin_id = user._id;
             newNetwork.created_at = new Date();
             newNetwork.updated_at = new Date();
+
             check(newNetwork, Network.schemas.entities.network);
 
             newNetwork._id = Networks.insert(newNetwork);
-            Meteor.users.update(user._id, {$push: {'networks': newNetwork._id}});
+            Meteor.users.update(user._id, {$push: {networks: newNetwork._id}});
 
             return {
                 _id: newNetwork._id
@@ -43,9 +45,10 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
+        check(fields, Partup.schemas.forms.network);
+
         try {
-            var newNetworkFields = Network.transformers.network.fromFormNetwork(fields);
-            check(fields, Network.schemas.forms.network);
+            var newNetworkFields = Partup.transformers.network.fromFormNetwork(fields);
 
             Networks.update(networkId, {$set: newNetworkFields});
 
@@ -56,6 +59,42 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'Network [' + networkId + '] could not be updated.');
         }
+    },
+
+    /**
+     * Invite an Upper to a Network
+     *
+     * @param  {String} networkId
+     * @param  {String} upperId
+     */
+    'networks.invite': function(networkId, upperId) {
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail(networkId);
+
+        if (!user) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        // Check if already invited
+        var pending_uppers = network.pending_uppers || [];
+        _.each(pending_uppers, function(value, key) {
+            if (mout.object.get(value, '_id') === upperId) {
+                throw new Meteor.Error(409, 'Upper already invited.');
+            }
+        });
+
+        // Save the invite on the network for further references
+        var invite = {
+            _id: upperId,
+            invited_at: new Date(),
+            invited_by_id: user._id
+        };
+
+        Networks.update(networkId, {$push: {pending_uppers: invite}});
+
+        Event.emit('networks.invited', user._id, networkId, upperId);
+
+        return true;
     },
 
     /**
@@ -103,7 +142,7 @@ Meteor.methods({
             email: email
         };
 
-        Networks.update(networkId, {$push: {'invites': invite}});
+        Networks.update(networkId, {$push: {invites: invite}});
 
         Event.emit('networks.invited', user._id, networkId, email, name);
 
@@ -140,7 +179,7 @@ Meteor.methods({
             if (network.isPublic()) {
                 // Allow user instantly
                 Networks.update(networkId, {$push: {uppers: user._id}});
-                Meteor.users.update(user._id, {$push: {'networks': network._id}});
+                Meteor.users.update(user._id, {$push: {networks: network._id}});
                 return Log.debug('User added to network.');
             }
 
@@ -171,7 +210,7 @@ Meteor.methods({
 
         try {
             Networks.update(networkId, {$push: {uppers: upperId}});
-            Meteor.users.update(upperId, {$push: {'networks': network._id}});
+            Meteor.users.update(upperId, {$push: {networks: network._id}});
 
             return {
                 network_id: network._id,
@@ -199,7 +238,7 @@ Meteor.methods({
         try {
             // Also remove from all Partups including ones with contributions?
             Networks.update(networkId, {$pull: {uppers: user._id}});
-            Meteor.users.update(user._id, {$pull: {'networks': network._id}});
+            Meteor.users.update(user._id, {$pull: {networks: network._id}});
 
             return {
                 network_id: network._id,
