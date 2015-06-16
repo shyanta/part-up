@@ -1,3 +1,9 @@
+@keyframes button_nav_icon_cog
+    from
+        transform: rotate(0deg)
+    to
+        transform: rotate(360deg)
+
 .pu-button
     // Dimensions
     position: relative
@@ -194,6 +200,27 @@
         &.pu-state-active
             border-color: $color-text-secondary
             cursor: default
+
+        &-icon
+            padding: 34px 10px 10px
+            margin-right: -10px
+            color: #595959
+
+            i
+                margin-right: 0
+                font-size: 16px
+                margin-right: 1px
+
+            &:hover
+                border-color: transparent
+
+            &-cog
+                i
+                    transform-origin: 50% 50%
+                    animation: button_nav_icon_cog 2s linear paused infinite
+
+                &:hover i
+                    animation-play-state: running
 
     // Type: secondary button
     &-secondary
