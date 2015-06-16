@@ -32,7 +32,7 @@
     "partupsettings-image-label": "What picture suits your part-up best?",
     "partupsettings-image-button": "Upload a picture from your computer",
     "partupsettings-image-button-overwrite": "Change picture",
-    "partupsettings-image-validation": "You need a minimum of 1000 pixels",
+    "partupsettings-image-validation": "Preferably a big picture",
 
     "partupsettings-suggestion-label": "Or pick one of the five suggestions",
     "partupsettings-suggestion-placeholder": "Add keywords to your part-up, so we can suggest some beautiful images for your part-up!"
