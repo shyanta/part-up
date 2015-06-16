@@ -14,18 +14,6 @@ var networkBaseSchema = new SimpleSchema({
         type: String,
         max: 250
     },
-    location: {
-        type: Object,
-        optional: true
-    },
-    'location.city': {
-        type: String,
-        optional: true
-    },
-    'location.country': {
-        type: String,
-        optional: true
-    },
     image: {
         type: String,
         optional: true
@@ -33,10 +21,6 @@ var networkBaseSchema = new SimpleSchema({
     name: {
         type: String,
         max: 150
-    },
-    tags: {
-        type: [String],
-        minCount: 1
     },
     website: {
         type: String,
@@ -68,6 +52,18 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: [Object],
         optional: true
     },
+    location: {
+        type: Object,
+        optional: true
+    },
+    'location.city': {
+        type: String,
+        optional: true
+    },
+    'location.country': {
+        type: String,
+        optional: true
+    },
     partups: {
         type: [String],
         optional: true,
@@ -90,6 +86,10 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    tags: {
+        type: [String],
+        minCount: 1
+    },
     updated_at: {
         type: Date,
         defaultValue: new Date()
@@ -107,5 +107,13 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
  * @memberOf partup.schemas.forms
  */
 Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
-    //
+    location_input: {
+        type: String,
+        max: 255
+    },
+    tags_input: {
+        type: String,
+        max: 255,
+        regEx: Partup.services.validators.tagsSeparatedByComma
+    }
 }]);
