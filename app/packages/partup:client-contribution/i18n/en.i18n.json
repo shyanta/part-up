@@ -1,8 +1,8 @@
 {
-    "contribution-form-hours-label": "Number of hours (optional)",
+    "contribution-form-hours-label": "Number of hours",
     "contribution-form-hours-placeholder": "Only numerical values allowed",
 
-    "contribution-form-rate-label": "Hourly rate (optional)",
+    "contribution-form-rate-label": "Hourly rate",
     "contribution-form-rate-placeholder": "Only numerical values allowed",
 
     "contribution-form-submit": "Save",
