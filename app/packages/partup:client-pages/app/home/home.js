@@ -13,6 +13,6 @@ Template.app_home.helpers({
 Template.app_home.events({
     'click [data-translate]': function clickTranslate (event, template) {
         var language = $(event.currentTarget).data('translate');
-        Partup.client.language.changeLanguage(language);
+        Partup.client.language.change(language);
     }
 });

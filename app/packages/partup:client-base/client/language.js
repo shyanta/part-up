@@ -6,7 +6,7 @@ Partup.client.language = {
      * @memberOf Partup.client
      * @param {String} language
      */
-    changeLanguage: function(language) {
+    change: function(language) {
         TAPi18n.setLanguage(language).done(function() {
 
             // Change MomentJS language
