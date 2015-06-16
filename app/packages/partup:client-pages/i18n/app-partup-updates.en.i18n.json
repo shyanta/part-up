@@ -1,5 +1,6 @@
 {
     "pages-app-partup-updates-new_message": "New message",
     "pages-app-partup-updates-revealupdates": "View 1 new update",
-    "pages-app-partup-updates-revealupdates_plural": "View __count__ new updates"
+    "pages-app-partup-updates-revealupdates_plural": "View __count__ new updates",
+    "pages-app-partup-updates-no_updates": "No updates found for this filter"
 }

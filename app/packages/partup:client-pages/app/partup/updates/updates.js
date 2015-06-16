@@ -2,7 +2,9 @@
 /* Widget functions */
 /*************************************************************/
 var getUpdates = function getUpdates () {
-    var criteria = {};
+    var criteria = {
+        partup_id: Router.current().params._id
+    };
     return Updates.find(criteria, {sort: {updated_at: -1}}).map(function(update, idx) {
         update.arrayIndex = idx;
         return update;
@@ -49,6 +51,10 @@ Template.app_partup_updates.onCreated(function() {
             template.subscription.updated = false;
         }
     });
+});
+
+Template.app_partup_updates.onDestroyed(function() {
+        if (this.subscription) this.subscription.stop();
 });
 
 /*************************************************************/
