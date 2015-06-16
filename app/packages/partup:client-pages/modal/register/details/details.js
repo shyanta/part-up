@@ -159,13 +159,7 @@ AutoForm.hooks({
 
             Meteor.call('users.update', insertDoc, function(error, res) {
                 if (error && error.message) {
-                    switch (error.message) {
-                        // case 'User not found [403]':
-                        //     Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
-                        //     break;
-                        default:
-                            Partup.client.notify.error(error.reason);
-                    }
+                    Partup.client.notify.error(error.reason);
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
                     return;
