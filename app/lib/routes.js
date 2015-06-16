@@ -71,15 +71,12 @@ Router.route('/partups/:_id', {
         'app_partup':         {to: 'app'},
         'app_partup_updates': {to: 'app_partup'}
     },
-    waitOn: function() {
+    subscriptions: function() {
         var partupId = this.params._id;
-
-        return [
-            Meteor.subscribe('notifications.user'),
-            Meteor.subscribe('partups.one', partupId),
-            Meteor.subscribe('partups.one.activities', partupId),
-            Meteor.subscribe('partups.one.contributions', partupId)
-        ];
+        this.subscribe('notifications.user');
+        this.subscribe('partups.one', partupId);
+        this.subscribe('partups.one.activities', partupId);
+        this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
         var partup = Partups.findOne({_id: this.params._id});
