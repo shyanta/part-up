@@ -109,6 +109,18 @@ Router.route('/networks/:_id/uppers', {
     }
 });
 
+Router.route('/networks/:_id/invite', {
+    name: 'network-invite',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_network_invite':    {to: 'modal'}
+    },
+    subscriptions: function() {
+        this.subscribe('networks.one', this.params._id);
+    }
+});
+
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
