@@ -1,0 +1,91 @@
+<template name="modal_create_network">
+    <nav class="pu-header pu-header-modal">
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage="" href="#">
+            <i class="fa fa-times"></i>
+            Sluiten
+        </a>
+    </nav>
+
+    <article class="pu-layout">
+        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
+            <section class="pu-page pu-page-modal">
+                <div class="pu-composition pu-composition-defaultmodal">
+                    {{#autoForm schema=Partup.schemas.forms.network id="createNetworkForm" class="pu-form" validation="submitThenBlur" }}
+
+                    <!-- Name -->
+                    <label class="pu-formfield">
+                        <span class="pu-label">
+                            {{_ 'pages-modal-create-details-form-name-label' }}
+                            <a class="pu-hint">
+                                {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.name.max}}
+                                    {{_ 'pages-modal-create-details-form-name-validation-left' nameCharactersLeft }}
+                                {{else}}
+                                    {{_ 'pages-modal-create-details-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
+                                {{/if}}
+                            </a>
+                        </span>
+
+                        <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
+                            <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.name.max" data-characters-left-var="nameCharactersLeft" }}</span>
+                            <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+                        </div>
+                        </label>
+
+                        <!-- Description -->
+                        <label class="pu-formfield">
+                            <span class="pu-label">
+                                {{_ 'pages-modal-create-details-form-description-label'}}
+                                <a class="pu-hint">
+                                    {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.description.max}}
+                                        {{_ 'pages-modal-create-details-form-name-validation-left' descriptionCharactersLeft }}
+                                    {{else}}
+                                        {{_ 'pages-modal-create-details-form-name-validation' Partup.schemas.entities.partup._schema.description.max }}
+                                    {{/if}}
+                                </a>
+                            </span>
+
+                            <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
+                                <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=3  data-max="Partup.schemas.entities.partup._schema.description.max" data-characters-left-var="descriptionCharactersLeft" }}</span>
+                                <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+                            </div>
+                        </label>
+
+                        <!-- Tags -->
+                        <label class="pu-formfield">
+                            <span class="pu-label">
+                                {{_ 'pages-modal-create-details-form-tags_input-label'}}
+                                <a class="pu-hint pu-tooltip">
+                                    <i class="fa fa-question-circle"></i>
+                                    <span class="pu-tooltip-wrapper"><p
+                                            class="pu-paragraph">{{_ 'pages-modal-create-details-form-tags_input-tooltip' }}</p></span>
+                                </a>
+                            </span>
+
+                            <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
+                                <span class="pu-sub-input">{{> afFieldInput name='tags_input' placeholder=placeholders.tags_input class="pu-input" }}</span>
+                                <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+                            </div>
+                        </label>
+
+                        <!-- Location -->
+                        <label class="pu-formfield">
+                            <span class="pu-label">{{_ 'pages-modal-create-details-form-location_input-label'}}</span>
+                            <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
+                                <span class="pu-sub-input">{{> afFieldInput name='location_input' placeholder=placeholders.location_input class="pu-input" }}</span>
+                                <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
+                            </div>
+                        </label>
+
+                        <!-- Submit button -->
+                        <footer class="pu-sub-modalfooter">
+                            <div class="pu-sub-footer-container">
+                                <button type="submit" class="pu-button">Create</button>
+                            </div>
+                        </footer>
+                    {{/autoForm}}
+                </div>
+            </section>
+        </div>
+    </article>
+
+</template>

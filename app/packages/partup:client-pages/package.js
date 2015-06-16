@@ -94,6 +94,9 @@ Package.onUse(function(api) {
         'modal/invite_to_partup/invite_to_partup.html',
         'modal/invite_to_partup/invite_to_partup.js',
 
+        // Modal:network
+        'modal/network/create_network/create_network.html',
+        'modal/network/create_network/create_network.js',
         // Modal:create_intro
         'modal/create_intro/create_intro.html',
         'modal/create_intro/create_intro.js',
