@@ -41,11 +41,13 @@ Template.modal_register_details.onCreated(function() {
 
     // uploaded picture url
     template.profilePictureUrl = new ReactiveVar('');
+    template.currentImageId = new ReactiveVar('');
 
     // runs after image is updated
     template.autorun(function() {
         // get the current image
-        var image = Images.findOne({_id:Session.get('partials.register-optional.uploaded-image')});
+        var imageId = Template.instance().currentImageId.get();
+        var image = Images.findOne({_id:imageId});
         if (!image) return;
 
         // load image from url
@@ -75,7 +77,7 @@ Template.modal_register_details.helpers({
         return user ? user.profile : {};
     },
     profilePictureUrl: function() {
-        var uploadedImageID = Session.get('partials.register-optional.uploaded-image');
+        var uploadedImageID = Template.instance().currentImageId.get();
 
         if (uploadedImageID) {
             var image = Images.findOne({_id: uploadedImageID});
@@ -118,15 +120,16 @@ Template.modal_register_details.events({
         input.click();
     },
     'change [data-profile-picture-input]': function eventChangeFile(event, template) {
-        template.uploadingProfilePicture.set(true);
-
         FS.Utility.eachFile(event, function(file) {
-            Images.insert(file, function(error, image) {
+            template.uploadingProfilePicture.set(true);
+
+            Partup.client.uploader.uploadImage(file, function(error, image) {
                 template.$('input[name=image]').val(image._id);
-                Meteor.subscribe('images.one', image._id);
-                Session.set('partials.register-optional.uploaded-image', image._id);
-                // template.uploadingProfilePicture.set(false);
+                template.currentImageId.set(image._id);
+
+                template.uploadingProfilePicture.set(false);
             });
+
         });
     }
 });
