@@ -43,7 +43,7 @@ Package.onUse(function(api) {
         'helpers/equality.js',
         'helpers/scrollBottom.js',
         'helpers/forms.js',
-        'helpers/imageById.js',
+        'helpers/imageUrl.js',
         'helpers/loading.js',
         'helpers/Partup.js',
         'helpers/isPopupActive.js',

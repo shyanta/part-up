@@ -7,7 +7,7 @@
         {{# if CONTRIBUTIONS }}
             <ul class="pu-avatar-stack">
                 {{# each contributions }}
-                    <li class="pu-avatar" style="background-image: url({{# with upper }}{{ partupImageById profile.image }}{{/ with }});"></li>
+                    <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url({{ partupImageUrl id=. }});{{/with }}}"></li>
                 {{/ each }}
             </ul>
         {{/ if }}

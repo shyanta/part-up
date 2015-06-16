@@ -11,7 +11,7 @@
 
     <!-- sidebar header image -->
     <header class="pu-partupheader">
-        <figure class="pu-sub-picture" style="{{#if partupCover}}background-image: url('{{ partupCover.url }}');{{/if}}" data-partupcover-focuspoint></figure>
+        <figure class="pu-sub-picture" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='1200x520' }}');{{/with}}" data-partupcover-focuspoint></figure>
         <h1>{{ partup.name }}</h1>
     </header>
 
@@ -35,7 +35,7 @@
                     <ul class="pu-list pu-list-users">
                         {{#each partupUppers }}
                             <li>
-                                <figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure>
+                                <figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url({{ partupImageUrl id=. }}){{/with}}"></figure>
                                 <p data-usercard="{{ _id }}">{{ profile.name }}</p>
                             </li>
                         {{/each }}
@@ -50,7 +50,7 @@
                         <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
                         <ul class="pu-list pu-list-horizontal pu-list-avatars">
                             {{#each partupSupporters }}
-                                <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="background-image: url({{ partupImageById profile.image }})"></figure></li>
+                                <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url({{ partupImageUrl id=. }}){{/with}}"></figure></li>
                             {{/each }}
                         </ul>
                     {{else}}

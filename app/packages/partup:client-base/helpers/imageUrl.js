@@ -1,0 +1,11 @@
+Template.registerHelper('partupImageUrl', function(options) {
+    if (!options || !options.hash || !options.hash.id) return '';
+
+    var image = Images.findOne({_id: options.hash.id});
+    if (!image) return;
+
+    var store = options.hash.store || '360x360';
+    return image.url({
+        store: store
+    });
+});

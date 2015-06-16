@@ -170,7 +170,7 @@
 
             {{#if partupImage.uploaded.get }}
 
-                <figure class="pu-imagepreview pu-imagepreview-cover {{#if draggingFocuspoint}}pu-imagepreview-draggingfocuspoint{{/if}}" style="{{#if partupImage.currentImageId.get }}background-image:url('{{ partupImageById partupImage.currentImageId.get }}'){{/if }}" data-focuspoint-view>
+                <figure class="pu-imagepreview pu-imagepreview-cover {{#if draggingFocuspoint}}pu-imagepreview-draggingfocuspoint{{/if}}" style="{{#with partupImage.currentImageId.get }}background-image:url('{{ partupImageUrl id=. }}'){{/with }}" data-focuspoint-view>
                     <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
                         {{> Loader }}
                     </div>

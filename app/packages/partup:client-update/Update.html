@@ -5,7 +5,7 @@
 
             <!-- User -->
             <figure class="pu-avatar pu-avatar-label">
-                <a href="#" rel="author" data-usercard="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#if metadata.updateUpperImage}}background-image: url('{{ metadata.updateUpperImage.url }}');{{/if}}"></a>
+                <a href="#" rel="author" data-usercard="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#with metadata.updateUpper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with}}"></a>
                 <!-- <span class="pu-sub-label">{{ metadata.updateUpper.profile.name }}</span> -->
             </figure>
 
@@ -45,7 +45,7 @@
                             {{#if images}}
                                 <figure>
                                     {{#each images}}
-                                        <img class="pu-image" src="{{ partupImageById . }}" alt="">
+                                        <img class="pu-image" src="{{ partupImageUrl id=. }}" alt="">
                                     {{/each}}
                                 </figure>
                             {{/if}}
@@ -118,7 +118,7 @@
             {{#if partupEqualsExactly update.type 'partups_image_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        <img class="pu-image" src="{{ partupImageById new_image }}">
+                        <img class="pu-image" src="{{ partupImageUrl id=new_image }}">
                     </section>
                 {{/with}}
             {{/if }}

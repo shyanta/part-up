@@ -27,14 +27,6 @@ Template.DropdownProfile.helpers({
         return Notifications.find();
     },
 
-    userImage: function () {
-        var user = Meteor.user();
-
-        if (user && user.profile && user.profile.image) {
-            return Images.findOne({ _id: user.profile.image });
-        }
-    },
-
     menuOpen: function(){
         return Session.get('widget-dropdowns-profile.opened');
     },

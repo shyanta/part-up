@@ -289,12 +289,6 @@ Template.app_partup_sidebar.helpers({
         if (!this.partup) return;
         var supporters = this.partup.supporters || [];
         return Meteor.users.findMultiplePublicProfiles(supporters);
-    },
-
-    partupCover: function() {
-        var partup = this.partup;
-        if (!partup || !partup.image) return null;
-        return Images.findOne({_id: partup.image});
     }
 
 });

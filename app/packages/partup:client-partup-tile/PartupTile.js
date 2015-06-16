@@ -10,13 +10,6 @@ Template.PartupTile.helpers({
         var now = new Date();
         return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
     },
-    partupCover: function() {
-        var data = this;
-        if (!data) return null;
-        var partup = data.partup;
-        if (!partup || !partup.image) return null;
-        return Images.findOne({_id: partup.image});
-    },
     supporterCount: function() {
         if (!this.partup.supporters) return 0;
         return this.partup.supporters.length;

@@ -115,7 +115,6 @@ Template.app_partup_updates.helpers({
 
         return {
             updateUpper: updateUpper,
-            updateUpperImage: Images.findOne({_id: updateUpper.profile.image}),
             updated_at: update.updated_at,
             path: path,
             update_type: update.type,
