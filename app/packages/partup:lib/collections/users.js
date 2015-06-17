@@ -11,7 +11,8 @@ var publicUserFields = {
     'partups': 1,
     'upperOf': 1,
     'supporterOf': 1,
-    'average_rating': 1
+    'average_rating': 1,
+    'networks': 1
 };
 
 /**
