@@ -30,7 +30,9 @@ Meteor.publishComposite('networks.one.partups', function(networkId) {
 Meteor.publishComposite('networks.one.uppers', function(networkId) {
     return {
         find: function() {
-            return Meteor.users.find({networks: {$in: networkId}}, {fields: {profile: 1, 'status.online': 1, 'networks': 1, 'upperOf': 1, 'supporterOf': 1}});
+            var network = Networks.findOneOrFail(networkId);
+            var uppers = network.uppers || [];
+            return Meteor.users.findMultiplePublicProfiles(uppers);
         },
         children: [
             {
@@ -47,7 +49,7 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkId) {
         find: function() {
             var network = Networks.findOneOrFail(networkId);
             var pending_uppers = network.pending_uppers || [];
-            return Meteor.users.find({_id: {$in: pending_uppers}}, {fields: {profile: 1, 'status.online': 1, 'networks': 1, 'upperOf': 1, 'supporterOf': 1}});
+            return Meteor.users.findMultiplePublicProfiles(pending_uppers);
         },
         children: [
             {
