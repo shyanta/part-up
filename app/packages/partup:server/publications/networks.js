@@ -67,7 +67,8 @@ Meteor.publishComposite('networks.one', function(networkId) {
         children: [
             {
                 find: function(network) {
-                    return Images.find({_id: network.image}, {limit: 1});
+                    var imageId = network.image || null;
+                    return Images.find({_id: imageId}, {limit: 1});
                 }
             },
             {
