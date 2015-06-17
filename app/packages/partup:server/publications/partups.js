@@ -25,6 +25,33 @@ Meteor.publishComposite('partups.all', function() {
     };
 });
 
+Meteor.publishComposite('partups.limit', function(limit) {
+    return {
+        find: function() {
+            return Partups.find({}, { limit: limit} );
+        },
+        children: [
+            {
+                find: function(partup) {
+                    var uppers = partup.uppers || [];
+
+                    // We only want to publish the first x uppers as can be seen in the design
+                    uppers = uppers.slice(0, 4);
+
+                    return Meteor.users.findMultiplePublicProfiles(uppers);
+                }
+            },
+            {
+                find: function(partup) {
+                    var network = partup.network || {};
+
+                    return Networks.find({_id: network._id}, {limit: 1});
+                }
+            }
+        ]
+    };
+});
+
 Meteor.publishComposite('partups.ids', function(partupIds) {
     return {
         find: function() {
