@@ -72,8 +72,8 @@ Meteor.publishComposite('networks.one', function(networkId) {
             },
             {
                 find: function(network) {
-                    var partups = network.uppers || [];
-                    return Partups.find({_id: {$in: partups}}, {fields: {description: 1, name: 1, access_level: 1, tags: 1, image: 1}});
+                    var partups = network.partups || [];
+                    return Partups.find({_id: {$in: partups}});
                 }
             },
             {
