@@ -23,7 +23,7 @@ Template.app_partup_update.helpers({
             updated_at: update.updated_at,
             path: path,
             update_type: update.type,
-            invited_name: update.type_data.invited_name
+            invited_name: update.type_data.name
         };
     }
 });

@@ -26,9 +26,11 @@
                             <li><a href="" class="pu-tag pu-tag-inverted">{{ . }}</a></li>
                         {{/each }}
                     </ul>
-                    <a class="pu-button pu-button-icon" data-open-takepart-popup>
-                        {{_ 'pages-app-partup-take_part' }}
-                    </a>
+                    {{# if showTakePartButton }}
+                        <a class="pu-button pu-button-icon" data-open-takepart-popup>
+                            {{_ 'pages-app-partup-take_part' }}
+                        </a>
+                    {{/ if }}
                 </section>
                 <section>
                     <h2>{{_ 'pages-app-partup-uppers_title' }}</h2>

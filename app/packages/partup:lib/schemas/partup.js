@@ -37,7 +37,10 @@ var partupBaseSchema = new SimpleSchema({
         }
     },
     end_date: {
-        type: Date
+        type: Date,
+        min: function() {
+            return new Date();
+        }
     },
     name: {
         type: String,

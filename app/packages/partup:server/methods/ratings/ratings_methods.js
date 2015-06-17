@@ -74,8 +74,7 @@ Meteor.methods({
 
                 Ratings.update(rating, {$set: newRating});
 
-                // Post system message
-                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_updated', {update_timestamp: false});
+                //NOTE: no system message is being sent to reduce number of system messages
             }
 
             return newRating;

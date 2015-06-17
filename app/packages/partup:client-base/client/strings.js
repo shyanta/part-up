@@ -23,14 +23,17 @@ Partup.client.strings = {
 
     firstName: function(fullName) {
         if (fullName && fullName.match(/.*\s.*/)) {
-            return fullName.split(' ')[0]
+            return fullName.split(' ')[0];
         } else {
-            return fullName
+            return fullName;
         }
     },
 
     tagsStringToArray: function(tagString) {
-        return tagString ? tagString.replace(/\s/g, '').split(',') : [];
+        if (!tagString) return [];
+        return tagsArray = tagString.replace(/\s/g, '').split(',').map(function(tag) {
+            return mout.string.slugify(tag);
+        });
     }
 
 };
