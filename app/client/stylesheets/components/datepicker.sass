@@ -9,22 +9,12 @@
     padding: 0
     border: 0 !important
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important
-    
-    // fix does not work
-    // &-orient-top
-    //     top: -20px !important
-    //     position: relative !important
-
-    // &-orient-bottom
-    //     bottom: 380px !important
-    //     position: relative !important
-    //     top: auto !important
 
     &:before,
     &:after
         left: 50% !important
 
-    &:before 
+    &:before
         display:none
 
     &-orient-bottom
@@ -43,9 +33,9 @@
             display: block
             padding: 7px 10px
             background-color: $color-header
-            border-top-left-radius: 4px 
+            border-top-left-radius: 4px
             border-top-right-radius: 4px
-            th 
+            th
                 background-color: transparent
                 border: 0
                 border-radius: 0
@@ -66,17 +56,17 @@
                         content: '<'
                     &:hover
                         background-color: lighten($color-header, 5%)
-            tr 
-                .dow 
+            tr
+                .dow
                     color: rgba(#fff, 0.8)
                     padding: 8px 5px 0
 
         tbody
             display: block
-            padding: 12px 13px 5px 
+            padding: 12px 13px 5px
 
             tr
-                td 
+                td
                     width: 280px
                     span.year,
                     span.month
@@ -94,7 +84,6 @@
 
                             &:hover
                                 background-color: darken($color-header, 5%)
-                    
 
                 td.day
                     line-height: 28px
@@ -110,9 +99,6 @@
                     color: $color-solid-black
                     text-shadow: none !important
                     position: relative
-                    &.new.day,
-                    &.old.day
-                        color: lighten($color-solid-black, 50%)
 
                     &:after
                         content: ''
@@ -131,24 +117,32 @@
                         display: block
                         opacity: 0
                         transition: opacity $animation-duration, background-color $animation-duration
-                    
+
                     &:hover
                         background-color: transparent
 
-                        &:after 
+                        &:after
                             opacity: 1
-                    
+
+                    &.new.day,
+                    &.old.day
+                        color: lighten($color-solid-black, 50%)
+
+                    &.disabled
+                        color: #ccc
+                        pointer-events: none
+
                     &.active.day
                         background-color: transparent
                         color: #fff
 
-                        &:after 
+                        &:after
                             background-color: $color-header
                             opacity: 1
 
                         &:hover
                             background-color: transparent
 
-                            &:after 
+                            &:after
                                 opacity: 1
                                 background-color: darken($color-header, 5%)

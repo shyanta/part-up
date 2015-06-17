@@ -118,7 +118,7 @@
             {{#if partupEqualsExactly update.type 'partups_image_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        <img class="pu-image" src="{{ partupImageUrl id=new_image }}">
+                        <img class="pu-image" src="{{ partupImageUrl id=new_image store='1200x520' }}">
                     </section>
                 {{/with}}
             {{/if }}
@@ -187,9 +187,9 @@
 
             <!-- Comments -->
             {{#unless metadata.is_contribution }}
-                {{#if commentInputFieldExpanded }}
+                {{# if showCommentField }}
                     {{> CommentField update=update COMMENTS_EXPANDED=COMMENTS_EXPANDED}}
-                {{/if }}
+                {{/ if }}
             {{/unless }}
         </section>
     </section>

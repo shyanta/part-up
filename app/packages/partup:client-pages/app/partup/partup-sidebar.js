@@ -281,14 +281,28 @@ Template.app_partup_sidebar.helpers({
 
     partupUppers: function() {
         if (!this.partup) return;
+
         var uppers = this.partup.uppers || [];
+        if (!uppers || !uppers.length) return [];
+
         return Meteor.users.findMultiplePublicProfiles(uppers);
     },
 
     partupSupporters: function() {
         if (!this.partup) return;
-        var supporters = this.partup.supporters || [];
+
+        var supporters = this.partup.supporters;
+        if (!supporters || !supporters.length) return [];
+
         return Meteor.users.findMultiplePublicProfiles(supporters);
+    },
+    showTakePartButton: function(argument) {
+        var user = Meteor.user();
+        if(user && this.partup && this.partup.hasUpper(user._id)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 });
@@ -299,7 +313,20 @@ Template.app_partup_sidebar.helpers({
 Template.app_partup_sidebar.events({
 
     'click [data-joinsupporters]': function clickJoinSupporters() {
-        Meteor.call('partups.supporters.insert', Router.current().params._id);
+        var partupId = Router.current().params._id;
+
+        if (Meteor.user()) {
+            Meteor.call('partups.supporters.insert', partupId);
+        } else {
+            Partup.client.intent.go({
+                route: 'login'
+            }, function(user) {
+                Partup.client.intent.returnToOrigin('login');
+                if (user) {
+                    Meteor.call('partups.supporters.insert', partupId);
+                }
+            });
+        }
     },
 
     'click [data-leavesupporters]': function clickLeaveSupporters() {

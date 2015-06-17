@@ -11,17 +11,24 @@ Partup.server.services.system_messages = {
      * @param  {mixed[]} upper
      * @param  {string} updateId
      * @param  {string} content
+     * @param  {object} settings
+     * @param  {boolean} settings.update_timestamp defaults to true
      *
      * @return {Update}
      */
-    send: function(upper, updateId, content) {
+    send: function(upper, updateId, content, settings) {
+        var _settings = {
+            update_timestamp: true
+        };
+
+        if (settings) {
+            if (!mout.lang.isUndefined(settings.update_timestamp)) _settings.update_timestamp = !!settings.update_timestamp;
+        }
+
         try {
             var update = Updates.findOneOrFail(updateId);
 
-            Updates.update(update._id, {
-                $set: {
-                    updated_at: new Date()
-                },
+            var query = {
                 $push: {
                     comments: {
                         _id: Random.id(),
@@ -38,7 +45,11 @@ Partup.server.services.system_messages = {
                 $inc: {
                     comments_count: 1
                 }
-            });
+            };
+
+            if (_settings.update_timestamp) mout.object.set(query, '$set.updated_at', new Date());
+
+            Updates.update(update._id, query);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'system-message-insert-failure');

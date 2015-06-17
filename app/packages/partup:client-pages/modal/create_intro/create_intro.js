@@ -18,6 +18,6 @@ Template.modal_create_intro.helpers({
 Template.modal_create_intro.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
-        Partup.client.intent.executeIntentCallback('create');
+        Partup.client.intent.return('create');
     }
 });

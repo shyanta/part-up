@@ -9,7 +9,7 @@
                         <label class="pu-formfield">
                             <span class="pu-label">{{_ 'contribution-form-hours-label' }}</span>
                             <div class="pu-sub-validations {{# if afFieldIsInvalid name='hours' }}pu-state-invalid{{/ if }}">
-                                <span class="pu-sub-input">{{> afFieldInput name='hours' placeholder=placeholders.hours class='pu-input pu-input-accent' }}</span>
+                                <span class="pu-sub-input">{{> afFieldInput name='hours' placeholder=placeholders.hours class='pu-input pu-input-accent' numeric="true" }}</span>
                                 <span class="pu-sub-error">{{ afFieldMessage name='hours' }}</span>
                             </div>
                         </label>
@@ -18,7 +18,7 @@
                         <label class="pu-formfield">
                             <span class="pu-label">{{_ 'contribution-form-rate-label' }}</span>
                             <div class="pu-sub-validations {{# if afFieldIsInvalid name='rate' }}pu-state-invalid{{/ if }}">
-                                <span class="pu-sub-input">{{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' }}</span>
+                                <span class="pu-sub-input">{{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' numeric="true" }}</span>
                                 <span class="pu-sub-error">{{ afFieldMessage name='rate' }}</span>
                             </div>
                         </label>

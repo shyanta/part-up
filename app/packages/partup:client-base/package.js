@@ -38,6 +38,8 @@ Package.onUse(function(api) {
         'client/popup.js',
         'client/uploader.js',
         'client/focuslayer.js',
+        'client/datepicker.js',
+        'client/reactivedate.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',

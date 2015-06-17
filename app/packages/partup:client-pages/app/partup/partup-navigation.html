@@ -5,13 +5,13 @@
             <li>
                 <a href="{{pathFor 'partup' _id=partup._id}}" class="pu-button pu-button-nav {{# if isActiveRoute regex='partup$'}}pu-state-active{{/if}} {{# if isActiveRoute regex='partup-update'}}pu-state-active{{/if}}">
                     <i class="fa fa-globe"></i>
-                    Updates
+                    {{_ 'pages-app-partup-menu_updates'}}
                 </a>
             </li>
             <li>
                 <a href="{{pathFor 'partup-activities' _id=partup._id}}" class="pu-button pu-button-nav {{# if isActiveRoute regex='partup-activities'}}pu-state-active{{/if}}">
                     <i class="fa fa-line-chart"></i>
-                    Activities
+                    {{_ 'pages-app-partup-menu_activities'}}
                 </a>
             </li>
         </ul>
