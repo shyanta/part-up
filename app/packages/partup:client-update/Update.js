@@ -73,7 +73,7 @@ Template.Update.helpers({
 
         return __(titleKey);
     },
-    showCommentField: function helperShowCommentField() {
+    showCommentButton: function() {
         if (!Meteor.user()) return false;
         var template = Template.instance();
         var update = template.update.get();
