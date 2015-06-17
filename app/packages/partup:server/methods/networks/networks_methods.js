@@ -12,6 +12,7 @@ Meteor.methods({
 
         try {
             var newNetwork = Partup.transformers.network.fromFormNetwork(fields);
+            newNetwork._id = Random.id();
             newNetwork.uppers = [user._id];
             newNetwork.admin_id = user._id;
             newNetwork.created_at = new Date();
@@ -19,7 +20,7 @@ Meteor.methods({
 
             check(newNetwork, Network.schemas.entities.network);
 
-            newNetwork._id = Networks.insert(newNetwork);
+            Networks.insert(newNetwork);
             Meteor.users.update(user._id, {$push: {networks: newNetwork._id}});
 
             return {
