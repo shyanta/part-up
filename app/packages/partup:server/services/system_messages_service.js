@@ -21,8 +21,8 @@ Partup.server.services.system_messages = {
             update_timestamp: true
         };
 
-        if (settings) {
-            if (!mout.lang.isUndefined(settings.update_timestamp)) _settings.update_timestamp = !!settings.update_timestamp;
+        if (settings && !mout.lang.isUndefined(settings.update_timestamp)) {
+            _settings.update_timestamp = !!settings.update_timestamp;
         }
 
         try {
@@ -30,7 +30,7 @@ Partup.server.services.system_messages = {
 
             // skip the system message if it was the same as the last one
             var lastComment = update.getLastComment();
-            if(lastComment.content == content) return false;
+            if (lastComment.content == content) return false;
 
             var query = {
                 $push: {

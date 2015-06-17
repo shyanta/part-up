@@ -33,7 +33,7 @@ Update.prototype.getLastComment = function() {
  @name Updates
  */
 Updates = new Mongo.Collection('updates', {
-    transform: function(document) {    
+    transform: function(document) {
         return new Update(document);
     }
 });
