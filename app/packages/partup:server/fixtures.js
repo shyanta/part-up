@@ -92,12 +92,12 @@ Meteor.startup(function() {
             };
             var secondPartupId = Partups.insert(secondPartup);
 
-            for (var i = 0; i < 20; i++) {
+            for (var i = 0; i < 100; i++) {
                 var descriptions = [
                     'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
                     'This describes just how great this Part-up is.',
                     'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima error veritatis ratione dolor perferendis inventore optio. Error omnis nostrum expedita.',
-                    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat libero consectetur temporibus quia fuga rem.'
+                    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum repudiandae exercitationem unde sunt voluptatum consequatur at ipsum incidunt praesentium. Lorem ipsum dolor sit amet.'
                 ];
 
                 Partups.insert({
