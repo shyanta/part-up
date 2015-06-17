@@ -3,12 +3,38 @@
 /*************************************************************/
 Template.app_discover.onCreated(function() {
     var template = this;
-    template.allPartupsSubscription = template.subscribe('partups.all');
-    template.limit = new ReactiveVar(1);
+    template.limitedPartupsSubscription = template.subscribe('partups.limit', 20);
+    template.limit = new ReactiveVar(20, function(a, b) {
+        if (a < b) {
+            var oldSubscription = template.limitedPartupsSubscription;
+            template.limitedPartupsSubscription = template.subscribe('partups.limit', b);
+            oldSubscription.stop();
+        }
+    });
+
+    template.filter = new ReactiveVar('none');
+
+    Session.set('refreshDate', Math.round(new Date().getTime()));
 });
 
 Template.app_discover.onRendered(function() {
     var template = this;
+    var raiseLimit = function() {
+        console.log('RAISE THE LIMIT');
+        var limit = template.limit.get();
+        console.log(limit);
+        limit = limit + 20;
+        template.limit.set(limit);
+    };
+    var debouncedRaiseLimit = lodash.debounce(raiseLimit, 500, true);
+    template.autorun(function() {
+        var offset = Session.get('window.scrollBottomOffset');
+        if (offset > $(window).height()) return;
+        // console.log(offset);
+        Tracker.nonreactive(function() {
+            debouncedRaiseLimit();
+        });
+    });
 });
 
 /*************************************************************/
@@ -16,13 +42,16 @@ Template.app_discover.onRendered(function() {
 /*************************************************************/
 Template.app_discover.helpers({
     partups: function() {
-        var subscriptionReady = Template.instance().allPartupsSubscription.ready();
+        var subscription = Template.instance().limitedPartupsSubscription;
         var limit = Template.instance().limit.get();
-        if (!subscriptionReady) return;
-        var partups = Partups.find({}, {
-            limit: 0
-        }).fetch();
+        // if (!subscription.ready()) return;
+        var partups = Partups.find().fetch();
         return partups;
+    },
+    refreshDate: function() {
+        // var filter = Session.get('filter');
+        // return Math.round(new Date().getTime());
+        return Session.get('refreshDate');
     }
 });
 
