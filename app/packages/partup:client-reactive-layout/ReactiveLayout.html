@@ -4,13 +4,11 @@
         {{#each columns}}
             <ul class="{{ columnClass }}">
                 {{#each .}}
-                    <li>
-                        {{> ReactiveTile
-                            onRenderCallback=onRenderCallback
-                            templateName=templateName
-                            templateData=templateData
-                        }}
-                    </li>
+                    {{> ReactiveTile
+                        onRenderCallback=onRenderCallback
+                        templateName=templateName
+                        templateData=templateData
+                    }}
                 {{/each}}
             </ul>
         {{/each}}
