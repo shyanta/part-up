@@ -7,34 +7,40 @@
  * Flow:
  * - Call Partup.client.intent.go(); (for arguments, scroll down)
  * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
- * - Call Partup.client.intent.executeIntentCallback(); (for arguments, scroll down)
+ * - Call Partup.client.intent.return(); (for arguments, scroll down)
  *     when you want the intent callback to be executed.
  *     (for example: when the user has logged in successfully)
- *     When no intentCallback exists and no fallbackCallback is provided, the _defaultIntentCallback will be executed.
+ *     When no intentCallback exists and no fallbackCallback is provided, the _defaultReturn will be executed.
  *
  */
 
-var _defaultIntentCallback = function() {
+var _defaultReturn = function() {
     Router.go('home');
 };
 
 var _origins = {};
 var _intentCallbacks = {};
 
+/**
+ * Intent system
+ *
+ * @memberOf Partup.client
+ */
 Partup.client.intent = {
 
     /**
      * Go with intent
      *
-     * @memberOf Partup.client
-     * @param {Object} arguments for Router.go() (path, params and options)
+     * @memberOf Partup.client.intent
+     * @param {Object} arguments for Router.go() (route and params)
      * @param {Function} callback
      */
     go: function(args, callback) {
-        if (!args || !args.route) return console.warn('Partup.client.intent.open: please provide a route');
+        if (!args || !args.route) return console.warn('Partup.client.intent.go: please provide a route');
 
         // Save origin
-        _origins[args.route] = window.location.href.toString().split(window.location.host)[1];
+        var path = window.location.href.toString().split(window.location.host)[1];
+        _origins[args.route] = path;
 
         // Save intent callback
         if (typeof callback === 'function') {
@@ -47,54 +53,50 @@ Partup.client.intent = {
     },
 
     /**
-     * Go to origin
+     * Function to return to original path (saved when intent.go was called)
+     * For use in your own callbacks
      *
-     * @memberOf Partup.client
+     * @memberOf Partup.client.intent
      */
-    goToOrigin: function(route) {
+    returnToOrigin: function(route) {
         var origin = _origins[route];
         if (origin) {
             Iron.Location.go(origin);
         } else {
-            _defaultIntentCallback();
+            _defaultReturn();
         }
     },
 
     /**
-     * Execute default callback
-     *
-     * @memberOf Partup.client
-     * @param {Object} arguments to pass to the callback
-     */
-    executeDefaultCallback: function(args) {
-        var args = args || {};
-        _defaultIntentCallback(args);
-    },
-
-    /**
-     * Execute intent callback for route (the priority is: original registered callback, custom fallback callback, go to original path, default intent callback)
+     * Execute intent callback for route
+     * Priority of return execution:
+     *  1. Original callback (when intent.go was called)
+     *  2. Fallback callback (when return was called)
+     *  3. Router.go to original path (saved when intent.go was called)
+     *  4. _defaultReturn (as defined above)
      *
      * @memberOf Partup.client
      * @param {String} original name of the route the page was opened with
-     * @param {Array} arguments to pass to the callback
-     * @param {Function} custom fallback callback
+     * @param {Array} arguments to pass to the callback (which callback is called, is defined in de priority above)
+     * @param {Function} fallback callback
      */
-    executeIntentCallback: function(route, arguments, customFallback) {
+    return: function(route, arguments, fallbackCallback) {
         var cb = _intentCallbacks[route];
         var origin = _origins[route];
         var arguments = arguments || {};
 
         if (mout.lang.isFunction(cb)) {
             cb.apply(window, arguments);
-        } else if (mout.lang.isFunction(customFallback)) {
-            customFallback.apply(window, arguments);
+        } else if (mout.lang.isFunction(fallbackCallback)) {
+            fallbackCallback.apply(window, arguments);
         } else if (origin) {
-            Iron.Location.go(origin);
+            this.returnToOrigin(origin);
         } else {
-            _defaultIntentCallback.apply(window, arguments);
+            _defaultReturn.apply(window, arguments);
         }
 
         delete _intentCallbacks[route];
+        delete _origins[route];
     }
 
 };

@@ -96,7 +96,7 @@ Template.modal_create_promote.events({
     'click [data-action-topartup]': function eventToPartup(event) {
         event.preventDefault();
         var partupId = Router.current().params._id;
-        Partup.client.intent.executeIntentCallback('create', [partupId], function(id) {
+        Partup.client.intent.return('create', [partupId], function(id) {
 
             // Router go
             Router.go('partup', {_id: id});

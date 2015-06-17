@@ -313,7 +313,7 @@ Template.app_partup_sidebar.events({
             Partup.client.intent.go({
                 route: 'login'
             }, function(user) {
-                Partup.client.intent.goToOrigin('login');
+                Partup.client.intent.returnToOrigin('login');
                 if (user) {
                     Meteor.call('partups.supporters.insert', partupId);
                 }

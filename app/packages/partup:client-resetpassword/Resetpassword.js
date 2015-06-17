@@ -42,7 +42,7 @@ AutoForm.hooks({
                 }
 
                 self.done();
-                Partup.client.intent.executeIntentCallback('reset-password');
+                Partup.client.intent.return('reset-password');
 
             });
 

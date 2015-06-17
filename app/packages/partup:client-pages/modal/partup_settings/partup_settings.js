@@ -16,7 +16,7 @@ Template.modal_partup_settings.helpers({
 Template.modal_partup_settings.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
-        Partup.client.intent.executeIntentCallback('partup-settings');
+        Partup.client.intent.return('partup-settings');
     },
     'click [data-remove]': function(event, template) {
         Meteor.call('partups.remove', template.data.partupId, function(error) {
@@ -49,7 +49,7 @@ AutoForm.hooks({
             var partup = this.template.parent().data.currentPartup;
 
             updatePartup(partup._id, insertDoc, function(partupId) {
-                Partup.client.intent.executeIntentCallback('partup-settings', {}, function() {
+                Partup.client.intent.return('partup-settings', {}, function() {
                     Router.go('partup', {
                         _id: partupId
                     });

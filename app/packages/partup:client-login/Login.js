@@ -55,13 +55,13 @@ var continueLogin = function() {
     if (!user) return;
 
     // Intent
-    Partup.client.intent.executeIntentCallback('login', [true], function() {
+    Partup.client.intent.return('login', [true], function() {
         if (!mout.object.get(user, 'profile.settings.optionalDetailsCompleted')) {
             Partup.client.intent.go({route: 'register-details'}, function() {
-                Partup.client.intent.goToOrigin('login');
+                Partup.client.intent.returnToOrigin('login');
             });
         } else {
-            Partup.client.intent.goToOrigin('login');
+            Partup.client.intent.returnToOrigin('login');
         }
     });
 };
