@@ -77,6 +77,7 @@ Template.Update.helpers({
         if (!Meteor.user()) return false;
         var template = Template.instance();
         var update = template.update.get();
+        if (!update) return false;
 
         var expandedOnDefault = template.data.COMMENTS_EXPANDED;
         var commentIsExpanded = template.commentInputFieldExpanded.get();
