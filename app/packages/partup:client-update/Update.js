@@ -84,17 +84,9 @@ Template.Update.helpers({
         var commentsPresent = update.comments && update.comments.length > 0;
         var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
 
-        return expandedOnDefault || commentIsExpanded || (commentsPresent && !lastCommentIsSystemMessage);
-    },
-
-    commentInputFieldExpanded: function helperCommentInputFieldExpanded () {
-        var template = Template.instance();
-        var update = template.update.get();
-        if (!update) return;
-
-        var commentsPresent = update.comments && update.comments.length > 0;
-        var commentButtonPressed = template.commentInputFieldExpanded.get();
-        return commentsPresent || commentButtonPressed;
+        return expandedOnDefault ||
+            commentIsExpanded ||
+            (commentsPresent && !lastCommentIsSystemMessage);
     },
 
     isUpper: function helperIsUpper () {
