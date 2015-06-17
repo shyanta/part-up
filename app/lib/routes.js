@@ -92,7 +92,10 @@ Router.route('/partups/:_id', {
         if (!Meteor.isClient) return;
 
         var partup = this.data().partup;
-        if (!partup) return;
+        if (!partup) {
+            this.redirect('discover');
+            return;
+        };
 
         var image = this.data().image;
         var seoMetaData = {
