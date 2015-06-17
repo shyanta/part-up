@@ -28,6 +28,10 @@ Partup.server.services.system_messages = {
         try {
             var update = Updates.findOneOrFail(updateId);
 
+            // skip the system message if it was the same as the last one
+            var lastComment = update.getLastComment();
+            if(lastComment.content == content) return false;
+
             var query = {
                 $push: {
                     comments: {

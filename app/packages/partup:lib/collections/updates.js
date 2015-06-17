@@ -17,6 +17,18 @@ Update.prototype.lastCommentIsSystemMessage = function() {
 };
 
 /**
+ * Get the last comment
+ *
+ * @return {Object}
+ */
+Update.prototype.getLastComment = function() {
+    if (!this.comments) return false;
+    if (this.comments.length < 1) return false;
+    return mout.array.last(this.comments);
+};
+
+
+/**
  @namespace Updates
  @name Updates
  */
