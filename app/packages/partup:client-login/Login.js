@@ -54,20 +54,14 @@ var continueLogin = function() {
     var user = Meteor.user();
     if (!user) return;
 
-    var optionalDetailsFilledIn = user.profile.settings && user.profile.settings.optionalDetailsCompleted;
-
     // Intent
     Partup.client.intent.executeIntentCallback('login', [true], function() {
-        if (!optionalDetailsFilledIn) {
-
-            // Fill-in optional details
-            Router.go('register-details');
-
+        if (!mout.object.get(user, 'profile.settings.optionalDetailsCompleted')) {
+            Partup.client.intent.go({route: 'register-details'}, function() {
+                Partup.client.intent.goToOrigin('login');
+            });
         } else {
-
-            // Fallback
-            Partup.client.intent.executeDefaultCallback();
-
+            Partup.client.intent.goToOrigin('login');
         }
     });
 };
