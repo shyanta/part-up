@@ -80,7 +80,7 @@ Meteor.publishComposite('networks.one', function(networkId) {
             {
                 find: function(network) {
                     var uppers = network.uppers || [];
-                    return Meteor.users.find({_id: {$in: uppers}}, {fields: {'profile': 1, 'status.online': 1, 'networks': 1, 'upperOf': 1, 'supporterOf': 1}});
+                    return Meteor.users.findMultiplePublicProfiles(uppers);
                 },
                 children: [
                     {
