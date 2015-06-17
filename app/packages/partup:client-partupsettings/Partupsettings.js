@@ -216,11 +216,8 @@ Template.Partupsettings.events({
         template.imageSystem.unsetUploadedPicture(tags);
     },
     'blur [name=tags_input]': function searchFlickerByTags(event, template) {
-        var tagsInputValid = AutoForm.validateField(template.data.FORM_ID, 'tags_input');
-        if(tagsInputValid) {
-            var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
-            template.imageSystem.getSuggestions(tags);
-        }
+        var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
+        template.imageSystem.getSuggestions(tags);
     },
     'click [data-removedate]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();

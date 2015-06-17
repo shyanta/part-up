@@ -30,7 +30,10 @@ Partup.client.strings = {
     },
 
     tagsStringToArray: function(tagString) {
-        return tagString ? tagString.replace(/\s/g, '').split(',') : [];
+        if (!tagString) return []
+        return tagsArray = tagString.replace(/\s/g, '').split(',').map(function(tag) {
+            return mout.string.slugify(tag);
+        });
     }
 
 };
