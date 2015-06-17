@@ -19,6 +19,10 @@ Template.Login.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Login.events({
+    'click [data-createaccount]': function(event) {
+        event.preventDefault();
+        Partup.client.intent.go({route: 'register'}, continueLogin);
+    },
     'click [data-loginfacebook]': function(event) {
         Meteor.loginWithFacebook({
             requestPermissions: ['email']
