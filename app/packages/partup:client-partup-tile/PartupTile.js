@@ -3,7 +3,7 @@
 /*************************************************************/
 Template.PartupTile.helpers({
     activityCount: function() {
-        return Activities.find({partup_id: this.partup._id}).count();
+        return this.partup.activity_count || Activities.find({partup_id: this.partup._id}).count();
     },
     dayCount: function() {
         var created = new Date(this.partup.created_at);
