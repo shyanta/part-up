@@ -2,15 +2,15 @@
  *
  * Guide to use the intent correctly
  *
- * Use this service when you want to perform a route change with an intention.
- * For example, when the user wants to access restricted content and has to login first.
- * Flow:
- * - Call Partup.client.intent.go(); (for arguments, scroll down)
- * - The return callback you provided, will be kept in memory until the user refreshes the page.
- * - Call Partup.client.intent.return(); (for arguments, scroll down)
- *     when you want the return callback to be executed.
- *     (for example: when the user has logged in)
- *     When no return callback exists the system will fall back (see priority list below)
+ * Use this service when you want to perform a route change with a return callback.
+ *
+ * Case:
+ *   When the user wants to become a supporter and has to login first.
+ *   Flow:
+ *   - Call Partup.client.intent.go('login', returnFunction);
+ *   - The return function you provided, will be kept in memory.
+ *   - When the user has logged in, successfully or not, call Partup.client.intent.return();
+ *       When no return callback exists the system will fall back (see priority list below)
  *
  */
 
@@ -29,7 +29,7 @@ var _intentCallbacks = {};
 Partup.client.intent = {
 
     /**
-     * Go with intent
+     * Go to a route with a return callback
      *
      * @memberOf Partup.client.intent
      * @param {Object} arguments for Router.go() (route and params)
@@ -50,22 +50,6 @@ Partup.client.intent = {
         // Perform router.go
         Router.go(args.route, args.params);
 
-    },
-
-    /**
-     * Function to return to original path (saved when intent.go was called)
-     * For use in your own callbacks
-     *
-     * @memberOf Partup.client.intent
-     */
-    returnToOrigin: function(route) {
-        var origin = _origins[route];
-        if (origin) {
-            Iron.Location.go(origin);
-            delete origin;
-        } else {
-            _defaultReturn();
-        }
     },
 
     /**
@@ -92,6 +76,22 @@ Partup.client.intent = {
             fallbackCallback.apply(window, arguments);
         } else {
             this.returnToOrigin(route);
+        }
+    },
+
+    /**
+     * Function to return to original path (saved when intent.go was called)
+     * For use in your own callbacks
+     *
+     * @memberOf Partup.client.intent
+     */
+    returnToOrigin: function(route) {
+        var origin = _origins[route];
+        if (origin) {
+            Iron.Location.go(origin);
+            delete origin;
+        } else {
+            _defaultReturn();
         }
     }
 
