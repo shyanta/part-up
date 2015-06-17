@@ -36,7 +36,7 @@ Meteor.methods({
             newRating = Ratings.insert(newRating);
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_inserted');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_inserted', {update_timestamp: false});
 
             return newRating;
         } catch (error) {
@@ -75,7 +75,7 @@ Meteor.methods({
                 Ratings.update(rating, {$set: newRating});
 
                 // Post system message
-                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_updated');
+                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_ratings_updated', {update_timestamp: false});
             }
 
             return newRating;

@@ -34,7 +34,7 @@ Meteor.methods({
                 Contributions.update(contribution._id, {$set: newContribution});
 
                 // Post system message
-                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_updated');
+                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_updated', {update_timestamp: false});
             } else {
                 // Insert contribution
                 newContribution.created_at = new Date();
@@ -107,7 +107,7 @@ Meteor.methods({
             // Post system message for each accepted contribution
             conceptContributions.forEach(function(contribution) {
                 if (contribution.update_id) {
-                    Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_accepted');
+                    Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_accepted', {update_timestamp: false});
                 }
             });
         } catch (error) {
@@ -134,7 +134,7 @@ Meteor.methods({
             Contributions.update(contribution._id, {$set: {archived: true}});
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_rejected');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_rejected', {update_timestamp: false});
 
             Event.emit('partups.contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
         } catch (error) {
@@ -176,7 +176,7 @@ Meteor.methods({
             }
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed', {update_timestamp: false});
 
             Event.emit('partups.contributions.archived', upper._id, contribution);
 
@@ -207,7 +207,7 @@ Meteor.methods({
             Contributions.remove(contributionId);
 
             // Post system message
-            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed');
+            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed', {update_timestamp: false});
 
             return {
                 _id: contribution._id
