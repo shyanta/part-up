@@ -3,9 +3,9 @@
     "resetpassword-introparagraph": "We are ready for your new password. Please fill it in so you can part-up again!",
 
     "resetpassword-form-password-label": "New password",
-    "resetpassword-form-password-placeholder": "Don't make it too easy",
+    "resetpassword-form-password-placeholder": "Use at least 8 characters, 1 number and 1 capital",
     "resetpassword-form-password-validation": "tips",
-    "resetpassword-form-password-tooltip": "Use at least 8 characters, 1 number and 1 capital",
+    "resetpassword-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Use at least 8 characters, 1 number en 1 capital.",
 
     "resetpassword-form-confirmPassword-placeholder": "And repeat it once please",
 
