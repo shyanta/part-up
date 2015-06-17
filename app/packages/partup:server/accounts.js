@@ -32,7 +32,8 @@ Accounts.onCreateUser(function(options, user) {
             location: location,
             name: liData.firstName + ' ' + liData.lastName,
             settings: {
-                locale: 'en'
+                locale: 'en',
+                optionalDetailsCompleted: false
             }
         };
 
@@ -48,7 +49,8 @@ Accounts.onCreateUser(function(options, user) {
             lastname: fbData.last_name,
             name: fbData.name,
             settings: {
-                locale: Partup.helpers.parseLocale(fbData.locale)
+                locale: Partup.helpers.parseLocale(fbData.locale),
+                optionalDetailsCompleted: false
             }
         };
 
