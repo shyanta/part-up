@@ -6,11 +6,11 @@
  * For example, when the user wants to access restricted content and has to login first.
  * Flow:
  * - Call Partup.client.intent.go(); (for arguments, scroll down)
- * - The intent callback function you provided, will be kept in memory until the user refreshes the page.
+ * - The return callback you provided, will be kept in memory until the user refreshes the page.
  * - Call Partup.client.intent.return(); (for arguments, scroll down)
- *     when you want the intent callback to be executed.
- *     (for example: when the user has logged in successfully)
- *     When no intentCallback exists and no fallbackCallback is provided, the _defaultReturn will be executed.
+ *     when you want the return callback to be executed.
+ *     (for example: when the user has logged in)
+ *     When no return callback exists the system will fall back (see priority list below)
  *
  */
 
