@@ -94,6 +94,11 @@ Router.route('/networks/:_id', {
     },
     subscriptions: function() {
         this.subscribe('networks.one', this.params._id);
+    },
+    data: function() {
+        return {
+            networkId: this.params._id
+        };
     }
 });
 
