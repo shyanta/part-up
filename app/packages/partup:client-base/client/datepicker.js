@@ -8,7 +8,8 @@ Partup.client.datepicker = {
     options: {
         language: moment.locale(),
         format: moment.localeData().longDateFormat('L').toLowerCase(),
-        autoclose: true
+        autoclose: true,
+        todayHighlight: true
     }
 
 };
