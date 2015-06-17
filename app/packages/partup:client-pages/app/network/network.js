@@ -2,12 +2,14 @@
 /* Page helpers */
 /*************************************************************/
 Template.app_network.helpers({
-
+    network: function() {
+        return Networks.findOne(this.networkId);
+    }
 });
 
 /*************************************************************/
 /* Page events */
 /*************************************************************/
 Template.app_network.events({
-
+    //
 });
