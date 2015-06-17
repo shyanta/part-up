@@ -60,7 +60,7 @@ var continueLogin = function() {
 
     // Intent
     Partup.client.intent.return('login', [user], function(user) {
-        if (!mout.object.get(user, 'profile.settings.optionalDetailsCompleted')) {
+        if (user && !mout.object.get(user, 'profile.settings.optionalDetailsCompleted')) {
             Partup.client.intent.go({route: 'register-details'}, function() {
                 Partup.client.intent.returnToOrigin('login');
             });
