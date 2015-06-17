@@ -55,7 +55,7 @@ var continueLogin = function() {
     if (!user) return;
 
     // Intent
-    Partup.client.intent.return('login', [true], function() {
+    Partup.client.intent.return('login', [user], function(user) {
         if (!mout.object.get(user, 'profile.settings.optionalDetailsCompleted')) {
             Partup.client.intent.go({route: 'register-details'}, function() {
                 Partup.client.intent.returnToOrigin('login');

@@ -62,6 +62,7 @@ Partup.client.intent = {
         var origin = _origins[route];
         if (origin) {
             Iron.Location.go(origin);
+            delete origin;
         } else {
             _defaultReturn();
         }
@@ -82,21 +83,16 @@ Partup.client.intent = {
      */
     return: function(route, arguments, fallbackCallback) {
         var cb = _intentCallbacks[route];
-        var origin = _origins[route];
         var arguments = arguments || {};
 
         if (mout.lang.isFunction(cb)) {
             cb.apply(window, arguments);
+            delete cb;
         } else if (mout.lang.isFunction(fallbackCallback)) {
             fallbackCallback.apply(window, arguments);
-        } else if (origin) {
-            this.returnToOrigin(origin);
         } else {
-            _defaultReturn.apply(window, arguments);
+            this.returnToOrigin(route);
         }
-
-        delete _intentCallbacks[route];
-        delete _origins[route];
     }
 
 };
