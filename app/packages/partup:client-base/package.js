@@ -47,6 +47,7 @@ Package.onUse(function(api) {
         'helpers/loading.js',
         'helpers/Partup.js',
         'helpers/isPopupActive.js',
+        'helpers/footerToggle.js',
         'autorun.js',
         'bootstrap.js',
 
