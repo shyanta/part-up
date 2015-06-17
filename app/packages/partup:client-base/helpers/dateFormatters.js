@@ -44,7 +44,8 @@ Template.registerHelper('partupDatePartupActivity', function(date) {
     var RELATIVE_TIME_TRESHOLD = 12 * 60 * 60 * 1000; // 12 hours
     var mDate = moment(date);
 
-    if (moment().diff(mDate) < RELATIVE_TIME_TRESHOLD) {
+    var now = moment(Partup.client.reactiveDate());
+    if (now.diff(mDate) < RELATIVE_TIME_TRESHOLD) {
         var language = TAPi18n.getLanguage();
         mDate.locale(language);
         var output = '';
