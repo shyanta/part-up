@@ -1,3 +1,16 @@
+// jscs:disable
+/**
+ * Widget to render an update
+ *
+ * You can pass the widget a few options which enable various functionalities
+ *
+ * @param {String} updateId             The update id of the update that has to be rendered
+ * @param {Object} metadata             ?
+ * @param {Boolean} LINK                Show link yes or no
+ * @param {Boolean} COMMENTS_EXPANDED   show all comments (don't show "show more comments" link)
+ */
+// jscs:enable
+
 /*************************************************************/
 /* Widget onCreated */
 /*************************************************************/
@@ -59,6 +72,18 @@ Template.Update.helpers({
         }
 
         return __(titleKey);
+    },
+    showCommentField: function helperShowCommentField() {
+        if (!Meteor.user()) return false;
+        var template = Template.instance();
+        var update = template.update.get();
+
+        var expandedOnDefault = template.data.COMMENTS_EXPANDED;
+        var commentIsExpanded = template.commentInputFieldExpanded.get();
+        var commentsPresent = update.comments && update.comments.length > 0;
+        var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
+
+        return expandedOnDefault || commentIsExpanded || (commentsPresent && !lastCommentIsSystemMessage);
     },
 
     commentInputFieldExpanded: function helperCommentInputFieldExpanded () {
