@@ -26,6 +26,11 @@ Template.ActivityForm.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.ActivityForm.helpers({
+    datepickerOptions: function() {
+        var options = Partup.client.datepicker.options;
+        options.startDate = new Date();
+        return options;
+    },
     charactersLeftName: function() {
         return Template.instance().charactersLeft.get('name');
     },

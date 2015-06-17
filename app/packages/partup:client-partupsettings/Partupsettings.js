@@ -89,6 +89,11 @@ Template.Partupsettings.onCreated(function() {
 });
 
 Template.Partupsettings.helpers({
+    datepickerOptions: function() {
+        var options = Partup.client.datepicker.options;
+        options.startDate = new Date();
+        return options;
+    },
     startPartupSchema: function() {
         return Partup.schemas.forms.startPartup;
     },
