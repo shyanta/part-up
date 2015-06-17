@@ -9,7 +9,7 @@
  *   Flow:
  *   - Call Partup.client.intent.go('login', returnFunction);
  *   - The return function you provided, will be kept in memory.
- *   - When the user has logged in, successfully or not, call Partup.client.intent.return();
+ *   - When the user has logged in, successfully or not, call Partup.client.intent.return('login', argumentsArray);
  *       When no return callback exists the system will fall back (see priority list below)
  *
  */
