@@ -116,38 +116,6 @@ Meteor.publish('partups.list', function() {
     return Partups.find({}, {_id: 1, name: 1});
 });
 
-Meteor.publishComposite('partups.one.contributions', function(partupId) {
-    return {
-        find: function() {
-            return Contributions.find({partup_id: partupId});
-        },
-        children: [
-            {
-                find: function(contribution) {
-                    return Meteor.users.findSinglePublicProfile(contribution.upper_id);
-                },
-                children: [
-                    {
-                        find: function(user) {
-                            return Images.find({_id: user.profile.image}, {limit: 1});
-                        }
-                    }
-                ]
-            },
-            {
-                find: function(contribution) {
-                    return Ratings.find({contribution_id: contribution._id});
-                }
-            },
-            {
-                find: function(contribution) {
-                    return Updates.find({_id: contribution.update_id});
-                }
-            }
-        ]
-    };
-});
-
 Meteor.publishComposite('partups.one.updates', function(partupId, options) {
     var options = options || {};
     var limit = options.limit || 10;
@@ -221,6 +189,35 @@ Meteor.publishComposite('partups.one', function(partupId) {
                 find: function(partup) {
                     return Activities.find({partup_id: partup._id});
                 }
+            },
+            {
+                find: function(partup) {
+                    return Contributions.find({partup_id: partup._id});
+                },
+                children: [
+                    {
+                        find: function(contribution) {
+                            return Meteor.users.findSinglePublicProfile(contribution.upper_id);
+                        },
+                        children: [
+                            {
+                                find: function(user) {
+                                    return Images.find({_id: user.profile.image}, {limit: 1});
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        find: function(contribution) {
+                            return Ratings.find({contribution_id: contribution._id});
+                        }
+                    },
+                    {
+                        find: function(contribution) {
+                            return Updates.find({_id: contribution.update_id});
+                        }
+                    }
+                ]
             },
             {
                 find: function(partup) {
