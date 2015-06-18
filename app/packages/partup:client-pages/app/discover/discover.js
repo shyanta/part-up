@@ -3,26 +3,34 @@
 /*************************************************************/
 Template.app_discover.onCreated(function() {
     var template = this;
-    template.limitedPartupsSubscription = template.subscribe('partups.discover', 20);
-    template.limit = new ReactiveVar(20, function(a, b) {
-        if (a < b) {
-            var oldSubscription = template.limitedPartupsSubscription;
-            template.limitedPartupsSubscription = template.subscribe('partups.discover', b);
-            oldSubscription.stop();
+
+    template.discoverSubscription = template.subscribe('partups.discover', 50);
+
+    template.limit = new ReactiveVar(50, function(oldValue, newValue) {
+        if (oldValue < newValue) {
+            template.oldDiscoverSubscription = template.discoverSubscription;
+            template.discoverSubscription = template.subscribe('partups.discover', newValue);
+        } else if (oldValue > newValue) {
+            template.discoverSubscription.stop();
+            template.oldDiscoverSubscription.stop();
+            template.discoverSubscription = template.subscribe('partups.discover', newValue);
         }
+    });
+
+    template.autorun(function() {
+        if (!template.discoverSubscription.ready()) return;
+        if (template.oldDiscoverSubscription) template.oldDiscoverSubscription.stop();
     });
 
     template.filter = new ReactiveVar('none');
 
     Session.set('refreshDate', Math.round(new Date().getTime()));
 });
-
+// page render
 Template.app_discover.onRendered(function() {
     var template = this;
     var raiseLimit = function() {
-        console.log('RAISE THE LIMIT');
         var limit = template.limit.get();
-        console.log(limit);
         limit = limit + 20;
         template.limit.set(limit);
     };
@@ -30,11 +38,17 @@ Template.app_discover.onRendered(function() {
     template.autorun(function() {
         var offset = Session.get('window.scrollBottomOffset');
         if (offset > $(window).height()) return;
-        // console.log(offset);
+
         Tracker.nonreactive(function() {
             debouncedRaiseLimit();
         });
     });
+});
+// page destroy
+Template.app_discover.onDestroyed(function() {
+    var template = this;
+    template.discoverSubscription.stop();
+    if (template.oldDiscoverSubscription) template.oldDiscoverSubscription.stop();
 });
 
 /*************************************************************/
@@ -42,9 +56,8 @@ Template.app_discover.onRendered(function() {
 /*************************************************************/
 Template.app_discover.helpers({
     partups: function() {
-        var subscription = Template.instance().limitedPartupsSubscription;
-        var limit = Template.instance().limit.get();
-        // if (!subscription.ready()) return;
+        // var subscription = Template.instance().discoverSubscription.ready();
+        // if(!subscription) return false;
         var partups = Partups.find().fetch();
         return partups;
     },
