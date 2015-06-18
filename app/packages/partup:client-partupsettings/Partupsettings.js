@@ -181,6 +181,9 @@ Template.Partupsettings.helpers({
     },
     draggingFocuspoint: function() {
         return Template.instance().draggingFocuspoint.get();
+    },
+    networks: function() {
+        return Networks.find().fetch();
     }
 });
 

@@ -15,8 +15,8 @@ Meteor.publishComposite('networks.all', function() {
     };
 });
 
-Meteor.publish('networks.user', function(userId) {
-    var user = Meteor.users.findSinglePublicProfile(userId);
+Meteor.publish('networks.user', function() {
+    var user = Meteor.users.findSinglePublicProfile(this.userId).fetch().pop();
     var userNetworkIds = user.networks || [];
     return Networks.find({$or: [{_id: {$in: userNetworkIds}}, {access_level: 1}]}, {access_level: 1, name: 1});
 });

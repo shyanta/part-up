@@ -136,15 +136,13 @@
             </div>
         </label>
 
-        <!-- TODO: NETWORK IMPLEMENTATION
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-form-network-label' }}</span>
             <div class="pu-inputholder pu-inputholder-righticon">
                 <select class="pu-select">
-                    <option value="1">1. Aan Part-up.com (openbaar)</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    {{#each networks}}
+                        <option value="{{_id}}">{{name}}</option>
+                    {{/each}}
                 </select>
                 <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
             </div>
@@ -153,7 +151,6 @@
                 <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-network-tooltip' }}</p></span>
             </a>
         </label>
-        -->
 
         <!-- Image -->
         <div class="pu-formfield">

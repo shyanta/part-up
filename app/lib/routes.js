@@ -285,7 +285,7 @@ Router.route('/start/details', {
     subscriptions: function() {
         var partupId = Session.get('partials.create-partup.current-partup');
         this.subscribe('partups.one', partupId);
-        this.subscribe('networks.user', Meteor.userId());
+        this.subscribe('networks.user');
     }
 });
 
