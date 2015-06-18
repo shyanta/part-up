@@ -120,6 +120,50 @@ CustomSelect.prototype.setEvents = function() {
             self.filterList.classList.remove('pu-state-expanded');
         }, 50));
         checkFilter();
+
+        this.filter.addEventListener('keydown', function(e) {
+            if ([13, 38, 40].indexOf(e.keyCode) === -1) return;
+
+            e.preventDefault();
+
+            var selected = self.filterList.querySelector('.pu-state-selected');
+
+            // enter
+            if (e.keyCode === 13) {
+                if (selected) {
+                    self.setValue(selected.dataset.value);
+                }
+
+                return;
+            }
+
+            var index = -1;
+            if (selected) {
+                index = mout.array.indexOf(self.filterList.children, selected);
+            }
+
+            // up
+            if (e.keyCode === 38) {
+                var nextIndex = index - 1;
+                if (nextIndex === -1) {
+                    nextIndex = self.filterList.children.length - 1;
+                }
+            }
+
+            // down
+            if (e.keyCode === 40) {
+                var nextIndex = index + 1;
+                if (nextIndex === self.filterList.children.length) {
+                    nextIndex = 0;
+                }
+            }
+
+            if (selected) {
+                selected.classList.remove('pu-state-selected');
+            }
+
+            self.filterList.children[nextIndex].classList.add('pu-state-selected');
+        });
     }
 
     if (this.suggestionList) {
