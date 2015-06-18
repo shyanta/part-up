@@ -8,6 +8,7 @@
  * @param {Object} metadata             ?
  * @param {Boolean} LINK                Show link yes or no
  * @param {Boolean} COMMENTS_EXPANDED   show all comments (don't show "show more comments" link)
+ * @param {Boolean} FORCE_COMMENTFORM   always show the comment form
  */
 // jscs:enable
 
@@ -82,7 +83,9 @@ Template.Update.helpers({
         var commentsPresent = update.comments && update.comments.length > 0;
         var commentButtonPressed = template.commentInputFieldExpanded.get();
         var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
-        return (commentsPresent && !lastCommentIsSystemMessage) || commentButtonPressed;
+        return (commentsPresent && !lastCommentIsSystemMessage) ||
+            commentButtonPressed ||
+            template.data.FORCE_COMMENTFORM;
     },
 
     isUpper: function helperIsUpper () {

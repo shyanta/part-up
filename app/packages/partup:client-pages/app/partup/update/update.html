@@ -11,7 +11,7 @@
                 </section>
             </header>
             {{#if update_id}}
-                {{> Update LINK=false COMMENTS_EXPANDED=true updateId=update_id metadata=metaDataForUpdate }}
+                {{> Update LINK=false updateId=update_id metadata=metaDataForUpdate FORCE_COMMENTFORM=true COMMENTS_EXPANDED=true }}
             {{/if}}
 
         </div>
