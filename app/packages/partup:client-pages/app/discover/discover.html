@@ -29,7 +29,13 @@
             <div class="pu-page pu-page-full">
                 <section class="pu-composition pu-composition-discover">
                     <header>
-                        <h2 class="pu-title pu-title-home">Discover</h2>
+                        <h2 class="pu-title pu-title-home">
+                            {{_ 'pages-app-discover-heading' }}
+                            <span class="pu-sub-countlabel">{{_ 'pages-app-discover-xpartups' totalNumberOfPartups }}</span>
+                            {{# if currentUser }}
+                                <span class="pu-paragraph pu-paragraph-subtle">{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</span>
+                            {{/ if }}
+                        </h2>
                     </header>
                     {{#if partups }}
                         {{> ReactiveLayout
