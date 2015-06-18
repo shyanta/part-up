@@ -3,6 +3,7 @@ Meteor.publishComposite('partups.discover', function(options) {
     var limit = options.limit || 20;
     var query = options.query || false;
     var location = options.location || false;
+    var networkId = options.networkId || false;
 
     return {
         find: function() {
@@ -15,6 +16,11 @@ Meteor.publishComposite('partups.discover', function(options) {
             // Filter the partups that are in a given location
             if (location) {
                 selector['location.city'] = location;
+            }
+
+            // Filter the partups that are in a given network
+            if (networkId) {
+                selector.network_id = networkId;
             }
 
             // Filter the partups that match the search query
