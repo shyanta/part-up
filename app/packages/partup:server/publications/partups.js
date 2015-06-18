@@ -87,10 +87,6 @@ Meteor.publishComposite('partups.all.activities', function() {
     };
 });
 
-Meteor.publish('partups.recent', function() {
-    return Partups.recent({limit:3});
-});
-
 Meteor.publish('partups.list', function() {
     return Partups.find({}, {_id: 1, name: 1});
 });
