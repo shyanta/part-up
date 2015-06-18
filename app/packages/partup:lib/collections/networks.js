@@ -1,9 +1,9 @@
 /**
- * Declare access levels
+ * Declare privacy types
  */
-var PUBLIC_OPEN = 1;
-var PRIVATE_INVITE = 2;
-var PRIVATE_CLOSED = 3;
+var NETWORK_PUBLIC = 1;
+var NETWORK_INVITE = 2;
+var NETWORK_CLOSED = 3;
 
 /**
  * Network model
@@ -38,7 +38,7 @@ Network.prototype.hasMember = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.isPublic = function() {
-    return this.access_level === PUBLIC_OPEN;
+    return this.privacy_type === PUBLIC_OPEN;
 };
 
 /**
@@ -47,7 +47,7 @@ Network.prototype.isPublic = function() {
  * @return {Boolean}
  */
 Network.prototype.isInvitational = function() {
-    return this.access_level === PRIVATE_INVITE;
+    return this.privacy_type === PRIVATE_INVITE;
 };
 
 /**
@@ -56,7 +56,7 @@ Network.prototype.isInvitational = function() {
  * @return {Boolean}
  */
 Network.prototype.isClosed = function() {
-    return this.access_level === PRIVATE_CLOSED;
+    return this.privacy_type === PRIVATE_CLOSED;
 };
 
 /**
@@ -68,3 +68,10 @@ Networks = new Mongo.Collection('networks', {
         return new Network(document);
     }
 });
+
+/**
+ * Expose privacy types
+ */
+Networks.NETWORK_PUBLIC = NETWORK_PUBLIC;
+Networks.NETWORK_INVITE = NETWORK_INVITE;
+Networks.NETWORK_CLOSED = NETWORK_CLOSED;

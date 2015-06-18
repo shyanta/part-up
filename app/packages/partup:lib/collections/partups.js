@@ -1,4 +1,13 @@
 /**
+ * Declare privacy types
+ */
+var PUBLIC = 1;
+var PRIVATE = 2;
+var NETWORK_PUBLIC = 3;
+var NETWORK_INVITE = 4;
+var NETWORK_CLOSED = 5;
+
+/**
  * Partup model
  */
 var Partup = function(document) {
@@ -44,6 +53,15 @@ Partups = new Mongo.Collection('partups', {
         return new Partup(document);
     }
 });
+
+/**
+ * Expose privacy types
+ */
+Partups.PUBLIC = PUBLIC;
+Partups.PRIVATE = PRIVATE;
+Partups.NETWORK_PUBLIC = NETWORK_PUBLIC;
+Partups.NETWORK_INVITE = NETWORK_INVITE;
+Partups.NETWORK_CLOSED = NETWORK_CLOSED;
 
 /**
  * Partups collection helpers
