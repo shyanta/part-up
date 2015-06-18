@@ -10,7 +10,7 @@ Template.app_header.events({
                     _id: createdId
                 });
             } else {
-                Partup.client.intent.go({route: 'create'});
+                Partup.client.intent.returnToOrigin('create');
             }
         });
     },

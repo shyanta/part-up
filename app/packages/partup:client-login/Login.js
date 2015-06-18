@@ -21,7 +21,13 @@ Template.Login.helpers({
 Template.Login.events({
     'click [data-createaccount]': function(event) {
         event.preventDefault();
-        Partup.client.intent.go({route: 'register'}, continueLogin);
+        Partup.client.intent.go({route: 'register'}, function() {
+            if (Meteor.user()) {
+                continueLogin();
+            } else {
+                Partup.client.intent.returnToOrigin('login');
+            }
+        });
     },
     'click [data-loginfacebook]': function(event) {
         Meteor.loginWithFacebook({
@@ -58,14 +64,16 @@ var continueLogin = function() {
     var user = Meteor.user();
     if (!user) return;
 
-    // Intent
-    Partup.client.intent.return('login', [user], function(user) {
-        if (user && !mout.object.get(user, 'profile.settings.optionalDetailsCompleted')) {
+    // Return if intent callback is present
+    Partup.client.intent.return('login', [true], function() {
+
+        // No intent callback is present, so check if optionalDetailsCompleted
+        if (mout.object.get(user, 'profile.settings.optionalDetailsCompleted')) {
+            Partup.client.intent.returnToOrigin('login');
+        } else {
             Partup.client.intent.go({route: 'register-details'}, function() {
                 Partup.client.intent.returnToOrigin('login');
             });
-        } else {
-            Partup.client.intent.returnToOrigin('login');
         }
     });
 };

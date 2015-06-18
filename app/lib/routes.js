@@ -156,28 +156,22 @@ Router.route('/partups/:_id', {
         };
     },
     onAfterAction: function() {
-        if (!Meteor.isClient) return;
+        // if (!Meteor.isClient) return;
 
-        var partup = this.data().partup;
-        if (!partup) {
-            this.redirect('discover');
-            return;
-        };
+        // var image = this.data().image;
+        // var seoMetaData = {
+        //     title: partup.name,
+        //     meta: {
+        //         'title': partup.name,
+        //         'description': partup.description
+        //     }
+        // };
+        // if (image) {
+        //     seoMetaData.meta.image = image.url();
+        // }
+        // SEO.set(seoMetaData);
 
-        var image = this.data().image;
-        var seoMetaData = {
-            title: partup.name,
-            meta: {
-                'title': partup.name,
-                'description': partup.description
-            }
-        };
-        if (image) {
-            seoMetaData.meta.image = image.url();
-        }
-        SEO.set(seoMetaData);
-
-        Meteor.call('partups.analytics.click', partup._id);
+        // Meteor.call('partups.analytics.click', partup._id);
     }
 });
 
@@ -430,20 +424,18 @@ Router.route('/close', {
 /* Route protection */
 /*************************************************************/
 Router.onBeforeAction(function() {
-    if (!Meteor.userId() && Meteor.isClient) {
-        var route = this.route.getName();
-        var params = this.route.params();
-        var options = this.route.options;
+    var next = this.next;
 
+    if (!Meteor.userId() && Meteor.isClient) {
         Partup.client.intent.go({route: 'login'}, function(success) {
             if (success) {
-                Router.go(route, params, options);
+                next();
             } else {
-                Partup.client.intent.executeIntentCallback(route);
+                Partup.client.intent.returnToOrigin('login');
             }
         });
     } else {
-        this.next();
+        next();
     }
 }, {
     only: [
