@@ -1,7 +1,7 @@
 Meteor.publishComposite('networks.all', function() {
     return {
         find: function() {
-            return Networks.find({}, {fields: {description: 1, name: 1, access_level: 1, tags: 1, image: 1}});
+            return Networks.find({}, {fields: {description: 1, name: 1, privacy_type: 1, tags: 1, image: 1}});
         },
         children: [
             {
@@ -18,11 +18,11 @@ Meteor.publishComposite('networks.all', function() {
 Meteor.publish('networks.user', function() {
     var user = Meteor.users.findSinglePublicProfile(this.userId).fetch().pop();
     var userNetworkIds = user.networks || [];
-    return Networks.find({$or: [{_id: {$in: userNetworkIds}}, {access_level: 1}]}, {access_level: 1, name: 1});
+    return Networks.find({$or: [{_id: {$in: userNetworkIds}}, {privacy_type: 1}]}, {privacy_type: 1, name: 1});
 });
 
 Meteor.publish('networks.list', function() {
-    return Networks.find({}, {access_level: 1, name: 1});
+    return Networks.find({}, {privacy_type: 1, name: 1});
 });
 
 Meteor.publishComposite('networks.one.partups', function(networkId) {

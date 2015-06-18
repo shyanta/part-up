@@ -5,7 +5,7 @@
  * @private
  */
 var networkBaseSchema = new SimpleSchema({
-    access_level: {
+    privacy_type: {
         type: Number,
         min: 1,
         max: 3

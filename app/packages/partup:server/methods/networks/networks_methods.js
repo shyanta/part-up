@@ -184,7 +184,7 @@ Meteor.methods({
                 return Log.debug('User added to network.');
             }
 
-            return Log.debug('Unknown access level for this network: ' + network.access_level);
+            return Log.debug('Unknown access level for this network: ' + network.privacy_type);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Network [' + networkId + '] could not be removed.');
