@@ -1,3 +1,5 @@
+var LIMIT_DEFAULT = 10;
+var LIMIT_INCREMENT = 10;
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
@@ -28,19 +30,37 @@ Template.app_partup_updates.onCreated(function() {
 
     // Update subscription function
     template.subscription;
-    template.updateSubscription = function(filter) {
+    template.oldSubscription;
+    template.updateSubscriptionFilter = function(filter) {
+        template.currentFilter = filter;
         if (template.subscription) template.subscription.stop();
-        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id, {filter: filter});
+        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id,
+        {
+            filter: filter,
+            limit: LIMIT_DEFAULT
+        });
+        template.subscription.updated = true;
+    };
+    template.updateSubscriptionLimit = function(limit) {
+        if (template.subscription) {
+            template.oldSubscription = template.subscription;
+        }
+        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id,
+        {
+            filter: template.currentFilter,
+            limit: limit
+        });
+        template.oldSubscription.stop();
         template.subscription.updated = true;
     };
 
     // Update subscription on filter change
     template.filterValue = new ReactiveVar('default', function(oldFilter, newFilter) {
-        template.updateSubscription(newFilter);
+        template.updateSubscriptionFilter(newFilter);
     });
 
     // Set subscription once
-    template.updateSubscription(template.filterValue.get());
+    template.updateSubscriptionFilter(template.filterValue.get());
 
     template.autorun(function() {
         var updates = getUpdates();
@@ -51,10 +71,28 @@ Template.app_partup_updates.onCreated(function() {
             template.subscription.updated = false;
         }
     });
+
+    template.limit = new ReactiveVar(LIMIT_DEFAULT, function(oldValue, newValue) {
+        template.updateSubscriptionLimit(newValue);
+    });
+});
+
+Template.app_partup_updates.onRendered(function() {
+    var template = this;
+
+    Partup.client.scroll.onBottomOffset({
+        autorunTemplate: template,
+        debounce: 500,
+        offset: 500,
+    }, function() {
+        Partup.client.reactiveVarHelpers.incrementNumber(template.limit, LIMIT_INCREMENT);
+    });
+
 });
 
 Template.app_partup_updates.onDestroyed(function() {
-        if (this.subscription) this.subscription.stop();
+    if (this.subscription) this.subscription.stop();
+    if (this.oldSubscription) this.oldSubscription.stop();
 });
 
 /*************************************************************/
