@@ -214,23 +214,55 @@ var LIMIT_INCREMENT = 10;
 
 Template.app_discover.onCreated(function() {
     var template = this;
+    template.discoverSubscription = template.subscribe('partups.discover', {});
+    template.filterOptions = {};
 
-    template.discoverSubscription = template.subscribe('partups.discover', LIMIT_DEFAULT);
-    template.countSubscription = template.subscribe('partups.count');
+    // updates subscription with new options
+    // just pass any valid option in an object {query:'jaja'} or {query:'jaja', sort:'new'}
+    // it won't reset options that arent passed
+    // limit is reset to the LIMIT_DEFAULT constant when this is called
+    template.updateSubscriptionFilter = function(newOptions) {
+        template.discoverSubscription.stop();
+        var options = template.filterOptions;
+        options.limit = LIMIT_DEFAULT;
+
+        for (key in newOptions) {
+            options[key] = newOptions[key];
+        }
+        template.filterOptions = options;
+
+        // this fixed it jesse, sorry
+        Meteor.setTimeout(function() {
+            template.discoverSubscription = Meteor.subscribe('partups.discover', options);
+        }, 500);
+    };
+    // update the subscription limit, this is seperate for infinite scroll behaviour
+    template.updateSubscriptionLimit = function(limit) {
+        if (template.discoverSubscription) {
+            template.oldDiscoverSubscription = template.discoverSubscription;
+        }
+        var options = template.filterOptions;
+        options.limit = limit;
+
+        template.filterOptions = options;
+        template.discoverSubscription = Meteor.subscribe('partups.discover', options);
+        template.oldDiscoverSubscription.stop();
+    };
+    // this resets all subscription options
+    template.resetSubscriptions = function() {
+        template.discoverSubscription.stop();
+        Meteor.setTimeout(function() {
+            template.discoverSubscription = Meteor.subscribe('partups.discover', {limit:LIMIT_DEFAULT});
+        }, 500);
+    };
 
     template.limit = new ReactiveVar(LIMIT_DEFAULT, function(oldValue, newValue) {
-        if (oldValue < newValue) {
-            template.oldDiscoverSubscription = template.discoverSubscription;
-            template.discoverSubscription = template.subscribe('partups.discover', {limit: newValue});
-            template.oldDiscoverSubscription.stop();
-        } else if (oldValue > newValue) {
-            template.discoverSubscription.stop();
-            template.oldDiscoverSubscription.stop();
-            template.discoverSubscription = template.subscribe('partups.discover', {limit: newValue});
-        }
+        template.updateSubscriptionLimit(newValue);
     });
 
-    template.filter = new ReactiveVar('none');
+    template.filter = new ReactiveVar({}, function(oldValue, newValue) {
+        template.updateSubscriptionFilter(newValue);
+    });
 
     Session.set('refreshDate', Math.round(new Date().getTime()));
 });
@@ -291,6 +323,7 @@ Template.app_discover.helpers({
         // var subscription = Template.instance().discoverSubscription.ready();
         // if(!subscription) return false;
         var partups = Partups.find().fetch();
+        console.log(partups);
         return partups;
     },
     refreshDate: function() {
