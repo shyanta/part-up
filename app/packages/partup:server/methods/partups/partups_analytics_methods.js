@@ -20,7 +20,7 @@ Meteor.methods({
 
         clicks_per_hour[hour] = parseInt(clicks_per_hour[hour] + 1);
         clicks_total++;
-        clicks_per_day++;
+        clicks_per_day = clicks_per_hour.reduce(function(result, clicks) { return result + clicks; });
 
         Partups.update({_id: partupId}, {$set: {
             'analytics.clicks_total': clicks_total,
