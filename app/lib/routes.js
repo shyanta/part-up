@@ -144,33 +144,13 @@ Router.route('/partups/:_id', {
         this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
-        var partup = Partups.findOne({_id: this.params._id});
-        var image;
-        if (partup) {
-            image = Images.findOne({_id: partup.image});
-        }
         return {
-            partup: partup,
-            image: image
+            partupId: this.params._id
         };
     },
-    onAfterAction: function() {
-        // if (!Meteor.isClient) return;
-
-        // var image = this.data().image;
-        // var seoMetaData = {
-        //     title: partup.name,
-        //     meta: {
-        //         'title': partup.name,
-        //         'description': partup.description
-        //     }
-        // };
-        // if (image) {
-        //     seoMetaData.meta.image = image.url();
-        // }
-        // SEO.set(seoMetaData);
-
-        // Meteor.call('partups.analytics.click', partup._id);
+    onRun: function() {
+        Meteor.call('partups.analytics.click', this.data().partupId);
+        this.next();
     }
 });
 
