@@ -46,6 +46,11 @@ var partupBaseSchema = new SimpleSchema({
         type: String,
         max: 60
     },
+    privacy_type: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
     image: {
         type: String,
         optional: true
