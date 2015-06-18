@@ -1,7 +1,7 @@
 Template.ReactiveTile.onRendered(function() {
     var template = this;
-    if (typeof this.data.onRenderCallback === 'function') {
-        this.data.onRenderCallback();
+    if (typeof this.data.onTileRender === 'function') {
+        this.data.onTileRender();
     }
     $(template.find('li.pu-reactivetile')).addClass('pu-reactivetile-rendered');
 });
