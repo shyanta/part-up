@@ -313,17 +313,13 @@ Template.app_discover.events({
     'click [data-search]': function(event, template) {
         event.preventDefault();
 
-        if (template.subscription) {
-            template.subscription.stop();
+        if (template.discoverSubscription) {
+            template.discoverSubscription.stop();
         }
 
         var text = template.find('[data-search-query]').value;
 
-        Meteor.call('partups.search', text, function(error, partupIds) {
-            template.subscription = Meteor.subscribe('partups.ids', partupIds);
-        });
-
-        console.log(text);
+        template.discoverSubscription = Meteor.subscribe('partups.discover', {query: text});
     },
     'submit [data-discover-search]': function(event, template) {
         event.preventDefault();
