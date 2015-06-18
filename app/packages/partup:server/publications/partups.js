@@ -64,7 +64,14 @@ Meteor.publishComposite('partups.discover', function(options) {
                     var network = partup.network || {};
 
                     return Networks.find({_id: network._id}, {limit: 1});
-                }
+                },
+                children: [
+                    {
+                        find: function(network) {
+                            return Images.find({_id: network.image}, {limit: 1});
+                        }
+                    }
+                ]
             }
         ]
     };
@@ -92,7 +99,14 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
                     var network = partup.network || {};
 
                     return Networks.find({_id: network._id}, {limit: 1});
-                }
+                },
+                children: [
+                    {
+                        find: function(network) {
+                            return Images.find({_id: network.image}, {limit: 1});
+                        }
+                    }
+                ]
             }
         ]
     };
