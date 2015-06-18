@@ -209,12 +209,15 @@ CustomSelect.prototype.toggle = function() {
 /*************************************************************/
 /* Page initial */
 /*************************************************************/
+var LIMIT_DEFAULT = 50;
+var LIMIT_INCREMENT = 10;
+
 Template.app_discover.onCreated(function() {
     var template = this;
 
-    template.discoverSubscription = template.subscribe('partups.discover', {limit: 50});
+    template.discoverSubscription = template.subscribe('partups.discover', LIMIT_DEFAULT);
 
-    template.limit = new ReactiveVar(50, function(oldValue, newValue) {
+    template.limit = new ReactiveVar(LIMIT_DEFAULT, function(oldValue, newValue) {
         if (oldValue < newValue) {
             template.oldDiscoverSubscription = template.discoverSubscription;
             template.discoverSubscription = template.subscribe('partups.discover', {limit: newValue});
@@ -237,19 +240,12 @@ Template.app_discover.onCreated(function() {
 // page render
 Template.app_discover.onRendered(function() {
     var template = this;
-    var raiseLimit = function() {
-        var limit = template.limit.get();
-        limit = limit + 20;
-        template.limit.set(limit);
-    };
-    var debouncedRaiseLimit = lodash.debounce(raiseLimit, 500, true);
-    template.autorun(function() {
-        var offset = Session.get('window.scrollBottomOffset');
-        if (offset > $(window).height()) return;
-
-        Tracker.nonreactive(function() {
-            debouncedRaiseLimit();
-        });
+    Partup.client.scroll.onBottomOffset({
+        autorunTemplate: template,
+        debounce: 500,
+        offset: $(window).height(),
+    }, function() {
+        Partup.client.reactiveVarHelpers.incrementNumber(template.limit, LIMIT_INCREMENT);
     });
 
     var keywords = document.querySelector('[data-discover-search] [name=keywords]');
