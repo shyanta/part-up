@@ -84,14 +84,9 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     'location.country': {
         type: String
     },
-    network: {
-        type: Object
-    },
-    'network._id': {
-        type: String
-    },
-    'network.name': {
-        type: String
+    network_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
     },
     start_date: {
         type: Date
