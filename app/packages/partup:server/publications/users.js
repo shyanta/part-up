@@ -22,7 +22,7 @@ Meteor.publishComposite('users.loggedin', function() {
 
     return {
         find: function() {
-            return Meteor.users.findSinglePublicProfile(self.userId);
+            return Meteor.users.findSinglePrivateProfile(self.userId);
         },
         children: [
             {
