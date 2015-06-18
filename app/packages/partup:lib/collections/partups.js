@@ -27,7 +27,7 @@ Partup.prototype.isRemovableBy = function(user) {
 /**
  * Check if given user is a supporter of this partup
  *
- * @param {String} partupId
+ * @param {String} userId
  * @return {Boolean}
  */
 Partup.prototype.hasSupporter = function(userId) {
@@ -37,8 +37,8 @@ Partup.prototype.hasSupporter = function(userId) {
 /**
  * Check if given user is an upper in this partup
  *
- * @param {String} partupId
- * @return {Boolen}
+ * @param {String} userId
+ * @return {Boolean}
  */
 Partup.prototype.hasUpper = function(userId) {
     return mout.lang.isString(userId) && this.uppers.indexOf(userId) > -1;
