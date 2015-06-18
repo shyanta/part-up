@@ -311,7 +311,6 @@ Template.app_discover.onRendered(function() {
 Template.app_discover.onDestroyed(function() {
     var template = this;
     template.discoverSubscription.stop();
-    template.countSubscription.stop();
     if (template.oldDiscoverSubscription) template.oldDiscoverSubscription.stop();
 });
 
