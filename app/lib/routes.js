@@ -141,7 +141,6 @@ Router.route('/partups/:_id', {
         var partupId = this.params._id;
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
         return {
@@ -168,7 +167,6 @@ Router.route('/partups/:_id/updates/:update_id', {
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.contributions', partupId);
         this.subscribe('updates.one', updateId);
     },
     data: function() {
@@ -192,7 +190,6 @@ Router.route('/partups/:_id/activities', {
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
         return {
