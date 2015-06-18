@@ -36,6 +36,10 @@ Package.onUse(function(api) {
         'app/discover/discover.html',
         'app/discover/discover.js',
 
+        // App:network
+        'app/network/network.html',
+        'app/network/network.js',
+
         // App:partup
         'app/partup/partup.html',
         'app/partup/partup.js',
@@ -89,6 +93,16 @@ Package.onUse(function(api) {
         // Modal:invite_to_partup
         'modal/invite_to_partup/invite_to_partup.html',
         'modal/invite_to_partup/invite_to_partup.js',
+
+        // Modal:network
+        'modal/network/create_network/create_network.html',
+        'modal/network/create_network/create_network.js',
+        'modal/network/pending_uppers/pending_uppers.html',
+        'modal/network/pending_uppers/pending_uppers.js',
+        'modal/network/upper_overview/upper_overview.html',
+        'modal/network/upper_overview/upper_overview.js',
+        'modal/network/network_details/network_details.html',
+        'modal/network/network_details/network_details.js',
 
         // Modal:create_intro
         'modal/create_intro/create_intro.html',

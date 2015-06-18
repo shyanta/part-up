@@ -60,6 +60,73 @@ Router.route('/profile', {
 });
 
 /*************************************************************/
+/* Networks */
+/*************************************************************/
+Router.route('/networks', {
+    name: 'networks-overview',
+    where: 'client',
+    yieldRegions: {
+        'app':      {to: 'main'}
+    },
+    subscriptions: function() {
+        this.subscribe('networks.all');
+    }
+});
+
+Router.route('/networks/create', {
+    name: 'create-network',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_create_network':    {to: 'modal'}
+    },
+    subscriptions: function() {
+        this.subscribe('networks.list');
+    }
+});
+
+Router.route('/networks/:_id', {
+    name: 'network-detail',
+    where: 'client',
+    yieldRegions: {
+        'app':      {to: 'main'},
+        'app_network': {to: 'app'}
+    },
+    subscriptions: function() {
+        this.subscribe('networks.one', this.params._id);
+    },
+    data: function() {
+        return {
+            networkId: this.params._id
+        };
+    }
+});
+
+Router.route('/networks/:_id/uppers', {
+    name: 'network-uppers',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_network_uppers':    {to: 'modal'}
+    },
+    subscriptions: function() {
+        this.subscribe('networks.one', this.params._id);
+    }
+});
+
+Router.route('/networks/:_id/invite', {
+    name: 'network-invite',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_network_invite':    {to: 'modal'}
+    },
+    subscriptions: function() {
+        this.subscribe('networks.one', this.params._id);
+    }
+});
+
+/*************************************************************/
 /* Partup detail */
 /*************************************************************/
 Router.route('/partups/:_id', {
@@ -227,6 +294,7 @@ Router.route('/start/details', {
     subscriptions: function() {
         var partupId = Session.get('partials.create-partup.current-partup');
         this.subscribe('partups.one', partupId);
+        this.subscribe('networks.user', Meteor.userId());
     }
 });
 

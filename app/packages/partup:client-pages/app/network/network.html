@@ -1,0 +1,25 @@
+<template name="app_network">
+
+    <article class="pu-layout">
+        <div class="pu-sub-pagecontainer">
+            <div class="pu-page">
+
+                <p>Name: {{network.name}}</p>
+                <p>Admin: {{network.admin_id}}</p>
+                <p>Description: {{network.description}}</p>
+                <p>City: {{network.location.city.city}}</p>
+                <p>Country: {{network.location.country}}</p>
+                <p>Website: {{network.website}}</p>
+                <p>Tags: {{network.tags}}</p>
+
+                <p>Uppers: {{network.uppers}}</p>
+                <p>Partups: {{network.partups}}</p>
+                <p>Access level: {{network.access_level}}</p>
+                <p>Created at: {{network.created_at}}</p>
+                <p>Updated at: {{network.updated_at}}</p>
+
+            </div>
+        </div>
+    </article>
+
+</template>

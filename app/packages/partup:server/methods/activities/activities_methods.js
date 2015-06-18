@@ -28,7 +28,7 @@ Meteor.methods({
 
             return {
                 _id: activity._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Activity could not be inserted.');
@@ -67,7 +67,7 @@ Meteor.methods({
 
             return {
                 _id: activity._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'Activity could not be updated.');
@@ -102,7 +102,7 @@ Meteor.methods({
 
             return {
                 _id: activity._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be removed.');
@@ -132,7 +132,7 @@ Meteor.methods({
 
             return {
                 _id: activity._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be unarchived.');
@@ -162,7 +162,7 @@ Meteor.methods({
 
             return {
                 _id: activity._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be archived.');
