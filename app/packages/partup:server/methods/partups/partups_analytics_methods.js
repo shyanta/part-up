@@ -15,10 +15,19 @@ Meteor.methods({
         if (ip === last_ip) return;
 
         var clicks_per_hour = mout.object.get(partup, 'analytics.clicks_per_hour') || (new Array(25).join('0').split('').map(parseFloat));
+        var clicks_total = mout.object.get(partup, 'analytics.clicks_total') || 0;
+        var clicks_per_day = mout.object.get(partup, 'analytics.clicks_per_day') || 0;
 
         clicks_per_hour[hour] = parseInt(clicks_per_hour[hour] + 1);
+        clicks_total++;
+        clicks_per_day++;
 
-        Partups.update({_id: partupId}, {$set: {'analytics.clicks_per_hour': clicks_per_hour, 'analytics.last_ip': ip}});
+        Partups.update({_id: partupId}, {$set: {
+            'analytics.clicks_total': clicks_total,
+            'analytics.clicks_per_day': clicks_per_day,
+            'analytics.clicks_per_hour': clicks_per_hour,
+            'analytics.last_ip': ip
+        }});
     }
 
 });
