@@ -18,7 +18,7 @@ Meteor.methods({
             newNetwork.created_at = new Date();
             newNetwork.updated_at = new Date();
 
-            check(newNetwork, Network.schemas.entities.network);
+            check(newNetwork, Partup.schemas.entities.network);
 
             Networks.insert(newNetwork);
             Meteor.users.update(user._id, {$push: {networks: newNetwork._id}});

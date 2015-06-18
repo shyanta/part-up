@@ -1,16 +1,35 @@
 <template name="app_discover">
 
-    <article class="pu-layout">
-        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
-            <div class="pu-page pu-page-full">
+    <article class="pu-layout pu-app-discover">
 
+        <header class="discover-search">
+            <div class="pu-wrap">
+                <form data-discover-search>
+                    <label for="discover-keywords">Laat mij zien</label>
+                    <input id="discover-keywords" class="pu-input" name="keywords" data-search-query>
+                    <label for="discover-network">Part-ups in</label>
+                    <select id="discover-network" name="network">
+                        <option value="">Netwerk</option>
+                    </select>
+                    <label for="discover-city">uit</label>
+                    <select id="discover-city" name="city">
+                        <option value="">Stad</option>
+                    </select>
+                    <label for="discover-sort">gesorteerd op</label>
+                    <select id="discover-sort" name="sort">
+                        <option value="match">Beste match</option>
+                    </select>
+                    <input type="submit" value="Versturen" data-search>
+                </form>
+            </div>
+        </header>
+
+        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
+
+            <div class="pu-page pu-page-full">
                 <section class="pu-composition pu-composition-discover">
                     <header>
-                        <!-- <input type="text" data-search-query />
-                        <input type="submit" value="Versturen" data-search /> -->
-                        <h2 class="pu-title pu-title-home">
-                            Discover
-                        </h2>
+                        <h2 class="pu-title pu-title-home">Discover</h2>
                     </header>
                     {{#if partups }}
                         {{> ReactiveLayout
@@ -23,7 +42,6 @@
                         }}
                     {{/if}}
                 </section>
-
             </div>
         </div>
     </article>
