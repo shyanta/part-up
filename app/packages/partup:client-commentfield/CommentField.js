@@ -41,16 +41,7 @@ Template.CommentField.helpers({
             hiddenComments && !commentsExpanded;
     },
     showCommentForm: function() {
-        if (!Meteor.user()) return false;
-        var template = Template.instance();
-        var update = this.update;
-        if (!update) return false;
-
-        var expandedOnDefault = template.data.COMMENTS_EXPANDED;
-        var commentsPresent = update.comments && update.comments.length > 0;
-        var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
-
-        return commentsPresent && !lastCommentIsSystemMessage;
+        return Template.instance().data.showCommentForm;
     },
     shownComments: function helperShownComments() {
         var allComments = this.update.comments || [];

@@ -73,20 +73,16 @@ Template.Update.helpers({
 
         return __(titleKey);
     },
-    showCommentButton: function() {
-        if (!Meteor.user()) return false;
+
+    showCommentForm: function() {
         var template = Template.instance();
         var update = template.update.get();
-        if (!update) return false;
+        if (!update) return;
 
-        var expandedOnDefault = template.data.COMMENTS_EXPANDED;
-        var commentIsExpanded = template.commentInputFieldExpanded.get();
         var commentsPresent = update.comments && update.comments.length > 0;
+        var commentButtonPressed = template.commentInputFieldExpanded.get();
         var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
-
-        return expandedOnDefault ||
-            commentIsExpanded ||
-            (commentsPresent && !lastCommentIsSystemMessage);
+        return (commentsPresent && !lastCommentIsSystemMessage) || commentButtonPressed;
     },
 
     isUpper: function helperIsUpper () {
