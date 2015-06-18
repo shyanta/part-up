@@ -38,7 +38,7 @@ Network.prototype.hasMember = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.isPublic = function() {
-    return this.privacy_type === PUBLIC_OPEN;
+    return this.privacy_type === NETWORK_PUBLIC;
 };
 
 /**
@@ -47,7 +47,7 @@ Network.prototype.isPublic = function() {
  * @return {Boolean}
  */
 Network.prototype.isInvitational = function() {
-    return this.privacy_type === PRIVATE_INVITE;
+    return this.privacy_type === NETWORK_INVITE;
 };
 
 /**
@@ -56,7 +56,7 @@ Network.prototype.isInvitational = function() {
  * @return {Boolean}
  */
 Network.prototype.isClosed = function() {
-    return this.privacy_type === PRIVATE_CLOSED;
+    return this.privacy_type === NETWORK_CLOSED;
 };
 
 /**
