@@ -139,13 +139,7 @@
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-form-network-label' }}</span>
             <div class="pu-inputholder pu-inputholder-righticon">
-                <select class="pu-select">
-                    <option value="1">Iedereen</option>
-                    <option value="2">Uitgenodigde Uppers (alleen voor Super Upper accounts</option>
-                    {{#each networks}}
-                        <option value="{{_id}}">{{name}}</option>
-                    {{/each}}
-                </select>
+                {{> afFieldInput type='select' name='privacy_type' class="pu-input pu-input-select" options=networkOptions }}
                 <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
             </div>
             <a class="pu-hint pu-tooltip">

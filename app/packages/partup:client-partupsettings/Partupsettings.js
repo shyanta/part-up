@@ -182,8 +182,26 @@ Template.Partupsettings.helpers({
     draggingFocuspoint: function() {
         return Template.instance().draggingFocuspoint.get();
     },
-    networks: function() {
-        return Networks.find().fetch();
+    networkOptions: function() {
+        var options = [
+            {
+                label: __('partupsettings-form-privacy-public'), // todo: i18n
+                value: 'public'
+            },
+            {
+                label: __('partupsettings-form-privacy-private'), // todo: i18n
+                value: 'private'
+            }
+        ];
+        var networks = Networks.find().fetch();
+        _.each(networks, function(network) {
+            options.push({
+                label: network.name,
+                value: network._id
+            });
+        });
+
+        return options;
     }
 });
 
