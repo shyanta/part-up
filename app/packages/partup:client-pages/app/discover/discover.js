@@ -212,16 +212,16 @@ CustomSelect.prototype.toggle = function() {
 Template.app_discover.onCreated(function() {
     var template = this;
 
-    template.discoverSubscription = template.subscribe('partups.discover', 50);
+    template.discoverSubscription = template.subscribe('partups.discover', {limit: 50});
 
     template.limit = new ReactiveVar(50, function(oldValue, newValue) {
         if (oldValue < newValue) {
             template.oldDiscoverSubscription = template.discoverSubscription;
-            template.discoverSubscription = template.subscribe('partups.discover', newValue);
+            template.discoverSubscription = template.subscribe('partups.discover', {limit: newValue});
         } else if (oldValue > newValue) {
             template.discoverSubscription.stop();
             template.oldDiscoverSubscription.stop();
-            template.discoverSubscription = template.subscribe('partups.discover', newValue);
+            template.discoverSubscription = template.subscribe('partups.discover', {limit: newValue});
         }
     });
 

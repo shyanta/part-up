@@ -1,16 +1,33 @@
-Meteor.publishComposite('partups.discover', function(limit) {
+Meteor.publishComposite('partups.discover', function(options) {
+    var options = options || {};
+    var limit = options.limit || 20;
+    var query = options.query || false;
+
     return {
         find: function() {
-            check(limit, Number);
+            var selector = {};
+            var options = {};
 
-            return Partups.find({}, {limit: limit});
+            // Set limit for pagination
+            options.limit = limit;
+
+            // Enable full text search by query
+            if (query) {
+                Log.debug('Searching for [' + query + ']');
+
+                selector['$text'] = {$search: query};
+                options.fields = {score: {$meta: 'textScore'}};
+                options.sort = {score: {$meta: 'textScore'}};
+            }
+
+            return Partups.find(selector, options);
         },
         children: [
             {
                 find: function(partup) {
                     var uppers = partup.uppers || [];
 
-                    // We only want to publish the first x uppers as can be seen in the design
+                    // We only want to publish the first x uppers
                     uppers = uppers.slice(0, 4);
 
                     return Meteor.users.findMultiplePublicProfiles(uppers);
