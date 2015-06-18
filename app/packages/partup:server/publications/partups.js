@@ -1,4 +1,4 @@
-Meteor.publishComposite('partups.limit', function(limit) {
+Meteor.publishComposite('partups.discover', function(limit) {
     return {
         find: function() {
             check(limit, Number);

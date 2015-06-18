@@ -3,11 +3,11 @@
 /*************************************************************/
 Template.app_discover.onCreated(function() {
     var template = this;
-    template.limitedPartupsSubscription = template.subscribe('partups.limit', 20);
+    template.limitedPartupsSubscription = template.subscribe('partups.discover', 20);
     template.limit = new ReactiveVar(20, function(a, b) {
         if (a < b) {
             var oldSubscription = template.limitedPartupsSubscription;
-            template.limitedPartupsSubscription = template.subscribe('partups.limit', b);
+            template.limitedPartupsSubscription = template.subscribe('partups.discover', b);
             oldSubscription.stop();
         }
     });
