@@ -40,6 +40,8 @@ Package.onUse(function(api) {
         'client/focuslayer.js',
         'client/datepicker.js',
         'client/reactivedate.js',
+        'client/reactiveVarHelpers.js',
+        'client/scroll.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',
