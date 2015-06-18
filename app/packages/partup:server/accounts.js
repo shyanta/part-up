@@ -79,7 +79,7 @@ Accounts.onCreateUser(function(options, user) {
         console.log('Setting user image', image);
     }
 
-    profile.completeness = 0;
+    user.completeness = 0;
 
     user.profile = profile;
 

@@ -9,9 +9,14 @@ Event.on('users.updated', function(userId, fields) {
             Meteor.users.update(userId, {$set: {'profile.settings.optionalDetailsCompleted': true}});
         }
 
-        // Calculate new registration percentage
+        // Calculate new profile completeness percentage
+        var totalValues = 0;
         var providedValues = 0;
+
         _.each(fields, function(value, key) {
+            // skip all non-profile values
+            if (!/^profile\./.test(key)) return;
+
             if (_.isObject(value)) {
                 var doesContainValue = !mout.object.every(value, function(objectValue) {
                     return !objectValue;
@@ -20,8 +25,10 @@ Event.on('users.updated', function(userId, fields) {
             } else if (value !== undefined && value !== '' && value !== null) {
                 providedValues++;
             }
+            totalValues++;
         });
-        var profileCompleteness = Math.round(providedValues / Object.keys(fields).length * 100);
+
+        var profileCompleteness = Math.round((providedValues * 100) / totalValues);
         Meteor.users.update(userId, {$set: {completeness: profileCompleteness}});
     }
 });

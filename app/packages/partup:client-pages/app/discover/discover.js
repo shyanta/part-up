@@ -216,6 +216,7 @@ Template.app_discover.onCreated(function() {
     var template = this;
 
     template.discoverSubscription = template.subscribe('partups.discover', LIMIT_DEFAULT);
+    template.countSubscription = template.subscribe('partups.count');
 
     template.limit = new ReactiveVar(LIMIT_DEFAULT, function(oldValue, newValue) {
         if (oldValue < newValue) {
@@ -278,6 +279,7 @@ Template.app_discover.onRendered(function() {
 Template.app_discover.onDestroyed(function() {
     var template = this;
     template.discoverSubscription.stop();
+    template.countSubscription.stop();
     if (template.oldDiscoverSubscription) template.oldDiscoverSubscription.stop();
 });
 
@@ -295,6 +297,27 @@ Template.app_discover.helpers({
         // var filter = Session.get('filter');
         // return Math.round(new Date().getTime());
         return Session.get('refreshDate');
+    },
+    showProfileCompletion: function() {
+        var user = Meteor.user();
+        if (!user) return false;
+        if (!user.completeness) return false;
+        return user.completeness < 100;
+    },
+    profileCompletion: function() {
+        var user = Meteor.user();
+        if (!user) return false;
+        if (!user.completeness) return '...';
+        return user.completeness;
+    },
+
+    totalNumberOfPartups: function totalNumberOfPartups() {
+        var count =  Counts.get('partups');
+        if (count) {
+            return count;
+        } else {
+            return '...';
+        }
     }
 });
 
