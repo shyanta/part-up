@@ -153,7 +153,6 @@ tmeasday:publish-counts@0.3.9
 tracker@1.0.7
 ui@1.0.6
 underscore@1.0.3
-underscorestring:underscore.string@3.0.3
 url@1.0.4
 velocity:chokidar@0.12.6_1
 velocity:core@0.6.1
@@ -162,4 +161,4 @@ velocity:meteor-internals@1.1.0_7
 velocity:shim@0.1.0
 webapp@1.2.0
 webapp-hashing@1.0.3
-zimme:iron-router-active@1.0.4
+zimme:active-route@2.1.0

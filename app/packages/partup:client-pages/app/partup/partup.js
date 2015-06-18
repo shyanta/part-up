@@ -18,7 +18,8 @@ Template.app_partup.onCreated(function() {
         };
 
         if (partup.image) {
-            var imageUrl = Images.findOne({_id: partup.image}).url();
+            var image = Images.findOne({_id: partup.image});
+            var imageUrl = image.url();
             if (imageUrl) seo.meta.image = imageUrl;
         }
         SEO.set(seo);

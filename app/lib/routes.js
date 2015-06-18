@@ -172,14 +172,9 @@ Router.route('/partups/:_id/updates/:update_id', {
         this.subscribe('updates.one', updateId);
     },
     data: function() {
-        var partup = Partups.findOne({_id: this.params._id});
-        var image;
-        if (partup) {
-            image = Images.findOne({_id: partup.image});
-        }
         return {
-            partup: partup,
-            image: image
+            partupId: this.params._id,
+            updateId: this.params.update_id
         };
     }
 });
@@ -200,14 +195,8 @@ Router.route('/partups/:_id/activities', {
         this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
-        var partup = Partups.findOne({_id: this.params._id});
-        var image;
-        if (partup) {
-            image = Images.findOne({_id: partup.image});
-        }
         return {
-            partup: partup,
-            image: image
+            partupId: this.params._id
         };
     }
 });

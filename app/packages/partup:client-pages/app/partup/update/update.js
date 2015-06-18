@@ -1,9 +1,6 @@
 Template.app_partup_update.helpers({
-    update_id: function() {
-        return Router.current().params.update_id;
-    },
     metaDataForUpdate: function() {
-        var update = Updates.findOne({_id: Router.current().params.update_id});
+        var update = Updates.findOne({_id: this.updateId});
         if (!update) return {};
 
         var updateUpper = Meteor.users.findOne({_id: update.upper_id});

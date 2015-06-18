@@ -11,61 +11,50 @@
  * @param {Boolean} FORCE_COMMENTFORM   always show the comment form
  */
 // jscs:enable
-
 /*************************************************************/
-/* Widget onCreated */
+/* Widget created */
 /*************************************************************/
 Template.Update.onCreated(function() {
     var template = this;
     template.commentInputFieldExpanded = new ReactiveVar(false);
-
-    // Make it reactive
-    template.update = new ReactiveVar(false);
-    template.autorun(function() {
-        var updates = Updates.find({_id: template.data.updateId});
-        var update = updates.fetch()[0];
-        template.update.set(update);
-    });
 });
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.Update.helpers({
-    update: function helperUpdate() {
-        return Template.instance().update.get();
+    update: function() {
+        var update = Updates.findOne({_id: this.updateId});
+        return update;
     },
-    partupId: function helperPartupId () {
-        return Router.current().params._id;
-    },
-    activityData: function helperActivityData () {
-        var update = Template.instance().update.get();
+    activityData: function() {
+        var update = Updates.findOne({_id: this.updateId});
         if (!update) return;
 
         var activityId = update.type_data.activity_id;
         return Activities.findOne({_id: activityId});
     },
     isActivityUpdate: function() {
-        var update = Template.instance().update.get();
+        var update = Updates.findOne({_id: this.updateId});
         if (!update) return;
 
         return /^partups_activities/.test(update.type) ||
             (update.type === 'partups_comments_added' && !update.type_data.contribution_id);
     },
     isContributionUpdate: function() {
-        var update = Template.instance().update.get();
+        var update = Updates.findOne({_id: this.updateId});
         if (!update) return;
 
         return /^partups_(contributions|ratings)/.test(update.type) ||
             (update.type === 'partups_comments_added' && update.type_data.contribution_id);
     },
-    isDetail: function helperIsDetail () {
-        return !!Router.current().params.update_id;
+    isDetail: function() {
+        return !!this.updateId;
     },
-    isNotDetail: function helperIsDetail () {
-        return !Router.current().params.update_id;
+    isNotDetail: function() {
+        return !this.updateId;
     },
-    title: function helperTitle() {
+    title: function() {
         var titleKey = 'update-type-' + this.metadata.update_type + '-title';
 
         if (this.metadata.update_type === 'partups_invited') {
@@ -76,10 +65,10 @@ Template.Update.helpers({
     },
 
     showCommentForm: function() {
-        var template = Template.instance();
-        var update = template.update.get();
+        var update = Updates.findOne({_id: this.updateId});
         if (!update) return;
 
+        var template = Template.instance();
         var commentsPresent = update.comments && update.comments.length > 0;
         var commentButtonPressed = template.commentInputFieldExpanded.get();
         var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
@@ -88,11 +77,11 @@ Template.Update.helpers({
             template.data.FORCE_COMMENTFORM;
     },
 
-    isUpper: function helperIsUpper () {
+    isUpper: function() {
         var user = Meteor.user();
         if (!user) return false;
 
-        var partup = Partups.findOne(Router.current().params._id);
+        var partup = Partups.findOne(this.updateId);
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
@@ -104,7 +93,7 @@ Template.Update.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Update.events({
-    'click [data-expand-comment-field]': function eventClickExpandCommentField (event, template) {
+    'click [data-expand-comment-field]': function(event, template) {
         template.commentInputFieldExpanded.set(true);
     }
 });

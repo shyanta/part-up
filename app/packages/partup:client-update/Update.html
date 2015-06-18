@@ -6,12 +6,11 @@
             <!-- User -->
             <figure class="pu-avatar pu-avatar-label">
                 <a href="#" rel="author" data-usercard="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#with metadata.updateUpper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with}}"></a>
-                <!-- <span class="pu-sub-label">{{ metadata.updateUpper.profile.name }}</span> -->
             </figure>
 
             <!-- Time -->
             <p class="pu-sub-time">
-                <time datetime="{{ partupDateISO update.updated_at }}" title="{{ partupDateFull metadata.updated_at }}">{{ partupDatePartupActivity metadata.updated_at }}</time>
+                <time datetime="{{ partupDateISO metadata.updated_at }}" title="{{ partupDateFull metadata.updated_at }}">{{ partupDatePartupActivity metadata.updated_at }}</time>
             </p>
         </aside>
         <section>
@@ -186,9 +185,9 @@
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
-            {{#unless metadata.is_contribution }}
+            <!-- {{#unless metadata.is_contribution }}
                 {{> CommentField update=update showCommentForm=showCommentForm COMMENTS_EXPANDED=COMMENTS_EXPANDED}}
-            {{/unless }}
+            {{/unless }} -->
         </section>
     </section>
 

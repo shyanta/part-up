@@ -5,13 +5,14 @@
             <!-- Header buttons -->
             <header class="pu-pageheader">
                 <section>
-                    <a class="pu-button" href="{{pathFor 'partup' _id=partup._id}}">
+                    <a class="pu-button" href="{{pathFor 'partup' _id=partupId}}">
                         {{_ 'pages-app-partup-update-back_to_overview' }}
                     </a>
                 </section>
             </header>
-            {{#if update_id}}
-                {{> Update LINK=false updateId=update_id metadata=metaDataForUpdate FORCE_COMMENTFORM=true COMMENTS_EXPANDED=true }}
+            {{#if updateId}}
+
+                {{> Update LINK=false updateId=updateId metadata=metaDataForUpdate FORCE_COMMENTFORM=true COMMENTS_EXPANDED=true }}
             {{/if}}
 
         </div>
