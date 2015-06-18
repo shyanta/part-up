@@ -84,16 +84,6 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
     };
 });
 
-Meteor.publishComposite('partups.all.activities', function() {
-    return {
-        find: function() {
-            return Partups.find();
-        },
-        children: [
-        ]
-    };
-});
-
 Meteor.publish('partups.list', function() {
     return Partups.find({}, {_id: 1, name: 1});
 });
