@@ -10,21 +10,21 @@
  */
 
  // generates a reactive column array based on TOTAL_COLUMNS constante
-var generateColumns = function(totalColumns, reactiveColumnsArray) {
-    var columnArray = reactiveColumnsArray.get();
+var generateColumns = function(totalColumns) {
+    var columnArray = [];
     for (var i = 0; i < totalColumns; i++) {
         columnArray.push([]);
     };
-    reactiveColumnsArray.set(columnArray);
+    return new ReactiveVar(columnArray);
 };
 
 // compare all columns and return the index of the smallest
-var getShortestColumn = function(template) {
+var getShortestColumnIndex = function(template) {
     var init = true;
     var prevHeight = 0;
     var smallestColumnIndex = 0;
 
-    $(template.findAll('[data-layout] > ul')).each(function(index) {
+    template.columnElements.each(function(index) {
         var thisHeight = $(this).height();
         if (thisHeight < prevHeight || init) {
             init = false;
@@ -36,42 +36,41 @@ var getShortestColumn = function(template) {
     return smallestColumnIndex;
 };
 
-// compare all columns and return the height of the largest
-var getLargestColumnHeight = function(template) {
-    var prevHeight = 0;
-    var largestColumnHeight;
+// // compare all columns and return the height of the largest
+// var getLargestColumnHeight = function(template) {
+//     var prevHeight = 0;
+//     var largestColumnHeight;
 
-    $(template.findAll('[data-layout] > ul')).each(function(item) {
-        var thisHeight = $(this).height();
-        if (thisHeight > prevHeight) {
-            prevHeight = thisHeight;
-            largestColumnHeight = thisHeight;
-        }
-    });
-    return largestColumnHeight;
-};
+//     template.columnElements.each(function(item) {
+//         var thisHeight = $(this).height();
+//         if (thisHeight > prevHeight) {
+//             prevHeight = thisHeight;
+//             largestColumnHeight = thisHeight;
+//         }
+//     });
+//     return largestColumnHeight;
+// };
 
-var compensateHeight = function(template) {
-    $(template.find('[data-layout]')).height(getLargestColumnHeight(template));
-};
+// var compensateHeight = function(template) {
+//     $(template.find('[data-layout]')).height(getLargestColumnHeight(template));
+// };
 
 // on created, initializer
 Template.ReactiveLayout.onCreated(function() {
     var template = this;
     // Session.set('footerEnabled', false);
     template.resetLayout = function(refreshDate, data) {
-        // create columns Array based on the TOTAL_COLUMNS constante
-        var columns = new ReactiveVar([]);
-        generateColumns(data.TOTAL_COLUMNS, columns);
-
         // total tiles rendered
         template.count = 0;
+
         // total items in items array
         template.total = data.items.length;
 
+        //
         template.refreshDate = refreshDate;
 
-        template.columns = columns;
+        // create columns Array based on the TOTAL_COLUMNS constante
+        template.columns = generateColumns(data.TOTAL_COLUMNS);
     };
 
     template.resetLayout(template.data.refresh_date, template.data);
@@ -85,7 +84,7 @@ Template.ReactiveLayout.onCreated(function() {
         template.count++;
 
         // index of the smallest rendered column
-        var index = getShortestColumn(template);
+        var index = getShortestColumnIndex(template);
 
         // column array
         var columnData = template.columns.get();
@@ -97,8 +96,8 @@ Template.ReactiveLayout.onCreated(function() {
         template.columns.set(columnData);
     };
 
-    // when a ReactiveTile is rendered, the onRenderCallback is fired
-    template.onRenderCallback = function() {
+    // when a ReactiveTile is rendered, the onTileRender is fired
+    template.onTileRender = function() {
         template.addTile();
     };
 });
@@ -106,6 +105,9 @@ Template.ReactiveLayout.onCreated(function() {
 // when the template is rendered
 Template.ReactiveLayout.onRendered(function() {
     var template = this;
+
+    // by now the column elements are rendered, find all for use later on
+    template.columnElements = $(template.findAll('[data-layout] > ul'));
 
     template.initialize = function(refreshDate, data) {
         template.resetLayout(refreshDate, data);
@@ -127,17 +129,8 @@ Template.ReactiveLayout.onRendered(function() {
             template.total = data.items.length;
             template.addTile();
         }
-        // if (data.refresh_date > template.refreshDate) {
-        //     console.log('refresh', data);
-        //     template.initialize(data.refresh_date, data);
-        // }
     });
 
-});
-
-Template.ReactiveLayout.onDestroyed(function() {
-    var template = this;
-    // Session.set('footerEnabled', true);
 });
 
 Template.ReactiveLayout.helpers({
@@ -155,7 +148,7 @@ Template.ReactiveLayout.helpers({
         dataObj[Template.instance().data.ITEM_DATA_KEY] = this;
         return dataObj;
     },
-    onRenderCallback: function() {
-        return Template.instance().onRenderCallback;
+    onTileRender: function() {
+        return Template.instance().onTileRender;
     }
 });
