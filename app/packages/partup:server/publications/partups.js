@@ -90,25 +90,12 @@ Meteor.publishComposite('partups.all.activities', function() {
             return Partups.find();
         },
         children: [
-            {
-                find: function(partup) {
-                    return Activities.find({partup_id: partup._id});
-                }
-            }
         ]
     };
 });
 
 Meteor.publish('partups.list', function() {
     return Partups.find({}, {_id: 1, name: 1});
-});
-
-Meteor.publishComposite('partups.one.activities', function(partupId) {
-    return {
-        find: function() {
-            return Activities.find({partup_id: partupId});
-        }
-    };
 });
 
 Meteor.publishComposite('partups.one.contributions', function(partupId) {
@@ -210,6 +197,11 @@ Meteor.publishComposite('partups.one', function(partupId) {
             {
                 find: function(partup) {
                     return Images.find({_id: partup.image}, {limit: 1});
+                }
+            },
+            {
+                find: function(partup) {
+                    return Activities.find({partup_id: partup._id});
                 }
             },
             {

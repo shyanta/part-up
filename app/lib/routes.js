@@ -141,7 +141,6 @@ Router.route('/partups/:_id', {
         var partupId = this.params._id;
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
@@ -189,7 +188,6 @@ Router.route('/partups/:_id/updates/:update_id', {
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
         this.subscribe('updates.one', updateId);
     },
@@ -219,7 +217,6 @@ Router.route('/partups/:_id/activities', {
 
         this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
-        this.subscribe('partups.one.activities', partupId);
         this.subscribe('partups.one.contributions', partupId);
     },
     data: function() {
@@ -302,7 +299,6 @@ Router.route('/start/:_id/activities', {
     },
     subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
-        this.subscribe('partups.one.activities', this.params._id);
         this.subscribe('partups.list');
     },
     action: function() {
