@@ -298,6 +298,12 @@ Template.app_discover.helpers({
         // return Math.round(new Date().getTime());
         return Session.get('refreshDate');
     },
+    showProfileCompletion: function() {
+        var user = Meteor.user();
+        if (!user) return false;
+        if (!user.completeness) return false;
+        return user.completeness < 100;
+    },
     profileCompletion: function() {
         var user = Meteor.user();
         if (!user) return false;
