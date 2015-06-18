@@ -2,6 +2,7 @@ Meteor.publishComposite('partups.discover', function(options) {
     var options = options || {};
     var limit = options.limit || 20;
     var query = options.query || false;
+    var location = options.location || false;
 
     return {
         find: function() {
@@ -11,7 +12,12 @@ Meteor.publishComposite('partups.discover', function(options) {
             // Set limit for pagination
             options.limit = limit;
 
-            // Enable full text search by query
+            // Filter the partups that are in a given location
+            if (location) {
+                selector['location.city'] = location;
+            }
+
+            // Filter the partups that match the search query
             if (query) {
                 Log.debug('Searching for [' + query + ']');
 
