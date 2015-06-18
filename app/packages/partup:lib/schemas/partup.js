@@ -86,6 +86,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     },
     network_id: {
         type: String,
+        optional: true,
         regEx: SimpleSchema.RegEx.Id
     },
     start_date: {
