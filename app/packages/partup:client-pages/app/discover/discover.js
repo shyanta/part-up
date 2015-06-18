@@ -221,16 +221,12 @@ Template.app_discover.onCreated(function() {
         if (oldValue < newValue) {
             template.oldDiscoverSubscription = template.discoverSubscription;
             template.discoverSubscription = template.subscribe('partups.discover', {limit: newValue});
+            template.oldDiscoverSubscription.stop();
         } else if (oldValue > newValue) {
             template.discoverSubscription.stop();
             template.oldDiscoverSubscription.stop();
             template.discoverSubscription = template.subscribe('partups.discover', {limit: newValue});
         }
-    });
-
-    template.autorun(function() {
-        if (!template.discoverSubscription.ready()) return;
-        if (template.oldDiscoverSubscription) template.oldDiscoverSubscription.stop();
     });
 
     template.filter = new ReactiveVar('none');
