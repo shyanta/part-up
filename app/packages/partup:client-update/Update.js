@@ -28,7 +28,8 @@ Template.Update.helpers({
         return update;
     },
     activityData: function() {
-        var update = Updates.findOne({_id: this.updateId});
+        var updateId = Template.instance().data.updateId;
+        var update = Updates.findOne({_id: updateId});
         if (!update) return;
 
         var activityId = update.type_data.activity_id;
@@ -49,10 +50,10 @@ Template.Update.helpers({
             (update.type === 'partups_comments_added' && update.type_data.contribution_id);
     },
     isDetail: function() {
-        return !!this.updateId;
+        return !!Template.instance().data.updateId;
     },
     isNotDetail: function() {
-        return !this.updateId;
+        return !Template.instance().data.updateId;
     },
     title: function() {
         var titleKey = 'update-type-' + this.metadata.update_type + '-title';
@@ -81,7 +82,7 @@ Template.Update.helpers({
         var user = Meteor.user();
         if (!user) return false;
 
-        var partup = Partups.findOne(this.updateId);
+        var partup = Partups.findOne(Template.instance().data.updateId);
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
