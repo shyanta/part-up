@@ -248,3 +248,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
         ]
     };
 });
+
+Meteor.publish('partups.count', function() {
+    Counts.publish(this, 'partups', Partups.find());
+});
