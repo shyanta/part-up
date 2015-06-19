@@ -66,10 +66,21 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
 /**
  * Partups collection helpers
  */
-Partups.recent = function(options) {
-    var criteria = {sort: {created_at: -1}, limit: 10};
+Partups.guardedFind = function(userId, selector, options) {
+    // Guard that sh!t
+    var guardingSelector = {'$or': [
+        // Either the partup is public or belongs to a public network
+        {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}},
 
-    options = mout.object.merge(options, criteria);
+        // Or the user is part of the partup uppers, which means he has access anyway
+        {'uppers': {'$in': [userId]}},
 
-    return this.find({}, options);
+        // Of course the creator of a partup always has the needed rights
+        {'creator_id': userId}
+    ]};
+
+    // Merge the selectors, so we still use the initial selector provided by the caller
+    var finalSelector = {'$and': [guardingSelector, selector]};
+
+    return this.find(finalSelector, options);
 };

@@ -1,4 +1,6 @@
 Meteor.publishComposite('partups.discover', function(options) {
+    var self = this;
+
     var options = options || {};
     var limit = options.limit || 20;
     var query = options.query || false;
@@ -46,7 +48,7 @@ Meteor.publishComposite('partups.discover', function(options) {
                 options.sort['score'] = {$meta: 'textScore'};
             }
 
-            return Partups.find(selector, options);
+            return Partups.guardedFind(self.userId, selector, options);
         },
         children: [
             {
