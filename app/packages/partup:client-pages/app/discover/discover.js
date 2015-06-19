@@ -250,76 +250,41 @@ CustomSelect.prototype.toggle = function() {
     this.valueWrap.classList.toggle('pu-state-expanded');
 };
 
-/*************************************************************/
-/* Page initial */
-/*************************************************************/
-var LIMIT_DEFAULT = 50;
-var LIMIT_INCREMENT = 10;
+/**
+ * Discover template javascript logic
+ */
+var PARTUPS_SUBSCRIPTION_STARTING_LIMIT = 8;
+var PARTUPS_SUBSCRIPTION_INCREMENT = 4;
 
 Template.app_discover.onCreated(function() {
-    var template = this;
-    template.discoverSubscription = template.subscribe('partups.discover', {});
-    template.filterOptions = {};
+    var tpl = this;
 
-    // updates subscription with new options
-    // just pass any valid option in an object {query:'jaja'} or {query:'jaja', sort:'new'}
-    // it won't reset options that arent passed
-    // limit is reset to the LIMIT_DEFAULT constant when this is called
-    template.updateSubscriptionFilter = function(newOptions) {
-        template.discoverSubscription.stop();
-        var options = template.filterOptions;
-        options.limit = LIMIT_DEFAULT;
-
-        for (key in newOptions) {
-            options[key] = newOptions[key];
-        }
-        template.filterOptions = options;
-
-        // this fixed it jesse, sorry
-        Meteor.setTimeout(function() {
-            template.discoverSubscription = Meteor.subscribe('partups.discover', options);
-        }, 500);
-    };
-    // update the subscription limit, this is seperate for infinite scroll behaviour
-    template.updateSubscriptionLimit = function(limit) {
-        if (template.discoverSubscription) {
-            template.oldDiscoverSubscription = template.discoverSubscription;
-        }
-        var options = template.filterOptions;
-        options.limit = limit;
-
-        template.filterOptions = options;
-        template.discoverSubscription = Meteor.subscribe('partups.discover', options);
-        template.oldDiscoverSubscription.stop();
-    };
-    // this resets all subscription options
-    template.resetSubscriptions = function() {
-        template.discoverSubscription.stop();
-        Meteor.setTimeout(function() {
-            template.discoverSubscription = Meteor.subscribe('partups.discover', {limit:LIMIT_DEFAULT});
-        }, 500);
-    };
-
-    template.limit = new ReactiveVar(LIMIT_DEFAULT, function(oldValue, newValue) {
-        template.updateSubscriptionLimit(newValue);
+    // Create reactive-var for subscription options and extend it
+    tpl.partupsSubscriptionOptions = new ReactiveVar({
+        limit: PARTUPS_SUBSCRIPTION_STARTING_LIMIT
     });
 
-    template.filter = new ReactiveVar({}, function(oldValue, newValue) {
-        template.updateSubscriptionFilter(newValue);
+    // Subscribe (and re-subscribe on options change)
+    tpl.autorun(function() {
+        var options = tpl.partupsSubscriptionOptions.get();
+        tpl.subscribe('partups.discover', options);
     });
 
-    Session.set('refreshDate', Math.round(new Date().getTime()));
+    // Function to increase the limit
+    tpl.increasePartupsLimit = function() {
+        var o = tpl.partupsSubscriptionOptions.get();
+        o.limit += PARTUPS_SUBSCRIPTION_INCREMENT;
+        tpl.partupsSubscriptionOptions.set(o);
+    };
 });
-// page render
+
 Template.app_discover.onRendered(function() {
-    var template = this;
+    var tpl = this;
     Partup.client.scroll.onBottomOffset({
-        autorunTemplate: template,
+        autorunTemplate: tpl,
         debounce: 500,
         offset: $(window).height(),
-    }, function() {
-        Partup.client.reactiveVarHelpers.incrementNumber(template.limit, LIMIT_INCREMENT);
-    });
+    }, tpl.increasePartupsLimit);
 
     var keywords = document.querySelector('[data-discover-search] [name=keywords]');
     var network = document.querySelector('[data-discover-search] [name=network]');
@@ -351,28 +316,13 @@ Template.app_discover.onRendered(function() {
 
     new CustomSelect(sort);
 });
-// page destroy
-Template.app_discover.onDestroyed(function() {
-    var template = this;
-    template.discoverSubscription.stop();
-    if (template.oldDiscoverSubscription) template.oldDiscoverSubscription.stop();
-});
 
-/*************************************************************/
-/* Page helpers */
-/*************************************************************/
 Template.app_discover.helpers({
     partups: function() {
-        // var subscription = Template.instance().discoverSubscription.ready();
-        // if(!subscription) return false;
-        var partups = Partups.find().fetch();
-        console.log(partups);
-        return partups;
+        return Partups.find().fetch();
     },
     refreshDate: function() {
-        // var filter = Session.get('filter');
-        // return Math.round(new Date().getTime());
-        return Session.get('refreshDate');
+        return new Date().getTime();
     },
     showProfileCompletion: function() {
         var user = Meteor.user();
@@ -387,7 +337,7 @@ Template.app_discover.helpers({
         return user.completeness;
     },
 
-    totalNumberOfPartups: function totalNumberOfPartups() {
+    totalNumberOfPartups: function() {
         var count =  Counts.get('partups');
         if (count) {
             return count;
@@ -397,23 +347,18 @@ Template.app_discover.helpers({
     }
 });
 
-/*************************************************************/
-/* Page events */
-/*************************************************************/
 Template.app_discover.events({
     'click [data-search]': function(event, template) {
         event.preventDefault();
+        var form = event.currentTarget.form;
+        var text = lodash.find(form, {name: 'keywords'}).value;
 
-        if (template.discoverSubscription) {
-            template.discoverSubscription.stop();
-        }
-
-        var text = template.find('[data-search-query]').value;
-
-        template.discoverSubscription = Meteor.subscribe('partups.discover', {query: text});
+        template.partupsSubscriptionOptions.set({
+            limit: PARTUPS_SUBSCRIPTION_STARTING_LIMIT,
+            query: text
+        });
     },
     'submit [data-discover-search]': function(event, template) {
         event.preventDefault();
-        console.log(event);
     }
 });
