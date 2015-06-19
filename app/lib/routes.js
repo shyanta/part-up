@@ -127,6 +127,26 @@ Router.route('/networks/:_id/invite', {
 });
 
 /*************************************************************/
+/* Network admin */
+/*************************************************************/
+Router.route('/networks/:_id/settings', {
+    name: 'network-settings',
+    where: 'client',
+    yieldRegions: {
+        'modal':                  {to: 'main'},
+        'modal_network_settings': {to: 'modal'}
+    },
+    subscriptions: function() {
+        this.subscribe('networks.one', this.params._id);
+    },
+    data: function() {
+        return {
+            partupId: this.params._id
+        };
+    }
+});
+
+/*************************************************************/
 /* Partup detail */
 /*************************************************************/
 Router.route('/partups/:_id', {
