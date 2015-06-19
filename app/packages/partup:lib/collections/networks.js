@@ -19,7 +19,7 @@ var Network = function(document) {
  * @return {Boolean}
  */
 Network.prototype.isAdmin = function(userId) {
-    return mout.lang.isString(userId) && userId === network.admin_id;
+    return mout.lang.isString(userId) && userId === this.admin_id;
 };
 
 /**
