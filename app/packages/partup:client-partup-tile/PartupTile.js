@@ -20,8 +20,8 @@ Template.PartupTile.helpers({
         var createdAt = new Date(this.partup.created_at);
         var endsAt = new Date(this.partup.end_date);
 
-        var daysLeft = Math.round(Math.abs((now.getTime() - endsAt.getTime())/day));
-        var daysPast = Math.round(Math.abs((createdAt.getTime() - now.getTime())/day));
+        var daysLeft = Math.round(Math.abs((now.getTime() - endsAt.getTime()) / day));
+        var daysPast = Math.round(Math.abs((createdAt.getTime() - now.getTime()) / day));
 
         return (daysPast / (daysLeft + daysPast)) * 100;
     },
