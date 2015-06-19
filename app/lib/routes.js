@@ -137,9 +137,6 @@ Router.route('/networks/:_id/settings', {
         'modal_network_settings':         {to: 'modal'},
         'modal_network_settings_details': {to: 'modal_network_settings'}
     },
-    subscriptions: function() {
-        this.subscribe('networks.one', this.params._id);
-    },
     data: function() {
         return {
             networkId: this.params._id
