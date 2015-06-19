@@ -132,15 +132,8 @@
             <span class="pu-label">{{_ 'partupsettings-form-location_input-label'}}</span>
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
                 <span class="pu-sub-input">
-                    <input class="pu-input" type=text placeholder={{formPlaceholders.location_input}} data-locationautocomplete="" />
-                    {{# if locationAutocompletes }}
-                    <ul>
-                        {{# each locationAutocompletes }}
-                            <li><button type=button data-place={{id}}>{{ city }}</button></li> 
-                        {{/ each }}
-                    </ul>
-                    {{/ if }}
-                    {{> afFieldInput name='location_input' type=hidden }}
+                    {{> LocationAutocomplete placeSelectedCallback=placeSelectedCallback placeholder=formPlaceholders.location_input partup=partup }}
+                    {{> afFieldInput name='location_input' type='hidden' }}
                 </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
             </div>

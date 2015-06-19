@@ -90,6 +90,9 @@ Template.Partupsettings.onCreated(function() {
 });
 
 Template.Partupsettings.helpers({
+    partup: function() {
+        return this.currentPartup;
+    },
     datepickerOptions: function() {
         var options = Partup.client.datepicker.options;
         options.startDate = new Date();
@@ -203,6 +206,11 @@ Template.Partupsettings.helpers({
         });
 
         return options;
+    },
+    placeSelectedCallback: function() {
+        return function(results) {
+            $('[name="location_input"]').val(results.placeId);
+        }
     }
 });
 
@@ -244,15 +252,6 @@ Template.Partupsettings.events({
     'click [data-removedate]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();
         template.find('[name=end_date]').value = '';
-    },
-    'keydown [data-locationautocomplete]': function eventChangeLocationautocomplete(event, template) {
-        var currentValue = $(event.currentTarget).val();
-        Meteor.call('google.cities.autocomplete', currentValue, function(error, result) {
-            template.locationAutocompletes.set(result);
-        });
-    },
-    'click [data-place]': function eventClickPlace(event, template) {
-        template.find('[name=location_input]').value = $(event.currentTarget).data('place');
     }
 });
 
