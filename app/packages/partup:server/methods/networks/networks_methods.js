@@ -125,7 +125,7 @@ Meteor.methods({
         }
 
         // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
+        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));
         var url = Meteor.absoluteUrl() + 'networks/' + network._id;
 
         Email.send({
