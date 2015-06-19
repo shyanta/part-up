@@ -175,8 +175,23 @@ Meteor.methods({
             }
 
             if (network.isInvitational()) {
-                //throw new Meteor.Error(403, 'This network is for invited members only.');
-                return Log.debug('This network is for invited members only.');
+                // Check if the user is invited
+                var invites = network.invites || [];
+                var invite = null;
+                _.each(invites, function(inviteObject, key) {
+                    if (mout.object.get(inviteObject, '_id') === user._id) {
+                        invite = inviteObject;
+                    }
+                });
+
+                if (invite) {
+                    Networks.update(networkId, {$pull: {invites: invite}, $push: {uppers: user._id}});
+                    Meteor.users.update(user._id, {$push: {networks: network._id}});
+
+                    return Log.debug('User added to invitational network.');
+                } else {
+                    return Log.debug('This network is for invited members only.');
+                }
             }
 
             if (network.isPublic()) {
