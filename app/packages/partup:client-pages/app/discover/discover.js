@@ -251,20 +251,23 @@ CustomSelect.prototype.toggle = function() {
 };
 
 /**
- * Discover template javascript logic
+ * Discover constants
  */
 var PARTUPS_SUBSCRIPTION_STARTING_LIMIT = 8;
 var PARTUPS_SUBSCRIPTION_INCREMENT = 4;
 
+/**
+ * Discover created
+ */
 Template.app_discover.onCreated(function() {
     var tpl = this;
 
-    // Create reactive-var for subscription options and extend it
+    // Reactive subscription options
     tpl.partupsSubscriptionOptions = new ReactiveVar({
         limit: PARTUPS_SUBSCRIPTION_STARTING_LIMIT
     });
 
-    // Subscribe (and re-subscribe on options change)
+    // Subscribe (and re-subscribe when the options change)
     tpl.autorun(function() {
         var options = tpl.partupsSubscriptionOptions.get();
         tpl.subscribe('partups.discover', options);
@@ -278,8 +281,12 @@ Template.app_discover.onCreated(function() {
     };
 });
 
+/**
+ * Discover rendered
+ */
 Template.app_discover.onRendered(function() {
     var tpl = this;
+
     Partup.client.scroll.onBottomOffset({
         autorunTemplate: tpl,
         debounce: 500,
@@ -317,6 +324,9 @@ Template.app_discover.onRendered(function() {
     new CustomSelect(sort);
 });
 
+/**
+ * Discover helpers
+ */
 Template.app_discover.helpers({
     partups: function() {
         return Partups.find().fetch();
@@ -347,6 +357,9 @@ Template.app_discover.helpers({
     }
 });
 
+/**
+ * Discover events
+ */
 Template.app_discover.events({
     'click [data-search]': function(event, template) {
         event.preventDefault();
