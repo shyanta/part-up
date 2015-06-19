@@ -76,6 +76,10 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
+        if (network.hasMember(user._id)) {
+            throw new Meteor.Error(409, 'User is already member of this network.');
+        }
+
         // Check if already invited
         var invites = network.invites || [];
         _.each(invites, function(value, key) {
