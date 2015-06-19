@@ -75,3 +75,28 @@ Networks = new Mongo.Collection('networks', {
 Networks.NETWORK_PUBLIC = NETWORK_PUBLIC;
 Networks.NETWORK_INVITE = NETWORK_INVITE;
 Networks.NETWORK_CLOSED = NETWORK_CLOSED;
+
+/**
+ * Networks collection helpers
+ */
+Networks.guardedFind = function(userId, selector, options) {
+    var selector = selector || {};
+    var options = options || {};
+
+    // Guard that sh!t
+    var guardingSelector = {'$or': [
+        // The network is open, which means everyone can access it
+        {'privacy_type': {'$in': [Networks.NETWORK_PUBLIC]}},
+
+        // Or the user is part of the network uppers, which means he has access anyway
+        {'uppers': {'$in': [userId]}},
+
+        // Of course the admin of a network always has the needed rights
+        {'admin_id': userId}
+    ]};
+
+    // Merge the selectors, so we still use the initial selector provided by the caller
+    var finalSelector = {'$and': [guardingSelector, selector]};
+
+    return this.find(finalSelector, options);
+};
