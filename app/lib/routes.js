@@ -133,15 +133,16 @@ Router.route('/networks/:_id/settings', {
     name: 'network-settings',
     where: 'client',
     yieldRegions: {
-        'modal':                  {to: 'main'},
-        'modal_network_settings': {to: 'modal'}
+        'modal':                          {to: 'main'},
+        'modal_network_settings':         {to: 'modal'},
+        'modal_network_settings_details': {to: 'modal_network_settings'}
     },
     subscriptions: function() {
         this.subscribe('networks.one', this.params._id);
     },
     data: function() {
         return {
-            partupId: this.params._id
+            networkId: this.params._id
         };
     }
 });

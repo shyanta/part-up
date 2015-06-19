@@ -100,6 +100,7 @@ Package.onUse(function(api) {
 
         // Modal:network_settings
         'modal/network_settings/network_settings.html',
+        'modal/network_settings/details/details.html',
 
         // Modal:create_intro
         'modal/create_intro/create_intro.html',
