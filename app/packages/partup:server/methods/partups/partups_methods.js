@@ -59,7 +59,6 @@ Meteor.methods({
      * @param {mixed[]} extraFields
      */
     'partups.update': function(partupId, fields, extraFields) {
-
         check(fields, Partup.schemas.forms.startPartup);
 
         var user = Meteor.user();

@@ -18,12 +18,25 @@ Partup.services.location = {
      * Transform a location input into location object
      *
      * @memberOf services.location
-     * @param {String} location_input
+     * @param {String} placeId
      */
-    locationInputToLocation: function(location_input) {
-        return {
-            city: location_input || null,
-            country: null
-        };
+    locationInputToLocation: function(placeId) {
+        var result = Partup.server.services.google.getCity(placeId);
+        var location = {};
+
+        location.city = result.name;
+        location.lat = mout.object.get(result, 'geometry.location.lat');
+        location.lng = mout.object.get(result, 'geometry.location.lng');
+        location.place_id = result.place_id;
+
+        // Find the Country
+        var addressComponents = result.address_components || [];
+        addressComponents.forEach(function(component) {
+            if (mout.array.contains(component.types, 'country')) {
+                location.country = component.long_name;
+            }
+        });
+
+        return location;
     }
 };
