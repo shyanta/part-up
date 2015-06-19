@@ -67,6 +67,9 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
  * Partups collection helpers
  */
 Partups.guardedFind = function(userId, selector, options) {
+    var selector = selector || {};
+    var options = options || {};
+
     // Guard that sh!t
     var guardingSelector = {'$or': [
         // Either the partup is public or belongs to a public network
