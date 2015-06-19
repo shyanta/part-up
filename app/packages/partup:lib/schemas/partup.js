@@ -46,11 +46,6 @@ var partupBaseSchema = new SimpleSchema({
         type: String,
         max: 60
     },
-    // privacy_type: {
-    //     type: Number,
-    //     min: 1,
-    //     max: 5
-    // },
     image: {
         type: String,
         optional: true
@@ -94,6 +89,11 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         optional: true,
         regEx: SimpleSchema.RegEx.Id
     },
+    privacy_type: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
     start_date: {
         type: Date
     },
@@ -126,15 +126,6 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
  * @memberOf partup.schemas.forms
  */
 Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
-    location_input: {
-        type: String,
-        max: 255
-    },
-    tags_input: {
-        type: String,
-        max: 255,
-        regEx: Partup.services.validators.tagsSeparatedByComma
-    },
     focuspoint_x_input: {
         type: Number,
         min: 0,
@@ -148,5 +139,17 @@ Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
         max: 1,
         decimal: true,
         optional: true
+    },
+    location_input: {
+        type: String,
+        max: 255
+    },
+    privacy_type_input: {
+        type: String
+    },
+    tags_input: {
+        type: String,
+        max: 255,
+        regEx: Partup.services.validators.tagsSeparatedByComma
     }
 }]);
