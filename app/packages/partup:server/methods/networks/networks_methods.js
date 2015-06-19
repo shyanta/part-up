@@ -212,7 +212,7 @@ Meteor.methods({
         }
 
         try {
-            Networks.update(networkId, {$push: {uppers: upperId}});
+            Networks.update(networkId, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
             Meteor.users.update(upperId, {$push: {networks: network._id}});
 
             return {
