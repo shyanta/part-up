@@ -166,9 +166,11 @@ Meteor.methods({
         try {
             if (network.isClosed()) {
                 // Add user to pending if it's a closed network
-                if (!network.pending_uppers.indexOf(user._id) > -1) {
+                if (!network.pending_uppers || network.pending_uppers.indexOf(user._id) < 0) {
                     Networks.update(networkId, {$push: {pending_uppers: user._id}});
                     return Log.debug('User added to waiting list');
+                } else {
+                    return Log.debug('User is already added to waiting list');
                 }
             }
 
