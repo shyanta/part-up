@@ -81,7 +81,7 @@ Template.modal_register_details.helpers({
 
         if (uploadedImageID) {
             var image = Images.findOne({_id: uploadedImageID});
-            return image ? image.url() : null;
+            return image ? image.url({store: '360x360'}) : null;
         }
 
         var user = Meteor.user();
