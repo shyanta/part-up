@@ -2,7 +2,7 @@ Meteor.publishComposite('partups.discover', function(options) {
     var self = this;
 
     var options = options || {};
-    var limit = options.limit || 20;
+    var limit = parseInt(options.limit) || 20;
     var query = options.query || false;
     var location = options.location || false;
     var networkId = options.networkId || false;
