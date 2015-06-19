@@ -5,6 +5,7 @@
  * You can pass the widget a few options which enable various functionalities
  *
  * @param {String} placeholder      A string that will serve as placeholder for the input field
+ * @param {Object} location         The location object the autocomplete box should be prefilled with
  * @param {Function} placeCallback  A function that will be executed when an item in the dropdown was clicked, containing {placeId,city}
  */
 // jscs:enable
@@ -25,9 +26,9 @@ Template.LocationAutocomplete.helpers({
         if (filledInValue) {
             return filledInValue;
         }
-        var partup = template.data.partup;
-        if (partup && partup.location && !template.dirty.get()) {
-            return partup.location.city;
+        var location = template.data.location;
+        if (location && !template.dirty.get()) {
+            return location.city;
         }
 
         return false;
