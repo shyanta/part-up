@@ -83,7 +83,7 @@
 
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">
-                            {{> LocationAutocomplete placeSelectedCallback=placeSelectedCallback placeholder=placeholders.location_input location=profile.location }}
+                            {{> LocationAutocomplete placeSelectedCallback=placeSelectedCallback clearCallback=clearCallback placeholder=placeholders.location_input location=profile.location }}
                             {{> afFieldInput name='location_input' type="hidden" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
                     </div>

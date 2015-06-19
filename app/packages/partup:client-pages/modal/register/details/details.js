@@ -110,6 +110,11 @@ Template.modal_register_details.helpers({
         return function(results) {
             $('[name="location_input"]').val(results.placeId);
         }
+    },
+    clearCallback: function() {
+        return function(results) {
+            $('[name="location_input"]').val();
+        }
     }
 });
 
