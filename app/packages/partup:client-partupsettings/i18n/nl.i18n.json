@@ -29,6 +29,10 @@
     "partupsettings-form-location_input-label": "Waar is jouw part-up?",
     "partupsettings-form-location_input-placeholder": "In Nederland, in jouw regio of in jouw plaats",
 
+    "partupsettings-form-privacy-label": "Wie kan jouw part-up bekijken?",
+    "partupsettings-form-privacy-public": "Iedereen",
+    "partupsettings-form-privacy-private": "Uitgenodigde uppers (alleen voor Super upper accounts)",
+
     "partupsettings-image-label": "Welke foto past goed bij jouw part-up?",
     "partupsettings-image-button": "Foto vanaf jouw computer",
     "partupsettings-image-button-overwrite": "Foto veranderen",

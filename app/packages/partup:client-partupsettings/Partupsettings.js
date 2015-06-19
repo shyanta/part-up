@@ -185,11 +185,11 @@ Template.Partupsettings.helpers({
     networkOptions: function() {
         var options = [
             {
-                label: __('partupsettings-form-privacy-public'), // todo: i18n
+                label: __('partupsettings-form-privacy-public'),
                 value: 'public'
             },
             {
-                label: __('partupsettings-form-privacy-private'), // todo: i18n
+                label: __('partupsettings-form-privacy-private'),
                 value: 'private'
             }
         ];
