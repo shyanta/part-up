@@ -11,7 +11,7 @@ Partup.services.location = {
      * @param {Object} location
      */
     locationToLocationInput: function(location) {
-        return location && location.city ? location.city : '';
+        return location && location.place_id;
     },
 
     /**
