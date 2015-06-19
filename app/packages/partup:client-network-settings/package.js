@@ -7,11 +7,14 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
-        'tap:i18n'
+        'tap:i18n',
+        'partup:lib'
     ], ['client', 'server']);
 
     api.use([
         'templating',
+        'aldeed:autoform',
+        'reactive-dict'
     ], 'client');
 
     api.addFiles([

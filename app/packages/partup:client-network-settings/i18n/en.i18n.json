@@ -1,1 +1,7 @@
-{}
+{
+    "network-settings-form-characters": "max %d characters",
+    "network-settings-form-characters-left": "%d characters left",
+
+    "network-settings-form-description-label": "Description",
+    "network-settings-form-description-placeholder": "@Placeholder"
+}

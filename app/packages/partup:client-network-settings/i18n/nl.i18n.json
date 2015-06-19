@@ -1,1 +1,7 @@
-{}
+{
+    "network-settings-form-characters": "maximaal %d tekens",
+    "network-settings-form-characters-left": "nog %d tekens over",
+
+    "network-settings-form-description-label": "Omschrijving",
+    "network-settings-form-description-placeholder": "@Placeholder"
+}
