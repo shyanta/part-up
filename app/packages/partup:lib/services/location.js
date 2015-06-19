@@ -29,7 +29,10 @@ Partup.services.location = {
         location.lng = mout.object.get(result, 'geometry.location.lng');
         location.place_id = result.place_id;
 
-        // Find the Country
+        // Initialise country in case we can't find it
+        location.country = null;
+
+        // Find the country
         var addressComponents = result.address_components || [];
         addressComponents.forEach(function(component) {
             if (mout.array.contains(component.types, 'country')) {
