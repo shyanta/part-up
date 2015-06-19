@@ -77,8 +77,8 @@ Meteor.methods({
         }
 
         // Check if already invited
-        var pending_uppers = network.pending_uppers || [];
-        _.each(pending_uppers, function(value, key) {
+        var invites = network.invites || [];
+        _.each(invites, function(value, key) {
             if (mout.object.get(value, '_id') === upperId) {
                 throw new Meteor.Error(409, 'Upper already invited.');
             }
@@ -91,7 +91,7 @@ Meteor.methods({
             invited_by_id: user._id
         };
 
-        Networks.update(networkId, {$push: {pending_uppers: invite}});
+        Networks.update(networkId, {$push: {invites: invite}});
 
         Event.emit('networks.invited', user._id, networkId, upperId);
 
