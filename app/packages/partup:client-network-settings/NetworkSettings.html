@@ -2,6 +2,33 @@
     <h2>Network information</h2>
 
     {{# autoForm id='networkEditForm' schema=formSchema doc=network validation="submitThenKeyup" class="pu-form" }}
+        <!-- name -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-name-label'}}
+                <a class="pu-hint">
+                    {{# if partupLowerThan nameCharactersLeft entitySchema.name.max }}
+                        {{_ 'network-settings-form-characters-left' nameCharactersLeft }}
+                    {{ else }}
+                        {{_ 'network-settings-form-characters' entitySchema.name.max }}
+                    {{/ if }}
+                </a>
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='name' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> afFieldInput
+                        name='name'
+                        placeholder=placeholders.name
+                        class='pu-input'
+                        maxlength=entitySchema.name.max
+                    }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+            </div>
+        </label>
+
+        <!-- description -->
         <label class="pu-formfield">
             <span class="pu-label">
                 {{_ 'network-settings-form-description-label'}}

@@ -24,12 +24,18 @@ Template.NetworkSettings.helpers({
     entitySchema: Partup.schemas.entities.network._schema,
     formSchema: Partup.schemas.forms.network,
     placeholders: {
+        name: function() {
+            return __('network-settings-form-name-placeholder');
+        },
         description: function() {
             return __('network-settings-form-description-placeholder');
         }
     },
     descriptionCharactersLeft: function() {
         return Template.instance().charactersLeft.get('description');
+    },
+    nameCharactersLeft: function() {
+        return Template.instance().charactersLeft.get('name');
     },
     network: function() {
         return Networks.findOne({_id: this.networkId});
