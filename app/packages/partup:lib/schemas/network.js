@@ -56,14 +56,6 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: Object,
         optional: true
     },
-    'location.city': {
-        type: String,
-        optional: true
-    },
-    'location.country': {
-        type: String,
-        optional: true
-    },
     partups: {
         type: [String],
         optional: true,

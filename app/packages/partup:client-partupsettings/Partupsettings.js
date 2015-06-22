@@ -31,7 +31,8 @@ Template.Partupsettings.onCreated(function() {
     template.budgetType = new ReactiveVar();
     template.budgetTypeChanged = new ReactiveVar();
     template.draggingFocuspoint = new ReactiveVar(false);
-    template.locationAutocompletes = new ReactiveVar([]);
+    template.showPrivacyDropdown= new ReactiveVar(false);
+    template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
 
     template.autorun(function() {
@@ -186,36 +187,36 @@ Template.Partupsettings.helpers({
     draggingFocuspoint: function() {
         return Template.instance().draggingFocuspoint.get();
     },
-    networkOptions: function() {
-        var options = [
+    showPrivacyDropdown: function() {
+        return Template.instance().showPrivacyDropdown.get();
+    },
+    selectedPrivacyLabel: function() {
+        return Template.instance().selectedPrivacyLabel.get();
+    },
+    userNetworks: function() {
+        return Networks.find();
+    },
+    privacyTypes: function() {
+        return [
             {
-                label: __('partupsettings-form-privacy-public'),
+                label:'partupsettings-form-privacy-public',
                 value: 'public'
             },
             {
-                label: __('partupsettings-form-privacy-private'),
+                label:'partupsettings-form-privacy-private',
                 value: 'private'
             }
         ];
-        var networks = Networks.find().fetch();
-        _.each(networks, function(network) {
-            options.push({
-                label: network.name,
-                value: network._id
-            });
-        });
-
-        return options;
     },
     placeSelectedCallback: function() {
         return function(results) {
             $('[name="location_input"]').val(results.placeId);
-        }
+        };
     },
     clearCallback: function() {
         return function(results) {
             $('[name="location_input"]').val(undefined);
-        }
+        };
     }
 });
 
@@ -247,7 +248,8 @@ Template.Partupsettings.events({
         template.budgetTypeChanged.set(true);
     },
     'click [data-imageremove]': function eventChangeFile(event, template) {
-        var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget.form).find('[name=tags_input]').val());
+        var tags_input = $(event.currentTarget.form).find('[name=tags_input]').val();
+        var tags = Partup.client.strings.tagsStringToArray(tags_input);
         template.imageSystem.unsetUploadedPicture(tags);
     },
     'blur [name=tags_input]': function searchFlickerByTags(event, template) {
@@ -257,6 +259,22 @@ Template.Partupsettings.events({
     'click [data-removedate]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();
         template.find('[name=end_date]').value = '';
+    },
+    'click [data-toggleprivacydropdown]': function(event, template) {
+        var currentValue = template.showPrivacyDropdown.get();
+        template.showPrivacyDropdown.set(!currentValue);
+    },
+    'click [data-privacytype]': function(event, template) {
+        $(event.currentTarget.form).find('[name=privacy_type_input]').val(this.value);
+        $(event.currentTarget.form).find('[name=network_id]').val(undefined);
+        template.selectedPrivacyLabel.set(this.label);
+        template.showPrivacyDropdown.set(false);
+    },
+    'click [data-networktype]': function(event, template) {
+        $(event.currentTarget.form).find('[name=privacy_type_input]').val('network');
+        $(event.currentTarget.form).find('[name=network_id]').val(this._id);
+        template.selectedPrivacyLabel.set(this.name);
+        template.showPrivacyDropdown.set(false);
     }
 });
 
