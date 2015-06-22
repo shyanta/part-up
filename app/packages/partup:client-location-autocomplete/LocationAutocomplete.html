@@ -5,7 +5,7 @@
     {{ else }}
         <input class="pu-input" type=text placeholder={{placeholder}} data-locationautocomplete="" />
         {{# if locationAutocompletes }}
-        <div class="pu-autocomplete" style="position: absolute; z-index: 2; width: 100%;">
+        <div class="pu-autocomplete" style="position: absolute; z-index: 10; width: 100%;">
             <div class="tt-menu tt-open">
                 <div class="tt-dataset">
                     {{# each locationAutocompletes }}
