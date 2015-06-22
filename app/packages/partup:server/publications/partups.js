@@ -48,7 +48,8 @@ Meteor.publishComposite('partups.discover', function(options) {
                 options.sort['score'] = {$meta: 'textScore'};
             }
 
-            return Partups.guardedFind(self.userId, selector, options);
+            // return Partups.guardedFind(self.userId, selector, options);
+            return Partups.find(selector, options);
         },
         children: [
             {
