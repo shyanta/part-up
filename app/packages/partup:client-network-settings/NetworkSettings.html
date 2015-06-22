@@ -1,7 +1,7 @@
 <template name="NetworkSettings">
     <h2>Network information</h2>
 
-    {{# autoForm id='networkEditForm' schema=formSchema doc=network validation="submitThenKeyup" class="pu-form" }}
+    {{# autoForm id='networkEditForm' schema=formSchema doc=fieldsForNetwork validation="submitThenKeyup" class="pu-form" }}
         <!-- name -->
         <label class="pu-formfield">
             <span class="pu-label">
@@ -78,6 +78,26 @@
                     }}
                 </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+            </div>
+        </label>
+
+        <!-- location_input -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-location_input-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> LocationAutocomplete
+                        location=network.location
+                        placeholder=placeholders.location_input
+                        placeSelectedCallback=locationChoose
+                        clearCallback=locationClear
+                    }}
+                    {{> afFieldInput type='hidden' name='location_input' }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
             </div>
         </label>
     {{/ autoForm }}

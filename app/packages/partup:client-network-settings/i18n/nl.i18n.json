@@ -9,5 +9,8 @@
     "network-settings-form-description-placeholder": "@Placeholder",
 
     "network-settings-form-tags_input-label": "Jij, in 5 woorden",
-    "network-settings-form-tags_input-placeholder": "Even scheiden door een komma alsjeblieft"
+    "network-settings-form-tags_input-placeholder": "Even scheiden door een komma alsjeblieft",
+
+    "network-settings-form-location_input-label": "Lokatie",
+    "network-settings-form-location_input-placeholder": "@Placeholder"
 }

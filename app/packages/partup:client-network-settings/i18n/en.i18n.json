@@ -9,5 +9,8 @@
     "network-settings-form-description-placeholder": "@Placeholder",
 
     "network-settings-form-tags_input-label": "You, in 5 words",
-    "network-settings-form-tags_input-placeholder": "Separated with a comma please"
+    "network-settings-form-tags_input-placeholder": "Separated with a comma please",
+
+    "network-settings-form-location_input-label": "Location",
+    "network-settings-form-location_input-placeholder": "@Placeholder"
 }
