@@ -1,14 +1,14 @@
 /**
- * ReactiveLayout
+ * ColumnsLayout
  * a layout system similar to Pinterest
  *
  * @param {number} COLUMNS     Number of columns
  * @param {string} TEMPLATE    Templatename for each item
- * @param {function} addHook   Function that recieves a callback function from the reactiveLayout. Save the function and fire it when you want to ADD items
- * @param {function} cleanHook Function that recieves a callback function from the reactiveLayout. Save the function and fire it when you want to CLEAN ALL items
+ * @param {function} addHook   Function that recieves a callback function from the ColumnsLayout. Save the function and fire it when you want to ADD items
+ * @param {function} cleanHook Function that recieves a callback function from the ColumnsLayout. Save the function and fire it when you want to CLEAN ALL items
  */
 
-Template.ReactiveLayout.onCreated(function() {
+Template.ColumnsLayout.onCreated(function() {
     var tpl = this;
 
     /**
@@ -86,7 +86,7 @@ Template.ReactiveLayout.onCreated(function() {
 /**
  * Helpers
  */
-Template.ReactiveLayout.helpers({
+Template.ColumnsLayout.helpers({
     columns: function() {
         return Template.instance().columns.get();
     },

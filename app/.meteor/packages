@@ -69,7 +69,7 @@ tap:i18n
 tmeasday:publish-counts
 zimme:active-route
 percolate:synced-cron
-partup:client-reactive-layout
+partup:client-columns-layout
 meteorhacks:kadira
 okgrow:analytics
 partup:client-partupsettings

@@ -93,6 +93,7 @@ ordered-dict@1.0.3
 package-version-parser@3.0.3
 partup:client-activity@0.0.1
 partup:client-base@0.0.1
+partup:client-columns-layout@0.0.1
 partup:client-commentfield@0.0.1
 partup:client-contribution@0.0.1
 partup:client-copy-to-clipboard@0.0.1
@@ -110,7 +111,6 @@ partup:client-partupsettings@0.0.1
 partup:client-popup@0.0.1
 partup:client-rating@0.0.1
 partup:client-ratings@0.0.1
-partup:client-reactive-layout@0.0.1
 partup:client-resetpassword@0.0.1
 partup:client-spinner@0.0.1
 partup:client-update@0.0.1

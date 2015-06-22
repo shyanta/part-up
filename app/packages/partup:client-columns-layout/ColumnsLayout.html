@@ -1,0 +1,13 @@
+<template name="ColumnsLayout">
+    <section class="pu-columnslayout">
+        {{#each columns}}
+            <ul class="pu-sub-column" data-column>
+                {{#each .}}
+                    <li class="pu-sub-tile {{#if isRendered }}pu-sub-tile-rendered{{/if}}">
+                        <div>{{> Columnslayout_Tile template=templateName data=. onRendered=onItemRendered }}</div>
+                    </li>
+                {{/each}}
+            </ul>
+        {{/each}}
+    </section>
+</template>
