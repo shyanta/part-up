@@ -139,19 +139,41 @@
             </div>
         </label>
 
-        <!-- network disabled until implemented
         <label class="pu-formfield">
-            <span class="pu-label">{{_ 'partupsettings-form-privacy-label' }}</span>
+            <span class="pu-label">
+                {{_ 'partupsettings-form-privacy-label' }}
+                <a class="pu-hint pu-tooltip">
+                    <i class="fa fa-question-circle"></i>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-network-tooltip' }}</p></span>
+                </a>
+            </span>
+            {{# unless showPrivacyDropdown }}
             <div class="pu-inputholder pu-inputholder-righticon">
-                {{> afFieldInput type='select' name='privacy_type_input' firstOption=false class="pu-input pu-input-select" options=networkOptions }}
+                <button type="button" class="pu-input pu-input-noneditable" data-toggleprivacydropdown>{{_ selectedPrivacyLabel}}</button>
                 <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
             </div>
-            <a class="pu-hint pu-tooltip">
-                <i class="fa fa-question-circle"></i>
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-network-tooltip' }}</p></span>
-            </a>
+            {{ else }}
+            <div class="pu-privacyselector">
+                <ul>
+                    {{# each privacyTypes }}
+                        <li><button type="button" data-privacytype>{{_ label}}</button></li>
+                    {{/ each }}
+                </ul>
+                {{# if userNetworks }}
+                <h3>Uppers in dit netwerk:</h3>
+                <ul>
+                    {{# each userNetworks }}
+                        <li><button type="button" data-networktype>{{name}}</button></li>
+                    {{/ each }}
+                </ul>
+                {{/ if}}
+            </div>
+            {{/ unless }}
+                
+            {{> afFieldInput type='hidden' name='privacy_type_input' defaultValue=1 }}
+            {{> afFieldInput type='hidden' name='network_id' }}
+
         </label>
-        -->
 
         <!-- Image -->
         <div class="pu-formfield">
