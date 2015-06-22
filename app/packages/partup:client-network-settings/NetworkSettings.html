@@ -7,10 +7,10 @@
             <span class="pu-label">
                 {{_ 'network-settings-form-name-label'}}
                 <a class="pu-hint">
-                    {{# if partupLowerThan nameCharactersLeft entitySchema.name.max }}
+                    {{# if partupLowerThan nameCharactersLeft formSchema._schema.name.max }}
                         {{_ 'network-settings-form-characters-left' nameCharactersLeft }}
                     {{ else }}
-                        {{_ 'network-settings-form-characters' entitySchema.name.max }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.name.max }}
                     {{/ if }}
                 </a>
             </span>
@@ -21,7 +21,7 @@
                         name='name'
                         placeholder=placeholders.name
                         class='pu-input'
-                        maxlength=entitySchema.name.max
+                        maxlength=formSchema._schema.name.max
                     }}
                 </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
@@ -33,10 +33,10 @@
             <span class="pu-label">
                 {{_ 'network-settings-form-description-label'}}
                 <a class="pu-hint">
-                    {{# if partupLowerThan descriptionCharactersLeft entitySchema.description.max }}
+                    {{# if partupLowerThan descriptionCharactersLeft formSchema._schema.description.max }}
                         {{_ 'network-settings-form-characters-left' descriptionCharactersLeft }}
                     {{ else }}
-                        {{_ 'network-settings-form-characters' entitySchema.description.max }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.description.max }}
                     {{/ if }}
                 </a>
             </span>
@@ -48,7 +48,7 @@
                         placeholder=placeholders.description
                         class='pu-textarea'
                         rows=3
-                        maxlength=entitySchema.description.max
+                        maxlength=formSchema._schema.description.max
                     }}
                 </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>

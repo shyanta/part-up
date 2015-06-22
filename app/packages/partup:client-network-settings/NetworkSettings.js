@@ -12,16 +12,15 @@ Template.NetworkSettings.onCreated(function() {
         var network = Networks.findOne({_id: self.data.networkId});
         if (!network) return;
 
-        var entitySchema = Partup.schemas.entities.network._schema;
+        var formSchema = Partup.schemas.forms.network._schema;
 
         ['description', 'name'].forEach(function(n) {
-            self.charactersLeft.set(n, entitySchema[n].max - network[n].length);
+            self.charactersLeft.set(n, formSchema[n].max - network[n].length);
         });
     });
 });
 
 Template.NetworkSettings.helpers({
-    entitySchema: Partup.schemas.entities.network._schema,
     formSchema: Partup.schemas.forms.network,
     placeholders: {
         name: function() {
