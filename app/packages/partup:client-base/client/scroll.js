@@ -7,8 +7,22 @@ var INFINITE_SCROLL_OFFSET = 300;
 
 Partup.client.scroll = {
 
-    _pos: new ReactiveVar(0),
+    /**
+     * Current scroll position reactive var
+     *
+     * @memberOf Partup.client.scroll
+     */
+    pos: new ReactiveVar(0),
 
+    /**
+     * Infinite scroll functionality
+     *
+     * @memberOf Partup.client.scroll
+     * @param options {Object}           Options for the infinite scroll
+     * @param options.template {Blaze}   A template where the infinite scroll runs in
+     * @param options.element  {Element} The container element (which is growing when content increases)
+     * @param callback {Function}        Infinite scroll callback
+     */
     infinite: function(options, callback) {
         options = options || {};
         options.offset = options.offset || INFINITE_SCROLL_OFFSET;
@@ -23,7 +37,7 @@ Partup.client.scroll = {
         };
 
         options.template.autorun(function() {
-            var scrollPos = Partup.client.scroll._pos.get();
+            var scrollPos = Partup.client.scroll.pos.get();
             Tracker.nonreactive(trigger);
         });
     },
@@ -49,7 +63,10 @@ Partup.client.scroll = {
 };
 
 Meteor.startup(function() {
+
+    // Turn current scroll position into a reactive variable
     $(window).on('scroll', function() {
-        Partup.client.scroll._pos.set(window.scrollY);
+        Partup.client.scroll.pos.set(window.scrollY);
     });
+
 });
