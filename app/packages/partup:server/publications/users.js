@@ -29,6 +29,11 @@ Meteor.publishComposite('users.loggedin', function() {
                 find: function(user) {
                     return Images.find({_id: user.profile.image}, {limit: 1});
                 }
+            },
+            {
+                find: function(user) {
+                    return Networks.guardedFind(user._id, {_id: {$in:user.networks}});
+                }
             }
         ]
     };
