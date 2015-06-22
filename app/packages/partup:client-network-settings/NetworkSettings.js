@@ -15,9 +15,11 @@ Template.NetworkSettings.onCreated(function() {
         network = Partup.transformers.network.toFormNetwork(network);
 
         var formSchema = Partup.schemas.forms.network._schema;
+        var valueLength;
 
         ['description', 'name', 'tags_input'].forEach(function(n) {
-            self.charactersLeft.set(n, formSchema[n].max - network[n].length);
+            valueLength = network[n] ? network[n].length : 0;
+            self.charactersLeft.set(n, formSchema[n].max - valueLength);
         });
     });
 });
