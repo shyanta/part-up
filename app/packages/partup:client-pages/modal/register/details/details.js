@@ -105,6 +105,16 @@ Template.modal_register_details.helpers({
         if (!user) return false;
         var username = mout.object.get(user, 'profile.name') || mout.object.get(user, 'name');
         return Partup.client.strings.firstName(username);
+    },
+    placeSelectedCallback: function() {
+        return function(results) {
+            $('[name="location_input"]').val(results.placeId);
+        }
+    },
+    clearCallback: function() {
+        return function(results) {
+            $('[name="location_input"]').val();
+        }
     }
 });
 

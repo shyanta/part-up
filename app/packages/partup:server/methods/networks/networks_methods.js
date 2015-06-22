@@ -76,9 +76,13 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
+        if (network.hasMember(user._id)) {
+            throw new Meteor.Error(409, 'User is already member of this network.');
+        }
+
         // Check if already invited
-        var pending_uppers = network.pending_uppers || [];
-        _.each(pending_uppers, function(value, key) {
+        var invites = network.invites || [];
+        _.each(invites, function(value, key) {
             if (mout.object.get(value, '_id') === upperId) {
                 throw new Meteor.Error(409, 'Upper already invited.');
             }
@@ -91,7 +95,7 @@ Meteor.methods({
             invited_by_id: user._id
         };
 
-        Networks.update(networkId, {$push: {pending_uppers: invite}});
+        Networks.update(networkId, {$push: {invites: invite}});
 
         Event.emit('networks.invited', user._id, networkId, upperId);
 
@@ -121,7 +125,7 @@ Meteor.methods({
         }
 
         // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
+        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));
         var url = Meteor.absoluteUrl() + 'networks/' + network._id;
 
         Email.send({
@@ -166,15 +170,32 @@ Meteor.methods({
         try {
             if (network.isClosed()) {
                 // Add user to pending if it's a closed network
-                if (!network.pending_uppers.indexOf(user._id) > -1) {
+                if (!network.pending_uppers || network.pending_uppers.indexOf(user._id) < 0) {
                     Networks.update(networkId, {$push: {pending_uppers: user._id}});
                     return Log.debug('User added to waiting list');
+                } else {
+                    return Log.debug('User is already added to waiting list');
                 }
             }
 
             if (network.isInvitational()) {
-                //throw new Meteor.Error(403, 'This network is for invited members only.');
-                return Log.debug('This network is for invited members only.');
+                // Check if the user is invited
+                var invites = network.invites || [];
+                var invite = null;
+                _.each(invites, function(inviteObject, key) {
+                    if (mout.object.get(inviteObject, '_id') === user._id) {
+                        invite = inviteObject;
+                    }
+                });
+
+                if (invite) {
+                    Networks.update(networkId, {$pull: {invites: invite}, $push: {uppers: user._id}});
+                    Meteor.users.update(user._id, {$push: {networks: network._id}});
+
+                    return Log.debug('User added to invitational network.');
+                } else {
+                    return Log.debug('This network is for invited members only.');
+                }
             }
 
             if (network.isPublic()) {
@@ -210,7 +231,7 @@ Meteor.methods({
         }
 
         try {
-            Networks.update(networkId, {$push: {uppers: upperId}});
+            Networks.update(networkId, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
             Meteor.users.update(upperId, {$push: {networks: network._id}});
 
             return {

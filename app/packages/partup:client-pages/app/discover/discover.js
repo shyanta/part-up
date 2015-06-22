@@ -120,6 +120,50 @@ CustomSelect.prototype.setEvents = function() {
             self.filterList.classList.remove('pu-state-expanded');
         }, 50));
         checkFilter();
+
+        this.filter.addEventListener('keydown', function(e) {
+            if ([13, 38, 40].indexOf(e.keyCode) === -1) return;
+
+            e.preventDefault();
+
+            var selected = self.filterList.querySelector('.pu-state-selected');
+
+            // enter
+            if (e.keyCode === 13) {
+                if (selected) {
+                    self.setValue(selected.dataset.value);
+                }
+
+                return;
+            }
+
+            var index = -1;
+            if (selected) {
+                index = mout.array.indexOf(self.filterList.children, selected);
+            }
+
+            // up
+            if (e.keyCode === 38) {
+                var nextIndex = index - 1;
+                if (nextIndex === -1) {
+                    nextIndex = self.filterList.children.length - 1;
+                }
+            }
+
+            // down
+            if (e.keyCode === 40) {
+                var nextIndex = index + 1;
+                if (nextIndex === self.filterList.children.length) {
+                    nextIndex = 0;
+                }
+            }
+
+            if (selected) {
+                selected.classList.remove('pu-state-selected');
+            }
+
+            self.filterList.children[nextIndex].classList.add('pu-state-selected');
+        });
     }
 
     if (this.suggestionList) {
@@ -206,77 +250,120 @@ CustomSelect.prototype.toggle = function() {
     this.valueWrap.classList.toggle('pu-state-expanded');
 };
 
-/*************************************************************/
-/* Page initial */
-/*************************************************************/
-var LIMIT_DEFAULT = 50;
-var LIMIT_INCREMENT = 10;
+/**
+ * Discover constants
+ */
+var STARTING_LIMIT = 12;
+var INCREMENT = 8;
 
+/**
+ * Discover created
+ */
 Template.app_discover.onCreated(function() {
-    var template = this;
-    template.discoverSubscription = template.subscribe('partups.discover', {});
-    template.filterOptions = {};
+    var tpl = this;
 
-    // updates subscription with new options
-    // just pass any valid option in an object {query:'jaja'} or {query:'jaja', sort:'new'}
-    // it won't reset options that arent passed
-    // limit is reset to the LIMIT_DEFAULT constant when this is called
-    template.updateSubscriptionFilter = function(newOptions) {
-        template.discoverSubscription.stop();
-        var options = template.filterOptions;
-        options.limit = LIMIT_DEFAULT;
+    // Current partups (for reference when determining the added partups)
+    tpl.partups = [];
 
-        for (key in newOptions) {
-            options[key] = newOptions[key];
-        }
-        template.filterOptions = options;
+    // Subscription handle
+    tpl.handle;
 
-        // this fixed it jesse, sorry
-        Meteor.setTimeout(function() {
-            template.discoverSubscription = Meteor.subscribe('partups.discover', options);
-        }, 500);
-    };
-    // update the subscription limit, this is seperate for infinite scroll behaviour
-    template.updateSubscriptionLimit = function(limit) {
-        if (template.discoverSubscription) {
-            template.oldDiscoverSubscription = template.discoverSubscription;
-        }
-        var options = template.filterOptions;
-        options.limit = limit;
+    // Subscribe (and re-subscribe when the options change)
+    tpl.options = new ReactiveVar({}, function(a, b) {
+        var options = b;
+        options.limit = tpl.resetLimit();
 
-        template.filterOptions = options;
-        template.discoverSubscription = Meteor.subscribe('partups.discover', options);
-        template.oldDiscoverSubscription.stop();
-    };
-    // this resets all subscription options
-    template.resetSubscriptions = function() {
-        template.discoverSubscription.stop();
-        Meteor.setTimeout(function() {
-            template.discoverSubscription = Meteor.subscribe('partups.discover', {limit:LIMIT_DEFAULT});
-        }, 500);
-    };
+        tpl.handle = tpl.subscribe('partups.discover', options);
 
-    template.limit = new ReactiveVar(LIMIT_DEFAULT, function(oldValue, newValue) {
-        template.updateSubscriptionLimit(newValue);
+        Meteor.autorun(function whenSubscriptionIsReady(computation) {
+            if (tpl.handle.ready()) {
+                computation.stop();
+
+                Tracker.nonreactive(function replacePartups() {
+                    tpl.partups = Partups.find().fetch();
+                    tpl.handle.stop();
+
+                    tpl.cleanPartups();
+                    tpl.addPartups(tpl.partups);
+                });
+            }
+        });
     });
 
-    template.filter = new ReactiveVar({}, function(oldValue, newValue) {
-        template.updateSubscriptionFilter(newValue);
+    // Re-subscribe when the limit changes
+    tpl.limit = new ReactiveVar(STARTING_LIMIT, function(a, b) {
+        var resetting = b === STARTING_LIMIT;
+        if (resetting) return;
+
+        var options = tpl.options.get();
+        options.limit = tpl.limit.get();
+
+        tpl.handle = tpl.subscribe('partups.discover', options);
+
+        Meteor.autorun(function whenSubscriptionIsReady(computation) {
+            if (tpl.handle.ready()) {
+                computation.stop();
+
+                Tracker.nonreactive(function addPartups() {
+
+                    // Determine the added partups
+                    var newPartups = mout.array.filter(Partups.find().fetch(), function(partup) {
+                        return !mout.array.find(tpl.partups, function(_partup) {
+                            return partup._id === _partup._id;
+                        });
+                    });
+
+                    tpl.handle.stop();
+
+                    tpl.addPartups(newPartups);
+
+                    if (mout.lang.isFunction(tpl.infiniteScrollCallback)) tpl.infiniteScrollCallback();
+                    tpl.infiniteScrollCallback = null;
+                    tpl.partups = tpl.partups.concat(newPartups);
+                });
+            }
+        });
     });
 
-    Session.set('refreshDate', Math.round(new Date().getTime()));
+    // Limit functions
+    tpl.increaseLimit = function(finishedCallback) {
+        var limit = tpl.limit.get() + INCREMENT;
+        tpl.limit.set(limit);
+        tpl.infiniteScrollCallback = finishedCallback;
+        return limit;
+    };
+    tpl.resetLimit = function() {
+        var limit = STARTING_LIMIT;
+        tpl.limit.set(limit);
+        return limit;
+    };
 });
-// page render
+
+/**
+ * Discover rendered
+ */
 Template.app_discover.onRendered(function() {
-    var template = this;
-    Partup.client.scroll.onBottomOffset({
-        autorunTemplate: template,
-        debounce: 500,
-        offset: $(window).height(),
+    var tpl = this;
+
+    /**
+     * Infinite scroll
+     */
+    var loadingMore = false;
+    Partup.client.scroll.infinite({
+        template: tpl,
+        element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        Partup.client.reactiveVarHelpers.incrementNumber(template.limit, LIMIT_INCREMENT);
+        if (loadingMore) return;
+        loadingMore = true;
+
+        tpl.increaseLimit(function() {
+            loadingMore = false;
+        });
     });
 
+    /**
+     * Filter options
+     */
     var keywords = document.querySelector('[data-discover-search] [name=keywords]');
     var network = document.querySelector('[data-discover-search] [name=network]');
     var city = document.querySelector('[data-discover-search] [name=city]');
@@ -307,29 +394,11 @@ Template.app_discover.onRendered(function() {
 
     new CustomSelect(sort);
 });
-// page destroy
-Template.app_discover.onDestroyed(function() {
-    var template = this;
-    template.discoverSubscription.stop();
-    if (template.oldDiscoverSubscription) template.oldDiscoverSubscription.stop();
-});
 
-/*************************************************************/
-/* Page helpers */
-/*************************************************************/
+/**
+ * Discover helpers
+ */
 Template.app_discover.helpers({
-    partups: function() {
-        // var subscription = Template.instance().discoverSubscription.ready();
-        // if(!subscription) return false;
-        var partups = Partups.find().fetch();
-        console.log(partups);
-        return partups;
-    },
-    refreshDate: function() {
-        // var filter = Session.get('filter');
-        // return Math.round(new Date().getTime());
-        return Session.get('refreshDate');
-    },
     showProfileCompletion: function() {
         var user = Meteor.user();
         if (!user) return false;
@@ -343,33 +412,50 @@ Template.app_discover.helpers({
         return user.completeness;
     },
 
-    totalNumberOfPartups: function totalNumberOfPartups() {
+    totalNumberOfPartups: function() {
         var count =  Counts.get('partups');
         if (count) {
             return count;
         } else {
             return '...';
         }
+    },
+
+    // What? Yeah. It's magic, but let me explain.
+    // We use this trick to be able to call a function in a child template.
+    // The child template directly calls 'addPartupsHook' with a callback.
+    // We save that callback, so we can call it later and the child template can react to it.
+    addPartupsHook: function() {
+        var tpl = Template.instance();
+
+        return function registerCallback(callback) {
+            tpl.addPartups = callback;
+        };
+    },
+    cleanPartupsHook: function() {
+        var tpl = Template.instance();
+
+        return function registerCallback(callback) {
+            tpl.cleanPartups = callback;
+        };
     }
 });
 
-/*************************************************************/
-/* Page events */
-/*************************************************************/
+/**
+ * Discover events
+ */
 Template.app_discover.events({
     'click [data-search]': function(event, template) {
         event.preventDefault();
+        var form = event.currentTarget.form;
+        var search_query = lodash.find(form, {name: 'keywords'}).value;
 
-        if (template.discoverSubscription) {
-            template.discoverSubscription.stop();
-        }
-
-        var text = template.find('[data-search-query]').value;
-
-        template.discoverSubscription = Meteor.subscribe('partups.discover', {query: text});
+        template.options.set({
+            limit: STARTING_LIMIT,
+            query: search_query
+        });
     },
     'submit [data-discover-search]': function(event, template) {
         event.preventDefault();
-        console.log(event);
     }
 });

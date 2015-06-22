@@ -25,7 +25,8 @@ Package.onUse(function(api) {
     ], ['server']);
 
     api.addFiles([
-        'private/emails/InviteUser.html'
+        'private/emails/InviteUser.html',
+        'private/emails/InviteUserToNetwork.html'
     ], ['server'], {isAsset: true});
 
     api.addFiles([

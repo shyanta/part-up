@@ -10,13 +10,13 @@
         {{/ if }}
         <header>
             <h2>
-                <a href="{{pathFor 'partup' _id=partup._id }}">{{ partup.name }}</a>
+                <a href="{{pathFor 'partup' _id=_id }}">{{ name }}</a>
             </h2>
         </header>
         <section>
             <div class="pu-partupcircle">
                 <canvas class="pu-sub-radial" data-percent="{{ partupProgress }}"></canvas>
-                <figure class="pu-sub-inner" style="{{#if partup.image }}background-image: url('{{ partupImageUrl id=partup.image }}');{{/if }}"></figure>
+                <figure class="pu-sub-inner" style="{{#if image }}background-image: url('{{ partupImageUrl id=image }}');{{/if }}"></figure>
                 <!-- Uppers -->
                 {{# if uppers }}
                     <ul class="pu-sub-avatar-list">
@@ -26,7 +26,7 @@
                     </ul>
                 {{/ if }}
             </div>
-            <p>{{ partup.description }}</p>
+            <p>{{ description }}</p>
             <ul class="pu-sub-partup-stats">
                 <li>
                     <strong>{{ activityCount }}</strong>

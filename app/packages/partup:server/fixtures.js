@@ -121,7 +121,7 @@ Meteor.startup(function() {
                     },
                     visibility: 'private'
                 });
-            };
+            }
         }
 
         if (!Activities.find().count()) {
@@ -154,6 +154,65 @@ Meteor.startup(function() {
                 end_date: new Date()
             };
             Activities.insert(thirdActivity);
+        }
+
+        if (!Networks.find().count()) {
+            var firstNetwork = {
+                _id: '1111',
+                privacy_type: 1,
+                name: 'Public Network',
+                description: 'This is an open network.',
+                tags: ['network', 'public'],
+                location: {
+                    city: 'Amsterdam',
+                    country: 'The Netherlands'
+                },
+                uppers: ['K5c5M4Pbdg3B82wQH', 'K5c5M4Pbdg3B82wQI'],
+                admin_id: 'K5c5M4Pbdg3B82wQH',
+                created_at: new Date(),
+                updated_at: new Date(),
+                pending_uppers: [],
+                invites: []
+            };
+            Networks.insert(firstNetwork);
+
+            var secondNetwork = {
+                _id: '2222',
+                privacy_type: 2,
+                name: 'Invitational Network',
+                description: 'This is an invitational network.',
+                tags: ['network', 'invite'],
+                location: {
+                    city: 'Amsterdam',
+                    country: 'The Netherlands'
+                },
+                uppers: ['K5c5M4Pbdg3B82wQH'],
+                admin_id: 'K5c5M4Pbdg3B82wQH',
+                created_at: new Date(),
+                updated_at: new Date(),
+                pending_uppers: [],
+                invites: []
+            };
+            Networks.insert(secondNetwork);
+
+            var thirdNetwork = {
+                _id: '3333',
+                privacy_type: 3,
+                name: 'Closed Network',
+                description: 'This is a closed network.',
+                tags: ['network', 'closed', 'private'],
+                location: {
+                    city: 'Amsterdam',
+                    country: 'The Netherlands'
+                },
+                uppers: ['K5c5M4Pbdg3B82wQH'],
+                admin_id: 'K5c5M4Pbdg3B82wQH',
+                created_at: new Date(),
+                updated_at: new Date(),
+                pending_uppers: [],
+                invites: []
+            };
+            Networks.insert(thirdNetwork);
         }
     }
 });

@@ -31,6 +31,7 @@ Template.Partupsettings.onCreated(function() {
     template.budgetType = new ReactiveVar();
     template.budgetTypeChanged = new ReactiveVar();
     template.draggingFocuspoint = new ReactiveVar(false);
+    template.locationAutocompletes = new ReactiveVar([]);
     template.loading = new ReactiveDict();
 
     template.autorun(function() {
@@ -89,6 +90,9 @@ Template.Partupsettings.onCreated(function() {
 });
 
 Template.Partupsettings.helpers({
+    partup: function() {
+        return this.currentPartup;
+    },
     datepickerOptions: function() {
         var options = Partup.client.datepicker.options;
         options.startDate = new Date();
@@ -185,11 +189,11 @@ Template.Partupsettings.helpers({
     networkOptions: function() {
         var options = [
             {
-                label: __('partupsettings-form-privacy-public'), // todo: i18n
+                label: __('partupsettings-form-privacy-public'),
                 value: 'public'
             },
             {
-                label: __('partupsettings-form-privacy-private'), // todo: i18n
+                label: __('partupsettings-form-privacy-private'),
                 value: 'private'
             }
         ];
@@ -202,6 +206,16 @@ Template.Partupsettings.helpers({
         });
 
         return options;
+    },
+    placeSelectedCallback: function() {
+        return function(results) {
+            $('[name="location_input"]').val(results.placeId);
+        }
+    },
+    clearCallback: function() {
+        return function(results) {
+            $('[name="location_input"]').val(undefined);
+        }
     }
 });
 

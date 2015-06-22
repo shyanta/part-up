@@ -17,25 +17,6 @@ Meteor.methods({
             newPartup.creator_id = user._id;
             newPartup.created_at = new Date();
 
-            if (fields.privacy_type === 'public') {
-                newPartup.privacy_type = Partup.PUBLIC;
-            } else if (fields.privacy_type === 'private') {
-                newPartup.privacy_type = Partup.PRIVATE;
-            } else if (fields.privacy_type) {
-                var network = Networks.findOneOrFail(fields.privacy_type);
-                switch (network.privacy_type) {
-                    case Networks.NETWORK_PUBLIC:
-                        newPartup.privacy_type = Partup.NETWORK_PUBLIC;
-                        break;
-                    case Networks.NETWORK_INVITE:
-                        newPartup.privacy_type = Partup.NETWORK_INVITE;
-                        break;
-                    case Networks.NETWORK_CLOSED:
-                        newPartup.privacy_type = Partup.NETWORK_CLOSED;
-                        break;
-                }
-            }
-
             //check(newPartup, Partup.schemas.entities.partup);
 
             newPartup._id = Partups.insert(newPartup);
@@ -59,11 +40,11 @@ Meteor.methods({
      * @param {mixed[]} extraFields
      */
     'partups.update': function(partupId, fields, extraFields) {
+        var user = Meteor.user();
+        var partup = Partups.findOneOrFail(partupId);
 
         check(fields, Partup.schemas.forms.startPartup);
 
-        var user = Meteor.user();
-        var partup = Partups.findOneOrFail(partupId);
         var uppers = partup.uppers || [];
 
         if (!partup.isEditableBy(user)) {

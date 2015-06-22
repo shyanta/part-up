@@ -1,0 +1,19 @@
+<template name="LocationAutocomplete">
+    {{# if filledInValue }}
+        <span class="pu-input pu-input-noneditable">{{ filledInValue }}</span>
+        <button type="button" class="pu-sub-remove fa fa-remove" data-clear=""></button>
+    {{ else }}
+        <input class="pu-input" type=text placeholder={{placeholder}} data-locationautocomplete="" />
+        {{# if locationAutocompletes }}
+        <div class="pu-autocomplete" style="position: absolute; z-index: 2; width: 100%;">
+            <div class="tt-menu tt-open">
+                <div class="tt-dataset">
+                    {{# each locationAutocompletes }}
+                    <div class="tt-suggestion tt-selectable" type=button data-place="">{{ city }}</div>
+                    {{/ each }}
+                </div>
+            </div>
+        </div>
+        {{/ if }}
+    {{/ if }}
+</template>

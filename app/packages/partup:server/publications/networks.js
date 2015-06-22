@@ -26,9 +26,11 @@ Meteor.publish('networks.list', function() {
 });
 
 Meteor.publishComposite('networks.one.partups', function(networkId) {
+    var self = this;
+
     return {
         find: function() {
-            return Partups.find({'network._id': networkId});
+            return Partups.guardedFind(self.userId, {'network._id': networkId});
         }
     };
 });

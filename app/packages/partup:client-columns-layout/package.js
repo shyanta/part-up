@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-reactive-layout',
+    name: 'partup:client-columns-layout',
     version: '0.0.1',
     summary: 'a pinterest-like layout for overview pages'
 });
@@ -15,10 +15,10 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.addFiles([
-        'ReactiveLayout.html',
-        'ReactiveLayout.js',
+        'Columnslayout.html',
+        'Columnslayout.js',
 
-        'ReactiveTile.html',
-        'ReactiveTile.js'
+        'subtemplates/Tile.html',
+        'subtemplates/Tile.js'
     ], 'client');
 });
