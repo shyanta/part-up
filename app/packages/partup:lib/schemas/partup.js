@@ -145,7 +145,8 @@ Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
         max: 255
     },
     privacy_type_input: {
-        type: String
+        type: String,
+        optional: true
     },
     tags_input: {
         type: String,
