@@ -305,11 +305,14 @@ Template.app_discover.onCreated(function() {
                 computation.stop();
 
                 Tracker.nonreactive(function addPartups() {
+
+                    // Determine the added partups
                     var newPartups = mout.array.filter(Partups.find().fetch(), function(partup) {
                         return !mout.array.find(tpl.partups, function(_partup) {
                             return partup._id === _partup._id;
                         });
                     });
+
                     tpl.handle.stop();
 
                     tpl.addPartups(newPartups);

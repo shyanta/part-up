@@ -12,9 +12,9 @@ Template.ColumnsLayout.onCreated(function() {
     var tpl = this;
 
     /**
-     * Hydrate partup
+     * Hydrate item
      */
-    var hydratePartup = function(item) {
+    var hydrateItem = function(item) {
         item.isRendered = new ReactiveVar(false);
     };
 
@@ -71,7 +71,7 @@ Template.ColumnsLayout.onCreated(function() {
 
         // Assuming here that the [data-column] indices order equals the tpl.columns indices order
         var columns = tpl.columns.get();
-        hydratePartup(item);
+        hydrateItem(item);
         columns[shortest.index].push(item);
         tpl.columns.set(columns);
     };
@@ -95,11 +95,11 @@ Template.ColumnsLayout.helpers({
     },
     onItemRendered: function() {
         var tpl = Template.instance();
-        var partup = this;
+        var item = this;
 
         return function() {
             tpl.columns.queue_next();
-            partup.isRendered.set(true);
+            item.isRendered.set(true);
         };
     },
     isRendered: function() {
