@@ -54,5 +54,31 @@
                 <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
             </div>
         </label>
+
+        <!-- tags_input -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-tags_input-label'}}
+                <a class="pu-hint">
+                    {{# if partupLowerThan tags_inputCharactersLeft formSchema._schema.tags_input.max }}
+                        {{_ 'network-settings-form-characters-left' tags_inputCharactersLeft }}
+                    {{ else }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.tags_input.max }}
+                    {{/ if }}
+                </a>
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> afFieldInput
+                        name='tags_input'
+                        placeholder=placeholders.tags_input
+                        class='pu-input'
+                        maxlength=formSchema._schema.tags_input.max
+                    }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+            </div>
+        </label>
     {{/ autoForm }}
 </template>

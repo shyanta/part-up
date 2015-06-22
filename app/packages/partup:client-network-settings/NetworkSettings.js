@@ -12,9 +12,11 @@ Template.NetworkSettings.onCreated(function() {
         var network = Networks.findOne({_id: self.data.networkId});
         if (!network) return;
 
+        network = Partup.transformers.network.toFormNetwork(network);
+
         var formSchema = Partup.schemas.forms.network._schema;
 
-        ['description', 'name'].forEach(function(n) {
+        ['description', 'name', 'tags_input'].forEach(function(n) {
             self.charactersLeft.set(n, formSchema[n].max - network[n].length);
         });
     });
@@ -28,6 +30,9 @@ Template.NetworkSettings.helpers({
         },
         description: function() {
             return __('network-settings-form-description-placeholder');
+        },
+        tags_input: function() {
+            return __('network-settings-form-tags_input-placeholder');
         }
     },
     descriptionCharactersLeft: function() {
@@ -36,8 +41,14 @@ Template.NetworkSettings.helpers({
     nameCharactersLeft: function() {
         return Template.instance().charactersLeft.get('name');
     },
+    tags_inputCharactersLeft: function() {
+        return Template.instance().charactersLeft.get('tags_input');
+    },
     network: function() {
-        return Networks.findOne({_id: this.networkId});
+        var network = Networks.findOne({_id: this.networkId});
+        if (!network) return;
+
+        return Partup.transformers.network.toFormNetwork(network);
     }
 });
 
