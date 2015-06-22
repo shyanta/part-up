@@ -420,6 +420,11 @@ Template.app_discover.helpers({
             return '...';
         }
     },
+
+    // What? Yeah. It's magic, but let me explain.
+    // We use this trick to be able to call a function in a child template.
+    // The child template directly calls 'addPartupsHook' with a callback.
+    // We save that callback, so we can call it later and the child template can react to it.
     addPartupsHook: function() {
         var tpl = Template.instance();
 
