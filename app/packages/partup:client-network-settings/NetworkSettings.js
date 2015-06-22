@@ -85,3 +85,22 @@ Template.NetworkSettings.events({
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
     }
 });
+
+AutoForm.addHooks('networkEditForm', {
+    onSubmit: function(doc) {
+        var self = this;
+        var template = self.template.parent();
+        var networkId = template.data.networkId;
+
+        Meteor.call('networks.update', networkId, doc, function(err) {
+            if (err && err.message) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            self.done();
+        });
+
+        return false;
+    }
+});
