@@ -49,6 +49,11 @@ var partupBaseSchema = new SimpleSchema({
     image: {
         type: String,
         optional: true
+    },
+    network_id: {
+        type: String,
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
     }
 });
 
@@ -83,11 +88,6 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     },
     'location.country': {
         type: String
-    },
-    network_id: {
-        type: String,
-        optional: true,
-        regEx: SimpleSchema.RegEx.Id
     },
     privacy_type: {
         type: Number,
@@ -146,7 +146,6 @@ Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
     },
     privacy_type_input: {
         type: String,
-        optional: true
     },
     tags_input: {
         type: String,
