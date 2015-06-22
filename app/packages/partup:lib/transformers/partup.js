@@ -67,8 +67,8 @@ Partup.transformers.partup = {
             partup.privacy_type = Partups.PUBLIC;
         } else if (fields.privacy_type_input === 'private') {
             partup.privacy_type = Partups.PRIVATE;
-        } else if (fields.privacy_type_input) {
-            var network = Networks.findOneOrFail(fields.privacy_type_input);
+        } else if (fields.privacy_type_input === 'network') {
+            var network = Networks.findOneOrFail(fields.network_id);
             partup.network_id = network._id;
             switch (network.privacy_type) {
                 case Networks.NETWORK_PUBLIC:
