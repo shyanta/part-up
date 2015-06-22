@@ -17,7 +17,7 @@ Template.NetworkSettings.onCreated(function() {
         var formSchema = Partup.schemas.forms.network._schema;
         var valueLength;
 
-        ['description', 'name', 'tags_input', 'location_input'].forEach(function(n) {
+        ['description', 'name', 'tags_input', 'location_input', 'website'].forEach(function(n) {
             valueLength = network[n] ? network[n].length : 0;
             self.charactersLeft.set(n, formSchema[n].max - valueLength);
         });
@@ -38,6 +38,9 @@ Template.NetworkSettings.helpers({
         },
         location_input: function() {
             return __('network-settings-form-location_input-placeholder');
+        },
+        website: function() {
+            return __('network-settings-form-website-placeholder');
         }
     },
     descriptionCharactersLeft: function() {
@@ -51,6 +54,9 @@ Template.NetworkSettings.helpers({
     },
     location_inputCharactersLeft: function() {
         return Template.instance().charactersLeft.get('location_input');
+    },
+    websiteCharactersLeft: function() {
+        return Template.instance().charactersLeft.get('website');
     },
     network: function() {
         return Networks.findOne({_id: this.networkId});

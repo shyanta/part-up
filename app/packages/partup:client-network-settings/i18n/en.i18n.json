@@ -12,5 +12,8 @@
     "network-settings-form-tags_input-placeholder": "Separated with a comma please",
 
     "network-settings-form-location_input-label": "Location",
-    "network-settings-form-location_input-placeholder": "@Placeholder"
+    "network-settings-form-location_input-placeholder": "@Placeholder",
+
+    "network-settings-form-website-label": "Website",
+    "network-settings-form-website-placeholder": "@Placeholder"
 }

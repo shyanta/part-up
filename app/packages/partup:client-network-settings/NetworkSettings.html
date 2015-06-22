@@ -100,5 +100,31 @@
                 <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
             </div>
         </label>
+
+        <!-- website -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-website-label'}}
+                <a class="pu-hint">
+                    {{# if partupLowerThan websiteCharactersLeft formSchema._schema.website.max }}
+                        {{_ 'network-settings-form-characters-left' websiteCharactersLeft }}
+                    {{ else }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.website.max }}
+                    {{/ if }}
+                </a>
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='website' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> afFieldInput
+                        name='website'
+                        placeholder=placeholders.website
+                        class='pu-input'
+                        maxlength=formSchema._schema.website.max
+                    }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='website' }}</span>
+            </div>
+        </label>
     {{/ autoForm }}
 </template>
