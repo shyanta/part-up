@@ -253,8 +253,8 @@ CustomSelect.prototype.toggle = function() {
 /**
  * Discover constants
  */
-var STARTING_LIMIT = 8;
-var INCREMENT = 4;
+var STARTING_LIMIT = 12;
+var INCREMENT = 8;
 
 /**
  * Discover created
@@ -342,6 +342,9 @@ Template.app_discover.onCreated(function() {
 Template.app_discover.onRendered(function() {
     var tpl = this;
 
+    /**
+     * Infinite scroll
+     */
     var loadingMore = false;
     Partup.client.scroll.infinite({
         template: tpl,
@@ -355,6 +358,9 @@ Template.app_discover.onRendered(function() {
         });
     });
 
+    /**
+     * Filter options
+     */
     var keywords = document.querySelector('[data-discover-search] [name=keywords]');
     var network = document.querySelector('[data-discover-search] [name=network]');
     var city = document.querySelector('[data-discover-search] [name=city]');
