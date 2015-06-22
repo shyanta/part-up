@@ -2,153 +2,107 @@
  * ReactiveLayout
  * a layout system similar to Pinterest
  *
- * @param {array} items             Array of items to be rendered
- * @param {number} TOTAL_COLUMNS    the total number of columns the layout consists of
- * @param {string} COLUMN_CLASS     the classname of each column <ul>
- * @param {string} ITEM_TEMPLATE    template name for each tile in the layout
- * @param {string} ITEM_DATA_KEY    namespace for each item in items (each partup in partups)
+ * @param {number} COLUMNS     Number of columns
+ * @param {string} TEMPLATE    Templatename for each item
+ * @param {function} addHook   Function that recieves a callback function from the reactiveLayout. Save the function and fire it when you want to ADD items
+ * @param {function} cleanHook Function that recieves a callback function from the reactiveLayout. Save the function and fire it when you want to CLEAN ALL items
  */
 
- // generates a reactive column array based on TOTAL_COLUMNS constante
-var generateColumns = function(totalColumns) {
-    var columnArray = [];
-    for (var i = 0; i < totalColumns; i++) {
-        columnArray.push([]);
-    };
-    return new ReactiveVar(columnArray);
-};
-
-// compare all columns and return the index of the smallest
-var getShortestColumnIndex = function(template) {
-    var init = true;
-    var prevHeight = 0;
-    var smallestColumnIndex = 0;
-
-    template.columnElements.each(function(index) {
-        var thisHeight = $(this).height();
-        if (thisHeight < prevHeight || init) {
-            init = false;
-            smallestColumnIndex = index;
-            prevHeight = thisHeight;
-        }
-    });
-
-    return smallestColumnIndex;
-};
-
-// // compare all columns and return the height of the largest
-// var getLargestColumnHeight = function(template) {
-//     var prevHeight = 0;
-//     var largestColumnHeight;
-
-//     template.columnElements.each(function(item) {
-//         var thisHeight = $(this).height();
-//         if (thisHeight > prevHeight) {
-//             prevHeight = thisHeight;
-//             largestColumnHeight = thisHeight;
-//         }
-//     });
-//     return largestColumnHeight;
-// };
-
-// var compensateHeight = function(template) {
-//     $(template.find('[data-layout]')).height(getLargestColumnHeight(template));
-// };
-
-// on created, initializer
 Template.ReactiveLayout.onCreated(function() {
-    var template = this;
-    // Session.set('footerEnabled', false);
-    template.resetLayout = function(refreshDate, data) {
-        // total tiles rendered
-        template.count = 0;
+    var tpl = this;
 
-        // total items in items array
-        template.total = data.items.length;
-
-        //
-        template.refreshDate = refreshDate;
-
-        // create columns Array based on the TOTAL_COLUMNS constante
-        template.columns = generateColumns(data.TOTAL_COLUMNS);
+    /**
+     * Hydrate partup
+     */
+    var hydratePartup = function(item) {
+        item.isRendered = new ReactiveVar(false);
     };
 
-    template.resetLayout(template.data.refresh_date, template.data);
-
-    // adds tile to the reactive layout
-    template.addTile = function() {
-        // abort if there is no next item
-        if (!template.data.items[template.count + 1]) return;
-
-        // increment count when the item exists
-        template.count++;
-
-        // index of the smallest rendered column
-        var index = getShortestColumnIndex(template);
-
-        // column array
-        var columnData = template.columns.get();
-
-        // add the item to the smallest column
-        columnData[index].push(template.data.items[template.count]);
-
-        // update column array reactive var
-        template.columns.set(columnData);
+    /**
+     * Columns
+     */
+    tpl.columns = new ReactiveVar();
+    var resetColumns = function() {
+        var columns = [];
+        for (var i = 0; i < tpl.data.COLUMNS; i++) {
+            columns.push([]);
+        };
+        tpl.columns.set(columns);
     };
+    resetColumns();
 
-    // when a ReactiveTile is rendered, the onTileRender is fired
-    template.onTileRender = function() {
-        template.addTile();
-    };
-});
+    /**
+     * Columns operations
+     */
+    tpl.columns.queue = [];
+    tpl.columns.queue_running = false;
+    tpl.columns.queue_next = function() {
+        if (tpl.columns.queue_running) tpl.columns.queue.shift();
+        tpl.columns.queue_running = true;
 
-// when the template is rendered
-Template.ReactiveLayout.onRendered(function() {
-    var template = this;
-
-    // by now the column elements are rendered, find all for use later on
-    template.columnElements = $(template.findAll('[data-layout] > ul'));
-
-    template.initialize = function(refreshDate, data) {
-        template.resetLayout(refreshDate, data);
-
-        // add the first column
-        var columnData = template.columns.get();
-        columnData[0].push(data.items[0]);
-        template.columns.set(columnData);
-    };
-
-    template.initialize(template.data.refresh_date, template.data);
-
-    // this autorun runs when the template data object changes
-    // if more items are added to the items in the template.data obj
-    // kickstart the tile renderer
-    template.autorun(function() {
-        var data = Template.currentData();
-        if (data.items.length > template.total) {
-            template.total = data.items.length;
-            template.addTile();
+        var item = tpl.columns.queue[0];
+        if (!item) {
+            return tpl.columns.queue_running = false;
         }
-    });
 
+        tpl.columns.addToShortestColumn(item);
+    };
+    tpl.columns.insert = function(items) {
+        tpl.columns.queue = tpl.columns.queue.concat(items);
+        if (!tpl.columns.queue_running) {
+            Meteor.defer(tpl.columns.queue_next);
+        };
+    };
+    tpl.columns.clean = resetColumns;
+    tpl.columns.addToShortestColumn = function(item) {
+        var shortest = {
+            index: null,
+            height: Infinity
+        };
+
+        $(tpl.findAll('[data-column]')).each(function(index) {
+            var myHeight = $(this).outerHeight();
+
+            if (shortest.height > myHeight) {
+                shortest.index = index;
+                shortest.height = myHeight;
+            }
+        });
+
+        // Assuming here that the [data-column] indices order equals the tpl.columns indices order
+        var columns = tpl.columns.get();
+        hydratePartup(item);
+        columns[shortest.index].push(item);
+        tpl.columns.set(columns);
+    };
+
+    /**
+     * Register callbacks
+     */
+    tpl.data.addHook(tpl.columns.insert);
+    tpl.data.cleanHook(tpl.columns.clean);
 });
 
+/**
+ * Helpers
+ */
 Template.ReactiveLayout.helpers({
     columns: function() {
         return Template.instance().columns.get();
     },
-    columnClass: function() {
-        return Template.instance().data.COLUMN_CLASS;
-    },
     templateName: function() {
-        return Template.instance().data.ITEM_TEMPLATE;
+        return Template.instance().data.TEMPLATE;
     },
-    templateData: function() {
-        var dataObj = {};
-        dataObj[Template.instance().data.ITEM_DATA_KEY] = this;
-        return dataObj;
+    onItemRendered: function() {
+        var tpl = Template.instance();
+        var partup = this;
+
+        return function() {
+            tpl.columns.queue_next();
+            partup.isRendered.set(true);
+        };
     },
-    onTileRender: function() {
-        return Template.instance().onTileRender;
+    isRendered: function() {
+        return this.isRendered.get();
     }
 });

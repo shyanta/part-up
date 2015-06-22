@@ -1,17 +1,13 @@
 <template name="ReactiveLayout">
-    <section class="pu-reactivelayout" data-layout>
-
+    <section class="pu-reactivelayout">
         {{#each columns}}
-            <ul class="{{ columnClass }}">
+            <ul class="pu-column" data-column>
                 {{#each .}}
-                    {{> ReactiveTile
-                        onTileRender=onTileRender
-                        templateName=templateName
-                        templateData=templateData
-                    }}
+                    <li class="pu-reactivetile {{#if isRendered }}pu-reactivetile-rendered{{/if}}">
+                        <div>{{> ReactiveTile template=templateName data=. onRendered=onItemRendered }}</div>
+                    </li>
                 {{/each}}
             </ul>
         {{/each}}
-
     </section>
 </template>

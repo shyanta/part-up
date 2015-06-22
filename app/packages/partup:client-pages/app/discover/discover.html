@@ -37,16 +37,12 @@
                             {{/ if }}
                         </h2>
                     </header>
-                    {{#if partups }}
-                        {{> ReactiveLayout
-                            items=partups
-                            refresh_date=refreshDate
-                            TOTAL_COLUMNS=4
-                            COLUMN_CLASS="pu-column"
-                            ITEM_TEMPLATE="PartupTile"
-                            ITEM_DATA_KEY="partup"
-                        }}
-                    {{/if}}
+                    {{> ReactiveLayout
+                        COLUMNS=4
+                        TEMPLATE="PartupTile"
+                        addHook=addPartupsHook
+                        cleanHook=cleanPartupsHook
+                    }}
                 </section>
             </div>
         </div>

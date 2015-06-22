@@ -3,22 +3,22 @@
 /*************************************************************/
 Template.PartupTile.helpers({
     activityCount: function() {
-        return this.partup.activity_count || Activities.find({partup_id: this.partup._id}).count();
+        return this.activity_count || Activities.find({partup_id: this._id}).count();
     },
     dayCount: function() {
-        var created = new Date(this.partup.created_at);
+        var created = new Date(this.created_at);
         var now = new Date();
         return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
     },
     supporterCount: function() {
-        if (!this.partup.supporters) return 0;
-        return this.partup.supporters.length;
+        if (!this.supporters) return 0;
+        return this.supporters.length;
     },
     partupProgress: function() {
         var day = 24 * 60 * 60 * 1000;
         var now = new Date();
-        var createdAt = new Date(this.partup.created_at);
-        var endsAt = new Date(this.partup.end_date);
+        var createdAt = new Date(this.created_at);
+        var endsAt = new Date(this.end_date);
 
         var daysLeft = Math.round(Math.abs((now.getTime() - endsAt.getTime()) / day));
         var daysPast = Math.round(Math.abs((createdAt.getTime() - now.getTime()) / day));
@@ -26,12 +26,12 @@ Template.PartupTile.helpers({
         return (daysPast / (daysLeft + daysPast)) * 100;
     },
     tags: function() {
-        if (!this.partup.tags) return;
+        if (!this.tags) return;
 
         var tags = [];
-        for (var i = 0; i < this.partup.tags.length; i++) {
+        for (var i = 0; i < this.tags.length; i++) {
             tags.push({
-                tag: this.partup.tags[i],
+                tag: this.tags[i],
                 delay: .075 * i
             });
         }
@@ -42,8 +42,8 @@ Template.PartupTile.helpers({
         return Meteor.users.findOne({_id: this._id});
     },
     uppers: function() {
-        if (!this.partup || !this.partup.uppers) return;
-        var uppers = this.partup.uppers;
+        if (!this._id || !this.uppers) return;
+        var uppers = this.uppers;
 
         return lodash.map(uppers, function(upper, index) {
             var coords = getAvatarCoordinates(uppers.length, index, 0, 24, 100);

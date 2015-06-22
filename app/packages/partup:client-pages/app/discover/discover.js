@@ -253,8 +253,8 @@ CustomSelect.prototype.toggle = function() {
 /**
  * Discover constants
  */
-var PARTUPS_SUBSCRIPTION_STARTING_LIMIT = 8;
-var PARTUPS_SUBSCRIPTION_INCREMENT = 4;
+var STARTING_LIMIT = 8;
+var INCREMENT = 4;
 
 /**
  * Discover created
@@ -262,22 +262,74 @@ var PARTUPS_SUBSCRIPTION_INCREMENT = 4;
 Template.app_discover.onCreated(function() {
     var tpl = this;
 
-    // Reactive subscription options
-    tpl.partupsSubscriptionOptions = new ReactiveVar({
-        limit: PARTUPS_SUBSCRIPTION_STARTING_LIMIT
-    });
+    // Current partups (for reference when determining the added partups)
+    tpl.partups = [];
+
+    // Subscription handle
+    tpl.handle;
 
     // Subscribe (and re-subscribe when the options change)
-    tpl.autorun(function() {
-        var options = tpl.partupsSubscriptionOptions.get();
-        tpl.subscribe('partups.discover', options);
+    tpl.options = new ReactiveVar({}, function(a, b) {
+        var options = b;
+        options.limit = tpl.resetLimit();
+
+        tpl.handle = tpl.subscribe('partups.discover', options);
+
+        Meteor.autorun(function whenSubscriptionIsReady(computation) {
+            if (tpl.handle.ready()) {
+                computation.stop();
+
+                Tracker.nonreactive(function replacePartups() {
+                    tpl.partups = Partups.find().fetch();
+                    tpl.handle.stop();
+
+                    tpl.cleanPartups();
+                    tpl.addPartups(tpl.partups);
+                });
+            }
+        });
     });
 
-    // Function to increase the limit
-    tpl.increasePartupsLimit = function() {
-        var o = tpl.partupsSubscriptionOptions.get();
-        o.limit += PARTUPS_SUBSCRIPTION_INCREMENT;
-        tpl.partupsSubscriptionOptions.set(o);
+    // Re-subscribe when the limit changes
+    tpl.limit = new ReactiveVar(STARTING_LIMIT, function(a, b) {
+        var resetting = b === STARTING_LIMIT;
+        if (resetting) return;
+
+        var options = tpl.options.get();
+        options.limit = tpl.limit.get();
+
+        tpl.handle = tpl.subscribe('partups.discover', options);
+
+        Meteor.autorun(function whenSubscriptionIsReady(computation) {
+            if (tpl.handle.ready()) {
+                computation.stop();
+
+                Tracker.nonreactive(function addPartups() {
+                    var newPartups = mout.array.filter(Partups.find().fetch(), function(partup) {
+                        return !mout.array.find(tpl.partups, function(_partup) {
+                            return partup._id === _partup._id;
+                        });
+                    });
+                    tpl.handle.stop();
+
+                    tpl.addPartups(newPartups);
+
+                    tpl.partups = tpl.partups.concat(newPartups);
+                });
+            }
+        });
+    });
+
+    // Limit functions
+    tpl.increaseLimit = function() {
+        var limit = tpl.limit.get() + INCREMENT;
+        tpl.limit.set(limit);
+        return limit;
+    };
+    tpl.resetLimit = function() {
+        var limit = STARTING_LIMIT;
+        tpl.limit.set(limit);
+        return limit;
     };
 });
 
@@ -291,7 +343,7 @@ Template.app_discover.onRendered(function() {
         autorunTemplate: tpl,
         debounce: 500,
         offset: $(window).height(),
-    }, tpl.increasePartupsLimit);
+    }, tpl.increaseLimit);
 
     var keywords = document.querySelector('[data-discover-search] [name=keywords]');
     var network = document.querySelector('[data-discover-search] [name=network]');
@@ -328,12 +380,6 @@ Template.app_discover.onRendered(function() {
  * Discover helpers
  */
 Template.app_discover.helpers({
-    partups: function() {
-        return Partups.find().fetch();
-    },
-    refreshDate: function() {
-        return new Date().getTime();
-    },
     showProfileCompletion: function() {
         var user = Meteor.user();
         if (!user) return false;
@@ -354,6 +400,20 @@ Template.app_discover.helpers({
         } else {
             return '...';
         }
+    },
+    addPartupsHook: function() {
+        var tpl = Template.instance();
+
+        return function registerCallback(callback) {
+            tpl.addPartups = callback;
+        };
+    },
+    cleanPartupsHook: function() {
+        var tpl = Template.instance();
+
+        return function registerCallback(callback) {
+            tpl.cleanPartups = callback;
+        };
     }
 });
 
@@ -364,11 +424,11 @@ Template.app_discover.events({
     'click [data-search]': function(event, template) {
         event.preventDefault();
         var form = event.currentTarget.form;
-        var text = lodash.find(form, {name: 'keywords'}).value;
+        var search_query = lodash.find(form, {name: 'keywords'}).value;
 
-        template.partupsSubscriptionOptions.set({
-            limit: PARTUPS_SUBSCRIPTION_STARTING_LIMIT,
-            query: text
+        template.options.set({
+            limit: STARTING_LIMIT,
+            query: search_query
         });
     },
     'submit [data-discover-search]': function(event, template) {
