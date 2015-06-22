@@ -314,6 +314,8 @@ Template.app_discover.onCreated(function() {
 
                     tpl.addPartups(newPartups);
 
+                    if (mout.lang.isFunction(tpl.infiniteScrollCallback)) tpl.infiniteScrollCallback();
+                    tpl.infiniteScrollCallback = null;
                     tpl.partups = tpl.partups.concat(newPartups);
                 });
             }
@@ -321,9 +323,10 @@ Template.app_discover.onCreated(function() {
     });
 
     // Limit functions
-    tpl.increaseLimit = function() {
+    tpl.increaseLimit = function(finishedCallback) {
         var limit = tpl.limit.get() + INCREMENT;
         tpl.limit.set(limit);
+        tpl.infiniteScrollCallback = finishedCallback;
         return limit;
     };
     tpl.resetLimit = function() {
@@ -339,11 +342,18 @@ Template.app_discover.onCreated(function() {
 Template.app_discover.onRendered(function() {
     var tpl = this;
 
-    Partup.client.scroll.onBottomOffset({
-        autorunTemplate: tpl,
-        debounce: 500,
-        offset: $(window).height(),
-    }, tpl.increaseLimit);
+    var loadingMore = false;
+    Partup.client.scroll.infinite({
+        template: tpl,
+        element: tpl.find('[data-infinitescroll-container]')
+    }, function() {
+        if (loadingMore) return;
+        loadingMore = true;
+
+        tpl.increaseLimit(function() {
+            loadingMore = false;
+        });
+    });
 
     var keywords = document.querySelector('[data-discover-search] [name=keywords]');
     var network = document.querySelector('[data-discover-search] [name=network]');

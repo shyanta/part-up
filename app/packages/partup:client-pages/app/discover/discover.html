@@ -37,12 +37,14 @@
                             {{/ if }}
                         </h2>
                     </header>
-                    {{> ReactiveLayout
-                        COLUMNS=4
-                        TEMPLATE="PartupTile"
-                        addHook=addPartupsHook
-                        cleanHook=cleanPartupsHook
-                    }}
+                    <div data-infinitescroll-container>
+                        {{> ReactiveLayout
+                            COLUMNS=4
+                            TEMPLATE="PartupTile"
+                            addHook=addPartupsHook
+                            cleanHook=cleanPartupsHook
+                        }}
+                    </div>
                 </section>
             </div>
         </div>
