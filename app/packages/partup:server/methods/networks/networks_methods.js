@@ -231,5 +231,32 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'User [' + user._id + '] could not be removed from network ' + networkId + '.');
         }
-    }
+    },
+
+    /**
+     * Remove an upper from a network as admin
+     *
+     * @param {string} networkId
+     * @param {string} upperId
+     */
+    'networks.remove': function(networkId, upperId) {
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail(networkId);
+
+        if (!network.isAdmin(user._id)) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        try {
+            network.leave(upperId);
+
+            return {
+                network_id: network._id,
+                upper_id: upperId
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'User [' + upperId + '] could not be removed from network ' + networkId + '.');
+        }
+    },
 });
