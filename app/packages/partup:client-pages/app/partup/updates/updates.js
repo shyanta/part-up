@@ -1,121 +1,189 @@
-var LIMIT_DEFAULT = 10;
-var LIMIT_INCREMENT = 10;
-/*************************************************************/
-/* Widget functions */
-/*************************************************************/
-var getUpdates = function getUpdates () {
-    var criteria = {
-        partup_id: Router.current().params._id
-    };
-    return Updates.find(criteria, {sort: {updated_at: -1}}).map(function(update, idx) {
-        update.arrayIndex = idx;
-        return update;
-    });
-};
+/**
+ * Updates constants
+ */
+var STARTING_LIMIT = 10;
+var INCREMENT = 10;
 
-/*************************************************************/
-/* On created */
-/*************************************************************/
+/**
+ * Updates created
+ */
 Template.app_partup_updates.onCreated(function() {
-    var template = this;
+    var tpl = this;
 
-    template.allUpdates = new ReactiveVar();
-    template.shownUpdates = new ReactiveVar();
-    template.refreshDate = new ReactiveVar(new Date());
+    // Own subscription handle
+    tpl.handle;
 
-    template.updateShownUpdates = function() {
-        template.shownUpdates.set(getUpdates());
-        template.refreshDate.set(new Date());
-    };
+    // Filter reactive variable (on change, set value to the tpl.options reactive var)
+    tpl.filter = new ReactiveVar('default', function(oldFilter, newFilter) {
+        var options = tpl.options.get();
+        options.filter = newFilter;
+        tpl.options.set(options);
+    });
 
-    // Update subscription function
-    template.subscription;
-    template.oldSubscription;
-    template.updateSubscriptionFilter = function(filter) {
-        template.currentFilter = filter;
-        if (template.subscription) template.subscription.stop();
-        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id,
-        {
-            filter: filter,
-            limit: LIMIT_DEFAULT
+    // Subscribe (and re-subscribe when the options change)
+    tpl.options = new ReactiveVar({}, function(a, b) {
+        var options = b;
+        tpl.resetLimit();
+        options.limit = tpl.limit.get();
+
+        var oldHandle = tpl.handle;
+        tpl.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
+        tpl.updates.loading = true;
+
+        Meteor.autorun(function whenSubscriptionIsReady(computation) {
+            if (tpl.handle.ready()) {
+                computation.stop(); // Stop the autorun
+                if (oldHandle) oldHandle.stop();
+                tpl.updates.loading = false;
+
+                /**
+                 * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
+                 * -
+                 */
+                Tracker.nonreactive(function replacePartups() {
+                    tpl.updates.updateModel();
+                    tpl.updates.updateView();
+                });
+            }
         });
-        template.subscription.updated = true;
-    };
-    template.updateSubscriptionLimit = function(limit) {
-        if (template.subscription) {
-            template.oldSubscription = template.subscription;
-        }
-        template.subscription = Meteor.subscribe('partups.one.updates', Router.current().params._id,
-        {
-            filter: template.currentFilter,
-            limit: limit
+    });
+
+    // Re-subscribe when the limit changes
+    tpl.limit = new ReactiveVar(STARTING_LIMIT, function(a, b) {
+        var first = b === STARTING_LIMIT;
+        if (first) return;
+
+        var options = tpl.options.get();
+        options.limit = b;
+
+        var oldHandle = tpl.handle;
+        tpl.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
+        tpl.updates.loading = true;
+
+        Meteor.autorun(function whenSubscriptionIsReady(computation) {
+            if (tpl.handle.ready()) {
+                computation.stop(); // Stop the autorun
+                if (oldHandle) oldHandle.stop();
+                tpl.updates.loading = false;
+
+                /*
+                 * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
+                 * -
+                 **/
+                Tracker.nonreactive(function addPartups() {
+                    var modelUpdates = tpl.updates.updateModel();
+                    var viewUpdates = tpl.updates.view.get();
+
+                    var difference = modelUpdates.length - viewUpdates.length;
+                    tpl.updates.end_reached = difference < INCREMENT;
+
+                    var addedUpdates = mout.array.filter(modelUpdates, function(update) {
+                        return !mout.array.find(viewUpdates, function(_update) {
+                            return update._id === _update._id;
+                        });
+                    });
+
+                    tpl.updates.addToView(addedUpdates);
+                });
+            }
         });
-        template.oldSubscription.stop();
-        template.subscription.updated = true;
-    };
-
-    // Update subscription on filter change
-    template.filterValue = new ReactiveVar('default', function(oldFilter, newFilter) {
-        template.updateSubscriptionFilter(newFilter);
     });
 
-    // Set subscription once
-    template.updateSubscriptionFilter(template.filterValue.get());
+    // Limit functions
+    tpl.increaseLimit = function() {
+        tpl.limit.set(tpl.limit.get() + INCREMENT);
+    };
+    tpl.resetLimit = function() {
+        tpl.limit.set(STARTING_LIMIT);
+        tpl.updates.end_reached = false;
+    };
 
-    template.autorun(function() {
-        var updates = getUpdates();
-        template.allUpdates.set(updates);
+    // Updates model
+    tpl.updates = {
 
-        if (template.subscription.updated && template.subscription.ready()) {
-            template.updateShownUpdates();
-            template.subscription.updated = false;
+        loading: false,
+        end_reached: false,
+        refreshDate: new ReactiveVar(new Date()),
+
+        model: Updates.findByFilter(tpl.data.partupId),
+        updateModel: function() {
+            Tracker.nonreactive(function() {
+                var options = tpl.options.get();
+                tpl.updates.model = Updates.findByFilter(tpl.data.partupId, options.filter, options.limit);
+            });
+            return tpl.updates.model.fetch();
+        },
+
+        view: new ReactiveVar([]),
+        updateView: function() {
+            Tracker.nonreactive(function() {
+                var updates = tpl.updates.model.fetch();
+                tpl.updates.view.set(updates);
+                tpl.updates.refreshDate.set(new Date());
+            });
+        },
+        addToView: function(updates) {
+            Tracker.nonreactive(function() {
+                var current_updates = tpl.updates.view.get();
+                tpl.updates.view.set(current_updates.concat(updates));
+            });
+        }
+    };
+
+    // When the model changes and the view is empty, update the view with the model
+    tpl.autorun(function() {
+        var updates = tpl.updates.model.fetch();
+
+        if (updates.length && !tpl.updates.view.get().length) {
+            tpl.updates.view.set(updates);
+            tpl.updates.refreshDate.set(new Date());
         }
     });
 
-    template.limit = new ReactiveVar(LIMIT_DEFAULT, function(oldValue, newValue) {
-        template.updateSubscriptionLimit(newValue);
-    });
+    // First run
+    tpl.options.set({});
 });
 
+/**
+ * Updates rendered
+ */
 Template.app_partup_updates.onRendered(function() {
-    var template = this;
+    var tpl = this;
 
-    Partup.client.scroll.onBottomOffset({
-        autorunTemplate: template,
-        debounce: 500,
-        offset: 500,
+    /**
+     * Infinite scroll
+     */
+    Partup.client.scroll.infinite({
+        template: tpl,
+        element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        Partup.client.reactiveVarHelpers.incrementNumber(template.limit, LIMIT_INCREMENT);
+        if (tpl.updates.loading || tpl.updates.end_reached) return;
+        tpl.increaseLimit();
     });
 
 });
 
-Template.app_partup_updates.onDestroyed(function() {
-    if (this.subscription) this.subscription.stop();
-    if (this.oldSubscription) this.oldSubscription.stop();
-});
-
-/*************************************************************/
-/* Widget helpers */
-/*************************************************************/
+/**
+ * Updates helpers
+ */
 Template.app_partup_updates.helpers({
-    'updates': function helperUpdates () {
-        var template = Template.instance();
-        return template.shownUpdates.get();
+    updates: function() {
+        return Template.instance().updates.view.get();
     },
 
-    'newUpdatesCount': function newUpdatesCount() {
+    newUpdatesCount: function() {
         var template = Template.instance();
-        var refreshDate = template.refreshDate.get();
-        return lodash.filter(template.allUpdates.get(), function(update) {
+        var refreshDate = template.updates.refreshDate.get();
+
+        return lodash.filter(template.updates.model.fetch(), function(update) {
             return moment(update.updated_at).diff(refreshDate) > 0;
         }).length;
     },
 
-    'anotherDay': function helperAnotherday (update) {
+    anotherDay: function(update) {
         var TIME_FIELD = 'created_at';
 
-        var updates = getUpdates();
+        var updates = Template.instance().updates.view.get();
         var currentIndex = lodash.findIndex(updates, update);
         var previousUpdate = updates[currentIndex - 1];
         var previousMoment = moment();
@@ -128,11 +196,11 @@ Template.app_partup_updates.helpers({
 
         return previousMoment.diff(currentMoment) > 24 * 60 * 60 * 1000;
     },
-    'isLoggedIn': function helperIsLoggedIn() {
+    isLoggedIn: function() {
         var user = Meteor.user();
         return !!user;
     },
-    'isUpper': function helperIsUpper () {
+    isUpper: function() {
         var user = Meteor.user();
         if (!user) return false;
 
@@ -142,7 +210,7 @@ Template.app_partup_updates.helpers({
         return partup.uppers.indexOf(user._id) > -1;
     },
 
-    'metaDataForUpdate': function helperMetaDataForUpdate () {
+    metaDataForUpdate: function() {
         var update = this;
         var updateUpper = Meteor.users.findOne({_id: update.upper_id});
 
@@ -168,22 +236,21 @@ Template.app_partup_updates.helpers({
         };
     },
 
-    'filterValueReactiveVar': function helperFilterValueReactiveVar () {
-        var template = Template.instance();
-        return template.filterValue;
+    filterReactiveVar: function() {
+        return Template.instance().filter;
     }
 });
 
-/*************************************************************/
-/* Widget events */
-/*************************************************************/
+/**
+ * Updates events
+ */
 Template.app_partup_updates.events({
     'click [data-newmessage-popup]': function(event, template) {
         Partup.client.popup.open('new-message', function() {
-            template.updateShownUpdates();
+            template.updates.updateView();
         });
     },
     'click [data-reveal-new-updates]': function(event, template) {
-        template.updateShownUpdates();
+        template.updates.updateView();
     }
 });

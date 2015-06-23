@@ -22,7 +22,7 @@
                         </a>
                     {{/if }}
                 </section>
-                <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterValueReactiveVar}}</aside>
+                <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
             <!-- Reveal new updates -->
@@ -34,26 +34,29 @@
             {{/if}}
 
             <!-- For each update -->
-            {{# if updates }}
-                {{#each updates }}
-                    {{#if anotherDay . }}
-                        <section class="pu-sub-separator">
-                            {{ partupDatePartupTimeline created_at }}
-                            <span class="fa fa-long-arrow-down"></span>
+            <div data-infinitescroll-container>
+                {{# if updates }}
+                    {{#each updates }}
+                        {{#if anotherDay . }}
+                            <section class="pu-sub-separator">
+                                {{ partupDatePartupTimeline created_at }}
+                                <span class="fa fa-long-arrow-down"></span>
+                            </section>
+                        {{/if }}
+                        {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
+                    {{/each }}
+                {{ else }}
+                    <section class="pu-update">
+                        <aside>
+                            &nbsp;
+                        </aside>
+                        <section>
+                            {{_ 'pages-app-partup-updates-no_updates'}}
                         </section>
-                    {{/if }}
-                    {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
-                {{/each }}
-            {{ else }}
-            <section class="pu-update">
-                <aside>
-                    &nbsp;
-                </aside>
-                <section>
-                    {{_ 'pages-app-partup-updates-no_updates'}}
-                </section>
-            </section>
-            {{/ if }}
+                    </section>
+                {{/ if }}
+            </div>
+
         </div>
     </div>
 </template>
