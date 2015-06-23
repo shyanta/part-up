@@ -58,6 +58,7 @@ Package.onUse(function(api) {
         'event_handlers/activities/activities_handler.js',
         'event_handlers/contributions/contributions_handler.js',
         'event_handlers/ratings/ratings_handler.js',
+        'event_handlers/networks/networks_handler.js',
         'fixtures.js',
         'publications/notifications.js',
         'publications/partups.js',

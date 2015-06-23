@@ -89,28 +89,7 @@ Meteor.methods({
         // Create the invite
         network.createInvite(upperId, user._id);
 
-        // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));
-        var url = Meteor.absoluteUrl() + 'networks/' + network._id;
-        var upper = Meteor.users.findSinglePrivateProfile(upperId).fetch()[0];
-        var upperEmail = upper.emails[0].address;
-
-        if (upperEmail) {
-            Email.send({
-                from: 'Part-up <noreply@part-up.com>',
-                to: upperEmail,
-                subject: 'Uitnodiging voor Part-up netwerk ' + network.name,
-                html: SSR.render('inviteUserEmail', {
-                    name: upper.profile.name,
-                    networkName: network.name,
-                    networkDescription: network.description,
-                    inviterName: user.name,
-                    url: url
-                })
-            });
-        }
-
-        Event.emit('networks.invited', user._id, networkId, upperId);
+        Event.emit('networks.invited', user, network, upperId);
 
         return true;
     },
