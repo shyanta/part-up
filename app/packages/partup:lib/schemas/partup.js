@@ -122,10 +122,10 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
 
 /**
  * start partup form schema
- * @name startPartup
+ * @name partupUpdate
  * @memberOf partup.schemas.forms
  */
-Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
+Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
     focuspoint_x_input: {
         type: Number,
         min: 0,
@@ -144,12 +144,20 @@ Partup.schemas.forms.startPartup = new SimpleSchema([partupBaseSchema, {
         type: String,
         max: 255
     },
-    privacy_type_input: {
-        type: String,
-    },
     tags_input: {
         type: String,
         max: 255,
         regEx: Partup.services.validators.tagsSeparatedByComma
     }
+}]);
+
+/**
+ * start partup create form schema
+ * @name partupCreate
+ * @memberOf partup.schemas.forms
+ */
+Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partupUpdate, {
+    privacy_type_input: {
+        type: String,
+    },
 }]);
