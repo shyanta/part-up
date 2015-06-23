@@ -1,10 +1,4 @@
 /**
- * Updates constants
- */
-var STARTING_LIMIT = 10;
-var INCREMENT = 10;
-
-/**
  * Updates created
  */
 Template.app_partup_updates.onCreated(function() {
@@ -13,11 +7,19 @@ Template.app_partup_updates.onCreated(function() {
     // Updates model
     tpl.updates = {
 
-        handle: null,
+        // Constants
+        STARTING_LIMIT: 10,
+        INCREMENT: 10,
 
+        // States
         loading: false,
         end_reached: false,
+
+        // Date of the last refresh
         refreshDate: new ReactiveVar(new Date()),
+
+        // Updates handle
+        handle: null,
 
         // The data model
         model: Updates.findByFilter(tpl.data.partupId),
@@ -83,8 +85,8 @@ Template.app_partup_updates.onCreated(function() {
         }),
 
         // The reactive limit variable (on change, add updates to the view)
-        limit: new ReactiveVar(STARTING_LIMIT, function(a, b) {
-            var first = b === STARTING_LIMIT;
+        limit: new ReactiveVar(this.STARTING_LIMIT, function(a, b) {
+            var first = b === tpl.updates.STARTING_LIMIT;
             if (first) return;
 
             var options = tpl.updates.options.get();
@@ -113,7 +115,7 @@ Template.app_partup_updates.onCreated(function() {
                         var viewUpdates = tpl.updates.view.get();
 
                         var difference = modelUpdates.length - viewUpdates.length;
-                        tpl.updates.end_reached = difference < INCREMENT;
+                        tpl.updates.end_reached = difference < tpl.updates.INCREMENT;
 
                         var addedUpdates = mout.array.filter(modelUpdates, function(update) {
                             return !mout.array.find(viewUpdates, function(_update) {
@@ -128,11 +130,11 @@ Template.app_partup_updates.onCreated(function() {
         }),
 
         increaseLimit: function() {
-            tpl.updates.limit.set(tpl.updates.limit.get() + INCREMENT);
+            tpl.updates.limit.set(tpl.updates.limit.get() + tpl.updates.INCREMENT);
         },
 
         resetLimit: function() {
-            tpl.updates.limit.set(STARTING_LIMIT);
+            tpl.updates.limit.set(tpl.updates.STARTING_LIMIT);
             tpl.updates.end_reached = false;
         }
     };
