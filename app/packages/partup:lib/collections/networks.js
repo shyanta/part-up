@@ -60,6 +60,78 @@ Network.prototype.isClosed = function() {
 };
 
 /**
+ * Check if upper is already invited to the network
+ *
+ * @return {Object}
+ */
+Network.prototype.isUpperInvited = function(upperId) {
+    var invites = this.invites || [];
+    var invite = false;
+
+    _.each(invites, function(inviteObject, key) {
+        if (mout.object.get(inviteObject, '_id') === upperId) {
+            invite = inviteObject;
+        }
+    });
+
+    return invite;
+};
+
+/**
+ * Add invited Upper to Network
+ *
+ * @return {Boolean}
+ */
+Network.prototype.addInvitedUpper = function(upperId, invite) {
+    Networks.update(this._id, {$pull: {invites: invite}, $push: {uppers: upperId}});
+    Meteor.users.update(upperId, {$push: {networks: this._id}});
+};
+
+/**
+ * Add Upper to Network
+ *
+ * @return {Boolean}
+ */
+Network.prototype.addUpper = function(upperId) {
+    Networks.update(this._id, {$push: {uppers: upperId}});
+    Meteor.users.update(upperId, {$push: {networks: this._id}});
+};
+
+/**
+ * Add upper to pending list
+ *
+ * @return {Boolean}
+ */
+Network.prototype.addPendingUpper = function(upperId) {
+    // User already added as pending upper
+    if (this.pending_uppers && this.pending_uppers.indexOf(upperId) > -1) {
+        return false;
+    }
+
+    Networks.update(this._id, {$push: {pending_uppers: upperId}});
+};
+
+/**
+ * Accept a pending upper to the network
+ *
+ * @return {Boolean}
+ */
+Network.prototype.acceptPendingUpper = function(upperId) {
+    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
+    Meteor.users.update(upperId, {$push: {networks: this._id}});
+};
+
+/**
+ * Leave network
+ *
+ * @return {Boolean}
+ */
+Network.prototype.leave = function(upperId) {
+    Networks.update(this._id, {$pull: {uppers: upperId}});
+    Meteor.users.update(upperId, {$pull: {networks: this._id}});
+};
+
+/**
  @namespace Networks
  @name Networks
  */

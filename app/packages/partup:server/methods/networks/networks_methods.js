@@ -72,21 +72,19 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!user) {
+        // Only members of a network can invite other users
+        if (!user || !network.hasMember(user._id)) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
-        if (network.hasMember(user._id)) {
+        if (network.hasMember(upperId)) {
             throw new Meteor.Error(409, 'User is already member of this network.');
         }
 
         // Check if already invited
-        var invites = network.invites || [];
-        _.each(invites, function(value, key) {
-            if (mout.object.get(value, '_id') === upperId) {
-                throw new Meteor.Error(409, 'Upper already invited.');
-            }
-        });
+        if (network.isUpperInvited(upperId)) {
+            throw new Meteor.Error(409, 'Upper already invited.');
+        }
 
         // Save the invite on the network for further references
         var invite = {
@@ -191,8 +189,7 @@ Meteor.methods({
         try {
             if (network.isClosed()) {
                 // Add user to pending if it's a closed network
-                if (!network.pending_uppers || network.pending_uppers.indexOf(user._id) < 0) {
-                    Networks.update(networkId, {$push: {pending_uppers: user._id}});
+                if (network.addPendingUpper(user._id)) {
                     return Log.debug('User added to waiting list');
                 } else {
                     return Log.debug('User is already added to waiting list');
@@ -201,28 +198,23 @@ Meteor.methods({
 
             if (network.isInvitational()) {
                 // Check if the user is invited
-                var invites = network.invites || [];
-                var invite = null;
-                _.each(invites, function(inviteObject, key) {
-                    if (mout.object.get(inviteObject, '_id') === user._id) {
-                        invite = inviteObject;
-                    }
-                });
+                var invite = network.isUpperInvited(user._id);
 
                 if (invite) {
-                    Networks.update(networkId, {$pull: {invites: invite}, $push: {uppers: user._id}});
-                    Meteor.users.update(user._id, {$push: {networks: network._id}});
-
+                    network.addInvitedUpper(user._id, invite);
                     return Log.debug('User added to invitational network.');
                 } else {
-                    return Log.debug('This network is for invited members only.');
+                    if (network.addPendingUpper(user._id)) {
+                        return Log.debug('This network is for invited members only. Added user to pending list.');
+                    } else {
+                        return Log.debug('User is already added to pending list.');
+                    }
                 }
             }
 
             if (network.isPublic()) {
                 // Allow user instantly
-                Networks.update(networkId, {$push: {uppers: user._id}});
-                Meteor.users.update(user._id, {$push: {networks: network._id}});
+                network.addUpper(user._id);
                 return Log.debug('User added to network.');
             }
 
@@ -252,8 +244,9 @@ Meteor.methods({
         }
 
         try {
-            Networks.update(networkId, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
-            Meteor.users.update(upperId, {$push: {networks: network._id}});
+            network.acceptPendingUpper(upperId);
+
+            Event.emit('networks.accepted', user._id, networkId, upperId);
 
             return {
                 network_id: network._id,
@@ -279,9 +272,8 @@ Meteor.methods({
         }
 
         try {
-            // Also remove from all Partups including ones with contributions?
-            Networks.update(networkId, {$pull: {uppers: user._id}});
-            Meteor.users.update(user._id, {$pull: {networks: network._id}});
+            // @TODO Also remove from all Partups including ones with contributions?
+            network.leave(user._id);
 
             return {
                 network_id: network._id,
