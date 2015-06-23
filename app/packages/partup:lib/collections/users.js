@@ -18,7 +18,8 @@ var publicUserFields = {
 
 //user fields exposed to logged in user
 var privateUserFields = mout.object.merge({
-    'completeness': 1
+    'completeness': 1,
+    'emails': 1
 }, publicUserFields);
 
 /**
