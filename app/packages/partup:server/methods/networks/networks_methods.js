@@ -89,7 +89,7 @@ Meteor.methods({
         // Create the invite
         network.createInvite(upperId, user._id);
 
-        Event.emit('networks.invited', user, network, upperId);
+        Event.emit('networks.invited', user, networkId, upperId);
 
         return true;
     },
