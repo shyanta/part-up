@@ -67,7 +67,8 @@ Template.app_partup_updates.onCreated(function() {
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * -
+                     * - Update the model (recall the findByFilter, with the new limit)
+                     * - Refresh the view model
                      */
                     Tracker.nonreactive(function replacePartups() {
                         tpl.updates.updateModel();
