@@ -5,7 +5,7 @@
  * @param {number} COLUMNS     Number of columns
  * @param {string} TEMPLATE    Templatename for each item
  * @param {function} addHook   Function that recieves a callback function from the ColumnsLayout. Save the function and fire it when you want to ADD items
- * @param {function} cleanHook Function that recieves a callback function from the ColumnsLayout. Save the function and fire it when you want to CLEAN ALL items
+ * @param {function} clearHook Function that recieves a callback function from the ColumnsLayout. Save the function and fire it when you want to CLEAN ALL items
  */
 
 Template.ColumnsLayout.onCreated(function() {
@@ -80,7 +80,7 @@ Template.ColumnsLayout.onCreated(function() {
      * Register callbacks
      */
     tpl.data.addHook(tpl.columns.insert);
-    tpl.data.cleanHook(tpl.columns.clean);
+    tpl.data.clearHook(tpl.columns.clean);
 });
 
 /**

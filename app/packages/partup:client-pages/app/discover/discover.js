@@ -251,136 +251,143 @@ CustomSelect.prototype.toggle = function() {
 };
 
 /**
- * Discover constants
- */
-var STARTING_LIMIT = 12;
-var INCREMENT = 8;
-
-/**
  * Discover created
  */
 Template.app_discover.onCreated(function() {
     var tpl = this;
 
-    // Individual subscription handles
-    tpl.individual_handles = [];
-    tpl.stopInvidualHandles = function() {
-        lodash.each(tpl.individual_handles, function(handle) {
-            handle.stop();
-        });
-        tpl.individual_handles = [];
-    };
+    tpl.partups = {
 
-    // Hydrate function
-    var hydratePartups = function(partups) {
-        lodash.each(partups, function(partup) {
+        // Constants
+        STARTING_LIMIT: 12,
+        INCREMENT: 8,
 
-            // Hydrate the partup with the 'registerSubscription' function
-            partup.registerSubscription = function(handle) {
-                tpl.individual_handles.push(handle);
-            };
+        // States
+        loading: false,
+        end_reached: false,
 
-        });
-    };
+        // Namespace for columns layout functions (added by helpers)
+        layout: {},
 
-    // Namespace for columns layout functions
-    tpl.layout = {};
+        // Hydrate partups
+        hydrate: function(partups) {
+            lodash.each(partups, function(partup) {
 
-    // Own subscription handle
-    tpl.handle;
+                // Hydrate the partup with the 'registerSubscription' function
+                partup.registerSubscription = function(handle) {
+                    tpl.partups.child_handles.push(handle);
+                };
 
-    // Subscribe (and re-subscribe when the options change)
-    tpl.options = new ReactiveVar({}, function(a, b) {
-        var options = b;
-        options.limit = tpl.resetLimit();
+            });
+        },
 
-        tpl.stopInvidualHandles();
-        tpl.handle = tpl.subscribe('partups.discover', options);
+        // Partups subscription handle
+        handle: null,
 
-        Meteor.autorun(function whenSubscriptionIsReady(computation) {
-            if (tpl.handle.ready()) {
-                computation.stop(); // Stop the autorun
+        // Options reactive variable (on change, clear the layout and re-add all partups)
+        options: new ReactiveVar({}, function(a, b) {
+            var options = b;
+            options.limit = tpl.partups.resetLimit();
 
-                /**
-                 * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                 * - Remove all partups from the column layout
-                 * - Get all current partups from our local database
-                 * - Remove all partups from our local database (by stopping the subscription)
-                 * - Hydrate our partups (see: hydratePartups function)
-                 * - Add our partups to the layout
-                 */
-                Tracker.nonreactive(function replacePartups() {
-                    tpl.layout.cleanPartups();
+            tpl.partups.stopChildHandles();
+            tpl.partups.handle = tpl.subscribe('partups.discover', options);
+            tpl.partups.loading = true;
 
-                    var partups = Partups.find().fetch();
-                    tpl.handle.stop();
+            Meteor.autorun(function whenSubscriptionIsReady(computation) {
+                if (tpl.partups.handle.ready()) {
+                    computation.stop(); // Stop the autorun
+                    tpl.partups.loading = false;
 
-                    hydratePartups(partups);
-                    tpl.layout.addPartups(partups);
-                });
-            }
-        });
-    });
+                    /**
+                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
+                     * - Remove all partups from the column layout
+                     * - Get all current partups from our local database
+                     * - Remove all partups from our local database (by stopping the subscription)
+                     * - Hydrate our partups (see: hydratePartups function)
+                     * - Add our partups to the layout
+                     */
+                    Tracker.nonreactive(function replacePartups() {
+                        tpl.partups.layout.clean();
 
-    // Re-subscribe when the limit changes
-    tpl.limit = new ReactiveVar(STARTING_LIMIT, function(a, b) {
-        var first = b === STARTING_LIMIT;
-        if (first) return;
+                        var partups = Partups.find().fetch();
+                        tpl.partups.handle.stop();
 
-        var options = tpl.options.get();
-        options.limit = tpl.limit.get();
-
-        // Save the current partups from the local database to be able to compare it hereafter
-        var oldPartups = Partups.find().fetch();
-
-        tpl.stopInvidualHandles();
-        tpl.handle = tpl.subscribe('partups.discover', options);
-
-        Meteor.autorun(function whenSubscriptionIsReady(computation) {
-            if (tpl.handle.ready()) {
-                computation.stop(); // Stop the autorun
-
-                /**
-                 * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                 * - Get all current partups from our local database
-                 * - Remove all partups from our local database (by stopping the subscription)
-                 * - Compare the newPartups with the oldPartups to find the addedPartups
-                 * - Hydrate our partups (see: hydratePartups function)
-                 * - Add our partups to the layout
-                 * - Call the infiniteScrollCallback (which is needed for the infinite scroll debounce)
-                 */
-                Tracker.nonreactive(function addPartups() {
-
-                    var newPartups = Partups.find().fetch();
-                    tpl.handle.stop();
-
-                    var addedPartups = mout.array.filter(newPartups, function(partup) {
-                        return !mout.array.find(oldPartups, function(_partup) {
-                            return partup._id === _partup._id;
-                        });
+                        tpl.partups.hydrate(partups);
+                        tpl.partups.layout.add(partups);
                     });
+                }
+            });
+        }),
 
-                    hydratePartups(addedPartups);
-                    tpl.layout.addPartups(addedPartups);
+        // Limit reactive variable (on change, add partups to the layout)
+        limit: new ReactiveVar(this.STARTING_LIMIT, function(a, b) {
+            var first = b === tpl.partups.STARTING_LIMIT;
+            if (first) return;
 
-                    if (mout.lang.isFunction(tpl.infiniteScrollCallback)) tpl.infiniteScrollCallback();
-                    tpl.infiniteScrollCallback = null;
-                });
-            }
-        });
-    });
+            var options = tpl.partups.options.get();
+            options.limit = tpl.partups.limit.get();
 
-    // Limit functions
-    tpl.increaseLimit = function(finishedCallback) {
-        var limit = tpl.limit.get() + INCREMENT;
-        tpl.limit.set(limit);
-        tpl.infiniteScrollCallback = finishedCallback;
-        return limit;
-    };
-    tpl.resetLimit = function() {
-        var limit = STARTING_LIMIT;
-        tpl.limit.set(limit);
-        return limit;
+            // Save the current partups from the local database to be able to compare it hereafter
+            var oldPartups = Partups.find().fetch();
+
+            tpl.partups.stopChildHandles();
+            tpl.partups.handle = tpl.subscribe('partups.discover', options);
+            tpl.partups.loading = true;
+
+            Meteor.autorun(function whenSubscriptionIsReady(computation) {
+                if (tpl.partups.handle.ready()) {
+                    computation.stop(); // Stop the autorun
+                    tpl.partups.loading = false;
+
+                    /**
+                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
+                     * - Get all current partups from our local database
+                     * - Remove all partups from our local database (by stopping the subscription)
+                     * - Compare the newPartups with the oldPartups to find the addedPartups
+                     * - Hydrate our partups (see: hydratePartups function)
+                     * - Add our partups to the layout
+                     * - Call the infiniteScrollCallback (which is needed for the infinite scroll debounce)
+                     */
+                    Tracker.nonreactive(function addPartups() {
+
+                        var newPartups = Partups.find().fetch();
+                        tpl.partups.handle.stop();
+
+                        var difference = newPartups.length - oldPartups.length;
+                        tpl.partups.end_reached = difference < tpl.partups.INCREMENT;
+
+                        var addedPartups = mout.array.filter(newPartups, function(partup) {
+                            return !mout.array.find(oldPartups, function(_partup) {
+                                return partup._id === _partup._id;
+                            });
+                        });
+
+                        tpl.partups.hydrate(addedPartups);
+                        tpl.partups.layout.add(addedPartups);
+                    });
+                }
+            });
+        }),
+
+        // Increase limit function
+        increaseLimit: function() {
+            tpl.partups.limit.set(tpl.partups.limit.get() + tpl.partups.INCREMENT);
+        },
+
+        // Reset limit function
+        resetLimit: function() {
+            tpl.partups.limit.set(tpl.partups.STARTING_LIMIT);
+            tpl.partups.end_reached = false;
+        },
+
+        // Partup tiles subscription handles
+        child_handles: [],
+        stopChildHandles: function() {
+            lodash.each(tpl.partups.child_handles, function(handle) {
+                handle.stop();
+            });
+            tpl.partups.child_handles = [];
+        }
     };
 });
 
@@ -393,17 +400,12 @@ Template.app_discover.onRendered(function() {
     /**
      * Infinite scroll
      */
-    var loadingMore = false;
     Partup.client.scroll.infinite({
         template: tpl,
         element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        if (loadingMore) return;
-        loadingMore = true;
-
-        tpl.increaseLimit(function() {
-            loadingMore = false;
-        });
+        if (tpl.partups.loading || tpl.partups.end_reached) return;
+        tpl.partups.increaseLimit();
     });
 
     /**
@@ -444,7 +446,7 @@ Template.app_discover.onRendered(function() {
  * Discover destroyed
  */
 Template.app_discover.onDestroyed(function() {
-    this.stopInvidualHandles();
+    this.partups.stopChildHandles();
 });
 
 /**
@@ -474,20 +476,20 @@ Template.app_discover.helpers({
     },
 
     // We use this trick to be able to call a function in a child template.
-    // The child template directly calls 'addPartupsHook' with a callback.
+    // The child template directly calls 'addToLayoutHook' with a callback.
     // We save that callback, so we can call it later and the child template can react to it.
-    addPartupsHook: function() {
+    addToLayoutHook: function() {
         var tpl = Template.instance();
 
         return function registerCallback(callback) {
-            tpl.layout.addPartups = callback;
+            tpl.partups.layout.add = callback;
         };
     },
-    cleanPartupsHook: function() {
+    clearLayoutHook: function() {
         var tpl = Template.instance();
 
         return function registerCallback(callback) {
-            tpl.layout.cleanPartups = callback;
+            tpl.partups.layout.clear = callback;
         };
     }
 });
@@ -502,7 +504,7 @@ Template.app_discover.events({
         var search_query = lodash.find(form, {name: 'keywords'}).value;
 
         template.options.set({
-            limit: STARTING_LIMIT,
+            limit: template.partups.STARTING_LIMIT,
             query: search_query
         });
     },

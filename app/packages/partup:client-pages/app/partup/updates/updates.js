@@ -135,7 +135,6 @@ Template.app_partup_updates.onCreated(function() {
             tpl.updates.limit.set(STARTING_LIMIT);
             tpl.updates.end_reached = false;
         }
-
     };
 
     // When the model changes and the view is empty, update the view with the model
