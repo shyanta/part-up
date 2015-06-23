@@ -15,8 +15,8 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.addFiles([
-        'Columnslayout.html',
-        'Columnslayout.js',
+        'ColumnsLayout.html',
+        'ColumnsLayout.js',
 
         'subtemplates/Tile.html',
         'subtemplates/Tile.js'
