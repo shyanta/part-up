@@ -86,14 +86,8 @@ Meteor.methods({
             throw new Meteor.Error(409, 'Upper already invited.');
         }
 
-        // Save the invite on the network for further references
-        var invite = {
-            _id: upperId,
-            invited_at: new Date(),
-            invited_by_id: user._id
-        };
-
-        Networks.update(networkId, {$push: {invites: invite}});
+        // Create the invite
+        network.createInvite(upperId, user._id);
 
         // Compile the E-mail template and send the email
         SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));

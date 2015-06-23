@@ -112,6 +112,21 @@ Network.prototype.addPendingUpper = function(upperId) {
 };
 
 /**
+ * Create an invite
+ *
+ * @return {Boolean}
+ */
+Network.prototype.createInvite = function(upperId, inviterId) {
+    var invite = {
+        _id: upperId,
+        invited_at: new Date(),
+        invited_by_id: inviterId
+    };
+
+    Networks.update(this._id, {$push: {invites: invite}});
+};
+
+/**
  * Accept a pending upper to the network
  *
  * @return {Boolean}
