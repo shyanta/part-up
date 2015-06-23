@@ -1,3 +1,15 @@
+// jscs:disable
+/**
+ * Widget to render part-up settings
+ *
+ * You can pass the widget a few options which enable various functionalities
+ *
+ * @param {Object} currentPartup    the partup that will be prefilled in the form
+ * @param {String} FORM_ID          the form id to be used in the autoform
+ * @param {Boolean} CREATE          true: render in create mode, false: render in update mode
+ */
+// jscs:enable
+
 var formPlaceholders = {
     name: function() {
         return __('partupsettings-form-name-placeholder');
@@ -31,7 +43,7 @@ Template.Partupsettings.onCreated(function() {
     template.budgetType = new ReactiveVar();
     template.budgetTypeChanged = new ReactiveVar();
     template.draggingFocuspoint = new ReactiveVar(false);
-    template.showPrivacyDropdown= new ReactiveVar(false);
+    template.showPrivacyDropdown = new ReactiveVar(false);
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
 
@@ -100,7 +112,11 @@ Template.Partupsettings.helpers({
         return options;
     },
     startPartupSchema: function() {
-        return Partup.schemas.forms.startPartup;
+        if (this.CREATE) {
+            return Partup.schemas.forms.partupCreate;
+        } else {
+            return Partup.schemas.forms.partupUpdate;
+        }
     },
     formPlaceholders: function() {
         return formPlaceholders;
@@ -146,18 +162,16 @@ Template.Partupsettings.helpers({
     },
     galleryIsLoading: function() {
         var template = Template.instance();
-        return template.loading
-            && (    template.loading.get('suggesting-images')
-                 || template.loading.get('image-uploading')
-                 || template.loading.get('setting-suggestion')
-                );
+        return template.loading &&
+            (template.loading.get('suggesting-images') ||
+            template.loading.get('image-uploading') ||
+            template.loading.get('setting-suggestion'));
     },
     imagepreviewIsLoading: function() {
         var template = Template.instance();
-        return template.loading
-            && (    template.loading.get('image-uploading')
-                 || template.loading.get('setting-suggestion')
-                );
+        return template.loading &&
+            (template.loading.get('image-uploading') ||
+             template.loading.get('setting-suggestion'));
     },
     uploadingPicture: function() {
         var template = Template.instance();
@@ -364,7 +378,9 @@ var ImageSystem = function ImageSystemConstructor (template) {
     template.autorun(function() {
         var suggestionIndex = Session.get('partials.create-partup.current-suggestion');
 
-        if (mout.lang.isNumber(suggestionIndex) && !mout.lang.isNaN(suggestionIndex) && !self.uploaded.get()) {
+        if (mout.lang.isNumber(suggestionIndex) &&
+                !mout.lang.isNaN(suggestionIndex) &&
+                !self.uploaded.get()) {
             self.currentImageId.set(false);
             self.uploaded.set(false);
             setSuggestionByIndex(suggestionIndex);

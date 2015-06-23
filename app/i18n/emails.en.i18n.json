@@ -1,5 +1,5 @@
 {
-    "emails-reset-password-subject": "@Reset Part-up password",
-    "emails-verify-account-subject": "@Confirm Part-up account",
-    "emails-invite-user-subject": "@Invite to Part-up %s"
+    "emails-reset-password-subject": "Reset Part-up password",
+    "emails-verify-account-subject": "Confirm Part-up account",
+    "emails-invite-user-subject": "Invite to Part-up %s"
 }

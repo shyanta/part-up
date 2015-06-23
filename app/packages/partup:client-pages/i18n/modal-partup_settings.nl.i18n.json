@@ -1,7 +1,7 @@
 {
     "pages-modal-partup_settings-discard": "Annuleren",
-    "pages-modal-partup_settings-title": "@Gegevens part-up wijzigen",
-    "pages-modal-partup_settings-explanation": "@Hier kun je je part-up gegevens aanpassen.",
-    "pages-modal-partup_settings-save": "@Wijzingen opslaan",
-    "pages-modal-partup_settings-delete": "@Deze part-up verwijderen"
+    "pages-modal-partup_settings-title": "Wijzig de gegevens van de part-up",
+    "pages-modal-partup_settings-explanation": "Je kunt hier de gegevens van de part-up eenvoudig wijzigen. Werk je in deze part-up al samen met meerdere partners? Bedenk dan dat afstemmen van grote wijzigingen handig kan zijn.",
+    "pages-modal-partup_settings-save": "Wijzingen opslaan",
+    "pages-modal-partup_settings-delete": "Ik wil deze part-up graag verwijderen"
 }

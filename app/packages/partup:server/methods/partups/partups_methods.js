@@ -9,7 +9,7 @@ Meteor.methods({
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'Unauthorized.');
 
-        check(fields, Partup.schemas.forms.startPartup);
+        check(fields, Partup.schemas.forms.partupCreate);
 
         try {
             var newPartup = Partup.transformers.partup.fromFormStartPartup(fields);
@@ -43,7 +43,7 @@ Meteor.methods({
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        check(fields, Partup.schemas.forms.startPartup);
+        check(fields, Partup.schemas.forms.partupUpdate);
 
         var uppers = partup.uppers || [];
 
