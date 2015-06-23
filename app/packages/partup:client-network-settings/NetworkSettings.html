@@ -1,0 +1,134 @@
+<template name="NetworkSettings">
+    <h2>Network information</h2>
+
+    {{# autoForm id='networkEditForm' schema=formSchema doc=fieldsForNetwork validation="submitThenKeyup" class="pu-form" }}
+        <!-- name -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-name-label'}}
+                <a class="pu-hint">
+                    {{# if partupLowerThan nameCharactersLeft formSchema._schema.name.max }}
+                        {{_ 'network-settings-form-characters-left' nameCharactersLeft }}
+                    {{ else }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.name.max }}
+                    {{/ if }}
+                </a>
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='name' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> afFieldInput
+                        name='name'
+                        placeholder=placeholders.name
+                        class='pu-input'
+                        maxlength=formSchema._schema.name.max
+                    }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+            </div>
+        </label>
+
+        <!-- description -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-description-label'}}
+                <a class="pu-hint">
+                    {{# if partupLowerThan descriptionCharactersLeft formSchema._schema.description.max }}
+                        {{_ 'network-settings-form-characters-left' descriptionCharactersLeft }}
+                    {{ else }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.description.max }}
+                    {{/ if }}
+                </a>
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='description' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> afFieldInput
+                        name='description'
+                        placeholder=placeholders.description
+                        class='pu-textarea'
+                        rows=3
+                        maxlength=formSchema._schema.description.max
+                    }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
+            </div>
+        </label>
+
+        <!-- tags_input -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-tags_input-label'}}
+                <a class="pu-hint">
+                    {{# if partupLowerThan tags_inputCharactersLeft formSchema._schema.tags_input.max }}
+                        {{_ 'network-settings-form-characters-left' tags_inputCharactersLeft }}
+                    {{ else }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.tags_input.max }}
+                    {{/ if }}
+                </a>
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> afFieldInput
+                        name='tags_input'
+                        placeholder=placeholders.tags_input
+                        class='pu-input'
+                        maxlength=formSchema._schema.tags_input.max
+                    }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
+            </div>
+        </label>
+
+        <!-- location_input -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-location_input-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> LocationAutocomplete
+                        location=network.location
+                        placeholder=placeholders.location_input
+                        placeSelectedCallback=locationChoose
+                        clearCallback=locationClear
+                    }}
+                    {{> afFieldInput type='hidden' name='location_input' }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
+            </div>
+        </label>
+
+        <!-- website -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'network-settings-form-website-label'}}
+                <a class="pu-hint">
+                    {{# if partupLowerThan websiteCharactersLeft formSchema._schema.website.max }}
+                        {{_ 'network-settings-form-characters-left' websiteCharactersLeft }}
+                    {{ else }}
+                        {{_ 'network-settings-form-characters' formSchema._schema.website.max }}
+                    {{/ if }}
+                </a>
+            </span>
+
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='website' }}pu-state-invalid{{/ if }}">
+                <span class="pu-sub-input">
+                    {{> afFieldInput
+                        name='website'
+                        placeholder=placeholders.website
+                        class='pu-input'
+                        maxlength=formSchema._schema.website.max
+                    }}
+                </span>
+                <span class="pu-sub-error">{{ afFieldMessage name='website' }}</span>
+            </div>
+        </label>
+
+        <div class="pu-formfield">
+            <input type="submit" class="pu-button" value="{{_ 'network-settings-form-submit' }}">
+        </div>
+    {{/ autoForm }}
+</template>

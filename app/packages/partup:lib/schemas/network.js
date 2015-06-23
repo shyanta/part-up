@@ -5,11 +5,6 @@
  * @private
  */
 var networkBaseSchema = new SimpleSchema({
-    privacy_type: {
-        type: Number,
-        min: 1,
-        max: 3
-    },
     description: {
         type: String,
         max: 250
@@ -107,5 +102,18 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
         type: String,
         max: 255,
         regEx: Partup.services.validators.tagsSeparatedByComma
+    }
+}]);
+
+/**
+ * network create form schema
+ * @name networkCreate
+ * @memberOf partup.schemas.forms
+ */
+Partup.schemas.forms.networkCreate = new SimpleSchema([Partup.schemas.forms.network, {
+    privacy_type: {
+        type: Number,
+        min: 1,
+        max: 3
     }
 }]);

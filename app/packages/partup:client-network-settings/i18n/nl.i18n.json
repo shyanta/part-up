@@ -1,0 +1,21 @@
+{
+    "network-settings-form-characters": "maximaal %d tekens",
+    "network-settings-form-characters-left": "nog %d tekens over",
+    "network-settings-form-submit": "Wijzigingen opslaan",
+    "network-settings-form-saved": "Wijzigingen opgeslagen",
+
+    "network-settings-form-name-label": "Naam",
+    "network-settings-form-name-placeholder": "@Placeholder",
+
+    "network-settings-form-description-label": "Omschrijving",
+    "network-settings-form-description-placeholder": "@Placeholder",
+
+    "network-settings-form-tags_input-label": "Jij, in 5 woorden",
+    "network-settings-form-tags_input-placeholder": "Even scheiden door een komma alsjeblieft",
+
+    "network-settings-form-location_input-label": "Lokatie",
+    "network-settings-form-location_input-placeholder": "@Placeholder",
+
+    "network-settings-form-website-label": "Website",
+    "network-settings-form-website-placeholder": "@Placeholder"
+}
