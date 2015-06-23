@@ -159,5 +159,10 @@ Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
 Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partupUpdate, {
     privacy_type_input: {
         type: String,
+        allowedValues: [
+            'public',
+            'private',
+            'network'
+        ]
     },
 }]);
