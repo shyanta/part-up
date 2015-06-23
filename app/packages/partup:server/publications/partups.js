@@ -122,71 +122,6 @@ Meteor.publish('partups.list', function() {
     return Partups.guardedFind({}, {_id: 1, name: 1});
 });
 
-Meteor.publishComposite('partups.one.updates', function(partupId, options) {
-    var options = options || {};
-    var limit = options.limit || 10;
-    var filter = options.filter || 'default';
-
-    var self = this;
-
-    return {
-        find: function() {
-            return Partups.guardedFind(self.userId, {_id: partupId}, {limit:1});
-        },
-        children: [
-            {
-                find: function(partup) {
-                    var criteria = {partup_id: partup._id};
-
-                    if (filter === 'my-updates') {
-                        criteria.upper_id = self.userId;
-                    } else if (filter === 'activities') {
-                        criteria.type = {$regex: '.*activities.*'};
-                    } else if (filter === 'partup-changes') {
-                        var regex = '.*(tags|end_date|name|description|image|budget).*';
-                        criteria.type = {$regex: regex};
-                    } else if (filter === 'messages') {
-                        criteria.type = {$regex: '.*message.*'};
-                    } else if (filter === 'contributions') {
-                        criteria.type = {$regex: '.*contributions.*'};
-                    }
-
-                    return Updates.find(criteria, {sort: {updated_at: -1}, limit:limit});
-                },
-                children: [
-                    {
-                        find: function(update) {
-                            return Meteor.users.findSinglePublicProfile(update.upper_id);
-                        },
-                        children: [
-                            {
-                                find: function(user) {
-                                    return Images.find({_id: user.profile.image}, {limit: 1});
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        find: function(update) {
-                            var images = [];
-
-                            if (update.type === 'partups_image_changed') {
-                                images = [update.type_data.old_image, update.type_data.new_image];
-                            }
-
-                            if (update.type === 'partups_message_added') {
-                                images = update.type_data.images;
-                            }
-
-                            return Images.find({_id: {$in: images}});
-                        }
-                    }
-                ]
-            }
-        ]
-    };
-});
-
 Meteor.publishComposite('partups.one', function(partupId) {
     var self = this;
 
@@ -273,7 +208,5 @@ Meteor.publishComposite('partups.one', function(partupId) {
 });
 
 Meteor.publish('partups.count', function() {
-    var self = this;
-
     Counts.publish(this, 'partups', Partups.guardedFind(self.userId));
 });
