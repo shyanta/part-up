@@ -106,6 +106,7 @@ partup:client-loader@0.0.1
 partup:client-location-autocomplete@0.0.1
 partup:client-login@0.0.1
 partup:client-network-settings@0.0.1
+partup:client-network-settings-uppers@0.0.1
 partup:client-pages@0.0.1
 partup:client-partup-tile@0.0.1
 partup:client-partupsettings@0.0.1
