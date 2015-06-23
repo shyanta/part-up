@@ -140,6 +140,9 @@ Template.app_discover.onCreated(function() {
             tpl.partups.child_handles = [];
         }
     };
+
+    // First run
+    tpl.partups.options.set({});
 });
 
 /**
