@@ -1,5 +1,23 @@
 /*************************************************************/
-/* Widget helpers */
+/* Created */
+/*************************************************************/
+Template.PartupTile.onCreated(function() {
+    var tpl = this;
+
+    var handle = Meteor.subscribe('partups.one', tpl.data._id);
+    tpl.data.registerSubscription(handle);
+});
+
+/*************************************************************/
+/* Rendered */
+/*************************************************************/
+Template.PartupTile.onRendered(function() {
+    var canvasElm = this.find('canvas.pu-sub-radial');
+    if (canvasElm) drawCircle(canvasElm);
+});
+
+/*************************************************************/
+/* Helpers */
 /*************************************************************/
 Template.PartupTile.helpers({
     activityCount: function() {
@@ -59,22 +77,14 @@ Template.PartupTile.helpers({
 });
 
 /*************************************************************/
-/* Widget events */
+/* Events */
 /*************************************************************/
 Template.PartupTile.events({
     //
 });
 
 /*************************************************************/
-/* Widget rendered */
-/*************************************************************/
-Template.PartupTile.onRendered(function() {
-    var canvasElm = this.find('canvas.pu-sub-radial');
-    if (canvasElm) drawCircle(canvasElm);
-});
-
-/*************************************************************/
-/* Widget functions */
+/* Functions */
 /*************************************************************/
 var drawCircle = function drawCircle (canvas) {
     // jQuery object
