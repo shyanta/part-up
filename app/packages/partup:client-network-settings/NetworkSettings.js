@@ -98,6 +98,7 @@ AutoForm.addHooks('networkEditForm', {
                 return;
             }
 
+            Partup.client.notify.success(__('network-settings-form-saved'));
             self.done();
         });
 

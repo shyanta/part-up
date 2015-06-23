@@ -2,6 +2,7 @@
     "network-settings-form-characters": "maximaal %d tekens",
     "network-settings-form-characters-left": "nog %d tekens over",
     "network-settings-form-submit": "Wijzigingen opslaan",
+    "network-settings-form-saved": "Wijzigingen opgeslagen",
 
     "network-settings-form-name-label": "Naam",
     "network-settings-form-name-placeholder": "@Placeholder",
