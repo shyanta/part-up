@@ -204,7 +204,14 @@ Meteor.publishComposite('partups.one', function(partupId) {
             {
                 find: function(partup) {
                     return Activities.find({partup_id: partup._id});
-                }
+                },
+                children: [
+                    {
+                        find: function(activity) {
+                            return Updates.find({_id: activity.update_id});
+                        }
+                    }
+                ]
             },
             {
                 find: function(partup) {
