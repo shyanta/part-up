@@ -1,7 +1,9 @@
 /**
  * Send an email and generate a notification to the invited user when invited
  */
-Event.on('networks.invited', function(user, network, upperId) {
+Event.on('networks.invited', function(user, networkId, upperId) {
+    var network = Networks.findOneOrFail(networkId);
+
     // Compile the E-mail template and send the email
     SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));
     var url = Meteor.absoluteUrl() + 'networks/' + network._id;
