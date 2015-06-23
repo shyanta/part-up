@@ -192,7 +192,8 @@ Meteor.publishComposite('partups.one', function(partupId) {
 
     return {
         find: function() {
-            return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
+            //return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
+            return Partups.find({_id: partupId}, {limit: 1});
         },
         children: [
             {
