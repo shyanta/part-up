@@ -443,7 +443,7 @@ Template.app_discover.onRendered(function() {
 /**
  * Discover destroyed
  */
-Template.app_discover.onDestroyed(function() {4
+Template.app_discover.onDestroyed(function() {
     this.stopInvidualHandles();
 });
 
@@ -465,7 +465,7 @@ Template.app_discover.helpers({
     },
 
     totalNumberOfPartups: function() {
-        var count =  Counts.get('partups');
+        var count = Counts.get('partups');
         if (count) {
             return count;
         } else {
@@ -473,7 +473,6 @@ Template.app_discover.helpers({
         }
     },
 
-    // What? Yeah. It's magic, but let me explain.
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addPartupsHook' with a callback.
     // We save that callback, so we can call it later and the child template can react to it.
