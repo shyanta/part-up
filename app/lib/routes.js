@@ -144,6 +144,21 @@ Router.route('/networks/:_id/settings', {
     }
 });
 
+Router.route('/networks/:_id/settings/uppers', {
+    name: 'network-settings-uppers',
+    where: 'client',
+    yieldRegions: {
+        'modal':                         {to: 'main'},
+        'modal_network_settings':        {to: 'modal'},
+        'modal_network_settings_uppers': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkId: this.params._id
+        };
+    }
+});
+
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
