@@ -307,7 +307,7 @@ Template.app_discover.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        tpl.partups.layout.clean();
+                        tpl.partups.layout.clear();
 
                         var partups = Partups.find().fetch();
                         tpl.partups.handle.stop();
@@ -503,7 +503,7 @@ Template.app_discover.events({
         var form = event.currentTarget.form;
         var search_query = lodash.find(form, {name: 'keywords'}).value;
 
-        template.options.set({
+        template.partups.options.set({
             limit: template.partups.STARTING_LIMIT,
             query: search_query
         });
