@@ -7,7 +7,7 @@ Event.on('networks.invited', function(user, network, upperId) {
     var url = Meteor.absoluteUrl() + 'networks/' + network._id;
     var upper = Meteor.users.findSinglePrivateProfile(upperId).fetch()[0];
     var upperEmail = upper.emails[0].address;
-    console.log(upperEmail);
+
     if (upperEmail) {
         Email.send({
             from: 'Part-up <noreply@part-up.com>',
