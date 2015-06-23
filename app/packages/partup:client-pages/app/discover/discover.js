@@ -34,8 +34,10 @@ Template.app_discover.onCreated(function() {
 
         // Options reactive variable (on change, clear the layout and re-add all partups)
         options: new ReactiveVar({}, function(a, b) {
+            tpl.partups.resetLimit();
+
             var options = b;
-            options.limit = tpl.partups.resetLimit();
+            options.limit = tpl.partups.STARTING_LIMIT;
 
             tpl.partups.stopChildHandles();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
