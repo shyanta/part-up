@@ -46,26 +46,38 @@ Meteor.startup(function() {
 
         if (!Partups.find().count()) {
             var firstPartup = {
-                _id: '1111',
-                name: 'First awesome Part-Up!',
-                description: 'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
-                creator_id: user1Id,
-                tags: ['partup', 'online', 'awesome', 'test'],
-                uppers: [user1Id, user2Id],
-                location : {
-                    'city' : 'amsterdam'
+                '_id' : '1111',
+                'name' : 'Benefiet concert organiseren',
+                'description' : 'een benefietconcert organiseren',
+                'budget_type' : 'money',
+                'budget_money' : 1500,
+                'budget_hours' : null,
+                'end_date' : new Date('2015-03-26T16:25:07.816Z'),
+                'image' : 'ksXJa59XoYtTE9m2w',
+                'tags' : [
+                    'concert',
+                    'benefiet'
+                ],
+                'location' : {
+                    'city' : 'Amsterdam',
+                    'lat' : 52.3702157000000028,
+                    'lng' : 4.8951679000000006,
+                    'place_id' : 'ChIJVXealLU_xkcRja_At0z9AGY',
+                    'country' : 'Netherlands'
                 },
-                image: null,
-                created_at : new Date('2015-03-26T16:25:07.816Z'),
-                end_date: new Date('2015-06-01T10:00:07.100Z'),
-                network: {
-                    name: 'superheroes',
-                    icon: {
-                        url: 'http://vignette1.wikia.nocookie.net/clubpenguin/images/8/87/Superhero_Pin_icon.png/revision/latest?cb=20120614132335'
-                    }
-                },
-                visibility: 'private'
+                'privacy_type' : 1,
+                'uppers': [user1Id, user2Id],
+                'creator_id': user1Id,
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'activity_count' : 3,
+                'analytics' : {
+                    'clicks_total' : 1,
+                    'clicks_per_day' : 1,
+                    'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'last_ip' : '127.0.0.1'
+                }
             };
+
             var firstPartupId = Partups.insert(firstPartup);
 
             var secondPartup = {
@@ -92,7 +104,7 @@ Meteor.startup(function() {
             };
             var secondPartupId = Partups.insert(secondPartup);
 
-            for (var i = 0; i < 100; i++) {
+            for (var i = 0; i < 30; i++) {
                 var descriptions = [
                     'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
                     'This describes just how great this Part-up is.',
@@ -107,58 +119,146 @@ Meteor.startup(function() {
                     creator_id: user1Id,
                     tags: ['partup', 'online', 'awesome', 'test'],
                     uppers: [user1Id, user2Id],
-                    location : {
-                        'city' : 'amsterdam'
-                    },
+                    location: undefined,
                     image: null,
                     created_at : new Date('2015-03-26T16:25:07.816Z'),
                     end_date: new Date('2015-06-01T10:00:07.100Z'),
-                    network: {
-                        name: 'superheroes',
-                        icon: {
-                            url: 'http://vignette1.wikia.nocookie.net/clubpenguin/images/8/87/Superhero_Pin_icon.png/revision/latest?cb=20120614132335'
-                        }
-                    },
-                    visibility: 'private'
                 });
             }
         }
 
         if (!Activities.find().count()) {
+
             var firstActivity = {
-                _id: '1111',
-                partup_id: firstPartupId,
-                name: 'First activity',
-                description: 'We need to define some activities here.',
-                creator_id: user1Id,
-                end_date: new Date()
+                '_id' : 'ZtJwZWikiFE7HpXLk',
+                'name' : 'Venue regelen',
+                'description' : null,
+                'end_date' : null,
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'updated_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'creator_id' : user1Id,
+                'partup_id' : firstPartupId,
+                'archived' : false,
+                'update_id' : '8yimy7xTgDW5EHxL8'
             };
-            Activities.insert(firstActivity);
+            var firstActivityId = Activities.insert(firstActivity);
 
             var secondActivity = {
-                _id: '2222',
-                partup_id: firstPartupId,
-                name: 'And another activity to demonstrate this concept',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus elit, fringilla maximus diam ac, porttitor pellentesque velit. Pellentesque vehicula id urna et varius. Donec feugiat neque pulvinar suscipit blandit. Donec sed libero id mauris tincidunt euismod. Proin non nunc orci.',
-                creator_id: user2Id,
-                end_date: new Date()
+                '_id' : '6THweQQmX243avfNx',
+                'name' : 'Artiesten boeken',
+                'description' : null,
+                'end_date' : null,
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'updated_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'creator_id' : user1Id,
+                'partup_id' : firstPartupId,
+                'archived' : false,
+                'update_id' : 'G6iTtuC7DBnTvB67d'
             };
-            Activities.insert(secondActivity);
+            var secondActivityId = Activities.insert(secondActivity);
 
             var thirdActivity = {
-                _id: '3333',
-                partup_id: secondPartupId,
-                name: 'We are all about activities',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus elit, fringilla maximus diam ac, porttitor pellentesque velit. Pellentesque vehicula id urna et varius. Donec feugiat neque pulvinar suscipit blandit. Donec sed libero id mauris tincidunt euismod. Proin non nunc orci.',
-                creator_id: user1Id,
-                end_date: new Date()
+                '_id' : 'WYRwjegCQoEqH64bE',
+                'name' : 'Catering regelen',
+                'description' : 'Hapjes en drankjes',
+                'end_date' : new Date('2015-03-26T16:25:07.816Z'),
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'updated_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'creator_id' : user1Id,
+                'partup_id' : firstPartupId,
+                'archived' : false,
+                'update_id' : 'jMGn2hRAhoX639kmm'
             };
-            Activities.insert(thirdActivity);
+            var thirdActivityId = Activities.insert(thirdActivity);
+        }
+
+        if (!Updates.find().count()) {
+            var firstUpdate = {
+                '_id' : '8yimy7xTgDW5EHxL8',
+                'upper_id' : user1Id,
+                'partup_id' : firstPartupId,
+                'type' : 'partups_activities_added',
+                'type_data' : {
+                    'activity_id' : firstActivityId
+                },
+                'comments_count' : 2,
+                'comments': [
+                    {
+                        '_id' : 'shrxXzCEsuDWR8BQt',
+                        'content' : 'system_contributions_added',
+                        'system' : true,
+                        'creator' : {
+                            '_id' : user2Id,
+                            'name' : 'meeuw'
+                        },
+                        'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                        'updated_at' : new Date('2015-03-26T16:25:07.816Z')
+                    },
+                    {
+                        '_id' : 'WQL7FK8ZM5SwyxhdR',
+                        'content' : 'system_contributions_updated',
+                        'system' : true,
+                        'creator' : {
+                            '_id' : user1Id,
+                            'name' : 'Peter Peerdeman'
+                        },
+                        'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                        'updated_at' : new Date('2015-03-26T16:25:07.816Z')
+                    }
+                ],
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'updated_at' : new Date('2015-03-26T16:25:07.816Z')
+            };
+        }
+
+        if (!Contributions.find().count()) {
+            var firstContribution = {
+                '_id' : 'TtC4Dnbo4CSdTLR9L',
+                'hours' : 10,
+                'rate' : 50,
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'activity_id' : firstActivityId,
+                'upper_id' : user2Id,
+                'partup_id' : firstPartupId,
+                'verified' : true,
+                'update_id' : 'FzvicjkgyXPiYTqbs',
+                'updated_at' : new Date('2015-03-26T16:25:07.816Z')
+            };
+            var firstContributionId = Contributions.insert(firstContribution);
+
+            var secondContribution = {
+                '_id' : 'JbXCzb82hqm4Bjwze',
+                'hours' : null,
+                'rate' : null,
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'activity_id' : firstActivityId,
+                'upper_id' : user2Id,
+                'partup_id' : firstPartupId,
+                'verified' : false,
+                'update_id' : '38mpZCcjpS8vBA8Ys'
+            };
+            var secondContributionId = Contributions.insert(secondContribution);
+        }
+
+        if (!Ratings.find().count()) {
+            var firstRating = {
+                '_id' : 'RFeS64fWGBzKy8GDf',
+                'created_at' : new Date('2015-03-26T16:25:07.816Z'),
+                'partup_id' : firstPartupId,
+                'activity_id' : firstActivityId,
+                'contribution_id' : firstContributionId,
+                'rating' : 80,
+                'feedback' : 'goed gedaan!',
+                'upper_id' : user1Id,
+                'rated_upper_id' : user2Id,
+                'updated_at' : new Date('2015-03-26T16:25:07.816Z')
+            };
+            var firstRatingId = Ratings.insert(firstRating);
         }
 
         if (!Networks.find().count()) {
             var firstNetwork = {
-                _id: '1111',
+                _id: '22vvMrN56rZbHfucm',
                 privacy_type: 1,
                 name: 'Public Network',
                 description: 'This is an open network.',
@@ -177,7 +277,7 @@ Meteor.startup(function() {
             Networks.insert(firstNetwork);
 
             var secondNetwork = {
-                _id: '2222',
+                _id: 'pvu55tai2hwmSAKfE',
                 privacy_type: 2,
                 name: 'Invitational Network',
                 description: 'This is an invitational network.',
@@ -196,7 +296,7 @@ Meteor.startup(function() {
             Networks.insert(secondNetwork);
 
             var thirdNetwork = {
-                _id: '3333',
+                _id: 'MLKKnGhxrfGaLt84P',
                 privacy_type: 3,
                 name: 'Closed Network',
                 description: 'This is a closed network.',
