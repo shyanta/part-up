@@ -36,10 +36,6 @@ Meteor.publishComposite('updates.one', function(updateId) {
 });
 
 Meteor.publishComposite('updates.from_partup', function(partupId, options) {
-    var options = options || {};
-    var limit = options.limit || 10;
-    var filter = options.filter || 'default';
-
     var self = this;
 
     return {
@@ -50,7 +46,7 @@ Meteor.publishComposite('updates.from_partup', function(partupId, options) {
         children: [
             {
                 find: function(partup) {
-                    return Updates.findByFilter(partup._id, filter, limit);
+                    return Updates.findForUpdates(partup._id, options);
                 },
                 children: [
                     {

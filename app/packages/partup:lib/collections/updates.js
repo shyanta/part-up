@@ -40,25 +40,27 @@ Updates = new Mongo.Collection('updates', {
 /**
  * Partups collection helpers
  */
-Updates.findByFilter = function(partupId, filter, limit) {
+Updates.findForUpdates = function(partupId, options) {
     if (!partupId) return;
-    var limit = limit || 10;
-    var filter = filter || 'default';
 
-    var criteria = {partup_id: partupId};
+    var options = options || {};
+    var limit = options.limit || 10;
+    var filter = options.filter || 'default';
+
+    var selector = {partup_id: partupId};
 
     if (filter === 'my-updates') {
-        criteria.upper_id = self.userId;
+        selector.upper_id = self.userId;
     } else if (filter === 'activities') {
-        criteria.type = {$regex: '.*activities.*'};
+        selector.type = {$regex: '.*activities.*'};
     } else if (filter === 'partup-changes') {
         var regex = '.*(tags|end_date|name|description|image|budget).*';
-        criteria.type = {$regex: regex};
+        selector.type = {$regex: regex};
     } else if (filter === 'messages') {
-        criteria.type = {$regex: '.*message.*'};
+        selector.type = {$regex: '.*message.*'};
     } else if (filter === 'contributions') {
-        criteria.type = {$regex: '.*contributions.*'};
+        selector.type = {$regex: '.*contributions.*'};
     }
 
-    return this.find(criteria, {limit: limit, sort: {updated_at: -1}});
+    return this.find(selector, {limit: limit, sort: {updated_at: -1}});
 };

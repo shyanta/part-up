@@ -22,11 +22,11 @@ Template.app_partup_updates.onCreated(function() {
         handle: null,
 
         // The data model
-        model: Updates.findByFilter(tpl.data.partupId),
+        model: Updates.findForUpdates(tpl.data.partupId),
         updateModel: function() {
             Tracker.nonreactive(function() {
                 var options = tpl.updates.options.get();
-                tpl.updates.model = Updates.findByFilter(tpl.data.partupId, options.filter, options.limit);
+                tpl.updates.model = Updates.findForUpdates(tpl.data.partupId, options);
             });
             return tpl.updates.model.fetch();
         },
@@ -67,7 +67,7 @@ Template.app_partup_updates.onCreated(function() {
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Update the model (recall the findByFilter, with the new limit)
+                     * - Update the model (recall the findForUpdates, with the new limit)
                      * - Refresh the view model
                      */
                     Tracker.nonreactive(function replacePartups() {
@@ -105,7 +105,7 @@ Template.app_partup_updates.onCreated(function() {
 
                     /*
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Update the model (recall the findByFilter, with the new limit)
+                     * - Update the model (recall the findForUpdates, with the new limit)
                      * - Get the current viewmodel
                      * - Determine whether the end is reached
                      * - Determine the added updates by comparing the _ids

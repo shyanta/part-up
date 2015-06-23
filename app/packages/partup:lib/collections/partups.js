@@ -87,3 +87,52 @@ Partups.guardedFind = function(userId, selector, options) {
 
     return this.find(finalSelector, options);
 };
+
+Partups.findForDiscover = function(options) {
+    var selector = {};
+    var options = options || {};
+
+    var limit = parseInt(options.limit) || 20;
+    var query = options.query || false;
+    var location = options.location || false;
+    var networkId = options.networkId || false;
+    var sort = options.sort || false;
+
+    // Initialize
+    options.sort = {};
+
+    // Set limit for pagination
+    options.limit = limit;
+
+    // Sort the partups from the newest to the oldest
+    if (sort === 'new') {
+        options.sort['updated_at'] = -1;
+    }
+
+    // Sort the partups from the most popular to the least popular
+    if (sort === 'popular') {
+        options.sort['analytics.clicks_per_day'] = -1;
+    }
+
+    // Filter the partups that are in a given location
+    if (location) {
+        selector['location.city'] = location;
+    }
+
+    // Filter the partups that are in a given network
+    if (networkId) {
+        selector['network_id'] = networkId;
+    }
+
+    // Filter the partups that match the search query
+    if (query) {
+        Log.debug('Searching for [' + query + ']');
+
+        selector['$text'] = {$search: query};
+        options.fields = {score: {$meta: 'textScore'}};
+        options.sort['score'] = {$meta: 'textScore'};
+    }
+
+    // return this.guardedFind(self.userId, selector, options);
+    return this.find(selector, options);
+};
