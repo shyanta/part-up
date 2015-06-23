@@ -65,7 +65,7 @@ Partup.client.scroll = {
 Meteor.startup(function() {
 
     // Turn current scroll position into a reactive variable
-    $(window).on('scroll', function() {
+    jQuery(window).on('scroll', function() {
         Partup.client.scroll.pos.set(window.scrollY);
     });
 
