@@ -37,27 +37,8 @@ Partup.client.scroll = {
         };
 
         options.template.autorun(function() {
-            var scrollPos = Partup.client.scroll.pos.get();
+            Partup.client.scroll.pos.get();
             Tracker.nonreactive(trigger);
-        });
-    },
-
-    /**
-     * Helper to increment a reactive number variable
-     *
-     * @memberOf Partup.client.scroll
-     * @param {Object} debounce(ms), offset(px), autorunTemplate(template, if not given, autorun is done with Tracker)
-     * @param {Function} what to run when the bottom offset is reached
-     */
-    onBottomOffset: function(options, callback) {
-        var autorunner = options.autorunTemplate || Tracker;
-        var offset = options.offset || 1;
-
-        autorunner.autorun(function(computation) {
-            var bottom = Session.get('window.scrollBottomOffset');
-            if (bottom < offset) {
-                Tracker.nonreactive(callback);
-            }
         });
     }
 };
