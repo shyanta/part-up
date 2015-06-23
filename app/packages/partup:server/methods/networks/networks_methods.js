@@ -116,58 +116,6 @@ Meteor.methods({
     },
 
     /**
-     * Invite someone to a Network by email
-     *
-     * @param  {String} networkId
-     * @param  {String} email
-     * @param  {String} name
-     */
-    'networks.email_invite': function(networkId, email, name) {
-        var user = Meteor.user();
-        var network = Networks.findOneOrFail(networkId);
-
-        if (!user) {
-            throw new Meteor.Error(401, 'Unauthorized.');
-        }
-
-        var invites = network.invites || [];
-        var invitedEmails = mout.array.pluck(invites, 'email');
-
-        if (invitedEmails.indexOf(email) > -1) {
-            throw new Meteor.Error(403, 'Email address is already invited to the given network.');
-        }
-
-        // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));
-        var url = Meteor.absoluteUrl() + 'networks/' + network._id;
-
-        Email.send({
-            from: 'Part-up <noreply@part-up.com>',
-            to: email,
-            subject: 'Uitnodiging voor Part-up netwerk ' + network.name,
-            html: SSR.render('inviteUserEmail', {
-                name: name,
-                networkName: network.name,
-                networkDescription: network.description,
-                inviterName: user.name,
-                url: url
-            })
-        });
-
-        // Save the invite on the network for further references
-        var invite = {
-            name: name,
-            email: email
-        };
-
-        Networks.update(networkId, {$push: {invites: invite}});
-
-        Event.emit('networks.invited', user._id, networkId, email, name);
-
-        return true;
-    },
-
-    /**
      * Join a Network
      *
      * @param {string} networkId
