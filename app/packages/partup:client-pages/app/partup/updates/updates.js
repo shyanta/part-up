@@ -10,110 +10,26 @@ var INCREMENT = 10;
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
 
-    // Own subscription handle
-    tpl.handle;
-
-    // Filter reactive variable (on change, set value to the tpl.options reactive var)
-    tpl.filter = new ReactiveVar('default', function(oldFilter, newFilter) {
-        var options = tpl.options.get();
-        options.filter = newFilter;
-        tpl.options.set(options);
-    });
-
-    // Subscribe (and re-subscribe when the options change)
-    tpl.options = new ReactiveVar({}, function(a, b) {
-        var options = b;
-        tpl.resetLimit();
-        options.limit = tpl.limit.get();
-
-        var oldHandle = tpl.handle;
-        tpl.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
-        tpl.updates.loading = true;
-
-        Meteor.autorun(function whenSubscriptionIsReady(computation) {
-            if (tpl.handle.ready()) {
-                computation.stop(); // Stop the autorun
-                if (oldHandle) oldHandle.stop();
-                tpl.updates.loading = false;
-
-                /**
-                 * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                 * -
-                 */
-                Tracker.nonreactive(function replacePartups() {
-                    tpl.updates.updateModel();
-                    tpl.updates.updateView();
-                });
-            }
-        });
-    });
-
-    // Re-subscribe when the limit changes
-    tpl.limit = new ReactiveVar(STARTING_LIMIT, function(a, b) {
-        var first = b === STARTING_LIMIT;
-        if (first) return;
-
-        var options = tpl.options.get();
-        options.limit = b;
-
-        var oldHandle = tpl.handle;
-        tpl.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
-        tpl.updates.loading = true;
-
-        Meteor.autorun(function whenSubscriptionIsReady(computation) {
-            if (tpl.handle.ready()) {
-                computation.stop(); // Stop the autorun
-                if (oldHandle) oldHandle.stop();
-                tpl.updates.loading = false;
-
-                /*
-                 * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                 * -
-                 **/
-                Tracker.nonreactive(function addPartups() {
-                    var modelUpdates = tpl.updates.updateModel();
-                    var viewUpdates = tpl.updates.view.get();
-
-                    var difference = modelUpdates.length - viewUpdates.length;
-                    tpl.updates.end_reached = difference < INCREMENT;
-
-                    var addedUpdates = mout.array.filter(modelUpdates, function(update) {
-                        return !mout.array.find(viewUpdates, function(_update) {
-                            return update._id === _update._id;
-                        });
-                    });
-
-                    tpl.updates.addToView(addedUpdates);
-                });
-            }
-        });
-    });
-
-    // Limit functions
-    tpl.increaseLimit = function() {
-        tpl.limit.set(tpl.limit.get() + INCREMENT);
-    };
-    tpl.resetLimit = function() {
-        tpl.limit.set(STARTING_LIMIT);
-        tpl.updates.end_reached = false;
-    };
-
     // Updates model
     tpl.updates = {
+
+        handle: null,
 
         loading: false,
         end_reached: false,
         refreshDate: new ReactiveVar(new Date()),
 
+        // The data model
         model: Updates.findByFilter(tpl.data.partupId),
         updateModel: function() {
             Tracker.nonreactive(function() {
-                var options = tpl.options.get();
+                var options = tpl.updates.options.get();
                 tpl.updates.model = Updates.findByFilter(tpl.data.partupId, options.filter, options.limit);
             });
             return tpl.updates.model.fetch();
         },
 
+        // The view model
         view: new ReactiveVar([]),
         updateView: function() {
             Tracker.nonreactive(function() {
@@ -123,11 +39,103 @@ Template.app_partup_updates.onCreated(function() {
             });
         },
         addToView: function(updates) {
+            var self = this;
             Tracker.nonreactive(function() {
-                var current_updates = tpl.updates.view.get();
-                tpl.updates.view.set(current_updates.concat(updates));
+                var current_updates = self.view.get();
+                self.view.set(current_updates.concat(updates));
             });
+        },
+
+        // Options reactive variable (on change, update the whole view model)
+        options: new ReactiveVar({}, function(a, b) {
+            tpl.updates.resetLimit();
+
+            var options = b;
+            options.limit = tpl.updates.limit.get();
+
+            var oldHandle = tpl.updates.handle;
+            tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
+            tpl.updates.loading = true;
+
+            Meteor.autorun(function whenSubscriptionIsReady(computation) {
+                if (tpl.updates.handle.ready()) {
+                    computation.stop(); // Stop the autorun
+                    if (oldHandle) oldHandle.stop();
+                    tpl.updates.loading = false;
+
+                    /**
+                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
+                     * -
+                     */
+                    Tracker.nonreactive(function replacePartups() {
+                        tpl.updates.updateModel();
+                        tpl.updates.updateView();
+                    });
+                }
+            });
+        }),
+
+        // Filter reactive variable (on change, set value to the tpl.options reactive var)
+        filter: new ReactiveVar('default', function(oldFilter, newFilter) {
+            var options = tpl.updates.options.get();
+            options.filter = newFilter;
+            tpl.updates.options.set(options);
+        }),
+
+        // The reactive limit variable (on change, add updates to the view)
+        limit: new ReactiveVar(STARTING_LIMIT, function(a, b) {
+            var first = b === STARTING_LIMIT;
+            if (first) return;
+
+            var options = tpl.updates.options.get();
+            options.limit = b;
+
+            var oldHandle = tpl.updates.handle;
+            tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
+            tpl.updates.loading = true;
+
+            Meteor.autorun(function whenSubscriptionIsReady(computation) {
+                if (tpl.updates.handle.ready()) {
+                    computation.stop(); // Stop the autorun
+                    if (oldHandle) oldHandle.stop();
+                    tpl.updates.loading = false;
+
+                    /*
+                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
+                     * - Update the model (recall the findByFilter, with the new limit)
+                     * - Get the current viewmodel
+                     * - Determine whether the end is reached
+                     * - Determine the added updates by comparing the _ids
+                     * - Add the added updates to the current view model
+                     **/
+                    Tracker.nonreactive(function addPartups() {
+                        var modelUpdates = tpl.updates.updateModel();
+                        var viewUpdates = tpl.updates.view.get();
+
+                        var difference = modelUpdates.length - viewUpdates.length;
+                        tpl.updates.end_reached = difference < INCREMENT;
+
+                        var addedUpdates = mout.array.filter(modelUpdates, function(update) {
+                            return !mout.array.find(viewUpdates, function(_update) {
+                                return update._id === _update._id;
+                            });
+                        });
+
+                        tpl.updates.addToView(addedUpdates);
+                    });
+                }
+            });
+        }),
+
+        increaseLimit: function() {
+            tpl.updates.limit.set(tpl.updates.limit.get() + INCREMENT);
+        },
+
+        resetLimit: function() {
+            tpl.updates.limit.set(STARTING_LIMIT);
+            tpl.updates.end_reached = false;
         }
+
     };
 
     // When the model changes and the view is empty, update the view with the model
@@ -141,7 +149,7 @@ Template.app_partup_updates.onCreated(function() {
     });
 
     // First run
-    tpl.options.set({});
+    tpl.updates.options.set({});
 });
 
 /**
@@ -158,9 +166,17 @@ Template.app_partup_updates.onRendered(function() {
         element: tpl.find('[data-infinitescroll-container]')
     }, function() {
         if (tpl.updates.loading || tpl.updates.end_reached) return;
-        tpl.increaseLimit();
+        tpl.updates.increaseLimit();
     });
 
+});
+
+/**
+ * Updates destroyed
+ */
+Template.app_partup_updates.onDestroyed(function() {
+    var tpl = this;
+    if (tpl.updates.handle) tpl.updates.handle.stop();
 });
 
 /**
@@ -201,10 +217,12 @@ Template.app_partup_updates.helpers({
         return !!user;
     },
     isUpper: function() {
+        var template = Template.instance();
+
         var user = Meteor.user();
         if (!user) return false;
 
-        var partup = Partups.findOne(Router.current().params._id);
+        var partup = Partups.findOne(template.data.partupId);
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
@@ -237,7 +255,7 @@ Template.app_partup_updates.helpers({
     },
 
     filterReactiveVar: function() {
-        return Template.instance().filter;
+        return Template.instance().updates.filter;
     }
 });
 
