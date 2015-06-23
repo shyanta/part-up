@@ -79,8 +79,6 @@ Network.prototype.isUpperInvited = function(upperId) {
 
 /**
  * Add invited Upper to Network
- *
- * @return {Boolean}
  */
 Network.prototype.addInvitedUpper = function(upperId, invite) {
     Networks.update(this._id, {$pull: {invites: invite}, $push: {uppers: upperId}});
@@ -89,8 +87,6 @@ Network.prototype.addInvitedUpper = function(upperId, invite) {
 
 /**
  * Add Upper to Network
- *
- * @return {Boolean}
  */
 Network.prototype.addUpper = function(upperId) {
     Networks.update(this._id, {$push: {uppers: upperId}});
@@ -113,8 +109,6 @@ Network.prototype.addPendingUpper = function(upperId) {
 
 /**
  * Create an invite
- *
- * @return {Boolean}
  */
 Network.prototype.createInvite = function(upperId, inviterId) {
     var invite = {
@@ -128,8 +122,6 @@ Network.prototype.createInvite = function(upperId, inviterId) {
 
 /**
  * Accept a pending upper to the network
- *
- * @return {Boolean}
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
