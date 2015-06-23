@@ -42,6 +42,7 @@ Package.onUse(function(api) {
         'client/reactivedate.js',
         'client/reactiveVarHelpers.js',
         'client/scroll.js',
+        'client/customselect.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',
