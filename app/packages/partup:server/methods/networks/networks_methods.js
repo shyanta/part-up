@@ -180,6 +180,33 @@ Meteor.methods({
     },
 
     /**
+     * Reject a request to join network
+     *
+     * @param {string} networkId
+     * @param {string} upperId
+     */
+    'networks.reject': function(networkId, upperId) {
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail(networkId);
+
+        if (!network.isAdmin(user._id)) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        try {
+            network.rejectPendingUpper(upperId);
+
+            return {
+                network_id: network._id,
+                upper_id: upperId
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'User [' + upperId + '] could not be rejected for network ' + networkId + '.');
+        }
+    },
+
+    /**
      * Leave a Network
      *
      * @param {string} networkId

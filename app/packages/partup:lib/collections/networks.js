@@ -129,6 +129,13 @@ Network.prototype.acceptPendingUpper = function(upperId) {
 };
 
 /**
+ * Reject a pending upper
+ */
+Network.prototype.rejectPendingUpper = function(upperId) {
+    Networks.update(this._id, {$pull: {pending_uppers: upperId}});
+};
+
+/**
  * Leave network
  *
  * @return {Boolean}
