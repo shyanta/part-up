@@ -22,38 +22,43 @@
                         </a>
                     {{/if }}
                 </section>
-                <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterValueReactiveVar}}</aside>
+                <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
-            <!-- Reveal new updates -->
-            {{#if newUpdatesCount }}
-                <p class="pu-update pu-sub-revealupdatesbutton">
-                    <aside></aside>
-                    <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
-                </p>
-            {{/if}}
+            <div data-infinitescroll-container>
 
-            <!-- For each update -->
-            {{# if updates }}
-                {{#each updates }}
-                    {{#if anotherDay . }}
-                        <section class="pu-sub-separator">
-                            {{ partupDatePartupTimeline created_at }}
-                            <span class="fa fa-long-arrow-down"></span>
+                <!-- Reveal new updates -->
+                {{#if newUpdatesCount }}
+                    <p class="pu-update pu-sub-revealupdatesbutton">
+                        <aside></aside>
+                        <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
+                    </p>
+                {{/if}}
+
+                <!-- For each update -->
+                {{# if updates }}
+                    {{#each updates }}
+                        {{#if anotherDay . }}
+                            <section class="pu-sub-separator">
+                                {{ partupDatePartupTimeline created_at }}
+                                <span class="fa fa-long-arrow-down"></span>
+                            </section>
+                        {{/if }}
+                        {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
+                    {{/each }}
+                {{ else }}
+                    <section class="pu-update">
+                        <aside>
+                            &nbsp;
+                        </aside>
+                        <section>
+                            {{_ 'pages-app-partup-updates-no_updates'}}
                         </section>
-                    {{/if }}
-                    {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
-                {{/each }}
-            {{ else }}
-            <section class="pu-update">
-                <aside>
-                    &nbsp;
-                </aside>
-                <section>
-                    {{_ 'pages-app-partup-updates-no_updates'}}
-                </section>
-            </section>
-            {{/ if }}
+                    </section>
+                {{/ if }}
+
+            </div>
+
         </div>
     </div>
 </template>

@@ -1,4 +1,4 @@
 {
-    "notification-verify-mail-success": "@Bedankt voor het bevestigen van je e-mailadres!",
-    "notification-verify-mail-warning": "@Dit e-mail adres is al eerder bevestigd"
+    "notification-verify-mail-success": "Je e-mailadres is bevestigd",
+    "notification-verify-mail-warning": "Dit e-mail adres is al eerder bevestigd"
 }

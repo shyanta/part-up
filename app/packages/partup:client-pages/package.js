@@ -97,12 +97,10 @@ Package.onUse(function(api) {
         // Modal:network
         'modal/network/create_network/create_network.html',
         'modal/network/create_network/create_network.js',
-        'modal/network/pending_uppers/pending_uppers.html',
-        'modal/network/pending_uppers/pending_uppers.js',
-        'modal/network/upper_overview/upper_overview.html',
-        'modal/network/upper_overview/upper_overview.js',
-        'modal/network/network_details/network_details.html',
-        'modal/network/network_details/network_details.js',
+
+        // Modal:network_settings
+        'modal/network_settings/network_settings.html',
+        'modal/network_settings/details/details.html',
 
         // Modal:create_intro
         'modal/create_intro/create_intro.html',
@@ -170,6 +168,8 @@ Package.onUse(function(api) {
         'i18n/modal-create-activities.nl.i18n.json',
         'i18n/modal-create-promote.en.i18n.json',
         'i18n/modal-create-promote.nl.i18n.json',
+        'i18n/modal-network_settings.en.i18n.json',
+        'i18n/modal-network_settings.nl.i18n.json',
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');

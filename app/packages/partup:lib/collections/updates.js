@@ -27,7 +27,6 @@ Update.prototype.getLastComment = function() {
     return mout.array.last(this.comments);
 };
 
-
 /**
  @namespace Updates
  @name Updates
@@ -37,3 +36,29 @@ Updates = new Mongo.Collection('updates', {
         return new Update(document);
     }
 });
+
+/**
+ * Partups collection helpers
+ */
+Updates.findByFilter = function(partupId, filter, limit) {
+    if (!partupId) return;
+    var limit = limit || 10;
+    var filter = filter || 'default';
+
+    var criteria = {partup_id: partupId};
+
+    if (filter === 'my-updates') {
+        criteria.upper_id = self.userId;
+    } else if (filter === 'activities') {
+        criteria.type = {$regex: '.*activities.*'};
+    } else if (filter === 'partup-changes') {
+        var regex = '.*(tags|end_date|name|description|image|budget).*';
+        criteria.type = {$regex: regex};
+    } else if (filter === 'messages') {
+        criteria.type = {$regex: '.*message.*'};
+    } else if (filter === 'contributions') {
+        criteria.type = {$regex: '.*contributions.*'};
+    }
+
+    return this.find(criteria, {limit: limit, sort: {updated_at: -1}});
+};

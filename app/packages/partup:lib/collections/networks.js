@@ -60,6 +60,92 @@ Network.prototype.isClosed = function() {
 };
 
 /**
+ * Check if upper is already invited to the network
+ *
+ * @return {Object}
+ */
+Network.prototype.isUpperInvited = function(upperId) {
+    var invites = this.invites || [];
+    var invite = false;
+
+    _.each(invites, function(inviteObject, key) {
+        if (mout.object.get(inviteObject, '_id') === upperId) {
+            invite = inviteObject;
+        }
+    });
+
+    return invite;
+};
+
+/**
+ * Add invited Upper to Network
+ */
+Network.prototype.addInvitedUpper = function(upperId, invite) {
+    Networks.update(this._id, {$pull: {invites: invite}, $push: {uppers: upperId}});
+    Meteor.users.update(upperId, {$push: {networks: this._id}});
+};
+
+/**
+ * Add Upper to Network
+ */
+Network.prototype.addUpper = function(upperId) {
+    Networks.update(this._id, {$push: {uppers: upperId}});
+    Meteor.users.update(upperId, {$push: {networks: this._id}});
+};
+
+/**
+ * Add upper to pending list
+ *
+ * @return {Boolean}
+ */
+Network.prototype.addPendingUpper = function(upperId) {
+    // User already added as pending upper
+    if (this.pending_uppers && this.pending_uppers.indexOf(upperId) > -1) {
+        return false;
+    }
+
+    Networks.update(this._id, {$push: {pending_uppers: upperId}});
+};
+
+/**
+ * Create an invite
+ */
+Network.prototype.createInvite = function(upperId, inviterId) {
+    var invite = {
+        _id: upperId,
+        invited_at: new Date(),
+        invited_by_id: inviterId
+    };
+
+    Networks.update(this._id, {$push: {invites: invite}});
+};
+
+/**
+ * Accept a pending upper to the network
+ */
+Network.prototype.acceptPendingUpper = function(upperId) {
+    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
+    Meteor.users.update(upperId, {$push: {networks: this._id}});
+};
+
+/**
+ * Reject a pending upper
+ */
+Network.prototype.rejectPendingUpper = function(upperId) {
+    Networks.update(this._id, {$pull: {pending_uppers: upperId}});
+};
+
+/**
+ * Leave network
+ *
+ * @return {Boolean}
+ */
+Network.prototype.leave = function(upperId) {
+    Networks.update(this._id, {$pull: {uppers: upperId}});
+    Meteor.users.update(upperId, {$pull: {networks: this._id}});
+};
+
+/**
  @namespace Networks
  @name Networks
  */

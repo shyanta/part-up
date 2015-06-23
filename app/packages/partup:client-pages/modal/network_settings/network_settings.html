@@ -1,0 +1,28 @@
+<template name="modal_network_settings">
+
+    <header class="pu-header pu-header-modal">
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+            <i class="fa fa-times"></i>
+            {{_ 'pages-modal-network_settings-close-page' }}
+        </a>
+    </header>
+
+    <section class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
+        <div class="pu-page pu-page-modal">
+            <div class="pu-wrap">
+                <nav class="pu-modal-sidebar">
+                    <ul>
+                        <li class="{{# if isActiveRoute name='network-settings' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'network-settings' _id=partupId }}">{{_ 'pages-modal-network_settings-network_info' }}</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <section class="pu-modal-content pu-state-with-sidebar">
+                    {{> yield region='modal_network_settings' }}
+                </section>
+            </div>
+        </div>
+    </section>
+
+</template>

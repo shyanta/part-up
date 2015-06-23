@@ -8,7 +8,7 @@ Partup.server.services.notifications = {
     /**
      * Make a new notification
      *
-     * @param  {mixed} options
+     * @param  {object} options
      * @param  {function} callback
      *
      * @return {Update}

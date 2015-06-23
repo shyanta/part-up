@@ -22,6 +22,7 @@ partup:client-gallery
 partup:client-invite-to-partup
 partup:client-loader
 partup:client-login
+partup:client-network-settings
 partup:client-partup-tile
 partup:client-popup
 partup:client-rating

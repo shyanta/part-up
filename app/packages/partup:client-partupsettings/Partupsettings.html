@@ -139,6 +139,7 @@
             </div>
         </label>
 
+        {{# if CREATE }}
         <label class="pu-formfield">
             <span class="pu-label">
                 {{_ 'partupsettings-form-privacy-label' }}
@@ -170,10 +171,13 @@
             </div>
             {{/ unless }}
                 
-            {{> afFieldInput type='hidden' name='privacy_type_input' defaultValue=1 }}
+            {{> afFieldInput type='hidden' name='privacy_type_input' defaultValue='public' }}
             {{> afFieldInput type='hidden' name='network_id' }}
+            <span class="pu-sub-error">{{ afFieldMessage name='privacy_type_input' }}</span>
+            <span class="pu-sub-error">{{ afFieldMessage name='network_id' }}</span>
 
         </label>
+        {{/ if }}
 
         <!-- Image -->
         <div class="pu-formfield">
