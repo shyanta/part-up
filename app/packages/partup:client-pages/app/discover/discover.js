@@ -57,12 +57,12 @@ Template.app_discover.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        tpl.partups.layout.clear();
-
                         var partups = Partups.find().fetch();
                         tpl.partups.handle.stop();
 
                         tpl.partups.hydrate(partups);
+
+                        tpl.partups.layout.clear();
                         tpl.partups.layout.add(partups);
                     });
                 }
@@ -113,6 +113,7 @@ Template.app_discover.onCreated(function() {
                         });
 
                         tpl.partups.hydrate(addedPartups);
+
                         tpl.partups.layout.add(addedPartups);
                     });
                 }
