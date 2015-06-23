@@ -5,7 +5,7 @@
             <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-details-title' currentUser.profile.name }}</h2>
             <p>{{_ 'pages-modal-create-details-explainingpartup' }}</p>
 
-            {{> Partupsettings FORM_ID='createPartupForm' currentPartup=currentPartup }}
+            {{> Partupsettings FORM_ID='createPartupForm' currentPartup=currentPartup CREATE=true }}
 
             {{#contentFor "PartupsettingsFooter"}}
 

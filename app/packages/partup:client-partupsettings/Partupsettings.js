@@ -100,7 +100,11 @@ Template.Partupsettings.helpers({
         return options;
     },
     startPartupSchema: function() {
-        return Partup.schemas.forms.startPartup;
+        if (this.CREATE) {
+            return Partup.schemas.forms.partupCreate;
+        } else {
+            return Partup.schemas.forms.partupUpdate;
+        }
     },
     formPlaceholders: function() {
         return formPlaceholders;
