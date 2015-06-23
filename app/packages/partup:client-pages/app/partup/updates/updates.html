@@ -25,16 +25,17 @@
                 <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
-            <!-- Reveal new updates -->
-            {{#if newUpdatesCount }}
-                <p class="pu-update pu-sub-revealupdatesbutton">
-                    <aside></aside>
-                    <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
-                </p>
-            {{/if}}
-
-            <!-- For each update -->
             <div data-infinitescroll-container>
+
+                <!-- Reveal new updates -->
+                {{#if newUpdatesCount }}
+                    <p class="pu-update pu-sub-revealupdatesbutton">
+                        <aside></aside>
+                        <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
+                    </p>
+                {{/if}}
+
+                <!-- For each update -->
                 {{# if updates }}
                     {{#each updates }}
                         {{#if anotherDay . }}
@@ -55,6 +56,7 @@
                         </section>
                     </section>
                 {{/ if }}
+
             </div>
 
         </div>
