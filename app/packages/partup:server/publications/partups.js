@@ -79,7 +79,8 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
 });
 
 Meteor.publish('partups.list', function() {
-    return Partups.guardedFind({}, {_id: 1, name: 1});
+    // return Partups.guardedFind({}, {_id: 1, name: 1});
+    return Partups.find({}, {_id: 1, name: 1});
 });
 
 Meteor.publishComposite('partups.one', function(partupId) {
