@@ -1,8 +1,7 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-var getActivities = function() {
-    var partupId = Session.get('partials.create-partup.current-partup');
+var getActivities = function(partupId) {
     return Activities.find({partup_id: partupId}, {sort: {created_at: -1}});
 };
 
@@ -12,7 +11,7 @@ var getActivities = function() {
 Template.modal_create_activities.helpers({
     Partup: Partup,
     partupActivities: function helperPartupActivities () {
-        return getActivities();
+        return getActivities(this.partupId);
     },
     currentPartupId: function helperCurrentPartupId () {
         return Session.get('partials.create-partup.current-partup');
@@ -35,7 +34,7 @@ Template.modal_create_activities.helpers({
         };
     },
     showActivityPlaceholder: function helperShowActivityPlaceholder () {
-        return getActivities().count() === 0;
+        return getActivities(this.partupId).count() === 0;
     },
     placeholderActivity: function helperPlaceholderActivity () {
         return {

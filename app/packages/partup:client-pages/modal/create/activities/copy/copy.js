@@ -10,7 +10,7 @@ var selectedPartup;
 /*************************************************************/
 Template.modal_create_activities_copy.helpers({
     partups: function() {
-        return Partups.find({}).map(function(partup) {
+        return Partups.find({_id: {$not: this.data.partupId}}).map(function(partup) {
             return {id: partup._id, value: partup.name};
         });
     },

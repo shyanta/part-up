@@ -300,6 +300,11 @@ Router.route('/start/:_id/activities', {
         this.subscribe('partups.one', this.params._id);
         this.subscribe('partups.list');
     },
+    data: function() {
+        return {
+            partupId: this.params._id
+        };
+    },
     action: function() {
         Session.set('partials.create-partup.current-partup', this.params._id);
         this.render();
@@ -316,6 +321,11 @@ Router.route('/start/:_id/promote', {
     },
     subscriptions: function() {
         this.subscribe('partups.one', this.params._id);
+    },
+    data: function() {
+        return {
+            partupId: this.params._id
+        };
     },
     action: function() {
         Session.set('partials.create-partup.current-partup', this.params._id);

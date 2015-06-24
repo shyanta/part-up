@@ -6,9 +6,7 @@
             {{#contentFor "PopupTitle"}}
                 {{_ 'pages-modal-create-activities-copy-title'}}
             {{/contentFor}}
-            {{#contentFor "PopupContent"}}
-                {{> modal_create_activities_copy }}
-            {{/contentFor}}
+            {{> contentFor region="PopupContent" template="modal_create_activities_copy"}}
         {{/if}}
 
         <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
