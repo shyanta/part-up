@@ -87,7 +87,9 @@ Template.modal_register_details.helpers({
         var user = Meteor.user();
 
         if (user && user.profile && user.profile.image) {
-            return Images.findOne({_id: user.profile.image}).url();
+            image = Images.findOne({_id: user.profile.image});
+            if (!image) return false;
+            return image.url();
         }
     },
     fieldsFromUser: function() {
@@ -109,12 +111,12 @@ Template.modal_register_details.helpers({
     placeSelectedCallback: function() {
         return function(results) {
             $('[name="location_input"]').val(results.placeId);
-        }
+        };
     },
     clearCallback: function() {
         return function(results) {
             $('[name="location_input"]').val();
-        }
+        };
     }
 });
 
