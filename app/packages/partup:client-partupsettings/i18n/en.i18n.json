@@ -32,6 +32,7 @@
     "partupsettings-form-privacy-label": "Who can view your part-up?",
     "partupsettings-form-privacy-public": "Everybody",
     "partupsettings-form-privacy-private": "Invited uppers (only available for Super upper accounts)",
+    "partupsettings-form-network-tooltip": "With this settings you can define the visibility of the part-up contents for specific uppers.",
 
     "partupsettings-image-label": "What picture suits your part-up best?",
     "partupsettings-image-button": "Upload a picture from your computer",
