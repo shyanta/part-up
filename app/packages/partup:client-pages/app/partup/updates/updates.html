@@ -47,14 +47,16 @@
                         {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
                     {{/each }}
                 {{ else }}
-                    <section class="pu-update">
-                        <aside>
-                            &nbsp;
-                        </aside>
-                        <section>
-                            {{_ 'pages-app-partup-updates-no_updates'}}
+                    {{# unless updatesLoading }}
+                        <section class="pu-update">
+                            <aside>
+                                &nbsp;
+                            </aside>
+                            <section>
+                                {{_ 'pages-app-partup-updates-no_updates'}}
+                            </section>
                         </section>
-                    </section>
+                    {{/ unless}}
                 {{/ if }}
 
             </div>

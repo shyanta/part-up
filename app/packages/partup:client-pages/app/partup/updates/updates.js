@@ -12,8 +12,8 @@ Template.app_partup_updates.onCreated(function() {
         INCREMENT: 20,
 
         // States
-        loading: false,
-        end_reached: false,
+        loading: new ReactiveVar(false),
+        end_reached: new ReactiveVar(false),
 
         // Date of the last refresh
         refreshDate: new ReactiveVar(new Date()),
@@ -57,13 +57,13 @@ Template.app_partup_updates.onCreated(function() {
 
             var oldHandle = tpl.updates.handle;
             tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
-            tpl.updates.loading = true;
+            tpl.updates.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.updates.handle.ready()) {
                     computation.stop(); // Stop the autorun
                     if (oldHandle) oldHandle.stop();
-                    tpl.updates.loading = false;
+                    tpl.updates.loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -95,13 +95,13 @@ Template.app_partup_updates.onCreated(function() {
 
             var oldHandle = tpl.updates.handle;
             tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
-            tpl.updates.loading = true;
+            tpl.updates.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.updates.handle.ready()) {
                     computation.stop(); // Stop the autorun
                     if (oldHandle) oldHandle.stop();
-                    tpl.updates.loading = false;
+                    tpl.updates.loading.set(false);
 
                     /*
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -116,7 +116,8 @@ Template.app_partup_updates.onCreated(function() {
                         var viewUpdates = tpl.updates.view.get();
 
                         var difference = modelUpdates.length - viewUpdates.length;
-                        tpl.updates.end_reached = difference < tpl.updates.INCREMENT;
+                        var end_reached = difference < tpl.updates.INCREMENT;
+                        tpl.updates.end_reached.set(end_reached);
 
                         var addedUpdates = mout.array.filter(modelUpdates, function(update) {
                             return !mout.array.find(viewUpdates, function(_update) {
@@ -136,7 +137,7 @@ Template.app_partup_updates.onCreated(function() {
 
         resetLimit: function() {
             tpl.updates.limit.set(tpl.updates.STARTING_LIMIT);
-            tpl.updates.end_reached = false;
+            tpl.updates.end_reached.set(false);
         }
     };
 
@@ -167,7 +168,7 @@ Template.app_partup_updates.onRendered(function() {
         template: tpl,
         element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        if (tpl.updates.loading || tpl.updates.end_reached) return;
+        if (tpl.updates.loading.get() || tpl.updates.end_reached.get()) return;
         tpl.updates.increaseLimit();
     });
 
@@ -258,6 +259,14 @@ Template.app_partup_updates.helpers({
 
     filterReactiveVar: function() {
         return Template.instance().updates.filter;
+    },
+
+    updatesLoading: function() {
+        return Template.instance().updates.loading.get();
+    },
+
+    updatesEndReached: function() {
+        return Template.instance().updates.end_reached.get();
     }
 });
 
