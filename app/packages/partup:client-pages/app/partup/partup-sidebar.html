@@ -79,7 +79,11 @@
         <section class="pu-sub-light">
             <div class="pu-sidebar-wrap">
                 <section>
-                    <p>{{{_ 'pages-app-partup-status_text' prettyEndDate partup.location.city prettyVisibility partup.network.name }}}</p>
+                    {{# if hasBudget }}
+                        <p>{{{_ 'pages-app-partup-status_text-with-budget' prettyEndDate partup.location.city prettyBudget }}}</p>
+                    {{ else }}
+                        <p>{{{_ 'pages-app-partup-status_text-without-budget' prettyEndDate partup.location.city }}}</p>
+                    {{/ if }}
                 </section>
                 <section>
                     <h2>{{_ 'pages-app-partup-share_title' }}</h2>

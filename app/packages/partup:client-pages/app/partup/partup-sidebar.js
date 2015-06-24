@@ -299,8 +299,15 @@ Template.app_partup_sidebar.helpers({
     showTakePartButton: function(argument) {
         var user = Meteor.user();
         return !user || !this.partup || !this.partup.hasUpper(user._id);
+    },
+    hasBudget: function() {
+        return !!this.partup.budget_type;
+    },
+    prettyBudget: function() {
+        var budget = this.partup['budget_' + this.partup.budget_type ];
+        var budgetUnit = __('pages-app-partup-unit-' + this.partup.budget_type);
+        return budget + '  ' + budgetUnit;
     }
-
 });
 
 /*************************************************************/

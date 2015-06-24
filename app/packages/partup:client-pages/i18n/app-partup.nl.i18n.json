@@ -8,9 +8,13 @@
     "pages-app-partup-supporters_placeholder": "Supporters nodig om mee te denken? Deel je part-up.",
     "pages-app-partup-supporters_join": "Word supporter",
     "pages-app-partup-supporters_leave": "Stop met supporten",
-    "pages-app-partup-status_text": "Deze part-up is actief tot <strong>%s</strong> in <strong>%s</strong>.",
+    "pages-app-partup-status_text-with-budget": "Deze part-up is actief tot <strong>%s</strong> in omgeving <strong>%s</strong> en heeft een budget van <strong>%s</strong>.",
+    "pages-app-partup-status_text-without-budget": "Deze part-up is actief tot <strong>%s</strong> in omgeving <strong>%s</strong>.",
     "pages-app-partup-visibility_public": "iedereen",
     "pages-app-partup-visibility_private": "uitgenodigde uppers",
+    "pages-app-partup-unit-money": "euro",
+    "pages-app-partup-unit-hours": "uur",
+    "pages-app-partup-no-budget": "",
 
     "pages-app-partup-share_title": "Deel deze part-up",
     "pages-app-partup-share_paragraph": "Trots op je part-up of zoek je nog nieuwe uppers? Deel je part-up in jouw netwerk!"
