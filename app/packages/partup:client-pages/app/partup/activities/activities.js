@@ -1,50 +1,54 @@
-/*************************************************************/
-/* Widget functions */
-/*************************************************************/
-var getActivities = function getActivities (options) {
-    var partupId = Router.current().params._id;
+/**
+ * Activities created
+ */
+Template.app_partup_activities.onCreated(function() {
+    var tpl = this;
 
-    // Get the option that is selected in the filter dropdown
-    var option = Session.get('partial-dropdown-activities-actions.selected');
+    tpl.activities = {
+        filter: new ReactiveVar('default'),
+        all: function(options) {
+            var options = options || {};
 
-    var query = {
-        partup_id: partupId,
-        archived: false
+            var filter = tpl.activities.filter.get();
+
+            var selector = {
+                partup_id: tpl.data.partupId,
+                archived: !!options.archived
+            };
+
+            return Activities
+                .find(selector, {sort: {end_date: -1}})
+                .fetch()
+                .filter(function(activity, idx) {
+                    if (filter === 'default') return true;
+
+                    if (filter === 'my-activities') {
+                        return activity.creator_id && activity.creator_id === Meteor.user()._id;
+                    }
+
+                    if (filter === 'open-activities') {
+                        return Contributions.find({activity_id: activity._id}).count() === 0;
+                    }
+
+                    return true;
+                });
+        }
     };
-    if (options && options.archived) {
-        query.archived = true;
-    }
-    return Activities.find(query, {sort: {end_date: -1}}).map(function(activity, idx) {
-        activity.arrayIndex = idx;
-        return activity;
-    }).filter(function(activity, idx) {
-        if (option === 'default') return true;
+});
 
-        if (option === 'my-activities') {
-            return activity.creator_id && activity.creator_id === Meteor.user()._id;
-        }
-
-        if (option === 'open-activities') {
-            return Contributions.find({activity_id: activity._id}).count() === 0;
-        }
-
-        return true;
-    });
-};
-
-/*************************************************************/
-/* Widget helpers */
-/*************************************************************/
+/**
+ * Activities helpers
+ */
 Template.app_partup_activities.helpers({
 
-    'activities': function helperActivities () {
-        return getActivities();
+    activities: function() {
+        console.log(Template.instance());
+        return Template.instance().activities.all();
     },
-    'archivedActivities': function helperActivities () {
-        return getActivities({archived:true});
+    archivedActivities: function() {
+        return Template.instance().activities.all({archived: true});
     },
-
-    isUpper: function helperIsUpper () {
+    isUpper: function() {
         var user = Meteor.user();
         if (!user) return false;
 
@@ -52,6 +56,9 @@ Template.app_partup_activities.helpers({
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
+    },
+    filterReactiveVar: function() {
+        return Template.instance().activities.filter;
     }
 
 });

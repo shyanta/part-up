@@ -11,8 +11,9 @@ Template.PartialDropdownUpdatesActions.onRendered(function() {
 });
 
 Template.PartialDropdownUpdatesActions.destroyed = function() {
-    Session.set(this.dropdownToggleBool, false);
-    ClientDropdowns.removeOutsideDropdownClickHandler(this);
+    var tpl = this;
+    Session.set(tpl.dropdownToggleBool, false);
+    ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
 };
 
 Template.PartialDropdownUpdatesActions.events({

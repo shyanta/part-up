@@ -16,7 +16,7 @@
                 {{# if isUpper }}
                     <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "pages-app-partup-activities-newactivity_button"}}</a></section>
                 {{/ if}}
-                <aside>{{> PartialDropdownActivitiesActions}}</aside>
+                <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
             {{# each activities }}
