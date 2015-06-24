@@ -15,8 +15,10 @@
         </header>
         <section>
             <div class="pu-partupcircle">
-                <canvas class="pu-sub-radial" data-percent="{{ partupProgress }}"></canvas>
-                <figure class="pu-sub-inner" style="{{#if image }}background-image: url('{{ partupImageUrl id=image }}');{{/if }}"></figure>
+                <a href="{{pathFor 'partup' _id=_id }}">
+                    <canvas class="pu-sub-radial" data-percent="{{ partupProgress }}"></canvas>
+                    <figure class="pu-sub-inner" style="{{#if image }}background-image: url('{{ partupImageUrl id=image }}');{{/if }}"></figure>
+                </a>
                 <!-- Uppers -->
                 {{# if uppers }}
                     <ul class="pu-sub-avatar-list">
