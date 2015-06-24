@@ -13,7 +13,10 @@
                 <nav class="pu-modal-sidebar">
                     <ul>
                         <li class="{{# if isActiveRoute name='network-settings' }}pu-state-active{{/ if }}">
-                            <a href="{{ pathFor 'network-settings' _id=partupId }}">{{_ 'pages-modal-network_settings-network_info' }}</a>
+                            <a href="{{ pathFor 'network-settings' _id=networkId }}">{{_ 'pages-modal-network_settings-network_info' }}</a>
+                        </li>
+                        <li class="{{# if isActiveRoute name='network-settings-uppers' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'network-settings-uppers' _id=networkId }}">{{_ 'pages-modal-network_settings-uppers' }}</a>
                         </li>
                     </ul>
                 </nav>
