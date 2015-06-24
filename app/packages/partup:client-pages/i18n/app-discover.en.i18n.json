@@ -1,5 +1,6 @@
 {
     "pages-app-discover-heading": "Discover",
+    "pages-app-discover-loading": "Loading...",
     "pages-app-discover-noartups": "no part-ups found, please adjust your filter",
     "pages-app-discover-xpartups": "__count__ part-up",
     "pages-app-discover-xpartups_plural": "__count__ part-ups",

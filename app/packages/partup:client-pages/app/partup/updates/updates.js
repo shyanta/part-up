@@ -12,8 +12,8 @@ Template.app_partup_updates.onCreated(function() {
         INCREMENT: 20,
 
         // States
-        loading: new ReactiveVar(false),
-        end_reached: new ReactiveVar(false),
+        loading: new ReactiveVar(true),
+        end_reached: new ReactiveVar(true),
 
         // Date of the last refresh
         refreshDate: new ReactiveVar(new Date()),

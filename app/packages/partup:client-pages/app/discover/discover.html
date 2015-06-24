@@ -32,11 +32,15 @@
                         <h2 class="pu-title pu-title-home">
                             {{_ 'pages-app-discover-heading' }}
                             <span class="pu-sub-countlabel">
-                                {{#if count}}
-                                    {{_ 'pages-app-discover-xpartups' count=count }}
+                                {{#unless partupsLoading }}
+                                    {{#if count}}
+                                        {{_ 'pages-app-discover-xpartups' count=count }}
+                                    {{else}}
+                                        {{_ 'pages-app-discover-nopartups' }}
+                                    {{/if}}
                                 {{else}}
-                                    {{_ 'pages-app-discover-nopartups' }}
-                                {{/if}}
+                                    {{_ 'pages-app-discover-loading' }}
+                                {{/unless}}
                             </span>
                             {{# if showProfileCompletion }}
                                 <span class="pu-paragraph pu-paragraph-subtle">{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</span>

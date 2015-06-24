@@ -11,8 +11,8 @@ Template.app_discover.onCreated(function() {
         INCREMENT: 8,
 
         // States
-        loading: false,
-        end_reached: false,
+        loading: new ReactiveVar(true),
+        end_reached: new ReactiveVar(true),
 
         // Namespace for columns layout functions (added by helpers)
         layout: {
@@ -46,7 +46,7 @@ Template.app_discover.onCreated(function() {
             tpl.partups.stopChildHandles();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
             tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
-            tpl.partups.loading = true;
+            tpl.partups.loading.set(true);
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
@@ -60,7 +60,7 @@ Template.app_discover.onCreated(function() {
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    tpl.partups.loading = false;
+                    tpl.partups.loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -93,12 +93,12 @@ Template.app_discover.onCreated(function() {
 
             tpl.partups.stopChildHandles();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
-            tpl.partups.loading = true;
+            tpl.partups.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    tpl.partups.loading = false;
+                    tpl.partups.loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -118,7 +118,8 @@ Template.app_discover.onCreated(function() {
                         tpl.partups.handle.stop();
 
                         var difference = newPartups.length - oldPartups.length;
-                        tpl.partups.end_reached = difference < tpl.partups.INCREMENT;
+                        var end_reached = difference < tpl.partups.INCREMENT;
+                        tpl.partups.end_reached.set(end_reached);
 
                         var addedPartups = mout.array.filter(newPartups, function(partup) {
                             return !mout.array.find(oldPartups, function(_partup) {
@@ -142,7 +143,7 @@ Template.app_discover.onCreated(function() {
         // Reset limit function
         resetLimit: function() {
             tpl.partups.limit.set(tpl.partups.STARTING_LIMIT);
-            tpl.partups.end_reached = false;
+            tpl.partups.end_reached.set(false);
         },
 
         // Partup tiles subscription handles
@@ -172,7 +173,7 @@ Template.app_discover.onRendered(function() {
         template: tpl,
         element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        if (tpl.partups.loading || tpl.partups.end_reached) return;
+        if (tpl.partups.loading.get() || tpl.partups.end_reached.get()) return;
         tpl.partups.increaseLimit();
     });
 
@@ -235,6 +236,9 @@ Template.app_discover.helpers({
         if (!user) return false;
         if (!user.completeness) return '...';
         return user.completeness;
+    },
+    partupLoading: function() {
+        return Template.instance().partups.loading.get();
     },
 
     // We use this trick to be able to call a function in a child template.
