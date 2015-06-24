@@ -50,15 +50,16 @@ Template.app_discover.onCreated(function() {
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
-                    computation.stop(); // Stop the autorun
-                    tpl.partups.layout.count.set(Counts.get('partups.discover.filterquery'));
+                    computation.stop();
+                    var new_count = Counts.get('partups.discover.filterquery');
+                    tpl.partups.layout.count.set(new_count);
                     tpl.partups.count_handle.stop();
                 }
             });
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
-                    computation.stop(); // Stop the autorun
+                    computation.stop();
                     tpl.partups.loading = false;
 
                     /**
@@ -96,7 +97,7 @@ Template.app_discover.onCreated(function() {
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
-                    computation.stop(); // Stop the autorun
+                    computation.stop();
                     tpl.partups.loading = false;
 
                     /**

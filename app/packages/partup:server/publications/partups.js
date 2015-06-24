@@ -36,7 +36,8 @@ Meteor.publishComposite('partups.discover', function(options) {
 
 Meteor.publish('partups.discover.count', function(options) {
     options = options || {};
-    Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(options, true));
+    options.count = true;
+    Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(options));
 });
 
 Meteor.publishComposite('partups.ids', function(partupIds) {
@@ -164,8 +165,4 @@ Meteor.publishComposite('partups.one', function(partupId) {
             }
         ]
     };
-});
-
-Meteor.publish('partups.count', function() {
-    Counts.publish(this, 'partups', Partups.guardedFind(self.userId));
 });
