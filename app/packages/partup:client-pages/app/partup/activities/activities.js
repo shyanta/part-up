@@ -42,7 +42,6 @@ Template.app_partup_activities.onCreated(function() {
 Template.app_partup_activities.helpers({
 
     activities: function() {
-        console.log(Template.instance());
         return Template.instance().activities.all();
     },
     archivedActivities: function() {
