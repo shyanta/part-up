@@ -16,4 +16,19 @@ Template.NetworkSettingsUppers.helpers({
     }
 });
 
-Template.NetworkSettingsUppers.events({});
+Template.NetworkSettingsUppers.events({
+    'click [data-upper-remove]': function(e, template) {
+        var btn = $(e.target).closest('[data-upper-remove]');
+        var networkId = template.data.networkId;
+        var upperId = btn.data('upper-remove');
+
+        Meteor.call('networks.remove_upper', networkId, upperId, function(err) {
+            if (err && err.reason) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.success(__('network-settings-uppers-upper-removed'));
+        });
+    }
+});
