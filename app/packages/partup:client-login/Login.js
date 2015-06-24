@@ -1,8 +1,8 @@
-var placeholders = {
-    'email': function() {
+var formPlaceholders = {
+    email: function() {
         return __('login-form-email-placeholder');
     },
-    'password': function() {
+    password: function() {
         return __('login-form-password-placeholder');
     }
 };
@@ -12,7 +12,7 @@ var placeholders = {
 /*************************************************************/
 Template.Login.helpers({
     formSchema: Partup.schemas.forms.login,
-    placeholders: Partup.services.placeholders.login
+    placeholders: formPlaceholders
 });
 
 /*************************************************************/
