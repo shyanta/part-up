@@ -298,11 +298,7 @@ Template.app_partup_sidebar.helpers({
     },
     showTakePartButton: function(argument) {
         var user = Meteor.user();
-        if(user && this.partup && this.partup.hasUpper(user._id)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !user || !this.partup || !this.partup.hasUpper(user._id);
     }
 
 });

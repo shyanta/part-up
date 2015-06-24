@@ -11,7 +11,7 @@ Template.modal.onRendered(function() {
 /* modal helpers */
 /*************************************************************/
 Template.modal.helpers({
-    focusLayerEnabled: function helperFocusLayerEnabled () {
+    focusLayerEnabled: function() {
         return Partup.client.focuslayer.state.get();
     }
 });
@@ -20,9 +20,7 @@ Template.modal.helpers({
 /* modal events */
 /*************************************************************/
 Template.modal.events({
-
-    'click [data-focuslayer]': function eventsClickFocuslayer () {
+    'click [data-focuslayer]': function() {
         Partup.client.focuslayer.disable();
     }
-
 });

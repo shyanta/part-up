@@ -1,12 +1,10 @@
 <template name="app_partup_sidebar">
-    <!-- take part popup -->
+
     {{#if partupIsPopupActive 'take-part' }}
-        {{#contentFor "PopupTitle"}}
+        {{#contentFor region="PopupTitle"}}
             {{_ 'pages-app-partup-takepart-title'}}
         {{/contentFor}}
-        {{#contentFor "PopupContent"}}
-            {{> app_partup_takepart partup=partup }}
-        {{/contentFor}}
+        {{> contentFor region="PopupContent" template="app_partup_takepart"}}
     {{/if}}
 
     <!-- sidebar header image -->
@@ -27,9 +25,12 @@
                         {{/each }}
                     </ul>
                     {{# if showTakePartButton }}
+
+                        <!-- take part popup -->
                         <a class="pu-button pu-button-icon" data-open-takepart-popup>
                             {{_ 'pages-app-partup-take_part' }}
                         </a>
+
                     {{/ if }}
                 </section>
                 <section>
