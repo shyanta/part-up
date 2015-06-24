@@ -38,15 +38,14 @@ Template.Contribution.helpers({
         return this.contribution.hours && this.contribution.rate;
     },
     upper: function(event, template) {
-        var upper = Meteor.users.findOne({_id: this.contribution.upper_id});
-        return upper;
+        return Meteor.users.findOne({_id: this.contribution.upper_id});
     },
     upperContribution: function() {
         var user = Meteor.user();
         if (!user) return false;
         return Meteor.user()._id === this.contribution.upper_id;
     },
-    canVerifyContribution: function canVerifyContribution() {
+    canVerifyContribution: function() {
         var user = Meteor.user();
         if (!user) return false;
         var activity = Activities.findOne({_id: this.contribution.activity_id});
@@ -66,11 +65,34 @@ Template.Contribution.helpers({
 /*************************************************************/
 Template.Contribution.events({
     'click [data-contribute]': function(event, template) {
-        template.updateContribution({}, function(error) {
-            if (error) {
-                console.error(error);
+        event.preventDefault();
+
+        var contribute = function() {
+            var partup = Partups.findOne({_id: template.data.activity.partup_id});
+            if (!partup) {
+                // When this happens, the partup subscription is probably not ready yet
+                Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');
+                return;
             }
-        });
+
+            if (partup.hasUpper(Meteor.user()._id)) {
+                template.updateContribution({}, function(error) {
+                    if (error) console.error(error);
+                });
+            } else {
+                // todo: show become upper popup
+                alert('You should become an upper first!');
+            }
+        };
+
+        if (Meteor.user()) {
+            contribute();
+        } else {
+            Partup.client.intent.go({route: 'login'}, function() {
+                Partup.client.intent.returnToOrigin('login');
+                contribute();
+            });
+        }
     },
     'click [data-share]': function(event, template) {
         event.preventDefault();
@@ -95,14 +117,14 @@ Template.Contribution.events({
             }
         });
     },
-    'click [data-contribution-accept]': function acceptContribution(event, template) {
+    'click [data-contribution-accept]': function(event, template) {
         Meteor.call('contributions.accept', template.data.contribution._id, function(error) {
             if (error) {
                 console.error(error);
             }
         });
     },
-    'click [data-contribution-reject]': function rejectContribution(event, template) {
+    'click [data-contribution-reject]': function(event, template) {
         Meteor.call('contributions.reject', template.data.contribution._id, function(error) {
             if (error) {
                 console.error(error);
