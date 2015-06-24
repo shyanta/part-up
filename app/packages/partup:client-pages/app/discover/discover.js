@@ -48,8 +48,16 @@ Template.app_discover.onCreated(function() {
             tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
             tpl.partups.loading = true;
 
+            Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
+                if (tpl.partups.count_handle.ready()) {
+                    computation.stop(); // Stop the autorun
+                    tpl.partups.layout.count.set(Counts.get('partups.discover.filterquery'));
+                    tpl.partups.count_handle.stop();
+                }
+            });
+
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready() && tpl.partups.count_handle.ready()) {
+                if (tpl.partups.handle.ready()) {
                     computation.stop(); // Stop the autorun
                     tpl.partups.loading = false;
 
@@ -64,9 +72,6 @@ Template.app_discover.onCreated(function() {
                     Tracker.nonreactive(function replacePartups() {
                         var partups = Partups.find().fetch();
                         tpl.partups.handle.stop();
-
-                        tpl.partups.layout.count.set(Counts.get('partups.discover.filterquery'));
-                        tpl.partups.count_handle.stop();
 
                         tpl.partups.hydrate(partups);
 
@@ -83,15 +88,14 @@ Template.app_discover.onCreated(function() {
             if (first) return;
 
             var options = tpl.partups.options.get();
-            options.limit = tpl.partups.limit.get();
+            options.limit = b;
 
             tpl.partups.stopChildHandles();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
-            tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
             tpl.partups.loading = true;
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready() && tpl.partups.count_handle.ready()) {
+                if (tpl.partups.handle.ready()) {
                     computation.stop(); // Stop the autorun
                     tpl.partups.loading = false;
 
@@ -111,9 +115,6 @@ Template.app_discover.onCreated(function() {
 
                         var newPartups = Partups.find().fetch();
                         tpl.partups.handle.stop();
-
-                        tpl.partups.layout.count.set(Counts.get('partups.discover.filterquery'));
-                        tpl.partups.count_handle.stop();
 
                         var difference = newPartups.length - oldPartups.length;
                         tpl.partups.end_reached = difference < tpl.partups.INCREMENT;
