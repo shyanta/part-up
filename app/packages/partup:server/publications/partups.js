@@ -34,6 +34,11 @@ Meteor.publishComposite('partups.discover', function(options) {
     };
 });
 
+Meteor.publish('partups.discover.count', function(options) {
+    options = options || {};
+    Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(options, true));
+});
+
 Meteor.publishComposite('partups.ids', function(partupIds) {
     var self = this;
 

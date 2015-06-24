@@ -16,7 +16,8 @@ Template.app_discover.onCreated(function() {
 
         // Namespace for columns layout functions (added by helpers)
         layout: {
-            items: []
+            items: [],
+            count: new ReactiveVar(0)
         },
 
         // Hydrate partups
@@ -33,6 +34,7 @@ Template.app_discover.onCreated(function() {
 
         // Partups subscription handle
         handle: null,
+        count_handle: null,
 
         // Options reactive variable (on change, clear the layout and re-add all partups)
         options: new ReactiveVar({}, function(a, b) {
@@ -43,10 +45,11 @@ Template.app_discover.onCreated(function() {
 
             tpl.partups.stopChildHandles();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
+            tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
             tpl.partups.loading = true;
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
+                if (tpl.partups.handle.ready() && tpl.partups.count_handle.ready()) {
                     computation.stop(); // Stop the autorun
                     tpl.partups.loading = false;
 
@@ -61,6 +64,9 @@ Template.app_discover.onCreated(function() {
                     Tracker.nonreactive(function replacePartups() {
                         var partups = Partups.find().fetch();
                         tpl.partups.handle.stop();
+
+                        tpl.partups.layout.count.set(Counts.get('partups.discover.filterquery'));
+                        tpl.partups.count_handle.stop();
 
                         tpl.partups.hydrate(partups);
 
@@ -81,10 +87,11 @@ Template.app_discover.onCreated(function() {
 
             tpl.partups.stopChildHandles();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
+            tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
             tpl.partups.loading = true;
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
+                if (tpl.partups.handle.ready() && tpl.partups.count_handle.ready()) {
                     computation.stop(); // Stop the autorun
                     tpl.partups.loading = false;
 
@@ -104,6 +111,9 @@ Template.app_discover.onCreated(function() {
 
                         var newPartups = Partups.find().fetch();
                         tpl.partups.handle.stop();
+
+                        tpl.partups.layout.count.set(Counts.get('partups.discover.filterquery'));
+                        tpl.partups.count_handle.stop();
 
                         var difference = newPartups.length - oldPartups.length;
                         tpl.partups.end_reached = difference < tpl.partups.INCREMENT;
@@ -209,6 +219,9 @@ Template.app_discover.onDestroyed(function() {
  * Discover helpers
  */
 Template.app_discover.helpers({
+    count: function() {
+        return Template.instance().partups.layout.count.get() || '';
+    },
     showProfileCompletion: function() {
         var user = Meteor.user();
         if (!user) return false;
@@ -220,15 +233,6 @@ Template.app_discover.helpers({
         if (!user) return false;
         if (!user.completeness) return '...';
         return user.completeness;
-    },
-
-    totalNumberOfPartups: function() {
-        var count = Counts.get('partups');
-        if (count) {
-            return count;
-        } else {
-            return '...';
-        }
     },
 
     // We use this trick to be able to call a function in a child template.

@@ -88,7 +88,7 @@ Partups.guardedFind = function(userId, selector, options) {
     return this.find(finalSelector, options);
 };
 
-Partups.findForDiscover = function(options) {
+Partups.findForDiscover = function(options, NO_LIMIT) {
     var selector = {};
     var options = options || {};
 
@@ -102,7 +102,7 @@ Partups.findForDiscover = function(options) {
     options.sort = {};
 
     // Set limit for pagination
-    options.limit = limit;
+    if (!NO_LIMIT) options.limit = limit;
 
     // Sort the partups from the newest to the oldest
     if (sort === 'new') {
