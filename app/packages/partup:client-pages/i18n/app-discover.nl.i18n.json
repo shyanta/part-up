@@ -1,5 +1,7 @@
 {
     "pages-app-discover-heading": "Discover",
-    "pages-app-discover-xpartups": "%s part-ups",
+    "pages-app-discover-nopartups": "geen part-ups gevonden, pas je filter aan",
+    "pages-app-discover-xpartups": "1 part-up",
+    "pages-app-discover-xpartups_plural": "__count__ part-ups",
     "pages-app-discover-profilecompletion": "Je profiel is voor __profileCompletion__% gevuld. Update je profiel voor betere zoekresultaten"
 }
