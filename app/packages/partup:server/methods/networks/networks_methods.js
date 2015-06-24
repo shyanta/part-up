@@ -239,7 +239,7 @@ Meteor.methods({
      * @param {string} networkId
      * @param {string} upperId
      */
-    'networks.remove': function(networkId, upperId) {
+    'networks.remove_upper': function(networkId, upperId) {
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
