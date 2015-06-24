@@ -376,7 +376,7 @@ Router.route('/verify-email/:token', {
         'app': {to: 'main'}
     },
     onBeforeAction: function() {
-        Router.go('home'); // todo: < change to profile when we have that page
+        Router.go('discover'); // todo: < change to profile when we have that page
 
         Accounts.verifyEmail(this.params.token, function(error) {
             if (error) {
