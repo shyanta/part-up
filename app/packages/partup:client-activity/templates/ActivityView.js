@@ -39,12 +39,11 @@ Template.ActivityView.helpers({
         if (this.READONLY) return false;
 
         var user = Meteor.user();
-        if (!user) return false;
-
-        contributions = Contributions.find({activity_id: this.activity._id}).fetch();
-
-        for (var i = 0; i < contributions.length; i++) {
-            if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
+        if (user) {
+            var contributions = Contributions.find({activity_id: this.activity._id}).fetch();
+            for (var i = 0; i < contributions.length; i++) {
+                if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
+            }
         }
 
         return true;
