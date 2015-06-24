@@ -200,7 +200,7 @@ Template.app_partup_updates.helpers({
     },
 
     anotherDay: function(update) {
-        var TIME_FIELD = 'created_at';
+        var TIME_FIELD = 'updated_at';
 
         var updates = Template.instance().updates.view.get();
         var currentIndex = lodash.findIndex(updates, update);
