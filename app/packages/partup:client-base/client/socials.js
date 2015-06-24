@@ -6,9 +6,9 @@ Partup.client.socials = {
      * @memberOf Partup.client
      * @param {String} urlToShare URL to be shared
      */
-    generateFacebookShareUrl: function (urlToShare) {
-        var base = "https://www.facebook.com/sharer/sharer.php";
-        return base + "?s=100&p[url]=" + urlToShare;
+    generateFacebookShareUrl: function(urlToShare) {
+        var base = 'https://www.facebook.com/sharer/sharer.php';
+        return base + '?s=100&p[url]=' + encodeURIComponent(urlToShare);
 
         //TODO: use new facebook api
         //var appId = Meteor.settings.public.facebookAppId;
@@ -23,8 +23,8 @@ Partup.client.socials = {
      * @param {String} messageToShare Message to be shared
      * @param {String} urlToShare URL to be shared
      */
-    generateTwitterShareUrl: function (messageToShare, urlToShare) {
-        return 'http://twitter.com/intent/tweet?text=' + messageToShare + '&url=' + encodeURIComponent(urlToShare) + '&hashtags=part-up&via=partupcom';
+    generateTwitterShareUrl: function(messageToShare, urlToShare) {
+        return 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(messageToShare) + '&url=' + encodeURIComponent(urlToShare) + '&hashtags=part-up&via=partupcom';
     },
 
     /**
@@ -33,8 +33,19 @@ Partup.client.socials = {
      * @memberOf Partup.client
      * @param {String} urlToShare URL to be shared
      */
-    generateLinkedInShareUrl: function (urlToShare) {
-        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + urlToShare;
+    generateLinkedInShareUrl: function(urlToShare) {
+        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(urlToShare);
+    },
+
+    /**
+     * Generate a link to share a URL through mail
+     *
+     * @memberOf Partup.client
+     * @param {String} subject The subject of the email
+     * @param {String} body    The body of the email
+     */
+    generateMailShareUrl: function(subject, body) {
+        return 'mailto:?body=' + encodeURIComponent(body) + '&subject=' + encodeURIComponent(subject);
     }
 
 };

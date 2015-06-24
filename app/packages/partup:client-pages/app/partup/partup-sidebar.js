@@ -330,30 +330,30 @@ Template.app_partup_sidebar.events({
     },
 
     'click [data-share-facebook]': function clickShareFacebook() {
-        var url = Router.current().location.get().href;
-        var facebookUrl = Partup.client.socials.generateFacebookShareUrl(url);
-        window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
+        var currentUrl = Router.current().location.get().href;
+        var shareUrl = Partup.client.socials.generateFacebookShareUrl(currentUrl);
+        window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
     'click [data-share-twitter]': function clickShareTwitter(event, template) {
-        var url = Router.current().location.get().href;
-        var message = template.data.partup().name;
-        // TODO: I18n + wording
-        var twitterUrl = Partup.client.socials.generateTwitterShareUrl(message, url);
-        window.open(twitterUrl, 'pop', 'width=600, height=400, scrollbars=no');
+        var currentUrl = Router.current().location.get().href;
+        var message = template.data.partup.name;
+        var shareUrl = Partup.client.socials.generateTwitterShareUrl(message, currentUrl);
+        window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-linkedin]': function clickShareLinkedin() {
-        var url = Router.current().location.get().href;
-        var linkedInUrl = Partup.client.socials.generateLinkedInShareUrl(url);
-        window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
+    'click [data-share-linkedin]': function clickShareLinkedin(event, template) {
+        var currentUrl = Router.current().location.get().href;
+        var shareUrl = Partup.client.socials.generateLinkedInShareUrl(currentUrl);
+        window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
     'click [data-share-mail]': function clickShareMail() {
-        var url = Router.current().location.get().href;
-        var body = 'Check out this Part-up!\n' + url;
+        var currentUrl = Router.current().location.get().href;
         var subject = '';
-        window.location.href = 'mailto:?body=' + encodeURIComponent(body) + '&subject=' + encodeURIComponent(subject);
+        var body = 'You should check out this Part-up!\n' + currentUrl;
+        var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
+        window.location.href = shareUrl;
     },
 
     'click [data-open-takepart-popup]': function clickOpenTakepartPopup() {
