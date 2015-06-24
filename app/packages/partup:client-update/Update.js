@@ -96,5 +96,12 @@ Template.Update.helpers({
 Template.Update.events({
     'click [data-expand-comment-field]': function(event, template) {
         template.commentInputFieldExpanded.set(true);
+        var updateId = this.updateId;
+
+        Meteor.defer(function() {
+            var commentForm = template.find('[id=commentForm-' + updateId + ']');
+            var field = lodash.find(commentForm, {name: 'content'});
+            field.focus();
+        });
     }
 });
