@@ -19,6 +19,12 @@
                 <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
+            {{#unless activities }}
+                {{#unless archivedActivities }}
+                    <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
+                {{/unless }}
+            {{/unless }}
+
             {{# each activities }}
                 {{> Activity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true isUpper=isUpper }}
             {{/ each }}
