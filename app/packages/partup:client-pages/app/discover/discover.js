@@ -15,7 +15,9 @@ Template.app_discover.onCreated(function() {
         end_reached: false,
 
         // Namespace for columns layout functions (added by helpers)
-        layout: {},
+        layout: {
+            items: []
+        },
 
         // Hydrate partups
         hydrate: function(partups) {
@@ -62,8 +64,8 @@ Template.app_discover.onCreated(function() {
 
                         tpl.partups.hydrate(partups);
 
-                        tpl.partups.layout.clear();
-                        tpl.partups.layout.add(partups);
+                        tpl.partups.layout.items = tpl.partups.layout.clear();
+                        tpl.partups.layout.items = tpl.partups.layout.add(partups);
                     });
                 }
             });
@@ -77,9 +79,6 @@ Template.app_discover.onCreated(function() {
             var options = tpl.partups.options.get();
             options.limit = tpl.partups.limit.get();
 
-            // Save the current partups from the local database to be able to compare it hereafter
-            var oldPartups = Partups.find().fetch();
-
             tpl.partups.stopChildHandles();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
             tpl.partups.loading = true;
@@ -91,6 +90,7 @@ Template.app_discover.onCreated(function() {
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
+                     * - Get all currently rendered partups
                      * - Get all current partups from our local database
                      * - Remove all partups from our local database (by stopping the subscription)
                      * - Compare the newPartups with the oldPartups to find the addedPartups
@@ -99,6 +99,8 @@ Template.app_discover.onCreated(function() {
                      * - Call the infiniteScrollCallback (which is needed for the infinite scroll debounce)
                      */
                     Tracker.nonreactive(function addPartups() {
+
+                        var oldPartups = tpl.partups.layout.items;
 
                         var newPartups = Partups.find().fetch();
                         tpl.partups.handle.stop();
@@ -114,7 +116,7 @@ Template.app_discover.onCreated(function() {
 
                         tpl.partups.hydrate(addedPartups);
 
-                        tpl.partups.layout.add(addedPartups);
+                        tpl.partups.layout.items = tpl.partups.layout.add(addedPartups);
                     });
                 }
             });

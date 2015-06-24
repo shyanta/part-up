@@ -12,6 +12,11 @@ Template.ColumnsLayout.onCreated(function() {
     var tpl = this;
 
     /**
+     * Items
+     */
+    var items = [];
+
+    /**
      * Hydrate item
      */
     var hydrateItem = function(item) {
@@ -52,8 +57,14 @@ Template.ColumnsLayout.onCreated(function() {
         if (!tpl.columns.queue_running) {
             Meteor.defer(tpl.columns.queue_next);
         };
+        items = items.concat(items);
+        return items;
     };
-    tpl.columns.clean = resetColumns;
+    tpl.columns.clean = function() {
+        resetColumns();
+        items = [];
+        return items;
+    };
     tpl.columns.addToShortestColumn = function(item) {
         var shortest = {
             index: null,
