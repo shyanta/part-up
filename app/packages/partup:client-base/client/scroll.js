@@ -3,7 +3,7 @@
  *
  * @memberOf Partup.client
  */
-var INFINITE_SCROLL_OFFSET = 300;
+var INFINITE_SCROLL_OFFSET = 800;
 
 Partup.client.scroll = {
 
