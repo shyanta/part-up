@@ -12,7 +12,7 @@
             </ul>
         {{/ if }}
 
-        <h3 class="pu-sub-title {{# if CONTRIBUTIONS }}pu-expander{{/ if }}" data-activity-expander>
+        <h3 class="pu-sub-title {{# if CONTRIBUTIONS }}{{# unless EXPANDED }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
             {{# if UPDATE_LINK }}
                 <a href="{{ pathFor route='partup-update' _id=activity.partup_id update_id=activity.update_id }}">{{ activity.name }}</a>
                 <i class="pu-chevron fa fa-chevron-right"></i>
