@@ -13,12 +13,12 @@ var publicUserFields = {
     'upperOf': 1,
     'supporterOf': 1,
     'average_rating': 1,
-    'networks': 1
+    'networks': 1,
+    'completeness': 1
 };
 
 //user fields exposed to logged in user
 var privateUserFields = mout.object.merge({
-    'completeness': 1,
     'emails': 1
 }, publicUserFields);
 
