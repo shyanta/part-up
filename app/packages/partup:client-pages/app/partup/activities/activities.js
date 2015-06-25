@@ -4,6 +4,8 @@
 Template.app_partup_activities.onCreated(function() {
     var tpl = this;
 
+    tpl.subscription = tpl.subscribe('partups.one', tpl.data.partupId);
+
     tpl.activities = {
         filter: new ReactiveVar('default'),
         all: function(options) {
