@@ -47,8 +47,7 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
         find: function() {
             check(partupIds, Array);
 
-            //return Partups.guardedFind(self.userId, {_id: {$in: partupIds}});
-            return Partups.find({_id: {$in: partupIds}});
+            return Partups.guardedFind(self.userId, {_id: {$in: partupIds}});
         },
         children: [
             {
@@ -80,8 +79,9 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
 });
 
 Meteor.publish('partups.list', function() {
-    // return Partups.guardedFind({}, {_id: 1, name: 1});
-    return Partups.find({}, {_id: 1, name: 1});
+    var self = this;
+
+    return Partups.guardedFind(self.userId, {}, {_id: 1, name: 1});
 });
 
 Meteor.publishComposite('partups.one', function(partupId) {
@@ -89,8 +89,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
 
     return {
         find: function() {
-            //return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
-            return Partups.find({_id: partupId}, {limit: 1});
+            return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
         },
         children: [
             {

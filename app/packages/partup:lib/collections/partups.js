@@ -166,6 +166,5 @@ Partups.findForDiscover = function(options) {
         }
     }
 
-    // return this.guardedFind(self.userId, selector, options);
-    return this.find(selector, options);
+    return this.guardedFind(self.userId, selector, options);
 };
