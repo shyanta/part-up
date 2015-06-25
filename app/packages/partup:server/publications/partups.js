@@ -47,7 +47,8 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
         find: function() {
             check(partupIds, Array);
 
-            return Partups.guardedFind(self.userId, {_id: {$in: partupIds}});
+            //return Partups.guardedFind(self.userId, {_id: {$in: partupIds}});
+            return Partups.find({_id: {$in: partupIds}});
         },
         children: [
             {

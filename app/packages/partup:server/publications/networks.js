@@ -30,7 +30,8 @@ Meteor.publishComposite('networks.one.partups', function(networkId) {
 
     return {
         find: function() {
-            return Partups.guardedFind(self.userId, {'network._id': networkId});
+            //return Partups.guardedFind(self.userId, {'network._id': networkId});
+            return Partups.find({'network._id': networkId});
         }
     };
 });
