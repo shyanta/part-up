@@ -15,7 +15,7 @@ export AWS_BUCKET_NAME="pu-development"
 export FLICKR_API_KEY="8bbc8a9cbe7bce17824c8290929f9288"
 export FLICKR_SECRET_KEY="94f9b96b1d18f0dc"
 
-export GOOGLE_API_KEY="AIzaSyApEesAwKyWqa4gzbDiG9dfbUbxfOQZhMk"
+export GOOGLE_API_KEY="AIzaSyBdK5Dais_cwk5A2zqBYdCn53hAG23rIrI"
 
 export METEOR_SETTINGS="{\"public\":{\"analyticsSettings\":{\"Google Analytics\":{\"trackingId\":\"UA-34557675-15\"}}}}"
 
