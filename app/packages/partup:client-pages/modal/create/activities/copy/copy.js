@@ -29,7 +29,7 @@ Template.modal_create_activities_copy.events({
     'click [data-copyactivities]': function clickCopyActivities(event, template) {
         Meteor.call('activities.copy', selectedPartup, Router.current().params._id, function(error, result) {
             if (error) {
-                return Partup.client.notify.error(__('error-method-' + error.reason));
+                return Partup.client.notify.error(__('pages-modal-create-activities-error-method-' + error.error));
             } else {
                 template.find('[name=partup]').value = null;
                 Partup.client.popup.close();

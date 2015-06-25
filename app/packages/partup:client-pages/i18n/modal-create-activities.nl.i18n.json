@@ -34,5 +34,6 @@
     "pages-modal-create-activities-copy-form-copy-label": "Van welke part-up wil je activiteiten kopiëren?",
     "pages-modal-create-activities-copy-form-copy-placeholder": "Zoek een part-up",
     "pages-modal-create-activities-copy-form-copy-confirm": "Kopieer activiteiten",
-    "pages-modal-create-activities-copy-close": "Annuleren"
+    "pages-modal-create-activities-copy-close": "Annuleren",
+    "pages-modal-create-activities-error-method-404": "De Part-up bestaat niet"
 }
