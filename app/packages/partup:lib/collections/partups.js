@@ -76,7 +76,16 @@ Partups.NETWORK_INVITE = NETWORK_INVITE;
 Partups.NETWORK_CLOSED = NETWORK_CLOSED;
 
 /**
- * Partups collection helpers
+ * ============== PARTUPS COLLECTION HELPERS ==============
+ */
+
+/**
+ * Modified version of Collection.find that makes sure the user (or guest) can only retrieve authorized entities
+ *
+ * @param {String} userId
+ * @param {Object} selector
+ * @param {Object} options
+ * @return {Cursor}
  */
 Partups.guardedFind = function(userId, selector, options) {
     var selector = selector || {};
@@ -100,6 +109,12 @@ Partups.guardedFind = function(userId, selector, options) {
     return this.find(finalSelector, options);
 };
 
+/**
+ * Find the partups used in the discover page
+ *
+ * @param {Object} options
+ * @return {Cursor}
+ */
 Partups.findForDiscover = function(options) {
     var selector = {};
     var options = options || {};
