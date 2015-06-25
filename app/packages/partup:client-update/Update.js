@@ -11,6 +11,20 @@
  * @param {Boolean} FORCE_COMMENTFORM   always show the comment form
  */
 // jscs:enable
+
+/*************************************************************/
+/* Helper functions */
+/*************************************************************/
+var budgetDisplay = function(type, value){
+    if (type === 'money') {
+        return __('update-budget-type-money', value);
+    } else if (type === 'hours') {
+        return __('update-budget-type-hours', value);
+    }
+
+    return __('update-budget-type-none');
+};
+
 /*************************************************************/
 /* Widget created */
 /*************************************************************/
@@ -86,6 +100,14 @@ Template.Update.helpers({
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
+    },
+
+    oldBudget: function() {
+        return budgetDisplay(this.old_type, this.old_value);
+    },
+
+    newBudget: function() {
+        return budgetDisplay(this.new_type, this.new_value);
     }
 
 });

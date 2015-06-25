@@ -127,19 +127,8 @@
                 {{#with update.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
-                            <!-- OLD -->
-                            {{#if partupEquals old_type 'hours'}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-hours' old_value }}</span></li>
-                            {{else}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-money' old_value }}</span></li>
-                            {{/if}}
-
-                            <!-- NEW -->
-                            {{#if partupEquals new_type 'hours'}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-hours' new_value }}</span></li>
-                            {{else}}
-                                <li><span class="pu-tag pu-tag-angular">{{_ 'update-budget-type-money' new_value }}</span></li>
-                            {{/if}}
+                            <li><span class="pu-tag pu-tag-angular">{{ oldBudget }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ newBudget }}</span></li>
                         </ul>
                     </section>
                 {{/with}}

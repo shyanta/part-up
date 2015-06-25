@@ -5,5 +5,6 @@
     "update-comment-viewall-button": "View all %s comments",
 
     "update-budget-type-hours": "%s hours",
-    "update-budget-type-money": "%s euro"
+    "update-budget-type-money": "%s euro",
+    "update-budget-type-none": "no budget"
 }
