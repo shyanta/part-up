@@ -3,7 +3,7 @@ Meteor.publishComposite('partups.discover', function(options) {
 
     return {
         find: function() {
-            return Partups.findForDiscover(options);
+            return Partups.findForDiscover(self.userId, options);
         },
         children: [
             {
@@ -35,9 +35,12 @@ Meteor.publishComposite('partups.discover', function(options) {
 });
 
 Meteor.publish('partups.discover.count', function(options) {
+    var self = this;
+
     options = options || {};
     options.count = true;
-    Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(options));
+
+    Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(self.userId, options));
 });
 
 Meteor.publishComposite('partups.ids', function(partupIds) {

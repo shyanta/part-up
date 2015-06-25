@@ -120,6 +120,7 @@ Meteor.startup(function() {
                     tags: ['partup', 'online', 'awesome', 'test'],
                     uppers: [user1Id, user2Id],
                     location: undefined,
+                    privacy_type: Partups.PUBLIC,
                     image: null,
                     created_at : new Date('2015-03-26T16:25:07.816Z'),
                     end_date: new Date('2015-06-01T10:00:07.100Z'),

@@ -91,17 +91,22 @@ Partups.guardedFind = function(userId, selector, options) {
     var selector = selector || {};
     var options = options || {};
 
-    // Guard that sh!t
-    var guardingSelector = {'$or': [
+    var guardedCriterias = [
         // Either the partup is public or belongs to a public network
         {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}},
+    ];
 
-        // Or the user is part of the partup uppers, which means he has access anyway
-        {'uppers': {'$in': [userId]}},
+    // Some extra rules that are only applicable to users that are logged in
+    if (userId) {
+        // The user is part of the partup uppers, which means he has access anyway
+        guardedCriterias.push({'uppers': {'$in': [userId]}});
 
         // Of course the creator of a partup always has the needed rights
-        {'creator_id': userId}
-    ]};
+        guardedCriterias.push({'creator_id': userId});
+    }
+
+    // Guarding selector that needs to be fulfilled
+    var guardingSelector = {'$or': guardedCriterias};
 
     // Merge the selectors, so we still use the initial selector provided by the caller
     var finalSelector = {'$and': [guardingSelector, selector]};
@@ -115,7 +120,7 @@ Partups.guardedFind = function(userId, selector, options) {
  * @param {Object} options
  * @return {Cursor}
  */
-Partups.findForDiscover = function(options) {
+Partups.findForDiscover = function(userId, options) {
     var selector = {};
     var options = options || {};
 
