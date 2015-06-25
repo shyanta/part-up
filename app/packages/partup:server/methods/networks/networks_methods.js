@@ -8,7 +8,7 @@ Meteor.methods({
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'Unauthorized.');
 
-        check(fields, Partup.schemas.forms.network);
+        check(fields, Partup.schemas.forms.networkCreate);
 
         try {
             var newNetwork = Partup.transformers.network.fromFormNetwork(fields);
