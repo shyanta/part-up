@@ -219,6 +219,18 @@ var partupDetailLayout = {
     }
 };
 
+/**
+ * Render budget properly
+ *
+ * @param {Partup} partup
+ * @return {String}
+ */
+var prettyBudget = function(partup) {
+    var budget = partup['budget_' + partup.budget_type ];
+    var budgetUnit = __('pages-app-partup-unit-' + partup.budget_type);
+    return budget + '  ' + budgetUnit;
+};
+
 /*************************************************************/
 /* Partial rendered */
 /*************************************************************/
@@ -246,18 +258,6 @@ Template.app_partup_sidebar.onRendered(function() {
 /* Partial helpers */
 /*************************************************************/
 Template.app_partup_sidebar.helpers({
-
-    prettyEndDate: function() {
-        var partup = this.partup;
-        if (!partup) return '...';
-        return moment(partup.end_date).format('LL'); // see: helpers/dateFormatters.js -> partupDateNormal
-    },
-
-    prettyVisibility: function() {
-        var partup = this.partup;
-        if (!partup) return '...';
-        return __('partup-detail-visibility-' + partup.visibility);
-    },
 
     numberOfSupporters: function() {
         var partup = this.partup;
@@ -300,13 +300,24 @@ Template.app_partup_sidebar.helpers({
         var user = Meteor.user();
         return !user || !this.partup || !this.partup.hasUpper(user._id);
     },
-    hasBudget: function() {
-        return !!(this.partup && this.partup.budget_type);
-    },
-    prettyBudget: function() {
-        var budget = this.partup['budget_' + this.partup.budget_type ];
-        var budgetUnit = __('pages-app-partup-unit-' + this.partup.budget_type);
-        return budget + '  ' + budgetUnit;
+    statusText: function() {
+        if (!this.partup) return '';
+
+        var status = [];
+        if (this.partup.budget_type) {
+            status.push(__('pages-app-partup-status_text-with-budget', {
+                date: moment(this.partup.end_date).format('LL'),
+                city: this.partup.location.city,
+                budget: prettyBudget(this.partup)
+            }));
+        } else {
+            status.push(__('pages-app-partup-status_text-without-budget', {
+                date: moment(this.partup.end_date).format('LL'),
+                city: this.partup.location.city
+            }));
+        }
+
+        return status.join(' ');
     }
 });
 
