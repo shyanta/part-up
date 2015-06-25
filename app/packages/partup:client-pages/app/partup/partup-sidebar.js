@@ -317,6 +317,30 @@ Template.app_partup_sidebar.helpers({
             }));
         }
 
+        var networkText;
+        if (this.partup.network_id) {
+            var network = Networks.findOne({_id: this.partup.network_id});
+            networkText = network.name;
+        }
+
+        switch (this.partup.privacy_type) {
+            case Partups.PUBLIC:
+                status.push(__('pages-app-partup-status_text-public'));
+                break;
+            case Partups.PRIVATE:
+                status.push(__('pages-app-partup-status_text-private'));
+                break;
+            case Partups.NETWORK_PUBLIC:
+                status.push(__('pages-app-partup-status_text-network-public', {network: networkText}));
+                break;
+            case Partups.NETWORK_INVITE:
+                status.push(__('pages-app-partup-status_text-network-invite', {network: networkText}));
+                break;
+            case Partups.NETWORK_CLOSED:
+                status.push(__('pages-app-partup-status_text-network-closed', {network: networkText}));
+                break;
+        }
+
         return status.join(' ');
     }
 });
