@@ -290,17 +290,23 @@ Template.Partupsettings.events({
         var currentValue = template.showPrivacyDropdown.get();
         template.showPrivacyDropdown.set(!currentValue);
     },
-    'click [data-privacytype]': function(event, template) {
-        $(event.currentTarget.form).find('[name=privacy_type_input]').val(this.value);
-        $(event.currentTarget.form).find('[name=network_id]').val(undefined);
-        template.selectedPrivacyLabel.set(this.label);
-        template.showPrivacyDropdown.set(false);
-    },
-    'click [data-networktype]': function(event, template) {
-        $(event.currentTarget.form).find('[name=privacy_type_input]').val('network');
-        $(event.currentTarget.form).find('[name=network_id]').val(this._id);
-        template.selectedPrivacyLabel.set(this.name);
-        template.showPrivacyDropdown.set(false);
+    'input [data-whocanview]': function(event, template) {
+        var selected_value = event.currentTarget.value;
+        if (selected_value.indexOf('privacy-') === 0) {
+
+            // Privacy type
+            var value = selected_value.replace('privacy-', '');
+            $(event.currentTarget.form).find('[name=privacy_type_input]').val(value);
+            $(event.currentTarget.form).find('[name=network_id]').val(null);
+
+        } else if (selected_value.indexOf('network-') === 0) {
+
+            // Network
+            var value = selected_value.replace('network-', '');
+            $(event.currentTarget.form).find('[name=privacy_type_input]').val('network');
+            $(event.currentTarget.form).find('[name=network_id]').val(value);
+
+        }
     }
 });
 
