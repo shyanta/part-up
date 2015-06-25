@@ -60,6 +60,9 @@ Template.app_partup_activities.helpers({
     },
     filterReactiveVar: function() {
         return Template.instance().activities.filter;
+    },
+    isLoading: function() {
+        return !Template.instance().subscription.ready();
     }
 
 });
