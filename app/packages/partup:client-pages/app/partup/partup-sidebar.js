@@ -301,7 +301,7 @@ Template.app_partup_sidebar.helpers({
         return !user || !this.partup || !this.partup.hasUpper(user._id);
     },
     hasBudget: function() {
-        return !!this.partup.budget_type;
+        return !!(this.partup && this.partup.budget_type);
     },
     prettyBudget: function() {
         var budget = this.partup['budget_' + this.partup.budget_type ];
