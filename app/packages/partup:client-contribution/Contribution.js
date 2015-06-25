@@ -75,14 +75,9 @@ Template.Contribution.events({
                 return;
             }
 
-            if (partup.hasUpper(Meteor.user()._id)) {
-                template.updateContribution({}, function(error) {
-                    if (error) console.error(error);
-                });
-            } else {
-                // todo: show become upper popup
-                alert('You should become an upper first!');
-            }
+            template.updateContribution({}, function(error) {
+                if (error) console.error(error);
+            });
         };
 
         if (Meteor.user()) {
