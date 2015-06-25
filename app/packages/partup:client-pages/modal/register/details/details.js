@@ -37,6 +37,8 @@ var placeholders = {
 Template.modal_register_details.onCreated(function() {
     var template = this;
 
+    this.subscription = this.subscribe('users.loggedin');
+
     template.uploadingProfilePicture = new ReactiveVar(false);
 
     // uploaded picture url
