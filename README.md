@@ -12,9 +12,19 @@ Part-Up
 [gm]: http://www.graphicsmagick.org/
 [im]: http://www.imagemagick.org/
 
-# Deployment
+# DevOps
+
+## Deployment
 - `cd devops`
 - `./devops deploy <environment>`
+
+## MongoDB
+
+- Connecting: `mongo "<host>/<database>" -u "<user>" -p "<password>"`
+- Dumping: `mongodump "<host>" --db "<database>" -u "<user>" -p "<password>" -o \`date +%s\``
+- Restoring: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>"`
+- Restoring Meteor LoginServiceConfiguration: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>" -c "meteor_accounts_loginServiceConfiguration" <bson file from dump>`
+- Emptying all Collections (run in mongo shell): `db.getCollectionNames().forEach(function(collectionName) { db[collectionName].remove({}); });`
 
 # Unit testing
 - `meteor run --test`
