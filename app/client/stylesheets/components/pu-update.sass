@@ -78,14 +78,25 @@
 
                 p
                     margin-top: -6px
+                    font-size: 14px
 
                     &.pu-sub-systemmessage
                         font-size: 14px
                         font-weight: 600
                         color: $color-text-subtle
+                    time
+                        opacity: 0
+                        color: $color-text-subtle
+                        transition: opacity .2s
+
+                    &:hover
+                        time
+                            opacity: 1
 
                 span
                     font-weight: 600
+
+
 
             .pu-list-fieldwithbutton
                 margin-top: 20px
