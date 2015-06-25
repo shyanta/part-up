@@ -222,7 +222,6 @@ Router.route('/partups/:_id/activities', {
         var partupId = this.params._id;
 
         this.subscribe('notifications.user');
-        this.subscribe('partups.one', partupId);
     },
     data: function() {
         return {
