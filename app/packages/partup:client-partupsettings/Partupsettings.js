@@ -102,6 +102,18 @@ Template.Partupsettings.onCreated(function() {
     });
 });
 
+Template.Partupsettings.onRendered(function() {
+    var template = this;
+
+    // this is a quick fix for
+    // https://trello.com/c/IfsyNFgA/427-fe-partupsettings-is-not-rendered-with-correct-characters-remaining-messages-when-data-is-prefilled
+    Meteor.setTimeout(function() {
+        $(template.findAll('[data-max]')).each(function(index) {
+            $(this).trigger('keyup');
+        });
+    }, 500);
+});
+
 Template.Partupsettings.helpers({
     partup: function() {
         return this.currentPartup;
