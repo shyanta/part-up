@@ -164,6 +164,11 @@ Meteor.publishComposite('partups.one', function(partupId) {
                         }
                     }
                 ]
+            },
+            {
+                find: function(partup) {
+                    return Networks.find({_id: partup.network_id});
+                }
             }
         ]
     };
