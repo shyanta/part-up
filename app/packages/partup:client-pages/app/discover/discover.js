@@ -118,7 +118,7 @@ Template.app_discover.onCreated(function() {
                         tpl.partups.handle.stop();
 
                         var difference = newPartups.length - oldPartups.length;
-                        var end_reached = difference < tpl.partups.INCREMENT;
+                        var end_reached = difference === 0;
                         tpl.partups.end_reached.set(end_reached);
 
                         var addedPartups = mout.array.filter(newPartups, function(partup) {
