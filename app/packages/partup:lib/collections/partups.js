@@ -14,12 +14,24 @@ var Partup = function(document) {
     _.extend(this, document);
 };
 
+/**
+ * Check if a given user can edit this partup
+ *
+ * @param {User} user
+ * @return {Boolean}
+ */
 Partup.prototype.isEditableBy = function(user) {
     var uppers = this.uppers || [];
 
     return user && uppers.indexOf(user._id) > -1;
 };
 
+/**
+ * Check if a given user can remove this partup
+ *
+ * @param {User} user
+ * @return {Boolean}
+ */
 Partup.prototype.isRemovableBy = function(user) {
     return user && this.creator_id === user._id;
 };
