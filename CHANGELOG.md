@@ -1,4 +1,18 @@
 # CHANGELOG
+## 1.3.0
+- partup detail settings
+- take part functionality
+- updates non-reactive 
+- updates - infinite scroll
+- discover + infinite scroll
+- profile completeness
+- partup tile v2
+- location autocompletion
+- partup privacy type
+- refactoring front- and backend
+- analytics
+- bugfixes
+
 ## 1.2
 - profile hover card
 - new activity flow
