@@ -34,6 +34,24 @@ Meteor.publishComposite('users.loggedin', function() {
                 find: function(user) {
                     return Networks.guardedFind(user._id, {_id: {$in:user.networks}});
                 }
+            },
+            {
+                find: function(user) {
+                    return Notifications.find({for_upper_id: user._id}, {limit: 20});
+                },
+                children: [
+                    {
+                        find: function(notification) {
+                            var images = [];
+
+                            if (notification.type === 'partups_supporters_added') {
+                                images.push(notification.type_data.supporter.image);
+                            }
+
+                            return Images.find({_id: {$in: images}});
+                        }
+                    }
+                ]
             }
         ]
     };

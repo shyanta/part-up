@@ -14,9 +14,6 @@ Router.route('/', {
     yieldRegions: {
         'app':      {to: 'main'},
         'app_home': {to: 'app'}
-    },
-    subscriptions: function() {
-        this.subscribe('notifications.user');
     }
 });
 
@@ -31,7 +28,6 @@ Router.route('/discover', {
         'app_discover': {to: 'app'}
     },
     subscriptions: function() {
-        this.subscribe('notifications.user');
         this.subscribe('images.all');
         this.subscribe('networks.list');
     }
@@ -48,7 +44,6 @@ Router.route('/profile', {
         'PagesProfile': {to: 'app'}
     },
     subscriptions: function() {
-        this.subscribe('notifications.user');
         this.subscribe('partups.all');
     },
     onBeforeAction: function() {
@@ -172,7 +167,6 @@ Router.route('/partups/:_id', {
     },
     subscriptions: function() {
         var partupId = this.params._id;
-        this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
     },
     data: function() {
@@ -198,7 +192,6 @@ Router.route('/partups/:_id/updates/:update_id', {
         var partupId = this.params._id;
         var updateId = this.params.update_id;
 
-        this.subscribe('notifications.user');
         this.subscribe('partups.one', partupId);
         this.subscribe('updates.one', updateId);
     },
@@ -220,8 +213,6 @@ Router.route('/partups/:_id/activities', {
     },
     subscriptions: function() {
         var partupId = this.params._id;
-
-        this.subscribe('notifications.user');
     },
     data: function() {
         return {
@@ -451,6 +442,7 @@ Router.onBeforeAction(function() {
         'register-details'
     ]
 });
+
 // reset create-partup id to reset the create partup flow
 Router.onBeforeAction(function() {
     if (Meteor.isClient) {

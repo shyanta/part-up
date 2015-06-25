@@ -1,4 +1,8 @@
-Template.DropdownProfile.rendered = function(){
+Template.DropdownProfile.onCreated(function() {
+    this.subscription = this.subscribe('users.loggedin');
+});
+
+Template.DropdownProfile.rendered = function() {
     // this = template
     this.dropdownToggleBool = 'widget-dropdowns-profile.opened';
 
@@ -8,7 +12,7 @@ Template.DropdownProfile.rendered = function(){
     ClientDropdowns.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
 };
 
-Template.DropdownProfile.destroyed = function(){
+Template.DropdownProfile.destroyed = function() {
     // this = template
     // remove click handler on destroy
     Session.set(this.dropdownToggleBool, false);
@@ -23,15 +27,15 @@ Template.DropdownProfile.events({
 });
 
 Template.DropdownProfile.helpers({
-    notifications: function () {
+    notifications: function() {
         return Notifications.find();
     },
 
-    menuOpen: function(){
+    menuOpen: function() {
         return Session.get('widget-dropdowns-profile.opened');
     },
 
-    upperPartups: function(){
+    upperPartups: function() {
         return Partups.find();
     }
 });
