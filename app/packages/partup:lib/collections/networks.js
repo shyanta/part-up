@@ -169,17 +169,22 @@ Networks.guardedFind = function(userId, selector, options) {
     var selector = selector || {};
     var options = options || {};
 
-    // Guard that sh!t
-    var guardingSelector = {'$or': [
+    var guardedCriterias = [
         // The network is open, which means everyone can access it
         {'privacy_type': {'$in': [Networks.NETWORK_PUBLIC]}},
+    ];
 
-        // Or the user is part of the network uppers, which means he has access anyway
-        {'uppers': {'$in': [userId]}},
+    // Some extra rules that are only applicable to users that are logged in
+    if (userId) {
+        // The user is part of the network uppers, which means he has access anyway
+        guardedCriterias.push({'uppers': {'$in': [userId]}});
 
         // Of course the admin of a network always has the needed rights
-        {'admin_id': userId}
-    ]};
+        guardedCriterias.push({'admin_id': userId});
+    }
+
+    // Guarding selector that needs to be fulfilled
+    var guardingSelector = {'$or': guardedCriterias};
 
     // Merge the selectors, so we still use the initial selector provided by the caller
     var finalSelector = {'$and': [guardingSelector, selector]};
