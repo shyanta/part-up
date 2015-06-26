@@ -1,14 +1,4 @@
 /*************************************************************/
-/* Created */
-/*************************************************************/
-Template.PartupTile.onCreated(function() {
-    var tpl = this;
-
-    var handle = Meteor.subscribe('partups.one', tpl.data._id);
-    tpl.data.registerSubscription(handle);
-});
-
-/*************************************************************/
 /* Rendered */
 /*************************************************************/
 Template.PartupTile.onRendered(function() {
