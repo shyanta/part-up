@@ -19,7 +19,7 @@
                 </li>
             {{/ if }}
             {{# each ratings }}
-                <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url({{ partupImageUrl id=. }});{{/with }}}" data-rating-id="{{ _id }}">
+                <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url({{ partupImageUrl id=. store='80x80' }});{{/with }}}" data-rating-id="{{ _id }}">
                     <article class="pu-hovercard pu-hovercard-position-bottom {{# if showHoverCard }}pu-hovercard-active{{/ if }}">
                         {{> Rating contribution=contribution rating=. }}
                     </article>
