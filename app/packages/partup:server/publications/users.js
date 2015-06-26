@@ -32,7 +32,9 @@ Meteor.publishComposite('users.loggedin', function() {
             },
             {
                 find: function(user) {
-                    return Networks.guardedFind(user._id, {_id: {$in:user.networks}});
+                    var networks = user.networks || [];
+
+                    return Networks.guardedFind(user._id, {_id: {"$in": networks}});
                 }
             },
             {
