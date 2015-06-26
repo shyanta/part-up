@@ -77,3 +77,4 @@ okgrow:analytics
 partup:client-partupsettings
 mike:mocha
 partup:client-location-autocomplete
+percolate:migrations

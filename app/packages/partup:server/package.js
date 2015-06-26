@@ -21,6 +21,7 @@ Package.onUse(function(api) {
         'reywood:publish-composite',
         'service-configuration',
         'splendido:accounts-meld',
+        'percolate:migrations',
         'tap:i18n'
     ], ['server']);
 
