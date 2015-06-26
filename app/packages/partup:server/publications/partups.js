@@ -8,6 +8,11 @@ Meteor.publishComposite('partups.discover', function(options) {
         children: [
             {
                 find: function(partup) {
+                    return Images.find({_id: partup.image}, {limit: 1});
+                }
+            },
+            {
+                find: function(partup) {
                     var uppers = partup.uppers || [];
 
                     // We only want to publish the first x uppers
