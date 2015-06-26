@@ -10,7 +10,7 @@ Meteor.methods({
 
         return results.map(function(result) {
             if (!result.terms || result.terms.length < 1) return false;
-            console.log(result);
+
             return {
                 id: result.place_id,
                 // city: result.terms.shift().value
