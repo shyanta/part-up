@@ -15,7 +15,8 @@ var Network = function(document) {
 /**
  * Check if given user is the admin of this network
  *
- * @param {String} userId
+ * @memberof Networks
+ * @param {String} userId the user id of the user to be checked
  * @return {Boolean}
  */
 Network.prototype.isAdmin = function(userId) {
@@ -25,7 +26,8 @@ Network.prototype.isAdmin = function(userId) {
 /**
  * Check if given user is a member of this network
  *
- * @param {String} userId
+ * @memberof Networks
+ * @param {String} userId the user id of the user to be checked
  * @return {Boolean}
  */
 Network.prototype.hasMember = function(userId) {
@@ -35,6 +37,7 @@ Network.prototype.hasMember = function(userId) {
 /**
  * Check if given network has public access
  *
+ * @memberof Networks
  * @return {Boolean}
  */
 Network.prototype.isPublic = function() {
@@ -44,6 +47,7 @@ Network.prototype.isPublic = function() {
 /**
  * Check if given network is private and for invites only
  *
+ * @memberof Networks
  * @return {Boolean}
  */
 Network.prototype.isInvitational = function() {
@@ -53,6 +57,7 @@ Network.prototype.isInvitational = function() {
 /**
  * Check if given network is private and closed
  *
+ * @memberof Networks
  * @return {Boolean}
  */
 Network.prototype.isClosed = function() {
@@ -62,6 +67,8 @@ Network.prototype.isClosed = function() {
 /**
  * Check if upper is already invited to the network
  *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
  * @return {Object}
  */
 Network.prototype.isUpperInvited = function(upperId) {
@@ -79,6 +86,10 @@ Network.prototype.isUpperInvited = function(upperId) {
 
 /**
  * Add invited Upper to Network
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be added
+ * @param {String} invite ?
  */
 Network.prototype.addInvitedUpper = function(upperId, invite) {
     Networks.update(this._id, {$pull: {invites: invite}, $push: {uppers: upperId}});
@@ -87,6 +98,9 @@ Network.prototype.addInvitedUpper = function(upperId, invite) {
 
 /**
  * Add Upper to Network
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addUpper = function(upperId) {
     Networks.update(this._id, {$push: {uppers: upperId}});
@@ -96,7 +110,8 @@ Network.prototype.addUpper = function(upperId) {
 /**
  * Add upper to pending list
  *
- * @return {Boolean}
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addPendingUpper = function(upperId) {
     // User already added as pending upper
@@ -110,6 +125,10 @@ Network.prototype.addPendingUpper = function(upperId) {
 
 /**
  * Create an invite
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user that should be invited
+ * @param {String} inviterId the user id of the user that has created the invitation
  */
 Network.prototype.createInvite = function(upperId, inviterId) {
     var invite = {
@@ -123,6 +142,9 @@ Network.prototype.createInvite = function(upperId, inviterId) {
 
 /**
  * Accept a pending upper to the network
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user that should be accepted
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
@@ -131,6 +153,9 @@ Network.prototype.acceptPendingUpper = function(upperId) {
 
 /**
  * Reject a pending upper
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user that should be rejected
  */
 Network.prototype.rejectPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}});
@@ -140,7 +165,8 @@ Network.prototype.rejectPendingUpper = function(upperId) {
 /**
  * Leave network
  *
- * @return {Boolean}
+ * @memberof Networks
+ * @param {String} upperId the user id of the user that is leaving the network
  */
 Network.prototype.leave = function(upperId) {
     Networks.update(this._id, {$pull: {uppers: upperId}});
@@ -148,8 +174,8 @@ Network.prototype.leave = function(upperId) {
 };
 
 /**
+ Networks, also known as "Tribes" are entities that group users and partups
  @namespace Networks
- @name Networks
  */
 Networks = new Mongo.Collection('networks', {
     transform: function(document) {
@@ -166,6 +192,12 @@ Networks.NETWORK_CLOSED = NETWORK_CLOSED;
 
 /**
  * Networks collection helpers
+ *
+ * @memberof Networks
+ * @param {String} userId the user id of the current user
+ * @param {Object} selector the requested selector
+ * @param {Object} options options object to be passed to mongo find (limit etc.)
+ * @return {Mongo.Cursor}
  */
 Networks.guardedFind = function(userId, selector, options) {
     var selector = selector || {};

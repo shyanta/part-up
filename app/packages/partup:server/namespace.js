@@ -11,13 +11,20 @@ Partup = Partup || {};
 Partup.server = {};
 
 /**
- @namespace server.services namespace
+ @namespace server.services
  @name partup.server.services
  */
 Partup.server.services = {};
 
 /**
- @namespace server.factories namespace
+ @namespace server.factories
  @name partup.server.factories
  */
 Partup.server.factories = {};
+
+/**
+ @namespace server.publications
+ @name partup.server.publications
+ */
+// Publications are globally available
+// Partup.server.publications = {};

@@ -28,8 +28,7 @@ Partup.schemas = {
 };
 
 /**
- @namespace Services
- @name partup.services
+ @namespace partup.services
  */
 Partup.services = {};
 
@@ -46,12 +45,11 @@ Partup.factories = {};
 Partup.transformers = {};
 
 /**
- @namespace UI
- @name Partup.client
+ * @name Partup.client
+ * @memberof Partup
  */
 Partup.client = {};
 
 /**
  @namespace Meteor
- @name Meteor
  */

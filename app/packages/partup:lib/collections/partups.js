@@ -17,7 +17,8 @@ var Partup = function(document) {
 /**
  * Check if a given user can edit this partup
  *
- * @param {User} user
+ * @memberof Partups
+ * @param {User} user the user object
  * @return {Boolean}
  */
 Partup.prototype.isEditableBy = function(user) {
@@ -29,7 +30,8 @@ Partup.prototype.isEditableBy = function(user) {
 /**
  * Check if a given user can remove this partup
  *
- * @param {User} user
+ * @memberof Partups
+ * @param {User} user the user object
  * @return {Boolean}
  */
 Partup.prototype.isRemovableBy = function(user) {
@@ -39,7 +41,8 @@ Partup.prototype.isRemovableBy = function(user) {
 /**
  * Check if given user is a supporter of this partup
  *
- * @param {String} userId
+ * @memberof Partups
+ * @param {String} userId the user id of the user that should be checked
  * @return {Boolean}
  */
 Partup.prototype.hasSupporter = function(userId) {
@@ -49,7 +52,8 @@ Partup.prototype.hasSupporter = function(userId) {
 /**
  * Check if given user is an upper in this partup
  *
- * @param {String} userId
+ * @memberof Partups
+ * @param {String} userId the user id of the user that should be checked
  * @return {Boolean}
  */
 Partup.prototype.hasUpper = function(userId) {
@@ -57,8 +61,8 @@ Partup.prototype.hasUpper = function(userId) {
 };
 
 /**
+ Partups describe collaborations between several uppers
  @namespace Partups
- @name Partups
  */
 Partups = new Mongo.Collection('partups', {
     transform: function(document) {
@@ -80,8 +84,10 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
  */
 
 /**
- * Modified version of Collection.find that makes sure the user (or guest) can only retrieve authorized entities
+ * Modified version of Collection.find that makes sure the
+ * user (or guest) can only retrieve authorized entities
  *
+ * @memberof Partups
  * @param {String} userId
  * @param {Object} selector
  * @param {Object} options
@@ -117,6 +123,7 @@ Partups.guardedFind = function(userId, selector, options) {
 /**
  * Find the partups used in the discover page
  *
+ * @memberof Partups
  * @param {Object} options
  * @return {Cursor}
  */

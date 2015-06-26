@@ -1,13 +1,12 @@
 /**
- @namespace Partup helper service
- @name Partup.services.location
+ @namespace partup.services.location
  @memberOf partup.services
  */
 Partup.services.location = {
     /**
      * Transform a location object into a display string
      *
-     * @memberOf services.location
+     * @memberOf partup.services.location
      * @param {Object} location
      */
     locationToLocationInput: function(location) {

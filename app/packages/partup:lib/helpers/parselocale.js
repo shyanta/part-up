@@ -1,5 +1,4 @@
 /**
- @namespace Helpers
  @name partup.transformers.activity
  @memberOf partup.transformers
  */
