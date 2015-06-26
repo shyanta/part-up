@@ -275,11 +275,13 @@ Template.app_partup_updates.helpers({
  */
 Template.app_partup_updates.events({
     'click [data-newmessage-popup]': function(event, template) {
+        event.preventDefault();
         Partup.client.popup.open('new-message', function() {
             template.updates.updateView();
         });
     },
     'click [data-reveal-new-updates]': function(event, template) {
+        event.preventDefault();
         template.updates.updateView();
     }
 });
