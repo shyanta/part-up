@@ -4,6 +4,8 @@
     "dropdowns-profile-button-myprofile": "My profile",
     "dropdowns-profile-button-settings": "Settings",
     "dropdowns-profile-button-logout": "Log out",
+    "dropdowns-profile-title-upperpartups-notfound": "@You are no upper of a Part-up",
+    "dropdowns-profile-title-supporterpartups-notfound": "@You are not a supporter of a Part-up",
 
     "dropdowns-notifications-button-opennotificationsdropdown": "Notifications",
     "dropdowns-notifications-placeholder-nonotifications": "No notifications yet",
