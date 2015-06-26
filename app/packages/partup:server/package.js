@@ -33,6 +33,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'logger.js',
         'namespace.js',
+        'migrations.js',
         'bootstrap.js',
         'accounts.js',
         'helpers/collection.js',
