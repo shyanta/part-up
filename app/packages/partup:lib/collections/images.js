@@ -67,7 +67,7 @@ if (Meteor.isServer) {
                 path: process.env.PWD + '/uploads/360x360'
             },
             '80x80': {
-                path: process.env.PWD + '/uploads/360x360'
+                path: process.env.PWD + '/uploads/80x80'
             }
         });
     }
