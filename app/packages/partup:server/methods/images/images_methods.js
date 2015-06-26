@@ -8,6 +8,8 @@ Meteor.methods({
      * @return {String} imageId
      */
     'images.insertByUrl': function(url) {
+        this.unblock();
+
         var result = HTTP.get(url, {'npmRequestOptions': {'encoding': null}});
         var buffer = new Buffer(result.content, 'binary');
 

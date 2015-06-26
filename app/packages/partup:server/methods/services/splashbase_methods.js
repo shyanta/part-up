@@ -6,6 +6,8 @@ Meteor.methods({
      * @param {number} count Number of results to return
      */
     'partups.services.splashbase.search': function(tags, count) {
+        this.unblock();
+
         if (!tags || !tags.length || !tags[0] || !tags[0].length) {
             var error = 'No tags given';
             Log.error(error);

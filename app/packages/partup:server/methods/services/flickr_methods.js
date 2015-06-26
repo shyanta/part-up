@@ -15,6 +15,8 @@ Meteor.methods({
      * @param {string[]} fallbackTags Tags
      */
     'partups.services.flickr.search': function(tags, count, fallbackTags) {
+        this.unblock();
+
         if (!tags || !tags.length || !tags[0] || !tags[0].length) {
             var error = 'No tags given';
             Log.error(error);
