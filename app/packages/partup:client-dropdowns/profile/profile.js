@@ -1,5 +1,6 @@
 Template.DropdownProfile.onCreated(function() {
     this.subscription = this.subscribe('users.loggedin');
+    this.upperSubscription = this.subscribe('');
 });
 
 Template.DropdownProfile.rendered = function() {
