@@ -38,7 +38,7 @@
                     <ul class="pu-list pu-list-users">
                         {{#each partupUppers }}
                             <li>
-                                <figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url({{ partupImageUrl id=. }}){{/with}}"></figure>
+                                <figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url({{ partupImageUrl id=. store='80x80' }}){{/with}}"></figure>
                                 <p data-usercard="{{ _id }}">{{ profile.name }}</p>
                             </li>
                         {{/each }}
@@ -53,7 +53,7 @@
                         <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
                         <ul class="pu-list pu-list-horizontal pu-list-avatars">
                             {{#each partupSupporters }}
-                                <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url({{ partupImageUrl id=. }}){{/with}}"></figure></li>
+                                <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url({{ partupImageUrl id=. store='80x80' }}){{/with}}"></figure></li>
                             {{/each }}
                         </ul>
                     {{else}}
