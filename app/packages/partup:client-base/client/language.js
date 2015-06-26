@@ -23,6 +23,10 @@ Partup.client.language = {
                 clear: 'Clear'
             };
 
+            // Change datepicker options
+            Partup.client.datepicker.options.format = moment.localeData().longDateFormat('L').toLowerCase();
+            Partup.client.datepicker.options.language = language;
+
             // Change SimpleSchema error messages language
             SimpleSchema.messages({
                 required:            __('base-client-language-ss-required'),
