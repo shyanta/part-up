@@ -44,6 +44,7 @@ Package.onUse(function(api) {
         'collections/ratings.js',
         'collections/networks.js',
         'collections/users.js',
+        'collections/tags.js',
         'schemas/activity.js',
         'schemas/contribution.js',
         'schemas/forgotPassword.js',
@@ -87,4 +88,5 @@ Package.onUse(function(api) {
     api.export('Images');
     api.export('Updates');
     api.export('Ratings');
+    api.export('Tags');
 });
