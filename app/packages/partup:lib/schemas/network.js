@@ -9,11 +9,11 @@ var networkBaseSchema = new SimpleSchema({
         type: String,
         max: 250
     },
-    image: {
+    icon: {
         type: String,
         optional: true
     },
-    image_icon: {
+    image: {
         type: String,
         optional: true
     },
