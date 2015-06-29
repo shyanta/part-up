@@ -1,12 +1,22 @@
 /**
- * Declare privacy types
+ * @memberof Networks
+ * @private
  */
 var NETWORK_PUBLIC = 1;
+/**
+ * @memberof Networks
+ * @private
+ */
 var NETWORK_INVITE = 2;
+/**
+ * @memberof Networks
+ * @private
+ */
 var NETWORK_CLOSED = 3;
 
 /**
  * Network model
+ * @memberof Networks
  */
 var Network = function(document) {
     _.extend(this, document);
@@ -184,10 +194,19 @@ Networks = new Mongo.Collection('networks', {
 });
 
 /**
- * Expose privacy types
+ * @memberof Networks
+ * @public
  */
 Networks.NETWORK_PUBLIC = NETWORK_PUBLIC;
+/**
+ * @memberof Networks
+ * @public
+ */
 Networks.NETWORK_INVITE = NETWORK_INVITE;
+/**
+ * @memberof Networks
+ * @public
+ */
 Networks.NETWORK_CLOSED = NETWORK_CLOSED;
 
 /**

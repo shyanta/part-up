@@ -1,7 +1,7 @@
 /**
  * Base Rating schema
  * @name ratingBaseSchema
- * @memberOf partup.schemas
+ * @memberof Partup.schemas
  * @private
  */
 var ratingBaseSchema = new SimpleSchema({
@@ -19,7 +19,7 @@ var ratingBaseSchema = new SimpleSchema({
 /**
  * Rating entity schema
  * @name rating
- * @memberOf partup.schemas.entities
+ * @memberof Partup.schemas.entities
  */
 Partup.schemas.entities.rating = new SimpleSchema([ratingBaseSchema, {
     _id: {
@@ -55,7 +55,7 @@ Partup.schemas.entities.rating = new SimpleSchema([ratingBaseSchema, {
 /**
  * Rating Form
  * @name rating
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.rating = new SimpleSchema([ratingBaseSchema, {
     //

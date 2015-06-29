@@ -1,7 +1,7 @@
 /**
  * Register Form Required
  * @name registerRequired
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.registerRequired = new SimpleSchema({
     confirmPassword: {
@@ -36,7 +36,7 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
 /**
  * Register Form Optional
  * @name registerOptional
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.registerOptional = new SimpleSchema({
     description: {

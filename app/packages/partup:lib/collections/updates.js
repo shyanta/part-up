@@ -1,5 +1,6 @@
 /**
  * Partup model
+ * @ignore
  */
 var Update = function(document) {
     _.extend(this, document);

@@ -1,7 +1,7 @@
 /**
  * Login Form
  * @name login
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.login = new SimpleSchema({
     email: {

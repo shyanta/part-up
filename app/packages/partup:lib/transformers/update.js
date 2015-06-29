@@ -1,13 +1,13 @@
 /**
  @namespace Update transformer service
  @name partup.transformers.update
- @memberOf partup.transformers
+ @memberof Partup.transformers
  */
 Partup.transformers.update = {
     /**
      * Transform form to new message
      *
-     * @memberOf partup.transformers.update
+     * @memberof Partup.transformers.update
      * @param {mixed[]} fields
      * @param {object} upper
      * @param {string} partupId

@@ -1,13 +1,13 @@
 /**
  @namespace Network transformer service
  @name partup.transformers.network
- @memberOf partup.transformers
+ @memberof Partup.transformers
  */
 Partup.transformers.network = {
     /**
      * Transform network to start network form
      *
-     * @memberOf partup.transformers.network
+     * @memberof Partup.transformers.network
      * @param {object} network
      */
     'toFormNetwork': function(network) {
@@ -25,7 +25,7 @@ Partup.transformers.network = {
     /**
      * Transform network form to network
      *
-     * @memberOf partup.transformers.network
+     * @memberof Partup.transformers.network
      * @param {mixed[]} fields
      */
     'fromFormNetwork': function(fields) {

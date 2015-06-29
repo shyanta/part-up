@@ -1,7 +1,7 @@
 /**
  * Register Form Required
  * @name registerRequired
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.entities.settings = new SimpleSchema({
     locale: {

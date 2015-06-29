@@ -5,13 +5,13 @@ var diff = function diff (array1, array2) {
 /**
  @namespace Tags helper service
  @name Partup.services.tags
- @memberOf partup.services
+ @memberof Partup.services
  */
 Partup.services.tags = {
     /**
      * Calculate the changes between two tag arrays
      *
-     * @memberOf services.tags
+     * @memberof services.tags
      * @param {String[]} oldTags
      * @param {String[]} newTags
      */
@@ -53,7 +53,7 @@ Partup.services.tags = {
     /**
      * Transform a comma separated string into an array of tags
      *
-     * @memberOf services.tags
+     * @memberof services.tags
      * @param {String} tags_input
      */
     tagInputToArray: function(tags_input) {
@@ -73,7 +73,7 @@ Partup.services.tags = {
     /**
      * Transform a comma separated string into an array of tags
      *
-     * @memberOf services.tags
+     * @memberof services.tags
      * @param {String} tags
      */
     tagArrayToInput: function(tags) {

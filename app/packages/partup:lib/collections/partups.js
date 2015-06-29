@@ -1,14 +1,31 @@
 /**
- * Declare privacy types
+ * @memberof Partups
+ * @private
  */
 var PUBLIC = 1;
+/**
+ * @memberof Partups
+ * @private
+ */
 var PRIVATE = 2;
+/**
+ * @memberof Partups
+ * @private
+ */
 var NETWORK_PUBLIC = 3;
+/**
+ * @memberof Partups
+ * @private
+ */
 var NETWORK_INVITE = 4;
+/**
+ * @memberof Partups
+ * @private
+ */
 var NETWORK_CLOSED = 5;
 
 /**
- * Partup model
+ * @ignore
  */
 var Partup = function(document) {
     _.extend(this, document);
@@ -71,12 +88,29 @@ Partups = new Mongo.Collection('partups', {
 });
 
 /**
- * Expose privacy types
+ * @memberof Partups
+ * @public
  */
 Partups.PUBLIC = PUBLIC;
+/**
+ * @memberof Partups
+ * @public
+ */
 Partups.PRIVATE = PRIVATE;
+/**
+ * @memberof Partups
+ * @public
+ */
 Partups.NETWORK_PUBLIC = NETWORK_PUBLIC;
+/**
+ * @memberof Partups
+ * @public
+ */
 Partups.NETWORK_INVITE = NETWORK_INVITE;
+/**
+ * @memberof Partups
+ * @public
+ */
 Partups.NETWORK_CLOSED = NETWORK_CLOSED;
 
 /**

@@ -1,6 +1,6 @@
 /**
  @name partup.transformers.activity
- @memberOf partup.transformers
+ @memberof Partup.transformers
  */
 Partup.helpers.parseLocale = function(locale, fallbackLocale) {
     fallbackLocale = fallbackLocale || 'en';
