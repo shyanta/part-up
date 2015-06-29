@@ -29,13 +29,13 @@ Migrations.add({
 
         // Now insert all collected tags into the database
         uniqueTags.forEach(function(tag) {
-            if (!Tags.findOne({_id: tag})) {
-                Tags.insert({_id: tag});
+            var trimmedTag = tag.trim(); // Some tags had leading or trailing spaces
+            if (!Tags.findOne({_id: trimmedTag})) {
+                Tags.insert({_id: trimmedTag});
             }
         });
 
         Log.debug(uniqueTags.length + ' tags inserted in Tags collection.');
-        console.log(uniqueTags.length + ' tags inserted in Tags collection.');
     },
     down: function() {
         // Code to migrate to previous version
