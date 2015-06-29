@@ -1,6 +1,7 @@
 /**
- @namespace Partup
- @name partup
+ * This component contains all server specific code
+ *
+ * @module server
  */
 Partup = Partup || {};
 

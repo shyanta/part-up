@@ -5,6 +5,7 @@ var pluralize = Npm.require('pluralize');
  *
  * @method findOneOrFail
  * @return {mixed}
+ * @memberof Mongo.Collection
  */
 Mongo.Collection.prototype.findOneOrFail = function(selector, options) {
     var partup = this.findOne(selector, options);
