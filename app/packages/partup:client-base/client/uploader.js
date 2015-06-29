@@ -3,7 +3,7 @@ Partup.client.uploader = {
     /**
      * Upload single image
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client
      * @param {Object} file
      * @param {Function} callback
      */
@@ -25,7 +25,7 @@ Partup.client.uploader = {
     /**
      * Upload single image by url
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client
      * @param {String} url
      * @param {Function} callback
      */

@@ -1,9 +1,14 @@
+/**
+ * Bootstrap datepicker options
+ *
+ * @class datepicker
+ * @memberof Partup.client
+ */
 Partup.client.datepicker = {
 
     /**
-     * Bootstrap datepicker options
      *
-     * @memberOf Partup.client
+     * @memberof datepicker
      */
     options: {
         language: moment.locale(),

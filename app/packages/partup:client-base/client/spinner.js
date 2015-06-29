@@ -1,4 +1,17 @@
+/**
+ * spinner options
+ *
+ * @class spinner
+ * @memberof Partup.client
+ */
 Partup.client.spinner = {
+
+    /**
+     * Helper to increment a reactive number variable
+     *
+     * @memberof Partup.client.spinner
+     * @member {Object} defaultOptions
+     */
     defaultOptions: {
         lines: 13,  // The number of lines to draw
         length: 6,  // The length of each line

@@ -1,3 +1,9 @@
+/**
+ * This component contains all of the generic shared front-end functionality
+ *
+ * @module client-base
+ * @name client-base
+ */
 Meteor.startup(function() {
 
     /*************************************************************/

@@ -1,9 +1,15 @@
+/**
+ * Copy text to clipboard using flash fallback
+ *
+ * @class clipboard
+ * @memberof Partup.client
+ */
 Partup.client.clipboard = {
 
     /**
      * Create a copy to clipboard element width callback
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.clipboard
      * @param {Element} target element to serve as the clickable element
      * @param {String} text to copy
      * @param {Function} callback

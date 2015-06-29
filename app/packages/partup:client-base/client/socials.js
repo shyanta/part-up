@@ -1,9 +1,15 @@
+/**
+ * Generate links to socials
+ *
+ * @class socials
+ * @memberof Partup.client
+ */
 Partup.client.socials = {
 
     /**
      * Generate a link to share a URL on Facebook
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.socials
      * @param {String} urlToShare URL to be shared
      */
     generateFacebookShareUrl: function(urlToShare) {
@@ -19,7 +25,7 @@ Partup.client.socials = {
     /**
      * Generate a link to share a URL on Twitter
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.socials
      * @param {String} messageToShare Message to be shared
      * @param {String} urlToShare URL to be shared
      */
@@ -30,7 +36,7 @@ Partup.client.socials = {
     /**
      * Generate a link to share a URL on LinkedIn
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.socials
      * @param {String} urlToShare URL to be shared
      */
     generateLinkedInShareUrl: function(urlToShare) {
@@ -40,7 +46,7 @@ Partup.client.socials = {
     /**
      * Generate a link to share a URL through mail
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.socials
      * @param {String} subject The subject of the email
      * @param {String} body    The body of the email
      */
