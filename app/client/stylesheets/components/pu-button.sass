@@ -38,6 +38,10 @@
         font-size: 14px
         margin-right: 10px - 5px
 
+    // Loader
+    .spinner-container
+        opacity: 0
+
     // Hover state
     &:hover
         background-color: darken($color-secondary, 7%)
@@ -54,15 +58,15 @@
     &:focus
         color: $color-text-inverted
 
-    // State: loaidng
+    // State: loading
     &.pu-state-loading
         pointer-events: none
-        // opacity: .5
 
-        span
-            opacity:0 !important
-        // &:after
-        //     content: '...'
+        > span
+            opacity: 0 !important
+
+        .spinner-container
+            opacity: 1
 
     &.pu-state-disabled
         pointer-events: none

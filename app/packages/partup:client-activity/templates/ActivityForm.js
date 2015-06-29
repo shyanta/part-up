@@ -13,6 +13,8 @@ Template.ActivityForm.onCreated(function() {
     this.charactersLeft.set('name', maxLength.name);
     this.charactersLeft.set('description', maxLength.description);
 
+    this.submitting = new ReactiveVar(false);
+
     if (this.data.activity) {
         var ac = this.data.activity;
         var nameLength = maxLength.name - (ac.name ? ac.name.length : 0);
@@ -47,6 +49,9 @@ Template.ActivityForm.helpers({
     schema: Partup.schemas.forms.startActivities,
     showExtraFields: function() {
         return Template.instance().showExtraFields.get();
+    },
+    submitting: function() {
+        return Template.instance().submitting.get();
     }
 });
 
@@ -104,19 +109,33 @@ AutoForm.addHooks(null, {
         var self = this;
         var template = self.template.parent();
 
+        var submitBtn = template.find('[type=submit]');
+        template.submitting.set(true);
+        Meteor.defer(function() {
+            submitBtn.disabled = true;
+        });
+
+        var done = function() {
+            template.submitting.set(false);
+            Meteor.defer(function() {
+                submitBtn.disabled = false;
+            });
+            self.done.apply(arguments);
+        };
+
         if (template.data && template.data.activity) {
             Meteor.call('activities.update', template.data.activity._id, doc, function(error) {
                 if (error && error.message) {
                     Partup.client.notify.error(error.reason);
 
                     AutoForm.validateForm(self.formId);
-                    self.done(new Error(error.message));
+                    done(new Error(error.message));
                     return;
                 }
 
                 template.data.edit.set(false);
                 AutoForm.resetForm(self.formId);
-                self.done();
+                done();
             });
         } else {
             var partupId = Session.get('partials.create-partup.current-partup') ||
@@ -127,7 +146,7 @@ AutoForm.addHooks(null, {
                     Partup.client.notify.error(error.reason);
 
                     AutoForm.validateForm(self.formId);
-                    self.done(new Error(error.message));
+                    done(new Error(error.message));
                     return;
                 }
 
@@ -144,7 +163,7 @@ AutoForm.addHooks(null, {
                     template.data.createCallback(output._id);
                 }
 
-                self.done();
+                done();
             });
         }
 
