@@ -24,6 +24,11 @@ if (Meteor.isServer) {
             transformWrite: function(image, readStream, writeStream) {
                 gm(readStream, image.name()).resize(80, 80).stream().pipe(writeStream);
             }
+        },
+        '32x32': {
+            transformWrite: function(image, readStream, writeStream) {
+                gm(readStream, image.name()).resize(32, 32).stream().pipe(writeStream);
+            }
         }
     };
 
@@ -50,6 +55,11 @@ if (Meteor.isServer) {
                 region: process.env.AWS_BUCKET_REGION,
                 bucket: process.env.AWS_BUCKET_NAME,
                 folder: '80x80'
+            },
+            '32x32': {
+                region: process.env.AWS_BUCKET_REGION,
+                bucket: process.env.AWS_BUCKET_NAME,
+                folder: '32x32'
             }
         });
     } else if (process.env.NODE_ENV.match(/development/)) {
@@ -68,6 +78,9 @@ if (Meteor.isServer) {
             },
             '80x80': {
                 path: process.env.PWD + '/uploads/80x80'
+            },
+            '32x32': {
+                path: process.env.PWD + '/uploads/32x32'
             }
         });
     }
@@ -78,6 +91,7 @@ if (Meteor.isServer) {
     stores.push(new Store('1200x520', args['1200x520']));
     stores.push(new Store('360x360', args['360x360']));
     stores.push(new Store('80x80', args['80x80']));
+    stores.push(new Store('32x32', args['32x32']));
 } else {
 
     /**
@@ -87,6 +101,7 @@ if (Meteor.isServer) {
     stores.push(new FS.Store.FileSystem('1200x520'));
     stores.push(new FS.Store.FileSystem('360x360'));
     stores.push(new FS.Store.FileSystem('80x80'));
+    stores.push(new FS.Store.FileSystem('32x32'));
 }
 
 Images = new FS.Collection('images', {
