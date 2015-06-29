@@ -105,6 +105,7 @@ Network.prototype.addPendingUpper = function(upperId) {
     }
 
     Networks.update(this._id, {$push: {pending_uppers: upperId}});
+    Meteor.users.update(upperId, {$push: {pending_networks: this._id}});
 };
 
 /**
@@ -125,7 +126,7 @@ Network.prototype.createInvite = function(upperId, inviterId) {
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
-    Meteor.users.update(upperId, {$push: {networks: this._id}});
+    Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $push: {networks: this._id}});
 };
 
 /**
@@ -133,6 +134,7 @@ Network.prototype.acceptPendingUpper = function(upperId) {
  */
 Network.prototype.rejectPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}});
+    Meteor.users.update(upperId, {$pull: {pending_networks: this._id}});
 };
 
 /**
