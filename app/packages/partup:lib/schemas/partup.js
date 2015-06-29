@@ -1,7 +1,7 @@
 /**
  * Base Partup schema
  * @name partupBaseSchema
- * @memberOf partup.schemas
+ * @memberof Partup.schemas
  * @private
  */
 var partupBaseSchema = new SimpleSchema({
@@ -60,7 +60,7 @@ var partupBaseSchema = new SimpleSchema({
 /**
  * Partup entity schema
  * @name partup
- * @memberOf partup.schemas.entities
+ * @memberof Partup.schemas.entities
  */
 Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     _id: {
@@ -123,7 +123,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
 /**
  * start partup form schema
  * @name partupUpdate
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
     focuspoint_x_input: {
@@ -154,7 +154,7 @@ Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
 /**
  * start partup create form schema
  * @name partupCreate
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partupUpdate, {
     privacy_type_input: {

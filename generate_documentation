@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+npm install -g jsdoc
+
+jsdoc -c jsdoc.conf
+
+open `pwd`/docs/jsdocs/index.html

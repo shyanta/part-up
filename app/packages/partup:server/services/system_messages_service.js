@@ -1,7 +1,7 @@
 /**
  @namespace Partup server system messages service
  @name Partup.server.services.system_messages
- @memberOf partup.server.services
+ @memberof Partup.server.services
  */
 Partup.server.services.system_messages = {
 

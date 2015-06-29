@@ -1,9 +1,16 @@
+/**
+ * All language related functionality
+ *
+ * @class language
+ * @memberof Partup.client
+ */
+// jscs:disable
 Partup.client.language = {
 
     /**
      * Set the language of partup
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.language
      * @param {String} language
      */
     change: function(language) {
@@ -72,3 +79,4 @@ Partup.client.language = {
     }
 
 };
+// jscs:enable

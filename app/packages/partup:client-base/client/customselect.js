@@ -1,12 +1,15 @@
 /**
  * Custom select with support for filtering etc
  *
- * @memberOf Partup.client
+ * @class partup.client.CustomSelect
+ * @memberof Partup.client
  * @param {Element} el   The element to replace
  * @param {Object} options
  */
 Partup.client.CustomSelect = function(el, options) {
-    if (!(this instanceof Partup.client.CustomSelect)) return new Partup.client.CustomSelect(el, options);
+    if (!(this instanceof Partup.client.CustomSelect)) {
+        return new Partup.client.CustomSelect(el, options);
+    }
 
     this.el = el;
     this.options = options || {};
@@ -18,6 +21,7 @@ Partup.client.CustomSelect = function(el, options) {
 
 /**
  * Build up required dom structure
+ * memberof Partup.client.CustomSelect
  */
 Partup.client.CustomSelect.prototype.build = function() {
     if (this.wrap) return;
@@ -85,6 +89,7 @@ Partup.client.CustomSelect.prototype.build = function() {
 
 /**
  * Set required events
+ * @memberof Partup.client.CustomSelect
  */
 Partup.client.CustomSelect.prototype.setEvents = function() {
     var self = this;
@@ -172,6 +177,9 @@ Partup.client.CustomSelect.prototype.setEvents = function() {
     }
 };
 
+/**
+ * @memberof Partup.client.CustomSelect
+ */
 Partup.client.CustomSelect.prototype.checkFilter = function() {
     var li;
     var opt;
@@ -195,6 +203,7 @@ Partup.client.CustomSelect.prototype.checkFilter = function() {
 
 /**
  * Update the select's options
+ * @memberof Partup.client.CustomSelect
  */
 Partup.client.CustomSelect.prototype.update = function(options) {
     if (!options) {
@@ -222,6 +231,7 @@ Partup.client.CustomSelect.prototype.update = function(options) {
  * Set the select's current value
  *
  * @param {String} value
+ * @memberof Partup.client.CustomSelect
  */
 Partup.client.CustomSelect.prototype.setValue = function(value) {
     if (!this.labels[value]) return;
@@ -232,6 +242,7 @@ Partup.client.CustomSelect.prototype.setValue = function(value) {
 
 /**
  * Show values
+ * @memberof Partup.client.CustomSelect
  */
 Partup.client.CustomSelect.prototype.open = function() {
     this.valueWrap.classList.add('pu-state-expanded');
@@ -239,6 +250,7 @@ Partup.client.CustomSelect.prototype.open = function() {
 
 /**
  * Hide values
+ * @memberof Partup.client.CustomSelect
  */
 Partup.client.CustomSelect.prototype.hide = function() {
     this.valueWrap.classList.remove('pu-state-expanded');
@@ -246,6 +258,7 @@ Partup.client.CustomSelect.prototype.hide = function() {
 
 /**
  * Toggle values
+ * @memberof Partup.client.CustomSelect
  */
 Partup.client.CustomSelect.prototype.toggle = function() {
     this.valueWrap.classList.toggle('pu-state-expanded');

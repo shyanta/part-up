@@ -1,7 +1,7 @@
 /**
  @namespace Partup updates factory
  @name Partup.factories.updatesFactory
- @memberOf partup.factories
+ @memberof Partup.factories
  */
 Partup.factories.updatesFactory = {
 

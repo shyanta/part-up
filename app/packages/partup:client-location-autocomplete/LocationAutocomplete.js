@@ -4,13 +4,14 @@
  *
  * You can pass the widget a few options which enable various functionalities
  *
+ * @module client-location-autocomplete
  * @param {String} placeholder              A string that will serve as placeholder for the input field
  * @param {Object} location                 The location object the autocomplete box should be prefilled with
  * @param {Function} placeSelectedCallback  A function that will be executed when an item in the dropdown was clicked, containing {placeId,city}
  * @param {Function} clearCallback          A function that will be executed the clear button is clicked
  */
 // jscs:enable
-//
+
 Template.LocationAutocomplete.onCreated(function() {
     this.locationAutocompletes = new ReactiveVar([]);
     this.filledInValue = new ReactiveVar();

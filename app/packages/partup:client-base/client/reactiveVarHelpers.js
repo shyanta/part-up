@@ -1,13 +1,14 @@
 /**
  * Helpers to manipulate a reactive var for the purpose of more readable dan shorter code
  *
- * @memberOf Partup.client
+ * @class reactiveVarHelpers
+ * @memberof Partup.client
  */
 Partup.client.reactiveVarHelpers = {
     /**
      * Helper to increment a reactive number variable
      *
-     * @memberOf Partup.client.reactiveVarHelpers
+     * @memberof Partup.client.reactiveVarHelpers
      * @param {ReactiveVar} reactive variable to increment
      * @param {Number} ammount to increment
      */

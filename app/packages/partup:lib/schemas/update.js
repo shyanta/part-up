@@ -1,7 +1,7 @@
 /**
  * Base Update schema
  * @name updateBaseSchema
- * @memberOf partup.schemas
+ * @memberof Partup.schemas
  * @private
  */
 var updateBaseSchema = new SimpleSchema({
@@ -37,7 +37,7 @@ var updateBaseSchema = new SimpleSchema({
 /**
  * Base Comment Update schema
  * @name updateCommentBaseSchema
- * @memberOf partup.schemas
+ * @memberof Partup.schemas
  * @private
  */
 var updateCommentBaseSchema = new SimpleSchema({
@@ -50,7 +50,7 @@ var updateCommentBaseSchema = new SimpleSchema({
 /**
  * Update Comment entity schema
  * @name updateComment
- * @memberOf partup.schemas.entities
+ * @memberof Partup.schemas.entities
  */
 Partup.schemas.entities.updateComment = new SimpleSchema([updateCommentBaseSchema, {
     _id: {
@@ -78,7 +78,7 @@ Partup.schemas.entities.updateComment = new SimpleSchema([updateCommentBaseSchem
 /**
  * Update entity schema
  * @name update
- * @memberOf partup.schemas.entities
+ * @memberof Partup.schemas.entities
  */
 Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
     _id: {
@@ -110,6 +110,6 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
 /**
  * Insert Update Comment form schema
  * @name updateComment
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.updateComment = new SimpleSchema([updateCommentBaseSchema]);

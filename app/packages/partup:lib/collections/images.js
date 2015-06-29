@@ -104,6 +104,10 @@ if (Meteor.isServer) {
     stores.push(new FS.Store.FileSystem('32x32'));
 }
 
+/**
+ Images are entities stored under each object that contains one or more images
+ @namespace Images
+ */
 Images = new FS.Collection('images', {
     stores: stores,
     filter: {

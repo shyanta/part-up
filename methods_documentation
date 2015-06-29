@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-npm install -g jsdoc
-
-jsdoc -r -d docs/methods app/packages/partup:server-base/methods
-
-open `pwd`/docs/methods/index.html

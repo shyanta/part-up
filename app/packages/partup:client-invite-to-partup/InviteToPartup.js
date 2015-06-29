@@ -1,3 +1,11 @@
+// jscs:disable
+/**
+ * Render invite to partup functionality
+ *
+ * @module client-invite-to-partup
+ *
+ */
+// jscs:enable
 Template.InviteToPartup.helpers({
     formSchema: Partup.schemas.forms.inviteUpper
 });

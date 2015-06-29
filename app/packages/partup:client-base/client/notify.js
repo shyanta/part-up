@@ -1,23 +1,57 @@
+/**
+ * Create notifications in the ui
+ *
+ * @class notify
+ * @memberof Partup.client
+ */
 if (toastr && jQuery) {
     Partup.client.notify = {};
 
-    // Wrapper for Toastr
+    /**
+     * create info message
+     *
+     * @memberof Partup.client.notify
+     * @param {String} msg message to display in notification
+     */
     Partup.client.notify.info = function notifyInfo(msg) {
         toastr.info(msg);
     };
 
+    /**
+     * create warning message
+     *
+     * @memberof Partup.client.notify
+     * @param {String} msg message to display in notification
+     */
     Partup.client.notify.warning = function notifyWarning(msg) {
         toastr.warning(msg);
     };
 
+    /**
+     * create warning success
+     *
+     * @memberof Partup.client.notify
+     * @param {String} msg message to display in notification
+     */
     Partup.client.notify.success = function notifySuccess(msg) {
         toastr.success(msg);
     };
 
+    /**
+     * create warning error
+     *
+     * @memberof Partup.client.notify
+     * @param {String} msg message to display in notification
+     */
     Partup.client.notify.error = function notifyError(msg) {
         toastr.error(msg);
     };
 
+    /**
+     * clear all notifications
+     *
+     * @memberof Partup.client.notify
+     */
     Partup.client.notify.clear = function notifyClear() {
         toastr.clear();
     };

@@ -1,7 +1,7 @@
 /**
  * New message Form
  * @name inviteUpper
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.inviteUpper = new SimpleSchema({
     name: {

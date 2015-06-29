@@ -1,13 +1,12 @@
 // For the collection events documentation, see [https://github.com/matb33/meteor-collection-hooks].
-
 var equal = Npm.require('deeper');
 
 /**
  * Generate a basic after insert handler.
  *
  * @param {String} namespace
- *
  * @return {function}
+ * @ignore
  */
 var basicAfterInsert = function(namespace) {
     return function(userId, document) {
@@ -21,6 +20,7 @@ var basicAfterInsert = function(namespace) {
  * @param {String} namespace
  *
  * @return {function}
+ * @ignore
  */
 var basicAfterUpdate = function(namespace) {
     return function(userId, document, fieldNames, modifier, options) {
@@ -50,6 +50,7 @@ var basicAfterUpdate = function(namespace) {
  * @param {String} namespace
  *
  * @return {function}
+ * @ignore
  */
 var basicAfterRemove = function(namespace) {
     return function(userId, document) {

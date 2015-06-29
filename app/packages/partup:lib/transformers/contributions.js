@@ -1,13 +1,13 @@
 /**
  @namespace Contribution transformer service
  @name partup.transformers.contribution
- @memberOf partup.transformers
+ @memberof Partup.transformers
  */
 Partup.transformers.contribution = {
     /**
      * Transform contribution to form
      *
-     * @memberOf partup.transformers.contribution
+     * @memberof Partup.transformers.contribution
      * @param {object} contribution
      */
     'toFormContribution': function(contribution) {
@@ -17,7 +17,7 @@ Partup.transformers.contribution = {
     /**
      * Transform form to contribution fields
      *
-     * @memberOf partup.transformers.contribution
+     * @memberof Partup.transformers.contribution
      * @param {mixed[]} fields
      */
     'fromFormContribution': function(fields) {

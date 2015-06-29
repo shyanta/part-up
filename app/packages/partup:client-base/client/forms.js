@@ -1,10 +1,15 @@
+/**
+ * form helpers
+ *
+ * @class partup.client.forms
+ * @memberof Partup.client
+ */
 Partup.client.forms = {
-
 
     /**
      * Add sticky error to field helper
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.forms
      * @param {Object} form
      * @param {String} fieldName
      * @param {String} errorReason
@@ -16,7 +21,7 @@ Partup.client.forms = {
     /**
      * Remove sticky error from field
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.forms
      * @param {Object} form
      * @param {String} fieldName
      */
@@ -27,7 +32,7 @@ Partup.client.forms = {
     /**
      * Remove all sticky errors
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client.forms
      * @param {Object} form
      */
     removeAllStickyFieldErrors: function(form) {

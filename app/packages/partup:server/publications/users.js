@@ -1,3 +1,7 @@
+/**
+ * @name Partup.publications.usersCount
+ * @memberof Partup.server.publications
+ */
 Meteor.publish('users.count', function() {
     Counts.publish(this, 'users', Meteor.users.find());
 });

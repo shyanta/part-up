@@ -1,7 +1,7 @@
 /**
  * Forgot password Form
  * @name forgotPassword
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.forgotPassword = new SimpleSchema({
     email: {

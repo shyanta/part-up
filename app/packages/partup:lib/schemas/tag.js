@@ -1,7 +1,7 @@
 /**
  * Base Tag schema
  * @name tagBaseSchema
- * @memberOf partup.schemas
+ * @memberof Partup.schemas
  * @private
  */
 var tagBaseSchema = new SimpleSchema({
@@ -14,7 +14,7 @@ var tagBaseSchema = new SimpleSchema({
 /**
  * Tag entity schema
  * @name tag
- * @memberOf partup.schemas.entities
+ * @memberof Partup.schemas.entities
  */
 Partup.schemas.entities.tag = new SimpleSchema([tagBaseSchema, {
     count: {
@@ -30,7 +30,7 @@ Partup.schemas.entities.tag = new SimpleSchema([tagBaseSchema, {
 /**
  * tag form schema
  * @name tag
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.tag = new SimpleSchema([tagBaseSchema, {
     //

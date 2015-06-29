@@ -1,7 +1,7 @@
 /**
  * Base Network schema
  * @name networkBaseSchema
- * @memberOf partup.schemas
+ * @memberof Partup.schemas
  * @private
  */
 var networkBaseSchema = new SimpleSchema({
@@ -32,7 +32,7 @@ var networkBaseSchema = new SimpleSchema({
 /**
  * Network entity schema
  * @name network
- * @memberOf partup.schemas.entities
+ * @memberof Partup.schemas.entities
  */
 Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
     _id: {
@@ -95,7 +95,7 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
 /**
  * network form schema
  * @name network
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
     location_input: {
@@ -112,7 +112,7 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
 /**
  * network create form schema
  * @name networkCreate
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.networkCreate = new SimpleSchema([Partup.schemas.forms.network, {
     privacy_type: {

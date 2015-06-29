@@ -1,6 +1,9 @@
 /**
  * Service to open a popup
  *
+ * @class popup
+ * @memberof Partup.client
+ *
  * @example
  * {{#if partupIsPopupActive 'new_message'}}
  *   {{#contentFor 'PopupTitle'}}New message{{/contentFor}}
@@ -13,10 +16,11 @@
 Partup.client.popup = {
 
     /**
-     * @var current
-     * @name Partup.client.popup.current
+     * ReactiveVar which holds the id of the current popup.
+     * If no popup is opened, the value will be null.
      *
-     * ReactiveVar which holds the id of the current popup. If no popup is opened, the value will be null.
+     * @var {ReactiveVar} current
+     * @memberof Partup.client.popup
      */
     current: new ReactiveVar(),
 
@@ -25,6 +29,7 @@ Partup.client.popup = {
      *
      * @param {String} id   The identifier for your popup
      * @param {Function} callback   A popup-close callback
+     * @memberof Partup.client.popup
      */
     open: function(id, callback) {
         if (!id || !mout.lang.isString(id)) throw 'id must be a string';
@@ -46,7 +51,7 @@ Partup.client.popup = {
      * Close the current popup
      *
      * @param Arguments you want to pass to the callback to optionally passed with `open()`
-     *
+     * @memberof Partup.client.popup
      */
     close: function() {
         // Get current popup
@@ -62,7 +67,8 @@ Partup.client.popup = {
         // Save callback
         var callback = this._closeCallback;
 
-        // Delete callback before executing, because otherwise you should not be able to open a new popup within the callback
+        // Delete callback before executing, because otherwise you should not be able
+        // to open a new popup within the callback
         this._closeCallback = null;
 
         // Execute callback
@@ -75,6 +81,7 @@ Partup.client.popup = {
      * Close the current popup
      *
      * @param Arguments you want to pass to the callback to optionally passed with `open()`
+     * @memberof Partup.client.popup
      *
      */
     _closeCallback: null

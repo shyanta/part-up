@@ -1,13 +1,13 @@
 /**
  @namespace Profile transformer service
  @name partup.transformers.profile
- @memberOf partup.transformers
+ @memberof Partup.transformers
  */
 Partup.transformers.profile = {
     /**
      * Transform user profile to optional details form
      *
-     * @memberOf partup.transformers.partup
+     * @memberof Partup.transformers.partup
      * @param {object} user
      */
     'toFormRegisterOptional': function(user) {
@@ -30,7 +30,7 @@ Partup.transformers.profile = {
     /**
      * Transform register optional form to user fields
      *
-     * @memberOf partup.transformers.user
+     * @memberof Partup.transformers.user
      * @param {mixed[]} fields
      */
     'fromFormRegisterOptional': function(fields) {

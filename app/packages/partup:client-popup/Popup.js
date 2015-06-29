@@ -1,3 +1,11 @@
+// jscs:disable
+/**
+ * Renders the popup container, overlay and dismiss handlers
+ *
+ * @module client-popup
+ * @param {Number} networkId    the id of the network whose uppers are rendered
+ */
+// jscs:enable
 Meteor.startup(function() {
     $('body').on('click', '[data-popup]', function(e) {
         try {

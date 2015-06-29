@@ -3,7 +3,7 @@ Partup.client.strings = {
     /**
      * Slugify helper
      *
-     * @memberOf Partup.client
+     * @memberof Partup.client
      * @param {String} string to slugify
      */
     slugify: function(stringToSlugify) {

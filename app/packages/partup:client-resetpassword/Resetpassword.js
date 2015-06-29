@@ -1,11 +1,18 @@
+// jscs:disable
+/**
+ * Render reset password form
+ *
+ * @module client-resetpassword
+ */
+// jscs:enable
 var placeholders = {
-    'email': function () {
+    'email': function() {
         return __('resetpassword-form-email-placeholder');
     },
-    'password': function () {
+    'password': function() {
         return __('resetpassword-form-password-placeholder');
     },
-    'confirmPassword': function () {
+    'confirmPassword': function() {
         return __('resetpassword-form-confirmPassword-placeholder');
     }
 };

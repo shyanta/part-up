@@ -1,3 +1,8 @@
+/**
+ * Render dropdowns
+ *
+ * @module client-dropdowns
+ */
 ClientDropdowns = {
     addOutsideDropdownClickHandler: function(template, dropdownSelector, buttonSelector, altkey) {
         // remember myself

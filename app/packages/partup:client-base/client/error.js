@@ -1,6 +1,8 @@
 /**
  * Error function for global use
- * @name error
+ *
+ * @class error
+ * @memberof Partup.client
  */
 Partup.client.error = function(context, msg) {
     var full_msg = context + ': ' + msg;

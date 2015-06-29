@@ -1,12 +1,20 @@
+// jscs:disable
 /**
- @namespace Partup
- @name partup
+ * This package contains all the shared namespaces and polymorphic javascript
+ *
+ * @module lib
+ */
+// jscs:enable
+
+/**
+ * @namespace Partup
  */
 Partup = {};
 
 /**
  @namespace Helpers
- @name partup.helpers
+ @name Partup.helpers
+ @memberof Partup
  */
 Partup.helpers = {};
 
@@ -28,8 +36,7 @@ Partup.schemas = {
 };
 
 /**
- @namespace Services
- @name partup.services
+ @namespace partup.services
  */
 Partup.services = {};
 
@@ -46,12 +53,14 @@ Partup.factories = {};
 Partup.transformers = {};
 
 /**
- @namespace UI
- @name Partup.client
+ @namespace Meteor
  */
-Partup.client = {};
 
 /**
- @namespace Meteor
- @name Meteor
+ @namespace Mongo
+ */
+
+/**
+ @namespace Collection
+ @memberof Mongo
  */

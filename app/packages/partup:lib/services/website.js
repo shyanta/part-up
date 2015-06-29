@@ -1,13 +1,13 @@
 /**
  @namespace Partup helper service
  @name Partup.services.website
- @memberOf partup.services
+ @memberof Partup.services
  */
 Partup.services.website = {
     /**
      * Transform a clean url to a full url
      *
-     * @memberOf services.website
+     * @memberof services.website
      * @param {String} cleanUrl
      */
     cleanUrlToFullUrl: function(cleanUrl) {
@@ -23,7 +23,7 @@ Partup.services.website = {
     /**
      * Transform a full url to a clean url
      *
-     * @memberOf services.website
+     * @memberof services.website
      * @param {String} fullUrl
      */
     fullUrlToCleanUrl: function(fullUrl) {

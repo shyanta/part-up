@@ -224,6 +224,7 @@ var partupDetailLayout = {
  *
  * @param {Partup} partup
  * @return {String}
+ * @ignore
  */
 var prettyBudget = function(partup) {
     var budget = partup['budget_' + partup.budget_type ];

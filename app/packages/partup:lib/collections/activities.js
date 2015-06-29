@@ -1,5 +1,6 @@
 /**
+ Activities are units of work that a partup consists of
  @namespace Activities
- @name Activities
+ @memberof Collection
  */
 Activities = new Mongo.Collection('activities');

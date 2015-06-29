@@ -1,7 +1,7 @@
 /**
  @namespace Partup server google service
  @name Partup.server.services.google
- @memberOf partup.server.services
+ @memberof Partup.server.services
  */
 Partup.server.services.google = {
 

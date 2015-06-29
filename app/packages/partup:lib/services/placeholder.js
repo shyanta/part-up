@@ -1,7 +1,7 @@
 /**
  @namespace Placeholder helper service
  @name partup.services.placeholders
- @memberOf partup.services
+ @memberof Partup.services
  */
 Partup.services.placeholders = {
 

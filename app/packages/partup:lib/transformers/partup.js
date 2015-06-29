@@ -1,13 +1,13 @@
 /**
- @namespace Partup transformer service
- @name partup.transformers.partup
- @memberOf partup.transformers
+ * Partup transformer service
+ * @name partup.transformers.partup
+ * @memberof Partup.transformers
  */
 Partup.transformers.partup = {
     /**
      * Transform partup to start partup form
      *
-     * @memberOf partup.transformers.partup
+     * @memberof Partup.transformers.partup
      * @param {object} partup
      */
     'toFormStartPartup': function(partup) {
@@ -45,7 +45,7 @@ Partup.transformers.partup = {
     /**
      * Transform startpartup form to partup
      *
-     * @memberOf partup.transformers.partup
+     * @memberof Partup.transformers.partup
      * @param {mixed[]} fields
      */
     'fromFormStartPartup': function(fields) {

@@ -1,3 +1,24 @@
+// jscs:disable
+/**
+ * Render a single partup tile
+ *
+ * @example
+ *
+The PartupTile template is mostly used in a ColumnsLayout widget
+
+{{> ColumnsLayout
+    COLUMNS=4
+    TEMPLATE="PartupTile"
+    addHook=addToLayoutHook
+    clearHook=clearLayoutHook
+}}
+ * widget options:
+ *
+ * @param {Boolean} COMMENTS_LINK   Whether the widget should display the link to comments
+ * @module client-partup-tile
+ */
+// jscs:enable
+
 /*************************************************************/
 /* Rendered */
 /*************************************************************/

@@ -1,5 +1,13 @@
+// jscs:disable
+/**
+ * Render forgotpassword functionality
+ *
+ * @module client-forgotpassword
+ *
+ */
+// jscs:enable
 var placeholders = {
-    'email': function () {
+    'email': function() {
         return __('forgotpassword-form-email-placeholder');
     }
 };

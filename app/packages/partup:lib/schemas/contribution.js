@@ -1,7 +1,7 @@
 /**
  * Base Contribution schema
  * @name contributionBaseSchema
- * @memberOf partup.schemas
+ * @memberof Partup.schemas
  * @private
  */
 var contributionBaseSchema = new SimpleSchema({
@@ -20,7 +20,7 @@ var contributionBaseSchema = new SimpleSchema({
 /**
  * Contribution entity schema
  * @name contribution
- * @memberOf partup.schemas.entities
+ * @memberof Partup.schemas.entities
  */
 Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema, {
     _id: {
@@ -64,7 +64,7 @@ Partup.schemas.entities.contribution = new SimpleSchema([contributionBaseSchema,
 /**
  * Contribution Form
  * @name contribute
- * @memberOf partup.schemas.forms
+ * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.contribution = new SimpleSchema([contributionBaseSchema, {
     //

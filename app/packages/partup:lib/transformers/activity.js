@@ -1,13 +1,13 @@
 /**
  @namespace Activity transformer service
  @name partup.transformers.activity
- @memberOf partup.transformers
+ @memberof Partup.transformers
  */
 Partup.transformers.activity = {
     /**
      * Transform form to activity
      *
-     * @memberOf partup.transformers.activity
+     * @memberof Partup.transformers.activity
      * @param {mixed[]} fields
      * @param {string} upperId
      * @param {string} partupId

@@ -1,7 +1,8 @@
 /**
  * Helpers for scroll behaviour
  *
- * @memberOf Partup.client
+ * @class scroll
+ * @memberof Partup.client
  */
 var INFINITE_SCROLL_OFFSET = 800;
 
@@ -10,17 +11,17 @@ Partup.client.scroll = {
     /**
      * Current scroll position reactive var
      *
-     * @memberOf Partup.client.scroll
+     * @memberof Partup.client.scroll
      */
     pos: new ReactiveVar(0),
 
     /**
      * Infinite scroll functionality
      *
-     * @memberOf Partup.client.scroll
+     * @memberof Partup.client.scroll
      * @param options {Object}           Options for the infinite scroll
      * @param options.template {Blaze}   A template where the infinite scroll runs in
-     * @param options.element  {Element} The container element (which is growing when content increases)
+     * @param options.element  {Element} The container element (growing when content increases)
      * @param callback {Function}        Infinite scroll callback
      */
     infinite: function(options, callback) {

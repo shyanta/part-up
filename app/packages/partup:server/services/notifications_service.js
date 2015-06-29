@@ -1,7 +1,7 @@
 /**
  @namespace Partup server notifications service
  @name Partup.server.services.notifications
- @memberOf partup.server.services
+ @memberof Partup.server.services
  */
 Partup.server.services.notifications = {
 

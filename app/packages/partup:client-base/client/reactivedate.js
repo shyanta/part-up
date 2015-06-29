@@ -6,7 +6,8 @@ Meteor.setInterval(function() {
 /**
  * Current date (reactive)
  *
- * @memberOf Partup.client
+ * @class reactiveDate
+ * @memberof Partup.client
  */
 Partup.client.reactiveDate = function() {
     return _now.get();
