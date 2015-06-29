@@ -1,3 +1,9 @@
+/**
+ * Package that contains all of the pages corresponding to app routes
+ *
+ * @module client-pages
+ */
+
 /*************************************************************/
 /* app rendered */
 /*************************************************************/

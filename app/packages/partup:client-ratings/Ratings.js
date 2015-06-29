@@ -2,6 +2,7 @@
 /**
  * A widget that will render all given ratings
  *
+ * @module client-ratings
  * @param {Cursor} contribution The contribution which is being rated
  * @param {Cursor} ratings      A Mongo Cursor object
  * @param {Boolean} READONLY    Whether the widget should be rendered readonly 
@@ -11,7 +12,7 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.Ratings.onCreated(function(){
+Template.Ratings.onCreated(function() {
     this.showHoverCards = new ReactiveDict();
 });
 
@@ -19,34 +20,34 @@ Template.Ratings.onCreated(function(){
 /* Widget helpers */
 /*************************************************************/
 Template.Ratings.helpers({
-    averageRatings: function(){
+    averageRatings: function() {
         var sum = 0;
         var ratings = this.ratings.fetch();
 
-        for (var i = 0; i < ratings.length; i++){
+        for (var i = 0; i < ratings.length; i++) {
             sum += ratings[i].rating;
         }
 
         var average = sum / ratings.length;
         var items = [];
 
-        for (i = 10; i <= 100; i += 10){
-            items.push(i <= average ? 'pu-state-active': '');
+        for (i = 10; i <= 100; i += 10) {
+            items.push(i <= average ? 'pu-state-active' : '');
         }
 
         return items;
     },
-    contribution: function(){
+    contribution: function() {
         return Template.instance().data.contribution;
     },
-    hasRatings: function(){
+    hasRatings: function() {
         return !!this.ratings.fetch().length;
     },
-    showHoverCard: function(){
+    showHoverCard: function() {
         var id = this._id || 'new';
         return Template.instance().showHoverCards.get(id);
     },
-    showNewRating: function(){
+    showNewRating: function() {
         if (this.READONLY) return false;
 
         var user = Meteor.user();
@@ -55,7 +56,7 @@ Template.Ratings.helpers({
         var partup = Partups.findOne({_id: this.contribution.partup_id});
         if (!partup) return false;
 
-        var ratingUppers = mout.array.map(this.ratings.fetch(), function(rating){
+        var ratingUppers = mout.array.map(this.ratings.fetch(), function(rating) {
             return rating.upper_id;
         });
 
@@ -63,8 +64,8 @@ Template.Ratings.helpers({
 
         return mout.array.contains(partup.uppers, user._id);
     },
-    upper: function(){
-        return Meteor.users.findOne({ _id: this.upper_id });
+    upper: function() {
+        return Meteor.users.findOne({_id: this.upper_id});
     }
 });
 
@@ -72,7 +73,7 @@ Template.Ratings.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Ratings.events({
-    'click .pu-avatar': function(event, template){
+    'click .pu-avatar': function(event, template) {
         event.stopPropagation();
         // check if the click is inside the hovercard
         if ($(event.target).closest('.pu-hovercard').length) return;

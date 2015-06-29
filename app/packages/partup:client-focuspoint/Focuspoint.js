@@ -1,3 +1,21 @@
+// jscs:disable
+/**
+ * Render focuspoint widget
+ *
+ * @module client-focuspoint
+ * @param {?} view_elm      ?    
+ * @param {?} focuspoint    ?
+ * @param {?} unset         ?
+ * @param {?} loading       ?
+ *
+ * @example
+    {{> Focuspoint 
+    view_elm=focuspointView 
+    focuspoint=setFocuspoint 
+    unset=unsetFocuspoint 
+    loading=loading }}
+ */
+// jscs:enable
 /*************************************************************/
 /* Widget on created */
 /*************************************************************/

@@ -2,10 +2,21 @@
  * ColumnsLayout
  * a layout system similar to Pinterest
  *
+ * @module client-columns-layout
  * @param {number} COLUMNS     Number of columns
  * @param {string} TEMPLATE    Templatename for each item
  * @param {function} addHook   Function that recieves a callback function from the ColumnsLayout. Save the function and fire it when you want to ADD items
  * @param {function} clearHook Function that recieves a callback function from the ColumnsLayout. Save the function and fire it when you want to CLEAN ALL items
+ *
+ * @example
+ *
+{{> ColumnsLayout
+    COLUMNS=4
+    TEMPLATE="PartupTile"
+    addHook=addToLayoutHook
+    clearHook=clearLayoutHook
+}}
+ *
  */
 
 Template.ColumnsLayout.onCreated(function() {

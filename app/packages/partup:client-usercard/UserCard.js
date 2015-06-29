@@ -1,3 +1,12 @@
+// jscs:disable
+/**
+ * Render a user card
+ *
+ * You can pass the widget a few options which enable various functionalities
+ *
+ * @module client-usercard
+ */
+// jscs:enable
 Meteor.startup(function() {
     // remember the timeout id
     var showProfileTimeout;

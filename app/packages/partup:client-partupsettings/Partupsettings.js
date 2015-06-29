@@ -4,6 +4,7 @@
  *
  * You can pass the widget a few options which enable various functionalities
  *
+ * @module client-partupsettings
  * @param {Object} currentPartup    the partup that will be prefilled in the form
  * @param {String} FORM_ID          the form id to be used in the autoform
  * @param {Boolean} CREATE          true: render in create mode, false: render in update mode

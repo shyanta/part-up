@@ -2,6 +2,7 @@
 /**
  * Widget to render comments and a comment field
  *
+ * @module client-commentfield
  * @param {Object} update               The update object containing the comments
  * @param {ReactiveVar} showCommentForm Variable that controls the visibility of the comment form
  * @param {Boolean} COMMENTS_EXPANDED   If true, show all comments (don't show "show more comments" link)

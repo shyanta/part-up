@@ -4,6 +4,7 @@
  *
  * You can pass the widget a few options which enable various functionalities
  *
+ * @module client-update
  * @param {String} updateId             The update id of the update that has to be rendered
  * @param {Object} metadata             Non reactive metadata, such as user, time and title
  * @param {Boolean} LINK                Show link yes or no

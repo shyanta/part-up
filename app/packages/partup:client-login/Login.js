@@ -1,3 +1,12 @@
+// jscs:disable
+/**
+ * Render login form functionality
+ *
+ * @module client-login
+ *
+ */
+// jscs:enable
+
 var formPlaceholders = {
     email: function() {
         return __('login-form-email-placeholder');

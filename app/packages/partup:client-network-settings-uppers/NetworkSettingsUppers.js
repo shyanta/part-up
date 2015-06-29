@@ -1,8 +1,12 @@
+// jscs:disable
 /**
  * Render a widget to view/edit a single network's uppers
  *
- * @param {Number} networkId
+ * @module client-network-settings-uppers
+ * @param {Number} networkId    the id of the network whose uppers are rendered
  */
+// jscs:enable
+
 Template.NetworkSettingsUppers.onCreated(function() {
     this.subscribe('network.one', this.data.networkId);
 });

@@ -1,6 +1,7 @@
 /**
  * A widget that will render a single rating
  *
+ * @module client-rating
  * @param {Object} contribution   The contribution on which this rating is applied
  * @param {Object} rating   The rating data
  */

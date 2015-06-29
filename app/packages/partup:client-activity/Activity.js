@@ -4,6 +4,7 @@
  *
  * You can pass the widget a few options which enable various functionalities
  *
+ * @module client-activity
  * @param {Object} activity   The activity to render
  * @param {Function} createCallback   A function which is executed after a new activity has been added
  * @param {String} contribution_id   Contribution id to render, if only one should be rendered
