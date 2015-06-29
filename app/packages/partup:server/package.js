@@ -21,6 +21,7 @@ Package.onUse(function(api) {
         'reywood:publish-composite',
         'service-configuration',
         'splendido:accounts-meld',
+        'percolate:migrations',
         'tap:i18n'
     ], ['server']);
 
@@ -32,6 +33,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'logger.js',
         'namespace.js',
+        'migrations.js',
         'bootstrap.js',
         'accounts.js',
         'helpers/collection.js',
