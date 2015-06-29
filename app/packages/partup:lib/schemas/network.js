@@ -13,6 +13,10 @@ var networkBaseSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    image_icon: {
+        type: String,
+        optional: true
+    },
     name: {
         type: String,
         max: 150
