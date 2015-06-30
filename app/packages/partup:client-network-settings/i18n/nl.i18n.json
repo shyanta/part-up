@@ -1,4 +1,7 @@
 {
+    "network-settings-intro-title": "@Tribe informatie",
+    "network-settings-intro-paragraph": "@Pas hier je de informatie over de Tribe aan",
+
     "network-settings-form-characters": "maximaal %d tekens",
     "network-settings-form-characters-left": "nog %d tekens over",
     "network-settings-form-submit": "Wijzigingen opslaan",
