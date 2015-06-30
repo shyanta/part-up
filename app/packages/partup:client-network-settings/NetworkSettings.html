@@ -128,7 +128,10 @@
         </label>
 
         <div class="pu-formfield">
-            <input type="submit" class="pu-button" value="{{_ 'network-settings-form-submit' }}">
+            <button type="submit" class="pu-button {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                <span>{{_ 'network-settings-form-submit' }}</span>
+                {{> SpinnerInverted }}
+            </button>
         </div>
     {{/ autoForm }}
 </template>

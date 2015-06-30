@@ -7,6 +7,7 @@
 Template.NetworkSettings.onCreated(function() {
     this.subscription = this.subscribe('networks.one', this.data.networkId);
     this.charactersLeft = new ReactiveDict();
+    this.submitting = new ReactiveVar();
 
     var self = this;
     this.autorun(function() {
@@ -78,6 +79,9 @@ Template.NetworkSettings.helpers({
         return function() {
             $('[name="location_input"]').val('');
         };
+    },
+    submitting: function() {
+        return Template.instance().submitting.get();
     }
 });
 
@@ -93,7 +97,11 @@ AutoForm.addHooks('networkEditForm', {
         var template = self.template.parent();
         var networkId = template.data.networkId;
 
+        template.submitting.set(true);
+
         Meteor.call('networks.update', networkId, doc, function(err) {
+            template.submitting.set(false);
+
             if (err && err.message) {
                 Partup.client.notify.error(err.reason);
                 return;
