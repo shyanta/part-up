@@ -1,4 +1,7 @@
 {
+    "network-settings-intro-title": "@Tribe information",
+    "network-settings-intro-paragraph": "@Adjust the Tribe settings here",
+
     "network-settings-form-characters": "max %d characters",
     "network-settings-form-characters-left": "%d characters left",
     "network-settings-form-submit": "Save changes",

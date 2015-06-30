@@ -1,5 +1,6 @@
 <template name="NetworkSettings">
-    <h2>Network information</h2>
+    <h2 class="pu-title pu-title-modal">{{_ 'network-settings-intro-title' }}</h2>
+    <p>{{_ 'network-settings-intro-paragraph' }}</p>
 
     {{# autoForm id='networkEditForm' schema=formSchema doc=fieldsForNetwork validation="submitThenKeyup" class="pu-form" }}
         <!-- name -->
