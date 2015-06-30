@@ -79,5 +79,19 @@ Partup.services.tags = {
     tagArrayToInput: function(tags) {
         if (!tags || !tags.length) return '';
         return tags.join(', ');
+    },
+
+    /**
+     * Store new tags into collection
+     *
+     * @memberOf services.tags
+     * @param {String[]} tags
+     */
+    insertNewTags: function(tags) {
+        tags.forEach(function(tag) {
+            if (!Tags.findOne({_id: tag})) {
+                Tags.insert({_id: tag});
+            }
+        });
     }
 };
