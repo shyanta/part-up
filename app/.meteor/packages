@@ -15,6 +15,7 @@ partup:client-activity
 partup:client-commentfield
 partup:client-contribution
 partup:client-copy-to-clipboard
+partup:client-dropdown
 partup:client-dropdowns
 partup:client-focuspoint
 partup:client-forgotpassword
