@@ -22,7 +22,10 @@
                         <!-- Submit button -->
                         <footer class="pu-sub-modalfooter pu-sub-modalfooter-alignleft">
                             <div class="pu-sub-footer-container">
-                                <button class="pu-button">{{_ 'pages-modal-partup_settings-save'}}</button>
+                                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                                    <span>{{_ 'pages-modal-partup_settings-save'}}</span>
+                                    {{> SpinnerInverted }}
+                                </button>
                             </div>
                         </footer>
 
