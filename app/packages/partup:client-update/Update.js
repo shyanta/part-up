@@ -16,7 +16,7 @@
 /*************************************************************/
 /* Helper functions */
 /*************************************************************/
-var budgetDisplay = function(type, value){
+var budgetDisplay = function(type, value) {
     if (type === 'money') {
         return __('update-budget-type-money', value);
     } else if (type === 'hours') {
