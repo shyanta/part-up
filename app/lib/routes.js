@@ -168,10 +168,6 @@ Router.route('/partups/:_id', {
         'app_partup':         {to: 'app'},
         'app_partup_updates': {to: 'app_partup'}
     },
-    subscriptions: function() {
-        var partupId = this.params._id;
-        this.subscribe('partups.one', partupId);
-    },
     data: function() {
         return {
             partupId: this.params._id
