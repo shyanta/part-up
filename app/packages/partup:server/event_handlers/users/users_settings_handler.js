@@ -10,7 +10,7 @@ Event.on('users.updated', function(userId, fields) {
         }
 
         // Store new tags into collection
-        Partup.services.tags.insertNewTags(partup.tags);
+        Partup.services.tags.insertNewTags(user.profile.tags);
 
         // Calculate new profile completeness percentage
         var totalValues = 0;
