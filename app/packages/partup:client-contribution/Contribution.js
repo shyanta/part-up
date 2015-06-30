@@ -18,6 +18,7 @@
 Template.Contribution.onCreated(function() {
     this.showForm = new ReactiveVar(false);
     this.updateContribution = this.data.updateContribution;
+    this.submitting = new ReactiveVar(false);
 });
 
 /*************************************************************/
@@ -58,6 +59,9 @@ Template.Contribution.helpers({
     },
     ratings: function() {
         return Ratings.find({contribution_id: this.contribution._id});
+    },
+    submitting: function() {
+        return Template.instance().submitting.get();
     }
 });
 
@@ -138,11 +142,15 @@ AutoForm.addHooks(null, {
         if (!/editContributionForm-/.test(this.formId)) return;
 
         var template = this.template.parent();
+
+        template.submitting.set(true);
+
         template.updateContribution(doc, function(error) {
             if (error) {
                 console.error(error);
             }
 
+            template.submitting.set(false);
             template.showForm.set(false);
         });
         return false;

@@ -27,7 +27,10 @@
 
                 <footer class="pu-row">
                     <div class="cell">
-                        <button type="submit" class="pu-button">{{_ 'contribution-form-submit' }}</button>
+                        <button type="submit" class="pu-button {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                            <span>{{_ 'contribution-form-submit' }}</span>
+                            {{> SpinnerInverted }}
+                        </button>
                     </div>
                     <div class="cell stretch">
                         <button type="button" class="pu-button pu-button-gray" data-contribution-close>{{_ 'contribution-form-close' }}</button>
