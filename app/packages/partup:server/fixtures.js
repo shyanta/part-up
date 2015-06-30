@@ -88,7 +88,11 @@ Meteor.startup(function() {
                 tags: ['test', 'lorem', 'ipsum'],
                 uppers: [user1Id],
                 location : {
-                    'city' : 'amsterdam'
+                    city : 'Amstelveen',
+                    lat : 52.3114206999999993,
+                    lng : 4.8700869999999998,
+                    place_id : 'ChIJL2JPy9DhxUcRqXfKsBMyNVw',
+                    country : 'Netherlands'
                 },
                 image: null,
                 created_at : new Date('2015-03-26T16:25:07.816Z'),
@@ -264,9 +268,12 @@ Meteor.startup(function() {
                 name: 'Public Network',
                 description: 'This is an open network.',
                 tags: ['network', 'public'],
-                location: {
-                    city: 'Amsterdam',
-                    country: 'The Netherlands'
+                location : {
+                    city : 'Amstelveen',
+                    lat : 52.3114206999999993,
+                    lng : 4.8700869999999998,
+                    place_id : 'ChIJL2JPy9DhxUcRqXfKsBMyNVw',
+                    country : 'Netherlands'
                 },
                 uppers: ['K5c5M4Pbdg3B82wQH', 'K5c5M4Pbdg3B82wQI'],
                 admin_id: 'K5c5M4Pbdg3B82wQH',
@@ -283,9 +290,12 @@ Meteor.startup(function() {
                 name: 'Invitational Network',
                 description: 'This is an invitational network.',
                 tags: ['network', 'invite'],
-                location: {
-                    city: 'Amsterdam',
-                    country: 'The Netherlands'
+                location : {
+                    city : 'Amstelveen',
+                    lat : 52.3114206999999993,
+                    lng : 4.8700869999999998,
+                    place_id : 'ChIJL2JPy9DhxUcRqXfKsBMyNVw',
+                    country : 'Netherlands'
                 },
                 uppers: ['K5c5M4Pbdg3B82wQH'],
                 admin_id: 'K5c5M4Pbdg3B82wQH',
@@ -302,9 +312,12 @@ Meteor.startup(function() {
                 name: 'Closed Network',
                 description: 'This is a closed network.',
                 tags: ['network', 'closed', 'private'],
-                location: {
-                    city: 'Amsterdam',
-                    country: 'The Netherlands'
+                location : {
+                    city : 'Amstelveen',
+                    lat : 52.3114206999999993,
+                    lng : 4.8700869999999998,
+                    place_id : 'ChIJL2JPy9DhxUcRqXfKsBMyNVw',
+                    country : 'Netherlands'
                 },
                 uppers: ['K5c5M4Pbdg3B82wQH'],
                 admin_id: 'K5c5M4Pbdg3B82wQH',
