@@ -154,7 +154,7 @@
             {{/if }}
 
             <!-- activity related updates -->
-            {{# if isActivityUpdate }}
+            {{# if update.isActivityUpdate }}
                 {{#with update.type_data }}
                     <section>
                         {{> Activity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
@@ -163,7 +163,7 @@
             {{/if }}
 
             <!-- contribution related updates -->
-            {{#if isContributionUpdate }}
+            {{#if update.isContributionUpdate }}
                 {{#with update.type_data }}
                     <section>
                         {{> Activity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
