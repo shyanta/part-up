@@ -221,6 +221,9 @@ Template.app_discover.helpers({
         return function registerCallback(callback) {
             tpl.partups.layout.clear = callback;
         };
+    },
+    shrinkPageHeader: function() {
+        return Partup.client.scroll.pos.get() > 40;
     }
 });
 
@@ -228,17 +231,16 @@ Template.app_discover.helpers({
  * Discover events
  */
 Template.app_discover.events({
-    'click [data-search]': function(event, template) {
+    'submit form#discoverQuery': function(event, template) {
         event.preventDefault();
-        var form = event.currentTarget.form;
-        var search_query = lodash.find(form, {name: 'keywords'}).value;
+
+        var form = event.currentTarget;
 
         template.partups.options.set({
             limit: template.partups.STARTING_LIMIT,
-            query: search_query
+            query: form.elements.search_query.value
         });
-    },
-    'submit [data-discover-search]': function(event, template) {
-        event.preventDefault();
+
+        window.scrollTo(0, 0);
     }
 });
