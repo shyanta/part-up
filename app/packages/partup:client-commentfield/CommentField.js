@@ -24,6 +24,10 @@ var commentPostButtonActiveDict = new ReactiveDict();
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
+Template.CommentField.onCreated(function() {
+    this.submitting = new ReactiveVar(false);
+});
+
 Template.CommentField.onRendered(function() {
     var template = this;
     var update = template.data.update;
@@ -64,6 +68,9 @@ Template.CommentField.helpers({
     },
     systemMessage: function helperSystemMessage (content) {
         return __('comment-field-content-' + content);
+    },
+    submitting: function() {
+        return Template.instance().submitting.get();
     }
 });
 
@@ -89,16 +96,20 @@ AutoForm.addHooks(null, {
         if (formNameParts.length !== 2 || formNameParts[0] !== 'commentForm') return;
         var updateId = formNameParts[1];
 
+        var template = self.template.parent();
+        template.submitting.set(true);
+
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
+            template.submitting.set(false);
             if (error) {
                 return Partup.client.notify.error(__('error-method-' + error.reason));
-            } else {
-                commentPostButtonActiveDict.set(updateId, false);
-                AutoForm.resetForm(self.formId);
             }
+
+            commentPostButtonActiveDict.set(updateId, false);
+            AutoForm.resetForm(self.formId);
+            self.done();
         });
 
-        self.done();
         return false;
     }
 });
