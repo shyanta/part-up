@@ -92,6 +92,54 @@ Meteor.publish('partups.list', function() {
     return Partups.guardedFind(self.userId, {}, {_id: 1, name: 1});
 });
 
+Meteor.publishComposite('partups.metadata', function(partupId) {
+    var self = this;
+
+    return {
+        find: function() {
+            return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
+        },
+        children: [
+            {
+                find: function(partup) {
+                    return Images.find({_id: partup.image}, {limit: 1});
+                }
+            },
+            {
+                find: function(partup) {
+                    var uppers = partup.uppers || [];
+                    return Meteor.users.findMultiplePublicProfiles(uppers);
+                },
+                children: [
+                    {
+                        find: function(user) {
+                            return Images.find({_id: user.profile.image}, {limit: 1});
+                        }
+                    }
+                ]
+            },
+            {
+                find: function(partup) {
+                    var supporters = partup.supporters || [];
+                    return Meteor.users.findMultiplePublicProfiles(supporters);
+                },
+                children: [
+                    {
+                        find: function(user) {
+                            return Images.find({_id: user.profile.image}, {limit: 1});
+                        }
+                    }
+                ]
+            },
+            {
+                find: function(partup) {
+                    return Networks.find({_id: partup.network_id});
+                }
+            }
+        ]
+    };
+});
+
 Meteor.publishComposite('partups.one', function(partupId) {
     var self = this;
 
