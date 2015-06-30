@@ -17,7 +17,7 @@ Migrations.add({
         Partups.find().fetch().forEach(function(partup) {
             if (partup.tags !== undefined) {
                 partup.tags.forEach(function(tag) {
-                    tags.push(tag.toLowerCase());
+                    tags.push(tag.toLocaleLowerCase());
                 });
             }
         });

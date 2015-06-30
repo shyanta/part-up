@@ -64,7 +64,7 @@ Partup.services.tags = {
         if (_tags.length === 0) return [];
 
         return _tags.map(function(elem) {
-            return elem.trim();
+            return elem.trim().toLocaleLowerCase();
         }).filter(function(elem) {
             return !!elem;
         });
