@@ -74,6 +74,27 @@ Meteor.publishComposite('updates.from_partup', function(partupId, options) {
 
                             return Images.find({_id: {$in: images}});
                         }
+                    },
+                    {
+                        find: function(update) {
+                            if (update.isActivityUpdate()) {
+                                return Activities.find({_id: update.type_data.activity_id}, {limit: 1});
+                            }
+                        }
+                    },
+                    {
+                        find: function(update) {
+                            if (update.isContributionUpdate()) {
+                                return Contributions.find({_id: update.type_data.contribution_id}, {limit: 1});
+                            }
+                        },
+                        children: [
+                            {
+                                find: function(contribution) {
+                                    return Activities.find({_id: contribution.activity_id}, {limit: 1});
+                                }
+                            }
+                        ]
                     }
                 ]
             }
