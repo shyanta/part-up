@@ -33,16 +33,15 @@ Template.app_discover.onCreated(function() {
 
             tpl.partups.loading.set(true);
 
-            var oldHandle = tpl.partups.handle;
+            if (tpl.partups.handle) tpl.partups.handle.stop();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
 
-            var oldCountHandle = tpl.partups.count_handle;
+            if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
             tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
                     computation.stop();
-                    if (oldCountHandle) oldCountHandle.stop();
 
                     var new_count = Counts.get('partups.discover.filterquery');
                     tpl.partups.layout.count.set(new_count);
@@ -52,7 +51,6 @@ Template.app_discover.onCreated(function() {
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -80,14 +78,13 @@ Template.app_discover.onCreated(function() {
             var options = tpl.partups.options.get();
             options.limit = b;
 
-            var oldHandle = tpl.partups.handle;
+            if (tpl.partups.handle) tpl.partups.handle.stop();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
             tpl.partups.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
