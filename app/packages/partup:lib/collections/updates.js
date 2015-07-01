@@ -29,6 +29,30 @@ Update.prototype.getLastComment = function() {
 };
 
 /**
+ * Check if update is related to an activity
+ *
+ * @return {Boolean}
+ */
+Update.prototype.isActivityUpdate = function() {
+    return /^partups_activities/.test(this.type) || (
+        this.type === 'partups_comments_added' &&
+        !this.type_data.contribution_id
+    );
+};
+
+/**
+ * Check if update is related to a contribution
+ *
+ * @return {Boolean}
+ */
+Update.prototype.isContributionUpdate = function() {
+    return /^partups_(contributions|ratings)/.test(this.type) || (
+        this.type === 'partups_comments_added' &&
+        this.type_data.contribution_id
+    );
+};
+
+/**
  @namespace Updates
  @name Updates
  */

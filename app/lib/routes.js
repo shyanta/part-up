@@ -168,10 +168,6 @@ Router.route('/partups/:_id', {
         'app_partup':         {to: 'app'},
         'app_partup_updates': {to: 'app_partup'}
     },
-    subscriptions: function() {
-        var partupId = this.params._id;
-        this.subscribe('partups.one', partupId);
-    },
     data: function() {
         return {
             partupId: this.params._id
@@ -191,13 +187,6 @@ Router.route('/partups/:_id/updates/:update_id', {
         'app_partup':        {to: 'app'},
         'app_partup_update': {to: 'app_partup'}
     },
-    subscriptions: function() {
-        var partupId = this.params._id;
-        var updateId = this.params.update_id;
-
-        this.subscribe('partups.one', partupId);
-        this.subscribe('updates.one', updateId);
-    },
     data: function() {
         return {
             partupId: this.params._id,
@@ -214,9 +203,6 @@ Router.route('/partups/:_id/activities', {
         'app_partup':            {to: 'app'},
         'app_partup_activities': {to: 'app_partup'}
     },
-    subscriptions: function() {
-        var partupId = this.params._id;
-    },
     data: function() {
         return {
             partupId: this.params._id
@@ -230,9 +216,6 @@ Router.route('/partups/:_id/invite', {
     yieldRegions: {
         'modal':                  {to: 'main'},
         'modal_invite_to_partup': {to: 'modal'},
-    },
-    subscriptions: function() {
-        // this.subscribe('users.count');
     }
 });
 
@@ -242,10 +225,6 @@ Router.route('/partups/:_id/settings', {
     yieldRegions: {
         'modal':                  {to: 'main'},
         'modal_partup_settings': {to: 'modal'},
-    },
-    subscriptions: function() {
-        var partupId = this.params._id;
-        this.subscribe('partups.one', partupId);
     },
     data: function() {
         return {
@@ -273,11 +252,6 @@ Router.route('/start/details', {
         'modal':                {to: 'main'},
         'modal_create':         {to: 'modal'},
         'modal_create_details': {to: 'modal_create'}
-    },
-    subscriptions: function() {
-        var partupId = Session.get('partials.create-partup.current-partup');
-        this.subscribe('partups.one', partupId);
-        this.subscribe('networks.user');
     }
 });
 
@@ -288,10 +262,6 @@ Router.route('/start/:_id/activities', {
         'modal':                   {to: 'main'},
         'modal_create':            {to: 'modal'},
         'modal_create_activities': {to: 'modal_create'}
-    },
-    subscriptions: function() {
-        this.subscribe('partups.one', this.params._id);
-        this.subscribe('partups.list');
     },
     data: function() {
         return {
@@ -311,9 +281,6 @@ Router.route('/start/:_id/promote', {
         'modal':                {to: 'main'},
         'modal_create':         {to: 'modal'},
         'modal_create_promote': {to: 'modal_create'}
-    },
-    subscriptions: function() {
-        this.subscribe('partups.one', this.params._id);
     },
     data: function() {
         return {
@@ -391,9 +358,6 @@ Router.route('/register', {
         'modal':                 {to: 'main'},
         'modal_register':        {to: 'modal'},
         'modal_register_signup': {to: 'modal_register'}
-    },
-    subscriptions: function() {
-        this.subscribe('users.count');
     }
 });
 

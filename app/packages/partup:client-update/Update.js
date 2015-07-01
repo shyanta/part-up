@@ -16,7 +16,7 @@
 /*************************************************************/
 /* Helper functions */
 /*************************************************************/
-var budgetDisplay = function(type, value){
+var budgetDisplay = function(type, value) {
     if (type === 'money') {
         return __('update-budget-type-money', value);
     } else if (type === 'hours') {
@@ -49,20 +49,6 @@ Template.Update.helpers({
 
         var activityId = update.type_data.activity_id;
         return Activities.findOne({_id: activityId});
-    },
-    isActivityUpdate: function() {
-        var update = Updates.findOne({_id: this.updateId});
-        if (!update) return;
-
-        return /^partups_activities/.test(update.type) ||
-            (update.type === 'partups_comments_added' && !update.type_data.contribution_id);
-    },
-    isContributionUpdate: function() {
-        var update = Updates.findOne({_id: this.updateId});
-        if (!update) return;
-
-        return /^partups_(contributions|ratings)/.test(update.type) ||
-            (update.type === 'partups_comments_added' && update.type_data.contribution_id);
     },
     isDetail: function() {
         return !!Template.instance().data.updateId;

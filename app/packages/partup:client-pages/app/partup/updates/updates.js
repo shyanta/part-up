@@ -4,6 +4,8 @@
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
 
+    tpl.subscribe('partups.metadata', tpl.data.partupId);
+
     // Updates model
     tpl.updates = {
 

@@ -31,6 +31,8 @@ Template.modal_create_promote.onRendered(function() {
 });
 
 Template.modal_create_promote.onCreated(function() {
+    this.subscribe('partups.metadata', this.data.partupId);
+
     var template = this;
 
     template.shared = new ReactiveVar({

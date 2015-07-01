@@ -1,3 +1,8 @@
+Template.app_partup_update.onCreated(function() {
+    this.subscribe('partups.one', this.data.partupId);
+    this.subscribe('updates.one', this.data.updateId);
+});
+
 Template.app_partup_update.helpers({
     metaDataForUpdate: function() {
         var update = Updates.findOne({_id: this.updateId});
