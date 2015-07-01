@@ -133,7 +133,7 @@ Meteor.publishComposite('partups.metadata', function(partupId) {
             },
             {
                 find: function(partup) {
-                    return Networks.find({_id: partup.network_id});
+                    return Networks.find({_id: partup.network_id}, {limit: 1});
                 }
             }
         ]
