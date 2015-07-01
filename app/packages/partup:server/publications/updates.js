@@ -93,6 +93,25 @@ Meteor.publishComposite('updates.from_partup', function(partupId, options) {
                                 find: function(contribution) {
                                     return Activities.find({_id: contribution.activity_id}, {limit: 1});
                                 }
+                            },
+                            {
+                                find: function(contribution) {
+                                    return Ratings.find({contribution_id: contribution._id});
+                                },
+                                children: [
+                                    {
+                                        find: function(rating) {
+                                            return Meteor.users.findSinglePublicProfile(rating.upper_id);
+                                        },
+                                        children: [
+                                            {
+                                                find: function(user) {
+                                                    return Images.find({_id: user.profile.image}, {limit: 1});
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }
