@@ -8,9 +8,13 @@
                 <form id="discoverQuery">
                     <div class="pu-filterbar">
                         <p class="pu-sub-label">Laat mij zien</p>
-                        <div class="pu-sub-input"><input type="text" class="pu-input" name="search_query" placeholder="Zoekwoord"></div>
+                        <div class="pu-sub-input"><input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Zoekwoord"></div>
                         <p class="pu-sub-label">Part-ups in</p>
-                        <div class="pu-sub-input"><input type="text" class="pu-input" placeholder="Alle netwerken"></div>
+                        <div class="pu-sub-input pu-dropdownie-container">
+                            <input type="hidden" name="network" value="{{ selectedNetwork.value }}">
+                            <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-networkselector>{{ selectedNetwork.name }}</a>
+                            {{> Dropdown toggle=networkSelectorToggle template="NetworkSelector" data=networkSelectorData }}
+                        </div>
                         <!-- <p class="pu-sub-label">uit</p>
                         <div class="pu-sub-input"><input type="text" class="pu-input" placeholder="Nederland"></div>
                         <p class="pu-sub-label">gesorteerd op</p>

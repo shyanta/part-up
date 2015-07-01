@@ -1,0 +1,32 @@
+<template name="NetworkSelector">
+
+    <section class="pu-form pu-form-networkselector">
+
+        <!-- Text input -->
+        <label class="pu-formfield">
+            <span class="pu-sub-input">
+                <input type="text" class="pu-input" placeholder="Zoek op tribenaam">
+            </span>
+        </label>
+
+        <!-- Suggestions -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                Well-matched tribes
+            </span>
+
+            <ul class="pu-list pu-list-networktiles">
+                {{#each suggestedNetworks }}
+                    <li>
+                        <div class="pu-networktile">
+                            <figure style="{{#with icon }}background-image: url({{ partupImageUrl id=. }});{{/with }}"></figure>
+                            <p>{{ name }}</p>
+                        </div>
+                    </li>
+                {{/each }}
+            </ul>
+        </label>
+
+    </section>
+
+</template>

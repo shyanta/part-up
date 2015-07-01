@@ -1,10 +1,8 @@
 <template name="Dropdown">
 
-    <div data-dropdown>
-        <section class="pu-dropdownie {{#if isActive }}pu-state-active{{/if }}">
-            <span class="pu-sub-arrow"><span></span></span>
-            {{> Template.dynamic template=template data=data }}
-        </section>
-    </div>
+    <section class="pu-dropdownie {{#if isActive }}pu-state-active{{/if }}" data-dropdown>
+        <span class="pu-sub-arrow"><span></span></span>
+        {{> Template.dynamic template=template data=data }}
+    </section>
 
 </template>

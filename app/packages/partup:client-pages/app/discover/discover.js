@@ -4,6 +4,8 @@
 Template.app_discover.onCreated(function() {
     var tpl = this;
 
+    tpl.networkSelectorToggle = new ReactiveVar(false);
+
     tpl.partups = {
 
         // Constants
@@ -224,6 +226,22 @@ Template.app_discover.helpers({
     },
     shrinkPageHeader: function() {
         return Partup.client.scroll.pos.get() > 40;
+    },
+    networkSelectorToggle: function() {
+        return Template.instance().networkSelectorToggle;
+    },
+    networkSelectorData: function() {
+        return {
+            onSelect: function(networkId) {
+                //
+            }
+        };
+    },
+    selectedNetwork: function() {
+        return {
+            value: null,
+            name: 'Alle tribes'
+        };
     }
 });
 
@@ -242,5 +260,9 @@ Template.app_discover.events({
         });
 
         window.scrollTo(0, 0);
+    },
+    'click [data-open-networkselector]': function(event, template) {
+        var current = template.networkSelectorToggle.get();
+        template.networkSelectorToggle.set(!current);
     }
 });
