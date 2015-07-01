@@ -8,7 +8,7 @@ Migrations.add({
         Meteor.users.find().fetch().forEach(function(user) {
             if (user.tags !== undefined) {
                 user.tags.forEach(function(tag) {
-                    tags.push(tag.toLowerCase());
+                    tags.push(tag.toLocaleLowerCase());
                 });
             }
         });
