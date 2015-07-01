@@ -126,5 +126,7 @@
 
 @import "client/stylesheets/components/pu-networktile.sass";
 @import "client/stylesheets/components/compositions/pu-composition-network.sass";
-@import "client/stylesheets/components/pu-tabbed-header.sass";
-@import "client/stylesheets/components/twitter-typeahead.sass";
+@import "client/stylesheets/components/pu-layered-header.sass";
+
+@import "client/stylesheets/components/pu-info.sass";
+@import "client/stylesheets/components/pu-profile.sass";
