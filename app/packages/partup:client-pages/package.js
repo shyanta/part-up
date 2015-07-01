@@ -42,7 +42,9 @@ Package.onUse(function(api) {
         'app/network/network.html',
         'app/network/network.js',
         'app/network/network-partups.html',
+        'app/network/network-partups.js',
         'app/network/network-uppers.html',
+        'app/network/network-uppers.js',
 
         // App:partup
         'app/partup/partup.html',
