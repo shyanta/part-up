@@ -36,9 +36,11 @@ Meteor.publishComposite('networks.one.partups', function(networkId) {
 });
 
 Meteor.publishComposite('networks.one.uppers', function(networkId) {
+    var self = this;
+
     return {
         find: function() {
-            var network = Networks.findOneOrFail(networkId);
+            var network = Networks.guardedFind(self.userId, {_id: networkId});
             var uppers = network.uppers || [];
             return Meteor.users.findMultiplePublicProfiles(uppers);
         },
@@ -53,9 +55,11 @@ Meteor.publishComposite('networks.one.uppers', function(networkId) {
 });
 
 Meteor.publishComposite('networks.one.pending_uppers', function(networkId) {
+    var self = this;
+
     return {
         find: function() {
-            var network = Networks.findOneOrFail(networkId);
+            var network = Networks.guardedFind(self.userId, {_id: networkId});
             var pending_uppers = network.pending_uppers || [];
             return Meteor.users.findMultiplePublicProfiles(pending_uppers);
         },
@@ -70,9 +74,11 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkId) {
 });
 
 Meteor.publishComposite('networks.one', function(networkId) {
+    var self = this;
+
     return {
         find: function() {
-            return Networks.find({_id: networkId}, {limit: 1});
+            return Networks.guardedFind(self.userId, {_id: networkId}, {limit: 1});
         },
         children: [
             {
