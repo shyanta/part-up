@@ -282,9 +282,6 @@ Router.route('/start/:_id/promote', {
         'modal_create':         {to: 'modal'},
         'modal_create_promote': {to: 'modal_create'}
     },
-    subscriptions: function() {
-        this.subscribe('partups.one', this.params._id);
-    },
     data: function() {
         return {
             partupId: this.params._id
