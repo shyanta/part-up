@@ -121,28 +121,20 @@ Meteor.publishComposite('updates.one', function(updateId) {
  * This subscription will first check if the current user is allowed to view the
  * requested part-up. If so, the client will be allowed access to:
  *
- * - The part-up
  * - Updates, filtered by given options and related data
  *
  * @param {String} partupId - The part-up's id
  * @param {Object} options  - Possible filtering options for updates
  */
 Meteor.publishComposite('updates.from_partup', function(partupId, options) {
-    var self = this;
+    var partupCursor = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1});
+    if (!partupCursor.count()) return;
 
     return {
-        // Use guarded find to check if current user has access to the part-up
+        // Find all updates, filtered by given options
         find: function() {
-            return Partups.guardedFind(self.userId, {_id: partupId}, {limit:1});
+            return Updates.findForUpdates(partupId, options);
         },
-        children: [
-            {
-                // Find all updates, filtered by given options
-                find: function(partup) {
-                    return Updates.findForUpdates(partup._id, options);
-                },
-                children: updateChildren
-            }
-        ]
+        children: updateChildren
     };
 });
