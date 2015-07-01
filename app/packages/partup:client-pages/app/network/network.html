@@ -14,12 +14,10 @@
                                 <li><a class="pu-tag pu-tag-metadata">
                                     <i class="fa fa-map-marker"></i>
                                     <span>{{network.location.city}}</span>
-
                                 </a></li>
                                 <li><a class="pu-tag pu-tag-metadata" href="{{network.website}}" target="_blank">
                                     <i class="fa fa-external-link"></i>
                                     <span>{{network.website}}</span>
-
                                 </a></li>
                             </ul>
                         </div>
@@ -36,10 +34,22 @@
             <section>
                 <div class="pu-wrap">
                     <!-- tabs -->
-                    <nav>
-                        <ul>
-                            <li><a href="{{ pathFor route='network-detail' _id=networkId }}">Part-ups</a></li>
-                            <li><a href="{{ pathFor route='network-uppers' _id=networkId }}">Uppers</a></li>
+                    <nav class="pu-navigation pu-navigation-header">
+                        <ul class="pu-list pu-list-horizontal">
+                            <li>
+                                <a href="{{ pathFor route='network-detail' _id=networkId }}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}}">
+                                    <i class="fa fa-globe"></i>
+                                    Part-ups
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ pathFor route='network-uppers' _id=networkId }}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-uppers' class='pu-state-active'}}">
+                                    <i class="fa fa-line-chart"></i>
+                                    Uppers
+                                </a>
+                            </li>
                         </ul>
                     </nav>
 
@@ -48,20 +58,6 @@
                 </div>
             </section>
         </header>
-
-        <p>Name: {{network.name}}</p>
-        <p>Admin: {{network.admin_id}}</p>
-        <p>Description: {{network.description}}</p>
-        <p>City: {{network.location.city}}</p>
-        <p>Country: {{network.location.country}}</p>
-        <p>Website: {{network.website}}</p>
-        <p>Tags: {{network.tags}}</p>
-
-        <p>Uppers: {{network.uppers}}</p>
-        <p>Partups: {{network.partups}}</p>
-        <p>Access level: {{network.privacy_type}}</p>
-        <p>Created at: {{network.created_at}}</p>
-        <p>Updated at: {{network.updated_at}}</p>
         <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
 
             {{> yield region='app_network'}}
