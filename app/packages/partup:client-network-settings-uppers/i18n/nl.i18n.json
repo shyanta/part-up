@@ -1,3 +1,7 @@
 {
-    "network-settings-uppers-upper-removed": "@Upper verwijderd"
+    "network-settings-uppers-title": "Uppers in deze tribe",
+    "network-settings-uppers-paragraph": "Je hebt een mooie tribe. Maar soms is het tijd om afscheid te nemen. Gebruik het kruisje naast de upper om de toegang tot het tribe te beëindigen.",
+    "network-settings-uppers-listheading": "Naam upper",
+    "network-settings-uppers-nouppers": "Geen uppers gevonden in deze tribe",
+    "network-settings-uppers-upper-removed": "Upper verwijderd"
 }

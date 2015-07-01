@@ -1,15 +1,23 @@
 <template name="NetworkSettingsUppers">
-    <h2>Network uppers</h2>
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-networksettings-uppers">
+        <h2 class="pu-title pu-title-modal">{{_ 'network-settings-uppers-title' }}</h2>
+        <p>{{_ 'network-settings-uppers-paragraph' }}</p>
 
-    <ul class="pu-network-uppers">
-        {{# each network.uppers }}
-            <li>
-                {{# with upper }}
-                    <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');"></figure>
-                    <p class="pu-sub-name">{{ profile.name }}</p>
-                    <button type="button" class="pu-sub-remove" data-upper-remove="{{ _id }}"><i class="fa fa-times"></i></button>
-                {{/ with }}
-            </li>
-        {{/ each }}
-    </ul>
+        {{# if network.uppers }}
+        <h3>{{_ 'network-settings-uppers-listheading' }}</h3>
+        <ul class="pu-network-uppers">
+            {{# each network.uppers }}
+                <li>
+                    {{# with upper }}
+                        <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');"></figure>
+                        <p class="pu-sub-name">{{ profile.name }}</p>
+                        <button type="button" class="pu-sub-remove" data-upper-remove="{{ _id }}"><i class="fa fa-times"></i></button>
+                    {{/ with }}
+                </li>
+            {{/ each }}
+        </ul>
+        {{ else }}
+        <ul class="pu-network-uppers"><li><p>{{_ 'network-settings-uppers-nouppers' }}</p></li></ul>
+        {{/ if }}
+    </div>
 </template>

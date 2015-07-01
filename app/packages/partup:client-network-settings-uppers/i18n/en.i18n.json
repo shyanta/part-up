@@ -1,3 +1,7 @@
 {
-    "network-settings-uppers-upper-removed": "@Upper removed"
+    "network-settings-uppers-title": "Uppers in this tribe",
+    "network-settings-uppers-paragraph": "You've got a great tribe. But every now and then it is time to say goodbye to one of your uppers. Use the X next to the upper to deny access to the tribe from now on.",
+    "network-settings-uppers-listheading": "Name upper",
+    "network-settings-uppers-nouppers": "No uppers found for this tribe",
+    "network-settings-uppers-upper-removed": "Upper removed"
 }

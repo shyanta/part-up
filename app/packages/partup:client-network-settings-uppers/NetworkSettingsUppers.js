@@ -8,7 +8,7 @@
 // jscs:enable
 
 Template.NetworkSettingsUppers.onCreated(function() {
-    this.subscribe('network.one', this.data.networkId);
+    this.subscribe('networks.one', this.data.networkId);
 });
 
 Template.NetworkSettingsUppers.helpers({
