@@ -1,6 +1,6 @@
 Template.app_network_partups.onCreated(function() {
     var tpl = this;
-
+    var networkId = tpl.data.networkId;
     tpl.partups = {
 
         // Constants
@@ -31,17 +31,17 @@ Template.app_network_partups.onCreated(function() {
             tpl.partups.loading.set(true);
 
             var oldHandle = tpl.partups.handle;
-            tpl.partups.handle = tpl.subscribe('partups.discover', options);
+            tpl.partups.handle = tpl.subscribe('networks.one.partups', networkId, options);
 
             var oldCountHandle = tpl.partups.count_handle;
-            tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
+            tpl.partups.count_handle = tpl.subscribe('networks.one.partups.count', networkId, options);
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
                     computation.stop();
                     if (oldCountHandle) oldCountHandle.stop();
 
-                    var new_count = Counts.get('partups.discover.filterquery');
+                    var new_count = Counts.get('networks.one.partups.filterquery');
                     tpl.partups.layout.count.set(new_count);
                 }
             });
@@ -78,7 +78,7 @@ Template.app_network_partups.onCreated(function() {
             options.limit = b;
 
             var oldHandle = tpl.partups.handle;
-            tpl.partups.handle = tpl.subscribe('partups.discover', options);
+            tpl.partups.handle = tpl.subscribe('networks.one.partups', networkId, options);
             tpl.partups.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
