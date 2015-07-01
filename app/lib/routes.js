@@ -203,9 +203,6 @@ Router.route('/partups/:_id/activities', {
         'app_partup':            {to: 'app'},
         'app_partup_activities': {to: 'app_partup'}
     },
-    subscriptions: function() {
-        var partupId = this.params._id;
-    },
     data: function() {
         return {
             partupId: this.params._id
@@ -219,9 +216,6 @@ Router.route('/partups/:_id/invite', {
     yieldRegions: {
         'modal':                  {to: 'main'},
         'modal_invite_to_partup': {to: 'modal'},
-    },
-    subscriptions: function() {
-        // this.subscribe('users.count');
     }
 });
 
