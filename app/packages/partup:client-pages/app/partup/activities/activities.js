@@ -4,7 +4,8 @@
 Template.app_partup_activities.onCreated(function() {
     var tpl = this;
 
-    tpl.subscription = tpl.subscribe('partups.one', tpl.data.partupId);
+    tpl.subscribe('partups.metadata', tpl.data.partupId);
+    tpl.activitiesSubscription = tpl.subscribe('activities.from_partup', tpl.data.partupId);
 
     tpl.activities = {
         filter: new ReactiveVar('default'),
@@ -62,7 +63,7 @@ Template.app_partup_activities.helpers({
         return Template.instance().activities.filter;
     },
     isLoading: function() {
-        return !Template.instance().subscription.ready();
+        return !Template.instance().activitiesSubscription.ready();
     }
 
 });
