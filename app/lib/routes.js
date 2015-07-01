@@ -85,8 +85,9 @@ Router.route('/networks/:_id', {
     name: 'network-detail',
     where: 'client',
     yieldRegions: {
-        'app':      {to: 'main'},
-        'app_network': {to: 'app'}
+        'app':                      {to: 'main'},
+        'app_network':              {to: 'app'},
+        'app_network_partups':      {to: 'app_network'}
     },
     subscriptions: function() {
         this.subscribe('networks.one', this.params._id);
@@ -102,8 +103,9 @@ Router.route('/networks/:_id/uppers', {
     name: 'network-uppers',
     where: 'client',
     yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_network_uppers':    {to: 'modal'}
+        'app':                  {to: 'main'},
+        'app_network':          {to: 'app'},
+        'app_network_uppers':   {to: 'app_network'}
     },
     subscriptions: function() {
         this.subscribe('networks.one', this.params._id);
