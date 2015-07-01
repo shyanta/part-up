@@ -1,6 +1,10 @@
 var FORM_ID = 'createPartupForm';
 
 Template.modal_create_details.onCreated(function() {
+    var partupId = Session.get('partials.create-partup.current-partup');
+    this.subscribe('partups.one', partupId);
+    this.subscribe('networks.user');
+
     this.submitting = new ReactiveVar(false);
 });
 

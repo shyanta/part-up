@@ -252,11 +252,6 @@ Router.route('/start/details', {
         'modal':                {to: 'main'},
         'modal_create':         {to: 'modal'},
         'modal_create_details': {to: 'modal_create'}
-    },
-    subscriptions: function() {
-        var partupId = Session.get('partials.create-partup.current-partup');
-        this.subscribe('partups.one', partupId);
-        this.subscribe('networks.user');
     }
 });
 
