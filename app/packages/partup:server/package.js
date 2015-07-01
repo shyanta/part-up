@@ -12,6 +12,7 @@ Package.onUse(function(api) {
     api.use([
         'accounts-base',
         'cfs:standard-packages',
+        'cfs:graphicsmagick',
         'email',
         'http',
         'iron:router',
