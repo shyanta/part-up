@@ -1,4 +1,5 @@
 Template.modal_partup_settings.onCreated(function() {
+    this.subscribe('partups.metadata', this.data.partupId);
     this.submitting = new ReactiveVar(false);
 });
 

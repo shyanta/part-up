@@ -226,10 +226,6 @@ Router.route('/partups/:_id/settings', {
         'modal':                  {to: 'main'},
         'modal_partup_settings': {to: 'modal'},
     },
-    subscriptions: function() {
-        var partupId = this.params._id;
-        this.subscribe('partups.one', partupId);
-    },
     data: function() {
         return {
             partupId: this.params._id
