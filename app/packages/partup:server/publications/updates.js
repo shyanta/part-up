@@ -10,8 +10,8 @@
  *   addtitional related information such as users and their profile pictures
  */
 var updateChildren = [
+    // Find the user related to the update, along with their profile picture
     {
-        // Find the user related to the update, along with their profile picture
         find: function(update) {
             return Meteor.users.findSinglePublicProfile(update.upper_id);
         },
@@ -23,8 +23,9 @@ var updateChildren = [
             }
         ]
     },
+
+    // Find any images required for the update
     {
-        // Find any images required for the update
         find: function(update) {
             var images = [];
 
@@ -39,16 +40,18 @@ var updateChildren = [
             return Images.find({_id: {$in: images}});
         }
     },
+
+    // Find activity related to the update
     {
-        // Find activity related to the update
         find: function(update) {
             if (update.isActivityUpdate()) {
                 return Activities.find({_id: update.type_data.activity_id}, {limit: 1});
             }
         }
     },
+
+    // Find contribution related to the update
     {
-        // Find contribution related to the update
         find: function(update) {
             if (update.isContributionUpdate()) {
                 return Contributions.find({_id: update.type_data.contribution_id}, {limit: 1});
