@@ -276,6 +276,7 @@ Meteor.startup(function() {
                     country : 'Netherlands'
                 },
                 uppers: ['K5c5M4Pbdg3B82wQH', 'K5c5M4Pbdg3B82wQI'],
+                partups: ['1111', '2222'],
                 admin_id: 'K5c5M4Pbdg3B82wQH',
                 website: 'http://lifely.nl/',
                 created_at: new Date(),
