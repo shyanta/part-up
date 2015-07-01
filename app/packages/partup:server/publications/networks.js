@@ -25,14 +25,24 @@ Meteor.publish('networks.list', function() {
     return Networks.find({}, {privacy_type: 1, name: 1});
 });
 
-Meteor.publishComposite('networks.one.partups', function(networkId) {
+Meteor.publishComposite('networks.one.partups', function(networkId, options) {
     var self = this;
 
     return {
         find: function() {
-            return Partups.guardedFind(self.userId, {'network._id': networkId});
+            options.networkId = networkId;
+            return Partups.findForNetwork(self.userId, options);
         }
     };
+});
+
+Meteor.publish('networks.one.partups.count', function(networkId, options) {
+    var self = this;
+    options.networkId = networkId;
+    options = options || {};
+    options.count = true;
+
+    Counts.publish(this, 'networks.one.partups.filterquery', Partups.findForNetwork(self.userId, options));
 });
 
 Meteor.publishComposite('networks.one.uppers', function(networkId) {
