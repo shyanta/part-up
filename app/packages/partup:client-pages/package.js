@@ -41,6 +41,8 @@ Package.onUse(function(api) {
         'app/network/networks-overview-temp.js',
         'app/network/network.html',
         'app/network/network.js',
+        'app/network/network-partups.html',
+        'app/network/network-uppers.html',
 
         // App:partup
         'app/partup/partup.html',
