@@ -187,13 +187,6 @@ Router.route('/partups/:_id/updates/:update_id', {
         'app_partup':        {to: 'app'},
         'app_partup_update': {to: 'app_partup'}
     },
-    subscriptions: function() {
-        var partupId = this.params._id;
-        var updateId = this.params.update_id;
-
-        this.subscribe('partups.one', partupId);
-        this.subscribe('updates.one', updateId);
-    },
     data: function() {
         return {
             partupId: this.params._id,
