@@ -131,6 +131,17 @@ Template.app_discover.onCreated(function() {
 
     // First run
     tpl.partups.options.set({});
+
+    // Submit filter form
+    tpl.submitFilterForm = function() {
+        Meteor.defer(function() {
+            var form = tpl.find('form#discoverQuery');
+            $(form).submit();
+        });
+    };
+
+    // Selected network
+    tpl.selectedFilterNetwork = new ReactiveVar();
 });
 
 /**
@@ -232,19 +243,22 @@ Template.app_discover.helpers({
     },
     networkSelectorData: function() {
         var tpl = Template.instance();
+        var DROPDOWN_ANIMATION_DURATION = 200;
 
         return {
             onSelect: function(networkId) {
                 tpl.networkSelectorToggle.set(false);
-                console.log('selected network ', networkId);
+
+                Meteor.setTimeout(function() {
+                    tpl.selectedFilterNetwork.set(networkId);
+                    tpl.submitFilterForm();
+                }, DROPDOWN_ANIMATION_DURATION);
             }
         };
     },
     selectedNetwork: function() {
-        return {
-            value: null,
-            name: 'Alle tribes'
-        };
+        var networkId = Template.instance().selectedFilterNetwork.get();
+        return Networks.findOne({_id: networkId});
     }
 });
 
@@ -259,7 +273,8 @@ Template.app_discover.events({
 
         template.partups.options.set({
             limit: template.partups.STARTING_LIMIT,
-            query: form.elements.search_query.value
+            query: form.elements.search_query.value,
+            networkId: form.elements.network_id.value
         });
 
         window.scrollTo(0, 0);
@@ -267,5 +282,10 @@ Template.app_discover.events({
     'click [data-open-networkselector]': function(event, template) {
         var current = template.networkSelectorToggle.get();
         template.networkSelectorToggle.set(!current);
+    },
+    'click [data-reset-selected-network]': function(event, template) {
+        event.stopPropagation();
+        template.selectedFilterNetwork.set('');
+        template.submitFilterForm();
     }
 });

@@ -11,8 +11,15 @@
                         <div class="pu-sub-input"><input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Zoekwoord"></div>
                         <p class="pu-sub-label">Part-ups in</p>
                         <div class="pu-sub-input pu-dropdownie-container">
-                            <input type="hidden" name="network" value="{{ selectedNetwork.value }}">
-                            <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-networkselector>{{ selectedNetwork.name }}</a>
+                            <input type="hidden" name="network_id" value="{{ selectedNetwork._id }}">
+                            <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-networkselector>
+                                {{#with selectedNetwork }}
+                                    {{ name }}
+                                    <i class="fa fa-times" data-reset-selected-network></i>
+                                {{else }}
+                                    Alle tribes
+                                {{/with }}
+                            </a>
                             {{> Dropdown toggle=networkSelectorToggle template="NetworkSelector" data=networkSelectorData }}
                         </div>
                         <!-- <p class="pu-sub-label">uit</p>

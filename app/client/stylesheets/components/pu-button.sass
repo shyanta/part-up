@@ -37,6 +37,10 @@
         vertical-align: top
         font-size: 14px
         margin-right: 10px - 5px
+        transition: color .2s
+
+        &.fa-times
+            font-size: 15px
 
     // Loader
     .spinner-container
@@ -259,8 +263,9 @@
         i
             display: block
             float: right
+            margin-top: -1px
             margin-right: 0
-            margin-left: 10px - 5px
+            margin-left: 10px
 
         &:hover
             background-color: $color-background
@@ -279,6 +284,10 @@
 
         &-filter
             border-color: $color-border
+
+            i
+                &:hover
+                    color: $color-text-secondary
 
             &:hover,
             &:active

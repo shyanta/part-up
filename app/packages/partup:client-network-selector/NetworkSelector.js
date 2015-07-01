@@ -1,15 +1,11 @@
 Template.NetworkSelector.onCreated(function() {
     var tpl = this;
 
-    this.currentNetwork = new ReactiveVar({}, function(a, network) {
-        if (!network) return;
+    this.currentNetwork = new ReactiveVar(false, function(a, networkId) {
+        if (!networkId) return;
 
-        if (tpl.data.onSelect) tpl.data.onSelect(network);
+        if (tpl.data.onSelect) tpl.data.onSelect(networkId);
     });
-
-    this.setNetwork = function(networkId) {
-        this.currentNetwork.set(networkId);
-    };
 });
 
 Template.NetworkSelector.helpers({
@@ -24,6 +20,6 @@ Template.NetworkSelector.helpers({
 Template.NetworkSelector.events({
     'click [data-select-suggested-network]': function(event, template) {
         var networkId = event.currentTarget.getAttribute('data-select-suggested-network');
-        template.setNetwork(networkId);
+        template.currentNetwork.set(networkId);
     }
 });
