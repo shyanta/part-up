@@ -9,6 +9,9 @@ Event.on('users.updated', function(userId, fields) {
             Meteor.users.update(userId, {$set: {'profile.settings.optionalDetailsCompleted': true}});
         }
 
+        // Store new tags into collection
+        Partup.services.tags.insertNewTags(user.profile.tags);
+
         // Calculate new profile completeness percentage
         var totalValues = 0;
         var providedValues = 0;

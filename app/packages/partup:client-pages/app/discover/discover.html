@@ -1,33 +1,44 @@
 <template name="app_discover">
 
-    <article class="pu-layout pu-app-discover">
+    <article class="pu-layout pu-layout-tinted">
 
-        <header class="discover-search">
+        <div id="discoverHeader" class="pu-sub-pageheader pu-sub-pageheader-fixed {{#if shrinkPageHeader }}pu-sub-pageheader-shrinked{{/if }}">
             <div class="pu-wrap">
-                <form data-discover-search>
-                    <label for="discover-keywords">Laat mij zien</label>
-                    <input id="discover-keywords" class="pu-input" name="keywords" data-search-query>
-                    <!-- <label for="discover&#45;network">Part&#45;ups in</label> -->
-                    <!-- <select id="discover&#45;network" name="network"> -->
-                    <!--     <option value="">Netwerk</option> -->
-                    <!-- </select> -->
-                    <!-- <label for="discover&#45;city">uit</label> -->
-                    <!-- <select id="discover&#45;city" name="city"> -->
-                    <!--     <option value="">Stad</option> -->
-                    <!-- </select> -->
-                    <!-- <label for="discover&#45;sort">gesorteerd op</label> -->
-                    <!-- <select id="discover&#45;sort" name="sort"> -->
-                    <!--     <option value="match">Beste match</option> -->
-                    <!-- </select> -->
-                    <input type="submit" value="Versturen" data-search style="display: none;">
+
+                <form id="discoverQuery">
+                    <div class="pu-filterbar">
+                        <p class="pu-sub-label">Laat mij zien</p>
+                        <div class="pu-sub-input"><input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Zoekwoord"></div>
+                        <p class="pu-sub-label">Part-ups in</p>
+                        <div class="pu-sub-input pu-dropdownie-container">
+                            <input type="hidden" name="network_id" value="{{ selectedNetwork._id }}">
+                            <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-networkselector>
+                                {{#with selectedNetwork }}
+                                    {{ name }}
+                                    <i class="fa fa-times" data-reset-selected-network></i>
+                                {{else }}
+                                    Alle tribes
+                                {{/with }}
+                            </a>
+                            {{> Dropdown toggle=networkSelectorToggle template="NetworkSelector" data=networkSelectorData }}
+                        </div>
+                        <!-- <p class="pu-sub-label">uit</p>
+                        <div class="pu-sub-input"><input type="text" class="pu-input" placeholder="Nederland"></div>
+                        <p class="pu-sub-label">gesorteerd op</p>
+                        <div class="pu-sub-input"><input type="text" class="pu-input" placeholder="Beste match"></div> -->
+                        <input type="submit" value="Versturen" class="pu-sub-submit">
+                    </div>
                 </form>
+
             </div>
-        </header>
+        </div>
+
+        <div class="pu-sub-discoverheaderplaceholder"></div>
 
         <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
 
             <div class="pu-page pu-page-full">
-                <section class="pu-composition pu-composition-discover">
+                <section>
                     <header>
                         <h2 class="pu-title pu-title-home">
                             {{_ 'pages-app-discover-heading' }}

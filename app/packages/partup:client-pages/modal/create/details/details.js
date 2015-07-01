@@ -1,5 +1,9 @@
 var FORM_ID = 'createPartupForm';
 
+Template.modal_create_details.onCreated(function() {
+    this.submitting = new ReactiveVar(false);
+});
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -10,6 +14,15 @@ Template.modal_create_details.helpers({
         if (!partup) return;
 
         return partup;
+    },
+    submittingSkip: function() {
+        return Template.instance().submitting.get() === 'skip';
+    },
+    submittingNext: function() {
+        return Template.instance().submitting.get() === 'next';
+    },
+    submitting: function() {
+        return !!Template.instance().submitting.get();
     }
 });
 
@@ -74,6 +87,9 @@ afHooks[FORM_ID] = {
         var self = this;
         var partupId = Session.get('partials.create-partup.current-partup');
         var submissionType = Session.get('partials.create-partup.submission-type') || 'next';
+
+        var template = self.template.parent().parent();
+        template.submitting.set(submissionType);
 
         createOrUpdatePartup(partupId, insertDoc, function(id) {
 

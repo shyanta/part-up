@@ -24,5 +24,32 @@ Partup.client.elements = {
         });
         var parents = $element.parents(selector);
         return (!!parents.length || self);
+    },
+
+    /**
+     *
+     * @memberof elements
+     * @param {Element} target element
+     * @param {Callback} callback when the user clicks outside
+     */
+    onClickOutside: function(element, callback) {
+        $(document).click(function(event) {
+
+            // Match test: element is target ?
+            var match = element === event.target;
+
+            // Match test: element is one of target parents ?
+            if (!match) {
+                var parents = $(event.target).parents();
+                match = lodash.find(parents, function(parent) {
+                    return parent === element;
+                });
+            }
+
+            // If still no match, the user clicked outside the element
+            if (!match) {
+                callback();
+            }
+        });
     }
 };

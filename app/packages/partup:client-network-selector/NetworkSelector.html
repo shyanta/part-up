@@ -1,0 +1,39 @@
+<template name="NetworkSelector">
+
+    <form class="pu-form pu-form-networkselector">
+
+        <!-- Text input -->
+        <label class="pu-formfield">
+            <span class="pu-sub-input">
+                <input type="text" name="search"
+                       class="pu-input typeahead"
+                       placeholder="Zoek op tribenaam"
+                       autocomplete="off" spellcheck="off" data-template="network_autocomplete_field" data-min-length="2" data-templates-suggestion="_id">
+            </span>
+        </label>
+
+        <!-- Suggestions -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                Well-matched tribes
+            </span>
+
+            <ul class="pu-list pu-list-networktiles">
+                {{#each suggestedNetworks }}
+                    <li>
+                        <a href="#" class="pu-networktile" data-select-suggested-network="{{ _id }}">
+                            <figure style="{{#with icon }}background-image: url({{ partupImageUrl id=. }});{{/with }}"></figure>
+                            <span>{{ name }}</span>
+                        </a>
+                    </li>
+                {{/each }}
+            </ul>
+        </label>
+
+    </form>
+
+</template>
+
+<template name="network_autocomplete_field">
+    <div>{{ name }}</div>
+</template>

@@ -1,9 +1,9 @@
 .pu-input
     @include input()
 
-    &-accent 
+    &-accent
         font-weight: bold
-    
+
     &-preholder
         color: rgba($color-text, .5)
         cursor: text
@@ -12,8 +12,8 @@
         padding: 12px
         line-height: 0
         font-size: 0
-            
-        span 
+
+        span
             float: left
             display: block
             overflow: hidden
@@ -22,12 +22,12 @@
             + span
                 float: none
 
-        input 
+        input
             // Dimensions
             position: relative
             float: right
             width: 100%
-            margin: 0 
+            margin: 0
             padding: 0
 
             // Cosmetics
@@ -60,6 +60,17 @@
     &-noneditable
         line-height: normal
         text-align: left
+
+    &-error
+        border-color: $color-alert-error
+
+    &-filter
+        border-color: $color-border
+
+        &:hover,
+        &:active,
+        &:focus
+            border-color: darken($color-border, 20%)
 
     &container
         display: block

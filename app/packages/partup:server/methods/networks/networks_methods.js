@@ -1,4 +1,5 @@
 Meteor.methods({
+
     /**
      * Insert a Network
      *

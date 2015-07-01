@@ -1,3 +1,7 @@
+Template.modal_partup_settings.onCreated(function() {
+    this.submitting = new ReactiveVar(false);
+});
+
 Template.modal_partup_settings.helpers({
     currentPartup: function() {
         return Partups.findOne({_id: this.partupId});
@@ -10,6 +14,9 @@ Template.modal_partup_settings.helpers({
         if (!user) return false;
 
         return partup.isRemovableBy(user);
+    },
+    submitting: function() {
+        return Template.instance().submitting.get();
     }
 });
 
@@ -48,7 +55,12 @@ AutoForm.hooks({
             var self = this;
             var partup = this.template.parent().data.currentPartup;
 
+            var template = self.template.parent().parent();
+            var submitBtn = template.find('[type=submit]');
+            template.submitting.set(true);
+
             updatePartup(partup._id, insertDoc, function(partupId) {
+                template.submitting.set(false);
                 Partup.client.intent.return('partup-settings', {}, function() {
                     Router.go('partup', {
                         _id: partupId

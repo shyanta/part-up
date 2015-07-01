@@ -111,15 +111,9 @@ AutoForm.addHooks(null, {
 
         var submitBtn = template.find('[type=submit]');
         template.submitting.set(true);
-        Meteor.defer(function() {
-            submitBtn.disabled = true;
-        });
 
         var done = function() {
             template.submitting.set(false);
-            Meteor.defer(function() {
-                submitBtn.disabled = false;
-            });
             self.done.apply(arguments);
         };
 

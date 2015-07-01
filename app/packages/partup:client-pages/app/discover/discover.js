@@ -4,6 +4,8 @@
 Template.app_discover.onCreated(function() {
     var tpl = this;
 
+    tpl.networkSelectorToggle = new ReactiveVar(false);
+
     tpl.partups = {
 
         // Constants
@@ -33,16 +35,15 @@ Template.app_discover.onCreated(function() {
 
             tpl.partups.loading.set(true);
 
-            var oldHandle = tpl.partups.handle;
+            if (tpl.partups.handle) tpl.partups.handle.stop();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
 
-            var oldCountHandle = tpl.partups.count_handle;
+            if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
             tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
                     computation.stop();
-                    if (oldCountHandle) oldCountHandle.stop();
 
                     var new_count = Counts.get('partups.discover.filterquery');
                     tpl.partups.layout.count.set(new_count);
@@ -52,7 +53,6 @@ Template.app_discover.onCreated(function() {
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -80,14 +80,13 @@ Template.app_discover.onCreated(function() {
             var options = tpl.partups.options.get();
             options.limit = b;
 
-            var oldHandle = tpl.partups.handle;
+            if (tpl.partups.handle) tpl.partups.handle.stop();
             tpl.partups.handle = tpl.subscribe('partups.discover', options);
             tpl.partups.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -132,6 +131,17 @@ Template.app_discover.onCreated(function() {
 
     // First run
     tpl.partups.options.set({});
+
+    // Submit filter form
+    tpl.submitFilterForm = function() {
+        Meteor.defer(function() {
+            var form = tpl.find('form#discoverQuery');
+            $(form).submit();
+        });
+    };
+
+    // Selected network
+    tpl.selectedFilterNetwork = new ReactiveVar();
 });
 
 /**
@@ -224,6 +234,31 @@ Template.app_discover.helpers({
         return function registerCallback(callback) {
             tpl.partups.layout.clear = callback;
         };
+    },
+    shrinkPageHeader: function() {
+        return Partup.client.scroll.pos.get() > 40;
+    },
+    networkSelectorToggle: function() {
+        return Template.instance().networkSelectorToggle;
+    },
+    networkSelectorData: function() {
+        var tpl = Template.instance();
+        var DROPDOWN_ANIMATION_DURATION = 200;
+
+        return {
+            onSelect: function(networkId) {
+                tpl.networkSelectorToggle.set(false);
+
+                Meteor.setTimeout(function() {
+                    tpl.selectedFilterNetwork.set(networkId);
+                    tpl.submitFilterForm();
+                }, DROPDOWN_ANIMATION_DURATION);
+            }
+        };
+    },
+    selectedNetwork: function() {
+        var networkId = Template.instance().selectedFilterNetwork.get();
+        return Networks.findOne({_id: networkId});
     }
 });
 
@@ -231,17 +266,26 @@ Template.app_discover.helpers({
  * Discover events
  */
 Template.app_discover.events({
-    'click [data-search]': function(event, template) {
+    'submit form#discoverQuery': function(event, template) {
         event.preventDefault();
-        var form = event.currentTarget.form;
-        var search_query = lodash.find(form, {name: 'keywords'}).value;
+
+        var form = event.currentTarget;
 
         template.partups.options.set({
             limit: template.partups.STARTING_LIMIT,
-            query: search_query
+            query: form.elements.search_query.value,
+            networkId: form.elements.network_id.value
         });
+
+        window.scrollTo(0, 0);
     },
-    'submit [data-discover-search]': function(event, template) {
-        event.preventDefault();
+    'click [data-open-networkselector]': function(event, template) {
+        var current = template.networkSelectorToggle.get();
+        template.networkSelectorToggle.set(!current);
+    },
+    'click [data-reset-selected-network]': function(event, template) {
+        event.stopPropagation();
+        template.selectedFilterNetwork.set('');
+        template.submitFilterForm();
     }
 });

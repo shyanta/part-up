@@ -37,6 +37,10 @@
         vertical-align: top
         font-size: 14px
         margin-right: 10px - 5px
+        transition: color .2s
+
+        &.fa-times
+            font-size: 15px
 
     // Loader
     .spinner-container
@@ -249,20 +253,23 @@
     // Type: input lookalike button
     &-input
         @include input()
+        padding-top: 14px
+        padding-bottom: 14px
         @extend %clearfix
         color: $color-text-subtle
         font-weight: bold
-        border-color: $color-border
+        border-color: $color-border-light
 
         i
             display: block
             float: right
+            margin-top: -1px
             margin-right: 0
-            margin-left: 10px - 5px
+            margin-left: 10px
 
         &:hover
             background-color: $color-background
-            border-color: darken($color-border, 11%)
+            border-color: darken($color-border, 20%)
             color: $color-text-subtle
 
         &:active
@@ -274,6 +281,17 @@
 
         &:focus
             color: $color-text-subtle
+
+        &-filter
+            border-color: $color-border
+
+            i
+                &:hover
+                    color: $color-text-secondary
+
+            &:hover,
+            &:active
+                border-color: darken($color-border, 20%)
 
     // Type: facebook
     &-facebook

@@ -40,7 +40,12 @@
             {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
                 <ul class="pu-list pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if commentPostButtonActive }}pu-list-fieldwithbutton-state-active{{/if }}">
                     <li>{{> afFieldInput name="content" class="pu-input" data="commentfield" placeholder=placeholders.comment maxlength=250 }}</li>
-                    <li><input type="submit" class="pu-button pu-button-inputheight" value="{{_ 'widgetcommentfield-comment-postbutton'}}"></li>
+                    <li>
+                        <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                            <span>{{_ 'widgetcommentfield-comment-postbutton' }}</span>
+                            {{> SpinnerInverted }}
+                        </button>
+                    </li>
                 </ul>
             {{/autoForm}}
         {{/if}}

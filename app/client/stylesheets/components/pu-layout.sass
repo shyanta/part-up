@@ -2,6 +2,10 @@
     background-color: $color-background
     $page-padding: 40px
 
+    .pu-sub-sidebarcontainer
+        position:absolute
+        padding: 50px 0 0 160px
+
     .pu-sub-pagecontainer
         display: table
         min-width: $grid-column * 9 + $grid-gap * 8 + $page-padding * 2
@@ -23,6 +27,31 @@
         &-full
             width: $grid-column * 12 + $grid-gap * 11
             max-width: none
+
+    .pu-sub-pageheader
+        position: relative
+        width: 100%
+        z-index: 1
+        padding: 40px 0
+        border-bottom: 2px solid #eee
+        background: $color-background
+        transition: padding .2s
+
+        &-fixed
+            position: fixed
+
+        &-shrinked
+            padding-top: 25px
+            padding-bottom: 25px
+
+    .pu-sub-discoverheaderplaceholder
+        height: 129px
+
+    &-tinted
+        background-color: $color-background-tertiery
+
+        .pu-page
+            background-color: $color-background-tertiery
 
     @media screen and (min-width: $grid-column * 10 + $grid-gap * 9)
         .pu-sub-pagecontainer

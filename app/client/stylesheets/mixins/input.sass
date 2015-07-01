@@ -3,6 +3,7 @@
     position: relative
     display: block
     width: 100%
+    height: 46px
     padding: 12px
 
     // Cosmetics
@@ -11,12 +12,13 @@
     border-radius: 5px
     outline: none
 
-    // Font
+    // Typography
     font-size: 16px
     font-family: $font-primary
     color: $color-text
     font-weight: normal
     text-decoration: none
+    white-space: nowrap
 
     // Other
     transition: color $animation-duration, border-color $animation-duration
@@ -28,6 +30,3 @@
     &:focus,
     &:active
         border-color: $color-border
-
-    &-error
-        border-color: $color-alert-error
