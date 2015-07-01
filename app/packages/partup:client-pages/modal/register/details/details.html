@@ -20,7 +20,7 @@
                     <span class="pu-label">{{_ 'pages-modal-register-details-form-image-label' }}</span>
                     <div class="pu-upload">
                         {{#if profilePictureUrl }}
-                            <figure style="{{#with profilePictureUrl }}background-image:url({{ . }}){{/with }}" class="pu-imagepreview pu-imagepreview-profile"></figure>
+                            <figure style="{{#with profilePictureUrl }}background-image:url('{{ . }}'){{/with }}" class="pu-imagepreview pu-imagepreview-profile"></figure>
                         {{else}}
                             <figure style="background-image:url(/images/smile.png)" class="pu-imagepreview pu-imagepreview-profile"></figure>
                         {{/if}}

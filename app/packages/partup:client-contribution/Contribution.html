@@ -1,7 +1,7 @@
 <template name="Contribution">
     {{# if showForm }}
         <div class="pu-contribution pu-contribution-form">
-            <figure class="pu-avatar pu-avatar-small" style="{{#with currentUser.profile.image}}background-image: url({{ partupImageUrl id=. }});{{/with}}"></figure>
+            <figure class="pu-avatar pu-avatar-small" style="{{#with currentUser.profile.image}}background-image: url('{{ partupImageUrl id=. }}');{{/with}}"></figure>
 
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=contribution validation='submitThenKeyup' }}
                 <div class="pu-row pu-row-top">
@@ -61,7 +61,7 @@
             {{ else }}
                 {{# if upperContribution }}
                     <div class="pu-contribution pu-contribution-own">
-                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url({{ partupImageUrl id=. }});{{/with }}}">
+                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with }}}">
                             <i class="fa fa-pencil"></i>
                         </figure>
                         {{# if addsValue }}
@@ -83,7 +83,7 @@
                     </div>
                 {{ else }}
                     <div class="pu-contribution">
-                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url({{ partupImageUrl id=. }});{{/with }}}"></figure>
+                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with }}}"></figure>
                         {{# if addsValue }}
                             <p>
                                 {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}

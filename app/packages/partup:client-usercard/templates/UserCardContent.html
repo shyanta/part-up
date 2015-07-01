@@ -1,7 +1,7 @@
 <template name="UserCardContent">
     <div class="pu-profilecard">
         <header>
-            <figure class="pu-avatar pu-avatar-large" style="{{#with data.profile.image }}background-image: url({{partupImageUrl id=.}});{{/with}}"></figure>
+            <figure class="pu-avatar pu-avatar-large" style="{{#with data.profile.image }}background-image: url('{{partupImageUrl id=.}}');{{/with}}"></figure>
             {{# if data.average_rating }}
                 <span>{{data.average_rating}}</span>
             {{/ if }}

@@ -1,6 +1,6 @@
 <template name="Rating">
     <div class="pu-rating">
-        <figure class="pu-avatar pu-avatar-large" style="{{#with upper.profile.image }}background-image: url({{ partupImageUrl id=. store='360x360' }});{{/with }}"></figure>
+        <figure class="pu-avatar pu-avatar-large" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='360x360' }}');{{/with }}"></figure>
         {{# if canEdit }}
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=rating }}
                 {{> afFieldInput type='range' name='rating' class='pu-slider' }}
