@@ -263,10 +263,6 @@ Router.route('/start/:_id/activities', {
         'modal_create':            {to: 'modal'},
         'modal_create_activities': {to: 'modal_create'}
     },
-    subscriptions: function() {
-        this.subscribe('partups.one', this.params._id);
-        this.subscribe('partups.list');
-    },
     data: function() {
         return {
             partupId: this.params._id

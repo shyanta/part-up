@@ -5,6 +5,10 @@ var getActivities = function(partupId) {
     return Activities.find({partup_id: partupId}, {sort: {created_at: -1}});
 };
 
+Template.modal_create_activities.onCreated(function() {
+    this.subscribe('activities.from_partup', this.data.partupId);
+});
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
