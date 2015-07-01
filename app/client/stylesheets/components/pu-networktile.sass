@@ -1,4 +1,7 @@
 .pu-networktile
+    display: block
+    color: $color-text
+
     figure
         float: left
         width: 16px
@@ -6,13 +9,19 @@
         border-radius: 2px
         background-position: center
         background-size: cover
+        background-color: #222
 
-    p
+    span
+        display: block
         float: left
-        margin: -4px 0 -6px 8px
+        margin: 1px 0 -1px 8px
         font-size: 16px
 
     &:after
         content: ''
         display: block
         clear: left
+
+    &:hover
+        span
+            text-decoration: underline

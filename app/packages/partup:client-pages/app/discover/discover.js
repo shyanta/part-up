@@ -231,9 +231,12 @@ Template.app_discover.helpers({
         return Template.instance().networkSelectorToggle;
     },
     networkSelectorData: function() {
+        var tpl = Template.instance();
+
         return {
             onSelect: function(networkId) {
-                //
+                tpl.networkSelectorToggle.set(false);
+                console.log('selected network ', networkId);
             }
         };
     },

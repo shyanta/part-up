@@ -18,10 +18,10 @@
             <ul class="pu-list pu-list-networktiles">
                 {{#each suggestedNetworks }}
                     <li>
-                        <div class="pu-networktile">
+                        <a href="#" class="pu-networktile" data-select-suggested-network="{{ _id }}">
                             <figure style="{{#with icon }}background-image: url({{ partupImageUrl id=. }});{{/with }}"></figure>
-                            <p>{{ name }}</p>
-                        </div>
+                            <span>{{ name }}</span>
+                        </a>
                     </li>
                 {{/each }}
             </ul>
