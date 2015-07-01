@@ -358,9 +358,6 @@ Router.route('/register', {
         'modal':                 {to: 'main'},
         'modal_register':        {to: 'modal'},
         'modal_register_signup': {to: 'modal_register'}
-    },
-    subscriptions: function() {
-        this.subscribe('users.count');
     }
 });
 
