@@ -1,1 +1,16 @@
-<template name="app_network_uppers"></template>
+<template name="app_network_uppers">
+    <div class="pu-page pu-page-full">
+        <section class="pu-composition pu-composition-discover">
+
+            <div data-infinitescroll-container>
+                {{> ColumnsLayout
+                    COLUMNS=4
+                    TEMPLATE="UserCard"
+                    addHook=addToLayoutHook
+                    clearHook=clearLayoutHook
+                }}
+            </div>
+
+        </section>
+    </div>
+</template>
