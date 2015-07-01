@@ -1,9 +1,8 @@
 <template name="app_network">
 
-    <article class="pu-layout">
-        <div class="pu-sub-pagecontainer">
-            <div class="pu-page">
-
+    <article class="pu-layout pu-app-discover">
+        <header class="discover-search">
+            <div class="pu-wrap">
                 <p>Name: {{network.name}}</p>
                 <p>Admin: {{network.admin_id}}</p>
                 <p>Description: {{network.description}}</p>
@@ -17,8 +16,12 @@
                 <p>Access level: {{network.privacy_type}}</p>
                 <p>Created at: {{network.created_at}}</p>
                 <p>Updated at: {{network.updated_at}}</p>
-
             </div>
+        </header>
+        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
+
+            {{> yield region='app_network'}}
+
         </div>
     </article>
 
