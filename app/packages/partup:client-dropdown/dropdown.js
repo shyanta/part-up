@@ -21,6 +21,13 @@ Template.Dropdown.onRendered(function() {
 
 Template.Dropdown.helpers({
 
+    // Hydrate the template data with the 'active'-reactivevar
+    templateData: function() {
+        var data = this.data;
+        data.isActive = this.toggle;
+        return data;
+    },
+
     // To be able to toggle a class when the dropdown is active
     isActive: function() {
         return this.toggle.get();
