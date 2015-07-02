@@ -1,0 +1,11 @@
+{
+    "pages-app-network-loading": "Laden...",
+    "pages-app-network-nouppers": "geen uppers gevonden",
+    "pages-app-network-xuppers": "1 upper",
+    "pages-app-network-xuppers_plural": "__count__ uppers",
+    "pages-app-network-xuppers-end": "in dit netwerk",
+
+    "pages-app-network-xpartups": "1 part-up",
+    "pages-app-network-xpartups_plural": "__count__ part-ups",
+    "pages-app-network-nopartups": "geen part-ups gevonden"
+}

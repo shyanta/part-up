@@ -1,0 +1,11 @@
+{
+    "pages-app-network-loading": "loading...",
+    "pages-app-network-nouppers": "No uppers found",
+    "pages-app-network-xuppers": "1 upper",
+    "pages-app-network-xuppers_plural": "__count__ uppers",
+    "pages-app-network-xuppers-end": "in this network",
+
+    "pages-app-network-xpartups": "1 part-up",
+    "pages-app-network-xpartups_plural": "__count__ part-ups",
+    "pages-app-network-nopartups": "no part-ups found"
+}

@@ -41,6 +41,8 @@ Package.onUse(function(api) {
         'app/network/networks-overview.js',
         'app/network/network.html',
         'app/network/network.js',
+
+        // App: network tabs
         'app/network/network-partups.html',
         'app/network/network-partups.js',
         'app/network/network-uppers.html',
@@ -139,6 +141,8 @@ Package.onUse(function(api) {
         'i18n/app-home.nl.i18n.json',
         'i18n/app-discover.en.i18n.json',
         'i18n/app-discover.nl.i18n.json',
+        'i18n/app-networks.en.i18n.json',
+        'i18n/app-networks.nl.i18n.json',
         'i18n/app-partup.en.i18n.json',
         'i18n/app-partup.nl.i18n.json',
         'i18n/app-partup-takepart.en.i18n.json',
