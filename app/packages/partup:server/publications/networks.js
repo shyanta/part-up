@@ -83,6 +83,12 @@ Meteor.publishComposite('networks.one', function(networkId) {
         children: [
             {
                 find: function(network) {
+                    var iconId = network.icon || null;
+                    return Images.find({_id: iconId}, {limit: 1});
+                }
+            },
+            {
+                find: function(network) {
                     var imageId = network.image || null;
                     return Images.find({_id: imageId}, {limit: 1});
                 }

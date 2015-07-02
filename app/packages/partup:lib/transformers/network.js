@@ -19,7 +19,8 @@ Partup.transformers.network = {
             name: network.name,
             tags_input: Partup.services.tags.tagArrayToInput(network.tags),
             website: network.website,
-            image: network.image
+            image: network.image,
+            icon: network.icon
         };
     },
 

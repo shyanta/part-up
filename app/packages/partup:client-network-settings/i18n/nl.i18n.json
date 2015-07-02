@@ -12,6 +12,11 @@
     "network-settings-form-image-info": "Wel minimaal 200 pixels",
     "network-settings-form-image-error": "Het uploaden is mislukt",
 
+    "network-settings-form-icon-label": "Logo",
+    "network-settings-form-icon-button": "Foto vanaf jouw computer",
+    "network-settings-form-icon-info": "Optimaal 32 bij 32 pixels",
+    "network-settings-form-icon-error": "Het uploaden is mislukt",
+
     "network-settings-form-name-label": "Naam",
     "network-settings-form-name-placeholder": "@Placeholder",
 
