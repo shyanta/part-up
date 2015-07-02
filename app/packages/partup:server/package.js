@@ -84,6 +84,7 @@ Package.onUse(function(api) {
         'methods/settings/settings_methods.js',
         'methods/images/images_methods.js',
         'methods/networks/networks_methods.js',
+        'methods/tags/tags_methods.js',
         'cron/reset_clicks_per_hour.js',
         'package-tap.i18n',
         'i18n/en.i18n.json',
