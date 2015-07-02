@@ -80,3 +80,5 @@ partup:client-partupsettings
 mike:mocha
 partup:client-location-autocomplete
 percolate:migrations
+partup:client-location-selector
+partup:client-autocomplete

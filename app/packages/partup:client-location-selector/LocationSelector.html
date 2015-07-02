@@ -1,0 +1,35 @@
+<template name="LocationSelector">
+
+    <form id="locationSelector" class="pu-form pu-form-suggestionselector">
+
+        <!-- Text input -->
+        <label class="pu-formfield">
+            <span class="pu-sub-input">
+                {{> Autocomplete name="search" placeholder="Zoek op stad of regio" onQuery=onAutocompleteQuery onSelect=onAutocompleteSelect }}
+            </span>
+        </label>
+
+        <!-- Suggestions -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                Suggesties
+            </span>
+
+            <ul class="pu-list pu-list-suggestiontiles">
+                {{#each suggestedLocations }}
+                    <li>
+                        <a href="#" data-select-suggested-location="{{ id }}">
+                            <span>{{ city }}</span>
+                        </a>
+                    </li>
+                {{/each }}
+            </ul>
+        </label>
+
+    </form>
+
+</template>
+
+<template name="location_autocomplete_field">
+    <div>{{ name }}</div>
+</template>

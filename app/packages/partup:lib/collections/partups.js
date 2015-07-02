@@ -161,23 +161,22 @@ Partups.guardedFind = function(userId, selector, options) {
  * @param {Object} options
  * @return {Cursor}
  */
-Partups.findForDiscover = function(userId, options) {
+Partups.findForDiscover = function(userId, options, parameters) {
     var selector = {};
     var options = options || {};
+    var parameters = parameters || {};
 
-    var limit = options.count ? null : parseInt(options.limit) || 20;
-    var query = options.query || false;
-    var location = options.location || false;
-    var networkId = options.networkId || false;
-    var sort = options.count ? null : options.sort || false;
+    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
 
-    if (!options.count) {
+    var query = parameters.query || undefined;
+    var locationId = parameters.locationId || undefined;
+    var networkId = parameters.networkId || undefined;
+    var sort = parameters.count ? undefined : options.sort || undefined;
+
+    if (!parameters.count) {
 
         // Initialize
         options.sort = {};
-
-        // Set limit for pagination
-        options.limit = limit;
 
         // Sort the partups from the newest to the oldest
         if (sort === 'new') {
@@ -191,8 +190,8 @@ Partups.findForDiscover = function(userId, options) {
     }
 
     // Filter the partups that are in a given location
-    if (location) {
-        selector['location.city'] = location;
+    if (locationId) {
+        selector['location.place_id'] = locationId;
     }
 
     // Filter the partups that are in a given network
@@ -207,7 +206,7 @@ Partups.findForDiscover = function(userId, options) {
         selector['$text'] = {$search: query};
         options.fields = {score: {$meta: 'textScore'}};
 
-        if (!options.count) {
+        if (!parameters.count) {
             options.sort['score'] = {$meta: 'textScore'};
         }
     }

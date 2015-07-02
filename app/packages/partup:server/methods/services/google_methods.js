@@ -16,6 +16,22 @@ Meteor.methods({
                 city: result.description
             };
         });
+    },
+
+    /**
+     * Get a city by placeId
+     *
+     * @param {String} placeId
+     */
+    'google.cities.byPlaceId': function(placeId) {
+        this.unblock();
+
+        var result = Partup.server.services.google.getCity(placeId);
+
+        return {
+            id: result.place_id,
+            city: result.description
+        };
     }
 
 });

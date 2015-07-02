@@ -1,9 +1,19 @@
 Meteor.publishComposite('partups.discover', function(options) {
     var self = this;
 
+    var mongoOptions = {
+        limit: options.limit,
+        sort: options.sort
+    };
+
+    var parameters = {
+        networkId: options.networkId,
+        locationId : options.locationId
+    };
+
     return {
         find: function() {
-            return Partups.findForDiscover(self.userId, options);
+            return Partups.findForDiscover(self.userId, mongoOptions, parameters);
         },
         children: [
             {
@@ -40,12 +50,19 @@ Meteor.publishComposite('partups.discover', function(options) {
 });
 
 Meteor.publish('partups.discover.count', function(options) {
-    var self = this;
 
-    options = options || {};
-    options.count = true;
+    var mongoOptions = {
+        limit: options.limit,
+        sort: options.sort
+    };
 
-    Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(self.userId, options));
+    var parameters = {
+        count: true,
+        networkId: options.networkId,
+        locationId : options.locationId
+    };
+
+    Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(this.userId, mongoOptions, parameters));
 });
 
 Meteor.publishComposite('partups.ids', function(partupIds) {

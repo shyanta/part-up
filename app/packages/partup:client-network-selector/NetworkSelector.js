@@ -23,22 +23,6 @@ Template.NetworkSelector.onRendered(function() {
         }
     });
 
-    // Bind the autocomplete
-    var inputElement = tpl.find('form').elements.search;
-    $(inputElement).on('typeahead:select', function(event, network) {
-        tpl.currentNetwork.set(network._id);
-    });
-    Meteor.typeahead(inputElement, function(query, sync, async) {
-
-        // Get autocomplete results
-        Meteor.call('networks.autocomplete', query, function(error, networks) {
-            lodash.each(networks, function(network) {
-                network.value = network.name;
-            });
-            async(networks);
-        });
-    });
-
 });
 
 Template.NetworkSelector.helpers({
@@ -47,6 +31,23 @@ Template.NetworkSelector.helpers({
     },
     suggestedNetworks: function() {
         return Networks.find({}, {limit: 10});
+    },
+    onAutocompleteQuery: function() {
+        return function(query, sync, async) {
+            Meteor.call('networks.autocomplete', query, function(error, networks) {
+                lodash.each(networks, function(n) {
+                    n.value = n.name; // what to show in the autocomplete list
+                });
+                async(networks);
+            });
+        };
+    },
+    onAutocompleteSelect: function() {
+        var tpl = Template.instance();
+
+        return function(network) {
+            tpl.currentNetwork.set(network._id);
+        };
     }
 });
 

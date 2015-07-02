@@ -4,8 +4,6 @@
 Template.app_discover.onCreated(function() {
     var tpl = this;
 
-    tpl.networkSelectorToggle = new ReactiveVar(false);
-
     tpl.partups = {
 
         // Constants
@@ -140,8 +138,29 @@ Template.app_discover.onCreated(function() {
         });
     };
 
+    // Selector dropdown toggles
+    tpl.networkSelectorToggle = new ReactiveVar(false, function(a, b) {
+        if (!b) return;
+
+        // Focus the searchfield
+        Meteor.defer(function() {
+            var searchfield = tpl.find('form#networkSelector').elements.search;
+            if (searchfield) searchfield.focus();
+        });
+    });
+    tpl.locationSelectorToggle = new ReactiveVar(false, function(a, b) {
+        if (!b) return;
+
+        // Focus the searchfield
+        Meteor.defer(function() {
+            var searchfield = tpl.find('form#locationSelector').elements.search;
+            if (searchfield) searchfield.focus();
+        });
+    });
+
     // Selected network
     tpl.selectedFilterNetwork = new ReactiveVar();
+    tpl.selectedFilterLocation = new ReactiveVar();
 });
 
 /**
@@ -238,6 +257,8 @@ Template.app_discover.helpers({
     shrinkPageHeader: function() {
         return Partup.client.scroll.pos.get() > 40;
     },
+
+    // Network
     networkSelectorToggle: function() {
         return Template.instance().networkSelectorToggle;
     },
@@ -259,6 +280,29 @@ Template.app_discover.helpers({
     selectedNetwork: function() {
         var networkId = Template.instance().selectedFilterNetwork.get();
         return Networks.findOne({_id: networkId});
+    },
+
+    // Location
+    locationSelectorToggle: function() {
+        return Template.instance().locationSelectorToggle;
+    },
+    locationSelectorData: function() {
+        var tpl = Template.instance();
+        var DROPDOWN_ANIMATION_DURATION = 200;
+
+        return {
+            onSelect: function(location) {
+                tpl.locationSelectorToggle.set(false);
+
+                Meteor.setTimeout(function() {
+                    tpl.selectedFilterLocation.set(location);
+                    tpl.submitFilterForm();
+                }, DROPDOWN_ANIMATION_DURATION);
+            }
+        };
+    },
+    selectedLocation: function() {
+        return Template.instance().selectedFilterLocation.get();
     }
 });
 
@@ -274,11 +318,14 @@ Template.app_discover.events({
         template.partups.options.set({
             limit: template.partups.STARTING_LIMIT,
             query: form.elements.search_query.value,
-            networkId: form.elements.network_id.value
+            networkId: form.elements.network_id.value,
+            locationId: form.elements.location_id.value
         });
 
         window.scrollTo(0, 0);
     },
+
+    // Network selector
     'click [data-open-networkselector]': function(event, template) {
         var current = template.networkSelectorToggle.get();
         template.networkSelectorToggle.set(!current);
@@ -286,6 +333,17 @@ Template.app_discover.events({
     'click [data-reset-selected-network]': function(event, template) {
         event.stopPropagation();
         template.selectedFilterNetwork.set('');
+        template.submitFilterForm();
+    },
+
+    // Location selector
+    'click [data-open-locationselector]': function(event, template) {
+        var current = template.locationSelectorToggle.get();
+        template.locationSelectorToggle.set(!current);
+    },
+    'click [data-reset-selected-location]': function(event, template) {
+        event.stopPropagation();
+        template.selectedFilterLocation.set('');
         template.submitFilterForm();
     }
 });

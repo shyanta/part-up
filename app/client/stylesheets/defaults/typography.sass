@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6,
         u
             position: relative
             text-decoration: none
-            
+
             &:after
                 content: ''
                 position: absolute
@@ -54,6 +54,16 @@ p,
 .pu-paragraph
     line-height: 1.65em
 
+ol, ul
+    padding-left: 16px
+    list-style: disc
+
+    li
+        line-height: 1.65em
+
+p,
+.pu-paragraph,
+li
     strong, b
         font-weight: bold
 
@@ -79,10 +89,3 @@ p,
 
             &:hover, &:active, &:focus
                 color: $color-text-subtle-active
-
-ol, ul
-    padding-left: 16px
-    list-style: disc
-
-    li
-        line-height: 1.65em

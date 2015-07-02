@@ -1,14 +1,11 @@
 <template name="NetworkSelector">
 
-    <form class="pu-form pu-form-networkselector">
+    <form id="networkSelector" class="pu-form pu-form-suggestionselector">
 
         <!-- Text input -->
         <label class="pu-formfield">
             <span class="pu-sub-input">
-                <input type="text" name="search"
-                       class="pu-input typeahead"
-                       placeholder="Zoek op tribenaam"
-                       autocomplete="off" spellcheck="off" data-template="network_autocomplete_field" data-min-length="2" data-templates-suggestion="_id">
+                {{> Autocomplete name="search" placeholder="Zoek op tribenaam" onQuery=onAutocompleteQuery onSelect=onAutocompleteSelect }}
             </span>
         </label>
 
@@ -18,7 +15,7 @@
                 Well-matched tribes
             </span>
 
-            <ul class="pu-list pu-list-networktiles">
+            <ul class="pu-list pu-list-suggestiontiles">
                 {{#each suggestedNetworks }}
                     <li>
                         <a href="#" class="pu-networktile" data-select-suggested-network="{{ _id }}">
