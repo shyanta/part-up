@@ -50,7 +50,7 @@ Meteor.startup(function() {
     });
 });
 
-Template.UserCard.helpers({
+Template.UserHoverCard.helpers({
     cardOpen: function() {
         // if there are settings, that means the card must be visible
         return Session.get('partup.hover-card.settings') ? true : false;
