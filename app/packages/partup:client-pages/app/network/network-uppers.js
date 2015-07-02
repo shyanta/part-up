@@ -1,7 +1,7 @@
 Template.app_network_uppers.onCreated(function() {
     var tpl = this;
-
-    tpl.partups = {
+    var networkId = tpl.data.networkId;
+    tpl.uppers = {
 
         // Constants
         STARTING_LIMIT: 12,
@@ -17,99 +17,99 @@ Template.app_network_uppers.onCreated(function() {
             count: new ReactiveVar(0)
         },
 
-        // Partups subscription handle
+        // Uppers subscription handle
         handle: null,
         count_handle: null,
 
-        // Options reactive variable (on change, clear the layout and re-add all partups)
+        // Options reactive variable (on change, clear the layout and re-add all uppers)
         options: new ReactiveVar({}, function(a, b) {
-            tpl.partups.resetLimit();
+            tpl.uppers.resetLimit();
 
             var options = b;
-            options.limit = tpl.partups.STARTING_LIMIT;
+            options.limit = tpl.uppers.STARTING_LIMIT;
 
-            tpl.partups.loading.set(true);
+            tpl.uppers.loading.set(true);
 
-            var oldHandle = tpl.partups.handle;
-            tpl.partups.handle = tpl.subscribe('partups.discover', options);
+            var oldHandle = tpl.uppers.handle;
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
 
-            var oldCountHandle = tpl.partups.count_handle;
-            tpl.partups.count_handle = tpl.subscribe('partups.discover.count', options);
+            var oldCountHandle = tpl.uppers.count_handle;
+            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', networkId, options);
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
-                if (tpl.partups.count_handle.ready()) {
+                if (tpl.uppers.count_handle.ready()) {
                     computation.stop();
                     if (oldCountHandle) oldCountHandle.stop();
 
-                    var new_count = Counts.get('partups.discover.filterquery');
-                    tpl.partups.layout.count.set(new_count);
+                    var new_count = Counts.get('networks.one.uppers.filterquery');
+                    tpl.uppers.layout.count.set(new_count);
                 }
             });
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
+                if (tpl.uppers.handle.ready()) {
                     computation.stop();
                     if (oldHandle) oldHandle.stop();
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
                      * - Reset the loading state
-                     * - Get all current partups from our local database
-                     * - Remove all partups from the column layout
-                     * - Add our partups to the layout
+                     * - Get all current uppers from our local database
+                     * - Remove all uppers from the column layout
+                     * - Add our uppers to the layout
                      */
-                    Tracker.nonreactive(function replacePartups() {
-                        tpl.partups.loading.set(false);
-                        var partups = Partups.find().fetch();
+                    Tracker.nonreactive(function replaceUppers() {
+                        tpl.uppers.loading.set(false);
+                        var uppers = Meteor.users.find().fetch();
 
-                        tpl.partups.layout.items = tpl.partups.layout.clear();
-                        tpl.partups.layout.items = tpl.partups.layout.add(partups);
+                        tpl.uppers.layout.items = tpl.uppers.layout.clear();
+                        tpl.uppers.layout.items = tpl.uppers.layout.add(uppers);
                     });
                 }
             });
         }),
 
-        // Limit reactive variable (on change, add partups to the layout)
+        // Limit reactive variable (on change, add uppers to the layout)
         limit: new ReactiveVar(this.STARTING_LIMIT, function(a, b) {
-            var first = b === tpl.partups.STARTING_LIMIT;
+            var first = b === tpl.uppers.STARTING_LIMIT;
             if (first) return;
 
-            var options = tpl.partups.options.get();
+            var options = tpl.uppers.options.get();
             options.limit = b;
 
-            var oldHandle = tpl.partups.handle;
-            tpl.partups.handle = tpl.subscribe('partups.discover', options);
-            tpl.partups.loading.set(true);
+            var oldHandle = tpl.uppers.handle;
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
+            tpl.uppers.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
+                if (tpl.uppers.handle.ready()) {
                     computation.stop();
                     if (oldHandle) oldHandle.stop();
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
                      * - Reset the loading state
-                     * - Get all currently rendered partups
-                     * - Get all current partups from our local database
-                     * - Compare the newPartups with the oldPartups to find the difference
-                     * - If no diffPartups were found, set the end_reached to true
-                     * - Add our partups to the layout
+                     * - Get all currently rendered uppers
+                     * - Get all current uppers from our local database
+                     * - Compare the newUppers with the oldUppers to find the difference
+                     * - If no diffUppers were found, set the end_reached to true
+                     * - Add our uppers to the layout
                      */
-                    Tracker.nonreactive(function addPartups() {
-                        tpl.partups.loading.set(false);
-                        var oldPartups = tpl.partups.layout.items;
-                        var newPartups = Partups.find().fetch();
+                    Tracker.nonreactive(function addUppers() {
+                        tpl.uppers.loading.set(false);
+                        var oldUppers = tpl.uppers.layout.items;
+                        var newUppers = Meteor.users.find().fetch();
 
-                        var diffPartups = mout.array.filter(newPartups, function(partup) {
-                            return !mout.array.find(oldPartups, function(_partup) {
+                        var diffUppers = mout.array.filter(newUppers, function(partup) {
+                            return !mout.array.find(oldUppers, function(_partup) {
                                 return partup._id === _partup._id;
                             });
                         });
 
-                        var end_reached = diffPartups.length === 0;
-                        tpl.partups.end_reached.set(end_reached);
+                        var end_reached = diffUppers.length === 0;
+                        tpl.uppers.end_reached.set(end_reached);
 
-                        tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
+                        tpl.uppers.layout.items = tpl.uppers.layout.add(diffUppers);
                     });
                 }
             });
@@ -117,18 +117,18 @@ Template.app_network_uppers.onCreated(function() {
 
         // Increase limit function
         increaseLimit: function() {
-            tpl.partups.limit.set(tpl.partups.limit.get() + tpl.partups.INCREMENT);
+            tpl.uppers.limit.set(tpl.uppers.limit.get() + tpl.uppers.INCREMENT);
         },
 
         // Reset limit function
         resetLimit: function() {
-            tpl.partups.limit.set(tpl.partups.STARTING_LIMIT);
-            tpl.partups.end_reached.set(false);
+            tpl.uppers.limit.set(tpl.uppers.STARTING_LIMIT);
+            tpl.uppers.end_reached.set(false);
         }
     };
 
     // First run
-    tpl.partups.options.set({});
+    tpl.uppers.options.set({});
 });
 
 Template.app_network_uppers.onRendered(function() {
@@ -141,8 +141,8 @@ Template.app_network_uppers.onRendered(function() {
         template: tpl,
         element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        if (tpl.partups.loading.get() || tpl.partups.end_reached.get()) return;
-        tpl.partups.increaseLimit();
+        if (tpl.uppers.loading.get() || tpl.uppers.end_reached.get()) return;
+        tpl.uppers.increaseLimit();
     });
 });
 
@@ -154,14 +154,14 @@ Template.app_network_uppers.helpers({
         var tpl = Template.instance();
 
         return function registerCallback(callback) {
-            tpl.partups.layout.add = callback;
+            tpl.uppers.layout.add = callback;
         };
     },
     clearLayoutHook: function() {
         var tpl = Template.instance();
 
         return function registerCallback(callback) {
-            tpl.partups.layout.clear = callback;
+            tpl.uppers.layout.clear = callback;
         };
     }
-})
+});
