@@ -8,6 +8,8 @@ Template.NetworkSettings.onCreated(function() {
     this.subscription = this.subscribe('networks.one', this.data.networkId);
     this.charactersLeft = new ReactiveDict();
     this.submitting = new ReactiveVar();
+    this.current = new ReactiveDict();
+    this.uploading = new ReactiveDict();
 
     var self = this;
     this.autorun(function() {
@@ -82,12 +84,92 @@ Template.NetworkSettings.helpers({
     },
     submitting: function() {
         return Template.instance().submitting.get();
+    },
+    imageUploading: function() {
+        return !!Template.instance().uploading.get('image');
+    },
+    imageUrl: function() {
+        var imageId = Template.instance().current.get('image');
+
+        if (!imageId) {
+            var network = Networks.findOne({_id: this.networkId});
+            if (network) imageId = network.image;
+        }
+
+        if (imageId) {
+            var image = Images.findOne({_id: imageId});
+            if (image) return image.url({store: '360x360'});
+        }
+
+        return '/images/smile.png';
+    },
+    iconUploading: function() {
+        return !!Template.instance().uploading.get('icon');
+    },
+    iconUrl: function() {
+        var iconId = Template.instance().current.get('icon');
+
+        if (!iconId) {
+            var network = Networks.findOne({_id: this.networkId});
+            if (network) iconId = network.icon;
+        }
+
+        if (iconId) {
+            var icon = Images.findOne({_id: iconId});
+            if (icon) return icon.url({store: '360x360'});
+        }
+
+        return '/images/smile.png';
     }
 });
 
 Template.NetworkSettings.events({
     'input [maxlength]': function(e, template) {
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
+    },
+    'click [data-image-browse]': function(event, template) {
+        event.preventDefault();
+        template.find('[data-image-input]').click();
+    },
+    'change [data-image-input]': function(event, template) {
+        FS.Utility.eachFile(event, function(file) {
+            template.uploading.set('image', true);
+
+            Partup.client.uploader.uploadImage(file, function(error, image) {
+                template.uploading.set('image', false);
+
+                if (error) {
+                    Partup.client.notify.error(__('network-settings-form-image-error'));
+                    return;
+                }
+
+                template.find('[name=image]').value = image._id;
+                template.current.set('image', image._id);
+            });
+
+        });
+    },
+    'click [data-icon-browse]': function(event, template) {
+        event.preventDefault();
+        template.find('[data-icon-input]').click();
+    },
+    'change [data-icon-input]': function(event, template) {
+        FS.Utility.eachFile(event, function(file) {
+            template.uploading.set('icon', true);
+
+            Partup.client.uploader.uploadImage(file, function(error, image) {
+                template.uploading.set('icon', false);
+
+                if (error) {
+                    Partup.client.notify.error(__('network-settings-form-icon-error'));
+                    return;
+                }
+
+                template.find('[name=icon]').value = image._id;
+                template.current.set('icon', image._id);
+            });
+
+        });
     }
 });
 

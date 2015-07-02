@@ -7,6 +7,16 @@
     "network-settings-form-submit": "Save changes",
     "network-settings-form-saved": "Changes saved",
 
+    "network-settings-form-image-label": "Logo",
+    "network-settings-form-image-button": "Photo from your computer",
+    "network-settings-form-image-info": "Minimum 200 pixels",
+    "network-settings-form-image-error": "Failed to upload image",
+
+    "network-settings-form-icon-label": "Icon",
+    "network-settings-form-icon-button": "Photo from your computer",
+    "network-settings-form-icon-info": "Optimally 32 x 32 pixels",
+    "network-settings-form-icon-error": "Failed to upload icon",
+
     "network-settings-form-name-label": "Name",
     "network-settings-form-name-placeholder": "@Placeholder",
 
