@@ -1,4 +1,15 @@
 # CHANGELOG
+## 1.3.1
+- updated status text in partup description
+- (perceived) performance updates
+    - loaders
+    - disabled states for most actions
+    - unblocking third party calls
+- comment time hover
+- bugfixes
+    - fixed discover scroll upper images bug
+    - fixed profile picture on homepage
+
 ## 1.3.0
 - partup detail settings
 - take part functionality
