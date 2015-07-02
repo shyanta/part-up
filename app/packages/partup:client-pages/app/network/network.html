@@ -9,7 +9,10 @@
                         <figure class="pu-avatar pu-avatar-extralarge pu-avatar-square"></figure>
                         <div>
                             <h3>{{network.name}}</h3>
-                            <p>{{network.description}}</p>
+                            <p>
+                                {{network.description}}
+                                <a class="pu-readmore" href="#" data-expand data-expanded-text="minder" data-collapsed-text="meer">meer</a>
+                            </p>
                             <ul class="pu-list pu-list-horizontal">
                                 <li><a class="pu-tag pu-tag-metadata">
                                     <i class="fa fa-map-marker"></i>
@@ -66,13 +69,12 @@
                             </li>
                             <li class="pu-sub-button">
                                 <a class="pu-button pu-button-icon" href="#">
-                                    <i class="fa fa-comment"></i>
+                                    <i class="fa fa-user-plus"></i>
                                     Uitnodigen
                                 </a>
                             </li>
                         </ul>
                     </nav>
-
                 </div>
             </section>
         </header>
