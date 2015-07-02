@@ -24,13 +24,13 @@ Template.app_network.events({
         var clickedElement = $(event.target);
         var parentElement = $(event.target.parentElement);
 
-        var collapsedText = clickedElement.data('collapsed-text') || false;
-        var expandedText = clickedElement.data('expanded-text') || false;
+        var collapsedText = __(clickedElement.data('collapsed-key')) || false;
+        var expandedText = __(clickedElement.data('expanded-key')) || false;
 
         if (parentElement.hasClass('pu-state-open')) {
-            if (collapsedText) clickedElement.html(clickedElement.data('collapsed-text'));
+            if (collapsedText) clickedElement.html(collapsedText);
         } else {
-            if (expandedText) clickedElement.html(clickedElement.data('expanded-text'));
+            if (expandedText) clickedElement.html(expandedText);
         }
 
         $(event.target.parentElement).toggleClass('pu-state-open');

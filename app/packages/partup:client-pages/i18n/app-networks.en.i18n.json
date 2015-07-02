@@ -1,4 +1,7 @@
 {
+    "pages-app-network-collapse": "show less",
+    "pages-app-network-expand": "read more",
+
     "pages-app-network-loading": "loading...",
     "pages-app-network-nouppers": "No uppers found",
     "pages-app-network-xuppers": "1 upper",

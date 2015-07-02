@@ -1,4 +1,7 @@
 {
+    "pages-app-network-collapse": "verbergen",
+    "pages-app-network-expand": "lees meer",
+
     "pages-app-network-loading": "Laden...",
     "pages-app-network-nouppers": "geen uppers gevonden",
     "pages-app-network-xuppers": "1 upper",
