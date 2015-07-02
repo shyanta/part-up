@@ -34,7 +34,7 @@
             <section>
                 <div class="pu-wrap">
                     <!-- tabs -->
-                    <nav class="pu-navigation pu-navigation-header">
+                    <nav class="pu-navigation pu-navigation-header pu-navigation-full">
                         <ul class="pu-list pu-list-horizontal">
                             <li>
                                 <a href="{{ pathFor route='network-detail' _id=networkId }}"
@@ -51,10 +51,28 @@
                                 </a>
                             </li>
                         </ul>
+                        <!-- actions -->
+                        <ul class="pu-list pu-list-horizontal pu-sub-right">
+                            <li>
+                                <a href="{{pathFor 'network-settings' _id=networkId}}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
+                                    <i class="fa fa-cog"></i>
+                                </a>
+                            </li>
+                            <li class="pu-sub-button">
+                                <a class="pu-button" href="#" data-join>
+                                    Aanmelden
+                                </a>
+                            </li>
+                            <li class="pu-sub-button">
+                                <a class="pu-button pu-button-icon" href="#">
+                                    <i class="fa fa-comment"></i>
+                                    Uitnodigen
+                                </a>
+                            </li>
+                        </ul>
                     </nav>
 
-                    <!-- actions -->
-					<button data-join>join this network</button>
                 </div>
             </section>
         </header>
