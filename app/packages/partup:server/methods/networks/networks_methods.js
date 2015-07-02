@@ -260,4 +260,23 @@ Meteor.methods({
             throw new Meteor.Error(400, 'User [' + upperId + '] could not be removed from network ' + networkId + '.');
         }
     },
+
+    /**
+     * Return a list of networks based on search query
+     *
+     * @param {string} searchString
+     */
+    'networks.autocomplete': function(searchString) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'Unauthorized.');
+
+        if (!searchString) throw new Meteor.Error(400, 'searchString parameter is required');
+
+        try {
+            return Networks.find({name: new RegExp('.*' + searchString + '.*', 'i')}, {fields: {name: 1}}).fetch();
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Error while autocompleting network string: ' + searchString);
+        }
+    }
 });
