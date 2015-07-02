@@ -62,7 +62,7 @@ Router.route('/networks', {
     where: 'client',
     yieldRegions: {
         'app':      {to: 'main'},
-        'app_network_temp_overview': {to: 'app'}
+        'app_networks_overview': {to: 'app'}
     },
     subscriptions: function() {
         this.subscribe('networks.all');
@@ -109,6 +109,11 @@ Router.route('/networks/:_id/uppers', {
     },
     subscriptions: function() {
         this.subscribe('networks.one', this.params._id);
+    },
+    data: function() {
+        return {
+            networkId: this.params._id
+        };
     }
 });
 

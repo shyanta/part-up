@@ -102,6 +102,20 @@
             font-size: 20px
             margin: -4px -2px
 
+        &-plain
+            background-color: transparent
+
+            i
+                color: $color-dusty-gray
+            &:hover,
+            &:active
+                background-color: transparent
+                transform: none
+
+                i
+                    color: darken($color-dusty-gray, 10%)
+
+
     // Type: large button (e.g. for homepage cover)
     &-large
         padding: 23px 30px
@@ -182,6 +196,14 @@
         &-brand
             padding: 16px 31px
 
+    &-spinning
+        i
+            transform-origin: 50% 50%
+            animation: button_nav_icon_cog 2s linear paused infinite
+
+        &:hover i
+            animation-play-state: running
+
     // Type: navigation button
     &-nav
         height: 70px
@@ -209,6 +231,13 @@
             border-color: $color-text-secondary
             cursor: default
 
+        &-secondary
+            background-color: transparent
+
+            &:hover,
+            &:active
+                background-color: transparent
+
         &-icon
             padding: 34px 10px 10px
             margin-right: -10px
@@ -221,14 +250,6 @@
 
             &:hover
                 border-color: transparent
-
-            &-cog
-                i
-                    transform-origin: 50% 50%
-                    animation: button_nav_icon_cog 2s linear paused infinite
-
-                &:hover i
-                    animation-play-state: running
 
     // Type: secondary button
     &-secondary

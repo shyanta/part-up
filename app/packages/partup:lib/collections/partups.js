@@ -214,3 +214,31 @@ Partups.findForDiscover = function(userId, options) {
 
     return this.guardedFind(userId, selector, options);
 };
+
+/**
+ * Find the partups used on the network page
+ *
+ * @memberof Partups
+ * @param {Object} options
+ * @return {Cursor}
+ */
+Partups.findForNetwork = function(userId, options, parameters) {
+    var selector = {};
+    var options = options || {};
+    var parameters = parameters || {};
+
+    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
+    selector.network_id = parameters.networkId || false;
+    var sort = options.count ? undefined : options.sort || false;
+
+    if (!parameters.count) {
+
+        // Initialize
+        options.sort = {};
+
+        // Sort the partups from the newest to the oldest
+        options.sort['updated_at'] = -1;
+    }
+
+    return this.guardedFind(userId, selector, options);
+};

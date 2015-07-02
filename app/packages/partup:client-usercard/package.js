@@ -17,8 +17,11 @@ Package.onUse(function(api) {
     api.addFiles([
         'package-tap.i18n',
 
-        'UserCard.html',
-        'UserCard.js',
+        'UserHoverCard.html',
+        'UserHoverCard.js',
+
+        'UserTileCard.html',
+        'UserTileCard.js',
 
         'templates/UserCardContent.html',
         'templates/UserCardContent.js',

@@ -1,4 +1,4 @@
-<template name="UserCard">
+<template name="UserHoverCard">
     {{#if data}}
         <article class="pu-hovercard {{#if cardOpen}}pu-hovercard-active{{/if}} {{#if settings.positionTop}}pu-hovercard-position-top{{else}}pu-hovercard-position-bottom{{/if}}" style="{{ settings.top }}{{ settings.left }}">
             {{> UserCardContent _id=data}}
