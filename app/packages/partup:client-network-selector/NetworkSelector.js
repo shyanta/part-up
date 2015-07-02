@@ -30,22 +30,13 @@ Template.NetworkSelector.onRendered(function() {
     });
     Meteor.typeahead(inputElement, function(query, sync, async) {
 
-        // Temp: all networks
-        sync(Networks
-                .find()
-                .fetch()
-                .map(function(n) {
-                    n.value = n.name;
-                    return n;
-                }));
-
-        // Todo: implement Meteor.call for autocomplete results
-        // Meteor.call('networks.search_by_name', query, function(networks) {
-        //     lodash.each(networks, function(network) {
-        //         network.value = network.name;
-        //     });
-        //     async(networks);
-        // });
+        // Get autocomplete results
+        Meteor.call('networks.autocomplete', query, function(error, networks) {
+            lodash.each(networks, function(network) {
+                network.value = network.name;
+            });
+            async(networks);
+        });
     });
 
 });
