@@ -8,6 +8,8 @@ Template.NetworkSettings.onCreated(function() {
     this.subscription = this.subscribe('networks.one', this.data.networkId);
     this.charactersLeft = new ReactiveDict();
     this.submitting = new ReactiveVar();
+    this.current = new ReactiveDict();
+    this.uploading = new ReactiveDict();
 
     var self = this;
     this.autorun(function() {
@@ -82,12 +84,52 @@ Template.NetworkSettings.helpers({
     },
     submitting: function() {
         return Template.instance().submitting.get();
+    },
+    imageUploading: function() {
+        return !!Template.instance().uploading.get('image');
+    },
+    imageUrl: function() {
+        var imageId = Template.instance().current.get('image');
+
+        if (!imageId) {
+            var network = Networks.findOne({_id: this.networkId});
+            if (network) imageId = network.image;
+        }
+
+        if (imageId) {
+            var image = Images.findOne({_id: imageId});
+            if (image) return image.url({store: '360x360'});
+        }
+
+        return '/images/smile.png';
     }
 });
 
 Template.NetworkSettings.events({
     'input [maxlength]': function(e, template) {
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
+    },
+    'click [data-browse-photos]': function(event, template) {
+        event.preventDefault();
+        template.find('[data-image-input]').click();
+    },
+    'change [data-image-input]': function(event, template) {
+        FS.Utility.eachFile(event, function(file) {
+            template.uploading.set('image', true);
+
+            Partup.client.uploader.uploadImage(file, function(error, image) {
+                template.uploading.set('image', false);
+
+                if (error) {
+                    Partup.client.notify.error(__('network-settings-form-image-error'));
+                    return;
+                }
+
+                template.find('[name=image]').value = image._id;
+                template.current.set('image', image._id);
+            });
+
+        });
     }
 });
 

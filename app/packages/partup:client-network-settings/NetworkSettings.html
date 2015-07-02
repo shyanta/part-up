@@ -4,6 +4,23 @@
         <p>{{_ 'network-settings-intro-paragraph' }}</p>
 
         {{# autoForm id='networkEditForm' schema=formSchema doc=fieldsForNetwork validation="submitThenKeyup" class="pu-form" }}
+            <!-- image -->
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'network-settings-form-image-label' }}</span>
+                <div class="pu-upload">
+                    <figure style="background-image:url('{{ imageUrl }}')" class="pu-imagepreview"></figure>
+                    <button type="button" class="pu-button pu-button-secondary {{# if imageUploading }}pu-state-loading{{/ if }}" data-browse-photos>
+                        <span>{{_ 'network-settings-form-image-button' }}</span>
+                        {{> SpinnerInverted }}
+                    </button>
+
+                    <span class="pu-hint">{{_ 'network-settings-form-image-info' }}</span>
+
+                    <input type="file" class="pu-fileinput" data-image-input>
+                    {{> afFieldInput name="image" type="hidden" }}
+                </div>
+            </div>
+
             <!-- name -->
             <label class="pu-formfield">
                 <span class="pu-label">
@@ -25,6 +42,7 @@
                             class='pu-input'
                             maxlength=formSchema._schema.name.max
                         }}
+
                     </span>
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                 </div>

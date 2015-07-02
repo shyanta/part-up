@@ -18,7 +18,8 @@ Partup.transformers.network = {
             location_input: Partup.services.location.locationToLocationInput(network.location),
             name: network.name,
             tags_input: Partup.services.tags.tagArrayToInput(network.tags),
-            website: network.website
+            website: network.website,
+            image: network.image
         };
     },
 
@@ -29,14 +30,12 @@ Partup.transformers.network = {
      * @param {mixed[]} fields
      */
     'fromFormNetwork': function(fields) {
-        return {
-            // form fields
-            privacy_type: fields.privacy_type,
-            name: fields.name,
-            description: fields.description,
-            tags: Partup.services.tags.tagInputToArray(fields.tags_input),
-            location: Partup.services.location.locationInputToLocation(fields.location_input),
-            website: fields.website
-        };
+        fields.tags = Partup.services.tags.tagInputToArray(fields.tags_input);
+        fields.location = Partup.services.location.locationInputToLocation(fields.location_input);
+
+        delete fields.tags_input;
+        delete fields.location_input;
+
+        return fields;
     }
 };

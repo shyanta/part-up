@@ -7,6 +7,11 @@
     "network-settings-form-submit": "Wijzigingen opslaan",
     "network-settings-form-saved": "Wijzigingen opgeslagen",
 
+    "network-settings-form-image-label": "Logo",
+    "network-settings-form-image-button": "Foto vanaf jouw computer",
+    "network-settings-form-image-info": "Wel minimaal 200 pixels",
+    "network-settings-form-image-error": "Het uploaden is mislukt",
+
     "network-settings-form-name-label": "Naam",
     "network-settings-form-name-placeholder": "@Placeholder",
 
