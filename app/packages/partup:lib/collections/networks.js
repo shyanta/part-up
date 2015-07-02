@@ -242,5 +242,11 @@ Networks.guardedFind = function(userId, selector, options) {
     // Merge the selectors, so we still use the initial selector provided by the caller
     var finalSelector = {'$and': [guardingSelector, selector]};
 
-    return this.find(finalSelector, options);
+    if (this.find(finalSelector, options).count() === 0) {
+        // Not allowed, exclude protected information
+        options.fields = {uppers: 0, partups: 0, pending_uppers: 0, invites: 0};
+        return this.find(selector, options);
+    } else {
+        return this.find(finalSelector, options);
+    }
 };
