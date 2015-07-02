@@ -37,8 +37,8 @@ Package.onUse(function(api) {
         'app/discover/discover.js',
 
         // App:network
-        'app/network/networks-overview-temp.html',
-        'app/network/networks-overview-temp.js',
+        'app/network/networks-overview.html',
+        'app/network/networks-overview.js',
         'app/network/network.html',
         'app/network/network.js',
         'app/network/network-partups.html',
