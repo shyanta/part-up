@@ -6,15 +6,13 @@
     > div
         max-width: 757px
         display: inline-block
-        padding: 5px 20px 5px 20px
+        padding: 5px 15px 5px 15px
 
         h3
             padding: 0
             font-weight: 600
             margin-bottom: 10px
-
-        .pu-list
-            margin-top: 10px
+            font-size: 20px
 
         p
             $font-size: 16px
@@ -30,3 +28,9 @@
             -webkit-box-orient: vertical
             overflow: hidden
             text-overflow: ellipsis
+            position: relative
+
+            &.pu-state-open
+                overflow: inherit
+                height: auto
+                -webkit-line-clamp: inherit
