@@ -1,7 +1,21 @@
 <template name="app_network_uppers">
     <div class="pu-page pu-page-full">
         <section class="pu-composition pu-composition-discover">
-
+            <header>
+                <h2 class="pu-title pu-title-home">
+                    <span class="pu-sub-countlabel">
+                        {{#unless uppersLoading }}
+                            {{#if count}}
+                                {{_ 'pages-app-network-xuppers' count=count }}
+                            {{else}}
+                                {{_ 'pages-app-network-nouppers' }}
+                            {{/if}}
+                        {{else}}
+                            {{_ 'pages-app-network-loading' }}
+                        {{/unless}}
+                    </span>
+                </h2>
+            </header>
             <div data-infinitescroll-container>
                 {{> ColumnsLayout
                     COLUMNS=4
