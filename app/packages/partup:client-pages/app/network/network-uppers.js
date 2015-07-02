@@ -30,16 +30,15 @@ Template.app_network_uppers.onCreated(function() {
 
             tpl.uppers.loading.set(true);
 
-            var oldHandle = tpl.uppers.handle;
+            if (tpl.uppers.handle) tpl.uppers.handle.stop();
             tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
 
-            var oldCountHandle = tpl.uppers.count_handle;
+            if (tpl.uppers.count_handle) tpl.uppers.count_handle.stop();
             tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', networkId, options);
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.uppers.count_handle.ready()) {
                     computation.stop();
-                    if (oldCountHandle) oldCountHandle.stop();
 
                     var new_count = Counts.get('networks.one.uppers.filterquery');
                     tpl.uppers.layout.count.set(new_count);
@@ -49,7 +48,6 @@ Template.app_network_uppers.onCreated(function() {
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.uppers.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -148,6 +146,12 @@ Template.app_network_uppers.onRendered(function() {
 });
 
 Template.app_network_uppers.helpers({
+    count: function() {
+        return Template.instance().uppers.layout.count.get() || '';
+    },
+    uppersLoading: function() {
+        return Template.instance().uppers.loading.get();
+    },
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addToLayoutHook' with a callback.
     // We save that callback, so we can call it later and the child template can react to it.
