@@ -4,8 +4,8 @@
     "dropdowns-profile-button-myprofile": "Profiel",
     "dropdowns-profile-button-settings": "Instellingen",
     "dropdowns-profile-button-logout": "Uitloggen",
-    "dropdowns-profile-title-upperpartups-notfound": "@Je bent nog geen upper van een Part-up",
-    "dropdowns-profile-title-supporterpartups-notfound": "@Je bent nog geen supporter van een Part-up",
+    "dropdowns-profile-title-upperpartups-notfound": "Deze feature is nog niet ontwikkeld",
+    "dropdowns-profile-title-supporterpartups-notfound": "Deze feature is nog niet ontwikkeld",
 
     "dropdowns-notifications-button-opennotificationsdropdown": "Notificaties",
     "dropdowns-notifications-placeholder-nonotifications": "Er zijn nog geen notificaties",
