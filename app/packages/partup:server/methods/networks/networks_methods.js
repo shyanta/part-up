@@ -221,7 +221,6 @@ Meteor.methods({
         }
 
         try {
-            // @TODO Also remove from all Partups including ones with contributions?
             network.leave(user._id);
 
             return {
