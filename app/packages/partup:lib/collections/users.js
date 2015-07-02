@@ -33,12 +33,16 @@ Meteor.users.findSinglePublicProfile = function(userId) {
     return Meteor.users.find({_id: userId}, {fields: publicUserFields});
 };
 
-Meteor.users.findMultiplePublicProfiles = function(userIds) {
-    return Meteor.users.find({_id: {$in: userIds}}, {fields: publicUserFields});
-};
-
-Meteor.users.findMultiplePublicProfilesWithLimit = function(userIds, options) {
+Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters) {
     var options = options || {};
+    var parameters = parameters || {};
+
     options.fields = publicUserFields;
+
+    options.limit = parameters.count ? undefined : parseInt(options.limit) || undefined;
+    options.sort = parameters.count ? undefined : options.sort || undefined;
+    console.log(options)
+    console.log(parameters)
+
     return Meteor.users.find({_id: {$in: userIds}}, options);
 };
