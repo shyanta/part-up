@@ -38,6 +38,7 @@ Meteor.users.findMultiplePublicProfiles = function(userIds) {
 };
 
 Meteor.users.findMultiplePublicProfilesWithLimit = function(userIds, options) {
+    var options = options || {};
     options.fields = publicUserFields;
     return Meteor.users.find({_id: {$in: userIds}}, options);
 };
