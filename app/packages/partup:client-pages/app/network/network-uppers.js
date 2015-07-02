@@ -60,7 +60,8 @@ Template.app_network_uppers.onCreated(function() {
                      */
                     Tracker.nonreactive(function replaceUppers() {
                         tpl.uppers.loading.set(false);
-                        var uppers = Meteor.users.find().fetch();
+
+                        var uppers = Meteor.users.find({networks: {$in: [networkId]}}).fetch();
 
                         tpl.uppers.layout.items = tpl.uppers.layout.clear();
                         tpl.uppers.layout.items = tpl.uppers.layout.add(uppers);
@@ -98,7 +99,7 @@ Template.app_network_uppers.onCreated(function() {
                     Tracker.nonreactive(function addUppers() {
                         tpl.uppers.loading.set(false);
                         var oldUppers = tpl.uppers.layout.items;
-                        var newUppers = Meteor.users.find().fetch();
+                        var newUppers = Meteor.users.find({networks: {$in: [networkId]}}).fetch();
 
                         var diffUppers = mout.array.filter(newUppers, function(partup) {
                             return !mout.array.find(oldUppers, function(_partup) {
