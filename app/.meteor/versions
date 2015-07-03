@@ -95,6 +95,7 @@ package-version-parser@3.0.3
 partup:client-activity@0.0.1
 partup:client-autocomplete@0.0.1
 partup:client-base@0.0.1
+partup:client-basic-selector@0.0.1
 partup:client-columns-layout@0.0.1
 partup:client-commentfield@0.0.1
 partup:client-contribution@0.0.1

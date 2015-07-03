@@ -138,6 +138,7 @@ Partups.guardedFind = function(userId, selector, options) {
 
     // Some extra rules that are only applicable to users that are logged in
     if (userId) {
+
         // The user is part of the partup uppers, which means he has access anyway
         guardedCriterias.push({'uppers': {'$in': [userId]}});
 

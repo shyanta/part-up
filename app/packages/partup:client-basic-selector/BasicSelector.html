@@ -1,0 +1,13 @@
+<template name="BasicSelector">
+
+    <ul class="pu-list pu-list-selection">
+        {{#each options }}
+            <li>
+                <a href="#" data-select-option="{{ value }}">
+                    <span>{{ label }}</span>
+                </a>
+            </li>
+        {{/each }}
+    </ul>
+
+</template>

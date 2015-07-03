@@ -30,7 +30,7 @@
 
                         <p class="pu-sub-label">uit</p>
 
-                        <!-- Location selector-->
+                        <!-- Location selector -->
                         <div class="pu-sub-input pu-dropdownie-container">
                             <input type="hidden" name="location_id" value="{{ selectedLocation.id }}">
                             <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-locationselector>
@@ -44,9 +44,17 @@
                             {{> Dropdown toggle=locationSelectorToggle template="LocationSelector" data=locationSelectorData }}
                         </div>
 
-                        <!-- <div class="pu-sub-input"><input type="text" class="pu-input" placeholder="Nederland"></div>
                         <p class="pu-sub-label">gesorteerd op</p>
-                        <div class="pu-sub-input"><input type="text" class="pu-input" placeholder="Beste match"></div> -->
+
+                        <!-- Sorting -->
+                        <div class="pu-sub-input pu-dropdownie-container">
+                            <input type="hidden" name="sorting" value="{{ selectedSorting.value }}">
+                            <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-sortingselector>
+                                {{ selectedSorting.label }}
+                            </a>
+                            {{> Dropdown toggle=sortingSelectorToggle template="BasicSelector" data=sortingSelectorData }}
+                        </div>
+
                         <input type="submit" value="Versturen" class="pu-sub-submit">
                     </div>
                 </form>

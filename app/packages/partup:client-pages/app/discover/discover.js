@@ -127,9 +127,6 @@ Template.app_discover.onCreated(function() {
         }
     };
 
-    // First run
-    tpl.partups.options.set({});
-
     // Submit filter form
     tpl.submitFilterForm = function() {
         Meteor.defer(function() {
@@ -157,10 +154,31 @@ Template.app_discover.onCreated(function() {
             if (searchfield) searchfield.focus();
         });
     });
+    tpl.sortingSelectorToggle = new ReactiveVar(false);
+
+    // Sorting options
+    tpl.sorting_options = [
+        {
+            value: 'match',
+            label: 'Best match'
+        },
+        {
+            value: 'trending',
+            label: 'Trending'
+        },
+        {
+            value: 'newest',
+            label: 'Newest'
+        }
+    ];
 
     // Selected network
     tpl.selectedFilterNetwork = new ReactiveVar();
     tpl.selectedFilterLocation = new ReactiveVar();
+    tpl.selectedFilterSorting = new ReactiveVar(lodash.find(tpl.sorting_options, {value: 'trending'}));
+
+    // Submit filter form once
+    tpl.submitFilterForm();
 });
 
 /**
@@ -179,39 +197,6 @@ Template.app_discover.onRendered(function() {
         if (tpl.partups.loading.get() || tpl.partups.end_reached.get()) return;
         tpl.partups.increaseLimit();
     });
-
-    /**
-     * Filter options
-     */
-    var keywords = document.querySelector('[data-discover-search] [name=keywords]');
-    var network = document.querySelector('[data-discover-search] [name=network]');
-    var city = document.querySelector('[data-discover-search] [name=city]');
-    var sort = document.querySelector('[data-discover-search] [name=sort]');
-
-    var networkToOption = function(n) {
-        return {value: n._id, label: n.name};
-    };
-
-    var networks = mout.array.map(Networks.find().fetch(), networkToOption);
-
-    new Partup.client.CustomSelect(network, {
-        showFilter: true,
-        suggestionsLabel: 'Suggesties',
-        suggestions: networks,
-        onFilter: function(value, done) {
-            var regexp = new RegExp(value, 'i');
-            var networks = mout.array.map(Networks.find({name: regexp}).fetch(), networkToOption);
-            networks.unshift({value: '', label: 'Netwerk'});
-            this.update(networks);
-            done();
-        }
-    });
-
-    new Partup.client.CustomSelect(city, {
-        showFilter: true
-    });
-
-    new Partup.client.CustomSelect(sort);
 });
 
 /**
@@ -302,6 +287,31 @@ Template.app_discover.helpers({
     },
     selectedLocation: function() {
         return Template.instance().selectedFilterLocation.get();
+    },
+
+    // Sorting
+    sortingSelectorToggle: function() {
+        return Template.instance().sortingSelectorToggle;
+    },
+    sortingSelectorData: function() {
+        var tpl = Template.instance();
+        var DROPDOWN_ANIMATION_DURATION = 200;
+
+        return {
+            onSelect: function(sorting) {
+                tpl.sortingSelectorToggle.set(false);
+
+                Meteor.setTimeout(function() {
+                    tpl.selectedFilterSorting.set(sorting);
+                    tpl.submitFilterForm();
+                }, DROPDOWN_ANIMATION_DURATION);
+            },
+            options: tpl.sorting_options,
+            default: tpl.selectedFilterSorting.get().value
+        };
+    },
+    selectedSorting: function() {
+        return Template.instance().selectedFilterSorting.get();
     }
 });
 
@@ -316,9 +326,10 @@ Template.app_discover.events({
 
         template.partups.options.set({
             limit: template.partups.STARTING_LIMIT,
-            query: form.elements.search_query.value,
-            networkId: form.elements.network_id.value,
-            locationId: form.elements.location_id.value
+            query: form.elements.search_query.value || undefined,
+            networkId: form.elements.network_id.value || undefined,
+            locationId: form.elements.location_id.value || undefined,
+            sorting: form.elements.sorting.value || undefined
         });
 
         window.scrollTo(0, 0);
@@ -344,5 +355,11 @@ Template.app_discover.events({
         event.stopPropagation();
         template.selectedFilterLocation.set('');
         template.submitFilterForm();
+    },
+
+    // Sorting selector
+    'click [data-open-sortingselector]': function(event, template) {
+        var current = template.sortingSelectorToggle.get();
+        template.sortingSelectorToggle.set(!current);
     }
 });
