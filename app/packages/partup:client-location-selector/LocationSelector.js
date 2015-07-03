@@ -22,6 +22,13 @@ Template.LocationSelector.onCreated(function() {
 
         if (tpl.data.onSelect) tpl.data.onSelect(location);
     });
+
+    // Suggested locations
+    tpl.suggestedLocations = new ReactiveVar();
+    tpl.autorun(function() {
+        var locations = STUB_LOCATIONS;
+        tpl.suggestedLocations.set(locations);
+    });
 });
 
 Template.LocationSelector.onRendered(function() {
@@ -45,11 +52,7 @@ Template.LocationSelector.helpers({
         return Template.instance().currentLocation.get();
     },
     suggestedLocations: function() {
-
-        // STUB
-        return STUB_LOCATIONS;
-
-        // todo: real call
+        return Template.instance().suggestedLocations.get();
     },
 
     onAutocompleteQuery: function() {
@@ -73,10 +76,12 @@ Template.LocationSelector.helpers({
 
 Template.LocationSelector.events({
     'click [data-select-suggested-location]': function(event, template) {
-        var placeId = event.currentTarget.getAttribute('data-select-suggested-location');
-        Meteor.call('google.cities.byPlaceId', placeId, function(error, location) {
-            template.currentLocation.set(location);
-        });
+        var locations = template.suggestedLocations.get();
+        if (!locations || !locations.length) return;
+
+        var locationId = event.currentTarget.getAttribute('data-select-suggested-location');
+        var location = lodash.find(locations, {id: locationId});
+        template.currentLocation.set(location);
     },
     'submit form': function(event) {
         event.preventDefault();

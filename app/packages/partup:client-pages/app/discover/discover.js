@@ -278,8 +278,7 @@ Template.app_discover.helpers({
         };
     },
     selectedNetwork: function() {
-        var networkId = Template.instance().selectedFilterNetwork.get();
-        return Networks.findOne({_id: networkId});
+        return Template.instance().selectedFilterNetwork.get();
     },
 
     // Location

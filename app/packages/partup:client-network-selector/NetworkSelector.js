@@ -2,10 +2,17 @@ Template.NetworkSelector.onCreated(function() {
     var tpl = this;
 
     // When the value changes, notify the parent using the onSelect callback
-    this.currentNetwork = new ReactiveVar(false, function(a, networkId) {
-        if (!networkId) return;
+    tpl.currentNetwork = new ReactiveVar(false, function(a, network) {
+        if (!network) return;
 
-        if (tpl.data.onSelect) tpl.data.onSelect(networkId);
+        if (tpl.data.onSelect) tpl.data.onSelect(network);
+    });
+
+    // Suggested networks
+    tpl.suggestedNetworks = new ReactiveVar();
+    tpl.autorun(function() {
+        var networks = Networks.find({}, {limit: 10}).fetch();
+        tpl.suggestedNetworks.set(networks);
     });
 });
 
@@ -30,7 +37,7 @@ Template.NetworkSelector.helpers({
         return Template.instance().currentNetwork.get();
     },
     suggestedNetworks: function() {
-        return Networks.find({}, {limit: 10});
+        return Template.instance().suggestedNetworks.get();
     },
     onAutocompleteQuery: function() {
         return function(query, sync, async) {
@@ -46,15 +53,19 @@ Template.NetworkSelector.helpers({
         var tpl = Template.instance();
 
         return function(network) {
-            tpl.currentNetwork.set(network._id);
+            tpl.currentNetwork.set(network);
         };
     }
 });
 
 Template.NetworkSelector.events({
     'click [data-select-suggested-network]': function(event, template) {
+        var networks = template.suggestedNetworks.get();
+        if (!networks || !networks.length) return;
+
         var networkId = event.currentTarget.getAttribute('data-select-suggested-network');
-        template.currentNetwork.set(networkId);
+        var network = lodash.find(networks, {_id: networkId});
+        template.currentNetwork.set(network);
     },
     'submit form': function(event) {
         event.preventDefault();
