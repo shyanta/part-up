@@ -28,6 +28,7 @@ Package.onUse(function(api) {
         'app/app-header.js',
         'app/app-footer.html',
 
+        'app/app-notfound.html',
         // App:home
         'app/home/home.html',
         'app/home/home.js',
@@ -139,6 +140,8 @@ Package.onUse(function(api) {
     var languageFiles = [
         'i18n/app.en.i18n.json',
         'i18n/app.nl.i18n.json',
+        'i18n/app-notfound.en.i18n.json',
+        'i18n/app-notfound.nl.i18n.json',
         'i18n/app-home.en.i18n.json',
         'i18n/app-home.nl.i18n.json',
         'i18n/app-discover.en.i18n.json',
