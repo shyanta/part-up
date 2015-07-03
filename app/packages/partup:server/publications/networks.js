@@ -53,7 +53,7 @@ Meteor.publish('networks.one.partups.count', function(networkId, options) {
 });
 
 Meteor.publishComposite('networks.one.uppers', function(networkId, options) {
-	 var self = this;
+    var self = this;
     return {
         find: function() {
             var network = Networks.guardedFind(self.userId, {_id: networkId});
@@ -78,7 +78,7 @@ Meteor.publish('networks.one.uppers.count', function(networkId, options) {
         count: true
     };
 
-    var network = Networks.findOneOrFail(networkId);
+    var network = Networks.guardedFind(self.userId, {_id: networkId});
     var uppers = network.uppers || [];
 
     Counts.publish(this, 'networks.one.uppers.filterquery', Meteor.users.findMultiplePublicProfiles(uppers, options, parameters));
