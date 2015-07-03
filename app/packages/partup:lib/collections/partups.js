@@ -164,20 +164,19 @@ Partups.guardedFind = function(userId, selector, options) {
  */
 Partups.findForDiscover = function(userId, options, parameters) {
     var selector = {};
+
     var options = options || {};
+    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
+    options.sort = options.sort || {};
+
     var parameters = parameters || {};
 
-    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
-
+    var sort = parameters.count ? undefined : parameters.sort || undefined;
     var query = parameters.query || undefined;
     var locationId = parameters.locationId || undefined;
     var networkId = parameters.networkId || undefined;
-    var sort = parameters.count ? undefined : options.sort || undefined;
 
-    if (!parameters.count) {
-
-        // Initialize
-        options.sort = {};
+    if (!parameters.count && sort) {
 
         // Sort the partups from the newest to the oldest
         if (sort === 'new') {
@@ -211,6 +210,9 @@ Partups.findForDiscover = function(userId, options, parameters) {
             options.sort['score'] = {$meta: 'textScore'};
         }
     }
+
+    console.log('selector', selector);
+    console.log('options', options);
 
     return this.guardedFind(userId, selector, options);
 };

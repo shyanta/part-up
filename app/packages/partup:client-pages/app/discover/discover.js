@@ -159,15 +159,11 @@ Template.app_discover.onCreated(function() {
     // Sorting options
     tpl.sorting_options = [
         {
-            value: 'match',
-            label: 'Best match'
+            value: 'popular',
+            label: 'Popular'
         },
         {
-            value: 'trending',
-            label: 'Trending'
-        },
-        {
-            value: 'newest',
+            value: 'new',
             label: 'Newest'
         }
     ];
@@ -175,7 +171,7 @@ Template.app_discover.onCreated(function() {
     // Selected network
     tpl.selectedFilterNetwork = new ReactiveVar();
     tpl.selectedFilterLocation = new ReactiveVar();
-    tpl.selectedFilterSorting = new ReactiveVar(lodash.find(tpl.sorting_options, {value: 'trending'}));
+    tpl.selectedFilterSorting = new ReactiveVar(lodash.find(tpl.sorting_options, {value: 'popular'}));
 
     // Submit filter form once
     tpl.submitFilterForm();
@@ -329,7 +325,7 @@ Template.app_discover.events({
             query: form.elements.search_query.value || undefined,
             networkId: form.elements.network_id.value || undefined,
             locationId: form.elements.location_id.value || undefined,
-            sorting: form.elements.sorting.value || undefined
+            sort: form.elements.sorting.value || undefined
         });
 
         window.scrollTo(0, 0);

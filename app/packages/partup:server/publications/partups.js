@@ -2,13 +2,14 @@ Meteor.publishComposite('partups.discover', function(options) {
     var self = this;
 
     var mongoOptions = {
-        limit: options.limit,
-        sort: options.sort
+        limit: options.limit
     };
 
     var parameters = {
         networkId: options.networkId,
-        locationId : options.locationId
+        locationId: options.locationId,
+        sort: options.sort,
+        query: options.query
     };
 
     return {
@@ -52,14 +53,15 @@ Meteor.publishComposite('partups.discover', function(options) {
 Meteor.publish('partups.discover.count', function(options) {
 
     var mongoOptions = {
-        limit: options.limit,
-        sort: options.sort
+        limit: options.limit
     };
 
     var parameters = {
         count: true,
         networkId: options.networkId,
-        locationId : options.locationId
+        locationId: options.locationId,
+        sort: options.sort,
+        query: options.query
     };
 
     Counts.publish(this, 'partups.discover.filterquery', Partups.findForDiscover(this.userId, mongoOptions, parameters));
