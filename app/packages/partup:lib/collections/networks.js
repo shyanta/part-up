@@ -41,7 +41,8 @@ Network.prototype.isAdmin = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.hasMember = function(userId) {
-    return mout.lang.isString(userId) && this.uppers.indexOf(userId) > -1;
+    var uppers = this.uppers || [];
+    return mout.lang.isString(userId) && uppers.indexOf(userId) > -1;
 };
 
 /**
