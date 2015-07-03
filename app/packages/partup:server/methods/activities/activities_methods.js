@@ -7,12 +7,10 @@ Meteor.methods({
      */
     'activities.insert': function(partupId, fields) {
         check(fields, Partup.schemas.forms.startActivities);
-
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        var partup = Partups.findOneOrFail({_id: partupId});
 
-        var isUpperInPartup = Partups.findOne({_id: partupId, uppers: {$in: [upper._id]}}) ? true : false;
-        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper || !partup.hasUpper(upper._id)) throw new Meteor.Error(401, 'Unauthorized.');
 
         try {
             var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
@@ -45,14 +43,13 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.startActivities);
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
-
-        var isUpperInPartup = Partups.findOne({_id: activity.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
+        var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
         if (!activity) {
             throw new Meteor.Error(404, 'Could not find activity.');
         }
 
-        if (!upper || !isUpperInPartup) {
+        if (!upper || !partup.hasUpper(upper._id)) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
