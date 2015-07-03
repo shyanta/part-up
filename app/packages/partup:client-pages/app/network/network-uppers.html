@@ -1,30 +1,25 @@
 <template name="app_network_uppers">
-    <div class="pu-page pu-page-full">
-        <section class="pu-composition pu-composition-network">
-            <header>
-                <h2 class="pu-title pu-title-home">
-                    <span class="pu-sub-countlabel">
-                        {{#unless uppersLoading }}
-                            {{#if count}}
-                                {{_ 'pages-app-network-xuppers' count=count }}
-                            {{else}}
-                                {{_ 'pages-app-network-nouppers' }}
-                            {{/if}}
-                        {{else}}
-                            {{_ 'pages-app-network-loading' }}
-                        {{/unless}}
-                    </span>
-                </h2>
-            </header>
-            <div data-infinitescroll-container>
-                {{> ColumnsLayout
-                    COLUMNS=4
-                    TEMPLATE="UserTileCard"
-                    addHook=addToLayoutHook
-                    clearHook=clearLayoutHook
-                }}
-            </div>
-
-        </section>
+    <header>
+        <h2 class="pu-title pu-title-home">
+            <span class="pu-sub-countlabel">
+                {{#unless uppersLoading }}
+                    {{#if count}}
+                        {{_ 'pages-app-network-xuppers' count=count }}
+                    {{else}}
+                        {{_ 'pages-app-network-nouppers' }}
+                    {{/if}}
+                {{else}}
+                    {{_ 'pages-app-network-loading' }}
+                {{/unless}}
+            </span>
+        </h2>
+    </header>
+    <div data-infinitescroll-container>
+        {{> ColumnsLayout
+            COLUMNS=4
+            TEMPLATE="UserTileCard"
+            addHook=addToLayoutHook
+            clearHook=clearLayoutHook
+        }}
     </div>
 </template>

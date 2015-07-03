@@ -79,12 +79,15 @@
             </section>
         </header>
         <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
-
-            {{#if networkClosedForUser}}
-                closed
-            {{else}}
-                {{> yield region='app_network'}}
-            {{/if}}
+            <div class="pu-page pu-page-full">
+                <section class="pu-composition pu-composition-network">
+                    {{#if networkClosedForUser}}
+                        {{> app_network_closed }}
+                    {{else}}
+                        {{> yield region='app_network'}}
+                    {{/if}}
+                </section>
+            </div>
         </div>
     </article>
 
