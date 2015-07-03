@@ -41,8 +41,6 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 
     options.limit = parameters.count ? undefined : parseInt(options.limit) || undefined;
     options.sort = parameters.count ? undefined : options.sort || undefined;
-    console.log(options)
-    console.log(parameters)
 
     return Meteor.users.find({_id: {$in: userIds}}, options);
 };
