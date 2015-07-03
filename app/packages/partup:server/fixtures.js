@@ -118,10 +118,10 @@ Meteor.startup(function() {
 
                 Partups.insert({
                     _id: '1111' + i,
-                    name: 'Awesome Part-Up #' + i + '!',
-                    description: descriptions[Math.round(Math.random() * 3)],
+                    name: Fake.fromArray([Fake.sentence(2), Fake.sentence(3), Fake.sentence(4), Fake.sentence(5)]).replace('.', ''),
+                    description: Fake.paragraph(Fake.fromArray([1,2,3,4])),
                     creator_id: user1Id,
-                    tags: ['partup', 'online', 'awesome', 'test'],
+                    tags: Fake.fromArray([[Fake.word()], [Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word(), Fake.word()]]),
                     uppers: [user1Id, user2Id],
                     location: undefined,
                     privacy_type: Partups.PUBLIC,

@@ -82,3 +82,4 @@ partup:client-location-autocomplete
 percolate:migrations
 partup:client-location-selector
 partup:client-autocomplete
+anti:fake
