@@ -387,6 +387,14 @@ Router.route('/close', {
     }
 });
 
+Router.route('/(.*)', {
+    where: 'client',
+    yieldRegions: {
+        'app':      {to: 'main'},
+        'app_notfound': {to: 'app'}
+    }
+});
+
 /*************************************************************/
 /* Route protection */
 /*************************************************************/
