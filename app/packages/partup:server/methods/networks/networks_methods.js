@@ -266,6 +266,8 @@ Meteor.methods({
      * @param {string} searchString
      */
     'networks.autocomplete': function(searchString) {
+        this.unblock();
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'Unauthorized.');
 
