@@ -88,7 +88,7 @@
             <div class="pu-page pu-page-full">
                 <section class="pu-composition pu-composition-network">
                     {{#if networkClosedForUser}}
-                        {{> app_network_closed }}
+                        {{> app_network_closed network=network.name}}
                     {{else}}
                         {{> yield region='app_network'}}
                     {{/if}}
