@@ -47,6 +47,8 @@ Package.onUse(function(api) {
         'app/network/network-partups.js',
         'app/network/network-uppers.html',
         'app/network/network-uppers.js',
+        'app/network/network-closed.html',
+        'app/network/network-closed.js',
 
         // App:partup
         'app/partup/partup.html',
