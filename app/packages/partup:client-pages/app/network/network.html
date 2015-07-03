@@ -80,8 +80,11 @@
         </header>
         <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
 
-            {{> yield region='app_network'}}
-
+            {{#if networkClosedForUser}}
+                closed
+            {{else}}
+                {{> yield region='app_network'}}
+            {{/if}}
         </div>
     </article>
 

@@ -4,6 +4,21 @@
 Template.app_network.helpers({
     network: function() {
         return Networks.findOne(this.networkId);
+    },
+    networkClosedForUser : function() {
+        var network = Networks.findOne(this.networkId);
+        var userId = Meteor.userId();
+
+        if (!network) return;
+
+        // if not closed return false
+        if (!network.isClosed()) return false;
+
+        // if closed and has member return false
+        if (network.hasMember(userId)) return false;
+
+        // if closed and does not have member return true
+        return true;
     }
 });
 
