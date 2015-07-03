@@ -147,8 +147,9 @@ Meteor.methods({
     'activities.archive': function(activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
+        var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
-        if (!upper || activity.creator_id !== upper._id) {
+        if (!upper || !partup.hasUpper(upper._id)) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
 
