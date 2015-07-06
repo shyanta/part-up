@@ -100,9 +100,14 @@ Template.ActivityView.events({
                 return;
             }
 
-            template.updateContribution({}, function(error) {
-                if (error) console.error(error);
-            });
+
+            if (!partup.hasUpper(Meteor.user()._id)) {
+                Partup.client.popup.open('popup.motivation');
+            } else {
+                template.updateContribution({}, function(error) {
+                    if (error) console.error(error);
+                });
+            }
         };
 
         if (Meteor.user()) {
