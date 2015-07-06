@@ -1,10 +1,13 @@
 {
-    "base-helpers-dateFormatters-partup-activity-s": "Just now",
-    "base-helpers-dateFormatters-partup-activity-m": "1 min",
-    "base-helpers-dateFormatters-partup-activity-mm": "%d min",
-    "base-helpers-dateFormatters-partup-activity-h": "1 hour",
-    "base-helpers-dateFormatters-partup-activity-hh": "%d hours",
+    "base-helpers-dateFormatters-format-sameyear": "dd, MMMM D [at] h:mm A",
+    "base-helpers-dateFormatters-format-anotheryear": "MMMM D YYYY [at] h:mm A",
 
-    "base-helpers-dateFormatters-partup-timeline-d": "Yesterday",
-    "base-helpers-dateFormatters-partup-timeline-dd": "%d days ago"
+    "base-helpers-dateFormatters-difference-time-s": "Just now",
+    "base-helpers-dateFormatters-difference-time-m": "1 min",
+    "base-helpers-dateFormatters-difference-time-mm": "%d min",
+    "base-helpers-dateFormatters-difference-time-h": "1 hour",
+    "base-helpers-dateFormatters-difference-time-hh": "%d hours",
+
+    "base-helpers-dateFormatters-difference-days-d": "Yesterday",
+    "base-helpers-dateFormatters-difference-days-dd": "%d days ago"
 }

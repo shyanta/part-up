@@ -1,7 +1,11 @@
 /*************************************************************/
-/* Function to provide a temporarely customized locale Moment */
+/* Function to provide a temporarely customized locale Moment
+/*
+/*   Inside the callback, the moment() will be locally customized as provided.
+/*   After the callback, everything is back to normal again.
+/*   The callback will be called synchronously.
 /*************************************************************/
-var localCustomizedMoment = function localCustomizedMoment (language, customizations, callback) {
+var localCustomizedMoment = function localCustomizedMoment (language, customizations, synchronous_callback) {
 
     // Save current locale data
     var localeData = moment.localeData();
@@ -13,8 +17,8 @@ var localCustomizedMoment = function localCustomizedMoment (language, customizat
     // Customize moment
     moment.locale(language, customizations);
 
-    // Execute the callback
-    callback();
+    // Execute the synchronous callback
+    synchronous_callback();
 
     // Reset to previously saved locale data
     moment.locale(language, savedCustomizations);
@@ -41,7 +45,7 @@ Template.registerHelper('partupDateISO', function(date) {
 });
 
 Template.registerHelper('partupDatePartupActivity', function(date) {
-    var RELATIVE_TIME_TRESHOLD = 12 * 60 * 60 * 1000; // 12 hours
+    var RELATIVE_TIME_TRESHOLD = 24 * 60 * 60 * 1000; // 24 hours
     var mDate = moment(date);
 
     var now = moment(Partup.client.reactiveDate());
@@ -51,11 +55,11 @@ Template.registerHelper('partupDatePartupActivity', function(date) {
         var output = '';
         localCustomizedMoment(language, {
             relativeTime: {
-                s:  __('base-helpers-dateFormatters-partup-activity-s'),
-                m:  __('base-helpers-dateFormatters-partup-activity-m'),
-                mm:  __('base-helpers-dateFormatters-partup-activity-mm'),
-                h:  __('base-helpers-dateFormatters-partup-activity-h'),
-                hh:  __('base-helpers-dateFormatters-partup-activity-hh')
+                s:  __('base-helpers-dateFormatters-difference-time-s'),
+                m:  __('base-helpers-dateFormatters-difference-time-m'),
+                mm:  __('base-helpers-dateFormatters-difference-time-mm'),
+                h:  __('base-helpers-dateFormatters-difference-time-h'),
+                hh:  __('base-helpers-dateFormatters-difference-time-hh')
             }
         }, function() {
             output = mDate.fromNow(true);
@@ -64,6 +68,41 @@ Template.registerHelper('partupDatePartupActivity', function(date) {
     }
 
     return mDate.format('LT');
+});
+
+Template.registerHelper('partupDateComment', function(date) {
+    var RELATIVE_TIME_TRESHOLD = 24 * 60 * 60 * 1000; // 24 hours
+
+    // Moment dates
+    var mDate = moment(date);
+    var mNow = moment(Partup.client.reactiveDate());
+
+    // If the time is under the Relative Time Treshold...
+    if (mNow.diff(mDate) < RELATIVE_TIME_TRESHOLD) {
+        var language = TAPi18n.getLanguage();
+        mDate.locale(language);
+        var output = '';
+        localCustomizedMoment(language, {
+            relativeTime: {
+                s:  __('base-helpers-dateFormatters-difference-time-s'),
+                m:  __('base-helpers-dateFormatters-difference-time-m'),
+                mm:  __('base-helpers-dateFormatters-difference-time-mm'),
+                h:  __('base-helpers-dateFormatters-difference-time-h'),
+                hh:  __('base-helpers-dateFormatters-difference-time-hh')
+            }
+        }, function() {
+            output = mDate.fromNow(true);
+        });
+        return output;
+    }
+
+    // If the time is in the same year
+    if (mDate.year() === mNow.year()) {
+        return mDate.format(__('base-helpers-dateFormatters-format-sameyear'));
+    }
+
+    // Default
+    return mDate.format(__('base-helpers-dateFormatters-format-anotheryear'));
 });
 
 Template.registerHelper('partupDatePartupTimeline', function(date) {
@@ -76,8 +115,8 @@ Template.registerHelper('partupDatePartupTimeline', function(date) {
         var output = '';
         localCustomizedMoment(lang, {
             relativeTime: {
-                d:  __('base-helpers-dateFormatters-partup-timeline-d'),
-                dd:  __('base-helpers-dateFormatters-partup-timeline-dd')
+                d:  __('base-helpers-dateFormatters-difference-days-d'),
+                dd:  __('base-helpers-dateFormatters-difference-days-dd')
             }
         }, function() {
             output = mDate.fromNow(true);

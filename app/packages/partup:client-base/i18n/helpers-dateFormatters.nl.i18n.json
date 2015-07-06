@@ -1,10 +1,13 @@
 {
-    "base-helpers-dateFormatters-partup-activity-s": "Nu",
-    "base-helpers-dateFormatters-partup-activity-m": "1 min",
-    "base-helpers-dateFormatters-partup-activity-mm": "%d min",
-    "base-helpers-dateFormatters-partup-activity-h": "1 uur",
-    "base-helpers-dateFormatters-partup-activity-hh": "%d uur",
+    "base-helpers-dateFormatters-format-sameyear": "dd, D MMMM [om] H:mm",
+    "base-helpers-dateFormatters-format-anotheryear": "D MMMM YYYY [om] H:mm",
 
-    "base-helpers-dateFormatters-partup-timeline-d": "Gisteren",
-    "base-helpers-dateFormatters-partup-timeline-dd": "%d dagen geleden"
+    "base-helpers-dateFormatters-difference-time-s": "Nu",
+    "base-helpers-dateFormatters-difference-time-m": "1 min",
+    "base-helpers-dateFormatters-difference-time-mm": "%d min",
+    "base-helpers-dateFormatters-difference-time-h": "1 uur",
+    "base-helpers-dateFormatters-difference-time-hh": "%d uur",
+
+    "base-helpers-dateFormatters-difference-days-d": "Gisteren",
+    "base-helpers-dateFormatters-difference-days-dd": "%d dagen geleden"
 }
