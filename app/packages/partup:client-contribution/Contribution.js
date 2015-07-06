@@ -69,41 +69,6 @@ Template.Contribution.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Contribution.events({
-    'click [data-contribute]': function(event, template) {
-        event.preventDefault();
-
-        var contribute = function() {
-            var partup = Partups.findOne({_id: template.data.activity.partup_id});
-            if (!partup) {
-                // When this happens, the partup subscription is probably not ready yet
-                Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');
-                return;
-            }
-
-            template.updateContribution({}, function(error) {
-                if (error) console.error(error);
-            });
-        };
-
-        if (Meteor.user()) {
-            contribute();
-        } else {
-            Partup.client.intent.go({route: 'login'}, function() {
-                Partup.client.intent.returnToOrigin('login');
-                contribute();
-            });
-        }
-    },
-    'click [data-share]': function(event, template) {
-        event.preventDefault();
-        var partup = Partups.findOne({_id: template.data.activity.partup_id});
-        Partup.client.intent.go({
-            route: 'partup-invite',
-            params: {_id: partup._id} //, update_id: template.data.activity.update_id}
-        }, function() {
-            Router.go('partup', {_id: partup._id});
-        });
-    },
     'click [data-contribution-close]': function(event, template) {
         template.showForm.set(false);
     },

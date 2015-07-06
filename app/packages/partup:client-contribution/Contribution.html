@@ -35,83 +35,73 @@
                     <div class="cell stretch">
                         <button type="button" class="pu-button pu-button-gray" data-contribution-close>{{_ 'contribution-form-close' }}</button>
                     </div>
-                    {{# unless PLACEHOLDER }}
-                        <div class="cell">
-                            <div class="pu-formfield-right">
-                                <button type="button" class="pu-button pu-button-text pu-button-text-subtle" data-contribution-remove>{{_ 'contribution-form-remove' }}</button>
-                            </div>
+                    <div class="cell">
+                        <div class="pu-formfield-right">
+                            <button type="button" class="pu-button pu-button-text pu-button-text-subtle" data-contribution-remove>{{_ 'contribution-form-remove' }}</button>
                         </div>
-                    {{/ unless }}
+                    </div>
                 </footer>
 
             {{/ autoForm }}
         </div>
     {{ else }}
-        {{# if PLACEHOLDER }}
-            <div class="pu-contribution pu-contribution-placeholder">
-                <a href="#" class="pu-button" data-contribute="">{{_ 'contribution-contribute'}}</a>
-                <span class="pu-sub-or">{{_ 'contribution-or'}}</span>
-                <a href="#" class="pu-button" data-share="">{{_ 'contribution-share'}}</a>
+        {{# if contribution.archived }}
+            <div class="pu-contribution pu-contribution-removed">
+                <p>{{_ 'contribution-removed' }}</p>
             </div>
         {{ else }}
-            {{# if contribution.archived }}
-                <div class="pu-contribution pu-contribution-removed">
-                    <p>{{_ 'contribution-removed' }}</p>
+            {{# if upperContribution }}
+                <div class="pu-contribution pu-contribution-own">
+                    <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with }}}">
+                        <i class="fa fa-pencil"></i>
+                    </figure>
+                    {{# if addsValue }}
+                        <p>
+                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                            {{# if showSplit }} &mdash; {{/ if }}
+                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                        </p>
+                    {{ else }}
+                        <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
+                    {{/ if }}
+                    {{# if contribution.verified }}
+                        {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
+                    {{ else }}
+                        <div class="pu-ratings">
+                            <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
+                        </div>
+                    {{/ if }}
                 </div>
             {{ else }}
-                {{# if upperContribution }}
-                    <div class="pu-contribution pu-contribution-own">
-                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with }}}">
-                            <i class="fa fa-pencil"></i>
-                        </figure>
-                        {{# if addsValue }}
-                            <p>
-                                {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
-                                {{# if showSplit }} &mdash; {{/ if }}
-                                {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
-                            </p>
-                        {{ else }}
-                            <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
-                        {{/ if }}
-                        {{# if contribution.verified }}
-                            {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
-                        {{ else }}
-                            <div class="pu-ratings">
-                                <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
-                            </div>
-                        {{/ if }}
-                    </div>
-                {{ else }}
-                    <div class="pu-contribution">
-                        <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with }}}"></figure>
-                        {{# if addsValue }}
-                            <p>
-                                {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
-                                {{# if showSplit }} &mdash; {{/ if }}
-                                {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
-                            </p>
-                        {{/ if }}
-                        {{# if contribution.verified }}
-                            {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
-                        {{ else }}
-                            <div class="pu-ratings">
-                                <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
-                            </div>
-                        {{/ if }}
-
-                        {{# if canVerifyContribution }}
-                        <div class="pu-sub-acceptbuttons pu-row">
-                            <div class="cell">
-                                <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>
-                            </div>
-                            <div class="cell last stretch">
-                                <a class="pu-button pu-button-text pu-button-text-subtle" data-contribution-reject>{{_ 'contribution-reject'}}</a>
-                            </div>
+                <div class="pu-contribution">
+                    <figure data-usercard="{{contribution.upper_id}}" class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with }}}"></figure>
+                    {{# if addsValue }}
+                        <p>
+                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                            {{# if showSplit }} &mdash; {{/ if }}
+                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                        </p>
+                    {{/ if }}
+                    {{# if contribution.verified }}
+                        {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
+                    {{ else }}
+                        <div class="pu-ratings">
+                            <p class="pu-sub-no-rating">{{_ 'contribution-unverified' }}</p>
                         </div>
-                        {{/ if }}
-                    </div>
+                    {{/ if }}
 
-                {{/ if }}
+                    {{# if canVerifyContribution }}
+                    <div class="pu-sub-acceptbuttons pu-row">
+                        <div class="cell">
+                            <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>
+                        </div>
+                        <div class="cell last stretch">
+                            <a class="pu-button pu-button-text pu-button-text-subtle" data-contribution-reject>{{_ 'contribution-reject'}}</a>
+                        </div>
+                    </div>
+                    {{/ if }}
+                </div>
+
             {{/ if }}
         {{/ if }}
     {{/ if }}

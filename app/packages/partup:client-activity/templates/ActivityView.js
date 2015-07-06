@@ -36,16 +36,25 @@ Template.ActivityView.helpers({
     showMetaData: function() {
         return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
     },
-    showPlaceholderContribution: function() {
+    showShareButton: function() {
         if (this.contribution_id) return false;
         if (this.READONLY) return false;
 
         var user = Meteor.user();
-        if (user) {
-            var contributions = Contributions.find({activity_id: this.activity._id}).fetch();
-            for (var i = 0; i < contributions.length; i++) {
-                if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
-            }
+        if (!user) return false;
+
+        return true;
+    },
+    showContributeButton: function() {
+        if (this.contribution_id) return false;
+        if (this.READONLY) return false;
+
+        var user = Meteor.user();
+        if (!user) return false;
+
+        var contributions = Contributions.find({activity_id: this.activity._id}).fetch();
+        for (var i = 0; i < contributions.length; i++) {
+            if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
         }
 
         return true;
@@ -75,5 +84,40 @@ Template.ActivityView.events({
     'click [data-activity-expander]': function(event, template) {
         var opened = template.expanded.get();
         template.expanded.set(!opened);
-    }
+    },
+    'click [data-contribute]': function(event, template) {
+        event.preventDefault();
+
+        var contribute = function() {
+            var partup = Partups.findOne({_id: template.data.activity.partup_id});
+            if (!partup) {
+                // When this happens, the partup subscription is probably not ready yet
+                Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');
+                return;
+            }
+
+            template.updateContribution({}, function(error) {
+                if (error) console.error(error);
+            });
+        };
+
+        if (Meteor.user()) {
+            contribute();
+        } else {
+            Partup.client.intent.go({route: 'login'}, function() {
+                Partup.client.intent.returnToOrigin('login');
+                contribute();
+            });
+        }
+    },
+    'click [data-share]': function(event, template) {
+        event.preventDefault();
+        var partup = Partups.findOne({_id: template.data.activity.partup_id});
+        Partup.client.intent.go({
+            route: 'partup-invite',
+            params: {_id: partup._id} //, update_id: template.data.activity.update_id}
+        }, function() {
+            Router.go('partup', {_id: partup._id});
+        });
+    },
 });

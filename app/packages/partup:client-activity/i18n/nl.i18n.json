@@ -23,5 +23,9 @@
     "activity-button-unarchive": "Maak weer actief",
     "activity-button-remove": "Verwijderen",
     "activity-comment": "1 reactie",
-    "activity-comment_plural": "__count__ reacties"
+    "activity-comment_plural": "__count__ reacties",
+
+    "activity-contribute": "Ik wil dit doen",
+    "activity-or": "of",
+    "activity-share": "Ik wil dit delen"
 }

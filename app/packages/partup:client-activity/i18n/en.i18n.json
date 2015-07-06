@@ -23,5 +23,9 @@
     "activity-button-unarchive": "Reactivate",
     "activity-button-remove": "Remove",
     "activity-comment": "1 comment",
-    "activity-comment_plural": "__count__ comments"
+    "activity-comment_plural": "__count__ comments",
+
+    "activity-contribute": "I want to do this",
+    "activity-or": "or",
+    "activity-share": "I want to share this"
 }
