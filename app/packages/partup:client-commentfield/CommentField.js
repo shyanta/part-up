@@ -9,6 +9,7 @@
  *
  */
 // jscs:enable
+
 /*************************************************************/
 /* Widget constants */
 /*************************************************************/
@@ -76,11 +77,11 @@ Template.CommentField.helpers({
 
 Template.CommentField.events({
 
-    'click [data-expand-comments]': function eventClickExpandComments(event, template) {
+    'click [data-expand-comments]': function(event, template) {
         commentsExpandedDict.set(template.data.update._id, true);
     },
 
-    'input [data=commentfield]': function eventChangeCommentField(event, template) {
+    'input [data=commentfield]': function(event, template) {
         var hasValue = event.currentTarget.value ? true : false;
         commentPostButtonActiveDict.set(template.data.update._id, hasValue);
     }
