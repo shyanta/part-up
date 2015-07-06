@@ -12,7 +12,7 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.addFiles([
-        'Dropdown.html',
-        'Dropdown.js',
+        'dropdown.html',
+        'dropdown.js',
     ], 'client');
 });
