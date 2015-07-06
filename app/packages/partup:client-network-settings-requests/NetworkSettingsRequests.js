@@ -25,4 +25,29 @@ Template.NetworkSettingsRequests.helpers({
     }
 });
 
-Template.NetworkSettingsUppers.events({});
+Template.NetworkSettingsRequests.events({
+    'click [data-request-accept]': function(e, template) {
+        var userId = $(e.target).closest('[data-request-accept]').data('user-id');
+
+        Meteor.call('networks.accept', template.data.networkId, userId, function(err) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.success(__('network-settings-requests-accepted'));
+        });
+    },
+    'click [data-request-reject]': function(e, template) {
+        var userId = $(e.target).closest('[data-request-reject]').data('user-id');
+
+        Meteor.call('networks.reject', template.data.networkId, userId, function(err) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.success(__('network-settings-requests-rejected'));
+        });
+    }
+});
