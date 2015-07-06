@@ -17,7 +17,6 @@
 /*************************************************************/
 Template.Contribution.onCreated(function() {
     this.showForm = new ReactiveVar(false);
-    this.updateContribution = this.data.updateContribution;
     this.submitting = new ReactiveVar(false);
 });
 

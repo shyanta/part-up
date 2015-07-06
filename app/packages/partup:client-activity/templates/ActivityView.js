@@ -2,7 +2,14 @@
 /* Widget initial */
 /*************************************************************/
 Template.ActivityView.onCreated(function() {
-    this.expanded = new ReactiveVar(false);
+    var tpl = this;
+
+    tpl.expanded = new ReactiveVar(false);
+
+    tpl.updateContribution = function(contribution, cb) {
+        var activityId = tpl.data.activity ? tpl.data.activity._id : tpl.data.activity_id;
+        Meteor.call('contributions.update', activityId, contribution, cb);
+    };
 });
 
 /*************************************************************/
@@ -60,10 +67,7 @@ Template.ActivityView.helpers({
         return true;
     },
     updateContribution: function() {
-        var activityId = this.activity ? this.activity._id : this.activity_id;
-        return function(contribution, cb) {
-            Meteor.call('contributions.update', activityId, contribution, cb);
-        };
+        return Template.instance().updateContribution;
     },
     upper: function(event, template) {
         return Meteor.users.findOne({_id: this.upper_id});
