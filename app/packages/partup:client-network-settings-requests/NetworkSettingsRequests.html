@@ -10,6 +10,25 @@
             </tr>
         </thead>
         <tbody>
+            {{# each requests }}
+                <tr>
+                    <td>
+                        <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=user.profile.image }}');"></figure>
+                        <span class="pu-sub-name">{{ user.profile.name }}</span>
+                    </td>
+                    <td class="pu-sub-inviter">
+
+                    </td>
+                    <td>
+                        <button type="button" class="pu-button pu-button-confirm" data-request-accept data-user-id="{{ user._id }}">
+                            <i class="fa fa-check"></i>
+                        </button>
+                        <button type="button" class="pu-button pu-button-deny" data-request-reject data-user-id="{{ user._id }}">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            {{/ each }}
         </tbody>
     </table>
 </template>
