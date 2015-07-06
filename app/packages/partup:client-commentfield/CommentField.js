@@ -37,7 +37,7 @@ Template.CommentField.onRendered(function() {
 });
 
 Template.CommentField.helpers({
-    commentPostButtonActive: function helperCommentPostButtonActive() {
+    commentPostButtonActive: function() {
         return commentPostButtonActiveDict.get(this.update._id);
     },
     formSchema: Partup.schemas.forms.updateComment,
@@ -45,7 +45,7 @@ Template.CommentField.helpers({
         return 'commentForm-' + this.update._id;
     },
     placeholders: Partup.services.placeholders.commentfield,
-    showExpandButton: function helperShowExpandButton() {
+    showExpandButton: function() {
         var hiddenComments = 0;
         if (this.update && this.update.comments && this.update.comments_count) {
             hiddenComments = this.update.comments_count - MAX_COLLAPSED_COMMENTS > 0;
@@ -58,7 +58,7 @@ Template.CommentField.helpers({
     showCommentForm: function() {
         return Template.instance().data.showCommentForm;
     },
-    shownComments: function helperShownComments() {
+    shownComments: function() {
         var allComments = this.update.comments || [];
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
         if (commentsExpanded || Template.instance().data.COMMENTS_EXPANDED)
@@ -66,7 +66,7 @@ Template.CommentField.helpers({
         else
             return allComments.slice(-MAX_COLLAPSED_COMMENTS);
     },
-    systemMessage: function helperSystemMessage (content) {
+    systemMessage: function(content) {
         return __('comment-field-content-' + content);
     },
     submitting: function() {

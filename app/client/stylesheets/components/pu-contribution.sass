@@ -1,6 +1,6 @@
 .pu-contribution
     border-top: 2px solid $color-gallery
-    padding: 20px 0
+    padding: $spacing-narrow 0
 
     .pu-sub-or
         display: inline-block
@@ -36,6 +36,7 @@
 
     .pu-ratings
         float: right
+        margin-top: 3px
 
     &:first-child
         border-top: 0
@@ -53,15 +54,6 @@
 
     &-placeholder
         color: #aaa
-
-        &:before
-            content: ''
-            display: block
-            position: absolute
-            bottom: 65px
-            left: -20px
-            right: -20px
-            border-top: 2px solid $color-gallery
 
     &-removed
         p
