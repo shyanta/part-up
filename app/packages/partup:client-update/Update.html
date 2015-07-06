@@ -174,9 +174,11 @@
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
-            {{#unless metadata.is_contribution }}
-                {{> CommentField update=update showCommentForm=showCommentForm COMMENTS_EXPANDED=COMMENTS_EXPANDED}}
-            {{/unless }}
+            {{# if update }}
+                {{#unless metadata.is_contribution }}
+                    {{> CommentField update=update showCommentForm=showCommentForm COMMENTS_EXPANDED=COMMENTS_EXPANDED}}
+                {{/unless }}
+            {{/ if }}
         </section>
     </section>
 
