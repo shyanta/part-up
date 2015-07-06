@@ -1,5 +1,11 @@
 <template name="ActivityForm">
-    <article class="pu-block pu-block-activity {{#if CREATE_PARTUP}}pu-block-activity-in-startpartup-modal{{/if}} {{#if CREATE}}pu-block-activity-create pu-block-highlighted {{# if POPUP }}pu-block-activity-create-popup{{/ if }}{{/ if }} {{# unless CREATE }}pu-block-active{{/unless }}" data-activity-id="{{ activity._id }}">
+    <article class="pu-block pu-block-activity pu-activity pu-activity-form
+                    {{#if CREATE_PARTUP}} pu-activity-in-startpartup-modal        {{/if}}
+                    {{#if CREATE}}        pu-block-highlighted pu-activity-create
+                        {{# if POPUP }}       pu-activity-create-popup      {{/ if }}
+                    {{ else }}            pu-block-active                         {{/ if }}"
+            data-activity-id="{{ activity._id }}">
+
         {{# autoForm schema=schema id=generateFormId doc=activity validation="submitThenKeyup" class="pu-form" }}
 
             <!-- Activity name -->

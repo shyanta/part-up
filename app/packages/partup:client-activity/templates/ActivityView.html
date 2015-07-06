@@ -1,5 +1,11 @@
 <template name="ActivityView">
-    <article class="pu-block pu-block-activity {{# if CONTRIBUTIONS }}pu-state-contributions{{/ if }} {{# if contribution }}pu-block-activity-singlecontribution{{/ if }} {{# if expanded }}pu-state-expanded{{/ if }} {{# if CREATE_PARTUP }}pu-block-activity-in-startpartup-modal{{/ if }} {{# if activity.archived }}pu-block-activity-archived{{/ if }}" data-activity-id="{{ activity._id }}">
+    <article class="pu-block pu-block-activity pu-activity
+                    {{# if CONTRIBUTIONS }}     pu-activity-contributions        {{/ if }}
+                    {{# if contribution }}      pu-activity-singlecontribution   {{/ if }}
+                    {{# if expanded }}          pu-activity-expanded             {{/ if }}
+                    {{# if CREATE_PARTUP }}     pu-activity-in-startpartup-modal {{/ if }}
+                    {{# if activity.archived }} pu-activity-archived             {{/ if }}"
+            data-activity-id="{{ activity._id }}">
 
         <!-- If the activity is a single contribution, show the contribution first -->
         {{# if contribution }}
@@ -8,20 +14,15 @@
             </section>
         {{/ if }}
 
-        <!-- Then the title, contributor-avatars and edit button -->
+        <!-- Meta data -->
         <section class="pu-sub-section">
+
+            <!-- Edit button -->
             {{# if showEditButton }}
                 <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
             {{/ if }}
 
-            {{# if CONTRIBUTIONS }}
-                <ul class="pu-avatar-stack">
-                    {{# each contributions }}
-                        <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                    {{/ each }}
-                </ul>
-            {{/ if }}
-
+            <!-- Title (could be clickable) -->
             <h3 class="pu-sub-title {{# if CONTRIBUTIONS }}{{# unless EXPANDED }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
                 {{# if UPDATE_LINK }}
                     <a href="{{ pathFor route='partup-update' _id=activity.partup_id update_id=activity.update_id }}">{{ activity.name }}</a>
@@ -34,6 +35,15 @@
                     <i class="pu-chevron fa {{# if expanded }}fa-chevron-up{{ else }}fa-chevron-down{{/ if }}"></i>
                 {{/ if }}
             </h3>
+
+            <!-- Contributors -->
+            {{# if CONTRIBUTIONS }}
+                <ul class="pu-avatar-stack">
+                    {{# each contributions }}
+                        <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                    {{/ each }}
+                </ul>
+            {{/ if }}
 
             <!-- If multiple contributions were found, show the activity description and metadata -->
             {{# if contributions }}
@@ -55,7 +65,7 @@
             {{/ if }}
         </section>
 
-        <!-- Show multiple contributiuons if the activity is expandable -->
+        <!-- Show multiple contributions if the activity is expandable -->
         {{# if expanded }}
             {{# if contributions.length }}
                 <section class="pu-sub-section">

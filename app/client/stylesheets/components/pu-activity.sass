@@ -1,0 +1,75 @@
+.pu-activity
+    .pu-sub-section
+        border-bottom: 2px solid $color-border-light
+        padding: $spacing-narrow
+
+        &:last-child
+            border-bottom: 0
+
+        > .pu-avatar-stack
+            position: absolute
+            top: $spacing-narrow
+            right: $spacing-narrow
+
+        .pu-contribution + .pu-contribution
+            border-top: 2px solid $color-border-light
+
+    .pu-label
+        font-size: 14px
+
+    .pu-sub-title
+        font-size: 20px
+
+        &:last-child
+            margin-bottom: -3px
+
+    .pu-sub-description
+        margin-bottom: 5px
+        margin-top: 6px
+        font-size: 16px
+
+        &:last-child
+            margin-bottom: -3px
+
+    .pu-block-meta
+        margin-top: 6px
+        margin-bottom: -18px
+        min-height: 34px
+
+    .pu-sub-date
+        margin-right: 6px
+
+    .pu-sub-comments
+        font-size: 12px
+
+        i
+            margin-right: 4px
+
+    &-contributions
+        .pu-sub-editbutton
+            display: none
+
+        &.pu-activity-expanded
+            .pu-sub-editbutton
+                display: block
+
+            > .pu-avatar-stack
+                display: none
+
+    &-singlecontribution
+        .pu-sub-title
+            font-size: 14px
+
+    &-form
+        padding: $spacing-default
+
+    &-create
+        margin-top: 0
+        margin-bottom: 0
+
+        &-popup
+            padding: $spacing-large
+
+    &-archived
+        .pu-sub-title
+            color:lighten($color-text, 50%)
