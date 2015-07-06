@@ -29,7 +29,7 @@
                         {{else}}
                             {{ content }}
                         {{/ if}}
-                        <time>- {{ partupDateComment created_at }}</time>
+                        <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
                     </p>
                 </li>
             {{/each }}

@@ -40,10 +40,6 @@ Template.registerHelper('partupDateCustom', function(date, format) {
     return moment(date).format(format);
 });
 
-Template.registerHelper('partupDateISO', function(date) {
-    return moment(date).toISOString();
-});
-
 Template.registerHelper('partupDatePartupActivity', function(date) {
     var RELATIVE_TIME_TRESHOLD = 24 * 60 * 60 * 1000; // 24 hours
     var mDate = moment(date);

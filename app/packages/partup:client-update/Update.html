@@ -10,7 +10,7 @@
 
             <!-- Time -->
             <p class="pu-sub-time">
-                <time datetime="{{ partupDateISO metadata.updated_at }}" title="{{ partupDateFull metadata.updated_at }}">{{ partupDatePartupActivity metadata.updated_at }}</time>
+                <time datetime="{{ metadata.updated_at.toISOString }}" title="{{ partupDateFull metadata.updated_at }}">{{ partupDatePartupActivity metadata.updated_at }}</time>
             </p>
         </aside>
         <section>

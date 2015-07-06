@@ -33,7 +33,7 @@
             {{# if showMetaData }}
                 <p class="pu-block-meta">
                     {{# if activity.end_date }}
-                        <time class="pu-sub-date" datetime="{{ partupDateISO activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+                        <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
                     {{/if}}
 
                     {{# if COMMENTS_LINK }}

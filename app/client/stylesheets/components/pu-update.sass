@@ -71,13 +71,13 @@
 
             .pu-list-comments
                 li:first-child
-                    margin-top: 20px
+                    margin-top: 15px + 4px
 
                 li:last-child
                     margin-bottom: -8px
 
                 p
-                    margin-top: -6px
+                    margin-top: -10px
                     font-size: 14px
 
                     &.pu-sub-systemmessage
@@ -89,6 +89,12 @@
                         color: $color-text-subtle
                         transition: opacity .2s
                         font-weight: normal
+                        font-size: 12px
+
+                        &:before
+                            content: '\2013' // en dash
+                            display: inline-block
+                            margin: 0 3px
 
                     &:hover
                         time
@@ -100,7 +106,7 @@
 
 
             .pu-list-fieldwithbutton
-                margin-top: 20px
+                margin-top: 15px
 
             form
                 display: none
