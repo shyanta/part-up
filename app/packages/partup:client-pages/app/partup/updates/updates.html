@@ -25,29 +25,36 @@
                 <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
-            <div data-infinitescroll-container>
+            {{# unless updatesLoading }}
 
-                <!-- Reveal new updates -->
-                {{#if newUpdatesCount }}
-                    <p class="pu-update pu-sub-revealupdatesbutton">
-                        <aside></aside>
-                        <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
-                    </p>
-                {{/if}}
+                <div data-infinitescroll-container>
 
-                <!-- For each update -->
-                {{# if updates }}
+                    <!-- Reveal new updates -->
+                    {{#if newUpdatesCount }}
+                        <p class="pu-update pu-sub-revealupdatesbutton">
+                            <aside></aside>
+                            <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
+                        </p>
+                    {{/if}}
+
+                    <!-- For each update -->
                     {{#each updates }}
+
+                        <!-- If it's another day, show a day-separator -->
                         {{#if anotherDay . }}
                             <section class="pu-sub-separator">
                                 {{ partupDatePartupTimeline created_at }}
                                 <span class="fa fa-long-arrow-down"></span>
                             </section>
                         {{/if }}
+
+                        <!-- Render the update -->
                         {{> Update LINK=true COMMENTS_EXPANDED=false updateId=_id metadata=metaDataForUpdate }}
+
                     {{/each }}
-                {{ else }}
-                    {{# unless updatesLoading }}
+
+                    <!-- No updates available -->
+                    {{# if updates }}
                         <section class="pu-update">
                             <aside>
                                 &nbsp;
@@ -56,10 +63,29 @@
                                 {{_ 'pages-app-partup-updates-no_updates'}}
                             </section>
                         </section>
-                    {{/ unless}}
+                    {{/ if }}
+
+                </div>
+
+            {{ else }}
+
+                <!-- Loading state -->
+                {{# if updatesLoading }}
+                    <section class="pu-update">
+                        <aside>
+
+                            <!-- Loader indicator where normally a user avatar would be -->
+                            <figure class="pu-avatar pu-avatar-label">
+                                <a href="#" rel="author" class="pu-sub-image pu-sub-image-loader">
+                                    {{> Loader CENTER=true }}
+                                </a>
+                            </figure>
+
+                        </aside>
+                    </section>
                 {{/ if }}
 
-            </div>
+            {{/ unless }}
 
         </div>
     </div>
