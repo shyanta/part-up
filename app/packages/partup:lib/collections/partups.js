@@ -211,9 +211,6 @@ Partups.findForDiscover = function(userId, options, parameters) {
         }
     }
 
-    console.log('selector', selector);
-    console.log('options', options);
-
     return this.guardedFind(userId, selector, options);
 };
 
