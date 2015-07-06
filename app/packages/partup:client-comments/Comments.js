@@ -25,11 +25,11 @@ var commentPostButtonActiveDict = new ReactiveDict();
 /*************************************************************/
 /* Widget rendered */
 /*************************************************************/
-Template.CommentField.onCreated(function() {
+Template.Comments.onCreated(function() {
     this.submitting = new ReactiveVar(false);
 });
 
-Template.CommentField.onRendered(function() {
+Template.Comments.onRendered(function() {
     var template = this;
     var update = template.data.update;
     commentsExpandedDict.set(update._id, false);
@@ -37,7 +37,7 @@ Template.CommentField.onRendered(function() {
     commentPostButtonActiveDict.set(update._id, false);
 });
 
-Template.CommentField.helpers({
+Template.Comments.helpers({
     commentPostButtonActive: function() {
         return commentPostButtonActiveDict.get(this.update._id);
     },
@@ -45,7 +45,11 @@ Template.CommentField.helpers({
     generateFormId: function() {
         return 'commentForm-' + this.update._id;
     },
-    placeholders: Partup.services.placeholders.commentfield,
+    placeholders: {
+        comment: function() {
+            return __('widgetcommentfield-comment-placeholder');
+        }
+    },
     showExpandButton: function() {
         var hiddenComments = 0;
         if (this.update && this.update.comments && this.update.comments_count) {
@@ -75,7 +79,7 @@ Template.CommentField.helpers({
     }
 });
 
-Template.CommentField.events({
+Template.Comments.events({
 
     'click [data-expand-comments]': function(event, template) {
         commentsExpandedDict.set(template.data.update._id, true);

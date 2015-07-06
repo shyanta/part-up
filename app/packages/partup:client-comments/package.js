@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-commentfield',
+    name: 'partup:client-comments',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -21,9 +21,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'package-tap.i18n',
 
-        'CommentFieldPlaceholders.js',
-        'CommentField.html',
-        'CommentField.js',
+        'Comments.html',
+        'Comments.js',
 
         'i18n/common.en.i18n.json',
         'i18n/common.nl.i18n.json',

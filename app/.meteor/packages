@@ -12,7 +12,7 @@ partup:client-base
 partup:client-pages
 
 partup:client-activity
-partup:client-commentfield
+partup:client-comments
 partup:client-contribution
 partup:client-copy-to-clipboard
 partup:client-dropdown
