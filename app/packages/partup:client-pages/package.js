@@ -36,6 +36,10 @@ Package.onUse(function(api) {
         // App:discover
         'app/discover/discover.html',
         'app/discover/discover.js',
+        'app/discover/partials/discover-header.html',
+        'app/discover/partials/discover-header.js',
+        'app/discover/partials/discover-page.html',
+        'app/discover/partials/discover-page.js',
 
         // App:network
         'app/network/networks-overview.html',
