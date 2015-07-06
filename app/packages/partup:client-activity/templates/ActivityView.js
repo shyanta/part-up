@@ -15,12 +15,14 @@ Template.ActivityView.helpers({
         return update.comments_count;
     },
     contributions: function() {
-        if (this.contribution_id) {
-            return Contributions.find({_id: this.contribution_id});
-        }
+        if (!this.activity || this.contribution_id) return;
 
-        if (!this.activity) return;
-        return Contributions.find({activity_id: this.activity._id, archived: {$ne: true}});
+        return Contributions.find({activity_id: this.activity._id, archived: {$ne: true}}).fetch();
+    },
+    contribution: function() {
+        if (!this.contribution_id) return;
+
+        return Contributions.findOne({_id: this.contribution_id});
     },
     expanded: function() {
         return this.EXPANDED || (Template.instance().expanded.get() && !!this.CONTRIBUTIONS);
