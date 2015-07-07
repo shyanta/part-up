@@ -1,31 +1,4 @@
 /*************************************************************/
-/* Function to provide a temporarely customized locale Moment
-/*
-/*   Inside the callback, the moment() will be locally customized as provided.
-/*   After the callback, everything is back to normal again.
-/*   The callback will be called synchronously.
-/*************************************************************/
-var localCustomizedMoment = function localCustomizedMoment (language, customizations, synchronous_callback) {
-
-    // Save current locale data
-    var localeData = moment.localeData();
-    var savedCustomizations = {};
-    _.each(customizations, function(customization, key) {
-        savedCustomizations[key] = localeData['_' + key];
-    });
-
-    // Customize moment
-    moment.locale(language, customizations);
-
-    // Execute the synchronous callback
-    synchronous_callback();
-
-    // Reset to previously saved locale data
-    moment.locale(language, savedCustomizations);
-
-};
-
-/*************************************************************/
 /* Global date formatter helpers */
 /*************************************************************/
 Template.registerHelper('partupDateNormal', function(date) {
@@ -41,55 +14,54 @@ Template.registerHelper('partupDateCustom', function(date, format) {
 });
 
 Template.registerHelper('partupDatePartupActivity', function(date) {
-    var RELATIVE_TIME_TRESHOLD = 24 * 60 * 60 * 1000; // 24 hours
-    var mDate = moment(date);
-
-    var now = moment(Partup.client.reactiveDate());
-    if (now.diff(mDate) < RELATIVE_TIME_TRESHOLD) {
-        var language = TAPi18n.getLanguage();
-        mDate.locale(language);
-        var output = '';
-        localCustomizedMoment(language, {
-            relativeTime: {
-                s:  __('base-helpers-dateFormatters-difference-time-s'),
-                m:  __('base-helpers-dateFormatters-difference-time-m'),
-                mm:  __('base-helpers-dateFormatters-difference-time-mm'),
-                h:  __('base-helpers-dateFormatters-difference-time-h'),
-                hh:  __('base-helpers-dateFormatters-difference-time-hh')
-            }
-        }, function() {
-            output = mDate.fromNow(true);
-        });
-        return output;
-    }
-
-    return mDate.format('LT');
-});
-
-Template.registerHelper('partupDateComment', function(date) {
-    var RELATIVE_TIME_TRESHOLD = 24 * 60 * 60 * 1000; // 24 hours
+    var RELATIVE_TIME_THRESHOLD = 12 * 60 * 60 * 1000; // 12 hours
 
     // Moment dates
     var mDate = moment(date);
     var mNow = moment(Partup.client.reactiveDate());
 
-    // If the time is under the Relative Time Treshold...
-    if (mNow.diff(mDate) < RELATIVE_TIME_TRESHOLD) {
-        var language = TAPi18n.getLanguage();
-        mDate.locale(language);
-        var output = '';
-        localCustomizedMoment(language, {
+    // If the time is under the Relative Time Threshold...
+    if (mNow.diff(mDate) < RELATIVE_TIME_THRESHOLD) {
+        return Partup.client.moment.localConfig({
             relativeTime: {
                 s:  __('base-helpers-dateFormatters-difference-time-s'),
                 m:  __('base-helpers-dateFormatters-difference-time-m'),
                 mm:  __('base-helpers-dateFormatters-difference-time-mm'),
                 h:  __('base-helpers-dateFormatters-difference-time-h'),
-                hh:  __('base-helpers-dateFormatters-difference-time-hh')
+                hh:  __('base-helpers-dateFormatters-difference-time-hh'),
             }
         }, function() {
-            output = mDate.fromNow(true);
+            return mDate.fromNow(true);
         });
-        return output;
+    }
+
+    // Default
+    return mDate.format('LT');
+});
+
+Template.registerHelper('partupDateComment', function(date) {
+    var RELATIVE_TIME_THRESHOLD = 21 * 60 * 60 * 1000; // 21 hours
+    // ^^ Be sure this treshold is under 22 hours,
+    //    because the default Moment treshold for showing
+    //    either "22 hours ago" or "Yesterday" is 22 hours.
+
+    // Moment dates
+    var mDate = moment(date);
+    var mNow = moment(Partup.client.reactiveDate());
+
+    // If the time is under the Relative Time Threshold...
+    if (mNow.diff(mDate) < RELATIVE_TIME_THRESHOLD) {
+        return Partup.client.moment.localConfig({
+            relativeTime: {
+                s:  __('base-helpers-dateFormatters-difference-time-s'),
+                m:  __('base-helpers-dateFormatters-difference-time-m'),
+                mm:  __('base-helpers-dateFormatters-difference-time-mm'),
+                h:  __('base-helpers-dateFormatters-difference-time-h'),
+                hh:  __('base-helpers-dateFormatters-difference-time-hh'),
+            }
+        }, function() {
+            return mDate.fromNow(true);
+        });
     }
 
     // If the time is in the same year
@@ -102,22 +74,22 @@ Template.registerHelper('partupDateComment', function(date) {
 });
 
 Template.registerHelper('partupDatePartupTimeline', function(date) {
-    var RELATIVE_TIME_TRESHOLD = 7 * 24 * 60 * 60 * 1000; // 1 week
-    var mDate = moment(date);
+    var RELATIVE_TIME_THRESHOLD = 7 * 24 * 60 * 60 * 1000; // 1 week
 
-    if (moment().diff(mDate) < RELATIVE_TIME_TRESHOLD) {
-        var lang = TAPi18n.getLanguage();
-        mDate.locale(lang);
-        var output = '';
-        localCustomizedMoment(lang, {
+    // Moment dates
+    var mDate = moment(date);
+    var mNow = moment();
+
+    // If the time is under the Relative Time Threshold...
+    if (mNow.diff(mDate) < RELATIVE_TIME_THRESHOLD) {
+        return Partup.client.moment.localConfig({
             relativeTime: {
                 d:  __('base-helpers-dateFormatters-difference-days-d'),
-                dd:  __('base-helpers-dateFormatters-difference-days-dd')
+                dd:  __('base-helpers-dateFormatters-difference-days-dd'),
             }
         }, function() {
-            output = mDate.fromNow(true);
+            return mDate.fromNow(true);
         });
-        return output;
     }
 
     return mDate.format('LL');

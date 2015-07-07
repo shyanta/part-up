@@ -202,20 +202,24 @@ Template.app_partup_updates.helpers({
     },
 
     anotherDay: function(update) {
+        // WARNING: this helper assumes that the list is always sorted by TIME_FIELD
         var TIME_FIELD = 'updated_at';
 
+        // Find previous update
         var updates = Template.instance().updates.view.get();
         var currentIndex = lodash.findIndex(updates, update);
         var previousUpdate = updates[currentIndex - 1];
-        var previousMoment = moment();
 
-        if (previousUpdate) {
-            previousMoment = moment(previousUpdate[TIME_FIELD]);
-        }
-
+        // Moments
+        var previousMoment = moment(previousUpdate ? previousUpdate[TIME_FIELD] : undefined);
         var currentMoment = moment(update[TIME_FIELD]);
 
-        return previousMoment.diff(currentMoment) > 24 * 60 * 60 * 1000;
+        // Mutate the moment object to set them to the start of the day
+        previousMoment.startOf('day');
+        currentMoment.startOf('day');
+
+        // Determine & return whether this update is another day
+        return previousMoment.diff(currentMoment, 'days') > 0;
     },
     isLoggedIn: function() {
         var user = Meteor.user();
