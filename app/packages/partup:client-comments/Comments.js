@@ -12,33 +12,21 @@
 // jscs:enable
 
 /*************************************************************/
-/* Widget reactives */
-/*************************************************************/
-var commentsExpandedDict = new ReactiveDict();
-var commentInputFieldExpandedDict = new ReactiveDict();
-var commentPostButtonActiveDict = new ReactiveDict();
-
-/*************************************************************/
 /* Widget rendered */
 /*************************************************************/
 Template.Comments.onCreated(function() {
-    this.LIMIT = this.data.LIMIT || 0;
     this.submitting = new ReactiveVar(false);
+    this.expanded = new ReactiveVar(false);
+    this.buttonActive = new ReactiveVar(false);
+
+    this.LIMIT = this.data.LIMIT || 0;
     this.showComments = this.data.SHOW_COMMENTS === undefined ||
         this.data.SHOW_COMMENTS === true;
 });
 
-Template.Comments.onRendered(function() {
-    var template = this;
-    var update = template.data.update;
-    commentsExpandedDict.set(update._id, false);
-    commentInputFieldExpandedDict.set(update._id, update.comments_count > 0);
-    commentPostButtonActiveDict.set(update._id, false);
-});
-
 Template.Comments.helpers({
-    commentPostButtonActive: function() {
-        return commentPostButtonActiveDict.get(this.update._id);
+    buttonActive: function() {
+        return Template.instance().buttonActive.get();
     },
     formSchema: Partup.schemas.forms.updateComment,
     generateFormId: function() {
@@ -55,7 +43,7 @@ Template.Comments.helpers({
     showExpandButton: function() {
         if (!this.update) return false;
 
-        var commentsExpanded = commentsExpandedDict.get(this.update._id);
+        var commentsExpanded = Template.instance().expanded.get();
         if (commentsExpanded) return false;
 
         var limit = Template.instance().LIMIT;
@@ -72,7 +60,7 @@ Template.Comments.helpers({
     shownComments: function() {
         var comments = this.update.comments || [];
 
-        var commentsExpanded = commentsExpandedDict.get(this.update._id);
+        var commentsExpanded = Template.instance().expanded.get();
         if (commentsExpanded) return comments;
 
         var limit = Template.instance().LIMIT;
@@ -91,12 +79,11 @@ Template.Comments.helpers({
 Template.Comments.events({
 
     'click [data-expand-comments]': function(event, template) {
-        commentsExpandedDict.set(template.data.update._id, true);
+        template.expanded.set(true);
     },
 
     'input [data=commentfield]': function(event, template) {
-        var hasValue = event.currentTarget.value ? true : false;
-        commentPostButtonActiveDict.set(template.data.update._id, hasValue);
+        template.buttonActive.set(!!event.currentTarget.value);
     }
 
 });
@@ -119,7 +106,7 @@ AutoForm.addHooks(null, {
                 return Partup.client.notify.error(__('error-method-' + error.reason));
             }
 
-            commentPostButtonActiveDict.set(updateId, false);
+            template.buttonActive.set(false);
             AutoForm.resetForm(self.formId);
             self.done();
         });
