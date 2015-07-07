@@ -7,8 +7,23 @@ Template.app_partup_activities.onCreated(function() {
     tpl.subscribe('partups.metadata', tpl.data.partupId);
     tpl.activitiesSubscription = tpl.subscribe('activities.from_partup', tpl.data.partupId);
 
+    Meteor.autorun(function whenSubscriptionIsReady(computation) {
+        if (tpl.activitiesSubscription.ready()) {
+            computation.stop();
+            tpl.activities.loading.set(false);
+        }
+    });
+
     tpl.activities = {
+
+        // States
+        loading: new ReactiveVar(true),
+        rendering: new ReactiveVar(),
+
+        // Filter
         filter: new ReactiveVar('default'),
+
+        // All activities
         all: function(options) {
             var options = options || {};
 
@@ -62,8 +77,20 @@ Template.app_partup_activities.helpers({
     filterReactiveVar: function() {
         return Template.instance().activities.filter;
     },
-    isLoading: function() {
-        return !Template.instance().activitiesSubscription.ready();
+
+    // Loading / rendering state
+    activitiesLoading: function() {
+        return Template.instance().activities.loading.get();
+    },
+    activitiesLoadingOrRendering: function() {
+        return Template.instance().activities.loading.get() || Template.instance().activities.rendering.get();
+    },
+    activitiesRenderedCallback: function() {
+        var tpl = Template.instance();
+        tpl.activities.rendering.set(true);
+        return function() {
+            tpl.activities.rendering.set(false);
+        };
     }
 
 });

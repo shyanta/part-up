@@ -19,32 +19,46 @@
                 <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
-            {{# if isLoading }}
+            <!-- Loading/rendering state -->
+            {{# if activitiesLoadingOrRendering }}
                 {{> Loader ALIGNMENT='center' }}
-            {{ else }}
-                {{#unless activities }}
-                    {{#unless archivedActivities }}
-                        <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
+            {{/ if }}
+
+            <!-- Not-loading state -->
+            {{# unless activitiesLoading }}
+
+                <!-- Render asynchronously -->
+                {{# async callback=activitiesRenderedCallback }}
+
+                    {{# each activities }}
+                        {{> Activity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true isUpper=isUpper }}
+                    {{/ each }}
+
+                    {{# if archivedActivities }}
+                        <p class="pu-textline">
+                            <span>
+                                {{_ "pages-app-partup-activities-archivedactivities_heading" }}
+                                <span class="fa fa-long-arrow-down"></span>
+                            </span>
+                        </p>
+                    {{/ if }}
+
+                    {{# each archivedActivities }}
+                        {{> Activity activity=. CONTRIBUTIONS=true isUpper=isUpper }}
+                    {{/ each }}
+
+                    {{#unless activities }}
+                        {{#unless archivedActivities }}
+                            <section class="pu-sub-noactivities">
+                                <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
+                            </section>
+                        {{/unless }}
                     {{/unless }}
-                {{/unless }}
-            {{/ if }}
 
-            {{# each activities }}
-                {{> Activity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true isUpper=isUpper }}
-            {{/ each }}
+                {{/ async }}
 
-            {{# if archivedActivities }}
-                <p class="pu-textline">
-                    <span>
-                        {{_ "pages-app-partup-activities-archivedactivities_heading" }}
-                        <span class="fa fa-long-arrow-down"></span>
-                    </span>
-                </p>
-            {{/ if }}
+            {{/ unless }}
 
-            {{# each archivedActivities }}
-                {{> Activity activity=. CONTRIBUTIONS=true isUpper=isUpper }}
-            {{/ each }}
         </div>
     </div>
 </template>
