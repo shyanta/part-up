@@ -5,15 +5,11 @@
  * @module client-commentfield
  * @param {Object} update               The update object containing the comments
  * @param {ReactiveVar} showCommentForm Variable that controls the visibility of the comment form
- * @param {Boolean} COMMENTS_EXPANDED   If true, show all comments (don't show "show more comments" link)
+ * @param {Number} LIMIT                Limit the amount of comments shown to this number, then add "show more" link
+ * @param {Boolean} SHOW_COMMENTS       Show existing comments
  *
  */
 // jscs:enable
-
-/*************************************************************/
-/* Widget constants */
-/*************************************************************/
-var MAX_COLLAPSED_COMMENTS = 2;
 
 /*************************************************************/
 /* Widget reactives */
@@ -26,7 +22,10 @@ var commentPostButtonActiveDict = new ReactiveDict();
 /* Widget rendered */
 /*************************************************************/
 Template.Comments.onCreated(function() {
+    this.LIMIT = this.data.LIMIT || 0;
     this.submitting = new ReactiveVar(false);
+    this.showComments = this.data.SHOW_COMMENTS === undefined ||
+        this.data.SHOW_COMMENTS === true;
 });
 
 Template.Comments.onRendered(function() {
@@ -50,26 +49,36 @@ Template.Comments.helpers({
             return __('widgetcommentfield-comment-placeholder');
         }
     },
+    showComments: function() {
+        return Template.instance().showComments;
+    },
     showExpandButton: function() {
-        var hiddenComments = 0;
-        if (this.update && this.update.comments && this.update.comments_count) {
-            hiddenComments = this.update.comments_count - MAX_COLLAPSED_COMMENTS > 0;
-        }
+        if (!this.update) return false;
+
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        return Template.instance().data.COMMENTS_EXPANDED ?
-            false :
-            hiddenComments && !commentsExpanded;
+        if (commentsExpanded) return false;
+
+        var limit = Template.instance().LIMIT;
+        if (!limit) return false;
+
+        var count = this.update.comments_count;
+        if (!count || (count - limit) < 1) return false;
+
+        return true;
     },
     showCommentForm: function() {
         return Template.instance().data.showCommentForm;
     },
     shownComments: function() {
-        var allComments = this.update.comments || [];
+        var comments = this.update.comments || [];
+
         var commentsExpanded = commentsExpandedDict.get(this.update._id);
-        if (commentsExpanded || Template.instance().data.COMMENTS_EXPANDED)
-            return allComments;
-        else
-            return allComments.slice(-MAX_COLLAPSED_COMMENTS);
+        if (commentsExpanded) return comments;
+
+        var limit = Template.instance().LIMIT;
+        if (!limit) return comments;
+
+        return comments.slice(-limit);
     },
     systemMessage: function(content) {
         return __('comment-field-content-' + content);

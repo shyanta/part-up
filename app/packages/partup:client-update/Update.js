@@ -8,7 +8,8 @@
  * @param {String} updateId             The update id of the update that has to be rendered
  * @param {Object} metadata             Non reactive metadata, such as user, time and title
  * @param {Boolean} LINK                Show link yes or no
- * @param {Boolean} COMMENTS_EXPANDED   show all comments (don't show "show more comments" link)
+ * @param {Boolean} SHOW_COMMENTS       Show existing comments
+ * @param {Boolean} COMMENT_LIMIT       Limit the amount of comments expanded (0 for no limit, default)
  * @param {Boolean} FORCE_COMMENTFORM   always show the comment form
  */
 // jscs:enable

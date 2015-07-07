@@ -1,39 +1,41 @@
 <template name="Comments">
     <!-- Comments -->
     <footer class="pu-commentfield">
-        <!-- View all n comments -->
-        {{#if showExpandButton }}
-            <!-- data-expand-comments -->
-            <p class="pu-sub-view-all-comments-button">
-                <!-- Determine the correct pathFor -->
-                <a href="
-                    {{ #if partupContainsOne update.type 'partups_newuser' }}
-                        {{pathFor route='profile' _id=user_id }}
-                    {{else}}
-                        {{pathFor route='partup-update' _id=update.partup_id update_id=update._id }}
-                    {{/if}}
-                ">
-                    {{_ 'widgetcommentfield-comment-viewall-button' update.comments_count }}
-                </a>
-            </p>
-        {{/if }}
-
-        <!-- Comments list -->
-        <ul class="pu-list pu-list-comments">
-            {{#each shownComments }}
-                <li>
-                    <p class="{{# if system }}pu-sub-systemmessage{{/ if}}">
-                        <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
-                        {{# if system }}
-                            {{ systemMessage content }}
+        {{# if showComments }}
+            <!-- View all n comments -->
+            {{#if showExpandButton }}
+                <!-- data-expand-comments -->
+                <p class="pu-sub-view-all-comments-button">
+                    <!-- Determine the correct pathFor -->
+                    <a href="
+                        {{ #if partupContainsOne update.type 'partups_newuser' }}
+                            {{pathFor route='profile' _id=user_id }}
                         {{else}}
-                            {{ content }}
-                        {{/ if}}
-                        <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
-                    </p>
-                </li>
-            {{/each }}
-        </ul>
+                            {{pathFor route='partup-update' _id=update.partup_id update_id=update._id }}
+                        {{/if}}
+                    ">
+                        {{_ 'widgetcommentfield-comment-viewall-button' update.comments_count }}
+                    </a>
+                </p>
+            {{/if }}
+
+            <!-- Comments list -->
+            <ul class="pu-list pu-list-comments">
+                {{#each shownComments }}
+                    <li>
+                        <p class="{{# if system }}pu-sub-systemmessage{{/ if}}">
+                            <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
+                            {{# if system }}
+                                {{ systemMessage content }}
+                            {{else}}
+                                {{ content }}
+                            {{/ if}}
+                            <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
+                        </p>
+                    </li>
+                {{/each }}
+            </ul>
+        {{/ if }}
 
         <!-- Add comment field -->
         {{#if showCommentForm }}
