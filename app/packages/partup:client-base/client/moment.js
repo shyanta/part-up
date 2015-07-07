@@ -54,6 +54,17 @@ Partup.client.moment = {
         // Return the output (when there's one)
         return output;
 
+    },
+
+    /**
+     * Compare two dates to determine whether the given moments are on different days
+     *
+     * @memberof Partup.client.moment
+     */
+    isAnotherDay: function(moment1, moment2) {
+        var m1 = moment(moment1).startOf('day');
+        var m2 = moment(moment2).startOf('day');
+        return m1.diff(m2, 'days') > 0;
     }
 
 };

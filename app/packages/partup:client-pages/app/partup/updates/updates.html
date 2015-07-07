@@ -25,9 +25,25 @@
                 <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
-            {{# unless updatesLoading }}
+            <div data-infinitescroll-container>
 
-                <div data-infinitescroll-container>
+                <!-- Loading/rendering state -->
+                {{# if updatesLoadingOrRendering }}
+                    <section class="pu-update">
+                        <aside>
+
+                            <!-- Loader indicator where normally a user avatar would be -->
+                            <figure class="pu-avatar pu-avatar-label">
+                                <span class="pu-sub-image pu-sub-image-loader">
+                                    {{> Loader ALIGNMENT='center' TYPE='white' SIZE='small' }}
+                                </span>
+                            </figure>
+
+                        </aside>
+                    </section>
+                {{/ if }}
+
+                {{# unless updatesLoading }}
 
                     <!-- Reveal new updates -->
                     {{#if newUpdatesCount }}
@@ -37,52 +53,39 @@
                         </p>
                     {{/if}}
 
-                    <!-- For each update -->
-                    {{#each updates }}
+                    <!-- Render asynchronously -->
+                    {{# async callback=updatesRenderedCallback }}
 
-                        <!-- If it's another day, show a day-separator -->
-                        {{#if anotherDay . }}
-                            <section class="pu-sub-separator">
-                                {{ partupDatePartupTimeline created_at }}
-                                <span class="fa fa-long-arrow-down"></span>
+                        <!-- For each update -->
+                        {{#each updates }}
+
+                            <!-- If it's another day, show a day-separator -->
+                            {{#if anotherDay . }}
+                                <section class="pu-sub-separator">
+                                    {{ partupDatePartupTimeline created_at }}
+                                    <span class="fa fa-long-arrow-down"></span>
+                                </section>
+                            {{/if }}
+
+                            <!-- Render the update -->
+                            {{> Update LINK=true COMMENT_LIMIT=2 updateId=_id metadata=metaDataForUpdate }}
+
+                        {{ else }}
+
+                            <!-- No updates available -->
+                            <section class="pu-update pu-update-placeholder">
+                                <section>
+                                    <p>{{_ 'pages-app-partup-updates-no_updates'}}</p>
+                                </section>
                             </section>
-                        {{/if }}
 
-                        <!-- Render the update -->
-                        {{> Update LINK=true COMMENT_LIMIT=2 updateId=_id metadata=metaDataForUpdate }}
+                        {{/each }}
 
-                    {{ else }}
+                    {{/ async }}
 
-                        <!-- No updates available -->
-                        <section class="pu-update pu-update-placeholder">
-                            <section>
-                                <p>{{_ 'pages-app-partup-updates-no_updates'}}</p>
-                            </section>
-                        </section>
+                {{/ unless }}
 
-                    {{/each }}
-
-                </div>
-
-            {{ else }}
-
-                <!-- Loading state -->
-                {{# if updatesLoading }}
-                    <section class="pu-update">
-                        <aside>
-
-                            <!-- Loader indicator where normally a user avatar would be -->
-                            <figure class="pu-avatar pu-avatar-label">
-                                <span class="pu-sub-image pu-sub-image-loader">
-                                    {{> Spinner }}
-                                </span>
-                            </figure>
-
-                        </aside>
-                    </section>
-                {{/ if }}
-
-            {{/ unless }}
+            </div>
 
         </div>
     </div>

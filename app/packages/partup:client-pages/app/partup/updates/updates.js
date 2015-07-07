@@ -15,6 +15,7 @@ Template.app_partup_updates.onCreated(function() {
 
         // States
         loading: new ReactiveVar(true),
+        rendering: new ReactiveVar(),
         end_reached: new ReactiveVar(true),
 
         // Date of the last refresh
@@ -52,6 +53,8 @@ Template.app_partup_updates.onCreated(function() {
 
         // Options reactive variable (on change, update the whole view model)
         options: new ReactiveVar({}, function(a, b) {
+            tpl.updates.loading.set(true);
+
             tpl.updates.resetLimit();
 
             var options = b;
@@ -59,13 +62,11 @@ Template.app_partup_updates.onCreated(function() {
 
             var oldHandle = tpl.updates.handle;
             tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
-            tpl.updates.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.updates.handle.ready()) {
                     computation.stop(); // Stop the autorun
                     if (oldHandle) oldHandle.stop();
-                    tpl.updates.loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -76,6 +77,9 @@ Template.app_partup_updates.onCreated(function() {
                         tpl.updates.updateModel();
                         tpl.updates.updateView();
                     });
+
+                    // Unset loading state
+                    tpl.updates.loading.set(false);
                 }
             });
         }),
@@ -92,18 +96,18 @@ Template.app_partup_updates.onCreated(function() {
             var first = b === tpl.updates.STARTING_LIMIT;
             if (first) return;
 
+            tpl.updates.loading.set(true);
+
             var options = tpl.updates.options.get();
             options.limit = b;
 
             var oldHandle = tpl.updates.handle;
             tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
-            tpl.updates.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.updates.handle.ready()) {
                     computation.stop(); // Stop the autorun
                     if (oldHandle) oldHandle.stop();
-                    tpl.updates.loading.set(false);
 
                     /*
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
@@ -129,6 +133,9 @@ Template.app_partup_updates.onCreated(function() {
 
                         tpl.updates.addToView(addedUpdates);
                     });
+
+                    // Unset loading state
+                    tpl.updates.loading.set(false);
                 }
             });
         }),
@@ -214,12 +221,8 @@ Template.app_partup_updates.helpers({
         var previousMoment = moment(previousUpdate ? previousUpdate[TIME_FIELD] : undefined);
         var currentMoment = moment(update[TIME_FIELD]);
 
-        // Mutate the moment object to set them to the start of the day
-        previousMoment.startOf('day');
-        currentMoment.startOf('day');
-
-        // Determine & return whether this update is another day
-        return previousMoment.diff(currentMoment, 'days') > 0;
+        // Determine whether this update is another day
+        return Partup.client.moment.isAnotherDay(previousMoment, currentMoment);
     },
     isLoggedIn: function() {
         var user = Meteor.user();
@@ -267,12 +270,23 @@ Template.app_partup_updates.helpers({
         return Template.instance().updates.filter;
     },
 
+    updatesEndReached: function() {
+        return Template.instance().updates.end_reached.get();
+    },
+
+    // Loading / rendering state
     updatesLoading: function() {
         return Template.instance().updates.loading.get();
     },
-
-    updatesEndReached: function() {
-        return Template.instance().updates.end_reached.get();
+    updatesLoadingOrRendering: function() {
+        return Template.instance().updates.loading.get() || Template.instance().updates.rendering.get();
+    },
+    updatesRenderedCallback: function() {
+        var tpl = Template.instance();
+        tpl.updates.rendering.set(true);
+        return function() {
+            tpl.updates.rendering.set(false);
+        };
     }
 });
 

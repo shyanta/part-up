@@ -1,6 +1,9 @@
 <template name="Loader">
 
-    <div class="pu-loader {{#if TYPE}}pu-loader-{{ TYPE }}{{/if}} {{# if CENTER }}pu-loader-center{{/ if }}">
+    <div class="pu-loader
+                {{#with TYPE }}pu-loader-color-{{ . }}{{/ with }}
+                {{#with SIZE }}pu-loader-size-{{ . }}{{/ with }}
+                {{#with ALIGNMENT }}pu-loader-align-{{ . }}{{/ with }}">
         <span></span><span></span><span></span>
     </div>
 
