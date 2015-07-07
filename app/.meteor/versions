@@ -97,7 +97,7 @@ partup:client-autocomplete@0.0.1
 partup:client-base@0.0.1
 partup:client-basic-selector@0.0.1
 partup:client-columns-layout@0.0.1
-partup:client-commentfield@0.0.1
+partup:client-comments@0.0.1
 partup:client-contribution@0.0.1
 partup:client-copy-to-clipboard@0.0.1
 partup:client-dropdown@0.0.1
