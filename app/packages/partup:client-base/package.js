@@ -55,6 +55,8 @@ Package.onUse(function(api) {
         'helpers/Partup.js',
         'helpers/isPopupActive.js',
         'helpers/footerToggle.js',
+        'helpers/async.html',
+        'helpers/async.js',
         'autorun.js',
         'bootstrap.js',
 
