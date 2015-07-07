@@ -19,7 +19,10 @@ Template.app_partup_updates.onCreated(function() {
         end_reached: new ReactiveVar(true),
 
         // Date of the last refresh
-        refreshDate: new ReactiveVar(new Date()),
+        refreshDate: new ReactiveVar(new Date(), function(a) {
+            tpl.updates.refreshDate_remembered.set(a);
+        }),
+        refreshDate_remembered: new ReactiveVar(),
 
         // Updates handle
         handle: null,
@@ -208,7 +211,9 @@ Template.app_partup_updates.helpers({
         }).length;
     },
 
-    anotherDay: function(update) {
+    isAnotherDay: function() {
+        var update = this;
+
         // WARNING: this helper assumes that the list is always sorted by TIME_FIELD
         var TIME_FIELD = 'updated_at';
 
@@ -272,6 +277,34 @@ Template.app_partup_updates.helpers({
 
     updatesEndReached: function() {
         return Template.instance().updates.end_reached.get();
+    },
+
+    // New updates separator
+    showNewUpdatesSeparator: function() {
+        var update = this;
+        var tpl = Template.instance();
+
+        // WARNING: this helper assumes that the list is always sorted by TIME_FIELD
+        var TIME_FIELD = 'updated_at';
+
+        // Find remembered refreshDate
+        var rememberedRefreshDate = tpl.updates.refreshDate_remembered.get();
+        if (!rememberedRefreshDate) return false;
+        var rememberedRefreshMoment = moment(rememberedRefreshDate);
+
+        // Find previous update
+        var updates = tpl.updates.view.get();
+        var currentIndex = lodash.findIndex(updates, update);
+        var previousUpdate = updates[currentIndex - 1];
+        if (!previousUpdate) return false;
+
+        // Date comparisons
+        var previousUpdateIsNewer = moment(previousUpdate[TIME_FIELD]).diff(rememberedRefreshMoment) > 0;
+        var currentUpdateIsOlder = moment(update[TIME_FIELD]).diff(rememberedRefreshMoment) < 0;
+
+        // Return true when the previous update is newer
+        // and the current update older than the remember refresh date
+        return previousUpdateIsNewer && currentUpdateIsOlder;
     },
 
     // Loading / rendering state

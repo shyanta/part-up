@@ -48,7 +48,28 @@
             margin-left: 3px
             font-size: 10px
 
+    .pu-sub-newupdatesseparator
+        border-bottom: 1px solid $color-primary
+        padding-bottom: 0
+        margin: 0 0 0 60px
+        max-height: 0
+        opacity: 0
+        transition: opacity .3s, margin .8s, padding .8s, max-height .8s
+        font-size: 14px
+        text-align: center
+        color: $color-primary
+
+        i
+            margin-left: 5px
+
+        &.pu-state-active
+            opacity: 1
+            max-height: 30px
+            padding-bottom: 10px
+            transition-duration: 0
+
     .pu-update,
+    .pu-sub-newupdatesseparator,
     .pu-sub-separator
         + .pu-update
             margin-top: 40px - 13px
@@ -56,6 +77,11 @@
         + .pu-sub-separator
             margin-top: 50px - 8px
             margin-bottom: 50px - 3px
+
+        + .pu-sub-newupdatesseparator
+            &.pu-state-active
+                margin-top: 50px
+                margin-bottom: 50px
 
     .pu-sub-revealupdatesbutton
         aside

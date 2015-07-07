@@ -2,7 +2,7 @@ Meteor.startup(function(){
     var windowScrollChecker = function windowScrollChecker(event){
         var windowHeight = window.innerHeight,
             windowScrollY = window.scrollY,
-            bodyScrollHeight = document.body.scrollHeight,
+            bodyScrollHeight = document.querySelector('body').scrollHeight,
             bottomOffset = (bodyScrollHeight - (windowHeight + windowScrollY));
 
         Session.set('window.scrollBottomOffset', bottomOffset);
