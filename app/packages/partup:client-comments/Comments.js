@@ -54,10 +54,8 @@ Template.Comments.helpers({
 
         return true;
     },
-    showCommentForm: function() {
-        return Template.instance().data.showCommentForm;
-    },
     shownComments: function() {
+        if (!this.update) return [];
         var comments = this.update.comments || [];
 
         var commentsExpanded = Template.instance().expanded.get();
@@ -73,6 +71,9 @@ Template.Comments.helpers({
     },
     submitting: function() {
         return Template.instance().submitting.get();
+    },
+    isMotivation: function() {
+        return this.type === 'motivation';
     }
 });
 

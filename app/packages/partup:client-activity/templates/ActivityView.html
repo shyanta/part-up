@@ -4,7 +4,7 @@
             {{_ 'activity-motivation-popup-title' }}
         {{/ contentFor }}
         {{# contentFor 'PopupContent' }}
-            Popup contents
+            {{> Comments showCommentForm=true update=update SHOW_COMMENTS=false type='motivation' POPUP=true }}
         {{/ contentFor }}
     {{/ if }}
 

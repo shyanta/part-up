@@ -74,8 +74,10 @@ Template.ActivityView.helpers({
     },
     isReadOnly: function() {
         return Template.instance().data.READONLY;
+    },
+    update: function() {
+        return Updates.findOne({_id: this.updateId || this.activity.update_id});
     }
-
 });
 
 /*************************************************************/
@@ -99,7 +101,6 @@ Template.ActivityView.events({
                 Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');
                 return;
             }
-
 
             if (!partup.hasUpper(Meteor.user()._id)) {
                 Partup.client.popup.open('popup.motivation');
