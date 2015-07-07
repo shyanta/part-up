@@ -51,19 +51,16 @@
                         <!-- Render the update -->
                         {{> Update LINK=true COMMENT_LIMIT=2 updateId=_id metadata=metaDataForUpdate }}
 
-                    {{/each }}
+                    {{ else }}
 
-                    <!-- No updates available -->
-                    {{# if updates }}
-                        <section class="pu-update">
-                            <aside>
-                                &nbsp;
-                            </aside>
+                        <!-- No updates available -->
+                        <section class="pu-update pu-update-placeholder">
                             <section>
-                                {{_ 'pages-app-partup-updates-no_updates'}}
+                                <p>{{_ 'pages-app-partup-updates-no_updates'}}</p>
                             </section>
                         </section>
-                    {{/ if }}
+
+                    {{/each }}
 
                 </div>
 
