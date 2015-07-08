@@ -303,7 +303,29 @@ Template.app_partup_updates.helpers({
 
         // Return true when the previous update is newer
         // and the current update older than the remember refresh date
-        return previousUpdateIsNewer && currentUpdateIsOlder;
+        var showNewUpdatesSeparator = previousUpdateIsNewer && currentUpdateIsOlder;
+
+        // Unset the rememberedRefreshDate after a few seconds when the line is in view
+        var HIDE_LINE_TIMEOUT = 3000;
+        var HIDE_LINE_ANIMATION_DURATION = 800;
+        Meteor.defer(function() {
+            var element = tpl.find('.pu-sub-newupdatesseparator');
+            Meteor.autorun(function(computation) {
+                if (Partup.client.scroll.inView(element)) {
+                    computation.stop();
+                    Meteor.setTimeout(function() {
+                        $(element).removeClass('pu-state-active');
+
+                        Meteor.setTimeout(function() {
+                            tpl.updates.refreshDate_remembered.set(undefined);
+                        }, HIDE_LINE_ANIMATION_DURATION);
+                    }, HIDE_LINE_TIMEOUT);
+                }
+            });
+        });
+
+        // Return whether to show the newUpdatesSeparator
+        return showNewUpdatesSeparator;
     },
 
     // Loading / rendering state

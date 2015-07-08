@@ -41,6 +41,27 @@ Partup.client.scroll = {
             Partup.client.scroll.pos.get();
             Tracker.nonreactive(trigger);
         });
+    },
+
+    /**
+     * Check if an element is in view
+     *
+     * @memberof Partup.client.scroll
+     * @param element  {Element}
+     * @returns inView {Boolean} Whether the given element is in view
+     */
+    inView: function(element) {
+        if (!element) return false;
+
+        // Call the this.pos.get() function to make this function reactive
+        this.pos.get();
+
+        // Get element and window positions
+        var element_pos = element.getBoundingClientRect().top;
+        var window_height = window.innerHeight;
+
+        // Return whether the element is in viewport
+        return element_pos > 0 && element_pos < window_height;
     }
 };
 
