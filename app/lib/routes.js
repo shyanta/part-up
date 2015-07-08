@@ -465,6 +465,10 @@ if (Meteor.isClient) {
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
         Partup.client.focuslayer.disable();
+        var currentPopup = Partup.client.popup.current.curValue;
+        if (currentPopup) {
+            Partup.client.popup.close();
+        }
         this.next();
     });
     /**
