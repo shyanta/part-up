@@ -59,6 +59,7 @@
                         <!-- For each update -->
                         {{#each updates }}
 
+
                             <!-- If the updates doesn't belong to the new updates, draw a line -->
                             {{# if showNewUpdatesSeparator }}
                                 <div class="pu-sub-newupdatesseparator pu-state-active">
@@ -90,6 +91,13 @@
                         {{/each }}
 
                     {{/ async }}
+
+                    <!-- Infinite scroll loader -->
+                    {{# if updatesLoadingOrRenderingMore }}
+                        <div class="pu-sub-infinitescrollloadingspinner">
+                            {{> Spinner }}
+                        </div>
+                    {{/ if }}
 
                 {{/ unless }}
 

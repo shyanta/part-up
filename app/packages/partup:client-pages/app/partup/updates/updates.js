@@ -15,14 +15,12 @@ Template.app_partup_updates.onCreated(function() {
 
         // States
         loading: new ReactiveVar(true),
-        infinite_scroll_loading: new ReactiveVar(false),
         rendering: new ReactiveVar(),
+        infinite_scroll_loading: new ReactiveVar(false),
         end_reached: new ReactiveVar(true),
 
         // Date of the last refresh
-        refreshDate: new ReactiveVar(new Date(), function(a) {
-            tpl.updates.refreshDate_remembered.set(a);
-        }),
+        refreshDate: new ReactiveVar(new Date()),
         refreshDate_remembered: new ReactiveVar(),
 
         // Updates handle
@@ -321,7 +319,10 @@ Template.app_partup_updates.helpers({
         return function() {
             tpl.updates.rendering.set(false);
         };
-    }
+    },
+    updatesLoadingOrMore: function() {
+        return Template.instance().updates.infinite_scroll_loading.get();
+    },
 });
 
 /**
@@ -336,6 +337,7 @@ Template.app_partup_updates.events({
     },
     'click [data-reveal-new-updates]': function(event, template) {
         event.preventDefault();
+        template.updates.refreshDate_remembered.set(template.updates.refreshDate.get());
         template.updates.updateView();
     }
 });
