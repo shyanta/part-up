@@ -1,3 +1,16 @@
+Template.app_network.onCreated(function() {
+    var template = this;
+    template.networkSubscription = template.subscribe('networks.one', template.data.networkId);
+    Meteor.autorun(function whenSubscriptionIsReady(computation) {
+        if (template.networkSubscription.ready()) {
+            computation.stop();
+            if (!Networks.findOne({_id: template.data.networkId})) {
+                Router.pageNotFound('network');
+            }
+        }
+    });
+});
+
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
@@ -19,6 +32,10 @@ Template.app_network.helpers({
 
         // if closed and does not have member return true
         return true;
+    },
+
+    subscriptionsReady: function() {
+        return Template.instance().networkSubscription.ready();
     }
 });
 
