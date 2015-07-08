@@ -29,6 +29,7 @@ Package.onUse(function(api) {
         'app/app-footer.html',
 
         'app/app-notfound.html',
+        'app/app-notfound.js',
         // App:home
         'app/home/home.html',
         'app/home/home.js',
