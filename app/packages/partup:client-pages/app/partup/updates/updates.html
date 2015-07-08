@@ -60,10 +60,12 @@
                         {{#each updates }}
 
                             <!-- If the updates doesn't belong to the new updates, draw a line -->
-                            <div class="pu-sub-newupdatesseparator {{# if showNewUpdatesSeparator }}pu-state-active{{/ if }}">
-                                {{_ 'pages-app-partup-updates-new_updates_separator' }}
-                                <i class="fa fa-long-arrow-up"></i>
-                            </div>
+                            {{# if showNewUpdatesSeparator }}
+                                <div class="pu-sub-newupdatesseparator pu-state-active">
+                                    {{_ 'pages-app-partup-updates-new_updates_separator' }}
+                                    <i class="fa fa-long-arrow-up"></i>
+                                </div>
+                            {{/ if }}
 
                             <!-- If it's another day, show a day-separator -->
                             {{#if isAnotherDay }}
