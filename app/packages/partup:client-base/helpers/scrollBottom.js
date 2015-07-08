@@ -33,7 +33,7 @@ Meteor.startup(function(){
     // Nasty document height change listener
     var onDocumentHeightChange = function onDocumentHeightChange(callback){
         // init vars
-        var lastHeight = document.body.clientHeight,
+        var lastHeight = document.querySelector('body').clientHeight,
             newHeight,
             timer;
 
