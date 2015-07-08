@@ -4,7 +4,7 @@
 Event.on('partups.contributions.inserted', function(userId, contribution) {
     if (!userId) return;
 
-    var updateType = 'partups_contributions_added';
+    var updateType = contribution.verified ? 'partups_contributions_added' : 'partups_contributions_proposed';
     var updateTypeData = {
         activity_id: contribution.activity_id,
         contribution_id: contribution._id
@@ -17,7 +17,8 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
 
     var user = Meteor.users.findOneOrFail(userId);
     var activity = Activities.findOneOrFail(contribution.activity_id);
-    Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_added', {update_timestamp: false});
+    var system_message_type = contribution.verified ? 'system_contributions_added' : 'system_contributions_proposed';
+    Partup.server.services.system_messages.send(user, activity.update_id, system_message_type, {update_timestamp: false});
 });
 
 /**
@@ -27,19 +28,7 @@ Event.on('partups.contributions.updated', function(userId, contribution, oldCont
     if (!userId) return;
     if (!oldContribution.update_id) return;
 
-    var set = {
-        upper_id: userId,
-        type: 'partups_contributions_changed',
-        updated_at: new Date()
-    };
-
-    Updates.update({_id: contribution.update_id}, {$set: set});
-
-    var user = Meteor.users.findOneOrFail(userId);
-    var activity = Activities.findOneOrFail(contribution.activity_id);
-
     var cause = false;
-
     if (!oldContribution.archived && contribution.archived) {
         cause = 'archived';
     } else if (oldContribution.archived && !contribution.archived) {
@@ -48,13 +37,25 @@ Event.on('partups.contributions.updated', function(userId, contribution, oldCont
         cause = 'verified';
     }
 
+    var set = {
+        upper_id: userId,
+        type: cause === 're-added' ? 'partups_contributions_proposed' : 'partups_contributions_changed',
+        updated_at: new Date()
+    };
+
+    Updates.update({_id: contribution.update_id}, {$set: set});
+
+    var user = Meteor.users.findOneOrFail(userId);
+    var activity = Activities.findOneOrFail(contribution.activity_id);
+
     // When there's a cause, it means that the system_message will be created somewhere else
     if (!cause) {
         Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_updated', {update_timestamp: false});
     }
 
     if (cause === 're-added') {
-        Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_added', {update_timestamp: false});
+        var system_message_type = contribution.verified ? 'system_contributions_added' : 'system_contributions_proposed';
+        Partup.server.services.system_messages.send(user, activity.update_id, system_message_type, {update_timestamp: false});
     }
 });
 

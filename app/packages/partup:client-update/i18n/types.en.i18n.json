@@ -38,6 +38,7 @@
 
     "update-type-partups_invited-title": "Invited %s for this part-up",
 
+    "update-type-partups_contributions_proposed-title": "Proposed a contribution",
     "update-type-partups_contributions_added-title": "Added a contribution",
     "update-type-partups_contributions_changed-title": "Changed a contribution",
     "update-type-partups_contributions_accepted-title": "Accepted a contribution",
