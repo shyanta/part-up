@@ -304,7 +304,7 @@ Template.app_partup_updates.helpers({
         var showNewUpdatesSeparator = previousUpdateIsNewer && currentUpdateIsOlder;
 
         // Unset the rememberedRefreshDate after a few seconds when the line is in view
-        var HIDE_LINE_TIMEOUT = 3000;
+        var HIDE_LINE_TIMEOUT = 8000;
         var HIDE_LINE_ANIMATION_DURATION = 800;
         Meteor.defer(function() {
             var element = tpl.find('.pu-sub-newupdatesseparator');
