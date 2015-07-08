@@ -157,7 +157,7 @@
             {{# if update.isActivityUpdate }}
                 {{#with update.type_data }}
                     <section>
-                        {{> Activity activity=activityData CONTRIBUTIONS=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
+                        {{> Activity activity=activityData EXPANDABLE=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
                     </section>
                 {{/with}}
             {{/if }}

@@ -9,7 +9,7 @@
     {{/ if }}
 
     <article class="pu-block pu-block-activity pu-activity
-                    {{# if CONTRIBUTIONS }}     pu-activity-contributions        {{/ if }}
+                    {{# if EXPANDABLE }}        pu-activity-expandable           {{/ if }}
                     {{# if contribution }}      pu-activity-singlecontribution   {{/ if }}
                     {{# if expanded }}          pu-activity-expanded             {{/ if }}
                     {{# if CREATE_PARTUP }}     pu-activity-in-startpartup-modal {{/ if }}
@@ -32,7 +32,7 @@
             {{/ if }}
 
             <!-- Title (could be clickable) -->
-            <h3 class="pu-sub-title {{# if CONTRIBUTIONS }}{{# unless EXPANDED }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
+            <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
                 {{# if isActiveRoute name='partup' }}
                     <a href="{{ pathFor route='partup-update' _id=activity.partup_id update_id=activity.update_id }}">{{ activity.name }}</a>
                     <i class="pu-chevron fa fa-chevron-right"></i>
@@ -47,13 +47,11 @@
 
             <!-- Contributors -->
             {{# unless expanded }}
-                {{# if CONTRIBUTIONS }}
-                    <ul class="pu-avatar-stack">
-                        {{# each contributions }}
-                            <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                        {{/ each }}
-                    </ul>
-                {{/ if }}
+                <ul class="pu-avatar-stack">
+                    {{# each contributions }}
+                        <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                    {{/ each }}
+                </ul>
             {{/ unless }}
 
             <!-- If multiple contributions were found, show the activity description and metadata -->

@@ -4,7 +4,7 @@
 Template.ActivityView.onCreated(function() {
     var tpl = this;
 
-    tpl.expanded = new ReactiveVar(false);
+    tpl.expanded = new ReactiveVar(!!tpl.data.EXPANDED);
 
     tpl.updateContribution = function(contribution, cb) {
         var activityId = tpl.data.activity ? tpl.data.activity._id : tpl.data.activity_id;
@@ -32,13 +32,13 @@ Template.ActivityView.helpers({
         return Contributions.findOne({_id: this.contribution_id});
     },
     expanded: function() {
-        return this.EXPANDED || (Template.instance().expanded.get() && !!this.CONTRIBUTIONS);
+        return Template.instance().expanded.get();
     },
     showChevron: function() {
-        return this.CONTRIBUTIONS && !this.EXPANDED && !this.contribution_id;
+        return this.EXPANDABLE && !Template.instance().expanded.get() && !this.contribution_id;
     },
     showEditButton: function() {
-        return !this.READONLY && this.isUpper;
+        return !this.READONLY && this.isUpper && Template.instance().expanded.get();
     },
     showMetaData: function() {
         return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;

@@ -31,7 +31,7 @@
                 {{# async callback=activitiesRenderedCallback }}
 
                     {{# each activities }}
-                        {{> Activity activity=. CONTRIBUTIONS=true COMMENTS_LINK=true isUpper=isUpper }}
+                        {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
                     {{/ each }}
 
                     {{# if archivedActivities }}
@@ -44,7 +44,7 @@
                     {{/ if }}
 
                     {{# each archivedActivities }}
-                        {{> Activity activity=. CONTRIBUTIONS=true isUpper=isUpper }}
+                        {{> Activity activity=. EXPANDABLE=true isUpper=isUpper }}
                     {{/ each }}
 
                     {{#unless activities }}
