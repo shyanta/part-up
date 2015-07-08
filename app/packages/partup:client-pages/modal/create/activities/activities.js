@@ -6,7 +6,8 @@ var getActivities = function(partupId) {
 };
 
 Template.modal_create_activities.onCreated(function() {
-    this.subscribe('activities.from_partup', this.data.partupId);
+    var partupId = mout.object.get(this, 'data.partupId') || Session.get('partials.create-partup.current-partup');
+    this.subscribe('activities.from_partup', partupId);
 });
 
 /*************************************************************/
