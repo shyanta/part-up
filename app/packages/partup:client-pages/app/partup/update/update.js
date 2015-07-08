@@ -29,3 +29,9 @@ Template.app_partup_update.helpers({
         };
     }
 });
+
+Template.app_partup_update.events({
+    'click [data-back]': function goBack(event, template) {
+        Router.back();
+    }
+})
