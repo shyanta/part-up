@@ -73,7 +73,7 @@ Template.Comments.helpers({
         return Template.instance().submitting.get();
     },
     isSystemMessage: function() {
-        return this.type === 'system';
+        return this.type === 'system' || this.system;
     },
     isMotivation: function() {
         return this.type === 'motivation';
