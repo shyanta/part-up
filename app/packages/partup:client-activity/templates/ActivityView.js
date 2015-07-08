@@ -76,7 +76,7 @@ Template.ActivityView.helpers({
         return Template.instance().data.READONLY;
     },
     update: function() {
-        return Updates.findOne({_id: this.updateId || this.activity.update_id});
+        return Updates.findOne({_id: this.updateId || Template.instance().data.activity.update_id});
     }
 });
 
