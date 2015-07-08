@@ -118,6 +118,11 @@ AutoForm.addHooks(null, {
 
             template.buttonActive.set(false);
             AutoForm.resetForm(self.formId);
+
+            if (template.data.POPUP) {
+                Partup.client.popup.close();
+            }
+
             self.done();
         });
 
