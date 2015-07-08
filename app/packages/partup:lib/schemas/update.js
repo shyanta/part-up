@@ -44,6 +44,11 @@ var updateCommentBaseSchema = new SimpleSchema({
     content: {
         type: String,
         max: 250
+    },
+    type: {
+        type: String,
+        optional: true,
+        allowedValues: ['motivation', 'system']
     }
 });
 
@@ -64,11 +69,6 @@ Partup.schemas.entities.updateComment = new SimpleSchema([updateCommentBaseSchem
     },
     'creator.name': {
         type: String
-    },
-    type: {
-        type: String,
-        optional: true,
-        allowedValues: ['system']
     },
     created_at: {
         type: Date,
