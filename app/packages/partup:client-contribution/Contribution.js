@@ -109,7 +109,7 @@ AutoForm.addHooks(null, {
 
         template.submitting.set(true);
 
-        template.updateContribution(doc, function(error) {
+        template.data.updateContribution(doc, function(error) {
             if (error) {
                 console.error(error);
             }
