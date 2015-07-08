@@ -72,6 +72,9 @@ Template.Comments.helpers({
     submitting: function() {
         return Template.instance().submitting.get();
     },
+    isSystemMessage: function() {
+        return this.type === 'system';
+    },
     isMotivation: function() {
         return this.type === 'motivation';
     }

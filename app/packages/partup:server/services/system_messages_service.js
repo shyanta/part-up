@@ -37,7 +37,7 @@ Partup.server.services.system_messages = {
                     comments: {
                         _id: Random.id(),
                         content: content,
-                        system: true,
+                        type: 'system',
                         creator: {
                             _id: upper._id,
                             name: upper.profile.name

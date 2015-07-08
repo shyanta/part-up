@@ -23,9 +23,9 @@
             <ul class="pu-list pu-list-comments">
                 {{#each shownComments }}
                     <li>
-                        <p class="{{# if system }}pu-sub-systemmessage{{/ if}}">
+                        <p class="{{# if isSystemMessage }}pu-sub-systemmessage{{/ if}}">
                             <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
-                            {{# if system }}
+                            {{# if isSystemMessage }}
                                 {{ systemMessage content }}
                             {{else}}
                                 {{ content }}

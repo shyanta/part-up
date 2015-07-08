@@ -65,6 +65,11 @@ Partup.schemas.entities.updateComment = new SimpleSchema([updateCommentBaseSchem
     'creator.name': {
         type: String
     },
+    type: {
+        type: String,
+        optional: true,
+        allowedValues: ['system']
+    },
     created_at: {
         type: Date,
         defaultValue: new Date()
