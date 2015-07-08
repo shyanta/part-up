@@ -125,7 +125,7 @@ AutoForm.addHooks(null, {
             AutoForm.resetForm(self.formId);
 
             if (template.data.POPUP) {
-                Partup.client.popup.close();
+                Partup.client.popup.close(true);
             }
 
             self.done();

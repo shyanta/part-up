@@ -103,7 +103,11 @@ Template.ActivityView.events({
             }
 
             if (!partup.hasUpper(Meteor.user()._id)) {
-                Partup.client.popup.open('popup.motivation');
+                Partup.client.popup.open('popup.motivation', function(success) {
+                    template.updateContribution({}, function(error) {
+                        if (error) console.error(error);
+                    });
+                });
             } else {
                 template.updateContribution({}, function(error) {
                     if (error) console.error(error);
