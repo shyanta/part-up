@@ -77,11 +77,6 @@ Template.Comments.helpers({
     },
     isMotivation: function() {
         return this.type === 'motivation';
-    },
-    fieldsForComment: function() {
-        if (this.type === 'motivation') {
-            return {content: __('widgetcommentfield-comment-motivation-placeholder')};
-        }
     }
 });
 

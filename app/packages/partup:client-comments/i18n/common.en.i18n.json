@@ -4,5 +4,5 @@
     "widgetcommentfield-comment-placeholder": "Write a comment",
     "widgetcommentfield-comment-viewall-button": "View all %s comments",
 
-    "widgetcommentfield-comment-motivation-placeholder": "My motivation is:"
+    "widgetcommentfield-comment-motivation-prefix": "motivation is: "
 }
