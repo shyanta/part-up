@@ -104,6 +104,10 @@ AutoForm.addHooks(null, {
         var template = self.template.parent();
         template.submitting.set(true);
 
+        if (template.data.type === 'motivation') {
+            insertDoc.type = 'motivation';
+        }
+
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             template.submitting.set(false);
             if (error) {
