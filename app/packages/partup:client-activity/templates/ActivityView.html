@@ -1,4 +1,13 @@
 <template name="ActivityView">
+    {{# if partupIsPopupActive 'popup.motivation' }}
+        {{# contentFor 'PopupTitle' }}
+            {{_ 'activity-motivation-popup-title' }}
+        {{/ contentFor }}
+        {{# contentFor 'PopupContent' }}
+            {{> Comments showCommentForm=true update=update SHOW_COMMENTS=false type='motivation' POPUP=true }}
+        {{/ contentFor }}
+    {{/ if }}
+
     <article class="pu-block pu-block-activity pu-activity
                     {{# if CONTRIBUTIONS }}     pu-activity-contributions        {{/ if }}
                     {{# if contribution }}      pu-activity-singlecontribution   {{/ if }}

@@ -2,5 +2,7 @@
     "widgetcommentfield-comment-button": "Reageren",
     "widgetcommentfield-comment-postbutton": "Plaats",
     "widgetcommentfield-comment-placeholder": "Schrijf een reactie",
-    "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties"
+    "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties",
+
+    "widgetcommentfield-comment-motivation-placeholder": "Mijn motivatie is:"
 }

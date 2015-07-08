@@ -74,8 +74,10 @@ Template.ActivityView.helpers({
     },
     isReadOnly: function() {
         return Template.instance().data.READONLY;
+    },
+    update: function() {
+        return Updates.findOne({_id: this.updateId || this.activity.update_id});
     }
-
 });
 
 /*************************************************************/
@@ -100,9 +102,17 @@ Template.ActivityView.events({
                 return;
             }
 
-            template.updateContribution({}, function(error) {
-                if (error) console.error(error);
-            });
+            if (!partup.hasUpper(Meteor.user()._id)) {
+                Partup.client.popup.open('popup.motivation', function(success) {
+                    template.updateContribution({}, function(error) {
+                        if (error) console.error(error);
+                    });
+                });
+            } else {
+                template.updateContribution({}, function(error) {
+                    if (error) console.error(error);
+                });
+            }
         };
 
         if (Meteor.user()) {

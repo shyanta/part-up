@@ -2,5 +2,7 @@
     "widgetcommentfield-comment-button": "Comment",
     "widgetcommentfield-comment-postbutton": "Post",
     "widgetcommentfield-comment-placeholder": "Write a comment",
-    "widgetcommentfield-comment-viewall-button": "View all %s comments"
+    "widgetcommentfield-comment-viewall-button": "View all %s comments",
+
+    "widgetcommentfield-comment-motivation-placeholder": "My motivation is:"
 }

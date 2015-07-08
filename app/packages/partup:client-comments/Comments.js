@@ -54,10 +54,8 @@ Template.Comments.helpers({
 
         return true;
     },
-    showCommentForm: function() {
-        return Template.instance().data.showCommentForm;
-    },
     shownComments: function() {
+        if (!this.update) return [];
         var comments = this.update.comments || [];
 
         var commentsExpanded = Template.instance().expanded.get();
@@ -73,6 +71,17 @@ Template.Comments.helpers({
     },
     submitting: function() {
         return Template.instance().submitting.get();
+    },
+    isSystemMessage: function() {
+        return this.type === 'system' || this.system;
+    },
+    isMotivation: function() {
+        return this.type === 'motivation';
+    },
+    fieldsForComment: function() {
+        if (this.type === 'motivation') {
+            return {content: __('widgetcommentfield-comment-motivation-placeholder')};
+        }
     }
 });
 
@@ -100,6 +109,10 @@ AutoForm.addHooks(null, {
         var template = self.template.parent();
         template.submitting.set(true);
 
+        if (template.data.type === 'motivation') {
+            insertDoc.type = 'motivation';
+        }
+
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             template.submitting.set(false);
             if (error) {
@@ -110,6 +123,11 @@ AutoForm.addHooks(null, {
 
             template.buttonActive.set(false);
             AutoForm.resetForm(self.formId);
+
+            if (template.data.POPUP) {
+                Partup.client.popup.close(true);
+            }
+
             self.done();
         });
 

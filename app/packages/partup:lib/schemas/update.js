@@ -44,6 +44,11 @@ var updateCommentBaseSchema = new SimpleSchema({
     content: {
         type: String,
         max: 250
+    },
+    type: {
+        type: String,
+        optional: true,
+        allowedValues: ['motivation', 'system']
     }
 });
 
