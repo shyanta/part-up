@@ -56,7 +56,7 @@ Meteor.publishComposite('networks.one.uppers', function(networkId, options) {
     var self = this;
     return {
         find: function() {
-            var network = Networks.guardedFind(self.userId, {_id: networkId});
+            var network = Networks.guardedFind(self.userId, {_id: networkId}).fetch()[0];
             var uppers = network.uppers || [];
             return Meteor.users.findMultiplePublicProfiles(uppers, options);
         },
@@ -78,7 +78,7 @@ Meteor.publish('networks.one.uppers.count', function(networkId, options) {
         count: true
     };
 
-    var network = Networks.guardedFind(self.userId, {_id: networkId});
+    var network = Networks.guardedFind(self.userId, {_id: networkId}).fetch()[0];
     var uppers = network.uppers || [];
 
     Counts.publish(this, 'networks.one.uppers.filterquery', Meteor.users.findMultiplePublicProfiles(uppers, options, parameters));
@@ -122,19 +122,6 @@ Meteor.publishComposite('networks.one', function(networkId) {
                     var imageId = network.image || null;
                     return Images.find({_id: imageId}, {limit: 1});
                 }
-            },
-            {
-                find: function(network) {
-                    var uppers = network.uppers || [];
-                    return Meteor.users.findMultiplePublicProfiles(uppers);
-                },
-                children: [
-                    {
-                        find: function(user) {
-                            return Images.find({_id: user.profile.image}, {limit: 1});
-                        }
-                    }
-                ]
             }
         ]
     };
