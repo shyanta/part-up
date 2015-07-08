@@ -38,9 +38,10 @@
 
     "update-type-partups_invited-title": "Invited %s for this part-up",
 
-    "update-type-partups_contributions_added-title": "Added contribution",
-    "update-type-partups_contributions_changed-title": "Changed contribution",
-    "update-type-partups_contributions_removed-title": "Removed contribution",
+    "update-type-partups_contributions_added-title": "Added a contribution",
+    "update-type-partups_contributions_changed-title": "Changed a contribution",
+    "update-type-partups_contributions_accepted-title": "Accepted a contribution",
+    "update-type-partups_contributions_removed-title": "Removed a contribution",
 
     "update-type-partups_ratings_inserted-title": "Added rating",
     "update-type-partups_ratings_changed-title": "Changed rating",

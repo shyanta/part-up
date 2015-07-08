@@ -89,6 +89,14 @@ Meteor.methods({
 
             Contributions.update({_id: {$in: conceptContributionsIdArray}}, {$set: {verified: true}}, {multi: true});
 
+            // Update the update
+            var set = {
+                upper_id: upper._id,
+                type: 'partups_contributions_accepted',
+                updated_at: new Date()
+            };
+            Updates.update({_id: contribution.update_id}, {$set: set});
+
             // Promote the user from Supporter to Upper
             Partups.update(contribution.partup_id, {$pull: {'supporters': contribution.upper_id}, $push: {'uppers': contribution.upper_id}});
             Meteor.users.update(contribution.upper_id, {$pull: {'supporterOf': contribution.partup_id}, $push: {'upperOf': contribution.partup_id}});
