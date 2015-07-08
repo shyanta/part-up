@@ -46,15 +46,15 @@
             </h3>
 
             <!-- Contributors -->
-            {{# if CONTRIBUTIONS }}
-                {{# unless expanded}}
-                <ul class="pu-avatar-stack">
-                    {{# each contributions }}
-                        <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                    {{/ each }}
-                </ul>
-                {{/unless}}
-            {{/ if }}
+            {{# unless expanded }}
+                {{# if CONTRIBUTIONS }}
+                    <ul class="pu-avatar-stack">
+                        {{# each contributions }}
+                            <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                        {{/ each }}
+                    </ul>
+                {{/ if }}
+            {{/ unless }}
 
             <!-- If multiple contributions were found, show the activity description and metadata -->
             {{# if contributions }}

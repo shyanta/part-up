@@ -52,10 +52,10 @@ Template.Update.helpers({
         return Activities.findOne({_id: activityId});
     },
     isDetail: function() {
-        return !!Template.instance().data.updateId;
+        return !!Template.instance().data.IS_DETAIL;
     },
     isNotDetail: function() {
-        return !Template.instance().data.updateId;
+        return !Template.instance().data.IS_DETAIL;
     },
     title: function() {
         var titleKey = 'update-type-' + this.metadata.update_type + '-title';
@@ -84,7 +84,13 @@ Template.Update.helpers({
         var user = Meteor.user();
         if (!user) return false;
 
-        var partup = Partups.findOne(Template.instance().data.updateId);
+        var updateId = Template.instance().data.updateId;
+        if (!updateId) return false;
+
+        var update = Updates.findOne({_id: updateId});
+        if (!update) return false;
+
+        var partup = Partups.findOne({_id: update.partup_id});
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
