@@ -10,11 +10,12 @@ Template.app_partup_updates.onCreated(function() {
     tpl.updates = {
 
         // Constants
-        STARTING_LIMIT: 10,
-        INCREMENT: 10,
+        STARTING_LIMIT: 8,
+        INCREMENT: 6,
 
         // States
         loading: new ReactiveVar(true),
+        infinite_scroll_loading: new ReactiveVar(false),
         rendering: new ReactiveVar(),
         end_reached: new ReactiveVar(true),
 
@@ -99,7 +100,7 @@ Template.app_partup_updates.onCreated(function() {
             var first = b === tpl.updates.STARTING_LIMIT;
             if (first) return;
 
-            tpl.updates.loading.set(true);
+            tpl.updates.infinite_scroll_loading.set(true);
 
             var options = tpl.updates.options.get();
             options.limit = b;
@@ -138,7 +139,7 @@ Template.app_partup_updates.onCreated(function() {
                     });
 
                     // Unset loading state
-                    tpl.updates.loading.set(false);
+                    tpl.updates.infinite_scroll_loading.set(false);
                 }
             });
         }),
@@ -180,7 +181,7 @@ Template.app_partup_updates.onRendered(function() {
         template: tpl,
         element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        if (tpl.updates.loading.get() || tpl.updates.end_reached.get()) return;
+        if (tpl.updates.loading.get() || tpl.updates.infinite_scroll_loading.get() || tpl.updates.end_reached.get()) return;
         tpl.updates.increaseLimit();
     });
 
