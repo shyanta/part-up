@@ -27,9 +27,11 @@
         <section class="pu-sub-section">
 
             <!-- Edit button -->
-            {{# if showEditButton }}
-                <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
-            {{/ if }}
+            {{# unless COMPACT }}
+                {{# if showEditButton }}
+                    <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
+                {{/ if }}
+            {{/ unless }}
 
             <!-- Title (could be clickable) -->
             <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
@@ -46,30 +48,34 @@
             </h3>
 
             <!-- Contributors -->
-            {{# unless expanded }}
-                <ul class="pu-avatar-stack">
-                    {{# each contributions }}
-                        <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                    {{/ each }}
-                </ul>
-            {{/ unless }}
+            {{# unless COMPACT }}
+                {{# unless expanded }}
+                    <ul class="pu-avatar-stack">
+                        {{# each contributions }}
+                            <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                        {{/ each }}
+                    </ul>
+                {{/ unless }}
+            {{/ unless}}
 
             <!-- If multiple contributions were found, show the activity description and metadata -->
-            {{# if activity.description }}
-                <p class="pu-sub-description pu-paragraph">{{ activity.description }}</p>
-            {{/ if }}
+            {{# unless COMPACT }}
+                {{# if activity.description }}
+                    <p class="pu-sub-description pu-paragraph">{{ activity.description }}</p>
+                {{/ if }}
 
-            {{# if showMetaData }}
-                <p class="pu-block-meta">
-                    {{# if activity.end_date }}
-                        <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
-                    {{/if}}
+                {{# if showMetaData }}
+                    <p class="pu-block-meta">
+                        {{# if activity.end_date }}
+                            <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+                        {{/if}}
 
-                    {{# if COMMENTS_LINK }}
-                        <a class="pu-sub-comments" href="{{ pathFor route='partup-update' _id=activity.partup_id update_id=activity.update_id }}"><i class="fa fa-comment"></i> {{_ 'activity-comment' count=commentsCount }}</a>
-                    {{/ if }}
-                </p>
-            {{/ if }}
+                        {{# if COMMENTS_LINK }}
+                            <a class="pu-sub-comments" href="{{ pathFor route='partup-update' _id=activity.partup_id update_id=activity.update_id }}"><i class="fa fa-comment"></i> {{_ 'activity-comment' count=commentsCount }}</a>
+                        {{/ if }}
+                    </p>
+                {{/ if }}
+            {{/ unless }}
         </section>
 
         <!-- Show multiple contributions if the activity is expandable -->

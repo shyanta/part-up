@@ -166,7 +166,7 @@
             {{#if update.isContributionUpdate }}
                 {{#with update.type_data }}
                     <section>
-                        {{> Activity activity=activityData contribution_id=contribution_id EXPANDED=true READONLY=true }}
+                        {{> Activity activity=activityData contribution_id=contribution_id COMPACT=true EXPANDED=true READONLY=true }}
                     </section>
                 {{/with}}
             {{/if }}
