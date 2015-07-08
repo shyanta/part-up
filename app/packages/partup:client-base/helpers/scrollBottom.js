@@ -1,8 +1,10 @@
 Meteor.startup(function(){
     var windowScrollChecker = function windowScrollChecker(event){
+        if (!document.body) return;
+
         var windowHeight = window.innerHeight,
             windowScrollY = window.scrollY,
-            bodyScrollHeight = document.querySelector('body').scrollHeight,
+            bodyScrollHeight = document.body.scrollHeight,
             bottomOffset = (bodyScrollHeight - (windowHeight + windowScrollY));
 
         Session.set('window.scrollBottomOffset', bottomOffset);
@@ -32,8 +34,10 @@ Meteor.startup(function(){
 
     // Nasty document height change listener
     var onDocumentHeightChange = function onDocumentHeightChange(callback){
+        if (!document.body) return;
+
         // init vars
-        var lastHeight = document.querySelector('body').clientHeight,
+        var lastHeight = document.body.clientHeight,
             newHeight,
             timer;
 
