@@ -9,6 +9,12 @@
  *     - Contribution rating user's public profile + profile picture
  */
 var activityChildren = [
+    // Find each activity's update
+    {
+        find: function(activity) {
+            return Updates.find({_id: activity.update_id}, {limit: 1});
+        }
+    },
     // Find contributions for each activity
     {
         find: function(activity) {
