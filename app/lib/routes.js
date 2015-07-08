@@ -1,3 +1,7 @@
+/**
+ * This namespace contains router helpers etc
+ * @namespace Router
+ */
 /*************************************************************/
 /* Configurations */
 /*************************************************************/
@@ -463,11 +467,26 @@ if (Meteor.isClient) {
         Partup.client.focuslayer.disable();
         this.next();
     });
-
+    /**
+     * Router helper for ernot foundror pages
+     *
+     * @memberof Router
+     * @param type {string}           Type of 404 page (partup/network/default)
+     *
+     */
     Router.pageNotFound = function(type) {
         var currentRoute = this.current();
 
         currentRoute.state.set('type', type);
         currentRoute.render('app_notfound', {to: 'app'});
+    };
+    /**
+     * Back method for Router
+     *
+     * @memberof Router
+     *
+     */
+    Router.back = function() {
+        history.back();
     };
 }
