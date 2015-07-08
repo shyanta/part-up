@@ -17,15 +17,17 @@
     position: relative
     width: 32px
     height: 32px
-    background-image: url(/images/loader-blue.png)
-    background-repeat: no-repeat
-    background-position: center
-    background-size: contain
     animation-name: rotate
     animation-duration: 1.5s
     animation-iteration-count: infinite
     animation-timing-function: cubic-bezier(.94,.01,.47,.99)
     transform-origin: 50% 51%
+
+    svg
+        position: absolute
+        width: 27px
+        left: 5px
+        top: 4px
 
     span
         position: absolute
@@ -61,13 +63,15 @@
 
     &-color
         &-white
-            background-image: url(/images/loader-white.png)
+            svg path
+                fill: #fff
 
             span
-                background-color: $color-background
+                background-color: #fff
 
         &-orange
-            background-image: url(/images/loader-orange.png)
+            svg path
+                fill: $color-secondary
 
             span
                 background-color: $color-secondary
@@ -76,19 +80,25 @@
         &-small
             width: 20px
             height: 20px
+            transform-origin: 50% 50%
+
+            svg
+                width: 17px
+                left: 3px
+                top: 2px
 
             span
                 width: 8px
                 height: 8px
 
                 &:nth-child(1)
-                    top: -1px
+                    top: -2px
                     left: 10px
 
                 &:nth-child(2)
-                    top: 9px
+                    top: 8px
                     left: -2px
 
                 &:nth-child(3)
-                    top: 13px
+                    top: 12px
                     left: 13px
