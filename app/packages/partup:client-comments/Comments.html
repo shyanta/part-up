@@ -39,7 +39,7 @@
 
         <!-- Add comment field -->
         {{#if showCommentForm }}
-            {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
+            {{#autoForm schema=formSchema doc=fieldsForComment id=generateFormId class='pu-state-expanded' }}
                 <ul class="pu-list {{# unless isMotivation }}pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if buttonActive }}pu-list-fieldwithbutton-state-active{{/if }}{{/ unless }}">
                     {{# if isMotivation }}
                         <li>{{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment maxlength=250 }}</li>
