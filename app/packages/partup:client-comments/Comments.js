@@ -106,6 +106,8 @@ AutoForm.addHooks(null, {
                 return Partup.client.notify.error(__('error-method-' + error.reason));
             }
 
+            Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
+
             template.buttonActive.set(false);
             AutoForm.resetForm(self.formId);
             self.done();

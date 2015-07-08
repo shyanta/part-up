@@ -41,6 +41,7 @@ Template.app_partup_updates.onCreated(function() {
                 var updates = tpl.updates.model.fetch();
                 tpl.updates.view.set(updates);
                 tpl.updates.refreshDate.set(new Date());
+                Partup.client.updates.resetUpdatesCausedByCurrentuser();
             });
         },
         addToView: function(updates) {
@@ -203,8 +204,12 @@ Template.app_partup_updates.helpers({
         var template = Template.instance();
         var refreshDate = template.updates.refreshDate.get();
 
+        var updates_causedby_currentuser = Partup.client.updates.updates_causedby_currentuser.get();
+
         return lodash.filter(template.updates.model.fetch(), function(update) {
-            return moment(update.updated_at).diff(refreshDate) > 0;
+            var isNewer = moment(update.updated_at).diff(refreshDate) > 0;
+            var isCausedByCurrentuser = lodash.contains(updates_causedby_currentuser, update._id);
+            return isNewer && !isCausedByCurrentuser;
         }).length;
     },
 

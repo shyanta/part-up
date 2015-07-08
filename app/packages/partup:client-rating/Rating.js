@@ -64,7 +64,7 @@ Template.Rating.events({
 /* Widget form hooks */
 /*************************************************************/
 AutoForm.addHooks(null, {
-    onSubmit: function(doc){
+    onSubmit: function(doc) {
         if (!/rating(Create|Edit)Form/.test(this.formId)) return;
 
         var self = this;
@@ -72,16 +72,15 @@ AutoForm.addHooks(null, {
         var method = 'ratings.insert';
         var id = template.contribution._id;
 
-        if (template.data.rating){
+        if (template.data.rating) {
             method = 'ratings.update';
             id = template.data.rating._id;
         }
 
-        Meteor.call(method, id, doc, function(error){
-            if (error){
-                return console.error(error);
-            }
+        Meteor.call(method, id, doc, function(error) {
+            if (error) return console.error(error);
 
+            Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(template.data.contribution.update_id);
             self.done();
         });
 
