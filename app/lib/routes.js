@@ -62,19 +62,19 @@ Router.route('/profile', {
 /*************************************************************/
 /* Networks */
 /*************************************************************/
-Router.route('/networks', {
-    name: 'networks-overview',
-    where: 'client',
-    yieldRegions: {
-        'app':      {to: 'main'},
-        'app_networks_overview': {to: 'app'}
-    },
-    subscriptions: function() {
-        this.subscribe('networks.all');
-    }
-});
+// Router.route('/tribes', {
+//     name: 'networks-overview',
+//     where: 'client',
+//     yieldRegions: {
+//         'app':      {to: 'main'},
+//         'app_networks_overview': {to: 'app'}
+//     },
+//     subscriptions: function() {
+//         this.subscribe('networks.all');
+//     }
+// });
 
-Router.route('/networks/create', {
+Router.route('/tribes/create', {
     name: 'create-network',
     where: 'client',
     yieldRegions: {
@@ -86,7 +86,7 @@ Router.route('/networks/create', {
     }
 });
 
-Router.route('/networks/:_id', {
+Router.route('/tribes/:_id', {
     name: 'network-detail',
     where: 'client',
     yieldRegions: {
@@ -101,7 +101,7 @@ Router.route('/networks/:_id', {
     }
 });
 
-Router.route('/networks/:_id/uppers', {
+Router.route('/tribes/:_id/uppers', {
     name: 'network-uppers',
     where: 'client',
     yieldRegions: {
@@ -116,7 +116,7 @@ Router.route('/networks/:_id/uppers', {
     }
 });
 
-Router.route('/networks/:_id/invite', {
+Router.route('/tribes/:_id/invite', {
     name: 'network-invite',
     where: 'client',
     yieldRegions: {
@@ -133,7 +133,7 @@ Router.route('/networks/:_id/invite', {
 /*************************************************************/
 /* Network admin */
 /*************************************************************/
-Router.route('/networks/:_id/settings', {
+Router.route('/tribes/:_id/settings', {
     name: 'network-settings',
     where: 'client',
     yieldRegions: {
@@ -148,7 +148,7 @@ Router.route('/networks/:_id/settings', {
     }
 });
 
-Router.route('/networks/:_id/settings/uppers', {
+Router.route('/tribes/:_id/settings/uppers', {
     name: 'network-settings-uppers',
     where: 'client',
     yieldRegions: {
@@ -163,7 +163,7 @@ Router.route('/networks/:_id/settings/uppers', {
     }
 });
 
-Router.route('/networks/:_id/settings/requests', {
+Router.route('/tribes/:_id/settings/requests', {
     name: 'network-settings-requests',
     where: 'client',
     yieldRegions: {
