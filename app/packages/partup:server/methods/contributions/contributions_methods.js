@@ -34,7 +34,16 @@ Meteor.methods({
                 Contributions.update(contribution._id, {$set: newContribution});
 
                 // Post system message
-                Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_updated', {update_timestamp: false});
+                var cause = false;
+
+                if (contribution.archived && !newContribution.archived) {
+                    cause = 'archived';
+                }
+
+                // When there's a cause, it means that the system_message will be created somewhere else
+                if (!cause) {
+                    Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_updated', {update_timestamp: false});
+                }
             } else {
                 // Insert contribution
                 newContribution.created_at = new Date();

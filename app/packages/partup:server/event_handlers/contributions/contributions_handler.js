@@ -37,7 +37,25 @@ Event.on('partups.contributions.updated', function(userId, contribution, oldCont
 
     var user = Meteor.users.findOneOrFail(userId);
     var activity = Activities.findOneOrFail(contribution.activity_id);
-    Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_updated', {update_timestamp: false});
+
+    var cause = false;
+
+    if (!oldContribution.archived && contribution.archived) {
+        cause = 'archived';
+    } else if (oldContribution.archived && !contribution.archived) {
+        cause = 're-added';
+    } else if (!oldContribution.verified && contribution.verified) {
+        cause = 'verified';
+    }
+
+    // When there's a cause, it means that the system_message will be created somewhere else
+    if (!cause) {
+        Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_updated', {update_timestamp: false});
+    }
+
+    if (cause === 're-added') {
+        Partup.server.services.system_messages.send(user, activity.update_id, 'system_contributions_added', {update_timestamp: false});
+    }
 });
 
 /**
