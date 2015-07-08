@@ -16,6 +16,7 @@ Meteor.methods({
         var comment = {
             _id: Random.id(),
             content: fields.content,
+            type: fields.type,
             creator: {
                 _id: upper._id,
                 name: upper.profile.name
