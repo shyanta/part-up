@@ -2,7 +2,12 @@
 /* Configurations */
 /*************************************************************/
 Router.configure({
-    layoutTemplate: 'main'
+    layoutTemplate: 'main',
+    state: function() {
+        return {
+            type: 'default'
+        };
+    }
 });
 
 /*************************************************************/
@@ -89,9 +94,6 @@ Router.route('/networks/:_id', {
         'app_network':              {to: 'app'},
         'app_network_partups':      {to: 'app_network'}
     },
-    subscriptions: function() {
-        this.subscribe('networks.one', this.params._id);
-    },
     data: function() {
         return {
             networkId: this.params._id
@@ -107,9 +109,6 @@ Router.route('/networks/:_id/uppers', {
         'app_network':          {to: 'app'},
         'app_network_uppers':   {to: 'app_network'}
     },
-    subscriptions: function() {
-        this.subscribe('networks.one', this.params._id);
-    },
     data: function() {
         return {
             networkId: this.params._id
@@ -124,8 +123,10 @@ Router.route('/networks/:_id/invite', {
         'modal':                   {to: 'main'},
         'modal_network_invite':    {to: 'modal'}
     },
-    subscriptions: function() {
-        this.subscribe('networks.one', this.params._id);
+    data: function() {
+        return {
+            networkId: this.params._id
+        };
     }
 });
 
@@ -462,4 +463,11 @@ if (Meteor.isClient) {
         Partup.client.focuslayer.disable();
         this.next();
     });
+
+    Router.pageNotFound = function(type) {
+        var currentRoute = this.current();
+
+        currentRoute.state.set('type', type);
+        currentRoute.render('app_notfound', {to: 'app'});
+    };
 }
