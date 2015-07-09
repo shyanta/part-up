@@ -116,6 +116,7 @@ Package.onUse(function(api) {
 
         // Modal:network_settings
         'modal/network_settings/network_settings.html',
+        'modal/network_settings/network_settings.js',
         'modal/network_settings/details/details.html',
         'modal/network_settings/requests/requests.html',
         'modal/network_settings/uppers/uppers.html',
