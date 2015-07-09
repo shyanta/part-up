@@ -10,9 +10,23 @@
                     </a>
                 </section>
             </header>
-            {{#if updateId}}
-                {{> Update LINK=false updateId=updateId metadata=metaDataForUpdate FORCE_COMMENTFORM=true IS_DETAIL=true }}
-            {{/if}}
+
+            <!-- Timeline -->
+            <div class="pu-sub-timeline {{# if isAnotherDay metaDataForUpdate.updated_at }}pu-sub-makespaceforthedayheader{{/ if }}">
+
+                <!-- Day header -->
+                {{# if isAnotherDay metaDataForUpdate.updated_at }}
+                    <section class="pu-sub-dayheader">
+                        {{ partupDatePartupTimeline metaDataForUpdate.updated_at }}
+                        <i class="fa fa-long-arrow-down"></i>
+                    </section>
+                {{/ if }}
+
+            </div>
+
+            <!-- The update itself -->
+            {{> Update LINK=false updateId=updateId metadata=metaDataForUpdate FORCE_COMMENTFORM=true IS_DETAIL=true }}
+
 
         </div>
     </div>

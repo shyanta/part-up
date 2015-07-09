@@ -27,11 +27,14 @@ Template.app_partup_update.helpers({
             update_type: update.type,
             invited_name: update.type_data.name
         };
-    }
+    },
+    isAnotherDay: function(date) {
+        return Partup.client.moment.isAnotherDay(moment(), moment(date));
+    },
 });
 
 Template.app_partup_update.events({
     'click [data-back]': function goBack(event, template) {
         Router.back();
     }
-})
+});
