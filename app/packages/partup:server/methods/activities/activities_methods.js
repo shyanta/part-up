@@ -220,7 +220,7 @@ Meteor.methods({
             throw new Meteor.Error(401, 'Unauthorized');
         }
 
-        var users = Meteor.users.find({});
+        var users = Partup.server.services.matching.matchUppersForActivity(activityId);
 
         return users.map(function(user) {
             return user._id;

@@ -45,6 +45,7 @@ Package.onUse(function(api) {
         'services/system_messages_service.js',
         'services/images_service.js',
         'services/google_service.js',
+        'services/matching_service.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
