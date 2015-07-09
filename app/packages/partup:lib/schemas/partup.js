@@ -39,7 +39,7 @@ var partupBaseSchema = new SimpleSchema({
     end_date: {
         type: Date,
         min: function() {
-            return new Date();
+            return new Date(new Date().setHours(0, 0, 0, 0));
         }
     },
     name: {
