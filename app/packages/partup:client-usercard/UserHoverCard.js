@@ -55,7 +55,7 @@ Meteor.startup(function() {
         var self = $(this);
         hoverCardSettings.set('partup.hover-card.settings', false);
         hoverCardSettings.set('partup.hover-card.data', false);
-        Router.go('profile-user', {_id: self.data('usercard')});
+        Router.go('profile-upper-partups', {_id: self.data('usercard')});
     });
 });
 
