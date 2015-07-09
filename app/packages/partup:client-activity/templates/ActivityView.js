@@ -43,7 +43,7 @@ Template.ActivityView.helpers({
     showMetaData: function() {
         return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
     },
-    showShareButton: function() {
+    showInviteButton: function() {
         if (this.contribution_id) return false;
         if (this.READONLY) return false;
 
@@ -126,7 +126,7 @@ Template.ActivityView.events({
             });
         }
     },
-    'click [data-share]': function(event, template) {
+    'click [data-invite]': function(event, template) {
         event.preventDefault();
         var partup = Partups.findOne({_id: template.data.activity.partup_id});
         Partup.client.intent.go({
