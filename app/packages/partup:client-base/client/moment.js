@@ -15,7 +15,7 @@ Partup.client.moment = {
      *
      * @memberof Partup.client.moment
      */
-    localConfig: function(configuration, scoped_synchronous_callback) {
+    localConfig: function(configuration, functions, scoped_synchronous_callback) {
 
         // Get current language
         var language = moment.locale();
@@ -25,6 +25,17 @@ Partup.client.moment = {
 
         // Placeholder for the default configuration backup
         var configurationBackup = {};
+
+        // Run the remember function
+        var mem = false;
+        if (functions && typeof functions.remember === 'function') {
+            mem = functions.remember();
+        }
+
+        // Run the change function
+        if (functions && typeof functions.change === 'function') {
+            functions.change(mem);
+        }
 
         lodash.each(configuration, function(config, configkey) {
 
@@ -50,6 +61,11 @@ Partup.client.moment = {
 
         // Reset to backed-up locale data
         moment.locale(language, configurationBackup);
+
+        // Fire the revert function
+        if (functions && typeof functions.revert === 'function') {
+            functions.revert(mem);
+        }
 
         // Return the output (when there's one)
         return output;

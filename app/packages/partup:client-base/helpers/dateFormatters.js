@@ -30,7 +30,7 @@ Template.registerHelper('partupDatePartupActivity', function(date) {
                 h:  __('base-helpers-dateFormatters-difference-time-h'),
                 hh:  __('base-helpers-dateFormatters-difference-time-hh'),
             }
-        }, function() {
+        }, {}, function() {
             return mDate.fromNow(true);
         });
     }
@@ -59,7 +59,7 @@ Template.registerHelper('partupDateComment', function(date) {
                 h:  __('base-helpers-dateFormatters-difference-time-h'),
                 hh:  __('base-helpers-dateFormatters-difference-time-hh'),
             }
-        }, function() {
+        }, {}, function() {
             return mDate.fromNow(true);
         });
     }
@@ -86,8 +86,27 @@ Template.registerHelper('partupDatePartupTimeline', function(date) {
             relativeTime: {
                 d:  __('base-helpers-dateFormatters-difference-days-d'),
                 dd:  __('base-helpers-dateFormatters-difference-days-dd'),
+            },
+        }, {
+            remember: function() {
+                return {
+                    rtt_s: moment.relativeTimeThreshold('s'),
+                    rtt_m: moment.relativeTimeThreshold('m'),
+                    rtt_h: moment.relativeTimeThreshold('h'),
+                };
+            },
+            change: function(memory) {
+                moment.relativeTimeThreshold('s', 0);
+                moment.relativeTimeThreshold('m', 0);
+                moment.relativeTimeThreshold('h', 0);
+            },
+            revert: function(memory) {
+                moment.relativeTimeThreshold('s', memory.rtt_s);
+                moment.relativeTimeThreshold('m', memory.rtt_m);
+                moment.relativeTimeThreshold('h', memory.rtt_h);
             }
         }, function() {
+            debugger;
             return mDate.fromNow(true);
         });
     }
