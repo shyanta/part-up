@@ -1,3 +1,35 @@
+var partupChildren = [
+    {
+        find: function(partup) {
+            return Images.find({_id: partup.image}, {limit: 1});
+        }
+    },
+    {
+        find: function(partup) {
+            var uppers = partup.uppers || [];
+
+            // We only want to publish the first x uppers
+            uppers = uppers.slice(0, 4);
+
+            return Meteor.users.findMultiplePublicProfiles(uppers);
+        }
+    },
+    {
+        find: function(partup) {
+            var network = partup.network || {};
+
+            return Networks.find({_id: network._id}, {limit: 1});
+        },
+        children: [
+            {
+                find: function(network) {
+                    return Images.find({_id: network.image}, {limit: 1});
+                }
+            }
+        ]
+    }
+];
+
 /**
  * @name Partup.publications.usersCount
  * @memberof Partup.server.publications
@@ -28,7 +60,8 @@ Meteor.publishComposite('users.one.upperpartups', function(options) {
     return {
         find: function() {
             return Partups.findUpperPartups(self.userId, options);
-        }
+        },
+        children: partupChildren
     };
 });
 
@@ -50,7 +83,8 @@ Meteor.publishComposite('users.one.supporterpartups', function(options) {
     return {
         find: function() {
             return Partups.findSupporterPartups(self.userId, options);
-        }
+        },
+        children: partupChildren
     };
 });
 
