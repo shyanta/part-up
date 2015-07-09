@@ -10,7 +10,7 @@
  * @param {Boolean} CREATE          true: render in create mode, false: render in update mode
  */
 // jscs:enable
-
+var formId;
 var formPlaceholders = {
     name: function() {
         return __('partupsettings-form-name-placeholder');
@@ -85,6 +85,7 @@ Template.Partupsettings.onCreated(function() {
 
     Template.autoForm.onCreated(function() {
         if (mout.object.get(this, 'data.id') !== template.data.FORM_ID) return;
+        formId = template.data.FORM_ID;
 
         // Oh. My. God. Look at that hack.
         // Don't change any of these rules!
@@ -238,6 +239,8 @@ Template.Partupsettings.helpers({
     placeSelectedCallback: function() {
         return function(results) {
             $('[name="location_input"]').val(results.placeId);
+            var template = Template.instance();
+            var validate = AutoForm.validateField(formId, 'location_input');
         };
     },
     clearCallback: function() {
