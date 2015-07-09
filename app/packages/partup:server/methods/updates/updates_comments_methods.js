@@ -36,6 +36,7 @@ Meteor.methods({
                 updated_at: new Date(),
                 type: update.type
             };
+
             if (update.type_data.activity_id && update.type_data.contribution_id) {
                 updateFields.type = 'partups_contributions_comments_added';
                 updateFields.upper_id = upper._id;
@@ -72,7 +73,7 @@ Meteor.methods({
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
 
-            Event.emit('updates.comments.inserted', comment);
+            Event.emit('updates.comments.inserted', upper, update, comment);
 
             return {
                 _id: comment._id
