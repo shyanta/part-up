@@ -21,6 +21,50 @@ Meteor.publishComposite('users.one', function(userId) {
     };
 });
 
+Meteor.publishComposite('users.one.upperpartups', function(options) {
+    var self = this;
+    options = options || {};
+
+    return {
+        find: function() {
+            return Partups.findUpperPartups(self.userId, options);
+        }
+    };
+});
+
+Meteor.publish('users.one.upperpartups.count', function(options) {
+    var self = this;
+    options = options || {};
+
+    var parameters = {
+        count: true
+    };
+
+    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartups(self.userId, options, parameters));
+});
+
+Meteor.publishComposite('users.one.supporterpartups', function(options) {
+    var self = this;
+    options = options || {};
+
+    return {
+        find: function() {
+            return Partups.findSupporterPartups(self.userId, options);
+        }
+    };
+});
+
+Meteor.publish('users.one.supporterpartups.count', function(options) {
+    var self = this;
+    options = options || {};
+
+    var parameters = {
+        count: true
+    };
+
+    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartups(self.userId, options, parameters));
+});
+
 Meteor.publishComposite('users.loggedin', function() {
     var self = this;
 
