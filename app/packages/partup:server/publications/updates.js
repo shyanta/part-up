@@ -101,17 +101,16 @@ var updateChildren = [
  * @param {String} updateId
  */
 Meteor.publishComposite('updates.one', function(updateId) {
-    var updateCursor = Updates.find({_id: updateId}, {limit: 1});
-    if (!updateCursor.count()) return;
-
-    var update = updateCursor.fetch()[0];
-
-    var partupCursor = Partups.guardedFind(this.userId, {_id: update.partup_id}, {limit:1});
-    if (!partupCursor.count()) return;
-
     return {
-        // Find the update
         find: function() {
+            var updateCursor = Updates.find({_id: updateId}, {limit: 1});
+            if (!updateCursor.count()) return;
+
+            var update = updateCursor.fetch()[0];
+
+            var partupCursor = Partups.guardedFind(this.userId, {_id: update.partup_id}, {limit:1});
+            if (!partupCursor.count()) return;
+
             return updateCursor;
         },
         children: updateChildren
@@ -130,12 +129,11 @@ Meteor.publishComposite('updates.one', function(updateId) {
  * @param {Object} options  - Possible filtering options for updates
  */
 Meteor.publishComposite('updates.from_partup', function(partupId, options) {
-    var partupCursor = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1});
-    if (!partupCursor.count()) return;
-
     return {
-        // Find all updates, filtered by given options
         find: function() {
+            var partupCursor = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1});
+            if (!partupCursor.count()) return;
+
             return Updates.findForUpdates(partupId, options);
         },
         children: updateChildren
