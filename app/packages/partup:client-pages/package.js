@@ -63,6 +63,8 @@ Package.onUse(function(api) {
         // App: profile tabs
         'app/profile/tabs/profile-upper-partups.html',
         'app/profile/tabs/profile-upper-partups.js',
+        'app/profile/tabs/profile-supporter-partups.html',
+        'app/profile/tabs/profile-supporter-partups.js',
 
         // App:partup
         'app/partup/partup.html',
