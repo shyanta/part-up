@@ -31,6 +31,10 @@ Template.PartupTile.onRendered(function() {
 /* Helpers */
 /*************************************************************/
 Template.PartupTile.helpers({
+    network: function() {
+        if (!this.network_id) return false;
+        return Networks.findOne({_id: this.network_id});
+    },
     activityCount: function() {
         return this.activity_count || Activities.find({partup_id: this._id}).count();
     },
