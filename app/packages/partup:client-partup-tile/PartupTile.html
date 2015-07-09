@@ -1,6 +1,8 @@
 <template name="PartupTile">
 
     <article class="pu-partuptile">
+
+        <!-- Tags -->
         {{# if tags }}
             <ul class="pu-sub-partup-tags">
                 {{# each tags }}
@@ -8,12 +10,17 @@
                 {{/ each }}
             </ul>
         {{/ if }}
+
+        <!-- Name of the Part-up -->
         <header>
             <h2>
                 <a href="{{pathFor 'partup' _id=_id }}">{{ name }}</a>
             </h2>
         </header>
+
         <section>
+
+            <!-- Image (circle), uppers, and progress  -->
             <div class="pu-partupcircle">
                 <a href="{{pathFor 'partup' _id=_id }}">
                     <canvas class="pu-sub-radial" data-percent="{{ partupProgress }}"></canvas>
@@ -28,7 +35,11 @@
                     </ul>
                 {{/ if }}
             </div>
+
+            <!-- Description -->
             <p>{{ description }}</p>
+
+            <!-- Stats (activities, supporters, days active) -->
             <ul class="pu-sub-partup-stats">
                 <li>
                     <strong>{{ activityCount }}</strong>
@@ -44,9 +55,17 @@
                 </li>
             </ul>
         </section>
-        <!-- <footer>
-            <p>Lifely</p>
-        </footer> -->
+
+        <!-- Network -->
+        {{# with network }}
+            <footer>
+                <a href="" class="pu-networktile">
+                    <figure style="{{# with icon}}background-image: url('{{ partupImageUrl . store='32x32' }}');{{/ with }}"></figure>
+                    <span>{{ name }}</span>
+                </a>
+            </footer>
+        {{/ with }}
+
     </article>
 
 </template>
