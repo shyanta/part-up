@@ -8,7 +8,13 @@
                         <div class="pu-info {{#unless profile.tags}} pu-info-minimal{{/unless}}">
                             <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
                             <div>
-                                <h3>{{profile.name}}</h3>
+                                <h3>
+                                    {{profile.name}}
+                                    {{#if profile.facebook}}<a href="{{ socialUrl 'facebook' profile.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a>{{/if}}
+                                    {{#if profile.linkedin}}<a href="{{ socialUrl 'linkedin' profile.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>{{/if}}
+                                    {{#if profile.twitter}}<a href="{{ socialUrl 'twitter' profile.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>{{/if}}
+                                    {{#if profile.instagram}}<a href="{{ socialUrl 'instagram' profile.instagram }}" target="_blank"><i class="fa fa-instagram"></i></a>{{/if}}
+                                </h3>
                                 <p>
                                     {{profile.description}}
                                     <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
