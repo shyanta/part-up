@@ -1,3 +1,34 @@
+var partupChildren = [
+    {
+        find: function(partup) {
+            return Images.find({_id: partup.image}, {limit: 1});
+        }
+    },
+    {
+        find: function(partup) {
+            var uppers = partup.uppers || [];
+
+            // We only want to publish the first x uppers
+            uppers = uppers.slice(0, 4);
+
+            return Meteor.users.findMultiplePublicProfiles(uppers);
+        }
+    },
+    {
+        find: function(partup) {
+            var network = partup.network || {};
+
+            return Networks.find({_id: network._id}, {limit: 1});
+        },
+        children: [
+            {
+                find: function(network) {
+                    return Images.find({_id: network.image}, {limit: 1});
+                }
+            }
+        ]
+    }
+];
 Meteor.publishComposite('networks.all', function() {
     return {
         find: function() {
@@ -36,7 +67,8 @@ Meteor.publishComposite('networks.one.partups', function(networkId, options) {
     return {
         find: function() {
             return Partups.findForNetwork(self.userId, options, parameters);
-        }
+        },
+        children: partupChildren
     };
 });
 
