@@ -21,8 +21,8 @@
     "pages-modal-register-details-form-tags_input-placeholder": "Please separate with a comma",
     "pages-modal-register-details-form-tags_input-tooltip": "We use these words to start matching you with interesting part-ups. So pick words that are about your contribution to part-ups. There is no need for perfection, we will update your profile with your actual contributions to part-ups.",
 
-    "pages-modal-register-details-form-socials-label": "Your social media",
-    "pages-modal-register-details-form-socials-tooltip": "Your social media profiles show who you are and what you are good at. Other uppers can get to know you a little.",
+    "pages-modal-register-details-form-socials-label": "Can other uppers see your social media profiles?",
+    "pages-modal-register-details-form-socials-tooltip": "You merely have to complete these links with your username.",
 
     "pages-modal-register-details-form-facebook-placeholder": "yourfacebookname",
     "pages-modal-register-details-form-twitter-placeholder": "yourtwitterhandle",
