@@ -1,4 +1,15 @@
 {
-    "pages-app-notfound-title": "@Niet gevonden",
-    "pages-app-notfound-description": "@Helaas, we kunnen de pagina die je zoekt niet vinden."
+    "pages-app-notfound-default-title": "@Niet gevonden",
+    "pages-app-notfound-default-description": "@Helaas, we kunnen de pagina die je zoekt niet vinden.",
+
+    "pages-app-notfound-partup-title": "@Part-up niet gevonden",
+    "pages-app-notfound-partup-description": "@De Part-up die je probeert te bezoeken bestaat niet.",
+
+    "pages-app-notfound-network-title": "@Tribe niet gevonden",
+    "pages-app-notfound-network-description": "@De Tribe die je probeert te bezoeken bestaat niet.",
+
+    "pages-app-notfound-network-title": "@Profiel niet gevonden",
+    "pages-app-notfound-network-description": "@De gebruiker die je zoekt bestaat helaas niet",
+
+    "pages-app-notfound-backbutton": "@Terug naar discover"
 }

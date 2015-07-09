@@ -3,10 +3,34 @@
         <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
             <div class="pu-page pu-page-full">
                 <section class="pu-composition">
-                    <div class="pu-errorpage pu-errorpage-partup-closed">
-                        <h4>{{_ 'pages-app-notfound-title'  }}</h4>
-                        <p>{{_ 'pages-app-notfound-description' }}</p>
-                    </div>
+                    {{#if partupEquals type 'partup'}}
+                        <div class="pu-errorpage pu-errorpage-partup-closed">
+                            <h4>{{_ 'pages-app-notfound-partup-title'  }}</h4>
+                            <p>{{_ 'pages-app-notfound-partup-description' }}</p>
+                            <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
+                        </div>
+                    {{/if}}
+                    {{#if partupEquals type 'network'}}
+                        <div class="pu-errorpage pu-errorpage-network-closed">
+                            <h4>{{_ 'pages-app-notfound-network-title'  }}</h4>
+                            <p>{{_ 'pages-app-notfound-network-description' }}</p>
+                            <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
+                        </div>
+                    {{/if}}
+                    {{#if partupEquals type 'profile'}}
+                        <div class="pu-errorpage pu-errorpage-profile">
+                            <h4>{{_ 'pages-app-notfound-profile-title'  }}</h4>
+                            <p>{{_ 'pages-app-notfound-profile-description' }}</p>
+                            <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
+                        </div>
+                    {{/if}}
+                    {{#unless type}}
+                        <div class="pu-errorpage">
+                            <h4>{{_ 'pages-app-notfound-default-title'  }}</h4>
+                            <p>{{_ 'pages-app-notfound-default-description' }}</p>
+                            <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
+                        </div>
+                    {{/unless}}
                 </section>
             </div>
         </div>

@@ -1,4 +1,15 @@
 {
-    "pages-app-notfound-title": "@Not found",
-    "pages-app-notfound-description": "@Unfortunately, we can not find page you are looking for."
+    "pages-app-notfound-default-title": "@Not found",
+    "pages-app-notfound-default-description": "@Unfortunately, we can not find page you are looking for.",
+
+    "pages-app-notfound-partup-title": "@Part-up not found",
+    "pages-app-notfound-partup-description": "@Part-up that you are trying to visit does not exist.",
+
+    "pages-app-notfound-network-title": "@Tribe not found",
+    "pages-app-notfound-network-description": "@The Tribe you are trying to visit does not exist.",
+
+    "pages-app-notfound-network-title": "@Profile not found",
+    "pages-app-notfound-network-description": "@Unfortunately, the user you are looking for does not exist",
+
+    "pages-app-notfound-backbutton": "@Back to discover"
 }
