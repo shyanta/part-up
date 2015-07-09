@@ -16,7 +16,6 @@ Template.app_profile.onCreated(function() {
 /*************************************************************/
 Template.app_profile.helpers({
     profile: function() {
-        console.log(Meteor.users.findOne(this.profileId))
         return Meteor.users.findOne(this.profileId).profile;
     },
 
