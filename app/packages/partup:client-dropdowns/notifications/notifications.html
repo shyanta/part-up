@@ -7,7 +7,7 @@
     <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <ul>
             {{#each notifications}}
-                <li class="pu-notification">
+                <li class="pu-notification {{#unless new}}pu-notification-viewed{{/unless}}">
                     {{#if type = 'partups.supporters.new' }}
                     <!-- TODO: Improve structure and add translations -->
                         <a href="">
