@@ -322,6 +322,8 @@ Template.app_partup_sidebar.helpers({
         if (this.partup.network_id) {
             var network = Networks.findOne({_id: this.partup.network_id});
             networkText = network.name;
+
+            var networkPath = Router.path('network-detail', {_id: this.partup.network_id});
         }
 
         switch (this.partup.privacy_type) {
@@ -332,13 +334,13 @@ Template.app_partup_sidebar.helpers({
                 status.push(__('pages-app-partup-status_text-private'));
                 break;
             case Partups.NETWORK_PUBLIC:
-                status.push(__('pages-app-partup-status_text-network-public', {network: networkText}));
+                status.push(__('pages-app-partup-status_text-network-public', {network: networkText, path: networkPath}));
                 break;
             case Partups.NETWORK_INVITE:
-                status.push(__('pages-app-partup-status_text-network-invite', {network: networkText}));
+                status.push(__('pages-app-partup-status_text-network-invite', {network: networkText, path: networkPath}));
                 break;
             case Partups.NETWORK_CLOSED:
-                status.push(__('pages-app-partup-status_text-network-closed', {network: networkText}));
+                status.push(__('pages-app-partup-status_text-network-closed', {network: networkText, path: networkPath}));
                 break;
         }
 
