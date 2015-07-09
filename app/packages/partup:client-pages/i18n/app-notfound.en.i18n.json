@@ -8,8 +8,8 @@
     "pages-app-notfound-network-title": "@Tribe not found",
     "pages-app-notfound-network-description": "@The Tribe you are trying to visit does not exist.",
 
-    "pages-app-notfound-network-title": "@Profile not found",
-    "pages-app-notfound-network-description": "@Unfortunately, the user you are looking for does not exist",
+    "pages-app-notfound-profile-title": "@Profile not found",
+    "pages-app-notfound-profile-description": "@Unfortunately, the user you are looking for does not exist",
 
     "pages-app-notfound-backbutton": "@Back to discover"
 }
