@@ -1,4 +1,4 @@
-Template.app_profile_upper_partups.onCreated(function() {
+Template.app_profile_supporter_partups.onCreated(function() {
     var tpl = this;
 
     tpl.partups = {
@@ -31,16 +31,16 @@ Template.app_profile_upper_partups.onCreated(function() {
             tpl.partups.loading.set(true);
 
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', options);
+            tpl.partups.handle = tpl.subscribe('users.one.supporterpartups', options);
 
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
-            tpl.partups.count_handle = tpl.subscribe('users.one.upperpartups.count', options);
+            tpl.partups.count_handle = tpl.subscribe('users.one.supporterpartups.count', options);
 
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
                     computation.stop();
 
-                    var new_count = Counts.get('users.one.upperpartups.filterquery');
+                    var new_count = Counts.get('users.one.supporterpartups.filterquery');
                     tpl.partups.layout.count.set(new_count);
                 }
             });
@@ -76,7 +76,7 @@ Template.app_profile_upper_partups.onCreated(function() {
             options.limit = b;
 
             var oldHandle = tpl.partups.handle;
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', options);
+            tpl.partups.handle = tpl.subscribe('users.one.supporterpartups', options);
             tpl.partups.loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
@@ -129,7 +129,7 @@ Template.app_profile_upper_partups.onCreated(function() {
     tpl.partups.options.set({});
 });
 
-Template.app_profile_upper_partups.onRendered(function() {
+Template.app_profile_supporter_partups.onRendered(function() {
     var tpl = this;
 
     /**
@@ -144,7 +144,7 @@ Template.app_profile_upper_partups.onRendered(function() {
     });
 });
 
-Template.app_profile_upper_partups.helpers({
+Template.app_profile_supporter_partups.helpers({
     count: function() {
         return Template.instance().partups.layout.count.get() || '';
     },
