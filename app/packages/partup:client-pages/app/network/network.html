@@ -6,7 +6,7 @@
                 <section class="pu-profile">
                     <div class="pu-wrap">
                         <div class="pu-info {{#if networkClosedForUser}} pu-info-minimal{{/if}}">
-                            <figure class="pu-avatar pu-avatar-extralarge pu-avatar-square"></figure>
+                            <figure class="pu-avatar pu-avatar-extralarge pu-avatar-square" style="{{#with network.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
                             <div>
                                 <h3>{{network.name}}</h3>
                                 <p>

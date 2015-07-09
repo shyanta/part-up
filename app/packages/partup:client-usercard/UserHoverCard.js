@@ -7,6 +7,8 @@
  * @module client-usercard
  */
 // jscs:enable
+var hoverCardSettings = new ReactiveDict();
+
 Meteor.startup(function() {
     // remember the timeout id
     var showProfileTimeout;
@@ -20,8 +22,8 @@ Meteor.startup(function() {
         // hide usercard
         var mouseLeaveHandler = function(e) {
             self.off('mouseleave', mouseLeaveHandler);
-            Session.set('partup.hover-card.settings', false);
-            Session.set('partup.hover-card.data', false);
+            hoverCardSettings.set('partup.hover-card.settings', false);
+            hoverCardSettings.set('partup.hover-card.data', false);
             Meteor.clearTimeout(showProfileTimeout);
         };
 
@@ -30,7 +32,7 @@ Meteor.startup(function() {
             var offset = self.offset();
             var posY = offset.top - $(window).scrollTop();
             var posX = offset.left - $(window).scrollLeft();
-            Session.set('partup.hover-card.settings', {
+            hoverCardSettings.set('partup.hover-card.settings', {
                 x: posX,
                 y: posY,
                 width: self[0].offsetWidth,
@@ -40,7 +42,7 @@ Meteor.startup(function() {
         };
 
         // immediatly set the usercard data for quick rendering
-        Session.set('partup.hover-card.data', self.data('usercard'));
+        hoverCardSettings.set('partup.hover-card.data', self.data('usercard'));
 
         // show usercard after 500 ms delay
         showProfileTimeout = Meteor.setTimeout(mouseOverHandler, 500);
@@ -48,16 +50,23 @@ Meteor.startup(function() {
         // listen to hover cancel
         self.on('mouseleave', mouseLeaveHandler);
     });
+
+    $('body').on('click', '[data-usercard]', function(e) {
+        var self = $(this);
+        hoverCardSettings.set('partup.hover-card.settings', false);
+        hoverCardSettings.set('partup.hover-card.data', false);
+        Router.go('profile-upper-partups', {_id: self.data('usercard')});
+    });
 });
 
 Template.UserHoverCard.helpers({
     cardOpen: function() {
         // if there are settings, that means the card must be visible
-        return Session.get('partup.hover-card.settings') ? true : false;
+        return hoverCardSettings.get('partup.hover-card.settings') ? true : false;
     },
     settings: function() {
         // get usercard settings
-        var settings = Session.get('partup.hover-card.settings');
+        var settings = hoverCardSettings.get('partup.hover-card.settings');
         if (!settings) return {};
 
         // check if it's below the middle of the screen
@@ -82,6 +91,6 @@ Template.UserHoverCard.helpers({
         };
     },
     data: function() {
-        return Session.get('partup.hover-card.data');
+        return hoverCardSettings.get('partup.hover-card.data');
     }
 });

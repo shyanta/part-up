@@ -8,8 +8,8 @@
     "pages-app-notfound-network-title": "@Tribe niet gevonden",
     "pages-app-notfound-network-description": "@De Tribe die je probeert te bezoeken bestaat niet.",
 
-    "pages-app-notfound-network-title": "@Profiel niet gevonden",
-    "pages-app-notfound-network-description": "@De gebruiker die je zoekt bestaat helaas niet",
+    "pages-app-notfound-profile-title": "@Profiel niet gevonden",
+    "pages-app-notfound-profile-description": "@De gebruiker die je zoekt bestaat helaas niet",
 
     "pages-app-notfound-backbutton": "@Terug naar discover"
 }

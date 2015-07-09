@@ -1,0 +1,25 @@
+<template name="app_profile_upper_partups">
+    <header>
+        <h2 class="pu-title pu-title-home">
+            <span class="pu-sub-countlabel">
+                {{#unless partupsLoading }}
+                    {{#if count}}
+                        {{_ 'pages-app-network-xpartups' count=count }}
+                    {{else}}
+                        {{_ 'pages-app-network-nopartups' }}
+                    {{/if}}
+                {{else}}
+                    {{_ 'pages-app-network-loading' }}
+                {{/unless}}
+            </span>
+        </h2>
+    </header>
+    <div data-infinitescroll-container>
+        {{> ColumnsLayout
+            COLUMNS=4
+            TEMPLATE="PartupTile"
+            addHook=addToLayoutHook
+            clearHook=clearLayoutHook
+        }}
+    </div>
+</template>

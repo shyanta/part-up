@@ -50,16 +50,49 @@ Router.route('/profile', {
     where: 'client',
     yieldRegions: {
         'app': {to: 'main'},
-        'PagesProfile': {to: 'app'}
-    },
-    subscriptions: function() {
-        this.subscribe('partups.all');
+        'app_profile': {to: 'app'},
+        'app_profile_upper_partups': {to: 'app_profile'}
     },
     onBeforeAction: function() {
         if (!this.params._id) {
             this.params._id = Meteor.userId();
         }
         this.next();
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
+Router.route('/profile/:_id', {
+    name: 'profile-upper-partups',
+    where: 'client',
+    yieldRegions: {
+        'app': {to: 'main'},
+        'app_profile': {to: 'app'},
+        'app_profile_upper_partups': {to: 'app_profile'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
+Router.route('/profile/:_id/supporter', {
+    name: 'profile-supporter-partups',
+    where: 'client',
+    yieldRegions: {
+        'app': {to: 'main'},
+        'app_profile': {to: 'app'},
+        'app_profile_supporter_partups': {to: 'app_profile'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
     }
 });
 

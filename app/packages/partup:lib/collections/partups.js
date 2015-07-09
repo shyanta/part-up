@@ -241,3 +241,57 @@ Partups.findForNetwork = function(userId, options, parameters) {
 
     return this.guardedFind(userId, selector, options);
 };
+
+/**
+ * Find the partups where the userid is upper
+ *
+ * @memberof Partups
+ * @param {Object} options
+ * @return {Cursor}
+ */
+Partups.findUpperPartups = function(userId, options, parameters) {
+    var selector = {uppers: {$in: [userId]}};
+    var options = options || {};
+    var parameters = parameters || {};
+
+    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
+    var sort = options.count ? undefined : options.sort || false;
+
+    if (!parameters.count) {
+
+        // Initialize
+        options.sort = {};
+
+        // Sort the partups from the newest to the oldest
+        options.sort['updated_at'] = -1;
+    }
+
+    return this.guardedFind(userId, selector, options);
+};
+
+/**
+ * Find the partups where the userid is supper
+ *
+ * @memberof Partups
+ * @param {Object} options
+ * @return {Cursor}
+ */
+Partups.findSupporterPartups = function(userId, options, parameters) {
+    var selector = {supporters: {$in: [userId]}};
+    var options = options || {};
+    var parameters = parameters || {};
+
+    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
+    var sort = options.count ? undefined : options.sort || false;
+
+    if (!parameters.count) {
+
+        // Initialize
+        options.sort = {};
+
+        // Sort the partups from the newest to the oldest
+        options.sort['updated_at'] = -1;
+    }
+
+    return this.guardedFind(userId, selector, options);
+};
