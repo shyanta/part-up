@@ -213,7 +213,7 @@ Meteor.methods({
      *
      * @return {[String]}
      */
-    'activities.usersuggestions': function(activityId) {
+    'activities.user_suggestions': function(activityId) {
         var upper = Meteor.user();
 
         if (!upper) {
