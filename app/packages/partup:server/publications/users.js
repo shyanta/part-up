@@ -140,3 +140,12 @@ Meteor.publishComposite('users.loggedin', function() {
         ]
     };
 });
+
+/**
+ * Publish users based on an array of user ids
+ *
+ * @param {[String]} userIds
+ */
+Meteor.publish('users.by_ids', function(userIds) {
+    return Meteor.users.findMultiplePublicProfiles(userIds);
+});
