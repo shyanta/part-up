@@ -206,6 +206,25 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'Activities from Partup [' + fromPartupId + '] could not be copied.');
         }
+    },
+
+    /**
+     * Get user suggestions for a given activity
+     *
+     * @return {[String]}
+     */
+    'activities.usersuggestions': function(activityId) {
+        var upper = Meteor.user();
+
+        if (!upper) {
+            throw new Meteor.Error(401, 'Unauthorized');
+        }
+
+        var users = Meteor.users.find({});
+
+        return users.map(function(user) {
+            return user._id;
+        });
     }
 
 });
