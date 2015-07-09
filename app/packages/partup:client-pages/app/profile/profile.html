@@ -1,0 +1,83 @@
+<template name="app_profile">
+    <article class="pu-layout pu-app-network">
+        {{#if subscriptionsReady}}
+            <header class="pu-layered-header">
+                <!-- profile -->
+                <section class="pu-profile">
+                    <div class="pu-wrap">
+                        <div class="pu-info {{#unless profile.tags}} pu-info-minimal{{/unless}}">
+                            <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
+                            <div>
+                                <h3>{{profile.name}}</h3>
+                                <p>
+                                    {{profile.description}}
+                                    <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
+                                </p>
+                                <ul class="pu-list pu-list-horizontal">
+                                    {{#if profile.location}}
+                                        {{#if profile.location.city}}
+                                            <li><a class="pu-tag pu-tag-metadata">
+                                                <i class="fa fa-map-marker"></i>
+                                                <span>{{profile.location.city}}</span>
+                                            </a></li>
+                                        {{/if}}
+                                    {{/if}}
+                                    {{#if profile.website}}
+                                        <li><a class="pu-tag pu-tag-metadata" href="{{profile.website}}" target="_blank">
+                                            <i class="fa fa-external-link"></i>
+                                            <span>{{profile.website}}</span>
+                                        </a></li>
+                                    {{/if}}
+                                </ul>
+                            </div>
+                        </div>
+                        {{#unless networkClosedForUser }}
+                            <ul class="pu-list pu-list-horizontal pu-list-tags">
+                                {{#each profile.tags}}
+                                    <li>
+                                        <a href="" class="pu-tag">{{.}}</a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        {{/unless}}
+                    </div>
+                </section>
+                <section>
+                    <div class="pu-wrap">
+                        <!-- tabs -->
+                        <nav class="pu-navigation pu-navigation-header pu-navigation-full">
+                            <ul class="pu-list pu-list-horizontal">
+                                <li>
+                                    <a href="{{ pathFor route='profile-user' _id=profileId }}"
+                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-user' class='pu-state-active'}} {{ isActiveRoute name='profile' class='pu-state-active'}}">
+                                        <i class="fa fa-globe"></i>
+                                        Part-ups
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
+                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
+                                        <i class="fa fa-line-chart"></i>
+                                        Uppers
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </section>
+            </header>
+            <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
+                <div class="pu-page pu-page-full">
+                    <section class="pu-composition pu-composition-network">
+                        {{> yield region='app_profile'}}
+                    </section>
+                </div>
+            </div>
+        {{else}}
+            <div class="pu-sub-pagecontainer">
+                {{> Spinner }}
+            </div>
+        {{/if}}
+    </article>
+
+</template>
