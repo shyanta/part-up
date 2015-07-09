@@ -56,6 +56,14 @@ Package.onUse(function(api) {
         'app/network/network-closed.html',
         'app/network/network-closed.js',
 
+        // App:profile
+        'app/profile/profile.html',
+        'app/profile/profile.js',
+
+        // App: profile tabs
+        'app/profile/tabs/profile-upper-partups.html',
+        'app/profile/tabs/profile-upper-partups.js',
+
         // App:partup
         'app/partup/partup.html',
         'app/partup/partup.js',
