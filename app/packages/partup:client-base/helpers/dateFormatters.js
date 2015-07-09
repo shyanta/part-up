@@ -106,7 +106,6 @@ Template.registerHelper('partupDatePartupTimeline', function(date) {
                 moment.relativeTimeThreshold('h', memory.rtt_h);
             }
         }, function() {
-            debugger;
             return mDate.fromNow(true);
         });
     }
