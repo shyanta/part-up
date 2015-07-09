@@ -1,5 +1,5 @@
 <template name="UserTileCard">
-    <article class="pu-tile pu-tile-profile">
+    <a class="pu-tile pu-tile-profile" href="{{pathFor 'profile-upper-partups' _id}}">
         {{> UserCardContent _id=_id}}
-    </article>
+    </a>
 </template>
