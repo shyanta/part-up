@@ -43,7 +43,6 @@ Package.onUse(function(api) {
         'client/reactivedate.js',
         'client/reactiveVarHelpers.js',
         'client/scroll.js',
-        'client/customselect.js',
         'client/moment.js',
         'client/updates.js',
         'helpers/dateFormatters.js',
