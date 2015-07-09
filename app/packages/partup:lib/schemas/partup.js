@@ -39,7 +39,8 @@ var partupBaseSchema = new SimpleSchema({
     end_date: {
         type: Date,
         min: function() {
-            return new Date(new Date().setHours(0, 0, 0, 0));
+            var timezone = new Date().getTimezoneOffset() / 60;
+            return new Date(new Date().setHours(-timezone, 0, 0, 0));
         }
     },
     name: {
