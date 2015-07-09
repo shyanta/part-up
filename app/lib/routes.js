@@ -310,6 +310,12 @@ Router.route('/partups/:_id/invite-for-activity/:activity_id', {
     yieldRegions: {
         'modal':                  {to: 'main'},
         'modal_invite_to_partup': {to: 'modal'},
+    },
+    data: function() {
+        return {
+            partupId: this.params._id,
+            activityId: this.params.activity_id
+        }
     }
 });
 
