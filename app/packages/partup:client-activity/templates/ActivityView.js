@@ -77,6 +77,9 @@ Template.ActivityView.helpers({
     },
     update: function() {
         return Updates.findOne({_id: this.updateId || Template.instance().data.activity.update_id});
+    },
+    popupId: function() {
+        return 'popup.motivation.' + (this.updateId || Template.instance().data.activity.update_id);
     }
 });
 
@@ -103,7 +106,8 @@ Template.ActivityView.events({
             }
 
             if (!partup.hasUpper(Meteor.user()._id)) {
-                Partup.client.popup.open('popup.motivation', function(success) {
+                var popupId = 'popup.motivation.' + (template.data.updateId || template.data.activity.update_id);
+                Partup.client.popup.open(popupId, function(success) {
                     if (success) {
                         template.updateContribution({}, function(error) {
                             if (error) console.error(error);
