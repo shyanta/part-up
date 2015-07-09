@@ -11,7 +11,8 @@ Package.onUse(function(api) {
     ], ['client', 'server']);
 
     api.use([
-        'templating'
+        'templating',
+        'reactive-dict'
     ], 'client');
 
     api.addFiles([
