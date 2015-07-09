@@ -304,8 +304,8 @@ Router.route('/partups/:_id/activities', {
     }
 });
 
-Router.route('/partups/:_id/invite', {
-    name: 'partup-invite',
+Router.route('/partups/:_id/invite-for-activity/:activity_id', {
+    name: 'partup-activity-invite',
     where: 'client',
     yieldRegions: {
         'modal':                  {to: 'main'},

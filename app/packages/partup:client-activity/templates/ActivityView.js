@@ -133,8 +133,11 @@ Template.ActivityView.events({
         event.preventDefault();
         var partup = Partups.findOne({_id: template.data.activity.partup_id});
         Intent.go({
-            route: 'partup-invite',
-            params: {_id: partup._id} //, update_id: template.data.activity.update_id}
+            route: 'partup-activity-invite',
+            params: {
+                _id: partup._id,
+                activity_id: template.data.activity._id
+            }
         });
     },
 });
