@@ -324,6 +324,8 @@ var ImageSystem = function ImageSystemConstructor (template) {
     this.uploaded = new ReactiveVar(false);
     this.availableSuggestions = new ReactiveVar([]);
     this.focuspoint = new ReactiveDict();
+    this.focuspoint.set('x', 0.5); // set default focuspoint position
+    this.focuspoint.set('y', 0.5);
 
     this.getSuggestions = function(tags) {
         if (!tags || !tags.length) {
@@ -372,6 +374,8 @@ var ImageSystem = function ImageSystemConstructor (template) {
     };
 
     this.storeFocuspoint = function(x, y) {
+        if (typeof x === 'undefined') x = 0.5;
+        if (typeof y === 'undefined') y = 0.5;
         self.focuspoint.set('x', x);
         self.focuspoint.set('y', y);
     };
