@@ -4,7 +4,8 @@ Accounts.onLogin(function(data) {
 
     Log.debug('User [' + user._id + '] has logged in.');
 
-    var todayFormatted = (new Date).toISOString().slice(0, 10);
+    var now = new Date;
+    var todayFormatted = now.toISOString().slice(0, 10);
     var daysLoggedInFormatted = logins.map(function(login) {
         return login.toISOString().slice(0, 10);
     });
