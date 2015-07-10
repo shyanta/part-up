@@ -4,8 +4,10 @@
     "dropdowns-profile-button-myprofile": "Profiel",
     "dropdowns-profile-button-settings": "Instellingen",
     "dropdowns-profile-button-logout": "Uitloggen",
-    "dropdowns-profile-title-upperpartups-notfound": "Deze feature is nog niet ontwikkeld",
-    "dropdowns-profile-title-supporterpartups-notfound": "Deze feature is nog niet ontwikkeld",
+    "dropdowns-profile-title-upperpartups-notfound": "@Er zijn nog geen Part-ups waar jij Upper bent",
+    "dropdowns-profile-title-upperpartups-notfound-network": "@Er zijn nog geen Part-ups waar jij Upper bent in __network__",
+    "dropdowns-profile-title-supporterpartups-notfound": "@Je support nog geen Part-up",
+    "dropdowns-profile-title-supporterpartups-notfound-network": "@Je support nog geen Part-up in __network__",
 
     "dropdowns-notifications-button-opennotificationsdropdown": "Notificaties",
     "dropdowns-notifications-placeholder-nonotifications": "Er zijn nog geen notificaties",

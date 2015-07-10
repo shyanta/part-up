@@ -654,3 +654,45 @@
 
         &:hover
             background-color: rgba($color-primary, .3)
+
+    &-dropdowntab
+        background-color: $color-header
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+        font-size: 12px
+        line-height: 18px
+        white-space: nowrap
+
+        &:before
+            content: ''
+            background-color: rgba(0,0,0,0.05)
+            width: 100%
+            height: calc(100% + 4px)
+            display: block
+            position: absolute
+            z-index: -1
+            border-radius: 6px
+            border-top-right-radius: 0
+            border-bottom-right-radius: 0
+            top: -2px
+            bottom: -2px
+            left: -2px
+
+        &:hover
+            background-color: $color-header
+            color: $color-text-inverted
+
+        &:active
+            background-color: $color-header
+            color: $color-primary-dark
+
+        &-active
+            background-color: $color-background
+            color: $color-header
+
+            &:hover,
+            &:active,
+            &:focus
+                background-color: $color-background
+                color: $color-header
+

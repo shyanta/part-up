@@ -1,6 +1,10 @@
 Template.DropdownProfile.onCreated(function() {
     this.subscription = this.subscribe('users.loggedin');
-    this.upperSubscription = this.subscribe('');
+    this.upperSubscription = this.subscribe('users.one.upperpartups');
+    this.supporterSubscription = this.subscribe('users.one.supporterpartups');
+    this.supporterSubscription = this.subscribe('networks.user');
+
+    this.currentNetwork = new ReactiveVar();
 });
 
 Template.DropdownProfile.rendered = function() {
@@ -24,6 +28,17 @@ Template.DropdownProfile.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-logout]': function eventClickLogout (event, template) {
         Meteor.logout();
+    },
+    'mouseenter [data-clickoutside-close]': function disableBodyScroll (event, template) {
+        $('body').addClass('pu-state-dropdownopen');
+    },
+    'mouseleave [data-clickoutside-close]': function enableBodyScroll (event, template) {
+        $('body').removeClass('pu-state-dropdownopen');
+    },
+    'click [data-select-network]': function changeNetwork (event, template) {
+        console.log('select')
+        var networkId = $(event.target).data('select-network') || undefined;
+        template.currentNetwork.set(networkId);
     }
 });
 
@@ -37,6 +52,34 @@ Template.DropdownProfile.helpers({
     },
 
     upperPartups: function() {
-        return Partups.find();
+        var userId = Meteor.userId();
+        var networkId = Template.instance().currentNetwork.get() || undefined;
+        return Partups.find({uppers: {$in: [userId]}, network_id: networkId});
+    },
+
+    supporterPartups: function() {
+        var userId = Meteor.userId();
+        var networkId = Template.instance().currentNetwork.get() || undefined;
+        return Partups.find({supporters: {$in: [userId]}, network_id: networkId});
+    },
+
+    user: function() {
+        return Meteor.user();
+    },
+
+    networkId: function() {
+        return Template.instance().currentNetwork.get();
+    },
+
+    networks: function() {
+        var userId = Meteor.userId();
+        return Networks.find({uppers: {$in: [userId]}});
+    },
+
+    selectedNetwork: function() {
+        var networkId = Template.instance().currentNetwork.get();
+        var network = Networks.findOne({_id: networkId});
+        console.log(network)
+        return network;
     }
 });
