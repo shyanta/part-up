@@ -23,10 +23,10 @@
         {{/if}}
         {{#if selectedNetwork}}
             <header class="pu-dropdownheader">
-                <div>
+                <a href="{{ pathFor 'network-detail' _id=selectedNetwork._id }}">
                     <figure class="pu-avatar pu-avatar-square" style="background-image:url('{{ partupImageUrl id=selectedNetwork.image store='80x80'}}');"></figure>
                     <p>{{ selectedNetwork.name }}</p>
-                </div>
+                </a>
             </header>
         {{/if}}
         <section>
@@ -45,7 +45,7 @@
                     <li class="pu-dropdownitem">
                         <a>
                             <p>
-                                {{#if networks.count}}
+                                {{#if networkId}}
                                     {{_ 'dropdowns-profile-title-upperpartups-notfound-network' network=selectedNetwork.name}}
                                 {{else}}
                                     {{_ 'dropdowns-profile-title-upperpartups-notfound'}}
@@ -70,7 +70,7 @@
                     <li class="pu-dropdownitem">
                         <a>
                             <p>
-                                {{#if networks.count}}
+                                {{#if networkId}}
                                     {{_ 'dropdowns-profile-title-supporterpartups-notfound-network' network=selectedNetwork.name}}
                                 {{else}}
                                     {{_ 'dropdowns-profile-title-supporterpartups-notfound'}}

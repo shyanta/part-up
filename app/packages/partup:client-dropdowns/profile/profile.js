@@ -22,6 +22,7 @@ Template.DropdownProfile.destroyed = function() {
     // remove click handler on destroy
     Session.set(this.dropdownToggleBool, false);
     ClientDropdowns.removeOutsideDropdownClickHandler(this);
+    $('body').removeClass('pu-state-dropdownopen');
 };
 
 Template.DropdownProfile.events({
