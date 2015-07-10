@@ -31,13 +31,18 @@ Accounts.onCreateUser(function(options, user) {
 
     user.emails = user.emails || [];
 
+    Log.debug('User registration detected, creating a new user.');
+
     if (!liData && !fbData) {
         Meteor.setTimeout(function() {
+            Log.debug('User registered with username and password, sending verification email.');
             Accounts.sendVerificationEmail(user._id);
         }, 5000);
     }
 
     if (liData) {
+        Log.debug('User used LinkedIn to register.');
+
         var location = {};
 
         if (liData.location && liData.location.name) {
@@ -66,6 +71,8 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     if (fbData) {
+        Log.debug('User used Facebook to register.');
+
         profile = {
             facebook: fbData.id,
             firstname: fbData.first_name,
@@ -97,14 +104,13 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     if (!profile.image) {
+        Log.debug('Registered user has no image so far, using one of the default profile pictures.');
         var images = Images.find({'meta.default_profile_picture': true}).fetch();
         image = mout.random.choice(images);
         profile.image = image._id;
-        console.log('Setting user image', image);
     }
 
     user.completeness = 0;
-
     user.profile = profile;
 
     return user;
