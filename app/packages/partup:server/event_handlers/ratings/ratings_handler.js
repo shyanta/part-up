@@ -13,6 +13,30 @@ function updateUserAverageRating(rating) {
 Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
     if (!userId) return;
     updateUserAverageRating(rating);
+
+    var contribution = Contributions.findOne(rating.contribution_id);
+    if (!contribution) return Log.error('Contribution [' + rating.contribution_id + '] for Rating [' + rating._id + '] could not be found?');
+
+    var contributionUpper = Meteor.users.findOne(contribution.upper_id);
+    if (!contributionUpper) return Log.error('User [' + contribution.upper_id + '] for Contribution [' + contribution._id + '] could not be found?');
+
+    var notificationOptions = {
+        userId: contributionUpper._id,
+        type: 'contributions_ratings_inserted',
+        typeData: {
+            rater: {
+                id: contributionUpper._id,
+                name: contributionUpper.profile.name,
+                image: contributionUpper.profile.image
+            }
+        }
+    };
+
+    Partup.server.services.notifications.send(notificationOptions, function(error) {
+        if (error) return Log.error(error);
+
+        Log.debug('Notification generated for User [' + notificationOptions.userId + '] with type [' + notificationOptions.type + '].');
+    });
 });
 
 /**
