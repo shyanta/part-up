@@ -85,3 +85,5 @@ Migrations.add({
         });
     }
 });
+
+Migrations.migrateTo(4);
