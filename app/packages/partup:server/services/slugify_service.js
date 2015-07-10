@@ -1,9 +1,22 @@
+var slugify = Npm.require('slug');
+
 /**
  @namespace Partup server slugify service
  @name Partup.server.services.slugify
  @memberof Partup.server.services
  */
 Partup.server.services.slugify = {
+
+    /**
+     * Slugify a string
+     *
+     * @param  {String} value
+     *
+     * @return {String}
+     */
+    slugify: function(value) {
+        return slugify(value).toLowerCase();
+    },
 
     /**
      * Generate a slug in the following form:
@@ -17,7 +30,6 @@ Partup.server.services.slugify = {
      */
     slugifyDocument: function(document, property) {
         var value = document[property];
-        var slugify = Npm.require('slug');
         return slugify(value).toLowerCase() + '-' + document._id;
     }
 

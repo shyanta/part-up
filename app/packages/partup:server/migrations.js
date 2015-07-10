@@ -68,7 +68,7 @@ Migrations.add({
 
 Migrations.add({
     version: 3,
-    name: 'Add a slug to the old partups',
+    name: 'Add a slug to the existing Partups',
     up: function() {
         var partups = Partups.find({slug: {$exists: false}});
 
@@ -78,11 +78,23 @@ Migrations.add({
         });
     },
     down: function() {
-        var partups = Partups.find({slug: {$exists: true}});
+        Partups.update({slug: {$exists: true}}, {$unset: {slug: ''}}, {multi: true});
+    }
+});
 
-        partups.forEach(function(partup) {
-            Partups.update({_id:partup._id}, {$unset: {slug: ''}});
+Migrations.add({
+    version: 4,
+    name: 'Add a slug to the existing Networks',
+    up: function() {
+        var networks = Networks.find({slug: {$exists: false}});
+
+        networks.forEach(function(network) {
+            var slug = Partup.server.services.slugify.slugify(network.name);
+            Networks.update({_id:network._id}, {$set: {slug: slug}});
         });
+    },
+    down: function() {
+        Networks.update({slug: {$exists: true}}, {$unset: {slug: ''}}, {multi: true});
     }
 });
 
