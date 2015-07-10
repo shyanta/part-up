@@ -36,4 +36,4 @@ Router.route('/ping', function() {
 SyncedCron.start();
 
 // Run migrations
-Migrations.migrateTo(2);
+Migrations.migrateTo(3);

@@ -65,3 +65,23 @@ Migrations.add({
     down: function() {
     }
 });
+
+Migrations.add({
+    version: 3,
+    name: 'Add a slug to the old partups',
+    up: function() {
+        var partups = Partups.find({slug: {$exists: false}});
+
+        partups.forEach(function(partup) {
+            var slug = Partup.server.services.slugify.slugifyDocument(partup, 'name');
+            Partups.update({_id:partup._id}, {$set: {slug: slug}});
+        });
+    },
+    down: function() {
+        var partups = Partups.find({slug: {$exists: true}});
+
+        partups.forEach(function(partup) {
+            Partups.update({_id:partup._id}, {$unset: {slug: ''}});
+        });
+    }
+});
