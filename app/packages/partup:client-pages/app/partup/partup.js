@@ -28,14 +28,17 @@ Template.app_partup.onCreated(function() {
         SEO.set(seo);
     });
 
+    var timeline = null;
     template.autorun(function() {
         var containerHeight = partupDetailLayout.containerHeight.get();
 
         if (containerHeight > 0) {
-            var timeline = template.find('.pu-sub-timelineline');
-            if (!timeline) return;
+            Meteor.defer(function() {
+                if (!timeline) timeline = template.find('.pu-sub-timelineline');
+                if (!timeline) return;
 
-            timeline.style.height = containerHeight + 'px';
+                timeline.style.height = containerHeight + 'px';
+            });
         }
     });
 
