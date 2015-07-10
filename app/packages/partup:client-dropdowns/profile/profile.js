@@ -1,6 +1,9 @@
 Template.DropdownProfile.onCreated(function() {
     this.subscription = this.subscribe('users.loggedin');
-    this.upperSubscription = this.subscribe('');
+    this.upperSubscription = this.subscribe('users.one.upperpartups');
+    this.supporterSubscription = this.subscribe('users.one.supporterpartups');
+
+    this.currentNetwork = new ReactiveVar();
 });
 
 Template.DropdownProfile.rendered = function() {
@@ -30,6 +33,10 @@ Template.DropdownProfile.events({
     },
     'mouseleave [data-clickoutside-close]': function enableBodyScroll (event, template) {
         $('body').removeClass('pu-state-dropdownopen');
+    },
+    'click [data-select-network]': function changeNetwork (event, template) {
+        var networkId = $(event.target).data('select-network') || undefined;
+        template.currentNetwork.set(networkId);
     }
 });
 
@@ -43,6 +50,22 @@ Template.DropdownProfile.helpers({
     },
 
     upperPartups: function() {
-        return Partups.find();
+        var userId = Meteor.userId();
+        var networkId = Template.instance().currentNetwork.get() || undefined;
+        return Partups.find({uppers: {$in: [userId]}, network_id: networkId});
+    },
+
+    supporterPartups: function() {
+        var userId = Meteor.userId();
+        var networkId = Template.instance().currentNetwork.get() || undefined;
+        return Partups.find({supporters: {$in: [userId]}, network_id: networkId});
+    },
+
+    user: function() {
+        return Meteor.user();
+    },
+
+    networkId: function() {
+        return Template.instance().currentNetwork.get();
     }
 });
