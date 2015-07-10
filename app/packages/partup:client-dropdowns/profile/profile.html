@@ -7,7 +7,7 @@
     </a>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <!-- <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li> -->
-        {{#if networks}}
+        {{#if networks.count}}
             <nav class="pu-profiletabs">
                 <ul class="pu-list pu-list-right">
                     <li>
@@ -20,6 +20,14 @@
                     {{/each}}
                 </ul>
             </nav>
+        {{/if}}
+        {{#if selectedNetwork}}
+            <header class="pu-dropdownheader">
+                <div>
+                    <figure class="pu-avatar pu-avatar-square" style="background-image:url('{{ partupImageUrl id=selectedNetwork.image store='80x80'}}');"></figure>
+                    <p>{{ selectedNetwork.name }}</p>
+                </div>
+            </header>
         {{/if}}
         <section>
             <p>{{_ 'dropdowns-profile-title-upperpartups'}}</p>
@@ -36,7 +44,13 @@
                 {{else}}
                     <li class="pu-dropdownitem">
                         <a>
-                            <p>{{_ 'dropdowns-profile-title-upperpartups-notfound'}}</p>
+                            <p>
+                                {{#if networks.count}}
+                                    {{_ 'dropdowns-profile-title-upperpartups-notfound-network' network=selectedNetwork.name}}
+                                {{else}}
+                                    {{_ 'dropdowns-profile-title-upperpartups-notfound'}}
+                                {{/if}}
+                            </p>
                         </a>
                     </li>
                 {{/if}}
@@ -55,7 +69,13 @@
                 {{else}}
                     <li class="pu-dropdownitem">
                         <a>
-                            <p>{{_ 'dropdowns-profile-title-supporterpartups-notfound'}}</p>
+                            <p>
+                                {{#if networks.count}}
+                                    {{_ 'dropdowns-profile-title-supporterpartups-notfound-network' network=selectedNetwork.name}}
+                                {{else}}
+                                    {{_ 'dropdowns-profile-title-supporterpartups-notfound'}}
+                                {{/if}}
+                            </p>
                         </a>
                     </li>
                 {{/if}}

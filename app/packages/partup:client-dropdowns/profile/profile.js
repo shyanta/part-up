@@ -36,6 +36,7 @@ Template.DropdownProfile.events({
         $('body').removeClass('pu-state-dropdownopen');
     },
     'click [data-select-network]': function changeNetwork (event, template) {
+        console.log('select')
         var networkId = $(event.target).data('select-network') || undefined;
         template.currentNetwork.set(networkId);
     }
@@ -73,5 +74,12 @@ Template.DropdownProfile.helpers({
     networks: function() {
         var userId = Meteor.userId();
         return Networks.find({uppers: {$in: [userId]}});
+    },
+
+    selectedNetwork: function() {
+        var networkId = Template.instance().currentNetwork.get();
+        var network = Networks.findOne({_id: networkId});
+        console.log(network)
+        return network;
     }
 });

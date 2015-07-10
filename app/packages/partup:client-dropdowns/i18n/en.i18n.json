@@ -4,8 +4,10 @@
     "dropdowns-profile-button-myprofile": "My profile",
     "dropdowns-profile-button-settings": "Settings",
     "dropdowns-profile-button-logout": "Log out",
-    "dropdowns-profile-title-upperpartups-notfound": "This feature is not implemented yet",
-    "dropdowns-profile-title-supporterpartups-notfound": "This feature is not implemented yet",
+    "dropdowns-profile-title-upperpartups-notfound": "@There are no Part-ups where you are an Upper",
+    "dropdowns-profile-title-upperpartups-notfound-network": "@There are no Part-ups where you are an Upper in __network__",
+    "dropdowns-profile-title-supporterpartups-notfound": "@You don't yet support a Part-up",
+    "dropdowns-profile-title-supporterpartups-notfound-network": "@You don't yet support a Part-up in __network__",
 
     "dropdowns-notifications-button-opennotificationsdropdown": "Notifications",
     "dropdowns-notifications-placeholder-nonotifications": "No notifications yet",
