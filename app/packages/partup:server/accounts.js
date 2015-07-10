@@ -1,3 +1,26 @@
+Accounts.onLogin(function(data) {
+    var user = data.user;
+    var logins = user.logins || [];
+
+    Log.debug('User [' + user._id + '] has logged in.');
+
+    var todayFormatted = (new Date).toISOString().slice(0, 10);
+    var daysLoggedInFormatted = logins.map(function(login) {
+        return login.toISOString().slice(0, 10);
+    });
+
+    var userAlreadyLoggedInToday = daysLoggedInFormatted.indexOf(todayFormatted) > -1;
+
+    if (! userAlreadyLoggedInToday) {
+        // We are using the extended $push syntax, $slice with a negative
+        // number means we save the latest x amount of items.
+        Meteor.users.update({ _id: user._id }, {$push: {logins: {$each: [now], $slice: -25}}});
+        Log.debug('User [' + user._id + '] first login today, saving.');
+    } else {
+        Log.debug('User [' + user._id + '] already logged in earlier today, not saving.');
+    }
+});
+
 Accounts.onCreateUser(function(options, user) {
     var imageUrl;
     var profile = options.profile;
