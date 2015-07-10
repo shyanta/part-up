@@ -22,7 +22,7 @@
             </nav>
         {{/if}}
         {{#if selectedNetwork}}
-            <header class="pu-dropdownheader">
+            <header class="pu-dropdownitem pu-dropdownheader">
                 <a href="{{ pathFor 'network-detail' _id=selectedNetwork._id }}">
                     <figure class="pu-avatar pu-avatar-square" style="background-image:url('{{ partupImageUrl id=selectedNetwork.image store='80x80'}}');"></figure>
                     <p>{{ selectedNetwork.name }}</p>
