@@ -3,19 +3,24 @@
         <div class="pu-composition pu-composition-partupdetailactivities">
             <!-- new message popup -->
             {{#if partupIsPopupActive 'popup.new-activity' }}
-                {{#contentFor "PopupContent"}}
-                    {{#contentFor "PopupTitle"}}
+                {{# if isUpper }}
+                    {{#contentFor "PopupContent"}}
+                        {{#contentFor "PopupTitle"}}
+                            {{_ "pages-app-partup-activities-newactivity_title"}}
+                        {{/contentFor}}
+                        {{> Activity CREATE=true POPUP=true}}
+                    {{/contentFor}}
+                {{else}}
+                    {{#contentFor region="PopupTitle"}}
                         {{_ "pages-app-partup-activities-newactivity_title"}}
                     {{/contentFor}}
-                    {{> Activity CREATE=true POPUP=true}}
-                {{/contentFor}}
+                    {{> contentFor region="PopupContent" template="app_partup_takepart_supporter"}}
+                {{/ if}}
             {{/if}}
 
             <!-- Header buttons -->
             <header class="pu-pageheader">
-                {{# if isUpper }}
                     <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "pages-app-partup-activities-newactivity_button"}}</a></section>
-                {{/ if}}
                 <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
             </header>
 
