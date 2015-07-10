@@ -1,35 +1,24 @@
 /**
- @namespace Partup server images service
- @name Partup.server.services.images
+ @namespace Partup server slugify service
+ @name Partup.server.services.slugify
  @memberof Partup.server.services
  */
-Partup.server.services.images = {
+Partup.server.services.slugify = {
 
     /**
-     * Store a focuspoint in an image
+     * Generate a slug in the following form:
      *
-     * @param  {string} imageId
-     * @param  {number} focuspoint_x
-     * @param  {number} focuspoint_y
+     * {slugified-property-value}-{document-id}
+     *
+     * Example: lifely-s-partup-12345
+     *
+     * @param  {Document} document
+     * @param  {string} property
      */
-    storeFocuspoint: function(imageId, focuspoint_x, focuspoint_y) {
-
-        if (!imageId) throw new Error('Required argument [imageId] is missing for method [Partup.server.services.images::storeFocuspoint]');
-        if (!mout.lang.isNumber(focuspoint_x)) throw new Error('Required argument [focuspoint_x] is not a number for method [Partup.server.services.images::storeFocuspoint]');
-        if (!mout.lang.isNumber(focuspoint_y)) throw new Error('Required argument [focuspoint_y] is not a number for method [Partup.server.services.images::storeFocuspoint]');
-        if (focuspoint_x < 0 || focuspoint_x > 1) throw new Error('Argument [focuspoint_x] is not a number between 0 and 1 for method [Partup.server.services.images::storeFocuspoint]');
-        if (focuspoint_y < 0 || focuspoint_y > 1) throw new Error('Argument [focuspoint_y] is not a number between 0 and 1 for method [Partup.server.services.images::storeFocuspoint]');
-
-        var image = Images.findOne(imageId);
-        if (!image) throw new Error('Could not find an image by [imageId] for method [Partup.server.services.images::storeFocuspoint]');
-
-        var focuspoint = {
-            x: focuspoint_x,
-            y: focuspoint_y
-        };
-
-        Images.update(imageId, {$set: {focuspoint: focuspoint}});
-
+    slugifyDocument: function(document, property) {
+        var value = document[property];
+        var slugify = Npm.require('slug');
+        return slugify(value).toLowerCase() + '-' + document._id;
     }
 
 };
