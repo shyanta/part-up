@@ -10,8 +10,7 @@
         <section>
             <p>{{_ 'dropdowns-profile-title-upperpartups'}}</p>
             <ul class="pu-list">
-                <!-- {{#if currentUser.partups.length}} -->
-                {{#if false}}
+                {{#if currentUser.partups.length}}
                     {{#each currentUser.partups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' _id=. }}">
@@ -30,8 +29,7 @@
             </ul>
             <p>{{_ 'dropdowns-profile-title-supporterpartups'}}</p>
             <ul class="pu-list">
-                <!-- {{#if currentUser.supporterOf.length}} -->
-                {{#if false }}
+                {{#if currentUser.supporterOf.length}}
                     {{#each currentUser.supporterOf}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' _id=. }}">
