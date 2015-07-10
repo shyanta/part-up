@@ -1,4 +1,12 @@
 # CHANGELOG
+## 1.4
+- network page
+- well loaders on updates & activities pages
+- good update and system messages for proposed contributions
+- motivation popup for proposed contribution
+- new contribution styling
+- bugfixes
+
 ## 1.3.1
 - updated status text in partup description
 - (perceived) performance updates
@@ -13,7 +21,7 @@
 ## 1.3.0
 - partup detail settings
 - take part functionality
-- updates non-reactive 
+- updates non-reactive
 - updates - infinite scroll
 - discover + infinite scroll
 - profile completeness
