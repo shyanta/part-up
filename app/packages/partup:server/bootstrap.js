@@ -34,6 +34,3 @@ Router.route('/ping', function() {
 
 // Kick off the cronjobs
 SyncedCron.start();
-
-// Run migrations
-Migrations.migrateTo(2);

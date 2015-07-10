@@ -34,7 +34,6 @@ Package.onUse(function(api) {
     api.addFiles([
         'logger.js',
         'namespace.js',
-        'migrations.js',
         'bootstrap.js',
         'accounts.js',
         'helpers/collection.js',
@@ -46,6 +45,8 @@ Package.onUse(function(api) {
         'services/images_service.js',
         'services/google_service.js',
         'services/matching_service.js',
+        'services/slugify_service.js',
+        'migrations.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
@@ -107,5 +108,6 @@ Npm.depends({
     'deeper': '1.0.2',
     'winston': '0.9.0',
     'pluralize': '1.1.2',
-    'node-flickr': '0.0.3'
+    'node-flickr': '0.0.3',
+    'slug': '0.9.1'
 });

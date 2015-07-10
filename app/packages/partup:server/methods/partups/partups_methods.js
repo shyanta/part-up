@@ -23,6 +23,10 @@ Meteor.methods({
             Meteor.users.update(user._id, {$push: {'partups': newPartup._id}});
             Meteor.users.update(user._id, {$push: {'upperOf': newPartup._id}});
 
+            // Generate the slug for the Partup
+            var slug = Partup.server.services.slugify.slugifyDocument(newPartup, 'name');
+            Partups.update(newPartup._id, {$set: {'slug': slug}});
+
             return {
                 _id: newPartup._id
             };
