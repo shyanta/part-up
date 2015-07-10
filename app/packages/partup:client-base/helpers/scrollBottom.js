@@ -67,11 +67,7 @@ Meteor.startup(function(){
     onDocumentHeightChange(windowScrollChecker);
 
     // on window scroll, check if scrollbottom
-    // $(window).on('click',windowScrollChecker);
-    $window = $(window);
-    if (!$window) return;
-
-    $window.on('scroll', windowScrollChecker);
+    jQuery(window).on('scroll', windowScrollChecker);
 
     // when route is changed, initialize
     Router.onAfterAction(windowScrollChecker);
