@@ -33,6 +33,8 @@ Template.app_partup.onCreated(function() {
 
         if (containerHeight > 0) {
             var timeline = template.find('.pu-sub-timelineline');
+            if (!timeline) return;
+
             timeline.style.height = containerHeight + 'px';
         }
     });
