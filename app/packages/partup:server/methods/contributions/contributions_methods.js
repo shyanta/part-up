@@ -14,7 +14,8 @@ Meteor.methods({
         var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
         var activity = Activities.findOneOrFail(activityId);
 
-        var isUpperInPartup = Partups.findOne({_id: activity.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
+        var upperPartups = upper.partups || [];
+        var isUpperInPartup = upperPartups.indexOf(activity.partup_id) > -1;
 
         check(fields, Partup.schemas.forms.contribution);
 
@@ -53,18 +54,6 @@ Meteor.methods({
                 newContribution.verified = isUpperInPartup;
 
                 newContribution._id = Contributions.insert(newContribution);
-            }
-
-            // Make supporter if not yet part of the Partup
-            if (!isUpperInPartup) {
-                var partup = Partups.findOneOrFail(activity.partup_id);
-                var supporters = partup.supporters || [];
-                var isAlreadySupporter = !!(supporters.indexOf(upper._id) > -1);
-
-                if (!isAlreadySupporter && partup.creator_id !== upper._id) {
-                    Partups.update(partup._id, {$push: {'supporters': upper._id}});
-                    Meteor.users.update(upper._id, {$push: {'supporterOf': partup._id}});
-                }
             }
 
             return newContribution;

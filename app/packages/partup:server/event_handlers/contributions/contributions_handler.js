@@ -16,9 +16,25 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
     Contributions.update({_id: contribution._id}, {$set: {update_id: updateId}});
 
     var user = Meteor.users.findOneOrFail(userId);
+    if (!user) return;
+
     var activity = Activities.findOneOrFail(contribution.activity_id);
     var system_message_type = contribution.verified ? 'system_contributions_added' : 'system_contributions_proposed';
     Partup.server.services.system_messages.send(user, activity.update_id, system_message_type, {update_timestamp: false});
+
+    // Make the user a supporter
+    var upperPartups = user.partups || [];
+    var isUpperInPartup = upperPartups.indexOf(activity.partup_id) > -1;
+    if (!isUpperInPartup) {
+        var partup = Partups.findOneOrFail(activity.partup_id);
+        var supporters = partup.supporters || [];
+        var isAlreadySupporter = !!(supporters.indexOf(user._id) > -1);
+
+        if (!isAlreadySupporter && partup.creator_id !== user._id) {
+            Partups.update(partup._id, {$push: {'supporters': user._id}});
+            Meteor.users.update(user._id, {$push: {'supporterOf': partup._id}});
+        }
+    }
 });
 
 /**
