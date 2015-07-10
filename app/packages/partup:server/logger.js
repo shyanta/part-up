@@ -11,3 +11,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 Log = new (winston.Logger)({transports: transports});
+
+Debug = function(namespace) {
+    var debug = Npm.require('debug')('partup:' + namespace);
+    debug.log = console.info.bind(console);
+    debug.useColors = true;
+    return debug;
+}

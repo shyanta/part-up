@@ -96,11 +96,7 @@ Event.on('contributions.accepted', function(userId, partupId, upperId) {
 
     notificationOptions.userId = upperId;
 
-    Partup.server.services.notifications.send(notificationOptions, function(error) {
-        if (error) return Log.error(error);
-
-        Log.debug('Notification generated for User [' + upperId + '] with type [' + notificationOptions.type + '].');
-    });
+    Partup.server.services.notifications.send(notificationOptions);
 });
 
 /**
@@ -124,9 +120,5 @@ Event.on('contributions.rejected', function(userId, activityId, upperId) {
 
     notificationOptions.userId = upperId;
 
-    Partup.server.services.notifications.send(notificationOptions, function(error) {
-        if (error) return Log.error(error);
-
-        Log.debug('Notification generated for User [' + upperId + '] with type [' + notificationOptions.type + '].');
-    });
+    Partup.server.services.notifications.send(notificationOptions);
 });

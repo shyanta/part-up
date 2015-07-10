@@ -1,4 +1,5 @@
 var slugify = Npm.require('slug');
+var d = Debug('services:slugify');
 
 /**
  @namespace Partup server slugify service
@@ -15,7 +16,11 @@ Partup.server.services.slugify = {
      * @return {String}
      */
     slugify: function(value) {
-        return slugify(value).toLowerCase();
+        var slug = slugify(value).toLowerCase();
+
+        d('Slugified [' + value + '] to [' + slug + ']');
+
+        return slug;
     },
 
     /**
@@ -30,7 +35,11 @@ Partup.server.services.slugify = {
      */
     slugifyDocument: function(document, property) {
         var value = document[property];
-        return slugify(value).toLowerCase() + '-' + document._id;
+        var slug = slugify(value).toLowerCase() + '-' + document._id;
+
+        d('Slugified [' + value + '] to [' + slug + ']');
+
+        return slug;
     }
 
 };

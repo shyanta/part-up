@@ -1,3 +1,5 @@
+var d = Debug('event_handlers:updates_comments_handler');
+
 /**
  * Generate a Notification for the upper for the first comment posted on a message/update
  */
@@ -14,14 +16,14 @@ Event.on('updates.comments.inserted', function(upper, update, comment) {
     });
 
     if (comments.length > 0) {
-        Log.debug('Not the first comment, so not generating a notification for the owner of the update, length: ', comments.length);
+        d('Not the first comment, so not generating a notification for the owner of the update, length: ', comments.length);
         return;
     }
 
     // We are not going to generate a notification if the creator
     // of the message was the same as the creator of the update
     if (comment.creator._id === update.upper_id) {
-        Log.debug('The creator of the comment is also the creator of the update, so we wont generate a notification');
+        d('The creator of the comment is also the creator of the update, so we wont generate a notification.');
         return;
     }
 
@@ -39,9 +41,5 @@ Event.on('updates.comments.inserted', function(upper, update, comment) {
     };
 
     // Send the notification
-    Partup.server.services.notifications.send(notificationOptions, function(error) {
-        if (error) return Log.error(error);
-
-        Log.debug('Notification generated for User [' + notificationOptions.userId + '] with type [' + notificationOptions.type + '].');
-    });
+    Partup.server.services.notifications.send(notificationOptions);
 });

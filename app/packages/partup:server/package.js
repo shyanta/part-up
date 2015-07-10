@@ -109,5 +109,6 @@ Npm.depends({
     'winston': '0.9.0',
     'pluralize': '1.1.2',
     'node-flickr': '0.0.3',
-    'slug': '0.9.1'
+    'slug': '0.9.1',
+    'debug': '2.2.0'
 });

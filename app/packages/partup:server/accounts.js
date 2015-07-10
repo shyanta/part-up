@@ -1,8 +1,10 @@
+var d = Debug('accounts');
+
 Accounts.onLogin(function(data) {
     var user = data.user;
     var logins = user.logins || [];
 
-    Log.debug('User [' + user._id + '] has logged in.');
+    d('User [' + user._id + '] has logged in.');
 
     var now = new Date;
     var todayFormatted = now.toISOString().slice(0, 10);
@@ -16,9 +18,9 @@ Accounts.onLogin(function(data) {
         // We are using the extended $push syntax, $slice with a negative
         // number means we save the latest x amount of items.
         Meteor.users.update({ _id: user._id }, {$push: {logins: {$each: [now], $slice: -25}}});
-        Log.debug('User [' + user._id + '] first login today, saving.');
+        d('User [' + user._id + '] first login today, saving.');
     } else {
-        Log.debug('User [' + user._id + '] already logged in earlier today, not saving.');
+        d('User [' + user._id + '] already logged in earlier today, not saving.');
     }
 });
 
@@ -31,17 +33,17 @@ Accounts.onCreateUser(function(options, user) {
 
     user.emails = user.emails || [];
 
-    Log.debug('User registration detected, creating a new user.');
+    d('User registration detected, creating a new user.');
 
     if (!liData && !fbData) {
         Meteor.setTimeout(function() {
-            Log.debug('User registered with username and password, sending verification email.');
+            d('User registered with username and password, sending verification email.');
             Accounts.sendVerificationEmail(user._id);
         }, 5000);
     }
 
     if (liData) {
-        Log.debug('User used LinkedIn to register.');
+        d('User used LinkedIn to register.');
 
         var location = {};
 
@@ -71,7 +73,7 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     if (fbData) {
-        Log.debug('User used Facebook to register.');
+        d('User used Facebook to register.');
 
         profile = {
             facebook: fbData.id,
@@ -104,7 +106,8 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     if (!profile.image) {
-        Log.debug('Registered user has no image so far, using one of the default profile pictures.');
+        d('Registered user has no image so far, using one of the default profile pictures.');
+
         var images = Images.find({'meta.default_profile_picture': true}).fetch();
         image = mout.random.choice(images);
         profile.image = image._id;
