@@ -16,6 +16,7 @@ Package.onUse(function(api) {
         'reactive-dict',
         'reactive-var',
         'aldeed:autoform',
+        'http'
     ], 'client');
 
     var clientFiles = [
@@ -27,6 +28,7 @@ Package.onUse(function(api) {
         'app/app-header.html',
         'app/app-header.js',
         'app/app-footer.html',
+        'app/app-footer.js',
 
         'app/app-notfound.html',
         'app/app-notfound.js',

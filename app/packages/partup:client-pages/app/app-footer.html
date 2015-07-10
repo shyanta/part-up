@@ -5,6 +5,12 @@
                 <figure class="pu-brand pu-brand-footer"></figure>
                 <h2>{{_ 'pages-app-subtitle' }}</h2>
                 <p>{{_ 'pages-app-description' }}</p>
+                {{# with versiondata }}
+                    <p class="pu-version">
+                        <span>Version {{ version }}</span>
+                        <span>Deployed on {{ partupDateOnly deploydate }} at {{ partupDateTime deploydate }}</span>
+                    </p>
+                {{/ with }}
             </section>
             <section class="pu-sub-companylinks">
                 <h3>{{_ 'pages-app-menu-title-company' }}</h3>
