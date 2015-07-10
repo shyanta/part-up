@@ -2,6 +2,7 @@
     <article class="pu-layout">
         <div class="pu-sub-pagecontainer">
             {{#if subscriptionsReady}}
+                {{ initializePartupLayout }}
                 <div class="pu-sub-partupdetail-left">
                     {{> app_partup_navigation partup=partup }}
                     {{> yield region='app_partup' }}
