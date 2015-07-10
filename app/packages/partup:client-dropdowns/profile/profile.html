@@ -7,15 +7,15 @@
     </a>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <!-- <li class="pu-dropdownitem"><a href="">Netwerk aanmelden</a></li> -->
-        {{#if user.networks}}
+        {{#if networks}}
             <nav class="pu-profiletabs">
                 <ul class="pu-list pu-list-right">
                     <li>
                         <a href="#" class="pu-button pu-button-dropdowntab {{#unless networkId}}pu-button-dropdowntab-active{{/unless}}" data-select-network>public</a>
                     </li>
-                    {{#each user.networks}}
+                    {{#each networks}}
                         <li>
-                            <a href="#" class="pu-button pu-button-dropdowntab {{#if partupEquals networkId .}}pu-button-dropdowntab-active{{/if}}" data-select-network="{{ . }}">{{ . }}</a>
+                            <a href="#" class="pu-button pu-button-dropdowntab {{#if partupEquals networkId _id}}pu-button-dropdowntab-active{{/if}}" data-select-network="{{ _id }}">{{ name }}</a>
                         </li>
                     {{/each}}
                 </ul>

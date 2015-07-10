@@ -2,6 +2,7 @@ Template.DropdownProfile.onCreated(function() {
     this.subscription = this.subscribe('users.loggedin');
     this.upperSubscription = this.subscribe('users.one.upperpartups');
     this.supporterSubscription = this.subscribe('users.one.supporterpartups');
+    this.supporterSubscription = this.subscribe('networks.user');
 
     this.currentNetwork = new ReactiveVar();
 });
@@ -67,5 +68,10 @@ Template.DropdownProfile.helpers({
 
     networkId: function() {
         return Template.instance().currentNetwork.get();
+    },
+
+    networks: function() {
+        var userId = Meteor.userId();
+        return Networks.find({uppers: {$in: [userId]}});
     }
 });
