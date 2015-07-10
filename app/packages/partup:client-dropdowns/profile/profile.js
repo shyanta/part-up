@@ -24,6 +24,12 @@ Template.DropdownProfile.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-logout]': function eventClickLogout (event, template) {
         Meteor.logout();
+    },
+    'mouseenter [data-clickoutside-close]': function disableBodyScroll (event, template) {
+        $('body').addClass('pu-state-dropdownopen');
+    },
+    'mouseleave [data-clickoutside-close]': function enableBodyScroll (event, template) {
+        $('body').removeClass('pu-state-dropdownopen');
     }
 });
 
