@@ -146,6 +146,17 @@ Meteor.publishComposite('users.loggedin', function() {
  *
  * @param {[String]} userIds
  */
-Meteor.publish('users.by_ids', function(userIds) {
-    return Meteor.users.findMultiplePublicProfiles(userIds);
+Meteor.publishComposite('users.by_ids', function(userIds) {
+    return {
+        find: function() {
+            return Meteor.users.findMultiplePublicProfiles(userIds);
+        },
+        children: [
+            {
+                find: function(user) {
+                    return Images.find({_id: user.profile.image}, {limit: 1});
+                }
+            }
+        ]
+    };
 });
