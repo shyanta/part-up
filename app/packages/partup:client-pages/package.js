@@ -79,8 +79,6 @@ Package.onUse(function(api) {
         // App:partup:takepart (popup)
         'app/partup/takepart/takepart.html',
         'app/partup/takepart/takepart.js',
-        'app/partup/takepart/takepart-supporter.html',
-        'app/partup/takepart/takepart-supporter.js',
 
         // App:partup:updates
         'app/partup/updates/updates.html',
