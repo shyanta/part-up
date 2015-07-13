@@ -19,7 +19,7 @@ var placeholders = {
 Template.modal_create_network.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
-        //Partup.client.intent.executeIntentCallback('admin');
+        // todo: close
     },
 });
 

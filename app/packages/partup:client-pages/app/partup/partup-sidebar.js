@@ -136,13 +136,10 @@ Template.app_partup_sidebar.events({
         if (Meteor.user()) {
             Meteor.call('partups.supporters.insert', partupId);
         } else {
-            Partup.client.intent.go({
+            Intent.go({
                 route: 'login'
             }, function(user) {
-                Partup.client.intent.returnToOrigin('login');
-                if (user) {
-                    Meteor.call('partups.supporters.insert', partupId);
-                }
+                if (user) Meteor.call('partups.supporters.insert', partupId);
             });
         }
     },

@@ -34,7 +34,6 @@ Package.onUse(function(api) {
         'client/clipboard.js',
         'client/forms.js',
         'client/spinner.js',
-        'client/intent.js',
         'client/elements.js',
         'client/popup.js',
         'client/uploader.js',

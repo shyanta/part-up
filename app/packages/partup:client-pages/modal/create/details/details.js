@@ -100,8 +100,14 @@ afHooks[FORM_ID] = {
             if (submissionType === 'next') {
                 Router.go('create-activities', {_id: id});
             } else if (submissionType === 'skip') {
-                Partup.client.intent.return('create', [id], function(id) {
-                    Router.go('partup', {_id: id});
+                Intent.return('create', {
+                    arguments: [id],
+                    fallback_route: {
+                        name: 'partup',
+                        params: {
+                            _id: id
+                        }
+                    }
                 });
             }
         });

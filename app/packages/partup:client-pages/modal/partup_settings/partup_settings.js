@@ -24,7 +24,14 @@ Template.modal_partup_settings.helpers({
 Template.modal_partup_settings.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
-        Partup.client.intent.return('partup-settings');
+        Intent.return('partup-settings', {
+            fallback_route: {
+                name: 'partup',
+                params: {
+                    _id: template.data.partupId
+                }
+            }
+        });
     },
     'click [data-remove]': function(event, template) {
         Meteor.call('partups.remove', template.data.partupId, function(error) {
@@ -62,10 +69,13 @@ AutoForm.hooks({
 
             updatePartup(partup._id, insertDoc, function(partupId) {
                 template.submitting.set(false);
-                Partup.client.intent.return('partup-settings', {}, function() {
-                    Router.go('partup', {
-                        _id: partupId
-                    });
+                Intent.return('partup-settings', {
+                    fallback_route: {
+                        name: 'partup',
+                        params: {
+                            _id: template.data.partupId
+                        }
+                    }
                 });
             });
 

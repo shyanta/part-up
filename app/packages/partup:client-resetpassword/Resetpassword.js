@@ -49,7 +49,7 @@ AutoForm.hooks({
                 }
 
                 self.done();
-                Partup.client.intent.return('reset-password');
+                Intent.return('reset-password');
 
             });
 
