@@ -52,7 +52,7 @@ Template.app_partup_navigation.events({
         Intent.go({
             route: 'partup-settings',
             params: {
-                _id: template.data.partupId
+                _id: template.data.partup._id
             }
         });
     }
