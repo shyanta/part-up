@@ -92,4 +92,12 @@ Meteor.startup(function() {
         }
     });
 
+    /*************************************************************/
+    /* Intent configuration */
+    /*************************************************************/
+    Intent.configure({
+        debug: false,
+        default_route_name: 'home'
+    });
+
 });

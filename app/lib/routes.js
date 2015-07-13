@@ -495,6 +495,7 @@ Router.onBeforeAction(function() {
 /* Miscellaneous */
 /*************************************************************/
 if (Meteor.isClient) {
+
     Router.onBeforeAction(function() {
         window.scrollTo(0, 0);
         Partup.client.focuslayer.disable();
