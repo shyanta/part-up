@@ -17,12 +17,10 @@
             <!-- Header buttons -->
             <header class="pu-pageheader">
                 <section>
-                    {{#if isLoggedIn }}
-                        <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
-                            <i class="fa fa-comment"></i>
-                            {{_ 'pages-app-partup-updates-new_message' }}
-                        </a>
-                    {{/if }}
+                    <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
+                        <i class="fa fa-comment"></i>
+                        {{_ 'pages-app-partup-updates-new_message' }}
+                    </a>
                 </section>
                 <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
             </header>

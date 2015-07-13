@@ -1,8 +1,12 @@
+// We need this variable for cross-route reference
+var currentTemplate;
+
 /**
  * Updates created
  */
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
+    currentTemplate = tpl;
 
     // Updates model
     tpl.updates = {
@@ -356,9 +360,20 @@ Template.app_partup_updates.helpers({
 Template.app_partup_updates.events({
     'click [data-newmessage-popup]': function(event, template) {
         event.preventDefault();
-        Partup.client.popup.open('new-message', function() {
-            template.updates.updateView();
-        });
+
+        var proceed = function() {
+            Partup.client.popup.open('new-message', function() {
+                currentTemplate.updates.updateView();
+            });
+        };
+
+        if (Meteor.userId()) {
+            proceed();
+        } else {
+            Intent.go({route: 'login'}, function(user) {
+                if (user) Meteor.setTimeout(proceed, 500); // improve the experience with a timeout
+            });
+        }
     },
     'click [data-reveal-new-updates]': function(event, template) {
         event.preventDefault();
