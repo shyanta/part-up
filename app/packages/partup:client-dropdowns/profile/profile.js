@@ -80,7 +80,6 @@ Template.DropdownProfile.helpers({
     selectedNetwork: function() {
         var networkId = Template.instance().currentNetwork.get();
         var network = Networks.findOne({_id: networkId});
-        console.log(network)
         return network;
     }
 });
