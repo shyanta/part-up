@@ -12,6 +12,9 @@ partup:client-base
 partup:client-pages
 
 partup:client-activity
+partup:client-autocomplete
+partup:client-basic-selector
+partup:client-columns-layout
 partup:client-comments
 partup:client-contribution
 partup:client-copy-to-clipboard
@@ -22,12 +25,15 @@ partup:client-forgotpassword
 partup:client-gallery
 partup:client-invite-to-partup
 partup:client-loader
+partup:client-location-autocomplete
+partup:client-location-selector
 partup:client-login
 partup:client-network-selector
 partup:client-network-settings
 partup:client-network-settings-requests
 partup:client-network-settings-uppers
 partup:client-partup-tile
+partup:client-partupsettings
 partup:client-popup
 partup:client-rating
 partup:client-ratings
@@ -74,15 +80,9 @@ tap:i18n
 tmeasday:publish-counts
 zimme:active-route
 percolate:synced-cron
-partup:client-columns-layout
 meteorhacks:kadira
 okgrow:analytics
-partup:client-partupsettings
 mike:mocha
-partup:client-location-autocomplete
 percolate:migrations
-partup:client-location-selector
-partup:client-autocomplete
 anti:fake
-partup:client-basic-selector
 lifelynl:intent
