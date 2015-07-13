@@ -159,8 +159,10 @@ Template.modal_register_details.events({
 var continueRegister = function() {
 
     // Execute intent callback
-    Partup.client.intent.return('register-details', [], function() {
-        Partup.client.intent.return('register');
+    Intent.return('register-details', {
+        fallback_action: function() {
+            Intent.return('register');
+        }
     });
 
 };

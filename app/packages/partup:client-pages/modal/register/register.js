@@ -8,8 +8,11 @@ Template.modal_register.onCreated(function() {
 Template.modal_register.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
-        Partup.client.intent.return('register-details', [], function() {
-            Partup.client.intent.return('register');
+
+        Intent.return('register-details', {
+            fallback_action: function() {
+                Intent.return('register');
+            }
         });
     }
 });
