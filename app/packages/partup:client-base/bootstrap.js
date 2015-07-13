@@ -15,9 +15,7 @@ Meteor.startup(function() {
             detectedLocale = detectedLocale.split('-')[0];                    // value is like: en
         }
 
-        //USERTEST DEFAULT IN DUTCH
-        //var language = detectedLocale || 'nl';
-        var language = 'nl';
+        var language = detectedLocale || 'en';
 
         Partup.client.language.change(language);
     }
