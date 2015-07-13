@@ -3,13 +3,15 @@ Template.app_footer.onCreated(function() {
 
     tpl.versiondata = new ReactiveVar();
 
-    HTTP.get('/VERSION', function(error, response) {
+    HTTP.get(Meteor.absoluteUrl('VERSION'), function(error, response) {
         if (error || !response) return;
 
-        var filecontent = response.content;
-        if (!filecontent) return;
+        // Be sure the result is a binary file
+        if (response.headers['content-type'] !== 'application/octet-stream') return;
 
-        var parsed_versiondata = JSON.parse(filecontent);
+        if (!response.content) return;
+
+        var parsed_versiondata = JSON.parse(response.content);
         tpl.versiondata.set(parsed_versiondata);
     });
 });
