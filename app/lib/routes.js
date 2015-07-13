@@ -451,21 +451,17 @@ Router.route('/(.*)', {
 /*************************************************************/
 /* Route protection */
 /*************************************************************/
-Router.onBeforeAction(function() {
-    var next = this.next;
-
-    if (!Meteor.userId() && Meteor.isClient) {
-        Partup.client.intent.go({route: 'login'}, function(success) {
-            if (success) {
-                next();
-            } else {
-                Partup.client.intent.returnToOrigin('login');
-            }
+Router.onBeforeAction(function(req, res, next) {
+    if (!Meteor.userId()) {
+        Intent.go({route: 'login'}, function(user) {
+            if (user) next();
+            else this.back();
         });
     } else {
         next();
     }
 }, {
+    where: 'client',
     only: [
         'create',
         'create-details',
@@ -477,12 +473,11 @@ Router.onBeforeAction(function() {
 });
 
 // reset create-partup id to reset the create partup flow
-Router.onBeforeAction(function() {
-    if (Meteor.isClient) {
-        Session.set('partials.create-partup.current-partup', undefined);
-    }
-    this.next();
+Router.onBeforeAction(function(req, res, next) {
+    Session.set('partials.create-partup.current-partup', undefined);
+    next();
 }, {
+    where: 'client',
     except: [
         'create-details',
         'create-activities',
