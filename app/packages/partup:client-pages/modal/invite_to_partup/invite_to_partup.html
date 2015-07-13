@@ -13,6 +13,24 @@
                     <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-invite_to_partup-title'}}</h2>
                     <p>{{_ 'pages-modal-invite_to_partup-explanation'}}</p>
                     <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.invite-to-partup">{{_ 'pages-modal-invite_to_partup-button_invite' }}</a>
+
+                    <ul class="pu-invite-suggestions">
+                        {{# each suggestions }}
+                            <li>
+                                <figure class="pu-avatar" style="background-image: url({{ partupImageUrl id=profile.image store='80x80' }});"></figure>
+                                <p class="pu-sub-identity">
+                                    <span class="pu-sub-name">{{ profile.name }}</span>
+                                    {{# if profile.location.city }}
+                                        <span class="pu-sub-location">{{ profile.location.city }}</span>
+                                    {{/ if }}
+                                </p>
+                                <p class="pu-sub-right">
+                                    <button type="button" class="pu-button" data-invite-id="{{ _id }}">invite</button>
+                                    <span class="pu-sub-percentage">{{ completeness }}</span>
+                                </p>
+                            </li>
+                        {{/ each }}
+                    </ul>
                 </div>
             </div>
         </div>

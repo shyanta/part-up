@@ -26,6 +26,9 @@ Template.modal_invite_to_partup.helpers({
         }
 
         return suggestions;
+    },
+    completeness: function() {
+        return this.completeness || 0;
     }
 });
 
