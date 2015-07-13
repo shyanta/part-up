@@ -68,7 +68,7 @@ Template.app_network.events({
         $(event.target.parentElement).toggleClass('pu-state-open');
     },
     'click [data-open-networksettings]': function(event, template) {
-        Intent.go({
+        Partup.client.intent.go({
             route: 'network-settings',
             params: {
                 _id: template.data.networkId
