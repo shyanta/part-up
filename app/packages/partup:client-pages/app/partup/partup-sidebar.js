@@ -179,10 +179,6 @@ Template.app_partup_sidebar.events({
     },
 
     'click [data-open-takepart-popup]': function clickOpenTakepartPopup() {
-        Partup.client.popup.open('take-part', function(open_new_message_popup) {
-            if (open_new_message_popup) {
-                Partup.client.popup.open('new-message');
-            }
-        });
+        Partup.client.popup.open('take-part');
     }
 });
