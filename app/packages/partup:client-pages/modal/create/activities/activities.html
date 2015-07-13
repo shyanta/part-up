@@ -9,7 +9,7 @@
             {{> contentFor region="PopupContent" template="modal_create_activities_copy"}}
         {{/if}}
 
-        <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
+        <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-activities pu-composition-fixedfooter">
 
             <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-activities-heading-title'}}</h2>
             <p class="pu-sub-activitiesparagraph">{{_ 'pages-modal-create-activities-heading-paragraph'}}</p>
@@ -29,7 +29,7 @@
             {{/each}}
 
             <!-- Continue button -->
-            <footer class="pu-sub-modalfooter {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-sub-modalfooter-fixed{{/if}}">
+            <footer class="pu-sub-modalfooter pu-sub-modalfooter-scrolling {{#if fixFooter }}pu-sub-modalfooter-scrolling-active{{/if}}">
                 <div class="pu-sub-footer-container">
                     <a href="{{pathFor 'create-promote' _id=currentPartupId }}" class="pu-button pu-button-arrow">
                         {{_ 'pages-modal-create-activities-button-next_page' }}

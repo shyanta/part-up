@@ -21,21 +21,26 @@
         &-alignleft
             text-align: left
 
-        &-fixed
+        &-scrolling
             z-index: 2
             margin-top: 0
-            position: fixed
+            position: absolute
             bottom: 0
             left: 0
             right: 0
             padding: 25px 20px
+            padding-bottom: 25px + 50px
             transition: background .1s
-            background-color: #eee
 
             .pu-sub-footer-container
                 width: 570px
                 margin-left: auto
                 margin-right: auto
+
+            &-active
+                position: fixed
+                padding-bottom: 25px
+                background-color: #eee
 
     .pu-sub-footerlink
         margin-top: 30px - 6px
@@ -43,5 +48,5 @@
         a
             color: $color-text
 
-    &.pu-composition-fixedfooter
-        margin-bottom: 80px
+    // &.pu-composition-fixedfooter
+    margin-bottom: 80px

@@ -16,6 +16,16 @@ Partup.client.scroll = {
     pos: new ReactiveVar(0),
 
     /**
+     * Trigger a scroll pos update
+     *
+     * @memberof Partup.client.scroll
+     */
+    triggerUpdate: function() {
+        Partup.client.scroll.pos.set(window.scrollY);
+        Partup.client.scroll.pos.dep.changed();
+    },
+
+    /**
      * Infinite scroll functionality
      *
      * @memberof Partup.client.scroll
@@ -67,9 +77,16 @@ Partup.client.scroll = {
 
 Meteor.startup(function() {
 
-    // Turn current scroll position into a reactive variable
-    jQuery(window).on('scroll', function() {
-        Partup.client.scroll.pos.set(window.scrollY);
+    // Debounced update function
+    var d = lodash.debounce(Partup.client.scroll.triggerUpdate, 10);
+
+    // Trigger a scroll update when the user scrolls
+    $ = $ || jQuery; // Stangely, it's possible that $ is yet undefined here, but jQuery is
+    $(window).scroll(d);
+
+    // Trigger a scroll update when every template is being rendered
+    Template.onRendered(function() {
+        Meteor.defer(d);
     });
 
 });

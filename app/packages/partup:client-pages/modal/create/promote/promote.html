@@ -1,7 +1,7 @@
 <template name="modal_create_promote">
     <section class="pu-page pu-page-modal pu-page-modal-haspager pu-page-modal-hasfixedfooter">
 
-        <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promote {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-composition-fixedfooter{{/if}}">
+        <div class="pu-composition pu-composition-defaultmodal pu-composition-startpartup-promote {{#if fixFooter }}pu-composition-fixedfooter{{/if}}">
 
             <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-promote-heading-title'}}</h2>
             <p>{{_ 'pages-modal-create-promote-text-intro'}}</p>
@@ -47,7 +47,7 @@
                 </div>
             </article>
 
-            <footer class="pu-sub-modalfooter {{#if partupHigherThan windowScrollBottomOffset 50 }}pu-sub-modalfooter-fixed{{/if}}">
+            <footer class="pu-sub-modalfooter {{#if fixFooter }}pu-sub-modalfooter-fixed{{/if}}">
                 <div class="pu-sub-footer-container">
                     <button class="pu-button pu-button-arrow" id="nextPage" data-action-topartup>
                         {{_ 'pages-modal-create-promote-button-done' }}

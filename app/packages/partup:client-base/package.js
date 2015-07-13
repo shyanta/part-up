@@ -48,7 +48,6 @@ Package.onUse(function(api) {
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',
-        'helpers/scrollBottom.js',
         'helpers/forms.js',
         'helpers/imageUrl.js',
         'helpers/loading.js',

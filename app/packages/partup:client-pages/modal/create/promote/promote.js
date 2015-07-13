@@ -53,7 +53,7 @@ var getPartup = function() {
 var partupUrl = function() {
     var partupId = Router.current().params._id;
     return Router.url('partup', {_id:partupId});
-}
+};
 
 /*************************************************************/
 /* Widget helpers */
@@ -69,7 +69,12 @@ Template.modal_create_promote.helpers({
 
     shared: function() {
         return Template.instance().shared.get();
-    }
+    },
+
+    fixFooter: function() {
+        var maxScroll = document.body.scrollHeight - window.innerHeight;
+        return Partup.client.scroll.pos.get() < maxScroll - 50;
+    },
 
 });
 

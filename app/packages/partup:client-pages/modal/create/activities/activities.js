@@ -7,7 +7,14 @@ var getActivities = function(partupId) {
 
 Template.modal_create_activities.onCreated(function() {
     var partupId = mout.object.get(this, 'data.partupId') || Session.get('partials.create-partup.current-partup');
-    this.subscribe('activities.from_partup', partupId);
+    var handle = this.subscribe('activities.from_partup', partupId);
+
+    this.autorun(function(c) {
+        if (handle.ready()) {
+            c.stop();
+            Meteor.defer(Partup.client.scroll.triggerUpdate);
+        }
+    });
 });
 
 /*************************************************************/
@@ -15,13 +22,13 @@ Template.modal_create_activities.onCreated(function() {
 /*************************************************************/
 Template.modal_create_activities.helpers({
     Partup: Partup,
-    partupActivities: function helperPartupActivities () {
+    partupActivities: function() {
         return getActivities(this.partupId);
     },
-    currentPartupId: function helperCurrentPartupId () {
+    currentPartupId: function() {
         return Session.get('partials.create-partup.current-partup');
     },
-    createCallback: function helperCreateCallback () {
+    createCallback: function() {
         var template = Template.instance();
         return function(activityId) {
             setTimeout(function() {
@@ -38,25 +45,29 @@ Template.modal_create_activities.helpers({
             });
         };
     },
-    showActivityPlaceholder: function helperShowActivityPlaceholder () {
+    showActivityPlaceholder: function() {
         return getActivities(this.partupId).count() === 0;
     },
-    placeholderActivity: function helperPlaceholderActivity () {
+    placeholderActivity: function() {
         return {
             name: __('pages-modal-create-activities-placeholder-name'),
             description: __('pages-modal-create-activities-placeholder-description')
-        }
+        };
     },
-    isUpper: function isUpper () {
+    isUpper: function() {
         var user = Meteor.user();
         if (!user) return false;
 
         var partupId = Session.get('partials.create-partup.current-partup');
-        if (!partupId) return false
+        if (!partupId) return false;
 
         var partup = Partups.findOne(partupId);
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
-    }
+    },
+    fixFooter: function() {
+        var maxScroll = document.body.scrollHeight - window.innerHeight;
+        return Partup.client.scroll.pos.get() < maxScroll - 50;
+    },
 });
