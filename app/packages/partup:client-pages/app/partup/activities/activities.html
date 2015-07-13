@@ -1,27 +1,36 @@
 <template name="app_partup_activities">
     <div class="pu-page">
         <div class="pu-composition pu-composition-partupdetailactivities">
-            <!-- new message popup -->
-            {{#if partupIsPopupActive 'popup.new-activity' }}
-                {{# if isUpper }}
-                    {{#contentFor "PopupContent"}}
-                        {{#contentFor "PopupTitle"}}
-                            {{_ "pages-app-partup-activities-newactivity_title"}}
-                        {{/contentFor}}
-                        {{> Activity CREATE=true POPUP=true}}
-                    {{/contentFor}}
-                {{else}}
-                    {{#contentFor region="PopupTitle"}}
+
+            <!-- new activity popup -->
+            {{#if partupIsPopupActive 'new-activity' }}
+                {{#contentFor "PopupContent"}}
+                    {{#contentFor "PopupTitle"}}
                         {{_ "pages-app-partup-activities-newactivity_title"}}
                     {{/contentFor}}
-                    {{> contentFor region="PopupContent" template="app_partup_takepart_supporter"}}
-                {{/ if}}
+
+                    {{# if isUpper }}
+                        {{> Activity CREATE=true POPUP=true}}
+                    {{ else }}
+                        {{> app_partup_activities_newactivity_restricted }}
+                    {{/ if }}
+                {{/contentFor}}
             {{/if}}
 
             <!-- Header buttons -->
             <header class="pu-pageheader">
-                    <section><a class="pu-button pu-button-icon" href="#" data-popup="popup.new-activity"><i class="fa fa-line-chart"></i>{{_ "pages-app-partup-activities-newactivity_button"}}</a></section>
+
+                <!-- New activity button -->
+                <section>
+                    <a class="pu-button pu-button-icon" href="#" data-new-activity>
+                        <i class="fa fa-line-chart"></i>
+                        {{_ "pages-app-partup-activities-newactivity_button"}}
+                    </a>
+                </section>
+
+                <!-- Filter -->
                 <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
+
             </header>
 
             <!-- Loading/rendering state -->

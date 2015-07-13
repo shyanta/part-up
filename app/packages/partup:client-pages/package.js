@@ -93,6 +93,8 @@ Package.onUse(function(api) {
         // App:partup:activities
         'app/partup/activities/activities.html',
         'app/partup/activities/activities.js',
+        'app/partup/activities/newactivity-restricted/newactivity-restricted.html',
+        'app/partup/activities/newactivity-restricted/newactivity-restricted.js',
 
         // Modal
         'modal/modal.html',

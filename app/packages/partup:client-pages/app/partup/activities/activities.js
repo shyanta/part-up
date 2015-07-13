@@ -94,3 +94,22 @@ Template.app_partup_activities.helpers({
     }
 
 });
+
+Template.app_partup_activities.events({
+    'click [data-new-activity]': function(event, template) {
+        event.preventDefault();
+
+        var userId = Meteor.userId();
+        var proceed = function() {
+            Partup.client.popup.open('new-activity');
+        };
+
+        if (!userId) {
+            Intent.go({route: 'login'}, function(user) {
+                if (user) proceed();
+            });
+        } else {
+            proceed();
+        }
+    }
+});
