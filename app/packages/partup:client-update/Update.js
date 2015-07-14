@@ -106,6 +106,10 @@ Template.Update.helpers({
 
     systemMessage: function(type) {
         return __('update-type-partups_message_added-system-' + type + '-content');
+    },
+
+    commentable: function() {
+        return !this.metadata.is_contribution && !this.metadata.is_system;
     }
 
 });

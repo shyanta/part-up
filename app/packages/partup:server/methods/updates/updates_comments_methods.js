@@ -13,6 +13,8 @@ Meteor.methods({
 
         var update = Updates.findOneOrFail(updateId);
 
+        if (!!update.system) throw new Meteor.Error(403, 'Cannot insert comments in system updates');
+
         var comment = {
             _id: Random.id(),
             content: fields.content,
@@ -73,7 +75,7 @@ Meteor.methods({
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
 
-            Event.emit('updates.comments.inserted', upper, update, comment);
+            // Event.emit('updates.comments.inserted', upper, update, comment);
 
             return {
                 _id: comment._id

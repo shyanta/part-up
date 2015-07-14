@@ -27,19 +27,21 @@ Event.on('updates.comments.inserted', function(upper, update, comment) {
         return;
     }
 
-    // Set the notification details
-    var notificationOptions = {
-        userId: update.upper_id,
-        type: 'updates_first_comment',
-        typeData: {
-            upper: {
-                id: comment.creator._id,
-                name: comment.creator.name,
-                image: comment.creator.image
+    if (!update.system) {
+        // Set the notification details
+        var notificationOptions = {
+            userId: update.upper_id,
+            type: 'updates_first_comment',
+            typeData: {
+                upper: {
+                    id: comment.creator._id,
+                    name: comment.creator.name,
+                    image: comment.creator.image
+                }
             }
-        }
-    };
+        };
 
-    // Send the notification
-    Partup.server.services.notifications.send(notificationOptions);
+        // Send the notification
+        Partup.server.services.notifications.send(notificationOptions);
+    }
 });
