@@ -1,7 +1,6 @@
 .pu-app
     background-color: $color-primary
-    $page-padding: 40px
-    min-width: $grid-column * 10 + $grid-gap * 9
+    min-width: $breakpoint-app
 
     .pu-layout
         min-height: 100vh
@@ -13,7 +12,7 @@
         z-index: 10
         pointer-events: all
 
-    @media screen and (min-width: $grid-column * 9 + $grid-gap * 8 + $page-padding * 2)
+    @media screen and (min-width: $breakpoint-app)
         .pu-layout
             padding-top: 60px
 

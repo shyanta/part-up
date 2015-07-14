@@ -102,14 +102,14 @@ var partupDetailLayout = {
 
         var self = this;
         window.addEventListener('resize', function() {
-            if (window.innerWidth >= 962) {
+            if (window.innerWidth >= 992) {
                 self.attach();
             } else {
                 self.detach();
             }
         });
 
-        if (window.innerWidth >= 962) {
+        if (window.innerWidth >= 992) {
             this.attach();
         }
     },

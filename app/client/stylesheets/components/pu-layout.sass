@@ -3,21 +3,24 @@
     $page-padding: 40px
 
     .pu-sub-sidebarcontainer
-        position:absolute
+        position: absolute
         padding: 50px 0 0 160px
 
+    $pagecontainer-maxwidth: $grid-column * 12 + $grid-gap * 11
     .pu-sub-pagecontainer
         display: table
-        min-width: $grid-column * 9 + $grid-gap * 8 + $page-padding * 2
-        max-width: $grid-column * 12 + $grid-gap * 11
+        min-width: $breakpoint-app
+        max-width: $pagecontainer-maxwidth
         margin-left: auto
         margin-right: auto
 
         .pu-sub-partupdetail-left
             display: table-cell
+            vertical-align: top
 
         .pu-sub-partupdetail-right
             display: table-cell
+            vertical-align: top
             width: 420px
 
         &-modal
@@ -25,7 +28,7 @@
             width: $grid-column * 6 + $grid-gap * 5 + $page-padding * 2
 
         &-full
-            width: $grid-column * 12 + $grid-gap * 11
+            width: $pagecontainer-maxwidth
             max-width: none
 
     .pu-sub-pageheader
@@ -53,7 +56,7 @@
         .pu-page
             background-color: $color-background-tertiery
 
-    @media screen and (min-width: $grid-column * 10 + $grid-gap * 9)
+    @media screen and (min-width: $breakpoint-app)
         .pu-sub-pagecontainer
             .pu-sub-partupdetail-left
                 position: absolute
@@ -69,7 +72,7 @@
                 right: 0
                 width: 420px
 
-    @media screen and (min-width: $grid-column * 12 + $grid-gap * 11 + $page-padding * 2)
+    @media screen and (min-width: $pagecontainer-maxwidth + $page-padding * 2)
         .pu-sub-pagecontainer
             .pu-sub-partupdetail-left
                 left: 50%
