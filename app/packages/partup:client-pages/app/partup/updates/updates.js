@@ -1,12 +1,8 @@
-// We need this variable for cross-route reference
-var currentTemplate;
-
 /**
  * Updates created
  */
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
-    currentTemplate = tpl;
 
     // Updates model
     tpl.updates = {
@@ -155,6 +151,8 @@ Template.app_partup_updates.onCreated(function() {
         }
     };
 
+    Partup.client.events.on('partup:updates:message_added', tpl.updates.updateView);
+
     // When the model changes and the view is empty, update the view with the model
     tpl.autorun(function() {
         var updates = tpl.updates.model.fetch();
@@ -194,6 +192,8 @@ Template.app_partup_updates.onRendered(function() {
 Template.app_partup_updates.onDestroyed(function() {
     var tpl = this;
     if (tpl.updates.handle) tpl.updates.handle.stop();
+
+    Partup.client.events.off('partup:updates:message_added', tpl.updates.updateView);
 });
 
 /**
@@ -362,9 +362,7 @@ Template.app_partup_updates.events({
         event.preventDefault();
 
         var proceed = function() {
-            Partup.client.popup.open('new-message', function() {
-                currentTemplate.updates.updateView();
-            });
+            Partup.client.popup.open('new-message');
         };
 
         if (Meteor.userId()) {

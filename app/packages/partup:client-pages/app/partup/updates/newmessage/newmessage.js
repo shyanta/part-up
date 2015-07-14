@@ -92,6 +92,7 @@ AutoForm.hooks({
                 AutoForm.resetForm('newMessageForm');
                 self.done();
                 parent.uploadedPhotos.set([]);
+                Partup.client.events.emit('partup:updates:message_added');
                 Partup.client.popup.close();
             });
 
