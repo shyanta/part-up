@@ -10,6 +10,59 @@
     background-repeat: no-repeat
     $label_position: translate3d(-3px, -14px, 0)
 
+    .pu-sub-image
+        display: block
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background-color: $color-solid-gray
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        border-radius: 50%
+        z-index: 1
+        border: 5px solid #fff
+
+        &-loader
+            background: $color-primary
+
+            .pu-loader
+                margin-top: 10px
+                margin-left: 9px
+
+    .pu-sub-label
+        opacity: 0
+        pointer-events: none
+        position: absolute
+        top: 50%
+        left: 100%
+        margin-right: 10px - 3px
+        display: inline-block
+        background-color: $color-secondary
+        color: $color-text-inverted
+        white-space: nowrap
+        border-radius: 2px
+        padding-top: 10px - 2px
+        padding-bottom: 10px - 3px
+        padding-left: 15px
+        padding-right: 10px
+        font-weight: 600
+        font-size: 14px
+        transform: rotateZ(7deg) $label_position
+        transform-origin: -25px 0px
+        transition: transform $animation-duration-slide, opacity $animation-duration-slide
+
+    &:hover
+        .pu-sub-label
+            transform: $label_position
+            opacity: 1
+            pointer-events: auto
+
+    &-system
+        background-image: url('/images/system-avatar.png')
+
     &-small
         width: 30px
         height: 30px
@@ -76,29 +129,6 @@
                 &:first-child
                     margin-right: 0
 
-
-    .pu-sub-image
-        display: block
-        position: absolute
-        top: 0
-        left: 0
-        width: 100%
-        height: 100%
-        background-color: $color-solid-gray
-        background-size: cover
-        background-position: center
-        background-repeat: no-repeat
-        border-radius: 50%
-        z-index: 1
-        border: 5px solid #fff
-
-        &-loader
-            background: $color-primary
-
-            .pu-loader
-                margin-top: 10px
-                margin-left: 9px
-
     &-plain
         width: 40px
         height: 40px
@@ -106,38 +136,16 @@
         .pu-sub-image
             border: 0
 
-    .pu-sub-label
-        opacity: 0
-        pointer-events: none
-        position: absolute
-        top: 50%
-        left: 100%
-        margin-right: 10px - 3px
-        display: inline-block
-        background-color: $color-secondary
-        color: $color-text-inverted
-        white-space: nowrap
-        border-radius: 2px
-        padding-top: 10px - 2px
-        padding-bottom: 10px - 3px
-        padding-left: 15px
-        padding-right: 10px
-        font-weight: 600
-        font-size: 14px
-        transform: rotateZ(7deg) $label_position
-        transform-origin: -25px 0px
-        transition: transform $animation-duration-slide, opacity $animation-duration-slide
-
-    &:hover
-        .pu-sub-label
-            transform: $label_position
-            opacity: 1
-            pointer-events: auto
-
-    &-label
+    &-update
         width: 50px
         height: 50px
-        background-color: transparent
+        background: none
+
+        &.pu-avatar-system
+            background: none
+
+            .pu-sub-image
+                background-image: url('/images/system-avatar.png')
 
     &-small
         width: 30px

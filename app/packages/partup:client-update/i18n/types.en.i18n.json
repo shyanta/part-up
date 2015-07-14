@@ -49,5 +49,7 @@
 
     "update-type-partups_comments_added-title": "Replied",
     "update-type-partups_activities_comments_added-title": "Replied on an activity",
-    "update-type-partups_contributions_comments_added-title": "Replied on a contribution"
+    "update-type-partups_contributions_comments_added-title": "Replied on a contribution",
+
+    "update-type-partups_message_added-system-welcome_message-content": "Welcome to your part-up!"
 }

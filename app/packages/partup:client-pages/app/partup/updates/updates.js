@@ -273,7 +273,8 @@ Template.app_partup_updates.helpers({
             path: path,
             update_type: update.type,
             invited_name: update.type_data.name,
-            is_contribution: is_contribution
+            is_contribution: is_contribution,
+            is_system: !!update.system
         };
     },
 

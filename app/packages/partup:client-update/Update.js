@@ -102,6 +102,10 @@ Template.Update.helpers({
 
     newBudget: function() {
         return budgetDisplay(this.new_type, this.new_value);
+    },
+
+    systemMessage: function(type) {
+        return __('update-type-partups_message_added-system-' + type + '-content');
     }
 
 });
