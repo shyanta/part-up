@@ -13,6 +13,8 @@ var updateChildren = [
     // Find the user related to the update, along with their profile picture
     {
         find: function(update) {
+            if (!update.upper_id) return;
+
             return Meteor.users.findSinglePublicProfile(update.upper_id);
         },
         children: [
@@ -34,8 +36,10 @@ var updateChildren = [
             }
 
             if (update.type === 'partups_message_added') {
-                images = update.type_data.images;
+                images = update.type_data.images || [];
             }
+
+            if (!images.length) return; // save the mongo call
 
             return Images.find({_id: {$in: images}});
         }
