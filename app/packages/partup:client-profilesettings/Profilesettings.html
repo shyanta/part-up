@@ -1,4 +1,7 @@
 <template name="Profilesettings">
+
+    {{> yield region="ProfilesettingsHeader"}}
+
     {{#autoForm schema=formSchema id=FORM_ID class="pu-form" doc=fieldsFromUser validation="submitThenBlur" }}
 
         <!-- User avatar -->

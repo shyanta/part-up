@@ -1,4 +1,4 @@
-Template.modal_profile_settings_detail.onCreated(function() {
+Template.modal_profile_settings_details.onCreated(function() {
 
 });
 /*************************************************************/

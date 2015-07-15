@@ -9,9 +9,11 @@
 
         <div class="pu-composition pu-composition-defaultmodal pu-composition-register">
 
-            <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-register-details-maywegettoknowyou' currentUser.profile.name }}</h2>
-            <p>{{_ 'pages-modal-register-details-optionalexplanation' }}</p>
 
+            {{#contentFor 'ProfilesettingsHeader'}}
+                <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-register-details-maywegettoknowyou' currentUser.profile.name }}</h2>
+                <p>{{_ 'pages-modal-register-details-optionalexplanation' }}</p>
+            {{/contentFor}}
 
            {{> Profilesettings FORM_ID='pagesModalRegisterDetailsForm'}}
 
