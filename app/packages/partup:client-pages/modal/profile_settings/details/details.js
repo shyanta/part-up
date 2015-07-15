@@ -1,3 +1,6 @@
+Template.modal_profile_settings_detail.onCreated(function() {
+
+});
 /*************************************************************/
 /* Widget form hooks */
 /*************************************************************/
@@ -13,7 +16,7 @@ AutoForm.hooks({
                     self.done(new Error(error.message));
                     return;
                 }
-
+                Partup.client.notify.info('saved');
                 self.done();
             });
 
