@@ -1,3 +1,9 @@
+/**
+ * Prompt namespace, it's meant for confirmation alerts etc.
+ *
+ * @class prompt
+ * @memberof Partup.client
+ */
 Partup.client.prompt = {
     // constants/default values
     TITLE_DEFAULT: 'Alert',
@@ -10,34 +16,57 @@ Partup.client.prompt = {
     message: new ReactiveVar(this.MESSAGE_DEFAULT),
     confirmButton: new ReactiveVar(this.CONFIRM_TEXT_DEFAULT),
     cancelButton: new ReactiveVar(this.CANCEL_TEXT_DEFAULT),
-    active: new ReactiveVar(false),
+    _active: new ReactiveVar(false),
 
-    // callbacks
+    /**
+     * Confirm hook, is called when the confirm button is clicked
+     *
+     * @memberof Partup.client.prompt
+     */
     onConfirm: function() {
         if (this.confirmCallback) this.confirmCallback();
-        this.dismiss();
-    },
-    onCancel: function() {
-        if (this.cancelCallback) this.cancelCallback();
-        this.dismiss();
+        this._dismiss();
     },
 
-    // methods
+    /**
+     * Cancel hook, is called when the cancel button is clicked
+     *
+     * @memberof Partup.client.prompt
+     */
+    onCancel: function() {
+        if (this.cancelCallback) this.cancelCallback();
+        this._dismiss();
+    },
+
+    /**
+     * Call confirmation prompt with options
+     *
+     * @memberof Partup.client.prompt
+     * @param {Object} options
+     * @param {String} options.title            prompt title text
+     * @param {String} options.message          prompt message text
+     * @param {String} options.confirmButton    confirm button text
+     * @param {String} options.cancelButton     cancel button text
+     * @param {Function} options.onConfirm      confirm button click hook
+     * @param {Function} options.onCancel       cancel button click hook
+     */
     confirm: function(options) {
         if (options.title)          this.title.set(options.title);
         if (options.message)        this.message.set(options.message);
-        if (options.confirmButton)    this.confirmButton.set(options.confirmButton);
-        if (options.cancelButton)     this.cancelButton.set(options.cancelButton);
+        if (options.confirmButton)  this.confirmButton.set(options.confirmButton);
+        if (options.cancelButton)   this.cancelButton.set(options.cancelButton);
         this.confirmCallback = options.onConfirm || false;
         this.cancelCallback = options.onCancel || false;
-        this.active.set(true);
+        this._active.set(true);
     },
 
-    dismiss: function() {
-        this.active.set(false);
+    // is called when the prompt is destroyed
+    _dismiss: function() {
+        this._active.set(false);
     },
 
-    reset: function() {
+    // resets all values to default
+    _reset: function() {
         this.title.set(this.TITLE_DEFAULT);
         this.message.set(this.MESSAGE_DEFAULT);
         this.confirmButton.set(this.CONFIRM_TEXT_DEFAULT);

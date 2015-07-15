@@ -8,12 +8,12 @@
 // jscs:enable
 
 Template.Prompt.onDestroyed(function() {
-    Partup.client.prompt.reset();
+    Partup.client.prompt._reset();
 });
 
 Template.Prompt.helpers({
     promptActive: function() {
-        return Partup.client.prompt.active.get();
+        return Partup.client.prompt._active.get();
     },
     title: function() {
         return Partup.client.prompt.title.get();
@@ -31,10 +31,10 @@ Template.Prompt.helpers({
 
 Template.Prompt.events({
     'click [data-confirm]': function(event, template) {
-        Partup.client.prompt.onConfirm(event, template);
+        Partup.client.prompt.onConfirm();
     },
     'click [data-cancel]': function(event, template) {
-        Partup.client.prompt.onCancel(event, template);
+        Partup.client.prompt.onCancel();
     }
 
 });
