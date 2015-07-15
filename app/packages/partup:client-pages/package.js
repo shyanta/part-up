@@ -73,6 +73,10 @@ Package.onUse(function(api) {
         'modal/profile_settings/profile_settings.js',
         'modal/profile_settings/details/details.html',
         'modal/profile_settings/details/details.js',
+        'modal/profile_settings/account/account.html',
+        'modal/profile_settings/account/account.js',
+        'modal/profile_settings/email/email.html',
+        'modal/profile_settings/email/email.js',
 
         // App:partup
         'app/partup/partup.html',
