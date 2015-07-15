@@ -97,6 +97,54 @@ Router.route('/profile/:_id/supporter', {
 });
 
 /*************************************************************/
+/* Profile settings modal */
+/*************************************************************/
+Router.route('/profile/:_id/settings', {
+    name: 'profile-settings',
+    where: 'client',
+    yieldRegions: {
+        'modal':              {to: 'main'},
+        'modal_profile_settings': {to: 'modal'},
+        'modal_profile_settings_account': {to: 'modal_profile_settings'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
+Router.route('/profile/:_id/settings/details', {
+    name: 'profile-settings-details',
+    where: 'client',
+    yieldRegions: {
+        'modal':              {to: 'main'},
+        'modal_profile_settings': {to: 'modal'},
+        'modal_profile_settings_details': {to: 'modal_profile_settings'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
+Router.route('/profile/:_id/settings/email', {
+    name: 'profile-settings-email',
+    where: 'client',
+    yieldRegions: {
+        'modal':              {to: 'main'},
+        'modal_profile_settings': {to: 'modal'},
+        'modal_profile_settings_email': {to: 'modal_profile_settings'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
+/*************************************************************/
 /* Networks */
 /*************************************************************/
 // Router.route('/tribes', {

@@ -1,35 +1,23 @@
-/*************************************************************/
-/* Widget functions */
-/*************************************************************/
-var continueRegister = function() {
+Template.modal_profile_settings_details.onCreated(function() {
 
-    // Execute intent callback
-    Intent.return('register-details', {
-        fallback_action: function() {
-            Intent.return('register');
-        }
-    });
-
-};
-
+});
 /*************************************************************/
 /* Widget form hooks */
 /*************************************************************/
 AutoForm.hooks({
-    pagesModalRegisterDetailsForm: {
+    pagesModalProfileSettingsForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 
-            Meteor.call('users.register', insertDoc, function(error, res) {
+            Meteor.call('users.update', insertDoc, function(error, res) {
                 if (error && error.message) {
                     Partup.client.notify.error(error.reason);
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
                     return;
                 }
-
+                Partup.client.notify.info('saved');
                 self.done();
-                continueRegister();
             });
 
             return false;

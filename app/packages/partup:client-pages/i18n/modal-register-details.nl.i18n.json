@@ -4,46 +4,5 @@
     "pages-modal-register-details-maywegettoknowyou": "Hoi %s, mogen we je leren kennen?",
     "pages-modal-register-details-optionalexplanation": "Jouw account is aangemaakt. Je bent bijna klaar voor part-up! Vul hier je gegevens in, zodat je een betrouwbaar profiel hebt en wij je passende part-ups kunnen voorstellen.",
 
-    "pages-modal-register-details-form-image-label": "Geef ons jouw glimlach",
-    "pages-modal-register-details-form-image-import": "Makkelijk, gebruik jouw <a href='#' data-imagefacebook>Facebook</a> of <a href='#' data-imagelinkedin>LinkedIn</a> foto.",
-    "pages-modal-register-details-form-image-button": "Foto vanaf jouw computer",
-    "pages-modal-register-details-form-image-error": "Dit bestand kon niet worden geüpload",
-
-    "pages-modal-register-details-form-location_input-label": "Waar wil je meedoen in part-ups?",
-    "pages-modal-register-details-form-location_input-placeholder": "Bijvoorbeeld in je woonplaats of regio",
-    "pages-modal-register-details-form-location_input-tooltip": "We stellen je graag voor aan interessante part-ups. We denken aan het milieu en jouw gemak en zetten de part-ups bij jou in de buurt daarom bovenaan.",
-
-    "pages-modal-register-details-form-description-label": "Stel jezelf eens voor",
-    "pages-modal-register-details-form-description-placeholder": "Een korte omschrijving van wie je bent en wat je kunt",
-    "pages-modal-register-details-form-description-tooltip": "Andere uppers willen graag weten met wie ze samenwerken. Wat wil jij ze vertellen? Verkoop jezelf door eerlijk te zijn.",
-
-    "pages-modal-register-details-form-tags_input-label": "Wat je graag doet en goed kunt in (vijf) trefwoorden",
-    "pages-modal-register-details-form-tags_input-placeholder": "Even scheiden door een komma alsjeblieft",
-    "pages-modal-register-details-form-tags_input-tooltip": "We gebruiken deze woorden als startpunt om te kijken welke part-ups goed bij jou passen. Kies woorden die gaan over jouw bijdrage aan part-ups. Het hoeft niet perfect te zijn, je vult jouw profiel automatisch aan door te gaan samenwerken.",
-
-    "pages-modal-register-details-form-socials-label": "Mogen andere uppers je social media profielen zien?",
-    "pages-modal-register-details-form-socials-tooltip": "Je hoeft deze links alleen nog aan te vullen met je gebruikersnaam.",
-
-    "pages-modal-register-details-form-facebook-placeholder": "jouwfacebooknaam",
-    "pages-modal-register-details-form-twitter-placeholder": "jouwtwitternaam",
-    "pages-modal-register-details-form-instagram-placeholder": "jouwinstagramnaam",
-    "pages-modal-register-details-form-linkedin-placeholder": "jouwlinkedinnaam",
-
-    "pages-modal-register-details-form-facebook-url-placeholder": "https://www.facebook.com/",
-    "pages-modal-register-details-form-twitter-url-placeholder": "https://twitter.com/",
-    "pages-modal-register-details-form-instagram-url-placeholder": "https://instagram.com/",
-    "pages-modal-register-details-form-linkedin-url-placeholder": "https://www.linkedin.com/",
-
-    "pages-modal-register-details-form-website-label": "Heb je een eigen website of blog?",
-    "pages-modal-register-details-form-website-placeholder": "www.mijn-blog-of-website.nl",
-
-    "pages-modal-register-details-form-phonenumber-label": "Mogen uppers je bellen (of appen)?",
-    "pages-modal-register-details-form-phonenumber-placeholder": "+31612345678",
-    "pages-modal-register-details-form-phonenumber-tooltip": "Goede bereikbaarheid is belangrijk in samenwerking. Privacy ook. We laten je nummer daarom alleen zien aan je partners. Dit zijn de uppers in jouw actieve part-ups.",
-
-    "pages-modal-register-details-form-skype-label": "Gebruik je Skype?",
-    "pages-modal-register-details-form-skype-placeholder": "Jouw Skypenaam",
-    "pages-modal-register-details-form-skype-tooltip": "Net als je telefoonnummer laten we je Skypenaam alleen zien aan aan je partners. Dit zijn de uppers in jouw actieve part-ups.",
-
     "pages-modal-register-details-form-submit": "Klaar, laat mijn profiel zien!"
 }

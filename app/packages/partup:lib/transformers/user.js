@@ -11,7 +11,7 @@ Partup.transformers.profile = {
      * @param {object} user
      */
     'toFormRegisterOptional': function(user) {
-        return {
+        var object = {
             _id: user.profile._id,
             image: user.profile.image,
             description: user.profile.description,
@@ -25,6 +25,8 @@ Partup.transformers.profile = {
             tags_input: Partup.services.tags.tagArrayToInput(user.profile.tags),
             location_input: Partup.services.location.locationToLocationInput(user.profile.location)
         };
+        if (user.profile.name) object.name = user.profile.name;
+        return object;
     },
 
     /**
@@ -34,7 +36,7 @@ Partup.transformers.profile = {
      * @param {mixed[]} fields
      */
     'fromFormRegisterOptional': function(fields) {
-        return {
+        var object = {
             // form fields
             'profile.image': fields.image,
             'profile.description': fields.description,
@@ -48,5 +50,7 @@ Partup.transformers.profile = {
             'profile.website': Partup.services.website.cleanUrlToFullUrl(fields.website),
             'profile.skype': fields.skype
         };
+        if (fields.name) object['profile.name'] = fields.name;
+        return object;
     }
 };

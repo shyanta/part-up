@@ -47,9 +47,6 @@ Template.modal_partup_settings.events({
                         Router.go('discover');
                     }
                 });
-            },
-            onCancel: function() {
-                console.log('cancelled');
             }
         });
     },
