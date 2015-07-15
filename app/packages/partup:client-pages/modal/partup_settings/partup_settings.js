@@ -34,11 +34,22 @@ Template.modal_partup_settings.events({
         });
     },
     'click [data-remove]': function(event, template) {
-        Meteor.call('partups.remove', template.data.partupId, function(error) {
-            if (error) {
-                Partup.client.notify.error(error.reason);
-            } else {
-                Router.go('discover');
+        Partup.client.prompt.confirm({
+            title: 'Are you shure?',
+            message: 'You cannot undo this action.',
+            confirmButton: 'yes',
+            cancelButton: 'cancel',
+            onConfirm: function() {
+                Meteor.call('partups.remove', template.data.partupId, function(error) {
+                    if (error) {
+                        Partup.client.notify.error(error.reason);
+                    } else {
+                        Router.go('discover');
+                    }
+                });
+            },
+            onCancel: function() {
+                console.log('cancelled');
             }
         });
     },
