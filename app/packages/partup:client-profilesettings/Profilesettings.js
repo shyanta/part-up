@@ -87,7 +87,6 @@ Template.Profilesettings.helpers({
     },
     profile: function() {
         var user = Meteor.user();
-        console.log(user);
         return user ? user.profile : {};
     },
     profilePictureUrl: function() {
