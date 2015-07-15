@@ -1,0 +1,32 @@
+<template name="modal_profile_settings">
+
+    <nav class="pu-header pu-header-modal">
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+            <i class="fa fa-times"></i>
+            Nope
+        </a>
+    </nav>
+
+    <article class="pu-layout">
+        <nav class="pu-sub-sidebarcontainer">
+            <ul class="pu-modalsidebar">
+                <li class="{{# if isActiveRoute name='profile-settings' }}pu-state-active{{/ if }}">
+                    <a href="{{ pathFor 'profile-settings' _id=currentUser._id }}">Algemeen</a>
+                </li>
+                <li class="{{# if isActiveRoute name='profile-settings-profile' }}pu-state-active{{/ if }}">
+                    <a href="{{ pathFor 'profile-settings-profile' _id=currentUser._id }}">Profiel</a>
+                </li>
+                <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
+                    <a href="{{ pathFor 'profile-settings-email' _id=currentUser._id }}">E-mail</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
+            <section class="pu-page pu-page-modal">
+                {{> yield region='modal_profile_settings' }}
+            </section>
+
+        </div>
+    </article>
+
+</template>
