@@ -18,5 +18,8 @@ Template.app_discover.onCreated(function() {
 Template.app_discover.helpers({
     partupsOptions: function() {
         return Template.instance().partups_options;
-    }
+    },
+    shrinkHeader: function() {
+        return Partup.client.scroll.pos.get() > 40;
+    },
 });

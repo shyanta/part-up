@@ -1,4 +1,14 @@
 {
+    "pages-app-discover-filter-textsearch-label": "Laat mij zien",
+    "pages-app-discover-filter-textsearch-placeholder": "Zoekwoord",
+    "pages-app-discover-filter-networkfilter-label": "Part-ups in",
+    "pages-app-discover-filter-networkfilter-all": "Alle tribes",
+    "pages-app-discover-filter-locationfilter-label": "uit",
+    "pages-app-discover-filter-locationfilter-all": "Overal",
+    "pages-app-discover-filter-sorting-label": "gesorteerd op",
+    "pages-app-discover-filter-sorting-type-popular": "Populair",
+    "pages-app-discover-filter-sorting-type-newest": "Nieuwste",
+
     "pages-app-discover-heading": "Discover",
     "pages-app-discover-loading": "Laden...",
     "pages-app-discover-nopartups": "geen part-ups gevonden, pas je filter aan",

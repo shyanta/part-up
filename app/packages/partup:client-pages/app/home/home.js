@@ -4,6 +4,9 @@
 Template.app_home.helpers({
     firstPartup: function() {
         return Partups.findOne();
+    },
+    shrinkHeader: function() {
+        return Partup.client.scroll.pos.get() > 40;
     }
 });
 

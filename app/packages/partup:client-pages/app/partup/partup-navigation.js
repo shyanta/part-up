@@ -6,7 +6,7 @@ Template.app_partup_navigation.onRendered(function() {
     var OFFSET = 100;
 
     // Find page element
-    var pageElm = $('.pu-layout > .pu-sub-pagecontainer');
+    var pageElm = $('.pu-partuppagelayout');
     if (!pageElm) return;
 
     // Find left side element

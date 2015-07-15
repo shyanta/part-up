@@ -37,10 +37,11 @@ Template.ColumnsLayout.onCreated(function() {
     /**
      * Columns
      */
+    tpl.amount_of_columns = new ReactiveVar(tpl.data.COLUMNS);
     tpl.columns = new ReactiveVar();
     var resetColumns = function() {
         var columns = [];
-        for (var i = 0; i < tpl.data.COLUMNS; i++) {
+        for (var i = 0; i < tpl.amount_of_columns.get(); i++) {
             columns.push([]);
         };
         tpl.columns.set(columns);
@@ -97,12 +98,30 @@ Template.ColumnsLayout.onCreated(function() {
         columns[shortest.index].push(item);
         tpl.columns.set(columns);
     };
+    tpl.columns.rerender = function() {
+        if (tpl.amount_of_columns.get() === tpl.data.COLUMNS) return;
+
+        // Cancel the current queue
+        tpl.columns.queue = [];
+        tpl.columns.queue_running = false;
+
+        // Update the amount of columns variable
+        tpl.amount_of_columns.set(tpl.data.COLUMNS);
+
+        // Re-insert all existing items
+        var items_backup = all_items;
+        tpl.columns.clean();
+        Meteor.defer(function() {
+            tpl.columns.insert(items_backup);
+        });
+    };
 
     /**
      * Register callbacks
      */
-    tpl.data.addHook(tpl.columns.insert);
-    tpl.data.clearHook(tpl.columns.clean);
+    tpl.data.addHook(tpl.columns.insert); // required
+    if (tpl.data.clearHook) tpl.data.clearHook(tpl.columns.clean); // optional
+    if (tpl.data.rerenderHook) tpl.data.rerenderHook(tpl.columns.rerender); // optional
 });
 
 /**
@@ -126,5 +145,26 @@ Template.ColumnsLayout.helpers({
     },
     isRendered: function() {
         return this.isRendered.get();
+    },
+    columnsAmountClass: function() {
+        var text = '';
+        switch (Template.instance().amount_of_columns.get()) {
+            case 1:
+                text = 'one';
+                break;
+            case 2:
+                text = 'two';
+                break;
+            case 3:
+                text = 'three';
+                break;
+            case 4:
+                text = 'four';
+                break;
+            default:
+                text = 'four';
+                break;
+        }
+        return text;
     }
 });

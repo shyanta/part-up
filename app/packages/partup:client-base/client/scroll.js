@@ -5,8 +5,44 @@
  * @memberof Partup.client
  */
 var INFINITE_SCROLL_OFFSET = 800;
+var INFINITE_SCROLL_DEBOUNCE = 40;
+var SCROLLING_ELEMENT_SELECTOR = '.pu-main';
 
 Partup.client.scroll = {
+
+    _element: null,
+    _initialised: false,
+    init: function(element) {
+        if (Partup.client.scroll._initialised) return console.warn('scroll.js: cannot initialise multiple times');
+
+        Partup.client.scroll._initialised = true;
+        Partup.client.scroll._element = element;
+
+        // Debounced update function
+        var d = lodash.debounce(Partup.client.scroll.triggerUpdate, 10);
+
+        // Trigger a scroll update when the user scrolls
+        $(Partup.client.scroll._element).on('scroll', d);
+
+        // Trigger a scroll update when every template is being rendered
+        Template.onRendered(function() {
+            Meteor.defer(d);
+        });
+
+        // Force mousewheel movement to scroll _element
+        var scroller = this._element;
+        var _checkedWith = null;
+        var _isPrevented = false;
+        $(scroller).on('mousewheel', function(e) {
+            var isSame = _checkedWith === e.target;
+            _isPrevented = _isPrevented && isSame || !isSame && Partup.client.elements.checkIfElementIsBelow(e.target, '.pu-js-preventmainscroll');
+            _checkedWith = e.target;
+            if (_isPrevented) return;
+
+            scroller.scrollTop += e.deltaY || e.originalEvent.deltaY;
+            _isPrevented = false;
+        });
+    },
 
     /**
      * Current scroll position reactive var
@@ -21,7 +57,9 @@ Partup.client.scroll = {
      * @memberof Partup.client.scroll
      */
     triggerUpdate: function() {
-        Partup.client.scroll.pos.set(window.scrollY);
+        if (!Partup.client.scroll._element) return;
+
+        Partup.client.scroll.pos.set(Partup.client.scroll._element.scrollTop);
         Partup.client.scroll.pos.dep.changed();
     },
 
@@ -40,16 +78,20 @@ Partup.client.scroll = {
         if (!options.template) return;
         if (!options.element) return;
 
-        var trigger = function() {
-            var bottomInView = options.element.getBoundingClientRect().bottom - window.innerHeight;
+        var trigger = function(pos) {
+            if (!Partup.client.scroll._element) return;
+
+            var bottomPosition = options.element.getBoundingClientRect().bottom;
+            var bottomInView = bottomPosition - Partup.client.scroll._element.clientHeight;
             if (bottomInView < INFINITE_SCROLL_OFFSET) {
                 callback();
             }
         };
+        var debounced_trigger = lodash.debounce(trigger, INFINITE_SCROLL_DEBOUNCE);
 
         options.template.autorun(function() {
             Partup.client.scroll.pos.get();
-            Tracker.nonreactive(trigger);
+            Tracker.nonreactive(debounced_trigger);
         });
     },
 
@@ -62,31 +104,16 @@ Partup.client.scroll = {
      */
     inView: function(element) {
         if (!element) return false;
+        if (!Partup.client.scroll._element) return false;
 
         // Call the this.pos.get() function to make this function reactive
         this.pos.get();
 
         // Get element and window positions
         var element_pos = element.getBoundingClientRect().top;
-        var window_height = window.innerHeight;
+        var window_height = Partup.client.scroll._element.clientHeight;
 
         // Return whether the element is in viewport
         return element_pos > 0 && element_pos < window_height;
     }
 };
-
-Meteor.startup(function() {
-
-    // Debounced update function
-    var d = lodash.debounce(Partup.client.scroll.triggerUpdate, 10);
-
-    // Trigger a scroll update when the user scrolls
-    $ = $ || jQuery; // Stangely, it's possible that $ is yet undefined here, but jQuery is
-    $(window).scroll(d);
-
-    // Trigger a scroll update when every template is being rendered
-    Template.onRendered(function() {
-        Meteor.defer(d);
-    });
-
-});

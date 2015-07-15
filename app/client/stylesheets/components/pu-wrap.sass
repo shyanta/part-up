@@ -1,3 +1,14 @@
 .pu-wrap
-    width: $grid-column * 12 + $grid-gap * 11
-    margin: 0 auto
+    max-width: grid(10) + $spacing-app-pagepadding * 2
+    padding-left: $spacing-app-pagepadding
+    padding-right: $spacing-app-pagepadding
+
+    &-modal
+        max-width: grid(6) + $spacing-app-pagepadding * 2
+
+    &-discover
+        max-width: grid(10) + $spacing-app-pagepadding * 2
+
+        $columns_threshold: grid(11) + $spacing-app-pagepadding * 2 // Be sure to keep discover-page.js (amountOfColumns helper) up-to-date with this.
+        @media screen and (min-width: $columns_threshold)
+            max-width: grid(12) + $spacing-app-pagepadding * 2

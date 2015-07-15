@@ -2,12 +2,12 @@
 @import "client/stylesheets/font-faces/open-sans.sass";
 @import "client/stylesheets/font-faces/proxima-nova.sass";
 
+@import "client/stylesheets/variables/grid.sass";
 @import "client/stylesheets/variables/animations.sass";
-@import "client/stylesheets/variables/breakpoints.sass";
 @import "client/stylesheets/variables/colors.sass";
 @import "client/stylesheets/variables/fonts.sass";
-@import "client/stylesheets/variables/grid.sass";
 @import "client/stylesheets/variables/spacing.sass";
+@import "client/stylesheets/variables/spacings.sass";
 
 @import "client/stylesheets/defaults/all.sass";
 @import "client/stylesheets/defaults/body.sass";
@@ -19,6 +19,7 @@
 @import "client/stylesheets/mixins/keyframes.sass";
 @import "client/stylesheets/mixins/linear-gradient.sass";
 
+@import "client/stylesheets/components/pu-composition.sass";
 @import "client/stylesheets/components/compositions/pu-composition-defaultmodal.sass";
 @import "client/stylesheets/components/compositions/pu-composition-discover.sass";
 @import "client/stylesheets/components/compositions/pu-composition-forgotpassword.sass";
@@ -36,7 +37,7 @@
 @import "client/stylesheets/components/datepicker.sass";
 @import "client/stylesheets/components/pu-activity.sass";
 @import "client/stylesheets/components/pu-app.sass";
-@import "client/stylesheets/components/pu-autocomplete.sass";
+@import "client/stylesheets/components/pu-article.sass";
 @import "client/stylesheets/components/pu-autocomplete.sass";
 @import "client/stylesheets/components/pu-avatar.sass";
 @import "client/stylesheets/components/pu-block.sass";
@@ -66,14 +67,8 @@
 @import "client/stylesheets/components/pu-headernav.sass";
 @import "client/stylesheets/components/pu-hint.sass";
 @import "client/stylesheets/components/pu-hovercard.sass";
-@import "client/stylesheets/components/pu-hovercard.sass";
-@import "client/stylesheets/components/pu-hovercard.sass";
 @import "client/stylesheets/components/pu-icon.sass";
 @import "client/stylesheets/components/pu-image.sass";
-@import "client/stylesheets/components/pu-image.sass";
-@import "client/stylesheets/components/pu-image.sass";
-@import "client/stylesheets/components/pu-image.sass";
-@import "client/stylesheets/components/pu-imagepreview.sass";
 @import "client/stylesheets/components/pu-imagepreview.sass";
 @import "client/stylesheets/components/pu-imageselector.sass";
 @import "client/stylesheets/components/pu-info.sass";
@@ -100,13 +95,12 @@
 @import "client/stylesheets/components/pu-pageheader.sass";
 @import "client/stylesheets/components/pu-partupcircle.sass";
 @import "client/stylesheets/components/pu-partupheader.sass";
+@import "client/stylesheets/components/pu-partuppagelayout.sass";
 @import "client/stylesheets/components/pu-partuptile.sass";
 @import "client/stylesheets/components/pu-popover.sass";
 @import "client/stylesheets/components/pu-popup.sass";
 @import "client/stylesheets/components/pu-previewpost.sass";
 @import "client/stylesheets/components/pu-profile.sass";
-@import "client/stylesheets/components/pu-profilecard.sass";
-@import "client/stylesheets/components/pu-profilecard.sass";
 @import "client/stylesheets/components/pu-profilecard.sass";
 @import "client/stylesheets/components/pu-profilemenu.sass";
 @import "client/stylesheets/components/pu-profiletabs.sass";
@@ -114,15 +108,10 @@
 @import "client/stylesheets/components/pu-ratings.sass";
 @import "client/stylesheets/components/pu-readmore.sass";
 @import "client/stylesheets/components/pu-row.sass";
-@import "client/stylesheets/components/pu-row.sass";
-@import "client/stylesheets/components/pu-row.sass";
 @import "client/stylesheets/components/pu-select.sass";
 @import "client/stylesheets/components/pu-sidebar.sass";
 @import "client/stylesheets/components/pu-slider.sass";
 @import "client/stylesheets/components/pu-stats.sass";
-@import "client/stylesheets/components/pu-stats.sass";
-@import "client/stylesheets/components/pu-stats.sass";
-@import "client/stylesheets/components/pu-suggestionsgallery.sass";
 @import "client/stylesheets/components/pu-suggestionsgallery.sass";
 @import "client/stylesheets/components/pu-tag.sass";
 @import "client/stylesheets/components/pu-textarea.sass";

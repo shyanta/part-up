@@ -22,10 +22,12 @@
         </div>
     </nav>
 
-    <article class="pu-layout">
-        <section class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
-            {{> yield region='modal_create' }}
-        </section>
+    <article class="pu-page pu-page-progresspager">
+        <div class="pu-sub-pagecontent">
+            <div class="pu-wrap pu-wrap-modal">
+                {{> yield region='modal_create' }}
+            </div>
+        </div>
     </article>
 
 </template>

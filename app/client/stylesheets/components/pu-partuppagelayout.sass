@@ -1,0 +1,41 @@
+.pu-partuppagelayout
+    $pagecontainer-maxwidth: grid(12)
+    display: table
+    min-width: 992px
+    max-width: $pagecontainer-maxwidth
+    margin-left: auto
+    margin-right: auto
+
+    .pu-sub-partupdetail-left
+        display: table-cell
+        vertical-align: top
+
+    .pu-sub-partupdetail-right
+        display: table-cell
+        vertical-align: top
+        width: 420px
+
+    @media screen and (min-width: 992px)
+        .pu-sub-partupdetail-left
+            position: absolute
+            z-index: 1
+            top: 0
+            left: 0
+            right: 420px
+
+        .pu-sub-partupdetail-right
+            float: none
+            position: absolute
+            top: 0
+            right: 0
+            width: 420px
+
+    @media screen and (min-width: $pagecontainer-maxwidth + $spacing-app-pagepadding * 2)
+        .pu-sub-partupdetail-left
+            left: 50%
+            right: 50%
+            margin: 0 -199px 0 -619px
+        .pu-sub-partupdetail-right
+            left: 50%
+            width: auto
+            margin: 0 0 0 199px

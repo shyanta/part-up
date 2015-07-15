@@ -1,80 +1,78 @@
 <template name="app_partup_activities">
-    <div class="pu-page">
-        <div class="pu-composition pu-composition-partupdetailactivities">
+    <div class="pu-composition pu-composition-partupdetailactivities">
 
-            <!-- new activity popup -->
-            {{#if partupIsPopupActive 'new-activity' }}
-                {{#contentFor "PopupContent"}}
-                    {{#contentFor "PopupTitle"}}
-                        {{_ "pages-app-partup-activities-newactivity_title"}}
-                    {{/contentFor}}
-
-                    {{# if isUpper }}
-                        {{> Activity CREATE=true POPUP=true}}
-                    {{ else }}
-                        {{> app_partup_activities_newactivity_restricted }}
-                    {{/ if }}
+        <!-- new activity popup -->
+        {{#if partupIsPopupActive 'new-activity' }}
+            {{#contentFor "PopupContent"}}
+                {{#contentFor "PopupTitle"}}
+                    {{_ "pages-app-partup-activities-newactivity_title"}}
                 {{/contentFor}}
-            {{/if}}
 
-            <!-- Header buttons -->
-            <header class="pu-pageheader">
+                {{# if isUpper }}
+                    {{> Activity CREATE=true POPUP=true}}
+                {{ else }}
+                    {{> app_partup_activities_newactivity_restricted }}
+                {{/ if }}
+            {{/contentFor}}
+        {{/if}}
 
-                <!-- New activity button -->
-                <section>
-                    <a class="pu-button pu-button-icon" href="#" data-new-activity>
-                        <i class="fa fa-line-chart"></i>
-                        {{_ "pages-app-partup-activities-newactivity_button"}}
-                    </a>
-                </section>
+        <!-- Header buttons -->
+        <header class="pu-pageheader">
 
-                <!-- Filter -->
-                <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
+            <!-- New activity button -->
+            <section>
+                <a class="pu-button pu-button-icon" href="#" data-new-activity>
+                    <i class="fa fa-line-chart"></i>
+                    {{_ "pages-app-partup-activities-newactivity_button"}}
+                </a>
+            </section>
 
-            </header>
+            <!-- Filter -->
+            <aside>{{> PartialDropdownActivitiesActions reactiveVar=filterReactiveVar}}</aside>
 
-            <!-- Loading/rendering state -->
-            {{# if activitiesLoadingOrRendering }}
-                {{> Loader ALIGNMENT='center' }}
-            {{/ if }}
+        </header>
 
-            <!-- Not-loading state -->
-            {{# unless activitiesLoading }}
+        <!-- Loading/rendering state -->
+        {{# if activitiesLoadingOrRendering }}
+            {{> Loader ALIGNMENT='center' }}
+        {{/ if }}
 
-                <!-- Render asynchronously -->
-                {{# async callback=activitiesRenderedCallback }}
+        <!-- Not-loading state -->
+        {{# unless activitiesLoading }}
 
-                    {{# each activities }}
-                        {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
-                    {{/ each }}
+            <!-- Render asynchronously -->
+            {{# async callback=activitiesRenderedCallback }}
 
-                    {{# if archivedActivities }}
-                        <p class="pu-textline">
-                            <span>
-                                {{_ "pages-app-partup-activities-archivedactivities_heading" }}
-                                <span class="fa fa-long-arrow-down"></span>
-                            </span>
-                        </p>
-                    {{/ if }}
+                {{# each activities }}
+                    {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
+                {{/ each }}
 
-                    {{# each archivedActivities }}
-                        {{> Activity activity=. EXPANDABLE=true isUpper=isUpper }}
-                    {{/ each }}
+                {{# if archivedActivities }}
+                    <p class="pu-textline">
+                        <span>
+                            {{_ "pages-app-partup-activities-archivedactivities_heading" }}
+                            <span class="fa fa-long-arrow-down"></span>
+                        </span>
+                    </p>
+                {{/ if }}
 
-                    {{#unless activities }}
-                        {{#unless archivedActivities }}
-                            <section class="pu-update pu-update-placeholder">
-                                <section>
-                                    <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
-                                </section>
+                {{# each archivedActivities }}
+                    {{> Activity activity=. EXPANDABLE=true isUpper=isUpper }}
+                {{/ each }}
+
+                {{#unless activities }}
+                    {{#unless archivedActivities }}
+                        <section class="pu-update pu-update-placeholder">
+                            <section>
+                                <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
                             </section>
-                        {{/unless }}
+                        </section>
                     {{/unless }}
+                {{/unless }}
 
-                {{/ async }}
+            {{/ async }}
 
-            {{/ unless }}
+        {{/ unless }}
 
-        </div>
     </div>
 </template>

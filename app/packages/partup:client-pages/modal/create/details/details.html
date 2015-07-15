@@ -1,31 +1,29 @@
 <template name="modal_create_details">
-    <section class="pu-page pu-page-modal pu-page-modal-haspager">
-        <div class="pu-composition pu-composition-defaultmodal">
+    <div class="pu-composition pu-composition-defaultmodal">
 
-            <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-details-title' currentUser.profile.name }}</h2>
-            <p>{{_ 'pages-modal-create-details-explainingpartup' }}</p>
+        <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-create-details-title' currentUser.profile.name }}</h2>
+        <p>{{_ 'pages-modal-create-details-explainingpartup' }}</p>
 
-            {{> Partupsettings FORM_ID='createPartupForm' currentPartup=currentPartup CREATE=true }}
+        {{> Partupsettings FORM_ID='createPartupForm' currentPartup=currentPartup CREATE=true }}
 
-            {{#contentFor "PartupsettingsFooter"}}
+        {{#contentFor "PartupsettingsFooter"}}
 
-                <!-- Submit button -->
-                <footer class="pu-sub-modalfooter">
-                    <div class="pu-sub-footer-container">
-                        <button type="button" class="pu-button {{# if submittingSkip }}pu-state-loading{{/ if }} {{# if submitting }}pu-state-disabled{{/ if }}" data-submission-type="skip">
-                            <span>{{_ 'pages-modal-create-details-form-submit-skip' }}</span>
-                            {{> SpinnerInverted }}
-                        </button>
-                        <span class="pu-sub-plain">{{_ 'pages-modal-create-details-form-submit-or'}}</span>
-                        <button type="submit" class="pu-button pu-button-arrow {{# if submittingNext }}pu-state-loading{{/ if }} {{# if submitting }}pu-state-disabled{{/ if }}" data-submission-type="next">
-                            <span>{{_ 'pages-modal-create-details-form-submit-next' }}</span>
-                            {{> SpinnerInverted }}
-                        </button>
-                    </div>
-                </footer>
+            <!-- Submit button -->
+            <footer class="pu-sub-modalfooter">
+                <div class="pu-sub-footer-container">
+                    <button type="button" class="pu-button {{# if submittingSkip }}pu-state-loading{{/ if }} {{# if submitting }}pu-state-disabled{{/ if }}" data-submission-type="skip">
+                        <span>{{_ 'pages-modal-create-details-form-submit-skip' }}</span>
+                        {{> SpinnerInverted }}
+                    </button>
+                    <span class="pu-sub-plain">{{_ 'pages-modal-create-details-form-submit-or'}}</span>
+                    <button type="submit" class="pu-button pu-button-arrow {{# if submittingNext }}pu-state-loading{{/ if }} {{# if submitting }}pu-state-disabled{{/ if }}" data-submission-type="next">
+                        <span>{{_ 'pages-modal-create-details-form-submit-next' }}</span>
+                        {{> SpinnerInverted }}
+                    </button>
+                </div>
+            </footer>
 
-            {{/contentFor}}
+        {{/contentFor}}
 
-        </div>
-    </section>
+    </div>
 </template>

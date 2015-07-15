@@ -1,112 +1,110 @@
 <template name="app_partup_updates">
-    <div class="pu-page">
-        <div class="pu-composition pu-composition-partupdetailupdates {{#if newUpdatesCount }}pu-composition-partupdetailupdates-newupdatesavailable{{/if}}">
+    <div class="pu-composition pu-composition-partupdetailupdates {{#if newUpdatesCount }}pu-composition-partupdetailupdates-newupdatesavailable{{/if}}">
 
-            <div class="pu-sub-timelineline"></div>
+        <div class="pu-sub-timelineline"></div>
 
-            <!-- new message popup -->
-            {{#if partupIsPopupActive 'new-message' }}
-                {{#contentFor "PopupTitle"}}
-                    {{_ 'pages-app-partup-updates-newmessage-title'}}
-                {{/contentFor}}
-                {{#contentFor "PopupContent"}}
-                    {{> app_partup_updates_newmessage }}
-                {{/contentFor}}
-            {{/if}}
+        <!-- new message popup -->
+        {{#if partupIsPopupActive 'new-message' }}
+            {{#contentFor "PopupTitle"}}
+                {{_ 'pages-app-partup-updates-newmessage-title'}}
+            {{/contentFor}}
+            {{#contentFor "PopupContent"}}
+                {{> app_partup_updates_newmessage }}
+            {{/contentFor}}
+        {{/if}}
 
-            <!-- Header buttons -->
-            <header class="pu-pageheader">
-                <section>
-                    <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
-                        <i class="fa fa-comment"></i>
-                        {{_ 'pages-app-partup-updates-new_message' }}
-                    </a>
+        <!-- Header buttons -->
+        <header class="pu-pageheader">
+            <section>
+                <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
+                    <i class="fa fa-comment"></i>
+                    {{_ 'pages-app-partup-updates-new_message' }}
+                </a>
+            </section>
+            <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
+        </header>
+
+        <div data-infinitescroll-container>
+
+            <!-- Loading/rendering state -->
+            {{# if updatesLoadingOrRendering }}
+                <section class="pu-update">
+                    <aside>
+
+                        <!-- Loader indicator where normally a user avatar would be -->
+                        <figure class="pu-avatar pu-avatar-update">
+                            <span class="pu-sub-image pu-sub-image-loader">
+                                {{> Loader ALIGNMENT='center' COLOR='white' SIZE='small' }}
+                            </span>
+                        </figure>
+
+                    </aside>
                 </section>
-                <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
-            </header>
+            {{/ if }}
 
-            <div data-infinitescroll-container>
+            {{# unless updatesLoading }}
 
-                <!-- Loading/rendering state -->
-                {{# if updatesLoadingOrRendering }}
-                    <section class="pu-update">
-                        <aside>
+                <!-- Reveal new updates -->
+                {{#if newUpdatesCount }}
+                    <p class="pu-update pu-sub-revealupdatesbutton">
+                        <aside></aside>
+                        <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
+                    </p>
+                {{/if}}
 
-                            <!-- Loader indicator where normally a user avatar would be -->
-                            <figure class="pu-avatar pu-avatar-update">
-                                <span class="pu-sub-image pu-sub-image-loader">
-                                    {{> Loader ALIGNMENT='center' COLOR='white' SIZE='small' }}
-                                </span>
-                            </figure>
+                <!-- Render asynchronously -->
+                {{# async callback=updatesRenderedCallback }}
 
-                        </aside>
-                    </section>
+                    <!-- For each update -->
+                    {{#each updates }}
+
+
+                        <!-- If the updates doesn't belong to the new updates, draw a line -->
+                        {{# if showNewUpdatesSeparator }}
+                            <div class="pu-sub-newupdatesseparator pu-state-active">
+                                <p class="pu-textline">
+                                    <span>
+                                        {{_ 'pages-app-partup-updates-new_updates_separator' }}
+                                        <i class="fa fa-long-arrow-up"></i>
+                                    </span>
+                                </p>
+                            </div>
+                        {{/ if }}
+
+                        <!-- If it's another day, show a day-separator -->
+                        {{#if isAnotherDay }}
+                            <section class="pu-sub-separator">
+                                {{ partupDatePartupTimeline updated_at }}
+                                <i class="fa fa-long-arrow-down"></i>
+                            </section>
+                        {{/if }}
+
+                        <!-- Render the update -->
+                        {{> Update LINK=true COMMENT_LIMIT=2 updateId=_id metadata=metaDataForUpdate }}
+
+                    {{ else }}
+
+                        <!-- No updates available -->
+                        <section class="pu-update pu-update-placeholder">
+                            <section>
+                                <p>{{_ 'pages-app-partup-updates-no_updates'}}</p>
+                            </section>
+                        </section>
+
+                    {{/each }}
+
+                {{/ async }}
+
+                <!-- Infinite scroll loader -->
+                {{# if updatesLoadingOrRenderingMore }}
+                    <div class="pu-sub-infinitescrollloadingspinner">
+                        {{> Spinner }}
+                    </div>
                 {{/ if }}
 
-                {{# unless updatesLoading }}
-
-                    <!-- Reveal new updates -->
-                    {{#if newUpdatesCount }}
-                        <p class="pu-update pu-sub-revealupdatesbutton">
-                            <aside></aside>
-                            <section><a href="" data-reveal-new-updates class="pu-button pu-button-bluebar">{{_ 'pages-app-partup-updates-revealupdates' count=newUpdatesCount }}</a></section>
-                        </p>
-                    {{/if}}
-
-                    <!-- Render asynchronously -->
-                    {{# async callback=updatesRenderedCallback }}
-
-                        <!-- For each update -->
-                        {{#each updates }}
-
-
-                            <!-- If the updates doesn't belong to the new updates, draw a line -->
-                            {{# if showNewUpdatesSeparator }}
-                                <div class="pu-sub-newupdatesseparator pu-state-active">
-                                    <p class="pu-textline">
-                                        <span>
-                                            {{_ 'pages-app-partup-updates-new_updates_separator' }}
-                                            <i class="fa fa-long-arrow-up"></i>
-                                        </span>
-                                    </p>
-                                </div>
-                            {{/ if }}
-
-                            <!-- If it's another day, show a day-separator -->
-                            {{#if isAnotherDay }}
-                                <section class="pu-sub-separator">
-                                    {{ partupDatePartupTimeline updated_at }}
-                                    <i class="fa fa-long-arrow-down"></i>
-                                </section>
-                            {{/if }}
-
-                            <!-- Render the update -->
-                            {{> Update LINK=true COMMENT_LIMIT=2 updateId=_id metadata=metaDataForUpdate }}
-
-                        {{ else }}
-
-                            <!-- No updates available -->
-                            <section class="pu-update pu-update-placeholder">
-                                <section>
-                                    <p>{{_ 'pages-app-partup-updates-no_updates'}}</p>
-                                </section>
-                            </section>
-
-                        {{/each }}
-
-                    {{/ async }}
-
-                    <!-- Infinite scroll loader -->
-                    {{# if updatesLoadingOrRenderingMore }}
-                        <div class="pu-sub-infinitescrollloadingspinner">
-                            {{> Spinner }}
-                        </div>
-                    {{/ if }}
-
-                {{/ unless }}
-
-            </div>
+            {{/ unless }}
 
         </div>
+
     </div>
 </template>

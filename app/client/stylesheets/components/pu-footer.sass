@@ -4,12 +4,13 @@
     padding: 60px 0
     z-index: 1
     position: relative
+    min-width: 992px
 
     .pu-sub-footer
-        max-width: $grid-column * 12 + $grid-gap * 11
+        max-width: grid(12) + $spacing-app-pagepadding * 2
         margin-left: auto
         margin-right: auto
-        padding: 0 40px
+        padding: 0 $spacing-app-pagepadding
 
         &:after
             content: ''

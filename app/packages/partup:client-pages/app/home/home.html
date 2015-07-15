@@ -1,28 +1,15 @@
 <template name="app_home">
 
-    <article class="pu-layout">
-        <div class="pu-sub-pagecontainer">
-            <div class="pu-page">
-
-                <h2> {{_ 'pages-app-home-heading'}} </h2>
-                <br>
-                <br>
+    <article class="pu-page pu-page-tinted pu-page-home">
+        <header class="pu-sub-pageheader pu-sub-pageheader-title {{# if shrinkHeader }}pu-sub-pageheader-title-shrinked{{/ if }}">
+            <section class="pu-wrap">
+                <h1 class="pu-title">{{_ 'pages-app-home-heading'}}</h1>
+            </section>
+        </header>
+        <div class="pu-sub-pagecontent">
+            <section class="pu-wrap pu-article">
                 {{{_ 'pages-app-home-paragraph-HTML' }}}
-
-                <img src="/images/dashboard-partup_720.png" alt="Partup dasboard" style="display: block; margin: 60px 0 0;">
-                <p style="margin: 60px 0 0;">
-                    <button data-translate="nl" class="pu-button pu-button-secondary">nl</button>
-                    <button data-translate="en" class="pu-button pu-button-secondary">en</button><br><br>
-                </p>
-
-                <!-- <h2>Home</h2><br><br> -->
-                <!-- <p> -->
-                <!--     {{#with firstPartup}} -->
-                <!--         <a href="/partups/{{_id}}" class="pu-button pu-button-arrow">Snelle link naar eerstgevonden partup "{{name}}"</a> -->
-                <!--     {{/with}} -->
-                <!-- </p><br> -->
-
-            </div>
+            </section>
         </div>
     </article>
 

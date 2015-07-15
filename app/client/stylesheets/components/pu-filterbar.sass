@@ -8,7 +8,7 @@
             margin-left: 0
 
     > .pu-sub-label
-        font-size: 18px
+        font-size: 16px
         font-weight: bold
         line-height: 43px
 
@@ -20,3 +20,8 @@
     > .pu-sub-submit
         display: none
 
+
+    // This min-width value should depend on the filterbar with the biggest content
+    @media screen and (min-width: 1032px)
+        > .pu-sub-label
+            font-size: 18px

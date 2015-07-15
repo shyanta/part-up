@@ -1,6 +1,6 @@
 .pu-modal
     background-color: $color-background
-    min-width: $grid-column * 10 + $grid-gap * 9
+    min-width: 992px
 
     #pu-notifycontainer
         position: fixed
@@ -26,3 +26,13 @@
             &:after
                 background-color: rgba($color-background, .8)
                 pointer-events: auto
+
+    @media screen and (min-width: 992px)
+        padding-top: $spacing-modal-headerheight
+
+        .pu-header
+            position: fixed
+            top: 0
+            left: 0
+            right: 0
+            z-index: 15

@@ -45,9 +45,31 @@ Template.app_partup.onCreated(function() {
     Meteor.autorun(function whenSubscriptionIsReady(computation) {
         if (template.partupSubscription.ready()) {
             computation.stop();
+
             if (!Partups.findOne({_id: template.data.partupId})) {
                 Router.pageNotFound('partup');
+                return;
             }
+        }
+    });
+});
+
+/*************************************************************/
+/* Page rendered */
+/*************************************************************/
+Template.app_partup.onRendered(function() {
+    var tpl = this;
+
+    tpl.autorun(function(computation) {
+        if (tpl.partupSubscription.ready()) {
+            computation.stop();
+
+            // Wait for the dom to be rendered according to the changed 'subscriptionsReady'
+            Meteor.defer(function() {
+                partupDetailLayout.init.apply(partupDetailLayout, [{
+                    scrolling_element: Partup.client.scroll._element
+                }]);
+            });
         }
     });
 });
@@ -63,12 +85,6 @@ Template.app_partup.helpers({
 
     subscriptionsReady: function() {
         return Template.instance().partupSubscription.ready();
-    },
-
-    initializePartupLayout: function() {
-        Meteor.defer(function() {
-            partupDetailLayout.init.apply(partupDetailLayout);
-        });
     }
 
 });
@@ -77,17 +93,22 @@ Template.app_partup.helpers({
 /* Partup scroll logic */
 /*************************************************************/
 var getScrollTop = function() {
-    return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    return Partup.client.scroll.pos.get();
 };
 var partupDetailLayout = {
 
-    init: function() {
+    scrolling_element: null,
 
-        this.container = document.querySelector('.pu-app .pu-sub-pagecontainer');
+    init: function(options) {
+
+        this.scrolling_element = options.scrolling_element;
+        if (!this.scrolling_element) return console.warn('partup scroll logic error: could not find scrolling element');
+
+        this.container = document.querySelector('[data-layout-container]');
         if (!this.container) return console.warn('partup scroll logic error: could not find container');
 
-        this.left = this.container.querySelector('.pu-sub-partupdetail-left');
-        this.right = this.container.querySelector('.pu-sub-partupdetail-right');
+        this.left = this.container.querySelector('[data-layout-left]');
+        this.right = this.container.querySelector('[data-layout-right]');
         if (!this.left || !this.right) return console.warn('partup scroll logic error: could not left and/or right side');;
 
         this.bound = {
@@ -95,10 +116,6 @@ var partupDetailLayout = {
             onScrollStart: mout.function.debounce(mout.function.bind(this.onScrollStart, this), 100, true),
             onScrollEnd: mout.function.debounce(mout.function.bind(this.onScrollEnd, this), 100)
         };
-
-        var r = this.getRects();
-        var br = document.body.getBoundingClientRect();
-        this.initialTop = r.left.top - br.top;
 
         var self = this;
         window.addEventListener('resize', function() {
@@ -122,8 +139,8 @@ var partupDetailLayout = {
         this.checkScroll();
 
         window.addEventListener('resize', this.bound.onResize);
-        window.addEventListener('scroll', this.bound.onScrollStart);
-        window.addEventListener('scroll', this.bound.onScrollEnd);
+        this.scrolling_element.addEventListener('scroll', this.bound.onScrollStart);
+        this.scrolling_element.addEventListener('scroll', this.bound.onScrollEnd);
 
         var self = this;
         this.interval = setInterval(function() {
@@ -144,8 +161,8 @@ var partupDetailLayout = {
         this.right.style.top = '';
 
         window.removeEventListener('resize', this.bound.onResize);
-        window.removeEventListener('scroll', this.bound.onScrollStart);
-        window.removeEventListener('scroll', this.bound.onScrollEnd);
+        this.scrolling_element.removeEventListener('scroll', this.bound.onScrollStart);
+        this.scrolling_element.removeEventListener('scroll', this.bound.onScrollEnd);
 
         clearInterval(this.interval);
     },
@@ -198,7 +215,7 @@ var partupDetailLayout = {
 
     preScroll: function() {
         var r = this.getRects();
-        var br = document.body.getBoundingClientRect();
+        var br = this.scrolling_element.getBoundingClientRect();
         var scol;
         var lcol;
 
@@ -211,22 +228,16 @@ var partupDetailLayout = {
         }
 
         this.lastScrollTop = getScrollTop();
-        this.constrainScroll = [
-            0,
-            r[lcol].bottom - br.top - window.innerHeight
-        ];
-        this.constrainPos = [
-            this.initialTop,
-            r[lcol].bottom - br.top - r[scol].height
-        ];
+        this.maxScroll =  r[lcol].height - br.bottom + 60;
+        this.maxPos = this.containerHeight.get() - r[scol].height;
     },
 
     checkScroll: function() {
         this.lastDirection = this.lastDirection || 'down';
         var scrollTop = getScrollTop();
         var r = this.getRects();
-        var br = document.body.getBoundingClientRect();
-        var iH = window.innerHeight;
+        var br = this.scrolling_element.getBoundingClientRect();
+        var iH = br.bottom - br.top;
         var direction = (scrollTop === this.lastScrollTop) ? this.lastDirection : scrollTop > this.lastScrollTop ? 'down' : 'up';
         var top;
         var pos;
@@ -247,25 +258,26 @@ var partupDetailLayout = {
             //  Going down and short column bottom is smaller than viewport height
             if (direction === 'down' && r[scol].bottom < iH) {
                 pos = 'fixed';
-                // Short column height is smaller than viewport height minus initial top
-                if (r[scol].height < (iH - this.initialTop)) {
-                    top = this.initialTop;
+                // Short column height is smaller than viewport
+                if (r[scol].height < iH) {
+                    top = 0;
+                // Anchor bottom to viewport bottom
                 } else {
                     top = iH - r[scol].height;
                 }
             // Going up and short column top is larger than initial position on page
-            } else if (direction === 'up' && r[scol].top > this.initialTop) {
+            } else if (direction === 'up' && r[scol].top > 60) {
                 pos = 'fixed';
-                top = this.initialTop;
+                top = 60;
             }
         } else {
             pos = 'absolute';
-            top = r[scol].top - br.top;
+            top = scrollTop + r[scol].top - 60;
         }
 
-        if (scrollTop >= this.constrainScroll[1]) {
+        if (scrollTop >= this.maxScroll) {
             pos = 'absolute';
-            top = this.constrainPos[1];
+            top = this.maxPos;
         }
 
         // This fixes very short columns
@@ -275,26 +287,30 @@ var partupDetailLayout = {
         // 3. short column bottom is inside viewport
         // 4. short column top is larger than initial pos
         if (
-            (r[scol].height < iH - this.initialTop) && // 1
+            (r[scol].height < iH - 60) && // 1
             (
                 (
                     (r[scol].bottom < r[lcol].bottom) && // 2
                     (r[scol].bottom < iH) // 3
                 ) ||
                 (
-                    (r[scol].top > this.initialTop) // 4
+                    (r[scol].top > 60) // 4
                 )
             )
         ) {
             pos = 'fixed';
-            top = this.initialTop;
+            top = 0;
+        }
+
+        if (pos === 'fixed' && top === 0) {
+            top = 60;
         }
 
         this[scol].style.position = pos;
         this[scol].style.top = top + 'px';
 
         this[lcol].style.position = 'absolute';
-        this[lcol].style.top = this.initialTop + 'px';
+        this[lcol].style.top = 0 + 'px';
 
         this.lastDirection = direction;
         this.lastScrollTop = scrollTop;

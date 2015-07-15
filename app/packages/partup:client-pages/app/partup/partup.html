@@ -1,18 +1,19 @@
 <template name="app_partup">
-    <article class="pu-layout">
-        <div class="pu-sub-pagecontainer">
+    <article class="pu-page pu-page-partup">
+        <section class="pu-partuppagelayout" data-layout-container>
             {{#if subscriptionsReady}}
-                {{ initializePartupLayout }}
-                <div class="pu-sub-partupdetail-left">
+                <div class="pu-sub-partupdetail-left" data-layout-left>
                     {{> app_partup_navigation partup=partup }}
-                    {{> yield region='app_partup' }}
+                    <div class="pu-sub-partupdetail-content">
+                        {{> yield region='app_partup' }}
+                    </div>
                 </div>
-                <div class="pu-sub-partupdetail-right">
+                <div class="pu-sub-partupdetail-right" data-layout-right>
                     {{> app_partup_sidebar partup=partup }}
                 </div>
             {{else}}
                 {{> Spinner }}
             {{/if}}
-        </div>
+        </section>
     </article>
 </template>

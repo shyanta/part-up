@@ -1,5 +1,5 @@
 <template name="ColumnsLayout">
-    <section class="pu-columnslayout">
+    <section class="pu-columnslayout {{# with columnsAmountClass }}pu-columnslayout-{{ . }}{{/ with }}">
         {{#each columns}}
             <ul class="pu-sub-column" data-column>
                 {{#each .}}

@@ -188,6 +188,15 @@ Template.app_discover_page.helpers({
         return Template.instance().partups.loading.get();
     },
 
+    amountOfColumns: function() {
+        var tpl = Template.instance();
+        var smaller = Partup.client.screensize.current.get('width') < Partup.client.grid.getWidth(11) + 80;
+        Meteor.defer(function() {
+            tpl.partups.layout.rerender();
+        });
+        return smaller ? 3 : 4;
+    },
+
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addToLayoutHook' with a callback.
     // We save that callback, so we can call it later and the child template can react to it.
@@ -203,6 +212,13 @@ Template.app_discover_page.helpers({
 
         return function registerCallback(callback) {
             tpl.partups.layout.clear = callback;
+        };
+    },
+    rerenderLayoutHook: function() {
+        var tpl = Template.instance();
+
+        return function registerCallback(callback) {
+            tpl.partups.layout.rerender = callback;
         };
     }
 });

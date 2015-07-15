@@ -1,12 +1,16 @@
 .pu-composition-defaultmodal
-    width: 570px
-
     h2
         margin-top: -10px
         margin-bottom: 20px
 
     .pu-form
         margin-top: 40px - 8px
+
+    .pu-block-highlighted,
+    .pu-form-highlighted,
+    .pu-previewpost
+        margin-left: -40px
+        margin-right: -40px
 
     .pu-sub-modalfooter
         margin-top: 40px
@@ -32,11 +36,6 @@
             padding-bottom: 25px + 50px
             transition: background .1s
 
-            .pu-sub-footer-container
-                width: 570px
-                margin-left: auto
-                margin-right: auto
-
             &-active
                 position: fixed
                 padding-bottom: 25px
@@ -48,5 +47,5 @@
         a
             color: $color-text
 
-    // &.pu-composition-fixedfooter
-    margin-bottom: 80px
+    &.pu-composition-fixedfooter
+        margin-bottom: 105px

@@ -8,7 +8,7 @@
 /**
  * Discover-header created
  */
-Template.app_discover_header.onCreated(function() {
+Template.app_discover_filter.onCreated(function() {
     var tpl = this;
 
     // Submit filter form
@@ -79,11 +79,15 @@ Template.app_discover_header.onCreated(function() {
     var sortingOptions = [
         {
             value: 'popular',
-            label: 'Popular'
+            label: function() {
+                return __('pages-app-discover-filter-sorting-type-popular');
+            }
         },
         {
             value: 'new',
-            label: 'Newest'
+            label: function() {
+                return __('pages-app-discover-filter-sorting-type-newest');
+            }
         }
     ];
     var defaultSortingOption = sortingOptions[0];
@@ -104,7 +108,7 @@ Template.app_discover_header.onCreated(function() {
                     }, DROPDOWN_ANIMATION_DURATION);
                 },
                 options: tpl.sorting.options,
-                default: defaultSortingOption
+                default: defaultSortingOption.value
             };
         },
     };
@@ -113,7 +117,7 @@ Template.app_discover_header.onCreated(function() {
 /**
  * Discover-header rendered
  */
-Template.app_discover_header.onRendered(function() {
+Template.app_discover_filter.onRendered(function() {
 
     // Submit filter form once
     this.submitFilterForm();
@@ -123,10 +127,7 @@ Template.app_discover_header.onRendered(function() {
 /**
  * Discover-header helpers
  */
-Template.app_discover_header.helpers({
-    shrinkPageHeader: function() {
-        return Partup.client.scroll.pos.get() > 40;
-    },
+Template.app_discover_filter.helpers({
 
     // Network
     networkValue: function() {
@@ -165,7 +166,7 @@ Template.app_discover_header.helpers({
 /**
  * Discover-header events
  */
-Template.app_discover_header.events({
+Template.app_discover_filter.events({
     'submit form#discoverQuery': function(event, template) {
         event.preventDefault();
 

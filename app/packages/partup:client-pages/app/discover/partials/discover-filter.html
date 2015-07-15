@@ -1,0 +1,61 @@
+<template name="app_discover_filter">
+    <form id="discoverQuery">
+        <div class="pu-filterbar">
+
+            <!-- Label -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-textsearch-label' }}</p>
+
+            <!-- Search query -->
+            <div class="pu-sub-input"><input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}"></div>
+
+            <!-- Label -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-networkfilter-label' }}</p>
+
+            <!-- Network selector -->
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="network_id" value="{{ networkValue._id }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-networkselector>
+                    {{#with networkValue }}
+                        {{ name }}
+                        <i class="fa fa-times" data-reset-selected-network></i>
+                    {{else }}
+                        {{_ 'pages-app-discover-filter-networkfilter-all' }}
+                    {{/with }}
+                </a>
+                {{> Dropdown toggle=networkSelectorState template="NetworkSelector" data=networkSelectorData }}
+            </div>
+
+            <!-- Label -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-locationfilter-label' }}</p>
+
+            <!-- Location selector -->
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="location_id" value="{{ locationValue.id }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-locationselector>
+                    {{#with locationValue }}
+                        {{ city }}
+                        <i class="fa fa-times" data-reset-selected-location></i>
+                    {{else }}
+                        {{_ 'pages-app-discover-filter-locationfilter-all' }}
+                    {{/with }}
+                </a>
+                {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
+            </div>
+
+            <!-- Label -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-sorting-label' }}</p>
+
+            <!-- Sorting -->
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="sorting" value="{{ sortingValue.value }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-sortingselector>
+                    {{ sortingValue.label }}
+                </a>
+                {{> Dropdown toggle=sortingSelectorState template="BasicSelector" data=sortingSelectorData }}
+            </div>
+
+            <!-- Hidden send button -->
+            <input type="submit" value="Versturen" class="pu-sub-submit">
+        </div>
+    </form>
+</template>

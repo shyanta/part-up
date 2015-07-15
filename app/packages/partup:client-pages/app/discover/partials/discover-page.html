@@ -1,40 +1,42 @@
 <template name="app_discover_page">
-    <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
-        <div class="pu-page pu-page-full">
-            <section class="pu-composition pu-composition-discover">
+    <section class="pu-composition">
 
-                <!-- Title header -->
-                <header>
-                    <h2 class="pu-title pu-title-home">
-                        {{_ 'pages-app-discover-heading' }}
-                        <span class="pu-sub-countlabel">
-                            {{#unless partupsLoading }}
-                                {{#if count}}
-                                    {{_ 'pages-app-discover-xpartups' count=count }}
-                                {{else}}
-                                    {{_ 'pages-app-discover-nopartups' }}
-                                {{/if}}
-                            {{else}}
-                                {{_ 'pages-app-discover-loading' }}
-                            {{/unless}}
-                        </span>
-                        {{# if showProfileCompletion }}
-                            <span class="pu-paragraph pu-paragraph-subtle">{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</span>
-                        {{/ if }}
-                    </h2>
-                </header>
+        <!-- Header -->
+        <header class="pu-sub-header">
+            <h2 class="pu-title">
+                {{_ 'pages-app-discover-heading' }}
 
-                <!-- Content (partup-tiles) -->
-                <div data-infinitescroll-container>
-                    {{> ColumnsLayout
-                        COLUMNS=4
-                        TEMPLATE="PartupTile"
-                        addHook=addToLayoutHook
-                        clearHook=clearLayoutHook
-                    }}
-                </div>
+                <span class="pu-sub-countlabel">
+                    {{#unless partupsLoading }}
+                        {{#if count}}
+                            {{_ 'pages-app-discover-xpartups' count=count }}
+                        {{else}}
+                            {{_ 'pages-app-discover-nopartups' }}
+                        {{/if}}
+                    {{else}}
+                        {{_ 'pages-app-discover-loading' }}
+                    {{/unless}}
+                </span>
+            </h2>
 
-            </section>
+            {{# if showProfileCompletion }}
+                <p class="pu-profilecompletion pu-paragraph pu-paragraph-subtle">
+                    {{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}
+                </p>
+            {{/ if }}
+        </header>
+
+        <!-- Content (partup-tiles) -->
+        <div data-infinitescroll-container>
+            {{> ColumnsLayout
+                COLUMNS=amountOfColumns
+                TEMPLATE="PartupTile"
+                addHook=addToLayoutHook
+                clearHook=clearLayoutHook
+                rerenderHook=rerenderLayoutHook
+            }}
         </div>
-    </div>
+
+    </section>
+
 </template>

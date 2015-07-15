@@ -67,7 +67,11 @@ Template.modal_create_activities.helpers({
         return partup.uppers.indexOf(user._id) > -1;
     },
     fixFooter: function() {
-        var maxScroll = document.body.scrollHeight - window.innerHeight;
-        return Partup.client.scroll.pos.get() < maxScroll - 50;
+        var scrollPos = Partup.client.scroll.pos.get();
+
+        if (!Partup.client.scroll._element) return false;
+        var maxScroll = Partup.client.scroll._element.scrollHeight - Partup.client.scroll._element.clientHeight;
+
+        return scrollPos < maxScroll - 50;
     },
 });

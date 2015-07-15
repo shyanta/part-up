@@ -35,6 +35,8 @@ partup:client-network-settings-uppers
 partup:client-partup-tile
 partup:client-partupsettings
 partup:client-popup
+partup:client-profilesettings
+partup:client-prompt
 partup:client-rating
 partup:client-ratings
 partup:client-resetpassword
@@ -87,5 +89,4 @@ percolate:migrations
 anti:fake
 lifelynl:intent
 cwaring:modernizr
-partup:client-prompt
-partup:client-profilesettings
+mrt:jquery-mousewheel
