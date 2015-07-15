@@ -35,10 +35,10 @@ Template.modal_partup_settings.events({
     },
     'click [data-remove]': function(event, template) {
         Partup.client.prompt.confirm({
-            title: 'Are you shure?',
-            message: 'You cannot undo this action.',
-            confirmButton: 'yes',
-            cancelButton: 'cancel',
+            title: __('pages-modal-partup_settings-confirmation-title'),
+            message: __('pages-modal-partup_settings-confirmation-message'),
+            confirmButton: __('pages-modal-partup_settings-confirmation-confirm-button'),
+            cancelButton: __('pages-modal-partup_settings-confirmation-cancel-button'),
             onConfirm: function() {
                 Meteor.call('partups.remove', template.data.partupId, function(error) {
                     if (error) {
