@@ -97,6 +97,24 @@ Router.route('/profile/:_id/supporter', {
 });
 
 /*************************************************************/
+/* Profile settings modal */
+/*************************************************************/
+Router.route('/profile/:_id/settings', {
+    name: 'profile-settings',
+    where: 'client',
+    yieldRegions: {
+        'modal':              {to: 'main'},
+        'modal_profile_settings': {to: 'modal'},
+        'modal_profile_settings_detail': {to: 'modal_profile_settings'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
+/*************************************************************/
 /* Networks */
 /*************************************************************/
 // Router.route('/tribes', {
