@@ -13,8 +13,8 @@
                 <li class="{{# if isActiveRoute name='profile-settings' }}pu-state-active{{/ if }}">
                     <a href="{{ pathFor 'profile-settings' _id=currentUser._id }}">Algemeen</a>
                 </li>
-                <li class="{{# if isActiveRoute name='profile-settings-profile' }}pu-state-active{{/ if }}">
-                    <a href="{{ pathFor 'profile-settings-profile' _id=currentUser._id }}">Profiel</a>
+                <li class="{{# if isActiveRoute name='profile-settings-details' }}pu-state-active{{/ if }}">
+                    <a href="{{ pathFor 'profile-settings-details' _id=currentUser._id }}">Profiel</a>
                 </li>
                 <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
                     <a href="{{ pathFor 'profile-settings-email' _id=currentUser._id }}">E-mail</a>
@@ -24,9 +24,6 @@
         <div class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
             <section class="pu-page pu-page-modal">
                 <div class="pu-composition pu-composition-defaultmodal pu-composition-register">
-
-                    <h2 class="pu-title pu-title-modal">Profiel instellingen</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, similique. Repellendus suscipit autem incidunt labore, non ratione magni delectus reiciendis.</p>
 
                     {{> yield region='modal_profile_settings' }}
 
