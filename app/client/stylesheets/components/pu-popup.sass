@@ -4,6 +4,13 @@
     margin: 0 auto
     background-color: $color-background-secondary
     border-radius: $border-radius
+    position: absolute
+    top: 20%
+    right: 0
+    left: 0
+    transform: translate3d(0, -20px, 0)
+    margin-bottom: 40px
+    transition: transform $animation-duration
 
     > header
         background-color: $color-background
@@ -47,3 +54,18 @@
 
         &:hover
             border-color: $color-dusty-gray
+
+    &-prompt
+        transform: scale(0.9)
+        width: 350px
+
+        .pu-sub-content
+            padding: 20px
+
+            footer
+                text-align: right
+
+.pu-overlay-active
+    .pu-popup
+        transform: none
+
