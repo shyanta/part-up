@@ -1,3 +1,9 @@
 <template name="modal_profile_settings_detail">
     {{> Profilesettings FORM_ID='pagesModalProfileSettingsForm'}}
+
+    {{#contentFor 'ProfilesettingsFooter'}}
+         <footer>
+             <button type="submit" class="pu-button">OPSLAAN</button>
+         </footer>
+    {{/contentFor}}
 </template>

@@ -15,6 +15,12 @@
 
            {{> Profilesettings FORM_ID='pagesModalRegisterDetailsForm'}}
 
+           {{#contentFor 'ProfilesettingsFooter'}}
+                <footer>
+                    <button type="submit" class="pu-button">{{_ 'pages-modal-register-details-form-submit' }}</button>
+                </footer>
+           {{/contentFor}}
+
         </div>
 
     </section>
