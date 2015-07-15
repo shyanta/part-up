@@ -87,3 +87,4 @@ percolate:migrations
 anti:fake
 lifelynl:intent
 cwaring:modernizr
+partup:client-prompt

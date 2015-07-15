@@ -1,0 +1,24 @@
+<template name="Prompt">
+    <section class="pu-overlay {{#if promptActive}}pu-overlay-active{{/if}}">
+        <article class="pu-popup pu-popup-prompt">
+            <header>
+                <h4>
+                    {{ title }}
+                </h4>
+            </header>
+            <article>
+                <div class="pu-sub-content">
+                    <section>
+                        <p>
+                            {{ message }}
+                        </p>
+                    </section>
+                    <footer>
+                        <a class="pu-button pu-button-gray" data-cancel>{{ cancelButton }}</a>
+                        <a class="pu-button" href="#" data-confirm>{{ confirmButton }}</a>
+                    </footer>
+                </div>
+            </article>
+        </article>
+    </section>
+</template>

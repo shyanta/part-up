@@ -45,6 +45,7 @@ Package.onUse(function(api) {
         'client/scroll.js',
         'client/moment.js',
         'client/updates.js',
+        'client/prompt.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',

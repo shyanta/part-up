@@ -3,5 +3,10 @@
     "pages-modal-partup_settings-title": "Wijzig de gegevens van de part-up",
     "pages-modal-partup_settings-explanation": "Je kunt hier de gegevens van de part-up eenvoudig wijzigen. Werk je in deze part-up al samen met meerdere partners? Bedenk dan dat afstemmen van grote wijzigingen handig kan zijn.",
     "pages-modal-partup_settings-save": "Wijzingen opslaan",
-    "pages-modal-partup_settings-delete": "Ik wil deze part-up graag verwijderen"
+    "pages-modal-partup_settings-delete": "Ik wil deze part-up graag verwijderen",
+
+    "pages-modal-partup_settings-confirmation-title": "@Weet je het zeker?",
+    "pages-modal-partup_settings-confirmation-message": "@Een Part-up verwijderen kan niet ongedaan gemaakt worden.",
+    "pages-modal-partup_settings-confirmation-confirm-button": "@Ja, verwijder mijn Part-up",
+    "pages-modal-partup_settings-confirmation-cancel-button": "@Annuleren"
 }
