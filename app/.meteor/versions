@@ -120,6 +120,7 @@ partup:client-pages@0.0.1
 partup:client-partup-tile@0.0.1
 partup:client-partupsettings@0.0.1
 partup:client-popup@0.0.1
+partup:client-prompt@0.0.1
 partup:client-rating@0.0.1
 partup:client-ratings@0.0.1
 partup:client-resetpassword@0.0.1
