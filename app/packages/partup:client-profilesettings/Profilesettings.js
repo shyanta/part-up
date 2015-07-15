@@ -2,6 +2,9 @@
 /* Widget initial */
 /*************************************************************/
 var placeholders = {
+    'name': function() {
+        return __('pages-modal-register-details-form-name_input-placeholder');
+    },
     'location_input': function() {
         return __('pages-modal-register-details-form-location_input-placeholder');
     },
@@ -73,13 +76,18 @@ Template.Profilesettings.onCreated(function() {
 /*************************************************************/
 Template.Profilesettings.helpers({
     formSchema: function() {
-        return Partup.schemas.forms.registerOptional;
+        if (this.REGISTER) {
+            return Partup.schemas.forms.registerOptional;
+        } else {
+            return Partup.schemas.forms.profileSettings;
+        }
     },
     placeholders: function() {
         return placeholders;
     },
     profile: function() {
         var user = Meteor.user();
+        console.log(user);
         return user ? user.profile : {};
     },
     profilePictureUrl: function() {

@@ -4,6 +4,10 @@
     "pages-modal-register-details-form-image-button": "Photo from my computer",
     "pages-modal-register-details-form-image-error": "Could not upload this file",
 
+    "pages-modal-register-details-form-name_input-label": "@First and lastname",
+    "pages-modal-register-details-form-name_input-placeholder": "@John Doe",
+    "pages-modal-register-details-form-name_input-tooltip": "@Your first and lastname",
+
     "pages-modal-register-details-form-location_input-label": "Where do you want to join part-ups?",
     "pages-modal-register-details-form-location_input-placeholder": "For example in your home town or region",
     "pages-modal-register-details-form-location_input-tooltip": "We love to introduce you to the most interesting part-ups in your area. And we think of you and the environment, so we rank nearby part-ups highest.",

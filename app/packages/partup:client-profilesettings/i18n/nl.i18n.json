@@ -4,6 +4,10 @@
     "pages-modal-register-details-form-image-button": "Foto vanaf jouw computer",
     "pages-modal-register-details-form-image-error": "Dit bestand kon niet worden geüpload",
 
+    "pages-modal-register-details-form-name_input-label": "@Voor- en achternaam",
+    "pages-modal-register-details-form-name_input-placeholder": "@John Doe",
+    "pages-modal-register-details-form-name_input-tooltip": "@Je voor en achternaam",
+
     "pages-modal-register-details-form-location_input-label": "Waar wil je meedoen in part-ups?",
     "pages-modal-register-details-form-location_input-placeholder": "Bijvoorbeeld in je woonplaats of regio",
     "pages-modal-register-details-form-location_input-tooltip": "We stellen je graag voor aan interessante part-ups. We denken aan het milieu en jouw gemak en zetten de part-ups bij jou in de buurt daarom bovenaan.",

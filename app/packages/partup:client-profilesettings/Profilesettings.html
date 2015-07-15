@@ -3,6 +3,16 @@
     {{> yield region="ProfilesettingsHeader"}}
 
     {{#autoForm schema=formSchema id=FORM_ID class="pu-form" doc=fieldsFromUser validation="submitThenBlur" }}
+        <!-- name -->
+        {{#unless REGISTER}}
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'pages-modal-register-details-form-name_input-label'}}</span>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+                </div>
+            </label>
+        {{/unless}}
 
         <!-- User avatar -->
         <div class="pu-formfield">
