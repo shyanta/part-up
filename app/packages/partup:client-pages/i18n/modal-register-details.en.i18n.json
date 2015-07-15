@@ -2,5 +2,7 @@
     "pages-modal-register-details-close": "Skip",
 
     "pages-modal-register-details-maywegettoknowyou": "Hi %s, can we get to know you?",
-    "pages-modal-register-details-optionalexplanation": "We already created your account. You are almost ready to part-up. Share some details to make your profile reliable and we can introduce you to matching part-ups."
+    "pages-modal-register-details-optionalexplanation": "We already created your account. You are almost ready to part-up. Share some details to make your profile reliable and we can introduce you to matching part-ups.",
+
+    "pages-modal-register-details-form-submit": "Ready, show me my profile!"
 }

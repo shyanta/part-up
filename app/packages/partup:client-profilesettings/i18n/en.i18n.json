@@ -38,7 +38,5 @@
 
     "pages-modal-register-details-form-skype-label": "Do you use Skype?",
     "pages-modal-register-details-form-skype-placeholder": "Your Skype name",
-    "pages-modal-register-details-form-skype-tooltip": "Just like your phone number, we only share your Skype name with your partners. They are the uppers you work with.",
-
-    "pages-modal-register-details-form-submit": "Ready, show me my profile!"
+    "pages-modal-register-details-form-skype-tooltip": "Just like your phone number, we only share your Skype name with your partners. They are the uppers you work with."
 }

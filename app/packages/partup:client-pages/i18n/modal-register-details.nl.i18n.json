@@ -2,5 +2,7 @@
     "pages-modal-register-details-close": "Overslaan",
 
     "pages-modal-register-details-maywegettoknowyou": "Hoi %s, mogen we je leren kennen?",
-    "pages-modal-register-details-optionalexplanation": "Jouw account is aangemaakt. Je bent bijna klaar voor part-up! Vul hier je gegevens in, zodat je een betrouwbaar profiel hebt en wij je passende part-ups kunnen voorstellen."
+    "pages-modal-register-details-optionalexplanation": "Jouw account is aangemaakt. Je bent bijna klaar voor part-up! Vul hier je gegevens in, zodat je een betrouwbaar profiel hebt en wij je passende part-ups kunnen voorstellen.",
+
+    "pages-modal-register-details-form-submit": "Klaar, laat mijn profiel zien!"
 }
