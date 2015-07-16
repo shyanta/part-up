@@ -225,6 +225,64 @@ Meteor.methods({
         return users.map(function(user) {
             return user._id;
         });
+    },
+
+    /**
+     * Invite someone to an activity
+     *
+     * @param {String} activityId
+     * @param {String} email
+     * @param {String} name
+     */
+    'activities.invite': function(activityId, email, name) {
+        var user = Meteor.user();
+
+        if (!user) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        // TODO: Authorisation, who can invite a user?
+
+        var activity = Activities.findOneOrFail(activityId);
+        var partup = Partups.findOneOrFail(activity.partup_id);
+
+        var invites = activity.invites || [];
+        var invitedEmails = mout.array.pluck(invites, 'email');
+
+        if (invitedEmails.indexOf(email) > -1) {
+            throw new Meteor.Error(403, 'Email is already invited to the given activity.');
+        }
+
+        // Compile the E-mail template and send the email
+        SSR.compileTemplate('inviteUserActivityEmail', Assets.getText('private/emails/InviteUserToActivity.html'));
+        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
+
+        Email.send({
+            from: 'Part-up <noreply@part-up.com>',
+            to: email,
+            subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
+            html: SSR.render('inviteUserActivityEmail', {
+                name: name,
+                partupName: partup.name,
+                partupDescription: partup.description,
+                activityName: activity.name,
+                activityDescription: activity.description,
+                inviterName: user.profile.name,
+                url: url
+            })
+        });
+
+        // Save the invite on the partup for further references
+        var invite = {
+            name: name,
+            email: email
+        };
+
+        Activities.update(activityId, {$push: {'invites': invite}});
+
+        Event.emit('activities.invited', user._id, activityId, email, name);
+
+        return true;
     }
 
 });
