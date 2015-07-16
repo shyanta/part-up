@@ -92,13 +92,13 @@ if (!(typeof MochaWeb === 'undefined')) {
                     ],
                     'profile': {
                         'description': 'nice',
-                        'facebook': '10152855288668542',
+                        'facebook_url': '10152855288668542',
                         'firstname': 'Peter',
                         'gender': 'male',
                         'image': 'dWPwyjC55Cbw4YCZC',
-                        'instagram': null,
+                        'instagram_url': null,
                         'lastname': 'Peerdeman',
-                        'linkedin': null,
+                        'linkedin_url': null,
                         'location': {
                             'city': null,
                             'country': null
@@ -111,7 +111,7 @@ if (!(typeof MochaWeb === 'undefined')) {
                         },
                         'skype': null,
                         'tags': [],
-                        'twitter': null,
+                        'twitter_url': null,
                         'website': ''
                     },
                     'status': {
@@ -133,10 +133,10 @@ if (!(typeof MochaWeb === 'undefined')) {
                     '_id': 'JwSJQRgXAKJav9t3Z',
                     'profile': {
                         'description': null,
-                        'facebook': null,
+                        'facebook_url': null,
                         'image': 'yTEe7Am6zrmYvha8p',
-                        'instagram': null,
-                        'linkedin': null,
+                        'instagram_url': null,
+                        'linkedin_url': null,
                         'location': {
                             'city': null,
                             'country': null
@@ -149,7 +149,7 @@ if (!(typeof MochaWeb === 'undefined')) {
                         },
                         'skype': null,
                         'tags': [],
-                        'twitter': null,
+                        'twitter_url': null,
                         'website': ''
                     },
                     'status': {

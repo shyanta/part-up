@@ -11,10 +11,10 @@
                             <div>
                                 <h3>
                                     {{profile.name}}
-                                    {{#if profile.facebook}}<a href="{{ socialUrl 'facebook' profile.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a>{{/if}}
-                                    {{#if profile.linkedin}}<a href="{{ socialUrl 'linkedin' profile.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>{{/if}}
-                                    {{#if profile.twitter}}<a href="{{ socialUrl 'twitter' profile.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a>{{/if}}
-                                    {{#if profile.instagram}}<a href="{{ socialUrl 'instagram' profile.instagram }}" target="_blank"><i class="fa fa-instagram"></i></a>{{/if}}
+                                    {{#if profile.facebook_url}}<a href="{{ profile.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a>{{/if}}
+                                    {{#if profile.linkedin_url}}<a href="{{ profile.linkedin_url }}" target="_blank"><i class="fa fa-linkedin"></i></a>{{/if}}
+                                    {{#if profile.twitter_url}}<a href="{{ profile.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a>{{/if}}
+                                    {{#if profile.instagram_url}}<a href="{{ profile.instagram_url }}" target="_blank"><i class="fa fa-instagram"></i></a>{{/if}}
                                 </h3>
                                 <p>
                                     {{profile.description}}

@@ -44,28 +44,34 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
         max: 650,
         optional: true
     },
-    facebook: {
-        type: String,
-        max: 255,
-        optional: true,
-        regEx: Partup.services.validators.facebookUsername
-    },
     image: {
         type: String,
         max: 255,
         optional: true
     },
-    instagram: {
+    facebook_url: {
         type: String,
-        max: 255,
+        max: 2000,
         optional: true,
-        regEx: Partup.services.validators.instagramUsername
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: facebookUrl
     },
-    linkedin: {
+    instagram_url: {
         type: String,
-        max: 255,
+        max: 2000,
         optional: true,
-        regEx: Partup.services.validators.linkedinUsername
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: instagramUrl
+    },
+    linkedin_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: linkedinUrl
+    },
+    twitter_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: twitterUrl
     },
     location_input: {
         type: String,
@@ -87,12 +93,6 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
         max: 255,
         optional: true,
         regEx: Partup.services.validators.tagsSeparatedByComma
-    },
-    twitter: {
-        type: String,
-        max: 255,
-        optional: true,
-        regEx: Partup.services.validators.twitterUsername
     },
     website: {
         type: String,
@@ -116,28 +116,34 @@ Partup.schemas.forms.profileSettings = new SimpleSchema({
         max: 650,
         optional: true
     },
-    facebook: {
-        type: String,
-        max: 255,
-        optional: true,
-        regEx: Partup.services.validators.facebookUsername
-    },
     image: {
         type: String,
         max: 255,
         optional: true
     },
-    instagram: {
+    facebook_url: {
         type: String,
-        max: 255,
+        max: 2000,
         optional: true,
-        regEx: Partup.services.validators.instagramUsername
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: facebookUrl
     },
-    linkedin: {
+    instagram_url: {
         type: String,
-        max: 255,
+        max: 2000,
         optional: true,
-        regEx: Partup.services.validators.linkedinUsername
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: instagramUrl
+    },
+    linkedin_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: linkedinUrl
+    },
+    twitter_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: twitterUrl
     },
     location_input: {
         type: String,
@@ -159,12 +165,6 @@ Partup.schemas.forms.profileSettings = new SimpleSchema({
         max: 255,
         optional: true,
         regEx: Partup.services.validators.tagsSeparatedByComma
-    },
-    twitter: {
-        type: String,
-        max: 255,
-        optional: true,
-        regEx: Partup.services.validators.twitterUsername
     },
     website: {
         type: String,

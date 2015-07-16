@@ -98,54 +98,40 @@
                 </a>
             </label>
 
-
             <!-- Facebook -->
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook' }}pu-state-invalid{{/if}}">
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook_url' }}pu-state-invalid{{/if}}">
                 <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                    <label class="pu-input pu-input-preholder">
-                        <span>{{_ 'pages-modal-register-details-form-facebook-url-placeholder' }}</span>
-                        <span>{{> afFieldInput id='pu-sub-facebookfield' name='facebook'  }}</span>
-                    </label>
-
+                    {{> afFieldInput class='pu-input' name='facebook_url' placeholder=placeholders.facebook_url }}
                     <span class="pu-icon"><i class="fa fa-facebook"></i></span>
                 </div>
-                <span class="pu-sub-error">{{ afFieldMessage name='facebook' }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='facebook_url' }}</span>
             </div>
 
             <!-- Twitter -->
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='twitter' }}pu-state-invalid{{/if}}">
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='twitter_url' }}pu-state-invalid{{/if}}">
                 <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                    <label class="pu-input pu-input-preholder">
-                        <span>{{_ 'pages-modal-register-details-form-twitter-url-placeholder' }}</span>
-                        <span>{{> afFieldInput name='twitter' }}</span>
-                    </label>
+                    {{> afFieldInput class='pu-input' name='twitter_url' placeholder=placeholders.twitter_url }}
                     <span class="pu-icon"><i class="fa fa-twitter"></i></span>
                 </div>
-                <span class="pu-sub-error">{{ afFieldMessage name='twitter' }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='twitter_url' }}</span>
             </div>
 
             <!-- Instagram -->
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='instagram' }}pu-state-invalid{{/if}}">
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='instagram_url' }}pu-state-invalid{{/if}}">
                 <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                    <label class="pu-input pu-input-preholder">
-                        <span>{{_ 'pages-modal-register-details-form-instagram-url-placeholder' }}</span>
-                        <span>{{> afFieldInput name='instagram' }}</span>
-                    </label>
+                    {{> afFieldInput class='pu-input' name='instagram_url' placeholder=placeholders.instagram_url }}
                     <span class="pu-icon"><i class="fa fa-instagram"></i></span>
                 </div>
-                <span class="pu-sub-error">{{ afFieldMessage name='instagram' }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='instagram_url' }}</span>
             </div>
 
             <!-- LinkedIn -->
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='linkedin' }}pu-state-invalid{{/if}}">
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='linkedin_url' }}pu-state-invalid{{/if}}">
                 <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
-                    <label class="pu-input pu-input-preholder">
-                        <span>{{_ 'pages-modal-register-details-form-linkedin-url-placeholder' }}</span>
-                        <span>{{> afFieldInput name='linkedin' }}</span>
-                    </label>
+                    {{> afFieldInput class='pu-input' name='linkedin_url' placeholder=placeholders.linkedin_url }}
                     <span class="pu-icon"><i class="fa fa-linkedin"></i></span>
                 </div>
-                <span class="pu-sub-error">{{ afFieldMessage name='linkedin' }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='linkedin_url' }}</span>
             </div>
         </fieldset>
 

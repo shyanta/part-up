@@ -14,17 +14,17 @@ var placeholders = {
     'tags_input': function() {
         return __('pages-modal-register-details-form-tags_input-placeholder');
     },
-    'facebook': function() {
-        return __('pages-modal-register-details-form-facebook-url-placeholder');
+    'facebook_url': function() {
+        return __('pages-modal-register-details-form-facebook_url-placeholder');
     },
-    'twitter': function() {
-        return __('pages-modal-register-details-form-twitter-url-placeholder');
+    'twitter_url': function() {
+        return __('pages-modal-register-details-form-twitter_url-placeholder');
     },
-    'instagram': function() {
-        return __('pages-modal-register-details-form-instagram-url-placeholder');
+    'instagram_url': function() {
+        return __('pages-modal-register-details-form-instagram_url-placeholder');
     },
-    'linkedin': function() {
-        return __('pages-modal-register-details-form-linkedin-url-placeholder');
+    'linkedin_url': function() {
+        return __('pages-modal-register-details-form-linkedin_url-placeholder');
     },
     'website': function() {
         return __('pages-modal-register-details-form-website-placeholder');

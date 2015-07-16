@@ -59,7 +59,6 @@ Accounts.onCreateUser(function(options, user) {
         profile = {
             firstname: liData.firstName,
             lastname: liData.lastName,
-            linkedin_id: liData.id,
             location: location,
             name: liData.firstName + ' ' + liData.lastName,
             settings: {

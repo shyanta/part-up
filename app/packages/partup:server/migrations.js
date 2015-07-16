@@ -98,4 +98,59 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(4);
+Migrations.add({
+    version: 5,
+    name: 'Rename the user.profile.<social> fields to user.profile.<social>_url and prefix their values with i.e. https://facebook.com/. Also delete all linkedin_id fields.',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            if (!user || !user.profile) return;
+
+            if (user.profile.facebook) {
+                user.profile.facebook_url = 'https://facebook.com/' + user.profile.facebook;
+            }
+
+            if (user.profile.instagram) {
+                user.profile.instagram_url = 'https://instagram.com/' + user.profile.instagram;
+            }
+
+            if (user.profile.twitter) {
+                user.profile.twitter_url = 'https://twitter.com/' + user.profile.twitter;
+            }
+
+            if (user.profile.linkedin) {
+                user.profile.linkedin_url = 'https://linkedin.com/in/' + user.profile.linkedin;
+            }
+
+            if (user.profile.linkedin_id) {
+                delete user.profile.linkedin_id;
+            }
+
+            Meteor.users.update({_id: user._id}, {$set: {'profile': user.profile}});
+        });
+    },
+    down: function() {
+        Meteor.users.find().forEach(function(user) {
+            if (!user || !user.profile) return;
+
+            if (user.profile.facebook_url) {
+                delete user.profile.facebook_url;
+            }
+
+            if (user.profile.instagram_url) {
+                delete user.profile.instagram_url;
+            }
+
+            if (user.profile.twitter_url) {
+                delete user.profile.twitter_url;
+            }
+
+            if (user.profile.linkedin_url) {
+                delete user.profile.linkedin_url;
+            }
+
+            Meteor.users.update({_id: user._id}, {$set: {'profile': user.profile}});
+        });
+    }
+});
+
+Migrations.migrateTo(5);

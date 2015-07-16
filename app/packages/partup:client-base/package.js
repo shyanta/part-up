@@ -59,7 +59,6 @@ Package.onUse(function(api) {
         'helpers/footerToggle.js',
         'helpers/async.html',
         'helpers/async.js',
-        'helpers/socialUrl.js',
         'autorun.js',
         'bootstrap.js',
 

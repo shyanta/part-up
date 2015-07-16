@@ -23,15 +23,10 @@
     "pages-modal-register-details-form-socials-label": "Mogen andere uppers je social media profielen zien?",
     "pages-modal-register-details-form-socials-tooltip": "Je hoeft deze links alleen nog aan te vullen met je gebruikersnaam.",
 
-    "pages-modal-register-details-form-facebook-placeholder": "jouwfacebooknaam",
-    "pages-modal-register-details-form-twitter-placeholder": "jouwtwitternaam",
-    "pages-modal-register-details-form-instagram-placeholder": "jouwinstagramnaam",
-    "pages-modal-register-details-form-linkedin-placeholder": "jouwlinkedinnaam",
-
-    "pages-modal-register-details-form-facebook-url-placeholder": "https://www.facebook.com/",
-    "pages-modal-register-details-form-twitter-url-placeholder": "https://twitter.com/",
-    "pages-modal-register-details-form-instagram-url-placeholder": "https://instagram.com/",
-    "pages-modal-register-details-form-linkedin-url-placeholder": "https://www.linkedin.com/",
+    "pages-modal-register-details-form-facebook_url-placeholder": "Je Facebook profiel webadres",
+    "pages-modal-register-details-form-twitter_url-placeholder": "Je Twitter profiel webadres",
+    "pages-modal-register-details-form-instagram_url-placeholder": "Je Instagram profiel webadres",
+    "pages-modal-register-details-form-linkedin_url-placeholder": "Je LinkedIn profiel webadres",
 
     "pages-modal-register-details-form-website-label": "Heb je een eigen website of blog?",
     "pages-modal-register-details-form-website-placeholder": "www.mijn-blog-of-website.nl",
