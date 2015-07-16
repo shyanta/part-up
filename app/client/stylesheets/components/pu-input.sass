@@ -17,6 +17,21 @@
         > input
             font-size: 14px
             padding: 12px
+            overflow: visible
+            text-overflow: inherit
+
+            &::-webkit-input-placeholder
+                overflow: visible
+                text-overflow: inherit
+            &::-moz-placeholder
+                overflow: visible
+                text-overflow: inherit
+            &:-ms-input-placeholder
+                overflow: visible
+                text-overflow: inherit
+            &:-moz-placeholder
+                overflow: visible
+                text-overflow: inherit
 
             &[style]
                 width: auto !important
