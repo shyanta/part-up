@@ -47,5 +47,18 @@ Template.modal_invite_to_partup.events({
                 }
             }
         });
+    },
+    'click [data-invite-id]': function(event, template) {
+        var activityId = template.data.activityId;
+        var userId = event.target.dataset.inviteId;
+
+        Meteor.call('activities.invite_existing_upper', activityId, userId, function(err) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.success(__('pages-modal-invite_to_partup-invite-success'));
+        })
     }
 });
