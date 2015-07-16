@@ -40,6 +40,10 @@ Template.DropdownProfile.events({
         console.log('select')
         var networkId = $(event.target).data('select-network') || undefined;
         template.currentNetwork.set(networkId);
+    },
+    'click [data-settings]': function openSettings (event, template) {
+        event.preventDefault();
+        Intent.go({route: 'profile-settings', params:{_id: Meteor.userId()}});
     }
 });
 
