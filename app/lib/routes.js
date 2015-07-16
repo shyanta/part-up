@@ -147,18 +147,6 @@ Router.route('/profile/:_id/settings/email', {
 /*************************************************************/
 /* Networks */
 /*************************************************************/
-// Router.route('/tribes', {
-//     name: 'networks-overview',
-//     where: 'client',
-//     yieldRegions: {
-//         'app':      {to: 'main'},
-//         'app_networks_overview': {to: 'app'}
-//     },
-//     subscriptions: function() {
-//         this.subscribe('networks.all');
-//     }
-// });
-
 Router.route('/tribes/create', {
     name: 'create-network',
     where: 'client',
