@@ -1,7 +1,8 @@
 <template name="app_notfound">
-    <article class="pu-layout pu-layout-tinted">
-        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
-            <div class="pu-page pu-page-full">
+
+    <article class="pu-page pu-page-tinted pu-page-error">
+        <div class="pu-sub-pagecontent">
+            <section class="pu-wrap pu-wrap-error">
                 <section class="pu-composition">
                     {{#if partupEquals type 'partup'}}
                         <div class="pu-errorpage pu-errorpage-partup-closed">
@@ -32,7 +33,8 @@
                         </div>
                     {{/unless}}
                 </section>
-            </div>
+            </section>
         </div>
     </article>
+
 </template>
