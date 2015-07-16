@@ -14,7 +14,8 @@ var publicUserFields = {
     'supporterOf': 1,
     'average_rating': 1,
     'networks': 1,
-    'completeness': 1
+    'completeness': 1,
+    'participation_score': 1
 };
 
 //user fields exposed to logged in user
