@@ -28,3 +28,19 @@ Template.modal_network_invite.helpers({
         return suggestions;
     }
 });
+
+Template.modal_network_invite.events({
+    'click [data-invite-id]': function(event, template) {
+        var networkId = template.data.networkId;
+        var userId = event.target.dataset.inviteId;
+
+        Meteor.call('networks.invite', networkId, userId, function(err) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.success(__('pages-modal-network_invite-invite-success'));
+        });
+    }
+});
