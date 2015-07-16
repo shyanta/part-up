@@ -7,29 +7,23 @@
         </a>
     </nav>
 
-    <article class="pu-layout">
-        <nav class="pu-sub-sidebarcontainer">
-            <ul class="pu-modalsidebar">
-                <li class="{{# if isActiveRoute name='profile-settings' }}pu-state-active{{/ if }}">
-                    <a href="{{ pathFor 'profile-settings' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-account'}}</a>
-                </li>
-                <li class="{{# if isActiveRoute name='profile-settings-details' }}pu-state-active{{/ if }}">
-                    <a href="{{ pathFor 'profile-settings-details' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-details'}}</a>
-                </li>
-                <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
-                    <a href="{{ pathFor 'profile-settings-email' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-email'}}</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
-            <section class="pu-page pu-page-modal">
-                <div class="pu-composition pu-composition-defaultmodal pu-composition-register">
+    <article class="pu-page">
+        <div class="pu-sub-pagecontent">
+            <div class="pu-wrap pu-wrap-modal">
+                <ul class="pu-modalsidebar">
+                    <li class="{{# if isActiveRoute name='profile-settings' }}pu-state-active{{/ if }}">
+                        <a href="{{ pathFor 'profile-settings' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-account'}}</a>
+                    </li>
+                    <li class="{{# if isActiveRoute name='profile-settings-details' }}pu-state-active{{/ if }}">
+                        <a href="{{ pathFor 'profile-settings-details' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-details'}}</a>
+                    </li>
+                    <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
+                        <a href="{{ pathFor 'profile-settings-email' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-email'}}</a>
+                    </li>
+                </ul>
 
-                    {{> yield region='modal_profile_settings' }}
-
-                </div>
-            </section>
-
+                {{> yield region='modal_profile_settings' }}
+            </div>
         </div>
     </article>
 

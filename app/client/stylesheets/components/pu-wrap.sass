@@ -4,7 +4,13 @@
     padding-right: $spacing-app-pagepadding
 
     &-modal
+        position: relative
         max-width: grid(6) + $spacing-app-pagepadding * 2
+
+        .pu-modalsidebar
+            position: absolute
+            right: 100%
+            top: 5px
 
     &-columnlayout
         max-width: grid(10) + $spacing-app-pagepadding * 2
