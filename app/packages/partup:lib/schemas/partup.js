@@ -1,3 +1,7 @@
+var tagsConfiguration = {
+    tagClass: 'pu-tag',
+    maxTags: 5
+};
 /**
  * Base Partup schema
  * @name partupBaseSchema
@@ -148,7 +152,11 @@ Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
     tags_input: {
         type: String,
         max: 255,
-        regEx: Partup.services.validators.tagsSeparatedByComma
+        regEx: Partup.services.validators.tagsSeparatedByComma,
+        autoform: {
+            type: 'tags',
+            afFieldInput: tagsConfiguration
+        }
     }
 }]);
 

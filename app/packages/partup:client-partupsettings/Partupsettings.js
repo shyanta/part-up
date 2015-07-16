@@ -282,7 +282,7 @@ Template.Partupsettings.events({
         var tags = Partup.client.strings.tagsStringToArray(tags_input);
         template.imageSystem.unsetUploadedPicture(tags);
     },
-    'blur [name=tags_input]': function searchFlickerByTags(event, template) {
+    'change .autoform-tags-field [data-schema-key]': function searchFlickerByTags(event, template) {
         var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
         template.imageSystem.getSuggestions(tags);
     },
