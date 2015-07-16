@@ -132,6 +132,10 @@ Meteor.publishComposite('users.loggedin', function() {
                                 images.push(notification.type_data.supporter.image);
                             }
 
+                            if (notification.type === 'partup_activities_invited') {
+                                images.push(notification.type_data.inviter.image);
+                            }
+
                             return Images.find({_id: {$in: images}});
                         }
                     }
