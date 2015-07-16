@@ -278,5 +278,26 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'Error while autocompleting network string: ' + searchString);
         }
+    },
+
+    /**
+     * Get user suggestions for a given network
+     *
+     * @param {String} activityId
+     *
+     * @return {[String]}
+     */
+    'networks.user_suggestions': function(activityId) {
+        var upper = Meteor.user();
+
+        if (!upper) {
+            throw new Meteor.Error(401, 'Unauthorized');
+        }
+
+        var users = Meteor.users.find().fetch();
+
+        return users.map(function(user) {
+            return user._id;
+        });
     }
 });
