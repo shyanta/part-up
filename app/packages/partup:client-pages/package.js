@@ -134,6 +134,8 @@ Package.onUse(function(api) {
         'modal/invite_to_partup/invite_to_partup.js',
 
         // Modal:network
+        'modal/network/network-invite.html',
+        'modal/network/network-invite.js',
         'modal/network/create_network/create_network.html',
         'modal/network/create_network/create_network.js',
 
@@ -220,6 +222,8 @@ Package.onUse(function(api) {
         'i18n/modal-network_settings.nl.i18n.json',
         'i18n/modal-profile_settings.en.i18n.json',
         'i18n/modal-profile_settings.nl.i18n.json',
+        'i18n/modal-network_invite.en.i18n.json',
+        'i18n/modal-network_invite.nl.i18n.json'
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');
