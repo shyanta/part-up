@@ -13,6 +13,7 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'aldeed:autoform',
+        'yogiben:autoform-tags',
         'reactive-var',
         'reactive-dict'
     ], 'client');
