@@ -92,6 +92,7 @@ Package.onUse(function(api) {
         'methods/tags/tags_methods.js',
         'methods/notifications/notifications_methods.js',
         'cron/reset_clicks_per_hour.js',
+        'cron/calculate_partup_participation_score_for_users.js',
         'package-tap.i18n',
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
