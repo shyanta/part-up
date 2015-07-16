@@ -1,34 +1,36 @@
 <template name="NetworkSettingsRequests">
-    <h2>Network requests</h2>
+    <div class="pu-composition pu-composition-defaultmodal">
+        <h2 class="pu-title pu-title-modal">Network requests</h2>
 
-    <table class="pu-network-requests">
-        <thead>
-            <tr>
-                <th>{{_ 'network-settings-requests-upper_name' }}</th>
-                <th>{{_ 'network-settings-requests-invited_by' }}</th>
-                <th>{{_ 'network-settings-requests-access' }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{# each requests }}
+        <table class="pu-network-requests">
+            <thead>
                 <tr>
-                    <td>
-                        <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=user.profile.image }}');"></figure>
-                        <span class="pu-sub-name">{{ user.profile.name }}</span>
-                    </td>
-                    <td class="pu-sub-inviter">
-
-                    </td>
-                    <td>
-                        <button type="button" class="pu-button pu-button-confirm" data-request-accept data-user-id="{{ user._id }}">
-                            <i class="fa fa-check"></i>
-                        </button>
-                        <button type="button" class="pu-button pu-button-deny" data-request-reject data-user-id="{{ user._id }}">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
+                    <th>{{_ 'network-settings-requests-upper_name' }}</th>
+                    <th>{{_ 'network-settings-requests-invited_by' }}</th>
+                    <th>{{_ 'network-settings-requests-access' }}</th>
                 </tr>
-            {{/ each }}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {{# each requests }}
+                    <tr>
+                        <td>
+                            <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=user.profile.image }}');"></figure>
+                            <span class="pu-sub-name">{{ user.profile.name }}</span>
+                        </td>
+                        <td class="pu-sub-inviter">
+
+                        </td>
+                        <td>
+                            <button type="button" class="pu-button pu-button-confirm" data-request-accept data-user-id="{{ user._id }}">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <button type="button" class="pu-button pu-button-deny" data-request-reject data-user-id="{{ user._id }}">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                {{/ each }}
+            </tbody>
+        </table>
+    </div>
 </template>

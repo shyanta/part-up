@@ -7,8 +7,9 @@
         </a>
     </nav>
 
-    <article class="pu-layout">
-        <nav class="pu-sub-sidebarcontainer">
+    <article class="pu-page">
+        <div class="pu-sub-pagecontent">
+            <div class="pu-wrap pu-wrap-modal">
             <ul class="pu-modalsidebar">
                 <li class="{{# if isActiveRoute name='network-settings' }}pu-state-active{{/ if }}">
                     <a href="{{ pathFor 'network-settings' _id=networkId }}">{{_ 'pages-modal-network_settings-network_info' }}</a>
@@ -20,12 +21,9 @@
                     <a href="{{ pathFor 'network-settings-requests' _id=networkId }}">{{_ 'pages-modal-network_settings-requests' }}</a>
                 </li>
             </ul>
-        </nav>
-        <div class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
-            <section class="pu-page pu-page-modal">
-                {{> yield region='modal_network_settings' }}
-            </section>
 
+                {{> yield region='modal_network_settings' }}
+            </div>
         </div>
     </article>
 
