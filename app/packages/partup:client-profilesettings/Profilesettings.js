@@ -108,7 +108,11 @@ Template.Profilesettings.helpers({
     fieldsFromUser: function() {
         var user = Meteor.user();
         if (user) {
-            return Partup.transformers.profile.toFormRegisterOptional(user);
+            if (this.REGISTER) {
+                return Partup.transformers.profile.toFormRegisterOptional(user);
+            } else {
+                return Partup.transformers.profile.toFormProfileSettings(user);
+            }
         }
         return undefined;
     },

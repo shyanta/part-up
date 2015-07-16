@@ -16,6 +16,7 @@ AutoForm.hooks({
                     self.done(new Error(error.message));
                     return;
                 }
+
                 Partup.client.notify.info('saved');
                 self.done();
             });

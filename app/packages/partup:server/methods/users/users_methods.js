@@ -24,7 +24,7 @@ Meteor.methods({
 
             return {
                 _id: upper._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be updated.');
@@ -46,7 +46,7 @@ Meteor.methods({
         }
 
         try {
-            var profileFields = Partup.transformers.profile.fromFormRegisterOptional(fields);
+            var profileFields = Partup.transformers.profile.fromFormProfileSettings(fields);
 
             var newProfile = _.extend(upper.profile, profileFields);
 
@@ -55,7 +55,7 @@ Meteor.methods({
 
             return {
                 _id: upper._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be updated.');
