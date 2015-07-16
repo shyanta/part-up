@@ -1,0 +1,33 @@
+{
+    "modal-profilesettings-close-button": "Close",
+    "modal-profilesettings-tab-account": "General",
+    "modal-profilesettings-tab-details": "Profile",
+    "modal-profilesettings-tab-email": "E-mail",
+
+    "modal-profilesettings-details-title": "Profile settings",
+    "modal-profilesettings-details-text-explaination": "Profile explaination ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+
+    "modal-profilesettings-email-title": "E-mail settings",
+    "modal-profilesettings-email-text-explaination": "Email explaination ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+
+    "modal-profilesettings-account-title": "General settings",
+    "modal-profilesettings-account-text-explaination": "General explaination ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+
+    "modal-profilesettings-account-currentpassword": "@Current password",
+    "modal-profilesettings-account-password": "@New password",
+    "modal-profilesettings-account-confirmpassword": "@Repeat new password",
+
+    "modal-profilesettings-account-label-socialmedia": "@Connect social media",
+    "modal-profilesettings-account-hint-socialmedia": "@Here you can connect your account with social media",
+    "modal-profilesettings-account-button-linkedin": "LinkedIn",
+    "modal-profilesettings-account-button-facebook": "Facebook",
+    "modal-profilesettings-account-button-twitter": "Twitter",
+
+    "modal-profilesettings-account-label-language": "@In what language should Partup be displayed?",
+    "modal-profilesettings-account-hint-language": "@Choose the language for Part-up",
+
+    "modal-profilesettings-account-option-language-dutch": "@Dutch",
+    "modal-profilesettings-account-option-language-english": "@English",
+
+    "modal-profilesettings-button-save": "@Save changes"
+}

@@ -6,7 +6,7 @@
  */
 // jscs:disable
 Partup.client.language = {
-
+    current: new ReactiveVar(),
     /**
      * Set the language of partup
      *
@@ -14,11 +14,12 @@ Partup.client.language = {
      * @param {String} language
      */
     change: function(language) {
+        var self = this;
         TAPi18n.setLanguage(language).done(function() {
 
             // Change MomentJS language
             moment.locale(language);
-
+            self.current.set(language);
             // Change datepicker language
             $.fn.datepicker.dates[language] = {
                 days: moment.weekdays(),

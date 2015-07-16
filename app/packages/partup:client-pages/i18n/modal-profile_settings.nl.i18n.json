@@ -1,0 +1,33 @@
+{
+    "modal-profilesettings-close-button": "Sluiten",
+    "modal-profilesettings-tab-account": "Algemeen",
+    "modal-profilesettings-tab-details": "Profiel",
+    "modal-profilesettings-tab-email": "E-mail",
+
+    "modal-profilesettings-details-title": "Profiel instellingen",
+    "modal-profilesettings-details-text-explaination": "Profiel uitleg ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+
+    "modal-profilesettings-email-title": "E-mail instellingen",
+    "modal-profilesettings-email-text-explaination": "Email uitleg ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+
+    "modal-profilesettings-account-title": "Algemene instellingen",
+    "modal-profilesettings-account-text-explaination": "Algemeen uitleg ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+
+    "modal-profilesettings-account-currentpassword": "@Huidig wachtwoord",
+    "modal-profilesettings-account-password": "@Nieuw wachtwoord",
+    "modal-profilesettings-account-confirmpassword": "@Herhaal nieuw wachtwoord",
+
+    "modal-profilesettings-account-label-socialmedia": "@Koppel social media",
+    "modal-profilesettings-account-hint-socialmedia": "@Hier kan je je social media accounts ontkoppelen en koppelen",
+    "modal-profilesettings-account-button-linkedin": "LinkedIn",
+    "modal-profilesettings-account-button-facebook": "Facebook",
+    "modal-profilesettings-account-button-twitter": "Twitter",
+
+    "modal-profilesettings-account-label-language": "@In welke taal moet Part-up worden weergegeven?",
+    "modal-profilesettings-account-hint-language": "@Kies de taal van Part-up",
+
+    "modal-profilesettings-account-option-language-dutch": "@Nederlands",
+    "modal-profilesettings-account-option-language-english": "@Engels",
+
+    "modal-profilesettings-button-save": "@Wijzigingen opslaan"
+}

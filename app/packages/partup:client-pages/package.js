@@ -217,6 +217,8 @@ Package.onUse(function(api) {
         'i18n/modal-create-promote.nl.i18n.json',
         'i18n/modal-network_settings.en.i18n.json',
         'i18n/modal-network_settings.nl.i18n.json',
+        'i18n/modal-profile_settings.en.i18n.json',
+        'i18n/modal-profile_settings.nl.i18n.json',
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');
