@@ -26,6 +26,10 @@ Partup.client.strings = {
         return tagsArray = tagString.replace(/\s/g, '').split(',').map(function(tag) {
             return mout.string.slugify(tag);
         });
+    },
+
+    newlineToBreak: function(string) {
+        return string.replace(/(?:\r\n|\r|\n)/g, '<br />');
     }
 
 };
