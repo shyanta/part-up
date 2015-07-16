@@ -45,8 +45,6 @@ Package.onUse(function(api) {
         'app/discover/partials/discover-page.js',
 
         // App:network
-        'app/network/networks-overview.html',
-        'app/network/networks-overview.js',
         'app/network/network.html',
         'app/network/network.js',
 
