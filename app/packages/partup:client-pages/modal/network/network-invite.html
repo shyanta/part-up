@@ -11,6 +11,23 @@
             <section class="pu-page pu-page-modal">
                 <h1>{{_ "pages-modal-network_invite-title" }}</h1>
                 <p>{{_ "pages-modal-network_invite-description" }}</p>
+
+                <ul class="pu-invite-suggestions">
+                    {{# each suggestions }}
+                        <li>
+                            <figure class="pu-avatar" style="background-image: url({{ partupImageUrl id=profile.image store='80x80' }});"></figure>
+                            <p class="pu-sub-identity">
+                                <span class="pu-sub-name">{{ profile.name }}</span>
+                                {{# if profile.location.city }}
+                                    <span class="pu-sub-location">{{ profile.location.city }}</span>
+                                {{/ if }}
+                            </p>
+                            <p class="pu-sub-right">
+                                <button type="button" class="pu-button" data-invite-id="{{ _id }}">invite</button>
+                            </p>
+                        </li>
+                    {{/ each }}
+                </ul>
             </section>
         </div>
     </article>
