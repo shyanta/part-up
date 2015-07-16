@@ -283,6 +283,39 @@ Meteor.methods({
         Event.emit('activities.invited', user._id, activityId, email, name);
 
         return true;
+    },
+
+    /**
+     * Invite an existing upper to an activity
+     *
+     * @param {String} activityId
+     * @param {String} upperId
+     */
+    'activities.invite_existing_upper': function(activityId, upperId) {
+        var user = Meteor.user();
+
+        if (!user) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
+
+        var activity = Activities.findOneOrFail(activityId);
+        var upper = Meteor.users.findOneOrFail(upperId);
+
+        // TODO: Check if the user has already been invited to this activity
+
+        var notificationOptions = {
+            userId: upper._id,
+            type: 'partup_activities_invited',
+            typeData: {
+                inviter: {
+                    id: user._id,
+                    name: user.profile.name,
+                    image: user.profile.image
+                }
+            }
+        };
+
+        Partup.server.services.notifications.send(notificationOptions);
     }
 
 });
