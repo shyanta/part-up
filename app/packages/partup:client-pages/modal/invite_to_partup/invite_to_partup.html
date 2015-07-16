@@ -6,16 +6,16 @@
         </a>
     </nav>
 
-    <article class="pu-layout">
-        <section class="pu-sub-pagecontainer pu-sub-pagecontainer-modal">
-            <article class="pu-page pu-page-modal">
+    <article class="pu-page">
+        <div class="pu-sub-pagecontent">
+            <div class="pu-wrap pu-wrap-modal">
                 <div class="pu-composition pu-composition-defaultmodal">
                     <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-invite_to_partup-title'}}</h2>
                     <p>{{_ 'pages-modal-invite_to_partup-explanation'}}</p>
                     <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.invite-to-partup">{{_ 'pages-modal-invite_to_partup-button_invite' }}</a>
                 </div>
-            </article>
-        </section>
+            </div>
+        </div>
     </article>
 
     {{#if partupIsPopupActive 'popup.invite-to-partup' }}
