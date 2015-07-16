@@ -301,7 +301,10 @@ Meteor.methods({
         var activity = Activities.findOneOrFail(activityId);
         var upper = Meteor.users.findOneOrFail(upperId);
 
-        // TODO: Check if the user has already been invited to this activity
+        var invites = activity.invites || [];
+        if (invites.indexOf(upperId) > -1) {
+            throw new Meteor.Error(403, 'User is already invited to the given activity.');
+        }
 
         var notificationOptions = {
             userId: upper._id,
@@ -316,6 +319,10 @@ Meteor.methods({
         };
 
         Partup.server.services.notifications.send(notificationOptions);
+
+        Activities.update(activityId, {$push: {invites: upperId}});
+
+        Event.emit('partups.activities.invited_existing_user', user._id, activityId, upperId);
     }
 
 });
