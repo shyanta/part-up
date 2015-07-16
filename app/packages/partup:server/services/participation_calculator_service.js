@@ -40,13 +40,11 @@ Partup.server.services.participation_calculator = {
         var activeContributionsScore = 0;
         var scoreDelta = 4;
 
-        var partupIds = Contributions.find({upper_id: upper._id, verified:true}).map(function(contribution) {
-            return contribution.partup_id;
-        });
+        var contributions = Contributions.find({upper_id: upper._id, verified:true});
 
-        var partups = Partups.find({_id: {'$in': partupIds}});
+        contributions.forEach(function(contribution) {
+            var partup = Partups.findOne(contribution.partup_id);
 
-        partups.forEach(function(partup) {
             if (! partup.hasEnded()) {
                 activeContributionsScore += scoreDelta;
             }
