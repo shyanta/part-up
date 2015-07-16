@@ -9,23 +9,22 @@ Meteor.methods({
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'Unauthorized.');
 
-        check(fields, Partup.schemas.forms.networkCreate);
+        // TODO: Either remove this method or implement proper authentication
 
         try {
-            var newNetwork = Partup.transformers.network.fromFormNetwork(fields);
-            newNetwork._id = Random.id();
-            newNetwork.uppers = [user._id];
-            newNetwork.admin_id = user._id;
-            newNetwork.created_at = new Date();
-            newNetwork.updated_at = new Date();
+            var network = {};
+            network.name = fields.name;
+            network.slug = Partup.server.services.slugify.slugify(fields.name);
+            network.uppers = [user._id];
+            network.admin_id = user._id;
+            network.created_at = new Date();
+            network.updated_at = new Date();
 
-            check(newNetwork, Partup.schemas.entities.network);
-
-            Networks.insert(newNetwork);
-            Meteor.users.update(user._id, {$push: {networks: newNetwork._id}});
+            network._id = Networks.insert(network);
+            Meteor.users.update(user._id, {$push: {networks: network._id}});
 
             return {
-                _id: newNetwork._id
+                _id: network._id
             };
         } catch (error) {
             Log.error(error);
