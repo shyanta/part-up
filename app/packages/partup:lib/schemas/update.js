@@ -70,6 +70,10 @@ Partup.schemas.entities.updateComment = new SimpleSchema([updateCommentBaseSchem
     'creator.name': {
         type: String
     },
+    'creator.image': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     created_at: {
         type: Date,
         defaultValue: new Date()

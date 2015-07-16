@@ -21,7 +21,8 @@ Meteor.methods({
             type: fields.type,
             creator: {
                 _id: upper._id,
-                name: upper.profile.name
+                name: upper.profile.name,
+                image: upper.profile.image
             },
             created_at: new Date(),
             updated_at: new Date()
