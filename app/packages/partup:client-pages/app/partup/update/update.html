@@ -1,33 +1,31 @@
 <template name="app_partup_update">
-    <div class="pu-page">
-        <div class="pu-composition pu-composition-partupdetailupdateitem">
+    <div class="pu-composition pu-composition-partupdetailupdateitem">
 
-            <!-- Header buttons -->
-            <header class="pu-pageheader">
-                <section>
-                    <a class="pu-button" href="#" data-back>
-                        {{_ 'pages-app-partup-update-back_to_overview' }}
-                    </a>
+        <!-- Header buttons -->
+        <header class="pu-pageheader">
+            <section>
+                <a class="pu-button" href="#" data-back>
+                    {{_ 'pages-app-partup-update-back_to_overview' }}
+                </a>
+            </section>
+        </header>
+
+        <!-- Timeline -->
+        <div class="pu-sub-timeline {{# if isAnotherDay metaDataForUpdate.updated_at }}pu-sub-makespaceforthedayheader{{/ if }}">
+
+            <!-- Day header -->
+            {{# if isAnotherDay metaDataForUpdate.updated_at }}
+                <section class="pu-sub-dayheader">
+                    {{ partupDatePartupTimeline metaDataForUpdate.updated_at }}
+                    <i class="fa fa-long-arrow-down"></i>
                 </section>
-            </header>
-
-            <!-- Timeline -->
-            <div class="pu-sub-timeline {{# if isAnotherDay metaDataForUpdate.updated_at }}pu-sub-makespaceforthedayheader{{/ if }}">
-
-                <!-- Day header -->
-                {{# if isAnotherDay metaDataForUpdate.updated_at }}
-                    <section class="pu-sub-dayheader">
-                        {{ partupDatePartupTimeline metaDataForUpdate.updated_at }}
-                        <i class="fa fa-long-arrow-down"></i>
-                    </section>
-                {{/ if }}
-
-            </div>
-
-            <!-- The update itself -->
-            {{> Update LINK=false updateId=updateId metadata=metaDataForUpdate FORCE_COMMENTFORM=true IS_DETAIL=true }}
-
+            {{/ if }}
 
         </div>
+
+        <!-- The update itself -->
+        {{> Update LINK=false updateId=updateId metadata=metaDataForUpdate FORCE_COMMENTFORM=true IS_DETAIL=true }}
+
+
     </div>
 </template>
