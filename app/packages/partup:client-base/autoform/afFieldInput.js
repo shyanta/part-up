@@ -13,3 +13,10 @@ Template.afFieldInput.onRendered(function() {
         });
     }
 });
+
+Meteor.startup(function() {
+    Template.autoformTags.onRendered(function() {
+        var input = this.findAll('input')[1];
+        $(input).css('width', '');
+    });
+});

@@ -16,6 +16,7 @@ Package.onUse(function(api) {
         'reactive-dict',
         'reactive-var',
         'aldeed:autoform',
+        'yogiben:autoform-tags',
         'http'
     ], 'client');
 
