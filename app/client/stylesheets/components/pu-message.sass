@@ -1,9 +1,5 @@
 .pu-message
-    // position: relative
     .pu-textarea
-        border-bottom-left-radius: 0px
-        border-bottom-right-radius: 0px
-        // border-bottom: 0
         border-color: darken($color-border-light, 5%)
 
         &:hover,
@@ -22,7 +18,7 @@
         list-style: none
         padding: 12px 12px 0 12px
 
-        &:after 
+        &:after
             content: ''
             width: calc(100% + 4px)
             height: 2px
@@ -47,5 +43,10 @@
         &:active
             border-color: darken($color-border, 5%)
 
-            &:after 
+            &:after
                 opacity: 1
+
+    &-haspictures
+        .pu-textarea
+            border-bottom-left-radius: 0
+            border-bottom-right-radius: 0

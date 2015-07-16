@@ -3,7 +3,7 @@
         <label class="pu-formfield">
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
-                    <div class="pu-message">
+                    <div class="pu-message {{#if uploadedPhotos.length}}pu-message-haspictures{{/ if}}">
                         {{> afFieldInput name="text" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
                         {{#if uploadedPhotos.length}}
                             <ul class="pu-sub-photos">
