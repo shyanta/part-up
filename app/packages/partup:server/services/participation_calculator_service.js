@@ -11,7 +11,7 @@ Partup.server.services.participation_calculator = {
         var score = 0;
         var upper = Meteor.users.findOneOrFail(upperId);
 
-        var score1 = this._calculateLoginScore(upper)
+        var score1 = this._calculateLoginScore(upper);
         var score1weight = 0.25;
         d('Login score for user [' + upperId + '] is ' + score1 + '/100 and counts for 25% → ' + (score1 * score1weight) + '/100');
         score += score1 * score1weight;
@@ -26,13 +26,33 @@ Partup.server.services.participation_calculator = {
         d('Average contribution rating score for user [' + upperId + '] is ' + score3 + '/100 and counts for 25% → ' + (score3 * score3weight) + '/100');
         score += score3 * score3weight;
 
+        var score4 = this._calculateActiveContributionsScore(upper);
+        var score4weight = 0.25;
+        d('Active contributions score for user [' + upperId + '] is ' + score4 + '/100 and counts for 25% → ' + (score4 * score4weight) + '/100');
+        score += score4 * score4weight;
+
         d('Total participation score for user [' + upperId + '] is ' + score + '/100');
 
         return score;
     },
 
     _calculateActiveContributionsScore: function(upper) {
-        // Amount of contributions that a user has done on partups that have not yet exceeded their end date (1% per contribution, max of 25%).
+        var activeContributionsScore = 0;
+        var scoreDelta = 4;
+
+        var partupIds = Contributions.find({upper_id: upper._id, verified:true}).map(function(contribution) {
+            return contribution.partup_id;
+        });
+
+        var partups = Partups.find({_id: {'$in': partupIds}});
+
+        partups.forEach(function(partup) {
+            if (! partup.hasEnded()) {
+                activeContributionsScore += scoreDelta;
+            }
+        });
+
+        return activeContributionsScore;
     },
 
     _calculateAverageContributionRatingScore: function(upper) {
