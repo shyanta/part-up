@@ -46,6 +46,6 @@ Template.app_profile.events({
         }
 
         $(event.target.parentElement).toggleClass('pu-state-open');
-        $(event.target).parents('.pu-sub-pageheader').toggleClass('pu-state-profiledescriptionexpanded');
+        $(event.target).parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
     }
 });

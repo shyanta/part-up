@@ -1,6 +1,6 @@
 <template name="app_network_partups">
-    <header>
-        <h2 class="pu-title pu-title-home">
+    <header class="pu-sub-header">
+        <h2 class="pu-title">
             <span class="pu-sub-countlabel">
                 {{#unless partupsLoading }}
                     {{#if count}}
@@ -12,8 +12,11 @@
                     {{_ 'pages-app-network-loading' }}
                 {{/unless}}
             </span>
+
+            {{_ 'pages-app-networks-heading' }}
         </h2>
     </header>
+
     <div data-infinitescroll-container>
         {{> ColumnsLayout
             COLUMNS=4

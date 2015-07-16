@@ -2,6 +2,8 @@
     "pages-app-network-collapse": "show less",
     "pages-app-network-expand": "read more",
 
+    "pages-app-networks-heading": "in this network",
+
     "pages-app-network-loading": "loading...",
     "pages-app-network-nouppers": "No uppers found",
     "pages-app-network-xuppers": "1 upper",
@@ -10,7 +12,7 @@
 
     "pages-app-network-xpartups": "1 part-up",
     "pages-app-network-xpartups_plural": "__count__ part-ups",
-    "pages-app-network-nopartups": "no part-ups found",
+    "pages-app-network-nopartups": "No part-ups found",
 
     "pages-app-network-closed-title": "This is a private tribe",
     "pages-app-network-closed-description": "The uppers in this tribe decided to keeps this Tribe and its content of part-ups and uppers private. Sign up to let the community manager know you want to be part of __network__. He or she will get back to you soon."
