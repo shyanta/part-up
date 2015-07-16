@@ -78,6 +78,18 @@ Partup.prototype.hasUpper = function(userId) {
 };
 
 /**
+ * Check if a partup has ended
+ *
+ * @return {Boolean}
+ */
+Partup.prototype.hasEnded = function() {
+    var now = new Date;
+    var endDate = this.endDate;
+
+    return now < endDate;
+};
+
+/**
  Partups describe collaborations between several uppers
  @namespace Partups
  */
