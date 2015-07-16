@@ -21,14 +21,6 @@ Partup.client.strings = {
             .replace(/-+$/, '');            // Trim - from end of text
     },
 
-    firstName: function(fullName) {
-        if (fullName && fullName.match(/.*\s.*/)) {
-            return fullName.split(' ')[0];
-        } else {
-            return fullName;
-        }
-    },
-
     tagsStringToArray: function(tagString) {
         if (!tagString) return [];
         return tagsArray = tagString.replace(/\s/g, '').split(',').map(function(tag) {

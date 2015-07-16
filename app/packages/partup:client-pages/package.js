@@ -191,6 +191,8 @@ Package.onUse(function(api) {
         'i18n/app-partup-update.nl.i18n.json',
         'i18n/app-partup-activities.en.i18n.json',
         'i18n/app-partup-activities.nl.i18n.json',
+        'i18n/app-profile.en.i18n.json',
+        'i18n/app-profile.nl.i18n.json',
         'i18n/modal-login.en.i18n.json',
         'i18n/modal-login.nl.i18n.json',
         'i18n/modal-register-signup.en.i18n.json',

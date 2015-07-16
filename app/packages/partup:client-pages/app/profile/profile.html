@@ -1,10 +1,11 @@
 <template name="app_profile">
-    <article class="pu-layout pu-app-network">
+
+    <article class="pu-page pu-page-tinted pu-page-profile">
         {{#if subscriptionsReady}}
-            <header class="pu-layered-header">
+            <header class="pu-sub-pageheader pu-sub-pageheader-layered {{# if shrinkHeader }}pu-sub-pageheader-layered-shrinked{{/ if }}">
                 <!-- profile -->
                 <section class="pu-profile">
-                    <div class="pu-wrap">
+                    <div class="pu-wrap pu-wrap-columnlayout">
                         <div class="pu-info {{#unless profile.tags}} pu-info-minimal{{/unless}}">
                             <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
                             <div>
@@ -49,7 +50,7 @@
                     </div>
                 </section>
                 <section>
-                    <div class="pu-wrap">
+                    <div class="pu-wrap pu-wrap-columnlayout">
                         <!-- tabs -->
                         <nav class="pu-navigation pu-navigation-header pu-navigation-full">
                             <ul class="pu-list pu-list-horizontal">
@@ -57,14 +58,14 @@
                                     <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}} {{ isActiveRoute name='profile' class='pu-state-active'}}">
                                         <i class="fa fa-globe"></i>
-                                        Upper Part-ups
+                                        {{_ 'pages-app-profile-upper-partups-nav' }}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
                                         <i class="fa fa-line-chart"></i>
-                                        Supporter Part-ups
+                                        {{_ 'pages-app-profile-supporter-partups-nav' }}
                                     </a>
                                 </li>
                             </ul>
@@ -72,17 +73,15 @@
                     </div>
                 </section>
             </header>
-            <div class="pu-sub-pagecontainer pu-sub-pagecontainer-full">
-                <div class="pu-page pu-page-full">
+            <div class="pu-sub-pagecontent">
+                <div class="pu-wrap pu-wrap-columnlayout">
                     <section class="pu-composition pu-composition-network">
                         {{> yield region='app_profile'}}
                     </section>
                 </div>
             </div>
         {{else}}
-            <div class="pu-sub-pagecontainer">
-                {{> Spinner }}
-            </div>
+            {{> Spinner }}
         {{/if}}
     </article>
 

@@ -19,6 +19,24 @@
             min-height: 128px
             padding-top: 40px
 
+        &-layered
+            border-bottom: 0
+
+            > section
+                border-bottom: 2px solid $color-border-light
+                max-height: 200px
+
+                .pu-navigation
+                    margin-bottom: -2px
+
+                &:first-child
+                    overflow: hidden
+                    transition: padding .2s, max-height .2s, border .2s
+
+            &.pu-state-profiledescriptionexpanded
+                > section
+                    max-height: 500px
+
     .pu-sub-pagecontent
         padding: 50px 0
 
@@ -28,12 +46,6 @@
 
     &-tinted
         background: $color-background-tertiery
-
-    &-home
-        //
-
-    &-discover
-        //
 
     &-partup
         .pu-sub-partupdetail-content
@@ -59,11 +71,22 @@
                     min-height: 98px
                     padding-top: 25px
 
+            &-layered
+                &-shrinked
+                    > section:first-child
+                        max-height: 0
+                        padding-top: 0
+                        padding-bottom: 0
+                        border-width: 0
+
         &-discover
             padding-top: 128px
 
         &-home
             padding-top: 128px
+
+        &-profile
+            padding-top: 258px
 
     &-progresspager
         .pu-sub-pagecontent

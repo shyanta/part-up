@@ -151,6 +151,11 @@ Template.app_profile_upper_partups.helpers({
     partupsLoading: function() {
         return Template.instance().partups.loading.get();
     },
+    firstname: function() {
+        var user = Meteor.user();
+        return User(user).getFirstname();
+    },
+
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addToLayoutHook' with a callback.
     // We save that callback, so we can call it later and the child template can react to it.
@@ -168,4 +173,4 @@ Template.app_profile_upper_partups.helpers({
             tpl.partups.layout.clear = callback;
         };
     }
-})
+});

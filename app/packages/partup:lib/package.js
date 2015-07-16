@@ -90,4 +90,5 @@ Package.onUse(function(api) {
     api.export('Updates');
     api.export('Ratings');
     api.export('Tags');
+    api.export('User');
 });

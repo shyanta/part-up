@@ -7,10 +7,7 @@ Template.modal_create_intro.helpers({
     },
     'first_name': function helpFirstName() {
         var user = Meteor.user();
-        if (!user || !user.profile) return '';
-
-        var username = user.profile.name || user.name;
-        return Partup.client.strings.firstName(username);
+        return User(user).getFirstname();
     }
 });
 

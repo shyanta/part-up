@@ -121,9 +121,7 @@ Template.Profilesettings.helpers({
     },
     firstName: function() {
         var user = Meteor.user();
-        if (!user) return false;
-        var username = mout.object.get(user, 'profile.name') || mout.object.get(user, 'name');
-        return Partup.client.strings.firstName(username);
+        return User(user).getFirstname();
     },
     placeSelectedCallback: function() {
         return function(results) {

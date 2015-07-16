@@ -44,3 +44,28 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 
     return Meteor.users.find({_id: {$in: userIds}}, options);
 };
+
+/**
+ * User model (not a constructor, unlike all other entity models)
+ * @ignore
+ */
+User = function(user) {
+
+    return {
+
+        /**
+         * Get the first name of a user
+         *
+         * @return {String}
+         */
+        getFirstname: function() {
+            if (!user) return;
+            if (!user.profile) return;
+
+            var name = user.profile.name || user.name;
+            if (name && name.match(/.*\s.*/)) {
+                return name.split(' ')[0];
+            }
+        }
+    };
+};

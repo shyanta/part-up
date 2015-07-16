@@ -21,6 +21,10 @@ Template.app_profile.helpers({
 
     subscriptionsReady: function() {
         return Template.instance().profileSubscription.ready();
+    },
+
+    shrinkHeader: function() {
+        return Partup.client.scroll.pos.get() > 100;
     }
 });
 
@@ -42,5 +46,6 @@ Template.app_profile.events({
         }
 
         $(event.target.parentElement).toggleClass('pu-state-open');
+        $(event.target).parents('.pu-sub-pageheader').toggleClass('pu-state-profiledescriptionexpanded');
     }
 });
