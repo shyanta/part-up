@@ -45,10 +45,11 @@
         margin-right: auto
 
     .pu-sub-fixedmodalsidebar
-        position: fixed
-        top: $spacing-modal-headerheight
+        position: absolute
+        top: 0
         left: 0
         right: 0
+        min-width: 992px
 
         .pu-wrap
             position: relative
@@ -71,6 +72,10 @@
     &-error
         .pu-sub-pagecontent
             padding-top: 100px
+
+    &-progresspager
+        .pu-sub-pagecontent
+            padding-top: 90px
 
     @media screen and (min-width: 992px)
         .pu-sub-pageheader
@@ -106,6 +111,6 @@
         &-profile
             padding-top: 258px
 
-    &-progresspager
-        .pu-sub-pagecontent
-            padding-top: 90px
+        .pu-sub-fixedmodalsidebar
+            position: fixed
+            top: $spacing-modal-headerheight
