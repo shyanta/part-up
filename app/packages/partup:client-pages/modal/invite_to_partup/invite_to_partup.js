@@ -3,10 +3,9 @@ Template.modal_invite_to_partup.onCreated(function() {
     self.userIds = new ReactiveVar([]);
     self.subscription = new ReactiveVar();
 
-    Meteor.call('activities.user_suggestions', this.data.activityId, function(err, userIds) {
-        if (err) {
-            Partup.client.notify.error(err.reason);
-            return;
+    Meteor.call('activities.user_suggestions', this.data.activityId, function(error, userIds) {
+        if (error) {
+            return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
         }
 
         self.userIds.set(userIds);
@@ -52,10 +51,9 @@ Template.modal_invite_to_partup.events({
         var activityId = template.data.activityId;
         var userId = event.target.dataset.inviteId;
 
-        Meteor.call('activities.invite_existing_upper', activityId, userId, function(err) {
-            if (err) {
-                Partup.client.notify.error(err.reason);
-                return;
+        Meteor.call('activities.invite_existing_upper', activityId, userId, function(error) {
+            if (error) {
+                return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }
 
             Partup.client.notify.success(__('pages-modal-invite_to_partup-invite-success'));

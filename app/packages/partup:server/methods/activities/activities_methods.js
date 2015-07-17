@@ -246,7 +246,7 @@ Meteor.methods({
 
         var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_email: email, type: ActivitiesInvites.INVITE_TYPE_EMAIL});
         if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'Email is already invited to this Part-up activity.');
+            throw new Meteor.Error(403, 'email_is_already_invited_to_activity');
         }
 
         // Compile the E-mail template and send the email
@@ -297,7 +297,7 @@ Meteor.methods({
 
         var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_id: invitee._id, inviter_id: inviter._id, type: ActivitiesInvites.INVITE_TYPE_EXISTING_UPPER});
         if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'User is already invited to the given activity');
+            throw new Meteor.Error(403, 'user_is_already_invited_to_activity');
         }
 
         var notificationOptions = {
