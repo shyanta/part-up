@@ -7,7 +7,7 @@ Meteor.methods({
      */
     'updates.messages.insert': function(partupId, fields) {
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var partup = Partups.findOneOrFail(partupId);
         var newMessage = Partup.transformers.update.fromFormNewMessage(fields, upper, partup._id);
@@ -46,7 +46,7 @@ Meteor.methods({
      */
     'updates.messages.edit': function(updateId, fields) {
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             var update = Updates.findOneOrFail(updateId);

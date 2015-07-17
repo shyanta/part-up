@@ -6,7 +6,7 @@ Meteor.methods({
      */
     'partups.supporters.insert': function(partupId) {
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var partup = Partups.findOneOrFail(partupId);
 
@@ -37,7 +37,7 @@ Meteor.methods({
      */
     'partups.supporters.remove': function(partupId) {
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var partup = Partups.findOneOrFail(partupId);
 

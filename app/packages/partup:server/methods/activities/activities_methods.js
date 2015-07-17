@@ -10,7 +10,7 @@ Meteor.methods({
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail({_id: partupId});
 
-        if (!upper || !partup.hasUpper(upper._id)) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper || !partup.hasUpper(upper._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
@@ -50,7 +50,7 @@ Meteor.methods({
         }
 
         if (!upper || !partup.hasUpper(upper._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -81,7 +81,7 @@ Meteor.methods({
         var activity = Activities.findOneOrFail(activityId);
 
         if (!upper || activity.creator_id !== upper._id) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -117,7 +117,7 @@ Meteor.methods({
         var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
         if (!upper || !partup.hasUpper(upper._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -148,7 +148,7 @@ Meteor.methods({
         var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
         if (!upper || !partup.hasUpper(upper._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -177,7 +177,7 @@ Meteor.methods({
     'activities.copy': function(fromPartupId, toPartupId) {
         var upper = Meteor.user();
         if (!upper) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         // Check if both Partup IDs are valid
@@ -238,7 +238,7 @@ Meteor.methods({
         var inviter = Meteor.user();
 
         if (!inviter) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         var activity = Activities.findOneOrFail(activityId);
@@ -289,7 +289,7 @@ Meteor.methods({
     'activities.invite_existing_upper': function(activityId, inviteeId) {
         var inviter = Meteor.user();
         if (!inviter) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         var activity = Activities.findOneOrFail(activityId);

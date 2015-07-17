@@ -7,7 +7,7 @@ Meteor.methods({
      */
     'networks.insert': function(fields) {
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         // TODO: Either remove this method or implement proper authentication
 
@@ -43,7 +43,7 @@ Meteor.methods({
         var network = Networks.findOneOrFail(networkId);
 
         if (!network.isAdmin(user._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         check(fields, Partup.schemas.forms.network);
@@ -74,7 +74,7 @@ Meteor.methods({
 
         // Only members of a network can invite other users
         if (!user || !network.hasMember(user._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         if (network.hasMember(upperId)) {
@@ -157,7 +157,7 @@ Meteor.methods({
         var network = Networks.findOneOrFail(networkId);
 
         if (!network.isAdmin(user._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         if (network.hasMember(upperId)) {
@@ -190,7 +190,7 @@ Meteor.methods({
         var network = Networks.findOneOrFail(networkId);
 
         if (!network.isAdmin(user._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -243,7 +243,7 @@ Meteor.methods({
         var network = Networks.findOneOrFail(networkId);
 
         if (!network.isAdmin(user._id)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -268,7 +268,7 @@ Meteor.methods({
         this.unblock();
 
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         if (!searchString) throw new Meteor.Error(400, 'searchString parameter is required');
 

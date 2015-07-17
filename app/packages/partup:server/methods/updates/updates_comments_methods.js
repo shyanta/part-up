@@ -9,7 +9,7 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.updateComment);
 
         var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var update = Updates.findOneOrFail(updateId);
 

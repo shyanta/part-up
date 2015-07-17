@@ -9,7 +9,7 @@ Meteor.methods({
         this.unblock();
 
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         Notifications.update({'_id': notificationId, 'for_upper_id': user._id}, {'$set': {'new': false}});
     }

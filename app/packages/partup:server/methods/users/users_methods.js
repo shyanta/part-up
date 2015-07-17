@@ -11,7 +11,7 @@ Meteor.methods({
         var upper = Meteor.user();
 
         if (!upper) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -42,7 +42,7 @@ Meteor.methods({
         var upper = Meteor.user();
 
         if (!upper) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -65,7 +65,7 @@ Meteor.methods({
     'users.update.language': function(fields) {
         var upper = Meteor.user();
         if (!upper) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {

@@ -6,7 +6,7 @@ Meteor.methods({
      */
     'tags.autocomplete': function(searchString) {
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         if (!searchString) throw new Meteor.Error(400, 'searchString parameter is required');
 

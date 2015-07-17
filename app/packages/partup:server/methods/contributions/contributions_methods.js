@@ -9,7 +9,7 @@ Meteor.methods({
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
-        if (!upper) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
         var activity = Activities.findOneOrFail(activityId);
@@ -73,7 +73,7 @@ Meteor.methods({
         var contribution = Contributions.findOneOrFail(contributionId);
         var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
-        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!isUpperInPartup) throw new Meteor.Error(401, 'unauthorized');
         var activity = Activities.findOne({_id: contribution.activity_id});
 
         try {
@@ -133,7 +133,7 @@ Meteor.methods({
         var activity = Activities.findOneOrFail(contribution.activity_id);
         var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
-        if (!isUpperInPartup) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!isUpperInPartup) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             // Archive contribution instead of removing
@@ -160,7 +160,7 @@ Meteor.methods({
         var activity = Activities.findOneOrFail(contribution.activity_id);
 
         if (!upper || contribution.upper_id !== upper._id) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -206,7 +206,7 @@ Meteor.methods({
         var activity = Activity.findOneOrFail(contribution.activity_id);
 
         if (!upper || contribution.upper_id !== upper._id) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {

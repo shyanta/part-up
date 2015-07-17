@@ -7,7 +7,7 @@ Meteor.methods({
      */
     'partups.insert': function(fields, extraFields) {
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'Unauthorized.');
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         check(fields, Partup.schemas.forms.partupCreate);
 
@@ -52,7 +52,7 @@ Meteor.methods({
         var uppers = partup.uppers || [];
 
         if (!partup.isEditableBy(user)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -79,7 +79,7 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         if (!partup.isRemovableBy(user)) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
@@ -112,7 +112,7 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         if (!user) {
-            throw new Meteor.Error(401, 'Unauthorized.');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         var invites = partup.invites || [];
