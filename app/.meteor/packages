@@ -70,7 +70,7 @@ partup:client-dropdowns
 partup:client-focuspoint
 partup:client-forgotpassword
 partup:client-gallery
-partup:client-invite-to-partup
+partup:client-invite-to-activity
 partup:client-loader
 partup:client-location-autocomplete
 partup:client-location-selector

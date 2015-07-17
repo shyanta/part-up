@@ -132,10 +132,34 @@ Meteor.publishComposite('users.loggedin', function() {
                                 images.push(notification.type_data.supporter.image);
                             }
 
+                            if (notification.type === 'partup_activities_invited') {
+                                images.push(notification.type_data.inviter.image);
+                            }
+
                             return Images.find({_id: {$in: images}});
                         }
                     }
                 ]
+            }
+        ]
+    };
+});
+
+/**
+ * Publish users based on an array of user ids
+ *
+ * @param {[String]} userIds
+ */
+Meteor.publishComposite('users.by_ids', function(userIds) {
+    return {
+        find: function() {
+            return Meteor.users.findMultiplePublicProfiles(userIds);
+        },
+        children: [
+            {
+                find: function(user) {
+                    return Images.find({_id: user.profile.image}, {limit: 1});
+                }
             }
         ]
     };

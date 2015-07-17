@@ -6,7 +6,7 @@
  *
  */
 // jscs:enable
-Template.InviteToPartup.helpers({
+Template.InviteToActivity.helpers({
     formSchema: Partup.schemas.forms.inviteUpper
 });
 
@@ -14,7 +14,8 @@ AutoForm.hooks({
     inviteUppersForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
-            Meteor.call('partups.invite', Router.current().params._id, insertDoc.email, insertDoc.name);
+            var template = self.template.parent();
+            Meteor.call('activities.invite_by_email', template.data.activityId, insertDoc.email, insertDoc.name);
             Partup.client.popup.close();
 
             return false;

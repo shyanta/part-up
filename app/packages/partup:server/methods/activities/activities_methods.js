@@ -234,23 +234,19 @@ Meteor.methods({
      * @param {String} email
      * @param {String} name
      */
-    'activities.invite': function(activityId, email, name) {
-        var user = Meteor.user();
+    'activities.invite_by_email': function(activityId, email, name) {
+        var inviter = Meteor.user();
 
-        if (!user) {
+        if (!inviter) {
             throw new Meteor.Error(401, 'Unauthorized.');
         }
-
-        // TODO: Authorisation, who can invite a user?
 
         var activity = Activities.findOneOrFail(activityId);
         var partup = Partups.findOneOrFail(activity.partup_id);
 
-        var invites = activity.invites || [];
-        var invitedEmails = mout.array.pluck(invites, 'email');
-
-        if (invitedEmails.indexOf(email) > -1) {
-            throw new Meteor.Error(403, 'Email is already invited to the given activity.');
+        var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_email: email, type: ActivitiesInvites.INVITE_TYPE_EMAIL});
+        if (isAlreadyInvited) {
+            throw new Meteor.Error(403, 'Email is already invited to this Part-up activity.');
         }
 
         // Compile the E-mail template and send the email
@@ -267,22 +263,60 @@ Meteor.methods({
                 partupDescription: partup.description,
                 activityName: activity.name,
                 activityDescription: activity.description,
-                inviterName: user.profile.name,
+                inviterName: inviter.profile.name,
                 url: url
             })
         });
 
-        // Save the invite on the partup for further references
         var invite = {
-            name: name,
-            email: email
+            type: ActivitiesInvites.INVITE_TYPE_EMAIL,
+            activity_id: activity._id,
+            inviter_id: inviter._id,
+            invitee_name: name,
+            invitee_email: email,
+            created_at: new Date
         };
 
-        Activities.update(activityId, {$push: {'invites': invite}});
+        ActivitiesInvites.insert(invite);
+    },
 
-        Event.emit('activities.invited', user._id, activityId, email, name);
+    /**
+     * Invite an existing upper to an activity
+     *
+     * @param {String} activityId
+     * @param {String} inviteeId
+     */
+    'activities.invite_existing_upper': function(activityId, inviteeId) {
+        var inviter = Meteor.user();
+        if (!inviter) {
+            throw new Meteor.Error(401, 'Unauthorized.');
+        }
 
-        return true;
+        var activity = Activities.findOneOrFail(activityId);
+        var invitee = Meteor.users.findOneOrFail(inviteeId);
+
+        var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_id: invitee._id, inviter_id: inviter._id, type: ActivitiesInvites.INVITE_TYPE_EXISTING_UPPER});
+        if (isAlreadyInvited) {
+            throw new Meteor.Error(403, 'User is already invited to the given activity');
+        }
+
+        var notificationOptions = {
+            userId: invitee._id,
+            type: 'partup_activities_invited',
+            typeData: {}
+        };
+
+        Partup.server.services.notifications.send(notificationOptions);
+
+        var invite = {
+            type: ActivitiesInvites.INVITE_TYPE_EXISTING_UPPER,
+            activity_id: activity._id,
+            inviter_id: inviter._id,
+            invitee_id: invitee._id,
+            created_at: new Date
+        };
+
+        ActivitiesInvites.insert(invite);
     }
 
 });

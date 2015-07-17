@@ -1,3 +1,37 @@
+Template.modal_invite_to_partup.onCreated(function() {
+    var self = this;
+    self.userIds = new ReactiveVar([]);
+    self.subscription = new ReactiveVar();
+
+    Meteor.call('activities.user_suggestions', this.data.activityId, function(err, userIds) {
+        if (err) {
+            Partup.client.notify.error(err.reason);
+            return;
+        }
+
+        self.userIds.set(userIds);
+        self.subscription.set(self.subscribe('users.by_ids', userIds));
+    });
+});
+
+Template.modal_invite_to_partup.helpers({
+    suggestions: function() {
+        var sub = Template.instance().subscription.get();
+        if (!sub || !sub.ready()) return;
+
+        var suggestions = [];
+        var userIds = Template.instance().userIds.get();
+        for (var i = 0; i < userIds.length; i++) {
+            suggestions.push(Meteor.users.findOne({_id: userIds[i]}));
+        }
+
+        return suggestions;
+    },
+    completeness: function() {
+        return this.completeness || 0;
+    }
+});
+
 /*************************************************************/
 /* Page events */
 /*************************************************************/
@@ -13,5 +47,18 @@ Template.modal_invite_to_partup.events({
                 }
             }
         });
+    },
+    'click [data-invite-id]': function(event, template) {
+        var activityId = template.data.activityId;
+        var userId = event.target.dataset.inviteId;
+
+        Meteor.call('activities.invite_existing_upper', activityId, userId, function(err) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.success(__('pages-modal-invite_to_partup-invite-success'));
+        })
     }
 });
