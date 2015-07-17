@@ -244,6 +244,11 @@ Meteor.methods({
         var activity = Activities.findOneOrFail(activityId);
         var partup = Partups.findOneOrFail(activity.partup_id);
 
+        var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: activity.partup_id}).count() > 0;
+        if (!isAllowedToAccessPartup) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
         var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_email: email, type: ActivitiesInvites.INVITE_TYPE_EMAIL});
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'email_is_already_invited_to_activity');
@@ -294,6 +299,11 @@ Meteor.methods({
 
         var activity = Activities.findOneOrFail(activityId);
         var invitee = Meteor.users.findOneOrFail(inviteeId);
+
+        var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: activity.partup_id}).count() > 0;
+        if (!isAllowedToAccessPartup) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
 
         var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_id: invitee._id, inviter_id: inviter._id, type: ActivitiesInvites.INVITE_TYPE_EXISTING_UPPER});
         if (isAlreadyInvited) {
