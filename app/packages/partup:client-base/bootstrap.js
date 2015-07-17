@@ -45,19 +45,19 @@ Meteor.startup(function() {
         var $body = $('body');
 
         // Add class on start
-        var addClass = function addClass() {
+        var start = function() {
             $body.addClass('bender-animating');
         };
 
         // Remove class on finish
-        var removeClass = function removeClass() {
+        var done = function() {
             $body.removeClass('bender-animating');
         };
 
         if (nextLayout === 'modal') {
-            Bender.animate('slideOverUp', addClass, removeClass);
+            Bender.animate('slideOverUp', start, done);
         } else if (nextLayout === 'app') {
-            Bender.animate('slideOverUpClose', addClass, removeClass);
+            Bender.animate('slideOverUpClose', start, done);
         }
 
         previousLayout = nextLayout;
