@@ -3,37 +3,37 @@
 /*************************************************************/
 var placeholders = {
     'name': function() {
-        return __('pages-modal-register-details-form-name_input-placeholder');
+        return __('profilesettings-form-name_input-placeholder');
     },
     'location_input': function() {
-        return __('pages-modal-register-details-form-location_input-placeholder');
+        return __('profilesettings-form-location_input-placeholder');
     },
     'description': function() {
-        return __('pages-modal-register-details-form-description-placeholder');
+        return __('profilesettings-form-description-placeholder');
     },
     'tags_input': function() {
-        return __('pages-modal-register-details-form-tags_input-placeholder');
+        return __('profilesettings-form-tags_input-placeholder');
     },
     'facebook_url': function() {
-        return __('pages-modal-register-details-form-facebook_url-placeholder');
+        return __('profilesettings-form-facebook_url-placeholder');
     },
     'twitter_url': function() {
-        return __('pages-modal-register-details-form-twitter_url-placeholder');
+        return __('profilesettings-form-twitter_url-placeholder');
     },
     'instagram_url': function() {
-        return __('pages-modal-register-details-form-instagram_url-placeholder');
+        return __('profilesettings-form-instagram_url-placeholder');
     },
     'linkedin_url': function() {
-        return __('pages-modal-register-details-form-linkedin_url-placeholder');
+        return __('profilesettings-form-linkedin_url-placeholder');
     },
     'website': function() {
-        return __('pages-modal-register-details-form-website-placeholder');
+        return __('profilesettings-form-website-placeholder');
     },
     'phonenumber': function() {
-        return __('pages-modal-register-details-form-phonenumber-placeholder');
+        return __('profilesettings-form-phonenumber-placeholder');
     },
     'skype': function() {
-        return __('pages-modal-register-details-form-skype-placeholder');
+        return __('profilesettings-form-skype-placeholder');
     }
 };
 
@@ -152,7 +152,7 @@ Template.Profilesettings.events({
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
-                    Partup.client.notify.error(__('pages-modal-register-details-form-image-error'));
+                    Partup.client.notify.error(__('profilesettings-form-image-error'));
                     template.uploadingProfilePicture.set(false);
                     return;
                 }

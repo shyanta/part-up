@@ -1,42 +1,42 @@
 {
-    "pages-modal-register-details-form-image-label": "Give us your smile",
-    "pages-modal-register-details-form-image-import": "Just use your <a href='#' data-imagefacebook>Facebook</a> or <a href='#' data-imagelinkedin>LinkedIn</a> profile photo.",
-    "pages-modal-register-details-form-image-button": "Photo from my computer",
-    "pages-modal-register-details-form-image-error": "Could not upload this file",
+    "profilesettings-form-image-label": "Give us your smile",
+    "profilesettings-form-image-import": "Just use your <a href='#' data-imagefacebook>Facebook</a> or <a href='#' data-imagelinkedin>LinkedIn</a> profile photo.",
+    "profilesettings-form-image-button": "Photo from my computer",
+    "profilesettings-form-image-error": "Could not upload this file",
 
-    "pages-modal-register-details-form-name_input-label": "@First and lastname",
-    "pages-modal-register-details-form-name_input-placeholder": "@John Doe",
-    "pages-modal-register-details-form-name_input-tooltip": "@Your first and lastname",
+    "profilesettings-form-name_input-label": "@First and lastname",
+    "profilesettings-form-name_input-placeholder": "@John Doe",
+    "profilesettings-form-name_input-tooltip": "@Your first and lastname",
 
-    "pages-modal-register-details-form-location_input-label": "Where do you want to join part-ups?",
-    "pages-modal-register-details-form-location_input-placeholder": "For example in your home town or region",
-    "pages-modal-register-details-form-location_input-tooltip": "We love to introduce you to the most interesting part-ups in your area. And we think of you and the environment, so we rank nearby part-ups highest.",
+    "profilesettings-form-location_input-label": "Where do you want to join part-ups?",
+    "profilesettings-form-location_input-placeholder": "For example in your home town or region",
+    "profilesettings-form-location_input-tooltip": "We love to introduce you to the most interesting part-ups in your area. And we think of you and the environment, so we rank nearby part-ups highest.",
 
-    "pages-modal-register-details-form-description-label": "Introduce yourself",
-    "pages-modal-register-details-form-description-placeholder": "Give a short discription of who you are and what you are good at",
-    "pages-modal-register-details-form-description-tooltip": "Other uppers would like to know who they are working with. What can you tell them about you? Promote yourself by being honest.",
+    "profilesettings-form-description-label": "Introduce yourself",
+    "profilesettings-form-description-placeholder": "Give a short discription of who you are and what you are good at",
+    "profilesettings-form-description-tooltip": "Other uppers would like to know who they are working with. What can you tell them about you? Promote yourself by being honest.",
 
-    "pages-modal-register-details-form-tags_input-label": "What you like to do and are good at in (five) keywords",
-    "pages-modal-register-details-form-tags_input-placeholder": "Please separate with a comma",
-    "pages-modal-register-details-form-tags_input-tooltip": "We use these words to start matching you with interesting part-ups. So pick words that are about your contribution to part-ups. There is no need for perfection, we will update your profile with your actual contributions to part-ups.",
+    "profilesettings-form-tags_input-label": "What you like to do and are good at in (five) keywords",
+    "profilesettings-form-tags_input-placeholder": "Please separate with a comma",
+    "profilesettings-form-tags_input-tooltip": "We use these words to start matching you with interesting part-ups. So pick words that are about your contribution to part-ups. There is no need for perfection, we will update your profile with your actual contributions to part-ups.",
 
-    "pages-modal-register-details-form-socials-label": "Can other uppers see your social media profiles?",
-    "pages-modal-register-details-form-socials-tooltip": "You merely have to complete these links with your username.",
+    "profilesettings-form-socials-label": "Can other uppers see your social media profiles?",
+    "profilesettings-form-socials-tooltip": "You merely have to complete these links with your username.",
 
-    "pages-modal-register-details-form-facebook_url-placeholder": "The webaddress for your Facebook profile",
-    "pages-modal-register-details-form-twitter_url-placeholder": "The webaddress for your Twitter profile",
-    "pages-modal-register-details-form-instagram_url-placeholder": "The webaddress for your Instagram profile",
-    "pages-modal-register-details-form-linkedin_url-placeholder": "The webaddress for your LinkedIn profile",
+    "profilesettings-form-facebook_url-placeholder": "The webaddress for your Facebook profile",
+    "profilesettings-form-twitter_url-placeholder": "The webaddress for your Twitter profile",
+    "profilesettings-form-instagram_url-placeholder": "The webaddress for your Instagram profile",
+    "profilesettings-form-linkedin_url-placeholder": "The webaddress for your LinkedIn profile",
 
-    "pages-modal-register-details-form-website-label": "Do you have a website or blog?",
-    "pages-modal-register-details-form-website-placeholder": "www.my-blog-or-website.com",
-    "pages-modal-register-details-form-website-tooltip": "You can use your website or blog to present yourself to others. Share it here so other uppers are able to get to know you better. If you don't have one, please leave this field empty.",
+    "profilesettings-form-website-label": "Do you have a website or blog?",
+    "profilesettings-form-website-placeholder": "www.my-blog-or-website.com",
+    "profilesettings-form-website-tooltip": "You can use your website or blog to present yourself to others. Share it here so other uppers are able to get to know you better. If you don't have one, please leave this field empty.",
 
-    "pages-modal-register-details-form-phonenumber-label": "Is it okay for other uppers to call (or text) you?",
-    "pages-modal-register-details-form-phonenumber-placeholder": "+31612345678",
-    "pages-modal-register-details-form-phonenumber-tooltip": "Availability is important in working together. Privacy as well. That's why we only share your phone number with your partners. They are the uppers you work with.",
+    "profilesettings-form-phonenumber-label": "Is it okay for other uppers to call (or text) you?",
+    "profilesettings-form-phonenumber-placeholder": "+31612345678",
+    "profilesettings-form-phonenumber-tooltip": "Availability is important in working together. Privacy as well. That's why we only share your phone number with your partners. They are the uppers you work with.",
 
-    "pages-modal-register-details-form-skype-label": "Do you use Skype?",
-    "pages-modal-register-details-form-skype-placeholder": "Your Skype name",
-    "pages-modal-register-details-form-skype-tooltip": "Just like your phone number, we only share your Skype name with your partners. They are the uppers you work with."
+    "profilesettings-form-skype-label": "Do you use Skype?",
+    "profilesettings-form-skype-placeholder": "Your Skype name",
+    "profilesettings-form-skype-tooltip": "Just like your phone number, we only share your Skype name with your partners. They are the uppers you work with."
 }

@@ -6,7 +6,7 @@
         <!-- name -->
         {{#unless REGISTER}}
             <label class="pu-formfield">
-                <span class="pu-label">{{_ 'pages-modal-register-details-form-name_input-label'}}</span>
+                <span class="pu-label">{{_ 'profilesettings-form-name_input-label'}}</span>
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">{{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" }}</span>
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
@@ -16,7 +16,7 @@
 
         <!-- User avatar -->
         <div class="pu-formfield">
-            <span class="pu-label">{{_ 'pages-modal-register-details-form-image-label' }}</span>
+            <span class="pu-label">{{_ 'profilesettings-form-image-label' }}</span>
             <div class="pu-upload">
                 {{#if profilePictureUrl }}
                     <figure style="{{#with profilePictureUrl }}background-image:url('{{ . }}'){{/with }}" class="pu-imagepreview pu-imagepreview-profile"></figure>
@@ -24,7 +24,7 @@
                     <figure style="background-image:url(/images/smile.png)" class="pu-imagepreview pu-imagepreview-profile"></figure>
                 {{/if}}
                 <button type="button" class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
-                    <span>{{_ 'pages-modal-register-details-form-image-button'}}</span>
+                    <span>{{_ 'profilesettings-form-image-button'}}</span>
                     {{#if uploadingProfilePicture}}
                         {{> SpinnerInverted}}
                     {{/if}}
@@ -32,7 +32,7 @@
 
                 <input type="file" class="pu-fileinput" data-profile-picture-input>
                 <!-- TODO DISABLED UNTIL IMPLEMENTED
-                    <p class="pu-paragraph">{{{_ 'pages-modal-register-details-form-image-import' }}}</p>
+                    <p class="pu-paragraph">{{{_ 'profilesettings-form-image-import' }}}</p>
                 -->
                 {{> afFieldInput name="image" type="hidden" }}
             </div>
@@ -41,10 +41,10 @@
         <!-- Bio -->
         <label class="pu-formfield">
             <span class="pu-label">
-                {{_ 'pages-modal-register-details-form-description-label' }}
+                {{_ 'profilesettings-form-description-label' }}
                 <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-description-tooltip' }}</p></span>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'profilesettings-form-description-tooltip' }}</p></span>
                 </a>
             </span>
 
@@ -57,10 +57,10 @@
         <!-- Tags -->
         <label class="pu-formfield">
             <span class="pu-label">
-                {{_ 'pages-modal-register-details-form-tags_input-label'}}
+                {{_ 'profilesettings-form-tags_input-label'}}
                 <a class="pu-hint pu-tooltip">
                 <i class="fa fa-question-circle"></i>
-                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-tags_input-tooltip' }}</p></span>
+                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'profilesettings-form-tags_input-tooltip' }}</p></span>
             </a>
             </span>
 
@@ -73,10 +73,10 @@
         <!-- Region -->
         <label class="pu-formfield">
             <span class="pu-label">
-                {{_ 'pages-modal-register-details-form-location_input-label' }}
+                {{_ 'profilesettings-form-location_input-label' }}
                 <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-location_input-tooltip' }}</p></span>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'profilesettings-form-location_input-tooltip' }}</p></span>
                 </a>
             </span>
 
@@ -91,10 +91,10 @@
         <!-- Socials -->
         <fieldset class="pu-formfield">
             <label class="pu-label" for="pu-sub-facebookfield">
-                {{_ 'pages-modal-register-details-form-socials-label' }}
+                {{_ 'profilesettings-form-socials-label' }}
                 <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-socials-tooltip' }}</p></span>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'profilesettings-form-socials-tooltip' }}</p></span>
                 </a>
             </label>
 
@@ -138,10 +138,10 @@
         <!-- Site URL -->
         <label class="pu-formfield">
             <span class="pu-label">
-                {{_ 'pages-modal-register-details-form-website-label' }}
+                {{_ 'profilesettings-form-website-label' }}
                 <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-website-tooltip' }}</p></span>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'profilesettings-form-website-tooltip' }}</p></span>
                 </a>
             </span>
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='website' }}pu-state-invalid{{/if}}">
@@ -153,10 +153,10 @@
         <!-- Phone number -->
         <label class="pu-formfield">
             <span class="pu-label">
-                {{_ 'pages-modal-register-details-form-phonenumber-label' }}
+                {{_ 'profilesettings-form-phonenumber-label' }}
                 <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-phonenumber-tooltip' }}</p></span>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'profilesettings-form-phonenumber-tooltip' }}</p></span>
                 </a>
             </span>
 
@@ -169,10 +169,10 @@
         <!-- Skype username -->
         <label class="pu-formfield">
             <span class="pu-label">
-                {{_ 'pages-modal-register-details-form-skype-label' }}
+                {{_ 'profilesettings-form-skype-label' }}
                 <a class="pu-hint pu-tooltip">
                     <i class="fa fa-question-circle"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-details-form-skype-tooltip' }}</p></span>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'profilesettings-form-skype-tooltip' }}</p></span>
                 </a>
             </span>
 
