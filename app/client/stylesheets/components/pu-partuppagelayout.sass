@@ -1,7 +1,7 @@
 .pu-partuppagelayout
     $pagecontainer-maxwidth: grid(12)
     display: table
-    min-width: 992px
+    min-width: $breakpoint-desktop
     max-width: $pagecontainer-maxwidth
     margin-left: auto
     margin-right: auto
@@ -15,7 +15,7 @@
         vertical-align: top
         width: 420px
 
-    @media screen and (min-width: 992px)
+    @media screen and (min-width: $breakpoint-desktop)
         .pu-sub-partupdetail-left
             position: absolute
             z-index: 1

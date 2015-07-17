@@ -7,7 +7,7 @@
         width: 100%
         background: $color-background
         border-bottom: 2px solid $color-border-light
-        min-width: 992px
+        min-width: $breakpoint-desktop
         transition: padding .2s, min-height .2s
 
         &-title
@@ -49,7 +49,7 @@
         top: 0
         left: 0
         right: 0
-        min-width: 992px
+        min-width: $breakpoint-desktop
 
         .pu-wrap
             position: relative
@@ -77,7 +77,7 @@
         .pu-sub-pagecontent
             padding-top: 90px
 
-    @media screen and (min-width: 992px)
+    @media screen and (min-width: $breakpoint-desktop)
         .pu-sub-pageheader
             position: fixed
             top: $spacing-app-headerheight

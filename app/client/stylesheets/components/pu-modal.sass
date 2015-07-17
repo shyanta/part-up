@@ -1,6 +1,6 @@
 .pu-modal
     background-color: $color-background
-    min-width: 992px
+    min-width: $breakpoint-desktop
 
     #pu-notifycontainer
         position: fixed
@@ -27,7 +27,7 @@
                 background-color: rgba($color-background, .8)
                 pointer-events: auto
 
-    @media screen and (min-width: 992px)
+    @media screen and (min-width: $breakpoint-desktop)
         padding-top: $spacing-modal-headerheight
 
         .pu-header
