@@ -239,12 +239,12 @@ Template.Partupsettings.helpers({
     placeSelectedCallback: function() {
         return function(results) {
             $('[name="location_input"]').val(results.placeId);
-            var template = Template.instance();
-            var validate = AutoForm.validateField(formId, 'location_input');
+            $('.pu-sub-locationfield').removeClass('pu-state-invalid');
         };
     },
     clearCallback: function() {
         return function(results) {
+            console.log('clear');
             $('[name="location_input"]').val(undefined);
         };
     }
@@ -288,6 +288,7 @@ Template.Partupsettings.events({
     },
     'click [data-removedate]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();
+        console.log('REMOVE THAT SHIT')
         template.find('[name=end_date]').value = '';
     },
     'click [data-toggleprivacydropdown]': function(event, template) {

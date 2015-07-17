@@ -130,7 +130,7 @@
         <!-- Location -->
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-form-location_input-label'}}</span>
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
+            <div class="pu-sub-validations pu-sub-locationfield {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
                 <span class="pu-sub-input">
                     {{> LocationAutocomplete placeSelectedCallback=placeSelectedCallback clearCallback=clearCallback placeholder=formPlaceholders.location_input location=partup.location }}
                     {{> afFieldInput name='location_input' type='hidden' }}
