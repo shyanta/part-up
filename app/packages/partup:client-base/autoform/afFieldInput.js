@@ -16,8 +16,35 @@ Template.afFieldInput.onRendered(function() {
 
 Meteor.startup(function() {
     Template.autoformTags.onRendered(function() {
-        var input = this.findAll('input')[1];
-        $(input).attr('placeholder', this.data.atts.placeholder);
-        $(input).attr('style', '');
+        var template = this;
+
+        var inputs = template.findAll('input');
+
+        template.hiddenInput = $(inputs[0]);
+        template.visibleInput = $(inputs[1]);
+
+        var placeholder = template.data.atts.placeholder;
+
+        template.visibleInput.attr('placeholder', placeholder);
+        template.visibleInput.attr('style', '');
+
+        template.changePlaceholder = function() {
+            lodash.defer(function() {
+                if (template.visibleInput.val() !== '' || template.hiddenInput.val() !== '') {
+                    template.visibleInput.attr('placeholder', '');
+                } else {
+                    template.visibleInput.attr('placeholder', placeholder);
+                }
+            });
+        };
+
+        template.hiddenInput.on('change', template.changePlaceholder);
+        template.visibleInput.on('input', template.changePlaceholder);
+    });
+
+    Template.autoformTags.onDestroyed(function() {
+        var template = this;
+        template.hiddenInput.off('change', template.changePlaceholder);
+        template.visibleInput.off('input', template.changePlaceholder);
     });
 });
