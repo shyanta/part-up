@@ -9,16 +9,18 @@ Meteor.startup(function() {
     /*************************************************************/
     /* Language configuration */
     /*************************************************************/
-    if (TAPi18n && Partup) {
-        var detectedLocale = navigator.language || navigator.userLanguage;    // value is like: en-US
-        if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {  // if the value matches 'xx-xx'
-            detectedLocale = detectedLocale.split('-')[0];                    // value is like: en
+    // sets the language of the user to user setting
+    // or falls back to browser settings when user
+    // logs in or out
+    Meteor.autorun(function(computation) {
+        var user = Meteor.user();
+        if (user) {
+            if (!user.profile || !user.profile.language) return;
+            Partup.client.language.change(user.profile.language);
+        } else {
+            Partup.client.language.setToDefault();
         }
-
-        var language = detectedLocale || 'en';
-
-        Partup.client.language.change(language);
-    }
+    });
 
     /*************************************************************/
     /* Router animation */
