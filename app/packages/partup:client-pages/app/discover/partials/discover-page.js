@@ -15,8 +15,8 @@ Template.app_discover_page.onCreated(function() {
     tpl.partups = {
 
         // Constants
-        STARTING_LIMIT: 12,
-        INCREMENT: 8,
+        STARTING_LIMIT: 24,
+        INCREMENT: 24,
 
         // States
         loading: new ReactiveVar(false),
