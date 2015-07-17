@@ -73,10 +73,38 @@ Partup.client.language = {
                 emailNotFound:          __('base-client-language-ss-emailNotFound'),
                 passwordIncorrect:      __('base-client-language-ss-passwordIncorrect')
             });
+            var user = Meteor.user();
+            if(!user) return;
+
+            Meteor.call('users.update.language', {language: language}, function(error, res){
+                if (error && error.message) {
+                    Partup.client.notify.error('Could not set the correct language');
+                    return;
+                }
+            });
 
         }).fail(function(error_message) {
             Partup.client.notify.error('Could not load the language "' + language + '"');
         });
+    },
+
+    /**
+     * Sets the language of partup to the default settings (browser settings)
+     *
+     * @memberof Partup.client.language
+     */
+    setToDefault: function() {
+        if (TAPi18n && Partup) {
+            var language = 'en';
+            var detectedLocale = navigator.language || navigator.userLanguage;    // value is like: en-US
+            if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {  // if the value matches 'xx-xx'
+                detectedLocale = detectedLocale.split('-')[0];                    // value is like: en
+            }
+
+            language = detectedLocale || 'en';
+
+            Partup.client.language.change(language);
+        }
     }
 
 };
