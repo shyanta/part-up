@@ -81,17 +81,19 @@ Template.app_partup_sidebar.helpers({
     statusText: function() {
         if (!this.partup) return '';
 
+        var city = mout.object.get(this, 'partup.location.city') || mout.object.get(this, 'partup.location.country');
+
         var status = [];
         if (this.partup.budget_type) {
             status.push(__('pages-app-partup-status_text-with-budget', {
                 date: moment(this.partup.end_date).format('LL'),
-                city: this.partup.location.city,
+                city: city,
                 budget: prettyBudget(this.partup)
             }));
         } else {
             status.push(__('pages-app-partup-status_text-without-budget', {
                 date: moment(this.partup.end_date).format('LL'),
-                city: this.partup.location.city
+                city: city
             }));
         }
 
