@@ -26,7 +26,7 @@ Meteor.methods({
             return false;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be added as a supporter to Partup [' + partupId + '].');
+            throw new Meteor.Error(400, 'user_could_not_be_made_supporter');
         }
     },
 
