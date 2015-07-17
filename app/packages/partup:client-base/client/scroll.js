@@ -4,7 +4,7 @@
  * @class scroll
  * @memberof Partup.client
  */
-var INFINITE_SCROLL_OFFSET = 800;
+var INFINITE_SCROLL_OFFSET = 2000;
 var INFINITE_SCROLL_DEBOUNCE = 40;
 var SCROLLING_ELEMENT_SELECTOR = '.pu-main';
 

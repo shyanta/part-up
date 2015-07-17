@@ -7,7 +7,6 @@
                         {{> afFieldInput name="text" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
                         {{#if uploadedPhotos.length}}
                             <ul class="pu-sub-photos">
-
                                 {{#each uploadedPhotos}}
                                     <li>
                                         <figure class="pu-thumbnail pu-thumbnail-removable" style="background-image:url('{{ partupImageUrl id=. }}')" data-remove-upload="{{ . }}"></figure>
@@ -32,7 +31,7 @@
                 <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}} {{#if photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
                     <span>{{_ 'pages-app-partup-updates-newmessage-addphoto'}}</span>
                     {{#if uploadingPhotos}}
-                        {{> SpinnerInverted}}
+                        {{> Spinner color='inverted' type='small'}}
                     {{/if}}
                 </button>
             </div>

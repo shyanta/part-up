@@ -1,50 +1,36 @@
 // jscs:disable
 /**
- * Renders one of 3 spinners
+ * Renders a spinner (as loading indicator)
  *
  * @module client-spinner
  *
  * @example
-    {{> Spinner}}
-    {{> SpinnerInverted}}
-    {{> SpinnerLarge}}
+    {{> Spinner type='small' }}
+    {{> Spinner type='large' color='inverted' }}
  */
-// jscs:enable
 
 Template.Spinner.rendered = function() {
-    var options = _.extend(Partup.client.spinner.defaultOptions, {
+    var options = lodash.cloneDeep(Partup.client.spinner.defaultOptions);
 
-    }, this.data);
+    switch (this.data.type) {
+        case 'small':
+            options.width = 1;
+            options.length = 4;
+            options.radius = 4;
+            break;
+        case 'large':
+            options.length = 8;
+            options.width = 3;
+            options.radius = 12;
+            break;
+    }
 
-    this.spinner = new Spinner(options);
-    this.spinner.spin(this.firstNode);
-};
-Template.SpinnerInverted.rendered = function() {
-    var options = _.extend(Partup.client.spinner.defaultOptions, {
-            color: '#fff'
-        }, this.data);
-
-    this.spinner = new Spinner(options);
-    this.spinner.spin(this.firstNode);
-};
-
-Template.SpinnerLarge.rendered = function() {
-    var options = _.extend(Partup.client.spinner.defaultOptions, {
-            length: 8,
-            width: 3,
-            radius: 12
-        }, this.data);
+    switch (this.data.color) {
+        case 'inverted':
+            options.color = '#ffffff';
+            break;
+    }
 
     this.spinner = new Spinner(options);
     this.spinner.spin(this.firstNode);
-};
-
-Template.Spinner.destroyed = function() {
-    this.spinner && this.spinner.stop();
-};
-Template.SpinnerInverted.destroyed = function() {
-    this.spinner && this.spinner.stop();
-};
-Template.SpinnerLarge.destroyed = function() {
-    this.spinner && this.spinner.stop();
 };

@@ -8,8 +8,8 @@ Template.app_partup_updates.onCreated(function() {
     tpl.updates = {
 
         // Constants
-        STARTING_LIMIT: 8,
-        INCREMENT: 6,
+        STARTING_LIMIT: 30,
+        INCREMENT: 30,
 
         // States
         loading: new ReactiveVar(true),

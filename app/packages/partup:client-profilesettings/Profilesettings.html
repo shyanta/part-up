@@ -26,7 +26,7 @@
                 <button type="button" class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
                     <span>{{_ 'profilesettings-form-image-button'}}</span>
                     {{#if uploadingProfilePicture}}
-                        {{> SpinnerInverted}}
+                        {{> Spinner color='inverted' type='small'}}
                     {{/if}}
                 </button>
 

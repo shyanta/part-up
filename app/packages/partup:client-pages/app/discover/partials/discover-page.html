@@ -6,17 +6,17 @@
             <h2 class="pu-title">
                 {{_ 'pages-app-discover-heading' }}
 
-                <span class="pu-sub-countlabel">
-                    {{#unless partupsLoading }}
+                {{# if partupsLoading }}
+                    {{> Spinner type='small' }}
+                {{ else }}
+                    <span class="pu-sub-countlabel">
                         {{#if count}}
                             {{_ 'pages-app-discover-xpartups' count=count }}
                         {{else}}
                             {{_ 'pages-app-discover-nopartups' }}
                         {{/if}}
-                    {{else}}
-                        {{_ 'pages-app-discover-loading' }}
-                    {{/unless}}
-                </span>
+                    </span>
+                {{/ if }}
             </h2>
 
             {{# if showProfileCompletion }}

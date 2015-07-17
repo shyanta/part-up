@@ -10,7 +10,7 @@
                 <figure style="background-image:url('{{ imageUrl }}')" class="pu-imagepreview"></figure>
                 <button type="button" class="pu-button pu-button-secondary {{# if imageUploading }}pu-state-loading{{/ if }}" data-browse-photos>
                     <span>{{_ 'network-settings-form-image-button' }}</span>
-                    {{> SpinnerInverted }}
+                    {{> Spinner color='inverted' type='small' }}
                 </button>
 
                 <span class="pu-hint">{{_ 'network-settings-form-image-info' }}</span>
@@ -27,7 +27,7 @@
                 <figure style="background-image:url('{{ iconUrl }}')" class="pu-imagepreview"></figure>
                 <button type="button" class="pu-button pu-button-secondary {{# if iconUploading }}pu-state-loading{{/ if }}" data-icon-browse>
                     <span>{{_ 'network-settings-form-icon-button' }}</span>
-                    {{> SpinnerInverted }}
+                    {{> Spinner color='inverted' type='small' }}
                 </button>
 
                 <span class="pu-hint">{{_ 'network-settings-form-icon-info' }}</span>
@@ -166,7 +166,7 @@
         <div class="pu-formfield">
             <button type="submit" class="pu-button {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
                 <span>{{_ 'network-settings-form-submit' }}</span>
-                {{> SpinnerInverted }}
+                {{> Spinner color='inverted' type='small' }}
             </button>
         </div>
     {{/ autoForm }}

@@ -56,12 +56,12 @@
                 {{# if CREATE }}
                     <div class="cell stretch"><button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
                         <span>{{_ 'activity-form-submit' }}</span>
-                        {{> SpinnerInverted}}
+                        {{> Spinner color='inverted' type='small' }}
                     </button></div>
                 {{else}}
                     <div class="cell"><button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
                         <span>{{_ 'activity-form-save' }}</span>
-                        {{> SpinnerInverted}}
+                        {{> Spinner color='inverted' type='small' }}
                     </button></div>
                     <div class="cell stretch"><button type="button" class="pu-button pu-button-gray" data-activity-close>{{_ 'activity-form-close' }}</button></div>
                 {{/if}}
