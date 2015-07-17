@@ -23,6 +23,14 @@
             line-height: 14px
             margin-top: 5px
 
+            span:after
+                content: "\f00d"
+                font: normal normal normal 14px/1 FontAwesome
+
+            span:hover
+                &:after
+                    color: lighten($color-text, 30%)
+
         > input
             font-size: 16px
             padding: 0
