@@ -6,7 +6,7 @@
  *
  */
 // jscs:enable
-Template.InviteToPartup.helpers({
+Template.InviteToActivity.helpers({
     formSchema: Partup.schemas.forms.inviteUpper
 });
 
