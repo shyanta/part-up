@@ -11,6 +11,7 @@
     transform: translate3d(0, -20px, 0)
     margin-bottom: 40px
     transition: transform $animation-duration
+    overflow: hidden
 
     > header
         background-color: $color-background
@@ -29,6 +30,8 @@
             top: 5px
 
     > article
+        background-color: $color-background-secondary
+
         p
             padding: 40px
 
@@ -48,6 +51,10 @@
         p
             padding: 0
             margin-bottom: 7px
+
+    .pu-activity-form
+        margin-top: 0
+        padding: 40px
 
     .pu-input
         border-color: $color-silver
