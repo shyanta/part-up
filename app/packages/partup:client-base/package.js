@@ -66,7 +66,9 @@ Package.onUse(function(api) {
         'i18n/helpers-dateFormatters.en.i18n.json',
         'i18n/helpers-dateFormatters.nl.i18n.json',
         'i18n/client-language.en.i18n.json',
-        'i18n/client-language.nl.i18n.json'
+        'i18n/client-language.nl.i18n.json',
+        'i18n/errors.en.i18n.json',
+        'i18n/errors.nl.i18n.json'
     ], ['client']);
 
     api.addFiles([
@@ -74,6 +76,8 @@ Package.onUse(function(api) {
         'i18n/helpers-dateFormatters.en.i18n.json',
         'i18n/helpers-dateFormatters.nl.i18n.json',
         'i18n/client-language.en.i18n.json',
-        'i18n/client-language.nl.i18n.json'
+        'i18n/client-language.nl.i18n.json',
+        'i18n/errors.en.i18n.json',
+        'i18n/errors.nl.i18n.json'
     ], 'server');
 });
