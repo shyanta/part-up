@@ -27,6 +27,9 @@ Template.modal_create_details.helpers({
     },
     submitting: function() {
         return !!Template.instance().submitting.get();
+    },
+    isCreate: function() {
+        return !Session.get('partials.create-partup.current-partup');
     }
 });
 
@@ -49,7 +52,7 @@ Template.modal_create_details.events({
 /*************************************************************/
 /* Widget create partup */
 /*************************************************************/
-var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, callback) {
+var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, callback, self) {
     if (partupId) {
 
         // Partup already exists. Update.
@@ -110,7 +113,7 @@ afHooks[FORM_ID] = {
                     }
                 });
             }
-        });
+        }, self);
 
         this.event.preventDefault();
         return false;
