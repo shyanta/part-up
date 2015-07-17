@@ -12,6 +12,37 @@
                 <h1>{{_ "pages-modal-network_invite-title" }}</h1>
                 <p>{{_ "pages-modal-network_invite-description" }}</p>
 
+                <form id="suggestionsQuery" class="pu-filterbar-wrap">
+                    <div class="pu-filterbar">
+
+                        <!-- Label -->
+                        <p class="pu-sub-label">Laat mij zien</p>
+
+                        <!-- Search query -->
+                        <div class="pu-sub-input"><input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Zoekwoord"></div>
+
+                        <!-- Label -->
+                        <p class="pu-sub-label">Uppers uit</p>
+
+                        <!-- Location selector -->
+                        <div class="pu-sub-input pu-dropdownie-container">
+                            <input type="hidden" name="location_id" value="{{ locationValue.id }}">
+                            <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-locationselector>
+                                {{#with locationValue }}
+                                    {{ city }}
+                                    <i class="fa fa-times" data-reset-selected-location></i>
+                                {{else }}
+                                    Overal
+                                {{/with }}
+                            </a>
+                            {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
+                        </div>
+
+                        <!-- Hidden send button -->
+                        <input type="submit" class="pu-sub-submit">
+                    </div>
+                </form>
+
                 <ul class="pu-invite-suggestions">
                     {{# each suggestions }}
                         <li>
