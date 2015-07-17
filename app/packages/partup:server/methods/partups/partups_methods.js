@@ -153,6 +153,26 @@ Meteor.methods({
     },
 
     /**
+     * Get the amount of Part-ups based on provided filters
+     *
+     * @param {Object} options
+     */
+    'partups.discover_count': function(options) {
+        this.unblock();
+
+        var user = Meteor.user();
+
+        var parameters = {
+            networkId: options.networkId,
+            locationId: options.locationId,
+            sort: options.sort,
+            query: options.query
+        };
+
+        return Partups.findForDiscover(user._id, {}, parameters).count();
+    },
+
+    /**
      * Discover partups based on provided filters
      *
      * @param {Object} options
