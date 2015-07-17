@@ -14,12 +14,18 @@ Meteor.startup(function() {
     // logs in or out
     Meteor.autorun(function(computation) {
         var user = Meteor.user();
-        if (user) {
-            if (!user.profile || !user.profile.language) return;
-            Partup.client.language.change(user.profile.language);
-        } else {
-            Partup.client.language.setToDefault();
-        }
+
+        // some of these methods have reactive vars
+        // we dont't want unnessesary language changes
+        Tracker.nonreactive(function() {
+            if (user) {
+                if (!user.profile || !user.profile.language) return;
+
+                Partup.client.language.change(user.profile.language);
+            } else {
+                Partup.client.language.setToDefault();
+            }
+        });
     });
 
     /*************************************************************/

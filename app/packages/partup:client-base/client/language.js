@@ -15,8 +15,12 @@ Partup.client.language = {
      */
     change: function(language) {
         var self = this;
-        TAPi18n.setLanguage(language).done(function() {
 
+        // prevent unnessesary language changes
+        var currentLanguage = Partup.client.language.current.get();
+        if(language === currentLanguage) return;
+
+        TAPi18n.setLanguage(language).done(function() {
             // Change MomentJS language
             moment.locale(language);
             self.current.set(language);
@@ -76,6 +80,7 @@ Partup.client.language = {
             var user = Meteor.user();
             if(!user) return;
 
+            // update the user stored language setting for future logins
             Meteor.call('users.update.language', {language: language}, function(error, res){
                 if (error && error.message) {
                     Partup.client.notify.error('Could not set the correct language');
