@@ -37,6 +37,7 @@ Package.onUse(function(api) {
         'services/validators.js',
         'services/website.js',
         'collections/activities.js',
+        'collections/activities_invites.js',
         'collections/contributions.js',
         'collections/updates.js',
         'collections/notifications.js',
@@ -81,14 +82,15 @@ Package.onUse(function(api) {
     api.export('Partup');
 
     // Collections
-    api.export('Partups');
     api.export('Activities');
+    api.export('ActivitiesInvites');
     api.export('Contributions');
-    api.export('Notifications');
-    api.export('Networks');
     api.export('Images');
-    api.export('Updates');
+    api.export('Networks');
+    api.export('Notifications');
+    api.export('Partups');
     api.export('Ratings');
     api.export('Tags');
+    api.export('Updates');
     api.export('User');
 });

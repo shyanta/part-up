@@ -37,8 +37,8 @@
     </article>
 
     {{#if partupIsPopupActive 'popup.invite-to-partup' }}
-        {{#contentFor "PopupContent"}}
-            {{> InviteToPartup }}
+        {{#contentFor "PopupContent" }}
+            {{> InviteToPartup activityId=activityId }}
         {{/contentFor}}
     {{/if}}
 </template>
