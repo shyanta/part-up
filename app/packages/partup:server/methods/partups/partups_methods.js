@@ -150,5 +150,30 @@ Meteor.methods({
         Event.emit('partups.invited', user._id, partupId, email, name);
 
         return true;
+    },
+
+    /**
+     * Discover partups based on provided filters
+     *
+     * @param {Object} options
+     */
+    'partups.discover': function(options) {
+        var user = Meteor.user();
+
+        var mongoOptions = {
+            // limit: options.limit
+        };
+
+        var parameters = {
+            networkId: options.networkId,
+            locationId: options.locationId,
+            sort: options.sort,
+            query: options.query
+        };
+
+        return Partups.findForDiscover(user._id, mongoOptions, parameters).map(function(partup) {
+            return partup._id;
+        });
     }
+
 });
