@@ -30,6 +30,7 @@
 
     "pages-modal-register-details-form-website-label": "Do you have a website or blog?",
     "pages-modal-register-details-form-website-placeholder": "www.my-blog-or-website.com",
+    "pages-modal-register-details-form-website-tooltip": "You can use your website or blog to present yourself to others. Share it here so other uppers are able to get to know you better. If you don't have one, please leave this field empty.",
 
     "pages-modal-register-details-form-phonenumber-label": "Is it okay for other uppers to call (or text) you?",
     "pages-modal-register-details-form-phonenumber-placeholder": "+31612345678",
