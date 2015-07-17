@@ -6,7 +6,7 @@
         <p>{{_ 'pages-modal-create-promote-text-intro'}}</p>
         <p>{{_ 'pages-modal-create-promote-text-intro2'}}</p>
         <article class="pu-previewpost">
-            <h3>{{ partup.name }}</h3>
+            <h3 class="pu-title">{{ partup.name }}</h3>
             <figure class="pu-sub-image" style="{{#with partup.image }}background-image: url('{{partupImageUrl id=. store='1200x520'}}');{{/with}}" data-partupcover-focuspoint></figure>
             <p>{{ partup.description }}</p>
         </article>

@@ -104,7 +104,7 @@ Template.modal_create_promote.events({
         elm.select();
     },
 
-    'click [data-action-topartup]': function eventToPartup(event) {
+    'click [data-action-topartup]': function eventToPartup(event, template) {
         event.preventDefault();
 
         Intent.return('create', {
@@ -112,7 +112,7 @@ Template.modal_create_promote.events({
             fallback_route: {
                 name: 'partup',
                 params: {
-                    _id: id
+                    _id: template.data.partupId
                 }
             }
         });
