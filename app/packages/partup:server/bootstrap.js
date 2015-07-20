@@ -34,3 +34,21 @@ Router.route('/ping', function() {
 
 // Kick off the cronjobs
 SyncedCron.start();
+
+// Browser Policy
+Meteor.startup(function() {
+
+    // Content allows
+    BrowserPolicy.content.allowEval();
+
+    // Disallow being framed by other sites
+    BrowserPolicy.framing.disallow();
+
+    // When in development mode, we need to be able to be framed by Velocity
+    if (process.env.NODE_ENV.match(/development/)) {
+        var VELOCITY_ORIGIN = 'http://localhost:49371';
+
+        BrowserPolicy.framing.restrictToOrigin(VELOCITY_ORIGIN);
+        BrowserPolicy.content.allowOriginForAll(VELOCITY_ORIGIN);
+    }
+});

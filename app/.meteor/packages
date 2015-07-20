@@ -50,6 +50,7 @@ lifelynl:intent
 cwaring:modernizr
 mrt:jquery-mousewheel
 yogiben:autoform-tags
+browser-policy
 
 partup:newrelic
 partup:lib
@@ -91,4 +92,3 @@ partup:client-spinner
 partup:client-update
 partup:client-usercard
 partup:meteor-bender
-
