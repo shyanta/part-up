@@ -283,11 +283,14 @@ Meteor.methods({
     /**
      * Get user suggestions for a given network
      *
-     * @param {String} activityId
+     * @param {String} networkId
+     * @param {Object} options
+     * @param {Number} options.locationId
+     * @param {String} options.query
      *
      * @return {[String]}
      */
-    'networks.user_suggestions': function(activityId) {
+    'networks.user_suggestions': function(networkId, options) {
         var upper = Meteor.user();
 
         if (!upper) {
