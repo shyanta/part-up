@@ -40,6 +40,7 @@ Meteor.startup(function() {
 
     // Content allows
     BrowserPolicy.content.allowEval();
+    BrowserPolicy.content.allowOriginForAll('*');
 
     // Disallow being framed by other sites
     BrowserPolicy.framing.disallow();
@@ -49,6 +50,5 @@ Meteor.startup(function() {
         var VELOCITY_ORIGIN = 'http://localhost:49371';
 
         BrowserPolicy.framing.restrictToOrigin(VELOCITY_ORIGIN);
-        BrowserPolicy.content.allowOriginForAll(VELOCITY_ORIGIN);
     }
 });
