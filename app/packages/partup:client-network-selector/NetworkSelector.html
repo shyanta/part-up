@@ -19,7 +19,9 @@
                 {{#each suggestedNetworks }}
                     <li>
                         <a href="#" class="pu-networktile" data-select-suggested-network="{{ _id }}">
-                            <figure style="{{#with icon }}background-image: url({{ partupImageUrl id=. }});{{/with }}"></figure>
+                            <div class="pu-sub-figurecontainer">
+                                <figure style="{{#with icon }}background-image: url({{ partupImageUrl id=. }});{{/with }}"></figure>
+                            </div>
                             <span>{{ name }}</span>
                         </a>
                     </li>

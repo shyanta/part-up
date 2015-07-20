@@ -1,10 +1,17 @@
 .pu-networktile
-    display: block
+    width: 100%
+    display: table
     color: $color-text
+    text-decoration: none
+    font-size: 16px
+    line-height: 1.4em
     transition: background .2s
 
+    .pu-sub-figurecontainer
+        display: table-cell
+        vertical-align: top
+
     figure
-        float: left
         width: 16px
         height: 16px
         border-radius: 2px
@@ -13,11 +20,10 @@
         background-color: #222
 
     span
-        display: block
-        float: left
-        margin: 1px 0 -1px 8px
-        font-size: 16px
-        line-height: 1em
+        display: table-cell
+        width: 100%
+        vertical-align: top
+        padding-left: 10px
 
     &:after
         content: ''
