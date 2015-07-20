@@ -71,9 +71,11 @@ AutoForm.hooks({
             var self = this;
 
             self.event.preventDefault();
-            var partup = this.template.parent().data.currentPartup;
-
             var template = self.template.parent().parent();
+
+            if (template.submitting.get()) return;
+
+            var partup = this.template.parent().data.currentPartup;
             var submitBtn = template.find('[type=submit]');
             template.submitting.set(true);
 
