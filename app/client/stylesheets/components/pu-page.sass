@@ -62,6 +62,12 @@
                 right: 100%
                 top: 43px
 
+    > .pu-spinner
+        display: block
+        margin-left: auto
+        margin-right: auto
+        margin-top: 200px
+
     &-tinted
         background: $color-background-tertiery
 
@@ -111,11 +117,21 @@
         &-discover
             padding-top: 128px
 
+            > .pu-spinner
+                margin-top: 200px - 128px
+
         &-home
             padding-top: 128px
 
-        &-profile
+            > .pu-spinner
+                margin-top: 200px - 128px
+
+        &-profile,
+        &-network
             padding-top: 258px
+
+            > .pu-spinner
+                margin-top: 200px - 258px
 
         .pu-sub-fixedmodalsidebar
             position: fixed

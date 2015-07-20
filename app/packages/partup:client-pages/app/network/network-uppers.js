@@ -8,8 +8,10 @@ Template.app_network_uppers.onCreated(function() {
         INCREMENT: 8,
 
         // States
-        loading: new ReactiveVar(true),
-        end_reached: new ReactiveVar(true),
+        loading: new ReactiveVar(false),
+        count_loading: new ReactiveVar(false),
+        infinitescroll_loading: new ReactiveVar(false),
+        end_reached: new ReactiveVar(false),
 
         // Namespace for columns layout functions (added by helpers)
         layout: {
@@ -28,36 +30,40 @@ Template.app_network_uppers.onCreated(function() {
             var options = b;
             options.limit = tpl.uppers.STARTING_LIMIT;
 
-            tpl.uppers.loading.set(true);
-
-            if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
-
+            // Set networks.one.uppers.count subscription
             if (tpl.uppers.count_handle) tpl.uppers.count_handle.stop();
             tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', networkId, options);
+            tpl.uppers.count_loading.set(true);
 
+            // When the networks.one.uppers.count data changes
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.uppers.count_handle.ready()) {
                     computation.stop();
+                    tpl.uppers.count_loading.set(false);
 
                     var new_count = Counts.get('networks.one.uppers.filterquery');
                     tpl.uppers.layout.count.set(new_count);
                 }
             });
 
+            // Set networks.one.uppers subscription
+            if (tpl.uppers.handle) tpl.uppers.handle.stop();
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
+            tpl.uppers.loading.set(true);
+
+            // When the networks.one.uppers data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.uppers.handle.ready()) {
                     computation.stop();
+                    tpl.uppers.loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Reset the loading state
                      * - Get all current uppers from our local database
                      * - Remove all uppers from the column layout
                      * - Add our uppers to the layout
                      */
                     Tracker.nonreactive(function replaceUppers() {
-                        tpl.uppers.loading.set(false);
 
                         var uppers = Meteor.users.find({networks: {$in: [networkId]}}).fetch();
 
@@ -76,18 +82,17 @@ Template.app_network_uppers.onCreated(function() {
             var options = tpl.uppers.options.get();
             options.limit = b;
 
-            var oldHandle = tpl.uppers.handle;
+            if (tpl.uppers.handle) tpl.uppers.handle.stop();
             tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
-            tpl.uppers.loading.set(true);
+            tpl.uppers.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.uppers.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
+                    tpl.uppers.infinitescroll_loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Reset the loading state
                      * - Get all currently rendered uppers
                      * - Get all current uppers from our local database
                      * - Compare the newUppers with the oldUppers to find the difference
@@ -95,7 +100,6 @@ Template.app_network_uppers.onCreated(function() {
                      * - Add our uppers to the layout
                      */
                     Tracker.nonreactive(function addUppers() {
-                        tpl.uppers.loading.set(false);
                         var oldUppers = tpl.uppers.layout.items;
                         var newUppers = Meteor.users.find({networks: {$in: [networkId]}}).fetch();
 
@@ -150,7 +154,8 @@ Template.app_network_uppers.helpers({
         return Template.instance().uppers.layout.count.get() || '';
     },
     uppersLoading: function() {
-        return Template.instance().uppers.loading.get();
+        var tpl = Template.instance();
+        return tpl.uppers.loading.get() || tpl.uppers.count_loading.get();
     },
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addToLayoutHook' with a callback.

@@ -2,17 +2,17 @@
     "pages-app-network-collapse": "verbergen",
     "pages-app-network-expand": "lees meer",
 
-    "pages-app-networks-heading": "in dit network",
+    "pages-app-network-uppers-loading": "Uppers in deze tribe",
+    "pages-app-network-uppers-none": "Geen uppers gevonden",
+    "pages-app-network-uppers-count": "1 upper",
+    "pages-app-network-uppers-count_plural": "__count__ uppers",
+    "pages-app-network-uppers-suffix": "in deze tribe",
 
-    "pages-app-network-loading": "Laden...",
-    "pages-app-network-nouppers": "geen uppers gevonden",
-    "pages-app-network-xuppers": "1 upper",
-    "pages-app-network-xuppers_plural": "__count__ uppers",
-    "pages-app-network-xuppers-end": "in dit netwerk",
-
-    "pages-app-network-xpartups": "1 part-up",
-    "pages-app-network-xpartups_plural": "__count__ part-ups",
-    "pages-app-network-nopartups": "Geen part-ups gevonden",
+    "pages-app-network-partups-loading": "Part-ups in deze tribe",
+    "pages-app-network-partups-none": "Geen part-ups gevonden",
+    "pages-app-network-partups-count": "1 part-up",
+    "pages-app-network-partups-count_plural": "__count__ part-ups",
+    "pages-app-network-partups-suffix": "in deze tribe",
 
     "pages-app-network-closed-title": "Dit is een gesloten tribe",
     "pages-app-network-closed-description": "De uppers in deze tribe hebben ervoor gekozen om de community besloten te houden. Meld je aan om de community manager te laten weten dat het een goed idee is dat jij ook onderdeel wordt van __network__. Hij of zij stuurt snel een reactie."

@@ -8,8 +8,10 @@ Template.app_network_partups.onCreated(function() {
         INCREMENT: 8,
 
         // States
-        loading: new ReactiveVar(true),
-        end_reached: new ReactiveVar(true),
+        loading: new ReactiveVar(false),
+        count_loading: new ReactiveVar(false),
+        infinitescroll_loading: new ReactiveVar(false),
+        end_reached: new ReactiveVar(false),
 
         // Namespace for columns layout functions (added by helpers)
         layout: {
@@ -35,36 +37,40 @@ Template.app_network_partups.onCreated(function() {
             var options = b;
             options.limit = tpl.partups.STARTING_LIMIT;
 
-            tpl.partups.loading.set(true);
-
-            if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('networks.one.partups', networkId, options);
-
+            // Set networks.one.partups.count subscription
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
             tpl.partups.count_handle = tpl.subscribe('networks.one.partups.count', networkId, options);
+            tpl.partups.count_loading.set(true);
 
+            // When the networks.one.partups.count data changes
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
                     computation.stop();
+                    tpl.partups.count_loading.set(false);
 
                     var new_count = Counts.get('networks.one.partups.filterquery');
                     tpl.partups.layout.count.set(new_count);
                 }
             });
 
+            // Set networks.one.partups subscription
+            if (tpl.partups.handle) tpl.partups.handle.stop();
+            tpl.partups.handle = tpl.subscribe('networks.one.partups', networkId, options);
+            tpl.partups.loading.set(true);
+
+            // When the networks.one.partups data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
+                    tpl.partups.loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Reset the loading state
                      * - Get all current partups from our local database
                      * - Remove all partups from the column layout
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        tpl.partups.loading.set(false);
                         var partups = Partups.find().fetch();
 
                         var partupTileDatas = lodash.map(partups, function(partup) {
@@ -86,18 +92,17 @@ Template.app_network_partups.onCreated(function() {
             var options = tpl.partups.options.get();
             options.limit = b;
 
-            var oldHandle = tpl.partups.handle;
+            if (tpl.partups.handle) tpl.partups.handle.stop();
             tpl.partups.handle = tpl.subscribe('networks.one.partups', networkId, options);
-            tpl.partups.loading.set(true);
+            tpl.partups.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
+                    tpl.partups.infinitescroll_loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Reset the loading state
                      * - Get all currently rendered partups
                      * - Get all current partups from our local database
                      * - Compare the newPartups with the oldPartups to find the difference
@@ -105,7 +110,6 @@ Template.app_network_partups.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function addPartups() {
-                        tpl.partups.loading.set(false);
                         var oldPartups = tpl.partups.layout.items;
                         var newPartups = Partups.find().fetch();
 
@@ -164,7 +168,8 @@ Template.app_network_partups.helpers({
         return Template.instance().partups.layout.count.get() || '';
     },
     partupsLoading: function() {
-        return Template.instance().partups.loading.get();
+        var tpl = Template.instance();
+        return tpl.partups.loading.get() || tpl.partups.count_loading.get();
     },
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addToLayoutHook' with a callback.

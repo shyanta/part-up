@@ -1,19 +1,20 @@
 <template name="app_network_uppers">
     <header class="pu-sub-header">
         <h2 class="pu-title">
-            <span class="pu-sub-countlabel">
-                {{#unless uppersLoading }}
+            {{# if uppersLoading }}
+                {{_ 'pages-app-network-uppers-loading' }}
+                {{> Spinner type='small' }}
+            {{ else }}
+                <span class="pu-sub-countlabel">
                     {{#if count}}
-                        {{_ 'pages-app-network-xuppers' count=count }}
+                        {{_ 'pages-app-network-uppers-count' count=count }}
                     {{else}}
-                        {{_ 'pages-app-network-nouppers' }}
+                        {{_ 'pages-app-network-uppers-none' }}
                     {{/if}}
-                {{else}}
-                    {{_ 'pages-app-network-loading' }}
-                {{/unless}}
-            </span>
+                </span>
 
-            {{_ 'pages-app-networks-heading' }}
+                {{_ 'pages-app-network-uppers-suffix' }}
+            {{/ if }}
         </h2>
     </header>
 

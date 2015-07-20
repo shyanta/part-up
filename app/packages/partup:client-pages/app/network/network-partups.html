@@ -1,19 +1,20 @@
 <template name="app_network_partups">
     <header class="pu-sub-header">
         <h2 class="pu-title">
-            <span class="pu-sub-countlabel">
-                {{#unless partupsLoading }}
+            {{# if partupsLoading }}
+                {{_ 'pages-app-network-partups-loading' }}
+                {{> Spinner type='small' }}
+            {{ else }}
+                <span class="pu-sub-countlabel">
                     {{#if count}}
-                        {{_ 'pages-app-network-xpartups' count=count }}
+                        {{_ 'pages-app-network-partups-count' count=count }}
                     {{else}}
-                        {{_ 'pages-app-network-nopartups' }}
+                        {{_ 'pages-app-network-partups-none' }}
                     {{/if}}
-                {{else}}
-                    {{_ 'pages-app-network-loading' }}
-                {{/unless}}
-            </span>
+                </span>
 
-            {{_ 'pages-app-networks-heading' }}
+                {{_ 'pages-app-network-partups-suffix' }}
+            {{/ if }}
         </h2>
     </header>
 
