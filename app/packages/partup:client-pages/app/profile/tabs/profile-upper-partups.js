@@ -21,6 +21,12 @@ Template.app_profile_upper_partups.onCreated(function() {
         handle: null,
         count_handle: null,
 
+        // PartupTile data
+        partupTileData: function(partup) {
+            var data = lodash.cloneDeep(partup);
+            return data;
+        },
+
         // Options reactive variable (on change, clear the layout and re-add all partups)
         options: new ReactiveVar({}, function(a, b) {
             tpl.partups.resetLimit();
@@ -60,8 +66,12 @@ Template.app_profile_upper_partups.onCreated(function() {
                         tpl.partups.loading.set(false);
                         var partups = Partups.find().fetch();
 
+                        var partupTileDatas = lodash.map(partups, function(partup) {
+                            return tpl.partups.partupTileData(partup);
+                        });
+
                         tpl.partups.layout.items = tpl.partups.layout.clear();
-                        tpl.partups.layout.items = tpl.partups.layout.add(partups);
+                        tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
                     });
                 }
             });
@@ -106,6 +116,10 @@ Template.app_profile_upper_partups.onCreated(function() {
 
                         var end_reached = diffPartups.length === 0;
                         tpl.partups.end_reached.set(end_reached);
+
+                        var partupTileDatas = lodash.map(diffPartups, function(partup) {
+                            return tpl.partups.partupTileData(partup);
+                        });
 
                         tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
                     });

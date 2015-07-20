@@ -4,11 +4,11 @@
 
         <!-- Tags -->
         {{# if tags }}
-            <ul class="pu-sub-partup-tags">
-                {{# each tags }}
-                <li style="transition-delay: {{ delay }}s"><span>{{ tag }}</span></li>
-                {{/ each }}
-            </ul>
+        <ul class="pu-sub-partup-tags">
+            {{# each tags }}
+            <li style="transition-delay: {{ delay }}s"><span>{{ tag }}</span></li>
+            {{/ each }}
+        </ul>
         {{/ if }}
 
         <!-- Name of the Part-up -->
@@ -28,11 +28,11 @@
                 </a>
                 <!-- Uppers -->
                 {{# if uppers }}
-                    <ul class="pu-sub-avatar-list">
-                        {{# each uppers }}
-                            <li class="pu-avatar" style="background-image: url('{{# with upper }}{{ partupImageUrl id=profile.image store='80x80' }}{{/ with }}'); top: {{ y }}px; left: {{ x }}px; transition-delay: {{ delay }}s;" data-usercard="{{ _id }}"></li>
-                        {{/ each }}
-                    </ul>
+                <ul class="pu-sub-avatar-list">
+                    {{# each uppers }}
+                    <li class="pu-avatar" style="background-image: url('{{# with upper }}{{ partupImageUrl id=profile.image store='80x80' }}{{/ with }}'); top: {{ y }}px; left: {{ x }}px; transition-delay: {{ delay }}s;" data-usercard="{{ _id }}"></li>
+                    {{/ each }}
+                </ul>
                 {{/ if }}
             </div>
 
@@ -57,16 +57,18 @@
         </section>
 
         <!-- Network -->
-        {{# with network }}
-            <footer>
-                <a href="{{ pathFor 'network-detail' _id }}" class="pu-networktile">
-                    <div class="pu-sub-figurecontainer">
-                        <figure style="{{# with icon}}background-image: url('{{ partupImageUrl . store='32x32' }}');{{/ with }}"></figure>
-                    </div>
-                    <span>{{ name }}</span>
-                </a>
-            </footer>
-        {{/ with }}
+        {{# unless HIDE_NETWORKTILE }}
+            {{# with network }}
+                <footer>
+                    <a href="{{ pathFor 'network-detail' _id }}" class="pu-networktile">
+                        <div class="pu-sub-figurecontainer">
+                            <figure style="{{# with icon}}background-image: url('{{ partupImageUrl . store='32x32' }}');{{/ with }}"></figure>
+                        </div>
+                        <span>{{ name }}</span>
+                    </a>
+                </footer>
+            {{/ with }}
+        {{/ unless }}
 
     </article>
 
