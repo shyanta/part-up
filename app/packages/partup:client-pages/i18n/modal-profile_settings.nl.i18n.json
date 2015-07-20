@@ -29,5 +29,7 @@
     "modal-profilesettings-account-option-language-dutch": "@Nederlands",
     "modal-profilesettings-account-option-language-english": "@Engels",
 
-    "modal-profilesettings-button-save": "@Wijzigingen opslaan"
+    "modal-profilesettings-button-save": "@Wijzigingen opslaan",
+
+    "modal-profilesettings-button-save_success": "Profiel opgeslagen"
 }

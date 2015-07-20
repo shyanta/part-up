@@ -23,7 +23,7 @@ AutoForm.hooks({
                     return;
                 }
 
-                Partup.client.notify.info('saved');
+                Partup.client.notify.success(__('modal-profilesettings-button-save_success'));
                 self.done();
 
                 template.submitting.set(false);

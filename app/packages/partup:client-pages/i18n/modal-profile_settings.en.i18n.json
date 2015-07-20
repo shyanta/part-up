@@ -29,5 +29,7 @@
     "modal-profilesettings-account-option-language-dutch": "@Dutch",
     "modal-profilesettings-account-option-language-english": "@English",
 
-    "modal-profilesettings-button-save": "@Save changes"
+    "modal-profilesettings-button-save": "@Save changes",
+
+    "modal-profilesettings-button-save_success": "Profile saved"
 }
