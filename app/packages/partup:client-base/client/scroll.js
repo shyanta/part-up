@@ -84,7 +84,7 @@ Partup.client.scroll = {
             var bottomPosition = options.element.getBoundingClientRect().bottom;
             var bottomInView = bottomPosition - Partup.client.scroll._element.clientHeight;
             if (bottomInView < INFINITE_SCROLL_OFFSET) {
-                callback();
+                if (!options.template.view.isDestroyed) callback();
             }
         };
         var debounced_trigger = lodash.debounce(trigger, INFINITE_SCROLL_DEBOUNCE);
