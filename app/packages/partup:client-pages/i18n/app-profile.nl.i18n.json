@@ -2,12 +2,15 @@
     "pages-app-profile-upper-partups-nav": "Upper Part-ups",
     "pages-app-profile-supporter-partups-nav": "Supporter Part-ups",
 
-    "pages-app-profile-upper-partups-heading": "__name__ is upper in",
-    "pages-app-profile-supporter-partups-heading": "__name__ is supporter in",
+    "pages-app-profile-upper-partups-loading": "Part-ups",
+    "pages-app-profile-upper-partups-none": "__name__ is nog geen partner van een part-up",
+    "pages-app-profile-upper-partups-count": "1 part-up",
+    "pages-app-profile-upper-partups-count_plural": "__count__ part-ups",
+    "pages-app-profile-upper-partups-prefix": "__name__ is upper in",
 
-    "pages-app-profile-xpartups_plural": "__count__ part-ups",
-    "pages-app-profile-xpartups": "__count__ part-up",
-    "pages-app-profile-nopartups": "0 part-ups",
-
-    "pages-app-profile-loading": "laden..."
+    "pages-app-profile-supporter-partups-loading": "Part-ups",
+    "pages-app-profile-supporter-partups-none": "__name__ is nog geen supporter van een part-up",
+    "pages-app-profile-supporter-partups-count": "1 part-up",
+    "pages-app-profile-supporter-partups-count_plural": "__count__ part-ups",
+    "pages-app-profile-supporter-partups-prefix": "__name__ is supporter in"
 }

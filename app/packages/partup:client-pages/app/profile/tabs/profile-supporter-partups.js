@@ -8,8 +8,10 @@ Template.app_profile_supporter_partups.onCreated(function() {
         INCREMENT: 8,
 
         // States
-        loading: new ReactiveVar(true),
-        end_reached: new ReactiveVar(true),
+        loading: new ReactiveVar(false),
+        count_loading: new ReactiveVar(false),
+        infinitescroll_loading: new ReactiveVar(false),
+        end_reached: new ReactiveVar(false),
 
         // Namespace for columns layout functions (added by helpers)
         layout: {
@@ -34,36 +36,40 @@ Template.app_profile_supporter_partups.onCreated(function() {
             var options = b;
             options.limit = tpl.partups.STARTING_LIMIT;
 
-            tpl.partups.loading.set(true);
-
-            if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.supporterpartups', options);
-
+            // Set users.one.supporterpartups.count subscription
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
             tpl.partups.count_handle = tpl.subscribe('users.one.supporterpartups.count', options);
+            tpl.partups.count_loading.set(true);
 
+            // When the users.one.supporterpartups.count data changes
             Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
                 if (tpl.partups.count_handle.ready()) {
                     computation.stop();
+                    tpl.partups.count_loading.set(false);
 
                     var new_count = Counts.get('users.one.supporterpartups.filterquery');
                     tpl.partups.layout.count.set(new_count);
                 }
             });
 
+            // Set users.one.supporterpartups subscription
+            if (tpl.partups.handle) tpl.partups.handle.stop();
+            tpl.partups.handle = tpl.subscribe('users.one.supporterpartups', options);
+            tpl.partups.loading.set(true);
+
+            // When the users.one.supporterpartups data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
+                    tpl.partups.loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Reset the loading state
                      * - Get all current partups from our local database
                      * - Remove all partups from the column layout
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        tpl.partups.loading.set(false);
                         var partups = Partups.find().fetch();
 
                         var partupTileDatas = lodash.map(partups, function(partup) {
@@ -87,16 +93,15 @@ Template.app_profile_supporter_partups.onCreated(function() {
 
             var oldHandle = tpl.partups.handle;
             tpl.partups.handle = tpl.subscribe('users.one.supporterpartups', options);
-            tpl.partups.loading.set(true);
+            tpl.partups.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
                 if (tpl.partups.handle.ready()) {
                     computation.stop();
-                    if (oldHandle) oldHandle.stop();
+                    tpl.partups.infinitescroll_loading.set(false);
 
                     /**
                      * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Reset the loading state
                      * - Get all currently rendered partups
                      * - Get all current partups from our local database
                      * - Compare the newPartups with the oldPartups to find the difference
@@ -104,7 +109,6 @@ Template.app_profile_supporter_partups.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function addPartups() {
-                        tpl.partups.loading.set(false);
                         var oldPartups = tpl.partups.layout.items;
                         var newPartups = Partups.find().fetch();
 
@@ -163,7 +167,8 @@ Template.app_profile_supporter_partups.helpers({
         return Template.instance().partups.layout.count.get() || '';
     },
     partupsLoading: function() {
-        return Template.instance().partups.loading.get();
+        var tpl = Template.instance();
+        return tpl.partups.loading.get() || tpl.partups.count_loading.get();
     },
     firstname: function() {
         var user = Meteor.user();

@@ -1,19 +1,19 @@
 <template name="app_profile_upper_partups">
     <header class="pu-sub-header">
         <h2 class="pu-title">
-            {{_ 'pages-app-profile-upper-partups-heading' name=firstname }}
-
-            <span class="pu-sub-countlabel">
-                {{#unless partupsLoading }}
-                    {{#if count}}
-                        {{_ 'pages-app-profile-xpartups' count=count }}
-                    {{else}}
-                        {{_ 'pages-app-profile-nopartups' }}
-                    {{/if}}
+            {{# if partupsLoading }}
+                {{_ 'pages-app-profile-upper-partups-loading' }}
+                {{> Spinner type='small' }}
+            {{ else }}
+                {{#if count}}
+                    {{_ 'pages-app-profile-upper-partups-prefix' name=firstname }}
+                    <span class="pu-sub-countlabel">
+                        {{_ 'pages-app-profile-upper-partups-count' count=count }}
+                    </span>
                 {{else}}
-                    {{_ 'pages-app-profile-nopartups' }}
-                {{/unless}}
-            </span>
+                    {{_ 'pages-app-profile-upper-partups-none' name=firstname }}
+                {{/if}}
+            {{/ if }}
         </h2>
     </header>
 
