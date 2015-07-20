@@ -121,7 +121,7 @@ Template.app_profile_supporter_partups.onCreated(function() {
                         var end_reached = diffPartups.length === 0;
                         tpl.partups.end_reached.set(end_reached);
 
-                        var partupTileDatas = lodash.map(partups, function(partup) {
+                        var partupTileDatas = lodash.map(diffPartups, function(partup) {
                             return tpl.partups.partupTileData(partup);
                         });
 
