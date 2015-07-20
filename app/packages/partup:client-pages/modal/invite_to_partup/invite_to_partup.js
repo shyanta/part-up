@@ -57,6 +57,6 @@ Template.modal_invite_to_partup.events({
             }
 
             Partup.client.notify.success(__('pages-modal-invite_to_partup-invite-success'));
-        })
+        });
     }
 });
