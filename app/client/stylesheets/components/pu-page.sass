@@ -33,6 +33,9 @@
                     overflow: hidden
                     transition: padding .2s, max-height .2s, border .2s
 
+                    .pu-wrap
+                        transition: opacity .2s
+
             &.pu-state-descriptionexpanded
                 > section
                     max-height: 500px
@@ -101,6 +104,9 @@
                         padding-top: 0
                         padding-bottom: 0
                         border-width: 0
+
+                        .pu-wrap
+                            opacity: 0
 
         &-discover
             padding-top: 128px
