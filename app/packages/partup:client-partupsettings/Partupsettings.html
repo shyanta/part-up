@@ -148,6 +148,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-privacy-tooltip' }}</p></span>
                     </a>
                 </span>
+
                 {{# unless showPrivacyDropdown }}
 
                     <div class="pu-inputholder pu-inputholder-righticon">
@@ -244,6 +245,10 @@
                 {{/if }}
 
             {{/if }}
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='image' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-error">{{ afFieldMessage name='image' }}</span>
+            </div>
         </div>
 
         <!-- Variable footer -->

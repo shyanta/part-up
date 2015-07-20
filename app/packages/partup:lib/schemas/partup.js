@@ -52,8 +52,7 @@ var partupBaseSchema = new SimpleSchema({
         max: 60
     },
     image: {
-        type: String,
-        optional: true
+        type: String
     },
     network_id: {
         type: String,
