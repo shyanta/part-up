@@ -69,13 +69,22 @@ AutoForm.hooks({
     editPartupForm: {
         onSubmit: function(insertDoc) {
             var self = this;
+
+            self.event.preventDefault();
             var partup = this.template.parent().data.currentPartup;
 
             var template = self.template.parent().parent();
             var submitBtn = template.find('[type=submit]');
             template.submitting.set(true);
 
-            updatePartup(partup._id, insertDoc, function(partupId) {
+            Meteor.call('partups.update', partup._id, insertDoc, function(error, res) {
+                if (error && error.reason) {
+                    Partup.client.notify.error(error.reason);
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return;
+                }
+
                 template.submitting.set(false);
                 Intent.return('partup-settings', {
                     fallback_route: {
@@ -87,7 +96,6 @@ AutoForm.hooks({
                 });
             });
 
-            this.event.preventDefault();
             return false;
         }
     }
