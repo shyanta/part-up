@@ -2,7 +2,7 @@ Template.modal_network_invite.onCreated(function() {
     var self = this;
     self.userIds = new ReactiveVar([]);
     self.subscription = new ReactiveVar();
-    self.suggestionsOptions = new ReactiveVar();
+    self.suggestionsOptions = new ReactiveVar({});
 
     // Submit filter form
     self.submitFilterForm = function() {
@@ -40,14 +40,19 @@ Template.modal_network_invite.onCreated(function() {
         }
     };
 
-    Meteor.call('networks.user_suggestions', this.data.networkId, function(err, userIds) {
-        if (err) {
-            Partup.client.notify.error(err.reason);
-            return;
-        }
+    self.autorun(function() {
+        var networkId = self.data.networkId;
+        var options = self.suggestionsOptions.get();
 
-        self.userIds.set(userIds);
-        self.subscription.set(self.subscribe('users.by_ids', userIds));
+        Meteor.call('networks.user_suggestions', networkId, options, function(err, userIds) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            self.userIds.set(userIds);
+            self.subscription.set(self.subscribe('users.by_ids', userIds));
+        });
     });
 });
 
