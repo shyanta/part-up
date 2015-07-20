@@ -91,3 +91,5 @@ partup:client-spinner
 partup:client-update
 partup:client-usercard
 partup:meteor-bender
+xolvio:cucumber
+velocity:console-reporter
