@@ -1,4 +1,4 @@
-Template.modal_invite_to_partup.onCreated(function() {
+Template.modal_invite_to_activity.onCreated(function() {
     var self = this;
     self.userIds = new ReactiveVar([]);
     self.subscription = new ReactiveVar();
@@ -13,7 +13,7 @@ Template.modal_invite_to_partup.onCreated(function() {
     });
 });
 
-Template.modal_invite_to_partup.helpers({
+Template.modal_invite_to_activity.helpers({
     suggestions: function() {
         var sub = Template.instance().subscription.get();
         if (!sub || !sub.ready()) return;
@@ -34,7 +34,7 @@ Template.modal_invite_to_partup.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.modal_invite_to_partup.events({
+Template.modal_invite_to_activity.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
 
@@ -56,7 +56,7 @@ Template.modal_invite_to_partup.events({
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }
 
-            Partup.client.notify.success(__('pages-modal-invite_to_partup-invite-success'));
+            Partup.client.notify.success(__('pages-modal-invite_to_activity-invite-success'));
         });
     }
 });

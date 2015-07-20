@@ -308,14 +308,14 @@ Router.route('/partups/:_id/invite-for-activity/:activity_id', {
     name: 'partup-activity-invite',
     where: 'client',
     yieldRegions: {
-        'modal':                  {to: 'main'},
-        'modal_invite_to_partup': {to: 'modal'},
+        'modal':                    {to: 'main'},
+        'modal_invite_to_activity': {to: 'modal'},
     },
     data: function() {
         return {
             partupId: this.params._id,
             activityId: this.params.activity_id
-        }
+        };
     }
 });
 

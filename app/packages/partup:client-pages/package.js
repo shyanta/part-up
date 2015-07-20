@@ -129,9 +129,9 @@ Package.onUse(function(api) {
         'modal/partup_settings/partup_settings.html',
         'modal/partup_settings/partup_settings.js',
 
-        // Modal:invite_to_partup
-        'modal/invite_to_partup/invite_to_partup.html',
-        'modal/invite_to_partup/invite_to_partup.js',
+        // Modal:invite_to_activity
+        'modal/invite_to_activity/invite_to_activity.html',
+        'modal/invite_to_activity/invite_to_activity.js',
 
         // Modal:network
         'modal/network/network-invite.html',
@@ -204,8 +204,8 @@ Package.onUse(function(api) {
         'i18n/modal-forgotpassword.nl.i18n.json',
         'i18n/modal-resetpassword.en.i18n.json',
         'i18n/modal-resetpassword.nl.i18n.json',
-        'i18n/modal-invite_to_partup.en.i18n.json',
-        'i18n/modal-invite_to_partup.nl.i18n.json',
+        'i18n/modal-invite_to_activity.en.i18n.json',
+        'i18n/modal-invite_to_activity.nl.i18n.json',
         'i18n/modal-partup_settings.en.i18n.json',
         'i18n/modal-partup_settings.nl.i18n.json',
         'i18n/modal-create_intro.en.i18n.json',
