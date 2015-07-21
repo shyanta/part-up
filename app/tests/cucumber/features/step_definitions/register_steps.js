@@ -15,40 +15,34 @@
             call(callback);
         });
 
-        this.When(/^I enter my authentication information$/, function(callback) {
+        this.When(/^I enter my profile information$/, function(callback) {
             this.browser.
             waitForExist('body *').
             waitForVisible('body *').
-            setValue('[name="email"]', 'user@example.com').
-            setValue('[name="password"]', 'user').
+            setValue('[name="name"]', 'Registered User').
+            setValue('[name="email"]', 'registered@example.com').
+            setValue('[name="password"]', 'Testpassword1').
+            setValue('[name="confirmPassword"]', 'Testpassword1').
             click('[type=submit]').
             call(callback);
         });
 
-        this.When(/^I enter wrong login information$/, function(callback) {
+        this.When(/^I enter wrong profile information$/, function(callback) {
             this.browser.
             waitForExist('body *').
             waitForVisible('body *').
-            setValue('[name="email"]', 'user@example.com').
-            setValue('[name="password"]', 'bad password').
+            setValue('[name="name"]', 'Registered User').
             click('[type=submit]').
             call(callback);
         });
 
-        this.Then(/^I should see my username "([^"]*)"$/, function(expectedUsername, callback) {
-            this.browser.
-            waitForExist('.pu-composition-register .pu-title-modal').
-            getText('.pu-composition-register .pu-title-modal').then(function(text) {
-                assert(text.substr(expectedUsername), true);
-                callback();
-            });
-        });
-
-        this.Then(/^I should see an error$/, function(callback) {
+        this.Then(/^I should see some validation errors$/, function(callback) {
             this.browser.
             waitForExist('.pu-sub-error').
             getText('.pu-sub-error').then(function(text) {
-                assert(text, 'Unknown validation error');
+                text[1].should.contain('is required');
+                text[2].should.contain('is required');
+                text[3].should.contain('is required');
                 callback();
             });
         });
