@@ -67,6 +67,21 @@ User = function(user) {
             if (name && name.match(/.*\s.*/)) {
                 return name.split(' ')[0];
             }
+        },
+
+        /**
+         * Get user's locale code
+         */
+        getLocale: function() {
+            if (!user) return 'nl';
+
+            var locale = mout.object.get(user, 'settings.locale') || 'nl';
+
+            if (!mout.object.has(TAPi18n.getLanguages(), locale)) {
+                locale = 'nl';
+            }
+
+            return locale;
         }
     };
 };
