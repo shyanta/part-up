@@ -259,6 +259,95 @@ Meteor.startup(function() {
                 'image' : 'hJzq4Ga9TtCbdxBLr'
             });
 
+            Meteor.users.insert({
+                '_id' : 'a7qcp5RHnh5rfaeW9',
+                'createdAt' : new Date('2015-07-21T14:11:01.053Z'),
+                'services' : {
+                    'password' : {
+                        'bcrypt' : '$2a$10$SR1NSX03JXwPGBrZ0DjSxOf8.MEblni873mYoWjXnwp.ihN87cT9q'
+                    },
+                    'resume' : {
+                        'loginTokens' : [ 
+                            {
+                                'when' : new Date('2015-07-21T14:11:01.061Z'),
+                                'hashedToken' : 'QR5jRUOgOYNkrUZNjPdYicokC8hggzWimey9ccMMSG8='
+                            }
+                        ]
+                    },
+                    'email' : {
+                        'verificationTokens' : [ 
+                            {
+                                'token' : 'X0BHuAeVNCWozOenCCTdXltEXE1kPB0VZBriz39Src4',
+                                'address' : 'judy@example.com',
+                                'when' : new Date('2015-07-21T14:11:06.055Z')
+                            }
+                        ]
+                    }
+                },
+                'emails' : [ 
+                    {
+                        'address' : 'judy@example.com',
+                        'verified' : false
+                    }
+                ],
+                'completeness' : 27,
+                'profile' : {
+                    'name' : 'Judy Partup',
+                    'settings' : {
+                        'locale' : 'en',
+                        'optionalDetailsCompleted' : true
+                    },
+                    'image' : 'LG9J5XA4PPg5B8ZNu',
+                    'description' : null,
+                    'tags' : [ 
+                        'design', 
+                        'ux', 
+                        'photography', 
+                        'nonprofit'
+                    ],
+                    'location' : {
+                        'city' : 'Maastricht',
+                        'lat' : 50.8513682000000031,
+                        'lng' : 5.6909725000000000,
+                        'place_id' : 'ChIJnwZBWOzpwEcRbqi-zHuV61M',
+                        'country' : 'Netherlands'
+                    },
+                    'facebook_url' : null,
+                    'twitter_url' : null,
+                    'instagram_url' : null,
+                    'linkedin_url' : null,
+                    'phonenumber' : null,
+                    'website' : '',
+                    'skype' : null
+                },
+                'status' : {
+                    'online' : true,
+                    'lastLogin' : {
+                        'date' : new Date('2015-07-21T14:11:01.089Z'),
+                        'ipAddr' : '127.0.0.1',
+                        'userAgent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36'
+                    },
+                    'idle' : false
+                },
+                'registered_emails' : [ 
+                    {
+                        'address' : 'judy@example.com',
+                        'verified' : false
+                    }
+                ],
+                'logins' : [ 
+                    new Date('2015-07-21T14:11:01.103Z')
+                ],
+                'name' : 'Judy Partup',
+                'settings' : {
+                    'locale' : 'en',
+                    'optionalDetailsCompleted' : false
+                },
+                'image' : 'LG9J5XA4PPg5B8ZNu',
+                'supporterOf' : [ 
+                    'gJngF65ZWyS9f3NDE'
+                ]
+            });
         }
 
     }
