@@ -1,49 +1,8 @@
 Meteor.startup(function() {
     if (process.env.NODE_ENV.match(/development|staging/)) {
         // Users
-        if (!Meteor.users.find().count()) {
-            var user1 = {
-                '_id' : 'K5c5M4Pbdg3B82wQH',
-                'createdAt' : new Date(),
-                'services' : {
-                    'password' : {
-                        'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
-                    }
-                },
-                'emails' : [
-                    {
-                        'address' : 'user@example.com',
-                        'verified' : false
-                    }
-                ],
-                'profile' : {
-                    'name' : 'Default User'
-                }
-            };
-            var user1Id = Meteor.users.insert(user1);
-
-            var user2 = {
-                '_id' : 'K5c5M4Pbdg3B82wQI',
-                'createdAt' : new Date(),
-                'services' : {
-                    'password' : {
-                        'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
-                    }
-                },
-                'emails' : [
-                    {
-                        'address' : 'admin@example.com',
-                        'verified' : false
-                    }
-                ],
-                'profile' : {
-                    'name' : 'Admin User'
-                }
-            };
-            var user2Id = Meteor.users.insert(user2);
-
-        }
-
+        var user1Id = '123';
+        var user2Id = '124';
         if (!Partups.find().count()) {
             var firstPartup = {
                 '_id' : '1111',
