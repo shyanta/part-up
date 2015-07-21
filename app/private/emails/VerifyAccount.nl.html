@@ -1,7 +1,13 @@
-<p>Hallo {{user.profile.name}}</p>
+<p>Hallo {{ user.profile.name }}!</p>
 
-<p>Om je account te verifieren, klik je op de onderstaande link</p>
+<p>
+    Je bent nu officieel upper. Op Part-up vind je <u>{{ count }}</u> anderen om
+    mee samen te werken. Verifieer snel je account, zodat zij zeker weten dat
+    jij het bent. Klik daarvoor op de onderstaande link:
+</p>
 
-<p>{{url}}</p>
+<p><a href="{{ url }}">{{ url }}</a></p>
 
-<p>Met vriendelijke groet, Part-up</p>
+<p>Let's part-up!</p>
+
+<p>Ralph</p>

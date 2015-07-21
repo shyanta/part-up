@@ -1,7 +1,13 @@
-<p>Hello {{user.profile.name}}</p>
+<p>Hi {{ user.profile.name }}!</p>
 
-<p>To verify your account, click the link below</p>
+<p>
+    You are now officially an upper! On Part-up you find <u>{{ count }}</u>
+    others to team up with. Let's verify your account quickly, so they all know
+    you are who you say you are. Just click on the link below:
+</p>
 
-<p>{{url}}</p>
+<p><a href="{{ url }}">{{ url }}</a></p>
 
-<p>Regards, Part-up</p>
+<p>Let's part-up!</p>
+
+<p>Ralph</p>

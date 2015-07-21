@@ -32,7 +32,11 @@ Accounts.emailTemplates.verifyEmail.html = function(user, url) {
 
     SSR.compileTemplate('verifyAccountEmail', Assets.getText('emails/VerifyAccount.' + locale + '.html'));
 
-    return SSR.render('verifyAccountEmail', {user: user, url: url.replace('/#', '')});
+    return SSR.render('verifyAccountEmail', {
+        user: user,
+        url: url.replace('/#', ''),
+        count: Meteor.users.find().count()
+    });
 };
 
 /**
