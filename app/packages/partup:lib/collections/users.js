@@ -82,6 +82,19 @@ User = function(user) {
             }
 
             return locale;
+        },
+
+
+        /**
+         * Check if user is admin
+         *
+         * @return {Boolean}
+         */
+        isAdmin: function() {
+            if (!user) return false;
+            if (!user.roles) return false;
+            return user.roles.indexOf('admin') > -1;
         }
+
     };
 };
