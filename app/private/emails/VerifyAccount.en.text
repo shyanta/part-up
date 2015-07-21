@@ -1,0 +1,11 @@
+Hi {{ user.profile.name }}!
+
+You are now officially an upper! On Part-up you find {{ count }} others to team
+up with. Let's verify your account quickly, so they all know you are who you say
+you are. Just click on the link below:
+
+{{ url }}
+
+Let's part-up!
+
+Ralph
