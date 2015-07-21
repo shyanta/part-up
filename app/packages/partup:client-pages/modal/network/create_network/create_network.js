@@ -1,17 +1,27 @@
 var placeholders = {
     'name': function() {
         return __('pages-modal-create-details-form-name-placeholder');
-    },
-    'description': function() {
-        return __('pages-modal-create-details-form-description-placeholder');
-    },
-    'tags_input': function() {
-        return __('pages-modal-create-details-form-tags_input-placeholder');
-    },
-    'location_input': function() {
-        return __('pages-modal-create-details-form-location_input-placeholder');
     }
 };
+
+Template.modal_create_network.helpers({
+    privacyTypeOptions: function() {
+        return [
+            {
+                label: 'Public',
+                value: 1
+            },
+            {
+                label: 'Invite',
+                value: 2
+            },
+            {
+                label: 'Closed',
+                value: 3
+            },
+        ];
+    },
+});
 
 /*************************************************************/
 /* Widget events */
@@ -19,7 +29,7 @@ var placeholders = {
 Template.modal_create_network.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
-        // todo: close
+        Intent.return('create-network');
     },
 });
 
@@ -33,11 +43,10 @@ AutoForm.hooks({
 
             Meteor.call('networks.insert', insertDoc, function(error, networkId) {
                 if (error) {
-                    Log.error(error);
+                    Partup.client.notify.error(error);
                 }
-                Log.debug(networkId);
+                Partup.client.notify.success('Tribe inserted correctly');
             });
-            //Partup.client.popup.close();
 
             return false;
         }
