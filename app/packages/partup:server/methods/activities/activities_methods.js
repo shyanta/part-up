@@ -254,8 +254,10 @@ Meteor.methods({
             throw new Meteor.Error(403, 'email_is_already_invited_to_activity');
         }
 
+        var locale = User(inviter).getLocale();
+
         // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserActivityEmail', Assets.getText('private/emails/InviteUserToActivity.html'));
+        SSR.compileTemplate('inviteUserActivityEmail', Assets.getText('private/emails/InviteUserToActivity.' + locale + '.html'));
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
 
         Email.send({
