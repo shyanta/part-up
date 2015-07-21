@@ -9,11 +9,16 @@ Meteor.methods({
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
-        // TODO: Either remove this method or implement proper authentication
+        if (!User(user).isAdmin()) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        check(fields, Partup.schemas.forms.networkCreate);
 
         try {
             var network = {};
             network.name = fields.name;
+            network.privacy_type = fields.privacy_type;
             network.slug = Partup.server.services.slugify.slugify(fields.name);
             network.uppers = [user._id];
             network.admin_id = user._id;
