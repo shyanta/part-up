@@ -15,11 +15,11 @@ build:
         code: |
           cd app
           meteor build /tmp
-    # - script:
-    #     name: run all tests
-    #     code: |
-    #       cd app
-    #       meteor --test --release velocity:METEOR@1.1.0.2_3 
+    - script:
+        name: run all tests
+        code: |
+          cd app
+          meteor --test --release velocity:METEOR@1.1.0.2_3 
   after-steps:
     - kobim/slack-post:
         url: $SLACK_URL
