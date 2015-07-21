@@ -25,14 +25,6 @@
     .pu-list-suggestiontiles
         margin-top: 0
 
-    &-left
-        float: left
-        clear: left
-
-    &-right
-        float: right
-        clear: right
-
     .end-date-field
         margin-bottom: 15px
 
@@ -77,8 +69,20 @@
                 opacity: 1
                 pointer-events: auto
 
+        .pu-input-selection + .pu-sub-remove
+            opacity: 1
+            pointer-events: auto
+
         &-half
             width: 50%
+
+    &-left
+        float: left
+        clear: left
+
+    &-right
+        float: right
+        clear: right
 
     &-widebuttons
         .pu-button

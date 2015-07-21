@@ -192,6 +192,30 @@ Meteor.methods({
         return Partups.findForDiscover(user._id, mongoOptions, parameters).map(function(partup) {
             return partup._id;
         });
+    },
+
+    /**
+     * Return a list of partups based on search query
+     *
+     * @param {string} searchString
+     */
+    'partups.autocomplete': function(searchString, exceptPartupId) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        if (!searchString) throw new Meteor.Error(400, 'searchString parameter is required');
+
+        try {
+            return Partups.find({
+                $and: [
+                    {name: new RegExp('.*' + searchString + '.*', 'i')},
+                    {_id: {$ne: exceptPartupId}}
+                ]
+            }).fetch();
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'Error while autocompleting partup string: ' + searchString);
+        }
     }
 
 });

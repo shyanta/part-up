@@ -40,6 +40,15 @@ var placeholders = {
 Template.Profilesettings.onCreated(function() {
     var template = this;
 
+    template.selectedLocation = new ReactiveVar();
+
+    template.autorun(function() {
+        var user = Meteor.user();
+        if (!user) return;
+
+        if (user.profile && user.profile.location && user.profile.location.place_id) template.selectedLocation.set(user.profile.location);
+    });
+
     this.subscription = this.subscribe('users.loggedin');
 
     template.uploadingProfilePicture = new ReactiveVar(false);
@@ -123,15 +132,30 @@ Template.Profilesettings.helpers({
         var user = Meteor.user();
         return User(user).getFirstname();
     },
-    placeSelectedCallback: function() {
-        return function(results) {
-            $('[name="location_input"]').val(results.placeId);
+    profileLocationDescription: function(location) {
+        return Partup.client.strings.locationToDescription(location);
+    },
+    onLocationAutocompleteQuery: function() {
+        return function(query, sync, async) {
+            Meteor.call('google.cities.autocomplete', query, function(error, locations) {
+                lodash.each(locations, function(loc) {
+                    loc.value = Partup.client.strings.locationToDescription(loc);
+                });
+                async(locations);
+            });
         };
     },
-    clearCallback: function() {
-        return function(results) {
-            $('[name="location_input"]').val();
+    onLocationAutocompleteSelect: function() {
+        var tpl = Template.instance();
+        return function(location) {
+            tpl.selectedLocation.set(location);
+
+            var location_input = tpl.find('form').elements.location_input;
+            location_input.value = location.id;
         };
+    },
+    selectedLocation: function() {
+        return Template.instance().selectedLocation.get();
     }
 });
 
@@ -139,14 +163,14 @@ Template.Profilesettings.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Profilesettings.events({
-    'click [data-browse-photos]': function eventClickBrowse(event, template) {
+    'click [data-browse-photos]': function(event, template) {
         event.preventDefault();
 
         // in stead fire click event on file input
         var input = $('input[data-profile-picture-input]');
         input.click();
     },
-    'change [data-profile-picture-input]': function eventChangeFile(event, template) {
+    'change [data-profile-picture-input]': function(event, template) {
         FS.Utility.eachFile(event, function(file) {
             template.uploadingProfilePicture.set(true);
 
@@ -162,6 +186,18 @@ Template.Profilesettings.events({
                 template.uploadingProfilePicture.set(false);
             });
 
+        });
+    },
+    'click [data-clearlocation]': function(event, template) {
+        template.selectedLocation.set(undefined);
+        var location_input = template.find('form').elements.location_input;
+
+        Meteor.defer(function() {
+            location_input.value = '';
+
+            Meteor.defer(function() {
+                template.find('.tt-input[data-locationqueryinput]').focus();
+            });
         });
     }
 });

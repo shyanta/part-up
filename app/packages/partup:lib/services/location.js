@@ -10,7 +10,8 @@ Partup.services.location = {
      * @param {Object} location
      */
     locationToLocationInput: function(location) {
-        return location && location.place_id;
+        if (!location) return;
+        return location.place_id;
     },
 
     /**

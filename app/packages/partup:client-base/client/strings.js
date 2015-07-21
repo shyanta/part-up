@@ -30,6 +30,13 @@ Partup.client.strings = {
 
     newlineToBreak: function(string) {
         return string.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    },
+
+    locationToDescription: function(location) {
+        var components = [];
+        if (location.city) components.push(location.city);
+        if (location.country) components.push(location.country);
+        return components.join(', ');
     }
 
 };

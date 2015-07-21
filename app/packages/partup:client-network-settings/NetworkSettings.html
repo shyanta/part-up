@@ -119,18 +119,21 @@
 
         <!-- location_input -->
         <label class="pu-formfield">
-            <span class="pu-label">
-                {{_ 'network-settings-form-location_input-label'}}
-            </span>
-
-            <div class="pu-sub-validations {{# if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/ if }}">
+            <span class="pu-label">{{_ 'network-settings-form-location_input-label'}}</span>
+            <div class="pu-sub-validations pu-sub-autocomplete
+                        {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
                 <span class="pu-sub-input">
-                    {{> LocationAutocomplete
-                        location=network.location
-                        placeholder=placeholders.location_input
-                        placeSelectedCallback=locationChoose
-                        clearCallback=locationClear
-                    }}
+                    {{# with selectedLocation }}
+                        <input type="text" value="{{ networkLocationDescription . }}" class="pu-input pu-input-selection" readonly>
+                        <a href="#" class="pu-sub-remove" data-clearlocation>
+                            <i class="fa fa-times"></i>
+                        </a>
+                    {{ else }}
+                        {{# Autocomplete onQuery=onLocationAutocompleteQuery onSelect=onLocationAutocompleteSelect }}
+                            <input type="text" placeholder="{{ placeholders.location_input }}" class="pu-input" data-locationqueryinput>
+                        {{/ Autocomplete }}
+                    {{/ with }}
+
                     {{> afFieldInput type='hidden' name='location_input' }}
                 </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>

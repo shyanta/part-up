@@ -47,10 +47,13 @@ Template.Partupsettings.onCreated(function() {
     template.showPrivacyDropdown = new ReactiveVar(false);
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
+    template.selectedLocation = new ReactiveVar();
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
         if (!partup) return;
+
+        if (partup.location && partup.location.place_id) template.selectedLocation.set(partup.location);
 
         if (partup.image) {
             template.imageSystem.currentImageId.set(partup.image);
@@ -236,27 +239,40 @@ Template.Partupsettings.helpers({
             }
         ];
     },
-    placeSelectedCallback: function() {
-        return function(results) {
-            $('[name="location_input"]').val(results.placeId);
-            $('.pu-sub-locationfield').removeClass('pu-state-invalid');
+    partupLocationDescription: function(location) {
+        return Partup.client.strings.locationToDescription(location);
+    },
+    onLocationAutocompleteQuery: function() {
+        return function(query, sync, async) {
+            Meteor.call('google.cities.autocomplete', query, function(error, locations) {
+                lodash.each(locations, function(loc) {
+                    loc.value = Partup.client.strings.locationToDescription(loc);
+                });
+                async(locations);
+            });
         };
     },
-    clearCallback: function() {
-        return function(results) {
-            console.log('clear');
-            $('[name="location_input"]').val(undefined);
+    onLocationAutocompleteSelect: function() {
+        var tpl = Template.instance();
+        return function(location) {
+            tpl.selectedLocation.set(location);
+
+            var location_input = tpl.find('form').elements.location_input;
+            location_input.value = location.id;
         };
+    },
+    selectedLocation: function() {
+        return Template.instance().selectedLocation.get();
     }
 });
 
 Template.Partupsettings.events({
-    'keyup [data-max]': function updateMax(event, template) {
+    'keyup [data-max]': function(event, template) {
         var max = eval($(event.target).data('max'));
         var charactersLeftVar = $(event.target).data('characters-left-var');
         template[charactersLeftVar].set(max - $(event.target).val().length);
     },
-    'change [data-imageupload]': function eventChangeFile(event, template) {
+    'change [data-imageupload]': function(event, template) {
         $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
         FS.Utility.eachFile(event, function(file) {
             template.loading.set('image-uploading', true);
@@ -274,21 +290,21 @@ Template.Partupsettings.events({
             });
         });
     },
-    'change [name=budget_type]': function eventChangeBudgetType(event, template) {
+    'change [name=budget_type]': function(event, template) {
         template.budgetTypeChanged.set(true);
     },
-    'click [data-imageremove]': function eventChangeFile(event, template) {
+    'click [data-imageremove]': function(event, template) {
         var tags_input = $(event.currentTarget.form).find('[name=tags_input]').val();
         var tags = Partup.client.strings.tagsStringToArray(tags_input);
         template.imageSystem.unsetUploadedPicture(tags);
     },
-    'change .autoform-tags-field [data-schema-key]': function searchFlickerByTags(event, template) {
+    'change .autoform-tags-field [data-schema-key]': function(event, template) {
         var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
         template.imageSystem.getSuggestions(tags);
     },
-    'click [data-removedate]': function eventsClickRemoveDate (event, template) {
+    'click [data-removedate]': function(event, template) {
         event.preventDefault();
-        console.log('REMOVE THAT SHIT')
+        console.log('REMOVE THAT SHIT');
         template.find('[name=end_date]').value = '';
     },
     'click [data-toggleprivacydropdown]': function(event, template) {
@@ -312,6 +328,18 @@ Template.Partupsettings.events({
             $(event.currentTarget.form).find('[name=network_id]').val(value);
 
         }
+    },
+    'click [data-clearlocation]': function(event, template) {
+        template.selectedLocation.set(undefined);
+        var location_input = template.find('form').elements.location_input;
+
+        Meteor.defer(function() {
+            location_input.value = '';
+
+            Meteor.defer(function() {
+                template.find('.tt-input[data-locationqueryinput]').focus();
+            });
+        });
     }
 });
 

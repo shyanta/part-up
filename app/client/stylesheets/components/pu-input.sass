@@ -72,6 +72,14 @@
         &:focus
             border-color: darken($color-border, 20%)
 
+    &-selection
+        background-color: lighten($color-border-light, 5%)
+
+        &:focus,
+        &:active,
+        &:hover
+            border-color: $color-border-light
+
     &container
         display: block
 

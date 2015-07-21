@@ -73,7 +73,6 @@ partup:client-forgotpassword
 partup:client-gallery
 partup:client-invite-to-activity
 partup:client-loader
-partup:client-location-autocomplete
 partup:client-location-selector
 partup:client-login
 partup:client-network-selector

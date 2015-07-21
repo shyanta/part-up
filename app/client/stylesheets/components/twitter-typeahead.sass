@@ -1,18 +1,25 @@
 .tt-menu
     width: 100%
-    background-color: $color-background-transparent
+    background-color: rgba($color-background-tertiery, .95)
+    border-width: 0 2px 2px
+    border-style: solid
+    border-color: $color-border-light
+    max-height: 260px
+    overflow-y: auto
+    border-radius: 0 0 4px 4px
     padding: 20px
-    borde-radius: 3px
+    margin-top: -3px
+    z-index: 4 !important
 
     .tt-suggestion
-        margin-bottom: 5px
-        color: $color-text
-        transition: color .1s
-        cursor: pointer
-        line-height: 1.4em
+        margin-bottom: 14px - 4px
 
+        &.tt-cursor,
         &:hover
             color: $color-secondary
 
         &:last-child
             margin-bottom: 0
+
+.tt-input
+    z-index: 5

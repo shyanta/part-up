@@ -5,18 +5,29 @@
         <label class="pu-formfield">
             <span class="pu-label">{{_ 'pages-modal-create-activities-copy-form-copy-label'}}</span>
 
-            <div class="pu-sub-validations">
-                <span class="pu-sub-input pu-autocomplete">
-                    <input class="pu-input typeahead" name="partup" type="text"
-                           placeholder="{{_ 'pages-modal-create-activities-copy-form-copy-placeholder'}}" autocomplete="off" spellcheck="off"
-                           data-source="partups" data-selected="selected"/>
-                </span>
-                <span class="pu-sub-error">ERROR</span>
-            </div>
+            <span class="pu-sub-input">
+                {{# with selectedPartup }}
+                    <input type="text" value="{{ name }}" class="pu-input pu-input-selection" readonly>
+                    <a href="#" class="pu-sub-remove" data-clearpartup>
+                        <i class="fa fa-times"></i>
+                    </a>
+                {{ else }}
+                    {{# Autocomplete onQuery=onPartupAutocompleteQuery onSelect=onPartupAutocompleteSelect }}
+                        <input type="text" placeholder="{{ partupFieldPlaceholder }}" class="pu-input" data-partupqueryinput>
+                    {{/ Autocomplete }}
+                {{/ with }}
+
+                <input type="hidden" name="partup">
+            </span>
         </label>
 
         <footer class="pu-row">
-            <div class="cell"><a href="#" data-copyactivities class="pu-button">{{_ 'pages-modal-create-activities-copy-form-copy-confirm'}}</a></div>
+            <div class="cell">
+                <button class="pu-button {{# if submitting }}pu-state-loading{{/ if }} {{# unless selectedPartup }}pu-state-disabled{{/ unless }}">
+                    {{_ 'pages-modal-create-activities-copy-form-copy-confirm'}}
+                    {{> Spinner type='small' color='inverted' }}
+                </button>
+            </div>
             <div class="cell last stretch"><a href="#" class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'pages-modal-create-activities-copy-close'}}</a></div>
         </footer>
     </form>

@@ -5,7 +5,9 @@
         <!-- Text input -->
         <label class="pu-formfield">
             <span class="pu-sub-input">
-                {{> Autocomplete name="search" placeholder="Zoek op tribenaam" onQuery=onAutocompleteQuery onSelect=onAutocompleteSelect }}
+                {{# Autocomplete onQuery=onAutocompleteQuery onSelect=onAutocompleteSelect }}
+                    <input type="text" placeholder="Zoek op tribenaam" class="pu-input" data-locationqueryinput>
+                {{/ Autocomplete }}
             </span>
         </label>
 

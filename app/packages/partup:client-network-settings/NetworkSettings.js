@@ -5,16 +5,20 @@
  * @param {Number} networkId    the id of the network whose settings are rendered
  */
 Template.NetworkSettings.onCreated(function() {
-    this.subscription = this.subscribe('networks.one', this.data.networkId);
-    this.charactersLeft = new ReactiveDict();
-    this.submitting = new ReactiveVar();
-    this.current = new ReactiveDict();
-    this.uploading = new ReactiveDict();
+    var tpl = this;
 
-    var self = this;
-    this.autorun(function() {
-        var network = Networks.findOne({_id: self.data.networkId});
+    tpl.subscription = tpl.subscribe('networks.one', tpl.data.networkId);
+    tpl.charactersLeft = new ReactiveDict();
+    tpl.submitting = new ReactiveVar();
+    tpl.current = new ReactiveDict();
+    tpl.uploading = new ReactiveDict();
+    tpl.selectedLocation = new ReactiveVar();
+
+    tpl.autorun(function() {
+        var network = Networks.findOne({_id: tpl.data.networkId});
         if (!network) return;
+
+        if (network.location && network.location.place_id) tpl.selectedLocation.set(network.location);
 
         network = Partup.transformers.network.toFormNetwork(network);
 
@@ -23,7 +27,7 @@ Template.NetworkSettings.onCreated(function() {
 
         ['description', 'name', 'tags_input', 'location_input', 'website'].forEach(function(n) {
             valueLength = network[n] ? network[n].length : 0;
-            self.charactersLeft.set(n, formSchema[n].max - valueLength);
+            tpl.charactersLeft.set(n, formSchema[n].max - valueLength);
         });
     });
 });
@@ -65,22 +69,14 @@ Template.NetworkSettings.helpers({
     network: function() {
         return Networks.findOne({_id: this.networkId});
     },
+    networkLocationDescription: function(location) {
+        return Partup.client.strings.locationToDescription(location);
+    },
     fieldsForNetwork: function() {
         var network = Networks.findOne({_id: this.networkId});
         if (!network) return;
 
         return Partup.transformers.network.toFormNetwork(network);
-    },
-    locationChoose: function() {
-        var template = Template.instance();
-        return function(results) {
-            template.find('[name="location_input"]').value = results.placeId;
-        };
-    },
-    locationClear: function() {
-        return function() {
-            $('[name="location_input"]').val('');
-        };
     },
     submitting: function() {
         return Template.instance().submitting.get();
@@ -120,6 +116,31 @@ Template.NetworkSettings.helpers({
         }
 
         return '/images/smile.png';
+    },
+
+    onLocationAutocompleteQuery: function() {
+        return function(query, sync, async) {
+            Meteor.call('google.cities.autocomplete', query, function(error, locations) {
+                lodash.each(locations, function(loc) {
+                    loc.value = Partup.client.strings.locationToDescription(loc);
+                });
+                async(locations);
+            });
+        };
+    },
+
+    onLocationAutocompleteSelect: function() {
+        var tpl = Template.instance();
+        return function(location) {
+            tpl.selectedLocation.set(location);
+
+            var location_input = tpl.find('form').elements.location_input;
+            location_input.value = location.id;
+        };
+    },
+
+    selectedLocation: function() {
+        return Template.instance().selectedLocation.get();
     }
 });
 
@@ -169,6 +190,18 @@ Template.NetworkSettings.events({
                 template.current.set('icon', image._id);
             });
 
+        });
+    },
+    'click [data-clearlocation]': function(event, template) {
+        template.selectedLocation.set(undefined);
+        var location_input = template.find('form').elements.location_input;
+
+        Meteor.defer(function() {
+            location_input.value = '';
+
+            Meteor.defer(function() {
+                template.find('.tt-input[data-locationqueryinput]').focus();
+            });
         });
     }
 });

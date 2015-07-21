@@ -1,14 +1,17 @@
 .pu-autocomplete
+    z-index: 3
+
     span
         width: 100%
 
     .tt-menu
         width: 100%
-        margin-left: 2px
-        width: calc(100% - 4px)
-        background-color: rgba(lighten($color-background-secondary, 10%), .95)
+        background-color: rgba($color-background-tertiery, .95)
+        border-width: 0 2px 2px
+        border-style: solid
+        border-color: $color-border-light
         max-height: 260px
-        overflow: auto
+        overflow-y: auto
         border-radius: 0 0 4px 4px
 
         > .tt-dataset
