@@ -7,7 +7,8 @@
 var networkBaseSchema = new SimpleSchema({
     description: {
         type: String,
-        max: 250
+        max: 250,
+        optional: true
     },
     icon: {
         type: String,
@@ -114,7 +115,7 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
  * @name networkCreate
  * @memberof Partup.schemas.forms
  */
-Partup.schemas.forms.networkCreate = new SimpleSchema([Partup.schemas.forms.network, {
+Partup.schemas.forms.networkCreate = new SimpleSchema([networkBaseSchema, {
     privacy_type: {
         type: Number,
         min: 1,
