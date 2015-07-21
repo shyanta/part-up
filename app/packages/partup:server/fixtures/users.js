@@ -256,7 +256,14 @@ Meteor.startup(function() {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'hJzq4Ga9TtCbdxBLr'
+                'image' : 'hJzq4Ga9TtCbdxBLr',
+                'roles' : ['admin'],
+                'networks' : [ 
+                    'nqBnE8nSLasaapXXS', 
+                    'kRCjWDBkKru3KfsjW', 
+                    'wfCv4ZdPe5WNT4xfg', 
+                    'ibn27M3ePaXhmKzWq'
+                ]
             });
 
             Meteor.users.insert({
