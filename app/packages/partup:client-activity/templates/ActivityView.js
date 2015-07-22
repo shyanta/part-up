@@ -4,7 +4,7 @@
 Template.ActivityView.onCreated(function() {
     var tpl = this;
 
-    tpl.expanded = new ReactiveVar(!!tpl.data.EXPANDED);
+    tpl.expanded = new ReactiveVar(!!tpl.data.EXPANDED || !!tpl.data.CREATE_PARTUP);
 
     tpl.updateContribution = function(contribution, cb) {
         var activityId = tpl.data.activity ? tpl.data.activity._id : tpl.data.activity_id;
@@ -91,6 +91,8 @@ Template.ActivityView.events({
         template.data.edit.set(true);
     },
     'click [data-activity-expander]': function(event, template) {
+        if (!template.data.EXPANDABLE) return;
+
         var opened = template.expanded.get();
         template.expanded.set(!opened);
     },

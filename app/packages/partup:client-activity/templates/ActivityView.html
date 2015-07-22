@@ -79,27 +79,29 @@
         </section>
 
         <!-- Show multiple contributions if the activity is expandable -->
-        {{# if expanded }}
-            {{# if contributions.length }}
-                <section class="pu-sub-section">
-                    {{# each contributions }}
-                        {{> Contribution contribution=. updateContribution=updateContribution READONLY=isReadOnly}}
-                    {{/ each }}
-                </section>
-            {{/ if }}
+        {{# unless CREATE_PARTUP }}
+            {{# if expanded }}
+                {{# if contributions.length }}
+                    <section class="pu-sub-section">
+                        {{# each contributions }}
+                            {{> Contribution contribution=. updateContribution=updateContribution READONLY=isReadOnly}}
+                        {{/ each }}
+                    </section>
+                {{/ if }}
 
-            {{# if showInviteButton }}
-                <section class="pu-sub-section">
-                    <p class="pu-sub-contribute">
-                        {{# if showContributeButton }}
-                            <a href="#" class="pu-button" data-contribute="">{{_ 'activity-contribute'}}</a>
-                            <span class="pu-sub-or">{{_ 'activity-or'}}</span>
-                        {{/ if }}
-                        <a href="#" class="pu-button" data-invite="">{{_ 'activity-invite'}}</a>
-                    </p>
-                </section>
+                {{# if showInviteButton }}
+                    <section class="pu-sub-section">
+                        <p class="pu-sub-contribute">
+                            {{# if showContributeButton }}
+                                <a href="#" class="pu-button" data-contribute="">{{_ 'activity-contribute'}}</a>
+                                <span class="pu-sub-or">{{_ 'activity-or'}}</span>
+                            {{/ if }}
+                            <a href="#" class="pu-button" data-invite="">{{_ 'activity-invite'}}</a>
+                        </p>
+                    </section>
+                {{/ if }}
             {{/ if }}
-        {{/ if }}
+        {{/ unless }}
 
     </article>
 </template>

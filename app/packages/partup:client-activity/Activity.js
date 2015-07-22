@@ -15,7 +15,7 @@
  * @param {Boolean} POPUP   Whether the activity is being rendered inside of a modal
  * @param {Boolean} READONLY   Whether the activity should contain an edit mode
  * @param {Boolean} CREATE_PARTUP   Whether the activity is being rendered in the start partup flow
- * @param {Boolean} UPDATE_LINK   Whether the activity is being rendered in the start partup flow
+ * @param {Boolean} UPDATE_LINK   Whether to show the update hyperlink
  */
 // jscs:enable
 

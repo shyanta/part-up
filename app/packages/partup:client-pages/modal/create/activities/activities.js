@@ -15,6 +15,8 @@ Template.modal_create_activities.onCreated(function() {
             Meteor.defer(Partup.client.scroll.triggerUpdate);
         }
     });
+
+    this.subscribe('partups.one', partupId);
 });
 
 /*************************************************************/
@@ -56,8 +58,8 @@ Template.modal_create_activities.helpers({
         };
     },
     isUpper: function() {
-        var user = Meteor.user();
-        if (!user) return false;
+        var userId = Meteor.userId();
+        if (!userId) return false;
 
         var partupId = Session.get('partials.create-partup.current-partup');
         if (!partupId) return false;
@@ -65,7 +67,7 @@ Template.modal_create_activities.helpers({
         var partup = Partups.findOne(partupId);
         if (!partup) return false;
 
-        return partup.uppers.indexOf(user._id) > -1;
+        return partup.hasUpper(userId);
     },
     fixFooter: function() {
         var scrollPos = Partup.client.scroll.pos.get();
