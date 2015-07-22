@@ -14,5 +14,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'Autocomplete.html',
         'Autocomplete.js',
+        'AutocompleteAdvanced.html',
+        'AutocompleteAdvanced.js',
     ], 'client');
 });
