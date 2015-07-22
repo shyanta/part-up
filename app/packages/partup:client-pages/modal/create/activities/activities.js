@@ -32,15 +32,16 @@ Template.modal_create_activities.helpers({
         var template = Template.instance();
         return function(activityId) {
             setTimeout(function() {
-                var activityCreateElm = $('.pu-block-activity-create');
-                var activityElm = $('[data-activity-id=' + activityId + ']');
-                var activityOffset = activityCreateElm.offset().top;
-                var maxScroll = $(document).height() - window.innerHeight;
+                var createElm = $('.pu-activity-create');
+                var elm = $('[data-activity-id=' + activityId + ']');
 
-                $('html, body').animate({
-                    scrollTop: Math.min(activityOffset - 20, maxScroll)
+                var scroller = Partup.client.scroll._element;
+                var max = scroller.scrollHeight - scroller.clientHeight;
+
+                $(scroller).animate({
+                    scrollTop: Math.min(createElm[0].offsetTop - 0, max)
                 }, 250, 'swing', function() {
-                    activityElm.addClass('pu-state-highlight');
+                    elm.addClass('pu-state-highlight');
                 });
             });
         };

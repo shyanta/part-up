@@ -44,15 +44,17 @@ Template.Activity.onCreated(function() {
                 var elm = $(self.find('[data-activity-id]'));
                 if (!elm) return;
 
+                var scroller = Partup.client.scroll._element;
+
                 var offset = elm.offset().top;
-                var elmIsCompletelyInView = offset >= window.scrollY &&
-                    offset + elm.outerHeight() <= window.scrollY + window.innerHeight;
+                var elmIsCompletelyInView = offset >= 0 &&
+                    offset + elm.outerHeight() <= scroller.clientHeight;
 
                 if (!elmIsCompletelyInView) {
-                    var max = $(document).height() - window.innerHeight;
-                    var pos = Math.min(offset - 50, max);
+                    var max = scroller.scrollHeight - scroller.clientHeight;
+                    var pos = Math.min(elm[0].offsetTop - 170, max);
 
-                    $('html, body').animate({
+                    $(scroller).animate({
                         scrollTop: pos
                     }, DURATION);
                 }
