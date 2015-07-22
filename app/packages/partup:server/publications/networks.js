@@ -1,7 +1,5 @@
 Meteor.publish('networks.user', function() {
-    var user = Meteor.users.findSinglePublicProfile(this.userId).fetch().pop();
-    var userNetworkIds = user.networks || [];
-    return Networks.find({$or: [{_id: {$in: userNetworkIds}}, {privacy_type: 1}]}, {privacy_type: 1, name: 1});
+    return Networks.guardedFind();
 });
 
 Meteor.publish('networks.list', function() {
