@@ -211,16 +211,21 @@ Meteor.methods({
     /**
      * Get user suggestions for a given activity
      *
+     * @param {String} activityId
+     * @param {Object} options
+     * @param {Number} options.locationId
+     * @param {String} options.query
+     *
      * @return {[String]}
      */
-    'activities.user_suggestions': function(activityId) {
+    'activities.user_suggestions': function(activityId, options) {
         var upper = Meteor.user();
 
         if (!upper) {
             throw new Meteor.Error(401, 'Unauthorized');
         }
 
-        var users = Partup.server.services.matching.matchUppersForActivity(activityId);
+        var users = Partup.server.services.matching.matchUppersForActivity(activityId, options);
 
         return users.map(function(user) {
             return user._id;

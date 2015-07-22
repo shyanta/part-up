@@ -5,12 +5,13 @@
  */
 Partup.server.services.matching = {
 
-    matchUppersForActivity: function(activityId) {
+    matchUppersForActivity: function(activityId, query) {
         var activity = Activities.findOneOrFail(activityId);
         var partup = Partups.findOneOrFail(activity.partup_id);
 
         var selector = {};
         var options = {};
+        var query = query || {};
 
         // Match the uppers on the tags used in the partup
         var tags = partup.tags || [];
@@ -32,6 +33,20 @@ Partup.server.services.matching = {
 
             results = Meteor.users.find(selector, options).fetch();
             iteration++;
+        }
+
+        // And finally, sort the results based on location and search input
+        if (query.locationId) {
+            results = _.sortBy(results, function(upper) {
+                if (!upper.location.place_id) return false;
+                return upper.location.place_id == query.locationId;
+            });
+        }
+        if (query.query) {
+            results = _.sortBy(results, function(upper) {
+                var regex = new RegExp('.*' + query.query + '.*', 'i');
+                return !!upper.name.match(regex);
+            });
         }
 
         return results;
