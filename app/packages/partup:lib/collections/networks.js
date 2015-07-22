@@ -211,6 +211,37 @@ Networks.NETWORK_INVITE = NETWORK_INVITE;
 Networks.NETWORK_CLOSED = NETWORK_CLOSED;
 
 /**
+ * Modified version of Collection.find that makes
+ * sure the user (or guest) can only retrieve
+ * fields that are publicly available
+ *
+ * @memberof Networks
+ * @param {String} userId
+ * @param {Object} selector
+ * @param {Object} options
+ * @return {Cursor}
+ */
+Networks.guardedMetaFind = function(userId, selector, options) {
+    var selector = selector || {};
+    var options = options || {};
+
+    // Make sure that if the callee doesn't pass the fields
+    // key used in the options parameter, we set it with
+    // the _id fields, so we do not publish all fields
+    // by default, which would be a security issue
+    options.fields = {_id: 1};
+
+    // The fields that should be available on each network
+    var unguardedFields = ['name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type'];
+
+    unguardedFields.forEach(function(unguardedField) {
+        options.fields[unguardedField] = 1;
+    });
+
+    return this.find(selector, options);
+};
+
+/**
  * Networks collection helpers
  *
  * @memberof Networks
@@ -243,11 +274,5 @@ Networks.guardedFind = function(userId, selector, options) {
     // Merge the selectors, so we still use the initial selector provided by the caller
     var finalSelector = {'$and': [guardingSelector, selector]};
 
-    if (this.find(finalSelector, options).count() === 0) {
-        // Not allowed, exclude protected information
-        options.fields = {uppers: 0, partups: 0, pending_uppers: 0, invites: 0};
-        return this.find(selector, options);
-    } else {
-        return this.find(finalSelector, options);
-    }
+    return this.find(finalSelector, options);
 };

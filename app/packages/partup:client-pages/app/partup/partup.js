@@ -3,7 +3,7 @@
 /*************************************************************/
 Template.app_partup.onCreated(function() {
     var template = this;
-    template.partupSubscription = template.subscribe('partups.metadata', template.data.partupId);
+    template.partupSubscription = template.subscribe('partups.one', template.data.partupId);
 
     template.autorun(function() {
 

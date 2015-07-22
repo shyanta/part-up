@@ -173,6 +173,37 @@ Partups.guardedFind = function(userId, selector, options) {
 };
 
 /**
+ * Modified version of Collection.find that makes
+ * sure the user (or guest) can only retrieve
+ * fields that are publicly available
+ *
+ * @memberof Partups
+ * @param {String} userId
+ * @param {Object} selector
+ * @param {Object} options
+ * @return {Cursor}
+ */
+Partups.guardedMetaFind = function(userId, selector, options) {
+    var selector = selector || {};
+    var options = options || {};
+
+    // Make sure that if the callee doesn't pass the fields
+    // key used in the options parameter, we set it with
+    // the _id fields, so we do not publish all fields
+    // by default, which would be a security issue
+    options.fields = {_id: 1};
+
+    // The fields that should be available on each partup
+    var unguardedFields = ['privacy_type'];
+
+    unguardedFields.forEach(function(unguardedField) {
+        options.fields[unguardedField] = 1;
+    });
+
+    return this.find(selector, options);
+};
+
+/**
  * Find the partups used in the discover page
  *
  * @memberof Partups
