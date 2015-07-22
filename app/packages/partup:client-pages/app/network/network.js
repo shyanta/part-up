@@ -18,29 +18,9 @@ Template.app_network.helpers({
     network: function() {
         return Networks.findOne(this.networkId);
     },
-    networkPermissionsForCurrentUser: function() {
-        var network = Networks.findOne(this.networkId);
-        var userId = Meteor.userId();
-        if (!network) return;
-        return {
-            closed: function() {
-                // if not closed return false
-                if (!network.isClosed()) return false;
 
-                // if closed and has member return false
-                if (network.hasMember(userId)) return false;
-
-                // if closed and does not have member return true
-                return true;
-            },
-            member: function() {
-                return network.hasMember(userId);
-            },
-            admin: function() {
-                // check if user is admin
-                return network.isAdmin(userId);
-            }
-        };
+    userId: function() {
+        return Meteor.userId();
     },
 
     subscriptionsReady: function() {
