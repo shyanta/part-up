@@ -38,7 +38,7 @@ Template.modal_invite_to_activity.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
 
-        Intent.return('partup-invite', {
+        Intent.return('partup-activity-invite', {
             fallback_route: {
                 name: 'partup',
                 params: {
