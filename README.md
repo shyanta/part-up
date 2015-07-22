@@ -51,9 +51,9 @@ The whole app is made up of small styled components. These components are not fu
     - judy@example.com
     - admin@example.com
 - admin created all the tribes
-- john is member of closed network and created a closed partup
-- user is member of open and invite network and created a partups in these tribes
-- judy is invited for closed network
+- john is member of closed tribe and created a closed partup
+- user is member of open and invite tribe and created a partups in these tribes
+- judy is invited for closed tribe
 
 # DevOps
 
