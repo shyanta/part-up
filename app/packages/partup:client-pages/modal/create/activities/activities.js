@@ -33,18 +33,15 @@ Template.modal_create_activities.helpers({
     createCallback: function() {
         var template = Template.instance();
         return function(activityId) {
-            setTimeout(function() {
-                var createElm = $('.pu-activity-create');
-                var elm = $('[data-activity-id=' + activityId + ']');
+            Meteor.defer(function() {
 
-                var scroller = Partup.client.scroll._element;
-                var max = scroller.scrollHeight - scroller.clientHeight;
-
-                $(scroller).animate({
-                    scrollTop: Math.min(createElm[0].offsetTop - 0, max)
-                }, 250, 'swing', function() {
-                    elm.addClass('pu-state-highlight');
+                Partup.client.scroll.to(template.find('.pu-activity-create'), 0, {
+                    duration: 250,
+                    callback: function() {
+                        template.$('[data-activity-id=' + activityId + ']').addClass('pu-state-highlight');
+                    }
                 });
+
             });
         };
     },
@@ -70,11 +67,6 @@ Template.modal_create_activities.helpers({
         return partup.hasUpper(userId);
     },
     fixFooter: function() {
-        var scrollPos = Partup.client.scroll.pos.get();
-
-        if (!Partup.client.scroll._element) return false;
-        var maxScroll = Partup.client.scroll._element.scrollHeight - Partup.client.scroll._element.clientHeight;
-
-        return scrollPos < maxScroll - 50;
+        return Partup.client.scroll.pos.get() < Partup.client.scroll.maxScroll() - 50;
     },
 });

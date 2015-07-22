@@ -39,24 +39,11 @@ Template.Activity.onCreated(function() {
 
             // scroll
             var DELAY = 100;
-            var DURATION = 750;
-            setTimeout(function() {
-                var elm = $(self.find('[data-activity-id]'));
-                if (!elm) return;
+            Meteor.setTimeout(function() {
+                var elm = self.find('[data-activity-id]');
 
-                var scroller = Partup.client.scroll._element;
-
-                var offset = elm.offset().top;
-                var elmIsCompletelyInView = offset >= 0 &&
-                    offset + elm.outerHeight() <= scroller.clientHeight;
-
-                if (!elmIsCompletelyInView) {
-                    var max = scroller.scrollHeight - scroller.clientHeight;
-                    var pos = Math.min(elm[0].offsetTop - 170, max);
-
-                    $(scroller).animate({
-                        scrollTop: pos
-                    }, DURATION);
+                if (!Partup.client.scroll.inView(elm)) {
+                    Partup.client.scroll.to(elm, -170, {duration: 500});
                 }
             }, DELAY);
 

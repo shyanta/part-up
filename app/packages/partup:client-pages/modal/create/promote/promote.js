@@ -72,12 +72,7 @@ Template.modal_create_promote.helpers({
     },
 
     fixFooter: function() {
-        var scrollPos = Partup.client.scroll.pos.get();
-
-        if (!Partup.client.scroll._element) return false;
-        var maxScroll = Partup.client.scroll._element.scrollHeight - Partup.client.scroll._element.clientHeight;
-
-        return scrollPos < maxScroll - 50;
+        return Partup.client.scroll.pos.get() < Partup.client.scroll.maxScroll() - 50;
     },
 
 });
