@@ -34,6 +34,16 @@ Template.app_network.helpers({
         return true;
     },
 
+    userIsAdmin: function() {
+        var network = Networks.findOne(this.networkId);
+        var userId = Meteor.userId();
+
+        if (!network) return false;
+
+        // check if user is admin
+        return network.isAdmin(userId);
+    },
+
     subscriptionsReady: function() {
         return Template.instance().networkSubscription.ready();
     },
