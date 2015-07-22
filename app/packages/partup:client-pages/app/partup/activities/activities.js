@@ -4,7 +4,7 @@
 Template.app_partup_activities.onCreated(function() {
     var tpl = this;
 
-    tpl.subscribe('partups.metadata', tpl.data.partupId);
+    tpl.subscribe('partups.one', tpl.data.partupId);
     tpl.activitiesSubscription = tpl.subscribe('activities.from_partup', tpl.data.partupId);
 
     Meteor.autorun(function whenSubscriptionIsReady(computation) {
