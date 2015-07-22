@@ -71,6 +71,15 @@ Meteor.startup(function() {
     });
 
     /*************************************************************/
+    /* Scroll to the top on every page */
+    /*************************************************************/
+    Router.onAfterAction(function() {
+        Meteor.defer(function() {
+            Partup.client.scroll.to(null, 0);
+        });
+    });
+
+    /*************************************************************/
     /* Seo configuration */
     /*************************************************************/
     SEO.config({
