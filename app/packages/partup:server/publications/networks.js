@@ -43,7 +43,7 @@ Meteor.publishComposite('networks.one.partups', function(networkId, options) {
                 children: [
                     {
                         find: function(network) {
-                            return Images.find({_id: network.image}, {limit: 1});
+                            return Images.find({_id: {$in: [network.image, network.icon]}});
                         }
                     }
                 ]
@@ -131,12 +131,7 @@ Meteor.publishComposite('networks.one', function(networkId) {
             },
             {
                 find: function(network) {
-                    return Images.find({_id: network.icon}, {limit: 1});
-                }
-            },
-            {
-                find: function(network) {
-                    return Images.find({_id: network.image}, {limit: 1});
+                    return Images.find({_id: {$in: [network.image, network.icon]}});
                 }
             }
         ]
