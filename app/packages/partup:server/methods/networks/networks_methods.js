@@ -7,9 +7,7 @@ Meteor.methods({
      */
     'networks.insert': function(fields) {
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'unauthorized');
-
-        if (!User(user).isAdmin()) {
+        if (!user || !User(user).isAdmin()) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -33,7 +31,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Network could not be inserted.');
+            throw new Meteor.Error(400, 'network_could_not_be_inserted');
         }
     },
 
@@ -47,7 +45,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.isAdmin(user._id)) {
+        if (!user || !network.isAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -63,7 +61,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Network [' + networkId + '] could not be updated.');
+            throw new Meteor.Error(400, 'network_could_not_be_updated');
         }
     },
 
@@ -77,18 +75,17 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        // Only members of a network can invite other users
         if (!user || !network.hasMember(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
         if (network.hasMember(upperId)) {
-            throw new Meteor.Error(409, 'User is already member of this network.');
+            throw new Meteor.Error(409, 'user_is_already_member_of_network');
         }
 
         // Check if already invited
         if (network.isUpperInvited(upperId)) {
-            throw new Meteor.Error(409, 'Upper already invited.');
+            throw new Meteor.Error(409, 'user_is_already_invited_to_network');
         }
 
         // Create the invite
@@ -108,8 +105,12 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
+        if (!user) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
         if (network.hasMember(user._id)) {
-            throw new Meteor.Error(409, 'User is already member of this network.');
+            throw new Meteor.Error(409, 'user_is_already_member_of_network');
         }
 
         try {
@@ -147,7 +148,7 @@ Meteor.methods({
             return Log.debug('Unknown access level for this network: ' + network.privacy_type);
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Network [' + networkId + '] could not be removed.');
+            throw new Meteor.Error(400, 'network_could_not_be_removed');
         }
     },
 
@@ -166,7 +167,7 @@ Meteor.methods({
         }
 
         if (network.hasMember(upperId)) {
-            throw new Meteor.Error(409, 'User is already member of this network.');
+            throw new Meteor.Error(409, 'user_is_already_member_of_network');
         }
 
         try {
@@ -180,7 +181,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'User [' + upperId + '] could not be accepted for network ' + networkId + '.');
+            throw new Meteor.Error(400, 'user_could_not_be_accepted_from_network');
         }
     },
 
@@ -207,7 +208,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'User [' + upperId + '] could not be rejected for network ' + networkId + '.');
+            throw new Meteor.Error(400, 'user_could_not_be_rejected_from_network');
         }
     },
 
@@ -221,7 +222,7 @@ Meteor.methods({
         var network = Networks.findOneOrFail(networkId);
 
         if (!network.hasMember(user._id)) {
-            throw new Meteor.Error(400, 'User is not a member of this network.');
+            throw new Meteor.Error(400, 'user_is_not_a_member_of_network');
         }
 
         try {
@@ -233,7 +234,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'User [' + user._id + '] could not be removed from network ' + networkId + '.');
+            throw new Meteor.Error(400, 'user_could_not_be_removed_from_network');
         }
     },
 
@@ -260,28 +261,28 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'User [' + upperId + '] could not be removed from network ' + networkId + '.');
+            throw new Meteor.Error(400, 'user_could_not_be_removed_from_network');
         }
     },
 
     /**
      * Return a list of networks based on search query
      *
-     * @param {string} searchString
+     * @param {string} query
      */
-    'networks.autocomplete': function(searchString) {
+    'networks.autocomplete': function(query) {
         this.unblock();
 
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'unauthorized');
-
-        if (!searchString) throw new Meteor.Error(400, 'searchString parameter is required');
+        if (!user) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
 
         try {
-            return Networks.find({name: new RegExp('.*' + searchString + '.*', 'i')}, {fields: {name: 1}}).fetch();
+            return Networks.guardedMetaFind({name: new RegExp('.*' + query + '.*', 'i')}).fetch();
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Error while autocompleting network string: ' + searchString);
+            throw new Meteor.Error(400, 'networks_could_not_be_autocompleted');
         }
     },
 
@@ -299,7 +300,7 @@ Meteor.methods({
         var upper = Meteor.user();
 
         if (!upper) {
-            throw new Meteor.Error(401, 'Unauthorized');
+            throw new Meteor.Error(401, 'unauthorized');
         }
 
         var users = Meteor.users.find().fetch();
