@@ -52,6 +52,17 @@ Partup.client.scroll = {
     pos: new ReactiveVar(0),
 
     /**
+     * Current maxscroll
+     *
+     * @memberof Partup.client.scroll
+     */
+    maxScroll: function() {
+        if (!this._element) return 0;
+
+        return this._element.scrollHeight - this._element.clientHeight;
+    },
+
+    /**
      * Trigger a scroll pos update
      *
      * @memberof Partup.client.scroll
@@ -109,12 +120,8 @@ Partup.client.scroll = {
         // Call the this.pos.get() function to make this function reactive
         this.pos.get();
 
-        // Get element and window positions
-        var element_pos = element.getBoundingClientRect().top;
-        var window_height = Partup.client.scroll._element.clientHeight;
-
         // Return whether the element is in viewport
-        return element_pos > 0 && element_pos < window_height;
+        return element.offsetTop >= 0 && element.offsetTop + element.clientHeight <= this._element.clientHeight;
     },
 
     /**
@@ -125,6 +132,7 @@ Partup.client.scroll = {
      * @param offset   {Number}
      * @param options  {Object}
      * @param options.duration {Number} Scroll animation duration. Defaults to zero for no animation.
+     * @param options.callback {Function} Getting called when the animation ends.
      */
     to: function(element, offset, options) {
         element = element || null;
@@ -133,6 +141,7 @@ Partup.client.scroll = {
 
         // Options
         var duration = options.duration || 0;
+        var callback = typeof options.callback === 'function' ? options.callback : undefined;
 
         // Calculate position
         var position = 0;
@@ -140,12 +149,13 @@ Partup.client.scroll = {
         position += offset;
 
         // Limit position
-        var position_limit = this._element.scrollHeight - this._element.clientHeight;
-        position = Math.min(position, position_limit);
+        position = Math.min(position, this.maxScroll());
 
         // Trigger scroll
         $(this._element).animate({
             scrollTop: position
-        }, duration);
+        }, duration, 'swing', function() {
+            if (callback) callback.apply(window);
+        });
     }
 };
