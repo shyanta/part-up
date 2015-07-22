@@ -88,6 +88,7 @@ Partup.services.tags = {
      * @param {String[]} tags
      */
     insertNewTags: function(tags) {
+        if (!tags) return;
         tags.forEach(function(tag) {
             if (!Tags.findOne({_id: tag})) {
                 Tags.insert({_id: tag});
