@@ -112,7 +112,7 @@ Meteor.publish('partups.list', function() {
 });
 
 /**
- * Publish all required data for a part-up's metadata
+ * Publish all required data for a part-up
  *
  * This subscription will first check if the current user is allowed to view the
  * requested part-up. If so, the client will be allowed access to:
@@ -124,95 +124,28 @@ Meteor.publish('partups.list', function() {
  *
  * @param {String} partupId - The part-up's id
  */
-Meteor.publishComposite('partups.metadata', function(partupId) {
-    var self = this;
-
-    return {
-        // Use guarded find to check if current user has access to the part-up
-        find: function() {
-            return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
-        },
-        children: [
-            // Find the part-up's image
-            {
-                find: function(partup) {
-                    return Images.find({_id: partup.image}, {limit: 1});
-                }
-            },
-
-            // Find all uppers' public profile + profile image
-            {
-                find: function(partup) {
-                    var uppers = partup.uppers || [];
-                    return Meteor.users.findMultiplePublicProfiles(uppers);
-                },
-                children: [
-                    {
-                        find: function(user) {
-                            return Images.find({_id: user.profile.image}, {limit: 1});
-                        }
-                    }
-                ]
-            },
-
-            // Find all supporters' public profile + profile image
-            {
-                find: function(partup) {
-                    var supporters = partup.supporters || [];
-                    return Meteor.users.findMultiplePublicProfiles(supporters);
-                },
-                children: [
-                    {
-                        find: function(user) {
-                            return Images.find({_id: user.profile.image}, {limit: 1});
-                        }
-                    }
-                ]
-            },
-
-            // Find the associated network
-            {
-                find: function(partup) {
-                    return Networks.find({_id: partup.network_id}, {limit: 1});
-                }
-            }
-        ]
-    };
-});
-
 Meteor.publishComposite('partups.one', function(partupId) {
     var self = this;
 
     return {
         find: function() {
-            return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
+            return Partups.guardedMetaFind(self.userId, {_id: partupId}, {limit: 1});
         },
         children: [
             {
-                find: function(partup) {
-                    return Images.find({_id: partup.image}, {limit: 1});
-                }
-            },
-            {
-                find: function(partup) {
-                    return Activities.find({partup_id: partup._id});
+                find: function() {
+                    return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
                 },
                 children: [
                     {
-                        find: function(activity) {
-                            return Updates.find({_id: activity.update_id});
+                        find: function(partup) {
+                            return Images.find({_id: partup.image}, {limit: 1});
                         }
-                    }
-                ]
-            },
-            {
-                find: function(partup) {
-                    return Contributions.find({partup_id: partup._id});
-                },
-                children: [
+                    },
                     {
-                        find: function(contribution) {
-                            return Meteor.users.findSinglePublicProfile(contribution.upper_id);
+                        find: function(partup) {
+                            var uppers = partup.uppers || [];
+                            return Meteor.users.findMultiplePublicProfiles(uppers);
                         },
                         children: [
                             {
@@ -223,47 +156,24 @@ Meteor.publishComposite('partups.one', function(partupId) {
                         ]
                     },
                     {
-                        find: function(contribution) {
-                            return Ratings.find({contribution_id: contribution._id});
-                        }
+                        find: function(partup) {
+                            var supporters = partup.supporters || [];
+                            return Meteor.users.findMultiplePublicProfiles(supporters);
+                        },
+                        children: [
+                            {
+                                find: function(user) {
+                                    return Images.find({_id: user.profile.image}, {limit: 1});
+                                }
+                            }
+                        ]
                     },
                     {
-                        find: function(contribution) {
-                            return Updates.find({_id: contribution.update_id});
+                        find: function(partup) {
+                            return Networks.find({_id: partup.network_id}, {limit: 1});
                         }
                     }
                 ]
-            },
-            {
-                find: function(partup) {
-                    var uppers = partup.uppers || [];
-                    return Meteor.users.findMultiplePublicProfiles(uppers);
-                },
-                children: [
-                    {
-                        find: function(user) {
-                            return Images.find({_id: user.profile.image}, {limit: 1});
-                        }
-                    }
-                ]
-            },
-            {
-                find: function(partup) {
-                    var supporters = partup.supporters || [];
-                    return Meteor.users.findMultiplePublicProfiles(supporters);
-                },
-                children: [
-                    {
-                        find: function(user) {
-                            return Images.find({_id: user.profile.image}, {limit: 1});
-                        }
-                    }
-                ]
-            },
-            {
-                find: function(partup) {
-                    return Networks.find({_id: partup.network_id});
-                }
             }
         ]
     };
