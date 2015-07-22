@@ -115,5 +115,37 @@ Partup.client.scroll = {
 
         // Return whether the element is in viewport
         return element_pos > 0 && element_pos < window_height;
+    },
+
+    /**
+     * Scroll to an element with optional offset
+     *
+     * @memberof Partup.client.scroll
+     * @param element  {Element}
+     * @param offset   {Number}
+     * @param options  {Object}
+     * @param options.duration {Number} Scroll animation duration. Defaults to zero for no animation.
+     */
+    to: function(element, offset, options) {
+        element = element || null;
+        offset = offset || 0;
+        options = options || {};
+
+        // Options
+        var duration = options.duration || 0;
+
+        // Calculate position
+        var position = 0;
+        if (element) position += element.offsetTop || 0;
+        position += offset;
+
+        // Limit position
+        var position_limit = this._element.scrollHeight - this._element.clientHeight;
+        position = Math.min(position, position_limit);
+
+        // Trigger scroll
+        $(this._element).animate({
+            scrollTop: position
+        }, duration);
     }
 };
