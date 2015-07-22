@@ -297,6 +297,8 @@ Meteor.methods({
      * @return {[String]}
      */
     'networks.user_suggestions': function(networkId, options) {
+        this.unblock();
+
         var upper = Meteor.user();
 
         if (!upper) {
