@@ -37,7 +37,7 @@ Template.app_discover_page.onCreated(function() {
         // Options reactive variable (on change, clear the layout and re-add all partups)
         options: tpl.data.partupsOptions, // Reference to the passed partupsOptions reactive-var
         onOptionsChange: function(options) {
-            options = options || {};
+            if (!options) return;
 
             // Reset the limit reactive-var and the limit property of options
             tpl.partups.resetLimit();
