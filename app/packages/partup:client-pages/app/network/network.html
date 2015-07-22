@@ -46,14 +46,14 @@
                                     <a href="{{ pathFor route='network-detail' _id=networkId }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}}">
                                         <i class="fa fa-globe"></i>
-                                        Part-ups
+                                        {{_ 'pages-app-network-tab-button-partups'}}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ pathFor route='network-uppers' _id=networkId }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-uppers' class='pu-state-active'}}">
                                         <i class="fa fa-line-chart"></i>
-                                        Uppers
+                                        {{_ 'pages-app-network-tab-button-uppers'}}
                                     </a>
                                 </li>
                             </ul>
@@ -69,14 +69,14 @@
                                 {{/unless}}
                                 <li class="pu-sub-button">
                                     <a class="pu-button" href="#" data-join>
-                                        Aanmelden
+                                        {{_ 'pages-app-network-actions-button-signup'}}
                                     </a>
                                 </li>
                                 {{#unless networkClosedForUser }}
                                     <li class="pu-sub-button">
                                         <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' _id=networkId }}">
                                             <i class="fa fa-user-plus"></i>
-                                            Uitnodigen
+                                            {{_ 'pages-app-network-actions-button-invite'}}
                                         </a>
                                     </li>
                                 {{/unless}}
