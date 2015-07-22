@@ -76,6 +76,25 @@ Network.prototype.isClosed = function() {
 };
 
 /**
+ * Check if given network is closed for specific user
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+
+Network.prototype.isClosedForUpper = function(upperId) {
+    // if not closed return false
+    if (!this.isClosed()) return false;
+
+    // if closed and has upper return false
+    if (this.hasMember(upperId)) return false;
+
+    // if closed and does not have upper return true
+    return true;
+};
+
+/**
  * Check if upper is already invited to the network
  *
  * @memberof Networks
@@ -93,6 +112,41 @@ Network.prototype.isUpperInvited = function(upperId) {
     });
 
     return invite;
+};
+
+/**
+ * Check if upper can invite other uppers
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.canUpperInvite = function(upperId) {
+    return this.hasMember(upperId);
+};
+
+/**
+ * Check if upper can join network
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.canUpperJoin = function(upperId) {
+    if (this.isPublic()) return true;
+    if (this.isUpperInvited(upperId)) return true;
+    return false;
+};
+
+/**
+ * Check if upper can leave network (admins can't)
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.canUpperLeave = function(upperId) {
+    return !this.isAdmin(upperId);
 };
 
 /**
