@@ -40,13 +40,13 @@ var placeholders = {
 Template.Profilesettings.onCreated(function() {
     var template = this;
 
-    template.selectedLocation = new ReactiveVar();
+    template.locationSelection = new ReactiveVar();
 
     template.autorun(function() {
         var user = Meteor.user();
         if (!user) return;
 
-        if (user.profile && user.profile.location && user.profile.location.place_id) template.selectedLocation.set(user.profile.location);
+        if (user.profile && user.profile.location && user.profile.location.place_id) template.locationSelection.set(user.profile.location);
     });
 
     this.subscription = this.subscribe('users.loggedin');
@@ -132,10 +132,15 @@ Template.Profilesettings.helpers({
         var user = Meteor.user();
         return User(user).getFirstname();
     },
-    profileLocationDescription: function(location) {
-        return Partup.client.strings.locationToDescription(location);
+    locationLabel: function() {
+        return Partup.client.strings.locationToDescription;
     },
-    onLocationAutocompleteQuery: function() {
+    partupFormvalue: function() {
+        return function(location) {
+            return location.id;
+        };
+    },
+    locationQuery: function() {
         return function(query, sync, async) {
             Meteor.call('google.cities.autocomplete', query, function(error, locations) {
                 lodash.each(locations, function(loc) {
@@ -145,17 +150,8 @@ Template.Profilesettings.helpers({
             });
         };
     },
-    onLocationAutocompleteSelect: function() {
-        var tpl = Template.instance();
-        return function(location) {
-            tpl.selectedLocation.set(location);
-
-            var location_input = tpl.find('form').elements.location_input;
-            location_input.value = location.id;
-        };
-    },
-    selectedLocation: function() {
-        return Template.instance().selectedLocation.get();
+    locationSelectionReactiveVar: function() {
+        return Template.instance().locationSelection;
     }
 });
 
@@ -186,18 +182,6 @@ Template.Profilesettings.events({
                 template.uploadingProfilePicture.set(false);
             });
 
-        });
-    },
-    'click [data-clearlocation]': function(event, template) {
-        template.selectedLocation.set(undefined);
-        var location_input = template.find('form').elements.location_input;
-
-        Meteor.defer(function() {
-            location_input.value = '';
-
-            Meteor.defer(function() {
-                template.find('.tt-input[data-locationqueryinput]').focus();
-            });
         });
     }
 });

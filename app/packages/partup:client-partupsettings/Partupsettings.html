@@ -133,18 +133,16 @@
             <div class="pu-sub-validations pu-sub-autocomplete
                         {{#if afFieldIsInvalid name='location_input' }}pu-state-invalid{{/if}}">
                 <span class="pu-sub-input">
-                    {{# with selectedLocation }}
-                        <input type="text" value="{{ partupLocationDescription . }}" class="pu-input pu-input-selection" readonly>
-                        <a href="#" class="pu-sub-remove" data-clearlocation>
-                            <i class="fa fa-times"></i>
-                        </a>
-                    {{ else }}
-                        {{# Autocomplete onQuery=onLocationAutocompleteQuery onSelect=onLocationAutocompleteSelect }}
-                            <input type="text" placeholder="{{ formPlaceholders.location_input }}" class="pu-input" data-locationqueryinput>
-                        {{/ Autocomplete }}
-                    {{/ with }}
+                    {{# AutocompleteAdvanced
+                                placeholder=formPlaceholders.location_input
+                                label=locationLabel
+                                selection=locationSelectionReactiveVar
+                                onQuery=locationQuery
+                                formValue=locationFormvalue }}
 
-                    {{> afFieldInput type='hidden' name='location_input' }}
+                        {{> afFieldInput name='location_input' }}
+
+                    {{/ AutocompleteAdvanced }}
                 </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='location_input' }}</span>
             </div>

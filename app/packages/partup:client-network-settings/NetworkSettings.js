@@ -12,13 +12,14 @@ Template.NetworkSettings.onCreated(function() {
     tpl.submitting = new ReactiveVar();
     tpl.current = new ReactiveDict();
     tpl.uploading = new ReactiveDict();
-    tpl.selectedLocation = new ReactiveVar();
+
+    tpl.locationSelection = new ReactiveVar();
 
     tpl.autorun(function() {
         var network = Networks.findOne({_id: tpl.data.networkId});
         if (!network) return;
 
-        if (network.location && network.location.place_id) tpl.selectedLocation.set(network.location);
+        if (network.location && network.location.place_id) tpl.locationSelection.set(network.location);
 
         network = Partup.transformers.network.toFormNetwork(network);
 
@@ -69,9 +70,6 @@ Template.NetworkSettings.helpers({
     network: function() {
         return Networks.findOne({_id: this.networkId});
     },
-    networkLocationDescription: function(location) {
-        return Partup.client.strings.locationToDescription(location);
-    },
     fieldsForNetwork: function() {
         var network = Networks.findOne({_id: this.networkId});
         if (!network) return;
@@ -118,7 +116,19 @@ Template.NetworkSettings.helpers({
         return '/images/smile.png';
     },
 
-    onLocationAutocompleteQuery: function() {
+    // Location autocomplete helpers
+    locationLabel: function() {
+        return Partup.client.strings.locationToDescription;
+    },
+    locationFormvalue: function() {
+        return function(location) {
+            return location.id;
+        };
+    },
+    locationSelectionReactiveVar: function() {
+        return Template.instance().locationSelection;
+    },
+    locationQuery: function() {
         return function(query, sync, async) {
             Meteor.call('google.cities.autocomplete', query, function(error, locations) {
                 lodash.each(locations, function(loc) {
@@ -127,20 +137,6 @@ Template.NetworkSettings.helpers({
                 async(locations);
             });
         };
-    },
-
-    onLocationAutocompleteSelect: function() {
-        var tpl = Template.instance();
-        return function(location) {
-            tpl.selectedLocation.set(location);
-
-            var location_input = tpl.find('form').elements.location_input;
-            location_input.value = location.id;
-        };
-    },
-
-    selectedLocation: function() {
-        return Template.instance().selectedLocation.get();
     }
 });
 
@@ -190,18 +186,6 @@ Template.NetworkSettings.events({
                 template.current.set('icon', image._id);
             });
 
-        });
-    },
-    'click [data-clearlocation]': function(event, template) {
-        template.selectedLocation.set(undefined);
-        var location_input = template.find('form').elements.location_input;
-
-        Meteor.defer(function() {
-            location_input.value = '';
-
-            Meteor.defer(function() {
-                template.find('.tt-input[data-locationqueryinput]').focus();
-            });
         });
     }
 });

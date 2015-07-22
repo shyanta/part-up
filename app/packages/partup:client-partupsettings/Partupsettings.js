@@ -239,10 +239,17 @@ Template.Partupsettings.helpers({
             }
         ];
     },
-    partupLocationDescription: function(location) {
-        return Partup.client.strings.locationToDescription(location);
+
+    // Location autocomplete
+    locationLabel: function() {
+        return Partup.client.strings.locationToDescription;
     },
-    onLocationAutocompleteQuery: function() {
+    locationFormvalue: function() {
+        return function(location) {
+            return location.id;
+        };
+    },
+    locationQuery: function() {
         return function(query, sync, async) {
             Meteor.call('google.cities.autocomplete', query, function(error, locations) {
                 lodash.each(locations, function(loc) {
@@ -252,18 +259,9 @@ Template.Partupsettings.helpers({
             });
         };
     },
-    onLocationAutocompleteSelect: function() {
-        var tpl = Template.instance();
-        return function(location) {
-            tpl.selectedLocation.set(location);
-
-            var location_input = tpl.find('form').elements.location_input;
-            location_input.value = location.id;
-        };
+    locationSelectionReactiveVar: function() {
+        return Template.instance().selectedLocation;
     },
-    selectedLocation: function() {
-        return Template.instance().selectedLocation.get();
-    }
 });
 
 Template.Partupsettings.events({
@@ -328,18 +326,6 @@ Template.Partupsettings.events({
             $(event.currentTarget.form).find('[name=network_id]').val(value);
 
         }
-    },
-    'click [data-clearlocation]': function(event, template) {
-        template.selectedLocation.set(undefined);
-        var location_input = template.find('form').elements.location_input;
-
-        Meteor.defer(function() {
-            location_input.value = '';
-
-            Meteor.defer(function() {
-                template.find('.tt-input[data-locationqueryinput]').focus();
-            });
-        });
     }
 });
 
