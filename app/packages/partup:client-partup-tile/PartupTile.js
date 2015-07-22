@@ -95,7 +95,9 @@ Template.PartupTile.helpers({
 /* Events */
 /*************************************************************/
 Template.PartupTile.events({
-    //
+    'click .pu-sub-partup-tags span': function(event, template) {
+        Session.set('discover.query', event.target.textContent);
+    }
 });
 
 /*************************************************************/

@@ -112,6 +112,11 @@ Template.app_discover_filter.onCreated(function() {
             };
         },
     };
+
+    // Submit form on discover.query changing
+    Meteor.autorun(function() {
+        tpl.submitFilterForm();
+    });
 });
 
 /**
@@ -128,6 +133,10 @@ Template.app_discover_filter.onRendered(function() {
  * Discover-header helpers
  */
 Template.app_discover_filter.helpers({
+    // Query
+    queryData: function() {
+        return Session.get('discover.query') || '';
+    },
 
     // Network
     networkValue: function() {
