@@ -17,7 +17,8 @@
     "pages-app-network-closed-title": "This is a private tribe",
     "pages-app-network-closed-description": "The uppers in this tribe decided to keeps this Tribe and its content of part-ups and uppers private. Sign up to let the community manager know you want to be part of __network__. He or she will get back to you soon.",
 
-    "pages-app-network-actions-button-signup": "Sign-up",
+    "pages-app-network-actions-button-join": "Join",
+    "pages-app-network-actions-button-leave": "Leave tribe",
     "pages-app-network-actions-button-invite": "Invite",
     "pages-app-network-tab-button-partups": "Part-ups",
     "pages-app-network-tab-button-uppers": "Uppers"

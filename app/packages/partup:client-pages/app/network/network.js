@@ -18,30 +18,29 @@ Template.app_network.helpers({
     network: function() {
         return Networks.findOne(this.networkId);
     },
-    networkClosedForUser : function() {
+    networkPermissionsForCurrentUser: function() {
         var network = Networks.findOne(this.networkId);
         var userId = Meteor.userId();
-
         if (!network) return;
+        return {
+            closed: function() {
+                // if not closed return false
+                if (!network.isClosed()) return false;
 
-        // if not closed return false
-        if (!network.isClosed()) return false;
+                // if closed and has member return false
+                if (network.hasMember(userId)) return false;
 
-        // if closed and has member return false
-        if (network.hasMember(userId)) return false;
-
-        // if closed and does not have member return true
-        return true;
-    },
-
-    userIsAdmin: function() {
-        var network = Networks.findOne(this.networkId);
-        var userId = Meteor.userId();
-
-        if (!network) return false;
-
-        // check if user is admin
-        return network.isAdmin(userId);
+                // if closed and does not have member return true
+                return true;
+            },
+            member: function() {
+                return network.hasMember(userId);
+            },
+            admin: function() {
+                // check if user is admin
+                return network.isAdmin(userId);
+            }
+        };
     },
 
     subscriptionsReady: function() {
@@ -53,16 +52,43 @@ Template.app_network.helpers({
     }
 });
 
+var joinNetwork = function(networkId) {
+    Meteor.call('networks.join', networkId, function(error) {
+        if (error) {
+            Partup.client.notify.error(error.reason);
+        } else {
+            Partup.client.notify.success('joined network');
+        }
+    });
+};
+
 /*************************************************************/
 /* Page events */
 /*************************************************************/
 Template.app_network.events({
     'click [data-join]': function(event, template) {
-        Meteor.call('networks.join', template.data.networkId, function(error) {
+        event.preventDefault();
+        var user = Meteor.user();
+        var networkId = template.data.networkId;
+        if (user) {
+            joinNetwork(networkId);
+        } else {
+            Intent.go({route: 'login'}, function(loggedInUser) {
+                if (loggedInUser) {
+                    joinNetwork(networkId);
+                } else {
+                    Partup.client.notify.error('failed to join network');
+                }
+            });
+        }
+    },
+    'click [data-leave]': function(event, template) {
+        var networkId = template.data.networkId;
+        Meteor.call('networks.leave', networkId, function(error) {
             if (error) {
                 Partup.client.notify.error(error.reason);
             } else {
-                Partup.client.notify.success('joined network');
+                Partup.client.notify.success('left network');
             }
         });
     },

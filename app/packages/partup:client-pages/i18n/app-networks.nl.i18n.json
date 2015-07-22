@@ -17,7 +17,8 @@
     "pages-app-network-closed-title": "Dit is een gesloten tribe",
     "pages-app-network-closed-description": "De uppers in deze tribe hebben ervoor gekozen om de community besloten te houden. Meld je aan om de community manager te laten weten dat het een goed idee is dat jij ook onderdeel wordt van __network__. Hij of zij stuurt snel een reactie.",
 
-    "pages-app-network-actions-button-signup": "Aanmelden",
+    "pages-app-network-actions-button-join": "Aanmelden",
+    "pages-app-network-actions-button-leave": "Verlaat tribe",
     "pages-app-network-actions-button-invite": "Uitnogigen",
     "pages-app-network-tab-button-partups": "Part-ups",
     "pages-app-network-tab-button-uppers": "Uppers"

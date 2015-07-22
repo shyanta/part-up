@@ -26,7 +26,7 @@
                                 </ul>
                             </div>
                         </div>
-                        {{#unless networkClosedForUser }}
+                        {{#unless networkPermissionsForCurrentUser.closed }}
                             <ul class="pu-list pu-list-horizontal pu-list-tags">
                                 {{#each network.tags}}
                                     <li>
@@ -59,7 +59,8 @@
                             </ul>
                             <!-- actions -->
                             <ul class="pu-list pu-list-horizontal pu-sub-right">
-                                {{#if userIsAdmin }}
+                                <!-- settings -->
+                                {{#if networkPermissionsForCurrentUser.admin }}
                                     <li>
                                         <a href="{{pathFor 'network-settings' _id=networkId}}" data-open-networksettings
                                             class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
@@ -67,12 +68,23 @@
                                         </a>
                                     </li>
                                 {{/if}}
-                                <li class="pu-sub-button">
-                                    <a class="pu-button" href="#" data-join>
-                                        {{_ 'pages-app-network-actions-button-signup'}}
-                                    </a>
-                                </li>
-                                {{#unless networkClosedForUser }}
+                                {{#if networkPermissionsForCurrentUser.member }}
+                                    <!-- signup -->
+                                    <li class="pu-sub-button">
+                                        <a class="pu-button" href="#" data-leave>
+                                            {{_ 'pages-app-network-actions-button-leave'}}
+                                        </a>
+                                    </li>
+                                {{ else }}
+                                    <!-- leave -->
+                                    <li class="pu-sub-button">
+                                        <a class="pu-button" href="#" data-join>
+                                            {{_ 'pages-app-network-actions-button-join'}}
+                                        </a>
+                                    </li>
+                                {{/if}}
+                                <!-- invite -->
+                                {{#unless networkPermissionsForCurrentUser.closed }}
                                     <li class="pu-sub-button">
                                         <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' _id=networkId }}">
                                             <i class="fa fa-user-plus"></i>
@@ -88,7 +100,7 @@
             <div class="pu-sub-pagecontent">
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <section class="pu-composition pu-composition-network">
-                        {{#if networkClosedForUser}}
+                        {{#if networkPermissionsForCurrentUser.closed}}
                             {{> app_network_closed network=network.name}}
                         {{else}}
                             {{> yield region='app_network'}}
