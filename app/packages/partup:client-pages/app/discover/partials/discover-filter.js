@@ -19,6 +19,11 @@ Template.app_discover_filter.onCreated(function() {
         });
     };
 
+    // Query
+    tpl.query = {
+        value: new ReactiveVar()
+    };
+
     // Network filter datamodel
     tpl.network = {
         value: new ReactiveVar(),
@@ -113,8 +118,12 @@ Template.app_discover_filter.onCreated(function() {
         },
     };
 
-    // Submit form on discover.query changing
-    Meteor.autorun(function() {
+    tpl.autorun(function() {
+        var value = Session.get('discover.query');
+        if (!value) return;
+
+        Session.set('discover.query', undefined);
+        tpl.query.value.set(value);
         tpl.submitFilterForm();
     });
 });
@@ -135,7 +144,7 @@ Template.app_discover_filter.onRendered(function() {
 Template.app_discover_filter.helpers({
     // Query
     queryData: function() {
-        return Session.get('discover.query') || '';
+        return Template.instance().query.value.get() || '';
     },
 
     // Network
