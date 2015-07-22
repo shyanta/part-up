@@ -75,7 +75,9 @@ Meteor.startup(function() {
     /*************************************************************/
     Router.onAfterAction(function() {
         Meteor.defer(function() {
-            Partup.client.scroll.to(null, 0);
+            if (Partup.client.scroll._element) {
+                Partup.client.scroll.to(null, 0);
+            }
         });
     });
 
