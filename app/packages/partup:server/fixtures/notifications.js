@@ -89,6 +89,81 @@ Meteor.startup(function() {
                 'created_at' : new Date('2015-07-21T14:11:51.763Z'),
                 'new' : true
             });
+
+            /* 6 */
+            Notifications.insert({
+                '_id' : 'ERwBsEAExaN95yZ3y',
+                'for_upper_id' : 'K5c5M4Pbdg3B82wQH',
+                'type' : 'partups_networks_invited',
+                'type_data' : {
+                    'network' : {
+                        'name' : 'ING (invite)',
+                        'image' : null
+                    }
+                },
+                'created_at' : new Date('2015-07-22T09:00:30.168Z'),
+                'new' : true
+            });
+
+            /* 7 */
+            Notifications.insert({
+                '_id' : 'o9E59Hsi4FLZmcfhy',
+                'for_upper_id' : 'a7qcp5RHnh5rfaeW9',
+                'type' : 'partups_networks_invited',
+                'type_data' : {
+                    'network' : {
+                        'name' : 'ING (invite)',
+                        'image' : null
+                    }
+                },
+                'created_at' : new Date('2015-07-22T09:11:08.083Z'),
+                'new' : true
+            });
+
+            /* 8 */
+            Notifications.insert({
+                '_id' : 'qK2d2j4PBoNzKrqPA',
+                'for_upper_id' : 'K5c5M4Pbdg3B82wQI',
+                'type' : 'partups_networks_invited',
+                'type_data' : {
+                    'network' : {
+                        'name' : 'ING (closed)',
+                        'image' : null
+                    }
+                },
+                'created_at' : new Date('2015-07-22T09:12:46.323Z'),
+                'new' : true
+            });
+
+            /* 9 */
+            Notifications.insert({
+                '_id' : 'yhkbye8nzLzxN7399',
+                'for_upper_id' : 'K5c5M4Pbdg3B82wQI',
+                'type' : 'partups_networks_accepted',
+                'type_data' : {
+                    'network' : {
+                        'name' : 'ING (closed)',
+                        'image' : null
+                    }
+                },
+                'created_at' : new Date('2015-07-22T09:23:58.070Z'),
+                'new' : true
+            });
+
+            /* 10 */
+            Notifications.insert({
+                '_id' : 'xWx3q5f8Wviq6tuSD',
+                'for_upper_id' : 'a7qcp5RHnh5rfaeW9',
+                'type' : 'partups_networks_invited',
+                'type_data' : {
+                    'network' : {
+                        'name' : 'ING (closed)',
+                        'image' : null
+                    }
+                },
+                'created_at' : new Date('2015-07-22T09:31:48.389Z'),
+                'new' : true
+            });
         }
     }
 });

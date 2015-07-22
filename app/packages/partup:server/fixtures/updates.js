@@ -225,6 +225,87 @@ Meteor.startup(function() {
                 'created_at' : new Date('2015-07-21T14:11:51.960Z'),
                 'updated_at' : new Date('2015-07-21T14:11:51.960Z')
             });
+
+            /* 11 */
+            Updates.insert({
+                '_id' : 'uHf3ZxiK57rRQMqqg',
+                'upper_id' : 'K5c5M4Pbdg3B82wQI',
+                'partup_id' : 'CJETReuE6uo2eF7eW',
+                'type' : 'partups_created',
+                'type_data' : {},
+                'comments_count' : 0,
+                'created_at' : new Date('2015-07-22T09:26:51.376Z'),
+                'updated_at' : new Date('2015-07-22T09:26:51.376Z')
+            });
+
+            /* 12 */
+            Updates.insert({
+                '_id' : 'AFsgqhFAnyruXC5bQ',
+                'upper_id' : null,
+                'partup_id' : 'CJETReuE6uo2eF7eW',
+                'system' : true,
+                'type' : 'partups_message_added',
+                'type_data' : {
+                    'type' : 'welcome_message'
+                },
+                'comments_count' : 0,
+                'created_at' : new Date('2015-07-22T09:26:51.377Z'),
+                'updated_at' : new Date('2015-07-22T09:26:51.377Z')
+            });
+
+            /* 13 */
+            Updates.insert({
+                '_id' : '9S6sskRnudTefQXrs',
+                'upper_id' : 'K5c5M4Pbdg3B82wQH',
+                'partup_id' : 'ASfRYBAzo2ayYk5si',
+                'type' : 'partups_created',
+                'type_data' : {},
+                'comments_count' : 0,
+                'created_at' : new Date('2015-07-22T09:38:22.622Z'),
+                'updated_at' : new Date('2015-07-22T09:38:22.622Z')
+            });
+
+            /* 14 */
+            Updates.insert({
+                '_id' : '5KyKiFf3ZyKeepX8S',
+                'upper_id' : null,
+                'partup_id' : 'ASfRYBAzo2ayYk5si',
+                'system' : true,
+                'type' : 'partups_message_added',
+                'type_data' : {
+                    'type' : 'welcome_message'
+                },
+                'comments_count' : 0,
+                'created_at' : new Date('2015-07-22T09:38:22.627Z'),
+                'updated_at' : new Date('2015-07-22T09:38:22.627Z')
+            });
+
+            /* 15 */
+            Updates.insert({
+                '_id' : '5H5BdQxxgdTQotgCq',
+                'upper_id' : 'a7qcp5RHnh5rfaeW9',
+                'partup_id' : 'vGaxNojSerdizDPjb',
+                'type' : 'partups_created',
+                'type_data' : {},
+                'comments_count' : 0,
+                'created_at' : new Date('2015-07-22T09:42:13.894Z'),
+                'updated_at' : new Date('2015-07-22T09:42:13.894Z')
+            });
+
+            /* 16 */
+            Updates.insert({
+                '_id' : '9g5dpuR5SWkvnDJLH',
+                'upper_id' : null,
+                'partup_id' : 'vGaxNojSerdizDPjb',
+                'system' : true,
+                'type' : 'partups_message_added',
+                'type_data' : {
+                    'type' : 'welcome_message'
+                },
+                'comments_count' : 0,
+                'created_at' : new Date('2015-07-22T09:42:13.895Z'),
+                'updated_at' : new Date('2015-07-22T09:42:13.895Z')
+            });
         }
     }
 });

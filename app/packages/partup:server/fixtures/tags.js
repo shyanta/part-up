@@ -41,6 +41,36 @@ Meteor.startup(function() {
             Tags.insert({
                 '_id' : 'nonprofit'
             });
+
+            /* 9 */
+            Tags.insert({
+                '_id' : 'ing'
+            });
+
+            /* 10 */
+            Tags.insert({
+                '_id' : 'financial'
+            });
+
+            /* 11 */
+            Tags.insert({
+                '_id' : 'organizational'
+            });
+
+            /* 12 */
+            Tags.insert({
+                '_id' : 'lifely'
+            });
+
+            /* 13 */
+            Tags.insert({
+                '_id' : 'meetup'
+            });
+
+            /* 14 */
+            Tags.insert({
+                '_id' : 'meteor'
+            });
         }
     }
 });

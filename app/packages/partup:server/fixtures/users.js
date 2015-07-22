@@ -85,7 +85,18 @@ Meteor.startup(function() {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'BPyL2zAyQ8b7bewEu'
+                'image' : 'BPyL2zAyQ8b7bewEu',
+                'networks' : [ 
+                    'ibn27M3ePaXhmKzWq', 
+                    'kRCjWDBkKru3KfsjW'
+                ],
+                'participation_score' : 2,
+                'partups' : [ 
+                    'ASfRYBAzo2ayYk5si'
+                ],
+                'upperOf' : [ 
+                    'ASfRYBAzo2ayYk5si'
+                ]
             });
 
             Meteor.users.insert({
@@ -171,7 +182,18 @@ Meteor.startup(function() {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'nL2MYYXJ3eFeb2GYq'
+                'image' : 'nL2MYYXJ3eFeb2GYq',
+                'participation_score' : 3,
+                'pending_networks' : [],
+                'networks' : [ 
+                    'wfCv4ZdPe5WNT4xfg'
+                ],
+                'partups' : [ 
+                    'CJETReuE6uo2eF7eW'
+                ],
+                'upperOf' : [ 
+                    'CJETReuE6uo2eF7eW'
+                ]
             });
 
             Meteor.users.insert({
@@ -263,7 +285,8 @@ Meteor.startup(function() {
                     'kRCjWDBkKru3KfsjW', 
                     'wfCv4ZdPe5WNT4xfg', 
                     'ibn27M3ePaXhmKzWq'
-                ]
+                ],
+                'participation_score' : 2
             });
 
             Meteor.users.insert({
@@ -353,6 +376,19 @@ Meteor.startup(function() {
                 'image' : 'LG9J5XA4PPg5B8ZNu',
                 'supporterOf' : [ 
                     'gJngF65ZWyS9f3NDE'
+                ],
+                'participation_score' : 3,
+                'pending_networks' : [ 
+                    'wfCv4ZdPe5WNT4xfg'
+                ],
+                'networks' : [ 
+                    'ibn27M3ePaXhmKzWq'
+                ],
+                'partups' : [ 
+                    'vGaxNojSerdizDPjb'
+                ],
+                'upperOf' : [ 
+                    'vGaxNojSerdizDPjb'
                 ]
             });
         }
