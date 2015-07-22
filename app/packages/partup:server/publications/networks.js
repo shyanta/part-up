@@ -130,14 +130,12 @@ Meteor.publishComposite('networks.one', function(networkId) {
             },
             {
                 find: function(network) {
-                    var iconId = network.icon || null;
-                    return Images.find({_id: iconId}, {limit: 1});
+                    return Images.find({_id: network.icon}, {limit: 1});
                 }
             },
             {
                 find: function(network) {
-                    var imageId = network.image || null;
-                    return Images.find({_id: imageId}, {limit: 1});
+                    return Images.find({_id: network.image}, {limit: 1});
                 }
             }
         ]
