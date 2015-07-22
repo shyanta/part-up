@@ -510,7 +510,8 @@ Router.onBeforeAction(function(req, res, next) {
         'create-activities',
         'create-contribute',
         'create-promote',
-        'register-details'
+        'register-details',
+        'network-invite'
     ]
 });
 
