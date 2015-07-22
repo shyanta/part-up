@@ -23,7 +23,7 @@ Partup.client.language = {
         TAPi18n.setLanguage(language).done(function() {
             // Change MomentJS language
             moment.locale(language);
-            self.current.set(language);
+            Partup.client.language.current.set(language);
             // Change datepicker language
             $.fn.datepicker.dates[language] = {
                 days: moment.weekdays(),
@@ -79,10 +79,9 @@ Partup.client.language = {
             });
             var user = Meteor.user();
             if(!user) return;
-
             // update the user stored language setting for future logins
-            Meteor.call('users.update.language', {language: language}, function(error, res){
-                if (error && error.message) {
+            Meteor.call('settings.update', {locale: language}, function(err) {
+                if (err) {
                     Partup.client.notify.error('Could not set the correct language');
                     return;
                 }
@@ -99,17 +98,20 @@ Partup.client.language = {
      * @memberof Partup.client.language
      */
     setToDefault: function() {
+            var language = Partup.client.language.getDefault();
+            Partup.client.language.change(language);
+    },
+
+    getDefault: function() {
+        var language = 'en';
         if (TAPi18n && Partup) {
-            var language = 'en';
             var detectedLocale = navigator.language || navigator.userLanguage;    // value is like: en-US
             if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {  // if the value matches 'xx-xx'
                 detectedLocale = detectedLocale.split('-')[0];                    // value is like: en
             }
-
             language = detectedLocale || 'en';
-
-            Partup.client.language.change(language);
         }
+        return language;
     }
 
 };
