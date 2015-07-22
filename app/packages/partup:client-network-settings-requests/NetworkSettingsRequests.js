@@ -9,26 +9,18 @@ Template.NetworkSettingsRequests.onCreated(function() {
 });
 
 Template.NetworkSettingsRequests.helpers({
-    requests: function() {
-        var requests = [];
+    userRequests: function() {
+        // var requests = [];
         var network = Networks.findOne({_id: this.networkId});
         if (!network) return;
-
         var pending = network.pending_uppers || [];
-        for (var i = 0; i < pending.length; i++) {
-            requests.push({
-                user: Meteor.users.findOne({_id: pending[i]})
-            });
-        }
-
-        return requests;
+        return Meteor.users.find({_id: {$in: pending}}).fetch();
     }
 });
 
 Template.NetworkSettingsRequests.events({
     'click [data-request-accept]': function(e, template) {
-        var userId = $(e.target).closest('[data-request-accept]').data('user-id');
-
+        var userId = $(e.currentTarget).data('user-id');
         Meteor.call('networks.accept', template.data.networkId, userId, function(err) {
             if (err) {
                 Partup.client.notify.error(err.reason);

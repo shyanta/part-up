@@ -101,9 +101,10 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkId) {
 
     return {
         find: function() {
-            var network = Networks.guardedFind(self.userId, {_id: networkId});
+            var network = Networks.guardedFind(self.userId, {_id: networkId}).fetch().pop();
             var pending_uppers = network.pending_uppers || [];
-            return Meteor.users.findMultiplePublicProfiles(pending_uppers);
+            var users = Meteor.users.findMultiplePublicProfiles(pending_uppers);
+            return users;
         },
         children: [
             {

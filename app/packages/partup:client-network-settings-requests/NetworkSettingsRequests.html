@@ -11,20 +11,20 @@
                 </tr>
             </thead>
             <tbody>
-                {{# each requests }}
+                {{# each userRequests }}
                     <tr>
                         <td>
-                            <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=user.profile.image }}');"></figure>
-                            <span class="pu-sub-name">{{ user.profile.name }}</span>
+                            <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');"></figure>
+                            <span class="pu-sub-name">{{ profile.name }}</span>
                         </td>
                         <td class="pu-sub-inviter">
 
                         </td>
                         <td>
-                            <button type="button" class="pu-button pu-button-confirm" data-request-accept data-user-id="{{ user._id }}">
+                            <button type="button" class="pu-button pu-button-confirm" data-request-accept data-user-id="{{ _id }}">
                                 <i class="fa fa-check"></i>
                             </button>
-                            <button type="button" class="pu-button pu-button-deny" data-request-reject data-user-id="{{ user._id }}">
+                            <button type="button" class="pu-button pu-button-deny" data-request-reject data-user-id="{{ _id }}">
                                 <i class="fa fa-times"></i>
                             </button>
                         </td>
