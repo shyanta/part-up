@@ -25,6 +25,10 @@ Template.app_profile.helpers({
 
     shrinkHeader: function() {
         return Partup.client.scroll.pos.get() > 100;
+    },
+
+    isCurrentusersProfile: function() {
+        return this.profileId === Meteor.userId();
     }
 });
 
@@ -47,5 +51,13 @@ Template.app_profile.events({
 
         $(event.target.parentElement).toggleClass('pu-state-open');
         $(event.target).parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
+    },
+    'click [data-open-profilesettings]': function(event, template) {
+        Intent.go({
+            route: 'profile-settings',
+            params: {
+                _id: template.data.profileId
+            }
+        });
     }
 });
