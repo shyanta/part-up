@@ -93,7 +93,7 @@ Meteor.startup(function() {
                 'createdAt' : new Date('2015-07-21T13:43:28.401Z'),
                 'services' : {
                     'password' : {
-                        'bcrypt' : '$2a$10$1G7V9d0ueuT..jbsgb8xTemb1PjB7fQFi6hhPOK8ylHI59caUQzkG'
+                        'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     },
                     'resume' : {
                         'loginTokens' : [ 
@@ -271,7 +271,7 @@ Meteor.startup(function() {
                 'createdAt' : new Date('2015-07-21T14:11:01.053Z'),
                 'services' : {
                     'password' : {
-                        'bcrypt' : '$2a$10$SR1NSX03JXwPGBrZ0DjSxOf8.MEblni873mYoWjXnwp.ihN87cT9q'
+                        'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     },
                     'resume' : {
                         'loginTokens' : [ 
