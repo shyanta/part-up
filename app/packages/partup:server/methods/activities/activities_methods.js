@@ -315,7 +315,13 @@ Meteor.methods({
         var notificationOptions = {
             userId: invitee._id,
             type: 'partup_activities_invited',
-            typeData: {}
+            typeData: {
+                inviter: {
+                    id: inviter._id,
+                    name: inviter.profile.name,
+                    image: inviter.profile.image
+                }
+            }
         };
 
         Partup.server.services.notifications.send(notificationOptions);
