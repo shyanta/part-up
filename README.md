@@ -43,6 +43,18 @@ The whole app is made up of small styled components. These components are not fu
 - Backend emits an event that corresponds with the given CRUD operation, e.g. `inserted, updated or removed` (inside a Meteor method).
 - Handlers are created that have to react to these created events, for instance when inserting an update or notification.
 
+# Fixtures
+
+- the following users are created automatically (all with password "user"):
+    - user@example.com
+    - john@example.com
+    - judy@example.com
+    - admin@example.com
+- admin created all the tribes
+- john is member of closed network and created a closed partup
+- user is member of open and invite network and created a partups in these tribes
+- judy is invited for closed network
+
 # DevOps
 
 ## Deployment
