@@ -254,7 +254,7 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_email: email, type: ActivitiesInvites.INVITE_TYPE_EMAIL});
+        var isAlreadyInvited = !!Invites.findOne({activity_id: activityId, invitee_email: email, type: Invites.INVITE_TYPE_ACTIVITY_EMAIL});
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'email_is_already_invited_to_activity');
         }
@@ -281,7 +281,7 @@ Meteor.methods({
         });
 
         var invite = {
-            type: ActivitiesInvites.INVITE_TYPE_EMAIL,
+            type: Invites.INVITE_TYPE_ACTIVITY_EMAIL,
             activity_id: activity._id,
             inviter_id: inviter._id,
             invitee_name: name,
@@ -289,7 +289,7 @@ Meteor.methods({
             created_at: new Date
         };
 
-        ActivitiesInvites.insert(invite);
+        Invites.insert(invite);
     },
 
     /**
@@ -312,7 +312,7 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!ActivitiesInvites.findOne({activity_id: activityId, invitee_id: invitee._id, inviter_id: inviter._id, type: ActivitiesInvites.INVITE_TYPE_EXISTING_UPPER});
+        var isAlreadyInvited = !!Invites.findOne({activity_id: activityId, invitee_id: invitee._id, inviter_id: inviter._id, type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER});
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'user_is_already_invited_to_activity');
         }
@@ -332,14 +332,13 @@ Meteor.methods({
         Partup.server.services.notifications.send(notificationOptions);
 
         var invite = {
-            type: ActivitiesInvites.INVITE_TYPE_EXISTING_UPPER,
+            type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER,
             activity_id: activity._id,
             inviter_id: inviter._id,
             invitee_id: invitee._id,
             created_at: new Date
         };
 
-        ActivitiesInvites.insert(invite);
+        Invites.insert(invite);
     }
-
 });

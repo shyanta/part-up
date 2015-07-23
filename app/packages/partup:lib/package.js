@@ -37,7 +37,7 @@ Package.onUse(function(api) {
         'services/validators.js',
         'services/website.js',
         'collections/activities.js',
-        'collections/activities_invites.js',
+        'collections/invites.js',
         'collections/contributions.js',
         'collections/updates.js',
         'collections/notifications.js',
@@ -83,7 +83,7 @@ Package.onUse(function(api) {
 
     // Collections
     api.export('Activities');
-    api.export('ActivitiesInvites');
+    api.export('Invites');
     api.export('Contributions');
     api.export('Images');
     api.export('Networks');
