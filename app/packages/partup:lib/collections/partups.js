@@ -338,7 +338,9 @@ Partups.findUpperPartups = function(userId, options, parameters) {
  * Find the partups where the userid is supper
  *
  * @memberof Partups
+ *
  * @param {Object} options
+ *
  * @return {Cursor}
  */
 Partups.findSupporterPartups = function(userId, options, parameters) {

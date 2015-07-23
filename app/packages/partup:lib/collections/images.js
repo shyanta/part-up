@@ -119,6 +119,8 @@ Images = new FS.Collection('images', {
 /**
  * Find the images for a given partup
  *
+ * @memberOf Images
+ *
  * @param {Partup} partup
  *
  * @return {Mongo.Cursor}
