@@ -55,6 +55,16 @@ The whole app is made up of small styled components. These components are not fu
 - user is member of open and invite tribe and created a partups in these tribes
 - judy is invited for closed tribe
 
+# Unit / Integration tests
+
+- disable tests
+    - `cd app`
+    - `meteor remove mike:mocha`
+- enable tests
+    - `cd app`
+    - `meteor add mike:mocha`
+    - `meteor add xolvio:cucumber`
+
 # DevOps
 
 ## Deployment
