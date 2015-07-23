@@ -43,7 +43,6 @@ zimme:active-route
 percolate:synced-cron
 meteorhacks:kadira
 okgrow:analytics
-mike:mocha
 percolate:migrations
 anti:fake
 lifelynl:intent
@@ -91,4 +90,3 @@ partup:client-spinner
 partup:client-update
 partup:client-usercard
 partup:meteor-bender
-velocity:console-reporter
