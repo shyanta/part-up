@@ -43,7 +43,8 @@ AutoForm.hooks({
 
             Meteor.call('networks.insert', insertDoc, function(error, networkId) {
                 if (error) {
-                    Partup.client.notify.error(error);
+                    Partup.client.notify.error('unauthorized or error');
+                    return;
                 }
                 Partup.client.notify.success('Tribe inserted correctly');
             });
