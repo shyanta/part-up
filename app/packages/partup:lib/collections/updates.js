@@ -53,8 +53,8 @@ Update.prototype.isContributionUpdate = function() {
 };
 
 /**
- @namespace Updates
- @name Updates
+ * @namespace Updates
+ * @memberOf Collection
  */
 Updates = new Mongo.Collection('updates', {
     transform: function(document) {
