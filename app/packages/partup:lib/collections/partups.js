@@ -174,8 +174,6 @@ Partups.guardedFind = function(userId, selector, options) {
     var selector = selector || {};
     var options = options || {};
 
-    var user = Meteor.users.findOneOrFail(userId);
-
     var guardedCriterias = [
         // Either the partup is public or belongs to a public network
         {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}},
@@ -183,6 +181,7 @@ Partups.guardedFind = function(userId, selector, options) {
 
     // Some extra rules that are only applicable to users that are logged in
     if (userId) {
+        var user = Meteor.users.findOneOrFail(userId);
 
         // The user is part of the partup uppers, which means he has access anyway
         guardedCriterias.push({'uppers': {'$in': [userId]}});
