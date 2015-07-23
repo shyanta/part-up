@@ -104,6 +104,7 @@ Partup.prototype.isViewableByUser = function(userId) {
     if (this.privacy_type === PRIVATE || this.privacy_type === NETWORK_INVITE || this.privacy_type === NETWORK_CLOSED) {
         if (this.hasSupporter(userId)) return true;
         if (this.hasUpper(userId)) return true;
+        if (this.hasInvitedUpper(userId)) return true;
     }
     return false;
 };
@@ -191,6 +192,9 @@ Partups.guardedFind = function(userId, selector, options) {
 
         // Everyone who is part of the network the partup is part of can view it
         guardedCriterias.push({'network_id': {'$in': [user.networks]}});
+
+        // Check if upper is invited, so has the rights to view a partup in a closed network
+        guardedCriterias.push({'invites': {'$in': [userId]}});
     }
 
     // Guarding selector that needs to be fulfilled
