@@ -66,34 +66,115 @@ Meteor.methods({
     },
 
     /**
-     * Invite an Upper to a Network
+     * Invite someone to a network
      *
-     * @param  {String} networkId
-     * @param  {String} upperId
+     * @param {String} networkId
+     * @param {String} email
+     * @param {String} name
      */
-    'networks.invite': function(networkId, upperId) {
-        var user = Meteor.user();
-        var network = Networks.findOneOrFail(networkId);
+    'networks.invite_by_email': function(networkId, email, name) {
+        var inviter = Meteor.user();
 
-        if (!user || !network.hasMember(user._id)) {
+        if (!inviter) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        if (network.hasMember(upperId)) {
+        var network = Networks.findOneOrFail(networkId);
+
+        var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: network.partup_id}).count() > 0;
+        if (!isAllowedToAccessPartup) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_email: email, type: Invites.INVITE_TYPE_ACTIVITY_EMAIL});
+        if (isAlreadyInvited) {
+            throw new Meteor.Error(403, 'email_is_already_invited_to_network');
+        }
+
+        var locale = User(inviter).getLocale();
+
+        // Compile the E-mail template and send the email
+        SSR.compileTemplate('inviteUserNetworkEmail', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
+        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
+
+        Email.send({
+            from: 'Part-up <noreply@part-up.com>',
+            to: email,
+            subject: 'Uitnodiging voor het netwerk ' + network.name,
+            html: SSR.render('inviteUserNetworkEmail', {
+                name: name,
+                partupName: partup.name,
+                partupDescription: partup.description,
+                networkName: network.name,
+                networkDescription: network.description,
+                inviterName: inviter.profile.name,
+                url: url
+            })
+        });
+
+        var invite = {
+            type: Invites.INVITE_TYPE_ACTIVITY_EMAIL,
+            network_id: network._id,
+            inviter_id: inviter._id,
+            invitee_name: name,
+            invitee_email: email,
+            created_at: new Date
+        };
+
+        Invites.insert(invite);
+    },
+
+    /**
+     * Invite an existing upper to an network
+     *
+     * @param {String} networkId
+     * @param {String} inviteeId
+     */
+    'networks.invite_existing_upper': function(networkId, inviteeId) {
+        var inviter = Meteor.user();
+        var network = Networks.findOneOrFail(networkId);
+
+        if (!inviter || !network.hasMember(inviter._id)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        if (network.hasMember(inviteeId)) {
             throw new Meteor.Error(409, 'user_is_already_member_of_network');
         }
 
-        // Check if already invited
-        if (network.isUpperInvited(upperId)) {
-            throw new Meteor.Error(409, 'user_is_already_invited_to_network');
+        var invitee = Meteor.users.findOneOrFail(inviteeId);
+        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_id: invitee._id, inviter_id: inviter._id, type: Invites.INVITE_TYPE_EXISTING_UPPER});
+        if (isAlreadyInvited) {
+            throw new Meteor.Error(403, 'user_is_already_invited_to_network');
         }
 
-        // Create the invite
-        network.createInvite(upperId, user._id);
+        var notificationOptions = {
+            userId: invitee._id,
+            type: 'partup_networks_invited',
+            typeData: {
+                network: {
+                    id: networkId,
+                    name: network.name
+                },
+                inviter: {
+                    id: inviter._id,
+                    name: inviter.profile.name,
+                    image: inviter.profile.image
+                }
+            }
+        };
 
-        Event.emit('networks.invited', user, networkId, upperId);
+        Partup.server.services.notifications.send(notificationOptions);
 
-        return true;
+        var invite = {
+            type: Invites.INVITE_TYPE_EXISTING_UPPER,
+            network_id: network._id,
+            inviter_id: inviter._id,
+            invitee_id: invitee._id,
+            created_at: new Date
+        };
+
+        Invites.insert(invite);
     },
 
     /**
