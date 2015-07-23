@@ -117,16 +117,34 @@ Images = new FS.Collection('images', {
 });
 
 /**
- * Find the images for a given partup
+ * Find the images for a partup
  *
  * @memberOf Images
- *
  * @param {Partup} partup
- *
  * @return {Mongo.Cursor}
  */
 Images.findForPartup = function(partup) {
     return Images.find({_id: partup.image}, {limit: 1});
+};
+
+/**
+ * Find the images for a user
+ *
+ * @memberOf Images
+ * @param {User} user
+ * @return {Mongo.Cursor}
+ */
+Images.findForUser = function(user) {
+    return Images.find({_id: user.profile.image}, {limit: 1});
+};
+
+/**
+ * Find the images for a network
+ * @param {Network} network
+ * @return {Mongo.Cursor}
+ */
+Images.findForNetwork = function(network) {
+    return Images.find({_id: {$in: [network.image, network.icon]}}, {limit: 2});
 };
 
 Images.allow({

@@ -19,35 +19,11 @@ Meteor.publishComposite('networks.one.partups', function(networkId, options) {
             return Partups.findForNetwork(self.userId, options, parameters);
         },
         children: [
-            {
-                find: function(partup) {
-                    return Images.find({_id: partup.image}, {limit: 1});
-                }
-            },
-            {
-                find: function(partup) {
-                    var uppers = partup.uppers || [];
-
-                    // We only want to publish the first x uppers
-                    uppers = uppers.slice(0, 4);
-
-                    return Meteor.users.findMultiplePublicProfiles(uppers);
-                }
-            },
-            {
-                find: function(partup) {
-                    var network = partup.network || {};
-
-                    return Networks.find({_id: network._id}, {limit: 1});
-                },
-                children: [
-                    {
-                        find: function(network) {
-                            return Images.find({_id: {$in: [network.image, network.icon]}});
-                        }
-                    }
-                ]
-            }
+            {find: Images.findForPartup},
+            {find: Meteor.users.findUppersForPartup},
+            {find: Networks.findForPartup, children: [
+                {find: Images.findForNetwork}
+            ]}
         ]
     };
 });
@@ -66,18 +42,15 @@ Meteor.publish('networks.one.partups.count', function(networkId, options) {
 
 Meteor.publishComposite('networks.one.uppers', function(networkId, options) {
     var self = this;
+
     return {
         find: function() {
-            var network = Networks.guardedFind(self.userId, {_id: networkId}).fetch()[0];
-            var uppers = network.uppers || [];
-            return Meteor.users.findMultiplePublicProfiles(uppers, options);
+            return Networks.guardedFind(self.userId, {_id: networkId}, {limit: 1});
         },
         children: [
-            {
-                find: function(user) {
-                    return Images.find({_id: user.profile.image}, {limit: 1});
-                }
-            }
+            {find: Meteor.users.findUppersForNetwork, children: [
+                {find: Images.findForUser}
+            ]}
         ]
     };
 });
@@ -107,11 +80,7 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkId) {
             return users;
         },
         children: [
-            {
-                find: function(user) {
-                    return Images.find({_id: user.profile.image}, {limit: 1});
-                }
-            }
+            {find: Images.findForUser}
         ]
     };
 });
@@ -124,14 +93,10 @@ Meteor.publishComposite('networks.one', function(networkId) {
             return Networks.guardedMetaFind(self.userId, {_id: networkId}, {limit: 1});
         },
         children: [
+            {find: Images.findForNetwork},
             {
                 find: function() {
                     return Networks.guardedFind(self.userId, {_id: networkId}, {limit: 1});
-                }
-            },
-            {
-                find: function(network) {
-                    return Images.find({_id: {$in: [network.image, network.icon]}});
                 }
             }
         ]

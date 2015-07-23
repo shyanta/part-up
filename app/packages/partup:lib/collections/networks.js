@@ -330,3 +330,14 @@ Networks.guardedFind = function(userId, selector, options) {
 
     return this.find(finalSelector, options);
 };
+
+/**
+ * Find the network for a partup
+ *
+ * @memberOf Networks
+ * @param {Partup} partup
+ * @return {Mongo.Cursor}
+ */
+Networks.findForPartup = function(partup) {
+    return Networks.find({_id: partup.network_id}, {limit: 1});
+};

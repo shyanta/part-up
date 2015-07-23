@@ -17,35 +17,11 @@ Meteor.publishComposite('partups.discover', function(options) {
             return Partups.findForDiscover(self.userId, mongoOptions, parameters);
         },
         children: [
-            {
-                find: function(partup) {
-                    return Images.find({_id: partup.image}, {limit: 1});
-                }
-            },
-            {
-                find: function(partup) {
-                    var uppers = partup.uppers || [];
-
-                    // We only want to publish the first x uppers
-                    uppers = uppers.slice(0, 4);
-
-                    return Meteor.users.findMultiplePublicProfiles(uppers);
-                }
-            },
-            {
-                find: function(partup) {
-                    var network = partup.network || {};
-
-                    return Networks.find({_id: network._id}, {limit: 1});
-                },
-                children: [
-                    {
-                        find: function(network) {
-                            return Images.find({_id: network.image}, {limit: 1});
-                        }
-                    }
-                ]
-            }
+            {find: Images.findForPartup},
+            {find: Meteor.users.findUppersForPartup},
+            {find: Networks.findForPartup, children: [
+                {find: Images.findForNetwork}
+            ]}
         ]
     };
 });
@@ -72,43 +48,20 @@ Meteor.publishComposite('partups.ids', function(partupIds) {
 
     return {
         find: function() {
-            check(partupIds, Array);
-
             return Partups.guardedFind(self.userId, {_id: {$in: partupIds}});
         },
         children: [
-            {
-                find: function(partup) {
-                    var uppers = partup.uppers || [];
-
-                    // We only want to publish the first x uppers as can be seen in the design
-                    uppers = uppers.slice(0, 4);
-
-                    return Meteor.users.findMultiplePublicProfiles(uppers);
-                }
-            },
-            {
-                find: function(partup) {
-                    var network = partup.network || {};
-
-                    return Networks.find({_id: network._id}, {limit: 1});
-                },
-                children: [
-                    {
-                        find: function(network) {
-                            return Images.find({_id: network.image}, {limit: 1});
-                        }
-                    }
-                ]
-            }
+            {find: Images.findForPartup},
+            {find: Meteor.users.findUppersForPartup},
+            {find: Networks.findForPartup, children: [
+                {find: Images.findForNetwork}
+            ]}
         ]
     };
 });
 
 Meteor.publish('partups.list', function() {
-    var self = this;
-
-    return Partups.guardedFind(self.userId, {}, {_id: 1, name: 1});
+    return Partups.guardedFind(this.userId, {}, {_id: 1, name: 1});
 });
 
 /**
@@ -137,42 +90,14 @@ Meteor.publishComposite('partups.one', function(partupId) {
                     return Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1});
                 },
                 children: [
-                    {
-                        find: function(partup) {
-                            return Images.findForPartup(partup);
-                        }
-                    },
-                    {
-                        find: function(partup) {
-                            var uppers = partup.uppers || [];
-                            return Meteor.users.findMultiplePublicProfiles(uppers);
-                        },
-                        children: [
-                            {
-                                find: function(user) {
-                                    return Images.find({_id: user.profile.image}, {limit: 1});
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        find: function(partup) {
-                            var supporters = partup.supporters || [];
-                            return Meteor.users.findMultiplePublicProfiles(supporters);
-                        },
-                        children: [
-                            {
-                                find: function(user) {
-                                    return Images.find({_id: user.profile.image}, {limit: 1});
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        find: function(partup) {
-                            return Networks.find({_id: partup.network_id}, {limit: 1});
-                        }
-                    }
+                    {find: Images.findForPartup},
+                    {find: Networks.findForPartup},
+                    {find: Meteor.users.findUppersForPartup, children: [
+                        {find: Images.findForUser}
+                    ]},
+                    {find: Meteor.users.findSupportersForPartup, children: [
+                        {find: Images.findForUser}
+                    ]}
                 ]
             }
         ]
