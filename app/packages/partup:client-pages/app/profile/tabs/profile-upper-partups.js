@@ -40,7 +40,7 @@ Template.app_profile_upper_partups.onCreated(function() {
 
             // Set users.one.upperpartups.count subscription
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
-            tpl.partups.count_handle = tpl.subscribe('users.one.upperpartups.count', options, profileId);
+            tpl.partups.count_handle = tpl.subscribe('users.one.upperpartups.count', profileId, options);
             tpl.partups.count_loading.set(true);
 
             // When the users.one.upperpartups.count data changes
@@ -49,14 +49,14 @@ Template.app_profile_upper_partups.onCreated(function() {
                     computation.stop();
                     tpl.partups.count_loading.set(false);
 
-                    var new_count = Counts.get('users.one.upperpartups.filterquery');
+                    var new_count = Counts.get('users.one.upperpartups.filterquery', profileId);
                     tpl.partups.layout.count.set(new_count);
                 }
             });
 
             // Set users.one.upperpartups subscription
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', options, profileId);
+            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options);
             tpl.partups.loading.set(true);
 
             // When the users.one.upperpartups data changes
@@ -94,7 +94,7 @@ Template.app_profile_upper_partups.onCreated(function() {
             options.limit = b;
 
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', options);
+            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options);
             tpl.partups.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {

@@ -1,7 +1,9 @@
 Template.DropdownProfile.onCreated(function() {
+    var userId = Meteor.userId;
+
     this.subscription = this.subscribe('users.loggedin');
-    this.upperSubscription = this.subscribe('users.one.upperpartups');
-    this.supporterSubscription = this.subscribe('users.one.supporterpartups');
+    this.upperSubscription = this.subscribe('users.one.upperpartups', userId);
+    this.supporterSubscription = this.subscribe('users.one.supporterpartups', userId);
     this.supporterSubscription = this.subscribe('networks.user');
 
     this.currentNetwork = new ReactiveVar();

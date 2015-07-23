@@ -17,9 +17,9 @@ Meteor.publishComposite('users.one', function(userId) {
     };
 });
 
-Meteor.publishComposite('users.one.upperpartups', function(options, userId) {
+Meteor.publishComposite('users.one.upperpartups', function(userId, options) {
     var self = this;
-    var userId = userId || self.userId;
+
     options = options || {};
 
     return {
@@ -28,7 +28,9 @@ Meteor.publishComposite('users.one.upperpartups', function(options, userId) {
         },
         children: [
             {find: Images.findForPartup},
-            {find: Meteor.users.findUppersForPartup},
+            {find: Meteor.users.findUppersForPartup, children: [
+                {find: Images.findForUser}
+            ]},
             {find: Meteor.users.findSupportersForPartup},
             {find: Networks.findForPartup, children: [
                 {find: Images.findForNetwork}
@@ -37,9 +39,9 @@ Meteor.publishComposite('users.one.upperpartups', function(options, userId) {
     };
 });
 
-Meteor.publish('users.one.upperpartups.count', function(options, userId) {
+Meteor.publish('users.one.upperpartups.count', function(userId, options) {
     var self = this;
-    var userId = userId || self.userId;
+
     options = options || {};
 
     var parameters = {
