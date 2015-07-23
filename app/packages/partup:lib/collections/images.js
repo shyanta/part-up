@@ -105,7 +105,9 @@ if (Meteor.isServer) {
 
 /**
  * Images are entities stored under each object that contains one or more images
+ *
  * @namespace Images
+ * @memberOf Collection
  */
 Images = new FS.Collection('images', {
     stores: stores,
@@ -166,6 +168,29 @@ Images.findForNotification = function(notification) {
     if (notification.type === 'partup_activities_invited') {
         images.push(notification.type_data.inviter.image);
     }
+
+    return Images.find({_id: {$in: images}});
+};
+
+/**
+ * Find images for an update
+ *
+ * @memberOf Images
+ * @param {Update} update
+ * @return {Mongo.Cursor}
+ */
+Images.findForUpdate = function(update) {
+    var images = [];
+
+    if (update.type === 'partups_image_changed') {
+        images = [update.type_data.old_image, update.type_data.new_image];
+    }
+
+    if (update.type === 'partups_message_added') {
+        images = update.type_data.images || [];
+    }
+
+    if (!images.length) return; // save the mongo call
 
     return Images.find({_id: {$in: images}});
 };
