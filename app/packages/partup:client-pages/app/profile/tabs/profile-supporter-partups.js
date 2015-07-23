@@ -1,6 +1,8 @@
 Template.app_profile_supporter_partups.onCreated(function() {
     var tpl = this;
 
+    var profileId = tpl.data.profileId;
+
     tpl.partups = {
 
         // Constants
@@ -38,7 +40,7 @@ Template.app_profile_supporter_partups.onCreated(function() {
 
             // Set users.one.supporterpartups.count subscription
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
-            tpl.partups.count_handle = tpl.subscribe('users.one.supporterpartups.count', options);
+            tpl.partups.count_handle = tpl.subscribe('users.one.supporterpartups.count', options, profileId);
             tpl.partups.count_loading.set(true);
 
             // When the users.one.supporterpartups.count data changes
@@ -54,7 +56,7 @@ Template.app_profile_supporter_partups.onCreated(function() {
 
             // Set users.one.supporterpartups subscription
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.supporterpartups', options);
+            tpl.partups.handle = tpl.subscribe('users.one.supporterpartups', options, profileId);
             tpl.partups.loading.set(true);
 
             // When the users.one.supporterpartups data changes
@@ -70,7 +72,7 @@ Template.app_profile_supporter_partups.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        var partups = Partups.find().fetch();
+                        var partups = Partups.find({supporters:{$in:[profileId]}}).fetch();
 
                         var partupTileDatas = lodash.map(partups, function(partup) {
                             return tpl.partups.partupTileData(partup);
@@ -110,7 +112,7 @@ Template.app_profile_supporter_partups.onCreated(function() {
                      */
                     Tracker.nonreactive(function addPartups() {
                         var oldPartups = tpl.partups.layout.items;
-                        var newPartups = Partups.find().fetch();
+                        var newPartups = Partups.find({supporters:{$in:[profileId]}}).fetch();
 
                         var diffPartups = mout.array.filter(newPartups, function(partup) {
                             return !mout.array.find(oldPartups, function(_partup) {
@@ -171,7 +173,7 @@ Template.app_profile_supporter_partups.helpers({
         return tpl.partups.loading.get() || tpl.partups.count_loading.get();
     },
     firstname: function() {
-        var user = Meteor.user();
+        var user = Meteor.users.findOne(this.profileId);
         return User(user).getFirstname();
     },
 

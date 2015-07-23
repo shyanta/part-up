@@ -53,50 +53,54 @@ Meteor.publishComposite('users.one', function(userId) {
     };
 });
 
-Meteor.publishComposite('users.one.upperpartups', function(options) {
+Meteor.publishComposite('users.one.upperpartups', function(options, userId) {
     var self = this;
+    var userId = userId || self.userId;
     options = options || {};
 
     return {
         find: function() {
-            return Partups.findUpperPartups(self.userId, options);
+            return Partups.findUpperPartups(userId, options);
         },
         children: partupChildren
     };
 });
 
-Meteor.publish('users.one.upperpartups.count', function(options) {
+Meteor.publish('users.one.upperpartups.count', function(options, userId) {
     var self = this;
+    var userId = userId || self.userId;
     options = options || {};
 
     var parameters = {
         count: true
     };
 
-    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartups(self.userId, options, parameters));
+    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartups(userId, options, parameters));
 });
 
-Meteor.publishComposite('users.one.supporterpartups', function(options) {
+Meteor.publishComposite('users.one.supporterpartups', function(options, userId) {
     var self = this;
+    var userId = userId || self.userId;
     options = options || {};
 
     return {
         find: function() {
-            return Partups.findSupporterPartups(self.userId, options);
+            return Partups.findSupporterPartups(userId, options);
         },
         children: partupChildren
     };
 });
 
-Meteor.publish('users.one.supporterpartups.count', function(options) {
+Meteor.publish('users.one.supporterpartups.count', function(options, userId) {
     var self = this;
+    var userId = userId || self.userId;
     options = options || {};
 
     var parameters = {
         count: true
     };
 
-    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartups(self.userId, options, parameters));
+    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartups(userId, options, parameters));
 });
 
 Meteor.publishComposite('users.loggedin', function() {
