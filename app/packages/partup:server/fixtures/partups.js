@@ -11,10 +11,10 @@ Meteor.startup(function() {
                 'budget_hours' : null,
                 'end_date' : new Date('2016-11-30T00:00:00.000Z'),
                 'image' : '3FeYwzJdFfj8enTDY',
-                'tags' : [ 
-                    'crowdfunding', 
-                    'marketing', 
-                    'part-up', 
+                'tags' : [
+                    'crowdfunding',
+                    'marketing',
+                    'part-up',
                     'geld'
                 ],
                 'location' : {
@@ -25,8 +25,8 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'privacy_type' : 1,
-                'uppers' : [ 
-                    'K5c5M4Pbdg3B82wQH', 
+                'uppers' : [
+                    'K5c5M4Pbdg3B82wQH',
                     'K5c5M4Pbdg3B82wQI'
                 ],
                 'creator_id' : 'K5c5M4Pbdg3B82wQH',
@@ -36,35 +36,35 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [ 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        1, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
+                    'clicks_per_hour' : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         0
                     ],
                     'last_ip' : '127.0.0.1'
                 },
-                'supporters' : [ 
+                'supporters' : [
                     'a7qcp5RHnh5rfaeW9'
                 ]
             });
@@ -79,8 +79,8 @@ Meteor.startup(function() {
                 'budget_hours' : null,
                 'end_date' : new Date('2017-03-31T00:00:00.000Z'),
                 'image' : 'aJ8Aw25bzCTxCKRk4',
-                'tags' : [ 
-                    'ing', 
+                'tags' : [
+                    'ing',
                     'financial'
                 ],
                 'location' : {
@@ -92,7 +92,7 @@ Meteor.startup(function() {
                 },
                 'network_id' : 'wfCv4ZdPe5WNT4xfg',
                 'privacy_type' : 5,
-                'uppers' : [ 
+                'uppers' : [
                     'K5c5M4Pbdg3B82wQI'
                 ],
                 'creator_id' : 'K5c5M4Pbdg3B82wQI',
@@ -101,30 +101,30 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [ 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        1, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
+                    'clicks_per_hour' : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         0
                     ],
                     'last_ip' : '127.0.0.1'
@@ -141,8 +141,8 @@ Meteor.startup(function() {
                 'budget_hours' : null,
                 'end_date' : new Date('2017-01-31T00:00:00.000Z'),
                 'image' : 'xnTpmZubseguAReKt',
-                'tags' : [ 
-                    'ing', 
+                'tags' : [
+                    'ing',
                     'organizational'
                 ],
                 'location' : {
@@ -154,7 +154,7 @@ Meteor.startup(function() {
                 },
                 'network_id' : 'kRCjWDBkKru3KfsjW',
                 'privacy_type' : 4,
-                'uppers' : [ 
+                'uppers' : [
                     'K5c5M4Pbdg3B82wQH'
                 ],
                 'creator_id' : 'K5c5M4Pbdg3B82wQH',
@@ -163,30 +163,30 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [ 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        1, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
+                    'clicks_per_hour' : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         0
                     ],
                     'last_ip' : '127.0.0.1'
@@ -203,9 +203,9 @@ Meteor.startup(function() {
                 'budget_hours' : null,
                 'end_date' : new Date('2017-01-31T00:00:00.000Z'),
                 'image' : 'xFBCoqBaRiwFs8EZ3',
-                'tags' : [ 
-                    'lifely', 
-                    'meetup', 
+                'tags' : [
+                    'lifely',
+                    'meetup',
                     'meteor'
                 ],
                 'location' : {
@@ -217,7 +217,7 @@ Meteor.startup(function() {
                 },
                 'network_id' : 'ibn27M3ePaXhmKzWq',
                 'privacy_type' : 3,
-                'uppers' : [ 
+                'uppers' : [
                     'a7qcp5RHnh5rfaeW9'
                 ],
                 'creator_id' : 'a7qcp5RHnh5rfaeW9',
@@ -226,30 +226,30 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [ 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        1, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
+                    'clicks_per_hour' : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         0
                     ],
                     'last_ip' : '127.0.0.1'

@@ -1,6 +1,6 @@
 Meteor.startup(function() {
     if (process.env.NODE_ENV.match(/development|staging/)) {
-        
+
         if (!Meteor.users.find().count()) {
             Meteor.users.insert({
                 '_id' : 'K5c5M4Pbdg3B82wQH',
@@ -10,7 +10,7 @@ Meteor.startup(function() {
                         'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     },
                     'resume' : {
-                        'loginTokens' : [ 
+                        'loginTokens' : [
                             {
                                 'when' : new Date(),
                                 'hashedToken' : 'yoxRsvKflDfC/tKh2en1Pka+rVymsYIQ3QOlq0EVSB4='
@@ -18,7 +18,7 @@ Meteor.startup(function() {
                         ]
                     },
                     'email' : {
-                        'verificationTokens' : [ 
+                        'verificationTokens' : [
                             {
                                 'token' : 'CTel11muhC80_UYGDcVz8J5kTU4zkli_UEo73oH427d',
                                 'address' : 'user@example.com',
@@ -27,7 +27,7 @@ Meteor.startup(function() {
                         ]
                     }
                 },
-                'emails' : [ 
+                'emails' : [
                     {
                         'address' : 'user@example.com',
                         'verified' : false
@@ -42,9 +42,9 @@ Meteor.startup(function() {
                     },
                     'image' : 'BPyL2zAyQ8b7bewEu',
                     'description' : 'I am the first test user',
-                    'tags' : [ 
-                        'education', 
-                        'school', 
+                    'tags' : [
+                        'education',
+                        'school',
                         'teaching'
                     ],
                     'location' : {
@@ -71,13 +71,13 @@ Meteor.startup(function() {
                     },
                     'idle' : false
                 },
-                'registered_emails' : [ 
+                'registered_emails' : [
                     {
                         'address' : 'user@example.com',
                         'verified' : false
                     }
                 ],
-                'logins' : [ 
+                'logins' : [
                     new Date('2015-07-21T13:29:39.754Z')
                 ],
                 'name' : 'Default User',
@@ -86,15 +86,15 @@ Meteor.startup(function() {
                     'optionalDetailsCompleted' : false
                 },
                 'image' : 'BPyL2zAyQ8b7bewEu',
-                'networks' : [ 
-                    'ibn27M3ePaXhmKzWq', 
+                'networks' : [
+                    'ibn27M3ePaXhmKzWq',
                     'kRCjWDBkKru3KfsjW'
                 ],
                 'participation_score' : 2,
-                'partups' : [ 
+                'partups' : [
                     'ASfRYBAzo2ayYk5si'
                 ],
-                'upperOf' : [ 
+                'upperOf' : [
                     'ASfRYBAzo2ayYk5si'
                 ]
             });
@@ -107,7 +107,7 @@ Meteor.startup(function() {
                         'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     },
                     'resume' : {
-                        'loginTokens' : [ 
+                        'loginTokens' : [
                             {
                                 'when' : new Date('2015-07-21T13:43:28.427Z'),
                                 'hashedToken' : 'OpaU/qV1S7zHl00V9Nkvc9cd6HVBgldaSOjxTbZKLUk='
@@ -115,7 +115,7 @@ Meteor.startup(function() {
                         ]
                     },
                     'email' : {
-                        'verificationTokens' : [ 
+                        'verificationTokens' : [
                             {
                                 'token' : 'iLvpqSreco1pP4vBXXpxf3_tASF-KeDKMcDv1STKLhD',
                                 'address' : 'john@example.com',
@@ -124,7 +124,7 @@ Meteor.startup(function() {
                         ]
                     }
                 },
-                'emails' : [ 
+                'emails' : [
                     {
                         'address' : 'john@example.com',
                         'verified' : false
@@ -139,9 +139,9 @@ Meteor.startup(function() {
                     },
                     'image' : 'nL2MYYXJ3eFeb2GYq',
                     'description' : null,
-                    'tags' : [ 
-                        'education', 
-                        'nonprofit', 
+                    'tags' : [
+                        'education',
+                        'nonprofit',
                         'development'
                     ],
                     'location' : {
@@ -168,13 +168,13 @@ Meteor.startup(function() {
                     },
                     'idle' : false
                 },
-                'registered_emails' : [ 
+                'registered_emails' : [
                     {
                         'address' : 'john@example.com',
                         'verified' : false
                     }
                 ],
-                'logins' : [ 
+                'logins' : [
                     new Date('2015-07-21T13:43:28.542Z')
                 ],
                 'name' : 'John Partup',
@@ -185,13 +185,13 @@ Meteor.startup(function() {
                 'image' : 'nL2MYYXJ3eFeb2GYq',
                 'participation_score' : 3,
                 'pending_networks' : [],
-                'networks' : [ 
+                'networks' : [
                     'wfCv4ZdPe5WNT4xfg'
                 ],
-                'partups' : [ 
+                'partups' : [
                     'CJETReuE6uo2eF7eW'
                 ],
-                'upperOf' : [ 
+                'upperOf' : [
                     'CJETReuE6uo2eF7eW'
                 ]
             });
@@ -204,7 +204,7 @@ Meteor.startup(function() {
                         'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     },
                     'resume' : {
-                        'loginTokens' : [ 
+                        'loginTokens' : [
                             {
                                 'when' : new Date('2015-07-21T13:48:03.566Z'),
                                 'hashedToken' : 'vctK9ULMl4Gdegbr+73LED8So83rPz67Xi6KnnNQCVQ='
@@ -212,7 +212,7 @@ Meteor.startup(function() {
                         ]
                     },
                     'email' : {
-                        'verificationTokens' : [ 
+                        'verificationTokens' : [
                             {
                                 'token' : '8crlkpFefwhO_RdgJbnV-8q4S-_M0yfjFsn--YYh4YZ',
                                 'address' : 'admin@example.com',
@@ -221,7 +221,7 @@ Meteor.startup(function() {
                         ]
                     }
                 },
-                'emails' : [ 
+                'emails' : [
                     {
                         'address' : 'admin@example.com',
                         'verified' : false
@@ -236,8 +236,8 @@ Meteor.startup(function() {
                     },
                     'image' : 'hJzq4Ga9TtCbdxBLr',
                     'description' : null,
-                    'tags' : [ 
-                        'administration', 
+                    'tags' : [
+                        'administration',
                         'finance'
                     ],
                     'location' : {
@@ -264,13 +264,13 @@ Meteor.startup(function() {
                     },
                     'idle' : false
                 },
-                'registered_emails' : [ 
+                'registered_emails' : [
                     {
                         'address' : 'admin@example.com',
                         'verified' : false
                     }
                 ],
-                'logins' : [ 
+                'logins' : [
                     new Date('2015-07-21T13:48:03.641Z')
                 ],
                 'name' : 'Admin User',
@@ -280,10 +280,10 @@ Meteor.startup(function() {
                 },
                 'image' : 'hJzq4Ga9TtCbdxBLr',
                 'roles' : ['admin'],
-                'networks' : [ 
-                    'nqBnE8nSLasaapXXS', 
-                    'kRCjWDBkKru3KfsjW', 
-                    'wfCv4ZdPe5WNT4xfg', 
+                'networks' : [
+                    'nqBnE8nSLasaapXXS',
+                    'kRCjWDBkKru3KfsjW',
+                    'wfCv4ZdPe5WNT4xfg',
                     'ibn27M3ePaXhmKzWq'
                 ],
                 'participation_score' : 2
@@ -297,7 +297,7 @@ Meteor.startup(function() {
                         'bcrypt' : '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
                     },
                     'resume' : {
-                        'loginTokens' : [ 
+                        'loginTokens' : [
                             {
                                 'when' : new Date('2015-07-21T14:11:01.061Z'),
                                 'hashedToken' : 'QR5jRUOgOYNkrUZNjPdYicokC8hggzWimey9ccMMSG8='
@@ -305,7 +305,7 @@ Meteor.startup(function() {
                         ]
                     },
                     'email' : {
-                        'verificationTokens' : [ 
+                        'verificationTokens' : [
                             {
                                 'token' : 'X0BHuAeVNCWozOenCCTdXltEXE1kPB0VZBriz39Src4',
                                 'address' : 'judy@example.com',
@@ -314,7 +314,7 @@ Meteor.startup(function() {
                         ]
                     }
                 },
-                'emails' : [ 
+                'emails' : [
                     {
                         'address' : 'judy@example.com',
                         'verified' : false
@@ -329,10 +329,10 @@ Meteor.startup(function() {
                     },
                     'image' : 'LG9J5XA4PPg5B8ZNu',
                     'description' : null,
-                    'tags' : [ 
-                        'design', 
-                        'ux', 
-                        'photography', 
+                    'tags' : [
+                        'design',
+                        'ux',
+                        'photography',
                         'nonprofit'
                     ],
                     'location' : {
@@ -359,13 +359,13 @@ Meteor.startup(function() {
                     },
                     'idle' : false
                 },
-                'registered_emails' : [ 
+                'registered_emails' : [
                     {
                         'address' : 'judy@example.com',
                         'verified' : false
                     }
                 ],
-                'logins' : [ 
+                'logins' : [
                     new Date('2015-07-21T14:11:01.103Z')
                 ],
                 'name' : 'Judy Partup',
@@ -374,20 +374,20 @@ Meteor.startup(function() {
                     'optionalDetailsCompleted' : false
                 },
                 'image' : 'LG9J5XA4PPg5B8ZNu',
-                'supporterOf' : [ 
+                'supporterOf' : [
                     'gJngF65ZWyS9f3NDE'
                 ],
                 'participation_score' : 3,
-                'pending_networks' : [ 
+                'pending_networks' : [
                     'wfCv4ZdPe5WNT4xfg'
                 ],
-                'networks' : [ 
+                'networks' : [
                     'ibn27M3ePaXhmKzWq'
                 ],
-                'partups' : [ 
+                'partups' : [
                     'vGaxNojSerdizDPjb'
                 ],
-                'upperOf' : [ 
+                'upperOf' : [
                     'vGaxNojSerdizDPjb'
                 ]
             });

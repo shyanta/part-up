@@ -43,7 +43,7 @@ Meteor.startup(function() {
                 'created_at' : new Date('2015-07-21T14:07:20.064Z'),
                 'updated_at' : new Date('2015-07-21T14:08:02.797Z'),
                 'type' : 'partups_message_added',
-                'comments' : [ 
+                'comments' : [
                     {
                         '_id' : 'gX9ZDAfsgkaZFPag5',
                         'content' : 'That sounds like a good idea. I will do some suggestions for contributions as well!',
@@ -111,7 +111,7 @@ Meteor.startup(function() {
                 'comments_count' : 4,
                 'created_at' : new Date('2015-07-21T14:03:49.141Z'),
                 'updated_at' : new Date('2015-07-21T14:09:28.443Z'),
-                'comments' : [ 
+                'comments' : [
                     {
                         '_id' : 'tPakKpxTBLTnNRhEy',
                         'content' : 'Im known with these kind of platforms, it would be a perfect fit',
@@ -123,7 +123,7 @@ Meteor.startup(function() {
                         },
                         'created_at' : new Date('2015-07-21T14:09:28.442Z'),
                         'updated_at' : new Date('2015-07-21T14:09:28.442Z')
-                    }, 
+                    },
                     {
                         '_id' : 'DazsZWrkJr8nvYdhd',
                         'content' : 'system_contributions_proposed',
@@ -134,7 +134,7 @@ Meteor.startup(function() {
                         },
                         'created_at' : new Date('2015-07-21T14:09:28.491Z'),
                         'updated_at' : new Date('2015-07-21T14:09:28.491Z')
-                    }, 
+                    },
                     {
                         '_id' : 'SZRMLnpTrqYA89Mot',
                         'content' : 'system_contributions_accepted',
@@ -145,7 +145,7 @@ Meteor.startup(function() {
                         },
                         'created_at' : new Date('2015-07-21T14:09:44.632Z'),
                         'updated_at' : new Date('2015-07-21T14:09:44.632Z')
-                    }, 
+                    },
                     {
                         '_id' : 'zLnzvPTg4r8CPyhJx',
                         'content' : 'system_ratings_inserted',
@@ -172,7 +172,7 @@ Meteor.startup(function() {
                 'comments_count' : 2,
                 'created_at' : new Date('2015-07-21T14:03:57.906Z'),
                 'updated_at' : new Date('2015-07-21T14:11:51.704Z'),
-                'comments' : [ 
+                'comments' : [
                     {
                         '_id' : 'cMPLeKqdH3j84ocZ5',
                         'content' : 'Ive written quite a few of these before, let me do it!',
@@ -184,7 +184,7 @@ Meteor.startup(function() {
                         },
                         'created_at' : new Date('2015-07-21T14:11:51.703Z'),
                         'updated_at' : new Date('2015-07-21T14:11:51.703Z')
-                    }, 
+                    },
                     {
                         '_id' : 'ZFHwPcstE3vbcuFDt',
                         'content' : 'system_contributions_proposed',

@@ -1,6 +1,6 @@
 Meteor.startup(function() {
     if (process.env.NODE_ENV.match(/development|staging/)) {
-        
+
         if (!Contributions.find().count()) {
             //First partup
             /* 1 */
