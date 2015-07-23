@@ -156,7 +156,7 @@ Meteor.methods({
      * @param {Object} options
      */
     'partups.discover': function(options) {
-        var user = Meteor.user();
+        var userId = Meteor.userId();
 
         var parameters = {
             networkId: options.networkId,
@@ -165,7 +165,7 @@ Meteor.methods({
             query: options.query
         };
 
-        return Partups.findForDiscover(user ? user._id : null, {}, parameters).map(function(partup) {
+        return Partups.findForDiscover(userId, mongoOptions, parameters).map(function(partup) {
             return partup._id;
         });
     },
