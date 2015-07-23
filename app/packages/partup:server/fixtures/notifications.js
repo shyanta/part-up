@@ -9,10 +9,11 @@ Meteor.startup(function() {
                 'type' : 'partups_supporters_added',
                 'type_data' : {
                     'partup' : {
+                        '_id': 'gJngF65ZWyS9f3NDE',
                         'name' : 'Crowd funding Part-up organiseren'
                     },
                     'supporter' : {
-                        'id' : 'K5c5M4Pbdg3B82wQI',
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
                         'name' : 'John Partup',
                         'image' : 'nL2MYYXJ3eFeb2GYq'
                     }
@@ -28,6 +29,7 @@ Meteor.startup(function() {
                 'type' : 'partups_contributions_accepted',
                 'type_data' : {
                     'partup' : {
+                        '_id': 'gJngF65ZWyS9f3NDE',
                         'name' : 'Crowd funding Part-up organiseren',
                         'image' : '3FeYwzJdFfj8enTDY'
                     }
@@ -43,7 +45,7 @@ Meteor.startup(function() {
                 'type' : 'contributions_ratings_inserted',
                 'type_data' : {
                     'rater' : {
-                        'id' : 'K5c5M4Pbdg3B82wQI',
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
                         'name' : 'John Partup',
                         'image' : 'nL2MYYXJ3eFeb2GYq'
                     }
@@ -59,10 +61,11 @@ Meteor.startup(function() {
                 'type' : 'partups_supporters_added',
                 'type_data' : {
                     'partup' : {
+                        '_id': 'gJngF65ZWyS9f3NDE',
                         'name' : 'Crowd funding Part-up organiseren'
                     },
                     'supporter' : {
-                        'id' : 'a7qcp5RHnh5rfaeW9',
+                        '_id' : 'a7qcp5RHnh5rfaeW9',
                         'name' : 'Judy Partup',
                         'image' : 'LG9J5XA4PPg5B8ZNu'
                     }
@@ -78,10 +81,11 @@ Meteor.startup(function() {
                 'type' : 'partups_supporters_added',
                 'type_data' : {
                     'partup' : {
+                        '_id': 'gJngF65ZWyS9f3NDE',
                         'name' : 'Crowd funding Part-up organiseren'
                     },
                     'supporter' : {
-                        'id' : 'a7qcp5RHnh5rfaeW9',
+                        '_id' : 'a7qcp5RHnh5rfaeW9',
                         'name' : 'Judy Partup',
                         'image' : 'LG9J5XA4PPg5B8ZNu'
                     }
@@ -97,6 +101,7 @@ Meteor.startup(function() {
                 'type' : 'partups_networks_invited',
                 'type_data' : {
                     'network' : {
+                        '_id': 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
                         'image' : null
                     }
@@ -112,6 +117,7 @@ Meteor.startup(function() {
                 'type' : 'partups_networks_invited',
                 'type_data' : {
                     'network' : {
+                        '_id': 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
                         'image' : null
                     }
@@ -127,6 +133,7 @@ Meteor.startup(function() {
                 'type' : 'partups_networks_invited',
                 'type_data' : {
                     'network' : {
+                        '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
                         'image' : null
                     }
@@ -142,6 +149,7 @@ Meteor.startup(function() {
                 'type' : 'partups_networks_accepted',
                 'type_data' : {
                     'network' : {
+                        '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
                         'image' : null
                     }
@@ -157,6 +165,7 @@ Meteor.startup(function() {
                 'type' : 'partups_networks_invited',
                 'type_data' : {
                     'network' : {
+                        '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
                         'image' : null
                     }
