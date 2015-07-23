@@ -104,6 +104,7 @@ Event.on('contributions.accepted', function(userId, partupId, upperId) {
         type: 'partups_contributions_accepted',
         typeData: {
             partup: {
+                _id: partup._id,
                 name: partup.name,
                 image: partup.image
             }
@@ -125,6 +126,7 @@ Event.on('contributions.rejected', function(userId, activityId, upperId) {
         type: 'partups_contributions_rejected',
         typeData: {
             partup: {
+                _id: partup._id,
                 name: partup.name,
                 image: partup.image
             },
