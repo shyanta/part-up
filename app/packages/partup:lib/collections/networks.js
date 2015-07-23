@@ -341,3 +341,15 @@ Networks.guardedFind = function(userId, selector, options) {
 Networks.findForPartup = function(partup) {
     return Networks.find({_id: partup.network_id}, {limit: 1});
 };
+
+/**
+ * Find the networks for a user
+ *
+ * @memberOf Networks
+ * @param {User} user
+ * @return {Mongo.Cursor}
+ */
+Networks.findForUser = function(user) {
+    var networks = user.networks || [];
+    return Networks.guardedFind(user._id, {_id: {'$in': networks}});
+};

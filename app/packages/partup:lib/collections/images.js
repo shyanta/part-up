@@ -104,8 +104,8 @@ if (Meteor.isServer) {
 }
 
 /**
- Images are entities stored under each object that contains one or more images
- @namespace Images
+ * Images are entities stored under each object that contains one or more images
+ * @namespace Images
  */
 Images = new FS.Collection('images', {
     stores: stores,
@@ -140,11 +140,34 @@ Images.findForUser = function(user) {
 
 /**
  * Find the images for a network
+ *
+ * @memberOf Images
  * @param {Network} network
  * @return {Mongo.Cursor}
  */
 Images.findForNetwork = function(network) {
     return Images.find({_id: {$in: [network.image, network.icon]}}, {limit: 2});
+};
+
+/**
+ * Find the images for a notification
+ *
+ * @memberOf Images
+ * @param {Notification} notification
+ * @return {Mongo.Cursor}
+ */
+Images.findForNotification = function(notification) {
+    var images = [];
+
+    if (notification.type === 'partups_supporters_added') {
+        images.push(notification.type_data.supporter.image);
+    }
+
+    if (notification.type === 'partup_activities_invited') {
+        images.push(notification.type_data.inviter.image);
+    }
+
+    return Images.find({_id: {$in: images}});
 };
 
 Images.allow({
