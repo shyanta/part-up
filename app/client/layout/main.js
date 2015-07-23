@@ -12,6 +12,6 @@ Template.main.onRendered(function() {
     }
 });
 
-Template.body.onRendered(function() {
+Meteor.startup(function() {
     Partup.client.scroll.init();
 });
