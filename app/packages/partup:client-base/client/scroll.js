@@ -11,6 +11,8 @@ Partup.client.scroll = {
 
     _initialised: false,
     init: function() {
+        if (!window) return;
+
         var self = this;
         if (this._initialised) return console.warn('scroll.js: cannot initialise multiple times');
 
