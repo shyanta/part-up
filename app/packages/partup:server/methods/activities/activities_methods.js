@@ -344,5 +344,11 @@ Meteor.methods({
         };
 
         Invites.insert(invite);
+
+        // Add to the invite list of the partup
+        var partup = Partups.findOneOrFail(activity.partup_id);
+        if (!partup.hasInvitedUpper(invitee._id)) {
+            Partups.update(partup._id, {$push: {invites: invitee._id}});
+        }
     }
 });
