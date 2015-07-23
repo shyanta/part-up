@@ -165,7 +165,7 @@ Meteor.methods({
             query: options.query
         };
 
-        return Partups.findForDiscover(user._id, {}, parameters).map(function(partup) {
+        return Partups.findForDiscover(user ? user._id : null, {}, parameters).map(function(partup) {
             return partup._id;
         });
     },
