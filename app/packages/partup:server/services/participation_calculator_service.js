@@ -33,11 +33,14 @@ Partup.server.services.participation_calculator = {
 
         d('Total participation score for user [' + upperId + '] is ' + score + '/100');
 
-        return score;
+        return Math.min(100, score);
     },
 
     _calculateActiveContributionsScore: function(upper) {
         var activeContributionsScore = 0;
+
+        // By using a score delta of 4, an upper can receive the full
+        // 100 score of this part by having 25 active contributions
         var scoreDelta = 4;
 
         var contributions = Contributions.find({upper_id: upper._id, verified:true});
@@ -45,16 +48,16 @@ Partup.server.services.participation_calculator = {
         contributions.forEach(function(contribution) {
             var partup = Partups.findOne(contribution.partup_id);
 
-            if (! partup.hasEnded()) {
+            if (!partup.hasEnded()) {
                 activeContributionsScore += scoreDelta;
             }
         });
 
-        return activeContributionsScore;
+        return Math.min(100, activeContributionsScore);
     },
 
     _calculateAverageContributionRatingScore: function(upper) {
-        return upper.average_rating || 0;
+        return Math.min(100, upper.average_rating || 0);
     },
 
     _calculateSupportsRecentPartupsScore: function(upper) {
@@ -62,21 +65,27 @@ Partup.server.services.participation_calculator = {
         var partups = Partups.find({_id: {'$in': supports}});
 
         var supportsRecentPartupsScore = 0;
+
+        // By using a score delta of 4, an upper can receive the full
+        // 100 score of this part by supporting 25 active partups
         var scoreDelta = 4;
 
         partups.forEach(function(partup) {
-            if (! partup.hasEnded()) {
+            if (!partup.hasEnded()) {
                 supportsRecentPartupsScore += scoreDelta;
             }
         });
 
-        return supportsRecentPartupsScore;
+        return Math.min(100, supportsRecentPartupsScore);
     },
 
     _calculateLoginScore: function(upper) {
         var logins = upper.logins || [];
 
         var loginScore = 0;
+
+        // By using a score delta of 4, an upper can receive the full
+        // 100 score of this part by logging in 25 days consecutively
         var scoreDelta = 4;
 
         var day = 24 * 60 * 60 * 1000;
@@ -91,7 +100,7 @@ Partup.server.services.participation_calculator = {
             }
         });
 
-        return loginScore;
+        return Math.min(100, loginScore);
     }
 
 };
