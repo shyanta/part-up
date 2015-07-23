@@ -111,7 +111,8 @@ Meteor.publishComposite('users.by_ids', function(userIds) {
             return Meteor.users.findMultiplePublicProfiles(userIds);
         },
         children: [
-            {find: Images.findForUser}
+            {find: Images.findForUser},
+            {find: Invites.findForUser}
         ]
     };
 });

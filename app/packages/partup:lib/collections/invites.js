@@ -8,6 +8,17 @@
 Invites = new Mongo.Collection('invites');
 
 /**
+ * Find invites for a user
+ *
+ * @memberOf Invites
+ * @param {Update} user
+ * @return {Mongo.Cursor|Void}
+ */
+Invites.findForUser = function(user) {
+    return Invites.find({invitee_id: user._id});
+};
+
+/**
  * @memberof Invites
  * @public
  */
