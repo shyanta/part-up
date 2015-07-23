@@ -8,15 +8,102 @@
         <ul>
             {{#each notifications}}
                 <li class="pu-notification {{#unless new}}pu-notification-viewed{{/unless}}">
-                    <a href="">
-                        <figure class="pu-avatar pu-avatar-plain">
-                            <a href="#" rel="author" data-usercard="{{ type_data.supporter._id }}" class="pu-sub-image pu-sub-image-plain" style="{{#with type_data.supporter.image }}background-image: url('{{ partupImageUrl id=. }}');{{/with}}"></a>
-                        </figure>
-                        <article>
-                            <p>{{type}}</p>
-                            <time>{{time}}</time>
-                        </article>
-                    </a>
+                    <!-- supporter joined notification -->
+                    {{#if partupEqualsExactly type 'partups_supporters_added' }}
+                        <a href="{{pathFor route='partup' _id=type_data.partup._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.supporter._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.supporter.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>{{ type_data.supporter.name }} has started supporting {{ type_data.partup.name }}</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                    <!-- invite for activity notification -->
+                    {{#if partupEqualsExactly type 'partup_activities_invited' }}
+                        <a href="{{pathFor route='partup-activities' _id=type_data.partup._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.inviter._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.inviter.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>{{ type_data.inviter.name }} has invited you to the activivity {{ type_data.activity.name }}</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                    <!-- contribution accepted notification -->
+                    {{#if partupEqualsExactly type 'partups_contributions_accepted' }}
+                        <a href="{{pathFor route='partup' _id=type_data.partup._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.partup._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.partup.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>Your contribution to {{ type_date.partup.name }} has been accepted</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                    <!-- contribution rejected notification -->
+                    {{#if partupEqualsExactly type 'partups_contributions_rejected' }}
+                        <a href="{{pathFor route='partup' _id=type_data.partup._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.partup._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.partup.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>Your contribution {{ type_data.activity.name }} has been rejected in {{ type_data.partup.name }}</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                    <!-- invited to network notification -->
+                    {{#if partupEqualsExactly type 'partups_networks_invited' }}
+                        <a href="{{pathFor route='network-detail' _id=type_data.network._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.network._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.network.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>You have been invited to join {{ type_data.network.name }}</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                    <!-- accepted to network notification -->
+                    {{#if partupEqualsExactly type 'partups_networks_accepted' }}
+                        <a href="{{pathFor route='network-detail' _id=type_data.network._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.network._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.network.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>You have been accepted to {{ type_data.network.name }}</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                    <!-- contribution rating notification -->
+                    {{#if partupEqualsExactly type 'contributions_ratings_inserted' }}
+                        <a href="{{pathFor route='profile-upper-partups' _id=type_data.rater._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.rater._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.rater.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>{{ type_data.rater.name }} has rated your contibution</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
+                    <!-- comment on update notification -->
+                    {{#if partupEqualsExactly type 'updates_first_comment' }}
+                        <a href="{{pathFor route='partup' _id=type_data.partup._id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.commenter._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.commenter.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>{{ type_data.commenter.name }} has commented on an update in {{ type_data.partup.name }}</p>
+                                <time>{{ created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
                 </li>
             {{else}}
                 <li class="pu-notification pu-notification-empty">
