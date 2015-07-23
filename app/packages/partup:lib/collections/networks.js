@@ -102,16 +102,7 @@ Network.prototype.isClosedForUpper = function(upperId) {
  * @return {Object}
  */
 Network.prototype.isUpperInvited = function(upperId) {
-    var invites = this.invites || [];
-    var invite = false;
-
-    _.each(invites, function(inviteObject, key) {
-        if (mout.object.get(inviteObject, '_id') === upperId) {
-            invite = inviteObject;
-        }
-    });
-
-    return invite;
+    return !!Invites.findOne({network_id: this._id, invitee_id: upperId, type: Invites.INVITE_TYPE_EXISTING_UPPER});
 };
 
 /**
