@@ -87,7 +87,7 @@ Template.modal_network_invite.events({
         var networkId = template.data.networkId;
         var userId = event.target.dataset.inviteId;
 
-        Meteor.call('networks.invite', networkId, userId, function(err) {
+        Meteor.call('networks.invite_existing_upper', networkId, userId, function(err) {
             if (err) {
                 Partup.client.notify.error(err.reason);
                 return;
