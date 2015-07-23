@@ -11,11 +11,22 @@ Invites = new Mongo.Collection('invites');
  * Find invites for a user
  *
  * @memberOf Invites
- * @param {Update} user
- * @return {Mongo.Cursor|Void}
+ * @param {User} user
+ * @return {Mongo.Cursor}
  */
 Invites.findForUser = function(user) {
     return Invites.find({invitee_id: user._id});
+};
+
+/**
+ * Find invites for a network
+ *
+ * @memberOf Invites
+ * @param {Network} network
+ * @return {Mongo.Cursor}
+ */
+Invites.findForNetwork = function(network) {
+    return Invites.find({network_id: network._id});
 };
 
 /**
