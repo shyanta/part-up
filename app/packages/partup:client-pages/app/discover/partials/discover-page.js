@@ -50,6 +50,8 @@ Template.app_discover_page.onCreated(function() {
             // Call the partup ids
             tpl.partups.loading.set(true);
             Meteor.call('partups.discover', options, function(error, partupIds) {
+                if (error || !partupIds) return;
+
                 tpl.partups.layout.count.set(partupIds.length);
 
                 tpl.partups.ids = partupIds;
