@@ -80,6 +80,18 @@ Partup.prototype.hasUpper = function(userId) {
 };
 
 /**
+ * Check if given user is on the invite list of this partup
+ *
+ * @memberof Partups
+ * @param {String} userId the id of the user to check against
+ * @return {Boolean}
+ */
+Partup.prototype.hasInvitedUpper = function(userId) {
+    if (!this.invites) return false;
+    return mout.lang.isString(userId) && this.invites.indexOf(userId) > -1;
+};
+
+/**
  * Check if given user has the right to view the partup
  *
  * @memberof Partups
