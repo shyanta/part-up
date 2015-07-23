@@ -214,17 +214,17 @@ Partups.findForDiscover = function(userId, options, parameters) {
     var selector = {};
 
     var options = options || {};
-    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
+    options.limit = options.limit ? parseInt(options.limit) : undefined;
     options.sort = options.sort || {};
 
     var parameters = parameters || {};
 
-    var sort = parameters.count ? undefined : parameters.sort || undefined;
+    var sort = parameters.sort || undefined;
     var query = parameters.query || undefined;
     var locationId = parameters.locationId || undefined;
     var networkId = parameters.networkId || undefined;
 
-    if (!parameters.count && sort) {
+    if (sort) {
 
         // Sort the partups from the newest to the oldest
         if (sort === 'new') {
@@ -254,9 +254,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
         selector['$text'] = {$search: query};
         options.fields = {score: {$meta: 'textScore'}};
 
-        if (!parameters.count) {
-            options.sort['score'] = {$meta: 'textScore'};
-        }
+        options.sort['score'] = {$meta: 'textScore'};
     }
 
     return this.guardedFind(userId, selector, options);
