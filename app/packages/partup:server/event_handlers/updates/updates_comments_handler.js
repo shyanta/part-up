@@ -3,7 +3,7 @@ var d = Debug('event_handlers:updates_comments_handler');
 /**
  * Generate a Notification for the upper for the first comment posted on a message/update
  */
-Event.on('updates.comments.inserted', function(upper, update, comment) {
+Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     // We only want to continue if the update currently has
     // no comments which means that it's the first comment
     var comments = update.comments || [];
@@ -33,8 +33,12 @@ Event.on('updates.comments.inserted', function(upper, update, comment) {
             userId: update.upper_id,
             type: 'updates_first_comment',
             typeData: {
-                upper: {
-                    id: comment.creator._id,
+                partup: {
+                    _id: partup._id,
+                    name: partup.name
+                },
+                commenter: {
+                    _id: comment.creator._id,
                     name: comment.creator.name,
                     image: comment.creator.image
                 }
