@@ -326,9 +326,16 @@ Meteor.methods({
                     name: activity.name
                 },
                 inviter: {
-                    id: inviter._id,
+                    _id: inviter._id,
                     name: inviter.profile.name,
                     image: inviter.profile.image
+                },
+                activity: {
+                    _id: activity._id,
+                    name: activity.name
+                },
+                partup: {
+                    _id: activity.partup_id
                 }
             }
         };
