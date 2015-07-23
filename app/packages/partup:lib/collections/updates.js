@@ -53,8 +53,8 @@ Update.prototype.isContributionUpdate = function() {
 };
 
 /**
- @namespace Updates
- @name Updates
+ * @namespace Updates
+ * @memberOf Collection
  */
 Updates = new Mongo.Collection('updates', {
     transform: function(document) {
@@ -62,9 +62,6 @@ Updates = new Mongo.Collection('updates', {
     }
 });
 
-/**
- * Partups collection helpers
- */
 Updates.findForUpdates = function(partupId, options) {
     var self = this;
 

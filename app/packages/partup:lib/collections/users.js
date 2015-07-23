@@ -24,16 +24,36 @@ var privateUserFields = mout.object.merge({
 }, publicUserFields);
 
 /**
- * User collection helpers
+ * Find a user and expose it's private fields
+ *
+ * @memberOf Meteor.users
+ * @param {String} userId
+ * @return {Mongo.Cursor}
  */
 Meteor.users.findSinglePrivateProfile = function(userId) {
     return Meteor.users.find({_id: userId}, {fields: privateUserFields});
 };
 
+/**
+ * Find a user and expose it's public fields
+ *
+ * @memberOf Meteor.users
+ * @param {String} userId
+ * @return {Mongo.Cursor}
+ */
 Meteor.users.findSinglePublicProfile = function(userId) {
     return Meteor.users.find({_id: userId}, {fields: publicUserFields});
 };
 
+/**
+ * Find users and expose their public fields
+ *
+ * @memberOf Meteor.users
+ * @param {[String]} userIds
+ * @param {Object} options
+ * @param {Object} parameters
+ * @return {Mongo.Cursor}
+ */
 Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters) {
     var options = options || {};
     var parameters = parameters || {};
@@ -44,6 +64,64 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
     options.sort = parameters.count ? undefined : options.sort || undefined;
 
     return Meteor.users.find({_id: {$in: userIds}}, options);
+};
+
+/**
+ * Find uppers for a network
+ *
+ * @memberOf Meteor.users
+ * @param {Network} network
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findUppersForNetwork = function(network) {
+    var uppers = network.uppers || [];
+    return Meteor.users.findMultiplePublicProfiles(uppers);
+};
+
+/**
+ * Find uppers for a partup
+ *
+ * @memberOf Meteor.users
+ * @param {Partup} partup
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findUppersForPartup = function(partup) {
+    var uppers = partup.uppers || [];
+    return Meteor.users.findMultiplePublicProfiles(uppers);
+};
+
+/**
+ * Find supporters for a partup
+ *
+ * @memberOf Meteor.users
+ * @param {Partup} partup
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findSupportersForPartup = function(partup) {
+    var supporters = partup.supporters || [];
+    return Meteor.users.findMultiplePublicProfiles(supporters);
+};
+
+/**
+ * Find the user of an update
+ *
+ * @memberOf Meteor.users
+ * @param {Update} update
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findUserForUpdate = function(update) {
+    return Meteor.users.findSinglePublicProfile(update.upper_id);
+};
+
+/**
+ * Find the user of a rating
+ *
+ * @memberOf Meteor.users
+ * @param {Rating} rating
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findForRating = function(rating) {
+    return Meteor.users.findSinglePublicProfile(rating.upper_id);
 };
 
 /**
@@ -84,7 +162,6 @@ User = function(user) {
             return locale;
         },
 
-
         /**
          * Check if user is admin
          *
@@ -95,6 +172,5 @@ User = function(user) {
             if (!user.roles) return false;
             return user.roles.indexOf('admin') > -1;
         }
-
     };
 };

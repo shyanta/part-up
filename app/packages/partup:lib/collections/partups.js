@@ -280,6 +280,18 @@ Partups.findForDiscover = function(userId, options, parameters) {
 };
 
 /**
+ * Find the partup for an update
+ *
+ * @memberOf Partups
+ * @param {Update} update
+ * @return {Mongo.Cursor|Void}
+ */
+Partups.findForUpdate = function(userId, update) {
+    if (!update.partup_id) return;
+    return this.guardedFind(userId, {_id: update.partup_id}, {limit:1});
+};
+
+/**
  * Find the partups used on the network page
  *
  * @memberof Partups
@@ -338,7 +350,9 @@ Partups.findUpperPartups = function(userId, options, parameters) {
  * Find the partups where the userid is supper
  *
  * @memberof Partups
+ *
  * @param {Object} options
+ *
  * @return {Cursor}
  */
 Partups.findSupporterPartups = function(userId, options, parameters) {

@@ -104,8 +104,10 @@ if (Meteor.isServer) {
 }
 
 /**
- Images are entities stored under each object that contains one or more images
- @namespace Images
+ * Images are entities stored under each object that contains one or more images
+ *
+ * @namespace Images
+ * @memberOf Collection
  */
 Images = new FS.Collection('images', {
     stores: stores,
@@ -115,6 +117,83 @@ Images = new FS.Collection('images', {
         }
     }
 });
+
+/**
+ * Find the images for a partup
+ *
+ * @memberOf Images
+ * @param {Partup} partup
+ * @return {Mongo.Cursor}
+ */
+Images.findForPartup = function(partup) {
+    return Images.find({_id: partup.image}, {limit: 1});
+};
+
+/**
+ * Find the images for a user
+ *
+ * @memberOf Images
+ * @param {User} user
+ * @return {Mongo.Cursor}
+ */
+Images.findForUser = function(user) {
+    return Images.find({_id: user.profile.image}, {limit: 1});
+};
+
+/**
+ * Find the images for a network
+ *
+ * @memberOf Images
+ * @param {Network} network
+ * @return {Mongo.Cursor}
+ */
+Images.findForNetwork = function(network) {
+    return Images.find({_id: {$in: [network.image, network.icon]}}, {limit: 2});
+};
+
+/**
+ * Find the images for a notification
+ *
+ * @memberOf Images
+ * @param {Notification} notification
+ * @return {Mongo.Cursor}
+ */
+Images.findForNotification = function(notification) {
+    var images = [];
+
+    if (notification.type === 'partups_supporters_added') {
+        images.push(notification.type_data.supporter.image);
+    }
+
+    if (notification.type === 'partup_activities_invited') {
+        images.push(notification.type_data.inviter.image);
+    }
+
+    return Images.find({_id: {$in: images}});
+};
+
+/**
+ * Find images for an update
+ *
+ * @memberOf Images
+ * @param {Update} update
+ * @return {Mongo.Cursor}
+ */
+Images.findForUpdate = function(update) {
+    var images = [];
+
+    if (update.type === 'partups_image_changed') {
+        images = [update.type_data.old_image, update.type_data.new_image];
+    }
+
+    if (update.type === 'partups_message_added') {
+        images = update.type_data.images || [];
+    }
+
+    if (!images.length) return; // save the mongo call
+
+    return Images.find({_id: {$in: images}});
+};
 
 Images.allow({
     insert: function(userId, document) {

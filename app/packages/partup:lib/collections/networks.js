@@ -330,3 +330,29 @@ Networks.guardedFind = function(userId, selector, options) {
 
     return this.find(finalSelector, options);
 };
+
+/**
+ * Find the network for a partup
+ *
+ * @memberOf Networks
+ * @param {Partup} partup
+ * @param {String} userId
+ * @return {Mongo.Cursor}
+ */
+Networks.findForPartup = function(partup, userId) {
+    var userId = userId || this.userId;
+
+    return Networks.guardedFind(userId, {_id: partup.network_id}, {limit: 1});
+};
+
+/**
+ * Find the networks for a user
+ *
+ * @memberOf Networks
+ * @param {User} user
+ * @return {Mongo.Cursor}
+ */
+Networks.findForUser = function(user) {
+    var networks = user.networks || [];
+    return Networks.guardedFind(user._id, {_id: {'$in': networks}});
+};

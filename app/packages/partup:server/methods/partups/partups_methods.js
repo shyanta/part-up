@@ -151,26 +151,6 @@ Meteor.methods({
     },
 
     /**
-     * Get the amount of Part-ups based on provided filters
-     *
-     * @param {Object} options
-     */
-    'partups.discover_count': function(options) {
-        this.unblock();
-
-        var user = Meteor.user();
-
-        var parameters = {
-            networkId: options.networkId,
-            locationId: options.locationId,
-            sort: options.sort,
-            query: options.query
-        };
-
-        return Partups.findForDiscover(user._id, {}, parameters).count();
-    },
-
-    /**
      * Discover partups based on provided filters
      *
      * @param {Object} options
@@ -178,10 +158,6 @@ Meteor.methods({
     'partups.discover': function(options) {
         var user = Meteor.user();
 
-        var mongoOptions = {
-            // limit: options.limit
-        };
-
         var parameters = {
             networkId: options.networkId,
             locationId: options.locationId,
@@ -189,7 +165,7 @@ Meteor.methods({
             query: options.query
         };
 
-        return Partups.findForDiscover(user._id, mongoOptions, parameters).map(function(partup) {
+        return Partups.findForDiscover(user._id, {}, parameters).map(function(partup) {
             return partup._id;
         });
     },

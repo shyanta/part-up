@@ -10,88 +10,19 @@
  *   addtitional related information such as users and their profile pictures
  */
 var updateChildren = [
-    // Find the user related to the update, along with their profile picture
-    {
-        find: function(update) {
-            if (!update.upper_id) return;
-
-            return Meteor.users.findSinglePublicProfile(update.upper_id);
-        },
-        children: [
-            {
-                find: function(user) {
-                    return Images.find({_id: user.profile.image}, {limit: 1});
-                }
-            }
-        ]
-    },
-
-    // Find any images required for the update
-    {
-        find: function(update) {
-            var images = [];
-
-            if (update.type === 'partups_image_changed') {
-                images = [update.type_data.old_image, update.type_data.new_image];
-            }
-
-            if (update.type === 'partups_message_added') {
-                images = update.type_data.images || [];
-            }
-
-            if (!images.length) return; // save the mongo call
-
-            return Images.find({_id: {$in: images}});
-        }
-    },
-
-    // Find activity related to the update
-    {
-        find: function(update) {
-            if (update.isActivityUpdate()) {
-                return Activities.find({_id: update.type_data.activity_id}, {limit: 1});
-            }
-        }
-    },
-
-    // Find contribution related to the update
-    {
-        find: function(update) {
-            if (update.isContributionUpdate()) {
-                return Contributions.find({_id: update.type_data.contribution_id}, {limit: 1});
-            }
-        },
-        children: [
-            // Backtrack and find the contribution's activity as well
-            {
-                find: function(contribution) {
-                    return Activities.find({_id: contribution.activity_id}, {limit: 1});
-                }
-            },
-
-            // Find ratings associated with the contribution
-            {
-                find: function(contribution) {
-                    return Ratings.find({contribution_id: contribution._id});
-                },
-                children: [
-                    // Find user associated with the rating, and their profile picture
-                    {
-                        find: function(rating) {
-                            return Meteor.users.findSinglePublicProfile(rating.upper_id);
-                        },
-                        children: [
-                            {
-                                find: function(user) {
-                                    return Images.find({_id: user.profile.image}, {limit: 1});
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+    {find: Meteor.users.findUserForUpdate, children: [
+        {find: Images.findForUser}
+    ]},
+    {find: Images.findForUpdate},
+    {find: Activities.findForUpdate},
+    {find: Contributions.findForUpdate, children: [
+        {find: Activities.findForContribution},
+        {find: Ratings.findForContribution, children: [
+            {find: Meteor.users.findForRating, children: [
+                {find: Images.findForUser}
+            ]}
+        ]}
+    ]}
 ];
 
 /**
