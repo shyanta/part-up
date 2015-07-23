@@ -109,6 +109,16 @@ Template.modal_invite_to_activity.helpers({
     completeness: function() {
         return this.completeness || 0;
     },
+    inviteSent: function() {
+        var activityId = Template.instance().data.activityId;
+        var userId = this._id;
+
+        return !!Invites.findOne({
+            activity_id: activityId,
+            invitee_id: this._id,
+            type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER
+        });
+    },
 
     // Location
     locationValue: function() {
