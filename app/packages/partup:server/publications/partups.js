@@ -139,7 +139,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
                 children: [
                     {
                         find: function(partup) {
-                            return Images.find({_id: partup.image}, {limit: 1});
+                            return Images.findForPartup(partup);
                         }
                     },
                     {

@@ -116,6 +116,17 @@ Images = new FS.Collection('images', {
     }
 });
 
+/**
+ * Find the images for a given partup
+ *
+ * @param {Partup} partup
+ *
+ * @return {Mongo.Cursor}
+ */
+Images.findForPartup = function(partup) {
+    return Images.find({_id: partup.image}, {limit: 1});
+};
+
 Images.allow({
     insert: function(userId, document) {
         return !!userId;
