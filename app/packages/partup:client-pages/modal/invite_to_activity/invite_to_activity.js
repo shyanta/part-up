@@ -40,44 +40,6 @@ Template.modal_invite_to_activity.onCreated(function() {
         }
     };
 
-    // Sorting filter datamodel
-    var sortingOptions = [
-        {
-            value: 'popular',
-            label: function() {
-                return __('pages-app-discover-filter-sorting-type-popular');
-            }
-        },
-        {
-            value: 'new',
-            label: function() {
-                return __('pages-app-discover-filter-sorting-type-newest');
-            }
-        }
-    ];
-    var defaultSortingOption = sortingOptions[0];
-    self.sorting = {
-        options: sortingOptions,
-        value: new ReactiveVar(defaultSortingOption),
-        selectorState: new ReactiveVar(false),
-        selectorData: function() {
-            var DROPDOWN_ANIMATION_DURATION = 200;
-
-            return {
-                onSelect: function(sorting) {
-                    self.sorting.selectorState.set(false);
-
-                    Meteor.setTimeout(function() {
-                        self.sorting.value.set(sorting);
-                        self.submitFilterForm();
-                    }, DROPDOWN_ANIMATION_DURATION);
-                },
-                options: self.sorting.options,
-                default: defaultSortingOption.value
-            };
-        },
-    };
-
     self.autorun(function() {
         var activityId = self.data.activityId;
         var options = self.suggestionsOptions.get();
@@ -129,17 +91,6 @@ Template.modal_invite_to_activity.helpers({
     },
     locationSelectorData: function() {
         return Template.instance().location.selectorData;
-    },
-
-    // Sorting
-    sortingValue: function() {
-        return Template.instance().sorting.value.get();
-    },
-    sortingSelectorState: function() {
-        return Template.instance().sorting.selectorState;
-    },
-    sortingSelectorData: function() {
-        return Template.instance().sorting.selectorData;
     }
 });
 
@@ -179,8 +130,7 @@ Template.modal_invite_to_activity.events({
 
         template.suggestionsOptions.set({
             query: form.elements.search_query.value || undefined,
-            locationId: form.elements.location_id.value || undefined,
-            sort: form.elements.sorting.value || undefined
+            locationId: form.elements.location_id.value || undefined
         });
 
         window.scrollTo(0, 0);
@@ -195,11 +145,5 @@ Template.modal_invite_to_activity.events({
         event.stopPropagation();
         template.location.value.set('');
         template.submitFilterForm();
-    },
-
-    // Sorting selector events
-    'click [data-open-sortingselector]': function(event, template) {
-        var current = template.sorting.selectorState.get();
-        template.sorting.selectorState.set(!current);
     }
 });

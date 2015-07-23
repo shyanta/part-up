@@ -40,18 +40,6 @@
                             {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
                         </div>
 
-                        <!-- Label -->
-                        <p class="pu-sub-label">{{_ 'pages-app-discover-filter-sorting-label' }}</p>
-
-                        <!-- Sorting -->
-                        <div class="pu-sub-input pu-dropdownie-container">
-                            <input type="hidden" name="sorting" value="{{ sortingValue.value }}">
-                            <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-sortingselector>
-                                {{ sortingValue.label }}
-                            </a>
-                            {{> Dropdown toggle=sortingSelectorState template="BasicSelector" data=sortingSelectorData }}
-                        </div>
-
                         <!-- Hidden send button -->
                         <input type="submit" class="pu-sub-submit">
                     </div>
