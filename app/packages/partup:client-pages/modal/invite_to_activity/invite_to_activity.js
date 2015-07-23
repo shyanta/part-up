@@ -2,14 +2,94 @@ Template.modal_invite_to_activity.onCreated(function() {
     var self = this;
     self.userIds = new ReactiveVar([]);
     self.subscription = new ReactiveVar();
+    self.suggestionsOptions = new ReactiveVar({});
 
-    Meteor.call('activities.user_suggestions', this.data.activityId, function(error, userIds) {
-        if (error) {
-            return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+    // Submit filter form
+    self.submitFilterForm = function() {
+        Meteor.defer(function() {
+            var form = self.find('form#suggestionsQuery');
+            $(form).submit();
+        });
+    };
+
+    // Location filter datamodel
+    self.location = {
+        value: new ReactiveVar(),
+        selectorState: new ReactiveVar(false, function(a, b) {
+            if (!b) return;
+
+            // Focus the searchfield
+            Meteor.defer(function() {
+                var searchfield = self.find('form#locationSelector').elements.search;
+                if (searchfield) searchfield.focus();
+            });
+        }),
+        selectorData: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
+
+            return {
+                onSelect: function(location) {
+                    self.location.selectorState.set(false);
+
+                    Meteor.setTimeout(function() {
+                        self.location.value.set(location);
+                        self.submitFilterForm();
+                    }, DROPDOWN_ANIMATION_DURATION);
+                }
+            };
         }
+    };
 
-        self.userIds.set(userIds);
-        self.subscription.set(self.subscribe('users.by_ids', userIds));
+    // Sorting filter datamodel
+    var sortingOptions = [
+        {
+            value: 'popular',
+            label: function() {
+                return __('pages-app-discover-filter-sorting-type-popular');
+            }
+        },
+        {
+            value: 'new',
+            label: function() {
+                return __('pages-app-discover-filter-sorting-type-newest');
+            }
+        }
+    ];
+    var defaultSortingOption = sortingOptions[0];
+    self.sorting = {
+        options: sortingOptions,
+        value: new ReactiveVar(defaultSortingOption),
+        selectorState: new ReactiveVar(false),
+        selectorData: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
+
+            return {
+                onSelect: function(sorting) {
+                    self.sorting.selectorState.set(false);
+
+                    Meteor.setTimeout(function() {
+                        self.sorting.value.set(sorting);
+                        self.submitFilterForm();
+                    }, DROPDOWN_ANIMATION_DURATION);
+                },
+                options: self.sorting.options,
+                default: defaultSortingOption.value
+            };
+        },
+    };
+
+    self.autorun(function() {
+        var activityId = self.data.activityId;
+        var options = self.suggestionsOptions.get();
+
+        Meteor.call('activities.user_suggestions', activityId, options, function(error, userIds) {
+            if (error) {
+                return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+            }
+
+            self.userIds.set(userIds);
+            self.subscription.set(self.subscribe('users.by_ids', userIds));
+        });
     });
 });
 
@@ -28,6 +108,28 @@ Template.modal_invite_to_activity.helpers({
     },
     completeness: function() {
         return this.completeness || 0;
+    },
+
+    // Location
+    locationValue: function() {
+        return Template.instance().location.value.get();
+    },
+    locationSelectorState: function() {
+        return Template.instance().location.selectorState;
+    },
+    locationSelectorData: function() {
+        return Template.instance().location.selectorData;
+    },
+
+    // Sorting
+    sortingValue: function() {
+        return Template.instance().sorting.value.get();
+    },
+    sortingSelectorState: function() {
+        return Template.instance().sorting.selectorState;
+    },
+    sortingSelectorData: function() {
+        return Template.instance().sorting.selectorData;
     }
 });
 
@@ -58,5 +160,36 @@ Template.modal_invite_to_activity.events({
 
             Partup.client.notify.success(__('pages-modal-invite_to_activity-invite-success'));
         });
+    },
+
+    'submit form#suggestionsQuery': function(event, template) {
+        event.preventDefault();
+
+        var form = event.currentTarget;
+
+        template.suggestionsOptions.set({
+            query: form.elements.search_query.value || undefined,
+            locationId: form.elements.location_id.value || undefined,
+            sort: form.elements.sorting.value || undefined
+        });
+
+        window.scrollTo(0, 0);
+    },
+
+    // Location selector events
+    'click [data-open-locationselector]': function(event, template) {
+        var current = template.location.selectorState.get();
+        template.location.selectorState.set(!current);
+    },
+    'click [data-reset-selected-location]': function(event, template) {
+        event.stopPropagation();
+        template.location.value.set('');
+        template.submitFilterForm();
+    },
+
+    // Sorting selector events
+    'click [data-open-sortingselector]': function(event, template) {
+        var current = template.sorting.selectorState.get();
+        template.sorting.selectorState.set(!current);
     }
 });
