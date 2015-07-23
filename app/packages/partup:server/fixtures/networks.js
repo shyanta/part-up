@@ -8,6 +8,8 @@ Meteor.startup(function() {
                 'name' : 'ING (public)',
                 'privacy_type' : 1,
                 'slug' : 'ing-public',
+                'image': 'T8pfWebTJmvbBNJ2g',
+                'icon': 'f7yzkqh9J9JvxCCqN',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS'
                 ],
@@ -22,6 +24,8 @@ Meteor.startup(function() {
                 'name' : 'ING (invite)',
                 'privacy_type' : 2,
                 'slug' : 'ing-invite',
+                'image': 'efDuvuTzpqH65P9DF',
+                'icon': 'fReGXG4qkNXb4K8wp',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS',
                     'K5c5M4Pbdg3B82wQH'
@@ -44,6 +48,8 @@ Meteor.startup(function() {
                 'name' : 'ING (closed)',
                 'privacy_type' : 3,
                 'slug' : 'ing-closed',
+                'image': 'PnYAg3EX5dKfEnkdn',
+                'icon': '4rymNTA3jFfTRKtFJ',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS',
                     null,
@@ -78,6 +84,8 @@ Meteor.startup(function() {
                 'name' : 'Lifely (open)',
                 'privacy_type' : 1,
                 'slug' : 'lifely-open',
+                'image': 'raaNx9aqA6okiqaS4',
+                'icon': 'SEswZsYiTTKTTdnN5',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS',
                     'K5c5M4Pbdg3B82wQH',

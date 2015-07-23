@@ -10,7 +10,7 @@ Meteor.startup(function() {
                 'budget_money' : 1000,
                 'budget_hours' : null,
                 'end_date' : new Date('2016-11-30T00:00:00.000Z'),
-                'image' : '3FeYwzJdFfj8enTDY',
+                'image' : 'FTHbg6wbPxjiA4Y8w',
                 'tags' : [
                     'crowdfunding',
                     'marketing',
@@ -78,7 +78,7 @@ Meteor.startup(function() {
                 'budget_money' : null,
                 'budget_hours' : null,
                 'end_date' : new Date('2017-03-31T00:00:00.000Z'),
-                'image' : 'aJ8Aw25bzCTxCKRk4',
+                'image' : 'D3zGxajTjWCLhXokS',
                 'tags' : [
                     'ing',
                     'financial'
@@ -140,7 +140,7 @@ Meteor.startup(function() {
                 'budget_money' : null,
                 'budget_hours' : null,
                 'end_date' : new Date('2017-01-31T00:00:00.000Z'),
-                'image' : 'xnTpmZubseguAReKt',
+                'image' : 'ComeF2exAjeKBPAf8',
                 'tags' : [
                     'ing',
                     'organizational'
@@ -202,7 +202,7 @@ Meteor.startup(function() {
                 'budget_money' : null,
                 'budget_hours' : null,
                 'end_date' : new Date('2017-01-31T00:00:00.000Z'),
-                'image' : 'xFBCoqBaRiwFs8EZ3',
+                'image' : 'J2KxajXMcqiKwrEBu',
                 'tags' : [
                     'lifely',
                     'meetup',

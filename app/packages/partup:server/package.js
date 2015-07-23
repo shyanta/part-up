@@ -77,6 +77,7 @@ Package.onUse(function(api) {
         'fixtures/tags.js',
         'fixtures/notifications.js',
         'fixtures/networks.js',
+        'fixtures/images.js',
         'publications/activities.js',
         'publications/partups.js',
         'publications/images.js',

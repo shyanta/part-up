@@ -40,7 +40,7 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true
                     },
-                    'image' : 'BPyL2zAyQ8b7bewEu',
+                    'image' : 'oQeqgwkdd44JSBSW5',
                     'description' : 'I am the first test user',
                     'tags' : [
                         'education',
@@ -85,7 +85,7 @@ Meteor.startup(function() {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'BPyL2zAyQ8b7bewEu',
+                'image' : 'oQeqgwkdd44JSBSW5',
                 'networks' : [
                     'ibn27M3ePaXhmKzWq',
                     'kRCjWDBkKru3KfsjW'
@@ -137,7 +137,7 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true
                     },
-                    'image' : 'nL2MYYXJ3eFeb2GYq',
+                    'image' : 'cHhjpWKo9DHjXQQjy',
                     'description' : null,
                     'tags' : [
                         'education',
@@ -182,7 +182,7 @@ Meteor.startup(function() {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'nL2MYYXJ3eFeb2GYq',
+                'image' : 'cHhjpWKo9DHjXQQjy',
                 'participation_score' : 3,
                 'pending_networks' : [],
                 'networks' : [
@@ -234,7 +234,7 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true
                     },
-                    'image' : 'hJzq4Ga9TtCbdxBLr',
+                    'image' : 'CxEprGKNWo6HdrTdq',
                     'description' : null,
                     'tags' : [
                         'administration',
@@ -278,7 +278,7 @@ Meteor.startup(function() {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'hJzq4Ga9TtCbdxBLr',
+                'image' : 'CxEprGKNWo6HdrTdq',
                 'roles' : ['admin'],
                 'networks' : [
                     'nqBnE8nSLasaapXXS',
@@ -327,7 +327,7 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true
                     },
-                    'image' : 'LG9J5XA4PPg5B8ZNu',
+                    'image' : 'bMTGT9oSDGzxCL3r4',
                     'description' : null,
                     'tags' : [
                         'design',
@@ -373,7 +373,7 @@ Meteor.startup(function() {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'LG9J5XA4PPg5B8ZNu',
+                'image' : 'bMTGT9oSDGzxCL3r4',
                 'supporterOf' : [
                     'gJngF65ZWyS9f3NDE'
                 ],
