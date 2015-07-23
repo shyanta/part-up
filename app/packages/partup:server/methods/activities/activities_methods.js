@@ -321,6 +321,10 @@ Meteor.methods({
             userId: invitee._id,
             type: 'partup_activities_invited',
             typeData: {
+                activity: {
+                    id: activityId,
+                    name: activity.name
+                },
                 inviter: {
                     id: inviter._id,
                     name: inviter.profile.name,
