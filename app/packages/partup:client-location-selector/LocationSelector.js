@@ -1,15 +1,31 @@
 var STUB_LOCATIONS = [
     {
-        id: '1',
-        city: 'Amsterdam'
+        'city' : 'Amsterdam',
+        'lat' : 52.3702157000000028,
+        'lng' : 4.8951679000000006,
+        'id' : 'ChIJVXealLU_xkcRja_At0z9AGY',
+        'country' : 'Netherlands'
     },
     {
-        id: '2',
-        city: 'Rotterdam'
+        'city' : 'Rotterdam',
+        'lat' : 51.9244200999999990,
+        'lng' : 4.4777325000000001,
+        'id' : 'ChIJfcRUX2C3xUcRhUtelay7KVI',
+        'country' : 'Netherlands'
     },
     {
-        id: '3',
-        city: 'Den Haag'
+        'city' : 'Den Haag',
+        'lat' : 52.0704977999999983,
+        'lng' : 4.3006998999999997,
+        'id' : 'ChIJcb2YQi-3xUcREGwejVreAAQ',
+        'country' : 'Netherlands'
+    },
+    {
+        'city' : 'Utrecht',
+        'lat' : 52.0907373999999876,
+        'lng' : 5.1214200999999999,
+        'id' : 'ChIJNy3TOUNvxkcR6UqvGUz8yNY',
+        'country' : 'Netherlands'
     }
 ];
 
