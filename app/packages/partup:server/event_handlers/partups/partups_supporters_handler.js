@@ -38,10 +38,11 @@ Event.on('partups.supporters.inserted', function(partup, upper) {
         type: 'partups_supporters_added',
         typeData: {
             partup: {
+                _id: partup._id,
                 name: partup.name
             },
             supporter: {
-                id: upper._id,
+                _id: upper._id,
                 name: upper.profile.name,
                 image: upper.profile.image
             }
