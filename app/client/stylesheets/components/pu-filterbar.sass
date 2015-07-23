@@ -21,10 +21,18 @@
         display: none
 
     .pu-modal &
+        position: absolute
+        z-index: 1
+        left: 50%
         margin: 20px 0
         padding: 20px
         border-radius: 5px
         background: #eee
+        transform: translateX(-50%)
+
+        &-wrap
+            height: 86px
+            margin-bottom: 20px
 
     // This min-width value should depend on the filterbar with the biggest content
     @media screen and (min-width: 1032px)
