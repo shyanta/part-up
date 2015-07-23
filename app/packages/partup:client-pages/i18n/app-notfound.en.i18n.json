@@ -5,6 +5,9 @@
     "pages-app-notfound-partup-title": "@Part-up not found",
     "pages-app-notfound-partup-description": "@Part-up that you are trying to visit does not exist.",
 
+    "pages-app-notfound-partup-closed-title": "@This is a private Part-up",
+    "pages-app-notfound-partup-closed-description": "@The uppers in this Part-up decided to keeps this Part-up and its content private.",
+
     "pages-app-notfound-network-title": "@Tribe not found",
     "pages-app-notfound-network-description": "@The Tribe you are trying to visit does not exist.",
 

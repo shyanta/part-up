@@ -5,6 +5,9 @@
     "pages-app-notfound-partup-title": "@Part-up niet gevonden",
     "pages-app-notfound-partup-description": "@De Part-up die je probeert te bezoeken bestaat niet.",
 
+    "pages-app-notfound-partup-closed-title": "@Dit is een privé Part-up",
+    "pages-app-notfound-partup-closed-description": "@De uppers in deze Part-up hebben besloten om de Part-up en inhoud privé te houden.",
+
     "pages-app-notfound-network-title": "@Tribe niet gevonden",
     "pages-app-notfound-network-description": "@De Tribe die je probeert te bezoeken bestaat niet.",
 

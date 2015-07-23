@@ -63,6 +63,7 @@ Partup.prototype.isRemovableBy = function(user) {
  * @return {Boolean}
  */
 Partup.prototype.hasSupporter = function(userId) {
+    if (!this.supporters) return false;
     return mout.lang.isString(userId) && this.supporters.indexOf(userId) > -1;
 };
 
@@ -74,7 +75,25 @@ Partup.prototype.hasSupporter = function(userId) {
  * @return {Boolean}
  */
 Partup.prototype.hasUpper = function(userId) {
+    if (!this.uppers) return false;
     return mout.lang.isString(userId) && this.uppers.indexOf(userId) > -1;
+};
+
+/**
+ * Check if given user has the right to view the partup
+ *
+ * @memberof Partups
+ * @param {String} userId the user id of the user that should be checked
+ * @return {Boolean}
+ */
+Partup.prototype.isViewableByUser = function(userId) {
+    if (this.privacy_type === PUBLIC) return true;
+    if (this.privacy_type === NETWORK_PUBLIC) return true;
+    if (this.privacy_type === PRIVATE || this.privacy_type === NETWORK_INVITE || this.privacy_type === NETWORK_CLOSED) {
+        if (this.hasSupporter(userId)) return true;
+        if (this.hasUpper(userId)) return true;
+    }
+    return false;
 };
 
 /**

@@ -11,6 +11,13 @@
                             <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
                         </div>
                     {{/if}}
+                    {{#if partupEquals type 'partup-closed'}}
+                        <div class="pu-errorpage pu-errorpage-partup-closed">
+                            <h4>{{_ 'pages-app-notfound-partup-closed-title'  }}</h4>
+                            <p>{{_ 'pages-app-notfound-partup-closed-description' }}</p>
+                            <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
+                        </div>
+                    {{/if}}
                     {{#if partupEquals type 'network'}}
                         <div class="pu-errorpage pu-errorpage-network-closed">
                             <h4>{{_ 'pages-app-notfound-network-title'  }}</h4>

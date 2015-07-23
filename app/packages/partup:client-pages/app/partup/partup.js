@@ -45,11 +45,13 @@ Template.app_partup.onCreated(function() {
     Meteor.autorun(function whenSubscriptionIsReady(computation) {
         if (template.partupSubscription.ready()) {
             computation.stop();
+            Tracker.nonreactive(function() {
+                var partup = Partups.findOne({_id: template.data.partupId});
+                var userId = Meteor.userId();
 
-            if (!Partups.findOne({_id: template.data.partupId})) {
-                Router.pageNotFound('partup');
-                return;
-            }
+                if (!partup) Router.pageNotFound('partup');
+                if (!partup.isViewableByUser(userId)) Router.pageNotFound('partup-closed');
+            });
         }
     });
 });
