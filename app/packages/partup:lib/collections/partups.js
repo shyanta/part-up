@@ -59,7 +59,7 @@ Partup.prototype.isRemovableBy = function(user) {
  * Check if given user is a supporter of this partup
  *
  * @memberof Partups
- * @param {String} userId the user id of the user that should be checked
+ * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
 Partup.prototype.hasSupporter = function(userId) {
@@ -71,7 +71,7 @@ Partup.prototype.hasSupporter = function(userId) {
  * Check if given user is an upper in this partup
  *
  * @memberof Partups
- * @param {String} userId the user id of the user that should be checked
+ * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
 Partup.prototype.hasUpper = function(userId) {
