@@ -90,7 +90,9 @@ Meteor.publishComposite('users.loggedin', function() {
         },
         children: [
             {find: Images.findForUser},
-            {find: Networks.findForUser},
+            {find: Networks.findForUser, children: [
+                {find: Images.findForNetwork}
+            ]},
             {find: Notifications.findForUser, children: [
                 {find: Images.findForNotification}
             ]}
