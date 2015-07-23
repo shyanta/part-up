@@ -62,9 +62,6 @@ Updates = new Mongo.Collection('updates', {
     }
 });
 
-/**
- * Partups collection helpers
- */
 Updates.findForUpdates = function(partupId, options) {
     var self = this;
 
