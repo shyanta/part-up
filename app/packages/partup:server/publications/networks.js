@@ -94,6 +94,7 @@ Meteor.publishComposite('networks.one', function(networkId) {
         },
         children: [
             {find: Images.findForNetwork},
+            {find: Invites.findForNetwork},
             {
                 find: function() {
                     return Networks.guardedFind(self.userId, {_id: networkId}, {limit: 1});
