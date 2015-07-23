@@ -68,15 +68,15 @@ Meteor.methods({
                 supporters: {$in: [upper._id]}
             });
 
+            var partup = Partups.findOneOrFail(update.partup_id);
             if (!isUpperInPartup && !isUpperSupporterInPartup) {
-                var partup = Partups.findOneOrFail(update.partup_id);
                 Partups.update(partup._id, {$push: {'supporters': upper._id}});
                 Meteor.users.update(upper._id, {$push: {'supporterOf': partup._id}});
 
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
 
-            // Event.emit('updates.comments.inserted', upper, update, comment);
+            Event.emit('updates.comments.inserted', upper, partup, update, comment);
 
             return {
                 _id: comment._id
