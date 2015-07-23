@@ -20,14 +20,16 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
     var contributionUpper = Meteor.users.findOne(contribution.upper_id);
     if (!contributionUpper) return Log.error('User [' + contribution.upper_id + '] for Contribution [' + contribution._id + '] could not be found?');
 
+    var rater = Meteor.users.findOne(userId);
+
     var notificationOptions = {
         userId: contributionUpper._id,
         type: 'contributions_ratings_inserted',
         typeData: {
             rater: {
-                id: contributionUpper._id,
-                name: contributionUpper.profile.name,
-                image: contributionUpper.profile.image
+                _id: rater._id,
+                name: rater.profile.name,
+                image: rater.profile.image
             }
         }
     };
