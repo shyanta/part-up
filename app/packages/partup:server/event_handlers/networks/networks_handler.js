@@ -30,6 +30,7 @@ Event.on('networks.invited', function(user, networkId, upperId) {
         type: 'partups_networks_invited',
         typeData: {
             network: {
+                _id: network._id,
                 name: network.name,
                 image: network.image
             }
@@ -49,6 +50,7 @@ Event.on('networks.accepted', function(userId, networkId, upperId) {
         type: 'partups_networks_accepted',
         typeData: {
             network: {
+                _id: network._id,
                 name: network.name,
                 image: network.image
             }
