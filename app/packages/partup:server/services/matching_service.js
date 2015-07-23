@@ -38,7 +38,7 @@ Partup.server.services.matching = {
         // And finally, sort the results based on location and search input
         if (query.locationId) {
             results = _.sortBy(results, function(upper) {
-                if (!upper.location.place_id) return false;
+                if (!upper.location || !upper.location.place_id) return false;
                 return upper.location.place_id == query.locationId;
             });
         }
