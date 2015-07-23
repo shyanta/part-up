@@ -6,7 +6,7 @@ Event.on('networks.invited', function(user, networkId, upperId) {
 
     // Compile the E-mail template and send the email
     SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));
-    var url = Meteor.absoluteUrl() + 'networks/' + network._id;
+    var url = Meteor.absoluteUrl() + 'tribes/' + network._id;
     var upper = Meteor.users.findSinglePrivateProfile(upperId).fetch()[0];
     var upperEmail = upper.emails[0].address;
 
