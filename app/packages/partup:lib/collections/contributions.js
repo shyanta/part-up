@@ -12,7 +12,7 @@ Contributions = new Meteor.Collection('contributions');
  * @param {Update} update
  * @return {Mongo.Cursor|Void}
  */
-Activities.findForUpdate = function(update) {
+Contributions.findForUpdate = function(update) {
     if (!update.isContributionUpdate()) return;
 
     return Contributions.find({_id: update.type_data.contribution_id}, {limit: 1});

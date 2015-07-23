@@ -10,7 +10,7 @@
  *   addtitional related information such as users and their profile pictures
  */
 var updateChildren = [
-    {find: Meteor.users.findForUpdate, children: [
+    {find: Meteor.users.findUserForUpdate, children: [
         {find: Images.findForUser}
     ]},
     {find: Images.findForUpdate},
