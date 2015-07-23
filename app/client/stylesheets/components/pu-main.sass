@@ -1,29 +1,19 @@
-html, body,
 .pu-main
-    width: 100%
-    height: 100%
-    overflow: hidden
+    position: relative
+
+    .pu-modal,
+    .pu-app
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        vertical-align: top
+        z-index: 0
 
     &.bender-animating
         overflow: hidden
         pointer-events: none
 
-.pu-main,
-.pu-main .pu-modal,
-.pu-main .pu-app
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    vertical-align: top
-    z-index: 0
-
-.pu-main
-    overflow: auto
-    -webkit-overflow-scrolling: touch
-
-    .pu-modal,
-    .pu-app
-        &.velocity-animating
-            z-index: 1
+    &.velocity-animating
+        z-index: 1

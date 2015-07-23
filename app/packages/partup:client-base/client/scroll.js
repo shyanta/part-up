@@ -6,41 +6,27 @@
  */
 var INFINITE_SCROLL_OFFSET = 2000;
 var INFINITE_SCROLL_DEBOUNCE = 40;
-var SCROLLING_ELEMENT_SELECTOR = '.pu-main';
 
 Partup.client.scroll = {
 
-    _element: null,
     _initialised: false,
-    init: function(element) {
-        if (Partup.client.scroll._initialised) return console.warn('scroll.js: cannot initialise multiple times');
+    init: function() {
+        var self = this;
+        if (this._initialised) return console.warn('scroll.js: cannot initialise multiple times');
 
-        Partup.client.scroll._initialised = true;
-        Partup.client.scroll._element = element;
+        this._initialised = true;
 
         // Debounced update function
-        var d = lodash.debounce(Partup.client.scroll.triggerUpdate, 10);
+        var d = lodash.debounce(function() {
+            self.triggerUpdate.apply(self);
+        }, 10);
 
         // Trigger a scroll update when the user scrolls
-        $(Partup.client.scroll._element).on('scroll', d);
+        $(window).scroll(d);
 
         // Trigger a scroll update when every template is being rendered
         Template.onRendered(function() {
             Meteor.defer(d);
-        });
-
-        // Force mousewheel movement to scroll _element
-        var scroller = this._element;
-        var _checkedWith = null;
-        var _isPrevented = false;
-        $(scroller).on('mousewheel', function(e) {
-            var isSame = _checkedWith === e.target;
-            _isPrevented = _isPrevented && isSame || !isSame && Partup.client.elements.checkIfElementIsBelow(e.target, '.pu-js-preventmainscroll');
-            _checkedWith = e.target;
-            if (_isPrevented) return;
-
-            scroller.scrollTop += e.deltaY || e.originalEvent.deltaY;
-            _isPrevented = false;
         });
     },
 
@@ -57,9 +43,7 @@ Partup.client.scroll = {
      * @memberof Partup.client.scroll
      */
     maxScroll: function() {
-        if (!this._element) return 0;
-
-        return this._element.scrollHeight - this._element.clientHeight;
+        return document.body.scrollHeight - window.innerHeight;
     },
 
     /**
@@ -68,10 +52,8 @@ Partup.client.scroll = {
      * @memberof Partup.client.scroll
      */
     triggerUpdate: function() {
-        if (!Partup.client.scroll._element) return;
-
-        Partup.client.scroll.pos.set(Partup.client.scroll._element.scrollTop);
-        Partup.client.scroll.pos.dep.changed();
+        this.pos.set(window.scrollY);
+        this.pos.dep.changed();
     },
 
     /**
@@ -84,16 +66,16 @@ Partup.client.scroll = {
      * @param callback {Function}        Infinite scroll callback
      */
     infinite: function(options, callback) {
+        var self = this;
+
         options = options || {};
         options.offset = options.offset || INFINITE_SCROLL_OFFSET;
         if (!options.template) return;
         if (!options.element) return;
 
-        var trigger = function(pos) {
-            if (!Partup.client.scroll._element) return;
-
+        var trigger = function() {
             var bottomPosition = options.element.getBoundingClientRect().bottom;
-            var bottomInView = bottomPosition - Partup.client.scroll._element.clientHeight;
+            var bottomInView = bottomPosition - window.innerHeight;
             if (bottomInView < INFINITE_SCROLL_OFFSET) {
                 if (!options.template.view.isDestroyed) callback();
             }
@@ -101,7 +83,7 @@ Partup.client.scroll = {
         var debounced_trigger = lodash.debounce(trigger, INFINITE_SCROLL_DEBOUNCE);
 
         options.template.autorun(function() {
-            Partup.client.scroll.pos.get();
+            self.pos.get();
             Tracker.nonreactive(debounced_trigger);
         });
     },
@@ -115,13 +97,12 @@ Partup.client.scroll = {
      */
     inView: function(element) {
         if (!element) return false;
-        if (!Partup.client.scroll._element) return false;
 
         // Call the this.pos.get() function to make this function reactive
         this.pos.get();
 
         // Return whether the element is in viewport
-        return element.offsetTop >= 0 && element.offsetTop + element.clientHeight <= this._element.clientHeight;
+        return element.offsetTop >= 0 && element.offsetTop + element.clientHeight <= window.innerHeight;
     },
 
     /**
@@ -152,7 +133,7 @@ Partup.client.scroll = {
         position = Math.min(position, this.maxScroll());
 
         // Trigger scroll
-        $(this._element).animate({
+        $('html, body').animate({
             scrollTop: position
         }, duration, 'swing', function() {
             if (callback) callback.apply(window);

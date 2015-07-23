@@ -68,9 +68,7 @@ Template.app_partup.onRendered(function() {
 
             // Wait for the dom to be rendered according to the changed 'subscriptionsReady'
             Meteor.defer(function() {
-                partupDetailLayout.init.apply(partupDetailLayout, [{
-                    scrolling_element: Partup.client.scroll._element
-                }]);
+                partupDetailLayout.init.apply(partupDetailLayout);
             });
         }
     });
@@ -95,16 +93,11 @@ Template.app_partup.helpers({
 /* Partup scroll logic */
 /*************************************************************/
 var getScrollTop = function() {
-    return Partup.client.scroll.pos.get();
+    return window.scrollY;
 };
 var partupDetailLayout = {
 
-    scrolling_element: null,
-
-    init: function(options) {
-
-        this.scrolling_element = options.scrolling_element;
-        if (!this.scrolling_element) return console.warn('partup scroll logic error: could not find scrolling element');
+    init: function() {
 
         this.container = document.querySelector('[data-layout-container]');
         if (!this.container) return console.warn('partup scroll logic error: could not find container');
@@ -141,8 +134,8 @@ var partupDetailLayout = {
         this.checkScroll();
 
         window.addEventListener('resize', this.bound.onResize);
-        this.scrolling_element.addEventListener('scroll', this.bound.onScrollStart);
-        this.scrolling_element.addEventListener('scroll', this.bound.onScrollEnd);
+        window.addEventListener('scroll', this.bound.onScrollStart);
+        window.addEventListener('scroll', this.bound.onScrollEnd);
 
         var self = this;
         this.interval = setInterval(function() {
@@ -163,8 +156,8 @@ var partupDetailLayout = {
         this.right.style.top = '';
 
         window.removeEventListener('resize', this.bound.onResize);
-        this.scrolling_element.removeEventListener('scroll', this.bound.onScrollStart);
-        this.scrolling_element.removeEventListener('scroll', this.bound.onScrollEnd);
+        window.removeEventListener('scroll', this.bound.onScrollStart);
+        window.removeEventListener('scroll', this.bound.onScrollEnd);
 
         clearInterval(this.interval);
     },
@@ -217,7 +210,7 @@ var partupDetailLayout = {
 
     preScroll: function() {
         var r = this.getRects();
-        var br = this.scrolling_element.getBoundingClientRect();
+        var br = document.body.getBoundingClientRect();
         var scol;
         var lcol;
 
@@ -230,7 +223,7 @@ var partupDetailLayout = {
         }
 
         this.lastScrollTop = getScrollTop();
-        this.maxScroll =  r[lcol].height - br.bottom + 60;
+        this.maxScroll =  r[lcol].height - window.innerHeight;
         this.maxPos = this.containerHeight.get() - r[scol].height;
     },
 
@@ -238,8 +231,8 @@ var partupDetailLayout = {
         this.lastDirection = this.lastDirection || 'down';
         var scrollTop = getScrollTop();
         var r = this.getRects();
-        var br = this.scrolling_element.getBoundingClientRect();
-        var iH = br.bottom - br.top;
+        var br = document.body.getBoundingClientRect();
+        var iH = window.innerHeight;
         var direction = (scrollTop === this.lastScrollTop) ? this.lastDirection : scrollTop > this.lastScrollTop ? 'down' : 'up';
         var top;
         var pos;
