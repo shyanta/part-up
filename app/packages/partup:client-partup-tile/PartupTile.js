@@ -25,6 +25,16 @@ The PartupTile template is mostly used in a ColumnsLayout widget
 Template.PartupTile.onRendered(function() {
     var canvasElm = this.find('canvas.pu-sub-radial');
     if (canvasElm) drawCircle(canvasElm);
+
+    var tagsEl = this.find('.pu-sub-partup-tags');
+    if (tagsEl) {
+        var br = document.body.getBoundingClientRect();
+        var rect = tagsEl.getBoundingClientRect();
+
+        if (rect.right > br.right) {
+            tagsEl.classList.add('pu-state-right');
+        }
+    }
 });
 
 /*************************************************************/
