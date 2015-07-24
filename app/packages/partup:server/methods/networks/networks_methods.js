@@ -86,7 +86,7 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_email: email, type: Invites.INVITE_TYPE_ACTIVITY_EMAIL});
+        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_email: email, type: Invites.INVITE_TYPE_NETWORK_EMAIL});
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }
@@ -113,7 +113,7 @@ Meteor.methods({
         });
 
         var invite = {
-            type: Invites.INVITE_TYPE_ACTIVITY_EMAIL,
+            type: Invites.INVITE_TYPE_NETWORK_EMAIL,
             network_id: network._id,
             inviter_id: inviter._id,
             invitee_name: name,
@@ -143,7 +143,7 @@ Meteor.methods({
         }
 
         var invitee = Meteor.users.findOneOrFail(inviteeId);
-        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_id: invitee._id, inviter_id: inviter._id, type: Invites.INVITE_TYPE_EXISTING_UPPER});
+        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_id: invitee._id, inviter_id: inviter._id, type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER});
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'user_is_already_invited_to_network');
         }
@@ -167,7 +167,7 @@ Meteor.methods({
         Partup.server.services.notifications.send(notificationOptions);
 
         var invite = {
-            type: Invites.INVITE_TYPE_EXISTING_UPPER,
+            type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
             network_id: network._id,
             inviter_id: inviter._id,
             invitee_id: invitee._id,
