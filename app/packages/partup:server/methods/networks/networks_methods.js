@@ -209,7 +209,7 @@ Meteor.methods({
                 var invite = network.isUpperInvited(user._id);
 
                 if (invite) {
-                    network.addInvitedUpper(user._id, invite);
+                    network.addInvitedUpper(user._id);
                     return Log.debug('User added to invitational network.');
                 } else {
                     if (network.addPendingUpper(user._id)) {

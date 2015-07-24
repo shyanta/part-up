@@ -145,10 +145,9 @@ Network.prototype.canUpperLeave = function(upperId) {
  *
  * @memberof Networks
  * @param {String} upperId the user id of the user to be added
- * @param {String} invite ?
  */
-Network.prototype.addInvitedUpper = function(upperId, invite) {
-    Networks.update(this._id, {$pull: {invites: invite}, $push: {uppers: upperId}});
+Network.prototype.addInvitedUpper = function(upperId) {
+    Networks.update(this._id, {$push: {uppers: upperId}});
     Meteor.users.update(upperId, {$push: {networks: this._id}});
 };
 
