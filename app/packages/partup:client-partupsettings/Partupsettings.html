@@ -172,7 +172,9 @@
                             <span class="pu-inputcontainer pu-inputcontainer-select">
                                 <select class="pu-input pu-input-select" data-whocanview>
                                     {{# each privacyTypes }}
-                                        <option value="privacy-{{_ value }}">{{_ label }}</option>
+                                        {{#unless disabled}}
+                                            <option value="privacy-{{_ value }}" {{disabled}}>{{_ label }} {{#if disabledText}}{{_ disabledText }}{{/if}}</option>
+                                        {{/unless}}
                                     {{/ each }}
                                     {{# if userNetworks }}
                                         <option disabled></option>
