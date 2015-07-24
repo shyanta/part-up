@@ -3,14 +3,46 @@
     <article class="pu-page pu-page-tinted pu-page-home">
         <header class="pu-sub-pageheader pu-sub-pageheader-title {{# if shrinkHeader }}pu-sub-pageheader-title-shrinked{{/ if }}">
             <section class="pu-wrap">
-                <h1 class="pu-title">{{_ 'pages-app-home-heading'}}</h1>
+                {{# unless currentUser }}
+                    <h1 class="pu-title">{{_ 'pages-app-home-heading'}}</h1>
+                {{ else }}
+                    <h1 class="pu-title">{{_ 'pages-app-home-loggedin-heading' name=firstName greeting=greeting }}</h1>
+                {{/ unless }}
             </section>
         </header>
         <div class="pu-sub-pagecontent">
             <section class="pu-wrap pu-article">
-                {{{_ 'pages-app-home-paragraph-HTML' }}}
+                {{# unless currentUser }}
+                    <p>{{_ 'pages-app-home-paragraph' }}</p>
+                    <p>
+                        {{# unless videoWatched }}
+                            <a href="#" class="pu-button" data-open-video-modal>{{_ 'pages-app-home-videobutton' }}</a>
+                        {{ else }}
+                            <a href="{{ pathFor 'register' }}" class="pu-button" data-signup>{{_ 'pages-app-home-signup' }}</a>
+                        {{/ unless }}
+                    </p>
+                {{ else }}
+                    <p>{{_ 'pages-app-home-loggedin-paragraph' }}</p>
+                    <p class="pu-list pu-list-horizontal pu-list-buttons">
+                        <li>
+                            <a href="{{ pathFor 'create' }}" class="pu-button">{{_ 'pages-app-home-loggedin-startpartup' }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ pathFor 'discover' }}" class="pu-button">{{_ 'pages-app-home-loggedin-discoverpartups' }}</a>
+                        </li>
+                    </p>
+                {{/ unless }}
             </section>
         </div>
     </article>
+
+    {{# if partupIsPopupActive 'video' }}
+        {{# contentFor 'PopupTitle' }}
+            {{_ 'pages-app-home-videopopupheader' }}
+        {{/ contentFor }}
+        {{# contentFor 'PopupContent' }}
+            <iframe width="700" height="394" src="https://www.youtube.com/embed/{{_ 'pages-app-home-videopopupyoutubeid' }}?rel=0&showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
+        {{/ contentFor }}
+    {{/ if }}
 
 </template>
