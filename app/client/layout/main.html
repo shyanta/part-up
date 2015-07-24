@@ -5,4 +5,11 @@
     {{> Popup }}
     {{> Prompt }}
     {{> UserHoverCard }}
+
+    <!-- Make the popup really empty after close -->
+    {{# if noPopupActive }}
+        {{# contentFor 'PopupTitle' }}{{/ contentFor }}
+        {{# contentFor 'PopupContent' }}{{/ contentFor }}
+    {{/ if }}
 </template>
+

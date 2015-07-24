@@ -12,6 +12,12 @@ Template.main.onRendered(function() {
     }
 });
 
+Template.main.helpers({
+    noPopupActive: function() {
+        return !Partup.client.popup.current.get();
+    }
+});
+
 Meteor.startup(function() {
     Partup.client.scroll.init();
 });
