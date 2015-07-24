@@ -1,23 +1,17 @@
-/**
- * Activities created
- */
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 Template.app_partup_activities.onCreated(function() {
     var tpl = this;
 
-    tpl.subscribe('partups.one', tpl.data.partupId);
-    tpl.activitiesSubscription = tpl.subscribe('activities.from_partup', tpl.data.partupId);
-
-    Meteor.autorun(function whenSubscriptionIsReady(computation) {
-        if (tpl.activitiesSubscription.ready()) {
-            computation.stop();
-            tpl.activities.loading.set(false);
-        }
-    });
+    Subs.subscribe('activities.from_partup', tpl.data.partupId);
 
     tpl.activities = {
 
         // States
-        loading: new ReactiveVar(true),
+        loading: new ReactiveVar(false),
         rendering: new ReactiveVar(),
 
         // Filter
@@ -29,38 +23,27 @@ Template.app_partup_activities.onCreated(function() {
 
             var filter = tpl.activities.filter.get();
 
-            var selector = {
-                partup_id: tpl.data.partupId,
-                archived: !!options.archived
-            };
-
-            return Activities
-                .find(selector, {sort: {end_date: -1}})
+            var activities = Activities
+                .findForPartup(tpl.data.partupId, {sort: {end_date: -1}}, {archived: !!options.archived})
                 .fetch()
                 .filter(function(activity, idx) {
-                    if (filter === 'default') return true;
-
-                    if (filter === 'my-activities') {
+                    if (filter === 'my-activities')
                         return activity.creator_id && activity.creator_id === Meteor.user()._id;
-                    }
 
-                    if (filter === 'open-activities') {
+                    if (filter === 'open-activities')
                         return Contributions.find({activity_id: activity._id}).count() === 0;
-                    }
 
                     return true;
                 });
+
+            return activities;
         }
     };
 });
 
-/**
- * Activities helpers
- */
 Template.app_partup_activities.helpers({
-
     activities: function() {
-        return Template.instance().activities.all();
+        return Activities.findForPartup(this.partupId, {sort: {end_date: -1}}, {archived: false});
     },
     archivedActivities: function() {
         return Template.instance().activities.all({archived: true});

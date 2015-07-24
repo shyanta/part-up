@@ -1,14 +1,19 @@
-/*************************************************************/
-/* Page created */
-/*************************************************************/
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 Template.app_partup.onCreated(function() {
     var template = this;
-    template.partupSubscription = template.subscribe('partups.one', template.data.partupId);
 
-    template.autorun(function() {
-
+    Subs.subscribe('activities.from_partup', template.data.partupId);
+    Subs.subscribe('updates.from_partup', template.data.partupId);
+    Subs.subscribe('partups.one', template.data.partupId, function() {
         var partup = Partups.findOne({_id: template.data.partupId});
-        if (!partup) return;
+        if (!partup) return Router.pageNotFound('partup');
+
+        var userId = Meteor.userId();
+        if (!partup.isViewableByUser(userId)) return Router.pageNotFound('partup-closed');
 
         var seo = {
             title: partup.name,
@@ -41,42 +46,22 @@ Template.app_partup.onCreated(function() {
             });
         }
     });
-
-    Meteor.autorun(function whenSubscriptionIsReady(computation) {
-        if (template.partupSubscription.ready()) {
-            computation.stop();
-            Tracker.nonreactive(function() {
-                var partup = Partups.findOne({_id: template.data.partupId});
-                var userId = Meteor.userId();
-
-                if (!partup) Router.pageNotFound('partup');
-                if (!partup.isViewableByUser(userId)) Router.pageNotFound('partup-closed');
-            });
-        }
-    });
 });
 
-/*************************************************************/
-/* Page rendered */
-/*************************************************************/
 Template.app_partup.onRendered(function() {
     var tpl = this;
 
     tpl.autorun(function(computation) {
-        if (tpl.partupSubscription.ready()) {
-            computation.stop();
+        var partup = Partups.findOne({_id: tpl.data.partupId});
+        if (!partup) return;
 
-            // Wait for the dom to be rendered according to the changed 'subscriptionsReady'
-            Meteor.defer(function() {
-                partupDetailLayout.init.apply(partupDetailLayout);
-            });
-        }
+        // Wait for the dom to be rendered according to the changed 'subscriptionsReady'
+        Meteor.defer(function() {
+            partupDetailLayout.init.apply(partupDetailLayout);
+        });
     });
 });
 
-/*************************************************************/
-/* Page helpers */
-/*************************************************************/
 Template.app_partup.helpers({
 
     partup: function() {
@@ -89,9 +74,6 @@ Template.app_partup.helpers({
 
 });
 
-/*************************************************************/
-/* Partup scroll logic */
-/*************************************************************/
 var getScrollTop = function() {
     return window.scrollY;
 };

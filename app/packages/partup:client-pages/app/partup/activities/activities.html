@@ -33,15 +33,15 @@
         </header>
 
         <!-- Loading/rendering state -->
-        {{# if activitiesLoadingOrRendering }}
+        <!-- {{# if activitiesLoadingOrRendering }}
             {{> Loader ALIGNMENT='center' }}
-        {{/ if }}
+        {{/ if }} -->
 
         <!-- Not-loading state -->
-        {{# unless activitiesLoading }}
+        <!-- {{# unless activitiesLoading }} -->
 
             <!-- Render asynchronously -->
-            {{# async callback=activitiesRenderedCallback }}
+            <!-- {{# async callback=activitiesRenderedCallback }} -->
 
                 {{# each activities }}
                     {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
@@ -70,9 +70,9 @@
                     {{/unless }}
                 {{/unless }}
 
-            {{/ async }}
+            <!-- {{/ async }} -->
 
-        {{/ unless }}
+        <!-- {{/ unless }} -->
 
     </div>
 </template>

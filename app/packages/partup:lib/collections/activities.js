@@ -29,3 +29,23 @@ Activities.findForUpdate = function(update) {
 Activities.findForContribution = function(contribution) {
     return Activities.find({_id: contribution.activity_id}, {limit: 1});
 };
+
+/**
+ * Find activities for partup
+ *
+ * @memberOf Activities
+ * @param {Contribution} contribution
+ * @return {Mongo.Cursor}
+ */
+Activities.findForPartup = function(partup_id, options, parameters) {
+    options = options || {};
+    parameters = parameters || {};
+
+    var selector = {
+        partup_id: partup_id
+    };
+
+    if (parameters.archived) selector.archived = true;
+
+    return Activities.find(selector, options);
+};

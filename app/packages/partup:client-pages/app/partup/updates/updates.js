@@ -1,3 +1,8 @@
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 /**
  * Updates created
  */
@@ -12,7 +17,7 @@ Template.app_partup_updates.onCreated(function() {
         INCREMENT: 30,
 
         // States
-        loading: new ReactiveVar(true),
+        loading: new ReactiveVar(false),
         rendering: new ReactiveVar(),
         infinite_scroll_loading: new ReactiveVar(false),
         end_reached: new ReactiveVar(true),
@@ -54,34 +59,16 @@ Template.app_partup_updates.onCreated(function() {
 
         // Options reactive variable (on change, update the whole view model)
         options: new ReactiveVar({}, function(a, b) {
-            tpl.updates.loading.set(true);
-
             tpl.updates.resetLimit();
 
             var options = b;
             options.limit = tpl.updates.limit.get();
 
-            var oldHandle = tpl.updates.handle;
-            tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
-
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.updates.handle.ready()) {
-                    computation.stop(); // Stop the autorun
-                    if (oldHandle) oldHandle.stop();
-
-                    /**
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Update the model (recall the findForUpdates, with the new limit)
-                     * - Refresh the view model
-                     */
-                    Tracker.nonreactive(function replacePartups() {
-                        tpl.updates.updateModel();
-                        tpl.updates.updateView();
-                    });
-
-                    // Unset loading state
-                    tpl.updates.loading.set(false);
-                }
+            tpl.updates.loading.set(true);
+            Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
+                tpl.updates.loading.set(false);
+                tpl.updates.updateModel();
+                tpl.updates.updateView();
             });
         }),
 
@@ -97,47 +84,27 @@ Template.app_partup_updates.onCreated(function() {
             var first = b === tpl.updates.STARTING_LIMIT;
             if (first) return;
 
-            tpl.updates.infinite_scroll_loading.set(true);
-
             var options = tpl.updates.options.get();
             options.limit = b;
 
-            var oldHandle = tpl.updates.handle;
-            tpl.updates.handle = tpl.subscribe('updates.from_partup', tpl.data.partupId, options);
+            tpl.updates.infinite_scroll_loading.set(true);
+            Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
+                tpl.updates.infinite_scroll_loading.set(false);
 
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.updates.handle.ready()) {
-                    computation.stop(); // Stop the autorun
-                    if (oldHandle) oldHandle.stop();
+                var modelUpdates = tpl.updates.updateModel();
+                var viewUpdates = tpl.updates.view.get();
 
-                    /*
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Update the model (recall the findForUpdates, with the new limit)
-                     * - Get the current viewmodel
-                     * - Determine whether the end is reached
-                     * - Determine the added updates by comparing the _ids
-                     * - Add the added updates to the current view model
-                     **/
-                    Tracker.nonreactive(function addPartups() {
-                        var modelUpdates = tpl.updates.updateModel();
-                        var viewUpdates = tpl.updates.view.get();
+                var difference = modelUpdates.length - viewUpdates.length;
+                var end_reached = difference < tpl.updates.INCREMENT;
+                tpl.updates.end_reached.set(end_reached);
 
-                        var difference = modelUpdates.length - viewUpdates.length;
-                        var end_reached = difference < tpl.updates.INCREMENT;
-                        tpl.updates.end_reached.set(end_reached);
-
-                        var addedUpdates = mout.array.filter(modelUpdates, function(update) {
-                            return !mout.array.find(viewUpdates, function(_update) {
-                                return update._id === _update._id;
-                            });
-                        });
-
-                        tpl.updates.addToView(addedUpdates);
+                var addedUpdates = mout.array.filter(modelUpdates, function(update) {
+                    return !mout.array.find(viewUpdates, function(_update) {
+                        return update._id === _update._id;
                     });
+                });
 
-                    // Unset loading state
-                    tpl.updates.infinite_scroll_loading.set(false);
-                }
+                tpl.updates.addToView(addedUpdates);
             });
         }),
 
