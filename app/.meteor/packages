@@ -90,3 +90,4 @@ partup:client-spinner
 partup:client-update
 partup:client-usercard
 partup:meteor-bender
+meteorhacks:subs-manager

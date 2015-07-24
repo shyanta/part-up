@@ -7,7 +7,8 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
-        'tap:i18n'
+        'tap:i18n',
+        'meteorhacks:subs-manager'
     ], ['client', 'server']);
 
     api.use([
@@ -17,7 +18,7 @@ Package.onUse(function(api) {
         'reactive-var',
         'aldeed:autoform',
         'yogiben:autoform-tags',
-        'http'
+        'http',
     ], 'client');
 
     var clientFiles = [

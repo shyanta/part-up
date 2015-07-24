@@ -5,6 +5,11 @@
  * @param partupsOptions {ReactiveVar} - The reactive-var for the query options
  */
 
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 /**
  * Discover-page created
  */
@@ -58,26 +63,13 @@ Template.app_discover_page.onCreated(function() {
 
                 var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
                 if (tpl.partups.handle) tpl.partups.handle.stop();
-                tpl.partups.handle = tpl.subscribe('partups.ids', limitedIds);
+                Subs.subscribe('partups.ids', limitedIds, function() {
+                    tpl.partups.loading.set(false);
 
-                Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                    if (tpl.partups.handle.ready()) {
-                        computation.stop();
-                        tpl.partups.loading.set(false);
+                    var partups = Partups.find({_id: {$in: tpl.partups.ids}}).fetch();
 
-                        /**
-                         * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                         * - Get all current partups from our local database
-                         * - Remove all partups from the column layout
-                         * - Add our partups to the layout
-                         */
-                        Tracker.nonreactive(function replacePartups() {
-                            var partups = Partups.find().fetch();
-
-                            tpl.partups.layout.items = tpl.partups.layout.clear();
-                            tpl.partups.layout.items = tpl.partups.layout.add(partups);
-                        });
-                    }
+                    tpl.partups.layout.items = tpl.partups.layout.clear();
+                    tpl.partups.layout.items = tpl.partups.layout.add(partups);
                 });
             });
         },
@@ -89,39 +81,23 @@ Template.app_discover_page.onCreated(function() {
 
             var limitedIds = tpl.partups.getLimitedIds(b);
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('partups.ids', limitedIds);
             tpl.partups.infinitescroll_loading.set(true);
+            Subs.subscribe('partups.ids', limitedIds, function() {
+                tpl.partups.infinitescroll_loading.set(false);
 
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
-                    computation.stop();
-                    tpl.partups.infinitescroll_loading.set(false);
+                var oldPartups = tpl.partups.layout.items;
+                var newPartups = Partups.find({_id: {$in: tpl.partups.ids}}).fetch();
 
-                    /*
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Get all currently rendered partups
-                     * - Get all current partups from our local database
-                     * - Compare the newPartups with the oldPartups to find the difference
-                     * - If no diffPartups were found, set the end_reached to true
-                     * - Add our partups to the layout
-                     */
-
-                    Tracker.nonreactive(function addPartups() {
-                        var oldPartups = tpl.partups.layout.items;
-                        var newPartups = Partups.find().fetch();
-
-                        var diffPartups = mout.array.filter(newPartups, function(partup) {
-                            return !mout.array.find(oldPartups, function(_partup) {
-                                return partup._id === _partup._id;
-                            });
-                        });
-
-                        var end_reached = diffPartups.length === 0;
-                        tpl.partups.end_reached.set(end_reached);
-
-                        tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
+                var diffPartups = mout.array.filter(newPartups, function(partup) {
+                    return !mout.array.find(oldPartups, function(_partup) {
+                        return partup._id === _partup._id;
                     });
-                }
+                });
+
+                var end_reached = diffPartups.length === 0;
+                tpl.partups.end_reached.set(end_reached);
+
+                tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
             });
         }),
 
