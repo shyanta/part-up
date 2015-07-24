@@ -5,8 +5,8 @@
     "pages-modal-partup_settings-save": "Save changes",
     "pages-modal-partup_settings-delete": "I want to delete this part-up",
 
-    "pages-modal-partup_settings-confirmation-title": "@Are you shure?",
-    "pages-modal-partup_settings-confirmation-message": "@Deleting a Part-up cannot be undone.",
-    "pages-modal-partup_settings-confirmation-confirm-button": "@Yes, delete my Part-up",
-    "pages-modal-partup_settings-confirmation-cancel-button": "@Cancel"
+    "pages-modal-partup_settings-confirmation-title": "Are you sure?",
+    "pages-modal-partup_settings-confirmation-message": "Deleting a Part-up cannot be undone.",
+    "pages-modal-partup_settings-confirmation-confirm-button": "Yes, delete",
+    "pages-modal-partup_settings-confirmation-cancel-button": "Cancel"
 }

@@ -1,34 +1,34 @@
 {
-    "network-settings-intro-title": "@Tribe information",
-    "network-settings-intro-paragraph": "@Adjust the Tribe settings here",
+    "network-settings-intro-title": "Manage your tribe profile",
+    "network-settings-intro-paragraph": "Manage the profile information for your tribe. This is the basis of your public tribe profile.",
 
     "network-settings-form-characters": "max %d characters",
     "network-settings-form-characters-left": "%d characters left",
     "network-settings-form-submit": "Save changes",
     "network-settings-form-saved": "Changes saved",
 
-    "network-settings-form-image-label": "Logo",
+    "network-settings-form-image-label": "Tribe logo",
     "network-settings-form-image-button": "Photo from your computer",
     "network-settings-form-image-info": "Minimum 200 pixels",
     "network-settings-form-image-error": "Failed to upload image",
 
     "network-settings-form-icon-label": "Icon",
     "network-settings-form-icon-button": "Photo from your computer",
-    "network-settings-form-icon-info": "Optimally 32 x 32 pixels",
+    "network-settings-form-icon-info": "Ideally 32 x 32 pixels",
     "network-settings-form-icon-error": "Failed to upload icon",
 
-    "network-settings-form-name-label": "Name",
-    "network-settings-form-name-placeholder": "@Placeholder",
+    "network-settings-form-name-label": "Tribe name",
+    "network-settings-form-name-placeholder": "@My tribe",
 
-    "network-settings-form-description-label": "Description",
-    "network-settings-form-description-placeholder": "@Placeholder",
+    "network-settings-form-description-label": "The tribe purpose",
+    "network-settings-form-description-placeholder": "Start with why, because it's connecting to the purpose and drive that boosts uppers engagement.",
 
-    "network-settings-form-tags_input-label": "You, in 5 words",
-    "network-settings-form-tags_input-placeholder": "Separated with a comma please",
+    "network-settings-form-tags_input-label": "What this tribe is all about in (five) tags",
+    "network-settings-form-tags_input-placeholder": "Please separate with a comma",
 
-    "network-settings-form-location_input-label": "Location",
-    "network-settings-form-location_input-placeholder": "@Placeholder",
+    "network-settings-form-location_input-label": "Tribe location",
+    "network-settings-form-location_input-placeholder": "@The location where the part-up will take place",
 
-    "network-settings-form-website-label": "Website",
-    "network-settings-form-website-placeholder": "@Placeholder"
+    "network-settings-form-website-label": "Tribe website",
+    "network-settings-form-website-placeholder": "www.blog-or-website.com"
 }

@@ -2,16 +2,16 @@
     "modal-profilesettings-close-button": "Close",
     "modal-profilesettings-tab-account": "General",
     "modal-profilesettings-tab-details": "Profile",
-    "modal-profilesettings-tab-email": "E-mail",
+    "modal-profilesettings-tab-email": "E-mail updates",
 
-    "modal-profilesettings-details-title": "Profile settings",
-    "modal-profilesettings-details-text-explaination": "Profile explaination ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+    "modal-profilesettings-details-title": "Manage your profile settings",
+    "modal-profilesettings-details-text-explaination": "Feel free to change any profile information. This is the basis of your public Part-up profile.",
 
-    "modal-profilesettings-email-title": "E-mail settings",
-    "modal-profilesettings-email-text-explaination": "Email explaination ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+    "modal-profilesettings-email-title": "E-mail update settings",
+    "modal-profilesettings-email-text-explaination": "We love to keep you up to date on your part-ups in the notifications. If it helps you to keep connected, we can also send you email updates. Do you like to reduce or increase the number of email updates? Change your update preferences below.",
 
-    "modal-profilesettings-account-title": "General settings",
-    "modal-profilesettings-account-text-explaination": "General explaination ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+    "modal-profilesettings-account-title": "Manage your account",
+    "modal-profilesettings-account-text-explaination": "Here, you can edit your account settings. Do you want to update your profile? You can find the link in the menu on the left.",
 
     "modal-profilesettings-account-currentpassword": "@Current password",
     "modal-profilesettings-account-password": "@New password",
@@ -24,12 +24,12 @@
     "modal-profilesettings-account-button-twitter": "Twitter",
 
     "modal-profilesettings-account-label-language": "@In what language should Partup be displayed?",
-    "modal-profilesettings-account-hint-language": "@Choose the language for Part-up",
+    "modal-profilesettings-account-hint-language": "@Choose the language for the Part-up application",
 
-    "modal-profilesettings-account-option-language-dutch": "@Dutch",
-    "modal-profilesettings-account-option-language-english": "@English",
+    "modal-profilesettings-account-option-language-dutch": "Dutch",
+    "modal-profilesettings-account-option-language-english": "English",
 
-    "modal-profilesettings-button-save": "@Save changes",
+    "modal-profilesettings-button-save": "Save changes",
 
     "modal-profilesettings-button-save_success": "Profile saved"
 }

@@ -4,9 +4,9 @@
     "profilesettings-form-image-button": "Foto vanaf jouw computer",
     "profilesettings-form-image-error": "Dit bestand kon niet worden geüpload",
 
-    "profilesettings-form-name_input-label": "@Voor- en achternaam",
-    "profilesettings-form-name_input-placeholder": "@John Doe",
-    "profilesettings-form-name_input-tooltip": "@Je voor en achternaam",
+    "profilesettings-form-name_input-label": "Voor- en achternaam",
+    "profilesettings-form-name_input-placeholder": "Je voor en achternaam",
+    "profilesettings-form-name_input-tooltip": "Je voor en achternaam",
 
     "profilesettings-form-location_input-label": "Waar wil je meedoen in part-ups?",
     "profilesettings-form-location_input-placeholder": "Bijvoorbeeld in je woonplaats of regio",

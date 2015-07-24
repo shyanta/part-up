@@ -2,16 +2,16 @@
     "modal-profilesettings-close-button": "Sluiten",
     "modal-profilesettings-tab-account": "Algemeen",
     "modal-profilesettings-tab-details": "Profiel",
-    "modal-profilesettings-tab-email": "E-mail",
+    "modal-profilesettings-tab-email": "E-mail updates",
 
-    "modal-profilesettings-details-title": "Profiel instellingen",
-    "modal-profilesettings-details-text-explaination": "Profiel uitleg ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+    "modal-profilesettings-details-title": "Beheer je profielinformatie",
+    "modal-profilesettings-details-text-explaination": "Wijzig eenvoudig je profielinformatie. Dit is de basis van je publieke Part-up profiel.",
 
     "modal-profilesettings-email-title": "E-mail instellingen",
-    "modal-profilesettings-email-text-explaination": "Email uitleg ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+    "modal-profilesettings-email-text-explaination": "Wij houden je graag op de hoogte van jouw part-ups. Als het je helpt ook per mail. Krijg je te vaak updates per mail, of juist niet vaak genoeg? Geef hieronder jouw (nieuwe) voorkeuren aan.",
 
-    "modal-profilesettings-account-title": "Algemene instellingen",
-    "modal-profilesettings-account-text-explaination": "Algemeen uitleg ipsum dolor sit amet, consectetur adipisicing elit. Accusamus repudiandae odit tenetur error, qui asperiores voluptatem. Aliquid architecto illo deleniti?",
+    "modal-profilesettings-account-title": "Beheer je account",
+    "modal-profilesettings-account-text-explaination": "Je kunt hier jouw account instellingen wijzigen. Wiel je iets toevoegen aan jouw profiel? Klik dan links in het menu op profiel.",
 
     "modal-profilesettings-account-currentpassword": "@Huidig wachtwoord",
     "modal-profilesettings-account-password": "@Nieuw wachtwoord",
@@ -24,12 +24,12 @@
     "modal-profilesettings-account-button-twitter": "Twitter",
 
     "modal-profilesettings-account-label-language": "@In welke taal moet Part-up worden weergegeven?",
-    "modal-profilesettings-account-hint-language": "@Kies de taal van Part-up",
+    "modal-profilesettings-account-hint-language": "@Kies de taal van de Part-up applicatie",
 
-    "modal-profilesettings-account-option-language-dutch": "@Nederlands",
-    "modal-profilesettings-account-option-language-english": "@Engels",
+    "modal-profilesettings-account-option-language-dutch": "Nederlands",
+    "modal-profilesettings-account-option-language-english": "Engels",
 
-    "modal-profilesettings-button-save": "@Wijzigingen opslaan",
+    "modal-profilesettings-button-save": "Wijzigingen opslaan",
 
     "modal-profilesettings-button-save_success": "Profiel opgeslagen"
 }

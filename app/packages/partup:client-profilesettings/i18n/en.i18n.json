@@ -4,9 +4,9 @@
     "profilesettings-form-image-button": "Photo from my computer",
     "profilesettings-form-image-error": "Could not upload this file",
 
-    "profilesettings-form-name_input-label": "@First and lastname",
-    "profilesettings-form-name_input-placeholder": "@John Doe",
-    "profilesettings-form-name_input-tooltip": "@Your first and lastname",
+    "profilesettings-form-name_input-label": "First and lastname",
+    "profilesettings-form-name_input-placeholder": "Your first and lastname",
+    "profilesettings-form-name_input-tooltip": "Your first and lastname",
 
     "profilesettings-form-location_input-label": "Where do you want to join part-ups?",
     "profilesettings-form-location_input-placeholder": "For example in your home town or region",

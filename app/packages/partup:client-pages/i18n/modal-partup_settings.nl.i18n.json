@@ -5,8 +5,8 @@
     "pages-modal-partup_settings-save": "Wijzingen opslaan",
     "pages-modal-partup_settings-delete": "Ik wil deze part-up graag verwijderen",
 
-    "pages-modal-partup_settings-confirmation-title": "@Weet je het zeker?",
-    "pages-modal-partup_settings-confirmation-message": "@Een Part-up verwijderen kan niet ongedaan gemaakt worden.",
-    "pages-modal-partup_settings-confirmation-confirm-button": "@Ja, verwijder mijn Part-up",
-    "pages-modal-partup_settings-confirmation-cancel-button": "@Annuleren"
+    "pages-modal-partup_settings-confirmation-title": "Weet je het zeker?",
+    "pages-modal-partup_settings-confirmation-message": "Je kunt het verwijderen van een Part-up niet ongedaan maken.",
+    "pages-modal-partup_settings-confirmation-confirm-button": "Ja, verwijder",
+    "pages-modal-partup_settings-confirmation-cancel-button": "Annuleren"
 }
