@@ -102,7 +102,7 @@ Network.prototype.isClosedForUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvited = function(upperId) {
-    return !!Invites.findOne({network_id: this._id, invitee_id: upperId, type: Invites.INVITE_TYPE_EXISTING_UPPER});
+    return !!Invites.findOne({network_id: this._id, invitee_id: upperId, type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER});
 };
 
 /**
@@ -201,7 +201,7 @@ Network.prototype.rejectPendingUpper = function(upperId) {
 };
 
 /**
- * Remove all invites for a specific user on a specific network
+ * Remove all invites for a specific user for this network
  *
  * @memberof Invites
  * @param {String} upperId id of the user whose invites have to be removed
