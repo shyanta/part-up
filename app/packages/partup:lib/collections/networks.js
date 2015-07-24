@@ -179,6 +179,17 @@ Network.prototype.addPendingUpper = function(upperId) {
 };
 
 /**
+ * Check if upper is already added to the pending list
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isUpperPending = function(upperId) {
+    return !!Networks.findOne({_id: this._id}, {pending_uppers: {'$in': [upperId]}});
+};
+
+/**
  * Accept a pending upper to the network
  *
  * @memberof Networks
