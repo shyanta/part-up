@@ -116,7 +116,7 @@ Template.modal_create_promote.events({
     'click [data-share-facebook]': function clickShareFacebook() {
         var url = partupUrl();
         var facebookUrl = Partup.client.socials.generateFacebookShareUrl(url);
-        window.open(facebookUrl, 'pop', 'width=600, height=400, scrollbars=no');
+        window.open(facebookUrl, 'pop', Partup.client.window.getPopupWindowSettings());
     },
 
     'click [data-share-twitter]': function clickShareTwitter(event, template) {
@@ -124,13 +124,13 @@ Template.modal_create_promote.events({
         var message = getPartup().name;
         // TODO: I18n + wording
         var twitterUrl = Partup.client.socials.generateTwitterShareUrl(message, url);
-        window.open(twitterUrl, 'pop', 'width=600, height=400, scrollbars=no');
+        window.open(twitterUrl, 'pop', Partup.client.window.getPopupWindowSettings());
     },
 
     'click [data-share-linkedin]': function clickShareLinkedin() {
         var url = partupUrl();
         var linkedInUrl = Partup.client.socials.generateLinkedInShareUrl(url);
-        window.open(linkedInUrl, 'pop', 'width=600, height=400, scrollbars=no');
+        window.open(linkedInUrl, 'pop', Partup.client.window.getPopupWindowSettings());
     }
 
 });
