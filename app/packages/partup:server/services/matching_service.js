@@ -49,7 +49,8 @@ Partup.server.services.matching = {
             });
         }
 
-        return results;
+        // The sorting causes the array to be sorted backwards, so we need to return the reversed results
+        return results.reverse();
     }
 
 };
