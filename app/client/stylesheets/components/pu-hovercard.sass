@@ -1,7 +1,7 @@
 .pu-hovercard
     position: fixed
     z-index: 99999999
-    pointer-events: none 
+    pointer-events: none
     opacity: 0
     display: block
     width: 275px
@@ -23,14 +23,14 @@
         position: absolute
         pointer-events: none
 
-    &:after 
+    &:after
         left: 28px
 
-    &:before 
+    &:before
         left: 27px
 
     &-active
-        pointer-events: all 
+        pointer-events: all
         opacity: 1
 
     &-position-top
@@ -65,3 +65,9 @@
             border-bottom-color: $color-solid-gray
             border-width: 11px
             margin-top: -14px
+.pu-no-pointer-events
+    .pu-hovercard
+        display: none
+
+        &-active
+            display: block
