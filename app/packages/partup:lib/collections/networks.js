@@ -99,7 +99,7 @@ Network.prototype.isClosedForUpper = function(upperId) {
  *
  * @memberof Networks
  * @param {String} upperId the user id of the user to be checked
- * @return {Object}
+ * @return {Boolean}
  */
 Network.prototype.isUpperInvited = function(upperId) {
     return !!Invites.findOne({network_id: this._id, invitee_id: upperId, type: Invites.INVITE_TYPE_EXISTING_UPPER});
