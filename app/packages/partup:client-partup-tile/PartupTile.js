@@ -19,6 +19,16 @@ The PartupTile template is mostly used in a ColumnsLayout widget
  */
 // jscs:enable
 
+var positionTags = function(tagsEl) {
+    var br = document.body.getBoundingClientRect();
+    var rect = tagsEl.getBoundingClientRect();
+
+    if (rect.right > br.right) {
+        tagsEl.classList.add('pu-state-right');
+    }
+
+};
+
 /*************************************************************/
 /* Rendered */
 /*************************************************************/
@@ -28,12 +38,10 @@ Template.PartupTile.onRendered(function() {
 
     var tagsEl = this.find('.pu-sub-partup-tags');
     if (tagsEl) {
-        var br = document.body.getBoundingClientRect();
-        var rect = tagsEl.getBoundingClientRect();
-
-        if (rect.right > br.right) {
-            tagsEl.classList.add('pu-state-right');
-        }
+        positionTags(tagsEl);
+        window.addEventListener('resize', function() {
+            positionTags(tagsEl);
+        });
     }
 });
 
