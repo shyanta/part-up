@@ -112,13 +112,31 @@ Template.ActivityView.events({
                 Partup.client.popup.open(popupId, function(success) {
                     if (success) {
                         template.updateContribution({}, function(error) {
-                            if (error) console.error(error);
+                            if (error) {
+                                console.error(error);
+                                return;
+                            }
+                            analytics.track('new contribution', {
+                                partupId: partup._id,
+                                userId: Meteor.user()._id,
+                                userType: 'supporter'
+                            });
                         });
                     }
                 });
             } else {
                 template.updateContribution({}, function(error) {
-                    if (error) console.error(error);
+                    if (error) {
+                        console.error(error);
+                        return;
+                    }
+
+                    analytics.track('new contribution', {
+                        partupId: partup._id,
+                        userId: Meteor.user()._id,
+                        userType: 'upper'
+                    });
+
                 });
             }
         };

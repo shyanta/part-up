@@ -26,6 +26,10 @@ AutoForm.hooks({
                 Partup.client.notify.success(__('modal-profilesettings-button-save_success'));
                 self.done();
 
+                analytics.track('User details updated', {
+                    userId: Meteor.user()._id,
+                });
+
                 template.submitting.set(false);
             });
 

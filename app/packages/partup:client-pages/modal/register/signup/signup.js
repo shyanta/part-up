@@ -45,6 +45,11 @@ Template.modal_register_signup.events({
                 return;
             }
 
+            analytics.track('User registered', {
+                userId: Meteor.user()._id,
+                method: 'facebook'
+            });
+
             Router.go('register-details');
 
         });
@@ -58,6 +63,11 @@ Template.modal_register_signup.events({
                 Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.name)));
                 return false;
             }
+
+            analytics.track('User registered', {
+                userId: Meteor.user()._id,
+                method: 'linkedin'
+            });
 
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
             Meteor.call('settings.update', {locale: locale}, function(err) {
@@ -109,6 +119,12 @@ AutoForm.hooks({
 
                 // Success
                 self.done();
+
+                analytics.track('User registered', {
+                    userId: Meteor.user()._id,
+                    method: 'email'
+                });
+
                 Router.go('register-details');
             });
 

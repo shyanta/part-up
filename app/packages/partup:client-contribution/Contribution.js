@@ -85,14 +85,24 @@ Template.Contribution.events({
         Meteor.call('contributions.accept', template.data.contribution._id, function(error) {
             if (error) {
                 console.error(error);
+                return;
             }
+
+            analytics.track('contribution accepted', {
+                contributionId: template.data.contribution._id
+            });
+
         });
     },
     'click [data-contribution-reject]': function(event, template) {
         Meteor.call('contributions.reject', template.data.contribution._id, function(error) {
             if (error) {
                 console.error(error);
+                return;
             }
+            analytics.track('contribution rejected', {
+                contributionId: template.data.contribution._id
+            });
         });
     }
 
