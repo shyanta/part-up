@@ -22,5 +22,14 @@
 
     "dropdowns-activitiesactions-option-default": "All activities",
     "dropdowns-activitiesactions-option-my-activities": "My activities",
-    "dropdowns-activitiesactions-option-open-activities": "Open activities"
+    "dropdowns-activitiesactions-option-open-activities": "Open activities",
+
+    "dropdown-notification-partups_supporters_added": "@__supporter__ has started supporting __partup__",
+    "dropdown-notification-partup_activities_invited": "@__inviter__ has invited you to the activivity __activity__",
+    "dropdown-notification-partups_contributions_accepted": "@Your contribution to __partup__ has been accepted",
+    "dropdown-notification-partups_contributions_rejected": "@Your contribution __activity__ has been rejected in __partup__",
+    "dropdown-notification-partups_networks_invited": "@You have been invited to join __network__",
+    "dropdown-notification-partups_networks_accepted": "@You have been accepted to __network__",
+    "dropdown-notification-contributions_ratings_inserted": "@__rater__ has rated your contibution",
+    "dropdown-notification-updates_first_comment": "@__commenter__ has commented on an update in __partup__"
 }

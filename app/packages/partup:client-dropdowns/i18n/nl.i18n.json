@@ -22,5 +22,14 @@
 
     "dropdowns-activitiesactions-option-default": "Alle activiteiten",
     "dropdowns-activitiesactions-option-my-activities": "Mijn activiteiten",
-    "dropdowns-activitiesactions-option-open-activities": "Open activiteiten"
+    "dropdowns-activitiesactions-option-open-activities": "Open activiteiten",
+
+    "dropdown-notification-partups_supporters_added": "@__supporter__ support nu __partup__",
+    "dropdown-notification-partup_activities_invited": "@__inviter__ heeft je uitgenodigd voor de activiteit __activity__",
+    "dropdown-notification-partups_contributions_accepted": "@Jouw bijdrage aan __partup__ is geaccepteerd",
+    "dropdown-notification-partups_contributions_rejected": "@Jouw bijdrage __activity__ is afgewezen in __partup__",
+    "dropdown-notification-partups_networks_invited": "@Je bent uitgenodigd voor de tribe __network__",
+    "dropdown-notification-partups_networks_accepted": "@Je bent geaccepteerd in de tribe __network__",
+    "dropdown-notification-contributions_ratings_inserted": "@__rater__ heeft jouw bijdrage beoordeeld",
+    "dropdown-notification-updates_first_comment": "@__commenter__ heeft gereageerd op een update in __partup__"
 }
