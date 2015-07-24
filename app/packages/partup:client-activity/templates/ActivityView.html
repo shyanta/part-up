@@ -65,7 +65,7 @@
                 {{/ if }}
 
                 {{# if showMetaData }}
-                    <p class="pu-block-meta">
+                    <p class="pu-block-meta {{#unless COMMENTS_LINK}}pu-block-meta-nocomment{{/unless}}">
                         {{# if activity.end_date }}
                             <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
                         {{/if}}

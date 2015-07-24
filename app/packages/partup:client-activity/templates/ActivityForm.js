@@ -151,6 +151,8 @@ AutoForm.addHooks(null, {
 
                 if (template.data.POPUP) {
                     Partup.client.popup.close();
+                } else {
+                    $('input[name="name"]').focus();
                 }
 
                 if (mout.lang.isFunction(template.data.createCallback)) {
