@@ -5,6 +5,11 @@ body,
 .pu-main .pu-modal
     height: 100%
 
+body
+    &.bender-animating
+        overflow: hidden
+        pointer-events: none
+
 .pu-main
     position: relative
 
@@ -18,9 +23,5 @@ body,
         vertical-align: top
         z-index: 0
 
-    &.bender-animating
-        overflow: hidden
-        pointer-events: none
-
-    &.velocity-animating
-        z-index: 1
+        &.velocity-animating
+            z-index: 1
