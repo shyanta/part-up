@@ -48,6 +48,7 @@ Package.onUse(function(api) {
         'client/moment.js',
         'client/updates.js',
         'client/prompt.js',
+        'client/window.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',
         'helpers/equality.js',
