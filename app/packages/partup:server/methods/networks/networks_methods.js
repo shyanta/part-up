@@ -210,6 +210,8 @@ Meteor.methods({
 
                 if (invite) {
                     network.addInvitedUpper(user._id);
+                    network.removeAllUpperInvites(user._id);
+
                     return Log.debug('User added to invitational network.');
                 } else {
                     if (network.addPendingUpper(user._id)) {
@@ -253,6 +255,7 @@ Meteor.methods({
 
         try {
             network.acceptPendingUpper(upperId);
+            network.removeAllUpperInvites(upperId);
 
             Event.emit('networks.accepted', user._id, networkId, upperId);
 

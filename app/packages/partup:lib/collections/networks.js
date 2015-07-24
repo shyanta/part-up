@@ -201,6 +201,16 @@ Network.prototype.rejectPendingUpper = function(upperId) {
 };
 
 /**
+ * Remove all invites for a specific user on a specific network
+ *
+ * @memberof Invites
+ * @param {String} upperId id of the user whose invites have to be removed
+ */
+Network.prototype.removeAllUpperInvites = function(upperId) {
+    Invites.remove({network_id: this._id, invitee_id: upperId});
+};
+
+/**
  * Leave network
  *
  * @memberof Networks
