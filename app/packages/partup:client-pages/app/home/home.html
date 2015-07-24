@@ -16,7 +16,10 @@
                     <p>{{_ 'pages-app-home-paragraph' }}</p>
                     <p>
                         {{# unless videoWatched }}
-                            <a href="#" class="pu-button" data-open-video-modal>{{_ 'pages-app-home-videobutton' }}</a>
+                            <a href="#" class="pu-button" data-open-video-modal>
+                                <i class="fa fa-play"></i>
+                                {{_ 'pages-app-home-videobutton' }}
+                            </a>
                         {{ else }}
                             <a href="{{ pathFor 'register' }}" class="pu-button" data-signup>{{_ 'pages-app-home-signup' }}</a>
                         {{/ unless }}
