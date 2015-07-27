@@ -48,7 +48,7 @@
                         <li>
                             <figure class="pu-avatar" style="background-image: url({{ partupImageUrl id=profile.image store='80x80' }});"></figure>
                             <p class="pu-sub-identity">
-                                <span class="pu-sub-name">{{ profile.name }}</span>
+                                <a target="_blank" class="pu-sub-name" data-usercard="{{ _id }}">{{ profile.name }}</a>
                                 {{# if profile.location.city }}
                                     <span class="pu-sub-location">{{ profile.location.city }}</span>
                                 {{/ if }}
