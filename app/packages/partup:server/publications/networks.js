@@ -90,7 +90,7 @@ Meteor.publishComposite('networks.one', function(networkId) {
 
     return {
         find: function() {
-            return Networks.guardedMetaFind(self.userId, {_id: networkId}, {limit: 1});
+            return Networks.guardedMetaFind({_id: networkId}, {limit: 1});
         },
         children: [
             {find: Images.findForNetwork},

@@ -264,12 +264,11 @@ Networks.NETWORK_CLOSED = NETWORK_CLOSED;
  * fields that are publicly available
  *
  * @memberof Networks
- * @param {String} userId
  * @param {Object} selector
  * @param {Object} options
  * @return {Cursor}
  */
-Networks.guardedMetaFind = function(userId, selector, options) {
+Networks.guardedMetaFind = function(selector, options) {
     var selector = selector || {};
     var options = options || {};
 

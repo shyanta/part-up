@@ -212,12 +212,11 @@ Partups.guardedFind = function(userId, selector, options) {
  * fields that are publicly available
  *
  * @memberof Partups
- * @param {String} userId
  * @param {Object} selector
  * @param {Object} options
  * @return {Cursor}
  */
-Partups.guardedMetaFind = function(userId, selector, options) {
+Partups.guardedMetaFind = function(selector, options) {
     var selector = selector || {};
     var options = options || {};
 
