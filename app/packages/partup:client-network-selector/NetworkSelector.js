@@ -1,3 +1,12 @@
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
+Template.NetworkSelector.onCreated(function() {
+    Subs.subscribe('networks.list');
+});
+
 Template.NetworkSelector.helpers({
     networks: function() {
         return Networks.find();

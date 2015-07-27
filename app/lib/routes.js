@@ -35,10 +35,6 @@ Router.route('/discover', {
     yieldRegions: {
         'app':          {to: 'main'},
         'app_discover': {to: 'app'}
-    },
-    subscriptions: function() {
-        this.subscribe('images.all');
-        this.subscribe('networks.list');
     }
 });
 
@@ -153,9 +149,6 @@ Router.route('/tribes/create', {
     yieldRegions: {
         'modal':                   {to: 'main'},
         'modal_create_network':    {to: 'modal'}
-    },
-    subscriptions: function() {
-        this.subscribe('networks.list');
     }
 });
 
