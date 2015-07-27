@@ -61,7 +61,7 @@ Partup.server.services.partup_progress_calculator = {
 
         var percentage = (daysExists / daysTotal) * 100;
 
-        var score = (0.0465 * percentage) ^ 3;
+        var score = Math.pow((0.0465 * percentage), 3);
 
         return Math.min(100, score);
     }
