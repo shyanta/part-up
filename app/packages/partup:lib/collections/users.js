@@ -125,6 +125,17 @@ Meteor.users.findForRating = function(rating) {
 };
 
 /**
+ * Find the user of a contribution
+ *
+ * @memberOf Meteor.users
+ * @param {Contribution} contribution
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findForContribution = function(contribution) {
+    return Meteor.users.findSinglePublicProfile(contribution.upper_id);
+};
+
+/**
  * User model (not a constructor, unlike all other entity models)
  * @ignore
  */
