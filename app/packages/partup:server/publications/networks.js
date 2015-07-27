@@ -20,7 +20,7 @@ Meteor.publishComposite('networks.one.partups', function(networkId, options) {
         children: [
             {find: Images.findForPartup},
             {find: Meteor.users.findUppersForPartup},
-            {find: function(partup) { Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
             ]}
         ]

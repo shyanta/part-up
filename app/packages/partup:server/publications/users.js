@@ -25,14 +25,14 @@ Meteor.publishComposite('users.one', function(userId) {
  * Publish all partups a user is upper in
  *
  * @param {String} userId
- * @param {Object} options
+ * @param {Object} parameters
  */
-Meteor.publishComposite('users.one.upperpartups', function(userId, options) {
-    options = options || {};
+Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
+    parameters = parameters || {};
 
     return {
         find: function() {
-            return Partups.findUpperPartups(userId, options);
+            return Partups.findUpperPartupsForUser(userId, parameters, {}, this.userId);
         },
         children: [
             {find: Images.findForPartup},
@@ -40,7 +40,7 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, options) {
                 {find: Images.findForUser}
             ]},
             {find: Meteor.users.findSupportersForPartup},
-            {find: function(partup) { Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
             ]}
         ]
@@ -51,36 +51,31 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, options) {
  * Publish a count of all partups a user is upper in
  *
  * @param {String} userId
- * @param {Object} options
  */
-Meteor.publish('users.one.upperpartups.count', function(userId, options) {
-    options = options || {};
-
-    var parameters = {
-        count: true
-    };
-
-    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartups(userId, options, parameters));
+Meteor.publish('users.one.upperpartups.count', function(userId) {
+    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartupsForUser(userId, {count:true}, this.userId));
 });
 
 /**
  * Publish all partups a user is supporter of
  *
  * @param {String} userId
- * @param {Object} options
+ * @param {Object} parameters
+ * @param {Number} parameters.limit
+ * @param {String} parameters.sort
  */
-Meteor.publishComposite('users.one.supporterpartups', function(userId, options) {
-    options = options || {};
+Meteor.publishComposite('users.one.supporterpartups', function(userId, parameters) {
+    parameters = parameters || {};
 
     return {
         find: function() {
-            return Partups.findSupporterPartups(userId, options, this.userId);
+            return Partups.findSupporterPartupsForUser(userId, parameters, this.userId);
         },
         children: [
             {find: Images.findForPartup},
             {find: Meteor.users.findUppersForPartup},
             {find: Meteor.users.findSupportersForPartup},
-            {find: function(partup) { Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
             ]}
         ]
@@ -91,16 +86,9 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, options) 
  * Publish a count of all partups a user is supporter of
  *
  * @param {String} userId
- * @param {Object} options
  */
-Meteor.publish('users.one.supporterpartups.count', function(userId, options) {
-    options = options || {};
-
-    var parameters = {
-        count: true
-    };
-
-    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartups(userId, options, parameters));
+Meteor.publish('users.one.supporterpartups.count', function(userId) {
+    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartupsForUser(userId, {count:true}, this.userId));
 });
 
 /**

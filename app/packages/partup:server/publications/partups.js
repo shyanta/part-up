@@ -10,8 +10,10 @@ Meteor.publishComposite('partups.by_ids', function(partupIds) {
         },
         children: [
             {find: Images.findForPartup},
-            {find: Meteor.users.findUppersForPartup},
-            {find: function(partup) { Networks.findForPartup(partup, this.userId); }, children: [
+            {find: Meteor.users.findUppersForPartup, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
             ]}
         ]
@@ -42,7 +44,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
                 },
                 children: [
                     {find: Images.findForPartup},
-                    {find: function(partup) { Networks.findForPartup(partup, this.userId); }, children: [
+                    {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
                         {find: Images.findForNetwork}
                     ]},
                     {find: Meteor.users.findUppersForPartup, children: [

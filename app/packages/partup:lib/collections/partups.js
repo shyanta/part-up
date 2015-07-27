@@ -336,57 +336,55 @@ Partups.findForNetwork = function(userId, options, parameters) {
 };
 
 /**
- * Find the partups where the userid is upper
+ * Find the partups that a user is upper of
  *
  * @memberof Partups
- * @param {Object} options
+ * @param {Object} parameters
+ * @param {Number} parameters.limit
+ * @param {String} parameters.sort
+ * @param {Boolean} parameters.count
+ * @param {String} loggedInUserId
  * @return {Cursor}
  */
-Partups.findUpperPartups = function(userId, options, parameters) {
-    var selector = {uppers: {$in: [userId]}};
-    var options = options || {};
+Partups.findUpperPartupsForUser = function(userId, options, parameters, loggedInUserId) {
     var parameters = parameters || {};
 
-    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
-    var sort = options.count ? undefined : options.sort || false;
+    var options = {};
+    var selector = {uppers: {$in: [userId]}};
 
-    if (!parameters.count) {
-
-        // Initialize
-        options.sort = {};
-
-        // Sort the partups from the newest to the oldest
-        options.sort['updated_at'] = -1;
+    if (parameters.count) {
+        options.count = true;
+    } else {
+        options.limit = parseInt(parameters.limit);
+        options.sort = parameters.sort || {updated_at: -1};
     }
 
-    return this.guardedFind(userId, selector, options);
+    return this.guardedFind(loggedInUserId, selector, options);
 };
 
 /**
- * Find the partups where the userid is supper
+ * Find the partups that a user supporter of
  *
  * @memberof Partups
- *
- * @param {Object} options
- *
+ * @param {Object} parameters
+ * @param {Number} parameters.limit
+ * @param {String} parameters.sort
+ * @param {Boolean} parameters.count
+ * @param {String} loggedInUserId
  * @return {Cursor}
  */
-Partups.findSupporterPartups = function(userId, options, parameters) {
-    var selector = {supporters: {$in: [userId]}};
-    var options = options || {};
+Partups.findSupporterPartupsForUser = function(userId, parameters, loggedInUserId) {
     var parameters = parameters || {};
 
-    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
-    var sort = options.count ? undefined : options.sort || false;
+    var options = {};
+    var selector = {supporters: {$in: [userId]}};
 
-    if (!parameters.count) {
-
-        // Initialize
-        options.sort = {};
-
-        // Sort the partups from the newest to the oldest
-        options.sort['updated_at'] = -1;
+    if (parameters.count) {
+        options.count = true;
+    } else {
+        options.limit = parseInt(parameters.limit);
+        options.sort = parameters.sort || {updated_at: -1};
     }
 
-    return this.guardedFind(userId, selector, options);
+    return this.guardedFind(loggedInUserId, selector, options);
 };
