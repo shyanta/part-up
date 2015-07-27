@@ -2,6 +2,8 @@
     "pages-modal-network_invite-close-page": "Close",
     "pages-modal-network_invite-title": "Invite uppers to this tribe",
     "pages-modal-network_invite-description": "You obviously want to partner with the right uppers to work on this tribe's purpose. We like to introduce you to the best matching uppers. Do you know a matching upper yourself? You can invite him or her personally via email.",
+    "pages-modal-network_invite-search-query-label": "Show me",
+    "pages-modal-network_invite-search-location-label": "Uppers from",
     "pages-modal-network_invite-button-invite-upper": "Invite",
     "pages-modal-network_invite-button-invited-upper": "Invited",
     "pages-modal-network_invite-invite-success": "The invitation has been sent."
