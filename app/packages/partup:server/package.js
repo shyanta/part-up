@@ -49,6 +49,7 @@ Package.onUse(function(api) {
         'services/matching_service.js',
         'services/slugify_service.js',
         'services/participation_calculator_service.js',
+        'services/partup_progress_calculator_service.js',
         'migrations.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
