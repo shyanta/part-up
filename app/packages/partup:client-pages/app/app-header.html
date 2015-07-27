@@ -22,32 +22,18 @@
                         <i class="fa fa-flag"></i> {{_ 'pages-app-start_partup' }}
                     </a>
                 </li>
-                <!-- <li>
-                    <a class="pu-button pu-button-header" href="{{pathFor 'networks-overview' }}">
-                        <i class="fa fa-globe"></i> Networks overview (temp)
-                    </a>
-                </li> -->
             </ul>
         </section>
         <aside>
             <ul class="pu-headernav pu-list pu-list-horizontal">
                 {{#if currentUser }}
                 <li>
-                    <!-- Button: notificaties -->
-                    <!-- <a class="pu-button pu-button-header">
-                        <i class="fa fa-bell"></i> Notificaties
-                        {{#each notifications }}
-                            {{#if type = 'partups.supporters.new' }}
-                                {{ type_data.supporter.name }} support nu {{ type_data.partup.name }}!
-                            {{/if }}
-                        {{/each}}
-                    </a> -->
-
+                    <!-- Button: notifications -->
                     {{> DropdownNotifications }}
                 </li>
                 <li>
-                        <!-- Button: profile -->
-                        {{> DropdownProfile}}
+                    <!-- Button: profile -->
+                    {{> DropdownProfile}}
                 </li>
                 {{ else }}
                 <li>
