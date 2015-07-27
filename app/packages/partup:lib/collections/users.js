@@ -174,6 +174,18 @@ User = function(user) {
         },
 
         /**
+         * Get users email adress
+         *
+         * @return {String}
+         */
+        getEmail: function() {
+            if (!user) return undefined;
+            if (user.emails && user.emails.length > 0) {
+                return user.emails[0].address;
+            }
+        },
+
+        /**
          * Check if user is admin
          *
          * @return {Boolean}
