@@ -23,6 +23,7 @@ Package.onUse(function(api) {
         'package-tap.i18n',
 
         'client/base-64-polyfill.js',
+        'client/placeholder-polyfill.js',
 
         'namespace.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
