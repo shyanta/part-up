@@ -65,17 +65,6 @@ Template.PartupTile.helpers({
         if (!this.supporters) return 0;
         return this.supporters.length;
     },
-    partupProgress: function() {
-        var day = 24 * 60 * 60 * 1000;
-        var now = new Date();
-        var createdAt = new Date(this.created_at);
-        var endsAt = new Date(this.end_date);
-
-        var daysLeft = Math.round(Math.abs((now.getTime() - endsAt.getTime()) / day));
-        var daysPast = Math.round(Math.abs((createdAt.getTime() - now.getTime()) / day));
-
-        return (daysPast / (daysLeft + daysPast)) * 100;
-    },
     tags: function() {
         if (!this.tags) return;
 
