@@ -1,46 +1,4 @@
 /**
- * Send an email and generate a notification to the invited user when invited
- */
-Event.on('networks.invited', function(user, networkId, upperId) {
-    var network = Networks.findOneOrFail(networkId);
-
-    // Compile the E-mail template and send the email
-    SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUserToNetwork.html'));
-    var url = Meteor.absoluteUrl() + 'tribes/' + network._id;
-    var upper = Meteor.users.findSinglePrivateProfile(upperId).fetch()[0];
-    var upperEmail = upper.emails[0].address;
-
-    if (upperEmail) {
-        Email.send({
-            from: 'Part-up <noreply@part-up.com>',
-            to: upperEmail,
-            subject: 'Uitnodiging voor Part-up netwerk ' + network.name,
-            html: SSR.render('inviteUserEmail', {
-                name: upper.profile.name,
-                networkName: network.name,
-                networkDescription: network.description,
-                inviterName: user.name,
-                url: url
-            })
-        });
-    }
-
-    var notificationOptions = {
-        userId: upperId,
-        type: 'partups_networks_invited',
-        typeData: {
-            network: {
-                _id: network._id,
-                name: network.name,
-                image: network.image
-            }
-        }
-    };
-
-    Partup.server.services.notifications.send(notificationOptions);
-});
-
-/**
  * Generate a notification for an upper when getting accepted for a network
  */
 Event.on('networks.accepted', function(userId, networkId, upperId) {
