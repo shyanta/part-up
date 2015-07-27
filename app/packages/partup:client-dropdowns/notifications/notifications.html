@@ -16,7 +16,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_supporters_added' supporter=type_data.supporter.name partup=type_data.partup.name}}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -28,7 +28,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partup_activities_invited' inviter=type_data.inviter.name activity=type_data.activity.name}}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -40,7 +40,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_contributions_accepted' partup=type_date.partup.name}}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -52,7 +52,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_contributions_rejected' activity=type_data.activity.name partup=type_data.partup.name}}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -64,7 +64,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_networks_invited' network=type_data.network.name}}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -76,7 +76,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_networks_accepted' network=type_data.network.name }}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -88,7 +88,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-contributions_ratings_inserted' rater=type_data.rater.name}}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -100,7 +100,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-updates_first_comment' commenter=type_data.commenter.name partup=type_data.partup.name }}</p>
-                                <time>{{ created_at }}</time>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
