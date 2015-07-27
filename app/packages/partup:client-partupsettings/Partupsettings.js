@@ -153,6 +153,9 @@ Template.Partupsettings.helpers({
     partupImage: function() {
         return Template.instance().imageSystem;
     },
+    partupImageId: function() {
+        return Template.instance().imageSystem.currentImageId.get();
+    },
     suggestionSetter: function() {
         return function(index) {
             Session.set('partials.create-partup.current-suggestion', index);

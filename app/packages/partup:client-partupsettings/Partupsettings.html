@@ -200,7 +200,7 @@
         <!-- Image -->
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-image-label' }}</span>
-            {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImage.currentImageId.get }}
+            {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImageId }}
             <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
 
             {{#with partupImage.focuspoint.get 'x'}}
@@ -216,7 +216,7 @@
                     <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
                         {{> Loader }}
                     </div>
-                    {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImage.currentImageId.get view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
+                    {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImageId view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
                     <div class="pu-sub-buttons">
                         <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
                             <span>{{_ 'partupsettings-image-button-overwrite'}}</span>
