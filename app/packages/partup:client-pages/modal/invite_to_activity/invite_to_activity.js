@@ -78,6 +78,9 @@ Template.modal_invite_to_activity.helpers({
             type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER
         });
     },
+    participation: function() {
+        return Math.ceil(this.participation_score);
+    },
 
     // Location
     locationValue: function() {
