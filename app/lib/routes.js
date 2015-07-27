@@ -362,7 +362,9 @@ Router.route('/start/:_id/activities', {
         };
     },
     action: function() {
-        Session.set('partials.create-partup.current-partup', this.params._id);
+        if (Meteor.isClient) {
+            Session.set('partials.create-partup.current-partup', this.params._id);
+        }
         this.render();
     }
 });
@@ -381,7 +383,9 @@ Router.route('/start/:_id/promote', {
         };
     },
     action: function() {
-        Session.set('partials.create-partup.current-partup', this.params._id);
+        if (Meteor.isClient) {
+            Session.set('partials.create-partup.current-partup', this.params._id);
+        }
         this.render();
     }
 });
