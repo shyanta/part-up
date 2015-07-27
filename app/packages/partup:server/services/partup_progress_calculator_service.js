@@ -1,11 +1,11 @@
-var d = Debug('services:partup_progress');
+var d = Debug('services:partup_progress_calculator');
 
 /**
  @namespace Partup server partup progress calculator service
- @name Partup.server.services.partup_progress
+ @name Partup.server.services.partup_progress_calculator
  @memberof Partup.server.services
  */
-Partup.server.services.partup_progress = {
+Partup.server.services.partup_progress_calculator = {
 
     calculatePartupProgressScore: function(partupId) {
         var score = 0;
