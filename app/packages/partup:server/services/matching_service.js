@@ -21,8 +21,8 @@ Partup.server.services.matching = {
         var uppers = partup.uppers || [];
         selector['_id'] = {'$nin': uppers};
 
-        // Sort the uppers on average rating
-        options['sort'] = {'average_rating': -1};
+        // Sort the uppers on participation_score
+        options['sort'] = {'participation_score': -1};
 
         // Get the results, if there are none, we remove some matching steps
         var results = Meteor.users.find(selector, options).fetch();
