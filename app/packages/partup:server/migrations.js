@@ -158,8 +158,8 @@ Migrations.add({
     name: 'Calculate the Part-up participation score for users',
     up: function() {
         // TODO: Smarter way to do this, most likely not everyone
-        // needs a Part-up participation score calculator
-        var userIds = Meteor.users.find({participation_score: {$exists: false}}).forEach(function(user) {
+        // needs a Part-up participation score calculation
+        Meteor.users.find({participation_score: {$exists: false}}).forEach(function(user) {
             var score = Partup.server.services.participation_calculator.calculateParticipationScoreForUpper(user._id);
             Meteor.users.update(user._id, {$set: {participation_score: score}});
         });
@@ -169,4 +169,20 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(6);
+Migrations.add({
+    version: 7,
+    name: 'Calculate the Part-up progress score for partups',
+    up: function() {
+        // TODO: Smarter way to do this, most likely not all
+        // partups need a progress score calculation
+        Partups.find({progress: {$exists: false}}).forEach(function(partup) {
+            var score = Partup.server.services.partup_progress_calculator.calculatePartupProgressScore(partup._id);
+            Partups.update(partup._id, {'$set': {progress: score}});
+        });
+    },
+    down: function() {
+        Partups.update({progress: {$exists: true}}, {$unset: {progress: ''}}, {multi: true});
+    }
+});
+
+Migrations.migrateTo(7);
