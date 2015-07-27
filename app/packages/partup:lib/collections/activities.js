@@ -1,10 +1,41 @@
 /**
+ * @ignore
+ */
+var Activity = function(document) {
+    _.extend(this, document);
+};
+
+/**
+ * Check if the activity is open
+ *
+ * @memberof Activities
+ * @return {Boolean}
+ */
+Activity.prototype.isOpen = function() {
+    return Contributions.findForActivity(this).count() === 0;
+};
+
+/**
+ * Check if the activity is closed
+ *
+ * @memberof Activities
+ * @return {Boolean}
+ */
+Activity.prototype.isClosed = function() {
+    return Contributions.findForActivity(this).count() > 0;
+};
+
+/**
  * Activities are units of work that a partup consists of
  *
  * @namespace Activities
  * @memberOf Collection
  */
-Activities = new Mongo.Collection('activities');
+Activities = new Mongo.Collection('activities', {
+    transform: function(document) {
+        return new Activity(document);
+    }
+});
 
 /**
  * Find activity for an update
