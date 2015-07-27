@@ -25,15 +25,13 @@ Template.app_partup_updates.onCreated(function() {
         refreshDate: new ReactiveVar(new Date()),
         refreshDate_remembered: new ReactiveVar(),
 
-        // Updates handle
-        handle: null,
-
         // The data model
-        model: Updates.findForPartup(tpl.data.partupId),
+        partup: null,
+        model: null,
         updateModel: function() {
             Tracker.nonreactive(function() {
                 var options = tpl.updates.options.get();
-                tpl.updates.model = Updates.findForPartup(tpl.data.partupId, options);
+                tpl.updates.model = Updates.findForPartup(tpl.updates.partup, options);
             });
             return tpl.updates.model.fetch();
         },
@@ -131,18 +129,30 @@ Template.app_partup_updates.onCreated(function() {
 
     Partup.client.events.on('partup:updates:message_added', tpl.updates.updateView);
 
-    // When the model changes and the view is empty, update the view with the model
-    tpl.autorun(function() {
-        var updates = tpl.updates.model.fetch();
+    tpl.autorun(function(c) {
+        var partup = Partups.findOne(tpl.data.partupId);
 
-        if (updates.length && !tpl.updates.view.get().length) {
-            tpl.updates.view.set(updates);
-            tpl.updates.refreshDate.set(new Date());
+        if (partup) {
+            c.stop();
+
+            // Save the partup
+            tpl.updates.partup = partup;
+            tpl.updates.model = Updates.findForPartup(partup);
+
+            // When the model changes and the view is empty, update the view with the model
+            tpl.autorun(function() {
+                var updates = tpl.updates.model.fetch();
+
+                if (updates.length && !tpl.updates.view.get().length) {
+                    tpl.updates.view.set(updates);
+                    tpl.updates.refreshDate.set(new Date());
+                }
+            });
+
+            // First run
+            tpl.updates.options.set({});
         }
     });
-
-    // First run
-    tpl.updates.options.set({});
 });
 
 /**
@@ -169,7 +179,6 @@ Template.app_partup_updates.onRendered(function() {
  */
 Template.app_partup_updates.onDestroyed(function() {
     var tpl = this;
-    if (tpl.updates.handle) tpl.updates.handle.stop();
 
     Partup.client.events.off('partup:updates:message_added', tpl.updates.updateView);
 });
@@ -184,6 +193,8 @@ Template.app_partup_updates.helpers({
 
     newUpdatesCount: function() {
         var template = Template.instance();
+        if (!template.updates.model) return 0;
+
         var refreshDate = template.updates.refreshDate.get();
 
         var updates_causedby_currentuser = Partup.client.updates.updates_causedby_currentuser.get();
