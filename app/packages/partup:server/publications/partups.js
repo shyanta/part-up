@@ -3,7 +3,7 @@
  *
  * @param {[String]} partupIds
  */
-Meteor.publishComposite('partups.ids', function(partupIds) {
+Meteor.publishComposite('partups.by_ids', function(partupIds) {
     return {
         find: function() {
             return Partups.guardedFind(this.userId, {_id: {$in: partupIds}});

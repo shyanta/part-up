@@ -63,7 +63,7 @@ Template.app_discover_page.onCreated(function() {
 
                 var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
 
-                var sub = Subs.subscribe('partups.ids', limitedIds, function() {
+                var sub = Subs.subscribe('partups.by_ids', limitedIds, function() {
                     var partups = Partups.find({_id: {$in: tpl.partups.ids}}).fetch();
 
                     tpl.partups.layout.items = tpl.partups.layout.clear();
@@ -87,7 +87,7 @@ Template.app_discover_page.onCreated(function() {
             var limitedIds = tpl.partups.getLimitedIds(b);
             tpl.partups.infinitescroll_loading.set(true);
 
-            var sub = Subs.subscribe('partups.ids', limitedIds, function() {
+            var sub = Subs.subscribe('partups.by_ids', limitedIds, function() {
                 var oldPartups = tpl.partups.layout.items;
                 var newPartups = Partups.find({_id: {$in: tpl.partups.ids}}).fetch();
 
