@@ -7,7 +7,7 @@
 var networkBaseSchema = new SimpleSchema({
     description: {
         type: String,
-        max: 250,
+        max: 350,
         optional: true
     },
     icon: {
