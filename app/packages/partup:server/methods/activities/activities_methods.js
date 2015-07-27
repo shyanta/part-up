@@ -358,5 +358,25 @@ Meteor.methods({
         if (!partup.hasInvitedUpper(invitee._id)) {
             Partups.update(partup._id, {$push: {invites: invitee._id}});
         }
+
+        // Compile the E-mail template and send the email
+        var locale = User(inviter).getLocale();
+        SSR.compileTemplate('inviteUserActivityEmail', Assets.getText('private/emails/InviteUserToActivity.' + locale + '.html'));
+        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
+
+        Email.send({
+            from: 'Part-up <noreply@part-up.com>',
+            to: User(invitee).getEmail(),
+            subject: 'Invite for ' + activity.name + ' in Part-up ' + partup.name,
+            html: SSR.render('inviteUserActivityEmail', {
+                name: invitee.profile.name,
+                partupName: partup.name,
+                partupDescription: partup.description,
+                activityName: activity.name,
+                activityDescription: activity.description,
+                inviterName: inviter.profile.name,
+                url: url
+            })
+        });
     }
 });
