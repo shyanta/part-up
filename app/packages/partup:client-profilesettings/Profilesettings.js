@@ -49,8 +49,6 @@ Template.Profilesettings.onCreated(function() {
         if (user.profile && user.profile.location && user.profile.location.place_id) template.locationSelection.set(user.profile.location);
     });
 
-    this.subscription = this.subscribe('users.loggedin');
-
     template.uploadingProfilePicture = new ReactiveVar(false);
 
     // uploaded picture url

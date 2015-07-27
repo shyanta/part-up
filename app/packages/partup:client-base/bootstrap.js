@@ -18,6 +18,12 @@ Meteor.startup(function() {
         console.log('IE version: ' + version);
         $('body').addClass('pu-no-pointer-events');
     }
+
+    /*************************************************************/
+    /* Current loggedin users subscription */
+    /*************************************************************/
+    Meteor.subscribe('users.loggedin');
+
     /*************************************************************/
     /* Language configuration */
     /*************************************************************/

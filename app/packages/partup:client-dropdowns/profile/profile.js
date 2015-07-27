@@ -1,10 +1,14 @@
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 Template.DropdownProfile.onCreated(function() {
     var userId = Meteor.userId;
 
-    this.subscription = this.subscribe('users.loggedin');
-    this.upperSubscription = this.subscribe('users.one.upperpartups', userId);
-    this.supporterSubscription = this.subscribe('users.one.supporterpartups', userId);
-    this.supporterSubscription = this.subscribe('networks.user');
+    Subs.subscribe('users.one.upperpartups', userId);
+    Subs.subscribe('users.one.supporterpartups', userId);
+    Subs.subscribe('networks.user');
 
     this.currentNetwork = new ReactiveVar();
 });
@@ -39,7 +43,6 @@ Template.DropdownProfile.events({
         $('body').removeClass('pu-state-dropdownopen');
     },
     'click [data-select-network]': function changeNetwork (event, template) {
-        console.log('select')
         var networkId = $(event.target).data('select-network') || undefined;
         template.currentNetwork.set(networkId);
     },
