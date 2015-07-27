@@ -1,4 +1,18 @@
 # CHANGELOG
+## 1.5.1
+- tribe settings description 350 chars
+- copy updates
+- re-enabled private partups (premium functionality)
+- new partup progress algorithm
+- tribe / activity invites emails for existing user invite
+- IE 9, 10 and 11 fixes
+- activity and tribe invite screens ux
+- bugfixes
+    - tribe settings logo
+    - partuptile focuspoint
+    - homepage profile image
+    - duplicate archived activities
+
 ## 1.5.0
 - User detail
 - Profile dropdown v2 (network tabs)
