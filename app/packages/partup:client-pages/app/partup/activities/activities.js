@@ -39,11 +39,14 @@ Template.app_partup_activities.onCreated(function() {
         }
     };
 
-    // Activities subscription
+    // Partup findOne and activities subscription
     tpl.activities.loading.set(true);
     var sub = Subs.subscribe('activities.from_partup', tpl.data.partupId);
+
     tpl.autorun(function(c) {
-        if (sub.ready()) {
+        var partup = Partups.findOne(tpl.data.partupId);
+
+        if (partup && sub.ready()) {
             c.stop();
             tpl.activities.loading.set(false);
         }
@@ -52,7 +55,8 @@ Template.app_partup_activities.onCreated(function() {
 
 Template.app_partup_activities.helpers({
     activities: function() {
-        return Activities.findForPartup(this.partupId, {sort: {end_date: -1}}, {archived: false});
+        var partup = Partups.findOne(this.partupId);
+        return Activities.findForPartup(partup, {sort: {end_date: -1}}, {archived: false});
     },
     archivedActivities: function() {
         return Template.instance().activities.all({archived: true});

@@ -139,18 +139,20 @@ Template.app_partup_updates.onCreated(function() {
             tpl.updates.partup = partup;
             tpl.updates.model = Updates.findForPartup(partup);
 
-            // When the model changes and the view is empty, update the view with the model
-            tpl.autorun(function() {
-                var updates = tpl.updates.model.fetch();
+            Tracker.nonreactive(function() {
+                // When the model changes and the view is empty, update the view with the model
+                tpl.autorun(function() {
+                    var updates = tpl.updates.model.fetch();
 
-                if (updates.length && !tpl.updates.view.get().length) {
-                    tpl.updates.view.set(updates);
-                    tpl.updates.refreshDate.set(new Date());
-                }
+                    if (updates.length && !tpl.updates.view.get().length) {
+                        tpl.updates.view.set(updates);
+                        tpl.updates.refreshDate.set(new Date());
+                    }
+                });
+
+                // First run
+                tpl.updates.options.set({});
             });
-
-            // First run
-            tpl.updates.options.set({});
         }
     });
 });
