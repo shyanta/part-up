@@ -171,8 +171,6 @@ Meteor.methods({
         SSR.compileTemplate('inviteExistingUserNetwork', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
         var url = Meteor.absoluteUrl() + 'tribes/' + network._id;
         var email = User(invitee).getEmail();
-        console.log(invitee);
-        console.log(email);
         Email.send({
             from: 'Part-up <noreply@part-up.com>',
             to: User(invitee).getEmail(),
