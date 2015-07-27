@@ -101,7 +101,10 @@ Meteor.publishComposite('users.loggedin', function() {
         },
         children: [
             {find: Images.findForUser},
-            {find: Networks.findForUser, children: [
+            {find: function(user) {
+                return Networks.findForUser(user, this.userId);
+            },
+            children: [
                 {find: Images.findForNetwork}
             ]},
             {find: Notifications.findForUser, children: [

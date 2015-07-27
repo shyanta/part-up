@@ -345,7 +345,7 @@ Networks.findForPartup = function(partup, userId) {
  * @param {User} user
  * @return {Mongo.Cursor}
  */
-Networks.findForUser = function(user) {
+Networks.findForUser = function(user, userId) {
     var networks = user.networks || [];
-    return Networks.guardedFind(user._id, {_id: {'$in': networks}});
+    return Networks.guardedFind(userId, {_id: {'$in': networks}});
 };
