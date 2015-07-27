@@ -62,6 +62,17 @@ Updates = new Mongo.Collection('updates', {
     }
 });
 
+/**
+ * Find updates for an activity
+ *
+ * @memberOf Updates
+ * @param {Activity} activity
+ * @return {Mongo.Cursor}
+ */
+Updates.findForActivity = function(activity) {
+    return Updates.find({_id: activity.update_id}, {limit: 1});
+};
+
 Updates.findForUpdates = function(partupId, options) {
     var self = this;
 
