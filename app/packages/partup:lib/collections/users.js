@@ -67,7 +67,7 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 };
 
 /**
- * Find uppers for a network
+ * Find the uppers in a network
  *
  * @memberOf Meteor.users
  * @param {Network} network
@@ -79,7 +79,7 @@ Meteor.users.findUppersForNetwork = function(network) {
 };
 
 /**
- * Find uppers for a partup
+ * Find the uppers of a partup
  *
  * @memberOf Meteor.users
  * @param {Partup} partup
@@ -91,7 +91,7 @@ Meteor.users.findUppersForPartup = function(partup) {
 };
 
 /**
- * Find supporters for a partup
+ * Find the supporters of a partup
  *
  * @memberOf Meteor.users
  * @param {Partup} partup
