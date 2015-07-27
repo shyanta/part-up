@@ -63,17 +63,17 @@ Template.app_discover_page.onCreated(function() {
 
                 var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
 
-                var sub = Subs.subscribe('partups.by_ids', limitedIds, function() {
-                    var partups = Partups.find({_id: {$in: tpl.partups.ids}}).fetch();
-
-                    tpl.partups.layout.items = tpl.partups.layout.clear();
-                    tpl.partups.layout.items = tpl.partups.layout.add(partups);
-                });
+                var sub = Subs.subscribe('partups.by_ids', limitedIds);
 
                 tpl.autorun(function(c) {
                     if (sub.ready()) {
                         c.stop();
                         tpl.partups.loading.set(false);
+
+                        var partups = Partups.find({_id: {$in: limitedIds}}).fetch();
+
+                        tpl.partups.layout.items = tpl.partups.layout.clear();
+                        tpl.partups.layout.items = tpl.partups.layout.add(partups);
                     }
                 });
             });
@@ -87,26 +87,26 @@ Template.app_discover_page.onCreated(function() {
             var limitedIds = tpl.partups.getLimitedIds(b);
             tpl.partups.infinitescroll_loading.set(true);
 
-            var sub = Subs.subscribe('partups.by_ids', limitedIds, function() {
-                var oldPartups = tpl.partups.layout.items;
-                var newPartups = Partups.find({_id: {$in: tpl.partups.ids}}).fetch();
-
-                var diffPartups = mout.array.filter(newPartups, function(partup) {
-                    return !mout.array.find(oldPartups, function(_partup) {
-                        return partup._id === _partup._id;
-                    });
-                });
-
-                var end_reached = diffPartups.length === 0;
-                tpl.partups.end_reached.set(end_reached);
-
-                tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
-            });
+            var sub = Subs.subscribe('partups.by_ids', limitedIds);
 
             tpl.autorun(function(c) {
                 if (sub.ready()) {
                     c.stop();
                     tpl.partups.loading.set(false);
+
+                    var oldPartups = tpl.partups.layout.items;
+                    var newPartups = Partups.find({_id: {$in: limitedIds}}).fetch();
+
+                    var diffPartups = mout.array.filter(newPartups, function(partup) {
+                        return !mout.array.find(oldPartups, function(_partup) {
+                            return partup._id === _partup._id;
+                        });
+                    });
+
+                    var end_reached = diffPartups.length === 0;
+                    tpl.partups.end_reached.set(end_reached);
+
+                    tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
                 }
             });
         }),
