@@ -8,7 +8,7 @@
             <span class="pu-label">{{_ 'network-settings-form-image-label' }}</span>
             <div class="pu-upload">
                 <figure style="background-image:url('{{ imageUrl }}')" class="pu-imagepreview"></figure>
-                <button type="button" class="pu-button pu-button-secondary {{# if imageUploading }}pu-state-loading{{/ if }}" data-browse-photos>
+                <button type="button" class="pu-button pu-button-secondary {{# if imageUploading }}pu-state-loading{{/ if }}" data-image-browse>
                     <span>{{_ 'network-settings-form-image-button' }}</span>
                     {{> Spinner color='inverted' type='small' }}
                 </button>
