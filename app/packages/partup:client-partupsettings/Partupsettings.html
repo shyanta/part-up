@@ -244,7 +244,7 @@
                     {{> Gallery loading=galleryIsLoading pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter fp_update=onFocuspointUpdate }}
                 {{ else }}
                     <figure class="pu-gallery pu-gallery-placeholder">
-                        <div class="pu-sub-loadercontainer {{#if partupLoading 'suggesting-images' 'image-uploading' }}pu-sub-loadercontainer-active{{/if}}">
+                        <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
                             {{> Loader }}
                         </div>
                         <figcaption>
