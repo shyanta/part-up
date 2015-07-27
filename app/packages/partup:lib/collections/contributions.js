@@ -17,3 +17,14 @@ Contributions.findForUpdate = function(update) {
 
     return Contributions.find({_id: update.type_data.contribution_id}, {limit: 1});
 };
+
+/**
+ * Find contributions for an activity
+ *
+ * @memberOf Contributions
+ * @param {Activity} activity
+ * @return {Mongo.Cursor}
+ */
+Contributions.findForActivity = function(activity) {
+    return Contributions.find({activity_id: activity._id});
+};
