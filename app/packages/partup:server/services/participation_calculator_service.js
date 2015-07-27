@@ -90,8 +90,15 @@ Partup.server.services.participation_calculator = {
 
         var day = 24 * 60 * 60 * 1000;
         var now = new Date;
+        var createdAt = new Date(upper.createdAt);
+        var createdDaysAgo = (now - createdAt) / day;
 
         var maximumDaysAgoToGiveScore = 25;
+
+        if (createdDaysAgo <= maximumDaysAgoToGiveScore) {
+            loginScore += scoreDelta * (maximumDaysAgoToGiveScore - createdDaysAgo);
+        }
+
         logins.forEach(function(login) {
             var daysBetweenLoginAndNow = Math.round(Math.abs((login.getTime() - now.getTime()) / day));
 
