@@ -5,7 +5,18 @@
 - 25%: Amount of partups that the user supports that have not exceeded their end date (1% per partup, max of 25%).
 - 25%: Amount of contributions that a user has done on partups that have not yet exceeded their end date (1% per contribution, max of 25%).
 
-TODO:
-- Max 99
-- Gehele getallen
-- Minimaal score van 10 (frontend)
+# Orange Circle Score
+
+- Start with 10%
+
+Parners (10%):
+- Minimum of 3 partners
+- 3.33% each
+
+Activities (80%):
+- Minimum of 8 activities
+- All activities have contributions
+- Open activity (-10%) / closed activity (+20%)
+
+Time:
+- Based on time, slowly growing to 100%
