@@ -83,6 +83,18 @@ Template.modal_network_invite.helpers({
 });
 
 Template.modal_network_invite.events({
+    'click [data-closepage]': function(event, template) {
+        event.preventDefault();
+
+        Intent.return('network-detail', {
+            fallback_route: {
+                name: 'network-detail',
+                params: {
+                    _id: template.data.networkId
+                }
+            }
+        });
+    },
     'click [data-invite-id]': function(event, template) {
         var networkId = template.data.networkId;
         var userId = event.target.dataset.inviteId;
