@@ -153,8 +153,12 @@ User = function(user) {
             if (!user.profile) return;
 
             var name = user.profile.name || user.name;
-            if (name && name.match(/.*\s.*/)) {
+            if (!name) return;
+
+            if (name.match(/.*\s.*/)) {
                 return name.split(' ')[0];
+            } else {
+                return name;
             }
         },
 
