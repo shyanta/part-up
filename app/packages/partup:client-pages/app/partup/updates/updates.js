@@ -29,11 +29,11 @@ Template.app_partup_updates.onCreated(function() {
         handle: null,
 
         // The data model
-        model: Updates.findForUpdates(tpl.data.partupId),
+        model: Updates.findForPartup(tpl.data.partupId),
         updateModel: function() {
             Tracker.nonreactive(function() {
                 var options = tpl.updates.options.get();
-                tpl.updates.model = Updates.findForUpdates(tpl.data.partupId, options);
+                tpl.updates.model = Updates.findForPartup(tpl.data.partupId, options);
             });
             return tpl.updates.model.fetch();
         },
