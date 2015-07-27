@@ -1,11 +1,15 @@
 /**
- * @name Partup.publications.usersCount
- * @memberof Partup.server.publications
+ * Publish a count of all users
  */
 Meteor.publish('users.count', function() {
     Counts.publish(this, 'users', Meteor.users.find());
 });
 
+/**
+ * Publish a user
+ *
+ * @param {String} userId
+ */
 Meteor.publishComposite('users.one', function(userId) {
     return {
         find: function() {
@@ -17,9 +21,13 @@ Meteor.publishComposite('users.one', function(userId) {
     };
 });
 
+/**
+ * Publish all partups a user is upper in
+ *
+ * @param {String} userId
+ * @param {Object} options
+ */
 Meteor.publishComposite('users.one.upperpartups', function(userId, options) {
-    var self = this;
-
     options = options || {};
 
     return {
@@ -32,16 +40,20 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, options) {
                 {find: Images.findForUser}
             ]},
             {find: Meteor.users.findSupportersForPartup},
-            {find: Networks.findForPartup, children: [
+            {find: function(partup) { Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
             ]}
         ]
     };
 });
 
+/**
+ * Publish a count of all partups a user is upper in
+ *
+ * @param {String} userId
+ * @param {Object} options
+ */
 Meteor.publish('users.one.upperpartups.count', function(userId, options) {
-    var self = this;
-
     options = options || {};
 
     var parameters = {
@@ -51,29 +63,37 @@ Meteor.publish('users.one.upperpartups.count', function(userId, options) {
     Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartups(userId, options, parameters));
 });
 
-Meteor.publishComposite('users.one.supporterpartups', function(options, userId) {
-    var self = this;
-    var userId = userId || self.userId;
+/**
+ * Publish all partups a user is supporter of
+ *
+ * @param {String} userId
+ * @param {Object} options
+ */
+Meteor.publishComposite('users.one.supporterpartups', function(userId, options) {
     options = options || {};
 
     return {
         find: function() {
-            return Partups.findSupporterPartups(userId, options);
+            return Partups.findSupporterPartups(userId, options, this.userId);
         },
         children: [
             {find: Images.findForPartup},
             {find: Meteor.users.findUppersForPartup},
             {find: Meteor.users.findSupportersForPartup},
-            {find: Networks.findForPartup, children: [
+            {find: function(partup) { Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
             ]}
         ]
     };
 });
 
-Meteor.publish('users.one.supporterpartups.count', function(options, userId) {
-    var self = this;
-    var userId = userId || self.userId;
+/**
+ * Publish a count of all partups a user is supporter of
+ *
+ * @param {String} userId
+ * @param {Object} options
+ */
+Meteor.publish('users.one.supporterpartups.count', function(userId, options) {
     options = options || {};
 
     var parameters = {
@@ -83,12 +103,13 @@ Meteor.publish('users.one.supporterpartups.count', function(options, userId) {
     Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartups(userId, options, parameters));
 });
 
+/**
+ * Publish the loggedin user
+ */
 Meteor.publishComposite('users.loggedin', function() {
-    var self = this;
-
     return {
         find: function() {
-            return Meteor.users.findSinglePrivateProfile(self.userId);
+            return Meteor.users.findSinglePrivateProfile(this.userId);
         },
         children: [
             {find: Images.findForUser},
@@ -103,7 +124,7 @@ Meteor.publishComposite('users.loggedin', function() {
 });
 
 /**
- * Publish users based on an array of user ids
+ * Publish multiple users by ids
  *
  * @param {[String]} userIds
  */
