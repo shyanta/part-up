@@ -76,7 +76,9 @@ Activities.findForPartup = function(partup, options, parameters) {
         partup_id: partup._id
     };
 
-    if (parameters.archived) selector.archived = true;
+    if (parameters.hasOwnProperty('archived')) {
+        selector.archived = !!parameters.archived;
+    }
 
     return Activities.find(selector, options);
 };
