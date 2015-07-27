@@ -24,7 +24,7 @@
             <div class="pu-partupcircle">
                 <a href="{{pathFor 'partup' _id=_id }}">
                     <canvas class="pu-sub-radial" data-percent="{{ progress }}"></canvas>
-                    <figure class="pu-sub-inner" style="{{#if image }}background-image: url('{{ partupImageUrl id=image }}');{{/if }}"></figure>
+                    <figure class="pu-sub-inner" style="{{#if image }}background-image: url('{{ partupImageUrl id=image }}');{{/if }}" data-partup-tile-focuspoint></figure>
                 </a>
                 <!-- Uppers -->
                 {{# if uppers }}

@@ -43,6 +43,17 @@ Template.PartupTile.onRendered(function() {
             positionTags(tagsEl);
         });
     }
+
+    if (this.data.image) {
+        var image = Images.findOne({_id: this.data.image});
+        if (image && image.focuspoint) {
+            var focuspointElm = this.find('[data-partup-tile-focuspoint]');
+            this.focuspoint = new Focuspoint.View(focuspointElm, {
+                x: image.focuspoint.x,
+                y: image.focuspoint.y
+            });
+        }
+    }
 });
 
 /*************************************************************/
