@@ -166,6 +166,27 @@ Meteor.methods({
 
         Partup.server.services.notifications.send(notificationOptions);
 
+        // Compile the E-mail template and send the email
+        var locale = User(inviter).getLocale();
+        SSR.compileTemplate('inviteExistingUserNetwork', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
+        var url = Meteor.absoluteUrl() + 'tribes/' + network._id;
+        var email = User(invitee).getEmail();
+        console.log(invitee);
+        console.log(email);
+        Email.send({
+            from: 'Part-up <noreply@part-up.com>',
+            to: User(invitee).getEmail(),
+            subject: 'Part-up invite ' + network.name,
+            html: SSR.render('inviteExistingUserNetwork', {
+                name: invitee.profile.name,
+                networkName: network.name,
+                networkDescription: network.description,
+                inviterName: inviter.name,
+                url: url
+            })
+        });
+
+        // Store invite
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
             network_id: network._id,
