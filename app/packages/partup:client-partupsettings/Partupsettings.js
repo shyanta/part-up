@@ -251,7 +251,9 @@ Template.Partupsettings.helpers({
     },
     locationQuery: function() {
         return function(query, sync, async) {
+            console.log(query, sync, async);
             Meteor.call('google.cities.autocomplete', query, function(error, locations) {
+                console.log(error, locations);
                 lodash.each(locations, function(loc) {
                     loc.value = Partup.client.strings.locationToDescription(loc);
                 });
