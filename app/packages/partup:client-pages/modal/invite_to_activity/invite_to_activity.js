@@ -68,9 +68,6 @@ Template.modal_invite_to_activity.helpers({
 
         return suggestions;
     },
-    completeness: function() {
-        return this.completeness || 0;
-    },
     inviteSent: function() {
         var activityId = Template.instance().data.activityId;
         var userId = this._id;
