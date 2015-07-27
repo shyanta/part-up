@@ -50,7 +50,7 @@
                         <li>
                             <figure class="pu-avatar" style="background-image: url({{ partupImageUrl id=profile.image store='80x80' }});"></figure>
                             <p class="pu-sub-identity">
-                                <span class="pu-sub-name" data-usercard="{{ _id }}">{{ profile.name }}</span>
+                                <a href="{{ pathFor 'profile-upper-partups' _id=_id }}" class="pu-sub-name" data-usercard="{{ _id }}">{{ profile.name }}</a>
                                 {{# if profile.location.city }}
                                     <span class="pu-sub-location">{{ profile.location.city }}</span>
                                 {{/ if }}
