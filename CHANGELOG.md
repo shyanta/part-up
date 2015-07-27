@@ -1,4 +1,21 @@
 # CHANGELOG
+## 1.5.0
+- User detail
+- Profile dropdown v2 (network tabs)
+- Profile settings
+- Network detail (uppers and partups)
+- Network settings (details, uppers and invites)
+- hidden add network admin page + admin role access
+- Upper matching with current activity
+- UI responsiveness (loading states and page switch performance)
+- Discover network and location filter
+- 404 pages
+- Loggedin functinoality popups for nonloggedin users
+- Delete partup confirmation modal
+- Partup / Profile tags autocomplete ux
+- mixpanel / analytics analytics + events
+- Beta Homepage
+
 ## 1.4
 - network page
 - well loaders on updates & activities pages
