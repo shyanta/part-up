@@ -333,8 +333,6 @@ Networks.guardedFind = function(userId, selector, options) {
  * @return {Mongo.Cursor}
  */
 Networks.findForPartup = function(partup, userId) {
-    var userId = userId || this.userId;
-
     return Networks.guardedFind(userId, {_id: partup.network_id}, {limit: 1});
 };
 
