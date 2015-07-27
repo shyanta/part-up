@@ -8,7 +8,6 @@ Template.DropdownProfile.onCreated(function() {
 
     Subs.subscribe('users.one.upperpartups', userId);
     Subs.subscribe('users.one.supporterpartups', userId);
-    Subs.subscribe('networks.user');
 
     this.currentNetwork = new ReactiveVar();
 });
