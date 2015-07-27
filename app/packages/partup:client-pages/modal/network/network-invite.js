@@ -69,6 +69,16 @@ Template.modal_network_invite.helpers({
 
         return suggestions;
     },
+    inviteSent: function() {
+        var networkId = Template.instance().data.networkId;
+        var userId = this._id;
+
+        return !!Invites.findOne({
+            network_id: networkId,
+            invitee_id: this._id,
+            type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER
+        });
+    },
 
     // Location
     locationValue: function() {
