@@ -18,9 +18,8 @@ Template.app_partup_updates.onCreated(function() {
 
         // States
         loading: new ReactiveVar(false),
-        rendering: new ReactiveVar(),
         infinite_scroll_loading: new ReactiveVar(false),
-        end_reached: new ReactiveVar(true),
+        end_reached: new ReactiveVar(false),
 
         // Date of the last refresh
         refreshDate: new ReactiveVar(new Date()),
@@ -65,10 +64,17 @@ Template.app_partup_updates.onCreated(function() {
             options.limit = tpl.updates.limit.get();
 
             tpl.updates.loading.set(true);
-            Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
-                tpl.updates.loading.set(false);
+
+            var sub = Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
                 tpl.updates.updateModel();
                 tpl.updates.updateView();
+            });
+
+            tpl.autorun(function(c) {
+                if (sub.ready()) {
+                    c.stop();
+                    tpl.updates.loading.set(false);
+                }
             });
         }),
 
@@ -88,9 +94,7 @@ Template.app_partup_updates.onCreated(function() {
             options.limit = b;
 
             tpl.updates.infinite_scroll_loading.set(true);
-            Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
-                tpl.updates.infinite_scroll_loading.set(false);
-
+            var sub = Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
                 var modelUpdates = tpl.updates.updateModel();
                 var viewUpdates = tpl.updates.view.get();
 
@@ -105,6 +109,13 @@ Template.app_partup_updates.onCreated(function() {
                 });
 
                 tpl.updates.addToView(addedUpdates);
+            });
+
+            tpl.autorun(function(c) {
+                if (sub.ready()) {
+                    c.stop();
+                    tpl.updates.infinite_scroll_loading.set(false);
+                }
             });
         }),
 
@@ -303,21 +314,11 @@ Template.app_partup_updates.helpers({
         return showNewUpdatesSeparator;
     },
 
-    // Loading / rendering state
+    // Loading states
     updatesLoading: function() {
         return Template.instance().updates.loading.get();
     },
-    updatesLoadingOrRendering: function() {
-        return Template.instance().updates.loading.get() || Template.instance().updates.rendering.get();
-    },
-    updatesRenderedCallback: function() {
-        var tpl = Template.instance();
-        tpl.updates.rendering.set(true);
-        return function() {
-            tpl.updates.rendering.set(false);
-        };
-    },
-    updatesLoadingOrMore: function() {
+    updatesLoadingMore: function() {
         return Template.instance().updates.infinite_scroll_loading.get();
     },
 });

@@ -33,46 +33,38 @@
         </header>
 
         <!-- Loading/rendering state -->
-        <!-- {{# if activitiesLoadingOrRendering }}
+        {{# if activitiesLoading }}
             {{> Loader ALIGNMENT='center' }}
-        {{/ if }} -->
+        {{ else }}
 
-        <!-- Not-loading state -->
-        <!-- {{# unless activitiesLoading }} -->
+            {{# each activities }}
+                {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
+            {{/ each }}
 
-            <!-- Render asynchronously -->
-            <!-- {{# async callback=activitiesRenderedCallback }} -->
+            {{# if archivedActivities }}
+                <p class="pu-textline">
+                    <span>
+                        {{_ "pages-app-partup-activities-archivedactivities_heading" }}
+                        <span class="fa fa-long-arrow-down"></span>
+                    </span>
+                </p>
+            {{/ if }}
 
-                {{# each activities }}
-                    {{> Activity activity=. EXPANDABLE=true COMMENTS_LINK=true isUpper=isUpper }}
-                {{/ each }}
+            {{# each archivedActivities }}
+                {{> Activity activity=. EXPANDABLE=true isUpper=isUpper }}
+            {{/ each }}
 
-                {{# if archivedActivities }}
-                    <p class="pu-textline">
-                        <span>
-                            {{_ "pages-app-partup-activities-archivedactivities_heading" }}
-                            <span class="fa fa-long-arrow-down"></span>
-                        </span>
-                    </p>
-                {{/ if }}
-
-                {{# each archivedActivities }}
-                    {{> Activity activity=. EXPANDABLE=true isUpper=isUpper }}
-                {{/ each }}
-
-                {{#unless activities }}
-                    {{#unless archivedActivities }}
-                        <section class="pu-update pu-update-placeholder">
-                            <section>
-                                <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
-                            </section>
+            {{#unless activities }}
+                {{#unless archivedActivities }}
+                    <section class="pu-update pu-update-placeholder">
+                        <section>
+                            <p>{{_ 'pages-app-partup-activities-no_activities'}}</p>
                         </section>
-                    {{/unless }}
+                    </section>
                 {{/unless }}
+            {{/unless }}
 
-            <!-- {{/ async }} -->
-
-        <!-- {{/ unless }} -->
+        {{/ if }}
 
     </div>
 </template>

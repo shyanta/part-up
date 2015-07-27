@@ -6,13 +6,10 @@ var Subs = new SubsManager({
 Template.app_partup_activities.onCreated(function() {
     var tpl = this;
 
-    Subs.subscribe('activities.from_partup', tpl.data.partupId);
-
     tpl.activities = {
 
         // States
         loading: new ReactiveVar(false),
-        rendering: new ReactiveVar(),
 
         // Filter
         filter: new ReactiveVar('default'),
@@ -39,6 +36,16 @@ Template.app_partup_activities.onCreated(function() {
             return activities;
         }
     };
+
+    // Activities subscription
+    tpl.activities.loading.set(true);
+    var sub = Subs.subscribe('activities.from_partup', tpl.data.partupId);
+    tpl.autorun(function(c) {
+        if (sub.ready()) {
+            c.stop();
+            tpl.activities.loading.set(false);
+        }
+    });
 });
 
 Template.app_partup_activities.helpers({
@@ -61,19 +68,9 @@ Template.app_partup_activities.helpers({
         return Template.instance().activities.filter;
     },
 
-    // Loading / rendering state
+    // Loading state
     activitiesLoading: function() {
         return Template.instance().activities.loading.get();
-    },
-    activitiesLoadingOrRendering: function() {
-        return Template.instance().activities.loading.get() || Template.instance().activities.rendering.get();
-    },
-    activitiesRenderedCallback: function() {
-        var tpl = Template.instance();
-        tpl.activities.rendering.set(true);
-        return function() {
-            tpl.activities.rendering.set(false);
-        };
     }
 
 });
