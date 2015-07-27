@@ -5,8 +5,8 @@ SyncedCron.add({
     },
     job: function() {
         // TODO: Smarter way to do this, most likely not everyone
-        // needs a Part-up participation score calculator
-        var userIds = Meteor.users.find({}).forEach(function(user) {
+        // needs a Part-up participation score calculation
+        Meteor.users.find({}).forEach(function(user) {
             var score = Partup.server.services.participation_calculator.calculateParticipationScoreForUpper(user._id);
             Meteor.users.update(user._id, {'$set': {participation_score: score}});
         });
