@@ -78,6 +78,8 @@ Template.ColumnsLayout.onCreated(function() {
         return all_items;
     };
     tpl.columns.addToShortestColumn = function(item) {
+        if (tpl.view.isDestroyed) return;
+
         var shortest = {
             index: null,
             height: Infinity
