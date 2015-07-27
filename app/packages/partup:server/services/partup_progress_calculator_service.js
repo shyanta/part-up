@@ -30,7 +30,7 @@ Partup.server.services.partup_progress_calculator = {
 
     _calculateActivitiesBasedScore: function(partup) {
         var score = 0;
-        var activities = Activities.findForPartup(partup._id);
+        var activities = Activities.findForPartup(partup);
 
         activities.forEach(function(activity) {
             if (activity.isClosed()) score += 20;

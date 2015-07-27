@@ -73,16 +73,26 @@ Updates.findForActivity = function(activity) {
     return Updates.find({_id: activity.update_id}, {limit: 1});
 };
 
-Updates.findForUpdates = function(partupId, options) {
+/**
+ * Find updates for partup
+ *
+ * @memberOf Updates
+ * @param {Partup} partup
+ * @param {Object} options
+ * @param {Number} options.limit
+ * @param {String} options.filter
+ * @return {Mongo.Cursor}
+ */
+Updates.findForPartup = function(partup, options) {
     var self = this;
 
-    if (!partupId) return;
+    if (!partup) return;
 
     var options = options || {};
     var limit = options.limit || 10;
     var filter = options.filter || 'default';
 
-    var selector = {partup_id: partupId};
+    var selector = {partup_id: partup._id};
 
     if (filter === 'my-updates') {
         selector.upper_id = self.userId;

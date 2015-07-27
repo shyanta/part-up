@@ -7,10 +7,9 @@ Meteor.publishComposite('activities.from_partup', function(partupId) {
     return {
         find: function() {
             var partup = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1}).fetch().pop();
-
             if (!partup) return;
 
-            return Activities.findForPartup(partup._id);
+            return Activities.findForPartup(partup);
         },
         children: [
             {find: Updates.findForActivity},

@@ -20,8 +20,10 @@ Template.app_partup_activities.onCreated(function() {
 
             var filter = tpl.activities.filter.get();
 
+            var partup = Partups.findOne(tpl.data.partupId);
+
             var activities = Activities
-                .findForPartup(tpl.data.partupId, {sort: {end_date: -1}}, {archived: !!options.archived})
+                .findForPartup(partup, {sort: {end_date: -1}}, {archived: !!options.archived})
                 .fetch()
                 .filter(function(activity, idx) {
                     if (filter === 'my-activities')

@@ -68,12 +68,12 @@ Activities.findForContribution = function(contribution) {
  * @param {Contribution} contribution
  * @return {Mongo.Cursor}
  */
-Activities.findForPartup = function(partup_id, options, parameters) {
+Activities.findForPartup = function(partup, options, parameters) {
     options = options || {};
     parameters = parameters || {};
 
     var selector = {
-        partup_id: partup_id
+        partup_id: partup._id
     };
 
     if (parameters.archived) selector.archived = true;
