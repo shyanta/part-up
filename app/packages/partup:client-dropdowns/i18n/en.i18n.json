@@ -4,13 +4,13 @@
     "dropdowns-profile-button-myprofile": "My profile",
     "dropdowns-profile-button-settings": "Settings",
     "dropdowns-profile-button-logout": "Log out",
-    "dropdowns-profile-title-upperpartups-notfound": "@There are no Part-ups where you are an Upper",
-    "dropdowns-profile-title-upperpartups-notfound-network": "@There are no Part-ups where you are an Upper in __network__",
-    "dropdowns-profile-title-supporterpartups-notfound": "@You don't yet support a Part-up",
-    "dropdowns-profile-title-supporterpartups-notfound-network": "@You don't yet support a Part-up in __network__",
+    "dropdowns-profile-title-upperpartups-notfound": "You are not yet a partner in any part-up",
+    "dropdowns-profile-title-upperpartups-notfound-network": "You are not yet a partner in any part-up in the __network__ tribe",
+    "dropdowns-profile-title-supporterpartups-notfound": "You don't yet support any part-up",
+    "dropdowns-profile-title-supporterpartups-notfound-network": "You don't yet support a part-up in the __network__ tribe",
 
     "dropdowns-notifications-button-opennotificationsdropdown": "Notifications",
-    "dropdowns-notifications-placeholder-nonotifications": "No notifications yet",
+    "dropdowns-notifications-placeholder-nonotifications": "You don't have any notifications yet",
     "dropdowns-notifications-button-managenotifications": "Manage notifications",
 
     "dropdowns-updatesactions-option-default": "All updates",
@@ -24,7 +24,7 @@
     "dropdowns-activitiesactions-option-my-activities": "My activities",
     "dropdowns-activitiesactions-option-open-activities": "Open activities",
 
-    "dropdown-notification-partups_supporters_added": "@__supporter__ has started supporting __partup__",
+    "dropdown-notification-partups_supporters_added": "@_supporter__ has started supporting __partup__",
     "dropdown-notification-partup_activities_invited": "@__inviter__ has invited you to the activivity __activity__",
     "dropdown-notification-partups_contributions_accepted": "@Your contribution to __partup__ has been accepted",
     "dropdown-notification-partups_contributions_rejected": "@Your contribution __activity__ has been rejected in __partup__",

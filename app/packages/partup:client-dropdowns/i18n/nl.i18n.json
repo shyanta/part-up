@@ -4,13 +4,13 @@
     "dropdowns-profile-button-myprofile": "Profiel",
     "dropdowns-profile-button-settings": "Instellingen",
     "dropdowns-profile-button-logout": "Uitloggen",
-    "dropdowns-profile-title-upperpartups-notfound": "@Er zijn nog geen Part-ups waar jij Upper bent",
-    "dropdowns-profile-title-upperpartups-notfound-network": "@Er zijn nog geen Part-ups waar jij Upper bent in __network__",
-    "dropdowns-profile-title-supporterpartups-notfound": "@Je support nog geen Part-up",
-    "dropdowns-profile-title-supporterpartups-notfound-network": "@Je support nog geen Part-up in __network__",
+    "dropdowns-profile-title-upperpartups-notfound": "Je bent nog geen partner in een part-up",
+    "dropdowns-profile-title-upperpartups-notfound-network": "Je ben nog geen partner in een part-up in de __network__ tribe",
+    "dropdowns-profile-title-supporterpartups-notfound": "Je support nog geen part-up",
+    "dropdowns-profile-title-supporterpartups-notfound-network": "Je support nog geen part-up in de __network__ tribe",
 
     "dropdowns-notifications-button-opennotificationsdropdown": "Notificaties",
-    "dropdowns-notifications-placeholder-nonotifications": "Er zijn nog geen notificaties",
+    "dropdowns-notifications-placeholder-nonotifications": "Je hebt nog geen notificaties",
     "dropdowns-notifications-button-managenotifications": "Beheer meldingen",
 
     "dropdowns-updatesactions-option-default": "Alle updates",
