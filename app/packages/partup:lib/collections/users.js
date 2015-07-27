@@ -164,7 +164,7 @@ User = function(user) {
         getLocale: function() {
             if (!user) return 'nl';
 
-            var locale = mout.object.get(user, 'settings.locale') || 'nl';
+            var locale = mout.object.get(user, 'profile.settings.locale') || 'nl';
 
             if (!mout.object.has(TAPi18n.getLanguages(), locale)) {
                 locale = 'nl';
