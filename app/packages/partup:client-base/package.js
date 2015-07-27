@@ -22,6 +22,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'package-tap.i18n',
 
+        'client/base-64-polyfill.js',
+
         'namespace.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
         'autoform/afFieldInput.js',
