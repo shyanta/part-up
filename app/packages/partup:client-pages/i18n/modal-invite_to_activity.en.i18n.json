@@ -3,6 +3,8 @@
     "pages-modal-invite_to_activity-title": "Invite uppers to your part-up",
     "pages-modal-invite_to_activity-explanation": "Obviously you need people with the right skills and motivation to get job done. We give you ten uppers that match you and your part-up best. We base our suggestions upon the analysis of all of your part-up's content and all upper profiles. No match found? No worries, you can always look for matches yourself.",
     "pages-modal-invite_to_activity-button_invite": "Invite Uppers directly by email",
+    "pages-modal-invite_to_activity-search-query-label": "Show me",
+    "pages-modal-invite_to_activity-search-location-label": "Uppers from",
     "pages-modal-invite_to_activity-button-invite-upper": "Invite",
     "pages-modal-invite_to_activity-button-invited-upper": "Invited",
     "pages-modal-invite_to_activity-invite-success": "The invite has been sent."
