@@ -29,6 +29,8 @@ Template.app_partup_updates.onCreated(function() {
         partup: null,
         model: null,
         updateModel: function() {
+            if (!tpl.updates.partup) return;
+
             Tracker.nonreactive(function() {
                 var options = tpl.updates.options.get();
                 tpl.updates.model = Updates.findForPartup(tpl.updates.partup, options);
