@@ -256,6 +256,65 @@ Meteor.startup(function() {
                 }
             });
 
+            Partups.insert( {
+                '_id' : 'WxrpPuJkhafJB3gfF',
+                'name' : 'Partup Premium Part-up',
+                'description' : 'private',
+                'budget_type' : null,
+                'budget_money' : null,
+                'budget_hours' : null,
+                'end_date' : new Date('2017-05-31T00:00:00.000Z'),
+                'image' : '654mSAG5cP9dqd2n5',
+                'tags' : [ 
+                    'private'
+                ],
+                'location' : {
+                    'city' : 'Amsterdam',
+                    'lat' : 52.3702157000000028,
+                    'lng' : 4.8951679000000006,
+                    'place_id' : 'ChIJVXealLU_xkcRja_At0z9AGY',
+                    'country' : 'Netherlands'
+                },
+                'privacy_type' : 2,
+                'uppers' : [ 
+                    'K5c5M4Pbdg3B82wQH'
+                ],
+                'creator_id' : 'K5c5M4Pbdg3B82wQH',
+                'created_at' : new Date('2015-07-28T15:26:34.086Z'),
+                'slug' : 'partup-premium-part-up-WxrpPuJkhafJB3gfF',
+                'analytics' : {
+                    'clicks_total' : 1,
+                    'clicks_per_day' : 1,
+                    'clicks_per_hour' : [ 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        1, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0
+                    ],
+                    'last_ip' : '127.0.0.1'
+                }
+            });
+
             // uncomment for infinite scroll testing
             // for (var i = 0; i < 30; i++) {
             //     var descriptions = [

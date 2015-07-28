@@ -92,10 +92,12 @@ Meteor.startup(function() {
                 ],
                 'participation_score' : 2,
                 'partups' : [
-                    'ASfRYBAzo2ayYk5si'
+                    'ASfRYBAzo2ayYk5si',
+                    'WxrpPuJkhafJB3gfF'
                 ],
                 'upperOf' : [
-                    'ASfRYBAzo2ayYk5si'
+                    'ASfRYBAzo2ayYk5si',
+                    'WxrpPuJkhafJB3gfF'
                 ]
             });
 
