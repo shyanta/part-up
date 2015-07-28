@@ -261,6 +261,9 @@ Meteor.methods({
         users = users.map(function(user) {
             return user._id;
         });
+
+        // Limit the results to 30
+        return users.slice(0, 30);
     },
 
     /**
