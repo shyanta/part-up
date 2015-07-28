@@ -6,7 +6,9 @@ var getActivities = function(partupId) {
 };
 
 Template.modal_create_activities.onCreated(function() {
-    this.subscribe('partups.one', this.data.partupId);
+
+    var partupId = mout.object.get(this, 'data.partupId') || Router.current().params._id; // strange fix. this.data can be `null` in some cases
+    this.subscribe('partups.one', partupId);
 
     var activities_sub = this.subscribe('activities.from_partup', this.data.partupId);
     this.autorun(function(c) {
