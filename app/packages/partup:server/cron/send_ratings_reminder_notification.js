@@ -1,7 +1,7 @@
 SyncedCron.add({
     name: 'Send a notification to partners when the partup is nearing the end date to remind them to rate contributions in the partup',
     schedule: function(parser) {
-        return parser.text('every 2 minutes');
+        return parser.text('every 1 hour');
     },
     job: function() {
         var selector = {
