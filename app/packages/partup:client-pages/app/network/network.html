@@ -85,11 +85,15 @@
                                 {{ else }}
                                     {{# if network.canUpperJoin userId }}
                                         <li class="pu-sub-button">
-                                            <a class="pu-button" href="#" data-join>
-                                                {{# if network.isUpperInvited userId }}
-                                                    {{_ 'pages-app-network-actions-button-accept'}}
+                                            <a class="pu-button {{# if isInvitePending }}pu-button-disabled{{/ if }}" href="#" data-join>
+                                                {{# if isInvitePending }}
+                                                        {{_ 'pages-app-network-actions-button-pending'}}
                                                 {{ else }}
-                                                    {{_ 'pages-app-network-actions-button-join'}}
+                                                    {{# if network.isUpperInvited userId }}
+                                                        {{_ 'pages-app-network-actions-button-accept'}}
+                                                    {{ else }}
+                                                        {{_ 'pages-app-network-actions-button-join'}}
+                                                    {{/ if }}
                                                 {{/ if }}
                                             </a>
                                         </li>

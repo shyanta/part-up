@@ -21,6 +21,7 @@
     "pages-app-network-actions-button-leave": "Leave tribe",
     "pages-app-network-actions-button-accept": "Accept invitation",
     "pages-app-network-actions-button-reject": "Reject invitation",
+    "pages-app-network-actions-button-pending": "Waiting for approval",
     "pages-app-network-actions-button-invite": "Invite",
     "pages-app-network-tab-button-partups": "Part-ups",
     "pages-app-network-tab-button-uppers": "Uppers"

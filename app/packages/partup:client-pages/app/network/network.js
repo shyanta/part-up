@@ -19,6 +19,12 @@ Template.app_network.helpers({
         return Networks.findOne(this.networkId);
     },
 
+    isInvitePending: function() {
+        var user = Meteor.user();
+        if (!user || !user.pending_networks) return false;
+        return mout.array.contains(user.pending_networks, this.networkId);
+    },
+
     userId: function() {
         return Meteor.userId();
     },

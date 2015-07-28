@@ -20,7 +20,8 @@ var publicUserFields = {
 
 //user fields exposed to logged in user
 var privateUserFields = mout.object.merge({
-    'emails': 1
+    'emails': 1,
+    'pending_networks': 1
 }, publicUserFields);
 
 /**
