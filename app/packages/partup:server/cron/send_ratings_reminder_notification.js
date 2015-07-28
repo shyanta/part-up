@@ -9,7 +9,7 @@ SyncedCron.add({
             'end_date': {'$gt': new Date}
         };
 
-        Partups.find().forEach(function(partup) {
+        Partups.find(selector).forEach(function(partup) {
             var flags = partup.flags || {};
 
             var day = 1000 * 60 * 60 * 24;
