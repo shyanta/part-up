@@ -148,7 +148,7 @@ Images.findForUser = function(user) {
  * @return {Mongo.Cursor}
  */
 Images.findForNetwork = function(network) {
-    return Images.find({_id: {$in: [network.image, network.icon]}}, {limit: 2});
+    return Images.find({_id: {'$in': [network.image, network.icon]}}, {limit: 2});
 };
 
 /**
@@ -162,14 +162,18 @@ Images.findForNotification = function(notification) {
     var images = [];
 
     if (notification.type === 'partups_supporters_added') {
-        images.push(notification.type_data.supporter.image);
+        images = [notification.type_data.supporter.image];
     }
 
     if (notification.type === 'partup_activities_invited') {
-        images.push(notification.type_data.inviter.image);
+        images = [notification.type_data.inviter.image];
     }
 
-    return Images.find({_id: {$in: images}});
+    if (notification.type === 'partups_supporters_added') {
+        images = [notification.type_data.supporter.image];
+    }
+
+    return Images.find({_id: {'$in': images}});
 };
 
 /**
@@ -190,9 +194,7 @@ Images.findForUpdate = function(update) {
         images = update.type_data.images || [];
     }
 
-    if (!images.length) return; // save the mongo call
-
-    return Images.find({_id: {$in: images}});
+    return Images.find({_id: {'$in': images}});
 };
 
 Images.allow({
