@@ -4,14 +4,12 @@
  @memberof Partup.server.services
  */
 Partup.server.services.matching = {
-
-    matchUppersForActivity: function(activityId, query) {
+    matchUppersForActivity: function(activityId) {
         var activity = Activities.findOneOrFail(activityId);
         var partup = Partups.findOneOrFail(activity.partup_id);
 
         var selector = {};
         var options = {};
-        var query = query || {};
 
         // Match the uppers on the tags used in the partup
         var tags = partup.tags || [];
@@ -35,22 +33,6 @@ Partup.server.services.matching = {
             iteration++;
         }
 
-        // And finally, sort the results based on location and search input
-        if (query.locationId) {
-            results = _.sortBy(results, function(upper) {
-                if (!upper.profile.location || !upper.profile.location.place_id) return false;
-                return upper.profile.location.place_id == query.locationId;
-            });
-        }
-        if (query.query) {
-            results = _.sortBy(results, function(upper) {
-                var regex = new RegExp('.*' + query.query + '.*', 'i');
-                return !!upper.name.match(regex);
-            });
-        }
-
-        // The sorting causes the array to be sorted backwards, so we need to return the reversed results
-        return results.reverse();
+        return results;
     }
-
 };
