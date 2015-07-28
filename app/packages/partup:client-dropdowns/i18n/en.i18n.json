@@ -30,6 +30,7 @@
     "dropdown-notification-partups_contributions_rejected": "__rejecter__ rejected your contribution __activity__ in __partup__",
     "dropdown-notification-partups_networks_invited": "__inviter__ invited you to become member of the  __network__ tribe",
     "dropdown-notification-partups_networks_accepted": "You are now member of the __network__ tribe",
+
     "dropdown-notification-contributions_ratings_inserted": "__rater__ rated your contribution in __partup__",
     "dropdown-notification-updates_first_comment": "__commenter__ commented on an update in __partup__",
     "dropdown-notification-partups_messages_inserted": "__creator__ placed a message in __partup__",

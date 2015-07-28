@@ -33,14 +33,14 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             userId: update.upper_id,
             type: 'updates_first_comment',
             typeData: {
-                partup: {
-                    _id: partup._id,
-                    name: partup.name
-                },
                 commenter: {
                     _id: comment.creator._id,
                     name: comment.creator.name,
                     image: comment.creator.image
+                },
+                partup: {
+                    _id: partup._id,
+                    name: partup.name
                 }
             }
         };

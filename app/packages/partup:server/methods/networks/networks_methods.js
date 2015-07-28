@@ -152,14 +152,15 @@ Meteor.methods({
             userId: invitee._id,
             type: 'partups_networks_invited',
             typeData: {
-                network: {
-                    id: networkId,
-                    name: network.name
-                },
                 inviter: {
-                    id: inviter._id,
+                    _id: inviter._id,
                     name: inviter.profile.name,
                     image: inviter.profile.image
+                },
+                network: {
+                    _id: networkId,
+                    name: network.name,
+                    image: network.image
                 }
             }
         };

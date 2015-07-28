@@ -21,6 +21,10 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
     if (!contributionUpper) return Log.error('User [' + contribution.upper_id + '] for Contribution [' + contribution._id + '] could not be found?');
 
     var rater = Meteor.users.findOne(userId);
+    if (!rater) return Log.error('Rater [' + userId + '] for Contribution [' + contribution._id + '] could not be found?');
+
+    var partup = Partups.findOne(contribution.partup_id);
+    if (!partup) return Log.error('Partup [' + contribution.partup_id + '] for Contribution [' + contribution._id + '] could not be found?');
 
     var notificationOptions = {
         userId: contributionUpper._id,
@@ -30,6 +34,10 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
                 _id: rater._id,
                 name: rater.profile.name,
                 image: rater.profile.image
+            },
+            partup: {
+                _id: partup._id,
+                name: partup.name
             }
         }
     };

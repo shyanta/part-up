@@ -176,7 +176,7 @@ Meteor.startup(function() {
 
             /* 11 */
             Notifications.insert({
-                '_id' : 'zBWjQJLbB3s6XJbi7',
+                '_id' : 'zBWjQJLbB3s6XJci8',
                 'for_upper_id' : 'K5c5M4Pbdg3B82wQH',
                 'type' : 'partups_ratings_reminder',
                 'type_data' : {

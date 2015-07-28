@@ -362,21 +362,24 @@ Meteor.methods({
             throw new Meteor.Error(403, 'user_is_already_invited_to_activity');
         }
 
+        var partup = Partups.findOneOrFail(activity.partup_id);
+
         var notificationOptions = {
             userId: invitee._id,
             type: 'partup_activities_invited',
             typeData: {
-                activity: {
-                    id: activityId,
-                    name: activity.name
-                },
                 inviter: {
                     _id: inviter._id,
                     name: inviter.profile.name,
                     image: inviter.profile.image
                 },
+                activity: {
+                    _id: activityId,
+                    name: activity.name
+                },
                 partup: {
-                    _id: activity.partup_id
+                    _id: partup._id,
+                    name: partup.name
                 }
             }
         };

@@ -37,14 +37,14 @@ Event.on('partups.supporters.inserted', function(partup, upper) {
     var notificationOptions = {
         type: 'partups_supporters_added',
         typeData: {
-            partup: {
-                _id: partup._id,
-                name: partup.name
-            },
             supporter: {
                 _id: upper._id,
                 name: upper.profile.name,
                 image: upper.profile.image
+            },
+            partup: {
+                _id: partup._id,
+                name: partup.name
             }
         }
     };

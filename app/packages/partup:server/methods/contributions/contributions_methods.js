@@ -108,7 +108,7 @@ Meteor.methods({
             }
 
             Event.emit('partups.uppers.inserted', contribution.partup_id, contribution.upper_id);
-            Event.emit('contributions.accepted', upper._id, contribution.partup_id, contribution.upper_id);
+            Event.emit('contributions.accepted', upper._id, contribution.activity_id, contribution.upper_id);
 
             // Post system message for each accepted contribution
             conceptContributions.forEach(function(contribution) {
@@ -142,7 +142,7 @@ Meteor.methods({
             // Post system message
             Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_rejected', {update_timestamp: false});
 
-            Event.emit('partups.contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
+            Event.emit('contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'An error occurred while rejecting contribution.');

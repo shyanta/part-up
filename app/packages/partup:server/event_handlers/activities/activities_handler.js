@@ -20,19 +20,14 @@ Event.on('partups.activities.inserted', function(userId, activity) {
     var notificationOptions = {
         type: 'partups_activities_inserted',
         typeData: {
-            partup: {
-                _id: partup._id,
-                name: partup.name
-            },
-            activity: {
-                _id: activity._id,
-                name: activity.name,
-                update_id: updateId
-            },
             creator: {
                 _id: creator._id,
                 name: creator.name,
                 image: creator.image
+            },
+            partup: {
+                _id: partup._id,
+                name: partup.name
             }
         }
     };
