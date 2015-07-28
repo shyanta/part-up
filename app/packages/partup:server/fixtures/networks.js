@@ -52,9 +52,6 @@ Meteor.startup(function() {
                 'icon': '4rymNTA3jFfTRKtFJ',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS',
-                    null,
-                    null,
-                    null,
                     'K5c5M4Pbdg3B82wQI'
                 ],
                 'admin_id' : 'q63Kii9wwJX3Q6rHS',
