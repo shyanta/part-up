@@ -78,6 +78,7 @@ The whole app is made up of small styled components. These components are not fu
 - Restoring: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>"`
 - Restoring Meteor LoginServiceConfiguration: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>" -c "meteor_accounts_loginServiceConfiguration" <bson file from dump>`
 - Emptying all Collections (run in mongo shell): `db.getCollectionNames().forEach(function(collectionName) { db[collectionName].remove({}); });`
+- Make user (super)admin: `db.users.update({ '_id': '<insertuseridhere>' }, { $set: { 'roles': ['admin'] } })`
 
 ## Unit testing
 - `meteor run --test`
