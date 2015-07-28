@@ -27,6 +27,15 @@
         background-color: $color-background-secondary
         transition: background-color $animation-duration
 
+    &:hover,
+    &:focus,
+    &:active
+        background-color: darken($color-background-secondary, 5%)
+        color: darken($color-text, 5%)
+        &:after
+            background-color: darken($color-background-secondary, 5%)
+
+
     &-inverted
         background-color: $color-background
 
@@ -73,4 +82,7 @@
 
         &:hover
             color: $color-text
+
+
+
 

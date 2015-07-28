@@ -133,10 +133,6 @@ Template.app_partup_sidebar.helpers({
 /* Partial events */
 /*************************************************************/
 Template.app_partup_sidebar.events({
-    'click .pu-list-tags span': function(event) {
-        Session.set('discover.query', event.target.textContent);
-        Router.go('discover');
-    },
 
     'click [data-joinsupporters]': function(event, template) {
         var partupId = template.data.partup._id;

@@ -66,6 +66,7 @@ Package.onUse(function(api) {
         'helpers/async.js',
         'helpers/newlineToBreak.js',
         'helpers/onrendered.js',
+        'helpers/tagsQuerySearch.js',
         'bootstrap.js',
 
         'i18n/helpers-dateFormatters.en.i18n.json',
