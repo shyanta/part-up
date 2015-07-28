@@ -214,7 +214,7 @@ var partupDetailLayout = {
         }
 
         this.lastScrollTop = getScrollTop();
-        this.maxScroll =  r[lcol].height - window.innerHeight;
+        this.maxScroll =  r[lcol].height - window.innerHeight + this.HEADER_HEIGHT;
         this.maxPos = this.containerHeight.get() - r[scol].height;
     },
 
