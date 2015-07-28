@@ -55,7 +55,7 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
     if (partupId) {
 
         // Partup already exists. Update.
-        Meteor.call('partups.update', partupId, insertDoc, function(error, res) {
+        Meteor.call('partups.update', partupId, insertDoc, function(error, partup) {
             if (error && error.reason) {
                 Partup.client.notify.error(error.reason);
                 AutoForm.validateForm(self.formId);
@@ -63,13 +63,13 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
                 return;
             }
 
-            callback(partupId);
+            callback(partup);
         });
 
     } else {
 
         // Partup does not exists yet. Insert.
-        Meteor.call('partups.insert', insertDoc, function(error, res) {
+        Meteor.call('partups.insert', insertDoc, function(error, partup) {
             if (error && error.reason) {
                 Partup.client.notify.error(error.reason);
                 AutoForm.validateForm(self.formId);
@@ -77,11 +77,11 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
                 return;
             }
             analytics.track('Part-up created', {
-                partupId: res._id,
+                partupId: partup._id,
                 userId: Meteor.user()._id,
             });
-            Session.set('partials.create-partup.current-partup', res._id);
-            callback(res._id);
+            Session.set('partials.create-partup.current-partup', partup._id);
+            callback(partup);
         });
 
     }
@@ -100,17 +100,17 @@ afHooks[FORM_ID] = {
         var template = self.template.parent().parent();
         template.submitting.set(submissionType);
 
-        createOrUpdatePartup(partupId, insertDoc, function(id) {
+        createOrUpdatePartup(partupId, insertDoc, function(partup) {
 
             if (submissionType === 'next') {
-                Router.go('create-activities', {_id: id});
+                Router.go('create-activities', {_id: partup._id});
             } else if (submissionType === 'skip') {
                 Intent.return('create', {
-                    arguments: [id],
+                    arguments: [partup.slug],
                     fallback_route: {
                         name: 'partup',
                         params: {
-                            _id: id
+                            slug: partup.slug
                         }
                     }
                 });

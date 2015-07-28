@@ -8,29 +8,35 @@ Template.app_partup.onCreated(function() {
 
     Subs.subscribe('activities.from_partup', template.data.partupId);
     Subs.subscribe('updates.from_partup', template.data.partupId);
-    Subs.subscribe('partups.one', template.data.partupId, function() {
-        var partup = Partups.findOne({_id: template.data.partupId});
-        if (!partup) return Router.pageNotFound('partup');
+    var partup_sub = Subs.subscribe('partups.one', template.data.partupId);
 
-        var userId = Meteor.userId();
-        if (!partup.isViewableByUser(userId)) return Router.pageNotFound('partup-closed');
+    template.autorun(function(c) {
+        if (partup_sub.ready()) {
+            c.stop();
 
-        var seo = {
-            title: partup.name,
-            meta: {
+            var partup = Partups.findOne({_id: template.data.partupId});
+            if (!partup) return Router.pageNotFound('partup');
+
+            var userId = Meteor.userId();
+            if (!partup.isViewableByUser(userId)) return Router.pageNotFound('partup-closed');
+
+            var seo = {
                 title: partup.name,
-                description: partup.description
-            }
-        };
+                meta: {
+                    title: partup.name,
+                    description: partup.description
+                }
+            };
 
-        if (partup.image) {
-            var image = Images.findOne({_id: partup.image});
-            if (image) {
-                var imageUrl = image.url();
-                if (imageUrl) seo.meta.image = imageUrl;
+            if (partup.image) {
+                var image = Images.findOne({_id: partup.image});
+                if (image) {
+                    var imageUrl = image.url();
+                    if (imageUrl) seo.meta.image = imageUrl;
+                }
             }
+            SEO.set(seo);
         }
-        SEO.set(seo);
     });
 
     var timeline = null;

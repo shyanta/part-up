@@ -6,17 +6,15 @@ var getActivities = function(partupId) {
 };
 
 Template.modal_create_activities.onCreated(function() {
-    var partupId = mout.object.get(this, 'data.partupId') || Session.get('partials.create-partup.current-partup');
-    var handle = this.subscribe('activities.from_partup', partupId);
+    this.subscribe('partups.one', this.data.partupId);
 
+    var activities_sub = this.subscribe('activities.from_partup', this.data.partupId);
     this.autorun(function(c) {
-        if (handle.ready()) {
+        if (activities_sub.ready()) {
             c.stop();
             Meteor.defer(Partup.client.scroll.triggerUpdate);
         }
     });
-
-    this.subscribe('partups.one', partupId);
 });
 
 /*************************************************************/
@@ -26,9 +24,6 @@ Template.modal_create_activities.helpers({
     Partup: Partup,
     partupActivities: function() {
         return getActivities(this.partupId);
-    },
-    currentPartupId: function() {
-        return Session.get('partials.create-partup.current-partup');
     },
     createCallback: function() {
         var template = Template.instance();
@@ -55,10 +50,12 @@ Template.modal_create_activities.helpers({
         };
     },
     isUpper: function() {
+        var templateData = Template.currentData();
+
         var userId = Meteor.userId();
         if (!userId) return false;
 
-        var partupId = Session.get('partials.create-partup.current-partup');
+        var partupId = templateData.partupId;
         if (!partupId) return false;
 
         var partup = Partups.findOne(partupId);

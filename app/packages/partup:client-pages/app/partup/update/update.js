@@ -8,6 +8,8 @@ Template.app_partup_update.helpers({
         var update = Updates.findOne({_id: this.updateId});
         if (!update) return {};
 
+        var partup = Partups.findOne(update.partup_id);
+
         var updateUpper = Meteor.users.findOne({_id: update.upper_id});
 
         var path = '';
@@ -15,9 +17,9 @@ Template.app_partup_update.helpers({
             path = Router.path('profile', {_id: update.upper_id});
         } else if (update.type.indexOf('partups_contributions_') > -1) {
             var activityUpdateId = Activities.findOne({_id: update.type_data.activity_id}).update_id;
-            path = Router.path('partup-update', {_id: update.partup_id, update_id: activityUpdateId});
+            path = Router.path('partup-update', {slug: partup.slug, update_id: activityUpdateId});
         } else {
-            path = Router.path('partup-update', {_id: update.partup_id, update_id: update._id});
+            path = Router.path('partup-update', {slug: partup.slug, update_id: update._id});
         }
 
         return {
@@ -36,6 +38,6 @@ Template.app_partup_update.helpers({
 
 Template.app_partup_update.events({
     'click [data-back]': function goBack(event, template) {
-        Router.back();
+        history.back();
     }
 });

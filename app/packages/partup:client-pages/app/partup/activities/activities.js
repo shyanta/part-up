@@ -62,10 +62,12 @@ Template.app_partup_activities.helpers({
         return Template.instance().activities.all({archived: true});
     },
     isUpper: function() {
+        var templateData = Template.currentData();
+
         var user = Meteor.user();
         if (!user) return false;
 
-        var partup = Partups.findOne(Router.current().params._id);
+        var partup = Partups.findOne(templateData.partupId);
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;

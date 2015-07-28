@@ -77,7 +77,6 @@ Meteor.startup(function() {
                 ]
             });
 
-
             /* 4 */
             Networks.insert({
                 '_id' : 'ibn27M3ePaXhmKzWq',

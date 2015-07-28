@@ -14,7 +14,7 @@
         <!-- Name of the Part-up -->
         <header>
             <h2>
-                <a href="{{pathFor 'partup' _id=_id }}">{{ name }}</a>
+                <a href="{{pathFor 'partup' slug=slug }}">{{ name }}</a>
             </h2>
         </header>
 
@@ -22,7 +22,7 @@
 
             <!-- Image (circle), uppers, and progress  -->
             <div class="pu-partupcircle">
-                <a href="{{pathFor 'partup' _id=_id }}">
+                <a href="{{pathFor 'partup' slug=slug }}">
                     <canvas class="pu-sub-radial" data-percent="{{ progress }}"></canvas>
                     <figure class="pu-sub-inner" style="{{#if image }}background-image: url('{{ partupImageUrl id=image }}');{{/if }}" data-partup-tile-focuspoint></figure>
                 </a>

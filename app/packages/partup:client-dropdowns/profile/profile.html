@@ -35,7 +35,7 @@
                 {{#if upperPartups.count}}
                     {{#each upperPartups}}
                         <li class="pu-dropdownitem">
-                            <a href="{{pathFor 'partup' _id=_id }}">
+                            <a href="{{pathFor 'partup' slug=slug }}">
                                 <figure class="pu-avatar" style="background-image:url('{{ partupImageUrl id=image store='80x80'}}');"></figure>
                                 <p>{{ name }}</p>
                             </a>
@@ -60,7 +60,7 @@
                 {{#if supporterPartups.count}}
                     {{#each supporterPartups}}
                         <li class="pu-dropdownitem">
-                            <a href="{{pathFor 'partup' _id=_id }}">
+                            <a href="{{pathFor 'partup' slug=slug }}">
                                 <figure class="pu-avatar" style="background-image:url('{{ partupImageUrl id=image store='80x80'}}');"></figure>
                                 <p>{{ name }}</p>
                             </a>

@@ -16,6 +16,9 @@ Template.ActivityView.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.ActivityView.helpers({
+    partup: function() {
+        return Partups.findOne(this.activity.partup_id);
+    },
     commentsCount: function() {
         var update = Updates.findOne({_id: this.activity.update_id});
         if (!update) return;
@@ -155,7 +158,7 @@ Template.ActivityView.events({
         Intent.go({
             route: 'partup-activity-invite',
             params: {
-                _id: partup._id,
+                slug: partup.slug,
                 activity_id: template.data.activity._id
             }
         });

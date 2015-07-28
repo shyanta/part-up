@@ -15,7 +15,7 @@
 
          <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="create-activity">{{_ 'pages-modal-create-activities-button-adopt_activities' }}</a>
 
-        {{> Activity CREATE=true createCallback=createCallback }}
+        {{> Activity CREATE=true createCallback=createCallback partupId=partupId }}
 
         <p class="pu-sub-activitiestitle">{{_ 'pages-modal-create-activities-list-heading' }}</p>
 
@@ -30,7 +30,7 @@
         <!-- Continue button -->
         <footer class="pu-sub-modalfooter pu-sub-modalfooter-scrolling {{#if fixFooter }}pu-sub-modalfooter-scrolling-active{{/if}}">
             <div class="pu-wrap pu-wrap-modal">
-                <a href="{{pathFor 'create-promote' _id=currentPartupId }}" class="pu-button pu-button-arrow">
+                <a href="{{pathFor 'create-promote' _id=partupId }}" class="pu-button pu-button-arrow">
                     {{_ 'pages-modal-create-activities-button-next_page' }}
                 </a>
             </div>

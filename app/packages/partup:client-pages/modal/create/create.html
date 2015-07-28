@@ -15,7 +15,7 @@
                     <a class="pu-sub-pagelink" href="{{pathFor 'create-activities' _id=partupId}}">{{_ 'pages-modal-create-activities' }}</a>
                 </li>
                 <li class="{{#if isActiveRoute regex='create-promote$'}}pu-state-active{{/if}}">
-                    <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'partup' _id=partupId}}">{{_ 'pages-modal-create-skip' }} <i class="fa fa-caret-right"></i></a>
+                    <a class="pu-sub-skiplink pu-button pu-button-skipbutton pu-button-iconright pu-button-text pu-button-text-gray" href="{{pathFor 'partup' slug=partup.slug}}">{{_ 'pages-modal-create-skip' }} <i class="fa fa-caret-right"></i></a>
                     <a class="pu-sub-pagelink" href="{{pathFor 'create-promote' _id=partupId}}">{{_ 'pages-modal-create-promote' }}</a>
                 </li>
             </ol>

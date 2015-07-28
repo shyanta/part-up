@@ -20,7 +20,7 @@ var placeholders = {
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.modal_resetpassword.helpers({
+Template.Resetpassword.helpers({
     formSchema: Partup.schemas.forms.resetPassword,
     placeholders: placeholders
 });
@@ -33,7 +33,9 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 
-            var token = Router.current().params.token;
+            var parentTemplate = self.template.parent();
+
+            var token = parentTemplate.data.token;
             Accounts.resetPassword(token, insertDoc.password, function(error) {
                 if (error && error.message) {
                     switch (error.message) {

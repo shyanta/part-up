@@ -14,7 +14,7 @@ Template.modal_create_promote.onRendered(function() {
     });
 
     template.autorun(function() {
-        var partup = getPartup();
+        var partup = Partups.findOne({_id: template.data.partupId});
 
         if (partup) {
             var image = Images.findOne({_id: partup.image});
@@ -22,8 +22,8 @@ Template.modal_create_promote.onRendered(function() {
             if (image) {
                 var focuspointElm = template.find('[data-partupcover-focuspoint]');
                 template.focuspoint = new Focuspoint.View(focuspointElm, {
-                    x: image.focuspoint.x,
-                    y: image.focuspoint.y
+                    x: mout.object.get(image, 'focuspoint.x'),
+                    y: mout.object.get(image, 'focuspoint.y')
                 });
             }
         }
@@ -43,38 +43,23 @@ Template.modal_create_promote.onCreated(function() {
 });
 
 /*************************************************************/
-/* Widget Functions */
-/*************************************************************/
-var getPartup = function() {
-    var partupId = Session.get('partials.create-partup.current-partup');
-    return Partups.findOne({_id: partupId});
-};
-
-var partupUrl = function() {
-    var partupId = Router.current().params._id;
-    return Router.url('partup', {_id:partupId});
-};
-
-/*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.modal_create_promote.helpers({
     Partup: Partup,
-
-    partup: getPartup,
-
-    partupUrl: function() {
-        return partupUrl();
+    partup: function() {
+        return Partups.findOne({_id: this.partupId});
     },
-
+    partupUrl: function() {
+        var partup = Partups.findOne({_id: this.partupId});
+        return Router.url('partup', {slug: partup.slug});
+    },
     shared: function() {
         return Template.instance().shared.get();
     },
-
     fixFooter: function() {
         return Partup.client.scroll.pos.get() < Partup.client.scroll.maxScroll() - 50;
-    },
-
+    }
 });
 
 /*************************************************************/
@@ -102,33 +87,39 @@ Template.modal_create_promote.events({
     'click [data-action-topartup]': function eventToPartup(event, template) {
         event.preventDefault();
 
+        var partup = Partups.findOne({_id: template.data.partupId});
         Intent.return('create', {
             arguments: [template.data.partupId],
             fallback_route: {
                 name: 'partup',
                 params: {
-                    _id: template.data.partupId
+                    slug: partup.slug
                 }
             }
         });
     },
 
-    'click [data-share-facebook]': function clickShareFacebook() {
-        var url = partupUrl();
+    'click [data-share-facebook]': function clickShareFacebook(event, template) {
+        var partup = Partups.findOne({_id: template.data.partupId});
+        var url = Router.url('partup', {slug: partup.slug});
+
         var facebookUrl = Partup.client.socials.generateFacebookShareUrl(url);
         window.open(facebookUrl, 'pop', Partup.client.window.getPopupWindowSettings());
     },
 
     'click [data-share-twitter]': function clickShareTwitter(event, template) {
-        var url = partupUrl();
-        var message = getPartup().name;
-        // TODO: I18n + wording
+        var partup = Partups.findOne({_id: template.data.partupId});
+        var url = Router.url('partup', {slug: partup.slug});
+
+        var message = partup.name;
         var twitterUrl = Partup.client.socials.generateTwitterShareUrl(message, url);
         window.open(twitterUrl, 'pop', Partup.client.window.getPopupWindowSettings());
     },
 
-    'click [data-share-linkedin]': function clickShareLinkedin() {
-        var url = partupUrl();
+    'click [data-share-linkedin]': function clickShareLinkedin(event, template) {
+        var partup = Partups.findOne({_id: template.data.partupId});
+        var url = Router.url('partup', {slug: partup.slug});
+
         var linkedInUrl = Partup.client.socials.generateLinkedInShareUrl(url);
         window.open(linkedInUrl, 'pop', Partup.client.window.getPopupWindowSettings());
     }

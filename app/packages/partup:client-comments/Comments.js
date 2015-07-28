@@ -77,6 +77,9 @@ Template.Comments.helpers({
     },
     isMotivation: function() {
         return this.type === 'motivation';
+    },
+    partup: function() {
+        return Partups.findOne(this.update.partup_id);
     }
 });
 

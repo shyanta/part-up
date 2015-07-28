@@ -1,3 +1,9 @@
+Template.app_partup_takepart.helpers({
+    partup: function() {
+        return Partups.findOne({_id: this.partupId});
+    }
+});
+
 Template.app_partup_takepart.events({
     'click [data-newmessage]': function(event) {
         event.preventDefault();

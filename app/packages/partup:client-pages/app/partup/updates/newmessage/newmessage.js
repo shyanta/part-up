@@ -74,9 +74,10 @@ Template.app_partup_updates_newmessage.events({
 AutoForm.hooks({
     newMessageForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
-            var partupId = Router.current().params._id;
             var self = this;
-            var parent = Template.instance().parent()
+            var parent = Template.instance().parent();
+
+            var partupId = parent.data.partupId;
             var uploadedPhotos = parent.uploadedPhotos.get();
             insertDoc.images = uploadedPhotos;
 

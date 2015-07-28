@@ -15,7 +15,7 @@
                     <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-partup_settings-title' }}</h2>
                     <p>{{_ 'pages-modal-partup_settings-explanation' }}</p>
 
-                    {{> Partupsettings FORM_ID='editPartupForm' currentPartup=currentPartup }}
+                    {{> Partupsettings FORM_ID='editPartupForm' currentPartup=partup }}
 
                     {{#contentFor "PartupsettingsFooter"}}
 
@@ -31,11 +31,13 @@
 
                     {{/contentFor}}
 
-                    {{#if isRemovableByUser}}
-                        <div class="pu-sub-footerlink">
-                            <p class="pu-paragraph"><a href="#" data-remove>{{_ 'pages-modal-partup_settings-delete'}}</a></p>
-                        </div>
-                    {{/if}}
+                    {{# with partup }}
+                        {{#if isRemovableBy currentUser }}
+                            <div class="pu-sub-footerlink">
+                                <p class="pu-paragraph"><a href="#" data-remove>{{_ 'pages-modal-partup_settings-delete'}}</a></p>
+                            </div>
+                        {{/if}}
+                    {{/ with }}
 
                 </div>
             </div>

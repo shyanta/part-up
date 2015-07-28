@@ -37,6 +37,10 @@ Partup.client.strings = {
         if (location.city) components.push(location.city);
         if (location.country) components.push(location.country);
         return components.join(', ');
+    },
+
+    partupSlugToId: function(slug) {
+        return slug.split('-').pop();
     }
 
 };

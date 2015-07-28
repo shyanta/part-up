@@ -3,10 +3,10 @@
 /*************************************************************/
 Template.app_header.events({
     'click [data-action-start]': function() {
-        Intent.go({route: 'create'}, function(createdId) {
-            if (createdId) {
+        Intent.go({route: 'create'}, function(slug) {
+            if (slug) {
                 Router.go('partup', {
-                    _id: createdId
+                    slug: slug
                 });
             } else {
                 this.back();

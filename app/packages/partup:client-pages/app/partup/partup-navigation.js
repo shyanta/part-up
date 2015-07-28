@@ -28,21 +28,9 @@ Template.app_partup_navigation.onRendered(function() {
 /* Partial helpers */
 /*************************************************************/
 Template.app_partup_navigation.helpers({
-
     backgroundWidth: function() {
         return Session.get('partials.partup-detail-navigation.background-width') || 0;
-    },
-
-    isEditableByUser: function() {
-        var partup = Partups.findOne({_id: Router.current().params._id});
-        if (!partup) return false;
-
-        var user = Meteor.user();
-        if (!user) return false;
-
-        return partup.isEditableBy(user);
     }
-
 });
 
 Template.app_partup_navigation.events({
@@ -52,7 +40,7 @@ Template.app_partup_navigation.events({
         Intent.go({
             route: 'partup-settings',
             params: {
-                _id: template.data.partup._id
+                slug: template.data.partup.slug
             }
         });
     }

@@ -101,11 +101,13 @@ Template.modal_invite_to_activity.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
 
+        var partup = Partups.findOne(template.data.partupId);
+
         Intent.return('partup-activity-invite', {
             fallback_route: {
                 name: 'partup',
                 params: {
-                    _id: template.data.partupId
+                    slug: partup.slug
                 }
             }
         });

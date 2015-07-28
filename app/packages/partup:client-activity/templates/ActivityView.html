@@ -36,7 +36,7 @@
             <!-- Title (could be clickable) -->
             <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
                 {{# if isActiveRoute name='partup' }}
-                    <a href="{{ pathFor route='partup-update' _id=activity.partup_id update_id=activity.update_id }}">{{ activity.name }}</a>
+                    <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
                     <i class="pu-chevron fa fa-chevron-right"></i>
                 {{ else }}
                     {{ activity.name }}
@@ -71,7 +71,7 @@
                         {{/if}}
 
                         {{# if COMMENTS_LINK }}
-                            <a class="pu-sub-comments" href="{{ pathFor route='partup-update' _id=activity.partup_id update_id=activity.update_id }}"><i class="fa fa-comment"></i> {{_ 'activity-comment' count=commentsCount }}</a>
+                            <a class="pu-sub-comments" href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}"><i class="fa fa-comment"></i> {{_ 'activity-comment' count=commentsCount }}</a>
                         {{/ if }}
                     </p>
                 {{/ if }}

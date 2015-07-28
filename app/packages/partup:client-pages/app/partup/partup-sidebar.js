@@ -26,8 +26,8 @@ Template.app_partup_sidebar.onRendered(function() {
 
         var focuspointElm = template.find('[data-partupcover-focuspoint]');
         template.focuspoint = new Focuspoint.View(focuspointElm, {
-            x: image.focuspoint.x,
-            y: image.focuspoint.y
+            x: mout.object.get(image, 'focuspoint.x'),
+            y: mout.object.get(image, 'focuspoint.y')
         });
     });
 });
@@ -97,10 +97,12 @@ Template.app_partup_sidebar.helpers({
             }));
         }
 
-        var networkText;
+        var networkText = '';
         if (this.partup.network_id) {
             var network = Networks.findOne({_id: this.partup.network_id});
-            networkText = network.name;
+            if (network) {
+                networkText = network.name;
+            }
 
             var networkPath = Router.path('network-detail', {_id: this.partup.network_id});
         }
@@ -136,8 +138,8 @@ Template.app_partup_sidebar.events({
         Router.go('discover');
     },
 
-    'click [data-joinsupporters]': function clickJoinSupporters() {
-        var partupId = Router.current().params._id;
+    'click [data-joinsupporters]': function(event, template) {
+        var partupId = template.data.partup._id;
 
         if (Meteor.user()) {
             Meteor.call('partups.supporters.insert', partupId);
@@ -150,30 +152,30 @@ Template.app_partup_sidebar.events({
         }
     },
 
-    'click [data-leavesupporters]': function clickLeaveSupporters() {
-        Meteor.call('partups.supporters.remove', Router.current().params._id);
+    'click [data-leavesupporters]': function(event, template) {
+        Meteor.call('partups.supporters.remove', template.data.partup._id);
     },
 
-    'click [data-share-facebook]': function clickShareFacebook() {
+    'click [data-share-facebook]': function() {
         var currentUrl = Router.current().location.get().href;
         var shareUrl = Partup.client.socials.generateFacebookShareUrl(currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-twitter]': function clickShareTwitter(event, template) {
+    'click [data-share-twitter]': function(event, template) {
         var currentUrl = Router.current().location.get().href;
         var message = template.data.partup.name;
         var shareUrl = Partup.client.socials.generateTwitterShareUrl(message, currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-linkedin]': function clickShareLinkedin(event, template) {
+    'click [data-share-linkedin]': function(event, template) {
         var currentUrl = Router.current().location.get().href;
         var shareUrl = Partup.client.socials.generateLinkedInShareUrl(currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-mail]': function clickShareMail() {
+    'click [data-share-mail]': function() {
         var currentUrl = Router.current().location.get().href;
         var subject = '';
         var body = 'You should check out this Part-up!\n' + currentUrl;
@@ -181,7 +183,7 @@ Template.app_partup_sidebar.events({
         window.location.href = shareUrl;
     },
 
-    'click [data-open-takepart-popup]': function clickOpenTakepartPopup() {
+    'click [data-open-takepart-popup]': function() {
         Partup.client.popup.open('take-part');
     }
 });

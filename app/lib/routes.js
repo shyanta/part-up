@@ -245,88 +245,6 @@ Router.route('/tribes/:_id/settings/requests', {
 });
 
 /*************************************************************/
-/* Partup detail */
-/*************************************************************/
-Router.route('/partups/:_id', {
-    name: 'partup',
-    where: 'client',
-    yieldRegions: {
-        'app':                {to: 'main'},
-        'app_partup':         {to: 'app'},
-        'app_partup_updates': {to: 'app_partup'}
-    },
-    data: function() {
-        return {
-            partupId: this.params._id
-        };
-    },
-    onRun: function() {
-        Meteor.call('partups.analytics.click', this.data().partupId);
-        this.next();
-    }
-});
-
-Router.route('/partups/:_id/updates/:update_id', {
-    name: 'partup-update',
-    where: 'client',
-    yieldRegions: {
-        'app':               {to: 'main'},
-        'app_partup':        {to: 'app'},
-        'app_partup_update': {to: 'app_partup'}
-    },
-    data: function() {
-        return {
-            partupId: this.params._id,
-            updateId: this.params.update_id
-        };
-    }
-});
-
-Router.route('/partups/:_id/activities', {
-    name: 'partup-activities',
-    where: 'client',
-    yieldRegions: {
-        'app':                   {to: 'main'},
-        'app_partup':            {to: 'app'},
-        'app_partup_activities': {to: 'app_partup'}
-    },
-    data: function() {
-        return {
-            partupId: this.params._id
-        };
-    }
-});
-
-Router.route('/partups/:_id/invite-for-activity/:activity_id', {
-    name: 'partup-activity-invite',
-    where: 'client',
-    yieldRegions: {
-        'modal':                    {to: 'main'},
-        'modal_invite_to_activity': {to: 'modal'},
-    },
-    data: function() {
-        return {
-            partupId: this.params._id,
-            activityId: this.params.activity_id
-        };
-    }
-});
-
-Router.route('/partups/:_id/settings', {
-    name: 'partup-settings',
-    where: 'client',
-    yieldRegions: {
-        'modal':                  {to: 'main'},
-        'modal_partup_settings': {to: 'modal'},
-    },
-    data: function() {
-        return {
-            partupId: this.params._id
-        };
-    }
-});
-
-/*************************************************************/
 /* Create Partup */
 /*************************************************************/
 Router.route('/start', {
@@ -420,6 +338,11 @@ Router.route('/reset-password/:token', {
     yieldRegions: {
         'modal':               {to: 'main'},
         'modal_resetpassword': {to: 'modal'}
+    },
+    data: function() {
+        return {
+            token: this.params.token
+        };
     }
 });
 
@@ -432,10 +355,15 @@ Router.route('/verify-email/:token', {
     yieldRegions: {
         'app': {to: 'main'}
     },
+    data: function() {
+        return {
+            token: this.params.token
+        };
+    },
     onBeforeAction: function() {
-        Router.go('discover'); // todo: < change to profile when we have that page
+        Router.go('profile');
 
-        Accounts.verifyEmail(this.params.token, function(error) {
+        Accounts.verifyEmail(this.data().token, function(error) {
             if (error) {
                 Partup.client.notify.warning(TAPi18n.__('notification-verify-mail-warning'));
             } else {
@@ -469,6 +397,88 @@ Router.route('/register/details', {
 });
 
 /*************************************************************/
+/* Partup detail */
+/*************************************************************/
+Router.route('/:slug', {
+    name: 'partup',
+    where: 'client',
+    yieldRegions: {
+        'app':                {to: 'main'},
+        'app_partup':         {to: 'app'},
+        'app_partup_updates': {to: 'app_partup'}
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug)
+        };
+    },
+    onRun: function() {
+        Meteor.call('partups.analytics.click', this.data().partupId);
+        this.next();
+    }
+});
+
+Router.route('/:slug/updates/:update_id', {
+    name: 'partup-update',
+    where: 'client',
+    yieldRegions: {
+        'app':               {to: 'main'},
+        'app_partup':        {to: 'app'},
+        'app_partup_update': {to: 'app_partup'}
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
+            updateId: this.params.update_id
+        };
+    }
+});
+
+Router.route('/:slug/activities', {
+    name: 'partup-activities',
+    where: 'client',
+    yieldRegions: {
+        'app':                   {to: 'main'},
+        'app_partup':            {to: 'app'},
+        'app_partup_activities': {to: 'app_partup'}
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug)
+        };
+    }
+});
+
+Router.route('/:slug/invite-for-activity/:activity_id', {
+    name: 'partup-activity-invite',
+    where: 'client',
+    yieldRegions: {
+        'modal':                    {to: 'main'},
+        'modal_invite_to_activity': {to: 'modal'},
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
+            activityId: this.params.activity_id
+        };
+    }
+});
+
+Router.route('/:slug/settings', {
+    name: 'partup-settings',
+    where: 'client',
+    yieldRegions: {
+        'modal':                  {to: 'main'},
+        'modal_partup_settings': {to: 'modal'},
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug)
+        };
+    }
+});
+
+/*************************************************************/
 /* Close window route */
 /*************************************************************/
 Router.route('/close', {
@@ -479,10 +489,13 @@ Router.route('/close', {
     }
 });
 
+/*************************************************************/
+/* All other routes */
+/*************************************************************/
 Router.route('/(.*)', {
     where: 'client',
     yieldRegions: {
-        'app':      {to: 'main'},
+        'app':          {to: 'main'},
         'app_notfound': {to: 'app'}
     }
 });
@@ -542,6 +555,7 @@ if (Meteor.isClient) {
         }
         this.next();
     });
+
     /**
      * Router helper for ernot foundror pages
      *
@@ -554,14 +568,5 @@ if (Meteor.isClient) {
 
         currentRoute.state.set('type', type);
         currentRoute.render('app_notfound', {to: 'app'});
-    };
-    /**
-     * Back method for Router
-     *
-     * @memberof Router
-     *
-     */
-    Router.back = function() {
-        history.back();
     };
 }

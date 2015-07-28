@@ -4,17 +4,8 @@ Template.modal_partup_settings.onCreated(function() {
 });
 
 Template.modal_partup_settings.helpers({
-    currentPartup: function() {
+    partup: function() {
         return Partups.findOne({_id: this.partupId});
-    },
-    isRemovableByUser: function() {
-        var partup = Partups.findOne({_id: this.partupId});
-        if (!partup) return false;
-
-        var user = Meteor.user();
-        if (!user) return false;
-
-        return partup.isRemovableBy(user);
     },
     submitting: function() {
         return Template.instance().submitting.get();
@@ -24,11 +15,14 @@ Template.modal_partup_settings.helpers({
 Template.modal_partup_settings.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
+
+        var partup = Partups.findOne(template.data.partupId);
+
         Intent.return('partup-settings', {
             fallback_route: {
                 name: 'partup',
                 params: {
-                    _id: template.data.partupId
+                    slug: partup.slug
                 }
             }
         });
@@ -92,7 +86,7 @@ AutoForm.hooks({
                     fallback_route: {
                         name: 'partup',
                         params: {
-                            _id: template.data.partupId
+                            slug: partup.slug
                         }
                     }
                 });

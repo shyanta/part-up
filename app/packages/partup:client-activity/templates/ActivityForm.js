@@ -131,11 +131,8 @@ AutoForm.addHooks(null, {
                 AutoForm.resetForm(self.formId);
                 done();
             });
-        } else {
-            var partupId = Session.get('partials.create-partup.current-partup') ||
-                Router.current().params._id;
-
-            Meteor.call('activities.insert', partupId, doc, function(error, output) {
+        } else if (template.data && template.data.partupId) {
+            Meteor.call('activities.insert', template.data.partupId, doc, function(error, output) {
                 if (error && error.message) {
                     Partup.client.notify.error(error.reason);
 
