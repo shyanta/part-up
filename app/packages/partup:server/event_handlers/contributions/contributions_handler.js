@@ -22,7 +22,6 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
     var system_message_type = contribution.verified ? 'system_contributions_added' : 'system_contributions_proposed';
     Partup.server.services.system_messages.send(user, activity.update_id, system_message_type, {update_timestamp: false});
 
-    var partup = Partups.findOneOrFail(contribution.partup_id);
     var creator = Meteor.users.findOneOrFail(contribution.upper_id);
 
     // Make the user a supporter
