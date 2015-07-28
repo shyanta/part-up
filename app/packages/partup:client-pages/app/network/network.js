@@ -103,5 +103,10 @@ Template.app_network.events({
                 _id: template.data.networkId
             }
         });
+    },
+    'click [data-location]': function(event, template) {
+        var location = Networks.findOne(template.data.networkId).location;
+        Session.set('discover.location', location);
+        Router.go('discover');
     }
 });
