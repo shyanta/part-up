@@ -99,13 +99,18 @@ Partup.prototype.hasInvitedUpper = function(userId) {
  * @return {Boolean}
  */
 Partup.prototype.isViewableByUser = function(userId) {
+    var user = Meteor.users.findOne(userId);
+    var networks = user.networks || [];
+
     if (this.privacy_type === PUBLIC) return true;
     if (this.privacy_type === NETWORK_PUBLIC) return true;
     if (this.privacy_type === PRIVATE || this.privacy_type === NETWORK_INVITE || this.privacy_type === NETWORK_CLOSED) {
         if (this.hasSupporter(userId)) return true;
         if (this.hasUpper(userId)) return true;
         if (this.hasInvitedUpper(userId)) return true;
+        if (networks.indexOf(this.network_id) > -1) return true;
     }
+
     return false;
 };
 
