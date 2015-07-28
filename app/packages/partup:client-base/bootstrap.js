@@ -19,6 +19,12 @@ Meteor.startup(function() {
     if (window.PU_IE_VERSION < 11 && window.PU_IE_VERSION > -1) {
         $('body').addClass('pu-no-pointer-events');
     }
+    var preventHrefsFromChangingUrl = function(e) {
+        e.preventDefault();
+        return false;
+    };
+    $('body').on('click', '[href="#"]', preventHrefsFromChangingUrl);
+    $('body').on('click', '[href=""]', preventHrefsFromChangingUrl);
 
     /*************************************************************/
     /* Current loggedin users subscription */
