@@ -17,17 +17,17 @@ Feature: Partup Privacy
     When I create a "private" partup
     And I invite user "john" to one of the "private" partup's activities
     Then I should be able to see the private partup in discover
-    And I should be able to see the private partup in my profile menu 
+    And I should be able to see the private partup in my profile menu
     And user "john" should be able to see partup contents (! bug reported)
     And user "john" should be able to make a contribution
-    And user "judy" should not see this partup in discover 
+    And user "judy" should not see this partup in discover
     And user "judy" should not see this partup in "user" his profile (! bug reported)
     And user "judy" should be unable to see partup contents
 
   Scenario: Tribe Public Partups
     Given I am loggedin as "user"
     And I am part of public tribe "lifely"
-    When I create a partup in the public "lifely" tribe 
+    When I create a partup in the public "lifely" tribe
     Then I should see the partup in my profile view with the "lifely" tribe label
     Then I should see the partup in the discover view with the "lifely" tribe label
     Then user "john" should see the partup in the tribe partups view
@@ -46,8 +46,9 @@ Feature: Partup Privacy
     Given I am loggedin as "john"
     And I am part of closed tribe "ING (closed)"
     And I invite user "user" to the closed tribe "ING (closed)"
-    And tribe admin user "admin" accepts john to the closed tribe "ING (closed)"
     And user "user" visits the tribe page and accepts the tribe invite
+    And user "user" sees the button disable and copy change to "pending"
+    And tribe admin user "admin" accepts user to the closed tribe "ING (closed)"
     When I create a partup in the "ING (invite)" tribe
     Then I should see the partup in my profile view
     And user "user" should see the partup in the tribe partups view
