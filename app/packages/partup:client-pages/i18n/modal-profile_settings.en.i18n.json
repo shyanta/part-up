@@ -13,18 +13,18 @@
     "modal-profilesettings-account-title": "Manage your account",
     "modal-profilesettings-account-text-explaination": "Here, you can edit your account settings. Do you want to update your profile? You can find the link in the menu on the left.",
 
-    "modal-profilesettings-account-currentpassword": "@Current password",
-    "modal-profilesettings-account-password": "@New password",
-    "modal-profilesettings-account-confirmpassword": "@Repeat new password",
+    "modal-profilesettings-account-currentpassword": "Current password",
+    "modal-profilesettings-account-password": "New password",
+    "modal-profilesettings-account-confirmpassword": "Repeat new password",
 
-    "modal-profilesettings-account-label-socialmedia": "@Connect social media",
-    "modal-profilesettings-account-hint-socialmedia": "@Here you can connect your account with social media",
+    "modal-profilesettings-account-label-socialmedia": "Connect your social media profiles",
+    "modal-profilesettings-account-hint-socialmedia": "If you want, you can connect your social media profiles. It gives you a richer part-up profile, which helps us to match you better.",
     "modal-profilesettings-account-button-linkedin": "LinkedIn",
     "modal-profilesettings-account-button-facebook": "Facebook",
     "modal-profilesettings-account-button-twitter": "Twitter",
 
-    "modal-profilesettings-account-label-language": "@In what language should Partup be displayed?",
-    "modal-profilesettings-account-hint-language": "@Choose the language for the Part-up application",
+    "modal-profilesettings-account-label-language": "In what language do you want to live you Partup experience?",
+    "modal-profilesettings-account-hint-language": "You can choose the language for all buttons and updates. The content of part-ups is not (yet) being translated. Untill then, you can use a translation plugin in your browser.",
 
     "modal-profilesettings-account-option-language-dutch": "Dutch",
     "modal-profilesettings-account-option-language-english": "English",

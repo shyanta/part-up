@@ -1,18 +1,18 @@
 {
-    "pages-app-notfound-default-title": "@Not found",
-    "pages-app-notfound-default-description": "@Unfortunately, we can not find page you are looking for.",
+    "pages-app-notfound-default-title": "Not found",
+    "pages-app-notfound-default-description": "Bummer, we could not find the page you are looking for.",
 
-    "pages-app-notfound-partup-title": "@Part-up not found",
-    "pages-app-notfound-partup-description": "@Part-up that you are trying to visit does not exist.",
+    "pages-app-notfound-partup-title": "Part-up niet gevonden",
+    "pages-app-notfound-partup-description": "Bummer, we could not find the part-up you are looking for.",
 
-    "pages-app-notfound-partup-closed-title": "@This is a private Part-up",
-    "pages-app-notfound-partup-closed-description": "@The uppers in this Part-up decided to keeps this Part-up and its content private.",
+    "pages-app-notfound-partup-closed-title": "This is a private part-up",
+    "pages-app-notfound-partup-closed-description": "The partners in this part-up decided to keep its content private. Are you a partner or supporter of this part-up? Log in to access the part-up.",
 
-    "pages-app-notfound-network-title": "@Tribe not found",
-    "pages-app-notfound-network-description": "@The Tribe you are trying to visit does not exist.",
+    "pages-app-notfound-network-title": "Tribe not found",
+    "pages-app-notfound-network-description": "Bummer, we could not find the tribe you are looking for.",
 
-    "pages-app-notfound-profile-title": "@Profile not found",
-    "pages-app-notfound-profile-description": "@Unfortunately, the user you are looking for does not exist",
+    "pages-app-notfound-profile-title": "Upper profile not found",
+    "pages-app-notfound-profile-description": "Bummer, we could not find the upper you are looking for.",
 
-    "pages-app-notfound-backbutton": "@Back to discover"
+    "pages-app-notfound-backbutton": "Take me back to the discover page."
 }

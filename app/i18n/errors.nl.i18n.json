@@ -1,17 +1,17 @@
 {
-    "base-errors-user_is_already_invited_to_activity": "@The upper is already invited for this activity",
-    "base-errors-email_is_already_invited_to_activity": "@The email is already invited for this activity",
+    "base-errors-user_is_already_invited_to_activity": "Deze upper is al uitgenodigd voor deze activiteit",
+    "base-errors-email_is_already_invited_to_activity": "Dit email-adres is al gebruikt om een uitndoging te sturen voor deze activiteit",
 
     // Networks
-    "base-errors-network_could_not_be_inserted": "@The tribe could not be created",
-    "base-errors-network_could_not_be_updated": "@The tribe could not be updated",
-    "base-errors-network_could_not_be_removed": "@The tribe could not be removed",
-    "base-errors-user_is_already_member_of_network": "@The upper is already a member of this tribe",
-    "base-errors-user_is_already_invited_to_network": "@The upper is already invited to this tribe",
-    "base-errors-user_is_not_a_member_of_network": "@You are not a member of this tribe",
-    "base-errors-user_could_not_leave_network": "@You could not leave this tribe succesfully",
-    "base-errors-user_could_not_be_removed_from_network": "@The upper could not be removed from the tribe",
-    "base-errors-user_could_not_be_accepted_from_network": "@The upper could not be accepted to the tribe",
-    "base-errors-user_could_not_be_rejected_from_network": "@The upper could not be rejected from the tribe",
-    "base-errors-networks_could_not_be_autocompleted": "@Tribes could not be autocompleted"
+    "base-errors-network_could_not_be_inserted": "Balen, het is ons niet gelukt je tribe te maken. Probeer het nog een keer.",
+    "base-errors-network_could_not_be_updated": "Balen, het is ons niet gelukt je tribe te updaten. Probeer het nog een keer.",
+    "base-errors-network_could_not_be_removed": "Balen, het is ons niet gelukt de tribe te verwijderen. Probeer het nog een keer.",
+    "base-errors-user_is_already_member_of_network": "Deze upper is al lid van deze tribe",
+    "base-errors-user_is_already_invited_to_network": "Deze upper is al uitgenodigd voor deze tribe",
+    "base-errors-user_is_not_a_member_of_network": "Je bent geen lid van deze tribe",
+    "base-errors-user_could_not_leave_network": "Het is niet gelukt jouw lidmaatschap van deze tribe te beëindigen. Probeer het nog een keer.",
+    "base-errors-user_could_not_be_removed_from_network": "Het is niet gelukt het lidmaatschap van de tribe voor deze upper te beëindigen.",
+    "base-errors-user_could_not_be_accepted_from_network": "Het is niet gelukt deze upper lid te maken van de tribe.",
+    "base-errors-user_could_not_be_rejected_from_network": "Het is niet gelukt deze upper het lidmaatschap te weigeren.",
+    "base-errors-networks_could_not_be_autocompleted": "Het is niet mogelijk om tribes te autocompleten"
 }

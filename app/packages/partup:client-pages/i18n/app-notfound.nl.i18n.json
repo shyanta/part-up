@@ -1,18 +1,18 @@
 {
-    "pages-app-notfound-default-title": "@Niet gevonden",
-    "pages-app-notfound-default-description": "@Helaas, we kunnen de pagina die je zoekt niet vinden.",
+    "pages-app-notfound-default-title": "Niet gevonden",
+    "pages-app-notfound-default-description": "Helaas, we kunnen de pagina die je zoekt niet vinden.",
 
-    "pages-app-notfound-partup-title": "@Part-up niet gevonden",
-    "pages-app-notfound-partup-description": "@De Part-up die je probeert te bezoeken bestaat niet.",
+    "pages-app-notfound-partup-title": "Part-up niet gevonden",
+    "pages-app-notfound-partup-description": "Helaas, we kunnen de part-up die je zoekt niet vinden. Wil je hem zelf starten?",
 
-    "pages-app-notfound-partup-closed-title": "@Dit is een privé Part-up",
-    "pages-app-notfound-partup-closed-description": "@De uppers in deze Part-up hebben besloten om de Part-up en inhoud privé te houden.",
+    "pages-app-notfound-partup-closed-title": "Dit is een besloten part-up",
+    "pages-app-notfound-partup-closed-description": "De partners in deze part-up vinden het belangrijk de inhoud besloten te houden. Ben je partner of supporter van deze part-up? Log dan in om toegang te krijgen.",
 
-    "pages-app-notfound-network-title": "@Tribe niet gevonden",
-    "pages-app-notfound-network-description": "@De Tribe die je probeert te bezoeken bestaat niet.",
+    "pages-app-notfound-network-title": "Tribe niet gevonden",
+    "pages-app-notfound-network-description": "Helaas, we kunnen de tribe die je probeert te zoeken niet vinden.",
 
-    "pages-app-notfound-profile-title": "@Profiel niet gevonden",
-    "pages-app-notfound-profile-description": "@De gebruiker die je zoekt bestaat helaas niet",
+    "pages-app-notfound-profile-title": "Upper profiel niet gevonden.",
+    "pages-app-notfound-profile-description": "Helaas, we konden de upper die je zoekt niet vinden. En wij kunnen best goed zoeken.",
 
-    "pages-app-notfound-backbutton": "@Terug naar discover"
+    "pages-app-notfound-backbutton": "Breng me terug naar de discover pagina."
 }
