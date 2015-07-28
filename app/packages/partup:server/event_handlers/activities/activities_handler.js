@@ -43,7 +43,7 @@ Event.on('partups.activities.inserted', function(userId, activity) {
     // Send a notification to each supporter of the partup
     var supporters = partup.supporters || [];
     supporters.forEach(function(supporterId) {
-        if (userId === partnerId) return;
+        if (userId === supporterId) return;
         notificationOptions.userId = supporterId;
         Partup.server.services.notifications.send(notificationOptions);
     });
