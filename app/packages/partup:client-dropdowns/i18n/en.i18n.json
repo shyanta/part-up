@@ -24,7 +24,7 @@
     "dropdowns-activitiesactions-option-my-activities": "My activities",
     "dropdowns-activitiesactions-option-open-activities": "Open activities",
 
-    "dropdown-notification-partups_supporters_added": "@_supporter__ has started supporting __partup__",
+    "dropdown-notification-partups_supporters_added": "@__supporter__ has started supporting __partup__",
     "dropdown-notification-partup_activities_invited": "@__inviter__ has invited you to the activivity __activity__",
     "dropdown-notification-partups_contributions_accepted": "@Your contribution to __partup__ has been accepted",
     "dropdown-notification-partups_contributions_rejected": "@Your contribution __activity__ has been rejected in __partup__",
