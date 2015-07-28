@@ -4,7 +4,7 @@
         <i class="fa fa-bell"></i>
         {{_ 'dropdowns-notifications-button-opennotificationsdropdown'}}
     </a>
-    <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+    <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton" data-clickoutside-close>
         <ul>
             {{#each notifications}}
                 <li class="pu-notification {{#unless new}}pu-notification-viewed{{/unless}}">
@@ -111,8 +111,10 @@
                 </li>
             {{/each}}
         </ul>
-        <footer>
-            <a href="">{{_ 'dropdowns-notifications-button-managenotifications'}}</a>
-        </footer>
+        {{#if false}}
+            <footer>
+                <a href="#">{{_ 'dropdowns-notifications-button-managenotifications'}}</a>
+            </footer>
+        {{/if}}
     </div>
 </template>
