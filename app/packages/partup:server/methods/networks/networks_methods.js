@@ -150,7 +150,7 @@ Meteor.methods({
 
         var notificationOptions = {
             userId: invitee._id,
-            type: 'partup_networks_invited',
+            type: 'partups_networks_invited',
             typeData: {
                 network: {
                     id: networkId,
