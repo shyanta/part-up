@@ -3,7 +3,8 @@
  * Renders the popup container, overlay and dismiss handlers
  *
  * @module client-popup
- * @param {Number} networkId    the id of the network whose uppers are rendered
+ * @param {contentFor} PopupTitle  the html content for the popup title
+ * @param {contentFor} PopupContent  the html content for the popup content
  */
 // jscs:enable
 Meteor.startup(function() {

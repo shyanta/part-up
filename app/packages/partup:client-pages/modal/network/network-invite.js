@@ -41,10 +41,12 @@ Template.modal_network_invite.onCreated(function() {
     };
 
     self.autorun(function() {
-        var networkId = self.data.networkId;
+        var network = Networks.find({slug: template.data.networkSlug});
         var options = self.suggestionsOptions.get();
 
-        Meteor.call('networks.user_suggestions', networkId, options, function(err, userIds) {
+        if (!network) return;
+
+        Meteor.call('networks.user_suggestions', network._id, options, function(err, userIds) {
             if (err) {
                 Partup.client.notify.error(err.reason);
                 return;
@@ -70,11 +72,12 @@ Template.modal_network_invite.helpers({
         return suggestions;
     },
     inviteSent: function() {
-        var networkId = Template.instance().data.networkId;
+        var networkSlug = Template.currentData().networkSlug;
+        var network = Networks.find({slug: networkSlug});
         var userId = this._id;
 
         return !!Invites.findOne({
-            network_id: networkId,
+            network_id: network._id,
             invitee_id: this._id,
             type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER
         });
@@ -96,20 +99,22 @@ Template.modal_network_invite.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
 
+        var network = Networks.findOne({slug: template.data.networkSlug});
+
         Intent.return('network-detail', {
             fallback_route: {
                 name: 'network-detail',
                 params: {
-                    _id: template.data.networkId
+                    slug: network.slug
                 }
             }
         });
     },
     'click [data-invite-id]': function(event, template) {
-        var networkId = template.data.networkId;
         var userId = event.target.dataset.inviteId;
+        var network = Networks.find({slug: template.data.networkSlug});
 
-        Meteor.call('networks.invite_existing_upper', networkId, userId, function(err) {
+        Meteor.call('networks.invite_existing_upper', network._id, userId, function(err) {
             if (err) {
                 Partup.client.notify.error(err.reason);
                 return;

@@ -1,10 +1,12 @@
 Template.app_network.onCreated(function() {
     var template = this;
-    template.networkSubscription = template.subscribe('networks.one', template.data.networkId);
-    Meteor.autorun(function whenSubscriptionIsReady(computation) {
+
+    template.networkSubscription = template.subscribe('networks.one', template.data.networkSlug);
+    template.autorun(function(c) {
         if (template.networkSubscription.ready()) {
-            computation.stop();
-            if (!Networks.findOne({_id: template.data.networkId})) {
+            c.stop();
+
+            if (!Networks.findOne({slug: template.data.networkSlug})) {
                 Router.pageNotFound('network');
             }
         }
@@ -16,7 +18,7 @@ Template.app_network.onCreated(function() {
 /*************************************************************/
 Template.app_network.helpers({
     network: function() {
-        var network = Networks.findOne(this.networkId);
+        var network = Networks.findOne({slug: this.networkSlug});
         if (network.website) network.website = Partup.client.url.getCleanUrl(network.website);
         return network;
     },
@@ -65,27 +67,27 @@ Template.app_network.events({
     'click [data-join]': function(event, template) {
         event.preventDefault();
         var user = Meteor.user();
-        var networkId = template.data.networkId;
+
+        var proceed = function() {
+            var network = Networks.findOne({slug: template.data.networkSlug});
+            joinNetwork(network._id);
+        };
+
         if (user) {
-            joinNetwork(networkId);
+            proceed();
         } else {
             Intent.go({route: 'login'}, function(loggedInUser) {
-                if (loggedInUser) {
-                    joinNetwork(networkId);
-                } else {
-                    Partup.client.notify.error('failed to join network');
-                }
+                if (loggedInUser) proceed();
+                else Partup.client.notify.error('failed to join network');
             });
         }
     },
     'click [data-leave]': function(event, template) {
-        var networkId = template.data.networkId;
-        Meteor.call('networks.leave', networkId, function(error) {
-            if (error) {
-                Partup.client.notify.error(error.reason);
-            } else {
-                Partup.client.notify.success('left network');
-            }
+        var network = Networks.find({slug: template.data.networkSlug});
+
+        Meteor.call('networks.leave', network._id, function(error) {
+            if (error) Partup.client.notify.error(error.reason);
+            else Partup.client.notify.success('left network');
         });
     },
     'click [data-expand]': function(event, template) {
@@ -108,7 +110,7 @@ Template.app_network.events({
         Intent.go({
             route: 'network-settings',
             params: {
-                _id: template.data.networkId
+                slug: template.data.networkSlug
             }
         });
     },

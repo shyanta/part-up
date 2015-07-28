@@ -1,6 +1,6 @@
 Template.app_network_uppers.onCreated(function() {
     var tpl = this;
-    var networkId = tpl.data.networkId;
+
     tpl.uppers = {
 
         // Constants
@@ -32,7 +32,7 @@ Template.app_network_uppers.onCreated(function() {
 
             // Set networks.one.uppers.count subscription
             if (tpl.uppers.count_handle) tpl.uppers.count_handle.stop();
-            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', networkId, options);
+            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', tpl.data.networkSlug, options);
             tpl.uppers.count_loading.set(true);
 
             // When the networks.one.uppers.count data changes
@@ -48,12 +48,14 @@ Template.app_network_uppers.onCreated(function() {
 
             // Set networks.one.uppers subscription
             if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options);
             tpl.uppers.loading.set(true);
 
             // When the networks.one.uppers data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.uppers.handle.ready()) {
+                var network = Networks.find({slug: tpl.data.networkSlug});
+
+                if (tpl.uppers.handle.ready() && network) {
                     computation.stop();
                     tpl.uppers.loading.set(false);
 
@@ -65,7 +67,7 @@ Template.app_network_uppers.onCreated(function() {
                      */
                     Tracker.nonreactive(function replaceUppers() {
 
-                        var uppers = Meteor.users.find({networks: {$in: [networkId]}}).fetch();
+                        var uppers = Meteor.users.find({networks: {$in: [network._id]}}).fetch();
 
                         tpl.uppers.layout.items = tpl.uppers.layout.clear();
                         tpl.uppers.layout.items = tpl.uppers.layout.add(uppers);
@@ -83,11 +85,13 @@ Template.app_network_uppers.onCreated(function() {
             options.limit = b;
 
             if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', networkId, options);
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options);
             tpl.uppers.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.uppers.handle.ready()) {
+                var network = Networks.find({slug: tpl.data.networkSlug});
+
+                if (tpl.uppers.handle.ready() && network) {
                     computation.stop();
                     tpl.uppers.infinitescroll_loading.set(false);
 
@@ -101,7 +105,7 @@ Template.app_network_uppers.onCreated(function() {
                      */
                     Tracker.nonreactive(function addUppers() {
                         var oldUppers = tpl.uppers.layout.items;
-                        var newUppers = Meteor.users.find({networks: {$in: [networkId]}}).fetch();
+                        var newUppers = Meteor.users.find({networks: {$in: [network._id]}}).fetch();
 
                         var diffUppers = mout.array.filter(newUppers, function(partup) {
                             return !mout.array.find(oldUppers, function(_partup) {

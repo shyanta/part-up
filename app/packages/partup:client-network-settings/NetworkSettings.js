@@ -2,12 +2,12 @@
  * Render a form to edit a single network's settings
  *
  * @module client-network-settings
- * @param {Number} networkId    the id of the network whose settings are rendered
+ * @param {Number} networkSlug    the slug of the network whose settings are rendered
  */
 Template.NetworkSettings.onCreated(function() {
     var tpl = this;
 
-    tpl.subscription = tpl.subscribe('networks.one', tpl.data.networkId);
+    tpl.subscription = tpl.subscribe('networks.one', tpl.data.networkSlug);
     tpl.charactersLeft = new ReactiveDict();
     tpl.submitting = new ReactiveVar();
     tpl.current = new ReactiveDict();
@@ -16,7 +16,7 @@ Template.NetworkSettings.onCreated(function() {
     tpl.locationSelection = new ReactiveVar();
 
     tpl.autorun(function() {
-        var network = Networks.findOne({_id: tpl.data.networkId});
+        var network = Networks.findOne({slug: tpl.data.networkSlug});
         if (!network) return;
 
         if (network.location && network.location.place_id) tpl.locationSelection.set(network.location);
@@ -68,10 +68,10 @@ Template.NetworkSettings.helpers({
         return Template.instance().charactersLeft.get('website');
     },
     network: function() {
-        return Networks.findOne({_id: this.networkId});
+        return Networks.findOne({slug: this.networkSlug});
     },
     fieldsForNetwork: function() {
-        var network = Networks.findOne({_id: this.networkId});
+        var network = Networks.findOne({slug: this.networkSlug});
         if (!network) return;
 
         return Partup.transformers.network.toFormNetwork(network);
@@ -86,7 +86,7 @@ Template.NetworkSettings.helpers({
         var imageId = Template.instance().current.get('image');
 
         if (!imageId) {
-            var network = Networks.findOne({_id: this.networkId});
+            var network = Networks.findOne({slug: this.networkSlug});
             if (network) imageId = network.image;
         }
 
@@ -104,7 +104,7 @@ Template.NetworkSettings.helpers({
         var iconId = Template.instance().current.get('icon');
 
         if (!iconId) {
-            var network = Networks.findOne({_id: this.networkId});
+            var network = Networks.findOne({slug: this.networkSlug});
             if (network) iconId = network.icon;
         }
 
@@ -194,11 +194,11 @@ AutoForm.addHooks('networkEditForm', {
     onSubmit: function(doc) {
         var self = this;
         var template = self.template.parent();
-        var networkId = template.data.networkId;
+        var network = Networks.findOne({slug: template.data.networkSlug});
 
         template.submitting.set(true);
 
-        Meteor.call('networks.update', networkId, doc, function(err) {
+        Meteor.call('networks.update', network._id, doc, function(err) {
             template.submitting.set(false);
 
             if (err && err.message) {

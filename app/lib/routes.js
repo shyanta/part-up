@@ -141,110 +141,6 @@ Router.route('/profile/:_id/settings/email', {
 });
 
 /*************************************************************/
-/* Networks */
-/*************************************************************/
-Router.route('/tribes/create', {
-    name: 'create-network',
-    where: 'client',
-    yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_create_network':    {to: 'modal'}
-    }
-});
-
-Router.route('/tribes/:_id', {
-    name: 'network-detail',
-    where: 'client',
-    yieldRegions: {
-        'app':                      {to: 'main'},
-        'app_network':              {to: 'app'},
-        'app_network_partups':      {to: 'app_network'}
-    },
-    data: function() {
-        return {
-            networkId: this.params._id
-        };
-    }
-});
-
-Router.route('/tribes/:_id/uppers', {
-    name: 'network-uppers',
-    where: 'client',
-    yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_network':          {to: 'app'},
-        'app_network_uppers':   {to: 'app_network'}
-    },
-    data: function() {
-        return {
-            networkId: this.params._id
-        };
-    }
-});
-
-Router.route('/tribes/:_id/invite', {
-    name: 'network-invite',
-    where: 'client',
-    yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_network_invite':    {to: 'modal'}
-    },
-    data: function() {
-        return {
-            networkId: this.params._id
-        };
-    }
-});
-
-/*************************************************************/
-/* Network admin */
-/*************************************************************/
-Router.route('/tribes/:_id/settings', {
-    name: 'network-settings',
-    where: 'client',
-    yieldRegions: {
-        'modal':                          {to: 'main'},
-        'modal_network_settings':         {to: 'modal'},
-        'modal_network_settings_details': {to: 'modal_network_settings'}
-    },
-    data: function() {
-        return {
-            networkId: this.params._id
-        };
-    }
-});
-
-Router.route('/tribes/:_id/settings/uppers', {
-    name: 'network-settings-uppers',
-    where: 'client',
-    yieldRegions: {
-        'modal':                         {to: 'main'},
-        'modal_network_settings':        {to: 'modal'},
-        'modal_network_settings_uppers': {to: 'modal_network_settings'}
-    },
-    data: function() {
-        return {
-            networkId: this.params._id
-        };
-    }
-});
-
-Router.route('/tribes/:_id/settings/requests', {
-    name: 'network-settings-requests',
-    where: 'client',
-    yieldRegions: {
-        'modal':                           {to: 'main'},
-        'modal_network_settings':          {to: 'modal'},
-        'modal_network_settings_requests': {to: 'modal_network_settings'}
-    },
-    data: function() {
-        return {
-            networkId: this.params._id
-        };
-    }
-});
-
-/*************************************************************/
 /* Create Partup */
 /*************************************************************/
 Router.route('/start', {
@@ -486,6 +382,113 @@ Router.route('/close', {
     where: 'client',
     onBeforeAction: function() {
         window.close();
+    }
+});
+
+/*************************************************************/
+/* Networks */
+/*************************************************************/
+Router.route('/:slug', {
+    name: 'network-detail',
+    where: 'client',
+    yieldRegions: {
+        'app':                      {to: 'main'},
+        'app_network':              {to: 'app'},
+        'app_network_partups':      {to: 'app_network'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+Router.route('/:slug/uppers', {
+    name: 'network-uppers',
+    where: 'client',
+    yieldRegions: {
+        'app':                  {to: 'main'},
+        'app_network':          {to: 'app'},
+        'app_network_uppers':   {to: 'app_network'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+Router.route('/:slug/invite', {
+    name: 'network-invite',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_network_invite':    {to: 'modal'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+/*************************************************************/
+/* Network (admin) */
+/*************************************************************/
+Router.route('/:slug/settings', {
+    name: 'network-settings',
+    where: 'client',
+    yieldRegions: {
+        'modal':                          {to: 'main'},
+        'modal_network_settings':         {to: 'modal'},
+        'modal_network_settings_details': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+Router.route('/:slug/settings/uppers', {
+    name: 'network-settings-uppers',
+    where: 'client',
+    yieldRegions: {
+        'modal':                         {to: 'main'},
+        'modal_network_settings':        {to: 'modal'},
+        'modal_network_settings_uppers': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+Router.route('/:slug/settings/requests', {
+    name: 'network-settings-requests',
+    where: 'client',
+    yieldRegions: {
+        'modal':                           {to: 'main'},
+        'modal_network_settings':          {to: 'modal'},
+        'modal_network_settings_requests': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+/*************************************************************/
+/* Create network (super mega ultra admin) */
+/*************************************************************/
+Router.route('/tribes/create', {
+    name: 'create-network',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_create_network':    {to: 'modal'}
     }
 });
 

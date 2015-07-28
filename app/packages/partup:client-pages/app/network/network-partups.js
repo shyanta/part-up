@@ -1,6 +1,6 @@
 Template.app_network_partups.onCreated(function() {
     var tpl = this;
-    var networkId = tpl.data.networkId;
+
     tpl.partups = {
 
         // Constants
@@ -39,7 +39,7 @@ Template.app_network_partups.onCreated(function() {
 
             // Set networks.one.partups.count subscription
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
-            tpl.partups.count_handle = tpl.subscribe('networks.one.partups.count', networkId, options);
+            tpl.partups.count_handle = tpl.subscribe('networks.one.partups.count', tpl.data.networkSlug, options);
             tpl.partups.count_loading.set(true);
 
             // When the networks.one.partups.count data changes
@@ -55,12 +55,14 @@ Template.app_network_partups.onCreated(function() {
 
             // Set networks.one.partups subscription
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('networks.one.partups', networkId, options);
+            tpl.partups.handle = tpl.subscribe('networks.one.partups', tpl.data.networkSlug, options);
             tpl.partups.loading.set(true);
 
             // When the networks.one.partups data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
+                var network = Networks.find({slug: tpl.data.networkSlug});
+
+                if (tpl.partups.handle.ready() && network) {
                     computation.stop();
                     tpl.partups.loading.set(false);
 
@@ -71,7 +73,7 @@ Template.app_network_partups.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        var partups = Partups.find({network_id: networkId}).fetch();
+                        var partups = Partups.find({network_id: network._id}).fetch();
 
                         var partupTileDatas = lodash.map(partups, function(partup) {
                             return tpl.partups.partupTileData(partup);
@@ -93,11 +95,13 @@ Template.app_network_partups.onCreated(function() {
             options.limit = b;
 
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('networks.one.partups', networkId, options);
+            tpl.partups.handle = tpl.subscribe('networks.one.partups', tpl.data.networkSlug, options);
             tpl.partups.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
+                var network = Networks.find({slug: tpl.data.networkSlug});
+
+                if (tpl.partups.handle.ready() && network) {
                     computation.stop();
                     tpl.partups.infinitescroll_loading.set(false);
 
@@ -111,7 +115,7 @@ Template.app_network_partups.onCreated(function() {
                      */
                     Tracker.nonreactive(function addPartups() {
                         var oldPartups = tpl.partups.layout.items;
-                        var newPartups = Partups.find({network_id: networkId}).fetch();
+                        var newPartups = Partups.find({network_id: network._id}).fetch();
 
                         var diffPartups = mout.array.filter(newPartups, function(partup) {
                             return !mout.array.find(oldPartups, function(_partup) {

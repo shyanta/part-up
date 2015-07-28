@@ -12,35 +12,22 @@ Template.DropdownProfile.onCreated(function() {
     this.currentNetwork = new ReactiveVar();
 });
 
-Template.DropdownProfile.rendered = function() {
-    // this = template
+Template.DropdownProfile.onRendered(function() {
     this.dropdownToggleBool = 'widget-dropdowns-profile.opened';
-
-    // set default boolean values
-    Session.set(this.dropdownToggleBool, false);
-
+    Session.setDefault(this.dropdownToggleBool, false);
     ClientDropdowns.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
-};
+});
 
-Template.DropdownProfile.destroyed = function() {
-    // this = template
-    // remove click handler on destroy
+Template.DropdownProfile.onDestroyed(function() {
     Session.set(this.dropdownToggleBool, false);
     ClientDropdowns.removeOutsideDropdownClickHandler(this);
-    // $('body').removeClass('pu-state-dropdownopen');
-};
+});
 
 Template.DropdownProfile.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-logout]': function eventClickLogout (event, template) {
         Meteor.logout();
     },
-    // 'mouseenter [data-clickoutside-close]': function disableBodyScroll (event, template) {
-    //     $('body').addClass('pu-state-dropdownopen');
-    // },
-    // 'mouseleave [data-clickoutside-close]': function enableBodyScroll (event, template) {
-    //     $('body').removeClass('pu-state-dropdownopen');
-    // },
     'click [data-select-network]': function changeNetwork (event, template) {
         var networkId = $(event.target).data('select-network') || undefined;
         template.currentNetwork.set(networkId);

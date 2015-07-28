@@ -60,7 +60,7 @@
         {{# unless HIDE_NETWORKTILE }}
             {{# with network }}
                 <footer>
-                    <a href="{{ pathFor 'network-detail' _id }}" class="pu-networktile">
+                    <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
                         <div class="pu-sub-figurecontainer">
                             <figure style="{{# with icon}}background-image: url('{{ partupImageUrl id=. store='32x32' }}');{{/ with }}"></figure>
                         </div>

@@ -3,7 +3,6 @@
  * Renders the prompt container, overlay and dismiss handlers
  *
  * @module client-prompt
- * @param {Number} networkId    the id of the network whose uppers are rendered
  */
 // jscs:enable
 
