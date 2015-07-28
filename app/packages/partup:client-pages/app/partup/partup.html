@@ -2,7 +2,9 @@
     <article class="pu-page pu-page-partup">
         <section class="pu-partuppagelayout" data-layout-container>
             <div class="pu-sub-partupdetail-left" data-layout-left>
-                {{> app_partup_navigation partup=partup }}
+                <div class="pu-sub-partupdetail-navigation">
+                    {{> app_partup_navigation partup=partup }}
+                </div>
                 <div class="pu-sub-partupdetail-content">
                     {{> yield region='app_partup' }}
                 </div>

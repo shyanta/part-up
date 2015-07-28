@@ -85,6 +85,9 @@ var getScrollTop = function() {
 };
 var partupDetailLayout = {
 
+    HEADER_HEIGHT: 60,
+    SCROLL_DEBOUNCE: 100,
+
     init: function() {
 
         this.container = document.querySelector('[data-layout-container]');
@@ -92,12 +95,12 @@ var partupDetailLayout = {
 
         this.left = this.container.querySelector('[data-layout-left]');
         this.right = this.container.querySelector('[data-layout-right]');
-        if (!this.left || !this.right) return console.warn('partup scroll logic error: could not left and/or right side');;
+        if (!this.left || !this.right) return console.warn('partup scroll logic error: could not find left and/or right side');
 
         this.bound = {
             onResize: mout.function.bind(this.onResize, this),
-            onScrollStart: mout.function.debounce(mout.function.bind(this.onScrollStart, this), 100, true),
-            onScrollEnd: mout.function.debounce(mout.function.bind(this.onScrollEnd, this), 100)
+            onScrollStart: mout.function.debounce(mout.function.bind(this.onScrollStart, this), this.SCROLL_DEBOUNCE, true),
+            onScrollEnd: mout.function.debounce(mout.function.bind(this.onScrollEnd, this), this.SCROLL_DEBOUNCE)
         };
 
         var self = this;
@@ -249,13 +252,13 @@ var partupDetailLayout = {
                     top = iH - r[scol].height;
                 }
             // Going up and short column top is larger than initial position on page
-            } else if (direction === 'up' && r[scol].top > 60) {
+            } else if (direction === 'up' && r[scol].top > this.HEADER_HEIGHT) {
                 pos = 'fixed';
-                top = 60;
+                top = this.HEADER_HEIGHT;
             }
         } else {
             pos = 'absolute';
-            top = scrollTop + r[scol].top - 60;
+            top = scrollTop + r[scol].top - this.HEADER_HEIGHT;
         }
 
         if (scrollTop >= this.maxScroll) {
@@ -270,14 +273,14 @@ var partupDetailLayout = {
         // 3. short column bottom is inside viewport
         // 4. short column top is larger than initial pos
         if (
-            (r[scol].height < iH - 60) && // 1
+            (r[scol].height < iH - this.HEADER_HEIGHT) && // 1
             (
                 (
                     (r[scol].bottom < r[lcol].bottom) && // 2
                     (r[scol].bottom < iH) // 3
                 ) ||
                 (
-                    (r[scol].top > 60) // 4
+                    (r[scol].top > this.HEADER_HEIGHT) // 4
                 )
             )
         ) {
@@ -286,7 +289,7 @@ var partupDetailLayout = {
         }
 
         if (pos === 'fixed' && top === 0) {
-            top = 60;
+            top = this.HEADER_HEIGHT;
         }
 
         this[scol].style.position = pos;

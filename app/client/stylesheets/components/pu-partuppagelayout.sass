@@ -29,6 +29,16 @@
             left: 0
             right: 420px
 
+            .pu-sub-partupdetail-navigation
+                position: fixed
+                top: $spacing-app-headerheight
+                left: 0
+                right: 420px
+                z-index: 2
+
+            .pu-sub-partupdetail-content
+                padding-top: $spacing-app-partupnavheight + $spacing-app-partupnavpaddingtop
+
         .pu-sub-partupdetail-right
             float: none
             position: absolute
@@ -37,10 +47,12 @@
             width: 420px
 
     @media screen and (min-width: $pagecontainer-maxwidth + $spacing-app-pagepadding * 2)
-        .pu-sub-partupdetail-left
+        .pu-sub-partupdetail-left,
+        .pu-sub-partupdetail-left .pu-sub-partupdetail-navigation
             left: 50%
             right: 50%
             margin: 0 -199px 0 -619px
+
         .pu-sub-partupdetail-right
             left: 50%
             width: auto
