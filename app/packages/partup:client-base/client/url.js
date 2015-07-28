@@ -1,6 +1,6 @@
 Partup.client.url = {
     stripWWW: function(url) {
-        return url.replace('www.', '');
+        return url.replace(/.www\./g, '');
     },
     stripHTTP: function(url) {
         return url.replace(/.*?:\/\//g, '');
