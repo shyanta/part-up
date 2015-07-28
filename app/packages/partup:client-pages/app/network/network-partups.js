@@ -60,7 +60,7 @@ Template.app_network_partups.onCreated(function() {
 
             // When the networks.one.partups data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.find({slug: tpl.data.networkSlug});
+                var network = Networks.findOne({slug: tpl.data.networkSlug});
 
                 if (tpl.partups.handle.ready() && network) {
                     computation.stop();
@@ -99,7 +99,7 @@ Template.app_network_partups.onCreated(function() {
             tpl.partups.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.find({slug: tpl.data.networkSlug});
+                var network = Networks.findOne({slug: tpl.data.networkSlug});
 
                 if (tpl.partups.handle.ready() && network) {
                     computation.stop();

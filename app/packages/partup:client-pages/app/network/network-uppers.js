@@ -53,7 +53,7 @@ Template.app_network_uppers.onCreated(function() {
 
             // When the networks.one.uppers data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.find({slug: tpl.data.networkSlug});
+                var network = Networks.findOne({slug: tpl.data.networkSlug});
 
                 if (tpl.uppers.handle.ready() && network) {
                     computation.stop();
@@ -89,7 +89,7 @@ Template.app_network_uppers.onCreated(function() {
             tpl.uppers.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.find({slug: tpl.data.networkSlug});
+                var network = Networks.findOne({slug: tpl.data.networkSlug});
 
                 if (tpl.uppers.handle.ready() && network) {
                     computation.stop();

@@ -41,7 +41,7 @@ Template.modal_network_invite.onCreated(function() {
     };
 
     self.autorun(function() {
-        var network = Networks.find({slug: template.data.networkSlug});
+        var network = Networks.findOne({slug: template.data.networkSlug});
         var options = self.suggestionsOptions.get();
 
         if (!network) return;
@@ -73,7 +73,7 @@ Template.modal_network_invite.helpers({
     },
     inviteSent: function() {
         var networkSlug = Template.currentData().networkSlug;
-        var network = Networks.find({slug: networkSlug});
+        var network = Networks.findOne({slug: networkSlug});
         var userId = this._id;
 
         return !!Invites.findOne({
@@ -112,7 +112,7 @@ Template.modal_network_invite.events({
     },
     'click [data-invite-id]': function(event, template) {
         var userId = event.target.dataset.inviteId;
-        var network = Networks.find({slug: template.data.networkSlug});
+        var network = Networks.findOne({slug: template.data.networkSlug});
 
         Meteor.call('networks.invite_existing_upper', network._id, userId, function(err) {
             if (err) {

@@ -84,7 +84,7 @@ Template.app_network.events({
         }
     },
     'click [data-leave]': function(event, template) {
-        var network = Networks.find({slug: template.data.networkSlug});
+        var network = Networks.findOne({slug: template.data.networkSlug});
 
         Meteor.call('networks.leave', network._id, function(error) {
             if (error) Partup.client.notify.error(error.reason);
