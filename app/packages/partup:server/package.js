@@ -80,6 +80,7 @@ Package.onUse(function(api) {
         'fixtures/tags.js',
         'fixtures/notifications.js',
         'fixtures/networks.js',
+        'fixtures/invites.js',
         'fixtures/images.js',
         'publications/activities.js',
         'publications/partups.js',
