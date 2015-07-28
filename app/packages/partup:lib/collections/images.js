@@ -162,10 +162,11 @@ Images.findForNotification = function(notification) {
     var images = [];
 
     switch (notification.type) {
-        case 'partups_messages_inserted': images = [notification.type_data.upper.image]; break;
+        case 'partups_messages_inserted':
+        case 'partups_activities_inserted':
+        case 'partups_contributions_inserted': images = [notification.type_data.creator.image]; break;
         case 'partups_supporters_added': images = [notification.type_data.supporter.image]; break;
         case 'partup_activities_invited': images = [notification.type_data.inviter.image]; break;
-        case 'partups_activities_inserted': images = [notification.type_data.creator.image]; break;
         default: return;
     }
 

@@ -128,6 +128,18 @@
                             </article>
                         </a>
                     {{/if}}
+                    <!-- new contribution in partup by partner notification -->
+                    {{#if partupEqualsExactly type 'partups_contributions_inserted' }}
+                        <a href="{{pathFor route='partup-update' _id=type_data.partup._id update_id=type_data.activity.update_id}}">
+                            <figure class="pu-avatar pu-avatar-plain">
+                                <a href="#" rel="author" data-usercard="{{ type_data.creator._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.creator.image }}');"></a>
+                            </figure>
+                            <article>
+                                <p>{{_ 'dropdown-notification-partups_contributions_inserted' creator=type_data.creator.name partup=type_data.partup.name }}</p>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
                 </li>
             {{else}}
                 <li class="pu-notification pu-notification-empty">

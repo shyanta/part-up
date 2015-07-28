@@ -19,3 +19,5 @@ New:
 Created:
 
 // partups_messages_inserted
+// partups_activities_inserted
+// partups_contributions_inserted

@@ -34,6 +34,45 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
             Partups.update(partup._id, {$push: {'supporters': user._id}});
             Meteor.users.update(user._id, {$push: {'supporterOf': partup._id}});
         }
+    } else {
+        var partup = Partups.findOneOrFail(contribution.partup_id);
+        var creator = Meteor.users.findOneOrFail(contribution.upper_id);
+
+        var notificationOptions = {
+            type: 'partups_contributions_inserted',
+            typeData: {
+                partup: {
+                    _id: partup._id,
+                    name: partup.name
+                },
+                activity: {
+                    _id: activity._id,
+                    name: activity.name,
+                    update_id: updateId
+                },
+                creator: {
+                    _id: creator._id,
+                    name: creator.name,
+                    image: creator.image
+                }
+            }
+        };
+
+        // Send a notification to each partner of the partup
+        var uppers = partup.uppers || [];
+        uppers.forEach(function(partnerId) {
+            if (userId === partnerId) return;
+            notificationOptions.userId = partnerId;
+            Partup.server.services.notifications.send(notificationOptions);
+        });
+
+        // Send a notification to each supporter of the partup
+        var supporters = partup.supporters || [];
+        supporters.forEach(function(supporterId) {
+            if (userId === supporterId) return;
+            notificationOptions.userId = supporterId;
+            Partup.server.services.notifications.send(notificationOptions);
+        });
     }
 });
 
