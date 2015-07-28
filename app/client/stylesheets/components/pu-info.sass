@@ -47,4 +47,9 @@
                 -webkit-line-clamp: inherit
 
                 .pu-readmore
-                    // display: none
+                    opacity: 0
+                    transition: opacity .1s
+
+                &:hover
+                    .pu-readmore
+                        opacity: 1
