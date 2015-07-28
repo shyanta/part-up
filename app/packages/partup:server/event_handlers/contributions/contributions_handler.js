@@ -40,14 +40,19 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
         var notificationOptions = {
             type: 'partups_contributions_proposed',
             typeData: {
+                partup: {
+                    _id: partup._id,
+                    name: partup.name
+                },
+                activity: {
+                    _id: activity._id,
+                    name: activity.name,
+                    update_id: updateId
+                },
                 creator: {
                     _id: creator._id,
                     name: creator.name,
                     image: creator.image
-                },
-                partup: {
-                    _id: partup._id,
-                    name: partup.name
                 }
             }
         };
@@ -63,14 +68,19 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
         var notificationOptions = {
             type: 'partups_contributions_inserted',
             typeData: {
+                partup: {
+                    _id: partup._id,
+                    name: partup.name
+                },
+                activity: {
+                    _id: activity._id,
+                    name: activity.name,
+                    update_id: updateId
+                },
                 creator: {
                     _id: creator._id,
                     name: creator.name,
                     image: creator.image
-                },
-                partup: {
-                    _id: partup._id,
-                    name: partup.name
                 }
             }
         };
@@ -154,23 +164,15 @@ Event.on('partups.contributions.archived', function(userId, contribution) {
 /**
  * Generate a Notification for an Upper when his contribution(s) get(s) accepted
  */
-Event.on('contributions.accepted', function(userId, activityId, upperId) {
-    var activity = Activities.findOneOrFail(activityId);
-    var partup = Partups.findOneOrFail(activity.partup_id);
+Event.on('contributions.accepted', function(userId, partupId, upperId) {
+    var partup = Partups.findOneOrFail(partupId);
     var accepter = Meteor.users.findOne(userId);
-
     var notificationOptions = {
-        userId: upperId,
         type: 'partups_contributions_accepted',
         typeData: {
             accepter: {
                 _id: accepter._id,
-                name: accepter.profile.name,
-                image: accepter.profile.image
-            },
-            activity: {
-                _id: activity._id,
-                name: activity.name
+                name: accepter.profile.name
             },
             partup: {
                 _id: partup._id,
@@ -179,6 +181,8 @@ Event.on('contributions.accepted', function(userId, activityId, upperId) {
             }
         }
     };
+
+    notificationOptions.userId = upperId;
 
     Partup.server.services.notifications.send(notificationOptions);
 });
@@ -187,30 +191,28 @@ Event.on('contributions.accepted', function(userId, activityId, upperId) {
  * Generate a Notification for an Upper when his contribution gets rejected
  */
 Event.on('contributions.rejected', function(userId, activityId, upperId) {
-    var activity = Activities.findOneOrFail(activityId);
+    var activity = Activity.findOneOrFail(activityId);
     var partup = Partups.findOneOrFail(activity.partup_id);
     var rejecter = Meteor.users.findOne(userId);
-
     var notificationOptions = {
-        userId: upperId,
         type: 'partups_contributions_rejected',
         typeData: {
             rejecter: {
                 _id: rejecter._id,
-                name: rejecter.profile.name,
-                image: rejecter.profile.image
-            },
-            activity: {
-                _id: activity._id,
-                name: activity.name
+                name: rejecter.profile.name
             },
             partup: {
                 _id: partup._id,
                 name: partup.name,
                 image: partup.image
+            },
+            activity: {
+                name: activity.name
             }
         }
     };
+
+    notificationOptions.userId = upperId;
 
     Partup.server.services.notifications.send(notificationOptions);
 });
