@@ -116,7 +116,7 @@ Template.app_network.events({
         });
     },
     'click [data-location]': function(event, template) {
-        var location = Networks.findOne(template.data.networkId).location;
+        var location = Networks.findOne({slug: template.data.networkSlug}).location;
         Session.set('discover.location', location);
         Router.go('discover');
     }
