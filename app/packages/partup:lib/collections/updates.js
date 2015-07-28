@@ -78,34 +78,38 @@ Updates.findForActivity = function(activity) {
  *
  * @memberOf Updates
  * @param {Partup} partup
- * @param {Object} options
- * @param {Number} options.limit
- * @param {String} options.filter
+ * @param {Object} parameters
+ * @param {Number} parameters.limit
+ * @param {String} parameters.filter
+ * @param {String} userId
  * @return {Mongo.Cursor}
  */
-Updates.findForPartup = function(partup, options) {
-    var self = this;
-
-    if (!partup) return;
-
-    var options = options || {};
-    var limit = options.limit || 10;
-    var filter = options.filter || 'default';
+Updates.findForPartup = function(partup, parameters, userId) {
+    var parameters = parameters || {};
 
     var selector = {partup_id: partup._id};
+    var options = {sort: {updated_at: -1}};
 
-    if (filter === 'my-updates') {
-        selector.upper_id = self.userId;
-    } else if (filter === 'activities') {
-        selector.type = {$regex: '.*activities.*'};
-    } else if (filter === 'partup-changes') {
-        var regex = '.*(tags|end_date|name|description|image|budget).*';
-        selector.type = {$regex: regex};
-    } else if (filter === 'messages') {
-        selector.type = {$regex: '.*message.*'};
-    } else if (filter === 'contributions') {
-        selector.type = {$regex: '.*contributions.*'};
+    if (parameters.limit) {
+        options.limit = parseInt(parameters.limit);
     }
 
-    return this.find(selector, {limit: limit, sort: {updated_at: -1}});
+    if (parameters.filter) {
+        var filter = parameters.filter;
+
+        if (filter === 'my-updates') {
+            selector.upper_id = userId;
+        } else if (filter === 'activities') {
+            selector.type = {$regex: '.*activities.*'};
+        } else if (filter === 'partup-changes') {
+            var regex = '.*(tags|end_date|name|description|image|budget).*';
+            selector.type = {$regex: regex};
+        } else if (filter === 'messages') {
+            selector.type = {$regex: '.*message.*'};
+        } else if (filter === 'contributions') {
+            selector.type = {$regex: '.*contributions.*'};
+        }
+    }
+
+    return this.find(selector, options);
 };

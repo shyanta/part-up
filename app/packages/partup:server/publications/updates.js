@@ -42,16 +42,16 @@ Meteor.publishComposite('updates.one', function(updateId) {
 /**
  * Publish all required data for updates in a part-up
  *
- * @param {String} partupId - The part-up's id
- * @param {Object} options  - Possible filtering options for updates
+ * @param {String} partupId
+ * @param {Object} parameters
  */
-Meteor.publishComposite('updates.from_partup', function(partupId, options) {
+Meteor.publishComposite('updates.from_partup', function(partupId, parameters) {
     return {
         find: function() {
             var partup = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1}).fetch().pop();
             if (!partup) return;
 
-            return Updates.findForPartup(partup, options);
+            return Updates.findForPartup(partup, parameters, this.userId);
         },
         children: updateChildren
     };
