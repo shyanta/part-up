@@ -111,7 +111,7 @@ Template.app_network.events({
         });
     },
     'click [data-location]': function(event, template) {
-        var location = Meteor.users.findOne(template.data.profileId).profile.location;
+        var location = Networks.findOne(template.data.networkId).location;
         Session.set('discover.location', location);
         Router.go('discover');
     }
