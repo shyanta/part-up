@@ -19,7 +19,6 @@ Meteor.methods({
             //check(newPartup, Partup.schemas.entities.partup);
 
             newPartup._id = Partups.insert(newPartup);
-            Meteor.users.update(user._id, {$push: {'partups': newPartup._id}});
             Meteor.users.update(user._id, {$push: {'upperOf': newPartup._id}});
 
             // Generate the slug for the Partup
