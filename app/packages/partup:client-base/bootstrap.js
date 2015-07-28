@@ -5,6 +5,8 @@
  * @name client-base
  */
 Meteor.startup(function() {
+
+    // Check IE version
     window.PU_IE_VERSION = -1;
     if (navigator.appName == 'Microsoft Internet Explorer') {
         var ua = navigator.userAgent;
@@ -15,7 +17,6 @@ Meteor.startup(function() {
     }
     // var oldIE = /msie 8|msie 9|msie 10/i.test(navigator.userAgent);
     if (window.PU_IE_VERSION < 11 && window.PU_IE_VERSION > -1) {
-        console.log('IE version: ' + window.PU_IE_VERSION);
         $('body').addClass('pu-no-pointer-events');
     }
 
