@@ -514,7 +514,9 @@ Router.onBeforeAction(function(req, res, next) {
 
 // reset create-partup id to reset the create partup flow
 Router.onBeforeAction(function(req, res, next) {
-    Session.set('partials.create-partup.current-partup', undefined);
+    if (Meteor.isClient) {
+        Session.set('partials.create-partup.current-partup', undefined);
+    }
     next();
 }, {
     where: 'client',
