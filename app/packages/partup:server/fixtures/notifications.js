@@ -15,7 +15,7 @@ Meteor.startup(function() {
                     'supporter' : {
                         '_id' : 'K5c5M4Pbdg3B82wQI',
                         'name' : 'John Partup',
-                        'image' : 'nL2MYYXJ3eFeb2GYq'
+                        'image' : 'cHhjpWKo9DHjXQQjy'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:08:02.831Z'),
@@ -47,7 +47,7 @@ Meteor.startup(function() {
                     'rater' : {
                         '_id' : 'K5c5M4Pbdg3B82wQI',
                         'name' : 'John Partup',
-                        'image' : 'nL2MYYXJ3eFeb2GYq'
+                        'image' : 'cHhjpWKo9DHjXQQjy'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:09:50.912Z'),
@@ -67,7 +67,7 @@ Meteor.startup(function() {
                     'supporter' : {
                         '_id' : 'a7qcp5RHnh5rfaeW9',
                         'name' : 'Judy Partup',
-                        'image' : 'LG9J5XA4PPg5B8ZNu'
+                        'image' : 'bMTGT9oSDGzxCL3r4'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:11:51.761Z'),
@@ -87,7 +87,7 @@ Meteor.startup(function() {
                     'supporter' : {
                         '_id' : 'a7qcp5RHnh5rfaeW9',
                         'name' : 'Judy Partup',
-                        'image' : 'LG9J5XA4PPg5B8ZNu'
+                        'image' : 'bMTGT9oSDGzxCL3r4'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:11:51.763Z'),
@@ -103,7 +103,7 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
-                        'image' : null
+                        'image' : 'efDuvuTzpqH65P9DF'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:00:30.168Z'),
@@ -119,7 +119,7 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
-                        'image' : null
+                        'image' : 'efDuvuTzpqH65P9DF'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:11:08.083Z'),
@@ -135,7 +135,7 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
-                        'image' : null
+                        'image' : 'PnYAg3EX5dKfEnkdn'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:12:46.323Z'),
@@ -151,7 +151,7 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
-                        'image' : null
+                        'image' : 'PnYAg3EX5dKfEnkdn'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:23:58.070Z'),
@@ -167,7 +167,7 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
-                        'image' : null
+                        'image' : 'PnYAg3EX5dKfEnkdn'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:31:48.389Z'),
