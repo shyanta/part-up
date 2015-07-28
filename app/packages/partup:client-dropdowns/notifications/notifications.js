@@ -23,6 +23,7 @@ Template.DropdownNotifications.helpers({
         return Session.get('widget-dropdowns-notifications.opened');
     },
     notifications: function () {
-        return Notifications.find();
+        var parameters = {sort: {created_at: -1}};
+        return Notifications.findForUser(Meteor.user(), parameters);
     }
 });
