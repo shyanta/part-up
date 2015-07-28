@@ -118,7 +118,7 @@
                     {{/if}}
                     <!-- new activity in partup notification -->
                     {{#if partupEqualsExactly type 'partups_activities_inserted' }}
-                        <a href="{{pathFor route='partup' _id=type_data.partup._id}}">
+                        <a href="{{pathFor route='partup-update' _id=type_data.partup._id update_id=type_data.activity.update_id}}">
                             <figure class="pu-avatar pu-avatar-plain">
                                 <a href="#" rel="author" data-usercard="{{ type_data.creator._id }}" class="pu-sub-image pu-sub-image-plain" style="background-image: url('{{ partupImageUrl id=type_data.creator.image }}');"></a>
                             </figure>

@@ -24,6 +24,11 @@ Event.on('partups.activities.inserted', function(userId, activity) {
                 _id: partup._id,
                 name: partup.name
             },
+            activity: {
+                _id: activity._id,
+                name: activity.name,
+                update_id: updateId
+            },
             creator: {
                 _id: creator._id,
                 name: creator.name,
