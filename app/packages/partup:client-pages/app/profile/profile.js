@@ -19,6 +19,7 @@ Template.app_profile.helpers({
         var user = Meteor.users.findOne(this.profileId);
         profile = user.profile;
         profile.participation_score = User(user).getReadableScore();
+        if (user.profile.website) profile.website = Partup.client.url.getCleanUrl(user.profile.website);
         return profile;
     },
 

@@ -16,7 +16,9 @@ Template.app_network.onCreated(function() {
 /*************************************************************/
 Template.app_network.helpers({
     network: function() {
-        return Networks.findOne(this.networkId);
+        var network = Networks.findOne(this.networkId);
+        if (network.website) network.website = Partup.client.url.getCleanUrl(network.website);
+        return network;
     },
 
     isInvitePending: function() {
