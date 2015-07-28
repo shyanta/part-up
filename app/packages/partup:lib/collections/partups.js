@@ -271,7 +271,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
 
         // Sort the partups from the newest to the oldest
         if (sort === 'new') {
-            options.sort['updated_at'] = -1;
+            options.sort['created_at'] = -1;
         }
 
         // Sort the partups from the most popular to the least popular

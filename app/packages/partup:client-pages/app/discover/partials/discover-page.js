@@ -72,6 +72,10 @@ Template.app_discover_page.onCreated(function() {
 
                         var partups = Partups.find({_id: {$in: limitedIds}}).fetch();
 
+                        partups = lodash.sortBy(partups, function(partup) {
+                            return this.indexOf(partup._id);
+                        }, limitedIds);
+
                         tpl.partups.layout.items = tpl.partups.layout.clear();
                         tpl.partups.layout.items = tpl.partups.layout.add(partups);
                     }
@@ -102,6 +106,10 @@ Template.app_discover_page.onCreated(function() {
                             return partup._id === _partup._id;
                         });
                     });
+
+                    diffPartups = lodash.sortBy(diffPartups, function(partup) {
+                        return this.indexOf(partup._id);
+                    }, limitedIds);
 
                     var end_reached = diffPartups.length === 0;
                     tpl.partups.end_reached.set(end_reached);
