@@ -119,11 +119,21 @@ Template.app_discover_filter.onCreated(function() {
     };
 
     tpl.autorun(function() {
-        var value = Session.get('discover.query');
-        if (!value) return;
+        var queryValue = Session.get('discover.query');
+        var locationValue = Session.get('discover.location');
+        console.log(tpl.location.value.get());
+        if (!queryValue && !locationValue) return;
 
-        Session.set('discover.query', undefined);
-        tpl.query.value.set(value);
+        if (queryValue) {
+            Session.set('discover.query', undefined);
+            tpl.query.value.set(queryValue);
+        }
+
+        if (locationValue) {
+            Session.set('discover.location', undefined);
+            if (locationValue.place_id) locationValue.id = locationValue.place_id;
+            tpl.location.value.set(locationValue);
+        }
         tpl.submitFilterForm();
     });
 });

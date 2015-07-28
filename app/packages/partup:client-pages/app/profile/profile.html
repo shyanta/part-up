@@ -29,14 +29,14 @@
                                 <ul class="pu-list pu-list-horizontal">
                                     {{#if profile.location}}
                                         {{#if profile.location.city}}
-                                            <li><a class="pu-tag pu-tag-metadata">
+                                            <li><a class="pu-metadata" href="#" data-location>
                                                 <i class="fa fa-map-marker"></i>
                                                 <span>{{profile.location.city}}</span>
                                             </a></li>
                                         {{/if}}
                                     {{/if}}
                                     {{#if profile.website}}
-                                        <li><a class="pu-tag pu-tag-metadata" href="{{profile.website}}" target="_blank">
+                                        <li><a class="pu-metadata" href="{{profile.website}}" target="_blank">
                                             <i class="fa fa-external-link"></i>
                                             <span>{{profile.website}}</span>
                                         </a></li>
