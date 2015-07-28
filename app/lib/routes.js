@@ -399,7 +399,7 @@ Router.route('/register/details', {
 /*************************************************************/
 /* Partup detail */
 /*************************************************************/
-Router.route('/:slug', {
+Router.route('/partups/:slug', {
     name: 'partup',
     where: 'client',
     yieldRegions: {
@@ -418,7 +418,7 @@ Router.route('/:slug', {
     }
 });
 
-Router.route('/:slug/updates/:update_id', {
+Router.route('/partups/:slug/updates/:update_id', {
     name: 'partup-update',
     where: 'client',
     yieldRegions: {
@@ -434,7 +434,7 @@ Router.route('/:slug/updates/:update_id', {
     }
 });
 
-Router.route('/:slug/activities', {
+Router.route('/partups/:slug/activities', {
     name: 'partup-activities',
     where: 'client',
     yieldRegions: {
@@ -449,7 +449,7 @@ Router.route('/:slug/activities', {
     }
 });
 
-Router.route('/:slug/invite-for-activity/:activity_id', {
+Router.route('/partups/:slug/invite-for-activity/:activity_id', {
     name: 'partup-activity-invite',
     where: 'client',
     yieldRegions: {
@@ -464,7 +464,7 @@ Router.route('/:slug/invite-for-activity/:activity_id', {
     }
 });
 
-Router.route('/:slug/settings', {
+Router.route('/partups/:slug/settings', {
     name: 'partup-settings',
     where: 'client',
     yieldRegions: {
