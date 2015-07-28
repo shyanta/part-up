@@ -182,12 +182,10 @@ Images.findForNotification = function(notification) {
 Images.findForUpdate = function(update) {
     var images = [];
 
-    if (update.type === 'partups_image_changed') {
-        images = [update.type_data.old_image, update.type_data.new_image];
-    }
-
-    if (update.type === 'partups_message_added') {
-        images = update.type_data.images || [];
+    switch (update.type) {
+        case 'partups_image_changed': images = [update.type_data.old_image, update.type_data.new_image]; break;
+        case 'partups_message_added': images = update.type_data.images || []; break;
+        default: return;
     }
 
     return Images.find({_id: {'$in': images}});
