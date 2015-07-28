@@ -34,5 +34,6 @@
     "dropdown-notification-updates_first_comment": "@__commenter__ has commented on an update in __partup__",
     "dropdown-notification-partups_messages_inserted": "@__creator__ has placed a message in __partup__",
     "dropdown-notification-partups_activities_inserted": "@__creator__ has created a new activity in __partup__",
-    "dropdown-notification-partups_contributions_inserted": "@__creator__ would like to do an activity in __partup__"
+    "dropdown-notification-partups_contributions_inserted": "@__creator__ would like to do an activity in __partup__",
+    "dropdown-notification-partups_contributions_proposed": "@__creator__ (not a partner) would like to do an activity in __partup__"
 }

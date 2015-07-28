@@ -22,6 +22,9 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
     var system_message_type = contribution.verified ? 'system_contributions_added' : 'system_contributions_proposed';
     Partup.server.services.system_messages.send(user, activity.update_id, system_message_type, {update_timestamp: false});
 
+    var partup = Partups.findOneOrFail(contribution.partup_id);
+    var creator = Meteor.users.findOneOrFail(contribution.upper_id);
+
     // Make the user a supporter
     var upperPartups = user.partups || [];
     var isUpperInPartup = upperPartups.indexOf(activity.partup_id) > -1;
@@ -34,10 +37,35 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
             Partups.update(partup._id, {$push: {'supporters': user._id}});
             Meteor.users.update(user._id, {$push: {'supporterOf': partup._id}});
         }
-    } else {
-        var partup = Partups.findOneOrFail(contribution.partup_id);
-        var creator = Meteor.users.findOneOrFail(contribution.upper_id);
 
+        var notificationOptions = {
+            type: 'partups_contributions_proposed',
+            typeData: {
+                partup: {
+                    _id: partup._id,
+                    name: partup.name
+                },
+                activity: {
+                    _id: activity._id,
+                    name: activity.name,
+                    update_id: updateId
+                },
+                creator: {
+                    _id: creator._id,
+                    name: creator.name,
+                    image: creator.image
+                }
+            }
+        };
+
+        // Send a notification to each partner of the partup
+        var uppers = partup.uppers || [];
+        uppers.forEach(function(partnerId) {
+            if (userId === partnerId) return;
+            notificationOptions.userId = partnerId;
+            Partup.server.services.notifications.send(notificationOptions);
+        });
+    } else {
         var notificationOptions = {
             type: 'partups_contributions_inserted',
             typeData: {
