@@ -13,6 +13,38 @@ Event.on('partups.activities.inserted', function(userId, activity) {
     var updateId = Updates.insert(update);
 
     Activities.update({_id: activity._id}, {$set: {update_id: updateId}});
+
+    var partup = Partups.findOneOrFail(activity.partup_id);
+    var creator = Meteor.users.findOneOrFail(activity.creator_id);
+
+    var notificationOptions = {
+        type: 'partups_activities_inserted',
+        typeData: {
+            partup: {
+                _id: partup._id,
+                name: partup.name
+            },
+            creator: {
+                _id: creator._id,
+                name: creator.name,
+                image: creator.image
+            }
+        }
+    };
+
+    // Send a notification to each partner of the partup
+    var uppers = partup.uppers || [];
+    uppers.forEach(function(partnerId) {
+        notificationOptions.userId = partnerId;
+        Partup.server.services.notifications.send(notificationOptions);
+    });
+
+    // Send a notification to each supporter of the partup
+    var supporters = partup.supporters || [];
+    supporters.forEach(function(supporterId) {
+        notificationOptions.userId = supporterId;
+        Partup.server.services.notifications.send(notificationOptions);
+    });
 });
 
 /**

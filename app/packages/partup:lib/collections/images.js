@@ -173,6 +173,10 @@ Images.findForNotification = function(notification) {
         images = [notification.type_data.supporter.image];
     }
 
+    if (notification.type === 'partups_activities_inserted') {
+        images = [notification.type_data.creator.image];
+    }
+
     return Images.find({_id: {'$in': images}});
 };
 
