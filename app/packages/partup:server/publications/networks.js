@@ -1,8 +1,15 @@
 /**
  * Publish a list of networks
  */
-Meteor.publish('networks.list', function() {
-    return Networks.guardedMetaFind();
+Meteor.publishComposite('networks.list', function() {
+    return {
+        find: function() {
+            return Networks.guardedFind(this.userId);
+        },
+        children: [
+            {find: Images.findForNetwork}
+        ]
+    };
 });
 
 /**
