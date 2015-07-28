@@ -54,8 +54,8 @@ Partup.client.scroll = {
      * @memberof Partup.client.scroll
      */
     triggerUpdate: function() {
-        this.pos.set(window.scrollY);
-        this.pos.dep.changed();
+        Partup.client.scroll.pos.set(window.scrollY);
+        Partup.client.scroll.pos.dep.changed();
     },
 
     /**
