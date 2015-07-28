@@ -167,9 +167,14 @@ Event.on('partups.contributions.archived', function(userId, contribution) {
  */
 Event.on('contributions.accepted', function(userId, partupId, upperId) {
     var partup = Partups.findOneOrFail(partupId);
+    var accepter = Meteor.users.findOne(userId);
     var notificationOptions = {
         type: 'partups_contributions_accepted',
         typeData: {
+            accepter: {
+                _id: accepter._id,
+                name: accepter.profile.name,
+            },
             partup: {
                 _id: partup._id,
                 name: partup.name,
@@ -189,9 +194,14 @@ Event.on('contributions.accepted', function(userId, partupId, upperId) {
 Event.on('contributions.rejected', function(userId, activityId, upperId) {
     var activity = Activity.findOneOrFail(activityId);
     var partup = Partups.findOneOrFail(activity.partup_id);
+    var rejecter = Meteor.users.findOne(userId);
     var notificationOptions = {
         type: 'partups_contributions_rejected',
         typeData: {
+            rejecter: {
+                _id: rejecter._id,
+                name: rejecter.profile.name,
+            },
             partup: {
                 _id: partup._id,
                 name: partup.name,
