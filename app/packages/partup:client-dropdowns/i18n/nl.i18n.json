@@ -32,7 +32,7 @@
     "dropdown-notification-partups_networks_accepted": "@Je bent geaccepteerd in de tribe __network__",
     "dropdown-notification-contributions_ratings_inserted": "@__rater__ heeft jouw bijdrage beoordeeld",
     "dropdown-notification-updates_first_comment": "@__commenter__ heeft gereageerd op een update in __partup__",
-    "dropdown-notification-partups_messages_inserted": "@__upper__ heeft een bericht geplaatst in __partup__",
+    "dropdown-notification-partups_messages_inserted": "@__creator__ heeft een bericht geplaatst in __partup__",
     "dropdown-notification-partups_activities_inserted": "@__creator__ heeft een nieuwe activiteit toegevoegd aan __partup__",
     "dropdown-notification-partups_contributions_inserted": "@__creator__ wil een activiteit doen in __partup__"
 }

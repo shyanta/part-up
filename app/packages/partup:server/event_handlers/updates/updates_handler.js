@@ -5,7 +5,7 @@ var d = Debug('event_handlers:updates_handler');
  */
 Event.on('partups.updates.inserted', function(userId, update) {
     var partup = Partups.findOneOrFail(update.partup_id);
-    var upper = Meteor.users.findOneOrFail(update.upper_id);
+    var creator = Meteor.users.findOneOrFail(update.upper_id);
 
     if (update.type === 'partups_message_added') {
         var notificationOptions = {
@@ -15,10 +15,10 @@ Event.on('partups.updates.inserted', function(userId, update) {
                     _id: partup._id,
                     name: partup.name
                 },
-                upper: {
-                    _id: upper._id,
-                    name: upper.name,
-                    image: upper.image
+                creator: {
+                    _id: creator._id,
+                    name: creator.name,
+                    image: creator.image
                 }
             }
         };
