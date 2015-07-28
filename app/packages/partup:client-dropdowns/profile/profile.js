@@ -27,7 +27,7 @@ Template.DropdownProfile.destroyed = function() {
     // remove click handler on destroy
     Session.set(this.dropdownToggleBool, false);
     ClientDropdowns.removeOutsideDropdownClickHandler(this);
-    $('body').removeClass('pu-state-dropdownopen');
+    // $('body').removeClass('pu-state-dropdownopen');
 };
 
 Template.DropdownProfile.events({
@@ -35,12 +35,12 @@ Template.DropdownProfile.events({
     'click [data-logout]': function eventClickLogout (event, template) {
         Meteor.logout();
     },
-    'mouseenter [data-clickoutside-close]': function disableBodyScroll (event, template) {
-        $('body').addClass('pu-state-dropdownopen');
-    },
-    'mouseleave [data-clickoutside-close]': function enableBodyScroll (event, template) {
-        $('body').removeClass('pu-state-dropdownopen');
-    },
+    // 'mouseenter [data-clickoutside-close]': function disableBodyScroll (event, template) {
+    //     $('body').addClass('pu-state-dropdownopen');
+    // },
+    // 'mouseleave [data-clickoutside-close]': function enableBodyScroll (event, template) {
+    //     $('body').removeClass('pu-state-dropdownopen');
+    // },
     'click [data-select-network]': function changeNetwork (event, template) {
         var networkId = $(event.target).data('select-network') || undefined;
         template.currentNetwork.set(networkId);
