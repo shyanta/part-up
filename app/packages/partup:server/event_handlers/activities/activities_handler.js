@@ -35,6 +35,7 @@ Event.on('partups.activities.inserted', function(userId, activity) {
     // Send a notification to each partner of the partup
     var uppers = partup.uppers || [];
     uppers.forEach(function(partnerId) {
+        if (userId === partnerId) return;
         notificationOptions.userId = partnerId;
         Partup.server.services.notifications.send(notificationOptions);
     });
@@ -42,6 +43,7 @@ Event.on('partups.activities.inserted', function(userId, activity) {
     // Send a notification to each supporter of the partup
     var supporters = partup.supporters || [];
     supporters.forEach(function(supporterId) {
+        if (userId === partnerId) return;
         notificationOptions.userId = supporterId;
         Partup.server.services.notifications.send(notificationOptions);
     });
