@@ -21,7 +21,7 @@
 
             {{# if showProfileCompletion }}
                 <p class="pu-profilecompletion pu-paragraph">
-                    <a href="{{ pathFor 'profile-settings-details' _id=currentUser._id }}">{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</a>
+                    <a href="{{ pathFor 'profile-settings-details' _id=currentUser._id }}" data-open-profilesettings>{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</a>
                 </p>
             {{/ if }}
         </header>

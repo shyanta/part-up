@@ -205,3 +205,16 @@ Template.app_discover_page.helpers({
         };
     }
 });
+
+Template.app_discover_page.events({
+    'click [data-open-profilesettings]': function(event, template) {
+        event.preventDefault();
+
+        Intent.go({
+            route: 'profile-settings-details',
+            params: {
+                _id: Meteor.userId()
+            }
+        });
+    }
+});
