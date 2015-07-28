@@ -121,7 +121,6 @@ Template.app_discover_filter.onCreated(function() {
     tpl.autorun(function() {
         var queryValue = Session.get('discover.query');
         var locationValue = Session.get('discover.location');
-        console.log(tpl.location.value.get());
         if (!queryValue && !locationValue) return;
 
         if (queryValue) {
