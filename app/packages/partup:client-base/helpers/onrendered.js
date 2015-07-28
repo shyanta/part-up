@@ -5,9 +5,9 @@ Template.onCreated(function() {
 });
 Template.onRendered(function() {
     var template = this;
-    lodash.defer(function() {
+    Meteor.setTimeout(function() {
         template.partupTemplateIsRendered.set(true);
-    });
+    }, 500);
 });
 Template.onDestroyed(function() {
     this.partupTemplateIsRendered.set(false);
