@@ -185,6 +185,7 @@ Partups.guardedFind = function(userId, selector, options) {
     // Some extra rules that are only applicable to users that are logged in
     if (userId) {
         var user = Meteor.users.findOneOrFail(userId);
+        var networks = user.networks || [];
 
         // The user is part of the partup uppers, which means he has access anyway
         guardedCriterias.push({'uppers': {'$in': [userId]}});
@@ -193,7 +194,7 @@ Partups.guardedFind = function(userId, selector, options) {
         guardedCriterias.push({'creator_id': userId});
 
         // Everyone who is part of the network the partup is part of can view it
-        guardedCriterias.push({'network_id': {'$in': [user.networks]}});
+        guardedCriterias.push({'network_id': {'$in': networks}});
 
         // Check if upper is invited, so has the rights to view a partup in a closed network
         guardedCriterias.push({'invites': {'$in': [userId]}});
