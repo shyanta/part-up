@@ -35,5 +35,6 @@
     "dropdown-notification-partups_messages_inserted": "@__creator__ heeft een bericht geplaatst in __partup__",
     "dropdown-notification-partups_activities_inserted": "@__creator__ heeft een nieuwe activiteit toegevoegd aan __partup__",
     "dropdown-notification-partups_contributions_inserted": "@__creator__ wil een activiteit doen in __partup__",
-    "dropdown-notification-partups_contributions_proposed": "@__creator__ (geen partner) wil een activiteit doen in __partup__"
+    "dropdown-notification-partups_contributions_proposed": "@__creator__ (geen partner) wil een activiteit doen in __partup__",
+    "dropdown-notification-partups_ratings_reminder": "@Vergeet geen rating achter te laten voor de contributies in __partup__"
 }
