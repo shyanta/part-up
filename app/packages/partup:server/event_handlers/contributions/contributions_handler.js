@@ -25,7 +25,7 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
     var creator = Meteor.users.findOneOrFail(contribution.upper_id);
 
     // Make the user a supporter
-    var upperPartups = user.partups || [];
+    var upperPartups = user.upperOf || [];
     var isUpperInPartup = upperPartups.indexOf(activity.partup_id) > -1;
     if (!isUpperInPartup) {
         var partup = Partups.findOneOrFail(activity.partup_id);
