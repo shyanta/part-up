@@ -1,6 +1,6 @@
 {
     "network-settings-intro-title": "Beheer je tribe profiel",
-    "network-settings-intro-paragraph": "Beheer eenvoudig de profielinformatie van je tribe. Dit is de basis van je publieke tribe profiel.",
+    "network-settings-intro-paragraph": "Beheer eenvoudig de profielinformatie van je tribe. Dit is de basis van je (publieke) tribe profiel.",
 
     "network-settings-form-characters": "maximaal %d tekens",
     "network-settings-form-characters-left": "nog %d tekens over",
@@ -10,15 +10,15 @@
     "network-settings-form-image-label": "Tribe logo",
     "network-settings-form-image-button": "Foto vanaf jouw computer",
     "network-settings-form-image-info": "Wel minimaal 200 pixels",
-    "network-settings-form-image-error": "Het uploaden is mislukt",
+    "network-settings-form-image-error": "Het uploaden van het logo is mislukt",
 
     "network-settings-form-icon-label": "Icon",
     "network-settings-form-icon-button": "Foto vanaf jouw computer",
     "network-settings-form-icon-info": "Liefst 32 bij 32 pixels",
-    "network-settings-form-icon-error": "Het uploaden is mislukt",
+    "network-settings-form-icon-error": "Het uploaden is van het icon mislukt",
 
     "network-settings-form-name-label": "Tribe naam",
-    "network-settings-form-name-placeholder": "@Mijn tribe",
+    "network-settings-form-name-placeholder": "De merknaam van je organisatie of community",
 
     "network-settings-form-description-label": "Het doel van de tribe",
     "network-settings-form-description-placeholder": "Begin met het waarom, dat zorgt voor echte betrokkenheid van de uppers.",
@@ -27,7 +27,7 @@
     "network-settings-form-tags_input-placeholder": "Even scheiden door een komma alsjeblieft",
 
     "network-settings-form-location_input-label": "Tribe locatie",
-    "network-settings-form-location_input-placeholder": "@De locatie waar de part-up gaat plaatsvinden",
+    "network-settings-form-location_input-placeholder": "De uitvalsbasis van je tribe",
 
     "network-settings-form-website-label": "Tribe website",
     "network-settings-form-website-placeholder": "www.blog-of-website.nl"
