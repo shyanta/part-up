@@ -9,7 +9,7 @@
                         <div class="pu-info {{#unless profile.tags}} pu-info-minimal{{/unless}}">
                             <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
                                 <span class="pu-score pu-score-large">
-                                    <span>{{profile.participation_score}}</span>
+                                    <span>{{ getRoundedScore }}</span>
                                 </span>
                             </figure>
                             <div>
@@ -38,7 +38,7 @@
                                     {{#if profile.website}}
                                         <li><a class="pu-metadata" href="{{profile.website}}" target="_blank">
                                             <i class="fa fa-external-link"></i>
-                                            <span>{{profile.website}}</span>
+                                            <span>{{ getPrettyUrl profile.website}}</span>
                                         </a></li>
                                     {{/if}}
                                 </ul>

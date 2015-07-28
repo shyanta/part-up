@@ -19,8 +19,11 @@ Template.app_network.onCreated(function() {
 Template.app_network.helpers({
     network: function() {
         var network = Networks.findOne({slug: this.networkSlug});
-        if (network.website) network.website = Partup.client.url.getCleanUrl(network.website);
         return network;
+    },
+
+    getPrettyUrl: function(url) {
+        return Partup.client.url.getCleanUrl(url);
     },
 
     isInvitePending: function() {

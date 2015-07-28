@@ -19,8 +19,16 @@ Template.app_profile.helpers({
         var user = Meteor.users.findOne(this.profileId);
         profile = user.profile;
         profile.participation_score = User(user).getReadableScore();
-        if (user.profile.website) profile.website = Partup.client.url.getCleanUrl(user.profile.website);
         return profile;
+    },
+
+    getPrettyUrl: function(url) {
+        return Partup.client.url.getCleanUrl(url);
+    },
+
+    getRoundedScore: function() {
+        var user = Meteor.users.findOne(this.profileId);
+        return User(user).getReadableScore();
     },
 
     subscriptionsReady: function() {
