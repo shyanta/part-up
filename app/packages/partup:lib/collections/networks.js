@@ -186,7 +186,7 @@ Network.prototype.addPendingUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperPending = function(upperId) {
-    return !!Networks.findOne({_id: this._id}, {pending_uppers: {'$in': [upperId]}});
+    return !!Networks.findOne({_id: this._id, pending_uppers: {'$in': [upperId]}});
 };
 
 /**
