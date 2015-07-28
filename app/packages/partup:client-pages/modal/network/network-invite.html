@@ -46,7 +46,7 @@
                 <ul class="pu-invite-suggestions">
                     {{# each suggestions }}
                         <li>
-                            <figure class="pu-avatar" style="background-image: url({{ partupImageUrl id=profile.image store='80x80' }});"></figure>
+                            <figure class="pu-avatar" style="background-image: url({{ partupImageUrl id=profile.image store='80x80' }});" data-usercard="{{ _id }}"></figure>
                             <p class="pu-sub-identity">
                                 <a target="_blank" class="pu-sub-name" data-usercard="{{ _id }}">{{ profile.name }}</a>
                                 {{# if profile.location.city }}
