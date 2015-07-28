@@ -12,7 +12,6 @@
                                     <span>{{profile.participation_score}}</span>
                                 </span>
                             </figure>
-
                             <div>
                                 <h3>
                                     {{profile.name}}
@@ -21,9 +20,11 @@
                                     {{#if profile.twitter_url}}<a href="{{ profile.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a>{{/if}}
                                     {{#if profile.instagram_url}}<a href="{{ profile.instagram_url }}" target="_blank"><i class="fa fa-instagram"></i></a>{{/if}}
                                 </h3>
-                                <p>
+                                <p data-expander-parent>
                                     {{profile.description}}
-                                    <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
+                                    {{#if textHasOverflown}}
+                                        <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
+                                    {{/if}}
                                 </p>
                                 <ul class="pu-list pu-list-horizontal">
                                     {{#if profile.location}}

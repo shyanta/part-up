@@ -32,6 +32,14 @@ Template.app_profile.helpers({
 
     isCurrentusersProfile: function() {
         return this.profileId === Meteor.userId();
+    },
+    textHasOverflown: function() {
+        var template = Template.instance();
+        var rendered = template.partupTemplateIsRendered.get();
+        if (!rendered) return;
+        var expander = $(template.find('[data-expander-parent]'));
+        if (expander.length && expander[0].scrollHeight > expander.innerHeight()) return true;
+        return false;
     }
 });
 

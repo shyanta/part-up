@@ -7,12 +7,16 @@
                 <section class="pu-profile">
                     <div class="pu-wrap pu-wrap-columnlayout">
                         <div class="pu-info {{# if networkClosedForUser}} pu-info-minimal{{/ if}}">
-                            <figure class="pu-avatar pu-avatar-extralarge pu-avatar-square" style="{{#with network.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
+                            <figure class="pu-avatar pu-avatar-extralarge pu-avatar-square" style="{{#with network.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
+                            </figure>
                             <div>
-                                <h3>{{network.name}}</h3>
+                                <h3>{{network.name}}
+                                </h3>
                                 <p>
                                     {{network.description}}
-                                    <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
+                                    {{#if textHasOverflown}}
+                                        <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
+                                    {{/if}}
                                 </p>
                                 <ul class="pu-list pu-list-horizontal">
                                     <li><a class="pu-tag pu-tag-metadata">

@@ -29,6 +29,14 @@ Template.app_network.helpers({
 
     shrinkHeader: function() {
         return Partup.client.scroll.pos.get() > 100;
+    },
+    textHasOverflown: function() {
+        var template = Template.instance();
+        var rendered = template.partupTemplateIsRendered.get();
+        if (!rendered) return;
+        var expander = $(template.find('[data-expander-parent]'));
+        if (expander.length && expander[0].scrollHeight > expander.innerHeight()) return true;
+        return false;
     }
 });
 
