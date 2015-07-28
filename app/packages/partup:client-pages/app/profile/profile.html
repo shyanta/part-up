@@ -7,7 +7,12 @@
                 <section class="pu-profile">
                     <div class="pu-wrap pu-wrap-columnlayout">
                         <div class="pu-info {{#unless profile.tags}} pu-info-minimal{{/unless}}">
-                            <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
+                            <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
+                                <span class="pu-score pu-score-large">
+                                    <span>{{profile.participation_score}}</span>
+                                </span>
+                            </figure>
+
                             <div>
                                 <h3>
                                     {{profile.name}}

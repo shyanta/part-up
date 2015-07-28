@@ -1,10 +1,14 @@
 <template name="UserCardContent">
     <div class="pu-profilecard">
         <header>
-            <figure class="pu-avatar pu-avatar-large" style="{{#with data.profile.image }}background-image: url('{{partupImageUrl id=.}}');{{/with}}"></figure>
-            {{# if data.participation_score }}
-                <span>{{data.participation_score}}</span>
-            {{/ if }}
+            <figure class="pu-avatar pu-avatar-large" style="{{#with data.profile.image }}background-image: url('{{partupImageUrl id=.}}');{{/with}}">
+                {{# if data.participation_score }}
+                    <span class="pu-score">
+                        <span>{{data.participation_score}}</span>
+                    </span>
+                {{/ if }}
+            </figure>
+
             <h4>{{data.profile.name}}</h4>
             <p>{{data.profile.location.city}}</p>
         </header>

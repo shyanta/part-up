@@ -198,6 +198,24 @@ User = function(user) {
             if (!user) return false;
             if (!user.roles) return false;
             return user.roles.indexOf('admin') > -1;
+        },
+
+        /**
+         * Get the user score
+         *
+         * @return {Number} participation score rounded
+         */
+        getReadableScore: function() {
+            var score = user.participation_score;
+
+            // For design purposes, we only want to display
+            // a max value of 99 and a min value of 10,
+            // every number should be a natural one
+            score = Math.min(99, score);
+            score = Math.max(10, score);
+            score = Math.round(score);
+
+            return score;
         }
     };
 };

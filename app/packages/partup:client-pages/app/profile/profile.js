@@ -16,7 +16,10 @@ Template.app_profile.onCreated(function() {
 /*************************************************************/
 Template.app_profile.helpers({
     profile: function() {
-        return Meteor.users.findOne(this.profileId).profile;
+        var user = Meteor.users.findOne(this.profileId);
+        profile = user.profile;
+        profile.participation_score = User(user).getReadableScore();
+        return profile;
     },
 
     subscriptionsReady: function() {
