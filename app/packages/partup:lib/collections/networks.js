@@ -343,6 +343,7 @@ Networks.findForPartup = function(partup, userId) {
  *
  * @memberOf Networks
  * @param {User} user
+ * @param {String} userId
  * @return {Mongo.Cursor}
  */
 Networks.findForUser = function(user, userId) {
