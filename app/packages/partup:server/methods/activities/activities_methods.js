@@ -220,6 +220,8 @@ Meteor.methods({
      * @return {[String]}
      */
     'activities.user_suggestions': function(activityId, options) {
+        this.unblock();
+
         var upper = Meteor.user();
 
         if (!upper) {
