@@ -155,8 +155,8 @@
                     <!-- reminder to rate contributions in partup notification -->
                     {{#if partupEqualsExactly type 'partups_ratings_reminder' }}
                         <a href="{{pathFor route='partup' _id=type_data.partup._id}}">
-                            <figure class="pu-avatar pu-avatar-plain pu-avatar-system">
-                                <span class="pu-sub-image pu-sub-image-plain"></span>
+                            <figure class="pu-avatar pu-avatar-update pu-avatar-system">
+                                <span class="pu-sub-image"></span>
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_ratings_reminder' partup=type_data.partup.name }}</p>
