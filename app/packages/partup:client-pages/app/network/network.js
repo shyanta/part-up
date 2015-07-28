@@ -22,9 +22,7 @@ Template.app_network.helpers({
         return network;
     },
 
-    getPrettyUrl: function(url) {
-        return Partup.client.url.getCleanUrl(url);
-    },
+    getCleanUrl: Partup.client.url.getCleanUrl,
 
     isInvitePending: function() {
         var user = Meteor.user();

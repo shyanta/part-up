@@ -19,14 +19,18 @@
                                     {{/if}}
                                 </p>
                                 <ul class="pu-list pu-list-horizontal">
-                                    <li><a class="pu-metadata" href="#" data-location>
-                                        <i class="fa fa-map-marker"></i>
-                                        <span>{{network.location.city}}</span>
-                                    </a></li>
-                                    <li><a class="pu-metadata" href="{{network.website}}" target="_blank">
-                                        <i class="fa fa-external-link"></i>
-                                        <span>{{ getPrettyUrl network.website}}</span>
-                                    </a></li>
+                                    {{# with network.location }}
+                                        <li><a class="pu-metadata" href="#" data-location>
+                                            <i class="fa fa-map-marker"></i>
+                                            <span>{{ city }}</span>
+                                        </a></li>
+                                    {{/ with }}
+                                    {{# with network.website }}
+                                        <li><a class="pu-metadata" href="{{ . }}" target="_blank">
+                                            <i class="fa fa-external-link"></i>
+                                            <span>{{ getCleanUrl }}</span>
+                                        </a></li>
+                                    {{/ with }}
                                 </ul>
                             </div>
                         </div>
