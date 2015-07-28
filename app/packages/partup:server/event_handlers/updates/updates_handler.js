@@ -4,7 +4,7 @@ var d = Debug('event_handlers:updates_handler');
  * Generate a notification for the partners and supporters in a partup when a message is created
  */
 Event.on('partups.updates.inserted', function(userId, update) {
-    if (update.type === 'partups_message_added') {
+    if (update.type === 'partups_message_added' && update.system === false) {
         var partup = Partups.findOneOrFail(update.partup_id);
         var creator = Meteor.users.findOneOrFail(update.upper_id);
 
