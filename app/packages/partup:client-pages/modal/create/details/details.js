@@ -94,13 +94,13 @@ var afHooks = {};
 afHooks[FORM_ID] = {
     onSubmit: function(insertDoc) {
         var self = this;
-        var partupId = Session.get('partials.create-partup.current-partup');
         var submissionType = Session.get('partials.create-partup.submission-type') || 'next';
 
         var template = self.template.parent().parent();
         template.submitting.set(submissionType);
 
-        createOrUpdatePartup(partupId, insertDoc, function(partup) {
+        var possiblyExistingPartupId = Session.get('partials.create-partup.current-partup');
+        createOrUpdatePartup(possiblyExistingPartupId, insertDoc, function(partup) {
 
             if (submissionType === 'next') {
                 Router.go('create-activities', {_id: partup._id});
