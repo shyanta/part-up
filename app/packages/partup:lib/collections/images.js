@@ -161,20 +161,12 @@ Images.findForNetwork = function(network) {
 Images.findForNotification = function(notification) {
     var images = [];
 
-    if (notification.type === 'partups_supporters_added') {
-        images = [notification.type_data.supporter.image];
-    }
-
-    if (notification.type === 'partup_activities_invited') {
-        images = [notification.type_data.inviter.image];
-    }
-
-    if (notification.type === 'partups_supporters_added') {
-        images = [notification.type_data.supporter.image];
-    }
-
-    if (notification.type === 'partups_activities_inserted') {
-        images = [notification.type_data.creator.image];
+    switch (notification.type) {
+        case 'partups_messages_inserted': images = [notification.type_data.upper.image]; break;
+        case 'partups_supporters_added': images = [notification.type_data.supporter.image]; break;
+        case 'partup_activities_invited': images = [notification.type_data.inviter.image]; break;
+        case 'partups_activities_inserted': images = [notification.type_data.creator.image]; break;
+        default: return;
     }
 
     return Images.find({_id: {'$in': images}});
