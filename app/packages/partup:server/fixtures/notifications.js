@@ -173,6 +173,21 @@ Meteor.startup(function() {
                 'created_at' : new Date('2015-07-22T09:31:48.389Z'),
                 'new' : true
             });
+
+            /* 11 */
+            Notifications.insert({
+                '_id' : 'zBWjQJLbB3s6XJbi7',
+                'for_upper_id' : 'K5c5M4Pbdg3B82wQH',
+                'type' : 'partups_ratings_reminder',
+                'type_data' : {
+                    'partup' : {
+                        '_id': 'gJngF65ZWyS9f3NDE',
+                        'name' : 'Crowd funding Part-up organiseren'
+                    }
+                },
+                'created_at' : new Date('2015-07-21T14:08:02.831Z'),
+                'new' : true
+            });
         }
     }
 });
