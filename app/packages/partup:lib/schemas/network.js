@@ -1,3 +1,7 @@
+var tagsConfiguration = {
+    tagClass: 'pu-tag',
+    maxTags: 5
+};
 /**
  * Base Network schema
  * @name networkBaseSchema
@@ -106,7 +110,11 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
     tags_input: {
         type: String,
         max: 255,
-        regEx: Partup.services.validators.tagsSeparatedByComma
+        regEx: Partup.services.validators.tagsSeparatedByComma,
+        autoform: {
+            type: 'tags',
+            afFieldInput: tagsConfiguration
+        }
     }
 }]);
 
