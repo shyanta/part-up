@@ -169,7 +169,7 @@ Network.prototype.addUpper = function(upperId) {
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addPendingUpper = function(upperId) {
-    // User already added as pending upper
+    // Check if user is already added as a pending upper
     if (this.pending_uppers && this.pending_uppers.indexOf(upperId) > -1) {
         return false;
     }

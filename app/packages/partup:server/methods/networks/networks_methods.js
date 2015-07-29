@@ -216,11 +216,12 @@ Meteor.methods({
 
         try {
             if (network.isClosed()) {
-                // Add user to pending if it's a closed network
-                if (network.addPendingUpper(user._id)) {
-                    return Log.debug('User added to waiting list');
+                // Add user to pending if it's a closed network and the user is invited
+                if (network.isUpperInvited(user._id)) {
+                    network.addPendingUpper(user._id);
+                    return Log.debug('User (already) added to waiting list');
                 } else {
-                    return Log.debug('User is already added to waiting list');
+                    throw new Meteor.Error(401, 'unauthorized');
                 }
             }
 
