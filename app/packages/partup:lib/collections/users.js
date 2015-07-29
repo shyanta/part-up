@@ -164,7 +164,7 @@ User = function(user) {
         },
 
         isPartnerInPartup: function(partupId) {
-            return this.upperOf.indexOf(partupId) > -1;
+            return user.upperOf.indexOf(partupId) > -1;
         },
 
         /**
