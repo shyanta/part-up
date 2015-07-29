@@ -4,25 +4,34 @@ var Subs = new SubsManager({
 });
 
 Template.DropdownProfile.onCreated(function() {
+    var template = this;
     var userId = Meteor.userId;
 
     Subs.subscribe('users.one.upperpartups', userId);
     Subs.subscribe('users.one.supporterpartups', userId);
 
-    this.currentNetwork = new ReactiveVar();
-    this.disableUp = new ReactiveVar(true);
-    this.disableDown = new ReactiveVar(false);
+    template.currentNetwork = new ReactiveVar();
+    template.disableUp = new ReactiveVar(true);
+    template.disableDown = new ReactiveVar(false);
+
 });
 
 Template.DropdownProfile.onRendered(function() {
-    this.dropdownToggleBool = 'widget-dropdowns-profile.opened';
-    Session.setDefault(this.dropdownToggleBool, false);
-    ClientDropdowns.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
+    var template = this;
+    template.dropdownToggleBool = 'widget-dropdowns-profile.opened';
+    Session.setDefault(template.dropdownToggleBool, false);
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
+
+    Router.onBeforeAction(function(req, res, next) {
+        Session.set(template.dropdownToggleBool, false);
+        next();
+    });
 });
 
 Template.DropdownProfile.onDestroyed(function() {
-    Session.set(this.dropdownToggleBool, false);
-    ClientDropdowns.removeOutsideDropdownClickHandler(this);
+    var template = this;
+    Session.set(template.dropdownToggleBool, false);
+    ClientDropdowns.removeOutsideDropdownClickHandler(template);
 });
 
 Template.DropdownProfile.events({

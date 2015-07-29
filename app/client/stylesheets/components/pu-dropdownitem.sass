@@ -4,14 +4,20 @@
         display: block
         text-decoration: none
         color: $color-solid-black
-        padding: 7.5px 20px
+        padding: 10px
         transition: background-color $animation-duration
         white-space: nowrap
         overflow: hidden
+        border-radius: 4px
+        margin-left: 10px
+        margin-right: 10px
+        line-height: 40px
 
-
-        &:hover
+        &:hover,
+        &:focus,
+        &:active
             background-color: $color-dark-white
+            color: $color-solid-black
 
         figure.pu-avatar
             margin-bottom: -15px
@@ -27,4 +33,17 @@
 
     &.pu-dropdownheader
         padding-top: 10px
+
+    &-empty
+        a
+            font-size: 14px
+            font-weight: 700
+            color: $color-text-subtle
+            cursor: default
+
+            &:hover,
+            &:focus,
+            &:active
+                background-color: transparent
+                color: $color-text-subtle
 
