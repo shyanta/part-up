@@ -23,8 +23,15 @@ Contributions.findForUpdate = function(update) {
  *
  * @memberOf Contributions
  * @param {Activity} activity
+ * @param {Object} parameters
  * @return {Mongo.Cursor}
  */
-Contributions.findForActivity = function(activity) {
-    return Contributions.find({activity_id: activity._id});
+Contributions.findForActivity = function(activity, parameters) {
+    var selector = {activity_id: activity._id};
+
+    if (parameters && parameters.archived !== undefined) {
+        selector.archived = parameters.archived ? true : {$ne: true};
+    }
+
+    return Contributions.find(selector);
 };
