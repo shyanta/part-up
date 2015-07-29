@@ -57,7 +57,7 @@ Template.Contribution.helpers({
         return this.contribution.verified === false && userIsPartupper;
     },
     ratings: function() {
-        return Ratings.find({contribution_id: this.contribution._id});
+        return Ratings.findForContribution(this.contribution);
     },
     submitting: function() {
         return Template.instance().submitting.get();
