@@ -195,7 +195,8 @@ Meteor.startup(function() {
                     'CJETReuE6uo2eF7eW'
                 ],
                 'upperOf' : [
-                    'CJETReuE6uo2eF7eW'
+                    'CJETReuE6uo2eF7eW',
+                    'gJngF65ZWyS9f3NDE'
                 ]
             });
 
