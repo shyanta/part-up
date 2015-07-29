@@ -196,4 +196,52 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(8);
+Migrations.add({
+    version: 9,
+    name: 'Remove duplicate IDs in user/partup/network arrays',
+    up: function() {
+        // Define the names of the user properties that contain arrays
+        var arrayLists = ['supporterOf', 'upperOf', 'networks', 'pending_networks'];
+        // Now go through all users and remove duplicate entries
+        Meteor.users.find().fetch().forEach(function(user) {
+            arrayLists.forEach(function(arrayList) {
+                if (user[arrayList]) {
+                    var uniqueValues = lodash.unique(user[arrayList]);
+                    var setModifier = {$set: {}};
+                    setModifier.$set[arrayList] = uniqueValues;
+                    Meteor.users.update({_id: user._id}, setModifier);
+                }
+            });
+        });
+
+        // Repeat the above steps for partups and networks
+        arrayLists = ['supporters', 'uppers', 'invites'];
+        Partups.find().fetch().forEach(function(partup) {
+            arrayLists.forEach(function(arrayList) {
+                if (partup[arrayList]) {
+                    var uniqueValues = lodash.unique(partup[arrayList]);
+                    var setModifier = {$set: {}};
+                    setModifier.$set[arrayList] = uniqueValues;
+                    Partups.update({_id: partup._id}, setModifier);
+                }
+            });
+        });
+
+        arrayLists = ['uppers', 'pending_uppers'];
+        Networks.find().fetch().forEach(function(network) {
+            arrayLists.forEach(function(arrayList) {
+                if (network[arrayList]) {
+                    var uniqueValues = lodash.unique(network[arrayList]);
+                    var setModifier = {$set: {}};
+                    setModifier.$set[arrayList] = uniqueValues;
+                    Networks.update({_id: network._id}, setModifier);
+                }
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(9);
