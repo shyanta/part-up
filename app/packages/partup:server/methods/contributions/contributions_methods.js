@@ -9,11 +9,9 @@ Meteor.methods({
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
-        var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
         var activity = Activities.findOneOrFail(activityId);
-
-        var upperPartups = upper.partups || [];
-        var isUpperInPartup = upperPartups.indexOf(activity.partup_id) > -1;
+        var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
+        var isUpperInPartup = User(upper).isPartnerInPartup(activity.partup_id);
 
         check(fields, Partup.schemas.forms.contribution);
 
@@ -69,10 +67,10 @@ Meteor.methods({
     'contributions.accept': function(contributionId) {
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
-        var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
-
-        if (!isUpperInPartup) throw new Meteor.Error(401, 'unauthorized');
         var activity = Activities.findOne({_id: contribution.activity_id});
+        var partup = Partups.findOne(contribution.partup_id);
+
+        if (!partup.hasUpper(upper._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             // Allowing contribution means that all concept contributions by this user will be allowed
@@ -122,9 +120,8 @@ Meteor.methods({
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var activity = Activities.findOneOrFail(contribution.activity_id);
-        var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
 
-        if (!isUpperInPartup) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(upper).isPartnerInPartup(contribution.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             // Archive contribution instead of removing
