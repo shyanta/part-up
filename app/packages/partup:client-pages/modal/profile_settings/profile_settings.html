@@ -13,14 +13,15 @@
                 <div class="pu-wrap pu-wrap-modal">
                     <ul class="pu-modalsidebar">
                         <li class="{{# if isActiveRoute name='profile-settings' }}pu-state-active{{/ if }}">
-                            <a href="{{ pathFor 'profile-settings' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-account'}}</a>
+                            <a href="{{ pathFor 'profile-settings' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-details'}}</a>
                         </li>
-                        <li class="{{# if isActiveRoute name='profile-settings-details' }}pu-state-active{{/ if }}">
-                            <a href="{{ pathFor 'profile-settings-details' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-details'}}</a>
+                        <li class="{{# if isActiveRoute name='profile-settings-account' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'profile-settings-account' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-account'}}</a>
                         </li>
-                        <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
+                        <!-- DISABLED INTILL IMPLEMENTATION -->
+                        <!-- <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'profile-settings-email' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-email'}}</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
