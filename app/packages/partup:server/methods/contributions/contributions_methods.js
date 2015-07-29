@@ -193,35 +193,5 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be archived.');
         }
-    },
-
-    /**
-     * Remove a Contribution
-     *
-     * @param {string} contributionId
-     */
-    'contributions.remove': function(contributionId) {
-        var upper = Meteor.user();
-        var contribution = Contributions.findOneOrFail(contributionId);
-        var activity = Activity.findOneOrFail(contribution.activity_id);
-
-        if (!upper || contribution.upper_id !== upper._id) {
-            throw new Meteor.Error(401, 'unauthorized');
-        }
-
-        try {
-            Contributions.remove(contributionId);
-
-            // Post system message
-            Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed', {update_timestamp: false});
-
-            return {
-                _id: contribution._id
-            };
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be removed.');
-        }
     }
-
 });
