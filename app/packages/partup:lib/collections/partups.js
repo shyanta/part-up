@@ -354,7 +354,7 @@ Partups.findForNetwork = function(userId, options, parameters) {
  * @param {String} loggedInUserId
  * @return {Cursor}
  */
-Partups.findUpperPartupsForUser = function(userId, options, parameters, loggedInUserId) {
+Partups.findUpperPartupsForUser = function(userId, parameters, loggedInUserId) {
     var parameters = parameters || {};
 
     var options = {};

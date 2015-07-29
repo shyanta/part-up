@@ -32,7 +32,7 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
 
     return {
         find: function() {
-            return Partups.findUpperPartupsForUser(userId, parameters, {}, this.userId);
+            return Partups.findUpperPartupsForUser(userId, parameters, this.userId);
         },
         children: [
             {find: Images.findForPartup},
