@@ -27,9 +27,11 @@ Contributions.findForUpdate = function(update) {
  * @return {Mongo.Cursor}
  */
 Contributions.findForActivity = function(activity, parameters) {
+    parameters = parameters || {};
+
     var selector = {activity_id: activity._id};
 
-    if (parameters && parameters.archived !== undefined) {
+    if (parameters.archived !== undefined) {
         selector.archived = parameters.archived ? true : {$ne: true};
     }
 
