@@ -207,6 +207,8 @@ User = function(user) {
          * @return {Number} participation score rounded
          */
         getReadableScore: function() {
+            if (!user) return undefined;
+
             var score = user.participation_score;
 
             // For design purposes, we only want to display
