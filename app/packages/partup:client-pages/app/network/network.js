@@ -22,10 +22,6 @@ Template.app_network.helpers({
         return network;
     },
 
-    getCleanUrl: function(url) {
-        return Partup.client.url.getCleanUrl(url);
-    },
-
     isInvitePending: function() {
         var user = Meteor.user();
         if (!user || !user.pending_networks) return false;

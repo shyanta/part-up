@@ -35,12 +35,12 @@
                                             </a></li>
                                         {{/if}}
                                     {{/if}}
-                                    {{#if profile.website}}
-                                        <li><a class="pu-metadata" href="{{profile.website}}" target="_blank">
+                                    {{#with profile.website}}
+                                        <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
                                             <i class="fa fa-external-link"></i>
-                                            <span>{{ getPrettyUrl profile.website}}</span>
+                                            <span>{{ partupCleanUrl .}}</span>
                                         </a></li>
-                                    {{/if}}
+                                    {{/with}}
                                 </ul>
                             </div>
                         </div>

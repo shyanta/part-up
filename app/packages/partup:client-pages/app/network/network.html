@@ -26,9 +26,9 @@
                                         </a></li>
                                     {{/ with }}
                                     {{# with network.website }}
-                                        <li><a class="pu-metadata" href="{{ . }}" target="_blank">
+                                        <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
                                             <i class="fa fa-external-link"></i>
-                                            <span>{{ getCleanUrl . }}</span>
+                                            <span>{{ partupCleanUrl . }}</span>
                                         </a></li>
                                     {{/ with }}
                                 </ul>

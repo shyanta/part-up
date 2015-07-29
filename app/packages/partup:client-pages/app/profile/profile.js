@@ -22,10 +22,6 @@ Template.app_profile.helpers({
         return profile;
     },
 
-    getPrettyUrl: function(url) {
-        return Partup.client.url.getCleanUrl(url);
-    },
-
     getRoundedScore: function() {
         var user = Meteor.users.findOne(this.profileId);
         return User(user).getReadableScore();
