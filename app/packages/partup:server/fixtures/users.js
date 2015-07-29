@@ -97,7 +97,8 @@ Meteor.startup(function() {
                 ],
                 'upperOf' : [
                     'ASfRYBAzo2ayYk5si',
-                    'WxrpPuJkhafJB3gfF'
+                    'WxrpPuJkhafJB3gfF',
+                    'gJngF65ZWyS9f3NDE'
                 ]
             });
 
