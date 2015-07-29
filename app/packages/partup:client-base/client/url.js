@@ -1,9 +1,9 @@
 Partup.client.url = {
     stripWWW: function(url) {
-        return url.replace(/.www\./g, '');
+        return url.replace(/^www\./gi, '');
     },
     stripHTTP: function(url) {
-        return url.replace(/.*?:\/\//g, '');
+        return url.replace(/^.*?:\/\//gi, '');
     },
     capitalizeFirstLetter: function(string) {
         if (!string) return '';
