@@ -386,7 +386,7 @@ Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId)
 
     var supporterOf = user.supporterOf || [];
 
-    var selector = {_id: {$in: [supporterOf]}};
+    var selector = {_id: {$in: supporterOf}};
     var options = {};
 
     if (parameters.count) {
