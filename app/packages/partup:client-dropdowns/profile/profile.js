@@ -76,8 +76,10 @@ Template.DropdownProfile.helpers({
     },
 
     networks: function() {
-        var userId = Meteor.userId();
-        return Networks.find({uppers: {$in: [userId]}});
+        var user = Meteor.user();
+        if (!user) return [];
+
+        return Networks.findForUser(user);
     },
 
     selectedNetwork: function() {
