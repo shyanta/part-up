@@ -358,7 +358,9 @@ Partups.findForNetwork = function(userId, options, parameters) {
 Partups.findUpperPartupsForUser = function(user, parameters, loggedInUserId) {
     parameters = parameters || {};
 
-    var selector = {uppers: {$in: [user._id]}};
+    var upperOf = user.upperOf || [];
+
+    var selector = {_id: {$in: upperOf}};
     var options = {};
 
     if (parameters.count) {
@@ -391,7 +393,9 @@ Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId)
     user = user || {};
     parameters = parameters || {};
 
-    var selector = {supporters: {$in: [user._id]}};
+    var supporterOf = user.supporterOf || [];
+
+    var selector = {_id: {$in: [supporterOf]}};
     var options = {};
 
     if (parameters.count) {
