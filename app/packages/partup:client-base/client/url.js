@@ -21,12 +21,9 @@ Partup.client.url = {
 };
 
 Template.registerHelper('partupHTTP', function(url) {
-    console.log(Partup.client.url.addHTTP(url))
     return Partup.client.url.addHTTP(url);
 });
 
 Template.registerHelper('partupCleanUrl', function(url) {
-    console.log(url)
-    console.log(Partup.client.url.getCleanUrl(url))
     return Partup.client.url.getCleanUrl(url);
 });
