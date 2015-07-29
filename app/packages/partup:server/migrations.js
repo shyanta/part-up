@@ -185,4 +185,15 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(7);
+Migrations.add({
+    version: 8,
+    name: 'Remove all notifications because they are incompatible at this point',
+    up: function() {
+        Notifications.remove({});
+    },
+    down: function() {
+        // Nothing to do
+    }
+});
+
+Migrations.migrateTo(8);
