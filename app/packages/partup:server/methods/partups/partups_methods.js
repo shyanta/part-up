@@ -55,6 +55,15 @@ Meteor.methods({
         try {
             var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields);
 
+            // update the slug when the name has changed
+            if (fields.name) {
+                var document = {
+                    _id: partup._id,
+                    name: newPartupFields.name
+                };
+                newPartupFields.slug = Partup.server.services.slugify.slugifyDocument(document, 'name');
+            }
+
             Partups.update(partupId, {$set: newPartupFields});
 
             return {
