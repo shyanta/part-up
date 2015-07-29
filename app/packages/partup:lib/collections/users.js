@@ -163,6 +163,10 @@ User = function(user) {
             }
         },
 
+        isPartnerInPartup: function(partupId) {
+            return this.upperOf.indexOf(partupId) > -1;
+        },
+
         /**
          * Get user's locale code
          */
