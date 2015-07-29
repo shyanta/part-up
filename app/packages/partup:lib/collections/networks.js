@@ -298,7 +298,7 @@ Networks.guardedMetaFind = function(selector, options) {
  * @return {Mongo.Cursor}
  */
 Networks.guardedFind = function(userId, selector, options) {
-    if (Meteor.isClient) this.find(selector, options);
+    if (Meteor.isClient) return this.find(selector, options);
 
     var selector = selector || {};
     var options = options || {};

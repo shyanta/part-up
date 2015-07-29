@@ -179,7 +179,7 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
  * @return {Cursor}
  */
 Partups.guardedFind = function(userId, selector, options) {
-    if (Meteor.isClient) this.find(selector, options);
+    if (Meteor.isClient) return this.find(selector, options);
 
     var selector = selector || {};
     var options = options || {};
