@@ -319,19 +319,19 @@ Partups.findForUpdate = function(userId, update) {
  * Find the partups in a network
  *
  * @memberof Partups
- * @param {Object} network
+ * @param {Network} network
  * @param {Object} selector
- * @param {Objecgt} options
- * @param {String} userId - Server side only
+ * @param {Object} options
+ * @param {String} loggedInUserId
  * @return {Cursor}
  */
-Partups.findForNetwork = function(network, selector, options, userId) {
+Partups.findForNetwork = function(network, selector, options, loggedInUserId) {
     selector = selector || {};
     options = options || {};
 
     selector.network_id = network._id;
 
-    return this.guardedFind(userId, selector, options);
+    return this.guardedFind(loggedInUserId, selector, options);
 };
 
 /**

@@ -39,25 +39,18 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
  *
  * @param {String} networkSlug
  */
-Meteor.publishComposite('networks.one.partups', function(networkSlug, query) {
+Meteor.publishComposite('networks.one.partups', function(networkSlug, parameters) {
+    parameters = parameters || {};
+
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1}).fetch().pop();
+            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
             if (!network) return;
 
-            var options = {
-                sort: {
-                    updated_at: -1
-                }
-            };
+            var options = {};
+            if (parameters.limit) options.limit = parseInt(parameters.limit);
 
-            if (query) {
-                if (query.limit) options.limit = parseInt(query.limit) || 20;
-            }
-
-            var c = Partups.findForNetwork(network, {}, options, this.userId);
-            console.log(network, {}, options, this.userId);
-            return c;
+            return Partups.findForNetwork(network, {}, options, this.userId);
         },
         children: [
             {find: Images.findForPartup},
@@ -75,10 +68,9 @@ Meteor.publishComposite('networks.one.partups', function(networkSlug, query) {
  * Publish a count of all partups in a network
  *
  * @param {String} networkSlug
- * @param {Object} query
  */
-Meteor.publish('networks.one.partups.count', function(networkSlug, query) {
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1}).fetch().pop();
+Meteor.publish('networks.one.partups.count', function(networkSlug) {
+    var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
     if (!network) return;
 
     Counts.publish(this, 'networks.one.partups.filterquery', Partups.findForNetwork(network, {}, {}, this.userId));
