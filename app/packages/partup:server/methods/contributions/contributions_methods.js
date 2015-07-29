@@ -7,8 +7,6 @@ Meteor.methods({
      */
     'contributions.update': function(activityId, fields) {
         var upper = Meteor.user();
-        var activity = Activities.findOneOrFail(activityId);
-
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
