@@ -232,40 +232,29 @@ Meteor.methods({
 
         // Filter the results when search parameters are provided
         if (options) {
-            var locationResults = [];
-            var queryResults = [];
             if (options.locationId) {
-                locationResults = _.filter(users, function(upper) {
-                    if (!upper.profile.location || !upper.profile.location.place_id) return false;
-                    return upper.profile.location.place_id == options.locationId;
+                users = users.filter(function(upper) {
+                    if (!upper.profile || !upper.profile.location || !upper.profile.location.place_id) return false;
+                    return upper.profile.location.place_id === options.locationId;
                 });
-                // The sorting causes the array to be sorted backwards, so we need to reverse the list
-                locationResults.reverse();
             }
+
             if (options.query) {
-                queryResults = _.filter(users, function(upper) {
+                users = users.filter(function(upper) {
+                    if (!upper.profile || !upper.profile.name) return false;
                     var regex = new RegExp('.*' + options.query + '.*', 'i');
-                    return !!upper.name.match(regex);
+                    return !!upper.profile.name.match(regex);
                 });
-                // The sorting causes the array to be sorted backwards, so we need to reverse the list
-                queryResults.reverse();
             }
-
-            // Gather all the found users and sort them by search matches
-            var topResults = _.intersection(queryResults, locationResults);
-            var allResults = queryResults.concat(locationResults);
-            users = topResults.concat(allResults);
-
-            // Remove doubles
-            users = _.uniq(users);
         }
 
-        users = users.map(function(user) {
+        // We are only going to return the ids
+        var usersIds = users.map(function(user) {
             return user._id;
         });
 
-        // Limit the results to 30
-        return users.slice(0, 30);
+        // Only return the 30 best results
+        return usersIds.slice(0, 30);
     },
 
     /**
