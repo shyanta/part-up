@@ -39,15 +39,25 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
  *
  * @param {String} networkSlug
  */
-Meteor.publishComposite('networks.one.partups', function(networkSlug, options) {
-    options = options || {};
-
+Meteor.publishComposite('networks.one.partups', function(networkSlug, query) {
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug});
+            var network = Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1}).fetch().pop();
             if (!network) return;
 
-            return Partups.findForNetwork(this.userId, options, {networkId: network._id});
+            var options = {
+                sort: {
+                    updated_at: -1
+                }
+            };
+
+            if (query) {
+                if (query.limit) options.limit = parseInt(query.limit) || 20;
+            }
+
+            var c = Partups.findForNetwork(network, {}, options, this.userId);
+            console.log(network, {}, options, this.userId);
+            return c;
         },
         children: [
             {find: Images.findForPartup},
@@ -65,20 +75,13 @@ Meteor.publishComposite('networks.one.partups', function(networkSlug, options) {
  * Publish a count of all partups in a network
  *
  * @param {String} networkSlug
- * @param {Object} options
+ * @param {Object} query
  */
-Meteor.publish('networks.one.partups.count', function(networkSlug, options) {
-    options = options || {};
-
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug});
+Meteor.publish('networks.one.partups.count', function(networkSlug, query) {
+    var network = Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1}).fetch().pop();
     if (!network) return;
 
-    var parameters = {
-        networkId: network._id,
-        count: true
-    };
-
-    Counts.publish(this, 'networks.one.partups.filterquery', Partups.findForNetwork(this.userId, options, parameters));
+    Counts.publish(this, 'networks.one.partups.filterquery', Partups.findForNetwork(network, {}, {}, this.userId));
 });
 
 /**

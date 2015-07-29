@@ -73,7 +73,7 @@ Template.app_network_partups.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        var partups = Partups.find({network_id: network._id}).fetch();
+                        var partups = Partups.findForNetwork(network).fetch();
 
                         var partupTileDatas = lodash.map(partups, function(partup) {
                             return tpl.partups.partupTileData(partup);
@@ -115,7 +115,7 @@ Template.app_network_partups.onCreated(function() {
                      */
                     Tracker.nonreactive(function addPartups() {
                         var oldPartups = tpl.partups.layout.items;
-                        var newPartups = Partups.find({network_id: network._id}).fetch();
+                        var newPartups = Partups.findForNetwork(network).fetch();
 
                         var diffPartups = mout.array.filter(newPartups, function(partup) {
                             return !mout.array.find(oldPartups, function(_partup) {
@@ -192,4 +192,4 @@ Template.app_network_partups.helpers({
             tpl.partups.layout.clear = callback;
         };
     }
-})
+});

@@ -316,29 +316,20 @@ Partups.findForUpdate = function(userId, update) {
 };
 
 /**
- * Find the partups used on the network page
+ * Find the partups in a network
  *
  * @memberof Partups
- * @param {Object} options
+ * @param {Object} network
+ * @param {Object} selector
+ * @param {Objecgt} options
+ * @param {String} userId - Server side only
  * @return {Cursor}
  */
-Partups.findForNetwork = function(userId, options, parameters) {
-    var selector = {};
-    var options = options || {};
-    var parameters = parameters || {};
+Partups.findForNetwork = function(network, selector, options, userId) {
+    selector = selector || {};
+    options = options || {};
 
-    options.limit = parameters.count ? undefined : parseInt(options.limit) || 20;
-    selector.network_id = parameters.networkId || false;
-    var sort = options.count ? undefined : options.sort || false;
-
-    if (!parameters.count) {
-
-        // Initialize
-        options.sort = {};
-
-        // Sort the partups from the newest to the oldest
-        options.sort['updated_at'] = -1;
-    }
+    selector.network_id = network._id;
 
     return this.guardedFind(userId, selector, options);
 };
