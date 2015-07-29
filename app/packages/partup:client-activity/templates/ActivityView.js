@@ -27,12 +27,14 @@ Template.ActivityView.helpers({
     contributions: function() {
         if (!this.activity || this.contribution_id) return;
 
-        return Contributions.find({activity_id: this.activity._id, archived: {$ne: true}}).fetch();
+        return Contributions.findForActivity(this.activity, {
+            archived: false
+        }).fetch();
     },
     contribution: function() {
         if (!this.contribution_id) return;
 
-        return Contributions.findOne({_id: this.contribution_id});
+        return Contributions.findOne(this.contribution_id);
     },
     expanded: function() {
         return Template.instance().expanded.get();
@@ -62,7 +64,7 @@ Template.ActivityView.helpers({
         var user = Meteor.user();
         if (!user) return false;
 
-        var contributions = Contributions.find({activity_id: this.activity._id}).fetch();
+        var contributions = Contributions.findForActivity(this.activity).fetch();
         for (var i = 0; i < contributions.length; i++) {
             if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
         }
@@ -104,13 +106,14 @@ Template.ActivityView.events({
 
         var contribute = function() {
             var partup = Partups.findOne({_id: template.data.activity.partup_id});
+
             if (!partup) {
-                // When this happens, the partup subscription is probably not ready yet
                 Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');
                 return;
             }
 
-            if (!partup.hasUpper(Meteor.user()._id)) {
+            // If the user is not a partner, ask for motivation
+            if (!partup.hasUpper(Meteor.userId())) {
                 var popupId = 'popup.motivation.' + (template.data.updateId || template.data.activity.update_id);
                 Partup.client.popup.open(popupId, function(success) {
                     if (success) {
@@ -119,29 +122,32 @@ Template.ActivityView.events({
                                 console.error(error);
                                 return;
                             }
+
                             analytics.track('new contribution', {
                                 partupId: partup._id,
-                                userId: Meteor.user()._id,
+                                userId: Meteor.userId(),
                                 userType: 'supporter'
                             });
                         });
                     }
                 });
-            } else {
-                template.updateContribution({}, function(error) {
-                    if (error) {
-                        console.error(error);
-                        return;
-                    }
 
-                    analytics.track('new contribution', {
-                        partupId: partup._id,
-                        userId: Meteor.user()._id,
-                        userType: 'upper'
-                    });
-
-                });
+                return;
             }
+
+            template.updateContribution({}, function(error) {
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+
+                analytics.track('new contribution', {
+                    partupId: partup._id,
+                    userId: Meteor.userId(),
+                    userType: 'upper'
+                });
+
+            });
         };
 
         if (Meteor.user()) {
