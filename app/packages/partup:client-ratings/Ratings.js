@@ -91,5 +91,11 @@ Template.Ratings.events({
 
         var id = $(event.target).closest('.pu-avatar').data('rating-id') || 'new';
         template.showHoverCards.set(id, !template.showHoverCards.get(id));
+    },
+    'keydown textarea': function(event, template) {
+        if (event.keyCode !== 13) return;
+        event.preventDefault();
+        var id = $(event.target).closest('.pu-avatar').data('rating-id') || 'new';
+        template.showHoverCards.set(id, !template.showHoverCards.get(id));
     }
 });
