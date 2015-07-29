@@ -1,15 +1,16 @@
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 Template.app_network.onCreated(function() {
-    var template = this;
-
-    template.networkSubscription = template.subscribe('networks.one', template.data.networkSlug);
-    template.autorun(function(c) {
-        if (template.networkSubscription.ready()) {
-            c.stop();
-
-            if (!Networks.findOne({slug: template.data.networkSlug})) {
+    this.autorun(function() {
+        var slug = Template.currentData().networkSlug;
+        Subs.subscribe('networks.one', slug, function() {
+            if (!Networks.findOne({slug: slug})) {
                 Router.pageNotFound('network');
             }
-        }
+        });
     });
 });
 
@@ -18,22 +19,13 @@ Template.app_network.onCreated(function() {
 /*************************************************************/
 Template.app_network.helpers({
     network: function() {
-        var network = Networks.findOne({slug: this.networkSlug});
-        return network;
+        return Networks.findOne({slug: this.networkSlug});
     },
 
     isInvitePending: function() {
         var user = Meteor.user();
         if (!user || !user.pending_networks) return false;
         return mout.array.contains(user.pending_networks, this.networkId);
-    },
-
-    userId: function() {
-        return Meteor.userId();
-    },
-
-    subscriptionsReady: function() {
-        return Template.instance().networkSubscription.ready();
     },
 
     shrinkHeader: function() {

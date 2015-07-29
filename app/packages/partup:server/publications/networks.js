@@ -20,7 +20,7 @@ Meteor.publishComposite('networks.list', function() {
 Meteor.publishComposite('networks.one', function(networkSlug) {
     return {
         find: function() {
-            return Networks.guardedMetaFind({slug: networkSlug}, {limit: 1});
+            return Networks.guardedMetaFind({_id: networkSlug}, {limit: 1});
         },
         children: [
             {find: Images.findForNetwork},
@@ -37,14 +37,14 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
 /**
  * Publish all partups in a network
  *
- * @param {String} networkSlug
+ * @param {String} networkId
  */
-Meteor.publishComposite('networks.one.partups', function(networkSlug, parameters) {
+Meteor.publishComposite('networks.one.partups', function(networkId, parameters) {
     parameters = parameters || {};
 
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+            var network = Networks.guardedFind(this.userId, {_id: networkId}).fetch().pop();
             if (!network) return;
 
             var options = {};
@@ -67,10 +67,10 @@ Meteor.publishComposite('networks.one.partups', function(networkSlug, parameters
 /**
  * Publish a count of all partups in a network
  *
- * @param {String} networkSlug
+ * @param {String} networkId
  */
-Meteor.publish('networks.one.partups.count', function(networkSlug) {
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+Meteor.publish('networks.one.partups.count', function(networkId) {
+    var network = Networks.guardedFind(this.userId, {_id: networkId}).fetch().pop();
     if (!network) return;
 
     Counts.publish(this, 'networks.one.partups.filterquery', Partups.findForNetwork(network, {}, {}, this.userId));
@@ -79,13 +79,13 @@ Meteor.publish('networks.one.partups.count', function(networkSlug) {
 /**
  * Publish all uppers in a network
  *
- * @param {String} networkSlug
+ * @param {String} networkId
  * @param {Object} options
  */
-Meteor.publishComposite('networks.one.uppers', function(networkSlug, options) {
+Meteor.publishComposite('networks.one.uppers', function(networkId, options) {
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+            var network = Networks.guardedFind(this.userId, {_id: networkId}).fetch().pop();
             if (!network) return;
 
             return Networks.guardedFind(this.userId, {_id: network._id}, {limit: 1});
@@ -101,17 +101,17 @@ Meteor.publishComposite('networks.one.uppers', function(networkSlug, options) {
 /**
  * Publish a count of all uppers in a network
  *
- * @param {String} networkSlug
+ * @param {String} networkId
  * @param {Object} options
  */
-Meteor.publish('networks.one.uppers.count', function(networkSlug, options) {
+Meteor.publish('networks.one.uppers.count', function(networkId, options) {
     options = options || {};
     parameters = parameters || {};
     var parameters = {
         count: true
     };
 
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+    var network = Networks.guardedFind(this.userId, {_id: networkId}).fetch().pop();
     if (!network) return;
 
     var uppers = network.uppers || [];

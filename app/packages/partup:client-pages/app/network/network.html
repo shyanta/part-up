@@ -1,48 +1,51 @@
 <template name="app_network">
 
     <article class="pu-page pu-page-tinted pu-page-network">
-        {{# if subscriptionsReady }}
             <header class="pu-sub-pageheader pu-sub-pageheader-layered {{# if shrinkHeader }}pu-sub-pageheader-layered-shrinked{{/ if }}">
                 <!-- profile -->
                 <section class="pu-profile">
                     <div class="pu-wrap pu-wrap-columnlayout">
-                        <div class="pu-info {{# if networkClosedForUser}} pu-info-minimal{{/ if}}">
-                            <figure class="pu-avatar pu-avatar-extralarge pu-avatar-square" style="{{#with network.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
-                            </figure>
-                            <div>
-                                <h3>{{network.name}}
-                                </h3>
-                                <p data-expander-parent>
-                                    {{network.description}}
-                                    {{#if textHasOverflown}}
-                                        <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
-                                    {{/if}}
-                                </p>
-                                <ul class="pu-list pu-list-horizontal">
-                                    {{# with network.location }}
-                                        <li><a class="pu-metadata" href="#" data-location>
-                                            <i class="fa fa-map-marker"></i>
-                                            <span>{{ city }}</span>
-                                        </a></li>
-                                    {{/ with }}
-                                    {{# with network.website }}
-                                        <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
-                                            <i class="fa fa-external-link"></i>
-                                            <span>{{ partupCleanUrl . }}</span>
-                                        </a></li>
-                                    {{/ with }}
-                                </ul>
+                        {{# with network }}
+                            <div class="pu-info {{# if networkClosedForUser }} pu-info-minimal{{/ if}}">
+                                <figure class="pu-avatar pu-avatar-extralarge pu-avatar-square" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
+                                </figure>
+                                <div>
+                                    <h3>{{ name }}
+                                    </h3>
+                                    <p data-expander-parent>
+                                        {{ description }}
+                                        {{# if textHasOverflown }}
+                                            <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand' }}</a>
+                                        {{/ if }}
+                                    </p>
+                                    <ul class="pu-list pu-list-horizontal">
+                                        {{# with location }}
+                                            <li><a class="pu-metadata" href="#" data-location>
+                                                <i class="fa fa-map-marker"></i>
+                                                <span>{{ city }}</span>
+                                            </a></li>
+                                        {{/ with }}
+
+                                        {{# with website }}
+                                            <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
+                                                <i class="fa fa-external-link"></i>
+                                                <span>{{ partupCleanUrl . }}</span>
+                                            </a></li>
+                                        {{/ with }}
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        {{# unless network.isClosedForUpper userId }}
-                            <ul class="pu-list pu-list-horizontal pu-list-tags">
-                                {{# each network.tags }}
-                                    <li>
-                                        <a href="#" class="pu-tag">{{.}}</a>
-                                    </li>
-                                {{/ each }}
-                            </ul>
-                        {{/ unless }}
+
+                            {{# unless isClosedForUpper currentUser._id }}
+                                <ul class="pu-list pu-list-horizontal pu-list-tags">
+                                    {{# each tags }}
+                                        <li>
+                                            <a href="#" class="pu-tag">{{.}}</a>
+                                        </li>
+                                    {{/ each }}
+                                </ul>
+                            {{/ unless }}
+                        {{/ with }}
                     </div>
                 </section>
                 <section>
@@ -67,71 +70,74 @@
                             </ul>
                             <!-- actions -->
                             <ul class="pu-list pu-list-horizontal pu-sub-right">
-                                <!-- settings button -->
-                                {{# if network.isAdmin userId }}
-                                    <li>
-                                        <a href="{{pathFor 'network-settings' slug=network.slug}}" data-open-networksettings
-                                            class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                            <i class="fa fa-cog"></i>
-                                        </a>
-                                    </li>
-                                {{/ if}}
+                                {{# with network }}
 
-                                <!-- join or leave button -->
-                                {{# if network.hasMember userId }}
-                                    {{# if network.canUpperLeave userId }}
-                                        <li class="pu-sub-button">
-                                            <a class="pu-button" href="#" data-leave>
-                                                {{_ 'pages-app-network-actions-button-leave'}}
-                                            </a>
-                                        </li>
-                                    {{/ if }}
-                                {{ else }}
-                                    {{# if network.canUpperJoin userId }}
-                                        <li class="pu-sub-button">
-                                            <a class="pu-button {{# if isInvitePending }}pu-button-disabled{{/ if }}" href="#" data-join>
-                                                {{# if isInvitePending }}
-                                                        {{_ 'pages-app-network-actions-button-pending'}}
-                                                {{ else }}
-                                                    {{# if network.isUpperInvited userId }}
-                                                        {{_ 'pages-app-network-actions-button-accept'}}
-                                                    {{ else }}
-                                                        {{_ 'pages-app-network-actions-button-join'}}
-                                                    {{/ if }}
-                                                {{/ if }}
+                                    <!-- settings button -->
+                                    {{# if isAdmin currentUser._id }}
+                                        <li>
+                                            <a href="{{pathFor 'network-settings' slug=slug}}" data-open-networksettings
+                                                class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
+                                                <i class="fa fa-cog"></i>
                                             </a>
                                         </li>
                                     {{/ if}}
-                                {{/ if}}
 
-                                <!-- invite button -->
-                                {{# if network.canUpperInvite userId }}
-                                    <li class="pu-sub-button">
-                                        <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=network.slug }}">
-                                            <i class="fa fa-user-plus"></i>
-                                            {{_ 'pages-app-network-actions-button-invite'}}
-                                        </a>
-                                    </li>
-                                {{/ if }}
+                                    <!-- join or leave button -->
+                                    {{# if hasMember currentUser._id }}
+                                        {{# if canUpperLeave currentUser._id }}
+                                            <li class="pu-sub-button">
+                                                <a class="pu-button" href="#" data-leave>
+                                                    {{_ 'pages-app-network-actions-button-leave'}}
+                                                </a>
+                                            </li>
+                                        {{/ if }}
+                                    {{ else }}
+                                        {{# if canUpperJoin currentUser._id }}
+                                            <li class="pu-sub-button">
+                                                <a class="pu-button {{# if isInvitePending }}pu-button-disabled{{/ if }}" href="#" data-join>
+                                                    {{# if isInvitePending }}
+                                                            {{_ 'pages-app-network-actions-button-pending'}}
+                                                    {{ else }}
+                                                        {{# if isUpperInvited currentUser._id }}
+                                                            {{_ 'pages-app-network-actions-button-accept'}}
+                                                        {{ else }}
+                                                            {{_ 'pages-app-network-actions-button-join'}}
+                                                        {{/ if }}
+                                                    {{/ if }}
+                                                </a>
+                                            </li>
+                                        {{/ if}}
+                                    {{/ if}}
+
+                                    <!-- invite button -->
+                                    {{# if canUpperInvite currentUser._id }}
+                                        <li class="pu-sub-button">
+                                            <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=slug }}">
+                                                <i class="fa fa-user-plus"></i>
+                                                {{_ 'pages-app-network-actions-button-invite'}}
+                                            </a>
+                                        </li>
+                                    {{/ if }}
+                                {{/ with }}
                             </ul>
                         </nav>
                     </div>
                 </section>
             </header>
+
             <div class="pu-sub-pagecontent">
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <section class="pu-composition pu-composition-network">
-                        {{# if network.isClosedForUpper userId }}
-                            {{> app_network_closed network=network.name}}
-                        {{else}}
-                            {{> yield region='app_network'}}
-                        {{/ if }}
+                        {{# with network }}
+                            {{# if isClosedForUpper currentUser._id }}
+                                {{> app_network_closed network=name}}
+                            {{else}}
+                                {{> yield region='app_network' networkSlug=slug }}
+                            {{/ if }}
+                        {{/ with }}
                     </section>
                 </div>
             </div>
-        {{else}}
-            {{> Spinner }}
-        {{/ if}}
     </article>
 
 </template>
