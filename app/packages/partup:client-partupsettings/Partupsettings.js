@@ -305,7 +305,6 @@ Template.Partupsettings.events({
     },
     'click [data-removedate]': function(event, template) {
         event.preventDefault();
-        console.log('REMOVE THAT SHIT');
         template.find('[name=end_date]').value = '';
     },
     'click [data-toggleprivacydropdown]': function(event, template) {
