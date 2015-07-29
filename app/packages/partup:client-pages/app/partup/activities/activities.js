@@ -56,7 +56,7 @@ Template.app_partup_activities.onCreated(function() {
 Template.app_partup_activities.helpers({
     activities: function() {
         var partup = Partups.findOne(this.partupId);
-        return Activities.findForPartup(partup, {sort: {end_date: -1}}, {archived: false});
+        return Template.instance().activities.all({archived: false});
     },
     archivedActivities: function() {
         return Template.instance().activities.all({archived: true});
