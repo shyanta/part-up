@@ -33,15 +33,15 @@
                 {{/if}}
             </nav>
         {{/if}}
-        {{#if selectedNetwork}}
-            <header class="pu-dropdownitem pu-dropdownheader">
-                <a href="{{ pathFor 'network-detail' slug=selectedNetwork.slug }}">
-                    <figure class="pu-avatar pu-avatar-square" style="background-image:url('{{ partupImageUrl id=selectedNetwork.image store='80x80'}}');"></figure>
-                    <p>{{ selectedNetwork.name }}</p>
-                </a>
-            </header>
-        {{/if}}
         <section>
+            {{#if selectedNetwork}}
+                <header class="pu-dropdownitem pu-dropdownheader">
+                    <a href="{{ pathFor 'network-detail' slug=selectedNetwork.slug }}">
+                        <figure class="pu-avatar pu-avatar-square" style="background-image:url('{{ partupImageUrl id=selectedNetwork.image store='80x80'}}');"></figure>
+                        <p>{{ selectedNetwork.name }}</p>
+                    </a>
+                </header>
+            {{/if}}
             <p>{{_ 'dropdowns-profile-title-upperpartups'}}</p>
             <ul class="pu-list">
                 {{#if upperPartups.count}}
