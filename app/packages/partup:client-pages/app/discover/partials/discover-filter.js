@@ -209,6 +209,18 @@ Template.app_discover_filter.events({
         window.scrollTo(0, 0);
     },
 
+    'click [data-reset-query]': function(event, template) {
+        event.stopPropagation();
+        template.query.value.set('');
+        template.submitFilterForm();
+    },
+
+    'input [data-query-input]': function(event, template) {
+        event.stopPropagation();
+        var value = $(event.currentTarget).val();
+        template.query.value.set(value);
+    },
+
     // Network selector events
     'click [data-open-networkselector]': function(event, template) {
         var current = template.network.selectorState.get();

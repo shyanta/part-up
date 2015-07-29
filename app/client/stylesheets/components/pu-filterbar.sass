@@ -3,9 +3,25 @@
     > .pu-sub-input
         float: left
         margin-left: 20px
+        position: relative
 
         &:first-child
             margin-left: 0
+
+        .pu-sub-reset
+            position: absolute
+            right: 0
+            top: 0
+            cursor: pointer
+            height: 100%
+            width: 46px
+            display: block
+            vertical-align: top
+            line-height: 46px
+            text-align: center
+            color: $color-text-subtle
+            &:hover
+                color: $color-text
 
     > .pu-sub-label
         font-size: 16px

@@ -6,7 +6,12 @@
             <p class="pu-sub-label">{{_ 'pages-app-discover-filter-textsearch-label' }}</p>
 
             <!-- Search query -->
-            <div class="pu-sub-input"><input type="text" class="pu-input pu-input-filter" name="search_query" value="{{ queryData }}" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}"></div>
+            <div class="pu-sub-input">
+                <input type="text" class="pu-input pu-input-filter" name="search_query" value="{{ queryData }}" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}" data-query-input>
+                {{#if queryData}}
+                    <i class="pu-sub-reset fa fa-times" data-reset-query></i>
+                {{/if}}
+            </div>
 
             <!-- Label -->
             <p class="pu-sub-label">{{_ 'pages-app-discover-filter-networkfilter-label' }}</p>
