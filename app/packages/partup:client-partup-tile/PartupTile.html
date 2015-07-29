@@ -30,7 +30,14 @@
                 {{# if uppers }}
                 <ul class="pu-sub-avatar-list">
                     {{# each uppers }}
-                        <li class="pu-avatar" style="background-image: url('{{# with upper }}{{ partupImageUrl id=profile.image store='80x80' }}{{/ with }}'); top: {{ y }}px; left: {{ x }}px; transition-delay: {{ delay }}s;" data-usercard="{{ _id }}"></li>
+                        <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
+                            {{# if _id }}
+                                background-image: url('{{# with upper }}{{ partupImageUrl id=profile.image store='80x80' }}{{/ with }}');
+                            {{/ if }}
+                            top: {{ y }}px;
+                            left: {{ x }}px;
+                            transition-delay: {{ delay }}s;
+                        " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}+{{/ unless }}</li>
                     {{/ each }}
                 </ul>
                 {{/ if }}

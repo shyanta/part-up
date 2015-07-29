@@ -94,18 +94,38 @@ Template.PartupTile.helpers({
     },
     uppers: function() {
         if (!this._id || !this.uppers) return;
-        var uppers = this.uppers;
+        var uppers = this.uppers.slice(0);
+
+        if (uppers.length > 5) {
+            while (uppers.length > 4) {
+                uppers.pop();
+            }
+
+            uppers.push(null);
+        }
 
         return lodash.map(uppers, function(upper, index) {
             var coords = getAvatarCoordinates(uppers.length, index, 0, 24, 100);
 
-            return {
-                _id: upper,
+            var attributes = {
                 x: coords.x + 95,
                 y: coords.y + 95,
                 delay: .075 * index
             };
+
+            if (upper) {
+                attributes._id = upper;
+            }
+
+            return attributes;
         });
+    },
+    remainingUppers: function() {
+        var uppers = Template.instance().data.uppers;
+        return uppers.length > 5 ? uppers.length - 4 : 0;
+    },
+    userCard: function() {
+        if (this._id) return {'data-usercard': this._id};
     }
 });
 
