@@ -129,6 +129,28 @@ Partup.prototype.hasEnded = function() {
 };
 
 /**
+ * Promote a user from supporter to partner
+ *
+ * @memberof Partups
+ * @param {String} upperId the user that gets promoted
+ */
+Partup.prototype.makeSupporterPartner = function(upperId) {
+    Partups.update(this._id, {$pull: {'supporters': upperId}, $addToSet: {'uppers': upperId}});
+    Meteor.users.update(upperId, {$pull: {'supporterOf': this._id}, $addToSet: {'upperOf': this._id}});
+};
+
+/**
+ * Demote a user from partner to supporter
+ *
+ * @memberof Partups
+ * @param {String} upperId the user that gets demoted
+ */
+Partup.prototype.makePartnerSupporter = function(upperId) {
+    Partups.update(this._id, {$pull: {'uppers': upperId}, $addToSet: {'supporters': upperId}});
+    Meteor.users.update(upperId, {$pull: {'upperOf': this._id}, $addToSet: {'supporterOf': this._id}});
+};
+
+/**
  Partups describe collaborations between several uppers
  @namespace Partups
  */
