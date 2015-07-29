@@ -328,6 +328,9 @@ Template.Partupsettings.events({
             $(event.currentTarget.form).find('[name=network_id]').val(value);
 
         }
+    },
+    'click .pu-tooltip': function(event) {
+        event.preventDefault();
     }
 });
 
