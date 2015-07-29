@@ -72,7 +72,8 @@ Template.app_profile_upper_partups.onCreated(function() {
                      * - Add our partups to the layout
                      */
                     Tracker.nonreactive(function replacePartups() {
-                        var partups = Partups.find({uppers:{$in:[profileId]}}).fetch();
+                        var user = Meteor.users.findOne(profileId);
+                        var partups = Partups.findUpperPartupsForUser(user).fetch();
 
                         var partupTileDatas = lodash.map(partups, function(partup) {
                             return tpl.partups.partupTileData(partup);
@@ -112,7 +113,8 @@ Template.app_profile_upper_partups.onCreated(function() {
                      */
                     Tracker.nonreactive(function addPartups() {
                         var oldPartups = tpl.partups.layout.items;
-                        var newPartups = Partups.find({uppers:{$in:[profileId]}}).fetch();
+                        var user = Meteor.users.findOne(profileId);
+                        var newPartups = Partups.findUpperPartupsForUser(user).fetch();
 
                         var diffPartups = mout.array.filter(newPartups, function(partup) {
                             return !mout.array.find(oldPartups, function(_partup) {

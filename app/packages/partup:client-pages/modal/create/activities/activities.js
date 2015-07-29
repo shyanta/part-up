@@ -2,7 +2,8 @@
 /* Widget initial */
 /*************************************************************/
 var getActivities = function(partupId) {
-    return Activities.find({partup_id: partupId}, {sort: {created_at: -1}});
+    var partup = Parutps.findOne(partupId);
+    return Activities.findForPartup(partup, {sort: {created_at: -1}});
 };
 
 Template.modal_create_activities.onCreated(function() {

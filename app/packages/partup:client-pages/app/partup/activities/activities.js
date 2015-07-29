@@ -30,7 +30,7 @@ Template.app_partup_activities.onCreated(function() {
                         return activity.creator_id && activity.creator_id === Meteor.user()._id;
 
                     if (filter === 'open-activities')
-                        return Contributions.find({activity_id: activity._id}).count() === 0;
+                        return Contributions.findForActivity(activity).count() === 0;
 
                     return true;
                 });
