@@ -40,7 +40,7 @@ Template.DropdownProfile.events({
 
 Template.DropdownProfile.helpers({
     notifications: function() {
-        return Notifications.find();
+        return Notifications.findForUser(Meteor.user());
     },
 
     menuOpen: function() {
@@ -48,15 +48,23 @@ Template.DropdownProfile.helpers({
     },
 
     upperPartups: function() {
-        var userId = Meteor.userId();
         var networkId = Template.instance().currentNetwork.get() || undefined;
-        return Partups.find({uppers: {$in: [userId]}, network_id: networkId});
+        var user = Meteor.user();
+        if (!user) return [];
+
+        return Partups.findUpperPartupsForUser(user, {
+            network_id: networkId
+        });
     },
 
     supporterPartups: function() {
-        var userId = Meteor.userId();
         var networkId = Template.instance().currentNetwork.get() || undefined;
-        return Partups.find({supporters: {$in: [userId]}, network_id: networkId});
+        var user = Meteor.user();
+        if (!user) return [];
+
+        return Partups.findSupporterPartupsForUser(user, {
+            network_id: networkId
+        });
     },
 
     user: function() {

@@ -347,24 +347,29 @@ Partups.findForNetwork = function(userId, options, parameters) {
  * Find the partups that a user is upper of
  *
  * @memberof Partups
+ * @param {Object} user
  * @param {Object} parameters
  * @param {Number} parameters.limit
  * @param {String} parameters.sort
  * @param {Boolean} parameters.count
- * @param {String} loggedInUserId
+ * @param {String} loggedInUserId Server side only
  * @return {Cursor}
  */
-Partups.findUpperPartupsForUser = function(userId, parameters, loggedInUserId) {
-    var parameters = parameters || {};
+Partups.findUpperPartupsForUser = function(user, parameters, loggedInUserId) {
+    parameters = parameters || {};
 
+    var selector = {uppers: {$in: [user._id]}};
     var options = {};
-    var selector = {uppers: {$in: [userId]}};
 
     if (parameters.count) {
         options.count = true;
     } else {
         options.limit = parseInt(parameters.limit);
         options.sort = parameters.sort || {updated_at: -1};
+    }
+
+    if (parameters.network_id) {
+        selector.network_id = parameters.network_id;
     }
 
     return this.guardedFind(loggedInUserId, selector, options);
@@ -374,24 +379,30 @@ Partups.findUpperPartupsForUser = function(userId, parameters, loggedInUserId) {
  * Find the partups that a user supporter of
  *
  * @memberof Partups
+ * @param {Object} user
  * @param {Object} parameters
  * @param {Number} parameters.limit
  * @param {String} parameters.sort
  * @param {Boolean} parameters.count
- * @param {String} loggedInUserId
+ * @param {String} loggedInUserId Server side only
  * @return {Cursor}
  */
-Partups.findSupporterPartupsForUser = function(userId, parameters, loggedInUserId) {
-    var parameters = parameters || {};
+Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId) {
+    user = user || {};
+    parameters = parameters || {};
 
+    var selector = {supporters: {$in: [user._id]}};
     var options = {};
-    var selector = {supporters: {$in: [userId]}};
 
     if (parameters.count) {
         options.count = true;
     } else {
         options.limit = parseInt(parameters.limit);
         options.sort = parameters.sort || {updated_at: -1};
+    }
+
+    if (parameters.network_id) {
+        selector.network_id = parameters.network_id;
     }
 
     return this.guardedFind(loggedInUserId, selector, options);

@@ -32,7 +32,10 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
 
     return {
         find: function() {
-            return Partups.findUpperPartupsForUser(userId, parameters, this.userId);
+            var user = Meteor.users.findOne(userId);
+            if (!user) return;
+
+            return Partups.findUpperPartupsForUser(user, parameters, this.userId);
         },
         children: [
             {find: Images.findForPartup},
@@ -53,7 +56,10 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
  * @param {String} userId
  */
 Meteor.publish('users.one.upperpartups.count', function(userId) {
-    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartupsForUser(userId, {count:true}, this.userId));
+    var user = Meteor.users.findOne(userId);
+    if (!user) return;
+
+    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartupsForUser(user, {count:true}, this.userId));
 });
 
 /**
@@ -69,7 +75,10 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
 
     return {
         find: function() {
-            return Partups.findSupporterPartupsForUser(userId, parameters, this.userId);
+            var user = Meteor.users.findOne(userId);
+            if (!user) return;
+
+            return Partups.findSupporterPartupsForUser(user, parameters, this.userId);
         },
         children: [
             {find: Images.findForPartup},
@@ -88,7 +97,10 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
  * @param {String} userId
  */
 Meteor.publish('users.one.supporterpartups.count', function(userId) {
-    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartupsForUser(userId, {count:true}, this.userId));
+    var user = Meteor.users.findOne(userId);
+    if (!user) return;
+
+    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartupsForUser(user, {count: true}, this.userId));
 });
 
 /**
