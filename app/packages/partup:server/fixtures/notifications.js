@@ -28,10 +28,18 @@ Meteor.startup(function() {
                 'for_upper_id' : 'K5c5M4Pbdg3B82wQI',
                 'type' : 'partups_contributions_accepted',
                 'type_data' : {
+                    'accepter': {
+                        '_id': 'K5c5M4Pbdg3B82wQH',
+                        'name': 'Default User',
+                        'image': 'oQeqgwkdd44JSBSW5'
+                    },
+                    'activity': {
+                        '_id': 'ruvTupX9WMmqFTLuL',
+                        'name': 'crowd funding platform selectie'
+                    },
                     'partup' : {
                         '_id': 'gJngF65ZWyS9f3NDE',
-                        'name' : 'Crowd funding Part-up organiseren',
-                        'image' : '3FeYwzJdFfj8enTDY'
+                        'name' : 'Crowd funding Part-up organiseren'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:09:44.629Z'),
@@ -45,9 +53,13 @@ Meteor.startup(function() {
                 'type' : 'contributions_ratings_inserted',
                 'type_data' : {
                     'rater' : {
-                        '_id' : 'K5c5M4Pbdg3B82wQI',
-                        'name' : 'John Partup',
-                        'image' : 'cHhjpWKo9DHjXQQjy'
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'name' : 'Default User',
+                        'image' : 'oQeqgwkdd44JSBSW5'
+                    },
+                    'partup' : {
+                        '_id': 'gJngF65ZWyS9f3NDE',
+                        'name' : 'Crowd funding Part-up organiseren'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:09:50.912Z'),
@@ -100,8 +112,13 @@ Meteor.startup(function() {
                 'for_upper_id' : 'K5c5M4Pbdg3B82wQH',
                 'type' : 'partups_networks_invited',
                 'type_data' : {
+                    'inviter' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'name' : 'Admin User',
+                        'image' : 'CxEprGKNWo6HdrTdq'
+                    },
                     'network' : {
-                        '_id': 'kRCjWDBkKru3KfsjW',
+                        '_id' : 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
                         'image' : 'efDuvuTzpqH65P9DF'
                     }
@@ -116,6 +133,11 @@ Meteor.startup(function() {
                 'for_upper_id' : 'a7qcp5RHnh5rfaeW9',
                 'type' : 'partups_networks_invited',
                 'type_data' : {
+                    'inviter' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'name' : 'Admin User',
+                        'image' : 'CxEprGKNWo6HdrTdq'
+                    },
                     'network' : {
                         '_id': 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
@@ -132,6 +154,11 @@ Meteor.startup(function() {
                 'for_upper_id' : 'K5c5M4Pbdg3B82wQI',
                 'type' : 'partups_networks_invited',
                 'type_data' : {
+                    'inviter' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'name' : 'Admin User',
+                        'image' : 'CxEprGKNWo6HdrTdq'
+                    },
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
@@ -164,6 +191,11 @@ Meteor.startup(function() {
                 'for_upper_id' : 'a7qcp5RHnh5rfaeW9',
                 'type' : 'partups_networks_invited',
                 'type_data' : {
+                    'inviter' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'name' : 'Admin User',
+                        'image' : 'CxEprGKNWo6HdrTdq'
+                    },
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
