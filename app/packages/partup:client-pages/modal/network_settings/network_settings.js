@@ -1,6 +1,6 @@
 Template.modal_network_settings.helpers({
     network: function() {
-        return Networks.findOne({slug: networkSlug});
+        return Networks.findOne({slug: this.networkSlug});
     }
 });
 
