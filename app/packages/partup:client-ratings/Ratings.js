@@ -5,7 +5,7 @@
  * @module client-ratings
  * @param {Cursor} contribution The contribution which is being rated
  * @param {Cursor} ratings      A Mongo Cursor object
- * @param {Boolean} READONLY    Whether the widget should be rendered readonly 
+ * @param {Boolean} READONLY    Whether the widget should be rendered readonly
  */
 // jscs:enable
 
