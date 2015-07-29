@@ -9,7 +9,12 @@
         <!-- <li class="pu-dropdownitem"><a href="#">Netwerk aanmelden</a></li> -->
         {{#if networks.count}}
             <nav class="pu-profiletabs">
-                <ul class="pu-list pu-list-right">
+                {{#unless disableUp}}
+                    <header>
+                        <a class="pu-button pu-button-dropdowntab" href="#" data-up><i class="fa fa-chevron-up"></i></a>
+                    </header>
+                {{/unless}}
+                <ul class="pu-list pu-list-right {{#if disableUp}}pu-state-large{{/if}} {{#if disableDown}}pu-state-large{{/if}}" data-list>
                     <li>
                         <a href="#" class="pu-button pu-button-dropdowntab {{#unless networkId}}pu-button-dropdowntab-active{{/unless}}" data-select-network>public</a>
                     </li>
@@ -19,6 +24,13 @@
                         </li>
                     {{/each}}
                 </ul>
+                {{#if partupHigherThan networks.count 8}}
+                    {{#unless disableDown}}
+                        <footer>
+                            <a class="pu-button pu-button-dropdowntab" href="#" data-down><i class="fa fa-chevron-down"></i></a>
+                        </footer>
+                    {{/unless}}
+                {{/if}}
             </nav>
         {{/if}}
         {{#if selectedNetwork}}

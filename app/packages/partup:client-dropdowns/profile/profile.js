@@ -10,6 +10,8 @@ Template.DropdownProfile.onCreated(function() {
     Subs.subscribe('users.one.supporterpartups', userId);
 
     this.currentNetwork = new ReactiveVar();
+    this.disableUp = new ReactiveVar(true);
+    this.disableDown = new ReactiveVar(false);
 });
 
 Template.DropdownProfile.onRendered(function() {
@@ -35,6 +37,24 @@ Template.DropdownProfile.events({
     'click [data-settings]': function openSettings (event, template) {
         event.preventDefault();
         Intent.go({route: 'profile-settings', params:{_id: Meteor.userId()}});
+    },
+    'click [data-down]': function(event, template) {
+        var list = $(template.find('[data-list]'));
+        console.log('click', list);
+        list.scrollTop(list.scrollTop() + 200);
+        template.disableUp.set(false);
+        if (list[0].scrollHeight - list.height() === list.scrollTop()){
+            template.disableDown.set(true);
+        }
+    },
+    'click [data-up]': function(event, template) {
+        var list = $(template.find('[data-list]'));
+        console.log('click', list.scrollTop())
+        list.scrollTop(list.scrollTop() - 200);
+        template.disableDown.set(false);
+        if (list.scrollTop() === 0) {
+            template.disableUp.set(true);
+        }
     }
 });
 
@@ -86,5 +106,11 @@ Template.DropdownProfile.helpers({
         var networkId = Template.instance().currentNetwork.get();
         var network = Networks.findOne({_id: networkId});
         return network;
+    },
+    disableUp: function() {
+        return Template.instance().disableUp.get();
+    },
+    disableDown: function() {
+        return Template.instance().disableDown.get();
     }
 });
