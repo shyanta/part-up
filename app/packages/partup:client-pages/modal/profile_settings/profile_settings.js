@@ -4,8 +4,8 @@ Template.modal_profile_settings.events({
 
         var return_route = 'profile-settings';
 
-        if (Intent.exists('profile-settings-details')) {
-            return_route = 'profile-settings-details';
+        if (Intent.exists('profile-settings-account')) {
+            return_route = 'profile-settings-account';
         } else if (Intent.exists('profile-settings-email')) {
             return_route = 'profile-settings-email';
         }
