@@ -65,7 +65,7 @@ Template.PartupTile.helpers({
         return Networks.findOne({_id: this.network_id});
     },
     activityCount: function() {
-        return this.activity_count || Activities.find({partup_id: this._id}).count();
+        return this.activity_count || Activities.findForPartup(this).count();
     },
     dayCount: function() {
         var created = new Date(this.created_at);
