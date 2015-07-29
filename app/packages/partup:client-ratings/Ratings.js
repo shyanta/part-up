@@ -16,6 +16,17 @@ Template.Ratings.onCreated(function() {
     this.showHoverCards = new ReactiveDict();
 });
 
+Template.Ratings.onRendered(function() {
+    var template = this;
+    var els = this.findAll('.pu-avatar-stack > .pu-avatar');
+    els.forEach(function(el) {
+        var id = el.dataset.ratingId || 'new';
+        Partup.client.elements.onClickOutside(el, function() {
+            template.showHoverCards.set(id, false);
+        });
+    });
+});
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
