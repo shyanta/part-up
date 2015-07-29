@@ -174,8 +174,7 @@ Event.on('contributions.accepted', function(userId, activityId, upperId) {
             },
             partup: {
                 _id: partup._id,
-                name: partup.name,
-                image: partup.image
+                name: partup.name
             }
         }
     };
