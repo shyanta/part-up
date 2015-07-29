@@ -82,15 +82,11 @@ Network.prototype.isClosed = function() {
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
-
 Network.prototype.isClosedForUpper = function(upperId) {
-    // if not closed return false
-    if (!this.isClosed()) return false;
+    if (this.isPublic()) return false;
+    if (this.isInvitational() && (this.hasMember(upperId) || this.isUpperInvited(upperId))) return false;
+    if (this.isClosed() && this.hasMember(upperId)) return false;
 
-    // if closed and has upper return false
-    if (this.hasMember(upperId)) return false;
-
-    // if closed and does not have upper return true
     return true;
 };
 
