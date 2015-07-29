@@ -42,7 +42,7 @@ Partup.schemas.forms.registerRequired = new SimpleSchema({
  * @name registerOptional
  * @memberof Partup.schemas.forms
  */
-Partup.schemas.forms.registerOptional = new SimpleSchema({
+var profileBaseSchema = new SimpleSchema({
     description: {
         type: String,
         max: 650,
@@ -57,25 +57,25 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
         type: String,
         max: 2000,
         optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: facebookUrl
+        regEx: Partup.services.validators.facebookUrl
     },
     instagram_url: {
         type: String,
         max: 2000,
         optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: instagramUrl
+        regEx: Partup.services.validators.instagramUrl
     },
     linkedin_url: {
         type: String,
         max: 2000,
         optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: linkedinUrl
+        regEx: Partup.services.validators.linkedinUrl
     },
     twitter_url: {
         type: String,
         max: 2000,
         optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: twitterUrl
+        regEx: Partup.services.validators.twitterUrl
     },
     location_input: {
         type: String,
@@ -110,78 +110,17 @@ Partup.schemas.forms.registerOptional = new SimpleSchema({
     }
 });
 
+Partup.schemas.forms.registerOptional = new SimpleSchema([profileBaseSchema, {
+    // no fields differ from base schema
+}]);
+
 /**
  * Register Form Optional
  * @name profileSettings
  * @memberof Partup.schemas.forms
  */
-Partup.schemas.forms.profileSettings = new SimpleSchema({
+Partup.schemas.forms.profileSettings = new SimpleSchema([profileBaseSchema, {
     name: {
         type: String
     },
-    description: {
-        type: String,
-        max: 650,
-        optional: true
-    },
-    image: {
-        type: String,
-        max: 255,
-        optional: true
-    },
-    facebook_url: {
-        type: String,
-        max: 2000,
-        optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: facebookUrl
-    },
-    instagram_url: {
-        type: String,
-        max: 2000,
-        optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: instagramUrl
-    },
-    linkedin_url: {
-        type: String,
-        max: 2000,
-        optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: linkedinUrl
-    },
-    twitter_url: {
-        type: String,
-        max: 2000,
-        optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol //TODO: twitterUrl
-    },
-    location_input: {
-        type: String,
-        max: 255,
-        optional: true
-    },
-    phonenumber: {
-        type: String,
-        max: 255,
-        optional: true
-    },
-    skype: {
-        type: String,
-        max: 255,
-        optional: true
-    },
-    tags_input: {
-        type: String,
-        max: 255,
-        optional: true,
-        regEx: Partup.services.validators.tagsSeparatedByComma,
-        autoform: {
-            type: 'tags',
-            afFieldInput: tagsConfiguration
-        }
-    },
-    website: {
-        type: String,
-        max: 255,
-        optional: true,
-        regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol
-    }
-});
+}]);

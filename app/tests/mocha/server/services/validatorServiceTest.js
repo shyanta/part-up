@@ -28,6 +28,41 @@ if (!(typeof MochaWeb === 'undefined')) {
                     done();
                 });
             });
+
+            describe('facebookUrl', function() {
+                var facebookUrl = Partup.services.validators.facebookUrl;
+
+                it('works with correct word input', function(done) {
+                    chai.assert.isTrue(facebookUrl.test('https://www.facebook.com/zuck'));
+                    chai.assert.isTrue(facebookUrl.test('https://facebook.com/zuck'));
+                    chai.assert.isTrue(facebookUrl.test('https://facebook.com/zuck?_rdr=p'));
+                    chai.assert.isFalse(facebookUrl.test('https://exploit.com'));
+                    done();
+                });
+            });
+
+            describe('instagramUrl', function() {
+                var instagramUrl = Partup.services.validators.instagramUrl;
+
+                it('works with correct word input', function(done) {
+                    chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/zuck'));
+                    chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/zuck/'));
+                    chai.assert.isFalse(instagramUrl.test('https://exploit.com'));
+                    done();
+                });
+            });
+            describe('linkedinUrl', function() {
+                var linkedinUrl = Partup.services.validators.linkedinUrl;
+
+                it('works with correct word input', function(done) {
+                    chai.assert.isTrue(linkedinUrl.test('https://de.linkedin.com/pub/matthias-graus/65/a02/649/en'));
+                    chai.assert.isTrue(linkedinUrl.test('https://nl.linkedin.com/pub/jacob-peerdeman/51/758/796/en'));
+                    chai.assert.isTrue(linkedinUrl.test('https://www.linkedin.com/in/peterpeerdeman'));
+                    chai.assert.isTrue(linkedinUrl.test('https://linkedin.com/in/peterpeerdeman'));
+                    chai.assert.isFalse(linkedinUrl.test('https://exploit.com'));
+                    done();
+                });
+            });
         });
     });
 }
