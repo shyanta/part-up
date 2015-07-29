@@ -228,7 +228,7 @@ Template.Partupsettings.helpers({
         return Template.instance().selectedPrivacyLabel.get();
     },
     userNetworks: function() {
-        return Networks.find();
+        return Networks.findForUser(Meteor.user(), Meteor.userId());
     },
     privacyTypes: function() {
         return [
