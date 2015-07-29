@@ -92,9 +92,7 @@ Meteor.methods({
             Updates.update({_id: contribution.update_id}, {$set: set});
 
             // Promote the user from Supporter to Upper
-            Partups.update(contribution.partup_id, {$pull: {'supporters': contribution.upper_id}, $push: {'uppers': contribution.upper_id}});
-            Meteor.users.update(contribution.upper_id, {$pull: {'supporterOf': contribution.partup_id}, $push: {'upperOf': contribution.partup_id}});
-
+            partup.makeSupporterPartner(contribution.upper_id);
 
             Event.emit('partups.uppers.inserted', contribution.partup_id, contribution.upper_id);
             Event.emit('contributions.accepted', upper._id, contribution.activity_id, contribution.upper_id);
@@ -164,8 +162,7 @@ Meteor.methods({
             if (!contributionsLeft) {
                 var partup = Partups.findOneOrFail(contribution.partup_id);
                 if (partup.uppers.length > 1) {
-                    Partups.update(partup._id, {$pull: {uppers: upper._id}, $push: {supporters: upper._id}});
-                    Meteor.users.update(upper._id, {$pull: {upperOf: partup._id}, $push: {supporterOf: partup._id}});
+                    partup.makePartnerSupporter(upper._id);
                 }
             }
 
