@@ -53,6 +53,9 @@ Meteor.startup(function() {
 
             // Partups - Organise a Meteor Meetup
             downloadAndSaveImage('J2KxajXMcqiKwrEBu', 'https://camo.githubusercontent.com/c3e0a56600e69a7730b5caf79959459c96c08c89/687474703a2f2f636c2e6c792f59366a6e2f76656761732e706e672532303d32303078313032');
+
+            // Partups - Partup Premium Part-up
+            downloadAndSaveImage('xfYreAouRFh4mnctk', 'http://datasymphony.com.au/wp-content/uploads/2013/11/Premium.jpg');
         }
 
     }

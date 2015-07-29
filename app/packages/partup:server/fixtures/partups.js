@@ -264,8 +264,8 @@ Meteor.startup(function() {
                 'budget_money' : null,
                 'budget_hours' : null,
                 'end_date' : new Date('2017-05-31T00:00:00.000Z'),
-                'image' : '654mSAG5cP9dqd2n5',
-                'tags' : [ 
+                'image' : 'xfYreAouRFh4mnctk',
+                'tags' : [
                     'private'
                 ],
                 'location' : {
@@ -276,7 +276,7 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'privacy_type' : 2,
-                'uppers' : [ 
+                'uppers' : [
                     'K5c5M4Pbdg3B82wQH'
                 ],
                 'creator_id' : 'K5c5M4Pbdg3B82wQH',
@@ -285,30 +285,30 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [ 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        1, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
-                        0, 
+                    'clicks_per_hour' : [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         0
                     ],
                     'last_ip' : '127.0.0.1'
