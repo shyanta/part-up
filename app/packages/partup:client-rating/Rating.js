@@ -9,7 +9,7 @@
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
-Template.Rating.onCreated(function(){
+Template.Rating.onCreated(function() {
     this.contribution = this.data.contribution;
 });
 
@@ -17,7 +17,7 @@ Template.Rating.onCreated(function(){
 /* Widget helpers */
 /*************************************************************/
 Template.Rating.helpers({
-    canEdit: function(){
+    canEdit: function() {
         var user = Meteor.user();
         if (!user) return false;
 
@@ -29,25 +29,25 @@ Template.Rating.helpers({
         return true;
     },
     formSchema: Partup.schemas.forms.rating,
-    generateFormId: function(){
-        if (this.rating){
+    generateFormId: function() {
+        if (this.rating) {
             return 'ratingEditForm-' + this.rating._id;
         }
 
         return 'ratingCreateForm-' + this.contribution._id;
     },
     placeholders: Partup.services.placeholders.rating,
-    upper: function(){
-        return !this.rating ? Meteor.user() : Meteor.users.findOne({ _id: this.rating.upper_id });
+    upper: function() {
+        return !this.rating ? Meteor.user() : Meteor.users.findOne({_id: this.rating.upper_id});
     }
 });
 
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-var save = function(event, template){
+var save = function(event, template) {
     var formId = '#ratingCreateForm-' + template.data.contribution._id;
-    if (template.data.rating){
+    if (template.data.rating) {
         formId = '#ratingEditForm-' + template.data.rating._id;
     }
 
