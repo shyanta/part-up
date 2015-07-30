@@ -18,7 +18,7 @@ Template.app_partup_sidebar.onRendered(function() {
     var template = this;
 
     template.autorun(function() {
-        var partup = template.data.partup;
+        var partup = Partups.findOne(template.data.partupId);
         if (!partup) return;
 
         var image = Images.findOne({_id: partup.image});
@@ -143,7 +143,7 @@ Template.app_partup_sidebar.helpers({
 Template.app_partup_sidebar.events({
 
     'click [data-joinsupporters]': function(event, template) {
-        var partupId = template.data.partup._id;
+        var partupId = template.data.partupId;
 
         if (Meteor.user()) {
             Meteor.call('partups.supporters.insert', partupId);
@@ -157,7 +157,7 @@ Template.app_partup_sidebar.events({
     },
 
     'click [data-leavesupporters]': function(event, template) {
-        Meteor.call('partups.supporters.remove', template.data.partup._id);
+        Meteor.call('partups.supporters.remove', template.data.partupId);
     },
 
     'click [data-share-facebook]': function() {
@@ -167,8 +167,9 @@ Template.app_partup_sidebar.events({
     },
 
     'click [data-share-twitter]': function(event, template) {
+        var partup = Partups.findOne(template.data.partupId);
         var currentUrl = Router.current().location.get().href;
-        var message = template.data.partup.name;
+        var message = partup.name;
         var shareUrl = Partup.client.socials.generateTwitterShareUrl(message, currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
