@@ -74,10 +74,6 @@ Template.app_partup.helpers({
         return Partups.findOne({_id: this.partupId});
     },
 
-    partupId: function() {
-        return '';
-    },
-
     subscriptionsReady: function() {
         return Template.instance().partupSubscription.ready();
     }
