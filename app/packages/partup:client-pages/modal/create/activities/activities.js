@@ -2,7 +2,7 @@
 /* Widget initial */
 /*************************************************************/
 var getActivities = function(partupId) {
-    var partup = Parutps.findOne(partupId);
+    var partup = Partups.findOne(partupId);
     return Activities.findForPartup(partup, {sort: {created_at: -1}});
 };
 
