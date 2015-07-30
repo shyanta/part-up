@@ -80,12 +80,10 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T13:29:39.754Z')
                 ],
-                'name' : 'Default User',
                 'settings' : {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'oQeqgwkdd44JSBSW5',
                 'networks' : [
                     'ibn27M3ePaXhmKzWq',
                     'kRCjWDBkKru3KfsjW'
@@ -180,12 +178,10 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T13:43:28.542Z')
                 ],
-                'name' : 'John Partup',
                 'settings' : {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'cHhjpWKo9DHjXQQjy',
                 'participation_score' : 3,
                 'pending_networks' : [],
                 'networks' : [
@@ -277,12 +273,10 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T13:48:03.641Z')
                 ],
-                'name' : 'Admin User',
                 'settings' : {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'CxEprGKNWo6HdrTdq',
                 'roles' : ['admin'],
                 'networks' : [
                     'nqBnE8nSLasaapXXS',
@@ -372,12 +366,10 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T14:11:01.103Z')
                 ],
-                'name' : 'Judy Partup',
                 'settings' : {
                     'locale' : 'en',
                     'optionalDetailsCompleted' : false
                 },
-                'image' : 'bMTGT9oSDGzxCL3r4',
                 'supporterOf' : [
                     'gJngF65ZWyS9f3NDE'
                 ],
@@ -398,4 +390,4 @@ Meteor.startup(function() {
         }
 
     }
-})
+});
