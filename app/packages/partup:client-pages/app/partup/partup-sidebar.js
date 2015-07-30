@@ -109,7 +109,7 @@ Template.app_partup_sidebar.helpers({
                 networkText = network.name;
             }
 
-            var networkPath = Router.path('network-detail', {_id: network.slug});
+            var networkPath = Router.path('network-detail', {slug: network.slug});
         }
 
         switch (this.partup.privacy_type) {
