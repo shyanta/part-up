@@ -57,7 +57,11 @@ var save = function(event, template) {
 
 Template.Rating.events({
     'blur [name=feedback]': save,
-    'blur [name=rating]': save
+    'blur [name=rating]': function(event, template) {
+        if (template.data.rating) {
+            save(event, template);
+        }
+    }
 });
 
 /*************************************************************/
