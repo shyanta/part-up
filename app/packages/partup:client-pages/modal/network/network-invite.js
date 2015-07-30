@@ -74,6 +74,8 @@ Template.modal_network_invite.helpers({
     inviteSent: function() {
         var networkSlug = Template.instance().data.networkSlug;
         var network = Networks.findOne({slug: networkSlug});
+        if (!network) return;
+
         var userId = this._id;
         if (!network) return;
         return !!Invites.findOne({
