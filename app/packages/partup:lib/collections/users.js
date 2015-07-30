@@ -169,7 +169,8 @@ User = function(user) {
         },
 
         isPartnerInPartup: function(partupId) {
-            return user.upperOf.indexOf(partupId) > -1;
+            var upperOf = user.upperOf || [];
+            return upperOf.indexOf(partupId) > -1;
         },
 
         /**
