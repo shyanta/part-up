@@ -16,7 +16,7 @@ ClientDropdowns = {
 
         // put the documentClickHandler in the template namespace,
         // so more than one documentclickhandlers dan be created
-        template.documentClickHandler = function(e){
+        template.documentClickHandler = function(e) {
 
             // see if the click was on the dropdown button
             if (altkey ? self[altkey + '-clicked'] : self.buttonClicked) {
@@ -33,25 +33,25 @@ ClientDropdowns = {
             if (dropdownClicked > -1) return;
 
             // close the dropdown
-            Session.set(self[altkey || 'dropdownToggleBool'], false);
+            template.dropdownOpen.set(false);
         };
         // add click handler
         document.addEventListener('click', template.documentClickHandler);
     },
-    removeOutsideDropdownClickHandler: function(template){
+    removeOutsideDropdownClickHandler: function(template) {
         document.removeEventListener('click', template.documentClickHandler);
     },
-    dropdownClickHandler: function(event, template){
+    dropdownClickHandler: function(event, template) {
         // get current state of the dropdown
-        var dropdownOpen = Session.get(template.dropdownToggleBool);
-        Session.set(template.dropdownToggleBool, !dropdownOpen);
+        var dropdownOpen = template.dropdownOpen.get();
+        template.dropdownOpen.set(!dropdownOpen);
         template.buttonClicked = true;
     },
     customDropdownSwitch: function(template, key) {
         // get current state of the dropdown
-        var dropdownOpen = Session.get(template[key]);
+        var dropdownOpen = template.dropdownOpen.get();
         var newState = !dropdownOpen;
-        Session.set(template[key], newState);
+        template.dropdownOpen.set(newState);
         template[key + '-clicked'] = true;
 
         return newState;
