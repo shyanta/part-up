@@ -30,7 +30,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Partup could not be inserted.');
+            throw new Meteor.Error(400, 'partup_could_not_be_inserted');
         }
     },
 
@@ -71,7 +71,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be updated.');
+            throw new Meteor.Error(400, 'partup_could_not_be_updated');
         }
     },
 
@@ -102,7 +102,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Partup [' + partupId + '] could not be removed.');
+            throw new Meteor.Error(400, 'partup_could_not_be_removed');
         }
     },
 
@@ -125,7 +125,7 @@ Meteor.methods({
         var invitedEmails = mout.array.pluck(invites, 'email');
 
         if (invitedEmails.indexOf(email) > -1) {
-            throw new Meteor.Error(403, 'Email is already invited to the given partup.');
+            throw new Meteor.Error(403, 'email_is_already_invited_to_partup');
         }
 
         // Compile the E-mail template and send the email
@@ -187,8 +187,6 @@ Meteor.methods({
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
-        if (!searchString) throw new Meteor.Error(400, 'searchString parameter is required');
-
         try {
             return Partups.find({
                 $and: [
@@ -198,7 +196,7 @@ Meteor.methods({
             }).fetch();
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Error while autocompleting partup string: ' + searchString);
+            throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');
         }
     }
 

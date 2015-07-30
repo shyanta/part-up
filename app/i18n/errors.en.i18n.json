@@ -1,4 +1,11 @@
 {
+    // Partups
+    "base-errors-partup_could_not_be_inserted": "Oh bummer, we could not create your part-up. Please try again.",
+    "base-errors-partup_could_not_be_updated": "Sorry, we couldn't update your part-up. Please try again.",
+    "base-errors-partup_could_not_be_removed": "Sorry, we couldn't remove the part-up.",
+    "base-errors-email_is_already_invited_to_partup": "This e-mail is already invited to this part-up.",
+    "base-errors-partups_could_not_be_autocompleted": "Part-ups could not be autocompleted.",
+
     // Networks
     "base-errors-network_could_not_be_inserted": "Oh bummer, we could not create your tribe. Please try again.",
     "base-errors-network_could_not_be_updated": "Sorry, we couldn't update your tribe. Please try again.",
