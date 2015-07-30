@@ -25,7 +25,9 @@ var privateUserFields = mout.object.merge({
 }, publicUserFields);
 
 // Add indices
-Meteor.users._ensureIndex('participation_score');
+if (Meteor.isServer) {
+    Meteor.users._ensureIndex('participation_score');
+}
 
 /**
  * Find a user and expose it's private fields

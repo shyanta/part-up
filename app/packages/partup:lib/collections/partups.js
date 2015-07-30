@@ -161,11 +161,13 @@ Partups = new Mongo.Collection('partups', {
 });
 
 // Add indices
-Partups._ensureIndex({'name': 'text', 'description': 'text'});
-Partups._ensureIndex('creator_id');
-Partups._ensureIndex('privacy_type');
-Partups._ensureIndex('slug');
-Partups._ensureIndex('progress');
+if (Meteor.isServer) {
+    Partups._ensureIndex({'name': 'text', 'description': 'text'});
+    Partups._ensureIndex('creator_id');
+    Partups._ensureIndex('privacy_type');
+    Partups._ensureIndex('slug');
+    Partups._ensureIndex('progress');
+}
 
 /**
  * @memberof Partups

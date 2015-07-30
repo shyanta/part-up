@@ -7,12 +7,14 @@
 Ratings = new Mongo.Collection('ratings');
 
 // Add indices
-Ratings._ensureIndex('rating');
-Ratings._ensureIndex('partup_id');
-Ratings._ensureIndex('activity_id');
-Ratings._ensureIndex('contribution_id');
-Ratings._ensureIndex('upper_id');
-Ratings._ensureIndex('rated_upper_id');
+if (Meteor.isServer) {
+    Ratings._ensureIndex('rating');
+    Ratings._ensureIndex('partup_id');
+    Ratings._ensureIndex('activity_id');
+    Ratings._ensureIndex('contribution_id');
+    Ratings._ensureIndex('upper_id');
+    Ratings._ensureIndex('rated_upper_id');
+}
 
 /**
  * Find ratings for contribution
