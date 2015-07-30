@@ -128,11 +128,16 @@
             <div class="pu-sub-pagecontent">
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <section class="pu-composition pu-composition-network">
-                        {{# with network }}
-                            {{# if isClosedForUpper currentUser._id }}
-                                {{> app_network_closed network=name}}
-                            {{else}}
-                                {{> yield region='app_network' networkSlug=slug }}
+                        {{# with networkId }}
+                            {{# if hasAccess currentUser._id }}
+                                {{> app_network_closed network=networkName}}
+                            {{ else }}
+
+                                <!-- We use refresh=. to trigger a yield refresh when networkId changes.
+                                     'refresh' is not an accepted attribute of yield, but in general,
+                                     template-includes will re-run when (one of) its attributes change.  -->
+                                {{> yield region='app_network' refresh=. }}
+
                             {{/ if }}
                         {{/ with }}
                     </section>

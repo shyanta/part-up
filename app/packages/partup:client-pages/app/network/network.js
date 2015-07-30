@@ -4,13 +4,24 @@ var Subs = new SubsManager({
 });
 
 Template.app_network.onCreated(function() {
-    this.autorun(function() {
+    var tpl = this;
+
+    tpl.networkId = new ReactiveVar();
+
+    var network_sub;
+
+    tpl.autorun(function() {
         var slug = Template.currentData().networkSlug;
-        Subs.subscribe('networks.one', slug, function() {
-            if (!Networks.findOne({slug: slug})) {
-                Router.pageNotFound('network');
-            }
-        });
+        network_sub = Subs.subscribe('networks.one', slug);
+    });
+
+    tpl.autorun(function() {
+        if (network_sub.ready()) {
+            var network = Networks.findOne({slug: tpl.data.networkSlug});
+            if (!network) Router.pageNotFound('network');
+
+            tpl.networkId.set(network._id);
+        }
     });
 });
 
@@ -20,6 +31,28 @@ Template.app_network.onCreated(function() {
 Template.app_network.helpers({
     network: function() {
         return Networks.findOne({slug: this.networkSlug});
+    },
+
+    networkId: function() {
+        return Template.instance().networkId.get();
+    },
+
+    networkName: function() {
+        var networkId = this.toString();
+
+        var network = Networks.findOne(networkId);
+        if (!network) return;
+
+        return network.name;
+    },
+
+    hasAccess: function() {
+        var networkId = this.toString();
+
+        var network = Networks.findOne(networkId);
+        if (!network) return true;
+
+        return network.isClosedForUpper(Meteor.userId());
     },
 
     isInvitePending: function() {
