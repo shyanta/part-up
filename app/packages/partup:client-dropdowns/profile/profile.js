@@ -7,6 +7,10 @@ Template.DropdownProfile.onCreated(function() {
     var template = this;
     var userId = Meteor.userId;
 
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+
+    });
+
     Subs.subscribe('users.one.upperpartups', userId);
     Subs.subscribe('users.one.supporterpartups', userId);
 
@@ -18,19 +22,15 @@ Template.DropdownProfile.onCreated(function() {
 
 Template.DropdownProfile.onRendered(function() {
     var template = this;
-    template.dropdownToggleBool = 'widget-dropdowns-profile.opened';
-    Session.setDefault(template.dropdownToggleBool, false);
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
-
     Router.onBeforeAction(function(req, res, next) {
-        Session.set(template.dropdownToggleBool, false);
+        template.dropdownOpen.set(false);
         next();
     });
 });
 
 Template.DropdownProfile.onDestroyed(function() {
     var template = this;
-    Session.set(template.dropdownToggleBool, false);
     ClientDropdowns.removeOutsideDropdownClickHandler(template);
 });
 
@@ -73,7 +73,7 @@ Template.DropdownProfile.helpers({
     },
 
     menuOpen: function() {
-        return Session.get('widget-dropdowns-profile.opened');
+        return Template.instance().dropdownOpen.get();
     },
 
     upperPartups: function() {

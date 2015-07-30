@@ -1,29 +1,46 @@
-Template.DropdownNotifications.rendered = function(){
-    // this = template
-    this.dropdownToggleBool = 'widget-dropdowns-notifications.opened';
+Template.DropdownNotifications.onCreated(function() {
+    var template = this;
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+        if (a === b) return;
+        if (b) return;
+        Meteor.call('notifications.all_read', function(error, res) {
 
-    // set default boolean values
-    Session.set(this.dropdownToggleBool, false);
+        });
+    });
+});
+Template.DropdownNotifications.onRendered(function() {
+    var template = this;
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
+    Router.onBeforeAction(function(req, res, next) {
+        template.dropdownOpen.set(false);
+        next();
+    });
+});
 
-    ClientDropdowns.addOutsideDropdownClickHandler(this, '[data-clickoutside-close]', '[data-toggle-menu]');
-};
-
-Template.DropdownNotifications.destroyed = function(){
-    // remove click handler on destroy
-    Session.set(this.dropdownToggleBool, false);
-    ClientDropdowns.removeOutsideDropdownClickHandler(this);
-};
+Template.DropdownNotifications.onDestroyed(function() {
+    var template = this;
+    ClientDropdowns.removeOutsideDropdownClickHandler(template);
+});
 
 Template.DropdownNotifications.events({
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
+    'click [data-notification]': function(event, template) {
+        var notificationId = $(event.currentTarget).data('notification');
+        Meteor.call('notifications.clicked', notificationId, function(error, response) {
+
+        });
+    }
 });
 
 Template.DropdownNotifications.helpers({
-    menuOpen: function(){
-        return Session.get('widget-dropdowns-notifications.opened');
+    menuOpen: function() {
+        return Template.instance().dropdownOpen.get();
     },
-    notifications: function () {
+    notifications: function() {
         var parameters = {sort: {created_at: -1}};
-        return Notifications.findForUser(Meteor.user(), parameters);
+        return Notifications.findForUser(Meteor.user(), {}, parameters);
+    },
+    totalNewNotifications: function() {
+        return Notifications.findForUser(Meteor.user(), {'new': true});
     }
 });
