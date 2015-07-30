@@ -13,8 +13,8 @@ Event.on('partups.updates.inserted', function(userId, update) {
             typeData: {
                 creator: {
                     _id: creator._id,
-                    name: creator.name,
-                    image: creator.image
+                    name: creator.profile.name,
+                    image: creator.profile.image
                 },
                 partup: {
                     _id: partup._id,

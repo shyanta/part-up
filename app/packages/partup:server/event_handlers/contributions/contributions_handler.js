@@ -34,8 +34,8 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
             typeData: {
                 creator: {
                     _id: creator._id,
-                    name: creator.name,
-                    image: creator.image
+                    name: creator.profile.name,
+                    image: creator.profile.image
                 },
                 partup: {
                     _id: partup._id,
@@ -58,8 +58,8 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
             typeData: {
                 creator: {
                     _id: creator._id,
-                    name: creator.name,
-                    image: creator.image
+                    name: creator.profile.name,
+                    image: creator.profile.image
                 },
                 partup: {
                     _id: partup._id,

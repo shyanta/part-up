@@ -22,8 +22,8 @@ Event.on('partups.activities.inserted', function(userId, activity) {
         typeData: {
             creator: {
                 _id: creator._id,
-                name: creator.name,
-                image: creator.image
+                name: creator.profile.name,
+                image: creator.profile.image
             },
             partup: {
                 _id: partup._id,

@@ -244,5 +244,4 @@ Migrations.add({
     }
 });
 
-//N.B. this will be set back to 9 once the notifications with partup/tribe slugs are fixed
-Migrations.migrateTo(7);
+Migrations.migrateTo(9);
