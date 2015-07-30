@@ -60,7 +60,7 @@ Accounts.onCreateUser(function(options, user) {
             firstname: liData.firstName,
             lastname: liData.lastName,
             location: location,
-            linkedin_url: 'http://linkedin.com/profile/view?id=' + liData.id,
+            linkedin_url: 'https://linkedin.com/profile/view?id=' + liData.id,
             name: liData.firstName + ' ' + liData.lastName,
             settings: {
                 locale: 'en',
@@ -79,7 +79,7 @@ Accounts.onCreateUser(function(options, user) {
             firstname: fbData.first_name,
             gender: fbData.gender,
             lastname: fbData.last_name,
-            facebook_url: 'http://facebook.com/' + fbData.id,
+            facebook_url: 'https://facebook.com/' + fbData.id,
             name: fbData.name,
             settings: {
                 locale: Partup.helpers.parseLocale(fbData.locale),
