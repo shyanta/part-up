@@ -52,12 +52,8 @@ Meteor.methods({
     'ratings.update': function(ratingId, fields) {
         var upper = Meteor.user();
         var rating = Ratings.findOneOrFail(ratingId);
-        var contribution = Contributions.findOneOrFail(rating.contribution_id);
-        var activity = Activities.findOneOrFail(contribution.activity_id);
 
-        var isUpperInPartup = Partups.findOne({_id: rating.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
-
-        if (!upper || !isUpperInPartup) throw new Meteor.Error(401, 'unauthorized');
+        if (!upper || upper._id !== rating.upper_id) throw new Meteor.Error(401, 'unauthorized');
 
         check(fields, Partup.schemas.forms.rating);
 
