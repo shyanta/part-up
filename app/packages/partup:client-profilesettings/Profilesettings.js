@@ -83,11 +83,7 @@ Template.Profilesettings.onCreated(function() {
 /*************************************************************/
 Template.Profilesettings.helpers({
     formSchema: function() {
-        if (this.REGISTER) {
-            return Partup.schemas.forms.registerOptional;
-        } else {
-            return Partup.schemas.forms.profileSettings;
-        }
+        return Partup.schemas.forms.profileSettings;
     },
     placeholders: function() {
         return placeholders;
@@ -115,11 +111,7 @@ Template.Profilesettings.helpers({
     fieldsFromUser: function() {
         var user = Meteor.user();
         if (user) {
-            if (this.REGISTER) {
-                return Partup.transformers.profile.toFormRegisterOptional(user);
-            } else {
-                return Partup.transformers.profile.toFormProfileSettings(user);
-            }
+            return Partup.transformers.profile.toFormProfileSettings(user);
         }
         return undefined;
     },

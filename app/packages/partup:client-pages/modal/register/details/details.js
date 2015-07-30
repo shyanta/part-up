@@ -20,7 +20,7 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 
-            Meteor.call('users.register', insertDoc, function(error, res) {
+            Meteor.call('users.update', insertDoc, function(error, res) {
                 if (error && error.message) {
                     Partup.client.notify.error(error.reason);
                     AutoForm.validateForm(self.formId);

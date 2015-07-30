@@ -12,6 +12,8 @@
                     <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                 </div>
             </label>
+        {{else}}
+            {{> afFieldInput name='name' placeholder=placeholders.name class="pu-input" type='hidden' }}
         {{/unless}}
 
         <!-- User avatar -->
