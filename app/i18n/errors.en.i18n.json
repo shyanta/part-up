@@ -13,6 +13,10 @@
     // Settings
     "base-errors-settings_could_not_be_updated": "Sorry, we couldn't update your settings. Please try again.",
 
+    // Users
+    "base-errors-user_could_not_be_registered": "Oh bummer, we could create your account. Please try again.",
+    "base-errors-user_could_not_be_updated": "Oh bummer, we could update your account. Please try again.",
+
     // Tags
     "base-errors-tags_could_not_be_autocompleted": "Tags could not be autocompleted.",
 

@@ -27,7 +27,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be updated.');
+            throw new Meteor.Error(400, 'user_could_not_be_registered');
         }
     },
     /**
@@ -58,7 +58,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be updated.');
+            throw new Meteor.Error(400, 'user_could_not_be_updated');
         }
     }
 });
