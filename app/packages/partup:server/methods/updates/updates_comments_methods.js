@@ -13,7 +13,7 @@ Meteor.methods({
 
         var update = Updates.findOneOrFail(updateId);
 
-        if (!!update.system) throw new Meteor.Error(403, 'Cannot insert comments in system updates');
+        if (!!update.system) throw new Meteor.Error(403, 'comment_is_not_allowed_on_a_system_update');
 
         var comment = {
             _id: Random.id(),
@@ -83,7 +83,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'updates-comments-insert-failure');
+            throw new Meteor.Error(400, 'comment_could_not_be_inserted');
         }
     }
 });

@@ -16,6 +16,10 @@
     // Tags
     "base-errors-tags_could_not_be_autocompleted": "Tags could not be autocompleted.",
 
+    // Comments
+    "base-errors-comment_is_not_allowed_on_a_system_update": "You are now allowed to comment on a system update.",
+    "base-errors-comment_could_not_be_inserted": "Oh bummer, we could not add your comment. Please try again.",
+
     // Networks
     "base-errors-network_could_not_be_inserted": "Oh bummer, we could not create your tribe. Please try again.",
     "base-errors-network_could_not_be_updated": "Sorry, we couldn't update your tribe. Please try again.",
