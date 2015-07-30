@@ -68,6 +68,7 @@ Package.onUse(function(api) {
         'helpers/newlineToBreak.js',
         'helpers/onrendered.js',
         'helpers/tagsQuerySearch.js',
+        'helpers/currentUserId.js',
         'bootstrap.js',
 
         'i18n/helpers-dateFormatters.en.i18n.json',
