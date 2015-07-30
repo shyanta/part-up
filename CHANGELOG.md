@@ -1,4 +1,9 @@
 # CHANGELOG
+## 1.5.4
+- bugfixes
+    - fixed data migrations
+    - fixed profile settings saving
+
 ## 1.5.3
 - re-enabled private partups again
 
