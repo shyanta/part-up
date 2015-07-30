@@ -34,7 +34,6 @@ reactive-var
 reywood:publish-composite
 sergeyt:typeahead
 service-configuration
-spiderable
 splendido:accounts-meld
 stevezhu:lodash
 tap:i18n
@@ -92,3 +91,5 @@ partup:client-usercard
 partup:meteor-bender
 meteorhacks:subs-manager
 meteorhacks:unblock
+dfischer:phantomjs
+ongoworks:spiderable

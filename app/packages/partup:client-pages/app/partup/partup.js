@@ -39,8 +39,8 @@ Template.app_partup.onCreated(function() {
         if (partup.image) {
             var image = Images.findOne({_id: partup.image});
             if (image) {
-                var imageUrl = image.url();
-                if (imageUrl) seo.meta.image = imageUrl;
+                var imageUrl = image.url().substr(1);
+                if (imageUrl) seo.meta.image = Meteor.absoluteUrl() + imageUrl;
             }
         }
         SEO.set(seo);
