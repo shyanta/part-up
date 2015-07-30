@@ -63,7 +63,12 @@ Template.app_partup_sidebar.helpers({
         var uppers = this.partup.uppers || [];
         if (!uppers || !uppers.length) return [];
 
-        return Meteor.users.findMultiplePublicProfiles(uppers);
+        var users = Meteor.users.findMultiplePublicProfiles(uppers).fetch();
+        users = lodash.sortBy(users, function(user) {
+            return this.indexOf(user._id);
+        }, uppers);
+
+        return users;
     },
 
     partupSupporters: function() {
