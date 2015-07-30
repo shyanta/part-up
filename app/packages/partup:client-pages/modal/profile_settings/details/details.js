@@ -1,9 +1,13 @@
 Template.modal_profile_settings_details.onCreated(function() {
     this.submitting = new ReactiveVar(false);
 });
-/*************************************************************/
-/* Widget form hooks */
-/*************************************************************/
+
+Template.modal_profile_settings_details.helpers({
+    submitting: function() {
+        return Template.instance().submitting.get();
+    }
+});
+
 AutoForm.hooks({
     pagesModalProfileSettingsForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {

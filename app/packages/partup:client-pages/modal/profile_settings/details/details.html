@@ -9,8 +9,11 @@
     {{/contentFor}}
 
     {{#contentFor 'ProfilesettingsFooter'}}
-         <footer>
-             <button type="submit" class="pu-button">{{_ 'modal-profilesettings-button-save'}}</button>
-         </footer>
+        <footer>
+            <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                <span>{{_ 'modal-profilesettings-button-save'}}</span>
+                {{> Spinner color='inverted' type='small' }}
+            </button>
+        </footer>
     {{/contentFor}}
 </template>
