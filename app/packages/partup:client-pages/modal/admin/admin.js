@@ -13,6 +13,3 @@ Template.modal_admin.helpers({
         return User(user).getEmail();
     }
 });
-
-Template.modal_network_settings.events({
-});
