@@ -218,7 +218,7 @@ User = function(user) {
         getReadableScore: function() {
             if (!user) return undefined;
 
-            var score = user.participation_score;
+            var score = user.participation_score ? user.participation_score : 0;
 
             // For design purposes, we only want to display
             // a max value of 99 and a min value of 10,
