@@ -55,7 +55,7 @@ Meteor.methods({
             return newContribution;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Contribution could not be updated.');
+            throw new Meteor.Error(400, 'contribution_could_not_be_updated');
         }
     },
 
@@ -105,7 +105,7 @@ Meteor.methods({
             });
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'An error occurred while allowing contributions.');
+            throw new Meteor.Error(400, 'contribution_could_not_be_accepted');
         }
     },
 
@@ -131,7 +131,7 @@ Meteor.methods({
             Event.emit('contributions.rejected', upper._id, contribution.activity_id, contribution.upper_id);
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'An error occurred while rejecting contribution.');
+            throw new Meteor.Error(400, 'contribution_could_not_be_rejected');
         }
     },
 
@@ -176,7 +176,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(500, 'Contribution [' + contributionId + '] could not be archived.');
+            throw new Meteor.Error(500, 'contribution_could_not_be_archived');
         }
     }
 });
