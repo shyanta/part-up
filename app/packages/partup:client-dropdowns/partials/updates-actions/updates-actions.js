@@ -1,7 +1,9 @@
 Template.PartialDropdownUpdatesActions.onCreated(function() {
     var template = this;
     template.dropdownToggleBool = 'partial-dropdowns-updates-actions.opened';
-    Session.set(template.dropdownToggleBool, false);
+    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
+
+    });
     template.selectedOption = template.data.reactiveVar || new ReactiveVar('default');
 });
 
@@ -12,7 +14,6 @@ Template.PartialDropdownUpdatesActions.onRendered(function() {
 
 Template.PartialDropdownUpdatesActions.destroyed = function() {
     var tpl = this;
-    Session.set(tpl.dropdownToggleBool, false);
     ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
 };
 
@@ -26,7 +27,7 @@ Template.PartialDropdownUpdatesActions.events({
 
 Template.PartialDropdownUpdatesActions.helpers({
     menuOpen: function() {
-        return Session.get('partial-dropdowns-updates-actions.opened');
+        return Template.instance().dropdownOpen.get();
     },
     selectedAction: function() {
         return __('dropdowns-updatesactions-option-' + Template.instance().selectedOption.get());
