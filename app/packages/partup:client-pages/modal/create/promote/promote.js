@@ -52,6 +52,8 @@ Template.modal_create_promote.helpers({
     },
     partupUrl: function() {
         var partup = Partups.findOne({_id: this.partupId});
+        if (!partup) return;
+
         return Router.url('partup', {slug: partup.slug});
     },
     shared: function() {
