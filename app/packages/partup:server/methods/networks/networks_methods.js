@@ -331,6 +331,10 @@ Meteor.methods({
             throw new Meteor.Error(400, 'user_is_not_a_member_of_network');
         }
 
+        if (!network.isAdmin(user._id)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
         try {
             network.leave(user._id);
 
