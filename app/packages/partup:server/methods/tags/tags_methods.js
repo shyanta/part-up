@@ -8,13 +8,11 @@ Meteor.methods({
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
-        if (!searchString) throw new Meteor.Error(400, 'searchString parameter is required');
-
         try {
             return Tags.find({_id: new RegExp('.*' + searchString + '.*', 'i')}).fetch();
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Error while autocompleting tag string: ' + searchString);
+            throw new Meteor.Error(400, 'tags_could_not_be_autocompleted');
         }
     }
 });

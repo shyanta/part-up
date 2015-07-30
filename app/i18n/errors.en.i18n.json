@@ -13,6 +13,9 @@
     // Settings
     "base-errors-settings_could_not_be_updated": "Sorry, we couldn't update your settings. Please try again.",
 
+    // Tags
+    "base-errors-tags_could_not_be_autocompleted": "Tags could not be autocompleted.",
+
     // Networks
     "base-errors-network_could_not_be_inserted": "Oh bummer, we could not create your tribe. Please try again.",
     "base-errors-network_could_not_be_updated": "Sorry, we couldn't update your tribe. Please try again.",
