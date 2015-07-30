@@ -129,6 +129,19 @@ Partup.prototype.hasEnded = function() {
 };
 
 /**
+ * Make the upper a supporter
+ *
+ * @memberof Partups
+ * @param {String} upperId the user that becomes a supporter
+ */
+Partup.prototype.makeSupporter = function(upperId) {
+    if (!this.hasUpper(upperId)) {
+        Partups.update(this._id, {$addToSet: {'supporters': upperId}});
+        Meteor.users.update(upperId, {$addToSet: {'supporterOf': this._id}});
+    }
+};
+
+/**
  * Promote a user from supporter to partner
  *
  * @memberof Partups
