@@ -48,7 +48,7 @@ Partup.server.services.participation_calculator = {
         contributions.forEach(function(contribution) {
             var partup = Partups.findOne(contribution.partup_id);
 
-            if (!partup.hasEnded()) {
+            if (partup && !partup.hasEnded()) {
                 activeContributionsScore += scoreDelta;
             }
         });
