@@ -19,7 +19,7 @@ Meteor.methods({
             //check(newPartup, Partup.schemas.entities.partup);
 
             newPartup._id = Partups.insert(newPartup);
-            Meteor.users.update(user._id, {$push: {'upperOf': newPartup._id}});
+            Meteor.users.update(user._id, {$addToSet: {'upperOf': newPartup._id}});
 
             // Generate the slug for the Partup
             var slug = Partup.server.services.slugify.slugifyDocument(newPartup, 'name');
@@ -151,7 +151,7 @@ Meteor.methods({
             email: email
         };
 
-        Partups.update(partupId, {$push: {'invites': invite}});
+        Partups.update(partupId, {$addToSet: {'invites': invite}});
 
         Event.emit('partups.invited', user._id, partupId, email, name);
 

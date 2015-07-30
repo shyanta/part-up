@@ -24,7 +24,7 @@ Meteor.methods({
             network.updated_at = new Date();
 
             network._id = Networks.insert(network);
-            Meteor.users.update(user._id, {$push: {networks: network._id}});
+            Meteor.users.update(user._id, {$addToSet: {networks: network._id}});
 
             return {
                 _id: network._id

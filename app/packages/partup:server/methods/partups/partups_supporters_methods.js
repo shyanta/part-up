@@ -15,8 +15,8 @@ Meteor.methods({
             var isAlreadySupporter = !!(supporters.indexOf(upper._id) > -1);
 
             if (!isAlreadySupporter && partup.creator_id !== upper._id) {
-                Partups.update(partupId, {$push: {'supporters': upper._id}});
-                Meteor.users.update(upper._id, {$push: {'supporterOf': partupId}});
+                Partups.update(partupId, {$addToSet: {'supporters': upper._id}});
+                Meteor.users.update(upper._id, {$addToSet: {'supporterOf': partupId}});
 
                 Event.emit('partups.supporters.inserted', partup, upper);
 

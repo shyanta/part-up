@@ -33,8 +33,8 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
         var isAlreadySupporter = !!(supporters.indexOf(user._id) > -1);
 
         if (!isAlreadySupporter && partup.creator_id !== user._id) {
-            Partups.update(partup._id, {$push: {'supporters': user._id}});
-            Meteor.users.update(user._id, {$push: {'supporterOf': partup._id}});
+            Partups.update(partup._id, {$addToSet: {'supporters': user._id}});
+            Meteor.users.update(user._id, {$addToSet: {'supporterOf': partup._id}});
         }
 
         var notificationOptions = {

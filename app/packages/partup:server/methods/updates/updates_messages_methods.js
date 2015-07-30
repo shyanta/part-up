@@ -21,8 +21,8 @@ Meteor.methods({
             var isUpperSupporterInPartup = Partups.findOne({_id: partup._id, supporters: {$in: [upper._id]}}) ? true : false;
 
             if (!isUpperInPartup && !isUpperSupporterInPartup) {
-                Partups.update(partup._id, {$push: {'supporters': upper._id}});
-                Meteor.users.update(upper._id, {$push: {'supporterOf': partup._id}});
+                Partups.update(partup._id, {$addToSet: {'supporters': upper._id}});
+                Meteor.users.update(upper._id, {$addToSet: {'supporterOf': partup._id}});
 
                 Event.emit('partups.supporters.inserted', partup, upper);
             }

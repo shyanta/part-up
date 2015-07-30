@@ -143,8 +143,8 @@ Network.prototype.canUpperLeave = function(upperId) {
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addInvitedUpper = function(upperId) {
-    Networks.update(this._id, {$push: {uppers: upperId}});
-    Meteor.users.update(upperId, {$push: {networks: this._id}});
+    Networks.update(this._id, {$addToSet: {uppers: upperId}});
+    Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
 };
 
 /**
@@ -154,8 +154,8 @@ Network.prototype.addInvitedUpper = function(upperId) {
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addUpper = function(upperId) {
-    Networks.update(this._id, {$push: {uppers: upperId}});
-    Meteor.users.update(upperId, {$push: {networks: this._id}});
+    Networks.update(this._id, {$addToSet: {uppers: upperId}});
+    Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
 };
 
 /**
@@ -170,8 +170,8 @@ Network.prototype.addPendingUpper = function(upperId) {
         return false;
     }
 
-    Networks.update(this._id, {$push: {pending_uppers: upperId}});
-    Meteor.users.update(upperId, {$push: {pending_networks: this._id}});
+    Networks.update(this._id, {$addToSet: {pending_uppers: upperId}});
+    Meteor.users.update(upperId, {$addToSet: {pending_networks: this._id}});
 };
 
 /**
@@ -192,8 +192,8 @@ Network.prototype.isUpperPending = function(upperId) {
  * @param {String} upperId the user id of the user that should be accepted
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
-    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $push: {uppers: upperId}});
-    Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $push: {networks: this._id}});
+    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}});
+    Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $addToSet: {networks: this._id}});
 };
 
 /**
