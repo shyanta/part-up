@@ -73,6 +73,12 @@ Template.app_partup.onRendered(function() {
     });
 });
 
+Template.app_partup_updates.helpers({
+    containerHeightVar: function() {
+        return partupDetailLayout.containerHeight;
+    }
+});
+
 var getScrollTop = function() {
     return window.scrollY;
 };

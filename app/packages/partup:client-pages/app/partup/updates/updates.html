@@ -1,7 +1,7 @@
 <template name="app_partup_updates">
     <div class="pu-composition pu-composition-partupdetailupdates {{#if newUpdatesCount }}pu-composition-partupdetailupdates-newupdatesavailable{{/if}}">
 
-        <div class="pu-sub-timelineline"></div>
+        <div class="pu-sub-timelineline" style="{{# with containerHeightVar.get }}height: {{ . }}px;{{/ with }}"></div>
 
         <!-- new message popup -->
         {{#if partupIsPopupActive 'new-message' }}

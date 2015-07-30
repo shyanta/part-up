@@ -76,15 +76,6 @@ Package.onUse(function(api) {
         'modal/profile_settings/account/account.html',
         'modal/profile_settings/account/account.js',
         'modal/profile_settings/email/email.html',
-        'modal/profile_settings/email/email.js',
-
-        // App:partup
-        'app/partup/partup.html',
-        'app/partup/partup.js',
-        'app/partup/partup-navigation.html',
-        'app/partup/partup-navigation.js',
-        'app/partup/partup-sidebar.html',
-        'app/partup/partup-sidebar.js',
 
         // App:partup:takepart (popup)
         'app/partup/takepart/takepart.html',
@@ -103,6 +94,14 @@ Package.onUse(function(api) {
         'app/partup/activities/activities.js',
         'app/partup/activities/newactivity-restricted/newactivity-restricted.html',
         'app/partup/activities/newactivity-restricted/newactivity-restricted.js',
+
+        // App:partup
+        'app/partup/partup.html',
+        'app/partup/partup.js',
+        'app/partup/partup-navigation.html',
+        'app/partup/partup-navigation.js',
+        'app/partup/partup-sidebar.html',
+        'app/partup/partup-sidebar.js',
 
         // Modal
         'modal/modal.html',
