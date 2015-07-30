@@ -5,6 +5,12 @@
  */
 Contributions = new Meteor.Collection('contributions');
 
+// Add indices
+Contributions._ensureIndex('activity_id');
+Contributions._ensureIndex('upper_id');
+Contributions._ensureIndex('partup_id');
+Contributions._ensureIndex('update_id');
+
 /**
  * Find contributions for an update
  *
