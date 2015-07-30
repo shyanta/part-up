@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.5.3
+- re-enabled private partups again
+
 ## 1.5.2
 - notifications v2
 - pretty partup and tribe urls
