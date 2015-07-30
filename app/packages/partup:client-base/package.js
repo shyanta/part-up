@@ -23,7 +23,7 @@ Package.onUse(function(api) {
         'package-tap.i18n',
 
         'client/base-64-polyfill.js',
-        'client/placeholder-polyfill.js',
+        // 'client/placeholder-polyfill.js',
         'client/requestanimationframe-polyfill.js',
 
         'namespace.js',
