@@ -24,6 +24,9 @@ var privateUserFields = mout.object.merge({
     'pending_networks': 1
 }, publicUserFields);
 
+// Add indices
+Meteor.users._ensureIndex('participation_score');
+
 /**
  * Find a user and expose it's private fields
  *
