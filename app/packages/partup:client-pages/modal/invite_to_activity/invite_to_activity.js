@@ -4,6 +4,8 @@ Template.modal_invite_to_activity.onCreated(function() {
     self.subscription = new ReactiveVar();
     self.suggestionsOptions = new ReactiveVar({});
 
+    self.subscribe('partups.one', self.data.partupId);
+
     // Submit filter form
     self.submitFilterForm = function() {
         Meteor.defer(function() {
@@ -100,8 +102,8 @@ Template.modal_invite_to_activity.helpers({
 Template.modal_invite_to_activity.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
-
-        var partup = Partups.findOne(template.data.partupId);
+        var partupId = template.data.partupId;
+        var partup = Partups.findOne({_id: partupId});
 
         Intent.return('partup-activity-invite', {
             fallback_route: {
