@@ -41,7 +41,7 @@ Meteor.methods({
             return newRating;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Contribution could not be updated.');
+            throw new Meteor.Error(400, 'rating_could_not_be_inserted');
         }
     },
 
@@ -80,7 +80,7 @@ Meteor.methods({
             return newRating;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Contribution could not be updated.');
+            throw new Meteor.Error(400, 'rating_could_not_be_updated');
         }
     }
 });
