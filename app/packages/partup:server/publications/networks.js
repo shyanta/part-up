@@ -24,7 +24,7 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
 
     return {
         find: function() {
-            return Networks.guardedMetaFind({_id: networkSlug}, {limit: 1});
+            return Networks.guardedMetaFind({slug: networkSlug}, {limit: 1});
         },
         children: [
             {find: Images.findForNetwork},
