@@ -10,6 +10,9 @@
     "base-errors-user_could_not_be_marked_as_a_supporter": "Oh bummer, we could not make you supporter. Please try again.",
     "base-errors-user_could_not_be_unmarked_as_a_supporter": "Oh bummer, we could not remove you as a supporter. Please try again.",
 
+    // Settings
+    "base-errors-settings_could_not_be_updated": "Sorry, we couldn't update your settings. Please try again.",
+
     // Networks
     "base-errors-network_could_not_be_inserted": "Oh bummer, we could not create your tribe. Please try again.",
     "base-errors-network_could_not_be_updated": "Sorry, we couldn't update your tribe. Please try again.",

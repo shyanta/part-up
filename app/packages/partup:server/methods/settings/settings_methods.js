@@ -21,7 +21,7 @@ Meteor.methods({
             return {_id: upper._id};
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be updated.');
+            throw new Meteor.Error(400, 'settings_could_not_be_updated');
         }
     }
 });
