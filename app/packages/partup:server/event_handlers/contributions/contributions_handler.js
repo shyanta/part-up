@@ -25,17 +25,9 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
     var creator = Meteor.users.findOneOrFail(contribution.upper_id);
 
     // Make the user a supporter
-    var upperPartups = user.upperOf || [];
-    var isUpperInPartup = upperPartups.indexOf(activity.partup_id) > -1;
-    if (!isUpperInPartup) {
-        var partup = Partups.findOneOrFail(activity.partup_id);
-        var supporters = partup.supporters || [];
-        var isAlreadySupporter = !!(supporters.indexOf(user._id) > -1);
-
-        if (!isAlreadySupporter && partup.creator_id !== user._id) {
-            Partups.update(partup._id, {$addToSet: {'supporters': user._id}});
-            Meteor.users.update(user._id, {$addToSet: {'supporterOf': partup._id}});
-        }
+    var partup = Partups.findOneOrFail(activity.partup_id);
+    if (!partup.hasUpper(user._id)) {
+        partup.makeSupporter(user._id);
 
         var notificationOptions = {
             type: 'partups_contributions_proposed',
