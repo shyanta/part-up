@@ -40,7 +40,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
                 },
                 partup: {
                     _id: partup._id,
-                    name: partup.name
+                    name: partup.name,
+                    slug: partup.slug
                 }
             }
         };

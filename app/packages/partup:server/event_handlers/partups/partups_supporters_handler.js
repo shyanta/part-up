@@ -44,7 +44,8 @@ Event.on('partups.supporters.inserted', function(partup, upper) {
             },
             partup: {
                 _id: partup._id,
-                name: partup.name
+                name: partup.name,
+                slug: partup.slug
             }
         }
     };

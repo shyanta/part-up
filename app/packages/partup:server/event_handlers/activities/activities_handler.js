@@ -27,7 +27,8 @@ Event.on('partups.activities.inserted', function(userId, activity) {
             },
             partup: {
                 _id: partup._id,
-                name: partup.name
+                name: partup.name,
+                slug: partup.slug
             }
         }
     };

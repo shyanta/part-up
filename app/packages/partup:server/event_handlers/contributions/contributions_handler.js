@@ -47,7 +47,8 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
                 },
                 partup: {
                     _id: partup._id,
-                    name: partup.name
+                    name: partup.name,
+                    slug: partup.slug
                 }
             }
         };
@@ -70,7 +71,8 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
                 },
                 partup: {
                     _id: partup._id,
-                    name: partup.name
+                    name: partup.name,
+                    slug: partup.slug
                 }
             }
         };
@@ -174,7 +176,8 @@ Event.on('contributions.accepted', function(userId, activityId, upperId) {
             },
             partup: {
                 _id: partup._id,
-                name: partup.name
+                name: partup.name,
+                slug: partup.slug
             }
         }
     };
@@ -206,7 +209,7 @@ Event.on('contributions.rejected', function(userId, activityId, upperId) {
             partup: {
                 _id: partup._id,
                 name: partup.name,
-                image: partup.image
+                slug: partup.slug
             }
         }
     };

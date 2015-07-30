@@ -160,7 +160,8 @@ Meteor.methods({
                 network: {
                     _id: networkId,
                     name: network.name,
-                    image: network.image
+                    image: network.image,
+                    slug: network.slug
                 }
             }
         };

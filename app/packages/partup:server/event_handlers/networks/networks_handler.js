@@ -5,17 +5,17 @@ Event.on('networks.accepted', function(userId, networkId, upperId) {
     var network = Networks.findOneOrFail(networkId);
 
     var notificationOptions = {
+        userId: upperId,
         type: 'partups_networks_accepted',
         typeData: {
             network: {
                 _id: network._id,
                 name: network.name,
-                image: network.image
+                image: network.image,
+                slug: network.slug
             }
         }
     };
-
-    notificationOptions.userId = upperId;
 
     Partup.server.services.notifications.send(notificationOptions);
 });

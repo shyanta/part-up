@@ -18,7 +18,8 @@ Event.on('partups.updates.inserted', function(userId, update) {
                 },
                 partup: {
                     _id: partup._id,
-                    name: partup.name
+                    name: partup.name,
+                    slug: partup.slug
                 }
             }
         };

@@ -37,7 +37,8 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
             },
             partup: {
                 _id: partup._id,
-                name: partup.name
+                name: partup.name,
+                slug: partup.slug
             }
         }
     };
