@@ -2,6 +2,7 @@
     "network-settings-requests-upper_name": "Upper name",
     "network-settings-requests-invited_by": "Invited by",
     "network-settings-requests-access": "Access",
+    "network-settings-requests-empty": "No requests pending",
 
     "network-settings-requests-accepted": "User's request has been accepted.",
     "network-settings-requests-rejected": "User's request has been rejected."
