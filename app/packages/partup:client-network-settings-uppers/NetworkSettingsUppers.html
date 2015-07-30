@@ -7,13 +7,15 @@
         <h3>{{_ 'network-settings-uppers-listheading' }}</h3>
         <ul class="pu-network-uppers">
             {{# each network.uppers }}
-                <li>
-                    {{# with upper }}
-                        <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');"></figure>
-                        <p class="pu-sub-name">{{ profile.name }}</p>
-                        <button type="button" class="pu-sub-remove" data-upper-remove="{{ _id }}"><i class="fa fa-times"></i></button>
-                    {{/ with }}
-                </li>
+                {{# with upper }}
+                    {{#unless partupEquals _id currentUser._id}}
+                        <li>
+                                <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');" data-usercard="{{_id}}"></figure>
+                                <p class="pu-sub-name"  data-usercard="{{_id}}">{{ profile.name }}</p>
+                                <button type="button" class="pu-sub-remove" data-upper-remove="{{ _id }}"><i class="fa fa-times"></i></button>
+                        </li>
+                    {{/unless}}
+                {{/ with }}
             {{/ each }}
         </ul>
         {{ else }}
