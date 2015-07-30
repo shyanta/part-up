@@ -59,19 +59,9 @@ Meteor.methods({
             });
 
             // Make user Supporter if its not yet an Upper or Supporter of the Partup
-            var isUpperInPartup = !!Partups.findOne({
-                _id: update.partup_id,
-                uppers: {$in: [upper._id]}
-            });
-            var isUpperSupporterInPartup = !!Partups.findOne({
-                _id: update.partup_id,
-                supporters: {$in: [upper._id]}
-            });
-
             var partup = Partups.findOneOrFail(update.partup_id);
-            if (!isUpperInPartup && !isUpperSupporterInPartup) {
-                Partups.update(partup._id, {$addToSet: {'supporters': upper._id}});
-                Meteor.users.update(upper._id, {$addToSet: {'supporterOf': partup._id}});
+            if (!partup.hasUpper(upper._id) && !partup.hasSupporter(upper._id)) {
+                partup.makeSupporter(upper._id);
 
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
