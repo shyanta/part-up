@@ -7,7 +7,12 @@ var Subs = new SubsManager({
 
 Template.DropdownProfile.onCreated(function() {
     var template = this;
-    template.windowHeight = $(window).height();
+    template.windowHeight = new ReactiveVar($(window).height());
+    template.resizeHandler = function(e) {
+        var windowHeight = $(window).height();
+        template.windowHeight.set(windowHeight);
+    };
+    $(window).on('resize', template.resizeHandler);
     template.currentNetwork = new ReactiveVar();
     template.disableUp = new ReactiveVar(true);
     template.disableDown = new ReactiveVar(false);
@@ -36,6 +41,7 @@ Template.DropdownProfile.onRendered(function() {
 
 Template.DropdownProfile.onDestroyed(function() {
     var template = this;
+    $(window).off('resize', template.resizeHandler);
     ClientDropdowns.removeOutsideDropdownClickHandler(template);
 });
 
@@ -118,7 +124,8 @@ Template.DropdownProfile.helpers({
 
     maxTabs: function() {
         var number = 8;
-        if (Template.instance().windowHeight < 610) {
+        var windowHeight = Template.instance().windowHeight.get();
+        if (windowHeight < 610) {
             number = 5;
         }
         return number;
