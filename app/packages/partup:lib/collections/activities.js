@@ -37,6 +37,11 @@ Activities = new Mongo.Collection('activities', {
     }
 });
 
+// Add indices
+Activities._ensureIndex('creator_id');
+Activities._ensureIndex('partup_id');
+Activities._ensureIndex('update_id');
+
 /**
  * Find activity for an update
  *
