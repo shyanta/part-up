@@ -1,6 +1,32 @@
 {
-    "base-errors-user_is_already_invited_to_activity": "Deze upper is al uitgenodigd voor deze activiteit",
-    "base-errors-email_is_already_invited_to_activity": "Dit email-adres is al gebruikt om een uitndoging te sturen voor deze activiteit",
+    // Partups
+    "base-errors-partup_could_not_be_inserted": "Balen, het is ons niet gelukt je partup te maken. Probeer het nog een keer.",
+    "base-errors-partup_could_not_be_updated": "Balen, het is ons niet gelukt je partup te updaten. Probeer het nog een keer.",
+    "base-errors-partup_could_not_be_removed": "Balen, het is ons niet gelukt je partup te verwijderen. Probeer het nog een keer.",
+    "base-errors-email_is_already_invited_to_partup": "Dit email adres is al uitgenodigd voor deze part-up.",
+    "base-errors-partups_could_not_be_autocompleted": "Part-ups could not be autocompleted.",
+
+    // Supporters
+    "base-errors-user_could_not_be_marked_as_a_supporter": "Oh bummer, we could not make you supporter. Please try again.",
+    "base-errors-user_could_not_be_unmarked_as_a_supporter": "Oh bummer, we could not remove you as a supporter. Please try again.",
+
+    // Settings
+    "base-errors-settings_could_not_be_updated": "Sorry, we couldn't update your settings. Please try again.",
+
+    // Users
+    "base-errors-user_could_not_be_registered": "Oh bummer, we could create your account. Please try again.",
+    "base-errors-user_could_not_be_updated": "Oh bummer, we could update your account. Please try again.",
+
+    // Tags
+    "base-errors-tags_could_not_be_autocompleted": "Tags could not be autocompleted.",
+
+    // Updates - Comments
+    "base-errors-comment_is_not_allowed_on_a_system_update": "You are now allowed to comment on a system update.",
+    "base-errors-comment_could_not_be_inserted": "Oh bummer, we could not add your comment. Please try again.",
+
+    // Updates - Messages
+    "base-errors-message_could_not_be_inserted": "Oh bummer, we could not add your message. Please try again.",
+    "base-errors-message_could_not_be_updated": "Oh bummer, we could not edit your message. Please try again.",
 
     // Networks
     "base-errors-network_could_not_be_inserted": "Balen, het is ons niet gelukt je tribe te maken. Probeer het nog een keer.",
@@ -13,5 +39,25 @@
     "base-errors-user_could_not_be_removed_from_network": "Het is niet gelukt het lidmaatschap van de tribe voor deze upper te beëindigen.",
     "base-errors-user_could_not_be_accepted_from_network": "Het is niet gelukt deze upper lid te maken van de tribe.",
     "base-errors-user_could_not_be_rejected_from_network": "Het is niet gelukt deze upper het lidmaatschap te weigeren.",
-    "base-errors-networks_could_not_be_autocompleted": "Het is niet mogelijk om tribes te autocompleten"
+    "base-errors-networks_could_not_be_autocompleted": "Het is niet mogelijk om tribes te autocompleten",
+
+    // Activities
+    "base-errors-activity_could_not_be_inserted": "Oh bummer, we could not create your activity. Please try again.",
+    "base-errors-activity_could_not_be_updated": "Sorry, we couldn't update your activity. Please try again.",
+    "base-errors-activity_could_not_be_removed": "Sorry, we couldn't remove the activity.",
+    "base-errors-activity_could_not_be_archived": "Sorry, we couldn't archive the activity.",
+    "base-errors-activity_could_not_be_unarchived": "Sorry, we couldn't unarchive the activity.",
+    "base-errors-activities_could_not_be_copied_from_partup": "Sorry, we couldn't copy the activities from the part-up.",
+    "base-errors-user_is_already_invited_to_activity": "Deze upper is al uitgenodigd voor deze activiteit",
+    "base-errors-email_is_already_invited_to_activity": "Dit email-adres is al gebruikt om een uitndoging te sturen voor deze activiteit",
+
+    // Contributions
+    "base-errors-contribution_could_not_be_updated": "Sorry, we couldn't update your contribution. Please try again.",
+    "base-errors-contribution_could_not_be_accepted": "Sorry, something went wrong while accepting the contribution.",
+    "base-errors-contribution_could_not_be_rejected": "Sorry, something went wrong while rejecting the contribution.",
+    "base-errors-contribution_could_not_be_archived": "Sorry, we couldn't archive the contribution.",
+
+    // Ratings
+    "base-errors-rating_could_not_be_inserted": "Oh bummer, we could not create your rating. Please try again.",
+    "base-errors-rating_could_not_be_updated": "Oh bummer, we could not update your rating. Please try again."
 }
