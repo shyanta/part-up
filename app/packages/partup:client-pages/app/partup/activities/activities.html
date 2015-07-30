@@ -11,7 +11,7 @@
                 {{# if isUpper }}
                     {{> Activity CREATE=true POPUP=true partupId=partupId }}
                 {{ else }}
-                    {{> app_partup_activities_newactivity_restricted }}
+                    {{> app_partup_activities_newactivity_restricted partupId=partupId }}
                 {{/ if }}
             {{/contentFor}}
         {{/if}}
