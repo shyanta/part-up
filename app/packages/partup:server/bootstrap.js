@@ -22,12 +22,6 @@ ServiceConfiguration.configurations.upsert({
     }
 });
 
-// Add indices
-Partups._ensureIndex({
-    'name': 'text',
-    'description': 'text'
-});
-
 Router.route('/ping', function() {
     this.response.end();
 }, {where: 'server'});
