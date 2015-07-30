@@ -26,7 +26,7 @@ Meteor.methods({
             return false;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'user_could_not_be_made_supporter');
+            throw new Meteor.Error(400, 'user_could_not_be_marked_as_a_supporter');
         }
     },
 
@@ -57,7 +57,7 @@ Meteor.methods({
             return false;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Upper [' + upper._id + '] could not be remove as a supporter from Partup [' + partupId + '].');
+            throw new Meteor.Error(400, 'user_could_not_be_unmarked_as_a_supporter');
         }
     }
 });

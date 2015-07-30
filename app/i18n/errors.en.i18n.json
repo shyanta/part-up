@@ -6,6 +6,10 @@
     "base-errors-email_is_already_invited_to_partup": "This e-mail is already invited to this part-up.",
     "base-errors-partups_could_not_be_autocompleted": "Part-ups could not be autocompleted.",
 
+    // Supporters
+    "base-errors-user_could_not_be_marked_as_a_supporter": "Oh bummer, we could not make you supporter. Please try again.",
+    "base-errors-user_could_not_be_unmarked_as_a_supporter": "Oh bummer, we could not remove you as a supporter. Please try again.",
+
     // Networks
     "base-errors-network_could_not_be_inserted": "Oh bummer, we could not create your tribe. Please try again.",
     "base-errors-network_could_not_be_updated": "Sorry, we couldn't update your tribe. Please try again.",
