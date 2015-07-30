@@ -19,7 +19,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:08:02.831Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 2 */
@@ -43,7 +44,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:09:44.629Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 3 */
@@ -63,7 +65,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:09:50.912Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 4 */
@@ -83,7 +86,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:11:51.761Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 5 */
@@ -103,7 +107,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:11:51.763Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 6 */
@@ -124,7 +129,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:00:30.168Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 7 */
@@ -145,7 +151,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:11:08.083Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 8 */
@@ -166,7 +173,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:12:46.323Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 9 */
@@ -182,7 +190,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:23:58.070Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 10 */
@@ -203,7 +212,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:31:48.389Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
 
             /* 11 */
@@ -218,7 +228,8 @@ Meteor.startup(function() {
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:08:02.831Z'),
-                'new' : true
+                'new' : true,
+                'clicked': false
             });
         }
     }
