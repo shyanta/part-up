@@ -9,7 +9,7 @@
                 {{/contentFor}}
 
                 {{# if isUpper }}
-                    {{> Activity CREATE=true POPUP=true partupId=partupId }}
+                    {{> Activity CREATE=true POPUP=true partupId=. }}
                 {{ else }}
                     {{> app_partup_activities_newactivity_restricted }}
                 {{/ if }}

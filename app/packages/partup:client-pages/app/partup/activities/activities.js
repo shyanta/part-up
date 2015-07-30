@@ -6,6 +6,8 @@ var Subs = new SubsManager({
 Template.app_partup_activities.onCreated(function() {
     var tpl = this;
 
+    tpl.partupId = tpl.data.toString();
+
     tpl.activities = {
 
         // States
@@ -20,7 +22,7 @@ Template.app_partup_activities.onCreated(function() {
 
             var filter = tpl.activities.filter.get();
 
-            var partup = Partups.findOne(tpl.data.partupId);
+            var partup = Partups.findOne(tpl.partupId);
 
             var activities = Activities
                 .findForPartup(partup, {sort: {end_date: -1}}, {archived: !!options.archived})
@@ -41,10 +43,10 @@ Template.app_partup_activities.onCreated(function() {
 
     // Partup findOne and activities subscription
     tpl.activities.loading.set(true);
-    var sub = Subs.subscribe('activities.from_partup', tpl.data.partupId);
+    var sub = Subs.subscribe('activities.from_partup', tpl.partupId);
 
     tpl.autorun(function(c) {
-        var partup = Partups.findOne(tpl.data.partupId);
+        var partup = Partups.findOne(tpl.partupId);
 
         if (partup && sub.ready()) {
             c.stop();

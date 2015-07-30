@@ -9,6 +9,8 @@ var Subs = new SubsManager({
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
 
+    tpl.partupId = tpl.data.toString();
+
     // Updates model
     tpl.updates = {
 
@@ -65,7 +67,7 @@ Template.app_partup_updates.onCreated(function() {
 
             tpl.updates.loading.set(true);
 
-            var sub = Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
+            var sub = Subs.subscribe('updates.from_partup', tpl.partupId, options, function() {
                 tpl.updates.updateModel();
                 tpl.updates.updateView();
             });
@@ -94,7 +96,7 @@ Template.app_partup_updates.onCreated(function() {
             options.limit = b;
 
             tpl.updates.infinite_scroll_loading.set(true);
-            var sub = Subs.subscribe('updates.from_partup', tpl.data.partupId, options, function() {
+            var sub = Subs.subscribe('updates.from_partup', tpl.partupId, options, function() {
                 var modelUpdates = tpl.updates.updateModel();
                 var viewUpdates = tpl.updates.view.get();
 
@@ -132,7 +134,7 @@ Template.app_partup_updates.onCreated(function() {
     Partup.client.events.on('partup:updates:message_added', tpl.updates.updateView);
 
     tpl.autorun(function(c) {
-        var partup = Partups.findOne(tpl.data.partupId);
+        var partup = Partups.findOne(tpl.partupId);
 
         if (partup) {
             c.stop();
