@@ -14,10 +14,10 @@ Accounts.onLogin(function(data) {
 
     var userAlreadyLoggedInToday = daysLoggedInFormatted.indexOf(todayFormatted) > -1;
 
-    if (! userAlreadyLoggedInToday) {
+    if (!userAlreadyLoggedInToday) {
         // We are using the extended $push syntax, $slice with a negative
         // number means we save the latest x amount of items.
-        Meteor.users.update({ _id: user._id }, {$push: {logins: {$each: [now], $slice: -25}}});
+        Meteor.users.update({_id: user._id}, {$push: {logins: {$each: [now], $slice: -25}}});
         d('User [' + user._id + '] first login today, saving');
     } else {
         d('User [' + user._id + '] already logged in earlier today, not saving');
