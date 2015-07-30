@@ -15,6 +15,18 @@ Meteor.methods({
     },
 
     /**
+     * Mark all notifications as read
+     */
+    'notifications.all_read': function() {
+        this.unblock();
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        Notifications.update({'for_upper_id': user._id}, {'$set': {'new': false}}, {'multi':true});
+    },
+
+    /**
      * Mark a notification as clicked
      *
      * @param {String} notificationId
