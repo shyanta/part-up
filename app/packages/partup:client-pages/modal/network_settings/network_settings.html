@@ -18,9 +18,11 @@
                         <li class="{{# if isActiveRoute name='network-settings-uppers' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'network-settings-uppers' slug=network.slug }}">{{_ 'pages-modal-network_settings-uppers' }}</a>
                         </li>
-                        <li class="{{# if isActiveRoute name='network-settings-requests' }}pu-state-active{{/ if }}">
-                            <a href="{{ pathFor 'network-settings-requests' slug=network.slug }}">{{_ 'pages-modal-network_settings-requests' }}</a>
-                        </li>
+                        {{# if network.isClosed }}
+                            <li class="{{# if isActiveRoute name='network-settings-requests' }}pu-state-active{{/ if }}">
+                                <a href="{{ pathFor 'network-settings-requests' slug=network.slug }}">{{_ 'pages-modal-network_settings-requests' }}</a>
+                            </li>
+                        {{/ if }}
                     </ul>
                 </div>
             </div>
