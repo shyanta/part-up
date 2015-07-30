@@ -5,7 +5,6 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'users.register': function(fields) {
-
         check(fields, Partup.schemas.forms.registerOptional);
 
         var upper = Meteor.user();
