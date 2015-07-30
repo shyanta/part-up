@@ -110,10 +110,6 @@ var profileBaseSchema = new SimpleSchema({
     }
 });
 
-Partup.schemas.forms.registerOptional = new SimpleSchema([profileBaseSchema, {
-    // no fields differ from base schema
-}]);
-
 /**
  * Register Form Optional
  * @name profileSettings
@@ -122,5 +118,5 @@ Partup.schemas.forms.registerOptional = new SimpleSchema([profileBaseSchema, {
 Partup.schemas.forms.profileSettings = new SimpleSchema([profileBaseSchema, {
     name: {
         type: String
-    },
+    }
 }]);
