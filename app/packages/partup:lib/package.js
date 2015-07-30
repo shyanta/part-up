@@ -31,6 +31,7 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
+        'globals.js',
         'services/location.js',
         'services/placeholder.js',
         'services/tags.js',
@@ -93,4 +94,8 @@ Package.onUse(function(api) {
     api.export('Tags');
     api.export('Updates');
     api.export('User');
+
+    // Globals
+    api.export('get');
+    api.export('set');
 });
