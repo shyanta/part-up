@@ -41,29 +41,31 @@ Template.app_partup_sidebar.helpers({
     },
 
     numberOfSupporters: function() {
-        var partup = this.partup;
+        var partup = Partups.findOne(this.partupId);
         if (!partup) return '...';
         return partup.supporters ? partup.supporters.length : '0';
     },
 
     isSupporter: function() {
+        var partup = Partups.findOne(this.partupId);
         var user = Meteor.user();
-        if (!this.partup || !this.partup.supporters || !user) return false;
-        return this.partup.supporters.indexOf(Meteor.user()._id) > -1;
+        if (!partup || !partup.supporters || !user) return false;
+        return partup.supporters.indexOf(Meteor.user()._id) > -1;
     },
 
     isUpperInPartup: function() {
         var user = Meteor.user();
         if (!user) return false;
-        var partup = this.partup;
+        var partup = Partups.findOne(this.partupId);
         if (!partup) return false;
         return partup.hasUpper(user._id);
     },
 
     partupUppers: function() {
-        if (!this.partup) return;
+        var partup = Partups.findOne(this.partupId);
+        if (!partup) return;
 
-        var uppers = this.partup.uppers || [];
+        var uppers = partup.uppers || [];
         if (!uppers || !uppers.length) return [];
 
         var users = Meteor.users.findMultiplePublicProfiles(uppers).fetch();
@@ -75,39 +77,42 @@ Template.app_partup_sidebar.helpers({
     },
 
     partupSupporters: function() {
-        if (!this.partup) return;
+        var partup = Partups.findOne(this.partupId);
+        if (!partup) return;
 
-        var supporters = this.partup.supporters;
+        var supporters = partup.supporters;
         if (!supporters || !supporters.length) return [];
 
         return Meteor.users.findMultiplePublicProfiles(supporters);
     },
     showTakePartButton: function(argument) {
         var user = Meteor.user();
-        return !user || !this.partup || !this.partup.hasUpper(user._id);
+        var partup = Partups.findOne(this.partupId);
+        return !user || !partup || !partup.hasUpper(user._id);
     },
     statusText: function() {
-        if (!this.partup) return '';
+        var partup = Partups.findOne(this.partupId);
+        if (!partup) return '';
 
         var city = mout.object.get(this, 'partup.location.city') || mout.object.get(this, 'partup.location.country');
 
         var status = [];
-        if (this.partup.budget_type) {
+        if (partup.budget_type) {
             status.push(__('pages-app-partup-status_text-with-budget', {
-                date: moment(this.partup.end_date).format('LL'),
+                date: moment(partup.end_date).format('LL'),
                 city: city,
-                budget: prettyBudget(this.partup)
+                budget: prettyBudget(partup)
             }));
         } else {
             status.push(__('pages-app-partup-status_text-without-budget', {
-                date: moment(this.partup.end_date).format('LL'),
+                date: moment(partup.end_date).format('LL'),
                 city: city
             }));
         }
 
         var networkText = '';
-        if (this.partup.network_id) {
-            var network = Networks.findOne({_id: this.partup.network_id});
+        if (partup.network_id) {
+            var network = Networks.findOne({_id: partup.network_id});
             if (network) {
                 networkText = network.name;
             }
@@ -115,7 +120,7 @@ Template.app_partup_sidebar.helpers({
             var networkPath = Router.path('network-detail', {slug: network.slug});
         }
 
-        switch (this.partup.privacy_type) {
+        switch (partup.privacy_type) {
             case Partups.PUBLIC:
                 status.push(__('pages-app-partup-status_text-public'));
                 break;
