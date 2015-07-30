@@ -7,6 +7,7 @@ var Subs = new SubsManager({
 
 Template.DropdownProfile.onCreated(function() {
     var template = this;
+    template.windowHeight = $(window).height();
     template.currentNetwork = new ReactiveVar();
     template.disableUp = new ReactiveVar(true);
     template.disableDown = new ReactiveVar(false);
@@ -113,6 +114,14 @@ Template.DropdownProfile.helpers({
         if (!user) return [];
 
         return Networks.findForUser(user);
+    },
+
+    maxTabs: function() {
+        var number = 8;
+        if (Template.instance().windowHeight < 610) {
+            number = 5;
+        }
+        return number;
     },
 
     selectedNetwork: function() {
