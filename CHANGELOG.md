@@ -1,4 +1,14 @@
 # CHANGELOG
+## 1.5.5
+- admin panel
+- copy updates
+- bugfixes
+    - activity create
+    - facebook/twitter share images
+    - notification links
+    - protection for admins leaving networks
+    - sidebar reference to tribes
+
 ## 1.5.4
 - bugfixes
     - fixed data migrations
