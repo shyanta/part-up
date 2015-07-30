@@ -80,8 +80,8 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
                 partupId: partup._id,
                 userId: Meteor.user()._id,
             });
-            Session.set('partials.create-partup.current-partup', partup._id);
             callback(partup);
+            Session.set('partials.create-partup.current-partup', partup._id);
         });
 
     }
