@@ -8,10 +8,12 @@
 Invites = new Mongo.Collection('invites');
 
 // Add indices
-Invites._ensureIndex('type');
-Invites._ensureIndex('network_id');
-Invites._ensureIndex('inviter_id');
-Invites._ensureIndex('invitee_id');
+if (Meteor.isServer) {
+    Invites._ensureIndex('type');
+    Invites._ensureIndex('network_id');
+    Invites._ensureIndex('inviter_id');
+    Invites._ensureIndex('invitee_id');
+}
 
 /**
  * Find invites for a user

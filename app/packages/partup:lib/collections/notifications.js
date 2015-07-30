@@ -5,10 +5,12 @@
 Notifications = new Mongo.Collection('notifications');
 
 // Add indices
-Notifications._ensureIndex('type');
-Notifications._ensureIndex('for_upper_id');
-Notifications._ensureIndex('new');
-Notifications._ensureIndex('clicked');
+if (Meteor.isServer) {
+    Notifications._ensureIndex('type');
+    Notifications._ensureIndex('for_upper_id');
+    Notifications._ensureIndex('new');
+    Notifications._ensureIndex('clicked');
+}
 
 /**
  * Find the notifications for a user

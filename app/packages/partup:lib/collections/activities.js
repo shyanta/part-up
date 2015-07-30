@@ -38,9 +38,11 @@ Activities = new Mongo.Collection('activities', {
 });
 
 // Add indices
-Activities._ensureIndex('creator_id');
-Activities._ensureIndex('partup_id');
-Activities._ensureIndex('update_id');
+if (Meteor.isServer) {
+    Activities._ensureIndex('creator_id');
+    Activities._ensureIndex('partup_id');
+    Activities._ensureIndex('update_id');
+}
 
 /**
  * Find activity for an update

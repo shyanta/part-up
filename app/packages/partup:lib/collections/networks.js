@@ -239,9 +239,11 @@ Networks = new Mongo.Collection('networks', {
 });
 
 // Add indices
-Networks._ensureIndex('slug');
-Networks._ensureIndex('admin_id');
-Networks._ensureIndex('privacy_type');
+if (Meteor.isServer) {
+    Networks._ensureIndex('slug');
+    Networks._ensureIndex('admin_id');
+    Networks._ensureIndex('privacy_type');
+}
 
 /**
  * @memberof Networks
