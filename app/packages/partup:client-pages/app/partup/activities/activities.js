@@ -69,7 +69,8 @@ Template.app_partup_activities.helpers({
         var user = Meteor.user();
         if (!user) return false;
 
-        var partup = Partups.findOne(templateData.partupId);
+        var partupId = templateData.partupId || templateData.partup_id;
+        var partup = Partups.findOne(partupId);
         if (!partup) return false;
 
         return partup.uppers.indexOf(user._id) > -1;
