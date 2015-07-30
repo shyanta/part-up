@@ -1,22 +1,26 @@
+/*
 var Subs = new SubsManager({
     cacheLimit: 1,
     expireIn: 10
 });
+*/
 
 Template.DropdownProfile.onCreated(function() {
     var template = this;
-    var userId = Meteor.userId;
+    template.currentNetwork = new ReactiveVar();
+    template.disableUp = new ReactiveVar(true);
+    template.disableDown = new ReactiveVar(false);
 
     template.dropdownOpen = new ReactiveVar(false, function(a, b) {
 
     });
 
-    Subs.subscribe('users.one.upperpartups', userId);
-    Subs.subscribe('users.one.supporterpartups', userId);
+    var user = Meteor.user();
 
-    template.currentNetwork = new ReactiveVar();
-    template.disableUp = new ReactiveVar(true);
-    template.disableDown = new ReactiveVar(false);
+    if (user) {
+        this.subscribe('users.one.upperpartups', user._id);
+        this.subscribe('users.one.supporterpartups', user._id);
+    }
 
 });
 
