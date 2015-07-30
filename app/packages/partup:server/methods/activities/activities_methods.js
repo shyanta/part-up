@@ -29,7 +29,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Activity could not be inserted.');
+            throw new Meteor.Error(400, 'activity_could_not_be_inserted');
         }
     },
 
@@ -63,7 +63,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(500, 'Activity could not be updated.');
+            throw new Meteor.Error(500, 'activity_could_not_be_updated');
         }
     },
 
@@ -99,7 +99,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be removed.');
+            throw new Meteor.Error(500, 'activity_could_not_be_removed');
         }
     },
 
@@ -130,7 +130,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be unarchived.');
+            throw new Meteor.Error(500, 'activity_could_not_be_unarchived');
         }
     },
 
@@ -161,7 +161,7 @@ Meteor.methods({
             };
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(500, 'Activity [' + activityId + '] could not be archived.');
+            throw new Meteor.Error(500, 'activity_could_not_be_archived');
         }
     },
 
@@ -201,7 +201,7 @@ Meteor.methods({
             return true;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(500, 'Activities from Partup [' + fromPartupId + '] could not be copied.');
+            throw new Meteor.Error(500, 'activities_could_not_be_copied_from_partup');
         }
     },
 
