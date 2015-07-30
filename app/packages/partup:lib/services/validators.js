@@ -29,6 +29,6 @@ Partup.services.validators = {
 
     facebookUrl: /^https:\/\/(www\.)?facebook\.com\/\w+(\?.*)?$/,
     instagramUrl: /^https:\/\/(www\.)?instagram\.com\/[a-zA-Z]+\/?(\?.*)?$/,
-    linkedinUrl: /^https:\/\/(\w+\.)?linkedin\.com\/(in\/\w+|pub\/.*$)(\?.*)?$/,
+    linkedinUrl: /^http[s]?:\/\/(\w+\.)?linkedin\.com\/(in\/\w+|pub\/.*|profile\/view)(\?.*)?$/,
     twitterUrl: /^https:\/\/(www\.)?twitter\.com\/\w+(\?.*)?$/
 };

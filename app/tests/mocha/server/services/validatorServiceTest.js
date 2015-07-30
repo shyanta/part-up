@@ -59,6 +59,8 @@ if (!(typeof MochaWeb === 'undefined')) {
                     chai.assert.isTrue(linkedinUrl.test('https://nl.linkedin.com/pub/jacob-peerdeman/51/758/796/en'));
                     chai.assert.isTrue(linkedinUrl.test('https://www.linkedin.com/in/peterpeerdeman'));
                     chai.assert.isTrue(linkedinUrl.test('https://linkedin.com/in/peterpeerdeman'));
+                    chai.assert.isTrue(linkedinUrl.test('http://linkedin.com/profile/view?id=365894620'));
+                    chai.assert.isTrue(linkedinUrl.test('https://linkedin.com/profile/view?id=365894620'));
                     chai.assert.isFalse(linkedinUrl.test('https://exploit.com'));
                     done();
                 });
