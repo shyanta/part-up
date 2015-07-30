@@ -72,10 +72,10 @@ Template.modal_network_invite.helpers({
         return suggestions;
     },
     inviteSent: function() {
-        var networkSlug = Template.currentData().networkSlug;
+        var networkSlug = Template.instance().data.networkSlug;
         var network = Networks.findOne({slug: networkSlug});
         var userId = this._id;
-
+        if (!network) return;
         return !!Invites.findOne({
             network_id: network._id,
             invitee_id: this._id,
