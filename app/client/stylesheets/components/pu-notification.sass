@@ -7,15 +7,19 @@
     border-bottom: 2px solid $color-faded-gray
     overflow: hidden
 
-    a 
+    a
         text-decoration: none
         padding: 20px 20px 10px
         display: block
         transition: background-color $animation-duration
         line-height: 0
+        color: $color-solid-black
 
-        &:hover
+        &:hover,
+        &:active,
+        &:focus
             background-color: $color-dark-white
+            color: $color-solid-black
 
     figure.pu-avatar
         margin-right: 10px
@@ -26,22 +30,22 @@
         padding: 3px 0
         max-width: 335px
 
-        p 
+        p
             padding-bottom: 5px
 
-        time 
+        time
             padding: 2px 0px 7px 0px
             color: $color-solid-gray
             font-size: 14px
 
         p,
-        time 
-            
+        time
+
             line-height: 1em
             width: 100%
             float: left
 
-    &:after 
+    &:after
         content: ''
         background-color: $color-sunshade
         padding: 5px
@@ -51,16 +55,20 @@
         top: 25px
 
     &-viewed
-        p
-            color: $color-solid-gray
-        time 
-            color: $color-dark-white
-
-        &:after 
+        &:after
             content: none
 
-    &-empty 
+    &-clicked
+        p
+            color: $color-solid-gray
+        time
+            color: $color-dark-white
+
+        &:after
+            content: none
+
+    &-empty
         padding: 20px
 
-        &:after 
+        &:after
             display: none
