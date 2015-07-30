@@ -40,10 +40,12 @@ Template.app_partup_navigation.events({
     'click [data-openpartupsettings]': function(event, template) {
         event.preventDefault();
 
+        var partup = Partups.findOne(template.data.partupId);
+
         Intent.go({
             route: 'partup-settings',
             params: {
-                slug: template.data.partup.slug
+                slug: partup.slug
             }
         });
     }
