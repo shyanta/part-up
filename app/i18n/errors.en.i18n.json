@@ -26,5 +26,5 @@
     "base-errors-contribution_could_not_be_updated": "Sorry, we couldn't update your contribution. Please try again.",
     "base-errors-contribution_could_not_be_accepted": "Sorry, something went wrong while accepting the contribution.",
     "base-errors-contribution_could_not_be_rejected": "Sorry, something went wrong while rejecting the contribution.",
-    "base-errors-contribution_could_not_be_archived": "Sorry, we couldn't archive the contribution.",
+    "base-errors-contribution_could_not_be_archived": "Sorry, we couldn't archive the contribution."
 }
