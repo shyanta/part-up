@@ -36,6 +36,7 @@ Partup.server.services.notifications = {
         notification.type_data = options.typeData;
         notification.created_at = new Date();
         notification.new = true;
+        notification.clicked = false;
 
         d('Notification created for user [' + notification.for_upper_id + '] with type [' + notification.type + ']');
 
