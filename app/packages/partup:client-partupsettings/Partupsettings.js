@@ -238,7 +238,10 @@ Template.Partupsettings.helpers({
             },
             {
                 label:'partupsettings-form-privacy-private',
-                value: 'private'
+                value: 'private',
+                attributes: {
+                    disabled: true
+                }
             }
         ];
     },
