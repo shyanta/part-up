@@ -41,7 +41,7 @@ Template.modal_network_invite.onCreated(function() {
     };
 
     self.autorun(function() {
-        var network = Networks.findOne({slug: template.data.networkSlug});
+        var network = Networks.findOne({slug: self.data.networkSlug});
         var options = self.suggestionsOptions.get();
 
         if (!network) return;
