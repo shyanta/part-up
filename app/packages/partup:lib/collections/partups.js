@@ -52,7 +52,7 @@ Partup.prototype.isEditableBy = function(user) {
  * @return {Boolean}
  */
 Partup.prototype.isRemovableBy = function(user) {
-    return user && this.creator_id === user._id;
+    return user && (this.creator_id === user._id || User(user).isAdmin());
 };
 
 /**
