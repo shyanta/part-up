@@ -6,7 +6,14 @@
                     {{> app_partup_navigation partup=partup }}
                 </div>
                 <div class="pu-sub-partupdetail-content">
-                    {{> yield region='app_partup' }}
+                    {{# with partupId }}
+
+                        <!-- We use refresh=. to trigger a yield refresh when partupId changes.
+                             'refresh' is not an accepted attribute of yield, but in general,
+                             template-includes will re-run when (one of) its attributes change.  -->
+                        {{> yield region='app_partup' refresh=. }}
+
+                    {{/ with }}
                 </div>
             </div>
             <div class="pu-sub-partupdetail-right" data-layout-right>

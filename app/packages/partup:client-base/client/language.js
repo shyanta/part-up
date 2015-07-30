@@ -44,6 +44,7 @@ Partup.client.language = {
                 required:            __('base-client-language-ss-required'),
                 minString:           __('base-client-language-ss-minString'),
                 maxString:           __('base-client-language-ss-maxString'),
+                individualMaxString: __('base-client-language-ss-individualMaxString'),
                 minNumber:           __('base-client-language-ss-minNumber'),
                 maxNumber:           __('base-client-language-ss-maxNumber'),
                 minDate:             __('base-client-language-ss-minDate'),

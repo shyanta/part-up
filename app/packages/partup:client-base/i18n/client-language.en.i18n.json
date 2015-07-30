@@ -2,6 +2,7 @@
     "base-client-language-ss-required": "This field is required",
     "base-client-language-ss-minString": "This value must be at least [min] characters",
     "base-client-language-ss-maxString": "This value cannot exceed [max] characters",
+    "base-client-language-ss-individualMaxString": "Each value cannot exceeded the specified amount of characters",
     "base-client-language-ss-minNumber": "This value must be at least [min]",
     "base-client-language-ss-maxNumber": "This value cannot exceed [max]",
     "base-client-language-ss-minDate": "This date must be on or after [min]",

@@ -118,6 +118,9 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: [String],
         minCount: 1
     },
+    'tags.$': {
+        max: 30
+    },
     updated_at: {
         type: Date,
         defaultValue: new Date()
@@ -155,8 +158,15 @@ Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
     },
     tags_input: {
         type: String,
-        max: 255,
         regEx: Partup.services.validators.tagsSeparatedByComma,
+        custom: function() {
+            var max = false;
+            lodash.each(this.value.split(','), function(tag) {
+                if (tag.length > 30) max = true;
+            });
+
+            if (max) return 'individualMaxString';
+        },
         autoform: {
             type: 'tags',
             afFieldInput: tagsConfiguration

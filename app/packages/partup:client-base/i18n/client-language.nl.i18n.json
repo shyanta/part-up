@@ -2,6 +2,7 @@
     "base-client-language-ss-required": "Dit veld is vereist",
     "base-client-language-ss-minString": "Dit veld moet uit minimaal [min] karakters bestaan",
     "base-client-language-ss-maxString": "Dit veld mag uit maximaal [max] karakters bestaan",
+    "base-client-language-ss-individualMaxString": "Elk veld mag niet uit meer karakters bestaan dan gespecifeerd",
     "base-client-language-ss-minNumber": "Dit veld moet minimaal [min] zijn",
     "base-client-language-ss-maxNumber": "Dit veld mag maximaal [max] zijn",
     "base-client-language-ss-minDate": "Deze datum moet op of na [min] zijn",
