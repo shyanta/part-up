@@ -79,7 +79,7 @@ Template.modal_invite_to_activity.helpers({
         });
     },
     participation: function() {
-        return Math.ceil(this.participation_score);
+        return User(this).getReadableScore();
     },
 
     // Location
