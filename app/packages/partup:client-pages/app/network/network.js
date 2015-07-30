@@ -33,28 +33,6 @@ Template.app_network.helpers({
         return Networks.findOne({slug: this.networkSlug});
     },
 
-    networkId: function() {
-        return Template.instance().networkId.get();
-    },
-
-    networkName: function() {
-        var networkId = this.toString();
-
-        var network = Networks.findOne(networkId);
-        if (!network) return;
-
-        return network.name;
-    },
-
-    hasAccess: function() {
-        var networkId = this.toString();
-
-        var network = Networks.findOne(networkId);
-        if (!network) return true;
-
-        return network.isClosedForUpper(Meteor.userId());
-    },
-
     isInvitePending: function() {
         var user = Meteor.user();
         if (!user || !user.pending_networks) return false;

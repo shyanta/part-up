@@ -16,13 +16,7 @@ Template.NetworkSettingsUppers.onCreated(function() {
     var tpl = this;
 
     Subs.subscribe('networks.one', tpl.data.networkSlug);
-
-    this.autorun(function() {
-        var network = Networks.findOne({slug: tpl.data.networkSlug});
-        if (!network) return;
-
-        Subs.subscribe('networks.one.uppers', network._id);
-    });
+    Subs.subscribe('networks.one.uppers', tpl.data.networkSlug);
 });
 
 Template.NetworkSettingsUppers.helpers({

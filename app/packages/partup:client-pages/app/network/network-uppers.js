@@ -7,8 +7,6 @@
 Template.app_network_uppers.onCreated(function() {
     var tpl = this;
 
-    tpl.networkId = tpl.data;
-
     tpl.uppers = {
 
         // Constants
@@ -40,7 +38,7 @@ Template.app_network_uppers.onCreated(function() {
 
             // Set networks.one.uppers.count subscription
             if (tpl.uppers.count_handle) tpl.uppers.count_handle.stop();
-            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', tpl.networkId, options);
+            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', tpl.data.networkSlug, options);
             tpl.uppers.count_loading.set(true);
 
             // When the networks.one.uppers.count data changes
@@ -56,12 +54,12 @@ Template.app_network_uppers.onCreated(function() {
 
             // Set networks.one.uppers subscription
             if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.networkId, options);
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options);
             tpl.uppers.loading.set(true);
 
             // When the networks.one.uppers data changes
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.findOne(tpl.networkId);
+                var network = Networks.findOne({slug: tpl.data.networkSlug});
 
                 if (tpl.uppers.handle.ready()) {
                     computation.stop();
@@ -93,11 +91,11 @@ Template.app_network_uppers.onCreated(function() {
             options.limit = b;
 
             if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.networkId, options);
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options);
             tpl.uppers.infinitescroll_loading.set(true);
 
             Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.findOne(tpl.networkId);
+                var network = Networks.findOne({slug: tpl.data.networkSlug});
 
                 if (tpl.uppers.handle.ready()) {
                     computation.stop();
