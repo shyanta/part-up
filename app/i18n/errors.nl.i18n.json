@@ -7,26 +7,26 @@
     "base-errors-partups_could_not_be_autocompleted": "Part-ups could not be autocompleted.",
 
     // Supporters
-    "base-errors-user_could_not_be_marked_as_a_supporter": "Oh bummer, we could not make you supporter. Please try again.",
-    "base-errors-user_could_not_be_unmarked_as_a_supporter": "Oh bummer, we could not remove you as a supporter. Please try again.",
+    "base-errors-user_could_not_be_marked_as_a_supporter": "Oeps, het is ons niet gelukt je supporter te maken van de part-up. Probeer het nog een keer.",
+    "base-errors-user_could_not_be_unmarked_as_a_supporter": "Oeps, het is ons niet gelukt je als supporter van de part-up te verwijderen. Probeer het nog een keer.",
 
     // Settings
-    "base-errors-settings_could_not_be_updated": "Sorry, we couldn't update your settings. Please try again.",
+    "base-errors-settings_could_not_be_updated": "Sorry, het is ons niet gelukt je instellingen te wijzigen. Probeer het nog een keer.",
 
     // Users
-    "base-errors-user_could_not_be_registered": "Oh bummer, we could create your account. Please try again.",
-    "base-errors-user_could_not_be_updated": "Oh bummer, we could update your account. Please try again.",
+    "base-errors-user_could_not_be_registered": "Oeps, het is ons niet gelukt je account aan te maken. Probeer het nog een keer.",
+    "base-errors-user_could_not_be_updated": "Oeps, het is ons niet gelukt je account te updaten. Probeer het nog een keer.",
 
     // Tags
-    "base-errors-tags_could_not_be_autocompleted": "Tags could not be autocompleted.",
+    "base-errors-tags_could_not_be_autocompleted": "Het is niet gelukt de tags te autocompleten.",
 
     // Updates - Comments
-    "base-errors-comment_is_not_allowed_on_a_system_update": "You are now allowed to comment on a system update.",
-    "base-errors-comment_could_not_be_inserted": "Oh bummer, we could not add your comment. Please try again.",
+    "base-errors-comment_is_not_allowed_on_a_system_update": "Leuk geprobeerd, maar je kunt geen reactie plaatsen onder een update van het systeem.",
+    "base-errors-comment_could_not_be_inserted": "Oeps, het is ons niet gelukt je reactie te plaatsen. Probeer het nog een keer.",
 
     // Updates - Messages
-    "base-errors-message_could_not_be_inserted": "Oh bummer, we could not add your message. Please try again.",
-    "base-errors-message_could_not_be_updated": "Oh bummer, we could not edit your message. Please try again.",
+    "base-errors-message_could_not_be_inserted": "Oeps, het is ons niet gelukt je bericht te plaatsen. Probeer het nog een keer.",
+    "base-errors-message_could_not_be_updated": "Oeps, het is ons niet gelukt je bericht aan te passen. Probeer het nog een keer.",
 
     // Networks
     "base-errors-network_could_not_be_inserted": "Balen, het is ons niet gelukt je tribe te maken. Probeer het nog een keer.",
@@ -42,22 +42,22 @@
     "base-errors-networks_could_not_be_autocompleted": "Het is niet mogelijk om tribes te autocompleten",
 
     // Activities
-    "base-errors-activity_could_not_be_inserted": "Oh bummer, we could not create your activity. Please try again.",
-    "base-errors-activity_could_not_be_updated": "Sorry, we couldn't update your activity. Please try again.",
-    "base-errors-activity_could_not_be_removed": "Sorry, we couldn't remove the activity.",
-    "base-errors-activity_could_not_be_archived": "Sorry, we couldn't archive the activity.",
-    "base-errors-activity_could_not_be_unarchived": "Sorry, we couldn't unarchive the activity.",
-    "base-errors-activities_could_not_be_copied_from_partup": "Sorry, we couldn't copy the activities from the part-up.",
+    "base-errors-activity_could_not_be_inserted": "Oeps, het is ons niet gelukt je acticiteit aan te maken. Probeer het nog een keer.",
+    "base-errors-activity_could_not_be_updated": "Helaas, het is ons niet gelukt de activiteit te wijzigen. Probeer het nog een keer.",
+    "base-errors-activity_could_not_be_removed": "Helaas, het is ons niet gelukt de activiteit te verwijderen.",
+    "base-errors-activity_could_not_be_archived": "Helaas, het is ons niet gelukt de activiteit te archiveren.",
+    "base-errors-activity_could_not_be_unarchived": "Helaas, het is ons niet gelukt de activiteit weer actief te maken.",
+    "base-errors-activities_could_not_be_copied_from_partup": "Helaas, het is ons niet gelukt de activiteiten van de part-up te kopiëren. Probeer het nog een keer.",
     "base-errors-user_is_already_invited_to_activity": "Deze upper is al uitgenodigd voor deze activiteit",
     "base-errors-email_is_already_invited_to_activity": "Dit email-adres is al gebruikt om een uitndoging te sturen voor deze activiteit",
 
     // Contributions
-    "base-errors-contribution_could_not_be_updated": "Sorry, we couldn't update your contribution. Please try again.",
-    "base-errors-contribution_could_not_be_accepted": "Sorry, something went wrong while accepting the contribution.",
-    "base-errors-contribution_could_not_be_rejected": "Sorry, something went wrong while rejecting the contribution.",
-    "base-errors-contribution_could_not_be_archived": "Sorry, we couldn't archive the contribution.",
+    "base-errors-contribution_could_not_be_updated": "Helaas, het is ons niet gelukt jouw bijdrage aan te passen. Probeer het nog een keer.",
+    "base-errors-contribution_could_not_be_accepted": "Helaas, het is ons niet gelukt deze bijdrage te accepteren.",
+    "base-errors-contribution_could_not_be_rejected": "Helaas, het is ons niet gelukt deze bijdrage te weigeren.",
+    "base-errors-contribution_could_not_be_archived": "Helaas, het is ons niet gelukt deze bijdrage te archiveren.",
 
     // Ratings
-    "base-errors-rating_could_not_be_inserted": "Oh bummer, we could not create your rating. Please try again.",
-    "base-errors-rating_could_not_be_updated": "Oh bummer, we could not update your rating. Please try again."
+    "base-errors-rating_could_not_be_inserted": "Helaas, het is ons niet gelukt je waardering te plaatsen. Probeer het nog een keer.",
+    "base-errors-rating_could_not_be_updated": "Helaas, het is ons niet gelukt je waardering aan te passen."
 }

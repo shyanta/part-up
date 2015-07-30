@@ -18,10 +18,10 @@
     "base-errors-user_could_not_be_updated": "Oh bummer, we could update your account. Please try again.",
 
     // Tags
-    "base-errors-tags_could_not_be_autocompleted": "Tags could not be autocompleted.",
+    "base-errors-tags_could_not_be_autocompleted": "We could not autocomplete the tags.",
 
     // Updates - Comments
-    "base-errors-comment_is_not_allowed_on_a_system_update": "You are now allowed to comment on a system update.",
+    "base-errors-comment_is_not_allowed_on_a_system_update": "Nice try, but you are now allowed to comment on a system update.",
     "base-errors-comment_could_not_be_inserted": "Oh bummer, we could not add your comment. Please try again.",
 
     // Updates - Messages
