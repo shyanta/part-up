@@ -43,11 +43,7 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.startActivities);
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
-        var partup = Partups.findOneOrFail({_id: activity.partup_id});
-
-        if (!activity) {
-            throw new Meteor.Error(404, 'Could not find activity.');
-        }
+        var partup = Partups.findOneOrFail(activity.partup_id);
 
         if (!upper || !partup.hasUpper(upper._id)) {
             throw new Meteor.Error(401, 'unauthorized');
