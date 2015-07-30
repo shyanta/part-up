@@ -1,4 +1,26 @@
 # CHANGELOG
+## 1.5.2
+- notifications v2
+- pretty partup and tribe urls
+- clickable tags
+- big copy update (including errors)
+- mixpanel integration
+- social link url entry adjustment
+- private partups re-enabled for beta
+- new ratings ux
+- partups removable by superadmins
+- bugfixes
+    - partup and tribe privacy
+    - consistent profile dropdown data
+    - tags input network settings
+    - user suggestions in invite pages
+    - sorting on discover
+    - tribe join button states
+    - added more profile card hovers
+    - partup tile max 5 uppers
+    - feedback link to uservoice
+    - uploaded image is properly shown in create partup
+
 ## 1.5.1
 - tribe settings description 350 chars
 - copy updates
