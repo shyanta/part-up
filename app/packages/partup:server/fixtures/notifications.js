@@ -10,7 +10,8 @@ Meteor.startup(function() {
                 'type_data' : {
                     'partup' : {
                         '_id': 'gJngF65ZWyS9f3NDE',
-                        'name' : 'Crowd funding Part-up organiseren'
+                        'name' : 'Crowd funding Part-up organiseren',
+                        'slug' : 'crowd-funding-part-up-organiseren-gJngF65ZWyS9f3NDE'
                     },
                     'supporter' : {
                         '_id' : 'K5c5M4Pbdg3B82wQI',
@@ -40,7 +41,8 @@ Meteor.startup(function() {
                     },
                     'partup' : {
                         '_id': 'gJngF65ZWyS9f3NDE',
-                        'name' : 'Crowd funding Part-up organiseren'
+                        'name' : 'Crowd funding Part-up organiseren',
+                        'slug' : 'crowd-funding-part-up-organiseren-gJngF65ZWyS9f3NDE'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:09:44.629Z'),
@@ -61,7 +63,8 @@ Meteor.startup(function() {
                     },
                     'partup' : {
                         '_id': 'gJngF65ZWyS9f3NDE',
-                        'name' : 'Crowd funding Part-up organiseren'
+                        'name' : 'Crowd funding Part-up organiseren',
+                        'slug' : 'crowd-funding-part-up-organiseren-gJngF65ZWyS9f3NDE'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:09:50.912Z'),
@@ -77,7 +80,8 @@ Meteor.startup(function() {
                 'type_data' : {
                     'partup' : {
                         '_id': 'gJngF65ZWyS9f3NDE',
-                        'name' : 'Crowd funding Part-up organiseren'
+                        'name' : 'Crowd funding Part-up organiseren',
+                        'slug' : 'crowd-funding-part-up-organiseren-gJngF65ZWyS9f3NDE'
                     },
                     'supporter' : {
                         '_id' : 'a7qcp5RHnh5rfaeW9',
@@ -98,7 +102,8 @@ Meteor.startup(function() {
                 'type_data' : {
                     'partup' : {
                         '_id': 'gJngF65ZWyS9f3NDE',
-                        'name' : 'Crowd funding Part-up organiseren'
+                        'name' : 'Crowd funding Part-up organiseren',
+                        'slug' : 'crowd-funding-part-up-organiseren-gJngF65ZWyS9f3NDE'
                     },
                     'supporter' : {
                         '_id' : 'a7qcp5RHnh5rfaeW9',
@@ -125,7 +130,8 @@ Meteor.startup(function() {
                     'network' : {
                         '_id' : 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
-                        'image' : 'efDuvuTzpqH65P9DF'
+                        'image' : 'efDuvuTzpqH65P9DF',
+                        'slug' : 'ing-invite'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:00:30.168Z'),
@@ -147,7 +153,8 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'kRCjWDBkKru3KfsjW',
                         'name' : 'ING (invite)',
-                        'image' : 'efDuvuTzpqH65P9DF'
+                        'image' : 'efDuvuTzpqH65P9DF',
+                        'slug' : 'ing-invite'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:11:08.083Z'),
@@ -169,7 +176,8 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
-                        'image' : 'PnYAg3EX5dKfEnkdn'
+                        'image' : 'PnYAg3EX5dKfEnkdn',
+                        'slug' : 'ing-closed'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:12:46.323Z'),
@@ -186,7 +194,8 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
-                        'image' : 'PnYAg3EX5dKfEnkdn'
+                        'image' : 'PnYAg3EX5dKfEnkdn',
+                        'slug' : 'ing-closed'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:23:58.070Z'),
@@ -208,7 +217,8 @@ Meteor.startup(function() {
                     'network' : {
                         '_id': 'wfCv4ZdPe5WNT4xfg',
                         'name' : 'ING (closed)',
-                        'image' : 'PnYAg3EX5dKfEnkdn'
+                        'image' : 'PnYAg3EX5dKfEnkdn',
+                        'slug' : 'ing-closed'
                     }
                 },
                 'created_at' : new Date('2015-07-22T09:31:48.389Z'),
@@ -224,7 +234,8 @@ Meteor.startup(function() {
                 'type_data' : {
                     'partup' : {
                         '_id': 'gJngF65ZWyS9f3NDE',
-                        'name' : 'Crowd funding Part-up organiseren'
+                        'name' : 'Crowd funding Part-up organiseren',
+                        'slug' : 'crowd-funding-part-up-organiseren-gJngF65ZWyS9f3NDE'
                     }
                 },
                 'created_at' : new Date('2015-07-21T14:08:02.831Z'),
