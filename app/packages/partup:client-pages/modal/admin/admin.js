@@ -1,4 +1,4 @@
-Template.onCreated(function() {
+Template.modal_admin.onCreated(function() {
     this.subscribe('users.admin_all');
 });
 
