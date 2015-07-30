@@ -139,6 +139,10 @@ Package.onUse(function(api) {
         'modal/network/create_network/create_network.html',
         'modal/network/create_network/create_network.js',
 
+        // Modal:admin
+        'modal/admin/admin.html',
+        'modal/admin/admin.js',
+
         // Modal:network_settings
         'modal/network_settings/network_settings.html',
         'modal/network_settings/network_settings.js',

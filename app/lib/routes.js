@@ -494,6 +494,18 @@ Router.route('/tribes/create', {
 });
 
 /*************************************************************/
+/* Admin (super mega ultra admin) */
+/*************************************************************/
+Router.route('/tribes/useradmin', {
+    name: 'admin',
+    where: 'client',
+    yieldRegions: {
+        'modal':                    {to: 'main'},
+        'modal_admin':              {to: 'modal'}
+    }
+});
+
+/*************************************************************/
 /* All other routes */
 /*************************************************************/
 Router.route('/(.*)', {

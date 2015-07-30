@@ -1,0 +1,26 @@
+<template name="modal_admin">
+
+    <nav class="pu-header pu-header-modal">
+    </nav>
+
+    <article class="pu-page">
+        <div class="pu-sub-pagecontent">
+            <div class="pu-sub-fixedmodalsidebar">
+                <div class="pu-wrap pu-wrap-modal">
+                    <ul class="pu-modalsidebar">
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pu-wrap pu-wrap-modal">
+                <h2>Users ({{userCount}})</h2>
+                <ul>
+                {{# each users }}
+                <li>{{profile.name}} - {{_id}} - {{profile.phonenumber}} - {{getMail . }}</li>
+                {{/each }}
+                </ul>
+            </div>
+        </div>
+    </article>
+
+</template>

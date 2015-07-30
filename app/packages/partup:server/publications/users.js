@@ -158,3 +158,16 @@ Meteor.publishComposite('users.by_ids', function(userIds) {
         ]
     };
 });
+
+/**
+ * Publish multiple users by ids
+ *
+ * @param {[String]} userIds
+ */
+Meteor.publish('users.admin_all', function() {
+    var user = Meteor.users.findOne(this.userId);
+    if (!User(user).isAdmin()) {
+        return;
+    }
+    return Meteor.users.find({}, {fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1}});
+});
