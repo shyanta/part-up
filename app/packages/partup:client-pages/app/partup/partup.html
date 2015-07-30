@@ -3,21 +3,17 @@
         <section class="pu-partuppagelayout" data-layout-container>
             <div class="pu-sub-partupdetail-left" data-layout-left>
                 <div class="pu-sub-partupdetail-navigation">
-                    {{> app_partup_navigation partup=partup }}
+                    {{> app_partup_navigation }}
                 </div>
                 <div class="pu-sub-partupdetail-content">
-                    {{# with partupId }}
-
-                        <!-- We use refresh=. to trigger a yield refresh when partupId changes.
-                             'refresh' is not an accepted attribute of yield, but in general,
-                             template-includes will re-run when (one of) its attributes change.  -->
-                        {{> yield region='app_partup' refresh=. }}
-
-                    {{/ with }}
+                    <!-- We use refresh=. to trigger a yield refresh when partupId changes.
+                         'refresh' is not an accepted attribute of yield, but in general,
+                         template-includes will re-run when (one of) its attributes change.  -->
+                    {{> yield region='app_partup' refresh=partupId }}
                 </div>
             </div>
             <div class="pu-sub-partupdetail-right" data-layout-right>
-                {{> app_partup_sidebar partup=partup }}
+                {{> app_partup_sidebar }}
             </div>
         </section>
     </article>

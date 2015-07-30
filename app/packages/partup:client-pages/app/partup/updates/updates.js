@@ -9,7 +9,7 @@ var Subs = new SubsManager({
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
 
-    tpl.partupId = tpl.data.toString();
+    tpl.partupId = tpl.data.partupId;
 
     // Updates model
     tpl.updates = {

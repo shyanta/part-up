@@ -6,7 +6,7 @@ var Subs = new SubsManager({
 Template.app_partup_activities.onCreated(function() {
     var tpl = this;
 
-    tpl.partupId = tpl.data.toString();
+    tpl.partupId = tpl.data.partupId;
 
     tpl.activities = {
 

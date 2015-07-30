@@ -1,11 +1,16 @@
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 Template.app_partup_update.onCreated(function() {
-    this.subscribe('partups.one', this.data.partupId);
-    this.subscribe('updates.one', this.data.updateId);
+    Subs.subscribe('partups.one', this.data.partupId);
+    Subs.subscribe('updates.one', this.data.updateId);
 });
 
 Template.app_partup_update.helpers({
     metaDataForUpdate: function() {
-        var update = Updates.findOne({_id: this.updateId});
+        var update = Updates.findOne(this.updateId);
         if (!update) return {};
 
         var partup = Partups.findOne(update.partup_id);

@@ -64,31 +64,13 @@ Template.app_partup.onCreated(function() {
 Template.app_partup.onRendered(function() {
     var tpl = this;
 
-    tpl.autorun(function(computation) {
-        var partup = Partups.findOne({_id: tpl.data.partupId});
-        if (!partup) return;
+    tpl.autorun(function() {
+        if (!Partups.findOne(tpl.data.partupId)) return;
 
-        // Wait for the dom to be rendered according to the changed 'subscriptionsReady'
         Meteor.defer(function() {
             partupDetailLayout.init.apply(partupDetailLayout);
         });
     });
-});
-
-Template.app_partup.helpers({
-
-    partup: function() {
-        return Partups.findOne({_id: this.partupId});
-    },
-
-    partupId: function() {
-        return Template.instance().partupId.get();
-    },
-
-    subscriptionsReady: function() {
-        return Template.instance().partupSubscription.ready();
-    }
-
 });
 
 var getScrollTop = function() {

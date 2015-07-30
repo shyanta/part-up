@@ -28,6 +28,9 @@ Template.app_partup_navigation.onRendered(function() {
 /* Partial helpers */
 /*************************************************************/
 Template.app_partup_navigation.helpers({
+    partup: function() {
+        return Partups.findOne(this.partupId);
+    },
     backgroundWidth: function() {
         return Session.get('partials.partup-detail-navigation.background-width') || 0;
     }

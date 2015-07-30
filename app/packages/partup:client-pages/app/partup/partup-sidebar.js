@@ -36,6 +36,9 @@ Template.app_partup_sidebar.onRendered(function() {
 /* Partial helpers */
 /*************************************************************/
 Template.app_partup_sidebar.helpers({
+    partup: function() {
+        return Partups.findOne(this.partupId);
+    },
 
     numberOfSupporters: function() {
         var partup = this.partup;
