@@ -10,7 +10,7 @@ Notifications = new Mongo.Collection('notifications');
  * @param {User} user
  * @param {Object} selector
  * @param {Object} options
- * @return {Mongo.Cursor}
+ * @return {Mongo.Cursor|Void}
  */
 Notifications.findForUser = function(user, selector, options) {
     if (!user) return;
