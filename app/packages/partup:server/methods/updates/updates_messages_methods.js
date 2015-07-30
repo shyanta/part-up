@@ -34,7 +34,7 @@ Meteor.methods({
             }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'InsertFailure');
+            throw new Meteor.Error(400, 'message_could_not_be_inserted');
         }
     },
 
@@ -72,7 +72,7 @@ Meteor.methods({
             }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'InsertFailure');
+            throw new Meteor.Error(400, 'message_could_not_be_updated');
         }
     }
 });
