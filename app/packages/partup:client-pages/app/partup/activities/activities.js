@@ -56,6 +56,9 @@ Template.app_partup_activities.onCreated(function() {
 });
 
 Template.app_partup_activities.helpers({
+    partupId: function() {
+        return Template.instance().partupId;
+    },
     activities: function() {
         var partup = Partups.findOne(this.partupId);
         return Template.instance().activities.all({archived: false});
