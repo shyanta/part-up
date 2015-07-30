@@ -13,9 +13,7 @@ Meteor.methods({
         var contribution = Contributions.findOneOrFail(contributionId);
         var activity = Activities.findOneOrFail(contribution.activity_id);
 
-        var isUpperInPartup = Partups.findOne({_id: contribution.partup_id, uppers: {$in: [upper._id]}}) ? true : false;
-
-        if (!isUpperInPartup) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(upper).isPartnerInPartup(contribution.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
         check(fields, Partup.schemas.forms.rating);
 
