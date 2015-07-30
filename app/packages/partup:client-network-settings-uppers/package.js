@@ -8,7 +8,8 @@ Package.describe({
 Package.onUse(function(api) {
     api.use([
         'tap:i18n',
-        'partup:lib'
+        'partup:lib',
+        'meteorhacks:subs-manager'
     ], ['client', 'server']);
 
     api.use([

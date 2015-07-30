@@ -7,9 +7,22 @@
  */
 // jscs:enable
 
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 Template.NetworkSettingsUppers.onCreated(function() {
-    this.subscribe('networks.one', this.data.networkSlug);
-    this.subscribe('networks.one.uppers', this.data.networkSlug);
+    var tpl = this;
+
+    Subs.subscribe('networks.one', tpl.data.networkSlug);
+
+    this.autorun(function() {
+        var network = Networks.findOne({slug: tpl.data.networkSlug});
+        if (!network) return;
+
+        Subs.subscribe('networks.one.uppers', network._id);
+    });
 });
 
 Template.NetworkSettingsUppers.helpers({
@@ -17,7 +30,8 @@ Template.NetworkSettingsUppers.helpers({
         return Networks.findOne({slug: this.networkSlug});
     },
     upper: function() {
-        return Meteor.users.findOne({_id: '' + this});
+        var upperId = this.toString();
+        return Meteor.users.findOne(upperId);
     }
 });
 
