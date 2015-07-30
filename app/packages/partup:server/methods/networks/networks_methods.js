@@ -354,7 +354,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.isAdmin(user._id)) {
+        if (!network.isAdmin(user._id) || network.isAdmin(upperId)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
