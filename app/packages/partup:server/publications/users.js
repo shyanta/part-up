@@ -2,6 +2,8 @@
  * Publish a count of all users
  */
 Meteor.publish('users.count', function() {
+    this.unblock();
+
     Counts.publish(this, 'users', Meteor.users.find());
 });
 
@@ -11,6 +13,8 @@ Meteor.publish('users.count', function() {
  * @param {String} userId
  */
 Meteor.publishComposite('users.one', function(userId) {
+    this.unblock();
+
     return {
         find: function() {
             return Meteor.users.findSinglePublicProfile(userId);
@@ -28,6 +32,8 @@ Meteor.publishComposite('users.one', function(userId) {
  * @param {Object} parameters
  */
 Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
+    this.unblock();
+
     parameters = parameters || {};
 
     return {
@@ -56,6 +62,8 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
  * @param {String} userId
  */
 Meteor.publish('users.one.upperpartups.count', function(userId) {
+    this.unblock();
+
     var user = Meteor.users.findOne(userId);
     if (!user) return;
 
@@ -71,6 +79,8 @@ Meteor.publish('users.one.upperpartups.count', function(userId) {
  * @param {String} parameters.sort
  */
 Meteor.publishComposite('users.one.supporterpartups', function(userId, parameters) {
+    this.unblock();
+
     parameters = parameters || {};
 
     return {
@@ -97,6 +107,8 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
  * @param {String} userId
  */
 Meteor.publish('users.one.supporterpartups.count', function(userId) {
+    this.unblock();
+
     var user = Meteor.users.findOne(userId);
     if (!user) return;
 
@@ -107,6 +119,8 @@ Meteor.publish('users.one.supporterpartups.count', function(userId) {
  * Publish the loggedin user
  */
 Meteor.publishComposite('users.loggedin', function() {
+    this.unblock();
+
     return {
         find: function() {
             return Meteor.users.findSinglePrivateProfile(this.userId);
@@ -132,6 +146,8 @@ Meteor.publishComposite('users.loggedin', function() {
  * @param {[String]} userIds
  */
 Meteor.publishComposite('users.by_ids', function(userIds) {
+    this.unblock();
+
     return {
         find: function() {
             return Meteor.users.findMultiplePublicProfiles(userIds);

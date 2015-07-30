@@ -23,6 +23,8 @@ var updateChildren = [
  * @param {String} updateId
  */
 Meteor.publishComposite('updates.one', function(updateId) {
+    this.unblock();
+
     return {
         find: function() {
             var updateCursor = Updates.find({_id: updateId}, {limit: 1});
@@ -46,6 +48,8 @@ Meteor.publishComposite('updates.one', function(updateId) {
  * @param {Object} parameters
  */
 Meteor.publishComposite('updates.from_partup', function(partupId, parameters) {
+    this.unblock();
+
     return {
         find: function() {
             var partup = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1}).fetch().pop();

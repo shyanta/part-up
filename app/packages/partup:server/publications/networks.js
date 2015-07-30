@@ -2,6 +2,8 @@
  * Publish a list of networks
  */
 Meteor.publishComposite('networks.list', function() {
+    this.unblock();
+
     return {
         find: function() {
             return Networks.guardedFind(this.userId);
@@ -18,6 +20,8 @@ Meteor.publishComposite('networks.list', function() {
  * @param {String} networkSlug
  */
 Meteor.publishComposite('networks.one', function(networkSlug) {
+    this.unblock();
+
     return {
         find: function() {
             return Networks.guardedMetaFind({_id: networkSlug}, {limit: 1});
@@ -40,6 +44,8 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
  * @param {String} networkId
  */
 Meteor.publishComposite('networks.one.partups', function(networkId, parameters) {
+    this.unblock();
+
     parameters = parameters || {};
 
     return {
@@ -70,6 +76,8 @@ Meteor.publishComposite('networks.one.partups', function(networkId, parameters) 
  * @param {String} networkId
  */
 Meteor.publish('networks.one.partups.count', function(networkId) {
+    this.unblock();
+
     var network = Networks.guardedFind(this.userId, {_id: networkId}).fetch().pop();
     if (!network) return;
 
@@ -83,6 +91,8 @@ Meteor.publish('networks.one.partups.count', function(networkId) {
  * @param {Object} options
  */
 Meteor.publishComposite('networks.one.uppers', function(networkId, options) {
+    this.unblock();
+
     return {
         find: function() {
             var network = Networks.guardedFind(this.userId, {_id: networkId}).fetch().pop();
@@ -105,6 +115,8 @@ Meteor.publishComposite('networks.one.uppers', function(networkId, options) {
  * @param {Object} options
  */
 Meteor.publish('networks.one.uppers.count', function(networkId, options) {
+    this.unblock();
+
     options = options || {};
     parameters = parameters || {};
     var parameters = {
@@ -125,6 +137,8 @@ Meteor.publish('networks.one.uppers.count', function(networkId, options) {
  * @param {String} networkSlug
  */
 Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
+    this.unblock();
+
     return {
         find: function() {
             var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();

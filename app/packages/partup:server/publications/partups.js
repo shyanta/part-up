@@ -4,6 +4,8 @@
  * @param {[String]} partupIds
  */
 Meteor.publishComposite('partups.by_ids', function(partupIds) {
+    this.unblock();
+
     return {
         find: function() {
             return Partups.guardedFind(this.userId, {_id: {$in: partupIds}});
@@ -24,6 +26,8 @@ Meteor.publishComposite('partups.by_ids', function(partupIds) {
  * Publish a list of partups
  */
 Meteor.publish('partups.list', function() {
+    this.unblock();
+
     return Partups.guardedFind(this.userId, {}, {_id: 1, name: 1});
 });
 
@@ -33,6 +37,8 @@ Meteor.publish('partups.list', function() {
  * @param {String} partupId
  */
 Meteor.publishComposite('partups.one', function(partupId) {
+    this.unblock();
+
     return {
         find: function() {
             return Partups.guardedMetaFind({_id: partupId}, {limit: 1});
