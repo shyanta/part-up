@@ -188,7 +188,7 @@ Template.app_partup_sidebar.events({
     'click [data-share-mail]': function() {
         var currentUrl = Router.current().location.get().originalUrl;
         var subject = '';
-        var body = 'You should check out this Part-up!\n' + currentUrl;
+        var body = __('pages-app-partup-share_mail', {url: currentUrl});
         var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
         window.location.href = shareUrl;
     },
