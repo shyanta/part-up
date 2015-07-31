@@ -1,7 +1,7 @@
 Template.app_profile.onCreated(function() {
     var template = this;
     template.profileSubscription = template.subscribe('users.one', template.data.profileId);
-    Meteor.autorun(function whenSubscriptionIsReady(computation) {
+    template.autorun(function whenSubscriptionIsReady(computation) {
         if (template.profileSubscription.ready()) {
             computation.stop();
             if (!Meteor.users.findOne({_id: template.data.profileId})) {
@@ -9,6 +9,33 @@ Template.app_profile.onCreated(function() {
             }
         }
     });
+    template.autorun(function() {
+        var scrolled = Partup.client.scroll.pos.get() > 100;
+        if (scrolled) {
+            if (template.view.isRendered) template.toggleExpandedText(true);
+        }
+    });
+    template.toggleExpandedText = function(hide) {
+        var clickedElement = $('[data-expand]');
+        var parentElement = $(clickedElement[0].parentElement);
+
+        var collapsedText = __(clickedElement.data('collapsed-key')) || false;
+        var expandedText = __(clickedElement.data('expanded-key')) || false;
+
+        if (parentElement.hasClass('pu-state-open')) {
+            if (collapsedText) clickedElement.html(collapsedText);
+        } else {
+            if (expandedText) clickedElement.html(expandedText);
+        }
+        if (hide) {
+            if (collapsedText) clickedElement.html(collapsedText);
+            parentElement.removeClass('pu-state-open');
+            clickedElement.parents('.pu-sub-pageheader').removeClass('pu-state-descriptionexpanded');
+        } else {
+            parentElement.toggleClass('pu-state-open');
+            clickedElement.parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
+        }
+    };
 });
 
 /*************************************************************/
@@ -53,20 +80,7 @@ Template.app_profile.helpers({
 /*************************************************************/
 Template.app_profile.events({
     'click [data-expand]': function(event, template) {
-        var clickedElement = $(event.target);
-        var parentElement = $(event.target.parentElement);
-
-        var collapsedText = __(clickedElement.data('collapsed-key')) || false;
-        var expandedText = __(clickedElement.data('expanded-key')) || false;
-
-        if (parentElement.hasClass('pu-state-open')) {
-            if (collapsedText) clickedElement.html(collapsedText);
-        } else {
-            if (expandedText) clickedElement.html(expandedText);
-        }
-
-        $(event.target.parentElement).toggleClass('pu-state-open');
-        $(event.target).parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
+        template.toggleExpandedText();
     },
     'click [data-open-profilesettings]': function(event, template) {
         Intent.go({

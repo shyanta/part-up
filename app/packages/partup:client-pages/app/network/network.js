@@ -23,6 +23,33 @@ Template.app_network.onCreated(function() {
             tpl.networkId.set(network._id);
         }
     });
+    tpl.autorun(function() {
+        var scrolled = Partup.client.scroll.pos.get() > 100;
+        if (scrolled) {
+            if (tpl.view.isRendered) tpl.toggleExpandedText(true);
+        }
+    });
+    tpl.toggleExpandedText = function(hide) {
+        var clickedElement = $('[data-expand]');
+        var parentElement = $(clickedElement[0].parentElement);
+
+        var collapsedText = __(clickedElement.data('collapsed-key')) || false;
+        var expandedText = __(clickedElement.data('expanded-key')) || false;
+
+        if (parentElement.hasClass('pu-state-open')) {
+            if (collapsedText) clickedElement.html(collapsedText);
+        } else {
+            if (expandedText) clickedElement.html(expandedText);
+        }
+        if (hide) {
+            if (collapsedText) clickedElement.html(collapsedText);
+            parentElement.removeClass('pu-state-open');
+            clickedElement.parents('.pu-sub-pageheader').removeClass('pu-state-descriptionexpanded');
+        } else {
+            parentElement.toggleClass('pu-state-open');
+            clickedElement.parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
+        }
+    };
 });
 
 /*************************************************************/
@@ -93,20 +120,7 @@ Template.app_network.events({
         });
     },
     'click [data-expand]': function(event, template) {
-        var clickedElement = $(event.target);
-        var parentElement = $(event.target.parentElement);
-
-        var collapsedText = __(clickedElement.data('collapsed-key')) || false;
-        var expandedText = __(clickedElement.data('expanded-key')) || false;
-
-        if (parentElement.hasClass('pu-state-open')) {
-            if (collapsedText) clickedElement.html(collapsedText);
-        } else {
-            if (expandedText) clickedElement.html(expandedText);
-        }
-
-        $(event.target.parentElement).toggleClass('pu-state-open');
-        $(event.target).parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
+        template.toggleExpandedText();
     },
     'click [data-open-networksettings]': function(event, template) {
         Intent.go({
