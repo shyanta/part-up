@@ -92,7 +92,9 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
         },
         children: [
             {find: Images.findForPartup},
-            {find: Meteor.users.findUppersForPartup},
+            {find: Meteor.users.findUppersForPartup, children: [
+                {find: Images.findForUser}
+            ]},
             {find: Meteor.users.findSupportersForPartup},
             {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
