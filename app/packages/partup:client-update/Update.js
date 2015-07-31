@@ -105,13 +105,11 @@ Template.Update.helpers({
     },
 
     messageContent: function() {
-        return this.new_value;
-        // return Partup.client.strings.newlineToBreak(this.new_value);
+        return Partup.client.strings.newlineToBreak(this.new_value);
     },
 
     systemMessageContent: function() {
-        return __('update-type-partups_message_added-system-' + this.type + '-content');
-        // return Partup.client.strings.newlineToBreak(__('update-type-partups_message_added-system-' + this.type + '-content'));
+        return Partup.client.strings.newlineToBreak(__('update-type-partups_message_added-system-' + this.type + '-content'));
     },
 
     commentable: function() {
