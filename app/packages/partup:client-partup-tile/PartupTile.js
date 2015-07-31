@@ -60,6 +60,9 @@ Template.PartupTile.onRendered(function() {
 /* Helpers */
 /*************************************************************/
 Template.PartupTile.helpers({
+    title: function() {
+        return Partup.client.url.capitalizeFirstLetter(this.name);
+    },
     network: function() {
         if (!this.network_id) return false;
         return Networks.findOne({_id: this.network_id});
