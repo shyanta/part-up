@@ -185,10 +185,11 @@ Template.app_partup_sidebar.events({
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
     },
 
-    'click [data-share-mail]': function() {
+    'click [data-share-mail]': function(event, template) {
+        var partup = Partups.findOne(template.data.partupId);
         var currentUrl = Router.current().location.get().originalUrl;
         var subject = '';
-        var body = __('pages-app-partup-share_mail', {url: currentUrl});
+        var body = __('pages-app-partup-share_mail', {url: currentUrl, name:partup.name});
         var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
         window.location.href = shareUrl;
     },
