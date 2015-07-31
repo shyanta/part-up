@@ -16,7 +16,9 @@ Partup.transformers.update = {
         return {
             partup_id: partupId,
             type_data: {
-                new_value: fields.text,
+                new_value: sanitizeHtml(fields.text, {
+                    allowedTags: []
+                }),
                 images: fields.images
             },
             comments_count: 0,
