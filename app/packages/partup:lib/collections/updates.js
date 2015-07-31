@@ -93,6 +93,7 @@ Updates.findForActivity = function(activity) {
  */
 Updates.findForPartup = function(partup, parameters, userId) {
     var parameters = parameters || {};
+    var userId = userId || Meteor.userId();
 
     var selector = {partup_id: partup._id};
     var options = {sort: {updated_at: -1}};

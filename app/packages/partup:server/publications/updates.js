@@ -49,13 +49,14 @@ Meteor.publishComposite('updates.one', function(updateId) {
  */
 Meteor.publishComposite('updates.from_partup', function(partupId, parameters) {
     this.unblock();
+    var self = this;
 
     return {
         find: function() {
-            var partup = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1}).fetch().pop();
+            var partup = Partups.guardedFind(self.userId, {_id: partupId}, {limit:1}).fetch().pop();
             if (!partup) return;
 
-            return Updates.findForPartup(partup, parameters, this.userId);
+            return Updates.findForPartup(partup, parameters, self.userId);
         },
         children: updateChildren
     };
