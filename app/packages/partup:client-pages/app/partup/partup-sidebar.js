@@ -94,7 +94,7 @@ Template.app_partup_sidebar.helpers({
         var partup = Partups.findOne(this.partupId);
         if (!partup) return '';
 
-        var city = mout.object.get(this, 'partup.location.city') || mout.object.get(this, 'partup.location.country');
+        var city = mout.object.get(partup, 'location.city') || mout.object.get(partup, 'location.country');
 
         var status = [];
         if (partup.budget_type) {
