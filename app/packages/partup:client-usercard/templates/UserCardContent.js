@@ -5,7 +5,7 @@ Template.UserCardContent.helpers({
 
         user.participation_score = User(user).getReadableScore();
 
-        if (!user.partups) user.partups = [];
+        if (!user.upperOf) user.upperOf = [];
         if (!user.supporterOf) user.supporterOf = [];
 
         return user;
