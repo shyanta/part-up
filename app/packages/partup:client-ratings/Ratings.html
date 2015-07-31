@@ -14,14 +14,18 @@
                 <li class="pu-avatar pu-avatar-icon">
                     <i class="fa fa-plus"></i>
                     <article class="pu-hovercard pu-hovercard-position-bottom {{# if showHoverCard }}pu-hovercard-active{{/ if }}">
-                        {{> Rating contribution=contribution }}
+                        {{# if showHoverCard }}
+                            {{> Rating contribution=contribution }}
+                        {{/ if }}
                     </article>
                 </li>
             {{/ if }}
             {{# each ratings }}
                 <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}" data-rating-id="{{ _id }}">
                     <article class="pu-hovercard pu-hovercard-position-bottom {{# if showHoverCard }}pu-hovercard-active{{/ if }}">
-                        {{> Rating contribution=contribution rating=. }}
+                        {{# if showHoverCard }}
+                            {{> Rating contribution=contribution rating=. }}
+                        {{/ if }}
                     </article>
                 </li>
             {{/ each }}
