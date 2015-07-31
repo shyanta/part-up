@@ -190,9 +190,9 @@ Template.app_partup_sidebar.events({
         var user = Meteor.user();
         var currentUrl = Router.current().location.get().originalUrl;
         if (!user) {
-            var body = __('pages-app-partup-share_mail', {url: currentUrl, partup_name: partup.name, user_name: user.profile.name});
-        } else {
             var body = __('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name:partup.name});
+        } else {
+            var body = __('pages-app-partup-share_mail', {url: currentUrl, partup_name: partup.name, user_name: user.profile.name});
         }
         var subject = '';
         var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
