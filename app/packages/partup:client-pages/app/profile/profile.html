@@ -1,105 +1,104 @@
 <template name="app_profile">
 
     <article class="pu-page pu-page-tinted pu-page-profile">
-        {{#if subscriptionsReady}}
-            <header class="pu-sub-pageheader pu-sub-pageheader-layered {{# if shrinkHeader }}pu-sub-pageheader-layered-shrinked{{/ if }}">
-                <!-- profile -->
-                <section class="pu-profile">
-                    <div class="pu-wrap pu-wrap-columnlayout">
-                        <div class="pu-info {{#unless profile.tags}} pu-info-minimal{{/unless}}">
-                            <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
-                                <span class="pu-score pu-score-large">
-                                    <span>{{ getRoundedScore }}</span>
-                                </span>
-                            </figure>
-                            <div>
-                                <h3>
-                                    {{profile.name}}
-                                    {{#if profile.facebook_url}}<a href="{{ profile.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a>{{/if}}
-                                    {{#if profile.linkedin_url}}<a href="{{ profile.linkedin_url }}" target="_blank"><i class="fa fa-linkedin"></i></a>{{/if}}
-                                    {{#if profile.twitter_url}}<a href="{{ profile.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a>{{/if}}
-                                    {{#if profile.instagram_url}}<a href="{{ profile.instagram_url }}" target="_blank"><i class="fa fa-instagram"></i></a>{{/if}}
-                                </h3>
-                                <p data-expander-parent>
-                                    {{profile.description}}
-                                    {{#if textHasOverflown}}
-                                        <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
-                                    {{/if}}
-                                </p>
-                                <ul class="pu-list pu-list-horizontal">
-                                    {{#if profile.location}}
-                                        {{#if profile.location.city}}
-                                            <li><a class="pu-metadata" href="#" data-location>
-                                                <i class="fa fa-map-marker"></i>
-                                                <span>{{profile.location.city}}</span>
-                                            </a></li>
-                                        {{/if}}
-                                    {{/if}}
-                                    {{#with profile.website}}
-                                        <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
-                                            <i class="fa fa-external-link"></i>
-                                            <span>{{ partupCleanUrl .}}</span>
-                                        </a></li>
-                                    {{/with}}
-                                </ul>
-                            </div>
-                        </div>
-                        {{#unless networkClosedForUser }}
-                            <ul class="pu-list pu-list-horizontal pu-list-tags">
-                                {{#each profile.tags}}
-                                    <li>
-                                        <a href="#" class="pu-tag">{{.}}</a>
-                                    </li>
-                                {{/each}}
-                            </ul>
-                        {{/unless}}
-                    </div>
-                </section>
-                <section>
-                    <div class="pu-wrap pu-wrap-columnlayout">
-                        <!-- tabs -->
-                        <nav class="pu-navigation pu-navigation-header pu-navigation-full">
-                            <ul class="pu-list pu-list-horizontal">
-                                <li>
-                                    <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
-                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}} {{ isActiveRoute name='profile' class='pu-state-active'}}">
-                                        <i class="fa fa-globe"></i>
-                                        {{_ 'pages-app-profile-upper-partups-nav' }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
-                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
-                                        <i class="fa fa-line-chart"></i>
-                                        {{_ 'pages-app-profile-supporter-partups-nav' }}
-                                    </a>
-                                </li>
-                            </ul>
-                            <!-- actions -->
-                            <ul class="pu-list pu-list-horizontal pu-sub-right">
-                                {{# if isCurrentusersProfile }}
-                                    <li>
-                                        <a href="{{pathFor 'profile-settings' _id=profileId}}" data-open-profilesettings
-                                            class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                            <i class="fa fa-cog"></i>
-                                        </a>
-                                    </li>
-                                {{/ if }}
-                            </ul>
-                        </nav>
-                    </div>
-                </section>
-            </header>
-            <div class="pu-sub-pagecontent">
+        <header class="pu-sub-pageheader pu-sub-pageheader-layered {{# if shrinkHeader }}pu-sub-pageheader-layered-shrinked{{/ if }}">
+            <!-- profile -->
+            <section class="pu-profile">
                 <div class="pu-wrap pu-wrap-columnlayout">
-                    <section class="pu-composition pu-composition-network">
-                        {{> yield region='app_profile' }}
-                    </section>
+                    <div class="pu-info {{#unless profile.tags}} pu-info-minimal{{/unless}}">
+                        <figure class="pu-avatar pu-avatar-extralarge" style="{{#with profile.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
+                            <span class="pu-score pu-score-large">
+                                <span>{{ getRoundedScore }}</span>
+                            </span>
+                        </figure>
+                        <div>
+                            <h3>
+                                {{profile.name}}
+                                {{#if profile.facebook_url}}<a href="{{ profile.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a>{{/if}}
+                                {{#if profile.linkedin_url}}<a href="{{ profile.linkedin_url }}" target="_blank"><i class="fa fa-linkedin"></i></a>{{/if}}
+                                {{#if profile.twitter_url}}<a href="{{ profile.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a>{{/if}}
+                                {{#if profile.instagram_url}}<a href="{{ profile.instagram_url }}" target="_blank"><i class="fa fa-instagram"></i></a>{{/if}}
+                            </h3>
+                            <p data-expander-parent>
+                                {{profile.description}}
+                                {{#if textHasOverflown}}
+                                    <a class="pu-readmore" href="#" data-expand data-expanded-key="pages-app-network-collapse" data-collapsed-key="pages-app-network-expand">{{_ 'pages-app-network-expand'}}</a>
+                                {{/if}}
+                            </p>
+                            <ul class="pu-list pu-list-horizontal">
+                                {{#if profile.location}}
+                                    {{#if profile.location.city}}
+                                        <li><a class="pu-metadata" href="#" data-location>
+                                            <i class="fa fa-map-marker"></i>
+                                            <span>{{profile.location.city}}</span>
+                                        </a></li>
+                                    {{/if}}
+                                {{/if}}
+                                {{#with profile.website}}
+                                    <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
+                                        <i class="fa fa-external-link"></i>
+                                        <span>{{ partupCleanUrl .}}</span>
+                                    </a></li>
+                                {{/with}}
+                            </ul>
+                        </div>
+                    </div>
+                    {{#unless networkClosedForUser }}
+                        <ul class="pu-list pu-list-horizontal pu-list-tags">
+                            {{#each profile.tags}}
+                                <li>
+                                    <a href="#" class="pu-tag">{{.}}</a>
+                                </li>
+                            {{/each}}
+                        </ul>
+                    {{/unless}}
                 </div>
+            </section>
+            <section>
+                <div class="pu-wrap pu-wrap-columnlayout">
+                    <!-- tabs -->
+                    <nav class="pu-navigation pu-navigation-header pu-navigation-full">
+                        <ul class="pu-list pu-list-horizontal">
+                            <li>
+                                <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}} {{ isActiveRoute name='profile' class='pu-state-active'}}">
+                                    <i class="fa fa-globe"></i>
+                                    {{_ 'pages-app-profile-upper-partups-nav' }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
+                                    <i class="fa fa-line-chart"></i>
+                                    {{_ 'pages-app-profile-supporter-partups-nav' }}
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- actions -->
+                        <ul class="pu-list pu-list-horizontal pu-sub-right">
+                            {{# if isCurrentusersProfile }}
+                                <li>
+                                    <a href="{{pathFor 'profile-settings' _id=profileId}}" data-open-profilesettings
+                                        class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
+                                        <i class="fa fa-cog"></i>
+                                    </a>
+                                </li>
+                            {{/ if }}
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </header>
+        <div class="pu-sub-pagecontent">
+            <div class="pu-wrap pu-wrap-columnlayout">
+                <section class="pu-composition pu-composition-network">
+                    <!-- We use refresh=. to trigger a yield refresh when profileId changes.
+                         'refresh' is not an accepted attribute of yield, but in general,
+                         template-includes will re-run when (one of) its attributes change.  -->
+                    {{> yield region='app_profile' refresh=profileId }}
+                </section>
             </div>
-        {{else}}
-            {{> Spinner }}
-        {{/if}}
+        </div>
     </article>
 
 </template>

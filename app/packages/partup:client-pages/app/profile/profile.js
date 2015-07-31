@@ -1,20 +1,36 @@
+var Subs = new SubsManager({
+    cacheLimit: 1,
+    expireIn: 10
+});
+
 Template.app_profile.onCreated(function() {
     var template = this;
-    template.profileSubscription = template.subscribe('users.one', template.data.profileId);
-    template.autorun(function whenSubscriptionIsReady(computation) {
-        if (template.profileSubscription.ready()) {
-            computation.stop();
-            if (!Meteor.users.findOne({_id: template.data.profileId})) {
-                Router.pageNotFound('profile');
-            }
-        }
+
+    template.profileId = new ReactiveVar();
+
+    var profile_sub;
+
+    template.autorun(function() {
+        var id = Template.currentData().profileId;
+        profile_sub = Meteor.subscribe('users.one', id); // subs manager fails here
     });
+
+    template.autorun(function() {
+        if (!profile_sub.ready()) return;
+
+        var user = Meteor.users.findOne(template.data.profileId);
+        if (!user) return Router.pageNotFound('profile');
+
+        template.profileId.set(user._id);
+    });
+
     template.autorun(function() {
         var scrolled = Partup.client.scroll.pos.get() > 100;
         if (scrolled) {
             if (template.view.isRendered) template.toggleExpandedText(true);
         }
     });
+
     template.toggleExpandedText = function(hide) {
         var clickedElement = $('[data-expand]');
         var parentElement = $(clickedElement[0].parentElement);
@@ -44,6 +60,8 @@ Template.app_profile.onCreated(function() {
 Template.app_profile.helpers({
     profile: function() {
         var user = Meteor.users.findOne(this.profileId);
+        if (!user) return;
+
         profile = user.profile;
         profile.participation_score = User(user).getReadableScore();
         return profile;
@@ -52,10 +70,6 @@ Template.app_profile.helpers({
     getRoundedScore: function() {
         var user = Meteor.users.findOne(this.profileId);
         return User(user).getReadableScore();
-    },
-
-    subscriptionsReady: function() {
-        return Template.instance().profileSubscription.ready();
     },
 
     shrinkHeader: function() {
