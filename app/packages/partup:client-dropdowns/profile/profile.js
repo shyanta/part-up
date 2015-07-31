@@ -1,10 +1,3 @@
-/*
-var Subs = new SubsManager({
-    cacheLimit: 1,
-    expireIn: 10
-});
-*/
-
 Template.DropdownProfile.onCreated(function() {
     var template = this;
     template.windowHeight = new ReactiveVar($(window).height());
@@ -21,11 +14,11 @@ Template.DropdownProfile.onCreated(function() {
 
     });
 
-    var user = Meteor.user();
+    var userId = Meteor.userId();
 
-    if (user) {
-        this.subscribe('users.one.upperpartups', user._id);
-        this.subscribe('users.one.supporterpartups', user._id);
+    if (userId) {
+        this.subscribe('users.one.upperpartups', userId);
+        this.subscribe('users.one.supporterpartups', userId);
     }
 
 });
