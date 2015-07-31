@@ -91,7 +91,7 @@
                     {{/if}}
                     <!-- contribution rating notification -->
                     {{#if partupEqualsExactly type 'contributions_ratings_inserted' }}
-                        <a href="{{pathFor route='profile-upper-partups' _id=type_data.rater._id}}">
+                        <a href="{{pathFor route='partup-activities' slug=type_data.partup.slug}}">
                             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=type_data.rater.image }}');" data-usercard="{{ type_data.rater._id }}">
                                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
                             </figure>
@@ -127,7 +127,7 @@
                     {{/if}}
                     <!-- new activity in partup notification -->
                     {{#if partupEqualsExactly type 'partups_activities_inserted' }}
-                        <a href="{{pathFor route='partup-update' slug=type_data.partup.slug update_id=type_data.activity.update_id}}">
+                        <a href="{{pathFor route='partup-activities' slug=type_data.partup.slug}}">
                             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=type_data.creator.image }}');" data-usercard="{{ type_data.creator._id }}">
                                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
                             </figure>
@@ -139,7 +139,7 @@
                     {{/if}}
                     <!-- new contribution in partup by partner notification -->
                     {{#if partupEqualsExactly type 'partups_contributions_inserted' }}
-                        <a href="{{pathFor route='partup-update' slug=type_data.partup.slug update_id=type_data.activity.update_id}}">
+                        <a href="{{pathFor route='partup-activities' slug=type_data.partup.slug}}">
                             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=type_data.creator.image }}');" data-usercard="{{ type_data.creator._id }}">
                                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
                             </figure>
@@ -151,7 +151,7 @@
                     {{/if}}
                     <!-- new contribution in partup by partner notification -->
                     {{#if partupEqualsExactly type 'partups_contributions_proposed' }}
-                        <a href="{{pathFor route='partup-update' slug=type_data.partup.slug update_id=type_data.activity.update_id}}">
+                        <a href="{{pathFor route='partup-activities' slug=type_data.partup.slug}}">
                             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=type_data.creator.image }}');" data-usercard="{{ type_data.creator._id }}">
                                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
                             </figure>
@@ -163,7 +163,7 @@
                     {{/if}}
                     <!-- reminder to rate contributions in partup notification -->
                     {{#if partupEqualsExactly type 'partups_ratings_reminder' }}
-                        <a href="{{pathFor route='partup' slug=type_data.partup.slug}}">
+                        <a href="{{pathFor route='partup-activities' slug=type_data.partup.slug}}">
                             <figure class="pu-avatar pu-avatar-plain pu-avatar-system">
                             </figure>
                             <article>
