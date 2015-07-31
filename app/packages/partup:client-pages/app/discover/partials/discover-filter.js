@@ -95,7 +95,7 @@ Template.app_discover_filter.onCreated(function() {
             }
         }
     ];
-    var defaultSortingOption = sortingOptions[0];
+    var defaultSortingOption = sortingOptions[1]; // 'new'
     tpl.sorting = {
         options: sortingOptions,
         value: new ReactiveVar(defaultSortingOption),
