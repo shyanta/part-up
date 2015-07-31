@@ -100,7 +100,16 @@ Template.app_network.events({
         var user = Meteor.user();
 
         var proceed = function() {
-            joinNetworkOrAcceptInvitation(template.data.networkSlug);
+            var network = Networks.findOne({slug: template.data.networkSlug});
+            Meteor.call('networks.join', network._id, function(error) {
+                if (error) return Partup.client.notify.error(error.reason);
+
+                if (network.isClosed()) {
+                    Partup.client.notify.success(__('pages-app-network-notification-accepted_waitingforapproval'));
+                } else {
+                    Partup.client.notify.success(__('pages-app-network-notification-joined'));
+                }
+            });
         };
 
         if (user) {
@@ -108,7 +117,7 @@ Template.app_network.events({
         } else {
             Intent.go({route: 'login'}, function(loggedInUser) {
                 if (loggedInUser) proceed();
-                else Partup.client.notify.error('failed to join network');
+                else Partup.client.notify.error(__('pages-app-network-notification-failed'));
             });
         }
     },
@@ -117,14 +126,20 @@ Template.app_network.events({
         var user = Meteor.user();
         if (!user) return; // button should not be rendered when no user is logged in
 
-        joinNetworkOrAcceptInvitation(template.data.networkSlug);
+        var network = Networks.findOne({slug: template.data.networkSlug});
+        Meteor.call('networks.join', network._id, function(error) {
+            if (error) return Partup.client.notify.error(error.reason);
+            if (!network.isClosed()) {
+                Partup.client.notify.success(__('pages-app-network-notification-joined'));
+            }
+        });
     },
     'click [data-leave]': function(event, template) {
         var network = Networks.findOne({slug: template.data.networkSlug});
 
         Meteor.call('networks.leave', network._id, function(error) {
             if (error) Partup.client.notify.error(error.reason);
-            else Partup.client.notify.success('left network');
+            else Partup.client.notify.success(__('pages-app-network-notification-left'));
         });
     },
     'click [data-expand]': function(event, template) {
