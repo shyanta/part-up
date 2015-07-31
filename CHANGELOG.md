@@ -1,4 +1,24 @@
 # CHANGELOG
+## 1.5.7
+- discover sorting default set to newest
+- changed twitter hashtag
+- disallowed gifs to be uploaded
+- search by tags on discover
+- better ratings ux
+- bugfixes
+    - tribe invite search
+    - profile page switch to different profile
+    - profile supporter partups images
+    - fixed my updates filter
+    - "waiting approval" state in closed network
+    - profile http// checks
+    - fixed notification clicks
+    - partup location in partup sidebar
+    - user card always show counts
+    - notification styling
+    - dont capitalise every partup tile word
+    - server fixes (avoid crashes)
+
 ## 1.5.6
 - terms and privacy notice
 - bugfixes
