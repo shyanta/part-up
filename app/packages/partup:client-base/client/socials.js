@@ -30,7 +30,7 @@ Partup.client.socials = {
      * @param {String} urlToShare URL to be shared
      */
     generateTwitterShareUrl: function(messageToShare, urlToShare) {
-        return 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(messageToShare) + '&url=' + encodeURIComponent(urlToShare) + '&hashtags=part-up&via=partupcom';
+        return 'http://twitter.com/intent/tweet?text=' + encodeURIComponent(messageToShare) + '&url=' + encodeURIComponent(urlToShare) + '&hashtags=partup&via=partupcom';
     },
 
     /**
