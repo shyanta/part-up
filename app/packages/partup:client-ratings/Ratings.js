@@ -13,17 +13,23 @@
 /* Widget initial */
 /*************************************************************/
 Template.Ratings.onCreated(function() {
-    this.showHoverCards = new ReactiveDict();
+    this.openHoverCards = new ReactiveVar([]);
 });
 
 Template.Ratings.onRendered(function() {
     var template = this;
-    var els = this.findAll('.pu-avatar-stack > .pu-avatar');
-    els.forEach(function(el) {
-        var id = el.dataset.ratingId || 'new';
-        Partup.client.elements.onClickOutside(el, function() {
-            template.showHoverCards.set(id, false);
-        });
+
+    document.body.addEventListener('click', function(e) {
+        var avatar = $(e.target.closest('[data-rating-id]'));
+
+        if (!avatar.length) {
+            openHoverCards = [];
+        } else {
+            openHoverCards = [avatar[0].dataset.ratingId];
+        }
+
+        template.openHoverCards.set(openHoverCards);
+        return;
     });
 });
 
@@ -55,8 +61,9 @@ Template.Ratings.helpers({
         return !!this.ratings.fetch().length;
     },
     showHoverCard: function() {
+        var template = Template.instance();
         var id = this._id || 'new';
-        return Template.instance().showHoverCards.get(id);
+        return mout.array.contains(template.openHoverCards.get(), id);
     },
     showNewRating: function() {
         if (this.READONLY) return false;
@@ -89,12 +96,17 @@ Template.Ratings.events({
         if ($(event.target).closest('.pu-hovercard').length) return;
 
         var id = $(event.target).closest('.pu-avatar').data('rating-id') || 'new';
-        template.showHoverCards.set(id, !template.showHoverCards.get(id));
+        var openHoverCards = template.openHoverCards.get();
+        mout.array.insert(openHoverCards, id);
+        template.openHoverCards.set(openHoverCards);
     },
     'keydown textarea': function(event, template) {
         if (event.keyCode !== 13) return;
         event.preventDefault();
         var id = $(event.target).closest('.pu-avatar').data('rating-id') || 'new';
-        template.showHoverCards.set(id, !template.showHoverCards.get(id));
+
+        var openHoverCards = template.openHoverCards.get();
+        mout.array.removeAll(openHoverCards, id);
+        template.openHoverCards.set(openHoverCards);
     }
 });
