@@ -34,15 +34,8 @@ Partup.server.services.matching = {
         }
 
         return results;
-    }
-};
+    },
 
-/**
- @namespace Partup server matching service
- @name Partup.server.services.matching
- @memberof Partup.server.services
- */
-Partup.server.services.matching = {
     matchUppersForNetwork: function(networkId) {
         var network = Networks.findOneOrFail(networkId);
 
