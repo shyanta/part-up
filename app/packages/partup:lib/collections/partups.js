@@ -260,7 +260,6 @@ Partups.guardedFind = function(userId, selector, options) {
         finalSelector = selector;
         finalSelector.$and = [{'$or': guardedCriterias}, {'$or': selector.$or}];
         delete finalSelector.$or;
-        console.log(finalSelector);
     } else {
         // Guarding selector that needs to be fulfilled
         var guardingSelector = {'$or': guardedCriterias};
