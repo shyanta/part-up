@@ -111,13 +111,13 @@ Template.app_partup_sidebar.helpers({
         }
 
         var networkText = '';
+        var networkPath = '';
         if (partup.network_id) {
             var network = Networks.findOne({_id: partup.network_id});
             if (network) {
                 networkText = network.name;
+                networkPath = Router.path('network-detail', {slug: network.slug});
             }
-
-            var networkPath = Router.path('network-detail', {slug: network.slug});
         }
 
         switch (partup.privacy_type) {
