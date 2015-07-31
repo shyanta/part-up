@@ -68,7 +68,9 @@ Template.app_partup.onRendered(function() {
         if (!Partups.findOne(tpl.data.partupId)) return;
 
         Meteor.defer(function() {
-            partupDetailLayout.init.apply(partupDetailLayout);
+            if (!Partup.client.isMobile.any()) {
+                partupDetailLayout.init.apply(partupDetailLayout);
+            }
         });
     });
 });
