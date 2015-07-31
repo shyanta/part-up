@@ -1,4 +1,12 @@
 # CHANGELOG
+## 1.5.6
+- terms and privacy notice
+- bugfixes
+    - footer links
+    - mobile layout
+    - invite share mail copy
+    - facebook url with dots
+
 ## 1.5.5
 - admin panel
 - copy updates
