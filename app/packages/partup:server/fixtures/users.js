@@ -89,10 +89,6 @@ Meteor.startup(function() {
                     'kRCjWDBkKru3KfsjW'
                 ],
                 'participation_score' : 2,
-                'partups' : [
-                    'ASfRYBAzo2ayYk5si',
-                    'WxrpPuJkhafJB3gfF'
-                ],
                 'upperOf' : [
                     'ASfRYBAzo2ayYk5si',
                     'WxrpPuJkhafJB3gfF',
@@ -186,9 +182,6 @@ Meteor.startup(function() {
                 'pending_networks' : [],
                 'networks' : [
                     'wfCv4ZdPe5WNT4xfg'
-                ],
-                'partups' : [
-                    'CJETReuE6uo2eF7eW'
                 ],
                 'upperOf' : [
                     'CJETReuE6uo2eF7eW',
@@ -379,9 +372,6 @@ Meteor.startup(function() {
                 ],
                 'networks' : [
                     'ibn27M3ePaXhmKzWq'
-                ],
-                'partups' : [
-                    'vGaxNojSerdizDPjb'
                 ],
                 'upperOf' : [
                     'vGaxNojSerdizDPjb'
