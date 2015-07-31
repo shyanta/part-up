@@ -21,6 +21,8 @@
 
     "pages-modal-register-signup-form-confirmPassword-placeholder": "And repeat it once please",
 
+    "pages-modal-register-signup-form-terms": "When using Part-up, I agree to the <a href=\"http://terms.part-up.com\" target=\"_blank\">Terms of Use</a> and the <a href=\"http://privacy.part-up.com\" target=\"_blank\">Privacy Policy</a>",
+
     "pages-modal-register-signup-form-submit": "Sign up",
 
     "pages-modal-register-signup-error_Accounts-LoginCancelledError": "Login cancelled",

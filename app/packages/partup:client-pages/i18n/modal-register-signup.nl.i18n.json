@@ -21,6 +21,8 @@
 
     "pages-modal-register-signup-form-confirmPassword-placeholder": "En herhaal hem alsjeblieft nog een keertje",
 
+    "pages-modal-register-signup-form-terms": "Als ik Part-up gebruik ga ik akkoord met de <a href=\"http://terms.part-up.com\" target=\"_blank\">Terms of Use</a> en <a href=\"http://privacy.part-up.com\" target=\"_blank\">Privacy Policy</a>",
+
     "pages-modal-register-signup-form-submit": "Aanmelden",
 
     "pages-modal-register-signup-error_Accounts-LoginCancelledError": "Inloggen geannuleerd",
