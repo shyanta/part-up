@@ -6,11 +6,25 @@
  * @param {Object} rating   The rating data
  */
 
+var save = function(event, template) {
+    var formId = '#ratingCreateForm-' + template.data.contribution._id;
+    if (template.data.rating) {
+        formId = '#ratingEditForm-' + template.data.rating._id;
+    }
+
+    var form = template.find(formId);
+    $(form).submit();
+};
+
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
 Template.Rating.onCreated(function() {
     this.contribution = this.data.contribution;
+});
+
+Template.Rating.onDestroyed(function() {
+    save(null, this);
 });
 
 /*************************************************************/
@@ -45,16 +59,6 @@ Template.Rating.helpers({
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
-var save = function(event, template) {
-    var formId = '#ratingCreateForm-' + template.data.contribution._id;
-    if (template.data.rating) {
-        formId = '#ratingEditForm-' + template.data.rating._id;
-    }
-
-    var form = template.find(formId);
-    $(form).submit();
-};
-
 Template.Rating.events({
     'blur [name=feedback]': save,
     'blur [name=rating]': function(event, template) {
