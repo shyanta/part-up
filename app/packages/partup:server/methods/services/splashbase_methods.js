@@ -1,3 +1,5 @@
+var d = Debug('methods:splashbase_methods');
+
 Meteor.methods({
     /**
      * Return Splashbase images based on tags
@@ -39,7 +41,7 @@ Meteor.methods({
                         });
                     });
 
-                    console.log('Image URLs downloaded from Splashbase:', pictureData);
+                    d('Image URLs downloaded from Splashbase:', pictureData);
 
                     // Randomize array a little and slice off the count before returning
                     return callback(null, pictureData.sort(function() {
