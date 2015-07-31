@@ -180,6 +180,7 @@ if (Meteor.isServer) {
     Partups._ensureIndex('privacy_type');
     Partups._ensureIndex('slug');
     Partups._ensureIndex('progress');
+    Partups._ensureIndex('tags');
 }
 
 /**
@@ -251,11 +252,22 @@ Partups.guardedFind = function(userId, selector, options) {
         guardedCriterias.push({'invites': {'$in': [userId]}});
     }
 
-    // Guarding selector that needs to be fulfilled
-    var guardingSelector = {'$or': guardedCriterias};
+    var finalSelector = {};
 
-    // Merge the selectors, so we still use the initial selector provided by the caller
-    var finalSelector = {'$and': [guardingSelector, selector]};
+    // MongoDB only allows 1 root $or, so we have to merge the $or from the given selector
+    // with the $or values that we generate with the guarded criterias above here
+    if (selector.$or) {
+        finalSelector = selector;
+        finalSelector.$and = [{'$or': guardedCriterias}, {'$or': selector.$or}];
+        delete finalSelector.$or;
+        console.log(finalSelector);
+    } else {
+        // Guarding selector that needs to be fulfilled
+        var guardingSelector = {'$or': guardedCriterias};
+
+        // Merge the selectors, so we still use the initial selector provided by the caller
+        finalSelector = {'$and': [guardingSelector, selector]};
+    }
 
     return this.find(finalSelector, options);
 };
@@ -338,10 +350,13 @@ Partups.findForDiscover = function(userId, options, parameters) {
     if (query) {
         Log.debug('Searching for [' + query + ']');
 
-        selector['$text'] = {$search: query};
-        options.fields = {score: {$meta: 'textScore'}};
+        var querySelector = {$text: {$search: query}};
+        var tagSelector = {tags: {$in: [query]}};
 
+        options.fields = {score: {$meta: 'textScore'}};
         options.sort['score'] = {$meta: 'textScore'};
+
+        selector.$or = [querySelector, tagSelector];
     }
 
     return this.guardedFind(userId, selector, options);
