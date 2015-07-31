@@ -114,6 +114,9 @@ Images = new FS.Collection('images', {
     filter: {
         allow: {
             contentTypes: ['image/*']
+        },
+        deny: {
+            contentTypes: ['image/gif']
         }
     }
 });
