@@ -13,7 +13,7 @@ Partup.client.url = {
         return this.capitalizeFirstLetter(this.stripWWW(this.stripHTTP(url)));
     },
     addHTTP: function(url) {
-        if (!/~^(?:f|ht)tps?:i/.test(url)) {
+        if (!/^((http|https|ftp):\/\/)/.test(url)) {
             url = 'http://' + url;
         }
         return url;
