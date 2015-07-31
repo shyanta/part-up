@@ -62,7 +62,7 @@ Template.Ratings.helpers({
     },
     showHoverCard: function() {
         var template = Template.instance();
-        var id = this._id || 'new';
+        var id = this._id || 'new-' + template.data.contribution._id;
         return mout.array.contains(template.openHoverCards.get(), id);
     },
     showNewRating: function() {
@@ -95,7 +95,7 @@ Template.Ratings.events({
         // check if the click is inside the hovercard
         if ($(event.target).closest('.pu-hovercard').length) return;
 
-        var id = $(event.target).closest('.pu-avatar').data('rating-id') || 'new';
+        var id = $(event.target).closest('.pu-avatar').data('rating-id');
         var openHoverCards = template.openHoverCards.get();
         mout.array.insert(openHoverCards, id);
         template.openHoverCards.set(openHoverCards);
