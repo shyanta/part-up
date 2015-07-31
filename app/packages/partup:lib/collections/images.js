@@ -3,7 +3,7 @@ var stores = [];
 if (Meteor.isServer) {
     FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
         internal: true,
-        path: process.env.TEMP_DIR
+        path: process.env.CLOUD_DIR
     });
 
     var Store = null;
