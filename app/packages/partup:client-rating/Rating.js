@@ -60,7 +60,11 @@ Template.Rating.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Rating.events({
-    'blur [name=feedback]': save,
+    'blur [name=feedback]': function(event, template) {
+        if (template.data.rating) {
+            save(event, template);
+        }
+    },
     'blur [name=rating]': function(event, template) {
         if (template.data.rating) {
             save(event, template);
