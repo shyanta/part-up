@@ -35,8 +35,12 @@ if (!(typeof MochaWeb === 'undefined')) {
                 it('works with correct word input', function(done) {
                     chai.assert.isTrue(facebookUrl.test('https://www.facebook.com/zuck'));
                     chai.assert.isTrue(facebookUrl.test('https://facebook.com/zuck'));
+                    chai.assert.isTrue(facebookUrl.test('http://facebook.com/zuck'));
+                    chai.assert.isTrue(facebookUrl.test('https://facebook.com/zuck?_rdr=p'));
+                    chai.assert.isTrue(facebookUrl.test('https://facebook.com/zuc.k?_rdr=p'));
                     chai.assert.isTrue(facebookUrl.test('https://facebook.com/zuck?_rdr=p'));
                     chai.assert.isFalse(facebookUrl.test('https://exploit.com'));
+                    chai.assert.isFalse(facebookUrl.test('https://exploit.com/zuck?_rdr='));
                     done();
                 });
             });
@@ -46,8 +50,13 @@ if (!(typeof MochaWeb === 'undefined')) {
 
                 it('works with correct word input', function(done) {
                     chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/zuck'));
+                    chai.assert.isTrue(instagramUrl.test('http://www.instagram.com/zuck'));
                     chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/zuck/'));
+                    chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/mark.zuck/'));
+                    chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/mark_zuck/'));
+                    chai.assert.isFalse(instagramUrl.test('https://www.instagram.com/mark-zuck/'));
                     chai.assert.isFalse(instagramUrl.test('https://exploit.com'));
+                    chai.assert.isFalse(instagramUrl.test('https://exploit.com/mark-zuck'));
                     done();
                 });
             });
@@ -61,7 +70,24 @@ if (!(typeof MochaWeb === 'undefined')) {
                     chai.assert.isTrue(linkedinUrl.test('https://linkedin.com/in/peterpeerdeman'));
                     chai.assert.isTrue(linkedinUrl.test('http://linkedin.com/profile/view?id=365894620'));
                     chai.assert.isTrue(linkedinUrl.test('https://linkedin.com/profile/view?id=365894620'));
+                    chai.assert.isFalse(linkedinUrl.test('https://nl_nl.linkedin.com/pub/jacob-peerdeman/51/758/796/en'));
                     chai.assert.isFalse(linkedinUrl.test('https://exploit.com'));
+                    chai.assert.isFalse(linkedinUrl.test('https://exploit.com/in/peterpeerdeman'));
+                    done();
+                });
+            });
+            describe('twitterUrl', function() {
+                var twitterUrl = Partup.services.validators.twitterUrl;
+
+                it('works with correct word input', function(done) {
+                    chai.assert.isTrue(twitterUrl.test('https://twitter.com/peterpeerdeman'));
+                    chai.assert.isTrue(twitterUrl.test('http://twitter.com/peterpeerdeman'));
+                    chai.assert.isTrue(twitterUrl.test('https://twitter.com/jessed_vrs'));
+                    chai.assert.isTrue(twitterUrl.test('https://twitter.com/jessedvrs09'));
+                    chai.assert.isTrue(twitterUrl.test('https://twitter.com/jessedVRS'));
+                    chai.assert.isFalse(twitterUrl.test('https://twitter.com/jessed-vrs'));
+                    chai.assert.isFalse(twitterUrl.test('https://exploit.com'));
+                    chai.assert.isFalse(twitterUrl.test('https://exploit.com/in/peterpeerdeman'));
                     done();
                 });
             });
