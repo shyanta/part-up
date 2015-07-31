@@ -187,9 +187,14 @@ Template.app_partup_sidebar.events({
 
     'click [data-share-mail]': function(event, template) {
         var partup = Partups.findOne(template.data.partupId);
+        var user = Meteor.user();
         var currentUrl = Router.current().location.get().originalUrl;
+        if (!user) {
+            var body = __('pages-app-partup-share_mail', {url: currentUrl, partup_name: partup.name, user_name: user.profile.name});
+        } else {
+            var body = __('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name:partup.name});
+        }
         var subject = '';
-        var body = __('pages-app-partup-share_mail', {url: currentUrl, name:partup.name});
         var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
         window.location.href = shareUrl;
     },
