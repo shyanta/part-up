@@ -188,7 +188,7 @@ Template.app_partup_sidebar.events({
     'click [data-share-mail]': function(event, template) {
         var partup = Partups.findOne(template.data.partupId);
         var user = Meteor.user();
-        var currentUrl = Router.current().location.get().originalUrl;
+        var currentUrl = Router.url('partup', {slug: partup.slug});
         if (!user) {
             var body = __('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name:partup.name});
         } else {
