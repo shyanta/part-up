@@ -94,17 +94,21 @@
                                     {{ else }}
                                         {{# if canUpperJoin currentUser._id }}
                                             <li class="pu-sub-button">
-                                                <a class="pu-button {{# if isInvitePending }}pu-button-disabled{{/ if }}" href="#" data-join>
-                                                    {{# if isInvitePending }}
-                                                            {{_ 'pages-app-network-actions-button-pending'}}
-                                                    {{ else }}
-                                                        {{# if isUpperInvited currentUser._id }}
+                                                {{# if isUpperInvitePending currentUserId }}
+                                                    <a href="#" class="pu-button pu-button-disabled pu-button-disabled-orange">
+                                                        {{_ 'pages-app-network-actions-button-pending' }}
+                                                    </a>
+                                                {{ else }}
+                                                    {{# if isUpperInvited currentUserId }}
+                                                        <a href="#" class="pu-button" data-accept>
                                                             {{_ 'pages-app-network-actions-button-accept'}}
-                                                        {{ else }}
+                                                        </a>
+                                                    {{ else }}
+                                                        <a href="#" class="pu-button" data-join>
                                                             {{_ 'pages-app-network-actions-button-join'}}
-                                                        {{/ if }}
+                                                        </a>
                                                     {{/ if }}
-                                                </a>
+                                                {{/ if }}
                                             </li>
                                         {{/ if}}
                                     {{/ if}}

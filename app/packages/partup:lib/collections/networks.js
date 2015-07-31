@@ -102,6 +102,18 @@ Network.prototype.isUpperInvited = function(upperId) {
 };
 
 /**
+ * Check if the upper-invite is pending (to be accepted by admin)
+ *
+ * @memberof Networks
+ * @param {String} userId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isUpperInvitePending = function(userId) {
+    if (!this.pending_uppers) return false;
+    return mout.lang.isString(userId) && this.pending_uppers.indexOf(userId) > -1;
+};
+
+/**
  * Check if upper can invite other uppers
  *
  * @memberof Networks
@@ -282,7 +294,7 @@ Networks.guardedMetaFind = function(selector, options) {
     options.fields = {_id: 1};
 
     // The fields that should be available on each network
-    var unguardedFields = ['name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type'];
+    var unguardedFields = ['name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites'];
 
     unguardedFields.forEach(function(unguardedField) {
         options.fields[unguardedField] = 1;

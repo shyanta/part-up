@@ -79,12 +79,14 @@ Template.app_network.helpers({
     }
 });
 
-var joinNetwork = function(networkId) {
-    Meteor.call('networks.join', networkId, function(error) {
+// The 'networks.joins' method handles the different possible states (uninvited or invited)
+var joinNetworkOrAcceptInvitation = function(slug) {
+    var network = Networks.findOne({slug: slug});
+    Meteor.call('networks.join', network._id, function(error) {
         if (error) {
             Partup.client.notify.error(error.reason);
         } else {
-            Partup.client.notify.success('joined network');
+            Partup.client.notify.success('Joined network');
         }
     });
 };
@@ -98,8 +100,7 @@ Template.app_network.events({
         var user = Meteor.user();
 
         var proceed = function() {
-            var network = Networks.findOne({slug: template.data.networkSlug});
-            joinNetwork(network._id);
+            joinNetworkOrAcceptInvitation(template.data.networkSlug);
         };
 
         if (user) {
@@ -110,6 +111,13 @@ Template.app_network.events({
                 else Partup.client.notify.error('failed to join network');
             });
         }
+    },
+    'click [data-accept]': function(event, template) {
+        event.preventDefault();
+        var user = Meteor.user();
+        if (!user) return; // button should not be rendered when no user is logged in
+
+        joinNetworkOrAcceptInvitation(template.data.networkSlug);
     },
     'click [data-leave]': function(event, template) {
         var network = Networks.findOne({slug: template.data.networkSlug});
