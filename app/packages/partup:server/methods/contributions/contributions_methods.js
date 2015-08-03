@@ -91,8 +91,9 @@ Meteor.methods({
             };
             Updates.update({_id: contribution.update_id}, {$set: set});
 
-            // Promote the user from Supporter to Upper
+            // Promote the user from Supporter to Upper and remove any activity invites sent to user
             partup.makeSupporterPartner(contribution.upper_id);
+            activity.removeAllUpperInvites(contribution.upper_id);
 
             Event.emit('partups.uppers.inserted', contribution.partup_id, contribution.upper_id);
             Event.emit('contributions.accepted', upper._id, contribution.activity_id, contribution.upper_id);
