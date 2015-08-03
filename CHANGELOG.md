@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.5.9
+- fixed broken order discover page
+- removed faulty discover caching
+
 ## 1.5.8
 - now caching discover results
 - added pending invite notification for tribe admin
