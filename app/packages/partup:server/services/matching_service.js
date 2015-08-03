@@ -42,10 +42,6 @@ Partup.server.services.matching = {
         var tags = network.tags || [];
         selector['profile.tags'] = {'$in': tags};
 
-        // Filter the uppers of the network as these are not valid suggestions
-        var uppers = network.uppers || [];
-        selector['_id'] = {'$nin': uppers};
-
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
