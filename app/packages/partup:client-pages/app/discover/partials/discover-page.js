@@ -2,23 +2,8 @@
  * Content for the Discover-page
  * This template shows the partup-tiles and handles the infinite scroll
  *
- * @param query {ReactiveVar} - The reactive-var for the query
+ * @param partupsOptions {ReactiveVar} - The reactive-var for the query options
  */
-
- /**
-  * Discover-page cache
-  */
-Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
-    if (error || !ids) return;
-
-    var sub = Meteor.subscribe('partups.by_ids', ids);
-    Meteor.autorun(function(comp) {
-        if (!sub.ready()) return;
-        comp.stop();
-
-        Partup.client.discover.cache.partup_ids = ids;
-    });
-});
 
 /**
  * Discover-page created
@@ -47,125 +32,93 @@ Template.app_discover_page.onCreated(function() {
         // Partups subscription handle
         sub: undefined,
 
-        // Current ids placeholder
-        current_ids: [],
-
-        // Update
-        updateLayout: function(ids, options) {
-            options = options || {};
-
-            // Get current partups by given ids
-            var partups = Partups.find({_id: {$in: ids}}).fetch();
-
-            if (options.reset) {
-
-                // Remove all rendered partups
-                tpl.partups.layout.items = tpl.partups.layout.clear();
-
-            } else {
-
-                // Get rendered partups
-                var renderedPartups = tpl.partups.layout.items;
-
-                // Differentiate the partups to find the new ones
-                partups = mout.array.filter(partups, function(partup) {
-                    return !mout.array.find(renderedPartups, function(_partup) {
-                        return partup._id === _partup._id;
-                    });
-                });
-
-                // Determine whether this is the end (for infinite scroll)
-                tpl.partups.end_reached.set(partups.length === 0);
-            }
-
-            // Sort retrieved partups by the order of the given ids array
-            partups = lodash.sortBy(partups, function(partup) {
-                return this.indexOf(partup._id);
-            }, ids);
-
-            // Render the partups
-            tpl.partups.layout.items = tpl.partups.layout.add(partups);
+        // Partup ids placeholder
+        ids: [],
+        getLimitedIds: function(limit) {
+            return this.ids.slice(0, limit);
         },
 
-        // Query reactive variable (on change, clear the layout and re-add all partups)
-        query: tpl.data.query, // Reference to the passed query reactive-var
-        onQueryChange: function(query) {
-            if (!query) return;
+        // Options reactive variable (on change, clear the layout and re-add all partups)
+        options: tpl.data.partupsOptions, // Reference to the passed partupsOptions reactive-var
+        onOptionsChange: function(options) {
+            if (!options) return;
 
-            // Reset the limit reactive-var and the limit property of query
+            // Reset the limit reactive-var and the limit property of options
             tpl.partups.resetLimit();
+            options.limit = null;
 
             // Call the partup ids
             tpl.partups.loading.set(true);
-            Meteor.call('partups.discover', query, function(error, partupIds) {
+            Meteor.call('partups.discover', options, function(error, partupIds) {
                 if (error || !partupIds) return;
-
-                tpl.partups.current_ids = partupIds;
 
                 tpl.partups.layout.count.set(partupIds.length);
 
-                var sliced_ids = partupIds.slice(0, tpl.partups.STARTING_LIMIT);
+                tpl.partups.ids = partupIds;
 
-                var is_plain_query = mout.object.equals(query, Partup.client.discover.DEFAULT_QUERY);
-
-                // When this is a plain query ...
-                if (is_plain_query) {
-
-                    // And the cache is the same as the current result ...
-                    if (mout.array.equals(Partup.client.discover.cache.partup_ids, partupIds)) {
-                        tpl.partups.loading.set(false);
-
-                        if (!Partup.client.discover.cache.rendered) {
-                            Partup.client.discover.cache.rendered = true;
-                            tpl.partups.updateLayout(sliced_ids, {reset: true}); // ... render the partups from the cache
-                        }
-
-                        return;
-                    } else {
-                        Partup.client.discover.cache.rendered = false; // ... otherwise, unset the Partup.client.discover.cache.
-                        Partup.client.discover.cache.partup_ids = [];
-                    }
-                }
+                var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
 
                 var oldsub = tpl.partups.sub;
-                tpl.partups.sub = Meteor.subscribe('partups.by_ids', sliced_ids);
+                tpl.partups.sub = tpl.subscribe('partups.by_ids', limitedIds);
 
                 tpl.autorun(function(comp) {
-                    if (!tpl.partups.sub.ready()) return;
-                    comp.stop();
+                    if (tpl.partups.sub.ready()) {
+                        comp.stop();
 
-                    if (oldsub) oldsub.stop();
-                    tpl.partups.loading.set(false);
-                    tpl.partups.updateLayout(sliced_ids, {reset: true});
+                        if (oldsub) oldsub.stop();
 
-                    if (is_plain_query) {
-                        Partup.client.discover.cache.partup_ids = tpl.partups.current_ids;
-                        Partup.client.discover.cache.rendered = true;
-                    } else {
-                        Partup.client.discover.cache.rendered = false;
+                        tpl.partups.loading.set(false);
+
+                        var partups = Partups.find({_id: {$in: limitedIds}}).fetch();
+
+                        partups = lodash.sortBy(partups, function(partup) {
+                            return this.indexOf(partup._id);
+                        }, limitedIds);
+
+                        tpl.partups.layout.items = tpl.partups.layout.clear();
+                        tpl.partups.layout.items = tpl.partups.layout.add(partups);
                     }
                 });
             });
         },
 
         // Limit reactive variable (on change, add partups to the layout)
-        limit: new ReactiveVar(this.STARTING_LIMIT, function(old_limit, new_limit) {
-            var first = new_limit === tpl.partups.STARTING_LIMIT;
+        limit: new ReactiveVar(this.STARTING_LIMIT, function(a, b) {
+            var first = b === tpl.partups.STARTING_LIMIT;
             if (first) return;
 
-            var sliced_ids = tpl.partups.current_ids.slice(0, new_limit);
+            var limitedIds = tpl.partups.getLimitedIds(b);
             tpl.partups.infinitescroll_loading.set(true);
 
             var oldsub = tpl.partups.sub;
-            tpl.partups.sub = Meteor.subscribe('partups.by_ids', sliced_ids);
+            tpl.partups.sub = tpl.subscribe('partups.by_ids', limitedIds);
 
             tpl.autorun(function(comp) {
-                if (!tpl.partups.sub.ready()) return;
-                comp.stop();
+                if (tpl.partups.sub.ready()) {
+                    comp.stop();
 
-                if (oldsub) oldsub.stop();
-                tpl.partups.loading.set(false);
-                tpl.partups.updateLayout(sliced_ids, {reset: false});
+                    if (oldsub) oldsub.stop();
+
+                    tpl.partups.loading.set(false);
+
+                    var oldPartups = tpl.partups.layout.items;
+                    var newPartups = Partups.find({_id: {$in: limitedIds}}).fetch();
+
+                    var diffPartups = mout.array.filter(newPartups, function(partup) {
+                        return !mout.array.find(oldPartups, function(_partup) {
+                            return partup._id === _partup._id;
+                        });
+                    });
+
+                    diffPartups = lodash.sortBy(diffPartups, function(partup) {
+                        return this.indexOf(partup._id);
+                    }, limitedIds);
+
+                    var end_reached = diffPartups.length === 0;
+                    tpl.partups.end_reached.set(end_reached);
+
+                    tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
+                }
             });
         }),
 
@@ -181,9 +134,9 @@ Template.app_discover_page.onCreated(function() {
         }
     };
 
-    // Fire onQueryChange when the query change
+    // Fire onOptionsChange when the options change
     tpl.autorun(function() {
-        tpl.partups.onQueryChange(tpl.partups.query.get());
+        tpl.partups.onOptionsChange(tpl.partups.options.get());
     });
 });
 
@@ -193,7 +146,9 @@ Template.app_discover_page.onCreated(function() {
 Template.app_discover_page.onRendered(function() {
     var tpl = this;
 
-    // Infinite scroll
+    /**
+     * Infinite scroll
+     */
     Partup.client.scroll.infinite({
         template: tpl,
         element: tpl.find('[data-infinitescroll-container]')
@@ -201,16 +156,6 @@ Template.app_discover_page.onRendered(function() {
         if (tpl.partups.loading.get() || tpl.partups.infinitescroll_loading.get() || tpl.partups.end_reached.get()) return;
         tpl.partups.increaseLimit();
     });
-
-    // Set initial layout from cache
-    if (Partup.client.discover.cache.partup_ids.length && !Partup.client.discover.cache.rendered) {
-        tpl.partups.updateLayout(Partup.client.discover.cache.partup_ids, {reset: true});
-        Partup.client.discover.cache.rendered = true;
-    }
-});
-
-Template.app_discover_page.onDestroyed(function() {
-    Partup.client.discover.cache.rendered = false;
 });
 
 /**

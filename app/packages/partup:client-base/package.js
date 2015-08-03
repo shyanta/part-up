@@ -55,7 +55,6 @@ Package.onUse(function(api) {
         'client/prompt.js',
         'client/window.js',
         'client/url.js',
-        'client/discover.js',
         'helpers/log.js',
         'helpers/dateFormatters.js',
         'helpers/datepicker.js',

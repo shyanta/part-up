@@ -106,7 +106,7 @@ Template.app_profile.events({
     },
     'click [data-location]': function(event, template) {
         var location = Meteor.users.findOne(template.data.profileId).profile.location;
-        Session.set('discover.query.location', location);
+        Session.set('discover.location', location);
         Router.go('discover');
     }
 });

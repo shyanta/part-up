@@ -318,7 +318,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
     var parameters = parameters || {};
 
     var sort = parameters.sort || undefined;
-    var textSearch = parameters.textSearch || undefined;
+    var query = parameters.query || undefined;
     var locationId = parameters.locationId || undefined;
     var networkId = parameters.networkId || undefined;
 
@@ -345,12 +345,12 @@ Partups.findForDiscover = function(userId, options, parameters) {
         selector['network_id'] = networkId;
     }
 
-    // Filter the partups that match the text search
-    if (textSearch) {
-        Log.debug('Searching for [' + textSearch + ']');
+    // Filter the partups that match the search query
+    if (query) {
+        Log.debug('Searching for [' + query + ']');
 
-        var querySelector = {$text: {$search: textSearch}};
-        var tagSelector = {tags: {$in: [textSearch]}};
+        var querySelector = {$text: {$search: query}};
+        var tagSelector = {tags: {$in: [query]}};
 
         options.fields = {score: {$meta: 'textScore'}};
         options.sort['score'] = {$meta: 'textScore'};
