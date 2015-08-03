@@ -5,11 +5,6 @@
  * @param partupsOptions {ReactiveVar} - The reactive-var for the query options
  */
 
-var Subs = new SubsManager({
-    cacheLimit: 1,
-    expireIn: 10
-});
-
 /**
  * Discover-page created
  */
@@ -35,7 +30,7 @@ Template.app_discover_page.onCreated(function() {
         },
 
         // Partups subscription handle
-        handle: undefined,
+        sub: undefined,
 
         // Partup ids placeholder
         ids: [],
@@ -63,11 +58,15 @@ Template.app_discover_page.onCreated(function() {
 
                 var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
 
-                var sub = Subs.subscribe('partups.by_ids', limitedIds);
+                var oldsub = tpl.partups.sub;
+                tpl.partups.sub = tpl.subscribe('partups.by_ids', limitedIds);
 
-                tpl.autorun(function(c) {
-                    if (sub.ready()) {
-                        c.stop();
+                tpl.autorun(function(comp) {
+                    if (tpl.partups.sub.ready()) {
+                        comp.stop();
+
+                        if (oldsub) oldsub.stop();
+
                         tpl.partups.loading.set(false);
 
                         var partups = Partups.find({_id: {$in: limitedIds}}).fetch();
@@ -91,11 +90,15 @@ Template.app_discover_page.onCreated(function() {
             var limitedIds = tpl.partups.getLimitedIds(b);
             tpl.partups.infinitescroll_loading.set(true);
 
-            var sub = Subs.subscribe('partups.by_ids', limitedIds);
+            var oldsub = tpl.partups.sub;
+            tpl.partups.sub = tpl.subscribe('partups.by_ids', limitedIds);
 
-            tpl.autorun(function(c) {
-                if (sub.ready()) {
-                    c.stop();
+            tpl.autorun(function(comp) {
+                if (tpl.partups.sub.ready()) {
+                    comp.stop();
+
+                    if (oldsub) oldsub.stop();
+
                     tpl.partups.loading.set(false);
 
                     var oldPartups = tpl.partups.layout.items;
