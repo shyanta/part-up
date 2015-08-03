@@ -18,16 +18,15 @@ Meteor.startup(function() {
             if (!sub.ready()) return;
             comp.stop();
 
+            sub.stop();
+
             // Retrieve partups
             var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
-
-            // Stop subscription
-            sub.stop();
 
             // Sort retrieved partups by the order of the given ids array
             partups = lodash.sortBy(partups, function(partup) {
                 return this.indexOf(partup._id);
-            }, ids);
+            }, sliced_ids);
 
             // Save partups in cache
             Partup.client.discover.cache.partups = partups;
@@ -143,7 +142,11 @@ Template.app_discover_page.onCreated(function() {
                     tpl.partups.loading.set(false);
 
                     var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
+                    partups = lodash.sortBy(partups, function(partup) {
+                        return this.indexOf(partup._id);
+                    }, sliced_ids);
                     tpl.partups.updateLayout(partups, {reset: true});
+                    debugger;
 
                     if (is_plain_query) {
                         Partup.client.discover.cache.partup_ids = tpl.partups.current_ids;
@@ -173,6 +176,9 @@ Template.app_discover_page.onCreated(function() {
                 if (oldsub) oldsub.stop();
                 tpl.partups.loading.set(false);
                 var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
+                partups = lodash.sortBy(partups, function(partup) {
+                    return this.indexOf(partup._id);
+                }, sliced_ids);
                 tpl.partups.updateLayout(partups, {reset: false});
             });
         }),
