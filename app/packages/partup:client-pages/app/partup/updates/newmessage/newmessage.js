@@ -11,6 +11,7 @@ Template.app_partup_updates_newmessage.onCreated(function() {
     template.uploadedPhotos = new ReactiveVar([]);
     template.totalPhotos = new ReactiveVar(0);
     template.maxPhotos = 4;
+    template.submitting = new ReactiveVar(false);
 });
 
 // helpers
@@ -24,7 +25,10 @@ Template.app_partup_updates_newmessage.helpers({
         return Template.instance().uploadedPhotos.get();
     },
     photoLimitReached: function() {
-        return (Template.instance().totalPhotos.get() === 4) ? true : false;
+        return Template.instance().totalPhotos.get() === 4;
+    },
+    submitting: function() {
+        return Template.instance().submitting.get();
     }
 });
 
@@ -77,11 +81,15 @@ AutoForm.hooks({
             var self = this;
             var parent = Template.instance().parent();
 
+            parent.submitting.set(true);
+
             var partupId = parent.data.partupId;
             var uploadedPhotos = parent.uploadedPhotos.get();
             insertDoc.images = uploadedPhotos;
 
             Meteor.call('updates.messages.insert', partupId, insertDoc, function(error) {
+                parent.submitting.set(false);
+
                 // Error
                 if (error) {
                     Partup.client.notify.error(error.reason);

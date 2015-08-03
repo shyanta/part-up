@@ -21,7 +21,10 @@
         </label>
         <footer class="pu-row">
             <div class="cell">
-                <input type="submit" class="pu-button" value="{{_ 'pages-app-partup-updates-newmessage-submit'}}">
+                <button class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                    <span>{{_ 'pages-app-partup-updates-newmessage-submit'}}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
             </div>
             <div class="cell stretch">
                 <a class=" pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
