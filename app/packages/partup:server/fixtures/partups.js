@@ -36,32 +36,7 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
+                    'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
                 'supporters' : [
@@ -101,32 +76,7 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
+                    'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 }
             });
@@ -163,32 +113,7 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
+                    'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 }
             });
@@ -226,32 +151,7 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
+                    'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 }
             });
@@ -286,32 +186,7 @@ Meteor.startup(function() {
                 'analytics' : {
                     'clicks_total' : 1,
                     'clicks_per_day' : 1,
-                    'clicks_per_hour' : [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                    ],
+                    'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 }
             });
@@ -326,7 +201,7 @@ Meteor.startup(function() {
                 ];
 
                 Partups.insert({
-                    _id: Random.id(),
+                    _id: Random.id() + i,
                     name: Fake.fromArray([Fake.sentence(2), Fake.sentence(3), Fake.sentence(4), Fake.sentence(5)]).replace('.', ''),
                     description: Fake.paragraph(Fake.fromArray([1, 2, 3, 4])),
                     creator_id: 'K5c5M4Pbdg3B82wQH',
