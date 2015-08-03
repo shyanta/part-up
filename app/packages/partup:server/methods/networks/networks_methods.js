@@ -247,6 +247,7 @@ Meteor.methods({
             if (network.isPublic()) {
                 // Allow user instantly
                 network.addUpper(user._id);
+                network.removeAllUpperInvites(user._id);
                 return Log.debug('User added to network.');
             }
 
