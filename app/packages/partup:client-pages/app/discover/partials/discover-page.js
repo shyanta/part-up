@@ -5,18 +5,33 @@
  * @param query {ReactiveVar} - The reactive-var for the query
  */
 
- /**
+/**
   * Discover-page cache
   */
-Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
-    if (error || !ids) return;
+Meteor.startup(function() {
+    Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
+        if (error || !ids) return;
 
-    var sub = Meteor.subscribe('partups.by_ids', ids);
-    Meteor.autorun(function(comp) {
-        if (!sub.ready()) return;
-        comp.stop();
+        var sliced_ids = ids.slice(0, Partup.client.discover.DEFAULT_LIMIT);
+        var sub = Meteor.subscribe('partups.by_ids', sliced_ids);
+        Meteor.autorun(function(comp) {
+            if (!sub.ready()) return;
+            comp.stop();
 
-        Partup.client.discover.cache.partup_ids = ids;
+            // Retrieve partups
+            var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
+
+            // Stop subscription
+            sub.stop();
+
+            // Sort retrieved partups by the order of the given ids array
+            partups = lodash.sortBy(partups, function(partup) {
+                return this.indexOf(partup._id);
+            }, ids);
+
+            // Save partups in cache
+            Partup.client.discover.cache.partups = partups;
+        });
     });
 });
 
@@ -30,7 +45,6 @@ Template.app_discover_page.onCreated(function() {
     tpl.partups = {
 
         // Constants
-        STARTING_LIMIT: 24,
         INCREMENT: 24,
 
         // States
@@ -51,14 +65,10 @@ Template.app_discover_page.onCreated(function() {
         current_ids: [],
 
         // Update
-        updateLayout: function(ids, options) {
+        updateLayout: function(partups, options) {
             options = options || {};
 
-            // Get current partups by given ids
-            var partups = Partups.find({_id: {$in: ids}}).fetch();
-
             if (options.reset) {
-
                 // Remove all rendered partups
                 tpl.partups.layout.items = tpl.partups.layout.clear();
 
@@ -77,11 +87,6 @@ Template.app_discover_page.onCreated(function() {
                 // Determine whether this is the end (for infinite scroll)
                 tpl.partups.end_reached.set(partups.length === 0);
             }
-
-            // Sort retrieved partups by the order of the given ids array
-            partups = lodash.sortBy(partups, function(partup) {
-                return this.indexOf(partup._id);
-            }, ids);
 
             // Render the partups
             tpl.partups.layout.items = tpl.partups.layout.add(partups);
@@ -104,7 +109,7 @@ Template.app_discover_page.onCreated(function() {
 
                 tpl.partups.layout.count.set(partupIds.length);
 
-                var sliced_ids = partupIds.slice(0, tpl.partups.STARTING_LIMIT);
+                var sliced_ids = partupIds.slice(0, Partup.client.discover.DEFAULT_LIMIT);
 
                 var is_plain_query = mout.object.equals(query, Partup.client.discover.DEFAULT_QUERY);
 
@@ -112,12 +117,12 @@ Template.app_discover_page.onCreated(function() {
                 if (is_plain_query) {
 
                     // And the cache is the same as the current result ...
-                    if (mout.array.equals(Partup.client.discover.cache.partup_ids, partupIds)) {
+                    if (mout.array.equals(lodash.map(Partup.client.discover.cache.partups, '_id'), sliced_ids)) {
                         tpl.partups.loading.set(false);
 
                         if (!Partup.client.discover.cache.rendered) {
                             Partup.client.discover.cache.rendered = true;
-                            tpl.partups.updateLayout(sliced_ids, {reset: true}); // ... render the partups from the cache
+                            tpl.partups.updateLayout(Partup.client.discover.cache.partups, {reset: true}); // ... render the partups from the cache
                         }
 
                         return;
@@ -136,7 +141,9 @@ Template.app_discover_page.onCreated(function() {
 
                     if (oldsub) oldsub.stop();
                     tpl.partups.loading.set(false);
-                    tpl.partups.updateLayout(sliced_ids, {reset: true});
+
+                    var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
+                    tpl.partups.updateLayout(partups, {reset: true});
 
                     if (is_plain_query) {
                         Partup.client.discover.cache.partup_ids = tpl.partups.current_ids;
@@ -149,8 +156,8 @@ Template.app_discover_page.onCreated(function() {
         },
 
         // Limit reactive variable (on change, add partups to the layout)
-        limit: new ReactiveVar(this.STARTING_LIMIT, function(old_limit, new_limit) {
-            var first = new_limit === tpl.partups.STARTING_LIMIT;
+        limit: new ReactiveVar(Partup.client.discover.DEFAULT_LIMIT, function(old_limit, new_limit) {
+            var first = new_limit === Partup.client.discover.DEFAULT_LIMIT;
             if (first) return;
 
             var sliced_ids = tpl.partups.current_ids.slice(0, new_limit);
@@ -165,7 +172,8 @@ Template.app_discover_page.onCreated(function() {
 
                 if (oldsub) oldsub.stop();
                 tpl.partups.loading.set(false);
-                tpl.partups.updateLayout(sliced_ids, {reset: false});
+                var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
+                tpl.partups.updateLayout(partups, {reset: false});
             });
         }),
 
@@ -176,7 +184,7 @@ Template.app_discover_page.onCreated(function() {
 
         // Reset limit function
         resetLimit: function() {
-            tpl.partups.limit.set(tpl.partups.STARTING_LIMIT);
+            tpl.partups.limit.set(Partup.client.discover.DEFAULT_LIMIT);
             tpl.partups.end_reached.set(false);
         }
     };
@@ -203,8 +211,8 @@ Template.app_discover_page.onRendered(function() {
     });
 
     // Set initial layout from cache
-    if (Partup.client.discover.cache.partup_ids.length && !Partup.client.discover.cache.rendered) {
-        tpl.partups.updateLayout(Partup.client.discover.cache.partup_ids, {reset: true});
+    if (Partup.client.discover.cache.partups.length && !Partup.client.discover.cache.rendered) {
+        tpl.partups.updateLayout(Partup.client.discover.cache.partups, {reset: true});
         Partup.client.discover.cache.rendered = true;
     }
 });
