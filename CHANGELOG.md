@@ -1,4 +1,16 @@
 # CHANGELOG
+## 1.5.8
+- now caching discover results
+- added pending invite notification for tribe admin
+- find all users in invite tribe
+- bugfixes
+    - loggedout updates
+    - message post button loader
+    - fixed broken contribution proposal notification link
+    - fixed discover images flicker
+    - images published properly on profile/supporter partups
+    - fixed link to profile on discover
+
 ## 1.5.7
 - discover sorting default set to newest
 - changed twitter hashtag
