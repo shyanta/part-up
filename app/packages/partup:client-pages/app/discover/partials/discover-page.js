@@ -146,7 +146,6 @@ Template.app_discover_page.onCreated(function() {
                         return this.indexOf(partup._id);
                     }, sliced_ids);
                     tpl.partups.updateLayout(partups, {reset: true});
-                    debugger;
 
                     if (is_plain_query) {
                         Partup.client.discover.cache.partup_ids = tpl.partups.current_ids;
