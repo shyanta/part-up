@@ -15,10 +15,6 @@ Partup.server.services.matching = {
         var tags = partup.tags || [];
         selector['profile.tags'] = {'$in': tags};
 
-        // Filter the uppers of the partup as these are not valid suggestions
-        var uppers = partup.uppers || [];
-        selector['_id'] = {'$nin': uppers};
-
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 

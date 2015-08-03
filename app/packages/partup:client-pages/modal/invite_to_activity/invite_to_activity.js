@@ -72,13 +72,16 @@ Template.modal_invite_to_activity.helpers({
     },
     inviteSent: function() {
         var activityId = Template.instance().data.activityId;
-        var userId = this._id;
 
         return !!Invites.findOne({
             activity_id: activityId,
             invitee_id: this._id,
             type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER
         });
+    },
+    alreadyPartner: function() {
+        var partupId = Template.instance().data.partupId;
+        return User(this).isPartnerInPartup(partupId);
     },
     participation: function() {
         return User(this).getReadableScore();
