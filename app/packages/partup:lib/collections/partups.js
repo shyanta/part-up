@@ -148,7 +148,7 @@ Partup.prototype.makeSupporter = function(upperId) {
  * @param {String} upperId the user that gets promoted
  */
 Partup.prototype.makeSupporterPartner = function(upperId) {
-    Partups.update(this._id, {$pull: {'supporters': upperId}, $addToSet: {'uppers': upperId}});
+    Partups.update(this._id, {$pull: {'supporters': upperId, 'invites': upperId}, $addToSet: {'uppers': upperId}});
     Meteor.users.update(upperId, {$pull: {'supporterOf': this._id}, $addToSet: {'upperOf': this._id}});
 };
 
