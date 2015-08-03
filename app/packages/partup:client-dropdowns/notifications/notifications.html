@@ -151,7 +151,7 @@
                     {{/if}}
                     <!-- new contribution in partup by partner notification -->
                     {{#if partupEqualsExactly type 'partups_contributions_proposed' }}
-                        <a href="{{pathFor route='partup-activities' slug=type_data.partup.slug}}">
+                        <a href="{{pathFor route='partup-update' slug=type_data.partup.slug update_id=type_data.update._id }}">
                             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=type_data.creator.image }}');" data-usercard="{{ type_data.creator._id }}">
                                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
                             </figure>

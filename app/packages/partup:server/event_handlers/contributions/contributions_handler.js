@@ -41,6 +41,9 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
                     _id: partup._id,
                     name: partup.name,
                     slug: partup.slug
+                },
+                update: {
+                    _id: update._id
                 }
             }
         };
