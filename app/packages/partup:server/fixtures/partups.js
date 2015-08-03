@@ -256,7 +256,8 @@ Meteor.startup(function() {
                 }
             });
 
-            Partups.insert( {
+            /* 5 */
+            Partups.insert({
                 '_id' : 'WxrpPuJkhafJB3gfF',
                 'name' : 'Partup Premium Part-up',
                 'description' : 'private',
@@ -315,29 +316,29 @@ Meteor.startup(function() {
                 }
             });
 
-            // uncomment for infinite scroll testing
-            // for (var i = 0; i < 30; i++) {
-            //     var descriptions = [
-            //         'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
-            //         'This describes just how great this Part-up is.',
-            //         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima error veritatis ratione dolor perferendis inventore optio. Error omnis nostrum expedita.',
-            //         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum repudiandae exercitationem unde sunt voluptatum consequatur at ipsum incidunt praesentium. Lorem ipsum dolor sit amet.'
-            //     ];
-            //
-            //     Partups.insert({
-            //         _id: '1111' + i,
-            //         name: Fake.fromArray([Fake.sentence(2), Fake.sentence(3), Fake.sentence(4), Fake.sentence(5)]).replace('.', ''),
-            //         description: Fake.paragraph(Fake.fromArray([1,2,3,4])),
-            //         creator_id: user1Id,
-            //         tags: Fake.fromArray([[Fake.word()], [Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word(), Fake.word()]]),
-            //         uppers: [user1Id, user2Id],
-            //         location: undefined,
-            //         privacy_type: Partups.PUBLIC,
-            //         image: null,
-            //         created_at : new Date('2015-03-26T16:25:07.816Z'),
-            //         end_date: new Date('2015-06-01T10:00:07.100Z'),
-            //     });
-            // }
+            /* 6-36 */
+            for (var i = 0; i < 30; i++) {
+                var descriptions = [
+                    'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
+                    'This describes just how great this Part-up is.',
+                    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima error veritatis ratione dolor perferendis inventore optio. Error omnis nostrum expedita.',
+                    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum repudiandae exercitationem unde sunt voluptatum consequatur at ipsum incidunt praesentium. Lorem ipsum dolor sit amet.'
+                ];
+
+                Partups.insert({
+                    _id: Random.id(),
+                    name: Fake.fromArray([Fake.sentence(2), Fake.sentence(3), Fake.sentence(4), Fake.sentence(5)]).replace('.', ''),
+                    description: Fake.paragraph(Fake.fromArray([1, 2, 3, 4])),
+                    creator_id: 'K5c5M4Pbdg3B82wQH',
+                    tags: Fake.fromArray([[Fake.word()], [Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word(), Fake.word()]]),
+                    uppers: ['K5c5M4Pbdg3B82wQH', 'K5c5M4Pbdg3B82wQI'],
+                    location: undefined,
+                    privacy_type: Partups.PUBLIC,
+                    image: null,
+                    created_at : new Date('2015-03-26T16:25:07.816Z'),
+                    end_date: new Date('2015-06-01T10:00:07.100Z'),
+                });
+            }
         }
     }
 });
