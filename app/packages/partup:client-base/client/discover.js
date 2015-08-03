@@ -7,7 +7,10 @@
 Partup.client.discover = {
 
     /**
-     * Default query contant
+     * Default query
+     *
+     * This will be used to set the default query on discover,
+     * and to match against when determining whether the current query is empty.
      *
      * @memberof Partup.client.discover
      */
