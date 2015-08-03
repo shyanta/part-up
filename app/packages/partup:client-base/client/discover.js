@@ -22,19 +22,12 @@ Partup.client.discover = {
     },
 
     /**
-     * Default limit
-     *
-     * @memberof Partup.client.discover
-     */
-    DEFAULT_LIMIT: 24,
-
-    /**
      * Cached values
      *
      * @memberof Partup.client.discover
      */
     cache: {
-        partups: [],
+        partup_ids: [],
         rendered: false
     }
 };
