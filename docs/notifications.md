@@ -6,6 +6,7 @@
 // partups_contributions_rejected
 // partups_networks_invited
 // partups_networks_accepted
+// partups_networks_new_pending_upper
 // contributions_ratings_inserted
 // updates_first_comment
 

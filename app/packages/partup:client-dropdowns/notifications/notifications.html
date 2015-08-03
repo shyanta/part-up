@@ -89,6 +89,18 @@
                             </article>
                         </a>
                     {{/if}}
+                    <!-- added to pending_upper list and waiting for admin approval -->
+                    {{#if partupEqualsExactly type 'partups_networks_new_pending_upper' }}
+                        <a href="{{pathFor route='network-settings-requests' slug=type_data.network.slug}}">
+                            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=type_data.pending_upper.image }}');" >
+                                <!-- <a href="#" rel="author" class="pu-sub-image pu-sub-image-plain" ></a> -->
+                            </figure>
+                            <article>
+                                <p>{{_ 'dropdown-notification-partups_networks_new_pending_upper' network=type_data.network.name pending_upper=type_data.pending_upper.name }}</p>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
                     <!-- contribution rating notification -->
                     {{#if partupEqualsExactly type 'contributions_ratings_inserted' }}
                         <a href="{{pathFor route='partup-activities' slug=type_data.partup.slug}}">

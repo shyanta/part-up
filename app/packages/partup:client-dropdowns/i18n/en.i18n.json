@@ -32,6 +32,7 @@
     "dropdown-notification-partups_contributions_rejected": "__rejecter__ rejected your contribution to __activity__",
     "dropdown-notification-partups_networks_invited": "__inviter__ invited you to join a tribe",
     "dropdown-notification-partups_networks_accepted": "You are now member of __network__",
+    "dropdown-notification-partups_networks_new_pending_upper": "__pending_upper__ is asking permission to access __network__",
     "dropdown-notification-contributions_ratings_inserted": "__rater__ rated your contribution",
     "dropdown-notification-updates_first_comment": "__commenter__ commented on an update",
     "dropdown-notification-partups_messages_inserted": "__creator__ placed a message",
