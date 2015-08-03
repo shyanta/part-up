@@ -219,7 +219,7 @@ Template.app_discover_page.events({
         event.preventDefault();
 
         Intent.go({
-            route: 'profile-settings-details',
+            route: 'profile-settings',
             params: {
                 _id: Meteor.userId()
             }
