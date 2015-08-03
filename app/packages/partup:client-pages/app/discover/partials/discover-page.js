@@ -11,9 +11,7 @@
 Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
     if (error || !ids) return;
 
-    var sliced_ids = ids.slice(0, 24); // todo: fix hardcoded 24
-
-    var sub = Meteor.subscribe('partups.by_ids', sliced_ids);
+    var sub = Meteor.subscribe('partups.by_ids', ids);
     Meteor.autorun(function(comp) {
         if (!sub.ready()) return;
         comp.stop();
