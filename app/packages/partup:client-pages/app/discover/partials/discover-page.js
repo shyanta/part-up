@@ -208,7 +208,11 @@ Template.app_discover_page.onCreated(function() {
 
     // Fire onOptionsChange when the options change
     tpl.autorun(function() {
-        tpl.partups.onOptionsChange(tpl.partups.options.get());
+        var options = tpl.partups.options.get();
+
+        Tracker.nonreactive(function() {
+            tpl.partups.onOptionsChange(options);
+        });
     });
 });
 
