@@ -311,7 +311,7 @@ Template.Partupsettings.events({
         var currentValue = template.showPrivacyDropdown.get();
         template.showPrivacyDropdown.set(!currentValue);
     },
-    'input [data-whocanview]': function(event, template) {
+    'change [data-whocanview]': function(event, template) {
         var selected_value = event.currentTarget.value;
         if (selected_value.indexOf('privacy-') === 0) {
 
