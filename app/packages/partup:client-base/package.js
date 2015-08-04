@@ -52,6 +52,7 @@ Package.onUse(function(api) {
         'client/screensize.js',
         'client/moment.js',
         'client/updates.js',
+        'client/discover.js',
         'client/prompt.js',
         'client/window.js',
         'client/url.js',

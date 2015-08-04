@@ -27,7 +27,6 @@ Partup.client.discover = {
      * @memberof Partup.client.discover
      */
     cache: {
-        partup_ids: [],
-        rendered: false
+        //
     }
 };

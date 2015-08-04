@@ -21,12 +21,12 @@ Template.app_discover_filter.onCreated(function() {
 
     // Textsearch
     tpl.textsearch = {
-        value: new ReactiveVar()
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.textSearch)
     };
 
     // Network filter datamodel
     tpl.network = {
-        value: new ReactiveVar(),
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.networkId),
         selectorState: new ReactiveVar(false, function(a, b) {
             if (!b) return;
 
@@ -54,7 +54,7 @@ Template.app_discover_filter.onCreated(function() {
 
     // Location filter datamodel
     tpl.location = {
-        value: new ReactiveVar(),
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.locationId),
         selectorState: new ReactiveVar(false, function(a, b) {
             if (!b) return;
 
@@ -95,7 +95,7 @@ Template.app_discover_filter.onCreated(function() {
             }
         }
     ];
-    var defaultSortingOption = sortingOptions[1]; // 'new'
+    var defaultSortingOption = lodash.find(sortingOptions, {value: Partup.client.discover.DEFAULT_QUERY.sort});
     tpl.sorting = {
         options: sortingOptions,
         value: new ReactiveVar(defaultSortingOption),
