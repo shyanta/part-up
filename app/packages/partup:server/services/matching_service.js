@@ -22,7 +22,14 @@ Partup.server.services.matching = {
         var options = {};
         var searchOptionsProvided = searchOptions.locationId || searchOptions.query;
 
-        if (!searchOptionsProvided) {
+        if (searchOptionsProvided) {
+            if (searchOptions.locationId) {
+                selector['profile.location.place_id'] = searchOptions.locationId;
+            }
+            if (searchOptions.query) {
+                selector['profile.name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
+            }
+        } else {
             // Match the uppers on the tags used in the partup
             var tags = partup.tags || [];
             selector['profile.tags'] = {'$in': tags};
@@ -30,6 +37,12 @@ Partup.server.services.matching = {
 
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
+
+        // Only return the IDs
+        options['fields'] = {'_id': 1};
+
+        // Limit results to 30
+        options['limit'] = 30;
 
         var results = Meteor.users.find(selector, options).fetch();
 
@@ -80,11 +93,12 @@ Partup.server.services.matching = {
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
-        options['fields'] = {'_id':1};
+        // Only return the IDs
+        options['fields'] = {'_id': 1};
 
+        // Limit results to 30
         options['limit'] = 30;
 
-        console.log(selector);
         var results = Meteor.users.find(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)

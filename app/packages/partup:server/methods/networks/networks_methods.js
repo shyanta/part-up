@@ -439,11 +439,9 @@ Meteor.methods({
 
         var users = Partup.server.services.matching.matchUppersForNetwork(networkId, options);
 
-        // We are returning an array of ids instead of separate objects
-        var userIdArray = users.map(function(user) {
+        // We are returning an array of IDs instead of an object
+        return users.map(function(user) {
             return user._id;
         });
-
-        return userIdArray;
     }
 });
