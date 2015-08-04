@@ -19,6 +19,9 @@ Partup.server.services.matching = {
         options['sort'] = {'participation_score': -1};
 
         // Get the results, if there are none, we remove some matching steps
+        // Set a search limit
+        options['limit'] = 30;
+
         var results = Meteor.users.find(selector, options).fetch();
         var iteration = 0;
 
@@ -46,6 +49,9 @@ Partup.server.services.matching = {
         options['sort'] = {'participation_score': -1};
 
         // Get the results, if there are none, we remove some matching steps
+        // Set a search limit
+        options['limit'] = 30;
+
         var results = Meteor.users.find(selector, options).fetch();
         var iteration = 0;
 
