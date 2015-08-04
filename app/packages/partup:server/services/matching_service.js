@@ -4,7 +4,17 @@
  @memberof Partup.server.services
  */
 Partup.server.services.matching = {
-    matchUppersForActivity: function(activityId) {
+    /**
+     * Match uppers for a given activity
+     *
+     * @param {String} activityId
+     * @param {Object} searchOptions
+     * @param {Number} searchOptions.locationId
+     * @param {String} searchOptions.query
+     *
+     * @return {[String]}
+     */
+    matchUppersForActivity: function(activityId, searchOptions) {
         var activity = Activities.findOneOrFail(activityId);
         var partup = Partups.findOneOrFail(activity.partup_id);
 
@@ -35,7 +45,17 @@ Partup.server.services.matching = {
         return results;
     },
 
-    matchUppersForNetwork: function(networkId) {
+    /**
+     * Match uppers for a given network
+     *
+     * @param {String} networkId
+     * @param {Object} searchOptions
+     * @param {Number} searchOptions.locationId
+     * @param {String} searchOptions.query
+     *
+     * @return {[String]}
+     */
+    matchUppersForNetwork: function(networkId, searchOptions) {
         var network = Networks.findOneOrFail(networkId);
 
         var selector = {};
