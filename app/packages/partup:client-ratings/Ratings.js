@@ -18,9 +18,8 @@ Template.Ratings.onCreated(function() {
 
 Template.Ratings.onRendered(function() {
     var template = this;
-
-    document.body.addEventListener('click', function(e) {
-        var avatar = $(e.target.closest('[data-rating-id]'));
+    template.clickHandler = function(e) {
+        var avatar = $(e.target).closest('[data-rating-id]');
 
         if (!avatar.length) {
             openHoverCards = [];
@@ -30,7 +29,13 @@ Template.Ratings.onRendered(function() {
 
         template.openHoverCards.set(openHoverCards);
         return;
-    });
+    };
+    document.body.addEventListener('click', template.clickHandler);
+});
+
+Template.Ratings.onDestroyed(function() {
+    var template = this;
+    document.body.removeEventListener('click', template.clickHandler);
 });
 
 /*************************************************************/
