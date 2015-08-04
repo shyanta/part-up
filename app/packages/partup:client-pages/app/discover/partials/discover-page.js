@@ -91,7 +91,7 @@ Template.app_discover_page.onCreated(function() {
             // Call the partup ids
             tpl.partups.loading.set(!filled_from_cache);
             Meteor.call('partups.discover', options, function(error, ids) {
-                if (error || !ids) return;
+                if (error || !ids || tpl.view.isDestroyed) return;
 
                 tpl.partups.ids = ids;
 
