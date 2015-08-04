@@ -6,6 +6,34 @@
  */
 
 /**
+ * Call part-ups once, globally
+ */
+Meteor.startup(function() {
+    Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
+        if (error) return;
+
+        Partup.client.discover.cache.partup_ids = ids;
+        var sliced_ids = ids.slice(0, Partup.client.discover.STARTING_LIMIT);
+
+        var sub = Meteor.subscribe('partups.by_ids', sliced_ids);
+
+        Meteor.autorun(function(comp) {
+            if (!sub.ready()) return;
+            comp.stop();
+
+            var limited_partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
+            sub.stop();
+
+            limited_partups = lodash.sortBy(limited_partups, function(partup) {
+                return this.indexOf(partup._id);
+            }, sliced_ids);
+
+            Partup.client.discover.cache.limited_partups = limited_partups;
+        });
+    });
+});
+
+/**
  * Discover-page created
  */
 Template.app_discover_page.onCreated(function() {
