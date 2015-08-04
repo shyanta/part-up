@@ -45,7 +45,6 @@ Template.app_discover_page.onCreated(function() {
 
             // Reset the limit reactive-var and the limit property of options
             tpl.partups.resetLimit();
-            options.limit = null;
 
             // Call the partup ids
             tpl.partups.loading.set(true);
