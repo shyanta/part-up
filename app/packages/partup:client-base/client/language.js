@@ -107,7 +107,7 @@ Partup.client.language = {
         var language = 'en';
         if (TAPi18n && Partup) {
             var detectedLocale = navigator.language || navigator.userLanguage;    // value is like: en-US
-            if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[A-Z]{2}$/)) {  // if the value matches 'xx-xx'
+            if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[a-z]{2}$/i)) {  // if the value matches 'xx-xx'
                 detectedLocale = detectedLocale.split('-')[0];                    // value is like: en
             }
             language = detectedLocale || 'en';
