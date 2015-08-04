@@ -31,6 +31,20 @@ Partup.client.discover = {
     /**
      * Cached values
      *
+     * Which documents are being cached:
+     * All documents that are being inserted in minimongo when subsribing to 'partups.by_ids'.
+     * partups, partups_images, uppers, uppers_images, networks, networks_images
+     *
+     * Setting cached values:
+     * `Partup.client.discover.cache.set(partups);`
+     * You should only set the cache with sorted partups that come from an empty Discover query.
+     *
+     * Reading from cached values:
+     * This happens in the discover-page. The sub-documents are being read in PartupTile.
+     * Just like:
+     *   var network_from_cache = lodash.find(Partup.client.discover.cache.networks, {_id: networkId});
+     *   return network_from_cache || Networks.findOne({_id: networkId});
+     *
      * @memberof Partup.client.discover
      */
     cache: {

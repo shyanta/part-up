@@ -6,7 +6,7 @@
  */
 
 /**
- * Call part-ups once, globally
+ * Call part-ups once to set the cache. For cache documentation, please see partup:client-base/client/discover.js
  */
 Meteor.startup(function() {
     Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
