@@ -12,7 +12,7 @@ Meteor.startup(function() {
     Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
         if (error) return;
 
-        Partup.client.discover.cache.partup_ids = ids;
+        Partup.client.discover.cache.all_partup_ids = ids;
         var sliced_ids = ids.slice(0, Partup.client.discover.STARTING_LIMIT);
 
         var sub = Meteor.subscribe('partups.by_ids', sliced_ids);
@@ -21,14 +21,19 @@ Meteor.startup(function() {
             if (!sub.ready()) return;
             comp.stop();
 
-            var limited_partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
-            sub.stop();
+            // Find the partups
+            var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
 
-            limited_partups = lodash.sortBy(limited_partups, function(partup) {
+            // Sort the partups by original given ids
+            partups = lodash.sortBy(partups, function(partup) {
                 return this.indexOf(partup._id);
             }, sliced_ids);
 
-            Partup.client.discover.cache.limited_partups = limited_partups;
+            // Set cache
+            Partup.client.discover.cache.set(partups);
+
+            // Remove data from mini-mongo by stopping the subscription
+            sub.stop();
         });
     });
 });
@@ -78,11 +83,11 @@ Template.app_discover_page.onCreated(function() {
             var is_default_query = mout.object.equals(options, Partup.client.discover.DEFAULT_QUERY);
 
             // Get part-ups from cache
-            var cached_partups = Partup.client.discover.cache.limited_partups;
+            var cached_partups = Partup.client.discover.cache.partups;
             var filled_from_cache = false;
             if (is_default_query && cached_partups.length > 0) {
                 filled_from_cache = true;
-                tpl.partups.layout.count.set(Partup.client.discover.cache.partup_ids.length);
+                tpl.partups.layout.count.set(Partup.client.discover.cache.all_partup_ids.length);
 
                 tpl.partups.layout.items = tpl.partups.layout.clear();
                 tpl.partups.layout.items = tpl.partups.layout.add(cached_partups);
@@ -96,7 +101,7 @@ Template.app_discover_page.onCreated(function() {
                 tpl.partups.ids = ids;
 
                 if (is_default_query) {
-                    Partup.client.discover.cache.partup_ids = ids;
+                    Partup.client.discover.cache.all_partup_ids = ids;
                 }
 
                 var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
@@ -120,7 +125,7 @@ Template.app_discover_page.onCreated(function() {
 
                         var should_update_layout = false;
                         if (is_default_query) {
-                            Partup.client.discover.cache.limited_partups = partups;
+                            Partup.client.discover.cache.set(partups);
 
                             if (!filled_from_cache) {
                                 should_update_layout = true;
