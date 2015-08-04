@@ -26,7 +26,7 @@ Partup.client.discover = {
      *
      * @memberof Partup.client.discover
      */
-    STARTING_LIMIT: 24,
+    STARTING_LIMIT: 32,
 
     /**
      * Cached values
