@@ -444,6 +444,6 @@ Meteor.methods({
             return user._id;
         });
 
-        return users;
+        return userIdArray;
     }
 });
