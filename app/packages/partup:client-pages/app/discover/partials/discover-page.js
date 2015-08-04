@@ -12,7 +12,6 @@ Meteor.startup(function() {
     Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
         if (error) return;
 
-        Partup.client.discover.cache.all_partup_ids = ids;
         var sliced_ids = ids.slice(0, Partup.client.discover.STARTING_LIMIT);
 
         var sub = Meteor.subscribe('partups.by_ids', sliced_ids);
@@ -30,6 +29,7 @@ Meteor.startup(function() {
             }, sliced_ids);
 
             // Set cache
+            Partup.client.discover.cache.all_partup_ids = ids;
             Partup.client.discover.cache.set(partups);
 
             // Remove data from mini-mongo by stopping the subscription
@@ -105,10 +105,6 @@ Template.app_discover_page.onCreated(function() {
 
                 tpl.partups.ids = ids;
 
-                if (is_default_query) {
-                    Partup.client.discover.cache.all_partup_ids = ids;
-                }
-
                 var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
 
                 var oldsub = tpl.partups.sub;
@@ -126,18 +122,12 @@ Template.app_discover_page.onCreated(function() {
                             return this.indexOf(partup._id);
                         }, limitedIds);
 
-                        var should_update_layout = false;
                         if (is_default_query) {
+                            Partup.client.discover.cache.all_partup_ids = ids;
                             Partup.client.discover.cache.set(partups);
-
-                            if (!filled_from_cache) {
-                                should_update_layout = true;
-                            }
-                        } else {
-                            should_update_layout = true;
                         }
 
-                        if (should_update_layout) {
+                        if (!is_default_query || !filled_from_cache) {
                             tpl.partups.layout.count.set(ids.length);
                             tpl.partups.layout.items = tpl.partups.layout.clear();
                             tpl.partups.layout.items = tpl.partups.layout.add(partups);
