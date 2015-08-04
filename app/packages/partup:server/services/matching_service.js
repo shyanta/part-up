@@ -31,9 +31,6 @@ Partup.server.services.matching = {
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
-        // Set a search limit
-        options['limit'] = 30;
-
         var results = Meteor.users.find(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)
@@ -75,9 +72,6 @@ Partup.server.services.matching = {
 
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
-
-        // Set a search limit
-        options['limit'] = 30;
 
         var results = Meteor.users.find(selector, options).fetch();
 

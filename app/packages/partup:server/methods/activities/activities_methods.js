@@ -244,9 +244,13 @@ Meteor.methods({
             }
         }
 
-        return users.map(function(user) {
+        // We are only going to return the ids
+        var usersIds = users.map(function(user) {
             return user._id;
         });
+
+        // Only return the 30 best results
+        return usersIds.slice(0, 30);
     },
 
     /**
