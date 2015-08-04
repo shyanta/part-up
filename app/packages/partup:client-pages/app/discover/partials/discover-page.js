@@ -2,8 +2,41 @@
  * Content for the Discover-page
  * This template shows the partup-tiles and handles the infinite scroll
  *
- * @param partupsOptions {ReactiveVar} - The reactive-var for the query options
+ * @param query {ReactiveVar} - The reactive-var for the query options
  */
+
+/**
+ * Call part-ups once to set the cache. For cache documentation, please see partup:client-base/client/discover.js
+ */
+Meteor.startup(function() {
+    Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
+        if (error) return;
+
+        Partup.client.discover.cache.all_partup_ids = ids;
+        var sliced_ids = ids.slice(0, Partup.client.discover.STARTING_LIMIT);
+
+        var sub = Meteor.subscribe('partups.by_ids', sliced_ids);
+
+        Meteor.autorun(function(comp) {
+            if (!sub.ready()) return;
+            comp.stop();
+
+            // Find the partups
+            var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
+
+            // Sort the partups by original given ids
+            partups = lodash.sortBy(partups, function(partup) {
+                return this.indexOf(partup._id);
+            }, sliced_ids);
+
+            // Set cache
+            Partup.client.discover.cache.set(partups);
+
+            // Remove data from mini-mongo by stopping the subscription
+            sub.stop();
+        });
+    });
+});
 
 /**
  * Discover-page created
@@ -15,7 +48,7 @@ Template.app_discover_page.onCreated(function() {
     tpl.partups = {
 
         // Constants
-        STARTING_LIMIT: 24,
+        STARTING_LIMIT: Partup.client.discover.STARTING_LIMIT,
         INCREMENT: 24,
 
         // States
@@ -39,22 +72,37 @@ Template.app_discover_page.onCreated(function() {
         },
 
         // Options reactive variable (on change, clear the layout and re-add all partups)
-        options: tpl.data.partupsOptions, // Reference to the passed partupsOptions reactive-var
+        options: tpl.data.query, // Reference to the passed query reactive-var
         onOptionsChange: function(options) {
             if (!options) return;
 
             // Reset the limit reactive-var and the limit property of options
             tpl.partups.resetLimit();
-            options.limit = null;
+
+            // Check if this query is the default query
+            var is_default_query = mout.object.equals(options, Partup.client.discover.DEFAULT_QUERY);
+
+            // Get part-ups from cache
+            var cached_partups = Partup.client.discover.cache.partups;
+            var filled_from_cache = false;
+            if (is_default_query && cached_partups.length > 0) {
+                filled_from_cache = true;
+
+                tpl.partups.layout.count.set(Partup.client.discover.cache.all_partup_ids.length);
+                tpl.partups.layout.items = tpl.partups.layout.clear();
+                tpl.partups.layout.items = tpl.partups.layout.add(cached_partups);
+            }
 
             // Call the partup ids
-            tpl.partups.loading.set(true);
-            Meteor.call('partups.discover', options, function(error, partupIds) {
-                if (error || !partupIds) return;
+            tpl.partups.loading.set(!filled_from_cache);
+            Meteor.call('partups.discover', options, function(error, ids) {
+                if (error || !ids || tpl.view.isDestroyed) return;
 
-                tpl.partups.layout.count.set(partupIds.length);
+                tpl.partups.ids = ids;
 
-                tpl.partups.ids = partupIds;
+                if (is_default_query) {
+                    Partup.client.discover.cache.all_partup_ids = ids;
+                }
 
                 var limitedIds = tpl.partups.getLimitedIds(tpl.partups.STARTING_LIMIT);
 
@@ -75,8 +123,22 @@ Template.app_discover_page.onCreated(function() {
                             return this.indexOf(partup._id);
                         }, limitedIds);
 
-                        tpl.partups.layout.items = tpl.partups.layout.clear();
-                        tpl.partups.layout.items = tpl.partups.layout.add(partups);
+                        var should_update_layout = false;
+                        if (is_default_query) {
+                            Partup.client.discover.cache.set(partups);
+
+                            if (!filled_from_cache) {
+                                should_update_layout = true;
+                            }
+                        } else {
+                            should_update_layout = true;
+                        }
+
+                        if (should_update_layout) {
+                            tpl.partups.layout.count.set(ids.length);
+                            tpl.partups.layout.items = tpl.partups.layout.clear();
+                            tpl.partups.layout.items = tpl.partups.layout.add(partups);
+                        }
                     }
                 });
             });

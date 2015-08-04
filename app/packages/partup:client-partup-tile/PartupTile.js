@@ -65,7 +65,8 @@ Template.PartupTile.helpers({
     },
     network: function() {
         if (!this.network_id) return false;
-        return Networks.findOne({_id: this.network_id});
+        var network_from_cache = lodash.find(Partup.client.discover.cache.networks, {_id: this.network_id});
+        return network_from_cache || Networks.findOne({_id: this.network_id});
     },
     activityCount: function() {
         return this.activity_count || Activities.findForPartup(this).count();
@@ -93,7 +94,8 @@ Template.PartupTile.helpers({
         return tags;
     },
     upper: function() {
-        return Meteor.users.findOne({_id: this._id});
+        var upper_from_cache = lodash.find(Partup.client.discover.cache.uppers, {_id: this._id});
+        return upper_from_cache || Meteor.users.findOne({_id: this._id});
     },
     uppers: function() {
         if (!this._id || !this.uppers) return;
@@ -129,6 +131,27 @@ Template.PartupTile.helpers({
     },
     userCard: function() {
         if (this._id) return {'data-usercard': this._id};
+    },
+    partupImage: function(imageId, store) {
+        var image_from_cache = lodash.find(Partup.client.discover.cache.partups_images, {_id: imageId});
+        var image = image_from_cache || Images.findOne({_id: imageId});
+        if (!image) return;
+
+        return image.url({store: store});
+    },
+    networkImage: function(imageId, store) {
+        var image_from_cache = lodash.find(Partup.client.discover.cache.networks_images, {_id: imageId});
+        var image = image_from_cache || Images.findOne({_id: imageId});
+        if (!image) return;
+
+        return image.url({store: store});
+    },
+    upperImage: function(imageId, store) {
+        var image_from_cache = lodash.find(Partup.client.discover.cache.uppers_images, {_id: imageId});
+        var image = image_from_cache || Images.findOne({_id: imageId});
+        if (!image) return;
+
+        return image.url({store: store});
     }
 });
 
