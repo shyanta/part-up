@@ -227,18 +227,21 @@ Meteor.methods({
         var users = Partup.server.services.matching.matchUppersForActivity(activityId, options);
 
         // Filter the results when search parameters are provided
-        if (options.locationId) {
-            users = users.filter(function(upper) {
-                if (!upper.profile || !upper.profile.location || !upper.profile.location.place_id) return false;
-                return upper.profile.location.place_id === options.locationId;
-            });
-        }
-        if (options.query) {
-            users = users.filter(function(upper) {
-                if (!upper.profile || !upper.profile.name) return false;
-                var regex = new RegExp('.*' + options.query + '.*', 'i');
-                return !!upper.profile.name.match(regex);
-            });
+        if (options) {
+            if (options.locationId) {
+                users = users.filter(function(upper) {
+                    if (!upper.profile || !upper.profile.location || !upper.profile.location.place_id) return false;
+                    return upper.profile.location.place_id === options.locationId;
+                });
+            }
+
+            if (options.query) {
+                users = users.filter(function(upper) {
+                    if (!upper.profile || !upper.profile.name) return false;
+                    var regex = new RegExp('.*' + options.query + '.*', 'i');
+                    return !!upper.profile.name.match(regex);
+                });
+            }
         }
 
         return users.map(function(user) {
