@@ -20,26 +20,31 @@ Partup.server.services.matching = {
 
         var selector = {};
         var options = {};
+        var searchOptionsProvided = searchOptions.locationId || searchOptions.query;
 
-        // Match the uppers on the tags used in the partup
-        var tags = partup.tags || [];
-        selector['profile.tags'] = {'$in': tags};
+        if (!searchOptionsProvided) {
+            // Match the uppers on the tags used in the partup
+            var tags = partup.tags || [];
+            selector['profile.tags'] = {'$in': tags};
+        }
 
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
-        // Get the results, if there are none, we remove some matching steps
         // Set a search limit
         options['limit'] = 30;
 
         var results = Meteor.users.find(selector, options).fetch();
-        var iteration = 0;
 
-        while (results.length === 0) {
-            if (iteration === 0) delete selector['profile.tags'];
+        // If there are no results, we remove some matching steps (only when no search options were provided)
+        if (!searchOptionsProvided) {
+            var iteration = 0;
+            while (results.length === 0) {
+                if (iteration === 0) delete selector['profile.tags'];
 
-            results = Meteor.users.find(selector, options).fetch();
-            iteration++;
+                results = Meteor.users.find(selector, options).fetch();
+                iteration++;
+            }
         }
 
         return results;
@@ -60,26 +65,31 @@ Partup.server.services.matching = {
 
         var selector = {};
         var options = {};
+        var searchOptionsProvided = searchOptions.locationId || searchOptions.query;
 
-        // Match the uppers on the tags used in the partup
-        var tags = network.tags || [];
-        selector['profile.tags'] = {'$in': tags};
+        if (!searchOptionsProvided) {
+            // Match the uppers on the tags used in the partup
+            var tags = network.tags || [];
+            selector['profile.tags'] = {'$in': tags};
+        }
 
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
-        // Get the results, if there are none, we remove some matching steps
         // Set a search limit
         options['limit'] = 30;
 
         var results = Meteor.users.find(selector, options).fetch();
-        var iteration = 0;
 
-        while (results.length === 0) {
-            if (iteration === 0) delete selector['profile.tags'];
+        // If there are no results, we remove some matching steps (only when no search options were provided)
+        if (!searchOptionsProvided) {
+            var iteration = 0;
+            while (results.length === 0) {
+                if (iteration === 0) delete selector['profile.tags'];
 
-            results = Meteor.users.find(selector, options).fetch();
-            iteration++;
+                results = Meteor.users.find(selector, options).fetch();
+                iteration++;
+            }
         }
 
         return results;
