@@ -71,10 +71,15 @@ Template.app_discover_page.onCreated(function() {
             return this.ids.slice(0, limit);
         },
 
+        // Only used to block all new calls (not as loading indicator)
+        getting_data: tpl.data.getting_data,
+
         // Options reactive variable (on change, clear the layout and re-add all partups)
         options: tpl.data.query, // Reference to the passed query reactive-var
         onOptionsChange: function(options) {
-            if (!options) return;
+            if (tpl.partups.getting_data.get() || !options) return;
+
+            tpl.partups.getting_data.set(true);
 
             // Reset the limit reactive-var and the limit property of options
             tpl.partups.resetLimit();
@@ -115,8 +120,6 @@ Template.app_discover_page.onCreated(function() {
 
                         if (oldsub) oldsub.stop();
 
-                        tpl.partups.loading.set(false);
-
                         var partups = Partups.find({_id: {$in: limitedIds}}).fetch();
 
                         partups = lodash.sortBy(partups, function(partup) {
@@ -139,6 +142,9 @@ Template.app_discover_page.onCreated(function() {
                             tpl.partups.layout.items = tpl.partups.layout.clear();
                             tpl.partups.layout.items = tpl.partups.layout.add(partups);
                         }
+
+                        tpl.partups.loading.set(false);
+                        tpl.partups.getting_data.set(false);
                     }
                 });
             });
@@ -146,8 +152,12 @@ Template.app_discover_page.onCreated(function() {
 
         // Limit reactive variable (on change, add partups to the layout)
         limit: new ReactiveVar(this.STARTING_LIMIT, function(a, b) {
+            if (tpl.partups.getting_data.get()) return;
+
             var first = b === tpl.partups.STARTING_LIMIT;
             if (first) return;
+
+            tpl.partups.getting_data.set(true);
 
             var limitedIds = tpl.partups.getLimitedIds(b);
             tpl.partups.infinitescroll_loading.set(true);
@@ -160,8 +170,6 @@ Template.app_discover_page.onCreated(function() {
                     comp.stop();
 
                     if (oldsub) oldsub.stop();
-
-                    tpl.partups.loading.set(false);
 
                     var oldPartups = tpl.partups.layout.items;
                     var newPartups = Partups.find({_id: {$in: limitedIds}}).fetch();
@@ -180,6 +188,8 @@ Template.app_discover_page.onCreated(function() {
                     tpl.partups.end_reached.set(end_reached);
 
                     tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
+
+                    tpl.partups.getting_data.set(false);
                 }
             });
         }),

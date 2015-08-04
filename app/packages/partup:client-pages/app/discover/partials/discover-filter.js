@@ -142,9 +142,17 @@ Template.app_discover_filter.onCreated(function() {
  * Discover-header rendered
  */
 Template.app_discover_filter.onRendered(function() {
+    var tpl = this;
 
     // Submit filter form once
-    this.submitFilterForm();
+    tpl.submitFilterForm();
+
+    // Blur all input fields when user is submitting
+    tpl.autorun(function() {
+        if (tpl.data.getting_data.get()) {
+            tpl.$('input').blur();
+        }
+    });
 
 });
 
@@ -197,6 +205,8 @@ Template.app_discover_filter.helpers({
 Template.app_discover_filter.events({
     'submit form#discoverQuery': function(event, template) {
         event.preventDefault();
+
+        if (template.data.getting_data.get()) return;
 
         var form = event.currentTarget;
 

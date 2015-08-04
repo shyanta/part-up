@@ -1,6 +1,6 @@
 <template name="app_discover_filter">
     <form id="discoverQuery">
-        <div class="pu-filterbar">
+        <div class="pu-filterbar {{# if getting_data.get }}pu-filterbar-disabled{{/ if }}">
 
             <!-- Label -->
             <p class="pu-sub-label">{{_ 'pages-app-discover-filter-textsearch-label' }}</p>
