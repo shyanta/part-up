@@ -15,16 +15,17 @@ Partup.client.clipboard = {
      * @param {Function} callback
      */
     applyToElement: function(element, text, callback) {
-
         // Apply clipboard click event
-        $(element).clipboard({
-            path: '/extra/jquery.clipboard.swf',
+        if (window.PU_IE_VERSION < 0) {
+            $(element).clipboard({
+                path: '/extra/jquery.clipboard.swf',
 
-            copy: function() {
-                callback();
-                return text;
-            }
-        });
+                copy: function() {
+                    callback();
+                    return text;
+                }
+            });
+        }
 
     }
 };
