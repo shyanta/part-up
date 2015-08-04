@@ -87,8 +87,8 @@ Template.app_discover_page.onCreated(function() {
             var filled_from_cache = false;
             if (is_default_query && cached_partups.length > 0) {
                 filled_from_cache = true;
-                tpl.partups.layout.count.set(Partup.client.discover.cache.all_partup_ids.length);
 
+                tpl.partups.layout.count.set(Partup.client.discover.cache.all_partup_ids.length);
                 tpl.partups.layout.items = tpl.partups.layout.clear();
                 tpl.partups.layout.items = tpl.partups.layout.add(cached_partups);
             }
