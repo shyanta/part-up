@@ -2,7 +2,7 @@
  * Content for the Discover-page
  * This template shows the partup-tiles and handles the infinite scroll
  *
- * @param partupsOptions {ReactiveVar} - The reactive-var for the query options
+ * @param query {ReactiveVar} - The reactive-var for the query options
  */
 
 /**
@@ -39,7 +39,7 @@ Template.app_discover_page.onCreated(function() {
         },
 
         // Options reactive variable (on change, clear the layout and re-add all partups)
-        options: tpl.data.partupsOptions, // Reference to the passed partupsOptions reactive-var
+        options: tpl.data.query, // Reference to the passed query reactive-var
         onOptionsChange: function(options) {
             if (!options) return;
 

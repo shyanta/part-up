@@ -2,7 +2,7 @@
  * Header of the Discover page
  * This template handles the search, filtering and sorting options for the discover page
  *
- * @param partupsOptions {ReactiveVar} - The placeholder reactive-var for the query options
+ * @param query {ReactiveVar} - The placeholder reactive-var for the query options
  */
 
 /**
@@ -199,7 +199,7 @@ Template.app_discover_filter.events({
 
         var form = event.currentTarget;
 
-        template.data.partupsOptions.set({
+        template.data.query.set({
             query: form.elements.search_query.value || undefined,
             networkId: form.elements.network_id.value || undefined,
             locationId: form.elements.location_id.value || undefined,
