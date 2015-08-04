@@ -19,7 +19,7 @@ Template.modal_profile_settings_account.helpers({
 /* Page events */
 /*************************************************************/
 Template.modal_profile_settings_account.events({
-    'input [data-translate]': function clickTranslate (event, template) {
+    'change [data-translate]': function clickTranslate (event, template) {
         var language = $(event.currentTarget).val();
         Partup.client.language.change(language);
     }
