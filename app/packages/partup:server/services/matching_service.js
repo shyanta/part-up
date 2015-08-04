@@ -68,7 +68,7 @@ Partup.server.services.matching = {
         var searchOptionsProvided = searchOptions.locationId || searchOptions.query;
 
         if (!searchOptionsProvided) {
-            // Match the uppers on the tags used in the partup
+            // Match the uppers on the tags used in the network
             var tags = network.tags || [];
             selector['profile.tags'] = {'$in': tags};
         }
