@@ -439,30 +439,9 @@ Meteor.methods({
 
         var users = Partup.server.services.matching.matchUppersForNetwork(networkId, options);
 
-        // Filter the results when search parameters are provided
-        if (options) {
-            if (options.locationId) {
-                users = users.filter(function(upper) {
-                    if (!upper.profile || !upper.profile.location || !upper.profile.location.place_id) return false;
-                    return upper.profile.location.place_id === options.locationId;
-                });
-            }
-
-            if (options.query) {
-                users = users.filter(function(upper) {
-                    if (!upper.profile || !upper.profile.name) return false;
-                    var regex = new RegExp('.*' + options.query + '.*', 'i');
-                    return !!upper.profile.name.match(regex);
-                });
-            }
-        }
-
-        // We are only going to return the ids
-        var usersIds = users.map(function(user) {
+        // We are returning an array of IDs instead of an object
+        return users.map(function(user) {
             return user._id;
         });
-
-        // Only return the 30 best results
-        return usersIds.slice(0, 30);
     }
 });

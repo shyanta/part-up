@@ -170,7 +170,7 @@ Meteor.methods({
             networkId: options.networkId,
             locationId: options.locationId,
             sort: options.sort,
-            query: options.query
+            textSearch: options.textSearch
         };
 
         return Partups.findForDiscover(userId, {}, parameters).map(function(partup) {

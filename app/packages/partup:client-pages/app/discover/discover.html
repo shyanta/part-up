@@ -3,12 +3,12 @@
     <article class="pu-page pu-page-tinted pu-page-discover">
         <header class="pu-sub-pageheader pu-sub-pageheader-filter {{# if shrinkHeader }}pu-sub-pageheader-filter-shrinked{{/ if }}">
             <section class="pu-wrap pu-wrap-columnlayout">
-                {{> app_discover_filter partupsOptions=partupsOptions }}
+                {{> app_discover_filter query=query getting_data=getting_data }}
             </section>
         </header>
         <div class="pu-sub-pagecontent">
             <section class="pu-wrap pu-wrap-columnlayout">
-                {{> app_discover_page partupsOptions=partupsOptions }}
+                {{> app_discover_page query=query getting_data=getting_data }}
             </section>
         </div>
     </article>

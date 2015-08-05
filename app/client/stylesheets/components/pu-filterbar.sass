@@ -1,4 +1,6 @@
 .pu-filterbar
+    transition: opacity .2s
+
     > .pu-sub-label,
     > .pu-sub-input
         float: left
@@ -41,6 +43,10 @@
         padding: 20px
         border-radius: 5px
         background: #eee
+
+    &-disabled
+        opacity: 0.35
+        pointer-events: none
 
     // This min-width value should depend on the filterbar with the biggest content
     @media screen and (min-width: 1032px)

@@ -2,7 +2,7 @@
  * Header of the Discover page
  * This template handles the search, filtering and sorting options for the discover page
  *
- * @param partupsOptions {ReactiveVar} - The placeholder reactive-var for the query options
+ * @param query {ReactiveVar} - The placeholder reactive-var for the query options
  */
 
 /**
@@ -19,14 +19,14 @@ Template.app_discover_filter.onCreated(function() {
         });
     };
 
-    // Query
-    tpl.query = {
-        value: new ReactiveVar()
+    // Textsearch
+    tpl.textsearch = {
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.textSearch)
     };
 
     // Network filter datamodel
     tpl.network = {
-        value: new ReactiveVar(),
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.networkId),
         selectorState: new ReactiveVar(false, function(a, b) {
             if (!b) return;
 
@@ -54,7 +54,7 @@ Template.app_discover_filter.onCreated(function() {
 
     // Location filter datamodel
     tpl.location = {
-        value: new ReactiveVar(),
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.locationId),
         selectorState: new ReactiveVar(false, function(a, b) {
             if (!b) return;
 
@@ -95,7 +95,7 @@ Template.app_discover_filter.onCreated(function() {
             }
         }
     ];
-    var defaultSortingOption = sortingOptions[1]; // 'new'
+    var defaultSortingOption = lodash.find(sortingOptions, {value: Partup.client.discover.DEFAULT_QUERY.sort});
     tpl.sorting = {
         options: sortingOptions,
         value: new ReactiveVar(defaultSortingOption),
@@ -118,22 +118,23 @@ Template.app_discover_filter.onCreated(function() {
         },
     };
 
-    tpl.autorun(function() {
-        var queryValue = Session.get('discover.query');
-        var locationValue = Session.get('discover.location');
-        if (!queryValue && !locationValue) return;
-
+    tpl.autorun(function(computation) {
+        var queryValue = Session.get('discover.query.textsearch');
         if (queryValue) {
-            Session.set('discover.query', undefined);
+            Session.set('discover.query.textsearch', undefined);
             tpl.query.value.set(queryValue);
         }
 
+        var locationValue = Session.get('discover.query.location');
         if (locationValue) {
-            Session.set('discover.location', undefined);
+            Session.set('discover.query.location', undefined);
             if (locationValue.place_id) locationValue.id = locationValue.place_id;
             tpl.location.value.set(locationValue);
         }
-        tpl.submitFilterForm();
+
+        if (!computation.firstRun) {
+            tpl.submitFilterForm();
+        }
     });
 });
 
@@ -141,9 +142,17 @@ Template.app_discover_filter.onCreated(function() {
  * Discover-header rendered
  */
 Template.app_discover_filter.onRendered(function() {
+    var tpl = this;
 
     // Submit filter form once
-    this.submitFilterForm();
+    tpl.submitFilterForm();
+
+    // Blur all input fields when user is submitting
+    tpl.autorun(function() {
+        if (tpl.data.getting_data.get()) {
+            tpl.$('input').blur();
+        }
+    });
 
 });
 
@@ -152,8 +161,8 @@ Template.app_discover_filter.onRendered(function() {
  */
 Template.app_discover_filter.helpers({
     // Query
-    queryData: function() {
-        return Template.instance().query.value.get() || '';
+    textsearchData: function() {
+        return Template.instance().textsearch.value.get() || '';
     },
 
     // Network
@@ -197,10 +206,12 @@ Template.app_discover_filter.events({
     'submit form#discoverQuery': function(event, template) {
         event.preventDefault();
 
+        if (template.data.getting_data.get()) return;
+
         var form = event.currentTarget;
 
-        template.data.partupsOptions.set({
-            query: form.elements.search_query.value || undefined,
+        template.data.query.set({
+            textSearch: form.elements.textsearch.value || undefined,
             networkId: form.elements.network_id.value || undefined,
             locationId: form.elements.location_id.value || undefined,
             sort: form.elements.sorting.value || undefined
@@ -209,16 +220,16 @@ Template.app_discover_filter.events({
         window.scrollTo(0, 0);
     },
 
-    'click [data-reset-query]': function(event, template) {
+    'click [data-reset-textsearch]': function(event, template) {
         event.stopPropagation();
-        template.query.value.set('');
+        template.textsearch.value.set('');
         template.submitFilterForm();
     },
 
-    'input [data-query-input]': function(event, template) {
+    'input [data-textsearch-input]': function(event, template) {
         event.stopPropagation();
         var value = $(event.currentTarget).val();
-        template.query.value.set(value);
+        template.textsearch.value.set(value);
     },
 
     // Network selector events

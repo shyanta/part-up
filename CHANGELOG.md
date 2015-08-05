@@ -1,4 +1,11 @@
 # CHANGELOG
+## 1.5.10
+- activity/tribe invites now also searches non-tagmatched users
+- invite list speed increase
+- bugfixes
+    - properly implemented discover caching and preloading
+    - locking discover fields to avoid loading issues
+
 ## 1.5.9
 - fixed broken order discover page
 - removed faulty discover caching

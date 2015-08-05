@@ -1,16 +1,16 @@
 <template name="app_discover_filter">
     <form id="discoverQuery">
-        <div class="pu-filterbar">
+        <div class="pu-filterbar {{# if getting_data.get }}pu-filterbar-disabled{{/ if }}">
 
             <!-- Label -->
             <p class="pu-sub-label">{{_ 'pages-app-discover-filter-textsearch-label' }}</p>
 
             <!-- Search query -->
             <div class="pu-sub-input">
-                <input type="text" class="pu-input pu-input-filter" name="search_query" value="{{ queryData }}" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}" data-query-input>
-                {{#if queryData}}
-                    <i class="pu-sub-reset fa fa-times" data-reset-query></i>
-                {{/if}}
+                <input type="text" class="pu-input pu-input-filter" name="textsearch" value="{{ textsearchData }}" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}" data-textsearch-input>
+                {{# if textsearchData }}
+                    <i class="pu-sub-reset fa fa-times" data-reset-textsearch></i>
+                {{/ if }}
             </div>
 
             <!-- Label -->
