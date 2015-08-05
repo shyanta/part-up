@@ -12,3 +12,16 @@ Template.onRendered(function() {
 Template.onDestroyed(function() {
     this.partupTemplateIsRendered.set(false);
 });
+
+// fires the 'pu:componentRendered' event whenever something new is rendered
+Template.onRendered(function() {
+    var tpl = this;
+
+    tpl.autorun(function() {
+        var data = Template.currentData();
+        Meteor.defer(function() {
+            $(window).trigger('pu:componentRendered');
+        });
+    });
+
+});
