@@ -71,6 +71,7 @@ Package.onUse(function(api) {
         'event_handlers/ratings/ratings_handler.js',
         'event_handlers/updates/updates_handler.js',
         'event_handlers/updates/updates_comments_handler.js',
+        'event_handlers/updates/updates_messages_handler.js',
         'event_handlers/networks/networks_handler.js',
         'fixtures/users.js',
         'fixtures/partups.js',
