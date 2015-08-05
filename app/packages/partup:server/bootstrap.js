@@ -23,7 +23,7 @@ ServiceConfiguration.configurations.upsert({
 });
 
 Router.route('/ping', function() {
-    this.response.end();
+    this.response.end('partupok');
 }, {where: 'server'});
 
 // Kick off the cronjobs
