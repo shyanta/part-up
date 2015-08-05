@@ -1,3 +1,8 @@
+var sidebarDebugger = new Partup.client.Debugger({
+    enabled: false,
+    namespace: 'sidebar-scroller'
+});
+
 var Subs = new SubsManager({
     cacheLimit: 1,
     expireIn: 10
@@ -82,14 +87,18 @@ Template.app_partup_updates.helpers({
 });
 
 var getScrollTop = function() {
-    return window.scrollY;
+    return window.scrollY ? window.scrollY : document.documentElement.scrollTop;
 };
+
 var partupDetailLayout = {
 
     HEADER_HEIGHT: 60,
     SCROLL_DEBOUNCE: 100,
 
+    scrolling: false,
+
     init: function() {
+        sidebarDebugger.log('init');
 
         this.container = document.querySelector('[data-layout-container]');
         if (!this.container) return console.warn('partup scroll logic error: could not find container');
@@ -98,20 +107,32 @@ var partupDetailLayout = {
         this.right = this.container.querySelector('[data-layout-right]');
         if (!this.left || !this.right) return console.warn('partup scroll logic error: could not find left and/or right side');
 
-        this.bound = {
-            onResize: mout.function.bind(this.onResize, this),
-            onScrollStart: mout.function.debounce(mout.function.bind(this.onScrollStart, this), this.SCROLL_DEBOUNCE, true),
-            onScrollEnd: mout.function.debounce(mout.function.bind(this.onScrollEnd, this), this.SCROLL_DEBOUNCE)
-        };
-
         var self = this;
-        window.addEventListener('resize', function() {
+        this.onWindowResize = function() {
             if (window.innerWidth >= 992) {
                 self.attach();
             } else {
                 self.detach();
             }
-        });
+        };
+        this.scrollTimer;
+        this.onScroll = function() {
+            if (!self.scrolling) {
+                self.scrolling = true;
+                $(window).trigger('pu:scrollstart');
+            }
+            clearTimeout(self.scrollTimer);
+            self.scrollTimer = setTimeout(function() {
+                self.scrolling = false;
+                $(window).trigger('pu:scrollend');
+            }, 250);
+        };
+
+        window.addEventListener('resize', this.onWindowResize);
+        window.addEventListener('resize', this.onResize);
+
+        $(window).on('scroll', this.onScroll);
+        $(window).on('pu:scrollstart', self.onScrollStart);
 
         if (window.innerWidth >= 992) {
             this.attach();
@@ -119,25 +140,40 @@ var partupDetailLayout = {
     },
 
     attach: function() {
+        sidebarDebugger.log('attach');
         if (this.attached) return;
         this.attached = true;
         this.setContainerHeight();
         this.preScroll();
         this.checkScroll();
 
-        window.addEventListener('resize', this.bound.onResize);
-        window.addEventListener('scroll', this.bound.onScrollStart);
-        window.addEventListener('scroll', this.bound.onScrollEnd);
-
         var self = this;
-        this.interval = setInterval(function() {
+        var onReRender = function() {
             self.setContainerHeight();
             self.preScroll();
             self.checkInterval();
-        }, 250);
+        };
+        this.debouncedScrollChecker = lodash.debounce(onReRender, 500, true);
+        $(window).on('pu:componentRendered', this.debouncedScrollChecker);
+
+        this.onScrollStart = function() {
+            $(window).on('pu:scrollend', self.onScrollEnd);
+            $(window).off('pu:scrollstart', self.onScrollStart);
+            self.setContainerHeight();
+            // self.preScroll();
+            self.checkInterval();
+        };
+
+        this.onScrollEnd = function() {
+            $(window).on('pu:scrollstart', self.onScrollStart);
+            $(window).off('pu:scrollend', self.onScrollEnd);
+            self.checkInterval();
+        };
+        $(window).on('pu:scrollstart', self.onScrollStart);
     },
 
     detach: function() {
+        sidebarDebugger.log('detach');
         if (!this.attached) return;
         this.attached = false;
 
@@ -146,33 +182,22 @@ var partupDetailLayout = {
         this.left.style.top = '';
         this.right.style.position = '';
         this.right.style.top = '';
-
-        window.removeEventListener('resize', this.bound.onResize);
-        window.removeEventListener('scroll', this.bound.onScrollStart);
-        window.removeEventListener('scroll', this.bound.onScrollEnd);
-
-        clearInterval(this.interval);
-    },
-
-    onResize: function() {
-        this.setContainerHeight();
-        this.preScroll();
-    },
-
-    onScrollStart: function() {
-        this.setContainerHeight();
-        this.preScroll();
-        this.scrolling = true;
-        this.checkInterval();
-    },
-
-    onScrollEnd: function() {
-        this.checkInterval();
+        $(window).off('pu:scrollend', this.onScrollEnd);
+        $(window).off('pu:scrollstart', this.onScrollStart);
+        $(window).off('pu:componentRendered', this.debouncedScrollChecker);
         this.scrolling = false;
     },
 
+    onResize: function() {
+        sidebarDebugger.log('onResize');
+        this.setContainerHeight();
+        this.preScroll();
+    },
+
     getRects: function() {
+        if (!this.left) return;
         var lr = this.left.getBoundingClientRect();
+        if (!this.right) return;
         var rr = this.right.getBoundingClientRect();
 
         if (!lr.width) lr.width = lr.right - lr.left;
@@ -185,6 +210,7 @@ var partupDetailLayout = {
 
     setContainerHeight: function() {
         var r = this.getRects();
+        if (!r || !r.left || !r.right) return;
         var height = Math.max(r.left.height, r.right.height);
         this.container.style.height = height + 'px';
         this.containerHeight.set(height);
@@ -194,9 +220,13 @@ var partupDetailLayout = {
 
     checkInterval: function() {
         var self = this;
+        if (!self.scrolling) return;
         requestAnimationFrame(function() {
-            self.checkScroll();
-            if (self.scrolling) self.checkInterval();
+            if (!self.checkingScroll) {
+                self.checkingScroll = true;
+                self.checkScroll();
+            }
+            self.checkInterval();
         });
     },
 
@@ -206,6 +236,7 @@ var partupDetailLayout = {
         var scol;
         var lcol;
 
+        if (!r || !r.left || !r.right) return;
         if (r.left.height > r.right.height) {
             scol = 'right';
             lcol = 'left';
@@ -220,46 +251,55 @@ var partupDetailLayout = {
     },
 
     checkScroll: function() {
-        this.lastDirection = this.lastDirection || 'down';
+
+        // this.lastDirection = this.lastDirection || 'down';
         var scrollTop = getScrollTop();
-        var r = this.getRects();
+        var columns = this.getRects();
         var br = document.body.getBoundingClientRect();
-        var iH = window.innerHeight;
+        var windowHeight = window.innerHeight;
         var direction = (scrollTop === this.lastScrollTop) ? this.lastDirection : scrollTop > this.lastScrollTop ? 'down' : 'up';
         var top;
         var pos;
-        var scol;
-        var lcol;
+        var smallColumn;
+        var largeColumn;
+        var headerHeight = this.HEADER_HEIGHT;
 
         // First we have to detemine which column is shorter
-        if (r.left.height > r.right.height) {
-            scol = 'right';
-            lcol = 'left';
+        if (!columns || !columns.left || !columns.right) return;
+        if (columns.left.height > columns.right.height) {
+            smallColumn = 'right';
+            largeColumn = 'left';
         } else {
-            scol = 'left';
-            lcol = 'right';
+            smallColumn = 'left';
+            largeColumn = 'right';
         }
+
+        // column vars
+        var smallColumnHeight = columns[smallColumn].height;
+        var smallColumnTop = columns[smallColumn].top;
+        var smallColumnBottom = columns[smallColumn].bottom;
+        var largeColumnBottom = columns[largeColumn].bottom;
 
         // Going in the same direction as our previous scroll
         if (direction === this.lastDirection) {
             //  Going down and short column bottom is smaller than viewport height
-            if (direction === 'down' && r[scol].bottom < iH) {
+            if (direction === 'down' && smallColumnBottom < windowHeight) {
                 pos = 'fixed';
                 // Short column height is smaller than viewport
-                if (r[scol].height < iH) {
+                if (smallColumnHeight < windowHeight) {
                     top = 0;
                 // Anchor bottom to viewport bottom
                 } else {
-                    top = iH - r[scol].height;
+                    top = windowHeight - smallColumnHeight;
                 }
             // Going up and short column top is larger than initial position on page
-            } else if (direction === 'up' && r[scol].top > this.HEADER_HEIGHT) {
+            } else if (direction === 'up' && smallColumnTop > headerHeight) {
                 pos = 'fixed';
-                top = this.HEADER_HEIGHT;
+                top = headerHeight;
             }
         } else {
             pos = 'absolute';
-            top = scrollTop + r[scol].top - this.HEADER_HEIGHT;
+            top = scrollTop + smallColumnTop - headerHeight;
         }
 
         if (scrollTop >= this.maxScroll) {
@@ -274,14 +314,14 @@ var partupDetailLayout = {
         // 3. short column bottom is inside viewport
         // 4. short column top is larger than initial pos
         if (
-            (r[scol].height < iH - this.HEADER_HEIGHT) && // 1
+            (smallColumnHeight < windowHeight - headerHeight) && // 1
             (
                 (
-                    (r[scol].bottom < r[lcol].bottom) && // 2
-                    (r[scol].bottom < iH) // 3
+                    (smallColumnBottom < largeColumnBottom) && // 2
+                    (smallColumnBottom < windowHeight) // 3
                 ) ||
                 (
-                    (r[scol].top > this.HEADER_HEIGHT) // 4
+                    (smallColumnTop > headerHeight) // 4
                 )
             )
         ) {
@@ -290,16 +330,52 @@ var partupDetailLayout = {
         }
 
         if (pos === 'fixed' && top === 0) {
-            top = this.HEADER_HEIGHT;
+            top = headerHeight;
         }
 
-        this[scol].style.position = pos;
-        this[scol].style.top = top + 'px';
+        if (this.previousPos !== pos && this.previousTop !== top) {
 
-        this[lcol].style.position = 'absolute';
-        this[lcol].style.top = 0 + 'px';
+            sidebarDebugger.log('change position: ', 'from', this.previousPos, 'to', pos);
+            this[smallColumn].style.position = pos;
+
+            sidebarDebugger.log('change top: ', 'from', this.previousTop, 'to', top);
+            this[smallColumn].style.top = top + 'px';
+
+            this[largeColumn].style.position = 'absolute';
+            this[largeColumn].style.top = 0 + 'px';
+
+            this.previousPos = pos;
+            this.previousTop = top;
+        }
 
         this.lastDirection = direction;
         this.lastScrollTop = scrollTop;
+
+
+        this.checkingScroll = false;
+    },
+    destroy: function() {
+        sidebarDebugger.log('destroy');
+        var self = partupDetailLayout;
+        window.removeEventListener('resize', self.onWindowResize);
+        window.removeEventListener('resize', self.onResize);
+        $(window).off('scroll', self.onScroll);
+        $(window).off('pu:scrollstart', self.onScrollStart);
+        $(window).off('pu:scrollend', self.onScrollEnd);
+        $(window).off('pu:componentRendered', self.debouncedScrollChecker);
+        self.attached = undefined;
+        self.scrolling = undefined;
+        self.lastDirection = undefined;
+        self.lastScrollTop = undefined;
+        self.maxScroll = undefined;
+        self.maxPos = undefined;
+        self.container = undefined;
+        self.right = undefined;
+        self.left = undefined;
+        self.containerHeight.set(0);
     }
 };
+
+Template.app_partup.onDestroyed(function() {
+    partupDetailLayout.destroy();
+});
