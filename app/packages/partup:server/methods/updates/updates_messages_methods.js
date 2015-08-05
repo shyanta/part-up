@@ -27,7 +27,7 @@ Meteor.methods({
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
 
-            Event.emit('partups.messages.insert', partup, upper);
+            Event.emit('partups.messages.insert', upper, partup, newMessage, fields.text);
 
             return {
                 _id: newMessage._id
