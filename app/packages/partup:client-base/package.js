@@ -26,7 +26,9 @@ Package.onUse(function(api) {
         // 'client/placeholder-polyfill.js',
         'client/requestanimationframe-polyfill.js',
 
+
         'namespace.js',
+        'client/Debugger.js',
         'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
         'autoform/afFieldInput.js',
         'client/error.js',
