@@ -8,7 +8,7 @@ Package.describe({
 Package.onUse(function(api) {
     api.use([
         'templating',
-        'lifely:focuspoint'
+        'lifelynl:focuspoint'
     ], ['client']);
 
     api.addFiles([
