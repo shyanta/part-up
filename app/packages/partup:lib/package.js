@@ -70,7 +70,8 @@ Package.onUse(function(api) {
         'transformers/update.js',
         'transformers/contributions.js',
         'transformers/network.js',
-        'helpers/parselocale.js'
+        'helpers/parselocale.js',
+        'helpers/mentions.js'
     ]);
 
     api.addFiles([
