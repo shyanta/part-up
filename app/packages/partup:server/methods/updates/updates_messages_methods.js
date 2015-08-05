@@ -16,13 +16,9 @@ Meteor.methods({
         try {
             newMessage._id = Updates.insert(newMessage);
 
-            // Make user Supporter if its not yet an Upper or Supporter of the Partup
-            var isUpperInPartup = Partups.findOne({_id: partup._id, uppers: {$in: [upper._id]}}) ? true : false;
-            var isUpperSupporterInPartup = Partups.findOne({_id: partup._id, supporters: {$in: [upper._id]}}) ? true : false;
-
-            if (!isUpperInPartup && !isUpperSupporterInPartup) {
-                Partups.update(partup._id, {$addToSet: {'supporters': upper._id}});
-                Meteor.users.update(upper._id, {$addToSet: {'supporterOf': partup._id}});
+            // Make user Supporter if it's not yet an Upper or Supporter of the Partup
+            if (!partup.hasUpper(upper._id) && !partup.hasSupporter(upper._id)) {
+                partup.makeSupporter(upper._id);
 
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
@@ -31,7 +27,7 @@ Meteor.methods({
 
             return {
                 _id: newMessage._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'message_could_not_be_inserted');
@@ -69,7 +65,7 @@ Meteor.methods({
 
             return {
                 _id: update._id
-            }
+            };
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'message_could_not_be_updated');
