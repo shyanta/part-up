@@ -176,6 +176,7 @@ Images.findForNotification = function(notification) {
         case 'partup_activities_invited': images = [get(notification, 'type_data.inviter.image')]; break;
         case 'partups_contributions_accepted': images = [get(notification, 'type_data.accepter.image')]; break;
         case 'partups_contributions_rejected': images = [get(notification, 'type_data.rejecter.image')]; break;
+        case 'partups_user_mentioned': images = [get(notification.type_data.mentioning_upper.image)]; break;
         case 'contributions_ratings_inserted': images = [get(notification, 'type_data.rater.image')]; break;
         case 'updates_first_comment': images = [get(notification, 'type_data.commenter.image')]; break;
         default: return;

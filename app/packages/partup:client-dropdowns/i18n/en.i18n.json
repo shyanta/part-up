@@ -39,5 +39,6 @@
     "dropdown-notification-partups_activities_inserted": "__creator__ created a new activity",
     "dropdown-notification-partups_contributions_inserted": "__creator__ added a contribution",
     "dropdown-notification-partups_contributions_proposed": "__creator__ proposed a contribution",
-    "dropdown-notification-partups_ratings_reminder": "Don't forget to rate your partners in __partup__"
+    "dropdown-notification-partups_ratings_reminder": "Don't forget to rate your partners in __partup__",
+    "dropdown-notification-partups_user_mentioned": "__mentioning_upper__ has mentioned you in __partup__"
 }

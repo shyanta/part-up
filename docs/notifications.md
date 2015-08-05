@@ -1,5 +1,6 @@
 # Notifications
 
+// partups_user_mentioned
 // partups_supporters_added
 // partup_activities_invited
 // partups_contributions_accepted
