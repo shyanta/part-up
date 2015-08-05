@@ -29,5 +29,22 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'user_could_not_be_updated');
         }
+    },
+
+    /**
+     * Return a list of users based on search query
+     *
+     * @param {string} searchString
+     */
+    'users.autocomplete': function(searchString) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            return Meteor.users.find({'profile.name': new RegExp('.*' + searchString + '.*', 'i')}).fetch();
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'users_could_not_be_autocompleted');
+        }
     }
 });

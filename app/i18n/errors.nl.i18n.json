@@ -16,6 +16,7 @@
     // Users
     "base-errors-user_could_not_be_registered": "Oeps, het is ons niet gelukt je account aan te maken. Probeer het nog een keer.",
     "base-errors-user_could_not_be_updated": "Oeps, het is ons niet gelukt je account te updaten. Probeer het nog een keer.",
+    "base-errors-users_could_not_be_autocompleted": "Het is niet gelukt de uppers op te halen.",
 
     // Tags
     "base-errors-tags_could_not_be_autocompleted": "Het is niet gelukt de tags te autocompleten.",

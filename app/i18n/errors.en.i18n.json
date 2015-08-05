@@ -16,6 +16,7 @@
     // Users
     "base-errors-user_could_not_be_registered": "Oh bummer, we could create your account. Please try again.",
     "base-errors-user_could_not_be_updated": "Oh bummer, we could update your account. Please try again.",
+    "base-errors-users_could_not_be_autocompleted": "We could not lookup the uppers.",
 
     // Tags
     "base-errors-tags_could_not_be_autocompleted": "We could not autocomplete the tags.",
