@@ -105,6 +105,17 @@ Template.Partupsettings.onCreated(function() {
             });
         });
     });
+
+    Template.autoForm.onRendered(function() {
+        this.autorun(function() {
+            var x = template.imageSystem.focuspoint.get('x');
+            var y = template.imageSystem.focuspoint.get('y');
+            var form = template.find('#' + template.data.FORM_ID);
+
+            form.elements.focuspoint_x_input.value = x;
+            form.elements.focuspoint_y_input.value = y;
+        });
+    });
 });
 
 Template.Partupsettings.onRendered(function() {

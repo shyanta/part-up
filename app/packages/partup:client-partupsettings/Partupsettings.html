@@ -203,12 +203,8 @@
             {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImageId }}
             <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
 
-            {{#with partupImage.focuspoint.get 'x'}}
-                {{> afFieldInput name="focuspoint_x_input" value=. type="hidden" }}
-            {{/with}}
-            {{#with partupImage.focuspoint.get 'y'}}
-                {{> afFieldInput name="focuspoint_y_input" value=. type="hidden" }}
-            {{/with}}
+            {{> afFieldInput name="focuspoint_x_input" type="hidden" }}
+            {{> afFieldInput name="focuspoint_y_input" type="hidden" }}
 
             {{#if partupImage.uploaded.get }}
 
