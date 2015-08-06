@@ -36,6 +36,9 @@ Partup.server.services.matching = {
             selector['profile.tags'] = {'$in': tags};
         }
 
+        // Exclude the current logged in user from the results
+        selector['_id'] = {'$nin': [Meteor.userId()]};
+
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
@@ -91,6 +94,9 @@ Partup.server.services.matching = {
             var tags = network.tags || [];
             selector['profile.tags'] = {'$in': tags};
         }
+
+        // Exclude the current logged in user from the results
+        selector['_id'] = {'$nin': [Meteor.userId()]};
 
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
