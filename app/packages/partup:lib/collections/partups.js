@@ -169,8 +169,8 @@ Partup.prototype.makePartnerSupporter = function(upperId) {
  * @memberOf Partups
  */
 Partup.prototype.remove = function() {
-    var supporters = partup.supporters || [];
-    var uppers = partup.uppers || [];
+    var supporters = this.supporters || [];
+    var uppers = this.uppers || [];
 
     Meteor.users.update({_id: {$in: supporters}}, {$pull: {'supporterOf': this._id}}, {multi: true});
     Meteor.users.update({_id: {$in: uppers}}, {$pull: {'upperOf': this._id}}, {multi: true});
