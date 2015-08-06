@@ -6,8 +6,6 @@ var d = Debug('event_handlers:updates_messages_handler');
 Event.on('partups.messages.insert', function(upper, partup, update, message) {
     // Parse message for user mentions
     var mentions = Partup.helpers.mentions.extract(message);
-    Log.debug(message);
-    Log.debug(mentions);
     mentions.forEach(function(user) {
         if (partup.isViewableByUser(user._id)) {
             // Set the notification details
@@ -17,8 +15,8 @@ Event.on('partups.messages.insert', function(upper, partup, update, message) {
                 typeData: {
                     mentioning_upper: {
                         _id: upper._id,
-                        name: upper.name,
-                        image: upper.image
+                        name: upper.profile.name,
+                        image: upper.profile.image
                     },
                     update: {
                         _id: update._id
