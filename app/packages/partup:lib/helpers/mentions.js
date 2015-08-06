@@ -19,12 +19,12 @@ Partup.helpers.mentions = {};
 Partup.helpers.mentions.extract = function(message) {
     var mentions = [];
 
-    var matches = message.match(/<user:[^>|]+(?:\|[^>]+)?>/g);
+    var matches = message.match(/\[user:[^\]|]+(?:\|[^\]]+)?\]/g);
     if (!matches) return mentions;
 
     var match;
     for (var i = 0; i < matches.length; i++) {
-        match = matches[i].match(/<user:([^>|]+)(?:\|([^>]+))?>/);
+        match = matches[i].match(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/);
         mentions.push({
             _id: match[1],
             name: match[2]
@@ -46,7 +46,7 @@ Partup.helpers.mentions.extract = function(message) {
  * @return {String}
  */
 Partup.helpers.mentions.decode = function(message) {
-    return message.replace(/<user:([^>|]+)(?:\|([^>]+))?>/g, function(m, id, name) {
+    return message.replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
         return '<a data-usercard="' + id + '">@' + name + '</a>';
     });
 };
@@ -68,7 +68,7 @@ Partup.helpers.mentions.encode = function(message, mentions) {
     var replace;
     for (var i = 0; i < mentions.length; i++) {
         find = '@' + mentions[i].name;
-        replace = '<user:' + mentions[i]._id + '|' + mentions[i].name + '>';
+        replace = '[user:' + mentions[i]._id + '|' + mentions[i].name + ']';
         message = message.replace(find, replace);
     }
 
