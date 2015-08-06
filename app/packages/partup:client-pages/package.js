@@ -32,6 +32,9 @@ Package.onUse(function(api) {
         'app/app-footer.html',
         'app/app-footer.js',
 
+        //no connection
+        'modal/no_connection/no_connection.html',
+
         'app/app-notfound.html',
         'app/app-notfound.js',
         // App:home

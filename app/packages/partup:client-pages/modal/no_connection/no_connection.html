@@ -1,0 +1,17 @@
+<template name="status_noconnection">
+    <section class="pu-overlay pu-overlay-connectionstatus {{#unless connected}}pu-overlay-active{{/unless}}">
+        <section>
+            <article class="pu-connectionstatus">
+                <p>
+                <i class="fa fa-exclamation-triangle "></i>
+                    <span class="pu-sub-message">{{message}}</span>
+                    <span class="pu-sub-countdown">{{extraMessage}}</span>
+                    {{#if showReconnect}}
+                        <a href="#" class="alert-link">{{reconnectLabel}}</a>
+                    {{/if}}
+                </p>
+
+            </article>
+        </section>
+    </section>
+</template>
