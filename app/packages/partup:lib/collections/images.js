@@ -168,16 +168,16 @@ Images.findForNotification = function(notification) {
         case 'partups_messages_inserted':
         case 'partups_activities_inserted':
         case 'partups_contributions_inserted':
-        case 'partups_contributions_proposed': images = [notification.type_data.creator.image]; break;
+        case 'partups_contributions_proposed': images = [get(notification, 'type_data.creator.image')]; break;
         case 'partups_networks_accepted':
-        case 'partups_networks_invited': images = [notification.type_data.network.image, notification.type_data.inviter.image]; break;
-        case 'partups_networks_new_pending_upper': images = [notification.type_data.pending_upper.image]; break;
-        case 'partups_supporters_added': images = [notification.type_data.supporter.image]; break;
-        case 'partup_activities_invited': images = [notification.type_data.inviter.image]; break;
-        case 'partups_contributions_accepted': images = [notification.type_data.accepter.image]; break;
-        case 'partups_contributions_rejected': images = [notification.type_data.rejecter.image]; break;
-        case 'contributions_ratings_inserted': images = [notification.type_data.rater.image]; break;
-        case 'updates_first_comment': images = [notification.type_data.commenter.image]; break;
+        case 'partups_networks_invited': images = [get(notification, 'type_data.network.image'), get(notification, 'type_data.inviter.image')]; break;
+        case 'partups_networks_new_pending_upper': images = [get(notification, 'type_data.pending_upper.image')]; break;
+        case 'partups_supporters_added': images = [get(notification, 'type_data.supporter.image')]; break;
+        case 'partup_activities_invited': images = [get(notification, 'type_data.inviter.image')]; break;
+        case 'partups_contributions_accepted': images = [get(notification, 'type_data.accepter.image')]; break;
+        case 'partups_contributions_rejected': images = [get(notification, 'type_data.rejecter.image')]; break;
+        case 'contributions_ratings_inserted': images = [get(notification, 'type_data.rater.image')]; break;
+        case 'updates_first_comment': images = [get(notification, 'type_data.commenter.image')]; break;
         default: return;
     }
 
