@@ -244,6 +244,9 @@ Partups.guardedFind = function(userId, selector, options) {
         // The user is part of the partup uppers, which means he has access anyway
         guardedCriterias.push({'uppers': {'$in': [userId]}});
 
+        // The user is part of the partup supporters, which means he has access anyway
+        guardedCriterias.push({'supporters': {'$in': [userId]}});
+
         // Of course the creator of a partup always has the needed rights
         guardedCriterias.push({'creator_id': userId});
 
