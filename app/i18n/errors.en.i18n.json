@@ -48,6 +48,7 @@
     "base-errors-activity_could_not_be_removed": "Sorry, we couldn't remove the activity.",
     "base-errors-activity_could_not_be_archived": "Sorry, we couldn't archive the activity.",
     "base-errors-activity_could_not_be_unarchived": "Sorry, we couldn't unarchive the activity.",
+    "base-errors-activity_could_not_be_found": "Sorry, we couldn't find the activity.",
     "base-errors-activities_could_not_be_copied_from_partup": "Sorry, we couldn't copy the activities from the part-up.",
     "base-errors-user_is_already_invited_to_activity": "This upper is already invited for this activity.",
     "base-errors-email_is_already_invited_to_activity": "This email address is already used to invite someone for this activity.",

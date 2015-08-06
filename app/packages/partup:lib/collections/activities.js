@@ -47,6 +47,16 @@ Activity.prototype.remove = function() {
 };
 
 /**
+ * Check whether or not an activity is removed
+ *
+ * @memberOf Activities
+ * @return {Boolean}
+ */
+Activity.prototype.isRemoved = function() {
+    return !!this.deleted_at;
+};
+
+/**
  * Activities are units of work that a partup consists of
  *
  * @namespace Activities

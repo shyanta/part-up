@@ -81,6 +81,10 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
+        if (activity.isRemoved()) {
+            throw new Meteor.Error(404, 'activity_could_not_be_found');
+        }
+
         try {
             activity.remove();
 
