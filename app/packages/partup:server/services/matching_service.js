@@ -21,6 +21,7 @@ Partup.server.services.matching = {
         var selector = {};
         var options = {};
         var searchOptionsProvided = searchOptions.locationId || searchOptions.query;
+        var limit = searchOptionsProvided ? 30 : 10;
 
         if (searchOptionsProvided) {
             if (searchOptions.locationId) {
@@ -41,8 +42,8 @@ Partup.server.services.matching = {
         // Only return the IDs
         options['fields'] = {'_id': 1};
 
-        // Limit results to 30
-        options['limit'] = 30;
+        // Limit results
+        options['limit'] = limit;
 
         var results = Meteor.users.find(selector, options).fetch();
 
@@ -76,6 +77,7 @@ Partup.server.services.matching = {
         var selector = {};
         var options = {};
         var searchOptionsProvided = searchOptions.locationId || searchOptions.query;
+        var limit = searchOptionsProvided ? 30 : 10;
 
         if (searchOptionsProvided) {
             if (searchOptions.locationId) {
@@ -96,8 +98,8 @@ Partup.server.services.matching = {
         // Only return the IDs
         options['fields'] = {'_id': 1};
 
-        // Limit results to 30
-        options['limit'] = 30;
+        // Limit results
+        options['limit'] = limit;
 
         var results = Meteor.users.find(selector, options).fetch();
 
