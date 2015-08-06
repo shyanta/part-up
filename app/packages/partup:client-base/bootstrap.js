@@ -5,7 +5,11 @@
  * @name client-base
  */
 Meteor.startup(function() {
-
+    // Check if Safari
+    var is_safari = navigator.userAgent.indexOf('Safari') > -1;
+    if (is_safari) {
+        $('body').addClass('pu-safari');
+    }
     // Check IE version
     window.PU_IE_VERSION = -1;
     if (navigator.appName == 'Microsoft Internet Explorer') {

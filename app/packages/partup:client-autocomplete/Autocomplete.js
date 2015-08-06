@@ -13,7 +13,6 @@ Template.Autocomplete.onRendered(function() {
 
     // Autocomplete: find the queryfield
     tpl.query_field = tpl.find('input');
-
     // No queryfield found? Stop here.
     if (!tpl.query_field) return;
 
