@@ -170,7 +170,7 @@ Images.findForNotification = function(notification) {
         case 'partups_contributions_inserted':
         case 'partups_contributions_proposed': images = [notification.type_data.creator.image]; break;
         case 'partups_networks_accepted':
-        case 'partups_networks_invited': images = [notification.type_data.network.image]; break;
+        case 'partups_networks_invited': images = [notification.type_data.network.image, notification.type_data.inviter.image]; break;
         case 'partups_networks_new_pending_upper': images = [notification.type_data.pending_upper.image]; break;
         case 'partups_supporters_added': images = [notification.type_data.supporter.image]; break;
         case 'partup_activities_invited': images = [notification.type_data.inviter.image]; break;
