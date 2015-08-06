@@ -224,6 +224,8 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
  * @return {Cursor}
  */
 Partups.guardedFind = function(userId, selector, options) {
+    selector.deleted_at = selector.deleted_at || {$exists: false};
+
     if (Meteor.isClient) return this.find(selector, options);
 
     var selector = selector || {};
