@@ -31,6 +31,22 @@ Event.on('partups.messages.insert', function(upper, partup, update, message) {
 
             // Send the notification
             Partup.server.services.notifications.send(notificationOptions);
+
+            // Compile the E-mail template and send the email
+            SSR.compileTemplate('userMentionedInPartupEmail', Assets.getText('private/emails/UserMentionedInPartup.' + User(user).getLocale() + '.html'));
+            var url = Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id;
+
+            Email.send({
+                from: 'Part-up <noreply@part-up.com>',
+                to: User(user).getEmail(),
+                subject: 'Iemand heeft je naam genoemd in part-up ' + partup.name,
+                html: SSR.render('userMentionedInPartupEmail', {
+                    name: user.name,
+                    mentioningUpper: upper.profile.name,
+                    partupName: partup.name,
+                    url: url
+                })
+            });
         }
     });
 });
