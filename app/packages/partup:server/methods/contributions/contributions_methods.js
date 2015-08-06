@@ -162,7 +162,7 @@ Meteor.methods({
             }).count();
             if (!contributionsLeft) {
                 var partup = Partups.findOneOrFail(contribution.partup_id);
-                if (partup.uppers.length > 1) {
+                if (!partup.isCreator(upper._id)) {
                     partup.makePartnerSupporter(upper._id);
                 }
             }
