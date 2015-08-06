@@ -164,6 +164,21 @@ Partup.prototype.makePartnerSupporter = function(upperId) {
 };
 
 /**
+ * Soft delete a partup
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.remove = function() {
+    var supporters = partup.supporters || [];
+    var uppers = partup.uppers || [];
+
+    Meteor.users.update({_id: {$in: supporters}}, {$pull: {'supporterOf': partupId}}, {multi: true});
+    Meteor.users.update({_id: {$in: uppers}}, {$pull: {'upperOf': partupId}}, {multi: true});
+
+    Partups.update(partupId, {$set:{deleted_at: new Date}});
+};
+
+/**
  Partups describe collaborations between several uppers
  @namespace Partups
  */

@@ -89,13 +89,7 @@ Meteor.methods({
         }
 
         try {
-            var supporters = partup.supporters || [];
-            var uppers = partup.uppers || [];
-            Meteor.users.update({_id: {$in: supporters}}, {$pull: {'supporterOf': partupId}}, {multi: true});
-            Meteor.users.update({_id: {$in: uppers}}, {$pull: {'upperOf': partupId}}, {multi: true});
-
-            Images.remove(partup.image);
-            Partups.remove(partupId);
+            partup.remove();
 
             return {
                 _id: partup._id
