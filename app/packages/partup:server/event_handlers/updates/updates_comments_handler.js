@@ -4,6 +4,36 @@ var d = Debug('event_handlers:updates_comments_handler');
  * Generate a Notification for the upper for the first comment posted on a message/update
  */
 Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
+    // Parse message for user mentions
+    var mentions = Partup.helpers.mentions.extract(comment.content);
+    mentions.forEach(function(user) {
+        if (partup.isViewableByUser(user._id)) {
+            // Set the notification details
+            var notificationOptions = {
+                userId: user._id,
+                type: 'partups_user_mentioned',
+                typeData: {
+                    mentioning_upper: {
+                        _id: upper._id,
+                        name: upper.profile.name,
+                        image: upper.profile.image
+                    },
+                    update: {
+                        _id: update._id
+                    },
+                    partup: {
+                        _id: partup._id,
+                        name: partup.name,
+                        slug: partup.slug
+                    }
+                }
+            };
+
+            // Send the notification
+            Partup.server.services.notifications.send(notificationOptions);
+        }
+    });
+
     // We only want to continue if the update currently has
     // no comments which means that it's the first comment
     var comments = update.comments || [];
