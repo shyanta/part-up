@@ -1,7 +1,2 @@
-get = function(dottedProperty) {
-    return mout.object.get(this, dottedProperty);
-};
-
-set = function(dottedProperty) {
-    return mout.object.set(this, dottedProperty);
-};
+get = mout.object.get;
+set = mout.object.set;
