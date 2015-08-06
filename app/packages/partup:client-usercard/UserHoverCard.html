@@ -1,6 +1,6 @@
 <template name="UserHoverCard">
     {{#if data}}
-        <article class="pu-hovercard {{activeClass}} {{settings.positionClass}}" style="{{ settings.top }}{{ settings.left }}">
+        <article class="pu-hovercard {{activeClass}} {{settings.verticalPositionClass}} {{settings.horizontalPositionClass}}" style="{{ settings.top }}{{ settings.left }}">
             {{> UserCardContent _id=data}}
         </article>
     {{/if}}

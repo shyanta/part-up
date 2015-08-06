@@ -7,17 +7,27 @@
  * @module client-usercard
  */
 // jscs:enable
+var hoverCardDebugger;
+
 Template.UserHoverCard.onCreated(function() {
+    hoverCardDebugger = new Partup.client.Debugger({
+        enabled: false,
+        namespace: 'hovercard'
+    });
+
+    hoverCardDebugger.log('created');
     var template = this;
     template.hoverCardSettings = new ReactiveDict();
 });
 
 Template.UserHoverCard.onRendered(function() {
+    hoverCardDebugger.log('rendered');
     var template = this;
     // remember the timeout id
     var showProfileTimeout;
 
     $('body').on('mouseover', '[data-usercard]', function(e) {
+        hoverCardDebugger.log('mouseover');
         var self = $(this); // [data-usercard]
 
         // clear any other usercard timeout
@@ -25,6 +35,7 @@ Template.UserHoverCard.onRendered(function() {
 
         // hide usercard
         var mouseLeaveHandler = function(e) {
+            hoverCardDebugger.log('mouseleave');
             self.off('mouseleave', mouseLeaveHandler);
             var s = template.hoverCardSettings.get('partup.hover-card.settings');
             var d = template.hoverCardSettings.get('partup.hover-card.data');
@@ -34,7 +45,8 @@ Template.UserHoverCard.onRendered(function() {
         };
 
         // show usercard by setting the required settings
-        var mouseOverHandler = function(e) {
+        var delayedMouseOverHandler = function(e) {
+            hoverCardDebugger.log('showing hovercard');
             var offset = self.offset();
             var posY = offset.top - $(window).scrollTop();
             var posX = offset.left - $(window).scrollLeft();
@@ -43,7 +55,8 @@ Template.UserHoverCard.onRendered(function() {
                 y: posY,
                 width: self[0].offsetWidth,
                 height: self[0].offsetHeight,
-                windowHeight: window.innerHeight
+                windowHeight: window.innerHeight,
+                windowWidth: window.innerWidth
             });
         };
 
@@ -51,13 +64,14 @@ Template.UserHoverCard.onRendered(function() {
         template.hoverCardSettings.set('partup.hover-card.data', self.data('usercard'));
 
         // show usercard after 500 ms delay
-        showProfileTimeout = setTimeout(mouseOverHandler, 500);
+        showProfileTimeout = setTimeout(delayedMouseOverHandler, 500);
 
         // listen to hover cancel
         self.on('mouseleave', mouseLeaveHandler);
     });
 
     $('body').on('click', '[data-usercard]', function(e) {
+        hoverCardDebugger.log('clicked');
         var self = $(this);
         var s = template.hoverCardSettings.get('partup.hover-card.settings');
         var d = template.hoverCardSettings.get('partup.hover-card.data');
@@ -83,8 +97,10 @@ Template.UserHoverCard.helpers({
         if (!settings) return {};
 
         // check if it's below the middle of the screen
-        var positionClass = (100 / settings.windowHeight * settings.y) > 50 ? 'pu-hovercard-position-top' : 'pu-hovercard-position-bottom';
         var positionTop = (100 / settings.windowHeight * settings.y) > 50 ? true : false;
+        var verticalPositionClass = positionTop ? 'pu-hovercard-position-top' : 'pu-hovercard-position-bottom';
+        var positionLeft = (100 / settings.windowWidth * settings.x) < 50 ? true : false;
+        var horizontalPositionClass = positionLeft ? 'pu-hovercard-position-left' : 'pu-hovercard-position-right';
 
         // calculate top and left styling
         return {
@@ -101,7 +117,9 @@ Template.UserHoverCard.helpers({
                 var left = settings.x + (settings.width / 2);
                 return 'left:' + left + 'px;';
             },
-            positionClass: positionClass
+
+            verticalPositionClass: verticalPositionClass,
+            horizontalPositionClass: horizontalPositionClass
         };
     },
     data: function() {
