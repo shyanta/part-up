@@ -53,14 +53,14 @@ Template.app_partup.onCreated(function() {
 
     var timeline = null;
     tpl.autorun(function() {
-        var containerHeight = partupDetailLayout.containerHeight.get();
+        var reactiveContainerHeight = partupDetailLayout.reactiveContainerHeight.get();
 
-        if (containerHeight > 0) {
+        if (reactiveContainerHeight > 0) {
             Meteor.defer(function() {
                 if (!timeline) timeline = tpl.find('.pu-sub-timelineline');
                 if (!timeline) return;
 
-                timeline.style.height = containerHeight + 'px';
+                timeline.style.height = reactiveContainerHeight + 'px';
             });
         }
     });
@@ -82,7 +82,7 @@ Template.app_partup.onRendered(function() {
 
 Template.app_partup_updates.helpers({
     containerHeightVar: function() {
-        return partupDetailLayout.containerHeight;
+        return partupDetailLayout.reactiveContainerHeight;
     }
 });
 
@@ -125,7 +125,7 @@ var partupDetailLayout = {
             self.scrollTimer = setTimeout(function() {
                 self.scrolling = false;
                 $(window).trigger('pu:scrollend');
-            }, 250);
+            }, 100);
         };
 
         window.addEventListener('resize', this.onWindowResize);
@@ -160,7 +160,7 @@ var partupDetailLayout = {
             $(window).on('pu:scrollend', self.onScrollEnd);
             $(window).off('pu:scrollstart', self.onScrollStart);
             self.setContainerHeight();
-            // self.preScroll();
+            self.preScroll();
             self.checkInterval();
         };
 
@@ -213,20 +213,17 @@ var partupDetailLayout = {
         if (!r || !r.left || !r.right) return;
         var height = Math.max(r.left.height, r.right.height);
         this.container.style.height = height + 'px';
-        this.containerHeight.set(height);
+        this.containerHeight = height;
+        this.reactiveContainerHeight.set(height);
     },
-
-    containerHeight: new ReactiveVar(0),
+    reactiveContainerHeight: new ReactiveVar(0),
+    containerHeight: 0,
 
     checkInterval: function() {
         var self = this;
-        if (!self.scrolling) return;
         requestAnimationFrame(function() {
-            if (!self.checkingScroll) {
-                self.checkingScroll = true;
-                self.checkScroll();
-            }
-            self.checkInterval();
+            self.checkScroll();
+            if (self.scrolling) self.checkInterval();
         });
     },
 
@@ -247,12 +244,12 @@ var partupDetailLayout = {
 
         this.lastScrollTop = getScrollTop();
         this.maxScroll =  r[lcol].height - window.innerHeight + this.HEADER_HEIGHT;
-        this.maxPos = this.containerHeight.get() - r[scol].height;
+        this.maxPos = this.containerHeight - r[scol].height;
     },
 
     checkScroll: function() {
 
-        // this.lastDirection = this.lastDirection || 'down';
+        this.lastDirection = this.lastDirection || 'down';
         var scrollTop = getScrollTop();
         var columns = this.getRects();
         var br = document.body.getBoundingClientRect();
@@ -279,7 +276,6 @@ var partupDetailLayout = {
         var smallColumnTop = columns[smallColumn].top;
         var smallColumnBottom = columns[smallColumn].bottom;
         var largeColumnBottom = columns[largeColumn].bottom;
-
         // Going in the same direction as our previous scroll
         if (direction === this.lastDirection) {
             //  Going down and short column bottom is smaller than viewport height
@@ -332,27 +328,16 @@ var partupDetailLayout = {
         if (pos === 'fixed' && top === 0) {
             top = headerHeight;
         }
+        this[smallColumn].style.position = pos;
+        this[smallColumn].style.top = top + 'px';
 
-        if (this.previousPos !== pos && this.previousTop !== top) {
-
-            sidebarDebugger.log('change position: ', 'from', this.previousPos, 'to', pos);
-            this[smallColumn].style.position = pos;
-
-            sidebarDebugger.log('change top: ', 'from', this.previousTop, 'to', top);
-            this[smallColumn].style.top = top + 'px';
-
-            this[largeColumn].style.position = 'absolute';
-            this[largeColumn].style.top = 0 + 'px';
-
-            this.previousPos = pos;
-            this.previousTop = top;
-        }
+        this[largeColumn].style.position = 'absolute';
+        this[largeColumn].style.top = 0 + 'px';
 
         this.lastDirection = direction;
         this.lastScrollTop = scrollTop;
 
-
-        this.checkingScroll = false;
+        // this.checkingScroll = false;
     },
     destroy: function() {
         sidebarDebugger.log('destroy');
@@ -372,7 +357,8 @@ var partupDetailLayout = {
         self.container = undefined;
         self.right = undefined;
         self.left = undefined;
-        self.containerHeight.set(0);
+        self.containerHeight = 0;
+        self.reactiveContainerHeight.set(0);
     }
 };
 
