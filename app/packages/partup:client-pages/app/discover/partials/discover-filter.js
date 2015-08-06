@@ -122,7 +122,7 @@ Template.app_discover_filter.onCreated(function() {
         var queryValue = Session.get('discover.query.textsearch');
         if (queryValue) {
             Session.set('discover.query.textsearch', undefined);
-            tpl.query.value.set(queryValue);
+            tpl.textsearch.value.set(queryValue);
         }
 
         var locationValue = Session.get('discover.query.location');

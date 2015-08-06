@@ -1,4 +1,18 @@
 # CHANGELOG
+## 1.5.11
+- partup supporters now also have access to closed partups
+- bugfixes
+    - discover query loading is not triggered twice anymore
+    - start partup tribe selection IE
+    - location field fix IE
+    - language is now changeable in IE
+    - reworked custom scrolling behavior IE
+    - language detection during registration in safari
+    - inviter image now shown in tribe invite notification
+    - focuspoint does not get reset when saving other partup settings
+    - tags in input fields are not clickable anymore
+    - hovercard is not shown outside of screen on right side anymore
+
 ## 1.5.10
 - activity/tribe invites now also searches non-tagmatched users
 - invite list speed increase
