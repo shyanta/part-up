@@ -7,9 +7,13 @@
  * @module client-usercard
  */
 // jscs:enable
-var hoverCardSettings = new ReactiveDict();
+Template.UserHoverCard.onCreated(function() {
+    var template = this;
+    template.hoverCardSettings = new ReactiveDict();
+});
 
-Meteor.startup(function() {
+Template.UserHoverCard.onRendered(function() {
+    var template = this;
     // remember the timeout id
     var showProfileTimeout;
 
@@ -17,14 +21,16 @@ Meteor.startup(function() {
         var self = $(this); // [data-usercard]
 
         // clear any other usercard timeout
-        Meteor.clearTimeout(showProfileTimeout);
+        clearTimeout(showProfileTimeout);
 
         // hide usercard
         var mouseLeaveHandler = function(e) {
             self.off('mouseleave', mouseLeaveHandler);
-            hoverCardSettings.set('partup.hover-card.settings', false);
-            hoverCardSettings.set('partup.hover-card.data', false);
-            Meteor.clearTimeout(showProfileTimeout);
+            var s = template.hoverCardSettings.get('partup.hover-card.settings');
+            var d = template.hoverCardSettings.get('partup.hover-card.data');
+            if (s) template.hoverCardSettings.set('partup.hover-card.settings', false);
+            if (d) template.hoverCardSettings.set('partup.hover-card.data', false);
+            clearTimeout(showProfileTimeout);
         };
 
         // show usercard by setting the required settings
@@ -32,7 +38,7 @@ Meteor.startup(function() {
             var offset = self.offset();
             var posY = offset.top - $(window).scrollTop();
             var posX = offset.left - $(window).scrollLeft();
-            hoverCardSettings.set('partup.hover-card.settings', {
+            template.hoverCardSettings.set('partup.hover-card.settings', {
                 x: posX,
                 y: posY,
                 width: self[0].offsetWidth,
@@ -42,10 +48,10 @@ Meteor.startup(function() {
         };
 
         // immediatly set the usercard data for quick rendering
-        hoverCardSettings.set('partup.hover-card.data', self.data('usercard'));
+        template.hoverCardSettings.set('partup.hover-card.data', self.data('usercard'));
 
         // show usercard after 500 ms delay
-        showProfileTimeout = Meteor.setTimeout(mouseOverHandler, 500);
+        showProfileTimeout = setTimeout(mouseOverHandler, 500);
 
         // listen to hover cancel
         self.on('mouseleave', mouseLeaveHandler);
@@ -53,8 +59,10 @@ Meteor.startup(function() {
 
     $('body').on('click', '[data-usercard]', function(e) {
         var self = $(this);
-        hoverCardSettings.set('partup.hover-card.settings', false);
-        hoverCardSettings.set('partup.hover-card.data', false);
+        var s = template.hoverCardSettings.get('partup.hover-card.settings');
+        var d = template.hoverCardSettings.get('partup.hover-card.data');
+        if (s) template.hoverCardSettings.set('partup.hover-card.settings', false);
+        if (d) template.hoverCardSettings.set('partup.hover-card.data', false);
 
         if (e.target.tagName.toLowerCase() === 'a') {
             e.target.href = Router.path('profile-upper-partups', {_id: self.data('usercard')});
@@ -65,16 +73,17 @@ Meteor.startup(function() {
 });
 
 Template.UserHoverCard.helpers({
-    cardOpen: function() {
+    activeClass: function() {
         // if there are settings, that means the card must be visible
-        return hoverCardSettings.get('partup.hover-card.settings') ? true : false;
+        return Template.instance().hoverCardSettings.get('partup.hover-card.settings') ? 'pu-hovercard-active' : '';
     },
     settings: function() {
         // get usercard settings
-        var settings = hoverCardSettings.get('partup.hover-card.settings');
+        var settings = Template.instance().hoverCardSettings.get('partup.hover-card.settings');
         if (!settings) return {};
 
         // check if it's below the middle of the screen
+        var positionClass = (100 / settings.windowHeight * settings.y) > 50 ? 'pu-hovercard-position-top' : 'pu-hovercard-position-bottom';
         var positionTop = (100 / settings.windowHeight * settings.y) > 50 ? true : false;
 
         // calculate top and left styling
@@ -92,10 +101,10 @@ Template.UserHoverCard.helpers({
                 var left = settings.x + (settings.width / 2);
                 return 'left:' + left + 'px;';
             },
-            positionTop: positionTop
+            positionClass: positionClass
         };
     },
     data: function() {
-        return hoverCardSettings.get('partup.hover-card.data');
+        return Template.instance().hoverCardSettings.get('partup.hover-card.data');
     }
 });
