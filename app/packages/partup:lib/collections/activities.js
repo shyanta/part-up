@@ -41,7 +41,7 @@ Activity.prototype.removeAllUpperInvites = function(upperId) {
  * @memberOf Activities
  */
 Activity.prototype.remove = function() {
-    Partups.update(activity.partup_id, {$inc: {activity_count: -1}});
+    Partups.update(this.partup_id, {$inc: {activity_count: -1}});
 
     Activities.update(this._id, {$set:{deleted_at: new Date}});
 };
