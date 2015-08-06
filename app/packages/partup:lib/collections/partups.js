@@ -179,6 +179,16 @@ Partup.prototype.remove = function() {
 };
 
 /**
+ * Check whether or not a partup is removed
+ *
+ * @memberOf Partups
+ * @return {Boolean}
+ */
+Partup.prototype.isRemoved = function() {
+    return !!this.deleted_at;
+};
+
+/**
  Partups describe collaborations between several uppers
  @namespace Partups
  */
