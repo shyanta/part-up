@@ -82,14 +82,7 @@ Meteor.methods({
         }
 
         try {
-            Activities.remove(activityId);
-
-            // Update the activity count of the Partup
-            Partups.update(activity.partup_id, {
-                $inc: {
-                    activity_count: -1
-                }
-            });
+            activity.remove();
 
             // Post system message
             Partup.server.services.system_messages.send(upper, activity.update_id, 'system_activities_removed');

@@ -28,11 +28,22 @@ Activity.prototype.isClosed = function() {
 /**
  * Remove all invites for a specific user for this activity
  *
- * @memberof Invites
+ * @memberof Activities
  * @param {String} upperId id of the user whose invites have to be removed
  */
 Activity.prototype.removeAllUpperInvites = function(upperId) {
     Invites.remove({activity_id: this._id, invitee_id: upperId});
+};
+
+/**
+ * Soft delete an activity
+ *
+ * @memberOf Activities
+ */
+Activity.prototype.remove = function() {
+    Partups.update(activity.partup_id, {$inc: {activity_count: -1}});
+
+    Activities.update(this._id, {$set:{deleted_at: new Date}});
 };
 
 /**
