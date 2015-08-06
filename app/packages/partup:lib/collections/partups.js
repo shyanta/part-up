@@ -172,10 +172,10 @@ Partup.prototype.remove = function() {
     var supporters = partup.supporters || [];
     var uppers = partup.uppers || [];
 
-    Meteor.users.update({_id: {$in: supporters}}, {$pull: {'supporterOf': partupId}}, {multi: true});
-    Meteor.users.update({_id: {$in: uppers}}, {$pull: {'upperOf': partupId}}, {multi: true});
+    Meteor.users.update({_id: {$in: supporters}}, {$pull: {'supporterOf': this._id}}, {multi: true});
+    Meteor.users.update({_id: {$in: uppers}}, {$pull: {'upperOf': this._id}}, {multi: true});
 
-    Partups.update(partupId, {$set:{deleted_at: new Date}});
+    Partups.update(this._id, {$set:{deleted_at: new Date}});
 };
 
 /**
