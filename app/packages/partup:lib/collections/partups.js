@@ -239,6 +239,7 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
  * @return {Cursor}
  */
 Partups.guardedFind = function(userId, selector, options) {
+    // We do not want to return partups that have been soft deleted
     selector.deleted_at = selector.deleted_at || {$exists: false};
 
     if (Meteor.isClient) return this.find(selector, options);
@@ -301,6 +302,9 @@ Partups.guardedFind = function(userId, selector, options) {
 Partups.guardedMetaFind = function(selector, options) {
     var selector = selector || {};
     var options = options || {};
+
+    // We do not want to return partups that have been soft deleted
+    selector.deleted_at = selector.deleted_at || {$exists: false};
 
     // Make sure that if the callee doesn't pass the fields
     // key used in the options parameter, we set it with
