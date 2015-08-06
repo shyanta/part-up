@@ -95,7 +95,11 @@ Template.app_discover_page.onCreated(function() {
 
                 tpl.partups.layout.count.set(Partup.client.discover.cache.all_partup_ids.length);
                 tpl.partups.layout.items = tpl.partups.layout.clear();
-                tpl.partups.layout.items = tpl.partups.layout.add(cached_partups);
+
+                tpl.partups.loading_rendering = true;
+                tpl.partups.layout.items = tpl.partups.layout.add(cached_partups, function() {
+                    tpl.partups.loading_rendering = false;
+                });
             }
 
             // Call the partup ids
@@ -130,7 +134,11 @@ Template.app_discover_page.onCreated(function() {
                         if (!is_default_query || !filled_from_cache) {
                             tpl.partups.layout.count.set(ids.length);
                             tpl.partups.layout.items = tpl.partups.layout.clear();
-                            tpl.partups.layout.items = tpl.partups.layout.add(partups);
+
+                            tpl.partups.loading_rendering = true;
+                            tpl.partups.layout.items = tpl.partups.layout.add(partups, function() {
+                                tpl.partups.loading_rendering = false;
+                            });
                         }
 
                         tpl.partups.loading.set(false);
@@ -177,7 +185,10 @@ Template.app_discover_page.onCreated(function() {
                     var end_reached = diffPartups.length === 0;
                     tpl.partups.end_reached.set(end_reached);
 
-                    tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
+                    tpl.partups.loading_rendering = true;
+                    tpl.partups.layout.items = tpl.partups.layout.add(diffPartups, function() {
+                        tpl.partups.loading_rendering = false;
+                    });
 
                     tpl.partups.getting_data.set(false);
                 }
@@ -219,7 +230,7 @@ Template.app_discover_page.onRendered(function() {
         template: tpl,
         element: tpl.find('[data-infinitescroll-container]')
     }, function() {
-        if (tpl.partups.loading.get() || tpl.partups.infinitescroll_loading.get() || tpl.partups.end_reached.get()) return;
+        if (tpl.partups.loading.get() || tpl.partups.getting_data.get() || tpl.partups.loading_rendering || tpl.partups.end_reached.get()) return;
         tpl.partups.increaseLimit();
     });
 });

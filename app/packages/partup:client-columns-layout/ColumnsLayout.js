@@ -53,23 +53,33 @@ Template.ColumnsLayout.onCreated(function() {
      */
     tpl.columns.queue = [];
     tpl.columns.queue_running = false;
+    tpl.columns.queue_callback;
     tpl.columns.queue_next = function() {
         if (tpl.columns.queue_running) tpl.columns.queue.shift();
         tpl.columns.queue_running = true;
 
         var item = tpl.columns.queue[0];
         if (!item) {
-            return tpl.columns.queue_running = false;
+            if (mout.lang.isFunction(tpl.columns.queue_callback)) {
+                tpl.columns.queue_callback();
+                tpl.columns.queue_callback = undefined;
+            }
+
+            tpl.columns.queue_running = false;
+            return;
         }
 
         tpl.columns.addToShortestColumn(item);
     };
-    tpl.columns.insert = function(items) {
+    tpl.columns.insert = function(items, callback) {
         tpl.columns.queue = tpl.columns.queue.concat(items);
         if (!tpl.columns.queue_running) {
             Meteor.defer(tpl.columns.queue_next);
         };
         all_items = all_items.concat(items);
+
+        tpl.columns.queue_callback = callback;
+
         return all_items;
     };
     tpl.columns.clean = function() {
