@@ -32,7 +32,9 @@ Package.onUse(function(api) {
         'private/emails/InviteUserToActivity.en.html',
         'private/emails/InviteUserToActivity.nl.html',
         'private/emails/InviteUserToNetwork.en.html',
-        'private/emails/InviteUserToNetwork.nl.html'
+        'private/emails/InviteUserToNetwork.nl.html',
+        'private/emails/UserMentionedInPartup.en.html',
+        'private/emails/UserMentionedInPartup.nl.html'
     ], ['server'], {isAsset: true});
 
     api.addFiles([
@@ -71,6 +73,7 @@ Package.onUse(function(api) {
         'event_handlers/ratings/ratings_handler.js',
         'event_handlers/updates/updates_handler.js',
         'event_handlers/updates/updates_comments_handler.js',
+        'event_handlers/updates/updates_messages_handler.js',
         'event_handlers/networks/networks_handler.js',
         'fixtures/users.js',
         'fixtures/partups.js',

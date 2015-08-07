@@ -184,6 +184,17 @@
                             </article>
                         </a>
                     {{/if}}
+                    <!-- user got mentioned in a partup -->
+                    {{#if partupEqualsExactly type 'partups_user_mentioned' }}
+                        <a href="{{pathFor route='partup-update' slug=type_data.partup.slug update_id=type_data.update._id}}">
+                            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=type_data.mentioning_upper.image }}');" data-usercard="{{ type_data.mentioning_upper._id }}">
+                            </figure>
+                            <article>
+                                <p>{{_ 'dropdown-notification-partups_user_mentioned' partup=type_data.partup.name mentioning_upper=type_data.mentioning_upper.name }}</p>
+                                <time>{{ partupDatePartupTimeline created_at }}</time>
+                            </article>
+                        </a>
+                    {{/if}}
                 </li>
             {{else}}
                 <li class="pu-notification pu-notification-empty">
