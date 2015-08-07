@@ -190,8 +190,8 @@ var partupDetailLayout = {
 
     onResize: function() {
         sidebarDebugger.log('onResize');
-        this.setContainerHeight();
-        this.preScroll();
+        partupDetailLayout.setContainerHeight();
+        partupDetailLayout.preScroll();
     },
 
     getRects: function() {
