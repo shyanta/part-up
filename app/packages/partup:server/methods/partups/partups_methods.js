@@ -176,6 +176,7 @@ Meteor.methods({
      * Return a list of partups based on search query
      *
      * @param {string} searchString
+     * @param {string} exceptPartupId
      */
     'partups.autocomplete': function(searchString, exceptPartupId) {
         var user = Meteor.user();

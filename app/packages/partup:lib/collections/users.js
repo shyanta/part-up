@@ -189,7 +189,7 @@ User = function(user) {
         },
 
         /**
-         * Get users email adress
+         * Get users email address
          *
          * @return {String}
          */
