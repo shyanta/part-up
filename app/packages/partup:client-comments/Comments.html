@@ -26,13 +26,13 @@
                         <p class="{{# if isSystemMessage }}pu-sub-systemmessage{{/ if}}">
                             {{# if isMotivation }}
                                 <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>'s
-                                {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{ content }}
+                                {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ content }}}
                             {{else}}
                                 <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
                                 {{# if isSystemMessage }}
-                                    {{ systemMessage content }}
+                                    {{{ systemMessage content }}}
                                 {{ else }}
-                                    {{ content }}
+                                    {{{ content }}}
                                 {{/ if }}
                             {{/ if}}
                             <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>

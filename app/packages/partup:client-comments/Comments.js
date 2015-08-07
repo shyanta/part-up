@@ -24,6 +24,11 @@ Template.Comments.onCreated(function() {
         this.data.SHOW_COMMENTS === true;
 });
 
+Template.Comments.onRendered(function() {
+    this.input = this.find('[name=content]');
+    this.mentionsInput = Partup.client.forms.MentionsInput(this.input);
+});
+
 Template.Comments.helpers({
     buttonActive: function() {
         return Template.instance().buttonActive.get();
@@ -65,6 +70,9 @@ Template.Comments.helpers({
         if (!limit) return comments;
 
         return comments.slice(-limit);
+    },
+    content: function() {
+        return Partup.helpers.mentions.decode(this.content);
     },
     systemMessage: function(content) {
         return __('comment-field-content-' + content);
@@ -110,6 +118,8 @@ AutoForm.addHooks(null, {
         if (template.data.type === 'motivation') {
             insertDoc.type = 'motivation';
         }
+
+        insertDoc.content = template.mentionsInput.getValue();
 
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             template.submitting.set(false);

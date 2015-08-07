@@ -40,6 +40,7 @@ Package.onUse(function(api) {
         'client/strings.js',
         'client/clipboard.js',
         'client/forms.js',
+        'client/forms-mentionsInput.js',
         'client/spinner.js',
         'client/elements.js',
         'client/popup.js',
