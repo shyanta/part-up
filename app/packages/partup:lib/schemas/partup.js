@@ -83,6 +83,27 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    featured: {
+        type: Object,
+        optional: true
+    },
+    'featured.active': {
+        type: Boolean
+    },
+    'featured.by_upper': {
+        type: Object
+    },
+    'featured.by_upper._id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'featured.by_upper.title': {
+        type: String,
+        optional: true
+    },
+    'featured.explanation': {
+        type: String
+    },
     invites: {
         type: [String],
         optional: true,
