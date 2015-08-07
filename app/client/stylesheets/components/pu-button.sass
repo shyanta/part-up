@@ -43,6 +43,14 @@
         &.fa-times
             font-size: 15px
 
+        &.pu-sub-success
+            display: block
+            opacity: 0
+            width: 0
+            float: right
+            margin-left: 0
+            transition: width .2s, opacity .2s, margin .2s
+
     // Loader
     .pu-spinner
         opacity: 0
@@ -668,6 +676,39 @@
 
         &:hover
             background-color: rgba($color-primary, .3)
+
+    &-success
+        background-color: white
+        border: 2px solid $color-alert-success
+        pointer-events: none
+        color: $color-alert-success
+        padding-top: 11px
+        padding-bottom: 11px
+
+        i.pu-sub-success // icon
+            width: 14px
+            opacity: 1
+            margin-left: 5px
+
+        &:focus,
+        &:active,
+        &:hover
+            background-color: white
+            color: $color-alert-success
+
+    &-positivestate
+        background-color: white
+        border: 2px solid $color-alert-success
+        pointer-events: none
+        color: $color-alert-success
+        padding-top: 11px
+        padding-bottom: 11px
+
+        &:focus,
+        &:active,
+        &:hover
+            background-color: white
+            color: $color-alert-success
 
     &-dropdowntab
         background-color: $color-header
