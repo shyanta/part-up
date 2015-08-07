@@ -106,11 +106,15 @@ Template.Partupsettings.onCreated(function() {
         });
     });
 
+    // Set the focuspoint input values to the form every time they change
     Template.autoForm.onRendered(function() {
         this.autorun(function() {
+            if (!template.view.isRendered) return;
+
             var x = template.imageSystem.focuspoint.get('x');
             var y = template.imageSystem.focuspoint.get('y');
             var form = template.find('#' + template.data.FORM_ID);
+            if (!form) return;
 
             form.elements.focuspoint_x_input.value = x;
             form.elements.focuspoint_y_input.value = y;
