@@ -4,7 +4,10 @@ Template.modal_invite_to_activity.onCreated(function() {
     self.subscription = new ReactiveVar();
     self.suggestionsOptions = new ReactiveVar({});
 
+    self.inviting = new ReactiveDict(); // loading boolean for each individual invite button
+
     self.subscribe('partups.one', self.data.partupId);
+    self.subscribe('activities.from_partup', self.data.partupId);
 
     // Submit filter form
     self.submitFilterForm = function() {
@@ -58,6 +61,9 @@ Template.modal_invite_to_activity.onCreated(function() {
 });
 
 Template.modal_invite_to_activity.helpers({
+    inviteLoadingForUser: function(userId) {
+        return Template.instance().inviting.get(userId);
+    },
     suggestions: function() {
         var sub = Template.instance().subscription.get();
         if (!sub || !sub.ready()) return;
@@ -72,12 +78,9 @@ Template.modal_invite_to_activity.helpers({
     },
     inviteSent: function() {
         var activityId = Template.instance().data.activityId;
+        var activity = Activities.findOne(activityId);
 
-        return !!Invites.findOne({
-            activity_id: activityId,
-            invitee_id: this._id,
-            type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER
-        });
+        return activity.isUpperInvited(this._id);
     },
     alreadyPartner: function() {
         var partupId = Template.instance().data.partupId;
@@ -119,14 +122,21 @@ Template.modal_invite_to_activity.events({
     },
     'click [data-invite-id]': function(event, template) {
         var activityId = template.data.activityId;
-        var userId = event.target.dataset.inviteId;
+        var activity = Activities.findOne(activityId);
 
-        Meteor.call('activities.invite_existing_upper', activityId, userId, function(error) {
-            if (error) {
-                return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+        var invitingUserId = event.target.dataset.inviteId;
+        var invitingUser = Meteor.users.findOne(event.target.dataset.inviteId);
+
+        if (User(invitingUser).isPartnerInPartup(template.data.partupId) || activity.isUpperInvited(invitingUserId)) return;
+
+        template.inviting.set(invitingUserId, true);
+        Meteor.call('activities.invite_existing_upper', activityId, invitingUserId, function(err) {
+            template.inviting.set(invitingUserId, false);
+
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
             }
-
-            Partup.client.notify.success(__('pages-modal-invite_to_activity-invite-success'));
         });
     },
 
