@@ -87,6 +87,24 @@ if (Meteor.isServer) {
 }
 
 /**
+ * Find one document, throw an error if it doesn't exist.
+ *
+ * @memberof Activities
+ * @return {Activity}
+ */
+Activities.findOneOrFail = function(selector, options) {
+    // We do not want to return activities that have been soft deleted
+    selector.deleted_at = selector.deleted_at || {$exists: false};
+
+    var activity = this.findOne(selector, options);
+
+    if (!activity) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
+    return activity;
+};
+
+
+/**
  * Find activity for an update
  *
  * @memberOf Activities
