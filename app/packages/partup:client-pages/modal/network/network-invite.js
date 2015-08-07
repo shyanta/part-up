@@ -4,6 +4,8 @@ Template.modal_network_invite.onCreated(function() {
     self.subscription = new ReactiveVar();
     self.suggestionsOptions = new ReactiveVar({});
 
+    self.inviting = new ReactiveDict(); // loading boolean for each individual invite button
+
     // Submit filter form
     self.submitFilterForm = function() {
         Meteor.defer(function() {
@@ -59,6 +61,9 @@ Template.modal_network_invite.onCreated(function() {
 });
 
 Template.modal_network_invite.helpers({
+    inviteLoadingForUser: function(userId) {
+        return Template.instance().inviting.get(userId);
+    },
     suggestions: function() {
         var sub = Template.instance().subscription.get();
         if (!sub || !sub.ready()) return;
@@ -76,12 +81,7 @@ Template.modal_network_invite.helpers({
         var network = Networks.findOne({slug: networkSlug});
         if (!network) return;
 
-        if (!network) return;
-        return !!Invites.findOne({
-            network_id: network._id,
-            invitee_id: this._id,
-            type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER
-        });
+        return network.isUpperInvited(this._id);
     },
     alreadyMember: function() {
         var networkSlug = Template.instance().data.networkSlug;
@@ -118,16 +118,19 @@ Template.modal_network_invite.events({
         });
     },
     'click [data-invite-id]': function(event, template) {
-        var userId = event.target.dataset.inviteId;
+        var userId = event.currentTarget.dataset.inviteId;
         var network = Networks.findOne({slug: template.data.networkSlug});
 
+        if (network.hasMember(userId) || network.isUpperInvited(userId)) return;
+
+        template.inviting.set(userId, true);
         Meteor.call('networks.invite_existing_upper', network._id, userId, function(err) {
+            template.inviting.set(userId, false);
+
             if (err) {
                 Partup.client.notify.error(err.reason);
                 return;
             }
-
-            Partup.client.notify.success(__('pages-modal-network_invite-invite-success'));
         });
     },
 
