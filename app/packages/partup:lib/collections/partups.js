@@ -189,6 +189,16 @@ Partup.prototype.isRemoved = function() {
 };
 
 /**
+ * Check whether or not a partup is featured
+ *
+ * @memberOf Partups
+ * @return {Boolean}
+ */
+Partup.prototype.isFeatured = function() {
+    return !!this.featured.active;
+};
+
+/**
  Partups describe collaborations between several uppers
  @namespace Partups
  */
