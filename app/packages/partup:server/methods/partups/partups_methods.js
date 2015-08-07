@@ -193,6 +193,33 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');
         }
+    },
+
+    /**
+     * Return a list of partups based on search query
+     *
+     * @param {string} partupId
+     * @param {mixed[]} fields
+     */
+    'partups.feature': function(partupId, fields) {
+        var user = Meteor.user();
+        if (!user && !User(user).isAdmin) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var featured = {
+                'active': fields.active,
+                'by_upper': {
+                    '_id': user._id,
+                    'title': fields.upper_title
+                },
+                'explanation': fields.explanation
+            };
+
+            Partups.update(partupId, {$set: {'featured': featured}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partups_could_not_be_featured');
+        }
     }
 
 });

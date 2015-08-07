@@ -3,6 +3,7 @@
     "base-errors-partup_could_not_be_inserted": "Balen, het is ons niet gelukt je partup te maken. Probeer het nog een keer.",
     "base-errors-partup_could_not_be_updated": "Balen, het is ons niet gelukt je partup te updaten. Probeer het nog een keer.",
     "base-errors-partup_could_not_be_removed": "Balen, het is ons niet gelukt je partup te verwijderen. Probeer het nog een keer.",
+    "base-errors-partup_could_not_be_featured": "Part-up kon niet worden uitgelicht.",
     "base-errors-email_is_already_invited_to_partup": "Dit email adres is al uitgenodigd voor deze part-up.",
     "base-errors-partups_could_not_be_autocompleted": "Part-ups could not be autocompleted.",
 
