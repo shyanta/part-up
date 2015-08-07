@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.5.12
+- bugfix
+    - IE9 "no template found" bug fixed
+
 ## 1.5.11
 - partup supporters now also have access to closed partups
 - bugfixes
