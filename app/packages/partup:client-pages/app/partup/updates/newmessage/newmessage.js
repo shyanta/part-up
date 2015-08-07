@@ -14,6 +14,11 @@ Template.app_partup_updates_newmessage.onCreated(function() {
     template.submitting = new ReactiveVar(false);
 });
 
+Template.app_partup_updates_newmessage.onRendered(function() {
+    this.input = this.find('[name=text]');
+    this.mentionsInput = Partup.client.forms.MentionsInput(this.input);
+});
+
 // helpers
 Template.app_partup_updates_newmessage.helpers({
     formSchema: Partup.schemas.forms.newMessage,
@@ -86,6 +91,7 @@ AutoForm.hooks({
             var partupId = parent.data.partupId;
             var uploadedPhotos = parent.uploadedPhotos.get();
             insertDoc.images = uploadedPhotos;
+            insertDoc.text = parent.mentionsInput.getValue();
 
             Meteor.call('updates.messages.insert', partupId, insertDoc, function(error) {
                 parent.submitting.set(false);

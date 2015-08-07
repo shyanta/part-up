@@ -105,7 +105,7 @@ Template.Update.helpers({
     },
 
     messageContent: function() {
-        return Partup.client.strings.newlineToBreak(this.new_value);
+        return Partup.client.strings.newlineToBreak(Partup.helpers.mentions.decode(this.new_value));
     },
 
     systemMessageContent: function() {
