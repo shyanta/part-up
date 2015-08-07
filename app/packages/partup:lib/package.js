@@ -48,6 +48,8 @@ Package.onUse(function(api) {
         'collections/networks.js',
         'collections/users.js',
         'collections/tags.js',
+        'collections/places.js',
+        'collections/places_autocompletes.js',
         'schemas/activity.js',
         'schemas/contribution.js',
         'schemas/forgotPassword.js',
@@ -94,6 +96,8 @@ Package.onUse(function(api) {
     api.export('Tags');
     api.export('Updates');
     api.export('User');
+    api.export('Places');
+    api.export('PlacesAutocompletes');
 
     // Globals
     api.export('get');
