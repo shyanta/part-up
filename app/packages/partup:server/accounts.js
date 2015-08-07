@@ -125,9 +125,12 @@ Accounts.validateNewUser(function(user) {
     var socialUser = Meteor.users.findOne({'emails.address': emailAddress});
     var passwordUser = Meteor.users.findOne({'registered_emails.address': emailAddress});
 
-    if (socialUser || passwordUser) {
-        throw new Meteor.Error(403, 'Email already exists');
+    if (socialUser) {
+        if (socialUser.services.facebook) throw new Meteor.Error(409, 'user-registered-with-facebook');
+        if (socialUser.services.linkedin) throw new Meteor.Error(409, 'user-registered-with-linkedin');
     }
+
+    if (passwordUser) throw new Meteor.Error(409, 'user-registered-with-username-and-password');
 
     Event.emit('users.inserted', user);
 
