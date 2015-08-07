@@ -23,9 +23,7 @@ Package.onUse(function(api) {
         'package-tap.i18n',
 
         'client/base-64-polyfill.js',
-        // 'client/placeholder-polyfill.js',
         'client/requestanimationframe-polyfill.js',
-
 
         'namespace.js',
         'client/Debugger.js',
@@ -89,4 +87,8 @@ Package.onUse(function(api) {
         'i18n/client-language.en.i18n.json',
         'i18n/client-language.nl.i18n.json'
     ], 'server');
+});
+
+Npm.depends({
+    'console-shim': '1.0.3'
 });
