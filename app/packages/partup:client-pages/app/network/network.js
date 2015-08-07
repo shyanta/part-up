@@ -138,8 +138,16 @@ Template.app_network.events({
         var network = Networks.findOne({slug: template.data.networkSlug});
 
         Meteor.call('networks.leave', network._id, function(error) {
-            if (error) Partup.client.notify.error(error.reason);
-            else Partup.client.notify.success(__('pages-app-network-notification-left'));
+            if (error) {
+                Partup.client.notify.error(error.reason);
+                return;
+            }
+
+            Partup.client.notify.success(__('pages-app-network-notification-left'));
+
+            if (network.isClosedForUpper(Meteor.user())) {
+                Router.go('discover');
+            }
         });
     },
     'click [data-expand]': function(event, template) {
