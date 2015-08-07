@@ -26,6 +26,17 @@ Activity.prototype.isClosed = function() {
 };
 
 /**
+ * Check if upper is already invited to the activity
+ *
+ * @memberof Activities
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Activity.prototype.isUpperInvited = function(upperId) {
+    return !!Invites.findOne({activity_id: this._id, invitee_id: upperId, type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER});
+};
+
+/**
  * Remove all invites for a specific user for this activity
  *
  * @memberof Activities
