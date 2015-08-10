@@ -39,7 +39,7 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             Email.send({
                 from: 'Part-up <noreply@part-up.com>',
                 to: User(user).getEmail(),
-                subject: 'Iemand heeft je naam genoemd in part-up ' + partup.name,
+                subject: 'Part-up mention in "' + partup.name + '"' ,
                 html: SSR.render('userMentionedInPartupEmail', {
                     name: user.name,
                     mentioningUpper: upper.profile.name,
