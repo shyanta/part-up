@@ -142,6 +142,20 @@ Meteor.users.findForContribution = function(contribution) {
 };
 
 /**
+ * Find for admin list
+ *
+ * @memberOf Meteor.users
+ * @param {Contribution} contribution
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findForAdminList = function() {
+    return Meteor.users.find({}, {
+        fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1, 'createdAt':1},
+        sort: {'createdAt': 1}
+    });
+};
+
+/**
  * User model (not a constructor, unlike all other entity models)
  * @ignore
  */
