@@ -1,0 +1,8 @@
+<template name="Admin">
+    <h2>Users ({{userCount}})</h2>
+    <ul>
+        {{# each users }}
+            <li>{{profile.name}} - {{_id}} - {{profile.phonenumber}} - {{getMail}}</li>
+        {{/each }}
+    </ul>
+</template>

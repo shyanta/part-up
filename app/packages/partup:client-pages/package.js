@@ -145,6 +145,7 @@ Package.onUse(function(api) {
         // Modal:admin
         'modal/admin/admin.html',
         'modal/admin/admin.js',
+        'modal/admin/overview/overview.html',
 
         // Modal:network_settings
         'modal/network_settings/network_settings.html',
@@ -230,7 +231,9 @@ Package.onUse(function(api) {
         'i18n/modal-profile_settings.en.i18n.json',
         'i18n/modal-profile_settings.nl.i18n.json',
         'i18n/modal-network_invite.en.i18n.json',
-        'i18n/modal-network_invite.nl.i18n.json'
+        'i18n/modal-network_invite.nl.i18n.json',
+        'i18n/modal-admin.en.i18n.json',
+        'i18n/modal-admin.nl.i18n.json'
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');
