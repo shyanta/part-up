@@ -192,6 +192,17 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');
         }
+    },
+
+    /**
+    * Returns partup stats to superadmins only
+    */
+    'partups.admin_all': function() {
+        var user = Meteor.users.findOne(this.userId);
+        if (!User(user).isAdmin()) {
+            return;
+        }
+        return Partups.findStatsForAdmin();
     }
 
 });

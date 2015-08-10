@@ -494,3 +494,37 @@ Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId)
 
     return this.guardedFind(loggedInUserId, selector, options);
 };
+
+Partups.findStatsForAdmin = function() {
+    var partups = this.find({});
+    results = {
+        'total': 0,
+        'open': 0,
+        'private': 0,
+        'networkopen': 0,
+        'networkinvite': 0,
+        'networkclosed': 0
+    };
+    partups.forEach(function(partup) {
+        switch (partup.privacy_type) {
+            case 1:
+                results.open++;
+                break;
+            case 2:
+                results.private++;
+                break;
+            case 3:
+                results.networkopen++;
+                break;
+            case 4:
+                results.networkinvite++;
+                break;
+            case 5:
+                results.networkclosed++;
+                break;
+
+        }
+        results.total++;
+    });
+    return results;
+};
