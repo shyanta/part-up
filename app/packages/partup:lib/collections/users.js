@@ -198,6 +198,9 @@ User = function(user) {
             if (user.emails && user.emails.length > 0) {
                 return user.emails[0].address;
             }
+            if (user.registered_emails && user.registered_emails.length > 0) {
+                return user.registered_emails[0].address;
+            }
         },
 
         /**
