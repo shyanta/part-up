@@ -31,6 +31,16 @@ Meteor.publish('partups.list', function() {
     return Partups.guardedFind(this.userId, {}, {_id: 1, name: 1});
 });
 
+
+/**
+ * Publish a list of open partups
+ */
+Meteor.publish('partups.public', function() {
+    this.unblock();
+
+    return Partups.find({'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}}, {_id: 1, name: 1, featured: 1});
+});
+
 /**
  * Publish a single partup
  *
