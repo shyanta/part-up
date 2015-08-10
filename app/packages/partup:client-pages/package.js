@@ -146,6 +146,7 @@ Package.onUse(function(api) {
         'modal/admin/admin.html',
         'modal/admin/admin.js',
         'modal/admin/overview/overview.html',
+        'modal/admin/featured_partups/featured_partups.html',
 
         // Modal:network_settings
         'modal/network_settings/network_settings.html',
