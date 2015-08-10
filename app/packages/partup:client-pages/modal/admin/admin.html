@@ -13,12 +13,34 @@
             </div>
 
             <div class="pu-wrap pu-wrap-modal">
-                <h2>Users ({{userCount}})</h2>
+                <h2>Partups ({{partupStats.total}})</h2>
                 <ul>
-                {{# each users }}
-                <li>{{profile.name}} - {{_id}} - {{profile.phonenumber}} - {{getMail . }}</li>
-                {{/each }}
+                    <li>Open: {{partupStats.open}}</li>
+                    <li>Private: {{partupStats.private}}</li>
+                    <li>Network Open: {{partupStats.networkopen}}</li>
+                    <li>Network Private: {{partupStats.networkinvite}}</li>
+                    <li>Network Closed: {{partupStats.networkclosed}}</li>
                 </ul>
+                <h2>Users ({{userCount}})</h2>
+                <table>
+                    <thead>
+                        <td>Naam</td>
+                        <td>id</td>
+                        <td>email</td>
+                        <td>telefoon</td>
+                        <td>aangemeld op</td>
+                    </thead>
+                {{# each users }}
+                    <tr>
+                        <td><a href="{{ pathFor route='profile-upper-partups' _id=_id }}">{{profile.name}}</a></td>
+                        <td>{{_id}}</td>
+                        <td>{{getMail . }}</td>
+                        <td>{{profile.phonenumber}}</td>
+                        <td>{{partupDateNormal createdAt}}</td>
+                    </tr>
+                {{/each }}
+
+                </table>
             </div>
         </div>
     </article>
