@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.6.0
+- cache placeid/locations for performance and less google costs
+- bugfix
+    - loggedin user is now omitted from results invite-for-activity / invite-for-tribe
+    - seo images now urlencoded to be compatible with facebook parsing
+
 ## 1.5.12
 - bugfix
     - IE9 "no template found" bug fixed
