@@ -212,7 +212,7 @@ Meteor.methods({
                     '_id': user._id,
                     'title': fields.upper_title
                 },
-                'explanation': fields.explanation
+                'comment': fields.comment
             };
 
             Partups.update(partupId, {$set: {'featured': featured}});

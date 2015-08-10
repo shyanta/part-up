@@ -101,7 +101,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         optional: true
     },
-    'featured.explanation': {
+    'featured.comment': {
         type: String
     },
     invites: {
