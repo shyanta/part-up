@@ -1,6 +1,10 @@
 <template name="modal_admin">
 
     <nav class="pu-header pu-header-modal">
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+            <i class="fa fa-times"></i>
+            {{_ 'pages-modal-network_settings-close-page' }}
+        </a>
     </nav>
 
     <article class="pu-page">
@@ -8,17 +12,18 @@
             <div class="pu-sub-fixedmodalsidebar">
                 <div class="pu-wrap pu-wrap-modal">
                     <ul class="pu-modalsidebar">
+                        <li class="{{# if isActiveRoute name='admin-overview' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'admin-overview' }}">{{_ 'pages-modal-admin-overview' }}</a>
+                        </li>
+                        <li class="{{# if isActiveRoute name='admin-featured-partups' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'admin-featured-partups' }}">{{_ 'pages-modal-admin-featured-partups' }}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="pu-wrap pu-wrap-modal">
-                <h2>Users ({{userCount}})</h2>
-                <ul>
-                {{# each users }}
-                <li>{{profile.name}} - {{_id}} - {{profile.phonenumber}} - {{getMail . }}</li>
-                {{/each }}
-                </ul>
+                {{> yield region='modal_admin' }}
             </div>
         </div>
     </article>

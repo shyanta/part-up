@@ -497,11 +497,22 @@ Router.route('/tribes/create', {
 /* Admin (super mega ultra admin) */
 /*************************************************************/
 Router.route('/tribes/useradmin', {
-    name: 'admin',
+    name: 'admin-overview',
     where: 'client',
     yieldRegions: {
         'modal':                    {to: 'main'},
-        'modal_admin':              {to: 'modal'}
+        'modal_admin':              {to: 'modal'},
+        'modal_admin_overview':     {to: 'modal_admin'}
+    }
+});
+
+Router.route('/tribes/useradmin/featured-partups', {
+    name: 'admin-featured-partups',
+    where: 'client',
+    yieldRegions: {
+        'modal':                            {to: 'main'},
+        'modal_admin':                      {to: 'modal'},
+        'modal_admin_featured_partups':     {to: 'modal_admin'}
     }
 });
 

@@ -3,13 +3,18 @@ Template.modal_admin.onCreated(function() {
 });
 
 Template.modal_admin.helpers({
-    users: function() {
-        return Meteor.users.find({});
-    },
-    userCount: function() {
-        return Meteor.users.find({}).count();
-    },
-    getMail: function(user) {
-        return User(user).getEmail();
+    //
+});
+
+Template.modal_admin.events({
+    'click [data-closepage]': function(event, template) {
+        event.preventDefault();
+
+        Intent.return('discover', {
+            fallback_route: {
+                name: 'discover'
+            }
+        });
     }
 });
+
