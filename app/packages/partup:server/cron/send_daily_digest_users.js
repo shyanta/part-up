@@ -1,8 +1,7 @@
 SyncedCron.add({
     name: 'Send daily notification email digest',
     schedule: function(parser) {
-        return parser.text('at 09:00am every weekday');
-        //return parser.text('every 30 seconds');
+        return parser.text(Partup.constants.DIGEST_FREQUENCY);
     },
     job: function() {
         Meteor.users.find({'flags.dailyDigestEmailHasBeenSent':{$exists: false}}).forEach(function(user) {
