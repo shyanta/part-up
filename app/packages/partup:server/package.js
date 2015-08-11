@@ -42,6 +42,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'logger.js',
         'namespace.js',
+        'constants.js',
         'bootstrap.js',
         'accounts.js',
         'helpers/collection.js',
