@@ -31,7 +31,6 @@ Meteor.publish('partups.list', function() {
     return Partups.guardedFind(this.userId, {}, {_id: 1, name: 1});
 });
 
-
 /**
  * Publish a list of open partups
  */

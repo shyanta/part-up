@@ -45,7 +45,7 @@ Template.AdminFeaturedPartups.helpers({
     },
     partupQuery: function() {
         return function(query, sync, async) {
-            Meteor.call('partups.autocomplete', query, '', function(error, partups) {
+            Meteor.call('partups.autocomplete', query, '', true, function(error, partups) {
                 lodash.each(partups, function(p) {
                     p.value = p.name; // what to show in the autocomplete list
                 });

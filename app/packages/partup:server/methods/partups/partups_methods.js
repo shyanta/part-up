@@ -177,18 +177,28 @@ Meteor.methods({
      *
      * @param {string} searchString
      * @param {string} exceptPartupId
+     * @param {boolean} onlyPublic When this is true, only public partups will be returned
      */
-    'partups.autocomplete': function(searchString, exceptPartupId) {
+    'partups.autocomplete': function(searchString, exceptPartupId, onlyPublic) {
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
+        onlyPublic = onlyPublic || false;
+
+        var selector = [
+            {name: new RegExp('.*' + searchString + '.*', 'i')},
+            {_id: {$ne: exceptPartupId}}
+        ];
+
+        if (onlyPublic) {
+            selector.push({'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}});
+        }
 
         try {
-            return Partups.find({
-                $and: [
-                    {name: new RegExp('.*' + searchString + '.*', 'i')},
-                    {_id: {$ne: exceptPartupId}}
-                ]
-            }).fetch();
+            if (onlyPublic) {
+                return Partups.find({$and: selector}).fetch();
+            } else {
+                return Partups.guardedFind(user._id, {$and: selector}, {_id: 1, name: 1});
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');
