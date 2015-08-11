@@ -147,5 +147,24 @@ Activities.findForPartup = function(partup, options, parameters) {
         selector.archived = !!parameters.archived;
     }
 
-    return Activities.find(selector, options);
+    return this.guardedFind(null, selector, options);
+};
+
+/**
+ * Modified version of Collection.find that makes sure the
+ * user (or guest) can only retrieve authorized entities
+ *
+ * @memberof Activities
+ * @param {String} userId
+ * @param {Object} selector
+ * @param {Object} options
+ * @return {Cursor}
+ */
+Activities.guardedFind = function(userId, selector, options) {
+    var selector = selector || {};
+
+    // We do not want to return partups that have been soft deleted
+    selector.deleted_at = selector.deleted_at || {$exists: false};
+
+    return this.find(selector, options);
 };
