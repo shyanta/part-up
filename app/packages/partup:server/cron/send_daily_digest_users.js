@@ -4,7 +4,10 @@ SyncedCron.add({
         return parser.text(Partup.constants.DIGEST_FREQUENCY);
     },
     job: function() {
-        Meteor.users.find({'flags.dailyDigestEmailHasBeenSent':{$exists: false}}).forEach(function(user) {
+        Meteor.users.find({
+            'flags.dailyDigestEmailHasBeenSent': false,
+            'profile.settings.email.dailydigest': true
+        }).forEach(function(user) {
             console.log(user._id);
             var newNotifications = Notifications.findForUser(user, {'new':true}).fetch();
             console.log(newNotifications.length);
