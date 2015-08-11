@@ -64,7 +64,10 @@ Accounts.onCreateUser(function(options, user) {
             name: liData.firstName + ' ' + liData.lastName,
             settings: {
                 locale: 'en',
-                optionalDetailsCompleted: false
+                optionalDetailsCompleted: false,
+                emails: {
+                    dailydigest: true
+                }
             }
         };
 
@@ -115,6 +118,9 @@ Accounts.onCreateUser(function(options, user) {
 
     user.completeness = 0;
     user.profile = profile;
+    user.flags = {
+        dailyDigestEmailHasBeenSent: false
+    };
 
     return user;
 });
