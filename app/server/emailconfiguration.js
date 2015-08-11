@@ -21,7 +21,7 @@ templates.forEach(function(tplName) {
 /**
  * Generic Email Configuration
  */
-Accounts.emailTemplates.from = 'Part-up <noreply@part-up.com>';
+Accounts.emailTemplates.from = Partup.constants.EMAIL_FROM;
 
 /**
  * Password Reset Email

@@ -16,7 +16,7 @@ SyncedCron.add({
                 var url = Meteor.absoluteUrl();
 
                 Email.send({
-                    from: 'Part-up <team@part-up.com>',
+                    from: Partup.constants.EMAIL_FROM,
                     to: User(user).getEmail(),
                     subject: 'Notifications Part-up.com',
                     html: SSR.render('NotificationDigest', {
