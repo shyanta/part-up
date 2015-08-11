@@ -9,6 +9,9 @@
 
     "modal-profilesettings-email-title": "E-mail instellingen",
     "modal-profilesettings-email-text-explaination": "Wij houden je graag op de hoogte van jouw part-ups. Als het je helpt ook per mail. Krijg je te vaak updates per mail, of juist niet vaak genoeg? Geef hieronder jouw (nieuwe) voorkeuren aan.",
+    "modal-profilesettings-email-listheading":"Update mij met:",
+    "modal-profilesettings-email-dailydigest":"een dagelijks overzicht van mijn notificaties op Part-up",
+    "modal-profilesettings-email-updatesuccess":"Email voorkeur aangepast",
 
     "modal-profilesettings-account-title": "Beheer je account",
     "modal-profilesettings-account-text-explaination": "Je kunt hier jouw account instellingen wijzigen. Wiel je iets toevoegen aan jouw profiel? Klik dan links in het menu op profiel.",

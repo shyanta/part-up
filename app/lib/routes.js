@@ -125,21 +125,20 @@ Router.route('/profile/:_id/settings/general', {
     }
 });
 
-// DISABLED UNTILL IMPLEMENTATION
-// Router.route('/profile/:_id/settings/email', {
-//     name: 'profile-settings-email',
-//     where: 'client',
-//     yieldRegions: {
-//         'modal':              {to: 'main'},
-//         'modal_profile_settings': {to: 'modal'},
-//         'modal_profile_settings_email': {to: 'modal_profile_settings'}
-//     },
-//     data: function() {
-//         return {
-//             profileId: this.params._id
-//         };
-//     }
-// });
+Router.route('/profile/:_id/settings/email', {
+    name: 'profile-settings-email',
+    where: 'client',
+    yieldRegions: {
+        'modal':              {to: 'main'},
+        'modal_profile_settings': {to: 'modal'},
+        'modal_profile_settings_email': {to: 'modal_profile_settings'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
 
 /*************************************************************/
 /* Create Partup */
