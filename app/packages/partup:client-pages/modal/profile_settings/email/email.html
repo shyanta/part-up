@@ -1,12 +1,19 @@
 <template name="modal_profile_settings_email">
-    <div class="pu-composition pu-composition-defaultmodal">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-profilesettings-email">
         <h2 class="pu-title pu-title-modal">{{_ 'modal-profilesettings-email-title'}}</h2>
         <p>{{_ 'modal-profilesettings-email-text-explaination'}}</p>
-        <article class="pu-form">
-
-            <footer>
-                 <button type="submit" class="pu-button">{{_ 'modal-profilesettings-button-save'}}</button>
-             </footer>
-        </article>
+        <h3>{{_ 'modal-profilesettings-email-listheading' }}</h3>
+        <ul class="pu-list pu-list-lineseparated">
+            <li>
+                <p class="pu-sub-name">{{_ 'modal-profilesettings-email-dailydigest' }}</p>
+                <div class="pu-sub-actions">
+                    {{#if email.dailydigest}}
+                    <button type="button" class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-disable="dailydigest"> <i class="fa fa-check"></i> </button>
+                    {{ else }}
+                    <button type="button" class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-enable="dailydigest"> <i class="fa fa-times"></i> </button>
+                    {{/if }}
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
