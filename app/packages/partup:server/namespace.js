@@ -12,6 +12,12 @@ Partup = Partup || {};
 Partup.server = {};
 
 /**
+ @namespace server.constants
+ @name partup.server.constants
+ */
+Partup.constants = {};
+
+/**
  @namespace server.services
  @name partup.server.services
  */
