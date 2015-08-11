@@ -45,6 +45,17 @@ Partup.prototype.isEditableBy = function(user) {
 };
 
 /**
+ * Check if a given user is the creator of this partup
+ *
+ * @memberof Partups
+ * @param {User} user the user object
+ * @return {Boolean}
+ */
+Partup.prototype.isCreatedBy = function(user) {
+    return user && this.creator_id === user._id;
+};
+
+/**
  * Check if a given user can remove this partup
  *
  * @memberof Partups
@@ -53,6 +64,16 @@ Partup.prototype.isEditableBy = function(user) {
  */
 Partup.prototype.isRemovableBy = function(user) {
     return user && (this.creator_id === user._id || User(user).isAdmin());
+};
+
+/**
+ * Check whether or not a partup is removed
+ *
+ * @memberOf Partups
+ * @return {Boolean}
+ */
+Partup.prototype.isRemoved = function() {
+    return !!this.deleted_at;
 };
 
 /**
@@ -176,16 +197,6 @@ Partup.prototype.remove = function() {
     Meteor.users.update({_id: {$in: uppers}}, {$pull: {'upperOf': this._id}}, {multi: true});
 
     Partups.update(this._id, {$set:{deleted_at: new Date}});
-};
-
-/**
- * Check whether or not a partup is removed
- *
- * @memberOf Partups
- * @return {Boolean}
- */
-Partup.prototype.isRemoved = function() {
-    return !!this.deleted_at;
 };
 
 /**
