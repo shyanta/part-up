@@ -33,6 +33,8 @@ Package.onUse(function(api) {
         'private/emails/InviteUserToActivity.nl.html',
         'private/emails/InviteUserToNetwork.en.html',
         'private/emails/InviteUserToNetwork.nl.html',
+        'private/emails/NotificationDigest.en.html',
+        'private/emails/NotificationDigest.nl.html',
         'private/emails/UserMentionedInPartup.en.html',
         'private/emails/UserMentionedInPartup.nl.html'
     ], ['server'], {isAsset: true});
