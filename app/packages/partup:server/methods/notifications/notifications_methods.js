@@ -24,6 +24,7 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         Notifications.update({'for_upper_id': user._id}, {'$set': {'new': false}}, {'multi':true});
+        Meteor.users.update(user._id, {'$set': {'flags.dailyDigestEmailHasBeenSent': false}});
     },
 
     /**
