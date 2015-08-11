@@ -1,26 +1,63 @@
 <template name="AdminFeaturedPartups">
-    <h2>Featured Part-ups</h2>
-    {{#each featuredPartups}}
-        <ul>
-            <li>{{name}}</li>
-        </ul>
-    {{/each}}
 
-    <h3>List of Part-ups</h3>
-    {{#each partups}}
-        <ul>
+    <h2>Feature Part-up</h2>
+    {{#autoForm schema=schema id="featurePartupForm" validation="submitThenKeyup" class="pu-form pu-block pu-block-highlighted" }}
+
+        <!-- Featured part-up -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-partups-form-partup-label'}}
+            </span>
+
+            <span class="pu-sub-input">
+                {{# AutocompleteAdvanced
+                placeholder=partupFieldPlaceholder
+                label=partupLabel
+                selection=partupSelectionReactiveVar
+                onQuery=partupQuery
+                formValue=partupFormvalue }}
+
+                    <input type="text" name="partup">
+
+                {{/ AutocompleteAdvanced }}
+            </span>
+        </label>
+
+        <!-- Feature comment -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-partups-form-comment-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='comment' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='comment' placeholder=commentFieldPlaceholder class="pu-textarea" rows=3 }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='comment' }}</span>
+            </div>
+        </label>
+
+        <!-- Activate the featuring -->
+        {{> afFieldInput name="active" value="1" type="hidden" }}
+
+        <!-- Submit form -->
+        <footer class="pu-row">
+            <div class="cell">
+                <button class="pu-button {{# if submitting }}pu-state-loading{{/ if }} {{# unless partupSelectionReactiveVar.get }}pu-state-disabled{{/ unless }}">
+                    {{_ 'pages-modal-admin-featured-partups-form-confirm'}}
+                    {{> Spinner type='small' color='inverted' }}
+                </button>
+            </div>
+        </footer>
+
+    {{/autoForm}}
+
+    <h2>Featured Part-ups</h2>
+    <ul class="pu-admin-featured-partups">
+        {{#each featuredPartups}}
             <li>
-                {{name}}
-                {{# if isFeatured }}
-                    <button type="button" class="pu-button pu-button-deny" data-unset-featured data-partup-id="{{ _id }}">
-                        <i class="fa fa-times"></i>
-                    </button>
-                {{ else }}
-                    <button type="button" class="pu-button pu-button-confirm" data-set-featured data-partup-id="{{ _id }}">
-                        <i class="fa fa-check"></i>
-                    </button>
-                {{/ if }}
+                <strong>{{name}}</strong> <button type="button" class="pu-admin-featured-remove" data-unset-featured data-partup-id="{{ _id }}"><i class="fa fa-times"></i></button> <br/>
+                <i>{{featured.comment}}</i>
             </li>
-        </ul>
-    {{/each}}
+        {{/each}}
+    </ul>
+
 </template>

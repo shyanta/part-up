@@ -216,6 +216,8 @@ Meteor.methods({
             };
 
             Partups.update(partupId, {$set: {'featured': featured}});
+
+            return true;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_featured');

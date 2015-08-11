@@ -210,3 +210,17 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
         ]
     },
 }]);
+
+/**
+ * Feature partup form schema
+ * @name featurePartup
+ * @memberof Partup.schemas.forms
+ */
+Partup.schemas.forms.featurePartup = new SimpleSchema({
+    active: {
+        type: Boolean
+    },
+    comment: {
+        type: String
+    },
+});
