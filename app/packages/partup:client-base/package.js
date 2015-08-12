@@ -74,6 +74,8 @@ Package.onUse(function(api) {
         'helpers/onrendered.js',
         'helpers/tagsQuerySearch.js',
         'helpers/currentUserId.js',
+        'helpers/Autolinkjs.js',
+        'helpers/autolink.js',
         'bootstrap.js',
 
         'i18n/helpers-dateFormatters.en.i18n.json',
