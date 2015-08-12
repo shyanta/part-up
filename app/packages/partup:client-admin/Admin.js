@@ -1,4 +1,4 @@
-Template.modal_admin.onCreated(function() {
+Template.Admin.onCreated(function() {
     var self = this;
 
     self.users = new ReactiveVar([]);
