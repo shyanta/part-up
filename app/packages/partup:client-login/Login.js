@@ -42,9 +42,8 @@ Template.Login.events({
         Meteor.loginWithFacebook({
             requestPermissions: ['email']
         }, function(error) {
-
             if (error) {
-                Partup.client.notify.error(__('login-error'));
+                Partup.client.notify.error(__('login-error_' + error.reason));
                 return;
             }
 
@@ -57,7 +56,7 @@ Template.Login.events({
         }, function(error) {
 
             if (error) {
-                Partup.client.notify.error(__('login-error'));
+                Partup.client.notify.error(__('login-error_' + error.reason));
                 return false;
             }
 
@@ -106,7 +105,7 @@ AutoForm.hooks({
                             Partup.client.forms.addStickyFieldError(self, 'password', 'passwordIncorrect');
                             break;
                         default:
-                            Partup.client.notify.error(error.reason);
+                            Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
