@@ -32,12 +32,52 @@ Meteor.publish('partups.list', function() {
 });
 
 /**
- * Publish a list of open partups
+ * Publish all featured partups
  */
-Meteor.publish('partups.public', function() {
+Meteor.publish('partups.featured_all', function() {
     this.unblock();
 
-    return Partups.find({'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}}, {_id: 1, name: 1, featured: 1});
+    var user = Meteor.users.findOne(this.userId);
+    if (!User(user).isAdmin()) return;
+
+    return Partups.find({'featured.active': true}, {featured: 1});
+});
+
+/**
+ * Publish one random featured partup for the homepage
+ */
+Meteor.publishComposite('partups.featured_one', function() {
+    this.unblock();
+
+    var count = Partups.guardedMetaFind({'featured.active': true}, {}).count();
+    var random = Math.floor(Math.random() * count);
+    var partup = Partups.guardedMetaFind({'featured.active': true}, {limit: 1, skip: random});
+    var partupId = partup.fetch()[0]._id;
+
+    return {
+        find: function() {
+            return partup;
+        },
+        children: [
+            {
+                find: function() {
+                    return Partups.guardedFind(this.userId, {_id: partupId}, {limit: 1});
+                },
+                children: [
+                    {find: Images.findForPartup},
+                    {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+                        {find: Images.findForNetwork}
+                    ]},
+                    {find: Meteor.users.findUppersForPartup, children: [
+                        {find: Images.findForUser}
+                    ]},
+                    {find: Meteor.users.findSupportersForPartup, children: [
+                        {find: Images.findForUser}
+                    ]}
+                ]
+            }
+        ]
+    };
 });
 
 /**

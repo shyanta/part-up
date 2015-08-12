@@ -1,5 +1,5 @@
 Template.AdminFeaturedPartups.onCreated(function() {
-    this.subscribe('partups.public');
+    this.subscribe('partups.featured_all');
     this.partupSelection = new ReactiveVar();
     this.submitting = new ReactiveVar(false);
 });
