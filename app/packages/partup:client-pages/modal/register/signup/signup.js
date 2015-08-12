@@ -41,7 +41,7 @@ Template.modal_register_signup.events({
         }, function(error) {
 
             if (error) {
-                Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.name)));
+                Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
                 return;
             }
 
@@ -60,7 +60,7 @@ Template.modal_register_signup.events({
         }, function(error) {
 
             if (error) {
-                Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.name)));
+                Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
                 return false;
             }
 
@@ -110,7 +110,7 @@ AutoForm.hooks({
                             Partup.client.forms.addStickyFieldError(self, 'email', 'emailExists');
                             break;
                         default:
-                            Partup.client.notify.error(error.reason);
+                            Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));

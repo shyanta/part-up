@@ -35,13 +35,6 @@ Accounts.onCreateUser(function(options, user) {
 
     d('User registration detected, creating a new user');
 
-    if (!liData && !fbData) {
-        Meteor.setTimeout(function() {
-            d('User registered with username and password, sending verification email');
-            Accounts.sendVerificationEmail(user._id);
-        }, 5000);
-    }
-
     if (liData) {
         d('User used LinkedIn to register');
 
@@ -126,7 +119,7 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 Accounts.validateNewUser(function(user) {
-    var emailAddress = findPossibleEmailAddresses(user);
+    var emailAddress = User(user).getEmail();
 
     var socialUser = Meteor.users.findOne({'emails.address': emailAddress});
     var passwordUser = Meteor.users.findOne({'registered_emails.address': emailAddress});
@@ -138,17 +131,16 @@ Accounts.validateNewUser(function(user) {
 
     if (passwordUser) throw new Meteor.Error(409, 'user-registered-with-username-and-password');
 
+    var liData = mout.object.get(user, 'services.linkedin');
+    var fbData = mout.object.get(user, 'services.facebook');
+    if (!liData && !fbData) {
+        Meteor.setTimeout(function() {
+            d('User registered with username and password, sending verification email');
+            Accounts.sendVerificationEmail(user._id);
+        }, 5000);
+    }
+
     Event.emit('users.inserted', user);
 
     return true;
 });
-
-function findPossibleEmailAddresses(user) {
-    if (user.emails && user.emails.length) {
-        return user.emails[0].address;
-    }
-
-    return mout.object.get(user, 'services.linkedin.emailAddress') ||
-        mout.object.get(user, 'services.facebook.email') ||
-        false;
-}
