@@ -6,6 +6,8 @@ Template.modal_network_invite.onCreated(function() {
 
     self.inviting = new ReactiveDict(); // loading boolean for each individual invite button
 
+    self.loading = new ReactiveVar();
+
     // Submit filter form
     self.submitFilterForm = function() {
         Meteor.defer(function() {
@@ -43,6 +45,7 @@ Template.modal_network_invite.onCreated(function() {
     };
 
     self.autorun(function() {
+        self.loading.set(true);
         var network = Networks.findOne({slug: self.data.networkSlug});
         var options = self.suggestionsOptions.get();
 
@@ -56,6 +59,8 @@ Template.modal_network_invite.onCreated(function() {
 
             self.userIds.set(userIds);
             self.subscription.set(self.subscribe('users.by_ids', userIds));
+
+            self.loading.set(false);
         });
     });
 });
@@ -63,6 +68,9 @@ Template.modal_network_invite.onCreated(function() {
 Template.modal_network_invite.helpers({
     inviteLoadingForUser: function(userId) {
         return Template.instance().inviting.get(userId);
+    },
+    loading: function() {
+        return Template.instance().loading.get();
     },
     suggestions: function() {
         var sub = Template.instance().subscription.get();
@@ -136,6 +144,8 @@ Template.modal_network_invite.events({
 
     'submit form#suggestionsQuery': function(event, template) {
         event.preventDefault();
+
+        template.loading.set(true);
 
         var form = event.currentTarget;
 
