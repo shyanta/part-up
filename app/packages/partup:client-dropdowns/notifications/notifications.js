@@ -38,7 +38,7 @@ Template.DropdownNotifications.helpers({
         return Template.instance().dropdownOpen.get();
     },
     notifications: function() {
-        var parameters = {sort: {created_at: -1}};
+        var parameters = {sort: {created_at: -1}, limit: 25};
         return Notifications.findForUser(Meteor.user(), {}, parameters);
     },
     totalNewNotifications: function() {
