@@ -98,7 +98,7 @@ Meteor.methods({
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
 
         Email.send({
-            from: 'Part-up <noreply@part-up.com>',
+            from: Partup.constants.EMAIL_FROM,
             to: email,
             subject: 'Uitnodiging voor het netwerk ' + network.name,
             html: SSR.render('inviteUserNetworkEmail', {
@@ -173,7 +173,7 @@ Meteor.methods({
         SSR.compileTemplate('inviteExistingUserNetwork', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
         var url = Meteor.absoluteUrl() + network.slug;
         Email.send({
-            from: 'Part-up <noreply@part-up.com>',
+            from: Partup.constants.EMAIL_FROM,
             to: User(invitee).getEmail(),
             subject: 'Part-up invite ' + network.name,
             html: SSR.render('inviteExistingUserNetwork', {

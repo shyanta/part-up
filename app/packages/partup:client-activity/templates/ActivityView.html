@@ -8,12 +8,18 @@
         {{/ contentFor }}
     {{/ if }}
 
+    {{#if activity.deleted_at }}
+    <article class="pu-block pu-block-activity pu-activity">
+        <section class="pu-sub-section">
+            <h3 class="pu-sub-title pu-state-deleted">{{ activity.name }}</h3>
+        </section>
+    </article>
+    {{ else }}
     <article class="pu-block pu-block-activity pu-activity
                     {{# if EXPANDABLE }}          pu-activity-expandable           {{/ if }}
                     {{# if contribution }}        pu-activity-singlecontribution   {{/ if }}
                     {{# if expanded }}            pu-activity-expanded             {{/ if }}
                     {{# if CREATE_PARTUP }}       pu-activity-in-startpartup-modal {{/ if }}
-                    {{# if activity.deleted_at }} pu-activity-deleted              {{/ if }}
                     {{# if activity.archived }}   pu-activity-archived             {{/ if }}"
             data-activity-id="{{ activity._id }}">
 
@@ -105,4 +111,5 @@
         {{/ unless }}
 
     </article>
+    {{/if}}
 </template>

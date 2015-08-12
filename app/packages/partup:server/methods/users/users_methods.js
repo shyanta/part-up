@@ -46,5 +46,16 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'users_could_not_be_autocompleted');
         }
+    },
+
+    /**
+    * Returns user data to superadmins only
+    */
+    'users.admin_all': function() {
+        var user = Meteor.users.findOne(this.userId);
+        if (!User(user).isAdmin()) {
+            return;
+        }
+        return Meteor.users.findForAdminList().fetch();
     }
 });

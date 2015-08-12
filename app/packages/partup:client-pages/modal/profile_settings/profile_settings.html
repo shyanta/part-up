@@ -18,10 +18,9 @@
                         <li class="{{# if isActiveRoute name='profile-settings-account' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'profile-settings-account' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-account'}}</a>
                         </li>
-                        <!-- DISABLED INTILL IMPLEMENTATION -->
-                        <!-- <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
+                        <li class="{{# if isActiveRoute name='profile-settings-email' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'profile-settings-email' _id=currentUser._id }}">{{_ 'modal-profilesettings-tab-email'}}</a>
-                        </li> -->
+                        </li>
                     </ul>
                 </div>
             </div>

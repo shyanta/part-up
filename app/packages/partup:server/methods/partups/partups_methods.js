@@ -127,7 +127,7 @@ Meteor.methods({
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
 
         Email.send({
-            from: 'Part-up <noreply@part-up.com>',
+            from: Partup.constants.EMAIL_FROM,
             to: email,
             subject: 'Uitnodiging voor Part-up ' + partup.name,
             html: SSR.render('inviteUserEmail', {
@@ -232,6 +232,17 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_featured');
         }
+    },
+
+    /**
+    * Returns partup stats to superadmins only
+    */
+    'partups.admin_all': function() {
+        var user = Meteor.users.findOne(this.userId);
+        if (!User(user).isAdmin()) {
+            return;
+        }
+        return Partups.findStatsForAdmin();
     }
 
 });

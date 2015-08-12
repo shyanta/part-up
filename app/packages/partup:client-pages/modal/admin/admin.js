@@ -1,5 +1,5 @@
 Template.modal_admin.onCreated(function() {
-    this.subscribe('users.admin_all');
+    //
 });
 
 Template.modal_admin.helpers({

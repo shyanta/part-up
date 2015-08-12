@@ -38,7 +38,10 @@ Meteor.startup(function() {
                     'name' : 'Default User',
                     'settings' : {
                         'locale' : 'en',
-                        'optionalDetailsCompleted' : true
+                        'optionalDetailsCompleted' : true,
+                        'emails': {
+                            'dailydigest':true
+                        }
                     },
                     'image' : 'oQeqgwkdd44JSBSW5',
                     'description' : 'I am the first test user',
@@ -93,7 +96,10 @@ Meteor.startup(function() {
                     'ASfRYBAzo2ayYk5si',
                     'WxrpPuJkhafJB3gfF',
                     'gJngF65ZWyS9f3NDE'
-                ]
+                ],
+                'flags': {
+                    'dailyDigestEmailHasBeenSent': false
+                }
             });
 
             Meteor.users.insert({
@@ -132,7 +138,10 @@ Meteor.startup(function() {
                     'name' : 'John Partup',
                     'settings' : {
                         'locale' : 'en',
-                        'optionalDetailsCompleted' : true
+                        'optionalDetailsCompleted' : true,
+                        'emails': {
+                            'dailydigest':true
+                        }
                     },
                     'image' : 'cHhjpWKo9DHjXQQjy',
                     'description' : null,
@@ -186,7 +195,10 @@ Meteor.startup(function() {
                 'upperOf' : [
                     'CJETReuE6uo2eF7eW',
                     'gJngF65ZWyS9f3NDE'
-                ]
+                ],
+                'flags': {
+                    'dailyDigestEmailHasBeenSent': false
+                }
             });
 
             Meteor.users.insert({
@@ -225,7 +237,10 @@ Meteor.startup(function() {
                     'name' : 'Admin User',
                     'settings' : {
                         'locale' : 'en',
-                        'optionalDetailsCompleted' : true
+                        'optionalDetailsCompleted' : true,
+                        'emails': {
+                            'dailydigest':true
+                        }
                     },
                     'image' : 'CxEprGKNWo6HdrTdq',
                     'description' : null,
@@ -277,7 +292,10 @@ Meteor.startup(function() {
                     'wfCv4ZdPe5WNT4xfg',
                     'ibn27M3ePaXhmKzWq'
                 ],
-                'participation_score' : 2
+                'participation_score' : 2,
+                'flags': {
+                    'dailyDigestEmailHasBeenSent': false
+                }
             });
 
             Meteor.users.insert({
@@ -316,7 +334,10 @@ Meteor.startup(function() {
                     'name' : 'Judy Partup',
                     'settings' : {
                         'locale' : 'en',
-                        'optionalDetailsCompleted' : true
+                        'optionalDetailsCompleted' : true,
+                        'emails': {
+                            'dailydigest':true
+                        }
                     },
                     'image' : 'bMTGT9oSDGzxCL3r4',
                     'description' : null,
@@ -375,7 +396,10 @@ Meteor.startup(function() {
                 ],
                 'upperOf' : [
                     'vGaxNojSerdizDPjb'
-                ]
+                ],
+                'flags': {
+                    'dailyDigestEmailHasBeenSent': false
+                }
             });
         }
 

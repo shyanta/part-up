@@ -5,7 +5,7 @@
 
         {{# if network.uppers }}
         <h3>{{_ 'network-settings-uppers-listheading' }}</h3>
-        <ul class="pu-network-uppers">
+        <ul class="pu-list pu-list-lineseparated">
             {{# each network.uppers }}
                 {{# with upper }}
                     {{#unless partupEquals _id currentUser._id}}

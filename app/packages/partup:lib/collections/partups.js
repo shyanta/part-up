@@ -45,6 +45,17 @@ Partup.prototype.isEditableBy = function(user) {
 };
 
 /**
+ * Check if a given user is the creator of this partup
+ *
+ * @memberof Partups
+ * @param {User} user the user object
+ * @return {Boolean}
+ */
+Partup.prototype.isCreatedBy = function(user) {
+    return user && this.creator_id === user._id;
+};
+
+/**
  * Check if a given user can remove this partup
  *
  * @memberof Partups
@@ -53,6 +64,16 @@ Partup.prototype.isEditableBy = function(user) {
  */
 Partup.prototype.isRemovableBy = function(user) {
     return user && (this.creator_id === user._id || User(user).isAdmin());
+};
+
+/**
+ * Check whether or not a partup is removed
+ *
+ * @memberOf Partups
+ * @return {Boolean}
+ */
+Partup.prototype.isRemoved = function() {
+    return !!this.deleted_at;
 };
 
 /**
@@ -199,8 +220,8 @@ Partup.prototype.isFeatured = function() {
 };
 
 /**
- Partups describe collaborations between several uppers
- @namespace Partups
+ * Partups describe collaborations between several uppers
+ * @namespace Partups
  */
 Partups = new Mongo.Collection('partups', {
     transform: function(document) {
@@ -506,4 +527,38 @@ Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId)
     }
 
     return this.guardedFind(loggedInUserId, selector, options);
+};
+
+Partups.findStatsForAdmin = function() {
+    var partups = this.find({});
+    results = {
+        'total': 0,
+        'open': 0,
+        'private': 0,
+        'networkopen': 0,
+        'networkinvite': 0,
+        'networkclosed': 0
+    };
+    partups.forEach(function(partup) {
+        switch (partup.privacy_type) {
+            case 1:
+                results.open++;
+                break;
+            case 2:
+                results.private++;
+                break;
+            case 3:
+                results.networkopen++;
+                break;
+            case 4:
+                results.networkinvite++;
+                break;
+            case 5:
+                results.networkclosed++;
+                break;
+
+        }
+        results.total++;
+    });
+    return results;
 };

@@ -33,6 +33,8 @@ Package.onUse(function(api) {
         'private/emails/InviteUserToActivity.nl.html',
         'private/emails/InviteUserToNetwork.en.html',
         'private/emails/InviteUserToNetwork.nl.html',
+        'private/emails/NotificationDigest.en.html',
+        'private/emails/NotificationDigest.nl.html',
         'private/emails/UserMentionedInPartup.en.html',
         'private/emails/UserMentionedInPartup.nl.html'
     ], ['server'], {isAsset: true});
@@ -40,6 +42,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'logger.js',
         'namespace.js',
+        'constants.js',
         'bootstrap.js',
         'accounts.js',
         'helpers/collection.js',
@@ -113,6 +116,7 @@ Package.onUse(function(api) {
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
         'cron/send_ratings_reminder_notification.js',
+        'cron/send_daily_digest_users.js',
         'package-tap.i18n',
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

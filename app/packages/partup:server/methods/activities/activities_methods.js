@@ -263,7 +263,7 @@ Meteor.methods({
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
 
         Email.send({
-            from: 'Part-up <noreply@part-up.com>',
+            from: Partup.constants.EMAIL_FROM,
             to: email,
             subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
             html: SSR.render('inviteUserActivityEmail', {
@@ -366,7 +366,7 @@ Meteor.methods({
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
 
         Email.send({
-            from: 'Part-up <noreply@part-up.com>',
+            from: Partup.constants.EMAIL_FROM,
             to: User(invitee).getEmail(),
             subject: 'Invite for ' + activity.name + ' in Part-up ' + partup.name,
             html: SSR.render('inviteUserActivityEmail', {

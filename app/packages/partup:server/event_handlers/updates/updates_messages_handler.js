@@ -37,7 +37,7 @@ Event.on('partups.messages.insert', function(upper, partup, update, message) {
             var url = Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id;
 
             Email.send({
-                from: 'Part-up <noreply@part-up.com>',
+                from: Partup.constants.EMAIL_FROM,
                 to: User(user).getEmail(),
                 subject: 'Iemand heeft je naam genoemd in part-up ' + partup.name,
                 html: SSR.render('userMentionedInPartupEmail', {

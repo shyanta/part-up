@@ -244,4 +244,20 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(9);
+Migrations.add({
+    version: 10,
+    name: 'Add flags and email settings to existing users',
+    up: function() {
+        Meteor.users.update({}, {
+            '$set': {
+                'flags.dailyDigestEmailHasBeenSent': false,
+                'profile.settings.emails.dailydigest': true
+            }
+        }, {multi:true});
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(10);

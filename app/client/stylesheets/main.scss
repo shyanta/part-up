@@ -31,6 +31,7 @@
 @import "client/stylesheets/components/compositions/pu-composition-partupdetailactivities.sass";
 @import "client/stylesheets/components/compositions/pu-composition-partupdetailupdateitem.sass";
 @import "client/stylesheets/components/compositions/pu-composition-partupdetailupdates.sass";
+@import "client/stylesheets/components/compositions/pu-composition-profilesettings-email.sass";
 @import "client/stylesheets/components/compositions/pu-composition-register.sass";
 @import "client/stylesheets/components/compositions/pu-composition-startpartup-activities.sass";
 @import "client/stylesheets/components/compositions/pu-composition-startpartup-contribute.sass";
@@ -88,7 +89,6 @@
 @import "client/stylesheets/components/pu-modalsidebar.sass";
 @import "client/stylesheets/components/pu-navigation.sass";
 @import "client/stylesheets/components/pu-network-requests.sass";
-@import "client/stylesheets/components/pu-network-uppers.sass";
 @import "client/stylesheets/components/pu-networktile.sass";
 @import "client/stylesheets/components/pu-notification.sass";
 @import "client/stylesheets/components/pu-notifycontainer.sass";
@@ -131,10 +131,8 @@
 @import "client/stylesheets/components/pu-wrap.sass";
 @import "client/stylesheets/components/twitter-typeahead.sass";
 @import "client/stylesheets/components/velocity-status-widget.sass";
-
 @import "client/stylesheets/components/pu-score.sass";
 @import "client/stylesheets/components/pu-metadata.sass";
 @import "client/stylesheets/components/pu-badge.sass";
-
 @import "client/stylesheets/components/pu-connectionstatus.sass";
 @import "client/stylesheets/components/pu-admin-featured-partups.sass";
