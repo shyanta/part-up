@@ -205,6 +205,10 @@ Network.prototype.isUpperPending = function(upperId) {
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}});
+    Invites.remove({
+        'network_id':this._id,
+        'invitee_id': upperId
+    });
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $addToSet: {networks: this._id}});
 };
 
@@ -216,6 +220,10 @@ Network.prototype.acceptPendingUpper = function(upperId) {
  */
 Network.prototype.rejectPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}});
+    Invites.remove({
+        'network_id':this._id,
+        'invitee_id': upperId
+    });
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}});
 };
 
