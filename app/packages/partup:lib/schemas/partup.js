@@ -97,7 +97,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-    'featured.by_upper.title': {
+    'featured.by_upper.job_title': {
         type: String,
         optional: true
     },
@@ -208,7 +208,7 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
             'private',
             'network'
         ]
-    },
+    }
 }]);
 
 /**
@@ -223,4 +223,7 @@ Partup.schemas.forms.featurePartup = new SimpleSchema({
     comment: {
         type: String
     },
+    job_title: {
+        type: String
+    }
 });

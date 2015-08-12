@@ -35,6 +35,18 @@
             </div>
         </label>
 
+        <!-- Job title -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-partups-form-job-title-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='job_title' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='job_title' placeholder=jobTitleFieldPlaceholder  class="pu-input" }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='job_title' }}</span>
+            </div>
+        </label>
+
         <!-- Activate the featuring -->
         {{> afFieldInput name="active" value="1" type="hidden" }}
 

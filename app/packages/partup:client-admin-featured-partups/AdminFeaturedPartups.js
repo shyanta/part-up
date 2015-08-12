@@ -33,6 +33,9 @@ Template.AdminFeaturedPartups.helpers({
     commentFieldPlaceholder: function() {
         return __('pages-modal-admin-featured-partups-form-comment-placeholder');
     },
+    jobTitleFieldPlaceholder: function() {
+        return __('pages-modal-admin-featured-partups-form-job-title-placeholder');
+    },
     partupLabel: function() {
         return function(partup) {
             return partup.name;
