@@ -119,6 +119,7 @@ AutoForm.addHooks(null, {
             insertDoc.type = 'motivation';
         }
 
+        template.mentionsInput.hideSuggestions();
         insertDoc.content = template.mentionsInput.getValue();
 
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {

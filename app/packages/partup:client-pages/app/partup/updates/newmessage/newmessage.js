@@ -87,6 +87,7 @@ AutoForm.hooks({
             var parent = Template.instance().parent();
 
             parent.submitting.set(true);
+            parent.mentionsInput.hideSuggestions();
 
             var partupId = parent.data.partupId;
             var uploadedPhotos = parent.uploadedPhotos.get();
