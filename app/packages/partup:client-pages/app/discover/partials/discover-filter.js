@@ -226,10 +226,18 @@ Template.app_discover_filter.events({
         template.submitFilterForm();
     },
 
-    'input [data-textsearch-input]': function(event, template) {
-        event.stopPropagation();
-        var value = $(event.currentTarget).val();
+    'keyup [data-textsearch-input]': function(e, template) {
+        e.preventDefault();
+        var value = $(e.currentTarget).val();
         template.textsearch.value.set(value);
+
+        if (window.PU_IE_VERSION === -1) return;
+        // IE fix (return key submit)
+        var pressedKey = e.which ? e.which : e.keyCode;
+        if (pressedKey == 13) {
+            template.submitFilterForm();
+            return false;
+        }
     },
 
     // Network selector events
