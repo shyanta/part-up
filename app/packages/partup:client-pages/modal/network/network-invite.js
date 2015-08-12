@@ -156,6 +156,15 @@ Template.modal_network_invite.events({
 
         window.scrollTo(0, 0);
     },
+    'keyup [data-search-query-input]': function(e, template) {
+        if (window.PU_IE_VERSION === -1) return;
+        // IE fix (return key submit)
+        var pressedKey = e.which ? e.which : e.keyCode;
+        if (pressedKey == 13) {
+            template.submitFilterForm();
+            return false;
+        }
+    },
 
     // Location selector events
     'click [data-open-locationselector]': function(event, template) {
