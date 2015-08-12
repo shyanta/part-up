@@ -221,7 +221,7 @@ Template.app_discover_filter.events({
     },
 
     'click [data-reset-textsearch]': function(event, template) {
-        event.stopPropagation();
+        event.preventDefault();
         template.textsearch.value.set('');
         template.submitFilterForm();
     },
@@ -246,7 +246,7 @@ Template.app_discover_filter.events({
         template.network.selectorState.set(!current);
     },
     'click [data-reset-selected-network]': function(event, template) {
-        event.stopPropagation();
+        event.preventDefault();
         template.network.value.set('');
         template.submitFilterForm();
     },
@@ -257,7 +257,7 @@ Template.app_discover_filter.events({
         template.location.selectorState.set(!current);
     },
     'click [data-reset-selected-location]': function(event, template) {
-        event.stopPropagation();
+        event.preventDefault();
         template.location.value.set('');
         template.submitFilterForm();
     },
