@@ -150,7 +150,7 @@ MentionsInput.prototype.checkCaretPosition = function() {
             return;
         }
 
-        self.suggestions = users;
+        self.suggestions = users.slice(0, 10);
 
         self.lastQuery = query;
         self.suggestionsEl.innerHTML = '';
