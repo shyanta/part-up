@@ -1,0 +1,75 @@
+<template name="AdminFeaturedPartups">
+
+    <h2>Feature Part-up</h2>
+    {{#autoForm schema=schema id="featurePartupForm" validation="submitThenKeyup" class="pu-form pu-block pu-block-highlighted" }}
+
+        <!-- Featured part-up -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-partups-form-partup-label'}}
+            </span>
+
+            <span class="pu-sub-input">
+                {{# AutocompleteAdvanced
+                placeholder=partupFieldPlaceholder
+                label=partupLabel
+                selection=partupSelectionReactiveVar
+                onQuery=partupQuery
+                formValue=partupFormvalue }}
+
+                    <input type="text" name="partup">
+
+                {{/ AutocompleteAdvanced }}
+            </span>
+        </label>
+
+        <!-- Feature comment -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-partups-form-comment-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='comment' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='comment' placeholder=commentFieldPlaceholder class="pu-textarea" rows=3 }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='comment' }}</span>
+            </div>
+        </label>
+
+        <!-- Job title -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-partups-form-job-title-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='job_title' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='job_title' placeholder=jobTitleFieldPlaceholder  class="pu-input" }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='job_title' }}</span>
+            </div>
+        </label>
+
+        <!-- Activate the featuring -->
+        {{> afFieldInput name="active" value="1" type="hidden" }}
+
+        <!-- Submit form -->
+        <footer class="pu-row">
+            <div class="cell">
+                <button class="pu-button {{# if submitting }}pu-state-loading{{/ if }} {{# unless partupSelectionReactiveVar.get }}pu-state-disabled{{/ unless }}">
+                    {{_ 'pages-modal-admin-featured-partups-form-confirm'}}
+                    {{> Spinner type='small' color='inverted' }}
+                </button>
+            </div>
+        </footer>
+
+    {{/autoForm}}
+
+    <h2>Featured Part-ups</h2>
+    <ul class="pu-admin-featured-partups">
+        {{#each featuredPartups}}
+            <li>
+                <strong>{{name}}</strong> <button type="button" class="pu-admin-featured-remove" data-unset-featured data-partup-id="{{ _id }}"><i class="fa fa-times"></i></button> <br/>
+                <i>{{featured.comment}}</i>
+            </li>
+        {{/each}}
+    </ul>
+
+</template>

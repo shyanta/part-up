@@ -200,8 +200,28 @@ Partup.prototype.remove = function() {
 };
 
 /**
- Partups describe collaborations between several uppers
- @namespace Partups
+ * Check whether or not a partup is removed
+ *
+ * @memberOf Partups
+ * @return {Boolean}
+ */
+Partup.prototype.isRemoved = function() {
+    return !!this.deleted_at;
+};
+
+/**
+ * Check whether or not a partup is featured
+ *
+ * @memberOf Partups
+ * @return {Boolean}
+ */
+Partup.prototype.isFeatured = function() {
+    return !!this.featured.active;
+};
+
+/**
+ * Partups describe collaborations between several uppers
+ * @namespace Partups
  */
 Partups = new Mongo.Collection('partups', {
     transform: function(document) {
@@ -262,9 +282,9 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
 Partups.guardedFind = function(userId, selector, options) {
     // We do not want to return partups that have been soft deleted
     selector.deleted_at = selector.deleted_at || {$exists: false};
-
+    console.log(selector);
     if (Meteor.isClient) return this.find(selector, options);
-
+    console.log('1');
     var selector = selector || {};
     var options = options || {};
 
@@ -309,6 +329,9 @@ Partups.guardedFind = function(userId, selector, options) {
         // Merge the selectors, so we still use the initial selector provided by the caller
         finalSelector = {'$and': [guardingSelector, selector]};
     }
+    console.log('3');
+    console.log(finalSelector);
+    console.log(options);
 
     return this.find(finalSelector, options);
 };

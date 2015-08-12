@@ -102,6 +102,8 @@ okgrow:analytics@0.3.0
 ongoworks:spiderable@1.0.7
 ordered-dict@1.0.3
 partup:client-activity@0.0.1
+partup:client-admin@0.0.1
+partup:client-admin-featured-partups@0.0.1
 partup:client-autocomplete@0.0.1
 partup:client-base@0.0.1
 partup:client-basic-selector@0.0.1

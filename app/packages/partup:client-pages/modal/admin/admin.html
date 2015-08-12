@@ -1,6 +1,10 @@
 <template name="modal_admin">
 
     <nav class="pu-header pu-header-modal">
+        <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
+            <i class="fa fa-times"></i>
+            {{_ 'pages-modal-network_settings-close-page' }}
+        </a>
     </nav>
 
     <article class="pu-page">
@@ -8,39 +12,18 @@
             <div class="pu-sub-fixedmodalsidebar">
                 <div class="pu-wrap pu-wrap-modal">
                     <ul class="pu-modalsidebar">
+                        <li class="{{# if isActiveRoute name='admin-overview' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'admin-overview' }}">{{_ 'pages-modal-admin-overview' }}</a>
+                        </li>
+                        <li class="{{# if isActiveRoute name='admin-featured-partups' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'admin-featured-partups' }}">{{_ 'pages-modal-admin-featured-partups' }}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="pu-wrap pu-wrap-modal">
-                <h2>Partups ({{partupStats.total}})</h2>
-                <ul>
-                    <li>Open: {{partupStats.open}}</li>
-                    <li>Private: {{partupStats.private}}</li>
-                    <li>Network Open: {{partupStats.networkopen}}</li>
-                    <li>Network Private: {{partupStats.networkinvite}}</li>
-                    <li>Network Closed: {{partupStats.networkclosed}}</li>
-                </ul>
-                <h2>Users ({{userCount}})</h2>
-                <table>
-                    <thead>
-                        <td>Naam</td>
-                        <td>id</td>
-                        <td>email</td>
-                        <td>telefoon</td>
-                        <td>aangemeld op</td>
-                    </thead>
-                {{# each users }}
-                    <tr>
-                        <td><a href="{{ pathFor route='profile-upper-partups' _id=_id }}">{{profile.name}}</a></td>
-                        <td>{{_id}}</td>
-                        <td>{{getMail . }}</td>
-                        <td>{{profile.phonenumber}}</td>
-                        <td>{{partupDateNormal createdAt}}</td>
-                    </tr>
-                {{/each }}
-
-                </table>
+                {{> yield region='modal_admin' }}
             </div>
         </div>
     </article>

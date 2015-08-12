@@ -176,21 +176,65 @@ Meteor.methods({
      * Return a list of partups based on search query
      *
      * @param {string} searchString
+     * @param {string} exceptPartupId
+     * @param {boolean} onlyPublic When this is true, only public partups will be returned
      */
-    'partups.autocomplete': function(searchString, exceptPartupId) {
+    'partups.autocomplete': function(searchString, exceptPartupId, onlyPublic) {
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
+        onlyPublic = onlyPublic || false;
+
+        var selector = [
+            {name: new RegExp('.*' + searchString + '.*', 'i')},
+            {_id: {$ne: exceptPartupId}}
+        ];
+
+        if (onlyPublic) {
+            selector.push({'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}});
+        }
 
         try {
-            return Partups.find({
-                $and: [
-                    {name: new RegExp('.*' + searchString + '.*', 'i')},
-                    {_id: {$ne: exceptPartupId}}
-                ]
-            }).fetch();
+            if (onlyPublic) {
+                return Partups.find({$and: selector}).fetch();
+            } else {
+                return Partups.guardedFind(user._id, {$and: selector}, {_id: 1, name: 1});
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');
+        }
+    },
+
+    /**
+     * Return a list of partups based on search query
+     *
+     * @param {string} partupId
+     * @param {mixed[]} fields
+     */
+    'partups.feature': function(partupId, fields) {
+        var user = Meteor.user();
+        if (!user && !User(user).isAdmin) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var featured = null;
+
+            if (fields.active) {
+                featured = {
+                    'active': true,
+                    'by_upper': {
+                        '_id': user._id,
+                        'title': fields.job_title
+                    },
+                    'comment': fields.comment
+                };
+            }
+
+            Partups.update(partupId, {$set: {'featured': featured}});
+
+            return true;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partups_could_not_be_featured');
         }
     },
 

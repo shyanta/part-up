@@ -83,6 +83,27 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
+    featured: {
+        type: Object,
+        optional: true
+    },
+    'featured.active': {
+        type: Boolean
+    },
+    'featured.by_upper': {
+        type: Object
+    },
+    'featured.by_upper._id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'featured.by_upper.job_title': {
+        type: String,
+        optional: true
+    },
+    'featured.comment': {
+        type: String
+    },
     invites: {
         type: [String],
         optional: true,
@@ -187,5 +208,22 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
             'private',
             'network'
         ]
-    },
+    }
 }]);
+
+/**
+ * Feature partup form schema
+ * @name featurePartup
+ * @memberof Partup.schemas.forms
+ */
+Partup.schemas.forms.featurePartup = new SimpleSchema({
+    active: {
+        type: Boolean
+    },
+    comment: {
+        type: String
+    },
+    job_title: {
+        type: String
+    }
+});
