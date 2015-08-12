@@ -83,6 +83,7 @@
                 p
                     margin-top: -10px
                     font-size: 14px
+                    position: relative
 
                     &.pu-sub-systemmessage
                         font-size: 14px
@@ -94,8 +95,10 @@
                         transition: opacity .2s
                         font-weight: normal
                         font-size: 12px
+                        position: absolute
+                        left: -50px
 
-                        &:before
+                        &:after
                             content: '\2013' // en dash
                             display: inline-block
                             margin: 0 3px
@@ -138,3 +141,6 @@
                 font-weight: bold
                 font-size: 20px
                 text-align: center
+.pu-composition-partupdetailupdates .pu-update > section > footer .pu-list-comments p time
+    left: -59px
+
