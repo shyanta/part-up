@@ -91,7 +91,7 @@ Template.modal_create_promote.events({
 
         var partup = Partups.findOne({_id: template.data.partupId});
         Intent.return('create', {
-            arguments: [template.data.partupId],
+            arguments: [partup.slug],
             fallback_route: {
                 name: 'partup',
                 params: {
