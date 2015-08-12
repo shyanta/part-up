@@ -26,5 +26,8 @@
     "pages-modal-register-signup-form-submit": "Sign up",
 
     "pages-modal-register-signup-error_Accounts-LoginCancelledError": "Login cancelled",
-    "pages-modal-register-signup-error_Error": "Login failed, please try again"
+    "pages-modal-register-signup-error_Error": "Login failed, please try again",
+    "pages-modal-register-signup-error_user-registered-with-username-and-password": "You were registered with username and password, please use your password to login",
+    "pages-modal-register-signup-error_user-registered-with-linkedin": "You were registered with linkedin, please use your linkedin account to login",
+    "pages-modal-register-signup-error_user-registered-with-facebook": "You were registered with facebook, please use your facebook account to login"
 }
