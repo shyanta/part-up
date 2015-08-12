@@ -154,6 +154,7 @@ Template.app_network.events({
         template.toggleExpandedText();
     },
     'click [data-open-networksettings]': function(event, template) {
+        event.preventDefault();
         Intent.go({
             route: 'network-settings',
             params: {

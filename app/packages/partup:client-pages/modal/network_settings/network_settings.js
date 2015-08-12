@@ -7,14 +7,11 @@ Template.modal_network_settings.helpers({
 Template.modal_network_settings.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
-
-        var network = Networks.findOne({slug: template.data.networkSlug});
-
         Intent.return('network-settings', {
             fallback_route: {
                 name: 'network-detail',
                 params: {
-                    slug: network.slug
+                    slug: template.data.networkSlug
                 }
             }
         });

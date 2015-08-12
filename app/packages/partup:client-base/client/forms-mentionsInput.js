@@ -64,6 +64,12 @@ MentionsInput.prototype._setEvents = function() {
         self.checkCaretPosition();
     });
 
+    self.input.addEventListener('blur', function() {
+        setTimeout(function() {
+            self.hideSuggestions();
+        }, 5);
+    });
+
     self.suggestionsEl.addEventListener('click', function(e) {
         self.select(self.btns.indexOf(e.target));
     });
