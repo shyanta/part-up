@@ -29,7 +29,7 @@
                 </label>
             </div>
         </div>
-        <!-- NEEDS IMPLEMENTATION -->
+        <!-- DISABLED UNTIL IMPLEMENTED -->
         <!-- <label class="pu-formfield">
             <span class="pu-label">{{_ 'inviteuppers-popup-input-message'}}</span>
             <div class="pu-sub-validations">
@@ -41,7 +41,10 @@
         </label> -->
         <footer class="pu-sub-formfooter pu-row pu-row-scalable">
             <div class="cell stretch">
-                <input class="pu-button" type="submit" value="{{_ 'inviteuppers-popup-form-copy-confirm'}}">
+                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                    <span>{{_ 'inviteuppers-popup-form-copy-confirm'}}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
             </div>
             <div class="cell">
                 <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'inviteuppers-popup-close'}}</a>

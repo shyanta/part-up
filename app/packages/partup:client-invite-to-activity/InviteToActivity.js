@@ -1,13 +1,19 @@
-// jscs:disable
 /**
  * Render invite to partup functionality
  *
  * @module client-invite-to-partup
  *
  */
-// jscs:enable
+Template.InviteToActivity.onCreated(function() {
+    var template = this;
+    template.submitting = new ReactiveVar(false);
+});
+
 Template.InviteToActivity.helpers({
-    formSchema: Partup.schemas.forms.inviteUpper
+    formSchema: Partup.schemas.forms.inviteUpper,
+    submitting: function() {
+        return Template.instance().submitting.get();
+    }
 });
 
 AutoForm.hooks({
@@ -16,13 +22,17 @@ AutoForm.hooks({
             var self = this;
             var template = self.template.parent();
 
-            Meteor.call('activities.invite_by_email', template.data.activityId, insertDoc.email, insertDoc.name, function(error, result) {
-                if (error) {
-                    return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
-                }
-            });
+            var parent = Template.instance().parent();
+            parent.submitting.set(true);
 
-            Partup.client.popup.close();
+            Meteor.call('activities.invite_by_email', template.data.activityId, insertDoc.email, insertDoc.name, function(error, result) {
+                parent.submitting.set(false);
+                if (error) {
+                    return Partup.client.notify.error(__('base-errors-' + error.reason));
+                }
+                Partup.client.notify.success(__('inviteuppers-popup-success'));
+                Partup.client.popup.close();
+            });
 
             return false;
         }
