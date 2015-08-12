@@ -8,16 +8,9 @@ Template.AdminFeaturedPartups.onCreated(function() {
 /* Page helpers */
 /*************************************************************/
 Template.AdminFeaturedPartups.helpers({
-    partups: function() {
-        return Partups.find({});
-    },
     featuredPartups: function() {
-        return Partups.find({'featured.active': true});
+        return Partups.find({}).fetch();
     },
-    isFeatured: function() {
-        return !!this.featured && !!this.featured.active;
-    },
-
     submitting: function() {
         return Template.instance().submitting.get();
     },
