@@ -131,7 +131,7 @@ MentionsInput.prototype.hideSuggestions = function() {
  */
 MentionsInput.prototype.checkCaretPosition = function() {
     var substr = this.input.value.substr(0, this.input.selectionStart);
-    var match = substr.match(/(?:^|\s+)@([^\s@]+)$/);
+    var match = substr.match(/(?:^|\s+)@([^\s@]{3,})$/);
 
     if (!match) {
         this.hideSuggestions();
