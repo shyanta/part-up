@@ -124,8 +124,8 @@ Template.modal_invite_to_activity.events({
         var activityId = template.data.activityId;
         var activity = Activities.findOne(activityId);
 
-        var invitingUserId = event.target.dataset.inviteId;
-        var invitingUser = Meteor.users.findOne(event.target.dataset.inviteId);
+        var invitingUserId = $(event.target).data('invite-id');
+        var invitingUser = Meteor.users.findOne(invitingUserId);
 
         if (User(invitingUser).isPartnerInPartup(template.data.partupId) || activity.isUpperInvited(invitingUserId)) return;
 
