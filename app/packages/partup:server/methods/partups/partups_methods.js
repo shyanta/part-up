@@ -216,14 +216,18 @@ Meteor.methods({
         if (!user && !User(user).isAdmin) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var featured = {
-                'active': fields.active,
-                'by_upper': {
-                    '_id': user._id,
-                    'title': fields.upper_title
-                },
-                'comment': fields.comment
-            };
+            var featured = null;
+
+            if (fields.active) {
+                featured = {
+                    'active': true,
+                    'by_upper': {
+                        '_id': user._id,
+                        'title': fields.job_title
+                    },
+                    'comment': fields.comment
+                };
+            }
 
             Partups.update(partupId, {$set: {'featured': featured}});
 
