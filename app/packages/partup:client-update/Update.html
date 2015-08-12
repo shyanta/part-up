@@ -65,7 +65,7 @@
                     {{# with update.type_data }}
                         <section>
                             <article class="pu-block pu-block-message">
-                                <p class="pu-paragraph">{{{ messageContent }}}</p>
+                                <p class="pu-paragraph">{{{ partupAutolink messageContent }}}</p>
                                 {{# if images }}
                                     <figure>
                                         {{# each images }}
@@ -134,7 +134,7 @@
             {{#if partupEqualsExactly update.type 'partups_description_changed' }}
                 {{#with update.type_data }}
                     <section>
-                        <p class="pu-paragraph pu-paragraph-large">{{ new_description }}</p>
+                        <p class="pu-paragraph pu-paragraph-large">{{{ partupAutolink new_description }}}</p>
                     </section>
                 {{/with}}
             {{/if }}
