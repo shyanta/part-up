@@ -79,6 +79,9 @@ AutoForm.addHooks(null, {
     onSubmit: function(doc) {
         var self = this;
         self.event.preventDefault();
+
+        if (self.formId !== 'featurePartupForm') return;
+
         var template = self.template.parent();
         template.submitting.set(true);
         var partupId = template.partupSelection.curValue._id;
