@@ -159,7 +159,7 @@ Template.modal_invite_to_activity.events({
         template.location.selectorState.set(!current);
     },
     'click [data-reset-selected-location]': function(event, template) {
-        event.stopPropagation();
+        event.preventDefault();
         template.location.value.set('');
         template.submitFilterForm();
     }

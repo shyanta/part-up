@@ -163,7 +163,7 @@ Template.modal_network_invite.events({
         template.location.selectorState.set(!current);
     },
     'click [data-reset-selected-location]': function(event, template) {
-        event.stopPropagation();
+        event.preventDefault();
         template.location.value.set('');
         template.submitFilterForm();
     }
