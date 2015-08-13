@@ -12,6 +12,7 @@
     <article class="pu-page">
         <div class="pu-composition pu-composition-home">
 
+            <!-- Header -->
             <header class="pu-sub-header">
                 {{# if currentUser }}
                     <h2 class="pu-title pu-title-serif pu-title-home">
@@ -42,20 +43,53 @@
                 {{/ if }}
             </header>
 
-            <section class="pu-sub-section pu-sub-section-tinted">
-                <!-- Featured staff-pick -->
-            </section>
+            <!-- Featured staf-pick -->
+            <!-- <section class="pu-sub-section pu-sub-section-accent">
+            </section> -->
 
             <section class="pu-sub-section pu-sub-section-gradient">
-                <!-- More staff-picks -->
-                <!-- Start own part-up -->
+
+                <div class="pu-wrap pu-wrap-home">
+
+                    <!-- Popular part-ups-->
+                    <section class="pu-sub-subsection pu-sub-subsection-popularpartups">
+                        <header class="pu-sub-popularpartupsheader">
+                            <h3 class="pu-title pu-title-homesection">Populaire part-ups</h3>
+                            <p class="pu-sub-discoverbutton">
+                                <a href="{{ pathFor 'discover' }}" class="pu-button">Bekijk alle part-ups</a>
+                            </p>
+                        </header>
+                        <div class="pu-sub-partups">
+                            {{> ColumnsLayout
+                                COLUMNS=amountOfColumns
+                                TEMPLATE="PartupTile"
+                                addHook=addToLayoutHook
+                                clearHook=clearLayoutHook
+                                rerenderHook=rerenderLayoutHook
+                            }}
+                        </div>
+                        <footer class="pu-sub-popularpartupsfooter">
+                            <p class="pu-sub-discoverbutton">
+                                <a href="{{ pathFor 'discover' }}" class="pu-button">Bekijk alle part-ups</a>
+                            </p>
+                        </footer>
+                    </section>
+
+                </div>
+
+                <!-- Start your own part-up -->
+                <!-- <section class="pu-sub-subsection">
+                </section> -->
+
                 <!-- Philosophy -->
+                <!-- <section class="pu-sub-subsection">
+                </section> -->
+
             </section>
 
-            <section class="pu-sub-section pu-sub-section-last">
-                <!-- Business -->
-            </section>
-
+            <!-- Business -->
+            <!-- <section class="pu-sub-section pu-sub-section-last">
+            </section> -->
         </div>
     </article>
 

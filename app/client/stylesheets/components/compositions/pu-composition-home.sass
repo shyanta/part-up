@@ -20,20 +20,68 @@
         font-size: 14px
 
     .pu-sub-section
-        padding-top: 50px
-        padding-bottom: 50px
+        padding: 50px 0
         border-bottom: 2px solid $color-border-light
+
+        .pu-wrap-home
+            padding-left: 20px
+            padding-right: 20px
+
+        .pu-sub-subsection
+            &-popularpartups
+                .pu-sub-popularpartupsheader
+                    .pu-title
+                        margin-top: -6px
+                        margin-bottom: 20px
+                        font-weight: normal
+                        font-size: 18px
+
+                    .pu-sub-discoverbutton
+                        display: none
+
+                .pu-sub-partups
+                    margin-top: 30px - 6px
+                    margin-bottom: -18px
+
+                .pu-sub-popularpartupsfooter
+                    margin-top: 30px
+                    text-align: center
 
         &-last
             border-bottom: none
 
-        &-tinted
+        &-accent
             background-color: $color-background-tertiery
 
         &-gradient
             background-image: url('/images/homepage-section-background-gradient.png')
             background-repeat: repeat-x
             background-position: bottom
+
+    @media screen and (min-width: 600px)
+        .pu-sub-section
+            .pu-wrap-home
+                padding-left: 40px
+                padding-right: 40px
+
+            .pu-sub-subsection
+                &-popularpartups
+                    .pu-sub-popularpartupsheader
+                        .pu-title
+                            float: left
+
+                        .pu-sub-discoverbutton
+                            display: block
+                            float: right
+                            margin-top: -10px
+
+                        &:after
+                            content: ''
+                            display: block
+                            clear: both
+
+                    .pu-sub-popularpartupsfooter
+                        display: none
 
     @media screen and (min-width: $breakpoint-tablet)
         .pu-sub-header
@@ -56,6 +104,19 @@
                 width: 800px
                 margin-top: 40px - 6px
                 margin-bottom: 40px - 7px
+
+        .pu-sub-section
+            padding-top: 100px
+            padding-bottom: 100px
+
+            .pu-sub-subsection
+                &-popularpartups
+                    .pu-sub-popularpartupsheader
+                        .pu-title
+                            font-size: 22px
+
+                    .pu-sub-partups
+                        margin-top: 50px - 20px
 
         p,
         .pu-paragraph
