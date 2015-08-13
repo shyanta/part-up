@@ -1,3 +1,11 @@
+var partupsToColumnTiles = function(partups) {
+    return lodash.map(partups, function(partup) {
+        return {
+            partup: partup
+        };
+    });
+};
+
 /**
  * Render network partups
  *
@@ -86,7 +94,7 @@ Template.app_network_partups.onCreated(function() {
                         });
 
                         tpl.partups.layout.items = tpl.partups.layout.clear();
-                        tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
+                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
                     });
                 }
             });
@@ -136,7 +144,7 @@ Template.app_network_partups.onCreated(function() {
                             return tpl.partups.partupTileData(partup);
                         });
 
-                        tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
+                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
                     });
                 }
             });
