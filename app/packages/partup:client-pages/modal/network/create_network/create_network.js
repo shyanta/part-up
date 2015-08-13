@@ -1,3 +1,9 @@
+Template.modal_create_network.onCreated(function() {
+    var tpl = this;
+    var user = Meteor.user();
+    if (!user || !User(user).isAdmin()) return Router.pageNotFound();
+});
+
 var placeholders = {
     'name': function() {
         return __('pages-modal-create-details-form-name-placeholder');
