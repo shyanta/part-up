@@ -573,12 +573,18 @@ Router.onBeforeAction(function(req, res, next) {
 if (Meteor.isClient) {
 
     Router.onBeforeAction(function() {
+        // Scroll to top
         window.scrollTo(0, 0);
+
+        // Disable focuslayer (a white layer currently used with edit-activity in the start-partup-flow)
         Partup.client.focuslayer.disable();
-        var currentPopup = Partup.client.popup.current.curValue;
-        if (currentPopup) {
+
+        // Close any popups
+        try {
             Partup.client.popup.close();
-        }
+        } catch (err) {}
+
+        // Proceed route change
         this.next();
     });
 
