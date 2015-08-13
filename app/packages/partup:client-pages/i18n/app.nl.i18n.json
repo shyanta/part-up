@@ -3,40 +3,5 @@
     "pages-app-start_partup": "Start een part-up",
     "pages-app-discover": "Discover",
     "pages-app-sign_up": "Gratis aanmelden",
-    "pages-app-log_in": "Inloggen",
-
-    "pages-app-subtitle": "Start working together!",
-    "pages-app-description": "On a mission to give you a future full of jobs and your best teams ever!",
-
-    "pages-app-feedback-title": "Feedback",
-    "pages-app-feedback-paragraph": "Jij zit vast vol ideeën om Part-up te verbeteren. Deel je ze hier? Wij staan klaar om met jouw ideeën aan de slag te gaan.",
-    "pages-app-feedback-button": "Geef je feedback",
-    "pages-app-feedback-button-mailto": "ralph@partup.com",
-
-    "pages-app-menu-title-company": "Company",
-    "pages-app-menu-company-pricing": "Prijzen",
-    "pages-app-menu-company-pricing-url": "http://part-up.com/pricing",
-    "pages-app-menu-company-about": "Over Part-up",
-    "pages-app-menu-company-about-url": "http://part-up.com",
-    "pages-app-menu-company-community": "Community",
-    "pages-app-menu-company-community-url": "http://part-up.com/community",
-    "pages-app-menu-company-help": "Hulp / vragen",
-    "pages-app-menu-company-help-url": "http://faq.part-up.com",
-    "pages-app-menu-company-blog": "Blog",
-    "pages-app-menu-company-blog-url": "http://blog.part-up.com",
-    "pages-app-menu-company-contact": "Contact",
-    "pages-app-menu-company-contact-url": "http://part-up.com/contact",
-
-    "pages-app-menu-title-company": "Company",
-    "pages-app-menu-title-social": "Social",
-    "pages-app-menu-social-twitter": "Twitter",
-    "pages-app-menu-social-twitter-url": "https://twitter.com/Partupcom",
-    "pages-app-menu-social-facebook": "Facebook",
-    "pages-app-menu-social-facebook-url": "https://www.facebook.com/partupcom",
-    "pages-app-menu-social-youtube": "YouTube",
-    "pages-app-menu-social-youtube-url": "https://www.youtube.com/partupcom",
-    "pages-app-menu-social-googleplus": "Google Plus",
-    "pages-app-menu-social-googleplus-url": "https://plus.google.com/u/0/111479313840461956988",
-    "pages-app-menu-social-linkedin": "LinkedIn",
-    "pages-app-menu-social-linkedin-url": "https://www.linkedin.com/company/part-up"
+    "pages-app-log_in": "Inloggen"
 }

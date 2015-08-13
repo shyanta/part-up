@@ -1,16 +1,49 @@
+@mixin footer_desktop
+    padding-top: 60px
+    padding-bottom: 60px
+
+    section
+        float: left
+
+        h2
+            margin-bottom: 30px - 11px
+
+        &.pu-sub-description
+            width: 40%
+            padding-right: 80px
+            margin-bottom: 0
+
+        &.pu-sub-companylinks
+            width: 19%
+            padding-right: 40px
+
+        &.pu-sub-sociallinks
+            width: 16%
+            padding-right: 40px
+            margin-left: 0
+
+        &.pu-sub-feedback
+            clear: none
+            width: 25%
+            margin-top: 0
+
+    .pu-sub-footer
+        padding-left: $spacing-app-pagepadding
+        padding-right: $spacing-app-pagepadding
+
 .pu-footer
     background-color: $color-background-footer
     color: $color-text-inverted
-    padding: 60px 0
+    padding: 40px 0
     z-index: 1
     position: relative
-    min-width: $breakpoint-desktop
+    min-width: $breakpoint-min
 
     .pu-sub-footer
         max-width: grid(12) + $spacing-app-pagepadding * 2
         margin-left: auto
         margin-right: auto
-        padding: 0 $spacing-app-pagepadding
+        padding: 0 20px
 
         &:after
             content: ''
@@ -19,24 +52,23 @@
 
     section
         min-height: 10px
-        float: left
 
         figure
-            margin-bottom: 10px
+            margin-bottom: 6px
 
         h2
             font-size: 18px
-            margin-bottom: 30px - 11px
+            margin-bottom: 20px - 11px
 
         h3
             font-size: 16px
-            margin-bottom: 20px - 11px
+            margin-bottom: 13px - 11px
 
         p
             margin-bottom: 20px - 8px
 
         .pu-list-footermenu
-            margin-top: 15px
+            margin-top: 10px
 
             a
                 color: $color-text-inverted
@@ -56,16 +88,22 @@
             margin-top: 20px
 
         &.pu-sub-description
-            width: 38%
-            padding-right: 80px
+            margin-bottom: 27px
 
         &.pu-sub-companylinks
-            width: 16%
-            padding-right: 40px
+            float: left
+            margin-bottom: 20px
 
         &.pu-sub-sociallinks
-            width: 16%
-            padding-right: 40px
+            float: left
+            margin-left: 43px
+            margin-bottom: 20px
 
         &.pu-sub-feedback
-            width: 30%
+            clear: left
+
+    &-desktop
+        @include footer_desktop
+
+    @media screen and (min-width: $breakpoint-desktop)
+        @include footer_desktop

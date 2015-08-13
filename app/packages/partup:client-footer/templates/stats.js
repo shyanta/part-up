@@ -1,4 +1,4 @@
-Template.app_footer.onCreated(function() {
+Template.Footer_stats.onCreated(function() {
     var tpl = this;
 
     tpl.versiondata = new ReactiveVar();
@@ -16,7 +16,7 @@ Template.app_footer.onCreated(function() {
     });
 });
 
-Template.app_footer.helpers({
+Template.Footer_stats.helpers({
     versiondata: function() {
         return Template.instance().versiondata.get() || {
             version: '"development"',

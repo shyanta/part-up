@@ -27,8 +27,6 @@ Package.onUse(function(api) {
         // App
         'app/app.html',
         'app/app.js',
-        'app/app-footer.html',
-        'app/app-footer.js',
 
         //no connection
         'modal/no_connection/no_connection.html',
