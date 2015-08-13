@@ -43,6 +43,9 @@ Meteor.methods({
         check(fields, Partup.schemas.forms.startActivities);
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
+
+        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
         var partup = Partups.findOneOrFail(activity.partup_id);
 
         if (!upper || !partup.hasUpper(upper._id)) {
@@ -75,6 +78,9 @@ Meteor.methods({
     'activities.remove': function(activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
+
+        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
         var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
         if (!upper || !partup.hasUpper(upper._id)) {
@@ -104,6 +110,9 @@ Meteor.methods({
     'activities.unarchive': function(activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
+
+        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
         var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
         if (!upper || !partup.hasUpper(upper._id)) {
@@ -135,6 +144,9 @@ Meteor.methods({
     'activities.archive': function(activityId) {
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
+
+        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
         var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
         if (!upper || !partup.hasUpper(upper._id)) {
@@ -240,6 +252,9 @@ Meteor.methods({
         }
 
         var activity = Activities.findOneOrFail(activityId);
+
+        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
         var partup = Partups.findOneOrFail(activity.partup_id);
 
         var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: activity.partup_id}).count() > 0;
@@ -302,6 +317,9 @@ Meteor.methods({
         }
 
         var activity = Activities.findOneOrFail(activityId);
+
+        if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+
         var invitee = Meteor.users.findOneOrFail(inviteeId);
 
         var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: activity.partup_id}).count() > 0;
