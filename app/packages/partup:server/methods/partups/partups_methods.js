@@ -194,11 +194,7 @@ Meteor.methods({
         }
 
         try {
-            if (onlyPublic) {
-                return Partups.find({$and: selector}).fetch();
-            } else {
-                return Partups.guardedFind(user._id, {$and: selector}, {_id: 1, name: 1});
-            }
+            return Partups.find({$and: selector}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');
