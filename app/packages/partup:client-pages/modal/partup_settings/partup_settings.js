@@ -1,6 +1,12 @@
 Template.modal_partup_settings.onCreated(function() {
-    this.subscribe('partups.one', this.data.partupId);
-    this.submitting = new ReactiveVar(false);
+    var tpl = this;
+    tpl.subscribe('partups.one', tpl.data.partupId, function() {
+        var partup = Partups.findOne(tpl.data.partupId);
+        if (!partup) return Router.pageNotFound('partup');
+        var userId = Meteor.userId();
+        if (!partup.hasUpper(userId)) return Router.pageNotFound('partup-not-allowed');
+    });
+    tpl.submitting = new ReactiveVar(false);
 });
 
 Template.modal_partup_settings.helpers({
