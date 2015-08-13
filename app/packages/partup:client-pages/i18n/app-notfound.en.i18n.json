@@ -8,6 +8,9 @@
     "pages-app-notfound-partup-closed-title": "This is a private part-up",
     "pages-app-notfound-partup-closed-description": "The partners in this part-up decided to keep its content private. Are you a partner or supporter of this part-up? Log in to access the part-up.",
 
+    "pages-app-notfound-partup-not-allowed-title": "Sorry, this part is private",
+    "pages-app-notfound-partup-not-allowed-description": "Only partners can change the settings of a part-up.",
+
     "pages-app-notfound-network-title": "Tribe not found",
     "pages-app-notfound-network-description": "Bummer, we could not find the tribe you are looking for.",
 
