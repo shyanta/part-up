@@ -2,6 +2,7 @@
     .pu-sub-header
         background-color: $color-primary
         padding: 50px 20px 100px 20px
+        margin-bottom: 0
         text-align: center
 
         .pu-title
@@ -16,6 +17,21 @@
     p,
     .pu-paragraph
         font-size: 14px
+
+    .pu-sub-section
+        min-height: 600px
+        border-bottom: 2px solid $color-border-light
+
+        &-last
+            border-bottom: none
+
+        &-tinted
+            background-color: $color-background-tertiery
+
+        &-gradient
+            background-image: url('/images/homepage-section-background-gradient.png')
+            background-repeat: repeat-x
+            background-position: bottom
 
     @media screen and (min-width: $breakpoint-tablet)
         .pu-sub-header
