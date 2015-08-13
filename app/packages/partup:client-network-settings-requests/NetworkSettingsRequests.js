@@ -4,8 +4,15 @@
  * @param {Number} networkSlug
  */
 Template.NetworkSettingsRequests.onCreated(function() {
-    this.subscribe('networks.one', this.data.networkSlug);
-    this.subscribe('networks.one.pending_uppers', this.data.networkSlug);
+    var tpl = this;
+    var userId = Meteor.userId();
+
+    tpl.subscribe('networks.one', tpl.data.networkSlug, function() {
+        var network = Networks.findOne({slug: tpl.data.networkSlug});
+        if (!network) Router.pageNotFound('network');
+        if (network.isClosedForUpper(userId)) Router.pageNotFound('network');
+    });
+    tpl.subscribe('networks.one.pending_uppers', tpl.data.networkSlug);
 });
 
 Template.NetworkSettingsRequests.helpers({

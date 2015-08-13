@@ -14,9 +14,19 @@ var Subs = new SubsManager({
 
 Template.NetworkSettingsUppers.onCreated(function() {
     var tpl = this;
+    var userId = Meteor.userId();
 
-    Subs.subscribe('networks.one', tpl.data.networkSlug);
+    var network_sub = Subs.subscribe('networks.one', tpl.data.networkSlug);
     Subs.subscribe('networks.one.uppers', tpl.data.networkSlug);
+
+    tpl.autorun(function(computation) {
+        if (network_sub.ready()) {
+            computation.stop();
+            var network = Networks.findOne({slug: tpl.data.networkSlug});
+            if (!network) Router.pageNotFound('network');
+            if (network.isClosedForUpper(userId)) Router.pageNotFound('network');
+        }
+    });
 });
 
 Template.NetworkSettingsUppers.helpers({

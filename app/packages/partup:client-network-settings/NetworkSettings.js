@@ -6,8 +6,13 @@
  */
 Template.NetworkSettings.onCreated(function() {
     var tpl = this;
+    var userId = Meteor.userId();
 
-    tpl.subscription = tpl.subscribe('networks.one', tpl.data.networkSlug);
+    tpl.subscription = tpl.subscribe('networks.one', tpl.data.networkSlug, function() {
+        var network = Networks.findOne({slug: tpl.data.networkSlug});
+        if (!network) Router.pageNotFound('network');
+        if (network.isClosedForUpper(userId)) Router.pageNotFound('network');
+    });
     tpl.charactersLeft = new ReactiveDict();
     tpl.submitting = new ReactiveVar();
     tpl.current = new ReactiveDict();

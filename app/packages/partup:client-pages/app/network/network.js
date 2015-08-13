@@ -18,7 +18,7 @@ Template.app_network.onCreated(function() {
     tpl.autorun(function() {
         if (network_sub.ready()) {
             var network = Networks.findOne({slug: tpl.data.networkSlug});
-            if (!network) Router.pageNotFound('network');
+            if (!network) return;
 
             tpl.networkId.set(network._id);
         }
