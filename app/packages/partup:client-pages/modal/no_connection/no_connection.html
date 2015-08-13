@@ -1,5 +1,5 @@
 <template name="status_noconnection">
-    <section class="pu-overlay pu-overlay-connectionstatus {{#unless connected}}pu-overlay-active{{/unless}}">
+    <section class="pu-overlay pu-overlay-connectionstatus {{#unless partupRefreshed}}{{#unless connected}}pu-overlay-active{{/unless}}{{/unless}}">
         <section>
             <article class="pu-connectionstatus">
                 <p>

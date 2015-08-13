@@ -13,3 +13,7 @@ Template.registerHelper('partupLoading', function() {
 
     return isLoading;
 });
+
+Template.registerHelper('partupRefreshed', function() {
+    return Meteor.status().retryCount === 0;
+});
