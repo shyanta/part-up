@@ -17,5 +17,9 @@
     "pages-app-notfound-profile-title": "Upper profile not found",
     "pages-app-notfound-profile-description": "Bummer, we could not find the upper you are looking for.",
 
+    "pages-app-notfound-profile-not-allowed-title": "Not allowed",
+    "pages-app-notfound-profile-not-allowed-description": "You are not allowed to alter the settings of another upper.",
+    "pages-app-notfound-profile-backbutton": "Back to the profile",
+
     "pages-app-notfound-backbutton": "Take me back to the discover page."
 }

@@ -1,3 +1,8 @@
+Template.modal_profile_settings.onCreated(function() {
+    var tpl = this;
+    var userId = Meteor.userId();
+    if (userId !== tpl.data.profileId) return Router.pageNotFound('profile-not-allowed');
+});
 Template.modal_profile_settings.events({
     'click [data-closepage]': function(event, template) {
         event.preventDefault();

@@ -17,5 +17,9 @@
     "pages-app-notfound-profile-title": "Upper profiel niet gevonden.",
     "pages-app-notfound-profile-description": "Helaas, we konden de upper die je zoekt niet vinden. En wij kunnen best goed zoeken.",
 
+    "pages-app-notfound-profile-not-allowed-title": "Niet toegestaan",
+    "pages-app-notfound-profile-not-allowed-description": "Het is niet toegestaan om de instellingen van een andere upper te veranderen.",
+    "pages-app-notfound-profile-backbutton": "Terug naar het profiel",
+
     "pages-app-notfound-backbutton": "Breng me terug naar de discover pagina."
 }
