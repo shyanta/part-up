@@ -21,7 +21,8 @@ var publicUserFields = {
 //user fields exposed to logged in user
 var privateUserFields = mout.object.merge({
     'emails': 1,
-    'pending_networks': 1
+    'pending_networks': 1,
+    'roles': 1
 }, publicUserFields);
 
 // Add indices
