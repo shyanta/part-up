@@ -43,22 +43,20 @@
         {{/ if }}
 
         <!-- Add comment field -->
-        {{#if showCommentForm }}
-            {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
-                <ul class="pu-list {{# unless isMotivation }}pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if buttonActive }}pu-list-fieldwithbutton-state-active{{/if }}{{/ unless }}">
-                    {{# if isMotivation }}
-                        <li>{{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment maxlength=250 }}</li>
-                    {{ else }}
-                        <li>{{> afFieldInput name='content' class='pu-input' data='commentfield' placeholder=placeholders.comment maxlength=250 }}</li>
-                    {{/ if }}
-                    <li>
-                        <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
-                            <span>{{_ 'widgetcommentfield-comment-postbutton' }}</span>
-                            {{> Spinner color='inverted' type='small' }}
-                        </button>
-                    </li>
-                </ul>
-            {{/autoForm}}
-        {{/if}}
+        {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
+        <ul class="pu-list {{# unless showCommentForm }}pu-state-hidden{{/ unless }} {{# unless isMotivation }}pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if buttonActive }}pu-list-fieldwithbutton-state-active{{/if }}{{/ unless }}">
+                {{# if isMotivation }}
+                    <li>{{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment maxlength=250 }}</li>
+                {{ else }}
+                    <li>{{> afFieldInput name='content' class='pu-input' data='commentfield' placeholder=placeholders.comment maxlength=250 }}</li>
+                {{/ if }}
+                <li>
+                    <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                        <span>{{_ 'widgetcommentfield-comment-postbutton' }}</span>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                </li>
+            </ul>
+        {{/autoForm}}
     </footer>
 </template>
