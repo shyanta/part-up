@@ -36,7 +36,7 @@ Template.DropdownProfile.onCreated(function() {
 
 Template.DropdownProfile.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=profile]');
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();

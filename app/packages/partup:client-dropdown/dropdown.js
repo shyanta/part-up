@@ -5,7 +5,7 @@ Template.Dropdown.onRendered(function() {
     var dropdown_element = tpl.find('[data-dropdown]');
 
     // Capture outside click
-    Partup.client.elements.onClickOutside(dropdown_element, function() {
+    tpl.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
         if (!click_outside_checker_enabled) return;
 
         // Disable the dropdown
@@ -17,6 +17,10 @@ Template.Dropdown.onRendered(function() {
     tpl.autorun(function() {
         click_outside_checker_enabled = tpl.data.toggle.get();
     });
+});
+
+Template.Dropdown.onRendered(function() {
+    Partup.client.elements.offClickOutside(tpl.handler);
 });
 
 Template.Dropdown.helpers({
