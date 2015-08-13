@@ -10,40 +10,66 @@ var partupsToColumnTiles = function(partups) {
 Template.app_home.onCreated(function() {
     var tpl = this;
 
+    // Popular partups
     tpl.popular_partups = {
         layout: {}
     };
 
+    // Featured partup
+    tpl.featured_partup = new ReactiveVar();
+
     // Call first four discover part-ups and add them to the UI
     Meteor.call('partups.discover', {sort: 'popular', limit: 4}, function(error, partupIds) {
-        if (tpl.view.isDestroyed) return;
-
-        tpl.subscribe('partups.by_ids', partupIds, {
-            onReady: function() {
-                var popular_partups = Partups.find({_id: {$in: partupIds}}).fetch();
-
-                if (popular_partups.length > 0) {
-                    tpl.popular_partups.layout.add(partupsToColumnTiles(popular_partups));
-                }
-            }
-        });
+        multi_handler('popular', error, partupIds);
     });
 
     // Call one featured part-up
-    tpl.featured_partup = new ReactiveVar();
     Meteor.call('partups.featured_one_random', function(error, featured_partup_id) {
-        if (tpl.view.isDestroyed) return;
+        multi_handler('featured', error, featured_partup_id);
+    });
 
-        tpl.subscribe('partups.by_ids', [featured_partup_id], {
+    // Parallel calls trick
+    var multi_responses = {};
+    var multi_handler = function(type, error, result) {
+        multi_responses[type] = {error: error, result: result};
+        if (!multi_responses.featured || !multi_responses.popular) return;
+
+        var ids = [];
+
+        // Featured
+        if (!multi_responses.featured.error) {
+            ids.push(multi_responses.featured.result);
+        }
+
+        // Popular
+        if (!multi_responses.popular.error) {
+            ids = ids.concat(multi_responses.popular.result);
+        }
+
+        // Subscribe to the collected ids
+        tpl.subscribe('partups.by_ids', ids, {
             onReady: function() {
-                var featured_partup = Partups.findOne({_id: featured_partup_id});
-                if (featured_partup) {
-                    tpl.featured_partup.set(featured_partup);
-                    console.log('featured partup', featured_partup);
+                var featured_id = multi_responses.featured.result;
+                var popular_ids = multi_responses.popular.result;
+
+                // Featured
+                if (featured_id) {
+                    var featured_partup = Partups.findOne({_id: featured_id});
+                    if (featured_partup) {
+                        tpl.featured_partup.set(featured_partup);
+                    }
+                }
+
+                // Popular
+                if (popular_ids.length) {
+                    var popular_partups = Partups.find({_id: {$in: popular_ids}}).fetch();
+                    if (popular_partups.length > 0) {
+                        tpl.popular_partups.layout.add(partupsToColumnTiles(popular_partups));
+                    }
                 }
             }
         });
-    });
+    };
 });
 
 Template.app_home.onRendered(function() {
