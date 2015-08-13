@@ -290,7 +290,7 @@ Partups.guardedFind = function(userId, selector, options) {
 
     var guardedCriterias = [
         // Either the partup is public or belongs to a public network
-        {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}},
+        {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}}
     ];
 
     // Some extra rules that are only applicable to users that are logged in
@@ -317,7 +317,7 @@ Partups.guardedFind = function(userId, selector, options) {
     var finalSelector = {};
 
     // MongoDB only allows 1 root $or, so we have to merge the $or from the given selector
-    // with the $or values that we generate with the guarded criterias above here
+    // with the $or values that we generate with the guarded criteria above here
     if (selector.$or) {
         finalSelector = selector;
         finalSelector.$and = [{'$or': guardedCriterias}, {'$or': selector.$or}];
