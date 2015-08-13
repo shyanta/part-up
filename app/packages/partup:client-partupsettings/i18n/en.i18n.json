@@ -38,7 +38,7 @@
     "partupsettings-image-label": "What picture suits your part-up best?",
     "partupsettings-image-button": "Upload a picture from your computer",
     "partupsettings-image-button-overwrite": "Change picture",
-    "partupsettings-image-validation": "Preferably a large image",
+    "partupsettings-image-validation": "Max 2mb",
     "partupsettings-image-error": "This file could not be uploaded",
 
     "partupsettings-suggestion-label": "Or pick one of the five suggestions",

@@ -38,7 +38,7 @@
     "partupsettings-image-label": "Welke foto past goed bij jouw part-up?",
     "partupsettings-image-button": "Foto vanaf jouw computer",
     "partupsettings-image-button-overwrite": "Foto veranderen",
-    "partupsettings-image-validation": "Bij voorkeur een grote afbeelding",
+    "partupsettings-image-validation": "Max 2mb",
     "partupsettings-image-error": "Dit bestand kon niet worden geüpload",
 
     "partupsettings-suggestion-label": "of kies een van de vijf suggesties",

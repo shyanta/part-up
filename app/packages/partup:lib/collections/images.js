@@ -112,11 +112,19 @@ if (Meteor.isServer) {
 Images = new FS.Collection('images', {
     stores: stores,
     filter: {
+        maxSize: 2000000, // in bytes
         allow: {
             contentTypes: ['image/*']
         },
         deny: {
             contentTypes: ['image/gif']
+        }
+    },
+    onInvalid: function(message) {
+        if (Meteor.isClient) {
+            Partup.client.notify.error(__('images-error_' + message));
+        } else {
+            //backend error handling
         }
     }
 });
