@@ -176,8 +176,6 @@ Package.onUse(function(api) {
     ];
 
     var languageFiles = [
-        'i18n/app.en.i18n.json',
-        'i18n/app.nl.i18n.json',
         'i18n/app-notfound.en.i18n.json',
         'i18n/app-notfound.nl.i18n.json',
         'i18n/app-home.en.i18n.json',

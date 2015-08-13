@@ -1,7 +1,7 @@
 <template name="DropdownProfile">
     <a href="#" class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="profile">
-        <figure class="pu-avatar pu-avatar-small" style="{{#with currentUser.profile.image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
-        {{ currentUser.profile.name }}
+        <figure class="pu-avatar pu-avatar-small" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
+        {{ label }}
     </a>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <!-- <li class="pu-dropdownitem"><a href="#">Netwerk aanmelden</a></li> -->

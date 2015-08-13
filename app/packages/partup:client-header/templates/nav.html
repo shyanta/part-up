@@ -3,20 +3,20 @@
         <li>
             <a href="{{ pathFor 'discover' }}" class="pu-button pu-button-header {{# unless partupResponsive }}pu-button-header-desktop{{/ unless }}">
                 {{# if isMobile }}
-                    Discover
+                    {{_ 'header-mobile-discover' }}
                 {{ else }}
                     <i class="fa fa-th-large"></i>
-                    Discover
+                    {{_ 'header-desktop-discover' }}
                 {{/ if }}
             </a>
         </li>
         <li>
             <a href="{{ pathFor 'create' }}" class="pu-button pu-button-header {{# unless partupResponsive }}pu-button-header-desktop{{/ unless }}" data-start="">
                 {{# if isMobile }}
-                    Start
+                    {{_ 'header-mobile-start_partup' }}
                 {{ else }}
                     <i class="fa fa-flag"></i>
-                    Start een part-up
+                    {{_ 'header-desktop-start_partup' }}
                 {{/ if }}
             </a>
         </li>

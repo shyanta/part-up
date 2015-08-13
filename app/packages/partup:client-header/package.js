@@ -29,13 +29,13 @@ Package.onUse(function(api) {
         'templates/personal.html',
         'templates/personal.js',
 
-        'i18n/en.i18n.json',
-        'i18n/nl.i18n.json'
+        'i18n/header.en.i18n.json',
+        'i18n/header.nl.i18n.json'
     ], 'client');
 
     api.addFiles([
         'package-tap.i18n',
-        'i18n/en.i18n.json',
-        'i18n/nl.i18n.json'
+        'i18n/header.en.i18n.json',
+        'i18n/header.nl.i18n.json'
     ], 'server');
 });
