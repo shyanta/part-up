@@ -10,9 +10,7 @@ Template.DropdownProfile.onCreated(function() {
     template.disableUp = new ReactiveVar(true);
     template.disableDown = new ReactiveVar(false);
 
-    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
-
-    });
+    template.dropdownOpen = new ReactiveVar();
 
     var userId = Meteor.userId();
 

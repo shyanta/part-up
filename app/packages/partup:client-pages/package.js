@@ -27,8 +27,6 @@ Package.onUse(function(api) {
         // App
         'app/app.html',
         'app/app.js',
-        'app/app-header.html',
-        'app/app-header.js',
         'app/app-footer.html',
         'app/app-footer.js',
 

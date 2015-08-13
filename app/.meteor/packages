@@ -63,6 +63,7 @@ partup:server
 partup:client-base
 partup:client-pages
 
+partup:client-header
 partup:client-activity
 partup:client-autocomplete
 partup:client-basic-selector

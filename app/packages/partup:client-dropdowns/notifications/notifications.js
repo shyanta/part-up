@@ -1,11 +1,9 @@
 Template.DropdownNotifications.onCreated(function() {
     var template = this;
     template.dropdownOpen = new ReactiveVar(false, function(a, b) {
-        if (a === b) return;
-        if (b) return;
-        Meteor.call('notifications.all_read', function(error, res) {
+        if (a === b || b) return;
 
-        });
+        Meteor.call('notifications.all_read');
     });
 });
 Template.DropdownNotifications.onRendered(function() {

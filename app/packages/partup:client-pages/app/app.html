@@ -1,9 +1,9 @@
 <template name="app">
 
-    <div class="pu-app">
+    <div class="pu-app {{# if partupResponsive }}pu-app-responsive{{/ if }}">
 
         <!-- Header -->
-        {{> app_header }}
+        {{> Header }}
 
         <!-- Page -->
         {{> yield region='app' }}

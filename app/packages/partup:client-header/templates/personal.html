@@ -1,0 +1,51 @@
+<template name="Header_personal">
+    <ul class="pu-list pu-list-horizontal">
+        {{# if isMobile }}
+
+            <!-- Mobile version -->
+            {{#if currentUser }}
+
+                <!-- Logged in -->
+                <li>
+                    <a href="{{ pathFor 'profile' }}" class="pu-button pu-button-header pu-button-avatar">
+                        <figure class="pu-avatar pu-avatar-small" style="{{#with currentUser.profile.image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
+                        {{ currentUser.profile.name }}
+                    </a>
+                </li>
+
+            {{ else }}
+
+                <!-- Anonymous -->
+                <li>
+                    <a href="{{ pathFor 'register' }}" class="pu-button pu-button-header" data-signup="">Sign up</a>
+                </li>
+                <li>
+                    <a href="{{ pathFor 'login' }}" class="pu-button pu-button-header" data-login="">Log in</a>
+                </li>
+
+            {{/ if }}
+
+        {{ else }}
+
+            <!-- Desktop version -->
+            {{#if currentUser }}
+
+                <!-- Logged in -->
+                <li>{{> DropdownNotifications }}</li>
+                <li>{{> DropdownProfile }}</li>
+
+            {{ else }}
+
+                <!-- Anonymous -->
+                <li>
+                    <a href="{{ pathFor 'register' }}" class="pu-button pu-button-header pu-button-header-desktop pu-button-header-nostripe" data-signup="">Sign up</a>
+                </li>
+                <li>
+                    <a href="{{ pathFor 'login' }}" class="pu-button pu-button-header pu-button-header-desktop" data-login="">Log in</a>
+                </li>
+
+            {{/ if }}
+
+        {{/ if }}
+    </ul>
+</template>
