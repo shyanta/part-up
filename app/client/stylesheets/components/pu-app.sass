@@ -2,9 +2,6 @@
     background-color: $color-background
     min-width: $breakpoint-desktop
 
-    .pu-page
-        min-height: 100%
-
     #pu-notifycontainer
         position: fixed
         bottom: 30px
@@ -17,6 +14,9 @@
 
     @media screen and (min-width: $breakpoint-desktop)
         padding-top: $spacing-app-headerheight
+
+        .pu-page
+            min-height: 100%
 
         .pu-header
             position: fixed
