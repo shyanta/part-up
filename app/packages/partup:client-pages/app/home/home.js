@@ -28,6 +28,54 @@ Template.app_home.onCreated(function() {
             }
         });
     });
+
+Template.app_home.onRendered(function() {
+    var tpl = this;
+
+    // Add a nice parallax effect to the header content
+    var header = tpl.find('[data-parallax=header]');
+    var prefixedTransform = Modernizr.prefixed('transform');
+    var prefixedOpacity = Modernizr.prefixed('opacity');
+    tpl.onscroll = function() {
+        window.requestAnimationFrame(function() {
+            var min = 0;
+            var max = header.parentElement.getBoundingClientRect().height;
+            var cur = typeof window.scrollY !== 'undefined' ? window.scrollY : document.documentElement.scrollTop;
+            var rel = (cur - min) / (max - min);
+
+            var factor = Math.min(1, Math.max(0, rel));
+            var movement = 280; // pixels
+
+            var transform = Math.round(factor * movement);
+            var opacity = Math.max(0, 1 - factor * 1.5);
+
+            header.style[prefixedTransform] = 'translate3d(0, ' + transform + 'px, 0)';
+            header.style[prefixedOpacity] = opacity;
+        });
+    };
+
+    // Conditionally apply parallax effect (based on screen size)
+    tpl.onresize = function() {
+        if (window.innerWidth > 992) {
+            tpl.onscroll();
+            $(window).on('scroll', tpl.onscroll);
+        } else {
+            header.style[prefixedTransform] = '';
+            header.style[prefixedOpacity] = '';
+            $(window).off('scroll', tpl.onscroll);
+        }
+    };
+
+    // Add handlers
+    $(window).on('resize load', tpl.onresize);
+});
+
+Template.app_home.onDestroyed(function() {
+
+    // Remove handlers
+    $(window).off('resize load', tpl.onresize);
+    $(window).off('scroll', this.onscroll);
+
 });
 
 Template.app_home.helpers({

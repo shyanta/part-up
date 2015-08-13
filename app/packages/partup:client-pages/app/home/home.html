@@ -14,33 +14,35 @@
 
             <!-- Header -->
             <header class="pu-sub-header">
-                {{# if currentUser }}
-                    <h2 class="pu-title pu-title-serif pu-title-home">
-                        <span>{{_ 'pages-app-home-loggedin-heading' greeting=greeting name='Dominique' }}</span>
-                    </h2>
-                    <p class="pu-paragraph-inverted">{{_ 'pages-app-home-loggedin-paragraph' }}</p>
-                    <p>
-                        <ul class="pu-list pu-list-horizontal pu-list-buttons">
-                            <li><a href="{{ pathFor 'create' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-loggedin-start_partup' }}</a></li>
-                            <li><a href="{{ pathFor 'discover' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-loggedin-discover' }}</a></li>
-                        </ul>
-                    </p>
-                {{ else }}
-                    <h2 class="pu-title pu-title-serif pu-title-home">
-                        <span>{{_ 'pages-app-home-heading' }}</span>
-                    </h2>
-                    <p class="pu-paragraph-inverted">{{_ 'pages-app-home-paragraph' }}</p>
-                    <p>
-                        {{# if videoWatched }}
-                            <a href="{{ pathFor 'register' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-signup' }}</a>
-                        {{ else }}
-                            <a href="#" class="pu-button pu-button-large" data-open-video-modal>
-                                <i class="fa fa-play"></i>
-                                {{_ 'pages-app-home-videobutton' }}
-                            </a>
-                        {{/ if }}
-                    </p>
-                {{/ if }}
+                <div data-parallax="header">
+                    {{# if currentUser }}
+                        <h2 class="pu-title pu-title-serif pu-title-home">
+                            <span>{{_ 'pages-app-home-loggedin-heading' greeting=greeting name='Dominique' }}</span>
+                        </h2>
+                        <p class="pu-paragraph-inverted">{{_ 'pages-app-home-loggedin-paragraph' }}</p>
+                        <p>
+                            <ul class="pu-list pu-list-horizontal pu-list-buttons">
+                                <li><a href="{{ pathFor 'create' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-loggedin-start_partup' }}</a></li>
+                                <li><a href="{{ pathFor 'discover' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-loggedin-discover' }}</a></li>
+                            </ul>
+                        </p>
+                    {{ else }}
+                        <h2 class="pu-title pu-title-serif pu-title-home">
+                            <span>{{_ 'pages-app-home-heading' }}</span>
+                        </h2>
+                        <p class="pu-paragraph-inverted">{{_ 'pages-app-home-paragraph' }}</p>
+                        <p>
+                            {{# if videoWatched }}
+                                <a href="{{ pathFor 'register' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-signup' }}</a>
+                            {{ else }}
+                                <a href="#" class="pu-button pu-button-large" data-open-video-modal>
+                                    <i class="fa fa-play"></i>
+                                    {{_ 'pages-app-home-videobutton' }}
+                                </a>
+                            {{/ if }}
+                        </p>
+                    {{/ if }}
+                </div>
             </header>
 
             <!-- Featured staf-pick -->
