@@ -20,6 +20,7 @@ Template.Dropdown.onRendered(function() {
 });
 
 Template.Dropdown.onRendered(function() {
+    var tpl = this;
     Partup.client.elements.offClickOutside(tpl.handler);
 });
 
