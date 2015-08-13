@@ -1,9 +1,23 @@
 # CHANGELOG
 ## 1.6.0
+- users mentions in messages and comments with @ notation
+- daily digest emails for notifications
+- profile email settings
 - cache placeid/locations for performance and less google costs
+- activities softdelete (strikethrough activity in update)
+- new button states in userslists (invite-for-activty invite-for-tribe)
+- footer copy / order
+- invite-for-activity by email success feedback
+- friendlier login/registration messages when trying to login with wrong signin method
+- loaders for invite-for-activity and invite-for-tribe userlist
 - bugfix
+    - restricted image uploads to 2mb to avoid server crashes (bandaid fix)
+    - mailfrom address changed and is now easily configurable
     - loggedin user is now omitted from results invite-for-activity / invite-for-tribe
     - seo images now urlencoded to be compatible with facebook parsing
+    - invite-for-activity mail now uses url with partup name in it
+    - "go to your partup" button on promote now goes to url with partup name in it
+
 
 ## 1.5.12
 - bugfix
