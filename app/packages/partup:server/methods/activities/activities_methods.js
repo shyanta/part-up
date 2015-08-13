@@ -260,7 +260,7 @@ Meteor.methods({
 
         // Compile the E-mail template and send the email
         SSR.compileTemplate('inviteUserActivityEmail', Assets.getText('private/emails/InviteUserToActivity.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
+        var url = Meteor.absoluteUrl() + 'partups/' + partup.slug;
 
         Email.send({
             from: Partup.constants.EMAIL_FROM,
