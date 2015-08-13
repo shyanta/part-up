@@ -249,6 +249,22 @@ Meteor.methods({
             return;
         }
         return Partups.findStatsForAdmin();
-    }
+    },
+
+    /**
+     * Random featured partup
+     */
+    'partups.featured_one_random': function() {
+        this.unblock();
+
+        var count = Partups.guardedMetaFind({'featured.active': true}, {}).count();
+        var random = Math.floor(Math.random() * count);
+
+        var partup = Partups.guardedMetaFind({'featured.active': true}, {limit: 1, skip: random}).fetch().pop();
+
+        if (!partup) throw new Meteor.Error(404, 'no_featured_partup_found');
+
+        return partup._id;
+    },
 
 });
