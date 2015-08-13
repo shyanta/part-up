@@ -1,15 +1,6 @@
-/*************************************************************/
-/* Page helpers */
-/*************************************************************/
 Template.app_home.helpers({
-    shrinkHeader: function() {
-        return Partup.client.scroll.pos.get() > 40;
-    },
     videoWatched: function() {
         return Session.get('home.videowatched');
-    },
-    firstName: function() {
-        return User(Meteor.user()).getFirstname();
     },
     greeting: function() {
         var daypart;
@@ -22,14 +13,14 @@ Template.app_home.helpers({
         else daypart = 'fallback';
 
         return __('pages-app-home-loggedin-greeting-' + daypart);
+    },
+    firstName: function() {
+        return User(Meteor.user()).getFirstname();
     }
 });
 
-/*************************************************************/
-/* Page events */
-/*************************************************************/
 Template.app_home.events({
-    'click [data-open-video-modal]': function clickTranslate (event, template) {
+    'click [data-open-video-modal]': function(event, template) {
         event.preventDefault();
 
         // Open the video popup

@@ -1,6 +1,7 @@
 {
-    "pages-app-home-heading": "Start testing Part-up",
+    "pages-app-home-heading": "Your flexible workforce",
     "pages-app-home-paragraph": "The Part-up promise is to get you your best team for the job. You can help us live up to that promise by testing our beta and giving us your feedback. Let us know what you think and how we can improve Part-up to better suit your needs. Watch our awesome animation to get the Part-up feeling and sign up to start working together!",
+
     "pages-app-home-videobutton": "Part-up in 96 seconds",
     "pages-app-home-signup": "Sign up, it's free!",
 
@@ -14,6 +15,7 @@
     "pages-app-home-loggedin-greeting-evening": "Good evening",
     "pages-app-home-loggedin-greeting-fallback": "Good day",
     "pages-app-home-loggedin-paragraph": "You are an upper now and ready to get your team started! Are you in need of a team to realize your goal or dream? Just start your own part-up. Do you want to put your talent to work and contribute to an existing team? Find your best matching part-ups on the discover page.",
-    "pages-app-home-loggedin-startpartup": "Start your own part-up",
-    "pages-app-home-loggedin-discoverpartups": "Discover part-ups"
+
+    "pages-app-home-loggedin-start_partup": "Start your own part-up, free",
+    "pages-app-home-loggedin-discover": "Discover inspiring part-ups"
 }
