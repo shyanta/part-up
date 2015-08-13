@@ -591,8 +591,8 @@ if (Meteor.isClient) {
      */
     Router.pageNotFound = function(type) {
         var currentRoute = this.current();
-
-        currentRoute.state.set('type', type);
+        if (type) currentRoute.state.set('type', type);
+        currentRoute.render('app', {to: 'main'}); // this is so it also works for modals
         currentRoute.render('app_notfound', {to: 'app'});
     };
 }
