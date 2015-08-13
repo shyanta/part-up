@@ -1,30 +1,37 @@
 Template.modal_network_invite.onCreated(function() {
-    var self = this;
-    self.userIds = new ReactiveVar([]);
-    self.subscription = new ReactiveVar();
-    self.suggestionsOptions = new ReactiveVar({});
+    var tpl = this;
+    var userId = Meteor.userId();
+    tpl.subscribe('networks.one', tpl.data.networkSlug, function() {
+        var network = Networks.findOne({slug: tpl.data.networkSlug});
+        if (!network || network.isClosedForUpper(userId)) {
+            Router.pageNotFound();
+        }
+    });
+    tpl.userIds = new ReactiveVar([]);
+    tpl.subscription = new ReactiveVar();
+    tpl.suggestionsOptions = new ReactiveVar({});
 
-    self.inviting = new ReactiveDict(); // loading boolean for each individual invite button
+    tpl.inviting = new ReactiveDict(); // loading boolean for each individual invite button
 
-    self.loading = new ReactiveVar();
+    tpl.loading = new ReactiveVar();
 
     // Submit filter form
-    self.submitFilterForm = function() {
+    tpl.submitFilterForm = function() {
         Meteor.defer(function() {
-            var form = self.find('form#suggestionsQuery');
+            var form = tpl.find('form#suggestionsQuery');
             $(form).submit();
         });
     };
 
     // Location filter datamodel
-    self.location = {
+    tpl.location = {
         value: new ReactiveVar(),
         selectorState: new ReactiveVar(false, function(a, b) {
             if (!b) return;
 
             // Focus the searchfield
             Meteor.defer(function() {
-                var searchfield = self.find('form#locationSelector').elements.search;
+                var searchfield = tpl.find('form#locationSelector').elements.search;
                 if (searchfield) searchfield.focus();
             });
         }),
@@ -33,21 +40,22 @@ Template.modal_network_invite.onCreated(function() {
 
             return {
                 onSelect: function(location) {
-                    self.location.selectorState.set(false);
+                    tpl.location.selectorState.set(false);
 
                     Meteor.setTimeout(function() {
-                        self.location.value.set(location);
-                        self.submitFilterForm();
+                        tpl.location.value.set(location);
+                        tpl.submitFilterForm();
                     }, DROPDOWN_ANIMATION_DURATION);
                 }
             };
         }
     };
 
-    self.autorun(function() {
-        self.loading.set(true);
-        var network = Networks.findOne({slug: self.data.networkSlug});
-        var options = self.suggestionsOptions.get();
+    tpl.autorun(function() {
+        tpl.loading.set(true);
+        var network = Networks.findOne({slug: tpl.data.networkSlug});
+        if (!network) return;
+        var options = tpl.suggestionsOptions.get();
 
         if (!network) return;
 
@@ -57,10 +65,10 @@ Template.modal_network_invite.onCreated(function() {
                 return;
             }
 
-            self.userIds.set(userIds);
-            self.subscription.set(self.subscribe('users.by_ids', userIds));
+            tpl.userIds.set(userIds);
+            tpl.subscription.set(tpl.subscribe('users.by_ids', userIds));
 
-            self.loading.set(false);
+            tpl.loading.set(false);
         });
     });
 });
