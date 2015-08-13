@@ -47,7 +47,7 @@ Partup.helpers.mentions.extract = function(message) {
  */
 Partup.helpers.mentions.decode = function(message) {
     return message.replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
-        return '<a data-usercard="' + id + '">@' + name + '</a>';
+        return '<a data-usercard="' + id + '" class="pu-mention-user">@' + name + '</a>';
     });
 };
 
