@@ -67,7 +67,7 @@ MentionsInput.prototype._setEvents = function() {
     self.input.addEventListener('blur', function() {
         setTimeout(function() {
             self.hideSuggestions();
-        }, 5);
+        }, 500);
     });
 
     self.suggestionsEl.addEventListener('click', function(e) {
