@@ -76,6 +76,11 @@ Template.PartupTile.helpers({
         var now = new Date();
         return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
     },
+    progress: function() {
+        var progress = this.progress;
+        if (progress < 10) progress = 10;
+        return progress;
+    },
     supporterCount: function() {
         if (!this.supporters) return 0;
         return this.supporters.length;
