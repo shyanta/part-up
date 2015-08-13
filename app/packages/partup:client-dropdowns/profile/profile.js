@@ -20,6 +20,19 @@ Template.DropdownProfile.onCreated(function() {
         this.subscribe('users.one.upperpartups', userId);
         this.subscribe('users.one.supporterpartups', userId);
     }
+    var oldJoinedNetworks;
+    template.autorun(function() {
+        var joinedNetworks = Meteor.user().networks || false;
+        if (!joinedNetworks) return;
+
+        Tracker.nonreactive(function() {
+            if (joinedNetworks !== oldJoinedNetworks) {
+                template.currentNetwork.set(undefined);
+                oldJoinedNetworks = joinedNetworks;
+            }
+        });
+
+    });
 
 });
 
