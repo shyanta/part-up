@@ -216,8 +216,6 @@ Meteor.methods({
         if (!user && !User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var featured = null;
-
             if (fields.active) {
                 featured = {
                     'active': true,
@@ -227,9 +225,11 @@ Meteor.methods({
                     },
                     'comment': fields.comment
                 };
-            }
 
-            Partups.update(partupId, {$set: {'featured': featured}});
+                Partups.update(partupId, {$set: {'featured': featured}});
+            } else {
+                Partups.update(partupId, {$unset: {'featured': ''}});
+            }
 
             return true;
         } catch (error) {
