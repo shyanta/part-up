@@ -29,6 +29,23 @@ Template.app_home.onCreated(function() {
         });
     });
 
+    // Call one featured part-up
+    tpl.featured_partup = new ReactiveVar();
+    Meteor.call('partups.featured_one_random', function(error, featured_partup_id) {
+        if (tpl.view.isDestroyed) return;
+
+        tpl.subscribe('partups.by_ids', [featured_partup_id], {
+            onReady: function() {
+                var featured_partup = Partups.findOne({_id: featured_partup_id});
+                if (featured_partup) {
+                    tpl.featured_partup.set(featured_partup);
+                    console.log('featured partup', featured_partup);
+                }
+            }
+        });
+    });
+});
+
 Template.app_home.onRendered(function() {
     var tpl = this;
 
@@ -80,7 +97,7 @@ Template.app_home.onDestroyed(function() {
 
 Template.app_home.helpers({
     featured_partup: function() {
-        // return Partups.findFeaturedForHome();
+        return Template.instance().featured_partup.get();
     },
     videoWatched: function() {
         return Session.get('home.videowatched');
