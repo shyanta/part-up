@@ -35,7 +35,6 @@ Partup.client.elements = {
      */
     onClickOutside: function(elements, callback) {
         var handler = function(event) {
-
             // Match test: element is target ?
             var match = !!lodash.find(elements, function(element) {
                 return event.target === element;
@@ -53,8 +52,7 @@ Partup.client.elements = {
             }
 
         };
-
-        $(document).on('click', handler);
+        document.documentElement.addEventListener('click', handler);
 
         return handler; // return handler to be able to unbind in future
     },
@@ -66,6 +64,6 @@ Partup.client.elements = {
      * @param {Handler} handler Returned by your onClickOutside
      */
     offClickOutside: function(handler) {
-        $(document).off('click', handler);
+        document.documentElement.removeEventListener('click', handler);
     }
 };
