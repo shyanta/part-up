@@ -1,5 +1,6 @@
 # CHANGELOG
 ## 1.6.0
+- brand new Home page
 - users mentions in messages and comments with @ notation
 - daily digest emails for notifications
 - profile email settings
