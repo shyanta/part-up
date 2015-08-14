@@ -15,9 +15,11 @@ Template.registerHelper('partupAutolink', function(text) {
             var type = match.getType();
             if (type === 'email') {
                 var email = match.getEmail();
-                return '<a href="mailto:' + email + '" class="pu-external-url">' + email + '</a>';
+                return '<a href="mailto:' + email + '" class="pu-external-url" rel="nofollow">' + email + '</a>';
             }
-            return true;
+            var tag = linker.getTagBuilder().build(match);  // returns an Autolinker.HtmlTag instance
+            tag.setAttr('rel', 'nofollow');
+            return tag;
         }
     });
     return jaja;

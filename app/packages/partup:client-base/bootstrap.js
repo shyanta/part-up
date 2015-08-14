@@ -5,7 +5,7 @@
  * @name client-base
  */
 Meteor.startup(function() {
-    Status.setTemplate('noconnection')
+    Status.setTemplate('noconnection');
     // Check if Safari
     var is_safari = navigator.userAgent.indexOf('Safari') > -1;
     if (is_safari) {
