@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.6.1
+- fixed email problem in mentions
+
 ## 1.6.0
 - new home page with featured and popular part-ups
 - users mentions in messages and comments with @ notation
