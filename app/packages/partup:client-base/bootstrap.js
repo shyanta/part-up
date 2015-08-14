@@ -25,11 +25,12 @@ Meteor.startup(function() {
         $('body').addClass('pu-no-pointer-events');
     }
     var preventHrefsFromChangingUrl = function(e) {
+        console.log('prevent')
         e.preventDefault();
         return false;
     };
-    $('body').on('click', '[href="#"]', preventHrefsFromChangingUrl);
-    $('body').on('click', '[href=""]', preventHrefsFromChangingUrl);
+    $(document).on('click', '[href="#"]', preventHrefsFromChangingUrl);
+    $(document).on('click', '[href=""]', preventHrefsFromChangingUrl);
 
     /*************************************************************/
     /* Current loggedin users subscription */

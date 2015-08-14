@@ -29,27 +29,41 @@ Partup.client.elements = {
     /**
      *
      * @memberof elements
-     * @param {Element} target element
+     * @param {Elements} target elements
      * @param {Callback} callback when the user clicks outside
+     * @returns {Handler} handler for unbinding
      */
-    onClickOutside: function(element, callback) {
-        $(document).click(function(event) {
-
+    onClickOutside: function(elements, callback) {
+        var handler = function(event) {
             // Match test: element is target ?
-            var match = element === event.target;
+            var match = !!lodash.find(elements, function(element) {
+                return event.target === element;
+            });
 
             // Match test: element is one of target parents ?
             if (!match) {
                 var parents = $(event.target).parents();
-                match = lodash.find(parents, function(parent) {
-                    return parent === element;
-                });
+                match = lodash.intersection(parents, elements).length > 0;
             }
 
             // If still no match, the user clicked outside the element
             if (!match) {
                 callback();
             }
-        });
+
+        };
+        document.documentElement.addEventListener('click', handler);
+
+        return handler; // return handler to be able to unbind in future
+    },
+
+    /**
+     * Unbind document handler created by 'onClickOutside'
+     *
+     * @memberof elements
+     * @param {Handler} handler Returned by your onClickOutside
+     */
+    offClickOutside: function(handler) {
+        document.documentElement.removeEventListener('click', handler);
     }
 };

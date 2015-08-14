@@ -81,10 +81,10 @@ Template.ActivityView.helpers({
         return Template.instance().data.READONLY;
     },
     update: function() {
-        return Updates.findOne({_id: this.updateId || Template.instance().data.activity.update_id});
+        return Updates.findOne({_id: this.updateId || get(Template.instance(), 'data.activity.update_id')});
     },
     popupId: function() {
-        return 'popup.motivation.' + (this.updateId || Template.instance().data.activity.update_id);
+        return 'popup.motivation.' + (this.updateId ||get(Template.instance(), 'data.activity.update_id'));
     }
 });
 

@@ -4,6 +4,11 @@
     height: 195px
     border-radius: 50%
 
+    a
+        display: block
+        width: 195px
+        height: 195px
+
     .pu-sub-radial
         width: 100%
         height: 100%
@@ -27,10 +32,15 @@
         transition: opacity .2s ease-out
 
     &:hover
-
         .pu-sub-inner
             opacity: .8
 
         .pu-sub-avatar-list li
             filter: grayscale(0)
             transform: translateX(24px)
+
+    &-avatarsexpanded
+        &:hover
+            .pu-sub-avatar-list li
+                filter: none
+                transform: none

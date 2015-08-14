@@ -16,6 +16,9 @@ h1, h2, h3, h4, h5, h6,
         vertical-align: middle
         margin-top: -5px
 
+    &-serif
+        font-family: $font-serif
+
     &-modal
         font-size: 28px
         font-weight: 700
@@ -41,7 +44,10 @@ h1, h2, h3, h4, h5, h6,
         font-weight: 700
 
     &-home
-        font-weight: normal
+        color: $color-text-inverted
+
+        span
+            display: inline-block
 
     .pu-paragraph
         font-size: 14px
@@ -62,14 +68,17 @@ h2
 
 p,
 .pu-paragraph
-    line-height: 1.65em
+    line-height: 1.6em
+
+    &-inverted
+        color: $color-text-inverted
 
 ol, ul
     padding-left: 16px
     list-style: disc
 
     li
-        line-height: 1.65em
+        line-height: 1.6em
 
 p,
 .pu-paragraph,
@@ -99,3 +108,22 @@ li
 
             &:hover, &:active, &:focus
                 color: $color-text-subtle-active
+
+@media screen and (min-width: $breakpoint-tablet)
+    h1, h2, h3, h4, h5, h6,
+    .pu-title
+        &-home
+            font-size: 36px
+
+            span
+                border-bottom: 2px solid #458d93
+                line-height: 0.9em
+
+@media screen and (min-width: $breakpoint-desktop)
+    h1, h2, h3, h4, h5, h6,
+    .pu-title
+        &-home
+            font-size: 50px
+
+            span
+                border-bottom-width: 4px

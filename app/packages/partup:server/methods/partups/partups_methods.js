@@ -155,19 +155,25 @@ Meteor.methods({
     /**
      * Discover partups based on provided filters
      *
-     * @param {Object} options
+     * @param {Object} parameters
      */
-    'partups.discover': function(options) {
+    'partups.discover': function(parameters) {
         var userId = Meteor.userId();
 
+        var options = {};
+        parameters = parameters || {};
+
+        if (parameters.limit) options.limit = parseInt(parameters.limit);
+
         var parameters = {
-            networkId: options.networkId,
-            locationId: options.locationId,
-            sort: options.sort,
-            textSearch: options.textSearch
+            networkId: parameters.networkId,
+            locationId: parameters.locationId,
+            sort: parameters.sort,
+            textSearch: parameters.textSearch,
+            limit: parameters.limit
         };
 
-        return Partups.findForDiscover(userId, {}, parameters).map(function(partup) {
+        return Partups.findForDiscover(userId, options, parameters).map(function(partup) {
             return partup._id;
         });
     },
@@ -244,6 +250,22 @@ Meteor.methods({
             return;
         }
         return Partups.findStatsForAdmin();
-    }
+    },
+
+    /**
+     * Random featured partup
+     */
+    'partups.featured_one_random': function() {
+        this.unblock();
+
+        var count = Partups.guardedMetaFind({'featured.active': true}, {}).count();
+        var random = Math.floor(Math.random() * count);
+
+        var partup = Partups.guardedMetaFind({'featured.active': true}, {limit: 1, skip: random}).fetch().pop();
+
+        if (!partup) throw new Meteor.Error(404, 'no_featured_partup_found');
+
+        return partup._id;
+    },
 
 });

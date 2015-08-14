@@ -3,69 +3,74 @@
     <article class="pu-partuptile">
 
         <!-- Tags -->
-        {{# if tags }}
-        <ul class="pu-sub-partup-tags">
-            {{# each tags }}
-                <li style="transition-delay: {{ delay }}s"><span class="pu-tag">{{ tag }}</span></li>
-            {{/ each }}
-        </ul>
-        {{/ if }}
-
-        <!-- Name of the Part-up -->
-        <header>
-            <h2>
-                <a href="{{pathFor 'partup' slug=slug }}">{{ title }}</a>
-            </h2>
-        </header>
-
-        <section>
-
-            <!-- Image (circle), uppers, and progress  -->
-            <div class="pu-partupcircle">
-                <a href="{{pathFor 'partup' slug=slug }}">
-                    <canvas class="pu-sub-radial" data-percent="{{ progress }}"></canvas>
-                    <figure class="pu-sub-inner" style="{{#with image }}background-image: url('{{ partupImage . '360x360' }}');{{/ with }}" data-partup-tile-focuspoint></figure>
-                </a>
-                <!-- Uppers -->
-                {{# if uppers }}
-                <ul class="pu-sub-avatar-list">
-                    {{# each uppers }}
-                        <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
-                            {{# if _id }}
-                                background-image: url('{{# with upper }}{{ upperImage profile.image '80x80' }}{{/ with }}');
-                            {{/ if }}
-                            top: {{ y }}px;
-                            left: {{ x }}px;
-                            transition-delay: {{ delay }}s;
-                        " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}+{{/ unless }}</li>
+        {{# unless HIDE_TAGS }}
+            {{# if tags }}
+                <ul class="pu-sub-partup-tags">
+                    {{# each tags}}
+                        <li style="transition-delay: {{ delay }}s"><span class="pu-tag">{{ tag }}</span></li>
                     {{/ each }}
                 </ul>
-                {{/ if }}
-            </div>
+            {{/ if }}
+        {{/unless}}
+        {{# with partup }}
 
-            <!-- Description -->
-            <p>{{ description }}</p>
+            <!-- Name of the Part-up -->
+            <header>
+                <h2>
+                    <a href="{{pathFor 'partup' slug=slug }}">{{ title }}</a>
+                </h2>
+            </header>
 
-            <!-- Stats (activities, supporters, days active) -->
-            <ul class="pu-sub-partup-stats">
-                <li>
-                    <strong>{{ activityCount }}</strong>
-                    <span>{{_ 'partuptile-activities' }}</span>
-                </li>
-                <li>
-                    <strong>{{ supporterCount }}</strong>
-                    <span>{{_ 'partuptile-supporters' }}</span>
-                </li>
-                <li>
-                    <strong>{{ dayCount }}</strong>
-                    <span>{{_ 'partuptile-days-active' }}</span>
-                </li>
-            </ul>
-        </section>
+            <section>
+
+                <!-- Image (circle), uppers, and progress  -->
+                <div class="pu-partupcircle">
+                    <a href="{{pathFor 'partup' slug=slug }}">
+                        <canvas class="pu-sub-radial" data-percent="{{ progress }}"></canvas>
+                        <figure class="pu-sub-inner" style="{{#with image }}background-image: url('{{ partupImage . '360x360' }}');{{/ with }}" data-partup-tile-focuspoint></figure>
+                    </a>
+                    <!-- Uppers -->
+                    {{# if uppers }}
+                    <ul class="pu-sub-avatar-list">
+                        {{# each uppers }}
+                            <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
+                                {{# if _id }}
+                                    background-image: url('{{# with upper }}{{ upperImage profile.image '80x80' }}{{/ with }}');
+                                {{/ if }}
+                                top: {{ y }}px;
+                                left: {{ x }}px;
+                                transition-delay: {{ delay }}s;
+                            " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}+{{/ unless }}</li>
+                        {{/ each }}
+                    </ul>
+                    {{/ if }}
+                </div>
+
+                <!-- Description -->
+                <p>{{ description }}</p>
+
+                <!-- Stats (activities, supporters, days active) -->
+                <ul class="pu-sub-partup-stats">
+                    <li>
+                        <strong>{{ activityCount }}</strong>
+                        <span>{{_ 'partuptile-activities' }}</span>
+                    </li>
+                    <li>
+                        <strong>{{ supporterCount }}</strong>
+                        <span>{{_ 'partuptile-supporters' }}</span>
+                    </li>
+                    <li>
+                        <strong>{{ dayCount }}</strong>
+                        <span>{{_ 'partuptile-days-active' }}</span>
+                    </li>
+                </ul>
+            </section>
+
+        {{/ with }}
 
         <!-- Network -->
         {{# unless HIDE_NETWORKTILE }}
-            {{# with network }}
+            {{# with partup.network }}
                 <footer>
                     <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
                         <div class="pu-sub-figurecontainer">

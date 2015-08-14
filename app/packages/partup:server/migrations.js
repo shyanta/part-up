@@ -251,7 +251,7 @@ Migrations.add({
         Meteor.users.update({}, {
             '$set': {
                 'flags.dailyDigestEmailHasBeenSent': false,
-                'profile.settings.emails.dailydigest': true
+                'profile.settings.email.dailydigest': true
             }
         }, {multi:true});
     },

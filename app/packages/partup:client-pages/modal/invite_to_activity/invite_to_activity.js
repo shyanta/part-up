@@ -6,6 +6,8 @@ Template.modal_invite_to_activity.onCreated(function() {
 
     self.inviting = new ReactiveDict(); // loading boolean for each individual invite button
 
+    self.loading = new ReactiveVar();
+
     self.subscribe('partups.one', self.data.partupId);
     self.subscribe('activities.from_partup', self.data.partupId);
 
@@ -46,6 +48,7 @@ Template.modal_invite_to_activity.onCreated(function() {
     };
 
     self.autorun(function() {
+        self.loading.set(true);
         var activityId = self.data.activityId;
         var options = self.suggestionsOptions.get();
 
@@ -56,6 +59,8 @@ Template.modal_invite_to_activity.onCreated(function() {
 
             self.userIds.set(userIds);
             self.subscription.set(self.subscribe('users.by_ids', userIds));
+
+            self.loading.set(false);
         });
     });
 });
@@ -63,6 +68,9 @@ Template.modal_invite_to_activity.onCreated(function() {
 Template.modal_invite_to_activity.helpers({
     inviteLoadingForUser: function(userId) {
         return Template.instance().inviting.get(userId);
+    },
+    loading: function() {
+        return Template.instance().loading.get();
     },
     suggestions: function() {
         var sub = Template.instance().subscription.get();

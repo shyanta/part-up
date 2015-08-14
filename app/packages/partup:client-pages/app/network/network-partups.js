@@ -1,3 +1,11 @@
+var partupsToColumnTiles = function(partups) {
+    return lodash.map(partups, function(partup) {
+        return {
+            partup: partup
+        };
+    });
+};
+
 /**
  * Render network partups
  *
@@ -62,12 +70,6 @@ Template.app_network_partups.onCreated(function() {
                     var network = Networks.findOne({slug: tpl.data.networkSlug});
                     tpl.partups.loading.set(false);
 
-                    /**
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Get all current partups from our local database
-                     * - Remove all partups from the column layout
-                     * - Add our partups to the layout
-                     */
                     var partups = Partups.findForNetwork(network).fetch();
 
                     var partupTileDatas = lodash.map(partups, function(partup) {
@@ -75,7 +77,7 @@ Template.app_network_partups.onCreated(function() {
                     });
 
                     tpl.partups.layout.items = tpl.partups.layout.clear();
-                    tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
+                    tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
                 }
             });
             tpl.partups.loading.set(true);
@@ -95,20 +97,12 @@ Template.app_network_partups.onCreated(function() {
                     var network = Networks.findOne({slug: tpl.data.networkSlug});
                     tpl.partups.infinitescroll_loading.set(false);
 
-                    /**
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Get all currently rendered partups
-                     * - Get all current partups from our local database
-                     * - Compare the newPartups with the oldPartups to find the difference
-                     * - If no diffPartups were found, set the end_reached to true
-                     * - Add our partups to the layout
-                     */
                     var oldPartups = tpl.partups.layout.items;
                     var newPartups = Partups.findForNetwork(network).fetch();
 
                     var diffPartups = mout.array.filter(newPartups, function(partup) {
-                        return !mout.array.find(oldPartups, function(_partup) {
-                            return partup._id === _partup._id;
+                        return !mout.array.find(oldPartups, function(item) {
+                            return partup._id === item.partup._id;
                         });
                     });
 
@@ -119,7 +113,7 @@ Template.app_network_partups.onCreated(function() {
                         return tpl.partups.partupTileData(partup);
                     });
 
-                    tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
+                    tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
                 }
             });
             tpl.partups.infinitescroll_loading.set(true);

@@ -1,51 +1,98 @@
 <template name="app_home">
 
-    <article class="pu-page pu-page-tinted pu-page-home">
-        <header class="pu-sub-pageheader pu-sub-pageheader-title {{# if shrinkHeader }}pu-sub-pageheader-title-shrinked{{/ if }}">
-            <section class="pu-wrap">
-                {{# unless currentUser }}
-                    <h1 class="pu-title">{{_ 'pages-app-home-heading'}}</h1>
-                {{ else }}
-                    <h1 class="pu-title">{{_ 'pages-app-home-loggedin-heading' name=firstName greeting=greeting }}</h1>
-                {{/ unless }}
-            </section>
-        </header>
-        <div class="pu-sub-pagecontent">
-            <section class="pu-wrap pu-article">
-                {{# unless currentUser }}
-                    <p>{{_ 'pages-app-home-paragraph' }}</p>
+    <article class="pu-page">
+        <div class="pu-composition pu-composition-home">
+
+            <!-- Header -->
+            <header class="pu-sub-header">
+                {{# if currentUser }}
+                    <h2 class="pu-title pu-title-serif pu-title-home">
+                        <span>{{_ 'pages-app-home-loggedin-heading' greeting=greeting name=firstName }}</span>
+                    </h2>
+                    <p class="pu-paragraph-inverted">{{_ 'pages-app-home-loggedin-paragraph' }}</p>
                     <p>
-                        {{# unless videoWatched }}
-                            <a href="#" class="pu-button" data-open-video-modal>
+                        <ul class="pu-list pu-list-horizontal pu-list-buttons">
+                            <li><a href="{{ pathFor 'create' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-loggedin-start_partup' }}</a></li>
+                            <li><a href="{{ pathFor 'discover' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-loggedin-discover' }}</a></li>
+                        </ul>
+                    </p>
+                {{ else }}
+                    <h2 class="pu-title pu-title-serif pu-title-home">
+                        <span>{{_ 'pages-app-home-heading' }}</span>
+                    </h2>
+                    <p class="pu-paragraph-inverted">{{_ 'pages-app-home-paragraph' }}</p>
+                    <p>
+                        {{# if videoWatched }}
+                            <a href="{{ pathFor 'register' }}" class="pu-button pu-button-large">{{_ 'pages-app-home-signup' }}</a>
+                        {{ else }}
+                            <a href="#" class="pu-button pu-button-large" data-start-video>
                                 <i class="fa fa-play"></i>
                                 {{_ 'pages-app-home-videobutton' }}
                             </a>
-                        {{ else }}
-                            <a href="{{ pathFor 'register' }}" class="pu-button" data-signup>{{_ 'pages-app-home-signup' }}</a>
-                        {{/ unless }}
+                        {{/ if }}
                     </p>
-                {{ else }}
-                    <p>{{_ 'pages-app-home-loggedin-paragraph' }}</p>
-                    <p class="pu-list pu-list-horizontal pu-list-buttons">
-                        <li>
-                            <a href="{{ pathFor 'create' }}" class="pu-button">{{_ 'pages-app-home-loggedin-startpartup' }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ pathFor 'discover' }}" class="pu-button">{{_ 'pages-app-home-loggedin-discoverpartups' }}</a>
-                        </li>
-                    </p>
-                {{/ unless }}
+                {{/ if }}
+
+                <div class="pu-wrap pu-wrap-video">
+                    <div class="pu-sub-videowrapper {{# if playVideo }}pu-sub-videowrapper-active{{/ if }}">
+                        {{# if playVideo }}
+                            <iframe src="https://www.youtube.com/embed/{{_ 'pages-app-home-videopopupyoutubeid' }}?rel=0&showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
+                        {{/ if }}
+                    </div>
+                </div>
+            </header>
+
+            <!-- Featured staf-pick -->
+            <section class="pu-sub-section pu-sub-section-accent">
+                <div class="pu-wrap pu-wrap-home">
+                    {{> PartupTileFeatured partup=featured_partup }}
+                </div>
             </section>
+
+            <section class="pu-sub-section pu-sub-section-gradient">
+
+                <div class="pu-wrap pu-wrap-home">
+
+                    <!-- Popular part-ups-->
+                    <section class="pu-sub-subsection pu-sub-subsection-popularpartups">
+                        <header class="pu-sub-popularpartupsheader">
+                            <h3 class="pu-title pu-title-homesection">{{_ 'pages-app-home-discover-partups-popular-heading' }}</h3>
+                            <p class="pu-sub-discoverbutton">
+                                <a href="{{ pathFor 'discover' }}" class="pu-button">{{_ 'pages-app-home-discover-partups-viewall-button' }}</a>
+                            </p>
+                        </header>
+                        <div class="pu-sub-partups">
+                            {{> ColumnsLayout
+                                COLUMNS=amountOfColumns
+                                TEMPLATE="PartupTile"
+                                addHook=addToLayoutHook
+                                clearHook=clearLayoutHook
+                                rerenderHook=rerenderLayoutHook
+                            }}
+                        </div>
+                        <footer class="pu-sub-popularpartupsfooter">
+                            <p class="pu-sub-discoverbutton">
+                                <a href="{{ pathFor 'discover' }}" class="pu-button">{{_ 'pages-app-home-discover-partups-viewall-button' }}</a>
+                            </p>
+                        </footer>
+                    </section>
+
+                </div>
+
+                <!-- Start your own part-up -->
+                <!-- <section class="pu-sub-subsection">
+                </section> -->
+
+                <!-- Philosophy -->
+                <!-- <section class="pu-sub-subsection">
+                </section> -->
+
+            </section>
+
+            <!-- Business -->
+            <!-- <section class="pu-sub-section pu-sub-section-last">
+            </section> -->
         </div>
     </article>
-
-    {{# if partupIsPopupActive 'video' }}
-        {{# contentFor 'PopupTitle' }}
-            {{_ 'pages-app-home-videopopupheader' }}
-        {{/ contentFor }}
-        {{# contentFor 'PopupContent' }}
-            <iframe width="700" height="394" src="https://www.youtube.com/embed/{{_ 'pages-app-home-videopopupyoutubeid' }}?rel=0&showinfo=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
-        {{/ contentFor }}
-    {{/ if }}
 
 </template>

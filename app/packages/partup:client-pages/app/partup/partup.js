@@ -143,6 +143,8 @@ var partupDetailLayout = {
         sidebarDebugger.log('attach');
         if (this.attached) return;
         this.attached = true;
+
+        $(this.container).addClass('pu-partuppagelayout-active');
         this.setContainerHeight();
         this.preScroll();
         this.checkScroll();

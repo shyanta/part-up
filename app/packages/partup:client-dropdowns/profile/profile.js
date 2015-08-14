@@ -10,9 +10,7 @@ Template.DropdownProfile.onCreated(function() {
     template.disableUp = new ReactiveVar(true);
     template.disableDown = new ReactiveVar(false);
 
-    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
-
-    });
+    template.dropdownOpen = new ReactiveVar();
 
     var userId = Meteor.userId();
 
@@ -38,7 +36,7 @@ Template.DropdownProfile.onCreated(function() {
 
 Template.DropdownProfile.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu]');
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=profile]');
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();

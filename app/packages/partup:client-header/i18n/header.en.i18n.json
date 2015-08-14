@@ -1,0 +1,17 @@
+{
+    "header-title": "Part-up",
+
+    "header-desktop-start_partup": "Start a part-up",
+    "header-mobile-start_partup": "Start",
+
+    "header-desktop-discover": "Discover",
+    "header-mobile-discover": "Discover",
+
+    "header-notifications": "Notifications",
+
+    "header-desktop-signup": "Register",
+    "header-mobile-signup": "Register",
+
+    "header-desktop-login": "Login",
+    "header-mobile-login": "Login"
+}

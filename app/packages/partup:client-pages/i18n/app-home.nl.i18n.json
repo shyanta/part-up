@@ -1,6 +1,7 @@
 {
-    "pages-app-home-heading": "Start testing Part-up",
+    "pages-app-home-heading": "Your flexible workforce",
     "pages-app-home-paragraph": "Part-up helpt jou teams te vormen om je dromen te realiseren. Help ons ook om onze droom te realiseren door deze beta-versie te testen en je feedback te geven. Vertel ons hoe je Part-up ervaart en hoe we het voor jou kunnen verbeteren. Bekijk onze animatie om het Part-up gevoel te krijgen, of ga direct aan de slag!",
+
     "pages-app-home-videobutton": "Part-up in 96 seconden",
     "pages-app-home-signup": "Aanmelden (gratis!)",
 
@@ -14,6 +15,10 @@
     "pages-app-home-loggedin-greeting-evening": "Goedenavond",
     "pages-app-home-loggedin-greeting-fallback": "Goedendag",
     "pages-app-home-loggedin-paragraph": "Je bent nu een upper en klaar om een team te vinden. Heb je een idee of droom en zoek je een team? Start dan gratis je eigen part-up. Heb je een talent en zoek je een team om aan bij te dragen? Vind een passende part-up op de discover pagina.",
-    "pages-app-home-loggedin-startpartup": "Start jouw eigen part-up",
-    "pages-app-home-loggedin-discoverpartups": "Bekijk part-ups"
+
+    "pages-app-home-loggedin-start_partup": "Start gratis je eigen part-up",
+    "pages-app-home-loggedin-discover": "Ontdek passende part-ups",
+
+    "pages-app-home-discover-partups-popular-heading": "Populaire part-ups",
+    "pages-app-home-discover-partups-viewall-button": "Bekijk alle part-ups"
 }
