@@ -19,13 +19,13 @@
             <!-- Network selector -->
             <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="network_id" value="{{ networkValue._id }}">
-                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-networkselector>
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if networkValue}}pu-state-filled{{/if}}" data-open-networkselector>
                     {{#with networkValue }}
                         {{ name }}
-                        <i class="fa fa-times" data-reset-selected-network></i>
                     {{else }}
                         {{_ 'pages-app-discover-filter-networkfilter-all' }}
                     {{/with }}
+                    <i class="fa fa-times" data-reset-selected-network></i>
                 </a>
                 {{> Dropdown toggle=networkSelectorState template="NetworkSelector" data=networkSelectorData }}
             </div>
@@ -36,13 +36,13 @@
             <!-- Location selector -->
             <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="location_id" value="{{ locationValue.id }}">
-                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-locationselector>
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if locationValue}}pu-state-filled{{/if}}" data-open-locationselector>
                     {{#with locationValue }}
                         {{ city }}
-                        <i class="fa fa-times" data-reset-selected-location></i>
                     {{else }}
                         {{_ 'pages-app-discover-filter-locationfilter-all' }}
                     {{/with }}
+                    <i class="fa fa-times" data-reset-selected-location></i>
                 </a>
                 {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
             </div>

@@ -328,7 +328,6 @@
         font-weight: bold
         border-color: $color-border-light
         overflow: hidden
-        padding-right: 30px
 
         i
             position: absolute
@@ -341,6 +340,8 @@
             background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 18%,rgba(255,255,255,1) 100%)
             margin: auto
             text-align: center
+            &.fa-times
+                display: none
 
         &:hover
             background-color: $color-background
@@ -372,6 +373,11 @@
             height: 36px
             padding-top: 11px
             padding-bottom: 11px
+
+        &.pu-state-filled
+            padding-right: 30px
+            i.fa-times
+                display: block
 
     // Type: facebook
     &-facebook
