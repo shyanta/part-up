@@ -125,8 +125,8 @@ Template.app_profile_supporter_partups.onCreated(function() {
                         var newPartups = Partups.findSupporterPartupsForUser(user).fetch();
 
                         var diffPartups = mout.array.filter(newPartups, function(partup) {
-                            return !mout.array.find(oldPartups, function(_partup) {
-                                return partup._id === _partup._id;
+                            return !mout.array.find(oldPartups, function(item) {
+                                return partup._id === item.partup._id;
                             });
                         });
 
