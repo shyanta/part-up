@@ -4,8 +4,11 @@
         margin-bottom: 20px
         font-size: 14px
 
+        &-below
+            display: none
+
     .pu-sub-visual
-        margin-bottom: 20px - 11px
+        margin-bottom: 30px - 9px
         text-align: center
 
         .pu-sub-partupcirclewrapper
@@ -115,8 +118,12 @@
             display: none
 
     @media screen and (min-width: $breakpoint-tablet)
-        .pu-sub-comment
-            padding-top: 30px
+        .pu-sub-comment-above
+            display: none
+
+        .pu-sub-comment-below
+            display: block
+            margin-top: 30px
 
         .pu-sub-visual,
         .pu-sub-description
@@ -124,7 +131,7 @@
             vertical-align: top
 
         .pu-sub-visual
-            padding-right: 50px
+            padding-right: 50px - 4px
 
         .pu-sub-description
             padding-top: 30px
@@ -136,12 +143,16 @@
         .pu-sub-comment
             display: table-cell
             padding-right: 80px
+            padding-top: 30px
 
             .pu-commentbox
                 width: 230px
 
                 .pu-sub-author
                     font-size: 14px
+
+            &-below
+                display: none
 
         .pu-sub-visual
             padding-right: 30px

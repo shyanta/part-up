@@ -17,15 +17,6 @@ Template.PartupTileFeatured.onRendered(function() {
 });
 
 Template.PartupTileFeatured.helpers({
-    featured_by_user: function() {
-        if (!this.partup) return;
-
-        return Meteor.users.findOne(this.partup.featured.by_upper._id);
-    },
-    featured_by_user_title: function() {
-        return get(Template.instance(), 'data.partup.featured.by_upper.title');
-    },
-
     upper: function() {
         var upper_from_cache = lodash.find(Partup.client.discover.cache.uppers, {_id: this._id});
         return upper_from_cache || Meteor.users.findOne({_id: this._id});
@@ -82,3 +73,13 @@ Template.PartupTileFeatured.helpers({
     }
 });
 
+Template.PartupTileFeatured_commentbox.helpers({
+    featured_by_user: function() {
+        if (!this.partup) return;
+
+        return Meteor.users.findOne(this.partup.featured.by_upper._id);
+    },
+    featured_by_user_title: function() {
+        return get(Template.instance(), 'data.partup.featured.by_upper.title');
+    }
+});
