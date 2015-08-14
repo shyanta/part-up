@@ -121,7 +121,7 @@ Meteor.publish('users.one.supporterpartups.count', function(userId) {
  * Publish the loggedin user
  */
 Meteor.publishComposite('users.loggedin', function() {
-    this.unblock();
+    // this.unblock();
 
     return {
         find: function() {
