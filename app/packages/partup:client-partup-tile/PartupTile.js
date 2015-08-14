@@ -76,12 +76,12 @@ Template.PartupTile.helpers({
         return this.supporters.length;
     },
     tags: function() {
-        if (!this.tags) return;
+        if (!this.partup.tags) return;
 
         var tags = [];
-        for (var i = 0; i < this.tags.length; i++) {
+        for (var i = 0; i < this.partup.tags.length; i++) {
             tags.push({
-                tag: this.tags[i],
+                tag: this.partup.tags[i],
                 delay: .075 * i
             });
         }

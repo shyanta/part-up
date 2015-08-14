@@ -4,15 +4,14 @@
 
         <!-- Tags -->
         {{# unless HIDE_TAGS }}
-            {{# if partup.tags }}
+            {{# if tags }}
                 <ul class="pu-sub-partup-tags">
-                    {{# each partup.tags }}
+                    {{# each tags}}
                         <li style="transition-delay: {{ delay }}s"><span class="pu-tag">{{ tag }}</span></li>
                     {{/ each }}
                 </ul>
             {{/ if }}
-        {{/ unless }}
-
+        {{/unless}}
         {{# with partup }}
 
             <!-- Name of the Part-up -->
