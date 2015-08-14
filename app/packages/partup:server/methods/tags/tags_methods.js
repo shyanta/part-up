@@ -9,7 +9,7 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            return Tags.find({_id: new RegExp('.*' + searchString + '.*', 'i')}).fetch();
+            return Tags.find({_id: new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'tags_could_not_be_autocompleted');

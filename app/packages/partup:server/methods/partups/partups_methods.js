@@ -194,7 +194,7 @@ Meteor.methods({
         }
 
         try {
-            return Partups.find({$and: selector}).fetch();
+            return Partups.find({$and: selector}, {limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');

@@ -41,7 +41,7 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            return Meteor.users.find({'profile.name': new RegExp('.*' + searchString + '.*', 'i')}).fetch();
+            return Meteor.users.find({'profile.name': new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'users_could_not_be_autocompleted');
