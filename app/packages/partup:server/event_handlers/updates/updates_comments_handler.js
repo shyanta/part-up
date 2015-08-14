@@ -7,6 +7,9 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     // Parse message for user mentions
     var mentions = Partup.helpers.mentions.extract(comment.content);
     mentions.forEach(function(user) {
+        // Don't do anything it the user mentioned himself
+        if (user._id === upper._id) return;
+
         if (partup.isViewableByUser(user._id)) {
             // Set the notification details
             var notificationOptions = {
