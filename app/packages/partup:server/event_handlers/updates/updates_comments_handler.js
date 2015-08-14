@@ -7,6 +7,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     // Parse message for user mentions
     var mentions = Partup.helpers.mentions.extract(comment.content);
     mentions.forEach(function(user) {
+        // Retrieve the user from the database (ensures that the user does indeed exists!)
+        user = Meteor.users.findOne(user._id);
         if (partup.isViewableByUser(user._id)) {
             // Set the notification details
             var notificationOptions = {
