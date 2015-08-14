@@ -131,7 +131,7 @@ Template.PartupTile.helpers({
         });
     },
     remainingUppers: function() {
-        var uppers = Template.instance().data.uppers;
+        var uppers = get(Template.instance(), 'data.uppers');
         return uppers.length > 5 ? uppers.length - 4 : 0;
     },
     userCard: function() {
