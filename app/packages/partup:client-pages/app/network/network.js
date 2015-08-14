@@ -23,32 +23,33 @@ Template.app_network.onCreated(function() {
             tpl.networkId.set(network._id);
         }
     });
+    tpl.expanded = false;
     tpl.autorun(function() {
         var scrolled = Partup.client.scroll.pos.get() > 100;
-        if (scrolled) {
-            if (tpl.view.isRendered) tpl.toggleExpandedText(true);
+        if (scrolled && tpl.expanded) {
+            if (tpl.view.isRendered) {
+                tpl.expandText(false);
+            }
         }
     });
-    tpl.toggleExpandedText = function(hide) {
+    tpl.expandText = function(expand) {
         var clickedElement = $('[data-expand]');
+        if (!clickedElement) return;
         var parentElement = $(clickedElement[0].parentElement);
 
         var collapsedText = __(clickedElement.data('collapsed-key')) || false;
         var expandedText = __(clickedElement.data('expanded-key')) || false;
 
-        if (parentElement.hasClass('pu-state-open')) {
-            if (collapsedText) clickedElement.html(collapsedText);
-        } else {
+        if (expand) {
             if (expandedText) clickedElement.html(expandedText);
-        }
-        if (hide) {
+            parentElement.addClass('pu-state-open');
+            clickedElement.parents('.pu-sub-pageheader').addClass('pu-state-descriptionexpanded');
+        } else {
             if (collapsedText) clickedElement.html(collapsedText);
             parentElement.removeClass('pu-state-open');
             clickedElement.parents('.pu-sub-pageheader').removeClass('pu-state-descriptionexpanded');
-        } else {
-            parentElement.toggleClass('pu-state-open');
-            clickedElement.parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
         }
+        tpl.expanded = expand;
     };
 });
 
@@ -151,7 +152,7 @@ Template.app_network.events({
         });
     },
     'click [data-expand]': function(event, template) {
-        template.toggleExpandedText();
+        template.expandText(!template.expanded);
     },
     'click [data-open-networksettings]': function(event, template) {
         event.preventDefault();

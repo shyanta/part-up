@@ -45,31 +45,21 @@ Template.app_network_partups.onCreated(function() {
 
             // Set networks.one.partups.count subscription
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
-            tpl.partups.count_handle = tpl.subscribe('networks.one.partups.count', tpl.data.networkSlug, options);
-            tpl.partups.count_loading.set(true);
-
-            // When the networks.one.partups.count data changes
-            Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
-                if (tpl.partups.count_handle.ready()) {
-                    computation.stop();
+            tpl.partups.count_handle = tpl.subscribe('networks.one.partups.count', tpl.data.networkSlug, options, {
+                onReady: function() {
                     tpl.partups.count_loading.set(false);
 
                     var new_count = Counts.get('networks.one.partups.filterquery');
                     tpl.partups.layout.count.set(new_count);
                 }
             });
+            tpl.partups.count_loading.set(true);
 
             // Set networks.one.partups subscription
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('networks.one.partups', tpl.data.networkSlug, options);
-            tpl.partups.loading.set(true);
-
-            // When the networks.one.partups data changes
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.findOne({slug: tpl.data.networkSlug});
-
-                if (tpl.partups.handle.ready()) {
-                    computation.stop();
+            tpl.partups.handle = tpl.subscribe('networks.one.partups', tpl.data.networkSlug, options, {
+                onReady: function() {
+                    var network = Networks.findOne({slug: tpl.data.networkSlug});
                     tpl.partups.loading.set(false);
 
                     /**
@@ -78,18 +68,17 @@ Template.app_network_partups.onCreated(function() {
                      * - Remove all partups from the column layout
                      * - Add our partups to the layout
                      */
-                    Tracker.nonreactive(function replacePartups() {
-                        var partups = Partups.findForNetwork(network).fetch();
+                    var partups = Partups.findForNetwork(network).fetch();
 
-                        var partupTileDatas = lodash.map(partups, function(partup) {
-                            return tpl.partups.partupTileData(partup);
-                        });
-
-                        tpl.partups.layout.items = tpl.partups.layout.clear();
-                        tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
+                    var partupTileDatas = lodash.map(partups, function(partup) {
+                        return tpl.partups.partupTileData(partup);
                     });
+
+                    tpl.partups.layout.items = tpl.partups.layout.clear();
+                    tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
                 }
             });
+            tpl.partups.loading.set(true);
         }),
 
         // Limit reactive variable (on change, add partups to the layout)
@@ -101,14 +90,9 @@ Template.app_network_partups.onCreated(function() {
             options.limit = b;
 
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('networks.one.partups', tpl.data.networkSlug, options);
-            tpl.partups.infinitescroll_loading.set(true);
-
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.findOne({slug: tpl.data.networkSlug});
-
-                if (tpl.partups.handle.ready()) {
-                    computation.stop();
+            tpl.partups.handle = tpl.subscribe('networks.one.partups', tpl.data.networkSlug, options, {
+                onReady: function() {
+                    var network = Networks.findOne({slug: tpl.data.networkSlug});
                     tpl.partups.infinitescroll_loading.set(false);
 
                     /**
@@ -119,27 +103,26 @@ Template.app_network_partups.onCreated(function() {
                      * - If no diffPartups were found, set the end_reached to true
                      * - Add our partups to the layout
                      */
-                    Tracker.nonreactive(function addPartups() {
-                        var oldPartups = tpl.partups.layout.items;
-                        var newPartups = Partups.findForNetwork(network).fetch();
+                    var oldPartups = tpl.partups.layout.items;
+                    var newPartups = Partups.findForNetwork(network).fetch();
 
-                        var diffPartups = mout.array.filter(newPartups, function(partup) {
-                            return !mout.array.find(oldPartups, function(_partup) {
-                                return partup._id === _partup._id;
-                            });
+                    var diffPartups = mout.array.filter(newPartups, function(partup) {
+                        return !mout.array.find(oldPartups, function(_partup) {
+                            return partup._id === _partup._id;
                         });
-
-                        var end_reached = diffPartups.length === 0;
-                        tpl.partups.end_reached.set(end_reached);
-
-                        var partupTileDatas = lodash.map(diffPartups, function(partup) {
-                            return tpl.partups.partupTileData(partup);
-                        });
-
-                        tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
                     });
+
+                    var end_reached = diffPartups.length === 0;
+                    tpl.partups.end_reached.set(end_reached);
+
+                    var partupTileDatas = lodash.map(diffPartups, function(partup) {
+                        return tpl.partups.partupTileData(partup);
+                    });
+
+                    tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
                 }
             });
+            tpl.partups.infinitescroll_loading.set(true);
         }),
 
         // Increase limit function

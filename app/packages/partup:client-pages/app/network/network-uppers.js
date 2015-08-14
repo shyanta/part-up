@@ -38,31 +38,21 @@ Template.app_network_uppers.onCreated(function() {
 
             // Set networks.one.uppers.count subscription
             if (tpl.uppers.count_handle) tpl.uppers.count_handle.stop();
-            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', tpl.data.networkSlug, options);
-            tpl.uppers.count_loading.set(true);
-
-            // When the networks.one.uppers.count data changes
-            Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
-                if (tpl.uppers.count_handle.ready()) {
-                    computation.stop();
+            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', tpl.data.networkSlug, options, {
+                onReady: function() {
                     tpl.uppers.count_loading.set(false);
 
                     var new_count = Counts.get('networks.one.uppers.filterquery');
                     tpl.uppers.layout.count.set(new_count);
                 }
             });
+            tpl.uppers.count_loading.set(true);
 
             // Set networks.one.uppers subscription
             if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options);
-            tpl.uppers.loading.set(true);
-
-            // When the networks.one.uppers data changes
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.findOne({slug: tpl.data.networkSlug});
-
-                if (tpl.uppers.handle.ready()) {
-                    computation.stop();
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options, {
+                onReady: function() {
+                    var network = Networks.findOne({slug: tpl.data.networkSlug});
                     tpl.uppers.loading.set(false);
 
                     /**
@@ -71,15 +61,13 @@ Template.app_network_uppers.onCreated(function() {
                      * - Remove all uppers from the column layout
                      * - Add our uppers to the layout
                      */
-                    Tracker.nonreactive(function replaceUppers() {
+                    var uppers = Meteor.users.findUppersForNetwork(network).fetch();
 
-                        var uppers = Meteor.users.findUppersForNetwork(network).fetch();
-
-                        tpl.uppers.layout.items = tpl.uppers.layout.clear();
-                        tpl.uppers.layout.items = tpl.uppers.layout.add(uppers);
-                    });
+                    tpl.uppers.layout.items = tpl.uppers.layout.clear();
+                    tpl.uppers.layout.items = tpl.uppers.layout.add(uppers);
                 }
             });
+            tpl.uppers.loading.set(true);
         }),
 
         // Limit reactive variable (on change, add uppers to the layout)
@@ -91,14 +79,9 @@ Template.app_network_uppers.onCreated(function() {
             options.limit = b;
 
             if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options);
-            tpl.uppers.infinitescroll_loading.set(true);
-
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                var network = Networks.findOne({slug: tpl.data.networkSlug});
-
-                if (tpl.uppers.handle.ready()) {
-                    computation.stop();
+            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options, {
+                onReady: function() {
+                    var network = Networks.findOne({slug: tpl.data.networkSlug});
                     tpl.uppers.infinitescroll_loading.set(false);
 
                     /**
@@ -109,23 +92,22 @@ Template.app_network_uppers.onCreated(function() {
                      * - If no diffUppers were found, set the end_reached to true
                      * - Add our uppers to the layout
                      */
-                    Tracker.nonreactive(function addUppers() {
-                        var oldUppers = tpl.uppers.layout.items;
-                        var newUppers = Meteor.users.findUppersForNetwork(network).fetch();
+                    var oldUppers = tpl.uppers.layout.items;
+                    var newUppers = Meteor.users.findUppersForNetwork(network).fetch();
 
-                        var diffUppers = mout.array.filter(newUppers, function(partup) {
-                            return !mout.array.find(oldUppers, function(_partup) {
-                                return partup._id === _partup._id;
-                            });
+                    var diffUppers = mout.array.filter(newUppers, function(partup) {
+                        return !mout.array.find(oldUppers, function(_partup) {
+                            return partup._id === _partup._id;
                         });
-
-                        var end_reached = diffUppers.length === 0;
-                        tpl.uppers.end_reached.set(end_reached);
-
-                        tpl.uppers.layout.items = tpl.uppers.layout.add(diffUppers);
                     });
+
+                    var end_reached = diffUppers.length === 0;
+                    tpl.uppers.end_reached.set(end_reached);
+
+                    tpl.uppers.layout.items = tpl.uppers.layout.add(diffUppers);
                 }
             });
+            tpl.uppers.infinitescroll_loading.set(true);
         }),
 
         // Increase limit function
