@@ -5,39 +5,6 @@
  * @param query {ReactiveVar} - The reactive-var for the query options
  */
 
-/**
- * Call part-ups once to set the cache. For cache documentation, please see partup:client-base/client/discover.js
- */
-// Meteor.startup(function() {
-//     Meteor.call('partups.discover', Partup.client.discover.DEFAULT_QUERY, function(error, ids) {
-//         if (error) return;
-
-//         var sliced_ids = ids.slice(0, Partup.client.discover.STARTING_LIMIT);
-
-//         var sub = Meteor.subscribe('partups.by_ids', sliced_ids);
-
-//         Meteor.autorun(function(comp) {
-//             if (!sub.ready()) return;
-//             comp.stop();
-
-//             // Find the partups
-//             var partups = Partups.find({_id: {$in: sliced_ids}}).fetch();
-
-//             // Sort the partups by original given ids
-//             partups = lodash.sortBy(partups, function(partup) {
-//                 return this.indexOf(partup._id);
-//             }, sliced_ids);
-
-//             // Set cache
-//             Partup.client.discover.cache.all_partup_ids = ids;
-//             Partup.client.discover.cache.set(partups);
-
-//             // Remove data from mini-mongo by stopping the subscription
-//             sub.stop();
-//         });
-//     });
-// });
-
 var partupsToColumnTiles = function(partups) {
     return lodash.map(partups, function(partup) {
         return {

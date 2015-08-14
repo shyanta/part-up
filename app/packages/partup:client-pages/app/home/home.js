@@ -10,6 +10,8 @@ var partupsToColumnTiles = function(partups) {
 Template.app_home.onCreated(function() {
     var tpl = this;
 
+    tpl.video = new ReactiveVar(false);
+
     // Popular partups
     tpl.popular_partups = {
         layout: {}
@@ -72,55 +74,6 @@ Template.app_home.onCreated(function() {
     };
 });
 
-Template.app_home.onRendered(function() {
-    var tpl = this;
-
-    // Add a nice parallax effect to the header content
-    var header = tpl.find('[data-parallax=header]');
-    var prefixedTransform = Modernizr.prefixed('transform');
-    var prefixedOpacity = Modernizr.prefixed('opacity');
-    tpl.onscroll = function() {
-        window.requestAnimationFrame(function() {
-            var min = 0;
-            var max = header.parentElement.getBoundingClientRect().height;
-            var cur = typeof window.scrollY !== 'undefined' ? window.scrollY : document.documentElement.scrollTop;
-            var rel = (cur - min) / (max - min);
-
-            var factor = Math.min(1, Math.max(0, rel));
-            var movement = 280; // pixels
-
-            var transform = Math.round(factor * movement);
-            var opacity = Math.max(0, 1 - factor * 1.5);
-
-            header.style[prefixedTransform] = 'translate3d(0, ' + transform + 'px, 0)';
-            header.style[prefixedOpacity] = opacity;
-        });
-    };
-
-    // Conditionally apply parallax effect (based on screen size)
-    tpl.onresize = function() {
-        if (window.innerWidth > 992) {
-            tpl.onscroll();
-            $(window).on('scroll', tpl.onscroll);
-        } else {
-            header.style[prefixedTransform] = '';
-            header.style[prefixedOpacity] = '';
-            $(window).off('scroll', tpl.onscroll);
-        }
-    };
-
-    // Add handlers
-    $(window).on('resize load', tpl.onresize);
-});
-
-Template.app_home.onDestroyed(function() {
-
-    // Remove handlers
-    $(window).off('resize load', tpl.onresize);
-    $(window).off('scroll', this.onscroll);
-
-});
-
 Template.app_home.helpers({
     featured_partup: function() {
         return Template.instance().featured_partup.get();
@@ -158,6 +111,10 @@ Template.app_home.helpers({
         return 1;
     },
 
+    playVideo: function() {
+        return Template.instance().video.get();
+    },
+
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addToLayoutHook' with a callback.
     // We save that callback, so we can call it later and the child template can react to it.
@@ -185,15 +142,15 @@ Template.app_home.helpers({
 });
 
 Template.app_home.events({
-    'click [data-open-video-modal]': function(event, template) {
+    'click [data-start-video]': function(event, template) {
         event.preventDefault();
-
-        // Open the video popup
-        Partup.client.popup.open('video', function() {
-
-            // We explicitely want to use localstorage here
+        template.video.set(true);
+        Meteor.setTimeout(function() {
             Session.set('home.videowatched', true);
+        }, 500);
 
+        Partup.client.scroll.to(event.currentTarget, -30, {
+            duration: 800
         });
     }
 });
