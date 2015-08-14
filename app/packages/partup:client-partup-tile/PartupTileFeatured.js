@@ -65,5 +65,20 @@ Template.PartupTileFeatured.helpers({
     userCard: function() {
         if (this._id) return {'data-usercard': this._id};
     },
+    activityCount: function() {
+        if (!this.partup || !this.partup.activities) return 0;
+        return this.partup.activity_count || Activities.findForPartup(this.partup).count();
+    },
+    dayCount: function() {
+        if (!this.partup) return 0;
+
+        var created = new Date(this.partup.created_at);
+        var now = new Date();
+        return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
+    },
+    supporterCount: function() {
+        if (!this.partup || !this.partup.supporters) return 0;
+        return this.partup.supporters.length;
+    }
 });
 
