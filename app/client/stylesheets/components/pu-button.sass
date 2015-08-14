@@ -327,13 +327,19 @@
         color: $color-text-subtle
         font-weight: bold
         border-color: $color-border-light
+        overflow: hidden
 
         i
-            display: block
-            float: right
-            margin-top: -1px
-            margin-right: 0
-            margin-left: 10px
+            position: absolute
+            right: 0
+            top: 0
+            bottom: 0
+            vertical-align: middle
+            line-height: 40px
+            width: 30px
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 18%,rgba(255,255,255,1) 100%)
+            margin: auto
+            text-align: center
 
         &:hover
             background-color: $color-background
