@@ -25,7 +25,6 @@ Meteor.startup(function() {
         $('body').addClass('pu-no-pointer-events');
     }
     var preventHrefsFromChangingUrl = function(e) {
-        console.log('prevent')
         e.preventDefault();
         return false;
     };

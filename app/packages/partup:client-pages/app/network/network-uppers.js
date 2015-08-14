@@ -121,7 +121,6 @@ Template.app_network_uppers.onCreated(function() {
             tpl.uppers.end_reached.set(false);
         }
     };
-
     // First run
     tpl.uppers.options.set({});
 });

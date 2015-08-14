@@ -142,7 +142,7 @@
                                 <!-- We use refresh=. to trigger a yield refresh when networkId changes.
                                      'refresh' is not an accepted attribute of yield, but in general,
                                      template-includes will re-run when (one of) its attributes change.  -->
-                                {{> yield region='app_network' refresh=networkSlug }}
+                                {{> yield region='app_network' refresh=networkSlug refresh2=joinToggle }}
 
                             {{/ if }}
                         {{/ if }}

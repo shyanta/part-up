@@ -6,22 +6,21 @@ var Subs = new SubsManager({
 Template.app_network.onCreated(function() {
     var tpl = this;
 
+    tpl.joinToggle = new ReactiveVar(false);
+
     tpl.networkId = new ReactiveVar();
 
     var network_sub;
 
     tpl.autorun(function() {
         var slug = Template.currentData().networkSlug;
-        network_sub = Subs.subscribe('networks.one', slug);
-    });
-
-    tpl.autorun(function() {
-        if (network_sub.ready()) {
-            var network = Networks.findOne({slug: tpl.data.networkSlug});
-            if (!network) Router.pageNotFound('network');
-
-            tpl.networkId.set(network._id);
-        }
+        network_sub = Subs.subscribe('networks.one', slug, {
+            onReady: function() {
+                var network = Networks.findOne({slug: tpl.data.networkSlug});
+                if (!network) Router.pageNotFound('network');
+                tpl.networkId.set(network._id);
+            }
+        });
     });
     tpl.expanded = false;
     tpl.autorun(function() {
@@ -77,6 +76,10 @@ Template.app_network.helpers({
         var expander = $(template.find('[data-expander-parent]'));
         if (expander.length && expander[0].scrollHeight > expander.innerHeight()) return true;
         return false;
+    },
+
+    joinToggle: function() {
+        return Template.instance().joinToggle.get();
     }
 });
 
@@ -104,6 +107,7 @@ Template.app_network.events({
             var network = Networks.findOne({slug: template.data.networkSlug});
             Meteor.call('networks.join', network._id, function(error) {
                 if (error) return Partup.client.notify.error(error.reason);
+                template.joinToggle.set(!template.joinToggle.get());
 
                 if (network.isClosed()) {
                     Partup.client.notify.success(__('pages-app-network-notification-accepted_waitingforapproval'));
@@ -130,6 +134,7 @@ Template.app_network.events({
         var network = Networks.findOne({slug: template.data.networkSlug});
         Meteor.call('networks.join', network._id, function(error) {
             if (error) return Partup.client.notify.error(error.reason);
+            template.joinToggle.set(!template.joinToggle.get());
             if (!network.isClosed()) {
                 Partup.client.notify.success(__('pages-app-network-notification-joined'));
             }
@@ -143,6 +148,7 @@ Template.app_network.events({
                 Partup.client.notify.error(error.reason);
                 return;
             }
+            template.joinToggle.set(!template.joinToggle.get());
 
             Partup.client.notify.success(__('pages-app-network-notification-left'));
 
