@@ -15,6 +15,12 @@ Meteor.publishComposite('partups.by_ids', function(partupIds) {
             {find: Meteor.users.findUppersForPartup, children: [
                 {find: Images.findForUser}
             ]},
+            {find: function(partup) {
+                if (!get(partup, 'featured.active')) return;
+                return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
             {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
                 {find: Images.findForNetwork}
             ]}
