@@ -1,9 +1,7 @@
 <template name="DropdownProfile">
-    <a class="pu-button pu-button-avatar pu-button-header {{#if menuOpen}}pu-state-menu-active{{/if}}" data-toggle-menu>
-        <span>
-            <figure class="pu-avatar pu-avatar-small" style="{{#with user.profile.image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
-            {{ user.profile.name }}
-        </span>
+    <a href="#" class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="profile">
+        <figure class="pu-avatar pu-avatar-small" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
+        {{ label }}
     </a>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <!-- <li class="pu-dropdownitem"><a href="#">Netwerk aanmelden</a></li> -->
@@ -95,10 +93,10 @@
         </section>
 
         <footer>
-            <ul class="pu-headernav pu-list pu-list-horizontal">
-                <li><a class="pu-button pu-button-header" href="{{ pathFor 'profile' }}">{{_ 'dropdowns-profile-button-myprofile'}}</a></li>
-                <li><a class="pu-button pu-button-header" href="#" data-settings>{{_ 'dropdowns-profile-button-settings'}}</a></li>
-                <li><a class="pu-button pu-button-header" href="#" data-logout>{{_ 'dropdowns-profile-button-logout'}}</a></li>
+            <ul class="pu-list pu-list-horizontal">
+                <li><a class="pu-button pu-button-header pu-button-header-desktop pu-button-header-nostripe" href="{{ pathFor 'profile' }}">{{_ 'dropdowns-profile-button-myprofile'}}</a></li>
+                <li><a class="pu-button pu-button-header pu-button-header-desktop" href="#" data-settings>{{_ 'dropdowns-profile-button-settings'}}</a></li>
+                <li><a class="pu-button pu-button-header pu-button-header-desktop" href="#" data-logout>{{_ 'dropdowns-profile-button-logout'}}</a></li>
             </ul>
         </footer>
     </div>

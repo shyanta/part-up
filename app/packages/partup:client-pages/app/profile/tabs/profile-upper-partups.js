@@ -1,3 +1,11 @@
+var partupsToColumnTiles = function(partups) {
+    return lodash.map(partups, function(partup) {
+        return {
+            partup: partup
+        };
+    });
+};
+
 Template.app_profile_upper_partups.onCreated(function() {
     var tpl = this;
 
@@ -80,7 +88,7 @@ Template.app_profile_upper_partups.onCreated(function() {
                         });
 
                         tpl.partups.layout.items = tpl.partups.layout.clear();
-                        tpl.partups.layout.items = tpl.partups.layout.add(partupTileDatas);
+                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
                     });
                 }
             });
@@ -129,7 +137,7 @@ Template.app_profile_upper_partups.onCreated(function() {
                             return tpl.partups.partupTileData(partup);
                         });
 
-                        tpl.partups.layout.items = tpl.partups.layout.add(diffPartups);
+                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(diffPartups));
                     });
                 }
             });

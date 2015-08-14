@@ -1,0 +1,24 @@
+<template name="Header_nav">
+    <ul class="pu-list pu-list-horizontal">
+        <li>
+            <a href="{{ pathFor 'discover' }}" class="pu-button pu-button-header {{# unless partupResponsive }}pu-button-header-desktop{{/ unless }}">
+                {{# if isMobile }}
+                    {{_ 'header-mobile-discover' }}
+                {{ else }}
+                    <i class="fa fa-th-large"></i>
+                    {{_ 'header-desktop-discover' }}
+                {{/ if }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ pathFor 'create' }}" class="pu-button pu-button-header {{# unless partupResponsive }}pu-button-header-desktop{{/ unless }}" data-start="">
+                {{# if isMobile }}
+                    {{_ 'header-mobile-start_partup' }}
+                {{ else }}
+                    <i class="fa fa-flag"></i>
+                    {{_ 'header-desktop-start_partup' }}
+                {{/ if }}
+            </a>
+        </li>
+    </ul>
+</template>

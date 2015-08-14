@@ -1,0 +1,45 @@
+<template name="Footer">
+    <footer class="pu-footer {{# unless partupResponsive }}pu-footer-desktop{{/ unless }}">
+        <div class="pu-sub-footer">
+            <section class="pu-sub-description">
+                <figure class="pu-brand pu-brand-footer"></figure>
+                <h2>{{_ 'footer-subtitle' }}</h2>
+                <p>{{_ 'footer-description' }}</p>
+
+                {{# unless isMobile }}
+                    {{> Footer_stats }}
+                {{/ unless }}
+            </section>
+            <section class="pu-sub-companylinks">
+                <ul class="pu-list pu-list-footermenu pu-sub-noheader">
+                    <li><a href="{{_ 'footer-menu-company-about-url' }}" target="_blank">{{_ 'footer-menu-company-about'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-company-community-url' }}" target="_blank">{{_ 'footer-menu-company-community'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-company-pricing-url' }}" target="_blank">{{_ 'footer-menu-company-pricing'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-company-help-url' }}" target="_blank">{{_ 'footer-menu-company-help'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-company-blog-url' }}" target="_blank">{{_ 'footer-menu-company-blog'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-company-contact-url' }}" target="_blank">{{_ 'footer-menu-company-contact'}}</a></li>
+                </ul>
+            </section>
+            <section class="pu-sub-sociallinks">
+                <h3>{{_ 'footer-menu-title-social' }}</h3>
+                <ul class="pu-list pu-list-footermenu">
+                    <li><a href="{{_ 'footer-menu-social-twitter-url' }}" target="_blank">{{_ 'footer-menu-social-twitter'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-social-facebook-url' }}" target="_blank">{{_ 'footer-menu-social-facebook'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-social-youtube-url' }}" target="_blank">{{_ 'footer-menu-social-youtube'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-social-googleplus-url' }}" target="_blank">{{_ 'footer-menu-social-googleplus'}}</a></li>
+                    <li><a href="{{_ 'footer-menu-social-linkedin-url' }}" target="_blank">{{_ 'footer-menu-social-linkedin'}}</a></li>
+                </ul>
+            </section>
+            <section class="pu-sub-feedback">
+                <h3>{{_ 'footer-feedback-title' }}</h3>
+                <p>{{_ 'footer-feedback-paragraph' }}</p>
+                <p><a class="pu-button" target="_blank" href="https://part-up.uservoice.com">{{_ 'footer-feedback-button' }}</a></p>
+            </section>
+            {{# if isMobile }}
+                <section class="pu-sub-stats">
+                    {{> Footer_stats }}
+                </section>
+            {{/ if }}
+        </div>
+    </footer>
+</template>

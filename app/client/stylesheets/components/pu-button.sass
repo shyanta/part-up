@@ -4,6 +4,25 @@
     to
         transform: rotate(360deg)
 
+@mixin button_header_desktop
+    font-size: 16px
+    font-weight: 700
+    height: 60px
+    padding: 5px 30px
+
+    &:before
+        content: ''
+        position: absolute
+        left: 0
+        top: 0
+        height: 20px
+        width: 2px
+        background-color: rgba(#fff, .2)
+
+    &.pu-button-header-nostripe
+        &:before
+            display: none
+
 .pu-button
     // Dimensions
     position: relative
@@ -129,7 +148,6 @@
                 i
                     color: darken($color-dusty-gray, 10%)
 
-
     // Type: large button (e.g. for homepage cover)
     &-large
         padding: 23px 30px
@@ -137,66 +155,73 @@
 
     // Type: header button
     &-header
-        position: relative
-        background-color: $color-header
-        padding: 21px 29px
-        height: 60px
-        border-radius: 0
+        padding: 0 10px
+        height: 50px
+        line-height: 50px
+        background-color: transparent
         color: rgba($color-text-inverted, .8)
-        font-size: 16px
-        overflow: hidden
-        text-align: center
+        text-decoration: none
+        font-size: 13px
+        font-weight: 600
+        transition: none
 
         i
-            margin-top: 2px
+            transition: none
+            vertical-align: middle
+            margin-top: -3px
 
-        span
-            position: relative
-            z-index: 1
-
-        &:after
-            content: ''
-            transition: opacity 0.1s, transform $animation-duration, max-height .2s
-            opacity: 0
-            transform: translateY(5px)
-            position: absolute
-            border: 13px solid $color-header
-            background-color: $color-background
-            border-top-left-radius: 13px + 4px
-            border-top-right-radius: 13px + 4px
-            border-bottom: 0
-            left: 0
-            right: 0
-            bottom: 0
-            top: -8px
-            max-height: 48px
-            z-index: 0
-
-        &:hover
-            background-color: $color-header
+        &:hover,
+        &:focus
+            background-color: transparent
+            color: $color-text-inverted
+            text-decoration: none
             color: $color-text-inverted
 
         &:active
-            background-color: $color-header
-            transform: none
             color: $color-primary-dark
+            transform: none // prevent movement
+            background-color: transparent
 
-        &.pu-state-menu-active
-            color: $color-text-secondary
+        &-profiledropdown
+            &:after
+                content: ''
+                transition: opacity 0.1s, transform $animation-duration, max-height .2s
+                opacity: 0
+                transform: translateY(5px)
+                position: absolute
+                border: 13px solid $color-header
+                background-color: $color-background
+                border-top-left-radius: 13px + 4px
+                border-top-right-radius: 13px + 4px
+                border-bottom: 0
+                left: 0
+                right: 0
+                bottom: 0
+                top: -8px
+                max-height: 48px
+                z-index: -1
 
-            &:hover
+            &-active
                 color: $color-text-secondary
 
-            &:after
-                opacity: 1
-                transform: translateY(0)
-                max-height: 55px
+                &:hover,
+                &:focus,
+                &:active
+                    color: $color-text-secondary
 
-        // Subtype: header-modal
+                &:after
+                    opacity: 1
+                    transform: translateY(0)
+                    max-height: 55px
+
+        &-desktop
+            @include button_header_desktop
+
         &-modal
             background-color: $color-background-tertiery
             color: $color-text-subtle
-            padding-top: 24px
+            padding-top: 9px
+            height: 70px
 
             &:hover
                 background-color: $color-background-tertiery
@@ -424,8 +449,6 @@
             &:active
                 background-color: darken($color-alert-success, 11%)
 
-
-
     // Type: text
     &-text
         font-size: 14px
@@ -480,6 +503,11 @@
             margin-top: -9px
             margin-bottom: -9px
             margin-right: 10px - 4px
+
+        &.pu-button-header
+            figure
+                margin-top: -8px
+                margin-bottom: -10px
 
     // Type: avatar
     &-social
@@ -767,3 +795,10 @@
                 background-color: $color-background
                 color: $color-header
 
+    @media screen and (min-width: $breakpoint-desktop)
+        &-header
+            @include button_header_desktop
+
+            &-modal
+                padding-top: 9px
+                height: 70px

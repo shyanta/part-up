@@ -1,0 +1,103 @@
+<template name="PartupTileFeatured">
+
+    <section class="pu-featuredpartuptile">
+
+        <div class="pu-row">
+
+            <section class="pu-sub-comment">
+                <div class="pu-commentbox">
+                    <p class="pu-sub-box">
+                        {{ partup.featured.comment }}
+                    </p>
+                    {{# with featured_by_user }}
+                        <div class="pu-sub-author pu-row">
+
+                            <div class="cell">
+                                <figure class="pu-avatar pu-avatar-tiny"
+                                    style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"
+                                    data-usercard="{{ _id }}"></figure>
+                            </div>
+                            <p class="cell stretch last">
+                                <strong data-usercard="{{ _id }}">{{ profile.name }}</strong>,
+                                {{ featured_by_user_title }}
+                            </p>
+                        </div>
+                    {{/ with }}
+                </div>
+            </section>
+
+            <section class="pu-sub-visual">
+                <div class="pu-sub-partupcirclewrapper">
+                    <div class="pu-row">
+                        <ul class="cell pu-sub-partup-stats">
+                            <li>
+                                <strong>{{ activityCount }}</strong>
+                                <span>{{_ 'partuptile-activities' }}</span>
+                            </li>
+                            <li>
+                                <strong>{{ supporterCount }}</strong>
+                                <span>{{_ 'partuptile-supporters' }}</span>
+                            </li>
+                            <li>
+                                <strong>{{ dayCount }}</strong>
+                                <span>{{_ 'partuptile-days-active' }}</span>
+                            </li>
+                        </ul>
+
+                        <div class="cell last">
+                            <div class="pu-partupcircle pu-partupcircle-avatarsexpanded">
+                                <a href="{{ pathFor 'partup' slug=partup.slug }}">
+                                    <canvas class="pu-sub-radial" data-percent="{{ partup.progress }}"></canvas>
+                                    <figure class="pu-sub-inner" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='360x360' }}');{{/ with }}" data-partuptile-focuspoint></figure>
+                                </a>
+
+                                {{# if avatars }}
+                                    <ul class="pu-sub-avatar-list">
+                                        {{# each avatars }}
+                                            <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
+                                                {{# if _id }}
+                                                    background-image: url('{{# with upper }}{{ partupImageUrl id=profile.image store='80x80' }}{{/ with }}');
+                                                {{/ if }}
+                                                top: {{ y }}px;
+                                                left: {{ x }}px;
+                                            " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}+{{/ unless }}</li>
+                                        {{/ each }}
+                                    </ul>
+                                {{/ if }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pu-sub-stats">
+                <ul class="pu-sub-partup-stats">
+                    <li>
+                        <strong>{{ activityCount }}</strong>
+                        <span>{{_ 'partuptile-activities' }}</span>
+                    </li>
+                    <li>
+                        <strong>{{ supporterCount }}</strong>
+                        <span>{{_ 'partuptile-supporters' }}</span>
+                    </li>
+                    <li>
+                        <strong>{{ dayCount }}</strong>
+                        <span>{{_ 'partuptile-days-active' }}</span>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="pu-sub-description">
+                <h4>{{ partup.name }}</h4>
+                <p>{{ partup.description }}</p>
+            </section>
+
+        </div>
+
+    </section>
+
+    <!-- {{# with partup }}
+        Name: {{ name }}
+    {{/ with }} -->
+
+</template>

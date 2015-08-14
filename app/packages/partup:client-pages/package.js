@@ -27,10 +27,6 @@ Package.onUse(function(api) {
         // App
         'app/app.html',
         'app/app.js',
-        'app/app-header.html',
-        'app/app-header.js',
-        'app/app-footer.html',
-        'app/app-footer.js',
 
         //no connection
         'modal/no_connection/no_connection.html',
@@ -180,8 +176,6 @@ Package.onUse(function(api) {
     ];
 
     var languageFiles = [
-        'i18n/app.en.i18n.json',
-        'i18n/app.nl.i18n.json',
         'i18n/app-notfound.en.i18n.json',
         'i18n/app-notfound.nl.i18n.json',
         'i18n/app-home.en.i18n.json',

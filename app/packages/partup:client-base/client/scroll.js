@@ -54,7 +54,8 @@ Partup.client.scroll = {
      * @memberof Partup.client.scroll
      */
     triggerUpdate: function() {
-        Partup.client.scroll.pos.set(window.scrollY);
+        var pos = typeof window.scrollY !== 'undefined' ? window.scrollY : document.documentElement.scrollTop;
+        Partup.client.scroll.pos.set(pos);
         Partup.client.scroll.pos.dep.changed();
     },
 

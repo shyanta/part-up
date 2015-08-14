@@ -114,8 +114,10 @@ partup:client-copy-to-clipboard@0.0.1
 partup:client-dropdown@0.0.1
 partup:client-dropdowns@0.0.1
 partup:client-focuspoint@0.0.1
+partup:client-footer@0.0.1
 partup:client-forgotpassword@0.0.1
 partup:client-gallery@0.0.1
+partup:client-header@0.0.1
 partup:client-invite-to-activity@0.0.1
 partup:client-loader@0.0.1
 partup:client-location-selector@0.0.1
