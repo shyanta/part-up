@@ -24,7 +24,8 @@ Package.onUse(function(api) {
         'service-configuration',
         'splendido:accounts-meld',
         'percolate:migrations',
-        'tap:i18n'
+        'tap:i18n',
+        'lifely:mout'
     ], ['server']);
 
     api.addFiles([
