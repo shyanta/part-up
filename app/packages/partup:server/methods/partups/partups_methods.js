@@ -26,7 +26,8 @@ Meteor.methods({
             Partups.update(newPartup._id, {$set: {'slug': slug}});
 
             return {
-                _id: newPartup._id
+                _id: newPartup._id,
+                slug: slug
             };
         } catch (error) {
             Log.error(error);
