@@ -54,9 +54,9 @@ Template.PartupTile.helpers({
         return Partup.client.url.capitalizeFirstLetter(this.name);
     },
     network: function() {
-        if (!this.network_id) return false;
-        var network_from_cache = lodash.find(Partup.client.discover.cache.networks, {_id: this.network_id});
-        return network_from_cache || Networks.findOne({_id: this.network_id});
+        if (!this.partup.network_id) return false;
+        var network_from_cache = lodash.find(Partup.client.discover.cache.networks, {_id: this.partup.network_id});
+        return network_from_cache || Networks.findOne({_id: this.partup.network_id});
     },
     activityCount: function() {
         return this.activity_count || Activities.findForPartup(this).count();
