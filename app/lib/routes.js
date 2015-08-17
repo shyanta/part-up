@@ -425,27 +425,27 @@ Router.route('/pricing', {
     where: 'client',
     yieldRegions: {
         'app':      {to: 'main'},
-        'app_home': {to: 'app'}
+        'app_pricing': {to: 'app'}
     }
 });
 
-Router.route('/faq', {
-    name: 'faq',
-    where: 'client',
-    yieldRegions: {
-        'app':      {to: 'main'},
-        'app_home': {to: 'app'}
-    }
-});
+// Router.route('/faq', {
+//     name: 'faq',
+//     where: 'client',
+//     yieldRegions: {
+//         'app':      {to: 'main'},
+//         'app_home': {to: 'app'}
+//     }
+// });
 
-Router.route('/contact', {
-    name: 'contact',
-    where: 'client',
-    yieldRegions: {
-        'app':      {to: 'main'},
-        'app_home': {to: 'app'}
-    }
-});
+// Router.route('/contact', {
+//     name: 'contact',
+//     where: 'client',
+//     yieldRegions: {
+//         'app':      {to: 'main'},
+//         'app_home': {to: 'app'}
+//     }
+// });
 
 /*************************************************************/
 /* Networks */
