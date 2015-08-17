@@ -190,6 +190,8 @@ Package.onUse(function(api) {
         'i18n/app-home.nl.i18n.json',
         'i18n/app-about.en.i18n.json',
         'i18n/app-about.nl.i18n.json',
+        'i18n/app-pricing.en.i18n.json',
+        'i18n/app-pricing.nl.i18n.json',
         'i18n/app-discover.en.i18n.json',
         'i18n/app-discover.nl.i18n.json',
         'i18n/app-networks.en.i18n.json',
