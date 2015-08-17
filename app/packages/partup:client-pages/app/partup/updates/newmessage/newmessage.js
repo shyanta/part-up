@@ -66,7 +66,7 @@ Template.app_partup_updates_newmessage.events({
         template.uploadedPhotos.set([]);
     },
     'click [data-remove-upload]': function removeUpload(event, template) {
-        var imageId = $(event.target).data('remove-upload');
+        var imageId = $(event.currentTarget).data('remove-upload');
         // template.uploadedPhotos.set([]);
         var uploadedPhotos = template.uploadedPhotos.get();
         mout.array.remove(uploadedPhotos, imageId);
