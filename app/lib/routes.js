@@ -409,6 +409,45 @@ Router.route('/admin/featured-partups', {
 });
 
 /*************************************************************/
+/* Content pages */
+/*************************************************************/
+Router.route('/about', {
+    name: 'about',
+    where: 'client',
+    yieldRegions: {
+        'app':      {to: 'main'},
+        'app_about': {to: 'app'}
+    }
+});
+
+Router.route('/pricing', {
+    name: 'pricing',
+    where: 'client',
+    yieldRegions: {
+        'app':      {to: 'main'},
+        'app_home': {to: 'app'}
+    }
+});
+
+Router.route('/faq', {
+    name: 'faq',
+    where: 'client',
+    yieldRegions: {
+        'app':      {to: 'main'},
+        'app_home': {to: 'app'}
+    }
+});
+
+Router.route('/contact', {
+    name: 'contact',
+    where: 'client',
+    yieldRegions: {
+        'app':      {to: 'main'},
+        'app_home': {to: 'app'}
+    }
+});
+
+/*************************************************************/
 /* Networks */
 /*************************************************************/
 Router.route('/:slug', {
