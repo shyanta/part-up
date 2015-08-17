@@ -408,6 +408,16 @@ Router.route('/admin/featured-partups', {
     }
 });
 
+Router.route('/admin/tribes', {
+    name: 'admin-createtribe',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_admin':             {to: 'modal'},
+        'modal_create_tribe':      {to: 'modal_admin'}
+    }
+});
+
 /*************************************************************/
 /* Networks */
 /*************************************************************/
@@ -504,16 +514,6 @@ Router.route('/:slug/settings/requests', {
 });
 
 /*************************************************************/
-/* Create network (super mega ultra admin) */
-/*************************************************************/
-Router.route('/tribes/create', {
-    name: 'create-network',
-    where: 'client',
-    yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_create_network':    {to: 'modal'}
-    }
-});
 
 /*************************************************************/
 /* All other routes */
