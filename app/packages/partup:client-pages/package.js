@@ -106,6 +106,10 @@ Package.onUse(function(api) {
         // app content pages
         'app/content_pages/about/about.html',
         'app/content_pages/about/about.js',
+        'app/content_pages/pricing/pricing.html',
+        'app/content_pages/pricing/pricing.js',
+        'app/content_pages/pricing/partials/product.html',
+        'app/content_pages/pricing/partials/product.js',
 
         // Modal
         'modal/modal.html',
