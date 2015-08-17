@@ -66,22 +66,22 @@ Partup.server.services.google = {
 
     detectLanguage: function(query) {
         var key = process.env.GOOGLE_API_KEY;
-        var fallback = 'en';
+        var defaultValue = 'en';
 
         // For more details: https://cloud.google.com/translate/v2/using_rest?hl=en#detect-language
         var response = HTTP.get('https://www.googleapis.com/language/translate/v2/detect?key=' + key + '&q=' + query);
 
         if (response.statusCode !== 200) {
             Log.error('Google Translate API returned with a [' + response.statusCode + ']', response);
-            return {};
+            return defaultValue;
         }
 
-        if (response.error) return fallback;
+        if (response.error) return defaultValue;
 
         var data = mout.object.get(response, 'data.data.detections')[0][0];
         var language = data.language;
 
-        if (!language) return fallback;
+        if (!language) return defaultValue;
 
         d('Detected language for [' + query + '] ("' + language + '") from Google');
 
