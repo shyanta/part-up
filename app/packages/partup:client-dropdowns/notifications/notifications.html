@@ -24,7 +24,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_supporters_added' supporter=type_data.supporter.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name }}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -36,7 +36,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partup_activities_invited' inviter=type_data.inviter.name activity=type_data.activity.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -48,7 +48,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_contributions_accepted' accepter=type_data.accepter.name activity=type_data.activity.name}}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -60,7 +60,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_contributions_rejected' rejecter=type_data.rejecter.name activity=type_data.activity.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -72,7 +72,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_networks_invited' inviter=type_data.inviter.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.network.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.network.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -85,7 +85,7 @@
                             <!-- nog niet vanuit user -->
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_networks_accepted' network=type_data.network.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }}</time>
+                                <time>{{ partupDatePartupActivity created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -97,7 +97,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_networks_new_pending_upper' network=type_data.network.name pending_upper=type_data.pending_upper.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }}</time>
+                                <time>{{ partupDatePartupActivity created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -109,7 +109,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-contributions_ratings_inserted' rater=type_data.rater.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -121,7 +121,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-updates_first_comment' commenter=type_data.commenter.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -133,7 +133,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_messages_inserted' creator=type_data.creator.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -145,7 +145,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_activities_inserted' creator=type_data.creator.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -157,7 +157,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_contributions_inserted' creator=type_data.creator.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -169,7 +169,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_contributions_proposed' creator=type_data.creator.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
+                                <time>{{ partupDatePartupActivity created_at }} {{_ 'dropdown-notification-location' location=type_data.partup.name}}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -180,7 +180,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_ratings_reminder' partup=type_data.partup.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }}</time>
+                                <time>{{ partupDatePartupActivity created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
@@ -191,7 +191,7 @@
                             </figure>
                             <article>
                                 <p>{{_ 'dropdown-notification-partups_user_mentioned' partup=type_data.partup.name mentioning_upper=type_data.mentioning_upper.name }}</p>
-                                <time>{{ partupDatePartupTimeline created_at }}</time>
+                                <time>{{ partupDatePartupActivity created_at }}</time>
                             </article>
                         </a>
                     {{/if}}
