@@ -4,10 +4,18 @@
     .pu-avatar
         margin-bottom: 20px
 
-    > .pu-list
+    > .pu-list:first-of-type
         li:first-child
             font-weight: 700
             font-size: 18px
+
+            a
+                color: $color-text
+                text-decoration: none
+                &:hover,
+                &:active,
+                &:focus
+                    color: #000
 
         li
             font-size: 16px
