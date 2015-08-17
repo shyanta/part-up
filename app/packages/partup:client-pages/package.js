@@ -103,6 +103,10 @@ Package.onUse(function(api) {
         'app/partup/partup-sidebar.html',
         'app/partup/partup-sidebar.js',
 
+        // app content pages
+        'app/content_pages/about/about.html',
+        'app/content_pages/about/about.js',
+
         // Modal
         'modal/modal.html',
         'modal/modal.js',
