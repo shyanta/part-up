@@ -382,12 +382,17 @@ Partups.findForDiscover = function(userId, options, parameters) {
 
     var parameters = parameters || {};
 
+    var userLanguage = Meteor.user().settings.locale;
     var sort = parameters.sort || undefined;
     var textSearch = parameters.textSearch || undefined;
     var locationId = parameters.locationId || undefined;
     var networkId = parameters.networkId || undefined;
 
     if (sort) {
+        // Always sort by language
+        if (userLanguage) {
+            //options.sort['language'] = userLanguage;
+        }
 
         // Sort the partups from the newest to the oldest
         if (sort === 'new') {
