@@ -109,6 +109,11 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         optional: true,
         regEx: SimpleSchema.RegEx.Id
     },
+    language: {
+        type: String,
+        min: 2,
+        max: 5
+    },
     location: {
         type: Object,
         optional: true
