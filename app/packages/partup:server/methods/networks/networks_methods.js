@@ -443,5 +443,39 @@ Meteor.methods({
         return users.map(function(user) {
             return user._id;
         });
-    }
+    },
+
+    /**
+     * Remove a Network
+     *
+     * @param {mixed[]} fields
+     */
+    'networks.remove': function(networkId) {
+        var user = Meteor.user();
+        if (!user || !User(user).isAdmin()) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var network = Networks.findOneOrFail(networkId);
+        if (network.uppers.length > 1) {
+            throw new Meteor.Error(400, 'network_contains_uppers');
+        }
+
+        var networkPartups = Partups.find({network_id:networkId});
+        if (networkPartups.count() > 0) {
+            throw new Meteor.Error(400, 'network_contains_partups');
+        }
+
+        try {
+            Networks.remove(networkId);
+            Meteor.users.update(user._id, {$pull: {networks: network._id}});
+
+            return {
+                _id: networkId
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_could_not_be_removed');
+        }
+    },
 });
