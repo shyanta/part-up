@@ -10,6 +10,7 @@ Meteor.startup(function() {
                 'slug' : 'ing-public',
                 'image': 'T8pfWebTJmvbBNJ2g',
                 'icon': 'f7yzkqh9J9JvxCCqN',
+                'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus veniam illo inventore excepturi architecto ut, numquam enim est assumenda ex doloremque quos ratione. Repellendus blanditiis, tempora fugit velit est deleniti.',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS'
                 ],
@@ -26,6 +27,7 @@ Meteor.startup(function() {
                 'slug' : 'ing-invite',
                 'image': 'efDuvuTzpqH65P9DF',
                 'icon': 'fReGXG4qkNXb4K8wp',
+                'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi architecto consequatur unde dolorem fuga laboriosam non alias blanditiis odit vero!',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS',
                     'K5c5M4Pbdg3B82wQH'
@@ -50,6 +52,7 @@ Meteor.startup(function() {
                 'slug' : 'ing-closed',
                 'image': 'PnYAg3EX5dKfEnkdn',
                 'icon': '4rymNTA3jFfTRKtFJ',
+                'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo nesciunt tempora accusamus temporibus ipsam modi.',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS',
                     'K5c5M4Pbdg3B82wQI'
@@ -82,6 +85,7 @@ Meteor.startup(function() {
                 'slug' : 'lifely-open',
                 'image': 'raaNx9aqA6okiqaS4',
                 'icon': 'SEswZsYiTTKTTdnN5',
+                'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, delectus.',
                 'uppers' : [
                     'q63Kii9wwJX3Q6rHS',
                     'K5c5M4Pbdg3B82wQH',
