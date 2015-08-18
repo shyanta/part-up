@@ -155,6 +155,26 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
     };
 });
 
+/**
+ * Publish all featured partups
+ */
+Meteor.publishComposite('networks.featured_all', function() {
+    this.unblock();
+
+    return {
+        find: function() {
+            return Networks.findFeatured();
+        },
+        children: [
+            {find: Images.findForNetwork}
+        ]
+    };
+});
+
+
+/**
+ * Publish all networks for admin panel
+ */
 Meteor.publish('networks.admin_all', function() {
     this.unblock();
 

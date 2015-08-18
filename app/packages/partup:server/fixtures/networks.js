@@ -16,7 +16,15 @@ Meteor.startup(function() {
                 ],
                 'admin_id' : 'q63Kii9wwJX3Q6rHS',
                 'created_at' : new Date('2015-07-21T15:47:33.225Z'),
-                'updated_at' : new Date('2015-07-21T15:47:33.225Z')
+                'updated_at' : new Date('2015-07-21T15:47:33.225Z'),
+                'featured' : {
+                    'active' : true,
+                    'by_upper' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'title' : 'Founder Part-up'
+                    },
+                    'comment' : '"This is the first featured network"'
+                }
             });
 
             /* 2 */
@@ -93,7 +101,15 @@ Meteor.startup(function() {
                 ],
                 'admin_id' : 'q63Kii9wwJX3Q6rHS',
                 'created_at' : new Date('2015-07-21T15:52:04.548Z'),
-                'updated_at' : new Date('2015-07-21T15:52:04.548Z')
+                'updated_at' : new Date('2015-07-21T15:52:04.548Z'),
+                'featured' : {
+                    'active' : true,
+                    'by_upper' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'title' : 'Founder Part-up'
+                    },
+                    'comment' : '"This is the second featured network"'
+                }
             });
         }
     }
