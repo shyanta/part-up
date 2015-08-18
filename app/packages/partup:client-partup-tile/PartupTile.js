@@ -72,8 +72,11 @@ Template.PartupTile.helpers({
         return progress;
     },
     supporterCount: function() {
-        if (!this.supporters) return 0;
-        return this.supporters.length;
+        if (this.supporters && this.supporters.length) {
+            return this.supporters.length;
+        } else {
+            return 0;
+        }
     },
     tags: function() {
         if (!this.partup.tags) return;
@@ -122,7 +125,11 @@ Template.PartupTile.helpers({
     },
     remainingUppers: function() {
         var uppers = get(Template.instance(), 'data.uppers');
-        return uppers.length > 5 ? uppers.length - 4 : 0;
+        if (uppers && uppers.length && uppers.length > 5) {
+            return uppers.length - 4 ;
+        } else {
+            return 0;
+        }
     },
     userCard: function() {
         if (this._id) return {'data-usercard': this._id};

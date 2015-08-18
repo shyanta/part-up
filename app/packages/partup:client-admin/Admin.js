@@ -14,10 +14,16 @@ Template.Admin.onCreated(function() {
 
 Template.Admin.helpers({
     users: function() {
-        return Template.instance().users.get();
+        var users = Template.instance().users.get();
+        return users;
     },
     userCount: function() {
-        return Template.instance().users.get().length;
+        var users = Template.instance().users.get();
+        if (users) {
+            return users.length;
+        } else {
+            return '';
+        }
     },
     partupStats: function() {
         return Template.instance().partupstats.get();
