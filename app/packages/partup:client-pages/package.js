@@ -36,6 +36,12 @@ Package.onUse(function(api) {
         // App:home
         'app/home/home.html',
         'app/home/home.js',
+        'app/home/partials/featured-networks.html',
+        'app/home/partials/featured-networks.js',
+        'app/home/partials/philosophy.html',
+        'app/home/partials/philosophy.js',
+        'app/home/partials/call-to-action.html',
+        'app/home/partials/call-to-action.js',
 
         // App:discover
         'app/discover/discover.html',
