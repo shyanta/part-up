@@ -1,0 +1,15 @@
+<template name="CallToAction">
+    <article class="pu-highlight pu-highlight-well">
+        {{#if currentUser}}
+            <h1>{{_ 'pages-app-home-calltoaction-loggedin-title'}}</h1>
+
+            <p>{{_ 'pages-app-home-calltoaction-loggedin-description'}}</p>
+            <a href="{{ pathFor 'pricing' }}" class="pu-button">{{_ 'pages-app-home-calltoaction-loggedin-button'}}</a>
+        {{else}}
+            <h1>{{_ 'pages-app-home-calltoaction-loggedout-title'}}</h1>
+
+            <p>{{_ 'pages-app-home-calltoaction-loggedout-description'}}</p>
+            <a href="{{ pathFor 'create' }}" data-start="" class="pu-button">{{_ 'pages-app-home-calltoaction-loggedout-button'}}</a>
+        {{/if}}
+    </article>
+</template>
