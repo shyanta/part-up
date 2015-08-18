@@ -51,7 +51,7 @@
 
             <section class="pu-sub-section pu-sub-section-gradient">
 
-                <div class="pu-wrap pu-wrap-home">
+                <div class="pu-wrap pu-wrap-home pu-sub-article">
 
                     <!-- Popular part-ups-->
                     <section class="pu-sub-subsection pu-sub-subsection-popularpartups">
@@ -80,18 +80,28 @@
                 </div>
 
                 <!-- Start your own part-up -->
-                <!-- <section class="pu-sub-subsection">
-                </section> -->
+                <section class="pu-sub-subsection pu-sub-article">
+                    <div class="pu-wrap pu-wrap-home">
+                        {{> CallToAction }}
+                    </div>
+
+                </section>
 
                 <!-- Philosophy -->
-                <!-- <section class="pu-sub-subsection">
-                </section> -->
+                <section class="pu-sub-subsection pu-sub-article">
+                    <div class="pu-wrap pu-wrap-home">
+                        {{> Philosophy }}
+                    </div>
+                </section>
 
             </section>
 
             <!-- Business -->
-            <!-- <section class="pu-sub-section pu-sub-section-last">
-            </section> -->
+            <section class="pu-sub-section pu-sub-section-last">
+                <div class="pu-wrap pu-wrap-home">
+                    {{> FeaturedNetworks networks=networks }}
+                </div>
+            </section>
         </div>
     </article>
 
