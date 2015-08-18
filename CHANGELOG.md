@@ -2,6 +2,7 @@
 ## 1.6.2
 - tribe admin accessible via /admin
 - tribe admin tribe overview + remove tribe
+- intercom integration
 - bugfixes
     - invite buttons not triggering correctly when clicking on text inside button
     - re-added missing tribe labels
