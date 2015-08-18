@@ -599,6 +599,23 @@ Router.onBeforeAction(function(req, res, next) {
     ]
 });
 
+// shield admin pages for non admins
+Router.onBeforeAction(function(req, res, next) {
+    var user = Meteor.user();
+    if (User(user).isAdmin()) {
+        next();
+    } else {
+        Router.pageNotFound();
+    }
+}, {
+    where: 'client',
+    only: [
+        'admin-overview',
+        'admin-featured-partups',
+        'admin-createtribe',
+    ]
+});
+
 // reset create-partup id to reset the create partup flow
 Router.onBeforeAction(function(req, res, next) {
     if (Meteor.isClient) {
