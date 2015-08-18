@@ -544,10 +544,19 @@ Router.onBeforeAction(function(req, res, next) {
         'create',
         'create-details',
         'create-activities',
-        'create-contribute',
         'create-promote',
         'register-details',
-        'network-invite'
+        'network-invite',
+        'profile-settings',
+        'profile-settings-account',
+        'profile-settings-email',
+        'partup-settings',
+        'admin-overview',
+        'admin-featured-partups',
+        'admin-createtribe',
+        'network-settings',
+        'network-settings-uppers',
+        'network-settings-requests'
     ]
 });
 
