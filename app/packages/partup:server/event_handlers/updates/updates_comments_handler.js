@@ -92,6 +92,9 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
                     _id: partup._id,
                     name: partup.name,
                     slug: partup.slug
+                },
+                update: {
+                    _id: update._id
                 }
             }
         };

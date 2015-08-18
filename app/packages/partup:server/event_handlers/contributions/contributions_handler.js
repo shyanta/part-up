@@ -173,6 +173,9 @@ Event.on('contributions.accepted', function(userId, activityId, upperId) {
                 _id: partup._id,
                 name: partup.name,
                 slug: partup.slug
+            },
+            update: {
+                _id: activity.update_id
             }
         }
     };
@@ -205,6 +208,9 @@ Event.on('contributions.rejected', function(userId, activityId, upperId) {
                 _id: partup._id,
                 name: partup.name,
                 slug: partup.slug
+            },
+            update: {
+                _id: activity.update_id
             }
         }
     };

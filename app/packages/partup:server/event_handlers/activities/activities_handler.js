@@ -29,6 +29,9 @@ Event.on('partups.activities.inserted', function(userId, activity) {
                 _id: partup._id,
                 name: partup.name,
                 slug: partup.slug
+            },
+            update: {
+                _id: updateId
             }
         }
     };

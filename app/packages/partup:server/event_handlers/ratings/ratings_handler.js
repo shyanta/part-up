@@ -39,6 +39,9 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
                 _id: partup._id,
                 name: partup.name,
                 slug: partup.slug
+            },
+            update: {
+                _id: contribution.update_id
             }
         }
     };

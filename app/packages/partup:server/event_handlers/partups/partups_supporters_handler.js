@@ -1,39 +1,26 @@
 /**
- * Generate an Update in a Partup when there is a new Supporter.
+ * Generate Updates and Notifications in a Partup when there is a new Supporter.
  */
 Event.on('partups.supporters.inserted', function(partup, upper) {
+    // Generate Update
     var updateType = 'partups_supporters_added';
     var updateTypeData = {};
-    var existingUpdateId = Updates.findOne({type: updateType, partup_id: partup._id, upper_id: upper._id}, {_id: 1});
+    var existingUpdateId = Updates.findOne({
+        type: updateType,
+        partup_id: partup._id,
+        upper_id: upper._id
+    }, {_id: 1});
 
     // Update the update if one exists
     if (existingUpdateId) {
         Partup.server.services.system_messages.send(upper, existingUpdateId, 'system_supporters_added');
-
         return;
     }
 
     var update = Partup.factories.updatesFactory.make(upper._id, partup._id, updateType, updateTypeData);
+    var updateId = Updates.insert(update);
 
-    // TODO: Validation
-
-    Updates.insert(update);
-});
-
-/**
- * Update the Update in a Partup when a Supporter stops supporting.
- */
-Event.on('partups.supporters.removed', function(partup, upper) {
-    var existingUpdateId = Updates.findOne({type: 'partups_supporters_added', partup_id: partup._id, upper_id: upper._id}, {_id: 1});
-    if (existingUpdateId) {
-        Partup.server.services.system_messages.send(upper, existingUpdateId, 'system_supporters_removed');
-    }
-});
-
-/**
- * Generate a Notification for each upper in a Partup when there is a new Supporter.
- */
-Event.on('partups.supporters.inserted', function(partup, upper) {
+    // Generate a Notification for each upper in a Partup when there is a new Supporter.
     var notificationOptions = {
         type: 'partups_supporters_added',
         typeData: {
@@ -46,6 +33,9 @@ Event.on('partups.supporters.inserted', function(partup, upper) {
                 _id: partup._id,
                 name: partup.name,
                 slug: partup.slug
+            },
+            update: {
+                _id: updateId
             }
         }
     };
@@ -57,4 +47,16 @@ Event.on('partups.supporters.inserted', function(partup, upper) {
             Partup.server.services.notifications.send(notificationOptions);
         });
     }
+
 });
+
+/**
+ * Update the Update in a Partup when a Supporter stops supporting.
+ */
+Event.on('partups.supporters.removed', function(partup, upper) {
+    var existingUpdateId = Updates.findOne({type: 'partups_supporters_added', partup_id: partup._id, upper_id: upper._id}, {_id: 1});
+    if (existingUpdateId) {
+        Partup.server.services.system_messages.send(upper, existingUpdateId, 'system_supporters_removed');
+    }
+});
+

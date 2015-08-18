@@ -356,6 +356,9 @@ Meteor.methods({
                     _id: partup._id,
                     name: partup.name,
                     slug: partup.slug
+                },
+                update: {
+                    _id: activity.update_id
                 }
             }
         };
