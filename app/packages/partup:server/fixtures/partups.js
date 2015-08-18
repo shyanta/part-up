@@ -41,7 +41,15 @@ Meteor.startup(function() {
                 },
                 'supporters' : [
                     'a7qcp5RHnh5rfaeW9'
-                ]
+                ],
+                'featured' : {
+                    'active' : true,
+                    'by_upper' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'title' : 'Founder Part-up'
+                    },
+                    'comment' : '\'We already have people (from all over the world) asking: Can I promote you in my country? Sure you can!\''
+                }
             });
 
             /* 2 */
