@@ -144,14 +144,13 @@ Package.onUse(function(api) {
         // Modal:network
         'modal/network/network-invite.html',
         'modal/network/network-invite.js',
-        'modal/network/create_network/create_network.html',
-        'modal/network/create_network/create_network.js',
 
         // Modal:admin
         'modal/admin/admin.html',
         'modal/admin/admin.js',
         'modal/admin/overview/overview.html',
         'modal/admin/featured_partups/featured_partups.html',
+        'modal/admin/createtribe/createtribe.html',
 
         // Modal:network_settings
         'modal/network_settings/network_settings.html',

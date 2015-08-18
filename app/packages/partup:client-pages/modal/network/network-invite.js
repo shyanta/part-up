@@ -134,7 +134,7 @@ Template.modal_network_invite.events({
         });
     },
     'click [data-invite-id]': function(event, template) {
-        var userId = $(event.target).data('invite-id');
+        var userId = $(event.currentTarget).data('invite-id');
         var network = Networks.findOne({slug: template.data.networkSlug});
 
         if (network.hasMember(userId) || network.isUpperInvited(userId)) return;

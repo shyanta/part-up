@@ -4,13 +4,12 @@ SyncedCron.add({
         return parser.text(Partup.constants.DIGEST_FREQUENCY);
     },
     job: function() {
+        var counter = 0;
         Meteor.users.find({
             'flags.dailyDigestEmailHasBeenSent': false,
             'profile.settings.email.dailydigest': true
         }).forEach(function(user) {
-            console.log(user._id);
             var newNotifications = Notifications.findForUser(user, {'new':true}).fetch();
-            console.log(newNotifications.length);
             if (newNotifications.length > 0) {
 
                 // Compile the E-mail template and send the email
@@ -28,7 +27,9 @@ SyncedCron.add({
                     })
                 });
                 Meteor.users.update(user._id, {'$set': {'flags.dailyDigestEmailHasBeenSent': true}});
+                counter++;
             }
         });
+        console.log(counter + ' users were mailed with notification digest');
     }
 });

@@ -9,7 +9,7 @@ Template.app_partup_takepart.events({
         event.preventDefault();
         Partup.client.popup.close();
 
-        var href = event.target.getAttribute('href');
+        var href = event.currentTarget.getAttribute('href');
         var userId = Meteor.userId();
         var proceed = function() {
             Router.go(href);

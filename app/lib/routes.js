@@ -408,6 +408,16 @@ Router.route('/admin/featured-partups', {
     }
 });
 
+Router.route('/admin/tribes', {
+    name: 'admin-createtribe',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_admin':             {to: 'modal'},
+        'modal_create_tribe':      {to: 'modal_admin'}
+    }
+});
+
 /*************************************************************/
 /* Content pages */
 /*************************************************************/
@@ -543,16 +553,6 @@ Router.route('/:slug/settings/requests', {
 });
 
 /*************************************************************/
-/* Create network (super mega ultra admin) */
-/*************************************************************/
-Router.route('/tribes/create', {
-    name: 'create-network',
-    where: 'client',
-    yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_create_network':    {to: 'modal'}
-    }
-});
 
 /*************************************************************/
 /* All other routes */
@@ -583,10 +583,19 @@ Router.onBeforeAction(function(req, res, next) {
         'create',
         'create-details',
         'create-activities',
-        'create-contribute',
         'create-promote',
         'register-details',
-        'network-invite'
+        'network-invite',
+        'profile-settings',
+        'profile-settings-account',
+        'profile-settings-email',
+        'partup-settings',
+        'admin-overview',
+        'admin-featured-partups',
+        'admin-createtribe',
+        'network-settings',
+        'network-settings-uppers',
+        'network-settings-requests'
     ]
 });
 

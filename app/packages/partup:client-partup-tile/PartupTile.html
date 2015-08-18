@@ -70,18 +70,20 @@
 
         <!-- Network -->
         {{# unless HIDE_NETWORKTILE }}
-            {{# with partup.network }}
-                <footer>
-                    <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
-                        <div class="pu-sub-figurecontainer">
-                            <figure style="{{# with icon}}background-image: url('{{ networkImage . '32x32' }}');{{/ with }}"></figure>
-                        </div>
-                        <div class="pu-sub-namecontainer">
-                            <span>{{ name }}</span>
-                        </div>
-                    </a>
-                </footer>
-            {{/ with }}
+            {{# if network }}
+                {{# with network }}
+                    <footer>
+                        <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
+                            <div class="pu-sub-figurecontainer">
+                                <figure style="{{# with icon}}background-image: url('{{ networkImage . '32x32' }}');{{/ with }}"></figure>
+                            </div>
+                            <div class="pu-sub-namecontainer">
+                                <span>{{ name }}</span>
+                            </div>
+                        </a>
+                    </footer>
+                {{/ with }}
+            {{/ if }}
         {{/ unless }}
 
     </article>

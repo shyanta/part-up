@@ -55,7 +55,7 @@ Template.DropdownProfile.events({
         Meteor.logout();
     },
     'click [data-select-network]': function changeNetwork (event, template) {
-        var networkId = $(event.target).data('select-network') || undefined;
+        var networkId = $(event.currentTarget).data('select-network') || undefined;
         template.currentNetwork.set(networkId);
     },
     'click [data-settings]': function openSettings (event, template) {

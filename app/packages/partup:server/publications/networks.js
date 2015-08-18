@@ -154,3 +154,12 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
         ]
     };
 });
+
+Meteor.publish('networks.admin_all', function() {
+    this.unblock();
+
+    var user = Meteor.users.findOne(this.userId);
+    if (!User(user).isAdmin()) return;
+
+    return Networks.find({});
+});

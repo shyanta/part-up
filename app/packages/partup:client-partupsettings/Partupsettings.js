@@ -284,9 +284,10 @@ Template.Partupsettings.helpers({
 
 Template.Partupsettings.events({
     'keyup [data-max]': function(event, template) {
-        var max = eval($(event.target).data('max'));
-        var charactersLeftVar = $(event.target).data('characters-left-var');
-        template[charactersLeftVar].set(max - $(event.target).val().length);
+        var $inputElement = $(event.currentTarget);
+        var max = parseInt($inputElement.attr('maxlength'));
+        var charactersLeftVar = $inputElement.data('characters-left-var');
+        template[charactersLeftVar].set(max - $inputElement.val().length);
     },
     'change [data-imageupload]': function(event, template) {
         $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
