@@ -1,0 +1,20 @@
+<template name="FeaturedNetworks">
+    <article class="pu-highlight pu-highlight-companies">
+        <h2 class="pu-titleaccent">{{_ 'pages-app-home-featurednetworks-title'}}</h2>
+        <p>{{_ 'pages-app-home-featurednetworks-description'}}</p>
+        <ul class="pu-list pu-list-horizontal pu-selector">
+            {{#each networks}}
+                <li>
+                    <a data-select="{{slug}}" class="pu-button pu-button-logo pu-button-selector {{ #if partupEquals slug selectedNetworkSlug }} pu-state-active {{/if}}" href="#">
+                        <img src="{{ partupImageUrl id=icon }}" alt="">
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+        {{#if selectedNetwork.description}}
+            <article class="pu-selection">
+                <p>{{selectedNetwork.description}} <a href="{{pathFor route='network-detail' slug=selectedNetwork.slug}}">{{_ 'pages-app-home-featurednetworks-view-url'}}</a></p>
+            </article>
+        {{/if}}
+    </article>
+</template>
