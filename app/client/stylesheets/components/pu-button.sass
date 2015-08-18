@@ -808,6 +808,22 @@
                 background-color: $color-background
                 color: $color-header
 
+    &-logo
+        padding: 0
+        height: auto
+        border-radius: 0
+        border: 0
+        background-color: transparent
+
+        &:active,
+        &:focus,
+        &:hover
+            background-color: transparent
+            opacity: 1
+
+        img
+            height: 50px
+
     @media screen and (min-width: $breakpoint-desktop)
         &-header
             @include button_header_desktop

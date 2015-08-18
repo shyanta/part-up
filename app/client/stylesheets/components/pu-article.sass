@@ -1,14 +1,67 @@
 .pu-article
+    padding-left: $grid-column + $grid-gap
+    padding-right: $grid-column + $grid-gap
+
+    h1,h2,h3
+        font-weight: 700
+        margin-bottom: 10px
+
+    h1
+        font-size: 30px
+
+    h2
+        font-size: 22px
+
+    h3
+        font-size: 18px
+
+    p,ul
+        margin-bottom: 30px
+
     p
-        + p
-            margin-top: 40px - 15px
+        font-size: 16px
 
-        + figure
-            margin-top: 40px - 8px
+    ul
+        li
+            margin-bottom: 10px
 
-    figure
-        + p
-            margin-top: 40px - 8px
+    .pu-face
+        margin-right: 50px
 
-        + figure
-            margin-top: 40px
+
+    &-intro
+        p
+            font-size: 18px
+
+    &-preview
+        font-size: 0
+
+        h1
+            font-size: 25px
+            font-weight: 600
+            &:after
+                content: ''
+                width: 60px
+                height: 2px
+                background-color: $color-primary
+                display: block
+                margin-top: 30px
+
+        .pu-sub-text,
+        .pu-sub-image
+            display: inline-block
+            vertical-align: top
+
+        .pu-sub-text
+            padding-right: 50px
+            width:40%
+
+        .pu-sub-image
+            width: 60%
+            img
+                width: 100%
+
+    &-wide
+        padding-left: 0
+        padding-right: 0
+
