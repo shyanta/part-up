@@ -20,5 +20,17 @@
     "pages-app-home-loggedin-discover": "Discover inspiring part-ups",
 
     "pages-app-home-discover-partups-popular-heading": "Popular part-ups",
-    "pages-app-home-discover-partups-viewall-button": "View all part-ups"
+    "pages-app-home-discover-partups-viewall-button": "View all part-ups",
+
+    "pages-app-home-calltoaction-loggedin-title": "Lorem ipsum dolor sit.",
+    "pages-app-home-calltoaction-loggedin-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis cumque eaque provident a amet ad sit. Sint dolore praesentium mollitia.",
+    "pages-app-home-calltoaction-loggedin-button": "View the possibilities",
+    "pages-app-home-calltoaction-loggedout-title": "Lorem ipsum dolor sit.",
+    "pages-app-home-calltoaction-loggedout-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci pariatur maiores sunt quo. Iure, itaque.",
+    "pages-app-home-calltoaction-loggedout-button": "Start a part-up",
+
+    "pages-app-home-featurednetworks-title": "Organisations that use Part-up",
+    "pages-app-home-featurednetworks-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus eos, molestiae ullam quae, explicabo ipsam.",
+    "pages-app-home-featurednetworks-view-url": "view tribe"
+
 }
