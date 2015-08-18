@@ -1,4 +1,11 @@
 # CHANGELOG
+## 1.6.2
+- tribe admin accessible via /admin
+- tribe admin tribe overview + remove tribe
+- bugfixes
+    - invite buttons not triggering correctly when clicking on text inside button
+    - re-added missing tribe labels
+
 ## 1.6.1
 - fixed email problem in mentions
 
