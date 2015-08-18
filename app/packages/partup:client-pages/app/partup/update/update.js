@@ -9,6 +9,9 @@ Template.app_partup_update.onCreated(function() {
 });
 
 Template.app_partup_update.helpers({
+    partup: function() {
+        return Partups.findOne(Template.instance().data.partupId);
+    },
     metaDataForUpdate: function() {
         var update = Updates.findOne(this.updateId);
         if (!update) return {};
@@ -42,10 +45,4 @@ Template.app_partup_update.helpers({
     isAnotherDay: function(date) {
         return Partup.client.moment.isAnotherDay(moment(), moment(date));
     },
-});
-
-Template.app_partup_update.events({
-    'click [data-back]': function goBack(event, template) {
-        history.back();
-    }
 });
