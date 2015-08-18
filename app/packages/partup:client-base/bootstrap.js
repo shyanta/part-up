@@ -137,6 +137,17 @@ Meteor.startup(function() {
     });
 
     /*************************************************************/
+    /* Intercom configuration */
+    /*************************************************************/
+    IntercomSettings.userInfo = function(user, info) {
+        if (user) {
+            info['email'] = User(user).getEmail();
+            info['name'] = user.profile.name;
+        }
+    };
+
+
+    /*************************************************************/
     /* Intent configuration */
     /*************************************************************/
     Intent.configure({
