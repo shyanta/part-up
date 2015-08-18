@@ -1,110 +1,60 @@
+var individualProducts = function(namespace) {
+    return {
+        name: __('pages-app-pricing-' + namespace + '-name'),
+        summary: __('pages-app-pricing-' + namespace + '-summary'),
+        price: __('pages-app-pricing-' + namespace + '-price'),
+        price_info: __('pages-app-pricing-' + namespace + '-price-info'),
+        features: [
+            {
+                name: __('pages-app-pricing-' + namespace + '-feature'),
+                value: __('pages-app-pricing-' + namespace + '-feature-value')
+            }
+        ],
+        type: 'individual'
+    };
+};
+
+var tribeProducts = function(namespace) {
+    return {
+        name: __('pages-app-pricing-' + namespace + '-name'),
+        summary: __('pages-app-pricing-' + namespace + '-summary'),
+        price: __('pages-app-pricing-' + namespace + '-price'),
+        price_info: __('pages-app-pricing-' + namespace + '-price-info'),
+        features: [
+            {
+                name: __('pages-app-pricing-' + namespace + '-feature1'),
+                value: __('pages-app-pricing-' + namespace + '-feature1-value')
+            }, {
+                name: __('pages-app-pricing-' + namespace + '-feature2'),
+                value: __('pages-app-pricing-' + namespace + '-feature2-value')
+            }
+        ],
+        type: 'network'
+    };
+};
 Template.app_pricing.helpers({
     shrinkHeader: function() {
         return Partup.client.scroll.pos.get() > 40;
     },
     products: function() {
         return {
-            upper: function(){
-                return {
-                    name: 'Upper',
-                    summary: 'For everyone that wants to start woking together and make their dreams work.',
-                    price: 'Free',
-                    price_info: '(always)',
-                    features: [
-                        {
-                            name: 'Private part-ups',
-                            value: 'No'
-                        }
-                    ],
-                    type: 'individual'
-                };
+            upper: function() {//individuals-upper
+                return individualProducts('individuals-upper');
             },
-            premium_upper: function() {
-                return {
-                    name: 'Premium upper',
-                    summary: 'For everyone that wants to support Part-up and also be able to create private part-ups.',
-                    price: '€ 4',
-                    price_info: 'per month',
-                    features: [
-                        {
-                            name: 'Private part-ups',
-                            value: 'Yes'
-                        }
-                    ],
-                    type: 'individual'
-                };
+            premium_upper: function() { //individuals-premiumupper
+                return individualProducts('individuals-premiumupper');
             },
             social_impact: function() {
-                return {
-                    name: 'Social impact',
-                    summary: 'Communities that steal out heart can get a part-up tribe for free',
-                    price: 'Free',
-                    price_info: '(always)',
-                    features: [
-                        {
-                            name: 'Tribes',
-                            value: '1'
-                        }, {
-                            name: 'Support',
-                            value: 'Forum'
-                        }
-                    ],
-                    type: 'network'
-                };
+                return tribeProducts('tribes-socialimpact');
             },
             small: function() {
-                return {
-                    name: 'Small',
-                    summary: 'For small communities taht want to brand and manage their activities.',
-                    price: '€ 499',
-                    price_info: 'per year',
-                    features: [
-                        {
-                            name: 'Tribes',
-                            value: '1'
-                        }, {
-                            name: 'Support',
-                            value: 'Forum'
-                        }
-                    ],
-                    type: 'network'
-                };
+                return tribeProducts('tribes-small');
             },
             medium: function() {
-                return {
-                    name: 'Medium',
-                    summary: 'For established organizations that want to manage a flexible workforce.',
-                    price: '€ 7500',
-                    price_info: 'per year',
-                    features: [
-                        {
-                            name: 'Tribes',
-                            value: '10'
-                        }, {
-                            name: 'Support',
-                            value: '+ Chat/ticket'
-                        }
-                    ],
-                    type: 'network'
-                };
+                return tribeProducts('tribes-medium');
             },
             large: function() {
-                return {
-                    name: 'Large',
-                    summary: 'For large enterprises that want to build a networked organization.',
-                    price: 'Contact us',
-                    price_info: '',
-                    features: [
-                        {
-                            name: 'Tribes',
-                            value: '25 (or more)'
-                        }, {
-                            name: 'Support',
-                            value: '+ Telephone'
-                        }
-                    ],
-                    type: 'network'
-                };
+                return tribeProducts('tribes-large');
             }
         }
     }

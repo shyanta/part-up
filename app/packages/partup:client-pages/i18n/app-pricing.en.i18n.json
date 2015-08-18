@@ -1,4 +1,68 @@
 {
+    "pages-app-pricing-page-title": "Pricing guide",
+
+    "pages-app-pricing-individuals-title": "For individuals",
+    "pages-app-pricing-individuals-description": "Part-up is free to use for as long as you like. You can start and join an unlimited number of part-ups.",
+
+    // upper
+    "pages-app-pricing-individuals-upper-name": "Upper",
+    "pages-app-pricing-individuals-upper-summary": "For everyone that wants to work together within the Part-up community.",
+    "pages-app-pricing-individuals-upper-price": "Free",
+    "pages-app-pricing-individuals-upper-price-info": "(always)",
+    "pages-app-pricing-individuals-upper-feature": "Private part-ups",
+    "pages-app-pricing-individuals-upper-feature-value": "No",
+
+    // premium upper
+    "pages-app-pricing-individuals-premiumupper-name": "Premium upper",
+    "pages-app-pricing-individuals-premiumupper-summary": "For everyone that wants to manage and create private part-ups.",
+    "pages-app-pricing-individuals-premiumupper-price": "€ 4",
+    "pages-app-pricing-individuals-premiumupper-price-info": "per month",
+    "pages-app-pricing-individuals-premiumupper-feature": "Private part-ups",
+    "pages-app-pricing-individuals-premiumupper-feature-value": "Yes",
+
+    // social impact
+    "pages-app-pricing-tribes-socialimpact-name": "Social impact",
+    "pages-app-pricing-tribes-socialimpact-summary": "Communities that steal our heart can get a Part-up tribe for free.",
+    "pages-app-pricing-tribes-socialimpact-price": "Free",
+    "pages-app-pricing-tribes-socialimpact-price-info": "(always)",
+    "pages-app-pricing-tribes-socialimpact-feature1": "Tribes",
+    "pages-app-pricing-tribes-socialimpact-feature1-value": "1",
+    "pages-app-pricing-tribes-socialimpact-feature2": "Support",
+    "pages-app-pricing-tribes-socialimpact-feature2-value": "Forum",
+
+    // small
+    "pages-app-pricing-tribes-small-name": "Small",
+    "pages-app-pricing-tribes-small-summary": "For small communities that want to brand and manage their activities.",
+    "pages-app-pricing-tribes-small-price": "€ 499",
+    "pages-app-pricing-tribes-small-price-info": "per year",
+    "pages-app-pricing-tribes-small-feature1": "Tribes",
+    "pages-app-pricing-tribes-small-feature1-value": "1",
+    "pages-app-pricing-tribes-small-feature2": "Support",
+    "pages-app-pricing-tribes-small-feature2-value": "Forum",
+
+    // medium
+    "pages-app-pricing-tribes-medium-name": "Medium",
+    "pages-app-pricing-tribes-medium-summary": "For established organizations that want to manage a flexible workforce.",
+    "pages-app-pricing-tribes-medium-price": "€ 7500",
+    "pages-app-pricing-tribes-medium-price-info": "per year",
+    "pages-app-pricing-tribes-medium-feature1": "Tribes",
+    "pages-app-pricing-tribes-medium-feature1-value": "10",
+    "pages-app-pricing-tribes-medium-feature2": "Support",
+    "pages-app-pricing-tribes-medium-feature2-value": "Forum + Chat/ticket",
+
+    // large
+    "pages-app-pricing-tribes-large-name": "Large",
+    "pages-app-pricing-tribes-large-summary": "For large enterprises that want to build a networked organization.",
+    "pages-app-pricing-tribes-large-price": "Contact us",
+    "pages-app-pricing-tribes-large-price-info": "",
+    "pages-app-pricing-tribes-large-feature1": "Tribes",
+    "pages-app-pricing-tribes-large-feature1-value": "25 (or more)",
+    "pages-app-pricing-tribes-large-feature2": "Support",
+    "pages-app-pricing-tribes-large-feature2-value": "Forum + Chat/ticket + Telephone",
+
+    "pages-app-pricing-tribes-title": "For networks and organizations",
+    "pages-app-pricing-tribes-description": "Organizations or communities can buy their own branded and managed tribes. A tribe allows you to create and share public and private part-ups with just the people you select. ",
+
     "pages-app-pricing-title": "Part-up pricing mindset",
     "pages-app-pricing-intro": "Teamwork is great. Especially when you have the freedom to choose what you work on and who you team up with. Part-up gives you that freedom.",
     "pages-app-pricing-subtitle1": "Individual",
