@@ -9,6 +9,11 @@
                 "token": "d2405ee0295004fefede86198619fefa",
                 "people": true
             }
+        },
+        "intercom": {
+            "id": "yags4egj",
+            "allowAnonymous": true
         }
+
     }
 }
