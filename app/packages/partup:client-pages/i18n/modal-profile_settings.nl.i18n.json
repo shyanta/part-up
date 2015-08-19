@@ -11,8 +11,20 @@
     "modal-profilesettings-email-text-explaination": "Wij houden je graag op de hoogte van jouw part-ups. Als het je helpt ook per mail. Krijg je te vaak updates per mail, of juist niet vaak genoeg? Geef hieronder jouw (nieuwe) voorkeuren aan.",
     "modal-profilesettings-email-listheading":"Update mij met:",
     "modal-profilesettings-email-dailydigest":"een dagelijks overzicht van mijn notificaties op Part-up",
-    "modal-profilesettings-email-updatesuccess-enabled":"Dagelijkse overzicht email ingeschakeld",
-    "modal-profilesettings-email-updatesuccess-disabled":"Dagelijkse overzicht email uitgeschakeld",
+    "modal-profilesettings-email-updatesuccess-enabled-dailydigest":"Dagelijkse overzicht email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-dailydigest":"Dagelijkse overzicht email uitgeschakeld",
+
+    "modal-profilesettings-email-upper_mentioned_in_partup":"als je wordt opgenoemd in een part-up",
+    "modal-profilesettings-email-updatesuccess-enabled-upper_mentioned_in_partup":"Mention email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-upper_mentioned_in_partup":"Mention email uitgeschakeld",
+
+    "modal-profilesettings-email-invite_upper_to_partup_activity":"wanneer je wordt uitgenodigd voor een activiteit",
+    "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_partup_activity":"Activiteit uitnodiging email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_partup_activity":"Activiteit uitnodiging email uitgeschakeld",
+
+    "modal-profilesettings-email-invite_upper_to_network":"wanneer je wordt uitgenodigd voor een tribe",
+    "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_network":"Tribe uitnodiging email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Tribe uitnodiging email uitgeschakeld",
 
     "modal-profilesettings-account-title": "Beheer je account",
     "modal-profilesettings-account-text-explaination": "Je kunt hier jouw account instellingen wijzigen. Wiel je iets toevoegen aan jouw profiel? Klik dan links in het menu op profiel.",

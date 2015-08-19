@@ -22,8 +22,8 @@ function saveEmailSettings(settingName, settingValue) {
             Partup.client.notify.error(error.reason);
             return;
         }
-        if (settingValue) Partup.client.notify.info(__('modal-profilesettings-email-updatesuccess-enabled'));
-        if (!settingValue) Partup.client.notify.info(__('modal-profilesettings-email-updatesuccess-disabled'));
+        if (settingValue) Partup.client.notify.success(__('modal-profilesettings-email-updatesuccess-enabled-' + settingName));
+        if (!settingValue) Partup.client.notify.warning(__('modal-profilesettings-email-updatesuccess-disabled-' + settingName));
     });
 }
 

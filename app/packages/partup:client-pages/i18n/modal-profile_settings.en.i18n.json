@@ -11,8 +11,21 @@
     "modal-profilesettings-email-text-explaination": "We love to keep you up to date on your part-ups in the notifications. If it helps you to keep connected, we can also send you email updates. Do you like to reduce or increase the number of email updates? Change your update preferences below.",
     "modal-profilesettings-email-listheading":"Contact me with:",
     "modal-profilesettings-email-dailydigest":"a daily digest of my notifications",
-    "modal-profilesettings-email-updatesuccess-enabled":"Daily digest email enabled",
-    "modal-profilesettings-email-updatesuccess-disabled":"Daily digest email disabled",
+    "modal-profilesettings-email-updatesuccess-enabled-dailydigest":"Daily digest email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-dailydigest":"Daily digest email disabled",
+
+    "modal-profilesettings-email-upper_mentioned_in_partup":"when you're mentioned in a part-up",
+    "modal-profilesettings-email-updatesuccess-enabled-upper_mentioned_in_partup":"Mention email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-upper_mentioned_in_partup":"Mention email disabled",
+
+    "modal-profilesettings-email-invite_upper_to_partup_activity":"when you're invited to join an activity",
+    "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_partup_activity":"Invite to activity email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_partup_activity":"Invite to activity email disabled",
+
+    "modal-profilesettings-email-invite_upper_to_network":"when you're invited to join a tribe",
+    "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_network":"Invite to tribe email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Invite to tribe email disabled",
+
 
     "modal-profilesettings-account-title": "Manage your account",
     "modal-profilesettings-account-text-explaination": "Here, you can edit your account settings. Do you want to update your profile? You can find the link in the menu on the left.",
