@@ -12,11 +12,11 @@ Template.modal_profile_settings_email.helpers({
 });
 
 function saveEmailSettings(settingName, settingValue) {
+    var emailSettings = Meteor.user().profile.settings.email;
     var data = {
-        email: {}
+        email: emailSettings
     };
     data.email[settingName] = settingValue;
-
     Meteor.call('settings.update', data, function(error) {
         if (error) {
             Partup.client.notify.error(error.reason);

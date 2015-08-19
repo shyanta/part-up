@@ -17,5 +17,29 @@ Partup.schemas.entities.settings = new SimpleSchema({
     'email.dailydigest': {
         type: Boolean,
         optional:true
+    },
+    'email.upper_mentioned_in_partup_comment': {
+        type: Boolean,
+        optional:true
+    },
+    'email.upper_mentioned_in_partup_message': {
+        type: Boolean,
+        optional:true
+    },
+    'email.invite_existing_upper_to_partup_activity': {
+        type: Boolean,
+        optional:true
+    },
+    'email.invite_user_to_partup_activity': {
+        type: Boolean,
+        optional:true
+    },
+    'email.invite_existing_upper_to_network': {
+        type: Boolean,
+        optional:true
+    },
+    'email.invite_user_to_network': {
+        type: Boolean,
+        optional:true
     }
 });

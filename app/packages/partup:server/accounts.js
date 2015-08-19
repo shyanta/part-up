@@ -58,8 +58,14 @@ Accounts.onCreateUser(function(options, user) {
             settings: {
                 locale: 'en',
                 optionalDetailsCompleted: false,
-                emails: {
-                    dailydigest: true
+                email: {
+                    dailydigest: true,
+                    upper_mentioned_in_partup_comment: true,
+                    upper_mentioned_in_partup_message: true,
+                    invite_existing_upper_to_partup_activity: true,
+                    invite_user_to_partup_activity: true,
+                    invite_existing_upper_to_network: true,
+                    invite_user_to_network: true
                 }
             }
         };
