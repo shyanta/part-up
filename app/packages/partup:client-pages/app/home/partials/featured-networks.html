@@ -11,10 +11,22 @@
                 </li>
             {{/each}}
         </ul>
-        {{#if selectedNetwork.description}}
+        {{#with selectedNetwork}}
             <article class="pu-selection">
-                <p>{{selectedNetwork.description}} <a href="{{pathFor route='network-detail' slug=selectedNetwork.slug}}">{{_ 'pages-app-home-featurednetworks-view-url'}}</a></p>
+                <p>{{featured.comment}} <a href="{{pathFor route='network-detail' slug=slug}}">{{_ 'pages-app-home-featurednetworks-view-url'}}</a></p>
+
+                <div class="pu-sub-author pu-row">
+                    <div class="cell">
+                        <figure class="pu-avatar pu-avatar-tiny"
+                            style="{{#with networkFeaturedByUser.profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"
+                            data-usercard="{{ networkFeaturedByUser._id }}"></figure>
+                    </div>
+                    <p class="cell stretch last">
+                        <strong data-usercard="{{ networkFeaturedByUser._id }}">{{networkFeaturedByUser.profile.name}}</strong>,
+                        {{ featured.by_upper.title }}
+                    </p>
+                </div>
             </article>
-        {{/if}}
+        {{/with}}
     </article>
 </template>

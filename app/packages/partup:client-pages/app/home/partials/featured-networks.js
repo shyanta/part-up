@@ -3,7 +3,6 @@ Template.FeaturedNetworks.onCreated(function() {
     tpl.featuredSubscription = tpl.subscribe('networks.featured_all', {
         onReady: function() {
             var networks = Networks.findFeatured().fetch();
-            console.log(networks)
             tpl.selectedSlug.set(networks[0].slug);
         }
     });
@@ -16,7 +15,12 @@ Template.FeaturedNetworks.helpers({
     selectedNetwork: function() {
         var slug = Template.instance().selectedSlug.get();
         return Networks.findOne({slug: slug});
-    }
+    },
+    networkFeaturedByUser: function() {
+        if (!this.featured) return;
+
+        return Meteor.users.findOne(this.featured.by_upper._id);
+    },
 });
 
 Template.FeaturedNetworks.events({
