@@ -94,14 +94,14 @@ Meteor.methods({
         var locale = User(inviter).getLocale();
 
         // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserNetworkEmail', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
+        SSR.compileTemplate('invite_upper_to_network', Assets.getText('private/emails/invite_upper_to_network.' + locale + '.html'));
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
 
         Email.send({
             from: Partup.constants.EMAIL_FROM,
             to: email,
             subject: 'Uitnodiging voor het netwerk ' + network.name,
-            html: SSR.render('inviteUserNetworkEmail', {
+            html: SSR.render('invite_upper_to_network', {
                 name: name,
                 partupName: partup.name,
                 partupDescription: partup.description,
@@ -170,13 +170,13 @@ Meteor.methods({
 
         // Compile the E-mail template and send the email
         var locale = User(inviter).getLocale();
-        SSR.compileTemplate('inviteExistingUserNetwork', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
+        SSR.compileTemplate('invite_upper_to_network', Assets.getText('private/emails/invite_upper_to_network.' + locale + '.html'));
         var url = Meteor.absoluteUrl() + network.slug;
         Email.send({
             from: Partup.constants.EMAIL_FROM,
             to: User(invitee).getEmail(),
             subject: 'Part-up invite ' + network.name,
-            html: SSR.render('inviteExistingUserNetwork', {
+            html: SSR.render('invite_upper_to_network', {
                 name: invitee.profile.name,
                 networkName: network.name,
                 networkDescription: network.description,

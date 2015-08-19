@@ -29,15 +29,14 @@ Package.onUse(function(api) {
     ], ['server']);
 
     api.addFiles([
-        'private/emails/InviteUser.html',
-        'private/emails/InviteUserToActivity.en.html',
-        'private/emails/InviteUserToActivity.nl.html',
-        'private/emails/InviteUserToNetwork.en.html',
-        'private/emails/InviteUserToNetwork.nl.html',
-        'private/emails/NotificationDigest.en.html',
-        'private/emails/NotificationDigest.nl.html',
-        'private/emails/UserMentionedInPartup.en.html',
-        'private/emails/UserMentionedInPartup.nl.html'
+        'private/emails/invite_upper_to_partup_activity.en.html',
+        'private/emails/invite_upper_to_partup_activity.nl.html',
+        'private/emails/invite_upper_to_network.en.html',
+        'private/emails/invite_upper_to_network.nl.html',
+        'private/emails/dailydigest.en.html',
+        'private/emails/dailydigest.nl.html',
+        'private/emails/upper_mentioned_in_partup.en.html',
+        'private/emails/upper_mentioned_in_partup.nl.html'
     ], ['server'], {isAsset: true});
 
     api.addFiles([

@@ -13,14 +13,14 @@ SyncedCron.add({
             if (newNotifications.length > 0) {
 
                 // Compile the E-mail template and send the email
-                SSR.compileTemplate('NotificationDigest', Assets.getText('private/emails/NotificationDigest.' + User(user).getLocale() + '.html'));
+                SSR.compileTemplate('dailydigest', Assets.getText('private/emails/dailydigest.' + User(user).getLocale() + '.html'));
                 var url = Meteor.absoluteUrl();
 
                 Email.send({
                     from: Partup.constants.EMAIL_FROM,
                     to: User(user).getEmail(),
                     subject: 'Notifications Part-up.com',
-                    html: SSR.render('NotificationDigest', {
+                    html: SSR.render('dailydigest', {
                         name: user.profile.name,
                         notificationCount: newNotifications.length,
                         url: url

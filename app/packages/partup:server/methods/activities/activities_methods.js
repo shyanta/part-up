@@ -274,14 +274,14 @@ Meteor.methods({
         var locale = User(inviter).getLocale();
 
         // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserActivityEmail', Assets.getText('private/emails/InviteUserToActivity.' + locale + '.html'));
+        SSR.compileTemplate('invite_upper_to_partup_activity', Assets.getText('private/emails/invite_upper_to_partup_activity.' + locale + '.html'));
         var url = Meteor.absoluteUrl() + 'partups/' + partup.slug;
 
         Email.send({
             from: Partup.constants.EMAIL_FROM,
             to: email,
             subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
-            html: SSR.render('inviteUserActivityEmail', {
+            html: SSR.render('invite_upper_to_partup_activity', {
                 name: name,
                 partupName: partup.name,
                 partupDescription: partup.description,
@@ -383,14 +383,14 @@ Meteor.methods({
 
         // Compile the E-mail template and send the email
         var locale = User(inviter).getLocale();
-        SSR.compileTemplate('inviteUserActivityEmail', Assets.getText('private/emails/InviteUserToActivity.' + locale + '.html'));
+        SSR.compileTemplate('invite_upper_to_partup_activity', Assets.getText('private/emails/invite_upper_to_partup_activity.' + locale + '.html'));
         var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
 
         Email.send({
             from: Partup.constants.EMAIL_FROM,
             to: User(invitee).getEmail(),
             subject: 'Invite for ' + activity.name + ' in Part-up ' + partup.name,
-            html: SSR.render('inviteUserActivityEmail', {
+            html: SSR.render('invite_upper_to_partup_activity', {
                 name: invitee.profile.name,
                 partupName: partup.name,
                 partupDescription: partup.description,
