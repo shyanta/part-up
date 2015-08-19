@@ -234,7 +234,7 @@ Meteor.startup(function() {
                 ],
                 'completeness' : 27,
                 'profile' : {
-                    'name' : 'Admin User',
+                    'name' : 'Vietnam User',
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,

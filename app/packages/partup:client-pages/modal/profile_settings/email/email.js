@@ -14,15 +14,16 @@ Template.modal_profile_settings_email.helpers({
 function saveEmailSettings(settingName, settingValue) {
     var data = {
         email: {}
-    }
+    };
     data.email[settingName] = settingValue;
-    
+
     Meteor.call('settings.update', data, function(error) {
         if (error) {
             Partup.client.notify.error(error.reason);
             return;
         }
-        Partup.client.notify.success(__('modal-profilesettings-email-updatesuccess'));
+        if (settingValue) Partup.client.notify.info(__('modal-profilesettings-email-updatesuccess-enabled'));
+        if (!settingValue) Partup.client.notify.info(__('modal-profilesettings-email-updatesuccess-disabled'));
     });
 }
 
