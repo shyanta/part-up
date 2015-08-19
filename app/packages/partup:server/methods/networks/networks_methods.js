@@ -91,24 +91,6 @@ Meteor.methods({
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }
 
-        // Set the email details
-        var emailOptions = {
-            type: 'invite_upper_to_network',
-            toAddress: email,
-            subject: 'Uitnodiging voor het netwerk ' + network.name,
-            locale: User(inviter).getLocale(),
-            typeData: {
-                name: name,
-                networkName: network.name,
-                networkDescription: network.description,
-                inviterName: inviter.profile.name,
-                url: Meteor.absoluteUrl() + network.slug
-            }
-        };
-
-        // Send the email
-        Partup.server.services.emails.send(emailOptions);
-
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EMAIL,
             network_id: network._id,
@@ -119,6 +101,8 @@ Meteor.methods({
         };
 
         Invites.insert(invite);
+
+        Event.emit('invites.inserted.network.by_email', inviter, network, email, name);
     },
 
     /**
@@ -145,44 +129,6 @@ Meteor.methods({
             throw new Meteor.Error(403, 'user_is_already_invited_to_network');
         }
 
-        var notificationOptions = {
-            userId: invitee._id,
-            type: 'partups_networks_invited',
-            typeData: {
-                inviter: {
-                    _id: inviter._id,
-                    name: inviter.profile.name,
-                    image: inviter.profile.image
-                },
-                network: {
-                    _id: networkId,
-                    name: network.name,
-                    image: network.image,
-                    slug: network.slug
-                }
-            }
-        };
-
-        Partup.server.services.notifications.send(notificationOptions);
-
-        // Set the email details
-        var emailOptions = {
-            type: 'invite_upper_to_network',
-            toAddress: User(invitee).getEmail(),
-            subject: 'Uitnodiging voor het netwerk ' + network.name,
-            locale: User(inviter).getLocale(),
-            typeData: {
-                name: User(invitee).getFirstname(),
-                networkName: network.name,
-                networkDescription: network.description,
-                inviterName: inviter.profile.name,
-                url: Meteor.absoluteUrl() + network.slug
-            }
-        };
-
-        // Send the email
-        Partup.server.services.emails.send(emailOptions);
-
         // Store invite
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
@@ -193,6 +139,8 @@ Meteor.methods({
         };
 
         Invites.insert(invite);
+
+        Event.emit('invites.inserted.network', inviter, network, invitee);
     },
 
     /**
