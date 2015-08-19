@@ -18,27 +18,15 @@ Partup.schemas.entities.settings = new SimpleSchema({
         type: Boolean,
         optional:true
     },
-    'email.upper_mentioned_in_partup_comment': {
+    'email.upper_mentioned_in_partup': {
         type: Boolean,
         optional:true
     },
-    'email.upper_mentioned_in_partup_message': {
+    'email.invite_upper_to_partup_activity': {
         type: Boolean,
         optional:true
     },
-    'email.invite_existing_upper_to_partup_activity': {
-        type: Boolean,
-        optional:true
-    },
-    'email.invite_user_to_partup_activity': {
-        type: Boolean,
-        optional:true
-    },
-    'email.invite_existing_upper_to_network': {
-        type: Boolean,
-        optional:true
-    },
-    'email.invite_user_to_network': {
+    'email.invite_upper_to_network': {
         type: Boolean,
         optional:true
     }
