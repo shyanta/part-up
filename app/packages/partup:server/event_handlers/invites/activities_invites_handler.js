@@ -2,6 +2,7 @@
  * Generate a notification and email when an invite gets sent
  */
 Event.on('invites.inserted.activity', function(inviter, partup, activity, invitee) {
+    // Set the notification details
     var notificationOptions = {
         userId: invitee._id,
         type: 'partup_activities_invited',
@@ -26,6 +27,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
         }
     };
 
+    // Send notification
     Partup.server.services.notifications.send(notificationOptions);
 
     // Set the email details
