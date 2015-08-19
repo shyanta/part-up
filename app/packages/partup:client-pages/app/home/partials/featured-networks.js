@@ -1,16 +1,17 @@
 Template.FeaturedNetworks.onCreated(function() {
     var tpl = this;
-    tpl.selectedSlug = new ReactiveVar('', function(a, b) {
-        if (tpl.networkSubscription) tpl.networkSubscription.stop();
-        tpl.networkSubscription = tpl.subscribe('networks.one', b);
+    tpl.featuredSubscription = tpl.subscribe('networks.featured_all', {
+        onReady: function() {
+            var networks = Networks.findFeatured().fetch();
+            console.log(networks)
+            tpl.selectedSlug.set(networks[0].slug);
+        }
     });
+    tpl.selectedSlug = new ReactiveVar('');
 });
 Template.FeaturedNetworks.helpers({
     networks: function() {
-        return Networks.find().fetch();
-    },
-    selectedNetworkSlug: function() {
-        return Template.instance().selectedSlug.get();
+        return Networks.findFeatured();
     },
     selectedNetwork: function() {
         var slug = Template.instance().selectedSlug.get();

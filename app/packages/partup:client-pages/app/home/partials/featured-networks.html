@@ -5,7 +5,7 @@
         <ul class="pu-list pu-list-horizontal pu-selector">
             {{#each networks}}
                 <li>
-                    <a data-select="{{slug}}" class="pu-button pu-button-logo pu-button-selector {{ #if partupEquals slug selectedNetworkSlug }} pu-state-active {{/if}}" href="#">
+                    <a data-select="{{slug}}" class="pu-button pu-button-logo pu-button-selector {{ #if partupEquals slug selectedNetwork.slug }} pu-state-active {{/if}}" href="#">
                         <img src="{{ partupImageUrl id=icon }}" alt="">
                     </a>
                 </li>
