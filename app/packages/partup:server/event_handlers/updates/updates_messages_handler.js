@@ -44,7 +44,7 @@ Event.on('partups.messages.insert', function(upper, partup, update, message) {
                 locale: User(user).getLocale(),
                 typeData: {
                     name: User(user).getFirstname(),
-                    mentioningUpper: User(upper).getFirstname(),
+                    mentioningUpper: upper.profile.name,
                     partupName: partup.name,
                     url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id
                 }
