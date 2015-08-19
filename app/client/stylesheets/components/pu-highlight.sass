@@ -1,6 +1,6 @@
 .pu-highlight
-    padding-left: $grid-column + $grid-gap
-    padding-right: $grid-column + $grid-gap
+    padding-left: 40px
+    padding-right: 40px
     text-align: center
 
     h1,h2,p
@@ -8,27 +8,27 @@
 
     h1
         font-weight: 700
-        font-size: 30px
+        font-size: 25px
 
     h2
         font-weight: 700
-        font-size: 22px
+        font-size: 18px
         margin-bottom: 10px
 
     &-well
         background-color: $color-background-secondary
         border-radius: 5px
-        padding-top: 80px
-        padding-bottom: 80px
+        padding-top: 40px
+        padding-bottom: 40px
 
         h1
-            font-size: 35px
+            font-size: 30px
             color: lighten($color-text, 10%)
             margin-bottom: 20px
 
         p
             color: $color-text-subtle
-            font-size: 18px
+            font-size: 14px
             margin-bottom: 20px
 
     &-companies
@@ -46,6 +46,31 @@
         > p
             margin-bottom: 50px
 
+    @media screen and (min-width: 600px)
+        padding-left: 60px
+        padding-right: 60px
+
+        &-well
+            padding-top: 60px
+            padding-bottom: 60px
+
+    @media screen and (min-width: $breakpoint-tablet)
+        padding-left: $grid-column + $grid-gap
+        padding-right: $grid-column + $grid-gap
+        h1
+            font-size: 30px
+        h2
+            font-size: 22px
+        p
+            font-size: 18px
+
+
+        &-well
+            padding-top: 80px
+            padding-bottom: 80px
+
+            h1
+                font-size: 35px
 
     @media screen and (min-width: $breakpoint-desktop)
         padding-left: $grid-column * 2 + $grid-gap * 2
