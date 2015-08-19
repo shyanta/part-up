@@ -51,6 +51,7 @@ Package.onUse(function(api) {
         'factories/updates_factory.js',
         'services/notifications_service.js',
         'services/system_messages_service.js',
+        'services/email_service.js',
         'services/images_service.js',
         'services/google_service.js',
         'services/matching_service.js',
