@@ -102,58 +102,6 @@ Meteor.methods({
     },
 
     /**
-     * Invite someone to a Partup
-     *
-     * @param  {String} partupId
-     * @param  {String} email
-     * @param  {String} name
-     */
-    'partups.invite': function(partupId, email, name) {
-        var user = Meteor.user();
-        var partup = Partups.findOneOrFail(partupId);
-
-        if (!user) {
-            throw new Meteor.Error(401, 'unauthorized');
-        }
-
-        var invites = partup.invites || [];
-        var invitedEmails = mout.array.pluck(invites, 'email');
-
-        if (invitedEmails.indexOf(email) > -1) {
-            throw new Meteor.Error(403, 'email_is_already_invited_to_partup');
-        }
-
-        // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserEmail', Assets.getText('private/emails/InviteUser.html'));
-        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
-
-        Email.send({
-            from: Partup.constants.EMAIL_FROM,
-            to: email,
-            subject: 'Uitnodiging voor Part-up ' + partup.name,
-            html: SSR.render('inviteUserEmail', {
-                name: name,
-                partupName: partup.name,
-                partupDescription: partup.description,
-                inviterName: user.name,
-                url: url
-            })
-        });
-
-        // Save the invite on the partup for further references
-        var invite = {
-            name: name,
-            email: email
-        };
-
-        Partups.update(partupId, {$addToSet: {'invites': invite}});
-
-        Event.emit('partups.invited', user._id, partupId, email, name);
-
-        return true;
-    },
-
-    /**
      * Discover partups based on provided filters
      *
      * @param {Object} parameters
