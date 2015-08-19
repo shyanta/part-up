@@ -49,7 +49,8 @@ Meteor.startup(function() {
                         'title' : 'Founder Part-up'
                     },
                     'comment' : '\'We already have people (from all over the world) asking: Can I promote you in my country? Sure you can!\''
-                }
+                },
+                'language' : 'nl'
             });
 
             /* 2 */
@@ -86,7 +87,8 @@ Meteor.startup(function() {
                     'clicks_per_day' : 1,
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
-                }
+                },
+                'language' : 'en'
             });
 
             /* 3 */
@@ -123,7 +125,8 @@ Meteor.startup(function() {
                     'clicks_per_day' : 1,
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
-                }
+                },
+                'language' : 'en'
             });
 
             /* 4 */
@@ -161,7 +164,8 @@ Meteor.startup(function() {
                     'clicks_per_day' : 1,
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
-                }
+                },
+                'language' : 'en'
             });
 
             /* 5 */
@@ -196,7 +200,8 @@ Meteor.startup(function() {
                     'clicks_per_day' : 1,
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
-                }
+                },
+                'language' : 'en'
             });
 
             /* 6-36 */
