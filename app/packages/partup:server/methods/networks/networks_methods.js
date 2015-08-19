@@ -91,26 +91,23 @@ Meteor.methods({
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }
 
-        var locale = User(inviter).getLocale();
-
-        // Compile the E-mail template and send the email
-        SSR.compileTemplate('invite_upper_to_network', Assets.getText('private/emails/invite_upper_to_network.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + network.slug;
-
-        Email.send({
-            from: Partup.constants.EMAIL_FROM,
-            to: email,
+        // Set the email details
+        var emailOptions = {
+            type: 'invite_upper_to_network',
+            toAddress: email,
             subject: 'Uitnodiging voor het netwerk ' + network.name,
-            html: SSR.render('invite_upper_to_network', {
+            locale: User(inviter).getLocale(),
+            typeData: {
                 name: name,
-                partupName: partup.name,
-                partupDescription: partup.description,
                 networkName: network.name,
                 networkDescription: network.description,
                 inviterName: inviter.profile.name,
-                url: url
-            })
-        });
+                url: Meteor.absoluteUrl() + network.slug
+            }
+        };
+
+        // Send the email
+        Partup.server.services.emails.send(emailOptions);
 
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EMAIL,
@@ -168,22 +165,23 @@ Meteor.methods({
 
         Partup.server.services.notifications.send(notificationOptions);
 
-        // Compile the E-mail template and send the email
-        var locale = User(inviter).getLocale();
-        SSR.compileTemplate('invite_upper_to_network', Assets.getText('private/emails/invite_upper_to_network.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + network.slug;
-        Email.send({
-            from: Partup.constants.EMAIL_FROM,
-            to: User(invitee).getEmail(),
-            subject: 'Part-up invite ' + network.name,
-            html: SSR.render('invite_upper_to_network', {
-                name: invitee.profile.name,
+        // Set the email details
+        var emailOptions = {
+            type: 'invite_upper_to_network',
+            toAddress: User(invitee).getEmail(),
+            subject: 'Uitnodiging voor het netwerk ' + network.name,
+            locale: User(inviter).getLocale(),
+            typeData: {
+                name: User(invitee).getFirstname(),
                 networkName: network.name,
                 networkDescription: network.description,
-                inviterName: inviter.name,
-                url: url
-            })
-        });
+                inviterName: inviter.profile.name,
+                url: Meteor.absoluteUrl() + network.slug
+            }
+        };
+
+        // Send the email
+        Partup.server.services.emails.send(emailOptions);
 
         // Store invite
         var invite = {

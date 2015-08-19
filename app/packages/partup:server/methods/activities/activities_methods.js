@@ -271,26 +271,25 @@ Meteor.methods({
             throw new Meteor.Error(403, 'email_is_already_invited_to_activity');
         }
 
-        var locale = User(inviter).getLocale();
-
-        // Compile the E-mail template and send the email
-        SSR.compileTemplate('invite_upper_to_partup_activity', Assets.getText('private/emails/invite_upper_to_partup_activity.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + 'partups/' + partup.slug;
-
-        Email.send({
-            from: Partup.constants.EMAIL_FROM,
-            to: email,
+        // Set the email details
+        var emailOptions = {
+            type: 'invite_upper_to_partup_activity',
+            toAddress: email,
             subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
-            html: SSR.render('invite_upper_to_partup_activity', {
+            locale: User(inviter).getLocale(),
+            typeData: {
                 name: name,
                 partupName: partup.name,
                 partupDescription: partup.description,
                 activityName: activity.name,
                 activityDescription: activity.description,
                 inviterName: inviter.profile.name,
-                url: url
-            })
-        });
+                url: Meteor.absoluteUrl() + 'partups/' + partup.slug
+            }
+        };
+
+        // Send the email
+        Partup.server.services.emails.send(emailOptions);
 
         var invite = {
             type: Invites.INVITE_TYPE_ACTIVITY_EMAIL,
@@ -381,24 +380,24 @@ Meteor.methods({
             Partups.update(partup._id, {$addToSet: {invites: invitee._id}});
         }
 
-        // Compile the E-mail template and send the email
-        var locale = User(inviter).getLocale();
-        SSR.compileTemplate('invite_upper_to_partup_activity', Assets.getText('private/emails/invite_upper_to_partup_activity.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + 'partups/' + partup.slug;
-
-        Email.send({
-            from: Partup.constants.EMAIL_FROM,
-            to: User(invitee).getEmail(),
-            subject: 'Invite for ' + activity.name + ' in Part-up ' + partup.name,
-            html: SSR.render('invite_upper_to_partup_activity', {
-                name: invitee.profile.name,
+        // Set the email details
+        var emailOptions = {
+            type: 'invite_upper_to_partup_activity',
+            toAddress: User(invitee).getEmail(),
+            subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
+            locale: User(inviter).getLocale(),
+            typeData: {
+                name: User(invitee).getFirstname(),
                 partupName: partup.name,
                 partupDescription: partup.description,
                 activityName: activity.name,
                 activityDescription: activity.description,
                 inviterName: inviter.profile.name,
-                url: url
-            })
-        });
+                url: Meteor.absoluteUrl() + 'partups/' + partup.slug
+            }
+        };
+
+        // Send the email
+        Partup.server.services.emails.send(emailOptions);
     }
 });
