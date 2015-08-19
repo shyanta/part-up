@@ -384,7 +384,7 @@ Meteor.methods({
         // Compile the E-mail template and send the email
         var locale = User(inviter).getLocale();
         SSR.compileTemplate('invite_upper_to_partup_activity', Assets.getText('private/emails/invite_upper_to_partup_activity.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
+        var url = Meteor.absoluteUrl() + 'partups/' + partup.slug;
 
         Email.send({
             from: Partup.constants.EMAIL_FROM,

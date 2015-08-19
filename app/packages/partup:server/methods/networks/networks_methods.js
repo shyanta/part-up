@@ -95,7 +95,7 @@ Meteor.methods({
 
         // Compile the E-mail template and send the email
         SSR.compileTemplate('invite_upper_to_network', Assets.getText('private/emails/invite_upper_to_network.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
+        var url = Meteor.absoluteUrl() + network.slug;
 
         Email.send({
             from: Partup.constants.EMAIL_FROM,
