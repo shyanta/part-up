@@ -1,7 +1,7 @@
 # Emails
 
 ## General
-* daily_digest
+* dailydigest
 
 ## Updates
 * upper_mentioned_in_partup_comment
