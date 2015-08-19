@@ -21,7 +21,7 @@ Template.app_home.onCreated(function() {
     tpl.featured_partup = new ReactiveVar();
 
     // Call first four discover part-ups and add them to the UI
-    Meteor.call('partups.discover', {sort: 'popular', limit: 4}, function(error, partupIds) {
+    Meteor.call('partups.discover', {isHomepage: true, sort: 'popular', limit: 4}, function(error, partupIds) {
         multi_handler('popular', error, partupIds);
     });
 

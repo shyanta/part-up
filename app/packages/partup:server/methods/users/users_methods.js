@@ -57,5 +57,26 @@ Meteor.methods({
             return;
         }
         return Meteor.users.findForAdminList().fetch();
+    },
+
+    /**
+     * Returns user data to superadmins only
+     */
+    'users.get_country': function() {
+        var user = Meteor.user();
+
+        if (user) {
+            return user.profile.location.country;
+        } else {
+            var ip = this.connection.clientAddress;
+            var response = HTTP.get('http://ip-api.com/json/' + ip);
+            if (response.statusCode !== 200) {
+                Log.error('IP API resulted in an error [' + response.statusCode + ']', response);
+                return '';
+            }
+            var data = get(response, 'data');
+
+            return data.country;
+        }
     }
 });

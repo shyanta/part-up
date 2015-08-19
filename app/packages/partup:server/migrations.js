@@ -260,4 +260,21 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(10);
+Migrations.add({
+    version: 11,
+    name: 'Set language on all current partups',
+    up: function() {
+        Partups.find().fetch().forEach(function(partup) {
+            if (!partup.language) {
+                var language = Partup.server.services.google.detectLanguage(partup.description);
+                Log.debug('Setting language *' + language + '* for Partup "' + partup.name + '"');
+                Partups.update({_id: partup._id}, {$set: {language: language}});
+            }
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(11);

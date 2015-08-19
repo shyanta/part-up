@@ -171,7 +171,8 @@ Meteor.methods({
             locationId: parameters.locationId,
             sort: parameters.sort,
             textSearch: parameters.textSearch,
-            limit: parameters.limit
+            limit: parameters.limit,
+            isHomepage: parameters.isHomepage || false
         };
 
         return Partups.findForDiscover(userId, options, parameters).map(function(partup) {
