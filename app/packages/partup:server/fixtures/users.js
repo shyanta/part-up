@@ -83,10 +83,6 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T13:29:39.754Z')
                 ],
-                'settings' : {
-                    'locale' : 'en',
-                    'optionalDetailsCompleted' : false
-                },
                 'networks' : [
                     'ibn27M3ePaXhmKzWq',
                     'kRCjWDBkKru3KfsjW'
@@ -183,10 +179,6 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T13:43:28.542Z')
                 ],
-                'settings' : {
-                    'locale' : 'en',
-                    'optionalDetailsCompleted' : false
-                },
                 'participation_score' : 3,
                 'pending_networks' : [],
                 'networks' : [
@@ -281,10 +273,6 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T13:48:03.641Z')
                 ],
-                'settings' : {
-                    'locale' : 'en',
-                    'optionalDetailsCompleted' : false
-                },
                 'roles' : ['admin'],
                 'networks' : [
                     'nqBnE8nSLasaapXXS',
@@ -380,10 +368,6 @@ Meteor.startup(function() {
                 'logins' : [
                     new Date('2015-07-21T14:11:01.103Z')
                 ],
-                'settings' : {
-                    'locale' : 'en',
-                    'optionalDetailsCompleted' : false
-                },
                 'supporterOf' : [
                     'gJngF65ZWyS9f3NDE'
                 ],
