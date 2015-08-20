@@ -22,7 +22,8 @@ SyncedCron.add({
                         name: User(user).getFirstname(),
                         notificationCount: newNotifications.length,
                         url: Meteor.absoluteUrl()
-                    }
+                    },
+                    userEmailPreferences: user.profile.settings.emails
                 };
 
                 // Send the email

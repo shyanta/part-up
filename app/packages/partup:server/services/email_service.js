@@ -22,6 +22,7 @@ Partup.server.services.emails = {
      * @param {string} options.fromAddress
      * @param {string} options.subject
      * @param {string} options.locale
+     * @param {object} options.userEmailPreferences
      */
     send: function(options) {
         var options = options || {};
@@ -33,6 +34,12 @@ Partup.server.services.emails = {
         if (!options.fromAddress) options.fromAddress = Partup.constants.EMAIL_FROM;
         if (!options.subject) throw new Meteor.Error('Required argument [options.subject] is missing for method [Partup.server.services.emails::send]');
         if (!options.locale) throw new Meteor.Error('Required argument [options.locale] is missing for method [Partup.server.services.emails::send]');
+
+        // Check if user has disabled this email type
+        if (options.userEmailPreferences && !options.userEmailPreferences[options.type]) {
+            // This mail is disabled, so end here
+            return;
+        }
 
         // Compile template
         SSR.compileTemplate(options.type, Assets.getText('private/emails/' + options.type + '.' + options.locale + '.html'));

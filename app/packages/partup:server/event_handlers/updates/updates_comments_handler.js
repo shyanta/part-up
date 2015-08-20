@@ -47,7 +47,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
                     mentioningUpper: upper.profile.name,
                     partupName: partup.name,
                     url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id
-                }
+                },
+                userEmailPreferences: user.profile.settings.emails
             };
 
             // Send the email
