@@ -15,14 +15,14 @@ Partup.server.services.emails = {
     /**
      * Send an email
      *
-     * @param {object} options
-     * @param {string} options.type
-     * @param {object} options.typeData
-     * @param {string} options.toAddress
-     * @param {string} options.fromAddress
-     * @param {string} options.subject
-     * @param {string} options.locale
-     * @param {object} options.userEmailPreferences
+     * @param {Object} options
+     * @param {String} options.type
+     * @param {Object} options.typeData
+     * @param {String} options.toAddress
+     * @param {String} options.fromAddress
+     * @param {String} options.subject
+     * @param {String} options.locale
+     * @param {Object} options.userEmailPreferences
      */
     send: function(options) {
         var options = options || {};
