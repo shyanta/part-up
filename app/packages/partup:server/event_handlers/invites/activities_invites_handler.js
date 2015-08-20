@@ -45,7 +45,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
             inviterName: inviter.profile.name,
             url: Meteor.absoluteUrl() + 'partups/' + partup.slug
         },
-        userEmailPreferences: invitee.profile.settings.emails
+        userEmailPreferences: invitee.profile.settings.email
     };
 
     // Send the email

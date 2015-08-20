@@ -37,7 +37,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
             inviterName: inviter.profile.name,
             url: Meteor.absoluteUrl() + network.slug
         },
-        userEmailPreferences: invitee.profile.settings.emails
+        userEmailPreferences: invitee.profile.settings.email
     };
 
     // Send the email
