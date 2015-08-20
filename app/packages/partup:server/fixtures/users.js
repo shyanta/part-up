@@ -40,7 +40,10 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
                         'emails': {
-                            'dailydigest':true
+                            'dailydigest': true,
+                            'upper_mentioned_in_partup': true,
+                            'invite_upper_to_partup_activity': true,
+                            'invite_upper_to_network': true
                         }
                     },
                     'image' : 'oQeqgwkdd44JSBSW5',
@@ -136,7 +139,10 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
                         'emails': {
-                            'dailydigest':true
+                            'dailydigest': true,
+                            'upper_mentioned_in_partup': true,
+                            'invite_upper_to_partup_activity': true,
+                            'invite_upper_to_network': true
                         }
                     },
                     'image' : 'cHhjpWKo9DHjXQQjy',
@@ -231,7 +237,10 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
                         'emails': {
-                            'dailydigest':true
+                            'dailydigest': true,
+                            'upper_mentioned_in_partup': true,
+                            'invite_upper_to_partup_activity': true,
+                            'invite_upper_to_network': true
                         }
                     },
                     'image' : 'CxEprGKNWo6HdrTdq',
@@ -324,7 +333,10 @@ Meteor.startup(function() {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
                         'emails': {
-                            'dailydigest':true
+                            'dailydigest': true,
+                            'upper_mentioned_in_partup': true,
+                            'invite_upper_to_partup_activity': true,
+                            'invite_upper_to_network': true
                         }
                     },
                     'image' : 'bMTGT9oSDGzxCL3r4',
