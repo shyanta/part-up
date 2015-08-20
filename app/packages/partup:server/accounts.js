@@ -82,7 +82,13 @@ Accounts.onCreateUser(function(options, user) {
             name: fbData.name,
             settings: {
                 locale: Partup.helpers.parseLocale(fbData.locale),
-                optionalDetailsCompleted: false
+                optionalDetailsCompleted: false,
+                email: {
+                    dailydigest: true,
+                    upper_mentioned_in_partup: true,
+                    invite_upper_to_partup_activity: true,
+                    invite_upper_to_network: true
+                }
             }
         };
 
