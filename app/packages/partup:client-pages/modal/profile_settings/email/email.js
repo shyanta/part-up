@@ -12,7 +12,8 @@ Template.modal_profile_settings_email.helpers({
 });
 
 function saveEmailSettings(settingName, settingValue) {
-    var emailSettings = Meteor.user().profile.settings.email;
+    var user = Meteor.user();
+    var emailSettings = user.profile.settings.email || {};
     var data = {
         email: emailSettings
     };
