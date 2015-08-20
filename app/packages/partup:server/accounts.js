@@ -58,7 +58,7 @@ Accounts.onCreateUser(function(options, user) {
             settings: {
                 locale: 'en',
                 optionalDetailsCompleted: false,
-                email: {
+                emails: {
                     dailydigest: true,
                     upper_mentioned_in_partup: true,
                     invite_upper_to_partup_activity: true,
@@ -83,7 +83,7 @@ Accounts.onCreateUser(function(options, user) {
             settings: {
                 locale: Partup.helpers.parseLocale(fbData.locale),
                 optionalDetailsCompleted: false,
-                email: {
+                emails: {
                     dailydigest: true,
                     upper_mentioned_in_partup: true,
                     invite_upper_to_partup_activity: true,
