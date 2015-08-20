@@ -232,7 +232,7 @@ Meteor.startup(function() {
                 ],
                 'completeness' : 27,
                 'profile' : {
-                    'name' : 'Vietnam User',
+                    'name' : 'Admin User',
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
