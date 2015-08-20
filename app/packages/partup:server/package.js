@@ -29,15 +29,14 @@ Package.onUse(function(api) {
     ], ['server']);
 
     api.addFiles([
-        'private/emails/InviteUser.html',
-        'private/emails/InviteUserToActivity.en.html',
-        'private/emails/InviteUserToActivity.nl.html',
-        'private/emails/InviteUserToNetwork.en.html',
-        'private/emails/InviteUserToNetwork.nl.html',
-        'private/emails/NotificationDigest.en.html',
-        'private/emails/NotificationDigest.nl.html',
-        'private/emails/UserMentionedInPartup.en.html',
-        'private/emails/UserMentionedInPartup.nl.html'
+        'private/emails/invite_upper_to_partup_activity.en.html',
+        'private/emails/invite_upper_to_partup_activity.nl.html',
+        'private/emails/invite_upper_to_network.en.html',
+        'private/emails/invite_upper_to_network.nl.html',
+        'private/emails/dailydigest.en.html',
+        'private/emails/dailydigest.nl.html',
+        'private/emails/upper_mentioned_in_partup.en.html',
+        'private/emails/upper_mentioned_in_partup.nl.html'
     ], ['server'], {isAsset: true});
 
     api.addFiles([
@@ -52,6 +51,7 @@ Package.onUse(function(api) {
         'factories/updates_factory.js',
         'services/notifications_service.js',
         'services/system_messages_service.js',
+        'services/email_service.js',
         'services/images_service.js',
         'services/google_service.js',
         'services/matching_service.js',
@@ -79,6 +79,8 @@ Package.onUse(function(api) {
         'event_handlers/updates/updates_comments_handler.js',
         'event_handlers/updates/updates_messages_handler.js',
         'event_handlers/networks/networks_handler.js',
+        'event_handlers/invites/activities_invites_handler.js',
+        'event_handlers/invites/networks_invites_handler.js',
         'fixtures/users.js',
         'fixtures/partups.js',
         'fixtures/updates.js',

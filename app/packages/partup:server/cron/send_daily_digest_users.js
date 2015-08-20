@@ -12,20 +12,22 @@ SyncedCron.add({
             var newNotifications = Notifications.findForUser(user, {'new':true}).fetch();
             if (newNotifications.length > 0) {
 
-                // Compile the E-mail template and send the email
-                SSR.compileTemplate('NotificationDigest', Assets.getText('private/emails/NotificationDigest.' + User(user).getLocale() + '.html'));
-                var url = Meteor.absoluteUrl();
-
-                Email.send({
-                    from: Partup.constants.EMAIL_FROM,
-                    to: User(user).getEmail(),
+                // Set the email details
+                var emailOptions = {
+                    type: 'dailydigest',
+                    toAddress: User(user).getEmail(),
                     subject: 'Notifications Part-up.com',
-                    html: SSR.render('NotificationDigest', {
-                        name: user.profile.name,
+                    locale: User(user).getLocale(),
+                    typeData: {
+                        name: User(user).getFirstname(),
                         notificationCount: newNotifications.length,
-                        url: url
-                    })
-                });
+                        url: Meteor.absoluteUrl()
+                    }
+                };
+
+                // Send the email
+                Partup.server.services.emails.send(emailOptions);
+
                 Meteor.users.update(user._id, {'$set': {'flags.dailyDigestEmailHasBeenSent': true}});
                 counter++;
             }

@@ -91,27 +91,6 @@ Meteor.methods({
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }
 
-        var locale = User(inviter).getLocale();
-
-        // Compile the E-mail template and send the email
-        SSR.compileTemplate('inviteUserNetworkEmail', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + 'partups/' + partup._id;
-
-        Email.send({
-            from: Partup.constants.EMAIL_FROM,
-            to: email,
-            subject: 'Uitnodiging voor het netwerk ' + network.name,
-            html: SSR.render('inviteUserNetworkEmail', {
-                name: name,
-                partupName: partup.name,
-                partupDescription: partup.description,
-                networkName: network.name,
-                networkDescription: network.description,
-                inviterName: inviter.profile.name,
-                url: url
-            })
-        });
-
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EMAIL,
             network_id: network._id,
@@ -122,6 +101,8 @@ Meteor.methods({
         };
 
         Invites.insert(invite);
+
+        Event.emit('invites.inserted.network.by_email', inviter, network, email, name);
     },
 
     /**
@@ -148,43 +129,6 @@ Meteor.methods({
             throw new Meteor.Error(403, 'user_is_already_invited_to_network');
         }
 
-        var notificationOptions = {
-            userId: invitee._id,
-            type: 'partups_networks_invited',
-            typeData: {
-                inviter: {
-                    _id: inviter._id,
-                    name: inviter.profile.name,
-                    image: inviter.profile.image
-                },
-                network: {
-                    _id: networkId,
-                    name: network.name,
-                    image: network.image,
-                    slug: network.slug
-                }
-            }
-        };
-
-        Partup.server.services.notifications.send(notificationOptions);
-
-        // Compile the E-mail template and send the email
-        var locale = User(inviter).getLocale();
-        SSR.compileTemplate('inviteExistingUserNetwork', Assets.getText('private/emails/InviteUserToNetwork.' + locale + '.html'));
-        var url = Meteor.absoluteUrl() + network.slug;
-        Email.send({
-            from: Partup.constants.EMAIL_FROM,
-            to: User(invitee).getEmail(),
-            subject: 'Part-up invite ' + network.name,
-            html: SSR.render('inviteExistingUserNetwork', {
-                name: invitee.profile.name,
-                networkName: network.name,
-                networkDescription: network.description,
-                inviterName: inviter.name,
-                url: url
-            })
-        });
-
         // Store invite
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
@@ -195,6 +139,8 @@ Meteor.methods({
         };
 
         Invites.insert(invite);
+
+        Event.emit('invites.inserted.network', inviter, network, invitee);
     },
 
     /**
