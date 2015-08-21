@@ -386,8 +386,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
     var textSearch = parameters.textSearch || undefined;
     var locationId = parameters.locationId || undefined;
     var networkId = parameters.networkId || undefined;
-    var isHomepage = parameters.isHomepage || undefined;
-    delete parameters.isHomepage; // Not needed in parameters query
+    var language = parameters.language || undefined;
 
     if (sort) {
         // Sort the partups from the newest to the oldest
@@ -401,15 +400,9 @@ Partups.findForDiscover = function(userId, options, parameters) {
         }
     }
 
-    // Show NL or ENG spoken partups
-    if (isHomepage) {
-        // Try to get country
-        var userLanguage = 'en';
-        var user = Meteor.user();
-        if (user) {
-            userLanguage = user.profile.location.country === 'Netherlands' ? 'nl' : 'en';
-        }
-        selector['language'] = userLanguage;
+    // Filter the partups on language
+    if (language) {
+        selector['language'] = language;
     }
 
     // Filter the partups that are in a given location

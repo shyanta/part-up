@@ -120,7 +120,7 @@ Meteor.methods({
             sort: parameters.sort,
             textSearch: parameters.textSearch,
             limit: parameters.limit,
-            isHomepage: parameters.isHomepage || false
+            language: parameters.language
         };
 
         return Partups.findForDiscover(userId, options, parameters).map(function(partup) {
