@@ -24,14 +24,15 @@ Template.app_home.onCreated(function() {
         if (Partup.client.language.current.get() == undefined) {
             return;
         }
+        var currentLanguage = Partup.client.language.current.get();
 
         // Call first four discover part-ups and add them to the UI
-        Meteor.call('partups.discover', {language: Partup.client.language.current.get(), sort: 'popular', limit: 4}, function(error, partupIds) {
+        Meteor.call('partups.discover', {language: currentLanguage, sort: 'popular', limit: 4}, function(error, partupIds) {
             multi_handler('popular', error, partupIds);
         });
 
         // Call one featured part-up
-        Meteor.call('partups.featured_one_random', function(error, featured_partup_id) {
+        Meteor.call('partups.featured_one_random', currentLanguage, function(error, featured_partup_id) {
             multi_handler('featured', error, featured_partup_id);
         });
 
