@@ -205,13 +205,19 @@ Meteor.methods({
     /**
      * Random featured partup
      */
-    'partups.featured_one_random': function() {
+    'partups.featured_one_random': function(language) {
         this.unblock();
 
-        var count = Partups.guardedMetaFind({'featured.active': true}, {}).count();
+        check(language, String);
+
+        var selector = {'featured.active': true};
+        if (language) {
+            selector.language = language;
+        }
+        var count = Partups.guardedMetaFind(selector, {}).count();
         var random = Math.floor(Math.random() * count);
 
-        var partup = Partups.guardedMetaFind({'featured.active': true}, {limit: 1, skip: random}).fetch().pop();
+        var partup = Partups.guardedMetaFind(selector, {limit: 1, skip: random}).fetch().pop();
 
         if (!partup) throw new Meteor.Error(404, 'no_featured_partup_found');
 
