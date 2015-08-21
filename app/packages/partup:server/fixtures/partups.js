@@ -48,7 +48,7 @@ Meteor.startup(function() {
                         '_id' : 'q63Kii9wwJX3Q6rHS',
                         'title' : 'Founder Part-up'
                     },
-                    'comment' : '\'We already have people (from all over the world) asking: Can I promote you in my country? Sure you can!\''
+                    'comment' : '"Dit is een nederlandse quote voor een nederlandse partup"'
                 },
                 'language' : 'nl'
             });
@@ -165,7 +165,15 @@ Meteor.startup(function() {
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
-                'language' : 'en'
+                'language' : 'en',
+                'featured' : {
+                    'active' : true,
+                    'by_upper' : {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'title' : 'Founder Part-up'
+                    },
+                    'comment' : '"This is an english quote for an english partup"'
+                },
             });
 
             /* 5 */
