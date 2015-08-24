@@ -20,6 +20,8 @@ Meteor.publishComposite('networks.list', function() {
  * @param {String} networkSlug
  */
 Meteor.publishComposite('networks.one', function(networkSlug) {
+    check(networkSlug, String);
+
     this.unblock();
 
     return {

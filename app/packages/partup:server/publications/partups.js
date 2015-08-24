@@ -4,6 +4,8 @@
  * @param {[String]} partupIds
  */
 Meteor.publishComposite('partups.by_ids', function(partupIds) {
+    check(partupIds, [String]);
+
     this.unblock();
 
     return {
@@ -55,6 +57,8 @@ Meteor.publish('partups.featured_all', function() {
  * @param {String} partupId
  */
 Meteor.publishComposite('partups.one', function(partupId) {
+    check(partupId, String);
+
     this.unblock();
 
     return {

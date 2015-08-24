@@ -23,6 +23,8 @@ var updateChildren = [
  * @param {String} updateId
  */
 Meteor.publishComposite('updates.one', function(updateId) {
+    check(updateId, String);
+
     this.unblock();
 
     return {
@@ -46,8 +48,18 @@ Meteor.publishComposite('updates.one', function(updateId) {
  *
  * @param {String} partupId
  * @param {Object} parameters
+ * @param {Number} parameters.limit
+ * @param {String} parameters.filter
  */
 Meteor.publishComposite('updates.from_partup', function(partupId, parameters) {
+    check(partupId, String);
+
+    parameters = parameters || {};
+    check(parameters, {
+        limit: Match.Optional(Number),
+        filter: Match.Optional(String)
+    });
+
     this.unblock();
     var self = this;
 

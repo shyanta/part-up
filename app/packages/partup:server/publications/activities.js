@@ -4,6 +4,8 @@
  * @param {String} partupId
  */
 Meteor.publishComposite('activities.from_partup', function(partupId) {
+    check(partupId, String);
+
     this.unblock();
 
     return {

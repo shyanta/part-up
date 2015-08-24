@@ -13,6 +13,8 @@ Meteor.publish('users.count', function() {
  * @param {String} userId
  */
 Meteor.publishComposite('users.one', function(userId) {
+    check(userId, String);
+
     this.unblock();
 
     return {
@@ -32,9 +34,16 @@ Meteor.publishComposite('users.one', function(userId) {
  * @param {Object} parameters
  */
 Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
-    this.unblock();
+    check(userId, String);
 
     parameters = parameters || {};
+    check(parameters, {
+        limit: Match.Optional(Number),
+        sort: Match.Optional(String),
+        count: Match.Optional(Boolean)
+    });
+
+    this.unblock();
 
     return {
         find: function() {
@@ -62,6 +71,8 @@ Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
  * @param {String} userId
  */
 Meteor.publish('users.one.upperpartups.count', function(userId) {
+    check(userId, String);
+
     this.unblock();
 
     var user = Meteor.users.findOne(userId);
@@ -77,11 +88,19 @@ Meteor.publish('users.one.upperpartups.count', function(userId) {
  * @param {Object} parameters
  * @param {Number} parameters.limit
  * @param {String} parameters.sort
+ * @param {Boolean} parameters.count
  */
 Meteor.publishComposite('users.one.supporterpartups', function(userId, parameters) {
-    this.unblock();
+    check(userId, String);
 
     parameters = parameters || {};
+    check(parameters, {
+        limit: Match.Optional(Number),
+        sort: Match.Optional(String),
+        count: Match.Optional(Boolean)
+    });
+
+    this.unblock();
 
     return {
         find: function() {
@@ -109,6 +128,8 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
  * @param {String} userId
  */
 Meteor.publish('users.one.supporterpartups.count', function(userId) {
+    check(userId, String);
+
     this.unblock();
 
     var user = Meteor.users.findOne(userId);
@@ -148,6 +169,8 @@ Meteor.publishComposite('users.loggedin', function() {
  * @param {[String]} userIds
  */
 Meteor.publishComposite('users.by_ids', function(userIds) {
+    check(userId, [String]);
+
     this.unblock();
 
     return {
