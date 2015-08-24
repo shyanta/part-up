@@ -13,3 +13,15 @@ Template.Footer.helpers({
         return Partup.client.responsive.is() && isMobile.get();
     }
 });
+
+Template.Footer.events({
+    'click [data-feedback]': function(event, template) {
+        var $intercom = $('#intercom-launcher');
+        if ($intercom.length > 0) {
+            event.preventDefault();
+            Intercom('showNewMessage');
+        } else {
+            window.location.href = 'mailto:' + __('footer-feedback-button-mailto') + '?subject=' + __('footer-feedback-button-mailto-subject');
+        }
+    }
+});
