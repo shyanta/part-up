@@ -64,6 +64,8 @@ Meteor.methods({
     /**
      * Returns user data to superadmins only
      */
+
+    /* DISABLED UNTIL NEEDED IN FRONTEND
     'users.get_country': function() {
         var user = Meteor.user();
 
@@ -81,4 +83,5 @@ Meteor.methods({
             return data.country;
         }
     }
+    */
 });

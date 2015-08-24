@@ -43,6 +43,7 @@ Meteor.methods({
      * @param {string} updateId
      * @param {mixed[]} fields
      */
+    /* DISABLED UNTIL NEEDED IN FRONTEND
     'updates.messages.edit': function(updateId, fields) {
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
@@ -74,4 +75,5 @@ Meteor.methods({
             throw new Meteor.Error(400, 'message_could_not_be_updated');
         }
     }
+    */
 });
