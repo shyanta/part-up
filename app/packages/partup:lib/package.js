@@ -22,7 +22,8 @@ Package.onUse(function(api) {
         'tap:i18n',
         'matb33:collection-hooks',
         'partup:client-copy-to-clipboard',
-        'lifely:mout'
+        'lifely:mout',
+        'iron:router'
     ]);
 
     api.use([
@@ -32,6 +33,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'namespace.js',
         'globals.js',
+        'routes.js',
         'services/location.js',
         'services/placeholder.js',
         'services/tags.js',
