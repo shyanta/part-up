@@ -1,7 +1,23 @@
 var SeoRouter = Picker.filter(function(request, response) {
     // TODO: Add more checks to see if we should render a snippet
 
-    return /_escaped_fragment_/.test(request.url);
+    var botAgents = [
+        /^facebookexternalhit/i, // Facebook
+        /^linkedinbot/i, // LinkedIn
+        /^twitterbot/i, // Twitter
+        /^slackbot-linkexpanding/i // Slack
+    ];
+
+    var userAgent = request.headers['user-agent'];
+    var botIsUsed = false;
+
+    botAgents.forEach(function(botAgent) {
+        if (botAgent.test(userAgent)) botIsUsed = true;
+    });
+
+    var escapedFragmentIsUsed = /_escaped_fragment_/.test(request.url);
+
+    return escapedFragmentIsUsed || botIsUsed;
 });
 
 SeoRouter.route('/partups/:slug', function(params, request, response) {
