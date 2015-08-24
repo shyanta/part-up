@@ -142,9 +142,14 @@ Meteor.startup(function() {
         if (user) {
             info['email'] = User(user).getEmail();
             info['name'] = user.profile.name;
+            info['firstname'] = user.profile.firstname;
+            info['language'] = user.profile.settings.locale;
+            info['phonenumber'] = user.profile.phonenumber;
+            info['gender'] = user.profile.gender;
+            info['participation_score'] = user.participation_score;
+            info['completeness'] = user.completeness;
         }
     };
-
 
     /*************************************************************/
     /* Intent configuration */
