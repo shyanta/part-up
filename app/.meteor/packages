@@ -51,8 +51,6 @@ yogiben:autoform-tags@0.1.3
 browser-policy
 meteorhacks:subs-manager
 meteorhacks:unblock
-dfischer:phantomjs
-ongoworks:spiderable
 djedi:sanitize-html
 francocatena:status
 
@@ -101,3 +99,4 @@ partup:client-admin
 partup:client-admin-featured-partups
 partup:client-admin-createtribe
 percolate:intercom
+meteorhacks:picker

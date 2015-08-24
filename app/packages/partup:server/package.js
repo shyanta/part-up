@@ -25,7 +25,9 @@ Package.onUse(function(api) {
         'splendido:accounts-meld',
         'percolate:migrations',
         'tap:i18n',
-        'lifely:mout'
+        'lifely:mout',
+        'meteorhacks:picker',
+        'meteorhacks:ssr'
     ], ['server']);
 
     api.addFiles([
@@ -36,7 +38,10 @@ Package.onUse(function(api) {
         'private/emails/dailydigest.en.html',
         'private/emails/dailydigest.nl.html',
         'private/emails/upper_mentioned_in_partup.en.html',
-        'private/emails/upper_mentioned_in_partup.nl.html'
+        'private/emails/upper_mentioned_in_partup.nl.html',
+        'private/templates/seo/partup.html',
+        'private/templates/seo/network.html',
+        'private/templates/seo/home.html'
     ], ['server'], {isAsset: true});
 
     api.addFiles([
@@ -58,6 +63,7 @@ Package.onUse(function(api) {
         'services/slugify_service.js',
         'services/participation_calculator_service.js',
         'services/partup_progress_calculator_service.js',
+        'seo/routes.js',
         'migrations.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
