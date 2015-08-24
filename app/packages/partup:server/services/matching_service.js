@@ -9,7 +9,7 @@ Partup.server.services.matching = {
      *
      * @param {String} activityId
      * @param {Object} searchOptions
-     * @param {Number} searchOptions.locationId
+     * @param {String} searchOptions.locationId
      * @param {String} searchOptions.query
      *
      * @return {[String]}
@@ -69,7 +69,7 @@ Partup.server.services.matching = {
      *
      * @param {String} networkId
      * @param {Object} searchOptions
-     * @param {Number} searchOptions.locationId
+     * @param {String} searchOptions.locationId
      * @param {String} searchOptions.query
      *
      * @return {[String]}
