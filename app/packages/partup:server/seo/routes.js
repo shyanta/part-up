@@ -67,7 +67,7 @@ SeoRouter.route('/:slug', function(params, request, response) {
     SSR.compileTemplate('seo_network', Assets.getText('private/templates/network.html'));
 
     Template.seo_network.helpers({
-        getPartupUrl: function() {
+        getNetworkUrl: function() {
             return Meteor.absoluteUrl() + network.slug;
         },
         getImageUrl: function() {
