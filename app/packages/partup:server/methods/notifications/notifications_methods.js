@@ -6,6 +6,8 @@ Meteor.methods({
      * @param {String} notificationId
      */
     'notifications.read': function(notificationId) {
+        check(notificationId, String);
+
         this.unblock();
 
         var user = Meteor.user();
@@ -33,6 +35,8 @@ Meteor.methods({
      * @param {String} notificationId
      */
     'notifications.clicked': function(notificationId) {
+        check(notificationId, String);
+
         this.unblock();
 
         var user = Meteor.user();
