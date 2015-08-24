@@ -6,14 +6,15 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'contributions.update': function(activityId, fields) {
+        check(activityId, String);
+        check(fields, Partup.schemas.forms.contribution);
+
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var activity = Activities.findOneOrFail(activityId);
         var contribution = Contributions.findOne({activity_id: activityId, upper_id: upper._id});
         var isUpperInPartup = User(upper).isPartnerInPartup(activity.partup_id);
-
-        check(fields, Partup.schemas.forms.contribution);
 
         try {
             var newContribution = Partup.transformers.contribution.fromFormContribution(fields);
@@ -65,6 +66,8 @@ Meteor.methods({
      * @param {string} contributionId
      * */
     'contributions.accept': function(contributionId) {
+        check(contributionId, String);
+
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var activity = Activities.findOne({_id: contribution.activity_id});
@@ -116,6 +119,8 @@ Meteor.methods({
      * @param {string} contributionId
      */
     'contributions.reject': function(contributionId) {
+        check(contributionId, String);
+
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var activity = Activities.findOneOrFail(contribution.activity_id);
@@ -142,6 +147,8 @@ Meteor.methods({
      * @param {string} contributionId
      */
     'contributions.archive': function(contributionId) {
+        check(contributionId, String);
+
         var upper = Meteor.user();
         var contribution = Contributions.findOneOrFail(contributionId);
         var activity = Activities.findOneOrFail(contribution.activity_id);
