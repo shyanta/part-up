@@ -122,3 +122,18 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
  * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.updateComment = new SimpleSchema([updateCommentBaseSchema]);
+
+/**
+ * New message Form
+ * @name newMessage
+ * @memberof Partup.schemas.forms
+ */
+Partup.schemas.forms.newMessage = new SimpleSchema({
+    text: {
+        type: String
+    },
+    images: {
+        type: [String],
+        optional: true
+    }
+});
