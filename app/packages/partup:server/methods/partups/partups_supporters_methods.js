@@ -5,6 +5,8 @@ Meteor.methods({
      * @param {string} partupId
      */
     'partups.supporters.insert': function(partupId) {
+        check(partupId, String);
+
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
@@ -36,6 +38,8 @@ Meteor.methods({
      * @param {string} partupId
      */
     'partups.supporters.remove': function(partupId) {
+        check(partupId, String);
+
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 

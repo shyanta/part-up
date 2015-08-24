@@ -6,6 +6,8 @@ Meteor.methods({
      * @param {string} partupId
      */
     'partups.analytics.click': function(partupId) {
+        check(partupId, String);
+
         var partup = Partups.findOneOrFail(partupId);
         var hour = (new Date).getHours();
 

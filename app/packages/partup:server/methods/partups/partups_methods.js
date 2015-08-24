@@ -5,10 +5,10 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.insert': function(fields) {
+        check(fields, Partup.schemas.forms.partupCreate);
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
-
-        check(fields, Partup.schemas.forms.partupCreate);
 
         try {
             var newPartup = Partup.transformers.partup.fromFormStartPartup(fields);
@@ -42,10 +42,11 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.update': function(partupId, fields) {
+        check(partupId, String);
+        check(fields, Partup.schemas.forms.partupUpdate);
+
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
-
-        check(fields, Partup.schemas.forms.partupUpdate);
 
         var uppers = partup.uppers || [];
 
@@ -82,6 +83,8 @@ Meteor.methods({
      * @param {string} partupId
      */
     'partups.remove': function(partupId) {
+        check(partupId, String);
+
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
@@ -105,8 +108,23 @@ Meteor.methods({
      * Discover partups based on provided filters
      *
      * @param {Object} parameters
+     * @param {string} options.networkId
+     * @param {string} options.locationId
+     * @param {string} options.sort
+     * @param {string} options.textSearch
+     * @param {number} options.limit
+     * @param {string} options.language
      */
     'partups.discover': function(parameters) {
+        check(parameters, {
+            networkId: Match.Optional(String),
+            locationId: Match.Optional(String),
+            sort: Match.Optional(String),
+            textSearch: Match.Optional(String),
+            limit: Match.Optional(Number),
+            language: Match.Optional(String)
+        });
+
         var userId = Meteor.userId();
 
         var options = {};
@@ -136,6 +154,10 @@ Meteor.methods({
      * @param {boolean} onlyPublic When this is true, only public partups will be returned
      */
     'partups.autocomplete': function(searchString, exceptPartupId, onlyPublic) {
+        check(searchString, String);
+        check(exceptPartupId, Match.Optional(String));
+        check(onlyPublic, Match.Optional(Boolean));
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
         onlyPublic = onlyPublic || false;
@@ -209,9 +231,9 @@ Meteor.methods({
      * Random featured partup
      */
     'partups.featured_one_random': function(language) {
-        this.unblock();
-
         check(language, String);
+
+        this.unblock();
 
         var selector = {'featured.active': true};
         if (language) {
