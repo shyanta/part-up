@@ -164,6 +164,9 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.feature': function(partupId, fields) {
+        check(partupId, String);
+        check(fields, Partup.schemas.forms.featurePartup);
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
