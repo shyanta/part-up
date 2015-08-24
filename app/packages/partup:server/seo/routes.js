@@ -38,6 +38,9 @@ var renderGeneralInformation = function(request, response) {
     response.end(html);
 };
 
+/**
+ * Generate a SEO Route for all the routes that are defined for the application
+ */
 Router.routes.forEach(function(route) {
     if (route && route.getName() !== '(.*)') {
         var path = route.path();
@@ -50,6 +53,9 @@ Router.routes.forEach(function(route) {
     }
 });
 
+/**
+ * SEO Route for the Partup detail page
+ */
 SeoRouter.route('/partups/:slug', function(params, request, response) {
     var slug = params.slug;
     var partupId = slug.split('-').pop();
@@ -83,6 +89,9 @@ SeoRouter.route('/partups/:slug', function(params, request, response) {
     response.end(html);
 });
 
+/**
+ * SEO Route for the Network detail page
+ */
 SeoRouter.route('/:slug', function(params, request, response) {
     var slug = params.slug;
     var network = Networks.findOne({slug: slug});
