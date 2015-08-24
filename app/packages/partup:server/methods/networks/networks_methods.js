@@ -6,12 +6,12 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'networks.insert': function(fields) {
+        check(fields, Partup.schemas.forms.networkCreate);
+
         var user = Meteor.user();
         if (!user || !User(user).isAdmin()) {
             throw new Meteor.Error(401, 'unauthorized');
         }
-
-        check(fields, Partup.schemas.forms.networkCreate);
 
         try {
             var network = {};
@@ -42,14 +42,15 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'networks.update': function(networkId, fields) {
+        check(networkId, String);
+        check(fields, Partup.schemas.forms.network);
+
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
         if (!user || !network.isAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
-
-        check(fields, Partup.schemas.forms.network);
 
         try {
             var newNetworkFields = Partup.transformers.network.fromFormNetwork(fields);
@@ -73,6 +74,10 @@ Meteor.methods({
      * @param {String} name
      */
     'networks.invite_by_email': function(networkId, email, name) {
+        check(networkId, String);
+        check(email, String);
+        check(name, String);
+
         var inviter = Meteor.user();
 
         if (!inviter) {
@@ -112,6 +117,9 @@ Meteor.methods({
      * @param {String} inviteeId
      */
     'networks.invite_existing_upper': function(networkId, inviteeId) {
+        check(networkId, String);
+        check(inviteeId, String);
+
         var inviter = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -149,6 +157,8 @@ Meteor.methods({
      * @param {string} networkId
      */
     'networks.join': function(networkId) {
+        check(networkId, String);
+
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -232,6 +242,9 @@ Meteor.methods({
      * @param {string} upperId
      */
     'networks.accept': function(networkId, upperId) {
+        check(networkId, String);
+        check(upperId, String);
+
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -266,6 +279,9 @@ Meteor.methods({
      * @param {string} upperId
      */
     'networks.reject': function(networkId, upperId) {
+        check(networkId, String);
+        check(upperId, String);
+
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -292,6 +308,8 @@ Meteor.methods({
      * @param {string} networkId
      */
     'networks.leave': function(networkId) {
+        check(networkId, String);
+
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -323,6 +341,9 @@ Meteor.methods({
      * @param {string} upperId
      */
     'networks.remove_upper': function(networkId, upperId) {
+        check(networkId, String);
+        check(upperId, String);
+
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
@@ -349,6 +370,8 @@ Meteor.methods({
      * @param {string} query
      */
     'networks.autocomplete': function(query) {
+        check(query, String);
+
         this.unblock();
 
         var user = Meteor.user();
@@ -369,12 +392,18 @@ Meteor.methods({
      *
      * @param {String} networkId
      * @param {Object} options
-     * @param {Number} options.locationId
+     * @param {String} options.locationId
      * @param {String} options.query
      *
      * @return {[String]}
      */
     'networks.user_suggestions': function(networkId, options) {
+        check(networkId, String);
+        check(options, {
+            locationId: Match.Optional(String),
+            query: Match.Optional(String)
+        });
+
         this.unblock();
 
         var upper = Meteor.user();
@@ -397,6 +426,8 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'networks.remove': function(networkId) {
+        check(networkId, String);
+
         var user = Meteor.user();
         if (!user || !User(user).isAdmin()) {
             throw new Meteor.Error(401, 'unauthorized');

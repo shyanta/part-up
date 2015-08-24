@@ -6,6 +6,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'updates.comments.insert': function(updateId, fields) {
+        check(updateId, String);
         check(fields, Partup.schemas.forms.updateComment);
 
         var upper = Meteor.user();

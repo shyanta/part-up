@@ -8,6 +8,9 @@ Meteor.methods({
      * @param {number} count Number of results to return
      */
     'partups.services.splashbase.search': function(tags, count) {
+        check(tags, [String]);
+        check(count, Match.Optional(Number));
+
         this.unblock();
 
         if (!tags || !tags.length || !tags[0] || !tags[0].length) {
@@ -17,7 +20,7 @@ Meteor.methods({
         }
 
         // Set default values
-        count = count || 5;
+        count = Math.min(count, 5);
 
         var lookupTags = Meteor.wrapAsync(function(tags, count, callback) {
 

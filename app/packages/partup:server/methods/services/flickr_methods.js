@@ -15,6 +15,10 @@ Meteor.methods({
      * @param {string[]} fallbackTags Tags
      */
     'partups.services.flickr.search': function(tags, count, fallbackTags) {
+        check(tags, [String]);
+        check(count, Match.Optional(Number));
+        check(fallbackTags, Match.Optional([String]));
+
         this.unblock();
 
         if (!tags || !tags.length || !tags[0] || !tags[0].length) {
@@ -30,8 +34,8 @@ Meteor.methods({
         }
 
         // Set default values
-        count = count || 5;
-        fallbackTags = fallbackTags || ['nature'];
+        count = Math.min(count, 5);
+        fallbackTags = fallbackTags || ['business'];
 
         var lookupTags = Meteor.wrapAsync(function(tags, count, callback) {
             var searchByTags = function(tags, count, photos) {

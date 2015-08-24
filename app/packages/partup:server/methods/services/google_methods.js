@@ -6,6 +6,8 @@ Meteor.methods({
      * @param {String} term
      */
     'google.cities.autocomplete': function(term) {
+        check(term, String);
+
         this.unblock();
 
         var results = Partup.server.services.google.searchCities(term);
