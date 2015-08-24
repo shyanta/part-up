@@ -26,7 +26,8 @@ Package.onUse(function(api) {
         'percolate:migrations',
         'tap:i18n',
         'lifely:mout',
-        'meteorhacks:picker'
+        'meteorhacks:picker',
+        'meteorhacks:ssr'
     ], ['server']);
 
     api.addFiles([
@@ -38,7 +39,8 @@ Package.onUse(function(api) {
         'private/emails/dailydigest.nl.html',
         'private/emails/upper_mentioned_in_partup.en.html',
         'private/emails/upper_mentioned_in_partup.nl.html',
-        'private/templates/partup.html'
+        'private/templates/partup.html',
+        'private/templates/network.html'
     ], ['server'], {isAsset: true});
 
     api.addFiles([
