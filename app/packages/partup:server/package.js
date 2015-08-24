@@ -39,8 +39,9 @@ Package.onUse(function(api) {
         'private/emails/dailydigest.nl.html',
         'private/emails/upper_mentioned_in_partup.en.html',
         'private/emails/upper_mentioned_in_partup.nl.html',
-        'private/templates/partup.html',
-        'private/templates/network.html'
+        'private/templates/seo/partup.html',
+        'private/templates/seo/network.html',
+        'private/templates/seo/home.html'
     ], ['server'], {isAsset: true});
 
     api.addFiles([

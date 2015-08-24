@@ -20,6 +20,36 @@ var SeoRouter = Picker.filter(function(request, response) {
     return escapedFragmentIsUsed || botIsUsed;
 });
 
+var renderGeneralInformation = function(request, response) {
+    SSR.compileTemplate('seo_home', Assets.getText('private/templates/seo/home.html'));
+
+    Template.seo_home.helpers({
+        getHomeUrl: function() {
+            return Meteor.absoluteUrl();
+        },
+        getImageUrl: function() {
+            return Meteor.absoluteUrl() + 'images/logo.png';
+        }
+    });
+
+    var html = SSR.render('seo_home');
+
+    response.setHeader('Content-Type', 'text/html');
+    response.end(html);
+};
+
+Router.routes.forEach(function(route) {
+    if (route && route.getName() !== '(.*)') {
+        var path = route.path();
+
+        if (path) {
+            SeoRouter.route(path, function(params, request, response) {
+                renderGeneralInformation(request, response);
+            });
+        }
+    }
+});
+
 SeoRouter.route('/partups/:slug', function(params, request, response) {
     var slug = params.slug;
     var partupId = slug.split('-').pop();
@@ -32,7 +62,7 @@ SeoRouter.route('/partups/:slug', function(params, request, response) {
 
     var image = Images.findOne(partup.image);
 
-    SSR.compileTemplate('seo_partup', Assets.getText('private/templates/partup.html'));
+    SSR.compileTemplate('seo_partup', Assets.getText('private/templates/seo/partup.html'));
 
     Template.seo_partup.helpers({
         getPartupUrl: function() {
@@ -64,7 +94,7 @@ SeoRouter.route('/:slug', function(params, request, response) {
 
     var image = Images.findOne(network.image);
 
-    SSR.compileTemplate('seo_network', Assets.getText('private/templates/network.html'));
+    SSR.compileTemplate('seo_network', Assets.getText('private/templates/seo/network.html'));
 
     Template.seo_network.helpers({
         getNetworkUrl: function() {
