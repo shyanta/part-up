@@ -37,6 +37,8 @@ Meteor.methods({
      * @param {string} searchString
      */
     'users.autocomplete': function(searchString) {
+        check(searchString, String);
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 

@@ -6,6 +6,9 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'updates.messages.insert': function(partupId, fields) {
+        check(partupId, String);
+        check(fields, Partup.schemas.forms.newMessage);
+
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
