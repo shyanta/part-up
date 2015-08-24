@@ -7,7 +7,17 @@
 
 //user fields to all users
 var publicUserFields = {
-    'profile': 1,
+    'profile.description': 1,
+    'profile.facebook_url': 1,
+    'profile.image': 1,
+    'profile.instagram_url': 1,
+    'profile.linkedin_url': 1,
+    'profile.location': 1,
+    'profile.name': 1,
+    'profile.skype': 1,
+    'profile.tags': 1,
+    'profile.twitter_url': 1,
+    'profile.website': 1,
     'status.online': 1,
     'partups': 1,
     'upperOf': 1,
@@ -21,6 +31,8 @@ var publicUserFields = {
 //user fields exposed to logged in user
 var privateUserFields = mout.object.merge({
     'emails': 1,
+    'profile.phonenumber': 1,
+    'profile.settings': 1,
     'pending_networks': 1,
     'roles': 1
 }, publicUserFields);
