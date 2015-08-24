@@ -6,6 +6,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'activities.insert': function(partupId, fields) {
+        check(partupId, String);
         check(fields, Partup.schemas.forms.startActivities);
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail({_id: partupId});
@@ -40,6 +41,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'activities.update': function(activityId, fields) {
+        check(activityId, String);
         check(fields, Partup.schemas.forms.startActivities);
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
@@ -76,6 +78,8 @@ Meteor.methods({
      * @param {string} activityId
      */
     'activities.remove': function(activityId) {
+        check(activityId, String);
+
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -108,6 +112,8 @@ Meteor.methods({
      * @param  {string} activityId
      */
     'activities.unarchive': function(activityId) {
+        check(activityId, String);
+
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -142,6 +148,8 @@ Meteor.methods({
      * @param  {string} activityId
      */
     'activities.archive': function(activityId) {
+        check(activityId, String);
+
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -177,6 +185,9 @@ Meteor.methods({
      * @param  {string} toPartupId
      */
     'activities.copy': function(fromPartupId, toPartupId) {
+        check(fromPartupId, String);
+        check(toPartupId, String);
+
         var upper = Meteor.user();
         if (!upper) {
             throw new Meteor.Error(401, 'unauthorized');
@@ -213,14 +224,20 @@ Meteor.methods({
     /**
      * Get user suggestions for a given activity
      *
-     * @param {String} activityId
+     * @param {string} activityId
      * @param {Object} options
-     * @param {Number} options.locationId
-     * @param {String} options.query
+     * @param {string} options.locationId
+     * @param {string} options.query
      *
-     * @return {[String]}
+     * @return {[string]}
      */
     'activities.user_suggestions': function(activityId, options) {
+        check(activityId, String);
+        check(options, {
+            locationId: Match.Optional(String),
+            query: Match.Optional(String)
+        });
+
         this.unblock();
 
         var upper = Meteor.user();
@@ -240,11 +257,15 @@ Meteor.methods({
     /**
      * Invite someone to an activity
      *
-     * @param {String} activityId
-     * @param {String} email
-     * @param {String} name
+     * @param {string} activityId
+     * @param {string} email
+     * @param {string} name
      */
     'activities.invite_by_email': function(activityId, email, name) {
+        check(activityId, String);
+        check(email, String);
+        check(name, String);
+
         var inviter = Meteor.user();
 
         if (!inviter) {
@@ -288,10 +309,13 @@ Meteor.methods({
     /**
      * Invite an existing upper to an activity
      *
-     * @param {String} activityId
-     * @param {String} inviteeId
+     * @param {string} activityId
+     * @param {string} inviteeId
      */
     'activities.invite_existing_upper': function(activityId, inviteeId) {
+        check(activityId, String);
+        check(inviteeId, String);
+
         var inviter = Meteor.user();
         if (!inviter) {
             throw new Meteor.Error(401, 'unauthorized');
