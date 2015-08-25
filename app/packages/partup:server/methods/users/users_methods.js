@@ -93,6 +93,22 @@ Meteor.methods({
 
             return data.country;
         }
-    }
+    },
     */
+    /**
+     * (Un)subscribe user from/to subscriptions
+     */
+    'users.update_email_subscription': function(subscriptionKey, newValue) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        var emailSubscriptions = user.profile.settings.email;
+        if (!emailSubscriptions.hasOwnProperty(subscriptionKey)) throw new Meteor.Error(400, 'invalid_subscription');
+
+        // Set the new value
+        emailSubscriptions[subscriptionKey] = newValue;
+
+        Meteor.users.update(user._id, {$set:{'profile.settings.email': emailSubscriptions}});
+    },
+
 });
