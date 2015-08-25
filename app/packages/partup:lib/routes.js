@@ -418,6 +418,15 @@ Router.route('/admin/tribes', {
     }
 });
 
+Router.route('/admin/featured-tribes', {
+    name: 'admin-featured-networks',
+    where: 'client',
+    yieldRegions: {
+        'modal':                            {to: 'main'},
+        'modal_admin':                      {to: 'modal'},
+        'modal_admin_featured_networks':    {to: 'modal_admin'}
+    }
+});
 /*************************************************************/
 /* Content pages */
 /*************************************************************/

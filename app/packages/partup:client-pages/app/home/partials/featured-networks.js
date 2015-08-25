@@ -1,16 +1,22 @@
 Template.FeaturedNetworks.onCreated(function() {
     var tpl = this;
-    tpl.featuredSubscription = tpl.subscribe('networks.featured_all', {
-        onReady: function() {
-            var networks = Networks.findFeatured().fetch();
-            tpl.selectedSlug.set(networks[0].slug);
-        }
+    Meteor.autorun(function() {
+        var language = Partup.client.language.current.get();
+        if (!language) return;
+
+        tpl.featuredSubscription = tpl.subscribe('networks.featured_all', language, {
+            onReady: function() {
+                var networks = Networks.findFeatured(language).fetch();
+                tpl.selectedSlug.set(networks[0].slug);
+            }
+        });
+        tpl.selectedSlug = new ReactiveVar('');
     });
-    tpl.selectedSlug = new ReactiveVar('');
 });
 Template.FeaturedNetworks.helpers({
     networks: function() {
-        return Networks.findFeatured();
+        var language = Partup.client.language.current.get();
+        return Networks.findFeatured(language);
     },
     selectedNetwork: function() {
         var slug = Template.instance().selectedSlug.get();

@@ -455,4 +455,62 @@ Meteor.methods({
             throw new Meteor.Error(400, 'network_could_not_be_removed');
         }
     },
+
+    /**
+     * Feature a specific network (superadmin only)
+     *
+     * @param {string} networkId
+     * @param {mixed[]} fields
+     */
+    'networks.feature': function(networkId, fields) {
+        check(networkId, String);
+        check(fields, Partup.schemas.forms.featureNetwork);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
+        var author = Meteor.users.findOne(fields.author_id);
+        if (!author) throw new Meteor.Error(400, 'author does not exist');
+
+        var featured = {
+            'active': true,
+            'by_upper': {
+                '_id': author._id,
+                'title': fields.job_title
+            },
+            'comment': fields.comment
+        };
+
+        try {
+            Networks.update(networkId, {$set: {
+                'featured': featured,
+                'language': fields.language
+            }});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_could_not_be_featured');
+        }
+    },
+
+    /**
+     * Unfeature a specific network (superadmin only)
+     *
+     * @param {string} networkId
+     * @param {mixed[]} fields
+     */
+    'networks.unfeature': function(networkId) {
+        check(networkId, String);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Networks.update(networkId, {$unset: {'featured': ''}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_could_not_be_unfeatured');
+        }
+    },
 });

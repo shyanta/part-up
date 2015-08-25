@@ -1,9 +1,11 @@
 {
     "pages-modal-admin-featured-partups-form-partup-label": "What part-up would you like to feature?",
     "pages-modal-admin-featured-partups-form-partup-placeholder": "Find a part-up",
-    "pages-modal-admin-featured-partups-form-comment-label": "What is the reason you want to feature this part-up?",
-    "pages-modal-admin-featured-partups-form-comment-placeholder": "Explain your choice...",
-    "pages-modal-admin-featured-partups-form-job-title-label": "What title do you want next to your name?",
+    "pages-modal-admin-featured-partups-form-comment-label": "Quote",
+    "pages-modal-admin-featured-partups-form-comment-placeholder": "Enter the quote here",
+    "pages-modal-admin-featured-partups-form-author-label": "Author",
+    "pages-modal-admin-featured-partups-form-author-placeholder": "Enter author id, e.g. 'q63Kii9wwJX3Q6rHS'",
+    "pages-modal-admin-featured-partups-form-job-title-label": "Quote author's title",
     "pages-modal-admin-featured-partups-form-job-title-placeholder": "e.g. 'Founder Part-up'",
     "pages-modal-admin-featured-partups-form-confirm": "Feature"
 }

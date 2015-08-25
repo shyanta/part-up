@@ -302,7 +302,7 @@ Networks.guardedMetaFind = function(selector, options) {
     options.fields = {_id: 1};
 
     // The fields that should be available on each network
-    var unguardedFields = ['name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites'];
+    var unguardedFields = ['name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language'];
 
     unguardedFields.forEach(function(unguardedField) {
         options.fields[unguardedField] = 1;
@@ -357,8 +357,13 @@ Networks.guardedFind = function(userId, selector, options) {
  * @param {String} userId
  * @return {Mongo.Cursor}
  */
-Networks.findFeatured = function() {
-    return Networks.find({'featured.active': true});
+Networks.findFeatured = function(language) {
+    var selector = {'featured.active': true};
+    if (language) {
+        selector.language = language;
+    }
+    console.log(selector);
+    return Networks.find(selector);
 };
 
 /**

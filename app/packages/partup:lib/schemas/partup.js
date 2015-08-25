@@ -226,11 +226,12 @@ Partup.schemas.forms.featurePartup = new SimpleSchema({
         type: Boolean
     },
     comment: {
-        type: String,
-        optional: true
+        type: String
+    },
+    author_id: {
+        type: String
     },
     job_title: {
-        type: String,
-        optional: true
+        type: String
     }
 });

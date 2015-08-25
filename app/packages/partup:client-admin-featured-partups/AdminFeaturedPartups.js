@@ -26,6 +26,9 @@ Template.AdminFeaturedPartups.helpers({
     commentFieldPlaceholder: function() {
         return __('pages-modal-admin-featured-partups-form-comment-placeholder');
     },
+    authorFieldPlaceholder: function() {
+        return __('pages-modal-admin-featured-partups-form-author-placeholder');
+    },
     jobTitleFieldPlaceholder: function() {
         return __('pages-modal-admin-featured-partups-form-job-title-placeholder');
     },
@@ -56,7 +59,7 @@ Template.AdminFeaturedPartups.helpers({
 /*************************************************************/
 Template.AdminFeaturedPartups.events({
     'click [data-unset-featured]': function(event, template) {
-        Meteor.call('partups.feature', event.currentTarget.dataset.partupId, {active: false}, function(err) {
+        Meteor.call('partups.unfeature', event.currentTarget.dataset.partupId, function(err) {
             if (err) {
                 Partup.client.notify.error(err.reason);
                 return;
@@ -68,12 +71,10 @@ Template.AdminFeaturedPartups.events({
 /*************************************************************/
 /* Widget form hooks */
 /*************************************************************/
-AutoForm.addHooks(null, {
+AutoForm.addHooks('featurePartupForm', {
     onSubmit: function(doc) {
         var self = this;
         self.event.preventDefault();
-
-        if (self.formId !== 'featurePartupForm') return;
 
         var template = self.template.parent();
         template.submitting.set(true);
