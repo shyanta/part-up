@@ -169,7 +169,7 @@ Meteor.publishComposite('users.loggedin', function() {
  * @param {[String]} userIds
  */
 Meteor.publishComposite('users.by_ids', function(userIds) {
-    check(userId, [String]);
+    check(userIds, [String]);
 
     this.unblock();
 
