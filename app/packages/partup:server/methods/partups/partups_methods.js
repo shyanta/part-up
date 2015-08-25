@@ -180,7 +180,7 @@ Meteor.methods({
     },
 
     /**
-     * Return a list of partups based on search query
+     * Feature a specific partup (superadmin only)
      *
      * @param {string} partupId
      * @param {mixed[]} fields
