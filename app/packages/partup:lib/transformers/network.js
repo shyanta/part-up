@@ -32,6 +32,7 @@ Partup.transformers.network = {
      */
     'fromFormNetwork': function(fields) {
         fields.tags = Partup.services.tags.tagInputToArray(fields.tags_input);
+        fields.language = Partup.server.services.google.detectLanguage(fields.description);
 
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
         if (newLocation) fields.location = newLocation;
