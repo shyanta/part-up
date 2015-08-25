@@ -59,9 +59,11 @@ Partup.transformers.partup = {
             end_date: fields.end_date,
             image: fields.image,
             tags: Partup.services.tags.tagInputToArray(fields.tags_input),
-            location: Partup.services.location.locationInputToLocation(fields.location_input),
             language: Partup.server.services.google.detectLanguage(fields.description)
         };
+
+        var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
+        if (newLocation) partup.location = newLocation;
 
         // Determine privacy type
         if (fields.privacy_type_input === 'public') {

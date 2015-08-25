@@ -35,12 +35,11 @@ Partup.transformers.profile = {
      * @param {mixed[]} fields
      */
     'fromFormProfileSettings': function(fields) {
-        return {
+        var newFields = {
             profile: {
                 'image': fields.image,
                 'description': fields.description,
                 'tags': Partup.services.tags.tagInputToArray(fields.tags_input),
-                'location': Partup.services.location.locationInputToLocation(fields.location_input),
                 'facebook_url': fields.facebook_url,
                 'twitter_url': fields.twitter_url,
                 'instagram_url': fields.instagram_url,
@@ -51,5 +50,10 @@ Partup.transformers.profile = {
                 'name': fields.name
             }
         };
+
+        var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
+        if (newLocation) newFields.profile.location = newLocation;
+
+        return newFields;
     }
 };

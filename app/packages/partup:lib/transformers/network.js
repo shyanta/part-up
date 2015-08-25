@@ -32,7 +32,9 @@ Partup.transformers.network = {
      */
     'fromFormNetwork': function(fields) {
         fields.tags = Partup.services.tags.tagInputToArray(fields.tags_input);
-        fields.location = Partup.services.location.locationInputToLocation(fields.location_input);
+
+        var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
+        if (newLocation) fields.location = newLocation;
 
         delete fields.tags_input;
         delete fields.location_input;
