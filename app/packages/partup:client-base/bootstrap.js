@@ -116,7 +116,7 @@ Meteor.startup(function() {
         title: 'Part-up',
         meta: {
             'description': 'Just organize!',
-            'image': '/images/logo.png',
+            'image': '/images/partup-logo.png',
             'title': 'Part-up'
         },
         og: {
