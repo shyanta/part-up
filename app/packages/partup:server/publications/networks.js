@@ -130,7 +130,7 @@ Meteor.publish('networks.one.uppers.count', function(networkSlug, options) {
 
     var uppers = network.uppers || [];
 
-    Counts.publish(this, 'networks.one.uppers.filterquery', Meteor.users.findMultiplePublicProfiles(uppers, options, parameters));
+    Counts.publish(this, 'networks.one.uppers.filterquery', Meteor.users.findMultiplePublicProfiles(uppers, options, parameters), {noWarnings: true});
 });
 
 /**
