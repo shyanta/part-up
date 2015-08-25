@@ -62,6 +62,17 @@ Meteor.methods({
     },
 
     /**
+    * Returns user stats to superadmins only
+    */
+    'users.admin_stats': function() {
+        var user = Meteor.users.findOne(this.userId);
+        if (!User(user).isAdmin()) {
+            return;
+        }
+        return Meteor.users.findStatsForAdmin();
+    },
+
+    /**
      * Returns user data to superadmins only
      */
 
