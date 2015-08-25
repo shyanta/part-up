@@ -87,11 +87,12 @@
     {{/autoForm}}
 
     <h2>Featured Tribes</h2>
-    <ul class="pu-admin-featured-networks">
+    <ul class="pu-list pu-list-lineseparated">
         {{#each featuredNetworks}}
             <li>
-                <strong>{{name}}</strong> <button type="button" class="pu-admin-featured-remove" data-unset-featured data-network-id="{{ _id }}"><i class="fa fa-times"></i></button> <br/>
-                <i>{{featured.comment}}</i> - <b>{{featured.by_upper.title}}</b> - <span>{{language}}</span>
+                <p class="pu-sub-name">{{name}}</p> 
+                <button type="button" class="pu-sub-remove" data-unset-featured data-network-id="{{ _id }}"><i class="fa fa-times"></i></button>
+                <p class="pu-sub-description"><i>{{featured.comment}}</i> - <b>{{featured.by_upper.title}}</b> - <span>{{language}}</span></p>
             </li>
         {{/each}}
     </ul>
