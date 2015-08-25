@@ -162,17 +162,17 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
         onlyPublic = onlyPublic || false;
 
-        var selector = [
-            {name: new RegExp('.*' + searchString + '.*', 'i')},
-            {_id: {$ne: exceptPartupId}}
-        ];
+        var selector = {};
+
+        selector.name = new RegExp('.*' + searchString + '.*', 'i');
+        selector._id = {$ne: exceptPartupId};
 
         if (onlyPublic) {
-            selector.push({'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}});
+            selector.privacy_type = {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]};
         }
 
         try {
-            return Partups.find({$and: selector}, {limit: 30}).fetch();
+            return Partups.guardedFind(Meteor.userId(), selector, {limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_autocompleted');
