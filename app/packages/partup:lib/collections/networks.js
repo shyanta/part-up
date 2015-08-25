@@ -302,7 +302,7 @@ Networks.guardedMetaFind = function(selector, options) {
     options.fields = {_id: 1};
 
     // The fields that should be available on each network
-    var unguardedFields = ['name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites'];
+    var unguardedFields = ['name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language'];
 
     unguardedFields.forEach(function(unguardedField) {
         options.fields[unguardedField] = 1;
