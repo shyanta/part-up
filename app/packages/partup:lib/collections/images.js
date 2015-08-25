@@ -1,5 +1,7 @@
 var stores = [];
 
+FS.config.uploadChunkSize = 1024 * 1024 * 100;
+
 if (Meteor.isServer) {
     FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
         internal: true,
