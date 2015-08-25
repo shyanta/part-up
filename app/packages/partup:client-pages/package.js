@@ -156,6 +156,7 @@ Package.onUse(function(api) {
         'modal/admin/admin.js',
         'modal/admin/overview/overview.html',
         'modal/admin/featured_partups/featured_partups.html',
+        'modal/admin/featured_networks/featured_networks.html',
         'modal/admin/createtribe/createtribe.html',
 
         // Modal:network_settings
