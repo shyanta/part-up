@@ -68,12 +68,10 @@ Template.AdminFeaturedPartups.events({
 /*************************************************************/
 /* Widget form hooks */
 /*************************************************************/
-AutoForm.addHooks(null, {
+AutoForm.addHooks('featurePartupForm', {
     onSubmit: function(doc) {
         var self = this;
         self.event.preventDefault();
-
-        if (self.formId !== 'featurePartupForm') return;
 
         var template = self.template.parent();
         template.submitting.set(true);

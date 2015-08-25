@@ -1,0 +1,99 @@
+<template name="AdminFeaturedNetworks">
+
+    <h2>Feature Tribe</h2>
+    {{#autoForm schema=schema id="featureNetworkForm" validation="submitThenKeyup" class="pu-form pu-block pu-block-highlighted" }}
+
+        <!-- Featured network -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-networks-form-network-label'}}
+            </span>
+
+            <span class="pu-sub-input">
+                {{# AutocompleteAdvanced
+                placeholder=networkFieldPlaceholder
+                label=networkLabel
+                selection=networkSelectionReactiveVar
+                onQuery=networkQuery
+                formValue=networkFormvalue }}
+
+                    <input type="text" name="network">
+
+                {{/ AutocompleteAdvanced }}
+            </span>
+        </label>
+
+        <!-- Feature comment -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-networks-form-comment-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='comment' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='comment' placeholder=commentFieldPlaceholder class="pu-textarea" rows=3 }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='comment' }}</span>
+            </div>
+        </label>
+
+        <!-- Feature author_id -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-networks-form-author-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='author_id' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='author_id' placeholder=authorFieldPlaceholder class="pu-input"}}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='author_id' }}</span>
+            </div>
+        </label>
+
+        <!-- Job title -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-networks-form-job-title-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='job_title' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='job_title' placeholder=jobTitleFieldPlaceholder  class="pu-input" }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='job_title' }}</span>
+            </div>
+        </label>
+
+        <!-- Language -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-networks-form-language-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='language' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='language' placeholder=LanugageFieldPlaceholder  class="pu-input" }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='language' }}</span>
+            </div>
+        </label>
+
+        <!-- Activate the featuring -->
+        {{> afFieldInput name="active" value="1" type="hidden" }}
+
+        <!-- Submit form -->
+        <footer class="pu-row">
+            <div class="cell">
+                <button class="pu-button {{# if submitting }}pu-state-loading{{/ if }} {{# unless networkSelectionReactiveVar.get }}pu-state-disabled{{/ unless }}">
+                    {{_ 'pages-modal-admin-featured-networks-form-confirm'}}
+                    {{> Spinner type='small' color='inverted' }}
+                </button>
+            </div>
+        </footer>
+
+    {{/autoForm}}
+
+    <h2>Featured Tribes</h2>
+    <ul class="pu-admin-featured-networks">
+        {{#each featuredNetworks}}
+            <li>
+                <strong>{{name}}</strong> <button type="button" class="pu-admin-featured-remove" data-unset-featured data-network-id="{{ _id }}"><i class="fa fa-times"></i></button> <br/>
+                <i>{{featured.comment}}</i> - <b>{{featured.by_upper.title}}</b> - <span>{{language}}</span>
+            </li>
+        {{/each}}
+    </ul>
+
+</template>
