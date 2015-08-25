@@ -22,6 +22,9 @@ Partup.services.location = {
      */
     locationInputToLocation: function(placeId) {
         var result = Partup.server.services.google.getCity(placeId);
+
+        if (!result) return false;
+
         var location = {};
 
         location.city = result.name;
