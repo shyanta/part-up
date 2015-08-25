@@ -270,6 +270,23 @@ Router.route('/verify-email/:token', {
 });
 
 /*************************************************************/
+/* Unsubscribe from all mailings */
+/*************************************************************/
+Router.route('/unsubscribe-email-all/:token', {
+    name: 'unsubscribe-email-all',
+    where: 'client',
+    yieldRegions: {
+        'app': {to: 'main'},
+        'modal_profile_settings_email_unsubscribe': {to: 'modal'}
+    },
+    data: function() {
+        return {
+            token: this.params.token
+        };
+    }
+});
+
+/*************************************************************/
 /* Register flow */
 /*************************************************************/
 Router.route('/register', {
