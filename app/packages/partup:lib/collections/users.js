@@ -168,6 +168,23 @@ Meteor.users.findForAdminList = function() {
     });
 };
 
+Meteor.users.findStatsForAdmin = function() {
+    var results = {
+        'servicecounts': {
+            'password': Meteor.users.find({'services.password':{'$exists':true}}).count(),
+            'linkedin': Meteor.users.find({'services.linkedin':{'$exists':true}}).count(),
+            'facebook': Meteor.users.find({'services.facebook':{'$exists':true}}).count()
+        },
+        'counts': {
+            'notifications': Notifications.find({}).count(),
+            'activities': Activities.find({}).count(),
+            'contributions': Contributions.find({}).count(),
+            'ratings': Ratings.find({}).count()
+        }
+    };
+    return results;
+};
+
 /**
  * User model (not a constructor, unlike all other entity models)
  * @ignore
