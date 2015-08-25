@@ -262,13 +262,20 @@ Migrations.add({
 
 Migrations.add({
     version: 11,
-    name: 'Set language on all current partups',
+    name: 'Set language on all current partups and networks',
     up: function() {
         Partups.find().fetch().forEach(function(partup) {
             if (!partup.language) {
                 var language = Partup.server.services.google.detectLanguage(partup.description);
                 Log.debug('Setting language *' + language + '* for Partup "' + partup.name + '"');
                 Partups.update({_id: partup._id}, {$set: {language: language}});
+            }
+        });
+        Networks.find().fetch().forEach(function(network) {
+            if (!network.language) {
+                var language = Partup.server.services.google.detectLanguage(network.description);
+                Log.debug('Setting language *' + language + '* for Network "' + network.name + '"');
+                Networks.update({_id: network._id}, {$set: {language: language}});
             }
         });
     },
