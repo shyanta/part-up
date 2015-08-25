@@ -1,3 +1,7 @@
+// Settings
+var MAX_IMAGE_WIDTH = 1500;
+var MAX_IMAGE_HEIGHT = 1500;
+
 Partup.client.uploader = {
 
     /**
@@ -20,20 +24,18 @@ Partup.client.uploader = {
             var ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0);
 
-            var MAX_WIDTH = 1500;
-            var MAX_HEIGHT = 1500;
             var width = img.width;
             var height = img.height;
 
             if (width > height) {
-                if (width > MAX_WIDTH) {
-                    height *= MAX_WIDTH / width;
-                    width = MAX_WIDTH;
+                if (width > MAX_IMAGE_WIDTH) {
+                    height *= MAX_IMAGE_WIDTH / width;
+                    width = MAX_IMAGE_WIDTH;
                 }
             } else {
-                if (height > MAX_HEIGHT) {
-                    width *= MAX_HEIGHT / height;
-                    height = MAX_HEIGHT;
+                if (height > MAX_IMAGE_HEIGHT) {
+                    width *= MAX_IMAGE_HEIGHT / height;
+                    height = MAX_IMAGE_HEIGHT;
                 }
             }
 
