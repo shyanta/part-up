@@ -49,12 +49,12 @@ Partup.server.services.google = {
 
         if (response.statusCode !== 200) {
             Log.error('Google places api returned with a [' + response.statusCode + ']', response);
-            return {};
+            return false;
         }
 
         var data = mout.object.get(response, 'data.result');
 
-        if (!data) return {};
+        if (!data) return false;
 
         data.place_id = googlePlaceId;
         data.created_at = new Date;
