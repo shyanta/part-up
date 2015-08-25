@@ -39,7 +39,7 @@ Meteor.startup(function() {
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
-                        'emails': {
+                        'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
@@ -138,7 +138,7 @@ Meteor.startup(function() {
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
-                        'emails': {
+                        'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
@@ -236,7 +236,7 @@ Meteor.startup(function() {
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
-                        'emails': {
+                        'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
@@ -332,7 +332,7 @@ Meteor.startup(function() {
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
-                        'emails': {
+                        'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
