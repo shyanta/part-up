@@ -160,12 +160,13 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
 /**
  * Publish all featured partups
  */
-Meteor.publishComposite('networks.featured_all', function() {
+Meteor.publishComposite('networks.featured_all', function(language) {
+    check(language, Match.Optional(String));
     this.unblock();
 
     return {
         find: function() {
-            return Networks.findFeatured();
+            return Networks.findFeatured(language);
         },
         children: [
             {find: Images.findForNetwork}

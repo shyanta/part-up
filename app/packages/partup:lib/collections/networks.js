@@ -357,8 +357,13 @@ Networks.guardedFind = function(userId, selector, options) {
  * @param {String} userId
  * @return {Mongo.Cursor}
  */
-Networks.findFeatured = function() {
-    return Networks.find({'featured.active': true});
+Networks.findFeatured = function(language) {
+    var selector = {'featured.active': true};
+    if (language) {
+        selector.language = language;
+    }
+    console.log(selector);
+    return Networks.find(selector);
 };
 
 /**
