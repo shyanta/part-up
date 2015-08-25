@@ -35,6 +35,18 @@
             </div>
         </label>
 
+        <!-- Feature author_id -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-partups-form-author-label'}}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='author_id' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='author_id' placeholder=authorFieldPlaceholder class="pu-input"}}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='author_id' }}</span>
+            </div>
+        </label>
+
         <!-- Job title -->
         <label class="pu-formfield">
             <span class="pu-label">

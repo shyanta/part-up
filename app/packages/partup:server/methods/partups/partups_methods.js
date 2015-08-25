@@ -194,25 +194,42 @@ Meteor.methods({
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            if (fields.active) {
-                featured = {
-                    'active': true,
-                    'by_upper': {
-                        '_id': user._id,
-                        'title': fields.job_title
-                    },
-                    'comment': fields.comment
-                };
+            var author = Meteor.users.findOne(fields.author_id);
+            featured = {
+                'active': true,
+                'by_upper': {
+                    '_id': author._id,
+                    'title': fields.job_title
+                },
+                'comment': fields.comment
+            };
 
-                Partups.update(partupId, {$set: {'featured': featured}});
-            } else {
-                Partups.update(partupId, {$unset: {'featured': ''}});
-            }
+            Partups.update(partupId, {$set: {'featured': featured}});
 
-            return true;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partups_could_not_be_featured');
+        }
+    },
+
+    /**
+     * Unfeature a specific partup (superadmin only)
+     *
+     * @param {string} kId
+     * @param {mixed[]} fields
+     */
+    'partups.unfeature': function(partupId) {
+        check(partupId, String);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Partups.update(partupId, {$unset: {'featured': ''}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_could_not_be_unfeatured');
         }
     },
 

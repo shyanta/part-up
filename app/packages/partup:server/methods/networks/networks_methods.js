@@ -489,7 +489,7 @@ Meteor.methods({
             }});
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'partups_could_not_be_featured');
+            throw new Meteor.Error(400, 'network_could_not_be_featured');
         }
     },
 
