@@ -186,6 +186,17 @@ Meteor.users.findStatsForAdmin = function() {
 };
 
 /**
+ * Find by token
+ *
+ * @memberOf Meteor.users
+ * @param {String} token
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findByToken = function(token) {
+    return Meteor.users.find({'profile.settings.email': token}, {'_id': 1, 'profile.settings.email': 1}, {});
+};
+
+/**
  * User model (not a constructor, unlike all other entity models)
  * @ignore
  */
