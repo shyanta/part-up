@@ -111,4 +111,20 @@ Meteor.methods({
         Meteor.users.update(user._id, {$set:{'profile.settings.email': emailSubscriptions}});
     },
 
+    /**
+     * Unsubscribe user from all email types
+     */
+    'users.email_unsubscribe_all': function(token) {
+        var user = Meteor.users.findByToken(token);
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        var emailSubscriptions = user.profile.settings.email;
+        if (!emailSubscriptions) Log.debug('No subscriptions for user ' + user._id);
+
+        for (var key in emailSubscriptions) {
+            emailSubscriptions[key] = false;
+        }
+
+        Meteor.users.update(user._id, {$set:{'profile.settings.email': emailSubscriptions}});
+    }
 });
