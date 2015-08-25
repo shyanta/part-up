@@ -114,7 +114,7 @@ if (Meteor.isServer) {
 Images = new FS.Collection('images', {
     stores: stores,
     filter: {
-        maxSize: 2000000, // in bytes
+        maxSize: 1000 * 1000 * 2, // 2 mb
         allow: {
             contentTypes: ['image/*']
         },
