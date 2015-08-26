@@ -120,3 +120,36 @@ Template.registerHelper('partupDatePartupTimeline', function(date) {
 
     return mDate.format('LL');
 });
+
+Template.registerHelper('partupDateNotification', function(date) {
+    var RELATIVE_TIME_THRESHOLD = 7 * 24 * 60 * 60 * 1000; // 1 week
+
+    // Moment dates
+    var mDate = moment(date);
+    var mNow = moment(Partup.client.reactiveDate());
+
+    // If the time is under the Relative Time Threshold...
+    if (mNow.diff(mDate) < RELATIVE_TIME_THRESHOLD) {
+        return Partup.client.moment.localConfig({
+            relativeTime: {
+                s:  __('base-helpers-dateFormatters-notification-difference-time-s'),
+                m:  __('base-helpers-dateFormatters-notification-difference-time-m'),
+                mm:  __('base-helpers-dateFormatters-notification-difference-time-mm'),
+                h:  __('base-helpers-dateFormatters-notification-difference-time-h'),
+                hh:  __('base-helpers-dateFormatters-notification-difference-time-hh'),
+                d:  __('base-helpers-dateFormatters-difference-days-d'),
+                dd:  __('base-helpers-dateFormatters-difference-days-dd'),
+            }
+        }, {}, function() {
+            return mDate.fromNow(true);
+        });
+    }
+
+    // If the time is in the same year
+    if (mDate.year() === mNow.year()) {
+        return mDate.format(__('base-helpers-dateFormatters-format-sameyear'));
+    }
+
+    // Default
+    return mDate.format(__('base-helpers-dateFormatters-format-anotheryear'));
+});

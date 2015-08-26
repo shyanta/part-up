@@ -8,6 +8,12 @@
     "base-helpers-dateFormatters-difference-time-h": "1 hour",
     "base-helpers-dateFormatters-difference-time-hh": "%d hours",
 
+    "base-helpers-dateFormatters-notification-difference-time-s": "Just now",
+    "base-helpers-dateFormatters-notification-difference-time-m": "1 minutes ago",
+    "base-helpers-dateFormatters-notification-difference-time-mm": "%d minutes ago",
+    "base-helpers-dateFormatters-notification-difference-time-h": "1 hour ago",
+    "base-helpers-dateFormatters-notification-difference-time-hh": "%d hours ago",
+
     "base-helpers-dateFormatters-difference-days-d": "Yesterday",
     "base-helpers-dateFormatters-difference-days-dd": "%d days ago"
 }
