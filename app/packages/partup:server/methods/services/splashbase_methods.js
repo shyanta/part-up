@@ -20,7 +20,7 @@ Meteor.methods({
         }
 
         // Set default values
-        count = Math.min(count, 5);
+        count = Math.min(count, 5) || 5;
 
         var lookupTags = Meteor.wrapAsync(function(tags, count, callback) {
 
