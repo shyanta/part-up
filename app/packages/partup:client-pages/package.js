@@ -82,8 +82,10 @@ Package.onUse(function(api) {
         'modal/profile_settings/account/account.js',
         'modal/profile_settings/email/email.html',
         'modal/profile_settings/email/email.js',
-        'modal/profile_settings/email/unsubscribe.html',
-        'modal/profile_settings/email/unsubscribe.js',
+        'modal/profile_settings/email/unsubscribe_all.html',
+        'modal/profile_settings/email/unsubscribe_all.js',
+        'modal/profile_settings/email/unsubscribe_one.html',
+        'modal/profile_settings/email/unsubscribe_one.js',
 
         // App:partup:takepart (popup)
         'app/partup/takepart/takepart.html',
