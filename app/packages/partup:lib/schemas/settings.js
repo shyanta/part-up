@@ -14,6 +14,11 @@ Partup.schemas.entities.settings = new SimpleSchema({
         type: Object,
         optional: true
     },
+    'email.token': {
+        type: String,
+        min: 43,
+        max: 43
+    },
     'email.dailydigest': {
         type: Boolean,
         optional: true

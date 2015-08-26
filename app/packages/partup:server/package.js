@@ -27,7 +27,8 @@ Package.onUse(function(api) {
         'tap:i18n',
         'lifely:mout',
         'meteorhacks:picker',
-        'meteorhacks:ssr'
+        'meteorhacks:ssr',
+        'random'
     ], ['server']);
 
     api.addFiles([

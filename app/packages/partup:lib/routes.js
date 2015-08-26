@@ -270,6 +270,33 @@ Router.route('/verify-email/:token', {
 });
 
 /*************************************************************/
+/* Unsubscribe from all mailings */
+/*************************************************************/
+Router.route('/unsubscribe-email-all/:token', {
+    name: 'unsubscribe-email-all',
+    where: 'client',
+    yieldRegions: {
+        'modal': {to: 'main'},
+        'modal_profile_settings_email_unsubscribe': {to: 'modal'}
+    },
+    data: function() {
+        return {
+            token: this.params.token
+        };
+    },
+    onBeforeAction: function() {
+        var self = this;
+        var token = this.data().token;
+        Meteor.call('users.email_unsubscribe_all', token, function(error, result) {
+            if (error) {
+                //something
+            }
+            self.next();
+        });
+    }
+});
+
+/*************************************************************/
 /* Register flow */
 /*************************************************************/
 Router.route('/register', {
