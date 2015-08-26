@@ -24,6 +24,8 @@ Package.onUse(function(api) {
 
         'notifications/notifications.html',
         'notifications/notifications.js',
+        'notifications/partials/notification.html',
+        'notifications/partials/notification.js',
 
         'profile/profile.html',
         'profile/profile.js',

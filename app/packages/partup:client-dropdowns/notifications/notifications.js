@@ -21,14 +21,7 @@ Template.DropdownNotifications.onDestroyed(function() {
 });
 
 Template.DropdownNotifications.events({
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
-    'click [data-notification]': function(event, template) {
-        template.dropdownOpen.set(false);
-        var notificationId = $(event.currentTarget).data('notification');
-        Meteor.call('notifications.clicked', notificationId, function(error, response) {
-
-        });
-    }
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler
 });
 
 Template.DropdownNotifications.helpers({
