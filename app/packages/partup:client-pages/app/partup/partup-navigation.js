@@ -22,6 +22,7 @@ Template.app_partup_navigation.onRendered(function() {
     // Trigger calculations
     window.addEventListener('resize', calculateBackgroundWidth);
     calculateBackgroundWidth();
+    Meteor.defer(calculateBackgroundWidth);
 });
 
 /*************************************************************/
