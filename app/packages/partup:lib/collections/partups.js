@@ -189,6 +189,17 @@ Partup.prototype.makePartnerSupporter = function(upperId) {
 };
 
 /**
+ * Consume an access token to add the user as an invitee
+ *
+ * @memberOf Partups
+ * @param {String} upperId
+ * @param {String} accessToken
+ */
+Partup.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
+    Partups.update(this._id, {$pull: {'access_tokens': accessToken}, $addToSet: {'invites': upperId}});
+};
+
+/**
  * Soft delete a partup
  *
  * @memberOf Partups

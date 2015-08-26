@@ -45,13 +45,16 @@ Template.modal_register_signup.events({
                 return;
             }
 
+            var accessToken = Session.get('partup_access_token');
+            var partupId = Session.get('partup_access_token_for_partup');
+            Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+
             analytics.track('User registered', {
                 userId: Meteor.user()._id,
                 method: 'facebook'
             });
 
             Router.go('register-details');
-
         });
     },
     'click [data-signuplinkedin]': function(event) {
@@ -64,17 +67,23 @@ Template.modal_register_signup.events({
                 return false;
             }
 
+            var accessToken = Session.get('partup_access_token');
+            var partupId = Session.get('partup_access_token_for_partup');
+            Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+
             analytics.track('User registered', {
                 userId: Meteor.user()._id,
                 method: 'linkedin'
             });
 
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
+
             Meteor.call('settings.update', {locale: locale}, function(err) {
                 if (err) {
                     Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify('failed to update locale')));
                     return false;
                 }
+
                 Router.go('register-details');
             });
         });
@@ -119,6 +128,10 @@ AutoForm.hooks({
 
                 // Success
                 self.done();
+
+                var accessToken = Session.get('partup_access_token');
+                var partupId = Session.get('partup_access_token_for_partup');
+                Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
 
                 analytics.track('User registered', {
                     userId: Meteor.user()._id,
