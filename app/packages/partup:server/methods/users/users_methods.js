@@ -115,7 +115,7 @@ Meteor.methods({
      * Unsubscribe user from all email types
      */
     'users.email_unsubscribe_all': function(token) {
-        var user = Meteor.users.findByToken(token);
+        var user = Meteor.users.findByToken(token).fetch()[0];
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         var emailSubscriptions = user.profile.settings.email;
