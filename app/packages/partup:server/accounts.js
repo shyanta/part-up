@@ -27,7 +27,6 @@ Accounts.onLogin(function(data) {
 Accounts.onCreateUser(function(options, user) {
     var imageUrl;
     var profile = options.profile;
-    profile.settings.unsubscribe_email_token = Random.secret();
 
     var liData = mout.object.get(user, 'services.linkedin');
     var fbData = mout.object.get(user, 'services.facebook');
@@ -65,7 +64,7 @@ Accounts.onCreateUser(function(options, user) {
                     invite_upper_to_partup_activity: true,
                     invite_upper_to_network: true
                 },
-                'unsubscribe_email_token': Random.secret()
+                unsubscribe_email_token: Random.secret()
             }
         };
 
@@ -91,7 +90,7 @@ Accounts.onCreateUser(function(options, user) {
                     invite_upper_to_partup_activity: true,
                     invite_upper_to_network: true
                 },
-                'unsubscribe_email_token': Random.secret()
+                unsubscribe_email_token: Random.secret()
             }
         };
 
