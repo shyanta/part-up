@@ -44,7 +44,8 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true
-                        }
+                        },
+                        'unsubscribe_email_token': 'nj8fwDnhzaPSKX4vf-8ZHFyWRL0ZKVRz00ZOrJdB-ug'
                     },
                     'image' : 'oQeqgwkdd44JSBSW5',
                     'description' : 'I am the first test user',
@@ -143,7 +144,8 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true
-                        }
+                        },
+                        'unsubscribe_email_token': '6BQGhT9KnxBKAIrn6Y7s565CTOO-SIqfjuHOkJt8ZbQ'
                     },
                     'image' : 'cHhjpWKo9DHjXQQjy',
                     'description' : null,
@@ -241,7 +243,8 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true
-                        }
+                        },
+                        'unsubscribe_email_token': 'Xr_FQVj16IQRwpoMxQOWgHMVr5z6Jd04wpvF00n6rK6'
                     },
                     'image' : 'CxEprGKNWo6HdrTdq',
                     'description' : null,
@@ -337,7 +340,8 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true
-                        }
+                        },
+                        'unsubscribe_email_token': 'WiYdZ-AoYintHgYofjIlOyWTsP8f2oNKLhh3jhhpIdN'
                     },
                     'image' : 'bMTGT9oSDGzxCL3r4',
                     'description' : null,
