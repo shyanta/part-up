@@ -90,6 +90,41 @@ SeoRouter.route('/partups/:slug', function(params, request, response) {
 });
 
 /**
+ * SEO Route for the Profile detail page
+ */
+SeoRouter.route('/profile/:id', function(params, request, response) {
+    var userId = params.id;
+    var user = Meteor.users.findOne(userId);
+
+    if (!user) {
+        response.statusCode = 404;
+        return response.end();
+    }
+
+    var image = Images.findOne(user.profile.image);
+
+    SSR.compileTemplate('seo_profile', Assets.getText('private/templates/seo/profile.html'));
+
+    Template.seo_profile.helpers({
+        getProfileUrl: function() {
+            return Meteor.absoluteUrl() + 'profile/' + user._id;
+        },
+        getImageUrl: function() {
+            if (!image) return Meteor.absoluteUrl() + 'images/partup-logo.png';
+
+            var url = image.url().substr(1);
+
+            return Meteor.absoluteUrl() + encodeURIComponent(url).replace(/%2F/g, '/');
+        }
+    });
+
+    var html = SSR.render('seo_profile', user);
+
+    response.setHeader('Content-Type', 'text/html');
+    response.end(html);
+});
+
+/**
  * SEO Route for the Network detail page
  */
 SeoRouter.route('/:slug', function(params, request, response) {
