@@ -24,7 +24,8 @@ Meteor.startup(function() {
                         'title' : 'Founder Part-up'
                     },
                     'comment' : '"This is the first featured network"'
-                }
+                },
+                'language': 'en'
             });
 
             /* 2 */
@@ -108,8 +109,9 @@ Meteor.startup(function() {
                         '_id' : 'q63Kii9wwJX3Q6rHS',
                         'title' : 'Founder Part-up'
                     },
-                    'comment' : '"This is the second featured network"'
-                }
+                    'comment' : '"Dit is een gefeatured netwerk"'
+                },
+                'language': 'nl'
             });
         }
     }
