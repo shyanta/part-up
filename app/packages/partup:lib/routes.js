@@ -276,7 +276,7 @@ Router.route('/unsubscribe-email-all/:token', {
     name: 'unsubscribe-email-all',
     where: 'client',
     yieldRegions: {
-        'app': {to: 'main'},
+        'modal': {to: 'main'},
         'modal_profile_settings_email_unsubscribe': {to: 'modal'}
     },
     data: function() {
