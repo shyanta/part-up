@@ -1,7 +1,7 @@
 <template name="FeaturedNetworks">
     <article class="pu-highlight pu-highlight-companies">
         <h2 class="pu-titleaccent">{{_ 'pages-app-home-featurednetworks-title'}}</h2>
-        <p>{{_ 'pages-app-home-featurednetworks-description'}}</p>
+        <p>{{{_ 'pages-app-home-featurednetworks-description' link='/pricing'}}}</p>
         <ul class="pu-list pu-list-horizontal pu-selector">
             {{#each networks}}
                 <li>
