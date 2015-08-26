@@ -64,16 +64,14 @@ Template.DropdownProfile.events({
     },
     'click [data-down]': function(event, template) {
         var list = $(template.find('[data-list]'));
-        console.log('click', list);
         list.scrollTop(list.scrollTop() + 200);
         template.disableUp.set(false);
-        if (list[0].scrollHeight - list.height() === list.scrollTop()){
+        if (list[0].scrollHeight - list.height() === list.scrollTop()) {
             template.disableDown.set(true);
         }
     },
     'click [data-up]': function(event, template) {
         var list = $(template.find('[data-list]'));
-        console.log('click', list.scrollTop())
         list.scrollTop(list.scrollTop() - 200);
         template.disableDown.set(false);
         if (list.scrollTop() === 0) {

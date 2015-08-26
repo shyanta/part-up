@@ -362,7 +362,6 @@ Networks.findFeatured = function(language) {
     if (language) {
         selector.language = language;
     }
-    console.log(selector);
     return Networks.find(selector);
 };
 
