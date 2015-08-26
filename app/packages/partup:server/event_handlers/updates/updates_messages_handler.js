@@ -46,7 +46,9 @@ Event.on('partups.messages.insert', function(upper, partup, update, message) {
                     name: User(user).getFirstname(),
                     mentioningUpper: upper.profile.name,
                     partupName: partup.name,
-                    url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id
+                    url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id,
+                    unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/upper_mentioned_in_partup/' + user.profile.settings.unsubscribe_email_token,
+                    unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + user.profile.settings.unsubscribe_email_token
                 },
                 userEmailPreferences: user.profile.settings.email
             };
