@@ -23,5 +23,38 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'settings_could_not_be_updated');
         }
+    },
+
+    /**
+     * (Un)subscribe user from/to subscriptions
+     */
+    'settings.update_email_notifications': function(subscriptionKey, newValue) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        var emailSubscriptions = user.profile.settings.email;
+        if (!emailSubscriptions.hasOwnProperty(subscriptionKey)) throw new Meteor.Error(400, 'invalid_subscription');
+
+        // Set the new value
+        emailSubscriptions[subscriptionKey] = newValue;
+
+        Meteor.users.update(user._id, {$set:{'profile.settings.email': emailSubscriptions}});
+    },
+
+    /**
+     * Unsubscribe user from all email types
+     */
+    'settings.email_unsubscribe_all': function(token) {
+        var user = Meteor.users.findByToken(token).fetch()[0];
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        var emailSubscriptions = user.profile.settings.email;
+        if (!emailSubscriptions) Log.debug('No subscriptions for user ' + user._id);
+
+        for (var key in emailSubscriptions) {
+            emailSubscriptions[key] = false;
+        }
+
+        Meteor.users.update(user._id, {$set:{'profile.settings.email': emailSubscriptions}});
     }
 });

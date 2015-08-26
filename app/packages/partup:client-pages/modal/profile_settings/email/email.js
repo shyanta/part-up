@@ -12,7 +12,7 @@ Template.modal_profile_settings_email.helpers({
 });
 
 function saveEmailSettings(settingName, settingValue) {
-    Meteor.call('users.update_email_subscription', settingName, settingValue, function(error) {
+    Meteor.call('settings.update_email_notifications', settingName, settingValue, function(error) {
         if (error) {
             Partup.client.notify.error(error.reason);
             return;

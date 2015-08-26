@@ -287,7 +287,7 @@ Router.route('/unsubscribe-email-all/:token', {
     onBeforeAction: function() {
         var self = this;
         var token = this.data().token;
-        Meteor.call('users.email_unsubscribe_all', token, function(error, result) {
+        Meteor.call('settings.email_unsubscribe_all', token, function(error, result) {
             if (error) {
                 //something
             }
