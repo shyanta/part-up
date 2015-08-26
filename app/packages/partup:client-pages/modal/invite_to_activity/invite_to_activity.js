@@ -160,6 +160,9 @@ Template.modal_invite_to_activity.events({
 
         window.scrollTo(0, 0);
     },
+    'blur [data-search-query-input]': function(e, template) {
+        template.submitFilterForm();
+    },
 
     'keyup [data-search-query-input]': function(e, template) {
         if (window.PU_IE_VERSION === -1) return;
