@@ -69,14 +69,14 @@ Template.app_partup.onCreated(function() {
 Template.app_partup.onRendered(function() {
     var tpl = this;
 
-    tpl.autorun(function() {
-        if (!Partups.findOne(tpl.data.partupId)) return;
+    tpl.autorun(function(computation) {
+        var partup = Partups.findOne(tpl.data.partupId);
+        if (!partup) return;
 
-        Meteor.defer(function() {
-            if (!Partup.client.isMobile.any()) {
-                partupDetailLayout.init.apply(partupDetailLayout);
-            }
-        });
+        if (!Partup.client.isMobile.any()) {
+            sidebarDebugger.log('wit');
+            partupDetailLayout.init.apply(partupDetailLayout);
+        }
     });
 });
 
