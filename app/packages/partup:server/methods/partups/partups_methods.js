@@ -266,4 +266,22 @@ Meteor.methods({
         return partup._id;
     },
 
+    /**
+     * Consume an access token and add the user to the invites
+     */
+    'partups.convert_access_token_to_invite': function(partupId, accessToken) {
+        check(partupId, String);
+        check(accessToken, String);
+
+        var user = Meteor.user();
+        var partup = Partups.findOneOrFail(partupId);
+
+        try {
+            partup.convertAccessTokenToInvite(user._id, accessToken);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_access_token_could_not_be_converted_to_invite');
+        }
+    },
+
 });
