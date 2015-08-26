@@ -95,6 +95,22 @@ var joinNetworkOrAcceptInvitation = function(slug) {
     });
 };
 
+var leaveNetwork = function(template, network) {
+    Meteor.call('networks.leave', network._id, function(error) {
+        if (error) {
+            Partup.client.notify.error(error.reason);
+            return;
+        }
+        template.joinToggle.set(!template.joinToggle.get());
+
+        Partup.client.notify.success(__('pages-app-network-notification-left'));
+
+        if (network.isClosedForUpper(Meteor.user())) {
+            Router.go('discover');
+        }
+    });
+};
+
 /*************************************************************/
 /* Page events */
 /*************************************************************/
@@ -143,19 +159,18 @@ Template.app_network.events({
     'click [data-leave]': function(event, template) {
         var network = Networks.findOne({slug: template.data.networkSlug});
 
-        Meteor.call('networks.leave', network._id, function(error) {
-            if (error) {
-                Partup.client.notify.error(error.reason);
-                return;
-            }
-            template.joinToggle.set(!template.joinToggle.get());
-
-            Partup.client.notify.success(__('pages-app-network-notification-left'));
-
-            if (network.isClosedForUpper(Meteor.user())) {
-                Router.go('discover');
+        Partup.client.prompt.confirm({
+            title: __('pages-app-network-confirmation-title', {
+                tribe: network.name
+            }),
+            message: __('pages-app-network-confirmation-message'),
+            confirmButton: __('pages-app-network-confirmation-confirm-button'),
+            cancelButton: __('pages-app-network-confirmation-cancel-button'),
+            onConfirm: function() {
+                leaveNetwork(template, network);
             }
         });
+
     },
     'click [data-expand]': function(event, template) {
         template.expandText(!template.expanded);
