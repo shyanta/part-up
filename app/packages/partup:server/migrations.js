@@ -286,7 +286,7 @@ Migrations.add({
 
 Migrations.add({
     version: 12,
-    name: 'Set email token for all users',
+    name: 'Set unsubscribe email token for all users',
     up: function() {
         Meteor.users.find().forEach(function(user) {
             var token = Random.secret();
