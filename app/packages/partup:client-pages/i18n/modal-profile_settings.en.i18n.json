@@ -27,12 +27,15 @@
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Invite to tribe email disabled",
 
     "modal-profilesettings-email-updatesuccess-disabled-all": "Disabled all automatic emails",
-    "modal-profilesettings-email-updateerror-disabled-all": "Something went wrong, please try again",
+    "modal-profilesettings-email-updatesuccess-disabled-one": "Disabled the automatic email",
+    "modal-profilesettings-email-updateerror-disabled": "Something went wrong, please try again",
 
-    "pages-app-emailsettings-confirmation-title": "Are you sure you want to disable all automatic emails?",
-    "pages-app-emailsettings-confirmation-message": "If you want to disable only a particular type of email, you can change this in your account settings.",
+    "pages-app-emailsettings-confirmation-title-all": "Are you sure you want to disable all automatic emails?",
+    "pages-app-emailsettings-confirmation-title-one": "Are you sure you want to disable this automatic email?",
+    "pages-app-emailsettings-confirmation-message": "If you want to enable or disable a particular type of email, you can change this in your account settings.",
     "pages-app-emailsettings-confirmation-cancel-button": "No! Cancel",
-    "pages-app-emailsettings-confirmation-confirm-button": "Yes, disable all emails",
+    "pages-app-emailsettings-confirmation-confirm-button-all": "Yes, disable all emails",
+    "pages-app-emailsettings-confirmation-confirm-button-one": "Yes, disable this email",
 
     "modal-profilesettings-account-title": "Manage your account",
     "modal-profilesettings-account-text-explaination": "Here, you can edit your account settings. Do you want to update your profile? You can find the link in the menu on the left.",
