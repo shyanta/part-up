@@ -193,7 +193,7 @@ Meteor.users.findStatsForAdmin = function() {
  * @return {Mongo.Cursor}
  */
 Meteor.users.findByToken = function(token) {
-    return Meteor.users.find({'profile.settings.email': token}, {'_id': 1, 'profile.settings.email': 1}, {});
+    return Meteor.users.find({'profile.settings.token': token}, {'_id': 1, 'profile.settings.email': 1}, {});
 };
 
 /**

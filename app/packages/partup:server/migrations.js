@@ -290,7 +290,7 @@ Migrations.add({
     up: function() {
         Meteor.users.find().forEach(function(user) {
             var token = Random.secret();
-            Meteor.users.update(user._id, {$set: {'profile.settings.email.token': token}});
+            Meteor.users.update(user._id, {$set: {'profile.settings.token': token}});
         });
     },
     down: function() {
