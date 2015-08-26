@@ -288,6 +288,9 @@ Router.route('/unsubscribe-email-all/:token', {
         var self = this;
         var token = this.data().token;
         Meteor.call('users.email_unsubscribe_all', token, function(error, result) {
+            if (error) {
+                //something
+            }
             self.next();
         });
     }
