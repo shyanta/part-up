@@ -107,7 +107,11 @@ Template.modal_invite_to_activity.helpers({
     },
     locationSelectorData: function() {
         return Template.instance().location.selectorData;
-    }
+    },
+    // Query
+    textsearchData: function() {
+        return Template.instance().suggestionsOptions.get().query || '';
+    },
 });
 
 /*************************************************************/
@@ -161,6 +165,11 @@ Template.modal_invite_to_activity.events({
         window.scrollTo(0, 0);
     },
     'blur [data-search-query-input]': function(e, template) {
+        template.submitFilterForm();
+    },
+    'click [data-reset-search-query-input]': function(event, template) {
+        event.preventDefault();
+        $('[data-search-query-input]').val('')
         template.submitFilterForm();
     },
 
