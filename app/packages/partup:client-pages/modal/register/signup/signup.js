@@ -47,7 +47,9 @@ Template.modal_register_signup.events({
 
             var accessToken = Session.get('partup_access_token');
             var partupId = Session.get('partup_access_token_for_partup');
-            Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+            if (partupId && accessToken) {
+                Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+            }
 
             analytics.track('User registered', {
                 userId: Meteor.user()._id,
@@ -69,7 +71,9 @@ Template.modal_register_signup.events({
 
             var accessToken = Session.get('partup_access_token');
             var partupId = Session.get('partup_access_token_for_partup');
-            Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+            if (partupId && accessToken) {
+                Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+            }
 
             analytics.track('User registered', {
                 userId: Meteor.user()._id,
@@ -138,7 +142,9 @@ AutoForm.hooks({
 
                 var accessToken = Session.get('partup_access_token');
                 var partupId = Session.get('partup_access_token_for_partup');
-                Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+                if (partupId && accessToken) {
+                    Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+                }
 
                 analytics.track('User registered', {
                     userId: Meteor.user()._id,
