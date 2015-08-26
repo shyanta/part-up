@@ -332,11 +332,23 @@ Router.route('/partups/:slug', {
     },
     data: function() {
         return {
-            partupId: Partup.client.strings.partupSlugToId(this.params.slug)
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
+            accessToken: this.params.query.token
         };
     },
     onRun: function() {
         Meteor.call('partups.analytics.click', this.data().partupId);
+        this.next();
+    },
+    onBeforeAction: function() {
+        var partupId = this.data().partupId;
+        var accessToken = this.data().accessToken;
+
+        if (partupId && accessToken) {
+            Session.set('partup_access_token', accessToken);
+            Session.set('partup_access_token_for_partup', partupId);
+        }
+
         this.next();
     }
 });

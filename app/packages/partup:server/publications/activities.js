@@ -2,15 +2,17 @@
  * Publish all activities in a partup
  *
  * @param {String} partupId
+ * @param {String} accessToken
  */
-Meteor.publishComposite('activities.from_partup', function(partupId) {
+Meteor.publishComposite('activities.from_partup', function(partupId, accessToken) {
     check(partupId, String);
+    if (accessToken) check(accessToken, String);
 
     this.unblock();
 
     return {
         find: function() {
-            var partup = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1}).fetch().pop();
+            var partup = Partups.guardedFind(this.userId, {_id: partupId}, {limit:1}, accessToken).fetch().pop();
             if (!partup) return;
 
             return Activities.findForPartup(partup);

@@ -116,13 +116,17 @@ Partup.prototype.hasInvitedUpper = function(userId) {
  * Check if given user has the right to view the partup
  *
  * @memberof Partups
- * @param {String} userId the user id of the user that should be checked
+ * @param {String} userId
+ * @param {String} accessToken
  * @return {Boolean}
  */
-Partup.prototype.isViewableByUser = function(userId) {
+Partup.prototype.isViewableByUser = function(userId, accessToken) {
     if (this.privacy_type === PUBLIC) return true;
     if (this.privacy_type === NETWORK_PUBLIC) return true;
     if (this.privacy_type === PRIVATE || this.privacy_type === NETWORK_INVITE || this.privacy_type === NETWORK_CLOSED) {
+        var accessTokens = this.access_tokens || [];
+        if (accessTokens.indexOf(accessToken) > -1) return true;
+
         var user = Meteor.users.findOne(userId);
         if (!user) return false;
 
@@ -277,9 +281,10 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
  * @param {String} userId
  * @param {Object} selector
  * @param {Object} options
+ * @param {String} accessToken
  * @return {Cursor}
  */
-Partups.guardedFind = function(userId, selector, options) {
+Partups.guardedFind = function(userId, selector, options, accessToken) {
     // We do not want to return partups that have been soft deleted
     selector.deleted_at = selector.deleted_at || {$exists: false};
 
@@ -292,6 +297,11 @@ Partups.guardedFind = function(userId, selector, options) {
         // Either the partup is public or belongs to a public network
         {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}}
     ];
+
+    // If an access token is provided, we allow access if it matches one of the partups access tokens
+    if (accessToken) {
+        guardedCriterias.push({'access_tokens': {'$in': [accessToken]}});
+    }
 
     // Some extra rules that are only applicable to users that are logged in
     if (userId) {

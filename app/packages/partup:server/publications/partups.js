@@ -55,9 +55,11 @@ Meteor.publish('partups.featured_all', function() {
  * Publish a single partup
  *
  * @param {String} partupId
+ * @param {String} accessToken
  */
-Meteor.publishComposite('partups.one', function(partupId) {
+Meteor.publishComposite('partups.one', function(partupId, accessToken) {
     check(partupId, String);
+    if (accessToken) check(accessToken, String);
 
     this.unblock();
 
@@ -68,7 +70,7 @@ Meteor.publishComposite('partups.one', function(partupId) {
         children: [
             {
                 find: function() {
-                    return Partups.guardedFind(this.userId, {_id: partupId}, {limit: 1});
+                    return Partups.guardedFind(this.userId, {_id: partupId}, {limit: 1}, accessToken);
                 },
                 children: [
                     {find: Images.findForPartup},

@@ -17,9 +17,11 @@ Template.app_partup.onCreated(function() {
 
     tpl.autorun(function() {
         var id = Template.currentData().partupId;
-        partup_sub = Meteor.subscribe('partups.one', id); // subs manager fails here
-        Subs.subscribe('activities.from_partup', id);
-        Subs.subscribe('updates.from_partup', id);
+        var accessToken = Session.get('partup_access_token');
+
+        partup_sub = Meteor.subscribe('partups.one', id, accessToken); // subs manager fails here
+        Subs.subscribe('activities.from_partup', id, accessToken);
+        Subs.subscribe('updates.from_partup', id, {}, accessToken);
     });
 
     tpl.autorun(function() {
@@ -29,7 +31,7 @@ Template.app_partup.onCreated(function() {
         if (!partup) return Router.pageNotFound('partup');
 
         var userId = Meteor.userId();
-        if (!partup.isViewableByUser(userId)) return Router.pageNotFound('partup-closed');
+        if (!partup.isViewableByUser(userId, Session.get('partup_access_token'))) return Router.pageNotFound('partup-closed');
 
         tpl.partupId.set(partup._id);
 

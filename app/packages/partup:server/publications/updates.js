@@ -50,9 +50,11 @@ Meteor.publishComposite('updates.one', function(updateId) {
  * @param {Object} parameters
  * @param {Number} parameters.limit
  * @param {String} parameters.filter
+ * @param {String} accessToken
  */
-Meteor.publishComposite('updates.from_partup', function(partupId, parameters) {
+Meteor.publishComposite('updates.from_partup', function(partupId, parameters, accessToken) {
     check(partupId, String);
+    if (accessToken) check(accessToken, String);
 
     parameters = parameters || {};
     check(parameters, {
@@ -65,7 +67,7 @@ Meteor.publishComposite('updates.from_partup', function(partupId, parameters) {
 
     return {
         find: function() {
-            var partup = Partups.guardedFind(self.userId, {_id: partupId}, {limit:1}).fetch().pop();
+            var partup = Partups.guardedFind(self.userId, {_id: partupId}, {limit:1}, accessToken).fetch().pop();
             if (!partup) return;
 
             return Updates.findForPartup(partup, parameters, self.userId);
