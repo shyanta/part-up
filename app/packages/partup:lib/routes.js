@@ -283,16 +283,6 @@ Router.route('/unsubscribe-email-all/:token', {
         return {
             token: this.params.token
         };
-    },
-    onBeforeAction: function() {
-        var self = this;
-        var token = this.data().token;
-        Meteor.call('settings.email_unsubscribe_all', token, function(error, result) {
-            if (error) {
-                //something
-            }
-            self.next();
-        });
     }
 });
 

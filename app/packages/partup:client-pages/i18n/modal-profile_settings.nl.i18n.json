@@ -26,6 +26,16 @@
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_network":"Tribe uitnodiging email ingeschakeld",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Tribe uitnodiging email uitgeschakeld",
 
+    "modal-profilesettings-email-updatesuccess-disabled-all": "Alle automatische mails zijn uitgeschakeld",
+    "modal-profilesettings-email-updateerror-disabled-all": "Er ging iets verkeerd, probeer het opnieuw",
+
+    "pages-app-emailsettings-confirmation-title": "Are you sure you want to disable all automatic emails?",
+    "pages-app-emailsettings-confirmation-title": "Weet je zeker dat je alle automatische emails wilt uitschakelen?",
+    "pages-app-emailsettings-confirmation-message": "If you want to disable only a particular type of email, you can change this in your account settings.",
+    "pages-app-emailsettings-confirmation-message": "Als je een specifiek soort email wilt uitzetten, kan je dit in je account instellingen wijzigen.",
+    "pages-app-emailsettings-confirmation-cancel-button": "Nee! Annuleren",
+    "pages-app-emailsettings-confirmation-confirm-button": "Ja, schakel alle emails uit",
+
     "modal-profilesettings-account-title": "Beheer je account",
     "modal-profilesettings-account-text-explaination": "Je kunt hier jouw account instellingen wijzigen. Wiel je iets toevoegen aan jouw profiel? Klik dan links in het menu op profiel.",
 
