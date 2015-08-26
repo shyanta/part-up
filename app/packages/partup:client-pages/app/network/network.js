@@ -104,7 +104,7 @@ var leaveNetwork = function(template, network) {
         template.joinToggle.set(!template.joinToggle.get());
 
         Partup.client.notify.success(__('pages-app-network-notification-left'));
-
+        Subs.reset();
         if (network.isClosedForUpper(Meteor.user())) {
             Router.go('discover');
         }
