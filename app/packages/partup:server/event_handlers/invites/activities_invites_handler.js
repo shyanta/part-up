@@ -56,6 +56,8 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
  * Generate an email when an invite gets sent
  */
 Event.on('invites.inserted.activity.by_email', function(inviter, partup, activity, email, name) {
+    var accessToken = Random.secret();
+
     // Set the email details
     var emailOptions = {
         type: 'invite_upper_to_partup_activity',
@@ -69,10 +71,13 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
             activityName: activity.name,
             activityDescription: activity.description,
             inviterName: inviter.profile.name,
-            url: Meteor.absoluteUrl() + 'partups/' + partup.slug
+            url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '?token=' + accessToken
         }
     };
 
     // Send the email
     Partup.server.services.emails.send(emailOptions);
+
+    // Save the access token to the partup to allow access
+    Partups.update(partup._id, {$addToSet: {access_tokens: accessToken}});
 });
