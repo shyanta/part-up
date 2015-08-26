@@ -252,6 +252,7 @@ if (Meteor.isServer) {
     Partups._ensureIndex('slug');
     Partups._ensureIndex('progress');
     Partups._ensureIndex('tags');
+    Partups._ensureIndex('deleted_at');
 }
 
 /**
