@@ -28,6 +28,7 @@ Package.onUse(function(api) {
         'lifely:mout',
         'meteorhacks:picker',
         'meteorhacks:ssr',
+        'meteorhacks:fast-render',
         'random'
     ], ['server']);
 

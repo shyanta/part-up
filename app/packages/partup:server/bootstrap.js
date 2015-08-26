@@ -29,6 +29,24 @@ Router.route('/ping', function() {
 // Kick off the cronjobs
 SyncedCron.start();
 
+FastRender.onAllRoutes(function(path) {
+    this.subscribe('users.loggedin');
+});
+
+FastRender.route('/partups/:slug', function(params) {
+    var partupId = params.slug.split('-').pop();
+
+    this.subscribe('partups.one', partupId);
+    this.subscribe('updates.from_partup', partupId);
+});
+
+FastRender.route('/partups/:slug/activities', function(params) {
+    var partupId = params.slug.split('-').pop();
+
+    this.subscribe('partups.one', partupId);
+    this.subscribe('activities.from_partup', partupId);
+});
+
 // Browser Policy
 Meteor.startup(function() {
 
