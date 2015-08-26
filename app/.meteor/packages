@@ -37,7 +37,7 @@ service-configuration
 splendido:accounts-meld
 stevezhu:lodash
 tap:i18n
-tmeasday:publish-counts
+tmeasday:publish-counts@0.7.1
 zimme:active-route
 percolate:synced-cron
 meteorhacks:kadira

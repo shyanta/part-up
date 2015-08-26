@@ -17,4 +17,4 @@ Debug = function(namespace) {
     debug.log = console.info.bind(console);
     debug.useColors = true;
     return debug;
-}
+};
