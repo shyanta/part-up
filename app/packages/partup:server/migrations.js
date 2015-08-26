@@ -284,4 +284,18 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(11);
+Migrations.add({
+    version: 12,
+    name: 'Set email token for all users',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            var token = Random.secret();
+            Meteor.users.update(user._id, {$set: {'profile.settings.email.token': token}});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(12);
