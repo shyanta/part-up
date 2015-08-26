@@ -67,6 +67,7 @@ if (Meteor.isServer) {
     Updates._ensureIndex('type');
     Updates._ensureIndex('upper_id');
     Updates._ensureIndex('partup_id');
+    Updates._ensureIndex('updated_at');
 }
 
 /**
