@@ -270,17 +270,32 @@ Router.route('/verify-email/:token', {
 });
 
 /*************************************************************/
-/* Unsubscribe from all mailings */
+/* Unsubscribe from mailings */
 /*************************************************************/
 Router.route('/unsubscribe-email-all/:token', {
     name: 'unsubscribe-email-all',
     where: 'client',
     yieldRegions: {
         'modal': {to: 'main'},
-        'modal_profile_settings_email_unsubscribe': {to: 'modal'}
+        'modal_profile_settings_email_unsubscribe_all': {to: 'modal'}
     },
     data: function() {
         return {
+            token: this.params.token
+        };
+    }
+});
+
+Router.route('/unsubscribe-email-one/:subscriptionKey/:token', {
+    name: 'unsubscribe-email-one',
+    where: 'client',
+    yieldRegions: {
+        'modal': {to: 'main'},
+        'modal_profile_settings_email_unsubscribe_one': {to: 'modal'}
+    },
+    data: function() {
+        return {
+            subscriptionKey: this.params.subscriptionKey,
             token: this.params.token
         };
     }
