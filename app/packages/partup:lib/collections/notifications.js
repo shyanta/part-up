@@ -27,6 +27,8 @@ Notifications.findForUser = function(user, selector, options) {
     var options = options || {};
 
     selector.for_upper_id = user._id;
+    options.limit = options.limit || 25;
+    options.sort = {created_at: -1};
 
     return Notifications.find(selector, options);
 };
