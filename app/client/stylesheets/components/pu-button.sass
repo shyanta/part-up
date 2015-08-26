@@ -791,6 +791,16 @@
             bottom: -2px
             left: -2px
 
+        &-all-partups
+            .pu-sub-logobutton
+                width: 20px
+                height: 20px
+                margin-top: -2px
+                margin-left: -3px
+                background-image: url(/images/button-logo.png)
+                background-position: top
+                background-repeat: no-repeat
+                background-size: 100%
         &:hover
             background-color: $color-header
             color: $color-text-inverted
@@ -799,9 +809,13 @@
             background-color: $color-header
             color: $color-primary-dark
 
+
         &-active
             background-color: $color-background
             color: $color-header
+
+            .pu-sub-logobutton
+                background-position: bottom
 
             &:hover,
             &:active,

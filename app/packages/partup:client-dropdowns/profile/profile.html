@@ -14,7 +14,9 @@
                 {{/unless}}
                 <ul class="pu-list pu-list-right {{#if disableUp}}pu-state-large{{/if}} {{#if disableDown}}pu-state-large{{/if}}" data-list>
                     <li>
-                        <a href="#" class="pu-button pu-button-dropdowntab {{#unless networkId}}pu-button-dropdowntab-active{{/unless}}" data-select-network>{{_ 'dropdowns-profile-title-profilepartups' }}</a>
+                        <a href="#" class="pu-button pu-button-dropdowntab {{#unless networkId}}pu-button-dropdowntab-active{{/unless}} pu-button-dropdowntab-all-partups" data-select-network>
+                            <figure class="pu-sub-logobutton"></figure>
+                        </a>
                     </li>
                     {{#each networks}}
                         <li>
