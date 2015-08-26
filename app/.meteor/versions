@@ -40,6 +40,7 @@ cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.0.5
 chrismbeckett:toastr@2.1.0
+chuangbo:cookie@1.1.0
 coffeescript@1.0.6
 cwaring:modernizr@3.0.0_1
 ddp@1.1.0
@@ -78,6 +79,8 @@ manuelschoebel:ms-seo@0.4.1
 matb33:collection-hooks@0.7.13
 meteor@1.1.6
 meteor-platform@1.2.2
+meteorhacks:fast-render@2.9.0
+meteorhacks:inject-data@1.4.0
 meteorhacks:kadira@2.23.0
 meteorhacks:meteorx@1.3.1
 meteorhacks:picker@1.0.3
