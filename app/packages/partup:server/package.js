@@ -65,6 +65,7 @@ Package.onUse(function(api) {
         'event.js',
         'collection_hooks.js',
         'factories/updates_factory.js',
+        'services/cache_service.js',
         'services/notifications_service.js',
         'services/system_messages_service.js',
         'services/email_service.js',
