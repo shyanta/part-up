@@ -17,6 +17,7 @@ New:
 // partups_messages_inserted (partners & supporters)
 // partups_activities_inserted (partners & supporters)
 // partups_ratings_reminder (partners) (when 75% of time has passed)
+// partup_created_in_network
 
 Created:
 
