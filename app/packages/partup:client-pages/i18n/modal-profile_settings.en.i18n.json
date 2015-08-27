@@ -18,7 +18,7 @@
     "modal-profilesettings-email-updatesuccess-enabled-upper_mentioned_in_partup":"Mention email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-upper_mentioned_in_partup":"Mention email disabled",
 
-    "modal-profilesettings-email-invite_upper_to_partup_activity":"when you're invited to join an activity",
+    "modal-profilesettings-email-invite_upper_to_partup_activity":"when you're invited to contribute to an activity",
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_partup_activity":"Invite to activity email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_partup_activity":"Invite to activity email disabled",
 
@@ -26,7 +26,7 @@
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_network":"Invite to tribe email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Invite to tribe email disabled",
 
-    "modal-profilesettings-email-partup_created_in_network":"when a part-up is created in a network you're a member of",
+    "modal-profilesettings-email-partup_created_in_network":"when a part-up is created in a tribe you're a member of",
     "modal-profilesettings-email-updatesuccess-enabled-partup_created_in_network":"Part-up created in network email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-partup_created_in_network":"Part-up created in network email disabled",
 
