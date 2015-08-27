@@ -43,6 +43,8 @@ Package.onUse(function(api) {
         'private/emails/dailydigest.nl.html',
         'private/emails/upper_mentioned_in_partup.en.html',
         'private/emails/upper_mentioned_in_partup.nl.html',
+        'private/emails/partup_created_in_network.en.html',
+        'private/emails/partup_created_in_network.nl.html',
         'private/templates/seo/partup.html',
         'private/templates/seo/profile.html',
         'private/templates/seo/network.html',
