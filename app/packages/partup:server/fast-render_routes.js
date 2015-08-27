@@ -10,9 +10,9 @@ FastRender.onAllRoutes(function(path) {
 
 FastRender.route('/discover', function(params) {
     if (Cache.has('discover_partupids')) {
-        var partupIds = Cache.get('discover_partupids');
+        var partupIds = Cache.get('discover_partupids') || [];
 
-        this.subscribe('partups.by_ids', partupIds);
+        this.subscribe('partups.by_ids', partupIds.slice(0, 16));
 
         d('Fastrendered discover partups');
     }
