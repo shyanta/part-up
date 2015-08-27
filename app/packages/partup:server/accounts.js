@@ -62,7 +62,8 @@ Accounts.onCreateUser(function(options, user) {
                     dailydigest: true,
                     upper_mentioned_in_partup: true,
                     invite_upper_to_partup_activity: true,
-                    invite_upper_to_network: true
+                    invite_upper_to_network: true,
+                    partup_created_in_network: true
                 },
                 unsubscribe_email_token: Random.secret()
             }
@@ -88,7 +89,8 @@ Accounts.onCreateUser(function(options, user) {
                     dailydigest: true,
                     upper_mentioned_in_partup: true,
                     invite_upper_to_partup_activity: true,
-                    invite_upper_to_network: true
+                    invite_upper_to_network: true,
+                    partup_created_in_network: true
                 },
                 unsubscribe_email_token: Random.secret()
             }
