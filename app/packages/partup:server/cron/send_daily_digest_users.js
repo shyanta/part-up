@@ -9,7 +9,7 @@ SyncedCron.add({
             'flags.dailyDigestEmailHasBeenSent': false,
             'profile.settings.email.dailydigest': true
         }).forEach(function(user) {
-            var newNotifications = Notifications.findForUser(user, {'new':true}).fetch();
+            var newNotifications = Notifications.findForUser(user, {'new': true}).fetch();
             if (newNotifications.length > 0) {
 
                 // Set the email details
