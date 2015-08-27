@@ -9,7 +9,7 @@
     "pages-modal-create-promote-button-twitter": "Twitter",
     "pages-modal-create-promote-button-facebook": "Facebook",
     "pages-modal-create-promote-button-linkedin": "LinkedIn",
-    "pages-modal-create-promote-button-done": "Done, up to your part-up",
+    "pages-modal-create-promote-button-done": "Done, go to your part-up",
 
     "pages-modal-create-promote-notify-copy-to-clipboard-error": "Somehow copying the part-up link failed. Please try again.",
     "pages-modal-create-promote-notify-copy-to-clipboard-success": "Copied the part-up link.",
