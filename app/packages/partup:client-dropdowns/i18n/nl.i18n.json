@@ -40,5 +40,6 @@
     "dropdown-notification-partups_contributions_inserted": "__creator__ voegde een bijdrage toe",
     "dropdown-notification-partups_contributions_proposed": "__creator__ stelde een bijdrage voor",
     "dropdown-notification-partups_ratings_reminder": "Vergeet niet beoordelingen toe te voegen voor je partners in __partup__",
-    "dropdown-notification-partups_user_mentioned": "__mentioning_upper__ heeft je genoemd in __partup__"
+    "dropdown-notification-partups_user_mentioned": "__mentioning_upper__ heeft je genoemd in __partup__",
+    "dropdown-notification-partup_created_in_network": "__creator__ heeft __partup__ aangemaakt in __network__"
 }
