@@ -113,7 +113,7 @@ Meteor.startup(function() {
     /* Seo configuration */
     /*************************************************************/
     SEO.config({
-        title: 'Part-up',
+        title: Partup.client.notifications.createTitle('Part-up'),
         meta: {
             'description': 'Just organize!',
             'image': '/images/partup-logo.png',

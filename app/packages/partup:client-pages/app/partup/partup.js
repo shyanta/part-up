@@ -36,7 +36,7 @@ Template.app_partup.onCreated(function() {
         tpl.partupId.set(partup._id);
 
         var seo = {
-            title: partup.name,
+            title: Partup.client.notifications.createTitle(partup.name),
             meta: {
                 title: partup.name,
                 description: partup.description
