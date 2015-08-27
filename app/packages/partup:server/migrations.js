@@ -347,6 +347,11 @@ Migrations.add({
             }
         };
 
+        // Username + password users
+        Meteor.users.find({'services.password': {$exists: true}}).forEach(function(user) {
+            setRandomUserImage(user);
+        });
+
         // Facebook users
         Meteor.users.find({'services.facebook': {$exists: true}}).forEach(function(user) {
             var url = 'https://graph.facebook.com/' + user.services.facebook.id + '/picture?width=750';
@@ -358,10 +363,20 @@ Migrations.add({
             var url = user.services.linkedin.pictureUrl;
             downloadAndSetUserImage(user, url);
         });
+    },
+    down: function() {
+        //
+    }
+});
 
-        // Username + password users
-        Meteor.users.find({'services.password': {$exists: true}}).forEach(function(user) {
-            setRandomUserImage(user);
+Migrations.add({
+    version: 15,
+    name: 'Set default partup picture on all partups',
+    up: function() {
+        Partups.find({}).forEach(function(partup) {
+            var images = Images.find({'meta.default_partup_picture': true}).fetch();
+            image = mout.random.choice(images);
+            Partups.update(partup._id, {$set:{'image': image._id}});
         });
     },
     down: function() {
@@ -369,4 +384,4 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(14);
+Migrations.migrateTo(15);
