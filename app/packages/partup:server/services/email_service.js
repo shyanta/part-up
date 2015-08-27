@@ -44,6 +44,8 @@ Partup.server.services.emails = {
         // Compile template
         SSR.compileTemplate(options.type, Assets.getText('private/emails/' + options.type + '.' + options.locale + '.html'));
 
+        options.typeData.baseUrl = Meteor.absoluteUrl();
+
         emailSettings.from = options.fromAddress;
         emailSettings.to = options.toAddress;
         emailSettings.subject = options.subject;
