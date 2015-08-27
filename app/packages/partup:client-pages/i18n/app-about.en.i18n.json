@@ -1,33 +1,38 @@
 {
     "pages-app-about-title": "Part-up, a social impact startup",
-    "pages-app-about-intro-text": "At Part-up, we are on a mission to give everyone a future full of jobs. We believe that in the near future, access to work will be more important than having a job-for-life. This movement is already spreading over the world. By providing the engine for short-term, project-based teams, Part-up accelerates this movement. With Part-up your best teams are only a click away. We believe the collaborative and sharing economy provides for a better future. We take part by sharing ownership of Part-up and by returning profit to the community. Together we can make our dreams work!",
+    "pages-app-about-intro-text1": "At Part-up, we are on a mission to give everyone a future full of jobs. We believe that in the near future, access to work will be more important than having a job-for-life.",
+    "pages-app-about-intro-text2": "This movement is already spreading over the world. By providing the engine for short-term, project-based teams, Part-up accelerates this movement. With Part-up your best teams are only a click away. We believe the collaborative and sharing economy provides for a better future. We take part by sharing ownership of Part-up and by returning profit to the community. Together we can make our dreams work!",
     "pages-app-about-intro-image": "http://lorempixel.com/962/412/business",
 
-    "pages-app-about-socialimpact-title": "Social impact start-up",
-    "pages-app-about-socialimpact-part1": "Onze missie is om de toekomst van werken anders vorm te geven. In deze toekomst gaat het niet om baanzekerheid, maar de toegang tot werk.",
-    "pages-app-about-socialimpact-part2": "Met Part-up kan iedereen organiseren zonder organisatie. Deze beweging verspreidt zich al over de hele wereld. Want overal zijn teams die behoefte hebben aan flexibiliteit, of gewoon de behoefte om slim te organiseren. Part-up is de motor, de beweging geven we samen vorm. Door gedeeld eigenaarschap en het delen van de winst creëren we een nieuwe standaard voor samenwerking.",
-    "pages-app-about-socialimpact-part3": "Wij zetten Part-up op als een social enterprise. Het platform is niet van ons, maar vooral van de Uppers. De winst van Part-up geven we daarom terug aan onze Uppers. Zij kunnen die winstdeling inzetten als middelen voor hun Part-ups. Zo is Part-up een eigen revolving fund.",
+    "pages-app-about-socialimpact-title": "On a mission to a future full of jobs and your best teams ever",
+    "pages-app-about-socialimpact-part1": "Part-up is the new marketplace for teamwork. A part-up is a temporary team working together to realize a dream, idea or project. Individuals, employees and freelancers can participate as uppers and join part-ups for free. With a premium account you can also create non-public part-ups for more private dreams or confidential projects. Communities and organizations can buy their own tribe on Part-up, to start and share part-ups with just the people they choose.",
+    "pages-app-about-socialimpact-part2": "We believe teamwork gets much better if you have the freedom to choose your teammates and your activities. We develop our matching algorithm to help you find the best team members. Uppers receive notifications of new and matching part-ups. You can join these part-ups as a supporter to share your expertise or as a partner to actively contribute to the activities. The partners together decide on the activities and rate each others contributions.",
+    "pages-app-about-socialimpact-part3": "Part-up is beta is available since the summer of 2015. Sign up to kickstart your dreams and goals!",
+
+    "pages-app-about-community-title": "The Part-up community",
+    "pages-app-about-community-part1": "Part-up is founded by Erik, Laurens and Ralph. First and foremost, they build Part-up for themselves. They quit their jobs to be nomadic knowledge workers and work in temporary teams. They are experienced (social) networkers that have been building part-ups all their lives.",
+    "pages-app-about-community-part2": "At Part-up we believe in the power of organizing without organizations. We practice what we preach, so we build up Part-up out of tribes and part-ups. Currently we're working with over 130 professionals in different teams to develop Part-up. If you think you can actively contribute to the Part-up community, please let us know and join one of the part-ups in the Part-up tribes! Our super upper community manager Josje and others will give you a warm welcome!",
+    "pages-app-about-community-part3": "We want the whole Part-up community to benefit and therefore intent to share both ownership and profit. Our goal is to develop Part-up as a social impact startup. For this reason we are also acknowledged by Social Enterprise NL.",
 
     "pages-app-about-contact-title": "Contact",
-    "pages-app-about-contact-part1": "Leuk dat je contact met ons wilt opnemen! We staan voor je klaar. Kom je langs? Dan moet je op het volgende adres zijn:",
-    "pages-app-about-contact-part2": "Bellen of mailen is natuurlijk ook handig. We zijn misschien niet altijd bereikbaar, maar bellen je zeker terug! Een direct message via (bijna) alle social media kan uiteraard ook.",
+    "pages-app-about-contact-text": "Do want to stay on top of Part-up development? Sign up to our <a href='http://www.part-up.nl/signup' target='_blank'>newsletter</a>, the Part-update. Or follow Part-up on <a href='http://facebook.com/partupcom' target='_blank'>Facebook</a> or <a href='http://facebook.com/partupcom' target='_blank'>Twitter.</a>",
 
     "pages-app-about-contact-adress-title": "BINK36",
-    "pages-app-about-contact-adress-street": "Binckhorstlaan 36",
-    "pages-app-about-contact-adress-city": "2516 BE Den Haag",
-    "pages-app-about-contact-adress-country": "The Netherlands",
+    "pages-app-about-contact-adress-street": "Unit M0.55 (gebouw Magazijn)",
+    "pages-app-about-contact-adress-city": "Binckhorstlaan 36",
+    "pages-app-about-contact-adress-country": "2516 BE Den Haag",
     "pages-app-about-contact-adress-googlemapsurl": "https://www.google.nl/maps/place/Binckhorstlaan+36,+2516+BE+Den+Haag/@52.0734802,4.3325885,17z/data=!3m1!4b1!4m2!3m1!1s0x47c5b71cb450ceaf:0x991f40e24ede6d44?hl=en",
     "pages-app-about-contact-adress-googlemapsurl-name": "Open Google maps",
 
     "pages-app-about-person-name-laurens": "Laurens Waling",
     "pages-app-about-person-phone-laurens": "+316 1003 5001",
-    "pages-app-about-person-email-laurens": "laurens@part-up.com",
+    "pages-app-about-person-email-laurens": "<a href='mailto:laurens@part-up.com'>laurens@part-up.com</a>",
 
     "pages-app-about-person-name-ralph": "Ralph Boeije",
     "pages-app-about-person-phone-ralph": "+316 1709 4018",
-    "pages-app-about-person-email-ralph": "ralph@part-up.com",
+    "pages-app-about-person-email-ralph": "<a href='mailto:ralph@part-up.com'>ralph@part-up.com</a>",
 
     "pages-app-about-person-name-erik": "Erik Soonieus",
     "pages-app-about-person-phone-erik": "+316 1649 6956",
-    "pages-app-about-person-email-erik": "erik@part-up.com"
+    "pages-app-about-person-email-erik": "<a href='mailto:erik@part-up.com'>erik@part-up.com</a>"
 }

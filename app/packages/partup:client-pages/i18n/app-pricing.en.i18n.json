@@ -28,7 +28,7 @@
     "pages-app-pricing-tribes-socialimpact-feature1": "Tribes",
     "pages-app-pricing-tribes-socialimpact-feature1-value": "1",
     "pages-app-pricing-tribes-socialimpact-feature2": "Support",
-    "pages-app-pricing-tribes-socialimpact-feature2-value": "Forum",
+    "pages-app-pricing-tribes-socialimpact-feature2-value": "Chat",
 
     // small
     "pages-app-pricing-tribes-small-name": "Small",
@@ -38,7 +38,7 @@
     "pages-app-pricing-tribes-small-feature1": "Tribes",
     "pages-app-pricing-tribes-small-feature1-value": "1",
     "pages-app-pricing-tribes-small-feature2": "Support",
-    "pages-app-pricing-tribes-small-feature2-value": "Forum",
+    "pages-app-pricing-tribes-small-feature2-value": "Chat",
 
     // medium
     "pages-app-pricing-tribes-medium-name": "Medium",
@@ -48,7 +48,7 @@
     "pages-app-pricing-tribes-medium-feature1": "Tribes",
     "pages-app-pricing-tribes-medium-feature1-value": "10",
     "pages-app-pricing-tribes-medium-feature2": "Support",
-    "pages-app-pricing-tribes-medium-feature2-value": "Forum + Chat/ticket",
+    "pages-app-pricing-tribes-medium-feature2-value": "+ Ticket",
 
     // large
     "pages-app-pricing-tribes-large-name": "Large",
@@ -58,7 +58,7 @@
     "pages-app-pricing-tribes-large-feature1": "Tribes",
     "pages-app-pricing-tribes-large-feature1-value": "25 (or more)",
     "pages-app-pricing-tribes-large-feature2": "Support",
-    "pages-app-pricing-tribes-large-feature2-value": "Forum + Chat/ticket + Telephone",
+    "pages-app-pricing-tribes-large-feature2-value": "+ Telephone",
 
     "pages-app-pricing-tribes-title": "For networks and organizations",
     "pages-app-pricing-tribes-description": "Organizations or communities can buy their own branded and managed tribes. A tribe allows you to create and share public and private part-ups with just the people you select. ",

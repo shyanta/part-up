@@ -1,3 +1,8 @@
+Template.CallToAction.helpers({
+    user: function() {
+        return Meteor.user();
+    }
+});
 Template.CallToAction.events({
     'click [data-start]': function(event) {
         event.preventDefault();
