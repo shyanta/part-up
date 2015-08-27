@@ -65,7 +65,6 @@ partup:client-header
 partup:client-footer
 partup:client-activity
 partup:client-autocomplete
-partup:client-basic-selector
 partup:client-columns-layout
 partup:client-comments
 partup:client-contribution
@@ -77,9 +76,7 @@ partup:client-forgotpassword
 partup:client-gallery
 partup:client-invite-to-activity
 partup:client-loader
-partup:client-location-selector
 partup:client-login
-partup:client-network-selector
 partup:client-network-settings
 partup:client-network-settings-requests
 partup:client-network-settings-uppers
@@ -102,3 +99,4 @@ percolate:intercom
 meteorhacks:picker
 partup:client-admin-featured-networks
 meteorhacks:fast-render
+partup:client-selectors

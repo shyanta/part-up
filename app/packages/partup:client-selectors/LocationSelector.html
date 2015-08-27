@@ -6,7 +6,7 @@
         <label class="pu-formfield">
             <span class="pu-sub-input">
                 {{# Autocomplete onQuery=onAutocompleteQuery onSelect=onAutocompleteSelect }}
-                    <input type="text" placeholder="Zoek op stad of regio" class="pu-input" data-locationqueryinput>
+                    <input type="text" placeholder="{{_ 'filter-locationfilter-placeholder'}}" class="pu-input" data-locationqueryinput>
                 {{/ Autocomplete }}
             </span>
         </label>
@@ -14,7 +14,7 @@
         <!-- Suggestions -->
         <label class="pu-formfield">
             <span class="pu-label">
-                Suggesties
+                {{_ 'filter-locationfilter-title'}}
             </span>
 
             <ul class="pu-list pu-list-suggestiontiles">
