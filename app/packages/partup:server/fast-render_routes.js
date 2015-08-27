@@ -35,3 +35,11 @@ FastRender.route('/partups/:slug/activities', function(params) {
 
     d('Fastrendered partup [' + partupId + '] and it\'s activities');
 });
+
+FastRender.route('/profile/:userId', function(params) {
+    var userId = params.userId;
+
+    this.subscribe('users.one', userId);
+
+    d('Fastrendered user [' + userId + '] profile');
+});
