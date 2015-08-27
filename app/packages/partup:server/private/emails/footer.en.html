@@ -26,7 +26,10 @@
                         <td width="60" valign="top">&nbsp;</td>
                         <td width="500" valign="top">
                             <p style="margin: 1em 0;font: 16px proxima nova, sans-serif;font-size: 12px;">Feedback? We love to hear from you! Contact Part-up via <a href="#" style="color: #999;">info@part-up.com</a></p>
-                            <p style="margin: 1em 0;font: 16px proxima nova, sans-serif;font-size: 12px;"><a href="{{ unsubscribeOneUrl }}" style="color: #999;">Stop receiving this email</a> / <a href="{{ unsubscribeAllUrl }}" style="color: #999;">stop receiving email from Part-up</a></p>
+
+                            {{# if unsubscribeOneUrl }}
+                                <p style="margin: 1em 0;font: 16px proxima nova, sans-serif;font-size: 12px;"><a href="{{ unsubscribeOneUrl }}" style="color: #999;">Stop receiving this email</a> / <a href="{{ unsubscribeAllUrl }}" style="color: #999;">stop receiving email from Part-up</a></p>
+                            {{/ if }}
                         </td>
                         <td width="60" valign="top">&nbsp;</td>
                     </tr>
