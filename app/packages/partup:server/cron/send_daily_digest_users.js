@@ -21,7 +21,9 @@ SyncedCron.add({
                     typeData: {
                         name: User(user).getFirstname(),
                         notificationCount: newNotifications.length,
-                        url: Meteor.absoluteUrl()
+                        url: Meteor.absoluteUrl(),
+                        unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/dailydigest/' + user.profile.settings.unsubscribe_email_token,
+                        unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + user.profile.settings.unsubscribe_email_token
                     },
                     userEmailPreferences: user.profile.settings.email
                 };
