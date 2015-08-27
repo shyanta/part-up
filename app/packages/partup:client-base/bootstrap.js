@@ -113,10 +113,10 @@ Meteor.startup(function() {
     /* Seo configuration */
     /*************************************************************/
     SEO.config({
-        title: 'Part-up',
+        title: 'Part-up Beta',
         meta: {
-            'description': 'Just organize!',
-            'image': '/images/partup-logo.png',
+            'description': 'Sign up to the Part-up Beta. Part-up is the marketplace for teamwork. Share your dream or project and get your team together.',
+            // 'image': '/images/partup-logo.png', // Trello said 'no image', see https://trello.com/c/l7tC9oac/867-fe-update-seo-on-homepage-see-details
             'title': 'Part-up'
         },
         og: {
