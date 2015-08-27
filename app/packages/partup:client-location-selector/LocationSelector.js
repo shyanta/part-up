@@ -92,6 +92,7 @@ Template.LocationSelector.helpers({
 
 Template.LocationSelector.events({
     'click [data-select-suggested-location]': function(event, template) {
+        event.preventDefault();
         var locations = template.suggestedLocations.get();
         if (!locations || !locations.length) return;
 

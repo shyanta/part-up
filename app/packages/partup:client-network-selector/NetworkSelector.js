@@ -15,6 +15,7 @@ Template.NetworkSelector.helpers({
 
 Template.NetworkSelector.events({
     'click [data-select-network]': function(event, template) {
+        event.preventDefault();
         var networks = Networks.find().fetch();
         if (!networks || !networks.length) return;
 

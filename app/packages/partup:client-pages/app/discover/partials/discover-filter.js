@@ -242,6 +242,7 @@ Template.app_discover_filter.events({
 
     // Network selector events
     'click [data-open-networkselector]': function(event, template) {
+        event.preventDefault();
         var current = template.network.selectorState.get();
         template.network.selectorState.set(!current);
     },
@@ -253,6 +254,7 @@ Template.app_discover_filter.events({
 
     // Location selector events
     'click [data-open-locationselector]': function(event, template) {
+        event.preventDefault();
         var current = template.location.selectorState.get();
         template.location.selectorState.set(!current);
     },
@@ -264,6 +266,7 @@ Template.app_discover_filter.events({
 
     // Sorting selector events
     'click [data-open-sortingselector]': function(event, template) {
+        event.preventDefault();
         var current = template.sorting.selectorState.get();
         template.sorting.selectorState.set(!current);
     }
