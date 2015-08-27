@@ -187,6 +187,8 @@ Template.app_network.events({
     'click [data-location]': function(event, template) {
         var location = Networks.findOne({slug: template.data.networkSlug}).location;
         Session.set('discover.query.location', location);
-        Router.go('discover');
+        Meteor.defer(function() {
+            Router.go('discover');
+        });
     }
 });
