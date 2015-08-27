@@ -136,7 +136,6 @@ Meteor.startup(function() {
     });
 
     Router.onAfterAction(function() {
-        console.log(SEO.settings.title)
         SEO.set({
             title: Partup.client.notifications.createTitle(SEO.settings.title)
         });
