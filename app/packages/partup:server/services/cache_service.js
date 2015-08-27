@@ -45,6 +45,10 @@ Partup.server.services.cache = {
         }
 
         return true;
+    },
+
+    clear: function() {
+        cache = {};
     }
 
 };
