@@ -76,11 +76,16 @@ Package.onUse(function(api) {
     ]);
 
     api.addFiles([
-        'startup/default_profile_pictures.js'
+        'startup/default_profile_pictures.js',
+        'startup/default_partup_pictures.js'
     ], ['server']);
 
     for (var i = 1; i <= 15; i++) {
         api.addFiles('private/default_profile_pictures/Profielfoto' + i + '.png', 'server', {isAsset: true});
+    }
+
+    for (var i = 1; i <= 12; i++) {
+        api.addFiles('private/default_partup_pictures/Partupfoto' + i + '.png', 'server', {isAsset: true});
     }
 
     // Namespace
