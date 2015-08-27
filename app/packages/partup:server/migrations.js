@@ -298,4 +298,22 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(12);
+Migrations.add({
+    version: 13,
+    name: 'Set default email notification setting',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.settings.email.upper_mentioned_in_partup': true,
+                'profile.settings.email.invite_upper_to_partup_activity': true,
+                'profile.settings.email.invite_upper_to_network': true,
+                'profile.settings.email.partup_created_in_network': true
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(13);
