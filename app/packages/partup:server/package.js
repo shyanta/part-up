@@ -33,6 +33,8 @@ Package.onUse(function(api) {
     ], ['server']);
 
     api.addFiles([
+        'private/emails/header.html',
+        'private/emails/footer.html',
         'private/emails/invite_upper_to_partup_activity.en.html',
         'private/emails/invite_upper_to_partup_activity.nl.html',
         'private/emails/invite_upper_to_network.en.html',
