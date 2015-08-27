@@ -76,7 +76,6 @@ Template.app_partup.onRendered(function() {
         if (!partup) return;
 
         if (!Partup.client.isMobile.any()) {
-            sidebarDebugger.log('wit');
             partupDetailLayout.init.apply(partupDetailLayout);
         }
     });
