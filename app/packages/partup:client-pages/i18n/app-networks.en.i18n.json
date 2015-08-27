@@ -32,7 +32,7 @@
     "pages-app-network-notification-left": "You left the tribe",
 
     "pages-app-network-confirmation-title": "Are you sure you want to leave __tribe__?",
-    "pages-app-network-confirmation-message": "This means that you will leave all part-ups you created or support in this tribe. This cannot be undone.",
+    "pages-app-network-confirmation-message": "This cannot be undone.",
     "pages-app-network-confirmation-confirm-button": "Yes, I'm sure",
     "pages-app-network-confirmation-cancel-button": "No! Cancel"
 }
