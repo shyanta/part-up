@@ -41,7 +41,7 @@ var Partup = function(document) {
 Partup.prototype.isEditableBy = function(user) {
     var uppers = this.uppers || [];
 
-    return user && uppers.indexOf(user._id) > -1;
+    return user && (uppers.indexOf(user._id) > -1 || User(user).isAdmin());
 };
 
 /**

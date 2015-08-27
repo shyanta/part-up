@@ -3,8 +3,8 @@ Template.modal_partup_settings.onCreated(function() {
     tpl.subscribe('partups.one', tpl.data.partupId, function() {
         var partup = Partups.findOne(tpl.data.partupId);
         if (!partup) return Router.pageNotFound('partup');
-        var userId = Meteor.userId();
-        if (!partup.hasUpper(userId)) return Router.pageNotFound('partup-not-allowed');
+        var user = Meteor.user();
+        if (!partup.hasUpper(user._id) && !User(user).isAdmin()) return Router.pageNotFound('partup-not-allowed');
     });
     tpl.submitting = new ReactiveVar(false);
 });
