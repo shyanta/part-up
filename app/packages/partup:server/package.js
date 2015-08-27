@@ -77,6 +77,7 @@ Package.onUse(function(api) {
         'services/partup_progress_calculator_service.js',
         'seo/routes.js',
         'migrations.js',
+        'fast-render_routes.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
         'event_handlers/partups/partups_supporters_handler.js',
