@@ -42,7 +42,11 @@ Partup.server.services.emails = {
         }
 
         // Compile template
-        SSR.compileTemplate(options.type, Assets.getText('private/emails/' + options.type + '.' + options.locale + '.html'));
+        SSR.compileTemplate(options.type, [
+            Assets.getText('private/emails/header.html'),
+            Assets.getText('private/emails/' + options.type + '.' + options.locale + '.html'),
+            Assets.getText('private/emails/footer.html')
+        ].join(''));
 
         options.typeData.baseUrl = Meteor.absoluteUrl();
 
