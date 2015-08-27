@@ -1,3 +1,5 @@
+var Cache = Partup.server.services.cache;
+
 Meteor.methods({
     /**
      * Insert a Partup
@@ -125,6 +127,10 @@ Meteor.methods({
 
         var userId = Meteor.userId();
 
+        if (!userId && Cache.has('discover_partupids')) {
+            return Cache.get('discover_partupids') || [];
+        }
+
         var options = {};
         parameters = parameters || {};
 
@@ -139,9 +145,13 @@ Meteor.methods({
             language: parameters.language
         };
 
-        return Partups.findForDiscover(userId, options, parameters).map(function(partup) {
+        var partupIds = Partups.findForDiscover(userId, options, parameters).map(function(partup) {
             return partup._id;
         });
+
+        if (!userId) Cache.set('discover_partupids', partupIds, 3600);
+
+        return partupIds;
     },
 
     /**
