@@ -26,6 +26,10 @@
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_network":"Invite to tribe email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Invite to tribe email disabled",
 
+    "modal-profilesettings-email-partup_created_in_network":"when a part-up is created in a network you're a member of",
+    "modal-profilesettings-email-updatesuccess-enabled-partup_created_in_network":"Part-up created in network email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-partup_created_in_network":"Part-up created in network email disabled",
+
     "modal-profilesettings-email-updatesuccess-disabled-all": "Disabled all automatic emails",
     "modal-profilesettings-email-updatesuccess-disabled-one": "Disabled the automatic email",
     "modal-profilesettings-email-updateerror-disabled": "Something went wrong, please try again",
