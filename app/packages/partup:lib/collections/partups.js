@@ -246,7 +246,7 @@ Partups = new Mongo.Collection('partups', {
 
 // Add indices
 if (Meteor.isServer) {
-    Partups._ensureIndex({'name': 'text', 'description': 'text'});
+    Partups._ensureIndex({'name': 'text', 'description': 'text'}, {language_override: 'idioma'});
     Partups._ensureIndex('creator_id');
     Partups._ensureIndex('privacy_type');
     Partups._ensureIndex('slug');
