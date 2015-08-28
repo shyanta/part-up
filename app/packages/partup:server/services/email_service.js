@@ -12,7 +12,8 @@ var templates = [
     'dailydigest',
     'invite_upper_to_network',
     'invite_upper_to_partup_activity',
-    'upper_mentioned_in_partup'
+    'upper_mentioned_in_partup',
+    'partup_created_in_network'
 ];
 var templateName;
 var templateFile;
