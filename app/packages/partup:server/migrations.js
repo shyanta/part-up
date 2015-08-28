@@ -386,8 +386,12 @@ Migrations.add({
 
 Migrations.add({
     version: 16,
-    name: 'Re-added migration 11 for language errors',
+    name: 'Re-added migration 11 for language errors, and update the indices',
     up: function() {
+        // Fix the indices
+        Partups._dropIndex('name_text_description_text');
+        Partups._ensureIndex({'name': 'text', 'description': 'text'}, {language_override: 'idioma'});
+
         Partups.find().fetch().forEach(function(partup) {
             if (!partup.language) {
                 var language = Partup.server.services.google.detectLanguage(partup.description);
