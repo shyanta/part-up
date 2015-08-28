@@ -1,4 +1,5 @@
 // Settings
+//
 var MAX_IMAGE_WIDTH = 1500;
 var MAX_IMAGE_HEIGHT = 1500;
 
@@ -7,7 +8,7 @@ Partup.client.uploader = {
     /**
      * Upload single image
      *
-     * @memberof Partup.client
+     * @memberOf Partup.client
      * @param {Object} file
      * @param {Function} callback
      */
@@ -66,7 +67,7 @@ Partup.client.uploader = {
     /**
      * Upload single image by url
      *
-     * @memberof Partup.client
+     * @memberOf Partup.client
      * @param {String} url
      * @param {Function} callback
      */
