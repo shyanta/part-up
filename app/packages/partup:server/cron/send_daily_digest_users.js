@@ -9,7 +9,7 @@ SyncedCron.add({
             'flags.dailyDigestEmailHasBeenSent': false,
             'profile.settings.email.dailydigest': true
         }).forEach(function(user) {
-            var newNotifications = Notifications.findForUser(user, {'new':true}).fetch();
+            var newNotifications = Notifications.findForUser(user, {'new': true}).fetch();
             if (newNotifications.length > 0) {
 
                 // Set the email details
@@ -21,7 +21,9 @@ SyncedCron.add({
                     typeData: {
                         name: User(user).getFirstname(),
                         notificationCount: newNotifications.length,
-                        url: Meteor.absoluteUrl()
+                        url: Meteor.absoluteUrl(),
+                        unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/dailydigest/' + user.profile.settings.unsubscribe_email_token,
+                        unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + user.profile.settings.unsubscribe_email_token
                     },
                     userEmailPreferences: user.profile.settings.email
                 };

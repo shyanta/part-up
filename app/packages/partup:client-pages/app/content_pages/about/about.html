@@ -10,7 +10,8 @@
             <section class="pu-wrap pu-contentpage">
                 <!-- intro text -->
                 <article class="pu-article pu-article-intro">
-                    <p class="pu-paragraph">{{_ 'pages-app-about-intro-text'}}</p>
+                    <p class="pu-paragraph">{{_ 'pages-app-about-intro-text1'}}</p>
+                    <p class="pu-paragraph">{{_ 'pages-app-about-intro-text2'}}</p>
                 </article>
                 <!-- article image -->
                 <img src="/images/about-image.jpg" alt="" class="pu-image pu-image-content">
@@ -21,18 +22,16 @@
                     <p class="pu-paragraph">{{_ 'pages-app-about-socialimpact-part2'}}</p>
                     <p class="pu-paragraph">{{_ 'pages-app-about-socialimpact-part3'}}</p>
                 </article>
+                <article class="pu-article">
+                    <h2 class="pu-subtitle">{{_ 'pages-app-about-community-title'}}</h2>
+                    <p class="pu-paragraph">{{_ 'pages-app-about-community-part1'}}</p>
+                    <p class="pu-paragraph">{{_ 'pages-app-about-community-part2'}}</p>
+                    <p class="pu-paragraph">{{_ 'pages-app-about-community-part3'}}</p>
+                </article>
                 <!-- second part -->
                 <article class="pu-article">
                     <h2 class="pu-subtitle">{{_ 'pages-app-about-contact-title'}}</h2>
-                    <p class="pu-paragraph">{{_ 'pages-app-about-contact-part1'}}</p>
-                    <ul class="pu-list">
-                        <li class="pu-sub-title">{{_ 'pages-app-about-contact-adress-title'}}</li>
-                        <li>{{_ 'pages-app-about-contact-adress-street'}}</li>
-                        <li>{{_ 'pages-app-about-contact-adress-city'}}</li>
-                        <li>{{_ 'pages-app-about-contact-adress-country'}}</li>
-                        <li><a href="{{_ 'pages-app-about-contact-adress-googlemapsurl'}}" class="pu-external-url" target="_blank">{{_ 'pages-app-about-contact-adress-googlemapsurl-name'}}</a></li>
-                    </ul>
-                    <p class="pu-paragraph">{{_ 'pages-app-about-contact-part2'}}</p>
+                    <p class="pu-paragraph">{{{_ 'pages-app-about-contact-text'}}}</p>
                     <ul class="pu-list pu-list-horizontal">
                         <li>
                             <article class="pu-face">
@@ -40,7 +39,7 @@
                                 <ul class="pu-list">
                                     <li><a href="{{ pathFor route='profile-upper-partups' _id='6Nnh97XHdxYZXubZe'}}">{{_ 'pages-app-about-person-name-laurens'}}</a></li>
                                     <li>{{_ 'pages-app-about-person-phone-laurens'}}</li>
-                                    <li>{{_ 'pages-app-about-person-email-laurens'}}</li>
+                                    <li>{{{_ 'pages-app-about-person-email-laurens'}}}</li>
                                 </ul>
                                 <ul class="pu-list pu-list-horizontal pu-sub-socials">
                                     <li><a href="https://instagram.com/laurenswaling" target="_blank"><i class="fa fa-instagram"></i></a></li>
@@ -56,7 +55,7 @@
                                 <ul class="pu-list">
                                     <li><a href="{{ pathFor route='profile-upper-partups' _id='pbnjsmy75oDNP3vok'}}">{{_ 'pages-app-about-person-name-ralph'}}</a></li>
                                     <li>{{_ 'pages-app-about-person-phone-ralph'}}</li>
-                                    <li>{{_ 'pages-app-about-person-email-ralph'}}</li>
+                                    <li>{{{_ 'pages-app-about-person-email-ralph'}}}</li>
                                 </ul>
                                 <ul class="pu-list pu-list-horizontal pu-sub-socials">
                                     <li><a href="https://www.facebook.com/ralphboeije?_rdr=p" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -71,7 +70,7 @@
                                 <ul class="pu-list">
                                     <li><a href="{{ pathFor route='profile-upper-partups' _id='sgFxtsL7AoNRCDk7y'}}">{{_ 'pages-app-about-person-name-erik'}}</a></li>
                                     <li>{{_ 'pages-app-about-person-phone-erik'}}</li>
-                                    <li>{{_ 'pages-app-about-person-email-erik'}}</li>
+                                    <li>{{{_ 'pages-app-about-person-email-erik'}}}</li>
                                 </ul>
                                 <ul class="pu-list pu-list-horizontal pu-sub-socials">
                                     <li><a href="https://www.facebook.com/erik.soonieus" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -80,6 +79,13 @@
                                 </ul>
                             </article>
                         </li>
+                    </ul>
+                    <ul class="pu-list">
+                        <li class="pu-sub-title">{{_ 'pages-app-about-contact-adress-title'}}</li>
+                        <li>{{_ 'pages-app-about-contact-adress-street'}}</li>
+                        <li>{{_ 'pages-app-about-contact-adress-city'}}</li>
+                        <li>{{_ 'pages-app-about-contact-adress-country'}}</li>
+                        <li><a href="{{_ 'pages-app-about-contact-adress-googlemapsurl'}}" class="pu-external-url" target="_blank">{{_ 'pages-app-about-contact-adress-googlemapsurl-name'}}</a></li>
                     </ul>
 
                 </article>

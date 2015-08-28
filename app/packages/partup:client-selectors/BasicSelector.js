@@ -25,6 +25,7 @@ Template.BasicSelector.helpers({
 
 Template.BasicSelector.events({
     'click [data-select-option]': function(event, template) {
+        event.preventDefault();
         var options = template.data.options;
         if (!options || !options.length) return;
 

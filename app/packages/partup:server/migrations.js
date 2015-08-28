@@ -298,4 +298,90 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(12);
+Migrations.add({
+    version: 13,
+    name: 'Set default email notification setting',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.settings.email.upper_mentioned_in_partup': true,
+                'profile.settings.email.invite_upper_to_partup_activity': true,
+                'profile.settings.email.invite_upper_to_network': true,
+                'profile.settings.email.partup_created_in_network': true
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.add({
+    version: 14,
+    name: 'Download profile pictures for facebook and linkedin users',
+    up: function() {
+        var setRandomUserImage = function(user) {
+            var images = Images.find({'meta.default_profile_picture': true}).fetch();
+            image = mout.random.choice(images);
+            Meteor.users.update(user._id, {$set:{'profile.image': image._id}});
+        };
+
+        var downloadAndSetUserImage = function(user, imageUrl) {
+            if (!imageUrl) return setRandomUserImage(user);
+
+            try {
+                var result = HTTP.get(imageUrl, {'npmRequestOptions': {'encoding': null}});
+
+                var buffer = new Buffer(result.content, 'binary');
+
+                var ref = new FS.File();
+                ref.attachData(buffer, {type: 'image/jpeg'});
+                ref.name(user._id + '.jpg');
+
+                var image = Images.insert(ref);
+
+                return Meteor.users.update(user._id, {$set:{'profile.image': image._id}});
+            } catch (error) {
+                console.log(error);
+                setRandomUserImage(user);
+            }
+        };
+
+        // Username + password users
+        Meteor.users.find({'services.password': {$exists: true}}).forEach(function(user) {
+            setRandomUserImage(user);
+        });
+
+        // Facebook users
+        Meteor.users.find({'services.facebook': {$exists: true}}).forEach(function(user) {
+            var url = 'https://graph.facebook.com/' + user.services.facebook.id + '/picture?width=750';
+            downloadAndSetUserImage(user, url);
+        });
+
+        // LinkedIn users
+        Meteor.users.find({'services.linkedin': {$exists: true}}).forEach(function(user) {
+            var url = user.services.linkedin.pictureUrl;
+            downloadAndSetUserImage(user, url);
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.add({
+    version: 15,
+    name: 'Set default partup picture on all partups',
+    up: function() {
+        Partups.find({}).forEach(function(partup) {
+            var images = Images.find({'meta.default_partup_picture': true}).fetch();
+            image = mout.random.choice(images);
+            Partups.update(partup._id, {$set:{'image': image._id}});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(15);

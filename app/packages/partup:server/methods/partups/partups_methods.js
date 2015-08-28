@@ -12,22 +12,20 @@ Meteor.methods({
 
         try {
             var newPartup = Partup.transformers.partup.fromFormStartPartup(fields);
+            newPartup._id = Random.id();
             newPartup.uppers = [user._id];
             newPartup.creator_id = user._id;
             newPartup.created_at = new Date();
+            newPartup.slug = Partup.server.services.slugify.slugifyDocument(newPartup, 'name');
 
             //check(newPartup, Partup.schemas.entities.partup);
 
-            newPartup._id = Partups.insert(newPartup);
+            Partups.insert(newPartup);
             Meteor.users.update(user._id, {$addToSet: {'upperOf': newPartup._id}});
-
-            // Generate the slug for the Partup
-            var slug = Partup.server.services.slugify.slugifyDocument(newPartup, 'name');
-            Partups.update(newPartup._id, {$set: {'slug': slug}});
 
             return {
                 _id: newPartup._id,
-                slug: slug
+                slug: newPartup.slug
             };
         } catch (error) {
             Log.error(error);

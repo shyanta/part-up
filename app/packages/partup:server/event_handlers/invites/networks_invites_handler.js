@@ -35,7 +35,9 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
             networkName: network.name,
             networkDescription: network.description,
             inviterName: inviter.profile.name,
-            url: Meteor.absoluteUrl() + network.slug
+            url: Meteor.absoluteUrl() + network.slug,
+            unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/invite_upper_to_network/' + invitee.profile.settings.unsubscribe_email_token,
+            unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + invitee.profile.settings.unsubscribe_email_token
         },
         userEmailPreferences: invitee.profile.settings.email
     };

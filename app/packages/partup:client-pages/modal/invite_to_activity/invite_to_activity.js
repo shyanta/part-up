@@ -169,7 +169,7 @@ Template.modal_invite_to_activity.events({
     },
     'click [data-reset-search-query-input]': function(event, template) {
         event.preventDefault();
-        $('[data-search-query-input]').val('')
+        $('[data-search-query-input]').val('');
         template.submitFilterForm();
     },
 
@@ -185,6 +185,7 @@ Template.modal_invite_to_activity.events({
 
     // Location selector events
     'click [data-open-locationselector]': function(event, template) {
+        event.preventDefault();
         var current = template.location.selectorState.get();
         template.location.selectorState.set(!current);
     },

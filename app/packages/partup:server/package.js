@@ -33,8 +33,10 @@ Package.onUse(function(api) {
     ], ['server']);
 
     api.addFiles([
-        'private/emails/header.html',
-        'private/emails/footer.html',
+        'private/emails/header.en.html',
+        'private/emails/header.nl.html',
+        'private/emails/footer.en.html',
+        'private/emails/footer.nl.html',
         'private/emails/invite_upper_to_partup_activity.en.html',
         'private/emails/invite_upper_to_partup_activity.nl.html',
         'private/emails/invite_upper_to_network.en.html',
@@ -43,6 +45,8 @@ Package.onUse(function(api) {
         'private/emails/dailydigest.nl.html',
         'private/emails/upper_mentioned_in_partup.en.html',
         'private/emails/upper_mentioned_in_partup.nl.html',
+        'private/emails/partup_created_in_network.en.html',
+        'private/emails/partup_created_in_network.nl.html',
         'private/templates/seo/partup.html',
         'private/templates/seo/profile.html',
         'private/templates/seo/network.html',

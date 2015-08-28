@@ -43,7 +43,9 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
             activityName: activity.name,
             activityDescription: activity.description,
             inviterName: inviter.profile.name,
-            url: Meteor.absoluteUrl() + 'partups/' + partup.slug
+            url: Meteor.absoluteUrl() + 'partups/' + partup.slug,
+            unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/invite_upper_to_partup_activity/' + invitee.profile.settings.unsubscribe_email_token,
+            unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + invitee.profile.settings.unsubscribe_email_token
         },
         userEmailPreferences: invitee.profile.settings.email
     };

@@ -55,6 +55,7 @@ Template.DropdownProfile.events({
         Meteor.logout();
     },
     'click [data-select-network]': function changeNetwork (event, template) {
+        event.preventDefault();
         var networkId = $(event.currentTarget).data('select-network') || undefined;
         template.currentNetwork.set(networkId);
     },
@@ -63,6 +64,7 @@ Template.DropdownProfile.events({
         Intent.go({route: 'profile-settings', params:{_id: Meteor.userId()}});
     },
     'click [data-down]': function(event, template) {
+        event.preventDefault();
         var list = $(template.find('[data-list]'));
         list.scrollTop(list.scrollTop() + 200);
         template.disableUp.set(false);
@@ -71,6 +73,7 @@ Template.DropdownProfile.events({
         }
     },
     'click [data-up]': function(event, template) {
+        event.preventDefault();
         var list = $(template.find('[data-list]'));
         list.scrollTop(list.scrollTop() - 200);
         template.disableDown.set(false);

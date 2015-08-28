@@ -32,7 +32,7 @@
     "pages-app-network-notification-left": "Je bent uit de tribe gestapt",
 
     "pages-app-network-confirmation-title": "Weet je zeker dat je __tribe__ wilt verlaten?",
-    "pages-app-network-confirmation-message": "Als gevolg hiervan zal je alle part-ups binnen deze tribe verlaten. Deze actie kan niet ongedaan gemaakt worden.",
+    "pages-app-network-confirmation-message": "Deze actie kan niet ongedaan gemaakt worden.",
     "pages-app-network-confirmation-confirm-button": "Ja, verlaat de tribe",
     "pages-app-network-confirmation-cancel-button": "Nee! Annuleren"
 }

@@ -72,6 +72,12 @@ var continueLogin = function() {
     var user = Meteor.user();
     if (!user) return;
 
+    var accessToken = Session.get('partup_access_token');
+    var partupId = Session.get('partup_access_token_for_partup');
+    if (partupId && accessToken) {
+        Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+    }
+
     // Return if intent callback is present
     Intent.return('login', {
         arguments: [user],

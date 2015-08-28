@@ -4,8 +4,15 @@ var Subs = new SubsManager({
 });
 
 Template.app_partup_update.onCreated(function() {
-    Subs.subscribe('partups.one', this.data.partupId);
-    Subs.subscribe('updates.one', this.data.updateId);
+    var template = this;
+    template.autorun(function(computation) {
+        var data = Template.currentData();
+        if (data.updateId && data.partupId) {
+            computation.stop();
+            Subs.subscribe('partups.one', data.partupId);
+            Subs.subscribe('updates.one', data.updateId);
+        }
+    });
 });
 
 Template.app_partup_update.helpers({

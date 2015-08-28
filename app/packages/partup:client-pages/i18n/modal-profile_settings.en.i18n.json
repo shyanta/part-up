@@ -9,8 +9,8 @@
 
     "modal-profilesettings-email-title": "E-mail update settings",
     "modal-profilesettings-email-text-explaination": "We love to keep you up to date on your part-ups in the notifications. If it helps you to keep connected, we can also send you email updates. Do you like to reduce or increase the number of email updates? Change your update preferences below.",
-    "modal-profilesettings-email-listheading":"Contact me with:",
-    "modal-profilesettings-email-dailydigest":"a daily digest of my notifications",
+    "modal-profilesettings-email-listheading":"Send an email:",
+    "modal-profilesettings-email-dailydigest":"with a daily digest of my notifications",
     "modal-profilesettings-email-updatesuccess-enabled-dailydigest":"Daily digest email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-dailydigest":"Daily digest email disabled",
 
@@ -18,13 +18,17 @@
     "modal-profilesettings-email-updatesuccess-enabled-upper_mentioned_in_partup":"Mention email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-upper_mentioned_in_partup":"Mention email disabled",
 
-    "modal-profilesettings-email-invite_upper_to_partup_activity":"when you're invited to join an activity",
+    "modal-profilesettings-email-invite_upper_to_partup_activity":"when you're invited to contribute to an activity",
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_partup_activity":"Invite to activity email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_partup_activity":"Invite to activity email disabled",
 
     "modal-profilesettings-email-invite_upper_to_network":"when you're invited to join a tribe",
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_network":"Invite to tribe email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Invite to tribe email disabled",
+
+    "modal-profilesettings-email-partup_created_in_network":"when a part-up is created in a tribe you're a member of",
+    "modal-profilesettings-email-updatesuccess-enabled-partup_created_in_network":"Part-up created in network email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-partup_created_in_network":"Part-up created in network email disabled",
 
     "modal-profilesettings-email-updatesuccess-disabled-all": "Disabled all automatic emails",
     "modal-profilesettings-email-updatesuccess-disabled-one": "Disabled the automatic email",

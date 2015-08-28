@@ -30,7 +30,9 @@ var Network = function(document) {
  * @return {Boolean}
  */
 Network.prototype.isAdmin = function(userId) {
-    return mout.lang.isString(userId) && userId === this.admin_id;
+    var user = Meteor.users.findOne({_id: userId});
+    if (!user) return false;
+    return mout.lang.isString(userId) && (userId === this.admin_id || User(user).isAdmin());
 };
 
 /**

@@ -5,6 +5,31 @@ var d = Debug('services:emails');
 // * upper_mentioned_in_partup
 // * invite_upper_to_partup_activity
 // * invite_upper_to_network
+// * partup_created_in_network
+
+var locales = ['en', 'nl'];
+var templates = [
+    'dailydigest',
+    'invite_upper_to_network',
+    'invite_upper_to_partup_activity',
+    'upper_mentioned_in_partup',
+    'partup_created_in_network'
+];
+var templateName;
+var templateFile;
+
+/**
+ * Pre-compile all template combinations so it only happens once
+ */
+templates.forEach(function(type) {
+    locales.forEach(function(locale) {
+        SSR.compileTemplate('email-' + type + '-' + locale, [
+            Assets.getText('private/emails/header.' + locale + '.html'),
+            Assets.getText('private/emails/' + type + '.' + locale + '.html'),
+            Assets.getText('private/emails/footer.' + locale + '.html')
+        ].join(''));
+    });
+});
 
 /**
  @namespace Partup server email service
@@ -41,19 +66,12 @@ Partup.server.services.emails = {
             return;
         }
 
-        // Compile template
-        SSR.compileTemplate(options.type, [
-            Assets.getText('private/emails/header.html'),
-            Assets.getText('private/emails/' + options.type + '.' + options.locale + '.html'),
-            Assets.getText('private/emails/footer.html')
-        ].join(''));
-
         options.typeData.baseUrl = Meteor.absoluteUrl();
 
         emailSettings.from = options.fromAddress;
         emailSettings.to = options.toAddress;
         emailSettings.subject = options.subject;
-        emailSettings.html = SSR.render(options.type, options.typeData);
+        emailSettings.html = SSR.render('email-' + options.type + '-' + options.locale, options.typeData);
 
         Email.send(emailSettings);
     }

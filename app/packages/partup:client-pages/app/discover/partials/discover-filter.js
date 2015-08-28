@@ -198,7 +198,13 @@ Template.app_discover_filter.helpers({
         return Template.instance().sorting.selectorData;
     },
 });
-
+var toggleSelectorState = function(template, selector) {
+    if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
+    if (template[selector] !== template.network) template.network.selectorState.set(false);
+    if (template[selector] !== template.location) template.location.selectorState.set(false);
+    var currentState = template[selector].selectorState.get();
+    template[selector].selectorState.set(!currentState);
+};
 /**
  * Discover-header events
  */
@@ -242,8 +248,8 @@ Template.app_discover_filter.events({
 
     // Network selector events
     'click [data-open-networkselector]': function(event, template) {
-        var current = template.network.selectorState.get();
-        template.network.selectorState.set(!current);
+        event.preventDefault();
+        toggleSelectorState(template, 'network');
     },
     'click [data-reset-selected-network]': function(event, template) {
         event.preventDefault();
@@ -253,8 +259,8 @@ Template.app_discover_filter.events({
 
     // Location selector events
     'click [data-open-locationselector]': function(event, template) {
-        var current = template.location.selectorState.get();
-        template.location.selectorState.set(!current);
+        event.preventDefault();
+        toggleSelectorState(template, 'location');
     },
     'click [data-reset-selected-location]': function(event, template) {
         event.preventDefault();
@@ -264,7 +270,7 @@ Template.app_discover_filter.events({
 
     // Sorting selector events
     'click [data-open-sortingselector]': function(event, template) {
-        var current = template.sorting.selectorState.get();
-        template.sorting.selectorState.set(!current);
+        event.preventDefault();
+        toggleSelectorState(template, 'sorting');
     }
 });

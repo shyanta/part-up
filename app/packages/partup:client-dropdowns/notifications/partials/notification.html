@@ -178,4 +178,15 @@
             </article>
         </a>
     {{/if}}
+    <!-- partup is created in user's network -->
+    {{#if partupEqualsExactly notification.type 'partup_created_in_network' }}
+        <a href="{{pathFor route='partup' slug=notification.type_data.partup.slug}}">
+            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');" data-usercard="{{ notification.type_data.creator._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-partup_created_in_network' partup=notification.type_data.partup.name network=notification.type_data.network.name creator=notification.type_data.creator.name }}</p>
+                <time>{{ partupDateNotification notification.created_at }}</time>
+            </article>
+        </a>
+    {{/if}}
 </template>

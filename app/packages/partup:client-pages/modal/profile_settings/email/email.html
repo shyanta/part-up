@@ -40,7 +40,15 @@
                     </div>
                 </div>
             </li>
-
+            <li>
+                <p class="pu-sub-name">{{_ 'modal-profilesettings-email-partup_created_in_network' }}</p>
+                <div class="pu-sub-actions">
+                    <div class="pu-switch {{#if email.partup_created_in_network}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
+                        <button type="button" class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partup_created_in_network"> <i class="fa fa-check"></i> </button>
+                        <button type="button" class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partup_created_in_network"> <i class="fa fa-times"></i> </button>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </template>
