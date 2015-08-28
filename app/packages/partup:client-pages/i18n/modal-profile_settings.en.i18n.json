@@ -9,8 +9,8 @@
 
     "modal-profilesettings-email-title": "E-mail update settings",
     "modal-profilesettings-email-text-explaination": "We love to keep you up to date on your part-ups in the notifications. If it helps you to keep connected, we can also send you email updates. Do you like to reduce or increase the number of email updates? Change your update preferences below.",
-    "modal-profilesettings-email-listheading":"Contact me with:",
-    "modal-profilesettings-email-dailydigest":"a daily digest of my notifications",
+    "modal-profilesettings-email-listheading":"Send an email:",
+    "modal-profilesettings-email-dailydigest":"with a daily digest of my notifications",
     "modal-profilesettings-email-updatesuccess-enabled-dailydigest":"Daily digest email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-dailydigest":"Daily digest email disabled",
 
