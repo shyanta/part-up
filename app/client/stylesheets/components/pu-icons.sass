@@ -1,15 +1,3 @@
-[data-icon]:before
-    font-family: "part-up" !important
-    content: attr(data-icon)
-    font-style: normal !important
-    font-weight: normal !important
-    font-variant: normal !important
-    text-transform: none !important
-    speak: none
-    line-height: 1
-    -webkit-font-smoothing: antialiased
-    -moz-osx-font-smoothing: grayscale
-
 [class^="pi-"]:before,
 [class*=" pi-"]:before
     font-family: "part-up" !important
@@ -18,9 +6,12 @@
     font-variant: normal !important
     text-transform: none !important
     speak: none
-    line-height: 1
+    display: inline-block
+    font-size: inherit
+    text-rendering: auto
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
+    transform: translate(0, 0)
 
 .pi-calendar-check:before
     content: "a"
@@ -68,3 +59,13 @@
     content: "v"
 .pi-twitter:before
     content: "w"
+
+i.pi-tiny
+    font-size: 50%
+i.pi-small
+    font-size: 75%
+i.pi-medium
+    font-size: 125%
+i.pi-large
+    font-size: 150%
+
