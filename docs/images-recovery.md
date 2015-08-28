@@ -1,6 +1,14 @@
 # Images fail recovery
-
+- set to single servo
+- backup mongo 
+- Empty bucket
 - Remove all default user pictures from the database (by hand)
+    - db.cfs.images.filerecord.remove({})
+- deploy application with TEMP_DIR
+- see error, let default pictures load
+- reset lock
+- restart appliciation
+- deploy application with CLOUD_DIR
 
 Migrations:
 - Download all facebook + linkedin profile pictures for existing social users
@@ -8,4 +16,3 @@ Migrations:
 
 
 Remove all default profile pictures:
-- db.cfs.images.filerecord.remove({'meta.default_profile_picture': true})
