@@ -1,4 +1,9 @@
 # CHANGELOG
+## 1.7.1
+- bugfixes
+    - new image uploader fixes for firefox and safari
+    - new language detection migration
+
 ## 1.7.0
 - Homepage static content
 - Featured Tribes
