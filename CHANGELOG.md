@@ -1,4 +1,39 @@
 # CHANGELOG
+## 1.7.0
+- Homepage static content
+- Featured Tribes
+- Featured Tribes admin
+- Partup and Tribe language detection and filtering on homepage
+- Pricing page
+- About page 
+- Complete email notification settings
+- Designed email templates
+- Send notification and email when a part-up is created in tribe
+- Unsubscribe from specific / all emails directly
+- Ability to "upload" bigger pictures by resizing them on client
+- Social sharing through server side rendering (replaced phantomjs)
+- Email invite closed partup with token and account linking
+- profile locations now link to discover
+- changed "all" text in profile dropdown to icon
+- Invite to activity/tribe now refreshes search results on filter field blur
+- Added confirmation modal to leave a tribe
+- Extra stats in admin panel
+- Added number of notifications in page title
+- Added intercom profile details (language, firstname, phonenumber, gender, participationscore, completeness)
+- bugfixes
+    - FE: Notification plural copy is incorrect
+    - FE: When loading a part-up page the layout column flickers from small to wide
+    - FE: invite-for-activity / invite-for-tribe search bar placeholders are untranslated
+    - FE: invite network does not show "this network is private" message
+    - FE: when leaving the tribe (while being on the Uppers page), the user is not removed from the Upper list reactively
+    - FE: invite-for-activity / invite-for-tribe location field overflows with long city names
+    - FE: invite-for-activity / invite-for-tribe search bar placeholders are untranslated
+    - FE: shielded admin pages for unauthorized users
+    - FE: Update detail now always returns to updates overview
+    - IE9: invite button on invite-for-activity / invite-for-tribe lists dont work
+    - IE9: entering search query in invite-for-activity and pressing enter does not submit the form
+    - IE9: clicking clear location in discover does not link to homepage anymore
+
 ## 1.6.2
 - tribe admin accessible via /admin
 - tribe admin tribe overview + remove tribe
