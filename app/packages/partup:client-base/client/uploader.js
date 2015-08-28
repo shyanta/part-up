@@ -21,12 +21,11 @@ Partup.client.uploader = {
 
         reader.onload = function(e) {
             img.src = e.target.result;
+        };
 
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-
-            var width = img.width;
-            var height = img.height;
+        img.onload = function() {
+            var width = img.naturalWidth;
+            var height = img.naturalHeight;
 
             if (width > height) {
                 if (width > MAX_IMAGE_WIDTH) {
