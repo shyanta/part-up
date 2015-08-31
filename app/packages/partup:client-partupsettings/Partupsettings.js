@@ -311,7 +311,7 @@ Template.Partupsettings.events({
         template.budgetTypeChanged.set(true);
     },
     'click [data-imageremove]': function(event, template) {
-        var tags_input = $(event.currentTarget.form).find('[name=tags_input]').val();
+        var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();
         var tags = Partup.client.strings.tagsStringToArray(tags_input);
         template.imageSystem.unsetUploadedPicture(tags);
     },

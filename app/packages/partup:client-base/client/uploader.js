@@ -1,4 +1,5 @@
 // Settings
+//
 var MAX_IMAGE_WIDTH = 1500;
 var MAX_IMAGE_HEIGHT = 1500;
 
@@ -7,7 +8,7 @@ Partup.client.uploader = {
     /**
      * Upload single image
      *
-     * @memberof Partup.client
+     * @memberOf Partup.client
      * @param {Object} file
      * @param {Function} callback
      */
@@ -20,12 +21,11 @@ Partup.client.uploader = {
 
         reader.onload = function(e) {
             img.src = e.target.result;
+        };
 
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-
-            var width = img.width;
-            var height = img.height;
+        img.onload = function() {
+            var width = img.naturalWidth;
+            var height = img.naturalHeight;
 
             if (width > height) {
                 if (width > MAX_IMAGE_WIDTH) {
@@ -66,7 +66,7 @@ Partup.client.uploader = {
     /**
      * Upload single image by url
      *
-     * @memberof Partup.client
+     * @memberOf Partup.client
      * @param {String} url
      * @param {Function} callback
      */
