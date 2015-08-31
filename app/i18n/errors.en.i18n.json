@@ -43,6 +43,7 @@
     "base-errors-user_could_not_be_accepted_from_network": "Sorry we could not make this upper a member of the tribe.",
     "base-errors-user_could_not_be_rejected_from_network": "The upper could not be rejected from the tribe.",
     "base-errors-networks_could_not_be_autocompleted": "Tribes could not be autocompleted.",
+    "base-errors-email_is_already_invited_to_network": "This email address is already invited to this tribe.",
 
     // Activities
     "base-errors-activity_could_not_be_inserted": "Oh bummer, we could not create your activity. Please try again.",

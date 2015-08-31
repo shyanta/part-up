@@ -4,7 +4,7 @@
     "base-errors-partup_could_not_be_updated": "Balen, het is ons niet gelukt je partup te updaten. Probeer het nog een keer.",
     "base-errors-partup_could_not_be_removed": "Balen, het is ons niet gelukt je partup te verwijderen. Probeer het nog een keer.",
     "base-errors-partup_could_not_be_featured": "Part-up kon niet worden uitgelicht.",
-    "base-errors-email_is_already_invited_to_partup": "Dit email adres is al uitgenodigd voor deze part-up.",
+    "base-errors-email_is_already_invited_to_partup": "Dit e-mailadres is al uitgenodigd voor deze part-up.",
     "base-errors-partups_could_not_be_autocompleted": "Part-ups could not be autocompleted.",
 
     // Supporters
@@ -43,6 +43,7 @@
     "base-errors-user_could_not_be_accepted_from_network": "Het is niet gelukt deze upper lid te maken van de tribe.",
     "base-errors-user_could_not_be_rejected_from_network": "Het is niet gelukt deze upper het lidmaatschap te weigeren.",
     "base-errors-networks_could_not_be_autocompleted": "Het is niet mogelijk om tribes te autocompleten",
+    "base-errors-email_is_already_invited_to_network": "Dit e-mailadres is al uitgenodigd voor deze tribe.",
 
     // Activities
     "base-errors-activity_could_not_be_inserted": "Oeps, het is ons niet gelukt je acticiteit aan te maken. Probeer het nog een keer.",
@@ -53,7 +54,7 @@
     "base-errors-activity_could_not_be_found": "Helaas, het is ons niet gelukt de activiteit te vinden.",
     "base-errors-activities_could_not_be_copied_from_partup": "Helaas, het is ons niet gelukt de activiteiten van de part-up te kopiëren. Probeer het nog een keer.",
     "base-errors-user_is_already_invited_to_activity": "Deze upper is al uitgenodigd voor deze activiteit",
-    "base-errors-email_is_already_invited_to_activity": "Dit email-adres is al gebruikt om een uitndoging te sturen voor deze activiteit",
+    "base-errors-email_is_already_invited_to_activity": "Dit e-mailadres is al gebruikt om een uitndoging te sturen voor deze activiteit",
 
     // Contributions
     "base-errors-contribution_could_not_be_updated": "Helaas, het is ons niet gelukt jouw bijdrage aan te passen. Probeer het nog een keer.",
