@@ -65,8 +65,10 @@ Partup.server.services.google = {
     },
 
     detectLanguage: function(query) {
-        var key = process.env.GOOGLE_API_KEY;
         var defaultValue = 'en';
+        if (!query) return defaultValue;
+
+        var key = process.env.GOOGLE_API_KEY;
 
         try {
             // For more details: https://cloud.google.com/translate/v2/using_rest?hl=en#detect-language
