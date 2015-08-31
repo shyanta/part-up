@@ -169,7 +169,13 @@ Meteor.publishComposite('networks.featured_all', function(language) {
             return Networks.findFeatured(language);
         },
         children: [
-            {find: Images.findForNetwork}
+            {find: Images.findForNetwork},
+            {find: function(network) {
+                if (!get(network, 'featured.active')) return;
+                return Meteor.users.findSinglePublicProfile(network.featured.by_upper._id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
         ]
     };
 });
