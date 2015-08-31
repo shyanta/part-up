@@ -11,6 +11,7 @@ var tagsConfiguration = {
 var partupBaseSchema = new SimpleSchema({
     description: {
         type: String,
+        min: 10,
         max: 250
     },
     budget_type: {
