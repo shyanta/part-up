@@ -165,24 +165,38 @@ Template.app_partup_sidebar.events({
         Meteor.call('partups.supporters.remove', template.data.partupId);
     },
 
-    'click [data-share-facebook]': function() {
-        var currentUrl = Router.current().location.get().href;
+    'click [data-share-facebook]': function(event, template) {
+        var partup = Partups.findOne(template.data.partupId);
+        var currentUrl = Router.url('partup', {slug: partup.slug});
         var shareUrl = Partup.client.socials.generateFacebookShareUrl(currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share facebook', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-twitter]': function(event, template) {
         var partup = Partups.findOne(template.data.partupId);
-        var currentUrl = Router.current().location.get().href;
+        var currentUrl = Router.url('partup', {slug: partup.slug});
         var message = partup.name;
         var shareUrl = Partup.client.socials.generateTwitterShareUrl(message, currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share twitter', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-linkedin]': function(event, template) {
-        var currentUrl = Router.current().location.get().href;
+        var partup = Partups.findOne(template.data.partupId);
+        var currentUrl = Router.url('partup', {slug: partup.slug});
         var shareUrl = Partup.client.socials.generateLinkedInShareUrl(currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share linkedin', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-mail]': function(event, template) {
@@ -197,6 +211,10 @@ Template.app_partup_sidebar.events({
         var subject = '';
         var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
         window.location.href = shareUrl;
+
+        analytics.track('partup share mail', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-open-takepart-popup]': function() {

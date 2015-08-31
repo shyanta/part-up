@@ -57,8 +57,8 @@ Template.PartupTileFeatured.helpers({
         if (this._id) return {'data-usercard': this._id};
     },
     activityCount: function() {
-        if (!this.partup || !this.partup.activities) return 0;
-        return this.partup.activity_count || Activities.findForPartup(this.partup).count();
+        if (!this.partup || !this.partup.activity_count) return 0;
+        return this.partup.activity_count;
     },
     dayCount: function() {
         if (!this.partup) return 0;
