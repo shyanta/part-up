@@ -6,7 +6,7 @@
             {{#each networks}}
                 <li>
                     <a data-select="{{slug}}" class="pu-button pu-button-logo pu-button-selector {{ #if partupEquals slug selectedNetwork.slug }} pu-state-active {{/if}}" href="#">
-                        <img src="{{ partupImageUrl id=icon }}" alt="">
+                        <img src="{{ partupImageUrl id=image store='80x80' }}" alt="{{name}}">
                     </a>
                 </li>
             {{/each}}
