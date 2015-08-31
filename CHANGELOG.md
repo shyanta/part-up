@@ -1,4 +1,14 @@
 # CHANGELOG
+## 1.7.2
+- d292f40 feat(analytics): added tracking events to social sharing buttons
+- bugfixes
+    - 592064b fix(featuredpartups): showing correct number of activities in featured partup
+    - 70ef057 fix(partupdetail): facebook, twitter and linkedin url sharing through popups
+    - 510b8cd fix(featurednetwork): correctly expose featured network quote author user with image
+    - cd5e183 fix(networks): correctly exposing tags and location on network to everyone
+    - 7f6de77 fix(featurednetwork): avoid frontend error while loading featured networks
+    - 7d9aed9 fix(featurednetworks): show correct image on featured network
+
 ## 1.7.1
 - bugfixes
     - new image uploader fixes for firefox and safari
