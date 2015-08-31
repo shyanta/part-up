@@ -170,6 +170,10 @@ Template.app_partup_sidebar.events({
         var currentUrl = Router.url('partup', {slug: partup.slug});
         var shareUrl = Partup.client.socials.generateFacebookShareUrl(currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share facebook', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-twitter]': function(event, template) {
@@ -178,6 +182,10 @@ Template.app_partup_sidebar.events({
         var message = partup.name;
         var shareUrl = Partup.client.socials.generateTwitterShareUrl(message, currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share twitter', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-linkedin]': function(event, template) {
@@ -185,6 +193,10 @@ Template.app_partup_sidebar.events({
         var currentUrl = Router.url('partup', {slug: partup.slug});
         var shareUrl = Partup.client.socials.generateLinkedInShareUrl(currentUrl);
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share linkedin', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-mail]': function(event, template) {
@@ -199,6 +211,10 @@ Template.app_partup_sidebar.events({
         var subject = '';
         var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
         window.location.href = shareUrl;
+
+        analytics.track('partup share mail', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-open-takepart-popup]': function() {

@@ -107,6 +107,10 @@ Template.modal_create_promote.events({
 
         var facebookUrl = Partup.client.socials.generateFacebookShareUrl(url);
         window.open(facebookUrl, 'pop', Partup.client.window.getPopupWindowSettings());
+
+        analytics.track('promote share facebook', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-twitter]': function clickShareTwitter(event, template) {
@@ -116,6 +120,10 @@ Template.modal_create_promote.events({
         var message = partup.name;
         var twitterUrl = Partup.client.socials.generateTwitterShareUrl(message, url);
         window.open(twitterUrl, 'pop', Partup.client.window.getPopupWindowSettings());
+
+        analytics.track('promote share twitter', {
+            partupId: partup._id,
+        });
     },
 
     'click [data-share-linkedin]': function clickShareLinkedin(event, template) {
@@ -124,6 +132,10 @@ Template.modal_create_promote.events({
 
         var linkedInUrl = Partup.client.socials.generateLinkedInShareUrl(url);
         window.open(linkedInUrl, 'pop', Partup.client.window.getPopupWindowSettings());
+
+        analytics.track('promote share linkedin', {
+            partupId: partup._id,
+        });
     }
 
 });
