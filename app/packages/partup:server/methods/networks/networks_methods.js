@@ -513,4 +513,32 @@ Meteor.methods({
             throw new Meteor.Error(400, 'network_could_not_be_unfeatured');
         }
     },
+
+    /**
+     * Update privileged network fields (superadmin only)
+     *
+     * @param {string} networkId
+     * @param {mixed[]} fields
+     */
+    'networks.admin_update': function(networkSlug, fields) {
+        check(networkSlug, String);
+        check(fields, Partup.schemas.forms.networkEdit);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
+        var network = Networks.findOneOrFail({slug:networkSlug});
+
+        if (fields.admin_id) {
+            var adminUser = Meteor.users.findOneOrFail(fields.admin_id);
+        }
+
+        try {
+            Networks.update(network._id, {$set: fields});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_could_not_be_updated');
+        }
+    },
 });

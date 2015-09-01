@@ -184,11 +184,23 @@ Meteor.publishComposite('networks.featured_all', function(language) {
 /**
  * Publish all networks for admin panel
  */
-Meteor.publish('networks.admin_all', function() {
+Meteor.publishComposite('networks.admin_all', function() {
     this.unblock();
 
     var user = Meteor.users.findOne(this.userId);
     if (!User(user).isAdmin()) return;
 
-    return Networks.find({});
+    return {
+        find: function() {
+            return Networks.find({});
+        },
+        children: [
+            {find: Images.findForNetwork},
+            {find: function(network) {
+                return Meteor.users.findSinglePublicProfile(network.admin_id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
+        ]
+    };
 });

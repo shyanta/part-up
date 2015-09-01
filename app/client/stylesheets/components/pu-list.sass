@@ -191,20 +191,23 @@
             border-top: 2px solid #eee
             @extend %clearfix
 
-        .pu-avatar
-            float: left
+            >.pu-avatar
+                float: left
+
 
         .pu-sub-name
             float: left
             margin: 0 0 0 10px
             line-height: 40px
+            max-width: 455px
 
         .pu-sub-description
             clear: both
             margin: 0 0 0 10px
             line-height: 40px
 
-        .pu-sub-remove
+        .pu-sub-remove,
+        .pu-sub-button
             float: right
             width: 30px
             margin-top: 5px
@@ -217,6 +220,9 @@
             line-height: 30px
             text-align: center
             vertical-align: middle
+
+        .pu-sub-button
+            margin-right: 5px
 
         .pu-sub-actions
             float: right
