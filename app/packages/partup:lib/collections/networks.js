@@ -255,7 +255,17 @@ Network.prototype.rejectPendingUpper = function(upperId) {
  * @param {String} upperId id of the user whose invites have to be removed
  */
 Network.prototype.removeAllUpperInvites = function(upperId) {
+    // Clear out the invites from Invites collection
     Invites.remove({network_id: this._id, invitee_id: upperId});
+
+    // And don't forget the invites property of this network
+    var invites = this.invites || [];
+    var self = this;
+    invites.forEach(function(invite) {
+        if (invite._id === upperId) {
+            Networks.update(self._id, {$pull: {invites: invite}});
+        }
+    });
 };
 
 /**
