@@ -219,6 +219,19 @@ Network.prototype.isUpperInvitedByAdmin = function(upperId) {
 
     return invitedByAdmin;
 };
+
+/**
+ * Consume an access token to add the user as an invitee
+ *
+ * @memberOf Partups
+ * @param {String} upperId
+ * @param {String} accessToken
+ */
+Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
+    Network.update(this._id, {$pull: {'access_tokens': accessToken}, $addToSet: {'invites': upperId}});
+};
+
+/**
  * Accept a pending upper to the network
  *
  * @memberof Networks
