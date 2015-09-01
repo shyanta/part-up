@@ -51,6 +51,9 @@ Template.AdminFeaturedNetworks.helpers({
                 async(networks);
             });
         };
+    },
+    getQuoteAuthor: function() {
+        return Meteor.users.findOne(this.featured.by_upper._id);
     }
 });
 
