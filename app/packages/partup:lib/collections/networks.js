@@ -200,6 +200,25 @@ Network.prototype.isUpperPending = function(upperId) {
 };
 
 /**
+ * Check if upper is invited by an admin
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isUpperInvitedByAdmin = function(upperId) {
+    var invitedByAdmin = false;
+    var invites = Invites.find({network_id: this._id, invitee_id: upperId});
+    var self = this;
+
+    // A user can be invited multiple times, so check all of them
+    invites.forEach(function(invite) {
+        // Set variable to true when matching the criteria
+        if (self.isAdmin(invite.inviter_id)) invitedByAdmin = true;
+    });
+
+    return invitedByAdmin;
+};
  * Accept a pending upper to the network
  *
  * @memberof Networks
