@@ -541,4 +541,35 @@ Meteor.methods({
             throw new Meteor.Error(400, 'network_could_not_be_updated');
         }
     },
+
+    /** Consume an access token and add the user to the invites
+     *
+     * @param {String} networkSlug
+     * @param {String} accessToken
+     * */
+    'networks.convert_access_token_to_invite': function(networkSlug, accessToken) {
+        check(networkSlug, String);
+        check(accessToken, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        try {
+
+            //if (!network.isClosed() || network.isUpperInvitedByAdmin(user._id)) {
+            //    // Instantly make these users member of the network
+            //    network.addUpper(user._id);
+            //} else {
+            //    // This can only be a closed network at this point, and the invite didn't come from an admin
+            //    network.addPendingUpper(user._id);
+            //}
+            //
+            //// Cleanup
+            //network.removeAccessToken(accessToken);
+            //network.removeAllUpperInvites(user._id);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_access_token_could_not_be_converted_to_invite');
+        }
+    }
 });
