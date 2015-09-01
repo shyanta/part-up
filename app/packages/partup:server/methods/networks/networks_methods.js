@@ -96,18 +96,29 @@ Meteor.methods({
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }
 
+        var accessToken = Random.secret();
+
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EMAIL,
             network_id: network._id,
             inviter_id: inviter._id,
             invitee_name: name,
             invitee_email: email,
+            access_token: accessToken,
             created_at: new Date
         };
 
         Invites.insert(invite);
 
-        Event.emit('invites.inserted.network.by_email', inviter, network, email, name);
+        // Save the access token to the network to allow access
+        Networks.update(network._id, {$addToSet: {access_tokens: accessToken}});
+
+        // Also check if the user is invited by an admin
+        if (network.isAdmin(inviter._id)) {
+            //Networks.update(network._id, {$addToSet: {admin_invited: in}});
+        }
+
+        Event.emit('invites.inserted.network.by_email', inviter, network, email, name, accessToken);
     },
 
     /**
