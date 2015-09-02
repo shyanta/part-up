@@ -100,7 +100,11 @@ Network.prototype.isClosedForUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvited = function(upperId) {
-    return !!Invites.findOne({network_id: this._id, invitee_id: upperId, type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER});
+    return !!Invites.findOne({
+        type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+        network_id: this._id,
+        invitee_id: upperId
+    });
 };
 
 /**
@@ -239,11 +243,8 @@ Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}});
-    Invites.remove({
-        'network_id':this._id,
-        'invitee_id': upperId
-    });
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $addToSet: {networks: this._id}});
+    this.removeAllUpperInvites(upperId);
 };
 
 /**
@@ -255,7 +256,7 @@ Network.prototype.acceptPendingUpper = function(upperId) {
 Network.prototype.rejectPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}});
     Invites.remove({
-        'network_id':this._id,
+        'network_id': this._id,
         'invitee_id': upperId
     });
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}});
