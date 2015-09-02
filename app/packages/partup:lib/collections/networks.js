@@ -163,6 +163,7 @@ Network.prototype.canUpperLeave = function(upperId) {
 Network.prototype.addInvitedUpper = function(upperId) {
     Networks.update(this._id, {$addToSet: {uppers: upperId}});
     Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
+    this.removeAllUpperInvites(upperId);
 };
 
 /**
@@ -174,6 +175,7 @@ Network.prototype.addInvitedUpper = function(upperId) {
 Network.prototype.addUpper = function(upperId) {
     Networks.update(this._id, {$addToSet: {uppers: upperId}});
     Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
+    this.removeAllUpperInvites(upperId);
 };
 
 /**
