@@ -203,12 +203,8 @@ Meteor.methods({
 
             if (network.isInvitational()) {
                 // Check if the user is invited
-                var invite = network.isUpperInvited(user._id);
-
-                if (invite) {
+                if (network.isUpperInvited(user._id)) {
                     network.addInvitedUpper(user._id);
-                    network.removeAllUpperInvites(user._id);
-
                     return Log.debug('User added to invitational network.');
                 } else {
                     if (network.addPendingUpper(user._id)) {
@@ -222,8 +218,7 @@ Meteor.methods({
             if (network.isPublic()) {
                 // Allow user instantly
                 network.addUpper(user._id);
-                network.removeAllUpperInvites(user._id);
-                return Log.debug('User added to network.');
+                return Log.debug('User added to public network.');
             }
 
             return Log.debug('Unknown access level for this network: ' + network.privacy_type);
