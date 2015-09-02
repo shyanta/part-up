@@ -554,18 +554,7 @@ Meteor.methods({
         var network = Networks.findOne({slug: networkSlug});
 
         try {
-
-            //if (!network.isClosed() || network.isUpperInvitedByAdmin(user._id)) {
-            //    // Instantly make these users member of the network
-            //    network.addUpper(user._id);
-            //} else {
-            //    // This can only be a closed network at this point, and the invite didn't come from an admin
-            //    network.addPendingUpper(user._id);
-            //}
-            //
-            //// Cleanup
-            //network.removeAccessToken(accessToken);
-            //network.removeAllUpperInvites(user._id);
+            network.convertAccessTokenToInvite(user._id, accessToken);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_access_token_could_not_be_converted_to_invite');
