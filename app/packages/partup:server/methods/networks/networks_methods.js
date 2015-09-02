@@ -183,6 +183,12 @@ Meteor.methods({
 
         try {
             if (network.isClosed()) {
+                // Instantly add user when invited by an admin
+                if (network.isUpperInvitedByAdmin(user._id)) {
+                    network.addUpper(user._id);
+                    return Log.debug('User added to closed network due to admin invite.');
+                }
+
                 // Add user to pending if it's a closed network and the user is invited
                 if (network.isUpperInvited(user._id)) {
                     network.addPendingUpper(user._id);
