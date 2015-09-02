@@ -193,27 +193,8 @@ Meteor.methods({
                 if (network.isUpperInvited(user._id)) {
                     network.addPendingUpper(user._id);
 
-                    // Send notification to network admin
-                    var notificationOptions = {
-                        userId: network.admin_id,
-                        type: 'partups_networks_new_pending_upper',
-                        typeData: {
-                            pending_upper: {
-                                _id: user._id,
-                                name: user.profile.name,
-                                image: user.profile.image
-                            },
-                            network: {
-                                _id: network._id,
-                                name: network.name,
-                                image: network.image,
-                                slug: network.slug
-                            }
-                        }
-                    };
-
-                    Partup.server.services.notifications.send(notificationOptions);
-
+                    // Send notification to admin
+                    Event.emit('networks.new_pending_upper', network, user);
                     return Log.debug('User (already) added to waiting list');
                 } else {
                     throw new Meteor.Error(401, 'unauthorized');
