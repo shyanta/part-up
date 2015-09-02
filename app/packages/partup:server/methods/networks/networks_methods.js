@@ -515,7 +515,7 @@ Meteor.methods({
     /**
      * Update privileged network fields (superadmin only)
      *
-     * @param {string} networkId
+     * @param {string} networkSlug
      * @param {mixed[]} fields
      */
     'networks.admin_update': function(networkSlug, fields) {
@@ -540,7 +540,8 @@ Meteor.methods({
         }
     },
 
-    /** Consume an access token and add the user to the invites
+    /**
+     * Consume an access token and add the user to the invites
      *
      * @param {String} networkSlug
      * @param {String} accessToken
