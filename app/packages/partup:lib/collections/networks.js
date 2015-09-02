@@ -214,7 +214,7 @@ Network.prototype.isUpperPending = function(upperId) {
  */
 Network.prototype.isUpperInvitedByAdmin = function(upperId) {
     var invitedByAdmin = false;
-    var invites = Invites.find({network_id: this._id, invitee_id: upperId});
+    var invites = Invites.find({type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER, network_id: this._id, invitee_id: upperId});
     var self = this;
 
     // A user can be invited multiple times, so check all of them
@@ -234,7 +234,24 @@ Network.prototype.isUpperInvitedByAdmin = function(upperId) {
  * @param {String} accessToken
  */
 Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
-    Network.update(this._id, {$pull: {'access_tokens': accessToken}, $addToSet: {'invites': upperId}});
+    // Find and update the current invite
+    var invite = Invites.findOneOrFail({
+        type: Invites.INVITE_TYPE_NETWORK_EMAIL,
+        access_token: accessToken,
+        network_id: this._id
+    });
+
+    Invites.update(invite._id, {$set: {
+        type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+        invitee_id: upperId,
+        updated_at: new Date
+    }});
+
+    // Also remove the access token from the network and add the new invite to the network
+    Network.update(this._id, {
+        $pull: {'access_tokens': accessToken},
+        $addToSet: {'invites': {_id: upperId, invited_by_id: invite.inviter_id, invited_at: invite.created_at}}
+    });
 };
 
 /**
