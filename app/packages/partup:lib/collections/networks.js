@@ -180,7 +180,7 @@ Network.prototype.addUpper = function(upperId) {
  */
 Network.prototype.addPendingUpper = function(upperId) {
     // Check if user is already added as a pending upper
-    if (this.pending_uppers && this.pending_uppers.indexOf(upperId) > -1) {
+    if (this.isUpperPending(upperId)) {
         return false;
     }
 
