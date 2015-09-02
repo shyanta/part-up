@@ -23,12 +23,21 @@ Feature: Tribes
     And user "john" accepts the tribe invite
     Then user "john" is able to see the partups and users in the tribe 
 
-  Scenario: Inviting users to "Closed Tribes"
+  Scenario: Inviting users to "Closed Tribes" as a normal member
     Given I am loggedin as tribe "ING (closed)" member "john"
     When I invite non tribe member user "judy" to the tribe
     And user "judy" receives an email with tribe link
     And user "judy" accepts the tribe invite
     Then user "judy" sees pending status in "ING (closed)" tribe detail
+    And user "admin" should recieve a notification about a new pending upper
+
+  Scenario: Inviting users to "Closed Tribes" as an admin
+    Given I am loggedin as tribe "ING (closed)" member "admin"
+    When I invite non tribe member user "judy" to the tribe
+    And user "judy" receives an email with tribe link
+    And user "judy" accepts the tribe invite
+    Then user "judy" is able to see the partups and users in the tribe
+    And user "admin" should recieve a notification about a new pending upper
 
   Scenario: Accepting users into closed tribe
     Given I am loggedin as tribe admin "admin"
@@ -37,3 +46,4 @@ Feature: Tribes
     And accept user "judy" into the tribe
     Then user "judy" should not appear in the network requests overview
     And user "judy" should be able to access the tribe partups and uppers
+    And user "judy" should recieve a notification that she is accepted
