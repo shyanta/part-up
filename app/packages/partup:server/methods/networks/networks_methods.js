@@ -112,11 +112,6 @@ Meteor.methods({
         // Save the access token to the network to allow access
         Networks.update(network._id, {$addToSet: {access_tokens: accessToken}});
 
-        // Also check if the user is invited by an admin
-        if (network.isAdmin(inviter._id)) {
-            //Networks.update(network._id, {$addToSet: {admin_invited: in}});
-        }
-
         Event.emit('invites.inserted.network.by_email', inviter, network, email, name, accessToken);
     },
 
