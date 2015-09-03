@@ -64,6 +64,7 @@ Package.onUse(function(api) {
         'namespace.js',
         'constants.js',
         'bootstrap.js',
+        'compile_email_templates.js',
         'accounts.js',
         'helpers/collection.js',
         'event.js',
