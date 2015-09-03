@@ -235,11 +235,13 @@ Network.prototype.isUpperInvitedByAdmin = function(upperId) {
  */
 Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
     // Find and update the current invite
-    var invite = Invites.findOneOrFail({
+    var invite = Invites.findOne({
         type: Invites.INVITE_TYPE_NETWORK_EMAIL,
         access_token: accessToken,
         network_id: this._id
     });
+
+    if (!invite) return;
 
     Invites.update(invite._id, {$set: {
         type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
