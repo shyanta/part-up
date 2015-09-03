@@ -43,6 +43,8 @@ Package.onUse(function(api) {
         'private/emails/invite_upper_to_network.nl.html',
         'private/emails/dailydigest.en.html',
         'private/emails/dailydigest.nl.html',
+        'private/emails/custom.en.html',
+        'private/emails/custom.nl.html',
         'private/emails/upper_mentioned_in_partup.en.html',
         'private/emails/upper_mentioned_in_partup.nl.html',
         'private/emails/partup_created_in_network.en.html',
