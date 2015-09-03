@@ -15,6 +15,7 @@ Partup.transformers.partup = {
         var image = Images.findOne({_id: partup.image});
 
         var fields = {
+            partup_name: partup.name,
             _id: partup._id,
             description: partup.description,
             budget_type: partup.budget_type,
@@ -51,7 +52,7 @@ Partup.transformers.partup = {
     'fromFormStartPartup': function(fields) {
         var partup = {
             // form fields
-            name: fields.name,
+            name: fields.partup_name,
             description: fields.description,
             budget_type: fields.budget_type,
             budget_money: fields.budget_money,

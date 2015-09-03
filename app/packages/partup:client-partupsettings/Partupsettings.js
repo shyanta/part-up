@@ -38,7 +38,7 @@ var formPlaceholders = {
 Template.Partupsettings.onCreated(function() {
     var template = this;
 
-    template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
+    template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.partup_name.max);
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     template.imageSystem = new ImageSystem(template);
     template.budgetType = new ReactiveVar();

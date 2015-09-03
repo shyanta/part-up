@@ -48,7 +48,7 @@ var partupBaseSchema = new SimpleSchema({
             return new Date(new Date().setHours(-timezone, 0, 0, 0));
         }
     },
-    name: {
+    partup_name: {
         type: String,
         max: 60
     },
