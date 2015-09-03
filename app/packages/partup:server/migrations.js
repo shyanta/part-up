@@ -412,4 +412,20 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(16);
+Migrations.add({
+    version: 17,
+    name: 'Set new email notification setting',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.settings.email.partups_networks_new_pending_upper': true,
+                'profile.settings.email.partups_networks_accepted': true
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(17);
