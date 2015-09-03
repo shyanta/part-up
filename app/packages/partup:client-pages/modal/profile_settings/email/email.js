@@ -8,6 +8,10 @@ Template.modal_profile_settings_email.helpers({
     'email': function() {
         var user = Meteor.user();
         return mout.object.get(user, 'profile.settings.email');
+    },
+    'isNetworkAdmin': function() {
+        var user = Meteor.user();
+        return User(user).isNetworkAdmin();
     }
 });
 
