@@ -91,5 +91,23 @@ Partup.server.services.emails = {
         emailSettings.html = SSR.render('email-' + options.type + '-' + options.locale, options.typeData);
 
         Email.send(emailSettings);
+    },
+
+    /**
+     * Validate if the required tags are present in the body
+     *
+     * @param {String} body
+     * @param {[String]} requiredTags
+     */
+    validateRequiredBodyTags: function(body, requiredTags) {
+        var valid = true;
+
+        requiredTags.forEach(function(tag) {
+            var matches = body.match(new RegExp('{\\s*' + tag + '\\s*}'));
+
+            if (!matches) valid = false;
+        });
+
+        return valid;
     }
 };
