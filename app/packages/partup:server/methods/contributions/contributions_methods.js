@@ -31,6 +31,10 @@ Meteor.methods({
 
                 Contributions.update(contribution._id, {$set: newContribution});
 
+                if (newContribution.motivation) {
+                    Meteor.call('updates.comments.insert', activity.update_id, newContribution.motivation);
+                }
+
                 // Post system message
                 var cause = false;
 
@@ -51,6 +55,10 @@ Meteor.methods({
                 newContribution.verified = isUpperInPartup;
 
                 newContribution._id = Contributions.insert(newContribution);
+
+                if (newContribution.motivation) {
+                    Meteor.call('updates.comments.insert', activity.update_id, newContribution.motivation);
+                }
             }
 
             return newContribution;

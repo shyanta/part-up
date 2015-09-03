@@ -121,6 +121,14 @@ AutoForm.addHooks(null, {
 
         insertDoc.content = template.mentionsInput.getValue();
 
+        if (template.data.POPUP) {
+            Partup.client.popup.close({
+                success: true,
+                comment: insertDoc
+            });
+            return false;
+        }
+
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             template.submitting.set(false);
             if (error) {
@@ -131,10 +139,6 @@ AutoForm.addHooks(null, {
 
             template.buttonActive.set(false);
             AutoForm.resetForm(self.formId);
-
-            if (template.data.POPUP) {
-                Partup.client.popup.close(true);
-            }
 
             self.done();
         });
