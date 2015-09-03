@@ -84,7 +84,7 @@ Template.ActivityView.helpers({
         return Updates.findOne({_id: this.updateId || get(Template.instance(), 'data.activity.update_id')});
     },
     popupId: function() {
-        return 'popup.motivation.' + (this.updateId ||get(Template.instance(), 'data.activity.update_id'));
+        return 'popup.motivation.' + (this.updateId || get(Template.instance(), 'data.activity.update_id'));
     }
 });
 
@@ -115,9 +115,11 @@ Template.ActivityView.events({
             // If the user is not a partner, ask for motivation
             if (!partup.hasUpper(Meteor.userId())) {
                 var popupId = 'popup.motivation.' + (template.data.updateId || template.data.activity.update_id);
-                Partup.client.popup.open(popupId, function(success) {
-                    if (success) {
-                        template.updateContribution({}, function(error) {
+                Partup.client.popup.open(popupId, function(result) {
+                    if (result && result.success) {
+                        template.updateContribution({
+                            motivation: result.comment
+                        }, function(error) {
                             if (error) {
                                 console.error(error);
                                 return;
