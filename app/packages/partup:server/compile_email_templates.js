@@ -7,7 +7,9 @@ var templates = [
     'partup_created_in_network',
     'partups_networks_new_pending_upper',
     'partups_networks_accepted',
-    'custom'
+    'custom',
+    'verify_account',
+    'reset_password'
 ];
 
 /**
