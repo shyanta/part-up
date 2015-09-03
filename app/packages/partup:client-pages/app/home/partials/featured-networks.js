@@ -7,12 +7,15 @@ Template.FeaturedNetworks.onCreated(function() {
 
         tpl.featuredSubscription = tpl.subscribe('networks.featured_all', language, {
             onReady: function() {
-                var networks = Networks.findFeatured(language).fetch();
-                tpl.selectedSlug.set(networks[0].slug);
+                var network = Networks.findFeatured(language).fetch().pop();
+                if (!network) return;
+
+                tpl.selectedSlug.set(networks.slug);
             }
         });
     });
 });
+
 Template.FeaturedNetworks.helpers({
     networks: function() {
         var language = Partup.client.language.current.get();
