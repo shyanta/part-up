@@ -13,7 +13,8 @@ var templates = [
     'invite_upper_to_network',
     'invite_upper_to_partup_activity',
     'upper_mentioned_in_partup',
-    'partup_created_in_network'
+    'partup_created_in_network',
+    'custom'
 ];
 var templateName;
 var templateFile;
@@ -48,6 +49,7 @@ Partup.server.services.emails = {
      * @param {String} options.subject
      * @param {String} options.locale
      * @param {Object} options.userEmailPreferences
+     * @param {String|null} options.body
      */
     send: function(options) {
         var options = options || {};
@@ -71,8 +73,41 @@ Partup.server.services.emails = {
         emailSettings.from = options.fromAddress;
         emailSettings.to = options.toAddress;
         emailSettings.subject = options.subject;
+
+        if (options.body) {
+            options.type = 'custom';
+
+            // Replace all newlines with <br>
+            var body = options.body.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
+
+            // Replace all tags with their value, so users can use {name} for example in their email body
+            Object.keys(options.typeData).forEach(function(key) {
+                body = body.replace(new RegExp('{\s*' + key + '\s*}'), options.typeData[key]);
+            });
+
+            options.typeData.body = body;
+        }
+
         emailSettings.html = SSR.render('email-' + options.type + '-' + options.locale, options.typeData);
 
         Email.send(emailSettings);
+    },
+
+    /**
+     * Validate if the required tags are present in the body
+     *
+     * @param {String} body
+     * @param {[String]} requiredTags
+     */
+    validateRequiredBodyTags: function(body, requiredTags) {
+        var valid = true;
+
+        requiredTags.forEach(function(tag) {
+            var matches = body.match(new RegExp('{\\s*' + tag + '\\s*}'));
+
+            if (!matches) valid = false;
+        });
+
+        return valid;
     }
 };
