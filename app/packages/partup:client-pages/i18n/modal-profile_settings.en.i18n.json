@@ -30,6 +30,14 @@
     "modal-profilesettings-email-updatesuccess-enabled-partup_created_in_network":"Part-up created in network email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-partup_created_in_network":"Part-up created in network email disabled",
 
+    "modal-profilesettings-email-partups_networks_new_pending_upper":"when an upper requests access to your tribe",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_new_pending_upper":"Join tribe request email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_new_pending_upper":"Join tribe request email disabled",
+
+    "modal-profilesettings-email-partups_networks_accepted":"when you got accepted to a tribe",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_accepted":"Accepted to tribe email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_accepted":"Accepted to tribe email disabled",
+
     "modal-profilesettings-email-updatesuccess-disabled-all": "Disabled all automatic emails",
     "modal-profilesettings-email-updatesuccess-disabled-one": "Disabled the automatic email",
     "modal-profilesettings-email-updateerror-disabled": "Something went wrong, please try again",
