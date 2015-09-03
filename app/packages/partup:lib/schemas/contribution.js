@@ -14,6 +14,10 @@ var contributionBaseSchema = new SimpleSchema({
         type: Number,
         min: 0,
         optional: true
+    },
+    motivation: {
+        type: Partup.schemas.forms.updateComment,
+        optional: true
     }
 });
 
