@@ -248,7 +248,7 @@ Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
     }});
 
     // Also remove the access token from the network and add the new invite to the network
-    Network.update(this._id, {
+    Networks.update(this._id, {
         $pull: {'access_tokens': accessToken},
         $addToSet: {'invites': {_id: upperId, invited_by_id: invite.inviter_id, invited_at: invite.created_at}}
     });
