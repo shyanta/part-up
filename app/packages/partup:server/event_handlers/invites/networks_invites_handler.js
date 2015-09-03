@@ -49,7 +49,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
 /**
  * Generate an email when an invite gets sent
  */
-Event.on('invites.inserted.network.by_email', function(inviter, network, email, name) {
+Event.on('invites.inserted.network.by_email', function(inviter, network, email, name, accessToken) {
     // Set the email details
     var emailOptions = {
         type: 'invite_upper_to_network',
@@ -61,7 +61,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
             networkName: network.name,
             networkDescription: network.description,
             inviterName: inviter.profile.name,
-            url: Meteor.absoluteUrl() + network.slug
+            url: Meteor.absoluteUrl() + network.slug + '?token=' + accessToken
         }
     };
 

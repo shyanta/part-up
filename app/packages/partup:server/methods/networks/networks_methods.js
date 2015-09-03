@@ -86,8 +86,7 @@ Meteor.methods({
 
         var network = Networks.findOneOrFail(networkId);
 
-        var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: network.partup_id}).count() > 0;
-        if (!isAllowedToAccessPartup) {
+        if (!network.hasMember(inviter._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -96,18 +95,24 @@ Meteor.methods({
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }
 
+        var accessToken = Random.secret();
+
         var invite = {
             type: Invites.INVITE_TYPE_NETWORK_EMAIL,
             network_id: network._id,
             inviter_id: inviter._id,
             invitee_name: name,
             invitee_email: email,
+            access_token: accessToken,
             created_at: new Date
         };
 
         Invites.insert(invite);
 
-        Event.emit('invites.inserted.network.by_email', inviter, network, email, name);
+        // Save the access token to the network to allow access
+        Networks.update(network._id, {$addToSet: {access_tokens: accessToken}});
+
+        Event.emit('invites.inserted.network.by_email', inviter, network, email, name, accessToken);
     },
 
     /**
@@ -172,31 +177,18 @@ Meteor.methods({
 
         try {
             if (network.isClosed()) {
+                // Instantly add user when invited by an admin
+                if (network.isUpperInvitedByAdmin(user._id)) {
+                    network.addUpper(user._id);
+                    return Log.debug('User added to closed network due to admin invite.');
+                }
+
                 // Add user to pending if it's a closed network and the user is invited
                 if (network.isUpperInvited(user._id)) {
                     network.addPendingUpper(user._id);
 
-                    // Send notification to network admin
-                    var notificationOptions = {
-                        userId: network.admin_id,
-                        type: 'partups_networks_new_pending_upper',
-                        typeData: {
-                            pending_upper: {
-                                _id: user._id,
-                                name: user.profile.name,
-                                image: user.profile.image
-                            },
-                            network: {
-                                _id: network._id,
-                                name: network.name,
-                                image: network.image,
-                                slug: network.slug
-                            }
-                        }
-                    };
-
-                    Partup.server.services.notifications.send(notificationOptions);
-
+                    // Send notification to admin
+                    Event.emit('networks.new_pending_upper', network, user);
                     return Log.debug('User (already) added to waiting list');
                 } else {
                     throw new Meteor.Error(401, 'unauthorized');
@@ -205,12 +197,8 @@ Meteor.methods({
 
             if (network.isInvitational()) {
                 // Check if the user is invited
-                var invite = network.isUpperInvited(user._id);
-
-                if (invite) {
+                if (network.isUpperInvited(user._id)) {
                     network.addInvitedUpper(user._id);
-                    network.removeAllUpperInvites(user._id);
-
                     return Log.debug('User added to invitational network.');
                 } else {
                     if (network.addPendingUpper(user._id)) {
@@ -224,8 +212,7 @@ Meteor.methods({
             if (network.isPublic()) {
                 // Allow user instantly
                 network.addUpper(user._id);
-                network.removeAllUpperInvites(user._id);
-                return Log.debug('User added to network.');
+                return Log.debug('User added to public network.');
             }
 
             return Log.debug('Unknown access level for this network: ' + network.privacy_type);
@@ -517,7 +504,7 @@ Meteor.methods({
     /**
      * Update privileged network fields (superadmin only)
      *
-     * @param {string} networkId
+     * @param {string} networkSlug
      * @param {mixed[]} fields
      */
     'networks.admin_update': function(networkSlug, fields) {
@@ -541,4 +528,25 @@ Meteor.methods({
             throw new Meteor.Error(400, 'network_could_not_be_updated');
         }
     },
+
+    /**
+     * Consume an access token and add the user to the invites
+     *
+     * @param {String} networkSlug
+     * @param {String} accessToken
+     * */
+    'networks.convert_access_token_to_invite': function(networkSlug, accessToken) {
+        check(networkSlug, String);
+        check(accessToken, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        try {
+            network.convertAccessTokenToInvite(user._id, accessToken);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_access_token_could_not_be_converted_to_invite');
+        }
+    }
 });

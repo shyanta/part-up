@@ -523,8 +523,22 @@ Router.route('/:slug', {
     },
     data: function() {
         return {
-            networkSlug: this.params.slug
+            networkSlug: this.params.slug,
+            accessToken: this.params.query.token
         };
+    },
+    onBeforeAction: function() {
+        var networkSlug = this.data().networkSlug;
+        var accessToken = this.data().accessToken;
+        if (networkSlug && accessToken) {
+            Session.set('network_access_token', accessToken);
+            Session.set('network_access_token_for_network', networkSlug);
+        }
+        if (Meteor.userId() && networkSlug && accessToken) {
+            Meteor.call('networks.convert_access_token_to_invite', networkSlug, accessToken);
+        }
+
+        this.next();
     }
 });
 

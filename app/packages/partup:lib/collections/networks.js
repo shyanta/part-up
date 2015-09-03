@@ -100,7 +100,11 @@ Network.prototype.isClosedForUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvited = function(upperId) {
-    return !!Invites.findOne({network_id: this._id, invitee_id: upperId, type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER});
+    return !!Invites.findOne({
+        type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+        network_id: this._id,
+        invitee_id: upperId
+    });
 };
 
 /**
@@ -159,6 +163,7 @@ Network.prototype.canUpperLeave = function(upperId) {
 Network.prototype.addInvitedUpper = function(upperId) {
     Networks.update(this._id, {$addToSet: {uppers: upperId}});
     Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
+    this.removeAllUpperInvites(upperId);
 };
 
 /**
@@ -170,6 +175,7 @@ Network.prototype.addInvitedUpper = function(upperId) {
 Network.prototype.addUpper = function(upperId) {
     Networks.update(this._id, {$addToSet: {uppers: upperId}});
     Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
+    this.removeAllUpperInvites(upperId);
 };
 
 /**
@@ -180,7 +186,7 @@ Network.prototype.addUpper = function(upperId) {
  */
 Network.prototype.addPendingUpper = function(upperId) {
     // Check if user is already added as a pending upper
-    if (this.pending_uppers && this.pending_uppers.indexOf(upperId) > -1) {
+    if (this.isUpperPending(upperId)) {
         return false;
     }
 
@@ -200,6 +206,57 @@ Network.prototype.isUpperPending = function(upperId) {
 };
 
 /**
+ * Check if upper is invited by an admin
+ *
+ * @memberof Networks
+ * @param {String} upperId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isUpperInvitedByAdmin = function(upperId) {
+    var invitedByAdmin = false;
+    var invites = Invites.find({type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER, network_id: this._id, invitee_id: upperId});
+    var self = this;
+
+    // A user can be invited multiple times, so check all of them
+    invites.forEach(function(invite) {
+        // Set variable to true when matching the criteria
+        if (self.isAdmin(invite.inviter_id)) invitedByAdmin = true;
+    });
+
+    return invitedByAdmin;
+};
+
+/**
+ * Consume an access token to add the user as an invitee
+ *
+ * @memberOf Partups
+ * @param {String} upperId
+ * @param {String} accessToken
+ */
+Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
+    // Find and update the current invite
+    var invite = Invites.findOne({
+        type: Invites.INVITE_TYPE_NETWORK_EMAIL,
+        access_token: accessToken,
+        network_id: this._id
+    });
+
+    if (!invite) return;
+
+    Invites.update(invite._id, {$set: {
+        type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+        invitee_id: upperId,
+        updated_at: new Date
+    }});
+
+    // Also remove the access token from the network and add the new invite to the network
+    Networks.update(this._id, {
+        $pull: {'access_tokens': accessToken},
+        $addToSet: {'invites': {_id: upperId, invited_by_id: invite.inviter_id, invited_at: invite.created_at}}
+    });
+};
+
+/**
  * Accept a pending upper to the network
  *
  * @memberof Networks
@@ -207,11 +264,8 @@ Network.prototype.isUpperPending = function(upperId) {
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}});
-    Invites.remove({
-        'network_id':this._id,
-        'invitee_id': upperId
-    });
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $addToSet: {networks: this._id}});
+    this.removeAllUpperInvites(upperId);
 };
 
 /**
@@ -223,7 +277,7 @@ Network.prototype.acceptPendingUpper = function(upperId) {
 Network.prototype.rejectPendingUpper = function(upperId) {
     Networks.update(this._id, {$pull: {pending_uppers: upperId}});
     Invites.remove({
-        'network_id':this._id,
+        'network_id': this._id,
         'invitee_id': upperId
     });
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}});
@@ -236,7 +290,17 @@ Network.prototype.rejectPendingUpper = function(upperId) {
  * @param {String} upperId id of the user whose invites have to be removed
  */
 Network.prototype.removeAllUpperInvites = function(upperId) {
+    // Clear out the invites from Invites collection
     Invites.remove({network_id: this._id, invitee_id: upperId});
+
+    // And don't forget the invites property of this network
+    var invites = this.invites || [];
+    var self = this;
+    invites.forEach(function(invite) {
+        if (invite._id === upperId) {
+            Networks.update(self._id, {$pull: {invites: invite}});
+        }
+    });
 };
 
 /**
