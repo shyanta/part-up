@@ -44,7 +44,9 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
-                            'partup_created_in_network': true
+                            'partup_created_in_network': true,
+                            'partups_networks_new_pending_upper': true,
+                            'partups_networks_accepted': true
                         },
                         'unsubscribe_email_token': 'nj8fwDnhzaPSKX4vf-8ZHFyWRL0ZKVRz00ZOrJdB-ug'
                     },
@@ -145,7 +147,9 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
-                            'partup_created_in_network': true
+                            'partup_created_in_network': true,
+                            'partups_networks_new_pending_upper': true,
+                            'partups_networks_accepted': true
                         },
                         'unsubscribe_email_token': '6BQGhT9KnxBKAIrn6Y7s565CTOO-SIqfjuHOkJt8ZbQ'
                     },
@@ -245,7 +249,9 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
-                            'partup_created_in_network': true
+                            'partup_created_in_network': true,
+                            'partups_networks_new_pending_upper': true,
+                            'partups_networks_accepted': true
                         },
                         'unsubscribe_email_token': 'Xr_FQVj16IQRwpoMxQOWgHMVr5z6Jd04wpvF00n6rK6'
                     },
@@ -343,7 +349,9 @@ Meteor.startup(function() {
                             'upper_mentioned_in_partup': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
-                            'partup_created_in_network': true
+                            'partup_created_in_network': true,
+                            'partups_networks_new_pending_upper': true,
+                            'partups_networks_accepted': true
                         },
                         'unsubscribe_email_token': 'WiYdZ-AoYintHgYofjIlOyWTsP8f2oNKLhh3jhhpIdN'
                     },
