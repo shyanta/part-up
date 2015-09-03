@@ -19,9 +19,10 @@ var positionTags = function(tagsEl) {
 
 };
 
-/*************************************************************/
-/* Rendered */
-/*************************************************************/
+Template.PartupTile.onCreated(function() {
+    this.hoveringPartupcircles = new ReactiveDict();
+});
+
 Template.PartupTile.onRendered(function() {
     var canvasElm = this.find('canvas.pu-sub-radial');
     if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
@@ -46,9 +47,6 @@ Template.PartupTile.onRendered(function() {
     }
 });
 
-/*************************************************************/
-/* Helpers */
-/*************************************************************/
 Template.PartupTile.helpers({
     title: function() {
         return Partup.client.url.capitalizeFirstLetter(this.name);
@@ -105,8 +103,13 @@ Template.PartupTile.helpers({
             uppers.push(null);
         }
 
+        // Make the radius and the distance depend on the hover state
+        var hovering = Template.instance().hoveringPartupcircles.get(this._id);
+        var radius = hovering ? 125 : 100;
+        var distance = hovering ? 18 : 24;
+
         return lodash.map(uppers, function(upper, index) {
-            var coords = Partup.client.partuptile.getAvatarCoordinates(uppers.length, index, 0, 24, 100);
+            var coords = Partup.client.partuptile.getAvatarCoordinates(uppers.length, index, 0, distance, radius);
 
             var attributes = {
                 x: coords.x + 95,
@@ -152,5 +155,16 @@ Template.PartupTile.helpers({
         if (!image) return;
 
         return image.url({store: store});
+    }
+});
+
+Template.PartupTile.events({
+    'mouseenter .pu-partupcircle': function(event, template) {
+        var partupId = event.currentTarget.getAttribute('data-partup-id');
+        template.hoveringPartupcircles.set(partupId, true);
+    },
+    'mouseleave .pu-partupcircle': function(event, template) {
+        var partupId = event.currentTarget.getAttribute('data-partup-id');
+        template.hoveringPartupcircles.set(partupId, false);
     }
 });

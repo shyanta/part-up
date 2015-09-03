@@ -12,6 +12,7 @@
                 </ul>
             {{/ if }}
         {{/unless}}
+
         {{# with partup }}
 
             <!-- Name of the Part-up -->
@@ -24,25 +25,26 @@
             <section>
 
                 <!-- Image (circle), uppers, and progress  -->
-                <div class="pu-partupcircle">
+                <div class="pu-partupcircle" data-partup-id="{{ _id }}">
                     <a href="{{pathFor 'partup' slug=slug }}">
                         <canvas class="pu-sub-radial" data-percent="{{ progress }}"></canvas>
                         <figure class="pu-sub-inner" style="{{#with image }}background-image: url('{{ partupImage . '360x360' }}');{{/ with }}" data-partup-tile-focuspoint></figure>
                     </a>
+
                     <!-- Uppers -->
                     {{# if uppers }}
-                    <ul class="pu-sub-avatar-list">
-                        {{# each uppers }}
-                            <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
-                                {{# if _id }}
-                                    background-image: url('{{# with upper }}{{ upperImage profile.image '80x80' }}{{/ with }}');
-                                {{/ if }}
-                                top: {{ y }}px;
-                                left: {{ x }}px;
-                                transition-delay: {{ delay }}s;
-                            " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}+{{/ unless }}</li>
-                        {{/ each }}
-                    </ul>
+                        <ul class="pu-sub-avatar-list">
+                            {{# each uppers }}
+                                <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
+                                    {{# if _id }}
+                                        background-image: url('{{# with upper }}{{ upperImage profile.image '80x80' }}{{/ with }}');
+                                    {{/ if }}
+                                    top: {{ y }}px;
+                                    left: {{ x }}px;
+                                    transition-delay: {{ delay }}s;
+                                " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}+{{/ unless }}</li>
+                            {{/ each }}
+                        </ul>
                     {{/ if }}
                 </div>
 
