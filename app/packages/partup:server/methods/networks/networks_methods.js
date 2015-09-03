@@ -86,8 +86,7 @@ Meteor.methods({
 
         var network = Networks.findOneOrFail(networkId);
 
-        var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: network.partup_id}).count() > 0;
-        if (!isAllowedToAccessPartup) {
+        if (!network.hasMember(inviter._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
