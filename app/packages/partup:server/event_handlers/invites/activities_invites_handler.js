@@ -35,7 +35,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
         type: 'invite_upper_to_partup_activity',
         toAddress: User(invitee).getEmail(),
         subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
-        locale: User(inviter).getLocale(),
+        locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
             partupName: partup.name,

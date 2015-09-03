@@ -29,7 +29,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
         type: 'invite_upper_to_network',
         toAddress: User(invitee).getEmail(),
         subject: 'Uitnodiging voor het netwerk ' + network.name,
-        locale: User(inviter).getLocale(),
+        locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
             networkName: network.name,
