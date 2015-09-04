@@ -14,10 +14,10 @@
                         <div>
                             <h3>
                                 {{profile.name}}
-                                {{#if profile.facebook_url}}<a href="{{ profile.facebook_url }}" target="_blank"><i class="pi-facebook"></i></a>{{/if}}
-                                {{#if profile.linkedin_url}}<a href="{{ profile.linkedin_url }}" target="_blank"><i class="pi-linkedin"></i></a>{{/if}}
-                                {{#if profile.twitter_url}}<a href="{{ profile.twitter_url }}" target="_blank"><i class="pi-twitter"></i></a>{{/if}}
-                                {{#if profile.instagram_url}}<a href="{{ profile.instagram_url }}" target="_blank"><i class="pi-instagram"></i></a>{{/if}}
+                                {{#if profile.facebook_url}}<a href="{{ profile.facebook_url }}" target="_blank"><i class="pi pi-facebook"></i></a>{{/if}}
+                                {{#if profile.linkedin_url}}<a href="{{ profile.linkedin_url }}" target="_blank"><i class="pi pi-linkedin"></i></a>{{/if}}
+                                {{#if profile.twitter_url}}<a href="{{ profile.twitter_url }}" target="_blank"><i class="pi pi-twitter"></i></a>{{/if}}
+                                {{#if profile.instagram_url}}<a href="{{ profile.instagram_url }}" target="_blank"><i class="pi pi-instagram"></i></a>{{/if}}
                             </h3>
                             <p data-expander-parent>
                                 {{profile.description}}
@@ -29,14 +29,14 @@
                                 {{#if profile.location}}
                                     {{#if profile.location.city}}
                                         <li><a class="pu-metadata" href="#" data-location>
-                                            <i class="pi-location"></i>
+                                            <i class="pi pi-location"></i>
                                             <span>{{profile.location.city}}</span>
                                         </a></li>
                                     {{/if}}
                                 {{/if}}
                                 {{#with profile.website}}
                                     <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
-                                        <i class="pi-monitor"></i>
+                                        <i class="pi pi-monitor"></i>
                                         <span>{{ partupCleanUrl .}}</span>
                                     </a></li>
                                 {{/with}}
@@ -62,14 +62,14 @@
                             <li>
                                 <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}} {{ isActiveRoute name='profile' class='pu-state-active'}}">
-                                    <i class="pi-globe"></i>
+                                    <i class="pi pi-globe"></i>
                                     {{_ 'pages-app-profile-upper-partups-nav' }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
-                                    <i class="pi-chart"></i>
+                                    <i class="pi pi-chart"></i>
                                     {{_ 'pages-app-profile-supporter-partups-nav' }}
                                 </a>
                             </li>
@@ -80,7 +80,7 @@
                                 <li>
                                     <a href="{{pathFor 'profile-settings' _id=profileId}}" data-open-profilesettings
                                         class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                        <i class="pi-cog"></i>
+                                        <i class="pi pi-cog"></i>
                                     </a>
                                 </li>
                             {{/ if }}

@@ -9,7 +9,7 @@
             <div class="pu-sub-input">
                 <input type="text" class="pu-input pu-input-filter" name="textsearch" value="{{ textsearchData }}" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}" data-textsearch-input>
                 {{# if textsearchData }}
-                    <i class="pu-sub-reset pi-times" data-reset-textsearch></i>
+                    <i class="pu-sub-reset pi pi-times" data-reset-textsearch></i>
                 {{/ if }}
             </div>
 
@@ -25,7 +25,7 @@
                     {{else }}
                         {{_ 'pages-app-discover-filter-networkfilter-all' }}
                     {{/with }}
-                    <i class="pi-times" data-reset-selected-network></i>
+                    <i class="pi pi-times" data-reset-selected-network></i>
                 </a>
                 {{> Dropdown toggle=networkSelectorState template="NetworkSelector" data=networkSelectorData }}
             </div>
@@ -42,7 +42,7 @@
                     {{else }}
                         {{_ 'pages-app-discover-filter-locationfilter-all' }}
                     {{/with }}
-                    <i class="pi-times" data-reset-selected-location></i>
+                    <i class="pi pi-times" data-reset-selected-location></i>
                 </a>
                 {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
             </div>

@@ -1,7 +1,7 @@
 <template name="AutocompleteAdvanced">
     {{# if selection }}
         <input type="text" value="{{ label selection }}" class="pu-input pu-input-selection" readonly>
-        <a href="#" class="pu-sub-remove pi-times" data-clear>
+        <a href="#" class="pu-sub-remove pi pi-times" data-clear>
         </a>
     {{ else }}
         {{# Autocomplete onSelect=onInterceptedSelect onQuery=onInterceptedQuery }}

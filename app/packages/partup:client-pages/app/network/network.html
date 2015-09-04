@@ -21,14 +21,14 @@
                                     <ul class="pu-list pu-list-horizontal">
                                         {{# with location }}
                                             <li><a class="pu-metadata" href="#" data-location>
-                                                <i class="pi-location"></i>
+                                                <i class="pi pi-location"></i>
                                                 <span>{{ city }}</span>
                                             </a></li>
                                         {{/ with }}
 
                                         {{# with website }}
                                             <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
-                                                <i class="pi-monitor"></i>
+                                                <i class="pi pi-monitor"></i>
                                                 <span>{{ partupCleanUrl . }}</span>
                                             </a></li>
                                         {{/ with }}
@@ -57,14 +57,14 @@
                                 <li>
                                     <a href="{{ pathFor route='network-detail' slug=network.slug }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}}">
-                                        <i class="pi-globe"></i>
+                                        <i class="pi pi-globe"></i>
                                         {{_ 'pages-app-network-tab-button-partups'}}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ pathFor route='network-uppers' slug=network.slug }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-uppers' class='pu-state-active'}}">
-                                        <i class="pi-chart"></i>
+                                        <i class="pi pi-chart"></i>
                                         {{_ 'pages-app-network-tab-button-uppers'}}
                                     </a>
                                 </li>
@@ -79,7 +79,7 @@
                                         <li>
                                             <a href="{{pathFor 'network-settings' slug=slug}}" data-open-networksettings
                                                 class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                                <i class="pi-cog"></i>
+                                                <i class="pi pi-cog"></i>
                                             </a>
                                         </li>
                                     {{/ if}}
@@ -119,7 +119,7 @@
                                     {{# if canUpperInvite currentUser._id }}
                                         <li class="pu-sub-button">
                                             <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=slug }}">
-                                                <i class="pi-person-plus pi-large"></i>
+                                                <i class="pi pi-person-plus pi pi-large"></i>
                                                 {{_ 'pages-app-network-actions-button-invite'}}
                                             </a>
                                         </li>
