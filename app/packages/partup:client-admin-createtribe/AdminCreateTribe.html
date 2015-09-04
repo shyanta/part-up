@@ -46,7 +46,7 @@
             <p class="pu-sub-name"><a href="{{pathFor 'network-detail' slug }}">{{ name }}</a>, ({{ privacyType privacy_type }}), ({{ upperCount . }} uppers), (<span data-usercard={{getNetworkAdmin._id}}>
                 <figure class="pu-avatar pu-avatar-micro" style="background-image: url('{{ partupImageUrl id=getNetworkAdmin.profile.image }}');" data-usercard="{{_id}}"></figure>
                 {{getNetworkAdmin.profile.name}}</span>)</p>
-            <button type="button" class="pu-sub-remove" data-network-remove="{{ _id }}"><i class="pi-times"></i></button>
+            <button type="button" class="pu-sub-remove pu-button pu-button-checkmark pu-button-checkmark-deny" data-network-remove="{{ _id }}"> <i class="pi-times"></i> </button>
             <button type="button" class="pu-sub-button" data-network-edit="{{ slug }}"><i class="fa fa-pencil"></i></button>
         </li>
 
