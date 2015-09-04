@@ -59,7 +59,7 @@
         margin-right: 10px - 5px
         transition: color .2s
 
-        &.fa-times
+        &.pi-times
             font-size: 15px
 
         &.pu-sub-success
@@ -69,6 +69,9 @@
             float: right
             margin-left: 0
             transition: width .2s, opacity .2s, margin .2s
+
+        &.pi-message:before
+            vertical-align: sub
 
     // Loader
     .pu-spinner
@@ -134,6 +137,9 @@
         i
             font-size: 20px
             margin: -4px -2px
+
+            &.pi-times
+                vertical-align: baseline
 
         &-plain
             background-color: transparent
@@ -232,6 +238,10 @@
                 background-color: $color-background-tertiery
                 color: darken($color-text-subtle, 20%)
 
+            i.pi-times
+                font-size: 11px
+                vertical-align: baseline
+
         &-brand
             padding: 9px 31px
 
@@ -252,6 +262,8 @@
         color: $color-text-secondary
         border-radius: 0
         border-bottom: 2px solid transparent
+        font-weight: 600
+        font-size: 16px
 
         &:hover
             color: $color-text-secondary
@@ -320,10 +332,10 @@
         line-height: 30px
         text-align: center
 
-        i.fa-check,
-        i.fa-times
+        i.pi-check,
+        i.pi-times
             margin-right: 0
-            font-size: 24px
+            font-size: 15px
             line-height: 29px
 
         &-confirm
@@ -361,12 +373,12 @@
             top: 0
             bottom: 0
             vertical-align: middle
-            line-height: 40px
+            line-height: 43px
             width: 30px
             background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 18%,rgba(255,255,255,1) 100%)
             margin: auto
             text-align: center
-            &.fa-times
+            &.pi-times
                 display: none
 
         &:hover
@@ -402,8 +414,9 @@
 
         &.pu-state-filled
             padding-right: 30px
-            i.fa-times
+            i.pi-times
                 display: block
+                font-size: 10px
 
     // Type: facebook
     &-facebook
@@ -535,7 +548,6 @@
         max-width: 40px
 
         i
-            font-size: 22px
             color: $color-solid-black
             text-align: center
             transition: color $animation-duration
