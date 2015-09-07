@@ -1,7 +1,8 @@
 <template name="Notification">
+
     <!-- supporter joined notification -->
     {{#if partupEqualsExactly notification.type 'partups_supporters_added' }}
-    <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
+        <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.supporter.image }}');" data-usercard="{{ notification.type_data.supporter._id }}">
                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
             </figure>
@@ -11,9 +12,10 @@
             </article>
         </a>
     {{/if}}
+
     <!-- invite for activity notification -->
     {{#if partupEqualsExactly notification.type 'partup_activities_invited' }}
-    <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
+        <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.inviter.image }}');" data-usercard="{{ notification.type_data.inviter._id }}">
                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
             </figure>
@@ -23,9 +25,10 @@
             </article>
         </a>
     {{/if}}
+
     <!-- contribution accepted notification -->
     {{#if partupEqualsExactly notification.type 'partups_contributions_accepted' }}
-    <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
+        <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.accepter.image }}');" data-usercard="{{ notification.type_data.accepter._id }}">
                 <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
             </figure>
@@ -35,6 +38,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- contribution rejected notification -->
     {{#if partupEqualsExactly notification.type 'partups_contributions_rejected' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
@@ -47,6 +51,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- invited to network notification -->
     {{#if partupEqualsExactly notification.type 'partups_networks_invited' }}
         <a href="{{pathFor route='network-detail' slug=notification.type_data.network.slug}}">
@@ -59,6 +64,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- accepted to network notification -->
     {{#if partupEqualsExactly notification.type 'partups_networks_accepted' }}
         <a href="{{pathFor route='network-detail' slug=notification.type_data.network.slug}}">
@@ -72,6 +78,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- added to pending_upper list and waiting for admin approval -->
     {{#if partupEqualsExactly notification.type 'partups_networks_new_pending_upper' }}
         <a href="{{pathFor route='network-settings-requests' slug=notification.type_data.network.slug}}">
@@ -84,6 +91,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- contribution rating notification -->
     {{#if partupEqualsExactly notification.type 'contributions_ratings_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
@@ -96,6 +104,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- comment on update notification -->
     {{#if partupEqualsExactly notification.type 'updates_first_comment' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
@@ -108,6 +117,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- new message in partup notification -->
     {{#if partupEqualsExactly notification.type 'partups_messages_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
@@ -120,6 +130,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- new activity in partup notification -->
     {{#if partupEqualsExactly notification.type 'partups_activities_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
@@ -132,6 +143,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- new contribution in partup by partner notification -->
     {{#if partupEqualsExactly notification.type 'partups_contributions_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
@@ -144,6 +156,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- new contribution in partup by supporter notification -->
     {{#if partupEqualsExactly notification.type 'partups_contributions_proposed' }}
         <a href="{{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id }}">
@@ -156,6 +169,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- reminder to rate contributions in partup notification -->
     {{#if partupEqualsExactly notification.type 'partups_ratings_reminder' }}
         <a href="{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}">
@@ -167,6 +181,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- user got mentioned in a partup -->
     {{#if partupEqualsExactly notification.type 'partups_user_mentioned' }}
         <a href="{{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}">
@@ -178,6 +193,7 @@
             </article>
         </a>
     {{/if}}
+
     <!-- partup is created in user's network -->
     {{#if partupEqualsExactly notification.type 'partup_created_in_network' }}
         <a href="{{pathFor route='partup' slug=notification.type_data.partup.slug}}">
@@ -189,4 +205,5 @@
             </article>
         </a>
     {{/if}}
+
 </template>
