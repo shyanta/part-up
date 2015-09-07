@@ -52,6 +52,7 @@ Package.onUse(function(api) {
         'collections/tags.js',
         'collections/places.js',
         'collections/places_autocompletes.js',
+        'collections/uploads.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -106,6 +107,7 @@ Package.onUse(function(api) {
     api.export('User');
     api.export('Places');
     api.export('PlacesAutocompletes');
+    api.export('Uploads');
 
     // Globals
     api.export('get');
