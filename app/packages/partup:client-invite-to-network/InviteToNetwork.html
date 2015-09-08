@@ -5,9 +5,11 @@
 
     <p>{{_ 'invite-to-network-popup-explaination'}}</p>
 
-    {{#autoForm schema=formSchema id="inviteToNetworkForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
+    {{#autoForm schema=formSchema id="inviteToNetworkForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=defaultDoc }}
         <div class="pu-row">
             <div class="cell top">
+
+                <!-- Name of invitee -->
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'invite-to-network-popup-input-name'}}</span>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
@@ -17,8 +19,11 @@
                         <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                     </div>
                 </label>
+
             </div>
             <div class="cell top">
+
+                <!-- E-mailaddress of invitee -->
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'invite-to-network-popup-input-email'}}</span>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
@@ -28,18 +33,21 @@
                         <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
                     </div>
                 </label>
+
             </div>
         </div>
-        <!-- DISABLED UNTIL IMPLEMENTED -->
-        <!-- <label class="pu-formfield">
+
+        <!-- Custom e-mail message for invitee -->
+        <label class="pu-formfield">
             <span class="pu-label">{{_ 'invite-to-network-popup-input-message'}}</span>
-            <div class="pu-sub-validations">
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='message' }}pu-state-invalid{{/if}}">
                 <span class="pu-sub-input">
-                    {{> afFieldInput name='message' class="pu-textarea"  rows=8 }}
+                    {{> afFieldInput name='message' class="pu-textarea" rows=19 }}
                 </span>
-                <span class="pu-sub-error">ERROR</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='message' }}</span>
             </div>
-        </label> -->
+        </label>
+
         <footer class="pu-sub-formfooter pu-row pu-row-scalable">
             <div class="cell stretch">
                 <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">

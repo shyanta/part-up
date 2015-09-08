@@ -70,13 +70,13 @@ Meteor.methods({
      * Invite someone to a network
      *
      * @param {String} networkId
-     * @param {String} email
-     * @param {String} name
+     * @param {Object} fields
+     * @param {String} fields.name
+     * @param {String} fields.email
+     * @param {String} fields.message
      */
-    'networks.invite_by_email': function(networkId, email, name) {
-        check(networkId, String);
-        check(email, String);
-        check(name, String);
+    'networks.invite_by_email': function(networkId, fields) {
+        check(fields, Partup.schemas.forms.inviteUpper);
 
         var inviter = Meteor.user();
 
@@ -90,7 +90,7 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_email: email, type: Invites.INVITE_TYPE_NETWORK_EMAIL});
+        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_email: fields.email, type: Invites.INVITE_TYPE_NETWORK_EMAIL});
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }
@@ -101,8 +101,9 @@ Meteor.methods({
             type: Invites.INVITE_TYPE_NETWORK_EMAIL,
             network_id: network._id,
             inviter_id: inviter._id,
-            invitee_name: name,
-            invitee_email: email,
+            invitee_name: fields.name,
+            invitee_email: fields.email,
+            message: fields.message,
             access_token: accessToken,
             created_at: new Date
         };
@@ -112,7 +113,7 @@ Meteor.methods({
         // Save the access token to the network to allow access
         Networks.update(network._id, {$addToSet: {access_tokens: accessToken}});
 
-        Event.emit('invites.inserted.network.by_email', inviter, network, email, name, accessToken);
+        Event.emit('invites.inserted.network.by_email', inviter, network, fields.email, fields.name, fields.message, accessToken);
     },
 
     /**

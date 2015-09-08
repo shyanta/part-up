@@ -7,5 +7,7 @@
      "invite-to-network-popup-form-copy-confirm": "Send it!",
      "invite-to-network-popup-input-name": "Name",
      "invite-to-network-popup-input-email": "Email address",
-     "invite-to-network-popup-success": "Email invite sent"
+     "invite-to-network-popup-success": "Email invite sent",
+
+     "invite-to-network-popup-message-prefill": "Hi [name],\n\nI found this cool tribe on Part-up for you to join: \"__networkName__\". I believe you should become part of it and help accomplish the tribe purpose: \"__networkDescription__\".\n\nYou can check out the tribe using this link [url] and sign up.\n\nHaven't heard about Part-up yet? It is the new marketplace for teamwork. Part-up gets you your best team for the job. Just share your dream or talent and Part-up helps you find the right team! You are free to choose what you work on and who you work with. Together you decide on the activities and what each will contribute. You build your profile and show the world what you're good at! You can also get your own part-up tribe to start working together with your local community, network or organisation.\n\nLet's part-up!\n\nCheers,\n__inviterName__"
 }
