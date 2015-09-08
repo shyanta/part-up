@@ -17,7 +17,7 @@ Template.InviteToActivity.helpers({
 });
 
 AutoForm.hooks({
-    inviteUppersForm: {
+    inviteToActivityForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
             var template = self.template.parent();
