@@ -33,5 +33,8 @@
     "base-client-language-ss-passwordMismatch": "The passwords do not match",
     "base-client-language-ss-emailExists": "This email already exists",
     "base-client-language-ss-emailNotFound": "This user is not found",
-    "base-client-language-ss-passwordIncorrect": "This password is incorrect"
+    "base-client-language-ss-passwordIncorrect": "This password is incorrect",
+    "base-client-language-ss-shouldNotContainHtml": "This field may not contain HTML",
+    "base-client-language-ss-missingRequiredTags": "This field misses the original [..]-tags",
+    "base-client-language-ss-shouldNotContainUrls": "This field may not contain URLs"
 }

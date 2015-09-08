@@ -75,7 +75,10 @@ Partup.client.language = {
                 passwordMismatch:       __('base-client-language-ss-passwordMismatch'),
                 emailExists:            __('base-client-language-ss-emailExists'),
                 emailNotFound:          __('base-client-language-ss-emailNotFound'),
-                passwordIncorrect:      __('base-client-language-ss-passwordIncorrect')
+                passwordIncorrect:      __('base-client-language-ss-passwordIncorrect'),
+                shouldNotContainHtml:   __('base-client-language-ss-shouldNotContainHtml'),
+                missingRequiredTags:    __('base-client-language-ss-missingRequiredTags'),
+                shouldNotContainUrls:   __('base-client-language-ss-shouldNotContainUrls')
             });
             var user = Meteor.user();
             if(!user) return;
