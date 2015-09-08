@@ -71,7 +71,7 @@ if (toastr && jQuery) {
     toastr.options.positionClass = '';
     toastr.options.titleClass = 'pu-sub-title';
     toastr.options.messageClass = 'pu-sub-message';
-    toastr.options.target = '.pu-app, .pu-modal';
+    toastr.options.target = 'body';
     toastr.options.newestOnTop = true;
     toastr.options.preventDuplicates = false;
     toastr.options.progressBar = false;
