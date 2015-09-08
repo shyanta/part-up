@@ -152,8 +152,18 @@ Meteor.startup(function() {
             info['language'] = user.profile.settings.locale;
             info['phonenumber'] = user.profile.phonenumber;
             info['gender'] = user.profile.gender;
+            info['location'] = user.profile.location ? user.profile.location.city : undefined;
             info['participation_score'] = user.participation_score;
             info['completeness'] = user.completeness;
+
+            info['count_partups_partner'] = user.upperOf ? user.upperOf.length : 0;
+            info['count_partups_supporter'] = user.supporterOf ? user.supporterOf.length : 0;
+            info['count_partups_created'] = Partups.find({
+                creator_id: user._id
+            }).count();
+            info['count_tribes_joined'] = Networks.find({
+                uppers: user._id
+            }).count();
         }
     };
 
