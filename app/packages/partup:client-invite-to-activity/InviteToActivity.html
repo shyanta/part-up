@@ -6,7 +6,7 @@
 
     {{#autoForm schema=formSchema id="inviteToActivityForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
         <div class="pu-row">
-            <div class="cell">
+            <div class="cell top">
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'invite-to-activity-popup-input-name'}}</span>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
@@ -17,7 +17,7 @@
                     </div>
                 </label>
             </div>
-            <div class="cell">
+            <div class="cell top">
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'invite-to-activity-popup-input-email'}}</span>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
