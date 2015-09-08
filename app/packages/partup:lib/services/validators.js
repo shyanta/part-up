@@ -34,5 +34,53 @@ Partup.services.validators = {
     facebookUrl: /^http[s]?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9.]+(\?.*)?$/, //new
     instagramUrl: /^http[s]?:\/\/(www\.)?instagram\.com\/[a-zA-Z._]+\/?(\?.*)?$/,
     linkedinUrl: /^http[s]?:\/\/([a-zA-Z]+\.)?linkedin\.com\/(in\/[a-zA-Z0-9]+|pub\/.*|profile\/view)(\?.*)?$/,
-    twitterUrl: /^http[s]?:\/\/(www\.)?twitter\.com\/[A-Za-z0-9_]+(\?.*)?$/
+    twitterUrl: /^http[s]?:\/\/(www\.)?twitter\.com\/[A-Za-z0-9_]+(\?.*)?$/,
+
+    /**
+     * Validate if the required tags are present in the string
+     *
+     * @param {String} string
+     * @param {[Array]} requiredTags
+     *
+     * @return {Boolean} valid
+     */
+    containsRequiredTags: function(string, requiredTags) {
+        var valid = true;
+
+        requiredTags.forEach(function(tag) {
+            var matches = string.match(new RegExp('\\[\\s*' + tag + '\\s*\\]', 'i'));
+
+            if (!matches) valid = false;
+        });
+
+        return valid;
+    },
+
+    /**
+     * Validate if the required tags are present in the string
+     *
+     * @param {String} string
+     *
+     * @return {Boolean} valid
+     */
+    containsNoHtml: function(string) {
+
+        // Source: http://stackoverflow.com/a/15458987/2803759
+        var containsHtmlTags = new RegExp('<[a-z][\\s\\S]*>', 'i');
+        return !containsHtmlTags.test(string);
+    },
+
+    /**
+     * Validate if the string contains urls
+     *
+     * @param {String} string
+     *
+     * @return {Boolean} valid
+     */
+    containsNoUrls: function(string) {
+
+        // Source: https://github.com/kevva/url-regex
+        var containsUrls = new RegExp(/(["'])?(?:(?:[a-z]+:)?\/\/)(?:\S+(?::\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(?:\.(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?\1/gi);
+        return !containsUrls.test(string);
+    }
 };
