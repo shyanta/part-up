@@ -1,44 +1,26 @@
 Meteor.methods({
     /**
-     * Upload a file
-     *
-     * @param {File} file
-     */
-    'uploads.insert': function(file) {
-        check(file, File);
-
-        var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'unauthorized');
-
-        this.unblock();
-
-        Uploads.insert({'uploaded_by': user._id, 'file': file});
-    },
-
-    /**
-     * Upload a CSV file and return the containing email addresses
+     * Parse a CSV file and return the containing email addresses
      *
      * @param {String} fileId
-     * @param {String} fileName
      *
      * @return {Array} emailAddresses
      */
-    'uploads.return_email_addresses_from_csv': function(fileId, fileName) {
+    'uploads.parse_csv': function(fileId) {
         check(fileId, String);
-        check(fileName, String);
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         this.unblock();
 
-        var fs = Npm.require('fs');
-        var file = Uploads.find({_id: fileId});
+        var file = Uploads.findOne({_id: fileId});
         var emailAddresses = [];
+        var fs = Npm.require('fs');
 
         Meteor.setTimeout(function() {
-            var filePath = '/uploads/csv/' + user._id + '-' + fileId + '-' + fileName;
-            CSV.from.stream(
+            var filePath = '/tmp/uploads/csv/uploads-' + file._id + '-' + file.original.name;
+            CSV().from.stream(
                 fs.createReadStream(filePath),
                 {'escape':'\\'}
             ).on('record', Meteor.bindEnvironment(function(row, index) {
@@ -51,10 +33,8 @@ Meteor.methods({
             })).on('error', function(error) {
                 console.log(error);
             }).on('end', function(count) {
-                console.log(count);
+                return emailAddresses;
             });
         }, 1000);
-
-        return emailAddresses;
     }
 });
