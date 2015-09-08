@@ -139,22 +139,19 @@ Template.PartupTile.helpers({
         var image_from_cache = lodash.find(Partup.client.discover.cache.partups_images, {_id: imageId});
         var image = image_from_cache || Images.findOne({_id: imageId});
         if (!image) return;
-
-        return image.url({store: store});
+        return Partup.client.url.getImageUrl(image, store);
     },
     networkImage: function(imageId, store) {
         var image_from_cache = lodash.find(Partup.client.discover.cache.networks_images, {_id: imageId});
         var image = image_from_cache || Images.findOne({_id: imageId});
         if (!image) return;
-
-        return image.url({store: store});
+        return Partup.client.url.getImageUrl(image, store);
     },
     upperImage: function(imageId, store) {
         var image_from_cache = lodash.find(Partup.client.discover.cache.uppers_images, {_id: imageId});
         var image = image_from_cache || Images.findOne({_id: imageId});
         if (!image) return;
-
-        return image.url({store: store});
+        return Partup.client.url.getImageUrl(image, store);
     }
 });
 

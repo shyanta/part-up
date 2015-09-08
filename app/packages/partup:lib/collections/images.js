@@ -69,19 +69,19 @@ if (Meteor.isServer) {
 
         mout.object.deepFillIn(args, {
             'original': {
-                path: process.env.PWD + '/uploads'
+                path: process.env.PWD + '/public/uploads'
             },
             '1200x520': {
-                path: process.env.PWD + '/uploads/1200x520'
+                path: process.env.PWD + '/public/uploads/1200x520'
             },
             '360x360': {
-                path: process.env.PWD + '/uploads/360x360'
+                path: process.env.PWD + '/public/uploads/360x360'
             },
             '80x80': {
-                path: process.env.PWD + '/uploads/80x80'
+                path: process.env.PWD + '/public/uploads/80x80'
             },
             '32x32': {
-                path: process.env.PWD + '/uploads/32x32'
+                path: process.env.PWD + '/public/uploads/32x32'
             }
         });
     }

@@ -5,7 +5,5 @@ Template.registerHelper('partupImageUrl', function(options) {
     if (!image) return;
 
     var store = options.hash.store || '360x360';
-    return image.url({
-        store: store
-    });
+    return Partup.client.url.getImageUrl(image, store);
 });
