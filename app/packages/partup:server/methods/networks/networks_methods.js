@@ -90,7 +90,12 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_email: fields.email, type: Invites.INVITE_TYPE_NETWORK_EMAIL});
+        var isAlreadyInvited = !!Invites.findOne({
+            network_id: networkId,
+            invitee_email: fields.email,
+            type: Invites.INVITE_TYPE_NETWORK_EMAIL
+        });
+
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'email_is_already_invited_to_network');
         }

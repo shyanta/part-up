@@ -13,6 +13,18 @@ Template.InviteToActivity.helpers({
     formSchema: Partup.schemas.forms.inviteUpper,
     submitting: function() {
         return Template.instance().submitting.get();
+    },
+    defaultDoc: function() {
+        var activity = Activities.findOne(this.activityId);
+        var partup = Partups.findOne(activity.partup_id);
+
+        return {
+            message: __('invite-to-activity-popup-message-prefill', {
+                partupName: partup.name,
+                activityName: activity.name,
+                inviterName: Meteor.user().profile.name
+            })
+        };
     }
 });
 
@@ -25,14 +37,15 @@ AutoForm.hooks({
             var parent = Template.instance().parent();
             parent.submitting.set(true);
 
-            Meteor.call('activities.invite_by_email', template.data.activityId, insertDoc.email, insertDoc.name, function(error, result) {
-                parent.submitting.set(false);
-                if (error) {
-                    return Partup.client.notify.error(__('base-errors-' + error.reason));
-                }
-                Partup.client.notify.success(__('invite-to-activity-popup-success'));
-                Partup.client.popup.close();
-            });
+            Meteor.call('activities.invite_by_email', template.data.activityId, insertDoc,
+                function(error, result) {
+                    parent.submitting.set(false);
+                    if (error) {
+                        return Partup.client.notify.error(__('base-errors-' + error.reason));
+                    }
+                    Partup.client.notify.success(__('invite-to-activity-popup-success'));
+                    Partup.client.popup.close();
+                });
 
             return false;
         }

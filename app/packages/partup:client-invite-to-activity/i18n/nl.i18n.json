@@ -1,11 +1,13 @@
 {
-     "invite-to-activity-popup-title": "Nodig iemand uit voor jouw part-up",
-     "invite-to-activity-popup-explaination": "We kunnen ons voorstellen dat je graag samenwerkt met iemand die je kent en nog niet actief is op Part-up. Je kunt hem of haar hier vragen upper te worden en gelijk uitnodigen om bij te dragen aan jouw Part-up. We hebben vast een voorbeeldmail voor je gemaakt. Voeg je persoonlijke noot toe en stuur hem op!",
-     "invite-to-activity-popup-input-message": "Persoonlijke uitnodiging",
+    "invite-to-activity-popup-title": "Nodig iemand uit voor jouw part-up",
+    "invite-to-activity-popup-explaination": "We kunnen ons voorstellen dat je graag samenwerkt met iemand die je kent en nog niet actief is op Part-up. Je kunt hem of haar hier vragen upper te worden en gelijk uitnodigen om bij te dragen aan jouw Part-up. We hebben vast een voorbeeldmail voor je gemaakt. Voeg je persoonlijke noot toe en stuur hem op!",
+    "invite-to-activity-popup-input-message": "Persoonlijke uitnodiging",
 
-     "invite-to-activity-popup-close": "Sluiten",
-     "invite-to-activity-popup-form-copy-confirm": "Op de bus",
-     "invite-to-activity-popup-input-name": "Naam",
-     "invite-to-activity-popup-input-email": "E-mailadres",
-     "invite-to-activity-popup-success": "Email uitnodiging verzonden"
+    "invite-to-activity-popup-close": "Sluiten",
+    "invite-to-activity-popup-form-copy-confirm": "Op de bus",
+    "invite-to-activity-popup-input-name": "Naam",
+    "invite-to-activity-popup-input-email": "E-mailadres",
+    "invite-to-activity-popup-success": "Email uitnodiging verzonden",
+
+    "invite-to-activity-popup-message-prefill": "Hi [name],\n\nOn Part-up, I found this cool part-up for you to join: \"__partupName__\". I believe you could fit the team well and contribute to this activity: \"__activityName__\". You can check out the part-up using this link [url] and introduce yourself to the team.\n\nHaven't heard about Part-up? It is the new marketplace for teamwork. Part-up gets you your best team for the job. Just share your dream or talent and Part-up helps you find the right team! You are free to choose what you work on and who you work with. Together you decide on the activities and what each will contribute. You build your profile and show the world what you're good at!\n\nLet's part-up!\n\nCheers,\n__inviterName__"
 }

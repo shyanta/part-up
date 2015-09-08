@@ -261,10 +261,8 @@ Meteor.methods({
      * @param {string} email
      * @param {string} name
      */
-    'activities.invite_by_email': function(activityId, email, name) {
-        check(activityId, String);
-        check(email, String);
-        check(name, String);
+    'activities.invite_by_email': function(activityId, fields) {
+        check(fields, Partup.schemas.forms.inviteUpper);
 
         var inviter = Meteor.user();
 
@@ -285,25 +283,30 @@ Meteor.methods({
 
         var isAlreadyInvited = !!Invites.findOne({
             activity_id: activityId,
-            invitee_email: email,
+            invitee_email: fields.email,
             type: Invites.INVITE_TYPE_ACTIVITY_EMAIL
         });
+
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'email_is_already_invited_to_activity');
         }
+
+        var accessToken = Random.secret();
 
         var invite = {
             type: Invites.INVITE_TYPE_ACTIVITY_EMAIL,
             activity_id: activity._id,
             inviter_id: inviter._id,
-            invitee_name: name,
-            invitee_email: email,
+            invitee_name: fields.name,
+            invitee_email: fields.email,
+            message: fields.message,
+            access_token: accessToken,
             created_at: new Date
         };
 
         Invites.insert(invite);
 
-        Event.emit('invites.inserted.activity.by_email', inviter, partup, activity, email, name);
+        Event.emit('invites.inserted.activity.by_email', inviter, partup, activity, fields.email, fields.name, fields.message, accessToken);
     },
 
     /**
