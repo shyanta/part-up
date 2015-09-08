@@ -1,22 +1,23 @@
 /**
- * @memberof Networks
+ * @memberOf Networks
  * @private
  */
 var NETWORK_PUBLIC = 1;
 /**
- * @memberof Networks
+ * @memberOf Networks
  * @private
  */
 var NETWORK_INVITE = 2;
 /**
- * @memberof Networks
+ * @memberOf Networks
  * @private
  */
 var NETWORK_CLOSED = 3;
 
 /**
  * Network model
- * @memberof Networks
+ *
+ * @memberOf Networks
  */
 var Network = function(document) {
     _.extend(this, document);
@@ -25,7 +26,7 @@ var Network = function(document) {
 /**
  * Check if given user is the admin of this network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} userId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -38,7 +39,7 @@ Network.prototype.isAdmin = function(userId) {
 /**
  * Check if given user is a member of this network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} userId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -50,7 +51,7 @@ Network.prototype.hasMember = function(userId) {
 /**
  * Check if given network has public access
  *
- * @memberof Networks
+ * @memberOf Networks
  * @return {Boolean}
  */
 Network.prototype.isPublic = function() {
@@ -60,7 +61,7 @@ Network.prototype.isPublic = function() {
 /**
  * Check if given network is private and for invites only
  *
- * @memberof Networks
+ * @memberOf Networks
  * @return {Boolean}
  */
 Network.prototype.isInvitational = function() {
@@ -70,7 +71,7 @@ Network.prototype.isInvitational = function() {
 /**
  * Check if given network is private and closed
  *
- * @memberof Networks
+ * @memberOf Networks
  * @return {Boolean}
  */
 Network.prototype.isClosed = function() {
@@ -80,7 +81,7 @@ Network.prototype.isClosed = function() {
 /**
  * Check if given network is closed for specific user
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -95,7 +96,7 @@ Network.prototype.isClosedForUpper = function(upperId) {
 /**
  * Check if upper is already invited to the network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -110,7 +111,7 @@ Network.prototype.isUpperInvited = function(upperId) {
 /**
  * Check if the upper-invite is pending (to be accepted by admin)
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} userId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -122,7 +123,7 @@ Network.prototype.isUpperInvitePending = function(userId) {
 /**
  * Check if upper can invite other uppers
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -133,7 +134,7 @@ Network.prototype.canUpperInvite = function(upperId) {
 /**
  * Check if upper can join network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -146,7 +147,7 @@ Network.prototype.canUpperJoin = function(upperId) {
 /**
  * Check if upper can leave network (admins can't)
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -157,7 +158,7 @@ Network.prototype.canUpperLeave = function(upperId) {
 /**
  * Add invited Upper to Network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addInvitedUpper = function(upperId) {
@@ -169,7 +170,7 @@ Network.prototype.addInvitedUpper = function(upperId) {
 /**
  * Add Upper to Network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addUpper = function(upperId) {
@@ -181,7 +182,7 @@ Network.prototype.addUpper = function(upperId) {
 /**
  * Add upper to pending list
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addPendingUpper = function(upperId) {
@@ -197,7 +198,7 @@ Network.prototype.addPendingUpper = function(upperId) {
 /**
  * Check if upper is already added to the pending list
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -208,7 +209,7 @@ Network.prototype.isUpperPending = function(upperId) {
 /**
  * Check if upper is invited by an admin
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user to be checked
  * @return {Boolean}
  */
@@ -259,7 +260,7 @@ Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
 /**
  * Accept a pending upper to the network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user that should be accepted
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
@@ -271,7 +272,7 @@ Network.prototype.acceptPendingUpper = function(upperId) {
 /**
  * Reject a pending upper
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user that should be rejected
  */
 Network.prototype.rejectPendingUpper = function(upperId) {
@@ -286,7 +287,7 @@ Network.prototype.rejectPendingUpper = function(upperId) {
 /**
  * Remove all invites for a specific user for this network
  *
- * @memberof Invites
+ * @memberOf Invites
  * @param {String} upperId id of the user whose invites have to be removed
  */
 Network.prototype.removeAllUpperInvites = function(upperId) {
@@ -306,7 +307,7 @@ Network.prototype.removeAllUpperInvites = function(upperId) {
 /**
  * Leave network
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} upperId the user id of the user that is leaving the network
  */
 Network.prototype.leave = function(upperId) {
@@ -332,17 +333,17 @@ if (Meteor.isServer) {
 }
 
 /**
- * @memberof Networks
+ * @memberOf Networks
  * @public
  */
 Networks.NETWORK_PUBLIC = NETWORK_PUBLIC;
 /**
- * @memberof Networks
+ * @memberOf Networks
  * @public
  */
 Networks.NETWORK_INVITE = NETWORK_INVITE;
 /**
- * @memberof Networks
+ * @memberOf Networks
  * @public
  */
 Networks.NETWORK_CLOSED = NETWORK_CLOSED;
@@ -352,7 +353,7 @@ Networks.NETWORK_CLOSED = NETWORK_CLOSED;
  * sure the user (or guest) can only retrieve
  * fields that are publicly available
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {Object} selector
  * @param {Object} options
  * @return {Cursor}
@@ -380,7 +381,7 @@ Networks.guardedMetaFind = function(selector, options) {
 /**
  * Networks collection helpers
  *
- * @memberof Networks
+ * @memberOf Networks
  * @param {String} userId the user id of the current user
  * @param {Object} selector the requested selector
  * @param {Object} options options object to be passed to mongo find (limit etc.)
@@ -416,11 +417,10 @@ Networks.guardedFind = function(userId, selector, options) {
 };
 
 /**
- * Find the network for a partup
+ * Find featured networks
  *
  * @memberOf Networks
- * @param {Partup} partup
- * @param {String} userId
+ * @param {String} language
  * @return {Mongo.Cursor}
  */
 Networks.findFeatured = function(language) {
