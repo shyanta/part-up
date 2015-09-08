@@ -29,6 +29,7 @@ Package.onUse(function(api) {
         'meteorhacks:picker',
         'meteorhacks:ssr',
         'meteorhacks:fast-render',
+        'dsyko:meteor-node-csv',
         'random'
     ], ['server']);
 
@@ -127,6 +128,7 @@ Package.onUse(function(api) {
         'publications/updates.js',
         'publications/users.js',
         'publications/networks.js',
+        'publications/uploads.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
@@ -144,6 +146,7 @@ Package.onUse(function(api) {
         'methods/networks/networks_methods.js',
         'methods/tags/tags_methods.js',
         'methods/notifications/notifications_methods.js',
+        'methods/uploads/uploads_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
