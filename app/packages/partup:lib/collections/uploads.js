@@ -83,13 +83,16 @@ Uploads = new FS.Collection('uploads', {
 });
 
 Uploads.allow({
-    insert: function(userId, document) {
-        return !!userId;
+    insert: function() {
+        var user = Meteor.user();
+        return User(user).isAdmin() || User(user).isNetworkAdmin();
     },
     remove: function() {
-        return true;
+        var user = Meteor.user();
+        return User(user).isAdmin() || User(user).isNetworkAdmin();
     },
     download: function() {
-        return true;
+        var user = Meteor.user();
+        return User(user).isAdmin() || User(user).isNetworkAdmin();
     }
 });
