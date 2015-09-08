@@ -1,0 +1,200 @@
+    1  top
+    2  cat /etc/ssl
+    3  ls /etc/ssl
+    4  top
+    5  vim /etc/fstab
+    6  sudo reboot
+    7  curl localhost:3000
+    8  wget localhost:3000
+    9  ls
+   10  wget localhost:80
+   11  ls
+   12  cat index.html 
+   13  rm index.html d
+   14  sudo apt-get update
+   15  sudo swapon -s
+   16  free -m
+   17  df -h
+   18  sudo fallocate -l 4G /swapfile
+   19  ls -lh /swapfile
+   20  sudo chmod 600 /swapfile
+   21  ls -lh /swapfile
+   22  sudo mkswap /swapfile
+   23  sudo swapon /swapfile
+   24  sudo swapon -s
+   25  vim /etc/fstab
+   26  apt-get install nginx
+   27  vim /etc/nginx/sites-available/pu-production.conf
+   28  ln -s /etc/nginx/sites-available/ /etc/nginx/sites-enabled/pu-production.conf
+   29  nginx restart
+   30  service nginx restart
+   31  cd /etc/nginx/sites-enabled/
+   32  ls
+   33  vim default 
+   34  rm default 
+   35  nginx restart
+   36  service nginx restart
+   37  ls
+   38  cd ..
+   39  cd sites-available/
+   40  vim pu-production.conf 
+   41  service nginx restart
+   42  vim pu-production.conf 
+   43  ls
+   44  cd ..
+   45  ls
+   46  cd /etc/ssl/
+   47  ls
+   48  vim /etc/nginx/sites-available/pu-production.conf 
+   49  top
+   50  cat /etc/init/pu-production.conf
+   51  nginx -t
+   52  wget localhost:3000
+   53  wget localhost:80
+   54  ls
+   55  top
+   56  stop pu-production
+   57  top
+   58  killall node
+   59  killall npm
+   60  top
+   61  service nginx restart
+   62  top
+   63  ls
+   64  wget localhost:3000
+   65  wget 
+   66  ls
+   67  stop pu-production
+   68  start pu-production
+   69  wget localhost:3000
+   70  vim /etc/init/pu-production.conf 
+   71  cd /opt/pu-production/
+   72  ls
+   73  cd config/
+   74  ls
+   75  vim env.sh 
+   76  stop pu-production
+   77  start pu-production
+   78  ls
+   79  vim env.sh 
+   80  cd
+   81  wget localhost:3000
+   82  apt-get install graphicsmagick
+   83  start pu-production
+   84  stop pu-production
+   85  start pu-production
+   86  stop pu-production
+   87  start pu-production
+   88  wget localhost:3000
+   89  stop pu-production
+   90  start pu-production
+   91  wget localhost:3000
+   92  top
+   93  top
+   94  service nginx start
+   95  service nginx restart
+   96  cd /etc/nginx/sites-enabled/
+   97  ls
+   98  vim pu-production.conf
+   99  cd ..
+  100  cd sites-available/
+  101  ls
+  102  ls -la
+  103  vim pu-production.conf 
+  104  ls
+  105  cd ..
+  106  cd sites-enabled/
+  107  ls
+  108  ls -la
+  109  rm pu-production.conf
+  110  cd ..
+  111  cd sites-available/
+  112  ls
+  113  cd ..
+  114  ln -s /etc/nginx/sites-available/pu-production.conf /etc/nginx/sites-enabled/pu-production.conf
+  115  cd sites-available/
+  116  vim pu-production.conf 
+  117  service nginx restart
+  118  vim pu-production.conf 
+  119  cd opt/pu-production/app/programs/server
+  120  cd /opt/pu-production/app/programs/server
+  121  ls
+  122  ls -la
+  123  cd ..
+  124  ls -la
+  125  cd ..
+  126  ls
+  127  cd ..
+  128  ls -la
+  129  cd ..
+  130  ls
+  131  cd pu-production/
+  132  ls
+  133  cd app/programs/server/
+  134  ls
+  135  ls -la
+  136  chmod 777 newrelic_agent.log 
+  137  cd ..
+  138  cd config/
+  139  ls
+  140  vim env.sh 
+  141  ls
+  142  cd ..
+  143  ls
+  144  du -h
+  145  cd pu-production/config/
+  146  ls
+  147  cat env.sh 
+  148  cd ..
+  149  cd pu-production/config/
+  150  cat env.sh 
+  151  userdel deploy
+  152  cd /optpu-production/config/
+  153  cd /opt/pu-production/config/
+  154  ls
+  155  cat env.sh 
+  156  ping beta.part-up.com
+  157  curl beta.part-up.com/ping
+  158  curl https://beta.part-up.com/ping
+  159  ls
+  160  cd ..
+  161  ls
+  162  cd cfs/
+  163  ls
+  164  cd files/
+  165  ls
+  166  cd _tempstore/
+  167  ls
+  168  cd ..
+  169  ls
+  170  cd ..
+  171  ls
+  172  cd ..
+  173  ls
+  174  cd ..
+  175  cd pu-production/
+  176  ls
+  177  ls -la
+  178  chown -R meteoruser:meteoruser cfs/
+  179  ls -la
+  180  cd cfs
+  181  ls
+  182  cd files/
+  183  ls
+  184  cd _tempstore/
+  185  ls
+  186  cd ...
+  187  cd ..
+  188  ls -la
+  189  chown -R meteoruser:meteoruser pu-production/
+  190  cd
+  191  echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | sudo tee /etc/apt/sources.list.d/newrelic.list
+  192  wget -O- https://download.newrelic.com/548C16BF.gpg | sudo apt-key add -
+  193  sudo apt-get update
+  194  apt-get install newrelic-sysmond
+  195  nrsysmond-config --set license_key=0f9b0d2cc4034d4e3d8dd61e4f335adb1533bf32
+  196  /etc/init.d/newrelic-sysmond start
+  197  ls
+  198  history
+  199  ls
+  200  history > mup-server-history
