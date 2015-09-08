@@ -1,7 +1,7 @@
 /**
- * Render invite to partup functionality
+ * Render invite to part-up activity functionality
  *
- * @module client-invite-to-partup
+ * @module client-invite-to-partup-activity
  *
  */
 Template.InviteToActivity.onCreated(function() {
