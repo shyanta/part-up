@@ -66,6 +66,7 @@ Package.onUse(function(api) {
         'schemas/tag.js',
         'schemas/inviteUpper.js',
         'schemas/rating.js',
+        'schemas/networkBulkinvite.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
