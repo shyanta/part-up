@@ -3,6 +3,35 @@
         <h2 class="pu-title pu-title-modal">{{_ 'network-settings-bulkinvite-title' }}</h2>
         <p>{{_ 'network-settings-bulkinvite-paragraph' }}</p>
 
-        <p>{{ network.name }}</p>
+        {{#autoForm schema=formSchema id="bulkInviteToNetworkForm" class="pu-form" validation="submitThenBlur" doc=defaultDoc }}
+            <!-- CSV file -->
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'network-settings-bulkinvite-csv-label' }}</span>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='csv_file_id' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">
+                        <button type="file" class="pu-button" data-csv-upload>{{_ 'network-settings-bulkinvite-csv-import-button' }}</button>
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='csv_file_id' }}</span>
+                </div>
+            </label>
+
+            <!-- Custom email message for invitee -->
+            <label class="pu-formfield">
+                <span class="pu-label">{{_ 'network-settings-bulkinvite-message-label'}}</span>
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='message' }}pu-state-invalid{{/if}}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput name='message' class="pu-textarea" rows=19 }}
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='message' }}</span>
+                </div>
+            </label>
+
+            <footer class="pu-sub-formfooter">
+                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                    <span>{{_ 'network-settings-bulkinvite-form-copy-confirm'}}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
+            </footer>
+        {{/autoForm}}
     </div>
 </template>

@@ -13,7 +13,8 @@ Package.onUse(function(api) {
     ], ['client', 'server']);
 
     api.use([
-        'templating'
+        'templating',
+        'aldeed:autoform'
     ], 'client');
 
     api.addFiles([

@@ -1,4 +1,13 @@
 {
     "network-settings-bulkinvite-title": "Nodig meerdere uppers tegelijk uit",
-    "network-settings-bulkinvite-paragraph": "Te veel uppers om uit te nodigen? Je kunt hier je CSV bestand met namen en emailadressen importeren."
+    "network-settings-bulkinvite-paragraph": "Te veel uppers om uit te nodigen? Je kunt hier je CSV bestand met namen en emailadressen importeren.",
+
+    "network-settings-bulkinvite-csv-label": "Selecteer je CSV bestand",
+    "network-settings-bulkinvite-csv-import-button": "Bladeren",
+    "network-settings-bulkinvite-message-label": "Persoonlijke uitnodiging",
+
+    "network-settings-bulkinvite-form-copy-confirm": "Op de bus",
+    "network-settings-bulkinvite-success": "Email uitnodigingen verzonden",
+
+    "network-settings-bulkinvite-message-prefill": "Hi [name],\n\nIk zag deze gave tribe op Part-up: \"__networkName__\". Volgens mij zou jij goed bij deze tribe passen en helpen het doel te bereiken: \"__networkDescription__\".\n\nJe kunt zelf via deze link de tribe bekijken [url] en je aanmelden.\n\nKen je Part-up nog niet? Het is de nieuwe marktplaats voor teamwork. Part-up maakt het vinden van de juiste teamleden eenvoudig. Deel jouw droom of talent en Part-up helpt je aan het juiste team. Je bent vrij om te kiezen waar je aan werkt en met wie je dat doet. Samen bepaal je wat er moet gebeuren en wat je gaat bijdragen. Zo bouw je een mooi profiel op dat laat zien wat je kunt! Je kunt ook een eigen tribe starten om samen met je buren, netwerk of organisatie te werken in part-ups.\n\nLet's part-up!\n\nGroeten,\n__inviterName__"
 }
