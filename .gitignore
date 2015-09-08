@@ -24,6 +24,7 @@ backups
 
 # Saved pictures
 app/uploads
+app/public/uploads
 
 # Temp files
 *.swp
