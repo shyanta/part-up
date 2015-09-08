@@ -42,21 +42,8 @@ Partup.server.services.emails = {
         emailSettings.to = options.toAddress;
         emailSettings.subject = options.subject;
 
-        if (options.body) {
-            options.type = 'custom';
-
-            // Replace all newlines with <br>
-            var body = options.body.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
-
-            // Replace all tags with their value, so users can use {name} for example in their email body
-            Object.keys(options.typeData).forEach(function(key) {
-                body = body.replace(new RegExp('{\s*' + key + '\s*}'), options.typeData[key]);
-            });
-
-            options.typeData.body = body;
-        }
-
-        emailSettings.html = SSR.render('email-' + options.type + '-' + options.locale, options.typeData);
+        var template = 'email-' + options.type + '-' + options.locale;
+        emailSettings.html = SSR.render(template, options.typeData);
 
         Email.send(emailSettings);
     }
