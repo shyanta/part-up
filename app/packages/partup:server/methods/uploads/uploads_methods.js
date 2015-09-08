@@ -33,6 +33,7 @@ Meteor.methods({
             })).on('error', function(error) {
                 console.log(error);
             }).on('end', function(count) {
+                console.log(emailAddresses);
                 return emailAddresses;
             });
         }, 1000);
