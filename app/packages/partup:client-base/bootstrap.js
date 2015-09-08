@@ -7,7 +7,7 @@
 Meteor.startup(function() {
     Status.setTemplate('noconnection');
     // Check if Safari
-    var is_safari = navigator.userAgent.indexOf('Safari') > -1;
+    var is_safari = navigator.userAgent.indexOf('Safari') > -1 && navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') === -1;
     if (is_safari) {
         $('body').addClass('pu-safari');
     }
