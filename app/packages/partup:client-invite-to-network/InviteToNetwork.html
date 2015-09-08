@@ -10,22 +10,22 @@
             <div class="cell">
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'invite-to-network-popup-input-name'}}</span>
-                    <div class="pu-sub-validations">
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">
                             {{> afFieldInput name='name' class="pu-input" }}
                         </span>
-                        <span class="pu-sub-error">ERROR</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
                     </div>
                 </label>
             </div>
             <div class="cell">
                 <label class="pu-formfield">
                     <span class="pu-label">{{_ 'invite-to-network-popup-input-email'}}</span>
-                    <div class="pu-sub-validations">
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">
                             {{> afFieldInput name='email' class="pu-input" }}
                         </span>
-                        <span class="pu-sub-error">ERROR</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
                     </div>
                 </label>
             </div>
