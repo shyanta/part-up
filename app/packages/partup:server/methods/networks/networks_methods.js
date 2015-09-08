@@ -38,7 +38,7 @@ Meteor.methods({
     /**
      * Update a Network
      *
-     * @param {string} networkId
+     * @param {String} networkId
      * @param {mixed[]} fields
      */
     'networks.update': function(networkId, fields) {
@@ -159,7 +159,7 @@ Meteor.methods({
     /**
      * Join a Network
      *
-     * @param {string} networkId
+     * @param {String} networkId
      */
     'networks.join': function(networkId) {
         check(networkId, String);
@@ -221,8 +221,8 @@ Meteor.methods({
     /**
      * Accept a request to join network
      *
-     * @param {string} networkId
-     * @param {string} upperId
+     * @param {String} networkId
+     * @param {String} upperId
      */
     'networks.accept': function(networkId, upperId) {
         check(networkId, String);
@@ -258,8 +258,8 @@ Meteor.methods({
     /**
      * Reject a request to join network
      *
-     * @param {string} networkId
-     * @param {string} upperId
+     * @param {String} networkId
+     * @param {String} upperId
      */
     'networks.reject': function(networkId, upperId) {
         check(networkId, String);
@@ -288,7 +288,7 @@ Meteor.methods({
     /**
      * Leave a Network
      *
-     * @param {string} networkId
+     * @param {String} networkId
      */
     'networks.leave': function(networkId) {
         check(networkId, String);
@@ -320,8 +320,8 @@ Meteor.methods({
     /**
      * Remove an upper from a network as admin
      *
-     * @param {string} networkId
-     * @param {string} upperId
+     * @param {String} networkId
+     * @param {String} upperId
      */
     'networks.remove_upper': function(networkId, upperId) {
         check(networkId, String);
@@ -350,7 +350,7 @@ Meteor.methods({
     /**
      * Return a list of networks based on search query
      *
-     * @param {string} query
+     * @param {String} query
      */
     'networks.autocomplete': function(query) {
         check(query, String);
@@ -378,7 +378,7 @@ Meteor.methods({
      * @param {String} options.locationId
      * @param {String} options.query
      *
-     * @return {[String]}
+     * @return {Array}
      */
     'networks.user_suggestions': function(networkId, options) {
         check(networkId, String);
@@ -406,7 +406,7 @@ Meteor.methods({
     /**
      * Remove a Network
      *
-     * @param {mixed[]} fields
+     * @param {String} networkId
      */
     'networks.remove': function(networkId) {
         check(networkId, String);
@@ -421,7 +421,7 @@ Meteor.methods({
             throw new Meteor.Error(400, 'network_contains_uppers');
         }
 
-        var networkPartups = Partups.find({network_id:networkId});
+        var networkPartups = Partups.find({network_id: networkId});
         if (networkPartups.count() > 0) {
             throw new Meteor.Error(400, 'network_contains_partups');
         }
@@ -442,7 +442,7 @@ Meteor.methods({
     /**
      * Feature a specific network (superadmin only)
      *
-     * @param {string} networkId
+     * @param {String} networkId
      * @param {mixed[]} fields
      */
     'networks.feature': function(networkId, fields) {
@@ -479,8 +479,7 @@ Meteor.methods({
     /**
      * Unfeature a specific network (superadmin only)
      *
-     * @param {string} networkId
-     * @param {mixed[]} fields
+     * @param {String} networkId
      */
     'networks.unfeature': function(networkId) {
         check(networkId, String);
@@ -500,7 +499,7 @@ Meteor.methods({
     /**
      * Update privileged network fields (superadmin only)
      *
-     * @param {string} networkSlug
+     * @param {String} networkSlug
      * @param {mixed[]} fields
      */
     'networks.admin_update': function(networkSlug, fields) {
@@ -511,7 +510,7 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
-        var network = Networks.findOneOrFail({slug:networkSlug});
+        var network = Networks.findOneOrFail({slug: networkSlug});
 
         if (fields.admin_id) {
             var adminUser = Meteor.users.findOneOrFail(fields.admin_id);
