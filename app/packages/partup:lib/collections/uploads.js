@@ -67,10 +67,7 @@ Uploads = new FS.Collection('uploads', {
     filter: {
         maxSize: 1000 * 1000 * 5, // 5 mb
         allow: {
-            contentTypes: ['upload/*']
-        },
-        deny: {
-            contentTypes: ['upload/gif']
+            contentTypes: ['text/*']
         }
     },
     onInvalid: function(message) {
