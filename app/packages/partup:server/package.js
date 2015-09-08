@@ -29,6 +29,7 @@ Package.onUse(function(api) {
         'meteorhacks:picker',
         'meteorhacks:ssr',
         'meteorhacks:fast-render',
+        'dsyko:meteor-node-csv',
         'random'
     ], ['server']);
 
