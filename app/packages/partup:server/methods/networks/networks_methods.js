@@ -183,16 +183,12 @@ Meteor.methods({
                     return Log.debug('User added to closed network due to admin invite.');
                 }
 
-                // Add user to pending if it's a closed network and the user is invited
-                if (network.isUpperInvited(user._id)) {
-                    network.addPendingUpper(user._id);
+                // Add user to pending if it's a closed network
+                network.addPendingUpper(user._id);
 
-                    // Send notification to admin
-                    Event.emit('networks.new_pending_upper', network, user);
-                    return Log.debug('User (already) added to waiting list');
-                } else {
-                    throw new Meteor.Error(401, 'unauthorized');
-                }
+                // Send notification to admin
+                Event.emit('networks.new_pending_upper', network, user);
+                return Log.debug('User (already) added to waiting list');
             }
 
             if (network.isInvitational()) {

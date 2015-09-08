@@ -172,6 +172,27 @@ Template.app_network.events({
         });
 
     },
+    'click [data-request-invite]': function(event, template) {
+        event.preventDefault();
+
+        var requestInvite = function() {
+            var network = Networks.findOne({slug: template.data.networkSlug});
+            Meteor.call('networks.join', network._id, function(err) {
+                if (err) {
+                    console.error(err);
+                    Partup.client.notify.error(__(err));
+                }
+            });
+        };
+
+        if (Meteor.user()) {
+            requestInvite();
+        } else {
+            Intent.go({route: 'login'}, function() {
+                requestInvite();
+            });
+        }
+    },
     'click [data-expand]': function(event, template) {
         template.expandText(!template.expanded);
     },
