@@ -109,3 +109,13 @@ KADIRA_APP_SECRET
 METEOR_SETTINGS = {"public":{"analyticsSettings":{"Google Analytics":{"trackingId":"UA-34557675-16"}}}}
 GOOGLE_API_KEY
 ```
+
+## data dumps
+
+### clean userdump
+- regular mongo dump command
+- unpack bson `for f in *.bson; do bsondump "$f" > "$f.json"; done`
+- `cat users.bson.json | sed 's/accessToken" : "[^"]*"/accessToken" : ""/g' > users.bson-clean.json`
+- `cat users.bson-clean.json | sed 's/hashedToken" : "[^"]*"/hashedToken" : ""/g' > users.bson-clean-2.json`
+- `cat users.bson-clean-2.json | sed 's/bcrypt" : "[^"]*"/bcrypt" : ""/g' > users.bson-clean-3.json`
+- `cat users.bson-clean-3.json | sed 's/token" : "[^"]*"/token" : ""/g' > users.bson-clean-4.json`
