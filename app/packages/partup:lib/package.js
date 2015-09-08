@@ -72,7 +72,8 @@ Package.onUse(function(api) {
         'transformers/contributions.js',
         'transformers/network.js',
         'helpers/parselocale.js',
-        'helpers/mentions.js'
+        'helpers/mentions.js',
+        'helpers/interpolateEmailMessage.js'
     ]);
 
     api.addFiles([
