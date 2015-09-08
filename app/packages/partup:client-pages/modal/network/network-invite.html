@@ -9,8 +9,10 @@
     <article class="pu-page pu-composition-network-invite">
         <div class="pu-sub-pagecontent">
             <section class="pu-wrap pu-wrap-modal">
+
                 <h2 class="pu-title pu-title-modal">{{_ "pages-modal-network_invite-title" }}</h2>
                 <p class="pu-description-modal">{{_ "pages-modal-network_invite-description" }}</p>
+                <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.invite-to-network">{{_ 'pages-modal-network_invite-button_invite' }}</a>
 
                 <form id="suggestionsQuery" class="pu-filterbar-wrap">
                     <div class="pu-filterbar">
@@ -96,4 +98,10 @@
             </section>
         </div>
     </article>
+
+    {{#if partupIsPopupActive 'popup.invite-to-network' }}
+        {{#contentFor "PopupContent" }}
+            {{> InviteToNetwork networkId=network._id }}
+        {{/contentFor}}
+    {{/if}}
 </template>

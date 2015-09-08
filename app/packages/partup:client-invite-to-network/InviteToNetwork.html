@@ -1,0 +1,55 @@
+<template name="InviteToNetwork">
+    {{#contentFor "PopupTitle"}}
+        {{_ 'invite-to-network-popup-title'}}
+    {{/contentFor}}
+
+    <p>{{_ 'invite-to-network-popup-explaination'}}</p>
+
+    {{#autoForm schema=formSchema id="inviteToNetworkForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
+        <div class="pu-row">
+            <div class="cell">
+                <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'invite-to-network-popup-input-name'}}</span>
+                    <div class="pu-sub-validations">
+                        <span class="pu-sub-input">
+                            {{> afFieldInput name='name' class="pu-input" }}
+                        </span>
+                        <span class="pu-sub-error">ERROR</span>
+                    </div>
+                </label>
+            </div>
+            <div class="cell">
+                <label class="pu-formfield">
+                    <span class="pu-label">{{_ 'invite-to-network-popup-input-email'}}</span>
+                    <div class="pu-sub-validations">
+                        <span class="pu-sub-input">
+                            {{> afFieldInput name='email' class="pu-input" }}
+                        </span>
+                        <span class="pu-sub-error">ERROR</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <!-- DISABLED UNTIL IMPLEMENTED -->
+        <!-- <label class="pu-formfield">
+            <span class="pu-label">{{_ 'invite-to-network-popup-input-message'}}</span>
+            <div class="pu-sub-validations">
+                <span class="pu-sub-input">
+                    {{> afFieldInput name='message' class="pu-textarea"  rows=8 }}
+                </span>
+                <span class="pu-sub-error">ERROR</span>
+            </div>
+        </label> -->
+        <footer class="pu-sub-formfooter pu-row pu-row-scalable">
+            <div class="cell stretch">
+                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                    <span>{{_ 'invite-to-network-popup-form-copy-confirm'}}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
+            </div>
+            <div class="cell">
+                <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'invite-to-network-popup-close'}}</a>
+            </div>
+        </footer>
+    {{/autoForm}}
+</template>
