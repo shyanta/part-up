@@ -91,6 +91,10 @@ var joinNetworkOrAcceptInvitation = function(slug) {
             Partup.client.notify.error(error.reason);
         } else {
             Partup.client.notify.success('Joined network');
+
+            analytics.track('joined network', {
+                networkId: network._id
+            });
         }
     });
 };
@@ -108,6 +112,9 @@ var leaveNetwork = function(template, network) {
         if (network.isClosedForUpper(Meteor.user())) {
             Router.go('discover');
         }
+        analytics.track('left network', {
+            networkId: network._id
+        });
     });
 };
 
@@ -129,6 +136,9 @@ Template.app_network.events({
                     Partup.client.notify.success(__('pages-app-network-notification-accepted_waitingforapproval'));
                 } else {
                     Partup.client.notify.success(__('pages-app-network-notification-joined'));
+                    analytics.track('joined network', {
+                        networkId: network._id
+                    });
                 }
             });
         };

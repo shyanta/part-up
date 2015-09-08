@@ -142,6 +142,19 @@ Template.app_partup_sidebar.helpers({
     }
 });
 
+function becomeSupporter(partupId) {
+    Meteor.call('partups.supporters.insert', partupId, function(error, result) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+
+        analytics.track('became supporter', {
+            partupId: partupId
+        });
+    });
+}
+
 /*************************************************************/
 /* Partial events */
 /*************************************************************/
@@ -151,12 +164,14 @@ Template.app_partup_sidebar.events({
         var partupId = template.data.partupId;
 
         if (Meteor.user()) {
-            Meteor.call('partups.supporters.insert', partupId);
+            becomeSupporter(partupId);
         } else {
             Intent.go({
                 route: 'login'
             }, function(user) {
-                if (user) Meteor.call('partups.supporters.insert', partupId);
+                if (user) {
+                    becomeSupporter(partupId);
+                }
             });
         }
     },

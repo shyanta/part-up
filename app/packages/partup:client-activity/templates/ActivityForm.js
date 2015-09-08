@@ -157,6 +157,10 @@ AutoForm.addHooks(null, {
                 }
 
                 done();
+
+                analytics.track('activity inserted', {
+                    partupId: template.data.partupId
+                });
             });
         }
 
