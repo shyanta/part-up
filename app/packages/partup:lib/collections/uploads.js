@@ -1,7 +1,5 @@
 var stores = [];
 
-FS.config.uploadChunkSize = 1024 * 1024 * 100;
-
 if (Meteor.isServer) {
     FS.TempStore.Storage = new FS.Store.FileSystem('_tempUploadStore', {
         internal: true,
@@ -10,8 +8,7 @@ if (Meteor.isServer) {
 
     var Store = null;
     var args = {
-        'uploads': {},
-        'csv': {}
+        'uploads': {}
     };
 
     if (process.env.NODE_ENV.match(/staging|acceptance|production/)) {
@@ -22,11 +19,6 @@ if (Meteor.isServer) {
             'uploads': {
                 //region: process.env.AWS_BUCKET_REGION,
                 //bucket: process.env.AWS_BUCKET_NAME
-            },
-            'csv': {
-                //region: process.env.AWS_BUCKET_REGION,
-                //bucket: process.env.AWS_BUCKET_NAME,
-                folder: 'csv'
             }
         });
     } else if (process.env.NODE_ENV.match(/development/)) {
@@ -36,9 +28,6 @@ if (Meteor.isServer) {
         mout.object.deepFillIn(args, {
             'uploads': {
                 path: process.env.PWD + '/uploads'
-            },
-            'csv': {
-                path: process.env.PWD + '/uploads/csv'
             }
         });
     }
@@ -46,14 +35,12 @@ if (Meteor.isServer) {
     if (!Store) throw new Error('A store for CFS has not been defined.');
 
     stores.push(new Store('uploads', args['uploads']));
-    stores.push(new Store('csv', args['csv']));
 } else {
 
     /**
      * Dummy stores so the client knows which stores are available (names)
      */
     stores.push(new FS.Store.FileSystem('uploads'));
-    stores.push(new FS.Store.FileSystem('csv'));
 }
 
 /**
@@ -65,7 +52,7 @@ if (Meteor.isServer) {
 Uploads = new FS.Collection('uploads', {
     stores: stores,
     filter: {
-        maxSize: 1000 * 1000 * 5, // 5 mb
+        maxSize: 1000 * 1000 * 10, // 10 mb
         allow: {
             contentTypes: ['text/*']
         }
