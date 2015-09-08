@@ -604,6 +604,21 @@ Router.route('/:slug/settings/uppers', {
     }
 });
 
+Router.route('/:slug/settings/bulk-invite', {
+    name: 'network-settings-bulkinvite',
+    where: 'client',
+    yieldRegions: {
+        'modal':                         {to: 'main'},
+        'modal_network_settings':        {to: 'modal'},
+        'modal_network_settings_bulkinvite': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
 Router.route('/:slug/settings/requests', {
     name: 'network-settings-requests',
     where: 'client',
