@@ -1,14 +1,14 @@
 <template name="InviteToActivity">
     {{#contentFor "PopupTitle"}}
-        {{_ 'inviteuppers-popup-title'}}
+        {{_ 'invite-to-activity-popup-title'}}
     {{/contentFor}}
-    <p>{{_ 'inviteuppers-popup-explaination'}}</p>
+    <p>{{_ 'invite-to-activity-popup-explaination'}}</p>
 
-    {{#autoForm schema=formSchema id="inviteUppersForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
+    {{#autoForm schema=formSchema id="invite-to-activityForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
         <div class="pu-row">
             <div class="cell">
                 <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'inviteuppers-popup-input-name'}}</span>
+                    <span class="pu-label">{{_ 'invite-to-activity-popup-input-name'}}</span>
                     <div class="pu-sub-validations">
                         <span class="pu-sub-input">
                             {{> afFieldInput name='name' class="pu-input" }}
@@ -19,7 +19,7 @@
             </div>
             <div class="cell">
                 <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'inviteuppers-popup-input-email'}}</span>
+                    <span class="pu-label">{{_ 'invite-to-activity-popup-input-email'}}</span>
                     <div class="pu-sub-validations">
                         <span class="pu-sub-input">
                             {{> afFieldInput name='email' class="pu-input" }}
@@ -31,7 +31,7 @@
         </div>
         <!-- DISABLED UNTIL IMPLEMENTED -->
         <!-- <label class="pu-formfield">
-            <span class="pu-label">{{_ 'inviteuppers-popup-input-message'}}</span>
+            <span class="pu-label">{{_ 'invite-to-activity-popup-input-message'}}</span>
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
                     {{> afFieldInput name='message' class="pu-textarea"  rows=8 }}
@@ -42,12 +42,12 @@
         <footer class="pu-sub-formfooter pu-row pu-row-scalable">
             <div class="cell stretch">
                 <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
-                    <span>{{_ 'inviteuppers-popup-form-copy-confirm'}}</span>
+                    <span>{{_ 'invite-to-activity-popup-form-copy-confirm'}}</span>
                     {{> Spinner color='inverted' type='small' }}
                 </button>
             </div>
             <div class="cell">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'inviteuppers-popup-close'}}</a>
+                <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'invite-to-activity-popup-close'}}</a>
             </div>
         </footer>
     {{/autoForm}}

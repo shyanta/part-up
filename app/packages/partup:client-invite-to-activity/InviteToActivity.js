@@ -30,7 +30,7 @@ AutoForm.hooks({
                 if (error) {
                     return Partup.client.notify.error(__('base-errors-' + error.reason));
                 }
-                Partup.client.notify.success(__('inviteuppers-popup-success'));
+                Partup.client.notify.success(__('invite-to-activity-popup-success'));
                 Partup.client.popup.close();
             });
 
