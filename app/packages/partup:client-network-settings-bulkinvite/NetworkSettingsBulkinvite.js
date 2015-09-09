@@ -54,20 +54,22 @@ Template.NetworkSettingsBulkinvite.events({
         template.csv_invalid.set(false);
 
         var file = event.currentTarget.files[0];
-        Temp.insert(file, function(err, uploadResult) {
-            if (err) {
-                template.csv_invalid.set(true);
-                return;
-            }
+        Temp.insert(file, function(err, fileObj) {
+            fileObj.onStoredCallback('default', function() {
 
-            Meteor.call('uploads.parse_csv', uploadResult._id, function(err, result) {
-                template.invitees.set(result);
-                template.parsing.set(false);
+                Meteor.call('uploads.parse_csv', fileObj._id, function(error, result) {
+                    template.invitees.set(result);
+                    template.parsing.set(false);
 
-                var jqInput = $(event.currentTarget.value);
-                jqInput.replaceWith(jqInput.val('').clone(true));
+                    var jqInput = $(event.currentTarget.value);
+                    jqInput.replaceWith(jqInput.val('').clone(true));
 
-                if (err) template.csv_invalid.set(true);
+                    if (error) {
+                        console.error('Result from uploading & parsing CSV:', error);
+                        template.csv_invalid.set(true);
+                    }
+                });
+
             });
         });
     }
