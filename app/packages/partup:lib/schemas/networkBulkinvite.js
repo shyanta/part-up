@@ -4,9 +4,6 @@
  * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.networkBulkinvite = new SimpleSchema({
-    csv_file_id: {
-        type: String
-    },
     message: {
         type: String,
         max: 2500,
