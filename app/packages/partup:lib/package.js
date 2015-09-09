@@ -46,6 +46,7 @@ Package.onUse(function(api) {
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
+        'collections/temp.js',
         'collections/ratings.js',
         'collections/networks.js',
         'collections/users.js',
@@ -98,6 +99,7 @@ Package.onUse(function(api) {
     api.export('Invites');
     api.export('Contributions');
     api.export('Images');
+    api.export('Temp');
     api.export('Networks');
     api.export('Notifications');
     api.export('Partups');
