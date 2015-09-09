@@ -40,6 +40,9 @@ Meteor.methods({
                     Log.error('Error in method [uploads.parse_csv] while parsing CSV:', error);
                 })
                 .on('end', function(count) {
+                    // Remove the uploaded file since we don't need it anymore at this point
+                    Temp.remove({_id: file._id});
+
                     done(null, list);
                 });
             }, 1000);
