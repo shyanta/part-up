@@ -45,11 +45,16 @@
         <!-- Add comment field -->
         {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
         <ul class="pu-list {{# unless showCommentForm }}pu-state-hidden{{/ unless }} {{# unless isMotivation }}pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if buttonActive }}pu-list-fieldwithbutton-state-active{{/if }}{{/ unless }}">
-                {{# if isMotivation }}
-                    <li>{{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment maxlength=1000 }}</li>
-                {{ else }}
-                    <li>{{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow' data='commentfield' placeholder=placeholders.comment maxlength=1000 rows=messageRows }}</li>
-                {{/ if }}
+                <li class="{{#if messageTooLong}}pu-state-error{{/if}}">
+                    {{# if isMotivation }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment }}
+                    {{ else }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow' data='commentfield' placeholder=placeholders.comment rows=messageRows }}
+                    {{/ if }}
+                    {{#if messageTooLong}}
+                        <span class="pu-sub-error">{{_ 'widgetcommentfield-comment-maxreached'}}</span>
+                    {{/if}}
+                </li>
                 <li>
                     <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
                         <span>{{_ 'widgetcommentfield-comment-postbutton' }}</span>

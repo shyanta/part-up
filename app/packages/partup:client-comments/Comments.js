@@ -24,6 +24,7 @@ Template.Comments.onCreated(function() {
         this.data.SHOW_COMMENTS === true;
 
     this.messageRows = new ReactiveVar(1);
+    this.tooManyCharacters = new ReactiveVar(false);
 });
 
 Template.Comments.onRendered(function() {
@@ -93,6 +94,9 @@ Template.Comments.helpers({
     },
     messageRows: function() {
         return Template.instance().messageRows.get();
+    },
+    messageTooLong: function() {
+        return Template.instance().tooManyCharacters.get();
     }
 });
 
@@ -103,6 +107,17 @@ Template.Comments.events({
     },
 
     'keydown [data=commentfield]': function(event, template) {
+        var totalCharacters = event.currentTarget.value.length;
+        if (totalCharacters > 1000) {
+            template.tooManyCharacters.set(true);
+        } else {
+            template.tooManyCharacters.set(false);
+        }
+
+        if (event.keyCode === 8 || event.keyCode === 46) {
+            if (template.tooManyCharacters.get()) AutoForm.validateForm('commentForm-' + template.data.update._id);
+        }
+
         var pressedKey = event.which ? event.which : event.keyCode;
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();
@@ -153,6 +168,7 @@ AutoForm.addHooks(null, {
                 return Partup.client.notify.error(__('error-method-' + error.reason));
             }
             template.messageRows.set(1);
+            template.tooManyCharacters.set(false);
 
             Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
 
