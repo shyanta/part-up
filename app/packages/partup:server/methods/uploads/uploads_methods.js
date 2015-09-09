@@ -20,32 +20,29 @@ Meteor.methods({
         var fs = Npm.require('fs');
 
         var emailAddresses = Meteor.wrapAsync(function(filePath, done) {
-
             var list = [];
 
-            Meteor.setTimeout(function() {
-                CSV().from.stream(
-                    fs.createReadStream(filePath),
-                    {'escape': '\\'}
-                )
-                .on('record', function(row, index) {
-                    list.push({
-                        'name': row[0],
-                        'email': row[1]
-                    });
-                }, function(error) {
-                    Log.error('Error in method [uploads.parse_csv] while parsing CSV in [record]:', error);
-                })
-                .on('error', function(error) {
-                    Log.error('Error in method [uploads.parse_csv] while parsing CSV:', error);
-                })
-                .on('end', function(count) {
-                    // Remove the uploaded file since we don't need it anymore at this point
-                    file.remove();
+            if (!fs.existsSync(filePath)) {
+                done(new Meteor.Error(400, 'could_not_read_uploaded_file'));
+                return;
+            }
 
-                    done(null, list);
+            var fileContent = fs.readFileSync(filePath).toString('utf8');
+
+            CSV()
+            .from.string(fileContent)
+            .to.array(Meteor.bindEnvironment(function(array) {
+                var list = array.map(function(row) {
+                    return {
+                        name: row[0],
+                        email: row[1]
+                    };
                 });
-            }, 1000);
+
+                file.remove();
+
+                done(null, list);
+            }));
         });
 
         return emailAddresses(filePath);
