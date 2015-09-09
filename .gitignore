@@ -29,3 +29,6 @@ app/public/uploads
 # Temp files
 *.swp
 *.orig
+# automatically generated icon fonts and cache data
+iconfont.cache
+app/public/fonts/icons/*
