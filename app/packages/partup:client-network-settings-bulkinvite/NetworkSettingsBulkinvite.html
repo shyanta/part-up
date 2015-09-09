@@ -8,7 +8,7 @@
             <!-- CSV file -->
             <label class="pu-formfield">
                 <span class="pu-label">{{_ 'network-settings-bulkinvite-csv_label' }}</span>
-                <div class="pu-sub-validations">{{#if csvInvalid }}pu-state-invalid{{/if}}
+                <div class="pu-sub-validations {{#if csvInvalid }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">
                         <div class="pu-upload pu-upload-large">
                             <input type="file" name="csv" id="browseCsv" class="pu-input-hidden" data-csv-file accept=".csv">
