@@ -3,6 +3,7 @@
 @import "client/stylesheets/font-faces/proxima-nova.sass";
 @import "client/stylesheets/font-faces/merriweather.sass";
 @import "client/stylesheets/font-faces/picons.sass";
+@import "client/stylesheets/font-faces/partup-icons.sass";
 
 @import "client/stylesheets/variables/animations.sass";
 @import "client/stylesheets/variables/breakpoints.sass";
@@ -24,23 +25,24 @@
 @import "client/stylesheets/components/pu-composition.sass";
 @import "client/stylesheets/components/compositions/pu-composition-activity-invite.sass";
 @import "client/stylesheets/components/compositions/pu-composition-defaultmodal.sass";
-@import "client/stylesheets/components/compositions/pu-composition-home.sass";
 @import "client/stylesheets/components/compositions/pu-composition-discover.sass";
 @import "client/stylesheets/components/compositions/pu-composition-forgotpassword.sass";
+@import "client/stylesheets/components/compositions/pu-composition-home.sass";
 @import "client/stylesheets/components/compositions/pu-composition-login.sass";
-@import "client/stylesheets/components/compositions/pu-composition-network.sass";
 @import "client/stylesheets/components/compositions/pu-composition-network-invite.sass";
+@import "client/stylesheets/components/compositions/pu-composition-network.sass";
+@import "client/stylesheets/components/compositions/pu-composition-networksettings-bulkinvite.sass";
 @import "client/stylesheets/components/compositions/pu-composition-networksettings-uppers.sass";
 @import "client/stylesheets/components/compositions/pu-composition-partupdetailactivities.sass";
 @import "client/stylesheets/components/compositions/pu-composition-partupdetailupdateitem.sass";
 @import "client/stylesheets/components/compositions/pu-composition-partupdetailupdates.sass";
+@import "client/stylesheets/components/compositions/pu-composition-profilesettings-email.sass";
 @import "client/stylesheets/components/compositions/pu-composition-profilesettings-email.sass";
 @import "client/stylesheets/components/compositions/pu-composition-register.sass";
 @import "client/stylesheets/components/compositions/pu-composition-startpartup-activities.sass";
 @import "client/stylesheets/components/compositions/pu-composition-startpartup-contribute.sass";
 @import "client/stylesheets/components/compositions/pu-composition-startpartup-promote.sass";
 @import "client/stylesheets/components/compositions/pu-composition-startpartupintromodal.sass";
-@import "client/stylesheets/components/compositions/pu-composition-profilesettings-email.sass";
 @import "client/stylesheets/components/data-usercard.sass";
 @import "client/stylesheets/components/datepicker.sass";
 @import "client/stylesheets/components/pu-activity.sass";
@@ -156,4 +158,3 @@
 @import "client/stylesheets/components/pu-switch.sass";
 @import "client/stylesheets/components/pu-icons.sass";
 
-@import "client/stylesheets/font-faces/partup-icons.sass";

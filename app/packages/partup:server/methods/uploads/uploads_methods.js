@@ -14,28 +14,37 @@ Meteor.methods({
 
         this.unblock();
 
-        var file = Uploads.findOne({_id: fileId});
-        var emailAddresses = [];
+        var file = Temp.findOne({_id: fileId});
+        var filePath = process.env.TEMP_DIR + '/temp-' + file._id + '-' + file.original.name;
+
         var fs = Npm.require('fs');
 
-        Meteor.setTimeout(function() {
-            var filePath = '/tmp/uploads/csv/uploads-' + file._id + '-' + file.original.name;
-            CSV().from.stream(
-                fs.createReadStream(filePath),
-                {'escape':'\\'}
-            ).on('record', Meteor.bindEnvironment(function(row, index) {
-                emailAddresses.push({
-                    'name': row[0],
-                    'email': row[1]
+        var emailAddresses = Meteor.wrapAsync(function(filePath, done) {
+
+            var list = [];
+
+            Meteor.setTimeout(function() {
+                CSV().from.stream(
+                    fs.createReadStream(filePath),
+                    {'escape': '\\'}
+                )
+                .on('record', function(row, index) {
+                    list.push({
+                        'name': row[0],
+                        'email': row[1]
+                    });
+                }, function(error) {
+                    Log.error('Error in method [uploads.parse_csv] while parsing CSV in [record]:', error);
+                })
+                .on('error', function(error) {
+                    Log.error('Error in method [uploads.parse_csv] while parsing CSV:', error);
+                })
+                .on('end', function(count) {
+                    done(null, list);
                 });
-            }, function(error) {
-                console.log(error);
-            })).on('error', function(error) {
-                console.log(error);
-            }).on('end', function(count) {
-                console.log(emailAddresses);
-                return emailAddresses;
-            });
-        }, 1000);
+            }, 1000);
+        });
+
+        return emailAddresses(filePath);
     }
 });

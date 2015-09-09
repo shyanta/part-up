@@ -122,6 +122,68 @@ Meteor.methods({
     },
 
     /**
+     * Invite multple uppers to a network
+     *
+     * @param {String} networkId
+     * @param {Object} fields
+     * @param {String} fields.csv
+     * @param {String} fields.message
+     */
+    'networks.invite_by_email_bulk': function(networkId, fields, invitees) {
+        check(fields, Partup.schemas.forms.networkBulkinvite);
+
+        if (!invitees || invitees.length < 1) {
+            throw new Meteor.Error(400, 'invalid_invitees');
+        }
+
+        var inviter = Meteor.user();
+
+        if (!inviter) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var network = Networks.findOneOrFail(networkId);
+
+        if (!network.hasMember(inviter._id)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        // Create invites array
+        var invites = invitees.map(function(invitee) {
+            var isAlreadyInvited = !!Invites.findOne({
+                network_id: network._id,
+                invitee_email: invitee.email,
+                type: Invites.INVITE_TYPE_NETWORK_EMAIL
+            });
+
+            if (isAlreadyInvited) return false;
+
+            var accessToken = Random.secret();
+
+            Networks.update(network._id, {$addToSet: {access_tokens: accessToken}});
+
+            Event.emit('invites.inserted.network.by_email', inviter, network, invitee.email, invitee.name, fields.message, accessToken);
+
+            return {
+                type: Invites.INVITE_TYPE_NETWORK_EMAIL,
+                network_id: network._id,
+                inviter_id: inviter._id,
+                invitee_name: invitee.name,
+                invitee_email: invitee.email,
+                message: fields.message,
+                access_token: accessToken,
+                created_at: new Date
+            };
+        });
+
+        // Remove falsy values
+        invites = lodash.compact(invites);
+
+        // Insert all invites
+        Invites.insert(invites);
+    },
+
+    /**
      * Invite an existing upper to an network
      *
      * @param {String} networkId

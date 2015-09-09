@@ -128,6 +128,7 @@ partup:client-invite-to-network@0.0.1
 partup:client-loader@0.0.1
 partup:client-login@0.0.1
 partup:client-network-settings@0.0.1
+partup:client-network-settings-bulkinvite@0.0.1
 partup:client-network-settings-requests@0.0.1
 partup:client-network-settings-uppers@0.0.1
 partup:client-pages@0.0.1

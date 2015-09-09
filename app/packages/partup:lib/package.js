@@ -46,13 +46,13 @@ Package.onUse(function(api) {
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
+        'collections/temp.js',
         'collections/ratings.js',
         'collections/networks.js',
         'collections/users.js',
         'collections/tags.js',
         'collections/places.js',
         'collections/places_autocompletes.js',
-        'collections/uploads.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -66,6 +66,7 @@ Package.onUse(function(api) {
         'schemas/tag.js',
         'schemas/inviteUpper.js',
         'schemas/rating.js',
+        'schemas/networkBulkinvite.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -98,6 +99,7 @@ Package.onUse(function(api) {
     api.export('Invites');
     api.export('Contributions');
     api.export('Images');
+    api.export('Temp');
     api.export('Networks');
     api.export('Notifications');
     api.export('Partups');
