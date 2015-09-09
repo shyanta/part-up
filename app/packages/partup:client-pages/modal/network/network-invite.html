@@ -1,7 +1,7 @@
 <template name="modal_network_invite">
     <nav class="pu-header pu-header-modal">
         <a class="pu-button pu-button-header pu-button-header-modal" data-closepage href="#">
-            <i class="pi pi-times"></i>
+            <i class="picon-times"></i>
             {{_ 'pages-modal-network_invite-close-page' }}
         </a>
     </nav>
@@ -24,7 +24,7 @@
                         <div class="pu-sub-input">
                             <input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="{{_ 'pages-modal-network_invite-search-query-placeholder'}}" data-search-query-input>
                             {{# if textsearchData }}
-                                <i class="pu-sub-reset pi pi-times" data-reset-search-query-input></i>
+                                <i class="pu-sub-reset picon-times" data-reset-search-query-input></i>
                             {{/ if }}
                         </div>
 
@@ -40,7 +40,7 @@
                                 {{else }}
                                     {{_ 'pages-modal-network_invite-search-location-placeholder'}}
                                 {{/with }}
-                                <i class="pi pi-times" data-reset-selected-location></i>
+                                <i class="picon-times" data-reset-selected-location></i>
                             </a>
                             {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
                         </div>
@@ -88,7 +88,7 @@
                                             {{/ if }}
                                         </span>
                                         {{> Spinner color='inverted' type='small' }}
-                                        <i class="pi pi-check pu-sub-success"></i>
+                                        <i class="picon-check pu-sub-success"></i>
                                     </button>
                                 </p>
                             </li>
