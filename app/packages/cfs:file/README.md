@@ -6,3 +6,7 @@ This is a Meteor package used by
 
 You don't need to manually add this package to your app. It is added when you
 add the `cfs:standard-packages` package.
+
+---
+Changed made by Lifely:
+- Changes as in https://github.com/CollectionFS/Meteor-CollectionFS/pull/782
