@@ -1,0 +1,8 @@
+[appservers]
+178.62.222.202 name=pu-staging-01-ams
+
+[staging:children]
+appservers
+
+[staging:vars]
+server_environment_name=staging

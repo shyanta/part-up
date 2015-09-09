@@ -1,0 +1,50 @@
+---
+# - name: docker | setup data container
+#   docker:
+#     name: storage
+#     image: ubuntu:14.04
+#     state: present
+#     restart_policy: always
+#     volumes:
+#       - /data
+#   tags: app
+
+- name: docker | start nginx
+  docker:
+    name: nginx
+    image: nginx:1.9.4
+    state: reloaded
+    restart_policy: always
+    expose:
+      - 80
+      - 443
+    ports:
+      - "80:80"
+      - "443:443"
+  tags: app
+
+- name: docker | start application
+  docker:
+    name: app
+    image: bryantebeek/partup:ft-dockerisation
+    username: "{{ docker.registry.email }}"
+    email: "{{ docker.registry.email }}"
+    password: "{{ docker.registry.password }}"
+    state: reloaded
+    restart_policy: always
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    links:
+      - "nginx:nginx"
+    env: "{{ app.env }}"
+  tags: app
+
+- name: ufw | allow 80
+  shell: ufw allow 80
+  tags: app
+
+- name: ufw | allow 443
+  shell: ufw allow 443
+  tags: app
