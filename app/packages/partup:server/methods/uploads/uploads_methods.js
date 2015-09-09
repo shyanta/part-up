@@ -41,7 +41,7 @@ Meteor.methods({
                 })
                 .on('end', function(count) {
                     // Remove the uploaded file since we don't need it anymore at this point
-                    Temp.remove({_id: file._id});
+                    file.remove();
 
                     done(null, list);
                 });
