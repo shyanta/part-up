@@ -1,0 +1,11 @@
+{
+    "src" : "client/icons",
+    "dest": "public/fonts/icons",
+    "fontName": "partup-icons",
+    "fontFaceBaseURL": "/fonts/icons",
+    "classPrefix": "picon-",
+    "types": [ "svg", "ttf", "eot", "woff", "woff2" ],
+    "stylesheets": {
+        "stylesheets/font-faces/picons.sass": "client/icons/templates/stylesheet.tpl"
+    }
+}
