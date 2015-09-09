@@ -43,7 +43,7 @@ var updateBaseSchema = new SimpleSchema({
 var updateCommentBaseSchema = new SimpleSchema({
     content: {
         type: String,
-        max: 250
+        max: 1000
     },
     type: {
         type: String,
