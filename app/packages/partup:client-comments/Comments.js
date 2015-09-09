@@ -22,6 +22,8 @@ Template.Comments.onCreated(function() {
     this.LIMIT = this.data.LIMIT || 0;
     this.showComments = this.data.SHOW_COMMENTS === undefined ||
         this.data.SHOW_COMMENTS === true;
+
+    this.messageRows = new ReactiveVar(1);
 });
 
 Template.Comments.onRendered(function() {
@@ -88,6 +90,9 @@ Template.Comments.helpers({
     },
     partup: function() {
         return Partups.findOne(this.update.partup_id);
+    },
+    messageRows: function() {
+        return Template.instance().messageRows.get();
     }
 });
 
@@ -97,8 +102,21 @@ Template.Comments.events({
         template.expanded.set(true);
     },
 
+    'keydown [data=commentfield]': function(event, template) {
+        var pressedKey = event.which ? event.which : event.keyCode;
+        if (pressedKey == 13 && !event.shiftKey) {
+            event.preventDefault();
+            $('#commentForm-' + template.data.update._id).submit();
+            return false;
+        }
+
+    },
     'input [data=commentfield]': function(event, template) {
         template.buttonActive.set(!!event.currentTarget.value);
+
+        if (event.currentTarget.offsetHeight < event.currentTarget.scrollHeight) {
+            template.messageRows.set(template.messageRows.get() + 1);
+        }
     }
 
 });
@@ -134,6 +152,7 @@ AutoForm.addHooks(null, {
             if (error) {
                 return Partup.client.notify.error(__('error-method-' + error.reason));
             }
+            template.messageRows.set(1);
 
             Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
 

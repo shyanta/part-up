@@ -48,7 +48,7 @@
                 {{# if isMotivation }}
                     <li>{{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment maxlength=250 }}</li>
                 {{ else }}
-                    <li>{{> afFieldInput name='content' class='pu-input' data='commentfield' placeholder=placeholders.comment maxlength=250 }}</li>
+                    <li>{{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow' data='commentfield' placeholder=placeholders.comment maxlength=250 rows=messageRows }}</li>
                 {{/ if }}
                 <li>
                     <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
