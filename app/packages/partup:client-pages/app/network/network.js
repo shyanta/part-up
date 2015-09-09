@@ -221,5 +221,21 @@ Template.app_network.events({
         Meteor.defer(function() {
             Router.go('discover');
         });
+    },
+    'click [data-create-partup-in-tribe]': function(event, template) {
+        event.preventDefault();
+        var networkId = template.networkId.get();
+        var networkSlug = template.data.networkSlug;
+        Session.set('createPartupForNetworkById', networkId);
+        Intent.go({route: 'create'}, function(slug) {
+            if (slug) {
+                Router.go('partup', {
+                    slug: slug
+                });
+            } else {
+                this.back();
+            }
+            Session.set('createPartupForNetworkById', false);
+        });
     }
 });

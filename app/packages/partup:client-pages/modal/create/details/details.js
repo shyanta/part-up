@@ -119,6 +119,7 @@ afHooks[FORM_ID] = {
             //         }
             //     });
             // }
+            Session.set('createPartupForNetworkById', false);
         }, self);
 
         this.event.preventDefault();

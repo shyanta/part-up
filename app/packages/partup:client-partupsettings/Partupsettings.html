@@ -178,7 +178,7 @@
                                         <option disabled></option>
                                         <optgroup label="{{_ 'partupsettings-form-privacy-networkheading'}}">
                                             {{# each userNetworks }}
-                                                <option value="network-{{ _id }}">{{ name }}</option>
+                                                <option value="network-{{ _id }}" selected="{{ networkPreSelected }}">{{ name }}</option>
                                             {{/ each }}
                                         </optgroup>
                                     {{/ if }}
@@ -191,8 +191,8 @@
 
                 {{/ unless }}
 
-                {{> afFieldInput type='hidden' name='privacy_type_input' defaultValue='public' }}
-                {{> afFieldInput type='hidden' name='network_id' }}
+                {{> afFieldInput type='hidden' name='privacy_type_input' defaultValue='public' value=selectedPrivacyType }}
+                {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }}
 
             </label>
         {{/ if }}
