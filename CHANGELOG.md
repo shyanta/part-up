@@ -1,4 +1,34 @@
 # CHANGELOG
+## 1.8.0
+- Tribe email invite
+- Tribe admin bulk email invite
+- Editable email invites in activity, tribe and bulk email invite
+- Access to private partups through email invites with tokens
+- new "Request invite" flow on invite and closed tribes
+- Create partup from tribe
+- Intercom profile values added (count created partups, partner partups, count supporters, number of tribes)
+- Intercom events linked (count created partups, partner partups, count supporters, number of tribes)
+- New icons and small design tweaks
+- Added more analytics events (activity inserted, network joined/left, supporter, new message)
+- Prettified more email templates (verify, forgotpassword, all notification mails)
+- About and email copy updates
+- Comment field limit set to 1000
+- Comment text field is now autogrowing textarea
+- Removed "straight to my part-up" button
+- Admin panel updates 
+    - date in usertable
+    - edit tribe admin
+    - more details in partup and tribe lists
+- performance
+    - images are now loaded immediately from amazon
+    - Added fast rendering of profile
+    - caching of discover results for anonymous users
+- bugfixes
+    - fix(contributions): it is now impossible to create a motivation comment without adding the contribution
+    - now avoiding part-up name Chrome AutoFill
+    - created fix for chrome renderbugs in timeline
+
+
 ## 1.7.2
 - d292f40 feat(analytics): added tracking events to social sharing buttons
 - bugfixes
