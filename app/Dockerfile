@@ -1,9 +1,7 @@
-FROM node:0.10.40
+FROM bryantebeeklifely/partup:app-base
 
-COPY ./../../../app /code
+COPY . /code
 WORKDIR /code
-
-RUN curl https://install.meteor.com/ | sh
 
 RUN meteor build --directory .
 RUN cd bundle/programs/server && npm install
