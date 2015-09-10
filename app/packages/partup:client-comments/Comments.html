@@ -44,7 +44,7 @@
 
         <!-- Add comment field -->
         {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
-        <ul class="pu-list {{# unless showCommentForm }}pu-state-hidden{{/ unless }} {{# unless isMotivation }}pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if buttonActive }}pu-list-fieldwithbutton-state-active{{/if }}{{/ unless }}">
+            <ul class="pu-list {{# unless showCommentFormAndMayComment }}pu-state-hidden{{/ unless }} {{# unless isMotivation }}pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if buttonActive }}pu-list-fieldwithbutton-state-active{{/if }}{{/ unless }}">
                 <li class="{{#if messageTooLong}}pu-state-error{{/if}}">
                     {{# if isMotivation }}
                         {{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment }}

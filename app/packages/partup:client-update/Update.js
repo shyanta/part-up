@@ -67,9 +67,11 @@ Template.Update.helpers({
         return __(titleKey);
     },
 
-    showCommentForm: function() {
-        if (!Meteor.user()) return false;
+    mayComment: function() {
+        return !!Meteor.user();
+    },
 
+    showCommentForm: function() {
         var update = Updates.findOne({_id: this.updateId});
         if (!update) return false;
 
