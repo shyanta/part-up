@@ -1,13 +1,13 @@
 {
-     "invite-to-tribe-popup-title": "Nodig iemand uit voor jouw part-up",
-     "invite-to-tribe-popup-explaination": "We kunnen ons voorstellen dat je graag samenwerkt met iemand die je kent en nog niet actief is op Part-up. Je kunt hem of haar hier vragen upper te worden en gelijk uitnodigen om bij te dragen aan jouw tribe. We hebben vast een voorbeeldmail voor je gemaakt. Voeg je persoonlijke noot toe en stuur hem op!",
-     "invite-to-tribe-popup-input-message": "Persoonlijke uitnodiging",
+     "invite-to-network-popup-title": "Nodig iemand uit voor jouw part-up",
+     "invite-to-network-popup-explaination": "We kunnen ons voorstellen dat je graag samenwerkt met iemand die je kent en nog niet actief is op Part-up. Je kunt hem of haar hier vragen upper te worden en gelijk uitnodigen om bij te dragen aan jouw tribe. We hebben vast een voorbeeldmail voor je gemaakt. Voeg je persoonlijke noot toe en stuur hem op!",
+     "invite-to-network-popup-input-message": "Persoonlijke uitnodiging",
 
-     "invite-to-tribe-popup-close": "Sluiten",
-     "invite-to-tribe-popup-form-copy-confirm": "Op de bus",
-     "invite-to-tribe-popup-input-name": "Naam",
-     "invite-to-tribe-popup-input-email": "E-mailadres",
-     "invite-to-tribe-popup-success": "Email uitnodiging verzonden",
+     "invite-to-network-popup-close": "Sluiten",
+     "invite-to-network-popup-form-copy-confirm": "Op de bus",
+     "invite-to-network-popup-input-name": "Naam",
+     "invite-to-network-popup-input-email": "E-mailadres",
+     "invite-to-network-popup-success": "Email uitnodiging verzonden",
 
      "invite-to-network-popup-message-prefill": "Hi [name],\n\nIk zag deze gave tribe op Part-up: \"__networkName__\". Volgens mij zou jij goed bij deze tribe passen en helpen het doel te bereiken: \"__networkDescription__\".\n\nJe kunt zelf via deze link de tribe bekijken [url] en je aanmelden.\n\nKen je Part-up nog niet? Het is de nieuwe marktplaats voor teamwork. Part-up maakt het vinden van de juiste teamleden eenvoudig. Deel jouw droom of talent en Part-up helpt je aan het juiste team. Je bent vrij om te kiezen waar je aan werkt en met wie je dat doet. Samen bepaal je wat er moet gebeuren en wat je gaat bijdragen. Zo bouw je een mooi profiel op dat laat zien wat je kunt! Je kunt ook een eigen tribe starten om samen met je buren, netwerk of organisatie te werken in part-ups.\n\nLet's part-up!\n\nGroeten,\n__inviterName__"
 }

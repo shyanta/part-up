@@ -18,6 +18,7 @@
     "pages-app-network-closed-description": "De uppers in deze tribe hebben ervoor gekozen om de community besloten te houden. Meld je aan om de community manager te laten weten dat het een goed idee is dat jij ook onderdeel wordt van __network__. Hij of zij stuurt snel een reactie.",
 
     "pages-app-network-actions-button-join": "Aanmelden",
+    "pages-app-network-actions-button-request_access": "Vraag toegang",
     "pages-app-network-actions-button-leave": "Verlaat tribe",
     "pages-app-network-actions-button-accept": "Uitnodiging accepteren",
     "pages-app-network-actions-button-reject": "Uitnodiging weigeren",
@@ -25,6 +26,8 @@
     "pages-app-network-actions-button-invite": "Uitnodigen",
     "pages-app-network-tab-button-partups": "Part-ups",
     "pages-app-network-tab-button-uppers": "Uppers",
+
+    "pages-app-network-tab-button-start_partup": "Start een part-up",
 
     "pages-app-network-notification-joined": "Je bent toegetreden in deze tribe",
     "pages-app-network-notification-accepted_waitingforapproval": "Bedankt voor je aanmelding, aan het wachten tot de admin je heeft geaccepteerd",
