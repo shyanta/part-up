@@ -32,12 +32,16 @@ Meteor.methods({
             CSV()
             .from.string(fileContent)
             .to.array(Meteor.bindEnvironment(function(array) {
-                var list = array.map(function(row) {
-                    return {
-                        name: row[0],
-                        email: row[1]
-                    };
-                });
+                var list = lodash.chain(array)
+                    .map(function(row) {
+                        if (!Partup.services.validators.email.test(row[1])) return false;
+
+                        return {
+                            name: row[0],
+                            email: row[1]
+                        };
+                    })
+                    .compact();
 
                 file.remove();
 
