@@ -30,7 +30,11 @@ Meteor.methods({
             var fileContent = fs.readFileSync(filePath).toString('utf8');
 
             CSV()
-            .from.string(fileContent)
+            .from.string(fileContent, {
+                    delimiter: ';', // Set the field delimiter. One character only, defaults to comma.
+                    skip_empty_lines: true, // Don't generate empty values for empty lines.
+                    trim: true // Ignore whitespace immediately around the delimiter.
+                })
             .to.array(Meteor.bindEnvironment(function(array) {
                 var list = lodash.chain(array)
                     .map(function(row) {
