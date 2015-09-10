@@ -1,6 +1,6 @@
 FROM node:0.10.40
 
-COPY ../../app /code
+COPY ../../../app /code
 WORKDIR /code
 
 RUN curl https://install.meteor.com/ | sh
