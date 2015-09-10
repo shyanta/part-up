@@ -1,6 +1,7 @@
 {
     "network-settings-bulkinvite-title": "Invite multiple uppers at once",
     "network-settings-bulkinvite-paragraph": "Too many uppers to invite? You can import your CSV file with names and emailadresses here.",
+    "network-settings-bulkinvite-paragraph-placeholder-explaination": "Don't worry about the [name] and [url] values in the invitation letter. These will be replaced automatically with the correct values.",
 
     "network-settings-bulkinvite-csv_label": "Please select your addresses file",
     "network-settings-bulkinvite-csv_import_button": "Select CSV file",

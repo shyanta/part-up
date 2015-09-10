@@ -1,6 +1,7 @@
 {
      "invite-to-network-popup-title": "Invite people to join your tribe",
      "invite-to-network-popup-explaination": "You might want to work with someone you know, but who is not an upper yet. Here you can invite them to become upper and join your tribe. We drafted an invitation email for you. Add your personal note and send it!",
+     "invite-to-network-popup-placeholder-explaination": "Don't worry about the [name] and [url] values in the invitation letter. These will be replaced automatically with the correct values.",
      "invite-to-network-popup-input-message": "Personal invitation",
 
      "invite-to-network-popup-close": "Close",

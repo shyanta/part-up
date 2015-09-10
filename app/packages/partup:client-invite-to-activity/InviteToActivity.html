@@ -2,7 +2,11 @@
     {{#contentFor "PopupTitle"}}
         {{_ 'invite-to-activity-popup-title'}}
     {{/contentFor}}
-    <p>{{_ 'invite-to-activity-popup-explaination'}}</p>
+
+    <p>
+        {{_ 'invite-to-activity-popup-explaination'}}<br/><br/>
+        {{_ 'invite-to-activity-popup-placeholder-explaination'}}
+    </p>
 
     {{#autoForm schema=formSchema id="inviteToActivityForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=defaultDoc}}
         <div class="pu-row">

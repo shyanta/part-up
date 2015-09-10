@@ -3,7 +3,11 @@
         {{_ 'invite-to-network-popup-title'}}
     {{/contentFor}}
 
-    <p>{{_ 'invite-to-network-popup-explaination'}}</p>
+    <p>
+        {{_ 'invite-to-network-popup-explaination'}}<br/><br/>
+        {{_ 'invite-to-network-popup-placeholder-explaination'}}
+    </p>
+
 
     {{#autoForm schema=formSchema id="inviteToNetworkForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=defaultDoc }}
         <div class="pu-row">
