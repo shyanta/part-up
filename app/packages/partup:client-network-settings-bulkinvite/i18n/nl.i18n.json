@@ -1,9 +1,9 @@
 {
     "network-settings-bulkinvite-title": "Nodig meerdere uppers tegelijk uit",
-    "network-settings-bulkinvite-paragraph": "Te veel uppers om uit te nodigen? Je kunt hier je CSV bestand met namen en emailadressen importeren.",
-    "network-settings-bulkinvite-paragraph-placeholder-explaination": "Let niet op de [name] en [url] waarden in de uitnodiging. Deze worden automatisch vervangen met de juiste informatie.",
+    "network-settings-bulkinvite-paragraph": "Heb je een flinke groep uppers om uit te nodigen? Gebruik <a href='/files/partup-import.csv' target='_blank'>het voorbeeld CSV bestand</a>, vul deze met namen en emailadressen en importeer ze hier.",
+    "network-settings-bulkinvite-paragraph-placeholder-explaination": "Laat de [name] en [url] waarden in de uitnodiging staan. Deze worden automatisch vervangen met de juiste waardes.",
 
-    "network-settings-bulkinvite-csv_label": "Selecteer je adressenbestand",
+    "network-settings-bulkinvite-csv_label": "Selecteer je CSV bestand met namen en e-mailadressen",
     "network-settings-bulkinvite-csv_import_button": "Selecteer CSV bestand",
     "network-settings-bulkinvite-csv_import_button_another": "Selecteer een ander CSV bestand",
     "network-settings-bulkinvite-csv_invalid": "CSV is ongeldig",
