@@ -41,7 +41,8 @@ Meteor.methods({
                             email: row[1]
                         };
                     })
-                    .compact();
+                    .compact()
+                    .value();
 
                 file.remove();
 
