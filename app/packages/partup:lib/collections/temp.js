@@ -15,7 +15,7 @@ var stores = [
 Temp = new FS.Collection('temp', {
     stores: stores,
     filter: {
-        maxSize: 1024 * 1024 * 20, // 20 mb
+        maxSize: 1024 * 1024 * 0.1, // 0.1 mb
         allow: {
             contentTypes: ['text/csv']
         },
