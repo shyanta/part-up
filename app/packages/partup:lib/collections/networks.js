@@ -100,6 +100,7 @@ Network.prototype.isClosedForUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvited = function(upperId) {
+    if (!upperId) return false;
     return !!Invites.findOne({
         type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
         network_id: this._id,
@@ -202,6 +203,7 @@ Network.prototype.addPendingUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperPending = function(upperId) {
+    if (!upperid) return false
     return !!Networks.findOne({_id: this._id, pending_uppers: {'$in': [upperId]}});
 };
 

@@ -136,7 +136,16 @@
                                             </a>
                                         </li>
                                     {{/ if }}
+                                {{ else }}
+                                    {{#if accessToken}}
+                                        <li class="pu-sub-button">
+                                            <a href="#" class="pu-button" data-accept>
+                                                {{_ 'pages-app-network-actions-button-accept'}}
+                                            </a>
+                                        </li>
+                                    {{/if}}
                                 {{/ with }}
+                                
                             </ul>
                         </nav>
                     </div>
