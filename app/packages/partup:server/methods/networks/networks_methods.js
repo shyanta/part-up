@@ -128,6 +128,7 @@ Meteor.methods({
      * @param {Object} fields
      * @param {String} fields.csv
      * @param {String} fields.message
+     * @param {Object[]} invitees
      */
     'networks.invite_by_email_bulk': function(networkId, fields, invitees) {
         check(fields, Partup.schemas.forms.networkBulkinvite);
