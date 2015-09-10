@@ -1,3 +1,4 @@
 FROM nginx:1.9.4
 
-ADD config/vhost.conf /etc/nginx/sites-enabled/partup.conf
+RUN rm /etc/nginx/conf.d/default.conf
+ADD config/vhost.conf /etc/nginx/conf.d/partup.conf
