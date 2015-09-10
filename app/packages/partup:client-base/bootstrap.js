@@ -168,7 +168,9 @@ Meteor.startup(function() {
     };
 
     analytics.on('track', function(event, properties, options) {
-        Intercom.public_api.trackEvent(event, properties);
+        if (Intercom) {
+            Intercom.public_api.trackEvent(event, properties);
+        }
     });
 
     /*************************************************************/
