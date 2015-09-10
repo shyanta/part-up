@@ -39,6 +39,9 @@
                     <span class="pu-sub-error">
                         <!-- Parse error -->
                         {{_ 'network-settings-bulkinvite-csv_invalid' }}
+                        {{# if csvTooManyAddresses }}
+                            {{_ 'network-settings-bulkinvite-csv_too_many_addresses' }}
+                        {{/ if }}
                     </span>
                 </div>
             </label>

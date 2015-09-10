@@ -9,6 +9,7 @@
      var template = this;
      template.submitting = new ReactiveVar(false);
      template.csv_invalid = new ReactiveVar(false);
+     template.csv_too_many_addresses = new ReactiveVar(false);
      template.parsing = new ReactiveVar(false);
      template.invitees = new ReactiveVar([]);
  });
@@ -42,6 +43,9 @@ Template.NetworkSettingsBulkinvite.helpers({
     },
     csvInvalid: function() {
         return Template.instance().csv_invalid.get();
+    },
+    csvTooManyAddresses: function() {
+        return Template.instance().csv_too_many_addresses.get();
     }
 });
 
@@ -52,6 +56,7 @@ Template.NetworkSettingsBulkinvite.events({
 
         template.parsing.set(true);
         template.csv_invalid.set(false);
+        template.csv_too_many_addresses.set(false);
 
         var file = event.currentTarget.files[0];
         Temp.insert(file, function(err, fileObj) {
@@ -67,6 +72,10 @@ Template.NetworkSettingsBulkinvite.events({
                     if (error) {
                         console.error('Result from uploading & parsing CSV:', error);
                         template.csv_invalid.set(true);
+
+                        if (error.reason == 'too_many_email_addresses') {
+                            template.csv_too_many_addresses.set(true);
+                        }
                     }
                 });
 

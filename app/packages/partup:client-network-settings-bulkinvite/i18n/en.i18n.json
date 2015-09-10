@@ -7,6 +7,7 @@
     "network-settings-bulkinvite-csv_import_button": "Select CSV file",
     "network-settings-bulkinvite-csv_import_button_another": "Select another CSV file",
     "network-settings-bulkinvite-csv_invalid": "Invalid CSV",
+    "network-settings-bulkinvite-csv_too_many_addresses": " - Too many addresses given. Maximum of 200 allowed.",
     "network-settings-bulkinvite-message_label": "Personal invitation",
 
     "network-settings-bulkinvite-invitees": "__count__ adresses found",

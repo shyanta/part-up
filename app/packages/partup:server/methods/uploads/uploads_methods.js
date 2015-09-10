@@ -20,8 +20,6 @@ Meteor.methods({
         var fs = Npm.require('fs');
 
         var emailAddresses = Meteor.wrapAsync(function(filePath, done) {
-            var list = [];
-
             if (!fs.existsSync(filePath)) {
                 done(new Meteor.Error(400, 'could_not_read_uploaded_file'));
                 return;
@@ -48,7 +46,14 @@ Meteor.methods({
                     .compact()
                     .value();
 
+                // Temp file is not needed anymore since we got the needed data.
                 file.remove();
+
+                // Limit to 200 email addresses
+                if (list.length > 200) {
+                    done(new Meteor.Error(400, 'too_many_email_addresses'));
+                    return;
+                }
 
                 done(null, list);
             }));

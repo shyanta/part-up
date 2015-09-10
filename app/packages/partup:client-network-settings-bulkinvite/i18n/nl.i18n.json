@@ -7,6 +7,7 @@
     "network-settings-bulkinvite-csv_import_button": "Selecteer CSV bestand",
     "network-settings-bulkinvite-csv_import_button_another": "Selecteer een ander CSV bestand",
     "network-settings-bulkinvite-csv_invalid": "CSV is ongeldig",
+    "network-settings-bulkinvite-csv_too_many_addresses": " - Te veel e-mailadressen gegeven. Er zijn 200 adressen per keer toegestaan.",
     "network-settings-bulkinvite-message_label": "Persoonlijke uitnodiging",
 
     "network-settings-bulkinvite-invitees": "__count__ adressen gevonden",

@@ -132,7 +132,7 @@ Meteor.methods({
     'networks.invite_by_email_bulk': function(networkId, fields, invitees) {
         check(fields, Partup.schemas.forms.networkBulkinvite);
 
-        if (!invitees || invitees.length < 1) {
+        if (!invitees || (invitees.length < 1 || invitees.length > 200)) {
             throw new Meteor.Error(400, 'invalid_invitees');
         }
 
