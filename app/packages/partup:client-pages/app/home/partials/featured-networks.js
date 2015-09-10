@@ -1,6 +1,8 @@
 Template.FeaturedNetworks.onCreated(function() {
     var tpl = this;
+
     tpl.selectedSlug = new ReactiveVar('');
+
     Meteor.autorun(function() {
         var language = Partup.client.language.current.get();
         if (!language) return;
@@ -10,7 +12,7 @@ Template.FeaturedNetworks.onCreated(function() {
                 var network = Networks.findFeatured(language).fetch().pop();
                 if (!network) return;
 
-                tpl.selectedSlug.set(networks.slug);
+                tpl.selectedSlug.set(network.slug);
             }
         });
     });
