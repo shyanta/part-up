@@ -57,7 +57,10 @@ Meteor.methods({
                     }
 
                     done(null, list);
-                }));
+                }))
+                .on('error', function(error) {
+                    done(error);
+                });
             }));
 
         });
