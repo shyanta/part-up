@@ -153,18 +153,26 @@ Template.app_network.events({
         }
     },
     'click [data-accept]': function(event, template) {
+        var proceedAccept = function(user) {
+            var network = Networks.findOne({slug: template.data.networkSlug});
+            Meteor.call('networks.join', network._id, function(error) {
+                if (error) return Partup.client.notify.error(error.reason);
+                template.joinToggle.set(!template.joinToggle.get());
+                if (!network.isClosed()) {
+                    Partup.client.notify.success(__('pages-app-network-notification-joined'));
+                }
+            });
+        }
         event.preventDefault();
         var user = Meteor.user();
-        if (!user) return; // button should not be rendered when no user is logged in
-
-        var network = Networks.findOne({slug: template.data.networkSlug});
-        Meteor.call('networks.join', network._id, function(error) {
-            if (error) return Partup.client.notify.error(error.reason);
-            template.joinToggle.set(!template.joinToggle.get());
-            if (!network.isClosed()) {
-                Partup.client.notify.success(__('pages-app-network-notification-joined'));
-            }
-        });
+        if (!user) {
+            Intent.go({route: 'login'}, function(loggedInUser) {
+                if (loggedInUser) proceedAccept(loggedInUser);
+                else Partup.client.notify.error(__('pages-app-network-notification-failed'));
+            });
+            return
+        }
+        proceedAccept(user);
     },
     'click [data-leave]': function(event, template) {
         var network = Networks.findOne({slug: template.data.networkSlug});
