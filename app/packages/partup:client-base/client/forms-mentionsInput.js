@@ -93,7 +93,7 @@ MentionsInput.prototype.select = function(index) {
     var start = substr.length - match[1].length;
     var pre = value.substring(0, start);
     var post = value.substring(this.input.selectionStart, value.length);
-    this.input.value = pre + suggestion.profile.name + post;
+    this.input.value = pre + suggestion.profile.name + ' ' + post;
 
     this.input.selectionStart = this.input.selectionEnd = (pre + suggestion.profile.name).length;
     this.input.focus();
