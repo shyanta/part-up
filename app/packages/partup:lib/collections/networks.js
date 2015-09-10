@@ -87,8 +87,7 @@ Network.prototype.isClosed = function() {
  */
 Network.prototype.isClosedForUpper = function(upperId) {
     if (this.isPublic()) return false;
-    if (this.isInvitational() && (this.hasMember(upperId) || this.isUpperInvited(upperId))) return false;
-    if (this.isClosed() && this.hasMember(upperId)) return false;
+    if (this.hasMember(upperId)) return false;
 
     return true;
 };
