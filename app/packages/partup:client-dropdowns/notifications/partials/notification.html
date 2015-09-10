@@ -3,8 +3,9 @@
     <!-- supporter joined notification -->
     {{#if partupEqualsExactly notification.type 'partups_supporters_added' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.supporter.image }}');" data-usercard="{{ notification.type_data.supporter._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.supporter.image }}');"
+                data-usercard="{{ notification.type_data.supporter._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_supporters_added' supporter=notification.type_data.supporter.name }}</p>
@@ -16,8 +17,9 @@
     <!-- invite for activity notification -->
     {{#if partupEqualsExactly notification.type 'partup_activities_invited' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.inviter.image }}');" data-usercard="{{ notification.type_data.inviter._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.inviter.image }}');"
+                data-usercard="{{ notification.type_data.inviter._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partup_activities_invited' inviter=notification.type_data.inviter.name activity=notification.type_data.activity.name }}</p>
@@ -29,8 +31,9 @@
     <!-- contribution accepted notification -->
     {{#if partupEqualsExactly notification.type 'partups_contributions_accepted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.accepter.image }}');" data-usercard="{{ notification.type_data.accepter._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.accepter.image }}');"
+                data-usercard="{{ notification.type_data.accepter._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_contributions_accepted' accepter=notification.type_data.accepter.name activity=notification.type_data.activity.name}}</p>
@@ -42,8 +45,9 @@
     <!-- contribution rejected notification -->
     {{#if partupEqualsExactly notification.type 'partups_contributions_rejected' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.rejecter.image }}');" data-usercard="{{ notification.type_data.rejecter._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.rejecter.image }}');"
+                data-usercard="{{ notification.type_data.rejecter._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_contributions_rejected' rejecter=notification.type_data.rejecter.name activity=notification.type_data.activity.name }}</p>
@@ -55,8 +59,9 @@
     <!-- invited to network notification -->
     {{#if partupEqualsExactly notification.type 'partups_networks_invited' }}
         <a href="{{pathFor route='network-detail' slug=notification.type_data.network.slug}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.inviter.image }}');" data-usercard="{{ notification.type_data.inviter._id }}">
-                <!-- <a href="#" rel="author" class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.inviter.image }}');"
+                data-usercard="{{ notification.type_data.inviter._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_networks_invited' inviter=notification.type_data.inviter.name }}</p>
@@ -68,10 +73,9 @@
     <!-- accepted to network notification -->
     {{#if partupEqualsExactly notification.type 'partups_networks_accepted' }}
         <a href="{{pathFor route='network-detail' slug=notification.type_data.network.slug}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.network.image }}');" >
-                <!-- <a href="#" rel="author" class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.network.image }}');">
             </figure>
-            <!-- nog niet vanuit user -->
             <article>
                 <p>{{_ 'dropdown-notification-partups_networks_accepted' network=notification.type_data.network.name }}</p>
                 <time>{{ partupDateNotification notification.created_at }}</time>
@@ -82,8 +86,8 @@
     <!-- added to pending_upper list and waiting for admin approval -->
     {{#if partupEqualsExactly notification.type 'partups_networks_new_pending_upper' }}
         <a href="{{pathFor route='network-settings-requests' slug=notification.type_data.network.slug}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.pending_upper.image }}');" >
-                <!-- <a href="#" rel="author" class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.pending_upper.image }}');">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_networks_new_pending_upper' network=notification.type_data.network.name pending_upper=notification.type_data.pending_upper.name }}</p>
@@ -95,8 +99,9 @@
     <!-- contribution rating notification -->
     {{#if partupEqualsExactly notification.type 'contributions_ratings_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.rater.image }}');" data-usercard="{{ notification.type_data.rater._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.rater.image }}');"
+                data-usercard="{{ notification.type_data.rater._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-contributions_ratings_inserted' rater=notification.type_data.rater.name }}</p>
@@ -108,8 +113,9 @@
     <!-- comment on update notification -->
     {{#if partupEqualsExactly notification.type 'updates_first_comment' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.commenter.image }}');" data-usercard="{{ notification.type_data.commenter._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.commenter.image }}');"
+                data-usercard="{{ notification.type_data.commenter._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-updates_first_comment' commenter=notification.type_data.commenter.name }}</p>
@@ -121,8 +127,9 @@
     <!-- new message in partup notification -->
     {{#if partupEqualsExactly notification.type 'partups_messages_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');" data-usercard="{{ notification.type_data.creator._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');"
+                data-usercard="{{ notification.type_data.creator._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_messages_inserted' creator=notification.type_data.creator.name }}</p>
@@ -197,7 +204,9 @@
     <!-- partup is created in user's network -->
     {{#if partupEqualsExactly notification.type 'partup_created_in_network' }}
         <a href="{{pathFor route='partup' slug=notification.type_data.partup.slug}}">
-            <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');" data-usercard="{{ notification.type_data.creator._id }}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');"
+                data-usercard="{{ notification.type_data.creator._id }}">
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partup_created_in_network' partup=notification.type_data.partup.name network=notification.type_data.network.name creator=notification.type_data.creator.name }}</p>
