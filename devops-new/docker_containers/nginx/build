@@ -1,7 +1,4 @@
-# partup nginx
+#!/bin/sh
 
-## Building
 docker build -t lifely/partup:nginx .
-
-## Pushing
 docker push lifely/partup:nginx
