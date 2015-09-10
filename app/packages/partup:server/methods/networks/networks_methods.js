@@ -181,6 +181,9 @@ Meteor.methods({
 
         // Insert all invites
         Invites.insert(invites);
+
+        // Return the total count of successful invites
+        return invites.length;
     },
 
     /**
