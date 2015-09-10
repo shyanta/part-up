@@ -44,6 +44,9 @@ Meteor.methods({
                         };
                     })
                     .compact()
+                    .uniq(function(row) {
+                        return row.email;
+                    })
                     .value();
 
                 // Temp file is not needed anymore since we got the needed data.
