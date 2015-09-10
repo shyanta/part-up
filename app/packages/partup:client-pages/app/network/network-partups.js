@@ -158,6 +158,10 @@ Template.app_network_partups.helpers({
         var tpl = Template.instance();
         return tpl.partups.loading.get() || tpl.partups.count_loading.get();
     },
+    network: function() {
+        return Networks.findOne({slug: this.networkSlug});
+    },
+
     // We use this trick to be able to call a function in a child template.
     // The child template directly calls 'addToLayoutHook' with a callback.
     // We save that callback, so we can call it later and the child template can react to it.
@@ -174,5 +178,27 @@ Template.app_network_partups.helpers({
         return function registerCallback(callback) {
             tpl.partups.layout.clear = callback;
         };
+    }
+});
+
+Template.app_network_partups.events({
+    'click [data-create-partup-in-tribe]': function(event, template) {
+        event.preventDefault();
+
+        var networkSlug = template.data.networkSlug;
+        var network = Networks.findOne({slug: networkSlug});
+
+        Session.set('createPartupForNetworkById', network._id);
+
+        Intent.go({route: 'create-details'}, function(slug) {
+            if (slug) {
+                Router.go('partup', {
+                    slug: slug
+                });
+            } else {
+                this.back();
+            }
+            Session.set('createPartupForNetworkById', false);
+        });
     }
 });

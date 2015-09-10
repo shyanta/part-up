@@ -16,6 +16,16 @@
                 {{_ 'pages-app-network-partups-suffix' }}
             {{/ if }}
         </h2>
+
+        <!-- Start part-up from tribe -->
+        {{# if network.hasMember currentUser._id }}
+            <p class="pu-columnslayoutaction pu-paragraph pu-sub-right">
+                <a href="{{ pathFor 'create-details' }}" data-create-partup-in-tribe>
+                    <i class="picon-plus"></i>
+                    {{_ 'pages-app-network-partups-start_button' }}
+                </a>
+            </p>
+        {{/ if }}
     </header>
 
     <div data-infinitescroll-container>

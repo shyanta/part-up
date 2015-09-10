@@ -13,6 +13,7 @@
     "pages-app-network-partups-count": "1 part-up",
     "pages-app-network-partups-count_plural": "__count__ part-ups",
     "pages-app-network-partups-suffix": "in this tribe",
+    "pages-app-network-partups-start_button": "Start a part-up in this tribe",
 
     "pages-app-network-closed-title": "This is a private tribe",
     "pages-app-network-closed-description": "The uppers in this tribe decided to keeps this Tribe and its content of part-ups and uppers private. Sign up to let the community manager know you want to be part of __network__. He or she will get back to you soon.",
@@ -26,8 +27,6 @@
     "pages-app-network-actions-button-invite": "Invite",
     "pages-app-network-tab-button-partups": "Part-ups",
     "pages-app-network-tab-button-uppers": "Uppers",
-
-    "pages-app-network-tab-button-start_partup": "Start a part-up",
 
     "pages-app-network-notification-joined": "Successfully joined this tribe",
     "pages-app-network-notification-accepted_waitingforapproval": "Thank you, waiting for approval from the tribe admin",
