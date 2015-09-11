@@ -1,4 +1,6 @@
-box: docker
+box:
+  id: docker
+  entrypoint: /bin/bash -c
 build:
   steps:
     - script:
