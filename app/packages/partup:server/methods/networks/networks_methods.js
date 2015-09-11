@@ -181,7 +181,9 @@ Meteor.methods({
         invites = lodash.compact(invites);
 
         // Insert all invites
-        Invites.insert(invites);
+        invites.forEach(function(invite) {
+            Invites.insert(invite);
+        });
 
         // Return the total count of successful invites
         return invites.length;
