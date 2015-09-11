@@ -3,8 +3,7 @@
         <h2 class="pu-title pu-title-modal">{{_ 'network-settings-bulkinvite-title' }}</h2>
 
         <p>
-        {{{_ 'network-settings-bulkinvite-paragraph' }}}<br/><br/>
-            {{_ 'network-settings-bulkinvite-paragraph-placeholder-explaination' }}
+            {{{_ 'network-settings-bulkinvite-paragraph' }}}
         </p>
 
         {{#autoForm schema=formSchema id="bulkInviteToNetworkForm" class="pu-form" validation="submitThenBlur" doc=defaultDoc }}
@@ -45,6 +44,10 @@
                     </span>
                 </div>
             </label>
+
+            <p class="pu-formfield">
+            {{_ 'network-settings-bulkinvite-paragraph-placeholder-explaination' }}
+            </p>
 
             <!-- Custom email message for invitee -->
             <label class="pu-formfield">
