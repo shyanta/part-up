@@ -123,9 +123,9 @@ Template.Comments.events({
 
         var pressedKey = event.which ? event.which : event.keyCode;
         if (pressedKey == 13 && !event.shiftKey) {
-            // event.preventDefault();
-            // $('#commentForm-' + template.data.update._id).submit();
-            // return false;
+            event.preventDefault();
+            $('#commentForm-' + template.data.update._id).submit();
+            return false;
         }
 
     },
