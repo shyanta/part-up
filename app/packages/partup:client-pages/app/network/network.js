@@ -80,6 +80,10 @@ Template.app_network.helpers({
 
     joinToggle: function() {
         return Template.instance().joinToggle.get();
+    },
+
+    accessToken: function() {
+        return Template.instance().data.accessToken;
     }
 });
 
