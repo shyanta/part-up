@@ -76,6 +76,7 @@ Template.app_partup.onRendered(function() {
         if (!partup) return;
 
         if (!Partup.client.isMobile.any()) {
+            // temp library disabled untill new chrome release
             partupDetailLayout.init.apply(partupDetailLayout);
         }
     });
