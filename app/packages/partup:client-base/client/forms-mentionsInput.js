@@ -58,6 +58,7 @@ MentionsInput.prototype._setEvents = function() {
             break;
             case 13: // enter
                 self.select(self.selectedIndex);
+                e.stopPropagation()
             break;
         }
     });
