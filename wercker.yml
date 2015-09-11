@@ -1,4 +1,4 @@
-box: docker:latest
+box: docker:1.8.2
 build:
   steps:
     - script:
