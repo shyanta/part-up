@@ -106,7 +106,6 @@ AutoForm.hooks({
                         return Partup.client.notify.error(__('base-errors-' + error.reason));
                     }
                     Partup.client.notify.success(__('network-settings-bulkinvite-success'));
-                    Partup.client.popup.close();
                 });
 
             return false;
