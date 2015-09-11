@@ -1,6 +1,7 @@
 box:
-  id: ubuntu
-  entrypoint: /bin/bash -c
+  id: docker
+  entrypoint: /bin/sh -c
+  cmd: /bin/sh
 build:
   steps:
     - script:
