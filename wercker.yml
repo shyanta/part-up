@@ -4,9 +4,9 @@ box:
   cmd: /bin/sh
 build:
   steps:
-    # - script:
-    #     name: docker | install
-    #     code: apk add --update docker
+    - script:
+        name: dummy
+        code: echo
     # - script:
     #     name: docker | version
     #     code: docker version
