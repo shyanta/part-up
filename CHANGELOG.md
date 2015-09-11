@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.8.3
+- mentions can now be searched with a space, "first lastname"
+- bugfixes
+    - z-index issues with mention dropdown box fixed
+    - fix for mention bug when "enter" is pressed
+
 ## 1.8.2
 - bugfixes
     - 61be734 migration(notifications): update hard-coded images in notifications after the image data loss a few weeks ago
