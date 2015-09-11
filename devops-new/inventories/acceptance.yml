@@ -1,0 +1,8 @@
+[appservers]
+{ip} name=partup-acceptance-amsterdam2-01
+
+[acceptance:children]
+appservers
+
+[acceptance:vars]
+server_environment_name=acceptance
