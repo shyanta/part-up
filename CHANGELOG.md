@@ -1,4 +1,9 @@
 # CHANGELOG
+## 1.8.2
+- bugfixes
+    - 61be734 migration(notifications): update hard-coded images in notifications after the image data loss a few weeks ago
+    - 14a8b8d fix(bulkinvite): fixed display of accept invite button on non-loggedin email invite click
+
 ## 1.8.1
 - bugfixes
     - fix(bulkemail): join after invite failed fix: typo in helper
