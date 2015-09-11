@@ -39,6 +39,7 @@
     "base-errors-user_is_already_invited_to_network": "Deze upper is al uitgenodigd voor deze tribe",
     "base-errors-user_is_not_a_member_of_network": "Je bent geen lid van deze tribe",
     "base-errors-user_could_not_leave_network": "Het is niet gelukt jouw lidmaatschap van deze tribe te beëindigen. Probeer het nog een keer.",
+    "base-errors-user_could_not_join_network": "Er is iets misgegaan tijdens het toegang krijgen tot deze tribe.",
     "base-errors-user_could_not_be_removed_from_network": "Het is niet gelukt het lidmaatschap van de tribe voor deze upper te beëindigen.",
     "base-errors-user_could_not_be_accepted_from_network": "Het is niet gelukt deze upper lid te maken van de tribe.",
     "base-errors-user_could_not_be_rejected_from_network": "Het is niet gelukt deze upper het lidmaatschap te weigeren.",
