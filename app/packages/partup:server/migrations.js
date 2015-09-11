@@ -428,4 +428,112 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(17);
+Migrations.add({
+    version: 18,
+    name: 'Update hard-coded images in notifications',
+    up: function() {
+        Notifications.find().forEach(function(notification) {
+            var set = {};
+
+            if (!notification.type_data) return;
+
+            // Creator
+            if (notification.type_data.creator) {
+                var creator = Meteor.users.findOne({_id: notification.type_data.creator._id});
+                if (creator) {
+                    set['type_data.creator.image'] = creator.profile.image;
+                }
+            }
+
+            // Inviter
+            if (notification.type_data.inviter) {
+                var inviter = Meteor.users.findOne({_id: notification.type_data.inviter._id});
+                if (inviter) {
+                    set['type_data.inviter.image'] = inviter.profile.image;
+                }
+            }
+
+            // Accepter
+            if (notification.type_data.accepter) {
+                var accepter = Meteor.users.findOne({_id: notification.type_data.accepter._id});
+                if (accepter) {
+                    set['type_data.accepter.image'] = accepter.profile.image;
+                }
+            }
+
+            // Rejecter
+            if (notification.type_data.rejecter) {
+                var rejecter = Meteor.users.findOne({_id: notification.type_data.rejecter._id});
+                if (rejecter) {
+                    set['type_data.rejecter.image'] = rejecter.profile.image;
+                }
+            }
+
+            // Supporter
+            if (notification.type_data.supporter) {
+                var supporter = Meteor.users.findOne({_id: notification.type_data.supporter._id});
+                if (supporter) {
+                    set['type_data.supporter.image'] = supporter.profile.image;
+                }
+            }
+
+            // Pending upper
+            if (notification.type_data.pending_upper) {
+                var pending_upper = Meteor.users.findOne({_id: notification.type_data.pending_upper._id});
+                if (pending_upper) {
+                    set['type_data.pending_upper.image'] = pending_upper.profile.image;
+                }
+            }
+
+            // Rater
+            if (notification.type_data.rater) {
+                var rater = Meteor.users.findOne({_id: notification.type_data.rater._id});
+                if (rater) {
+                    set['type_data.rater.image'] = rater.profile.image;
+                }
+            }
+
+            // Commenter
+            if (notification.type_data.commenter) {
+                var commenter = Meteor.users.findOne({_id: notification.type_data.commenter._id});
+                if (commenter) {
+                    set['type_data.commenter.image'] = commenter.profile.image;
+                }
+            }
+
+            // Mentioning upper
+            if (notification.type_data.mentioning_upper) {
+                var mentioning_upper = Meteor.users.findOne({_id: notification.type_data.mentioning_upper._id});
+                if (mentioning_upper) {
+                    set['type_data.mentioning_upper.image'] = mentioning_upper.profile.image;
+                }
+            }
+
+            // Partup
+            if (notification.type_data.partup) {
+                var partup = Partups.findOne({_id: notification.type_data.partup._id});
+                if (partup) {
+                    set['type_data.partup.image'] = partup.image;
+                }
+            }
+
+            // Network
+            if (notification.type_data.network) {
+                var network = Networks.findOne({_id: notification.type_data.network._id});
+                if (network) {
+                    set['type_data.network.image'] = network.image;
+                }
+            }
+
+            if (Object.keys(set).length > 0) {
+                Notifications.update(notification._id, {$set: set});
+            }
+
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(18);
