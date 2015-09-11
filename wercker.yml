@@ -1,40 +1,43 @@
-box: danieldent/meteor
+box: wercker-labs/docker
 build:
   steps:
     - script:
-        name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
+        name: docker version
+        code: sudo docker version
     - script:
-        name: echo meteor information
-        code: |
-          echo "meteor version $(meteor -v) running"
-    - script:
-        name: build application
-        code: |
-          cd app
-          meteor build /tmp
-    # - script:
-    #     name: run all tests
-    #     code: |
-    #       cd app
-    #       meteor --test --release velocity:METEOR@1.1.0.2_3 
+        name: docker build
+        code: sudo docker build -t bryantebeeklifely/partup app
   after-steps:
     - kobim/slack-post:
         url: $SLACK_URL
         channel: notifications
 deploy:
   steps:
+    - internal/docker-push:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag: $WERCKER_GIT_BRANCH
+        repository: bryantebeeklifely/partup
+        registry: https://registry.hub.docker.com
     - script:
-        name: install modulus-cli
+        name: install ansible
         code: |
-          npm install modulus -g
+            apt-get update
+            apt-get install --no-install-recommends -y software-properties-common
+            apt-add-repository ppa:ansible/ansible
+            apt-get update
+            apt-get install -y ansible
+    - script:
+        name: write lifely server
+        code: |-
+            echo -ne $SERVER_KEY > ~/.ssh/lifely-server
+            echo -ne $SERVER_KEY_PUB > ~/.ssh/lifely-server.pub
+            chmod 400 ~/.ssh/lifely-server
+            chmod 400 ~/.ssh/lifely-server.pub
     - script:
         name: deploy to given environment
-        code: |
-          ./devops deploy ${WERCKER_DEPLOYTARGET_NAME}
-        cwd: devops
+        code: ./devops provision ${WERCKER_DEPLOYTARGET_NAME} --tags=app
+        cwd: devops-new
   after-steps:
     - kobim/slack-post:
         url: $SLACK_URL
