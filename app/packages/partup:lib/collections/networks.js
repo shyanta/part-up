@@ -102,7 +102,6 @@ Network.prototype.isClosedForUpper = function(upperId) {
 Network.prototype.isUpperInvited = function(upperId) {
     if (!upperId) return false;
     return !!Invites.findOne({
-        type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
         network_id: this._id,
         invitee_id: upperId
     });
