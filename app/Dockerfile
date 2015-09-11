@@ -1,4 +1,4 @@
-FROM bryantebeeklifely/partup:app-base
+FROM lifely/partup-ops:app-base
 
 COPY . /code
 WORKDIR /code

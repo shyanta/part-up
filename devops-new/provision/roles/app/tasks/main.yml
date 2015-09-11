@@ -12,7 +12,7 @@
 - name: docker | start application
   docker:
     name: app
-    image: bryantebeeklifely/partup:ft-dockerisation
+    image: lifely/partup:ft-dockerisation
     username: "{{ docker.registry.username }}"
     email: "{{ docker.registry.email }}"
     password: "{{ docker.registry.password }}"
@@ -25,7 +25,7 @@
 - name: docker | start nginx
   docker:
     name: nginx
-    image: bryantebeeklifely/partup:nginx
+    image: lifely/partup-ops:nginx
     username: "{{ docker.registry.username }}"
     email: "{{ docker.registry.email }}"
     password: "{{ docker.registry.password }}"
