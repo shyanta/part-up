@@ -119,9 +119,15 @@
                                                         {{_ 'pages-app-network-actions-button-pending' }}
                                                     </a>
                                                 {{ else }}
-                                                    <a href="#" class="pu-button" data-request-invite>
-                                                        {{_ 'pages-app-network-actions-button-request_access' }}
-                                                    </a>
+                                                    {{#if accessToken}}
+                                                        <a href="#" class="pu-button" data-accept>
+                                                            {{_ 'pages-app-network-actions-button-accept'}}
+                                                        </a>
+                                                    {{ else }}
+                                                        <a href="#" class="pu-button" data-request-invite>
+                                                            {{_ 'pages-app-network-actions-button-request_access' }}
+                                                        </a>
+                                                    {{/if}}
                                                 {{/ if }}
                                             </li>
                                         {{/ if}}
@@ -136,14 +142,6 @@
                                             </a>
                                         </li>
                                     {{/ if }}
-                                {{ else }}
-                                    {{#if accessToken}}
-                                        <li class="pu-sub-button">
-                                            <a href="#" class="pu-button" data-accept>
-                                                {{_ 'pages-app-network-actions-button-accept'}}
-                                            </a>
-                                        </li>
-                                    {{/if}}
                                 {{/ with }}
                                 
                             </ul>
