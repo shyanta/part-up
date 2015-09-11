@@ -14,6 +14,8 @@ var MentionsInput = function(input) {
     this._setEvents();
 };
 
+var mentionRegex = /(?:^|\s+)@([^\s@]{3,}[^\s]{0,}[\s]?[^\s]{0,})$/i;
+
 /**
  * Build required elements
  */
@@ -83,7 +85,7 @@ MentionsInput.prototype.select = function(index) {
     if (!suggestion) return;
 
     var substr = this.input.value.substr(0, this.input.selectionStart);
-    var match = substr.match(/@([^\s@]+)$/);
+    var match = substr.match(mentionRegex);
 
     if (!match) return;
 
@@ -137,7 +139,7 @@ MentionsInput.prototype.hideSuggestions = function() {
  */
 MentionsInput.prototype.checkCaretPosition = function() {
     var substr = this.input.value.substr(0, this.input.selectionStart);
-    var match = substr.match(/(?:^|\s+)@([^\s@]{3,})$/);
+    var match = substr.match(mentionRegex);
 
     if (!match) {
         this.hideSuggestions();
@@ -147,7 +149,8 @@ MentionsInput.prototype.checkCaretPosition = function() {
     this.showSuggestions();
 
     var query = match[1];
-    if (query === this.lastQuery) return;
+    if (/\s$/.test(query)) return; // check for endspace
+    if (query === this.lastQuery) return; // check for same query
 
     var self = this;
     Meteor.call('users.autocomplete', query, function(error, users) {
