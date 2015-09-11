@@ -1,15 +1,15 @@
 box:
-  id: docker:1.8-dind
+  id: alpine:latest
   entrypoint: /bin/sh -c
   cmd: /bin/sh
 build:
   steps:
     - script:
-        name: start docker daemon
-        code: docker daemon -l error &
+        name: docker | install
+        code: apk add --update docker
     - script:
-        name: docker version
-        code: sudo docker version
+        name: docker | version
+        code: docker version
 #     - script:
 #         name: docker build
 #         code: sudo docker build -t bryantebeeklifely/partup app
