@@ -286,7 +286,7 @@ Meteor.methods({
             return Log.debug('Unknown access level for this network: ' + network.privacy_type);
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'network_could_not_be_removed');
+            throw new Meteor.Error(400, 'user_could_not_join_network');
         }
     },
 
