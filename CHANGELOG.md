@@ -1,4 +1,9 @@
 # CHANGELOG
+## 1.8.1
+- bugfixes
+    - fix(bulkemail): join after invite failed fix: typo in helper
+    - fix(bulkemail): proper errorhandling when not able to join network after invite
+
 ## 1.8.0
 - Tribe email invite
 - Tribe admin bulk email invite
