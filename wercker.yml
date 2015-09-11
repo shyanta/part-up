@@ -1,9 +1,12 @@
 box:
-  id: docker
+  id: docker:1.8-dind
   entrypoint: /bin/sh -c
   cmd: /bin/sh
 build:
   steps:
+    - script:
+        name: start docker daemon
+        code: docker daemon -l error &
     - script:
         name: docker version
         code: sudo docker version
