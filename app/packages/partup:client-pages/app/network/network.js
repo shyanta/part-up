@@ -91,6 +91,10 @@ var joinNetworkOrAcceptInvitation = function(slug) {
             Partup.client.notify.error(error.reason);
         } else {
             Partup.client.notify.success('Joined network');
+
+            analytics.track('joined network', {
+                networkId: network._id
+            });
         }
     });
 };
@@ -108,6 +112,9 @@ var leaveNetwork = function(template, network) {
         if (network.isClosedForUpper(Meteor.user())) {
             Router.go('discover');
         }
+        analytics.track('left network', {
+            networkId: network._id
+        });
     });
 };
 
@@ -129,6 +136,9 @@ Template.app_network.events({
                     Partup.client.notify.success(__('pages-app-network-notification-accepted_waitingforapproval'));
                 } else {
                     Partup.client.notify.success(__('pages-app-network-notification-joined'));
+                    analytics.track('joined network', {
+                        networkId: network._id
+                    });
                 }
             });
         };
@@ -143,18 +153,26 @@ Template.app_network.events({
         }
     },
     'click [data-accept]': function(event, template) {
+        var proceedAccept = function(user) {
+            var network = Networks.findOne({slug: template.data.networkSlug});
+            Meteor.call('networks.join', network._id, function(error) {
+                if (error) return Partup.client.notify.error(error.reason);
+                template.joinToggle.set(!template.joinToggle.get());
+                if (!network.isClosed()) {
+                    Partup.client.notify.success(__('pages-app-network-notification-joined'));
+                }
+            });
+        }
         event.preventDefault();
         var user = Meteor.user();
-        if (!user) return; // button should not be rendered when no user is logged in
-
-        var network = Networks.findOne({slug: template.data.networkSlug});
-        Meteor.call('networks.join', network._id, function(error) {
-            if (error) return Partup.client.notify.error(error.reason);
-            template.joinToggle.set(!template.joinToggle.get());
-            if (!network.isClosed()) {
-                Partup.client.notify.success(__('pages-app-network-notification-joined'));
-            }
-        });
+        if (!user) {
+            Intent.go({route: 'login'}, function(loggedInUser) {
+                if (loggedInUser) proceedAccept(loggedInUser);
+                else Partup.client.notify.error(__('pages-app-network-notification-failed'));
+            });
+            return
+        }
+        proceedAccept(user);
     },
     'click [data-leave]': function(event, template) {
         var network = Networks.findOne({slug: template.data.networkSlug});
@@ -171,6 +189,27 @@ Template.app_network.events({
             }
         });
 
+    },
+    'click [data-request-invite]': function(event, template) {
+        event.preventDefault();
+
+        var requestInvite = function() {
+            var network = Networks.findOne({slug: template.data.networkSlug});
+            Meteor.call('networks.join', network._id, function(err) {
+                if (err) {
+                    console.error(err);
+                    Partup.client.notify.error(__(err));
+                }
+            });
+        };
+
+        if (Meteor.user()) {
+            requestInvite();
+        } else {
+            Intent.go({route: 'login'}, function() {
+                requestInvite();
+            });
+        }
     },
     'click [data-expand]': function(event, template) {
         template.expandText(!template.expanded);

@@ -13,7 +13,7 @@ Meteor.startup(function() {
             Images.insert(ref);
         };
 
-        if (Images.find().count() === 15) {
+        if (Images.find().count() === 27) {
             // Networks - Lifely (open)
             downloadAndSaveImage('raaNx9aqA6okiqaS4', 'https://i.vimeocdn.com/portrait/7543891_300x300.jpg');
             downloadAndSaveImage('SEswZsYiTTKTTdnN5', 'http://lifely.nl/bundles/lifelywebsite/img/icons/icon152.png');

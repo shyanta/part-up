@@ -62,21 +62,23 @@ Partup.client.language = {
                 expectedConstructor: __('base-client-language-ss-expectedConstructor'),
                 keyNotInSchema:      __('base-client-language-ss-keyNotInSchema'),
                 regEx: [
-                                                        {msg: __('base-client-language-ss-regex-default')},
-                    {exp: SimpleSchema.RegEx.Email,      msg: __('base-client-language-ss-regex-Email')},
-                    {exp: SimpleSchema.RegEx.WeakEmail,  msg: __('base-client-language-ss-regex-WeakEmail')},
-                    {exp: SimpleSchema.RegEx.Domain,     msg: __('base-client-language-ss-regex-Domain')},
-                    {exp: SimpleSchema.RegEx.WeakDomain, msg: __('base-client-language-ss-regex-WeakDomain')},
-                    {exp: SimpleSchema.RegEx.IP,         msg: __('base-client-language-ss-regex-IP')},
-                    {exp: SimpleSchema.RegEx.IPv4,       msg: __('base-client-language-ss-regex-IPv4')},
-                    {exp: SimpleSchema.RegEx.IPv6,       msg: __('base-client-language-ss-regex-IPv6')},
-                    {exp: SimpleSchema.RegEx.Url,        msg: __('base-client-language-ss-regex-Url')},
-                    {exp: SimpleSchema.RegEx.Id,         msg: __('base-client-language-ss-regex-Id')},
+                                                            {msg: __('base-client-language-ss-regex-default')},
+                    {exp: Partup.services.validators.email,  msg: __('base-client-language-ss-regex-Email')},
+                    {exp: SimpleSchema.RegEx.Domain,         msg: __('base-client-language-ss-regex-Domain')},
+                    {exp: SimpleSchema.RegEx.WeakDomain,     msg: __('base-client-language-ss-regex-WeakDomain')},
+                    {exp: SimpleSchema.RegEx.IP,             msg: __('base-client-language-ss-regex-IP')},
+                    {exp: SimpleSchema.RegEx.IPv4,           msg: __('base-client-language-ss-regex-IPv4')},
+                    {exp: SimpleSchema.RegEx.IPv6,           msg: __('base-client-language-ss-regex-IPv6')},
+                    {exp: SimpleSchema.RegEx.Url,            msg: __('base-client-language-ss-regex-Url')},
+                    {exp: SimpleSchema.RegEx.Id,             msg: __('base-client-language-ss-regex-Id')},
                 ],
                 passwordMismatch:       __('base-client-language-ss-passwordMismatch'),
                 emailExists:            __('base-client-language-ss-emailExists'),
                 emailNotFound:          __('base-client-language-ss-emailNotFound'),
-                passwordIncorrect:      __('base-client-language-ss-passwordIncorrect')
+                passwordIncorrect:      __('base-client-language-ss-passwordIncorrect'),
+                shouldNotContainHtml:   __('base-client-language-ss-shouldNotContainHtml'),
+                missingRequiredTags:    __('base-client-language-ss-missingRequiredTags'),
+                shouldNotContainUrls:   __('base-client-language-ss-shouldNotContainUrls')
             });
             var user = Meteor.user();
             if(!user) return;

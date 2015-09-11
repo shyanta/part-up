@@ -1,36 +1,5 @@
 var d = Debug('services:emails');
 
-// Types so far:
-// * dailydigest
-// * upper_mentioned_in_partup
-// * invite_upper_to_partup_activity
-// * invite_upper_to_network
-// * partup_created_in_network
-
-var locales = ['en', 'nl'];
-var templates = [
-    'dailydigest',
-    'invite_upper_to_network',
-    'invite_upper_to_partup_activity',
-    'upper_mentioned_in_partup',
-    'partup_created_in_network'
-];
-var templateName;
-var templateFile;
-
-/**
- * Pre-compile all template combinations so it only happens once
- */
-templates.forEach(function(type) {
-    locales.forEach(function(locale) {
-        SSR.compileTemplate('email-' + type + '-' + locale, [
-            Assets.getText('private/emails/header.' + locale + '.html'),
-            Assets.getText('private/emails/' + type + '.' + locale + '.html'),
-            Assets.getText('private/emails/footer.' + locale + '.html')
-        ].join(''));
-    });
-});
-
 /**
  @namespace Partup server email service
  @name Partup.server.services.emails
@@ -48,6 +17,7 @@ Partup.server.services.emails = {
      * @param {String} options.subject
      * @param {String} options.locale
      * @param {Object} options.userEmailPreferences
+     * @param {String|null} options.body
      */
     send: function(options) {
         var options = options || {};
@@ -71,7 +41,9 @@ Partup.server.services.emails = {
         emailSettings.from = options.fromAddress;
         emailSettings.to = options.toAddress;
         emailSettings.subject = options.subject;
-        emailSettings.html = SSR.render('email-' + options.type + '-' + options.locale, options.typeData);
+
+        var template = 'email-' + options.type + '-' + options.locale;
+        emailSettings.html = SSR.render(template, options.typeData);
 
         Email.send(emailSettings);
     }

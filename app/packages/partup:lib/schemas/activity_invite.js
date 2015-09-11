@@ -4,7 +4,7 @@
  * @name activity_invite
  * @memberof Partup.schemas.entities
  */
- Partup.schemas.entities.activity_invite = new SimpleSchema({
+Partup.schemas.entities.activity_invite = new SimpleSchema({
     _id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id

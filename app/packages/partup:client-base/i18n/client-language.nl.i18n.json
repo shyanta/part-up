@@ -33,5 +33,8 @@
     "base-client-language-ss-passwordMismatch": "De wachtwoorden komen niet overeen",
     "base-client-language-ss-emailExists": "Er is al een gebruiker met dit emailadres",
     "base-client-language-ss-emailNotFound": "Er bestaat geen gebruiker met dit e-mailadres",
-    "base-client-language-ss-passwordIncorrect": "Dit wachtwoord is niet correct"
+    "base-client-language-ss-passwordIncorrect": "Dit wachtwoord is niet correct",
+    "base-client-language-ss-shouldNotContainHtml": "Dit veld mag geen HTML bevatten",
+    "base-client-language-ss-missingRequiredTags": "Dit veld mist de verplichte [name] en [url] tags",
+    "base-client-language-ss-shouldNotContainUrls": "Dit veld mag geen URLs bevatten"
 }

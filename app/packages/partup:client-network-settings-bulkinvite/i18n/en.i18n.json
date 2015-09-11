@@ -1,0 +1,19 @@
+{
+    "network-settings-bulkinvite-title": "Invite multiple people at once",
+    "network-settings-bulkinvite-paragraph": "Got more than just a couple of people to invite that are new to Part-up? First download <a href='/files/partup-import.csv' target='_blank'>this example CSV file</a> and add your list of names and email addresses (remove the sample data). Next upload this file using the button below.",
+    "network-settings-bulkinvite-paragraph-placeholder-explaination": "We drew up an invitation email for you. Feel free to add your personal note, but don’t remove the [name] and [url]. This is where we will automatically fill in the right data, such that everyone receives a personal email.",
+
+    "network-settings-bulkinvite-csv_label": "Please select your CSV file containing names and e-mail addresses",
+    "network-settings-bulkinvite-csv_import_button": "Upload CSV",
+    "network-settings-bulkinvite-csv_import_button_another": "Select another CSV file",
+    "network-settings-bulkinvite-csv_invalid": "Invalid CSV",
+    "network-settings-bulkinvite-csv_too_many_addresses": " - Too many addresses given. Maximum of 200 allowed.",
+    "network-settings-bulkinvite-message_label": "Personal email invitation",
+
+    "network-settings-bulkinvite-invitees": "__count__ adresses found",
+
+    "network-settings-bulkinvite-form_copy_confirm": "Send it!",
+    "network-settings-bulkinvite-success": "Email invites sent",
+
+    "network-settings-bulkinvite-message_prefill": "Hi [name],\n\nI found this cool tribe on Part-up for you to join: \"__networkName__\". I believe you should become part of it and help accomplish the tribe purpose: \"__networkDescription__\".\n\nYou can check out the tribe using this link [url] and sign up.\n\nHaven't heard about Part-up yet? It is the new marketplace for teamwork. Part-up gets you your best team for the job. Just share your dream or talent and Part-up helps you find the right team! You are free to choose what you work on and who you work with. Together you decide on the activities and what each will contribute. You build your profile and show the world what you're good at! You can also get your own part-up tribe to start working together with your local community, network or organisation.\n\nLet's part-up!\n\nCheers,\n__inviterName__"
+}

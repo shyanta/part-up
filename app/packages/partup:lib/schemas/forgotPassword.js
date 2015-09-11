@@ -7,6 +7,6 @@ Partup.schemas.forms.forgotPassword = new SimpleSchema({
     email: {
         type: String,
         max: 255,
-        regEx: SimpleSchema.RegEx.Email
+        regEx: Partup.services.validators.email
     }
 });

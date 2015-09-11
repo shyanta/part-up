@@ -1,14 +1,7 @@
 <template name="DropdownNotifications">
     <button class="pu-button pu-button-header pu-button-header-desktop pu-button-header-nostripe" data-toggle-menu="notifications">
         <!-- bell icon -->
-        {{#if totalNewNotifications.count }}
-            <span class="pu-badge">
-                <i class="fa fa-bell"></i>
-                <span>{{ totalNewNotifications.count }}</span>
-            </span>
-        {{else}}
-            <i class="fa fa-bell"></i>
-        {{/if}}
+        <i class="picon-bell pu-badge {{#if totalNewNotifications.count }}pu-badge-active{{/if}}"></i>
 
         {{ label }}
     </button>

@@ -169,6 +169,7 @@ Package.onUse(function(api) {
         'modal/network_settings/details/details.html',
         'modal/network_settings/requests/requests.html',
         'modal/network_settings/uppers/uppers.html',
+        'modal/network_settings/bulkinvite/bulkinvite.html',
 
         // Modal:create_intro
         'modal/create_intro/create_intro.html',

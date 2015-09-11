@@ -270,6 +270,16 @@ User = function(user) {
         },
 
         /**
+         * Check if user is admin of a tribe
+         *
+         * @return {Boolean}
+         */
+        isNetworkAdmin: function() {
+            if (!user) return false;
+            return !!Networks.findOne({admin_id: user._id});
+        },
+
+        /**
          * Get the user score
          *
          * @return {Number} participation score rounded

@@ -67,9 +67,13 @@ Template.Update.helpers({
         return __(titleKey);
     },
 
+    mayComment: function() {
+        return !!Meteor.user();
+    },
+
     showCommentForm: function() {
         var update = Updates.findOne({_id: this.updateId});
-        if (!update) return;
+        if (!update) return false;
 
         var template = Template.instance();
         var commentsPresent = update.comments && update.comments.length > 0;

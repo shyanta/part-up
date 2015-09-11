@@ -70,7 +70,7 @@
 
     &-fieldwithbutton
         li
-            display: table-cell
+            display: table
             vertical-align: top
 
             &:first-child
@@ -87,12 +87,26 @@
                 $d: $animation-duration-slide
                 transition: max-width $d, padding $d, opacity $d
                 opacity: 0
+                display: none
 
         &-state-active
+            li
+                display: table-cell
             li:nth-child(n+2)
+                display: table-cell
                 max-width: 120px
                 padding-left: $grid-gap
                 opacity: 1
+
+        .pu-sub-error
+            color: $color-alert-error
+            font-size: 14px
+            margin-top: 10px
+
+        .pu-state-error
+            textarea.pu-textarea
+                border-color: $color-alert-error
+                color: $color-alert-error
 
     &-arrows
         li
@@ -191,20 +205,23 @@
             border-top: 2px solid #eee
             @extend %clearfix
 
-        .pu-avatar
-            float: left
+            >.pu-avatar
+                float: left
+
 
         .pu-sub-name
             float: left
             margin: 0 0 0 10px
             line-height: 40px
+            max-width: 455px
 
         .pu-sub-description
             clear: both
             margin: 0 0 0 10px
             line-height: 40px
 
-        .pu-sub-remove
+        .pu-sub-remove,
+        .pu-sub-button
             float: right
             width: 30px
             margin-top: 5px
@@ -217,6 +234,9 @@
             line-height: 30px
             text-align: center
             vertical-align: middle
+
+        .pu-sub-button
+            margin-right: 5px
 
         .pu-sub-actions
             float: right

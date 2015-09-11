@@ -35,7 +35,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
         type: 'invite_upper_to_partup_activity',
         toAddress: User(invitee).getEmail(),
         subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
-        locale: User(inviter).getLocale(),
+        locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
             partupName: partup.name,
@@ -57,8 +57,22 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
 /**
  * Generate an email when an invite gets sent
  */
-Event.on('invites.inserted.activity.by_email', function(inviter, partup, activity, email, name) {
-    var accessToken = Random.secret();
+Event.on('invites.inserted.activity.by_email', function(inviter, partup, activity, email, name, message, accessToken) {
+
+    // Split by double newline
+    var toParagraphs = function(message) {
+        return message.split('\n\n');
+    };
+
+    // Interpolate email message (replace [name] with invitee name and [url] with activity url)
+    var interpolate = function(message) {
+        var url = Meteor.absoluteUrl() + 'partups/' + partup.slug + '?token=' + accessToken;
+
+        return Partup.helpers.interpolateEmailMessage(message, {
+            url: '<a href="' + url + '">' + url + '</a>',
+            name: name
+        });
+    };
 
     // Set the email details
     var emailOptions = {
@@ -67,13 +81,12 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
         subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
         locale: User(inviter).getLocale(),
         typeData: {
-            name: name,
+            paragraphs: toParagraphs(interpolate(message)),
             partupName: partup.name,
             partupDescription: partup.description,
             activityName: activity.name,
             activityDescription: activity.description,
-            inviterName: inviter.profile.name,
-            url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '?token=' + accessToken
+            inviterName: inviter.profile.name
         }
     };
 

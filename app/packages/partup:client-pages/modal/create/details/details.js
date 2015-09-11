@@ -78,12 +78,13 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
                 self.done(new Error(error.message));
                 return;
             }
+            callback(partup);
+            Session.set('partials.create-partup.current-partup', partup._id);
+
             analytics.track('Part-up created', {
                 partupId: partup._id,
                 userId: Meteor.user()._id,
             });
-            callback(partup);
-            Session.set('partials.create-partup.current-partup', partup._id);
         });
 
     }
@@ -104,19 +105,22 @@ afHooks[FORM_ID] = {
         var possiblyExistingPartupId = Session.get('partials.create-partup.current-partup');
         createOrUpdatePartup(possiblyExistingPartupId, insertDoc, function(partup) {
 
-            if (submissionType === 'next') {
+            // if (submissionType === 'next') {
                 Router.go('create-activities', {_id: partup._id});
-            } else if (submissionType === 'skip') {
-                Intent.return('create', {
-                    arguments: [partup.slug],
-                    fallback_route: {
-                        name: 'partup',
-                        params: {
-                            slug: partup.slug
-                        }
-                    }
-                });
-            }
+            // }
+            // (removed according to https://trello.com/c/OYhmEpvq/1053-fe-remove-straight-to-my-partup-button)
+            // else if (submissionType === 'skip') {
+            //     Intent.return('create', {
+            //         arguments: [partup.slug],
+            //         fallback_route: {
+            //             name: 'partup',
+            //             params: {
+            //                 slug: partup.slug
+            //             }
+            //         }
+            //     });
+            // }
+            Session.set('createPartupForNetworkById', false);
         }, self);
 
         this.event.preventDefault();

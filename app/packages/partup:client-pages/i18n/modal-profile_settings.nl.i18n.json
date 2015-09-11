@@ -30,6 +30,14 @@
     "modal-profilesettings-email-updatesuccess-enabled-partup_created_in_network":"Part-up aangemaakt in netwerk email ingeschakeld",
     "modal-profilesettings-email-updatesuccess-disabled-partup_created_in_network":"Part-up aangemaakt in netwerk email uitgeschakeld",
 
+    "modal-profilesettings-email-partups_networks_new_pending_upper":"wanneer een upper toegang vraagt tot jouw tribe",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_new_pending_upper":"Tribe toegang aanvraag email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_new_pending_upper":"Tribe toegang aanvraag email uitgeschakeld",
+
+    "modal-profilesettings-email-partups_networks_accepted":"wanneer je aanvraag voor een tribe is goedgekeurd",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_accepted":"Toegang tot tribe email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_accepted":"Toegang tot tribe email uitgeschakeld",
+
     "modal-profilesettings-email-updatesuccess-disabled-all": "Alle automatische mails zijn vanaf nu uitgeschakeld",
     "modal-profilesettings-email-updatesuccess-disabled-one": "Deze automatische mail is vanaf nu uitgeschakeld",
     "modal-profilesettings-email-updateerror-disabled": "Er ging iets verkeerd, probeer het opnieuw",

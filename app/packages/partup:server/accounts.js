@@ -63,7 +63,9 @@ Accounts.onCreateUser(function(options, user) {
                     upper_mentioned_in_partup: true,
                     invite_upper_to_partup_activity: true,
                     invite_upper_to_network: true,
-                    partup_created_in_network: true
+                    partup_created_in_network: true,
+                    partups_networks_new_pending_upper: true,
+                    partups_networks_accepted: true
                 },
                 unsubscribe_email_token: Random.secret()
             }
@@ -90,7 +92,9 @@ Accounts.onCreateUser(function(options, user) {
                     upper_mentioned_in_partup: true,
                     invite_upper_to_partup_activity: true,
                     invite_upper_to_network: true,
-                    partup_created_in_network: true
+                    partup_created_in_network: true,
+                    partups_networks_new_pending_upper: true,
+                    partups_networks_accepted: true
                 },
                 unsubscribe_email_token: Random.secret()
             }

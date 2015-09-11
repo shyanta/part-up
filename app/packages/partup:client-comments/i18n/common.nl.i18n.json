@@ -4,5 +4,6 @@
     "widgetcommentfield-comment-placeholder": "Schrijf een reactie",
     "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties",
 
-    "widgetcommentfield-comment-motivation-prefix": "motivatie is: "
+    "widgetcommentfield-comment-motivation-prefix": "motivatie is: ",
+    "widgetcommentfield-comment-maxreached": "Te veel karakters, het maximum 1000"
 }

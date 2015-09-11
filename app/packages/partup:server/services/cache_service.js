@@ -1,3 +1,5 @@
+var d = Debug('services:cache');
+
 var cache = {};
 
 /**
@@ -12,27 +14,41 @@ Partup.server.services.cache = {
 
         var data = {
             value: value,
-            ttl: ttl,
+            ttl: ttl * 1000,
             timestamp: Date.now()
         };
 
-        mout.object.set(cache, key, value);
+        d('Cache value written [' + key + ']');
+
+        mout.object.set(cache, key, data);
     },
 
     get: function(key) {
         var data = mout.object.get(cache, key);
 
-        if ((data.timestamp + ttl) < Date.now()) {
+        if (data) {
+            d('Cache value read [' + key + ']');
+
+            return data.value;
+        }
+    },
+
+    has: function(key) {
+        var data = mout.object.get(cache, key);
+
+        if (!data) return false;
+
+        if (data.ttl && (data.timestamp + data.ttl) < Date.now()) {
             mout.object.unset(cache, key);
 
             return false;
         }
 
-        if (data) return data.value;
+        return true;
     },
 
-    has: function(key) {
-        return mout.object.has(cache, key);
+    clear: function() {
+        cache = {};
     }
 
 };

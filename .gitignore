@@ -24,7 +24,12 @@ backups
 
 # Saved pictures
 app/uploads
+app/public/uploads
 
 # Temp files
 *.swp
 *.orig
+
+# Automatically generated icon fonts and cache data
+iconfont.cache
+app/public/fonts/icons/*

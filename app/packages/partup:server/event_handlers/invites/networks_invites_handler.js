@@ -29,7 +29,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
         type: 'invite_upper_to_network',
         toAddress: User(invitee).getEmail(),
         subject: 'Uitnodiging voor het netwerk ' + network.name,
-        locale: User(inviter).getLocale(),
+        locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
             networkName: network.name,
@@ -49,7 +49,23 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
 /**
  * Generate an email when an invite gets sent
  */
-Event.on('invites.inserted.network.by_email', function(inviter, network, email, name) {
+Event.on('invites.inserted.network.by_email', function(inviter, network, email, name, message, accessToken) {
+
+    // Split by double newline
+    var toParagraphs = function(message) {
+        return message.split('\n\n');
+    };
+
+    // Interpolate email message (replace [name] with invitee name and [url] with network url)
+    var interpolate = function(message) {
+        var url = Meteor.absoluteUrl() + network.slug + '?token=' + accessToken;
+
+        return Partup.helpers.interpolateEmailMessage(message, {
+            url: '<a href="' + url + '">' + url + '</a>',
+            name: name
+        });
+    };
+
     // Set the email details
     var emailOptions = {
         type: 'invite_upper_to_network',
@@ -57,11 +73,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
         subject: 'Uitnodiging voor het netwerk ' + network.name,
         locale: User(inviter).getLocale(),
         typeData: {
-            name: name,
-            networkName: network.name,
-            networkDescription: network.description,
-            inviterName: inviter.profile.name,
-            url: Meteor.absoluteUrl() + network.slug
+            paragraphs: toParagraphs(interpolate(message))
         }
     };
 

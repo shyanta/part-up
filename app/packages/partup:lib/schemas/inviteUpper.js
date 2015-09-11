@@ -10,10 +10,23 @@ Partup.schemas.forms.inviteUpper = new SimpleSchema({
     email: {
         type: String,
         max: 255,
-        regEx: SimpleSchema.RegEx.Email
+        regEx: Partup.services.validators.email
+    },
+    message: {
+        type: String,
+        max: 2500,
+        custom: function() {
+            if (!Partup.services.validators.containsNoHtml(this.value)) {
+                return 'shouldNotContainHtml';
+            }
+
+            if (!Partup.services.validators.containsRequiredTags(this.value, ['url', 'name'])) {
+                return 'missingRequiredTags';
+            }
+
+            if (!Partup.services.validators.containsNoUrls(this.value)) {
+                return 'shouldNotContainUrls';
+            }
+        }
     }
-    // message: {
-    //     type: String,
-    //     max: 250
-    // },
 });

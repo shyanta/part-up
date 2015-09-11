@@ -1,5 +1,9 @@
 {
     "public": {
+        "aws": {
+            "bucket": "development",
+            "region": "eu-west-1"
+        },
         "facebookAppId": "361617237358681",
         "analyticsSettings": {
             "Google Analytics": {

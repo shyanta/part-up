@@ -1,5 +1,6 @@
 Template.AdminCreateTribe.onCreated(function() {
     this.subscribe('networks.admin_all');
+    this.currentNetwork = new ReactiveVar('');
 });
 
 var placeholders = {
@@ -35,6 +36,13 @@ Template.AdminCreateTribe.helpers({
     },
     upperCount: function(network) {
         return network.uppers.length;
+    },
+    currentNetwork: function() {
+        return Template.instance().currentNetwork;
+    },
+    getNetworkAdmin: function() {
+        var user = Meteor.users.findOne(this.admin_id);
+        return user;
     }
 });
 
@@ -45,6 +53,11 @@ Template.AdminCreateTribe.events({
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
         Intent.return('create-network');
+    },
+    'click [data-network-edit]': function(event, template) {
+        var networkSlug = $(event.currentTarget).data('network-edit');
+        template.currentNetwork.set(networkSlug);
+        Partup.client.popup.open('popup.admin-edit-tribe');
     },
     'click [data-network-remove]': function(event, template) {
         var networkId = $(event.currentTarget).data('network-remove');

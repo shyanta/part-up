@@ -2,5 +2,6 @@
     "pages-modal-network_settings-close-page": "Sluiten",
     "pages-modal-network_settings-network_info": "Netwerk info",
     "pages-modal-network_settings-uppers": "Uppers",
-    "pages-modal-network_settings-requests": "Aanvragen"
+    "pages-modal-network_settings-requests": "Aanvragen",
+    "pages-modal-network_settings-bulkinvite": "Bulk invite"
 }

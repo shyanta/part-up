@@ -23,6 +23,9 @@ Package.onUse(function(api) {
         'AdminCreateTribe.html',
         'AdminCreateTribe.js',
 
+        'templates/_EditTribe.html',
+        'templates/_EditTribe.js',
+
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], 'client');

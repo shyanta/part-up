@@ -46,6 +46,7 @@ Package.onUse(function(api) {
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
+        'collections/temp.js',
         'collections/ratings.js',
         'collections/networks.js',
         'collections/users.js',
@@ -53,6 +54,7 @@ Package.onUse(function(api) {
         'collections/places.js',
         'collections/places_autocompletes.js',
         'schemas/activity.js',
+        'schemas/update.js',
         'schemas/contribution.js',
         'schemas/forgotPassword.js',
         'schemas/login.js',
@@ -62,9 +64,9 @@ Package.onUse(function(api) {
         'schemas/resetPassword.js',
         'schemas/settings.js',
         'schemas/tag.js',
-        'schemas/update.js',
         'schemas/inviteUpper.js',
         'schemas/rating.js',
+        'schemas/networkBulkinvite.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -72,7 +74,8 @@ Package.onUse(function(api) {
         'transformers/contributions.js',
         'transformers/network.js',
         'helpers/parselocale.js',
-        'helpers/mentions.js'
+        'helpers/mentions.js',
+        'helpers/interpolateEmailMessage.js'
     ]);
 
     api.addFiles([
@@ -96,6 +99,7 @@ Package.onUse(function(api) {
     api.export('Invites');
     api.export('Contributions');
     api.export('Images');
+    api.export('Temp');
     api.export('Networks');
     api.export('Notifications');
     api.export('Partups');
@@ -105,6 +109,7 @@ Package.onUse(function(api) {
     api.export('User');
     api.export('Places');
     api.export('PlacesAutocompletes');
+    api.export('Uploads');
 
     // Globals
     api.export('get');

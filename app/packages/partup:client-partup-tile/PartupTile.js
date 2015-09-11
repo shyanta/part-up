@@ -19,9 +19,10 @@ var positionTags = function(tagsEl) {
 
 };
 
-/*************************************************************/
-/* Rendered */
-/*************************************************************/
+Template.PartupTile.onCreated(function() {
+    this.hoveringPartupcircles = new ReactiveDict();
+});
+
 Template.PartupTile.onRendered(function() {
     var canvasElm = this.find('canvas.pu-sub-radial');
     if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
@@ -46,9 +47,6 @@ Template.PartupTile.onRendered(function() {
     }
 });
 
-/*************************************************************/
-/* Helpers */
-/*************************************************************/
 Template.PartupTile.helpers({
     title: function() {
         return Partup.client.url.capitalizeFirstLetter(this.name);
@@ -67,9 +65,7 @@ Template.PartupTile.helpers({
         return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
     },
     progress: function() {
-        var progress = this.progress;
-        if (progress < 10) progress = 10;
-        return progress;
+        return Math.max(10, Math.min(99, this.progress));
     },
     supporterCount: function() {
         if (this.supporters && this.supporters.length) {
@@ -107,8 +103,13 @@ Template.PartupTile.helpers({
             uppers.push(null);
         }
 
+        // Make the radius and the distance depend on the hover state
+        var hovering = Template.instance().hoveringPartupcircles.get(this._id);
+        var radius = hovering ? 125 : 100;
+        var distance = hovering ? 18 : 24;
+
         return lodash.map(uppers, function(upper, index) {
-            var coords = Partup.client.partuptile.getAvatarCoordinates(uppers.length, index, 0, 24, 100);
+            var coords = Partup.client.partuptile.getAvatarCoordinates(uppers.length, index, 0, distance, radius);
 
             var attributes = {
                 x: coords.x + 95,
@@ -138,21 +139,29 @@ Template.PartupTile.helpers({
         var image_from_cache = lodash.find(Partup.client.discover.cache.partups_images, {_id: imageId});
         var image = image_from_cache || Images.findOne({_id: imageId});
         if (!image) return;
-
-        return image.url({store: store});
+        return Partup.client.url.getImageUrl(image, store);
     },
     networkImage: function(imageId, store) {
         var image_from_cache = lodash.find(Partup.client.discover.cache.networks_images, {_id: imageId});
         var image = image_from_cache || Images.findOne({_id: imageId});
         if (!image) return;
-
-        return image.url({store: store});
+        return Partup.client.url.getImageUrl(image, store);
     },
     upperImage: function(imageId, store) {
         var image_from_cache = lodash.find(Partup.client.discover.cache.uppers_images, {_id: imageId});
         var image = image_from_cache || Images.findOne({_id: imageId});
         if (!image) return;
+        return Partup.client.url.getImageUrl(image, store);
+    }
+});
 
-        return image.url({store: store});
+Template.PartupTile.events({
+    'mouseenter .pu-partupcircle': function(event, template) {
+        var partupId = event.currentTarget.getAttribute('data-partup-id');
+        template.hoveringPartupcircles.set(partupId, true);
+    },
+    'mouseleave .pu-partupcircle': function(event, template) {
+        var partupId = event.currentTarget.getAttribute('data-partup-id');
+        template.hoveringPartupcircles.set(partupId, false);
     }
 });

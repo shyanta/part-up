@@ -72,10 +72,16 @@ var continueLogin = function() {
     var user = Meteor.user();
     if (!user) return;
 
-    var accessToken = Session.get('partup_access_token');
     var partupId = Session.get('partup_access_token_for_partup');
-    if (partupId && accessToken) {
-        Meteor.call('partups.convert_access_token_to_invite', partupId, accessToken);
+    var partupAccessToken = Session.get('partup_access_token');
+    if (partupId && partupAccessToken) {
+        Meteor.call('partups.convert_access_token_to_invite', partupId, partupAccessToken);
+    }
+
+    var networkSlug = Session.get('network_access_token_for_network');
+    var networkAccessToken = Session.get('network_access_token');
+    if (networkSlug && networkAccessToken) {
+        Meteor.call('networks.convert_access_token_to_invite', networkSlug, networkAccessToken);
     }
 
     // Return if intent callback is present

@@ -38,7 +38,7 @@ var formPlaceholders = {
 Template.Partupsettings.onCreated(function() {
     var template = this;
 
-    template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.name.max);
+    template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.partup_name.max);
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     template.imageSystem = new ImageSystem(template);
     template.budgetType = new ReactiveVar();
@@ -48,6 +48,8 @@ Template.Partupsettings.onCreated(function() {
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
+    template.selectedPrivacyType = new ReactiveVar('public');
+    template.selectedPrivacyNetwork = new ReactiveVar(false);
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
@@ -118,6 +120,7 @@ Template.Partupsettings.onCreated(function() {
 
             form.elements.focuspoint_x_input.value = x;
             form.elements.focuspoint_y_input.value = y;
+
         });
     });
 });
@@ -132,6 +135,12 @@ Template.Partupsettings.onRendered(function() {
             $(this).trigger('keyup');
         });
     }, 500);
+    var selectedNetworkId = Session.get('createPartupForNetworkById');
+    if (selectedNetworkId) {
+        template.showPrivacyDropdown.set(true);
+        template.selectedPrivacyType.set('network');
+        template.selectedPrivacyNetwork.set(selectedNetworkId);
+    }
 });
 
 Template.Partupsettings.helpers({
@@ -280,6 +289,16 @@ Template.Partupsettings.helpers({
     locationSelectionReactiveVar: function() {
         return Template.instance().selectedLocation;
     },
+    networkPreSelected: function() {
+        var selectedNetworkId = Session.get('createPartupForNetworkById');
+        return this._id === selectedNetworkId;
+    },
+    selectedPrivacyType: function() {
+        return Template.instance().selectedPrivacyType.get() || 'public';
+    },
+    selectedPrivacyNetwork: function() {
+        return Template.instance().selectedPrivacyNetwork.get() || null;
+    }
 });
 
 Template.Partupsettings.events({
@@ -333,15 +352,15 @@ Template.Partupsettings.events({
 
             // Privacy type
             var value = selected_value.replace('privacy-', '');
-            $(event.currentTarget.form).find('[name=privacy_type_input]').val(value);
-            $(event.currentTarget.form).find('[name=network_id]').val(null);
+            template.selectedPrivacyType.set(value);
+            template.selectedPrivacyNetwork.set(false);
 
         } else if (selected_value.indexOf('network-') === 0) {
 
             // Network
             var value = selected_value.replace('network-', '');
-            $(event.currentTarget.form).find('[name=privacy_type_input]').val('network');
-            $(event.currentTarget.form).find('[name=network_id]').val(value);
+            template.selectedPrivacyType.set('network');
+            template.selectedPrivacyNetwork.set(value);
 
         }
     },

@@ -33,5 +33,13 @@ Partup.schemas.entities.settings = new SimpleSchema({
     'email.partup_created_in_network': {
         type: Boolean,
         optional: true
+    },
+    'email.partups_networks_new_pending_upper': {
+        type: Boolean,
+        optional: true
+    },
+    'email.partups_networks_accepted': {
+        type: Boolean,
+        optional: true
     }
 });

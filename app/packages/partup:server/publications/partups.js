@@ -40,15 +40,26 @@ Meteor.publish('partups.list', function() {
 });
 
 /**
- * Publish all featured partups
+ * Publish all featured partups (superadmins only)
  */
-Meteor.publish('partups.featured_all', function() {
+Meteor.publishComposite('partups.featured_all', function() {
     this.unblock();
 
     var user = Meteor.users.findOne(this.userId);
     if (!User(user).isAdmin()) return;
 
-    return Partups.find({'featured.active': true}, {featured: 1});
+    return {
+        find: function() {
+            return Partups.find({'featured.active': true}, {featured: 1});
+        },
+        children: [
+            {find: function(partup) {
+                return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
+        ]
+    };
 });
 
 /**

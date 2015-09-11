@@ -21,14 +21,14 @@
                                     <ul class="pu-list pu-list-horizontal">
                                         {{# with location }}
                                             <li><a class="pu-metadata" href="#" data-location>
-                                                <i class="fa fa-map-marker"></i>
+                                                <i class="picon-location"></i>
                                                 <span>{{ city }}</span>
                                             </a></li>
                                         {{/ with }}
 
                                         {{# with website }}
                                             <li><a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
-                                                <i class="fa fa-external-link"></i>
+                                                <i class="picon-monitor"></i>
                                                 <span>{{ partupCleanUrl . }}</span>
                                             </a></li>
                                         {{/ with }}
@@ -57,14 +57,14 @@
                                 <li>
                                     <a href="{{ pathFor route='network-detail' slug=network.slug }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}}">
-                                        <i class="fa fa-globe"></i>
+                                        <i class="picon-globe"></i>
                                         {{_ 'pages-app-network-tab-button-partups'}}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ pathFor route='network-uppers' slug=network.slug }}"
                                         class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-uppers' class='pu-state-active'}}">
-                                        <i class="fa fa-line-chart"></i>
+                                        <i class="picon-chart"></i>
                                         {{_ 'pages-app-network-tab-button-uppers'}}
                                     </a>
                                 </li>
@@ -79,7 +79,7 @@
                                         <li>
                                             <a href="{{pathFor 'network-settings' slug=slug}}" data-open-networksettings
                                                 class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                                <i class="fa fa-cog"></i>
+                                                <i class="picon-cog"></i>
                                             </a>
                                         </li>
                                     {{/ if}}
@@ -88,7 +88,7 @@
                                     {{# if hasMember currentUser._id }}
                                         {{# if canUpperLeave currentUser._id }}
                                             <li class="pu-sub-button">
-                                                <a class="pu-button" href="#" data-leave>
+                                                <a class="pu-button pu-button-gray" href="#" data-leave>
                                                     {{_ 'pages-app-network-actions-button-leave'}}
                                                 </a>
                                             </li>
@@ -97,7 +97,7 @@
                                         {{# if canUpperJoin currentUser._id }}
                                             <li class="pu-sub-button">
                                                 {{# if isUpperInvitePending currentUserId }}
-                                                    <a href="#" class="pu-button pu-button-disabled pu-button-disabled-orange">
+                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange">
                                                         {{_ 'pages-app-network-actions-button-pending' }}
                                                     </a>
                                                 {{ else }}
@@ -112,6 +112,18 @@
                                                     {{/ if }}
                                                 {{/ if }}
                                             </li>
+                                        {{ else }}
+                                            <li class="pu-sub-button">
+                                                {{# if isUpperPending currentUser._id }}
+                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange">
+                                                        {{_ 'pages-app-network-actions-button-pending' }}
+                                                    </a>
+                                                {{ else }}
+                                                    <a href="#" class="pu-button" data-request-invite>
+                                                        {{_ 'pages-app-network-actions-button-request_access' }}
+                                                    </a>
+                                                {{/ if }}
+                                            </li>
                                         {{/ if}}
                                     {{/ if}}
 
@@ -119,12 +131,21 @@
                                     {{# if canUpperInvite currentUser._id }}
                                         <li class="pu-sub-button">
                                             <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=slug }}">
-                                                <i class="fa fa-user-plus"></i>
+                                                <i class="picon-person-plus picon-large"></i>
                                                 {{_ 'pages-app-network-actions-button-invite'}}
                                             </a>
                                         </li>
                                     {{/ if }}
+                                {{ else }}
+                                    {{#if accessToken}}
+                                        <li class="pu-sub-button">
+                                            <a href="#" class="pu-button" data-accept>
+                                                {{_ 'pages-app-network-actions-button-accept'}}
+                                            </a>
+                                        </li>
+                                    {{/if}}
                                 {{/ with }}
+                                
                             </ul>
                         </nav>
                     </div>

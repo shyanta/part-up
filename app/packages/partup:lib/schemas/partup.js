@@ -11,6 +11,7 @@ var tagsConfiguration = {
 var partupBaseSchema = new SimpleSchema({
     description: {
         type: String,
+        min: 10,
         max: 250
     },
     budget_type: {
@@ -47,7 +48,7 @@ var partupBaseSchema = new SimpleSchema({
             return new Date(new Date().setHours(-timezone, 0, 0, 0));
         }
     },
-    name: {
+    partup_name: {
         type: String,
         max: 60
     },

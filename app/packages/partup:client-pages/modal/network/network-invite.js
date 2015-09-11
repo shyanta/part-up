@@ -74,6 +74,9 @@ Template.modal_network_invite.onCreated(function() {
 });
 
 Template.modal_network_invite.helpers({
+    network: function() {
+        return Networks.findOne({slug: this.networkSlug});
+    },
     inviteLoadingForUser: function(userId) {
         return Template.instance().inviting.get(userId);
     },

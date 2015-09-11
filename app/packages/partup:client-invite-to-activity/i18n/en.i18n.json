@@ -1,11 +1,14 @@
 {
-     "inviteuppers-popup-title": "Invite people to join your part-up",
-     "inviteuppers-popup-explaination": "You might want to work with someone you know, but who is not an upper yet. Here you can invite them to become upper and join your part-up. We drafted an invitation email for you. Add your personal note and send it!",
-     "inviteuppers-popup-input-message": "Personal invatation",
+     "invite-to-activity-popup-title": "Invite people to join your part-up",
+     "invite-to-activity-popup-explaination": "You might want to work with someone you know, but who is not an upper yet. Here you can invite them to become upper and join your part-up. We drafted an invitation email for you. Add your personal note and send it!",
+     "invite-to-activity-popup-placeholder-explaination": "Don't worry about the [name] and [url] values in the invitation letter. These will be replaced automatically with the correct values.",
+     "invite-to-activity-popup-input-message": "Personal invitation",
 
-     "inviteuppers-popup-close": "Close",
-     "inviteuppers-popup-form-copy-confirm": "Send it!",
-     "inviteuppers-popup-input-name": "Name",
-     "inviteuppers-popup-input-email": "Email address",
-     "inviteuppers-popup-success": "Email invite sent"
+     "invite-to-activity-popup-close": "Close",
+     "invite-to-activity-popup-form-copy-confirm": "Send it!",
+     "invite-to-activity-popup-input-name": "Name",
+     "invite-to-activity-popup-input-email": "Email address",
+     "invite-to-activity-popup-success": "Email invite sent",
+
+    "invite-to-activity-popup-message-prefill": "Hi [name],\n\nOn Part-up, Ik zag op Part-up deze gave part-up voor jou: \"__partupName__\". Volgens mij zou jij goed in het team passen en kun jij helpen bij deze activiteit \"__activityName__\". Je kunt zelf via deze link de part-up bekijken [url] en (als je wilt) jouw bijdrage voorstellen aan het team.\n\nKen je Part-up nog niet? Het is de nieuwe marktplaats voor teamwork. Part-up maakt het vinden van de juiste teamleden eenvoudig. Deel jouw droom of talent en Part-up helpt je aan het juiste team. Je bent vrij om te kiezen waar je aan werkt en met wie je dat doet. Samen bepaal je wat er moet gebeuren en wat je gaat bijdragen. Zo bouw je een mooi profiel dat laat zien wat je kunt!\n\nLet's part-up!\n\nGroeten,\n__inviterName__"
 }

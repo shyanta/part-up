@@ -103,7 +103,11 @@ AutoForm.hooks({
 
                     return;
                 }
+
                 // Success
+                analytics.track('new message created', {
+                    partupId: partupId
+                });
                 AutoForm.resetForm('newMessageForm');
                 self.done();
                 parent.uploadedPhotos.set([]);

@@ -79,6 +79,7 @@ The whole app is made up of small styled components. These components are not fu
 - Restoring Meteor LoginServiceConfiguration: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>" -c "meteor_accounts_loginServiceConfiguration" <bson file from dump>`
 - Emptying all Collections (run in mongo shell): `db.getCollectionNames().forEach(function(collectionName) { db[collectionName].remove({}); });`
 - Make user (super)admin: `db.users.update({ '_id': '<insertuseridhere>' }, { $set: { 'roles': ['admin'] } })`
+- Find faulty / wrongly uploaded pictures: `db.getCollection('cfs.images.filerecord').find({'copies':{$exists:false}})`
 
 ## Unit testing
 - `meteor run --test`
@@ -108,3 +109,13 @@ KADIRA_APP_SECRET
 METEOR_SETTINGS = {"public":{"analyticsSettings":{"Google Analytics":{"trackingId":"UA-34557675-16"}}}}
 GOOGLE_API_KEY
 ```
+
+## data dumps
+
+### clean userdump
+- regular mongo dump command
+- unpack bson `for f in *.bson; do bsondump "$f" > "$f.json"; done`
+- `cat users.bson.json | sed 's/accessToken" : "[^"]*"/accessToken" : ""/g' > users.bson-clean.json`
+- `cat users.bson-clean.json | sed 's/hashedToken" : "[^"]*"/hashedToken" : ""/g' > users.bson-clean-2.json`
+- `cat users.bson-clean-2.json | sed 's/bcrypt" : "[^"]*"/bcrypt" : ""/g' > users.bson-clean-3.json`
+- `cat users.bson-clean-3.json | sed 's/token" : "[^"]*"/token" : ""/g' > users.bson-clean-4.json`
