@@ -4,36 +4,36 @@ build:
     - script:
         name: docker version
         code: sudo docker version
-    - script:
-        name: docker build
-        code: sudo docker build -t bryantebeeklifely/partup app
-  after-steps:
-    - kobim/slack-post:
-        url: $SLACK_URL
-        channel: notifications
-deploy:
-  steps:
-    - internal/docker-push:
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
-        tag: $WERCKER_GIT_BRANCH
-        repository: bryantebeeklifely/partup
-        registry: https://registry.hub.docker.com
-    - script:
-        name: install ansible
-        code: apk add ansible
-    - script:
-        name: write lifely server
-        code: |-
-            echo -ne $SERVER_KEY > ~/.ssh/lifely-server
-            echo -ne $SERVER_KEY_PUB > ~/.ssh/lifely-server.pub
-            chmod 400 ~/.ssh/lifely-server
-            chmod 400 ~/.ssh/lifely-server.pub
-    - script:
-        name: deploy to given environment
-        code: ./devops provision ${WERCKER_DEPLOYTARGET_NAME} --tags=app
-        cwd: devops-new
-  after-steps:
-    - kobim/slack-post:
-        url: $SLACK_URL
-        channel: notifications
+#     - script:
+#         name: docker build
+#         code: sudo docker build -t bryantebeeklifely/partup app
+#   after-steps:
+#     - kobim/slack-post:
+#         url: $SLACK_URL
+#         channel: notifications
+# deploy:
+#   steps:
+#     - internal/docker-push:
+#         username: $DOCKER_USERNAME
+#         password: $DOCKER_PASSWORD
+#         tag: $WERCKER_GIT_BRANCH
+#         repository: bryantebeeklifely/partup
+#         registry: https://registry.hub.docker.com
+#     - script:
+#         name: install ansible
+#         code: apk add ansible
+#     - script:
+#         name: write lifely server
+#         code: |-
+#             echo -ne $SERVER_KEY > ~/.ssh/lifely-server
+#             echo -ne $SERVER_KEY_PUB > ~/.ssh/lifely-server.pub
+#             chmod 400 ~/.ssh/lifely-server
+#             chmod 400 ~/.ssh/lifely-server.pub
+#     - script:
+#         name: deploy to given environment
+#         code: ./devops provision ${WERCKER_DEPLOYTARGET_NAME} --tags=app
+#         cwd: devops-new
+#   after-steps:
+#     - kobim/slack-post:
+#         url: $SLACK_URL
+#         channel: notifications
