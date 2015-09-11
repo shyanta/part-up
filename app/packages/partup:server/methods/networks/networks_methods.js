@@ -128,11 +128,12 @@ Meteor.methods({
      * @param {Object} fields
      * @param {String} fields.csv
      * @param {String} fields.message
+     * @param {Object[]} invitees
      */
     'networks.invite_by_email_bulk': function(networkId, fields, invitees) {
         check(fields, Partup.schemas.forms.networkBulkinvite);
 
-        if (!invitees || invitees.length < 1) {
+        if (!invitees || (invitees.length < 1 || invitees.length > 200)) {
             throw new Meteor.Error(400, 'invalid_invitees');
         }
 
@@ -181,6 +182,9 @@ Meteor.methods({
 
         // Insert all invites
         Invites.insert(invites);
+
+        // Return the total count of successful invites
+        return invites.length;
     },
 
     /**

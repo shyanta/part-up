@@ -88,21 +88,16 @@
                                     {{# if hasMember currentUser._id }}
                                         {{# if canUpperLeave currentUser._id }}
                                             <li class="pu-sub-button">
-                                                <a class="pu-button" href="#" data-leave>
+                                                <a class="pu-button pu-button-gray" href="#" data-leave>
                                                     {{_ 'pages-app-network-actions-button-leave'}}
                                                 </a>
                                             </li>
                                         {{/ if }}
-                                        <li class="pu-sub-button">
-                                            <a href="#" class="pu-button" data-create-partup-in-tribe>
-                                                {{_ 'pages-app-network-tab-button-start_partup' }}
-                                            </a>
-                                        </li>
                                     {{ else }}
                                         {{# if canUpperJoin currentUser._id }}
                                             <li class="pu-sub-button">
                                                 {{# if isUpperInvitePending currentUserId }}
-                                                    <a href="#" class="pu-button pu-button-disabled pu-button-disabled-orange">
+                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange">
                                                         {{_ 'pages-app-network-actions-button-pending' }}
                                                     </a>
                                                 {{ else }}
@@ -120,7 +115,7 @@
                                         {{ else }}
                                             <li class="pu-sub-button">
                                                 {{# if isUpperPending currentUser._id }}
-                                                    <a href="#" class="pu-button pu-button-disabled pu-button-disabled-orange">
+                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange">
                                                         {{_ 'pages-app-network-actions-button-pending' }}
                                                     </a>
                                                 {{ else }}
@@ -141,7 +136,16 @@
                                             </a>
                                         </li>
                                     {{/ if }}
+                                {{ else }}
+                                    {{#if accessToken}}
+                                        <li class="pu-sub-button">
+                                            <a href="#" class="pu-button" data-accept>
+                                                {{_ 'pages-app-network-actions-button-accept'}}
+                                            </a>
+                                        </li>
+                                    {{/if}}
                                 {{/ with }}
+                                
                             </ul>
                         </nav>
                     </div>

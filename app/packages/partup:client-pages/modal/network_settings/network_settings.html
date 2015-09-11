@@ -21,11 +21,11 @@
                         <li class="{{# if isActiveRoute name='network-settings-bulkinvite' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'network-settings-bulkinvite' slug=network.slug }}">{{_ 'pages-modal-network_settings-bulkinvite' }}</a>
                         </li>
-                        {{# if network.isClosed }}
+                        {{#unless network.isPublic }}
                             <li class="{{# if isActiveRoute name='network-settings-requests' }}pu-state-active{{/ if }}">
                                 <a href="{{ pathFor 'network-settings-requests' slug=network.slug }}">{{_ 'pages-modal-network_settings-requests' }}</a>
                             </li>
-                        {{/ if }}
+                        {{/unless }}
                     </ul>
                 </div>
             </div>

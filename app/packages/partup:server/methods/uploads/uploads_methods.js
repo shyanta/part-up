@@ -20,29 +20,49 @@ Meteor.methods({
         var fs = Npm.require('fs');
 
         var emailAddresses = Meteor.wrapAsync(function(filePath, done) {
-            var list = [];
+            fs.readFile(filePath, 'utf8', Meteor.bindEnvironment(function(err, fileContent) {
+                if (err) {
+                    return done(new Meteor.Error(400, 'could_not_read_uploaded_file'));
+                }
 
-            if (!fs.existsSync(filePath)) {
-                done(new Meteor.Error(400, 'could_not_read_uploaded_file'));
-                return;
-            }
+                CSV()
+                .from.string(fileContent, {
+                        delimiter: ';', // Set the field delimiter. One character only, defaults to comma.
+                        skip_empty_lines: true, // Don't generate empty values for empty lines.
+                        trim: true // Ignore whitespace immediately around the delimiter.
+                    })
+                .to.array(Meteor.bindEnvironment(function(array) {
+                    var list = lodash.chain(array)
+                        .map(function(row) {
+                            if (!Partup.services.validators.email.test(row[1])) return false;
 
-            var fileContent = fs.readFileSync(filePath).toString('utf8');
+                            return {
+                                name: row[0],
+                                email: row[1]
+                            };
+                        })
+                        .compact()
+                        .uniq(function(row) {
+                            return row.email;
+                        })
+                        .value();
 
-            CSV()
-            .from.string(fileContent)
-            .to.array(Meteor.bindEnvironment(function(array) {
-                var list = array.map(function(row) {
-                    return {
-                        name: row[0],
-                        email: row[1]
-                    };
+                    // Temp file is not needed anymore since we got the needed data.
+                    file.remove();
+
+                    // Limit to 200 email addresses
+                    if (list.length > 200) {
+                        done(new Meteor.Error(400, 'too_many_email_addresses'));
+                        return;
+                    }
+
+                    done(null, list);
+                }))
+                .on('error', function(error) {
+                    done(error);
                 });
-
-                file.remove();
-
-                done(null, list);
             }));
+
         });
 
         return emailAddresses(filePath);

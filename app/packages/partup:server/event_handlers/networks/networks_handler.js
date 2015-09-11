@@ -64,7 +64,7 @@ Event.on('networks.new_pending_upper', function(network, pendingUpper) {
                 _id: network._id,
                 name: network.name,
                 image: network.image,
-                slug: network.slug + '/settings/requests'
+                slug: network.slug
             }
         }
     };

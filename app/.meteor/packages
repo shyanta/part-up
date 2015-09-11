@@ -10,6 +10,7 @@ aldeed:autoform-bs-datepicker
 aldeed:autoform@5.1.2
 aldeed:simple-schema
 aldeed:template-extension
+andrefgneves:iconfont
 anti:fake
 browser-policy
 cfs:file
@@ -21,6 +22,7 @@ chrismbeckett:toastr
 cwaring:modernizr
 deepwell:bootstrap-datepicker2
 djedi:sanitize-html
+dsyko:meteor-node-csv
 fastclick
 fourseven:scss
 francocatena:status
@@ -102,5 +104,3 @@ partup:client-spinner
 partup:client-update
 partup:client-usercard
 partup:meteor-bender
-dsyko:meteor-node-csv
-andrefgneves:iconfont

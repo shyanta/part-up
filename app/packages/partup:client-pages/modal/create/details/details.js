@@ -78,12 +78,13 @@ var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, c
                 self.done(new Error(error.message));
                 return;
             }
+            callback(partup);
+            Session.set('partials.create-partup.current-partup', partup._id);
+
             analytics.track('Part-up created', {
                 partupId: partup._id,
                 userId: Meteor.user()._id,
             });
-            callback(partup);
-            Session.set('partials.create-partup.current-partup', partup._id);
         });
 
     }

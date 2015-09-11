@@ -1,6 +1,7 @@
 {
     "invite-to-activity-popup-title": "Nodig iemand uit voor jouw part-up",
     "invite-to-activity-popup-explaination": "We kunnen ons voorstellen dat je graag samenwerkt met iemand die je kent en nog niet actief is op Part-up. Je kunt hem of haar hier vragen upper te worden en gelijk uitnodigen om bij te dragen aan jouw Part-up. We hebben vast een voorbeeldmail voor je gemaakt. Voeg je persoonlijke noot toe en stuur hem op!",
+    "invite-to-activity-popup-placeholder-explaination": "Let niet op de [name] en [url] waarden in de uitnodiging. Deze worden automatisch vervangen met de juiste informatie.",
     "invite-to-activity-popup-input-message": "Persoonlijke uitnodiging",
 
     "invite-to-activity-popup-close": "Sluiten",

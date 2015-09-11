@@ -1,11 +1,13 @@
 {
-    "network-settings-bulkinvite-title": "Nodig meerdere uppers tegelijk uit",
-    "network-settings-bulkinvite-paragraph": "Te veel uppers om uit te nodigen? Je kunt hier je CSV bestand met namen en emailadressen importeren.",
+    "network-settings-bulkinvite-title": "Nodig een grote groep nieuwe leden uit",
+    "network-settings-bulkinvite-paragraph": "Wil je in een keer een flinke groep nieuwe leden uitnodigen die nog geen upper zijn? Download dan eerst <a href='/files/partup-import.csv' target='_blank'>dit voorbeeld CSV bestand</a>, vul deze met namen  en emailadressen (verwijder de voorbeeld namen en e-mailadressen). Upload dit bestand vervolgens via onderstaande knop",
+    "network-settings-bulkinvite-paragraph-placeholder-explaination": "We schreven alvast een voorbeeld mail voor je. Voel je vrij er je persoonlijke noot aan toe te voegen, maar laat de [name] en [url] staan. Hier vullen wij automatisch de juiste gegevens in, zodat iedereen een persoonlijke mail krijgt.",
 
-    "network-settings-bulkinvite-csv_label": "Selecteer je adressenbestand",
-    "network-settings-bulkinvite-csv_import_button": "Selecteer CSV bestand",
+    "network-settings-bulkinvite-csv_label": "Selecteer je CSV bestand met namen en e-mailadressen",
+    "network-settings-bulkinvite-csv_import_button": "Upload CSV",
     "network-settings-bulkinvite-csv_import_button_another": "Selecteer een ander CSV bestand",
     "network-settings-bulkinvite-csv_invalid": "CSV is ongeldig",
+    "network-settings-bulkinvite-csv_too_many_addresses": " - Te veel e-mailadressen gegeven. Er zijn 200 adressen per keer toegestaan.",
     "network-settings-bulkinvite-message_label": "Persoonlijke uitnodiging",
 
     "network-settings-bulkinvite-invitees": "__count__ adressen gevonden",

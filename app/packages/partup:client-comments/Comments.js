@@ -33,6 +33,9 @@ Template.Comments.onRendered(function() {
 });
 
 Template.Comments.helpers({
+    showCommentFormAndMayComment: function() {
+        return this.showCommentForm && Meteor.user();
+    },
     buttonActive: function() {
         return Template.instance().buttonActive.get();
     },

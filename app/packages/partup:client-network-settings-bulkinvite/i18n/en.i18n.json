@@ -1,12 +1,14 @@
 {
-    "network-settings-bulkinvite-title": "Invite multiple uppers at once",
-    "network-settings-bulkinvite-paragraph": "Too many uppers to invite? You can import your CSV file with names and emailadresses here.",
+    "network-settings-bulkinvite-title": "Invite multiple people at once",
+    "network-settings-bulkinvite-paragraph": "Got more than just a couple of people to invite that are new to Part-up? First download <a href='/files/partup-import.csv' target='_blank'>this example CSV file</a> and add your list of names and email addresses (remove the sample data). Next upload this file using the button below.",
+    "network-settings-bulkinvite-paragraph-placeholder-explaination": "We drew up an invitation email for you. Feel free to add your personal note, but don’t remove the [name] and [url]. This is where we will automatically fill in the right data, such that everyone receives a personal email.",
 
-    "network-settings-bulkinvite-csv_label": "Please select your addresses file",
-    "network-settings-bulkinvite-csv_import_button": "Select CSV file",
+    "network-settings-bulkinvite-csv_label": "Please select your CSV file containing names and e-mail addresses",
+    "network-settings-bulkinvite-csv_import_button": "Upload CSV",
     "network-settings-bulkinvite-csv_import_button_another": "Select another CSV file",
     "network-settings-bulkinvite-csv_invalid": "Invalid CSV",
-    "network-settings-bulkinvite-message_label": "Personal invitation",
+    "network-settings-bulkinvite-csv_too_many_addresses": " - Too many addresses given. Maximum of 200 allowed.",
+    "network-settings-bulkinvite-message_label": "Personal email invitation",
 
     "network-settings-bulkinvite-invitees": "__count__ adresses found",
 
