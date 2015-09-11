@@ -1,4 +1,4 @@
-box: wercker-labs/docker
+box: docker:latest
 build:
   steps:
     - script:
@@ -21,12 +21,7 @@ deploy:
         registry: https://registry.hub.docker.com
     - script:
         name: install ansible
-        code: |
-            apt-get update
-            apt-get install --no-install-recommends -y software-properties-common
-            apt-add-repository ppa:ansible/ansible
-            apt-get update
-            apt-get install -y ansible
+        code: apk add ansible
     - script:
         name: write lifely server
         code: |-
