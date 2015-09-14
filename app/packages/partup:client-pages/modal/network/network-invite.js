@@ -57,8 +57,6 @@ Template.modal_network_invite.onCreated(function() {
         if (!network) return;
         var options = tpl.suggestionsOptions.get();
 
-        if (!network) return;
-
         Meteor.call('networks.user_suggestions', network._id, options, function(err, userIds) {
             if (err) {
                 Partup.client.notify.error(err.reason);
