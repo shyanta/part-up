@@ -50,12 +50,20 @@ Template.modal_invite_to_activity.onCreated(function() {
     self.autorun(function() {
         self.loading.set(true);
         var activityId = self.data.activityId;
+        var activity = Activities.findOne(activityId);
+        if (!activity) return;
+
         var options = self.suggestionsOptions.get();
 
         Meteor.call('activities.user_suggestions', activityId, options, function(error, userIds) {
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }
+
+            // Sort users by invited first
+            userIds.sort(function(userId) {
+                return !activity.isUpperInvited(userId);
+            });
 
             self.userIds.set(userIds);
             self.subscription.set(self.subscribe('users.by_ids', userIds));
