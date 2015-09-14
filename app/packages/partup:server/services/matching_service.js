@@ -39,6 +39,11 @@ Partup.server.services.matching = {
         // Exclude the current logged in user from the results
         selector['_id'] = {'$nin': [Meteor.userId()]};
 
+        // Exclude existing partners from result, unless a search is happening
+        if (!searchOptionsProvided) {
+            selector['_id'] = {'$nin': partup.uppers};
+        }
+
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
@@ -97,6 +102,11 @@ Partup.server.services.matching = {
 
         // Exclude the current logged in user from the results
         selector['_id'] = {'$nin': [Meteor.userId()]};
+
+        // Exclude existing partners from result, unless a search is happening
+        if (!searchOptionsProvided) {
+            selector['_id'] = {'$nin': network.uppers};
+        }
 
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
