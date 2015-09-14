@@ -63,6 +63,11 @@ Template.modal_network_invite.onCreated(function() {
                 return;
             }
 
+            // Sort users by invited first
+            userIds.sort(function(userId) {
+                return !network.isUpperInvited(userId);
+            });
+
             tpl.userIds.set(userIds);
             tpl.subscription.set(tpl.subscribe('users.by_ids', userIds));
 
