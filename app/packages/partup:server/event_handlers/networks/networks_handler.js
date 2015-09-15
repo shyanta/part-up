@@ -3,7 +3,6 @@
  */
 Event.on('networks.accepted', function(userId, networkId, upperId) {
     var network = Networks.findOneOrFail(networkId);
-    var user = Meteor.users.findOneOrFail(userId);
     var acceptedUpper = Meteor.users.findOneOrFail(upperId);
     var notificationType = 'partups_networks_accepted';
 
