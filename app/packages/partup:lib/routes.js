@@ -635,8 +635,6 @@ Router.route('/:slug/settings/requests', {
 });
 
 /*************************************************************/
-
-/*************************************************************/
 /* All other routes */
 /*************************************************************/
 Router.route('/(.*)', {
@@ -650,6 +648,8 @@ Router.route('/(.*)', {
 /*************************************************************/
 /* Route protection */
 /*************************************************************/
+
+// Shield pages for non-users
 Router.onBeforeAction(function(req, res, next) {
     if (!Meteor.userId()) {
         Intent.go({route: 'login'}, function(user) {
@@ -677,11 +677,12 @@ Router.onBeforeAction(function(req, res, next) {
         'admin-createtribe',
         'network-settings',
         'network-settings-uppers',
-        'network-settings-requests'
+        'network-settings-requests',
+        'network-settings-bulkinvite'
     ]
 });
 
-// shield admin pages for non admins
+// Shield admin pages for non admins
 Router.onBeforeAction(function(req, res, next) {
     var user = Meteor.user();
     if (User(user).isAdmin()) {
@@ -698,7 +699,7 @@ Router.onBeforeAction(function(req, res, next) {
     ]
 });
 
-// reset create-partup id to reset the create partup flow
+// Reset create-partup id to reset the create partup flow
 Router.onBeforeAction(function(req, res, next) {
     if (Meteor.isClient) {
         Session.set('partials.create-partup.current-partup', undefined);
@@ -742,9 +743,10 @@ if (Meteor.isClient) {
      * @param type {string}           Type of 404 page (partup/network/default)
      *
      */
-    Router.pageNotFound = function(type) {
+    Router.pageNotFound = function(type, data) {
         var currentRoute = this.current();
         if (type) currentRoute.state.set('type', type);
+        if (data) currentRoute.state.set('data', data);
         currentRoute.render('app', {to: 'main'}); // this is so it also works for modals
         currentRoute.render('app_notfound', {to: 'app'});
     };

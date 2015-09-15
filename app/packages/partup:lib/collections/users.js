@@ -270,11 +270,11 @@ User = function(user) {
         },
 
         /**
-         * Check if user is admin of a tribe
+         * Check if user is admin of some tribe
          *
          * @return {Boolean}
          */
-        isNetworkAdmin: function() {
+        isSomeNetworkAdmin: function() {
             if (!user) return false;
             return !!Networks.findOne({admin_id: user._id});
         },

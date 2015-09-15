@@ -14,6 +14,10 @@
     "pages-app-notfound-network-title": "Tribe not found",
     "pages-app-notfound-network-description": "Bummer, we could not find the tribe you are looking for.",
 
+    "pages-app-notfound-network_settings-title": "Tribe settings not accessible",
+    "pages-app-notfound-network_settings-description": "You could try asking the tribe admin to change the settings, when he or she is in a good mood.",
+    "pages-app-notfound-network_settings-backbutton": "Take me back to the tribe.",
+
     "pages-app-notfound-profile-title": "Upper profile not found",
     "pages-app-notfound-profile-description": "Bummer, we could not find the upper you are looking for.",
 

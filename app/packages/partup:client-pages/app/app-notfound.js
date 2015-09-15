@@ -1,9 +1,8 @@
-Template.app_notfound.onCreated(function() {
-});
-
 Template.app_notfound.helpers({
     type: function() {
-        var controller = Iron.controller();
-        return controller.state.get('type');
+        return Iron.controller().state.get('type');
+    },
+    data: function() {
+        return Iron.controller().state.get('data');
     }
 });

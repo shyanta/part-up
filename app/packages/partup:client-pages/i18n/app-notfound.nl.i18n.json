@@ -14,6 +14,10 @@
     "pages-app-notfound-network-title": "Tribe niet gevonden",
     "pages-app-notfound-network-description": "Helaas, we kunnen de tribe die je probeert te zoeken niet vinden.",
 
+    "pages-app-notfound-network_settings-title": "Tribe instellings niet toegankelijk",
+    "pages-app-notfound-network_settings-description": "Je zou de tribe beheerder kunnen vragen om de instellingen aan te passen, mits hij of zij in een goede stemming is.",
+    "pages-app-notfound-network_settings-backbutton": "Breng me terug naar de tribe.",
+
     "pages-app-notfound-profile-title": "Upper profiel niet gevonden.",
     "pages-app-notfound-profile-description": "Helaas, we konden de upper die je zoekt niet vinden. En wij kunnen best goed zoeken.",
 
