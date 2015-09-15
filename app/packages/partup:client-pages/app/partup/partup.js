@@ -50,7 +50,6 @@ Template.app_partup.onCreated(function() {
                 if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
             }
         }
-        SEO.set(seo);
     });
 
     var timeline = null;
