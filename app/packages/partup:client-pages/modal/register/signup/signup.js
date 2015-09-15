@@ -36,8 +36,11 @@ Template.modal_register_signup.helpers({
 /*************************************************************/
 Template.modal_register_signup.events({
     'click [data-signupfacebook]': function(event) {
+        event.preventDefault();
+
         Meteor.loginWithFacebook({
-            requestPermissions: ['email']
+            requestPermissions: ['email'],
+            loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
         }, function(error) {
 
             if (error) {
@@ -66,8 +69,11 @@ Template.modal_register_signup.events({
         });
     },
     'click [data-signuplinkedin]': function(event) {
+        event.preventDefault();
+
         Meteor.loginWithLinkedin({
-            requestPermissions: ['r_emailaddress']
+            requestPermissions: ['r_emailaddress'],
+            loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
         }, function(error) {
 
             if (error) {
