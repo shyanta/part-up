@@ -5,17 +5,11 @@
  * @memberof Partup.client
  */
 Partup.client.prompt = {
-    // constants/default values
-    TITLE_DEFAULT: 'Alert',
-    MESSAGE_DEFAULT: 'Are you shure?',
-    CONFIRM_TEXT_DEFAULT: 'Ok',
-    CANCEL_TEXT_DEFAULT: 'Cancel',
-
     // reactive values
-    title: new ReactiveVar(this.TITLE_DEFAULT),
-    message: new ReactiveVar(this.MESSAGE_DEFAULT),
-    confirmButton: new ReactiveVar(this.CONFIRM_TEXT_DEFAULT),
-    cancelButton: new ReactiveVar(this.CANCEL_TEXT_DEFAULT),
+    title: new ReactiveVar(),
+    message: new ReactiveVar(),
+    confirmButton: new ReactiveVar(),
+    cancelButton: new ReactiveVar(),
     _active: new ReactiveVar(false),
 
     /**
@@ -51,6 +45,7 @@ Partup.client.prompt = {
      * @param {Function} options.onCancel       cancel button click hook
      */
     confirm: function(options) {
+        this._reset();
         if (options.title)          this.title.set(options.title);
         if (options.message)        this.message.set(options.message);
         if (options.confirmButton)  this.confirmButton.set(options.confirmButton);
@@ -67,10 +62,10 @@ Partup.client.prompt = {
 
     // resets all values to default
     _reset: function() {
-        this.title.set(this.TITLE_DEFAULT);
-        this.message.set(this.MESSAGE_DEFAULT);
-        this.confirmButton.set(this.CONFIRM_TEXT_DEFAULT);
-        this.cancelButton.set(this.CANCEL_TEXT_DEFAULT);
+        this.title.set('Alert');
+        this.message.set('Are you sure?');
+        this.confirmButton.set('Ok');
+        this.cancelButton.set('Cancel');
         this.cancelCallback = false;
         this.confirmCallback = false;
     }
