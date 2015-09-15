@@ -266,11 +266,11 @@ Template.Partupsettings.helpers({
     privacyTypes: function() {
         return [
             {
-                label:'partupsettings-form-privacy-public',
+                label: 'partupsettings-form-privacy-public',
                 value: 'public'
             },
             {
-                label:'partupsettings-form-privacy-private',
+                label: 'partupsettings-form-privacy-private',
                 value: 'private'
             }
         ];
