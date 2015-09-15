@@ -51,6 +51,39 @@ Meteor.methods({
     },
 
     /**
+     * Deactivate user
+     *
+     * @param  {string} activityId
+     */
+    'users.deactivate': function(userId) {
+        check(userId, String);
+
+        var user = Meteor.user();
+        if (!User(user).isAdmin()) {
+            return;
+        }
+
+        var subject = Meteor.users.findOne(userId);
+        if (!subject) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(subject).isActive()) throw new Meteor.Error(400, 'user_is_inactive');
+
+        try {
+            Meteor.users.update(subject._id, {$set:{
+                deactivatedAt: new Date()
+            }});
+
+            Event.emit('users.deactivated', subject._id);
+
+            return {
+                _id: subject._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'user_could_not_be_deactivated');
+        }
+    },
+
+    /**
     * Returns user data to superadmins only
     */
     'users.admin_all': function() {
