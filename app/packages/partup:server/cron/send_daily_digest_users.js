@@ -9,6 +9,9 @@ SyncedCron.add({
             'flags.dailyDigestEmailHasBeenSent': false,
             'profile.settings.email.dailydigest': true
         }).forEach(function(user) {
+            // This cronjob fails if a mail address doesn't exist. So check on this first.
+            if (!User(user).getEmail()) return;
+
             var newNotifications = Notifications.findForUser(user, {'new': true}).fetch();
             if (newNotifications.length > 0) {
 
