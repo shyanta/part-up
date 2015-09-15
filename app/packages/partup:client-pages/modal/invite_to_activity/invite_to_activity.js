@@ -62,7 +62,7 @@ Template.modal_invite_to_activity.onCreated(function() {
 
             // Sort users by invited first
             userIds.sort(function(userId) {
-                return !activity.isUpperInvited(userId);
+                return activity.isUpperInvited(userId) ? 1 : -1;
             });
 
             self.userIds.set(userIds);

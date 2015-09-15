@@ -65,7 +65,7 @@ Template.modal_network_invite.onCreated(function() {
 
             // Sort users by invited first
             userIds.sort(function(userId) {
-                return !network.isUpperInvited(userId);
+                return network.isUpperInvited(userId) ? 1 : -1;
             });
 
             tpl.userIds.set(userIds);
