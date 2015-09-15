@@ -51,7 +51,12 @@
             </span>
 
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='tags_input' }}pu-state-invalid{{/if}}">
-                <span class="pu-sub-input pu-sub-input-tags">{{> afFieldInput name='tags_input' placeholder=formPlaceholders.tags_input class="pu-input" }}</span>
+                <span class="pu-sub-input pu-sub-input-tags" data-tags-input>
+                    {{> afFieldInput name='tags_input' class="pu-input" }}
+                    {{# if tagsInputIsEmpty }}
+                        <label class="pu-sub-customplaceholder" data-focus-tagsinput>{{_ formPlaceholders.tags_input }}</label>
+                    {{/ if }}
+                </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='tags_input' }}</span>
             </div>
         </label>
