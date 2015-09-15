@@ -37,5 +37,41 @@ Template.Admin.helpers({
     },
     getMail: function(user) {
         return User(user).getEmail();
+    },
+    isUserActive: function(user) {
+        return User(user).isActive();
+    }
+});
+
+Template.Admin.events({
+    'click [data-deactivate-user]': function(event, template) {
+        var userId = this._id;
+
+        Partup.client.prompt.confirm({
+            onConfirm: function() {
+                Meteor.call('users.deactivate', userId, function(error, result) {
+                    if (error) {
+                        Partup.client.notify.error(__(error));
+                        return;
+                    }
+                    Partup.client.notify.success('user deactivated');
+                });
+            }
+        });
+    },
+    'click [data-reactivate-user]': function(event, template) {
+        var userId = this._id;
+
+        Partup.client.prompt.confirm({
+            onConfirm: function() {
+                Meteor.call('users.reactivate', userId, function(error, result) {
+                    if (error) {
+                        Partup.client.notify.error(__(error));
+                        return;
+                    }
+                    Partup.client.notify.success('user deactivated');
+                });
+            }
+        });
     }
 });

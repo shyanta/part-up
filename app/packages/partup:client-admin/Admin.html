@@ -39,6 +39,7 @@
                     <td>email</td>
                     <td>telefoon</td>
                     <td>aangemeld op</td>
+                    <td>acties</td>
                 </tr>
             </thead>
             {{# each users }}
@@ -48,6 +49,13 @@
                     <td>{{getMail . }}</td>
                     <td>{{profile.phonenumber}}</td>
                     <td>{{partupDateCustom createdAt 'DD-MM-YYYY'}}</td>
+                    <td>
+                        {{#if isUserActive . }}
+                            <a href="#" data-deactivate-user>deactiveren</a>
+                        {{else}}
+                        <!--<a href="#" data-reactivate-user>activeren</a>-->
+                        {{/if}}
+                    </td>
                 </tr>
             {{/each }}
         </table>
