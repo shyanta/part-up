@@ -151,9 +151,7 @@ Package.onUse(function(api) {
         'cron/calculate_partup_progress_score_for_partups.js',
         'cron/send_ratings_reminder_notification.js',
         'cron/send_daily_digest_users.js',
-        'package-tap.i18n',
-        'i18n/en.i18n.json',
-        'i18n/nl.i18n.json'
+        'package-tap.i18n'
     ], ['server']);
 
     api.addFiles([
