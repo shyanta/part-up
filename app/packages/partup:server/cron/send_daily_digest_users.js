@@ -16,7 +16,7 @@ SyncedCron.add({
                 var emailOptions = {
                     type: 'dailydigest',
                     toAddress: User(user).getEmail(),
-                    subject: 'Notifications Part-up.com',
+                    subject: TAPi18n.__('emails-dailydigest-subject', {}, User(user).getLocale()),
                     locale: User(user).getLocale(),
                     typeData: {
                         name: User(user).getFirstname(),

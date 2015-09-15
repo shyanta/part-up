@@ -34,7 +34,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
     var emailOptions = {
         type: 'invite_upper_to_partup_activity',
         toAddress: User(invitee).getEmail(),
-        subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
+        subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {activity: activity.name, partup: partup.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
@@ -78,7 +78,7 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
     var emailOptions = {
         type: 'invite_upper_to_partup_activity',
         toAddress: email,
-        subject: 'Uitnodiging voor de activiteit ' + activity.name + ' in Part-up ' + partup.name,
+        subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {activity: activity.name, partup: partup.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
         typeData: {
             paragraphs: toParagraphs(interpolate(message)),

@@ -28,7 +28,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
     var emailOptions = {
         type: 'invite_upper_to_network',
         toAddress: User(invitee).getEmail(),
-        subject: 'Uitnodiging voor het netwerk ' + network.name,
+        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {network: network.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
@@ -70,7 +70,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
     var emailOptions = {
         type: 'invite_upper_to_network',
         toAddress: email,
-        subject: 'Uitnodiging voor het netwerk ' + network.name,
+        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {network: network.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
         typeData: {
             paragraphs: toParagraphs(interpolate(message))

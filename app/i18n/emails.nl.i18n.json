@@ -1,5 +1,12 @@
 {
     "emails-reset-password-subject": "Reset Part-up wachtwoord",
     "emails-verify-account-subject": "Bevestig Part-up account",
-    "emails-invite-user-subject": "Uitnodigen voor Part-up %s"
+    "emails-invite-user-subject": "Uitnodigen voor Part-up %s",
+    "emails-dailydigest-subject": "Notificaties op Part-up.com",
+    "emails-upper_mentioned_in_partup-subject": "Iemand heeft je naam genoemd in part-up __partup__",
+    "emails-invite_upper_to_partup_activity-subject": "Uitnodiging voor de activiteit __activity__ in Part-up __partup__",
+    "emails-invite_upper_to_network-subject": "Uitnodiging voor de tribe __network__",
+    "emails-partup_created_in_network-subject": "Er is een part-up aangemaakt in de tribe __network__",
+    "emails-partups_networks_new_pending_upper-subject": "__upper__ vraagt toegang tot tribe __network__",
+    "emails-partups_networks_accepted-subject": "Je bent toegelaten tot de tribe __network__"
 }

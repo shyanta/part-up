@@ -26,7 +26,7 @@ Event.on('networks.accepted', function(userId, networkId, upperId) {
     var emailOptions = {
         type: notificationType,
         toAddress: User(acceptedUpper).getEmail(),
-        subject: 'You have been accepted to tribe  ' + network.name,
+        subject: TAPi18n.__('emails-partups_networks_accepted-subject', {network: network.name}, User(acceptedUpper).getLocale()),
         locale: User(acceptedUpper).getLocale(),
         typeData: {
             name: User(acceptedUpper).getFirstname(),
@@ -74,7 +74,7 @@ Event.on('networks.new_pending_upper', function(network, pendingUpper) {
     var emailOptions = {
         type: notificationType,
         toAddress: User(admin).getEmail(),
-        subject: pendingUpper.profile.name + ' is asking for permission to join tribe ' + network.name,
+        subject: TAPi18n.__('emails-partups_networks_new_pending_upper-subject', {upper: pendingUpper.profile.name, network: network.name}, User(admin).getLocale()),
         locale: User(admin).getLocale(),
         typeData: {
             name: User(admin).getFirstname(),
