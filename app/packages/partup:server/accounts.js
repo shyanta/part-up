@@ -1,5 +1,13 @@
 var d = Debug('accounts');
 
+Accounts.validateLoginAttempt(function(attempt) {
+    var user = attempt.user;
+    if (user && !User(user).isActive()) {
+        throw new Meteor.Error(403, 'User is deactivated');
+    }
+    return true;
+});
+
 Accounts.onLogin(function(data) {
     var user = data.user;
     var logins = user.logins || [];
