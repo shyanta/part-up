@@ -15,25 +15,14 @@ Template.app_partup.onCreated(function() {
 
     var partup_sub;
 
-    tpl.autorun(function() {
-        var id = Template.currentData().partupId;
-        var accessToken = Session.get('partup_access_token');
-
-        partup_sub = Meteor.subscribe('partups.one', id, accessToken); // subs manager fails here
-        Subs.subscribe('activities.from_partup', id, accessToken);
-        Subs.subscribe('updates.from_partup', id, {}, accessToken);
-    });
-
-    tpl.autorun(function() {
-        if (!partup_sub.ready()) return;
-
-        var partup = Partups.findOne(tpl.data.partupId);
+    var continueLoadingPartupById = function(id) {
+        var partup = Partups.findOne(id);
         if (!partup) return Router.pageNotFound('partup');
 
         var userId = Meteor.userId();
         if (!partup.isViewableByUser(userId, Session.get('partup_access_token'))) return Router.pageNotFound('partup-closed');
 
-        tpl.partupId.set(partup._id);
+        tpl.partupId.set(id);
 
         var seo = {
             title: Partup.client.notifications.createTitle(partup.name),
@@ -50,6 +39,22 @@ Template.app_partup.onCreated(function() {
                 if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
             }
         }
+    };
+
+    tpl.autorun(function() {
+        var id = Template.currentData().partupId;
+        var accessToken = Session.get('partup_access_token');
+
+        partup_sub = Meteor.subscribe('partups.one', id, accessToken, {
+            onReady: function() {
+                // it's important the continueLoading logic is done AFTER
+                // the subscription is ready to prevent false positives on
+                // the 'partup not found' fallback
+                continueLoadingPartupById(id);
+            }
+        }); // subs manager fails here
+        Subs.subscribe('activities.from_partup', id, accessToken);
+        Subs.subscribe('updates.from_partup', id, {}, accessToken);
     });
 
     var timeline = null;
