@@ -155,6 +155,19 @@ Meteor.users.findForContribution = function(contribution) {
 };
 
 /**
+ * Safely find users that are not disabled
+ *
+ * @memberOf Meteor.users
+ * @param {Contribution} contribution
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findActiveUsers = function(selector, options) {
+    selector = selector || {};
+    selector.deactivatedAt = {$exists: false};
+    return Meteor.users.find(selector, options);
+};
+
+/**
  * Find for admin list
  *
  * @memberOf Meteor.users
@@ -163,7 +176,7 @@ Meteor.users.findForContribution = function(contribution) {
  */
 Meteor.users.findForAdminList = function() {
     return Meteor.users.find({}, {
-        fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1, 'createdAt':1},
+        fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1, 'createdAt':1, 'deactivatedAt':1},
         sort: {'createdAt': 1}
     });
 };
@@ -255,6 +268,20 @@ User = function(user) {
             }
             if (user.registered_emails && user.registered_emails.length > 0) {
                 return user.registered_emails[0].address;
+            }
+        },
+
+        /**
+         * Check if user is active
+         *
+         * @return {Boolean}
+         */
+        isActive: function() {
+            if (!user) return false;
+            if (user.deactivatedAt) {
+                return false;
+            } else {
+                return true;
             }
         },
 

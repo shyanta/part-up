@@ -43,10 +43,76 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            return Meteor.users.find({'profile.name': new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
+            return Meteor.users.findActiveUsers({'profile.name': new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'users_could_not_be_autocompleted');
+        }
+    },
+
+    /**
+     * Deactivate user
+     *
+     * @param  {string} activityId
+     */
+    'users.deactivate': function(userId) {
+        check(userId, String);
+
+        var user = Meteor.user();
+        if (!User(user).isAdmin()) {
+            return;
+        }
+
+        var subject = Meteor.users.findOne(userId);
+        if (!subject) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(subject).isActive()) throw new Meteor.Error(400, 'user_is_inactive');
+
+        try {
+            Meteor.users.update(subject._id, {$set:{
+                deactivatedAt: new Date()
+            }});
+
+            Event.emit('users.deactivated', subject._id);
+
+            return {
+                _id: subject._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'user_could_not_be_deactivated');
+        }
+    },
+
+    /**
+     * Reactivate user
+     *
+     * @param  {string} activityId
+     */
+    'users.reactivate': function(userId) {
+        check(userId, String);
+
+        var user = Meteor.user();
+        if (!User(user).isAdmin()) {
+            return;
+        }
+
+        var subject = Meteor.users.findOne(userId);
+        if (!subject) throw new Meteor.Error(401, 'unauthorized');
+        if (User(subject).isActive()) throw new Meteor.Error(400, 'user_is_active');
+
+        try {
+            Meteor.users.update(subject._id, {$unset:{
+                deactivatedAt: ''
+            }});
+
+            Event.emit('users.reactivated', subject._id);
+
+            return {
+                _id: subject._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'user_could_not_be_reactivated');
         }
     },
 

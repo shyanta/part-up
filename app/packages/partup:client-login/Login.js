@@ -43,7 +43,7 @@ Template.Login.events({
             requestPermissions: ['email']
         }, function(error) {
             if (error) {
-                Partup.client.notify.error(__('login-error_' + error.reason));
+                Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
                 return;
             }
 
@@ -56,7 +56,7 @@ Template.Login.events({
         }, function(error) {
 
             if (error) {
-                Partup.client.notify.error(__('login-error_' + error.reason));
+                Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
                 return false;
             }
 
