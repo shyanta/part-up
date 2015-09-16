@@ -24,9 +24,6 @@ Template.PartupTile.onCreated(function() {
 });
 
 Template.PartupTile.onRendered(function() {
-    var canvasElm = this.find('canvas.pu-sub-radial');
-    if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
-
     var tagsEl = this.find('.pu-sub-partup-tags');
     if (tagsEl) {
         positionTags(tagsEl);
@@ -65,6 +62,14 @@ Template.PartupTile.helpers({
         return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
     },
     progress: function() {
+        if (!this.progress) return;
+        var template = Template.instance();
+
+        Meteor.defer(function() {
+            var canvasElm = template.find('canvas.pu-sub-radial');
+            if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
+        });
+
         return Math.max(10, Math.min(99, this.progress));
     },
     supporterCount: function() {

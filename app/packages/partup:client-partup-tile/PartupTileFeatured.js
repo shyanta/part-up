@@ -21,6 +21,17 @@ Template.PartupTileFeatured.helpers({
         var upper_from_cache = lodash.find(Partup.client.discover.cache.uppers, {_id: this._id});
         return upper_from_cache || Meteor.users.findOne({_id: this._id});
     },
+    progress: function() {
+        if (!this.partup) return;
+        var template = Template.instance();
+
+        Meteor.defer(function() {
+            var canvasElm = template.find('canvas.pu-sub-radial');
+            if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
+        });
+
+        return Math.max(10, Math.min(99, this.partup.progress));
+    },
     avatars: function() {
         if (!this.partup || !this.partup.uppers) return;
         var uppers = this.partup.uppers.slice(0);
