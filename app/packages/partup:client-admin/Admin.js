@@ -5,15 +5,19 @@ Template.Admin.onCreated(function() {
     self.partupstats = new ReactiveVar([]);
     self.userstats = new ReactiveVar([]);
 
-    Meteor.call('users.admin_all', function(error, results) {
-        self.users.set(results);
-    });
-    Meteor.call('users.admin_stats', function(error, results) {
-        self.userstats.set(results);
-    });
-    Meteor.call('partups.admin_all', function(error, results) {
-        self.partupstats.set(results);
-    });
+    self.refresh = function() {
+        Meteor.call('users.admin_all', function(error, results) {
+            self.users.set(results);
+        });
+        Meteor.call('users.admin_stats', function(error, results) {
+            self.userstats.set(results);
+        });
+        Meteor.call('partups.admin_all', function(error, results) {
+            self.partupstats.set(results);
+        });
+    }
+
+    self.refresh();
 });
 
 Template.Admin.helpers({
@@ -46,6 +50,7 @@ Template.Admin.helpers({
 Template.Admin.events({
     'click [data-deactivate-user]': function(event, template) {
         var userId = this._id;
+        var self = this;
 
         Partup.client.prompt.confirm({
             onConfirm: function() {
@@ -69,7 +74,7 @@ Template.Admin.events({
                         Partup.client.notify.error(__(error));
                         return;
                     }
-                    Partup.client.notify.success('user deactivated');
+                    Partup.client.notify.success('user reactivated');
                 });
             }
         });
