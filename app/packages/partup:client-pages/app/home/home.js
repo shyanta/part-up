@@ -114,7 +114,7 @@ Template.app_home.helpers({
             template.popular_partups.layout.rerender();
         });
 
-        if (width >= 992) return 4;
+        if (width > 1024) return 4;
         if (width >= 600) return 2;
         return 1;
     },
