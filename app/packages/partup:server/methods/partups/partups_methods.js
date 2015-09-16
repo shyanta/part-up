@@ -127,8 +127,9 @@ Meteor.methods({
 
         var userId = Meteor.userId();
 
-        if (!userId && Cache.has('discover_partupids')) {
-            return Cache.get('discover_partupids') || [];
+        var cacheId = 'discover_partupids_' + JSON.stringify(parameters);
+        if (!userId && Cache.has(cacheId)) {
+            return Cache.get(cacheId) || [];
         }
 
         var options = {};
@@ -136,7 +137,7 @@ Meteor.methods({
 
         if (parameters.limit) options.limit = parseInt(parameters.limit);
 
-        var parameters = {
+        parameters = {
             networkId: parameters.networkId,
             locationId: parameters.locationId,
             sort: parameters.sort,
@@ -149,7 +150,7 @@ Meteor.methods({
             return partup._id;
         });
 
-        if (!userId) Cache.set('discover_partupids', partupIds, 3600);
+        if (!userId) Cache.set(cacheId, partupIds, 3600);
 
         return partupIds;
     },
