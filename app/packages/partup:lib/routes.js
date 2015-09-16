@@ -739,8 +739,8 @@ if (Meteor.isClient) {
     /**
      * Router helper for ernot foundror pages
      *
-     * @memberof Router
-     * @param type {string}           Type of 404 page (partup/network/default)
+     * @memberOf Router
+     * @param {String} type          Type of 404 page (partup/network/default)
      *
      */
     Router.pageNotFound = function(type, data) {

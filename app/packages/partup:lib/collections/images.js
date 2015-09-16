@@ -88,7 +88,7 @@ if (Meteor.isServer) {
 
     if (!Store) throw new Error('A store for CFS has not been defined.');
 
-    stores.push(new Store('original', args['original']));
+    stores.push(new Store('original', args.original));
     stores.push(new Store('1200x520', args['1200x520']));
     stores.push(new Store('360x360', args['360x360']));
     stores.push(new Store('80x80', args['80x80']));
