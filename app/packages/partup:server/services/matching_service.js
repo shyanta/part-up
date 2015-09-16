@@ -53,7 +53,7 @@ Partup.server.services.matching = {
         // Limit results
         options['limit'] = limit;
 
-        var results = Meteor.users.find(selector, options).fetch();
+        var results = Meteor.users.findActiveUsers(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)
         if (!searchOptionsProvided) {
@@ -61,7 +61,7 @@ Partup.server.services.matching = {
             while (results.length === 0) {
                 if (iteration === 0) delete selector['profile.tags'];
 
-                results = Meteor.users.find(selector, options).fetch();
+                results = Meteor.users.findActiveUsers(selector, options).fetch();
                 iteration++;
             }
         }
@@ -117,7 +117,7 @@ Partup.server.services.matching = {
         // Limit results
         options['limit'] = limit;
 
-        var results = Meteor.users.find(selector, options).fetch();
+        var results = Meteor.users.findActiveUsers(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)
         if (!searchOptionsProvided) {
@@ -125,7 +125,7 @@ Partup.server.services.matching = {
             while (results.length === 0) {
                 if (iteration === 0) delete selector['profile.tags'];
 
-                results = Meteor.users.find(selector, options).fetch();
+                results = Meteor.users.findActiveUsers(selector, options).fetch();
                 iteration++;
             }
         }

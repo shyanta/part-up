@@ -155,6 +155,19 @@ Meteor.users.findForContribution = function(contribution) {
 };
 
 /**
+ * Safely find users that are not disabled
+ *
+ * @memberOf Meteor.users
+ * @param {Contribution} contribution
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findActiveUsers = function(selector, options) {
+    selector = selector || {};
+    selector.deactivatedAt = {$exists: false};
+    return Meteor.users.find(selector, options);
+};
+
+/**
  * Find for admin list
  *
  * @memberOf Meteor.users
