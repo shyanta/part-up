@@ -5,12 +5,18 @@
  * @name client-base
  */
 Meteor.startup(function() {
+
+    /*************************************************************/
+    /* Connection */
+    /*************************************************************/
     Status.setTemplate('noconnection');
+
     // Check if Safari
     var is_safari = navigator.userAgent.indexOf('Safari') > -1 && navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') === -1;
     if (is_safari) {
         $('body').addClass('pu-safari');
     }
+
     // Check IE version
     window.PU_IE_VERSION = -1;
     if (navigator.appName == 'Microsoft Internet Explorer') {
@@ -20,6 +26,7 @@ Meteor.startup(function() {
             window.PU_IE_VERSION = parseFloat(RegExp.$1);
         }
     }
+
     // var oldIE = /msie 8|msie 9|msie 10/i.test(navigator.userAgent);
     if (window.PU_IE_VERSION < 11 && window.PU_IE_VERSION > -1) {
         $('body').addClass('pu-no-pointer-events');

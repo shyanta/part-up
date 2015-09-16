@@ -23,7 +23,8 @@ Package.onUse(function(api) {
         'matb33:collection-hooks',
         'partup:client-copy-to-clipboard',
         'lifely:mout',
-        'iron:router'
+        'iron:router',
+        'http'
     ]);
 
     api.use([
@@ -32,8 +33,10 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'namespace.js',
+        'version.js',
         'globals.js',
         'routes.js',
+        'bootstrap.js',
         'services/location.js',
         'services/placeholder.js',
         'services/tags.js',
@@ -90,6 +93,9 @@ Package.onUse(function(api) {
     for (var i = 1; i <= 12; i++) {
         api.addFiles('private/default_partup_pictures/Partupfoto' + i + '.png', 'server', {isAsset: true});
     }
+
+    // Version
+    api.export('Version');
 
     // Namespace
     api.export('Partup');
