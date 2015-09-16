@@ -216,6 +216,7 @@ Template.app_network.events({
         }
     },
     'click [data-expand]': function(event, template) {
+        event.preventDefault();
         template.expandText(!template.expanded);
     },
     'click [data-open-networksettings]': function(event, template) {

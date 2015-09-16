@@ -95,6 +95,7 @@ Template.app_profile.helpers({
 /*************************************************************/
 Template.app_profile.events({
     'click [data-expand]': function(event, template) {
+        event.preventDefault();
         template.toggleExpandedText();
     },
     'click [data-open-profilesettings]': function(event, template) {
