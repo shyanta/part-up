@@ -750,4 +750,27 @@ if (Meteor.isClient) {
         currentRoute.render('app', {to: 'main'}); // this is so it also works for modals
         currentRoute.render('app_notfound', {to: 'app'});
     };
+} else {
+    if (mout.object.get(Meteor, 'settings.public.aws.bucket') == 'development') {
+        var fs = Npm.require('fs');
+        var basedir = process.cwd().replace(/\/app\/(.*)$/, '/app') + '/uploads';
+
+        Router.route('/uploads/:path(.*)', {
+            where: 'server',
+            action: function() {
+                var path = '/' + this.params.path;
+                var file = fs.readFileSync(basedir + path);
+                var ext = path.match(/\.([^.]+)/)[1];
+                if (ext === 'jpg') ext = 'jpeg';
+
+                var headers = {
+                    'Content-type': 'image/' + ext,
+                    'Content-Disposition': 'attachment; filename=' + path
+                };
+
+                this.response.writeHead(200, headers);
+                return this.response.end(file);
+            }
+        });
+    }
 }
