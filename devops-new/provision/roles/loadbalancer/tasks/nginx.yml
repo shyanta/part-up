@@ -41,3 +41,8 @@
   with_items: loadbalancer.destinations
   notify: nginx | reload
   tags: nginx
+
+- name: nginx | add beta redirect configuration
+  template: src=nginx-vhost-partup-beta.tpl dest=/etc/nginx/sites-enabled/partup-beta-redirect.conf
+  notify: nginx | reload
+  tags: nginx
