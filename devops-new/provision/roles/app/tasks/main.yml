@@ -1,0 +1,15 @@
+---
+- name: docker | start application
+  docker:
+    name: app
+    image: lifely/partup:ft-dockerisation
+    username: "{{ docker.registry.username }}"
+    email: "{{ docker.registry.email }}"
+    password: "{{ docker.registry.password }}"
+    state: reloaded
+    restart_policy: always
+    pull: always
+    ports:
+      - "{{ansible_eth1.ipv4.address}}:3000:3000"
+    env: "{{ app.env }}"
+  tags: app

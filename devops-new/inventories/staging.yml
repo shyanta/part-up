@@ -1,0 +1,8 @@
+[appservers]
+95.85.62.61 name=partup-staging-amsterdam2-01
+
+[staging:children]
+appservers
+
+[staging:vars]
+server_environment_name=staging

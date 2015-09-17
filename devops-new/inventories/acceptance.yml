@@ -1,0 +1,9 @@
+[appservers]
+95.85.19.116 name=partup-acceptance-amsterdam2-01
+5.101.99.37 name=partup-acceptance-amsterdam2-02
+
+[acceptance:children]
+appservers
+
+[acceptance:vars]
+server_environment_name=acceptance

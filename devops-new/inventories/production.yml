@@ -1,0 +1,8 @@
+[appservers]
+{ip} name=partup-production-amsterdam2-01
+
+[production:children]
+appservers
+
+[production:vars]
+server_environment_name=production

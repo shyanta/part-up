@@ -1,0 +1,19 @@
+---
+- hosts: appservers-staging
+  gather_facts: yes
+  remote_user: root
+
+- hosts: appservers-acceptance
+  gather_facts: yes
+  remote_user: root
+
+- hosts: appservers-production
+  gather_facts: yes
+  remote_user: root
+
+- hosts: lbservers
+  gather_facts: yes
+  remote_user: root
+  sudo: yes
+  roles:
+    - loadbalancer
