@@ -86,6 +86,7 @@ Package.onUse(function(api) {
         'services/slugify_service.js',
         'services/participation_calculator_service.js',
         'services/partup_progress_calculator_service.js',
+        'services/helper_service.js',
         'seo/routes.js',
         'migrations.js',
         'fast-render_routes.js',
@@ -169,5 +170,6 @@ Npm.depends({
     'pluralize': '1.1.2',
     'node-flickr': '0.0.3',
     'slug': '0.9.1',
-    'debug': '2.2.0'
+    'debug': '2.2.0',
+    'normalizer': '1.2.7'
 });
