@@ -1,14 +1,4 @@
 ---
-# - name: docker | setup data container
-#   docker:
-#     name: storage
-#     image: ubuntu:14.04
-#     state: present
-#     restart_policy: always
-#     volumes:
-#       - /data
-#   tags: app
-
 - name: docker | start application
   docker:
     name: app
@@ -19,33 +9,7 @@
     state: reloaded
     restart_policy: always
     pull: always
+    ports:
+      - "{{ansible_eth1.ipv4.address}}:3000:3000"
     env: "{{ app.env }}"
   tags: app
-
-- name: docker | start nginx
-  docker:
-    name: nginx
-    image: lifely/partup-ops:nginx
-    username: "{{ docker.registry.username }}"
-    email: "{{ docker.registry.email }}"
-    password: "{{ docker.registry.password }}"
-    state: reloaded
-    restart_policy: always
-    pull: always
-    expose:
-      - 80
-      - 443
-    ports:
-      - "80:80"
-      - "443:443"
-    links:
-      - "app:app"
-  tags: nginx
-
-- name: ufw | allow 80
-  shell: ufw allow 80
-  tags: nginx
-
-- name: ufw | allow 443
-  shell: ufw allow 443
-  tags: nginx

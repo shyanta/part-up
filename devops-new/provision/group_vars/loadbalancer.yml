@@ -1,0 +1,11 @@
+---
+loadbalancer:
+  destinations:
+    - environment: staging
+      url: pu-staging.lifely.nl
+      certificate: 'wildcard_lifely_nl.chained.crt'
+      key: 'wildcard_lifely_nl.key'
+    - environment: acceptance
+      url: pu-acceptance.lifely.nl
+      certificate: 'wildcard_lifely_nl.chained.crt'
+      key: 'wildcard_lifely_nl.key'

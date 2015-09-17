@@ -1,0 +1,43 @@
+---
+- name: nginx | add ppa
+  apt_repository: repo='ppa:nginx/stable' state=present
+  tags: nginx
+
+- name: nginx | install
+  apt: package=nginx update-cache=yes state=latest
+  tags: nginx
+
+- name: nginx | start
+  service: name=nginx state=restarted
+  tags: nginx
+
+- name: nginx | add firewall exceptions
+  shell: |-
+      ufw allow 80
+      ufw allow 443
+  tags: nginx
+
+- name: nginx | set configuration
+  template: src=nginx.conf.tpl dest=/etc/nginx/nginx.conf
+  tags: nginx
+
+- name: nginx | ssl | ensure existence ssl directory
+  file: path=/etc/ssl state=directory
+  tags: nginx
+
+- name: nginx | ssl | add ssl certificates / keys
+  copy: src={{ item }} dest=/etc/ssl/{{ item | basename }} force=no
+  with_fileglob:
+    - '../../../ssl/*'
+  tags: nginx
+
+- name: nginx | disable default configuration
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: nginx | reload
+  tags: nginx
+
+- name: nginx | add loadbalancer configuration
+  template: src=nginx-vhost.tpl dest=/etc/nginx/sites-enabled/loadbalancer-{{ item.environment }}.conf
+  with_items: loadbalancer.destinations
+  notify: nginx | reload
+  tags: nginx
