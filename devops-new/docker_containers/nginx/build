@@ -1,4 +1,0 @@
-#!/bin/sh
-
-docker build -t lifely/partup-ops:nginx .
-docker push lifely/partup-ops:nginx

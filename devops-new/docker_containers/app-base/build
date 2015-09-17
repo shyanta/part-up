@@ -1,4 +1,0 @@
-#!/bin/sh
-
-docker build -t lifely/partup-ops:app-base .
-docker push lifely/partup-ops:app-base
