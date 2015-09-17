@@ -45,7 +45,12 @@ Partup.client.uploader = {
             var ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
 
-            var dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            var dataUrl;
+            if (img.src.indexOf('image/png') > -1) {
+                dataUrl = canvas.toDataURL('image/png');
+            } else {
+                dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            }
 
             Meteor.call('images.insertByDataUrl', dataUrl, function(error, dbImage) {
                 if (error) return callback(error);

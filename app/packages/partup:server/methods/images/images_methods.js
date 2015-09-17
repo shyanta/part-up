@@ -49,7 +49,8 @@ Meteor.methods({
 
             var ref = new FS.File();
             ref.attachData(buffer, {type: mime});
-            ref.name(Random.id() + '.jpg');
+            var ext = mime === 'image/png' ? '.png' : '.jpg';
+            ref.name(Random.id() + ext);
 
             var image = Images.insert(ref);
 
