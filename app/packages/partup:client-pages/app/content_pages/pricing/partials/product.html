@@ -1,21 +1,25 @@
 <template name="Product">
-    <article class="pu-product {{#unless partupEquals product.type 'individual'}}pu-product-secondary{{/unless}}">
+    <article class="pu-product">
         <!-- product summary -->
         <header>
-            <h3>{{product.name}}</h3>
-            <p>{{product.summary}}</p>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.summary }}</p>
         </header>
+
         <!-- product price -->
         <article>
-            <h4>{{product.price}}</h4>
-            <p>{{product.price_info}}</p>
+            {{# with product.price }}
+                <h4>{{ . }}</h4>
+            {{/ with }}
+            <p class="{{# if partupEquals product.type 'large' }}pu-sub-smaller{{/ if }}">{{ product.price_info }}</p>
         </article>
+
         <!-- product features -->
         <footer>
             <ul class="pu-list">
-                {{#each product.features}}
-                    <li>{{name}}: <span>{{value}}</span></li>
-                {{/each}}
+                {{# each product.features }}
+                    <li>{{ name }}: <span>{{ value }}</span></li>
+                {{/ each }}
             </ul>
         </footer>
     </article>
