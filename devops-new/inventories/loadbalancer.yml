@@ -1,0 +1,15 @@
+[lbservers]
+188.226.145.223 name=partup-loadbalancer-amsterdam2-01
+
+[appservers-staging]
+95.85.62.61 name=partup-staging-amsterdam2-01
+
+[appservers-acceptance]
+95.85.19.116 name=partup-acceptance-amsterdam2-01
+5.101.99.37 name=partup-acceptance-amsterdam2-02
+
+[loadbalancer:children]
+lbservers
+
+[loadbalancer:vars]
+server_environment_name=loadbalancer
