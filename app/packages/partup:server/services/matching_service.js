@@ -28,7 +28,9 @@ Partup.server.services.matching = {
                 selector['profile.location.place_id'] = searchOptions.locationId;
             }
             if (searchOptions.query) {
-                selector['profile.name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
+                // Remove accents that might have been added to the query
+                searchOptions.query = mout.string.replaceAccents(searchOptions.query.toLowerCase());
+                selector['profile.normalized_name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
             }
         } else {
             // Match the uppers on the tags used in the partup
@@ -92,7 +94,9 @@ Partup.server.services.matching = {
                 selector['profile.location.place_id'] = searchOptions.locationId;
             }
             if (searchOptions.query) {
-                selector['profile.name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
+                // Remove accents that might have been added to the query
+                searchOptions.query = mout.string.replaceAccents(searchOptions.query.toLowerCase());
+                selector['profile.normalized_name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
             }
         } else {
             // Match the uppers on the tags used in the network
