@@ -5,8 +5,8 @@
     "pages-app-notfound-partup-title": "Could not find Part-up",
     "pages-app-notfound-partup-description": "Bummer, we could not find the part-up you are looking for.",
 
-    "pages-app-notfound-partup-closed-title": "This is a private part-up",
-    "pages-app-notfound-partup-closed-description": "The partners in this part-up decided to keep its content private. Are you a partner or supporter of this part-up? Log in to access the part-up.",
+    "pages-app-notfound-partup-closed-title": "This is a non-public part-up",
+    "pages-app-notfound-partup-closed-description": "The partners in this part-up decided to be a non-public part-up. Are you a partner or supporter of this part-up? Log in to access the part-up. Are you logged in and still see this message? Refresh this page to get access. It is a known bug, we are currently trying to fix.",
 
     "pages-app-notfound-partup-not-allowed-title": "Sorry, this part is private",
     "pages-app-notfound-partup-not-allowed-description": "Only partners can change the settings of a part-up.",
