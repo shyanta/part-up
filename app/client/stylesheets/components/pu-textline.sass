@@ -1,7 +1,7 @@
 .pu-textline
     position: relative
     display: block
-    font-size: 12px
+    font-size: 12px !important
     font-family: $font-primary
     letter-spacing: 0.6px
     text-align: center
@@ -20,3 +20,19 @@
         right: 0
         border-top: 1px dotted #ccc
         z-index: -1
+
+    &-subtle
+        width: 35%
+        margin-left: auto
+        margin-right: auto
+        font-weight: 600
+        color: #cacaca
+        text-transform: uppercase
+
+        span
+            background-color: $color-background-tertiery
+            padding: 0 15px
+
+        &:after
+            border-top: 2px solid #eee
+            top: 40%
