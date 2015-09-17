@@ -40,7 +40,7 @@ Partup.services.validators = {
      * Validate if the required tags are present in the string
      *
      * @param {String} string
-     * @param {[Array]} requiredTags
+     * @param {Array[]} requiredTags
      *
      * @return {Boolean} valid
      */
