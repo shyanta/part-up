@@ -68,7 +68,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
 
     // Set the email details
     var emailOptions = {
-        type: 'invite_upper_to_network',
+        type: 'invite_email_address_to_network',
         toAddress: email,
         subject: TAPi18n.__('emails-invite_upper_to_network-subject', {network: network.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),

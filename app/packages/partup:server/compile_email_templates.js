@@ -2,7 +2,9 @@ var locales = ['en', 'nl'];
 var templates = [
     'dailydigest',
     'invite_upper_to_network',
+    'invite_email_address_to_network',
     'invite_upper_to_partup_activity',
+    'invite_email_address_to_partup_activity',
     'upper_mentioned_in_partup',
     'partup_created_in_network',
     'partups_networks_new_pending_upper',

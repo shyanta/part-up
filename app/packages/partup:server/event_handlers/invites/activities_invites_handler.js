@@ -76,7 +76,7 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
 
     // Set the email details
     var emailOptions = {
-        type: 'invite_upper_to_partup_activity',
+        type: 'invite_email_address_to_partup_activity',
         toAddress: email,
         subject: TAPi18n.__('emails-invite_upper_to_partup_activity-subject', {activity: activity.name, partup: partup.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
