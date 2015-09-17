@@ -54,10 +54,10 @@ Template.ActivityForm.helpers({
             Meteor.defer(function() {
                 var options = Partup.client.datepicker.options;
                 options.startDate = new Date();
-                template
+                template.end_date_datepicker = template
                     .$('[bootstrap-datepicker]')
                     .datepicker(options)
-                    .on('changeDate', function(event) {
+                    .on('changeDate clearDate', function(event) {
                         event.currentTarget.nextElementSibling.value = event.date;
                     });
             });
@@ -110,7 +110,7 @@ Template.ActivityForm.events({
     },
     'click [data-activity-remove-date]': function eventsClickRemoveDate (event, template) {
         event.preventDefault();
-        template.find('[name=end_date]').value = '';
+        template.end_date_datepicker.datepicker('update', '');
     }
 });
 

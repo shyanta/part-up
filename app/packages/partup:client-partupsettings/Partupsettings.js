@@ -135,10 +135,10 @@ Template.Partupsettings.onCreated(function() {
         // Bind datepicker
         var options = Partup.client.datepicker.options;
         options.startDate = new Date();
-        template
+        template.end_date_datepicker = template
             .$('[bootstrap-datepicker]')
             .datepicker(options)
-            .on('changeDate', function(event) {
+            .on('changeDate clearDate', function(event) {
                 event.currentTarget.nextElementSibling.value = event.date;
             });
     });
@@ -359,7 +359,7 @@ Template.Partupsettings.events({
     },
     'click [data-removedate]': function(event, template) {
         event.preventDefault();
-        template.find('[name=end_date]').value = '';
+        template.end_date_datepicker.datepicker('update', '');
     },
     'click [data-toggleprivacydropdown]': function(event, template) {
         var currentValue = template.showPrivacyDropdown.get();
