@@ -7,6 +7,8 @@
  */
 // jscs:enable
 
+var isChrome = navigator.userAgent.match('CriOS');
+
 var formPlaceholders = {
     email: function() {
         return __('login-form-email-placeholder');
@@ -16,15 +18,17 @@ var formPlaceholders = {
     }
 };
 
-// Success callback when using loginStyle: redirect
-Accounts.onLogin(function() {
-    if (Router) Router.go('discover');
-});
+if (isChrome) {
+    // Success callback when using loginStyle: redirect
+    Accounts.onLogin(function() {
+        if (Router) Router.go('discover');
+    });
 
-// Failure callback when using loginStyle: redirect
-Accounts.onLoginFailure(function() {
-    if (Router) Router.go('discover');
-});
+    // Failure callback when using loginStyle: redirect
+    Accounts.onLoginFailure(function() {
+        if (Router) Router.go('discover');
+    });
+}
 
 /*************************************************************/
 /* Widget helpers */
@@ -53,7 +57,7 @@ Template.Login.events({
 
         Meteor.loginWithFacebook({
             requestPermissions: ['email'],
-            loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
+            loginStyle: isChrome ? 'redirect' : 'popup'
         }, function(error) {
             if (error) {
                 Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
@@ -68,7 +72,7 @@ Template.Login.events({
 
         Meteor.loginWithLinkedin({
             requestPermissions: ['r_emailaddress'],
-            loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
+            loginStyle: isChrome ? 'redirect' : 'popup'
         }, function(error) {
             if (error) {
                 Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
