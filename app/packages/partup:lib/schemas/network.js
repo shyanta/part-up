@@ -179,5 +179,8 @@ Partup.schemas.forms.featureNetwork = new SimpleSchema({
                 {label: 'Dutch', value: 'nl'},
             ]
         }
+    },
+    logo: {
+        type: String
     }
 });
