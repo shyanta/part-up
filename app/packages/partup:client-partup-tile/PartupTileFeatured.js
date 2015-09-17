@@ -61,8 +61,12 @@ Template.PartupTileFeatured.helpers({
         });
     },
     remainingUppers: function() {
-        var uppers = Template.instance().data.partup.uppers;
-        return uppers.length > 5 ? uppers.length - 4 : 0;
+        var uppers = get(Template.instance(), 'data.partup.uppers');
+        if (uppers && uppers.length && uppers.length > 5) {
+            return uppers.length - 4;
+        } else {
+            return 0;
+        }
     },
     userCard: function() {
         if (this._id) return {'data-usercard': this._id};

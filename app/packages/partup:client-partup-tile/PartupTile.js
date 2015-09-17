@@ -130,9 +130,9 @@ Template.PartupTile.helpers({
         });
     },
     remainingUppers: function() {
-        var uppers = get(Template.instance(), 'data.uppers');
+        var uppers = get(Template.instance(), 'data.partup.uppers');
         if (uppers && uppers.length && uppers.length > 5) {
-            return uppers.length - 4 ;
+            return uppers.length - 4;
         } else {
             return 0;
         }
