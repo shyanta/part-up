@@ -105,21 +105,7 @@ afHooks[FORM_ID] = {
         var possiblyExistingPartupId = Session.get('partials.create-partup.current-partup');
         createOrUpdatePartup(possiblyExistingPartupId, insertDoc, function(partup) {
 
-            // if (submissionType === 'next') {
-                Router.go('create-activities', {_id: partup._id});
-            // }
-            // (removed according to https://trello.com/c/OYhmEpvq/1053-fe-remove-straight-to-my-partup-button)
-            // else if (submissionType === 'skip') {
-            //     Intent.return('create', {
-            //         arguments: [partup.slug],
-            //         fallback_route: {
-            //             name: 'partup',
-            //             params: {
-            //                 slug: partup.slug
-            //             }
-            //         }
-            //     });
-            // }
+            Router.go('create-activities', {_id: partup._id});
             Session.set('createPartupForNetworkById', false);
         }, self);
 
