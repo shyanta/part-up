@@ -751,6 +751,15 @@ if (Meteor.isClient) {
         currentRoute.render('app_notfound', {to: 'app'});
     };
 } else {
+    Router.route('/blogs/:path(.*)', {
+        where: 'server',
+        action: function() {
+            var url = 'http://blog.partup.com/blogs/' + this.params.path;
+            this.response.writeHead(301, {Location: url});
+            return this.response.end();
+        }
+    });
+
     if (mout.object.get(Meteor, 'settings.public.aws.bucket') == 'development') {
         var fs = Npm.require('fs');
         var basedir = process.cwd().replace(/\/app\/(.*)$/, '/app') + '/uploads';
