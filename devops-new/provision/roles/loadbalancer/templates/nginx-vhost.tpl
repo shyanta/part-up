@@ -8,9 +8,10 @@ upstream {{ item.environment }} {
 
 server {
     listen 80;
+    server_name {{ item.url }};
 
     location ~* {
-        rewrite ^ https://$host$request_uri? permanent;
+        rewrite ^ https://{{ item.url }}$request_uri? permanent;
     }
 }
 
