@@ -7,6 +7,8 @@ var maxLength = {
 /* Widget initial */
 /*************************************************************/
 Template.ActivityForm.onCreated(function() {
+    var template = this;
+
     this.showExtraFields = new ReactiveVar(!this.data.CREATE);
 
     this.charactersLeft = new ReactiveDict();
@@ -28,11 +30,6 @@ Template.ActivityForm.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.ActivityForm.helpers({
-    datepickerOptions: function() {
-        var options = Partup.client.datepicker.options;
-        options.startDate = new Date();
-        return options;
-    },
     charactersLeftName: function() {
         return Template.instance().charactersLeft.get('name');
     },
@@ -48,7 +45,25 @@ Template.ActivityForm.helpers({
     placeholders: Partup.services.placeholders.activity,
     schema: Partup.schemas.forms.startActivities,
     showExtraFields: function() {
-        return Template.instance().showExtraFields.get();
+        var template = Template.instance();
+        var showExtraFields = template.showExtraFields.get();
+
+        if (showExtraFields) {
+
+            // Wait for rendering, then bind bootstrap-datepicker
+            Meteor.defer(function() {
+                var options = Partup.client.datepicker.options;
+                options.startDate = new Date();
+                template
+                    .$('[bootstrap-datepicker]')
+                    .datepicker(options)
+                    .on('changeDate', function(event) {
+                        event.currentTarget.nextElementSibling.value = event.date;
+                    });
+            });
+        }
+
+        return showExtraFields;
     },
     submitting: function() {
         return Template.instance().submitting.get();

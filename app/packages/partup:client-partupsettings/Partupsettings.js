@@ -131,6 +131,16 @@ Template.Partupsettings.onCreated(function() {
 
             template.tagsInputStates.set('tags', !!tags);
         });
+
+        // Bind datepicker
+        var options = Partup.client.datepicker.options;
+        options.startDate = new Date();
+        template
+            .$('[bootstrap-datepicker]')
+            .datepicker(options)
+            .on('changeDate', function(event) {
+                event.currentTarget.nextElementSibling.value = event.date;
+            });
     });
 });
 
@@ -155,11 +165,6 @@ Template.Partupsettings.onRendered(function() {
 Template.Partupsettings.helpers({
     partup: function() {
         return this.currentPartup;
-    },
-    datepickerOptions: function() {
-        var options = Partup.client.datepicker.options;
-        options.startDate = new Date();
-        return options;
     },
     startPartupSchema: function() {
         if (this.CREATE) {
