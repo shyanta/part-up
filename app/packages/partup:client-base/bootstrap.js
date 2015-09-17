@@ -143,7 +143,7 @@ Meteor.startup(function() {
     };
 
     analytics.on('track', function(event, properties, options) {
-        if (typeof Intercom !== 'undefined') {
+        if (Intercom && mout.object.get(Intercom, 'public_api.trackEvent')) {
             Intercom.public_api.trackEvent(event, properties);
         }
     });
