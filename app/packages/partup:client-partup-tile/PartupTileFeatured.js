@@ -22,7 +22,7 @@ Template.PartupTileFeatured.helpers({
         return upper_from_cache || Meteor.users.findOne({_id: this._id});
     },
     progress: function() {
-        if (!this.partup) return;
+        if (!this.partup) return 10;
         var template = Template.instance();
 
         Meteor.defer(function() {

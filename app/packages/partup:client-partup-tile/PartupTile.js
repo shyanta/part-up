@@ -62,7 +62,7 @@ Template.PartupTile.helpers({
         return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
     },
     progress: function() {
-        if (!this.progress) return;
+        if (!this.progress) return 10;
         var template = Template.instance();
 
         Meteor.defer(function() {
