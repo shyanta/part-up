@@ -34,7 +34,7 @@ Partup.services.validators = {
     facebookUrl: /^http[s]?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9._-]+(\?.*)?$/, //new
     instagramUrl: /^http[s]?:\/\/(www\.)?instagram\.com\/[a-zA-Z._]+\/?(\?.*)?$/,
     linkedinUrl: /^http[s]?:\/\/([a-zA-Z]+\.)?linkedin\.com\/(in\/[a-zA-Z0-9]+|pub\/.*|profile\/view)(\?.*)?$/,
-    twitterUrl: /^http[s]?:\/\/(www\.)?twitter\.com\/[A-Za-z0-9_]+(\?.*)?$/,
+    twitterUrl: /^http[s]?:\/\/(www\.)?twitter\.com\/[A-Za-z0-9_]+\/?(\?.*)??$/,
 
     /**
      * Validate if the required tags are present in the string
