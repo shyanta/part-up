@@ -36,6 +36,7 @@ Meteor.startup(function() {
                 'completeness' : 100,
                 'profile' : {
                     'name' : 'Default User',
+                    'normalized_name' : 'default user',
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
@@ -139,6 +140,7 @@ Meteor.startup(function() {
                 'completeness' : 27,
                 'profile' : {
                     'name' : 'John Partup',
+                    'normalized_name' : 'john partup',
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
@@ -241,6 +243,7 @@ Meteor.startup(function() {
                 'completeness' : 27,
                 'profile' : {
                     'name' : 'Admin User',
+                    'normalized_name' : 'admin user',
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
@@ -341,6 +344,7 @@ Meteor.startup(function() {
                 'completeness' : 27,
                 'profile' : {
                     'name' : 'Judy Partup',
+                    'normalized_name' : 'judy partup',
                     'settings' : {
                         'locale' : 'en',
                         'optionalDetailsCompleted' : true,
