@@ -147,6 +147,7 @@ Package.onUse(function(api) {
         'methods/tags/tags_methods.js',
         'methods/notifications/notifications_methods.js',
         'methods/uploads/uploads_methods.js',
+        'methods/helper_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
