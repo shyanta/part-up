@@ -71,6 +71,7 @@ Template.UserHoverCard.onRendered(function() {
     });
 
     $('body').on('click', '[data-usercard]', function(e) {
+        e.preventDefault();
         hoverCardDebugger.log('clicked');
         var self = $(this);
         var s = template.hoverCardSettings.get('partup.hover-card.settings');

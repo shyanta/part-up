@@ -1,6 +1,6 @@
 {
     "profilesettings-form-image-label": "Geef ons jouw glimlach",
-    "profilesettings-form-image-import": "Makkelijk, gebruik jouw <a href='#' data-imagefacebook>Facebook</a> of <a href='#' data-imagelinkedin>LinkedIn</a> foto.",
+    "profilesettings-form-image-import": "Makkelijk, gebruik jouw <a href=\"#\" data-imagefacebook>Facebook</a> of <a href=\"#\" data-imagelinkedin>LinkedIn</a> foto.",
     "profilesettings-form-image-button": "Foto vanaf jouw computer",
     "profilesettings-form-image-error": "Dit bestand kon niet worden geüpload",
 

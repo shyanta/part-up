@@ -21,6 +21,7 @@ ClientDropdowns = {
         Partup.client.elements.offClickOutside(template.onClickOutsideHandler);
     },
     dropdownClickHandler: function(event, template) {
+        event.preventDefault(); // prevent href behaviour
         // get current state of the dropdown
         var dropdownOpen = template.dropdownOpen.get();
         template.dropdownOpen.set(!dropdownOpen);

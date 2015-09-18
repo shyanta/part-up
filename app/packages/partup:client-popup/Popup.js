@@ -9,6 +9,7 @@
 // jscs:enable
 Meteor.startup(function() {
     $('body').on('click', '[data-popup]', function(e) {
+        e.preventDefault();
         try {
             var id = $(this).data('popup');
             Partup.client.popup.open(id);
@@ -35,6 +36,7 @@ Template.Popup.events({
         }
     },
     'click [data-dismiss]': function closePopup(event, template) {
+        event.preventDefault();
         try {
             Partup.client.popup.close();
         } catch (e) {

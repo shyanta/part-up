@@ -52,6 +52,7 @@ Template.DropdownProfile.onDestroyed(function() {
 Template.DropdownProfile.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-logout]': function eventClickLogout (event, template) {
+        event.preventDefault();
         Meteor.logout();
     },
     'click [data-select-network]': function changeNetwork (event, template) {

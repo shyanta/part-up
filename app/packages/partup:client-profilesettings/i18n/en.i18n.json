@@ -1,6 +1,6 @@
 {
     "profilesettings-form-image-label": "Give us your smile",
-    "profilesettings-form-image-import": "Just use your <a href='#' data-imagefacebook>Facebook</a> or <a href='#' data-imagelinkedin>LinkedIn</a> profile photo.",
+    "profilesettings-form-image-import": "Just use your <a href=\"#\" data-imagefacebook>Facebook</a> or <a href=\"#\" data-imagelinkedin>LinkedIn</a> profile photo.",
     "profilesettings-form-image-button": "Photo from my computer",
     "profilesettings-form-image-error": "Could not upload this file",
 
