@@ -29,7 +29,7 @@
                         <div class="cell last">
                             <div class="pu-partupcircle pu-partupcircle-avatarsexpanded">
                                 <a href="{{ pathFor 'partup' slug=partup.slug }}">
-                                    {{# with progress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
+                                    {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
                                     <figure class="pu-sub-inner" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='360x360' }}');{{/ with }}" data-partuptile-focuspoint></figure>
                                 </a>
 

@@ -61,8 +61,7 @@ Template.PartupTile.helpers({
         var now = new Date();
         return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
     },
-    progress: function() {
-        if (!this.progress) return 10;
+    boundedProgress: function() {
         var template = Template.instance();
 
         Meteor.defer(function() {
@@ -70,6 +69,7 @@ Template.PartupTile.helpers({
             if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
         });
 
+        if (!this.progress) return 10;
         return Math.max(10, Math.min(99, this.progress));
     },
     supporterCount: function() {

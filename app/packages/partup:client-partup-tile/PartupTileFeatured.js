@@ -1,9 +1,6 @@
 Template.PartupTileFeatured.onRendered(function() {
     var tpl = this;
 
-    var canvasElm = tpl.find('canvas.pu-sub-radial');
-    if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
-
     tpl.autorun(function() {
         var image = Images.findOne({_id: get(tpl, 'data.partup.image')});
         if (!image || !image.focuspoint) return;
@@ -21,8 +18,7 @@ Template.PartupTileFeatured.helpers({
         var upper_from_cache = lodash.find(Partup.client.discover.cache.uppers, {_id: this._id});
         return upper_from_cache || Meteor.users.findOne({_id: this._id});
     },
-    progress: function() {
-        if (!this.partup) return 10;
+    boundedProgress: function() {
         var template = Template.instance();
 
         Meteor.defer(function() {
@@ -30,6 +26,7 @@ Template.PartupTileFeatured.helpers({
             if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
         });
 
+        if (!this.partup) return 10;
         return Math.max(10, Math.min(99, this.partup.progress));
     },
     avatars: function() {
