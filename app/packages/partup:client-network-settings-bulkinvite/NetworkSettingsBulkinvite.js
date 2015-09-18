@@ -60,6 +60,13 @@ Template.NetworkSettingsBulkinvite.events({
 
         var file = event.currentTarget.files[0];
         Temp.insert(file, function(err, fileObj) {
+            if (err) {
+                console.error('csv bulk invite error:', err);
+                template.parsing.set(false);
+                template.csv_invalid.set(true);
+                return;
+            }
+
             fileObj.onStoredCallback('default', function() {
 
                 Meteor.call('uploads.parse_csv', fileObj._id, function(error, result) {
