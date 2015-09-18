@@ -46,6 +46,7 @@ Template.modal_create_activities_copy.helpers({
 /*************************************************************/
 Template.modal_create_activities_copy.events({
     'click [data-dismiss]': function(event, template) {
+        event.preventDefault();
         var form = template.find('form');
         form.reset();
         template.partupSelection.set(undefined);

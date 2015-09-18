@@ -116,3 +116,9 @@ Template.Focuspoint.helpers({
         return Template.instance().dragged.get();
     }
 });
+
+Template.Focuspoint.events({
+    'click [data-focuspoint-button]': function(event, template) {
+        event.preventDefault();
+    }
+});

@@ -33,6 +33,7 @@ Template.AutocompleteAdvanced.helpers({
 
 Template.AutocompleteAdvanced.events({
     'click [data-clear]': function(event, template) {
+        event.preventDefault();
         template.selection.set(undefined);
         template.forminput.value = '';
 

@@ -99,6 +99,7 @@ Template.app_profile.events({
         template.toggleExpandedText();
     },
     'click [data-open-profilesettings]': function(event, template) {
+        event.preventDefault();
         Intent.go({
             route: 'profile-settings',
             params: {
@@ -107,6 +108,7 @@ Template.app_profile.events({
         });
     },
     'click [data-location]': function(event, template) {
+        event.preventDefault();
         var location = Meteor.users.findOne(template.data.profileId).profile.location;
         Session.set('discover.query.location', location);
         Meteor.defer(function() {

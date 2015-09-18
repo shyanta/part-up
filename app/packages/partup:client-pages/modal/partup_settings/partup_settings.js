@@ -34,6 +34,7 @@ Template.modal_partup_settings.events({
         });
     },
     'click [data-remove]': function(event, template) {
+        event.preventDefault();
         Partup.client.prompt.confirm({
             title: __('pages-modal-partup_settings-confirmation-title'),
             message: __('pages-modal-partup_settings-confirmation-message'),

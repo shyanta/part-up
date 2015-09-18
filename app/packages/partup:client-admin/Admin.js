@@ -49,6 +49,7 @@ Template.Admin.helpers({
 
 Template.Admin.events({
     'click [data-deactivate-user]': function(event, template) {
+        event.preventDefault();
         var userId = this._id;
         var self = this;
 
@@ -65,6 +66,7 @@ Template.Admin.events({
         });
     },
     'click [data-reactivate-user]': function(event, template) {
+        event.preventDefault();
         var userId = this._id;
 
         Partup.client.prompt.confirm({

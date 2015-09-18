@@ -97,7 +97,7 @@
                                         {{# if canUpperJoin currentUser._id }}
                                             <li class="pu-sub-button">
                                                 {{# if isUpperInvitePending currentUserId }}
-                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange">
+                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange" data-blank>
                                                         {{_ 'pages-app-network-actions-button-pending' }}
                                                     </a>
                                                 {{ else }}
@@ -115,7 +115,7 @@
                                         {{ else }}
                                             <li class="pu-sub-button">
                                                 {{# if isUpperPending currentUser._id }}
-                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange">
+                                                    <a href="#" class="pu-button pu-button-gray pu-button-disabled pu-button-disabled-orange" data-blank>
                                                         {{_ 'pages-app-network-actions-button-pending' }}
                                                     </a>
                                                 {{ else }}
@@ -143,7 +143,7 @@
                                         </li>
                                     {{/ if }}
                                 {{/ with }}
-                                
+
                             </ul>
                         </nav>
                     </div>

@@ -1,6 +1,12 @@
 Partup.client.partuptile = {
 
-    drawCircle: function(canvas) {
+    drawCircle: function(canvas, options) {
+        // Get options
+        options = options || {};
+        var background_color = get(options, 'background_color') || '#fff';
+        var border_color = get(options, 'border_color') || '#ffa725';
+        var border_color_negative = get(options, 'border_color_negative') || '#eee';
+
         // jQuery object
         var $canvas = $(canvas);
 
@@ -8,8 +14,8 @@ Partup.client.partuptile = {
         var settings = {
             percent: $canvas.data('percent') || 0.000001, // needed to draw Arc 2 when percent = 0
             linewidth: 2,
-            firstcolor: '#ffa725',
-            secondcolor: '#eeeeee',
+            firstcolor: border_color,
+            secondcolor: border_color_negative,
             width: $canvas.width(),
             height: $canvas.height()
         };
@@ -31,7 +37,7 @@ Partup.client.partuptile = {
         // Outer circle
         ctx.beginPath();
         ctx.arc(radius, radius, radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = background_color;
         ctx.fill();
         ctx.closePath();
 

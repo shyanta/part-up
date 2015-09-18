@@ -142,7 +142,6 @@
     {{#if partupEqualsExactly notification.type 'partups_activities_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');" data-usercard="{{ notification.type_data.creator._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_activities_inserted' creator=notification.type_data.creator.name }}</p>
@@ -155,7 +154,6 @@
     {{#if partupEqualsExactly notification.type 'partups_contributions_inserted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup-activities' slug=notification.type_data.partup.slug}}{{/if}}">
             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');" data-usercard="{{ notification.type_data.creator._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_contributions_inserted' creator=notification.type_data.creator.name }}</p>
@@ -168,7 +166,6 @@
     {{#if partupEqualsExactly notification.type 'partups_contributions_proposed' }}
         <a href="{{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id }}">
             <figure class="pu-avatar pu-avatar-plain" style="background-image: url('{{ partupImageUrl id=notification.type_data.creator.image }}');" data-usercard="{{ notification.type_data.creator._id }}">
-                <!-- <a href="#" rel="author"  class="pu-sub-image pu-sub-image-plain" ></a> -->
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_contributions_proposed' creator=notification.type_data.creator.name }}</p>

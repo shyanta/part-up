@@ -30,9 +30,11 @@ Template.Prompt.helpers({
 
 Template.Prompt.events({
     'click [data-confirm]': function(event, template) {
+        event.preventDefault();
         Partup.client.prompt.onConfirm();
     },
     'click [data-cancel]': function(event, template) {
+        event.preventDefault();
         Partup.client.prompt.onCancel();
     }
 

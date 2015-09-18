@@ -39,6 +39,7 @@ Template.FeaturedNetworks.helpers({
 
 Template.FeaturedNetworks.events({
     'click [data-select]': function(event, template) {
+        event.preventDefault();
         var slug = $(event.currentTarget).data('select');
         template.selectedSlug.set(slug);
     }
