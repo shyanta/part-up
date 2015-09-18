@@ -5,12 +5,18 @@
  * @name client-base
  */
 Meteor.startup(function() {
+
+    /*************************************************************/
+    /* Connection */
+    /*************************************************************/
     Status.setTemplate('noconnection');
+
     // Check if Safari
     var is_safari = navigator.userAgent.indexOf('Safari') > -1 && navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') === -1;
     if (is_safari) {
         $('body').addClass('pu-safari');
     }
+
     // Check IE version
     window.PU_IE_VERSION = -1;
     if (navigator.appName == 'Microsoft Internet Explorer') {
@@ -20,16 +26,11 @@ Meteor.startup(function() {
             window.PU_IE_VERSION = parseFloat(RegExp.$1);
         }
     }
+
     // var oldIE = /msie 8|msie 9|msie 10/i.test(navigator.userAgent);
     if (window.PU_IE_VERSION < 11 && window.PU_IE_VERSION > -1) {
         $('body').addClass('pu-no-pointer-events');
     }
-    var preventHrefsFromChangingUrl = function(e) {
-        e.preventDefault();
-        return false;
-    };
-    $(document).on('click', '[href="#"]', preventHrefsFromChangingUrl);
-    $(document).on('click', '[href=""]', preventHrefsFromChangingUrl);
 
     /*************************************************************/
     /* Current loggedin users subscription */
@@ -110,38 +111,6 @@ Meteor.startup(function() {
     });
 
     /*************************************************************/
-    /* Seo configuration */
-    /*************************************************************/
-    SEO.config({
-        title: 'Part-up Beta',
-        meta: {
-            'description': 'Sign up to the Part-up Beta. Part-up is the marketplace for teamwork. Share your dream or project and get your team together.',
-            // 'image': '/images/partup-logo.png', // Trello said 'no image', see https://trello.com/c/l7tC9oac/867-fe-update-seo-on-homepage-see-details
-            'title': 'Part-up'
-        },
-        og: {
-            'site_name': location.hostname,
-            'type': 'article'
-        },
-        twitter: {
-            'card': 'summary',
-            'site' : 'Part-up',
-            'creator': '@Partupcom'
-        },
-        auto: {
-            twitter: true,
-            og: true,
-            set: ['description', 'url', 'title', 'image']
-        }
-    });
-
-    Router.onAfterAction(function() {
-        SEO.set({
-            title: Partup.client.notifications.createTitle(SEO.settings.title)
-        });
-    });
-
-    /*************************************************************/
     /* Intercom configuration */
     /*************************************************************/
     IntercomSettings.userInfo = function(user, info) {
@@ -168,7 +137,7 @@ Meteor.startup(function() {
     };
 
     analytics.on('track', function(event, properties, options) {
-        if (typeof Intercom !== 'undefined') {
+        if (Intercom && mout.object.get(Intercom, 'public_api.trackEvent')) {
             Intercom.public_api.trackEvent(event, properties);
         }
     });

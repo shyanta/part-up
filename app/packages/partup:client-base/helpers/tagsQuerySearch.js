@@ -1,5 +1,6 @@
 Meteor.startup(function() {
     $('body').on('click', '.pu-tag', function(event) {
+        event.preventDefault();
         if ($(event.currentTarget).hasClass('pu-tag-disableglobalclick')) return;
 
         Session.set('discover.query.textsearch', event.currentTarget.textContent);

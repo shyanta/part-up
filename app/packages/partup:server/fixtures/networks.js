@@ -109,7 +109,7 @@ Meteor.startup(function() {
                         '_id' : 'q63Kii9wwJX3Q6rHS',
                         'title' : 'Founder Part-up'
                     },
-                    'comment' : '"Dit is een gefeatured netwerk"'
+                    'comment' : '"Dit is een gefeaturede tribe"'
                 },
                 'language': 'nl'
             });

@@ -2,34 +2,40 @@
 
     <article class="pu-page pu-page-tinted pu-page-content">
         <header class="pu-sub-pageheader pu-sub-pageheader-title {{# if shrinkHeader }}pu-sub-pageheader-title-shrinked{{/ if }}">
-            <section class="pu-wrap pu-contentpage">
+            <section class="pu-wrap">
                 <h1 class="pu-title">{{_ 'pages-app-about-title'}}</h1>
             </section>
         </header>
-        <div class="pu-sub-pagecontent">
+        <div class="pu-sub-pagecontent pu-sub-pagecontent-large">
             <section class="pu-wrap pu-contentpage">
-                <!-- intro text -->
-                <article class="pu-article pu-article-intro">
-                    <p class="pu-paragraph">{{_ 'pages-app-about-intro-text1'}}</p>
-                    <p class="pu-paragraph">{{_ 'pages-app-about-intro-text2'}}</p>
+
+                <!-- Intro text -->
+                <article class="pu-article pu-sub-section pu-sub-section-first">
+                    <p class="pu-paragraph pu-paragraph-large">{{_ 'pages-app-about-intro-text1'}}</p>
+                    <p class="pu-paragraph pu-paragraph-large">{{_ 'pages-app-about-intro-text2'}}</p>
                 </article>
-                <!-- article image -->
-                <img src="/images/about-image.jpg" alt="" class="pu-image pu-image-content">
-                <!-- first part -->
-                <article class="pu-article">
+
+                <!-- Article image -->
+                <img src="/images/about-image.jpg" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">
+
+                <!-- Social impact -->
+                <article class="pu-article pu-sub-section">
                     <h2 class="pu-subtitle">{{_ 'pages-app-about-socialimpact-title'}}</h2>
                     <p class="pu-paragraph">{{{_ 'pages-app-about-socialimpact-part1'}}}</p>
                     <p class="pu-paragraph">{{{_ 'pages-app-about-socialimpact-part2'}}}</p>
                     <p class="pu-paragraph">{{{_ 'pages-app-about-socialimpact-part3'}}}</p>
                 </article>
-                <article class="pu-article">
+
+                <!-- Community -->
+                <article class="pu-article pu-sub-section">
                     <h2 class="pu-subtitle">{{_ 'pages-app-about-community-title'}}</h2>
                     <p class="pu-paragraph">{{{_ 'pages-app-about-community-part1'}}}</p>
                     <p class="pu-paragraph">{{{_ 'pages-app-about-community-part2'}}}</p>
                     <p class="pu-paragraph">{{{_ 'pages-app-about-community-part3'}}}</p>
                 </article>
-                <!-- second part -->
-                <article class="pu-article">
+
+                <!-- Contact -->
+                <article class="pu-article pu-article-morespace pu-sub-section">
                     <h2 class="pu-subtitle">{{_ 'pages-app-about-contact-title'}}</h2>
                     <p class="pu-paragraph">{{{_ 'pages-app-about-contact-text'}}}</p>
                     <ul class="pu-list pu-list-horizontal">

@@ -1,9 +1,6 @@
 Template.PartupTileFeatured.onRendered(function() {
     var tpl = this;
 
-    var canvasElm = tpl.find('canvas.pu-sub-radial');
-    if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
-
     tpl.autorun(function() {
         var image = Images.findOne({_id: get(tpl, 'data.partup.image')});
         if (!image || !image.focuspoint) return;
@@ -20,6 +17,20 @@ Template.PartupTileFeatured.helpers({
     upper: function() {
         var upper_from_cache = lodash.find(Partup.client.discover.cache.uppers, {_id: this._id});
         return upper_from_cache || Meteor.users.findOne({_id: this._id});
+    },
+    boundedProgress: function() {
+        var template = Template.instance();
+
+        Meteor.defer(function() {
+            var canvasElm = template.find('canvas.pu-sub-radial');
+            if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm, {
+                background_color: '#f9f9f9',
+                border_color_negative: '#ccc'
+            });
+        });
+
+        if (!this.partup) return 10;
+        return Math.max(10, Math.min(99, this.partup.progress));
     },
     avatars: function() {
         if (!this.partup || !this.partup.uppers) return;
@@ -50,8 +61,12 @@ Template.PartupTileFeatured.helpers({
         });
     },
     remainingUppers: function() {
-        var uppers = Template.instance().data.partup.uppers;
-        return uppers.length > 5 ? uppers.length - 4 : 0;
+        var uppers = get(Template.instance(), 'data.partup.uppers');
+        if (uppers && uppers.length && uppers.length > 5) {
+            return uppers.length - 4;
+        } else {
+            return 0;
+        }
     },
     userCard: function() {
         if (this._id) return {'data-usercard': this._id};

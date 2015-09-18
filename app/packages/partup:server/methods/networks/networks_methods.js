@@ -536,7 +536,8 @@ Meteor.methods({
                 '_id': author._id,
                 'title': fields.job_title
             },
-            'comment': fields.comment
+            'comment': fields.comment,
+            'logo': fields.logo
         };
 
         try {

@@ -4,18 +4,18 @@
  *
  * @module client-gallery
  *
- * @param {?} loading   ?    
+ * @param {?} loading   ?
  * @param {?} pictures  ?
  * @param {?} current   ?
  * @param {?} setter    ?
  * @param {?} fp_update ?
  *
  * @example
-    {{> Gallery 
-    loading=galleryIsLoading 
-    pictures=partupImage.availableSuggestions.get 
-    current=currentSuggestion 
-    setter=suggestionSetter 
+    {{> Gallery
+    loading=galleryIsLoading
+    pictures=partupImage.availableSuggestions.get
+    current=currentSuggestion
+    setter=suggestionSetter
     fp_update=onFocuspointUpdate }}
  */
 // jscs:enable
@@ -79,11 +79,13 @@ Template.Gallery.helpers({
 Template.Gallery.events({
 
     'click [data-previous]': function eventsClickNext (event, template) {
+        event.preventDefault();
         template.setNewCurrent(-1);
         if (template.focuspoint) template.focuspoint.reset();
     },
 
     'click [data-next]': function eventsClickNext (event, template) {
+        event.preventDefault();
         template.setNewCurrent(1);
         if (template.focuspoint) template.focuspoint.reset();
     }

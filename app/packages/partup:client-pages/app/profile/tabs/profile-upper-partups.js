@@ -48,50 +48,34 @@ Template.app_profile_upper_partups.onCreated(function() {
 
             // Set users.one.upperpartups.count subscription
             if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
-            tpl.partups.count_handle = tpl.subscribe('users.one.upperpartups.count', profileId, options);
-            tpl.partups.count_loading.set(true);
-
-            // When the users.one.upperpartups.count data changes
-            Meteor.autorun(function whenCountSubscriptionIsReady(computation) {
-                if (tpl.partups.count_handle.ready()) {
-                    computation.stop();
+            tpl.partups.count_handle = tpl.subscribe('users.one.upperpartups.count', profileId, options, {
+                onReady: function() {
                     tpl.partups.count_loading.set(false);
 
                     var new_count = Counts.get('users.one.upperpartups.filterquery', profileId);
                     tpl.partups.layout.count.set(new_count);
                 }
             });
+            tpl.partups.count_loading.set(true);
 
             // Set users.one.upperpartups subscription
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options);
-            tpl.partups.loading.set(true);
-
-            // When the users.one.upperpartups data changes
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
-                    computation.stop();
+            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
+                onReady: function() {
                     tpl.partups.loading.set(false);
 
-                    /**
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Get all current partups from our local database
-                     * - Remove all partups from the column layout
-                     * - Add our partups to the layout
-                     */
-                    Tracker.nonreactive(function replacePartups() {
-                        var user = Meteor.users.findOne(profileId);
-                        var partups = Partups.findUpperPartupsForUser(user).fetch();
+                    var user = Meteor.users.findOne(profileId);
+                    var partups = Partups.findUpperPartupsForUser(user).fetch();
 
-                        var partupTileDatas = lodash.map(partups, function(partup) {
-                            return tpl.partups.partupTileData(partup);
-                        });
-
-                        tpl.partups.layout.items = tpl.partups.layout.clear();
-                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
+                    var partupTileDatas = lodash.map(partups, function(partup) {
+                        return tpl.partups.partupTileData(partup);
                     });
+
+                    tpl.partups.layout.items = tpl.partups.layout.clear();
+                    tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
                 }
             });
+            tpl.partups.loading.set(true);
         }),
 
         // Limit reactive variable (on change, add partups to the layout)
@@ -103,44 +87,31 @@ Template.app_profile_upper_partups.onCreated(function() {
             options.limit = b;
 
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options);
-            tpl.partups.infinitescroll_loading.set(true);
+            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
+                onReady: function() {
+                    tpl.partups.infinitescroll_loading.set(true);
 
-            Meteor.autorun(function whenSubscriptionIsReady(computation) {
-                if (tpl.partups.handle.ready()) {
-                    computation.stop();
-                    tpl.partups.infinitescroll_loading.set(false);
+                    var oldPartups = tpl.partups.layout.items;
+                    var user = Meteor.users.findOne(profileId);
+                    var newPartups = Partups.findUpperPartupsForUser(user).fetch();
 
-                    /**
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Get all currently rendered partups
-                     * - Get all current partups from our local database
-                     * - Compare the newPartups with the oldPartups to find the difference
-                     * - If no diffPartups were found, set the end_reached to true
-                     * - Add our partups to the layout
-                     */
-                    Tracker.nonreactive(function addPartups() {
-                        var oldPartups = tpl.partups.layout.items;
-                        var user = Meteor.users.findOne(profileId);
-                        var newPartups = Partups.findUpperPartupsForUser(user).fetch();
-
-                        var diffPartups = mout.array.filter(newPartups, function(partup) {
-                            return !mout.array.find(oldPartups, function(item) {
-                                return partup._id === item.partup._id;
-                            });
+                    var diffPartups = mout.array.filter(newPartups, function(partup) {
+                        return !mout.array.find(oldPartups, function(item) {
+                            return partup._id === item.partup._id;
                         });
-
-                        var end_reached = diffPartups.length === 0;
-                        tpl.partups.end_reached.set(end_reached);
-
-                        var partupTileDatas = lodash.map(diffPartups, function(partup) {
-                            return tpl.partups.partupTileData(partup);
-                        });
-
-                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(diffPartups));
                     });
+
+                    var end_reached = diffPartups.length === 0;
+                    tpl.partups.end_reached.set(end_reached);
+
+                    var partupTileDatas = lodash.map(diffPartups, function(partup) {
+                        return tpl.partups.partupTileData(partup);
+                    });
+
+                    tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(diffPartups));
                 }
             });
+            tpl.partups.infinitescroll_loading.set(true);
         }),
 
         // Increase limit function

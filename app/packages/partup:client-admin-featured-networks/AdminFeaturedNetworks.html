@@ -23,6 +23,31 @@
             </span>
         </label>
 
+        <!-- Network logo -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'pages-modal-admin-featured-networks-form-logo-label'}}
+            </span>
+
+            <div class="pu-upload pu-upload-large">
+                {{#if networkLogoUrl }}
+                    <img src="{{ networkLogoUrl }}" />
+                {{/if}}
+                <button type="button" class="pu-button pu-button-secondary {{#if uploadingNetworkLogo}}pu-state-loading{{/if}}" data-browse-photos>
+                    <span>{{_ 'pages-modal-admin-featured-networks-form-logo-button'}}</span>
+                    {{#if uploadingNetworkLogo}}
+                        {{> Spinner color='inverted' type='small'}}
+                    {{/if}}
+                </button>
+
+                <input type="file" class="pu-fileinput" data-network-logo-input>
+                <!-- TODO DISABLED UNTIL IMPLEMENTED
+                    <p class="pu-paragraph">{{{_ 'profilesettings-form-image-import' }}}</p>
+                -->
+                {{> afFieldInput name="logo" type="hidden" }}
+            </div>
+        </label>
+
         <!-- Feature comment -->
         <label class="pu-formfield">
             <span class="pu-label">

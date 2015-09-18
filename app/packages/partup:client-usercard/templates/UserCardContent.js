@@ -1,3 +1,6 @@
+Template.UserCardContent.onCreated(function() {
+    this.subscribe('users.one', this.data._id);
+});
 Template.UserCardContent.helpers({
     data: function() {
         var user = Meteor.users.findOne({_id: this._id});

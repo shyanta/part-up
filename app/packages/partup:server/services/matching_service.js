@@ -28,7 +28,9 @@ Partup.server.services.matching = {
                 selector['profile.location.place_id'] = searchOptions.locationId;
             }
             if (searchOptions.query) {
-                selector['profile.name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
+                // Remove accents that might have been added to the query
+                searchOptions.query = mout.string.replaceAccents(searchOptions.query.toLowerCase());
+                selector['profile.normalized_name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
             }
         } else {
             // Match the uppers on the tags used in the partup
@@ -39,6 +41,11 @@ Partup.server.services.matching = {
         // Exclude the current logged in user from the results
         selector['_id'] = {'$nin': [Meteor.userId()]};
 
+        // Exclude existing partners from result, unless a search is happening
+        if (!searchOptionsProvided) {
+            selector['_id'] = {'$nin': partup.uppers};
+        }
+
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
@@ -48,7 +55,7 @@ Partup.server.services.matching = {
         // Limit results
         options['limit'] = limit;
 
-        var results = Meteor.users.find(selector, options).fetch();
+        var results = Meteor.users.findActiveUsers(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)
         if (!searchOptionsProvided) {
@@ -56,7 +63,7 @@ Partup.server.services.matching = {
             while (results.length === 0) {
                 if (iteration === 0) delete selector['profile.tags'];
 
-                results = Meteor.users.find(selector, options).fetch();
+                results = Meteor.users.findActiveUsers(selector, options).fetch();
                 iteration++;
             }
         }
@@ -87,7 +94,9 @@ Partup.server.services.matching = {
                 selector['profile.location.place_id'] = searchOptions.locationId;
             }
             if (searchOptions.query) {
-                selector['profile.name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
+                // Remove accents that might have been added to the query
+                searchOptions.query = mout.string.replaceAccents(searchOptions.query.toLowerCase());
+                selector['profile.normalized_name'] = new RegExp('.*' + searchOptions.query + '.*', 'i');
             }
         } else {
             // Match the uppers on the tags used in the network
@@ -98,6 +107,11 @@ Partup.server.services.matching = {
         // Exclude the current logged in user from the results
         selector['_id'] = {'$nin': [Meteor.userId()]};
 
+        // Exclude existing partners from result, unless a search is happening
+        if (!searchOptionsProvided) {
+            selector['_id'] = {'$nin': network.uppers};
+        }
+
         // Sort the uppers on participation_score
         options['sort'] = {'participation_score': -1};
 
@@ -107,7 +121,7 @@ Partup.server.services.matching = {
         // Limit results
         options['limit'] = limit;
 
-        var results = Meteor.users.find(selector, options).fetch();
+        var results = Meteor.users.findActiveUsers(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)
         if (!searchOptionsProvided) {
@@ -115,7 +129,7 @@ Partup.server.services.matching = {
             while (results.length === 0) {
                 if (iteration === 0) delete selector['profile.tags'];
 
-                results = Meteor.users.find(selector, options).fetch();
+                results = Meteor.users.findActiveUsers(selector, options).fetch();
                 iteration++;
             }
         }

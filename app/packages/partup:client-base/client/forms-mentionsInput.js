@@ -166,6 +166,14 @@ MentionsInput.prototype.checkCaretPosition = function() {
         self.suggestionsEl.innerHTML = '';
         self.btns = [];
 
+        if (!self.suggestions.length) {
+            var emptyEl = document.createElement('span');
+            emptyEl.classList.add('pu-input-mentions-suggestions-empty');
+            emptyEl.textContent = __('base-client-language-mention-input-empty');
+            self.suggestionsEl.appendChild(emptyEl);
+            return;
+        }
+
         var suggestion;
         var btn;
         for (var i = 0; i < self.suggestions.length; i++) {

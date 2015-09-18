@@ -22,7 +22,7 @@
     .pu-sub-partupdetail-right
         display: table-cell
         vertical-align: top
-        width: 420px
+        width: 350px
 
     @media screen and (min-width: $breakpoint-desktop)
         &-active
@@ -31,13 +31,13 @@
                 z-index: 1
                 top: 0
                 left: 0
-                right: 420px
+                right: 350px
 
                 .pu-sub-partupdetail-navigation
                     position: fixed
                     top: $spacing-app-headerheight
                     left: 0
-                    right: 420px
+                    right: 350px
                     z-index: 2
                     transform: translateZ(0) // fixes flickering header on scroll
 
@@ -49,6 +49,34 @@
                 position: absolute
                 top: 0
                 right: 0
+                width: 350px
+
+    @media screen and (min-width: ($breakpoint-desktop + 50px))
+        .pu-sub-partupdetail-right
+            width: 380px
+
+        &-active
+            .pu-sub-partupdetail-left
+                right: 350px
+
+                .pu-sub-partupdetail-navigation
+                    right: 350px
+
+            .pu-sub-partupdetail-right
+                width: 350px
+
+    @media screen and (min-width: ($breakpoint-desktop + 100px))
+        .pu-sub-partupdetail-right
+            width: 420px
+
+        &-active
+            .pu-sub-partupdetail-left
+                right: 420px
+
+                .pu-sub-partupdetail-navigation
+                    right: 420px
+
+            .pu-sub-partupdetail-right
                 width: 420px
 
     @media screen and (min-width: $pagecontainer-maxwidth + $spacing-app-pagepadding * 2)

@@ -24,12 +24,6 @@
             vertical-align: top
             font-size: 16px
 
-    &-centered
-        text-align: center
-
-    &-pricing
-
-
     &-tags
         margin-bottom: -10px
         margin-right: -10px
@@ -240,3 +234,15 @@
 
         .pu-sub-actions
             float: right
+
+    &-products
+        text-align: center
+        $half-grid-gap: $grid-gap / 2
+        margin-left: -$half-grid-gap // compensate
+        margin-right: -$half-grid-gap // compensate
+
+        > li
+            text-align: left // reset
+            width: 25%
+            padding-left: $half-grid-gap
+            padding-right: $half-grid-gap

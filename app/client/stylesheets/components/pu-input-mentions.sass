@@ -3,7 +3,7 @@
     &-wrap
         position: relative
 
-        > input
+        > input, > textarea
             position: relative
             z-index: 2
 
@@ -37,6 +37,11 @@
             &.pu-state-highlight
                 color: $color-secondary
                 outline: 0
+
+        &-empty
+            padding: 0 20px
+            color: #aaa
+            font-style: italic
 
         &.pu-state-visible
             display: block

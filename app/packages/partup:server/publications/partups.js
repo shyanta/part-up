@@ -57,7 +57,7 @@ Meteor.publishComposite('partups.featured_all', function() {
                 return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
             }, children: [
                 {find: Images.findForUser}
-            ]},
+            ]}
         ]
     };
 });

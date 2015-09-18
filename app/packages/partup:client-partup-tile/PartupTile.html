@@ -26,7 +26,7 @@
                 <!-- Image (circle), uppers, and progress  -->
                 <div class="pu-partupcircle" data-partup-id="{{ _id }}">
                     <a href="{{pathFor 'partup' slug=slug }}">
-                        <canvas class="pu-sub-radial" data-percent="{{ progress }}"></canvas>
+                        {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
                         <figure class="pu-sub-inner" style="{{#with image }}background-image: url('{{ partupImage . '360x360' }}');{{/ with }}" data-partup-tile-focuspoint></figure>
                     </a>
 
@@ -41,7 +41,7 @@
                                     top: {{ y }}px;
                                     left: {{ x }}px;
                                     transition-delay: {{ delay }}s;
-                                " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}+{{/ unless }}</li>
+                                " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}{{/ unless }}</li>
                             {{/ each }}
                         </ul>
                     {{/ if }}

@@ -27,8 +27,8 @@
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_network":"Tribe uitnodiging email uitgeschakeld",
 
     "modal-profilesettings-email-partup_created_in_network":"wanneer er een part-up is gemaakt in één van jouw tribes",
-    "modal-profilesettings-email-updatesuccess-enabled-partup_created_in_network":"Part-up aangemaakt in netwerk email ingeschakeld",
-    "modal-profilesettings-email-updatesuccess-disabled-partup_created_in_network":"Part-up aangemaakt in netwerk email uitgeschakeld",
+    "modal-profilesettings-email-updatesuccess-enabled-partup_created_in_network":"Part-up aangemaakt in tribe email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-partup_created_in_network":"Part-up aangemaakt in tribe email uitgeschakeld",
 
     "modal-profilesettings-email-partups_networks_new_pending_upper":"wanneer een upper toegang vraagt tot jouw tribe",
     "modal-profilesettings-email-updatesuccess-enabled-partups_networks_new_pending_upper":"Tribe toegang aanvraag email ingeschakeld",
@@ -50,7 +50,7 @@
     "pages-app-emailsettings-confirmation-confirm-button-one": "Ja, schakel deze mail uit",
 
     "modal-profilesettings-account-title": "Beheer je account",
-    "modal-profilesettings-account-text-explaination": "Je kunt hier jouw account instellingen wijzigen. Wiel je iets toevoegen aan jouw profiel? Klik dan links in het menu op profiel.",
+    "modal-profilesettings-account-text-explaination": "Je kunt hier jouw account instellingen wijzigen. Wil je iets toevoegen aan jouw profiel? Klik dan links in het menu op profiel.",
 
     "modal-profilesettings-account-currentpassword": "Huidig wachtwoord",
     "modal-profilesettings-account-password": "Nieuw wachtwoord",

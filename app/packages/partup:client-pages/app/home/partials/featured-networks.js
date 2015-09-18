@@ -32,10 +32,14 @@ Template.FeaturedNetworks.helpers({
 
         return Meteor.users.findOne(this.featured.by_upper._id);
     },
+    networkLogo: function() {
+        return get(this, 'featured.logo') || get(this, 'image');
+    }
 });
 
 Template.FeaturedNetworks.events({
     'click [data-select]': function(event, template) {
+        event.preventDefault();
         var slug = $(event.currentTarget).data('select');
         template.selectedSlug.set(slug);
     }

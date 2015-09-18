@@ -14,7 +14,7 @@
     "pages-app-partup-status_text-private": "Deze part-up is alleen open voor uitgenodigde uppers.",
     "pages-app-partup-status_text-network-public": "Deze part-up is deel van <a href=\"__path__\"><strong>__network__</strong></a> tribe en is open voor iedereen.",
     "pages-app-partup-status_text-network-invite": "Deze part-up is deel van <a href=\"__path__\"><strong>__network__</strong></a> tribe en is alleen open voor uitgenodigde uppers.",
-    "pages-app-partup-status_text-network-closed": "Deze part-up is deel van <a href=\"__path__\"><strong>__network__</strong></a> tribe en is alleen open voor netwerk leden.",
+    "pages-app-partup-status_text-network-closed": "Deze part-up is deel van <a href=\"__path__\"><strong>__network__</strong></a> tribe en is alleen open voor tribeleden.",
     "pages-app-partup-visibility_public": "iedereen",
     "pages-app-partup-visibility_private": "uitgenodigde uppers",
     "pages-app-partup-unit-money": "euro",

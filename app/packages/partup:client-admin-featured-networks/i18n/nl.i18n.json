@@ -3,10 +3,13 @@
     "pages-modal-admin-featured-networks-form-network-placeholder": "Zoek tribe",
     "pages-modal-admin-featured-networks-form-comment-label": "Quote",
     "pages-modal-admin-featured-networks-form-comment-placeholder": "Voer een quote in",
+    "pages-modal-admin-featured-networks-form-logo-label": "Logo",
+    "pages-modal-admin-featured-networks-form-logo-button": "Bladeren",
+    "pages-modal-admin-featured-networks-form-logo-error": "Kon het logo niet uploaden",
     "pages-modal-admin-featured-networks-form-author-label": "Auteur",
     "pages-modal-admin-featured-networks-form-author-placeholder": "Voer profiel id, e.g. 'q63Kii9wwJX3Q6rHS'",
     "pages-modal-admin-featured-networks-form-job-title-label": "Quote auteur functie titel",
     "pages-modal-admin-featured-networks-form-job-title-placeholder": "e.g. 'Founder Part-up'",
-    "pages-modal-admin-featured-networks-form-language-label": "Kies taal voor dit netwerk",
+    "pages-modal-admin-featured-networks-form-language-label": "Kies taal voor deze tribe",
     "pages-modal-admin-featured-networks-form-confirm": "Feature"
 }

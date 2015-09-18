@@ -40,7 +40,7 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             var emailOptions = {
                 type: 'upper_mentioned_in_partup',
                 toAddress: User(user).getEmail(),
-                subject: 'Iemand heeft je naam genoemd in part-up ' + partup.name,
+                subject: TAPi18n.__('emails-upper_mentioned_in_partup-subject', {partup: partup.name}, User(user).getLocale()),
                 locale: User(user).getLocale(),
                 typeData: {
                     name: User(user).getFirstname(),

@@ -69,26 +69,26 @@ if (Meteor.isServer) {
 
         mout.object.deepFillIn(args, {
             'original': {
-                path: process.env.PWD + '/public/uploads'
+                path: process.env.PWD + '/uploads'
             },
             '1200x520': {
-                path: process.env.PWD + '/public/uploads/1200x520'
+                path: process.env.PWD + '/uploads/1200x520'
             },
             '360x360': {
-                path: process.env.PWD + '/public/uploads/360x360'
+                path: process.env.PWD + '/uploads/360x360'
             },
             '80x80': {
-                path: process.env.PWD + '/public/uploads/80x80'
+                path: process.env.PWD + '/uploads/80x80'
             },
             '32x32': {
-                path: process.env.PWD + '/public/uploads/32x32'
+                path: process.env.PWD + '/uploads/32x32'
             }
         });
     }
 
     if (!Store) throw new Error('A store for CFS has not been defined.');
 
-    stores.push(new Store('original', args['original']));
+    stores.push(new Store('original', args.original));
     stores.push(new Store('1200x520', args['1200x520']));
     stores.push(new Store('360x360', args['360x360']));
     stores.push(new Store('80x80', args['80x80']));
@@ -161,7 +161,7 @@ Images.findForUser = function(user) {
  * @return {Mongo.Cursor}
  */
 Images.findForNetwork = function(network) {
-    return Images.find({_id: {'$in': [network.image, network.icon]}}, {limit: 2});
+    return Images.find({_id: {'$in': [network.image, network.icon, get(network, 'featured.logo')]}}, {limit: 2});
 };
 
 /**

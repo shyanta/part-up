@@ -536,4 +536,19 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(18);
+Migrations.add({
+    version: 19,
+    name: 'Set a normalized name for each user to also show accented names in search query',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.normalized_name': Partup.server.services.helper.normalize(user.profile.name)
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(19);

@@ -2,12 +2,23 @@
     padding-left: $grid-column + $grid-gap
     padding-right: $grid-column + $grid-gap
 
-    h1,h2,h3
+    .pu-paragraph
+        + .pu-paragraph
+            margin-top: 30px - 4px
+
+        &:last-of-type
+            margin-bottom: -8px
+
+    > section
+        margin-top: 40px
+
+    h1, h2, h3
         font-weight: 700
         margin-bottom: 10px
 
     h1
         font-size: 30px
+        margin-bottom: 17px
 
     h2
         font-size: 22px
@@ -15,23 +26,25 @@
     h3
         font-size: 18px
 
-    p,ul
-        margin-bottom: 30px
+    > ul
+        margin-top: 30px
 
-    p
-        font-size: 16px
+        > li
+            margin-top: 10px
 
-    ul
-        li
-            margin-bottom: 10px
+            &:first-child
+                margin-top: 0
+
+        &.pu-list-horizontal
+            > li
+                margin-top: 0
 
     .pu-face
         margin-right: 50px
 
-
-    &-intro
-        p
-            font-size: 18px
+    &-morespace
+        > .pu-list
+            margin-top: 40px
 
     &-preview
         font-size: 0
@@ -41,6 +54,8 @@
             font-size: 25px
             font-weight: 600
             display: table-caption
+            margin-bottom: 16px
+
             &:after
                 content: ''
                 width: 60px
@@ -55,26 +70,41 @@
 
         .pu-sub-text
             display: table-row
-            p
-                margin-top: 20px
+
+            p,
+            .pu-button
+                margin-top: 40px - 14px
+
+                &:first-child
+                    margin-top: 40px
+
+            .pu-button
+                margin-top: 40px - 8px
 
         .pu-sub-image
             display: table-header-group
+            margin-bottom: 40px
+
             img
                 width: 100%
 
         @media screen and (min-width: $breakpoint-tablet)
             h1
                 display: block
+
             .pu-sub-text,
             .pu-sub-image
                 display: inline-block
+
             .pu-sub-text
                 width: 40%
                 padding-right: 50px
 
-                p
-                    margin-top: 0
+                p,
+                .pu-button
+                    &:first-child
+                        margin-top: 0
+
             .pu-sub-image
                 width: 60%
 

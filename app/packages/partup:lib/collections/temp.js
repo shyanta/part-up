@@ -17,10 +17,10 @@ Temp = new FS.Collection('temp', {
     filter: {
         maxSize: 1024 * 1024 * 0.1, // 0.1 mb
         allow: {
-            contentTypes: ['text/csv']
+            extensions: ['csv']
         },
         deny: {
-            contentTypes: []
+            extensions: []
         }
     },
     onInvalid: function(message) {

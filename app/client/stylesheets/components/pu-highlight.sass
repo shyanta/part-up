@@ -3,7 +3,7 @@
     padding-right: 40px
     text-align: center
 
-    h1,h2,p
+    h1, h2, p
         text-align: center
 
     h1
@@ -13,7 +13,10 @@
     h2
         font-weight: 700
         font-size: 18px
-        margin-bottom: 10px
+        margin-bottom: 9px
+
+    p
+        margin-bottom: -8px
 
     &-well
         background-color: $color-background-secondary
@@ -34,6 +37,8 @@
     &-companies
         > h2
             font-weight: normal
+            margin-bottom: 15px
+
             &:after
                 content: ''
                 width: 60px
@@ -41,7 +46,7 @@
                 background-color: $color-primary
                 display: block
                 margin: auto
-                margin-top: 30px
+                margin-top: 34px
 
         > p
             margin-bottom: 50px
@@ -57,6 +62,7 @@
     @media screen and (min-width: $breakpoint-tablet)
         padding-left: $grid-column + $grid-gap
         padding-right: $grid-column + $grid-gap
+
         h1
             font-size: 30px
         h2
@@ -64,9 +70,6 @@
 
 
         &-well
-            padding-top: 80px
-            padding-bottom: 80px
-
             h1
                 font-size: 32px
             p

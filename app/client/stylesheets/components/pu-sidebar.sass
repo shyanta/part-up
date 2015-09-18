@@ -1,7 +1,6 @@
 .pu-sidebar
-
     .pu-sidebar-wrap
-        width: 420px
+        width: 350px
 
         > section
             position: relative
@@ -46,7 +45,6 @@
         margin-top: -5px
 
     .pu-sub-abstract
-        font-size: 18px
         margin-top: -9px
 
     .pu-list-avatars
@@ -78,3 +76,11 @@
 
             &:hover
                 text-decoration: underline
+
+    @media screen and (min-width: ($breakpoint-desktop + 50px))
+        .pu-sub-partupdetail-right
+            width: 380px
+
+    @media screen and (min-width: ($breakpoint-desktop + 100px))
+        .pu-sub-partupdetail-right
+            width: 420px

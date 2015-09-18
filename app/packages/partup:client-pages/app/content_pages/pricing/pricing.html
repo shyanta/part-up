@@ -1,63 +1,77 @@
 <template name="app_pricing">
     <article class="pu-page pu-page-tinted pu-page-content">
+
+        <!-- Header -->
         <header class="pu-sub-pageheader pu-sub-pageheader-title {{# if shrinkHeader }}pu-sub-pageheader-title-shrinked{{/ if }}">
-            <section class="pu-wrap pu-contentpage">
+            <section class="pu-wrap">
                 <h1 class="pu-title">{{_ 'pages-app-pricing-page-title'}}</h1>
             </section>
         </header>
-        <div class="pu-sub-pagecontent">
-            <section class="pu-wrap pu-contentpage pu-contentpage-wide">
-                <article class="pu-highlight">
-                    <h2>{{_ 'pages-app-pricing-individuals-title'}}</h2>
-                    <p>{{_ 'pages-app-pricing-individuals-description'}}</p>
+
+        <!-- For individuals -->
+        <div class="pu-sub-pagecontent pu-sub-pagecontent-large">
+            <section class="pu-wrap pu-wrap-pricing pu-contentpage">
+                <article class="pu-highlight pu-sub-section pu-sub-section-first">
+                    <h2>{{_ 'pages-app-pricing-upper-title'}}</h2>
+                    <p>{{_ 'pages-app-pricing-upper-description'}}</p>
                 </article>
-                <ul class="pu-list pu-list-horizontal pu-list-centered pu-list-pricing">
-                    <li>
-                        {{> Product product=products.upper}}
-                    </li>
-                    <li>
-                        {{> Product product=products.premium_upper}}
-                    </li>
+                <ul class="pu-list pu-list-horizontal pu-list-products pu-sub-section">
+                    {{# each upper_products }}
+                        <li>
+                            {{> Product kind='upper' product=. }}
+                        </li>
+                    {{/ each }}
                 </ul>
+                <p class="pu-sub-section pu-sub-section-center">
+                    <a href="http://goo.gl/forms/bmAeBcgyIN" target="_blank" class="pu-button pu-button-large">{{_ 'pages-app-pricing-upper-cta' }}</a>
+                </p>
             </section>
         </div>
-        <div class="pu-sub-pagecontent pu-sub-pagecontent-highlighted">
-            <section class="pu-wrap pu-contentpage pu-contentpage-wide">
-                <article class="pu-highlight">
-                    <h2>{{_ 'pages-app-pricing-tribes-title'}}</h2>
-                    <p>{{_ 'pages-app-pricing-tribes-description'}}</p>
+
+        <!-- For organizations -->
+        <div class="pu-sub-pagecontent pu-sub-pagecontent-highlighted pu-sub-pagecontent-large">
+            <section class="pu-wrap pu-wrap-pricing pu-contentpage">
+                <article class="pu-highlight pu-sub-section pu-sub-section-first">
+                    <h2>{{_ 'pages-app-pricing-tribe-title'}}</h2>
+                    <p>{{_ 'pages-app-pricing-tribe-description'}}</p>
                 </article>
-                <ul class="pu-list pu-list-horizontal pu-list-centered pu-list-pricing">
-                    <li>
-                        {{> Product product=products.social_impact}}
-                    </li>
-                    <li>
-                        {{> Product product=products.small}}
-                    </li>
-                    <li>
-                        {{> Product product=products.medium}}
-                    </li>
-                    <li>
-                        {{> Product product=products.large}}
-                    </li>
+                <ul class="pu-list pu-list-horizontal pu-list-products pu-sub-section">
+                    {{# each tribe_products }}
+                        <li>
+                            {{> Product kind='tribe' product=. }}
+                        </li>
+                    {{/ each }}
                 </ul>
+                <p class="pu-sub-section pu-sub-section-center">
+                    <a href="http://goo.gl/forms/cDEgSFsBVV" target="_blank" class="pu-button pu-button-large">{{_ 'pages-app-pricing-tribe-cta' }}</a>
+                </p>
             </section>
         </div>
-        <div class="pu-sub-pagecontent">
+
+        <!-- Mindset -->
+        <div class="pu-sub-pagecontent pu-sub-pagecontent-large">
             <section class="pu-wrap pu-contentpage">
-                <article class="pu-article">
+                <article class="pu-article pu-sub-section pu-sub-section-first">
                     <h1 class="pu-title">{{_ 'pages-app-pricing-title'}}</h1>
                     <p class="pu-paragraph">{{_ 'pages-app-pricing-intro'}}</p>
-                    <h3 class="pu-subtitle">{{_ 'pages-app-pricing-subtitle1'}}</h3>
-                    <p class="pu-paragraph"><img src="/images/pricing-individual.png" class="pu-sub-inline-image" alt="">{{_ 'pages-app-pricing-part1'}}</p>
 
-                    <h3 class="pu-subtitle">{{_ 'pages-app-pricing-subtitle2'}}</h3>
-                    <p class="pu-paragraph"><img src="/images/pricing-mindset.png" class="pu-sub-inline-image" alt="">{{_ 'pages-app-pricing-part2'}}</p>
+                    <section>
+                        <h3 class="pu-subtitle">{{_ 'pages-app-pricing-subtitle1'}}</h3>
+                        <p class="pu-paragraph"><img src="/images/pricing-individual.png" class="pu-sub-inline-image" alt="">{{_ 'pages-app-pricing-part1'}}</p>
+                    </section>
 
-                    <h3 class="pu-subtitle">{{_ 'pages-app-pricing-subtitle3'}}</h3>
-                    <p class="pu-paragraph">{{_ 'pages-app-pricing-part3'}}</p>
+                    <section>
+                        <h3 class="pu-subtitle">{{_ 'pages-app-pricing-subtitle2'}}</h3>
+                        <p class="pu-paragraph"><img src="/images/pricing-mindset.png" class="pu-sub-inline-image" alt="">{{_ 'pages-app-pricing-part2'}}</p>
+                    </section>
+
+                    <section>
+                        <h3 class="pu-subtitle">{{_ 'pages-app-pricing-subtitle3'}}</h3>
+                        <p class="pu-paragraph">{{_ 'pages-app-pricing-part3'}}</p>
+                    </section>
                 </article>
             </section>
         </div>
+
     </article>
 </template>

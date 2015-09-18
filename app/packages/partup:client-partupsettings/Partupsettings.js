@@ -50,6 +50,7 @@ Template.Partupsettings.onCreated(function() {
     template.selectedLocation = new ReactiveVar();
     template.selectedPrivacyType = new ReactiveVar('public');
     template.selectedPrivacyNetwork = new ReactiveVar(false);
+    template.tagsInputStates = new ReactiveDict();
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
@@ -108,8 +109,8 @@ Template.Partupsettings.onCreated(function() {
         });
     });
 
-    // Set the focuspoint input values to the form every time they change
     Template.autoForm.onRendered(function() {
+        // Set the focuspoint input values to the form every time they change
         this.autorun(function() {
             if (!template.view.isRendered) return;
 
@@ -122,6 +123,24 @@ Template.Partupsettings.onCreated(function() {
             form.elements.focuspoint_y_input.value = y;
 
         });
+
+        // Update the tagsInputStates when the tags change
+        this.autorun(function() {
+            var tags = AutoForm.getFieldValue('tags_input');
+            if (tags) tags = tags.trim();
+
+            template.tagsInputStates.set('tags', !!tags);
+        });
+
+        // Bind datepicker
+        var options = Partup.client.datepicker.options;
+        options.startDate = new Date();
+        template.end_date_datepicker = template
+            .$('[bootstrap-datepicker]')
+            .datepicker(options)
+            .on('changeDate clearDate', function(event) {
+                event.currentTarget.nextElementSibling.value = event.date;
+            });
     });
 });
 
@@ -146,11 +165,6 @@ Template.Partupsettings.onRendered(function() {
 Template.Partupsettings.helpers({
     partup: function() {
         return this.currentPartup;
-    },
-    datepickerOptions: function() {
-        var options = Partup.client.datepicker.options;
-        options.startDate = new Date();
-        return options;
     },
     startPartupSchema: function() {
         if (this.CREATE) {
@@ -257,11 +271,11 @@ Template.Partupsettings.helpers({
     privacyTypes: function() {
         return [
             {
-                label:'partupsettings-form-privacy-public',
+                label: 'partupsettings-form-privacy-public',
                 value: 'public'
             },
             {
-                label:'partupsettings-form-privacy-private',
+                label: 'partupsettings-form-privacy-private',
                 value: 'private'
             }
         ];
@@ -298,6 +312,11 @@ Template.Partupsettings.helpers({
     },
     selectedPrivacyNetwork: function() {
         return Template.instance().selectedPrivacyNetwork.get() || null;
+    },
+    tagsInputIsEmpty: function() {
+        var template = Template.instance();
+
+        return !template.tagsInputStates.get('tags') && !template.tagsInputStates.get('input');
     }
 });
 
@@ -340,7 +359,7 @@ Template.Partupsettings.events({
     },
     'click [data-removedate]': function(event, template) {
         event.preventDefault();
-        template.find('[name=end_date]').value = '';
+        template.end_date_datepicker.datepicker('update', '');
     },
     'click [data-toggleprivacydropdown]': function(event, template) {
         var currentValue = template.showPrivacyDropdown.get();
@@ -366,13 +385,28 @@ Template.Partupsettings.events({
     },
     'click .pu-tooltip': function(event) {
         event.preventDefault();
+    },
+    'click [data-focus-tagsinput]': function(event, template) {
+        var target = event.currentTarget;
+
+        var $parentElement = $(target.parentElement);
+        if (!$parentElement) return;
+
+        var input = $parentElement.find('.bootstrap-tagsinput input').get(0);
+        if (!input) return;
+
+        event.preventDefault();
+        input.focus();
+    },
+    'keydown [data-tags-input] .bootstrap-tagsinput input, input [data-tags-input] .bootstrap-tagsinput input': function(event, template) {
+        template.tagsInputStates.set('input', !!event.currentTarget.value.trim());
     }
 });
 
 /*************************************************************/
 /* Image system for Part-up cover picture */
 /*************************************************************/
-var ImageSystem = function ImageSystemConstructor (template) {
+var ImageSystem = function(template) {
     var self = this;
 
     this.currentImageId = new ReactiveVar(false);

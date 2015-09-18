@@ -1,5 +1,12 @@
 {
     "emails-reset-password-subject": "Reset Part-up password",
     "emails-verify-account-subject": "Confirm Part-up account",
-    "emails-invite-user-subject": "Invite to Part-up %s"
+    "emails-invite-user-subject": "Invitation for Part-up %s",
+    "emails-dailydigest-subject": "Notifications Part-up.com",
+    "emails-upper_mentioned_in_partup-subject": "Someone mentioned you in part-up __partup__",
+    "emails-invite_upper_to_partup_activity-subject": "Invitation for activity __activity__ in part-up __partup__",
+    "emails-invite_upper_to_network-subject": "Invitation for tribe __network__",
+    "emails-partup_created_in_network-subject": "New part-up created in tribe __network__",
+    "emails-partups_networks_new_pending_upper-subject": "__upper__ is asking for permission to join tribe __network__",
+    "emails-partups_networks_accepted-subject": "You have been accepted to tribe __network__"
 }

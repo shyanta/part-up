@@ -57,13 +57,16 @@ Template.modal_network_invite.onCreated(function() {
         if (!network) return;
         var options = tpl.suggestionsOptions.get();
 
-        if (!network) return;
-
         Meteor.call('networks.user_suggestions', network._id, options, function(err, userIds) {
             if (err) {
                 Partup.client.notify.error(err.reason);
                 return;
             }
+
+            // Sort users by invited first
+            userIds.sort(function(userId) {
+                return network.isUpperInvited(userId) ? 1 : -1;
+            });
 
             tpl.userIds.set(userIds);
             tpl.subscription.set(tpl.subscribe('users.by_ids', userIds));

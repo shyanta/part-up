@@ -72,6 +72,7 @@ Template.Contribution.events({
         template.showForm.set(false);
     },
     'click .pu-contribution-own': function(event, template) {
+        if ($(event.target).closest('.pu-avatar').length) return;
         template.showForm.set(true);
     },
     'click [data-contribution-remove]': function(event, template) {

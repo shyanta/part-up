@@ -157,6 +157,7 @@ Template.app_network.events({
         }
     },
     'click [data-accept]': function(event, template) {
+        event.preventDefault();
         var proceedAccept = function(user) {
             var network = Networks.findOne({slug: template.data.networkSlug});
             Meteor.call('networks.join', network._id, function(error) {
@@ -167,7 +168,6 @@ Template.app_network.events({
                 }
             });
         }
-        event.preventDefault();
         var user = Meteor.user();
         if (!user) {
             Intent.go({route: 'login'}, function(loggedInUser) {
@@ -179,6 +179,7 @@ Template.app_network.events({
         proceedAccept(user);
     },
     'click [data-leave]': function(event, template) {
+        event.preventDefault();
         var network = Networks.findOne({slug: template.data.networkSlug});
 
         Partup.client.prompt.confirm({
@@ -216,6 +217,7 @@ Template.app_network.events({
         }
     },
     'click [data-expand]': function(event, template) {
+        event.preventDefault();
         template.expandText(!template.expanded);
     },
     'click [data-open-networksettings]': function(event, template) {
@@ -228,10 +230,14 @@ Template.app_network.events({
         });
     },
     'click [data-location]': function(event, template) {
+        event.preventDefault();
         var location = Networks.findOne({slug: template.data.networkSlug}).location;
         Session.set('discover.query.location', location);
         Meteor.defer(function() {
             Router.go('discover');
         });
+    },
+    'click [data-blank]': function(event, template) {
+        event.preventDefault();
     }
 });

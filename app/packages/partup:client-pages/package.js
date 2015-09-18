@@ -30,6 +30,7 @@ Package.onUse(function(api) {
 
         //no connection
         'modal/no_connection/no_connection.html',
+        'modal/no_connection/no_connection.js',
 
         'app/app-notfound.html',
         'app/app-notfound.js',

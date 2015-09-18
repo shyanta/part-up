@@ -36,5 +36,7 @@
     "base-client-language-ss-passwordIncorrect": "Dit wachtwoord is niet correct",
     "base-client-language-ss-shouldNotContainHtml": "Dit veld mag geen HTML bevatten",
     "base-client-language-ss-missingRequiredTags": "Dit veld mist de verplichte [name] en [url] tags",
-    "base-client-language-ss-shouldNotContainUrls": "Dit veld mag geen URLs bevatten"
+    "base-client-language-ss-shouldNotContainUrls": "Dit veld mag geen URLs bevatten",
+
+    "base-client-language-mention-input-empty": "Geen upper gevonden"
 }

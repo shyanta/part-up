@@ -23,5 +23,6 @@
     "login-error_user-registered-with-username-and-password": "Je bent geregistreerd met een gebruikersnaam en wachtwoord combinatie, log je daar ook weer mee in?",
     "login-error_user-registered-with-linkedin": "Je bent geregistreerd met linkedin, log je daar ook weer mee in?",
     "login-error_user-registered-with-facebook": "Je bent geregistreerd met facebook, log je daar ook weer mee in?",
-    "login-error_user-has-no-password-set": "Je bent geregistreerd met facebook of linkedin, log je daar ook weer mee in?"
+    "login-error_user-has-no-password-set": "Je bent geregistreerd met facebook of linkedin, log je daar ook weer mee in?",
+    "login-error_user-is-deactivated": "Jouw account is gedeactiveerd."
 }

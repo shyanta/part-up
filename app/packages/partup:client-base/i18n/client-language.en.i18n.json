@@ -36,5 +36,7 @@
     "base-client-language-ss-passwordIncorrect": "This password is incorrect",
     "base-client-language-ss-shouldNotContainHtml": "This field may not contain HTML",
     "base-client-language-ss-missingRequiredTags": "This field is missing the required [name] and [url] tags",
-    "base-client-language-ss-shouldNotContainUrls": "This field may not contain URLs"
+    "base-client-language-ss-shouldNotContainUrls": "This field may not contain URLs",
+
+    "base-client-language-mention-input-empty": "No upper found"
 }

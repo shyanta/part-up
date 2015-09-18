@@ -53,7 +53,7 @@ Event.on('partups.inserted', function(userId, partup) {
             var emailOptions = {
                 type: 'partup_created_in_network',
                 toAddress: User(upper).getEmail(),
-                subject: 'Er is een part-up aangemaakt in het netwerk ' + network.name,
+                subject: TAPi18n.__('emails-partup_created_in_network-subject', {network: network.name}, User(upper).getLocale()),
                 locale: User(upper).getLocale(),
                 typeData: {
                     name: User(upper).getFirstname(),

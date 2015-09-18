@@ -1,5 +1,13 @@
 var d = Debug('accounts');
 
+Accounts.validateLoginAttempt(function(attempt) {
+    var user = attempt.user;
+    if (user && !User(user).isActive()) {
+        throw new Meteor.Error(403, 'User is deactivated');
+    }
+    return true;
+});
+
 Accounts.onLogin(function(data) {
     var user = data.user;
     var logins = user.logins || [];
@@ -55,6 +63,7 @@ Accounts.onCreateUser(function(options, user) {
             location: location,
             linkedin_url: 'https://linkedin.com/profile/view?id=' + liData.id,
             name: liData.firstName + ' ' + liData.lastName,
+            normalized_name: Partup.server.services.helper.normalize(liData.firstName + ' ' + liData.lastName),
             settings: {
                 locale: 'en',
                 optionalDetailsCompleted: false,
@@ -84,6 +93,7 @@ Accounts.onCreateUser(function(options, user) {
             lastname: fbData.last_name,
             facebook_url: 'https://facebook.com/' + fbData.id,
             name: fbData.name,
+            normalized_name: Partup.server.services.helper.normalize(fbData.name),
             settings: {
                 locale: Partup.helpers.parseLocale(fbData.locale),
                 optionalDetailsCompleted: false,

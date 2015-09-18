@@ -11,6 +11,7 @@
                             <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
                         </div>
                     {{/if}}
+
                     {{#if partupEquals type 'partup-closed'}}
                         <div class="pu-errorpage pu-errorpage-partup-closed">
                             <h4>{{_ 'pages-app-notfound-partup-closed-title'  }}</h4>
@@ -18,6 +19,7 @@
                             <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
                         </div>
                     {{/if}}
+
                     {{#if partupEquals type 'partup-not-allowed'}}
                         <div class="pu-errorpage pu-errorpage-partup-not-allowed">
                             <h4>{{_ 'pages-app-notfound-partup-not-allowed-title'  }}</h4>
@@ -25,6 +27,7 @@
                             <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
                         </div>
                     {{/if}}
+
                     {{#if partupEquals type 'network'}}
                         <div class="pu-errorpage pu-errorpage-network-closed">
                             <h4>{{_ 'pages-app-notfound-network-title'  }}</h4>
@@ -32,6 +35,15 @@
                             <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
                         </div>
                     {{/if}}
+
+                    {{#if partupEquals type 'network-settings'}}
+                        <div class="pu-errorpage pu-errorpage-network-closed">
+                            <h4>{{_ 'pages-app-notfound-network_settings-title'  }}</h4>
+                            <p>{{_ 'pages-app-notfound-network_settings-description' }}</p>
+                            <p><a href="{{pathFor 'network-detail' slug=data}}">{{_ 'pages-app-notfound-network_settings-backbutton'}}</a></p>
+                        </div>
+                    {{/if}}
+
                     {{#if partupEquals type 'profile'}}
                         <div class="pu-errorpage pu-errorpage-profile">
                             <h4>{{_ 'pages-app-notfound-profile-title'  }}</h4>
@@ -39,6 +51,7 @@
                             <p><a href="{{pathFor 'discover'}}">{{_ 'pages-app-notfound-backbutton'}}</a></p>
                         </div>
                     {{/if}}
+
                     {{#if partupEquals type 'profile-not-allowed'}}
                         <div class="pu-errorpage pu-errorpage-profile">
                             <h4>{{_ 'pages-app-notfound-profile-not-allowed-title'  }}</h4>
@@ -46,6 +59,7 @@
                             <p><a href="{{pathFor 'profile-upper-partups' _id=profileId}}">{{_ 'pages-app-notfound-profile-backbutton'}}</a></p>
                         </div>
                     {{/if}}
+
                     {{#unless type}}
                         <div class="pu-errorpage">
                             <h4>{{_ 'pages-app-notfound-default-title'  }}</h4>

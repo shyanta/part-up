@@ -9,6 +9,12 @@ SyncedCron.add({
             'flags.dailyDigestEmailHasBeenSent': false,
             'profile.settings.email.dailydigest': true
         }).forEach(function(user) {
+            // This cronjob fails if a mail address doesn't exist. So check on this first.
+            if (!User(user).getEmail()) {
+                Log.debug('DailyDigest job: no email found for user ' + user._id);
+                return;
+            }
+
             var newNotifications = Notifications.findForUser(user, {'new': true}).fetch();
             if (newNotifications.length > 0) {
 
@@ -16,7 +22,7 @@ SyncedCron.add({
                 var emailOptions = {
                     type: 'dailydigest',
                     toAddress: User(user).getEmail(),
-                    subject: 'Notifications Part-up.com',
+                    subject: TAPi18n.__('emails-dailydigest-subject', {}, User(user).getLocale()),
                     locale: User(user).getLocale(),
                     typeData: {
                         name: User(user).getFirstname(),

@@ -22,9 +22,6 @@ Package.onUse(function(api) {
         'Footer.html',
         'Footer.js',
 
-        'templates/stats.html',
-        'templates/stats.js',
-
         'i18n/footer.en.i18n.json',
         'i18n/footer.nl.i18n.json'
     ], 'client');

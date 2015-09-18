@@ -23,5 +23,6 @@
     "login-error_user-registered-with-username-and-password": "You were registered with username and password, please use your password to login",
     "login-error_user-registered-with-linkedin": "You were registered with linkedin, please use your linkedin account to login",
     "login-error_user-registered-with-facebook": "You were registered with facebook, please use your facebook account to login",
-    "login-error_user-has-no-password-set": "You were registered with linkedin or facebook, please use them to login."
+    "login-error_user-has-no-password-set": "You were registered with linkedin or facebook, please use them to login.",
+    "login-error_user-is-deactivated": "Your account was deactivated."
 }

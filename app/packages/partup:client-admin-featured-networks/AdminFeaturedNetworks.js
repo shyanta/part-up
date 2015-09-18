@@ -2,6 +2,8 @@ Template.AdminFeaturedNetworks.onCreated(function() {
     this.subscribe('networks.featured_all');
     this.networkSelection = new ReactiveVar();
     this.submitting = new ReactiveVar(false);
+    this.uploadingNetworkLogo = new ReactiveVar(false);
+    this.currentLogoId = new ReactiveVar();
 });
 
 /*************************************************************/
@@ -54,6 +56,17 @@ Template.AdminFeaturedNetworks.helpers({
     },
     getQuoteAuthor: function() {
         return Meteor.users.findOne(this.featured.by_upper._id);
+    },
+    networkLogoUrl: function() {
+        var uploadedImageID = Template.instance().currentLogoId.get();
+
+        if (uploadedImageID) {
+            var image = Images.findOne({_id: uploadedImageID});
+            return image ? image.url({store: '360x360'}) : null;
+        }
+    },
+    uploadingNetworkLogo: function() {
+        return Template.instance().uploadingNetworkLogo.get();
     }
 });
 
@@ -67,6 +80,31 @@ Template.AdminFeaturedNetworks.events({
                 Partup.client.notify.error(err.reason);
                 return;
             }
+        });
+    },
+    'click [data-browse-photos]': function(event, template) {
+        event.preventDefault();
+
+        // in stead fire click event on file input
+        var input = $('input[data-network-logo-input]');
+        input.click();
+    },
+    'change [data-network-logo-input]': function(event, template) {
+        FS.Utility.eachFile(event, function(file) {
+            template.uploadingNetworkLogo.set(true);
+
+            Partup.client.uploader.uploadImage(file, function(error, image) {
+                if (error) {
+                    Partup.client.notify.error(__('pages-modal-admin-featured-networks-form-logo-error'));
+                    template.uploadingNetworkLogo.set(false);
+                    return;
+                }
+                template.$('input[name=logo]').val(image._id);
+                template.currentLogoId.set(image._id);
+
+                template.uploadingNetworkLogo.set(false);
+            });
+
         });
     }
 });

@@ -7,6 +7,8 @@
  */
 // jscs:enable
 
+var isChrome = navigator.userAgent.match('CriOS');
+
 var formPlaceholders = {
     email: function() {
         return __('login-form-email-placeholder');
@@ -15,6 +17,18 @@ var formPlaceholders = {
         return __('login-form-password-placeholder');
     }
 };
+
+if (isChrome) {
+    // Success callback when using loginStyle: redirect
+    Accounts.onLogin(function() {
+        if (Router) Router.go('discover');
+    });
+
+    // Failure callback when using loginStyle: redirect
+    Accounts.onLoginFailure(function() {
+        if (Router) Router.go('discover');
+    });
+}
 
 /*************************************************************/
 /* Widget helpers */
@@ -39,11 +53,14 @@ Template.Login.events({
         }, {prevent_going_back: true});
     },
     'click [data-loginfacebook]': function(event) {
+        event.preventDefault();
+
         Meteor.loginWithFacebook({
-            requestPermissions: ['email']
+            requestPermissions: ['email'],
+            loginStyle: isChrome ? 'redirect' : 'popup'
         }, function(error) {
             if (error) {
-                Partup.client.notify.error(__('login-error_' + error.reason));
+                Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
                 return;
             }
 
@@ -51,12 +68,14 @@ Template.Login.events({
         });
     },
     'click [data-loginlinkedin]': function(event) {
-        Meteor.loginWithLinkedin({
-            requestPermissions: ['r_emailaddress']
-        }, function(error) {
+        event.preventDefault();
 
+        Meteor.loginWithLinkedin({
+            requestPermissions: ['r_emailaddress'],
+            loginStyle: isChrome ? 'redirect' : 'popup'
+        }, function(error) {
             if (error) {
-                Partup.client.notify.error(__('login-error_' + error.reason));
+                Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
                 return false;
             }
 
