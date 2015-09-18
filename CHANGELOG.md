@@ -1,4 +1,38 @@
 # CHANGELOG
+## 1.9.0
+- major style tweaking updates to all pages
+- ability to deactivate users from admin panel -> avoid user from logging in or showing up in mentions
+- now excluding partners and tribe members from invite screens, until searching for a name
+- mentions: display message if no uppers are found
+- removed mixpanel integration / badge
+- copy updates
+- footer links on same domain
+- ops: staging and acceptance environments deployable through docker containers
+- pricing page links to google docs
+- ability to search users with special characters in invite and mentions (e.g. leon matches léon)
+- featured networks now have separate image that is shown on homepage
+- redirect /blogs/ to blog subdomain
+- removed beta logo and changed home copy accordingly
+- bugfixes
+    - fixed empty text in invite emails
+    - fixed date field becoming empty on incomplete part-up save
+    - fixed only showing 4 partups discover when loggedout
+    - fixed iOS Chrome service login
+    - fix(tags): allow & and . characters in partup/tribe/profile tags
+    - fix(partuptile): tile correctly displays number of uppers bigger than 5
+    - fix(home): popular parties now display correctly on iPad
+    - fix(partup-detail): clicking a notification doesn't result in false 404 errors anymore
+    - fix(partup-updates): replaced infinite scroll loader with pretty version
+    - contribution: don't show edit form if a rating avatar is clicked
+    - daily digest doesnt fail halfway anymore
+    - properly translating email subjects
+    - network settings not visible for unallowed users
+    - fix(usercard) now always showing details in profile card
+    - redirection fixes on buttons in IE
+    - fix(profile): fix flickering images
+    - profile: allow underscores/dashes in facebook url and trailing slash after twitter url
+    - file upload in firefox fixed
+
 ## 1.8.3
 - mentions can now be searched with a space, "first lastname"
 - bugfixes
