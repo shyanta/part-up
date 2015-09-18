@@ -23,7 +23,10 @@ Template.PartupTileFeatured.helpers({
 
         Meteor.defer(function() {
             var canvasElm = template.find('canvas.pu-sub-radial');
-            if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
+            if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm, {
+                background_color: '#f9f9f9',
+                border_color_negative: '#ccc'
+            });
         });
 
         if (!this.partup) return 10;
