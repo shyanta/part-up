@@ -57,7 +57,7 @@ Meteor.methods({
     /**
      * Deactivate user
      *
-     * @param  {string} activityId
+     * @param  {string} userId
      */
     'users.deactivate': function(userId) {
         check(userId, String);
@@ -90,7 +90,7 @@ Meteor.methods({
     /**
      * Reactivate user
      *
-     * @param  {string} activityId
+     * @param  {string} userId
      */
     'users.reactivate': function(userId) {
         check(userId, String);
