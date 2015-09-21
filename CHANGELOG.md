@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.9.1
+- bugfixes
+    - fix(partup-settings): date field now correctly prefilled when changing settings, plus correct removal of end_date field
+
 ## 1.9.0
 - major style tweaking updates to all pages
 - ability to deactivate users from admin panel -> avoid user from logging in or showing up in mentions
