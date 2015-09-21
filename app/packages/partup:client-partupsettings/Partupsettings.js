@@ -135,12 +135,19 @@ Template.Partupsettings.onCreated(function() {
         // Bind datepicker
         var options = Partup.client.datepicker.options;
         options.startDate = new Date();
-        template.end_date_datepicker = template
-            .$('[bootstrap-datepicker]')
-            .datepicker(options)
-            .on('changeDate clearDate', function(event) {
-                event.currentTarget.nextElementSibling.value = event.date;
-            });
+
+        var dateChangeHandler = function(event) {
+            event.currentTarget.nextElementSibling.value = event.date;
+        };
+
+        this.autorun(function() {
+            var end_date = AutoForm.getFieldValue('end_date');
+            template.end_date_datepicker = template
+                .$('[bootstrap-datepicker]')
+                .datepicker(options)
+                .datepicker('setDate', end_date)
+                .on('changeDate clearDate', dateChangeHandler);
+        });
     });
 });
 
