@@ -235,6 +235,62 @@ Partup.prototype.isFeatured = function() {
 };
 
 /**
+ * Get all partners and supporters
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.getUsers = function() {
+    var uppers = this.uppers || [];
+    var supporters = this.supporters || [];
+
+    return uppers.concat(supporters);
+};
+
+/**
+ * Create the upper_data object for the given upperId
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.createUpperDataObject = function(upperId) {
+    Partups.update({
+        _id: this._id,
+        'upper_data._id': {
+            $ne: upperId
+        }
+    }, {
+        $push: {
+            upper_data: {
+                _id: upperId,
+                new_updates: []
+            }
+        }
+    });
+};
+
+/**
+ * Remove the upper_data object for the given upperId
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.removeUpperDataObject = function(upperId) {
+    Partups.update({
+        _id: this._id,
+        'upper_data._id': upperId
+    }, {
+        $pull: {upper_data: {_id: upperId}}
+    });
+};
+
+/**
+ * Update new updates for a single user
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.updateNewUpdatesForUpper = function(upperId, updateId) {
+    Partups.update({_id: this._id, 'upper_data._id': upperId}, {$addToSet: {'upper_data.$.new_updates': updateId}});
+};
+
+/**
  * Partups describe collaborations between several uppers
  * @namespace Partups
  */
