@@ -1,5 +1,7 @@
 Template.UserCardContent.onCreated(function() {
-    this.subscribe('users.one', this.data._id);
+    if (typeof this.data._id == 'string') {
+        this.subscribe('users.one', this.data._id);
+    }
 });
 Template.UserCardContent.helpers({
     data: function() {
