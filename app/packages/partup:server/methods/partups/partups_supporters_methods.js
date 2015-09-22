@@ -20,6 +20,9 @@ Meteor.methods({
                 Partups.update(partupId, {$addToSet: {'supporters': upper._id}});
                 Meteor.users.update(upper._id, {$addToSet: {'supporterOf': partupId}});
 
+                // Create the data object that holds the meta data
+                partup.createUpperDataObject(upper._id);
+
                 Event.emit('partups.supporters.inserted', partup, upper);
 
                 return true;
@@ -52,6 +55,9 @@ Meteor.methods({
             if (isSupporter) {
                 Partups.update(partupId, {$pull: {'supporters': upper._id}});
                 Meteor.users.update(upper._id, {$pull: {'supporterOf': partupId}});
+
+                // Also remove upper_data object from partup
+                partup.removeUpperDataObject(upper._id);
 
                 Event.emit('partups.supporters.removed', partup, upper);
 
