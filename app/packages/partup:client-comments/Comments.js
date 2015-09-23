@@ -18,6 +18,7 @@ Template.Comments.onCreated(function() {
     this.submitting = new ReactiveVar(false);
     this.expanded = new ReactiveVar(false);
     this.buttonActive = new ReactiveVar(false);
+    this.showCommentClicked = new ReactiveVar(false);
 
     this.LIMIT = this.data.LIMIT || 0;
     this.showComments = this.data.SHOW_COMMENTS === undefined ||
@@ -34,7 +35,10 @@ Template.Comments.onRendered(function() {
 
 Template.Comments.helpers({
     showCommentFormAndMayComment: function() {
-        return this.showCommentForm && Meteor.user();
+        return this.showCommentForm && Meteor.user() && (this.showCommentClicked || Template.instance().showCommentClicked.get());
+    },
+    commentButtonClicked: function() {
+        return this.showCommentClicked || Template.instance().showCommentClicked.get();
     },
     buttonActive: function() {
         return Template.instance().buttonActive.get();
@@ -106,7 +110,8 @@ Template.Comments.helpers({
 Template.Comments.events({
 
     'click [data-expand-comments]': function(event, template) {
-        template.expanded.set(true);
+        // template.expanded.set(true);
+        template.showCommentClicked.set(true);
     },
 
     'keydown [data=commentfield]': function(event, template) {

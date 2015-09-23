@@ -33,6 +33,7 @@ var budgetDisplay = function(type, value) {
 Template.Update.onCreated(function() {
     var template = this;
     template.commentInputFieldExpanded = new ReactiveVar(false);
+    template.showCommentClicked = new ReactiveVar(false);
 });
 
 /*************************************************************/
@@ -84,6 +85,10 @@ Template.Update.helpers({
             template.data.FORCE_COMMENTFORM;
     },
 
+    showCommentClicked: function() {
+        return Template.instance().showCommentClicked.get();
+    },
+
     isUpper: function() {
         var user = Meteor.user();
         if (!user) return false;
@@ -128,6 +133,7 @@ Template.Update.helpers({
 Template.Update.events({
     'click [data-expand-comment-field]': function(event, template) {
         template.commentInputFieldExpanded.set(true);
+        template.showCommentClicked.set(true);
         var updateId = this.updateId;
 
         Meteor.defer(function() {

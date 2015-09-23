@@ -66,12 +66,24 @@
         > footer
             .pu-sub-view-all-comments-button
                 font-size: 14px
-                color: $color-secondary
+                color: $color-text-subtle
                 margin-top: 15px - 5px
                 margin-bottom: -19px
 
                 a
-                    color: $color-secondary
+                    color: $color-text-subtle
+
+                    &:hover,
+                    &:active,
+                    &:focus
+                        color: $color-secondary
+
+
+                span.pu-sub-seperator
+                    &:after
+                        content: '•'
+                        margin-left: 5px
+                        margin-right: 5px
 
             .pu-list-fieldwithbutton
                 margin-top: 15px

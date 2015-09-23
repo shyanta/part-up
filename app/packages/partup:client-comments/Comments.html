@@ -16,7 +16,28 @@
                     ">
                         {{_ 'widgetcommentfield-comment-viewall-button' update.comments_count }}
                     </a>
+
+                    {{#unless commentButtonClicked}}
+                        {{#if update.comments_count}}
+                            <span class="pu-sub-seperator"></span>
+                        {{/if}}
+                        <a href="#" data-expand-comments>
+                            Reageer
+                        </a>
+                    {{/unless}}
                 </p>
+            {{else}}
+                {{#unless commentButtonClicked}}
+                    {{#if update.comments_count}}
+                        <p class="pu-sub-view-all-comments-button">
+                            {{_ 'widgetcommentfield-comment-totalcomments' update.comments_count }}
+                            <span class="pu-sub-seperator"></span>
+                            <a href="#" data-expand-comments>
+                                Reageer
+                            </a>
+                        </p>
+                    {{/if}}
+                {{/unless}}
             {{/if }}
 
             <!-- Comments list -->

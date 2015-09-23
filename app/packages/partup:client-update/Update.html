@@ -206,7 +206,7 @@
             <!-- Comments -->
             {{# if update }}
                 {{#if commentable }}
-                    {{> Comments update=update showCommentForm=showCommentForm SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
+                    {{> Comments update=update showCommentForm=showCommentForm showCommentClicked=showCommentClicked SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
                 {{/if }}
             {{/ if }}
         </section>
