@@ -7,7 +7,7 @@ Event.on('partups.updates.inserted', function(userId, update) {
     var partup = Partups.findOneOrFail(update.partup_id);
     partup.getUsers().forEach(function(upperId) {
         // Update the new_updates list for all this partup's users
-        partup.updateNewUpdatesForUpper(update._id, upperId);
+        partup.updateNewUpdatesForUpper(upperId, update._id);
     });
 
     if (update.type === 'partups_message_added' && !update.system) {
@@ -56,7 +56,7 @@ Event.on('partups.updates.updated', function(userId, update) {
 
         // Update the new_updates list for all this partup's users
         partup.getUsers().forEach(function(upperId) {
-            partup.updateNewUpdatesForUpper(update._id, upperId);
+            partup.updateNewUpdatesForUpper(upperId, update._id);
         });
     }
 });
