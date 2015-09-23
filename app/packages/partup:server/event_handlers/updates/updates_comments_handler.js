@@ -79,30 +79,28 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
         d('The creator of the comment is also the creator of the update, so we wont generate a notification.');
         return;
     }
-    console.log(comment.type);
-    if (comment.type !== 'system') {
-        // Set the notification details
-        var notificationOptions = {
-            userId: update.upper_id,
-            type: 'updates_first_comment',
-            typeData: {
-                commenter: {
-                    _id: comment.creator._id,
-                    name: comment.creator.name,
-                    image: comment.creator.image
-                },
-                partup: {
-                    _id: partup._id,
-                    name: partup.name,
-                    slug: partup.slug
-                },
-                update: {
-                    _id: update._id
-                }
-            }
-        };
 
-        // Send the notification
-        Partup.server.services.notifications.send(notificationOptions);
-    }
+    // This can only be the first human comment by now, so prepare the notification
+    var notificationOptions = {
+        userId: update.upper_id,
+        type: 'updates_first_comment',
+        typeData: {
+            commenter: {
+                _id: comment.creator._id,
+                name: comment.creator.name,
+                image: comment.creator.image
+            },
+            partup: {
+                _id: partup._id,
+                name: partup.name,
+                slug: partup.slug
+            },
+            update: {
+                _id: update._id
+            }
+        }
+    };
+
+    // Send the notification
+    Partup.server.services.notifications.send(notificationOptions);
 });
