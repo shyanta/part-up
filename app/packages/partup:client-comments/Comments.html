@@ -22,21 +22,24 @@
             <!-- Comments list -->
             <ul class="pu-list pu-list-comments">
                 {{#each shownComments }}
-                    <li>
-                        <p class="{{# if isSystemMessage }}pu-sub-systemmessage{{/ if}}">
-                            {{# if isMotivation }}
-                                <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>'s
-                                {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
-                            {{else}}
-                                <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
-                                {{# if isSystemMessage }}
-                                    {{{ systemMessage content }}}
-                                {{ else }}
-                                    {{{ partupAutolink content }}}
-                                {{/ if }}
-                            {{/ if}}
+                    <li class="pu-comment">
+                        <figure data-usercard="{{creator._id}}" class="pu-avatar pu-avatar-small pu-avatar-square" style="{{#with creator.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
+                        <div>
+                            <p class="{{# if isSystemMessage }}pu-sub-systemmessage{{/ if}}">
+                                {{# if isMotivation }}
+                                    <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>'s
+                                    {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
+                                {{else}}
+                                    <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
+                                    {{# if isSystemMessage }}
+                                        {{{ systemMessage content }}}
+                                    {{ else }}
+                                        {{{ partupAutolink content }}}
+                                    {{/ if }}
+                                {{/ if}}
+                            </p>
                             <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
-                        </p>
+                        </div>
                     </li>
                 {{/each }}
             </ul>
