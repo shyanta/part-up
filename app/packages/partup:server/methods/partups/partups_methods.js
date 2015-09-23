@@ -298,7 +298,7 @@ Meteor.methods({
 
      * @param {String} partupId
      */
-    'partups.reset_new_update_count': function(partupId) {
+    'partups.reset_new_updates': function(partupId) {
         check(partupId, String);
 
         try {

@@ -167,8 +167,8 @@ Template.app_partup_updates.onCreated(function() {
 Template.app_partup_updates.onRendered(function() {
     var tpl = this;
 
-    // Reset new updates count for current user
-    Meteor.call('partups.reset_new_update_count', this.data.partupId);
+    // Reset new updates for current user
+    Meteor.call('partups.reset_new_updates', this.data.partupId);
 
     /**
      * Infinite scroll
@@ -371,7 +371,7 @@ Template.app_partup_updates.events({
         template.updates.refreshDate_remembered.set(template.updates.refreshDate.get());
         template.updates.updateView();
 
-        // Reset new updates count for current user
-        Meteor.call('partups.reset_new_update_count', template.data.partupId);
+        // Reset new updates for current user
+        Meteor.call('partups.reset_new_updates', template.data.partupId);
     }
 });

@@ -40,8 +40,8 @@ Template.app_partup.onCreated(function() {
             }
         }
 
-        // Reset new updates count for current user
-        Meteor.call('partups.reset_new_update_count', partup._id);
+        // Reset new updates for current user
+        Meteor.call('partups.reset_new_updates', partup._id);
     };
 
     tpl.autorun(function() {
