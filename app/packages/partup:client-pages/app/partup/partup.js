@@ -39,6 +39,9 @@ Template.app_partup.onCreated(function() {
                 if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
             }
         }
+
+        // Reset new updates for current user
+        Meteor.call('partups.reset_new_updates', partup._id);
     };
 
     tpl.autorun(function() {

@@ -293,4 +293,20 @@ Meteor.methods({
         }
     },
 
+    /**
+     * Reset new updates count
+
+     * @param {String} partupId
+     */
+    'partups.reset_new_updates': function(partupId) {
+        check(partupId, String);
+
+        try {
+            Partups.update({_id: partupId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_updates': []}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_update_count_could_not_be_reset');
+        }
+    }
+
 });

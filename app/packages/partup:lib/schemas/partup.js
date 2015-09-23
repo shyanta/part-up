@@ -156,6 +156,18 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: [String],
         optional: true,
         regEx: SimpleSchema.RegEx.Id
+    },
+    upper_data: {
+        type: [Object],
+        optional: true
+    },
+    'upper_data.$._id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'upper_data.$.new_updates': {
+        type: [String],
+        optional: true
     }
 }]);
 

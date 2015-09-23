@@ -13,19 +13,9 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         try {
-            var supporters = partup.supporters || [];
-            var isAlreadySupporter = !!(supporters.indexOf(upper._id) > -1);
+            partup.makeSupporter(upper._id);
 
-            if (!isAlreadySupporter && partup.creator_id !== upper._id) {
-                Partups.update(partupId, {$addToSet: {'supporters': upper._id}});
-                Meteor.users.update(upper._id, {$addToSet: {'supporterOf': partupId}});
-
-                Event.emit('partups.supporters.inserted', partup, upper);
-
-                return true;
-            }
-
-            return false;
+            return true;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'user_could_not_be_marked_as_a_supporter');
@@ -52,6 +42,9 @@ Meteor.methods({
             if (isSupporter) {
                 Partups.update(partupId, {$pull: {'supporters': upper._id}});
                 Meteor.users.update(upper._id, {$pull: {'supporterOf': partupId}});
+
+                // Also remove upper_data object from partup
+                partup.removeUpperDataObject(upper._id);
 
                 Event.emit('partups.supporters.removed', partup, upper);
 

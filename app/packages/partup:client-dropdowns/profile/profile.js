@@ -113,6 +113,16 @@ Template.DropdownProfile.helpers({
         });
     },
 
+    newUpdates: function() {
+        var count = null;
+        this.upper_data.forEach(function(upperData) {
+            if (upperData._id === Meteor.userId()) {
+                count = upperData.new_updates.length;
+            }
+        });
+        return count;
+    },
+
     user: function() {
         return Meteor.user();
     },
