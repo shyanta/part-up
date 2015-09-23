@@ -79,11 +79,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
         d('The creator of the comment is also the creator of the update, so we wont generate a notification.');
         return;
     }
-
-    if (!update.system) {
-        // Update the new_updates list for the receiving upper
-        partup.updateNewUpdatesForUpper(update.upper_id, update._id);
-
+    console.log(comment.type);
+    if (comment.type !== 'system') {
         // Set the notification details
         var notificationOptions = {
             userId: update.upper_id,
