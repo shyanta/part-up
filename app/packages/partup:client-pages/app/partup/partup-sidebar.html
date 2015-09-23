@@ -27,8 +27,8 @@
                     {{# if showTakePartButton }}
 
                         <!-- take part popup -->
-                        <a class="pu-button pu-button-icon" data-open-takepart-popup>
-                            <i class="picon-person-plus picon-large"></i>
+                        <a class="pu-button" data-open-takepart-popup>
+                            <i class="picon-info"></i>
                             {{_ 'pages-app-partup-take_part' }}
                         </a>
 
@@ -63,7 +63,7 @@
                     {{/if}}
                     {{#unless isUpperInPartup}}
                         {{#if isSupporter }}
-                            <a data-leavesupporters class="pu-button">
+                            <a data-leavesupporters class="pu-button pu-button-smallicon">
                                 <i class="picon-times"></i>
                                 {{_ 'pages-app-partup-supporters_leave' }}
                             </a>
