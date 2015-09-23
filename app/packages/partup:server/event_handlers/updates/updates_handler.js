@@ -51,12 +51,10 @@ Event.on('partups.updates.inserted', function(userId, update) {
 });
 
 Event.on('partups.updates.updated', function(userId, update) {
-    if (!update.system) {
-        var partup = Partups.findOneOrFail(update.partup_id);
+    var partup = Partups.findOneOrFail(update.partup_id);
 
-        // Update the new_updates list for all this partup's users
-        partup.getUsers().forEach(function(upperId) {
-            partup.updateNewUpdatesForUpper(upperId, update._id);
-        });
-    }
+    // Update the new_updates list for all this partup's users
+    partup.getUsers().forEach(function(upperId) {
+        partup.updateNewUpdatesForUpper(upperId, update._id);
+    });
 });
