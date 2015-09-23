@@ -475,14 +475,14 @@ var ImageSystem = function(template) {
         self.focuspoint.set('x', x);
         self.focuspoint.set('y', y);
     };
-
+    var currentIndex;
     // Set suggestion
     var setSuggestionByIndex = function(index) {
-
         var suggestions = self.availableSuggestions.get();
         if (!mout.lang.isArray(suggestions)) return;
 
         var url = suggestions[index];
+        currentIndex = index;
         if (!mout.lang.isString(url)) return;
 
         template.loading.set('setting-suggestion', true);
@@ -493,7 +493,7 @@ var ImageSystem = function(template) {
                 Partup.client.notify.error('Some error occured');
                 return;
             }
-            self.currentImageId.set(image._id);
+            if (index === currentIndex) self.currentImageId.set(image._id);
         });
     };
 
