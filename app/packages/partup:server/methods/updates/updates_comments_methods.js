@@ -76,5 +76,21 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'comment_could_not_be_inserted');
         }
+    },
+
+    /**
+     * Reset new comments
+     *
+     * @param {String} updateId
+     */
+    'updates.reset_new_comments': function(updateId) {
+        check(updateId, String);
+
+        try {
+            Updates.update({_id: updateId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_comments': []}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_new_comments_could_not_be_reset');
+        }
     }
 });
