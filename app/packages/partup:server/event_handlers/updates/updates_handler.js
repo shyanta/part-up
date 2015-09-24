@@ -5,9 +5,11 @@ var d = Debug('event_handlers:updates_handler');
  */
 Event.on('partups.updates.inserted', function(userId, update) {
     var partup = Partups.findOneOrFail(update.partup_id);
+    update = new Update(update);
     partup.getUsers().forEach(function(upperId) {
         // Update the new_updates list for all this partup's users
         partup.updateNewUpdatesForUpper(upperId, update._id);
+        update.createUpperDataObject(upperId);
     });
 
     if (update.type === 'partups_message_added' && !update.system) {
