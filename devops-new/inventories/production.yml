@@ -1,5 +1,6 @@
 [appservers]
-{ip} name=partup-production-amsterdam2-01
+5.101.103.8 name=partup-production-amsterdam2-01
+95.85.15.140 name=partup-production-amsterdam2-02
 
 [production:children]
 appservers
