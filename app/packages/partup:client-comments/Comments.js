@@ -35,7 +35,8 @@ Template.Comments.onRendered(function() {
 
 Template.Comments.helpers({
     showCommentFormAndMayComment: function() {
-        return this.showCommentForm && Meteor.user() && (this.showCommentClicked || Template.instance().showCommentClicked.get());
+        var template = Template.instance();
+        return this.showCommentForm && Meteor.user() && (this.showCommentClicked || template.showCommentClicked.get() || get(template ,'data.type') === 'motivation');
     },
     commentButtonClicked: function() {
         return this.showCommentClicked || Template.instance().showCommentClicked.get();
