@@ -4,6 +4,7 @@ RUN curl https://install.meteor.com/ | sh
 RUN apt-get install -y imagemagick
 
 COPY . /code
+COPY ../.git /code/.git
 WORKDIR /code
 
 RUN meteor build --directory .
