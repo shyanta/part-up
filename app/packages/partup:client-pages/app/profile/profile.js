@@ -12,7 +12,9 @@ Template.app_profile.onCreated(function() {
 
     template.autorun(function() {
         var id = Template.currentData().profileId;
-        profile_sub = Meteor.subscribe('users.one', id); // subs manager fails here
+        if (typeof id == 'string') {
+            profile_sub = Meteor.subscribe('users.one', id); // subs manager fails here
+        }
     });
 
     template.autorun(function() {

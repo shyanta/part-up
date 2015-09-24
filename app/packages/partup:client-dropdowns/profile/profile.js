@@ -14,7 +14,7 @@ Template.DropdownProfile.onCreated(function() {
 
     var userId = Meteor.userId();
 
-    if (userId) {
+    if (typeof userId == 'string') {
         this.subscribe('users.one.upperpartups', userId);
         this.subscribe('users.one.supporterpartups', userId);
     }
