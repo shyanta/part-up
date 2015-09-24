@@ -2,7 +2,7 @@
  * Partup model
  * @ignore
  */
-var Update = function(document) {
+Update = function(document) {
     _.extend(this, document);
 };
 
@@ -50,6 +50,26 @@ Update.prototype.isContributionUpdate = function() {
         this.type === 'partups_comments_added' &&
         this.type_data.contribution_id
     );
+};
+
+/**
+ * Create the upper_data object for the given upperId
+ * @memberOf Updates
+ */
+Update.prototype.createUpperDataObject = function(upperId) {
+    Updates.update({
+        _id: this._id,
+        'upper_data._id': {
+            $ne: upperId
+        }
+    }, {
+        $push: {
+            upper_data: {
+                _id: upperId,
+                new_comments: []
+            }
+        }
+    });
 };
 
 /**
