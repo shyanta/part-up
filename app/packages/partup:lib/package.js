@@ -113,6 +113,7 @@ Package.onUse(function(api) {
     api.export('Ratings');
     api.export('Tags');
     api.export('Updates');
+    api.export('Update');
     api.export('User');
     api.export('Places');
     api.export('PlacesAutocompletes');
