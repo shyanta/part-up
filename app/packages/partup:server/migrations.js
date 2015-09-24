@@ -542,7 +542,7 @@ Migrations.add({
     up: function() {
         Meteor.users.find().forEach(function(user) {
             Meteor.users.update(user._id, {$set: {
-                'profile.normalized_name': Partup.server.services.helper.normalize(user.profile.name)
+                'profile.normalized_name': Partup.helpers.normalize(user.profile.name)
             }});
         });
     },

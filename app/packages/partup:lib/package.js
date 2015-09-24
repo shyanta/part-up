@@ -78,6 +78,7 @@ Package.onUse(function(api) {
         'transformers/network.js',
         'helpers/parselocale.js',
         'helpers/mentions.js',
+        'helpers/normalize.js',
         'helpers/interpolateEmailMessage.js'
     ]);
 

@@ -15,7 +15,7 @@ Meteor.methods({
 
         try {
             var userFields = Partup.transformers.profile.fromFormProfileSettings(fields);
-            userFields.profile.normalized_name = Partup.server.services.helper.normalize(userFields.profile.name);
+            userFields.profile.normalized_name = Partup.helpers.normalize(userFields.profile.name);
 
             // Merge the old profile so empty fields do not get overwritten
             var mergedProfile = _.extend(upper.profile, userFields.profile);
