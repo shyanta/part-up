@@ -8,6 +8,7 @@ WORKDIR /code
 
 RUN meteor build --directory .
 RUN cd bundle/programs/server && npm install
+RUN echo "{\"version\": \"`git describe`\", \"deploydate\": \"`date +\"%Y-%m-%dT%H:%M:%SZ\"`\"}" > app/public/VERSION
 
 EXPOSE 3000
 CMD node bundle/main.js
