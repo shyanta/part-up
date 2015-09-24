@@ -14,6 +14,7 @@
     "dropdowns-notifications-placeholder-nonotifications": "You don't have any notifications yet",
     "dropdowns-notifications-button-managenotifications": "Manage notifications",
 
+    "dropdowns-updatesactions-label": "Show:",
     "dropdowns-updatesactions-option-default": "All updates",
     "dropdowns-updatesactions-option-messages": "Just messages",
     "dropdowns-updatesactions-option-activities": "Just activity updates",
