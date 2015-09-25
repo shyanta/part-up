@@ -567,4 +567,20 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(20);
+Migrations.add({
+    version: 21,
+    name: 'Make an upper_data object for all partners/supporters of a partup, on each update',
+    up: function() {
+        Updates.find({}).forEach(function(update) {
+            var partup = Partups.findOne({_id: update.partup_id});
+            partup.getUsers().forEach(function(upperId) {
+                update.createUpperDataObject(upperId);
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(21);
