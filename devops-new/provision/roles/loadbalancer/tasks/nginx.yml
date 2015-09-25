@@ -36,9 +36,14 @@
   notify: nginx | reload
   tags: nginx
 
+- name: nginx | add maintenance website
+  copy: src=partup-maintenance dest=/var/www
+  tags: nginx
+
 - name: nginx | add loadbalancer configuration
-  template: src=nginx-vhost.tpl dest=/etc/nginx/sites-enabled/loadbalancer-{{ item.environment }}.conf
+  template: src=nginx-vhost-{{ deploy_mode }}.tpl dest=/etc/nginx/sites-enabled/loadbalancer-{{ item.environment }}.conf
   with_items: loadbalancer.destinations
+  when: deploy_environment == item.environment or deploy_environment == 'all'
   notify: nginx | reload
   tags: nginx
 
