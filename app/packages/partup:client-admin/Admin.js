@@ -65,6 +65,18 @@ Template.Admin.events({
             }
         });
     },
+    'click [data-impersonate-user]': function(event, template) {
+        event.preventDefault();
+        var userId = this._id;
+        Meteor.call('users.admin_impersonate', userId, function(error) {
+            if (error) {
+                Partup.client.notify.error(__(error));
+                return;
+            }
+            Meteor.connection.setUserId(userId);
+            Intent.go({route: 'home'});
+        });
+    },
     'click [data-reactivate-user]': function(event, template) {
         event.preventDefault();
         var userId = this._id;
