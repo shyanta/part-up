@@ -72,19 +72,6 @@ Template.Update.helpers({
         return !!Meteor.user();
     },
 
-    showCommentForm: function() {
-        var update = Updates.findOne({_id: this.updateId});
-        if (!update) return false;
-
-        var template = Template.instance();
-        var commentsPresent = update.comments && update.comments.length > 0;
-        var commentButtonPressed = template.commentInputFieldExpanded.get();
-        var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
-        return (commentsPresent && !lastCommentIsSystemMessage) ||
-            commentButtonPressed ||
-            template.data.FORCE_COMMENTFORM;
-    },
-
     showCommentClicked: function() {
         return Template.instance().showCommentClicked.get();
     },

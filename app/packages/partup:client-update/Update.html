@@ -34,23 +34,25 @@
 
 
                 <!-- Top comment button -->
-                {{# if mayComment }}
-                    {{# if metadata.is_contribution }}
+                {{# unless isDetail }}
+                    {{# if mayComment }}
+                        {{# if metadata.is_contribution }}
 
-                        <!-- When the update is a contribution-update, link to the activity -->
-                        <a class="pu-button pu-button-text" href="{{ metadata.path }}">{{_ 'update-comment-button' }}</a>
+                            <!-- When the update is a contribution-update, link to the activity -->
+                            <a class="pu-button pu-button-text" href="{{ metadata.path }}">{{_ 'update-comment-button' }}</a>
 
-                    {{ else }}
+                        {{ else }}
 
-                        <!-- Only show the comment button when the update is commentable -->
-                        {{# if commentable }}
-                            {{# unless showCommentForm }}
-                                <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'update-comment-button' }}</a>
-                            {{/ unless }}
+                            <!-- Only show the comment button when the update is commentable -->
+                            {{# if commentable }}
+                                {{# unless showCommentForm }}
+                                    <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'update-comment-button' }}</a>
+                                {{/ unless }}
+                            {{/ if }}
+
                         {{/ if }}
-
                     {{/ if }}
-                {{/ if }}
+                {{/ unless }}
             </header>
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
@@ -206,7 +208,7 @@
             <!-- Comments -->
             {{# if update }}
                 {{#if commentable }}
-                    {{> Comments update=update showCommentForm=showCommentForm showCommentClicked=showCommentClicked SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
+                    {{> Comments update=update showCommentClicked=showCommentClicked FULLVIEW=isDetail SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
                 {{/if }}
             {{/ if }}
         </section>
