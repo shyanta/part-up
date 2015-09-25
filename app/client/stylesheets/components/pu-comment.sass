@@ -17,6 +17,7 @@
             height: 2px
             background-color: $color-text-subtle
             width: 30px
+            vertical-align: middle
 
     time
         color: $color-text-subtle
@@ -24,3 +25,14 @@
         font-weight: 700
         font-size: 12px
 
+    &-systemmessage
+        p
+            width: auto
+            float: left
+
+        time
+            vertical-align: middle
+            &:before
+                content: '-'
+                margin-left: 10px
+                margin-right: 10px
