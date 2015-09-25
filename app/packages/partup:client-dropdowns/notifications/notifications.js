@@ -5,6 +5,16 @@ Template.DropdownNotifications.onCreated(function() {
 
         Meteor.call('notifications.all_read');
     });
+
+    //Update the number of notifications in the title
+    template.autorun(function() {
+        var numberOfNotifications = Notifications.findForUser(Meteor.user(), {'new': true}).count();
+        if (numberOfNotifications > 0) {
+            document.title = '(' + numberOfNotifications + ')' + ' Part-up';
+        } else {
+            document.title = 'Part-up';
+        }
+    });
 });
 Template.DropdownNotifications.onRendered(function() {
     var template = this;
