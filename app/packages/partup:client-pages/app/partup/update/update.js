@@ -11,11 +11,11 @@ Template.app_partup_update.onCreated(function() {
             computation.stop();
             Subs.subscribe('partups.one', data.partupId);
             Subs.subscribe('updates.one', data.updateId);
-
-            // Reset new comments for current user
-            Meteor.call('updates.reset_new_comments', data.updateId);
         }
     });
+
+    // Reset new comments for current user
+    Meteor.call('updates.reset_new_comments', template.data.updateId);
 });
 
 Template.app_partup_update.helpers({
