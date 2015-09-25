@@ -143,6 +143,21 @@ Meteor.methods({
     },
 
     /**
+    * Returns user stats to superadmins only
+    */
+    'users.admin_impersonate': function(userId) {
+        check(userId, String);
+        var currentUser = Meteor.users.findOne(this.userId);
+        if (!User(currentUser).isAdmin()) {
+            return;
+        }
+
+        var impersonateUser = Meteor.users.findOne(userId);
+        if (!impersonateUser) throw new Meteor.Error(404, 'user not found');
+        this.setUserId(userId);
+    },
+
+    /**
      * Returns user data to superadmins only
      */
 
