@@ -6,9 +6,11 @@ var d = Debug('event_handlers:updates_handler');
 Event.on('partups.updates.inserted', function(userId, update) {
     var partup = Partups.findOneOrFail(update.partup_id);
     update = new Update(update);
+
     partup.getUsers().forEach(function(upperId) {
-        // Update the new_updates list for all this partup's users
+        // Update the new_updates list for all users of this partup
         partup.updateNewUpdatesForUpper(upperId, update._id);
+        // Create a clean set of new_comments list
         update.createUpperDataObject(upperId);
     });
 
