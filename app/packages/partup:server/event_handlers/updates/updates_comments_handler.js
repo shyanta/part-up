@@ -4,6 +4,8 @@ var d = Debug('event_handlers:updates_comments_handler');
  * Generate a Notification for the upper for the first comment posted on a message/update
  */
 Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
+    update = new Update(update);
+
     // Parse message for user mentions
     var mentions = Partup.helpers.mentions.extract(comment.content);
     mentions.forEach(function(user) {
@@ -58,8 +60,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     });
 
     // Add the comment to new comment list for all users of this partup
-    update.upper_data.forEach(function(upperData) {
-        Updates.update({_id: update._id, 'upper_data._id': upperData._id}, {$addToSet: {'upper_data.$.new_comments': comment._id}});
+    partup.getUsers().forEach(function(upperId) {
+        update.addNewCommentForUpper(upperId, comment._id);
     });
 
     // We only want to continue if the update currently has
