@@ -12,6 +12,11 @@
 5.101.103.8 name=partup-production-amsterdam2-01
 95.85.15.140 name=partup-production-amsterdam2-02
 
+[appservers-all:children]
+appservers-staging
+appservers-acceptance
+appservers-production
+
 [loadbalancer:children]
 lbservers
 
