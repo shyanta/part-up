@@ -751,6 +751,15 @@ if (Meteor.isClient) {
         currentRoute.render('app_notfound', {to: 'app'});
     };
 } else {
+    Router.route('/dreams/:path(.*)', {
+        where: 'server',
+        action: function() {
+            var url = 'http://blog.partup.com/dreams/' + this.params.path;
+            this.response.writeHead(301, {Location: url});
+            return this.response.end();
+        }
+    });
+
     Router.route('/blogs/:path(.*)', {
         where: 'server',
         action: function() {
