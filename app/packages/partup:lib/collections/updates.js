@@ -53,7 +53,8 @@ Update.prototype.isContributionUpdate = function() {
 };
 
 /**
- * Create the upper_data object for the given upperId
+ * Create the upper_data object for the current user
+ *
  * @memberOf Updates
  */
 Update.prototype.createUpperDataObject = function(upperId) {
@@ -70,6 +71,15 @@ Update.prototype.createUpperDataObject = function(upperId) {
             }
         }
     });
+};
+
+/**
+ * Add new_comment for an upper
+ *
+ * @memberOf Updates
+ */
+Update.prototype.addNewCommentForUpper = function(upperId, commentId) {
+    Updates.update({_id: this._id, 'upper_data._id': upperId}, {$addToSet: {'upper_data.$.new_comments': commentId}});
 };
 
 /**
