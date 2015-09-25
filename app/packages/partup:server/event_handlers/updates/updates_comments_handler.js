@@ -61,6 +61,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
 
     // Add the comment to new comment list for all users of this partup
     partup.getUsers().forEach(function(upperId) {
+        // Exclude the upper that wrote the comment
+        if (upperId === comment.creator._id) return;
         update.addNewCommentForUpper(upperId, comment._id);
     });
 
