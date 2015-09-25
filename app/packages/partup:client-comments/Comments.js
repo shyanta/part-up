@@ -105,6 +105,16 @@ Template.Comments.helpers({
     },
     messageTooLong: function() {
         return Template.instance().tooManyCharacters.get();
+    },
+    newComments: function(upper_data) {
+        upper_data = upper_data.hash.upper_data;
+        var newComments = [];
+        upper_data.forEach(function(upperData) {
+            if (upperData._id === Meteor.userId()) {
+                newComments = upperData.new_comments;
+            }
+        });
+        return newComments.length;
     }
 });
 
