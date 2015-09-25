@@ -1,5 +1,5 @@
 [lbservers]
-188.226.145.223 name=partup-loadbalancer-amsterdam2-01
+95.85.19.178 name=partup-loadbalancer-amsterdam2-02
 
 [appservers-staging]
 95.85.62.61 name=partup-staging-amsterdam2-01
