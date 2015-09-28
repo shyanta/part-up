@@ -21,10 +21,10 @@ var formPlaceholders = {
     tags_input: function() {
         return __('partupsettings-form-tags_input-placeholder');
     },
-    budget_money: function() {
+    type_commercial_budget: function() {
         return __('partupsettings-form-budget_money-placeholder');
     },
-    budget_hours: function() {
+    type_organization_budget: function() {
         return __('partupsettings-form-budget_hours-placeholder');
     },
     end_date: function() {
@@ -96,12 +96,12 @@ Template.Partupsettings.onCreated(function() {
         // Oh. My. God. Look at that hack.
         // Don't change any of these rules!
         this.autorun(function() {
-            AutoForm.getFieldValue('budget_type');
+            AutoForm.getFieldValue('type');
 
             Meteor.setTimeout(function() {
                 try {
-                    var budget_type = AutoForm.getFieldValue('budget_type', template.data.FORM_ID);
-                    template.budgetType.set(budget_type);
+                    var type = AutoForm.getFieldValue('type', template.data.FORM_ID);
+                    template.budgetType.set(type);
                 } catch (e) {
                     return;
                 }
@@ -352,7 +352,7 @@ Template.Partupsettings.events({
             });
         });
     },
-    'change [name=budget_type]': function(event, template) {
+    'change [name=type]': function(event, template) {
         template.budgetTypeChanged.set(true);
     },
     'click [data-imageremove]': function(event, template) {
