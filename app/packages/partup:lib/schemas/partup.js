@@ -14,28 +14,41 @@ var partupBaseSchema = new SimpleSchema({
         min: 10,
         max: 250
     },
-    budget_type: {
+    phase: {
         type: String,
-        allowedValues: ['money', 'hours'],
-        optional: true
+        allowedValues: [
+            Partups.PHASE.BRAINSTORM,
+            Partups.PHASE.PLAN,
+            Partups.PHASE.EXECUTE,
+            Partups.PHASE.GROW
+        ]
     },
-    budget_money: {
+    type: {
+        type: String,
+        allowedValues: [
+            Partups.TYPE.CHARITY,
+            Partups.TYPE.ENTERPRISING,
+            Partups.TYPE.COMMERCIAL,
+            Partups.TYPE.ORGANIZATION
+        ]
+    },
+    type_commercial_budget: {
         type: Number,
         min: 0,
         optional: true,
         custom: function() {
-            var required = this.field('budget_type').value === 'money';
+            var required = this.field('type').value === Partups.TYPE.COMMERCIAL;
             if (required && !this.isSet) {
                 return 'required';
             }
         }
     },
-    budget_hours: {
+    type_organization_budget: {
         type: Number,
         min: 0,
         optional: true,
         custom: function() {
-            var required = this.field('budget_type').value === 'hours';
+            var required = this.field('type').value === Partups.TYPE.ORGANIZATION;
             if (required && !this.isSet) {
                 return 'required';
             }
