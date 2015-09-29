@@ -313,6 +313,23 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partup_new_updates_could_not_be_reset');
         }
+    },
+
+    /**
+     * Increase email share count
+     *
+     * @param {String} partupId
+     */
+    'partups.increase_email_share_count': function(partupId) {
+        check(partupId, String);
+
+        try {
+            var partup = Partups.findOneOrFail(partupId);
+            partup.increaseEmailShareCount();
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_email_share_count_could_not_be_updated');
+        }
     }
 
 });

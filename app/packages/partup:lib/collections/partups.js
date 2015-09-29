@@ -293,6 +293,15 @@ Partup.prototype.updateNewUpdatesForUpper = function(upperId, updateId) {
 };
 
 /**
+ * Increase email share count
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.increaseEmailShareCount = function() {
+    Partups.update({_id: this._id}, {$inc: {'shared_count.email': 1}});
+};
+
+/**
  * Partups describe collaborations between several uppers
  * @namespace Partups
  */
