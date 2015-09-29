@@ -90,6 +90,7 @@ Package.onUse(function(api) {
         'services/slugify_service.js',
         'services/participation_calculator_service.js',
         'services/partup_progress_calculator_service.js',
+        'services/shared_count_service.js',
         'seo/routes.js',
         'migrations.js',
         'fast-render_routes.js',
@@ -155,6 +156,7 @@ Package.onUse(function(api) {
         'cron/calculate_partup_progress_score_for_partups.js',
         'cron/send_ratings_reminder_notification.js',
         'cron/send_daily_digest_users.js',
+        'cron/update_shared_count.js',
         'package-tap.i18n'
     ], ['server']);
 

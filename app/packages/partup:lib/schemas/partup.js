@@ -130,6 +130,25 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         min: 1,
         max: 5
     },
+    shared_count: {
+        type: Object
+    },
+    'shared_count.facebook': {
+        type: Number,
+        min: 0
+    },
+    'shared_count.twitter': {
+        type: Number,
+        min: 0
+    },
+    'shared_count.linkedin': {
+        type: Number,
+        min: 0
+    },
+    'shared_count.email': {
+        type: Number,
+        min: 0
+    },
     start_date: {
         type: Date
     },
