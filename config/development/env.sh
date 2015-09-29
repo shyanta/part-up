@@ -15,6 +15,7 @@ export AWS_BUCKET_NAME="pu-development"
 
 export FLICKR_API_KEY="8bbc8a9cbe7bce17824c8290929f9288"
 export FLICKR_SECRET_KEY="94f9b96b1d18f0dc"
+export FLICKR_GROUP_ID="2843088@N22"
 
 export GOOGLE_API_KEY="AIzaSyBdK5Dais_cwk5A2zqBYdCn53hAG23rIrI"
 

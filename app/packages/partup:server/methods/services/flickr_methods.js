@@ -14,7 +14,7 @@ Meteor.methods({
      * @param {number} count Number of results to return
      * @param {string[]} fallbackTags Tags
      */
-    'partups.services.flickr.search': function(tags, count, fallbackTags) {
+    'partups.services.flickr.search': function(tags, count) {
         check(tags, [String]);
         check(count, Match.Optional(Number));
         check(fallbackTags, Match.Optional([String]));
@@ -35,9 +35,30 @@ Meteor.methods({
 
         // Set default values
         count = Math.min(count, 5) || 5;
-        fallbackTags = fallbackTags || ['business'];
 
         var lookupTags = Meteor.wrapAsync(function(tags, count, callback) {
+            var searchByFallback = function(count, photos) {
+                flickr.get('photos.search', {
+                    'group_id': process.env.FLICKR_GROUP_ID || '2843088@N22', // Only search for images in group
+                    'extras': 'url_l', // Only search for large images
+                    'per_page': count * 5, // Get more results then needed because we will be filtering them
+                    'sort': 'relevance',
+                    'content_type': 1 // Photos only
+                }, function(result, error) {
+                    console.log('HIT', result);
+
+                    result.photos.photo.forEach(function(photo) {
+                        if (!photo.url_l || (photo.height_l < photo.width_l)) return; // Only landscape photos
+                        photos.push({
+                            'imageUrl': photo.url_l,
+                            'authorUrl': 'https://www.flickr.com/people/' + photo.owner
+                        });
+                    });
+
+                    return callback(null, _.sample(photos, count));
+                });
+            };
+
             var searchByTags = function(tags, count, photos) {
                 var searchableTags = tags.join(' ');
 
@@ -71,8 +92,8 @@ Meteor.methods({
                         tags.pop();
 
                         if (tags.length == 0) {
-                            // Fallback to provided default tags
-                            return searchByTags(fallbackTags, count, photos);
+                            // Fallback to random partup group pictures
+                            return searchByFallback(count, photos);
                         }
 
                         return searchByTags(tags, count, photos);
