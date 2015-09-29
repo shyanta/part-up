@@ -14,8 +14,10 @@ Template.app_partup_update.onCreated(function() {
         }
     });
 
-    // Reset new comments for current user
-    Meteor.call('updates.reset_new_comments', template.data.updateId);
+    if (typeof template.data.updateId === 'string') {
+        // Reset new comments for current user
+        Meteor.call('updates.reset_new_comments', template.data.updateId);
+    }
 });
 
 Template.app_partup_update.helpers({
