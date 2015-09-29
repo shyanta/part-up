@@ -115,6 +115,12 @@ Meteor.startup(function() {
     /*************************************************************/
     IntercomSettings.userInfo = function(user, info) {
         if (user) {
+            var networks = Networks.find({
+                uppers: user._id
+            });
+            var networksString = networks.map(function(network) {
+                return network.slug;
+            }).join(',');
             info['email'] = User(user).getEmail();
             info['name'] = user.profile.name;
             info['firstname'] = user.profile.firstname;
@@ -125,14 +131,14 @@ Meteor.startup(function() {
             info['participation_score'] = user.participation_score;
             info['completeness'] = user.completeness;
 
+            info['tribes'] = networksString;
+
             info['count_partups_partner'] = user.upperOf ? user.upperOf.length : 0;
             info['count_partups_supporter'] = user.supporterOf ? user.supporterOf.length : 0;
             info['count_partups_created'] = Partups.find({
                 creator_id: user._id
             }).count();
-            info['count_tribes_joined'] = Networks.find({
-                uppers: user._id
-            }).count();
+            info['count_tribes_joined'] = networks.count();
         }
     };
 
