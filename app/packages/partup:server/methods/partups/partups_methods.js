@@ -19,6 +19,12 @@ Meteor.methods({
             newPartup.creator_id = user._id;
             newPartup.created_at = new Date();
             newPartup.slug = Partup.server.services.slugify.slugifyDocument(newPartup, 'name');
+            newPartup.shared_count = {
+                facebook: 0,
+                twitter: 0,
+                linkedin: 0,
+                email: 0
+            };
 
             //check(newPartup, Partup.schemas.entities.partup);
 
