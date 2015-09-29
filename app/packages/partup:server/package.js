@@ -90,6 +90,7 @@ Package.onUse(function(api) {
         'services/slugify_service.js',
         'services/participation_calculator_service.js',
         'services/partup_progress_calculator_service.js',
+        'services/shared_count_service.js',
         'seo/routes.js',
         'migrations.js',
         'fast-render_routes.js',
