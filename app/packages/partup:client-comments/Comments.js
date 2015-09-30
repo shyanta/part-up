@@ -4,7 +4,6 @@
  *
  * @module client-commentfield
  * @param {Object} update               The update object containing the comments
- * @param {ReactiveVar} showCommentForm Variable that controls the visibility of the comment form
  * @param {Number} LIMIT                Limit the amount of comments shown to this number, then add "show more" link
  * @param {Boolean} SHOW_COMMENTS       Show existing comments
  *
@@ -35,10 +34,6 @@ Template.Comments.onRendered(function() {
 });
 
 Template.Comments.helpers({
-    // showCommentFormAndMayComment: function() {
-    //     var template = Template.instance();
-    //     return this.showCommentForm && Meteor.user() && (this.showCommentClicked || template.showCommentClicked.get() || get(template , 'data.type') === 'motivation');
-    // },
     showCommentBox: function() {
         var template = Template.instance();
 
