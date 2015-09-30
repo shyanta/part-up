@@ -40,6 +40,14 @@ Template.app_partup_sidebar.helpers({
         return Partups.findOne(this.partupId);
     },
 
+    showInviteButton: function() {
+
+        var user = Meteor.user();
+        if (!user) return false;
+
+        return true;
+    },
+
     numberOfSupporters: function() {
         var partup = Partups.findOne(this.partupId);
         if (!partup) return '...';

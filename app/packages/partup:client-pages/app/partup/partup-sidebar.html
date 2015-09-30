@@ -36,12 +36,14 @@
 
                             </li>
                         {{/ if }}
-                        <li class="pu-sub-button">
-                            <a href="#" class="pu-button" data-invite>
-                                <i class="picon-person-plus picon-large"></i>
-                                {{_ 'pages-app-partup-invite' }}
-                            </a>
-                        </li>
+                        {{#if showInviteButton}}
+                            <li class="pu-sub-button">
+                                <a href="#" class="pu-button" data-invite>
+                                    <i class="picon-person-plus picon-large"></i>
+                                    {{_ 'pages-app-partup-invite' }}
+                                </a>
+                            </li>
+                        {{/if}}
                     </ul>
                 </section>
                 <section>
