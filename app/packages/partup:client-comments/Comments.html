@@ -13,13 +13,13 @@
                                 {{pathFor route='partup-update' slug=partup.slug update_id=update._id }}
                             {{/if}}
                         " class="{{#if newComments upper_data=update.upper_data }}pu-sub-action{{/if}}">
-                            {{_ 'widgetcommentfield-comment-totalcomments' update.comments_count }}
+                            {{_ 'widgetcommentfield-comment-totalcomments' commentCount}}
                         </a>
                         <span class="pu-sub-seperator"></span>
                     {{/ unless }}
                     <!-- focus button -->
                     <a href="#" data-expand-comments class="pu-sub-action">
-                        Reageer
+                        {{_ 'widgetcommentfield-comment-button'}}
                     </a>
                     {{# if FULLVIEW }}
                         {{# if systemCount }}
