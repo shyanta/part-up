@@ -35,6 +35,15 @@
                     {{/ if }}
                 </section>
                 <section>
+                    <h2>{{_ 'pages-app-partup-share_title' }}</h2>
+                    <ul class="pu-list pu-list-horizontal">
+                        <li><a class="pu-button pu-button-social" data-share-facebook><i class="picon-facebook"></i></a></li>
+                        <li><a class="pu-button pu-button-social" data-share-twitter><i class="picon-twitter"></i></a></li>
+                        <li><a class="pu-button pu-button-social" data-share-linkedin><i class="picon-linkedin"></i></a></li>
+                        <li><a class="pu-button pu-button-social" data-share-mail><i class="picon-monkeytail"></i></a></li>
+                    </ul>
+                </section>
+                <section>
                     <h2>{{_ 'pages-app-partup-uppers_title' }}</h2>
                     <ul class="pu-list pu-list-users">
                         {{#each partupUppers }}
@@ -49,6 +58,10 @@
                         {{_ 'pages-app-partup-uppers_invitebutton' }}
                     </a> -->
                 </section>
+            </div>
+        </section>
+        <section class="pu-sub-light">
+            <div class="pu-sidebar-wrap">
                 <section>
                     {{#if partupSupporters }}
                         <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
@@ -75,22 +88,8 @@
                         {{/if}}
                     {{/unless}}
                 </section>
-            </div>
-        </section>
-        <section class="pu-sub-light">
-            <div class="pu-sidebar-wrap">
                 <section>
                     <p class="pu-sub-statustext">{{{ statusText }}}</p>
-                </section>
-                <section>
-                    <h2>{{_ 'pages-app-partup-share_title' }}</h2>
-                    <p>{{_ 'pages-app-partup-share_paragraph' }}</p>
-                    <ul class="pu-list pu-list-horizontal">
-                        <li><a class="pu-button pu-button-social" data-share-facebook><i class="picon-facebook"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-twitter><i class="picon-twitter"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-linkedin><i class="picon-linkedin"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-mail><i class="picon-monkeytail"></i></a></li>
-                    </ul>
                 </section>
             </div>
         </section>
