@@ -1,55 +1,52 @@
 {
-    "update-type-partups_created-title": "Created the part-up",
+    "update-type-partups_created-title": "__name__ created the part-up",
 
-    "update-type-partups_supporters_added-title": "Is supporter now",
-    "update-type-partups_uppers_added-title": "Is partner in this part-up now",
+    "update-type-partups_supporters_added-title": "__name__ is supporter now",
+    "update-type-partups_uppers_added-title": "__name__ is partner in this part-up now",
 
-    "update-type-partups_tags_added-title": "Added label",
-    "update-type-partups_tags_removed-title": "Removed label",
-    "update-type-partups_tags_changed-title": "Changed label",
+    "update-type-partups_tags_added-title": "__name__ added a label",
+    "update-type-partups_tags_removed-title": "__name__ removed a label",
+    "update-type-partups_tags_changed-title": "__name__ changed a label",
 
-    "update-type-network_public-title": "This Part-up is now visible for everyone",
-    "update-type-network_private-title": "This Part-up is now only visible for invited uppers",
+    "update-type-network_public-title": "__name__ made this Part-up visible for everyone",
+    "update-type-network_private-title": "__name__ made this Part-up visible for invited uppers only",
 
-    "update-type-partups_end_date_changed-title": "Changed end date",
+    "update-type-partups_end_date_changed-title": "__name__ changed the end date",
 
-    "update-type-partups_name_changed-title": "Changed part-up title",
-    "update-type-partups_description_changed-title": "Changed part-up description",
-    "update-type-partups_image_changed-title": "Changed part-up picture",
+    "update-type-partups_name_changed-title": "__name__ changed the part-up title",
+    "update-type-partups_description_changed-title": "__name__ changed the part-up description",
+    "update-type-partups_image_changed-title": "__name__ changed the part-up picture",
 
-    "update-type-partups_activities_removed-title": "Removed activity",
-    "update-type-partups_activities_added-title": "Added activity",
-    "update-type-partups_activities_changed-title": "Changed activity",
-    "update-type-partups_activities_added_contribution-title": "Added contribution to activity",
-    "update-type-partups_activities_archived-title": "Archived activity",
-    "update-type-partups_activities_unarchived-title": "Reactivated activity",
+    "update-type-partups_activities_removed-title": "__name__ removed an activity",
+    "update-type-partups_activities_added-title": "__name__ added an activity",
+    "update-type-partups_activities_changed-title": "__name__ changed an activity",
+    "update-type-partups_activities_archived-title": "__name__ archived an activity",
+    "update-type-partups_activities_unarchived-title": "__name__ reactivated an activity",
 
-    "update-type-changed_region-title": "Changed part-up region",
+    "update-type-changed_region-title": "__name__ changed the part-up region",
 
-    "update-type-rated-title": "Added rating",
+    "update-type-rated-title": "__name__ added a rating",
 
-    "update-type-new_message-title": "Message",
+    "update-type-partups_message_added-title": "__name__ added a message",
 
-    "update-type-partups_message_added-title": "Added message",
+    "update-type-partups_budget_changed-title": "__name__ changed the budget",
 
-    "update-type-partups_budget_changed-title": "Changed budget",
+    "update-type-partups_location_changed-title": "__name__ changed the part-up region",
 
-    "update-type-partups_location_changed-title": "Changed part-up region",
+    "update-type-partups_invited-title": "__name__ invited __invitee_name__ for this part-up",
 
-    "update-type-partups_invited-title": "Invited %s for this part-up",
+    "update-type-partups_contributions_proposed-title": "__name__ proposed a contribution",
+    "update-type-partups_contributions_added-title": "__name__ added a contribution",
+    "update-type-partups_contributions_changed-title": "__name__ changed a contribution",
+    "update-type-partups_contributions_accepted-title": "__name__ accepted a contribution",
+    "update-type-partups_contributions_removed-title": "__name__ removed a contribution",
 
-    "update-type-partups_contributions_proposed-title": "Proposed a contribution",
-    "update-type-partups_contributions_added-title": "Added a contribution",
-    "update-type-partups_contributions_changed-title": "Changed a contribution",
-    "update-type-partups_contributions_accepted-title": "Accepted a contribution",
-    "update-type-partups_contributions_removed-title": "Removed a contribution",
+    "update-type-partups_ratings_inserted-title": "__name__ added a rating",
+    "update-type-partups_ratings_changed-title": "__name__ changed a rating",
 
-    "update-type-partups_ratings_inserted-title": "Added rating",
-    "update-type-partups_ratings_changed-title": "Changed rating",
-
-    "update-type-partups_comments_added-title": "Replied",
-    "update-type-partups_activities_comments_added-title": "Replied on an activity",
-    "update-type-partups_contributions_comments_added-title": "Replied on a contribution",
+    "update-type-partups_comments_added-title": "__name__ commented",
+    "update-type-partups_activities_comments_added-title": "__name__ commented on an activity",
+    "update-type-partups_contributions_comments_added-title": "__name__ commented on a contribution",
 
     "update-type-partups_message_added-system-welcome_message-content": "Welcome to your part-up! Your first challenge is to find a couple of partners to start working together. Did you already share your part-up on social media? \n\nYou can also invite uppers using an @mention in a message or comment on any of the updates. Or go to the activities tab, open an acitivity and click \"Invite someone\""
 }

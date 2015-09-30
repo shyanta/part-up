@@ -72,12 +72,21 @@ Template.Update.helpers({
             },
             title: function() {
                 var titleKey = 'update-type-' + self.metadata.update_type + '-title';
+                var params = {};
 
-                if (self.metadata.update_type === 'partups_invited') {
-                    return __(titleKey, self.metadata.invited_name);
+                // Initiator name
+                if (get(self, 'metadata.updateUpper')) {
+                    params.name = User(self.metadata.updateUpper).getFirstname();
+                } else if (self.metadata.is_system) {
+                    params.name = 'Part-up';
                 }
 
-                return __(titleKey);
+                // Invited name
+                if (get(self, 'metadata.invited_name')) {
+                    params.invitee_name = self.metadata.invited_name;
+                }
+
+                return __(titleKey, params);
             },
             mayComment: function() {
                 return user ? true : false;
