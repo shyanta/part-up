@@ -1,0 +1,15 @@
+{
+    "pages-modal-invite_to_partup-closepage": "Close",
+    "pages-modal-invite_to_partup-title": "Invite uppers to your part-up",
+    "pages-modal-invite_to_partup-explanation": "Obviously you need people with the right skills and motivation to get job done. We give you ten uppers that match you and your part-up best. We base our suggestions upon the analysis of all of your part-up's content and all upper profiles. No match found? No worries, you can always look for matches yourself.",
+    "pages-modal-invite_to_partup-button_invite": "Invite uppers directly by email",
+    "pages-modal-invite_to_partup-search-query-label": "Show me",
+    "pages-modal-invite_to_partup-search-query-placeholder": "Keyword",
+    "pages-modal-invite_to_partup-search-location-label": "uppers from",
+    "pages-modal-invite_to_partup-search-location-placeholder": "Anywhere",
+    "pages-modal-invite_to_partup-button-invite-upper": "Invite",
+    "pages-modal-invite_to_partup-button-invited-upper": "Invited",
+    "pages-modal-invite_to_partup-button-already-partner": "Partner",
+    "pages-modal-invite_to_partup-button-already-member": "Member",
+    "pages-modal-invite_to_partup-invite-success": "The invite has been sent."
+}
