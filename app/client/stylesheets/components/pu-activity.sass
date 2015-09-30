@@ -10,6 +10,19 @@
             position: absolute
             top: 15px
             right: 15px
+            background-color: #fff
+
+            &:before
+                content: ''
+                display: block
+                height: 25px
+                background-color: white
+                width: 25px
+                position: absolute
+                left: -25px
+                top: 0
+                bottom: 0
+                background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 60%)
 
         .pu-contribution + .pu-contribution
             border-top: 2px solid $color-border-light
@@ -85,6 +98,9 @@
     &-singlecontribution
         .pu-sub-title
             font-size: 14px
+
+        .pu-avatar-stack
+            display: none
 
     &-form
         padding: 20px
