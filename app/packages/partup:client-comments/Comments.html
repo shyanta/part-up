@@ -3,72 +3,92 @@
     <footer class="pu-commentfield">
         {{# if showComments }}
             <!-- View all n comments -->
-            {{#if showExpandButton }}
-                <!-- data-expand-comments -->
-                <p class="pu-sub-view-all-comments-button">
-                    <!-- Determine the correct pathFor -->
-                    <a href="
-                        {{ #if partupContainsOne update.type 'partups_newuser' }}
-                            {{pathFor route='profile' _id=user_id }}
-                        {{else}}
-                            {{pathFor route='partup-update' slug=partup.slug update_id=update._id }}
-                        {{/if}}
-                    ">
-                        {{_ 'widgetcommentfield-comment-viewall-button' update.comments_count }}
-                    </a>
+            <!-- {{#if showExpandButton }} -->
 
-                    {{#unless commentButtonClicked}}
-                        {{#if update.comments_count}}
+                <!-- {{#if partupOneIsTrue fullView commentButtonClicked update.comments_count}} -->
+                {{# if partupOneIsTrue FULLVIEW shownComments.length }}
+                    <p class="pu-sub-view-all-comments-button">
+                        {{# unless FULLVIEW }}
+                            <a href="
+                                {{ #if partupContainsOne update.type 'partups_newuser' }}
+                                    {{pathFor route='profile' _id=user_id }}
+                                {{else}}
+                                    {{pathFor route='partup-update' slug=partup.slug update_id=update._id }}
+                                {{/if}}
+                            ">
+                                {{_ 'widgetcommentfield-comment-totalcomments' update.comments_count }} - {{newComments upper_data=update.upper_data}} new
+                            </a>
                             <span class="pu-sub-seperator"></span>
-                        {{/if}}
-                        <a href="#" data-expand-comments>
+                        {{/ unless }}
+                        <!-- focus button -->
+                        <a href="#" data-expand-comments class="pu-sub-action">
                             Reageer
                         </a>
-                    {{/unless}}
-                </p>
-            {{else}}
-                {{#unless commentButtonClicked}}
-                    {{#if update.comments_count}}
-                        <p class="pu-sub-view-all-comments-button">
-                            {{_ 'widgetcommentfield-comment-totalcomments' update.comments_count }} - {{newComments upper_data=update.upper_data}} new
-                            <span class="pu-sub-seperator"></span>
-                            <a href="#" data-expand-comments>
-                                Reageer
-                            </a>
-                        </p>
-                    {{/if}}
-                {{/unless}}
-            {{/if }}
+                        {{# if FULLVIEW }}
+                            {{# if systemCount }}
+                                <span class="pu-sub-seperator"></span>
+                                <a href="#" data-toggle-systemmessages>
+                                    {{# if showSystemMessages }}
+                                        Hide system messages
+                                    {{ else }}
+                                        Show system messages
+                                    {{/ if }}
+                                </a>
+                            {{/ if }}
+                        {{/ if }}
+                    </p>
+                {{/ if }}
+            <!-- {{/if }} -->
+>>>>>>> feat(comments): new comment styling and behaviour
 
             <!-- Comments list -->
             <ul class="pu-list pu-list-comments">
-                {{#each shownComments }}
-                    <li class="pu-comment">
-                        <figure data-usercard="{{creator._id}}" class="pu-avatar pu-avatar-small pu-avatar-square" style="{{#with creator.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
-                        <div>
-                            <p class="{{# if isSystemMessage }}pu-sub-systemmessage{{/ if}}">
-                                {{# if isMotivation }}
-                                    <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>'s
-                                    {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
-                                {{else}}
+                {{# each shownComments }}
+                    {{# if isSystemMessage }}
+                        <!-- {{# if showSystemMessages}} -->
+                        <li class="pu-comment pu-comment-systemmessage">
+                            <figure class="pu-sub-line"></figure>
+                            <div>
+                                <p class="pu-sub-systemmessage">
                                     <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
-                                    {{# if isSystemMessage }}
-                                        {{{ systemMessage content }}}
-                                    {{ else }}
+                                    {{{ systemMessage content }}}
+                                </p>
+                                <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
+                            </div>
+                        </li>
+                        <!-- {{/if}} -->
+                    {{ else }}
+                        <li class="pu-comment">
+                            <figure data-usercard="{{creator._id}}" class="pu-avatar pu-avatar-small pu-avatar-square" style="{{#with creator.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
+                            <div>
+                                <p>
+                                    {{# if isMotivation }}
+                                        <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>'s
+                                        {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
+                                    {{else}}
+                                        <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
                                         {{{ partupAutolink content }}}
-                                    {{/ if }}
-                                {{/ if}}
-                            </p>
-                            <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
-                        </div>
-                    </li>
-                {{/each }}
+                                    {{/ if}}
+                                </p>
+                                <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
+                            </div>
+                        </li>
+                    {{/ if }}
+                {{/ each }}
             </ul>
         {{/ if }}
 
         <!-- Add comment field -->
         {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
-            <ul class="pu-list {{# unless showCommentFormAndMayComment }}pu-state-hidden{{/ unless }} {{# unless isMotivation }}pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive {{#if buttonActive }}pu-list-fieldwithbutton-state-active{{/if }}{{/ unless }}">
+            <ul class="pu-list
+                {{# unless showCommentBox }}
+                    pu-state-hidden
+                {{/ unless }}
+
+                {{# unless isMotivation }} pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive
+                    {{# if buttonActive }}pu-list-fieldwithbutton-state-active{{/ if }}
+                {{/ unless }}"
+            >
                 <li class="{{#if messageTooLong}}pu-state-error{{/if}}">
                     {{# if isMotivation }}
                         {{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment }}
