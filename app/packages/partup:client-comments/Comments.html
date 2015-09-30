@@ -2,44 +2,39 @@
     <!-- Comments -->
     <footer class="pu-commentfield">
         {{# if showComments }}
-            <!-- View all n comments -->
-            <!-- {{#if showExpandButton }} -->
-
-                <!-- {{#if partupOneIsTrue fullView commentButtonClicked update.comments_count}} -->
-                {{# if partupOneIsTrue FULLVIEW shownComments.length }}
-                    <p class="pu-sub-view-all-comments-button">
-                        {{# unless FULLVIEW }}
-                            <a href="
-                                {{ #if partupContainsOne update.type 'partups_newuser' }}
-                                    {{pathFor route='profile' _id=user_id }}
-                                {{else}}
-                                    {{pathFor route='partup-update' slug=partup.slug update_id=update._id }}
-                                {{/if}}
-                            ">
-                                {{_ 'widgetcommentfield-comment-totalcomments' update.comments_count }} - {{newComments upper_data=update.upper_data}} new
-                            </a>
-                            <span class="pu-sub-seperator"></span>
-                        {{/ unless }}
-                        <!-- focus button -->
-                        <a href="#" data-expand-comments class="pu-sub-action">
-                            Reageer
+        <!-- View all n comments -->
+            {{# if partupOneIsTrue FULLVIEW shownComments.length }}
+                <p class="pu-sub-view-all-comments-button">
+                    {{# unless FULLVIEW }}
+                        <a href="
+                            {{ #if partupContainsOne update.type 'partups_newuser' }}
+                                {{pathFor route='profile' _id=user_id }}
+                            {{else}}
+                                {{pathFor route='partup-update' slug=partup.slug update_id=update._id }}
+                            {{/if}}
+                        " class="{{#if newComments upper_data=update.upper_data }}pu-sub-action{{/if}}">
+                            {{_ 'widgetcommentfield-comment-totalcomments' update.comments_count }}
                         </a>
-                        {{# if FULLVIEW }}
-                            {{# if systemCount }}
-                                <span class="pu-sub-seperator"></span>
-                                <a href="#" data-toggle-systemmessages>
-                                    {{# if showSystemMessages }}
-                                        Hide system messages
-                                    {{ else }}
-                                        Show system messages
-                                    {{/ if }}
-                                </a>
-                            {{/ if }}
+                        <span class="pu-sub-seperator"></span>
+                    {{/ unless }}
+                    <!-- focus button -->
+                    <a href="#" data-expand-comments class="pu-sub-action">
+                        Reageer
+                    </a>
+                    {{# if FULLVIEW }}
+                        {{# if systemCount }}
+                            <span class="pu-sub-seperator"></span>
+                            <a href="#" data-toggle-systemmessages>
+                                {{# if showSystemMessages }}
+                                    Hide system messages
+                                {{ else }}
+                                    Show system messages
+                                {{/ if }}
+                            </a>
                         {{/ if }}
-                    </p>
-                {{/ if }}
-            <!-- {{/if }} -->
->>>>>>> feat(comments): new comment styling and behaviour
+                    {{/ if }}
+                </p>
+            {{/ if }}
 
             <!-- Comments list -->
             <ul class="pu-list pu-list-comments">
