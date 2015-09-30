@@ -3,8 +3,8 @@
     "widgetcommentfield-comment-postbutton": "Plaats",
     "widgetcommentfield-comment-placeholder": "Schrijf een reactie",
     "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties",
-    "widgetcommentfield-comment-totalcomments": "%s reactie",
-    "widgetcommentfield-comment-totalcomments_plural": "%s reacties",
+    "widgetcommentfield-comment-totalcomments": "__count__ reactie",
+    "widgetcommentfield-comment-totalcomments_plural": "__count__ reacties",
 
 
     "widgetcommentfield-comment-motivation-prefix": "motivatie is: ",
