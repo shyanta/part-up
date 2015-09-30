@@ -48,14 +48,14 @@ Template.Update.helpers({
         var update = Updates.findOne({_id: updateId});
         if (!update) return; // no update found, return
         var partup = Partups.findOne({_id: update.partup_id});
-        var activityId = update.type_data.activity_id;
+        var activity = Activities.findOne({_id: update.type_data.activity_id});
         var user = Meteor.user();
         return {
             data: function() {
                 return update;
             },
             activityData: function() {
-                return Activities.findOne({_id: activityId});
+                return activity;
             },
             showCommentButton: function() {
                 if (template.data.IS_DETAIL) return false;   // check if this is the detail view
@@ -84,6 +84,11 @@ Template.Update.helpers({
                 // Invited name
                 if (get(self, 'metadata.invited_name')) {
                     params.invitee_name = self.metadata.invited_name;
+                }
+
+                // Activity title
+                if (self.metadata.is_contribution) {
+                    params.activity = activity.name;
                 }
 
                 return __(titleKey, params);
