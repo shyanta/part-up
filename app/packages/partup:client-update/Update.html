@@ -26,52 +26,49 @@
             <header>
                 <h3>
                     {{#if LINK }}
-                        <a href="{{ metadata.path }}">{{ title }}</a>
+                        <a href="{{ metadata.path }}">{{ update.title }}</a>
                     {{else}}
-                        {{ title }}
+                        {{ update.title }}
                     {{/if }}
                 </h3>
 
 
                 <!-- Top comment button -->
-                {{# unless isDetail }}
-                    {{# if mayComment }}
-                        {{# if metadata.is_contribution }}
 
-                            <!-- When the update is a contribution-update, link to the activity -->
-                            <a class="pu-button pu-button-text" href="{{ metadata.path }}">{{_ 'update-comment-button' }}</a>
+                {{# if update.mayComment }}
+                    {{# if metadata.is_contribution }}
 
-                        {{ else }}
+                        <!-- When the update is a contribution-update, link to the activity -->
+                        <a class="pu-button pu-button-text" href="{{ metadata.path }}">{{_ 'update-comment-button' }}</a>
 
-                            <!-- Only show the comment button when the update is commentable -->
-                            {{# if commentable }}
-                                {{# unless showCommentForm }}
-                                    <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'update-comment-button' }}</a>
-                                {{/ unless }}
-                            {{/ if }}
+                    {{ else }}
 
+                        <!-- Only show the comment button when the update is commentable -->
+                        {{# if update.showCommentButton }}
+                                <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'update-comment-button' }}</a>
                         {{/ if }}
+
                     {{/ if }}
-                {{/ unless }}
+                {{/ if }}
             </header>
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->
 
             <!-- partups_message_added -->
-            {{#if partupEqualsExactly update.type 'partups_message_added' }}
+            {{#if partupEqualsExactly update.data.type 'partups_message_added' }}
                 {{# if metadata.is_system }}
-                    {{# with update.type_data }}
+                    {{# with update.data.type_data }}
                         <section>
                             <article class="pu-block pu-block-message">
-                                <p class="pu-paragraph">{{{ systemMessageContent }}}</p>
+                                <p class="pu-paragraph">{{{ update.systemMessageContent }}}</p>
                             </article>
                         </section>
                     {{/ with}}
                 {{ else }}
-                    {{# with update.type_data }}
+                    {{# with update.data.type_data }}
                         <section>
                             <article class="pu-block pu-block-message">
-                                <p class="pu-paragraph">{{{ partupAutolink messageContent }}}</p>
+                                <p class="pu-paragraph">{{{ partupAutolink update.messageContent }}}</p>
                                 {{# if images }}
                                     <figure>
                                         {{# each images }}
@@ -86,8 +83,8 @@
             {{/if }}
 
             <!-- partups_tags_added -->
-            {{#if partupEqualsExactly update.type 'partups_tags_added' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_tags_added' }}
+                {{#with update.data.type_data }}
                     <section>
                         <span class="pu-tag">{{ new_tag }}</span>
                     </section>
@@ -95,8 +92,8 @@
             {{/if }}
 
             <!-- partups_tags_removed -->
-            {{#if partupEqualsExactly update.type 'partups_tags_removed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_tags_removed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <span class="pu-tag">{{ old_tag }}</span>
                     </section>
@@ -104,8 +101,8 @@
             {{/if }}
 
             <!-- partups_tags_changed -->
-            {{#if partupEqualsExactly update.type 'partups_tags_changed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_tags_changed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
                             <li><span class="pu-tag">{{ old_tag }}</span></li>
@@ -116,8 +113,8 @@
             {{/if }}
 
             <!-- partups_end_date_changed -->
-            {{#if partupEqualsExactly update.type 'partups_end_date_changed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_end_date_changed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
                             <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal old_end_date }}</span></li>
@@ -128,8 +125,8 @@
             {{/if }}
 
             <!-- partups_name_changed -->
-            {{#if partupEqualsExactly update.type 'partups_name_changed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_name_changed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <p class="pu-title pu-title-updateitem">{{ new_name }}</p>
                     </section>
@@ -137,8 +134,8 @@
             {{/if }}
 
             <!-- partups_description_changed -->
-            {{#if partupEqualsExactly update.type 'partups_description_changed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_description_changed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <p class="pu-paragraph pu-paragraph-large">{{{ partupAutolink new_description }}}</p>
                     </section>
@@ -146,8 +143,8 @@
             {{/if }}
 
             <!-- partups_image_changed -->
-            {{#if partupEqualsExactly update.type 'partups_image_changed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_image_changed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <img class="pu-image" src="{{ partupImageUrl id=new_image store='1200x520' }}">
                     </section>
@@ -155,20 +152,20 @@
             {{/if }}
 
             <!-- partups_budget_changed -->
-            {{#if partupEqualsExactly update.type 'partups_budget_changed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_budget_changed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
-                            <li><span class="pu-tag pu-tag-angular">{{ oldBudget }}</span></li>
-                            <li><span class="pu-tag pu-tag-angular">{{ newBudget }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ update.oldBudget }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular">{{ update.newBudget }}</span></li>
                         </ul>
                     </section>
                 {{/with}}
             {{/if }}
 
             <!-- partups_location_changed -->
-            {{#if partupEqualsExactly update.type 'partups_location_changed' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_location_changed' }}
+                {{#with update.data.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
                             <li><span class="pu-tag pu-tag-angular">{{ old_location.city }}</span></li>
@@ -179,26 +176,26 @@
             {{/if }}
 
             <!-- partups_invited -->
-            {{#if partupEqualsExactly update.type 'partups_invited' }}
-                {{#with update.type_data }}
+            {{#if partupEqualsExactly update.data.type 'partups_invited' }}
+                {{#with update.data.type_data }}
                     <!-- no template, only title -->
                 {{/with}}
             {{/if }}
 
             <!-- activity related updates -->
-            {{# if update.isActivityUpdate }}
-                {{#with update.type_data }}
+            {{# if update.data.isActivityUpdate }}
+                {{#with update.data.type_data }}
                     <section>
-                        {{> Activity activity=activityData EXPANDABLE=isDetail EXPANDED=isDetail UPDATE_LINK=isNotDetail READONLY=isNotDetail isUpper=isUpper }}
+                        {{> Activity activity=update.activityData EXPANDABLE=update.isDetail EXPANDED=update.isDetail UPDATE_LINK=update.isNotDetail READONLY=update.isNotDetail isUpper=update.isUpper }}
                     </section>
                 {{/with}}
             {{/if }}
 
             <!-- contribution related updates -->
-            {{#if update.isContributionUpdate }}
-                {{#with update.type_data }}
+            {{#if update.data.isContributionUpdate }}
+                {{#with update.data.type_data }}
                     <section>
-                        {{> Activity activity=activityData contribution_id=contribution_id COMPACT=true EXPANDED=true READONLY=true }}
+                        {{> Activity activity=update.activityData contribution_id=contribution_id COMPACT=true EXPANDED=true READONLY=true }}
                     </section>
                 {{/with}}
             {{/if }}
@@ -206,11 +203,11 @@
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
-            {{# if update }}
-                {{#if commentable }}
-                    {{> Comments update=update showCommentClicked=showCommentClicked FULLVIEW=isDetail SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
+            {{#if update.mayComment}}
+                {{#if update.commentable }}
+                    {{> Comments update=update.data showCommentClicked=update.showCommentClicked FULLVIEW=update.isDetail SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
                 {{/if }}
-            {{/ if }}
+            {{/if}}
         </section>
     </section>
 
