@@ -233,7 +233,19 @@ Template.app_partup_sidebar.events({
         });
     },
 
-    'click [data-open-takepart-popup]': function() {
+    'click [data-open-takepart-popup]': function(event, template) {
         Partup.client.popup.open('take-part');
+    },
+
+    'click [data-invite]': function(event, template) {
+        event.preventDefault();
+        var partupId = template.data.partupId;
+        var partup = Partups.findOne({_id: partupId});
+        Intent.go({
+            route: 'partup-invite',
+            params: {
+                slug: partup.slug
+            }
+        });
     }
 });

@@ -24,15 +24,25 @@
                             <li><span class="pu-tag pu-tag-inverted">{{ . }}</span></li>
                         {{/each }}
                     </ul>
-                    {{# if showTakePartButton }}
+                    <ul class="pu-list pu-list-horizontal">
+                        {{# if showTakePartButton }}
+                            <li class="pu-sub-button">
 
-                        <!-- take part popup -->
-                        <a class="pu-button" data-open-takepart-popup>
-                            <i class="picon-info"></i>
-                            {{_ 'pages-app-partup-take_part' }}
-                        </a>
+                                    <!-- take part popup -->
+                                    <a class="pu-button" data-open-takepart-popup>
+                                        <i class="picon-info"></i>
+                                        {{_ 'pages-app-partup-take_part' }}
+                                    </a>
 
-                    {{/ if }}
+                            </li>
+                        {{/ if }}
+                        <li class="pu-sub-button">
+                            <a href="#" class="pu-button" data-invite>
+                                <i class="picon-person-plus picon-large"></i>
+                                {{_ 'pages-app-partup-invite' }}
+                            </a>
+                        </li>
+                    </ul>
                 </section>
                 <section>
                     <h2>{{_ 'pages-app-partup-share_title' }}</h2>
