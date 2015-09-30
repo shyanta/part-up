@@ -36,11 +36,31 @@
                 </section>
                 <section>
                     <h2>{{_ 'pages-app-partup-share_title' }}</h2>
-                    <ul class="pu-list pu-list-horizontal">
-                        <li><a class="pu-button pu-button-social" data-share-facebook><i class="picon-facebook"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-twitter><i class="picon-twitter"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-linkedin><i class="picon-linkedin"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-mail><i class="picon-monkeytail"></i></a></li>
+                    <ul class="pu-list pu-list-horizontal pu-sub-socials">
+                        <li>
+                            <a class="pu-button pu-button-social pu-button-social-twitter" data-share-twitter>
+                                <i class="picon-twitter"></i>
+                                {{ partup.shared_count.twitter }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pu-button pu-button-social pu-button-social-facebook" data-share-facebook>
+                                <i class="picon-facebook"></i>
+                                {{ partup.shared_count.facebook }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pu-button pu-button-social pu-button-social-linkedin" data-share-linkedin>
+                                <i class="picon-linkedin"></i>
+                                {{ partup.shared_count.linkedin }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pu-button pu-button-social" data-share-mail>
+                                <i class="picon-monkeytail"></i>
+                                {{ partup.shared_count.email }}
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <section>
