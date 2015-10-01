@@ -19,7 +19,9 @@ Template.Footer.events({
         event.preventDefault();
         var $intercom = $('#intercom-launcher');
         if ($intercom.length > 0) {
-            Intercom('showNewMessage');
+            if(Intercom) {
+                Intercom('showNewMessage');
+            }
         } else {
             window.location.href = 'mailto:' + __('footer-feedback-button-mailto') + '?subject=' + __('footer-feedback-button-mailto-subject');
         }
