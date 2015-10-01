@@ -5,6 +5,7 @@ SyncedCron.add({
     },
     job: function() {
         if (!process.env.NODE_ENV.match(/development/)) {
+            var numberOfAffectedPartups = 0;
             Partups.find({}).forEach(function(partup) {
                 var counts = {
                     facebook: Partup.server.services.shared_count.facebook(Meteor.absoluteUrl() + 'partups/' + partup.slug),
@@ -18,9 +19,9 @@ SyncedCron.add({
                         'shared_count.linkedin': counts.linkedin
                     }
                 });
-
-                console.log('Part-up share counts were updated.');
+                numberOfAffectedPartups++;
             });
+            console.log(numberOfAffectedPartups + ' Part-up share counts were updated.');
         }
     }
 });
