@@ -38,7 +38,7 @@
 
 - name: nginx | add maintenance website
   copy: src=partup-maintenance dest=/var/www
-  tags: [nginx, nginx-mode]
+  tags: [nginx]
 
 - name: nginx | add loadbalancer configuration
   template: src=nginx-vhost-{{ deploy_mode }}.tpl dest=/etc/nginx/sites-enabled/loadbalancer-{{ item.environment }}.conf
