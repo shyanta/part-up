@@ -33,10 +33,14 @@ Template.app_partup_update.helpers({
 
         var updateUpper = Meteor.users.findOne({_id: update.upper_id});
 
+        var is_contribution = update.type.indexOf('partups_contributions_') > -1;
+        var is_rating = update.type.indexOf('partups_ratings_') > -1;
+
+        var is_newuser = update.type.indexOf('partups_newuser') > -1;
         var path = '';
-        if (update.type === 'partups_newuser') {
+        if (is_newuser) {
             path = Router.path('profile', {_id: update.upper_id});
-        } else if (update.type.indexOf('partups_contributions_') > -1) {
+        } else if (is_contribution) {
             var activity = Activities.findOne({_id: update.type_data.activity_id});
             if (!activity) return {};
 
@@ -51,6 +55,8 @@ Template.app_partup_update.helpers({
             path: path,
             update_type: update.type,
             invited_name: update.type_data.name,
+            is_contribution: is_contribution,
+            is_rating: is_rating,
             is_system: !!update.system,
         };
     },

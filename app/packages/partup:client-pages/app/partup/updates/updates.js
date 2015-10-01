@@ -257,9 +257,10 @@ Template.app_partup_updates.helpers({
 
         var partup = Partups.findOne(update.partup_id);
 
-        var is_newuser = update.type.indexOf('partups_newuser') > -1;
         var is_contribution = update.type.indexOf('partups_contributions_') > -1;
         var is_rating = update.type.indexOf('partups_ratings_') > -1;
+
+        var is_newuser = update.type.indexOf('partups_newuser') > -1;
         var path = '';
         if (is_newuser) {
             path = Router.path('profile', {_id: update.upper_id});
