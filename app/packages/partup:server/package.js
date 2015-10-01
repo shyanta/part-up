@@ -92,7 +92,6 @@ Package.onUse(function(api) {
         'services/partup_progress_calculator_service.js',
         'services/shared_count_service.js',
         'seo/routes.js',
-        'migrations.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
@@ -157,6 +156,7 @@ Package.onUse(function(api) {
         'cron/send_ratings_reminder_notification.js',
         'cron/send_daily_digest_users.js',
         'cron/update_shared_count.js',
+        'migrations.js',
         'package-tap.i18n'
     ], ['server']);
 
