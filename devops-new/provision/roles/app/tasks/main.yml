@@ -13,3 +13,7 @@
       - "{{ansible_eth1.ipv4.address}}:3000:3000"
     env: "{{ app.env }}"
   tags: app
+
+- name: docker | remove all images (disk space)
+  shell: docker rmi $(docker images -q)
+  tags: app
