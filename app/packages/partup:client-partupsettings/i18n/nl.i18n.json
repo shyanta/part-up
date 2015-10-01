@@ -29,10 +29,10 @@
     "partupsettings-form-location_input-label": "Waar is jouw part-up?",
     "partupsettings-form-location_input-placeholder": "In jouw regio of plaats",
 
-    "partupsettings-form-privacy-label": "Wie kan jouw part-up bekijken?",
-    "partupsettings-form-privacy-public": "Iedereen",
-    "partupsettings-form-privacy-private": "Uitgenodigde uppers (alleen voor premium accounts)",
-    "partupsettings-form-privacy-network": "Enkel mensen uit netwerk",
+    "partupsettings-form-privacy-label": "Waar wil je dat jouw part-up te zien is?",
+    "partupsettings-form-privacy-public": "Publiek op Part-up.com",
+    "partupsettings-form-privacy-private": "Verborgen (premium upper account nodig)",
+    "partupsettings-form-privacy-network": "In deze tribe:",
     "partupsettings-form-privacy-tooltip": "Een part-up is standaard zichtbaar voor iedereen. Uppers met een premium account kunnen ook besloten part-ups starten die alleen zichtbaar zijn voor uppers die je zelf uitnodigt. Als je lid bent van een tribe kun je hieronder kiezen bij welke tribe deze nieuwe part-up hoort. De privacy instelling van de tribe bepaalt dan de zichtbaarheid van de part-up.",
 
     "partupsettings-image-label": "Welke foto past goed bij jouw part-up?",

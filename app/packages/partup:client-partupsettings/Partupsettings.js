@@ -387,6 +387,9 @@ Template.Partupsettings.events({
         var input = template.find('[data-privacy-type] :checked');
         template.selectedPrivacyType.set(input.value);
         template.showNetworkDropdown.set(input.value === 'network');
+        setTimeout(function() {
+            template.$('[name=privacy_type_input]').trigger('blur');
+        });
     },
     'change [data-privacy-network]': function(event, template) {
         template.selectedPrivacyNetwork.set(event.currentTarget.value);
