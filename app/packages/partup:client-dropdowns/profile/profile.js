@@ -114,6 +114,8 @@ Template.DropdownProfile.helpers({
     },
 
     newUpdates: function() {
+        if (!this.upper_data) return;
+
         var count = null;
         this.upper_data.forEach(function(upperData) {
             if (upperData._id === Meteor.userId()) {

@@ -89,6 +89,8 @@ Template.ActivityView.helpers({
     },
     newComments: function(upper_data) {
         upper_data = upper_data.hash.upper_data;
+        if (!upper_data) return;
+
         var newComments = [];
         upper_data.forEach(function(upperData) {
             if (upperData._id === Meteor.userId()) {
