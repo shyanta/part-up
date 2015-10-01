@@ -26,7 +26,8 @@ Partup.transformers.partup = {
             name: partup.name,
             tags_input: Partup.services.tags.tagArrayToInput(partup.tags),
             focuspoint_x_input: image ? (mout.object.get(image, 'focuspoint.x') || 0) : 0,
-            focuspoint_y_input: image ? (mout.object.get(image, 'focuspoint.y') || 0) : 0
+            focuspoint_y_input: image ? (mout.object.get(image, 'focuspoint.y') || 0) : 0,
+            phase: partup.phase
         };
 
         // Determine privacy type
