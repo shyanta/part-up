@@ -85,10 +85,15 @@ Template.Update.helpers({
                 } else if (self.metadata.is_system) {
                     params.name = 'Part-up';
                 }
-
-                // Invited name
-                if (get(self, 'metadata.invited_name')) {
-                    params.invitee_name = self.metadata.invited_name;
+                // Invited names
+                if (get(self, 'metadata.invitee_names')) {
+                    if (self.metadata.invitee_names.length == 1) {
+                        params.invitee_names = self.metadata.invitee_names[0];
+                    } else if (self.metadata.invitee_names.length > 1) {
+                        var last_invited_name = self.metadata.invitee_names.pop();
+                        var all_invitee_names = self.metadata.invitee_names.join();
+                        params.invitee_names = all_invitee_names + ' ' + __('update-general-and') + ' ' + last_invited_name;
+                    }
                 }
 
                 // Activity title
