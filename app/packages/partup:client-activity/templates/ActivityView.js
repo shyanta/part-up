@@ -17,6 +17,7 @@ Template.ActivityView.onCreated(function() {
 /*************************************************************/
 Template.ActivityView.helpers({
     partup: function() {
+        if (!this.activity) return;
         return Partups.findOne(this.activity.partup_id);
     },
     commentsCount: function() {
