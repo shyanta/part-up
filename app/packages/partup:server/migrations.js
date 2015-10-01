@@ -569,23 +569,6 @@ Migrations.add({
 
 Migrations.add({
     version: 21,
-    name: 'Make an upper_data object for all partners/supporters of a partup, on each update',
-    up: function() {
-        Updates.find({}).forEach(function(update) {
-            var partup = Partups.findOne({_id: update.partup_id});
-            if (!partup) return;
-            partup.getUsers().forEach(function(upperId) {
-                update.createUpperDataObject(upperId);
-            });
-        });
-    },
-    down: function() {
-        //
-    }
-});
-
-Migrations.add({
-    version: 22,
     name: 'Count all social shares from existing partups',
     up: function() {
         Partups.find({}).forEach(function(partup) {
@@ -613,4 +596,4 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(22);
+Migrations.migrateTo(21);
