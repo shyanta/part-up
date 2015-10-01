@@ -5,7 +5,7 @@ var tagsConfiguration = {
 /**
  * Base Partup schema
  * @name partupBaseSchema
- * @memberof Partup.schemas
+ * @memberOf Partup.schemas
  * @private
  */
 var partupBaseSchema = new SimpleSchema({
@@ -78,7 +78,7 @@ var partupBaseSchema = new SimpleSchema({
 /**
  * Partup entity schema
  * @name partup
- * @memberof Partup.schemas.entities
+ * @memberOf Partup.schemas.entities
  */
 Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     _id: {
@@ -206,7 +206,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
 /**
  * start partup form schema
  * @name partupUpdate
- * @memberof Partup.schemas.forms
+ * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
     focuspoint_x_input: {
@@ -248,7 +248,7 @@ Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
 /**
  * start partup create form schema
  * @name partupCreate
- * @memberof Partup.schemas.forms
+ * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partupUpdate, {
     privacy_type_input: {
@@ -264,7 +264,7 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
 /**
  * Feature partup form schema
  * @name featurePartup
- * @memberof Partup.schemas.forms
+ * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.featurePartup = new SimpleSchema({
     active: {
