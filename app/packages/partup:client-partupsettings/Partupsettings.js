@@ -48,7 +48,7 @@ Template.Partupsettings.onCreated(function() {
     template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
     template.selectedPhase = new ReactiveVar('');
-    template.selectedPrivacyType = new ReactiveVar('public');
+    template.selectedPrivacyType = new ReactiveVar('');
     template.selectedPrivacyNetwork = new ReactiveVar('');
     template.tagsInputStates = new ReactiveDict();
     template.showNetworkDropdown = new ReactiveVar(false);
@@ -354,7 +354,7 @@ Template.Partupsettings.helpers({
         return this._id === selectedNetworkId;
     },
     selectedPrivacyType: function() {
-        return Template.instance().selectedPrivacyType.get() || 'public';
+        return Template.instance().selectedPrivacyType.get();
     },
     selectedPrivacyNetwork: function() {
         return Template.instance().selectedPrivacyNetwork.get() || null;
