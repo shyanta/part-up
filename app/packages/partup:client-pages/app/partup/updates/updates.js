@@ -167,8 +167,10 @@ Template.app_partup_updates.onCreated(function() {
 Template.app_partup_updates.onRendered(function() {
     var tpl = this;
 
-    // Reset new updates for current user
-    Meteor.call('partups.reset_new_updates', this.data.partupId);
+    if (typeof this.data.partupId === 'string') {
+        // Reset new updates for current user
+        Meteor.call('partups.reset_new_updates', this.data.partupId);
+    }
 
     /**
      * Infinite scroll
@@ -373,7 +375,9 @@ Template.app_partup_updates.events({
         template.updates.refreshDate_remembered.set(template.updates.refreshDate.get());
         template.updates.updateView();
 
-        // Reset new updates for current user
-        Meteor.call('partups.reset_new_updates', template.data.partupId);
+        if (typeof template.data.partupId === 'string') {
+            // Reset new updates for current user
+            Meteor.call('partups.reset_new_updates', template.data.partupId);
+        }
     }
 });
