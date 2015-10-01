@@ -50,7 +50,21 @@ Meteor.startup(function() {
                     },
                     'comment' : '"Dit is een nederlandse quote voor een nederlandse partup"'
                 },
-                'language' : 'nl'
+                'language' : 'nl',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    },
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
+                        'new_updates' : []
+                    },
+                    {
+                        '_id' : 'a7qcp5RHnh5rfaeW9',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 2 */
@@ -88,7 +102,13 @@ Meteor.startup(function() {
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
-                'language' : 'en'
+                'language' : 'en',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 3 */
@@ -126,7 +146,13 @@ Meteor.startup(function() {
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
-                'language' : 'en'
+                'language' : 'en',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 4 */
@@ -174,6 +200,12 @@ Meteor.startup(function() {
                     },
                     'comment' : '"This is an english quote for an english partup"'
                 },
+                'upper_data' : [
+                    {
+                        '_id' : 'a7qcp5RHnh5rfaeW9',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 5 */
@@ -209,7 +241,13 @@ Meteor.startup(function() {
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
-                'language' : 'en'
+                'language' : 'en',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 6-36 */
