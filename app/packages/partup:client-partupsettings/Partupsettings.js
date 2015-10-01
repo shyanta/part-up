@@ -47,6 +47,7 @@ Template.Partupsettings.onCreated(function() {
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
+    template.selectedPhase = new ReactiveVar('');
     template.selectedPrivacyType = new ReactiveVar('public');
     template.selectedPrivacyNetwork = new ReactiveVar('');
     template.tagsInputStates = new ReactiveDict();
@@ -299,6 +300,32 @@ Template.Partupsettings.helpers({
         return Template.instance().showNetworkDropdown.get() &&
             Networks.findForUser(Meteor.user(), Meteor.userId()).fetch().length;
     },
+    phaseOptions: function() {
+        return [
+            {
+                label: 'partupsettings-form-phase-brainstorm',
+                value: Partups.PHASE.BRAINSTORM
+            },
+            {
+                label: 'partupsettings-form-phase-plan',
+                value: Partups.PHASE.PLAN
+            },
+            {
+                label: 'partupsettings-form-phase-execute',
+                value: Partups.PHASE.EXECUTE
+            },
+            {
+                label: 'partupsettings-form-phase-grow',
+                value: Partups.PHASE.GROW
+            }
+        ];
+    },
+    phaseChecked: function() {
+        return this.value === Template.instance().selectedPhase.get();
+    },
+    selectedPhase: function() {
+        return Template.instance().selectedPhase.get();
+    },
 
     // Location autocomplete
     locationLabel: function() {
@@ -414,6 +441,13 @@ Template.Partupsettings.events({
     },
     'keydown [data-tags-input] .bootstrap-tagsinput input, input [data-tags-input] .bootstrap-tagsinput input': function(event, template) {
         template.tagsInputStates.set('input', !!event.currentTarget.value.trim());
+    },
+    'change [data-phase]': function(event, template) {
+        var input = template.find('[data-phase] :checked');
+        template.selectedPhase.set(input.value);
+        setTimeout(function() {
+            template.$('[name=phase]').trigger('blur');
+        });
     }
 });
 

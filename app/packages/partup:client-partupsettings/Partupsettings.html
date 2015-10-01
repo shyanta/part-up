@@ -194,6 +194,25 @@
             </label>
         {{/ if }}
 
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'partupsettings-form-phase-label' }}
+            </span>
+
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='phase' }}pu-state-invalid{{/if}}">
+                <div class="pu-sub-input">
+                    <fieldset class="pu-sub-radiogroup" data-phase>
+                        {{# each phaseOptions }}
+                            <label><input type="radio" name="phase_input" value="{{ value }}" class="pu-input-radio" checked="{{ phaseChecked }}">{{_ label }}</label>
+                        {{/ each }}
+                    </fieldset>
+                </div>
+                <span class="pu-sub-error">{{ afFieldMessage name='phase' }}</span>
+
+                {{> afFieldInput type='hidden' name='phase' value=selectedPhase }}
+            </div>
+        </label>
+
         <!-- Image -->
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-image-label' }}</span>
