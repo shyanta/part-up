@@ -8,8 +8,8 @@
     "update-type-partups_tags_removed-title": "__name__ removed a label",
     "update-type-partups_tags_changed-title": "__name__ changed a label",
 
-    "update-type-network_public-title": "__name__ made this Part-up visible for everyone",
-    "update-type-network_private-title": "__name__ made this Part-up visible for invited uppers only",
+    "update-type-network_public-title": "__name__ made this part-up visible for everyone",
+    "update-type-network_private-title": "__name__ made this part-up visible for invited uppers only",
 
     "update-type-partups_end_date_changed-title": "__name__ changed the end date",
 
@@ -23,9 +23,9 @@
     "update-type-partups_activities_archived-title": "__name__ archived an activity",
     "update-type-partups_activities_unarchived-title": "__name__ reactivated an activity",
 
-    "update-type-changed_region-title": "__name__ changed the part-up region",
+    "update-type-changed_region-title": "__name__ changed the part-up location",
 
-    "update-type-rated-title": "__name__ added a rating",
+    "update-type-rated-title": "__name__ rated __contributor__ on '__activity__'",
 
     "update-type-partups_message_added-title": "__name__ added a message",
 
@@ -33,16 +33,16 @@
 
     "update-type-partups_location_changed-title": "__name__ changed the part-up region",
 
-    "update-type-partups_invited-title": "__name__ invited __invitee_name__ for this part-up",
+    "update-type-partups_invited-title": "__name__ invited __invitee_name__ to this part-up",
 
-    "update-type-partups_contributions_proposed-title": "__name__ proposed a contribution to '__activity__'",
-    "update-type-partups_contributions_added-title": "__name__ added a contribution to '__activity__'",
+    "update-type-partups_contributions_proposed-title": "__name__ proposed to contribute to '__activity__'",
+    "update-type-partups_contributions_added-title": "__name__ promised to contribute to '__activity__'",
     "update-type-partups_contributions_changed-title": "__name__ changed a contribution to '__activity__'",
     "update-type-partups_contributions_accepted-title": "__name__ accepted a contribution to '__activity__'",
     "update-type-partups_contributions_removed-title": "__name__ removed a contribution from '__activity__'",
 
-    "update-type-partups_ratings_inserted-title": "__name__ added a rating",
-    "update-type-partups_ratings_changed-title": "__name__ changed a rating",
+    "update-type-partups_ratings_inserted-title": "__name__ rated the contribution of __contributor__ on '__activity__'",
+    "update-type-partups_ratings_changed-title": "__name__ changed the rating for __contributor__ on '__activity__'",
 
     "update-type-partups_comments_added-title": "__name__ commented",
     "update-type-partups_activities_comments_added-title": "__name__ commented on an activity",

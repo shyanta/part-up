@@ -49,6 +49,11 @@ Template.Update.helpers({
         if (!update) return; // no update found, return
         var partup = Partups.findOne({_id: update.partup_id});
         var activity = Activities.findOne({_id: update.type_data.activity_id});
+        var contribution = Contributions.findOne({_id: update.type_data.contribution_id});
+        var contributor;
+        if (contribution) {
+            contributor = Meteor.users.findOne(contribution.upper_id);
+        }
         var user = Meteor.user();
         return {
             data: function() {
@@ -87,8 +92,13 @@ Template.Update.helpers({
                 }
 
                 // Activity title
-                if (self.metadata.is_contribution) {
+                if (self.metadata.is_contribution || self.metadata.is_rating) {
                     params.activity = activity.name;
+                }
+
+                // Contributor name
+                if (self.metadata.is_rating) {
+                    params.contributor = User(contributor).getFirstname();
                 }
 
                 return __(titleKey, params);

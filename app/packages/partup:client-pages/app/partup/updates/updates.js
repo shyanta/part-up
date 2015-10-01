@@ -257,6 +257,7 @@ Template.app_partup_updates.helpers({
 
         var is_newuser = update.type.indexOf('partups_newuser') > -1;
         var is_contribution = update.type.indexOf('partups_contributions_') > -1;
+        var is_rating = update.type.indexOf('partups_ratings_') > -1;
         var path = '';
         if (is_newuser) {
             path = Router.path('profile', {_id: update.upper_id});
@@ -276,6 +277,7 @@ Template.app_partup_updates.helpers({
             update_type: update.type,
             invited_name: update.type_data.name,
             is_contribution: is_contribution,
+            is_rating: is_rating,
             is_system: !!update.system
         };
     },
