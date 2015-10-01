@@ -63,6 +63,7 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     partup.getUsers().forEach(function(upperId) {
         // Exclude the upper that wrote the comment
         if (upperId === comment.creator._id) return;
+        update.createUpperDataObject(upperId);
         update.addNewCommentForUpper(upperId, comment._id);
     });
 
