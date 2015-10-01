@@ -357,7 +357,7 @@ Template.Partupsettings.helpers({
         return Template.instance().selectedPrivacyType.get();
     },
     selectedPrivacyNetwork: function() {
-        return Template.instance().selectedPrivacyNetwork.get() || null;
+        return Template.instance().selectedPrivacyNetwork.get();
     },
     tagsInputIsEmpty: function() {
         var template = Template.instance();
