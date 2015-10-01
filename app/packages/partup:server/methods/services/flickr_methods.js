@@ -10,14 +10,12 @@ Meteor.methods({
     /**
      * Return Flickr images based on tag relevancy
      *
-     * @param {string[]} tags
-     * @param {number} count Number of results to return
-     * @param {string[]} fallbackTags Tags
+     * @param {String[]} tags
+     * @param {Number} count Number of results to return
      */
     'partups.services.flickr.search': function(tags, count) {
         check(tags, [String]);
         check(count, Match.Optional(Number));
-        check(fallbackTags, Match.Optional([String]));
 
         this.unblock();
 
