@@ -60,7 +60,8 @@ Partup.transformers.partup = {
             end_date: fields.end_date,
             image: fields.image,
             tags: Partup.services.tags.tagInputToArray(fields.tags_input),
-            language: Partup.server.services.google.detectLanguage(fields.description)
+            language: Partup.server.services.google.detectLanguage(fields.description),
+            phase: fields.phase
         };
 
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
