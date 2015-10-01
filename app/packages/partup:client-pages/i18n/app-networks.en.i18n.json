@@ -28,7 +28,7 @@
     "pages-app-network-tab-button-partups": "Part-ups",
     "pages-app-network-tab-button-uppers": "Uppers",
 
-    "pages-app-network-notification-joined": "Successfully joined this tribe",
+    "pages-app-network-notification-joined": "You are now member of this tribe",
     "pages-app-network-notification-accepted_waitingforapproval": "Thank you, waiting for approval from the tribe admin",
     "pages-app-network-notification-failed": "Failed to join the tribe for some reason",
     "pages-app-network-notification-left": "You left the tribe",
