@@ -573,6 +573,7 @@ Migrations.add({
     up: function() {
         Updates.find({}).forEach(function(update) {
             var partup = Partups.findOne({_id: update.partup_id});
+            if (!partup) return;
             partup.getUsers().forEach(function(upperId) {
                 update.createUpperDataObject(upperId);
             });
