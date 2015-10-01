@@ -76,18 +76,18 @@ generateCacheChecksum = (options) ->
 generateFonts = (compileStep, options) ->
     # Always generate the SVG font as it is required to generate the TTF,
     # which in turn is used to generate the EOT and WOFF
-    generateSVGFont options.files, options, (svgFontPath) ->
+    generateSVGFont compileStep, options.files, options, (svgFontPath) ->
         if _.intersection(options.types, ['ttf', 'eot', 'woff']).length
-            generateTTFFont svgFontPath, options, (ttfFontPath) ->
+            generateTTFFont compileStep, svgFontPath, options, (ttfFontPath) ->
                 if _.contains options.types, 'eot'
-                    generateEOTFont ttfFontPath, options
+                    generateEOTFont compileStep, ttfFontPath, options
 
                 if _.contains options.types, 'woff'
-                    generateWoffFont ttfFontPath, options
+                    generateWoffFont compileStep, ttfFontPath, options
 
         generateStylesheets compileStep, options
 
-generateSVGFont = (files, options, done) ->
+generateSVGFont = (compileStep, files, options, done) ->
     codepoint = 0xE001
 
     options.glyphs = _.compact _.map(files, (file) ->
@@ -118,12 +118,13 @@ generateSVGFont = (files, options, done) ->
 
                 fs.createFileSync svgDestPath
                 fs.writeFileSync svgDestPath, fs.readFileSync(tempStream.path)
+                compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.svg'), data: fs.readFileSync(tempStream.path) });
 
                 options.fontFaceURLS.svg = path.join options.fontFaceBaseURL, options.fontName + '.svg'
 
             done tempStream.path if _.isFunction done
 
-generateTTFFont = (svgFontPath, options, done) ->
+generateTTFFont = (compileStep, svgFontPath, options, done) ->
     font     = svg2ttf fs.readFileSync(svgFontPath, encoding: 'utf8'), {}
     font     = new Buffer font.buffer
     tempFile = temp.openSync(options.fontName + '-ttf')
@@ -135,12 +136,13 @@ generateTTFFont = (svgFontPath, options, done) ->
 
         fs.createFileSync ttfDestPath
         fs.writeFileSync ttfDestPath, font
+        compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.ttf'), data: font });
 
         options.fontFaceURLS.ttf = path.join options.fontFaceBaseURL, options.fontName + '.ttf'
 
     done tempFile.path if _.isFunction (done)
 
-generateEOTFont = (ttfFontPath, options, done) ->
+generateEOTFont = (compileStep, ttfFontPath, options, done) ->
     ttf      = new Uint8Array fs.readFileSync(ttfFontPath)
     font     = new Buffer ttf2eot(ttf).buffer
     tempFile = temp.openSync options.fontName + '-eot'
@@ -151,12 +153,13 @@ generateEOTFont = (ttfFontPath, options, done) ->
 
     fs.createFileSync eotDestPath
     fs.writeFileSync eotDestPath, font
+    compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.eot'), data: font });
 
     options.fontFaceURLS.eot = path.join options.fontFaceBaseURL, options.fontName + '.eot'
 
     done tempFile.path if _.isFunction done
 
-generateWoffFont = (ttfFontPath, options, done) ->
+generateWoffFont = (compileStep, ttfFontPath, options, done) ->
     ttf      = new Uint8Array fs.readFileSync(ttfFontPath)
     font     = new Buffer ttf2woff(ttf).buffer
     tempFile = temp.openSync options.fontName + '-woff'
@@ -167,6 +170,7 @@ generateWoffFont = (ttfFontPath, options, done) ->
 
     fs.createFileSync eotDestPath
     fs.writeFileSync eotDestPath, font
+    compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.woff'), data: font });
 
     options.fontFaceURLS.woff = path.join options.fontFaceBaseURL, options.fontName + '.woff'
 
