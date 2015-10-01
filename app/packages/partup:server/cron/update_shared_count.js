@@ -1,7 +1,7 @@
 SyncedCron.add({
     name: 'Update the shared counts of a partup from different socials',
     schedule: function(parser) {
-        return parser.text('every 1 hour');
+        return parser.text('every 1 hour starting on the 10th minute');
     },
     job: function() {
         if (!process.env.NODE_ENV.match(/development/)) {
