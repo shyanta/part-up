@@ -39,7 +39,7 @@ Template.Partupsettings.onCreated(function() {
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
-    template.selectedType = new ReactiveVar('');
+    template.selectedType = new ReactiveVar(this.data.currentPartup ? this.data.currentPartup.type : '');
     template.selectedPhase = new ReactiveVar('');
     template.selectedPrivacyType = new ReactiveVar('');
     template.selectedPrivacyNetwork = new ReactiveVar('');
@@ -58,6 +58,9 @@ Template.Partupsettings.onCreated(function() {
         } else {
             template.imageSystem.getSuggestions(partup.tags);
         }
+
+        template.selectedType.set(partup.type);
+        template.selectedPhase.set(partup.phase);
     });
 
     template.setFocuspoint = function(focuspoint) {
@@ -298,6 +301,9 @@ Template.Partupsettings.helpers({
                 value: Partups.TYPE.ORGANIZATION
             }
         ];
+    },
+    typeChecked: function() {
+        return this.value === Template.instance().selectedType.get();
     },
     showCommercialBudget: function() {
         return this.value === Partups.TYPE.COMMERCIAL &&
