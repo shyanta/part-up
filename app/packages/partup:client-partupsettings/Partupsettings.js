@@ -21,12 +21,6 @@ var formPlaceholders = {
     tags_input: function() {
         return __('partupsettings-form-tags_input-placeholder');
     },
-    type_commercial_budget: function() {
-        return __('partupsettings-form-budget_money-placeholder');
-    },
-    type_organization_budget: function() {
-        return __('partupsettings-form-budget_hours-placeholder');
-    },
     end_date: function() {
         return __('partupsettings-form-end_date-placeholder');
     },
@@ -41,12 +35,11 @@ Template.Partupsettings.onCreated(function() {
     template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.partup_name.max);
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     template.imageSystem = new ImageSystem(template);
-    template.budgetType = new ReactiveVar();
-    template.budgetTypeChanged = new ReactiveVar();
     template.draggingFocuspoint = new ReactiveVar(false);
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
+    template.selectedType = new ReactiveVar('');
     template.selectedPhase = new ReactiveVar('');
     template.selectedPrivacyType = new ReactiveVar('');
     template.selectedPrivacyNetwork = new ReactiveVar('');
@@ -88,26 +81,6 @@ Template.Partupsettings.onCreated(function() {
         if (imageId && template.focuspoint) {
             template.focuspoint.reset();
         }
-    });
-
-    Template.autoForm.onCreated(function() {
-        if (mout.object.get(this, 'data.id') !== template.data.FORM_ID) return;
-        formId = template.data.FORM_ID;
-
-        // Oh. My. God. Look at that hack.
-        // Don't change any of these rules!
-        this.autorun(function() {
-            AutoForm.getFieldValue('type');
-
-            Meteor.setTimeout(function() {
-                try {
-                    var type = AutoForm.getFieldValue('type', template.data.FORM_ID);
-                    template.budgetType.set(type);
-                } catch (e) {
-                    return;
-                }
-            });
-        });
     });
 
     Template.autoForm.onRendered(function() {
@@ -211,22 +184,6 @@ Template.Partupsettings.helpers({
     currentSuggestion: function() {
         return Session.get('partials.create-partup.current-suggestion');
     },
-    budgetOptions: function() {
-        return [
-            {
-                label: __('partupsettings-form-budget-type-nobudget'), // todo: i18n
-                value: ''
-            },
-            {
-                label: __('partupsettings-form-budget-type-money'), // todo: i18n
-                value: 'money'
-            },
-            {
-                label: __('partupsettings-form-budget-type-hours'), // todo: i18n
-                value: 'hours'
-            }
-        ];
-    },
     galleryIsLoading: function() {
         var template = Template.instance();
         return template.loading &&
@@ -243,12 +200,6 @@ Template.Partupsettings.helpers({
     uploadingPicture: function() {
         var template = Template.instance();
         return template.loading && template.loading.get('image-uploading');
-    },
-    budgetType: function() {
-        return Template.instance().budgetType.get();
-    },
-    budgetTypeChanged: function() {
-        return Template.instance().budgetTypeChanged.get();
     },
     setFocuspoint: function() {
         return Template.instance().setFocuspoint;
@@ -326,6 +277,37 @@ Template.Partupsettings.helpers({
     selectedPhase: function() {
         return Template.instance().selectedPhase.get();
     },
+    typeOptions: function() {
+        return [
+            {
+                label: 'partupsettings-form-type-charity',
+                value: Partups.TYPE.CHARITY
+            },
+            {
+                label: 'partupsettings-form-type-enterprising',
+                value: Partups.TYPE.ENTERPRISING
+            },
+            {
+                label: 'partupsettings-form-type-commercial',
+                value: Partups.TYPE.COMMERCIAL
+            },
+            {
+                label: 'partupsettings-form-type-organization',
+                value: Partups.TYPE.ORGANIZATION
+            }
+        ];
+    },
+    showCommercialBudget: function() {
+        return this.value === Partups.TYPE.COMMERCIAL &&
+            Template.instance().selectedType.get() == Partups.TYPE.COMMERCIAL;
+    },
+    showOrganizationBudget: function() {
+        return this.value === Partups.TYPE.ORGANIZATION &&
+            Template.instance().selectedType.get() == Partups.TYPE.ORGANIZATION;
+    },
+    selectedType: function() {
+        return Template.instance().selectedType.get();
+    },
 
     // Location autocomplete
     locationLabel: function() {
@@ -394,9 +376,6 @@ Template.Partupsettings.events({
             });
         });
     },
-    'change [name=type]': function(event, template) {
-        template.budgetTypeChanged.set(true);
-    },
     'click [data-imageremove]': function(event, template) {
         var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();
         var tags = Partup.client.strings.tagsStringToArray(tags_input);
@@ -409,6 +388,13 @@ Template.Partupsettings.events({
     'click [data-removedate]': function(event, template) {
         event.preventDefault();
         template.end_date_datepicker.datepicker('update', '');
+    },
+    'change [data-type]': function(event, template) {
+        var input = template.find('[data-type] :checked');
+        template.selectedType.set(input.value);
+        setTimeout(function() {
+            template.$('[name=type]').trigger('blur');
+        });
     },
     'change [data-privacy-type]': function(event, template) {
         var input = template.find('[data-privacy-type] :checked');

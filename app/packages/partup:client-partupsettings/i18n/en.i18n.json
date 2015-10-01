@@ -12,6 +12,12 @@
     "partupsettings-form-tags_input-placeholder": "Separate them by a comma, please",
     "partupsettings-form-tags_input-tooltip": "We use these words to check which uppers match your part-up. So think about the right words for a second.",
 
+    "partupsettings-form-type-label": "What type of part-up is this?",
+    "partupsettings-form-type-charity": "Volunteer",
+    "partupsettings-form-type-enterprising": "Entrepreneur (sharing value)",
+    "partupsettings-form-type-commercial": "Commercial",
+    "partupsettings-form-type-organization": "In an organization",
+
     "partupsettings-form-budget-label": "Do you have a budget in mind for your part-up?",
     "partupsettings-form-budget-type-nobudget": "No budget",
     "partupsettings-form-budget-type-money": "Yes, in money",

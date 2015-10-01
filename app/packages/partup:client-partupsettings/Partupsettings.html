@@ -61,54 +61,49 @@
             </div>
         </label>
 
-        <!-- Budget -->
-        <div class="pu-formfield">
+        <label class="pu-formfield">
             <span class="pu-label">
-                {{_ 'partupsettings-form-budget-label'}}
-                <a class="pu-hint pu-tooltip">
-                    <i class="picon-question"></i>
-                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-budget-tooltip' }}</p></span>
-                </a>
+                {{_ 'partupsettings-form-type-label' }}
             </span>
 
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='type' }}pu-state-invalid{{/if}} {{#if afFieldIsInvalid name='type_commercial_budget' }}pu-state-invalid{{/if}} {{#if afFieldIsInvalid name='type_organization_budget' }}pu-state-invalid{{/if}}">
+                <div class="pu-sub-input">
+                    <fieldset class="pu-sub-radiogroup" data-type>
+                        {{# each typeOptions }}
+                            <label><input type="radio" name="type_input" value="{{ value }}" class="pu-input-radio" checked="{{ privacyChecked }}">{{_ label }}</label>
+                            {{# if showCommercialBudget }}
+                                <label class="pu-sub-input pu-sub-input-half">
+                                    <span class="pu-inputcontainer pu-inputcontainer-text">
+                                        <span class="pu-sub-text">
+                                            {{_ 'partupsettings-form-budget-unit-euro' }}
+                                        </span>
+                                        {{> afFieldInput name='type_commercial_budget' type='text' placeholder=0 class="pu-input" }}
+                                    </span>
+                                </label>
+                            {{/ if }}
+                            {{# if showOrganizationBudget }}
+                                <label class="pu-sub-input pu-sub-input-half">
+                                    <span class="pu-inputcontainer pu-inputcontainer-text">
+                                        <span class="pu-sub-text">
+                                            {{_ 'partupsettings-form-budget-unit-hours' }}
+                                        </span>
+                                        {{> afFieldInput name='type_organization_budget' type='text' placeholder=0 class="pu-input" }}
+                                    </span>
+                                </label>
+                            {{/ if }}
+                        {{/ each }}
+                    </fieldset>
+                </div>
+                <span class="pu-sub-error">
+                    {{ afFieldMessage name='type' }}
+                    {{ afFieldMessage name='type_commercial_budget' }}
+                    {{ afFieldMessage name='type_organization_budget' }}
+                </span>
 
-            <!-- Budget type selector -->
-            <div class="pu-sub-validations {{#if afFieldIsInvalid name='type' }}pu-state-invalid{{/if}}">
-                <label class="pu-sub-input"><span class="pu-inputcontainer pu-inputcontainer-select">{{> afFieldInput type='select' firstOption=false name='type' class="pu-input pu-input-select" options=budgetOptions }}</span></label>
-                <span class="pu-sub-error">{{ afFieldMessage name='type' }}</span>
+                {{> afFieldInput type='hidden' name='type' value=selectedType }}
+                <!-- {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }} -->
             </div>
-
-            <!-- Budget amount: money -->
-            {{#if partupEquals budgetType 'commercial'}}
-                <div class="pu-sub-validations {{#if afFieldIsInvalid name='type_commercial_budget' }}pu-state-invalid{{/if}}">
-                    <label class="pu-sub-input pu-sub-input-half">
-                        <span class="pu-inputcontainer pu-inputcontainer-text">
-                            <span class="pu-sub-text">
-                                {{_ 'partupsettings-form-budget-unit-euro' }}
-                            </span>
-                            {{> afFieldInput name='type_commercial_budget' type='text' placeholder=formPlaceholders.type_commercial_budget class="pu-input" focusOnRender=budgetTypeChanged }}
-                        </span>
-                    </label>
-                    <span class="pu-sub-error">{{ afFieldMessage name='type_commercial_budget' }}</span>
-                </div>
-            {{/if }}
-
-            <!-- Budget amount: hours -->
-            {{#if partupEquals budgetType 'organization'}}
-                <div class="pu-sub-validations {{#if afFieldIsInvalid name='type_organization_budget' }}pu-state-invalid{{/if}}">
-                    <label class="pu-sub-input pu-sub-input-half">
-                        <span class="pu-inputcontainer pu-inputcontainer-text">
-                            <span class="pu-sub-text">
-                                {{_ 'partupsettings-form-budget-unit-hours' }}
-                            </span>
-                            {{> afFieldInput name='type_organization_budget' type='text' placeholder=formPlaceholders.type_organization_budget class="pu-input" focusOnRender=budgetTypeChanged }}
-                        </span>
-                    </label>
-                    <span class="pu-sub-error">{{ afFieldMessage name='type_organization_budget' }}</span>
-                </div>
-            {{/if }}
-
-        </div>
+        </label>
 
         <!-- End date -->
         <label class="pu-formfield">
