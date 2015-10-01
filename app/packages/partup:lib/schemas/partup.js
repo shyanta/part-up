@@ -71,7 +71,12 @@ var partupBaseSchema = new SimpleSchema({
     network_id: {
         type: String,
         optional: true,
-        regEx: SimpleSchema.RegEx.Id
+        regEx: SimpleSchema.RegEx.Id,
+        custom: function() {
+            if (this.field('privacy_type_input').value === 'network' && !this.isSet) {
+                return 'required';
+            }
+        }
     }
 });
 

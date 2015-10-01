@@ -44,13 +44,13 @@ Template.Partupsettings.onCreated(function() {
     template.budgetType = new ReactiveVar();
     template.budgetTypeChanged = new ReactiveVar();
     template.draggingFocuspoint = new ReactiveVar(false);
-    template.showPrivacyDropdown = new ReactiveVar(false);
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
     template.selectedPrivacyType = new ReactiveVar('public');
-    template.selectedPrivacyNetwork = new ReactiveVar(false);
+    template.selectedPrivacyNetwork = new ReactiveVar('');
     template.tagsInputStates = new ReactiveDict();
+    template.showNetworkDropdown = new ReactiveVar(false);
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
@@ -161,9 +161,10 @@ Template.Partupsettings.onRendered(function() {
             $(this).trigger('keyup');
         });
     }, 500);
+
     var selectedNetworkId = Session.get('createPartupForNetworkById');
     if (selectedNetworkId) {
-        template.showPrivacyDropdown.set(true);
+        template.showNetworkDropdown.set(true);
         template.selectedPrivacyType.set('network');
         template.selectedPrivacyNetwork.set(selectedNetworkId);
     }
@@ -266,9 +267,6 @@ Template.Partupsettings.helpers({
     draggingFocuspoint: function() {
         return Template.instance().draggingFocuspoint.get();
     },
-    showPrivacyDropdown: function() {
-        return Template.instance().showPrivacyDropdown.get();
-    },
     selectedPrivacyLabel: function() {
         return Template.instance().selectedPrivacyLabel.get();
     },
@@ -276,7 +274,7 @@ Template.Partupsettings.helpers({
         return Networks.findForUser(Meteor.user(), Meteor.userId());
     },
     privacyTypes: function() {
-        return [
+        var types = [
             {
                 label: 'partupsettings-form-privacy-public',
                 value: 'public'
@@ -286,6 +284,20 @@ Template.Partupsettings.helpers({
                 value: 'private'
             }
         ];
+
+        var networks = Networks.findForUser(Meteor.user(), Meteor.userId()).fetch();
+        if (networks.length) {
+            types.push({
+                label: 'partupsettings-form-privacy-network',
+                value: 'network'
+            });
+        }
+
+        return types;
+    },
+    showNetworkDropdown: function() {
+        return Template.instance().showNetworkDropdown.get() &&
+            Networks.findForUser(Meteor.user(), Meteor.userId()).fetch().length;
     },
 
     // Location autocomplete
@@ -324,6 +336,9 @@ Template.Partupsettings.helpers({
         var template = Template.instance();
 
         return !template.tagsInputStates.get('tags') && !template.tagsInputStates.get('input');
+    },
+    privacyChecked: function() {
+        return this.value === Template.instance().selectedPrivacyType.get();
     }
 });
 
@@ -368,27 +383,16 @@ Template.Partupsettings.events({
         event.preventDefault();
         template.end_date_datepicker.datepicker('update', '');
     },
-    'click [data-toggleprivacydropdown]': function(event, template) {
-        var currentValue = template.showPrivacyDropdown.get();
-        template.showPrivacyDropdown.set(!currentValue);
+    'change [data-privacy-type]': function(event, template) {
+        var input = template.find('[data-privacy-type] :checked');
+        template.selectedPrivacyType.set(input.value);
+        template.showNetworkDropdown.set(input.value === 'network');
     },
-    'change [data-whocanview]': function(event, template) {
-        var selected_value = event.currentTarget.value;
-        if (selected_value.indexOf('privacy-') === 0) {
-
-            // Privacy type
-            var value = selected_value.replace('privacy-', '');
-            template.selectedPrivacyType.set(value);
-            template.selectedPrivacyNetwork.set(false);
-
-        } else if (selected_value.indexOf('network-') === 0) {
-
-            // Network
-            var value = selected_value.replace('network-', '');
-            template.selectedPrivacyType.set('network');
-            template.selectedPrivacyNetwork.set(value);
-
-        }
+    'change [data-privacy-network]': function(event, template) {
+        template.selectedPrivacyNetwork.set(event.currentTarget.value);
+        setTimeout(function() {
+            template.$('[name=network_id]').trigger('blur');
+        });
     },
     'click .pu-tooltip': function(event) {
         event.preventDefault();

@@ -164,41 +164,33 @@
                     </a>
                 </span>
 
-                {{# unless showPrivacyDropdown }}
+                <div class="pu-sub-validations {{#if afFieldIsInvalid name='privacy_type_input' }}pu-state-invalid{{/if}} {{#if afFieldIsInvalid name='network_id' }}pu-state-invalid{{/if}}">
+                    <div class="pu-sub-input">
+                        <fieldset class="pu-sub-radiogroup" data-privacy-type>
+                            {{# each privacyTypes }}
+                                <label><input type="radio" name="privacy_type_input" value="{{ value }}" class="pu-input-radio" checked="{{ privacyChecked }}">{{_ label }}</label>
+                            {{/ each }}
 
-                    <div class="pu-inputholder pu-inputholder-righticon">
-                        <button type="button" class="pu-input pu-input-noneditable" data-toggleprivacydropdown>{{_ selectedPrivacyLabel}}</button>
-                        <span class="pu-icon"><i class="fa fa-caret-down"></i></span>
+                            {{# if showNetworkDropdown }}
+                                <span class="pu-inputcontainer pu-inputcontainer-select">
+                                    <select class="pu-input pu-input-select" data-privacy-network>
+                                        <option value="">...</option>
+                                        {{# each userNetworks }}
+                                            <option value="{{ _id }}" selected="{{ networkPreSelected }}">{{ name }}</option>
+                                        {{/ each }}
+                                    </select>
+                                </span>
+                            {{/ if }}
+                        </fieldset>
                     </div>
+                    <span class="pu-sub-error">
+                        {{ afFieldMessage name='privacy_type_input' }}
+                        {{ afFieldMessage name='network_id' }}
+                    </span>
 
-                {{ else }}
-
-                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='privacy_type_input' }}pu-state-invalid{{/if}} {{#if afFieldIsInvalid name='network_id' }}pu-state-invalid{{/if}}">
-                        <label class="pu-sub-input">
-                            <span class="pu-inputcontainer pu-inputcontainer-select">
-                                <select class="pu-input pu-input-select" data-whocanview>
-                                    {{# each privacyTypes }}
-                                        <option value="privacy-{{_ value }}">{{_ label }}</option>
-                                    {{/ each }}
-                                    {{# if userNetworks }}
-                                        <option disabled></option>
-                                        <optgroup label="{{_ 'partupsettings-form-privacy-networkheading'}}">
-                                            {{# each userNetworks }}
-                                                <option value="network-{{ _id }}" selected="{{ networkPreSelected }}">{{ name }}</option>
-                                            {{/ each }}
-                                        </optgroup>
-                                    {{/ if }}
-                                </select>
-                            </span>
-                        </label>
-                        <span class="pu-sub-error">{{ afFieldMessage name='privacy_type_input' }}</span>
-                        <span class="pu-sub-error">{{ afFieldMessage name='network_id' }}</span>
-                    </div>
-
-                {{/ unless }}
-
-                {{> afFieldInput type='hidden' name='privacy_type_input' defaultValue='public' value=selectedPrivacyType }}
-                {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }}
+                    {{> afFieldInput type='hidden' name='privacy_type_input' defaultValue='public' value=selectedPrivacyType }}
+                    {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }}
+                </div>
 
             </label>
         {{/ if }}
