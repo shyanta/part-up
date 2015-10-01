@@ -114,10 +114,6 @@ generateSVGFont = (compileStep, files, options, done) ->
         .pipe tempStream
         .on 'finish', ->
             if _.contains(options.types, 'svg')
-                svgDestPath = path.join process.cwd(), options.dest, options.fontName + '.svg'
-
-                fs.createFileSync svgDestPath
-                fs.writeFileSync svgDestPath, fs.readFileSync(tempStream.path)
                 compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.svg'), data: fs.readFileSync(tempStream.path) });
 
                 options.fontFaceURLS.svg = path.join options.fontFaceBaseURL, options.fontName + '.svg'
@@ -132,10 +128,6 @@ generateTTFFont = (compileStep, svgFontPath, options, done) ->
     fs.writeFileSync tempFile.path, font
 
     if _.contains options.types, 'ttf'
-        ttfDestPath = path.join process.cwd(), options.dest, options.fontName + '.ttf'
-
-        fs.createFileSync ttfDestPath
-        fs.writeFileSync ttfDestPath, font
         compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.ttf'), data: font });
 
         options.fontFaceURLS.ttf = path.join options.fontFaceBaseURL, options.fontName + '.ttf'
@@ -149,10 +141,6 @@ generateEOTFont = (compileStep, ttfFontPath, options, done) ->
 
     fs.writeFileSync tempFile.path, font
 
-    eotDestPath = path.join process.cwd(), options.dest, options.fontName + '.eot'
-
-    fs.createFileSync eotDestPath
-    fs.writeFileSync eotDestPath, font
     compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.eot'), data: font });
 
     options.fontFaceURLS.eot = path.join options.fontFaceBaseURL, options.fontName + '.eot'
@@ -166,10 +154,6 @@ generateWoffFont = (compileStep, ttfFontPath, options, done) ->
 
     fs.writeFileSync tempFile.path, font
 
-    eotDestPath = path.join process.cwd(), options.dest, options.fontName + '.woff'
-
-    fs.createFileSync eotDestPath
-    fs.writeFileSync eotDestPath, font
     compileStep.addAsset({ path: path.join(options.dest, options.fontName + '.woff'), data: font });
 
     options.fontFaceURLS.woff = path.join options.fontFaceBaseURL, options.fontName + '.woff'
