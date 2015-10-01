@@ -567,33 +567,4 @@ Migrations.add({
     }
 });
 
-Migrations.add({
-    version: 21,
-    name: 'Count all social shares from existing partups',
-    up: function() {
-        Partups.find({}).forEach(function(partup) {
-            var shared_count = {};
-            if (process.env.NODE_ENV.match(/development/)) {
-                shared_count = {
-                    facebook: 8,
-                    twitter: 243,
-                    linkedin: 92,
-                    email: 374
-                };
-            } else {
-                shared_count = {
-                    facebook: Partup.server.services.shared_count.facebook(Meteor.absoluteUrl() + 'partups/' + partup.slug),
-                    twitter: Partup.server.services.shared_count.twitter(Meteor.absoluteUrl() + 'partups/' + partup.slug),
-                    linkedin: Partup.server.services.shared_count.linkedin(Meteor.absoluteUrl() + 'partups/' + partup.slug),
-                    email: 0
-                };
-            }
-            Partups.update(partup._id, {$set: {shared_count: shared_count}});
-        });
-    },
-    down: function() {
-        //
-    }
-});
-
-Migrations.migrateTo(21);
+Migrations.migrateTo(20);
