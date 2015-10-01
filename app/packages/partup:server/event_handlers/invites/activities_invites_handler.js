@@ -2,6 +2,14 @@
  * Generate a notification and email when an invite gets sent
  */
 Event.on('invites.inserted.activity', function(inviter, partup, activity, invitee) {
+    // Create a new update
+    var updateType = 'partups_invited';
+    var updateTypeData = {
+        invitee_names: [User(invitee).getFirstname()]
+    };
+    var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
+    Updates.insert(update);
+
     // Set the notification details
     var notificationOptions = {
         userId: invitee._id,
@@ -95,6 +103,14 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
 
     // Send the email
     Partup.server.services.emails.send(emailOptions);
+
+    // Create a new update
+    var updateType = 'partups_invited';
+    var updateTypeData = {
+        invitee_names: [name]
+    };
+    var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
+    Updates.insert(update);
 
     // Update stats
     partup.increaseEmailShareCount();
