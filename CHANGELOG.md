@@ -16,6 +16,7 @@
 - new updates in partup since last visit in profile dropdown
 - new share button design + position in sidebar with sharecounters
 - new rating flow with save button
+- new fields in start partup flow (new type options, phase)
 - now emitting events externally to specific server
 - intercom profile now also contains tribenames
 - partup image suggestions now fallback to random images from partup flickr group
