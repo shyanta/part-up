@@ -36,7 +36,6 @@ Package.onUse(function(api) {
         'version.js',
         'globals.js',
         'routes.js',
-        'bootstrap.js',
         'services/location.js',
         'services/placeholder.js',
         'services/tags.js',
