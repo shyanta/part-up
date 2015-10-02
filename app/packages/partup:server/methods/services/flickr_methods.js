@@ -43,8 +43,6 @@ Meteor.methods({
                     'sort': 'relevance',
                     'content_type': 1 // Photos only
                 }, function(result, error) {
-                    console.log('HIT', result);
-
                     result.photos.photo.forEach(function(photo) {
                         if (!photo.url_l || (photo.height_l < photo.width_l)) return; // Only landscape photos
                         photos.push({
