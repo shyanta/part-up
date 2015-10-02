@@ -116,7 +116,6 @@ Template.Partupsettings.onCreated(function() {
         var dateChangeHandler = function(event) {
             event.currentTarget.nextElementSibling.value = event.date;
             $(event.currentTarget.nextElementSibling).trigger('blur');
-            event.currentTarget.focus();
         };
 
         this.autorun(function() {
