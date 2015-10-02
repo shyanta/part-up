@@ -2,13 +2,27 @@
  * Generate a notification and email when an invite gets sent
  */
 Event.on('invites.inserted.activity', function(inviter, partup, activity, invitee) {
-    // Create a new update
-    var updateType = 'partups_invited';
-    var updateTypeData = {
-        invitee_names: [User(invitee).getFirstname()]
-    };
-    var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
-    Updates.insert(update);
+    // Check if there is already an invite update
+    var inviteUpdate = Updates.findOne({partup_id: partup._id, type: 'partups_invited'}, {$orderby: {updated_at: -1}});
+    console.log(inviteUpdate.isLatestUpdateOfItsPartup());
+
+    if (inviteUpdate && inviteUpdate.isLatestUpdateOfItsPartup()) {
+        // Update the update with new invitee name
+        var inviteeNames = inviteUpdate.type_data.invitee_names;
+        inviteeNames.unshift(User(invitee).getFirstname());
+        Updates.update(inviteUpdate._id, {$set: {
+            'type_data.invitee_names': inviteeNames,
+            updated_at: new Date()
+        }});
+    } else {
+        // Create a new update
+        var updateType = 'partups_invited';
+        var updateTypeData = {
+            invitee_names: [User(invitee).getFirstname()]
+        };
+        var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
+        Updates.insert(update);
+    }
 
     // Set the notification details
     var notificationOptions = {

@@ -102,6 +102,22 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
 };
 
 /**
+ * Check if an update is the last updated update of the partup
+ *
+ * @memberOf Updates
+ */
+Update.prototype.isLatestUpdateOfItsPartup = function() {
+    var updates = Updates.find({partup_id: this.partup_id});
+    var isLatestUpdateOfItsPartup = true;
+
+    updates.forEach(function(update) {
+        if (update.updated_at > this.updated_at) isLatestUpdateOfItsPartup = false;
+    });
+
+    return isLatestUpdateOfItsPartup;
+};
+
+/**
  * @namespace Updates
  * @memberOf Collection
  */
