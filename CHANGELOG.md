@@ -1,4 +1,32 @@
 # CHANGELOG
+## 1.10.0
+- updates redesign
+    - Alle oranje titels beginnen met de voornaam
+    - Als het activiteit gerelateerd is, staat de titel van de activiteit in de oranje tekst
+    - Nieuwe weergave van comments, nu met profielfoto
+    - Niet meer automatisch een reageren veld laten zien, nu onder een knop ‘reageer’.
+    - Spacing tussen elementen zijn kleiner
+    - Dropdown waar de update pagina op gefilterd kan worden staat nu een tekst voor ‘Show:’.
+    - Systeemmeldingen worden niet automatisch weergeven. Staat nu onder een toggle ‘Toon meldingen’.
+- activities update
+    - Nieuw icon op de activiteiten pagina bij het aantal reacties.
+    - Verloop achter de profielfotos die een bijdrage leveren op de activiteit. Verloop over de activiteit titel heen.
+    - Pijltje achter een activiteit komt bij een lange titel op een nieuwe regel.
+- new comments since last visit marking on activities page
+- new updates in partup since last visit in profile dropdown
+- new share button design + position in sidebar with sharecounters
+- new rating flow with save button
+- new fields in start partup flow (new type options, phase)
+- now emitting events externally to specific server
+- intercom profile now also contains tribenames
+- partup image suggestions now fallback to random images from partup flickr group
+- user impersonation feature through admin panel ("login as xx")
+- copy updates plus dutch youtube video on homepage
+- bugfixes
+    - removal of partup picture correctly sets new picture to chosen suggestion
+    - notification clicked state works again
+    - no breakline in checkmark invited state
+
 ## 1.9.1
 - bugfixes
     - fix(partup-settings): date field now correctly prefilled when changing settings, plus correct removal of end_date field

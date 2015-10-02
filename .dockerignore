@@ -1,0 +1,6 @@
+app/.meteor/local
+app/packages/*/.build*
+devops
+devops-new
+docs
+backups

@@ -22,9 +22,10 @@
     "dropdowns-updatesactions-option-contributions": "Just contribution updates",
     "dropdowns-updatesactions-option-my-updates": "My updates",
 
+    "dropdowns-activitiesactions-label": "Show:",
     "dropdowns-activitiesactions-option-default": "All activities",
     "dropdowns-activitiesactions-option-my-activities": "My activities",
-    "dropdowns-activitiesactions-option-open-activities": "Open activities",
+    "dropdowns-activitiesactions-option-open-activities": "Available activities",
 
     "dropdown-notification-location": "in __location__",
     "dropdown-notification-partups_supporters_added": "__supporter__ is a new supporter",

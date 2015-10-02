@@ -74,12 +74,18 @@ Update.prototype.createUpperDataObject = function(upperId) {
 };
 
 /**
- * Add new_comment for an upper
+ * Add comment to new_comment in upper_data set
  *
  * @memberOf Updates
  */
-Update.prototype.addNewCommentForUpper = function(upperId, commentId) {
-    Updates.update({_id: this._id, 'upper_data._id': upperId}, {$addToSet: {'upper_data.$.new_comments': commentId}});
+Update.prototype.addNewCommentToUpperData = function(comment) {
+    var newUpperData = this.upper_data;
+    newUpperData.forEach(function(upperData) {
+        // Exclude the upper that wrote the comment
+        if (upperData._id === comment.creator._id) return;
+        upperData.new_comments.push(comment._id);
+    });
+    Updates.update({_id: this._id}, {$set: {upper_data: newUpperData}});
 };
 
 /**

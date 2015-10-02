@@ -23,6 +23,26 @@ var NETWORK_INVITE = 4;
  * @private
  */
 var NETWORK_CLOSED = 5;
+/**
+ * @memberof Partups
+ * @private
+ */
+var TYPE = {
+    CHARITY: 'charity',
+    ENTERPRISING: 'enterprising',
+    COMMERCIAL: 'commercial',
+    ORGANIZATION: 'organization'
+};
+/**
+ * @memberof Partups
+ * @private
+ */
+var PHASE = {
+    BRAINSTORM: 'brainstorm',
+    PLAN: 'plan',
+    EXECUTE: 'execute',
+    GROW: 'grow'
+};
 
 /**
  * @ignore
@@ -288,8 +308,26 @@ Partup.prototype.removeUpperDataObject = function(upperId) {
  *
  * @memberOf Partups
  */
-Partup.prototype.updateNewUpdatesForUpper = function(upperId, updateId) {
-    Partups.update({_id: this._id, 'upper_data._id': upperId}, {$addToSet: {'upper_data.$.new_updates': updateId}});
+Partup.prototype.addNewUpdateToUpperData = function(updateId) {
+    // Update existing upper data first
+    var upper_data = this.upper_data;
+    upper_data.forEach(function(upperData) {
+        upperData.new_updates.push(updateId);
+    });
+
+    // Create object for new uppers that dont have upper_data
+    var currentUpperDataIds = _.map(upper_data, function(upperData) {
+        return upperData._id;
+    });
+    var newUpperIds = _.difference(this.getUsers(), currentUpperDataIds);
+    newUpperIds.forEach(function(upperId) {
+        upper_data.push({
+            _id: upperId,
+            new_updates: [updateId]
+        });
+    });
+
+    Partups.update({_id: this._id}, {$set: {upper_data: upper_data}});
 };
 
 /**
@@ -347,6 +385,16 @@ Partups.NETWORK_INVITE = NETWORK_INVITE;
  * @public
  */
 Partups.NETWORK_CLOSED = NETWORK_CLOSED;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.TYPE = TYPE;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.PHASE = PHASE;
 
 /**
  * ============== PARTUPS COLLECTION HELPERS ==============

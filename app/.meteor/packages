@@ -15,6 +15,7 @@ anti:fake
 browser-policy
 cfs:file
 cfs:filesystem
+cfs:tempstore
 cfs:graphicsmagick
 cfs:s3
 cfs:standard-packages

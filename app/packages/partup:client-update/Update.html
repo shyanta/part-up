@@ -202,11 +202,9 @@
             <!-- - - - - - - - - - - TYPES END - - - - - - - - - - -->
 
             <!-- Comments -->
-            {{#if update.mayComment}}
-                {{#if update.commentable }}
-                    {{> Comments update=update.data showCommentClicked=update.showCommentClicked FULLVIEW=update.isDetail SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
-                {{/if }}
-            {{/if}}
+            {{#if update.commentable }}
+                {{> Comments update=update.data showCommentClicked=update.showCommentClicked FULLVIEW=update.isDetail SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
+            {{/if }}
         </section>
     </section>
 

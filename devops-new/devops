@@ -97,6 +97,18 @@ program
     });
 
 program
+    .command('view <file>')
+    .action(function(file) {
+        var arguments = [];
+
+        arguments.push('view');
+        arguments.push(file);
+        arguments.push('--vault-password-file=~/.ssh/lifely-server');
+
+        run('ansible-vault', arguments);
+    });
+
+program
     .command('encrypt <file>')
     .action(function(file) {
         var arguments = [];

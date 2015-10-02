@@ -24,9 +24,9 @@
     "pages-app-home-discover-partups-popular-heading": "Popular part-ups",
     "pages-app-home-discover-partups-viewall-button": "View all part-ups",
 
-    "pages-app-home-calltoaction-loggedin-title": "Need a team? Start your own part-up for free!",
-    "pages-app-home-calltoaction-loggedin-description": "Share your dream, project, or talent and instantly pick your team mates. We introduce you to the right people. Together you decide on each ones contributions.",
-    "pages-app-home-calltoaction-loggedin-button": "Start your own part-up",
+    "pages-app-home-calltoaction-loggedin-title": "Ready to start crowdorganizing? Get your Part-up tribe!",
+    "pages-app-home-calltoaction-loggedin-description": "You have an organization or community with the right people. They work together best if they have the freedom to self-organize. We help them to start their best teams ever.",
+    "pages-app-home-calltoaction-loggedin-button": "Get your tribe",
     "pages-app-home-calltoaction-loggedout-title": "Need a team? Start your own part-up for free!",
     "pages-app-home-calltoaction-loggedout-description": "Share your dream, project, or talent and instantly pick your team mates. We introduce you to the right people. Together you decide on each ones contributions.",
     "pages-app-home-calltoaction-loggedout-button": "Start your own part-up",
@@ -36,5 +36,4 @@
     "pages-app-home-featurednetworks-view-url": "view tribe",
 
     "pages-app-home-philosophy-button": "More about Part-up"
-
 }

@@ -142,14 +142,28 @@ Template.Update.helpers({
 /*************************************************************/
 Template.Update.events({
     'click [data-expand-comment-field]': function(event, template) {
-        template.commentInputFieldExpanded.set(true);
-        template.showCommentClicked.set(true);
+        event.preventDefault();
         var updateId = this.updateId;
+        var proceed = function() {
+            template.commentInputFieldExpanded.set(true);
+            template.showCommentClicked.set(true);
 
-        Meteor.defer(function() {
-            var commentForm = template.find('[id=commentForm-' + updateId + ']');
-            var field = lodash.find(commentForm, { name: 'content' });
-            field.focus();
-        });
+            Meteor.defer(function() {
+                var commentForm = template.find('[id=commentForm-' + updateId + ']');
+                var field = lodash.find(commentForm, { name: 'content' });
+                if (field) field.focus();
+            });
+        };
+        if (Meteor.user()) {
+            proceed();
+        } else {
+            Intent.go({route: 'login'}, function() {
+                if (Meteor.user()) {
+                    proceed();
+                } else {
+                    this.back();
+                }
+            });
+        }
     }
 });

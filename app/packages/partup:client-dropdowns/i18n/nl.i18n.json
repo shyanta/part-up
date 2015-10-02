@@ -14,7 +14,7 @@
     "dropdowns-notifications-placeholder-nonotifications": "Je hebt nog geen notificaties",
     "dropdowns-notifications-button-managenotifications": "Beheer meldingen",
 
-    "dropdowns-updatesactions-label": "Laat zien:",
+    "dropdowns-updatesactions-label": "Toon:",
     "dropdowns-updatesactions-option-default": "Alle updates",
     "dropdowns-updatesactions-option-messages": "Alleen berichten",
     "dropdowns-updatesactions-option-activities": "Alleen activiteiten updates",
@@ -22,9 +22,10 @@
     "dropdowns-updatesactions-option-contributions": "Alleen bijdrage updates",
     "dropdowns-updatesactions-option-my-updates": "Mijn updates",
 
+    "dropdowns-activitiesactions-label": "Toon:",
     "dropdowns-activitiesactions-option-default": "Alle activiteiten",
     "dropdowns-activitiesactions-option-my-activities": "Mijn activiteiten",
-    "dropdowns-activitiesactions-option-open-activities": "Open activiteiten",
+    "dropdowns-activitiesactions-option-open-activities": "Beschikbare activiteiten",
 
     "dropdown-notification-location": "in __location__",
     "dropdown-notification-partups_supporters_added": "__supporter__ is een nieuwe supporter",

@@ -38,7 +38,7 @@ Template.modal_create_details.helpers({
 /* Widget events */
 /*************************************************************/
 Template.modal_create_details.events({
-    'click [data-submission-type]': function eventClickSetSubmissionType (event, template) {
+    'click [data-submission-type]': function eventClickSetSubmissionType(event, template) {
         var button = event.currentTarget;
         var submissionType = button.getAttribute('data-submission-type');
         Session.set('partials.create-partup.submission-type', submissionType);
@@ -53,7 +53,7 @@ Template.modal_create_details.events({
 /*************************************************************/
 /* Widget create partup */
 /*************************************************************/
-var createOrUpdatePartup = function createOrUpdatePartup (partupId, insertDoc, callback, self) {
+var createOrUpdatePartup = function createOrUpdatePartup(partupId, insertDoc, callback, self) {
     if (partupId) {
 
         // Partup already exists. Update.

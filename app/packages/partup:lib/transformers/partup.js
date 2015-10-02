@@ -1,14 +1,14 @@
 /**
  * Partup transformer service
  * @name partup.transformers.partup
- * @memberof Partup.transformers
+ * @memberOf Partup.transformers
  */
 Partup.transformers.partup = {
     /**
      * Transform partup to start partup form
      *
-     * @memberof Partup.transformers.partup
-     * @param {object} partup
+     * @memberOf Partup.transformers.partup
+     * @param {Object} partup
      */
     'toFormStartPartup': function(partup) {
         // Find image for focuspoint
@@ -18,15 +18,16 @@ Partup.transformers.partup = {
             partup_name: partup.name,
             _id: partup._id,
             description: partup.description,
-            budget_type: partup.budget_type,
-            budget_money: partup.budget_money,
-            budget_hours: partup.budget_hours,
+            type: partup.type,
+            type_commercial_budget: partup.type_commercial_budget,
+            type_organization_budget: partup.type_organization_budget,
             end_date: partup.end_date,
             location_input: Partup.services.location.locationToLocationInput(partup.location),
             name: partup.name,
             tags_input: Partup.services.tags.tagArrayToInput(partup.tags),
             focuspoint_x_input: image ? (mout.object.get(image, 'focuspoint.x') || 0) : 0,
-            focuspoint_y_input: image ? (mout.object.get(image, 'focuspoint.y') || 0) : 0
+            focuspoint_y_input: image ? (mout.object.get(image, 'focuspoint.y') || 0) : 0,
+            phase: partup.phase
         };
 
         // Determine privacy type
@@ -46,7 +47,7 @@ Partup.transformers.partup = {
     /**
      * Transform startpartup form to partup
      *
-     * @memberof Partup.transformers.partup
+     * @memberOf Partup.transformers.partup
      * @param {mixed[]} fields
      */
     'fromFormStartPartup': function(fields) {
@@ -54,13 +55,14 @@ Partup.transformers.partup = {
             // form fields
             name: fields.partup_name,
             description: fields.description,
-            budget_type: fields.budget_type,
-            budget_money: fields.budget_money,
-            budget_hours: fields.budget_hours,
+            type: fields.type,
+            type_commercial_budget: fields.type_commercial_budget,
+            type_organization_budget: fields.type_organization_budget,
             end_date: fields.end_date,
             image: fields.image,
             tags: Partup.services.tags.tagInputToArray(fields.tags_input),
-            language: Partup.server.services.google.detectLanguage(fields.description)
+            language: Partup.server.services.google.detectLanguage(fields.description),
+            phase: fields.phase
         };
 
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);

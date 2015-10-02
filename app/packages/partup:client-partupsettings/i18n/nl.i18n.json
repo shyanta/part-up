@@ -12,6 +12,12 @@
     "partupsettings-form-tags_input-placeholder": "Graag even scheiden door een komma",
     "partupsettings-form-tags_input-tooltip": "We gebruiken deze woorden om te kijken welke uppers bij de part-up passen. Denk er dus even goed over na.",
 
+    "partupsettings-form-type-label": "Wat voor type part-up is dit?",
+    "partupsettings-form-type-charity": "Vrijwillig",
+    "partupsettings-form-type-enterprising": "Ondernemend (waarde delen)",
+    "partupsettings-form-type-commercial": "Commercieel",
+    "partupsettings-form-type-organization": "In een organisatie",
+
     "partupsettings-form-budget-label": "Heb je al een budget voor je part-up?",
     "partupsettings-form-budget-type-nobudget": "Geen budget",
     "partupsettings-form-budget-type-money": "Ja, in geld",
@@ -29,11 +35,18 @@
     "partupsettings-form-location_input-label": "Waar is jouw part-up?",
     "partupsettings-form-location_input-placeholder": "In jouw regio of plaats",
 
-    "partupsettings-form-privacy-label": "Wie kan jouw part-up bekijken?",
-    "partupsettings-form-privacy-public": "Iedereen",
-    "partupsettings-form-privacy-private": "Uitgenodigde uppers (alleen voor premium accounts)",
+    "partupsettings-form-privacy-label": "Waar wil je dat jouw part-up te zien is?",
+    "partupsettings-form-privacy-public": "Publiek op Part-up.com",
+    "partupsettings-form-privacy-private": "Verborgen (premium upper account nodig)",
+    "partupsettings-form-privacy-network": "In deze tribe:",
+    "partupsettings-form-privacy-network-label": "Kies een part-up",
     "partupsettings-form-privacy-tooltip": "Een part-up is standaard zichtbaar voor iedereen. Uppers met een premium account kunnen ook besloten part-ups starten die alleen zichtbaar zijn voor uppers die je zelf uitnodigt. Als je lid bent van een tribe kun je hieronder kiezen bij welke tribe deze nieuwe part-up hoort. De privacy instelling van de tribe bepaalt dan de zichtbaarheid van de part-up.",
-    "partupsettings-form-privacy-networkheading": "Iedereen die deze tribe kan zien:",
+
+    "partupsettings-form-phase-label": "Waar heb je het team het eerst voor nodig?",
+    "partupsettings-form-phase-brainstorm": "Brainstorm <span>- Ik heb een droom en zoek een team om hem te concretiseren</span>",
+    "partupsettings-form-phase-plan": "Plan <span>- Ik heb een duidelijk doel en zoek een team om een plan te maken</span>",
+    "partupsettings-form-phase-execute": "Uitvoeren <span>- I heb een plan en zoek een team om daar samen aan te werken</span>",
+    "partupsettings-form-phase-grow": "Groeien <span>- Het team is al bezig en we hebben meer uitvoerende kracht nodig</span>",
 
     "partupsettings-image-label": "Welke foto past goed bij jouw part-up?",
     "partupsettings-image-button": "Foto vanaf jouw computer",

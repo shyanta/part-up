@@ -21,8 +21,19 @@ p a.pu-external-url,
     &:focus
         color: #57c0c9
         &:after
-            bottom: -1px
+            bottom: 0px
             background-color: #57c0c9
 
+.pu-comment
+    li a.pu-external-url,
+    p a.pu-external-url,
+    .pu-external-url
+        &:after
+            bottom: 0px
+            height: 1px
 
-
+        &:hover,
+        &:active,
+        &:focus
+            &:after
+                bottom: 1px

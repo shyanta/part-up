@@ -159,15 +159,27 @@ Template.Comments.events({
 
     'click [data-expand-comments]': function(event, template) {
         event.preventDefault();
-
-        template.showCommentClicked.set(true);
         var updateId = this.update._id;
+        var proceed = function() {
+            template.showCommentClicked.set(true);
 
-        Meteor.defer(function() {
-            var commentForm = template.find('[id=commentForm-' + updateId + ']');
-            var field = lodash.find(commentForm, {name: 'content'});
-            field.focus();
-        });
+            Meteor.defer(function() {
+                var commentForm = template.find('[id=commentForm-' + updateId + ']');
+                var field = lodash.find(commentForm, {name: 'content'});
+                if (field) field.focus();
+            });
+        };
+        if (Meteor.user()) {
+            proceed();
+        } else {
+            Intent.go({route: 'login'}, function() {
+                if (Meteor.user()) {
+                    proceed();
+                } else {
+                    this.back();
+                }
+            });
+        }
     },
 
     'click [data-toggle-systemmessages]': function(event, template) {

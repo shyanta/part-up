@@ -7,12 +7,18 @@ Event.on('partups.updates.inserted', function(userId, update) {
     var partup = Partups.findOneOrFail(update.partup_id);
     update = new Update(update);
 
+    // Update the new_updates list for all users of this partup
+    partup.addNewUpdateToUpperData(update._id);
+
+    // Create a clean set of new_comments list for the update
+    var updateUpperData = [];
     partup.getUsers().forEach(function(upperId) {
-        // Update the new_updates list for all users of this partup
-        partup.updateNewUpdatesForUpper(upperId, update._id);
-        // Create a clean set of new_comments list
-        update.createUpperDataObject(upperId);
+        updateUpperData.push({
+            _id: upperId,
+            new_comments:[]
+        });
     });
+    Updates.update({_id:update._id}, {$set: {upper_data: updateUpperData}});
 
     if (update.type === 'partups_message_added' && !update.system) {
         var creator = Meteor.users.findOneOrFail(update.upper_id);
@@ -52,13 +58,4 @@ Event.on('partups.updates.inserted', function(userId, update) {
             Partup.server.services.notifications.send(notificationOptions);
         });
     }
-});
-
-Event.on('partups.updates.updated', function(userId, update) {
-    var partup = Partups.findOneOrFail(update.partup_id);
-
-    // Update the new_updates list for all this partup's users
-    partup.getUsers().forEach(function(upperId) {
-        partup.updateNewUpdatesForUpper(upperId, update._id);
-    });
 });
