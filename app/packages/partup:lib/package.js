@@ -36,7 +36,6 @@ Package.onUse(function(api) {
         'version.js',
         'globals.js',
         'routes.js',
-        'bootstrap.js',
         'services/location.js',
         'services/placeholder.js',
         'services/tags.js',
@@ -78,6 +77,7 @@ Package.onUse(function(api) {
         'transformers/network.js',
         'helpers/parselocale.js',
         'helpers/mentions.js',
+        'helpers/normalize.js',
         'helpers/interpolateEmailMessage.js'
     ]);
 
@@ -112,6 +112,7 @@ Package.onUse(function(api) {
     api.export('Ratings');
     api.export('Tags');
     api.export('Updates');
+    api.export('Update');
     api.export('User');
     api.export('Places');
     api.export('PlacesAutocompletes');

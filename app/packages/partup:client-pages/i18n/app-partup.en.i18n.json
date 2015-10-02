@@ -3,6 +3,7 @@
     "pages-app-partup-menu_activities": "Activities",
 
     "pages-app-partup-take_part": "Take part",
+    "pages-app-partup-invite": "Invite",
     "pages-app-partup-uppers_title": "Partners in this part-up",
     "pages-app-partup-supporters_title": "Supporters",
     "pages-app-partup-supporters_placeholder": "Need supporters to give you some advice? Just share your part-up.",
@@ -21,7 +22,6 @@
     "pages-app-partup-unit-hours": "hours",
 
     "pages-app-partup-share_title": "Share this part-up",
-    "pages-app-partup-share_paragraph": "Are you proud of your part-up or in need of new uppers? Share your part-up in your network!",
     "pages-app-partup-share_mail": "Hi,\n\n On part-up.com, I found this cool part-up for you to join: \"__partup_name__\". I believe you could fit the team well. You can check out the part-up using this link __url__ and introduce yourself to the team.\n\n Haven't heard about Part-up? It is the new marketplace for teamwork. Part-up gets you your best team for the job. Just share your dream or talent and Part-up helps you find the right team! You are free to choose what you work on and who you work with. Together you decide on the activities and what each will contribute. You build your profile and show the world what you're good at!\n\nLet's part-up!\n\nCheers, __user_name__",
     "pages-app-partup-share_mail_anonymous": "Hi,\n\n On part-up.com, I found this cool part-up for you to join: \"__partup_name__\". I believe you could fit the team well. You can check out the part-up using this link __url__ and introduce yourself to the team.\n\n Haven't heard about Part-up? It is the new marketplace for teamwork. Part-up gets you your best team for the job. Just share your dream or talent and Part-up helps you find the right team! You are free to choose what you work on and who you work with. Together you decide on the activities and what each will contribute. You build your profile and show the world what you're good at!\n\nLet's part-up!"
 }

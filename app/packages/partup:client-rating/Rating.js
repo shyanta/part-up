@@ -6,27 +6,6 @@
  * @param {Object} rating   The rating data
  */
 
-var save = function(event, template) {
-    var formId = '#ratingCreateForm-' + template.data.contribution._id;
-    if (template.data.rating) {
-        formId = '#ratingEditForm-' + template.data.rating._id;
-    }
-
-    var form = template.find(formId);
-    $(form).submit();
-};
-
-/*************************************************************/
-/* Widget initial */
-/*************************************************************/
-Template.Rating.onCreated(function() {
-    this.contribution = this.data.contribution;
-});
-
-Template.Rating.onDestroyed(function() {
-    save(null, this);
-});
-
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -57,22 +36,6 @@ Template.Rating.helpers({
 });
 
 /*************************************************************/
-/* Widget events */
-/*************************************************************/
-Template.Rating.events({
-    'blur [name=feedback]': function(event, template) {
-        if (template.data.rating) {
-            save(event, template);
-        }
-    },
-    'blur [name=rating]': function(event, template) {
-        if (template.data.rating) {
-            save(event, template);
-        }
-    }
-});
-
-/*************************************************************/
 /* Widget form hooks */
 /*************************************************************/
 AutoForm.addHooks(null, {
@@ -82,7 +45,7 @@ AutoForm.addHooks(null, {
         var self = this;
         var template = this.template.parent();
         var method = 'ratings.insert';
-        var id = template.contribution._id;
+        var id = template.data.contribution._id;
 
         if (template.data.rating) {
             method = 'ratings.update';

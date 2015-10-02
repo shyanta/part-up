@@ -1,10 +1,10 @@
 ---
 - name: newrelic | add apt repository
-  shell: echo deb http://apt.newrelic.com/debian/ newrelic non-free > /etc/apt/sources.list.d/newrelic.list
+  lineinfile: dest=/etc/apt/sources.list.d/newrelic.list line="deb http://apt.newrelic.com/debian/ newrelic non-free" state=present create=true insertafter=EOF
   tags: newrelic
 
 - name: newrelic | trust GPG key
-  shell: wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add -
+  apt_key: url=https://download.newrelic.com/548C16BF.gpg state=present
   tags: newrelic
 
 - name: newrelic | install
@@ -15,6 +15,10 @@
   shell: nrsysmond-config --set license_key={{ common.newrelic.license_key }}
   tags: newrelic
 
+- name: newrelic | add to docker group
+  user: name=newrelic groups=docker append=yes
+  tags: newrelic
+
 - name: newrelic | start daemon
-  shell: /etc/init.d/newrelic-sysmond start
+  service: name=newrelic-sysmond state=started
   tags: newrelic

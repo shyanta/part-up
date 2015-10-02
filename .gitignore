@@ -33,3 +33,4 @@ app/public/uploads
 # Automatically generated icon fonts and cache data
 iconfont.cache
 app/public/fonts/icons/*
+app/client/stylesheets/font-faces/_picons.css

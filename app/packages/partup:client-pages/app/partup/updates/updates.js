@@ -15,8 +15,8 @@ Template.app_partup_updates.onCreated(function() {
     tpl.updates = {
 
         // Constants
-        STARTING_LIMIT: 30,
-        INCREMENT: 30,
+        STARTING_LIMIT: 15,
+        INCREMENT: 15,
 
         // States
         loading: new ReactiveVar(false),
@@ -167,6 +167,11 @@ Template.app_partup_updates.onCreated(function() {
 Template.app_partup_updates.onRendered(function() {
     var tpl = this;
 
+    if (typeof this.data.partupId === 'string') {
+        // Reset new updates for current user
+        Meteor.call('partups.reset_new_updates', this.data.partupId);
+    }
+
     /**
      * Infinite scroll
      */
@@ -252,8 +257,10 @@ Template.app_partup_updates.helpers({
 
         var partup = Partups.findOne(update.partup_id);
 
-        var is_newuser = update.type.indexOf('partups_newuser') > -1;
         var is_contribution = update.type.indexOf('partups_contributions_') > -1;
+        var is_rating = update.type.indexOf('partups_ratings_') > -1;
+
+        var is_newuser = update.type.indexOf('partups_newuser') > -1;
         var path = '';
         if (is_newuser) {
             path = Router.path('profile', {_id: update.upper_id});
@@ -273,6 +280,7 @@ Template.app_partup_updates.helpers({
             update_type: update.type,
             invited_name: update.type_data.name,
             is_contribution: is_contribution,
+            is_rating: is_rating,
             is_system: !!update.system
         };
     },
@@ -367,5 +375,10 @@ Template.app_partup_updates.events({
         event.preventDefault();
         template.updates.refreshDate_remembered.set(template.updates.refreshDate.get());
         template.updates.updateView();
+
+        if (typeof template.data.partupId === 'string') {
+            // Reset new updates for current user
+            Meteor.call('partups.reset_new_updates', template.data.partupId);
+        }
     }
 });

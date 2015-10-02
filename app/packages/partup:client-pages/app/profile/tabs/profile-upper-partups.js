@@ -46,36 +46,38 @@ Template.app_profile_upper_partups.onCreated(function() {
             var options = b;
             options.limit = tpl.partups.STARTING_LIMIT;
 
-            // Set users.one.upperpartups.count subscription
-            if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
-            tpl.partups.count_handle = tpl.subscribe('users.one.upperpartups.count', profileId, options, {
-                onReady: function() {
-                    tpl.partups.count_loading.set(false);
+            if (typeof profileId == 'string') {
+                // Set users.one.upperpartups.count subscription
+                if (tpl.partups.count_handle) tpl.partups.count_handle.stop();
+                tpl.partups.count_handle = tpl.subscribe('users.one.upperpartups.count', profileId, {
+                    onReady: function() {
+                        tpl.partups.count_loading.set(false);
 
-                    var new_count = Counts.get('users.one.upperpartups.filterquery', profileId);
-                    tpl.partups.layout.count.set(new_count);
-                }
-            });
-            tpl.partups.count_loading.set(true);
+                        var new_count = Counts.get('users.one.upperpartups.filterquery', profileId);
+                        tpl.partups.layout.count.set(new_count);
+                    }
+                });
+                tpl.partups.count_loading.set(true);
 
-            // Set users.one.upperpartups subscription
-            if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
-                onReady: function() {
-                    tpl.partups.loading.set(false);
+                // Set users.one.upperpartups subscription
+                if (tpl.partups.handle) tpl.partups.handle.stop();
+                tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
+                    onReady: function() {
+                        tpl.partups.loading.set(false);
 
-                    var user = Meteor.users.findOne(profileId);
-                    var partups = Partups.findUpperPartupsForUser(user).fetch();
+                        var user = Meteor.users.findOne(profileId);
+                        var partups = Partups.findUpperPartupsForUser(user).fetch();
 
-                    var partupTileDatas = lodash.map(partups, function(partup) {
-                        return tpl.partups.partupTileData(partup);
-                    });
+                        var partupTileDatas = lodash.map(partups, function(partup) {
+                            return tpl.partups.partupTileData(partup);
+                        });
 
-                    tpl.partups.layout.items = tpl.partups.layout.clear();
-                    tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
-                }
-            });
-            tpl.partups.loading.set(true);
+                        tpl.partups.layout.items = tpl.partups.layout.clear();
+                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(partupTileDatas));
+                    }
+                });
+                tpl.partups.loading.set(true);
+            }
         }),
 
         // Limit reactive variable (on change, add partups to the layout)
@@ -87,31 +89,33 @@ Template.app_profile_upper_partups.onCreated(function() {
             options.limit = b;
 
             if (tpl.partups.handle) tpl.partups.handle.stop();
-            tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
-                onReady: function() {
-                    tpl.partups.infinitescroll_loading.set(true);
+            if (typeof profileId == 'string') {
+                tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
+                    onReady: function() {
+                        tpl.partups.infinitescroll_loading.set(true);
 
-                    var oldPartups = tpl.partups.layout.items;
-                    var user = Meteor.users.findOne(profileId);
-                    var newPartups = Partups.findUpperPartupsForUser(user).fetch();
+                        var oldPartups = tpl.partups.layout.items;
+                        var user = Meteor.users.findOne(profileId);
+                        var newPartups = Partups.findUpperPartupsForUser(user).fetch();
 
-                    var diffPartups = mout.array.filter(newPartups, function(partup) {
-                        return !mout.array.find(oldPartups, function(item) {
-                            return partup._id === item.partup._id;
+                        var diffPartups = mout.array.filter(newPartups, function(partup) {
+                            return !mout.array.find(oldPartups, function(item) {
+                                return partup._id === item.partup._id;
+                            });
                         });
-                    });
 
-                    var end_reached = diffPartups.length === 0;
-                    tpl.partups.end_reached.set(end_reached);
+                        var end_reached = diffPartups.length === 0;
+                        tpl.partups.end_reached.set(end_reached);
 
-                    var partupTileDatas = lodash.map(diffPartups, function(partup) {
-                        return tpl.partups.partupTileData(partup);
-                    });
+                        var partupTileDatas = lodash.map(diffPartups, function(partup) {
+                            return tpl.partups.partupTileData(partup);
+                        });
 
-                    tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(diffPartups));
-                }
-            });
-            tpl.partups.infinitescroll_loading.set(true);
+                        tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(diffPartups));
+                    }
+                });
+                tpl.partups.infinitescroll_loading.set(true);
+            }
         }),
 
         // Increase limit function

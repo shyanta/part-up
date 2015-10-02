@@ -19,6 +19,13 @@ Meteor.methods({
             newPartup.creator_id = user._id;
             newPartup.created_at = new Date();
             newPartup.slug = Partup.server.services.slugify.slugifyDocument(newPartup, 'name');
+            newPartup.upper_data = [];
+            newPartup.shared_count = {
+                facebook: 0,
+                twitter: 0,
+                linkedin: 0,
+                email: 0
+            };
 
             //check(newPartup, Partup.schemas.entities.partup);
 
@@ -292,5 +299,38 @@ Meteor.methods({
             throw new Meteor.Error(400, 'partup_access_token_could_not_be_converted_to_invite');
         }
     },
+
+    /**
+     * Reset new updates count
+     *
+     * @param {String} partupId
+     */
+    'partups.reset_new_updates': function(partupId) {
+        check(partupId, String);
+
+        try {
+            Partups.update({_id: partupId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_updates': []}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_new_updates_could_not_be_reset');
+        }
+    },
+
+    /**
+     * Increase email share count
+     *
+     * @param {String} partupId
+     */
+    'partups.increase_email_share_count': function(partupId) {
+        check(partupId, String);
+
+        try {
+            var partup = Partups.findOneOrFail(partupId);
+            partup.increaseEmailShareCount();
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_email_share_count_could_not_be_updated');
+        }
+    }
 
 });

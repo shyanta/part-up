@@ -2,7 +2,7 @@
  * Partup model
  * @ignore
  */
-var Update = function(document) {
+Update = function(document) {
     _.extend(this, document);
 };
 
@@ -50,6 +50,42 @@ Update.prototype.isContributionUpdate = function() {
         this.type === 'partups_comments_added' &&
         this.type_data.contribution_id
     );
+};
+
+/**
+ * Create the upper_data object for the current user
+ *
+ * @memberOf Updates
+ */
+Update.prototype.createUpperDataObject = function(upperId) {
+    Updates.update({
+        _id: this._id,
+        'upper_data._id': {
+            $ne: upperId
+        }
+    }, {
+        $push: {
+            upper_data: {
+                _id: upperId,
+                new_comments: []
+            }
+        }
+    });
+};
+
+/**
+ * Add comment to new_comment in upper_data set
+ *
+ * @memberOf Updates
+ */
+Update.prototype.addNewCommentToUpperData = function(comment) {
+    var newUpperData = this.upper_data;
+    newUpperData.forEach(function(upperData) {
+        // Exclude the upper that wrote the comment
+        if (upperData._id === comment.creator._id) return;
+        upperData.new_comments.push(comment._id);
+    });
+    Updates.update({_id: this._id}, {$set: {upper_data: newUpperData}});
 };
 
 /**

@@ -5,7 +5,7 @@ var tagsConfiguration = {
 /**
  * Base Partup schema
  * @name partupBaseSchema
- * @memberof Partup.schemas
+ * @memberOf Partup.schemas
  * @private
  */
 var partupBaseSchema = new SimpleSchema({
@@ -14,28 +14,41 @@ var partupBaseSchema = new SimpleSchema({
         min: 10,
         max: 250
     },
-    budget_type: {
+    phase: {
         type: String,
-        allowedValues: ['money', 'hours'],
-        optional: true
+        allowedValues: [
+            Partups.PHASE.BRAINSTORM,
+            Partups.PHASE.PLAN,
+            Partups.PHASE.EXECUTE,
+            Partups.PHASE.GROW
+        ]
     },
-    budget_money: {
+    type: {
+        type: String,
+        allowedValues: [
+            Partups.TYPE.CHARITY,
+            Partups.TYPE.ENTERPRISING,
+            Partups.TYPE.COMMERCIAL,
+            Partups.TYPE.ORGANIZATION
+        ]
+    },
+    type_commercial_budget: {
         type: Number,
         min: 0,
         optional: true,
         custom: function() {
-            var required = this.field('budget_type').value === 'money';
+            var required = this.field('type').value === Partups.TYPE.COMMERCIAL;
             if (required && !this.isSet) {
                 return 'required';
             }
         }
     },
-    budget_hours: {
+    type_organization_budget: {
         type: Number,
         min: 0,
         optional: true,
         custom: function() {
-            var required = this.field('budget_type').value === 'hours';
+            var required = this.field('type').value === Partups.TYPE.ORGANIZATION;
             if (required && !this.isSet) {
                 return 'required';
             }
@@ -58,14 +71,19 @@ var partupBaseSchema = new SimpleSchema({
     network_id: {
         type: String,
         optional: true,
-        regEx: SimpleSchema.RegEx.Id
+        regEx: SimpleSchema.RegEx.Id,
+        custom: function() {
+            if (this.field('privacy_type_input').value === 'network' && !this.isSet) {
+                return 'required';
+            }
+        }
     }
 });
 
 /**
  * Partup entity schema
  * @name partup
- * @memberof Partup.schemas.entities
+ * @memberOf Partup.schemas.entities
  */
 Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     _id: {
@@ -130,6 +148,25 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         min: 1,
         max: 5
     },
+    shared_count: {
+        type: Object
+    },
+    'shared_count.facebook': {
+        type: Number,
+        min: 0
+    },
+    'shared_count.twitter': {
+        type: Number,
+        min: 0
+    },
+    'shared_count.linkedin': {
+        type: Number,
+        min: 0
+    },
+    'shared_count.email': {
+        type: Number,
+        min: 0
+    },
     start_date: {
         type: Date
     },
@@ -156,13 +193,25 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
         type: [String],
         optional: true,
         regEx: SimpleSchema.RegEx.Id
+    },
+    upper_data: {
+        type: [Object],
+        optional: true
+    },
+    'upper_data.$._id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'upper_data.$.new_updates': {
+        type: [String],
+        optional: true
     }
 }]);
 
 /**
  * start partup form schema
  * @name partupUpdate
- * @memberof Partup.schemas.forms
+ * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
     focuspoint_x_input: {
@@ -204,7 +253,7 @@ Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
 /**
  * start partup create form schema
  * @name partupCreate
- * @memberof Partup.schemas.forms
+ * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partupUpdate, {
     privacy_type_input: {
@@ -220,7 +269,7 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
 /**
  * Feature partup form schema
  * @name featurePartup
- * @memberof Partup.schemas.forms
+ * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.featurePartup = new SimpleSchema({
     active: {

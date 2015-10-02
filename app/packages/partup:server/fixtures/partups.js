@@ -6,9 +6,8 @@ Meteor.startup(function() {
                 '_id' : 'gJngF65ZWyS9f3NDE',
                 'name' : 'Crowd funding Part-up organiseren',
                 'description' : 'Crowd funding campagne lanceren voor marketing en financiering app development.',
-                'budget_type' : 'money',
-                'budget_money' : 1000,
-                'budget_hours' : null,
+                'type' : Partups.TYPE.COMMERCIAL,
+                'type_commercial_budget' : 1000,
                 'end_date' : new Date('2016-11-30T00:00:00.000Z'),
                 'image' : 'FTHbg6wbPxjiA4Y8w',
                 'tags' : [
@@ -50,7 +49,21 @@ Meteor.startup(function() {
                     },
                     'comment' : '"Dit is een nederlandse quote voor een nederlandse partup"'
                 },
-                'language' : 'nl'
+                'language' : 'nl',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    },
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
+                        'new_updates' : []
+                    },
+                    {
+                        '_id' : 'a7qcp5RHnh5rfaeW9',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 2 */
@@ -58,9 +71,7 @@ Meteor.startup(function() {
                 '_id' : 'CJETReuE6uo2eF7eW',
                 'name' : 'Super secret closed ING partup',
                 'description' : 'secret stuff',
-                'budget_type' : null,
-                'budget_money' : null,
-                'budget_hours' : null,
+                'type' : Partups.TYPE.CHARITY,
                 'end_date' : new Date('2017-03-31T00:00:00.000Z'),
                 'image' : 'D3zGxajTjWCLhXokS',
                 'tags' : [
@@ -88,7 +99,13 @@ Meteor.startup(function() {
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
-                'language' : 'en'
+                'language' : 'en',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 3 */
@@ -96,9 +113,7 @@ Meteor.startup(function() {
                 '_id' : 'ASfRYBAzo2ayYk5si',
                 'name' : 'A semisecret ING partup, plus ones are ok',
                 'description' : 'semi secret organized stuff',
-                'budget_type' : null,
-                'budget_money' : null,
-                'budget_hours' : null,
+                'type' : Partups.TYPE.ENTERPRISING,
                 'end_date' : new Date('2017-01-31T00:00:00.000Z'),
                 'image' : 'ComeF2exAjeKBPAf8',
                 'tags' : [
@@ -126,7 +141,13 @@ Meteor.startup(function() {
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
-                'language' : 'en'
+                'language' : 'en',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 4 */
@@ -134,9 +155,7 @@ Meteor.startup(function() {
                 '_id' : 'vGaxNojSerdizDPjb',
                 'name' : 'Organise a Meteor Meetup',
                 'description' : 'organise a meetup at lifely',
-                'budget_type' : null,
-                'budget_money' : null,
-                'budget_hours' : null,
+                'type' : Partups.TYPE.CHARITY,
                 'end_date' : new Date('2017-01-31T00:00:00.000Z'),
                 'image' : 'J2KxajXMcqiKwrEBu',
                 'tags' : [
@@ -174,6 +193,12 @@ Meteor.startup(function() {
                     },
                     'comment' : '"This is an english quote for an english partup"'
                 },
+                'upper_data' : [
+                    {
+                        '_id' : 'a7qcp5RHnh5rfaeW9',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 5 */
@@ -181,9 +206,8 @@ Meteor.startup(function() {
                 '_id' : 'WxrpPuJkhafJB3gfF',
                 'name' : 'Partup Premium Part-up',
                 'description' : 'private',
-                'budget_type' : null,
-                'budget_money' : null,
-                'budget_hours' : null,
+                'type' : Partups.TYPE.ORGANIZATION,
+                'type_organization_budget' : 130,
                 'end_date' : new Date('2017-05-31T00:00:00.000Z'),
                 'image' : 'xfYreAouRFh4mnctk',
                 'tags' : [
@@ -209,7 +233,13 @@ Meteor.startup(function() {
                     'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
                     'last_ip' : '127.0.0.1'
                 },
-                'language' : 'en'
+                'language' : 'en',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    }
+                ]
             });
 
             /* 6-36 */

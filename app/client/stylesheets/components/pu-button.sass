@@ -50,7 +50,7 @@
     // Other
     cursor: pointer
     user-select: none
-    transition: box-shadow $animation-duration, background $animation-duration, color $animation-duration, border $animation-duration, opacity $animation-duration
+    transition: box-shadow $animation-duration, background $animation-duration, color $animation-duration, border $animation-duration, opacity $animation-duration, transform $animation-duration
 
     // Icon
     i
@@ -59,7 +59,8 @@
         margin-right: 10px - 5px
         transition: color .2s
 
-        &.picon-times
+        &.picon-times,
+        &.picon-info
             font-size: 15px
 
         &.pu-sub-success
@@ -72,6 +73,10 @@
 
         &.picon-message:before
             vertical-align: sub
+
+    &-smallicon
+        i.picon-times
+            font-size: 12px
 
     // Loader
     .pu-spinner
@@ -122,7 +127,7 @@
 
         i
             font-size: 16px
-            color: $color-dusty-gray
+            color: $color-text-subtle
             transition: color $animation-duration
 
         &:hover,
@@ -130,7 +135,7 @@
             background-color: transparent
 
             i
-                color: darken($color-dusty-gray, 10%)
+                color: darken($color-text-subtle, 10%)
 
     &-icononly
         i
@@ -144,14 +149,14 @@
             background-color: transparent
 
             i
-                color: $color-dusty-gray
+                color: $color-text-subtle
             &:hover,
             &:active
                 background-color: transparent
                 transform: none
 
                 i
-                    color: darken($color-dusty-gray, 10%)
+                    color: darken($color-text-subtle, 10%)
 
     // Type: large button (e.g. for homepage cover)
     &-large
@@ -314,13 +319,13 @@
 
     // Type: gray button
     &-gray
-        background-color: $color-solid-gray
+        background-color: $color-button-gray-background
 
         &:hover
-            background-color: darken($color-solid-gray, 7%)
+            background-color: darken($color-button-gray-background, 7%)
 
         &:active
-            background-color: darken($color-solid-gray, 11%)
+            background-color: darken($color-button-gray-background, 11%)
 
     &-checkmark
         width: 44px
@@ -537,37 +542,53 @@
 
     // Type: avatar
     &-social
+        height: auto
         background-color: transparent
-        background-image: url(images/border-dot.png)
         background-size: cover
-        padding: 20px
-        border-radius: 50%
+        padding: 15px 12px 14px 12px
+        border-radius: 5px
         line-height: 0
-        font-size: 0
-        max-width: 40px
+        border: 1px dashed #bbb
+        white-space: nowrap
+        color: $color-text-subtle
 
         i
-            color: $color-solid-black
+            color: $color-text-secondary
             text-align: center
             transition: color $animation-duration
             display: inline-block
-            line-height: 0
-            width: 40px
-            position: absolute
-            left: 0
+            font-size: 12px
+            margin-right: 0
 
-            &.fa-envelope-o
-                font-size: 19px
+        span
+            display: inline-block
+            margin-left: 9px
 
         &:hover
             background-color: transparent
+            color: $color-text
 
             i
-                color: #000
+                color: $color-secondary
 
         &:active
             background-color: transparent
             transform: scale(.95)
+
+        &-twitter
+            i
+                font-size: 14px
+
+            &:hover i
+                color: $color-twitter
+
+        &-facebook
+            &:hover i
+                color: $color-facebook
+
+        &-linkedin
+            &:hover i
+                color: $color-linkedin
 
     // Type: disabled
     &-disabled
@@ -593,99 +614,6 @@
         .pu-spinner
             margin-top: -6px
 
-    // Type: toggle
-    &-toggle
-        height: 32px
-        padding-top: 9px
-        padding-bottom: 8px
-        color: $color-text
-        background-color: transparent
-        text-align: center
-        font-weight: normal
-
-        &:hover, &:active, &:focus
-            color: $color-text
-
-        &:hover
-            background-color: $color-background-tertiery
-
-        &:active
-            transform: none
-            transition-duration: 0
-            background-color: darken($color-background-tertiery, 5%)
-
-        &-active
-            font-weight: bold
-            color: $color-primary
-
-            &:hover, &:active, &:focus
-                color: $color-primary
-
-
-    &-label
-        background-color: $color-browse
-        padding: 8px
-        height: auto
-
-        &:hover
-            background-color: darken($color-browse, 5%)
-
-        &:active
-            padding: 8px
-
-        &-secondary
-            background-color: $color-solid-gray
-
-            &:hover
-                background-color: darken($color-solid-gray, 5%)
-
-        &-removable
-            position: relative
-
-            i
-                opacity: 0
-                color: #ffffff
-                position: absolute
-                transition: opacity $animation-duration
-                top: 0
-                right: 0
-                bottom: 0
-                left: 0
-                height: 100%
-                width: 100%
-                text-align: center
-                line-height: 31px
-                font-size: 26px
-
-            &:hover
-                i
-                    opacity: 1
-                span
-                    transition: opacity $animation-duration
-                    opacity: 0
-
-        &-nointeraction
-            cursor: auto
-
-            &:active,
-            &:focus,
-            &:hover
-                background-color: $color-browse
-                color: $color-text-inverted
-
-            &:active
-                transform: none
-
-            &.pu-button-label-secondary
-                &:active,
-                &:focus,
-                &:hover
-                    background-color: $color-solid-gray
-                    color: $color-text-inverted
-
-                &:active
-                    transform: none
-
     &-edit
         color: $color-text-subtle
         font-weight: bold
@@ -700,7 +628,6 @@
             transform: none
             transition-duration: 0
             background-color: transparent
-
 
     &-no-side-padding
         padding-left: 0

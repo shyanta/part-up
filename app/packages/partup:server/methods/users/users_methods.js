@@ -15,7 +15,7 @@ Meteor.methods({
 
         try {
             var userFields = Partup.transformers.profile.fromFormProfileSettings(fields);
-            userFields.profile.normalized_name = Partup.server.services.helper.normalize(userFields.profile.name);
+            userFields.profile.normalized_name = Partup.helpers.normalize(userFields.profile.name);
 
             // Merge the old profile so empty fields do not get overwritten
             var mergedProfile = _.extend(upper.profile, userFields.profile);
@@ -57,7 +57,7 @@ Meteor.methods({
     /**
      * Deactivate user
      *
-     * @param  {string} activityId
+     * @param  {string} userId
      */
     'users.deactivate': function(userId) {
         check(userId, String);
@@ -90,7 +90,7 @@ Meteor.methods({
     /**
      * Reactivate user
      *
-     * @param  {string} activityId
+     * @param  {string} userId
      */
     'users.reactivate': function(userId) {
         check(userId, String);
@@ -140,6 +140,21 @@ Meteor.methods({
             return;
         }
         return Meteor.users.findStatsForAdmin();
+    },
+
+    /**
+    * Returns user stats to superadmins only
+    */
+    'users.admin_impersonate': function(userId) {
+        check(userId, String);
+        var currentUser = Meteor.users.findOne(this.userId);
+        if (!User(currentUser).isAdmin()) {
+            return;
+        }
+
+        var impersonateUser = Meteor.users.findOne(userId);
+        if (!impersonateUser) throw new Meteor.Error(404, 'user not found');
+        this.setUserId(userId);
     },
 
     /**

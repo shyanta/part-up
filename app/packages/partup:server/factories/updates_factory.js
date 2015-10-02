@@ -30,6 +30,7 @@ Partup.factories.updatesFactory = {
         update.comments_count = 0;
         update.created_at = new Date();
         update.updated_at = new Date();
+        update.upper_data = [];
 
         return update;
     },

@@ -6,6 +6,6 @@
     "classPrefix": "picon-",
     "types": [ "svg", "ttf", "eot", "woff", "woff2" ],
     "stylesheets": {
-        "stylesheets/font-faces/picons.sass": "client/icons/templates/stylesheet.tpl"
+        "stylesheets/font-faces/_picons.css": "client/icons/templates/stylesheet.tpl"
     }
 }

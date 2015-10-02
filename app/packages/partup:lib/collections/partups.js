@@ -23,6 +23,26 @@ var NETWORK_INVITE = 4;
  * @private
  */
 var NETWORK_CLOSED = 5;
+/**
+ * @memberof Partups
+ * @private
+ */
+var TYPE = {
+    CHARITY: 'charity',
+    ENTERPRISING: 'enterprising',
+    COMMERCIAL: 'commercial',
+    ORGANIZATION: 'organization'
+};
+/**
+ * @memberof Partups
+ * @private
+ */
+var PHASE = {
+    BRAINSTORM: 'brainstorm',
+    PLAN: 'plan',
+    EXECUTE: 'execute',
+    GROW: 'grow'
+};
 
 /**
  * @ignore
@@ -163,6 +183,8 @@ Partup.prototype.makeSupporter = function(upperId) {
     if (!this.hasUpper(upperId)) {
         Partups.update(this._id, {$addToSet: {'supporters': upperId}});
         Meteor.users.update(upperId, {$addToSet: {'supporterOf': this._id}});
+
+        this.createUpperDataObject(upperId);
     }
 };
 
@@ -235,6 +257,89 @@ Partup.prototype.isFeatured = function() {
 };
 
 /**
+ * Get all partners and supporters
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.getUsers = function() {
+    var uppers = this.uppers || [];
+    var supporters = this.supporters || [];
+
+    return uppers.concat(supporters);
+};
+
+/**
+ * Create the upper_data object for the given upperId
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.createUpperDataObject = function(upperId) {
+    Partups.update({
+        _id: this._id,
+        'upper_data._id': {
+            $ne: upperId
+        }
+    }, {
+        $push: {
+            upper_data: {
+                _id: upperId,
+                new_updates: []
+            }
+        }
+    });
+};
+
+/**
+ * Remove the upper_data object for the given upperId
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.removeUpperDataObject = function(upperId) {
+    Partups.update({
+        _id: this._id,
+        'upper_data._id': upperId
+    }, {
+        $pull: {upper_data: {_id: upperId}}
+    });
+};
+
+/**
+ * Update new updates for a single user
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.addNewUpdateToUpperData = function(updateId) {
+    // Update existing upper data first
+    var upper_data = this.upper_data;
+    upper_data.forEach(function(upperData) {
+        upperData.new_updates.push(updateId);
+    });
+
+    // Create object for new uppers that dont have upper_data
+    var currentUpperDataIds = _.map(upper_data, function(upperData) {
+        return upperData._id;
+    });
+    var newUpperIds = _.difference(this.getUsers(), currentUpperDataIds);
+    newUpperIds.forEach(function(upperId) {
+        upper_data.push({
+            _id: upperId,
+            new_updates: [updateId]
+        });
+    });
+
+    Partups.update({_id: this._id}, {$set: {upper_data: upper_data}});
+};
+
+/**
+ * Increase email share count
+ *
+ * @memberOf Partups
+ */
+Partup.prototype.increaseEmailShareCount = function() {
+    Partups.update({_id: this._id}, {$inc: {'shared_count.email': 1}});
+};
+
+/**
  * Partups describe collaborations between several uppers
  * @namespace Partups
  */
@@ -280,6 +385,16 @@ Partups.NETWORK_INVITE = NETWORK_INVITE;
  * @public
  */
 Partups.NETWORK_CLOSED = NETWORK_CLOSED;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.TYPE = TYPE;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.PHASE = PHASE;
 
 /**
  * ============== PARTUPS COLLECTION HELPERS ==============

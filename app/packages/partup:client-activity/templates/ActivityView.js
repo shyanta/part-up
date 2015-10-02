@@ -17,12 +17,14 @@ Template.ActivityView.onCreated(function() {
 /*************************************************************/
 Template.ActivityView.helpers({
     partup: function() {
+        if (!this.activity) return;
         return Partups.findOne(this.activity.partup_id);
     },
     commentsCount: function() {
         var update = Updates.findOne({_id: this.activity.update_id});
         if (!update) return;
-        return update.comments_count;
+        if (!update.comments) return;
+        return lodash.reject(update.comments, 'type', 'system').length;
     },
     contributions: function() {
         if (!this.activity || this.contribution_id) return;
@@ -85,7 +87,19 @@ Template.ActivityView.helpers({
     },
     popupId: function() {
         return 'popup.motivation.' + (this.updateId || get(Template.instance(), 'data.activity.update_id'));
-    }
+    },
+    newComments: function(upper_data) {
+        upper_data = upper_data.hash.upper_data;
+        if (!upper_data) return;
+
+        var newComments = [];
+        upper_data.forEach(function(upperData) {
+            if (upperData._id === Meteor.userId()) {
+                newComments = upperData.new_comments;
+            }
+        });
+        return newComments.length;
+    },
 });
 
 /*************************************************************/

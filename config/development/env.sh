@@ -15,6 +15,7 @@ export AWS_BUCKET_NAME="pu-development"
 
 export FLICKR_API_KEY="8bbc8a9cbe7bce17824c8290929f9288"
 export FLICKR_SECRET_KEY="94f9b96b1d18f0dc"
+export FLICKR_GROUP_ID="2843088@N22"
 
 export GOOGLE_API_KEY="AIzaSyBdK5Dais_cwk5A2zqBYdCn53hAG23rIrI"
 
@@ -22,3 +23,5 @@ export METEOR_SETTINGS="{\"public\":{\"analyticsSettings\":{\"Google Analytics\"
 
 export KADIRA_APP_ID="zcDKfyy9iNLkMficj"
 export KADIRA_APP_SECRET="2426dd9a-cb7f-4f0c-ab43-372addf7844c"
+#export EVENT_ENDPOINT_URL="https://api.part-up.com/events"
+#export EVENT_ENDPOINT_AUTHORIZATION="b19ea172-ee33-496e-8605-7cdc51a64678"

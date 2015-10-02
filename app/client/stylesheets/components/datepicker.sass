@@ -23,7 +23,7 @@
     &-orient-top
         margin-top: 10px
         &:after
-            border-bottom: 6px solid $color-header
+            border-bottom: 6px solid $color-primary
 
     div
         padding: 0
@@ -32,7 +32,7 @@
         thead
             display: block
             padding: 7px 10px
-            background-color: $color-header
+            background-color: $color-primary
             border-top-left-radius: 4px
             border-top-right-radius: 4px
             th
@@ -55,7 +55,7 @@
                     &:first-child
                         content: '<'
                     &:hover
-                        background-color: lighten($color-header, 5%)
+                        background-color: lighten($color-primary, 5%)
             tr
                 .dow
                     color: rgba(#fff, 0.8)
@@ -73,17 +73,17 @@
                         font-family: $font-primary
                         font-weight: 600
                         font-size: 16px
-                        color: $color-solid-black
+                        color: $color-text-secondary
                         transition: background-color $animation-duration
                         background-image: none !important
                         text-shadow: none !important
 
                         &.active
-                            background-color: $color-header
+                            background-color: $color-primary
                             color: #fff
 
                             &:hover
-                                background-color: darken($color-header, 5%)
+                                background-color: darken($color-primary, 5%)
 
                 td.day
                     line-height: 28px
@@ -96,7 +96,7 @@
                     font-family: $font-primary
                     font-weight: 600
                     font-size: 16px
-                    color: $color-solid-black
+                    color: $color-text-secondary
                     text-shadow: none !important
                     position: relative
 
@@ -113,7 +113,7 @@
                         border-radius: 18px
                         z-index: -1
                         right: 0
-                        background-color: $color-dark-white
+                        background-color: $color-background-tertiery
                         display: block
                         opacity: 0
                         transition: opacity $animation-duration, background-color $animation-duration
@@ -126,7 +126,7 @@
 
                     &.new.day,
                     &.old.day
-                        color: lighten($color-solid-black, 50%)
+                        color: lighten($color-text-secondary, 50%)
 
                     &.disabled
                         color: #ccc
@@ -137,7 +137,7 @@
                         color: #fff
 
                         &:after
-                            background-color: $color-header
+                            background-color: $color-primary
                             opacity: 1
 
                         &:hover
@@ -145,4 +145,4 @@
 
                             &:after
                                 opacity: 1
-                                background-color: darken($color-header, 5%)
+                                background-color: darken($color-primary, 5%)

@@ -3,6 +3,7 @@
     "pages-app-partup-menu_activities": "Activiteiten",
 
     "pages-app-partup-take_part": "Doe mee",
+    "pages-app-partup-invite": "Uitnodigen",
     "pages-app-partup-uppers_title": "Partners in deze part-up",
     "pages-app-partup-supporters_title": "Supporters",
     "pages-app-partup-supporters_placeholder": "Supporters nodig om mee te denken? Deel je part-up.",
@@ -21,7 +22,6 @@
     "pages-app-partup-unit-hours": "uur",
 
     "pages-app-partup-share_title": "Deel deze part-up",
-    "pages-app-partup-share_paragraph": "Trots op je part-up of zoek je nog nieuwe uppers? Deel je part-up in jouw netwerk!",
     "pages-app-partup-share_mail": "Hi,\n\nIk zag op part-up.com deze part-up voor jou: \"__partup_name__\". Volgens mij zou jij goed in het team passen. Je kunt zelf via deze link de part-up bekijken __url__ en (als je wilt) jouw bijdrage voorstellen aan het team.\n\nKen je Part-up nog niet? Het is de nieuwe marktplaats voor teamwork. Part-up maakt het vinden van de juiste teamleden eenvoudig. Deel jouw droom of talent en Part-up helpt je aan het juiste team. Je bent vrij om te kiezen waar je aan werkt en met wie je dat doet. Samen bepaal je wat er moet gebeuren en wat je gaat bijdragen. Zo bouw je een mooi profiel dat laat zien wat je kunt!\n\nLet's part-up!\n\nGroeten, __user_name__",
     "pages-app-partup-share_mail_anonymous": "Hi,\n\nIk zag op part-up.com deze part-up voor jou: \"__partup_name__\". Volgens mij zou jij goed in het team passen. Je kunt zelf via deze link de part-up bekijken __url__ en (als je wilt) jouw bijdrage voorstellen aan het team.\n\nKen je Part-up nog niet? Het is de nieuwe marktplaats voor teamwork. Part-up maakt het vinden van de juiste teamleden eenvoudig. Deel jouw droom of talent en Part-up helpt je aan het juiste team. Je bent vrij om te kiezen waar je aan werkt en met wie je dat doet. Samen bepaal je wat er moet gebeuren en wat je gaat bijdragen. Zo bouw je een mooi profiel dat laat zien wat je kunt!\n\nLet's part-up!"
 }

@@ -5,6 +5,13 @@
             {{# autoForm schema=formSchema id=generateFormId class='pu-form' doc=rating }}
                 {{> afFieldInput type='range' name='rating' class='pu-slider' }}
                 {{> afFieldInput name='feedback' class='pu-textarea' placeholder=placeholders.feedback rows=2 }}
+
+                <footer>
+                    <button type="submit" class="pu-button {{# if saving }}pu-state-loading pu-state-disabled{{/ if }}">
+                        {{_ 'rating-form-feedback-save' }}
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                </footer>
             {{/ autoForm }}
         {{ else }}
             <span class="pu-sub-rating"><span style="width: {{ rating.rating }}%"></span></span>

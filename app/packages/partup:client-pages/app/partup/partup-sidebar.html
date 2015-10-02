@@ -24,15 +24,66 @@
                             <li><span class="pu-tag pu-tag-inverted">{{ . }}</span></li>
                         {{/each }}
                     </ul>
-                    {{# if showTakePartButton }}
+                    <ul class="pu-list pu-list-horizontal">
+                        {{# if showTakePartButton }}
+                            <li class="pu-sub-button">
 
-                        <!-- take part popup -->
-                        <a class="pu-button pu-button-icon" data-open-takepart-popup>
-                            <i class="picon-person-plus picon-large"></i>
-                            {{_ 'pages-app-partup-take_part' }}
-                        </a>
+                                    <!-- take part popup -->
+                                    <a class="pu-button" data-open-takepart-popup>
+                                        <i class="picon-info"></i>
+                                        {{_ 'pages-app-partup-take_part' }}
+                                    </a>
 
-                    {{/ if }}
+                            </li>
+                        {{/ if }}
+                        {{#if showInviteButton}}
+                            <!-- disabled until backend flow is implemented
+                            <li class="pu-sub-button">
+                                <a href="#" class="pu-button" data-invite>
+                                    <i class="picon-person-plus picon-large"></i>
+                                    {{_ 'pages-app-partup-invite' }}
+                                </a>
+                            </li>
+                            -->
+                        {{/if}}
+                    </ul>
+                </section>
+                <section>
+                    <h2>{{_ 'pages-app-partup-share_title' }}</h2>
+                    <ul class="pu-list pu-list-horizontal pu-sub-socials">
+                        <li>
+                            <a class="pu-button pu-button-social pu-button-social-twitter" data-share-twitter>
+                                <i class="picon-twitter"></i>
+                                {{# with partup.shared_count.twitter }}
+                                    <span>{{ . }}</span>
+                                {{/ with }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pu-button pu-button-social pu-button-social-facebook" data-share-facebook>
+                                <i class="picon-facebook"></i>
+                                {{# with partup.shared_count.facebook }}
+                                    <span>{{ . }}</span>
+                                {{/ with }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pu-button pu-button-social pu-button-social-linkedin" data-share-linkedin>
+                                <i class="picon-linkedin"></i>
+                                {{# with partup.shared_count.linkedin }}
+                                    <span>{{ . }}</span>
+                                {{/ with }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pu-button pu-button-social" data-share-mail>
+                                <i class="picon-monkeytail"></i>
+                                {{# with partup.shared_count.email }}
+                                    <span>{{ . }}</span>
+                                {{/ with }}
+                            </a>
+                        </li>
+                    </ul>
                 </section>
                 <section>
                     <h2>{{_ 'pages-app-partup-uppers_title' }}</h2>
@@ -49,6 +100,10 @@
                         {{_ 'pages-app-partup-uppers_invitebutton' }}
                     </a> -->
                 </section>
+            </div>
+        </section>
+        <section class="pu-sub-light">
+            <div class="pu-sidebar-wrap">
                 <section>
                     {{#if partupSupporters }}
                         <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
@@ -63,7 +118,7 @@
                     {{/if}}
                     {{#unless isUpperInPartup}}
                         {{#if isSupporter }}
-                            <a data-leavesupporters class="pu-button">
+                            <a data-leavesupporters class="pu-button pu-button-smallicon">
                                 <i class="picon-times"></i>
                                 {{_ 'pages-app-partup-supporters_leave' }}
                             </a>
@@ -75,22 +130,8 @@
                         {{/if}}
                     {{/unless}}
                 </section>
-            </div>
-        </section>
-        <section class="pu-sub-light">
-            <div class="pu-sidebar-wrap">
                 <section>
                     <p class="pu-sub-statustext">{{{ statusText }}}</p>
-                </section>
-                <section>
-                    <h2>{{_ 'pages-app-partup-share_title' }}</h2>
-                    <p>{{_ 'pages-app-partup-share_paragraph' }}</p>
-                    <ul class="pu-list pu-list-horizontal">
-                        <li><a class="pu-button pu-button-social" data-share-facebook><i class="picon-facebook"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-twitter><i class="picon-twitter"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-linkedin><i class="picon-linkedin"></i></a></li>
-                        <li><a class="pu-button pu-button-social" data-share-mail><i class="picon-monkeytail"></i></a></li>
-                    </ul>
                 </section>
             </div>
         </section>

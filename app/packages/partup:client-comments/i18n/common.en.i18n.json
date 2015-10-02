@@ -3,6 +3,8 @@
     "widgetcommentfield-comment-postbutton": "Post",
     "widgetcommentfield-comment-placeholder": "Write a comment",
     "widgetcommentfield-comment-viewall-button": "View all %s comments",
+    "widgetcommentfield-comment-totalcomments": "__count__ comment",
+    "widgetcommentfield-comment-totalcomments_plural": "__count__ comments",
 
     "widgetcommentfield-comment-motivation-prefix": "motivation is: ",
     "widgetcommentfield-comment-maxreached": "Too many characters, the maximum is 1000"

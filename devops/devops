@@ -8,7 +8,7 @@ var git = require('simple-git')(__dirname + '/../');
 var fs = require('fs');
 var exec = require('child_process').exec
 
-var PROJECT_NAME = "Part-Up"
+var PROJECT_NAME = "Part-up"
 var PROJECT_TEMPLATE = "{project} ({environment})";
 
 String.prototype.capitalizeFirstLetter = function () {

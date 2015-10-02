@@ -21,7 +21,7 @@ var run = function(executable, arguments) {
     ansible.on('close', function(status) {
         process.exit(status);
     });
-}
+};
 
 program
     .option('-v, --verbose', 'make output more verbose')
@@ -67,11 +67,41 @@ program
     });
 
 program
+    .command('command <command> <inventory> <hosts>')
+    .action(function(command, inventory, destination) {
+        var arguments = [];
+
+        arguments.push('-i', 'inventories/' + inventory.toLowerCase() + '.yml');
+        arguments.push('commands/' + command.toLowerCase() + '.yml');
+        arguments.push('--limit=' + destination.toLowerCase());
+
+        if (inventory !== 'vagrant') {
+            arguments.push('--vault-password-file=~/.ssh/lifely-server');
+            arguments.push('--private-key=~/.ssh/lifely-server');
+            arguments.push('--user=deploy');
+        }
+
+        run('ansible-playbook', arguments);
+    });
+
+program
     .command('edit <file>')
     .action(function(file) {
         var arguments = [];
 
         arguments.push('edit');
+        arguments.push(file);
+        arguments.push('--vault-password-file=~/.ssh/lifely-server');
+
+        run('ansible-vault', arguments);
+    });
+
+program
+    .command('view <file>')
+    .action(function(file) {
+        var arguments = [];
+
+        arguments.push('view');
         arguments.push(file);
         arguments.push('--vault-password-file=~/.ssh/lifely-server');
 

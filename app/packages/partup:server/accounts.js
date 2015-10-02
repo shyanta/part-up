@@ -63,7 +63,7 @@ Accounts.onCreateUser(function(options, user) {
             location: location,
             linkedin_url: 'https://linkedin.com/profile/view?id=' + liData.id,
             name: liData.firstName + ' ' + liData.lastName,
-            normalized_name: Partup.server.services.helper.normalize(liData.firstName + ' ' + liData.lastName),
+            normalized_name: Partup.helpers.normalize(liData.firstName + ' ' + liData.lastName),
             settings: {
                 locale: 'en',
                 optionalDetailsCompleted: false,
@@ -93,7 +93,7 @@ Accounts.onCreateUser(function(options, user) {
             lastname: fbData.last_name,
             facebook_url: 'https://facebook.com/' + fbData.id,
             name: fbData.name,
-            normalized_name: Partup.server.services.helper.normalize(fbData.name),
+            normalized_name: Partup.helpers.normalize(fbData.name),
             settings: {
                 locale: Partup.helpers.parseLocale(fbData.locale),
                 optionalDetailsCompleted: false,

@@ -33,6 +33,7 @@
                 font-weight: 600
                 margin-top: 8px
                 margin-bottom: -5px
+                max-width: 75%
 
                 a
                     color: $color-secondary
@@ -47,6 +48,7 @@
                 opacity: 0
                 pointer-events: none
                 margin-bottom: -18px
+                transform: translateY(8px)
 
                 &:hover
                     color: #595959
@@ -66,48 +68,26 @@
         > footer
             .pu-sub-view-all-comments-button
                 font-size: 14px
-                color: $color-secondary
+                color: $color-text-subtle
                 margin-top: 15px - 5px
                 margin-bottom: -19px
 
                 a
-                    color: $color-secondary
+                    color: $color-text-subtle
 
-            .pu-list-comments
-                li:first-child
-                    margin-top: 15px + 4px
-
-                li:last-child
-                    margin-bottom: -8px
-
-                p
-                    margin-top: -10px
-                    font-size: 14px
-
-                    &.pu-sub-systemmessage
-                        font-size: 14px
-                        font-weight: 600
-                        color: $color-text-subtle
-                    time
-                        opacity: 0
-                        color: $color-text-subtle
-                        transition: opacity .2s
-                        font-weight: normal
-                        font-size: 12px
-
-                        &:before
-                            content: '\2013' // en dash
-                            display: inline-block
-                            margin: 0 3px
-
-                    &:hover
-                        time
-                            opacity: 1
-
-                span
-                    font-weight: 600
+                    &.pu-sub-action,
+                    &:hover,
+                    &:active,
+                    &:focus
+                        color: $color-secondary
 
 
+
+                span.pu-sub-seperator
+                    &:after
+                        content: '•'
+                        margin-left: 5px
+                        margin-right: 5px
 
             .pu-list-fieldwithbutton
                 margin-top: 15px
@@ -121,6 +101,7 @@
     &:hover
         > section > header .pu-button-text
             opacity: 1
+            transform: none
             pointer-events: visible
 
     &-placeholder

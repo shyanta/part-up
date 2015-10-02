@@ -45,3 +45,19 @@ Template.registerHelper('partupContainsOne', function(a, b) {
     };
     return contains;
 });
+
+Template.registerHelper('partupOneIsTrue', function(a, b) {
+    if (a) return true;
+    if (b) return true;
+    return false;
+});
+
+Template.registerHelper('partupAllAreTrue', function() {
+    var allAreTrue = true;
+    for (var i = 1; i < arguments.length; i++) {
+        if (!arguments[i]) {
+            allAreTrue = false;
+        }
+    };
+    return allAreTrue;
+});

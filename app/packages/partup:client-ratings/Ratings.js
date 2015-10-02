@@ -21,6 +21,7 @@ Template.Ratings.onRendered(function() {
     template.clickHandler = function(e) {
         var avatar = $(e.target).closest('[data-rating-id]');
 
+        var openHoverCards = [];
         if (!avatar.length) {
             openHoverCards = [];
         } else {

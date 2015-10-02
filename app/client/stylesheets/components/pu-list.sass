@@ -55,12 +55,40 @@
             margin-bottom: $grid-gap
 
     &-comments
-        li
-            + li
-                margin-top: 20px - 9px
+        min-height: 10px
+        li + li
+                margin-top: 10px
 
-            p
-                margin-top: -6px
+        li:first-child
+            margin-top: 25px
+
+        li:last-child
+            margin-bottom: -8px
+
+        p
+            font-size: 14px
+
+            &.pu-sub-systemmessage
+                font-size: 14px
+                color: $color-text-subtle
+            time
+                opacity: 0
+                color: $color-text-subtle
+                transition: opacity .2s
+                font-weight: normal
+                font-size: 12px
+
+                &:before
+                    content: '\2013' // en dash
+                    display: inline-block
+                    margin: 0 3px
+
+            &:hover
+                time
+                    opacity: 1
+
+        span
+            font-weight: 600
 
     &-fieldwithbutton
         li

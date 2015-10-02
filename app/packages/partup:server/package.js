@@ -90,9 +90,8 @@ Package.onUse(function(api) {
         'services/slugify_service.js',
         'services/participation_calculator_service.js',
         'services/partup_progress_calculator_service.js',
-        'services/helper_service.js',
+        'services/shared_count_service.js',
         'seo/routes.js',
-        'migrations.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
@@ -151,12 +150,13 @@ Package.onUse(function(api) {
         'methods/tags/tags_methods.js',
         'methods/notifications/notifications_methods.js',
         'methods/uploads/uploads_methods.js',
-        'methods/helper_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
         'cron/send_ratings_reminder_notification.js',
         'cron/send_daily_digest_users.js',
+        'cron/update_shared_count.js',
+        'migrations.js',
         'package-tap.i18n'
     ], ['server']);
 
@@ -175,6 +175,5 @@ Npm.depends({
     'pluralize': '1.1.2',
     'node-flickr': '0.0.3',
     'slug': '0.9.1',
-    'debug': '2.2.0',
-    'normalizer': '1.2.7'
+    'debug': '2.2.0'
 });

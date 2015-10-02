@@ -33,6 +33,7 @@ var budgetDisplay = function(type, value) {
 Template.Update.onCreated(function() {
     var template = this;
     template.commentInputFieldExpanded = new ReactiveVar(false);
+    template.showCommentClicked = new ReactiveVar(false);
 });
 
 /*************************************************************/
@@ -40,86 +41,100 @@ Template.Update.onCreated(function() {
 /*************************************************************/
 Template.Update.helpers({
     update: function() {
-        var update = Updates.findOne({_id: this.updateId});
-        return update;
-    },
-    activityData: function() {
-        var updateId = Template.instance().data.updateId;
-        var update = Updates.findOne({_id: updateId});
-        if (!update) return;
-
-        var activityId = update.type_data.activity_id;
-        return Activities.findOne({_id: activityId});
-    },
-    isDetail: function() {
-        return !!Template.instance().data.IS_DETAIL;
-    },
-    isNotDetail: function() {
-        return !Template.instance().data.IS_DETAIL;
-    },
-    title: function() {
-        var titleKey = 'update-type-' + this.metadata.update_type + '-title';
-
-        if (this.metadata.update_type === 'partups_invited') {
-            return __(titleKey, this.metadata.invited_name);
-        }
-
-        return __(titleKey);
-    },
-
-    mayComment: function() {
-        return !!Meteor.user();
-    },
-
-    showCommentForm: function() {
-        var update = Updates.findOne({_id: this.updateId});
-        if (!update) return false;
-
+        var self = this;
         var template = Template.instance();
-        var commentsPresent = update.comments && update.comments.length > 0;
-        var commentButtonPressed = template.commentInputFieldExpanded.get();
-        var lastCommentIsSystemMessage = update && update.lastCommentIsSystemMessage();
-        return (commentsPresent && !lastCommentIsSystemMessage) ||
-            commentButtonPressed ||
-            template.data.FORCE_COMMENTFORM;
-    },
-
-    isUpper: function() {
-        var user = Meteor.user();
-        if (!user) return false;
-
-        var updateId = Template.instance().data.updateId;
-        if (!updateId) return false;
-
+        var updateId = template.data.updateId;
+        if (!updateId) return; // no updateId found, return
         var update = Updates.findOne({_id: updateId});
-        if (!update) return false;
-
+        if (!update) return; // no update found, return
         var partup = Partups.findOne({_id: update.partup_id});
-        if (!partup) return false;
+        var activity = Activities.findOne({_id: update.type_data.activity_id});
+        var contribution = Contributions.findOne({_id: update.type_data.contribution_id});
+        var contributor;
+        if (contribution) {
+            contributor = Meteor.users.findOne(contribution.upper_id);
+        }
+        var user = Meteor.user();
+        return {
+            data: function() {
+                return update;
+            },
+            activityData: function() {
+                return activity;
+            },
+            showCommentButton: function() {
+                if (template.data.IS_DETAIL) return false;   // check if this is the detail view
+                if (update.comments_count) return false;                // check total comments
+                if (self.metadata.is_system) return false;              // check if contribution or systemmessage
 
-        return partup.uppers.indexOf(user._id) > -1;
-    },
+                return true;
+            },
+            isDetail: function() {
+                return template.data.IS_DETAIL ? true : false;
+            },
+            isNotDetail: function() {
+                return template.data.IS_DETAIL ? false : true;
+            },
+            title: function() {
+                var titleKey = 'update-type-' + self.metadata.update_type + '-title';
+                var params = {};
 
-    oldBudget: function() {
-        return budgetDisplay(this.old_type, this.old_value);
-    },
+                // Initiator name
+                if (get(self, 'metadata.updateUpper')) {
+                    params.name = User(self.metadata.updateUpper).getFirstname();
+                } else if (self.metadata.is_system) {
+                    params.name = 'Part-up';
+                }
 
-    newBudget: function() {
-        return budgetDisplay(this.new_type, this.new_value);
-    },
+                // Invited name
+                if (get(self, 'metadata.invited_name')) {
+                    params.invitee_name = self.metadata.invited_name;
+                }
 
-    messageContent: function() {
-        return Partup.client.strings.newlineToBreak(Partup.helpers.mentions.decode(this.new_value));
-    },
+                // Activity title
+                if (self.metadata.is_contribution || self.metadata.is_rating) {
+                    params.activity = activity.name;
+                }
 
-    systemMessageContent: function() {
-        return Partup.client.strings.newlineToBreak(__('update-type-partups_message_added-system-' + this.type + '-content'));
-    },
+                // Contributor name
+                if (self.metadata.is_rating) {
+                    params.contributor = User(contributor).getFirstname();
+                }
 
-    commentable: function() {
-        return !this.metadata.is_contribution && !this.metadata.is_system;
+                return __(titleKey, params);
+            },
+            mayComment: function() {
+                return user ? true : false;
+            },
+            showCommentClicked: function() {
+                return template.showCommentClicked.get();
+            },
+            isUpper: function() {
+                if (!user) return false;
+                if (!partup) return false;
+                return partup.uppers.indexOf(user._id) > -1;
+            },
+            oldBudget: function() {
+                return budgetDisplay(self.old_type, self.old_value);
+            },
+
+            newBudget: function() {
+                return budgetDisplay(self.new_type, self.new_value);
+            },
+
+            messageContent: function() {
+                return Partup.client.strings.newlineToBreak(Partup.helpers.mentions.decode(self.new_value));
+            },
+
+            systemMessageContent: function() {
+                return Partup.client.strings.newlineToBreak(__('update-type-partups_message_added-system-' + self.type + '-content'));
+            },
+
+            commentable: function() {
+                return !self.metadata.is_contribution && !self.metadata.is_system;
+            }
+        };
     }
-
 });
 
 /*************************************************************/
@@ -127,13 +142,28 @@ Template.Update.helpers({
 /*************************************************************/
 Template.Update.events({
     'click [data-expand-comment-field]': function(event, template) {
-        template.commentInputFieldExpanded.set(true);
+        event.preventDefault();
         var updateId = this.updateId;
+        var proceed = function() {
+            template.commentInputFieldExpanded.set(true);
+            template.showCommentClicked.set(true);
 
-        Meteor.defer(function() {
-            var commentForm = template.find('[id=commentForm-' + updateId + ']');
-            var field = lodash.find(commentForm, {name: 'content'});
-            field.focus();
-        });
+            Meteor.defer(function() {
+                var commentForm = template.find('[id=commentForm-' + updateId + ']');
+                var field = lodash.find(commentForm, { name: 'content' });
+                if (field) field.focus();
+            });
+        };
+        if (Meteor.user()) {
+            proceed();
+        } else {
+            Intent.go({route: 'login'}, function() {
+                if (Meteor.user()) {
+                    proceed();
+                } else {
+                    this.back();
+                }
+            });
+        }
     }
 });

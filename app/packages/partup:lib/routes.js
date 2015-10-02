@@ -389,6 +389,20 @@ Router.route('/partups/:slug/activities', {
     }
 });
 
+Router.route('/partups/:slug/invite', {
+    name: 'partup-invite',
+    where: 'client',
+    yieldRegions: {
+        'modal':                    {to: 'main'},
+        'modal_invite_to_partup': {to: 'modal'},
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug)
+        };
+    }
+});
+
 Router.route('/partups/:slug/invite-for-activity/:activity_id', {
     name: 'partup-activity-invite',
     where: 'client',
@@ -751,6 +765,15 @@ if (Meteor.isClient) {
         currentRoute.render('app_notfound', {to: 'app'});
     };
 } else {
+    Router.route('/dreams/:path(.*)', {
+        where: 'server',
+        action: function() {
+            var url = 'http://blog.partup.com/dreams/' + this.params.path;
+            this.response.writeHead(301, {Location: url});
+            return this.response.end();
+        }
+    });
+
     Router.route('/blogs/:path(.*)', {
         where: 'server',
         action: function() {

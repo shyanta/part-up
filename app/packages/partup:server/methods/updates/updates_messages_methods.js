@@ -9,6 +9,8 @@ Meteor.methods({
         check(partupId, String);
         check(fields, Partup.schemas.forms.newMessage);
 
+        this.unblock();
+
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 

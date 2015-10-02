@@ -122,70 +122,69 @@ AutoForm.hooks({
             var submittedDoc = insertDoc;
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
 
-            Meteor.call('helpers.normalize', insertDoc.name, function(error, normalizedName) {
-                Accounts.createUser({
-                    email: submittedDoc.email,
-                    password: submittedDoc.password,
-                    profile: {
-                        name: submittedDoc.name,
-                        normalized_name: normalizedName,
-                        network: submittedDoc.network,
-                        settings: {
-                            locale: locale,
-                            optionalDetailsCompleted: false,
-                            email: {
-                                dailydigest: true,
-                                upper_mentioned_in_partup: true,
-                                invite_upper_to_partup_activity: true,
-                                invite_upper_to_network: true,
-                                partup_created_in_network: true,
-                                partups_networks_new_pending_upper: true,
-                                partups_networks_accepted: true
-                            },
-                            unsubscribe_email_token: Random.secret()
-                        }
+            var normalizedName = Partup.helpers.normalize(insertDoc.name);
+            Accounts.createUser({
+                email: submittedDoc.email,
+                password: submittedDoc.password,
+                profile: {
+                    name: submittedDoc.name,
+                    normalized_name: normalizedName,
+                    network: submittedDoc.network,
+                    settings: {
+                        locale: locale,
+                        optionalDetailsCompleted: false,
+                        email: {
+                            dailydigest: true,
+                            upper_mentioned_in_partup: true,
+                            invite_upper_to_partup_activity: true,
+                            invite_upper_to_network: true,
+                            partup_created_in_network: true,
+                            partups_networks_new_pending_upper: true,
+                            partups_networks_accepted: true
+                        },
+                        unsubscribe_email_token: Random.secret()
                     }
-                }, function(error) {
+                }
+            }, function(error) {
 
-                    // Error cases
-                    if (error && error.message) {
-                        switch (error.message) {
-                            case 'Email already exists [403]':
-                                Partup.client.forms.addStickyFieldError(self, 'email', 'emailExists');
-                                break;
-                            default:
-                                Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
-                        }
-                        AutoForm.validateForm(self.formId);
-                        self.done(new Error(error.message));
-                        return false;
+                // Error cases
+                if (error && error.message) {
+                    switch (error.message) {
+                        case 'Email already exists [403]':
+                            Partup.client.forms.addStickyFieldError(self, 'email', 'emailExists');
+                            break;
+                        default:
+                            Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
                     }
+                    AutoForm.validateForm(self.formId);
+                    self.done(new Error(error.message));
+                    return false;
+                }
 
-                    // Success
-                    self.done();
+                // Success
+                self.done();
 
-                    var partupId = Session.get('partup_access_token_for_partup');
-                    var partupAccessToken = Session.get('partup_access_token');
-                    if (partupId && partupAccessToken) {
-                        Meteor.call('partups.convert_access_token_to_invite', partupId, partupAccessToken);
-                    }
+                var partupId = Session.get('partup_access_token_for_partup');
+                var partupAccessToken = Session.get('partup_access_token');
+                if (partupId && partupAccessToken) {
+                    Meteor.call('partups.convert_access_token_to_invite', partupId, partupAccessToken);
+                }
 
-                    var networkSlug = Session.get('network_access_token_for_network');
-                    var networkAccessToken = Session.get('network_access_token');
-                    if (networkSlug && networkAccessToken) {
-                        Meteor.call('networks.convert_access_token_to_invite', networkSlug, networkAccessToken);
-                    }
+                var networkSlug = Session.get('network_access_token_for_network');
+                var networkAccessToken = Session.get('network_access_token');
+                if (networkSlug && networkAccessToken) {
+                    Meteor.call('networks.convert_access_token_to_invite', networkSlug, networkAccessToken);
+                }
 
-                    analytics.track('User registered', {
-                        userId: Meteor.user()._id,
-                        method: 'email'
-                    });
-
-                    Router.go('register-details');
+                analytics.track('User registered', {
+                    userId: Meteor.user()._id,
+                    method: 'email'
                 });
 
-                return false;
+                Router.go('register-details');
             });
+
+            return false;
         }
     }
 });

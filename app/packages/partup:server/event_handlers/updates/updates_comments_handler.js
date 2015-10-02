@@ -4,10 +4,11 @@ var d = Debug('event_handlers:updates_comments_handler');
  * Generate a Notification for the upper for the first comment posted on a message/update
  */
 Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
+    update = new Update(update);
+
     // Parse message for user mentions
     var mentions = Partup.helpers.mentions.extract(comment.content);
     mentions.forEach(function(user) {
-
         // Retrieve the user from the database (ensures that the user does indeed exists!)
         user = Meteor.users.findOne(user._id);
 
@@ -58,6 +59,13 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
         }
     });
 
+    // Add the comment to new comment list for all users of this partup
+    partup.getUsers().forEach(function(upperId) {
+        // Make sure all users have an upper_data object
+        update.createUpperDataObject(upperId);
+    });
+    update.addNewCommentToUpperData(comment);
+
     // We only want to continue if the update currently has
     // no comments which means that it's the first comment
     var comments = update.comments || [];
@@ -81,29 +89,27 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
         return;
     }
 
-    if (!update.system) {
-        // Set the notification details
-        var notificationOptions = {
-            userId: update.upper_id,
-            type: 'updates_first_comment',
-            typeData: {
-                commenter: {
-                    _id: comment.creator._id,
-                    name: comment.creator.name,
-                    image: comment.creator.image
-                },
-                partup: {
-                    _id: partup._id,
-                    name: partup.name,
-                    slug: partup.slug
-                },
-                update: {
-                    _id: update._id
-                }
+    // This can only be the first human comment by now, so prepare the notification
+    var notificationOptions = {
+        userId: update.upper_id,
+        type: 'updates_first_comment',
+        typeData: {
+            commenter: {
+                _id: comment.creator._id,
+                name: comment.creator.name,
+                image: comment.creator.image
+            },
+            partup: {
+                _id: partup._id,
+                name: partup.name,
+                slug: partup.slug
+            },
+            update: {
+                _id: update._id
             }
-        };
+        }
+    };
 
-        // Send the notification
-        Partup.server.services.notifications.send(notificationOptions);
-    }
+    // Send the notification
+    Partup.server.services.notifications.send(notificationOptions);
 });

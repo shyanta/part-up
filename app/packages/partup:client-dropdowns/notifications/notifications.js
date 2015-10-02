@@ -5,6 +5,16 @@ Template.DropdownNotifications.onCreated(function() {
 
         Meteor.call('notifications.all_read');
     });
+
+    //Update the number of notifications in the title
+    template.autorun(function() {
+        var numberOfNotifications = Notifications.findForUser(Meteor.user(), {'new': true}).count();
+        if (numberOfNotifications > 0) {
+            document.title = '(' + numberOfNotifications + ')' + ' Part-up';
+        } else {
+            document.title = 'Part-up';
+        }
+    });
 });
 Template.DropdownNotifications.onRendered(function() {
     var template = this;
@@ -21,7 +31,12 @@ Template.DropdownNotifications.onDestroyed(function() {
 });
 
 Template.DropdownNotifications.events({
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
+    'click [data-notification]': function(event, template) {
+        template.dropdownOpen.set(false);
+        var notificationId = $(event.currentTarget).data('notification');
+        Meteor.call('notifications.clicked', notificationId);
+    }
 });
 
 Template.DropdownNotifications.helpers({

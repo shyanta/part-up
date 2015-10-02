@@ -1,7 +1,7 @@
 SyncedCron.add({
     name: 'Calculate the Part-up progress score for partups',
     schedule: function(parser) {
-        return parser.text('every 1 hour');
+        return parser.text('every 1 hour starting on the 5th minute');
     },
     job: function() {
         // TODO: Smarter way to do this, most likely not all

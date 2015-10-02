@@ -14,7 +14,7 @@ Template.DropdownProfile.onCreated(function() {
 
     var userId = Meteor.userId();
 
-    if (userId) {
+    if (typeof userId == 'string') {
         this.subscribe('users.one.upperpartups', userId);
         this.subscribe('users.one.supporterpartups', userId);
     }
@@ -111,6 +111,18 @@ Template.DropdownProfile.helpers({
         return Partups.findSupporterPartupsForUser(user, {
             network_id: networkId
         });
+    },
+
+    newUpdates: function() {
+        if (!this.upper_data) return;
+
+        var count = null;
+        this.upper_data.forEach(function(upperData) {
+            if (upperData._id === Meteor.userId()) {
+                count = upperData.new_updates.length;
+            }
+        });
+        return count;
     },
 
     user: function() {

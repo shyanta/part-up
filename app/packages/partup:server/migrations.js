@@ -542,7 +542,7 @@ Migrations.add({
     up: function() {
         Meteor.users.find().forEach(function(user) {
             Meteor.users.update(user._id, {$set: {
-                'profile.normalized_name': Partup.server.services.helper.normalize(user.profile.name)
+                'profile.normalized_name': Partup.helpers.normalize(user.profile.name)
             }});
         });
     },
@@ -551,4 +551,20 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(19);
+Migrations.add({
+    version: 20,
+    name: 'Make an upper_data object for all partners/supporters of a partup',
+    up: function() {
+        Partups.find({}).forEach(function(partup) {
+            partup.getUsers().forEach(function(upperId) {
+                // Set data object for new partners/supporters
+                partup.createUpperDataObject(upperId);
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(20);

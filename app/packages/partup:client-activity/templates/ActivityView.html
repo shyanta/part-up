@@ -23,67 +23,69 @@
                     {{# if activity.archived }}   pu-activity-archived             {{/ if }}"
             data-activity-id="{{ activity._id }}">
 
-        <!-- If the activity is a single contribution, show the contribution first -->
+        <!-- If the activity is a single contribution, only show the contribution -->
         {{# if contribution }}
             <section class="pu-sub-section">
                 {{> Contribution contribution=contribution updateContribution=updateContribution READONLY=isReadOnly}}
             </section>
-        {{/ if }}
+        {{ else }}
 
-        <!-- Meta data -->
-        <section class="pu-sub-section">
+            <!-- Meta data -->
+            <section class="pu-sub-section">
 
-            <!-- Edit button -->
-            {{# unless COMPACT }}
-                {{# if showEditButton }}
-                    <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
-                {{/ if }}
-            {{/ unless }}
-
-            <!-- Title (could be clickable) -->
-            <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
-                {{# if isActiveRoute name='partup' }}
-                    <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
-                    <i class="pu-chevron fa fa-chevron-right"></i>
-                {{ else }}
-                    {{ activity.name }}
-                {{/ if }}
-
-                {{# if showChevron }}
-                    <i class="pu-chevron fa {{# if expanded }}fa-chevron-up{{ else }}fa-chevron-down{{/ if }}"></i>
-                {{/ if }}
-            </h3>
-
-            <!-- Contributors -->
-            {{# unless COMPACT }}
-                {{# unless expanded }}
-                    <ul class="pu-avatar-stack">
-                        {{# each contributions }}
-                            <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
-                        {{/ each }}
-                    </ul>
+                <!-- Edit button -->
+                {{# unless COMPACT }}
+                    {{# if showEditButton }}
+                        <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
+                    {{/ if }}
                 {{/ unless }}
-            {{/ unless}}
 
-            <!-- If multiple contributions were found, show the activity description and metadata -->
-            {{# unless COMPACT }}
-                {{# if activity.description }}
-                    <p class="pu-sub-description pu-paragraph">{{{ partupAutolink activity.description }}}</p>
-                {{/ if }}
+                <!-- Title (could be clickable) -->
+                <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
+                    {{# if isActiveRoute name='partup' }}
+                        <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
+                        <i class="pu-chevron fa fa-chevron-right"></i>
+                    {{ else }}
+                        {{ activity.name }}
+                    {{/ if }}
 
-                {{# if showMetaData }}
-                    <p class="pu-block-meta {{#unless COMMENTS_LINK}}pu-block-meta-nocomment{{/unless}}">
-                        {{# if activity.end_date }}
-                            <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
-                        {{/if}}
+                    {{# if showChevron }}
+                        <i class="pu-chevron fa {{# if expanded }}fa-chevron-up{{ else }}fa-chevron-down{{/ if }}"></i>
+                    {{/ if }}
+                </h3>
 
-                        {{# if COMMENTS_LINK }}
-                            <a class="pu-sub-comments" href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}"><i class="picon-message"></i> {{_ 'activity-comment' count=commentsCount }}</a>
-                        {{/ if }}
-                    </p>
-                {{/ if }}
-            {{/ unless }}
-        </section>
+                <!-- Contributors -->
+                {{# unless COMPACT }}
+                    {{# unless expanded }}
+                        <ul class="pu-avatar-stack">
+                            {{# each contributions }}
+                                <li class="pu-avatar" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                            {{/ each }}
+                        </ul>
+                    {{/ unless }}
+                {{/ unless}}
+
+                <!-- If multiple contributions were found, show the activity description and metadata -->
+                {{# unless COMPACT }}
+                    {{# if activity.description }}
+                        <p class="pu-sub-description pu-paragraph">{{{ partupAutolink activity.description }}}</p>
+                    {{/ if }}
+
+                    {{# if showMetaData }}
+                        <p class="pu-block-meta {{#unless COMMENTS_LINK}}pu-block-meta-nocomment{{/unless}}">
+                            {{# if activity.end_date }}
+                                <time class="pu-sub-date" datetime="{{ activity.end_date.toISOString }}" title="{{ partupDateFull activity.end_date }}">{{ partupDateNormal activity.end_date }}</time>
+                            {{/if}}
+
+                            {{# if COMMENTS_LINK }}
+                                <a class="pu-sub-comments {{#if newComments upper_data=update.upper_data }}pu-state-unread{{/if}}" href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}"><i class="picon-chat"></i> {{_ 'activity-comment' count=commentsCount }}</a>
+                            {{/ if }}
+                        </p>
+                    {{/ if }}
+                {{/ unless }}
+            </section>
+
+        {{/ if }}
 
         <!-- Show multiple contributions if the activity is expandable -->
         {{# unless CREATE_PARTUP }}

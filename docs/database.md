@@ -1,4 +1,4 @@
-Part-Up
+Part-up
 =======
 
 ## Collections

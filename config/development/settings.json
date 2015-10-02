@@ -8,10 +8,6 @@
         "analyticsSettings": {
             "Google Analytics": {
                 "trackingId": "UA-34557675-15"
-            },
-            "Mixpanel": {
-                "token": "d2405ee0295004fefede86198619fefa",
-                "people": true
             }
         },
         "intercom": {
