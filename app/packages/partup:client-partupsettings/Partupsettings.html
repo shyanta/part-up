@@ -169,7 +169,7 @@
                             {{# if showNetworkDropdown }}
                                 <span class="pu-inputcontainer pu-inputcontainer-select">
                                     <select class="pu-input pu-input-select" data-privacy-network>
-                                        <option value="">...</option>
+                                        <option value="">{{_ 'partupsettings-form-privacy-network-label' }}</option>
                                         {{# each userNetworks }}
                                             <option value="{{ _id }}" selected="{{ networkPreSelected }}">{{ name }}</option>
                                         {{/ each }}
