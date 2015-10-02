@@ -16,7 +16,7 @@
             </span>
 
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='partup_name' }}pu-state-invalid{{/if}}">
-                <span class="pu-sub-input">{{> afFieldInput name='partup_name' placeholder=formPlaceholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.name.max" data-characters-left-var="nameCharactersLeft" }}</span>
+                <span class="pu-sub-input">{{> afFieldInput name='partup_name' placeholder=formPlaceholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.name.max" data-characters-left-var="nameCharactersLeft" autofocus=true }}</span>
                 <span class="pu-sub-error">{{ afFieldMessage name='partup_name' }}</span>
             </div>
         </label>
