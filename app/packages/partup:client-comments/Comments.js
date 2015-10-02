@@ -159,15 +159,14 @@ Template.Comments.events({
 
     'click [data-expand-comments]': function(event, template) {
         event.preventDefault();
+        var updateId = this.update._id;
         var proceed = function() {
-            var tpl = Template.instance();
-            tpl.showCommentClicked.set(true);
-            var updateId = this.update._id;
+            template.showCommentClicked.set(true);
 
             Meteor.defer(function() {
-                var commentForm = $('[id=commentForm-' + updateId + ']');
+                var commentForm = template.find('[id=commentForm-' + updateId + ']');
                 var field = lodash.find(commentForm, {name: 'content'});
-                field.focus();
+                if (field) field.focus();
             });
         };
         if (Meteor.user()) {

@@ -18,10 +18,9 @@
 /* Helper functions */
 /*************************************************************/
 var budgetDisplay = function(type, value) {
-    value = value ||  '0';
-    if (type === 'commercial') {
+    if (type === 'money') {
         return __('update-budget-type-money', value);
-    } else if (type === 'charity') {
+    } else if (type === 'hours') {
         return __('update-budget-type-hours', value);
     }
 
@@ -144,16 +143,15 @@ Template.Update.helpers({
 Template.Update.events({
     'click [data-expand-comment-field]': function(event, template) {
         event.preventDefault();
+        var updateId = this.updateId;
         var proceed = function() {
-            var tpl = Template.instance();
-            tpl.commentInputFieldExpanded.set(true);
-            tpl.showCommentClicked.set(true);
-            var updateId = this.updateId;
+            template.commentInputFieldExpanded.set(true);
+            template.showCommentClicked.set(true);
 
             Meteor.defer(function() {
-                var commentForm = $('[id=commentForm-' + updateId + ']');
+                var commentForm = template.find('[id=commentForm-' + updateId + ']');
                 var field = lodash.find(commentForm, { name: 'content' });
-                field.focus();
+                if (field) field.focus();
             });
         };
         if (Meteor.user()) {
