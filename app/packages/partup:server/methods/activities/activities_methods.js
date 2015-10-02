@@ -198,7 +198,7 @@ Meteor.methods({
         Partups.findOneOrFail(toPartupId);
 
         try {
-            var existingActivities = Activities.find({partup_id: fromPartupId});
+            var existingActivities = Activities.find({partup_id: fromPartupId}).fetch();
             existingActivities.forEach(function(activity) {
                 var newActivity = {
                     name: activity.name,
@@ -213,6 +213,10 @@ Meteor.methods({
 
                 Activities.insert(newActivity);
             });
+
+            // Add number of activities to the Part-up's activity_count
+            var activityCount = existingActivities.length;
+            Partups.update(toPartupId, {$inc: {activity_count: activityCount}});
 
             return true;
         } catch (error) {
