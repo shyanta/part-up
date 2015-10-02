@@ -18,9 +18,10 @@
 /* Helper functions */
 /*************************************************************/
 var budgetDisplay = function(type, value) {
-    if (type === 'money') {
+    value = value ||  '0';
+    if (type === 'commercial') {
         return __('update-budget-type-money', value);
-    } else if (type === 'hours') {
+    } else if (type === 'charity') {
         return __('update-budget-type-hours', value);
     }
 

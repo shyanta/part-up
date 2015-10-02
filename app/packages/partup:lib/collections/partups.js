@@ -23,6 +23,26 @@ var NETWORK_INVITE = 4;
  * @private
  */
 var NETWORK_CLOSED = 5;
+/**
+ * @memberof Partups
+ * @private
+ */
+var TYPE = {
+    CHARITY: 'charity',
+    ENTERPRISING: 'enterprising',
+    COMMERCIAL: 'commercial',
+    ORGANIZATION: 'organization'
+};
+/**
+ * @memberof Partups
+ * @private
+ */
+var PHASE = {
+    BRAINSTORM: 'brainstorm',
+    PLAN: 'plan',
+    EXECUTE: 'execute',
+    GROW: 'grow'
+};
 
 /**
  * @ignore
@@ -365,6 +385,16 @@ Partups.NETWORK_INVITE = NETWORK_INVITE;
  * @public
  */
 Partups.NETWORK_CLOSED = NETWORK_CLOSED;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.TYPE = TYPE;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.PHASE = PHASE;
 
 /**
  * ============== PARTUPS COLLECTION HELPERS ==============

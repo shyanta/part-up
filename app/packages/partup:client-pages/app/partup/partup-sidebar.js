@@ -6,9 +6,14 @@
  * @ignore
  */
 var prettyBudget = function(partup) {
-    var budget = partup['budget_' + partup.budget_type ];
-    var budgetUnit = __('pages-app-partup-unit-' + partup.budget_type);
-    return budget + '  ' + budgetUnit;
+    var budget = partup['type_' + partup.type + '_budget'];
+    if (partup.type === Partups.TYPE.COMMERCIAL) {
+        return budget + ' ' + __('pages-app-partup-unit-euros');
+    } else if (partup.type === Partups.TYPE.ORGANIZATION) {
+        return budget + ' ' + __('pages-app-partup-unit-hours');
+    } else {
+        return null;
+    }
 };
 
 /*************************************************************/
@@ -105,7 +110,7 @@ Template.app_partup_sidebar.helpers({
         var city = mout.object.get(partup, 'location.city') || mout.object.get(partup, 'location.country');
 
         var status = [];
-        if (partup.budget_type) {
+        if (partup.type === Partups.TYPE.COMMERCIAL || partup.type === Partups.TYPE.ORGANIZATION) {
             status.push(__('pages-app-partup-status_text-with-budget', {
                 date: moment(partup.end_date).format('LL'),
                 city: city,

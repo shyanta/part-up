@@ -21,12 +21,6 @@ var formPlaceholders = {
     tags_input: function() {
         return __('partupsettings-form-tags_input-placeholder');
     },
-    budget_money: function() {
-        return __('partupsettings-form-budget_money-placeholder');
-    },
-    budget_hours: function() {
-        return __('partupsettings-form-budget_hours-placeholder');
-    },
     end_date: function() {
         return __('partupsettings-form-end_date-placeholder');
     },
@@ -41,16 +35,16 @@ Template.Partupsettings.onCreated(function() {
     template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.partup_name.max);
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     template.imageSystem = new ImageSystem(template);
-    template.budgetType = new ReactiveVar();
-    template.budgetTypeChanged = new ReactiveVar();
     template.draggingFocuspoint = new ReactiveVar(false);
-    template.showPrivacyDropdown = new ReactiveVar(false);
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
-    template.selectedPrivacyType = new ReactiveVar('public');
-    template.selectedPrivacyNetwork = new ReactiveVar(false);
+    template.selectedType = new ReactiveVar(this.data.currentPartup ? this.data.currentPartup.type : '');
+    template.selectedPhase = new ReactiveVar('');
+    template.selectedPrivacyType = new ReactiveVar('');
+    template.selectedPrivacyNetwork = new ReactiveVar('');
     template.tagsInputStates = new ReactiveDict();
+    template.showNetworkDropdown = new ReactiveVar(false);
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
@@ -64,6 +58,9 @@ Template.Partupsettings.onCreated(function() {
         } else {
             template.imageSystem.getSuggestions(partup.tags);
         }
+
+        template.selectedType.set(partup.type);
+        template.selectedPhase.set(partup.phase);
     });
 
     template.setFocuspoint = function(focuspoint) {
@@ -87,26 +84,6 @@ Template.Partupsettings.onCreated(function() {
         if (imageId && template.focuspoint) {
             template.focuspoint.reset();
         }
-    });
-
-    Template.autoForm.onCreated(function() {
-        if (mout.object.get(this, 'data.id') !== template.data.FORM_ID) return;
-        formId = template.data.FORM_ID;
-
-        // Oh. My. God. Look at that hack.
-        // Don't change any of these rules!
-        this.autorun(function() {
-            AutoForm.getFieldValue('budget_type');
-
-            Meteor.setTimeout(function() {
-                try {
-                    var budget_type = AutoForm.getFieldValue('budget_type', template.data.FORM_ID);
-                    template.budgetType.set(budget_type);
-                } catch (e) {
-                    return;
-                }
-            });
-        });
     });
 
     Template.autoForm.onRendered(function() {
@@ -138,6 +115,7 @@ Template.Partupsettings.onCreated(function() {
 
         var dateChangeHandler = function(event) {
             event.currentTarget.nextElementSibling.value = event.date;
+            $(event.currentTarget.nextElementSibling).trigger('blur');
         };
 
         this.autorun(function() {
@@ -161,9 +139,10 @@ Template.Partupsettings.onRendered(function() {
             $(this).trigger('keyup');
         });
     }, 500);
+
     var selectedNetworkId = Session.get('createPartupForNetworkById');
     if (selectedNetworkId) {
-        template.showPrivacyDropdown.set(true);
+        template.showNetworkDropdown.set(true);
         template.selectedPrivacyType.set('network');
         template.selectedPrivacyNetwork.set(selectedNetworkId);
     }
@@ -209,22 +188,6 @@ Template.Partupsettings.helpers({
     currentSuggestion: function() {
         return Session.get('partials.create-partup.current-suggestion');
     },
-    budgetOptions: function() {
-        return [
-            {
-                label: __('partupsettings-form-budget-type-nobudget'), // todo: i18n
-                value: ''
-            },
-            {
-                label: __('partupsettings-form-budget-type-money'), // todo: i18n
-                value: 'money'
-            },
-            {
-                label: __('partupsettings-form-budget-type-hours'), // todo: i18n
-                value: 'hours'
-            }
-        ];
-    },
     galleryIsLoading: function() {
         var template = Template.instance();
         return template.loading &&
@@ -241,12 +204,6 @@ Template.Partupsettings.helpers({
     uploadingPicture: function() {
         var template = Template.instance();
         return template.loading && template.loading.get('image-uploading');
-    },
-    budgetType: function() {
-        return Template.instance().budgetType.get();
-    },
-    budgetTypeChanged: function() {
-        return Template.instance().budgetTypeChanged.get();
     },
     setFocuspoint: function() {
         return Template.instance().setFocuspoint;
@@ -266,9 +223,6 @@ Template.Partupsettings.helpers({
     draggingFocuspoint: function() {
         return Template.instance().draggingFocuspoint.get();
     },
-    showPrivacyDropdown: function() {
-        return Template.instance().showPrivacyDropdown.get();
-    },
     selectedPrivacyLabel: function() {
         return Template.instance().selectedPrivacyLabel.get();
     },
@@ -276,7 +230,7 @@ Template.Partupsettings.helpers({
         return Networks.findForUser(Meteor.user(), Meteor.userId());
     },
     privacyTypes: function() {
-        return [
+        var types = [
             {
                 label: 'partupsettings-form-privacy-public',
                 value: 'public'
@@ -286,6 +240,80 @@ Template.Partupsettings.helpers({
                 value: 'private'
             }
         ];
+
+        var networks = Networks.findForUser(Meteor.user(), Meteor.userId()).fetch();
+        if (networks.length) {
+            types.push({
+                label: 'partupsettings-form-privacy-network',
+                value: 'network'
+            });
+        }
+
+        return types;
+    },
+    showNetworkDropdown: function() {
+        return Template.instance().showNetworkDropdown.get() &&
+            Networks.findForUser(Meteor.user(), Meteor.userId()).fetch().length;
+    },
+    phaseOptions: function() {
+        return [
+            {
+                label: 'partupsettings-form-phase-brainstorm',
+                value: Partups.PHASE.BRAINSTORM
+            },
+            {
+                label: 'partupsettings-form-phase-plan',
+                value: Partups.PHASE.PLAN
+            },
+            {
+                label: 'partupsettings-form-phase-execute',
+                value: Partups.PHASE.EXECUTE
+            },
+            {
+                label: 'partupsettings-form-phase-grow',
+                value: Partups.PHASE.GROW
+            }
+        ];
+    },
+    phaseChecked: function() {
+        return this.value === Template.instance().selectedPhase.get();
+    },
+    selectedPhase: function() {
+        return Template.instance().selectedPhase.get();
+    },
+    typeOptions: function() {
+        return [
+            {
+                label: 'partupsettings-form-type-charity',
+                value: Partups.TYPE.CHARITY
+            },
+            {
+                label: 'partupsettings-form-type-enterprising',
+                value: Partups.TYPE.ENTERPRISING
+            },
+            {
+                label: 'partupsettings-form-type-commercial',
+                value: Partups.TYPE.COMMERCIAL
+            },
+            {
+                label: 'partupsettings-form-type-organization',
+                value: Partups.TYPE.ORGANIZATION
+            }
+        ];
+    },
+    typeChecked: function() {
+        return this.value === Template.instance().selectedType.get();
+    },
+    showCommercialBudget: function() {
+        return this.value === Partups.TYPE.COMMERCIAL &&
+            Template.instance().selectedType.get() == Partups.TYPE.COMMERCIAL;
+    },
+    showOrganizationBudget: function() {
+        return this.value === Partups.TYPE.ORGANIZATION &&
+            Template.instance().selectedType.get() == Partups.TYPE.ORGANIZATION;
+    },
+    selectedType: function() {
+        return Template.instance().selectedType.get();
     },
 
     // Location autocomplete
@@ -315,15 +343,18 @@ Template.Partupsettings.helpers({
         return this._id === selectedNetworkId;
     },
     selectedPrivacyType: function() {
-        return Template.instance().selectedPrivacyType.get() || 'public';
+        return Template.instance().selectedPrivacyType.get();
     },
     selectedPrivacyNetwork: function() {
-        return Template.instance().selectedPrivacyNetwork.get() || null;
+        return Template.instance().selectedPrivacyNetwork.get();
     },
     tagsInputIsEmpty: function() {
         var template = Template.instance();
 
         return !template.tagsInputStates.get('tags') && !template.tagsInputStates.get('input');
+    },
+    privacyChecked: function() {
+        return this.value === Template.instance().selectedPrivacyType.get();
     }
 });
 
@@ -352,9 +383,6 @@ Template.Partupsettings.events({
             });
         });
     },
-    'change [name=budget_type]': function(event, template) {
-        template.budgetTypeChanged.set(true);
-    },
     'click [data-imageremove]': function(event, template) {
         var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();
         var tags = Partup.client.strings.tagsStringToArray(tags_input);
@@ -368,27 +396,26 @@ Template.Partupsettings.events({
         event.preventDefault();
         template.end_date_datepicker.datepicker('update', '');
     },
-    'click [data-toggleprivacydropdown]': function(event, template) {
-        var currentValue = template.showPrivacyDropdown.get();
-        template.showPrivacyDropdown.set(!currentValue);
+    'change [data-type]': function(event, template) {
+        var input = template.find('[data-type] :checked');
+        template.selectedType.set(input.value);
+        setTimeout(function() {
+            template.$('[name=type]').trigger('blur');
+        });
     },
-    'change [data-whocanview]': function(event, template) {
-        var selected_value = event.currentTarget.value;
-        if (selected_value.indexOf('privacy-') === 0) {
-
-            // Privacy type
-            var value = selected_value.replace('privacy-', '');
-            template.selectedPrivacyType.set(value);
-            template.selectedPrivacyNetwork.set(false);
-
-        } else if (selected_value.indexOf('network-') === 0) {
-
-            // Network
-            var value = selected_value.replace('network-', '');
-            template.selectedPrivacyType.set('network');
-            template.selectedPrivacyNetwork.set(value);
-
-        }
+    'change [data-privacy-type]': function(event, template) {
+        var input = template.find('[data-privacy-type] :checked');
+        template.selectedPrivacyType.set(input.value);
+        template.showNetworkDropdown.set(input.value === 'network');
+        setTimeout(function() {
+            template.$('[name=privacy_type_input]').trigger('blur');
+        });
+    },
+    'change [data-privacy-network]': function(event, template) {
+        template.selectedPrivacyNetwork.set(event.currentTarget.value);
+        setTimeout(function() {
+            template.$('[name=network_id]').trigger('blur');
+        });
     },
     'click .pu-tooltip': function(event) {
         event.preventDefault();
@@ -407,6 +434,13 @@ Template.Partupsettings.events({
     },
     'keydown [data-tags-input] .bootstrap-tagsinput input, input [data-tags-input] .bootstrap-tagsinput input': function(event, template) {
         template.tagsInputStates.set('input', !!event.currentTarget.value.trim());
+    },
+    'change [data-phase]': function(event, template) {
+        var input = template.find('[data-phase] :checked');
+        template.selectedPhase.set(input.value);
+        setTimeout(function() {
+            template.$('[name=phase]').trigger('blur');
+        });
     }
 });
 
