@@ -54,33 +54,33 @@
                         <li>
                             <a class="pu-button pu-button-social pu-button-social-twitter" data-share-twitter>
                                 <i class="picon-twitter"></i>
-                                {{# if partup.shared_count.twitter }}
+                                {{# with partup.shared_count.twitter }}
                                     <span>{{ . }}</span>
-                                {{/ if }}
+                                {{/ with }}
                             </a>
                         </li>
                         <li>
                             <a class="pu-button pu-button-social pu-button-social-facebook" data-share-facebook>
                                 <i class="picon-facebook"></i>
-                                {{# if partup.shared_count.facebook }}
+                                {{# with partup.shared_count.facebook }}
                                     <span>{{ . }}</span>
-                                {{/ if }}
+                                {{/ with }}
                             </a>
                         </li>
                         <li>
                             <a class="pu-button pu-button-social pu-button-social-linkedin" data-share-linkedin>
                                 <i class="picon-linkedin"></i>
-                                {{# if partup.shared_count.linkedin }}
+                                {{# with partup.shared_count.linkedin }}
                                     <span>{{ . }}</span>
-                                {{/ if }}
+                                {{/ with }}
                             </a>
                         </li>
                         <li>
                             <a class="pu-button pu-button-social" data-share-mail>
                                 <i class="picon-monkeytail"></i>
-                                {{# if partup.shared_count.email }}
+                                {{# with partup.shared_count.email }}
                                     <span>{{ . }}</span>
-                                {{/ if }}
+                                {{/ with }}
                             </a>
                         </li>
                     </ul>
