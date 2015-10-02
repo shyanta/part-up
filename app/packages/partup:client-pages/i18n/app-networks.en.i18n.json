@@ -16,7 +16,7 @@
     "pages-app-network-partups-start_button": "Start a part-up in this tribe",
 
     "pages-app-network-closed-title": "This is a non-public tribe",
-    "pages-app-network-closed-description": "The uppers in this tribe decided to be an non-public community. Ask for permission to join the _network__ tribe using the orange button on the right. You will be notified as soon as the tribe admin accepted your request to join.",
+    "pages-app-network-closed-description": "The uppers in this tribe decided to be an non-public community. Ask for permission to join the __network__ tribe using the orange button on the right. You will be notified as soon as the tribe admin accepted your request to join.",
 
     "pages-app-network-actions-button-join": "Join",
     "pages-app-network-actions-button-request_access": "Request access",
