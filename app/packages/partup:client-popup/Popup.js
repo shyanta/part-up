@@ -36,7 +36,8 @@ Template.Popup.events({
         }
     },
     'click [data-dismiss]': function closePopup(event, template) {
-        event.preventDefault();
+        var dismiss = $(event.currentTarget).data('dismiss');
+        if (dismiss !== 'no-prevent') event.preventDefault();
         try {
             Partup.client.popup.close();
         } catch (e) {
