@@ -1,10 +1,11 @@
-<template name="Comments">
+ <template name="Comments">
     <!-- Comments -->
     <footer class="pu-commentfield">
         {{# if showComments }}
         <!-- View all n comments -->
             {{# if partupOneIsTrue FULLVIEW shownComments.length }}
                 <p class="pu-sub-view-all-comments-button">
+
                     {{# unless FULLVIEW }}
                         <a href="
                             {{ #if partupContainsOne update.type 'partups_newuser' }}
