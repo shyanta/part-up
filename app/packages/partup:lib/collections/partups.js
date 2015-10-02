@@ -310,7 +310,7 @@ Partup.prototype.removeUpperDataObject = function(upperId) {
  */
 Partup.prototype.addNewUpdateToUpperData = function(updateId) {
     // Update existing upper data first
-    var upper_data = this.upper_data;
+    var upper_data = this.upper_data || [];
     upper_data.forEach(function(upperData) {
         upperData.new_updates.push(updateId);
     });
