@@ -189,10 +189,10 @@ FS.TempStore.removeFile = function fsTempStoreRemoveFile(fileObj) {
   if (chunkInfo) {
 
     // Unlink each file
-    FS.Utility.each(chunkInfo.keys || {}, function (key, chunk) {
-      var fileKey = _fileReference(fileObj, chunk, chunkInfo);
-      FS.TempStore.Storage.adapter.remove(fileKey, FS.Utility.noop);
-    });
+    // FS.Utility.each(chunkInfo.keys || {}, function (key, chunk) {
+    //   var fileKey = _fileReference(fileObj, chunk, chunkInfo);
+    //   FS.TempStore.Storage.adapter.remove(fileKey, FS.Utility.noop);
+    // });
 
     // Remove fileObj from tracker collection, too
     tracker.remove({_id: chunkInfo._id});
