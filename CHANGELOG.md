@@ -1,4 +1,9 @@
 # CHANGELOG
+## 1.10.1
+- small copy / translation updates
+- bugfixes
+    - placing comment on old update does not produce error anymore
+
 ## 1.10.0
 - updates redesign
     - Alle oranje titels beginnen met de voornaam

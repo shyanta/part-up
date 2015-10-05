@@ -60,11 +60,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     });
 
     // Add the comment to new comment list for all users of this partup
-    partup.getUsers().forEach(function(upperId) {
-        // Make sure all users have an upper_data object
-        update.createUpperDataObject(upperId);
-    });
-    update.addNewCommentToUpperData(comment);
+    var upperIds = partup.getUsers();
+    update.addNewCommentToUpperData(comment, upperIds);
 
     // We only want to continue if the update currently has
     // no comments which means that it's the first comment

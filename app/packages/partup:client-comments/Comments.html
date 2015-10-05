@@ -17,17 +17,15 @@
                         <span class="pu-sub-seperator"></span>
                     {{/ unless }}
                     <!-- focus button -->
-                    <a href="#" data-expand-comments class="pu-sub-action">
-                        {{_ 'widgetcommentfield-comment-button'}}
-                    </a>
+                    <a href="#" data-expand-comments class="pu-sub-action">{{_ 'widgetcommentfield-comment-button'}}</a>
                     {{# if FULLVIEW }}
                         {{# if systemCount }}
                             <span class="pu-sub-seperator"></span>
                             <a href="#" data-toggle-systemmessages>
                                 {{# if showSystemMessages }}
-                                    Hide system messages
+                                    {{_ 'widgetcommentfield-comment-systemmessage-hide'}}
                                 {{ else }}
-                                    Show system messages
+                                    {{_ 'widgetcommentfield-comment-systemmessage-show'}}
                                 {{/ if }}
                             </a>
                         {{/ if }}

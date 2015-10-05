@@ -39,7 +39,7 @@
     "partupsettings-form-privacy-public": "Publicly on Part-up.com",
     "partupsettings-form-privacy-private": "Hidden (only available to premium uppers)",
     "partupsettings-form-privacy-network": "Only in this tribe:",
-    "partupsettings-form-privacy-network-label": "Choose a part-up",
+    "partupsettings-form-privacy-network-label": "Choose a tribe",
     "partupsettings-form-privacy-tooltip": "A part-up is public by default and visible for everyone. Uppers with a premium account can start private part-ups that are only visible to invited uppers. If you are a tribe member you can select the right tribe this new part-up belongs to. The tribe settings then define the visibility of the part-up.",
 
     "partupsettings-form-phase-label": "Why do you need a team in the first place?",
