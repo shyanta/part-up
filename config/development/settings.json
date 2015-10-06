@@ -1,7 +1,4 @@
 {
-    "intercom": {
-        "secret":""
-    },
     "public": {
         "aws": {
             "bucket": "development",
