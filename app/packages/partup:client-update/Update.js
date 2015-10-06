@@ -87,13 +87,22 @@ Template.Update.helpers({
                 }
                 // Invited names
                 if (get(self, 'metadata.invitee_names')) {
-                    if (self.metadata.invitee_names.length == 1) {
-                        params.invitee_names = self.metadata.invitee_names[0];
-                    } else if (self.metadata.invitee_names.length > 1) {
-                        var last_invited_name = self.metadata.invitee_names.pop();
-                        var all_invitee_names = self.metadata.invitee_names.join();
-                        params.invitee_names = all_invitee_names + ' ' + __('update-general-and') + ' ' + last_invited_name;
+                    // This method was needed, since a simpler pop() and join(', ) to create the sentence was glitching,
+                    // because the update updates every now and then, so it was skipping names because of the pop
+                    var nameListCount = self.metadata.invitee_names.length;
+                    var nameSentence = self.metadata.invitee_names[0];
+                    if (nameListCount > 1) {
+                        self.metadata.invitee_names.forEach(function(name, index) {
+                            if (index === 0) return; // Already in sentence
+                            if (index === nameListCount - 1) {
+                                nameSentence = nameSentence + ' ' + __('update-general-and') + ' ' + name; // Last name of the list
+                            } else {
+                                nameSentence = nameSentence + ', ' + name; // Just add it up
+                            }
+                        });
                     }
+
+                    params.invitee_names = nameSentence;
                 }
 
                 // Activity title
