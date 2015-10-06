@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.10.2
+- contribution copy
+- intercom secure mode
+
 ## 1.10.1
 - small copy / translation updates
 - bugfixes
