@@ -3,8 +3,7 @@
  */
 Event.on('invites.inserted.activity', function(inviter, partup, activity, invitee) {
     // Check if there is already an invite update
-    var inviteUpdate = Updates.findOne({partup_id: partup._id, type: 'partups_invited'}, {$orderby: {updated_at: -1}});
-    console.log(inviteUpdate.isLatestUpdateOfItsPartup());
+    var inviteUpdate = Updates.findOne({partup_id: partup._id, upper_id: inviter._id, type: 'partups_invited'}, {sort: {updated_at: -1}});
 
     if (inviteUpdate && inviteUpdate.isLatestUpdateOfItsPartup()) {
         // Update the update with new invitee name
