@@ -108,10 +108,12 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
  */
 Update.prototype.isLatestUpdateOfItsPartup = function() {
     var updates = Updates.find({partup_id: this.partup_id});
+    var self = this;
     var isLatestUpdateOfItsPartup = true;
-
     updates.forEach(function(update) {
-        if (update.updated_at > this.updated_at) isLatestUpdateOfItsPartup = false;
+        if (update.updated_at > self.updated_at) {
+            isLatestUpdateOfItsPartup = false;
+        }
     });
 
     return isLatestUpdateOfItsPartup;
