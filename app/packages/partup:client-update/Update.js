@@ -85,10 +85,24 @@ Template.Update.helpers({
                 } else if (self.metadata.is_system) {
                     params.name = 'Part-up';
                 }
+                // Invited names
+                if (get(self, 'metadata.invitee_names')) {
+                    // This method was needed, since a simpler pop() and join(', ) to create the sentence was glitching,
+                    // because the update updates every now and then, so it was skipping names because of the pop
+                    var nameListCount = self.metadata.invitee_names.length;
+                    var nameSentence = self.metadata.invitee_names[0];
+                    if (nameListCount > 1) {
+                        self.metadata.invitee_names.forEach(function(name, index) {
+                            if (index === 0) return; // Already in sentence
+                            if (index === nameListCount - 1) {
+                                nameSentence = nameSentence + ' ' + __('update-general-and') + ' ' + name; // Last name of the list
+                            } else {
+                                nameSentence = nameSentence + ', ' + name; // Just add it up
+                            }
+                        });
+                    }
 
-                // Invited name
-                if (get(self, 'metadata.invited_name')) {
-                    params.invitee_name = self.metadata.invited_name;
+                    params.invitee_names = nameSentence;
                 }
 
                 // Activity title
