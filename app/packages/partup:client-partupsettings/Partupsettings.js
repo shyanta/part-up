@@ -359,6 +359,9 @@ Template.Partupsettings.helpers({
 });
 
 Template.Partupsettings.events({
+    'click [bootstrap-datepicker], touchend [bootstrap-datepicker]': function(event, template) {
+        $(event.target).closest('label').click();
+    },
     'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
         event.preventDefault();
 

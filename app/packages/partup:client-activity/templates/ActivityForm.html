@@ -41,7 +41,7 @@
                     <div class="pu-inputholder pu-inputholder-lefticon">
                         <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                             <span class="pu-sub-input">
-                                <input type="text" bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ placeholders.end_date }}">
+                                <input type="text" bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ placeholders.end_date }}" readonly>
                                 {{> afFieldInput name='end_date' type='hidden' }}
                                 <a href="#" class="pu-sub-remove picon-times" data-activity-remove-date></a>
                             </span>
