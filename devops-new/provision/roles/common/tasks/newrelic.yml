@@ -15,7 +15,11 @@
   shell: nrsysmond-config --set license_key={{ common.newrelic.license_key }}
   tags: newrelic
 
-- name: newrelic | add to docker group
+- name: newrelic | add docker group
+  group: name=docker state=present
+  tags: newrelic
+
+- name: newrelic | add newrelic user to docker group
   user: name=newrelic groups=docker append=yes
   tags: newrelic
 
