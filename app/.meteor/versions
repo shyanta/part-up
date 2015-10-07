@@ -124,6 +124,7 @@ partup:client-gallery@0.0.1
 partup:client-header@0.0.1
 partup:client-invite-to-activity@0.0.1
 partup:client-invite-to-network@0.0.1
+partup:client-invite-to-partup@0.0.1
 partup:client-loader@0.0.1
 partup:client-login@0.0.1
 partup:client-network-settings@0.0.1
