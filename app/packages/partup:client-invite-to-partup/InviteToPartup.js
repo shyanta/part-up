@@ -36,15 +36,15 @@ AutoForm.hooks({
             parent.submitting.set(true);
 
             var partupId = template.data.partupId;
-            console.log(partupId)
 
+            console.error('Method "partup.invite_by_email" still needs to be implemented');
             Meteor.call('partup.invite_by_email', partupId, insertDoc,
                 function(error, result) {
                     parent.submitting.set(false);
                     if (error) {
                         return Partup.client.notify.error(__('base-errors-' + error.reason));
                     }
-                    Partup.client.notify.success(__('invite-to-activity-popup-success'));
+                    Partup.client.notify.success(__('invite-to-partup-popup-success'));
                     Partup.client.popup.close();
                 });
 
