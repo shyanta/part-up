@@ -1,7 +1,6 @@
 <template name="Popup">
     <section class="pu-overlay {{#if currentPopup}}pu-overlay-active{{/if}}" data-overlay-dismiss>
         {{#if partupEquals type 'gallery'}}
-            {{currentPopup}}
             <article class="pu-gallery">
                 {{> yield region="PopupContent" }}
             </article>

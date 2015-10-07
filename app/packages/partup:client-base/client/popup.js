@@ -23,19 +23,28 @@ Partup.client.popup = {
      * @memberof Partup.client.popup
      */
     current: new ReactiveVar(),
+    currentType: new ReactiveVar(),
 
     /**
      * Open a popup
      *
-     * @param {String} id   The identifier for your popup
+     * @param {Object} options
+     * @param {String} options.id The identifier for your popup
+     * @param {String} options.type The type for your popup, undefined if default, 'gallery' if gallery type
      * @param {Function} callback   A popup-close callback
      * @memberof Partup.client.popup
      */
-    open: function(id, callback) {
+    open: function(options, callback) {
+        if (!options || !options.id) console.error('a unique options.id must be defined');
+
+        var id = options.id;
         if (!id || !mout.lang.isString(id)) throw 'id must be a string';
+
+        var type = options.type || undefined;
 
         // Open popup
         this.current.set(id);
+        this.currentType.set(type);
 
         // Add class to body
         $('body').addClass('pu-state-popupopen');

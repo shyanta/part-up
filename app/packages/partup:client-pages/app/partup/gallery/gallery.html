@@ -6,12 +6,15 @@
     </ul>
 
     {{#if partupIsPopupActive popupId }}
-        <!-- {{#contentFor region="PopupTitle"}} -->
-            <!-- {{_ 'pages-app-partup-takepart-title'}} -->
-        <!-- {{/contentFor}} -->
-        <!-- {{> contentFor region="PopupContent" template="app_partup_takepart" }} -->
-        <!-- {{#contentFor}} -->
-
-        <!-- {{/contentFor}} -->
+        {{#contentFor region="PopupContent"}}
+            fdhjdsahfjkdsahfjksl
+            <ul>
+                {{# each images}}
+                    <li>
+                        <img src="{{ . }}" alt="">
+                    </li>
+                {{/each}}
+            </ul>
+        {{/contentFor}}
     {{/if}}
 </template>

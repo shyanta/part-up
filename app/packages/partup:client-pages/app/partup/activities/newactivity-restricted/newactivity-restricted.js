@@ -11,7 +11,9 @@ Template.app_partup_activities_newactivity_restricted.events({
         // Use a defer to execute code after the route has changed
         Meteor.defer(function() {
             if (Router.current().route.getName() === 'partup') {
-                Partup.client.popup.open('new-message');
+                Partup.client.popup.open({
+                    id: 'new-message'
+                });
             }
         });
     }

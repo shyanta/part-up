@@ -22,6 +22,9 @@ Meteor.startup(function() {
 Template.Popup.helpers({
     currentPopup: function() {
         return Partup.client.popup.current.get();
+    },
+    type: function() {
+        return Partup.client.popup.currentType.get();
     }
 });
 
