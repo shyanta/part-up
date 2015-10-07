@@ -359,6 +359,13 @@ Template.Partupsettings.helpers({
 });
 
 Template.Partupsettings.events({
+    'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
+        event.preventDefault();
+
+        // in stead fire click event on file input
+        var input = $('input[data-imageupload]');
+        input.click();
+    },
     'keyup [data-max]': function(event, template) {
         var $inputElement = $(event.currentTarget);
         var max = parseInt($inputElement.attr('maxlength'));

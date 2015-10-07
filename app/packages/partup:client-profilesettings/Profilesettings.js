@@ -78,6 +78,12 @@ Template.Profilesettings.onCreated(function() {
     });
 });
 
+// Template.Profilesettings.onRendered(function() {
+//     $('label').click(function() {
+
+//     });
+// });
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -149,7 +155,7 @@ Template.Profilesettings.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Profilesettings.events({
-    'click [data-browse-photos]': function(event, template) {
+    'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
         event.preventDefault();
 
         // in stead fire click event on file input

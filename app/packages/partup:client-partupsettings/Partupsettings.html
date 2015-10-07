@@ -212,7 +212,7 @@
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-image-label' }}</span>
             {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImageId }}
-            <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
+            <input type="file" class="pu-fileinput" data-imageupload>
 
             {{> afFieldInput name="focuspoint_x_input" type="hidden" }}
             {{> afFieldInput name="focuspoint_y_input" type="hidden" }}
@@ -225,12 +225,12 @@
                     </div>
                     {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImageId view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
                     <div class="pu-sub-buttons">
-                        <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
+                        <button data-browse-photos class="pu-sub-left pu-button pu-button-secondary">
                             <span>{{_ 'partupsettings-image-button-overwrite'}}</span>
                             {{#if uploadingPicture}}
                                 {{> Spinner color='inverted' type='small'}}
                             {{/if}}
-                        </label>
+                        </button>
                         <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
                             <i class="picon-times"></i>
                         </button>
@@ -240,9 +240,9 @@
             {{ else }}
 
                 <div class="pu-upload pu-upload-large">
-                    <label for="imageFileInput" class="pu-button pu-button-secondary">
+                    <button data-browse-photos class="pu-button pu-button-secondary">
                         <span>{{_ 'partupsettings-image-button'}}</span>
-                    </label>
+                    </button>
                     <span>{{_ 'partupsettings-image-validation'}}</span>
                 </div>
 
