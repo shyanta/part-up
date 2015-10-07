@@ -164,5 +164,20 @@ Template.app_network_uppers.helpers({
         return function registerCallback(callback) {
             tpl.uppers.layout.clear = callback;
         };
+    },
+    rerenderLayoutHook: function() {
+        var tpl = Template.instance();
+
+        return function registerCallback(callback) {
+            tpl.uppers.layout.rerender = callback;
+        };
+    },
+    amountOfColumns: function() {
+        var tpl = Template.instance();
+        var smaller = Partup.client.screensize.current.get('width') < Partup.client.grid.getWidth(11) + 80;
+        Meteor.defer(function() {
+            tpl.uppers.layout.rerender();
+        });
+        return smaller ? 3 : 4;
     }
 });

@@ -19,10 +19,11 @@
 
     <div data-infinitescroll-container>
         {{> ColumnsLayout
-            COLUMNS=4
+            COLUMNS=amountOfColumns
             TEMPLATE="PartupTile"
             addHook=addToLayoutHook
             clearHook=clearLayoutHook
+            rerenderHook=rerenderLayoutHook
         }}
     </div>
 </template>
