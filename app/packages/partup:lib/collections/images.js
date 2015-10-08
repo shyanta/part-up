@@ -3,7 +3,7 @@ var stores = [];
 FS.config.uploadChunkSize = 1024 * 1024 * 100;
 
 if (Meteor.isServer) {
-    var os = Npm.require('os');
+    var os = require('os');
 
     FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore_' + os.hostname(), {
         internal: true,
