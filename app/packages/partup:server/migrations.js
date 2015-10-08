@@ -567,4 +567,47 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(20);
+Migrations.add({
+    version: 21,
+    name: 'Convert old partup budget types to new ones',
+    up: function() {
+        Partups.find({}).forEach(function(partup) {
+            if (partup.budget_type && partup.budget_type === 'money') {
+                Partups.update({_id: partup._id}, {$set: {
+                    type: Partups.TYPE.COMMERCIAL,
+                    type_commercial_budget: partup.budget_money,
+                    type_organization_budget: null
+                }, $unset: {
+                    budget_type: '',
+                    budget_money: '',
+                    budget_hours: ''
+                }});
+            } else if (partup.budget_type && partup.budget_type === 'hours') {
+                Partups.update({_id: partup._id}, {$set: {
+                    type: Partups.TYPE.ORGANIZATION,
+                    type_commercial_budget: null,
+                    type_organization_budget: partup.budget_hours
+                }, $unset: {
+                    budget_type: '',
+                    budget_money: '',
+                    budget_hours: ''
+                }});
+            } else if (partup.budget_type === null) {
+                Partups.update({_id: partup._id}, {$set: {
+                    type: null,
+                    type_commercial_budget: null,
+                    type_organization_budget: null
+                }, $unset: {
+                    budget_type: '',
+                    budget_money: '',
+                    budget_hours: ''
+                }});
+            }
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(21);
