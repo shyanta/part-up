@@ -8,7 +8,7 @@
 var prettyBudget = function(partup) {
     var budget = partup['type_' + partup.type + '_budget'];
     if (partup.type === Partups.TYPE.COMMERCIAL) {
-        return budget + ' ' + __('pages-app-partup-unit-euros');
+        return budget + ' ' + __('pages-app-partup-unit-money');
     } else if (partup.type === Partups.TYPE.ORGANIZATION) {
         return budget + ' ' + __('pages-app-partup-unit-hours');
     } else {
