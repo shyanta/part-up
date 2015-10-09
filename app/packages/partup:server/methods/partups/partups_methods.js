@@ -386,4 +386,57 @@ Meteor.methods({
 
         Event.emit('invites.inserted.partup', inviter, partup, invitee);
     },
+
+    /**
+     * Invite someone to an partup
+     *
+     * @param {string} partupId
+     * @param {string} email
+     * @param {string} name
+     */
+    'partups.invite_by_email': function(partupId, fields) {
+        check(fields, Partup.schemas.forms.inviteUpper);
+
+        var inviter = Meteor.user();
+
+        if (!inviter) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var partup = Partups.findOneOrFail(partupId);
+
+        if (partup.isRemoved()) throw new Meteor.Error(404, 'partup_could_not_be_found');
+
+        var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: partup._id}).count() > 0;
+        if (!isAllowedToAccessPartup) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var isAlreadyInvited = !!Invites.findOne({
+            partup_id: partupId,
+            invitee_email: fields.email,
+            type: Invites.INVITE_TYPE_PARTUP_EMAIL
+        });
+
+        if (isAlreadyInvited) {
+            throw new Meteor.Error(403, 'email_is_already_invited_to_partup');
+        }
+
+        var accessToken = Random.secret();
+
+        var invite = {
+            type: Invites.INVITE_TYPE_PARTUP_EMAIL,
+            partup_id: partup._id,
+            inviter_id: inviter._id,
+            invitee_name: fields.name,
+            invitee_email: fields.email,
+            message: fields.message,
+            access_token: accessToken,
+            created_at: new Date
+        };
+
+        Invites.insert(invite);
+
+        Event.emit('invites.inserted.partup.by_email', inviter, partup, fields.email, fields.name, fields.message, accessToken);
+    }
 });
