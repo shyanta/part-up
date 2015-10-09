@@ -331,6 +331,59 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partup_email_share_count_could_not_be_updated');
         }
-    }
+    },
 
+    /**
+     * Invite an existing upper to a partup
+     *
+     * @param {string} partupId
+     * @param {string} inviteeId
+     */
+    'partups.invite_existing_upper': function(partupId, inviteeId) {
+        check(partupId, String);
+        check(inviteeId, String);
+
+        var inviter = Meteor.user();
+        if (!inviter) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var partup = Partups.findOneOrFail(partupId);
+
+        if (partup.isRemoved()) throw new Meteor.Error(404, 'partup_could_not_be_found');
+
+        var invitee = Meteor.users.findOneOrFail(inviteeId);
+
+        var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: partup._id}).count() > 0;
+        if (!isAllowedToAccessPartup) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var isAlreadyInvited = !!Invites.findOne({
+            partup_id: partup._id,
+            invitee_id: invitee._id,
+            inviter_id: inviter._id,
+            type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER
+        });
+        if (isAlreadyInvited) {
+            throw new Meteor.Error(403, 'user_is_already_invited_to_partup');
+        }
+
+        var invite = {
+            type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER,
+            partup_id: partup._id,
+            inviter_id: inviter._id,
+            invitee_id: invitee._id,
+            created_at: new Date
+        };
+
+        Invites.insert(invite);
+
+        // Add to the invite list of the partup
+        if (!partup.hasInvitedUpper(invitee._id)) {
+            Partups.update(partup._id, {$addToSet: {invites: invitee._id}});
+        }
+
+        Event.emit('invites.inserted.partup', inviter, partup, invitee);
+    },
 });
