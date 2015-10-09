@@ -89,7 +89,10 @@ Meteor.methods({
         check(updateId, String);
 
         try {
-            Updates.update({_id: updateId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_comments': []}});
+            var update = Updates.findOne({_id: updateId, 'upper_data._id': Meteor.userId()});
+            if (update && update._id) {
+                Updates.update({_id: updateId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_comments': []}});
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partup_new_comments_could_not_be_reset');
