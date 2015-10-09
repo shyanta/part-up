@@ -82,6 +82,7 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
     // Update existing upper data first
     var upper_data = this.upper_data || [];
     upper_data.forEach(function(upperData) {
+        if (upperData._id === comment.creator._id) return;
         upperData.new_comments.push(comment._id);
     });
 
@@ -92,6 +93,7 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
 
     var newUpperIds = _.difference(upperIds, currentUpperDataIds);
     newUpperIds.forEach(function(upperId) {
+        if (upperId === comment.creator._id) return;
         upper_data.push({
             _id: upperId,
             new_comments: [comment._id]
