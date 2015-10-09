@@ -156,10 +156,6 @@ Template.modal_invite_to_partup.events({
 
         template.inviting.set(invitingUserId, true);
 
-        console.log('Invite user to partup:', partupId, 'user:', invitingUserId);
-        Partup.client.notify.error('This feature has not yet been implemented');
-        return console.error('Method "partups.invite_existing_upper" still needs to be implemented');
-
         // this meteor call still needs to be created
         Meteor.call('partups.invite_existing_upper', partupId, invitingUserId, function(err) {
             template.inviting.set(invitingUserId, false);
