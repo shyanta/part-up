@@ -55,12 +55,8 @@ Template.modal_invite_to_partup.onCreated(function() {
 
         var options = self.suggestionsOptions.get();
 
-        console.log('Get user suggestions for partup', partupId);
-        Partup.client.notify.error('This feature has not yet been implemented');
-        return console.error('Method "partup.user_suggestions" still needs to be implemented');
-
         // this meteor call still needs to be created
-        Meteor.call('partup.user_suggestions', partupId, options, function(error, userIds) {
+        Meteor.call('partups.user_suggestions', partupId, options, function(error, userIds) {
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }

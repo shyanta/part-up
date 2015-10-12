@@ -349,15 +349,14 @@ Meteor.methods({
         }
 
         var partup = Partups.findOneOrFail(partupId);
-
-        if (partup.isRemoved()) throw new Meteor.Error(404, 'partup_could_not_be_found');
-
-        var invitee = Meteor.users.findOneOrFail(inviteeId);
-
         var isAllowedToAccessPartup = !!Partups.guardedFind(inviter._id, {_id: partup._id}).count() > 0;
         if (!isAllowedToAccessPartup) {
             throw new Meteor.Error(401, 'unauthorized');
         }
+
+        if (partup.isRemoved()) throw new Meteor.Error(404, 'partup_could_not_be_found');
+
+        var invitee = Meteor.users.findOneOrFail(inviteeId);
 
         var isAlreadyInvited = !!Invites.findOne({
             partup_id: partup._id,
@@ -438,5 +437,38 @@ Meteor.methods({
         Invites.insert(invite);
 
         Event.emit('invites.inserted.partup.by_email', inviter, partup, fields.email, fields.name, fields.message, accessToken);
+    },
+
+    /**
+     * Get user suggestions for a given partup
+     *
+     * @param {string} partupId
+     * @param {Object} options
+     * @param {string} options.locationId
+     * @param {string} options.query
+     *
+     * @return {[string]}
+     */
+    'partups.user_suggestions': function(partupId, options) {
+        check(partupId, String);
+        check(options, {
+            locationId: Match.Optional(String),
+            query: Match.Optional(String)
+        });
+
+        this.unblock();
+
+        var upper = Meteor.user();
+
+        if (!upper) {
+            throw new Meteor.Error(401, 'Unauthorized');
+        }
+
+        var users = Partup.server.services.matching.matchUppersForPartup(partupId, options);
+
+        // We are returning an array of IDs instead of an object
+        return users.map(function(user) {
+            return user._id;
+        });
     }
 });
