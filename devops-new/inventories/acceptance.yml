@@ -1,6 +1,5 @@
 [appservers]
 46.101.21.4 name=partup-acceptance-london1-01
-178.62.20.180 name=partup-acceptance-london1-02
 
 [acceptance:children]
 appservers

@@ -6,9 +6,9 @@
 
 [appservers-acceptance]
 46.101.21.4 name=partup-acceptance-london1-01
-178.62.20.180 name=partup-acceptance-london1-02
 
 [appservers-production]
+178.62.86.166 name=partup-production-london1-01
 
 [appservers-all:children]
 appservers-staging
