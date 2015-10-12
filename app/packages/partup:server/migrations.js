@@ -610,4 +610,20 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(21);
+Migrations.add({
+    version: 22,
+    name: 'Add new email settings to existing users',
+    up: function() {
+        Meteor.users.update({}, {
+            '$set': {
+                'profile.settings.email.invite_upper_to_partup': true
+            }
+        }, {multi:true});
+    },
+    down: function() {
+        //
+    }
+});
+
+
+Migrations.migrateTo(22);
