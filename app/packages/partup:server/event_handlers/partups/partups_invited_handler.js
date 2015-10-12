@@ -37,9 +37,6 @@ Event.on('invites.inserted.partup', function(inviter, partup, invitee) {
                 _id: partup._id,
                 name: partup.name,
                 slug: partup.slug
-            },
-            update: {
-                _id: partup.update_id
             }
         }
     };

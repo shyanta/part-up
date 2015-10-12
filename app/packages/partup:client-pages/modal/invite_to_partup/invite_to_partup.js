@@ -156,7 +156,6 @@ Template.modal_invite_to_partup.events({
 
         template.inviting.set(invitingUserId, true);
 
-        // this meteor call still needs to be created
         Meteor.call('partups.invite_existing_upper', partupId, invitingUserId, function(err) {
             template.inviting.set(invitingUserId, false);
 
