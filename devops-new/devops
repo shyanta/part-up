@@ -109,27 +109,31 @@ program
     });
 
 program
-    .command('encrypt <file>')
-    .action(function(file) {
-        var arguments = [];
+    .command('encrypt <files...>')
+    .action(function(files) {
+        files.forEach(function(file) {
+            var arguments = [];
 
-        arguments.push('encrypt');
-        arguments.push(file);
-        arguments.push('--vault-password-file=~/.ssh/partup-server');
+            arguments.push('encrypt');
+            arguments.push(file);
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
 
-        run('ansible-vault', arguments);
+            run('ansible-vault', arguments);
+        });
     });
 
 program
-    .command('decrypt <file>')
-    .action(function(file) {
-        var arguments = [];
+    .command('decrypt <files...>')
+    .action(function(files) {
+        files.forEach(function(file) {
+            var arguments = [];
 
-        arguments.push('decrypt');
-        arguments.push(file);
-        arguments.push('--vault-password-file=~/.ssh/partup-server');
+            arguments.push('decrypt');
+            arguments.push(file);
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
 
-        run('ansible-vault', arguments);
+            run('ansible-vault', arguments);
+        });
     });
 
 program.parse(process.argv);
