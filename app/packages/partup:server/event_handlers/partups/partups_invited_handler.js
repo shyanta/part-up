@@ -73,7 +73,6 @@ Event.on('invites.inserted.partup', function(inviter, partup, invitee) {
  * Generate an email when an invite gets sent
  */
 Event.on('invites.inserted.partup.by_email', function(inviter, partup, email, name, message, accessToken) {
-
     // Split by double newline
     var toParagraphs = function(message) {
         return message.split('\n\n');
@@ -93,12 +92,11 @@ Event.on('invites.inserted.partup.by_email', function(inviter, partup, email, na
     var emailOptions = {
         type: 'invite_email_address_to_partup',
         toAddress: email,
-        subject: TAPi18n.__('emails-invite_upper_to_partup_partup-subject', {partup: partup.name}, User(inviter).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_partup-subject', {partup: partup.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
         typeData: {
             paragraphs: toParagraphs(interpolate(message)),
             partupName: partup.name,
-            partupDescription: partup.description,
             inviterName: inviter.profile.name
         }
     };
@@ -106,13 +104,34 @@ Event.on('invites.inserted.partup.by_email', function(inviter, partup, email, na
     // Send the email
     Partup.server.services.emails.send(emailOptions);
 
-    // Create a new update
-    var updateType = 'partups_invited';
-    var updateTypeData = {
-        invitee_names: [name]
-    };
-    var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
-    Updates.insert(update);
+    // Set the name that shows in the update
+    var inviteeName = '';
+    if (name.match(/.*\s.*/)) {
+        inviteeName = name.split(' ')[0];
+    } else {
+        inviteeName = name;
+    }
+
+    // Check if there is already an invite update
+    var inviteUpdate = Updates.findOne({partup_id: partup._id, upper_id: inviter._id, type: 'partups_invited'}, {sort: {updated_at: -1}});
+
+    if (inviteUpdate && inviteUpdate.isLatestUpdateOfItsPartup()) {
+        // Update the update with new invitee name
+        var inviteeNames = inviteUpdate.type_data.invitee_names;
+        inviteeNames.unshift(inviteeName);
+        Updates.update(inviteUpdate._id, {$set: {
+            'type_data.invitee_names': inviteeNames,
+            updated_at: new Date()
+        }});
+    } else {
+        // Create a new update
+        var updateType = 'partups_invited';
+        var updateTypeData = {
+            invitee_names: [inviteeName]
+        };
+        var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
+        Updates.insert(update);
+    }
 
     // Update stats
     partup.increaseEmailShareCount();
