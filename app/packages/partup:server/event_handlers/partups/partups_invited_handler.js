@@ -111,6 +111,8 @@ Event.on('invites.inserted.partup.by_email', function(inviter, partup, email, na
     } else {
         inviteeName = name;
     }
+    // Capitalize first letter
+    inviteeName = inviteeName.charAt(0).toUpperCase() + inviteeName.substring(1).toLowerCase();
 
     // Check if there is already an invite update
     var inviteUpdate = Updates.findOne({partup_id: partup._id, upper_id: inviter._id, type: 'partups_invited'}, {sort: {updated_at: -1}});
