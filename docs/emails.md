@@ -7,3 +7,4 @@
 * partup_created_in_network
 * partups_networks_new_pending_upper
 * partups_networks_accepted
+* invite_upper_to_partup

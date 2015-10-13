@@ -30,6 +30,7 @@
     "dropdown-notification-location": "in __location__",
     "dropdown-notification-partups_supporters_added": "__supporter__ is een nieuwe supporter",
     "dropdown-notification-partup_activities_invited": "__inviter__ nodigt je uit jouw bijdrage te leveren bij __activity__",
+    "dropdown-notification-invite_upper_to_partup": "__inviter__ nodigt je uit voor __partup__",
     "dropdown-notification-partups_contributions_accepted": "__accepter__ accepteerde jouw bijdrage",
     "dropdown-notification-partups_contributions_rejected": "__rejecter__ weigerde jouw bijdrage aan __activity__",
     "dropdown-notification-partups_networks_invited": "__inviter__ nodigde je uit om lid te worden van een tribe",

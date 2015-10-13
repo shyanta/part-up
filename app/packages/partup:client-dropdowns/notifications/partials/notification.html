@@ -28,6 +28,20 @@
         </a>
     {{/if}}
 
+    <!-- invite for partup notification -->
+    {{#if partupEqualsExactly notification.type 'invite_upper_to_partup' }}
+        <a href="{{pathFor route='partup' slug=notification.type_data.partup.slug}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.inviter.image }}');"
+                data-usercard="{{ notification.type_data.inviter._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-invite_upper_to_partup' inviter=notification.type_data.inviter.name partup=notification.type_data.partup.name }}</p>
+                <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.partup.name}}</time>
+            </article>
+        </a>
+    {{/if}}
+
     <!-- contribution accepted notification -->
     {{#if partupEqualsExactly notification.type 'partups_contributions_accepted' }}
         <a href="{{#if notification.type_data.update._id}} {{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}{{else}}{{pathFor route='partup' slug=notification.type_data.partup.slug}}{{/if}}">

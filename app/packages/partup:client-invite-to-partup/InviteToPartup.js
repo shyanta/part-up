@@ -37,8 +37,7 @@ AutoForm.hooks({
 
             var partupId = template.data.partupId;
 
-            console.error('Method "partup.invite_by_email" still needs to be implemented');
-            Meteor.call('partup.invite_by_email', partupId, insertDoc,
+            Meteor.call('partups.invite_by_email', partupId, insertDoc,
                 function(error, result) {
                     parent.submitting.set(false);
                     if (error) {

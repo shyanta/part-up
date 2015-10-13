@@ -184,6 +184,7 @@ Images.findForNotification = function(notification) {
         case 'partups_networks_new_pending_upper': images = [get(notification, 'type_data.pending_upper.image')]; break;
         case 'partups_supporters_added': images = [get(notification, 'type_data.supporter.image')]; break;
         case 'partup_activities_invited': images = [get(notification, 'type_data.inviter.image')]; break;
+        case 'invite_upper_to_partup': images = [get(notification, 'type_data.inviter.image')]; break;
         case 'partups_contributions_accepted': images = [get(notification, 'type_data.accepter.image')]; break;
         case 'partups_contributions_rejected': images = [get(notification, 'type_data.rejecter.image')]; break;
         case 'partups_user_mentioned': images = [get(notification, 'type_data.mentioning_upper.image')]; break;

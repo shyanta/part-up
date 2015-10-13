@@ -47,16 +47,28 @@ Invites.INVITE_TYPE_ACTIVITY_EMAIL = 'activity_email';
  * @memberof Invites
  * @public
  */
-Invites.INVITE_TYPE_NETWORK_EMAIL = 'network_email';
-
-/**
- * @memberof Invites
- * @public
- */
 Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER = 'activity_existing_upper';
 
 /**
  * @memberof Invites
  * @public
  */
+Invites.INVITE_TYPE_NETWORK_EMAIL = 'network_email';
+
+/**
+ * @memberof Invites
+ * @public
+ */
 Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER = 'network_existing_upper';
+
+/**
+ * @memberof Invites
+ * @public
+ */
+Invites.INVITE_TYPE_PARTUP_EMAIL = 'partup_email';
+
+/**
+ * @memberof Invites
+ * @public
+ */
+Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER = 'partup_existing_upper';

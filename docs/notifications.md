@@ -10,6 +10,7 @@
 // partups_networks_new_pending_upper
 // contributions_ratings_inserted
 // updates_first_comment
+// invite_upper_to_partup
 
 New:
 
