@@ -95,7 +95,7 @@ Template.modal_invite_to_partup.helpers({
     },
     inviteSent: function() {
         var partupId = Template.instance().data.partupId;
-        var partup = Partup.findOne(partupId);
+        var partup = Partups.findOne(partupId);
 
         return partup.hasInvitedUpper(this._id);
     },
