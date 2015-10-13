@@ -26,6 +26,7 @@ Meteor.methods({
                 linkedin: 0,
                 email: 0
             };
+            newPartup.refreshed_at = new Date();
 
             //check(newPartup, Partup.schemas.entities.partup);
 

@@ -625,5 +625,19 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 23,
+    name: 'Add refreshed_at property to partups',
+    up: function() {
+        Partups.update({}, {
+            $set: {
+                refreshed_at: new Date()
+            }
+        }, {multi:true});
+    },
+    down: function() {
+        //
+    }
+});
 
-Migrations.migrateTo(22);
+Migrations.migrateTo(23);
