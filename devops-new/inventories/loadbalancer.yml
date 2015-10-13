@@ -1,14 +1,14 @@
 [lbservers]
-178.62.10.78 name=partup-loadbalancer-london1-01
+178.62.52.142 name=partup-loadbalancer-london1-01
 
 [appservers-staging]
-178.62.97.206 name=partup-staging-london1-01
+178.62.48.222 name=partup-staging-london1-01
 
 [appservers-acceptance]
-46.101.21.4 name=partup-acceptance-london1-01
+178.62.29.238 name=partup-acceptance-london1-01
 
 [appservers-production]
-178.62.86.166 name=partup-production-london1-01
+46.101.51.124 name=partup-production-london1-01
 
 [appservers-all:children]
 appservers-staging
