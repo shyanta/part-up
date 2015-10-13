@@ -132,9 +132,9 @@ Template.modal_invite_to_partup.events({
         var partupId = template.data.partupId;
         var partup = Partups.findOne({_id: partupId});
 
-        Intent.return('partup-invite', {
+        Intent.return('partup', {
             fallback_route: {
-                name: 'partup-invite',
+                name: 'partup',
                 params: {
                     slug: partup.slug
                 }
