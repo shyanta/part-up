@@ -8,7 +8,7 @@
  */
 // jscs:enable
 Template.Popup.onCreated(function() {
-    var tpl = this;
+    var template = this;
     $('body').on('click', '[data-popup]', function(e) {
         e.preventDefault();
         try {
@@ -18,6 +18,20 @@ Template.Popup.onCreated(function() {
             return Partup.client.error('Global [data-popup] on click: ' + e);
         }
     });
+    template.scrollLeft = 0;
+    template.scrollIndex = new ReactiveVar(0);
+
+    template.resizeHandler = function() {
+        var scrollIndex = template.scrollIndex.get();
+        var width = $('[data-scroller]').width();
+        $('[data-scroller]').scrollLeft(width * scrollIndex);
+    };
+    $(window).on('resize', template.resizeHandler);
+});
+
+Template.Popup.onDestroyed(function() {
+    var template = this;
+    $(window).off('resize', template.resizeHandler);
 });
 
 Template.Popup.helpers({
@@ -32,11 +46,18 @@ Template.Popup.helpers({
     },
     imageIndex: function() {
         return Partup.client.popup.imageIndex.get();
+    },
+    galleryStart: function() {
+        return Template.instance().scrollIndex.get() === 0;
+    },
+    galleryEnd: function() {
+        return Template.instance().scrollIndex.get() === (Partup.client.popup.totalImages.get() - 1);
     }
 });
 
 Template.Popup.events({
     'click [data-overlay-dismiss]': function closePopup(event, template) {
+        template.scrollIndex.set(0);
         if (event.target !== event.currentTarget) return;
 
         try {
@@ -46,6 +67,7 @@ Template.Popup.events({
         }
     },
     'click [data-dismiss]': function closePopup(event, template) {
+        template.scrollIndex.set(0);
         var dismiss = $(event.currentTarget).data('dismiss');
         if (dismiss !== 'no-prevent') event.preventDefault();
         try {
@@ -57,16 +79,17 @@ Template.Popup.events({
     'click [data-left]': function(event, template) {
         event.preventDefault();
         event.stopPropagation();
-        var scroller = $('[data-scroller]');
-        var newLeft = scroller.scrollLeft() - scroller.width();
-        scroller.animate({scrollLeft: newLeft}, 500);
-        template.left = newLeft;
+        var scrollIndex = template.scrollIndex.get() - 1;
+        if (scrollIndex > -1) template.scrollIndex.set(scrollIndex);
+        var width = $('[data-scroller]').width();
+        $('[data-scroller]').animate({scrollLeft: width * scrollIndex}, 500);
     },
     'click [data-right]': function(event, template) {
         event.preventDefault();
         event.stopPropagation();
-        var scroller = $('[data-scroller]');
-        var newLeft = scroller.scrollLeft() + scroller.width();
-        scroller.animate({scrollLeft: newLeft}, 500);
+        var scrollIndex = template.scrollIndex.get() + 1;
+        if (scrollIndex < Partup.client.popup.totalImages.get()) template.scrollIndex.set(scrollIndex);
+        var width = $('[data-scroller]').width();
+        $('[data-scroller]').animate({scrollLeft: width * scrollIndex}, 500);
     }
 });
