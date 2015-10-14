@@ -30,7 +30,8 @@ Package.onUse(function(api) {
         'meteorhacks:ssr',
         'meteorhacks:fast-render',
         'dsyko:meteor-node-csv',
-        'random'
+        'random',
+        'peerlibrary:aws-sdk'
     ], ['server']);
 
     api.addFiles([
@@ -138,6 +139,7 @@ Package.onUse(function(api) {
         'publications/users.js',
         'publications/networks.js',
         'publications/languages.js',
+        'routes/images/images_routes.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
