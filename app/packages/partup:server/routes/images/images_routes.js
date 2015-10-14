@@ -1,3 +1,5 @@
+var gm = Npm.require('gm');
+var path = Npm.require('path');
 var Busboy = Npm.require('busboy');
 
 AWS.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
@@ -13,6 +15,9 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
     var busboy = new Busboy({'headers': request.headers});
 
     busboy.on('file', Meteor.bindEnvironment(function(fieldname, file, filename, encoding, mimetype) {
+        var extension = path.ext(filename);
+        var baseFilename = path.basename(filename, extension);
+
         var size = 0;
         var buffers = [];
 
@@ -22,19 +27,37 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
         }));
 
         file.on('end', Meteor.bindEnvironment(function() {
-            var body = Buffer.concat(buffers);
-
             var image = {
                 original: {
                     type: mimetype,
                     size: size,
-                    name: filename
+                    name: filename,
+                    basename: baseFilename,
+                    extension: extension
                 }
             };
 
             image._id = Images.insert(image);
 
-            s3.putObjectSync({Key: filename, Body: body});
+            var body = Buffer.concat(buffers);
+            s3.putObjectSync({Key: 'images/' + filename, Body: body});
+
+            var sizes = [{w: 100, h: 100}, {w: 101, h:101}];
+
+            var resize = function(body, width, height, callback) {
+                gm(body, 'x.jpg').resize(width, height).toBuffer('JPG', function(error, resizedBody) {
+                    if (error) return callback(error);
+                    return callback(null, resizedBody);
+                });
+            };
+
+            var resizeSync = Meteor.wrapAsync(resize);
+
+            sizes.forEach(function(size) {
+                var directory = size.w + 'x' + size.h;
+                var resizedBody = resizeSync(body, size.w, size.h);
+                s3.putObjectSync({Key: directory + '/' + filename, Body: resizedBody});
+            });
 
             response.end();
         }));
