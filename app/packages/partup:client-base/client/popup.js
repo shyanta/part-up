@@ -24,6 +24,7 @@ Partup.client.popup = {
      */
     current: new ReactiveVar(),
     currentType: new ReactiveVar(),
+    totalImages: new ReactiveVar(0),
 
     /**
      * Open a popup
@@ -41,10 +42,12 @@ Partup.client.popup = {
         if (!id || !mout.lang.isString(id)) throw 'id must be a string';
 
         var type = options.type || undefined;
+        var totalImages = options.totalImages || 0;
 
         // Open popup
         this.current.set(id);
         this.currentType.set(type);
+        this.totalImages.set(totalImages);
 
         // Add class to body
         $('body').addClass('pu-state-popupopen');
@@ -69,6 +72,7 @@ Partup.client.popup = {
 
         // Close popup
         this.current.set(null);
+        this.totalImages.set(0);
 
         // Remove class to body
         $('body').removeClass('pu-state-popupopen');
