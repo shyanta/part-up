@@ -81,6 +81,32 @@ Meteor.methods({
     },
 
     /**
+     * Edit a comment
+     *
+     * @param {string} updateId
+     * @param {string} commentId
+     * @param {mixed[]} fields
+     */
+    'updates.comments.update': function(updateId, commentId, fields) {
+        check(updateId, String);
+        check(commentId, String);
+        check(fields, Partup.schemas.forms.updateComment);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        var comment = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
+        if (comment) {
+            Updates.update({_id: updateId, 'comments._id': commentId}, {$set: {
+                'comments.$.content': fields.content,
+                'comments.$.updated_at': new Date()
+            }});
+        }
+    },
+
+    /**
      * Reset new comments
      *
      * @param {String} updateId
