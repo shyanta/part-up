@@ -174,13 +174,14 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-    'eventemitter2': '0.4.14',
+    'busboy': '0.2.11',
     'colors': '1.0.3',
-    'deeper': '1.0.2',
-    'winston': '0.9.0',
-    'pluralize': '1.1.2',
-    'node-flickr': '0.0.3',
-    'slug': '0.9.1',
+    'country-language': '0.1.7',
     'debug': '2.2.0',
-    'country-language': '0.1.7'
+    'deeper': '1.0.2',
+    'eventemitter2': '0.4.14',
+    'node-flickr': '0.0.3',
+    'pluralize': '1.1.2',
+    'slug': '0.9.1',
+    'winston': '0.9.0'
 });
