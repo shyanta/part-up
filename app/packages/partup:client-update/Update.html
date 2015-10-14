@@ -69,11 +69,7 @@
                             <article class="pu-block pu-block-message">
                                 <p class="pu-paragraph">{{{ partupAutolink update.messageContent }}}</p>
                                 {{# if images }}
-                                    <figure>
-                                        {{# each images }}
-                                            <img class="pu-image" src="{{ partupImageUrl id=. }}" alt="">
-                                        {{/ each }}
-                                    </figure>
+                                    {{> ImageGallery images=images updateId=update.data._id}}
                                 {{/ if}}
                             </article>
                         </section>

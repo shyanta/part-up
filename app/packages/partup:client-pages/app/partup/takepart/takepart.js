@@ -15,7 +15,9 @@ Template.app_partup_takepart.events({
             Router.go(href);
             Meteor.defer(function() {
                 if (Router.current().route.getName() === 'partup') {
-                    Partup.client.popup.open('new-message');
+                    Partup.client.popup.open({
+                        id: 'new-message'
+                    });
                 }
             });
         };

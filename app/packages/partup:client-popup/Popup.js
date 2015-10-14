@@ -7,9 +7,12 @@
  * @param {contentFor} PopupContent  the html content for the popup content
  */
 // jscs:enable
-Meteor.startup(function() {
+Template.Popup.onCreated(function() {
+    var tpl = this;
+    tpl.overflowing = new ReactiveVar(false);
     $('body').on('click', '[data-popup]', function(e) {
         e.preventDefault();
+        tpl.overflowing.set(false);
         try {
             var id = $(this).data('popup');
             Partup.client.popup.open(id);
@@ -22,6 +25,12 @@ Meteor.startup(function() {
 Template.Popup.helpers({
     currentPopup: function() {
         return Partup.client.popup.current.get();
+    },
+    type: function() {
+        return Partup.client.popup.currentType.get();
+    },
+    overflowing: function() {
+        return Partup.client.popup.totalImages.get() > 1;
     }
 });
 
@@ -43,5 +52,20 @@ Template.Popup.events({
         } catch (e) {
             return Partup.client.error('Popup [data-dismiss] on click: ' + e);
         }
+    },
+    'click [data-left]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        var scroller = $('[data-scroller]');
+        var newLeft = scroller.scrollLeft() - scroller.width();
+        scroller.animate({scrollLeft: newLeft}, 500);
+        template.left = newLeft;
+    },
+    'click [data-right]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        var scroller = $('[data-scroller]');
+        var newLeft = scroller.scrollLeft() + scroller.width();
+        scroller.animate({scrollLeft: newLeft}, 500);
     }
 });
