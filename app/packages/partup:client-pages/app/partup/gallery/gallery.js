@@ -14,6 +14,7 @@ Template.ImageGallery.events({
         Partup.client.popup.open({
             id: popupId,
             type: 'gallery',
+            imageIndex: this.images.indexOf(imageId),
             totalImages: this.images.length
         });
 

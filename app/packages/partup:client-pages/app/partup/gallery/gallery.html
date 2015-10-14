@@ -7,7 +7,7 @@
     {{#if partupIsPopupActive popupId }}
         {{#contentFor region="PopupContent" data=.}}
             {{# each images}}
-                <li>
+                <li data-id="{{.}}">
                     <figure style="background-image:url({{ partupImageUrl id=. store='1200x520'}});"></figure>
                 </li>
             {{/ each}}

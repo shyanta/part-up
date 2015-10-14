@@ -9,10 +9,8 @@
 // jscs:enable
 Template.Popup.onCreated(function() {
     var tpl = this;
-    tpl.overflowing = new ReactiveVar(false);
     $('body').on('click', '[data-popup]', function(e) {
         e.preventDefault();
-        tpl.overflowing.set(false);
         try {
             var id = $(this).data('popup');
             Partup.client.popup.open(id);
@@ -31,6 +29,9 @@ Template.Popup.helpers({
     },
     overflowing: function() {
         return Partup.client.popup.totalImages.get() > 1;
+    },
+    imageIndex: function() {
+        return Partup.client.popup.imageIndex.get();
     }
 });
 
