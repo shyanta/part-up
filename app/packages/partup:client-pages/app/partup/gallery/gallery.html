@@ -1,20 +1,16 @@
 <template name="ImageGallery">
     <ul class="pu-updateimages pu-updateimages-{{images.length}}" data-open-gallery="{{popupId}}">
         {{# each images }}
-            <li data-image="{{ . }}"><figure style="background-image:url({{ partupImageUrl id=. }});"></figure></li>
+            <li data-image="{{ . }}"><figure style="background-image:url({{ partupImageUrl id=. store='360x360'}});"></figure></li>
         {{/ each }}
     </ul>
-
     {{#if partupIsPopupActive popupId }}
-        {{#contentFor region="PopupContent"}}
-            fdhjdsahfjkdsahfjksl
-            <ul>
-                {{# each images}}
-                    <li>
-                        <img src="{{ . }}" alt="">
-                    </li>
-                {{/each}}
-            </ul>
+        {{#contentFor region="PopupContent" data=.}}
+            {{# each images}}
+                <li>
+                    <figure style="background-image:url({{ partupImageUrl id=. store='1200x520'}});"></figure>
+                </li>
+            {{/ each}}
         {{/contentFor}}
     {{/if}}
 </template>
