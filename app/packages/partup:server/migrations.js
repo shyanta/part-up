@@ -594,7 +594,7 @@ Migrations.add({
                 }});
             } else if (partup.budget_type === null) {
                 Partups.update({_id: partup._id}, {$set: {
-                    type: null,
+                    type: Partups.TYPE.CHARITY,
                     type_commercial_budget: null,
                     type_organization_budget: null
                 }, $unset: {
