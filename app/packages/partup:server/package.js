@@ -185,5 +185,6 @@ Npm.depends({
     'node-flickr': '0.0.3',
     'pluralize': '1.1.2',
     'slug': '0.9.1',
-    'winston': '0.9.0'
+    'winston': '0.9.0',
+    'gm': '1.20.0'
 });
