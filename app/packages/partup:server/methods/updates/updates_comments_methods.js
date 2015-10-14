@@ -97,12 +97,17 @@ Meteor.methods({
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
-        var comment = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
-        if (comment) {
-            Updates.update({_id: updateId, 'comments._id': commentId}, {$set: {
-                'comments.$.content': fields.content,
-                'comments.$.updated_at': new Date()
-            }});
+        try {
+            var comment = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
+            if (comment) {
+                Updates.update({_id: updateId, 'comments._id': commentId}, {$set: {
+                    'comments.$.content': fields.content,
+                    'comments.$.updated_at': new Date()
+                }});
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_comment_could_not_be_updated');
         }
     },
 
