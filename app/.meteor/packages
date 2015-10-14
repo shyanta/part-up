@@ -105,3 +105,4 @@ partup:client-update
 partup:client-usercard
 partup:meteor-bender
 partup:client-invite-to-partup
+peerlibrary:aws-sdk
