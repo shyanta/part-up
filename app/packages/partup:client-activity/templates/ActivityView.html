@@ -78,7 +78,7 @@
                             {{/if}}
 
                             {{# if COMMENTS_LINK }}
-                                <a class="pu-sub-comments {{#if newComments upper_data=update.upper_data }}pu-state-unread{{/if}}" href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}"><i class="picon-chat"></i> {{_ 'activity-comment' count=commentsCount }}</a>
+                                <a class="pu-sub-comments {{#if newComments upper_data=update.upper_data }}pu-state-unread{{/if}}" href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}"><i class="picon-chat"></i> {{_ 'activity-comment' count=update.comments_count }}</a>
                             {{/ if }}
                         </p>
                     {{/ if }}
