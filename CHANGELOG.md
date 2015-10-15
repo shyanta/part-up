@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.10.3
+- reverted intercom secure mode
+
 ## 1.10.2
 - contribution copy
 - intercom secure mode
