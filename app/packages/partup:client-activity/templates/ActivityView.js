@@ -129,7 +129,9 @@ Template.ActivityView.events({
             // If the user is not a partner, ask for motivation
             if (!partup.hasUpper(Meteor.userId())) {
                 var popupId = 'popup.motivation.' + (template.data.updateId || template.data.activity.update_id);
-                Partup.client.popup.open(popupId, function(result) {
+                Partup.client.popup.open({
+                    id: popupId
+                }, function(result) {
                     if (result && result.success) {
                         template.updateContribution({
                             motivation: result.comment

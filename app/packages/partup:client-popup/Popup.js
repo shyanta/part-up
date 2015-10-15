@@ -13,7 +13,9 @@ Template.Popup.onCreated(function() {
         e.preventDefault();
         try {
             var id = $(this).data('popup');
-            Partup.client.popup.open(id);
+            Partup.client.popup.open({
+                id: id
+            });
         } catch (e) {
             return Partup.client.error('Global [data-popup] on click: ' + e);
         }

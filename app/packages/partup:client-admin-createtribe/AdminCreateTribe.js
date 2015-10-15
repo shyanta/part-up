@@ -57,7 +57,9 @@ Template.AdminCreateTribe.events({
     'click [data-network-edit]': function(event, template) {
         var networkSlug = $(event.currentTarget).data('network-edit');
         template.currentNetwork.set(networkSlug);
-        Partup.client.popup.open('popup.admin-edit-tribe');
+        Partup.client.popup.open({
+            id: 'popup.admin-edit-tribe'
+        });
     },
     'click [data-network-remove]': function(event, template) {
         var networkId = $(event.currentTarget).data('network-remove');
