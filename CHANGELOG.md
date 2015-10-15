@@ -1,4 +1,20 @@
 # CHANGELOG
+## 1.11.0
+- switched to own infrastructure with docker
+- clustered invite updates
+- invite to partup modal, user invite and emailinvite
+- maintenance page
+- styling updates
+- image gallery display in message update
+- part-up type migration (from old hour/budget values to new)
+- ipad flow fixes
+  - photo upload
+  - 3-4 column layout
+  - date picker keyboard
+- fixes
+  - perf(shared count update): more spread out updating of share counts
+  - fix(comments): removed the space after total comments
+
 ## 1.10.3
 - reverted intercom secure mode
 
