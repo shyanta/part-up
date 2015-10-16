@@ -118,6 +118,49 @@ Template.app_discover_filter.onCreated(function() {
         },
     };
 
+    // Sorting filter datamodel
+    var languageOptions = [
+        {
+            value: 'all',
+            label: function() {
+                return __('pages-app-discover-filter-language-type-all');
+            }
+        },
+        {
+            value: 'nl',
+            label: function() {
+                return __('pages-app-discover-filter-language-type-dutch');
+            }
+        },
+        {
+            value: 'en',
+            label: function() {
+                return __('pages-app-discover-filter-language-type-english');
+            }
+        }
+    ];
+    var defaultLanguageOption = lodash.find(languageOptions, {value: Partup.client.discover.DEFAULT_QUERY.language});
+    tpl.language = {
+        options: languageOptions,
+        value: new ReactiveVar(defaultLanguageOption),
+        selectorState: new ReactiveVar(false),
+        selectorData: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
+
+            return {
+                onSelect: function(language) {
+                    tpl.language.selectorState.set(false);
+
+                    Meteor.setTimeout(function() {
+                        tpl.language.value.set(language);
+                        tpl.submitFilterForm();
+                    }, DROPDOWN_ANIMATION_DURATION);
+                },
+                options: tpl.language.options
+            };
+        },
+    };
+
     tpl.autorun(function(computation) {
         var queryValue = Session.get('discover.query.textsearch');
         if (queryValue) {
@@ -197,9 +240,21 @@ Template.app_discover_filter.helpers({
     sortingSelectorData: function() {
         return Template.instance().sorting.selectorData;
     },
+
+    // Language
+    languageValue: function() {
+        return Template.instance().language.value.get();
+    },
+    languageSelectorState: function() {
+        return Template.instance().language.selectorState;
+    },
+    languageSelectorData: function() {
+        return Template.instance().language.selectorData;
+    },
 });
 var toggleSelectorState = function(template, selector) {
     if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
+    if (template[selector] !== template.language) template.language.selectorState.set(false);
     if (template[selector] !== template.network) template.network.selectorState.set(false);
     if (template[selector] !== template.location) template.location.selectorState.set(false);
     var currentState = template[selector].selectorState.get();
@@ -220,7 +275,8 @@ Template.app_discover_filter.events({
             textSearch: form.elements.textsearch.value || undefined,
             networkId: form.elements.network_id.value || undefined,
             locationId: form.elements.location_id.value || undefined,
-            sort: form.elements.sorting.value || undefined
+            sort: form.elements.sorting.value || undefined,
+            language: form.elements.language.value || undefined
         });
 
         window.scrollTo(0, 0);
@@ -272,5 +328,11 @@ Template.app_discover_filter.events({
     'click [data-open-sortingselector]': function(event, template) {
         event.preventDefault();
         toggleSelectorState(template, 'sorting');
+    },
+
+    // Language selector events
+    'click [data-open-languageselector]': function(event, template) {
+        event.preventDefault();
+        toggleSelectorState(template, 'language');
     }
 });

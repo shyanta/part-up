@@ -59,6 +59,18 @@
                 {{> Dropdown toggle=sortingSelectorState template="BasicSelector" data=sortingSelectorData }}
             </div>
 
+            <!-- Label -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-language-label' }}</p>
+
+            <!-- Language -->
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="language" value="{{ languageValue.value }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-languageselector>
+                    {{ languageValue.label }}
+                </a>
+                {{> Dropdown toggle=languageSelectorState template="BasicSelector" data=languageSelectorData }}
+            </div>
+
             <!-- Hidden send button -->
             <input type="submit" value="Versturen" class="pu-sub-submit">
         </div>
