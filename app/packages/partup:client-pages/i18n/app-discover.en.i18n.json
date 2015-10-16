@@ -11,6 +11,11 @@
     "pages-app-discover-filter-locationfilter-title": "Suggestions",
     "pages-app-discover-filter-locationfilter-placeholder": "Search for a town or region",
 
+    "pages-app-discover-filter-language-label": "in the language",
+    "pages-app-discover-filter-language-type-all": "All languages",
+    "pages-app-discover-filter-language-type-english": "English",
+    "pages-app-discover-filter-language-type-dutch": "Nederlands",
+
     "pages-app-discover-heading": "Discover",
     "pages-app-discover-loading": "Loading...",
     "pages-app-discover-nopartups": "no part-ups found, please adjust your filter",
