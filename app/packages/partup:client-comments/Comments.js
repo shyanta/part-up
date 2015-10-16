@@ -152,6 +152,19 @@ Template.Comments.helpers({
     },
     fullView: function() {
         return this.fullView;
+    },
+    imageForComment: function() {
+        var commentImage = Images.findOne(this.creator.image);
+        if (commentImage) {
+            return this.creator.image;
+        } else {
+            commentUser = Meteor.users.findOne(this.creator._id);
+            if (commentUser) {
+                return commentUser.profile.image;
+            } else {
+                return '';
+            }
+        }
     }
 });
 

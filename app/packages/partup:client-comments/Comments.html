@@ -51,7 +51,7 @@
                         <!-- {{/if}} -->
                     {{ else }}
                         <li class="pu-comment">
-                            <figure data-usercard="{{creator._id}}" class="pu-avatar pu-avatar-small pu-avatar-square" style="{{#with creator.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
+                            <figure data-usercard="{{creator._id}}" class="pu-avatar pu-avatar-small pu-avatar-square" style="background-image:url('{{ partupImageUrl id=imageForComment store='360x360'}}');"></figure>
                             <div>
                                 <p>
                                     {{# if isMotivation }}
