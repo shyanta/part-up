@@ -41,5 +41,9 @@ Partup.schemas.entities.settings = new SimpleSchema({
     'email.partups_networks_accepted': {
         type: Boolean,
         optional: true
+    },
+    'email.invite_upper_to_partup': {
+        type: Boolean,
+        optional: true
     }
 });

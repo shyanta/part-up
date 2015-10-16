@@ -74,7 +74,6 @@ Partup.server.services.google = {
             // For more details: https://cloud.google.com/translate/v2/using_rest?hl=en#detect-language
             var response = HTTP.get('https://www.googleapis.com/language/translate/v2/detect?key=' + key + '&q=' + query);
         } catch (error) {
-            Log.error('Google Translate API returned with an error.', error);
             return defaultValue;
         }
 

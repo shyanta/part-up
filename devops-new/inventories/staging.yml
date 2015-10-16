@@ -1,5 +1,5 @@
 [appservers]
-95.85.62.61 name=partup-staging-amsterdam2-01
+178.62.48.222 name=partup-staging-london1-01
 
 [staging:children]
 appservers

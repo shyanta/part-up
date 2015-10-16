@@ -33,7 +33,7 @@
 
     "update-type-partups_location_changed-title": "__name__ changed the part-up region",
 
-    "update-type-partups_invited-title": "__name__ invited __invitee_name__ to this part-up",
+    "update-type-partups_invited-title": "__name__ invited __invitee_names__ for this part-up",
 
     "update-type-partups_contributions_proposed-title": "__name__ proposed to contribute to '__activity__'",
     "update-type-partups_contributions_added-title": "__name__ will work on '__activity__'",

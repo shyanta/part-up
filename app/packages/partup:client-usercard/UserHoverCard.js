@@ -71,13 +71,13 @@ Template.UserHoverCard.onRendered(function() {
     });
 
     $('body').on('click', '[data-usercard]', function(e) {
-        e.preventDefault();
         hoverCardDebugger.log('clicked');
         var self = $(this);
         var s = template.hoverCardSettings.get('partup.hover-card.settings');
         var d = template.hoverCardSettings.get('partup.hover-card.data');
         if (s) template.hoverCardSettings.set('partup.hover-card.settings', false);
         if (d) template.hoverCardSettings.set('partup.hover-card.data', false);
+
 
         if (e.target.tagName.toLowerCase() === 'a') {
             e.target.href = Router.path('profile-upper-partups', {_id: self.data('usercard')});

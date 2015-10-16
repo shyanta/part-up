@@ -30,6 +30,7 @@
     "dropdown-notification-location": "in __location__",
     "dropdown-notification-partups_supporters_added": "__supporter__ is a new supporter",
     "dropdown-notification-partup_activities_invited": "__inviter__ has invited you to contribute to __activity__",
+    "dropdown-notification-invite_upper_to_partup": "__inviter__ has invited you to join __partup__",
     "dropdown-notification-partups_contributions_accepted": "__accepter__ accepted your contribution to __activity__",
     "dropdown-notification-partups_contributions_rejected": "__rejecter__ rejected your contribution to __activity__",
     "dropdown-notification-partups_networks_invited": "__inviter__ invited you to join a tribe",

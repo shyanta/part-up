@@ -178,6 +178,21 @@ Template.app_network_partups.helpers({
         return function registerCallback(callback) {
             tpl.partups.layout.clear = callback;
         };
+    },
+    rerenderLayoutHook: function() {
+        var tpl = Template.instance();
+
+        return function registerCallback(callback) {
+            tpl.partups.layout.rerender = callback;
+        };
+    },
+    amountOfColumns: function() {
+        var tpl = Template.instance();
+        var smaller = Partup.client.screensize.current.get('width') < Partup.client.grid.getWidth(11) + 80;
+        Meteor.defer(function() {
+            tpl.partups.layout.rerender();
+        });
+        return smaller ? 3 : 4;
     }
 });
 

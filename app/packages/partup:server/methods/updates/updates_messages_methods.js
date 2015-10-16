@@ -45,37 +45,30 @@ Meteor.methods({
      * @param {string} updateId
      * @param {mixed[]} fields
      */
-    /* DISABLED UNTIL NEEDED IN FRONTEND
-    'updates.messages.edit': function(updateId, fields) {
+    'updates.messages.update': function(updateId, fields) {
+        check(updateId, String);
+        check(fields, Partup.schemas.forms.newMessage);
+
+        this.unblock();
+
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var update = Updates.findOneOrFail(updateId);
-
-            Updates.update({
-                    _id: update._id
-                },
-                {
-                    $set: {
-                        type: 'partups_message_updated',
-                        type_data: {
-                            old_value: update.new_value,
-                            new_value: fields.text,
-                            images: fields.images
-                        },
-                        updated_at: new Date()
-                    }
-                }
-            );
-
-            return {
-                _id: update._id
-            };
+            var message = Updates.findOne({_id: updateId, upper_id: upper._id});
+            if (message) {
+                Updates.update({_id: message._id}, {$set: {
+                    'type_data.old_value': message.type_data.new_value,
+                    'type_data.new_value': sanitizeHtml(fields.text, {
+                        allowedTags: []
+                    }),
+                    images: fields.images,
+                    updated_at: new Date()
+                }});
+            }
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'message_could_not_be_updated');
+            throw new Meteor.Error(400, 'partup_message_could_not_be_updated');
         }
     }
-    */
 });

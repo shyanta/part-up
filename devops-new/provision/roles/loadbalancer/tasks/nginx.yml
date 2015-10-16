@@ -55,5 +55,6 @@
 - name: nginx | wait for applications to be ready
   wait_for: host={{ hostvars[item]['ansible_eth1']['ipv4']['address'] }} port=3000
   with_items: groups['appservers-' + deploy_environment]
+  when: deploy_mode != 'modulus'
   notify: nginx | reload
   tags: [nginx, nginx-mode]

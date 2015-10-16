@@ -55,12 +55,8 @@ Template.modal_invite_to_partup.onCreated(function() {
 
         var options = self.suggestionsOptions.get();
 
-        console.log('Get user suggestions for partup', partupId);
-        Partup.client.notify.error('This feature has not yet been implemented');
-        return console.error('Method "partup.user_suggestions" still needs to be implemented');
-
         // this meteor call still needs to be created
-        Meteor.call('partup.user_suggestions', partupId, options, function(error, userIds) {
+        Meteor.call('partups.user_suggestions', partupId, options, function(error, userIds) {
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }
@@ -99,7 +95,7 @@ Template.modal_invite_to_partup.helpers({
     },
     inviteSent: function() {
         var partupId = Template.instance().data.partupId;
-        var partup = Partup.findOne(partupId);
+        var partup = Partups.findOne(partupId);
 
         return partup.hasInvitedUpper(this._id);
     },
@@ -136,9 +132,9 @@ Template.modal_invite_to_partup.events({
         var partupId = template.data.partupId;
         var partup = Partups.findOne({_id: partupId});
 
-        Intent.return('partup-invite', {
+        Intent.return('partup', {
             fallback_route: {
-                name: 'partup-invite',
+                name: 'partup',
                 params: {
                     slug: partup.slug
                 }
@@ -156,11 +152,6 @@ Template.modal_invite_to_partup.events({
 
         template.inviting.set(invitingUserId, true);
 
-        console.log('Invite user to partup:', partupId, 'user:', invitingUserId);
-        Partup.client.notify.error('This feature has not yet been implemented');
-        return console.error('Method "partups.invite_existing_upper" still needs to be implemented');
-
-        // this meteor call still needs to be created
         Meteor.call('partups.invite_existing_upper', partupId, invitingUserId, function(err) {
             template.inviting.set(invitingUserId, false);
 

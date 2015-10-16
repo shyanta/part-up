@@ -74,6 +74,9 @@ Template.ActivityForm.helpers({
 /* Widget events */
 /*************************************************************/
 Template.ActivityForm.events({
+    'click [bootstrap-datepicker], touchend [bootstrap-datepicker]': function(event, template) {
+        $(event.target).closest('label').click();
+    },
     'click [data-activity-extra-fields]': function(event, template) {
         event.preventDefault();
         template.showExtraFields.set(true);

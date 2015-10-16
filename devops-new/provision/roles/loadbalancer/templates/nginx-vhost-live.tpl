@@ -35,6 +35,12 @@ server {
     ssl_stapling_verify on;
     resolver 8.8.8.8 8.8.4.4;
 
+    error_page 500 502 503 504 =200 @maintenance;
+    location @maintenance {
+        root /var/www/partup-maintenance/;
+        try_files $uri /index.html =404;
+    }
+
     location / {
         proxy_pass http://{{ item.environment }};
         proxy_http_version 1.1;

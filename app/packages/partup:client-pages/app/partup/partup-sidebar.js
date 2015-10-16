@@ -8,7 +8,7 @@
 var prettyBudget = function(partup) {
     var budget = partup['type_' + partup.type + '_budget'];
     if (partup.type === Partups.TYPE.COMMERCIAL) {
-        return budget + ' ' + __('pages-app-partup-unit-euros');
+        return budget + ' ' + __('pages-app-partup-unit-money');
     } else if (partup.type === Partups.TYPE.ORGANIZATION) {
         return budget + ' ' + __('pages-app-partup-unit-hours');
     } else {
@@ -247,7 +247,9 @@ Template.app_partup_sidebar.events({
     },
 
     'click [data-open-takepart-popup]': function(event, template) {
-        Partup.client.popup.open('take-part');
+        Partup.client.popup.open({
+            id: 'take-part'
+        });
     },
 
     'click [data-invite]': function(event, template) {

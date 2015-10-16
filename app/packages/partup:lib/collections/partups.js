@@ -308,11 +308,12 @@ Partup.prototype.removeUpperDataObject = function(upperId) {
  *
  * @memberOf Partups
  */
-Partup.prototype.addNewUpdateToUpperData = function(updateId) {
+Partup.prototype.addNewUpdateToUpperData = function(update) {
     // Update existing upper data first
     var upper_data = this.upper_data || [];
     upper_data.forEach(function(upperData) {
-        upperData.new_updates.push(updateId);
+        if (upperData._id === update.upper_id) return;
+        upperData.new_updates.push(update._id);
     });
 
     // Create object for new uppers that dont have upper_data
@@ -321,9 +322,10 @@ Partup.prototype.addNewUpdateToUpperData = function(updateId) {
     });
     var newUpperIds = _.difference(this.getUsers(), currentUpperDataIds);
     newUpperIds.forEach(function(upperId) {
+        if (upperId === update.upper_id) return;
         upper_data.push({
             _id: upperId,
-            new_updates: [updateId]
+            new_updates: [update._id]
         });
     });
 

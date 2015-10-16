@@ -278,7 +278,7 @@ Template.app_partup_updates.helpers({
             updated_at: update.updated_at,
             path: path,
             update_type: update.type,
-            invited_name: update.type_data.name,
+            invitee_names: update.type_data.invitee_names,
             is_contribution: is_contribution,
             is_rating: is_rating,
             is_system: !!update.system
@@ -360,7 +360,9 @@ Template.app_partup_updates.events({
         event.preventDefault();
 
         var proceed = function() {
-            Partup.client.popup.open('new-message');
+            Partup.client.popup.open({
+                id: 'new-message'
+            });
         };
 
         if (Meteor.userId()) {

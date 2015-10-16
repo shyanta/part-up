@@ -20,10 +20,11 @@
 
     <div data-infinitescroll-container>
         {{> ColumnsLayout
-            COLUMNS=4
+            COLUMNS=amountOfColumns
             TEMPLATE="UserTileCard"
             addHook=addToLayoutHook
             clearHook=clearLayoutHook
+            rerenderHook=rerenderLayoutHook
         }}
     </div>
 </template>

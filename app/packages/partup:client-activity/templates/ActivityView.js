@@ -20,12 +20,6 @@ Template.ActivityView.helpers({
         if (!this.activity) return;
         return Partups.findOne(this.activity.partup_id);
     },
-    commentsCount: function() {
-        var update = Updates.findOne({_id: this.activity.update_id});
-        if (!update) return;
-        if (!update.comments) return;
-        return lodash.reject(update.comments, 'type', 'system').length;
-    },
     contributions: function() {
         if (!this.activity || this.contribution_id) return;
 
@@ -129,7 +123,9 @@ Template.ActivityView.events({
             // If the user is not a partner, ask for motivation
             if (!partup.hasUpper(Meteor.userId())) {
                 var popupId = 'popup.motivation.' + (template.data.updateId || template.data.activity.update_id);
-                Partup.client.popup.open(popupId, function(result) {
+                Partup.client.popup.open({
+                    id: popupId
+                }, function(result) {
                     if (result && result.success) {
                         template.updateContribution({
                             motivation: result.comment

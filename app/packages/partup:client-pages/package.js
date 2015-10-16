@@ -92,6 +92,10 @@ Package.onUse(function(api) {
         'app/partup/takepart/takepart.html',
         'app/partup/takepart/takepart.js',
 
+        // App:partup:gallery (update)
+        'app/partup/gallery/gallery.html',
+        'app/partup/gallery/gallery.js',
+
         // App:partup:updates
         'app/partup/updates/updates.html',
         'app/partup/updates/updates.js',

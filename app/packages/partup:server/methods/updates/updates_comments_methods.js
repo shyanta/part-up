@@ -81,6 +81,37 @@ Meteor.methods({
     },
 
     /**
+     * Edit a comment
+     *
+     * @param {string} updateId
+     * @param {string} commentId
+     * @param {mixed[]} fields
+     */
+    'updates.comments.update': function(updateId, commentId, fields) {
+        check(updateId, String);
+        check(commentId, String);
+        check(fields, Partup.schemas.forms.updateComment);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var comment = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
+            if (comment) {
+                Updates.update({_id: updateId, 'comments._id': commentId}, {$set: {
+                    'comments.$.content': fields.content,
+                    'comments.$.updated_at': new Date()
+                }});
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_comment_could_not_be_updated');
+        }
+    },
+
+    /**
      * Reset new comments
      *
      * @param {String} updateId
@@ -89,7 +120,10 @@ Meteor.methods({
         check(updateId, String);
 
         try {
-            Updates.update({_id: updateId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_comments': []}});
+            var update = Updates.findOne({_id: updateId, 'upper_data._id': Meteor.userId()});
+            if (update && update._id) {
+                Updates.update({_id: updateId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_comments': []}});
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partup_new_comments_could_not_be_reset');

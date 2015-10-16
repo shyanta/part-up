@@ -8,7 +8,7 @@ Event.on('partups.updates.inserted', function(userId, update) {
     update = new Update(update);
 
     // Update the new_updates list for all users of this partup
-    partup.addNewUpdateToUpperData(update._id);
+    partup.addNewUpdateToUpperData(update);
 
     // Create a clean set of new_comments list for the update
     var updateUpperData = [];

@@ -45,9 +45,6 @@ Partup.server.services.system_messages = {
                         created_at: new Date(),
                         updated_at: new Date()
                     }
-                },
-                $inc: {
-                    comments_count: 1
                 }
             };
 

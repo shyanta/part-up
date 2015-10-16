@@ -82,6 +82,7 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
     // Update existing upper data first
     var upper_data = this.upper_data || [];
     upper_data.forEach(function(upperData) {
+        if (upperData._id === comment.creator._id) return;
         upperData.new_comments.push(comment._id);
     });
 
@@ -92,6 +93,7 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
 
     var newUpperIds = _.difference(upperIds, currentUpperDataIds);
     newUpperIds.forEach(function(upperId) {
+        if (upperId === comment.creator._id) return;
         upper_data.push({
             _id: upperId,
             new_comments: [comment._id]
@@ -99,6 +101,24 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
     });
 
     Updates.update({_id: this._id}, {$set: {upper_data: upper_data}});
+};
+
+/**
+ * Check if an update is the last updated update of the partup
+ *
+ * @memberOf Updates
+ */
+Update.prototype.isLatestUpdateOfItsPartup = function() {
+    var updates = Updates.find({partup_id: this.partup_id});
+    var self = this;
+    var isLatestUpdateOfItsPartup = true;
+    updates.forEach(function(update) {
+        if (update.updated_at > self.updated_at) {
+            isLatestUpdateOfItsPartup = false;
+        }
+    });
+
+    return isLatestUpdateOfItsPartup;
 };
 
 /**

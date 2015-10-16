@@ -140,7 +140,8 @@ AutoForm.hooks({
                             invite_upper_to_network: true,
                             partup_created_in_network: true,
                             partups_networks_new_pending_upper: true,
-                            partups_networks_accepted: true
+                            partups_networks_accepted: true,
+                            invite_upper_to_partup: true
                         },
                         unsubscribe_email_token: Random.secret()
                     }

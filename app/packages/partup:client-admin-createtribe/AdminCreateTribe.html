@@ -51,7 +51,7 @@
         </li>
 
         {{#if partupIsPopupActive 'popup.admin-edit-tribe' }}
-            {{#contentFor "PopupContent" }}
+            {{#contentFor region="PopupContent" data=. }}
                 {{> _EditTribe networkSlug=currentNetwork }}
             {{/contentFor}}
         {{/if}}

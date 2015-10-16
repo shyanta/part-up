@@ -359,6 +359,16 @@ Template.Partupsettings.helpers({
 });
 
 Template.Partupsettings.events({
+    'click [bootstrap-datepicker], touchend [bootstrap-datepicker]': function(event, template) {
+        $(event.target).closest('label').click();
+    },
+    'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
+        event.preventDefault();
+
+        // in stead fire click event on file input
+        var input = $('input[data-imageupload]');
+        input.click();
+    },
     'keyup [data-max]': function(event, template) {
         var $inputElement = $(event.currentTarget);
         var max = parseInt($inputElement.attr('maxlength'));
@@ -398,6 +408,8 @@ Template.Partupsettings.events({
     },
     'change [data-type]': function(event, template) {
         var input = template.find('[data-type] :checked');
+        if (!input) return;
+
         template.selectedType.set(input.value);
         setTimeout(function() {
             template.$('[name=type]').trigger('blur');

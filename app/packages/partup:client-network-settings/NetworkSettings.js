@@ -149,7 +149,7 @@ Template.NetworkSettings.events({
     'input [maxlength]': function(e, template) {
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
     },
-    'click [data-image-browse]': function(event, template) {
+    'click [data-image-browse], touchend [data-image-browse]': function(event, template) {
         event.preventDefault();
         template.find('[data-image-input]').click();
     },
@@ -171,7 +171,7 @@ Template.NetworkSettings.events({
 
         });
     },
-    'click [data-icon-browse]': function(event, template) {
+    'click [data-icon-browse], touchend [data-icon-browse]': function(event, template) {
         event.preventDefault();
         template.find('[data-icon-input]').click();
     },

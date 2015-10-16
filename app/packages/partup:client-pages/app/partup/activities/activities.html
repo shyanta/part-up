@@ -3,7 +3,7 @@
 
         <!-- new activity popup -->
         {{#if partupIsPopupActive 'new-activity' }}
-            {{#contentFor "PopupContent"}}
+            {{#contentFor region="PopupContent" data=.}}
                 {{#contentFor "PopupTitle"}}
                     {{_ "pages-app-partup-activities-newactivity_title"}}
                 {{/contentFor}}

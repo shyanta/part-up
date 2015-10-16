@@ -10,7 +10,7 @@
                 </figure>
             {{ else }}
                 <figure class="pu-avatar pu-avatar-update">
-                    <a href="#" rel="author" data-usercard="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#with metadata.updateUpper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with}}"></a>
+                    <a href="{{ pathFor route='profile-upper-partups' _id=metadata.updateUpper._id }}" rel="author" data-usercard="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#with metadata.updateUpper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with}}"></a>
                 </figure>
             {{/ if }}
 
@@ -69,11 +69,7 @@
                             <article class="pu-block pu-block-message">
                                 <p class="pu-paragraph">{{{ partupAutolink update.messageContent }}}</p>
                                 {{# if images }}
-                                    <figure>
-                                        {{# each images }}
-                                            <img class="pu-image" src="{{ partupImageUrl id=. }}" alt="">
-                                        {{/ each }}
-                                    </figure>
+                                    {{> ImageGallery images=images updateId=update.data._id}}
                                 {{/ if}}
                             </article>
                         </section>

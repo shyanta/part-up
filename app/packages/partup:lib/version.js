@@ -3,7 +3,8 @@
  */
 Version = {
     get: function() {
-        HTTP.get(Meteor.absoluteUrl('VERSION'), function(error, response) {
+        var now = new Date();
+        HTTP.get(Meteor.absoluteUrl('VERSION') + '?' + now.getTime(), function(error, response) {
             if (error || !response) return;
 
             // Be sure the result is a binary file

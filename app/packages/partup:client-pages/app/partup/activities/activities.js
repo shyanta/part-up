@@ -95,7 +95,9 @@ Template.app_partup_activities.events({
 
         var userId = Meteor.userId();
         var proceed = function() {
-            Partup.client.popup.open('new-activity');
+            Partup.client.popup.open({
+                id: 'new-activity'
+            });
         };
 
         if (!userId) {

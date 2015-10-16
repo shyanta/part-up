@@ -42,8 +42,8 @@ program
         arguments.push('--limit=' + destination.toLowerCase());
 
         if (inventory !== 'vagrant') {
-            arguments.push('--vault-password-file=~/.ssh/lifely-server');
-            arguments.push('--private-key=~/.ssh/lifely-server');
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
+            arguments.push('--private-key=~/.ssh/partup-server');
         }
 
         run('ansible-playbook', arguments);
@@ -59,7 +59,7 @@ program
         arguments.push('-a', command.toLowerCase());
 
         if (inventory !== 'vagrant') {
-            arguments.push('--private-key=~/.ssh/lifely-server');
+            arguments.push('--private-key=~/.ssh/partup-server');
             arguments.push('--user=root');
         }
 
@@ -76,8 +76,8 @@ program
         arguments.push('--limit=' + destination.toLowerCase());
 
         if (inventory !== 'vagrant') {
-            arguments.push('--vault-password-file=~/.ssh/lifely-server');
-            arguments.push('--private-key=~/.ssh/lifely-server');
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
+            arguments.push('--private-key=~/.ssh/partup-server');
             arguments.push('--user=deploy');
         }
 
@@ -91,7 +91,7 @@ program
 
         arguments.push('edit');
         arguments.push(file);
-        arguments.push('--vault-password-file=~/.ssh/lifely-server');
+        arguments.push('--vault-password-file=~/.ssh/partup-server');
 
         run('ansible-vault', arguments);
     });
@@ -103,33 +103,37 @@ program
 
         arguments.push('view');
         arguments.push(file);
-        arguments.push('--vault-password-file=~/.ssh/lifely-server');
+        arguments.push('--vault-password-file=~/.ssh/partup-server');
 
         run('ansible-vault', arguments);
     });
 
 program
-    .command('encrypt <file>')
-    .action(function(file) {
-        var arguments = [];
+    .command('encrypt <files...>')
+    .action(function(files) {
+        files.forEach(function(file) {
+            var arguments = [];
 
-        arguments.push('encrypt');
-        arguments.push(file);
-        arguments.push('--vault-password-file=~/.ssh/lifely-server');
+            arguments.push('encrypt');
+            arguments.push(file);
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
 
-        run('ansible-vault', arguments);
+            run('ansible-vault', arguments);
+        });
     });
 
 program
-    .command('decrypt <file>')
-    .action(function(file) {
-        var arguments = [];
+    .command('decrypt <files...>')
+    .action(function(files) {
+        files.forEach(function(file) {
+            var arguments = [];
 
-        arguments.push('decrypt');
-        arguments.push(file);
-        arguments.push('--vault-password-file=~/.ssh/lifely-server');
+            arguments.push('decrypt');
+            arguments.push(file);
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
 
-        run('ansible-vault', arguments);
+            run('ansible-vault', arguments);
+        });
     });
 
 program.parse(process.argv);

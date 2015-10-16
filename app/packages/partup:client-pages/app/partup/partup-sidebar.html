@@ -4,7 +4,7 @@
         {{#contentFor region="PopupTitle"}}
             {{_ 'pages-app-partup-takepart-title'}}
         {{/contentFor}}
-        {{> contentFor region="PopupContent" template="app_partup_takepart" }}
+        {{> contentFor region="PopupContent" data=. template="app_partup_takepart" }}
     {{/if}}
 
     <!-- sidebar header image -->
@@ -37,14 +37,12 @@
                             </li>
                         {{/ if }}
                         {{#if showInviteButton}}
-                            <!-- disabled until backend flow is implemented
                             <li class="pu-sub-button">
                                 <a href="#" class="pu-button" data-invite>
                                     <i class="picon-person-plus picon-large"></i>
                                     {{_ 'pages-app-partup-invite' }}
                                 </a>
                             </li>
-                            -->
                         {{/if}}
                     </ul>
                 </section>

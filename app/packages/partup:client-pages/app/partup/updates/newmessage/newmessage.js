@@ -39,7 +39,7 @@ Template.app_partup_updates_newmessage.helpers({
 
 // events
 Template.app_partup_updates_newmessage.events({
-    'click [data-browse-photos]': function eventClickBrowse(event, template) {
+    'click [data-browse-photos], touchend [data-browse-photos]': function eventClickBrowse(event, template) {
         event.preventDefault();
 
         // in stead fire click event on file input

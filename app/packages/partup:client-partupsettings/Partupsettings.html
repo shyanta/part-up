@@ -61,7 +61,8 @@
             </div>
         </label>
 
-        <label class="pu-formfield">
+        <!-- Type -->
+        <div class="pu-formfield">
             <span class="pu-label">
                 {{_ 'partupsettings-form-type-label' }}
             </span>
@@ -103,7 +104,7 @@
                 {{> afFieldInput type='hidden' name='type' value=selectedType }}
                 <!-- {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }} -->
             </div>
-        </label>
+        </div>
 
         <!-- End date -->
         <label class="pu-formfield">
@@ -118,7 +119,7 @@
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                 <div class="pu-inputholder pu-inputholder-lefticon">
                     <span class="pu-sub-input">
-                        <input type="text" bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ formPlaceholders.end_date }}">
+                        <input type="text" bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ formPlaceholders.end_date }}" readonly>
                         {{> afFieldInput name='end_date' type='hidden' }}
                         <a href="#" class="pu-sub-remove picon-times" data-removedate tabindex="-1"></a>
                     </span>
@@ -150,7 +151,7 @@
         </label>
 
         {{# if CREATE }}
-            <label class="pu-formfield">
+            <div class="pu-formfield">
                 <span class="pu-label">
                     {{_ 'partupsettings-form-privacy-label' }}
                     <a class="pu-hint pu-tooltip">
@@ -186,10 +187,10 @@
                     {{> afFieldInput type='hidden' name='privacy_type_input' value=selectedPrivacyType }}
                     {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }}
                 </div>
-            </label>
+            </div>
         {{/ if }}
 
-        <label class="pu-formfield">
+        <div class="pu-formfield">
             <span class="pu-label">
                 {{_ 'partupsettings-form-phase-label' }}
             </span>
@@ -206,13 +207,13 @@
 
                 {{> afFieldInput type='hidden' name='phase' value=selectedPhase }}
             </div>
-        </label>
+        </div>
 
         <!-- Image -->
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-image-label' }}</span>
             {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImageId }}
-            <input type="file" class="pu-fileinput" id="imageFileInput" data-imageupload>
+            <input type="file" class="pu-fileinput" data-imageupload>
 
             {{> afFieldInput name="focuspoint_x_input" type="hidden" }}
             {{> afFieldInput name="focuspoint_y_input" type="hidden" }}
@@ -225,12 +226,12 @@
                     </div>
                     {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImageId view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
                     <div class="pu-sub-buttons">
-                        <label for="imageFileInput" class="pu-sub-left pu-button pu-button-secondary">
+                        <button data-browse-photos class="pu-sub-left pu-button pu-button-secondary">
                             <span>{{_ 'partupsettings-image-button-overwrite'}}</span>
                             {{#if uploadingPicture}}
                                 {{> Spinner color='inverted' type='small'}}
                             {{/if}}
-                        </label>
+                        </button>
                         <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
                             <i class="picon-times"></i>
                         </button>
@@ -240,9 +241,9 @@
             {{ else }}
 
                 <div class="pu-upload pu-upload-large">
-                    <label for="imageFileInput" class="pu-button pu-button-secondary">
+                    <button data-browse-photos class="pu-button pu-button-secondary">
                         <span>{{_ 'partupsettings-image-button'}}</span>
-                    </label>
+                    </button>
                     <span>{{_ 'partupsettings-image-validation'}}</span>
                 </div>
 

@@ -2,6 +2,27 @@
  * Generate a notification and email when an invite gets sent
  */
 Event.on('invites.inserted.activity', function(inviter, partup, activity, invitee) {
+    // Check if there is already an invite update
+    var inviteUpdate = Updates.findOne({partup_id: partup._id, upper_id: inviter._id, type: 'partups_invited'}, {sort: {updated_at: -1}});
+
+    if (inviteUpdate && inviteUpdate.isLatestUpdateOfItsPartup()) {
+        // Update the update with new invitee name
+        var inviteeNames = inviteUpdate.type_data.invitee_names;
+        inviteeNames.unshift(User(invitee).getFirstname());
+        Updates.update(inviteUpdate._id, {$set: {
+            'type_data.invitee_names': inviteeNames,
+            updated_at: new Date()
+        }});
+    } else {
+        // Create a new update
+        var updateType = 'partups_invited';
+        var updateTypeData = {
+            invitee_names: [User(invitee).getFirstname()]
+        };
+        var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
+        Updates.insert(update);
+    }
+
     // Set the notification details
     var notificationOptions = {
         userId: invitee._id,
@@ -95,6 +116,14 @@ Event.on('invites.inserted.activity.by_email', function(inviter, partup, activit
 
     // Send the email
     Partup.server.services.emails.send(emailOptions);
+
+    // Create a new update
+    var updateType = 'partups_invited';
+    var updateTypeData = {
+        invitee_names: [name]
+    };
+    var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
+    Updates.insert(update);
 
     // Update stats
     partup.increaseEmailShareCount();
