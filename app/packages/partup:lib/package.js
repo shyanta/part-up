@@ -70,6 +70,7 @@ Package.onUse(function(api) {
         'schemas/inviteUpper.js',
         'schemas/rating.js',
         'schemas/networkBulkinvite.js',
+        'schemas/language.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -118,6 +119,7 @@ Package.onUse(function(api) {
     api.export('Places');
     api.export('PlacesAutocompletes');
     api.export('Uploads');
+    api.export('Languages');
 
     // Globals
     api.export('get');
