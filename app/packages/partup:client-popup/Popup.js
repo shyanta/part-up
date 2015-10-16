@@ -39,20 +39,19 @@ Template.Popup.onCreated(function() {
             return;
         }
         Tracker.nonreactive(function() {
-            Meteor.setTimeout(function() {
+            Meteor.defer(function() {
                 var scrollIndex = Partup.client.popup.imageIndex.get();
                 template.scrollIndex.set(scrollIndex);
                 var width = $(template.find('[data-scroller]')).width();
                 $('[data-scroller]').scrollLeft(width * scrollIndex);
                 template.finishedLoading.set(true);
-            }, 1000);
+            });
         });
     });
 });
 
 Template.Popup.onDestroyed(function() {
     var template = this;
-    template.finishedLoading.set(false);
     $(window).off('resize', template.resizeHandler);
 });
 
