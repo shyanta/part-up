@@ -55,6 +55,7 @@ Package.onUse(function(api) {
         'collections/tags.js',
         'collections/places.js',
         'collections/places_autocompletes.js',
+        'collections/languages.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
