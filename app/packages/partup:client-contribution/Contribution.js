@@ -20,6 +20,10 @@ Template.Contribution.onCreated(function() {
     this.submitting = new ReactiveVar(false);
 });
 
+var hasValue = function(value) {
+    return (typeof value == 'number');
+};
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -33,10 +37,10 @@ Template.Contribution.helpers({
         return Template.instance().showForm.get();
     },
     addsValue: function() {
-        return this.contribution.hours || this.contribution.rate;
+        return hasValue(this.contribution.hours) || hasValue(this.contribution.rate);
     },
     showSplit: function() {
-        return this.contribution.hours && this.contribution.rate;
+        return hasValue(this.contribution.hours) && hasValue(this.contribution.rate);
     },
     upper: function(event, template) {
         return Meteor.users.findOne({_id: this.contribution.upper_id});
@@ -61,6 +65,9 @@ Template.Contribution.helpers({
     },
     submitting: function() {
         return Template.instance().submitting.get();
+    },
+    hasValue: function(value) {
+        return hasValue(value);
     }
 });
 
@@ -115,7 +122,6 @@ Template.Contribution.events({
 AutoForm.addHooks(null, {
     onSubmit: function(doc) {
         if (!/editContributionForm-/.test(this.formId)) return;
-
         var template = this.template.parent();
 
         template.submitting.set(true);

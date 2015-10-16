@@ -3,6 +3,10 @@
  @name partup.transformers.contribution
  @memberof Partup.transformers
  */
+ var hasValue = function(value) {
+    return (typeof value == 'number');
+};
+
 Partup.transformers.contribution = {
     /**
      * Transform contribution to form
@@ -21,9 +25,11 @@ Partup.transformers.contribution = {
      * @param {mixed[]} fields
      */
     'fromFormContribution': function(fields) {
+        var hours = hasValue(fields.hours) ? fields.hours : null;
+        var rate = hasValue(fields.rate) ? fields.rate : null;
         return {
-            hours: fields.hours || null,
-            rate: fields.rate || null,
+            hours: hours,
+            rate: rate,
             motivation: fields.motivation || null
         };
     }

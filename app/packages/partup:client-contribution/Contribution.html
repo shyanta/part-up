@@ -57,9 +57,9 @@
                     </figure>
                     {{# if addsValue }}
                         <p>
-                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                            {{# if hasValue contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
                             {{# if showSplit }} &mdash; {{/ if }}
-                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                            {{# if hasValue contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
                         </p>
                     {{ else }}
                         <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
