@@ -3,7 +3,7 @@
         {{# contentFor 'PopupTitle' }}
             {{_ 'activity-motivation-popup-title' }}
         {{/ contentFor }}
-        {{# contentFor 'PopupContent' }}
+        {{# contentFor region='PopupContent' data=. }}
             {{> Comments showCommentForm=true update=update SHOW_COMMENTS=false type='motivation' POPUP=true }}
         {{/ contentFor }}
     {{/ if }}

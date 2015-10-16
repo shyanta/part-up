@@ -8,7 +8,7 @@
             {{#contentFor "PopupTitle"}}
                 {{_ 'pages-app-partup-updates-newmessage-title'}}
             {{/contentFor}}
-            {{#contentFor "PopupContent"}}
+            {{#contentFor region="PopupContent" data=.}}
                 {{> app_partup_updates_newmessage }}
             {{/contentFor}}
         {{/if}}
