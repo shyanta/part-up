@@ -20,12 +20,6 @@ Template.ActivityView.helpers({
         if (!this.activity) return;
         return Partups.findOne(this.activity.partup_id);
     },
-    commentsCount: function() {
-        var update = Updates.findOne({_id: this.activity.update_id});
-        if (!update) return;
-        if (!update.comments) return;
-        return lodash.reject(update.comments, 'type', 'system').length;
-    },
     contributions: function() {
         if (!this.activity || this.contribution_id) return;
 

@@ -29,6 +29,25 @@ Template.Popup.onCreated(function() {
         $('[data-scroller]').scrollLeft(width * scrollIndex);
     };
     $(window).on('resize', template.resizeHandler);
+
+    template.finishedLoading = new ReactiveVar(false);
+
+    template.autorun(function() {
+        var current = Partup.client.popup.current.get();
+        if (!current) {
+            template.finishedLoading.set(false);
+            return;
+        }
+        Tracker.nonreactive(function() {
+            Meteor.defer(function() {
+                var scrollIndex = Partup.client.popup.imageIndex.get();
+                template.scrollIndex.set(scrollIndex);
+                var width = $(template.find('[data-scroller]')).width();
+                $('[data-scroller]').scrollLeft(width * scrollIndex);
+                template.finishedLoading.set(true);
+            });
+        });
+    });
 });
 
 Template.Popup.onDestroyed(function() {
@@ -54,6 +73,9 @@ Template.Popup.helpers({
     },
     galleryEnd: function() {
         return Template.instance().scrollIndex.get() === (Partup.client.popup.totalImages.get() - 1);
+    },
+    finishedLoading: function() {
+        return Template.instance().finishedLoading.get();
     }
 });
 

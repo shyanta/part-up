@@ -100,7 +100,7 @@
     </article>
 
     {{#if partupIsPopupActive 'popup.invite-to-network' }}
-        {{#contentFor "PopupContent" }}
+        {{#contentFor region="PopupContent" data=. }}
             {{> InviteToNetwork networkId=network._id }}
         {{/contentFor}}
     {{/if}}

@@ -61,7 +61,8 @@
             </div>
         </label>
 
-        <label class="pu-formfield">
+        <!-- Type -->
+        <div class="pu-formfield">
             <span class="pu-label">
                 {{_ 'partupsettings-form-type-label' }}
             </span>
@@ -103,7 +104,7 @@
                 {{> afFieldInput type='hidden' name='type' value=selectedType }}
                 <!-- {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }} -->
             </div>
-        </label>
+        </div>
 
         <!-- End date -->
         <label class="pu-formfield">
@@ -150,7 +151,7 @@
         </label>
 
         {{# if CREATE }}
-            <label class="pu-formfield">
+            <div class="pu-formfield">
                 <span class="pu-label">
                     {{_ 'partupsettings-form-privacy-label' }}
                     <a class="pu-hint pu-tooltip">
@@ -186,10 +187,10 @@
                     {{> afFieldInput type='hidden' name='privacy_type_input' value=selectedPrivacyType }}
                     {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }}
                 </div>
-            </label>
+            </div>
         {{/ if }}
 
-        <label class="pu-formfield">
+        <div class="pu-formfield">
             <span class="pu-label">
                 {{_ 'partupsettings-form-phase-label' }}
             </span>
@@ -206,7 +207,7 @@
 
                 {{> afFieldInput type='hidden' name='phase' value=selectedPhase }}
             </div>
-        </label>
+        </div>
 
         <!-- Image -->
         <div class="pu-formfield">

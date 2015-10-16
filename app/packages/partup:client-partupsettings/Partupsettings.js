@@ -408,6 +408,8 @@ Template.Partupsettings.events({
     },
     'change [data-type]': function(event, template) {
         var input = template.find('[data-type] :checked');
+        if (!input) return;
+
         template.selectedType.set(input.value);
         setTimeout(function() {
             template.$('[name=type]').trigger('blur');

@@ -1,6 +1,7 @@
 {
     "login-loginwithpartup": "Log in with your Part-up profile",
-    "login-logingoodyouareback": "Yeah! Great to have you back. Use the Facebook or Linkedin one-click login, or use your email address and password. Are you new around here?",
+    "login-logingoodyouareback": "Yeah! Great to have you back. Use the Facebook or Linkedin one-click login, or use your email address and password.",
+    "login-newhere": "Are you new around here?",
     "login-createaccount": "Create a Part-up profile.",
 
     "login-loginfacebook": "Log in using Facebook",

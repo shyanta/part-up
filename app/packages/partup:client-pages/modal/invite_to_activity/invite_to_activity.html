@@ -101,7 +101,7 @@
     </article>
 
     {{#if partupIsPopupActive 'popup.invite-to-partup' }}
-        {{#contentFor "PopupContent" }}
+        {{#contentFor region="PopupContent" data=. }}
             {{> InviteToActivity activityId=activityId }}
         {{/contentFor}}
     {{/if}}
