@@ -52,6 +52,7 @@ Template.Popup.onCreated(function() {
 
 Template.Popup.onDestroyed(function() {
     var template = this;
+    template.finishedLoading.set(false);
     $(window).off('resize', template.resizeHandler);
 });
 

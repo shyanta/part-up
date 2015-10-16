@@ -8,14 +8,14 @@
                 <nav data-dismiss>
                     <a href="#"><i class="fa fa-times"></i></a>
                     {{#if overflowing}}
-                        {{#unless finishedLoading}}
+                        {{#if finishedLoading}}
                             {{#unless galleryStart }}
                                 <a href="#" data-left><i class="fa fa-chevron-left"></i></a>
                             {{/unless}}
                             {{#unless galleryEnd }}
                                 <a href="#" data-right><i class="fa fa-chevron-right"></i></a>
                             {{/unless}}
-                        {{/unless}}
+                        {{/if}}
                     {{/if}}
                     {{#unless finishedLoading}}
                         {{> Loader COLOR='white'}}
