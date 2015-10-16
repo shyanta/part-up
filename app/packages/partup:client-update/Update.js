@@ -18,12 +18,15 @@
 /* Helper functions */
 /*************************************************************/
 var budgetDisplay = function(type, value) {
-    if (type === 'money') {
+    if (type === 'charity') {
+        return __('update-budget-type-none');
+    } else if (type === 'enterprising') {
+        return __('update-budget-type-none');
+    } else if (type === 'commercial') {
         return __('update-budget-type-money', value);
-    } else if (type === 'hours') {
-        return __('update-budget-type-hours', value);
+    } else if (type === 'organization') {
+        return __('update-budget-type-money', value);
     }
-
     return __('update-budget-type-none');
 };
 
