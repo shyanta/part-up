@@ -197,8 +197,17 @@ Template.app_discover_filter.onRendered(function() {
         }
     });
 
+    var dropdown_element = tpl.find('[data-filterbar]');
+    tpl.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
+        // Disable the dropdown
+        toggleSelectorState(tpl);
+    });
 });
 
+Template.app_discover_filter.onDestroyed(function() {
+    var tpl = this;
+    Partup.client.elements.offClickOutside(tpl.handler);
+});
 /**
  * Discover-header helpers
  */
@@ -253,12 +262,19 @@ Template.app_discover_filter.helpers({
     },
 });
 var toggleSelectorState = function(template, selector) {
-    if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
-    if (template[selector] !== template.language) template.language.selectorState.set(false);
-    if (template[selector] !== template.network) template.network.selectorState.set(false);
-    if (template[selector] !== template.location) template.location.selectorState.set(false);
-    var currentState = template[selector].selectorState.get();
-    template[selector].selectorState.set(!currentState);
+    if (selector) {
+        if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
+        if (template[selector] !== template.language) template.language.selectorState.set(false);
+        if (template[selector] !== template.network) template.network.selectorState.set(false);
+        if (template[selector] !== template.location) template.location.selectorState.set(false);
+        var currentState = template[selector].selectorState.get();
+        template[selector].selectorState.set(!currentState);
+    } else {
+        template.sorting.selectorState.set(false);
+        template.language.selectorState.set(false);
+        template.network.selectorState.set(false);
+        template.location.selectorState.set(false);
+    }
 };
 /**
  * Discover-header events
