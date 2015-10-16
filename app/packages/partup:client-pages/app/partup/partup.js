@@ -227,7 +227,7 @@ var partupDetailLayout = {
         var height = Math.max(r.left.height, r.right.height);
         this.container.style.height = height + 'px';
         this.containerHeight = height;
-        this.reactiveContainerHeight.set(height);
+        this.reactiveContainerHeight.set(height - this.left.top);
     },
     reactiveContainerHeight: new ReactiveVar(0),
     containerHeight: 0,
