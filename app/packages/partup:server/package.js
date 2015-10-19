@@ -179,5 +179,6 @@ Npm.depends({
     'pluralize': '1.1.2',
     'node-flickr': '0.0.3',
     'slug': '0.9.1',
-    'debug': '2.2.0'
+    'debug': '2.2.0',
+    'country-language': '0.1.7'
 });
