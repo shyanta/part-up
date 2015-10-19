@@ -136,7 +136,7 @@ Meteor.users.findUserForUpdate = function(update) {
  * Find the user of a rating
  *
  * @memberOf Meteor.users
- * @param {Rating} rating
+ * @param {Ratings} rating
  * @return {Mongo.Cursor}
  */
 Meteor.users.findForRating = function(rating) {
@@ -147,7 +147,7 @@ Meteor.users.findForRating = function(rating) {
  * Find the user of a contribution
  *
  * @memberOf Meteor.users
- * @param {Contribution} contribution
+ * @param {Contributions} contribution
  * @return {Mongo.Cursor}
  */
 Meteor.users.findForContribution = function(contribution) {
@@ -158,7 +158,7 @@ Meteor.users.findForContribution = function(contribution) {
  * Safely find users that are not disabled
  *
  * @memberOf Meteor.users
- * @param {Contribution} contribution
+ * @param {Contributions} contribution
  * @return {Mongo.Cursor}
  */
 Meteor.users.findActiveUsers = function(selector, options) {
@@ -171,7 +171,7 @@ Meteor.users.findActiveUsers = function(selector, options) {
  * Find for admin list
  *
  * @memberOf Meteor.users
- * @param {Contribution} contribution
+ * @param {Contributions} contribution
  * @return {Mongo.Cursor}
  */
 Meteor.users.findForAdminList = function() {
