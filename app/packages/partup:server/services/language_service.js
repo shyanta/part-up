@@ -15,11 +15,12 @@ Partup.server.services.language = {
      * @return {String}
      */
     nativeLanguageName: function(languageCode) {
-        CountryLanguage.getLanguage(languageCode, function(error, languages) {
+        return CountryLanguage.getLanguage(languageCode, function(error, languages) {
             if (error) {
                 Log.error('Error while trying to get native language name from languageCode [' + languageCode + ']: ' + error);
             } else {
                 var nativeName = languages.nativeName[0];
+
                 d('Got language name [' + nativeName + '] from country code [' + languageCode + ']');
 
                 return nativeName;
