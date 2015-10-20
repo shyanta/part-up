@@ -4,6 +4,9 @@ Event.on('partups.inserted', function(userId, partup) {
     // Store new tags into collection
     Partup.services.tags.insertNewTags(partup.tags);
 
+    // Add language to collection if new
+    Partup.server.services.language.addNewLanguage(partup.language);
+
     // "User created this part-up" update
     var update_created = Partup.factories.updatesFactory.make(userId, partup._id, 'partups_created', {});
     Updates.insert(update_created);
@@ -74,8 +77,9 @@ Event.on('partups.inserted', function(userId, partup) {
 });
 
 Event.on('partups.updated', function(userId, partup, fields) {
-
     // Store new tags into collection
     Partup.services.tags.insertNewTags(partup.tags);
 
+    // Add language to collection if new
+    Partup.server.services.language.addNewLanguage(partup.language);
 });
