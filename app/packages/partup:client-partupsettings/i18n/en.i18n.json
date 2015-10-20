@@ -37,7 +37,7 @@
 
     "partupsettings-form-privacy-label": "Where do you want to your part-up to show up?",
     "partupsettings-form-privacy-public": "Publicly on Part-up.com",
-    "partupsettings-form-privacy-private": "Hidden (only available to premium uppers)",
+    "partupsettings-form-privacy-private": "Hidden <a class='pu-paragraph-small' target='_blank' href='/pricing'><strong>(only available to premium uppers)</strong></a>",
     "partupsettings-form-privacy-network": "Only in this tribe:",
     "partupsettings-form-privacy-network-label": "Choose a tribe",
     "partupsettings-form-privacy-tooltip": "A part-up is public by default and visible for everyone. Uppers with a premium account can start private part-ups that are only visible to invited uppers. If you are a tribe member you can select the right tribe this new part-up belongs to. The tribe settings then define the visibility of the part-up.",

@@ -162,9 +162,9 @@
 
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='privacy_type_input' }}pu-state-invalid{{/if}} {{#if afFieldIsInvalid name='network_id' }}pu-state-invalid{{/if}}">
                     <div class="pu-sub-input">
-                        <fieldset class="pu-sub-radiogroup" data-privacy-type>
+                        <fieldset class="pu-sub-radiogroup pu-paragraph" data-privacy-type>
                             {{# each privacyTypes }}
-                                <label><input type="radio" name="privacy_type_input" value="{{ value }}" class="pu-input-radio" checked="{{ privacyChecked }}">{{_ label }}</label>
+                                <label><input type="radio" name="privacy_type_input" value="{{ value }}" class="pu-input-radio" checked="{{ privacyChecked }}">{{{_ label }}}</label>
                             {{/ each }}
 
                             {{# if showNetworkDropdown }}
