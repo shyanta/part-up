@@ -158,10 +158,8 @@ Meteor.methods({
     },
 
     /**
-     * Returns user data to superadmins only
+     * Returns the user's country based on given country during registration or by IP lookup
      */
-
-    /* DISABLED UNTIL NEEDED IN FRONTEND
     'users.get_country': function() {
         var user = Meteor.user();
 
@@ -178,6 +176,5 @@ Meteor.methods({
 
             return data.country;
         }
-    },
-    */
+    }
 });
