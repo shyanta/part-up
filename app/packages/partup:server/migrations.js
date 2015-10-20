@@ -645,17 +645,13 @@ Migrations.add({
     name: 'Gather and store all part-up languages so far',
     up: function() {
         var languages = [];
-
         Partups.find({}).forEach(function(partup) {
             languages.push(partup.language);
         });
 
         var uniqueLanguages = lodash.unique(languages);
         uniqueLanguages.forEach(function(languageCode) {
-            if (!Languages.findOne({_id: languageCode})) {
-                var nativeLanguageName = Partup.server.services.language.nativeLanguageName(languageCode);
-                Languages.insert({_id: languageCode, native_name: nativeLanguageName});
-            }
+            Partup.server.services.language.addNewLanguage(languageCode);
         });
     },
     down: function() {

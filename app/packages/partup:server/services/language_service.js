@@ -26,5 +26,12 @@ Partup.server.services.language = {
                 return nativeName;
             }
         });
+    },
+
+    addNewLanguage: function(languageCode) {
+        if (!Languages.findOne({_id: languageCode})) {
+            var nativeLanguageName = this.nativeLanguageName(languageCode);
+            Languages.insert({_id: languageCode, native_name: nativeLanguageName});
+        }
     }
 };
