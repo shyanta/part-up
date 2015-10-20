@@ -640,4 +640,27 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(23);
+Migrations.add({
+    version: 24,
+    name: 'Gather and store all part-up languages so far',
+    up: function() {
+        var languages = [];
+
+        Partups.find({}).forEach(function(partup) {
+            languages.push(partup.language);
+        });
+
+        var uniqueLanguages = lodash.unique(languages);
+        uniqueLanguages.forEach(function(languageCode) {
+            if (!Languages.findOne({_id: languageCode})) {
+                var nativeLanguageName = Partup.server.services.language.nativeLanguageName(languageCode);
+                Languages.insert({_id: languageCode, native_name: nativeLanguageName});
+            }
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(24);
