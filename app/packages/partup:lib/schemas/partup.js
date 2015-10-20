@@ -14,6 +14,17 @@ var partupBaseSchema = new SimpleSchema({
         min: 10,
         max: 250
     },
+    currency: {
+        type: String,
+        optional: true,
+        allowedValues: [
+            'EUR',
+            'USD',
+            'GBP',
+            'JPY',
+            'CAD'
+        ]
+    },
     phase: {
         type: String,
         allowedValues: [
