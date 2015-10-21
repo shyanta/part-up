@@ -137,6 +137,7 @@ Package.onUse(function(api) {
         'publications/updates.js',
         'publications/users.js',
         'publications/networks.js',
+        'publications/languages.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
