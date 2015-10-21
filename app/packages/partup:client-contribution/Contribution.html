@@ -18,7 +18,12 @@
                         <label class="pu-formfield">
                             <span class="pu-label">{{_ 'contribution-form-rate-label' }}</span>
                             <div class="pu-sub-validations {{# if afFieldIsInvalid name='rate' }}pu-state-invalid{{/ if }}">
-                                <span class="pu-sub-input">{{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' numeric="true" }}</span>
+                                <span class="pu-sub-input">
+                                    <span class="pu-inputcontainer pu-inputcontainer-currency">
+                                        {{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' numeric="true" }}
+                                        {{> afFieldInput name='currency' value="EUR" placeholder='EUR' options="allowed" class="pu-input pu-input-select"}}
+                                    </span>
+                                </span>
                                 <span class="pu-sub-error">{{ afFieldMessage name='rate' }}</span>
                             </div>
                         </label>

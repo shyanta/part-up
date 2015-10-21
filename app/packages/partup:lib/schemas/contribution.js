@@ -14,7 +14,16 @@ var contributionBaseSchema = new SimpleSchema({
             'GBP',
             'JPY',
             'CAD'
-        ]
+        ],
+        autoform: {
+            options: [
+                {label: 'EUR', value: 'EUR'},
+                {label: 'USD', value: 'USD'},
+                {label: 'GBP', value: 'GBP'},
+                {label: 'JPY', value: 'JPY'},
+                {label: 'CAD', value: 'CAD'}
+            ]
+        }
     },
     hours: {
         type: Number,
