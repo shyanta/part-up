@@ -70,6 +70,11 @@ Template.app_profile.helpers({
         return profile;
     },
 
+    firstname: function() {
+        var user = Meteor.users.findOne(this.profileId);
+        return User(user).getFirstname();
+    },
+
     getRoundedScore: function() {
         var user = Meteor.users.findOne(this.profileId);
         return User(user).getReadableScore();

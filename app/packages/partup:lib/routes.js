@@ -92,6 +92,21 @@ Router.route('/profile/:_id/supporter', {
     }
 });
 
+Router.route('/profile/:_id/about', {
+    name: 'profile-about',
+    where: 'client',
+    yieldRegions: {
+        'app': {to: 'main'},
+        'app_profile': {to: 'app'},
+        'app_profile_about': {to: 'app_profile'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
+
 /*************************************************************/
 /* Profile settings modal */
 /*************************************************************/

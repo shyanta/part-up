@@ -62,15 +62,19 @@
                             <li>
                                 <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}} {{ isActiveRoute name='profile' class='pu-state-active'}}">
-                                    <i class="picon-globe"></i>
                                     {{_ 'pages-app-profile-upper-partups-nav' }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
-                                    <i class="picon-chart"></i>
                                     {{_ 'pages-app-profile-supporter-partups-nav' }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ pathFor route='profile-about' _id=profileId }}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-about' class='pu-state-active'}}">
+                                    {{_ 'pages-app-profile-about-nav' name=firstname}}
                                 </a>
                             </li>
                         </ul>
