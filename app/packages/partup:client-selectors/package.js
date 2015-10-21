@@ -24,6 +24,8 @@ Package.onUse(function(api) {
         'NetworkSelector.js',
         'LocationSelector.html',
         'LocationSelector.js',
+        'LanguageSelector.html',
+        'LanguageSelector.js',
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'
     ], 'client');
