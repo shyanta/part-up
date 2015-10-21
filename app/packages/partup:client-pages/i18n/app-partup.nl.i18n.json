@@ -19,6 +19,11 @@
     "pages-app-partup-visibility_public": "iedereen",
     "pages-app-partup-visibility_private": "uitgenodigde uppers",
     "pages-app-partup-unit-money": "euro",
+    "pages-app-partup-unit-money-EUR": "euro",
+    "pages-app-partup-unit-money-GBP": "pond",
+    "pages-app-partup-unit-money-USD": "us dollar",
+    "pages-app-partup-unit-money-JPY": "yen",
+    "pages-app-partup-unit-money-CAD": "canadese dollar",
     "pages-app-partup-unit-hours": "uur",
 
     "pages-app-partup-share_title": "Deel deze part-up",
