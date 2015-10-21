@@ -118,32 +118,11 @@ Template.app_discover_filter.onCreated(function() {
         },
     };
 
-    // Sorting filter datamodel
-    var languageOptions = [
-        {
-            value: 'all',
-            label: function() {
-                return __('pages-app-discover-filter-language-type-all');
-            }
-        },
-        {
-            value: 'nl',
-            label: function() {
-                return __('pages-app-discover-filter-language-type-dutch');
-            }
-        },
-        {
-            value: 'en',
-            label: function() {
-                return __('pages-app-discover-filter-language-type-english');
-            }
-        }
-    ];
-    var defaultLanguageOption = lodash.find(languageOptions, {value: Partup.client.discover.DEFAULT_QUERY.language});
     tpl.language = {
-        options: languageOptions,
-        value: new ReactiveVar(defaultLanguageOption),
-        selectorState: new ReactiveVar(false),
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.language),
+        selectorState: new ReactiveVar(false, function(a, b) {
+            if (!b) return;
+        }),
         selectorData: function() {
             var DROPDOWN_ANIMATION_DURATION = 200;
 
@@ -155,10 +134,9 @@ Template.app_discover_filter.onCreated(function() {
                         tpl.language.value.set(language);
                         tpl.submitFilterForm();
                     }, DROPDOWN_ANIMATION_DURATION);
-                },
-                options: tpl.language.options
+                }
             };
-        },
+        }
     };
 
     tpl.autorun(function(computation) {
@@ -350,5 +328,10 @@ Template.app_discover_filter.events({
     'click [data-open-languageselector]': function(event, template) {
         event.preventDefault();
         toggleSelectorState(template, 'language');
-    }
+    },
+    'click [data-reset-selected-language]': function(event, template) {
+        event.preventDefault();
+        template.language.value.set('');
+        template.submitFilterForm();
+    },
 });
