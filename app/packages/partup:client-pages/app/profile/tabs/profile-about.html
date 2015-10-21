@@ -1,0 +1,19 @@
+<template name="app_profile_about">
+    <header class="pu-sub-header">
+        <h2 class="pu-title">
+            {{# if partupsLoading }}
+                {{_ 'pages-app-profile-about-loading'}}
+                {{> Spinner type='small' }}
+            {{ else }}
+                {{{_ 'pages-app-profile-about-name' name=firstname }}}
+            {{/ if }}
+        </h2>
+    </header>
+
+    <section class="pu-profilelayout">
+        <article class="pu-profiletile"></article>
+        <article class="pu-profiletile"></article>
+        <article class="pu-profiletile"></article>
+        <article class="pu-profiletile"></article>
+    </section>
+</template>

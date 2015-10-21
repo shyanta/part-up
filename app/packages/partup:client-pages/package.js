@@ -73,6 +73,8 @@ Package.onUse(function(api) {
         'app/profile/tabs/profile-upper-partups.js',
         'app/profile/tabs/profile-supporter-partups.html',
         'app/profile/tabs/profile-supporter-partups.js',
+        'app/profile/tabs/profile-about.html',
+        'app/profile/tabs/profile-about.js',
 
         // App: profile settings modal
         'modal/profile_settings/profile_settings.html',
