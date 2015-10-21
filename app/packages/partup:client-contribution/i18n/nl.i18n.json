@@ -11,7 +11,13 @@
 
     "contribution-hour": "__count__ uur",
     "contribution-hour_plural": "__count__ uur",
-    "contribution-hourly-rate": "euro per uur",
+    // "contribution-hourly-rate": "__currency__ per uur",
+    "contribution-hourly-rate-EUR": "euro per uur",
+    "contribution-hourly-rate-GBP": "pond per uur",
+    "contribution-hourly-rate-USD": "us dollar per uur",
+    "contribution-hourly-rate-JPY": "yen per uur",
+    "contribution-hourly-rate-CAD": "canadian dollar per uur",
+
     "contribution-none": "Voeg eventueel uren toe",
 
     "contribution-accept": "Accepteren",

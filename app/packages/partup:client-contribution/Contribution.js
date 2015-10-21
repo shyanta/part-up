@@ -71,6 +71,10 @@ Template.Contribution.helpers({
     },
     currentCurrency: function() {
         return this.contribution.currency || 'EUR';
+    },
+    rateTranslation: function() {
+        var currency = this.contribution.currency || 'EUR';
+        return __('contribution-hourly-rate-' + currency);
     }
 });
 

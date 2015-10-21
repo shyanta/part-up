@@ -11,7 +11,14 @@
 
     "contribution-hour": "__count__ hour",
     "contribution-hour_plural": "__count__ hours",
-    "contribution-hourly-rate": "euro per hour",
+    // "contribution-hourly-rate": "euro per hour",
+    "contribution-hourly-rate": "__currency__ per hour",
+    "contribution-hourly-rate-EUR": "euro per hour",
+    "contribution-hourly-rate-GBP": "pound per hour",
+    "contribution-hourly-rate-USD": "us dollar per hour",
+    "contribution-hourly-rate-JPY": "yen per hour",
+    "contribution-hourly-rate-CAD": "canadian dollar per hour",
+
     "contribution-none": "Optionally add hours",
 
     "contribution-accept": "Accept",
