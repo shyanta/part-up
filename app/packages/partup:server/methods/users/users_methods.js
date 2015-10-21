@@ -160,21 +160,31 @@ Meteor.methods({
     /**
      * Returns the user's country based on given country during registration or by IP lookup
      */
-    'users.get_country': function() {
+    'users.get_locale': function() {
+        var defaultLocale = 'en';
         var user = Meteor.user();
 
         if (user) {
-            return user.profile.location.country;
+            return user.profile.settings.locale;
         } else {
             var ip = this.connection.clientAddress;
-            var response = HTTP.get('http://ip-api.com/json/' + ip);
-            if (response.statusCode !== 200) {
-                Log.error('IP API resulted in an error [' + response.statusCode + ']', response);
-                return '';
-            }
-            var data = get(response, 'data');
 
-            return data.country;
+            try {
+                var response = HTTP.get('http://ip-api.com/json/' + ip);
+                if (response.statusCode !== 200) {
+                    Log.error('IP API resulted in an error [' + response.statusCode + ']', response);
+                    return defaultLocale;
+                }
+                var data = get(response, 'data');
+                var countryCode = data.countryCode.toLocaleLowerCase();
+                var locale = countryCode === 'nl' ? 'nl' : defaultLocale; // Default to English if languages isn't Dutch
+                Log.debug('Got country code [' + countryCode + ']. Returning [' + locale + ']');
+
+                return locale;
+            } catch (error) {
+                Log.error('Error while retrieving country data from IP: ' + error);
+                return defaultLocale;
+            }
         }
     }
 });
