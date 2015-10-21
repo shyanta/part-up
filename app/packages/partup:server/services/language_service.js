@@ -19,7 +19,7 @@ Partup.server.services.language = {
             if (error) {
                 Log.error('Error while trying to get native language name from languageCode [' + languageCode + ']: ' + error);
             } else {
-                var nativeName = languages.nativeName[0];
+                var nativeName = languages.nativeName[0].toLocaleLowerCase();
 
                 d('Got language name [' + nativeName + '] from country code [' + languageCode + ']');
 
