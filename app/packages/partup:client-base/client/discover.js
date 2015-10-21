@@ -19,7 +19,7 @@ Partup.client.discover = {
         networkId: undefined,
         locationId: undefined,
         sort: 'new',
-        language: 'all'
+        language: undefined
     },
 
     /**
