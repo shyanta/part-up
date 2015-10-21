@@ -8,5 +8,10 @@
 
     "update-budget-type-hours": "%s uur",
     "update-budget-type-money": "%s euro",
+    "update-budget-type-money-EUR": "%s euro",
+    "update-budget-type-money-USD": "%s us dollar",
+    "update-budget-type-money-GBP": "%s pond",
+    "update-budget-type-money-JPY": "%s yen",
+    "update-budget-type-money-CAD": "%s canadese dollar",
     "update-budget-type-none": "geen budget"
 }
