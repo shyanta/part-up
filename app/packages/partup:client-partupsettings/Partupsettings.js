@@ -45,12 +45,15 @@ Template.Partupsettings.onCreated(function() {
     template.selectedPrivacyNetwork = new ReactiveVar('');
     template.tagsInputStates = new ReactiveDict();
     template.showNetworkDropdown = new ReactiveVar(false);
+    template.currentCurrency = new ReactiveVar('EUR');
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
         if (!partup) return;
 
         if (partup.location && partup.location.place_id) template.selectedLocation.set(partup.location);
+
+        if (partup.currency) template.currentCurrency.set(partup.currency);
 
         if (partup.image) {
             template.imageSystem.currentImageId.set(partup.image);
@@ -355,6 +358,9 @@ Template.Partupsettings.helpers({
     },
     privacyChecked: function() {
         return this.value === Template.instance().selectedPrivacyType.get();
+    },
+    currentCurrency: function() {
+        return Template.instance().currentCurrency.get();
     }
 });
 

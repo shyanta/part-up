@@ -68,6 +68,9 @@ Template.Contribution.helpers({
     },
     hasValue: function(value) {
         return hasValue(value);
+    },
+    currentCurrency: function() {
+        return this.contribution.currency || 'EUR';
     }
 });
 

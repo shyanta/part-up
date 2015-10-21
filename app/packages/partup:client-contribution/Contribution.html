@@ -21,7 +21,7 @@
                                 <span class="pu-sub-input">
                                     <span class="pu-inputcontainer pu-inputcontainer-currency">
                                         {{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' numeric="true" }}
-                                        {{> afFieldInput name='currency' value="EUR" placeholder='EUR' options="allowed" class="pu-input pu-input-select"}}
+                                        {{> afFieldInput name='currency' value=currentCurrency placeholder='EUR' options="allowed" class="pu-input pu-input-select"}}
                                     </span>
                                 </span>
                                 <span class="pu-sub-error">{{ afFieldMessage name='rate' }}</span>
