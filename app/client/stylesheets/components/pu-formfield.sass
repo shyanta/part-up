@@ -94,7 +94,7 @@
             pointer-events: auto
 
         &-half
-            width: 50%
+            width: 70%
 
     .pu-sub-radiogroup
         label
@@ -108,6 +108,27 @@
         .pu-inputcontainer-select
             margin-left: 20px
             line-height: 1em
+
+        .pu-inputcontainer-currency
+            .pu-input
+                display: inline-block
+
+                &:first-child
+                    width: 66%
+
+                &:last-child
+                    width: 32%
+                    vertical-align: top
+
+            &:after
+                content: '\f0d7'
+                font-family: 'FontAwesome'
+                color: $color-text-subtle
+                position: absolute
+                top: 50%
+                right: 20px - 2px
+                margin-top: -8px
+                pointer-events: none
 
     &-left
         float: left
