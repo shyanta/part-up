@@ -1,6 +1,7 @@
 {
     "pages-app-profile-upper-partups-nav": "Partner part-ups",
     "pages-app-profile-supporter-partups-nav": "Supporter part-ups",
+    "pages-app-profile-about-nav": "Who is __name__?",
 
     "pages-app-profile-upper-partups-loading": "Part-ups",
     "pages-app-profile-upper-partups-none": "__name__ is not yet a partner of a part-up",
@@ -12,5 +13,7 @@
     "pages-app-profile-supporter-partups-none": "__name__ is not yet a supporter of a part-up",
     "pages-app-profile-supporter-partups-count": "1 part-up",
     "pages-app-profile-supporter-partups-count_plural": "__count__ part-ups",
-    "pages-app-profile-supporter-partups-prefix": "__name__ is supporter in"
+    "pages-app-profile-supporter-partups-prefix": "__name__ is supporter in",
+
+    "pages-app-profile-about-name": "Who is <span class='pu-sub-countlabel'>__name__?</span>"
 }
