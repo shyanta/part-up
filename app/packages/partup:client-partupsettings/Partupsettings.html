@@ -74,11 +74,14 @@
                             <label><input type="radio" name="type_input" value="{{ value }}" class="pu-input-radio" checked="{{ typeChecked }}">{{_ label }}</label>
                             {{# if showCommercialBudget }}
                                 <label class="pu-sub-input pu-sub-input-half">
-                                    <span class="pu-inputcontainer pu-inputcontainer-text">
-                                        <span class="pu-sub-text">
+                                    <span class="pu-inputcontainer pu-inputcontainer-currency">
+                                        <!-- <span class="pu-sub-text">
                                             {{_ 'partupsettings-form-budget-unit-euro' }}
-                                        </span>
+                                        </span> -->
                                         {{> afFieldInput name='type_commercial_budget' type='text' placeholder=0 class="pu-input" }}
+                                        <!-- <span class="pu-inputcontainer pu-inputcontainer-select"> -->
+                                            {{> afFieldInput name='currency' value="EUR" placeholder='EUR' options="allowed" class="pu-input pu-input-select"}}
+                                        <!-- </span> -->
                                     </span>
                                 </label>
                             {{/ if }}
@@ -101,6 +104,7 @@
                     {{ afFieldMessage name='type_organization_budget' }}
                 </span>
 
+                <!-- {{> afFieldInput name='currency' type='hidden' value=selectedCurrency}} -->
                 {{> afFieldInput type='hidden' name='type' value=selectedType }}
                 <!-- {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }} -->
             </div>
