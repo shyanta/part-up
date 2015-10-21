@@ -65,7 +65,7 @@
             <!-- Language -->
             <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="language" value="{{ languageValue._id }}">
-                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if languageValue}}pu-state-filled{{/if}}" data-open-languageselector>
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if languageValue}}pu-state-filled{{/if}} pu-capitalize" data-open-languageselector>
                     {{#with languageValue }}
                         {{ native_name }}
                     {{else }}
