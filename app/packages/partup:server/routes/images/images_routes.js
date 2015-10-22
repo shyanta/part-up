@@ -10,6 +10,28 @@ var MAX_FILE_SIZE = 1000 * 1000 * 10; // 10 MB
 Router.route('/images/upload', {where: 'server'}).post(function() {
     var request = this.request;
     var response = this.response;
+    var token = request.query.token;
+
+    if (!token) {
+        response.statusCode = 400;
+        // TODO: Improve error message (i18n)
+        response.end(JSON.stringify({error: 'Token is required'}));
+        return;
+    }
+
+    var user = Meteor.users.findOne({
+        $or: [
+            {'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(token)},
+            {'services.resume.loginTokens.token': token}
+        ]
+    });
+
+    if (!user) {
+        response.statusCode = 401;
+        // TODO: Improve error message (i18n)
+        response.end(JSON.stringify({error: 'Unauthorized'}));
+        return;
+    }
 
     response.setHeader('Content-Type', 'application/json');
 
