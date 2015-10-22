@@ -52,18 +52,28 @@ Partup.client.uploader = {
                 dataUrl = canvas.toDataURL('image/jpeg', 0.9);
             }
 
-            Meteor.call('images.insertByDataUrl', dataUrl, function(error, dbImage) {
-                if (error) return callback(error);
-                Meteor.subscribe('images.one', dbImage._id);
-                Meteor.autorun(function(computation) {
-                    var image = Images.findOne({_id: dbImage._id});
-                    if (image && image.isUploaded() && image.url()) {
-                        computation.stop();
-                        Tracker.nonreactive(function() {
-                            callback(null, image);
-                        });
-                    }
-                });
+            var formData = new FormData();
+            formData.append('file', file);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload', false);
+            xhr.send(formData);
+
+            var data = JSON.parse(xhr.responseText);
+
+            if (data.error) {
+                // TODO: Error handling
+            }
+
+            Meteor.subscribe('images.one', data.image);
+            Meteor.autorun(function(computation) {
+                var image = Images.findOne({_id: data.image});
+                if (image) {
+                    computation.stop();
+                    Tracker.nonreactive(function() {
+                        callback(null, image);
+                    });
+                }
             });
         };
     },
