@@ -48,7 +48,6 @@ Package.onUse(function(api) {
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
-        'collections/temp.js',
         'collections/ratings.js',
         'collections/networks.js',
         'collections/users.js',
