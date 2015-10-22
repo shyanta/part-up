@@ -83,8 +83,8 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
             sizes.forEach(function(size) {
                 var directory = size.w + 'x' + size.h;
                 var resizedBody = resizeSync(filename, body, size.w, size.h);
-                image.copies[directory] = {key: directory + '/' + filekey, size: resizedBody.length};
-                s3.putObjectSync({Key: directory + '/' + filekey, Body: resizedBody, ContentType: mimetype});
+                image.copies[directory] = {key: 'images/' + filekey, size: resizedBody.length};
+                s3.putObjectSync({Key: directory + '/images/' + filekey, Body: resizedBody, ContentType: mimetype});
             });
 
             Images.insert(image);
