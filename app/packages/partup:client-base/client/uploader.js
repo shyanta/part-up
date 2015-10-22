@@ -86,19 +86,18 @@ Partup.client.uploader = {
      * @param {Function} callback
      */
     uploadImageByUrl: function(url, callback) {
-        Meteor.call('images.insertByUrl', url, function(error, output) {
-            if (error || !output) return callback(error);
+        Meteor.call('images.insertByUrl', url, function(error, result) {
+            if (error || !result) return callback(error);
 
-            Meteor.subscribe('images.one', output._id, function() {
+            Meteor.subscribe('images.one', result._id, function() {
                 Meteor.autorun(function(computation) {
-                    var image = Images.findOne({_id: output._id});
-                    if (!image) return;
-                    if (!image.isUploaded()) return;
-                    if (!image.url()) return;
+                    var image = Images.findOne({_id: result._id});
+                    if (image) {
                     computation.stop();
                     Tracker.nonreactive(function() {
                         callback(null, image);
                     });
+                    }
                 });
             });
         });

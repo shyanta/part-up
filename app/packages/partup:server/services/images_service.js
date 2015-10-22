@@ -1,9 +1,56 @@
+var gm = Npm.require('gm');
+var path = Npm.require('path');
+
 /**
  @namespace Partup server images service
  @name Partup.server.services.images
  @memberof Partup.server.services
  */
 Partup.server.services.images = {
+
+    upload: function(filename, body, mimetype) {
+        var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
+
+        var extension = path.extname(filename);
+        var filename = Random.id() + extension;
+
+        var image = {
+            _id: Random.id(),
+            name: filename,
+            type: mimetype,
+            copies: {},
+            createdAt: new Date()
+        };
+
+        var filekey = image._id + '-' + filename;
+
+        // TODO (extra): Add .autoOrient() to gm calls
+
+        s3.putObjectSync({Key: 'images/' + filekey, Body: body, ContentType: mimetype});
+        image.copies['original'] = {key: 'images/' + filekey, size: body.length};
+
+        var sizes = [{w:32, h:32}, {w:80, h:80}, {w:360, h:360}, {w:1200, h:520}];
+
+        var resize = function(filename, body, width, height, callback) {
+            gm(body, filename).resize(width, height).toBuffer(function(error, resizedBody) {
+                if (error) return callback(error);
+                return callback(null, resizedBody);
+            });
+        };
+
+        var resizeSync = Meteor.wrapAsync(resize);
+
+        sizes.forEach(function(size) {
+            var directory = size.w + 'x' + size.h;
+            var resizedBody = resizeSync(filename, body, size.w, size.h);
+            image.copies[directory] = {key: 'images/' + filekey, size: resizedBody.length};
+            s3.putObjectSync({Key: directory + '/images/' + filekey, Body: resizedBody, ContentType: mimetype});
+        });
+
+        Images.insert(image);
+
+        return image;
+    },
 
     /**
      * Store a focuspoint in an image
