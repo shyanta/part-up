@@ -4,7 +4,7 @@
  * @namespace Images
  * @memberOf Collection
  */
-Images = new Meteor.Collection('images');
+Images = new Meteor.Collection('cfs.images.filerecord'); // Collection name is for backwards compatibility
 
 /**
  * Find the images for a partup
