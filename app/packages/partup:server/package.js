@@ -12,8 +12,6 @@ Package.onUse(function(api) {
     api.use([
         'accounts-base',
         'stevezhu:lodash',
-        'cfs:standard-packages',
-        'cfs:graphicsmagick',
         'email',
         'http',
         'iron:router',

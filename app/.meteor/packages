@@ -13,12 +13,6 @@ aldeed:template-extension
 andrefgneves:iconfont
 anti:fake
 browser-policy
-cfs:file
-cfs:filesystem
-cfs:tempstore
-cfs:graphicsmagick
-cfs:s3
-cfs:standard-packages
 chrismbeckett:toastr
 cwaring:modernizr
 deepwell:bootstrap-datepicker2
