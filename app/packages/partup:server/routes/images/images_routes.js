@@ -6,19 +6,33 @@ AWS.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 AWS.config.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 AWS.config.region = process.env.AWS_BUCKET_REGION;
 
+var MAX_FILE_SIZE = 1000 * 1000 * 10; // 10 MB
+
 var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
 
 Router.route('/images/upload', {where: 'server'}).post(function() {
     var request = this.request;
     var response = this.response;
 
-    // TODO: Authorisation
+    response.setHeader('Content-Type', 'application/json');
+
+    // TODO: Authorisation, see https://github.com/CollectionFS/Meteor-http-methods/blob/master/README.md#authentication
+    // - Client: Send token parameters with POST request
+    // - Server: Find user in database using the given token
+    //      https://github.com/CollectionFS/Meteor-http-methods/blob/master/http.methods.server.api.js#L173
 
     var busboy = new Busboy({'headers': request.headers});
 
     busboy.on('file', Meteor.bindEnvironment(function(fieldname, file, filename, encoding, mimetype) {
         var extension = path.extname(filename);
-        // TODO: Check if the file is a valid image
+
+        if (!(/\.(jpg|jpeg|png)$/i).test(extension)) {
+            response.statusCode = 400;
+            // TODO: Improve error message (i18n)
+            response.end(JSON.stringify({error: 'Image is invalid'}));
+            return;
+        }
+
         var baseFilename = path.basename(filename, extension);
 
         var size = 0;
@@ -30,7 +44,12 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
         }));
 
         file.on('end', Meteor.bindEnvironment(function() {
-            // TODO: Check if the file is of a valid size
+            if (size > MAX_FILE_SIZE) {
+                response.statusCode = 400;
+                // TODO: Improve error message (i18n)
+                response.end(JSON.stringify({error: 'Image is too large'}));
+                return;
+            }
 
             var filename = Random.id() + extension;
 
@@ -44,7 +63,7 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
 
             var filekey = image._id + '-' + filename;
 
-            // TODO: Add .autoOrient() to gm calls
+            // TODO (extra): Add .autoOrient() to gm calls
 
             var body = Buffer.concat(buffers);
             s3.putObjectSync({Key: 'images/' + filekey, Body: body, ContentType: mimetype});
@@ -70,7 +89,7 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
 
             Images.insert(image);
 
-            response.end();
+            return response.end(JSON.stringify({error: false, image: image._id}));
         }));
     }));
 
