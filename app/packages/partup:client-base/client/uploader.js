@@ -16,6 +16,9 @@ Partup.client.uploader = {
         var img = document.createElement('img');
         var canvas = document.createElement('canvas');
 
+        var userId = Meteor.userId();
+        // TODO: Error if user is not loggedin
+
         var reader = new FileReader();
         reader.readAsDataURL(file);
 
@@ -52,11 +55,12 @@ Partup.client.uploader = {
                 dataUrl = canvas.toDataURL('image/jpeg', 0.9);
             }
 
+            var token = Accounts._storedLoginToken();
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload?token=' + token, false);
+
             var formData = new FormData();
             formData.append('file', file);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload', false);
             xhr.send(formData);
 
             var data = JSON.parse(xhr.responseText);
@@ -93,10 +97,10 @@ Partup.client.uploader = {
                 Meteor.autorun(function(computation) {
                     var image = Images.findOne({_id: result._id});
                     if (image) {
-                    computation.stop();
-                    Tracker.nonreactive(function() {
-                        callback(null, image);
-                    });
+                        computation.stop();
+                        Tracker.nonreactive(function() {
+                            callback(null, image);
+                        });
                     }
                 });
             });
