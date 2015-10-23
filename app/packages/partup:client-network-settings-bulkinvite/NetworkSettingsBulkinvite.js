@@ -59,35 +59,33 @@ Template.NetworkSettingsBulkinvite.events({
         template.csv_too_many_addresses.set(false);
 
         var file = event.currentTarget.files[0];
-        Temp.insert(file, function(err, fileObj) {
-            if (err) {
-                console.error('csv bulk invite error:', err);
-                template.parsing.set(false);
-                template.csv_invalid.set(true);
-                return;
+
+        var token = Accounts._storedLoginToken();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', Meteor.absoluteUrl() + 'csv/parse?token=' + token, false);
+
+        var formData = new FormData();
+        formData.append('file', file);
+        xhr.send(formData);
+
+        var data = JSON.parse(xhr.responseText);
+
+        if (data.error) {
+            console.error('Result from uploading & parsing CSV:', data.error);
+            template.csv_invalid.set(true);
+
+            if (error.reason == 'too_many_email_addresses') {
+                template.csv_too_many_addresses.set(true);
             }
 
-            fileObj.onStoredCallback('default', function() {
+            return;
+        }
 
-                Meteor.call('uploads.parse_csv', fileObj._id, function(error, result) {
-                    template.invitees.set(result);
-                    template.parsing.set(false);
+        template.invitees.set(data.result);
+        template.parsing.set(false);
 
-                    var jqInput = $(event.currentTarget.value);
-                    jqInput.replaceWith(jqInput.val('').clone(true));
-
-                    if (error) {
-                        console.error('Result from uploading & parsing CSV:', error);
-                        template.csv_invalid.set(true);
-
-                        if (error.reason == 'too_many_email_addresses') {
-                            template.csv_too_many_addresses.set(true);
-                        }
-                    }
-                });
-
-            });
-        });
+        var jqInput = $(event.currentTarget.value);
+        jqInput.replaceWith(jqInput.val('').clone(true));
     }
 });
 
