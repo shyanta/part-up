@@ -15,6 +15,7 @@ Partup.client.uploader = {
     uploadImage: function(file, callback) {
         var img = document.createElement('img');
         var canvas = document.createElement('canvas');
+        var self = this;
 
         var userId = Meteor.userId();
         // TODO: Error if user is not loggedin
@@ -55,18 +56,24 @@ Partup.client.uploader = {
                 dataUrl = canvas.toDataURL('image/jpeg', 0.9);
             }
 
+            var resizedFile = self.dataURLToBlob(dataUrl);
+
+            var newFile = new File([resizedFile], file.name);
+
+            newFile.type = resizedFile.type;
+
             var token = Accounts._storedLoginToken();
             var xhr = new XMLHttpRequest();
             xhr.open('POST', Meteor.absoluteUrl() + 'images/upload?token=' + token, false);
 
             var formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', newFile);
             xhr.send(formData);
 
             var data = JSON.parse(xhr.responseText);
 
             if (data.error) {
-                // TODO: Error handling
+                callback(data.error);
             }
 
             Meteor.subscribe('images.one', data.image);
@@ -80,6 +87,37 @@ Partup.client.uploader = {
                 }
             });
         };
+    },
+
+    /**
+     * Return a blob from dataurl
+     *
+     * @memberOf Partup.client
+     * @param {DataUrl} canvas dataurl
+     */
+
+    dataURLToBlob: function(dataURL) {
+        var BASE64_MARKER = ';base64,';
+        if (dataURL.indexOf(BASE64_MARKER) == -1) {
+            var parts = dataURL.split(',');
+            var contentType = parts[0].split(':')[1];
+            var raw = decodeURIComponent(parts[1]);
+
+            return new Blob([raw], {type: contentType});
+        }
+
+        var parts = dataURL.split(BASE64_MARKER);
+        var contentType = parts[0].split(':')[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+
+        var uInt8Array = new Uint8Array(rawLength);
+
+        for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+
+        return new Blob([uInt8Array], {type: contentType});
     },
 
     /**
