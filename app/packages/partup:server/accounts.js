@@ -139,6 +139,7 @@ Accounts.onCreateUser(function(options, user) {
     user.flags = {
         dailyDigestEmailHasBeenSent: false
     };
+    user.profile.settings.locale = Meteor.call('users.get_locale');
 
     return user;
 });
