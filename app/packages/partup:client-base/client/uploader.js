@@ -83,6 +83,26 @@ Partup.client.uploader = {
     },
 
     /**
+     * Loop through each file in a file input select event
+     *
+     * @memberOf Partup.client
+     * @param {Object} fileSelectEvent
+     * @param {Function} callback
+     */
+    eachFile: function(fileSelectEvent, callBack) {
+        var e = (fileSelectEvent.originalEvent || fileSelectEvent);
+        var files = e.target.files;
+
+        if (!files || files.length === 0) {
+            files = e.dataTransfer ? e.dataTransfer.files : [];
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            callBack(files[i]);
+        }
+    },
+
+    /**
      * Upload single image by url
      *
      * @memberOf Partup.client
