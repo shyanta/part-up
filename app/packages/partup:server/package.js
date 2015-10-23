@@ -95,6 +95,7 @@ Package.onUse(function(api) {
         'services/partup_progress_calculator_service.js',
         'services/shared_count_service.js',
         'services/language_service.js',
+        'services/locale_service.js',
         'seo/routes.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',
