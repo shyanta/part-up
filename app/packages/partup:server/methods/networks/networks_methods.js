@@ -48,7 +48,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!user || (!network.isAdmin(user._id) && !User(user).isAdmin())) {
+        if (!user || !network.isAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -305,7 +305,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.isAdmin(user._id)) {
+        if (!network.isNetworkAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -342,7 +342,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.isAdmin(user._id)) {
+        if (!network.isNetworkAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -374,8 +374,8 @@ Meteor.methods({
             throw new Meteor.Error(400, 'user_is_not_a_member_of_network');
         }
 
-        if (network.isAdmin(user._id)) {
-            throw new Meteor.Error(401, 'unauthorized');
+        if (network.isNetworkAdmin(user._id)) {
+            throw new Meteor.Error(400, 'network_admin_cant_leave_network');
         }
 
         try {
@@ -404,7 +404,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.isAdmin(user._id) || network.isAdmin(upperId)) {
+        if (!network.isAdmin(user._id) || network.isNetworkAdmin(upperId)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
