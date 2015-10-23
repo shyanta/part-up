@@ -7,12 +7,31 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
     var request = this.request;
     var response = this.response;
 
+    // We are going to respond in JSON format
     response.setHeader('Content-Type', 'application/json');
 
-    // TODO: Authorisation, see https://github.com/CollectionFS/Meteor-http-methods/blob/master/README.md#authentication
-    // - Client: Send token parameters with POST request
-    // - Server: Find user in database using the given token
-    //      https://github.com/CollectionFS/Meteor-http-methods/blob/master/http.methods.server.api.js#L173
+    var token = request.query.token;
+
+    if (!token) {
+        response.statusCode = 400;
+        // TODO: Improve error message (i18n)
+        response.end(JSON.stringify({error: 'Token is required'}));
+        return;
+    }
+
+    var user = Meteor.users.findOne({
+        $or: [
+            {'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(token)},
+            {'services.resume.loginTokens.token': token}
+        ]
+    });
+
+    if (!user) {
+        response.statusCode = 401;
+        // TODO: Improve error message (i18n)
+        response.end(JSON.stringify({error: 'Unauthorized'}));
+        return;
+    }
 
     var busboy = new Busboy({'headers': request.headers});
 
@@ -43,8 +62,6 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
                 response.end(JSON.stringify({error: 'CSV is too large'}));
                 return;
             }
-
-            // TODO (extra): Add .autoOrient() to gm calls
 
             var body = Buffer.concat(buffers);
 
