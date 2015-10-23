@@ -1,4 +1,4 @@
-var gm = Npm.require('gm');
+var gm = Npm.require('gm').subClass({imageMagick: true});
 var path = Npm.require('path');
 
 /**
