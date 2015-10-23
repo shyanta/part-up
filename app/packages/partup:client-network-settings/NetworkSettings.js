@@ -115,7 +115,7 @@ Template.NetworkSettings.helpers({
 
         if (iconId) {
             var icon = Images.findOne({_id: iconId});
-            if (icon) return icon.url({store: '360x360'});
+            if (icon) return Partup.client.url.getImageUrl(icon, '360x360');
         }
 
         return '/images/smile.png';
