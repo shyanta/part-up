@@ -11,7 +11,5 @@
     "update-budget-type-money-EUR": "%s euros",
     "update-budget-type-money-USD": "%s us dollars",
     "update-budget-type-money-GBP": "%s pounds",
-    "update-budget-type-money-JPY": "%s yen",
-    "update-budget-type-money-CAD": "%s Canadian dollars",
     "update-budget-type-none": "no budget"
 }

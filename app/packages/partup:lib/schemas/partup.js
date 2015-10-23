@@ -20,17 +20,13 @@ var partupBaseSchema = new SimpleSchema({
         allowedValues: [
             'EUR',
             'USD',
-            'GBP',
-            'JPY',
-            'CAD'
+            'GBP'
         ],
         autoform: {
             options: [
                 {label: 'EUR', value: 'EUR'},
                 {label: 'USD', value: 'USD'},
-                {label: 'GBP', value: 'GBP'},
-                {label: 'JPY', value: 'JPY'},
-                {label: 'CAD', value: 'CAD'}
+                {label: 'GBP', value: 'GBP'}
             ]
         }
     },
