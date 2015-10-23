@@ -10,6 +10,10 @@ var MAX_FILE_SIZE = 1000 * 1000 * 10; // 10 MB
 Router.route('/images/upload', {where: 'server'}).post(function() {
     var request = this.request;
     var response = this.response;
+
+    // We are going to respond in JSON format
+    response.setHeader('Content-Type', 'application/json');
+
     var token = request.query.token;
 
     if (!token) {
@@ -33,18 +37,12 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
         return;
     }
 
-    response.setHeader('Content-Type', 'application/json');
-
-    // TODO: Authorisation, see https://github.com/CollectionFS/Meteor-http-methods/blob/master/README.md#authentication
-    // - Client: Send token parameters with POST request
-    // - Server: Find user in database using the given token
-    //      https://github.com/CollectionFS/Meteor-http-methods/blob/master/http.methods.server.api.js#L173
-
     var busboy = new Busboy({'headers': request.headers});
 
     busboy.on('file', Meteor.bindEnvironment(function(fieldname, file, filename, encoding, mimetype) {
         var extension = path.extname(filename);
 
+        // Validate that the file is a valid image
         if (!(/\.(jpg|jpeg|png)$/i).test(extension)) {
             response.statusCode = 400;
             // TODO: Improve error message (i18n)
