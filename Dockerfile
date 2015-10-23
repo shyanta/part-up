@@ -1,7 +1,7 @@
 FROM node:0.10.40-wheezy
 
 RUN curl https://install.meteor.com/ | sh && \
-    apt-get install -y imagemagick
+    apt-get install -y graphicsmagick
 
 COPY . /code
 WORKDIR /code
