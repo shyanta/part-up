@@ -163,21 +163,13 @@ Template.Profilesettings.events({
         input.click();
     },
     'change [data-profile-picture-input]': function(event, template) {
-        var e = (event.originalEvent || event);
-        var files = e.target.files;
-
-        if (!files || files.length === 0) {
-            files = evt.dataTransfer ? evt.dataTransfer.files : [];
-        }
-
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
+        Partup.client.uploader.eachFile(event, function(file) {
 
             template.uploadingProfilePicture.set(true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
-                    Partup.client.notify.error(__('profilesettings-form-image-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     template.uploadingProfilePicture.set(false);
                     return;
                 }
@@ -187,6 +179,6 @@ Template.Profilesettings.events({
 
                 template.uploadingProfilePicture.set(false);
             });
-        }
+        });
     }
 });

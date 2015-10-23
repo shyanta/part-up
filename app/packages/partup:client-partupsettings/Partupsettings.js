@@ -388,7 +388,7 @@ Template.Partupsettings.events({
             template.loading.set('image-uploading', true);
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
-                    Partup.client.notify.error(__('partupsettings-image-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     template.loading.set('image-uploading', false);
                     return;
                 }

@@ -161,7 +161,7 @@ Template.NetworkSettings.events({
                 template.uploading.set('image', false);
 
                 if (error) {
-                    Partup.client.notify.error(__('network-settings-form-image-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     return;
                 }
 
@@ -183,7 +183,7 @@ Template.NetworkSettings.events({
                 template.uploading.set('icon', false);
 
                 if (error) {
-                    Partup.client.notify.error(__('network-settings-form-icon-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     return;
                 }
 

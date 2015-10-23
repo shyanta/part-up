@@ -19,7 +19,7 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
     if (!token) {
         response.statusCode = 400;
         // TODO: Improve error message (i18n)
-        response.end(JSON.stringify({error: 'Token is required'}));
+        response.end(JSON.stringify({error: {reason: 'error-imageupload-notoken'}}));
         return;
     }
 
@@ -33,7 +33,7 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
     if (!user) {
         response.statusCode = 401;
         // TODO: Improve error message (i18n)
-        response.end(JSON.stringify({error: 'Unauthorized'}));
+        response.end(JSON.stringify({error: {reason: 'error-imageupload-unauthorized'}}));
         return;
     }
 
@@ -46,7 +46,7 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
         if (!(/\.(jpg|jpeg|png)$/i).test(extension)) {
             response.statusCode = 400;
             // TODO: Improve error message (i18n)
-            response.end(JSON.stringify({error: 'Image is invalid'}));
+            response.end(JSON.stringify({error: {reason:'error-imageupload-invalidimage'}}));
             return;
         }
 
@@ -62,7 +62,7 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
             if (size > MAX_FILE_SIZE) {
                 response.statusCode = 400;
                 // TODO: Improve error message (i18n)
-                response.end(JSON.stringify({error: 'Image is too large'}));
+                response.end(JSON.stringify({error: {reason: 'error-imageupload-toolarge'}}));
                 return;
             }
 

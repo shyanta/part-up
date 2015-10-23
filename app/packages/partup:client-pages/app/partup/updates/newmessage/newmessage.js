@@ -53,10 +53,14 @@ Template.app_partup_updates_newmessage.events({
             if (total === template.maxPhotos) return;
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
+                template.uploadingPhotos.set(false);
+                if (error) {
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
+                    return;
+                }
                 var uploaded = template.uploadedPhotos.get();
                 uploaded.push(image._id);
                 template.uploadedPhotos.set(uploaded);
-                template.uploadingPhotos.set(false);
             });
             total++;
             Template.instance().totalPhotos.set(total);

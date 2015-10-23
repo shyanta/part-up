@@ -95,7 +95,7 @@ Template.AdminFeaturedNetworks.events({
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
-                    Partup.client.notify.error(__('pages-modal-admin-featured-networks-form-logo-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     template.uploadingNetworkLogo.set(false);
                     return;
                 }
