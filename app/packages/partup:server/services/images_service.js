@@ -14,16 +14,22 @@ Partup.server.services.images = {
      * @param {String} filename
      * @param {String} body
      * @param {String} mimetype
-     * @param {Object} meta
+     * @param {Object} options
+     * @param {String} options._id
+     * @param {Object} options.meta
      */
-    upload: function(filename, body, mimetype, meta) {
+    upload: function(filename, body, mimetype, options) {
         var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
 
+        var options = options || {};
+        var meta = options.meta || {};
+        var id = options.id || Random.id();
+
         var extension = path.extname(filename);
-        var filename = Random.id() + extension;
+        var filename = id + extension;
 
         var image = {
-            _id: Random.id(),
+            _id: id,
             name: filename,
             type: mimetype,
             copies: {},
@@ -31,7 +37,7 @@ Partup.server.services.images = {
             meta: meta
         };
 
-        var filekey = image._id + '-' + filename;
+        var filekey = id + '-' + filename;
 
         // TODO (extra): Add .autoOrient() to gm calls
 
