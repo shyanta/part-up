@@ -15,7 +15,7 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
     if (!token) {
         response.statusCode = 400;
         // TODO: Improve error message (i18n)
-        response.end(JSON.stringify({error: 'Token is required'}));
+        response.end(JSON.stringify({error: {reason: 'error-csvupload-notoken'}}));
         return;
     }
 
@@ -29,7 +29,7 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
     if (!user) {
         response.statusCode = 401;
         // TODO: Improve error message (i18n)
-        response.end(JSON.stringify({error: 'Unauthorized'}));
+        response.end(JSON.stringify({error: {reason: 'error-csvupload-unauthorized'}}));
         return;
     }
 
@@ -41,7 +41,7 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
         if (!(/\.(csv)$/i).test(extension)) {
             response.statusCode = 400;
             // TODO: Improve error message (i18n)
-            response.end(JSON.stringify({error: 'CSV is invalid'}));
+            response.end(JSON.stringify({error: {reason: 'error-csvupload-invalidcsv'}}));
             return;
         }
 
@@ -59,7 +59,7 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
             if (size > MAX_FILE_SIZE) {
                 response.statusCode = 400;
                 // TODO: Improve error message (i18n)
-                response.end(JSON.stringify({error: 'CSV is too large'}));
+                response.end(JSON.stringify({error: {reason: 'error-csvupload-toolarge'}}));
                 return;
             }
 
@@ -91,7 +91,7 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
                     if (list.length > 200) {
                         response.statusCode = 400;
                         // TODO: Improve error message (i18n)
-                        response.end(JSON.stringify({error: 'CSV contains too much emailadresses'}));
+                        response.end(JSON.stringify({error: {reason: 'error-csvupload-toolarge'}}));
                         return;
                     }
 
@@ -100,7 +100,7 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
                 .on('error', function(error) {
                     response.statusCode = 400;
                     // TODO: Improve error message (i18n)
-                    response.end(JSON.stringify({error: 'Failed to parse CSV'}));
+                    response.end(JSON.stringify({error: {reason: 'error-csvupload-invalidcsv'}}));
                     return;
                 });
         }));

@@ -71,7 +71,8 @@ Template.NetworkSettingsBulkinvite.events({
         var data = JSON.parse(xhr.responseText);
 
         if (data.error) {
-            console.error('Result from uploading & parsing CSV:', data.error);
+            Partup.client.notify.error(TAPi18n.__(data.error.reason));
+            console.error('Result from uploading & parsing CSV:', TAPi18n.__(data.error.reason));
             template.csv_invalid.set(true);
 
             if (error.reason == 'too_many_email_addresses') {

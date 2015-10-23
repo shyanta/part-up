@@ -70,5 +70,10 @@
     "error-imageupload-toolarge": "De afbeelding is te groot",
     "error-imageupload-invalidimage": "De afbeelding wordt niet herkend",
     "error-imageupload-unauthorized": "Nope",
-    "error-imageupload-notoken": "Nope"
+    "error-imageupload-notoken": "Nope",
+
+    "error-csvupload-notoken": "Token is nodig",
+    "error-csvupload-unauthorized": "Token is nodig",
+    "error-csvupload-invalidcsv": "CSV is incorrect",
+    "error-csvupload-toolarge": "CSV is te groot"
 }
