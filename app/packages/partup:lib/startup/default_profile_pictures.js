@@ -8,11 +8,10 @@ Meteor.startup(function() {
 
         if (!exists) {
             var filename = 'Profielfoto' + i + '.png';
-            var body = Assets.getBinary('private/default_profile_pictures/' + filename).buffer;
-            var mimetype = 'image/png';
+            var body = new Buffer(Assets.getBinary('private/default_profile_pictures/' + filename));
             var meta = {default_profile_picture: true, default_profile_picture_index: i};
 
-            Partup.server.services.images.upload(filename, body, mimetype, meta);
+            Partup.server.services.images.upload(filename, body, 'image/png', {meta: meta});
         }
     }
 
