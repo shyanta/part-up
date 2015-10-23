@@ -69,6 +69,9 @@ Meteor.methods({
                 Event.emit('partups.supporters.inserted', partup, upper);
             }
 
+            // Update the new update status for all uppers
+            partup.addNewUpdateToUpperData(update);
+
             Event.emit('updates.comments.inserted', upper, partup, update, comment);
 
             return {
