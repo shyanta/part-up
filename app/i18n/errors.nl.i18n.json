@@ -65,5 +65,10 @@
 
     // Ratings
     "base-errors-rating_could_not_be_inserted": "Helaas, het is ons niet gelukt je waardering te plaatsen. Probeer het nog een keer.",
-    "base-errors-rating_could_not_be_updated": "Helaas, het is ons niet gelukt je waardering aan te passen."
+    "base-errors-rating_could_not_be_updated": "Helaas, het is ons niet gelukt je waardering aan te passen.",
+
+    "error-imageupload-toolarge": "De afbeelding is te groot",
+    "error-imageupload-invalidimage": "De afbeelding wordt niet herkend",
+    "error-imageupload-unauthorized": "Nope",
+    "error-imageupload-notoken": "Nope"
 }
