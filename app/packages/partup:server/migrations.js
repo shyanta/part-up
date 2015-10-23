@@ -663,15 +663,11 @@ Migrations.add({
     version: 25,
     name: 'Default all contributions and commercial partups to EUR currency',
     up: function() {
-        Partups.find({}).forEach(function(partup) {
-            if (partup.type === Partups.TYPE.COMMERCIAL && partup.currency === undefined) {
-                Partups.update({_id: partup._id}, {$set: {currency: 'EUR'}});
-            }
+        Partups.find({type: Partups.TYPE.COMMERCIAL, currency: {$exists: false}}).forEach(function(partup) {
+            Partups.update({_id: partup._id}, {$set: {currency: 'EUR'}});
         });
-        Contributions.find({}).forEach(function(contribution) {
-            if (contribution.rate !== null && contribution.currency === undefined) {
-                Contributions.update({_id: contribution._id}, {$set: {currency: 'EUR'}});
-            }
+        Contributions.find({rate: {$ne: null}}, {currency: {$exists: false}}).forEach(function(contribution) {
+            Contributions.update({_id: contribution._id}, {$set: {currency: 'EUR'}});
         });
     },
     down: function() {
