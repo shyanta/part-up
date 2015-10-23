@@ -151,7 +151,7 @@ Meteor.methods({
             sort: parameters.sort,
             textSearch: parameters.textSearch,
             limit: parameters.limit,
-            language: parameters.language
+            language: (parameters.language === 'all') ? undefined : parameters.language
         };
 
         var partupIds = Partups.findForDiscover(userId, options, parameters).map(function(partup) {

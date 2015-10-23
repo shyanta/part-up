@@ -55,6 +55,7 @@ Package.onUse(function(api) {
         'collections/tags.js',
         'collections/places.js',
         'collections/places_autocompletes.js',
+        'collections/languages.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -69,6 +70,7 @@ Package.onUse(function(api) {
         'schemas/inviteUpper.js',
         'schemas/rating.js',
         'schemas/networkBulkinvite.js',
+        'schemas/language.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -117,6 +119,7 @@ Package.onUse(function(api) {
     api.export('Places');
     api.export('PlacesAutocompletes');
     api.export('Uploads');
+    api.export('Languages');
 
     // Globals
     api.export('get');

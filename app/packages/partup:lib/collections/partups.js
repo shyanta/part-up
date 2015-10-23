@@ -574,6 +574,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
  * Find the partup for an update
  *
  * @memberOf Partups
+ * @param {String} userId
  * @param {Update} update
  * @return {Mongo.Cursor|Void}
  */

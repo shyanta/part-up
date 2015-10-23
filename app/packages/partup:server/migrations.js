@@ -640,4 +640,23 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(23);
+Migrations.add({
+    version: 24,
+    name: 'Gather and store all part-up languages so far',
+    up: function() {
+        var languages = [];
+        Partups.find({}).forEach(function(partup) {
+            languages.push(partup.language);
+        });
+
+        var uniqueLanguages = lodash.unique(languages);
+        uniqueLanguages.forEach(function(languageCode) {
+            Partup.server.services.language.addNewLanguage(languageCode);
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(24);

@@ -95,6 +95,7 @@ Package.onUse(function(api) {
         'services/participation_calculator_service.js',
         'services/partup_progress_calculator_service.js',
         'services/shared_count_service.js',
+        'services/language_service.js',
         'seo/routes.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',
@@ -136,6 +137,7 @@ Package.onUse(function(api) {
         'publications/updates.js',
         'publications/users.js',
         'publications/networks.js',
+        'publications/languages.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
@@ -179,5 +181,6 @@ Npm.depends({
     'pluralize': '1.1.2',
     'node-flickr': '0.0.3',
     'slug': '0.9.1',
-    'debug': '2.2.0'
+    'debug': '2.2.0',
+    'country-language': '0.1.7'
 });

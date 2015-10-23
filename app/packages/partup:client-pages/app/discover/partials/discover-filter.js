@@ -118,6 +118,27 @@ Template.app_discover_filter.onCreated(function() {
         },
     };
 
+    tpl.language = {
+        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.language),
+        selectorState: new ReactiveVar(false, function(a, b) {
+            if (!b) return;
+        }),
+        selectorData: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
+
+            return {
+                onSelect: function(language) {
+                    tpl.language.selectorState.set(false);
+
+                    Meteor.setTimeout(function() {
+                        tpl.language.value.set(language);
+                        tpl.submitFilterForm();
+                    }, DROPDOWN_ANIMATION_DURATION);
+                }
+            };
+        }
+    };
+
     tpl.autorun(function(computation) {
         var queryValue = Session.get('discover.query.textsearch');
         if (queryValue) {
@@ -154,8 +175,17 @@ Template.app_discover_filter.onRendered(function() {
         }
     });
 
+    var dropdown_element = tpl.find('[data-filterbar]');
+    tpl.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
+        // Disable the dropdown
+        toggleSelectorState(tpl);
+    });
 });
 
+Template.app_discover_filter.onDestroyed(function() {
+    var tpl = this;
+    Partup.client.elements.offClickOutside(tpl.handler);
+});
 /**
  * Discover-header helpers
  */
@@ -197,13 +227,32 @@ Template.app_discover_filter.helpers({
     sortingSelectorData: function() {
         return Template.instance().sorting.selectorData;
     },
+
+    // Language
+    languageValue: function() {
+        return Template.instance().language.value.get();
+    },
+    languageSelectorState: function() {
+        return Template.instance().language.selectorState;
+    },
+    languageSelectorData: function() {
+        return Template.instance().language.selectorData;
+    },
 });
 var toggleSelectorState = function(template, selector) {
-    if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
-    if (template[selector] !== template.network) template.network.selectorState.set(false);
-    if (template[selector] !== template.location) template.location.selectorState.set(false);
-    var currentState = template[selector].selectorState.get();
-    template[selector].selectorState.set(!currentState);
+    if (selector) {
+        if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
+        if (template[selector] !== template.language) template.language.selectorState.set(false);
+        if (template[selector] !== template.network) template.network.selectorState.set(false);
+        if (template[selector] !== template.location) template.location.selectorState.set(false);
+        var currentState = template[selector].selectorState.get();
+        template[selector].selectorState.set(!currentState);
+    } else {
+        template.sorting.selectorState.set(false);
+        template.language.selectorState.set(false);
+        template.network.selectorState.set(false);
+        template.location.selectorState.set(false);
+    }
 };
 /**
  * Discover-header events
@@ -220,7 +269,8 @@ Template.app_discover_filter.events({
             textSearch: form.elements.textsearch.value || undefined,
             networkId: form.elements.network_id.value || undefined,
             locationId: form.elements.location_id.value || undefined,
-            sort: form.elements.sorting.value || undefined
+            sort: form.elements.sorting.value || undefined,
+            language: form.elements.language.value || undefined
         });
 
         window.scrollTo(0, 0);
@@ -272,5 +322,16 @@ Template.app_discover_filter.events({
     'click [data-open-sortingselector]': function(event, template) {
         event.preventDefault();
         toggleSelectorState(template, 'sorting');
-    }
+    },
+
+    // Language selector events
+    'click [data-open-languageselector]': function(event, template) {
+        event.preventDefault();
+        toggleSelectorState(template, 'language');
+    },
+    'click [data-reset-selected-language]': function(event, template) {
+        event.preventDefault();
+        template.language.value.set('');
+        template.submitFilterForm();
+    },
 });
