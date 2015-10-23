@@ -49,7 +49,7 @@ Template.app_partup_updates_newmessage.events({
     'change [data-photo-input]': function eventChangeFile(event, template) {
         template.uploadingPhotos.set(true);
         var total = Template.instance().totalPhotos.get();
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             if (total === template.maxPhotos) return;
 
             Partup.client.uploader.uploadImage(file, function(error, image) {

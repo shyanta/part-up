@@ -384,16 +384,7 @@ Template.Partupsettings.events({
     'change [data-imageupload]': function(event, template) {
         $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
 
-        var e = (event.originalEvent || event);
-        var files = e.target.files;
-
-        if (!files || files.length === 0) {
-            files = evt.dataTransfer ? evt.dataTransfer.files : [];
-        }
-
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-
+        Partup.client.uploader.eachFile(event, function(file) {
             template.loading.set('image-uploading', true);
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
@@ -407,7 +398,8 @@ Template.Partupsettings.events({
                 var focuspoint = template.imageSystem.focuspoint.get();
                 if (focuspoint) focuspoint.reset();
             });
-        }
+        });
+
     },
     'click [data-imageremove]': function(event, template) {
         var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();

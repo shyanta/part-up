@@ -90,7 +90,7 @@ Template.AdminFeaturedNetworks.events({
         input.click();
     },
     'change [data-network-logo-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             template.uploadingNetworkLogo.set(true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {

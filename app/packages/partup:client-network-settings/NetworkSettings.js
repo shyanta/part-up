@@ -154,7 +154,7 @@ Template.NetworkSettings.events({
         template.find('[data-image-input]').click();
     },
     'change [data-image-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             template.uploading.set('image', true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
@@ -176,7 +176,7 @@ Template.NetworkSettings.events({
         template.find('[data-icon-input]').click();
     },
     'change [data-icon-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             template.uploading.set('icon', true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
