@@ -156,4 +156,11 @@ Meteor.startup(function() {
         default_route_name: 'home'
     });
 
+    /*************************************************************/
+    /* Set Part-up language based on location */
+    /*************************************************************/
+    Meteor.call('users.get_locale', function(error, locale) {
+        if (error) return;
+        Partup.client.language.change(locale);
+    });
 });
