@@ -8,7 +8,15 @@ var path = Npm.require('path');
  */
 Partup.server.services.images = {
 
-    upload: function(filename, body, mimetype) {
+    /**
+     * Upload (and resize) an image
+     *
+     * @param {String} filename
+     * @param {String} body
+     * @param {String} mimetype
+     * @param {Object} meta
+     */
+    upload: function(filename, body, mimetype, meta) {
         var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
 
         var extension = path.extname(filename);
@@ -19,7 +27,8 @@ Partup.server.services.images = {
             name: filename,
             type: mimetype,
             copies: {},
-            createdAt: new Date()
+            createdAt: new Date(),
+            meta: meta
         };
 
         var filekey = image._id + '-' + filename;
@@ -55,9 +64,9 @@ Partup.server.services.images = {
     /**
      * Store a focuspoint in an image
      *
-     * @param  {string} imageId
-     * @param  {number} focuspoint_x
-     * @param  {number} focuspoint_y
+     * @param {string} imageId
+     * @param {number} focuspoint_x
+     * @param {number} focuspoint_y
      */
     storeFocuspoint: function(imageId, focuspoint_x, focuspoint_y) {
 
