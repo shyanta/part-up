@@ -19,6 +19,8 @@ Partup.client.url = {
         return url;
     },
     getImageUrl: function(image, store) {
+        store = store || '1200x520';
+
         // staging acceptance production aws image url
         return ['https://s3-',
             mout.object.get(Meteor, 'settings.public.aws.region'),

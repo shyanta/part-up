@@ -62,7 +62,7 @@ Template.AdminFeaturedNetworks.helpers({
 
         if (uploadedImageID) {
             var image = Images.findOne({_id: uploadedImageID});
-            return image ? image.url({store: '360x360'}) : null;
+            return image ? Partup.client.url.getImageUrl(image, '360x360') : null;
         }
     },
     uploadingNetworkLogo: function() {

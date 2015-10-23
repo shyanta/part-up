@@ -77,7 +77,7 @@ SeoRouter.route('/partups/:slug', function(params, request, response) {
         getImageUrl: function() {
             if (!image) return Meteor.absoluteUrl() + 'images/partup-logo.png';
 
-            var url = image.url().substr(1);
+            var url = Partup.client.url.getImageUrl(image).substr(1);
 
             return Meteor.absoluteUrl() + encodeURIComponent(url).replace(/%2F/g, '/');
         }
@@ -112,7 +112,7 @@ SeoRouter.route('/profile/:id', function(params, request, response) {
         getImageUrl: function() {
             if (!image) return Meteor.absoluteUrl() + 'images/partup-logo.png';
 
-            var url = image.url().substr(1);
+            var url = Partup.client.url.getImageUrl(image).substr(1);
 
             return Meteor.absoluteUrl() + encodeURIComponent(url).replace(/%2F/g, '/');
         }
@@ -147,7 +147,7 @@ SeoRouter.route('/:slug', function(params, request, response) {
         getImageUrl: function() {
             if (!image) return Meteor.absoluteUrl() + 'images/partup-logo.png';
 
-            var url = image.url().substr(1);
+            var url = Partup.client.url.getImageUrl(image).substr(1);
 
             return Meteor.absoluteUrl() + encodeURIComponent(url).replace(/%2F/g, '/');
         }

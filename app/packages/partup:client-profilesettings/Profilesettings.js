@@ -74,7 +74,7 @@ Template.Profilesettings.onCreated(function() {
             template.uploadingProfilePicture.set(false);
         };
         // set image url to be loaded
-        loadImage.src = image.url();
+        loadImage.src = Partup.client.url.getImageUrl(image);
     });
 });
 
@@ -103,7 +103,7 @@ Template.Profilesettings.helpers({
 
         if (uploadedImageID) {
             var image = Images.findOne({_id: uploadedImageID});
-            return image ? image.url({store: '360x360'}) : null;
+            return image ? Partup.client.url.getImageUrl(image, '360x360') : null;
         }
 
         var user = Meteor.user();
@@ -111,7 +111,7 @@ Template.Profilesettings.helpers({
         if (user && user.profile && user.profile.image) {
             image = Images.findOne({_id: user.profile.image});
             if (!image) return false;
-            return image.url();
+            return Partup.client.url.getImageUrl(image);
         }
     },
     fieldsFromUser: function() {
@@ -163,7 +163,16 @@ Template.Profilesettings.events({
         input.click();
     },
     'change [data-profile-picture-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        var e = (event.originalEvent || event);
+        var files = e.target.files;
+
+        if (!files || files.length === 0) {
+            files = evt.dataTransfer ? evt.dataTransfer.files : [];
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+
             template.uploadingProfilePicture.set(true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
@@ -172,12 +181,12 @@ Template.Profilesettings.events({
                     template.uploadingProfilePicture.set(false);
                     return;
                 }
+
                 template.$('input[name=image]').val(image._id);
                 template.currentImageId.set(image._id);
 
                 template.uploadingProfilePicture.set(false);
             });
-
-        });
+        }
     }
 });
