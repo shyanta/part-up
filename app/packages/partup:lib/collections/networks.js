@@ -24,7 +24,18 @@ var Network = function(document) {
 };
 
 /**
- * Check if given user is the admin of this network
+ * Check if given user is admin of this network
+ *
+ * @memberOf Networks
+ * @param {String} userId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isNetworkAdmin = function(userId) {
+    return mout.lang.isString(userId) && (userId === this.admin_id);
+};
+
+/**
+ * Check if given user is the super admin or admin of this network
  *
  * @memberOf Networks
  * @param {String} userId the user id of the user to be checked
@@ -33,7 +44,7 @@ var Network = function(document) {
 Network.prototype.isAdmin = function(userId) {
     var user = Meteor.users.findOne({_id: userId});
     if (!user) return false;
-    return mout.lang.isString(userId) && (userId === this.admin_id || User(user).isAdmin());
+    return this.isNetworkAdmin(userId) || User(user).isAdmin();
 };
 
 /**
@@ -141,17 +152,6 @@ Network.prototype.canUpperJoin = function(upperId) {
     if (this.isPublic()) return true;
     if (this.isUpperInvited(upperId)) return true;
     return false;
-};
-
-/**
- * Check if upper can leave network (admins can't)
- *
- * @memberOf Networks
- * @param {String} upperId the user id of the user to be checked
- * @return {Boolean}
- */
-Network.prototype.canUpperLeave = function(upperId) {
-    return !this.isAdmin(upperId);
 };
 
 /**
