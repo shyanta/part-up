@@ -66,6 +66,7 @@ Package.onUse(function(api) {
         'schemas/rating.js',
         'schemas/networkBulkinvite.js',
         'schemas/language.js',
+        'schemas/tile.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
