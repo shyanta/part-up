@@ -30,6 +30,7 @@ Partup.transformers.contribution = {
         return {
             hours: hours,
             rate: rate,
+            currency: fields.currency,
             motivation: fields.motivation || null
         };
     }

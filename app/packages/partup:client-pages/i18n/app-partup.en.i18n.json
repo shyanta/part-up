@@ -19,6 +19,9 @@
     "pages-app-partup-visibility_public": "everyone",
     "pages-app-partup-visibility_private": "invited uppers only",
     "pages-app-partup-unit-money": "euros",
+    "pages-app-partup-unit-money-EUR": "euros",
+    "pages-app-partup-unit-money-GBP": "pounds",
+    "pages-app-partup-unit-money-USD": "us dollars",
     "pages-app-partup-unit-hours": "hours",
 
     "pages-app-partup-share_title": "Share this part-up",

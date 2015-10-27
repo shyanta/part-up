@@ -17,15 +17,16 @@
 /*************************************************************/
 /* Helper functions */
 /*************************************************************/
-var budgetDisplay = function(type, value) {
+var budgetDisplay = function(type, value, currency) {
+    var currency = currency || 'EUR';
     if (type === 'charity') {
         return __('update-budget-type-none');
     } else if (type === 'enterprising') {
         return __('update-budget-type-none');
     } else if (type === 'commercial') {
-        return __('update-budget-type-money', value);
+        return __('update-budget-type-money-' + currency, value);
     } else if (type === 'organization') {
-        return __('update-budget-type-money', value);
+        return __('update-budget-type-money-' + currency, value);
     }
     return __('update-budget-type-none');
 };
@@ -132,11 +133,11 @@ Template.Update.helpers({
                 return partup.uppers.indexOf(user._id) > -1;
             },
             oldBudget: function() {
-                return budgetDisplay(self.old_type, self.old_value);
+                return budgetDisplay(self.old_type, self.old_value, self.old_currency);
             },
 
             newBudget: function() {
-                return budgetDisplay(self.new_type, self.new_value);
+                return budgetDisplay(self.new_type, self.new_value, self.new_currency);
             },
 
             messageContent: function() {
