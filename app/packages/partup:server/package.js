@@ -155,6 +155,7 @@ Package.onUse(function(api) {
         'methods/partups/partups_analytics_methods.js',
         'methods/partups/partups_supporters_methods.js',
         'methods/users/users_methods.js',
+        'methods/users/tiles_methods.js',
         'methods/services/flickr_methods.js',
         'methods/services/splashbase_methods.js',
         'methods/services/google_methods.js',

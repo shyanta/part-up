@@ -1,0 +1,58 @@
+Meteor.methods({
+    /**
+     * Insert a tile
+     *
+     * @param {mixed[]} fields
+     */
+    'tiles.insert': function(fields) {
+        //check(fields, Partup.schemas.forms.tile);
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        // Validate video url
+        if (fields.video_url && !Partup.services.validators.isVideoUrl(fields.video_url)) {
+            throw new Meteor.Error(400, 'video_url_invalid');
+        }
+
+        try {
+            var position = upper.profile.tiles ? upper.profile.tiles.length + 1 : 1;
+            var tile = {
+                _id: Random.id(),
+                type: fields.type,
+                description: fields.description,
+                position: position
+            };
+
+            if (fields.type === 'image') {
+                tile.image_id = fields.image_id;
+            } else if (fields.type === 'video') {
+                tile.video_url = fields.video_url;
+            }
+
+            Meteor.users.update(upper._id, {$push: {'profile.tiles': tile}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'tile_could_not_be_inserted');
+        }
+    },
+
+    /**
+     * Remove a tile from user's profile
+     *
+     * @param {String} tileId
+     */
+    'tiles.remove': function(tileId) {
+        check(tileId, String);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Meteor.users.update({_id: user._id}, {$pull: {'profile.tiles': {_id: tileId}}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'tile_could_not_be_removed');
+        }
+    }
+});
