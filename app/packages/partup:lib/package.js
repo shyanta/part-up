@@ -116,6 +116,7 @@ Package.onUse(function(api) {
     api.export('PlacesAutocompletes');
     api.export('Uploads');
     api.export('Languages');
+    api.export('Tiles');
 
     // Globals
     api.export('get');
