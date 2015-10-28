@@ -15,5 +15,14 @@
     "pages-app-profile-supporter-partups-count_plural": "__count__ part-ups",
     "pages-app-profile-supporter-partups-prefix": "__name__ is supporter in",
 
-    "pages-app-profile-about-name": "Wie is <span class='pu-sub-countlabel'>__name__?</span>"
+    "pages-app-profile-about-name": "Wie is <span class='pu-sub-countlabel'>__name__?</span>",
+    "pages-app-profile-button-photo": "Foto",
+    "pages-app-profile-button-video": "Video",
+    "pages-app-profile-image-button": "Foto vanaf jouw computer",
+    "pages-app-profile-image-info": "Wel minimaal 600 pixels",
+    "pages-app-profile-description-label": "Onderschrift foto",
+    "pages-app-profile-description-placeholder": "Voeg een onderschrift toe (niet verplicht)",
+    "pages-app-profile-description-tooltip": "help",
+    "pages-app-profile-photo-submit": "Plaats foto",
+    "pages-app-profile-photo-close": "Annuleren"
 }
