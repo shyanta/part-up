@@ -25,3 +25,7 @@ export KADIRA_APP_ID="zcDKfyy9iNLkMficj"
 export KADIRA_APP_SECRET="2426dd9a-cb7f-4f0c-ab43-372addf7844c"
 #export EVENT_ENDPOINT_URL="https://api.part-up.com/events"
 #export EVENT_ENDPOINT_AUTHORIZATION="b19ea172-ee33-496e-8605-7cdc51a64678"
+
+export MEURS_BASE_URL="https://q1000.nl/"
+export MEURS_API_KEY="f828a72a-8dee-465c-b3e7-936cd92c0d5c"
+export MEURS_API_SECRET="8325a425-eb55-4f2c-8c4c-85071f2ae0a4"
