@@ -1,3 +1,5 @@
+var path = Npm.require('path');
+
 Meteor.methods({
 
     /**
@@ -13,51 +15,16 @@ Meteor.methods({
         this.unblock();
 
         var result = HTTP.get(url, {'npmRequestOptions': {'encoding': null}});
-        var buffer = new Buffer(result.content, 'binary');
 
-        var ref = new FS.File();
-        ref.attachData(buffer, {type: 'image/jpeg'});
-        ref.name(Random.id() + '.jpg');
+        var filename = Random.id() + '.jpg';
+        var body = new Buffer(result.content, 'binary');
+        var mimetype = 'image/jpeg';
 
-        var image = Images.insert(ref);
+        var image = Partup.server.services.images.upload(filename, body, mimetype);
 
         return {
             _id: image._id
         };
-    },
-
-    /**
-     * Insert an image by data url
-     *
-     * @param {String} dataUrl
-     *
-     * @return {String} imageId
-     */
-    'images.insertByDataUrl': function(dataUrl) {
-        check(dataUrl, String);
-
-        this.unblock();
-
-        var matches = dataUrl.match(/data:(.*);(.+),(.*)/);
-
-        if (matches && matches.length === 4) {
-            var data = matches.pop();
-            var encoding = matches.pop();
-            var mime = matches.pop();
-
-            var buffer = new Buffer(data, 'base64');
-
-            var ref = new FS.File();
-            ref.attachData(buffer, {type: mime});
-            var ext = mime === 'image/png' ? '.png' : '.jpg';
-            ref.name(Random.id() + ext);
-
-            var image = Images.insert(ref);
-
-            return {
-                _id: image._id
-            };
-        }
-    },
+    }
 
 });

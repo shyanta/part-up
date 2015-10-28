@@ -3,14 +3,8 @@ Meteor.startup(function() {
 
         var downloadAndSaveImage = function(imageId, url) {
             var result = HTTP.get(url, {'npmRequestOptions': {'encoding': null}});
-            var buffer = new Buffer(result.content, 'binary');
-
-            var ref = new FS.File();
-            ref._id = imageId;
-            ref.name(imageId + '.jpg');
-            ref.attachData(buffer, {type: 'image/jpeg'});
-
-            Images.insert(ref);
+            var body = new Buffer(result.content, 'binary');
+            Partup.server.services.images.upload(imageId + '.jpg', body, 'image/jpeg', {id: imageId});
         };
 
         if (Images.find().count() === 27) {

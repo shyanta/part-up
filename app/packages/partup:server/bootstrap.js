@@ -29,6 +29,11 @@ Router.route('/ping', function() {
 // Kick off the cronjobs
 SyncedCron.start();
 
+// Configure AWS
+AWS.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+AWS.config.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+AWS.config.region = process.env.AWS_BUCKET_REGION;
+
 // Browser Policy
 Meteor.startup(function() {
 

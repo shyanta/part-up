@@ -62,7 +62,7 @@ Template.AdminFeaturedNetworks.helpers({
 
         if (uploadedImageID) {
             var image = Images.findOne({_id: uploadedImageID});
-            return image ? image.url({store: '360x360'}) : null;
+            return image ? Partup.client.url.getImageUrl(image, '360x360') : null;
         }
     },
     uploadingNetworkLogo: function() {
@@ -90,12 +90,12 @@ Template.AdminFeaturedNetworks.events({
         input.click();
     },
     'change [data-network-logo-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             template.uploadingNetworkLogo.set(true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
-                    Partup.client.notify.error(__('pages-modal-admin-featured-networks-form-logo-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     template.uploadingNetworkLogo.set(false);
                     return;
                 }

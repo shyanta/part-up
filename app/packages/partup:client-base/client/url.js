@@ -19,27 +19,18 @@ Partup.client.url = {
         return url;
     },
     getImageUrl: function(image, store) {
-        if (mout.object.get(Meteor, 'settings.public.aws.bucket') == 'development') {
-            // development image urls
-            return ['/uploads/',
-                store,
-                '/images-',
-                image._id,
-                '-',
-                image.copies[store].name
-                ].join('');
-        } else {
-            // staging acceptance production aws image url
-            return ['https://s3-',
-                mout.object.get(Meteor, 'settings.public.aws.region'),
-                '.amazonaws.com/',
-                mout.object.get(Meteor, 'settings.public.aws.bucket'),
-                '/',
-                store,
-                '/',
-                image.copies[store].key
-                ].join('');
-        }
+        store = store || '1200x520';
+
+        // staging acceptance production aws image url
+        return ['https://s3-',
+            mout.object.get(Meteor, 'settings.public.aws.region'),
+            '.amazonaws.com/',
+            mout.object.get(Meteor, 'settings.public.aws.bucket'),
+            '/',
+            store,
+            '/',
+            image.copies[store].key
+            ].join('');
     }
 };
 

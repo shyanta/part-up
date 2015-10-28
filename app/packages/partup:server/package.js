@@ -12,8 +12,6 @@ Package.onUse(function(api) {
     api.use([
         'accounts-base',
         'stevezhu:lodash',
-        'cfs:standard-packages',
-        'cfs:graphicsmagick',
         'email',
         'http',
         'iron:router',
@@ -30,7 +28,8 @@ Package.onUse(function(api) {
         'meteorhacks:ssr',
         'meteorhacks:fast-render',
         'dsyko:meteor-node-csv',
-        'random'
+        'random',
+        'peerlibrary:aws-sdk'
     ], ['server']);
 
     api.addFiles([
@@ -138,6 +137,8 @@ Package.onUse(function(api) {
         'publications/users.js',
         'publications/networks.js',
         'publications/languages.js',
+        'routes/csv/csv_routes.js',
+        'routes/images/images_routes.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
@@ -174,13 +175,15 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-    'eventemitter2': '0.4.14',
+    'busboy': '0.2.11',
     'colors': '1.0.3',
-    'deeper': '1.0.2',
-    'winston': '0.9.0',
-    'pluralize': '1.1.2',
-    'node-flickr': '0.0.3',
-    'slug': '0.9.1',
+    'country-language': '0.1.7',
     'debug': '2.2.0',
-    'country-language': '0.1.7'
+    'deeper': '1.0.2',
+    'eventemitter2': '0.4.14',
+    'node-flickr': '0.0.3',
+    'pluralize': '1.1.2',
+    'slug': '0.9.1',
+    'winston': '0.9.0',
+    'gm': '1.20.0'
 });
