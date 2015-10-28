@@ -310,7 +310,10 @@ Meteor.methods({
         check(partupId, String);
 
         try {
-            Partups.update({_id: partupId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_updates': []}});
+            var partup = Partups.findOne({_id: partupId, 'upper_data._id': Meteor.userId()});
+            if (partup) {
+                Partups.update({_id: partupId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_updates': []}});
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partup_new_updates_could_not_be_reset');
