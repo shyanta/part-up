@@ -18,7 +18,7 @@ Template.NewPhotoTile.events({
         input.click();
     },
     'change [data-image-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             template.uploadingPhoto.set(true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
@@ -27,6 +27,7 @@ Template.NewPhotoTile.events({
                     template.uploadingPhoto.set(false);
                     return;
                 }
+                console.log(image)
                 template.$('input[name=image]').val(image._id);
                 template.imageId.set(image._id);
 

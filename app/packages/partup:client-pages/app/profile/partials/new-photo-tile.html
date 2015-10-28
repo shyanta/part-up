@@ -4,7 +4,8 @@
 
         <div class="pu-formfield">
             <div class="pu-upload">
-                <figure style="background-image:url('{{ partupImageUrl imageId }}')" class="pu-imagepreview"></figure>
+                <figure style="{{#with imageId}}background-image:url('{{ partupImageUrl id=. }}');{{/with}}" class="pu-imagepreview"></figure>
+                {{log imageId}}
                 <button type="button" class="pu-button pu-button-secondary {{# if uploadingPhoto }}pu-state-loading{{/ if }}" data-image-browse>
                     <span>{{_ 'pages-app-profile-image-button' }}</span>
                     {{> Spinner color='inverted' type='small' }}
