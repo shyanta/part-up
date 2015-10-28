@@ -94,7 +94,23 @@ Partup.client.language = {
             Partup.client.notify.error('Could not load the language "' + language + '"');
         });
     },
-
+    /**
+     * Checks for the browser language settings and returns the locale
+     * Only to be used if everything else fails.
+     *
+     * @memberof Partup.client.language
+     */
+    getBrowserDefaultLocale: function() {
+        var language = 'en';
+        if (TAPi18n && Partup) {
+            var detectedLocale = navigator.language || navigator.userLanguage;    // value is like: en-US
+            if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[a-z]{2}$/i)) {  // if the value matches 'xx-xx'
+                detectedLocale = detectedLocale.split('-')[0];                    // value is like: en
+            }
+            language = detectedLocale || 'en';
+        }
+        return language;
+    },
     /**
      * Sets the language of partup to the default settings (browser settings)
      *
@@ -103,20 +119,22 @@ Partup.client.language = {
     setDefault: function(user) {
         var self = this;
         if (user) {
-            var locale = mout.object.get(user, 'profile.settings.locale');
+            var userLocale = mout.object.get(user, 'profile.settings.locale');
             // if the user has a locale setting
-            if (locale) {
-                self.change(locale);
+            if (userLocale) {
+                self.change(userLocale);
                 return;
             }
         }
         // fallback to ip based locale
         Meteor.call('users.get_locale', function(error, locale) {
             if (error) {
-                // when some kind of error occurs, fallback to en
-                self.change('en');
+                // when some kind of error occurs, fallback to browser settings
+                var browserLocale = self.getBrowserDefaultLocale();
+                self.change(browserLocale);
                 return;
             }
+            // set locale to ip based locale
             self.change(locale);
         });
     }
