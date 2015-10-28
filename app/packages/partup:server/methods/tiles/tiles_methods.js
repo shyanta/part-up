@@ -16,9 +16,11 @@ Meteor.methods({
         }
 
         try {
-            var position = upper.profile.tiles ? upper.profile.tiles.length + 1 : 1;
+            var latestUpperTile = Tiles.findOne({upper_id: upper._id, sort: {position: -1}}).fetch();
+            var position = latestUpperTile.position + 1;
             var tile = {
                 _id: Random.id(),
+                upper_id: upper._id,
                 type: fields.type,
                 description: fields.description,
                 position: position
@@ -30,7 +32,7 @@ Meteor.methods({
                 tile.video_url = fields.video_url;
             }
 
-            Meteor.users.update(upper._id, {$push: {'profile.tiles': tile}});
+            Tiles.insert(tile);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'tile_could_not_be_inserted');
@@ -38,7 +40,7 @@ Meteor.methods({
     },
 
     /**
-     * Remove a tile from user's profile
+     * Remove a tile
      *
      * @param {String} tileId
      */
@@ -49,7 +51,7 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            Meteor.users.update({_id: user._id}, {$pull: {'profile.tiles': {_id: tileId}}});
+            Tiles.remove({_id: tileId});
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'tile_could_not_be_removed');
