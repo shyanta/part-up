@@ -4,7 +4,7 @@
  * @class language
  * @memberof Partup.client
  */
-// jscs:disable
+
 Partup.client.language = {
     current: new ReactiveVar(),
     /**
@@ -18,7 +18,7 @@ Partup.client.language = {
 
         // prevent unnessesary language changes
         var currentLanguage = Partup.client.language.current.get();
-        if(language === currentLanguage) return;
+        if (language === currentLanguage) return;
 
         TAPi18n.setLanguage(language).done(function() {
             // Change MomentJS language
@@ -81,7 +81,7 @@ Partup.client.language = {
                 shouldNotContainUrls:   __('base-client-language-ss-shouldNotContainUrls')
             });
             var user = Meteor.user();
-            if(!user) return;
+            if (!user) return;
             // update the user stored language setting for future logins
             Meteor.call('settings.update', {locale: language}, function(err) {
                 if (err) {
@@ -100,22 +100,25 @@ Partup.client.language = {
      *
      * @memberof Partup.client.language
      */
-    setToDefault: function() {
-            var language = Partup.client.language.getDefault();
-            Partup.client.language.change(language);
-    },
-
-    getDefault: function() {
-        var language = 'en';
-        if (TAPi18n && Partup) {
-            var detectedLocale = navigator.language || navigator.userLanguage;    // value is like: en-US
-            if (detectedLocale && detectedLocale.match(/^[a-z]{2}-[a-z]{2}$/i)) {  // if the value matches 'xx-xx'
-                detectedLocale = detectedLocale.split('-')[0];                    // value is like: en
+    setDefault: function(user) {
+        var self = this;
+        if (user) {
+            var locale = mout.object.get(user, 'profile.settings.locale');
+            // if the user has a locale setting
+            if (locale) {
+                self.change(locale);
+                return;
             }
-            language = detectedLocale || 'en';
         }
-        return language;
+        // fallback to ip based locale
+        Meteor.call('users.get_locale', function(error, locale) {
+            if (error) {
+                // when some kind of error occurs, fallback to en
+                self.change('en');
+                return;
+            }
+            self.change(locale);
+        });
     }
 
 };
-// jscs:enable
