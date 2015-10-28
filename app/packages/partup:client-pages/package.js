@@ -75,6 +75,12 @@ Package.onUse(function(api) {
         'app/profile/tabs/profile-supporter-partups.js',
         'app/profile/tabs/profile-about.html',
         'app/profile/tabs/profile-about.js',
+        'app/profile/partials/profile-tile.html',
+        'app/profile/partials/profile-tile.js',
+        'app/profile/partials/new-photo-tile.html',
+        'app/profile/partials/new-photo-tile.js',
+        'app/profile/partials/new-video-tile.html',
+        'app/profile/partials/new-video-tile.js',
 
         // App: profile settings modal
         'modal/profile_settings/profile_settings.html',
