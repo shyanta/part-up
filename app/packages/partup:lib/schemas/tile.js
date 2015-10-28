@@ -22,7 +22,7 @@ Partup.schemas.forms.tile = new SimpleSchema({
         type: String,
         optional: true,
         custom: function() {
-            if (!Partup.services.validators.isVideoUrl(this.value)) {
+            if (this.value && !Partup.services.validators.isVideoUrl(this.value)) {
                 return 'invalidVideoUrl';
             }
         }
