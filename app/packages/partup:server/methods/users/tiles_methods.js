@@ -54,5 +54,24 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'tile_could_not_be_removed');
         }
+    },
+
+    /**
+     * return tiles of profile by userid
+     *
+     * @param {String} userId
+     */
+    'tiles.profile': function(userId) {
+        check(userId, String);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            return Meteor.users.findOne(Meteor.userId()).profile.tiles || [];
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'blablabla');
+        }
     }
 });
