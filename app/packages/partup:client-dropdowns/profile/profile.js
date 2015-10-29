@@ -97,10 +97,16 @@ Template.DropdownProfile.helpers({
         var networkId = Template.instance().currentNetwork.get() || undefined;
         var user = Meteor.user();
         if (!user) return [];
-
-        return Partups.findUpperPartupsForUser(user, {
+        var partups =  Partups.findUpperPartupsForUser(user, {
             network_id: networkId
-        });
+        }).fetch();
+
+        var sortedPartups = lodash.sortByOrder(partups, function(partup) {
+            var upper_data = lodash.find(partup.upper_data, '_id', user._id);
+            return upper_data.new_updates ? upper_data.new_updates.length : 0;
+        }, ['desc']);
+
+        return sortedPartups;
     },
 
     supporterPartups: function() {
@@ -108,9 +114,16 @@ Template.DropdownProfile.helpers({
         var user = Meteor.user();
         if (!user) return [];
 
-        return Partups.findSupporterPartupsForUser(user, {
+        var partups = Partups.findSupporterPartupsForUser(user, {
             network_id: networkId
-        });
+        }).fetch();
+
+        var sortedPartups = lodash.sortByOrder(partups, function(partup) {
+            var upper_data = lodash.find(partup.upper_data, '_id', user._id);
+            return upper_data.new_updates ? upper_data.new_updates.length : 0;
+        }, ['desc']);
+
+        return sortedPartups;
     },
 
     newUpdates: function() {
