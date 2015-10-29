@@ -6,14 +6,14 @@
                     {{> yield region="PopupContent" }}
                 </ul>
                 <nav data-dismiss>
-                    <a href="#"><i class="fa fa-times"></i></a>
+                    <a href="#"><i class="picon-times"></i></a>
                     {{#if overflowing}}
                         {{#if finishedLoading}}
                             {{#unless galleryStart }}
-                                <a href="#" data-left><i class="fa fa-chevron-left"></i></a>
+                                <a href="#" data-left><i class="picon-caret-slim-left"></i></a>
                             {{/unless}}
                             {{#unless galleryEnd }}
-                                <a href="#" data-right><i class="fa fa-chevron-right"></i></a>
+                                <a href="#" data-right><i class="picon-caret-slim-right"></i></a>
                             {{/unless}}
                         {{/if}}
                     {{/if}}
