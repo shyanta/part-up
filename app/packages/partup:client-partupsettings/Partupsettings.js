@@ -45,12 +45,15 @@ Template.Partupsettings.onCreated(function() {
     template.selectedPrivacyNetwork = new ReactiveVar('');
     template.tagsInputStates = new ReactiveDict();
     template.showNetworkDropdown = new ReactiveVar(false);
+    template.currentCurrency = new ReactiveVar('EUR');
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
         if (!partup) return;
 
         if (partup.location && partup.location.place_id) template.selectedLocation.set(partup.location);
+
+        if (partup.currency) template.currentCurrency.set(partup.currency);
 
         if (partup.image) {
             template.imageSystem.currentImageId.set(partup.image);
@@ -355,6 +358,9 @@ Template.Partupsettings.helpers({
     },
     privacyChecked: function() {
         return this.value === Template.instance().selectedPrivacyType.get();
+    },
+    currentCurrency: function() {
+        return Template.instance().currentCurrency.get();
     }
 });
 
@@ -377,11 +383,12 @@ Template.Partupsettings.events({
     },
     'change [data-imageupload]': function(event, template) {
         $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
-        FS.Utility.eachFile(event, function(file) {
+
+        Partup.client.uploader.eachFile(event, function(file) {
             template.loading.set('image-uploading', true);
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
-                    Partup.client.notify.error(__('partupsettings-image-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     template.loading.set('image-uploading', false);
                     return;
                 }
@@ -392,6 +399,7 @@ Template.Partupsettings.events({
                 if (focuspoint) focuspoint.reset();
             });
         });
+
     },
     'click [data-imageremove]': function(event, template) {
         var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();

@@ -35,7 +35,7 @@ Template.app_partup.onCreated(function() {
         if (partup.image) {
             var image = Images.findOne({_id: partup.image});
             if (image) {
-                var imageUrl = image.url().substr(1);
+                var imageUrl = Partup.client.url.getImageUrl(image, '1200x520');
                 if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
             }
         }
@@ -227,7 +227,7 @@ var partupDetailLayout = {
         var height = Math.max(r.left.height, r.right.height);
         this.container.style.height = height + 'px';
         this.containerHeight = height;
-        this.reactiveContainerHeight.set(height);
+        this.reactiveContainerHeight.set(height - this.left.top);
     },
     reactiveContainerHeight: new ReactiveVar(0),
     containerHeight: 0,

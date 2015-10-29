@@ -14,10 +14,6 @@ Package.onUse(function(api) {
         'aldeed:simple-schema',
         'aldeed:autoform',
         'chrismbeckett:toastr',
-        'cfs:standard-packages',
-        'cfs:s3',
-        'cfs:gridfs',
-        'cfs:graphicsmagick',
         'momentjs:moment',
         'tap:i18n',
         'matb33:collection-hooks',
@@ -48,13 +44,13 @@ Package.onUse(function(api) {
         'collections/notifications.js',
         'collections/partups.js',
         'collections/images.js',
-        'collections/temp.js',
         'collections/ratings.js',
         'collections/networks.js',
         'collections/users.js',
         'collections/tags.js',
         'collections/places.js',
         'collections/places_autocompletes.js',
+        'collections/languages.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -69,6 +65,7 @@ Package.onUse(function(api) {
         'schemas/inviteUpper.js',
         'schemas/rating.js',
         'schemas/networkBulkinvite.js',
+        'schemas/language.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -117,6 +114,7 @@ Package.onUse(function(api) {
     api.export('Places');
     api.export('PlacesAutocompletes');
     api.export('Uploads');
+    api.export('Languages');
 
     // Globals
     api.export('get');

@@ -97,7 +97,7 @@ Template.NetworkSettings.helpers({
 
         if (imageId) {
             var image = Images.findOne({_id: imageId});
-            if (image) return image.url({store: '360x360'});
+            if (image) return Partup.client.url.getImageUrl(image, '360x360');
         }
 
         return '/images/smile.png';
@@ -115,7 +115,7 @@ Template.NetworkSettings.helpers({
 
         if (iconId) {
             var icon = Images.findOne({_id: iconId});
-            if (icon) return icon.url({store: '360x360'});
+            if (icon) return Partup.client.url.getImageUrl(icon, '360x360');
         }
 
         return '/images/smile.png';
@@ -154,14 +154,14 @@ Template.NetworkSettings.events({
         template.find('[data-image-input]').click();
     },
     'change [data-image-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             template.uploading.set('image', true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 template.uploading.set('image', false);
 
                 if (error) {
-                    Partup.client.notify.error(__('network-settings-form-image-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     return;
                 }
 
@@ -176,14 +176,14 @@ Template.NetworkSettings.events({
         template.find('[data-icon-input]').click();
     },
     'change [data-icon-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
             template.uploading.set('icon', true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 template.uploading.set('icon', false);
 
                 if (error) {
-                    Partup.client.notify.error(__('network-settings-form-icon-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     return;
                 }
 

@@ -74,7 +74,6 @@ Partup.client.popup = {
 
         // Close popup
         this.current.set(null);
-        this.currentType.set(undefined);
         this.totalImages.set(0);
         this.imageIndex.set(0);
 

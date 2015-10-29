@@ -1,6 +1,6 @@
 <template name="app_discover_filter">
     <form id="discoverQuery">
-        <div class="pu-filterbar {{# if getting_data.get }}pu-filterbar-disabled{{/ if }}">
+        <div class="pu-filterbar {{# if getting_data.get }}pu-filterbar-disabled{{/ if }}" data-filterbar>
 
             <!-- Label -->
             <p class="pu-sub-label">{{_ 'pages-app-discover-filter-textsearch-label' }}</p>
@@ -57,6 +57,23 @@
                     {{ sortingValue.label }}
                 </a>
                 {{> Dropdown toggle=sortingSelectorState template="BasicSelector" data=sortingSelectorData }}
+            </div>
+
+            <!-- Label -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-language-label' }}</p>
+
+            <!-- Language -->
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="language" value="{{ languageValue._id }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if languageValue}}pu-state-filled{{/if}} pu-capitalize" data-open-languageselector>
+                    {{#with languageValue }}
+                        {{ native_name }}
+                    {{else }}
+                        {{_ 'pages-app-discover-filter-language-type-all' }}
+                    {{/with }}
+                    <i class="picon-times" data-reset-selected-language></i>
+                </a>
+                {{> Dropdown toggle=languageSelectorState template="LanguageSelector" data=languageSelectorData }}
             </div>
 
             <!-- Hidden send button -->

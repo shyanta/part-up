@@ -331,14 +331,9 @@ Migrations.add({
 
             try {
                 var result = HTTP.get(imageUrl, {'npmRequestOptions': {'encoding': null}});
+                var body = new Buffer(result.content, 'binary');
 
-                var buffer = new Buffer(result.content, 'binary');
-
-                var ref = new FS.File();
-                ref.attachData(buffer, {type: 'image/jpeg'});
-                ref.name(user._id + '.jpg');
-
-                var image = Images.insert(ref);
+                var image = Partup.server.services.images.upload(user._id + '.jpg', body, 'image/jpeg');
 
                 return Meteor.users.update(user._id, {$set:{'profile.image': image._id}});
             } catch (error) {
@@ -640,4 +635,39 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(23);
+Migrations.add({
+    version: 24,
+    name: 'Gather and store all part-up languages so far',
+    up: function() {
+        var languages = [];
+        Partups.find({}).forEach(function(partup) {
+            languages.push(partup.language);
+        });
+
+        var uniqueLanguages = lodash.unique(languages);
+        uniqueLanguages.forEach(function(languageCode) {
+            Partup.server.services.language.addNewLanguage(languageCode);
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.add({
+    version: 25,
+    name: 'Default all contributions and commercial partups to EUR currency',
+    up: function() {
+        Partups.find({type: Partups.TYPE.COMMERCIAL, currency: {$exists: false}}).forEach(function(partup) {
+            Partups.update({_id: partup._id}, {$set: {currency: 'EUR'}});
+        });
+        Contributions.find({rate: {$ne: null}}, {currency: {$exists: false}}).forEach(function(contribution) {
+            Contributions.update({_id: contribution._id}, {$set: {currency: 'EUR'}});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(25);

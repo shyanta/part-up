@@ -7,15 +7,11 @@ Meteor.startup(function() {
         var exists = !!Images.findOne({'meta.default_partup_picture': true, 'meta.default_partup_picture_index': i});
 
         if (!exists) {
-            var name = 'Partupfoto' + i + '.png';
-            var image = Assets.getBinary('private/default_partup_pictures/' + name);
-            var file = new FS.File();
+            var filename = 'Partupfoto' + i + '.png';
+            var body = new Buffer(Assets.getBinary('private/default_partup_pictures/' + filename));
+            var meta = {default_partup_picture: true, default_partup_picture_index: i};
 
-            file.name(name);
-            file.attachData(image, {type: 'image/png'});
-            file.meta = {default_partup_picture: true, default_partup_picture_index: i};
-
-            Images.insert(file);
+            Partup.server.services.images.upload(filename, body, 'image/png', {meta: meta});
         }
     }
 

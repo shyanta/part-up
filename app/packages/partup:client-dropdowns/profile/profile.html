@@ -43,7 +43,7 @@
             {{/if}}
             <p>{{_ 'dropdowns-profile-title-upperpartups'}}</p>
             <ul class="pu-list">
-                {{#if upperPartups.count}}
+                {{#if upperPartups.length}}
                     {{#each upperPartups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' slug=slug }}">
@@ -71,7 +71,7 @@
             </ul>
             <p>{{_ 'dropdowns-profile-title-supporterpartups'}}</p>
             <ul class="pu-list">
-                {{#if supporterPartups.count}}
+                {{#if supporterPartups.length}}
                     {{#each supporterPartups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' slug=slug }}">

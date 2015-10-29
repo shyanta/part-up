@@ -74,7 +74,7 @@ Template.Profilesettings.onCreated(function() {
             template.uploadingProfilePicture.set(false);
         };
         // set image url to be loaded
-        loadImage.src = image.url();
+        loadImage.src = Partup.client.url.getImageUrl(image);
     });
 });
 
@@ -103,7 +103,7 @@ Template.Profilesettings.helpers({
 
         if (uploadedImageID) {
             var image = Images.findOne({_id: uploadedImageID});
-            return image ? image.url({store: '360x360'}) : null;
+            return image ? Partup.client.url.getImageUrl(image, '360x360') : null;
         }
 
         var user = Meteor.user();
@@ -111,7 +111,7 @@ Template.Profilesettings.helpers({
         if (user && user.profile && user.profile.image) {
             image = Images.findOne({_id: user.profile.image});
             if (!image) return false;
-            return image.url();
+            return Partup.client.url.getImageUrl(image);
         }
     },
     fieldsFromUser: function() {
@@ -163,21 +163,22 @@ Template.Profilesettings.events({
         input.click();
     },
     'change [data-profile-picture-input]': function(event, template) {
-        FS.Utility.eachFile(event, function(file) {
+        Partup.client.uploader.eachFile(event, function(file) {
+
             template.uploadingProfilePicture.set(true);
 
             Partup.client.uploader.uploadImage(file, function(error, image) {
                 if (error) {
-                    Partup.client.notify.error(__('profilesettings-form-image-error'));
+                    Partup.client.notify.error(TAPi18n.__(error.reason));
                     template.uploadingProfilePicture.set(false);
                     return;
                 }
+
                 template.$('input[name=image]').val(image._id);
                 template.currentImageId.set(image._id);
 
                 template.uploadingProfilePicture.set(false);
             });
-
         });
     }
 });

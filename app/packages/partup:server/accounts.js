@@ -118,13 +118,9 @@ Accounts.onCreateUser(function(options, user) {
 
     try {
         var result = HTTP.get(imageUrl, {'npmRequestOptions': {'encoding': null}});
-        var buffer = new Buffer(result.content, 'binary');
+        var body = new Buffer(result.content, 'binary');
+        var image = Partup.server.services.images.upload(user._id + '.jpg', body, 'image/jpeg');
 
-        var ref = new FS.File();
-        ref.attachData(buffer, {type: 'image/jpeg'});
-        ref.name(user._id + '.jpg');
-
-        var image = Images.insert(ref);
         profile.image = image._id;
     } catch (error) {
         Log.error(error.message);
@@ -143,6 +139,7 @@ Accounts.onCreateUser(function(options, user) {
     user.flags = {
         dailyDigestEmailHasBeenSent: false
     };
+    user.profile.settings.locale = Meteor.call('users.get_locale');
 
     return user;
 });

@@ -55,6 +55,7 @@ Meteor.methods({
 
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
+        var oldLanguage = partup.language;
 
         var uppers = partup.uppers || [];
 
@@ -75,6 +76,8 @@ Meteor.methods({
             }
 
             Partups.update(partupId, {$set: newPartupFields});
+
+            Event.emit('partups.language.updated', oldLanguage, newPartupFields.language);
 
             return {
                 _id: partup._id
@@ -151,7 +154,7 @@ Meteor.methods({
             sort: parameters.sort,
             textSearch: parameters.textSearch,
             limit: parameters.limit,
-            language: parameters.language
+            language: (parameters.language === 'all') ? undefined : parameters.language
         };
 
         var partupIds = Partups.findForDiscover(userId, options, parameters).map(function(partup) {
@@ -310,7 +313,10 @@ Meteor.methods({
         check(partupId, String);
 
         try {
-            Partups.update({_id: partupId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_updates': []}});
+            var partup = Partups.findOne({_id: partupId, 'upper_data._id': Meteor.userId()});
+            if (partup) {
+                Partups.update({_id: partupId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_updates': []}});
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partup_new_updates_could_not_be_reset');

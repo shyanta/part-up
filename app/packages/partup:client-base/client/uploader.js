@@ -15,6 +15,10 @@ Partup.client.uploader = {
     uploadImage: function(file, callback) {
         var img = document.createElement('img');
         var canvas = document.createElement('canvas');
+        var self = this;
+
+        var userId = Meteor.userId();
+        // TODO: Error if user is not loggedin
 
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -52,20 +56,88 @@ Partup.client.uploader = {
                 dataUrl = canvas.toDataURL('image/jpeg', 0.9);
             }
 
-            Meteor.call('images.insertByDataUrl', dataUrl, function(error, dbImage) {
-                if (error) return callback(error);
-                Meteor.subscribe('images.one', dbImage._id);
-                Meteor.autorun(function(computation) {
-                    var image = Images.findOne({_id: dbImage._id});
-                    if (image && image.isUploaded() && image.url()) {
-                        computation.stop();
-                        Tracker.nonreactive(function() {
-                            callback(null, image);
-                        });
-                    }
-                });
+            var resizedFile = self.dataURLToBlob(dataUrl);
+
+            var newFile = new File([resizedFile], file.name);
+
+            newFile.type = resizedFile.type;
+
+            var token = Accounts._storedLoginToken();
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload?token=' + token, false);
+
+            var formData = new FormData();
+            formData.append('file', newFile);
+            xhr.send(formData);
+
+            var data = JSON.parse(xhr.responseText);
+
+            if (data.error) {
+                callback(data.error);
+            }
+
+            Meteor.subscribe('images.one', data.image);
+            Meteor.autorun(function(computation) {
+                var image = Images.findOne({_id: data.image});
+                if (image) {
+                    computation.stop();
+                    Tracker.nonreactive(function() {
+                        callback(null, image);
+                    });
+                }
             });
         };
+    },
+
+    /**
+     * Return a blob from dataurl
+     *
+     * @memberOf Partup.client
+     * @param {DataUrl} canvas dataurl
+     */
+
+    dataURLToBlob: function(dataURL) {
+        var BASE64_MARKER = ';base64,';
+        if (dataURL.indexOf(BASE64_MARKER) == -1) {
+            var parts = dataURL.split(',');
+            var contentType = parts[0].split(':')[1];
+            var raw = decodeURIComponent(parts[1]);
+
+            return new Blob([raw], {type: contentType});
+        }
+
+        var parts = dataURL.split(BASE64_MARKER);
+        var contentType = parts[0].split(':')[1];
+        var raw = window.atob(parts[1]);
+        var rawLength = raw.length;
+
+        var uInt8Array = new Uint8Array(rawLength);
+
+        for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+
+        return new Blob([uInt8Array], {type: contentType});
+    },
+
+    /**
+     * Loop through each file in a file input select event
+     *
+     * @memberOf Partup.client
+     * @param {Object} fileSelectEvent
+     * @param {Function} callback
+     */
+    eachFile: function(fileSelectEvent, callBack) {
+        var e = (fileSelectEvent.originalEvent || fileSelectEvent);
+        var files = e.target.files;
+
+        if (!files || files.length === 0) {
+            files = e.dataTransfer ? e.dataTransfer.files : [];
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            callBack(files[i]);
+        }
     },
 
     /**
@@ -76,19 +148,18 @@ Partup.client.uploader = {
      * @param {Function} callback
      */
     uploadImageByUrl: function(url, callback) {
-        Meteor.call('images.insertByUrl', url, function(error, output) {
-            if (error || !output) return callback(error);
+        Meteor.call('images.insertByUrl', url, function(error, result) {
+            if (error || !result) return callback(error);
 
-            Meteor.subscribe('images.one', output._id, function() {
+            Meteor.subscribe('images.one', result._id, function() {
                 Meteor.autorun(function(computation) {
-                    var image = Images.findOne({_id: output._id});
-                    if (!image) return;
-                    if (!image.isUploaded()) return;
-                    if (!image.url()) return;
-                    computation.stop();
-                    Tracker.nonreactive(function() {
-                        callback(null, image);
-                    });
+                    var image = Images.findOne({_id: result._id});
+                    if (image) {
+                        computation.stop();
+                        Tracker.nonreactive(function() {
+                            callback(null, image);
+                        });
+                    }
                 });
             });
         });

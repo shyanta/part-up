@@ -20,7 +20,7 @@ if (Meteor.isServer) {
  * Find ratings for contribution
  *
  * @memberOf Ratings
- * @param {Contribution} contribution
+ * @param {Contributions} contribution
  * @return {Mongo.Cursor}
  */
 Ratings.findForContribution = function(contribution) {

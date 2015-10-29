@@ -16,10 +16,13 @@ Event.onAny(function() {
             'eventname': this.event,
             'payload': arguments
         };
-        HTTP.post(process.env.EVENT_ENDPOINT_URL, {
+        HTTP.call('POST', process.env.EVENT_ENDPOINT_URL, {
             data: data,
             headers: {
                 'Authorization': 'Bearer ' + process.env.EVENT_ENDPOINT_AUTHORIZATION
+            },
+            npmRequestOptions: {
+                rejectUnauthorized: false
             }
         }, function(err, result) {
             //silently ignore success or failure of posting to eventstore

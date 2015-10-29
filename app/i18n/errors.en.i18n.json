@@ -65,5 +65,16 @@
 
     // Ratings
     "base-errors-rating_could_not_be_inserted": "Oh bummer, we could not create your rating. Please try again.",
-    "base-errors-rating_could_not_be_updated": "Oh bummer, we could not update your rating. Please try again."
+    "base-errors-rating_could_not_be_updated": "Oh bummer, we could not update your rating. Please try again.",
+
+    // image upload
+    "error-imageupload-toolarge": "The image is too large.",
+    "error-imageupload-invalidimage": "The image is not recognized",
+    "error-imageupload-unauthorized": "Nope",
+    "error-imageupload-notoken": "Nope",
+
+    "error-csvupload-notoken": "Token is required",
+    "error-csvupload-unauthorized": "Token is required",
+    "error-csvupload-invalidcsv": "CSV is invalid",
+    "error-csvupload-toolarge": "CSV is too large"
 }

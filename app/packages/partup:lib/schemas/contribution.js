@@ -5,6 +5,22 @@
  * @private
  */
 var contributionBaseSchema = new SimpleSchema({
+    currency: {
+        type: String,
+        optional: true,
+        allowedValues: [
+            'EUR',
+            'USD',
+            'GBP'
+        ],
+        autoform: {
+            options: [
+                {label: 'EUR', value: 'EUR'},
+                {label: 'USD', value: 'USD'},
+                {label: 'GBP', value: 'GBP'}
+            ]
+        }
+    },
     hours: {
         type: Number,
         min: 0,

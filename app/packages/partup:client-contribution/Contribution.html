@@ -18,7 +18,12 @@
                         <label class="pu-formfield">
                             <span class="pu-label">{{_ 'contribution-form-rate-label' }}</span>
                             <div class="pu-sub-validations {{# if afFieldIsInvalid name='rate' }}pu-state-invalid{{/ if }}">
-                                <span class="pu-sub-input">{{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' numeric="true" }}</span>
+                                <span class="pu-sub-input">
+                                    <span class="pu-inputcontainer pu-inputcontainer-currency">
+                                        {{> afFieldInput name='rate' placeholder=placeholders.rate class='pu-input pu-input-accent' numeric="true" }}
+                                        {{> afFieldInput name='currency' value=currentCurrency placeholder='EUR' firstOption=false options="allowed" class="pu-input pu-input-select"}}
+                                    </span>
+                                </span>
                                 <span class="pu-sub-error">{{ afFieldMessage name='rate' }}</span>
                             </div>
                         </label>
@@ -57,9 +62,9 @@
                     </figure>
                     {{# if addsValue }}
                         <p>
-                            {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
+                            {{# if hasValue contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
                             {{# if showSplit }} &mdash; {{/ if }}
-                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                            {{# if hasValue contribution.rate }}{{ contribution.rate }} {{ rateTranslation }}{{/ if }}
                         </p>
                     {{ else }}
                         <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
@@ -79,7 +84,7 @@
                         <p>
                             {{# if contribution.hours }}{{_ 'contribution-hour' count=contribution.hours }}{{/ if }}
                             {{# if showSplit }} &mdash; {{/ if }}
-                            {{# if contribution.rate }}{{ contribution.rate }} {{_ 'contribution-hourly-rate' }}{{/ if }}
+                            {{# if contribution.rate }}{{ contribution.rate }} {{ rateTranslation }} {{/ if }}
                         </p>
                     {{/ if }}
                     {{# if contribution.verified }}
