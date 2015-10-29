@@ -35,7 +35,7 @@
     "partupsettings-form-location_input-label": "Where is your part-up located?",
     "partupsettings-form-location_input-placeholder": "Your region or city",
 
-    "partupsettings-form-privacy-label": "Where do you want to your part-up to show up?",
+    "partupsettings-form-privacy-label": "Where do you want your part-up to show up?",
     "partupsettings-form-privacy-public": "Publicly on Part-up.com",
     "partupsettings-form-privacy-private": "Hidden <a class='pu-paragraph-small' target='_blank' href='/pricing'><strong>(only available to premium uppers)</strong></a>",
     "partupsettings-form-privacy-network": "Only in this tribe:",

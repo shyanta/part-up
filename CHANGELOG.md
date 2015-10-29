@@ -1,4 +1,20 @@
 # CHANGELOG
+## 1.12.0
+- discover language filter (#1)
+- currencies (#3)
+- multi server image / file upload (#5)
+- ip based language (#2)
+- comments now trigger partup updatecount increase
+- create link to pricing page in partup details
+- events are now being sent to partup events api
+- fixes
+    - fix(networks): allow superadmins to leave networks but disallow network admins to leave network
+    - fix(devops): update TEMP_DIR location in group vars fixing csv upload
+    - fix(partup-detail): timeline line doesn't overflow anymore
+    - fix(update-gallery): fixed the fade out transition
+    - fix(contributions): allow for 0 hours and rate
+    - fix(profile-dropdown): sort partups by update count
+
 ## 1.11.0
 - switched to own infrastructure with docker
 - clustered invite updates
