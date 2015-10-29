@@ -12,7 +12,7 @@ Meteor.methods({
         var token = Partup.server.services.meurs.getToken();
         console.log(token);
         // Create user
-        var q4youId = Partup.server.services.meurs.addUser(token, upper._id, upper.getEmail());
+        var q4youId = Partup.server.services.meurs.addUser(token, upper._id, User(upper).getEmail());
         console.log(q4youId);
         // Activate user
         var isActivated = Partup.server.services.meurs.activateUser(token, q4youId);
