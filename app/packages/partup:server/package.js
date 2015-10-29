@@ -142,6 +142,7 @@ Package.onUse(function(api) {
         'routes/hooks.js',
         'routes/csv/csv_routes.js',
         'routes/images/images_routes.js',
+        'routes/partups/partups_routes.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
