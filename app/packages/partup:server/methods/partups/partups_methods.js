@@ -55,6 +55,7 @@ Meteor.methods({
 
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
+        var oldLanguage = partup.language;
 
         var uppers = partup.uppers || [];
 
@@ -75,6 +76,8 @@ Meteor.methods({
             }
 
             Partups.update(partupId, {$set: newPartupFields});
+
+            Event.emit('partups.language.updated', oldLanguage, newPartupFields.language);
 
             return {
                 _id: partup._id
