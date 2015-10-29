@@ -48,12 +48,7 @@ Meteor.startup(function() {
         // some of these methods have reactive vars
         // we dont't want unnessesary language changes
         Tracker.nonreactive(function() {
-            if (user) {
-                var language = mout.object.get(user, 'profile.settings.locale');
-                Partup.client.language.change(language);
-            } else {
-                Partup.client.language.setToDefault();
-            }
+            Partup.client.language.setDefault(user);
         });
     });
 
@@ -155,5 +150,4 @@ Meteor.startup(function() {
         debug: false,
         default_route_name: 'home'
     });
-
 });

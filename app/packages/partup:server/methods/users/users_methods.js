@@ -158,26 +158,12 @@ Meteor.methods({
     },
 
     /**
-     * Returns user data to superadmins only
+     * Returns the user's locale based on IP lookup
      */
+    'users.get_locale': function() {
+        this.unblock();
 
-    /* DISABLED UNTIL NEEDED IN FRONTEND
-    'users.get_country': function() {
-        var user = Meteor.user();
-
-        if (user) {
-            return user.profile.location.country;
-        } else {
-            var ip = this.connection.clientAddress;
-            var response = HTTP.get('http://ip-api.com/json/' + ip);
-            if (response.statusCode !== 200) {
-                Log.error('IP API resulted in an error [' + response.statusCode + ']', response);
-                return '';
-            }
-            var data = get(response, 'data');
-
-            return data.country;
-        }
-    },
-    */
+        var ipAddress = this.connection.clientAddress;
+        return Partup.server.services.locale.get_locale(ipAddress);
+    }
 });
