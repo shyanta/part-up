@@ -10,18 +10,37 @@ Meteor.methods({
 
         // Authenticate
         var token = Partup.server.services.meurs.getToken();
-        console.log(token);
+        //console.log(token);
+
         // Create user
         var q4youId = Partup.server.services.meurs.addUser(token, upper._id, User(upper).getEmail());
-        console.log(q4youId);
+        //console.log(q4youId);
+
         // Activate user
-        var isActivated = Partup.server.services.meurs.activateUser(token, q4youId);
-        console.log(isActivated);
+        var isUserActivated = Partup.server.services.meurs.activateUser(token, q4youId);
+        if (!isUserActivated) return false;
+
         // Get Program Templates
-        var programTemplates = Partup.server.services.meurs.getProgramTemplates(token);
-        console.log(programTemplates);
+        //var programTemplates = Partup.server.services.meurs.getProgramTemplates(token);
+        //console.log(programTemplates);
+
         // Create Program Session
         var programSessionId = Partup.server.services.meurs.createProgramSessionId(token, q4youId);
-        console.log(programSessionId);
+        //console.log(programSessionId);
+
+        // Activate Program Session
+        var isProgramSessionActivated = Partup.server.services.meurs.setActiveProgramSession(token, q4youId, programSessionId);
+        if (!isProgramSessionActivated) return false;
+
+        // Get Program Session Content
+        //var programSessionContent = Partup.server.services.meurs.getProgramSessionContent(token, q4youId, programSessionId);
+        //console.log(programSessionContent);
+
+        // Get Browser Token
+        var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/about';
+        var testUrl = Partup.server.services.meurs.getBrowserToken(token, q4youId, returnUrl);
+        //console.log(testUrl);
+
+        return testUrl;
     }
 });

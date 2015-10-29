@@ -1,5 +1,28 @@
 var d = Debug('services:meurs');
 
+var meursCall = function(url, data) {
+    try {
+        var result = HTTP.post(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: data
+        });
+
+        if (result.statusCode !== 200 || result.data.errors.length > 0) {
+            Log.error('[Meurs API Error] Url: [' + url + ']. Status code: [' + result.statusCode + ']. Errors: ', result.data.errors);
+            throw new Meteor.Error(400, '[Meurs API Error] Url: [' + url + ']. Status code: [' + result.statusCode + ']. Errors: ', result.data.errors);
+        }
+
+        // No errors
+        return result;
+    } catch (error) {
+        Log.error(error);
+        throw new Meteor.Error(400, '[Meurs API Exception] Url: [' + url + ']. Errors: ', error);
+    }
+};
+
 /**
  @namespace Partup server meurs service
  @name Partup.server.services.meurs
@@ -7,28 +30,12 @@ var d = Debug('services:meurs');
  */
 Partup.server.services.meurs = {
     getToken: function() {
-        try {
-            var result = HTTP.post(process.env.MEURS_BASE_URL + 'authenticator/api/authenticate', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    'apiKey': process.env.MEURS_API_KEY,
-                    'apiSecret': process.env.MEURS_API_SECRET
-                }
-            });
+        var result = meursCall(process.env.MEURS_BASE_URL + 'authenticator/api/authenticate', {
+            apiKey: process.env.MEURS_API_KEY,
+            apiSecret: process.env.MEURS_API_SECRET
+        });
 
-            if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error('[Meurs API] Error while authenticating. Status code [' + result.statusCode + ']. Errors: ' + result.data.errors);
-                throw new Meteor.Error(400, '[Meurs API] Error while authenticating. Status code [' + result.statusCode + ']. Errors: ' + result.data.errors);
-            }
-
-            return result.data.authToken;
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, '[Meurs API] Error while authenticating: ' + error);
-        }
+        return result.data.authToken;
     },
 
     addUser: function(token, userId, email) {
@@ -37,30 +44,14 @@ Partup.server.services.meurs = {
             throw new Meteor.Error(400, 'Token needed for Meurs API');
         }
 
-        try {
-            var result = HTTP.post(process.env.MEURS_BASE_URL + 'authenticator/api/adduser', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    'authToken': token,
-                    'userName': userId,
-                    'password': '@' + userId,
-                    'email': email
-                }
-            });
+        var result = meursCall(process.env.MEURS_BASE_URL + 'authenticator/api/adduser', {
+            authToken: token,
+            userName: userId,
+            password: '@' + userId,
+            email: email
+        });
 
-            if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error('[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-                throw new Meteor.Error(400, '[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-            }
-
-            return result.data.q4youID;
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, '[Meurs API] Error while adding user: ' + error);
-        }
+        return result.data.q4youID;
     },
 
     activateUser: function(token, q4youId) {
@@ -69,29 +60,12 @@ Partup.server.services.meurs = {
             throw new Meteor.Error(400, 'Token needed for Meurs API');
         }
 
-        try {
-            var result = HTTP.post(process.env.MEURS_BASE_URL + 'authenticator/api/activateuser', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    'authToken': token,
-                    'q4youID': q4youId
-                }
-            });
+        var result = meursCall(process.env.MEURS_BASE_URL + 'authenticator/api/activateuser', {
+            authToken: token,
+            q4youID: q4youId
+        });
 
-            if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error('[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-                throw new Meteor.Error(400, '[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-            }
-
-            // No errors, can only be successful at this point
-            return true;
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, '[Meurs API] Error while adding user: ' + error);
-        }
+        return result.data.errors.length < 1;
     },
 
     getProgramTemplates: function(token) {
@@ -100,27 +74,11 @@ Partup.server.services.meurs = {
             throw new Meteor.Error(400, 'Token needed for Meurs API');
         }
 
-        try {
-            var result = HTTP.post(process.env.MEURS_BASE_URL + 'q4u/api/getprogramtemplates ', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    'authToken': token
-                }
-            });
+        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getprogramtemplates', {
+            authToken: token
+        });
 
-            if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error('[Meurs API] Error while getting program templates. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-                throw new Meteor.Error(400, '[Meurs API] Error while getting program templates. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-            }
-
-            return result.data.templates;
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, '[Meurs API] Error while getting program templates: ' + error);
-        }
+        return result.data.templates;
     },
 
     createProgramSessionId: function(token, q4youId) {
@@ -129,28 +87,59 @@ Partup.server.services.meurs = {
             throw new Meteor.Error(400, 'Token needed for Meurs API');
         }
 
-        try {
-            var result = HTTP.post(process.env.MEURS_BASE_URL + 'q4u/api/createprogramsession ', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    'authToken': token,
-                    'q4youID': q4youId,
-                    'programTemplateId': process.env.MEURS_PROGRAM_TEMPLATE_ID
-                }
-            });
+        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/createprogramsession', {
+            authToken: token,
+            q4youID: q4youId,
+            programTemplateId: process.env.MEURS_PROGRAM_TEMPLATE_ID
+        });
 
-            if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error('[Meurs API] Error while creating program session. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-                throw new Meteor.Error(400, '[Meurs API] Error while creating program session. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
-            }
-
-            return result.data.programSessionId;
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, '[Meurs API] Error while creating program session: ' + error);
-        }
+        return result.data.programSessionId;
     },
+
+    setActiveProgramSession: function(token, q4youId, programSessionId) {
+        if (!token) {
+            d('No authentication token given');
+            throw new Meteor.Error(400, 'Token needed for Meurs API');
+        }
+
+        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/setactiveprogramsession', {
+            authToken: token,
+            q4youID: q4youId,
+            programSessionId: programSessionId
+        });
+
+        return result.data.errors.length < 1;
+    },
+
+    getProgramSessionContent: function(token, q4youId, programSessionId) {
+        if (!token) {
+            d('No authentication token given');
+            throw new Meteor.Error(400, 'Token needed for Meurs API');
+        }
+
+        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getprogramsessioncontent', {
+            authToken: token,
+            q4youID: q4youId,
+            programSessionId: programSessionId
+        });
+
+        return result.data.content.services;
+    },
+
+    getBrowserToken: function(token, q4youId, returnUrl) {
+        if (!token) {
+            d('No authentication token given');
+            throw new Meteor.Error(400, 'Token needed for Meurs API');
+        }
+
+        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getbrowsertoken', {
+            authToken: token,
+            q4youID: q4youId,
+            returnUrl: returnUrl,
+            startPageId: 1,
+            autoStartServiceId: process.env.MEURS_SERVICE_ID
+        });
+
+        return result.data.url;
+    }
 };
