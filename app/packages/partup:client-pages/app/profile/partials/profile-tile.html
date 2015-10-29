@@ -1,6 +1,8 @@
 <template name="ProfileTile">
-    <article class="pu-profiletile" style="background-image: url('{{ partupImageUrl id=image_id store='360x360' }}');">
-        <!-- {{log . }} -->
-        {{description}}
+    <article class="pu-profiletile">
+        <img src="{{ partupImageUrl id=image_id store='360x360' }}" alt="">
+        <p>
+            {{description}}
+        </p>
     </article>
 </template>
