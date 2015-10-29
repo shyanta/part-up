@@ -46,7 +46,7 @@ Partup.server.services.meurs = {
                 data: {
                     'authToken': token,
                     'userName': userId,
-                    'password': userId,
+                    'password': '@' + userId,
                     'email': email
                 }
             });
