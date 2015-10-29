@@ -6,6 +6,7 @@
 
 [appservers-acceptance]
 178.62.29.238 name=partup-acceptance-london1-01
+178.62.82.115 name=partup-acceptance-london1-02
 
 [appservers-production]
 46.101.51.124 name=partup-production-london1-01
