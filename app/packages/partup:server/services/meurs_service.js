@@ -20,14 +20,14 @@ Partup.server.services.meurs = {
             });
 
             if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error(result.statusCode, result.data.errors);
-                throw new Meteor.Error(400, 'Error while authenticating with Meurs: ' + error);
+                Log.error('[Meurs API] Error while authenticating. Status code [' + result.statusCode + ']. Errors: ' + result.data.errors);
+                throw new Meteor.Error(400, '[Meurs API] Error while authenticating. Status code [' + result.statusCode + ']. Errors: ' + result.data.errors);
             }
 
             return result.data.authToken;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Error while authenticating with Meurs: ' + error);
+            throw new Meteor.Error(400, '[Meurs API] Error while authenticating: ' + error);
         }
     },
 
@@ -52,14 +52,14 @@ Partup.server.services.meurs = {
             });
 
             if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error(result.statusCode, result.data.errors);
-                throw new Meteor.Error(400, 'Error while adding user to Meurs: ' + error);
+                Log.error('[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
+                throw new Meteor.Error(400, '[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
             }
 
             return result.data.q4youID;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Error while adding user to Meurs: ' + error);
+            throw new Meteor.Error(400, '[Meurs API] Error while adding user: ' + error);
         }
     },
 
@@ -82,15 +82,15 @@ Partup.server.services.meurs = {
             });
 
             if (result.statusCode !== 200 || result.data.errors.length > 0) {
-                Log.error(result.statusCode, result.data.errors);
-                throw new Meteor.Error(400, 'Error while adding user to Meurs: ' + error);
+                Log.error('[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
+                throw new Meteor.Error(400, '[Meurs API] Error while adding user. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
             }
 
             // No errors, can only be successful at this point
             return true;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'Error while adding user to Meurs: ' + error);
+            throw new Meteor.Error(400, '[Meurs API] Error while adding user: ' + error);
         }
     },
 };
