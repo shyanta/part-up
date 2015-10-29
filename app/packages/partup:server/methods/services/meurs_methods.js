@@ -17,5 +17,8 @@ Meteor.methods({
         // Activate user
         var isActivated = Partup.server.services.meurs.activateUser(token, q4youId);
         console.log(isActivated);
+        // Get Program Templates
+        var programTemplates = Partup.server.services.meurs.getProgramTemplates(token);
+        console.log(programTemplates);
     }
 });

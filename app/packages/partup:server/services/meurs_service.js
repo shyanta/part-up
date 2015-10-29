@@ -93,4 +93,34 @@ Partup.server.services.meurs = {
             throw new Meteor.Error(400, '[Meurs API] Error while adding user: ' + error);
         }
     },
+
+    getProgramTemplates: function(token) {
+        if (!token) {
+            d('No authentication token given');
+            throw new Meteor.Error(400, 'Token needed for Meurs API');
+        }
+
+        try {
+            var result = HTTP.post(process.env.MEURS_BASE_URL + 'q4u/api/getprogramtemplates ', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    'authToken': token
+                }
+            });
+
+            if (result.statusCode !== 200 || result.data.errors.length > 0) {
+                Log.error('[Meurs API] Error while getting program templates. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
+                throw new Meteor.Error(400, '[Meurs API] Error while getting program templates. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
+            }
+
+            return result.data.templates;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, '[Meurs API] Error while getting program templates: ' + error);
+        }
+    },
+
 };
