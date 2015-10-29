@@ -123,4 +123,34 @@ Partup.server.services.meurs = {
         }
     },
 
+    createProgramSessionId: function(token, q4youId) {
+        if (!token) {
+            d('No authentication token given');
+            throw new Meteor.Error(400, 'Token needed for Meurs API');
+        }
+
+        try {
+            var result = HTTP.post(process.env.MEURS_BASE_URL + 'q4u/api/createprogramsession ', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    'authToken': token,
+                    'q4youID': q4youId,
+                    'programTemplateId': process.env.MEURS_PROGRAM_TEMPLATE_ID
+                }
+            });
+
+            if (result.statusCode !== 200 || result.data.errors.length > 0) {
+                Log.error('[Meurs API] Error while creating program session. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
+                throw new Meteor.Error(400, '[Meurs API] Error while creating program session. Status code [' + result.statusCode + ']. Errors: ', result.data.errors);
+            }
+
+            return result.data.programSessionId;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, '[Meurs API] Error while creating program session: ' + error);
+        }
+    },
 };

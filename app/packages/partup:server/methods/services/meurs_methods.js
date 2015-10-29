@@ -20,5 +20,8 @@ Meteor.methods({
         // Get Program Templates
         var programTemplates = Partup.server.services.meurs.getProgramTemplates(token);
         console.log(programTemplates);
+        // Create Program Session
+        var programSessionId = Partup.server.services.meurs.createProgramSessionId(token, q4youId);
+        console.log(programSessionId);
     }
 });
