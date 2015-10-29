@@ -1,9 +1,9 @@
 {
     "contribution-form-hours-label": "Aantal uren",
-    "contribution-form-hours-placeholder": "Alleen cijfers mogelijk",
+    "contribution-form-hours-placeholder": "Alleen cijfers",
 
     "contribution-form-rate-label": "Uurtarief",
-    "contribution-form-rate-placeholder": "Alleen cijfers mogelijk",
+    "contribution-form-rate-placeholder": "Alleen cijfers",
 
     "contribution-form-submit": "Opslaan",
     "contribution-form-close": "Sluiten",
