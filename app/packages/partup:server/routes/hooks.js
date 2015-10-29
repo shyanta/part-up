@@ -21,4 +21,4 @@ Router.onBeforeAction(function(request, response, next) {
     if (!user) return respondWithError(response, 401, 'error-imageupload-unauthorized');
 
     next();
-}, {where: 'server', except: ['ping']});
+}, {where: 'server', except: ['ping', 'partups.featured']});
