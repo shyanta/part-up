@@ -36,7 +36,10 @@ program
         arguments.push('-i', 'inventories/' + inventory.toLowerCase() + '.yml');
 
         var playbook = 'application';
+
         if (inventory === 'loadbalancer') playbook = 'loadbalancer';
+        if (inventory === 'ci') playbook = 'ci';
+
         arguments.push('provision/' + playbook + '.yml');
 
         arguments.push('--limit=' + destination.toLowerCase());
