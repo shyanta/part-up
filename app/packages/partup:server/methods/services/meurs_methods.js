@@ -12,9 +12,12 @@ Meteor.methods({
         var token = Partup.server.services.meurs.getToken();
         //console.log(token);
 
-        // Create user
-        var q4youId = Partup.server.services.meurs.addUser(token, upper._id, User(upper).getEmail());
-        //console.log(q4youId);
+        // Create user if needed
+        if (!upper.profile.meurs_id) {
+            var q4youId = Partup.server.services.meurs.addUser(token, upper._id, User(upper).getEmail());
+            //console.log(q4youId);
+            Meteor.users.update(upper._id, {$set: {'profile.meurs_id': q4youId}});
+        }
 
         // Activate user
         var isUserActivated = Partup.server.services.meurs.activateUser(token, q4youId);
