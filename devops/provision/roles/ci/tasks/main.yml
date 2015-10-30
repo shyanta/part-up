@@ -5,3 +5,4 @@
 - include: ansible.yml
 - include: node.yml
 - include: aws.yml
+- include: mongodb.yml

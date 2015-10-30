@@ -16,7 +16,7 @@ var run = function(executable, arguments) {
         arguments.push('-e', program.extraVars);
     }
 
-    var ansible = spawn(executable, arguments, { stdio: 'inherit' });
+    var ansible = spawn(executable, arguments, {stdio: 'inherit'});
 
     ansible.on('close', function(status) {
         process.exit(status);
