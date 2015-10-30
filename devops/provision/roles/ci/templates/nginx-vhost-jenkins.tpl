@@ -4,7 +4,7 @@ upstream jenkins {
 
 server {
     listen 80;
-    server_name {{ web.url }};
+    server_name {{ jenkins.url }};
 
     location / {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
