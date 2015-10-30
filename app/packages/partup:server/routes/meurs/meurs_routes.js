@@ -22,7 +22,7 @@ Router.route('/meurs/notifications', {where: 'server'}).post(function() {
     var results = Partup.server.services.meurs.getResults(token, upper.profile.meurs_id);
 
     if (results) {
-        Meteor.users.update()
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.results': results}});
     }
 
     // This POST request was automated and they don't expect anything in return
