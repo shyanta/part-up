@@ -41,9 +41,7 @@ Meteor.methods({
 
         // Get Browser Token
         var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/about';
-        var testUrl = Partup.server.services.meurs.getBrowserToken(token, q4youId, returnUrl);
-        //console.log(testUrl);
 
-        return testUrl;
+        return Partup.server.services.meurs.getBrowserToken(token, q4youId, returnUrl);
     }
 });
