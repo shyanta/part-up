@@ -143,15 +143,16 @@ Partup.server.services.meurs = {
         return result.data.url;
     },
 
-    getResults: function(token, q4youId) {
+    getResults: function(token, q4youId, programSessionId) {
         if (!token) {
             d('No authentication token given');
             throw new Meteor.Error(400, 'Token needed for Meurs API');
         }
 
-        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getbrowsertoken', {
+        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getServiceSessionResults', {
             authToken: token,
-            q4youID: q4youId
+            q4youID: q4youId,
+            programSessionId: programSessionId
         });
 
         return result.data;
