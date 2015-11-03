@@ -43,5 +43,23 @@ Meteor.methods({
         var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/about?results_ready=true';
 
         return Partup.server.services.meurs.getBrowserToken(token, q4youId, returnUrl);
+    },
+
+    'meurs.get_results': function(upperId) {
+        // Get Upper
+        var upper = Meteor.users.findOne({_id: upperId});
+        if (!upper) throw new Meteor.Error(404, 'user not found');
+
+        // Authenticate
+        var token = Partup.server.services.meurs.getToken();
+
+        // Get results
+        var results = Partup.server.services.meurs.getResults(token, upper.profile.meurs._id, upper.profile.meurs.programSessionId);
+
+        if (results) {
+            Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': results}});
+        } else {
+            // setInterval or something
+        }
     }
 });
