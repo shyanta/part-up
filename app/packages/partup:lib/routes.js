@@ -104,6 +104,12 @@ Router.route('/profile/:_id/about', {
         return {
             profileId: this.params._id
         };
+    },
+    action: function() {
+        if (this.params.query.results_ready) {
+            Meteor.call('meurs.get_results', this.params._id);
+        }
+        this.render();
     }
 });
 

@@ -39,8 +39,8 @@ Meteor.methods({
         //var programSessionContent = Partup.server.services.meurs.getProgramSessionContent(token, q4youId, programSessionId);
         //console.log(programSessionContent);
 
-        // Get Browser Token
-        var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/about';
+        // Create return URL
+        var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/about?results_ready=true';
 
         return Partup.server.services.meurs.getBrowserToken(token, q4youId, returnUrl);
     }
