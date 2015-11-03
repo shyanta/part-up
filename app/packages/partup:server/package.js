@@ -146,6 +146,7 @@ Package.onUse(function(api) {
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
         'routes/images/images_routes.js',
+        'routes/meurs/meurs_routes.js',
         'routes/partups/partups_routes.js',
         'routes/meurs/meurs_routes.js',
         'methods/updates/updates_comments_methods.js',
