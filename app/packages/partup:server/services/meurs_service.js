@@ -29,10 +29,18 @@ var meursCall = function(url, data) {
  @memberof Partup.server.services
  */
 Partup.server.services.meurs = {
-    getToken: function() {
+    getToken: function(portal) {
+        var apiKey = process.env.MEURS_EN_API_KEY;
+        var apiSecret = process.env.MEURS_EN_API_SECRET;
+
+        if (portal === 'nl') {
+            apiKey = process.env.MEURS_NL_API_KEY;
+            apiSecret = process.env.MEURS_NL_API_SECRET;
+        }
+
         var result = meursCall(process.env.MEURS_BASE_URL + 'authenticator/api/authenticate', {
-            apiKey: process.env.MEURS_API_KEY,
-            apiSecret: process.env.MEURS_API_SECRET
+            apiKey: apiKey,
+            apiSecret: apiSecret
         });
 
         return result.data.authToken;
