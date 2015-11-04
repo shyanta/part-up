@@ -16,8 +16,12 @@ Meteor.methods({
         }
 
         try {
-            var latestUpperTile = Tiles.findOne({upper_id: upper._id, sort: {position: -1}}).fetch();
-            var position = latestUpperTile.position + 1;
+            var latestUpperTile = Tiles.findOne({upper_id: upper._id, sort: {position: -1}});
+            if (latestUpperTile) {
+                var position = latestUpperTile.position + 1;
+            } else {
+                var position = 0;
+            }
             var tile = {
                 _id: Random.id(),
                 upper_id: upper._id,
