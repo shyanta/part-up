@@ -43,13 +43,16 @@ Template.app_profile_about.onCreated(function() {
         // Options reactive variable (on change, clear the layout and re-add all partups)
         init: function() {
             if (typeof profileId == 'string') {
-                Meteor.call('tiles.profile', profileId, function(error, tiles) {
-                    if (error) {
-                        Partup.client.notify.error(error);
-                        return;
+                tpl.subscribe('tiles.profile', profileId, {
+                    onReady: function() {
+                        var tiles = Tiles.find({upper_id: profileId}).fetch();
+                        // if (error) {
+                        //     Partup.client.notify.error(error);
+                        //     return;
+                        // }
+                        tpl.tiles.layout.items = tpl.tiles.layout.clear();
+                        tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
                     }
-                    tpl.tiles.layout.items = tpl.tiles.layout.clear();
-                    tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
                 });
             }
         }
