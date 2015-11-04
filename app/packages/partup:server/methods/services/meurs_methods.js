@@ -65,13 +65,19 @@ Meteor.methods({
         var upper = Meteor.users.findOne({_id: upperId});
         if (!upper) throw new Meteor.Error(404, 'user not found');
 
+        // Check needed data
+        if (!upper.profile.meurs || !upper.profile.meurs._id || !upper.profile.meurs.portal || !upper.profile.meurs.program_session_id) {
+            throw new Meteor.Error(400, 'incomplete_meurs_data');
+        }
+
         // Authenticate
-        var token = Partup.server.services.meurs.getToken();
+        var token = Partup.server.services.meurs.getToken(upper.profile.meurs.portal);
 
         // Get results
-        var results = Partup.server.services.meurs.getResults(token, upper.profile.meurs._id, upper.profile.meurs.programSessionId);
+        var results = Partup.server.services.meurs.getResults(token, upper.profile.meurs._id, upper.profile.meurs.program_session_id);
 
         if (results) {
+            Log.debug(results);
             Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': results}});
         } else {
             // setInterval or something
