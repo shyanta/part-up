@@ -61,6 +61,8 @@ Meteor.methods({
     },
 
     'meurs.get_results': function(upperId) {
+        this.unblock();
+
         // Get Upper
         var upper = Meteor.users.findOne({_id: upperId});
         if (!upper) throw new Meteor.Error(404, 'user not found');
