@@ -98,7 +98,7 @@ Partup.server.services.meurs = {
         var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/createprogramsession', {
             authToken: token,
             q4youID: q4youId,
-            programTemplateId: process.env.MEURS_PROGRAM_TEMPLATE_ID
+            programTemplateId: process.env.MEURS_NL_PROGRAM_TEMPLATE_ID
         });
 
         return result.data.programSessionId;
@@ -145,7 +145,7 @@ Partup.server.services.meurs = {
             q4youID: q4youId,
             returnUrl: returnUrl,
             startPageId: 1,
-            autoStartServiceId: process.env.MEURS_SERVICE_ID
+            autoStartServiceId: process.env.MEURS_NL_SERVICE_ID
         });
 
         return result.data.url;
