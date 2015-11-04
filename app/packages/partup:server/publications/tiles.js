@@ -6,6 +6,9 @@ Meteor.publishComposite('tiles.profile', function(upperId) {
     return {
         find: function() {
             return Tiles.find({upper_id: upperId});
-        }
+        },
+        children: [
+            {find: Images.findForTile}
+        ]
     };
 });
