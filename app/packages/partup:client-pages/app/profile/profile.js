@@ -35,9 +35,8 @@ Template.app_profile.onCreated(function() {
 
     template.toggleExpandedText = function(hide) {
         var clickedElement = $('[data-expand]');
-        if (!clickedElement) return;
+        if (!clickedElement || !clickedElement[0]) return;
         var parentElement = $(clickedElement[0].parentElement);
-
         var collapsedText = __(clickedElement.data('collapsed-key')) || false;
         var expandedText = __(clickedElement.data('expanded-key')) || false;
 
