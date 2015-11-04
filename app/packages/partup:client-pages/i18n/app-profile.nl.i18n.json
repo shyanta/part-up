@@ -24,5 +24,16 @@
     "pages-app-profile-description-placeholder": "Voeg een onderschrift toe (niet verplicht)",
     "pages-app-profile-description-tooltip": "help",
     "pages-app-profile-photo-submit": "Plaats foto",
-    "pages-app-profile-photo-close": "Annuleren"
+    "pages-app-profile-photo-close": "Annuleren",
+
+    "pages-app-profile-about-result-brainiac-title": "Denkkracht",
+    "pages-app-profile-about-result-organizer-title": "Slagkracht",
+    "pages-app-profile-about-result-socializer-title": "Sociale kracht",
+    "pages-app-profile-about-result-manager-title": "Stuurkracht",
+    "pages-app-profile-about-result-individual-title": "Persoonlijke kracht",
+    "pages-app-profile-about-result-brainiac-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas tempore beatae modi ad accusantium, fuga id veritatis quia consequatur iure.",
+    "pages-app-profile-about-result-organizer-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quo animi dignissimos enim obcaecati, natus veniam repudiandae, delectus atque esse?",
+    "pages-app-profile-about-result-socializer-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus, temporibus nostrum voluptatem nesciunt, architecto corporis in? Dolore nulla, ad.",
+    "pages-app-profile-about-result-manager-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum sapiente sit libero dolore aperiam, quidem magnam alias quo architecto similique.",
+    "pages-app-profile-about-result-individual-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae alias distinctio soluta nobis enim voluptatum, porro eligendi at provident suscipit!"
 }

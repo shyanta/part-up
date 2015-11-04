@@ -46,10 +46,22 @@ Template.app_profile_about.onCreated(function() {
                 tpl.subscribe('tiles.profile', profileId, {
                     onReady: function() {
                         var tiles = Tiles.find({upper_id: profileId}).fetch();
-                        // if (error) {
-                        //     Partup.client.notify.error(error);
-                        //     return;
-                        // }
+                        var user = Meteor.users.findOne(profileId);
+                        user.profile.meurs = {
+                            results: ['brainiac', 'organizer', 'socializer', 'manager', 'individual']
+                        };
+                        console.log(user);
+                        if (!tiles || !tiles.length) {
+                            Partup.client.notify.error('nope');
+                            return;
+                        }
+                        if (user.profile.meurs && user.profile.meurs.results) {
+                            tiles.unshift({
+                                type: 'result',
+                                result_ids: user.profile.meurs.results
+                            });
+                        }
+                        console.log(tiles)
                         tpl.tiles.layout.items = tpl.tiles.layout.clear();
                         tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
                     }
