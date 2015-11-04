@@ -90,8 +90,13 @@ Images.findForUpdate = function(update) {
     return Images.find({_id: {'$in': images}});
 };
 
+Images.findForTile = function(tile) {
+    return Images.find({_id: tile.image_id}, {limit: 1});
+};
+
 Images.allow({
     insert: function(userId, document) {
         return !!userId;
     }
 });
+
