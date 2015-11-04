@@ -142,6 +142,7 @@ Package.onUse(function(api) {
         'publications/users.js',
         'publications/networks.js',
         'publications/languages.js',
+        'publications/tiles.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
