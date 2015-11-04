@@ -84,5 +84,15 @@ Meteor.methods({
         } else {
             // setInterval or something
         }
+    },
+
+    'meurs.reset': function() {
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper || !upper.profile.meurs || !upper.profile.meurs.portal || !upper.profile.meurs.program_session_id) throw new Meteor.Error(401, 'unauthorized');
+
+        // Reset test related data
+        Meteor.users.update({_id: upper._id}, {$unset: {'profile.meurs.portal': '', 'profile.meurs.program_session_id': ''}});
     }
 });
