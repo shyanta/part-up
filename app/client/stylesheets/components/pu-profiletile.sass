@@ -1,27 +1,36 @@
 .pu-profiletile
     position: relative
-    // border: 2px solid $color-border-light
     width: 100%
     border-radius: 4px
-    // background: #fff
     color: $color-text
     margin: 0 auto
     overflow: hidden
     position: relative
     line-height: 0
     display: block
-    // font-size: 0
+    font-size: 0
 
     img
         width: 100%
         display: block
 
-    p
+    > p
         position: absolute
-        bottom: 20px
+        bottom: 0
         color: $color-text-inverted
-        font-size: 16px
+        font-size: 14px
+        padding: 10px 15px
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 75%)
+        width: 100%
 
     iframe
         width: 100%
         height: 320px
+
+    .pu-resulttile
+        width: 49%
+        width: calc(50% - 5px)
+        &:nth-child(odd)
+            margin-right: 5px
+        &:nth-child(even)
+            margin-left: 5px
