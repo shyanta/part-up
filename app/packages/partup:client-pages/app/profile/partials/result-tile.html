@@ -1,0 +1,15 @@
+<template name="ResultTile">
+    <article class="pu-profiletile">
+        {{#each resultIds}}
+            <article class="pu-resulttile">
+                <header>
+                    <h2>{{ resultTitle . }}</h2>
+                </header>
+                <section>
+                    <figure style="{{#with image }}background-image: url('{{ partupImage . '360x360' }}');{{/ with }}"></figure>
+                    <p>{{ resultDescription . }}</p>
+                </section>
+            </article>
+        {{/each}}
+    </article>
+</template>
