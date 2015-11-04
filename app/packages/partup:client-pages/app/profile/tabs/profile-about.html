@@ -1,4 +1,5 @@
 <template name="app_profile_about">
+    <!-- photo popup -->
     {{#if partupIsPopupActive 'new-photo' }}
         {{#contentFor "PopupTitle"}}
             New photo
@@ -7,6 +8,7 @@
             {{> NewPhotoTile }}
         {{/contentFor}}
     {{/if}}
+    <!-- video popup -->
     {{#if partupIsPopupActive 'new-video' }}
         {{#contentFor "PopupTitle"}}
             New video
@@ -15,6 +17,7 @@
             {{> NewVideoTile }}
         {{/contentFor}}
     {{/if}}
+
     <header class="pu-sub-header">
         <h2 class="pu-title">
             {{# if partupsLoading }}
@@ -24,19 +27,18 @@
                 {{{_ 'pages-app-profile-about-name' name=firstname }}}
             {{/ if }}
         </h2>
-        <!-- Start part-up from tribe -->
-        <!-- {{# if network.hasMember currentUser._id }} -->
-            <p class="pu-columnslayoutaction pu-paragraph pu-sub-right">
-                <a class="pu-button" href="#" data-create-tile="photo">
-                    <i class="picon-plus"></i>
-                    {{_ 'pages-app-profile-button-photo'}}
-                </a>
-                <a class="pu-button" href="#" data-create-tile="video">
-                    <i class="picon-plus"></i>
-                    {{_ 'pages-app-profile-button-video'}}
-                </a>
-            </p>
-        <!-- {{/ if }} -->
+
+        <!-- buttons -->
+        <p class="pu-columnslayoutaction pu-paragraph pu-sub-right">
+            <a class="pu-button" href="#" data-create-tile="photo">
+                <i class="picon-plus"></i>
+                {{_ 'pages-app-profile-button-photo'}}
+            </a>
+            <a class="pu-button" href="#" data-create-tile="video">
+                <i class="picon-plus"></i>
+                {{_ 'pages-app-profile-button-video'}}
+            </a>
+        </p>
     </header>
 
     {{> ColumnsLayout
