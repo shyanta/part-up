@@ -4,7 +4,7 @@
         <div class="pu-sub-container">
             <button class="pu-button pu-button-input pu-button-input-keepbuttonheight" data-toggle-menu>
                 {{ selectedAction }}
-                <i class="fa {{#if menuOpen}} fa-caret-up {{else}} fa-caret-down {{/if}}"></i>
+                <i class="{{#if menuOpen}} picon-caret-up {{else}} picon-caret-down {{/if}}"></i>
             </button>
             <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
                 {{#if notSelected "dropdowns-activitiesactions-option-default"}}

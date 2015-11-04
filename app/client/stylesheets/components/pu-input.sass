@@ -58,6 +58,15 @@
         appearance: none
         padding-right: 35px
 
+        + i
+            color: $color-text-subtle
+            position: absolute
+            top: 50%
+            font-size: 11px
+            right: 20px - 2px
+            margin-top: -8px
+            pointer-events: none
+
     &-radio
         -webkit-appearance: none
         -moz-appearance: none
@@ -115,16 +124,6 @@
         &-select
             position: relative
             display: block
-
-            &:after
-                content: '\f0d7'
-                font-family: 'FontAwesome'
-                color: $color-text-subtle
-                position: absolute
-                top: 50%
-                right: 20px - 2px
-                margin-top: -8px
-                pointer-events: none
 
             .pu-input
                 webkit-appearance: none // autoprefixer doesn't take care of these
