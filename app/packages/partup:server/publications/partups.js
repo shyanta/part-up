@@ -1,3 +1,33 @@
+Meteor.publish('partups.discover', function(parameters) {
+    console.log(parameters);
+
+    check(parameters, {
+        networkId: Match.Optional(String),
+        locationId: Match.Optional(String),
+        sort: Match.Optional(String),
+        textSearch: Match.Optional(String),
+        limit: Match.Optional(Number),
+        language: Match.Optional(String)
+    });
+
+    var options = {};
+    parameters = parameters || {};
+
+    if (parameters.limit) options.limit = parseInt(parameters.limit);
+
+    parameters = {
+        networkId: parameters.networkId,
+        locationId: parameters.locationId,
+        sort: parameters.sort,
+        textSearch: parameters.textSearch,
+        limit: parameters.limit,
+        skip: parameters.skip,
+        language: (parameters.language === 'all') ? undefined : parameters.language
+    };
+
+    return Partups.findForDiscover(this.userId, options, parameters);
+}, {url: '/partups/discover', httpMethod: 'post'});
+
 /**
  * Publish multiple partups by ids
  *
