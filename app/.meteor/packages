@@ -99,3 +99,5 @@ partup:client-usercard
 partup:meteor-bender
 partup:client-invite-to-partup
 peerlibrary:aws-sdk
+andrefgneves:iconfont-refactored
+simple:rest
