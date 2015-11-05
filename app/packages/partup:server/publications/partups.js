@@ -1,6 +1,4 @@
 Meteor.publish('partups.discover', function(parameters) {
-    console.log(parameters);
-
     check(parameters, {
         networkId: Match.Optional(String),
         locationId: Match.Optional(String),
