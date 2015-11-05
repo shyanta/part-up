@@ -14,12 +14,11 @@ Template.app_network.onCreated(function() {
 
     tpl.autorun(function() {
         var slug = Template.currentData().networkSlug;
-        network_sub = Subs.subscribe('networks.one', slug, {
-            onReady: function() {
-                var network = Networks.findOne({slug: tpl.data.networkSlug});
-                if (!network) Router.pageNotFound('network');
-                tpl.networkId.set(network._id);
-            }
+
+        Partup.client.API.get('/networks/lifely-open', function(error) {
+            var network = Networks.findOne({slug: tpl.data.networkSlug});
+            if (!network) Router.pageNotFound('network');
+            tpl.networkId.set(network._id);
         });
     });
     tpl.expanded = false;
