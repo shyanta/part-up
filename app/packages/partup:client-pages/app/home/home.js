@@ -55,31 +55,30 @@ Template.app_home.onCreated(function() {
             }
 
             // Subscribe to the collected ids
-            tpl.subscribe('partups.by_ids', ids, {
-                onReady: function() {
-                    var featured_id = multi_responses.featured.result;
-                    var popular_ids = multi_responses.popular.result;
+            Partup.client.API.get('/partups/by_ids/' + ids.join(','), function(error) {
+                // TODO: Error handling
 
-                    // Featured
-                    if (featured_id) {
-                        var featured_partup = Partups.findOne({_id: featured_id});
-                        if (featured_partup) {
-                            tpl.featured_partup.set(featured_partup);
-                        }
+                var featured_id = multi_responses.featured.result;
+                var popular_ids = multi_responses.popular.result;
+
+                // Featured
+                if (featured_id) {
+                    var featured_partup = Partups.findOne({_id: featured_id});
+                    if (featured_partup) {
+                        tpl.featured_partup.set(featured_partup);
                     }
+                }
 
-                    // Popular
-                    if (popular_ids.length) {
-                        var popular_partups = Partups.find({_id: {$in: popular_ids}}).fetch();
-                        if (popular_partups.length > 0) {
-                            tpl.popular_partups.layout.add(partupsToColumnTiles(popular_partups));
-                        }
+                // Popular
+                if (popular_ids.length) {
+                    var popular_partups = Partups.find({_id: {$in: popular_ids}}).fetch();
+                    if (popular_partups.length > 0) {
+                        tpl.popular_partups.layout.add(partupsToColumnTiles(popular_partups));
                     }
                 }
             });
         };
-
-    })
+    });
 });
 
 Template.app_home.helpers({

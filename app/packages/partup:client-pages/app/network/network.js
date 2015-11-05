@@ -16,6 +16,7 @@ Template.app_network.onCreated(function() {
         var slug = Template.currentData().networkSlug;
 
         Partup.client.API.get('/networks/lifely-open', function(error) {
+            // TODO: Error handling
             var network = Networks.findOne({slug: tpl.data.networkSlug});
             if (!network) Router.pageNotFound('network');
             tpl.networkId.set(network._id);

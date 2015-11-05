@@ -35,11 +35,12 @@ Partup.client.API = {
                 }
 
                 _.each(documents, function(document) {
-                    collection._collection.insert(document);
+                    var exists = !!collection.findOne(document._id);
+                    if (!exists) collection._collection.insert(document);
                 });
-
-                callback();
             });
+
+            callback();
         });
     }
 

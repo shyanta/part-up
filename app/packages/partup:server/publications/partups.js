@@ -4,9 +4,11 @@
  * @param {[String]} partupIds
  */
 Meteor.publishComposite('partups.by_ids', function(partupIds) {
+    if (_.isString(partupIds)) partupIds = _.uniq(partupIds.split(','));
+
     check(partupIds, [String]);
 
-    this.unblock();
+    if (this.unblock) this.unblock();
 
     return {
         find: function() {
@@ -28,7 +30,7 @@ Meteor.publishComposite('partups.by_ids', function(partupIds) {
             ]}
         ]
     };
-});
+}, {url: 'partups/by_ids/:0'});
 
 /**
  * Publish a list of partups
