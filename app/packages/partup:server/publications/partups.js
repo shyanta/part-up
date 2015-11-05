@@ -1,3 +1,14 @@
+/**
+ * Publish multiple partups for discover
+ *
+ * @param {Object} parameters
+ * @param {string} parameters.networkId
+ * @param {string} parameters.locationId
+ * @param {string} parameters.sort
+ * @param {string} parameters.textSearch
+ * @param {number} parameters.limit
+ * @param {string} parameters.language
+ */
 Meteor.publish('partups.discover', function(parameters) {
     check(parameters, {
         networkId: Match.Optional(String),
@@ -5,6 +16,7 @@ Meteor.publish('partups.discover', function(parameters) {
         sort: Match.Optional(String),
         textSearch: Match.Optional(String),
         limit: Match.Optional(Number),
+        skip: Match.Optional(Number),
         language: Match.Optional(String)
     });
 
@@ -12,6 +24,7 @@ Meteor.publish('partups.discover', function(parameters) {
     parameters = parameters || {};
 
     if (parameters.limit) options.limit = parseInt(parameters.limit);
+    if (parameters.skip) options.skip = parseInt(parameters.skip);
 
     parameters = {
         networkId: parameters.networkId,
