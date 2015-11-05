@@ -29,7 +29,8 @@ Package.onUse(function(api) {
         'meteorhacks:fast-render',
         'dsyko:meteor-node-csv',
         'random',
-        'peerlibrary:aws-sdk'
+        'peerlibrary:aws-sdk',
+        'simple:rest'
     ], ['server']);
 
     api.addFiles([

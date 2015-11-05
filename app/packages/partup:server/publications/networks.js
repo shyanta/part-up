@@ -22,7 +22,7 @@ Meteor.publishComposite('networks.list', function() {
 Meteor.publishComposite('networks.one', function(networkSlug) {
     check(networkSlug, String);
 
-    this.unblock();
+    if (this.unblock) this.unblock();
 
     return {
         find: function() {
@@ -38,7 +38,7 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
             }
         ]
     };
-});
+}, {url: 'networks/:0'});
 
 /**
  * Publish all partups in a network
