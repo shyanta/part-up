@@ -52,6 +52,18 @@
     "pages-app-profile-about-tile-placeholder-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae alias distinctio soluta nobis enim voluptatum, porro eligendi at provident suscipit!",
     "pages-app-profile-about-tile-remove": "Verwijderen",
     "pages-app-profile-about-tile-prompt-title": "Tegel verwijderen?",
-    "pages-app-profile-about-tile-prompt-message": "Deze actie kan niet ongedaan gemaakt worden."
+    "pages-app-profile-about-tile-prompt-message": "Deze actie kan niet ongedaan gemaakt worden.",
 
+    "pages-app-profile-about-info-title": "Waar ligt jouw kracht?",
+    "pages-app-profile-about-info-close": "Sluiten",
+    "pages-app-profile-about-info-intro": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non soluta qui eligendi, possimus quam ipsum commodi, aliquam accusantium fugiat. Maxime?",
+    "pages-app-profile-about-info-types-title": "Lorem ipsum.",
+    "pages-app-profile-about-info-types-brainiac": "<span>Denkkracht:</span> Lorem ipsum dolor sit amet.",
+    "pages-app-profile-about-info-types-organizer": "<span>Denkkracht:</span> Lorem ipsum dolor sit amet.",
+    "pages-app-profile-about-info-types-socializer": "<span>Denkkracht:</span> Lorem ipsum dolor sit amet.",
+    "pages-app-profile-about-info-types-manager": "<span>Denkkracht:</span> Lorem ipsum dolor sit amet.",
+    "pages-app-profile-about-info-types-individual": "<span>Denkkracht:</span> Lorem ipsum dolor sit amet.",
+    "pages-app-profile-about-info-paragraph-1": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis corporis cupiditate optio ut veritatis dicta sint delectus totam vel at.",
+    "pages-app-profile-about-info-paragraph-2": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet libero culpa ab dolor est fuga natus, cumque nesciunt ratione ea.",
+    "pages-app-profile-about-info-paragraph-3": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem suscipit quasi ea quis, eligendi tempore vero autem magni doloremque, facere!"
 }
