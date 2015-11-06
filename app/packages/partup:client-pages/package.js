@@ -91,6 +91,8 @@ Package.onUse(function(api) {
         'app/profile/partials/new-photo-tile.js',
         'app/profile/partials/new-video-tile.html',
         'app/profile/partials/new-video-tile.js',
+        'app/profile/partials/info-popup.html',
+        'app/profile/partials/info-popup.js',
 
         // App: profile settings modal
         'modal/profile_settings/profile_settings.html',
