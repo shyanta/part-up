@@ -4,7 +4,7 @@
 
         <div class="pu-formfield">
             <div class="pu-upload">
-                <figure style="{{#with imageId}}background-image:url('{{ partupImageUrl id=. }}');{{/with}}" class="pu-imagepreview"></figure>
+                <figure style="{{#with imageId}}background-image:url('{{ partupImageUrl id=. }}');{{/with}}" class="pu-imagepreview pu-sub-bordered"></figure>
                 <button type="button" class="pu-button pu-button-secondary {{# if uploadingPhoto }}pu-state-loading{{/ if }}" data-image-browse>
                     <span>{{_ 'pages-app-profile-image-button' }}</span>
                     {{> Spinner color='inverted' type='small' }}
@@ -19,14 +19,14 @@
         <label class="pu-formfield">
             <span class="pu-label">
                 {{_ 'pages-app-profile-description-label' }}
-                <a class="pu-hint pu-tooltip">
+               <!--  <a class="pu-hint pu-tooltip">
                     <i class="picon-question"></i>
                     <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-app-profile-description-tooltip' }}</p></span>
-                </a>
+                </a> -->
             </span>
 
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='description' }}pu-state-invalid{{/if}}">
-                <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea"  rows=2 }}</span>
+                <span class="pu-sub-input">{{> afFieldInput name='description' placeholder=placeholders.description class="pu-textarea pu-textarea-condensed"  rows=2 }}</span>
                 <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
             </div>
         </label>
