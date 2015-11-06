@@ -1,29 +1,4 @@
-var tileStub = [{
-    image_id: 'raaNx9aqA6okiqaS4',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia animi voluptas vero officiis repudiandae obcaecati eius hic veniam alias quos.',
-    type: 'image'
-},
-{
-    image_id: 'raaNx9aqA6okiqaS4',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia animi voluptas vero officiis repudiandae obcaecati eius hic veniam alias quos.',
-    type: 'image'
-},
-{
-    image_id: 'raaNx9aqA6okiqaS4',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia animi voluptas vero officiis repudiandae obcaecati eius hic veniam alias quos.',
-    type: 'image'
-},
-{
-    image_id: 'raaNx9aqA6okiqaS4',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia animi voluptas vero officiis repudiandae obcaecati eius hic veniam alias quos.',
-    type: 'image'
-},
-{
-    image_id: 'raaNx9aqA6okiqaS4',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia animi voluptas vero officiis repudiandae obcaecati eius hic veniam alias quos.',
-    type: 'image'
-}];
-
+var RESULTSSTUB = ['brainiac', 'organizer', 'socializer', 'manager', 'individual'];
 Template.app_profile_about.onCreated(function() {
     var tpl = this;
 
@@ -43,30 +18,35 @@ Template.app_profile_about.onCreated(function() {
         // Options reactive variable (on change, clear the layout and re-add all partups)
         init: function() {
             if (typeof profileId == 'string') {
-                tpl.subscribe('tiles.profile', profileId, {
+                tpl.tilesSubscription = tpl.subscribe('tiles.profile', profileId, {
                     onReady: function() {
                         var tiles = Tiles.find({upper_id: profileId}).fetch();
                         var user = Meteor.users.findOne(profileId);
                         user.profile.meurs = {
-                            results: ['brainiac', 'organizer', 'socializer', 'manager', 'individual']
+                            results: RESULTSSTUB
                         };
-                        console.log(user);
                         if (!tiles || !tiles.length) {
-                            Partup.client.notify.error('nope');
-                            return;
+                            tiles.push({
+                                type: 'image',
+                                placeholder: true
+                            });
                         }
                         if (user.profile.meurs && user.profile.meurs.results) {
                             tiles.unshift({
                                 type: 'result',
-                                result_ids: user.profile.meurs.results
+                                result_ids: []
                             });
                         }
-                        console.log(tiles)
+                        console.log(tiles);
                         tpl.tiles.layout.items = tpl.tiles.layout.clear();
                         tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
                     }
                 });
             }
+        },
+        refresh: function() {
+            tpl.tilesSubscription.stop();
+            tpl.tiles.init();
         }
     };
 
@@ -84,6 +64,9 @@ Template.app_profile_about.events({
             console.log(result);
         });
     },
+    'click [data-start-test]': function(event, template) {
+
+    }
 
 });
 
