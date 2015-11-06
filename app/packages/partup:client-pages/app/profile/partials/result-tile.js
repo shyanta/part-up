@@ -17,3 +17,14 @@ Template.ResultTile.helpers({
         return this.result_ids.length;
     }
 });
+
+Template.ResultTile.events({
+    'click [data-info]': function(event, template) {
+        Partup.client.popup.open({
+            id: 'info'
+        }, function(result) {
+            // template.tiles.refresh();
+            console.log(result);
+        });
+    }
+});
