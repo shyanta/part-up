@@ -10,27 +10,65 @@
     display: block
     font-size: 0
 
-    img
-        width: 100%
-        display: block
+    article
+        position: relative
 
-    > p
-        position: absolute
-        bottom: 0
-        color: $color-text-inverted
-        font-size: 14px
-        padding: 10px 15px
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 75%)
-        width: 100%
+        img
+            width: 100%
+            display: block
 
-    iframe
-        width: 100%
-        height: 320px
+        > p
+            position: absolute
+            bottom: 0
+            color: $color-text-inverted
+            font-size: 14px
+            padding: 40px 15px 10px 15px
+            opacity: 0.5
+            background: linear-gradient(to bottom, rgba(#292929,0) 0%,rgba(#292929 ,1) 100%)
+            width: 100%
+            transition: opacity .2s
+
+        iframe
+            width: 100%
+            height: 320px
 
     .pu-resulttile
-        width: 49%
-        width: calc(50% - 5px)
-        &:nth-child(odd)
-            margin-right: 5px
-        &:nth-child(even)
-            margin-left: 5px
+        width: 48%
+        width: calc(50% - 11px)
+        &:first-child
+            margin-right: 11px
+        &:last-child
+            margin-left: 11px
+
+    footer
+
+        .pu-button
+            font-weight: normal
+            padding: 5px 0 0 0
+            height: auto
+
+
+    &-results
+        height: 400px
+
+    &-placeholder
+        padding: 20px
+        border: 2px dashed $color-border
+
+        h2
+            font-size: 16px
+            margin-bottom: 10px
+
+        p
+            font-size: 14px
+            margin-bottom: 10px
+
+        .pu-list
+            li
+                margin-right: 10px
+
+    &:hover
+        article
+            > p
+                opacity: 1
+
