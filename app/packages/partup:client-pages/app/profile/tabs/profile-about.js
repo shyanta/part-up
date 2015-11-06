@@ -16,7 +16,7 @@ Template.app_profile_about.onCreated(function() {
         },
 
         // Options reactive variable (on change, clear the layout and re-add all partups)
-        init: function() {
+        init: function(results) {
             if (typeof profileId == 'string') {
                 tpl.tilesSubscription = tpl.subscribe('tiles.profile', profileId, {
                     onReady: function() {
@@ -34,7 +34,7 @@ Template.app_profile_about.onCreated(function() {
                         if (user.profile.meurs && user.profile.meurs.results) {
                             tiles.unshift({
                                 type: 'result',
-                                result_ids: []
+                                result_ids: results || []
                             });
                         }
                         console.log(tiles);
@@ -44,9 +44,10 @@ Template.app_profile_about.onCreated(function() {
                 });
             }
         },
-        refresh: function() {
+        refresh: function(res) {
+            var results = res || false;
             tpl.tilesSubscription.stop();
-            tpl.tiles.init();
+            tpl.tiles.init(results);
         }
     };
 
@@ -61,11 +62,18 @@ Template.app_profile_about.events({
         Partup.client.popup.open({
             id: 'new-' + type
         }, function(result) {
+            template.tiles.refresh();
             console.log(result);
         });
     },
     'click [data-start-test]': function(event, template) {
-
+        Partup.client.prompt.confirm({
+            title: 'test',
+            message: 'klaar?',
+            onConfirm: function() {
+                template.tiles.refresh(RESULTSSTUB);
+            }
+        });
     }
 
 });
@@ -74,6 +82,9 @@ Template.app_profile_about.helpers({
     firstname: function() {
         var user = Meteor.users.findOne(this.profileId);
         return User(user).getFirstname();
+    },
+    isCurrentusersProfile: function() {
+        return this.profileId === Meteor.userId();
     },
 
     // We use this trick to be able to call a function in a child template.
