@@ -59,6 +59,14 @@
                     <!-- tabs -->
                     <nav class="pu-navigation pu-navigation-header pu-navigation-full">
                         <ul class="pu-list pu-list-horizontal">
+                            {{#if profileHasTilesOrIsCurrentUser}}
+                                <li>
+                                    <a href="{{ pathFor route='profile-about' _id=profileId }}"
+                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-about' class='pu-state-active'}}">
+                                        {{_ 'pages-app-profile-about-nav' name=firstname}}
+                                    </a>
+                                </li>
+                            {{/if}}
                             <li>
                                 <a href="{{ pathFor route='profile-upper-partups' _id=profileId }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-upper-partups' class='pu-state-active'}} {{ isActiveRoute name='profile' class='pu-state-active'}}">
@@ -69,12 +77,6 @@
                                 <a href="{{ pathFor route='profile-supporter-partups' _id=profileId }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-supporter-partups' class='pu-state-active'}}">
                                     {{_ 'pages-app-profile-supporter-partups-nav' }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ pathFor route='profile-about' _id=profileId }}"
-                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='profile-about' class='pu-state-active'}}">
-                                    {{_ 'pages-app-profile-about-nav' name=firstname}}
                                 </a>
                             </li>
                         </ul>

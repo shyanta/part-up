@@ -93,6 +93,12 @@ Template.app_profile.helpers({
         var expander = $(template.find('[data-expander-parent]'));
         if (expander.length && expander[0].scrollHeight > expander.innerHeight()) return true;
         return false;
+    },
+
+    profileHasTilesOrIsCurrentUser: function() {
+        var currentUser = this.profileId === Meteor.userId();
+        var hasTiles = false;
+        return (currentUser || hasTiles)
     }
 });
 
