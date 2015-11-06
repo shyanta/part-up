@@ -74,6 +74,24 @@ Template.app_profile_about.events({
                 template.tiles.refresh(RESULTSSTUB);
             }
         });
+    },
+    'click [data-delete]': function(event, template) {
+        var tile = this;
+        var tileId = tile._id;
+        Partup.client.prompt.confirm({
+            title: __('pages-app-profile-about-tile-prompt-title'),
+            message: __('pages-app-profile-about-tile-prompt-message'),
+            onConfirm: function() {
+                Meteor.call('tiles.remove', tileId, function(error, result) {
+                    if (error) {
+                        Partup.client.notify.error(__(error));
+                        return;
+                    }
+                    Partup.client.notify.success('Tile removed');
+                    template.tiles.refresh();
+                });
+            }
+        });
     }
 
 });
