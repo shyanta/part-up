@@ -7,9 +7,10 @@
  * @param {string} parameters.sort
  * @param {string} parameters.textSearch
  * @param {number} parameters.limit
+ * @param {number} parameters.skip
  * @param {string} parameters.language
  */
-Meteor.publish('partups.discover', function(parameters) {
+Meteor.publishComposite('partups.discover', function(parameters) {
     check(parameters, {
         networkId: Match.Optional(String),
         locationId: Match.Optional(String),
@@ -21,7 +22,6 @@ Meteor.publish('partups.discover', function(parameters) {
     });
 
     var options = {};
-    parameters = parameters || {};
 
     if (parameters.limit) options.limit = parseInt(parameters.limit);
     if (parameters.skip) options.skip = parseInt(parameters.skip);
@@ -36,8 +36,56 @@ Meteor.publish('partups.discover', function(parameters) {
         language: (parameters.language === 'all') ? undefined : parameters.language
     };
 
-    return Partups.findForDiscover(this.userId, options, parameters);
+    return {
+        find: function() {
+            return Partups.findForDiscover(this.userId, options, parameters);
+        },
+        children: [
+            {find: Images.findForPartup},
+            {find: Meteor.users.findUppersForPartup, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) {
+                if (!get(partup, 'featured.active')) return;
+                return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+                {find: Images.findForNetwork}
+            ]}
+        ]
+    };
 }, {url: '/partups/discover', httpMethod: 'post'});
+
+/**
+ * Publish a count of partups for the discover page
+ *
+ * @param {Object} parameters
+ * @param {string} parameters.networkId
+ * @param {string} parameters.locationId
+ * @param {string} parameters.textSearch
+ * @param {string} parameters.language
+ */
+Meteor.publish('partups.discover.count', function(parameters) {
+    this.unblock();
+
+    check(parameters, {
+        networkId: Match.Optional(String),
+        locationId: Match.Optional(String),
+        textSearch: Match.Optional(String),
+        language: Match.Optional(String)
+    });
+
+    parameters = {
+        networkId: parameters.networkId,
+        locationId: parameters.locationId,
+        textSearch: parameters.textSearch,
+        language: (parameters.language === 'all') ? undefined : parameters.language
+    };
+
+    Counts.publish(this, 'partups.discover', Partups.findForDiscover(this.userId, {}, parameters));
+});
 
 /**
  * Publish multiple partups by ids

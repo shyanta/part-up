@@ -515,6 +515,8 @@ Partups.guardedMetaFind = function(selector, options) {
 Partups.findForDiscover = function(userId, options, parameters) {
     var selector = {};
 
+    console.log('test');
+
     var options = options || {};
     options.limit = options.limit ? parseInt(options.limit) : undefined;
     options.skip = options.skip ? parseInt(options.skip) : 0;

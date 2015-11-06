@@ -23,11 +23,11 @@ Partup.client.discover = {
     },
 
     /**
-     * Default starting limit
+     * Default increment
      *
      * @memberof Partup.client.discover
      */
-    STARTING_LIMIT: 32,
+    INCREMENT: 24,
 
     /**
      * Cached values
