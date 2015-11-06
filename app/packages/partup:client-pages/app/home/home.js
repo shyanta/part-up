@@ -54,6 +54,8 @@ Template.app_home.onCreated(function() {
                 ids = ids.concat(multi_responses.popular.result);
             }
 
+            ids = _.uniq(ids);
+
             // Subscribe to the collected ids
             Partup.client.API.get('/partups/by_ids/' + ids.join(','), function(error) {
                 // TODO: Error handling
