@@ -30,7 +30,8 @@ Package.onUse(function(api) {
         'dsyko:meteor-node-csv',
         'random',
         'peerlibrary:aws-sdk',
-        'simple:rest'
+        'simple:rest',
+        'simple:json-routes'
     ], ['server']);
 
     api.addFiles([
@@ -141,6 +142,7 @@ Package.onUse(function(api) {
         'publications/networks.js',
         'publications/languages.js',
         'routes/hooks.js',
+        'routes/middleware.js',
         'routes/csv/csv_routes.js',
         'routes/images/images_routes.js',
         'methods/updates/updates_comments_methods.js',
