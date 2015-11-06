@@ -18,6 +18,7 @@
     "pages-app-profile-about-name": "Wie is <span class='pu-sub-countlabel'>__name__?</span>",
     "pages-app-profile-button-photo": "Foto",
     "pages-app-profile-button-video": "Video",
+    "pages-app-profile-button-test": "Start de test",
     "pages-app-profile-image-button": "Foto vanaf jouw computer",
     "pages-app-profile-image-info": "Wel minimaal 600 pixels",
     "pages-app-profile-description-label": "Onderschrift foto",
@@ -25,6 +26,14 @@
     "pages-app-profile-description-tooltip": "help",
     "pages-app-profile-photo-submit": "Plaats foto",
     "pages-app-profile-photo-close": "Annuleren",
+    "pages-app-profile-photo-title": "Nieuwe foto",
+
+    "pages-app-profile-video-title": "Nieuwe video",
+    "pages-app-profile-video_url-label": "Youtube of Vimeo url",
+    "pages-app-profile-video_url-tooltip": "help",
+    "pages-app-profile-video_url-placeholder": "https://www.youtube.com/watch?v=sGbxmsDFVnE",
+    "pages-app-profile-video-submit": "Plaats video",
+    "pages-app-profile-video-close": "Annuleren",
 
     "pages-app-profile-about-result-brainiac-title": "Denkkracht",
     "pages-app-profile-about-result-organizer-title": "Slagkracht",
@@ -35,5 +44,14 @@
     "pages-app-profile-about-result-organizer-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quo animi dignissimos enim obcaecati, natus veniam repudiandae, delectus atque esse?",
     "pages-app-profile-about-result-socializer-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus, temporibus nostrum voluptatem nesciunt, architecto corporis in? Dolore nulla, ad.",
     "pages-app-profile-about-result-manager-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum sapiente sit libero dolore aperiam, quidem magnam alias quo architecto similique.",
-    "pages-app-profile-about-result-individual-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae alias distinctio soluta nobis enim voluptatum, porro eligendi at provident suscipit!"
+    "pages-app-profile-about-result-individual-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae alias distinctio soluta nobis enim voluptatum, porro eligendi at provident suscipit!",
+    "pages-app-profile-about-result-placeholder-title": "Toon je kracht",
+    "pages-app-profile-about-result-placeholder-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae alias distinctio soluta nobis enim voluptatum, porro eligendi at provident suscipit!",
+
+    "pages-app-profile-about-tile-placeholder-title": "Laat je zien",
+    "pages-app-profile-about-tile-placeholder-description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae alias distinctio soluta nobis enim voluptatum, porro eligendi at provident suscipit!",
+    "pages-app-profile-about-tile-remove": "Verwijderen",
+    "pages-app-profile-about-tile-prompt-title": "Tegel verwijderen?",
+    "pages-app-profile-about-tile-prompt-message": "Deze actie kan niet ongedaan gemaakt worden."
+
 }
