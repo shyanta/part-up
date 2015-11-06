@@ -1,6 +1,6 @@
 var placeholders = {
-    'description': function() {
-        return __('pages-app-profile-description-placeholder');
+    'video_url': function() {
+        return __('pages-app-profile-video_url-placeholder');
     }
 };
 Template.NewVideoTile.onCreated(function() {

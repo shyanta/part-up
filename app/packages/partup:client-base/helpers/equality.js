@@ -14,6 +14,10 @@ Template.registerHelper('partupNotEqualsExactly', function(a, b) {
     return (a !== b);
 });
 
+Template.registerHelper('partupEitherEquals', function(a, b, c) {
+    return (a == b || a == c);
+});
+
 Template.registerHelper('partupHasTrueValues', function(object) {
     var empty = false;
     _.each(object, function(value) {

@@ -1,7 +1,8 @@
 <template name="ProfileTile">
     {{#if partupEquals type 'result'}}
         {{> ResultTile }}
-    {{else}}
+    {{/if}}
+    {{#if partupEitherEquals type 'image' 'video'}}
         {{> MediaTile }}
     {{/if}}
 </template>
