@@ -5,16 +5,18 @@
                 {{#if partupEquals type 'image'}}
 
                     <img src="{{ partupImageUrl id=image_id store='360x360' }}" alt="">
-                    <p>
-                        {{description}}
-                    </p>
+                    {{#if description}}
+                        <p>
+                            {{description}}
+                        </p>
+                    {{/if}}
                 {{/if}}
                 {{#if partupEquals type 'video'}}
                     {{#if partupEquals embedSettings.type 'youtube'}}
-                        <iframe src="https://www.youtube.com/embed/{{embedSettings.youtube_id}}?rel=0&amp;showinfo=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/{{embedSettings.youtube_id}}?rel=0&amp;showinfo=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     {{/if}}
                     {{#if partupEquals embedSettings.type 'vimeo'}}
-                        <iframe src="https://player.vimeo.com/video/{{embedSettings.vimeo_id}}?color=ffffff&title=0&byline=0&portrait=0&badge=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <iframe src="https://player.vimeo.com/video/{{embedSettings.vimeo_id}}?color=ffffff&title=1&byline=0&portrait=0&badge=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     {{/if}}
                 {{/if}}
             </article>
