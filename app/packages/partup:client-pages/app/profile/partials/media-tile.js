@@ -7,7 +7,3 @@ Template.MediaTile.helpers({
         return this.upper_id === Meteor.userId();
     }
 });
-
-Template.MediaTile.events({
-
-});
