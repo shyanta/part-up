@@ -1,15 +1,19 @@
 <template name="ResultTile">
-    <article class="pu-profiletile">
-        {{#each resultIds}}
-            <article class="pu-resulttile">
-                <header>
-                    <h2>{{ resultTitle . }}</h2>
-                </header>
-                <section>
-                    <figure style="{{#with image }}background-image: url('{{ partupImage . '360x360' }}');{{/ with }}"></figure>
-                    <p>{{ resultDescription . }}</p>
-                </section>
-            </article>
-        {{/each}}
-    </article>
+    {{#if hasResults }}
+        <article class="pu-profiletile pu-profiletile-results">
+            {{#each resultIds}}
+                <article class="pu-resulttile">
+                    <header>
+                        <h2>{{ resultTitle . }}</h2>
+                    </header>
+                    <section>
+                        <figure style="background-image: url('/images/results/{{ . }}.svg');"></figure>
+                        <p>{{ resultDescription . }}</p>
+                    </section>
+                </article>
+            {{/each}}
+        </article>
+    {{else}}
+        {{> PlaceholderTile type="results" }}
+    {{/if}}
 </template>

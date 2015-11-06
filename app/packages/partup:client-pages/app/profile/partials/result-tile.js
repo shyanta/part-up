@@ -12,5 +12,8 @@ Template.ResultTile.helpers({
             limited.push(item);
         });
         return limited;
+    },
+    hasResults: function() {
+        return this.result_ids.length;
     }
 });
