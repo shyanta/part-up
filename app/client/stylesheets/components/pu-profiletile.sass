@@ -14,6 +14,7 @@
         position: relative
         border-radius: 4px
         overflow: hidden
+        z-index: 2
 
         img
             width: 100%
@@ -34,6 +35,10 @@
             width: 100%
             height: 320px
 
+        &:hover
+            > p
+                opacity: 1
+
     .pu-resulttile
         width: 48%
         width: calc(50% - 11px)
@@ -43,12 +48,34 @@
             margin-left: 11px
 
     footer
-
+        position: relative
+        z-index: 1
+        margin-top: -19px
+        transition: margin-top .2s
+        opacity: 0
         .pu-button
             font-weight: normal
             padding: 5px 0 0 0
             height: auto
 
+            &:hover
+                text-decoration: underline
+
+    .pu-sub-info
+        color: $color-border
+        position: absolute
+        right: 20px
+        top: 30px
+        font-size: 16px
+        transition: color .2s
+
+        &:hover
+            color: darken($color-border, 10%)
+
+    &:hover
+        footer
+            opacity: 1
+            margin-top: 0
 
     &-results
         height: 400px
@@ -68,9 +95,4 @@
         .pu-list
             li
                 margin-right: 10px
-
-    &:hover
-        article
-            > p
-                opacity: 1
 
