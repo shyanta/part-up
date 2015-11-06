@@ -83,6 +83,8 @@ Package.onUse(function(api) {
         'app/profile/partials/media-tile.js',
         'app/profile/partials/result-tile.html',
         'app/profile/partials/result-tile.js',
+        'app/profile/partials/placeholder-tile.html',
+        'app/profile/partials/placeholder-tile.js',
 
         // App: profile popups
         'app/profile/partials/new-photo-tile.html',
