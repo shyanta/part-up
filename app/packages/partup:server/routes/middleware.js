@@ -7,6 +7,8 @@ JsonRoutes.Middleware.use(function(request, response, next) {
         /\/networks\/[a-zA-Z0-9-]+$/, // /networks/lifely-open
         /\/networks\/featured\/[a-zA-Z]+$/, // /networks/featured/en
         /\/partups\/by_ids\/[a-zA-Z0-9,]+$/, // /partups/by_ids/vGaxNojSerdizDPjb
+        /\/partups\/discover+$/, // /partups/discover
+        /\/partups\/discover\/count+$/, // /partups/discover/count
     ];
 
     var shouldCache = false;
