@@ -57,7 +57,7 @@ Template.app_discover_page.onCreated(function() {
                     tpl.partups.loading_rendering = false;
                 });
 
-                tpl.partups.loading.set(!filled_from_cache);
+                tpl.partups.loading.set(false);
             }
 
             // Reset the limit reactive-var and the limit property of options
@@ -77,11 +77,9 @@ Template.app_discover_page.onCreated(function() {
                 tpl.partups.count_handle.stop();
             }
 
-            tpl.partups.count_handle = tpl.subscribe('partups.discover.count', tpl.partups.options.get(), {
-                onReady: function() {
-                    var count = Counts.get('partups.discover');
-                    tpl.partups.layout.count.set(count);
-                }
+            HTTP.post('/partups/discover/count', {data: tpl.partups.options.get()}, function(error, response) {
+                if (error || !response.data || response.data.error) return;
+                tpl.partups.layout.count.set(response.data.count);
             });
 
             Partup.client.API.post('/partups/discover', {data: mout.object.deepFillIn(new Object(), tpl.partups.options.get(), {
