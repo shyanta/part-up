@@ -89,16 +89,18 @@ Partup.server.services.meurs = {
         return result.data.templates;
     },
 
-    createProgramSessionId: function(token, q4youId) {
+    createProgramSessionId: function(portal, token, q4youId) {
         if (!token) {
             d('No authentication token given');
             throw new Meteor.Error(400, 'Token needed for Meurs API');
         }
 
+        var templateId = portal === 'en' ? process.env.MEURS_EN_PROGRAM_TEMPLATE_ID : process.env.MEURS_NL_PROGRAM_TEMPLATE_ID;
+
         var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/createprogramsession', {
             authToken: token,
             q4youID: q4youId,
-            programTemplateId: process.env.MEURS_NL_PROGRAM_TEMPLATE_ID
+            programTemplateId: templateId
         });
 
         return result.data.programSessionId;
