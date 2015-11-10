@@ -40,7 +40,7 @@ Meteor.methods({
         // Create Program Session if needed
         if (!upper.profile.meurs || !upper.profile.meurs.program_session_id) {
             // Create session
-            var programSessionId = Partup.server.services.meurs.createProgramSessionId(token, q4youId);
+            var programSessionId = Partup.server.services.meurs.createProgramSessionId(portal, token, q4youId);
 
             // Activate Program Session
             var isProgramSessionActivated = Partup.server.services.meurs.setActiveProgramSession(token, q4youId, programSessionId);
