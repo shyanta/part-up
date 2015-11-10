@@ -121,21 +121,6 @@ Partup.server.services.meurs = {
         return result.data.errors.length < 1;
     },
 
-    getProgramSessionContent: function(token, q4youId, programSessionId) {
-        if (!token) {
-            d('No authentication token given');
-            throw new Meteor.Error(400, 'Token needed for Meurs API');
-        }
-
-        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getprogramsessioncontent', {
-            authToken: token,
-            q4youID: q4youId,
-            programSessionId: programSessionId
-        });
-
-        return result.data.content.services;
-    },
-
     getBrowserToken: function(token, q4youId, returnUrl) {
         if (!token) {
             d('No authentication token given');
@@ -153,18 +138,38 @@ Partup.server.services.meurs = {
         return result.data.url;
     },
 
-    getResults: function(token, q4youId, programSessionId) {
+    getProgramSessionContent: function(token, q4youId, programSessionId) {
         if (!token) {
             d('No authentication token given');
             throw new Meteor.Error(400, 'Token needed for Meurs API');
         }
 
-        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getServiceSessionResults', {
+        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getprogramsessioncontent', {
             authToken: token,
             q4youID: q4youId,
             programSessionId: programSessionId
         });
 
-        return result.data;
+        return result.data.content.services;
+    },
+
+    getResults: function(token, q4youId) {
+        if (!token) {
+            d('No authentication token given');
+            throw new Meteor.Error(400, 'Token needed for Meurs API');
+        }
+
+        var sessionStatus = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getservicesessionstatus', {
+            authToken: token,
+            userIdList: [q4youId]
+        });
+        var serviceSessionId = sessionStatus.data.result.pop().serviceSessionId;
+
+        var sessionResult = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/get-service-sessions-results', {
+            authToken: token,
+            serviceSessionIds: [serviceSessionId]
+        });
+
+        return sessionResult.data.result[0].data;
     }
 };
