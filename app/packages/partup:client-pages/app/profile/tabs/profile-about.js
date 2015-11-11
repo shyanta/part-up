@@ -37,7 +37,7 @@ Template.app_profile_about.onCreated(function() {
                                 result_ids: results || []
                             });
                         }
-                        console.log(tiles);
+
                         tpl.tiles.layout.items = tpl.tiles.layout.clear();
                         tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
                     }
@@ -67,12 +67,10 @@ Template.app_profile_about.events({
         });
     },
     'click [data-start-test]': function(event, template) {
-        Partup.client.prompt.confirm({
-            title: 'test',
-            message: 'klaar?',
-            onConfirm: function() {
-                template.tiles.refresh(RESULTSSTUB);
-            }
+        Meteor.call('meurs.reset', function() {
+            Meteor.call('meurs.create_test', function(error, url) {
+                if (url) document.location.href = url;
+            });
         });
     },
     'click [data-delete]': function(event, template) {
