@@ -101,15 +101,27 @@ Meteor.methods({
         // Authenticate
         var token = Partup.server.services.meurs.getToken(upper.profile.meurs.portal);
 
-        // Get results
-        var results = Partup.server.services.meurs.getResults(token, upper.profile.meurs._id, upper.profile.meurs.program_session_id);
+        // Get service session ID
+        var serviceSessionData = Partup.server.services.meurs.getServiceSessionData(token, q4youId);
 
-        if (results) {
-            Log.debug(results);
-            Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': results}});
-        } else {
-            // setInterval or something
-        }
+        // Return null when results are not finalized
+        if (!serviceSessionData || serviceSessionData.serviceSessionStatus !== 2) return false;
+
+        // Get results
+        var results = Partup.server.services.meurs.getResults(token, serviceSessionData.serviceSessionId);
+        Log.debug('Raw results: ', results);
+
+        // Order results by score and only store the best 2
+        var orderedResults = lodash.sortBy(results, function(category) {
+            return category.zscore;
+        }).reverse().slice(0, 2);
+
+        Log.debug('Best 2 results: ', orderedResults);
+
+        // Save to user
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults}});
+
+        return true;
     },
 
     'meurs.reset': function() {

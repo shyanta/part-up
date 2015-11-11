@@ -125,22 +125,7 @@ Partup.server.services.meurs = {
         return result.data.url;
     },
 
-    getProgramSessionContent: function(token, q4youId, programSessionId) {
-        if (!token) {
-            d('No authentication token given');
-            throw new Meteor.Error(400, 'Token needed for Meurs API');
-        }
-
-        var result = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getprogramsessioncontent', {
-            authToken: token,
-            q4youID: q4youId,
-            programSessionId: programSessionId
-        });
-
-        return result.data.content.services;
-    },
-
-    getResults: function(token, q4youId) {
+    getServiceSessionData: function(token, q4youId) {
         if (!token) {
             d('No authentication token given');
             throw new Meteor.Error(400, 'Token needed for Meurs API');
@@ -150,13 +135,21 @@ Partup.server.services.meurs = {
             authToken: token,
             userIdList: [q4youId]
         });
-        var serviceSessionId = sessionStatus.data.result.pop().serviceSessionId;
 
-        var sessionResult = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/get-service-sessions-results', {
+        return sessionStatus.data.result.pop();
+    },
+
+    getResults: function(token, serviceSessionId) {
+        if (!token) {
+            d('No authentication token given');
+            throw new Meteor.Error(400, 'Token needed for Meurs API');
+        }
+
+        var sessionResult = meursCall(process.env.MEURS_BASE_URL + 'q4u/api/getservicesessionsresults', {
             authToken: token,
             serviceSessionIds: [serviceSessionId]
         });
 
-        return sessionResult.data.result[0].data;
+        return sessionResult.data.result[0].data.result[0].varScores;
     }
 };
