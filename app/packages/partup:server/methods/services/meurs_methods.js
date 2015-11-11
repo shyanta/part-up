@@ -34,9 +34,6 @@ Meteor.methods({
             Meteor.users.update(upper._id, {$set: {'profile.meurs._id': q4youId}});
         }
 
-        // Get Program Templates
-        //var programTemplates = Partup.server.services.meurs.getProgramTemplates(token);
-
         // Create Program Session if needed
         if (!upper.profile.meurs || !upper.profile.meurs.program_session_id) {
             // Create session
@@ -49,9 +46,6 @@ Meteor.methods({
             // Update user
             Meteor.users.update(upper._id, {$set: {'profile.meurs.program_session_id': programSessionId}});
         }
-
-        // Get Program Session Content
-        //var programSessionContent = Partup.server.services.meurs.getProgramSessionContent(token, q4youId, programSessionId);
 
         // Create return URL
         var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/about?results_ready=true';
