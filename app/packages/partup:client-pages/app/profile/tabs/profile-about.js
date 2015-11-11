@@ -67,10 +67,8 @@ Template.app_profile_about.events({
         });
     },
     'click [data-start-test]': function(event, template) {
-        Meteor.call('meurs.reset', function() {
-            Meteor.call('meurs.create_test', function(error, url) {
-                if (url) document.location.href = url;
-            });
+        Meteor.call('meurs.create_test', function(error, url) {
+            if (url) document.location.href = url;
         });
     },
     'click [data-delete]': function(event, template) {
