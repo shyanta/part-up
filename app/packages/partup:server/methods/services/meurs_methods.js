@@ -9,20 +9,40 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         // Declare vars
-        var q4youId = (upper.profile.meurs && upper.profile.meurs._id) ? upper.profile.meurs._id : '';
-        var portal = (upper.profile.meurs && upper.profile.meurs.portal) ?
-            upper.profile.meurs.portal :
-            (upper.profile.settings.locale ? upper.profile.settings.locale : 'en');
+        var portal = '';
+        var q4youId = '';
+
+        // Define portal
+        if (upper.profile.meurs && upper.profile.meurs.portal) {
+            portal = upper.profile.meurs.portal;
+        } else if (upper.profile.settings.locale) {
+            portal = upper.profile.settings.locale;
+        } else {
+            portal = 'en';
+        }
 
         if (!upper.profile.meurs || !upper.profile.meurs.portal) {
             Meteor.users.update(upper._id, {$set: {'profile.meurs.portal': portal}});
         }
 
+        // Define q4youId
+        if (upper.profile.meurs && (portal === 'en' && upper.profile.meurs.en_id)) {
+            q4youId = upper.profile.meurs.en_id;
+        } else if (upper.profile.meurs && (portal === 'nl' && upper.profile.meurs.nl_id)) {
+            q4youId = upper.profile.meurs.nl_id;
+        } else {
+            q4youId = '';
+        }
+
         // Authenticate
         var token = Partup.server.services.meurs.getToken(portal);
+        console.log('Token', token);
 
         // Create user if needed
-        if (!upper.profile.meurs || !upper.profile.meurs._id) {
+        if (!upper.profile.meurs ||
+            (portal === 'en' && !upper.profile.meurs.en_id) ||
+            (portal === 'nl' && !upper.profile.meurs.nl_id)
+        ) {
             // Add user
             q4youId = Partup.server.services.meurs.addUser(token, upper._id, User(upper).getEmail());
 
@@ -31,7 +51,8 @@ Meteor.methods({
             if (!isUserActivated) return false;
 
             // Update user
-            Meteor.users.update(upper._id, {$set: {'profile.meurs._id': q4youId}});
+            if (portal === 'en') Meteor.users.update(upper._id, {$set: {'profile.meurs.en_id': q4youId}});
+            if (portal === 'nl') Meteor.users.update(upper._id, {$set: {'profile.meurs.nl_id': q4youId}});
         }
 
         // Create Program Session if needed
@@ -62,8 +83,19 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(404, 'user not found');
 
         // Check needed data
-        if (!upper.profile.meurs || !upper.profile.meurs._id || !upper.profile.meurs.portal || !upper.profile.meurs.program_session_id) {
+        if (!upper.profile.meurs ||
+            (!upper.profile.meurs.en_id && !upper.profile.meurs.nl_id) ||
+            !upper.profile.meurs.portal ||
+            !upper.profile.meurs.program_session_id
+        ) {
             throw new Meteor.Error(400, 'incomplete_meurs_data');
+        }
+
+        var q4youId = '';
+        if (upper.profile.meurs.portal === 'en' && upper.profile.meurs.en_id) {
+            q4youId = upper.profile.meurs.en_id;
+        } else if (upper.profile.meurs.portal === 'nl' && upper.profile.meurs.nl_id) {
+            q4youId = upper.profile.meurs.nl_id;
         }
 
         // Authenticate
