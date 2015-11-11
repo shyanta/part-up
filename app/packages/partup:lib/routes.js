@@ -107,7 +107,12 @@ Router.route('/profile/:_id/about', {
     },
     action: function() {
         if (this.params.query.results_ready) {
-            Meteor.call('meurs.get_results', this.params._id);
+            var resultsFinalized = Meteor.call('meurs.get_results', this.params._id);
+
+            // Check if result was finalized
+            if (!resultsFinalized) {
+                setTimeout(Meteor.call('meurs.get_results', this.params._id), 30000);
+            }
         }
         this.render();
     }
