@@ -103,7 +103,11 @@ Template.DropdownProfile.helpers({
 
         var sortedPartups = lodash.sortByOrder(partups, function(partup) {
             var upper_data = lodash.find(partup.upper_data, '_id', user._id);
-            return upper_data.new_updates ? upper_data.new_updates.length : 0;
+            if (upper_data && upper_data.new_updates) {
+                return upper_data.new_updates.length;
+            } else {
+                return 0;
+            }
         }, ['desc']);
 
         return sortedPartups;
@@ -120,7 +124,11 @@ Template.DropdownProfile.helpers({
 
         var sortedPartups = lodash.sortByOrder(partups, function(partup) {
             var upper_data = lodash.find(partup.upper_data, '_id', user._id);
-            return upper_data.new_updates ? upper_data.new_updates.length : 0;
+            if (upper_data && upper_data.new_updates) {
+                return upper_data.new_updates.length;
+            } else {
+                return 0;
+            }
         }, ['desc']);
 
         return sortedPartups;
