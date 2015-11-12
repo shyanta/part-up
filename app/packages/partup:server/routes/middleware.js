@@ -9,6 +9,8 @@ JsonRoutes.Middleware.use(function(request, response, next) {
         /\/partups\/by_ids\/[a-zA-Z0-9,]+$/, // /partups/by_ids/vGaxNojSerdizDPjb
         /\/partups\/discover+$/, // /partups/discover
         /\/partups\/discover\/count+$/, // /partups/discover/count
+        /\/partups\/home\/[a-zA-Z]+$/, // /partups/featured_one_random/en
+        /\/partups\/featured_one_random\/[a-zA-Z]+$/, // /partups/home/en
     ];
 
     var shouldCache = false;

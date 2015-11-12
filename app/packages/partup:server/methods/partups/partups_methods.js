@@ -265,28 +265,6 @@ Meteor.methods({
     },
 
     /**
-     * Random featured partup
-     */
-    'partups.featured_one_random': function(language) {
-        check(language, String);
-
-        this.unblock();
-
-        var selector = {'featured.active': true};
-        if (language) {
-            selector.language = language;
-        }
-        var count = Partups.guardedMetaFind(selector, {}).count();
-        var random = Math.floor(Math.random() * count);
-
-        var partup = Partups.guardedMetaFind(selector, {limit: 1, skip: random}).fetch().pop();
-
-        if (!partup) throw new Meteor.Error(404, 'no_featured_partup_found');
-
-        return partup._id;
-    },
-
-    /**
      * Consume an access token and add the user to the invites
      */
     'partups.convert_access_token_to_invite': function(partupId, accessToken) {
