@@ -41,25 +41,6 @@ Template.app_discover_page.onCreated(function() {
         onOptionsChange: function(options) {
             if (tpl.partups.getting_data.get() || !options) return;
 
-            // Check if this query is the default query
-            var is_default_query = mout.object.equals(options, Partup.client.discover.DEFAULT_QUERY);
-
-            // Get part-ups from cache
-            var cached_partups = Partup.client.discover.cache.partups;
-
-            tpl.partups.layout.items = tpl.partups.layout.clear();
-
-            if (is_default_query && cached_partups.length > 0) {
-                tpl.partups.layout.count.set(Partup.client.discover.cache.all_partup_ids.length);
-
-                tpl.partups.loading_rendering = true;
-                tpl.partups.layout.items = tpl.partups.layout.add(partupsToColumnTiles(cached_partups), function() {
-                    tpl.partups.loading_rendering = false;
-                });
-
-                tpl.partups.loading.set(false);
-            }
-
             // Reset the limit reactive-var and the limit property of options
             tpl.partups.resetPage();
         },
