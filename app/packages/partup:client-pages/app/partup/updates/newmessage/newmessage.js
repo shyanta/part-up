@@ -19,6 +19,11 @@ Template.app_partup_updates_newmessage.onRendered(function() {
     this.mentionsInput = Partup.client.forms.MentionsInput(this.input);
 });
 
+Template.app_partup_updates_newmessage.onDestroyed(function() {
+    var tpl = this;
+    tpl.mentionsInput.destroy();
+});
+
 // helpers
 Template.app_partup_updates_newmessage.helpers({
     formSchema: Partup.schemas.forms.newMessage,

@@ -109,25 +109,26 @@ var partupDetailLayout = {
     scrolling: false,
 
     init: function() {
+        var self = this;
+        if (self.attached) return;
         sidebarDebugger.log('init');
 
-        this.container = document.querySelector('[data-layout-container]');
-        if (!this.container) return console.warn('partup scroll logic error: could not find container');
+        self.container = document.querySelector('[data-layout-container]');
+        if (!self.container) return console.warn('partup scroll logic error: could not find container');
 
-        this.left = this.container.querySelector('[data-layout-left]');
-        this.right = this.container.querySelector('[data-layout-right]');
-        if (!this.left || !this.right) return console.warn('partup scroll logic error: could not find left and/or right side');
+        self.left = self.container.querySelector('[data-layout-left]');
+        self.right = self.container.querySelector('[data-layout-right]');
+        if (!self.left || !self.right) return console.warn('partup scroll logic error: could not find left and/or right side');
 
-        var self = this;
-        this.onWindowResize = function() {
+        self.onWindowResize = function() {
             if (window.innerWidth >= 992) {
                 self.attach();
             } else {
                 self.detach();
             }
         };
-        this.scrollTimer;
-        this.onScroll = function() {
+        self.scrollTimer;
+        self.onScroll = function() {
             if (!self.scrolling) {
                 self.scrolling = true;
                 $(window).trigger('pu:scrollstart');
@@ -139,66 +140,81 @@ var partupDetailLayout = {
             }, 100);
         };
 
-        window.addEventListener('resize', this.onWindowResize);
-        window.addEventListener('resize', this.onResize);
+        window.addEventListener('resize', self.onWindowResize);
+        window.addEventListener('resize', self.onResize);
 
-        $(window).on('scroll', this.onScroll);
+        $(window).on('scroll', self.onScroll);
         $(window).on('pu:scrollstart', self.onScrollStart);
 
         if (window.innerWidth >= 992) {
-            this.attach();
+            self.attach();
         }
     },
 
     attach: function() {
-        sidebarDebugger.log('attach');
-        if (this.attached) return;
-        this.attached = true;
-
-        $(this.container).addClass('pu-partuppagelayout-active');
-        this.setContainerHeight();
-        this.preScroll();
-        this.checkScroll();
-
         var self = this;
+        sidebarDebugger.log('attach');
+        if (self.attached) return;
+        self.attached = true;
+
+        $(self.container).addClass('pu-partuppagelayout-active');
+        self.setContainerHeight();
+        self.preScroll();
+        self.checkScroll();
+
         var onReRender = function() {
             self.setContainerHeight();
             self.preScroll();
             self.checkInterval();
         };
-        this.debouncedScrollChecker = lodash.debounce(onReRender, 500, true);
-        $(window).on('pu:componentRendered', this.debouncedScrollChecker);
+        self.debouncedScrollChecker = lodash.debounce(onReRender, 500, true);
+        $(window).on('pu:componentRendered', self.debouncedScrollChecker);
 
-        this.onScrollStart = function() {
-            $(window).on('pu:scrollend', self.onScrollEnd);
+        self.onScrollStart = function() {
             $(window).off('pu:scrollstart', self.onScrollStart);
+            $(window).on('pu:scrollend', self.onScrollEnd);
             self.setContainerHeight();
             self.preScroll();
             self.checkInterval();
         };
 
-        this.onScrollEnd = function() {
-            $(window).on('pu:scrollstart', self.onScrollStart);
+        self.onScrollEnd = function() {
             $(window).off('pu:scrollend', self.onScrollEnd);
+            $(window).on('pu:scrollstart', self.onScrollStart);
             self.checkInterval();
         };
+
         $(window).on('pu:scrollstart', self.onScrollStart);
     },
 
     detach: function() {
+        var self = this;
         sidebarDebugger.log('detach');
-        if (!this.attached) return;
-        this.attached = false;
+        self.attached = false;
 
-        this.container.style.height = '';
-        this.left.style.position = '';
-        this.left.style.top = '';
-        this.right.style.position = '';
-        this.right.style.top = '';
-        $(window).off('pu:scrollend', this.onScrollEnd);
-        $(window).off('pu:scrollstart', this.onScrollStart);
-        $(window).off('pu:componentRendered', this.debouncedScrollChecker);
-        this.scrolling = false;
+        self.container.style.height = '';
+        self.left.style.position = '';
+        self.left.style.top = '';
+        self.right.style.position = '';
+        self.right.style.top = '';
+
+        window.removeEventListener('resize', self.onWindowResize);
+        window.removeEventListener('resize', self.onResize);
+        $(window).off('scroll', self.onScroll);
+        $(window).off('pu:scrollstart', self.onScrollStart);
+        $(window).off('pu:scrollend', self.onScrollEnd);
+        $(window).off('pu:componentRendered', self.debouncedScrollChecker);
+        self.attached = undefined;
+        self.scrolling = undefined;
+        self.lastDirection = undefined;
+        self.lastScrollTop = undefined;
+        self.maxScroll = undefined;
+        self.maxPos = undefined;
+        self.container = undefined;
+        self.right = undefined;
+        self.left = undefined;
+        self.containerHeight = 0;
+        self.reactiveContainerHeight.set(0);
     },
 
     onResize: function() {
@@ -351,30 +367,9 @@ var partupDetailLayout = {
         this.lastScrollTop = scrollTop;
 
         // this.checkingScroll = false;
-    },
-    destroy: function() {
-        sidebarDebugger.log('destroy');
-        var self = partupDetailLayout;
-        window.removeEventListener('resize', self.onWindowResize);
-        window.removeEventListener('resize', self.onResize);
-        $(window).off('scroll', self.onScroll);
-        $(window).off('pu:scrollstart', self.onScrollStart);
-        $(window).off('pu:scrollend', self.onScrollEnd);
-        $(window).off('pu:componentRendered', self.debouncedScrollChecker);
-        self.attached = undefined;
-        self.scrolling = undefined;
-        self.lastDirection = undefined;
-        self.lastScrollTop = undefined;
-        self.maxScroll = undefined;
-        self.maxPos = undefined;
-        self.container = undefined;
-        self.right = undefined;
-        self.left = undefined;
-        self.containerHeight = 0;
-        self.reactiveContainerHeight.set(0);
     }
 };
 
 Template.app_partup.onDestroyed(function() {
-    partupDetailLayout.destroy();
+    partupDetailLayout.detach();
 });

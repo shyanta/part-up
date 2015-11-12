@@ -41,8 +41,7 @@ MentionsInput.prototype._build = function() {
  */
 MentionsInput.prototype._setEvents = function() {
     var self = this;
-
-    self.input.addEventListener('keydown', function(e) {
+    self.keyDownHandler = function(e) {
         if (!self.isSuggestionsShown || [38, 40, 13].indexOf(e.keyCode) === -1) {
             return;
         }
@@ -61,21 +60,26 @@ MentionsInput.prototype._setEvents = function() {
                 e.stopPropagation();
             break;
         }
-    });
+    };
 
-    self.input.addEventListener('input', function(e) {
+    self.inputHandler = function(e) {
         self.checkCaretPosition();
-    });
+    };
 
-    self.input.addEventListener('blur', function() {
+    self.blurHandler = function() {
         setTimeout(function() {
             self.hideSuggestions();
         }, 500);
-    });
+    };
 
-    self.suggestionsEl.addEventListener('click', function(e) {
+    self.clickHandler = function(e) {
         self.select(self.btns.indexOf(e.target));
-    });
+    };
+
+    self.input.addEventListener('keydown', self.keyDownHandler);
+    self.input.addEventListener('input', self.inputHandler);
+    self.input.addEventListener('blur', self.blurHandler);
+    self.suggestionsEl.addEventListener('click', self.clickHandler);
 };
 
 /**
@@ -198,6 +202,14 @@ MentionsInput.prototype.getValue = function() {
         return {_id: value, name: key};
     });
     return Partup.helpers.mentions.encode(this.input.value, mentions);
+};
+
+MentionsInput.prototype.destroy = function() {
+    var self = this;
+    self.input.removeEventListener('keydown', self.keyDownHandler);
+    self.input.removeEventListener('input', self.inputHandler);
+    self.input.removeEventListener('blur', self.blurHandler);
+    self.suggestionsEl.removeEventListener('click', self.clickHandler);
 };
 
 Partup.client.forms.MentionsInput = MentionsInput;

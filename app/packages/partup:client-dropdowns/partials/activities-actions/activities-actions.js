@@ -1,9 +1,7 @@
 Template.PartialDropdownActivitiesActions.onCreated(function() {
     var tpl = this;
     tpl.dropdownToggleBool = 'partial-dropdowns-activities-actions.opened';
-    tpl.dropdownOpen = new ReactiveVar(false, function(a, b) {
-
-    });
+    tpl.dropdownOpen = new ReactiveVar(false);
     tpl.selectedOption = tpl.data.reactiveVar || new ReactiveVar('default');
 });
 
@@ -12,10 +10,10 @@ Template.PartialDropdownActivitiesActions.onRendered(function() {
     ClientDropdowns.addOutsideDropdownClickHandler(tpl, '[data-clickoutside-close]', '[data-toggle-menu]');
 });
 
-Template.PartialDropdownActivitiesActions.destroyed = function() {
+Template.PartialDropdownActivitiesActions.onDestroyed(function() {
     var tpl = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(tpl);
-};
+});
 
 Template.PartialDropdownActivitiesActions.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
