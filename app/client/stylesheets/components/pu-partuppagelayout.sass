@@ -1,5 +1,6 @@
 .pu-partuppagelayout
     $pagecontainer-maxwidth: grid(12)
+    $sidebar-width: 350px
     display: table
     min-width: $breakpoint-desktop
     max-width: $pagecontainer-maxwidth
@@ -8,6 +9,7 @@
 
     .pu-sub-partupdetail-content
         transform: translateZ(0)
+        min-width: 1024px - $sidebar-width
 
     > .pu-spinner
         display: block
@@ -22,7 +24,7 @@
     .pu-sub-partupdetail-right
         display: table-cell
         vertical-align: top
-        width: 350px
+        width: $sidebar-width
 
     @media screen and (min-width: $breakpoint-desktop)
         &-active
