@@ -16,8 +16,8 @@ Meteor.publishComposite('partups.discover', function(parameters) {
         locationId: Match.Optional(String),
         sort: Match.Optional(String),
         textSearch: Match.Optional(String),
-        limit: Match.Optional(Number),
-        skip: Match.Optional(Number),
+        limit: Match.Optional(String),
+        skip: Match.Optional(String),
         language: Match.Optional(String)
     });
 
@@ -56,7 +56,9 @@ Meteor.publishComposite('partups.discover', function(parameters) {
             ]}
         ]
     };
-}, {url: '/partups/discover', httpMethod: 'post'});
+}, {url: '/partups/discover', getArgsFromRequest: function(request) {
+    return [request.query];
+}});
 
 /**
  * Publish multiple partups by ids

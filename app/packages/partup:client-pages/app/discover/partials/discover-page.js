@@ -63,10 +63,14 @@ Template.app_discover_page.onCreated(function() {
                 tpl.partups.layout.count.set(response.data.count);
             });
 
-            Partup.client.API.post('/partups/discover', {data: mout.object.deepFillIn(new Object(), tpl.partups.options.get(), {
+            var query = mout.object.deepFillIn(new Object(), tpl.partups.options.get(), {
                 limit: Partup.client.discover.INCREMENT,
                 skip: b * Partup.client.discover.INCREMENT
-            })}, function(error, data) {
+            });
+
+            query = lodash(query).omit(lodash.isUndefined).omit(lodash.isNull).value();
+
+            Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), function(error, data) {
                 if (error) return;
 
                 var ids = lodash.pluck(data.partups, '_id');
