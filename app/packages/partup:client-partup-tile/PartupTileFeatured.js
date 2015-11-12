@@ -15,8 +15,7 @@ Template.PartupTileFeatured.onRendered(function() {
 
 Template.PartupTileFeatured.helpers({
     upper: function() {
-        var upper_from_cache = lodash.find(Partup.client.discover.cache.uppers, {_id: this._id});
-        return upper_from_cache || Meteor.users.findOne({_id: this._id});
+        return Meteor.users.findOne({_id: this._id});
     },
     boundedProgress: function() {
         var template = Template.instance();

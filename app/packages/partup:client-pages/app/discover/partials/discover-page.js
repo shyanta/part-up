@@ -86,13 +86,6 @@ Template.app_discover_page.onCreated(function() {
 
                 tpl.partups.getting_data.set(false);
                 tpl.partups.loading.set(false);
-
-                // Check if this query is the default query
-                var is_default_query = mout.object.equals(tpl.partups.options.get(), Partup.client.discover.DEFAULT_QUERY);
-
-                if (b === 0 && is_default_query) {
-                    Partup.client.discover.cache.set(partups);
-                }
             });
         }),
 
