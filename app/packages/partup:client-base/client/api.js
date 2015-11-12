@@ -6,6 +6,12 @@
  */
 Partup.client.API = {
 
+    /**
+     * GET request and save results to local minimongo collections
+     *
+     * @param {String} url
+     * @param {Function} callback
+     */
     get: function(url, callback) {
         var self = this;
 
@@ -17,6 +23,13 @@ Partup.client.API = {
         });
     },
 
+    /**
+     * POST request and save results to local minimongo collections
+     *
+     * @param {String} url
+     * @param {Object} options
+     * @param {Function} callback
+     */
     post: function(url, options, callback) {
         var self = this;
 
@@ -28,6 +41,11 @@ Partup.client.API = {
         });
     },
 
+    /**
+     * Helper to save API call results to local minimongo collections
+     *
+     * @param {String} result
+     */
     _apiResultToLocalCollections: function(result) {
         var collectionNames = Object.keys(result.data);
 
