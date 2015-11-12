@@ -13,7 +13,7 @@ Partup.client.API = {
             if (error) callback(error);
 
             self._apiResultToLocalCollections(result);
-            callback(result.data);
+            callback(null, result.data);
         });
     },
 
