@@ -24,12 +24,14 @@ Template.PartupTile.onCreated(function() {
 });
 
 Template.PartupTile.onRendered(function() {
+    var tpl = this;
     var tagsEl = this.find('.pu-sub-partup-tags');
     if (tagsEl) {
         positionTags(tagsEl);
-        window.addEventListener('resize', function() {
+        tpl.resizeHandler = function() {
             positionTags(tagsEl);
-        });
+        };
+        window.addEventListener('resize', tpl.resizeHandler);
     }
 
     if (this.data.image) {
@@ -42,6 +44,11 @@ Template.PartupTile.onRendered(function() {
             });
         }
     }
+});
+
+Template.PartupTile.onDestroyed(function() {
+    var tpl = this;
+    window.removeEventListener('resize', tpl.resizeHandler);
 });
 
 Template.PartupTile.helpers({

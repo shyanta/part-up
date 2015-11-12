@@ -33,6 +33,11 @@ Template.Comments.onRendered(function() {
     this.mentionsInput = Partup.client.forms.MentionsInput(this.input);
 });
 
+Template.Comments.onDestroyed(function() {
+    var template = this;
+    template.mentionsInput.destroy();
+});
+
 Template.Comments.helpers({
     showCommentBox: function() {
         var template = Template.instance();

@@ -25,8 +25,7 @@ Template.UserHoverCard.onRendered(function() {
     var template = this;
     // remember the timeout id
     var showProfileTimeout;
-
-    $('body').on('mouseover', '[data-usercard]', function(e) {
+    template.hoverHandler = function(e) {
         hoverCardDebugger.log('mouseover');
         var self = $(this); // [data-usercard]
 
@@ -68,9 +67,9 @@ Template.UserHoverCard.onRendered(function() {
 
         // listen to hover cancel
         self.on('mouseleave', mouseLeaveHandler);
-    });
+    };
 
-    $('body').on('click', '[data-usercard]', function(e) {
+    template.clickHandler = function(e) {
         hoverCardDebugger.log('clicked');
         var self = $(this);
         var s = template.hoverCardSettings.get('partup.hover-card.settings');
@@ -84,7 +83,16 @@ Template.UserHoverCard.onRendered(function() {
         } else {
             Router.go('profile-upper-partups', {_id: self.data('usercard')});
         }
-    });
+    };
+
+    $('body').on('mouseover', '[data-usercard]', template.hoverHandler);
+    $('body').on('click', '[data-usercard]', template.clickHandler);
+});
+
+Template.UserHoverCard.onDestroyed(function() {
+    var tpl = this;
+    $('body').off('mouseover', '[data-usercard]', template.hoverHandler);
+    $('body').off('click', '[data-usercard]', template.clickHandler);
 });
 
 Template.UserHoverCard.helpers({
