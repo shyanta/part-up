@@ -65,7 +65,8 @@ Template.app_discover_page.onCreated(function() {
 
             var query = mout.object.deepFillIn(new Object(), tpl.partups.options.get(), {
                 limit: Partup.client.discover.INCREMENT,
-                skip: b * Partup.client.discover.INCREMENT
+                skip: b * Partup.client.discover.INCREMENT,
+                userId: Meteor.userId()
             });
 
             query = lodash(query).omit(lodash.isUndefined).omit(lodash.isNull).value();

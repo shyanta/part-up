@@ -18,7 +18,8 @@ Meteor.publishComposite('partups.discover', function(parameters) {
         textSearch: Match.Optional(String),
         limit: Match.Optional(String),
         skip: Match.Optional(String),
-        language: Match.Optional(String)
+        language: Match.Optional(String),
+        userId: Match.Optional(String),
     });
 
     var options = {};
