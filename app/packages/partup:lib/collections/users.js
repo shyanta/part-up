@@ -18,6 +18,7 @@ var publicUserFields = {
     'profile.tags': 1,
     'profile.twitter_url': 1,
     'profile.website': 1,
+    'profile.meurs.results': 1,
     'status.online': 1,
     'partups': 1,
     'upperOf': 1,
