@@ -56,7 +56,7 @@ server {
         proxy_http_version 1.1;
         proxy_redirect off;
 
-        proxy_ignore_headers X-Accel-Expires Expires Cache-Control Set-Cookie;
+        proxy_ignore_headers Set-Cookie;
         proxy_hide_header Cache-Control;
 
         proxy_cache {{ item.environment }};
