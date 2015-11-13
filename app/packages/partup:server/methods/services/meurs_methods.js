@@ -69,7 +69,7 @@ Meteor.methods({
         }
 
         // Create return URL
-        var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/about?results_ready=true';
+        var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/?results_ready=true';
 
         // Generate browser token and return generated URL to FE
         return Partup.server.services.meurs.getBrowserToken(token, q4youId, returnUrl);
