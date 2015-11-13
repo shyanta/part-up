@@ -37,6 +37,7 @@ Meteor.methods({
             }
 
             Tiles.insert(tile);
+            Meteor.users.update(upper._id, {$addToSet: {tiles: tile._id}});
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'tile_could_not_be_inserted');
@@ -51,11 +52,12 @@ Meteor.methods({
     'tiles.remove': function(tileId) {
         check(tileId, String);
 
-        var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        var upper = Meteor.upper();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             Tiles.remove({_id: tileId});
+            Meteor.users.update(upper._id, {$pull: {tiles: tileId}});
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'tile_could_not_be_removed');
