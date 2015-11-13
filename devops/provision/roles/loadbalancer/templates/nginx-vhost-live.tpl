@@ -1,4 +1,4 @@
-proxy_cache_path /tmp/nginx levels=1:2 keys_zone={{ item.environment }}:8m max_size=100m inactive=10m;
+proxy_cache_path /tmp/nginx/{{ item.environment }} levels=1:2 keys_zone={{ item.environment }}:8m max_size=100m inactive=10m;
 
 upstream {{ item.environment }} {
     ip_hash;
