@@ -329,6 +329,9 @@ User = function(user) {
         aboutPageIsViewable: function() {
             var currentUserId = Meteor.userId();
             if (user._id === currentUserId) return true;
+            if (user.profile.meurs
+                && user.profile.meurs.results
+                && user.profile.meurs.results.length) return true;
 
             return false;
         }
