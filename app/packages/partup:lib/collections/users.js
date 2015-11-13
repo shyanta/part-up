@@ -25,7 +25,8 @@ var publicUserFields = {
     'average_rating': 1,
     'networks': 1,
     'completeness': 1,
-    'participation_score': 1
+    'participation_score': 1,
+    'tiles': 1
 };
 
 //user fields exposed to logged in user
