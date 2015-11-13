@@ -41,13 +41,14 @@ Router.route('/discover', {
 /*************************************************************/
 /* Profile */
 /*************************************************************/
+// this is the fallback profile route when a user changes the url to /profile without an _id
 Router.route('/profile', {
-    name: 'profile',
+    name: 'profile-fallback',
     where: 'client',
     yieldRegions: {
         'app': {to: 'main'},
         'app_profile': {to: 'app'},
-        'app_profile_upper_partups': {to: 'app_profile'}
+        'app_profile_about': {to: 'app_profile'}
     },
     onBeforeAction: function() {
         if (!this.params._id) {
@@ -63,6 +64,39 @@ Router.route('/profile', {
 });
 
 Router.route('/profile/:_id', {
+    name: 'profile',
+    where: 'client',
+    yieldRegions: {
+        'app': {to: 'main'},
+        'app_profile': {to: 'app'},
+        'app_profile_about': {to: 'app_profile'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id,
+            resultsReady: this.params.query.results_ready || false
+        };
+    },
+    onBeforeAction: function() {
+        var userProfile = Meteor.users.findOne(this.params._id);
+        var viewable = User(userProfile).aboutPageIsViewable();
+
+        // when `?results_ready=true` this call must be made
+        var resultsReady = this.params.query.results_ready || false;
+        if (resultsReady) Meteor.call('meurs.get_results', this.params._id);
+
+        if (!viewable) {
+            this.render('app', {to: 'main'});
+            this.render('app_profile', {to: 'app'});
+            this.render('app_profile_upper_partups', {to: 'app_profile'});
+        } else {
+            this.render();
+        }
+
+    }
+});
+
+Router.route('/profile/:_id/partner', {
     name: 'profile-upper-partups',
     where: 'client',
     yieldRegions: {
@@ -92,31 +126,6 @@ Router.route('/profile/:_id/supporter', {
     }
 });
 
-Router.route('/profile/:_id/about', {
-    name: 'profile-about',
-    where: 'client',
-    yieldRegions: {
-        'app': {to: 'main'},
-        'app_profile': {to: 'app'},
-        'app_profile_about': {to: 'app_profile'}
-    },
-    data: function() {
-        return {
-            profileId: this.params._id
-        };
-    },
-    action: function() {
-        if (this.params.query.results_ready) {
-            var resultsFinalized = Meteor.call('meurs.get_results', this.params._id);
-
-            // Check if result was finalized
-            if (!resultsFinalized) {
-                setTimeout(Meteor.call('meurs.get_results', this.params._id), 30000);
-            }
-        }
-        this.render();
-    }
-});
 
 /*************************************************************/
 /* Profile settings modal */
