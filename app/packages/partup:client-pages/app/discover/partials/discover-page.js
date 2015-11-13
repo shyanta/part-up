@@ -102,6 +102,7 @@ Template.app_discover_page.onCreated(function() {
             tpl.partups.loading.set(true);
             tpl.partups.page.set(0);
             tpl.partups.end_reached.set(false);
+            tpl.partups.layout.clear();
         }
     };
 
