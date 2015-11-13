@@ -22,6 +22,7 @@ Template.app_profile_about.onCreated(function() {
                     onReady: function() {
                         var tiles = Tiles.find({upper_id: profileId}).fetch();
                         var user = Meteor.users.findOne(profileId);
+                        var results = [];
                         if (!tiles || !tiles.length) {
                             tiles.push({
                                 type: 'image',
@@ -29,11 +30,12 @@ Template.app_profile_about.onCreated(function() {
                             });
                         }
                         if (user.profile.meurs && user.profile.meurs.results) {
-                            tiles.unshift({
-                                type: 'result',
-                                results: user.profile.meurs.results || []
-                            });
+                            results = user.profile.meurs.results;
                         }
+                        tiles.unshift({
+                            type: 'result',
+                            results: results
+                        });
 
                         tpl.tiles.layout.items = tpl.tiles.layout.clear();
                         tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);

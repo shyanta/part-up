@@ -332,7 +332,8 @@ User = function(user) {
             if (user.profile.meurs
                 && user.profile.meurs.results
                 && user.profile.meurs.results.length) return true;
-
+            var tiles = Tiles.find({upper_id: user._id}).count();
+            if (tiles) return true;
             return false;
         }
     };

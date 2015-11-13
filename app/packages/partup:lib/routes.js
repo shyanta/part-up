@@ -77,6 +77,9 @@ Router.route('/profile/:_id', {
             resultsReady: this.params.query.results_ready || false
         };
     },
+    subscriptions: function() {
+        return this.subscribe('tiles.profile', this.params._id);
+    },
     onBeforeAction: function() {
         var userProfile = Meteor.users.findOne(this.params._id);
         var viewable = User(userProfile).aboutPageIsViewable();
