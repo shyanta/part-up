@@ -75,7 +75,7 @@ Meteor.startup(function() {
                     'meurs': {
                         'portal': 'en',
                         'en_id': 'a15902ee-2b0d-49d6-9c7d-b54c2fdd6eee',
-                        'nl_id': 'f1800534-ea96-47fc-a856-bbfe6d4bf421',
+                        'nl_id': 'b59e003c-4bd4-48bd-80bf-69948df9a3b7',
                         'program_session_id': 32228,
                         'fetched_results': true,
                         'results': [
@@ -202,8 +202,8 @@ Meteor.startup(function() {
                     'website': '',
                     'skype': null,
                     'meurs': {
-                        'portal': 'en',
-                        '_id': 'caba5cd4-f769-4093-878c-4ce3807781c3',
+                        'portal': 'nl',
+                        'nl_id': 'caba5cd4-f769-4093-878c-4ce3807781c3',
                         'program_session_id': 31373
                     }
                 },
@@ -310,6 +310,7 @@ Meteor.startup(function() {
                     'skype': null,
                     'meurs': {
                         'portal': 'en',
+                        'nl_id': '44e74f98-fd0f-4c9a-82e1-82e1528409f5',
                         'en_id': 'b7b44c5b-36f9-4c88-a2a7-3b3aa8709255',
                         'program_session_id': 32724,
                         'fetched_results': true,
@@ -437,6 +438,7 @@ Meteor.startup(function() {
                     'skype': null,
                     'meurs': {
                         'portal': 'en',
+                        'nl_id': 'f8cb5c45-bdb5-4a98-9f98-a7d5fdcd7115',
                         'en_id': '503a6931-4a68-4595-83fa-4e77098727cc',
                         'program_session_id': 32698,
                         'fetched_results': true,
