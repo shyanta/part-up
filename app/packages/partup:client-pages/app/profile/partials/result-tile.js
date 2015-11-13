@@ -6,13 +6,19 @@ Template.ResultTile.helpers({
         return __('pages-app-profile-about-result-' + id + '-description', {name: Template.instance().data.user.profile.name});
     },
     results: function() {
-        return this.results;
+        return this.meurs.results;
     },
     hasResults: function() {
-        return this.results.length;
+        return this.meurs.results.length && this.meurs.fetched_results;
     },
     isCurrentusersResultTile: function() {
         return this.user._id === Meteor.userId();
+    },
+    isLoading: function() {
+        // when no results are fetched and there is a session_id
+        // then it means the user initiates a test
+        var loading = !this.meurs.fetched_results && this.meurs.program_session_id;
+        return loading;
     }
 });
 

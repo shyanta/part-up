@@ -1,7 +1,7 @@
-var RESULTSSTUB = ['brainiac', 'organizer', 'socializer', 'manager', 'individual'];
+
 Template.app_profile_about.onCreated(function() {
     var tpl = this;
-
+    tpl.loadingProfile = new ReactiveVar(true);
     var profileId = tpl.data.profileId;
 
     tpl.tiles = {
@@ -22,22 +22,22 @@ Template.app_profile_about.onCreated(function() {
                     onReady: function() {
                         var tiles = Tiles.find({upper_id: profileId}).fetch();
                         var user = Meteor.users.findOne(profileId);
-                        var results = [];
                         if (!tiles || !tiles.length) {
                             tiles.push({
                                 type: 'image',
                                 placeholder: true
                             });
                         }
-                        if (user.profile.meurs && user.profile.meurs.results && user.profile.meurs.program_session_id && user.profile.meurs.fetched_results) {
-                            results = user.profile.meurs.results;
+                        var meurs = {};
+                        if (user.profile.meurs) {
+                            meurs = user.profile.meurs;
                         }
                         tiles.unshift({
                             type: 'result',
                             user: user,
-                            results: results
+                            meurs: meurs
                         });
-
+                        tpl.loadingProfile.set(false);
                         tpl.tiles.layout.items = tpl.tiles.layout.clear();
                         tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
                     }
@@ -132,5 +132,9 @@ Template.app_profile_about.helpers({
             tpl.tiles.layout.rerender();
         });
         return smaller ? 1 : 2;
+    },
+
+    profileLoading: function() {
+        return Template.instance().loadingProfile.get();
     }
 });
