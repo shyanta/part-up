@@ -5,16 +5,11 @@ Template.ResultTile.helpers({
     resultDescription: function(id) {
         return __('pages-app-profile-about-result-' + id + '-description');
     },
-    resultIds: function() {
-        var limited = [];
-        this.result_ids.forEach(function(item, index) {
-            if (index > 1) return;
-            limited.push(item);
-        });
-        return limited;
+    results: function() {
+        return this.results;
     },
     hasResults: function() {
-        return this.result_ids.length;
+        return this.results.length;
     }
 });
 

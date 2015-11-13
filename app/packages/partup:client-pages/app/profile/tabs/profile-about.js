@@ -22,9 +22,6 @@ Template.app_profile_about.onCreated(function() {
                     onReady: function() {
                         var tiles = Tiles.find({upper_id: profileId}).fetch();
                         var user = Meteor.users.findOne(profileId);
-                        user.profile.meurs = {
-                            results: RESULTSSTUB
-                        };
                         if (!tiles || !tiles.length) {
                             tiles.push({
                                 type: 'image',
@@ -34,7 +31,7 @@ Template.app_profile_about.onCreated(function() {
                         if (user.profile.meurs && user.profile.meurs.results) {
                             tiles.unshift({
                                 type: 'result',
-                                result_ids: results || []
+                                results: user.profile.meurs.results || []
                             });
                         }
 

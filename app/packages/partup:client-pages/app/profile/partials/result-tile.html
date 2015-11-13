@@ -1,15 +1,15 @@
 <template name="ResultTile">
     {{#if hasResults }}
         <article class="pu-profiletile pu-profiletile-results">
-            {{#each resultIds}}
+            {{#each results}}
                 <article class="pu-resulttile">
                     <header>
-                        <h2>{{ resultTitle . }}</h2>
+                        <h2>{{ resultTitle code }}</h2>
                         <a href="#" class="pu-sub-info" data-info><i class="picon-info"></i></a>
                     </header>
                     <section>
-                        <figure style="background-image: url('/images/results/{{ . }}.svg');"></figure>
-                        <p>{{ resultDescription . }}</p>
+                        <figure style="background-image: url('/images/results/{{ code }}.svg');"></figure>
+                        <p>{{ resultDescription code }}</p>
                     </section>
                 </article>
             {{/each}}
