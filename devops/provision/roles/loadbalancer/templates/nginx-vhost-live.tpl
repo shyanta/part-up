@@ -1,3 +1,5 @@
+proxy_cache_path /tmp/nginx/{{ item.environment }} levels=1:2 keys_zone={{ item.environment }}:8m max_size=100m inactive=10m;
+
 upstream {{ item.environment }} {
     ip_hash;
 
@@ -42,8 +44,6 @@ server {
     }
 
     location / {
-        proxy_pass http://{{ item.environment }};
-        proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_set_header Host $http_host;
@@ -53,6 +53,18 @@ server {
         proxy_set_header X-Forwarded-Proto https;
         proxy_set_header X-Nginx-Proxy true;
 
+        proxy_http_version 1.1;
         proxy_redirect off;
+
+        proxy_ignore_headers Set-Cookie;
+        proxy_hide_header Cache-Control;
+
+        proxy_cache {{ item.environment }};
+        proxy_cache_key $host$uri$is_args$args;
+        proxy_cache_valid 200 1m;
+        proxy_cache_bypass $http_cache_control;
+        add_header X-Proxy-Cache $upstream_cache_status;
+
+        proxy_pass http://{{ item.environment }};
     }
 }

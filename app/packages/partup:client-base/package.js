@@ -60,6 +60,7 @@ Package.onUse(function(api) {
         'client/url.js',
         'client/responsive.js',
         'client/notifications.js',
+        'client/api.js',
         'helpers/log.js',
         'helpers/partupResponsive.js',
         'helpers/dateFormatters.js',

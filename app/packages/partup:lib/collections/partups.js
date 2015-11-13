@@ -517,6 +517,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
 
     var options = options || {};
     options.limit = options.limit ? parseInt(options.limit) : undefined;
+    options.skip = options.skip ? parseInt(options.skip) : 0;
     options.sort = options.sort || {};
 
     var parameters = parameters || {};

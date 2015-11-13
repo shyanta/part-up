@@ -14,6 +14,7 @@ Template.app_network.onCreated(function() {
 
     tpl.autorun(function() {
         var slug = Template.currentData().networkSlug;
+
         network_sub = Subs.subscribe('networks.one', slug, {
             onReady: function() {
                 var network = Networks.findOne({slug: tpl.data.networkSlug});

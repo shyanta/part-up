@@ -10,29 +10,6 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
     // We are going to respond in JSON format
     response.setHeader('Content-Type', 'application/json');
 
-    var token = request.query.token;
-
-    if (!token) {
-        response.statusCode = 400;
-        // TODO: Improve error message (i18n)
-        response.end(JSON.stringify({error: {reason: 'error-csvupload-notoken'}}));
-        return;
-    }
-
-    var user = Meteor.users.findOne({
-        $or: [
-            {'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(token)},
-            {'services.resume.loginTokens.token': token}
-        ]
-    });
-
-    if (!user) {
-        response.statusCode = 401;
-        // TODO: Improve error message (i18n)
-        response.end(JSON.stringify({error: {reason: 'error-csvupload-unauthorized'}}));
-        return;
-    }
-
     var busboy = new Busboy({'headers': request.headers});
 
     busboy.on('file', Meteor.bindEnvironment(function(fieldname, file, filename, encoding, mimetype) {
