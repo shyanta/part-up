@@ -324,6 +324,13 @@ User = function(user) {
             score = Math.round(score);
 
             return score;
+        },
+
+        aboutPageIsViewable: function() {
+            var currentUserId = Meteor.userId();
+            if (user._id === currentUserId) return true;
+
+            return false;
         }
     };
 };
