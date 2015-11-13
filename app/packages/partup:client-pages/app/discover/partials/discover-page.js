@@ -58,18 +58,21 @@ Template.app_discover_page.onCreated(function() {
                 tpl.partups.count_handle.stop();
             }
 
-            HTTP.post('/partups/discover/count', {data: tpl.partups.options.get()}, function(error, response) {
-                if (error || !response.data || response.data.error) return;
-                tpl.partups.layout.count.set(response.data.count);
-            });
-
             var query = mout.object.deepFillIn(new Object(), tpl.partups.options.get(), {
-                limit: Partup.client.discover.INCREMENT,
-                skip: b * Partup.client.discover.INCREMENT,
                 userId: Meteor.userId()
             });
 
             query = lodash(query).omit(lodash.isUndefined).omit(lodash.isNull).value();
+
+            HTTP.get('/partups/discover/count' + mout.queryString.encode(query), function(error, response) {
+                if (error || !response.data || response.data.error) return;
+                tpl.partups.layout.count.set(response.data.count);
+            });
+
+            query = mout.object.deepFillIn(new Object(), query, {
+                limit: Partup.client.discover.INCREMENT,
+                skip: b * Partup.client.discover.INCREMENT
+            });
 
             Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), function(error, data) {
                 if (error) return;

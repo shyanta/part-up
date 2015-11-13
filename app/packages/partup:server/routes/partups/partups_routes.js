@@ -1,4 +1,4 @@
-Router.route('/partups/discover/count', {where: 'server'}).post(function() {
+Router.route('/partups/discover/count', {where: 'server'}).get(function() {
     var request = this.request;
     var response = this.response;
 
@@ -6,13 +6,13 @@ Router.route('/partups/discover/count', {where: 'server'}).post(function() {
     response.setHeader('Content-Type', 'application/json');
 
     var parameters = {
-        networkId: request.body.networkId,
-        locationId: request.body.locationId,
-        sort: request.body.sort,
-        textSearch: request.body.textSearch,
-        limit: request.body.limit,
-        skip: request.body.skip,
-        language: (request.body.language === 'all') ? undefined : request.body.language
+        networkId: request.query.networkId,
+        locationId: request.query.locationId,
+        sort: request.query.sort,
+        textSearch: request.query.textSearch,
+        limit: request.query.limit,
+        skip: request.query.skip,
+        language: (request.query.language === 'all') ? undefined : request.query.language
     };
 
     var userId = request.user ? request.user._id : null;
