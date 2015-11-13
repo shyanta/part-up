@@ -93,6 +93,9 @@ Meteor.methods({
             throw new Meteor.Error(400, 'incomplete_meurs_data');
         }
 
+        // Set user flag
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.fetched_results': true}});
+
         var q4youId = '';
         if (upper.profile.meurs.portal === 'en' && upper.profile.meurs.en_id) {
             q4youId = upper.profile.meurs.en_id;
