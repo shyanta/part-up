@@ -114,14 +114,11 @@ Meteor.methods({
 
         // Get results
         var results = Partup.server.services.meurs.getResults(token, serviceSessionData.serviceSessionId);
-        Log.debug('Results: ', results);
 
         // Order results by score and only store the best 2
         var orderedResults = lodash.sortBy(results, function(category) {
             return category.zscore;
         }).reverse().slice(0, 2);
-
-        Log.debug('Best 2 results: ', orderedResults);
 
         // Save to user
         Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults}});
