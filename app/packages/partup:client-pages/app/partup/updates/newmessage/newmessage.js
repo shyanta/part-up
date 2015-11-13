@@ -102,6 +102,10 @@ AutoForm.hooks({
             insertDoc.images = uploadedPhotos;
             insertDoc.text = parent.mentionsInput.getValue();
 
+            // close popup before call is made, an error notifier
+            // will be the feedback when it fails
+            Partup.client.popup.close();
+
             Meteor.call('updates.messages.insert', partupId, insertDoc, function(error) {
                 parent.submitting.set(false);
 
@@ -121,7 +125,6 @@ AutoForm.hooks({
                 self.done();
                 parent.uploadedPhotos.set([]);
                 Partup.client.events.emit('partup:updates:message_added');
-                Partup.client.popup.close();
             });
 
             return false;
