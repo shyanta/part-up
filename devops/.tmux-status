@@ -1,0 +1,26 @@
+#!/bin/bash
+
+PARTUP_STAGING=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 5 https://pu-staging.lifely.nl/ping)
+PARTUP_ACCEPTANCE=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 5 https://pu-acceptance.lifely.nl/ping)
+PARTUP_PRODUCTION=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 5 https://part-up.com/ping)
+
+if [ $PARTUP_STAGING -eq "200" ]; then
+    VERSION=$(curl https://pu-staging.lifely.nl/VERSION | jq -r .version)
+    echo -n "#[fg=colour2] STAG ($VERSION) ✔"
+else
+    echo -n "#[fg=colour1] STAG ✘"
+fi
+
+if [ $PARTUP_ACCEPTANCE -eq "200" ]; then
+    VERSION=$(curl https://pu-acceptance.lifely.nl/VERSION | jq -r .version)
+    echo -n "#[fg=colour2] ACPT ($VERSION) ✔"
+else
+    echo -n "#[fg=colour1] ACPT ✘"
+fi
+
+if [ $PARTUP_PRODUCTION -eq "200" ]; then
+    VERSION=$(curl https://part-up.com/VERSION | jq -r .version)
+    echo -n "#[fg=colour2] PROD ($VERSION) ✔"
+else
+    echo -n "#[fg=colour1] PROD ✘"
+fi
