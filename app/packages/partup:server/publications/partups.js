@@ -170,9 +170,7 @@ Meteor.publishComposite('partups.home', function(language) {
 
     return {
         find: function() {
-            var selector = {language: language};
-
-            return Partups.guardedFind(this.userId, selector, {limit: 4});
+            return Partups.findForDiscover(this.userId, {limit: 4}, {sort: 'popular'});
         },
         children: [
             {find: Images.findForPartup},
