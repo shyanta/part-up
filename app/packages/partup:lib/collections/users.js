@@ -334,10 +334,8 @@ User = function(user) {
         aboutPageIsViewable: function() {
             var currentUserId = Meteor.userId();
             if (user._id === currentUserId) return true;
-            if (user.profile.meurs
-                && user.profile.meurs.results
-                && user.profile.meurs.results.length) return true;
-            if (user.tiles && user.tiles.length) return true;
+            if (user.profile.meurs && user.profile.meurs.results) return true;
+            if (user.tiles) return true;
             return false;
         }
     };

@@ -78,13 +78,12 @@ Router.route('/profile/:_id', {
         };
     },
     onBeforeAction: function() {
-        var userProfile = Meteor.users.findOne(this.params._id);
+        var userProfile = Meteor.users.findOne({_id: this.params._id});
         var viewable = User(userProfile).aboutPageIsViewable();
 
         // when `?results_ready=true` this call must be made
         var resultsReady = this.params.query.results_ready || false;
         if (resultsReady) Meteor.call('meurs.get_results', this.params._id);
-
         if (!viewable) {
             this.render('app', {to: 'main'});
             this.render('app_profile', {to: 'app'});

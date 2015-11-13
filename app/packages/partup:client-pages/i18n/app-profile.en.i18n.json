@@ -16,6 +16,7 @@
     "pages-app-profile-supporter-partups-prefix": "__name__ is supporter in",
 
     "pages-app-profile-about-name": "Who is <span class='pu-sub-countlabel'>__name__?</span>",
+    "pages-app-profile-label-add": "Add:",
     "pages-app-profile-button-photo": "Photo",
     "pages-app-profile-button-video": "Video",
     "pages-app-profile-button-test": "Start the test",

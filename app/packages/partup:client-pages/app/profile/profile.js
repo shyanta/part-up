@@ -96,9 +96,9 @@ Template.app_profile.helpers({
     },
 
     profileHasTilesOrIsCurrentUser: function() {
-        var currentUser = this.profileId === Meteor.userId();
-        var hasTiles = false;
-        return (currentUser || hasTiles)
+        var userProfile = Meteor.users.findOne({_id: this.profileId});
+        var viewable = User(userProfile).aboutPageIsViewable();
+        return viewable;
     }
 });
 
