@@ -14,6 +14,7 @@ Meteor.methods({
 
         try {
             partup.makeSupporter(upper._id);
+            Event.emit('partups.supporters.inserted', partup, upper);
 
             return true;
         } catch (error) {
