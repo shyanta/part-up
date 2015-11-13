@@ -79,9 +79,9 @@ Template.UserHoverCard.onRendered(function() {
 
 
         if (e.target.tagName.toLowerCase() === 'a') {
-            e.target.href = Router.path('profile-upper-partups', {_id: self.data('usercard')});
+            e.target.href = Router.path('profile', {_id: self.data('usercard')});
         } else {
-            Router.go('profile-upper-partups', {_id: self.data('usercard')});
+            Router.go('profile', {_id: self.data('usercard')});
         }
     };
 
