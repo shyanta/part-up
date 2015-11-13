@@ -72,6 +72,32 @@ Meteor.startup(function() {
                     'phonenumber' : '+31612345678',
                     'website' : 'http://www.facebook.com',
                     'skype' : 'markzuckerberg'
+                    'skype': 'markzuckerberg',
+                    'meurs': {
+                        'portal': 'en',
+                        'en_id': 'a15902ee-2b0d-49d6-9c7d-b54c2fdd6eee',
+                        'nl_id': 'f1800534-ea96-47fc-a856-bbfe6d4bf421',
+                        'program_session_id': 32228,
+                        'fetched_results': true,
+                        'results': [
+                            {
+                                'code': 103401,
+                                'name': 'Denkkracht',
+                                'score': 8,
+                                'zscore': 0.80003,
+                                'dscore': 7,
+                                'highIndex': 1
+                            },
+                            {
+                                'code': 103403,
+                                'name': 'Slagkracht',
+                                'score': 8,
+                                'zscore': 0.8000200000000001,
+                                'dscore': 7,
+                                'highIndex': 1
+                            }
+                        ]
+                    }
                 },
                 'status' : {
                     'online' : true,
@@ -176,6 +202,12 @@ Meteor.startup(function() {
                     'phonenumber' : null,
                     'website' : '',
                     'skype' : null
+                    'skype': null,
+                    'meurs': {
+                        'portal': 'en',
+                        '_id': 'caba5cd4-f769-4093-878c-4ce3807781c3',
+                        'program_session_id': 31373
+                    }
                 },
                 'status' : {
                     'online' : true,
@@ -278,6 +310,31 @@ Meteor.startup(function() {
                     'phonenumber' : null,
                     'website' : '',
                     'skype' : null
+                    'skype': null,
+                    'meurs': {
+                        'portal': 'en',
+                        'en_id': 'b7b44c5b-36f9-4c88-a2a7-3b3aa8709255',
+                        'program_session_id': 32724,
+                        'fetched_results': true,
+                        'results': [
+                            {
+                                'code': 103405,
+                                'name': 'Persoonlijke kracht',
+                                'score': 8,
+                                'zscore': 0.8000400000000001,
+                                'dscore': 7,
+                                'highIndex': 1
+                            },
+                            {
+                                'code': 103402,
+                                'name': 'Stuurkracht',
+                                'score': 7,
+                                'zscore': 0.7000500000000001,
+                                'dscore': 6,
+                                'highIndex': 1
+                            }
+                        ]
+                    }
                 },
                 'status' : {
                     'online' : true,
@@ -381,6 +438,31 @@ Meteor.startup(function() {
                     'phonenumber' : null,
                     'website' : '',
                     'skype' : null
+                    'skype': null,
+                    'meurs': {
+                        'portal': 'en',
+                        'en_id': '503a6931-4a68-4595-83fa-4e77098727cc',
+                        'program_session_id': 32698,
+                        'fetched_results': true,
+                        'results': [
+                            {
+                                'code': 103401,
+                                'name': 'Denkkracht',
+                                'score': 9,
+                                'zscore': 0.90003,
+                                'dscore': 8,
+                                'highIndex': 1
+                            },
+                            {
+                                'code': 103405,
+                                'name': 'Persoonlijke kracht',
+                                'score': 7,
+                                'zscore': 0.7000400000000001,
+                                'dscore': 6,
+                                'highIndex': 1
+                            }
+                        ]
+                    }
                 },
                 'status' : {
                     'online' : true,
