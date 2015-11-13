@@ -29,12 +29,12 @@ Template.app_profile_about.onCreated(function() {
                                 placeholder: true
                             });
                         }
-                        if (user.profile.meurs && user.profile.meurs.results) {
+                        if (user.profile.meurs && user.profile.meurs.results && user.profile.meurs.program_session_id && user.profile.meurs.fetched_results) {
                             results = user.profile.meurs.results;
                         }
                         tiles.unshift({
                             type: 'result',
-                            name: user.profile.firstname,
+                            user: user,
                             results: results
                         });
 

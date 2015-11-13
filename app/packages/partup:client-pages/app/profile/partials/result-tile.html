@@ -13,6 +13,11 @@
                     </section>
                 </article>
             {{/each}}
+            {{#if isCurrentusersResultTile}}
+            <footer>
+                <a href="#" data-reset class="pu-button pu-button-text pu-button-text-subtle">{{_ 'pages-app-profile-result-tile-reset'}}</a>
+            </footer>
+            {{/if}}
         </article>
     {{else}}
         {{> PlaceholderTile type="results" }}

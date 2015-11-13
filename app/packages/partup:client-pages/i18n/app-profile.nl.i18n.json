@@ -54,6 +54,10 @@
     "pages-app-profile-about-tile-prompt-title": "Tegel verwijderen?",
     "pages-app-profile-about-tile-prompt-message": "Deze actie kan niet ongedaan gemaakt worden.",
 
+    "pages-app-profile-result-tile-reset": "Resetten",
+    "pages-app-profile-about-result-reset-title": "Weet je het zeker?",
+    "pages-app-profile-about-result-reset-description": "Je moet de test opnieuw doen voor je krachten weer zichtbaar zijn",
+
     "pages-app-profile-about-info-title": "Waar ligt jouw kracht?",
     "pages-app-profile-about-info-close": "Sluiten",
     "pages-app-profile-about-info-intro": "Deze test geeft je inzicht in je persoonlijke kracht. Het resultaat van deze test zijn de twee krachten die het best bij jou passen. Het zijn twee van de onderstaande vijf krachten waar je het hoogst op scoort.",

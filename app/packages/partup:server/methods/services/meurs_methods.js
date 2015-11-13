@@ -133,6 +133,6 @@ Meteor.methods({
         if (!upper || !upper.profile.meurs || !upper.profile.meurs.portal || !upper.profile.meurs.program_session_id) throw new Meteor.Error(401, 'unauthorized');
 
         // Reset test related data
-        Meteor.users.update({_id: upper._id}, {$unset: {'profile.meurs.portal': '', 'profile.meurs.program_session_id': ''}});
+        Meteor.users.update({_id: upper._id}, {$unset: {'profile.meurs.portal': '', 'profile.meurs.program_session_id': '', 'profile.meurs.fetched_results': ''}});
     }
 });
