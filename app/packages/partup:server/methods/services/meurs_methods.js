@@ -31,12 +31,11 @@ Meteor.methods({
         } else if (upper.profile.meurs && (portal === 'nl' && upper.profile.meurs.nl_id)) {
             q4youId = upper.profile.meurs.nl_id;
         } else {
-            q4youId = '';
+            q4youId = null;
         }
 
         // Authenticate
         var token = Partup.server.services.meurs.getToken(portal);
-        console.log('Token', token);
 
         // Create user if needed
         if (!upper.profile.meurs ||
@@ -51,8 +50,11 @@ Meteor.methods({
             if (!isUserActivated) return false;
 
             // Update user
-            if (portal === 'en') Meteor.users.update(upper._id, {$set: {'profile.meurs.en_id': q4youId}});
-            if (portal === 'nl') Meteor.users.update(upper._id, {$set: {'profile.meurs.nl_id': q4youId}});
+            if (portal === 'en') {
+                Meteor.users.update(upper._id, {$set: {'profile.meurs.en_id': q4youId}});
+            } else if (portal === 'nl') {
+                Meteor.users.update(upper._id, {$set: {'profile.meurs.nl_id': q4youId}});
+            }
         }
 
         // Create Program Session if needed
@@ -109,7 +111,7 @@ Meteor.methods({
 
         // Get results
         var results = Partup.server.services.meurs.getResults(token, serviceSessionData.serviceSessionId);
-        Log.debug('Raw results: ', results);
+        Log.debug('Results: ', results);
 
         // Order results by score and only store the best 2
         var orderedResults = lodash.sortBy(results, function(category) {
