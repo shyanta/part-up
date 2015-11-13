@@ -34,6 +34,7 @@ Template.app_profile_about.onCreated(function() {
                         }
                         tiles.unshift({
                             type: 'result',
+                            name: user.profile.firstname,
                             results: results
                         });
 

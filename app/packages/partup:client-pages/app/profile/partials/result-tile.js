@@ -3,7 +3,7 @@ Template.ResultTile.helpers({
         return __('pages-app-profile-about-result-' + id + '-title');
     },
     resultDescription: function(id) {
-        return __('pages-app-profile-about-result-' + id + '-description');
+        return __('pages-app-profile-about-result-' + id + '-description', {name: Template.instance().data.name});
     },
     results: function() {
         return this.results;
