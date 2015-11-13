@@ -74,7 +74,7 @@ Meteor.methods({
         var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/?results_ready=true';
 
         // Generate browser token and return generated URL to FE
-        return Partup.server.services.meurs.getBrowserToken(token, q4youId, returnUrl);
+        return Partup.server.services.meurs.getBrowserToken(portal, token, q4youId, returnUrl);
     },
 
     'meurs.get_results': function(upperId) {
