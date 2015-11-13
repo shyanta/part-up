@@ -38,6 +38,7 @@ momentjs:moment
 mrt:jquery-mousewheel
 okgrow:analytics
 pauli:accounts-linkedin
+peerlibrary:aws-sdk
 percolate:intercom
 percolate:migrations
 percolate:synced-cron
@@ -45,6 +46,7 @@ reactive-var
 reywood:publish-composite
 sergeyt:typeahead
 service-configuration
+simple:rest
 splendido:accounts-meld
 stevezhu:lodash
 tap:i18n
@@ -98,6 +100,3 @@ partup:client-update
 partup:client-usercard
 partup:meteor-bender
 partup:client-invite-to-partup
-peerlibrary:aws-sdk
-andrefgneves:iconfont-refactored
-simple:rest
