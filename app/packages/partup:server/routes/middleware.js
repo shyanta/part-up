@@ -19,7 +19,7 @@ JsonRoutes.Middleware.use(function(request, response, next) {
         if (regex.test(request.url)) shouldCache = true;
     });
 
-    response.setHeader('Cache-Control', shouldCache ? 'public, max-age=3600' : 'none');
+    response.setHeader('Cache-Control', shouldCache ? 'public, max-age=3600' : 'no-cache, no-store');
 
     next();
 });
