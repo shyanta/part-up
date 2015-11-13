@@ -11,6 +11,18 @@ var meursCall = function(url, data) {
         });
 
         if (result.statusCode !== 200 || result.data.errors.length > 0) {
+            // Check if there is a fallback that can save the day
+            var error = result.data.errors[0]; // Always just 1 error
+            if (error.code == 59 && error.messageProp == 'authenticatorErrorInvalidUsernameExists') {
+                // User already has a q4youId, so let's find and return it
+                var q4youId = Partup.server.services.meurs.getExistingQ4youId(data.authToken, data.userName);
+                if (q4youId) {
+                    // Set the retrieved ID
+                    result.data.q4youID = q4youId;
+                    return result;
+                }
+            }
+
             Log.error('[Meurs API Error] Url: [' + url + ']. Status code: [' + result.statusCode + ']. Errors: ', result.data.errors);
             throw new Meteor.Error(400, '[Meurs API Error] Url: [' + url + ']. Status code: [' + result.statusCode + ']. Errors: ', result.data.errors);
         }
@@ -76,7 +88,7 @@ Partup.server.services.meurs = {
         return result.data.errors.length < 1;
     },
 
-    getUsers: function(token) {
+    getExistingQ4youId: function(token, userName) {
         if (!token) {
             d('No authentication token given');
             throw new Meteor.Error(400, 'Token needed for Meurs API');
@@ -86,7 +98,11 @@ Partup.server.services.meurs = {
             authToken: token
         });
 
-        return result.data;
+        var user = lodash.find(result.data.users, function(user) {
+            return user.userName == userName;
+        });
+
+        return user.id;
     },
 
     createProgramSessionId: function(portal, token, q4youId) {
