@@ -8,6 +8,9 @@ Meteor.methods({
         var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
+        // Set loading state
+        Meteor.users.update(upper._id, {$set: {'profile.meurs.initiating_test': true}});
+
         // Declare vars
         var portal = '';
         var q4youId = '';
@@ -74,7 +77,12 @@ Meteor.methods({
         var returnUrl = Meteor.absoluteUrl() + 'profile/' + upper._id + '/?results_ready=true';
 
         // Generate browser token and return generated URL to FE
-        return Partup.server.services.meurs.getBrowserToken(portal, token, q4youId, returnUrl);
+        var testUrl = Partup.server.services.meurs.getBrowserToken(portal, token, q4youId, returnUrl);
+
+        // Unset loading state
+        Meteor.users.update(upper._id, {$unset: {'profile.meurs.initiating_test': '', 'profile.meurs.reset': ''}});
+
+        return testUrl;
     },
 
     'meurs.get_results': function(upperId) {

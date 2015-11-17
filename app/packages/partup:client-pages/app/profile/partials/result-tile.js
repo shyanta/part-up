@@ -16,10 +16,7 @@ Template.ResultTile.helpers({
         return this.user._id === Meteor.userId();
     },
     isLoading: function() {
-        // when no results are fetched and there is a session_id
-        // then it means the user initiates a test
-        var loading = !this.meurs.fetched_results && this.meurs.program_session_id;
-        return loading;
+        return this.meurs.initiating_test && !this.meurs.fetched_results;
     }
 });
 
