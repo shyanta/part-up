@@ -1,4 +1,16 @@
 # CHANGELOG
+## 1.13.0
+- Meurs Personality test integration
+- Fix memory leak in front-end app
+- Create cachable feed of part-ups for homepage, discover
+- Supporter part-ups not showing in user menu
+- Edit link to blog in footer
+- Remove flickering on mobile devices
+- FE sequence after adding message or comment
+- Hitting "return" 2 times posts comment or message 2 times
+- updated icons
+- new events for event api
+
 ## 1.12.0
 - discover language filter (#1)
 - currencies (#3)
