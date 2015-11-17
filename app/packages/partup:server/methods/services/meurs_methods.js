@@ -121,7 +121,7 @@ Meteor.methods({
         }).reverse().slice(0, 2);
 
         // Save to user
-        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults}});
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults, 'profile.meurs.reset': false}});
 
         return true;
     },
@@ -133,6 +133,6 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         // Reset test related data
-        Meteor.users.update({_id: upper._id}, {$unset: {'profile.meurs.portal': '', 'profile.meurs.program_session_id': '', 'profile.meurs.fetched_results': ''}});
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.reset': true}, $unset: {'profile.meurs.portal': '', 'profile.meurs.program_session_id': '', 'profile.meurs.fetched_results': ''}});
     }
 });

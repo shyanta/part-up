@@ -9,7 +9,7 @@ Template.ResultTile.helpers({
         return this.meurs.results;
     },
     hasResults: function() {
-        if(!this.meurs || !this.meurs.results) return false;
+        if (!this.meurs || (!this.meurs.results || this.meurs.reset)) return false;
         return this.meurs.results.length;
     },
     isCurrentusersResultTile: function() {
