@@ -58,12 +58,10 @@ Template.app_profile_about.onCreated(function() {
 Template.app_profile_about.events({
     'click [data-create-tile]': function(event, template) {
         var type = $(event.currentTarget).closest('[data-create-tile]').data('create-tile');
-        console.log(type);
         Partup.client.popup.open({
             id: 'new-' + type
         }, function(result) {
             template.tiles.refresh();
-            console.log(result);
         });
     },
     'click [data-start-test]': function(event, template) {
