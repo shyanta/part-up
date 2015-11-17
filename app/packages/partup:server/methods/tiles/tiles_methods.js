@@ -52,7 +52,7 @@ Meteor.methods({
     'tiles.remove': function(tileId) {
         check(tileId, String);
 
-        var upper = Meteor.upper();
+        var upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
