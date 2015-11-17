@@ -44,7 +44,7 @@
             </thead>
             {{# each users }}
                 <tr>
-                    <td><a href="{{ pathFor route='profile-upper-partups' _id=_id }}">{{profile.name}}</a></td>
+                    <td><a href="{{ pathFor route='profile' _id=_id }}">{{profile.name}}</a></td>
                     <td>{{_id}}</td>
                     <td>{{getMail . }}</td>
                     <td>{{profile.phonenumber}}</td>

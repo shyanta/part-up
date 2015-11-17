@@ -73,6 +73,26 @@ Package.onUse(function(api) {
         'app/profile/tabs/profile-upper-partups.js',
         'app/profile/tabs/profile-supporter-partups.html',
         'app/profile/tabs/profile-supporter-partups.js',
+        'app/profile/tabs/profile-about.html',
+        'app/profile/tabs/profile-about.js',
+
+        // App: profile partials
+        'app/profile/partials/profile-tile.html',
+        'app/profile/partials/profile-tile.js',
+        'app/profile/partials/media-tile.html',
+        'app/profile/partials/media-tile.js',
+        'app/profile/partials/result-tile.html',
+        'app/profile/partials/result-tile.js',
+        'app/profile/partials/placeholder-tile.html',
+        'app/profile/partials/placeholder-tile.js',
+
+        // App: profile popups
+        'app/profile/partials/new-photo-tile.html',
+        'app/profile/partials/new-photo-tile.js',
+        'app/profile/partials/new-video-tile.html',
+        'app/profile/partials/new-video-tile.js',
+        'app/profile/partials/info-popup.html',
+        'app/profile/partials/info-popup.js',
 
         // App: profile settings modal
         'modal/profile_settings/profile_settings.html',

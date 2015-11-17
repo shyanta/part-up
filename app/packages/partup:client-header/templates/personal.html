@@ -7,7 +7,7 @@
 
                 <!-- Logged in -->
                 <li>
-                    <a href="{{ pathFor 'profile' }}" class="pu-button pu-button-header pu-button-avatar">
+                    <a href="{{ pathFor route='profile' _id=currentUser._id }}" class="pu-button pu-button-header pu-button-avatar">
                         <figure class="pu-avatar pu-avatar-small" style="{{#with currentUser.profile.image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
                         {{ currentUser.profile.name }}
                     </a>

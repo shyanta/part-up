@@ -34,7 +34,7 @@ Template.app_network.onCreated(function() {
     });
     tpl.expandText = function(expand) {
         var clickedElement = $('[data-expand]');
-        if (!clickedElement) return;
+        if (!clickedElement || !clickedElement[0]) return;
         var parentElement = $(clickedElement[0].parentElement);
 
         var collapsedText = __(clickedElement.data('collapsed-key')) || false;

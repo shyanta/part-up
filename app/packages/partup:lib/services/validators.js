@@ -82,5 +82,18 @@ Partup.services.validators = {
         // Source: https://github.com/kevva/url-regex
         var containsUrls = new RegExp(/(["'])?(?:(?:[a-z]+:)?\/\/)(?:\S+(?::\S*)?@)?(?:localhost|(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])(?:\.(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?\1/gi);
         return !containsUrls.test(string);
+    },
+
+    isVideoUrl: function(url) {
+        // YouTube
+        // http://stackoverflow.com/questions/2964678/jquery-youtube-url-validation-with-regex#10315969
+        var youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+        var youtubeValid = (url.match(youtubeRegex)) ? RegExp.$1 : false;
+
+        // Vimeo
+        var vimeoRegex = /(?:https?:\/\/)?(?:www\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/;
+        var vimeoValid = vimeoRegex.test(url);
+
+        return (youtubeValid || vimeoValid);
     }
 };

@@ -1,0 +1,24 @@
+<template name="ResultTile">
+    {{#if hasResults }}
+        <article class="pu-profiletile pu-profiletile-results">
+            {{#each results}}
+                <article class="pu-resulttile">
+                    <header>
+                        <h2>{{ resultTitle code }}</h2>
+                    </header>
+                    <section>
+                        <figure style="background-image: url('/images/results/{{ code }}.svg');"></figure>
+                        <p>{{ resultDescription code }}</p>
+                    </section>
+                </article>
+            {{/each}}
+            {{#if isCurrentusersResultTile}}
+            <footer>
+                <a href="#" data-reset class="pu-button pu-button-text pu-button-text-subtle">{{_ 'pages-app-profile-result-tile-reset'}}</a>
+            </footer>
+            {{/if}}
+        </article>
+    {{else}}
+        {{> PlaceholderTile type="results" loading=isLoading}}
+    {{/if}}
+</template>

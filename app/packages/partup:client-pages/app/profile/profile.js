@@ -35,9 +35,8 @@ Template.app_profile.onCreated(function() {
 
     template.toggleExpandedText = function(hide) {
         var clickedElement = $('[data-expand]');
-        if (!clickedElement) return;
+        if (!clickedElement || !clickedElement[0]) return;
         var parentElement = $(clickedElement[0].parentElement);
-
         var collapsedText = __(clickedElement.data('collapsed-key')) || false;
         var expandedText = __(clickedElement.data('expanded-key')) || false;
 
@@ -70,6 +69,11 @@ Template.app_profile.helpers({
         return profile;
     },
 
+    firstname: function() {
+        var user = Meteor.users.findOne(this.profileId);
+        return User(user).getFirstname();
+    },
+
     getRoundedScore: function() {
         var user = Meteor.users.findOne(this.profileId);
         return User(user).getReadableScore();
@@ -89,6 +93,12 @@ Template.app_profile.helpers({
         var expander = $(template.find('[data-expander-parent]'));
         if (expander.length && expander[0].scrollHeight > expander.innerHeight()) return true;
         return false;
+    },
+
+    profileHasTilesOrIsCurrentUser: function() {
+        var userProfile = Meteor.users.findOne({_id: this.profileId});
+        var viewable = User(userProfile).aboutPageIsViewable();
+        return viewable;
     }
 });
 
