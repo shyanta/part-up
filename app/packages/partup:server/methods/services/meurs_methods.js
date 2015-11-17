@@ -102,7 +102,7 @@ Meteor.methods({
         }
 
         // Set user flag
-        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.fetched_results': true}});
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.fetched_results': true}, $unset: {'profile.meurs.reset': ''}});
 
         var q4youId = '';
         if (upper.profile.meurs.portal === 'en' && upper.profile.meurs.en_id) {
@@ -129,7 +129,7 @@ Meteor.methods({
         }).reverse().slice(0, 2);
 
         // Save to user
-        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults, 'profile.meurs.reset': false}});
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults}});
 
         return true;
     },
@@ -141,6 +141,14 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         // Reset test related data
-        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.reset': true}, $unset: {'profile.meurs.portal': '', 'profile.meurs.program_session_id': '', 'profile.meurs.fetched_results': ''}});
+        Meteor.users.update({_id: upper._id}, {
+            $set: {
+                'profile.meurs.reset': true
+            }, $unset: {
+                'profile.meurs.portal': '',
+                'profile.meurs.program_session_id': '',
+                'profile.meurs.fetched_results': ''
+            }
+        });
     }
 });
