@@ -80,7 +80,7 @@ Meteor.methods({
         var testUrl = Partup.server.services.meurs.getBrowserToken(portal, token, q4youId, returnUrl);
 
         // Unset loading state
-        Meteor.users.update(upper._id, {$unset: {'profile.meurs.initiating_test': '', 'profile.meurs.reset': ''}});
+        Meteor.users.update(upper._id, {$unset: {'profile.meurs.initiating_test': ''}});
 
         return testUrl;
     },
@@ -96,13 +96,11 @@ Meteor.methods({
         if (!upper.profile.meurs ||
             (!upper.profile.meurs.en_id && !upper.profile.meurs.nl_id) ||
             !upper.profile.meurs.portal ||
-            !upper.profile.meurs.program_session_id
+            !upper.profile.meurs.program_session_id ||
+            upper.profile.meurs.fetched_results
         ) {
             throw new Meteor.Error(400, 'incomplete_meurs_data');
         }
-
-        // Set user flag
-        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.fetched_results': true}, $unset: {'profile.meurs.reset': ''}});
 
         var q4youId = '';
         if (upper.profile.meurs.portal === 'en' && upper.profile.meurs.en_id) {
@@ -115,21 +113,20 @@ Meteor.methods({
         var token = Partup.server.services.meurs.getToken(upper.profile.meurs.portal);
 
         // Get service session ID
-        var serviceSessionData = Partup.server.services.meurs.getServiceSessionData(token, q4youId);
+        var serviceSessionData = Partup.server.services.meurs.getServiceSessionData(token, q4youId, upper.profile.meurs.program_session_id);
 
         // Return null when results are not finalized
         if (!serviceSessionData || serviceSessionData.serviceSessionStatus !== 2) return false;
 
         // Get results
         var results = Partup.server.services.meurs.getResults(token, serviceSessionData.serviceSessionId);
-
         // Order results by score and only store the best 2
         var orderedResults = lodash.sortBy(results, function(category) {
             return category.zscore;
         }).reverse().slice(0, 2);
 
         // Save to user
-        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults}});
+        Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults, 'profile.meurs.fetched_results': true}});
 
         return true;
     },
@@ -142,9 +139,7 @@ Meteor.methods({
 
         // Reset test related data
         Meteor.users.update({_id: upper._id}, {
-            $set: {
-                'profile.meurs.reset': true
-            }, $unset: {
+            $unset: {
                 'profile.meurs.portal': '',
                 'profile.meurs.program_session_id': '',
                 'profile.meurs.fetched_results': ''
