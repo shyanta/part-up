@@ -1,1 +1,1 @@
-siege -d5 -c250 -i -f acceptance-urls.txt
+siege -d5 -c50 -i -f acceptance-urls.txt
