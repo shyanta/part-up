@@ -9,7 +9,7 @@
 // jscs:enable
 Template.Popup.onCreated(function() {
     var template = this;
-    $('body').on('click', '[data-popup]', function(e) {
+    template.clickHandler = function(e) {
         e.preventDefault();
         try {
             var id = $(this).data('popup');
@@ -19,7 +19,9 @@ Template.Popup.onCreated(function() {
         } catch (e) {
             return Partup.client.error('Global [data-popup] on click: ' + e);
         }
-    });
+    };
+    $('body').on('click', '[data-popup]', template.clickHandler);
+
     template.scrollLeft = 0;
     template.scrollIndex = new ReactiveVar(0);
 
@@ -53,6 +55,7 @@ Template.Popup.onCreated(function() {
 Template.Popup.onDestroyed(function() {
     var template = this;
     $(window).off('resize', template.resizeHandler);
+    $('body').off('click', '[data-popup]', template.clickHandler);
 });
 
 Template.Popup.helpers({

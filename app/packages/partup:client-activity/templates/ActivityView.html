@@ -44,13 +44,13 @@
                 <h3 class="pu-sub-title {{# if EXPANDABLE }}{{# unless expanded }}pu-expander{{/ unless }}{{/ if }}" data-activity-expander>
                     {{# if isActiveRoute name='partup' }}
                         <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
-                        <i class="pu-chevron fa fa-chevron-right"></i>
+                        <i class="picon-caret-slim-right"></i>
                     {{ else }}
                         {{ activity.name }}
                     {{/ if }}
 
                     {{# if showChevron }}
-                        <i class="pu-chevron fa {{# if expanded }}fa-chevron-up{{ else }}fa-chevron-down{{/ if }}"></i>
+                        <i class="{{# if expanded }}picon-caret-slim-up{{ else }}picon-caret-slim-down{{/ if }}"></i>
                     {{/ if }}
                 </h3>
 

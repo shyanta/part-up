@@ -1,6 +1,7 @@
 {
     "pages-app-profile-upper-partups-nav": "Partner part-ups",
     "pages-app-profile-supporter-partups-nav": "Supporter part-ups",
+    "pages-app-profile-about-nav": "Who is __name__?",
 
     "pages-app-profile-upper-partups-loading": "Part-ups",
     "pages-app-profile-upper-partups-none": "__name__ is not yet a partner of a part-up",
@@ -12,5 +13,63 @@
     "pages-app-profile-supporter-partups-none": "__name__ is not yet a supporter of a part-up",
     "pages-app-profile-supporter-partups-count": "1 part-up",
     "pages-app-profile-supporter-partups-count_plural": "__count__ part-ups",
-    "pages-app-profile-supporter-partups-prefix": "__name__ is supporter in"
+    "pages-app-profile-supporter-partups-prefix": "__name__ is supporter in",
+
+    "pages-app-profile-about-name": "Who is <span class='pu-sub-countlabel'>__name__?</span>",
+    "pages-app-profile-label-add": "Add:",
+    "pages-app-profile-button-photo": "Photo",
+    "pages-app-profile-button-video": "Video",
+    "pages-app-profile-button-test": "Start the test",
+    "pages-app-profile-image-button": "Photo from your computer",
+    "pages-app-profile-image-info": "Minimum of 600 pixels",
+    "pages-app-profile-description-label": "Description text",
+    "pages-app-profile-description-placeholder": "Add a description (optional)",
+    "pages-app-profile-description-tooltip": "help",
+    "pages-app-profile-photo-submit": "Place photo",
+    "pages-app-profile-photo-close": "Cancel",
+    "pages-app-profile-photo-title": "New photo",
+
+    "pages-app-profile-video-title": "New video",
+    "pages-app-profile-video_url-label": "Youtube or Vimeo url",
+    "pages-app-profile-video_url-tooltip": "help",
+    "pages-app-profile-video_url-placeholder": "https://www.youtube.com/watch?v=sGbxmsDFVnE",
+    "pages-app-profile-video-submit": "Place video",
+    "pages-app-profile-video-close": "Cancel",
+
+    "pages-app-profile-about-result-103401-title": "Mental strength",
+    "pages-app-profile-about-result-103401-description": "__name__ uses his/her cognitive abilities well. He/She makes the right analyses. __name__ forms his/her own opinion and substantiates it with arguments. At the same time, he/she is receptive to and curious about new views and approaches.",
+    "pages-app-profile-about-result-103402-title": "Managerial strength",
+    "pages-app-profile-about-result-103402-description": "__name__ is able to direct and steer people and situations vigorously and credibly. __name__ communicates his/her opinion or vision and brings it to life, he/she sets targets and ensures they are met.",
+    "pages-app-profile-about-result-103403-title": "Influential strength",
+    "pages-app-profile-about-result-103403-description": "__name__ is good at organizing and keeps commitments and promises he/she made. __name__ works efficiently and goal focussed. He/She carries through untill the result is delivered.",
+    "pages-app-profile-about-result-103404-title": "Social strength",
+    "pages-app-profile-about-result-103404-description": "__name__ is able to engage in and maintain relationships with different people. He/She is interested in people and correctly assesses other people’s positions and interests.",
+    "pages-app-profile-about-result-103405-title": "Personal strength",
+    "pages-app-profile-about-result-103405-description": "__name__ is able to stay strong in a wide range of circumstances. He/She keeps his/her emotions under control, appears calm and patient and is able to cope with uncertainty.",
+    "pages-app-profile-about-result-placeholder-title": "Show your strength",
+    "pages-app-profile-about-result-placeholder-description": "Show other uppers what you are good at and be matched to part-ups in need of your strength. Take the test and show your strength! ",
+
+    "pages-app-profile-about-tile-placeholder-title": "Show yourself",
+    "pages-app-profile-about-tile-placeholder-description": "Show other uppers who you are and what you have accomplished. Put pictures and videos on your profile and show yourself!",
+    "pages-app-profile-about-tile-remove": "Delete",
+    "pages-app-profile-about-tile-prompt-title": "Remove tile?",
+    "pages-app-profile-about-tile-prompt-message": "This action cannot be undone.",
+
+    "pages-app-profile-result-tile-reset": "Reset",
+    "pages-app-profile-about-result-reset-title": "Are you sure?",
+    "pages-app-profile-about-result-reset-description": "You will have to take the test again.",
+
+    "pages-app-profile-about-info-title": "What are your strengths?",
+    "pages-app-profile-about-info-close": "Close",
+    "pages-app-profile-about-info-intro": "This test gives you insight in your personal strength. The test results show the two strengths that suit you best. These are the two of the five strengths listed below on which you scored the highest:",
+    "pages-app-profile-about-info-types-title": "Strengths",
+    "pages-app-profile-about-info-types-103401": "<span>Mental strength:</span> Being strong in using you cognitive abilities.",
+    "pages-app-profile-about-info-types-103402": "<span>Managerial strength:</span> Being strong in directing people and situations.",
+    "pages-app-profile-about-info-types-103403": "<span>Influential strength:</span> Being strong in organizing and reaching your goals.",
+    "pages-app-profile-about-info-types-103404": "<span>Social strength:</span> Being strong in making connections and maintaining relationships.",
+    "pages-app-profile-about-info-types-103405": "<span>Personal strength:</span> Being strong in adapting to stressful and changing situations.",
+    "pages-app-profile-about-info-paragraph-1": "We put them on your profile, so that other uppers can see what you are good at. We use your entire profile to match you to part-ups that fit you best. The more you share, the better we can introduce you to new part-ups.",
+    "pages-app-profile-about-info-paragraph-2": "We asked you a couple of short questions to build the basis of your profile. Would you like to show more of yourself? Expand your upper profile. Add photo's and video's that show your character or your strengths.",
+    "pages-app-profile-about-info-paragraph-3": "In the near future, we will help you to show your expertise here. And we will offer more extensive tests that give a more trustworthy result."
+
 }

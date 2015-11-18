@@ -2,6 +2,7 @@
 /* Partial rendered */
 /*************************************************************/
 Template.app_partup_navigation.onRendered(function() {
+    var template = this;
     // Offset to improve window resizing behaviour
     var OFFSET = 100;
 
@@ -14,15 +15,20 @@ Template.app_partup_navigation.onRendered(function() {
     if (!leftElm) return;
 
     // Calculate navigation background width
-    var calculateBackgroundWidth = function calculateBackgroundWidth () {
+    template.calculateBackgroundWidth = function() {
         var backgroundWidth = (window.innerWidth - pageElm.width()) / 2 + leftElm.width() + OFFSET;
         Session.set('partials.partup-detail-navigation.background-width', backgroundWidth);
     };
 
     // Trigger calculations
-    window.addEventListener('resize', calculateBackgroundWidth);
-    calculateBackgroundWidth();
-    Meteor.defer(calculateBackgroundWidth);
+    window.addEventListener('resize', template.calculateBackgroundWidth);
+    template.calculateBackgroundWidth();
+    Meteor.defer(template.calculateBackgroundWidth);
+});
+
+Template.app_partup_navigation.onDestroyed(function() {
+    var template = this;
+    window.removeEventListener('resize', template.calculateBackgroundWidth);
 });
 
 /*************************************************************/

@@ -24,12 +24,14 @@ Template.PartupTile.onCreated(function() {
 });
 
 Template.PartupTile.onRendered(function() {
+    var tpl = this;
     var tagsEl = this.find('.pu-sub-partup-tags');
     if (tagsEl) {
         positionTags(tagsEl);
-        window.addEventListener('resize', function() {
+        tpl.resizeHandler = function() {
             positionTags(tagsEl);
-        });
+        };
+        window.addEventListener('resize', tpl.resizeHandler);
     }
 
     if (this.data.image) {
@@ -44,14 +46,18 @@ Template.PartupTile.onRendered(function() {
     }
 });
 
+Template.PartupTile.onDestroyed(function() {
+    var tpl = this;
+    window.removeEventListener('resize', tpl.resizeHandler);
+});
+
 Template.PartupTile.helpers({
     title: function() {
         return Partup.client.url.capitalizeFirstLetter(this.name);
     },
     network: function() {
         if (!this.partup.network_id) return false;
-        var network_from_cache = lodash.find(Partup.client.discover.cache.networks, {_id: this.partup.network_id});
-        return network_from_cache || Networks.findOne({_id: this.partup.network_id});
+        return Networks.findOne({_id: this.partup.network_id});
     },
     activityCount: function() {
         return this.activity_count || Activities.findForPartup(this).count();
@@ -93,8 +99,7 @@ Template.PartupTile.helpers({
         return tags;
     },
     upper: function() {
-        var upper_from_cache = lodash.find(Partup.client.discover.cache.uppers, {_id: this._id});
-        return upper_from_cache || Meteor.users.findOne({_id: this._id});
+        return Meteor.users.findOne({_id: this._id});
     },
     uppers: function() {
         if (!this._id || !this.uppers) return;
@@ -141,20 +146,17 @@ Template.PartupTile.helpers({
         if (this._id) return {'data-usercard': this._id};
     },
     partupImage: function(imageId, store) {
-        var image_from_cache = lodash.find(Partup.client.discover.cache.partups_images, {_id: imageId});
-        var image = image_from_cache || Images.findOne({_id: imageId});
+        var image = Images.findOne({_id: imageId});
         if (!image) return;
         return Partup.client.url.getImageUrl(image, store);
     },
     networkImage: function(imageId, store) {
-        var image_from_cache = lodash.find(Partup.client.discover.cache.networks_images, {_id: imageId});
-        var image = image_from_cache || Images.findOne({_id: imageId});
+        var image = Images.findOne({_id: imageId});
         if (!image) return;
         return Partup.client.url.getImageUrl(image, store);
     },
     upperImage: function(imageId, store) {
-        var image_from_cache = lodash.find(Partup.client.discover.cache.uppers_images, {_id: imageId});
-        var image = image_from_cache || Images.findOne({_id: imageId});
+        var image = Images.findOne({_id: imageId});
         if (!image) return;
         return Partup.client.url.getImageUrl(image, store);
     }

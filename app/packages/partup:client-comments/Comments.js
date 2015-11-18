@@ -33,6 +33,11 @@ Template.Comments.onRendered(function() {
     this.mentionsInput = Partup.client.forms.MentionsInput(this.input);
 });
 
+Template.Comments.onDestroyed(function() {
+    var template = this;
+    template.mentionsInput.destroy();
+});
+
 Template.Comments.helpers({
     showCommentBox: function() {
         var template = Template.instance();
@@ -216,7 +221,9 @@ Template.Comments.events({
         var pressedKey = event.which ? event.which : event.keyCode;
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();
-            $('#commentForm-' + template.data.update._id).submit();
+            if (template.submitting.get() != true) {
+                $('#commentForm-' + template.data.update._id).submit();
+            }
             return false;
         }
 
@@ -256,6 +263,7 @@ AutoForm.addHooks(null, {
             });
             return false;
         }
+        AutoForm.resetForm(self.formId); // reset form before call is successfull
 
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             template.submitting.set(false);
@@ -268,7 +276,6 @@ AutoForm.addHooks(null, {
             Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
 
             template.buttonActive.set(false);
-            AutoForm.resetForm(self.formId);
 
             self.done();
         });

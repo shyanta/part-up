@@ -19,7 +19,7 @@ Template.Dropdown.onRendered(function() {
     });
 });
 
-Template.Dropdown.onRendered(function() {
+Template.Dropdown.onDestroyed(function() {
     var tpl = this;
     Partup.client.elements.offClickOutside(tpl.handler);
 });

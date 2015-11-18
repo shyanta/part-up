@@ -1,8 +1,0 @@
-[appservers]
-46.101.51.124 name=partup-production-london1-01
-
-[production:children]
-appservers
-
-[production:vars]
-server_environment_name=production

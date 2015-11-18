@@ -1,0 +1,4 @@
+---
+- name: jenkins | restart
+  service: name=jenkins enabled=yes state=restarted
+  tags: jenkins

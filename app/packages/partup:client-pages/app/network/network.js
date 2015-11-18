@@ -14,6 +14,7 @@ Template.app_network.onCreated(function() {
 
     tpl.autorun(function() {
         var slug = Template.currentData().networkSlug;
+
         network_sub = Subs.subscribe('networks.one', slug, {
             onReady: function() {
                 var network = Networks.findOne({slug: tpl.data.networkSlug});
@@ -33,7 +34,7 @@ Template.app_network.onCreated(function() {
     });
     tpl.expandText = function(expand) {
         var clickedElement = $('[data-expand]');
-        if (!clickedElement) return;
+        if (!clickedElement || !clickedElement[0]) return;
         var parentElement = $(clickedElement[0].parentElement);
 
         var collapsedText = __(clickedElement.data('collapsed-key')) || false;

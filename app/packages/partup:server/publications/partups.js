@@ -1,12 +1,77 @@
 /**
+ * Publish multiple partups for discover
+ *
+ * @param {Object} parameters
+ * @param {string} parameters.networkId
+ * @param {string} parameters.locationId
+ * @param {string} parameters.sort
+ * @param {string} parameters.textSearch
+ * @param {number} parameters.limit
+ * @param {number} parameters.skip
+ * @param {string} parameters.language
+ */
+Meteor.publishComposite('partups.discover', function(parameters) {
+    check(parameters, {
+        networkId: Match.Optional(String),
+        locationId: Match.Optional(String),
+        sort: Match.Optional(String),
+        textSearch: Match.Optional(String),
+        limit: Match.Optional(String),
+        skip: Match.Optional(String),
+        language: Match.Optional(String),
+        userId: Match.Optional(String),
+    });
+
+    var options = {};
+
+    if (parameters.limit) options.limit = parseInt(parameters.limit);
+    if (parameters.skip) options.skip = parseInt(parameters.skip);
+
+    parameters = {
+        networkId: parameters.networkId,
+        locationId: parameters.locationId,
+        sort: parameters.sort,
+        textSearch: parameters.textSearch,
+        limit: parameters.limit,
+        skip: parameters.skip,
+        language: (parameters.language === 'all') ? undefined : parameters.language
+    };
+
+    return {
+        find: function() {
+            return Partups.findForDiscover(this.userId, options, parameters);
+        },
+        children: [
+            {find: Images.findForPartup},
+            {find: Meteor.users.findUppersForPartup, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) {
+                if (!get(partup, 'featured.active')) return;
+                return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+                {find: Images.findForNetwork}
+            ]}
+        ]
+    };
+}, {url: '/partups/discover', getArgsFromRequest: function(request) {
+    return [request.query];
+}});
+
+/**
  * Publish multiple partups by ids
  *
  * @param {[String]} partupIds
  */
 Meteor.publishComposite('partups.by_ids', function(partupIds) {
+    if (_.isString(partupIds)) partupIds = _.uniq(partupIds.split(','));
+
     check(partupIds, [String]);
 
-    this.unblock();
+    if (this.unblock) this.unblock();
 
     return {
         find: function() {
@@ -28,7 +93,7 @@ Meteor.publishComposite('partups.by_ids', function(partupIds) {
             ]}
         ]
     };
-});
+}, {url: 'partups/by_ids/:0'});
 
 /**
  * Publish a list of partups
@@ -61,6 +126,69 @@ Meteor.publishComposite('partups.featured_all', function() {
         ]
     };
 });
+
+/**
+ * Publish a random featured partup
+ */
+Meteor.publishComposite('partups.featured_one_random', function(language) {
+    if (this.unblock) this.unblock();
+
+    return {
+        find: function() {
+            var selector = {'featured.active': true};
+
+            if (language) selector.language = language;
+
+            var count = Partups.guardedFind(this.userId, selector).count();
+            var random = Math.floor(Math.random() * count);
+
+            return Partups.guardedFind(this.userId, selector, {limit: 1, skip: random});
+        },
+        children: [
+            {find: Images.findForPartup},
+            {find: Meteor.users.findUppersForPartup, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) {
+                if (!get(partup, 'featured.active')) return;
+                return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+                {find: Images.findForNetwork}
+            ]}
+        ]
+    };
+}, {url: 'partups/featured_one_random/:0'});
+
+/**
+ * Publish partups for the homepage
+ */
+Meteor.publishComposite('partups.home', function(language) {
+    if (this.unblock) this.unblock();
+
+    return {
+        find: function() {
+            return Partups.findForDiscover(this.userId, {limit: 4}, {sort: 'popular'});
+        },
+        children: [
+            {find: Images.findForPartup},
+            {find: Meteor.users.findUppersForPartup, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) {
+                if (!get(partup, 'featured.active')) return;
+                return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
+            }, children: [
+                {find: Images.findForUser}
+            ]},
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+                {find: Images.findForNetwork}
+            ]}
+        ]
+    };
+}, {url: 'partups/home/:0'});
 
 /**
  * Publish a single partup

@@ -28,7 +28,6 @@ Package.onUse(function(api) {
 
         'namespace.js',
         'client/Debugger.js',
-        'autoform/partup/inputTypes/boolean-checkbox/boolean-checkbox.html',
         'autoform/afFieldInput.js',
         'client/error.js',
         'client/isMobile.js',
@@ -60,6 +59,7 @@ Package.onUse(function(api) {
         'client/url.js',
         'client/responsive.js',
         'client/notifications.js',
+        'client/api.js',
         'helpers/log.js',
         'helpers/partupResponsive.js',
         'helpers/dateFormatters.js',

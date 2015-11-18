@@ -33,8 +33,8 @@
             color: $color-text-secondary
             text-decoration: none
 
-        .pu-chevron
-            font-size: 11px
+        i
+            font-size: 8px
             vertical-align: middle
             color: $color-text-subtle
             transition: color $animation-duration
@@ -46,8 +46,9 @@
             &:hover
                 color: darken($color-text, 5%)
 
-                .pu-chevron
+                i
                     color: darken($color-text-subtle, 5%)
+
 
     .pu-paragraph
         margin-bottom: 10px
@@ -100,53 +101,6 @@
             &:focus,
             &:active
                 border-color: darken($color-border, 20%)
-
-    &-container
-        padding: 0
-        border: 0
-
-        p
-            margin-bottom: 20px
-
-        .pu-form.pu-form-contribution
-            margin: 0
-
-        .pu-button-checkbox
-            color: #ccc
-
-        .pu-checkbox:checked + .pu-button-checkbox
-            color: $color-primary
-
-        &-child
-            border: 2px solid $color-border-light
-            border-radius: 5px
-            padding: 20px
-
-            &:first-child
-                border-bottom-left-radius: 0
-                border-bottom-right-radius: 0
-                border-bottom: 0
-                padding-bottom: 10px
-
-            &:nth-child(2)
-                border-radius: 0
-                border-bottom: 0
-                padding-top: 10px
-                padding-bottom: 10px
-
-            &:last-child
-                border-top-left-radius: 0
-                border-top-right-radius: 0
-                border: 2px solid $color-border-light
-                border-bottom-left-radius: 5px
-                border-bottom-right-radius: 5px
-
-        &:hover
-            .pu-button-checkbox
-                color: $color-text-secondary
-
-            .pu-checkbox:checked + .pu-button-checkbox
-                color: $color-primary
 
     &-active
         border-color: $color-border

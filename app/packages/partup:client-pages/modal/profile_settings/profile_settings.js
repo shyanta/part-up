@@ -17,7 +17,7 @@ Template.modal_profile_settings.events({
 
         Intent.return(return_route, {
             fallback_route: {
-                name: 'profile-upper-partups',
+                name: 'profile',
                 params: {
                     _id: Meteor.userId()
                 }

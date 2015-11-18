@@ -11,8 +11,14 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
         var hour = (new Date).getHours();
 
+        var user = Meteor.user();
+
         var ip = this.connection.clientAddress;
         var last_ip = mout.object.get(partup, 'analytics.last_ip');
+
+        if (user) {
+            Event.emit('partups.analytics.click', partup._id, user._id);
+        }
 
         if (ip === last_ip) return;
 

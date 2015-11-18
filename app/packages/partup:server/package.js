@@ -29,7 +29,9 @@ Package.onUse(function(api) {
         'meteorhacks:fast-render',
         'dsyko:meteor-node-csv',
         'random',
-        'peerlibrary:aws-sdk'
+        'peerlibrary:aws-sdk',
+        'simple:rest',
+        'simple:json-routes'
     ], ['server']);
 
     api.addFiles([
@@ -96,6 +98,7 @@ Package.onUse(function(api) {
         'services/shared_count_service.js',
         'services/language_service.js',
         'services/locale_service.js',
+        'services/meurs_service.js',
         'seo/routes.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',
@@ -139,8 +142,12 @@ Package.onUse(function(api) {
         'publications/users.js',
         'publications/networks.js',
         'publications/languages.js',
+        'publications/tiles.js',
+        'routes/hooks.js',
+        'routes/middleware.js',
         'routes/csv/csv_routes.js',
         'routes/images/images_routes.js',
+        'routes/partups/partups_routes.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
@@ -153,12 +160,14 @@ Package.onUse(function(api) {
         'methods/services/flickr_methods.js',
         'methods/services/splashbase_methods.js',
         'methods/services/google_methods.js',
+        'methods/services/meurs_methods.js',
         'methods/settings/settings_methods.js',
         'methods/images/images_methods.js',
         'methods/networks/networks_methods.js',
         'methods/tags/tags_methods.js',
         'methods/notifications/notifications_methods.js',
         'methods/uploads/uploads_methods.js',
+        'methods/tiles/tiles_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',

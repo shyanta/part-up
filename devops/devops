@@ -1,113 +1,144 @@
 #!/usr/bin/env node
 
-var colors = require('colors');
-var prompt = require('prompt');
 var program = require('commander');
 var spawn = require('child_process').spawn;
-var git = require('simple-git')(__dirname + '/../');
-var fs = require('fs');
-var exec = require('child_process').exec
 
-var PROJECT_NAME = "Part-up"
-var PROJECT_TEMPLATE = "{project} ({environment})";
+var run = function(executable, arguments) {
+    if (executable === 'ansible-playbook' && program.tags) {
+        arguments.push('-t', program.tags);
+    }
 
-String.prototype.capitalizeFirstLetter = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
+    if (program.verbose) {
+        arguments.push('-vvvv');
+    }
+
+    if (program.extraVars) {
+        arguments.push('-e', program.extraVars);
+    }
+
+    var ansible = spawn(executable, arguments, {stdio: 'inherit'});
+
+    ansible.on('close', function(status) {
+        process.exit(status);
+    });
+};
 
 program
-    .command('deploy <environment>')
-    .description('Deploy the application to Modulus.io')
-    .option('-f, --force', 'Skip the git file confirmation')
-    .action(function (environment) {
-        var action = this;
-        var modulusArgs = [];
-        var environment = environment.capitalizeFirstLetter();
+    .option('-v, --verbose', 'make output more verbose')
+    .option('-e, --extra-vars [extra-vars]', 'set extra ansible variables as key=value')
+    .option('-t, --tags [tags]', 'set tags that are used by the ansible-playbook');
 
-        git.status(function (error, status) {
-            if (error) {
-                console.log('Git returned an error: ' + error.message);
-                process.exit(1);
-            }
+program
+    .command('provision <inventory> <hosts>')
+    .action(function(inventory, destination) {
+        var arguments = [];
 
-            var added = !! (status.not_added && status.not_added.length !== 0);
-            var deleted = !! (status.deleted && status.deleted.length !== 0);
-            var modified = !! (status.modified && status.modified.length !== 0);
-            var created = !! (status.created && status.created.length !== 0);
+        arguments.push('-i', 'inventories/' + inventory.toLowerCase() + '.yml');
 
-            if (added) console.log('Files have been added compared to the latest git checkout.'.bgRed);
-            if (deleted) console.log('Files have been deleted compared to the latest git checkout.'.bgRed);
-            if (modified) console.log('Files have been modified compared to the latest git checkout.'.bgRed);
-            if (created) console.log('Files have been created compared to the latest git checkout.'.bgRed);
+        var playbook = 'application';
 
-            if ((! action.force) && (added || deleted || modified || created)) {
-                console.log('Rejecting deployment.'.red + ' Provide the -f option if you want to force the deployment without checking for pending git changes.'.gray);
-                process.exit(1);
-            }
+        if (inventory === 'loadbalancer') playbook = 'loadbalancer';
+        if (inventory === 'ci') playbook = 'ci';
 
-            if (process.env.FORCE_DEPLOY) {
-                prompt.override = { confirm: 'Y' };
-            }
+        arguments.push('provision/' + playbook + '.yml');
 
-            prompt.start();
-            prompt.get({ properties: { confirm: { description: 'Are you sure you want to deploy your current /app directory? (n/Y)', pattern: /^(y|Y|yes|Yes|YES)$/, message: 'Deployment must be confirmed.', required: true }}}, function (error, result) {
-                if (error) {
-                    console.log(error.message);
-                    process.exit(1);
-                }
+        arguments.push('--limit=' + destination.toLowerCase());
 
-                exec('git describe --always', { cwd: __dirname }, function (error, stdout, stderr) {
-                    var gitString = stdout.split('\n').join('');
+        if (inventory !== 'vagrant') {
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
+            arguments.push('--private-key=~/.ssh/partup-server');
+        }
 
-                    if (! gitString) {
-                        console.log(error.message);
-                        process.exit(1);
-                    }
+        run('ansible-playbook', arguments);
+    });
 
-                    var versionFile = {
-                        version: gitString,
-                        deploydate: new Date().toISOString()
-                    };
+program
+    .command('run <inventory> <hosts> <command>')
+    .action(function(inventory, destination, command) {
+        var arguments = [];
 
-                    fs.writeFile(__dirname + '/../app/public/VERSION', JSON.stringify(versionFile), function (error) {
-                        if (error) {
-                            console.log(error);
-                            process.exit(1);
-                        }
+        arguments.push(destination.toLowerCase());
+        arguments.push('-i', 'inventories/' + inventory.toLowerCase() + '.yml');
+        arguments.push('-a', command.toLowerCase());
 
-                        console.log('Created version file', JSON.stringify(versionFile).gray);
+        if (inventory !== 'vagrant') {
+            arguments.push('--private-key=~/.ssh/partup-server');
+            arguments.push('--user=root');
+        }
 
-                        var project = PROJECT_TEMPLATE.replace('{project}', PROJECT_NAME).replace('{environment}', environment);
+        run('ansible', arguments);
+    });
 
-                        modulusArgs.push('deploy');
-                        modulusArgs.push(__dirname + '/../app');
-                        modulusArgs.push('-p', project);
+program
+    .command('command <command> <inventory> <hosts>')
+    .action(function(command, inventory, destination) {
+        var arguments = [];
 
-                        var shell = spawn('modulus', modulusArgs, { stdio: 'inherit' });
+        arguments.push('-i', 'inventories/' + inventory.toLowerCase() + '.yml');
+        arguments.push('commands/' + command.toLowerCase() + '.yml');
+        arguments.push('--limit=' + destination.toLowerCase());
 
-                        shell.on('error', function (error) {
-                            if (error.code === 'ENOENT') {
-                                console.log('Modulus'.magenta + ' is not found, installing it now.');
+        if (inventory !== 'vagrant') {
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
+            arguments.push('--private-key=~/.ssh/partup-server');
+            arguments.push('--user=deploy');
+        }
 
-                                var install = spawn('npm', ['install', '-g', 'modulus']);
+        run('ansible-playbook', arguments);
+    });
 
-                                install.on('error', function (error) {
-                                    if (error.code === 'ENOENT') {
-                                        console.log('Npm is not installed, are you sure Node.js is installed on your system?'.red);
-                                    }
-                                });
+program
+    .command('edit <file>')
+    .action(function(file) {
+        var arguments = [];
 
-                                install.on('close', function (status) {
-                                    if (status === 0) {
-                                        console.log('Finished installing, please log in with "modulus login" command and rerun the deployment.'.gray);
-                                    }
-                                });
-                            }
-                        });
-                    });
-                });
-            });
+        arguments.push('edit');
+        arguments.push(file);
+        arguments.push('--vault-password-file=~/.ssh/partup-server');
+
+        run('ansible-vault', arguments);
+    });
+
+program
+    .command('view <file>')
+    .action(function(file) {
+        var arguments = [];
+
+        arguments.push('view');
+        arguments.push(file);
+        arguments.push('--vault-password-file=~/.ssh/partup-server');
+
+        run('ansible-vault', arguments);
+    });
+
+program
+    .command('encrypt <files...>')
+    .action(function(files) {
+        files.forEach(function(file) {
+            var arguments = [];
+
+            arguments.push('encrypt');
+            arguments.push(file);
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
+
+            run('ansible-vault', arguments);
+        });
+    });
+
+program
+    .command('decrypt <files...>')
+    .action(function(files) {
+        files.forEach(function(file) {
+            var arguments = [];
+
+            arguments.push('decrypt');
+            arguments.push(file);
+            arguments.push('--vault-password-file=~/.ssh/partup-server');
+
+            run('ansible-vault', arguments);
         });
     });
 
 program.parse(process.argv);
+
+if (process.argv.length < 3) program.help();
