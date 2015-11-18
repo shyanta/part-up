@@ -1,23 +1,23 @@
 <template name="app_discover_filter">
-    <form id="discoverQuery">
-        <div class="pu-filterbar {{# if getting_data.get }}pu-filterbar-disabled{{/ if }}" data-filterbar>
+    <form id="discoverQueryForm">
+        <div class="pu-filterbar" data-filterbar>
 
             <!-- Label -->
             <p class="pu-sub-label">{{_ 'pages-app-discover-filter-textsearch-label' }}</p>
 
             <!-- Search query -->
             <div class="pu-sub-input">
-                <input type="text" class="pu-input pu-input-filter" name="textsearch" value="{{ textsearchData }}" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}" data-textsearch-input>
-                {{# if textsearchData }}
+                <input type="text" class="pu-input pu-input-filter" name="textSearch" value="{{ query 'textSearch' }}" placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}" data-textsearch-input>
+                {{# if query 'textSearch' }}
                     <i class="pu-sub-reset picon-times" data-reset-textsearch></i>
                 {{/ if }}
             </div>
 
             <!-- Label -->
-            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-networkfilter-label' }}</p>
+            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-networkfilter-label' }}</p> -->
 
             <!-- Network selector -->
-            <div class="pu-sub-input pu-dropdownie-container">
+            <!-- <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="network_id" value="{{ networkValue._id }}">
                 <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if networkValue}}pu-state-filled{{/if}}" data-open-networkselector>
                     {{#with networkValue }}
@@ -28,13 +28,13 @@
                     <i class="picon-times" data-reset-selected-network></i>
                 </a>
                 {{> Dropdown toggle=networkSelectorState template="NetworkSelector" data=networkSelectorData }}
-            </div>
+            </div> -->
 
             <!-- Label -->
-            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-locationfilter-label' }}</p>
+            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-locationfilter-label' }}</p> -->
 
             <!-- Location selector -->
-            <div class="pu-sub-input pu-dropdownie-container">
+            <!-- <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="location_id" value="{{ locationValue.id }}">
                 <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if locationValue}}pu-state-filled{{/if}}" data-open-locationselector>
                     {{#with locationValue }}
@@ -45,25 +45,25 @@
                     <i class="picon-times" data-reset-selected-location></i>
                 </a>
                 {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
-            </div>
+            </div> -->
 
             <!-- Label -->
-            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-sorting-label' }}</p>
+            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-sorting-label' }}</p> -->
 
             <!-- Sorting -->
-            <div class="pu-sub-input pu-dropdownie-container">
+            <!-- <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="sorting" value="{{ sortingValue.value }}">
                 <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-sortingselector>
                     {{ sortingValue.label }}
                 </a>
                 {{> Dropdown toggle=sortingSelectorState template="BasicSelector" data=sortingSelectorData }}
-            </div>
+            </div> -->
 
             <!-- Label -->
-            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-language-label' }}</p>
+            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-language-label' }}</p> -->
 
             <!-- Language -->
-            <div class="pu-sub-input pu-dropdownie-container">
+            <!-- <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="language" value="{{ languageValue._id }}">
                 <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if languageValue}}pu-state-filled{{/if}} pu-capitalize" data-open-languageselector>
                     {{#with languageValue }}
@@ -74,7 +74,7 @@
                     <i class="picon-times" data-reset-selected-language></i>
                 </a>
                 {{> Dropdown toggle=languageSelectorState template="LanguageSelector" data=languageSelectorData }}
-            </div>
+            </div> -->
 
             <!-- Hidden send button -->
             <input type="submit" value="Versturen" class="pu-sub-submit">

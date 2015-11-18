@@ -6,7 +6,7 @@
             <h2 class="pu-title">
                 {{_ 'pages-app-discover-heading' }}
 
-                {{# if partupsLoading }}
+                <!-- {{# if partupsLoading }}
                     {{> Spinner type='small' }}
                 {{ else }}
                     <span class="pu-sub-countlabel">
@@ -16,25 +16,42 @@
                             {{_ 'pages-app-discover-nopartups' }}
                         {{/if}}
                     </span>
-                {{/ if }}
+                {{/ if }} -->
             </h2>
 
-            {{# if showProfileCompletion }}
+            <!-- {{# if showProfileCompletion }}
                 <p class="pu-columnslayoutaction pu-paragraph pu-sub-right">
                     <a href="{{ pathFor 'profile' _id=currentUser._id }}" data-open-profilesettings>{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</a>
                 </p>
-            {{/ if }}
+            {{/ if }} -->
         </header>
 
         <!-- Content (partup-tiles) -->
         <div data-infinitescroll-container>
-            {{> ColumnsLayout
+            {{# ColumnTilesLayout instance=columnTilesLayout }}
+                {{> TestTemplate }}
+            {{/ ColumnTilesLayout }}
+
+            <!-- <section class="pu-columnslayout">
+                {{# each columns }}
+                    <ul class="pu-sub-column" data-column>
+                        {{# each . }}
+                            <li class="pu-sub-tile {{#if isRendered }}pu-sub-tile-rendered{{/if}}">
+                                <div>{{> Columnslayout_Tile template=templateName data=. onRendered=onItemRendered }}</div>
+                            </li>
+                        {{/ each }}
+                    </ul>
+                {{/ each }}
+            </section> -->
+
+            <!-- {{ amountOfColumns }} -->
+            <!-- {{> ColumnsLayout
                 COLUMNS=amountOfColumns
                 TEMPLATE="PartupTile"
                 addHook=addToLayoutHook
                 clearHook=clearLayoutHook
                 rerenderHook=rerenderLayoutHook
-            }}
+            }} -->
         </div>
 
     </section>

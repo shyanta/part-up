@@ -1,0 +1,38 @@
+<template name="ColumnTilesLayout">
+    <section class="pu-columnslayout pu-columnslayout-4">
+        {{# each columns }}
+            <ul class="pu-sub-column" data-column>
+                {{# each . }}
+                    <li class="pu-sub-tile pu-sub-tile-rendered">
+                        {{> UI.contentBlock . }}
+                    </li>
+                {{/ each}}
+            </ul>
+        {{/ each }}
+    </section>
+
+    <!-- For height measurement purposes -->
+    <div class="pu-columnslayout--measurement">
+        <ul>
+            {{# each heightMeasurementQueue }}
+                <li style="width: {{ columnWidth }}px;">
+                    {{# ColumnTilesLayout_TileMeasurement }}
+                        {{> UI.contentBlock dataContext }}
+                    {{/ ColumnTilesLayout_TileMeasurement }}
+                </li>
+            {{/ each }}
+        </ul>
+    </div>
+</template>
+
+<template name="TestTemplate">
+    <div style="width:100%; background-color: #ddd;">
+        {{ description }}
+    </div>
+</template>
+
+<template name="ColumnTilesLayout_TileMeasurement">
+    <div>
+        {{> UI.contentBlock }}
+    </div>
+</template>

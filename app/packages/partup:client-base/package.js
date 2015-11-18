@@ -27,6 +27,9 @@ Package.onUse(function(api) {
         'client/console-shim.js',
 
         'namespace.js',
+
+        'constructors/ColumnTilesLayout.js',
+
         'client/Debugger.js',
         'autoform/afFieldInput.js',
         'client/error.js',
