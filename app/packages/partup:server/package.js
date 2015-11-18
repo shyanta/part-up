@@ -99,6 +99,7 @@ Package.onUse(function(api) {
         'services/language_service.js',
         'services/locale_service.js',
         'services/meurs_service.js',
+        'services/profile_completeness_service.js',
         'seo/routes.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',

@@ -12,26 +12,8 @@ Event.on('users.updated', function(userId, fields) {
         // Store new tags into collection
         Partup.services.tags.insertNewTags(user.profile.tags);
 
-        // Calculate new profile completeness percentage
-        var totalValues = 0;
-        var providedValues = 0;
-
-        _.each(fields, function(value, key) {
-            // skip all non-profile values
-            if (!/^profile\./.test(key)) return;
-
-            if (_.isObject(value)) {
-                var doesContainValue = !mout.object.every(value, function(objectValue) {
-                    return !objectValue;
-                });
-                if (doesContainValue) providedValues++;
-            } else if (value !== undefined && value !== '' && value !== null) {
-                providedValues++;
-            }
-            totalValues++;
-        });
-
-        var profileCompleteness = Math.round((providedValues * 100) / totalValues);
-        Meteor.users.update(userId, {$set: {completeness: profileCompleteness}});
+        // Update profile completion percentage
+        var completeness = Partup.server.services.profile_completeness.calculate(fields.profile);
+        Meteor.users.update(userId, {$set: {completeness: completeness}});
     }
 });

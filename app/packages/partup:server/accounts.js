@@ -134,8 +134,8 @@ Accounts.onCreateUser(function(options, user) {
         profile.image = image._id;
     }
 
-    user.completeness = 0;
     user.profile = profile;
+    user.completeness = Partup.server.services.profile_completeness(user.profile);
     user.flags = {
         dailyDigestEmailHasBeenSent: false
     };

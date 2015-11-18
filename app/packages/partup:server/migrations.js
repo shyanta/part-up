@@ -670,4 +670,24 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(25);
+Migrations.add({
+    version: 26,
+    name: 'Update all profiles that have NaN as completeness',
+    up: function() {
+        Meteor.users.find().fetch().forEach(function(user) {
+            if (user.completeness > 0 && user.completeness <= 100) return;
+
+            // Update profile completion percentage on users that don't have a valid score
+            var completeness = Partup.server.services.profile_completeness.calculate(user.profile);
+
+            if (typeof completeness == 'number') {
+                Meteor.users.update(user._id, {$set: {completeness: completeness}});
+            }
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(26);
