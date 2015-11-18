@@ -50,7 +50,7 @@ Package.onUse(function(api) {
         'client/reactiveVarHelpers.js',
         'client/grid.js',
         'client/scroll.js',
-        'client/screensize.js',
+        'client/screen.js',
         'client/moment.js',
         'client/updates.js',
         'client/discover.js',

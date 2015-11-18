@@ -19,5 +19,8 @@ Template.main.helpers({
 });
 
 Meteor.startup(function() {
-    Partup.client.scroll.init();
+    jQuery(document).ready(function() {
+        Partup.client.scroll.init();
+        Partup.client.screen.init();
+    });
 });

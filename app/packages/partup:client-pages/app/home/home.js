@@ -74,7 +74,7 @@ Template.app_home.helpers({
 
     // For the columnLayout for popular partups
     amountOfColumns: function() {
-        var width = Partup.client.screensize.current.get('width');
+        var width = Partup.client.screen.size.get('width');
 
         var template = Template.instance();
         Meteor.defer(function() {
