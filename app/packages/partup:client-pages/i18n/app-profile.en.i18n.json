@@ -25,15 +25,15 @@
     "pages-app-profile-description-label": "Description text",
     "pages-app-profile-description-placeholder": "Add a description (optional)",
     "pages-app-profile-description-tooltip": "help",
-    "pages-app-profile-photo-submit": "Place photo",
+    "pages-app-profile-photo-submit": "Add photo",
     "pages-app-profile-photo-close": "Cancel",
     "pages-app-profile-photo-title": "New photo",
 
     "pages-app-profile-video-title": "New video",
     "pages-app-profile-video_url-label": "Youtube or Vimeo url",
     "pages-app-profile-video_url-tooltip": "help",
-    "pages-app-profile-video_url-placeholder": "https://www.youtube.com/watch?v=sGbxmsDFVnE",
-    "pages-app-profile-video-submit": "Place video",
+    "pages-app-profile-video_url-placeholder": "https://www.youtube.com/watch?v=LNpMI5gpNuQ",
+    "pages-app-profile-video-submit": "Add video",
     "pages-app-profile-video-close": "Cancel",
 
     "pages-app-profile-about-result-103401-title": "Mental strength",
