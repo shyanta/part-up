@@ -4,22 +4,32 @@
  * @class ColumnTilesLayout
  * @memberof Partup.client
  */
-Partup.client.constructors.ColumnTilesLayout = function() {
-    var C = this;
+Partup.client.constructors.ColumnTilesLayout = function(options) {
+    if (!mout.lang.isObject(options)) {
+        throw new Error('ColumnTilesLayout: options is not an object');
+    }
 
+    if (!mout.lang.isFunction(options.calculateApproximateTileHeight)) {
+        throw new Error('ColumnTilesLayout: options.calculateApproximateTileHeight() not found');
+    }
+
+    if (!mout.lang.isNumber(options.columns)) {
+        throw new Error('ColumnTilesLayout: options.columns is not a number');
+    }
+
+    var C = this;
+    var _options = {
+        calculateApproximateTileHeight: options.calculateApproximateTileHeight,
+        columns: options.columns
+    };
     var _tiles = [];
+    var _columnElements = [];
 
     var _createColumns = function(amount) {
-        var columns = [];
-
-        for (var i = 0; i < amount; i++) {
-            columns.push([]);
-        };
-
-        return columns;
+        return mout.array.range(0, amount - 1).map(function() {
+            return [];
+        });
     };
-
-    var _columnElements = [];
 
     var _measureColumnHeights = function() {
         if (!_columnElements || !_columnElements.length) {
@@ -35,57 +45,45 @@ Partup.client.constructors.ColumnTilesLayout = function() {
         return heights;
     };
 
-    C.heightMeasurementQueue = new ReactiveVar([]);
+    C.columns = new ReactiveVar(_createColumns(_options.columns));
 
-    C.columns = new ReactiveVar(_createColumns(4));
-
-    C.clear = function() {
-        C.columns.set(_createColumns(4));
+    C.clear = function(callback) {
+        _tiles = [];
+        C.columns.set(_createColumns(_options.columns));
 
         Meteor.defer(function() {
             _columnElements = C._template.$('[data-column]');
+            if (mout.lang.isFunction(callback)) {
+                callback.call(C);
+            }
         });
     };
 
-    C.addTiles = function(tiles, callback) {
-        var _tiles = tiles.slice();
+    C.addTiles = function(tiles) {
+        _tiles = _tiles.concat(tiles);
+        var columns = C.columns.get();
+        var columnHeights = _measureColumnHeights();
 
-        var measuredCount = 0;
-        var oneMeasuredCallback = function(height) {
-            this.height = height;
-            measuredCount ++;
+        tiles.forEach(function(tile) {
+            var shortestColumn = columnHeights.indexOf(mout.array.min(columnHeights));
+            var tileHeight = _options.calculateApproximateTileHeight(tile, _columnElements.eq(0).width());
 
-            if (measuredCount === _tiles.length) {
-                allMeasuredCallback();
-            }
-        };
-
-        var allMeasuredCallback = function() {
-            C.heightMeasurementQueue.set([]);
-            var columns = C.columns.get();
-
-            var columnHeights = _measureColumnHeights();
-            _tiles.forEach(function(tile) {
-                var shortestColumn = mout.array.min(columnHeights);
-                var shortesColumnIndex = columnHeights.indexOf(shortestColumn);
-
-                columnHeights[shortesColumnIndex] += tile.height + 18;
-                columns[shortesColumnIndex].push(tile.dataContext);
-            });
-
-            C.columns.set(columns);
-            callback();
-        };
-
-        _tiles = _tiles.map(function(tile) {
-            return {
-                columnWidth: _columnElements.eq(0).width(),
-                dataContext: tile,
-                height: 0,
-                myHeightIs: oneMeasuredCallback
-            };
+            columnHeights[shortestColumn] += tileHeight;
+            columns[shortestColumn].push(tile);
         });
 
-        C.heightMeasurementQueue.set(_tiles);
+        C.columns.set(columns);
+    };
+
+    C.changeColumns = function(amount, callback) {
+        var tilesBackup = _tiles;
+        _options.columns = amount;
+        C.clear(function callback() {
+            C.addTiles(tilesBackup);
+
+            if (mout.lang.isFunction(callback)) {
+                callback.call(C);
+            }
+        });
     };
 };

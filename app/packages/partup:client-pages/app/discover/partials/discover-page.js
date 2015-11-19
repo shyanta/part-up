@@ -13,10 +13,26 @@
 
 var PAGING_INCREMENT = 24;
 
+var calculateApproximateHeightForPartup = function(partup, columnWidth) {
+
+    // The goal of this formula is to approach
+    // the expected height of a tile as best
+    // as possible, synchronously,
+    // using the given partup object
+    var baseHeight = 301;
+    var margin = 18;
+    return baseHeight + margin;
+};
+
 Template.app_discover_page.onCreated(function() {
     var template = this;
 
-    template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout();
+    template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
+        calculateApproximateTileHeight: calculateApproximateHeightForPartup,
+        columns: 4
+    });
+
+    console.log(template.columnTilesLayout);
 
     template.query;
     template.paging_end_reached = false;
@@ -30,9 +46,12 @@ Template.app_discover_page.onCreated(function() {
             if (error) { throw error; }
 
             template.paging_end_reached = data.partups.length < PAGING_INCREMENT;
-            template.columnTilesLayout.addTiles(data.partups, function() {
-                console.log('added!');
+            var partupTiles = data.partups.map(function(partup) {
+                return {
+                    partup: partup
+                };
             });
+            template.columnTilesLayout.addTiles(partupTiles);
         });
     });
 
