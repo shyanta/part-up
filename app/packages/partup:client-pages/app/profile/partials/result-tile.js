@@ -9,7 +9,10 @@ Template.ResultTile.helpers({
         return this.meurs.results;
     },
     hasResults: function() {
-        if (!this.meurs || !this.meurs.fetched_results) return false;
+        if (this.user._id === Meteor.userId()) {
+            if (!this.meurs || !this.meurs.fetched_results) return false;
+        }
+        if (!this.meurs) return false;
         return this.meurs.results.length;
     },
     isCurrentusersResultTile: function() {
