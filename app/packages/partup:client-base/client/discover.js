@@ -47,7 +47,7 @@ Partup.client.discover = {
      */
     resetQuery: function() {
         for (key in this.DEFAULT_QUERY) {
-            this.query.set(key, this.DEFAULT_QUERY[key]);   
+            this.query.set(key, this.DEFAULT_QUERY[key]);
         }
     },
 

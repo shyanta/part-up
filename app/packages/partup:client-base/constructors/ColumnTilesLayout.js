@@ -47,14 +47,14 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
 
     C.columns = new ReactiveVar(_createColumns(_options.columns));
 
-    C.clear = function(callback) {
+    C.clear = function(cb) {
         _tiles = [];
         C.columns.set(_createColumns(_options.columns));
 
         Meteor.defer(function() {
             _columnElements = C._template.$('[data-column]');
-            if (mout.lang.isFunction(callback)) {
-                callback.call(C);
+            if (mout.lang.isFunction(cb)) {
+                cb.call(C);
             }
         });
     };
@@ -75,14 +75,14 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
         C.columns.set(columns);
     };
 
-    C.changeColumns = function(amount, callback) {
+    C.changeColumns = function(amount, cb) {
         var tilesBackup = _tiles;
         _options.columns = amount;
         C.clear(function callback() {
             C.addTiles(tilesBackup);
 
-            if (mout.lang.isFunction(callback)) {
-                callback.call(C);
+            if (mout.lang.isFunction(cb)) {
+                cb.call(C);
             }
         });
     };

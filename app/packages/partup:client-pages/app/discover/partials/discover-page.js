@@ -13,6 +13,10 @@
 
 var PAGING_INCREMENT = 24;
 
+var getAmountOfColumns = function(screenwidth) {
+    return screenwidth > Partup.client.grid.getWidth(11) + 80 ? 4 : 3;
+};
+
 var calculateApproximateHeightForPartup = function(partup, columnWidth) {
 
     // The goal of this formula is to approach
@@ -29,10 +33,8 @@ Template.app_discover_page.onCreated(function() {
 
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
         calculateApproximateTileHeight: calculateApproximateHeightForPartup,
-        columns: 4
+        columns: getAmountOfColumns(Partup.client.screen.size.keys.width)
     });
-
-    console.log(template.columnTilesLayout);
 
     template.query;
     template.paging_end_reached = false;
@@ -62,6 +64,16 @@ Template.app_discover_page.onCreated(function() {
         template.query = Partup.client.discover.composeQueryObject();
         template.page.set(0);
         template.columnTilesLayout.clear();
+    });
+
+    // When the screen size alters
+    template.autorun(function() {
+        var screenWidth = Partup.client.screen.size.get('width');
+        var columns = getAmountOfColumns(screenWidth);
+
+        if (columns !== template.columnTilesLayout.columns.curValue.length) {
+            template.columnTilesLayout.changeColumns(columns);
+        }
     });
 
     // // The partups datamodel namespace
