@@ -100,6 +100,7 @@ Package.onUse(function(api) {
         'services/locale_service.js',
         'services/meurs_service.js',
         'services/profile_completeness_service.js',
+        'services/partup_popularity_calculator_service.js',
         'seo/routes.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',
