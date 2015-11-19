@@ -392,6 +392,14 @@ Networks.guardedFind = function(userId, selector, options) {
     var selector = selector || {};
     var options = options || {};
 
+    // The fields that should never be exposed
+    var guardedFields = ['access_tokens'];
+    options.fields = options.fields || {};
+
+    guardedFields.forEach(function(guardedField) {
+        options.fields[guardedField] = 0;
+    });
+
     var guardedCriterias = [
         // The network is open, which means everyone can access it
         {'privacy_type': {'$in': [Networks.NETWORK_PUBLIC]}},
