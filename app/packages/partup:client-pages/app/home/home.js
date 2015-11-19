@@ -26,7 +26,7 @@ Template.app_home.onCreated(function() {
         var currentLanguage = Partup.client.language.current.get();
 
         // Call first four discover part-ups and add them to the UI
-        Partup.client.API.get('/partups/home/' + currentLanguage, function(error, result) {
+        Partup.client.API.get('/partups/home/' + currentLanguage, {}, function(error, result) {
             if (error) return;
 
             var popular_partup_ids = lodash.pluck(get(result, 'partups'), '_id');
@@ -38,7 +38,7 @@ Template.app_home.onCreated(function() {
         });
 
         // Call one featured part-up
-        Partup.client.API.get('/partups/featured_one_random/' + currentLanguage, function(error, result) {
+        Partup.client.API.get('/partups/featured_one_random/' + currentLanguage, {}, function(error, result) {
             if (error) return;
 
             var featured_partup_ids = lodash.pluck(get(result, 'partups'), '_id');
