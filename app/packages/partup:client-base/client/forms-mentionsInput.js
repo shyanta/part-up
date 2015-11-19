@@ -14,7 +14,7 @@ var MentionsInput = function(input) {
     this._setEvents();
 };
 
-var mentionRegex = /(?:^|\s+)@([^\s@]{3,}[^\s]{0,}[\s]?[^\s]{0,})$/i;
+var mentionRegex = /(?:^|[\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]+)@([^\s@]{3,}[^\s]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,})$/i;
 
 /**
  * Build required elements
