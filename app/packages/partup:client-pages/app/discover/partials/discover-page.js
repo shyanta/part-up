@@ -58,23 +58,31 @@ Template.app_discover_page.onCreated(function() {
                 tpl.partups.count_handle.stop();
             }
 
+            // COUNT REQUEST
             var query = mout.object.deepFillIn(new Object(), tpl.partups.options.get(), {
                 userId: Meteor.userId()
             });
 
             query = lodash(query).omit(lodash.isUndefined).omit(lodash.isNull).value();
+            query.token = Accounts._storedLoginToken();
 
-            HTTP.get('/partups/discover/count' + mout.queryString.encode(query), function(error, response) {
+            HTTP.get('/partups/discover/count' + mout.queryString.encode(query), {}, function(error, response) {
                 if (error || !response.data || response.data.error) return;
                 tpl.partups.layout.count.set(response.data.count);
             });
 
-            query = mout.object.deepFillIn(new Object(), query, {
+            // DISCOVER REQUEST
+            var query = mout.object.deepFillIn(new Object(), tpl.partups.options.get(), {
+                userId: Meteor.userId(),
                 limit: Partup.client.discover.INCREMENT,
                 skip: b * Partup.client.discover.INCREMENT
             });
 
-            Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), function(error, data) {
+            query = lodash(query).omit(lodash.isUndefined).omit(lodash.isNull).value();
+
+            var requestOptions = {headers: {Authorization: 'Bearer ' + Accounts._storedLoginToken()}};
+
+            Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), requestOptions, function(error, data) {
                 if (error) return;
 
                 var ids = lodash.pluck(data.partups, '_id');

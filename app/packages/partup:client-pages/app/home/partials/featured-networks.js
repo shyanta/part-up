@@ -7,7 +7,7 @@ Template.FeaturedNetworks.onCreated(function() {
         var language = Partup.client.language.current.get();
         if (!language) return;
 
-        Partup.client.API.get('/networks/featured/' + language, function(error) {
+        Partup.client.API.get('/networks/featured/' + language, {}, function(error) {
             if (error) return;
 
             var network = Networks.findFeatured(language).fetch().pop();
