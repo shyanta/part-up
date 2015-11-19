@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.13.1
+- Fixed a bug where Partups that require authentication were not visible on the discover page
+- Fixed a bug where access tokens on Networks were being exposed
+
 ## 1.13.0
 - Meurs Personality test integration
 - Fix memory leak in front-end app
@@ -155,7 +159,7 @@
 - Comment field limit set to 1000
 - Comment text field is now autogrowing textarea
 - Removed "straight to my part-up" button
-- Admin panel updates 
+- Admin panel updates
     - date in usertable
     - edit tribe admin
     - more details in partup and tribe lists
@@ -190,7 +194,7 @@
 - Featured Tribes admin
 - Partup and Tribe language detection and filtering on homepage
 - Pricing page
-- About page 
+- About page
 - Complete email notification settings
 - Designed email templates
 - Send notification and email when a part-up is created in tribe
