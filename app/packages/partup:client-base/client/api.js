@@ -10,12 +10,13 @@ Partup.client.API = {
      * GET request and save results to local minimongo collections
      *
      * @param {String} url
+     * @param {Object} options
      * @param {Function} callback
      */
-    get: function(url, callback) {
+    get: function(url, options, callback) {
         var self = this;
 
-        HTTP.get(url, function(error, result) {
+        HTTP.get(url, options, function(error, result) {
             if (error) callback(error);
 
             self._apiResultToLocalCollections(result);

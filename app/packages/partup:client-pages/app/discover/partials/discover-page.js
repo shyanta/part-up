@@ -64,7 +64,9 @@ Template.app_discover_page.onCreated(function() {
 
             query = lodash(query).omit(lodash.isUndefined).omit(lodash.isNull).value();
 
-            HTTP.get('/partups/discover/count' + mout.queryString.encode(query), function(error, response) {
+            var requestOptions = {headers: {Authorization: 'Bearer ' + Accounts._storedLoginToken()}};
+
+            HTTP.get('/partups/discover/count' + mout.queryString.encode(query), requestOptions, function(error, response) {
                 if (error || !response.data || response.data.error) return;
                 tpl.partups.layout.count.set(response.data.count);
             });
@@ -74,7 +76,7 @@ Template.app_discover_page.onCreated(function() {
                 skip: b * Partup.client.discover.INCREMENT
             });
 
-            Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), function(error, data) {
+            Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), requestOptions, function(error, data) {
                 if (error) return;
 
                 var ids = lodash.pluck(data.partups, '_id');
