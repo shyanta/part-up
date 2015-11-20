@@ -13,19 +13,40 @@ Partup.client.uploader = {
      * @param {Function} callback
      */
     uploadImage: function(file, callback) {
+        function isIE() {
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                return true;
+            }
+
+           return false;
+        }
         var img = document.createElement('img');
         var canvas = document.createElement('canvas');
         var self = this;
-
+        var IE = true;//isIE();
+        console.log('is IE: ' + IE);
         var userId = Meteor.userId();
         // TODO: Error if user is not loggedin
-
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-
+        // console.log(file);
+        if (IE) {
+            var reader = new mOxie.FileReader();
+        } else {
+            var reader = new FileReader();
+        }
         reader.onload = function(e) {
+            // console.log(e)
             img.src = e.target.result;
         };
+        reader.onerror = function(e) {
+            console.log(arguments)
+            // img.src = e.target.result;
+        };
+        // console.log(reader)
+        reader.readAsDataURL(file);
+
 
         img.onload = function() {
             var width = img.naturalWidth;
@@ -58,34 +79,67 @@ Partup.client.uploader = {
 
             var resizedFile = self.dataURLToBlob(dataUrl);
 
-            var newFile = new File([resizedFile], file.name);
+            if (IE) {
 
-            newFile.type = resizedFile.type;
-
-            var token = Accounts._storedLoginToken();
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload?token=' + token, false);
-
-            var formData = new FormData();
-            formData.append('file', newFile);
-            xhr.send(formData);
-
-            var data = JSON.parse(xhr.responseText);
-
-            if (data.error) {
-                callback(data.error);
+                resizedFile.name = file.name;
+                var newFile = new mOxie.File(null, resizedFile);
+            } else {
+                var newFile = new File([resizedFile], file.name);
             }
 
-            Meteor.subscribe('images.one', data.image);
-            Meteor.autorun(function(computation) {
-                var image = Images.findOne({_id: data.image});
-                if (image) {
-                    computation.stop();
-                    Tracker.nonreactive(function() {
-                        callback(null, image);
-                    });
+            console.log(newFile);
+
+            var token = Accounts._storedLoginToken();
+            if (IE) {
+                var xhr = new mOxie.XMLHttpRequest();
+            } else {
+                var xhr = new XMLHttpRequest();
+            }
+            // console.log(xhr);
+            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload?token=' + token, false);
+
+            if (IE) {
+                var formData = new mOxie.FormData();
+            } else {
+                var formData = new FormData();
+            }
+            console.log(newFile);
+            formData.append('file', newFile);
+
+            // formData.each(function(item) {
+            //     console.log(item)
+            // })
+            // formData.append('filename', file.name)
+            console.log(formData);
+            // return
+            xhr.addEventListener('load', function(){
+                // console.log(arguments);
+                // if (IE) {
+                //     var data = xhr.responseText;
+                // } else {
+                    var data = JSON.parse(xhr.responseText);
+                // }
+
+                if (data.error) {
+                    callback(data.error);
                 }
+                // console.log(data);
+                Meteor.subscribe('images.one', data.image);
+                Meteor.autorun(function(computation) {
+                    var image = Images.findOne({_id: data.image});
+                    if (image) {
+                        computation.stop();
+                        Tracker.nonreactive(function() {
+                            callback(null, image);
+                        });
+                    }
+                });
+
             });
+
+            // formData.filename = file.name;
+            xhr.send(formData);
+            // console.log(xhr);
         };
     },
 

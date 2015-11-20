@@ -25,14 +25,14 @@
                 {{else}}
                     <figure style="background-image:url(/images/smile.png)" class="pu-imagepreview pu-imagepreview-profile"></figure>
                 {{/if}}
-                <button type="button" class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
+                <button type="button" class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos id="file-picker">
                     <span>{{_ 'profilesettings-form-image-button'}}</span>
                     {{#if uploadingProfilePicture}}
                         {{> Spinner color='inverted' type='small'}}
                     {{/if}}
                 </button>
 
-                <input type="file" class="pu-fileinput" data-profile-picture-input>
+                <input type="file" class="pu-fileinput" data-profile-picture-input >
                 <!-- TODO DISABLED UNTIL IMPLEMENTED
                     <p class="pu-paragraph">{{{_ 'profilesettings-form-image-import' }}}</p>
                 -->
