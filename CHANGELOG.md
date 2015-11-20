@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.13.3
+- fix(meurs-profile): fix problems with numberless userids
+
 ## 1.13.2
 - fix(meurs-profile): show results for other users
 - fix(profile-about): copy update and load bigger image files (fix #80)
