@@ -12,65 +12,76 @@ Partup.server.services.partup_popularity_calculator = {
         var partup = Partups.findOneOrFail(partupId);
 
         var activityScore = this._calculateActivityBasedScore(partup);
-        var activityScoreWeight = 0.5; // 50%
-        d('Activity based partup popularity score is ' + (activityScore / activityScoreWeight));
-        score += (activityScore / activityScoreWeight);
-
+        var activityScoreWeight = 0.5;
+        d('Activity based partup popularity score is ' + (activityScore * activityScoreWeight));
+        score += (activityScore * activityScoreWeight);
         var shareScore = this._calculateShareBasedScore(partup);
-        var shareScoreWeight = 0.8; // 20%
-        d('Share based partup popularity score is ' + (shareScore / shareScoreWeight));
-        score += (shareScore / shareScoreWeight);
+        var shareScoreWeight = 0.2;
+        d('Share based partup popularity score is ' + (shareScore * shareScoreWeight));
+        score += (shareScore * shareScoreWeight);
 
         var partnerScore = this._calculatePartnerBasedScore(partup);
-        var partnerScoreWeight = 0.9; // 10%
-        d('Partner based partup popularity score is ' + (partnerScore / partnerScoreWeight));
-        score += (partnerScore / partnerScoreWeight);
+        var partnerScoreWeight = 0.1;
+        d('Partner based partup popularity score is ' + (partnerScore * partnerScoreWeight));
+        score += (partnerScore * partnerScoreWeight);
 
         var supporterScore = this._calculateSupporterBasedScore(partup);
-        var supporterScoreWeight = 0.9; // 10%
-        d('Supporter based partup popularity score is ' + (supporterScore / supporterScoreWeight));
-        score += (supporterScore / supporterScoreWeight);
+        var supporterScoreWeight = 0.1;
+        d('Supporter based partup popularity score is ' + (supporterScore * supporterScoreWeight));
+        score += (supporterScore * supporterScoreWeight);
 
         var viewScore = this._calculateViewBasedScore(partup);
-        var viewScoreWeight = 0.9; // 10%
-        d('View based partup popularity score is ' + (viewScore / viewScoreWeight));
-        score += (viewScore / viewScoreWeight);
-        console.log('score', score);
-        //return Math.max(0, Math.min(100, score));
+        var viewScoreWeight = 0.1;
+        d('View based partup popularity score is ' + (viewScore * viewScoreWeight));
+        score += (viewScore * viewScoreWeight);
+
+        return score;
     },
 
     _calculateActivityBasedScore: function(partup) {
         var count = 0;
+        var now = new Date();
         var two_weeks = 1000 * 60 * 60 * 24 * 14;
 
         Updates.find({partup_id: partup._id}).forEach(function(update) {
-            var updated_at = new Date(partup.updated_at);
-            if (updated_at > two_weeks) return; // Don't count the updates that are older than 2 weeks
+            var updated_at = new Date(update.updated_at);
+            if ((now - updated_at) > two_weeks) return; // Don't count the updates that are older than 2 weeks
             count += update.comments_count + 1; // The additional 1 is for the update itself
         });
-        return count;
+
+        if (count > 150) count = 150; // Set limit
+
+        return count / 1.5; // Results in max score of 100%
     },
 
     _calculateShareBasedScore: function(partup) {
         var count = 0;
         if (!partup.shared_count) return count;
-        partup.shared_count.forEach(function(medium) {
-            count += medium;
-        });
-        return count;
+        if (partup.shared_count.facebook) count += partup.shared_count.facebook;
+        if (partup.shared_count.twitter) count += partup.shared_count.twitter;
+        if (partup.shared_count.linkedin) count += partup.shared_count.linkedin;
+        if (partup.shared_count.email) count += partup.shared_count.email;
+
+        return count > 100 ? 100 : count; // Results in max score of 100%
     },
 
     _calculatePartnerBasedScore: function(partup) {
         var partners = partup.uppers || [];
-        return partners.length > 15 ? 15 : partners.length;
+        var partnerCount = partners.length > 15 ? 15 : partners.length; // Set limit
+
+        return partnerCount / 0.15; // Results in max score of 100%
     },
 
     _calculateSupporterBasedScore: function(partup) {
         var supporters = partup.supporters || [];
-        return supporters.length;
+
+        return supporters.length > 100 ? 100 : supporters.length; // Results in max score of 100%
     },
 
     _calculateViewBasedScore: function(partup) {
-        return partup.analytics.clicks_total || 0;
+        var views = partup.analytics.clicks_total || 0;
+        if (views > 500) views = 500;
+
+        return views / 5; // Results in max score of 100%
     }
 };
