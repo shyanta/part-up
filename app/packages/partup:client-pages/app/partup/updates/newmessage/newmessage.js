@@ -16,7 +16,7 @@ Template.app_partup_updates_newmessage.onCreated(function() {
 
 Template.app_partup_updates_newmessage.onRendered(function() {
     this.input = this.find('[name=text]');
-    this.mentionsInput = Partup.client.forms.MentionsInput(this.input);
+    this.mentionsInput = Partup.client.forms.MentionsInput(this.input, this.data.partupId);
 });
 
 Template.app_partup_updates_newmessage.onDestroyed(function() {
@@ -94,6 +94,7 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
             var parent = Template.instance().parent();
+            var template = self.template.parent();
 
             parent.submitting.set(true);
 
@@ -122,6 +123,7 @@ AutoForm.hooks({
                     partupId: partupId
                 });
                 AutoForm.resetForm('newMessageForm');
+                template.mentionsInput.reset();
                 self.done();
                 parent.uploadedPhotos.set([]);
                 Partup.client.events.emit('partup:updates:message_added');

@@ -1,0 +1,15 @@
+<template name="UserCardListContent">
+    <ul class="pu-list pu-list-users">
+        {{#each users }}
+            <li>
+                <figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-whitebg pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure>
+                <p data-usercard="{{ _id }}">{{ profile.name }}</p>
+            </li>
+        {{/each }}
+        {{#if showCount}}
+            <li class="pu-sub-last">
+                <p>{{_ 'usercard-additional' ammount=additional}}</p>
+            </li>
+        {{/if}}
+    </ul>
+</template>
