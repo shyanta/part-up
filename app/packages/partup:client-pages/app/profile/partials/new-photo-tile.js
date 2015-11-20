@@ -18,6 +18,7 @@ Template.NewPhotoTile.events({
         input.click();
     },
     'change [data-image-input]': function(event, template) {
+        event.preventDefault();
         Partup.client.uploader.eachFile(event, function(file) {
             template.uploadingPhoto.set(true);
 
