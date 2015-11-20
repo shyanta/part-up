@@ -57,6 +57,7 @@ Template.app_profile_about.onCreated(function() {
 
 Template.app_profile_about.events({
     'click [data-create-tile]': function(event, template) {
+        event.preventDefault();
         var type = $(event.currentTarget).closest('[data-create-tile]').data('create-tile');
         Partup.client.popup.open({
             id: 'new-' + type
@@ -65,11 +66,13 @@ Template.app_profile_about.events({
         });
     },
     'click [data-start-test]': function(event, template) {
+        event.preventDefault();
         Meteor.call('meurs.create_test', function(error, url) {
             if (url) document.location.href = url;
         });
     },
     'click [data-delete]': function(event, template) {
+        event.preventDefault();
         var tile = this;
         var tileId = tile._id;
         Partup.client.prompt.confirm({
