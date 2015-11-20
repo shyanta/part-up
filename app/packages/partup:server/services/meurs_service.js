@@ -67,7 +67,7 @@ Partup.server.services.meurs = {
         var result = meursCall(process.env.MEURS_BASE_URL + 'authenticator/api/adduser', {
             authToken: token,
             userName: userId,
-            password: '@' + userId,
+            password: '@1Aa' + Random.id(),
             email: email
         });
 
