@@ -58,7 +58,7 @@ Partup.client.uploader = {
 
             var resizedFile = self.dataURLToBlob(dataUrl);
 
-            var newFile = new Blob([resizedFile], file.name);
+            var newFile = new File([resizedFile], file.name);
 
             newFile.type = resizedFile.type;
 
