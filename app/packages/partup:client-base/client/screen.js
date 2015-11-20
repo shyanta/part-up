@@ -45,3 +45,5 @@ Partup.client.screen = {
         Partup.client.screen.size.set('height', window.innerHeight);
     }
 };
+
+Partup.client.screen.triggerUpdate();

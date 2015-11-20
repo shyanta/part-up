@@ -5,31 +5,19 @@
  * @memberof Partup.client
  */
 Partup.client.constructors.ColumnTilesLayout = function(options) {
-    if (!mout.lang.isObject(options)) {
-        throw new Error('ColumnTilesLayout: options is not an object');
-    }
+    options = options || {};
 
     if (!mout.lang.isFunction(options.calculateApproximateTileHeight)) {
         throw new Error('ColumnTilesLayout: options.calculateApproximateTileHeight() not found');
     }
 
-    if (!mout.lang.isNumber(options.columns)) {
-        throw new Error('ColumnTilesLayout: options.columns is not a number');
-    }
-
     var C = this;
     var _options = {
         calculateApproximateTileHeight: options.calculateApproximateTileHeight,
-        columns: options.columns
+        columns: options.columns || 0
     };
     var _tiles = [];
     var _columnElements = [];
-
-    var _createColumns = function(amount) {
-        return mout.array.range(0, amount - 1).map(function() {
-            return [];
-        });
-    };
 
     var _measureColumnHeights = function() {
         if (!_columnElements || !_columnElements.length) {
@@ -45,12 +33,17 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
         return heights;
     };
 
-    C.columns = new ReactiveVar(_createColumns(_options.columns));
+    C.columns = new ReactiveVar([]);
 
     C.clear = function(cb) {
         _tiles = [];
-        C.columns.set(_createColumns(_options.columns));
 
+        // Create array of arrays
+        C.columns.set(mout.array.range(0, _options.columns - 1).map(function() {
+            return [];
+        }));
+
+        // Wait for new columns to render
         Meteor.defer(function() {
             _columnElements = C._template.$('[data-column]');
             if (mout.lang.isFunction(cb)) {
@@ -75,9 +68,10 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
         C.columns.set(columns);
     };
 
-    C.changeColumns = function(amount, cb) {
+    C.setColumns = function(amount, cb) {
         var tilesBackup = _tiles;
         _options.columns = amount;
+
         C.clear(function callback() {
             C.addTiles(tilesBackup);
 

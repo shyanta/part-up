@@ -16,6 +16,8 @@ Partup.client.discover = {
         language: undefined
     },
 
+    loading: new ReactiveVar(false),
+
     /*
      * Current discover query ReactiveVar
      *

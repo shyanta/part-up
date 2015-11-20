@@ -142,3 +142,5 @@ Partup.client.scroll = {
         });
     }
 };
+
+Partup.client.scroll.triggerUpdate();

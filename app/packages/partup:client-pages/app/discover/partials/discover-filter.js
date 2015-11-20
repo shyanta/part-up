@@ -187,6 +187,9 @@ Template.app_discover_filter.onDestroyed(function() {
 Template.app_discover_filter.helpers({
     query: function(key) {
         return Partup.client.discover.query.get(key);
+    },
+    loading: function() {
+        return Partup.client.discover.loading.get();
     }
     // Query
     // textsearchData: function() {

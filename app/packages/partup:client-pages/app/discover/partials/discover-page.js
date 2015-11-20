@@ -3,38 +3,39 @@
  * This template shows the partup-tiles and handles the infinite scroll
  */
 
-// var partupsToColumnTiles = function(partups) {
-//     return lodash.map(partups, function(partup) {
-//         return {
-//             partup: partup
-//         };
-//     });
-// };
-
 var PAGING_INCREMENT = 24;
 
 var getAmountOfColumns = function(screenwidth) {
     return screenwidth > Partup.client.grid.getWidth(11) + 80 ? 4 : 3;
 };
 
-var calculateApproximateHeightForPartup = function(partup, columnWidth) {
-
-    // The goal of this formula is to approach
-    // the expected height of a tile as best
-    // as possible, synchronously,
-    // using the given partup object
-    var baseHeight = 301;
-    var margin = 18;
-    return baseHeight + margin;
-};
-
 Template.app_discover_page.onCreated(function() {
+    this.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
+
+        // This function will be called for each partup
+        calculateApproximateTileHeight: function(partup, columnWidth) {
+
+            // The goal of this formula is to approach
+            // the expected height of a tile as best
+            // as possible, synchronously,
+            // using the given partup object
+            var baseHeight = 301;
+            var margin = 18;
+            return baseHeight + margin;
+        }
+
+    });
+});
+
+Template.app_discover_page.onRendered(function() {
     var template = this;
 
-    template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
-        calculateApproximateTileHeight: calculateApproximateHeightForPartup,
-        columns: getAmountOfColumns(Partup.client.screen.size.keys.width)
-    });
+    var columns = getAmountOfColumns(Partup.client.screen.size.keys.width);
+    template.columnTilesLayout.setColumns(columns);
+
+    template.states = {
+        loading_infinite_scroll: false
+    };
 
     template.query;
     template.paging_end_reached = false;
@@ -43,25 +44,28 @@ Template.app_discover_page.onCreated(function() {
     template.page = new ReactiveVar(0, function(previousPage, page) {
         template.query.limit = PAGING_INCREMENT;
         template.query.skip = page * PAGING_INCREMENT;
+        template.states.loading_infinite_scroll = true;
+        Partup.client.discover.loading.set(true);
 
         Partup.client.API.get('/partups/discover' + mout.queryString.encode(template.query), function(error, data) {
-            if (error) { throw error; }
+            template.states.loading_infinite_scroll = false;
+            Partup.client.discover.loading.set(false);
+            if (error || !data.partups || data.partups.length === 0) { return; }
 
             template.paging_end_reached = data.partups.length < PAGING_INCREMENT;
-            var partupTiles = data.partups.map(function(partup) {
+            template.columnTilesLayout.addTiles(data.partups.map(function(partup) {
                 return {
                     partup: partup
                 };
-            });
-            template.columnTilesLayout.addTiles(partupTiles);
+            }));
+
         });
     });
-
-    console.log(template.page);
 
     // When the query changes
     template.autorun(function() {
         template.query = Partup.client.discover.composeQueryObject();
+        template.paging_end_reached = false;
         template.page.set(0);
         template.columnTilesLayout.clear();
     });
@@ -72,8 +76,21 @@ Template.app_discover_page.onCreated(function() {
         var columns = getAmountOfColumns(screenWidth);
 
         if (columns !== template.columnTilesLayout.columns.curValue.length) {
-            template.columnTilesLayout.changeColumns(columns);
+            template.columnTilesLayout.setColumns(columns);
         }
+    });
+
+    // Infinite scroll
+    Partup.client.scroll.infinite({
+        template: template,
+        element: template.find('[data-infinitescroll-container]')
+    }, function() {
+        if (template.states.loading_infinite_scroll || template.paging_end_reached) {
+            return;
+        }
+
+        var nextPage = template.page.get() + 1;
+        template.page.set(nextPage);
     });
 
     // // The partups datamodel namespace
@@ -173,24 +190,6 @@ Template.app_discover_page.onCreated(function() {
     //     Tracker.nonreactive(function() {
     //         tpl.partups.onOptionsChange(options);
     //     });
-    // });
-});
-
-/**
- * Discover-page rendered
- */
-Template.app_discover_page.onRendered(function() {
-    // var tpl = this;
-
-    // /**
-    //  * Infinite scroll
-    //  */
-    // Partup.client.scroll.infinite({
-    //     template: tpl,
-    //     element: tpl.find('[data-infinitescroll-container]')
-    // }, function() {
-    //     if (tpl.partups.loading.get() || tpl.partups.getting_data.get() || tpl.partups.loading_rendering || tpl.partups.end_reached.get()) return;
-    //     tpl.partups.nextPage();
     // });
 });
 

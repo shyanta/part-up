@@ -1,4 +1,4 @@
-Template.ColumnTilesLayout.onCreated(function() {
+Template.ColumnTilesLayout.onRendered(function() {
     this.data.instance._template = this;
 });
 
