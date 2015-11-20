@@ -3,11 +3,11 @@
  *
  * @param {Element} input
  */
-var MentionsInput = function(input) {
+var MentionsInput = function(input, partupId) {
     if (!(this instanceof MentionsInput)) {
-        return new MentionsInput(input);
+        return new MentionsInput(input, partupId);
     }
-
+    this.partupId = partupId || false;
     this.input = input;
     this.mentions = {};
     this._build();
@@ -88,21 +88,30 @@ MentionsInput.prototype._setEvents = function() {
 MentionsInput.prototype.select = function(index) {
     var suggestion = this.suggestions[index];
     if (!suggestion) return;
+    var suggestionName = suggestion.name || suggestion.profile.name;
 
     var substr = this.input.value.substr(0, this.input.selectionStart);
     var match = substr.match(mentionRegex);
 
     if (!match) return;
-
-    this.mentions[suggestion.profile.name] = suggestion._id;
+    if (suggestion.type) {
+        var users = [];
+        for (var i = 0; i < suggestion.users.length; i++) {
+            users.push(suggestion.users[i]._id);
+        };
+        this.mentions[suggestionName] = users;
+    } else {
+        this.mentions[suggestionName] = suggestion._id;
+    }
 
     var value = this.input.value;
     var start = substr.length - match[1].length;
     var pre = value.substring(0, start);
     var post = value.substring(this.input.selectionStart, value.length);
-    this.input.value = pre + suggestion.profile.name + ' ' + post;
 
-    this.input.selectionStart = this.input.selectionEnd = (pre + suggestion.profile.name).length;
+    this.input.value = pre + suggestionName + ' ' + post;
+
+    this.input.selectionStart = this.input.selectionEnd = (pre + suggestionName).length;
     this.input.focus();
     this.hideSuggestions();
 };
@@ -157,8 +166,13 @@ MentionsInput.prototype.checkCaretPosition = function() {
     if (/\s$/.test(query)) return; // check for endspace
     if (query === this.lastQuery) return; // check for same query
 
+    var group = undefined;
+    var partupId = this.partupId;
+    if ('partners'.indexOf(query.toLowerCase()) > -1) group = 'partners';
+    if ('supporters'.indexOf(query.toLowerCase()) > -1) group = 'supporters';
+
     var self = this;
-    Meteor.call('users.autocomplete', query, function(error, users) {
+    Meteor.call('users.autocomplete', query, group, partupId, function(error, users) {
         if (error) {
             console.error(error);
             return;
@@ -184,8 +198,9 @@ MentionsInput.prototype.checkCaretPosition = function() {
             suggestion = self.suggestions[i];
             btn = document.createElement('button');
             btn.type = 'button';
-            btn.dataset.id = suggestion._id;
-            btn.textContent = suggestion.profile.name;
+            btn.dataset.type = suggestion.type || undefined;
+            btn.dataset.id = suggestion._id || undefined;
+            btn.textContent = suggestion.name || suggestion.profile.name;
             self.btns.push(btn);
             self.suggestionsEl.appendChild(btn);
         }
@@ -199,9 +214,25 @@ MentionsInput.prototype.checkCaretPosition = function() {
  */
 MentionsInput.prototype.getValue = function() {
     var mentions = lodash.map(this.mentions, function(value, key) {
-        return {_id: value, name: key};
+        if (Array.isArray(value)) {
+            var obj = {
+                name: key,
+                group: true
+            };
+            obj[key] = value;
+            return obj;
+        }
+        return {
+            _id: value,
+            name: key
+        };
     });
-    return Partup.helpers.mentions.encode(this.input.value, mentions);
+    var encoded = Partup.helpers.mentions.encode(this.input.value, mentions);
+    return encoded;
+};
+
+MentionsInput.prototype.reset = function() {
+    this.mentions = {};
 };
 
 MentionsInput.prototype.destroy = function() {
