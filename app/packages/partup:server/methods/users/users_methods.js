@@ -37,7 +37,7 @@ Meteor.methods({
      *
      * @param {string} searchString
      */
-    'users.autocomplete': function(searchString) {
+    'users.autocomplete': function(searchString, group, partupId) {
         check(searchString, String);
 
         var user = Meteor.user();
@@ -46,8 +46,27 @@ Meteor.methods({
         try {
             // Remove accents that might have been added to the query
             searchString = mout.string.replaceAccents(searchString.toLowerCase());
+            var suggestions = Meteor.users.findActiveUsers({'profile.normalized_name': new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
+            switch (group) {
+                case 'partners':
+                    var partners = Meteor.users.findActiveUsers({upperOf: {$in: [partupId]}}).fetch();
+                    suggestions.unshift({
+                        type: 'partners',
+                        name: 'Partners',
+                        users: partners
+                    });
 
-            return Meteor.users.findActiveUsers({'profile.normalized_name': new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
+                    break;
+                case 'supporters':
+                    var supporters = Meteor.users.findActiveUsers({supporterOf: {$in: [partupId]}}).fetch();
+                    suggestions.unshift({
+                        type: 'supporters',
+                        name: 'Supporters',
+                        users: supporters
+                    });
+                    break;
+            }
+            return suggestions;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'users_could_not_be_autocompleted');
