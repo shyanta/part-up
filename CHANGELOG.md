@@ -1,4 +1,9 @@
 # CHANGELOG
+## 1.13.2
+- fix(meurs-profile): show results for other users
+- fix(profile-about): copy update and load bigger image files (fix #80)
+- fix(copy): typo fix #69
+
 ## 1.13.1
 - Fixed a bug where Partups that require authentication were not visible on the discover page
 - Fixed a bug where access tokens on Networks were being exposed
