@@ -31,6 +31,7 @@ var Network = function(document) {
  * @return {Boolean}
  */
 Network.prototype.isNetworkAdmin = function(userId) {
+    if (!userId) return false;
     return mout.lang.isString(userId) && (userId === this.admin_id);
 };
 
@@ -42,6 +43,7 @@ Network.prototype.isNetworkAdmin = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.isAdmin = function(userId) {
+    if (!userId) return false;
     var user = Meteor.users.findOne({_id: userId});
     if (!user) return false;
     return this.isNetworkAdmin(userId) || User(user).isAdmin();
@@ -55,6 +57,7 @@ Network.prototype.isAdmin = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.hasMember = function(userId) {
+    if (!userId) return false;
     var uppers = this.uppers || [];
     return mout.lang.isString(userId) && uppers.indexOf(userId) > -1;
 };
@@ -97,6 +100,7 @@ Network.prototype.isClosed = function() {
  * @return {Boolean}
  */
 Network.prototype.isClosedForUpper = function(upperId) {
+    if (!upperId) return false;
     if (this.isPublic()) return false;
     if (this.hasMember(upperId)) return false;
 
@@ -126,7 +130,7 @@ Network.prototype.isUpperInvited = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvitePending = function(userId) {
-    if (!this.pending_uppers) return false;
+    if (!this.pending_uppers || !userId) return false;
     return mout.lang.isString(userId) && this.pending_uppers.indexOf(userId) > -1;
 };
 
@@ -138,6 +142,7 @@ Network.prototype.isUpperInvitePending = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.canUpperInvite = function(upperId) {
+    if (!upperId) return false;
     return this.hasMember(upperId);
 };
 
@@ -149,6 +154,7 @@ Network.prototype.canUpperInvite = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.canUpperJoin = function(upperId) {
+    if (!upperId) return false;
     if (this.isPublic()) return true;
     if (this.isUpperInvited(upperId)) return true;
     return false;
@@ -202,6 +208,7 @@ Network.prototype.addPendingUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperPending = function(upperId) {
+    if (!upperId) return false;
     return !!Networks.findOne({_id: this._id, pending_uppers: {'$in': [upperId]}});
 };
 
@@ -213,6 +220,7 @@ Network.prototype.isUpperPending = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvitedByAdmin = function(upperId) {
+    if (!upperId) return false;
     var invitedByAdmin = false;
     var invites = Invites.find({type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER, network_id: this._id, invitee_id: upperId});
     var self = this;
