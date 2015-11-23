@@ -3,9 +3,9 @@
 
         <!-- Tags -->
         {{# unless HIDE_TAGS }}
-            {{# if tags }}
+            {{# if partup.tags }}
                 <ul class="pu-sub-partup-tags">
-                    {{# each tags}}
+                    {{# each partup.tags }}
                         <li style="transition-delay: {{ delay }}s"><span class="pu-tag">{{ tag }}</span></li>
                     {{/ each }}
                 </ul>
@@ -17,31 +17,43 @@
             <!-- Name of the Part-up -->
             <header>
                 <h2>
-                    <a href="{{pathFor 'partup' slug=slug }}">{{ title }}</a>
+                    <a href="{{pathFor 'partup' slug=slug }}">{{ name }}</a>
                 </h2>
             </header>
 
             <section>
 
                 <!-- Image (circle), uppers, and progress  -->
-                <div class="pu-partupcircle" data-partup-id="{{ _id }}">
+                <div class="pu-partupcircle">
                     <a href="{{pathFor 'partup' slug=slug }}">
                         {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
-                        <figure class="pu-sub-inner" style="{{#with image }}background-image: url('{{ partupImage . '360x360' }}');{{/ with }}" data-partup-tile-focuspoint></figure>
+                        <figure class="pu-sub-inner" style="
+                            {{# with imageUrl }}background-image: url('{{ . }}');{{/ with }}
+                        " data-partup-tile-focuspoint></figure>
                     </a>
 
                     <!-- Uppers -->
-                    {{# if uppers }}
-                        <ul class="pu-sub-avatar-list">
-                            {{# each uppers }}
-                                <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
-                                    {{# if _id }}
-                                        background-image: url('{{# with upper }}{{ upperImage profile.image '80x80' }}{{/ with }}');
-                                    {{/ if }}
-                                    top: {{ y }}px;
-                                    left: {{ x }}px;
-                                    transition-delay: {{ delay }}s;
-                                " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}{{/ unless }}</li>
+                    {{# if avatars }}
+                        <ul class="pu-sub-avatar-list" style="margin-bottom:40px;">
+                            {{# each avatars }}
+                                {{# if data.upper }}
+                                     <li class="pu-avatar" style="
+                                        {{# with data.upperImageUrl }}background-image: url('{{ . }}');{{/ with }}
+                                        {{# with avatarPosition }}
+                                            top: {{ y }}px;
+                                            left: {{ x }}px;
+                                            transition-delay: {{ delay }}s;
+                                        {{/ with }}
+                                    " data-usercard="{{ data.upper._id }}"></li>
+                                {{ else }}
+                                    <li class="pu-avatar pu-avatar-more" style="
+                                        {{# with avatarPosition }}
+                                            top: {{ y }}px;
+                                            left: {{ x }}px;
+                                            transition-delay: {{ delay }}s;
+                                        {{/ with }}
+                                    ">{{ data.remainingUppers }}</li>
+                                {{/ if }}
                             {{/ each }}
                         </ul>
                     {{/ if }}
@@ -57,7 +69,7 @@
                         <span>{{_ 'partuptile-activities' }}</span>
                     </li>
                     <li>
-                        <strong>{{ supporterCount }}</strong>
+                        <strong>{{ supportersCount }}</strong>
                         <span>{{_ 'partuptile-supporters' }}</span>
                     </li>
                     <li>
@@ -76,7 +88,8 @@
                     <footer>
                         <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
                             <div class="pu-sub-figurecontainer">
-                                <figure style="{{# with icon}}background-image: url('{{ networkImage . '32x32' }}');{{/ with }}"></figure>
+                                <figure style=""></figure>
+                                {{# with networkIconUrl }}background-image: url('{{ . }}');{{/ with }}
                             </div>
                             <div class="pu-sub-namecontainer">
                                 <span>{{ name }}</span>

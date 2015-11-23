@@ -52,20 +52,27 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
         });
     };
 
-    C.addTiles = function(tiles) {
-        _tiles = _tiles.concat(tiles);
-        var columns = C.columns.get();
-        var columnHeights = _measureColumnHeights();
+    C.addTiles = function(tiles, cb) {
+        Meteor.defer(function() {
+            _tiles = _tiles.concat(tiles);
+            var columns = C.columns.get();
 
-        tiles.forEach(function(tile) {
-            var shortestColumn = columnHeights.indexOf(mout.array.min(columnHeights));
-            var tileHeight = _options.calculateApproximateTileHeight(tile, _columnElements.eq(0).width());
+            var columnHeights = _measureColumnHeights();
 
-            columnHeights[shortestColumn] += tileHeight;
-            columns[shortestColumn].push(tile);
+            tiles.forEach(function(tile) {
+                var shortestColumn = columnHeights.indexOf(mout.array.min(columnHeights));
+                var tileHeight = _options.calculateApproximateTileHeight(tile, _columnElements.eq(0).width());
+
+                columnHeights[shortestColumn] += tileHeight;
+                columns[shortestColumn].push(tile);
+            });
+
+            C.columns.set(columns);
+
+            if (mout.lang.isFunction(cb)) {
+                cb.call(C);
+            }
         });
-
-        C.columns.set(columns);
     };
 
     C.setColumns = function(amount, cb) {

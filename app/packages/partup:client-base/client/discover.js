@@ -16,8 +16,6 @@ Partup.client.discover = {
         language: undefined
     },
 
-    loading: new ReactiveVar(false),
-
     /*
      * Current discover query ReactiveVar
      *
@@ -31,6 +29,7 @@ Partup.client.discover = {
      */
     composeQueryObject: function() {
         var queryObj = {};
+
         for (key in this.DEFAULT_QUERY) {
             var value = this.query.get(key);
             if (!value) continue;

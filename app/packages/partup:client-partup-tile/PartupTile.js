@@ -9,166 +9,134 @@
  */
 // jscs:enable
 
-var positionTags = function(tagsEl) {
-    var br = document.body.getBoundingClientRect();
-    var rect = tagsEl.getBoundingClientRect();
-
-    if (rect.right > br.right) {
-        tagsEl.classList.add('pu-state-right');
-    }
-
-};
+var MAX_AVATARS = 5;
+var AVATAR_DEFAULT_RADIUS = 100;
+var AVATAR_HOVERING_RADIUS = 125;
+var AVATAR_DEFAULT_DISTANCE = 24;
+var AVATAR_HOVERING_DISTANCE = 18;
 
 Template.PartupTile.onCreated(function() {
-    this.hoveringPartupcircles = new ReactiveDict();
+    var template = this;
+
+    // Partup image reactive hover state
+    template.hovering = new ReactiveVar(false);
+
+    // Transform partup
+    var partup = template.data.partup;
+
+    // -- Partup details
+    partup.name = Partup.client.url.capitalizeFirstLetter(partup.name);
+    var partupImage = Images.findOne({_id: partup.image});
+    partup.imageUrl = partupImage ? Partup.client.url.getImageUrl(partupImage, '360x360') : '';
+    partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
+    partup.tags = partup.tags.map(function(tag, index) {
+        return {
+            tag: tag,
+            delay: .05 * index
+        };
+    });
+
+    // -- Partup network
+    partup.network = Networks.findOne({_id: partup.network_id});
+    var networkIcon = partup.network ? Images.findOne({_id: partup.network.icon}) : undefined;
+    partup.networkIconUrl = networkIcon ? Partup.client.url.getImageUrl(networkIcon, '32x32') : '';
+
+    // -- Partup counts
+    partup.activityCount = partup.activity_count || Activities.findForPartup(partup).count();
+    partup.supportersCount = partup.supporters ? partup.supporters.length : 0;
+    partup.dayCount = Math.ceil(((((new Date() - new Date(partup.created_at)) / 1000) / 60) / 60) / 24);
+
+    // -- Partup uppers
+    partup.avatars = partup.uppers
+        .slice(0, MAX_AVATARS)
+        .map(function(avatar, index, arr) {
+
+            // Avatar position
+            var default_coords = Partup.client.partuptile.getAvatarCoordinates(arr.length, index, 0, AVATAR_DEFAULT_DISTANCE, AVATAR_DEFAULT_RADIUS);
+            var hovering_coords = Partup.client.partuptile.getAvatarCoordinates(arr.length, index, 0, AVATAR_HOVERING_DISTANCE, AVATAR_HOVERING_RADIUS);
+            var position = {
+                default: {
+                    delay: .03 * index,
+                    x: default_coords.x + 95,
+                    y: default_coords.y + 95
+                },
+                hover: {
+                    delay: .03 * index,
+                    x: hovering_coords.x + 95,
+                    y: hovering_coords.y + 95
+                }
+            };
+
+            // Blue avatar, for example: (5+)
+            if (partup.uppers.length > arr.length && index + 1 === MAX_AVATARS) {
+                return {
+                    position: position,
+                    data: {
+                        remainingUppers: partup.uppers.length - MAX_AVATARS + 1
+                    }
+                };
+            }
+
+            // Default avatar
+            var upper = Meteor.users.findOne({_id: avatar});
+            if (!upper) return {};
+
+            var upperImage = Images.findOne({_id: mout.object.get(upper, 'profile.image')});
+            if (!upperImage) return {};
+
+            return {
+                position: position,
+                data: {
+                    upper: upper,
+                    upperImageUrl: Partup.client.url.getImageUrl(upperImage, '80x80')
+                }
+            };
+        });
 });
 
 Template.PartupTile.onRendered(function() {
-    var tpl = this;
-    var tagsEl = this.find('.pu-sub-partup-tags');
-    if (tagsEl) {
-        positionTags(tagsEl);
-        tpl.resizeHandler = function() {
-            positionTags(tagsEl);
-        };
-        window.addEventListener('resize', tpl.resizeHandler);
+    var template = this;
+
+    // Bind tag positioner
+    var tagsElement = template.find('.pu-sub-partup-tags');
+    if (tagsElement) {
+        template.autorun(function() {
+            Partup.client.screen.size.get();
+            var br = document.body.getBoundingClientRect();
+            var rect = tagsElement.getBoundingClientRect();
+
+            if (rect.right > br.right) {
+                tagsElement.classList.add('pu-state-right');
+            }
+        });
     }
 
-    if (this.data.image) {
-        var image = Images.findOne({_id: this.data.image});
-        if (image && image.focuspoint) {
-            var focuspointElm = this.find('[data-partup-tile-focuspoint]');
-            this.focuspoint = new Focuspoint.View(focuspointElm, {
-                x: image.focuspoint.x,
-                y: image.focuspoint.y
-            });
-        }
-    }
-});
+    // if (template.data.image) {
+    //     var image = Images.findOne({_id: this.data.image});
+    //     if (image && image.focuspoint) {
+    //         var focuspointElm = this.find('[data-partup-tile-focuspoint]');
+    //         this.focuspoint = new Focuspoint.View(focuspointElm, {
+    //             x: image.focuspoint.x,
+    //             y: image.focuspoint.y
+    //         });
+    //     }
+    // }
 
-Template.PartupTile.onDestroyed(function() {
-    var tpl = this;
-    window.removeEventListener('resize', tpl.resizeHandler);
+    var canvasElm = template.find('canvas.pu-sub-radial');
+    if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
 });
 
 Template.PartupTile.helpers({
-    title: function() {
-        return Partup.client.url.capitalizeFirstLetter(this.name);
-    },
-    network: function() {
-        if (!this.partup.network_id) return false;
-        return Networks.findOne({_id: this.partup.network_id});
-    },
-    activityCount: function() {
-        return this.activity_count || Activities.findForPartup(this).count();
-    },
-    dayCount: function() {
-        var created = new Date(this.created_at);
-        var now = new Date();
-        return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
-    },
-    boundedProgress: function() {
-        var template = Template.instance();
-
-        Meteor.defer(function() {
-            var canvasElm = template.find('canvas.pu-sub-radial');
-            if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
-        });
-
-        if (!this.progress) return 10;
-        return Math.max(10, Math.min(99, this.progress));
-    },
-    supporterCount: function() {
-        if (this.supporters && this.supporters.length) {
-            return this.supporters.length;
-        } else {
-            return 0;
-        }
-    },
-    tags: function() {
-        if (!this.partup.tags) return;
-
-        var tags = [];
-        for (var i = 0; i < this.partup.tags.length; i++) {
-            tags.push({
-                tag: this.partup.tags[i],
-                delay: .075 * i
-            });
-        }
-
-        return tags;
-    },
-    upper: function() {
-        return Meteor.users.findOne({_id: this._id});
-    },
-    uppers: function() {
-        if (!this._id || !this.uppers) return;
-        var uppers = this.uppers.slice(0);
-
-        if (uppers.length > 5) {
-            while (uppers.length > 4) {
-                uppers.pop();
-            }
-
-            uppers.push(null);
-        }
-
-        // Make the radius and the distance depend on the hover state
-        var hovering = Template.instance().hoveringPartupcircles.get(this._id);
-        var radius = hovering ? 125 : 100;
-        var distance = hovering ? 18 : 24;
-
-        return lodash.map(uppers, function(upper, index) {
-            var coords = Partup.client.partuptile.getAvatarCoordinates(uppers.length, index, 0, distance, radius);
-
-            var attributes = {
-                x: coords.x + 95,
-                y: coords.y + 95,
-                delay: .075 * index
-            };
-
-            if (upper) {
-                attributes._id = upper;
-            }
-
-            return attributes;
-        });
-    },
-    remainingUppers: function() {
-        var uppers = get(Template.instance(), 'data.partup.uppers');
-        if (uppers && uppers.length && uppers.length > 5) {
-            return uppers.length - 4;
-        } else {
-            return 0;
-        }
-    },
-    userCard: function() {
-        if (this._id) return {'data-usercard': this._id};
-    },
-    partupImage: function(imageId, store) {
-        var image = Images.findOne({_id: imageId});
-        if (!image) return;
-        return Partup.client.url.getImageUrl(image, store);
-    },
-    networkImage: function(imageId, store) {
-        var image = Images.findOne({_id: imageId});
-        if (!image) return;
-        return Partup.client.url.getImageUrl(image, store);
-    },
-    upperImage: function(imageId, store) {
-        var image = Images.findOne({_id: imageId});
-        if (!image) return;
-        return Partup.client.url.getImageUrl(image, store);
+    avatarPosition: function() {
+        return Template.instance().hovering.get() ? this.position.hover : this.position.default;
     }
 });
 
 Template.PartupTile.events({
     'mouseenter .pu-partupcircle': function(event, template) {
-        var partupId = event.currentTarget.getAttribute('data-partup-id');
-        template.hoveringPartupcircles.set(partupId, true);
+        template.hovering.set(true);
     },
     'mouseleave .pu-partupcircle': function(event, template) {
-        var partupId = event.currentTarget.getAttribute('data-partup-id');
-        template.hoveringPartupcircles.set(partupId, false);
+        template.hovering.set(false);
     }
 });
