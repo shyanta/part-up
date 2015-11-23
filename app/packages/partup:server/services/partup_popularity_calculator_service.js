@@ -39,7 +39,7 @@ Partup.server.services.partup_popularity_calculator = {
 
         d.log('Total partup popularityscore = ' + score);
 
-        return score;
+        return Math.floor(score);
     },
 
     _calculateActivityBasedScore: function(partup) {
