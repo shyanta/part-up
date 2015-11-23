@@ -7,14 +7,17 @@ var getAmountOfColumns = function(screenwidth) {
 Template.app_discover_page.onCreated(function() {
     var template = this;
 
+    // States such as loading states
     template.states = {
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false),
         count_loading: new ReactiveVar(false)
     };
 
+    // Partup result count
     template.count = new ReactiveVar();
 
+    // Column layout
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
         // This function will be called for each partup
@@ -35,18 +38,25 @@ Template.app_discover_page.onCreated(function() {
 Template.app_discover_page.onRendered(function() {
     var template = this;
 
+    // Set amount of columns based on screen width
     var columns = getAmountOfColumns(Partup.client.screen.size.keys.width);
     template.columnTilesLayout.setColumns(columns);
 
+    // Current query placeholder
     template.query;
 
-    // When the page changes
+    // When the page changes due to infinite scroll
     template.page = new ReactiveVar(0, function(previousPage, page) {
+
+        // Add some parameters to the query
         template.query.limit = PAGING_INCREMENT;
         template.query.skip = page * PAGING_INCREMENT;
         template.query.userId = Meteor.userId(); // for caching purposes in nginx
+
+        // Update state(s)
         template.states.loading_infinite_scroll = true;
 
+        // Call the API for data
         Partup.client.API.get('/partups/discover' + mout.queryString.encode(template.query), function(error, data) {
             if (error || !data.partups || data.partups.length === 0) {
                 template.states.loading_infinite_scroll = false;
@@ -54,17 +64,18 @@ Template.app_discover_page.onRendered(function() {
                 return;
             }
 
+            template.states.paging_end_reached.set(data.partups.length < PAGING_INCREMENT);
+
             var tiles = data.partups.map(function(partup) {
                 return {
                     partup: partup
                 };
             });
 
+            // Add tiles to the column layout
             template.columnTilesLayout.addTiles(tiles, function callback() {
                 template.states.loading_infinite_scroll = false;
             });
-
-            template.states.paging_end_reached.set(data.partups.length < PAGING_INCREMENT);
         });
     });
 
