@@ -74,8 +74,6 @@ Package.onUse(function(api) {
         'helpers/Partup.js',
         'helpers/isPopupActive.js',
         'helpers/footerToggle.js',
-        'helpers/async.html',
-        'helpers/async.js',
         'helpers/newlineToBreak.js',
         'helpers/onrendered.js',
         'helpers/tagsQuerySearch.js',
