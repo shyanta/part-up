@@ -48,16 +48,16 @@
             </div>
 
             <!-- Label -->
-            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-sorting-label' }}</p> -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-sorting-label' }}</p>
 
             <!-- Sorting -->
-            <!-- <div class="pu-sub-input pu-dropdownie-container">
-                <input type="hidden" name="sorting" value="{{ sortingValue.value }}">
-                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-sortingselector>
-                    {{ sortingValue.label }}
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="sort" value="{{ query 'sort' }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter" data-open-sortbox>
+                    {{ selectedSortLabel }}
                 </a>
-                {{> Dropdown toggle=sortingSelectorState template="BasicSelector" data=sortingSelectorData }}
-            </div> -->
+                {{> Dropdown toggle=sortBox.state template="BasicSelector" data=sortBox.data }}
+            </div>
 
             <!-- Label -->
             <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-language-label' }}</p> -->

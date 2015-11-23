@@ -1,4 +1,5 @@
 var _prefill = {};
+var _customPrefill = {};
 
 /**
  * Helper for discover page
@@ -68,14 +69,30 @@ Partup.client.discover = {
      */
     prefillQuery: function() {
         for (key in this.DEFAULT_QUERY) {
-            var value = _prefill[key];
+            var value = _prefill[key] || this.DEFAULT_QUERY[key];
             if (!value) { continue; }
 
             this.query.set(key, value);
         }
 
         _prefill = {};
-    }
+    },
+
+    /*
+     * Set custom prefill data
+     */
+    setCustomPrefill: function(key, value) {
+        _customPrefill[key] = value;
+    },
+
+    /*
+     * Get and clear custom prefill data
+     */
+    getCustomPrefill: function() {
+        var copy = _customPrefill;
+        _customPrefill = {};
+        return copy;
+    },
 
 };
 

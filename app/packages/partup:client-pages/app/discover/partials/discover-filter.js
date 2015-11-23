@@ -1,33 +1,19 @@
 /**
- * Header of the Discover page
- * This template handles the search, filtering and sorting options for the discover page
- *
- * @param Session: discover.query.textSearch {String} - Prefill search by text
- * @param Session: discover.query.locationId {String} - Prefill search by location
- * @param Session: discover.query.networkId {String} - Prefill search by network
- * @param Session: discover.query.sort {String} - Prefill sort
- * @param Session: discover.query.language {String} - Prefill search by language
+ * Please prefill values using Partup.client.discover.setPrefill(key, value); before changing route to Discover
  */
 
-/**
- * Discover-header created
- */
 Template.app_discover_filter.onCreated(function() {
     var template = this;
 
     Partup.client.discover.prefillQuery();
+    var customPrefill = Partup.client.discover.getCustomPrefill();
 
-    template.selectedNetworkLabel = new ReactiveVar();
+    var prefilledNetworkId = Partup.client.discover.query.get('networkId');
+    template.selectedNetworkLabel = new ReactiveVar(
+        prefilledNetworkId ? Networks.findOne(prefilledNetworkId) : undefined
+    );
     template.networkBox = {
-        state: new ReactiveVar(false, function(a, isOpen) {
-            if (!isOpen) return;
-
-            // TODO: Focus the text box when there is one
-            // Meteor.defer(function() {
-            //     var searchfield = template.find('form#networkSelector').elements.search;
-            //     if (searchfield) searchfield.focus();
-            // });
-        }),
+        state: new ReactiveVar(false),
         data: function() {
             var DROPDOWN_ANIMATION_DURATION = 200;
 
@@ -35,7 +21,7 @@ Template.app_discover_filter.onCreated(function() {
                 onSelect: function(network) {
                     template.networkBox.state.set(false);
 
-                    // When the box is closed, set the value
+                    // Once the box is closed, set the value
                     Meteor.setTimeout(function() {
                         template.queryForm[0].elements.networkId.value = network._id;
                         template.queryForm.submit();
@@ -46,7 +32,10 @@ Template.app_discover_filter.onCreated(function() {
         }
     };
 
-    template.selectedLocationLabel = new ReactiveVar();
+    var prefilledLocationId = Partup.client.discover.query.get('locationId');
+    template.selectedLocationLabel = new ReactiveVar(
+        prefilledLocationId ? customPrefill.locationLabel : undefined
+    );
     template.locationBox = {
         state: new ReactiveVar(false, function(a, isOpen) {
             if (!isOpen) return;
@@ -64,7 +53,7 @@ Template.app_discover_filter.onCreated(function() {
                 onSelect: function(location) {
                     template.locationBox.state.set(false);
 
-                    // When the box is closed, set the value
+                    // Once the box is closed, set the value
                     Meteor.setTimeout(function() {
                         template.queryForm[0].elements.locationId.value = location.id;
                         template.queryForm.submit();
@@ -75,33 +64,46 @@ Template.app_discover_filter.onCreated(function() {
         }
     };
 
-    // // Location filter datamodel
-    // tpl.location = {
-    //     value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.locationId),
-    //     selectorState: new ReactiveVar(false, function(a, b) {
-    //         if (!b) return;
+    var sortOptions = [
+        {
+            value: 'popular',
+            label: function() {
+                return __('pages-app-discover-filter-sorting-type-popular');
+            }
+        },
+        {
+            value: 'new',
+            label: function() {
+                return __('pages-app-discover-filter-sorting-type-newest');
+            }
+        }
+    ];
+    var prefilledSortValue = Partup.client.discover.query.get('sort');
+    var sortOption = lodash.find(sortOptions, {
+        value: prefilledSortValue
+    });
+    template.selectedSortLabel = new ReactiveVar(sortOption.label());
+    template.sortBox = {
+        state: new ReactiveVar(false),
+        data: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
 
-    //         // Focus the searchfield
-    //         Meteor.defer(function() {
-    //             var searchfield = tpl.find('form#locationSelector').elements.search;
-    //             if (searchfield) searchfield.focus();
-    //         });
-    //     }),
-    //     selectorData: function() {
-    //         var DROPDOWN_ANIMATION_DURATION = 200;
+            return {
+                options: sortOptions,
+                default: sortOption,
+                onSelect: function(sort) {
+                    template.sortBox.state.set(false);
 
-    //         return {
-    //             onSelect: function(location) {
-    //                 tpl.location.selectorState.set(false);
-
-    //                 Meteor.setTimeout(function() {
-    //                     tpl.location.value.set(location);
-    //                     tpl.submitFilterForm();
-    //                 }, DROPDOWN_ANIMATION_DURATION);
-    //             }
-    //         };
-    //     }
-    // };
+                    // Once the box is closed, set the value
+                    Meteor.setTimeout(function() {
+                        template.queryForm[0].elements.sort.value = sort.value;
+                        template.queryForm.submit();
+                        template.selectedSortLabel.set(sort.label());
+                    }, DROPDOWN_ANIMATION_DURATION);
+                }
+            };
+        }
+    };
 
     // // Sorting filter datamodel
     // var sortingOptions = [
@@ -185,6 +187,8 @@ Template.app_discover_filter.onRendered(function() {
 });
 
 Template.app_discover_filter.onDestroyed(function() {
+    var template = this;
+
     Partup.client.discover.resetQuery();
     Partup.client.elements.offClickOutside(template.handler);
 });
@@ -204,6 +208,12 @@ Template.app_discover_filter.helpers({
     },
     locationBox: function() {
         return Template.instance().locationBox;
+    },
+    selectedSortLabel: function() {
+        return Template.instance().selectedSortLabel.get();
+    },
+    sortBox: function() {
+        return Template.instance().sortBox;
     }
     // Query
     // textsearchData: function() {
@@ -322,6 +332,20 @@ Template.app_discover_filter.events({
         template.locationBox.state.set(false);
         template.selectedLocationLabel.set();
         template.queryForm[0].elements.locationId.value = '';
+        template.queryForm.submit();
+    },
+
+    // Sort field
+    'click [data-open-sortbox]': function(event, template) {
+        event.preventDefault();
+        template.sortBox.state.set(true);
+    },
+    'click [data-reset-sortid]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        template.sortBox.state.set(false);
+        template.selectedSortLabel.set();
+        template.queryForm[0].elements.sortId.value = '';
         template.queryForm.submit();
     }
 
