@@ -14,21 +14,21 @@
             </div>
 
             <!-- Label -->
-            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-networkfilter-label' }}</p> -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-networkfilter-label' }}</p>
 
             <!-- Network selector -->
-            <!-- <div class="pu-sub-input pu-dropdownie-container">
-                <input type="hidden" name="network_id" value="{{ networkValue._id }}">
-                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if networkValue}}pu-state-filled{{/if}}" data-open-networkselector>
-                    {{#with networkValue }}
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="networkId" value="{{ query 'networkId' }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{# if query 'networkId' }}pu-state-filled{{/ if }}" data-open-networkbox>
+                    {{# with selectedNetwork }}
                         {{ name }}
-                    {{else }}
+                    {{ else }}
                         {{_ 'pages-app-discover-filter-networkfilter-all' }}
-                    {{/with }}
-                    <i class="picon-times" data-reset-selected-network></i>
+                    {{/ with }}
+                    <i class="picon-times" data-reset-networkid></i>
                 </a>
-                {{> Dropdown toggle=networkSelectorState template="NetworkSelector" data=networkSelectorData }}
-            </div> -->
+                {{> Dropdown toggle=networkBox.state template="NetworkSelector" data=networkBox.data }}
+            </div>
 
             <!-- Label -->
             <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-locationfilter-label' }}</p> -->

@@ -13,40 +13,38 @@
  * Discover-header created
  */
 Template.app_discover_filter.onCreated(function() {
+    var template = this;
+
     Partup.client.discover.prefillQuery();
 
-    // // Textsearch
-    // tpl.textsearch = {
-    //     value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.textSearch)
-    // };
+    template.selectedNetwork = new ReactiveVar();
 
-    // // Network filter datamodel
-    // tpl.network = {
-    //     value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.networkId),
-    //     selectorState: new ReactiveVar(false, function(a, b) {
-    //         if (!b) return;
+    template.networkBox = {
+        state: new ReactiveVar(false, function(a, isOpen) {
+            if (!isOpen) return;
 
-    //         // Focus the searchfield
-    //         Meteor.defer(function() {
-    //             var searchfield = tpl.find('form#networkSelector').elements.search;
-    //             if (searchfield) searchfield.focus();
-    //         });
-    //     }),
-    //     selectorData: function() {
-    //         var DROPDOWN_ANIMATION_DURATION = 200;
+            // Focus the text box
+            Meteor.defer(function() {
+                var searchfield = template.find('form#networkSelector').elements.search;
+                if (searchfield) searchfield.focus();
+            });
+        }),
+        data: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
 
-    //         return {
-    //             onSelect: function(networkId) {
-    //                 tpl.network.selectorState.set(false);
+            return {
+                onSelect: function(network) {
+                    template.networkBox.state.set(false);
 
-    //                 Meteor.setTimeout(function() {
-    //                     tpl.network.value.set(networkId);
-    //                     tpl.submitFilterForm();
-    //                 }, DROPDOWN_ANIMATION_DURATION);
-    //             }
-    //         };
-    //     }
-    // };
+                    // When the box is closed, set the value
+                    Meteor.setTimeout(function() {
+                        template.queryForm[0].elements.networkId.value = network._id;
+                        template.queryForm.submit();
+                    }, DROPDOWN_ANIMATION_DURATION);
+                }
+            };
+        }
+    };
 
     // // Location filter datamodel
     // tpl.location = {
@@ -159,7 +157,9 @@ Template.app_discover_filter.onCreated(function() {
  * Discover-header rendered
  */
 Template.app_discover_filter.onRendered(function() {
-    this.queryForm = this.$('form#discoverQueryForm');
+    var template = this;
+
+    template.queryForm = template.$('form#discoverQueryForm');
 
     // // Submit filter form once
     // tpl.submitFilterForm();
@@ -171,25 +171,26 @@ Template.app_discover_filter.onRendered(function() {
     //     }
     // });
 
-    // var dropdown_element = tpl.find('[data-filterbar]');
-    // tpl.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
-    //     // Disable the dropdown
-    //     toggleSelectorState(tpl);
-    // });
+    var dropdown_element = template.find('[data-filterbar]');
+    template.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
+        template.networkBox.state.set(false);
+    });
 });
 
 Template.app_discover_filter.onDestroyed(function() {
     Partup.client.discover.resetQuery();
+    Partup.client.elements.offClickOutside(template.handler);
 });
-/**
- * Discover-header helpers
- */
+
 Template.app_discover_filter.helpers({
     query: function(key) {
         return Partup.client.discover.query.get(key);
     },
-    loading: function() {
-        return Partup.client.discover.loading.get();
+    selectedNetwork: function() {
+        return Template.instance().selectedNetwork.get();
+    },
+    networkBox: function() {
+        return Template.instance().networkBox;
     }
     // Query
     // textsearchData: function() {
@@ -262,8 +263,6 @@ Template.app_discover_filter.events({
     'submit form#discoverQueryForm': function(event, template) {
         event.preventDefault();
 
-    //     if (template.data.getting_data.get()) return;
-
         var form = event.currentTarget;
 
         for (key in Partup.client.discover.DEFAULT_QUERY) {
@@ -275,16 +274,36 @@ Template.app_discover_filter.events({
             var defaultValue = Partup.client.discover.DEFAULT_QUERY[key];
 
             Partup.client.discover.query.set(key, formValue || defaultValue);
+
+            if (key === 'networkId' && formValue) {
+                var network = Networks.findOne(formValue);
+                template.selectedNetwork.set(network);
+            }
         }
 
-    //     window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
     },
 
-    // 'click [data-reset-textsearch]': function(event, template) {
-    //     event.preventDefault();
-    //     template.textsearch.value.set('');
-    //     template.submitFilterForm();
-    // },
+    // Textsearch field
+    'click [data-reset-textsearch]': function(event, template) {
+        event.preventDefault();
+        template.queryForm[0].elements.textSearch.value = '';
+        template.queryForm.submit();
+    },
+
+    // Network field
+    'click [data-open-networkbox]': function(event, template) {
+        event.preventDefault();
+        template.networkBox.state.set(true);
+    },
+    'click [data-reset-networkid]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        template.networkBox.state.set(false);
+        template.selectedNetwork.set();
+        template.queryForm[0].elements.networkId.value = '';
+        template.queryForm.submit();
+    }
 
     // 'keyup [data-textsearch-input]': function(e, template) {
     //     e.preventDefault();
@@ -304,11 +323,6 @@ Template.app_discover_filter.events({
     // 'click [data-open-networkselector]': function(event, template) {
     //     event.preventDefault();
     //     toggleSelectorState(template, 'network');
-    // },
-    // 'click [data-reset-selected-network]': function(event, template) {
-    //     event.preventDefault();
-    //     template.network.value.set('');
-    //     template.submitFilterForm();
     // },
 
     // // Location selector events
