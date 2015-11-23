@@ -13,27 +13,31 @@ Partup.server.services.partup_popularity_calculator = {
 
         var activityScore = this._calculateActivityBasedScore(partup);
         var activityScoreWeight = 0.5;
-        d('Activity based partup popularity score is ' + (activityScore * activityScoreWeight));
-        score += (activityScore * activityScoreWeight);
+        d.log('Activity based partup popularity score is ' + activityScore);
+
         var shareScore = this._calculateShareBasedScore(partup);
         var shareScoreWeight = 0.2;
-        d('Share based partup popularity score is ' + (shareScore * shareScoreWeight));
-        score += (shareScore * shareScoreWeight);
+        d.log('Share based partup popularity score is ' + shareScore);
 
         var partnerScore = this._calculatePartnerBasedScore(partup);
         var partnerScoreWeight = 0.1;
-        d('Partner based partup popularity score is ' + (partnerScore * partnerScoreWeight));
-        score += (partnerScore * partnerScoreWeight);
+        d.log('Partner based partup popularity score is ' + partnerScore);
 
         var supporterScore = this._calculateSupporterBasedScore(partup);
         var supporterScoreWeight = 0.1;
-        d('Supporter based partup popularity score is ' + (supporterScore * supporterScoreWeight));
-        score += (supporterScore * supporterScoreWeight);
+        d.log('Supporter based partup popularity score is ' + supporterScore);
 
         var viewScore = this._calculateViewBasedScore(partup);
         var viewScoreWeight = 0.1;
-        d('View based partup popularity score is ' + (viewScore * viewScoreWeight));
-        score += (viewScore * viewScoreWeight);
+        d.log('View based partup popularity score is ' + viewScore);
+
+        score = (activityScore * activityScoreWeight) +
+            (shareScore * shareScoreWeight) +
+            (partnerScore * partnerScoreWeight) +
+            (supporterScore * supporterScoreWeight) +
+            (viewScore * viewScoreWeight);
+
+        d.log('Total partup popularityscore = ' + score);
 
         return score;
     },
