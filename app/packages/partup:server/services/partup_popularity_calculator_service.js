@@ -79,6 +79,7 @@ Partup.server.services.partup_popularity_calculator = {
     },
 
     _calculateViewBasedScore: function(partup) {
+        if (!partup || !partup.analytics) return 0;
         var views = partup.analytics.clicks_total || 0;
         if (views > 500) views = 500;
 
