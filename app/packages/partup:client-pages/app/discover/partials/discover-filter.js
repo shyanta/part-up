@@ -105,73 +105,35 @@ Template.app_discover_filter.onCreated(function() {
         }
     };
 
-    // // Sorting filter datamodel
-    // var sortingOptions = [
-    //     {
-    //         value: 'popular',
-    //         label: function() {
-    //             return __('pages-app-discover-filter-sorting-type-popular');
-    //         }
-    //     },
-    //     {
-    //         value: 'new',
-    //         label: function() {
-    //             return __('pages-app-discover-filter-sorting-type-newest');
-    //         }
-    //     }
-    // ];
-    // var defaultSortingOption = lodash.find(sortingOptions, {value: Partup.client.discover.DEFAULT_QUERY.sort});
-    // tpl.sorting = {
-    //     options: sortingOptions,
-    //     value: new ReactiveVar(defaultSortingOption),
-    //     selectorState: new ReactiveVar(false),
-    //     selectorData: function() {
-    //         var DROPDOWN_ANIMATION_DURATION = 200;
+    var prefilledLanguage = Partup.client.discover.query.get('language');
+    template.selectedLanguageLabel = new ReactiveVar(
+        prefilledLanguage ? customPrefill.languageLabel : undefined
+    );
+    template.languageBox = {
+        state: new ReactiveVar(false),
+        data: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
 
-    //         return {
-    //             onSelect: function(sorting) {
-    //                 tpl.sorting.selectorState.set(false);
+            return {
+                onSelect: function(language) {
+                    template.languageBox.state.set(false);
 
-    //                 Meteor.setTimeout(function() {
-    //                     tpl.sorting.value.set(sorting);
-    //                     tpl.submitFilterForm();
-    //                 }, DROPDOWN_ANIMATION_DURATION);
-    //             },
-    //             options: tpl.sorting.options,
-    //             default: defaultSortingOption.value
-    //         };
-    //     },
-    // };
-
-    // tpl.language = {
-    //     value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.language),
-    //     selectorState: new ReactiveVar(false, function(a, b) {
-    //         if (!b) return;
-    //     }),
-    //     selectorData: function() {
-    //         var DROPDOWN_ANIMATION_DURATION = 200;
-
-    //         return {
-    //             onSelect: function(language) {
-    //                 tpl.language.selectorState.set(false);
-
-    //                 Meteor.setTimeout(function() {
-    //                     tpl.language.value.set(language);
-    //                     tpl.submitFilterForm();
-    //                 }, DROPDOWN_ANIMATION_DURATION);
-    //             }
-    //         };
-    //     }
-    // };
+                    // Once the box is closed, set the value
+                    Meteor.setTimeout(function() {
+                        template.queryForm[0].elements.language.value = language._id;
+                        template.queryForm.submit();
+                        template.selectedLanguageLabel.set(language.native_name);
+                    }, DROPDOWN_ANIMATION_DURATION);
+                }
+            };
+        }
+    };
 });
 
 Template.app_discover_filter.onRendered(function() {
     var template = this;
 
     template.queryForm = template.$('form#discoverQueryForm');
-
-    // // Submit filter form once
-    // tpl.submitFilterForm();
 
     // // Blur all input fields when user is submitting
     // tpl.autorun(function() {
@@ -197,88 +159,39 @@ Template.app_discover_filter.helpers({
     query: function(key) {
         return Partup.client.discover.query.get(key);
     },
+
+    // Network
     selectedNetworkLabel: function() {
         return Template.instance().selectedNetworkLabel.get();
     },
     networkBox: function() {
         return Template.instance().networkBox;
     },
+
+    // Location
     selectedLocationLabel: function() {
         return Template.instance().selectedLocationLabel.get();
     },
     locationBox: function() {
         return Template.instance().locationBox;
     },
+
+    // Sort
     selectedSortLabel: function() {
         return Template.instance().selectedSortLabel.get();
     },
     sortBox: function() {
         return Template.instance().sortBox;
-    }
-    // Query
-    // textsearchData: function() {
-    //     return Template.instance().textsearch.value.get() || '';
-    // },
-
-    // Network
-    // networkValue: function() {
-    //     return Template.instance().network.value.get();
-    // },
-    // networkSelectorState: function() {
-    //     return Template.instance().network.selectorState;
-    // },
-    // networkSelectorData: function() {
-    //     return Template.instance().network.selectorData;
-    // },
-
-    // Location
-    // locationValue: function() {
-    //     return Template.instance().location.value.get();
-    // },
-    // locationSelectorState: function() {
-    //     return Template.instance().location.selectorState;
-    // },
-    // locationSelectorData: function() {
-    //     return Template.instance().location.selectorData;
-    // },
-
-    // Sorting
-    // sortingValue: function() {
-    //     return Template.instance().sorting.value.get();
-    // },
-    // sortingSelectorState: function() {
-    //     return Template.instance().sorting.selectorState;
-    // },
-    // sortingSelectorData: function() {
-    //     return Template.instance().sorting.selectorData;
-    // },
+    },
 
     // Language
-    // languageValue: function() {
-    //     return Template.instance().language.value.get();
-    // },
-    // languageSelectorState: function() {
-    //     return Template.instance().language.selectorState;
-    // },
-    // languageSelectorData: function() {
-    //     return Template.instance().language.selectorData;
-    // },
+    selectedLanguageLabel: function() {
+        return Template.instance().selectedLanguageLabel.get();
+    },
+    languageBox: function() {
+        return Template.instance().languageBox;
+    }
 });
-// var toggleSelectorState = function(template, selector) {
-//     if (selector) {
-//         if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
-//         if (template[selector] !== template.language) template.language.selectorState.set(false);
-//         if (template[selector] !== template.network) template.network.selectorState.set(false);
-//         if (template[selector] !== template.location) template.location.selectorState.set(false);
-//         var currentState = template[selector].selectorState.get();
-//         template[selector].selectorState.set(!currentState);
-//     } else {
-//         template.sorting.selectorState.set(false);
-//         template.language.selectorState.set(false);
-//         template.network.selectorState.set(false);
-//         template.location.selectorState.set(false);
-//     }
-// };
 
 Template.app_discover_filter.events({
     'submit form#discoverQueryForm': function(event, template) {
@@ -340,60 +253,18 @@ Template.app_discover_filter.events({
         event.preventDefault();
         template.sortBox.state.set(true);
     },
-    'click [data-reset-sortid]': function(event, template) {
+
+    // Language field
+    'click [data-open-languagebox]': function(event, template) {
+        event.preventDefault();
+        template.languageBox.state.set(true);
+    },
+    'click [data-reset-language]': function(event, template) {
         event.preventDefault();
         event.stopPropagation();
-        template.sortBox.state.set(false);
-        template.selectedSortLabel.set();
-        template.queryForm[0].elements.sortId.value = '';
+        template.languageBox.state.set(false);
+        template.selectedLanguageLabel.set();
+        template.queryForm[0].elements.language.value = '';
         template.queryForm.submit();
     }
-
-    // 'keyup [data-textsearch-input]': function(e, template) {
-    //     e.preventDefault();
-    //     var value = $(e.currentTarget).val();
-    //     template.textsearch.value.set(value);
-
-    //     if (window.PU_IE_VERSION === -1) return;
-    //     // IE fix (return key submit)
-    //     var pressedKey = e.which ? e.which : e.keyCode;
-    //     if (pressedKey == 13) {
-    //         template.submitFilterForm();
-    //         return false;
-    //     }
-    // },
-
-    // // Network selector events
-    // 'click [data-open-networkselector]': function(event, template) {
-    //     event.preventDefault();
-    //     toggleSelectorState(template, 'network');
-    // },
-
-    // // Location selector events
-    // 'click [data-open-locationselector]': function(event, template) {
-    //     event.preventDefault();
-    //     toggleSelectorState(template, 'location');
-    // },
-    // 'click [data-reset-selected-location]': function(event, template) {
-    //     event.preventDefault();
-    //     template.location.value.set('');
-    //     template.submitFilterForm();
-    // },
-
-    // // Sorting selector events
-    // 'click [data-open-sortingselector]': function(event, template) {
-    //     event.preventDefault();
-    //     toggleSelectorState(template, 'sorting');
-    // },
-
-    // // Language selector events
-    // 'click [data-open-languageselector]': function(event, template) {
-    //     event.preventDefault();
-    //     toggleSelectorState(template, 'language');
-    // },
-    // 'click [data-reset-selected-language]': function(event, template) {
-    //     event.preventDefault();
-    //     template.language.value.set('');
-    //     template.submitFilterForm();
-    // },
 });

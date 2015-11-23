@@ -60,21 +60,21 @@
             </div>
 
             <!-- Label -->
-            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-language-label' }}</p> -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-language-label' }}</p>
 
             <!-- Language -->
-            <!-- <div class="pu-sub-input pu-dropdownie-container">
-                <input type="hidden" name="language" value="{{ languageValue._id }}">
-                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if languageValue}}pu-state-filled{{/if}} pu-capitalize" data-open-languageselector>
-                    {{#with languageValue }}
-                        {{ native_name }}
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="language" value="{{ query 'language' }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{# if query 'language' }}pu-state-filled pu-capitalize{{/ if }}" data-open-languagebox>
+                    {{# with selectedLanguageLabel }}
+                        {{ . }}
                     {{else }}
                         {{_ 'pages-app-discover-filter-language-type-all' }}
                     {{/with }}
-                    <i class="picon-times" data-reset-selected-language></i>
+                    <i class="picon-times" data-reset-language></i>
                 </a>
-                {{> Dropdown toggle=languageSelectorState template="LanguageSelector" data=languageSelectorData }}
-            </div> -->
+                {{> Dropdown toggle=languageBox.state template="LanguageSelector" data=languageBox.data }}
+            </div>
 
             <!-- Hidden send button -->
             <input type="submit" value="Versturen" class="pu-sub-submit">
