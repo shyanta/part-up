@@ -17,17 +17,16 @@ Template.app_discover_filter.onCreated(function() {
 
     Partup.client.discover.prefillQuery();
 
-    template.selectedNetwork = new ReactiveVar();
-
+    template.selectedNetworkLabel = new ReactiveVar();
     template.networkBox = {
         state: new ReactiveVar(false, function(a, isOpen) {
             if (!isOpen) return;
 
-            // Focus the text box
-            Meteor.defer(function() {
-                var searchfield = template.find('form#networkSelector').elements.search;
-                if (searchfield) searchfield.focus();
-            });
+            // TODO: Focus the text box when there is one
+            // Meteor.defer(function() {
+            //     var searchfield = template.find('form#networkSelector').elements.search;
+            //     if (searchfield) searchfield.focus();
+            // });
         }),
         data: function() {
             var DROPDOWN_ANIMATION_DURATION = 200;
@@ -40,6 +39,36 @@ Template.app_discover_filter.onCreated(function() {
                     Meteor.setTimeout(function() {
                         template.queryForm[0].elements.networkId.value = network._id;
                         template.queryForm.submit();
+                        template.selectedNetworkLabel.set(network.name);
+                    }, DROPDOWN_ANIMATION_DURATION);
+                }
+            };
+        }
+    };
+
+    template.selectedLocationLabel = new ReactiveVar();
+    template.locationBox = {
+        state: new ReactiveVar(false, function(a, isOpen) {
+            if (!isOpen) return;
+
+            // Focus the text box
+            Meteor.defer(function() {
+                var searchfield = template.find('form#locationSelector').elements.search;
+                if (searchfield) searchfield.focus();
+            });
+        }),
+        data: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
+
+            return {
+                onSelect: function(location) {
+                    template.locationBox.state.set(false);
+
+                    // When the box is closed, set the value
+                    Meteor.setTimeout(function() {
+                        template.queryForm[0].elements.locationId.value = location.id;
+                        template.queryForm.submit();
+                        template.selectedLocationLabel.set(location.city);
                     }, DROPDOWN_ANIMATION_DURATION);
                 }
             };
@@ -132,30 +161,8 @@ Template.app_discover_filter.onCreated(function() {
     //         };
     //     }
     // };
-
-    // tpl.autorun(function(computation) {
-    //     var queryValue = Session.get('discover.query.textsearch');
-    //     if (queryValue) {
-    //         Session.set('discover.query.textsearch', undefined);
-    //         tpl.textsearch.value.set(queryValue);
-    //     }
-
-    //     var locationValue = Session.get('discover.query.location');
-    //     if (locationValue) {
-    //         Session.set('discover.query.location', undefined);
-    //         if (locationValue.place_id) locationValue.id = locationValue.place_id;
-    //         tpl.location.value.set(locationValue);
-    //     }
-
-    //     if (!computation.firstRun) {
-    //         tpl.submitFilterForm();
-    //     }
-    // });
 });
 
-/**
- * Discover-header rendered
- */
 Template.app_discover_filter.onRendered(function() {
     var template = this;
 
@@ -186,11 +193,17 @@ Template.app_discover_filter.helpers({
     query: function(key) {
         return Partup.client.discover.query.get(key);
     },
-    selectedNetwork: function() {
-        return Template.instance().selectedNetwork.get();
+    selectedNetworkLabel: function() {
+        return Template.instance().selectedNetworkLabel.get();
     },
     networkBox: function() {
         return Template.instance().networkBox;
+    },
+    selectedLocationLabel: function() {
+        return Template.instance().selectedLocationLabel.get();
+    },
+    locationBox: function() {
+        return Template.instance().locationBox;
     }
     // Query
     // textsearchData: function() {
@@ -256,9 +269,7 @@ Template.app_discover_filter.helpers({
 //         template.location.selectorState.set(false);
 //     }
 // };
-/**
- * Discover-header events
- */
+
 Template.app_discover_filter.events({
     'submit form#discoverQueryForm': function(event, template) {
         event.preventDefault();
@@ -274,11 +285,6 @@ Template.app_discover_filter.events({
             var defaultValue = Partup.client.discover.DEFAULT_QUERY[key];
 
             Partup.client.discover.query.set(key, formValue || defaultValue);
-
-            if (key === 'networkId' && formValue) {
-                var network = Networks.findOne(formValue);
-                template.selectedNetwork.set(network);
-            }
         }
 
         window.scrollTo(0, 0);
@@ -300,8 +306,22 @@ Template.app_discover_filter.events({
         event.preventDefault();
         event.stopPropagation();
         template.networkBox.state.set(false);
-        template.selectedNetwork.set();
+        template.selectedNetworkLabel.set();
         template.queryForm[0].elements.networkId.value = '';
+        template.queryForm.submit();
+    },
+
+    // Location field
+    'click [data-open-locationbox]': function(event, template) {
+        event.preventDefault();
+        template.locationBox.state.set(true);
+    },
+    'click [data-reset-locationid]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        template.locationBox.state.set(false);
+        template.selectedLocationLabel.set();
+        template.queryForm[0].elements.locationId.value = '';
         template.queryForm.submit();
     }
 

@@ -20,8 +20,8 @@
             <div class="pu-sub-input pu-dropdownie-container">
                 <input type="hidden" name="networkId" value="{{ query 'networkId' }}">
                 <a href="#" class="pu-button pu-button-input pu-button-input-filter {{# if query 'networkId' }}pu-state-filled{{/ if }}" data-open-networkbox>
-                    {{# with selectedNetwork }}
-                        {{ name }}
+                    {{# with selectedNetworkLabel }}
+                        {{ . }}
                     {{ else }}
                         {{_ 'pages-app-discover-filter-networkfilter-all' }}
                     {{/ with }}
@@ -31,21 +31,21 @@
             </div>
 
             <!-- Label -->
-            <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-locationfilter-label' }}</p> -->
+            <p class="pu-sub-label">{{_ 'pages-app-discover-filter-locationfilter-label' }}</p>
 
             <!-- Location selector -->
-            <!-- <div class="pu-sub-input pu-dropdownie-container">
-                <input type="hidden" name="location_id" value="{{ locationValue.id }}">
-                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{#if locationValue}}pu-state-filled{{/if}}" data-open-locationselector>
-                    {{#with locationValue }}
-                        {{ city }}
-                    {{else }}
+            <div class="pu-sub-input pu-dropdownie-container">
+                <input type="hidden" name="locationId" value="{{ query 'locationId' }}">
+                <a href="#" class="pu-button pu-button-input pu-button-input-filter {{# if query 'locationId' }}pu-state-filled{{/ if }}" data-open-locationbox>
+                    {{# with selectedLocationLabel }}
+                        {{ . }}
+                    {{ else }}
                         {{_ 'pages-app-discover-filter-locationfilter-all' }}
                     {{/with }}
-                    <i class="picon-times" data-reset-selected-location></i>
+                    <i class="picon-times" data-reset-locationid></i>
                 </a>
-                {{> Dropdown toggle=locationSelectorState template="LocationSelector" data=locationSelectorData }}
-            </div> -->
+                {{> Dropdown toggle=locationBox.state template="LocationSelector" data=locationBox.data }}
+            </div>
 
             <!-- Label -->
             <!-- <p class="pu-sub-label">{{_ 'pages-app-discover-filter-sorting-label' }}</p> -->
