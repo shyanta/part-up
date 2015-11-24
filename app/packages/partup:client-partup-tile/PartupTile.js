@@ -38,8 +38,10 @@ Template.PartupTile.onCreated(function() {
 
     // -- Partup network
     partup.network = Networks.findOne({_id: partup.network_id});
-    var networkIcon = partup.network ? Images.findOne({_id: partup.network.icon}) : undefined;
-    partup.networkIconUrl = networkIcon ? Partup.client.url.getImageUrl(networkIcon, '32x32') : '';
+    if (partup.network) {
+        var networkIcon = Images.findOne({_id: partup.network.icon});
+        partup.network.iconUrl = networkIcon ? Partup.client.url.getImageUrl(networkIcon, '32x32') : '';
+    }
 
     // -- Partup counts
     partup.activityCount = partup.activity_count || Activities.findForPartup(partup).count();

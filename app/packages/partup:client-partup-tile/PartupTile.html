@@ -83,21 +83,20 @@
 
         <!-- Network -->
         {{# unless HIDE_NETWORKTILE }}
-            {{# if network }}
-                {{# with network }}
-                    <footer>
-                        <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
-                            <div class="pu-sub-figurecontainer">
-                                <figure style=""></figure>
-                                {{# with networkIconUrl }}background-image: url('{{ . }}');{{/ with }}
-                            </div>
-                            <div class="pu-sub-namecontainer">
-                                <span>{{ name }}</span>
-                            </div>
-                        </a>
-                    </footer>
-                {{/ with }}
-            {{/ if }}
+            {{# with partup.network }}
+                <footer>
+                    <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
+                        <div class="pu-sub-figurecontainer">
+                            <figure style="
+                                {{# with iconUrl }}background-image: url('{{ . }}');{{/ with }}
+                            "></figure>
+                        </div>
+                        <div class="pu-sub-namecontainer">
+                            <span>{{ name }}</span>
+                        </div>
+                    </a>
+                </footer>
+            {{/ with }}
         {{/ unless }}
 
     </article>
