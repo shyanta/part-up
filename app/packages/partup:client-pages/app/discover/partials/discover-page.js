@@ -72,16 +72,22 @@ Template.app_discover_page.onRendered(function() {
             template.partupsXMLHttpRequest = null;
         }
 
+        var loginToken = Accounts._storedLoginToken();
+
         // Add some parameters to the query
         template.query.limit = PAGING_INCREMENT;
         template.query.skip = page * PAGING_INCREMENT;
-        template.query.userId = Meteor.userId(); // for caching purposes in nginx
+        template.query.userId = Meteor.userId();
+        template.query.loginToken = loginToken;
 
         // Update state(s)
         template.states.loading_infinite_scroll = true;
 
         // Call the API for data
         Partup.client.API.get('/partups/discover' + mout.queryString.encode(template.query), {
+            headers: {
+                Authorization: 'Bearer ' + loginToken
+            },
             beforeSend: function(_request) {
                 template.partupsXMLHttpRequest = _request;
             }
