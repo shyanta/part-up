@@ -132,7 +132,7 @@ Template.app_discover_page.onRendered(function() {
         template.columnTilesLayout.clear();
 
         template.states.count_loading.set(true);
-        HTTP.get('/partups/discover/count' + mout.queryString.encode(template.query), {
+        HTTP.get('/partups/discover/count' + mout.queryString.encode(query), {
             beforeSend: function(request) {
                 template.countXMLHttpRequest = request;
             }
