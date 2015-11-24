@@ -1,7 +1,7 @@
 SyncedCron.add({
     name: 'Reset the clicks per hour on partups',
     schedule: function(parser) {
-        return parser.text('every hour starting on the 2nd minute');
+        return parser.text(Partup.constants.CRON_RESET_CLICKS);
     },
     job: function() {
         var hour = (new Date).getHours();
