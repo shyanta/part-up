@@ -55,10 +55,6 @@ Template.app_discover_page.onCreated(function() {
 Template.app_discover_page.onRendered(function() {
     var template = this;
 
-    // Set amount of columns based on screen width
-    var columns = getAmountOfColumns(Partup.client.screen.size.keys.width);
-    template.columnTilesLayout.setColumns(columns);
-
     // Current query placeholder
     template.query;
 
