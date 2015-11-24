@@ -1,29 +1,41 @@
-var partupsToColumnTiles = function(partups) {
-    return lodash.map(partups, function(partup) {
-        return {
-            partup: partup,
-            HIDE_TAGS: true
-        };
-    });
+var getAmountOfColumns = function(screenwidth) {
+    if (screenwidth > Partup.client.grid.getWidth(11) + 80) {
+        return 4;
+    }
+
+    if (screenwidth > Partup.client.grid.getWidth(6) + 80) {
+        return 2;
+    }
+
+    return 1;
 };
 
 Template.app_home.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.video = new ReactiveVar(false);
+    template.video = new ReactiveVar(false);
 
-    // Popular partups
-    tpl.popular_partups = {
-        layout: {}
-    };
+    // Column layout
+    template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
+
+        // This function will be called for each tile
+        calculateApproximateTileHeight: function(tileData, columnWidth) {
+
+            // The goal of this formula is to approach
+            // the expected height of a tile as best
+            // as possible, synchronously,
+            // using the given partup object
+            return 1;
+        }
+
+    });
 
     // Featured partup
-    tpl.featured_partup = new ReactiveVar();
+    template.featured_partup = new ReactiveVar();
 
-    this.autorun(function() {
-        if (Partup.client.language.current.get() == undefined) return;
-
+    template.autorun(function() {
         var currentLanguage = Partup.client.language.current.get();
+        if (currentLanguage == undefined) return;
 
         // Call first four discover part-ups and add them to the UI
         Partup.client.API.get('/partups/home/' + currentLanguage, {}, function(error, result) {
@@ -33,7 +45,15 @@ Template.app_home.onCreated(function() {
             var popular_partups = Partups.find({_id: {$in: popular_partup_ids}}).fetch();
 
             if (popular_partups.length > 0) {
-                tpl.popular_partups.layout.add(partupsToColumnTiles(popular_partups));
+                var tiles = popular_partups.map(function(partup) {
+                    return {
+                        partup: partup,
+                        HIDE_TAGS: true
+                    };
+                });
+
+                // Add tiles to the column layout
+                template.columnTilesLayout.addTiles(tiles);
             }
         });
 
@@ -44,12 +64,29 @@ Template.app_home.onCreated(function() {
             var featured_partup_ids = lodash.pluck(get(result, 'partups'), '_id');
             var featured_partup = Partups.findOne({_id: {$in: featured_partup_ids}});
 
-            tpl.featured_partup.set(featured_partup);
+            template.featured_partup.set(featured_partup);
         });
     });
 });
 
+Template.app_home.onRendered(function() {
+    var template = this;
+
+    // When the screen size alters
+    template.autorun(function() {
+        var screenWidth = Partup.client.screen.size.get('width');
+        var columns = getAmountOfColumns(screenWidth);
+
+        if (columns !== template.columnTilesLayout.columns.curValue.length) {
+            template.columnTilesLayout.setColumns(columns);
+        }
+    });
+});
+
 Template.app_home.helpers({
+    columnTilesLayout: function() {
+        return Template.instance().columnTilesLayout;
+    },
     featured_partup: function() {
         return Template.instance().featured_partup.get();
     },
@@ -88,31 +125,6 @@ Template.app_home.helpers({
 
     playVideo: function() {
         return Template.instance().video.get();
-    },
-
-    // We use this trick to be able to call a function in a child template.
-    // The child template directly calls 'addToLayoutHook' with a callback.
-    // We save that callback, so we can call it later and the child template can react to it.
-    addToLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.popular_partups.layout.add = callback;
-        };
-    },
-    clearLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.popular_partups.layout.clear = callback;
-        };
-    },
-    rerenderLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.popular_partups.layout.rerender = callback;
-        };
     }
 });
 

@@ -65,13 +65,9 @@
                             </p>
                         </header>
                         <div class="pu-sub-partups">
-                            {{> ColumnsLayout
-                                COLUMNS=amountOfColumns
-                                TEMPLATE="PartupTile"
-                                addHook=addToLayoutHook
-                                clearHook=clearLayoutHook
-                                rerenderHook=rerenderLayoutHook
-                            }}
+                            {{# ColumnTilesLayout instance=columnTilesLayout }}
+                                {{> PartupTile }}
+                            {{/ ColumnTilesLayout }}
                         </div>
                         <footer class="pu-sub-popularpartupsfooter">
                             <p class="pu-sub-discoverbutton">
