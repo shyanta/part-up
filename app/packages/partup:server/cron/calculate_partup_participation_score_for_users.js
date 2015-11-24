@@ -1,7 +1,7 @@
 SyncedCron.add({
     name: 'Calculate the Part-up participation score for users',
     schedule: function(parser) {
-        return parser.text('every 1 hour');
+        return parser.text(Partup.constants.CRON_PARTICIPATION);
     },
     job: function() {
         // TODO: Smarter way to do this, most likely not everyone

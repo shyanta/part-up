@@ -1,7 +1,7 @@
 SyncedCron.add({
     name: 'Send daily notification email digest',
     schedule: function(parser) {
-        return parser.text(Partup.constants.DIGEST_FREQUENCY);
+        return parser.text(Partup.constants.CRON_DIGEST);
     },
     job: function() {
         var counter = 0;
