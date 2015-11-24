@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.13.4
+- fix(cron): spread out cronjobs better over the hour
+
 ## 1.13.3
 - fix(meurs-profile): fix problems with numberless userids
 
