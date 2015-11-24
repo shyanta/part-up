@@ -97,7 +97,7 @@ Template.NetworkSettings.helpers({
 
         if (imageId) {
             var image = Images.findOne({_id: imageId});
-            if (image) return Partup.client.url.getImageUrl(image, '360x360');
+            if (image) return Partup.helpers.url.getImageUrl(image, '360x360');
         }
 
         return '/images/smile.png';
@@ -115,7 +115,7 @@ Template.NetworkSettings.helpers({
 
         if (iconId) {
             var icon = Images.findOne({_id: iconId});
-            if (icon) return Partup.client.url.getImageUrl(icon, '360x360');
+            if (icon) return Partup.helpers.url.getImageUrl(icon, '360x360');
         }
 
         return '/images/smile.png';
