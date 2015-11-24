@@ -9,3 +9,4 @@ Partup.constants.CRON_PROGRESS = process.env.PARTUP_CRON_PROGRESS || 'every 1 ho
 Partup.constants.CRON_PARTICIPATION = process.env.PARTUP_CRON_PARTICIPATION || 'every 1 hour on the 30th minute';
 Partup.constants.CRON_RESET_CLICKS = process.env.PARTUP_CRON_RESET_CLICKS || 'every 1 hour on the 45th minute';
 Partup.constants.CRON_SHARED_COUNTS = process.env.PARTUP_CRON_SHARED_COUNTS || 'every 13 minutes';
+Partup.constants.CRON_POPULARITY = process.env.PARTUP_CRON_POPULARITY || 'every 1 hour on the 20th minute';

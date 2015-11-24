@@ -1,7 +1,7 @@
 SyncedCron.add({
     name: 'Calculate the Part-up popularity score for partups',
     schedule: function(parser) {
-        return parser.text('every 1 hour starting on the 15th minute');
+        return parser.text(Partup.constants.CRON_POPULARITY);
     },
     job: function() {
         Partups.find({}).forEach(function(partup) {
