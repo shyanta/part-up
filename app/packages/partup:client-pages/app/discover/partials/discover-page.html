@@ -6,7 +6,7 @@
             <h2 class="pu-title">
                 {{_ 'pages-app-discover-heading' }}
 
-                {{# if partupsLoading }}
+                {{# if countLoading }}
                     {{> Spinner type='small' }}
                 {{ else }}
                     <span class="pu-sub-countlabel">
@@ -21,20 +21,22 @@
 
             {{# if showProfileCompletion }}
                 <p class="pu-columnslayoutaction pu-paragraph pu-sub-right">
-                    <a href="{{ pathFor 'profile' _id=currentUser._id }}" data-open-profilesettings>{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</a>
+                    <a href="{{ pathFor 'profile-settings' _id=currentUserId }}" data-open-profilesettings>{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</a>
                 </p>
             {{/ if }}
         </header>
 
         <!-- Content (partup-tiles) -->
         <div data-infinitescroll-container>
-            {{> ColumnsLayout
-                COLUMNS=amountOfColumns
-                TEMPLATE="PartupTile"
-                addHook=addToLayoutHook
-                clearHook=clearLayoutHook
-                rerenderHook=rerenderLayoutHook
-            }}
+            {{# ColumnTilesLayout instance=columnTilesLayout }}
+                {{> PartupTile }}
+            {{/ ColumnTilesLayout }}
+
+            {{# unless endReached }}
+                <div class="pu-sub-loading-infinite-scroll">
+                    {{> Spinner type='small' }}
+                </div>
+            {{/ unless }}
         </div>
 
     </section>

@@ -15,13 +15,19 @@ Partup.client.API = {
      */
     get: function(url, options, callback) {
         var self = this;
+        var request = null;
 
         HTTP.get(url, options, function(error, result) {
-            if (error) callback(error);
+            if (error) {
+                callback(error);
+                return;
+            }
 
             self._apiResultToLocalCollections(result);
             callback(null, result.data);
         });
+
+        return request;
     },
 
     /**
@@ -35,7 +41,10 @@ Partup.client.API = {
         var self = this;
 
         HTTP.post(url, options, function(error, result) {
-            if (error) callback(error);
+            if (error) {
+                callback(error);
+                return;
+            }
 
             self._apiResultToLocalCollections(result);
             callback(null, result.data);

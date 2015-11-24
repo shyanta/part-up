@@ -184,7 +184,7 @@ Template.app_profile_supporter_partups.helpers({
     },
     amountOfColumns: function() {
         var tpl = Template.instance();
-        var smaller = Partup.client.screensize.current.get('width') < Partup.client.grid.getWidth(11) + 80;
+        var smaller = Partup.client.screen.size.get('width') < Partup.client.grid.getWidth(11) + 80;
         Meteor.defer(function() {
             tpl.partups.layout.rerender();
         });

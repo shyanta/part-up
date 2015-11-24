@@ -3,7 +3,7 @@ Meteor.startup(function() {
         event.preventDefault();
         if ($(event.currentTarget).hasClass('pu-tag-disableglobalclick')) return;
 
-        Session.set('discover.query.textsearch', event.currentTarget.textContent);
+        Partup.client.discover.setPrefill('textSearch', event.currentTarget.textContent);
         Router.go('discover');
     });
 });
