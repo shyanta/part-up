@@ -113,19 +113,29 @@ Template.PartupTile.onRendered(function() {
         });
     }
 
-    // if (template.data.image) {
-    //     var image = Images.findOne({_id: this.data.image});
-    //     if (image && image.focuspoint) {
-    //         var focuspointElm = this.find('[data-partup-tile-focuspoint]');
-    //         this.focuspoint = new Focuspoint.View(focuspointElm, {
-    //             x: image.focuspoint.x,
-    //             y: image.focuspoint.y
-    //         });
-    //     }
-    // }
+    // Focuspoint in discover image
+    if (template.data.partup.image) {
+        var image = Images.findOne({_id: template.data.partup.image});
+
+        if (image && image.focuspoint) {
+            var focuspointElm = template.find('[data-partup-tile-focuspoint]');
+            template.focuspoint = new Focuspoint.View(focuspointElm, {
+                x: image.focuspoint.x,
+                y: image.focuspoint.y
+            });
+        }
+    }
 
     var canvasElm = template.find('canvas.pu-sub-radial');
     if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
+});
+
+Template.PartupTile.onDestroyed(function() {
+    var template = this;
+
+    if (template.focuspoint) {
+        template.focuspoint.kill();
+    }
 });
 
 Template.PartupTile.helpers({
