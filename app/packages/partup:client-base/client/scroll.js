@@ -4,7 +4,7 @@
  * @class scroll
  * @memberof Partup.client
  */
-var INFINITE_SCROLL_OFFSET = 800;
+var INFINITE_SCROLL_OFFSET = 0;
 var INFINITE_SCROLL_DEBOUNCE = 40;
 
 Partup.client.scroll = {
@@ -72,14 +72,14 @@ Partup.client.scroll = {
         var self = this;
 
         options = options || {};
-        options.offset = options.offset || INFINITE_SCROLL_OFFSET;
+        options.offset = mout.lang.isNumber(options.offset) ? options.offset : INFINITE_SCROLL_OFFSET;
         if (!options.template) return;
         if (!options.element) return;
 
         var trigger = function() {
             var bottomPosition = options.element.getBoundingClientRect().bottom;
             var bottomInView = bottomPosition - window.innerHeight;
-            if (bottomInView < INFINITE_SCROLL_OFFSET) {
+            if (bottomInView < options.offset) {
                 if (!options.template.view.isDestroyed) callback();
             }
         };
