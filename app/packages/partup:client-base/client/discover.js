@@ -69,7 +69,7 @@ Partup.client.discover = {
      */
     prefillQuery: function() {
         for (key in this.DEFAULT_QUERY) {
-            var value = _prefill[key] || this.DEFAULT_QUERY[key];
+            var value = _prefill[key];
             if (!value) { continue; }
 
             this.query.set(key, value);
