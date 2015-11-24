@@ -16,7 +16,7 @@ Template.app_partup_updates.onCreated(function() {
 
         // Constants
         STARTING_LIMIT: 5,
-        INCREMENT: 15,
+        INCREMENT: 5,
 
         // States
         loading: new ReactiveVar(false),
