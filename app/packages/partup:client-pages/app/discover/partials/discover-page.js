@@ -72,21 +72,19 @@ Template.app_discover_page.onRendered(function() {
             template.partupsXMLHttpRequest = null;
         }
 
-        var loginToken = Accounts._storedLoginToken();
-
         // Add some parameters to the query
-        template.query.limit = PAGING_INCREMENT;
-        template.query.skip = page * PAGING_INCREMENT;
-        template.query.userId = Meteor.userId();
-        template.query.loginToken = loginToken;
+        var query = mout.object.deepFillIn({}, template.query);
+        query.limit = PAGING_INCREMENT;
+        query.skip = page * PAGING_INCREMENT;
+        query.userId = Meteor.userId();
 
         // Update state(s)
         template.states.loading_infinite_scroll = true;
 
         // Call the API for data
-        Partup.client.API.get('/partups/discover' + mout.queryString.encode(template.query), {
+        Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), {
             headers: {
-                Authorization: 'Bearer ' + loginToken
+                Authorization: 'Bearer ' + Accounts._storedLoginToken()
             },
             beforeSend: function(_request) {
                 template.partupsXMLHttpRequest = _request;
@@ -124,7 +122,11 @@ Template.app_discover_page.onRendered(function() {
         }
 
         template.query = Partup.client.discover.composeQueryObject();
-        template.query.userId = Meteor.userId(); // for caching purposes in nginx
+
+        var query = mout.object.deepFillIn({}, template.query);
+        query.userId = Meteor.userId();
+        query.token = Accounts._storedLoginToken();
+
         template.states.paging_end_reached.set(false);
         template.page.set(0);
         template.columnTilesLayout.clear();
@@ -157,7 +159,8 @@ Template.app_discover_page.onRendered(function() {
     // Infinite scroll
     Partup.client.scroll.infinite({
         template: template,
-        element: template.find('[data-infinitescroll-container]')
+        element: template.find('[data-infinitescroll-container]'),
+        offset: 1800
     }, function() {
         if (template.states.loading_infinite_scroll || template.states.paging_end_reached.curValue) { return; }
 
