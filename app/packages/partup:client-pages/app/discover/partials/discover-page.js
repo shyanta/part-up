@@ -63,7 +63,14 @@ Template.app_discover_page.onRendered(function() {
     template.query;
 
     // When the page changes due to infinite scroll
+    template.partupsXMLHttpRequest = null;
     template.page = new ReactiveVar(0, function(previousPage, page) {
+
+        // Cancel possibly ongoing request
+        if (template.partupsXMLHttpRequest) {
+            template.partupsXMLHttpRequest.abort();
+            template.partupsXMLHttpRequest = null;
+        }
 
         // Add some parameters to the query
         template.query.limit = PAGING_INCREMENT;
@@ -74,7 +81,13 @@ Template.app_discover_page.onRendered(function() {
         template.states.loading_infinite_scroll = true;
 
         // Call the API for data
-        Partup.client.API.get('/partups/discover' + mout.queryString.encode(template.query), function(error, data) {
+        Partup.client.API.get('/partups/discover' + mout.queryString.encode(template.query), {
+            beforeSend: function(_request) {
+                template.partupsXMLHttpRequest = _request;
+            }
+        }, function(error, data) {
+            template.partupsXMLHttpRequest = null;
+
             if (error || !data.partups || data.partups.length === 0) {
                 template.states.loading_infinite_scroll = false;
                 template.states.paging_end_reached.set(true);
@@ -97,7 +110,13 @@ Template.app_discover_page.onRendered(function() {
     });
 
     // When the query changes
+    template.countXMLHttpRequest = null;
     template.autorun(function() {
+        if (template.countXMLHttpRequest) {
+            template.countXMLHttpRequest.abort();
+            template.countXMLHttpRequest = null;
+        }
+
         template.query = Partup.client.discover.composeQueryObject();
         template.query.userId = Meteor.userId(); // for caching purposes in nginx
         template.states.paging_end_reached.set(false);
@@ -105,7 +124,12 @@ Template.app_discover_page.onRendered(function() {
         template.columnTilesLayout.clear();
 
         template.states.count_loading.set(true);
-        HTTP.get('/partups/discover/count' + mout.queryString.encode(template.query), function(error, response) {
+        HTTP.get('/partups/discover/count' + mout.queryString.encode(template.query), {
+            beforeSend: function(request) {
+                template.countXMLHttpRequest = request;
+            }
+        }, function(error, response) {
+            template.countXMLHttpRequest = null;
             template.states.count_loading.set(false);
             if (error || !response || !mout.lang.isString(response.content)) { return; }
 
