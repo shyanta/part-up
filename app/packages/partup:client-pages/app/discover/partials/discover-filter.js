@@ -135,13 +135,6 @@ Template.app_discover_filter.onRendered(function() {
 
     template.queryForm = template.$('form#discoverQueryForm');
 
-    // // Blur all input fields when user is submitting
-    // tpl.autorun(function() {
-    //     if (tpl.data.getting_data.get()) {
-    //         tpl.$('input').blur();
-    //     }
-    // });
-
     var dropdown_element = template.find('[data-filterbar]');
     template.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
         template.networkBox.state.set(false);
@@ -199,15 +192,17 @@ Template.app_discover_filter.events({
 
         var form = event.currentTarget;
 
+        $(form).find('input').blur();
+
         for (key in Partup.client.discover.DEFAULT_QUERY) {
             if (!form.elements[key]) {
                 continue;
             }
 
-            var formValue = form.elements[key].value;
-            var defaultValue = Partup.client.discover.DEFAULT_QUERY[key];
+            var fieldValue = form.elements[key].value;
+            var defaultFieldValue = Partup.client.discover.DEFAULT_QUERY[key];
 
-            Partup.client.discover.query.set(key, formValue || defaultValue);
+            Partup.client.discover.query.set(key, fieldValue || defaultFieldValue);
         }
 
         window.scrollTo(0, 0);
