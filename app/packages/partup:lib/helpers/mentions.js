@@ -107,11 +107,11 @@ Partup.helpers.mentions.decode = function(message) {
     return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, function(m, users) {
         // decode supporter mentions
         var name = 'Supporters';
-        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-user">' + name + '</a>';
+        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-group">' + name + '</a>';
     }).replace(/\[Partners:(?:([^\]]+))?\]/g, function(m, users) {
         // decode upper mentions
         var name = 'Partners';
-        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-user">' + name + '</a>';
+        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-group">' + name + '</a>';
     }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
         // decode invividual mentions
         return '<a data-usercard="' + id + '" class="pu-mention-user">' + name + '</a>';

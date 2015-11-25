@@ -28,6 +28,7 @@ Template.UserHoverCard.onRendered(function() {
     template.hoverHandler = function(e) {
         hoverCardDebugger.log('mouseover');
         var self = $(this); // [data-usercard]
+        var delay = self.data('usercard') === 'group' ? 0 : 500;
 
         // clear any other usercard timeout
         clearTimeout(showProfileTimeout);
@@ -68,7 +69,7 @@ Template.UserHoverCard.onRendered(function() {
         });
 
         // show usercard after 500 ms delay
-        showProfileTimeout = setTimeout(delayedMouseOverHandler, 500);
+        showProfileTimeout = setTimeout(delayedMouseOverHandler, delay);
 
         // listen to hover cancel
         self.on('mouseleave', mouseLeaveHandler);
