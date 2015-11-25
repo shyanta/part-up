@@ -36,15 +36,15 @@
                     {{# if avatars }}
                         <ul class="pu-sub-avatar-list" style="margin-bottom:40px;">
                             {{# each avatars }}
-                                {{# if data.upperId }}
+                                {{# if data.upper }}
                                      <li class="pu-avatar" style="
-                                        {{# with getUpper data.upperId }}{{# with partupImageUrl id=profile.image store='80x80' }}background-image: url('{{ . }}');{{/ with }}{{/ with }}
+                                        {{# with data.upperImageUrl }}background-image: url('{{ . }}');{{/ with }}
                                         {{# with avatarPosition }}
                                             top: {{ y }}px;
                                             left: {{ x }}px;
                                             transition-delay: {{ delay }}s;
                                         {{/ with }}
-                                    " data-usercard="{{ data.upperId }}"></li>
+                                    " data-usercard="{{ data.upper._id }}"></li>
                                 {{ else }}
                                     <li class="pu-avatar pu-avatar-more" style="
                                         {{# with avatarPosition }}

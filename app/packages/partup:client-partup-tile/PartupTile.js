@@ -86,7 +86,8 @@ Template.PartupTile.onCreated(function() {
             return {
                 position: position,
                 data: {
-                    upperId: avatar
+                    upper: upper,
+                    upperImageUrl: Partup.client.url.getImageUrl(upperImage, '80x80')
                 }
             };
         });
@@ -137,9 +138,6 @@ Template.PartupTile.onDestroyed(function() {
 Template.PartupTile.helpers({
     avatarPosition: function() {
         return Template.instance().hovering.get() ? this.position.hover : this.position.default;
-    },
-    getUpper: function(id) {
-        return Meteor.users.findOne(id);
     }
 });
 
