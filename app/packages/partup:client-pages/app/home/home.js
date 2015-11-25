@@ -22,6 +22,9 @@ Template.app_home.onCreated(function() {
     // Featured partup
     template.featured_partup = new ReactiveVar();
 
+    // Featured networks
+    template.featured_networks = new ReactiveVar([]);
+
     // Column layout
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
@@ -89,6 +92,20 @@ Template.app_home.onRendered(function() {
             Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
             template.featured_partup.set(partup);
         });
+
+        // Call featured networks
+        Partup.client.API.get('/networks/featured/' + currentLanguage, {}, function(error, result) {
+            if (error || !result.networks || result.networks.length === 0) {
+                return;
+            }
+
+            var networks = result.networks.map(function(network) {
+                Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
+                return network;
+            });
+
+            template.featured_networks.set(networks);
+        });
     });
 });
 
@@ -97,10 +114,10 @@ Template.app_home.helpers({
         return Template.instance().columnTilesLayout;
     },
     featured_partup: function() {
-        var partupVar = Template.instance().featured_partup;
-        if (!partupVar) { return; }
-
-        return partupVar.get();
+        return Template.instance().featured_partup.get();
+    },
+    featured_networks: function() {
+        return Template.instance().featured_networks.get();
     },
     videoWatched: function() {
         return Session.get('home.videowatched');

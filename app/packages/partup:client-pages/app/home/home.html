@@ -110,7 +110,13 @@
             <!-- Business -->
             <section class="pu-sub-section pu-sub-section-last">
                 <div class="pu-wrap pu-wrap-home">
-                    {{> FeaturedNetworks networks=networks }}
+                    {{# if featured_networks.length }}
+                        {{> FeaturedNetworks networks=featured_networks }}
+                    {{ else }}
+                        <div class="pu-sub-loading">
+                            {{> Spinner }}
+                        </div>
+                    {{/ if }}
                 </div>
             </section>
         </div>

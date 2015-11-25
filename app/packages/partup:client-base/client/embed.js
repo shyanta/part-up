@@ -6,18 +6,15 @@
  */
 Partup.client.embed = {
     partup: function(partup, images, networks, users) {
+        var embed = this;
 
         // Add upperObjects to partup
         if (partup.uppers) {
             partup.upperObjects = partup.uppers.map(function(userId) {
                 var upper = mout.object.find(users, {_id: userId});
-
                 if (!upper) return {};
 
-                // Add imageObject to upper image
-                if (get(upper, 'profile.image')) {
-                    upper.profile.imageObject = mout.object.find(images, {_id: upper.profile.image});
-                }
+                embed.user(upper, images);
 
                 return upper;
             });
@@ -32,9 +29,41 @@ Partup.client.embed = {
         if (partup.network_id) {
             partup.networkObject = mout.object.find(networks, {_id: partup.network_id});
 
-            if (partup.networkObject && partup.networkObject.icon) {
-                partup.networkObject.iconObject = mout.object.find(images, {_id: partup.networkObject.icon});
-            }
+            // Embed network
+            embed.network(partup.networkObject, images, users);
         }
+    },
+    network: function(network, images, users) {
+        var embed = this;
+
+        // Add network iconObject
+        if (network.icon) {
+            network.iconObject = mout.object.find(images, {_id: network.icon});
+        }
+
+        // Add network logoObject
+        if (network.logo) {
+            network.logoObject = mout.object.find(images, {_id: network.logo});
+        }
+
+        // Add network imageObject
+        if (network.image) {
+            network.imageObject = mout.object.find(images, {_id: network.image});
+        }
+
+        // Add featured by user data
+        if (network.featured && network.featured.by_upper) {
+            network.featured.by_upperObject = mout.object.find(users, {_id: network.featured.by_upper._id});
+            embed.user(network.featured.by_upperObject, images);
+        }
+
+    },
+    user: function(user, images) {
+
+        // Add imageObject to user image
+        if (get(user, 'profile.image')) {
+            user.profile.imageObject = mout.object.find(images, {_id: user.profile.image});
+        }
+
     }
 };
