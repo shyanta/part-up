@@ -55,9 +55,15 @@ Template.app_discover_page.onCreated(function() {
 Template.app_discover_page.onRendered(function() {
     var template = this;
 
-    // Set amount of columns based on screen width
-    var columns = getAmountOfColumns(Partup.client.screen.size.keys.width);
-    template.columnTilesLayout.setColumns(columns);
+    // When the screen size alters
+    template.autorun(function() {
+        var screenWidth = Partup.client.screen.size.get('width');
+        var columns = getAmountOfColumns(screenWidth);
+
+        if (columns !== template.columnTilesLayout.columns.curValue.length) {
+            template.columnTilesLayout.setColumns(columns);
+        }
+    });
 
     // Current query placeholder
     template.query;
@@ -98,41 +104,10 @@ Template.app_discover_page.onRendered(function() {
                 return;
             }
 
-            var images = data['cfs.images.filerecord'] || [];
-
             template.states.paging_end_reached.set(data.partups.length < PAGING_INCREMENT);
 
             var tiles = data.partups.map(function(partup) {
-
-                // Add upperObjects to partup
-                if (partup.uppers) {
-                    partup.upperObjects = partup.uppers.map(function(userId) {
-                        var upper = mout.object.find(data.users, {_id: userId});
-
-                        if (!upper) return {};
-
-                        // Add imageObject to upper image
-                        if (get(upper, 'profile.image')) {
-                            upper.profile.imageObject = mout.object.find(images, {_id: upper.profile.image});
-                        }
-
-                        return upper;
-                    });
-                }
-
-                // Add partup image to partup
-                if (partup.image) {
-                    partup.imageObject = mout.object.find(images, {_id: partup.image});
-                }
-
-                // Add network object to partup
-                if (partup.network_id) {
-                    partup.networkObject = mout.object.find(data.networks, {_id: partup.network_id});
-
-                    if (partup.networkObject && partup.networkObject.icon) {
-                        partup.networkObject.iconObject = mout.object.find(images, {_id: partup.networkObject.icon});
-                    }
-                }
+                Partup.client.embed.partup(partup, data['cfs.images.filerecord'], data.networks, data.users);
 
                 return {
                     partup: partup
@@ -177,16 +152,6 @@ Template.app_discover_page.onRendered(function() {
             var content = JSON.parse(response.content);
             template.count.set(content.count);
         });
-    });
-
-    // When the screen size alters
-    template.autorun(function() {
-        var screenWidth = Partup.client.screen.size.get('width');
-        var columns = getAmountOfColumns(screenWidth);
-
-        if (columns !== template.columnTilesLayout.columns.curValue.length) {
-            template.columnTilesLayout.setColumns(columns);
-        }
     });
 
     // Infinite scroll

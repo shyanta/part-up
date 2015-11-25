@@ -1,57 +1,106 @@
-var partupsToColumnTiles = function(partups) {
-    return lodash.map(partups, function(partup) {
-        return {
-            partup: partup,
-            HIDE_TAGS: true
-        };
-    });
+var getAmountOfColumns = function(screenwidth) {
+    if (screenwidth > Partup.client.grid.getWidth(11) + 80) {
+        return 4;
+    }
+
+    if (screenwidth > Partup.client.grid.getWidth(6) + 80) {
+        return 2;
+    }
+
+    return 1;
 };
 
 Template.app_home.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.video = new ReactiveVar(false);
-
-    // Popular partups
-    tpl.popular_partups = {
-        layout: {}
+    template.states = {
+        popular_partups_loading: new ReactiveVar(false)
     };
 
+    template.video = new ReactiveVar(false);
+
     // Featured partup
-    tpl.featured_partup = new ReactiveVar();
+    template.featured_partup = new ReactiveVar();
 
-    this.autorun(function() {
-        if (Partup.client.language.current.get() == undefined) return;
+    // Column layout
+    template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
+        // This function will be called for each tile
+        calculateApproximateTileHeight: function(tileData, columnWidth) {
+
+            // The goal of this formula is to approach
+            // the expected height of a tile as best
+            // as possible, synchronously,
+            // using the given partup object
+            return 1;
+        }
+
+    });
+});
+
+Template.app_home.onRendered(function() {
+    var template = this;
+
+    // When the screen size alters
+    template.autorun(function() {
+        var screenWidth = Partup.client.screen.size.get('width');
+        var columns = getAmountOfColumns(screenWidth);
+
+        if (columns !== template.columnTilesLayout.columns.curValue.length) {
+            template.columnTilesLayout.setColumns(columns);
+        }
+    });
+
+    // Popular partups
+    template.autorun(function() {
         var currentLanguage = Partup.client.language.current.get();
+        if (currentLanguage == undefined) return;
 
         // Call first four discover part-ups and add them to the UI
+        template.states.popular_partups_loading.set(true);
         Partup.client.API.get('/partups/home/' + currentLanguage, {}, function(error, result) {
-            if (error) return;
-
-            var popular_partup_ids = lodash.pluck(get(result, 'partups'), '_id');
-            var popular_partups = Partups.find({_id: {$in: popular_partup_ids}}).fetch();
-
-            if (popular_partups.length > 0) {
-                tpl.popular_partups.layout.add(partupsToColumnTiles(popular_partups));
+            if (error || !result.partups || result.partups.length === 0) {
+                template.states.popular_partups_loading.set(false);
+                return;
             }
+
+            var tiles = result.partups.map(function(partup) {
+                Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
+
+                return {
+                    partup: partup,
+                    HIDE_TAGS: true
+                };
+            });
+
+            // Add tiles to the column layout
+            template.columnTilesLayout.addTiles(tiles, function() {
+                template.states.popular_partups_loading.set(false);
+            });
         });
 
         // Call one featured part-up
         Partup.client.API.get('/partups/featured_one_random/' + currentLanguage, {}, function(error, result) {
-            if (error) return;
+            if (error || !result.partups || result.partups.length === 0) {
+                return;
+            }
 
-            var featured_partup_ids = lodash.pluck(get(result, 'partups'), '_id');
-            var featured_partup = Partups.findOne({_id: {$in: featured_partup_ids}});
-
-            tpl.featured_partup.set(featured_partup);
+            var partup = result.partups.pop();
+            Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
+            template.featured_partup.set(partup);
         });
     });
 });
 
 Template.app_home.helpers({
+    columnTilesLayout: function() {
+        return Template.instance().columnTilesLayout;
+    },
     featured_partup: function() {
-        return Template.instance().featured_partup.get();
+        var partupVar = Template.instance().featured_partup;
+        if (!partupVar) { return; }
+
+        return partupVar.get();
     },
     videoWatched: function() {
         return Session.get('home.videowatched');
@@ -71,48 +120,11 @@ Template.app_home.helpers({
     firstName: function() {
         return User(Meteor.user()).getFirstname();
     },
-
-    // For the columnLayout for popular partups
-    amountOfColumns: function() {
-        var width = Partup.client.screen.size.get('width');
-
-        var template = Template.instance();
-        Meteor.defer(function() {
-            template.popular_partups.layout.rerender();
-        });
-
-        if (width > 1024) return 4;
-        if (width >= 600) return 2;
-        return 1;
-    },
-
     playVideo: function() {
         return Template.instance().video.get();
     },
-
-    // We use this trick to be able to call a function in a child template.
-    // The child template directly calls 'addToLayoutHook' with a callback.
-    // We save that callback, so we can call it later and the child template can react to it.
-    addToLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.popular_partups.layout.add = callback;
-        };
-    },
-    clearLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.popular_partups.layout.clear = callback;
-        };
-    },
-    rerenderLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.popular_partups.layout.rerender = callback;
-        };
+    popularPartupsLoading: function() {
+        return Template.instance().states.popular_partups_loading.get();
     }
 });
 

@@ -48,7 +48,14 @@
                     <p class="pu-textline pu-textline-subtle">
                         <span>{{_ 'pages-app-home-featured_partup-heading' }}</span>
                     </p>
-                    {{> PartupTileFeatured partup=featured_partup }}
+
+                    {{# if featured_partup }}
+                        {{> PartupTileFeatured partup=featured_partup }}
+                    {{ else }}
+                        <div class="pu-sub-loading">
+                            {{> Spinner }}
+                        </div>
+                    {{/ if }}
                 </div>
             </section>
 
@@ -65,13 +72,14 @@
                             </p>
                         </header>
                         <div class="pu-sub-partups">
-                            {{> ColumnsLayout
-                                COLUMNS=amountOfColumns
-                                TEMPLATE="PartupTile"
-                                addHook=addToLayoutHook
-                                clearHook=clearLayoutHook
-                                rerenderHook=rerenderLayoutHook
-                            }}
+                            {{# if popularPartupsLoading }}
+                                <div class="pu-sub-loading">
+                                    {{> Spinner }}
+                                </div>
+                            {{/ if }}
+                            {{# ColumnTilesLayout instance=columnTilesLayout }}
+                                {{> PartupTile }}
+                            {{/ ColumnTilesLayout }}
                         </div>
                         <footer class="pu-sub-popularpartupsfooter">
                             <p class="pu-sub-discoverbutton">
