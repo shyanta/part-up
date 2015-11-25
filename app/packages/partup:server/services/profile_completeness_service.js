@@ -12,22 +12,39 @@ Partup.server.services.profile_completeness = {
      * @param {Object} profile
      */
     calculate: function(profile) {
-        //
-        var totalValues = 0;
+        var allFields = [
+            'name',
+            'image',
+            'description',
+            'tags',
+            'location',
+            'facebook_url',
+            'twitter_url',
+            'instagram_url',
+            'linkedin_url',
+            'phonenumber',
+            'website',
+            'skype',
+            'tiles',
+            'meurs'
+        ];
         var providedValues = 0;
 
         _.each(profile, function(value, key) {
-            if (_.isObject(value)) {
-                var doesContainValue = !mout.object.every(value, function(objectValue) {
-                    return !objectValue;
-                });
-                if (doesContainValue) providedValues++;
-            } else if (value !== undefined && value !== '' && value !== null) {
-                providedValues++;
-            }
-            totalValues++;
+            // Don't count empty values
+            if (!value || value.length < 1) return;
+
+            // Neglect fields that are not important to this score
+            if (allFields.indexOf(key) < 0) return;
+
+            // Handle the special cases
+            if (key === 'location' && !value.city) return;
+            if (key === 'meurs' && (!value.fetched_results || value.results.length < 1)) return;
+
+            // Valid stuff, add to score count
+            providedValues++;
         });
 
-        return Math.round((providedValues * 100) / totalValues);
+        return Math.round((providedValues * 100) / allFields.length);
     }
 };
