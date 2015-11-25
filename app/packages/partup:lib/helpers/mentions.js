@@ -21,76 +21,24 @@ Partup.helpers.mentions.extract = function(message) {
 
     // extracts user (single) mentions
     extractUsers(message).forEach(function(mention) {
-        mentions.push(mention);
+        var existingMention = lodash.find(mentions, {_id: mention._id});
+        if (!existingMention) mentions.push(mention);
     });
 
     // extracts partners (group) mention
     extractPartners(message).forEach(function(mention) {
-        mentions.push(mention);
+        var existingMention = lodash.find(mentions, {name: 'Partners'});
+        if (!existingMention) mentions.push(mention);
     });
 
     // extracts supporters (group) mention
     extractSupporters(message).forEach(function(mention) {
-        mentions.push(mention);
+        var existingMention = lodash.find(mentions, {name: 'Supporters'});
+        if (!existingMention) mentions.push(mention);
     });
-
     return mentions;
 };
 
-var extractUsers = function(message) {
-    var mentions = [];
-
-    var matches = message.match(/\[user:[^\]|]+(?:\|[^\]]+)?\]/g);
-    if (!matches) return mentions;
-
-    var match;
-    for (var i = 0; i < matches.length; i++) {
-        match = matches[i].match(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/);
-        mentions.push({
-            _id: match[1],
-            type: 'single',
-            name: match[2]
-        });
-    }
-
-    return mentions;
-};
-
-var extractPartners = function(message) {
-    var mentions = [];
-
-    var matches = message.match(/\[Partners:(?:([^\]]+))?\]/g);
-    if (!matches) return mentions;
-
-    matches.forEach(function(match, index) {
-        var singlematch = match.match(/\[Partners:(?:([^\]]+))?\]/);
-        mentions.push({
-            type: 'group',
-            users: singlematch[1].split(','),
-            name: 'Partners'
-        });
-    });
-
-    return mentions;
-};
-
-var extractSupporters = function(message) {
-    var mentions = [];
-
-    var matches = message.match(/\[Supporters:(?:([^\]]+))?\]/g);
-    if (!matches) return mentions;
-
-    matches.forEach(function(match, index) {
-        var singlematch = match.match(/\[Supporters:(?:([^\]]+))?\]/);
-        mentions.push({
-            type: 'group',
-            users: singlematch[1].split(','),
-            name: 'Supporters'
-        });
-    });
-
-    return mentions;
-};
 
 /**
  * Replace mentions in a message with hyperlinks
@@ -141,13 +89,18 @@ Partup.helpers.mentions.encode = function(message, mentions) {
             // first part of encoded mention string -> [partners:
             encodedMention = '[' + group + ':';
 
-            // second part of encoded mention string -> [partners:<user_id>,<user_id>,
-            mention[group].forEach(function(user, index) {
-                encodedMention = encodedMention + user + ',';
-            });
+            if (mention[group].length) {
+                // second part of encoded mention string -> [partners:<user_id>,<user_id>,
+                mention[group].forEach(function(user, index) {
+                    encodedMention = encodedMention + user + ',';
+                });
+                // removes the last comma -> [partners:<user_id>,<user_id>
+                encodedMention = encodedMention.substring(0, encodedMention.length - 1);
+            } else {
+                // second part of encoded mention string when there are no users -> [partners:!empty!
+                // encodedMention = encodedMention + '!empty!';
+            }
 
-            // removes the last comma -> [partners:<user_id>,<user_id>
-            encodedMention = encodedMention.substring(0, encodedMention.length - 1);
 
             // final part of encoded mention -> [partners:<user_id>,<user_id>]
             encodedMention = encodedMention + ']';
@@ -157,7 +110,133 @@ Partup.helpers.mentions.encode = function(message, mentions) {
             encodedMention = '[user:' + mention._id + '|' + mention.name + ']';
         }
         // finally replace mention with encoded mention
-        message = message.replace(find, encodedMention);
+        message = replaceAll(message, find, encodedMention);
     });
     return message;
+};
+var replaceAll = function(str, find, replace) {
+  return str.replace(new RegExp(find, 'g'), replace);
+};
+/**
+ * Get the true character count of a message without the encoded mess of mentions
+ *
+ * @namespace Helpers
+ * @name Partup.helpers.mentions.getTrueCharacterCount
+ * @memberof Partup.helpers.mentions
+ *
+ * @param {String} message
+ *
+ * @return {Number}
+ */
+Partup.helpers.mentions.getTrueCharacterCount = function(message) {
+    // set base count
+    var count = message.length;
+    // find all user mentions
+    var userMentionsArray = userMentions(message);
+
+    if (userMentionsArray) {
+        // subtract mention count from endoced message
+        userMentionsArray.forEach(function(item) {
+            count = count + mentionedUserName(item).length;
+        });
+        count = count - combinedCount(userMentionsArray);
+    }
+    // find all partner mentions
+    var partnerMentionsArray = partnerMentions(message);
+    if (partnerMentionsArray) {
+        // subtract mention count from endoced message
+        partnerMentionsArray.forEach(function(item) {
+            count = count + 'Partners'.length;
+        });
+        count = count - combinedCount(partnerMentionsArray);
+    }
+    // find all supporter mentions
+    var supporterMentionsArray = supporterMentions(message);
+    if (supporterMentionsArray) {
+        // subtract mention count from endoced message
+        supporterMentionsArray.forEach(function(item) {
+            count = count + 'Supporters'.length;
+        });
+        count = count - combinedCount(supporterMentionsArray);
+    }
+    return count;
+};
+
+// mention helpers
+
+var mentionedUserName = function(mention) {
+    return mention.match(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/)[2];
+};
+var combinedCount = function(array) {
+    var count = 0;
+    array.forEach(function(mention) {
+        count = count + mention.length;
+    });
+    return count;
+};
+
+var extractUsers = function(message) {
+    var mentions = [];
+
+    var matches = userMentions(message);
+    if (!matches) return mentions;
+
+    var match;
+    for (var i = 0; i < matches.length; i++) {
+        match = matches[i].match(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/);
+        mentions.push({
+            _id: match[1],
+            type: 'single',
+            name: match[2]
+        });
+    }
+
+    return mentions;
+};
+var userMentions = function(message) {
+    return message.match(/\[user:[^\]|]+(?:\|[^\]]+)?\]/g);
+};
+
+var extractPartners = function(message) {
+    var mentions = [];
+
+    var matches = partnerMentions(message);
+    if (!matches) return mentions;
+
+    matches.forEach(function(match, index) {
+        var singlematch = match.match(/\[Partners:(?:([^\]]+))?\]/);
+        var users = singlematch[1] ? singlematch[1].split(',') : [];
+        mentions.push({
+            type: 'group',
+            users: users,
+            name: 'Partners'
+        });
+    });
+
+    return mentions;
+};
+var partnerMentions = function(message) {
+    return message.match(/\[Partners:(?:([^\]]+))?\]/g);
+};
+
+var extractSupporters = function(message) {
+    var mentions = [];
+
+    var matches = supporterMentions(message);
+    if (!matches) return mentions;
+
+    matches.forEach(function(match, index) {
+        var singlematch = match.match(/\[Supporters:(?:([^\]]+))?\]/);
+        var users = singlematch[1] ? singlematch[1].split(',') : [];
+        mentions.push({
+            type: 'group',
+            users: users,
+            name: 'Supporters'
+        });
+    });
+
+    return mentions;
+};
+var supporterMentions = function(message) {
+    return message.match(/\[Supporters:(?:([^\]]+))?\]/g);
 };

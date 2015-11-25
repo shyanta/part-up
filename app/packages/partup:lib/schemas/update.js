@@ -43,7 +43,10 @@ var updateBaseSchema = new SimpleSchema({
 var updateCommentBaseSchema = new SimpleSchema({
     content: {
         type: String,
-        max: 1000
+        custom: function() {
+            var commentLength = Partup.helpers.mentions.getTrueCharacterCount(this.value);
+            if (commentLength > 1000) return 'exceedsMaxCharacterLength';
+        }
     },
     type: {
         type: String,
