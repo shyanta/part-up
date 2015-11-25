@@ -7,9 +7,10 @@ Template.FeaturedNetworks.onCreated(function() {
 
 Template.FeaturedNetworks.helpers({
     selectedNetwork: function() {
-        var networks = Template.instance().data.networks;
-        return mout.object.find(networks, {
-            slug: Template.instance().selectedSlug.get()
+        var template = Template.instance();
+
+        return mout.object.find(template.data.networks, {
+            slug: template.selectedSlug.get()
         });
     },
     networkLogo: function() {
