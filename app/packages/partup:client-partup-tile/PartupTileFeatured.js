@@ -9,7 +9,7 @@ Template.PartupTileFeatured.onCreated(function() {
     var partup = template.data.partup;
 
     // -- Partup details
-    partup.name = Partup.client.url.capitalizeFirstLetter(partup.name);
+    partup.name = Partup.helpers.url.capitalizeFirstLetter(partup.name);
     partup.imageObject = partup.imageObject || Images.findOne({_id: partup.image});
     partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
 

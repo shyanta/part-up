@@ -16,9 +16,9 @@ Template.FeaturedNetworks.helpers({
         var network = this;
 
         if (network.logoObject) {
-            return Partup.client.url.getImageUrl(network.logoObject, '360x360');
+            return Partup.helpers.url.getImageUrl(network.logoObject, '360x360');
         } else if (network.imageObject) {
-            return Partup.client.url.getImageUrl(network.imageObject, '360x360');
+            return Partup.helpers.url.getImageUrl(network.imageObject, '360x360');
         }
 
         return '';
