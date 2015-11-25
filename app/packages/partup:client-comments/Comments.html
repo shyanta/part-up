@@ -55,16 +55,22 @@
                                 <figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}" class="pu-avatar pu-avatar-small pu-avatar-square" style="background-image:url('{{ partupImageUrl id=imageForComment store='360x360'}}');"></figure>
                             </a>
                             <div>
-                                <p>
-                                    {{# if isMotivation }}
-                                        <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>'s
-                                        {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
-                                    {{else}}
-                                        <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>
-                                        {{{ partupAutolink content }}}
-                                    {{/ if}}
-                                </p>
-                                <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
+                                {{#if partupEquals _id editCommentId}}
+                                    {{#autoForm schema=formSchema id=generateUpdateCommentId class='pu-state-expanded' }}
+                                        {{> afFieldInput type='text' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows}}
+                                    {{/autoForm}}
+                                {{else}}
+                                    <p>
+                                        {{# if isMotivation }}
+                                            <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>'s
+                                            {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
+                                        {{else}}
+                                            <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>
+                                            {{{ partupAutolink content }}}
+                                        {{/ if}}
+                                    </p>
+                                    <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}{{#if partupEquals currentUser._id creator._id}}<span class="pu-sub-seperator"></span><a href="#" data-edit-comment>{{_ 'widgetcommentfield-comment-button-edit'}}</a>{{/if}}</time>
+                                {{/if}}
                             </div>
                         </li>
                     {{/ if }}
@@ -85,9 +91,9 @@
             >
                 <li class="{{#if messageTooLong}}pu-state-error{{/if}}">
                     {{# if isMotivation }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-sub-comment' data='commentfield' placeholder=placeholders.comment }}
                     {{ else }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow' data='commentfield' placeholder=placeholders.comment rows=messageRows }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data='commentfield' placeholder=placeholders.comment rows=messageRows }}
                     {{/ if }}
                     {{#if messageTooLong}}
                         <span class="pu-sub-error">{{_ 'widgetcommentfield-comment-maxreached'}}</span>

@@ -9,5 +9,7 @@
     "widgetcommentfield-comment-systemmessage-hide": "Hide system messages",
 
     "widgetcommentfield-comment-motivation-prefix": "motivation is: ",
-    "widgetcommentfield-comment-maxreached": "Too many characters, the maximum is 1000"
+    "widgetcommentfield-comment-maxreached": "Too many characters, the maximum is 1000",
+
+    "widgetcommentfield-comment-button-edit": "edit"
 }

@@ -26,6 +26,10 @@ Template.Comments.onCreated(function() {
 
     this.messageRows = new ReactiveVar(1);
     this.tooManyCharacters = new ReactiveVar(false);
+
+    this.updating = new ReactiveVar(false);
+    this.editCommentId = new ReactiveVar();
+    this.formId = new ReactiveVar('commentForm-' + this.data.update._id);
 });
 
 Template.Comments.onRendered(function() {
@@ -69,7 +73,10 @@ Template.Comments.helpers({
     },
     formSchema: Partup.schemas.forms.updateComment,
     generateFormId: function() {
-        return 'commentForm-' + this.update._id;
+        return Template.instance().formId.get();
+    },
+    generateUpdateCommentId: function() {
+        return 'updateCommentForm-' + this._id;
     },
     placeholders: {
         comment: function() {
@@ -173,6 +180,9 @@ Template.Comments.helpers({
                 return '';
             }
         }
+    },
+    editCommentId: function() {
+        return Template.instance().editCommentId.get();
     }
 });
 
@@ -237,51 +247,73 @@ Template.Comments.events({
         if (event.currentTarget.offsetHeight < event.currentTarget.scrollHeight) {
             template.messageRows.set(template.messageRows.get() + 1);
         }
+    },
+    'click [data-edit-comment]': function(event, template) {
+        template.editCommentId.set(this._id);
+
+        Meteor.defer(function() {
+            var input = template.find('[data-update-comment]');
+            if (template.updateMentionsInput) template.updateMentionsInput.destroy();
+            template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id);
+        });
     }
 
 });
 
 AutoForm.addHooks(null, {
     onSubmit: function(insertDoc) {
+        console.log('submit');
         var self = this;
-        self.event.preventDefault();
-
-        var formNameParts = self.formId.split('-');
-        if (formNameParts.length !== 2 || formNameParts[0] !== 'commentForm') return;
-        var updateId = formNameParts[1];
-
         var template = self.template.parent();
-        template.submitting.set(true);
+        var formId = template.formId.get();
+        self.event.preventDefault();
+        if (formId !== self.formId) {
+            var formNameParts = self.formId.split('-');
+            if (formNameParts.length !== 2 || formNameParts[0] !== 'updateCommentForm') return;
+            var commentId = formNameParts[1];
+            template.updating.set(true);
+            console.log(insertDoc);
+            template.updateMentionsInput.destroy();
+            template.mentionsInput.reset();
+            // insertDoc.content = template.mentionsInput.getValue();
+        } else {
 
-        if (template.data.type === 'motivation') {
-            insertDoc.type = 'motivation';
-        }
+            var formNameParts = self.formId.split('-');
+            if (formNameParts.length !== 2 || formNameParts[0] !== 'commentForm') return;
+            var updateId = formNameParts[1];
 
-        insertDoc.content = template.mentionsInput.getValue();
+            template.submitting.set(true);
 
-        if (template.data.POPUP) {
-            Partup.client.popup.close({
-                success: true,
-                comment: insertDoc
-            });
-            return false;
-        }
-        AutoForm.resetForm(self.formId); // reset form before call is successfull
-        template.mentionsInput.reset();
-
-        Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
-            template.submitting.set(false);
-            if (error) {
-                return Partup.client.notify.error(__('error-method-' + error.reason));
+            if (template.data.type === 'motivation') {
+                insertDoc.type = 'motivation';
             }
-            template.messageRows.set(1);
-            template.tooManyCharacters.set(false);
 
-            Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
+            insertDoc.content = template.mentionsInput.getValue();
 
-            template.buttonActive.set(false);
-            self.done();
-        });
+            if (template.data.POPUP) {
+                Partup.client.popup.close({
+                    success: true,
+                    comment: insertDoc
+                });
+                return false;
+            }
+            AutoForm.resetForm(self.formId); // reset form before call is successfull
+            template.mentionsInput.reset();
+
+            Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
+                template.submitting.set(false);
+                if (error) {
+                    return Partup.client.notify.error(__('error-method-' + error.reason));
+                }
+                template.messageRows.set(1);
+                template.tooManyCharacters.set(false);
+
+                Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
+
+                template.buttonActive.set(false);
+                self.done();
+            });
+        }
 
         return false;
     }

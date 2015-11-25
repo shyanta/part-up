@@ -10,5 +10,7 @@
 
 
     "widgetcommentfield-comment-motivation-prefix": "motivatie is: ",
-    "widgetcommentfield-comment-maxreached": "Te veel karakters, het maximum 1000"
+    "widgetcommentfield-comment-maxreached": "Te veel karakters, het maximum 1000",
+
+    "widgetcommentfield-comment-button-edit": "wijzigen"
 }
