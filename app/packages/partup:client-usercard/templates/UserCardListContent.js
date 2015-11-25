@@ -6,7 +6,7 @@ Template.UserCardListContent.onCreated(function() {
 Template.UserCardListContent.helpers({
     users: function() {
         var list = Template.currentData().list;
-        var users = Meteor.users.find({_id: {$in: this.data.list}}, {limit: 10}).fetch();
+        var users = Meteor.users.find({_id: {$in: this.data.list}}, {limit: 5, sort: {'status.online': -1}}).fetch();
         if (!users.length) return;
 
         users.forEach(function(user) {
