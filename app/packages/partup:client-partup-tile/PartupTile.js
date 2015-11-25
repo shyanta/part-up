@@ -29,7 +29,7 @@ Template.PartupTile.onCreated(function() {
     var partupImage = Images.findOne({_id: partup.image});
     partup.imageUrl = partupImage ? Partup.client.url.getImageUrl(partupImage, '360x360') : '';
     partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
-    partup.tags = partup.tags.map(function(tag, index) {
+    partup.mappedTags = partup.tags.map(function(tag, index) {
         return {
             tag: tag,
             delay: .05 * index
