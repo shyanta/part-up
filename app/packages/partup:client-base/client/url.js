@@ -34,6 +34,12 @@ Partup.client.url = {
     }
 };
 
+Template.registerHelper('partupGetImageUrl', function(image, store) {
+    if (!image || !store) return;
+
+    return Partup.client.url.getImageUrl(image, store);
+});
+
 Template.registerHelper('partupHTTP', function(url) {
     return Partup.client.url.addHTTP(url);
 });

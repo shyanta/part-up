@@ -33,7 +33,7 @@
                                     <a href="{{ pathFor 'partup' slug=slug }}">
                                         {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
                                         <figure class="pu-sub-inner" style="
-                                            {{# with imageUrl }}background-image: url('{{ . }}');{{/ with }}
+                                            {{# with partupGetImageUrl imageObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
                                         " data-partup-tile-focuspoint></figure>
                                     </a>
 
@@ -42,7 +42,7 @@
                                             {{# each avatars }}
                                                 {{# if data.upper }}
                                                      <li class="pu-avatar" style="
-                                                        {{# with data.upperImageUrl }}background-image: url('{{ . }}');{{/ with }}
+                                                        {{# with partupGetImageUrl data.upper.profile.imageObject '80x80' }}background-image: url('{{ . }}');{{/ with }}
                                                         {{# with position }}
                                                             top: {{ y }}px;
                                                             left: {{ x }}px;

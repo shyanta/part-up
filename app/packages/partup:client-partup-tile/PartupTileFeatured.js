@@ -1,6 +1,6 @@
 var MAX_AVATARS = 5;
-var AVATAR_RADIUS = 100;
-var AVATAR_DISTANCE = 24;
+var AVATAR_RADIUS = 125;
+var AVATAR_DISTANCE = 18;
 
 Template.PartupTileFeatured.onCreated(function() {
     var template = this;
@@ -10,8 +10,7 @@ Template.PartupTileFeatured.onCreated(function() {
 
     // -- Partup details
     partup.name = Partup.client.url.capitalizeFirstLetter(partup.name);
-    var partupImage = partup.imageObject || Images.findOne({_id: partup.image});
-    partup.imageUrl = partupImage ? Partup.client.url.getImageUrl(partupImage, '360x360') : '';
+    partup.imageObject = partup.imageObject || Images.findOne({_id: partup.image});
     partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
 
     // -- Partup counts
@@ -44,13 +43,12 @@ Template.PartupTileFeatured.onCreated(function() {
 
             // Default avatar
             var upper = mout.object.find(partup.upperObjects, {_id: avatar}) || Meteor.users.findOne({_id: avatar});
-            var upperImage = get(upper, 'profile.imageObject') || Images.findOne({_id: get(upper, 'profile.image')});
+            upper.profile.imageObject = upper.profile.imageObject || Images.findOne({_id: upper.profile.image});
 
             return {
                 position: position,
                 data: {
-                    upper: upper,
-                    upperImageUrl: Partup.client.url.getImageUrl(upperImage, '80x80')
+                    upper: upper
                 }
             };
         });
