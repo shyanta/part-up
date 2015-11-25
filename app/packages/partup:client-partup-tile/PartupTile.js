@@ -26,7 +26,7 @@ Template.PartupTile.onCreated(function() {
 
     // -- Partup details
     partup.name = Partup.client.url.capitalizeFirstLetter(partup.name);
-    var partupImage = Images.findOne({_id: partup.image});
+    var partupImage = partup.imageObject || Images.findOne({_id: partup.image});
     partup.imageUrl = partupImage ? Partup.client.url.getImageUrl(partupImage, '360x360') : '';
     partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
     partup.mappedTags = partup.tags.map(function(tag, index) {
@@ -37,10 +37,10 @@ Template.PartupTile.onCreated(function() {
     });
 
     // -- Partup network
-    partup.network = Networks.findOne({_id: partup.network_id});
-    if (partup.network) {
-        var networkIcon = Images.findOne({_id: partup.network.icon});
-        partup.network.iconUrl = networkIcon ? Partup.client.url.getImageUrl(networkIcon, '32x32') : '';
+    partup.networkObject = partup.networkObject || Networks.findOne({_id: partup.network_id});
+    if (partup.networkObject) {
+        var networkIcon = partup.networkObject.iconObject || Images.findOne({_id: partup.networkObject.icon});
+        partup.networkObject.iconUrl = networkIcon ? Partup.client.url.getImageUrl(networkIcon, '32x32') : '';
     }
 
     // -- Partup counts
@@ -80,11 +80,8 @@ Template.PartupTile.onCreated(function() {
             }
 
             // Default avatar
-            var upper = Meteor.users.findOne({_id: avatar});
-            if (!upper) return {};
-
-            var upperImage = Images.findOne({_id: mout.object.get(upper, 'profile.image')});
-            if (!upperImage) return {};
+            var upper = mout.object.find(partup.upperObjects, {_id: avatar}) || Meteor.users.findOne({_id: avatar});
+            var upperImage = get(upper, 'profile.imageObject') || Images.findOne({_id: get(upper, 'profile.image')});
 
             return {
                 position: position,
