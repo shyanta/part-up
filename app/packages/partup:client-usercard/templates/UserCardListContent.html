@@ -1,11 +1,17 @@
 <template name="UserCardListContent">
-    <ul class="pu-list pu-list-users">
-        {{#each users }}
-            <li>
-                <figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-whitebg pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure>
-                <p data-usercard="{{ _id }}">{{ profile.name }}</p>
+    <ul class="pu-list pu-list-users pu-list-users-hovercard">
+        {{#if users.length}}
+            {{#each users }}
+                <li>
+                    <figure class="pu-avatar pu-avatar-whitebg pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure>
+                    <p>{{ profile.name }}</p>
+                </li>
+            {{/each }}
+        {{else}}
+            <li class="pu-sub-placeholder">
+                <p>There were no supporters at the time of this comment</p>
             </li>
-        {{/each }}
+        {{/if}}
         {{#if showCount}}
             <li class="pu-sub-last">
                 <p>{{_ 'usercard-additional' ammount=additional}}</p>
