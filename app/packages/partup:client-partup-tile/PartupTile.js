@@ -45,7 +45,7 @@ Template.PartupTile.onCreated(function() {
 
     // -- Partup counts
     partup.activityCount = partup.activity_count || Activities.findForPartup(partup).count();
-    partup.supportersCount = partup.supporters ? partup.supporters.length : 0;
+    partup.supporterCount = partup.supporters ? partup.supporters.length : 0;
     partup.dayCount = Math.ceil(((((new Date() - new Date(partup.created_at)) / 1000) / 60) / 60) / 24);
 
     // -- Partup uppers
@@ -112,7 +112,7 @@ Template.PartupTile.onRendered(function() {
 
     // Focuspoint in discover image
     if (template.data.partup.image) {
-        var image = Images.findOne({_id: template.data.partup.image});
+        var image = template.data.partup.imageObject || Images.findOne({_id: template.data.partup.image});
 
         if (image && image.focuspoint) {
             var focuspointElm = template.find('[data-partup-tile-focuspoint]');
@@ -125,14 +125,6 @@ Template.PartupTile.onRendered(function() {
 
     var canvasElm = template.find('canvas.pu-sub-radial');
     if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
-});
-
-Template.PartupTile.onDestroyed(function() {
-    var template = this;
-
-    if (template.focuspoint) {
-        template.focuspoint.kill();
-    }
 });
 
 Template.PartupTile.helpers({

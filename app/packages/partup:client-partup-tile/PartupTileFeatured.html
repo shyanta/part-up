@@ -2,83 +2,100 @@
 
     <section class="pu-featuredpartuptile">
 
-        <div class="pu-row">
+        {{# with partup }}
 
-            <section class="pu-sub-comment pu-sub-comment-above">
-                {{> PartupTileFeatured_commentbox }}
-            </section>
+            <div class="pu-row">
 
-            <section class="pu-sub-visual">
-                <div class="pu-sub-partupcirclewrapper">
-                    <div class="pu-row">
-                        <ul class="cell pu-sub-partup-stats">
-                            <li>
-                                <strong>{{ activityCount }}</strong>
-                                <span>{{_ 'partuptile-activities' }}</span>
-                            </li>
-                            <li>
-                                <strong>{{ supporterCount }}</strong>
-                                <span>{{_ 'partuptile-supporters' }}</span>
-                            </li>
-                            <li>
-                                <strong>{{ dayCount }}</strong>
-                                <span>{{_ 'partuptile-days-active' }}</span>
-                            </li>
-                        </ul>
+                <section class="pu-sub-comment pu-sub-comment-above">
+                    {{> PartupTileFeatured_commentbox }}
+                </section>
 
-                        <div class="cell last">
-                            <div class="pu-partupcircle pu-partupcircle-avatarsexpanded">
-                                <a href="{{ pathFor 'partup' slug=partup.slug }}">
-                                    {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
-                                    <figure class="pu-sub-inner" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='360x360' }}');{{/ with }}" data-partuptile-focuspoint></figure>
-                                </a>
+                <section class="pu-sub-visual">
+                    <div class="pu-sub-partupcirclewrapper">
+                        <div class="pu-row">
+                            <ul class="cell pu-sub-partup-stats">
+                                <li>
+                                    <strong>{{ activityCount }}</strong>
+                                    <span>{{_ 'partuptile-activities' }}</span>
+                                </li>
+                                <li>
+                                    <strong>{{ supporterCount }}</strong>
+                                    <span>{{_ 'partuptile-supporters' }}</span>
+                                </li>
+                                <li>
+                                    <strong>{{ dayCount }}</strong>
+                                    <span>{{_ 'partuptile-days-active' }}</span>
+                                </li>
+                            </ul>
 
-                                {{# if avatars }}
-                                    <ul class="pu-sub-avatar-list">
-                                        {{# each avatars }}
-                                            <li class="pu-avatar {{# unless _id }}pu-avatar-more{{/ unless }}" style="
-                                                {{# if _id }}
-                                                    background-image: url('{{# with upper }}{{ partupImageUrl id=profile.image store='80x80' }}{{/ with }}');
+                            <div class="cell last">
+                                <div class="pu-partupcircle pu-partupcircle-avatarsexpanded">
+                                    <a href="{{ pathFor 'partup' slug=slug }}">
+                                        {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
+                                        <figure class="pu-sub-inner" style="
+                                            {{# with imageUrl }}background-image: url('{{ . }}');{{/ with }}
+                                        " data-partup-tile-focuspoint></figure>
+                                    </a>
+
+                                    {{# if avatars }}
+                                        <ul class="pu-sub-avatar-list">
+                                            {{# each avatars }}
+                                                {{# if data.upper }}
+                                                     <li class="pu-avatar" style="
+                                                        {{# with data.upperImageUrl }}background-image: url('{{ . }}');{{/ with }}
+                                                        {{# with position }}
+                                                            top: {{ y }}px;
+                                                            left: {{ x }}px;
+                                                            transition-delay: {{ delay }}s;
+                                                        {{/ with }}
+                                                    " data-usercard="{{ data.upper._id }}"></li>
+                                                {{ else }}
+                                                    <li class="pu-avatar pu-avatar-more" style="
+                                                        {{# with position }}
+                                                            top: {{ y }}px;
+                                                            left: {{ x }}px;
+                                                            transition-delay: {{ delay }}s;
+                                                        {{/ with }}
+                                                    ">{{ data.remainingUppers }}</li>
                                                 {{/ if }}
-                                                top: {{ y }}px;
-                                                left: {{ x }}px;
-                                            " {{ userCard }}>{{# unless _id }}{{ remainingUppers }}{{/ unless }}</li>
-                                        {{/ each }}
-                                    </ul>
-                                {{/ if }}
+                                            {{/ each }}
+                                        </ul>
+                                    {{/ if }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+
+                <section class="pu-sub-stats">
+                    <ul class="pu-sub-partup-stats">
+                        <li>
+                            <strong>{{ activityCount }}</strong>
+                            <span>{{_ 'partuptile-activities' }}</span>
+                        </li>
+                        <li>
+                            <strong>{{ supporterCount }}</strong>
+                            <span>{{_ 'partuptile-supporters' }}</span>
+                        </li>
+                        <li>
+                            <strong>{{ dayCount }}</strong>
+                            <span>{{_ 'partuptile-days-active' }}</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="pu-sub-description">
+                    <h4><a href="{{pathFor 'partup' slug=slug }}">{{ name }}</a></h4>
+                    <p>{{ description }}</p>
+                </section>
+
+            </div>
+
+            <section class="pu-sub-comment pu-sub-comment-below">
+                {{> PartupTileFeatured_commentbox }}
             </section>
 
-            <section class="pu-sub-stats">
-                <ul class="pu-sub-partup-stats">
-                    <li>
-                        <strong>{{ activityCount }}</strong>
-                        <span>{{_ 'partuptile-activities' }}</span>
-                    </li>
-                    <li>
-                        <strong>{{ supporterCount }}</strong>
-                        <span>{{_ 'partuptile-supporters' }}</span>
-                    </li>
-                    <li>
-                        <strong>{{ dayCount }}</strong>
-                        <span>{{_ 'partuptile-days-active' }}</span>
-                    </li>
-                </ul>
-            </section>
-
-            <section class="pu-sub-description">
-                <h4><a href="{{pathFor 'partup' slug=partup.slug }}">{{ partup.name }}</a></h4>
-                <p>{{ partup.description }}</p>
-            </section>
-
-        </div>
-
-        <section class="pu-sub-comment pu-sub-comment-below">
-            {{> PartupTileFeatured_commentbox }}
-        </section>
+        {{/ with }}
 
     </section>
 
@@ -87,8 +104,9 @@
 <template name="PartupTileFeatured_commentbox">
     <div class="pu-commentbox">
         <p class="pu-sub-box">
-            {{ partup.featured.comment }}
+            {{ featured.comment }}
         </p>
+
         {{# with featured_by_user }}
             <div class="pu-sub-author pu-row">
 

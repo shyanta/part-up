@@ -55,6 +55,16 @@ Template.app_discover_page.onCreated(function() {
 Template.app_discover_page.onRendered(function() {
     var template = this;
 
+    // When the screen size alters
+    template.autorun(function() {
+        var screenWidth = Partup.client.screen.size.get('width');
+        var columns = getAmountOfColumns(screenWidth);
+
+        if (columns !== template.columnTilesLayout.columns.curValue.length) {
+            template.columnTilesLayout.setColumns(columns);
+        }
+    });
+
     // Current query placeholder
     template.query;
 
@@ -94,12 +104,9 @@ Template.app_discover_page.onRendered(function() {
                 return;
             }
 
-            var images = data['cfs.images.filerecord'] || [];
-
             template.states.paging_end_reached.set(data.partups.length < PAGING_INCREMENT);
 
             var tiles = data.partups.map(function(partup) {
-
                 Partup.client.embed.partup(partup, data['cfs.images.filerecord'], data.networks, data.users);
 
                 return {
@@ -145,16 +152,6 @@ Template.app_discover_page.onRendered(function() {
             var content = JSON.parse(response.content);
             template.count.set(content.count);
         });
-    });
-
-    // When the screen size alters
-    template.autorun(function() {
-        var screenWidth = Partup.client.screen.size.get('width');
-        var columns = getAmountOfColumns(screenWidth);
-
-        if (columns !== template.columnTilesLayout.columns.curValue.length) {
-            template.columnTilesLayout.setColumns(columns);
-        }
     });
 
     // Infinite scroll
