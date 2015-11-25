@@ -88,26 +88,27 @@ Template.app_discover_page.onRendered(function() {
         template.states.loading_infinite_scroll = true;
 
         // Call the API for data
-        Partup.client.API.get('/partups/discover' + mout.queryString.encode(query), {
+        HTTP.get('/partups/discover' + mout.queryString.encode(query), {
             headers: {
                 Authorization: 'Bearer ' + Accounts._storedLoginToken()
             },
             beforeSend: function(_request) {
                 template.partupsXMLHttpRequest = _request;
             }
-        }, function(error, data) {
+        }, function(error, response) {
             template.partupsXMLHttpRequest = null;
 
-            if (error || !data.partups || data.partups.length === 0) {
+            if (error || !response.data.partups || response.data.partups.length === 0) {
                 template.states.loading_infinite_scroll = false;
                 template.states.paging_end_reached.set(true);
                 return;
             }
 
-            template.states.paging_end_reached.set(data.partups.length < PAGING_INCREMENT);
+            var result = response.data;
+            template.states.paging_end_reached.set(result.partups.length < PAGING_INCREMENT);
 
-            var tiles = data.partups.map(function(partup) {
-                Partup.client.embed.partup(partup, data['cfs.images.filerecord'], data.networks, data.users);
+            var tiles = result.partups.map(function(partup) {
+                Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
 
                 return {
                     partup: partup

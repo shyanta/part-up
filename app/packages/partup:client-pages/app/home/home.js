@@ -61,12 +61,13 @@ Template.app_home.onRendered(function() {
 
         // Call first four discover part-ups and add them to the UI
         template.states.popular_partups_loading.set(true);
-        Partup.client.API.get('/partups/home/' + currentLanguage, {}, function(error, result) {
-            if (error || !result.partups || result.partups.length === 0) {
+        HTTP.get('/partups/home/' + currentLanguage, {}, function(error, response) {
+            if (error || !response.data.partups || response.data.partups.length === 0) {
                 template.states.popular_partups_loading.set(false);
                 return;
             }
 
+            var result = response.data;
             var tiles = result.partups.map(function(partup) {
                 Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
 
@@ -83,22 +84,20 @@ Template.app_home.onRendered(function() {
         });
 
         // Call one featured part-up
-        Partup.client.API.get('/partups/featured_one_random/' + currentLanguage, {}, function(error, result) {
-            if (error || !result.partups || result.partups.length === 0) {
-                return;
-            }
+        HTTP.get('/partups/featured_one_random/' + currentLanguage, {}, function(error, response) {
+            if (error || !response.data.partups || response.data.partups.length === 0) { return; }
 
+            var result = response.data;
             var partup = result.partups.pop();
             Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
             template.featured_partup.set(partup);
         });
 
         // Call featured networks
-        Partup.client.API.get('/networks/featured/' + currentLanguage, {}, function(error, result) {
-            if (error || !result.networks || result.networks.length === 0) {
-                return;
-            }
+        HTTP.get('/networks/featured/' + currentLanguage, {}, function(error, response) {
+            if (error || !response.data.networks || response.data.networks.length === 0) { return; }
 
+            var result = response.data;
             var networks = result.networks.map(function(network) {
                 Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
                 return network;
