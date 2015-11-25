@@ -30,7 +30,9 @@ Partup.client.embed = {
             partup.networkObject = mout.object.find(networks, {_id: partup.network_id});
 
             // Embed network
-            embed.network(partup.networkObject, images, users);
+            if (partup.networkObject) {
+                embed.network(partup.networkObject, images, users);
+            }
         }
     },
     network: function(network, images, users) {
@@ -52,9 +54,13 @@ Partup.client.embed = {
         }
 
         // Add featured by user data
-        if (network.featured && network.featured.by_upper) {
+        if (get(network, 'featured.by_upper._id')) {
             network.featured.by_upperObject = mout.object.find(users, {_id: network.featured.by_upper._id});
-            embed.user(network.featured.by_upperObject, images);
+
+            // Embed user
+            if (network.featured.by_upperObject) {
+                embed.user(network.featured.by_upperObject, images);
+            }
         }
 
     },
