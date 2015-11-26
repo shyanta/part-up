@@ -38,6 +38,9 @@ Meteor.methods({
 
             Tiles.insert(tile);
             Meteor.users.update(upper._id, {$addToSet: {tiles: tile._id}});
+
+            // Update profile completion percentage
+            Partup.server.services.profile_completeness.updateScore();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'tile_could_not_be_inserted');
@@ -58,6 +61,9 @@ Meteor.methods({
         try {
             Tiles.remove({_id: tileId});
             Meteor.users.update(upper._id, {$pull: {tiles: tileId}});
+
+            // Update profile completion percentage
+            Partup.server.services.profile_completeness.updateScore();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'tile_could_not_be_removed');

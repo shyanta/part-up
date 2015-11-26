@@ -128,6 +128,9 @@ Meteor.methods({
         // Save to user
         Meteor.users.update({_id: upper._id}, {$set: {'profile.meurs.results': orderedResults, 'profile.meurs.fetched_results': true}});
 
+        // Update profile completion percentage
+        Partup.server.services.profile_completeness.updateScore();
+
         return true;
     },
 
@@ -145,5 +148,8 @@ Meteor.methods({
                 'profile.meurs.fetched_results': ''
             }
         });
+
+        // Update profile completion percentage
+        Partup.server.services.profile_completeness.updateScore();
     }
 });
