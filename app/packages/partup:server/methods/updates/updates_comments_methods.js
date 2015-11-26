@@ -116,6 +116,32 @@ Meteor.methods({
     },
 
     /**
+     * Remove a comment
+     *
+     * @param {string} updateId
+     * @param {string} commentId
+     */
+    'updates.comments.remove': function(updateId, commentId) {
+        check(updateId, String);
+        check(commentId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var update = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
+            if (update) {
+                Updates.update({_id: updateId, 'comments._id': commentId}, {$pull: {comments: {_id: commentId}}});
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_comment_could_not_be_removed');
+        }
+    },
+
+    /**
      * Reset new comments
      *
      * @param {String} updateId
