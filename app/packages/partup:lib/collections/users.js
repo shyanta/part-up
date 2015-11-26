@@ -19,6 +19,7 @@ var publicUserFields = {
     'profile.twitter_url': 1,
     'profile.website': 1,
     'profile.meurs.results': 1,
+    'profile.tiles': 1,
     'status.online': 1,
     'partups': 1,
     'upperOf': 1,
@@ -26,8 +27,7 @@ var publicUserFields = {
     'average_rating': 1,
     'networks': 1,
     'completeness': 1,
-    'participation_score': 1,
-    'tiles': 1
+    'participation_score': 1
 };
 
 //user fields exposed to logged in user
