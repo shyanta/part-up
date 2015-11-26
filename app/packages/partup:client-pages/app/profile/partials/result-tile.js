@@ -12,7 +12,7 @@ Template.ResultTile.helpers({
         if (this.user._id === Meteor.userId()) {
             if (!this.meurs || !this.meurs.fetched_results) return false;
         }
-        if (!this.meurs && !this.meurs.results) return false;
+        if (!this.meurs || !this.meurs.results) return false;
         return this.meurs.results.length;
     },
     isCurrentusersResultTile: function() {
