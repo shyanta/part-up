@@ -127,12 +127,13 @@ Template.app_profile_about.helpers({
         };
     },
     amountOfColumns: function() {
-        var tpl = Template.instance();
-        var smaller = Partup.client.screen.size.get('width') < Partup.client.grid.getWidth(11) + 80;
-        Meteor.defer(function() {
-            tpl.tiles.layout.rerender();
-        });
-        return smaller ? 1 : 2;
+        // var tpl = Template.instance();
+        // var smaller = Partup.client.screen.size.get('width') < Partup.client.grid.getWidth(5) + 80;
+        // Meteor.defer(function() {
+        //     tpl.tiles.layout.rerender();
+        // });
+        // return smaller ? 1 : 2;
+        return 2;
     },
 
     profileLoading: function() {
