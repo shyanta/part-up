@@ -22,7 +22,7 @@ Template.app_profile_about.onCreated(function() {
                     onReady: function() {
                         var tiles = Tiles.find({upper_id: profileId}).fetch();
                         var user = Meteor.users.findOne(profileId);
-                        if (!tiles || !tiles.length) {
+                        if (!tiles || !tiles.length && Meteor.userId() === profileId) {
                             tiles.push({
                                 type: 'image',
                                 placeholder: true
@@ -32,11 +32,13 @@ Template.app_profile_about.onCreated(function() {
                         if (user.profile.meurs) {
                             meurs = user.profile.meurs;
                         }
-                        tiles.unshift({
-                            type: 'result',
-                            user: user,
-                            meurs: meurs
-                        });
+                        if ((meurs.results && meurs.results.length) || Meteor.userId() === profileId) {
+                            tiles.unshift({
+                                type: 'result',
+                                user: user,
+                                meurs: meurs
+                            });
+                        }
                         tpl.loadingProfile.set(false);
                         tpl.tiles.layout.items = tpl.tiles.layout.clear();
                         tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
@@ -57,6 +59,7 @@ Template.app_profile_about.onCreated(function() {
 
 Template.app_profile_about.events({
     'click [data-create-tile]': function(event, template) {
+        event.preventDefault();
         var type = $(event.currentTarget).closest('[data-create-tile]').data('create-tile');
         Partup.client.popup.open({
             id: 'new-' + type
@@ -65,11 +68,13 @@ Template.app_profile_about.events({
         });
     },
     'click [data-start-test]': function(event, template) {
+        event.preventDefault();
         Meteor.call('meurs.create_test', function(error, url) {
             if (url) document.location.href = url;
         });
     },
     'click [data-delete]': function(event, template) {
+        event.preventDefault();
         var tile = this;
         var tileId = tile._id;
         Partup.client.prompt.confirm({
@@ -124,12 +129,13 @@ Template.app_profile_about.helpers({
         };
     },
     amountOfColumns: function() {
-        var tpl = Template.instance();
-        var smaller = Partup.client.screensize.current.get('width') < Partup.client.grid.getWidth(11) + 80;
-        Meteor.defer(function() {
-            tpl.tiles.layout.rerender();
-        });
-        return smaller ? 1 : 2;
+        // var tpl = Template.instance();
+        // var smaller = Partup.client.screen.size.get('width') < Partup.client.grid.getWidth(5) + 80;
+        // Meteor.defer(function() {
+        //     tpl.tiles.layout.rerender();
+        // });
+        // return smaller ? 1 : 2;
+        return 2;
     },
 
     profileLoading: function() {

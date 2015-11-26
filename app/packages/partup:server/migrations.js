@@ -670,4 +670,37 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(25);
+Migrations.add({
+    version: 26,
+    name: 'Update all profiles that have NaN or 0 as completeness score',
+    up: function() {
+        Meteor.users.find().fetch().forEach(function(user) {
+            if (user.completeness > 0 && user.completeness <= 100) return;
+
+            // Update profile completion percentage on users that don't have a valid score
+            Partup.server.services.profile_completeness.updateScore(user);
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.add({
+    version: 27,
+    name: 'Move the tiles array from user root object to user.profile',
+    up: function() {
+        Meteor.users.find().fetch().forEach(function(user) {
+            var tiles = user.tiles;
+            if (!tiles) return;
+
+            // Update user
+            Meteor.users.update(user._id, {$unset: {tiles: ''}, $set: {'profile.tiles': tiles}});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(27);

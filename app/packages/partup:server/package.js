@@ -99,6 +99,8 @@ Package.onUse(function(api) {
         'services/language_service.js',
         'services/locale_service.js',
         'services/meurs_service.js',
+        'services/profile_completeness_service.js',
+        'services/partup_popularity_calculator_service.js',
         'seo/routes.js',
         'fast-render_routes.js',
         'event_handlers/any_handler.js',
@@ -174,6 +176,7 @@ Package.onUse(function(api) {
         'cron/send_ratings_reminder_notification.js',
         'cron/send_daily_digest_users.js',
         'cron/update_shared_count.js',
+        'cron/calculate_partup_popularity_score_for_partups.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);

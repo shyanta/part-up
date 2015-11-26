@@ -15,7 +15,7 @@ Template.app_partup_updates.onCreated(function() {
     tpl.updates = {
 
         // Constants
-        STARTING_LIMIT: 15,
+        STARTING_LIMIT: 5,
         INCREMENT: 15,
 
         // States
@@ -177,7 +177,8 @@ Template.app_partup_updates.onRendered(function() {
      */
     Partup.client.scroll.infinite({
         template: tpl,
-        element: tpl.find('[data-infinitescroll-container]')
+        element: tpl.find('[data-infinitescroll-container]'),
+        offset: 200
     }, function() {
         if (tpl.updates.loading.get() || tpl.updates.infinite_scroll_loading.get() || tpl.updates.end_reached.get()) return;
         tpl.updates.increaseLimit();

@@ -12,7 +12,7 @@ Template.ResultTile.helpers({
         if (this.user._id === Meteor.userId()) {
             if (!this.meurs || !this.meurs.fetched_results) return false;
         }
-        if (!this.meurs) return false;
+        if (!this.meurs || !this.meurs.results) return false;
         return this.meurs.results.length;
     },
     isCurrentusersResultTile: function() {
@@ -25,6 +25,7 @@ Template.ResultTile.helpers({
 
 Template.ResultTile.events({
     'click [data-info]': function(event, template) {
+        event.preventDefault();
         Partup.client.popup.open({
             id: 'info'
         }, function(result) {
@@ -33,6 +34,7 @@ Template.ResultTile.events({
         });
     },
     'click [data-reset]': function(event, template) {
+        event.preventDefault();
         Partup.client.prompt.confirm({
             title: __('pages-app-profile-about-result-reset-title'),
             message: __('pages-app-profile-about-result-reset-description'),

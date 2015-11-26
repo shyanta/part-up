@@ -27,7 +27,6 @@
                 div
                     opacity: 1
 
-
     &:after
         content: ''
         display: block
@@ -48,3 +47,17 @@
     &-four
         .pu-sub-column
             width: 25%
+
+    &--measurement
+        position: absolute
+        bottom: 1000%
+        visibility: hidden
+        pointer-events: none
+
+        > ul
+            list-style: none
+            white-space: nowrap
+
+            > li
+                display: inline-block
+                white-space: normal

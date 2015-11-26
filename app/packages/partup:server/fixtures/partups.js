@@ -243,6 +243,7 @@ Meteor.startup(function() {
             });
 
             /* 6-36 */
+            /*
             for (var i = 0; i < 30; i++) {
                var descriptions = [
                    'This describes just how great this Part-up is, so please join and let\'s make it the best part-up on the web.',
@@ -264,6 +265,7 @@ Meteor.startup(function() {
                    end_date: new Date('2015-06-01T10:00:07.100Z'),
                });
             }
+            */
         }
     }
 });

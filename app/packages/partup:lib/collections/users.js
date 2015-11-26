@@ -19,6 +19,7 @@ var publicUserFields = {
     'profile.twitter_url': 1,
     'profile.website': 1,
     'profile.meurs.results': 1,
+    'profile.tiles': 1,
     'status.online': 1,
     'partups': 1,
     'upperOf': 1,
@@ -26,8 +27,7 @@ var publicUserFields = {
     'average_rating': 1,
     'networks': 1,
     'completeness': 1,
-    'participation_score': 1,
-    'tiles': 1
+    'participation_score': 1
 };
 
 //user fields exposed to logged in user
@@ -336,7 +336,7 @@ User = function(user) {
             var currentUserId = Meteor.userId();
             if (user._id === currentUserId) return true;
             if (user.profile.meurs && user.profile.meurs.results) return true;
-            if (user.tiles) return true;
+            if (user.profile.tiles && user.profile.tiles.length > 0) return true;
             return false;
         }
     };

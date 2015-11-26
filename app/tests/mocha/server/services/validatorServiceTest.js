@@ -54,7 +54,7 @@ if (!(typeof MochaWeb === 'undefined')) {
                     chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/zuck/'));
                     chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/mark.zuck/'));
                     chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/mark_zuck/'));
-                    chai.assert.isFalse(instagramUrl.test('https://www.instagram.com/mark-zuck/'));
+                    chai.assert.isTrue(instagramUrl.test('https://www.instagram.com/mark-zuck/'));
                     chai.assert.isFalse(instagramUrl.test('https://exploit.com'));
                     chai.assert.isFalse(instagramUrl.test('https://exploit.com/mark-zuck'));
                     done();
@@ -85,7 +85,7 @@ if (!(typeof MochaWeb === 'undefined')) {
                     chai.assert.isTrue(twitterUrl.test('https://twitter.com/jessed_vrs'));
                     chai.assert.isTrue(twitterUrl.test('https://twitter.com/jessedvrs09'));
                     chai.assert.isTrue(twitterUrl.test('https://twitter.com/jessedVRS'));
-                    chai.assert.isFalse(twitterUrl.test('https://twitter.com/jessed-vrs'));
+                    chai.assert.isTrue(twitterUrl.test('https://twitter.com/jessed-vrs'));
                     chai.assert.isFalse(twitterUrl.test('https://exploit.com'));
                     chai.assert.isFalse(twitterUrl.test('https://exploit.com/in/peterpeerdeman'));
                     done();

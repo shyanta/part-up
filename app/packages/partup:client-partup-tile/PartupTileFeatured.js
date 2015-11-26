@@ -1,99 +1,90 @@
-Template.PartupTileFeatured.onRendered(function() {
-    var tpl = this;
+var MAX_AVATARS = 5;
+var AVATAR_RADIUS = 125;
+var AVATAR_DISTANCE = 18;
 
-    tpl.autorun(function() {
-        var image = Images.findOne({_id: get(tpl, 'data.partup.image')});
-        if (!image || !image.focuspoint) return;
+Template.PartupTileFeatured.onCreated(function() {
+    var template = this;
 
-        var elm = tpl.find('[data-partuptile-focuspoint]');
-        new Focuspoint.View(elm, {
-            x: image.focuspoint.x,
-            y: image.focuspoint.y
-        });
-    });
-});
+    // Transform partup
+    var partup = template.data.partup;
 
-Template.PartupTileFeatured.helpers({
-    upper: function() {
-        return Meteor.users.findOne({_id: this._id});
-    },
-    boundedProgress: function() {
-        var template = Template.instance();
+    // -- Partup details
+    partup.name = Partup.helpers.url.capitalizeFirstLetter(partup.name);
+    partup.imageObject = partup.imageObject || Images.findOne({_id: partup.image});
+    partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
 
-        Meteor.defer(function() {
-            var canvasElm = template.find('canvas.pu-sub-radial');
-            if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm, {
-                background_color: '#f9f9f9',
-                border_color_negative: '#ccc'
-            });
-        });
+    // -- Partup counts
+    partup.activityCount = partup.activity_count || Activities.findForPartup(partup).count();
+    partup.supporterCount = partup.supporters ? partup.supporters.length : 0;
+    partup.dayCount = Math.ceil(((((new Date() - new Date(partup.created_at)) / 1000) / 60) / 60) / 24);
 
-        if (!this.partup) return 10;
-        return Math.max(10, Math.min(99, this.partup.progress));
-    },
-    avatars: function() {
-        if (!this.partup || !this.partup.uppers) return;
-        var uppers = this.partup.uppers.slice(0);
+    // -- Partup uppers
+    partup.avatars = partup.uppers
+        .slice(0, MAX_AVATARS)
+        .map(function(avatar, index, arr) {
 
-        if (uppers.length > 5) {
-            while (uppers.length > 4) {
-                uppers.pop();
-            }
-
-            uppers.push(null);
-        }
-
-        return lodash.map(uppers, function(upper, index) {
-            var coords = Partup.client.partuptile.getAvatarCoordinates(uppers.length, index, 0, 18, 125);
-
-            var attributes = {
+            // Avatar position
+            var coords = Partup.client.partuptile.getAvatarCoordinates(arr.length, index, 0, AVATAR_DISTANCE, AVATAR_RADIUS);
+            var position = {
+                delay: .03 * index,
                 x: coords.x + 95,
-                y: coords.y + 95,
-                delay: .075 * index
+                y: coords.y + 95
             };
 
-            if (upper) {
-                attributes._id = upper;
+            // Blue avatar, for example: (5+)
+            if (partup.uppers.length > arr.length && index + 1 === MAX_AVATARS) {
+                return {
+                    position: position,
+                    data: {
+                        remainingUppers: partup.uppers.length - MAX_AVATARS + 1
+                    }
+                };
             }
 
-            return attributes;
-        });
-    },
-    remainingUppers: function() {
-        var uppers = get(Template.instance(), 'data.partup.uppers');
-        if (uppers && uppers.length && uppers.length > 5) {
-            return uppers.length - 4;
-        } else {
-            return 0;
-        }
-    },
-    userCard: function() {
-        if (this._id) return {'data-usercard': this._id};
-    },
-    activityCount: function() {
-        if (!this.partup || !this.partup.activity_count) return 0;
-        return this.partup.activity_count;
-    },
-    dayCount: function() {
-        if (!this.partup) return 0;
+            // Default avatar
+            var upper = mout.object.find(partup.upperObjects, {_id: avatar}) || Meteor.users.findOne({_id: avatar});
+            upper.profile.imageObject = upper.profile.imageObject || Images.findOne({_id: upper.profile.image});
 
-        var created = new Date(this.partup.created_at);
-        var now = new Date();
-        return Math.ceil(((((now - created) / 1000) / 60) / 60) / 24);
-    },
-    supporterCount: function() {
-        if (!this.partup || !this.partup.supporters) return 0;
-        return this.partup.supporters.length;
+            return {
+                position: position,
+                data: {
+                    upper: upper
+                }
+            };
+        });
+});
+
+Template.PartupTileFeatured.onRendered(function() {
+    var template = this;
+
+    // Focuspoint in discover image
+    if (template.data.partup.image) {
+        var image = template.data.partup.imageObject || Images.findOne({_id: template.data.partup.image});
+
+        if (image && image.focuspoint) {
+            var focuspointElm = template.find('[data-partup-tile-focuspoint]');
+            template.focuspoint = new Focuspoint.View(focuspointElm, {
+                x: image.focuspoint.x,
+                y: image.focuspoint.y
+            });
+        }
     }
+
+    var canvasElm = template.find('canvas.pu-sub-radial');
+    if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm, {
+        background_color: '#f9f9f9',
+        border_color_negative: '#ccc'
+    });
 });
 
 Template.PartupTileFeatured_commentbox.helpers({
     featured_by_user: function() {
-        if (!this.partup) return;
+        var partup = this;
+        if (!partup) return;
 
-        return Meteor.users.findOne(this.partup.featured.by_upper._id);
+        return Meteor.users.findOne(partup.featured.by_upper._id);
     },
     featured_by_user_title: function() {
-        return get(Template.instance(), 'data.partup.featured.by_upper.title');
+        return get(Template.instance(), 'data.featured.by_upper.title');
     }
 });

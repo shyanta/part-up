@@ -27,6 +27,9 @@ Package.onUse(function(api) {
         'client/console-shim.js',
 
         'namespace.js',
+
+        'constructors/ColumnTilesLayout.js',
+
         'client/Debugger.js',
         'autoform/afFieldInput.js',
         'client/error.js',
@@ -50,7 +53,7 @@ Package.onUse(function(api) {
         'client/reactiveVarHelpers.js',
         'client/grid.js',
         'client/scroll.js',
-        'client/screensize.js',
+        'client/screen.js',
         'client/moment.js',
         'client/updates.js',
         'client/discover.js',
@@ -59,7 +62,7 @@ Package.onUse(function(api) {
         'client/url.js',
         'client/responsive.js',
         'client/notifications.js',
-        'client/api.js',
+        'client/embed.js',
         'helpers/log.js',
         'helpers/partupResponsive.js',
         'helpers/dateFormatters.js',
@@ -71,8 +74,6 @@ Package.onUse(function(api) {
         'helpers/Partup.js',
         'helpers/isPopupActive.js',
         'helpers/footerToggle.js',
-        'helpers/async.html',
-        'helpers/async.js',
         'helpers/newlineToBreak.js',
         'helpers/onrendered.js',
         'helpers/tagsQuerySearch.js',

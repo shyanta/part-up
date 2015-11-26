@@ -1,87 +1,70 @@
 /**
- * Header of the Discover page
- * This template handles the search, filtering and sorting options for the discover page
- *
- * @param query {ReactiveVar} - The placeholder reactive-var for the query options
+ * Please prefill values using Partup.client.discover.setPrefill(key, value); before changing route to Discover
  */
 
-/**
- * Discover-header created
- */
 Template.app_discover_filter.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    // Submit filter form
-    tpl.submitFilterForm = function() {
-        Meteor.defer(function() {
-            var form = tpl.find('form#discoverQuery');
-            $(form).submit();
-        });
-    };
+    Partup.client.discover.prefillQuery();
+    var customPrefill = Partup.client.discover.getCustomPrefill();
 
-    // Textsearch
-    tpl.textsearch = {
-        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.textSearch)
-    };
-
-    // Network filter datamodel
-    tpl.network = {
-        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.networkId),
-        selectorState: new ReactiveVar(false, function(a, b) {
-            if (!b) return;
-
-            // Focus the searchfield
-            Meteor.defer(function() {
-                var searchfield = tpl.find('form#networkSelector').elements.search;
-                if (searchfield) searchfield.focus();
-            });
-        }),
-        selectorData: function() {
+    var prefilledNetworkId = Partup.client.discover.query.get('networkId');
+    template.selectedNetworkLabel = new ReactiveVar(
+        prefilledNetworkId ? Networks.findOne(prefilledNetworkId) : undefined
+    );
+    template.networkBox = {
+        state: new ReactiveVar(false),
+        data: function() {
             var DROPDOWN_ANIMATION_DURATION = 200;
 
             return {
-                onSelect: function(networkId) {
-                    tpl.network.selectorState.set(false);
+                onSelect: function(network) {
+                    template.networkBox.state.set(false);
 
+                    // Once the box is closed, set the value
                     Meteor.setTimeout(function() {
-                        tpl.network.value.set(networkId);
-                        tpl.submitFilterForm();
+                        template.queryForm[0].elements.networkId.value = network._id;
+                        template.queryForm.submit();
+                        template.selectedNetworkLabel.set(network.name);
                     }, DROPDOWN_ANIMATION_DURATION);
                 }
             };
         }
     };
 
-    // Location filter datamodel
-    tpl.location = {
-        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.locationId),
-        selectorState: new ReactiveVar(false, function(a, b) {
-            if (!b) return;
+    var prefilledLocationId = Partup.client.discover.query.get('locationId');
+    template.selectedLocationLabel = new ReactiveVar(
+        prefilledLocationId ? customPrefill.locationLabel : undefined
+    );
+    template.locationBox = {
+        state: new ReactiveVar(false, function(a, isOpen) {
+            if (!isOpen) return;
 
-            // Focus the searchfield
+            // Focus the text box
             Meteor.defer(function() {
-                var searchfield = tpl.find('form#locationSelector').elements.search;
+                var searchfield = template.find('form#locationSelector').elements.search;
                 if (searchfield) searchfield.focus();
             });
         }),
-        selectorData: function() {
+        data: function() {
             var DROPDOWN_ANIMATION_DURATION = 200;
 
             return {
                 onSelect: function(location) {
-                    tpl.location.selectorState.set(false);
+                    template.locationBox.state.set(false);
 
+                    // Once the box is closed, set the value
                     Meteor.setTimeout(function() {
-                        tpl.location.value.set(location);
-                        tpl.submitFilterForm();
+                        template.queryForm[0].elements.locationId.value = location.id;
+                        template.queryForm.submit();
+                        template.selectedLocationLabel.set(location.city);
                     }, DROPDOWN_ANIMATION_DURATION);
                 }
             };
         }
     };
 
-    // Sorting filter datamodel
-    var sortingOptions = [
+    var sortOptions = [
         {
             value: 'popular',
             label: function() {
@@ -95,243 +78,188 @@ Template.app_discover_filter.onCreated(function() {
             }
         }
     ];
-    var defaultSortingOption = lodash.find(sortingOptions, {value: Partup.client.discover.DEFAULT_QUERY.sort});
-    tpl.sorting = {
-        options: sortingOptions,
-        value: new ReactiveVar(defaultSortingOption),
-        selectorState: new ReactiveVar(false),
-        selectorData: function() {
+    var prefilledSortValue = Partup.client.discover.query.get('sort');
+    var sortOption = lodash.find(sortOptions, {
+        value: prefilledSortValue
+    });
+    template.selectedSortLabel = new ReactiveVar(sortOption.label());
+    template.sortBox = {
+        state: new ReactiveVar(false),
+        data: function() {
             var DROPDOWN_ANIMATION_DURATION = 200;
 
             return {
-                onSelect: function(sorting) {
-                    tpl.sorting.selectorState.set(false);
+                options: sortOptions,
+                default: sortOption,
+                onSelect: function(sort) {
+                    template.sortBox.state.set(false);
 
+                    // Once the box is closed, set the value
                     Meteor.setTimeout(function() {
-                        tpl.sorting.value.set(sorting);
-                        tpl.submitFilterForm();
-                    }, DROPDOWN_ANIMATION_DURATION);
-                },
-                options: tpl.sorting.options,
-                default: defaultSortingOption.value
-            };
-        },
-    };
-
-    tpl.language = {
-        value: new ReactiveVar(Partup.client.discover.DEFAULT_QUERY.language),
-        selectorState: new ReactiveVar(false, function(a, b) {
-            if (!b) return;
-        }),
-        selectorData: function() {
-            var DROPDOWN_ANIMATION_DURATION = 200;
-
-            return {
-                onSelect: function(language) {
-                    tpl.language.selectorState.set(false);
-
-                    Meteor.setTimeout(function() {
-                        tpl.language.value.set(language);
-                        tpl.submitFilterForm();
+                        template.queryForm[0].elements.sort.value = sort.value;
+                        template.queryForm.submit();
+                        template.selectedSortLabel.set(sort.label());
                     }, DROPDOWN_ANIMATION_DURATION);
                 }
             };
         }
     };
 
-    tpl.autorun(function(computation) {
-        var queryValue = Session.get('discover.query.textsearch');
-        if (queryValue) {
-            Session.set('discover.query.textsearch', undefined);
-            tpl.textsearch.value.set(queryValue);
-        }
+    var prefilledLanguage = Partup.client.discover.query.get('language');
+    template.selectedLanguageLabel = new ReactiveVar(
+        prefilledLanguage ? customPrefill.languageLabel : undefined
+    );
+    template.languageBox = {
+        state: new ReactiveVar(false),
+        data: function() {
+            var DROPDOWN_ANIMATION_DURATION = 200;
 
-        var locationValue = Session.get('discover.query.location');
-        if (locationValue) {
-            Session.set('discover.query.location', undefined);
-            if (locationValue.place_id) locationValue.id = locationValue.place_id;
-            tpl.location.value.set(locationValue);
-        }
+            return {
+                onSelect: function(language) {
+                    template.languageBox.state.set(false);
 
-        if (!computation.firstRun) {
-            tpl.submitFilterForm();
+                    // Once the box is closed, set the value
+                    Meteor.setTimeout(function() {
+                        template.queryForm[0].elements.language.value = language._id;
+                        template.queryForm.submit();
+                        template.selectedLanguageLabel.set(language.native_name);
+                    }, DROPDOWN_ANIMATION_DURATION);
+                }
+            };
         }
-    });
+    };
 });
 
-/**
- * Discover-header rendered
- */
 Template.app_discover_filter.onRendered(function() {
-    var tpl = this;
+    var template = this;
 
-    // Submit filter form once
-    tpl.submitFilterForm();
+    template.queryForm = template.$('form#discoverQueryForm');
 
-    // Blur all input fields when user is submitting
-    tpl.autorun(function() {
-        if (tpl.data.getting_data.get()) {
-            tpl.$('input').blur();
-        }
-    });
-
-    var dropdown_element = tpl.find('[data-filterbar]');
-    tpl.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
-        // Disable the dropdown
-        toggleSelectorState(tpl);
+    var dropdown_element = template.find('[data-filterbar]');
+    template.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
+        template.networkBox.state.set(false);
     });
 });
 
 Template.app_discover_filter.onDestroyed(function() {
-    var tpl = this;
-    Partup.client.elements.offClickOutside(tpl.handler);
+    var template = this;
+
+    Partup.client.discover.resetQuery();
+    Partup.client.elements.offClickOutside(template.handler);
 });
-/**
- * Discover-header helpers
- */
+
 Template.app_discover_filter.helpers({
-    // Query
-    textsearchData: function() {
-        return Template.instance().textsearch.value.get() || '';
+    query: function(key) {
+        return Partup.client.discover.query.get(key);
     },
 
     // Network
-    networkValue: function() {
-        return Template.instance().network.value.get();
+    selectedNetworkLabel: function() {
+        return Template.instance().selectedNetworkLabel.get();
     },
-    networkSelectorState: function() {
-        return Template.instance().network.selectorState;
-    },
-    networkSelectorData: function() {
-        return Template.instance().network.selectorData;
+    networkBox: function() {
+        return Template.instance().networkBox;
     },
 
     // Location
-    locationValue: function() {
-        return Template.instance().location.value.get();
+    selectedLocationLabel: function() {
+        return Template.instance().selectedLocationLabel.get();
     },
-    locationSelectorState: function() {
-        return Template.instance().location.selectorState;
-    },
-    locationSelectorData: function() {
-        return Template.instance().location.selectorData;
+    locationBox: function() {
+        return Template.instance().locationBox;
     },
 
-    // Sorting
-    sortingValue: function() {
-        return Template.instance().sorting.value.get();
+    // Sort
+    selectedSortLabel: function() {
+        return Template.instance().selectedSortLabel.get();
     },
-    sortingSelectorState: function() {
-        return Template.instance().sorting.selectorState;
-    },
-    sortingSelectorData: function() {
-        return Template.instance().sorting.selectorData;
+    sortBox: function() {
+        return Template.instance().sortBox;
     },
 
     // Language
-    languageValue: function() {
-        return Template.instance().language.value.get();
+    selectedLanguageLabel: function() {
+        return Template.instance().selectedLanguageLabel.get();
     },
-    languageSelectorState: function() {
-        return Template.instance().language.selectorState;
-    },
-    languageSelectorData: function() {
-        return Template.instance().language.selectorData;
-    },
-});
-var toggleSelectorState = function(template, selector) {
-    if (selector) {
-        if (template[selector] !== template.sorting) template.sorting.selectorState.set(false);
-        if (template[selector] !== template.language) template.language.selectorState.set(false);
-        if (template[selector] !== template.network) template.network.selectorState.set(false);
-        if (template[selector] !== template.location) template.location.selectorState.set(false);
-        var currentState = template[selector].selectorState.get();
-        template[selector].selectorState.set(!currentState);
-    } else {
-        template.sorting.selectorState.set(false);
-        template.language.selectorState.set(false);
-        template.network.selectorState.set(false);
-        template.location.selectorState.set(false);
+    languageBox: function() {
+        return Template.instance().languageBox;
     }
-};
-/**
- * Discover-header events
- */
-Template.app_discover_filter.events({
-    'submit form#discoverQuery': function(event, template) {
-        event.preventDefault();
+});
 
-        if (template.data.getting_data.get()) return;
+Template.app_discover_filter.events({
+    'submit form#discoverQueryForm': function(event, template) {
+        event.preventDefault();
 
         var form = event.currentTarget;
 
-        template.data.query.set({
-            textSearch: form.elements.textsearch.value || undefined,
-            networkId: form.elements.network_id.value || undefined,
-            locationId: form.elements.location_id.value || undefined,
-            sort: form.elements.sorting.value || undefined,
-            language: form.elements.language.value || undefined
-        });
+        $(form).find('input').blur();
+
+        for (key in Partup.client.discover.DEFAULT_QUERY) {
+            if (!form.elements[key]) {
+                continue;
+            }
+
+            var fieldValue = form.elements[key].value;
+            var defaultFieldValue = Partup.client.discover.DEFAULT_QUERY[key];
+
+            Partup.client.discover.query.set(key, fieldValue || defaultFieldValue);
+        }
 
         window.scrollTo(0, 0);
     },
 
+    // Textsearch field
     'click [data-reset-textsearch]': function(event, template) {
         event.preventDefault();
-        template.textsearch.value.set('');
-        template.submitFilterForm();
+        template.queryForm[0].elements.textSearch.value = '';
+        template.queryForm.submit();
     },
 
-    'keyup [data-textsearch-input]': function(e, template) {
-        e.preventDefault();
-        var value = $(e.currentTarget).val();
-        template.textsearch.value.set(value);
-
-        if (window.PU_IE_VERSION === -1) return;
-        // IE fix (return key submit)
-        var pressedKey = e.which ? e.which : e.keyCode;
-        if (pressedKey == 13) {
-            template.submitFilterForm();
-            return false;
-        }
-    },
-
-    // Network selector events
-    'click [data-open-networkselector]': function(event, template) {
+    // Network field
+    'click [data-open-networkbox]': function(event, template) {
         event.preventDefault();
-        toggleSelectorState(template, 'network');
+        template.networkBox.state.set(true);
     },
-    'click [data-reset-selected-network]': function(event, template) {
+    'click [data-reset-networkid]': function(event, template) {
         event.preventDefault();
-        template.network.value.set('');
-        template.submitFilterForm();
+        event.stopPropagation();
+        template.networkBox.state.set(false);
+        template.selectedNetworkLabel.set();
+        template.queryForm[0].elements.networkId.value = '';
+        template.queryForm.submit();
     },
 
-    // Location selector events
-    'click [data-open-locationselector]': function(event, template) {
+    // Location field
+    'click [data-open-locationbox]': function(event, template) {
         event.preventDefault();
-        toggleSelectorState(template, 'location');
+        template.locationBox.state.set(true);
     },
-    'click [data-reset-selected-location]': function(event, template) {
+    'click [data-reset-locationid]': function(event, template) {
         event.preventDefault();
-        template.location.value.set('');
-        template.submitFilterForm();
-    },
-
-    // Sorting selector events
-    'click [data-open-sortingselector]': function(event, template) {
-        event.preventDefault();
-        toggleSelectorState(template, 'sorting');
+        event.stopPropagation();
+        template.locationBox.state.set(false);
+        template.selectedLocationLabel.set();
+        template.queryForm[0].elements.locationId.value = '';
+        template.queryForm.submit();
     },
 
-    // Language selector events
-    'click [data-open-languageselector]': function(event, template) {
+    // Sort field
+    'click [data-open-sortbox]': function(event, template) {
         event.preventDefault();
-        toggleSelectorState(template, 'language');
+        template.sortBox.state.set(true);
     },
-    'click [data-reset-selected-language]': function(event, template) {
+
+    // Language field
+    'click [data-open-languagebox]': function(event, template) {
         event.preventDefault();
-        template.language.value.set('');
-        template.submitFilterForm();
+        template.languageBox.state.set(true);
     },
+    'click [data-reset-language]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        template.languageBox.state.set(false);
+        template.selectedLanguageLabel.set();
+        template.queryForm[0].elements.language.value = '';
+        template.queryForm.submit();
+    }
 });

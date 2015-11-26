@@ -1,12 +1,14 @@
 /**
- * window helpers for popups
+ * Window popup helpers
  *
  * @class window
  * @memberof Partup.client
  */
+
 Partup.client.window = {
+
     /**
-     * Upload single image
+     * Get parameters for popup window
      *
      * @memberof Partup.client.window
      * @param {Object} options

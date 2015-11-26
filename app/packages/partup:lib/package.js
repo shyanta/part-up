@@ -77,7 +77,8 @@ Package.onUse(function(api) {
         'helpers/parselocale.js',
         'helpers/mentions.js',
         'helpers/normalize.js',
-        'helpers/interpolateEmailMessage.js'
+        'helpers/interpolateEmailMessage.js',
+        'helpers/url.js'
     ]);
 
     api.addFiles([

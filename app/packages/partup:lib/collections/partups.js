@@ -536,7 +536,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
 
         // Sort the partups from the most popular to the least popular
         if (sort === 'popular') {
-            options.sort['analytics.clicks_per_day'] = -1;
+            options.sort['popularity'] = -1;
         }
     }
 

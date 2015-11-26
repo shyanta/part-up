@@ -30,7 +30,8 @@ Template.Comments.onCreated(function() {
 
 Template.Comments.onRendered(function() {
     this.input = this.find('[name=content]');
-    this.mentionsInput = Partup.client.forms.MentionsInput(this.input);
+    var partupId = this.data.update.partup_id;
+    this.mentionsInput = Partup.client.forms.MentionsInput(this.input, partupId);
 });
 
 Template.Comments.onDestroyed(function() {
@@ -264,6 +265,7 @@ AutoForm.addHooks(null, {
             return false;
         }
         AutoForm.resetForm(self.formId); // reset form before call is successfull
+        template.mentionsInput.reset();
 
         Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
             template.submitting.set(false);
@@ -276,7 +278,6 @@ AutoForm.addHooks(null, {
             Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
 
             template.buttonActive.set(false);
-
             self.done();
         });
 

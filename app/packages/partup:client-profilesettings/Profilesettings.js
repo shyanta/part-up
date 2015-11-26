@@ -74,7 +74,7 @@ Template.Profilesettings.onCreated(function() {
             template.uploadingProfilePicture.set(false);
         };
         // set image url to be loaded
-        loadImage.src = Partup.client.url.getImageUrl(image);
+        loadImage.src = Partup.helpers.url.getImageUrl(image);
     });
 });
 
@@ -103,7 +103,7 @@ Template.Profilesettings.helpers({
 
         if (uploadedImageID) {
             var image = Images.findOne({_id: uploadedImageID});
-            return image ? Partup.client.url.getImageUrl(image, '360x360') : null;
+            return image ? Partup.helpers.url.getImageUrl(image, '360x360') : null;
         }
 
         var user = Meteor.user();
@@ -111,7 +111,7 @@ Template.Profilesettings.helpers({
         if (user && user.profile && user.profile.image) {
             image = Images.findOne({_id: user.profile.image});
             if (!image) return false;
-            return Partup.client.url.getImageUrl(image);
+            return Partup.helpers.url.getImageUrl(image);
         }
     },
     fieldsFromUser: function() {

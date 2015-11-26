@@ -122,9 +122,8 @@ Template.app_profile.events({
     'click [data-location]': function(event, template) {
         event.preventDefault();
         var location = Meteor.users.findOne(template.data.profileId).profile.location;
-        Session.set('discover.query.location', location);
-        Meteor.defer(function() {
-            Router.go('discover');
-        });
+        Partup.client.discover.setPrefill('locationId', location.place_id);
+        Partup.client.discover.setCustomPrefill('locationLabel', location.city);
+        Router.go('discover');
     }
 });

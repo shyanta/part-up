@@ -4,29 +4,29 @@
  * @class scroll
  * @memberof Partup.client
  */
-var INFINITE_SCROLL_OFFSET = 800;
+var INFINITE_SCROLL_OFFSET = 0;
 var INFINITE_SCROLL_DEBOUNCE = 40;
 
 Partup.client.scroll = {
 
-    _initialised: false,
+    _initialized: false,
     init: function() {
         if (!window) return;
 
         var self = this;
-        if (this._initialised) return console.warn('scroll.js: cannot initialise multiple times');
+        if (this._initialized) return console.warn('scroll.js: cannot initialize multiple times');
 
-        this._initialised = true;
+        this._initialized = true;
 
         // Debounced update function
         var d = lodash.debounce(function() {
             self.triggerUpdate.apply(self);
         }, 10);
 
-        // Trigger a scroll update when the user scrolls
+        // Trigger a position update when the user scrolls
         $(window).scroll(d);
 
-        // Trigger a scroll update when every template is being rendered
+        // Trigger a position update when every template is being rendered
         Template.onRendered(function() {
             Meteor.defer(d);
         });
@@ -56,7 +56,6 @@ Partup.client.scroll = {
     triggerUpdate: function() {
         var pos = typeof window.scrollY !== 'undefined' ? window.scrollY : document.documentElement.scrollTop;
         Partup.client.scroll.pos.set(pos);
-        Partup.client.scroll.pos.dep.changed();
     },
 
     /**
@@ -72,14 +71,14 @@ Partup.client.scroll = {
         var self = this;
 
         options = options || {};
-        options.offset = options.offset || INFINITE_SCROLL_OFFSET;
+        options.offset = mout.lang.isNumber(options.offset) ? options.offset : INFINITE_SCROLL_OFFSET;
         if (!options.template) return;
         if (!options.element) return;
 
         var trigger = function() {
             var bottomPosition = options.element.getBoundingClientRect().bottom;
             var bottomInView = bottomPosition - window.innerHeight;
-            if (bottomInView < INFINITE_SCROLL_OFFSET) {
+            if (bottomInView < options.offset) {
                 if (!options.template.view.isDestroyed) callback();
             }
         };
@@ -104,7 +103,7 @@ Partup.client.scroll = {
         // Call the this.pos.get() function to make this function reactive
         this.pos.get();
 
-        // Return whether the element is in viewport
+        // Return whether the element is completely in viewport
         return element.offsetTop >= 0 && element.offsetTop + element.clientHeight <= window.innerHeight;
     },
 
@@ -143,3 +142,5 @@ Partup.client.scroll = {
         });
     }
 };
+
+Partup.client.scroll.triggerUpdate();

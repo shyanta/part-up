@@ -28,6 +28,7 @@ Template.UserHoverCard.onRendered(function() {
     template.hoverHandler = function(e) {
         hoverCardDebugger.log('mouseover');
         var self = $(this); // [data-usercard]
+        var delay = self.data('usercard') === 'group' ? 0 : 500;
 
         // clear any other usercard timeout
         clearTimeout(showProfileTimeout);
@@ -60,10 +61,15 @@ Template.UserHoverCard.onRendered(function() {
         };
 
         // immediatly set the usercard data for quick rendering
-        template.hoverCardSettings.set('partup.hover-card.data', self.data('usercard'));
+        var id = self.data('usercard');
+        var list = self.data('usercard-list') ? self.data('usercard-list').split(',') : undefined;
+        template.hoverCardSettings.set('partup.hover-card.data', {
+            _id: id,
+            list: list || undefined
+        });
 
         // show usercard after 500 ms delay
-        showProfileTimeout = setTimeout(delayedMouseOverHandler, 500);
+        showProfileTimeout = setTimeout(delayedMouseOverHandler, delay);
 
         // listen to hover cancel
         self.on('mouseleave', mouseLeaveHandler);
@@ -72,11 +78,11 @@ Template.UserHoverCard.onRendered(function() {
     template.clickHandler = function(e) {
         hoverCardDebugger.log('clicked');
         var self = $(this);
+        if (self.data('usercard-list')) return;
         var s = template.hoverCardSettings.get('partup.hover-card.settings');
         var d = template.hoverCardSettings.get('partup.hover-card.data');
         if (s) template.hoverCardSettings.set('partup.hover-card.settings', false);
         if (d) template.hoverCardSettings.set('partup.hover-card.data', false);
-
 
         if (e.target.tagName.toLowerCase() === 'a') {
             e.target.href = Router.path('profile', {_id: self.data('usercard')});
@@ -132,6 +138,7 @@ Template.UserHoverCard.helpers({
         };
     },
     data: function() {
-        return Template.instance().hoverCardSettings.get('partup.hover-card.data');
+        var data = Template.instance().hoverCardSettings.get('partup.hover-card.data');
+        return data;
     }
 });

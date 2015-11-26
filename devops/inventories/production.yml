@@ -1,5 +1,5 @@
 [appservers]
-#46.101.51.124 name=partup-production-london1-01
+46.101.51.124 name=partup-production-london1-01
 178.62.67.36 name=partup-production-london1-02
 
 [production:children]

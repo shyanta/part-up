@@ -35,7 +35,7 @@ Template.app_partup.onCreated(function() {
         if (partup.image) {
             var image = Images.findOne({_id: partup.image});
             if (image) {
-                var imageUrl = Partup.client.url.getImageUrl(image, '1200x520');
+                var imageUrl = Partup.helpers.url.getImageUrl(image, '1200x520');
                 if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
             }
         }

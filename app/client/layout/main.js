@@ -20,4 +20,5 @@ Template.main.helpers({
 
 Meteor.startup(function() {
     Partup.client.scroll.init();
+    Partup.client.screen.init();
 });

@@ -1,46 +1,35 @@
 Template.FeaturedNetworks.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.selectedSlug = new ReactiveVar('');
-
-    Meteor.autorun(function() {
-        var language = Partup.client.language.current.get();
-        if (!language) return;
-
-        Partup.client.API.get('/networks/featured/' + language, {}, function(error) {
-            if (error) return;
-
-            var network = Networks.findFeatured(language).fetch().pop();
-            if (!network) return;
-
-            tpl.selectedSlug.set(network.slug);
-        });
-    });
+    var firstNetwork = template.data.networks[0];
+    template.selectedSlug = new ReactiveVar(firstNetwork.slug);
 });
 
 Template.FeaturedNetworks.helpers({
-    networks: function() {
-        var language = Partup.client.language.current.get();
-        return Networks.findFeatured(language);
-    },
     selectedNetwork: function() {
-        var slug = Template.instance().selectedSlug.get();
-        return Networks.findOne({slug: slug});
-    },
-    networkFeaturedByUser: function() {
-        if (!this.featured) return;
+        var template = Template.instance();
 
-        return Meteor.users.findOne(this.featured.by_upper._id);
+        return mout.object.find(template.data.networks, {
+            slug: template.selectedSlug.get()
+        });
     },
     networkLogo: function() {
-        return get(this, 'featured.logo') || get(this, 'image');
+        var network = this;
+
+        if (network.logoObject) {
+            return Partup.helpers.url.getImageUrl(network.logoObject, '360x360');
+        } else if (network.imageObject) {
+            return Partup.helpers.url.getImageUrl(network.imageObject, '360x360');
+        }
+
+        return '';
     }
 });
 
 Template.FeaturedNetworks.events({
     'click [data-select]': function(event, template) {
         event.preventDefault();
-        var slug = $(event.currentTarget).data('select');
+        var slug = event.currentTarget.dataset.select;
         template.selectedSlug.set(slug);
     }
 });
