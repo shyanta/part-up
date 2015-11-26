@@ -5,13 +5,11 @@ var d = Debug('event_handlers:updates_comments_handler');
  */
 Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     update = new Update(update);
+    var commenterId = upper._id;
 
     // Parse message for user mentions
     var mentions = Partup.helpers.mentions.extract(comment.content);
-    mentions.forEach(function(user) {
-        // Retrieve the user from the database (ensures that the user does indeed exists!)
-        user = Meteor.users.findOne(user._id);
-
+    var process = function(user) {
         if (partup.isViewableByUser(user._id)) {
             // Set the notification details
             var notificationOptions = {
@@ -56,6 +54,21 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
 
             // Send the email
             Partup.server.services.emails.send(emailOptions);
+        }
+    };
+    mentions.forEach(function(mention) {
+        if (mention.type === 'single') {
+            // Retrieve the user from the database (ensures that the user does indeed exists!)
+            if (mention._id === commenterId) return;
+            var user = Meteor.users.findOne(mention._id);
+            process(user);
+        } else if (mention.type === 'group') {
+            // Retrieve each user from the database (ensures that the user does indeed exists!)
+            mention.users.forEach(function(userId) {
+                if (userId === commenterId) return;
+                var user = Meteor.users.findOne(userId);
+                process(user);
+            });
         }
     });
 

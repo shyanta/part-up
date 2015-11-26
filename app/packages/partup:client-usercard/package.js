@@ -26,6 +26,8 @@ Package.onUse(function(api) {
 
         'templates/UserCardContent.html',
         'templates/UserCardContent.js',
+        'templates/UserCardListContent.html',
+        'templates/UserCardListContent.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

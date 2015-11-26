@@ -1,4 +1,6 @@
 {
     "usercard-partups": "Part-ups",
-    "usercard-supporter": "Supporter"
+    "usercard-supporter": "Supporter",
+    "usercard-additional": "+ __ammount__ more",
+    "usercard-list-placeholder": "There were no supporters at the time of this comment."
 }
