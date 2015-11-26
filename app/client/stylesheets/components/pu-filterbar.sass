@@ -1,6 +1,6 @@
 .pu-filterbar
     > .pu-sub-input
-        max-width: 150px
+        max-width: 120px
 
     > .pu-sub-label,
     > .pu-sub-input
@@ -46,10 +46,15 @@
         border-radius: 5px
         background: #eee
 
+    @media screen and (min-width: grid(12))
+        > .pu-sub-input
+            max-width: 150px
+
+        > .pu-sub-label,
+        > .pu-sub-input
+            margin-left: 20px
+
     // This min-width value should depend on the filterbar with the biggest content
     @media screen and (min-width: 1032px)
         > .pu-sub-label
             font-size: 18px
-        > .pu-sub-label,
-        > .pu-sub-input
-            margin-left: 20px

@@ -1,4 +1,20 @@
 # CHANGELOG
+## 1.14.0
+- new popular partup algorithm
+- @mention all partners or all supporters #16
+- updates infinitescroll experience tweaks
+- Revamp profile completeness indicator #61
+- Improved tile rendering
+- Limit to 5 random networks on homepage (avoid breaking layout)
+- bugfixes
+    - Private tribe invite token bug
+    - Empty search results #46 (and massive discover rendering improvements)
+    - Lazy load on discover still gives flickering issue #63
+    - Image in tweet #70
+    - Fix @mention bugs #33
+    - All language filter is displaced on discover when other filters have content #55
+    - @mention issue after release 1.13 #81
+
 ## 1.13.4
 - fix(cron): spread out cronjobs better over the hour
 
