@@ -275,12 +275,12 @@ AutoForm.addHooks(null, {
     onSubmit: function(insertDoc) {
         console.log('submit');
         var self = this;
+        var formNameParts = self.formId.split('-');
+        if (formNameParts.length !== 2 || formNameParts[0] !== 'updateCommentForm' || formNameParts[0] !== 'commentForm') return false;
+        self.event.preventDefault();
         var template = self.template.parent();
         var formId = template.formId.get();
-        self.event.preventDefault();
         if (formId !== self.formId) {
-            var formNameParts = self.formId.split('-');
-            if (formNameParts.length !== 2 || formNameParts[0] !== 'updateCommentForm') return;
             var commentId = formNameParts[1];
             template.updating.set(true);
             console.log(insertDoc);
@@ -288,9 +288,6 @@ AutoForm.addHooks(null, {
             template.mentionsInput.reset();
             // insertDoc.content = template.mentionsInput.getValue();
         } else {
-
-            var formNameParts = self.formId.split('-');
-            if (formNameParts.length !== 2 || formNameParts[0] !== 'commentForm') return;
             var updateId = formNameParts[1];
 
             template.submitting.set(true);
