@@ -135,7 +135,7 @@ Accounts.onCreateUser(function(options, user) {
     }
 
     user.profile = profile;
-    user.completeness = Partup.server.services.profile_completeness(user.profile);
+    user.completeness = Partup.server.services.profile_completeness.updateScore(user);
     user.flags = {
         dailyDigestEmailHasBeenSent: false
     };
