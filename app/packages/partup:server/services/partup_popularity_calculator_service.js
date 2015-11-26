@@ -8,36 +8,28 @@ var d = Debug('services:partup_popularity_calculator');
 Partup.server.services.partup_popularity_calculator = {
 
     calculatePartupPopularityScore: function(partupId) {
-        var score = 0;
         var partup = Partups.findOneOrFail(partupId);
 
         var activityScore = this._calculateActivityBasedScore(partup);
         var activityScoreWeight = 0.5;
-        d.log('Activity based partup popularity score is ' + activityScore);
 
         var shareScore = this._calculateShareBasedScore(partup);
         var shareScoreWeight = 0.2;
-        d.log('Share based partup popularity score is ' + shareScore);
 
         var partnerScore = this._calculatePartnerBasedScore(partup);
         var partnerScoreWeight = 0.1;
-        d.log('Partner based partup popularity score is ' + partnerScore);
 
         var supporterScore = this._calculateSupporterBasedScore(partup);
         var supporterScoreWeight = 0.1;
-        d.log('Supporter based partup popularity score is ' + supporterScore);
 
         var viewScore = this._calculateViewBasedScore(partup);
         var viewScoreWeight = 0.1;
-        d.log('View based partup popularity score is ' + viewScore);
 
-        score = (activityScore * activityScoreWeight) +
+        var score = (activityScore * activityScoreWeight) +
             (shareScore * shareScoreWeight) +
             (partnerScore * partnerScoreWeight) +
             (supporterScore * supporterScoreWeight) +
             (viewScore * viewScoreWeight);
-
-        d.log('Total partup popularityscore = ' + score);
 
         return Math.floor(score);
     },
