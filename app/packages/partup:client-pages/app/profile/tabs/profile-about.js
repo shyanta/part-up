@@ -32,11 +32,13 @@ Template.app_profile_about.onCreated(function() {
                         if (user.profile.meurs) {
                             meurs = user.profile.meurs;
                         }
-                        tiles.unshift({
-                            type: 'result',
-                            user: user,
-                            meurs: meurs
-                        });
+                        if ((meurs.results && meurs.results.length) || Meteor.userId() === profileId) {
+                            tiles.unshift({
+                                type: 'result',
+                                user: user,
+                                meurs: meurs
+                            });
+                        }
                         tpl.loadingProfile.set(false);
                         tpl.tiles.layout.items = tpl.tiles.layout.clear();
                         tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
