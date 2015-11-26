@@ -37,7 +37,7 @@ Meteor.methods({
             }
 
             Tiles.insert(tile);
-            Meteor.users.update(upper._id, {$addToSet: {tiles: tile._id}});
+            Meteor.users.update(upper._id, {$addToSet: {'profile.tiles': tile._id}});
 
             // Update profile completion percentage
             Partup.server.services.profile_completeness.updateScore();
@@ -60,7 +60,7 @@ Meteor.methods({
 
         try {
             Tiles.remove({_id: tileId});
-            Meteor.users.update(upper._id, {$pull: {tiles: tileId}});
+            Meteor.users.update(upper._id, {$pull: {'profile.tiles': tileId}});
 
             // Update profile completion percentage
             Partup.server.services.profile_completeness.updateScore();
