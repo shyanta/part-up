@@ -7,11 +7,13 @@ var d = Debug('services:profile_completeness');
  */
 Partup.server.services.profile_completeness = {
     /**
-     * Calculate new profile completeness percentage
+     * Update new profile completeness percentage
      *
-     * @param {Object} profile
+     * @param {Object} user
      */
-    calculate: function(profile) {
+    updateScore: function(user) {
+        user = user || Meteor.user();
+
         var allFields = [
             'name',
             'image',
@@ -30,7 +32,7 @@ Partup.server.services.profile_completeness = {
         ];
         var providedValues = 0;
 
-        _.each(profile, function(value, key) {
+        _.each(user.profile, function(value, key) {
             // Don't count empty values
             if (!value || value.length < 1) return;
 
@@ -45,6 +47,12 @@ Partup.server.services.profile_completeness = {
             providedValues++;
         });
 
-        return Math.round((providedValues * 100) / allFields.length);
+        // Calculate new percentage
+        var completeness = Math.round((providedValues * 100) / allFields.length);
+
+        // And update if valid
+        if (typeof completeness == 'number') {
+            Meteor.users.update(user._id, {$set: {completeness: completeness}});
+        }
     }
 };

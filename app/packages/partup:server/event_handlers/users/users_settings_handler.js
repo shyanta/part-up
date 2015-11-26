@@ -13,7 +13,6 @@ Event.on('users.updated', function(userId, fields) {
         Partup.services.tags.insertNewTags(user.profile.tags);
 
         // Update profile completion percentage
-        var completeness = Partup.server.services.profile_completeness.calculate(fields.profile);
-        Meteor.users.update(userId, {$set: {completeness: completeness}});
+        Partup.server.services.profile_completeness.updateScore();
     }
 });
