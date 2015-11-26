@@ -85,7 +85,7 @@ Template.app_home.onRendered(function() {
 
         // Call one featured part-up
         HTTP.get('/partups/featured_one_random/' + currentLanguage, {}, function(error, response) {
-            if (error || !response.data.partups || response.data.partups.length === 0) { return; }
+            if (error || !response.data.partups || response.data.partups.length === 0) return;
 
             var result = response.data;
             var partup = result.partups.pop();
@@ -95,13 +95,17 @@ Template.app_home.onRendered(function() {
 
         // Call featured networks
         HTTP.get('/networks/featured/' + currentLanguage, {}, function(error, response) {
-            if (error || !response.data.networks || response.data.networks.length === 0) { return; }
+            if (error || !response.data.networks || response.data.networks.length === 0) return;
 
             var result = response.data;
-            var networks = result.networks.map(function(network) {
-                Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
-                return network;
-            });
+
+            var networks = lodash.chain(result.networks)
+                .each(function(network) {
+                    Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
+                })
+                .shuffle()
+                .slice(0, 5)
+                .value();
 
             template.featured_networks.set(networks);
         });
