@@ -34,7 +34,7 @@
             {{/ if }}
 
             <!-- Comments list -->
-            <ul class="pu-list pu-list-comments">
+            <ul class="pu-list pu-list-comments" data-comments-container>
                 {{# each shownComments }}
                     {{# if isSystemMessage }}
                         <!-- {{# if showSystemMessages}} -->
@@ -57,7 +57,7 @@
                             <div>
                                 {{#if partupEquals _id editCommentId}}
                                     {{#autoForm schema=formSchema id=generateUpdateCommentId class='pu-state-expanded' }}
-                                        {{> afFieldInput type='text' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows}}
+                                        {{> afFieldInput type='textarea' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows }}
                                     {{/autoForm}}
                                 {{else}}
                                     <p>

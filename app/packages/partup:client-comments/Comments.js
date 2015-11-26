@@ -14,28 +14,37 @@
 /* Widget rendered */
 /*************************************************************/
 Template.Comments.onCreated(function() {
-    this.submitting = new ReactiveVar(false);
-    this.expanded = new ReactiveVar(false);
-    this.buttonActive = new ReactiveVar(false);
-    this.showCommentClicked = new ReactiveVar(false);
-    this.showSystemMessages = new ReactiveVar(false);
+    var template = this;
+    template.submitting = new ReactiveVar(false);
+    template.expanded = new ReactiveVar(false);
+    template.buttonActive = new ReactiveVar(false);
+    template.showCommentClicked = new ReactiveVar(false);
+    template.showSystemMessages = new ReactiveVar(false);
 
-    this.LIMIT = this.data.LIMIT || 0;
-    this.showComments = this.data.SHOW_COMMENTS === undefined ||
-        this.data.SHOW_COMMENTS === true;
+    template.LIMIT = template.data.LIMIT || 0;
+    template.showComments = template.data.SHOW_COMMENTS === undefined ||
+        template.data.SHOW_COMMENTS === true;
 
-    this.messageRows = new ReactiveVar(1);
-    this.tooManyCharacters = new ReactiveVar(false);
+    template.messageRows = new ReactiveVar(1);
+    template.tooManyCharacters = new ReactiveVar(false);
 
-    this.updating = new ReactiveVar(false);
-    this.editCommentId = new ReactiveVar();
-    this.formId = new ReactiveVar('commentForm-' + this.data.update._id);
+    template.updating = new ReactiveVar(false);
+    template.editCommentId = new ReactiveVar();
+    template.formId = new ReactiveVar('commentForm-' + template.data.update._id);
+
+    template.resetEditForm = function() {
+        if (template.updateMentionsInput) template.updateMentionsInput.destroy();
+        template.editCommentId.set(false);
+    };
 });
 
 Template.Comments.onRendered(function() {
-    this.input = this.find('[name=content]');
-    var partupId = this.data.update.partup_id;
-    this.mentionsInput = Partup.client.forms.MentionsInput(this.input, partupId);
+    var template = this;
+    template.list = template.find('[data-comments-container]');
+    template.input = template.find('[name=content]');
+    var partupId = template.data.update.partup_id;
+    template.mentionsInput = Partup.client.forms.MentionsInput(template.input, partupId);
+    Partup.client.elements.onClickOutside([template.list], template.resetEditForm);
 });
 
 Template.Comments.onDestroyed(function() {
@@ -43,6 +52,7 @@ Template.Comments.onDestroyed(function() {
     if (template.mentionsInput)  {
         template.mentionsInput.destroy();
     }
+    Partup.client.elements.offClickOutside(template.resetEditForm);
 });
 
 Template.Comments.helpers({
@@ -249,12 +259,13 @@ Template.Comments.events({
         }
     },
     'click [data-edit-comment]': function(event, template) {
+        event.preventDefault();
         template.editCommentId.set(this._id);
-
+        if (template.updateMentionsInput) template.updateMentionsInput.destroy();
         Meteor.defer(function() {
             var input = template.find('[data-update-comment]');
-            if (template.updateMentionsInput) template.updateMentionsInput.destroy();
             template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id);
+            input.focus();
         });
     }
 
