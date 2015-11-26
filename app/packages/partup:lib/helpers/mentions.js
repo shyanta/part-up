@@ -18,7 +18,6 @@ Partup.helpers.mentions = {};
  */
 Partup.helpers.mentions.extract = function(message) {
     var mentions = [];
-
     // extracts user (single) mentions
     extractUsers(message).forEach(function(mention) {
         var existingMention = lodash.find(mentions, {_id: mention._id});
@@ -191,7 +190,7 @@ var extractUsers = function(message) {
         });
     }
 
-    return mentions;
+    return lodash.uniq(mentions);
 };
 var userMentions = function(message) {
     return message.match(/\[user:[^\]|]+(?:\|[^\]]+)?\]/g);
@@ -208,7 +207,7 @@ var extractPartners = function(message) {
         var users = singlematch[1] ? singlematch[1].split(',') : [];
         mentions.push({
             type: 'group',
-            users: users,
+            users: lodash.uniq(users),
             name: 'Partners'
         });
     });
@@ -230,7 +229,7 @@ var extractSupporters = function(message) {
         var users = singlematch[1] ? singlematch[1].split(',') : [];
         mentions.push({
             type: 'group',
-            users: users,
+            users: lodash.uniq(users),
             name: 'Supporters'
         });
     });
