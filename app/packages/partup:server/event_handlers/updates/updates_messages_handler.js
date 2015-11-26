@@ -6,6 +6,7 @@ var d = Debug('event_handlers:updates_messages_handler');
 Event.on('partups.messages.insert', function(upper, partup, update, message) {
     var messagerId = upper._id;
     // Parse message for user mentions
+    var limitExceeded = Partup.helpers.mentions.exceedsLimit(message);
     var mentions = Partup.helpers.mentions.extract(message);
     var process = function(user) {
         if (partup.isViewableByUser(user._id)) {
@@ -54,21 +55,23 @@ Event.on('partups.messages.insert', function(upper, partup, update, message) {
             Partup.server.services.emails.send(emailOptions);
         }
     };
-    mentions.forEach(function(mention) {
-        if (mention.type === 'single') {
-            // make sure the mentioned user is not the same as the creator
-            if (messagerId === mention._id) return;
-            // Retrieve the user from the database (ensures that the user does indeed exists!)
-            var user = Meteor.users.findOne(mention._id);
-            process(user);
-        } else if (mention.type === 'group') {
-            // Retrieve each user from the database (ensures that the user does indeed exists!)
-            mention.users.forEach(function(userId) {
+    if (!limitExceeded) {
+        mentions.forEach(function(mention) {
+            if (mention.type === 'single') {
                 // make sure the mentioned user is not the same as the creator
-                if (messagerId === userId) return;
-                var user = Meteor.users.findOne(userId);
+                if (messagerId === mention._id) return;
+                // Retrieve the user from the database (ensures that the user does indeed exists!)
+                var user = Meteor.users.findOne(mention._id);
                 process(user);
-            });
-        }
-    });
+            } else if (mention.type === 'group') {
+                // Retrieve each user from the database (ensures that the user does indeed exists!)
+                mention.users.forEach(function(userId) {
+                    // make sure the mentioned user is not the same as the creator
+                    if (messagerId === userId) return;
+                    var user = Meteor.users.findOne(userId);
+                    process(user);
+                });
+            }
+        });
+    }
 });

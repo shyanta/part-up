@@ -11,6 +11,9 @@
 
     "widgetcommentfield-comment-motivation-prefix": "motivatie is: ",
     "widgetcommentfield-comment-maxreached": "Te veel karakters, het maximum 1000",
+    "widgetcommentfield-comment-button-edit": "wijzigen",
 
-    "widgetcommentfield-comment-button-edit": "wijzigen"
+    "warning-tooManyUserMentions": "Er zitten te veel individuele vermeldingen in het bericht. Om spam te voorkomen, zijn de notificaties niet verstuurd.",
+    "warning-tooManyPartnerMentions": "Er zijn te veel partners voor deze vermelding. Om spam te voorkomen, zijn de notificaties niet verstuurd.",
+    "warning-tooManySupporterMentions": "Er zijn te veel supporters voor deze vermelding. Om spam te voorkomen, zijn de notificaties niet verstuurd."
 }

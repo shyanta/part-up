@@ -73,9 +73,10 @@ Meteor.methods({
             partup.addNewUpdateToUpperData(update);
 
             Event.emit('updates.comments.inserted', upper, partup, update, comment);
-
+            var mentionsWarning = Partup.helpers.mentions.exceedsLimit(fields.content);
             return {
-                _id: comment._id
+                _id: comment._id,
+                warning: mentionsWarning || undefined
             };
         } catch (error) {
             Log.error(error);

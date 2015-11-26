@@ -161,6 +161,17 @@ Partup.helpers.mentions.getTrueCharacterCount = function(message) {
     return count;
 };
 
+Partup.helpers.mentions.exceedsLimit = function(message) {
+    var mentions = Partup.helpers.mentions.extract(message);
+    var users = lodash.filter(mentions, {type: 'single'});
+    if (users.length > 100) return 'tooManyUserMentions';
+    var partners = lodash.find(mentions, {name: 'Partners'});
+    if (partners && partners.users && partners.users.length > 100) return 'tooManyPartnerMentions';
+    var supporters = lodash.find(mentions, {name: 'Supporters'});
+    if (supporters && supporters.users && supporters.users.length > 100) return 'tooManySupporterMentions';
+    return false;
+};
+
 // mention helpers
 
 var mentionedUserName = function(mention) {

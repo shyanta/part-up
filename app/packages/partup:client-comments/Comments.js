@@ -313,6 +313,10 @@ AutoForm.addHooks(null, {
                 if (error) {
                     return Partup.client.notify.error(__('error-method-' + error.reason));
                 }
+                if (result.warning) {
+                    Partup.client.notify.warning(__('warning-' + result.warning));
+                }
+
                 template.messageRows.set(1);
                 template.tooManyCharacters.set(false);
 

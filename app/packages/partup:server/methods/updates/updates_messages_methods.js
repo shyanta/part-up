@@ -29,9 +29,10 @@ Meteor.methods({
             }
 
             Event.emit('partups.messages.insert', upper, partup, newMessage, fields.text);
-
+            var mentionsWarning = Partup.helpers.mentions.exceedsLimit(fields.text);
             return {
-                _id: newMessage._id
+                _id: newMessage._id,
+                warning: mentionsWarning || undefined
             };
         } catch (error) {
             Log.error(error);

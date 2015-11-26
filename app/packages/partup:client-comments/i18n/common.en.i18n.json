@@ -10,6 +10,8 @@
 
     "widgetcommentfield-comment-motivation-prefix": "motivation is: ",
     "widgetcommentfield-comment-maxreached": "Too many characters, the maximum is 1000",
-
-    "widgetcommentfield-comment-button-edit": "edit"
+    "widgetcommentfield-comment-button-edit": "edit",
+    "warning-tooManyUserMentions": "There are too many personal mentions in your message. To prevent spam, notifications have not been sent.",
+    "warning-tooManyPartnerMentions": "There are too many partners (100+) in this partup. To prevent spam, notifications have not been sent.",
+    "warning-tooManySupporterMentions": "There are too many supporters (100+) in this partup. To prevent spam, notifications have not been sent."
 }

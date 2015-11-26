@@ -107,7 +107,7 @@ AutoForm.hooks({
             // will be the feedback when it fails
             Partup.client.popup.close();
 
-            Meteor.call('updates.messages.insert', partupId, insertDoc, function(error) {
+            Meteor.call('updates.messages.insert', partupId, insertDoc, function(error, result) {
                 parent.submitting.set(false);
 
                 // Error
@@ -116,6 +116,9 @@ AutoForm.hooks({
                     self.done(new Error(error.message));
 
                     return;
+                }
+                if (result.warning) {
+                    Partup.client.notify.warning(__('warning-' + result.warning));
                 }
 
                 // Success
