@@ -276,7 +276,7 @@ AutoForm.addHooks(null, {
         console.log('submit');
         var self = this;
         var formNameParts = self.formId.split('-');
-        if (formNameParts.length !== 2 || formNameParts[0] !== 'updateCommentForm' || formNameParts[0] !== 'commentForm') return false;
+        if (formNameParts.length !== 2 || (formNameParts[0] !== 'updateCommentForm' && formNameParts[0] !== 'commentForm')) return false;
         self.event.preventDefault();
         var template = self.template.parent();
         var formId = template.formId.get();
