@@ -166,7 +166,6 @@ Meteor.publishComposite('partups.featured_one_random', function(language) {
  * Publish partups for the homepage
  */
 Meteor.publishComposite('partups.home', function(language) {
-    Meteor._sleepForMs(5000);
     if (this.unblock) this.unblock();
 
     return {
