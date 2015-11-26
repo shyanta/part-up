@@ -22,7 +22,7 @@ Template.app_profile_about.onCreated(function() {
                     onReady: function() {
                         var tiles = Tiles.find({upper_id: profileId}).fetch();
                         var user = Meteor.users.findOne(profileId);
-                        if (!tiles || !tiles.length) {
+                        if (!tiles || !tiles.length && Meteor.userId() === user._id) {
                             tiles.push({
                                 type: 'image',
                                 placeholder: true
