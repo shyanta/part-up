@@ -686,4 +686,21 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(26);
+Migrations.add({
+    version: 27,
+    name: 'Move the tiles array from user root object to user.profile',
+    up: function() {
+        Meteor.users.find().fetch().forEach(function(user) {
+            var tiles = user.tiles;
+            if (!tiles) return;
+
+            // Update user
+            Meteor.users.update(user._id, {$unset: {tiles: ''}, $set: {'profile.tiles': tiles}});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.migrateTo(27);
