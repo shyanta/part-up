@@ -59,11 +59,13 @@ Meteor.methods({
             var message = Updates.findOne({_id: updateId, upper_id: upper._id});
             if (message) {
                 Updates.update({_id: message._id}, {$set: {
-                    'type_data.old_value': message.type_data.new_value,
-                    'type_data.new_value': sanitizeHtml(fields.text, {
-                        allowedTags: []
-                    }),
-                    images: fields.images,
+                    type_data: {
+                        old_value: message.type_data.new_value,
+                        new_value: sanitizeHtml(fields.text, {
+                            allowedTags: []
+                        }),
+                        images: fields.images
+                    },
                     updated_at: new Date()
                 }});
             }
