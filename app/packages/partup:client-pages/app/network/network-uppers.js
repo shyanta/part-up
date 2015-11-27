@@ -119,7 +119,7 @@ Template.app_network_uppers.onRendered(function() {
     Partup.client.scroll.infinite({
         template: template,
         element: template.find('[data-infinitescroll-container]'),
-        offset: 0
+        offset: 1500
     }, function() {
         if (template.states.loading_infinite_scroll || template.states.paging_end_reached.curValue) { return; }
 
