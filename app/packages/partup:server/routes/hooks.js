@@ -30,4 +30,4 @@ Router.onBeforeAction(function(request, response, next) {
     if (!request.user) return respondWithError(response, 401, 'error-http-unauthorized');
 
     next();
-}, {where: 'server', except: ['ping', 'partups.discover.count', 'networks.:slug.partups.count']});
+}, {where: 'server', except: ['ping', 'partups.discover.count', 'networks.:slug.partups.count', 'networks.:slug.uppers.count']});

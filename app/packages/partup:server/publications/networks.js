@@ -43,7 +43,8 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
 /**
  * Publish all partups in a network
  *
- * @param {String} networkSlug
+ * @param {Object} urlParams
+ * @param {Object} parameters
  */
 Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) {
     if (this.unblock) this.unblock();
@@ -92,18 +93,19 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
 /**
  * Publish all uppers in a network
  *
- * @param {String} networkSlug
- * @param {Object} options
+ * @param {Object} urlParams
+ * @param {Object} parameters
  */
-Meteor.publishComposite('networks.one.uppers', function(networkSlug, options) {
+Meteor.publishComposite('networks.one.uppers', function(urlParams) {
     if (this.unblock) this.unblock();
+
+    check(urlParams, {
+        slug: Match.Optional(String),
+    });
 
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
-            if (!network) return;
-
-            return Networks.guardedFind(this.userId, {_id: network._id}, {limit: 1});
+            return Networks.guardedFind(this.userId, {slug: urlParams.slug});
         },
         children: [
             {find: Meteor.users.findUppersForNetwork, children: [
@@ -111,30 +113,9 @@ Meteor.publishComposite('networks.one.uppers', function(networkSlug, options) {
             ]}
         ]
     };
-}, {url: 'networks/:0/uppers'});
-
-/**
- * Publish a count of all uppers in a network
- *
- * @param {String} networkSlug
- * @param {Object} options
- */
-Meteor.publish('networks.one.uppers.count', function(networkSlug, options) {
-    this.unblock();
-
-    options = options || {};
-    parameters = parameters || {};
-    var parameters = {
-        count: true
-    };
-
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
-    if (!network) return;
-
-    var uppers = network.uppers || [];
-
-    Counts.publish(this, 'networks.one.uppers.filterquery', Meteor.users.findMultiplePublicProfiles(uppers, options, parameters), {noWarnings: true});
-});
+}, {url: 'networks/:slug/uppers', getArgsFromRequest: function(request) {
+    return [request.params, request.query];
+}});
 
 /**
  * Publish all pending uppers in a network

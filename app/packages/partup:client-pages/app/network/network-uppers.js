@@ -1,183 +1,149 @@
-/**
- * Render network uppers
- *
- * @module Template.app_network_uppers
- * @param {String} network
- */
+var PAGING_INCREMENT = 32;
+
+var getAmountOfColumns = function(screenwidth) {
+    return screenwidth > Partup.client.grid.getWidth(11) + 80 ? 4 : 3;
+};
+
 Template.app_network_uppers.onCreated(function() {
-    var tpl = this;
+    var template = this;
 
-    tpl.uppers = {
-
-        // Constants
-        STARTING_LIMIT: 12,
-        INCREMENT: 8,
-
-        // States
-        loading: new ReactiveVar(false),
-        count_loading: new ReactiveVar(false),
-        infinitescroll_loading: new ReactiveVar(false),
-        end_reached: new ReactiveVar(false),
-
-        // Namespace for columns layout functions (added by helpers)
-        layout: {
-            items: [],
-            count: new ReactiveVar(0)
-        },
-
-        // Uppers subscription handle
-        handle: null,
-        count_handle: null,
-
-        // Options reactive variable (on change, clear the layout and re-add all uppers)
-        options: new ReactiveVar({}, function(a, b) {
-            tpl.uppers.resetLimit();
-
-            var options = b;
-            options.limit = tpl.uppers.STARTING_LIMIT;
-
-            // Set networks.one.uppers.count subscription
-            if (tpl.uppers.count_handle) tpl.uppers.count_handle.stop();
-            tpl.uppers.count_handle = tpl.subscribe('networks.one.uppers.count', tpl.data.networkSlug, options, {
-                onReady: function() {
-                    tpl.uppers.count_loading.set(false);
-
-                    var new_count = Counts.get('networks.one.uppers.filterquery');
-                    tpl.uppers.layout.count.set(new_count);
-                }
-            });
-            tpl.uppers.count_loading.set(true);
-
-            // Set networks.one.uppers subscription
-            if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options, {
-                onReady: function() {
-                    var network = Networks.findOne({slug: tpl.data.networkSlug});
-                    tpl.uppers.loading.set(false);
-
-                    /**
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Get all current uppers from our local database
-                     * - Remove all uppers from the column layout
-                     * - Add our uppers to the layout
-                     */
-                    var uppers = Meteor.users.findUppersForNetwork(network).fetch();
-
-                    tpl.uppers.layout.items = tpl.uppers.layout.clear();
-                    tpl.uppers.layout.items = tpl.uppers.layout.add(uppers);
-                }
-            });
-            tpl.uppers.loading.set(true);
-        }),
-
-        // Limit reactive variable (on change, add uppers to the layout)
-        limit: new ReactiveVar(this.STARTING_LIMIT, function(a, b) {
-            var first = b === tpl.uppers.STARTING_LIMIT;
-            if (first) return;
-
-            var options = tpl.uppers.options.get();
-            options.limit = b;
-
-            if (tpl.uppers.handle) tpl.uppers.handle.stop();
-            tpl.uppers.handle = tpl.subscribe('networks.one.uppers', tpl.data.networkSlug, options, {
-                onReady: function() {
-                    var network = Networks.findOne({slug: tpl.data.networkSlug});
-                    tpl.uppers.infinitescroll_loading.set(false);
-
-                    /**
-                     * From here, put the code in a Tracker.nonreactive to prevent the autorun from reacting to this
-                     * - Get all currently rendered uppers
-                     * - Get all current uppers from our local database
-                     * - Compare the newUppers with the oldUppers to find the difference
-                     * - If no diffUppers were found, set the end_reached to true
-                     * - Add our uppers to the layout
-                     */
-                    var oldUppers = tpl.uppers.layout.items;
-                    var newUppers = Meteor.users.findUppersForNetwork(network).fetch();
-
-                    var diffUppers = mout.array.filter(newUppers, function(partup) {
-                        return !mout.array.find(oldUppers, function(_partup) {
-                            return partup._id === _partup._id;
-                        });
-                    });
-
-                    var end_reached = diffUppers.length === 0;
-                    tpl.uppers.end_reached.set(end_reached);
-
-                    tpl.uppers.layout.items = tpl.uppers.layout.add(diffUppers);
-                }
-            });
-            tpl.uppers.infinitescroll_loading.set(true);
-        }),
-
-        // Increase limit function
-        increaseLimit: function() {
-            tpl.uppers.limit.set(tpl.uppers.limit.get() + tpl.uppers.INCREMENT);
-        },
-
-        // Reset limit function
-        resetLimit: function() {
-            tpl.uppers.limit.set(tpl.uppers.STARTING_LIMIT);
-            tpl.uppers.end_reached.set(false);
-        }
+    // States such as loading states
+    template.states = {
+        loading_infinite_scroll: false,
+        paging_end_reached: new ReactiveVar(false),
+        count_loading: new ReactiveVar(false)
     };
-    // First run
-    tpl.uppers.options.set({});
+
+    // Partup result count
+    template.count = new ReactiveVar();
+
+    // Get count
+    template.states.count_loading.set(true);
+    HTTP.get('/networks/' + template.data.networkSlug + '/uppers/count' + mout.queryString.encode({
+        userId:  Meteor.userId(),
+        token:  Accounts._storedLoginToken()
+    }), function(error, response) {
+        template.states.count_loading.set(false);
+        if (error || !response || !mout.lang.isString(response.content)) { return; }
+
+        var content = JSON.parse(response.content);
+        template.count.set(content.count);
+    });
+
+    // Column layout
+    template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
+
+        // This function will be called for each tile
+        calculateApproximateTileHeight: function(tileData, columnWidth) {
+
+            // The goal of this formula is to approach
+            // the expected height of a tile as best
+            // as possible, synchronously,
+            // using the given partup object
+            // var BASE_HEIGHT = 308;
+            // var MARGIN = 18;
+
+            // var _partup = tileData.partup;
+
+            // var NAME_PADDING = 40;
+            // var NAMe_LINEHEIGHT = 22;
+            // var nameCharsPerLine = 0.099 * (columnWidth - NAME_PADDING);
+            // var nameLines = Math.ceil(_partup.name.length / nameCharsPerLine);
+            // var name = nameLines * NAMe_LINEHEIGHT;
+
+            // var DESCRIPTION_PADDING = 40;
+            // var DESCRIPTION_LINEHEIGHT = 22;
+            // var descriptionCharsPerLine = 0.145 * (columnWidth - DESCRIPTION_PADDING);
+            // var descriptionLines = Math.ceil(_partup.description.length / descriptionCharsPerLine);
+            // var description = descriptionLines * DESCRIPTION_LINEHEIGHT;
+
+            // var tribe = _partup.network ? 47 : 0;
+
+            return 1;
+        }
+    });
 });
 
 Template.app_network_uppers.onRendered(function() {
-    var tpl = this;
+    var template = this;
 
-    /**
-     * Infinite scroll
-     */
+    // When the screen size alters
+    template.autorun(function() {
+        var screenWidth = Partup.client.screen.size.get('width');
+        var columns = getAmountOfColumns(screenWidth);
+
+        if (columns !== template.columnTilesLayout.columns.curValue.length) {
+            template.columnTilesLayout.setColumns(columns);
+        }
+    });
+
+    // When the page changes due to infinite scroll
+    template.page = new ReactiveVar(false, function(previousPage, page) {
+
+        // Add some parameters to the query
+        var query = {};
+        query.limit = PAGING_INCREMENT;
+        query.skip = page * PAGING_INCREMENT;
+        query.userId = Meteor.userId();
+
+        // Update state(s)
+        template.states.loading_infinite_scroll = true;
+
+        // Call the API for data
+        HTTP.get('/networks/' + template.data.networkSlug + '/uppers' + mout.queryString.encode(query), {
+            headers: {
+                Authorization: 'Bearer ' + Accounts._storedLoginToken()
+            }
+        }, function(error, response) {
+            if (error || !response.data.users || response.data.users.length === 0) {
+                template.states.loading_infinite_scroll = false;
+                template.states.paging_end_reached.set(true);
+                return;
+            }
+
+            var result = response.data;
+            template.states.paging_end_reached.set(result.users.length < PAGING_INCREMENT);
+
+            var tiles = result.users.map(function(user) {
+                Partup.client.embed.user(user, result['cfs.images.filerecord']);
+
+                return user;
+            });
+
+            // Add tiles to the column layout
+            template.columnTilesLayout.addTiles(tiles, function callback() {
+                template.states.loading_infinite_scroll = false;
+            });
+        });
+    });
+
+    // Trigger first page to load
+    template.page.set(0);
+
+    // Infinite scroll
     Partup.client.scroll.infinite({
-        template: tpl,
-        element: tpl.find('[data-infinitescroll-container]')
+        template: template,
+        element: template.find('[data-infinitescroll-container]'),
+        offset: 0
     }, function() {
-        if (tpl.uppers.loading.get() || tpl.uppers.end_reached.get()) return;
-        tpl.uppers.increaseLimit();
+        if (template.states.loading_infinite_scroll || template.states.paging_end_reached.curValue) { return; }
+
+        var nextPage = template.page.get() + 1;
+        template.page.set(nextPage);
     });
 });
 
 Template.app_network_uppers.helpers({
+    columnTilesLayout: function() {
+        return Template.instance().columnTilesLayout;
+    },
+    endReached: function() {
+        return Template.instance().states.paging_end_reached.get();
+    },
     count: function() {
-        return Template.instance().uppers.layout.count.get() || '';
+        return Template.instance().count.get();
     },
-    uppersLoading: function() {
-        var tpl = Template.instance();
-        return tpl.uppers.loading.get() || tpl.uppers.count_loading.get();
+    countLoading: function() {
+        return Template.instance().states.count_loading.get();
     },
-    // We use this trick to be able to call a function in a child template.
-    // The child template directly calls 'addToLayoutHook' with a callback.
-    // We save that callback, so we can call it later and the child template can react to it.
-    addToLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.uppers.layout.add = callback;
-        };
-    },
-    clearLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.uppers.layout.clear = callback;
-        };
-    },
-    rerenderLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.uppers.layout.rerender = callback;
-        };
-    },
-    amountOfColumns: function() {
-        var tpl = Template.instance();
-        var smaller = Partup.client.screen.size.get('width') < Partup.client.grid.getWidth(11) + 80;
-        Meteor.defer(function() {
-            tpl.uppers.layout.rerender();
-        });
-        return smaller ? 3 : 4;
-    }
 });

@@ -22,9 +22,9 @@ Router.route('/networks/:slug/partups/count', {where: 'server'}).get(function() 
         return response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
     }
 
-    var networks = Partups.findForNetwork(network, {}, {}, userId);
+    var partups = Partups.findForNetwork(network, {}, {}, userId);
 
-    return response.end(JSON.stringify({error: false, count: networks.count()}));
+    return response.end(JSON.stringify({error: false, count: partups.count()}));
 });
 
 /*
@@ -38,20 +38,17 @@ Router.route('/networks/:slug/uppers/count', {where: 'server'}).get(function() {
     // We are going to respond in JSON format
     response.setHeader('Content-Type', 'application/json');
 
-    var parameters = {
-        limit: request.query.limit,
-        skip: request.query.skip
-    };
-
     var userId = request.user ? request.user._id : null;
 
-    var network = Networks.guardedFind(this.userId, {slug: params.networkSlug}).fetch().pop();
+    var network = Networks.guardedFind(this.userId, {slug: params.slug}).fetch().pop();
     if (!network) {
         response.statusCode = 400;
         response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
     }
 
-    var networks = Partups.findForNetwork(network, {}, {}, userId);
+    var uppers = Meteor.users.findMultiplePublicProfiles(network.uppers, {}, {
+        count: true
+    });
 
-    return response.end(JSON.stringify({error: false, count: networks.count()}));
+    return response.end(JSON.stringify({error: false, count: uppers.count()}));
 });
