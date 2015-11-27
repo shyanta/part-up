@@ -11,6 +11,7 @@
  * @param {string} parameters.language
  */
 Meteor.publishComposite('partups.discover', function(parameters) {
+
     check(parameters, {
         networkId: Match.Optional(String),
         locationId: Match.Optional(String),
@@ -22,11 +23,6 @@ Meteor.publishComposite('partups.discover', function(parameters) {
         userId: Match.Optional(String),
     });
 
-    var options = {};
-
-    if (parameters.limit) options.limit = parseInt(parameters.limit);
-    if (parameters.skip) options.skip = parseInt(parameters.skip);
-
     parameters = {
         networkId: parameters.networkId,
         locationId: parameters.locationId,
@@ -36,6 +32,11 @@ Meteor.publishComposite('partups.discover', function(parameters) {
         skip: parameters.skip,
         language: (parameters.language === 'all') ? undefined : parameters.language
     };
+
+    var options = {};
+
+    if (parameters.limit) options.limit = parseInt(parameters.limit);
+    if (parameters.skip) options.skip = parseInt(parameters.skip);
 
     return {
         find: function() {

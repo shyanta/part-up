@@ -1,3 +1,6 @@
+/*
+ * Count route for /partups/discover
+ */
 Router.route('/partups/discover/count', {where: 'server'}).get(function() {
     var request = this.request;
     var response = this.response;

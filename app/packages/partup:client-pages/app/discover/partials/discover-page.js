@@ -70,7 +70,7 @@ Template.app_discover_page.onRendered(function() {
 
     // When the page changes due to infinite scroll
     template.partupsXMLHttpRequest = null;
-    template.page = new ReactiveVar(0, function(previousPage, page) {
+    template.page = new ReactiveVar(false, function(previousPage, page) {
 
         // Cancel possibly ongoing request
         if (template.partupsXMLHttpRequest) {
