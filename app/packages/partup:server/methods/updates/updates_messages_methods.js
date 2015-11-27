@@ -73,5 +73,26 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partup_message_could_not_be_updated');
         }
+    },
+
+    /**
+     * Remove a message
+     *
+     * @param {string} messageId
+     */
+    'updates.messages.remove': function(messageId) {
+        check(messageId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Updates.remove({_id: messageId});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_message_could_not_be_removed');
+        }
     }
 });
