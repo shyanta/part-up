@@ -29,12 +29,14 @@
     </header>
 
     <div data-infinitescroll-container>
-        {{> ColumnsLayout
-            COLUMNS=amountOfColumns
-            TEMPLATE="PartupTile"
-            addHook=addToLayoutHook
-            clearHook=clearLayoutHook
-            rerenderHook=rerenderLayoutHook
-        }}
+        {{# ColumnTilesLayout instance=columnTilesLayout }}
+            {{> PartupTile }}
+        {{/ ColumnTilesLayout }}
+
+        {{# unless endReached }}
+            <div class="pu-sub-loading-infinite-scroll">
+                {{> Spinner }}
+            </div>
+        {{/ unless }}
     </div>
 </template>

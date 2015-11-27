@@ -38,25 +38,40 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
             }
         ]
     };
-}, {url: 'networks/:0'});
+});
 
 /**
  * Publish all partups in a network
  *
  * @param {String} networkSlug
  */
-Meteor.publishComposite('networks.one.partups', function(networkSlug, parameters) {
-    this.unblock();
+Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) {
+    if (this.unblock) this.unblock();
 
-    parameters = parameters || {};
+    check(urlParams, {
+        slug: Match.Optional(String),
+    });
+
+    check(parameters, {
+        limit: Match.Optional(String),
+        skip: Match.Optional(String),
+        userId: Match.Optional(String),
+    });
+
+    parameters = {
+        limit: parameters.limit,
+        skip: parameters.skip,
+    };
+
+    var options = {};
+
+    if (parameters.limit) options.limit = parseInt(parameters.limit);
+    if (parameters.skip) options.skip = parseInt(parameters.skip);
 
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+            var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
             if (!network) return;
-
-            var options = {};
-            if (parameters.limit) options.limit = parseInt(parameters.limit);
 
             return Partups.findForNetwork(network, {}, options, this.userId);
         },
@@ -70,21 +85,9 @@ Meteor.publishComposite('networks.one.partups', function(networkSlug, parameters
             ]}
         ]
     };
-});
-
-/**
- * Publish a count of all partups in a network
- *
- * @param {String} networkSlug
- */
-Meteor.publish('networks.one.partups.count', function(networkSlug) {
-    this.unblock();
-
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
-    if (!network) return;
-
-    Counts.publish(this, 'networks.one.partups.filterquery', Partups.findForNetwork(network, {}, {}, this.userId));
-});
+}, {url: 'networks/:slug/partups', getArgsFromRequest: function(request) {
+    return [request.params, request.query];
+}});
 
 /**
  * Publish all uppers in a network
@@ -93,7 +96,7 @@ Meteor.publish('networks.one.partups.count', function(networkSlug) {
  * @param {Object} options
  */
 Meteor.publishComposite('networks.one.uppers', function(networkSlug, options) {
-    this.unblock();
+    if (this.unblock) this.unblock();
 
     return {
         find: function() {
@@ -108,7 +111,7 @@ Meteor.publishComposite('networks.one.uppers', function(networkSlug, options) {
             ]}
         ]
     };
-});
+}, {url: 'networks/:0/uppers'});
 
 /**
  * Publish a count of all uppers in a network
