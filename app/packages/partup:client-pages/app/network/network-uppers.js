@@ -84,17 +84,12 @@ Template.app_network_uppers.onRendered(function() {
         var query = {};
         query.limit = PAGING_INCREMENT;
         query.skip = page * PAGING_INCREMENT;
-        query.userId = Meteor.userId();
 
         // Update state(s)
         template.states.loading_infinite_scroll = true;
 
         // Call the API for data
-        HTTP.get('/networks/' + template.data.networkSlug + '/uppers' + mout.queryString.encode(query), {
-            headers: {
-                Authorization: 'Bearer ' + Accounts._storedLoginToken()
-            }
-        }, function(error, response) {
+        HTTP.get('/networks/' + template.data.networkSlug + '/uppers' + mout.queryString.encode(query), function(error, response) {
             if (error || !response.data.users || response.data.users.length === 0) {
                 template.states.loading_infinite_scroll = false;
                 template.states.paging_end_reached.set(true);

@@ -96,21 +96,32 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
  * @param {Object} urlParams
  * @param {Object} parameters
  */
-Meteor.publishComposite('networks.one.uppers', function(urlParams) {
+Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
     if (this.unblock) this.unblock();
 
     check(urlParams, {
         slug: Match.Optional(String),
     });
 
+    check(parameters, {
+        limit: Match.Optional(String),
+        skip: Match.Optional(String),
+    });
+
+    var options = {};
+
+    if (parameters.limit) options.limit = parseInt(parameters.limit);
+    if (parameters.skip) options.skip = parseInt(parameters.skip);
+
     return {
         find: function() {
-            return Networks.guardedFind(this.userId, {slug: urlParams.slug});
+            var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
+            if (!network) return;
+
+            return Meteor.users.findUppersForNetwork(network, options);
         },
         children: [
-            {find: Meteor.users.findUppersForNetwork, children: [
-                {find: Images.findForUser}
-            ]}
+            {find: Images.findForUser}
         ]
     };
 }, {url: 'networks/:slug/uppers', getArgsFromRequest: function(request) {

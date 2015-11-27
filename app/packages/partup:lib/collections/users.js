@@ -94,9 +94,9 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
  * @param {Network} network
  * @return {Mongo.Cursor}
  */
-Meteor.users.findUppersForNetwork = function(network) {
+Meteor.users.findUppersForNetwork = function(network, options, parameters) {
     var uppers = network.uppers || [];
-    return Meteor.users.findMultiplePublicProfiles(uppers);
+    return this.findMultiplePublicProfiles(uppers, options, parameters);
 };
 
 /**
