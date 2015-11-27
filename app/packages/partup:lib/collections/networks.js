@@ -100,8 +100,8 @@ Network.prototype.isClosed = function() {
  * @return {Boolean}
  */
 Network.prototype.isClosedForUpper = function(upperId) {
-    if (!upperId) return true;
     if (this.isPublic()) return false;
+    if (!upperId) return true;
     if (this.hasMember(upperId)) return false;
 
     return true;
