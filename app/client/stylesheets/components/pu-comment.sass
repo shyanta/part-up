@@ -36,6 +36,31 @@
         font-weight: 700
         font-size: 11px
 
+    .pu-sub-edit
+        font-size: 11px
+        opacity: 0
+        color: $color-text-subtle
+        transition: opacity .2s
+        text-decoration: none
+
+        span
+            text-decoration: underline
+
+        &:before
+            content: '•'
+            margin-left: 5px
+            margin-right: 5px
+
+    .pu-sub-remove
+        font-size: 11px
+        color: $color-text-subtle
+
+    &:hover,
+    &:active
+        .pu-sub-edit
+            color: $color-text-subtle
+            opacity: 1
+
     &-systemmessage
         p
             width: auto
