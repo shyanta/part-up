@@ -36,6 +36,14 @@ Template.Comments.onCreated(function() {
         if (template.updateMentionsInput) template.updateMentionsInput.destroy();
         template.editCommentId.set(false);
     };
+
+    //
+    Template.afFieldInput.onRendered(function() {
+        if (!this.data.hasOwnProperty('data-update-comment')) return;
+        if (template.updateMentionsInput) template.updateMentionsInput.destroy();
+        var input = template.find('[data-update-comment]');
+        template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {autoFocus: true});
+    });
 });
 
 Template.Comments.onRendered(function() {
@@ -51,6 +59,9 @@ Template.Comments.onDestroyed(function() {
     var template = this;
     if (template.mentionsInput)  {
         template.mentionsInput.destroy();
+    }
+    if (template.updateMentionsInput)  {
+        template.updateMentionsInput.destroy();
     }
     Partup.client.elements.offClickOutside(template.resetEditForm);
 });
@@ -194,8 +205,13 @@ Template.Comments.helpers({
     editCommentId: function() {
         return Template.instance().editCommentId.get();
     },
-    myComment: function() {
-        return this.creator._id === Meteor.userId() ? 'data-usercomment' : '';
+    isUserComment: function() {
+        return this.creator._id === Meteor.userId() ? 'data-comment' : '';
+    },
+    commentDoc: function() {
+        return {
+            content: this.content
+        };
     }
 });
 
@@ -261,15 +277,9 @@ Template.Comments.events({
             template.messageRows.set(template.messageRows.get() + 1);
         }
     },
-    'dblclick [data-usercomment], click [data-edit-comment]': function(event, template) {
+    'dblclick [data-comment], click [data-edit-comment]': function(event, template) {
         event.preventDefault();
         template.editCommentId.set(this._id);
-        if (template.updateMentionsInput) template.updateMentionsInput.destroy();
-        Meteor.defer(function() {
-            var input = template.find('[data-update-comment]');
-            template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id);
-            input.focus();
-        });
     },
     'click [data-remove-comment]': function(event, template) {
         event.preventDefault();
@@ -293,7 +303,6 @@ Template.Comments.events({
 
 AutoForm.addHooks(null, {
     onSubmit: function(insertDoc) {
-        console.log('submit');
         var self = this;
         var formNameParts = self.formId.split('-');
         if (formNameParts.length !== 2 || (formNameParts[0] !== 'updateCommentForm' && formNameParts[0] !== 'commentForm')) return false;
@@ -304,7 +313,6 @@ AutoForm.addHooks(null, {
             var commentId = formNameParts[1];
             var updateId = template.data.update._id;
             template.updating.set(true);
-            console.log(insertDoc);
             template.updateMentionsInput.destroy();
             template.updateMentionsInput.reset();
             insertDoc.content = template.updateMentionsInput.getValue();

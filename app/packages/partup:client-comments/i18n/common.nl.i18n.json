@@ -7,11 +7,13 @@
     "widgetcommentfield-comment-totalcomments_plural": "__count__ reacties",
     "widgetcommentfield-comment-systemmessage-show": "Laat meldingen zien",
     "widgetcommentfield-comment-systemmessage-hide": "Verberg meldingen",
-
+    "widgetcommentfield-comment-state-edited": "gewijzigd",
+    "widgetcommentfield-comment-button-remove": "Verwijder reactie",
+    "widgetcommentfield-comment-button-update": "Bewaren",
 
     "widgetcommentfield-comment-motivation-prefix": "motivatie is: ",
     "widgetcommentfield-comment-maxreached": "Te veel karakters, het maximum 1000",
-    "widgetcommentfield-comment-button-edit": "wijzigen",
+    "widgetcommentfield-comment-button-edit": "Wijzigen",
 
     "warning-tooManyUserMentions": "Er zitten te veel individuele vermeldingen in het bericht. Om spam te voorkomen, zijn de notificaties niet verstuurd.",
     "warning-tooManyPartnerMentions": "Er zijn te veel partners voor deze vermelding. Om spam te voorkomen, zijn de notificaties niet verstuurd.",

@@ -7,10 +7,14 @@
     "widgetcommentfield-comment-totalcomments_plural": "__count__ comments",
     "widgetcommentfield-comment-systemmessage-show": "Show system messages",
     "widgetcommentfield-comment-systemmessage-hide": "Hide system messages",
+    "widgetcommentfield-comment-state-edited": "edited",
+    "widgetcommentfield-comment-button-remove": "Remove comment",
+    "widgetcommentfield-comment-button-update": "Update",
 
     "widgetcommentfield-comment-motivation-prefix": "motivation is: ",
     "widgetcommentfield-comment-maxreached": "Too many characters, the maximum is 1000",
-    "widgetcommentfield-comment-button-edit": "edit",
+    "widgetcommentfield-comment-button-edit": "Edit",
+
     "warning-tooManyUserMentions": "There are too many personal mentions in your message. To prevent spam, notifications have not been sent.",
     "warning-tooManyPartnerMentions": "There are too many partners (100+) in this partup. To prevent spam, notifications have not been sent.",
     "warning-tooManySupporterMentions": "There are too many supporters (100+) in this partup. To prevent spam, notifications have not been sent."

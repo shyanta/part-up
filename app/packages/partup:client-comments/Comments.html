@@ -50,24 +50,24 @@
                         </li>
                         <!-- {{/if}} -->
                     {{ else }}
-                        <li class="pu-comment" {{ myComment }}>
+                        <li class="pu-comment" {{ isUserComment }}>
                             <a href="{{ pathFor 'profile' creator._id }}">
                                 <figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}" class="pu-avatar pu-avatar-small pu-avatar-square" style="background-image:url('{{ partupImageUrl id=imageForComment store='360x360'}}');"></figure>
                             </a>
                             <div>
                                 {{#if partupEquals _id editCommentId}}
-                                    {{#autoForm schema=formSchema id=generateUpdateCommentId class='pu-row pu-state-expanded' }}
+                                    {{#autoForm schema=formSchema id=generateUpdateCommentId class='pu-row pu-state-expanded' doc=commentDoc}}
                                         <div class="cell stretch">
-                                            {{> afFieldInput type='text' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows }}
+                                            {{> afFieldInput type='text' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows data-oncreate=createMentionsInput }}
                                         </div>
                                         <div class="cell">
                                             <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
-                                                <span>Update</span>
+                                                <span>{{_ 'widgetcommentfield-comment-button-update'}}</span>
                                                 {{> Spinner color='inverted' type='small' }}
                                             </button>
                                         </div>
                                     {{/autoForm}}
-                                    <a href="#" data-remove-comment class="pu-sub-remove">remove comment</a>
+                                    <a href="#" data-remove-comment class="pu-sub-remove">{{_ 'widgetcommentfield-comment-button-remove'}}</a>
 
                                 {{else}}
                                     <p>
@@ -83,7 +83,7 @@
                                         {{ partupDateComment created_at }}
                                         {{#if partupEquals currentUser._id creator._id}}
                                             {{#unless partupEquals created_at.getTime updated_at.getTime}}
-                                                <span class="pu-sub-seperator">edited</span>
+                                                <span class="pu-sub-seperator">{{_'widgetcommentfield-comment-state-edited'}}</span>
                                             {{/unless}}
                                             <a href="#" data-edit-comment class="pu-sub-edit"><span>{{_ 'widgetcommentfield-comment-button-edit'}}</span></a>
                                         {{/if}}
