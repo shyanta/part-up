@@ -20,7 +20,9 @@
 
     <div data-infinitescroll-container>
         {{# ColumnTilesLayout instance=columnTilesLayout }}
-            {{> UserTileCard }}
+            <div class="pu-tile">
+                {{> UpperTile }}
+            </div>
         {{/ ColumnTilesLayout }}
 
         {{# unless endReached }}

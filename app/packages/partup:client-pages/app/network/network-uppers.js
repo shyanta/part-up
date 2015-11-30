@@ -102,7 +102,9 @@ Template.app_network_uppers.onRendered(function() {
             var tiles = result.users.map(function(user) {
                 Partup.client.embed.user(user, result['cfs.images.filerecord']);
 
-                return user;
+                return {
+                    user: user
+                };
             });
 
             // Add tiles to the column layout

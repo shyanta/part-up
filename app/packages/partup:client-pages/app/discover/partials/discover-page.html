@@ -29,7 +29,9 @@
         <!-- Content (partup-tiles) -->
         <div data-infinitescroll-container>
             {{# ColumnTilesLayout instance=columnTilesLayout }}
-                {{> PartupTile }}
+                <div class="pu-tile">
+                    {{> PartupTile }}
+                </div>
             {{/ ColumnTilesLayout }}
 
             {{# unless endReached }}
