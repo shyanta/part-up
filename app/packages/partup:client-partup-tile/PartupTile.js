@@ -57,13 +57,13 @@ Template.PartupTile.onCreated(function() {
             var position = {
                 default: {
                     delay: .03 * index,
-                    x: default_coords.x + 95,
-                    y: default_coords.y + 95
+                    x: Math.round(default_coords.x + 95),
+                    y: Math.round(default_coords.y + 95)
                 },
                 hover: {
                     delay: .03 * index,
-                    x: hovering_coords.x + 95,
-                    y: hovering_coords.y + 95
+                    x: Math.round(hovering_coords.x + 95),
+                    y: Math.round(hovering_coords.y + 95)
                 }
             };
 

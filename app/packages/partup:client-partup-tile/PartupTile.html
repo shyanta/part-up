@@ -25,7 +25,7 @@
 
                 <!-- Image (circle), uppers, and progress  -->
                 <div class="pu-partupcircle">
-                    <a href="{{pathFor 'partup' slug=slug }}">
+                    <a href="{{pathFor 'partup' slug=slug }}" class="pu-sub-partuplink">
                         {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
                         <figure class="pu-sub-inner" style="
                             {{# with partupGetImageUrl imageObject '360x360' }}background-image: url('{{ . }}');{{/ with }}

@@ -27,8 +27,8 @@ Template.PartupTileFeatured.onCreated(function() {
             var coords = Partup.client.partuptile.getAvatarCoordinates(arr.length, index, 0, AVATAR_DISTANCE, AVATAR_RADIUS);
             var position = {
                 delay: .03 * index,
-                x: coords.x + 95,
-                y: coords.y + 95
+                x: Math.round(coords.x + 95),
+                y: Math.round(coords.y + 95)
             };
 
             // Blue avatar, for example: (5+)
