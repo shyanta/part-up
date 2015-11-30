@@ -38,12 +38,14 @@ Template.Comments.onCreated(function() {
     };
 
     //
-    Template.afFieldInput.onRendered(function() {
-        if (!this.data.hasOwnProperty('data-update-comment')) return;
-        if (template.updateMentionsInput) template.updateMentionsInput.destroy();
-        var input = template.find('[data-update-comment]');
-        template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {autoFocus: true});
-    });
+});
+
+Template.afFieldInput.onRendered(function() {
+    if (!this.data.hasOwnProperty('data-update-comment')) return;
+    var template = this.parent();
+    if (template.updateMentionsInput) template.updateMentionsInput.destroy();
+    var input = template.find('[data-update-comment]');
+    template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {autoFocus: true});
 });
 
 Template.Comments.onRendered(function() {
@@ -84,7 +86,6 @@ Template.Comments.helpers({
             // partup detail
             return clicked;
         }
-
     },
     commentButtonClicked: function() {
         return this.showCommentClicked || Template.instance().showCommentClicked.get();
@@ -210,7 +211,7 @@ Template.Comments.helpers({
     },
     commentDoc: function() {
         return {
-            content: this.content
+            content: this.content // needs to be decoded for input
         };
     }
 });
@@ -312,11 +313,8 @@ AutoForm.addHooks(null, {
         if (formId !== self.formId) {
             var commentId = formNameParts[1];
             var updateId = template.data.update._id;
-            template.updating.set(true);
-            template.updateMentionsInput.destroy();
-            template.updateMentionsInput.reset();
+            template.submitting.set(true);
             insertDoc.content = template.updateMentionsInput.getValue();
-            template.editCommentId.set(false);
             Meteor.call('updates.comments.update', updateId, commentId, insertDoc, function(error, result) {
                 if (error) {
                     return Partup.client.notify.error(__('error-method-' + error.reason));
@@ -324,6 +322,10 @@ AutoForm.addHooks(null, {
                 if (result && result.warning) {
                     Partup.client.notify.warning(__('warning-' + result.warning));
                 }
+                template.updateMentionsInput.destroy();
+                template.updateMentionsInput.reset();
+                template.editCommentId.set(false);
+                template.submitting.set(false);
                 self.done();
             });
         } else {
