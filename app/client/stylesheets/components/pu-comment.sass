@@ -1,5 +1,5 @@
 .pu-comment
-    >figure,
+    > a,
     > div
         display: inline-block
         vertical-align: top
@@ -11,14 +11,24 @@
             margin-bottom: -1px
             line-height: 1.4em
             margin-top: -3px
-    figure
+
+    > a
         margin-right: 5px
+        text-decoration: none
 
         &.pu-sub-line
             height: 2px
             background-color: $color-background-secondary
             width: 30px
             vertical-align: middle
+
+    .pu-sub-author
+        font-weight: 600
+        color: $color-text
+        text-decoration: none
+
+        &:hover
+            text-decoration: underline
 
     time
         color: $color-text-subtle

@@ -1,0 +1,15 @@
+<template name="HoverContainer">
+    <div class="pu-hovercontainer
+        {{# if position.coords }} pu-hovercontainer-active {{/ if }}
+        {{# unless position.leftSide }} pu-hovercontainer-position-right {{/ unless }}
+        {{# if position.topHalf }} pu-hovercontainer-position-top {{ else }} pu-hovercontainer-position-bottom {{/ if }}
+    " style="
+        {{# with position.coords.top }}    top: {{ . }}px;    {{/ with }}
+        {{# with position.coords.bottom }} bottom: {{ . }}px; {{/ with }}
+        {{# with position.coords.left }}   left: {{ . }}px;   {{/ with }}
+    ">
+        {{# if tileTemplate }}
+            {{> Template.dynamic template=tileTemplate data=tileData }}
+        {{/ if }}
+    </div>
+</template>

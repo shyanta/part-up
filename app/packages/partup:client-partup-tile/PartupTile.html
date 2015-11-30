@@ -34,17 +34,20 @@
 
                     <!-- Uppers -->
                     {{# if avatars }}
-                        <ul class="pu-sub-avatar-list" style="margin-bottom:40px;">
+                        <ul class="pu-sub-avatar-list">
                             {{# each avatars }}
                                 {{# if data.upper }}
-                                     <li class="pu-avatar" style="
-                                        {{# with partupGetImageUrl data.upper.profile.imageObject '80x80' }}background-image: url('{{ . }}');{{/ with }}
+                                     <li style="
                                         {{# with avatarPosition }}
                                             top: {{ y }}px;
                                             left: {{ x }}px;
                                             transition-delay: {{ delay }}s;
                                         {{/ with }}
-                                    " data-usercard="{{ data.upper._id }}"></li>
+                                    " data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ data.upper._id }}">
+                                        <a href="{{ pathFor 'profile' _id=data.upper._id }}" class="pu-avatar pu-avatar-partuptile">
+                                            <img src="{{ partupGetImageUrl data.upper.profile.imageObject '80x80' }}" alt="" class="pu-sub-image">
+                                        </a>
+                                    </li>
                                 {{ else }}
                                     <li class="pu-avatar pu-avatar-more" style="
                                         {{# with avatarPosition }}

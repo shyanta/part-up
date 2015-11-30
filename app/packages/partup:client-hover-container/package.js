@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup:client-usercard',
+    name: 'partup:client-hover-container',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -12,22 +12,20 @@ Package.onUse(function(api) {
 
     api.use([
         'templating',
+        'reactive-var',
         'reactive-dict'
     ], 'client');
 
     api.addFiles([
         'package-tap.i18n',
 
-        'UserHoverCard.html',
-        'UserHoverCard.js',
+        'HoverContainer.html',
+        'HoverContainer.js',
 
-        'UserTileCard.html',
-        'UserTileCard.js',
-
-        'templates/UserCardContent.html',
-        'templates/UserCardContent.js',
-        'templates/UserCardListContent.html',
-        'templates/UserCardListContent.js',
+        'templates/upper.html',
+        'templates/upper.js',
+        'templates/upperList.html',
+        'templates/upperList.js',
 
         'i18n/en.i18n.json',
         'i18n/nl.i18n.json'

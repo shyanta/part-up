@@ -1,0 +1,7 @@
+<template name="HoverContainer_upper">
+    {{# if user }}
+        {{> UpperTile user=user }}
+    {{ else }}
+        {{> Spinner }}
+    {{/ if }}
+</template>

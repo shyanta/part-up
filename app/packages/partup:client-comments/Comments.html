@@ -42,7 +42,7 @@
                             <figure class="pu-sub-line"></figure>
                             <div>
                                 <p class="pu-sub-systemmessage">
-                                    <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
+                                    <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>
                                     {{{ systemMessage content }}}
                                 </p>
                                 <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
@@ -51,14 +51,16 @@
                         <!-- {{/if}} -->
                     {{ else }}
                         <li class="pu-comment">
-                            <figure data-usercard="{{creator._id}}" class="pu-avatar pu-avatar-small pu-avatar-square" style="background-image:url('{{ partupImageUrl id=imageForComment store='360x360'}}');"></figure>
+                            <a href="{{ pathFor 'profile' creator._id }}">
+                                <figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}" class="pu-avatar pu-avatar-small pu-avatar-square" style="background-image:url('{{ partupImageUrl id=imageForComment store='360x360'}}');"></figure>
+                            </a>
                             <div>
                                 <p>
                                     {{# if isMotivation }}
-                                        <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>'s
+                                        <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>'s
                                         {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
                                     {{else}}
-                                        <span rel="author" data-usercard="{{creator._id}}">{{ creator.name }}</span>
+                                        <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>
                                         {{{ partupAutolink content }}}
                                     {{/ if}}
                                 </p>

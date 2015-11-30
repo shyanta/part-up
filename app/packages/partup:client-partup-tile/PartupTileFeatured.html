@@ -41,14 +41,17 @@
                                         <ul class="pu-sub-avatar-list">
                                             {{# each avatars }}
                                                 {{# if data.upper }}
-                                                     <li class="pu-avatar" style="
-                                                        {{# with partupGetImageUrl data.upper.profile.imageObject '80x80' }}background-image: url('{{ . }}');{{/ with }}
+                                                     <li style="
                                                         {{# with position }}
                                                             top: {{ y }}px;
                                                             left: {{ x }}px;
                                                             transition-delay: {{ delay }}s;
                                                         {{/ with }}
-                                                    " data-usercard="{{ data.upper._id }}"></li>
+                                                    " data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ data.upper._id }}">
+                                                        <a href="{{ pathFor 'profile' _id=data.upper._id }}" class="pu-avatar pu-avatar-partuptile">
+                                                            <img src="{{ partupGetImageUrl data.upper.profile.imageObject '80x80' }}" alt="" class="pu-sub-image">
+                                                        </a>
+                                                    </li>
                                                 {{ else }}
                                                     <li class="pu-avatar pu-avatar-more" style="
                                                         {{# with position }}
@@ -113,10 +116,11 @@
                 <div class="cell">
                     <figure class="pu-avatar pu-avatar-tiny"
                         style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"
-                        data-usercard="{{ _id }}"></figure>
+                        data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}"
+                    ></figure>
                 </div>
                 <p class="cell stretch last">
-                    <strong data-usercard="{{ _id }}">{{ profile.name }}</strong>,
+                    <a href="{{ pathFor 'profile' _id }}"><strong data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}">{{ profile.name }}</strong></a>,
                     {{ featured_by_user_title }}
                 </p>
             </div>
