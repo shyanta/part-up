@@ -1,6 +1,7 @@
 [appservers]
 46.101.51.124 name=partup-production-london1-01
 178.62.67.36 name=partup-production-london1-02
+178.62.109.142 name=partup-production-london1-03
 #46.101.33.171 name=partup-cron-production-london1-02
 
 [production:children]
