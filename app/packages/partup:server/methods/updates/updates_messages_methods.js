@@ -89,7 +89,10 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            Updates.remove({_id: messageId});
+            var message = Updates.findOne({_id: messageId, upper_id: upper._id});
+            if (message) {
+                Updates.remove({_id: message._id});
+            }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partup_message_could_not_be_removed');
