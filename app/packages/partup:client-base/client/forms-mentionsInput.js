@@ -3,10 +3,12 @@
  *
  * @param {Element} input
  */
-var MentionsInput = function(input, partupId) {
+var MentionsInput = function(input, partupId, options) {
+    var options = options || {};
     if (!(this instanceof MentionsInput)) {
-        return new MentionsInput(input, partupId);
+        return new MentionsInput(input, partupId, options);
     }
+    this.autoFocus = options.autoFocus || false;
     this.partupId = partupId || false;
     this.input = input;
     this.mentions = {};
@@ -80,6 +82,7 @@ MentionsInput.prototype._setEvents = function() {
     self.input.addEventListener('input', self.inputHandler);
     self.input.addEventListener('blur', self.blurHandler);
     self.suggestionsEl.addEventListener('click', self.clickHandler);
+    if (self.autoFocus) self.input.focus();
 };
 
 /**
