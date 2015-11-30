@@ -193,6 +193,9 @@ Template.Comments.helpers({
     },
     editCommentId: function() {
         return Template.instance().editCommentId.get();
+    },
+    myComment: function() {
+        return this.creator._id === Meteor.userId() ? 'data-usercomment' : '';
     }
 });
 
@@ -258,7 +261,7 @@ Template.Comments.events({
             template.messageRows.set(template.messageRows.get() + 1);
         }
     },
-    'click [data-edit-comment]': function(event, template) {
+    'dblclick [data-usercomment], click [data-edit-comment]': function(event, template) {
         event.preventDefault();
         template.editCommentId.set(this._id);
         if (template.updateMentionsInput) template.updateMentionsInput.destroy();
@@ -266,6 +269,23 @@ Template.Comments.events({
             var input = template.find('[data-update-comment]');
             template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id);
             input.focus();
+        });
+    },
+    'click [data-remove-comment]': function(event, template) {
+        event.preventDefault();
+        var commentId = this._id;
+        var updateId = template.data.update._id;
+        Partup.client.prompt.confirm({
+            title: 'Are you sure?',
+            message: 'This cannot be undone',
+            onConfirm: function() {
+                template.editCommentId.set(false);
+                if (template.updateMentionsInput) template.updateMentionsInput.destroy();
+
+                Meteor.call('updates.comments.remove', updateId, commentId, function(error, result) {
+
+                });
+            }
         });
     }
 
@@ -282,11 +302,22 @@ AutoForm.addHooks(null, {
         var formId = template.formId.get();
         if (formId !== self.formId) {
             var commentId = formNameParts[1];
+            var updateId = template.data.update._id;
             template.updating.set(true);
             console.log(insertDoc);
             template.updateMentionsInput.destroy();
-            template.mentionsInput.reset();
-            // insertDoc.content = template.mentionsInput.getValue();
+            template.updateMentionsInput.reset();
+            insertDoc.content = template.updateMentionsInput.getValue();
+            template.editCommentId.set(false);
+            Meteor.call('updates.comments.update', updateId, commentId, insertDoc, function(error, result) {
+                if (error) {
+                    return Partup.client.notify.error(__('error-method-' + error.reason));
+                }
+                if (result && result.warning) {
+                    Partup.client.notify.warning(__('warning-' + result.warning));
+                }
+                self.done();
+            });
         } else {
             var updateId = formNameParts[1];
 

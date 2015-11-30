@@ -50,15 +50,25 @@
                         </li>
                         <!-- {{/if}} -->
                     {{ else }}
-                        <li class="pu-comment">
+                        <li class="pu-comment" {{ myComment }}>
                             <a href="{{ pathFor 'profile' creator._id }}">
                                 <figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}" class="pu-avatar pu-avatar-small pu-avatar-square" style="background-image:url('{{ partupImageUrl id=imageForComment store='360x360'}}');"></figure>
                             </a>
                             <div>
                                 {{#if partupEquals _id editCommentId}}
-                                    {{#autoForm schema=formSchema id=generateUpdateCommentId class='pu-state-expanded' }}
-                                        {{> afFieldInput type='textarea' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows }}
+                                    {{#autoForm schema=formSchema id=generateUpdateCommentId class='pu-row pu-state-expanded' }}
+                                        <div class="cell stretch">
+                                            {{> afFieldInput type='text' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows }}
+                                        </div>
+                                        <div class="cell">
+                                            <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                                                <span>Update</span>
+                                                {{> Spinner color='inverted' type='small' }}
+                                            </button>
+                                        </div>
                                     {{/autoForm}}
+                                    <a href="#" data-remove-comment class="pu-sub-remove">remove comment</a>
+
                                 {{else}}
                                     <p>
                                         {{# if isMotivation }}
@@ -69,7 +79,15 @@
                                             {{{ partupAutolink content }}}
                                         {{/ if}}
                                     </p>
-                                    <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}{{#if partupEquals currentUser._id creator._id}}<span class="pu-sub-seperator"></span><a href="#" data-edit-comment>{{_ 'widgetcommentfield-comment-button-edit'}}</a>{{/if}}</time>
+                                    <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">
+                                        {{ partupDateComment created_at }}
+                                        {{#if partupEquals currentUser._id creator._id}}
+                                            {{#unless partupEquals created_at.getTime updated_at.getTime}}
+                                                <span class="pu-sub-seperator">edited</span>
+                                            {{/unless}}
+                                            <a href="#" data-edit-comment class="pu-sub-edit"><span>{{_ 'widgetcommentfield-comment-button-edit'}}</span></a>
+                                        {{/if}}
+                                    </time>
                                 {{/if}}
                             </div>
                         </li>
