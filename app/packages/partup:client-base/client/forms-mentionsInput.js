@@ -10,9 +10,10 @@ var MentionsInput = function(input, partupId, options) {
     }
     this.autoFocus = options.autoFocus || false;
     this.prefillValue = options.prefillValue || undefined;
+    this.autoAjustHeight = options.autoAjustHeight || false;
     this.partupId = partupId || false;
     this.input = input;
-    this.mentions = this.setValue(this.prefillValue);
+    this.setValue(this.prefillValue);
     this._build();
     this._setEvents();
 };
@@ -235,10 +236,10 @@ MentionsInput.prototype.getValue = function() {
 };
 
 MentionsInput.prototype.setValue = function(encodedMessage) {
-    var message = encodedMessage || '';
-    this.input.value = Partup.helpers.mentions.decodeForInput(encodedMessage);
-    var extractedMentions = Partup.helpers.mentions.extract(encodedMessage);
+    if (!encodedMessage) return;
+    var self = this;
     var mentions = {};
+    var extractedMentions = Partup.helpers.mentions.extract(encodedMessage);
     extractedMentions.forEach(function(item) {
         if (item.type === 'group') {
             mentions[item.name] = item.users;
@@ -246,7 +247,9 @@ MentionsInput.prototype.setValue = function(encodedMessage) {
         }
         mentions[item.name] = item._id;
     });
-    return mentions;
+    self.input.value = Partup.helpers.mentions.decodeForInput(encodedMessage);
+    if (self.autoAjustHeight) self.input.style.height = self.input.scrollHeight + 'px';
+    self.mentions = mentions;
 };
 
 MentionsInput.prototype.reset = function() {

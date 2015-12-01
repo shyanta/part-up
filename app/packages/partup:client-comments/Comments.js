@@ -28,6 +28,7 @@ Template.Comments.onCreated(function() {
     template.messageRows = new ReactiveVar(1);
     template.tooManyCharacters = new ReactiveVar(false);
 
+    template.updateMessageRows = new ReactiveVar(1);
     template.updating = new ReactiveVar(false);
     template.editCommentId = new ReactiveVar();
     template.currentComment = new ReactiveVar();
@@ -49,6 +50,7 @@ Template.afFieldInput.onRendered(function() {
     var currentComment = template.currentComment.get();
     template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {
         autoFocus: true,
+        autoAjustHeight: true,
         prefillValue: currentComment
     });
 });
@@ -179,6 +181,9 @@ Template.Comments.helpers({
     messageRows: function() {
         return Template.instance().messageRows.get();
     },
+    updateMessageRows: function() {
+        return Template.instance().updateMessageRows.get();
+    },
     messageTooLong: function() {
         return Template.instance().tooManyCharacters.get();
     },
@@ -281,6 +286,11 @@ Template.Comments.events({
 
         if (event.currentTarget.offsetHeight < event.currentTarget.scrollHeight) {
             template.messageRows.set(template.messageRows.get() + 1);
+        }
+    },
+    'input [data-update-comment]': function(event, template) {
+        if (event.currentTarget.offsetHeight < event.currentTarget.scrollHeight) {
+            template.updateMessageRows.set(template.updateMessageRows.get() + 1);
         }
     },
     'dblclick [data-comment], click [data-edit-comment]': function(event, template) {

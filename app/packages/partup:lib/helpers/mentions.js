@@ -78,7 +78,6 @@ Partup.helpers.mentions.decode = function(message) {
  */
 Partup.helpers.mentions.decodeForInput = function(message) {
     if (!message && !message.length) return '';
-    console.log('here')
     return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, function(m, users) {
         // decode supporter mentions
         var name = 'Supporters';

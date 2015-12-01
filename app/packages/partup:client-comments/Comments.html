@@ -58,7 +58,7 @@
                                 {{#if partupEquals _id editCommentId}}
                                     {{#autoForm schema=formSchema id=generateUpdateCommentId class='pu-row pu-state-expanded' doc=commentDoc}}
                                         <div class="cell stretch">
-                                            {{> afFieldInput type='text' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=messageRows data-oncreate=createMentionsInput }}
+                                            {{> afFieldInput type='textarea' name='content' data-update-comment="" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=updateMessageRows data-oncreate=createMentionsInput }}
                                         </div>
                                         <div class="cell">
                                             <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
