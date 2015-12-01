@@ -258,24 +258,24 @@ Template.Comments.events({
 
         template.showSystemMessages.set(!template.showSystemMessages.get());
     },
-
-    'keydown [data=commentfield]': function(event, template) {
+    'keyup [data=commentfield]': function(event, template) {
         var totalCharacters = event.currentTarget.value.length;
         if (totalCharacters > 1000) {
             template.tooManyCharacters.set(true);
         } else {
             template.tooManyCharacters.set(false);
         }
-
-        if (event.keyCode === 8 || event.keyCode === 46) {
-            if (template.tooManyCharacters.get()) AutoForm.validateForm('commentForm-' + template.data.update._id);
+        if ([8, 46].indexOf(event.keyCode) > -1) {
+            AutoForm.validateForm('commentForm-' + template.data.update._id);
         }
-
+    },
+    'keydown [data-submit=return]': function(event, template) {
         var pressedKey = event.which ? event.which : event.keyCode;
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();
             if (template.submitting.get() != true) {
-                $('#commentForm-' + template.data.update._id).submit();
+                $(event.currentTarget).closest('form').submit();
+                return true;
             }
             return false;
         }
@@ -338,6 +338,7 @@ AutoForm.addHooks(null, {
                 if (result && result.warning) {
                     Partup.client.notify.warning(__('warning-' + result.warning));
                 }
+                template.updateMessageRows.set(1);
                 template.updateMentionsInput.destroy();
                 template.updateMentionsInput.reset();
                 template.editCommentId.set(false);
