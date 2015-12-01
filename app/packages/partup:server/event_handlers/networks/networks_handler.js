@@ -90,3 +90,108 @@ Event.on('networks.new_pending_upper', function(network, pendingUpper) {
     // Send the email
     Partup.server.services.emails.send(emailOptions);
 });
+
+/**
+ * Generate a notification for the network uppers to notify the new upper
+ */
+Event.on('networks.uppers.inserted', function(newUpper, network) {
+    var notificationType = 'partups_networks_new_upper';
+
+    // Send notifications to all uppers in network
+    var networkUppers = network.uppers || [];
+    Meteor.users.find({_id: {$in: networkUppers}}).forEach(function(networkUpper) {
+        // Don't notify the upper that just joined
+        if (networkUpper._id === newUpper._id) return;
+
+        // Set-up notification options
+        var notificationOptions = {
+            userId: networkUpper._id,
+            type: notificationType,
+            typeData: {
+                upper: {
+                    _id: newUpper._id,
+                    name: newUpper.profile.name,
+                    image: newUpper.profile.image
+                },
+                network: {
+                    _id: network._id,
+                    name: network.name,
+                    image: network.image,
+                    slug: network.slug
+                }
+            }
+        };
+
+        Partup.server.services.notifications.send(notificationOptions);
+
+        // Set the email details
+        var emailOptions = {
+            type: notificationType,
+            toAddress: User(networkUpper).getEmail(),
+            subject: TAPi18n.__('emails-' + notificationType + '-subject', {network: network.name}, User(networkUpper).getLocale()),
+            locale: User(networkUpper).getLocale(),
+            typeData: {
+                name: User(networkUpper).getFirstname(),
+                upperName: newUpper.profile.name,
+                networkName: network.name,
+                url: Meteor.absoluteUrl() + network.slug + '/uppers',
+                unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + networkUpper.profile.settings.unsubscribe_email_token,
+                unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + networkUpper.profile.settings.unsubscribe_email_token
+            },
+            userEmailPreferences: networkUpper.profile.settings.email
+        };
+
+        // Send the email
+        Partup.server.services.emails.send(emailOptions);
+    });
+});
+
+/**
+ * Generate a notification for the network admin to notify that an upper left
+ */
+Event.on('networks.uppers.removed', function(upper, network) {
+    var notificationType = 'partups_networks_upper_left';
+
+    // Send notifications to network admin only
+    var networkAdmin = Meteor.users.findOneOrFail(network.admin_id);
+
+    var notificationOptions = {
+        userId: networkAdmin._id,
+        type: notificationType,
+        typeData: {
+            upper: {
+                _id: upper._id,
+                name: upper.profile.name,
+                image: upper.profile.image
+            },
+            network: {
+                _id: network._id,
+                name: network.name,
+                image: network.image,
+                slug: network.slug
+            }
+        }
+    };
+
+    Partup.server.services.notifications.send(notificationOptions);
+
+    // Set the email details
+    var emailOptions = {
+        type: notificationType,
+        toAddress: User(networkAdmin).getEmail(),
+        subject: TAPi18n.__('emails-' + notificationType + '-subject', {network: network.name}, User(networkAdmin).getLocale()),
+        locale: User(networkAdmin).getLocale(),
+        typeData: {
+            name: User(networkAdmin).getFirstname(),
+            upperName: upper.profile.name,
+            networkName: network.name,
+            url: Meteor.absoluteUrl() + network.slug + '/uppers',
+            unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + networkAdmin.profile.settings.unsubscribe_email_token,
+            unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + networkAdmin.profile.settings.unsubscribe_email_token
+        },
+        userEmailPreferences: networkAdmin.profile.settings.email
+    };
+
+    // Send the email
+    Partup.server.services.emails.send(emailOptions);
+});
