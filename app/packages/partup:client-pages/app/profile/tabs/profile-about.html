@@ -11,7 +11,7 @@
         </h2>
 
         <!-- buttons -->
-        {{#if isCurrentusersProfile}}
+        {{# if isMine }}
             <p class="pu-columnslayoutaction pu-paragraph pu-sub-right">
                 {{_ 'pages-app-profile-label-add'}}
                 <a class="pu-button" href="#" data-create-tile="photo">
@@ -26,34 +26,30 @@
         {{/if}}
     </header>
 
-    {{> ColumnsLayout
-        COLUMNS=amountOfColumns
-        TEMPLATE="ProfileTile"
-        addHook=addToLayoutHook
-        clearHook=clearLayoutHook
-        rerenderHook=rerenderLayoutHook
-    }}
+    {{# ColumnTilesLayout instance=columnTilesLayout }}
+        {{> ProfileTile }}
+    {{/ ColumnTilesLayout }}
 
     <!-- photo popup -->
-    {{#if isCurrentusersProfile}}
-        {{#if partupIsPopupActive 'new-photo' }}
-            {{#contentFor "PopupTitle"}}
-                {{_ 'pages-app-profile-photo-title'}}
-            {{/contentFor}}
-            {{#contentFor region="PopupContent" data=.}}
+    {{# if isMine }}
+        {{# if partupIsPopupActive 'new-photo' }}
+            {{# contentFor "PopupTitle" }}
+                {{_ 'pages-app-profile-photo-title' }}
+            {{/ contentFor }}
+            {{# contentFor region="PopupContent" data=. }}
                 {{> NewPhotoTile }}
-            {{/contentFor}}
-        {{/if}}
+            {{/ contentFor }}
+        {{/ if }}
         <!-- video popup -->
         {{#if partupIsPopupActive 'new-video' }}
-            {{#contentFor "PopupTitle"}}
-                {{_ 'pages-app-profile-video-title'}}
-            {{/contentFor}}
-            {{#contentFor region="PopupContent" data=.}}
+            {{# contentFor "PopupTitle" }}
+                {{_ 'pages-app-profile-video-title' }}
+            {{/ contentFor }}
+            {{# contentFor region="PopupContent" data=. }}
                 {{> NewVideoTile }}
-            {{/contentFor}}
-        {{/if}}
-    {{/if}}
+            {{/ contentFor }}
+        {{/ if }}
+    {{/ if }}
 
     <!-- info popup -->
     {{#if partupIsPopupActive 'info' }}
