@@ -11,6 +11,9 @@
 // contributions_ratings_inserted
 // updates_first_comment
 // invite_upper_to_partup
+// partups_new_comment_in_involved_conversation
+// partups_networks_new_upper
+// partups_networks_upper_left
 
 New:
 

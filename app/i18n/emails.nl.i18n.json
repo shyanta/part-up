@@ -9,5 +9,6 @@
     "emails-invite_upper_to_network-subject": "Uitnodiging voor de tribe __network__",
     "emails-partup_created_in_network-subject": "Er is een part-up aangemaakt in de tribe __network__",
     "emails-partups_networks_new_pending_upper-subject": "__upper__ vraagt toegang tot tribe __network__",
-    "emails-partups_networks_accepted-subject": "Je bent toegelaten tot de tribe __network__"
+    "emails-partups_networks_accepted-subject": "Je bent toegelaten tot de tribe __network__",
+    "emails-partups_new_comment_in_involved_conversation-subject": "Er is een reactie geplaatst op een conversatie waar je bij betrokken bent",
 }

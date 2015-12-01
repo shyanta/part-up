@@ -230,4 +230,46 @@
         </a>
     {{/if}}
 
+    <!-- new comment in conversation the upper is involved in -->
+    {{#if partupEqualsExactly notification.type 'partups_new_comment_in_involved_conversation' }}
+        <a href="{{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.commenter.image }}');"
+                data-usercard="{{ notification.type_data.commenter._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-partups_new_comment_in_involved_conversation' commenter=notification.type_data.commenter.name}}</p>
+                <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.partup.name}}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- new member in tribe -->
+    {{#if partupEqualsExactly notification.type 'partups_networks_new_upper' }}
+        <a href="{{pathFor route='network-uppers' slug=notification.type_data.network.slug}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.upper.image }}');"
+                data-usercard="{{ notification.type_data.upper._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-partups_networks_new_upper' upper=notification.type_data.upper.name network=notification.type_data.network.name}}</p>
+                <time>{{ partupDateNotification notification.created_at }}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- member has left tribe -->
+    {{#if partupEqualsExactly notification.type 'partups_networks_upper_left' }}
+        <a href="{{pathFor route='network-detail' slug=notification.type_data.network.slug}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.upper.image }}');"
+                data-usercard="{{ notification.type_data.upper._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-partups_networks_upper_left' upper=notification.type_data.upper.name network=notification.type_data.network.name}}</p>
+                <time>{{ partupDateNotification notification.created_at }}</time>
+            </article>
+        </a>
+    {{/if}}
+
 </template>
