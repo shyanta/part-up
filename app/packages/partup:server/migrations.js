@@ -703,4 +703,6 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(27);
+Meteor.startup(function() {
+    Migrations.migrateTo(27);
+});
