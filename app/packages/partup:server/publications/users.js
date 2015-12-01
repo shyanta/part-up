@@ -30,40 +30,50 @@ Meteor.publishComposite('users.one', function(userId) {
 /**
  * Publish all partups a user is upper in
  *
- * @param {String} userId
+ * @param {Object} urlParams
  * @param {Object} parameters
  */
-Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
-    check(userId, String);
+Meteor.publishComposite('users.one.upperpartups', function(urlParams, parameters) {
+    if (this.unblock) this.unblock();
 
-    parameters = parameters || {};
-    check(parameters, {
-        limit: Match.Optional(Number),
-        sort: Match.Optional(String),
-        count: Match.Optional(Boolean)
+    check(urlParams, {
+        id: Match.Optional(String),
     });
 
-    this.unblock();
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
+    check(parameters, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number)
+    });
+
+    var options = {};
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
 
     return {
         find: function() {
-            var user = Meteor.users.findOne(userId);
+            var user = Meteor.users.findOne(urlParams.id);
             if (!user) return;
 
-            return Partups.findUpperPartupsForUser(user, parameters, this.userId);
+            return Partups.findUpperPartupsForUser(user, options, this.userId);
         },
         children: [
             {find: Images.findForPartup},
             {find: Meteor.users.findUppersForPartup, children: [
                 {find: Images.findForUser}
             ]},
-            {find: Meteor.users.findSupportersForPartup},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            children: [
                 {find: Images.findForNetwork}
             ]}
         ]
     };
-});
+}, {url: 'users/:id/upperpartups', getArgsFromRequest: function(request) {
+    return [request.params, request.query];
+}});
 
 /**
  * Publish a count of all partups a user is upper in
@@ -84,30 +94,35 @@ Meteor.publish('users.one.upperpartups.count', function(userId) {
 /**
  * Publish all partups a user is supporter of
  *
- * @param {String} userId
+ * @param {Object} urlParams
  * @param {Object} parameters
- * @param {Number} parameters.limit
- * @param {String} parameters.sort
- * @param {Boolean} parameters.count
  */
-Meteor.publishComposite('users.one.supporterpartups', function(userId, parameters) {
-    check(userId, String);
+Meteor.publishComposite('users.one.supporterpartups', function(urlParams, parameters) {
+    if (this.unblock) this.unblock();
 
-    parameters = parameters || {};
-    check(parameters, {
-        limit: Match.Optional(Number),
-        sort: Match.Optional(String),
-        count: Match.Optional(Boolean)
+    check(urlParams, {
+        id: Match.Optional(String),
     });
 
-    this.unblock();
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
+    check(parameters, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number)
+    });
+
+    var options = {};
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
 
     return {
         find: function() {
-            var user = Meteor.users.findOne(userId);
+            var user = Meteor.users.findOne(urlParams.id);
             if (!user) return;
 
-            return Partups.findSupporterPartupsForUser(user, parameters, this.userId);
+            return Partups.findSupporterPartupsForUser(user, options, this.userId);
         },
         children: [
             {find: Images.findForPartup},
@@ -115,12 +130,15 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
                 {find: Images.findForUser}
             ]},
             {find: Meteor.users.findSupportersForPartup},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            children: [
                 {find: Images.findForNetwork}
             ]}
         ]
     };
-});
+}, {url: 'users/:id/supporterpartups', getArgsFromRequest: function(request) {
+    return [request.params, request.query];
+}});
 
 /**
  * Publish a count of all partups a user is supporter of

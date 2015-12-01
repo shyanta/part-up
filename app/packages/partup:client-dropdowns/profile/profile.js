@@ -15,8 +15,8 @@ Template.DropdownProfile.onCreated(function() {
     var userId = Meteor.userId();
 
     if (typeof userId == 'string') {
-        this.subscribe('users.one.upperpartups', userId);
-        this.subscribe('users.one.supporterpartups', userId);
+        this.subscribe('users.one.upperpartups', {id: userId});
+        this.subscribe('users.one.supporterpartups', {id: userId});
     }
     var oldJoinedNetworks;
     template.autorun(function() {

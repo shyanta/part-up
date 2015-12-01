@@ -61,7 +61,7 @@ Template.app_profile_upper_partups.onCreated(function() {
 
                 // Set users.one.upperpartups subscription
                 if (tpl.partups.handle) tpl.partups.handle.stop();
-                tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
+                tpl.partups.handle = tpl.subscribe('users.one.upperpartups', {id: profileId}, options, {
                     onReady: function() {
                         tpl.partups.loading.set(false);
 
@@ -90,7 +90,7 @@ Template.app_profile_upper_partups.onCreated(function() {
 
             if (tpl.partups.handle) tpl.partups.handle.stop();
             if (typeof profileId == 'string') {
-                tpl.partups.handle = tpl.subscribe('users.one.upperpartups', profileId, options, {
+                tpl.partups.handle = tpl.subscribe('users.one.upperpartups', {id: profileId}, options, {
                     onReady: function() {
                         tpl.partups.infinitescroll_loading.set(true);
 
