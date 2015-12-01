@@ -5,7 +5,6 @@ var getAmountOfColumns = function(screenwidth) {
 };
 
 Template.app_profile_supporter_partups.onCreated(function() {
-    console.log('created app_profile_supporter_partups');
     var template = this;
 
     // States such as loading states
@@ -134,10 +133,6 @@ Template.app_profile_supporter_partups.onRendered(function() {
         var nextPage = template.page.get() + 1;
         template.page.set(nextPage);
     });
-});
-
-Template.app_profile_supporter_partups.onDestroyed(function() {
-    console.log('destroyed app_profile_supporter_partups');
 });
 
 Template.app_profile_supporter_partups.helpers({
