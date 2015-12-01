@@ -15,38 +15,37 @@
 /*************************************************************/
 Template.Comments.onCreated(function() {
     var template = this;
-    template.submitting = new ReactiveVar(false);
+    // template states
+    template.submittingForm = new ReactiveVar(false);
     template.expanded = new ReactiveVar(false);
-    template.buttonActive = new ReactiveVar(false);
+    template.submitButtonActive = new ReactiveVar(false);
     template.showCommentClicked = new ReactiveVar(false);
     template.showSystemMessages = new ReactiveVar(false);
 
     template.LIMIT = template.data.LIMIT || 0;
-    template.showComments = template.data.SHOW_COMMENTS === undefined ||
-        template.data.SHOW_COMMENTS === true;
-
+    template.showComments = template.data.SHOW_COMMENTS === undefined || template.data.SHOW_COMMENTS === true;
     template.messageRows = new ReactiveVar(1);
     template.tooManyCharacters = new ReactiveVar(false);
 
     template.updateMessageRows = new ReactiveVar(1);
-    template.updating = new ReactiveVar(false);
-    template.editCommentId = new ReactiveVar();
+    template.currentEditCommentId = new ReactiveVar();
+
     template.currentComment = new ReactiveVar();
+
     template.formId = new ReactiveVar('commentForm-' + template.data.update._id);
 
-    template.resetEditForm = function() {
-        if (template.updateMentionsInput) template.updateMentionsInput.destroy();
-        template.editCommentId.set(false);
+    template.resetEditCommentForm = function() {
+        if (template.mentionsEditInput) template.mentionsEditInput.destroy();
+        template.currentEditCommentId.set(false);
     };
 
+    var updateId = template.data.update._id;
     template.removeComment = function(commentId) {
-        var updateId = template.data.update._id;
         Partup.client.prompt.confirm({
             title: 'Please confirm',
             message: 'Do you really want to remove this comment?',
             onConfirm: function() {
-                template.editCommentId.set(false);
-                if (template.updateMentionsInput) template.updateMentionsInput.destroy();
+                template.resetEditCommentForm();
 
                 Meteor.call('updates.comments.remove', updateId, commentId, function(error, result) {
                     if (error) {
@@ -57,21 +56,6 @@ Template.Comments.onCreated(function() {
             }
         });
     };
-
-    //
-});
-
-Template.afFieldInput.onRendered(function() {
-    if (!this.data.hasOwnProperty('data-update-comment')) return;
-    var template = this.parent();
-    if (template.updateMentionsInput) template.updateMentionsInput.destroy();
-    var input = template.find('[data-update-comment]');
-    var currentComment = template.currentComment.get();
-    template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {
-        autoFocus: true,
-        autoAjustHeight: true,
-        prefillValue: currentComment
-    });
 });
 
 Template.Comments.onRendered(function() {
@@ -80,113 +64,137 @@ Template.Comments.onRendered(function() {
     template.input = template.find('[name=content]');
     var partupId = template.data.update.partup_id;
     template.mentionsInput = Partup.client.forms.MentionsInput(template.input, partupId);
-    Partup.client.elements.onClickOutside([template.list], template.resetEditForm);
+    Partup.client.elements.onClickOutside([template.list], template.resetEditCommentForm);
+});
+
+Template.afFieldInput.onRendered(function() {
+    // makes sure it only goes on if it's a mentions input
+    if (!this.data.hasOwnProperty('data-update-comment')) return;
+
+    // comment template
+    var template = this.parent();
+    var currentComment = template.currentComment.get();
+
+    // destroy other edit mentionsinputs to prevent conflicts
+    if (template.mentionsEditInput) template.mentionsEditInput.destroy();
+
+    var input = template.find('[data-update-comment]');
+    template.mentionsEditInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {
+        autoFocus: true,
+        autoAjustHeight: true,
+        prefillValue: currentComment
+    });
 });
 
 Template.Comments.onDestroyed(function() {
     var template = this;
-    if (template.mentionsInput)  {
-        template.mentionsInput.destroy();
-    }
-    if (template.updateMentionsInput)  {
-        template.updateMentionsInput.destroy();
-    }
-    Partup.client.elements.offClickOutside(template.resetEditForm);
+
+    // destroy all evil memory leaks
+    if (template.mentionsInput) template.mentionsInput.destroy();
+    if (template.mentionsEditInput) template.mentionsEditInput.destroy();
+    Partup.client.elements.offClickOutside(template.resetEditCommentForm);
 });
 
 Template.Comments.helpers({
-    showCommentBox: function() {
+    // state helpers
+    state: function() {
+        var self = this;
         var template = Template.instance();
+        return {
+            submitButtonActive: function() {
+                template.submitButtonActive.get();
+            },
+            commentFormId: function() {
+                return template.formId.get();
+            },
+            showComments: function() {
+                return template.showComments;
+            },
+            submittingForm: function() {
+                return template.submittingForm.get();
+            },
+            messageRows: function() {
+                return template.messageRows.get();
+            },
+            updateMessageRows: function() {
+                return template.updateMessageRows.get();
+            },
+            messageTooLong: function() {
+                return template.tooManyCharacters.get();
+            },
+            editCommentId: function() {
+                return template.currentEditCommentId.get();
+            },
+            showCommentBox: function() {
+                var authorized = Meteor.user();
+                if (!authorized) return false;
 
-        var authorized = Meteor.user();
-        if (!authorized) return false;
+                var motivation = (get(template , 'data.type') === 'motivation');
+                if (motivation) return true;
 
-        var motivation = (get(template , 'data.type') === 'motivation');
-        if (motivation) return true;
+                var clicked = self.showCommentClicked || template.showCommentClicked.get();
+                if (self.FULLVIEW) {
+                    // update detail
+                    return true;
+                } else {
+                    // partup detail
+                    return clicked;
+                }
+            },
+            commentCount: function() {
+                var allComments = self.update.comments || [];
+                return lodash.reject(allComments, 'type', 'system').length;
+            },
+            systemCount: function() {
+                var allComments = self.update.comments || [];
+                return lodash.filter(allComments, 'type', 'system').length;
+            },
+            showSystemMessages: function() {
+                return template.showSystemMessages.get() && self.FULLVIEW;
+            }
+        };
+    },
+    // data helpers
+    data: function() {
+        var self = this;
+        var template = Template.instance();
+        return {
+            shownComments: function() {
+                if (!self.update) return [];
+                var allComments = self.update.comments || [];
+                var comments;
+                var showSystemMessages = template.showSystemMessages.get();
+                if (showSystemMessages) {
+                    comments = allComments;
+                } else {
+                    comments = lodash.reject(allComments, 'type', 'system');
+                }
 
-        var clicked = this.showCommentClicked || template.showCommentClicked.get();
-        if (this.FULLVIEW) {
-            // update detail
-            return true;
-        } else {
-            // partup detail
-            return clicked;
-        }
+                var commentsExpanded = template.expanded.get();
+                if (commentsExpanded) return comments;
+
+                var limit = template.LIMIT;
+                if (!limit) return comments;
+
+                return comments.slice(-limit);
+            },
+        };
     },
-    commentButtonClicked: function() {
-        return this.showCommentClicked || Template.instance().showCommentClicked.get();
-    },
-    buttonActive: function() {
-        return Template.instance().buttonActive.get();
-    },
-    formSchema: Partup.schemas.forms.updateComment,
-    generateFormId: function() {
-        return Template.instance().formId.get();
-    },
-    generateUpdateCommentId: function() {
-        return 'updateCommentForm-' + this._id;
-    },
+    // placeholders namespace
     placeholders: {
         comment: function() {
             return __('widgetcommentfield-comment-placeholder');
         }
     },
-    showComments: function() {
-        return Template.instance().showComments;
+    updateCommentId: function() {
+        return 'updateCommentForm-' + this._id;
     },
-    showExpandButton: function() {
-        if (!this.update) return false;
-
-        var commentsExpanded = Template.instance().expanded.get();
-        if (commentsExpanded) return false;
-
-        var limit = Template.instance().LIMIT;
-        if (!limit) return false;
-
-        var count = this.update.comments_count;
-        if (!count || (count - limit) < 1) return false;
-
-        return true;
-    },
-    shownComments: function() {
-        if (!this.update) return [];
-        var allComments = this.update.comments || [];
-        var comments;
-
-        var showSystemMessages = Template.instance().showSystemMessages.get();
-        if (showSystemMessages) {
-            comments = allComments;
-        } else {
-            comments = lodash.reject(allComments, 'type', 'system');
-        }
-
-        var commentsExpanded = Template.instance().expanded.get();
-        if (commentsExpanded) return comments;
-
-        var limit = Template.instance().LIMIT;
-        if (!limit) return comments;
-
-        return comments.slice(-limit);
-    },
-    commentCount: function() {
-        var allComments = this.update.comments || [];
-        return lodash.reject(allComments, 'type', 'system').length;
-    },
-    systemCount: function() {
-        var allComments = this.update.comments || [];
-        return lodash.filter(allComments, 'type', 'system').length;
-    },
+    formSchema: Partup.schemas.forms.updateComment,
     content: function() {
         return Partup.helpers.mentions.decode(this.content);
     },
     systemMessage: function(content) {
         return __('comment-field-content-' + content);
-    },
-    showSystemMessages: function() {
-        return Template.instance().showSystemMessages.get() && this.FULLVIEW;
-    },
-    submitting: function() {
-        return Template.instance().submitting.get();
     },
     isSystemMessage: function() {
         return this.type === 'system' || this.system;
@@ -197,15 +205,6 @@ Template.Comments.helpers({
     partup: function() {
         return Partups.findOne(this.update.partup_id);
     },
-    messageRows: function() {
-        return Template.instance().messageRows.get();
-    },
-    updateMessageRows: function() {
-        return Template.instance().updateMessageRows.get();
-    },
-    messageTooLong: function() {
-        return Template.instance().tooManyCharacters.get();
-    },
     newComments: function(upper_data) {
         upper_data = upper_data.hash.upper_data;
         var newComments = [];
@@ -215,9 +214,6 @@ Template.Comments.helpers({
             }
         });
         return newComments.length;
-    },
-    fullView: function() {
-        return this.fullView;
     },
     imageForComment: function() {
         var commentImage = Images.findOne(this.creator.image);
@@ -232,9 +228,6 @@ Template.Comments.helpers({
             }
         }
     },
-    editCommentId: function() {
-        return Template.instance().editCommentId.get();
-    },
     isUserComment: function() {
         return this.creator._id === Meteor.userId() ? 'data-comment' : '';
     },
@@ -246,7 +239,6 @@ Template.Comments.helpers({
 });
 
 Template.Comments.events({
-
     'click [data-expand-comments]': function(event, template) {
         event.preventDefault();
         var updateId = this.update._id;
@@ -271,10 +263,8 @@ Template.Comments.events({
             });
         }
     },
-
     'click [data-toggle-systemmessages]': function(event, template) {
         event.preventDefault();
-
         template.showSystemMessages.set(!template.showSystemMessages.get());
     },
     'keyup [data=commentfield]': function(event, template) {
@@ -289,27 +279,32 @@ Template.Comments.events({
         }
     },
     'keydown [data-submit=return]': function(event, template) {
+        // get form id
         var formId = $(event.currentTarget).closest('form').attr('id');
+        // split from id to get form type and update or comment id
         var formNameParts = formId.split('-');
+
+        // determine keycode (with cross browser compatibility)
         var pressedKey = event.which ? event.which : event.keyCode;
-        if (pressedKey == 13 && !event.shiftKey) {
+
+        // check if it's the 'return' key and if shift is NOT held down
+        if (pressedKey == 13 && !event.shiftKey){
             event.preventDefault();
-            if (template.submitting.get() != true) {
-                var value = event.currentTarget.value;
-                console.log(value, formId);
+
+            if (template.submittingForm.get()) return false;
+
+            var value = event.currentTarget.value;
+            // call remove comment method if there's no value
+            if (!value && (formNameParts.length === 2 && formNameParts[0] === 'updateCommentForm')) {
+                template.removeComment(formNameParts[1]);
+            } else {
                 $(event.currentTarget).closest('form').submit();
-                if (!value && (formNameParts.length === 2 && formNameParts[0] === 'updateCommentForm')) {
-                    template.removeComment(formNameParts[1]);
-                }
-                return true;
             }
-            return false;
         }
-
     },
+    // textarea height manipulators
     'input [data=commentfield]': function(event, template) {
-        template.buttonActive.set(!!event.currentTarget.value);
-
+        template.submitButtonActive.set(!!event.currentTarget.value);
         if (event.currentTarget.offsetHeight < event.currentTarget.scrollHeight) {
             template.messageRows.set(template.messageRows.get() + 1);
         }
@@ -319,11 +314,13 @@ Template.Comments.events({
             template.updateMessageRows.set(template.updateMessageRows.get() + 1);
         }
     },
+    // edit comment
     'dblclick [data-comment], click [data-edit-comment]': function(event, template) {
         event.preventDefault();
-        template.editCommentId.set(this._id);
+        template.currentEditCommentId.set(this._id);
         template.currentComment.set(this.content);
     },
+    // remove comment
     'click [data-remove-comment]': function(event, template) {
         event.preventDefault();
         var commentId = this._id;
@@ -336,15 +333,26 @@ AutoForm.addHooks(null, {
     onSubmit: function(insertDoc) {
         var self = this;
         var formNameParts = self.formId.split('-');
+        // abort if it's the wrong form
         if (formNameParts.length !== 2 || (formNameParts[0] !== 'updateCommentForm' && formNameParts[0] !== 'commentForm')) return false;
         self.event.preventDefault();
+
+        // the parent of the autoform
         var template = self.template.parent();
         var formId = template.formId.get();
+
+        // change form state
+        template.submittingForm.set(true);
+
         if (formId !== self.formId) {
+            // get comment id from the formId
             var commentId = formNameParts[1];
+            // get update id from update object in the comment
             var updateId = template.data.update._id;
-            template.submitting.set(true);
-            insertDoc.content = template.updateMentionsInput.getValue();
+
+            // get the value from the mentionsinput
+            insertDoc.content = template.mentionsEditInput.getValue();
+
             Meteor.call('updates.comments.update', updateId, commentId, insertDoc, function(error, result) {
                 if (error) {
                     return Partup.client.notify.error(__('error-method-' + error.reason));
@@ -352,22 +360,22 @@ AutoForm.addHooks(null, {
                 if (result && result.warning) {
                     Partup.client.notify.warning(__('warning-' + result.warning));
                 }
+                // reset states
                 template.updateMessageRows.set(1);
-                template.updateMentionsInput.destroy();
-                template.updateMentionsInput.reset();
-                template.editCommentId.set(false);
-                template.submitting.set(false);
+                template.mentionsEditInput.destroy();
+                template.mentionsEditInput.reset();
+                template.currentEditCommentId.set(false);
+                template.submittingForm.set(false);
                 self.done();
             });
         } else {
-            var updateId = formNameParts[1];
-
-            template.submitting.set(true);
+            var updateId = formNameParts[1]; // gets update id from the formId
 
             if (template.data.type === 'motivation') {
                 insertDoc.type = 'motivation';
             }
 
+            // get the value from the mentionsinput
             insertDoc.content = template.mentionsInput.getValue();
 
             if (template.data.POPUP) {
@@ -381,7 +389,7 @@ AutoForm.addHooks(null, {
             template.mentionsInput.reset();
 
             Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
-                template.submitting.set(false);
+                template.submittingForm.set(false);
                 if (error) {
                     return Partup.client.notify.error(__('error-method-' + error.reason));
                 }
@@ -394,7 +402,7 @@ AutoForm.addHooks(null, {
 
                 Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
 
-                template.buttonActive.set(false);
+                template.submitButtonActive.set(false);
                 self.done();
             });
         }
