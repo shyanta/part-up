@@ -26,7 +26,6 @@ lifely:mout
 lifelynl:focuspoint
 lifelynl:intent
 matb33:collection-hooks
-meteor-platform
 meteorhacks:fast-render
 meteorhacks:kadira
 meteorhacks:picker
@@ -101,3 +100,17 @@ partup:client-usercard
 partup:meteor-bender
 partup:client-invite-to-partup
 partup:client-column-tiles-layout
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
