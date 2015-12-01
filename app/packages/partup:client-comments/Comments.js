@@ -30,6 +30,7 @@ Template.Comments.onCreated(function() {
 
     template.updating = new ReactiveVar(false);
     template.editCommentId = new ReactiveVar();
+    template.currentComment = new ReactiveVar();
     template.formId = new ReactiveVar('commentForm-' + template.data.update._id);
 
     template.resetEditForm = function() {
@@ -45,7 +46,11 @@ Template.afFieldInput.onRendered(function() {
     var template = this.parent();
     if (template.updateMentionsInput) template.updateMentionsInput.destroy();
     var input = template.find('[data-update-comment]');
-    template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {autoFocus: true});
+    var currentComment = template.currentComment.get();
+    template.updateMentionsInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {
+        autoFocus: true,
+        prefillValue: currentComment
+    });
 });
 
 Template.Comments.onRendered(function() {
@@ -281,6 +286,7 @@ Template.Comments.events({
     'dblclick [data-comment], click [data-edit-comment]': function(event, template) {
         event.preventDefault();
         template.editCommentId.set(this._id);
+        template.currentComment.set(this.content);
     },
     'click [data-remove-comment]': function(event, template) {
         event.preventDefault();

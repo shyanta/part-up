@@ -9,9 +9,10 @@ var MentionsInput = function(input, partupId, options) {
         return new MentionsInput(input, partupId, options);
     }
     this.autoFocus = options.autoFocus || false;
+    this.prefillValue = options.prefillValue || undefined;
     this.partupId = partupId || false;
     this.input = input;
-    this.mentions = {};
+    this.mentions = this.setValue(this.prefillValue);
     this._build();
     this._setEvents();
 };
@@ -47,7 +48,6 @@ MentionsInput.prototype._setEvents = function() {
         if (!self.isSuggestionsShown || [38, 40, 13].indexOf(e.keyCode) === -1) {
             return;
         }
-
         e.preventDefault();
 
         switch (e.keyCode) {
@@ -232,6 +232,21 @@ MentionsInput.prototype.getValue = function() {
     });
     var encoded = Partup.helpers.mentions.encode(this.input.value, mentions);
     return encoded;
+};
+
+MentionsInput.prototype.setValue = function(encodedMessage) {
+    var message = encodedMessage || '';
+    this.input.value = Partup.helpers.mentions.decodeForInput(encodedMessage);
+    var extractedMentions = Partup.helpers.mentions.extract(encodedMessage);
+    var mentions = {};
+    extractedMentions.forEach(function(item) {
+        if (item.type === 'group') {
+            mentions[item.name] = item.users;
+            return;
+        }
+        mentions[item.name] = item._id;
+    });
+    return mentions;
 };
 
 MentionsInput.prototype.reset = function() {

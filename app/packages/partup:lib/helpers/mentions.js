@@ -1,7 +1,7 @@
 /**
  * @namespace Helpers
  * @name Partup.helpers.mentions
- * @memberof Partup.helpers
+ * @memberOf Partup.helpers
  */
 Partup.helpers.mentions = {};
 
@@ -10,7 +10,7 @@ Partup.helpers.mentions = {};
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.extract
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  *
@@ -44,7 +44,7 @@ Partup.helpers.mentions.extract = function(message) {
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.decode
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  *
@@ -66,11 +66,39 @@ Partup.helpers.mentions.decode = function(message) {
 };
 
 /**
+ * Replace mentions in a message with hyperlinks
+ *
+ * @namespace Helpers
+ * @name Partup.helpers.mentions.decodeForInput
+ * @memberOf Partup.helpers.mentions
+ *
+ * @param {String} message
+ *
+ * @return {String}
+ */
+Partup.helpers.mentions.decodeForInput = function(message) {
+    if (!message && !message.length) return '';
+    console.log('here')
+    return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, function(m, users) {
+        // decode supporter mentions
+        var name = 'Supporters';
+        return '@' + name;
+    }).replace(/\[Partners:(?:([^\]]+))?\]/g, function(m, users) {
+        // decode upper mentions
+        var name = 'Partners';
+        return '@' + name;
+    }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
+        // decode invividual mentions
+        return '@' + name;
+    });
+};
+
+/**
  * Encode user-selected mentions into the message
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.encode
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  * @param {Array} mentions
@@ -100,7 +128,6 @@ Partup.helpers.mentions.encode = function(message, mentions) {
                 // encodedMention = encodedMention + '!empty!';
             }
 
-
             // final part of encoded mention -> [partners:<user_id>,<user_id>]
             encodedMention = encodedMention + ']';
 
@@ -114,14 +141,14 @@ Partup.helpers.mentions.encode = function(message, mentions) {
     return message;
 };
 var replaceAll = function(str, find, replace) {
-  return str.replace(new RegExp(find, 'g'), replace);
+    return str.replace(new RegExp(find, 'g'), replace);
 };
 /**
  * Get the true character count of a message without the encoded mess of mentions
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.getTrueCharacterCount
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  *
