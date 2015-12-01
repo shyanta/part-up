@@ -211,7 +211,7 @@
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_user_mentioned' partup=notification.type_data.partup.name mentioning_upper=notification.type_data.mentioning_upper.name }}</p>
-                <time>{{ partupDateNotification notification.created_at }}</time>
+                <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.partup.name}}</time>
             </article>
         </a>
     {{/if}}
