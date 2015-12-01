@@ -270,7 +270,6 @@ Meteor.methods({
                 // Check if the user is invited
                 if (network.isUpperInvited(user._id)) {
                     network.addUpper(user._id);
-                    Event.emit('networks.accepted', user._id, network._id, user._id);
                     Event.emit('networks.uppers.inserted', user._id, network._id);
                     return Log.debug('User added to invitational network.');
                 } else {
