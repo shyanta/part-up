@@ -39,6 +39,25 @@ Template.Comments.onCreated(function() {
         template.editCommentId.set(false);
     };
 
+    template.removeComment = function(commentId) {
+        var updateId = template.data.update._id;
+        Partup.client.prompt.confirm({
+            title: 'Please confirm',
+            message: 'Do you really want to remove this comment?',
+            onConfirm: function() {
+                template.editCommentId.set(false);
+                if (template.updateMentionsInput) template.updateMentionsInput.destroy();
+
+                Meteor.call('updates.comments.remove', updateId, commentId, function(error, result) {
+                    if (error) {
+                        return Partup.client.notify.error(__('error-method-' + error.reason));
+                    }
+                    Partup.client.notify.success('Comment removed');
+                });
+            }
+        });
+    };
+
     //
 });
 
@@ -270,11 +289,18 @@ Template.Comments.events({
         }
     },
     'keydown [data-submit=return]': function(event, template) {
+        var formId = $(event.currentTarget).closest('form').attr('id');
+        var formNameParts = formId.split('-');
         var pressedKey = event.which ? event.which : event.keyCode;
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();
             if (template.submitting.get() != true) {
+                var value = event.currentTarget.value;
+                console.log(value, formId);
                 $(event.currentTarget).closest('form').submit();
+                if (!value && (formNameParts.length === 2 && formNameParts[0] === 'updateCommentForm')) {
+                    template.removeComment(formNameParts[1]);
+                }
                 return true;
             }
             return false;
@@ -301,19 +327,7 @@ Template.Comments.events({
     'click [data-remove-comment]': function(event, template) {
         event.preventDefault();
         var commentId = this._id;
-        var updateId = template.data.update._id;
-        Partup.client.prompt.confirm({
-            title: 'Are you sure?',
-            message: 'This cannot be undone',
-            onConfirm: function() {
-                template.editCommentId.set(false);
-                if (template.updateMentionsInput) template.updateMentionsInput.destroy();
-
-                Meteor.call('updates.comments.remove', updateId, commentId, function(error, result) {
-
-                });
-            }
-        });
+        template.removeComment(commentId);
     }
 
 });
