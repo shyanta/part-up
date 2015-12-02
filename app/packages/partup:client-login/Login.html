@@ -6,15 +6,21 @@
         <p class="pu-sub-register">{{_ 'login-newhere'}}&nbsp;<a href="#" data-createaccount>{{_ 'login-createaccount'}}</a></p>
         <ul class="pu-list pu-list-horizontal pu-list-buttons">
             <li>
-                <a href="#" class="pu-button pu-button-facebook needsclick" data-loginfacebook>
-                    <i class="picon-facebook"></i>
-                    {{_ 'login-loginfacebook'}}
+                <a href="#" class="pu-button pu-button-facebook needsclick {{# if facebookLoading }}pu-state-loading pu-state-disabled{{/ if }}" data-loginfacebook>
+                    <span>
+                        <i class="picon-facebook"></i>
+                        {{_ 'login-loginfacebook'}}
+                    </span>
+                    {{> Spinner color='inverted' type='small' }}
                 </a>
             </li>
             <li>
-                <a href="#" class="pu-button pu-button-linkedin needsclick" data-loginlinkedin>
-                    <i class="picon-linkedin"></i>
-                    {{_ 'login-loginlinkedin'}}
+                <a href="#" class="pu-button pu-button-linkedin needsclick {{# if linkedinLoading }}pu-state-loading pu-state-disabled{{/ if }}" data-loginlinkedin>
+                    <span>
+                        <i class="picon-linkedin"></i>
+                        {{_ 'login-loginlinkedin'}}
+                    </span>
+                    {{> Spinner color='inverted' type='small' }}
                 </a>
             </li>
         </ul>

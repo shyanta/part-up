@@ -31,6 +31,14 @@ if (isChrome) {
 }
 
 var submitting = new ReactiveVar(false);
+var facebookLoading = new ReactiveVar(false);
+var linkedinLoading = new ReactiveVar(false);
+
+Template.Login.onCreated(function() {
+    submitting.set(false);
+    facebookLoading.set(false);
+    linkedinLoading.set(false);
+});
 
 /*************************************************************/
 /* Widget helpers */
@@ -40,6 +48,12 @@ Template.Login.helpers({
     placeholders: formPlaceholders,
     submitting: function() {
         return submitting.get();
+    },
+    facebookLoading: function() {
+        return facebookLoading.get();
+    },
+    linkedinLoading: function() {
+        return linkedinLoading.get();
     }
 });
 
@@ -60,10 +74,14 @@ Template.Login.events({
     'click [data-loginfacebook]': function(event) {
         event.preventDefault();
 
+        facebookLoading.set(true);
+
         Meteor.loginWithFacebook({
             requestPermissions: ['email'],
             loginStyle: isChrome ? 'redirect' : 'popup'
         }, function(error) {
+            facebookLoading.set(false);
+
             if (error) {
                 Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
                 return;
@@ -75,10 +93,14 @@ Template.Login.events({
     'click [data-loginlinkedin]': function(event) {
         event.preventDefault();
 
+        linkedinLoading.set(true);
+
         Meteor.loginWithLinkedin({
             requestPermissions: ['r_emailaddress'],
             loginStyle: isChrome ? 'redirect' : 'popup'
         }, function(error) {
+            linkedinLoading.set(false);
+
             if (error) {
                 Partup.client.notify.error(__('login-error_' + Partup.client.strings.slugify(error.reason)));
                 return false;
