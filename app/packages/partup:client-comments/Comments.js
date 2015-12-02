@@ -36,7 +36,9 @@ Template.Comments.onRendered(function() {
 
 Template.Comments.onDestroyed(function() {
     var template = this;
-    template.mentionsInput.destroy();
+    if (template.mentionsInput)  {
+        template.mentionsInput.destroy();
+    }
 });
 
 Template.Comments.helpers({
