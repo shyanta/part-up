@@ -16,6 +16,16 @@ var placeholders = {
     }
 };
 
+var submitting = new ReactiveVar(false);
+var facebookLoading = new ReactiveVar(false);
+var linkedinLoading = new ReactiveVar(false);
+
+Template.modal_register_signup.onCreated(function() {
+    submitting.set(false);
+    facebookLoading.set(false);
+    linkedinLoading.set(false);
+});
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -28,6 +38,15 @@ Template.modal_register_signup.helpers({
             return count + 1;
         else
             return '';
+    },
+    submitting: function() {
+        return submitting.get();
+    },
+    facebookLoading: function() {
+        return facebookLoading.get();
+    },
+    linkedinLoading: function() {
+        return linkedinLoading.get();
     }
 });
 
@@ -38,10 +57,12 @@ Template.modal_register_signup.events({
     'click [data-signupfacebook]': function(event) {
         event.preventDefault();
 
+        facebookLoading.set(true);
         Meteor.loginWithFacebook({
             requestPermissions: ['email'],
             loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
         }, function(error) {
+            facebookLoading.set(false);
 
             if (error) {
                 Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.reason)));
@@ -71,10 +92,12 @@ Template.modal_register_signup.events({
     'click [data-signuplinkedin]': function(event) {
         event.preventDefault();
 
+        linkedinLoading.set(true);
         Meteor.loginWithLinkedin({
             requestPermissions: ['r_emailaddress'],
             loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
         }, function(error) {
+            linkedinLoading.set(false);
 
             if (error) {
                 Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.reason)));
@@ -118,6 +141,7 @@ Template.modal_register_signup.events({
 AutoForm.hooks({
     'pages-modal-register-signupForm': {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
+            submitting.set(true);
             var self = this;
             var submittedDoc = insertDoc;
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
@@ -147,6 +171,7 @@ AutoForm.hooks({
                     }
                 }
             }, function(error) {
+                submitting.set(false);
 
                 // Error cases
                 if (error && error.message) {

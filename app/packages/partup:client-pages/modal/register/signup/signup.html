@@ -10,15 +10,21 @@
         <p>{{_ 'pages-modal-register-signup-fillindetailsaccount'}}</p>
         <ul class="pu-list pu-list-horizontal pu-list-buttons">
             <li>
-                <button class="pu-button pu-button-facebook needsclick" data-signupfacebook>
-                    <i class="picon-facebook"></i>
-                    {{_ 'pages-modal-register-signup-signupfacebook'}}
+                <button class="pu-button pu-button-facebook needsclick {{# if facebookLoading }}pu-state-loading pu-state-disabled{{/ if }}" data-signupfacebook>
+                    <span>
+                        <i class="picon-facebook"></i>
+                        {{_ 'pages-modal-register-signup-signupfacebook'}}
+                    </span>
+                    {{> Spinner color='inverted' type='small' }}
                 </button>
             </li>
             <li>
-                <button class="pu-button pu-button-linkedin needsclick" data-signuplinkedin>
-                    <i class="picon-linkedin"></i>
-                    {{_ 'pages-modal-register-signup-signuplinkedin'}}
+                <button class="pu-button pu-button-linkedin needsclick {{# if linkedinLoading }}pu-state-loading pu-state-disabled{{/ if }}" data-signuplinkedin>
+                    <span>
+                        <i class="picon-linkedin"></i>
+                        {{_ 'pages-modal-register-signup-signuplinkedin'}}
+                    </span>
+                    {{> Spinner color='inverted' type='small' }}
                 </button>
             </li>
         </ul>
@@ -72,7 +78,10 @@
 
             <!-- Submit -->
             <footer>
-                <button type="submit" class="pu-button">{{_ 'pages-modal-register-signup-form-submit' }}</button>
+                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                    <span>{{_ 'pages-modal-register-signup-form-submit' }}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
             </footer>
         {{/autoForm}}
 
