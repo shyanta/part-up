@@ -1,16 +1,6 @@
 var d = Debug('services:notifications');
 
-// partups_supporters_added
-// partup_activities_invited
-// partups_contributions_accepted
-// partups_contributions_rejected
-// partups_networks_invited
-// partups_networks_accepted
-// contributions_ratings_inserted
-// invite_upper_to_partup
-// partups_new_comment_in_involved_conversation
-// partups_networks_new_upper
-// partups_networks_upper_left
+// Check notifications.md for all active notifications
 
 /**
  @namespace Partup server notifications service
