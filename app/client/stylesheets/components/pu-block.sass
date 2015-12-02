@@ -146,3 +146,28 @@
 
             .pu-image
                 margin: 0
+
+        .pu-sub-useractions
+            transition: opacity .2s, height .2s, margin-bottom .2s, padding-top .2s
+            opacity: 0
+            padding-top: 0px
+            margin-bottom: 0px
+            height: 0px
+            a
+                font-size: 11px
+                color: $color-text-subtle
+                text-decoration: none
+
+                span
+                    text-decoration: underline
+
+                &:last-child:before
+                    content: '•'
+                    margin-left: 5px
+                    margin-right: 5px
+        &:hover
+            .pu-sub-useractions
+                opacity: 1
+                height: 25px
+                padding-top: 10px
+                margin-bottom: -5px
