@@ -43,7 +43,7 @@ Template.Comments.onCreated(function() {
     template.removeComment = function(commentId) {
         Partup.client.prompt.confirm({
             title: 'Please confirm',
-            message: 'Do you really want to remove this comment?',
+            message: 'Do you really want to remove this comment? This action cannot be undone.',
             onConfirm: function() {
                 template.resetEditCommentForm();
 
@@ -102,7 +102,7 @@ Template.Comments.helpers({
         var template = Template.instance();
         return {
             submitButtonActive: function() {
-                template.submitButtonActive.get();
+                return template.submitButtonActive.get();
             },
             commentFormId: function() {
                 return template.formId.get();
