@@ -7,7 +7,6 @@ var d = Debug('services:notifications');
 // partups_networks_invited
 // partups_networks_accepted
 // contributions_ratings_inserted
-// updates_first_comment
 // invite_upper_to_partup
 // partups_new_comment_in_involved_conversation
 // partups_networks_new_upper

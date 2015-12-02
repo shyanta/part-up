@@ -9,7 +9,6 @@
 // partups_networks_accepted
 // partups_networks_new_pending_upper
 // contributions_ratings_inserted
-// updates_first_comment
 // invite_upper_to_partup
 // partups_new_comment_in_involved_conversation
 // partups_networks_new_upper
