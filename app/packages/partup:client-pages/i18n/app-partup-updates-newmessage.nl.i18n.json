@@ -4,6 +4,7 @@
     "pages-app-partup-updates-newmessage-addphoto": "Foto toevoegen",
     "pages-app-partup-updates-newmessage-close": "Annuleren",
     "pages-app-partup-updates-newmessage-submit": "Plaats bericht",
+    "pages-app-partup-updates-editmessage-submit": "Wijzig bericht",
 
     "warning-tooManyUserMentions": "Er zitten te veel individuele vermeldingen in het bericht. Om spam te voorkomen, zijn de notificaties niet verstuurd.",
     "warning-tooManyPartnerMentions": "Er zijn te veel partners voor deze vermelding. Om spam te voorkomen, zijn de notificaties niet verstuurd.",

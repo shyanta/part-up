@@ -11,5 +11,9 @@
     "update-budget-type-money-EUR": "%s euros",
     "update-budget-type-money-USD": "%s us dollars",
     "update-budget-type-money-GBP": "%s pounds",
-    "update-budget-type-none": "no budget"
+    "update-budget-type-none": "no budget",
+
+    "update-editmessage-title": "Edit message",
+    "update-editmessage-edit": "Edit",
+    "update-editmessage-remove": "Remove"
 }

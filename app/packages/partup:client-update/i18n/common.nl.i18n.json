@@ -11,5 +11,9 @@
     "update-budget-type-money-EUR": "%s euro",
     "update-budget-type-money-USD": "%s us dollar",
     "update-budget-type-money-GBP": "%s pond",
-    "update-budget-type-none": "geen budget"
+    "update-budget-type-none": "geen budget",
+
+    "update-editmessage-title": "Bericht wijzigen",
+    "update-editmessage-edit": "Wijzigen",
+    "update-editmessage-remove": "Verwijderen"
 }

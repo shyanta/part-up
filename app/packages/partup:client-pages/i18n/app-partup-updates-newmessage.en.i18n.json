@@ -4,6 +4,7 @@
     "pages-app-partup-updates-newmessage-addphoto": "Add photo",
     "pages-app-partup-updates-newmessage-close": "Cancel",
     "pages-app-partup-updates-newmessage-submit": "Post message",
+    "pages-app-partup-updates-editmessage-submit": "Update message",
 
     "warning-tooManyUserMentions": "There are too many personal mentions in your message. To prevent spam, notifications have not been sent.",
     "warning-tooManyPartnerMentions": "There are too many partners (100+) in this partup. To prevent spam, notifications have not been sent.",
