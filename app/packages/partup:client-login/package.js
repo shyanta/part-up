@@ -15,6 +15,7 @@ Package.onUse(function(api) {
         'aldeed:autoform',
         'accounts-password',
         'partup:lib',
+        'reactive-var',
         'reactive-dict'
     ], 'client');
 

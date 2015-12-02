@@ -38,7 +38,10 @@
             </label>
 
             <footer>
-                <button type="submit" class="pu-button">{{_ 'login-form-submit' }}</button>
+                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                    <span>{{_ 'login-form-submit' }}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
             </footer>
         {{/autoForm}}
         <p class="pu-paragraph pu-paragraph-subtle">

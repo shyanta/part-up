@@ -30,12 +30,17 @@ if (isChrome) {
     });
 }
 
+var submitting = new ReactiveVar(false);
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.Login.helpers({
     formSchema: Partup.schemas.forms.login,
-    placeholders: formPlaceholders
+    placeholders: formPlaceholders,
+    submitting: function() {
+        return submitting.get();
+    }
 });
 
 /*************************************************************/
@@ -124,7 +129,10 @@ AutoForm.hooks({
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
             var self = this;
 
+            submitting.set(true);
+
             Meteor.loginWithPassword(insertDoc.email, insertDoc.password, function(error) {
+                submitting.set(false);
 
                 // Error cases
                 if (error && error.message) {
