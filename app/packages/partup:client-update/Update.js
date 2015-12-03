@@ -152,6 +152,9 @@ Template.Update.helpers({
                 return !self.metadata.is_contribution && !self.metadata.is_system;
             }
         };
+    },
+    editMessagePopupId: function() {
+        return 'edit-message-' + this.updateId;
     }
 });
 
@@ -183,5 +186,28 @@ Template.Update.events({
                 }
             });
         }
+    },
+    'click [data-edit-message]': function(event, template) {
+        event.preventDefault();
+        Partup.client.popup.open({
+            id: 'edit-message-' + template.data.updateId
+        });
+    },
+    'click [data-remove-message]': function(event, template) {
+        event.preventDefault();
+        var updateId = template.data.updateId;
+        Partup.client.prompt.confirm({
+            title: 'Please confirm',
+            message: 'Do you really want to remove this message? This action cannot be undone.',
+            onConfirm: function() {
+                Meteor.call('updates.messages.remove', updateId, function(error, result) {
+                    if (error) {
+                        Partup.client.notify.error(error.reason);
+                        return;
+                    }
+                    Partup.client.notify.success('Message removed');
+                });
+            }
+        });
     }
 });

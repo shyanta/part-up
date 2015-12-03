@@ -1,9 +1,9 @@
  <template name="Comments">
     <!-- Comments -->
     <footer class="pu-commentfield">
-        {{# if showComments }}
+        {{# if state.showComments }}
         <!-- View all n comments -->
-            {{# if partupOneIsTrue FULLVIEW shownComments.length }}
+            {{# if partupOneIsTrue FULLVIEW data.shownComments.length }}
                 <p class="pu-sub-view-all-comments-button">
 
                     {{# unless FULLVIEW }}
@@ -13,16 +13,16 @@
                             {{else}}
                                 {{pathFor route='partup-update' slug=partup.slug update_id=update._id }}
                             {{/if}}
-                        ">{{_ 'widgetcommentfield-comment-totalcomments' count=commentCount}}</a>
+                        ">{{_ 'widgetcommentfield-comment-totalcomments' count=state.commentCount}}</a>
                         <span class="pu-sub-seperator"></span>
                     {{/ unless }}
                     <!-- focus button -->
                     <a href="#" data-expand-comments class="pu-sub-action">{{_ 'widgetcommentfield-comment-button'}}</a>
                     {{# if FULLVIEW }}
-                        {{# if systemCount }}
+                        {{# if state.systemCount }}
                             <span class="pu-sub-seperator"></span>
                             <a href="#" data-toggle-systemmessages>
-                                {{# if showSystemMessages }}
+                                {{# if state.showSystemMessages }}
                                     {{_ 'widgetcommentfield-comment-systemmessage-hide'}}
                                 {{ else }}
                                     {{_ 'widgetcommentfield-comment-systemmessage-show'}}
@@ -34,10 +34,10 @@
             {{/ if }}
 
             <!-- Comments list -->
-            <ul class="pu-list pu-list-comments">
-                {{# each shownComments }}
+            <ul class="pu-list pu-list-comments" data-comments-container>
+                {{# each data.shownComments }}
                     {{# if isSystemMessage }}
-                        <!-- {{# if showSystemMessages}} -->
+                        <!-- {{# if state.showSystemMessages}} -->
                         <li class="pu-comment pu-comment-systemmessage">
                             <figure class="pu-sub-line"></figure>
                             <div>
@@ -50,21 +50,37 @@
                         </li>
                         <!-- {{/if}} -->
                     {{ else }}
-                        <li class="pu-comment">
+                        <li class="pu-comment" {{ isUserComment }}>
                             <a href="{{ pathFor 'profile' creator._id }}">
                                 <figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}" class="pu-avatar pu-avatar-small pu-avatar-square" style="background-image:url('{{ partupImageUrl id=imageForComment store='360x360'}}');"></figure>
                             </a>
                             <div>
-                                <p>
-                                    {{# if isMotivation }}
-                                        <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>'s
-                                        {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
-                                    {{else}}
-                                        <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>
-                                        {{{ partupAutolink content }}}
-                                    {{/ if}}
-                                </p>
-                                <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
+                                {{#if partupEquals _id state.editCommentId}}
+                                    {{#autoForm schema=formSchema id=updateCommentId class='pu-row pu-state-expanded' doc=commentDoc}}
+                                        <div class="cell stretch">
+                                            {{> afFieldInput type='textarea' name='content' data-update-comment="" data-submit="return" class='pu-textarea pu-textarea-grow pu-sub-comment' rows=state.updateMessageRows }}
+                                        </div>
+                                        <div class="cell">
+                                            <button type="submit" class="pu-button pu-button-inputheight {{# if state.submittingForm }}pu-state-disabled pu-state-loading{{/ if }}">
+                                                <span>{{_ 'widgetcommentfield-comment-button-update'}}</span>
+                                                {{> Spinner color='inverted' type='small' }}
+                                            </button>
+                                        </div>
+                                    {{/autoForm}}
+                                    <a href="#" data-remove-comment class="pu-sub-remove">{{_ 'widgetcommentfield-comment-button-remove'}}</a>
+
+                                {{else}}
+                                    <p>
+                                        {{# if isMotivation }}
+                                            <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>'s
+                                            {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
+                                        {{else}}
+                                            <a href="{{ pathFor 'profile' creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>
+                                            {{{ partupAutolink content }}}
+                                        {{/ if}}
+                                    </p>
+                                    <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}{{#if partupEquals currentUser._id creator._id}}{{#unless partupEquals created_at.getTime updated_at.getTime}}<span class="pu-sub-seperator">{{_'widgetcommentfield-comment-state-edited'}}</span>{{/unless}}<a href="#" data-edit-comment class="pu-sub-edit"><span>{{_ 'widgetcommentfield-comment-button-edit'}}</span></a>{{/if}}</time>
+                                {{/if}}
                             </div>
                         </li>
                     {{/ if }}
@@ -73,28 +89,28 @@
         {{/ if }}
 
         <!-- Add comment field -->
-        {{#autoForm schema=formSchema id=generateFormId class='pu-state-expanded' }}
+        {{#autoForm schema=formSchema id=state.commentFormId class='pu-state-expanded' }}
             <ul class="pu-list
-                {{# unless showCommentBox }}
+                {{# unless state.showCommentBox }}
                     pu-state-hidden
                 {{/ unless }}
 
                 {{# unless isMotivation }} pu-list-fieldwithbutton pu-list-fieldwithbutton-init-inactive
-                    {{# if buttonActive }}pu-list-fieldwithbutton-state-active{{/ if }}
+                    {{# if state.submitButtonActive }}pu-list-fieldwithbutton-state-active{{/ if }}
                 {{/ unless }}"
             >
-                <li class="{{#if messageTooLong}}pu-state-error{{/if}}">
+                <li class="{{#if state.messageTooLong}}pu-state-error{{/if}}">
                     {{# if isMotivation }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea' data='commentfield' placeholder=placeholders.comment }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-sub-comment' data='commentfield' data-submit="return" placeholder=placeholders.comment }}
                     {{ else }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow' data='commentfield' placeholder=placeholders.comment rows=messageRows }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data='commentfield' data-submit="return" placeholder=placeholders.comment rows=state.messageRows }}
                     {{/ if }}
-                    {{#if messageTooLong}}
+                    {{#if state.messageTooLong}}
                         <span class="pu-sub-error">{{_ 'widgetcommentfield-comment-maxreached'}}</span>
                     {{/if}}
                 </li>
                 <li>
-                    <button type="submit" class="pu-button pu-button-inputheight {{# if submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                    <button type="submit" class="pu-button pu-button-inputheight {{# if state.submittingForm }}pu-state-disabled pu-state-loading{{/ if }}">
                         <span>{{_ 'widgetcommentfield-comment-postbutton' }}</span>
                         {{> Spinner color='inverted' type='small' }}
                     </button>

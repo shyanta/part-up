@@ -8,6 +8,7 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     var commenterId = upper._id;
 
     // Parse message for user mentions
+    var limitExceeded = Partup.helpers.mentions.exceedsLimit(comment.content);
     var mentions = Partup.helpers.mentions.extract(comment.content);
     var process = function(user) {
         if (partup.isViewableByUser(user._id)) {
@@ -56,21 +57,23 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             Partup.server.services.emails.send(emailOptions);
         }
     };
-    mentions.forEach(function(mention) {
-        if (mention.type === 'single') {
-            // Retrieve the user from the database (ensures that the user does indeed exists!)
-            if (mention._id === commenterId) return;
-            var user = Meteor.users.findOne(mention._id);
-            process(user);
-        } else if (mention.type === 'group') {
-            // Retrieve each user from the database (ensures that the user does indeed exists!)
-            mention.users.forEach(function(userId) {
-                if (userId === commenterId) return;
-                var user = Meteor.users.findOne(userId);
+    if (!limitExceeded) {
+        mentions.forEach(function(mention) {
+            if (mention.type === 'single') {
+                // Retrieve the user from the database (ensures that the user does indeed exists!)
+                if (mention._id === commenterId) return;
+                var user = Meteor.users.findOne(mention._id);
                 process(user);
-            });
-        }
-    });
+            } else if (mention.type === 'group') {
+                // Retrieve each user from the database (ensures that the user does indeed exists!)
+                mention.users.forEach(function(userId) {
+                    if (userId === commenterId) return;
+                    var user = Meteor.users.findOne(userId);
+                    process(user);
+                });
+            }
+        });
+    }
 
     // Add the comment to new comment list for all users of this partup
     var upperIds = partup.getUsers();

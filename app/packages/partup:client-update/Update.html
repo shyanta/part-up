@@ -1,5 +1,4 @@
 <template name="Update">
-
     <section class="pu-update">
         <aside>
 
@@ -64,6 +63,18 @@
                         </section>
                     {{/ with}}
                 {{ else }}
+                    <!-- edit message popup -->
+                    {{#if partupEquals update.data.upper_id currentUserId }}
+                        {{#if partupIsPopupActive editMessagePopupId }}
+                            {{#contentFor "PopupTitle"}}
+                                {{_ 'update-editmessage-title'}}
+                            {{/contentFor}}
+                            {{#contentFor region="PopupContent" data=update.data}}
+                                {{> app_partup_updates_newmessage }}
+                            {{/contentFor}}
+                        {{/if}}
+                    {{/if}}
+
                     {{# with update.data.type_data }}
                         <section>
                             <article class="pu-block pu-block-message">
@@ -71,6 +82,12 @@
                                 {{# if images }}
                                     {{> ImageGallery images=images updateId=update.data._id}}
                                 {{/ if}}
+                                {{log update.data}}
+                                {{#if partupEquals update.data.upper_id currentUserId }}
+                                    <footer class="pu-sub-useractions">
+                                        <a href="#" data-edit-message><span>{{_ 'update-editmessage-edit'}}</span></a><a href="#" data-remove-message><span>{{_ 'update-editmessage-remove'}}</span></a>
+                                    </footer>
+                                {{/if}}
                             </article>
                         </section>
                     {{/ with}}

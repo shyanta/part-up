@@ -3,13 +3,17 @@
  *
  * @param {Element} input
  */
-var MentionsInput = function(input, partupId) {
+var MentionsInput = function(input, partupId, options) {
+    var options = options || {};
     if (!(this instanceof MentionsInput)) {
-        return new MentionsInput(input, partupId);
+        return new MentionsInput(input, partupId, options);
     }
+    this.autoFocus = options.autoFocus || false;
+    this.prefillValue = options.prefillValue || undefined;
+    this.autoAjustHeight = options.autoAjustHeight || false;
     this.partupId = partupId || false;
     this.input = input;
-    this.mentions = {};
+    this.setValue(this.prefillValue);
     this._build();
     this._setEvents();
 };
@@ -42,10 +46,9 @@ MentionsInput.prototype._build = function() {
 MentionsInput.prototype._setEvents = function() {
     var self = this;
     self.keyDownHandler = function(e) {
-        if (!self.isSuggestionsShown || [38, 40, 13].indexOf(e.keyCode) === -1) {
+        if (!self.isSuggestionsShown || [38, 40, 13, 27].indexOf(e.keyCode) === -1) {
             return;
         }
-
         e.preventDefault();
 
         switch (e.keyCode) {
@@ -58,6 +61,9 @@ MentionsInput.prototype._setEvents = function() {
             case 13: // enter
                 self.select(self.selectedIndex);
                 e.stopPropagation();
+            break;
+            case 27:
+                self.hideSuggestions();
             break;
         }
     };
@@ -80,6 +86,7 @@ MentionsInput.prototype._setEvents = function() {
     self.input.addEventListener('input', self.inputHandler);
     self.input.addEventListener('blur', self.blurHandler);
     self.suggestionsEl.addEventListener('click', self.clickHandler);
+    if (self.autoFocus) self.input.focus();
 };
 
 /**
@@ -87,7 +94,10 @@ MentionsInput.prototype._setEvents = function() {
  */
 MentionsInput.prototype.select = function(index) {
     var suggestion = this.suggestions[index];
-    if (!suggestion) return;
+    if (!suggestion) {
+        this.hideSuggestions();
+        return;
+    }
     var suggestionName = suggestion.name || suggestion.profile.name;
 
     var substr = this.input.value.substr(0, this.input.selectionStart);
@@ -231,8 +241,27 @@ MentionsInput.prototype.getValue = function() {
     return encoded;
 };
 
+MentionsInput.prototype.setValue = function(prefillValue) {
+    var encodedMessage = prefillValue || '';
+    var self = this;
+    var mentions = {};
+    var extractedMentions = Partup.helpers.mentions.extract(encodedMessage);
+    extractedMentions.forEach(function(item) {
+        if (item.type === 'group') {
+            mentions[item.name] = item.users;
+            return;
+        }
+        mentions[item.name] = item._id;
+    });
+    self.input.value = Partup.helpers.mentions.decodeForInput(encodedMessage);
+    if (self.autoAjustHeight) self.input.style.minHeight = self.input.scrollHeight + 'px';
+    self.mentions = mentions;
+};
+
 MentionsInput.prototype.reset = function() {
     this.mentions = {};
+    this.autoAjustHeight = false;
+    this.autoFocus = false;
 };
 
 MentionsInput.prototype.destroy = function() {
@@ -241,6 +270,9 @@ MentionsInput.prototype.destroy = function() {
     self.input.removeEventListener('input', self.inputHandler);
     self.input.removeEventListener('blur', self.blurHandler);
     self.suggestionsEl.removeEventListener('click', self.clickHandler);
+    this.mentions = {};
+    this.autoAjustHeight = false;
+    this.autoFocus = false;
 };
 
 Partup.client.forms.MentionsInput = MentionsInput;
