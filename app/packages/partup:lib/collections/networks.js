@@ -161,18 +161,6 @@ Network.prototype.canUpperJoin = function(upperId) {
 };
 
 /**
- * Add invited Upper to Network
- *
- * @memberOf Networks
- * @param {String} upperId the user id of the user to be added
- */
-Network.prototype.addInvitedUpper = function(upperId) {
-    Networks.update(this._id, {$addToSet: {uppers: upperId}});
-    Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
-    this.removeAllUpperInvites(upperId);
-};
-
-/**
  * Add Upper to Network
  *
  * @memberOf Networks
