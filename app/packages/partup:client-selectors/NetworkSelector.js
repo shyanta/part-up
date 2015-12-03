@@ -1,8 +1,3 @@
-var Subs = new SubsManager({
-    cacheLimit: 1,
-    expireIn: 10
-});
-
 Template.NetworkSelector.onCreated(function() {
     var template = this;
 
