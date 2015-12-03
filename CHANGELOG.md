@@ -1,4 +1,13 @@
 # CHANGELOG
+## 1.15.0
+- Upgrade to meteor 1.2 (fixes case sensitive email problems and quicker build time)
+- Refactored profile and tribe tiles to use same new columns as discover and home
+- Fix mobile/desktop login sequence #62
+- Edit and delete comments and messages #29
+- Use sticky sessions in loadbalancer instead of iphash
+- Improve count for updates on part-up in user menu #85
+- Fixed partup details updates through footer scrolling issues (leftover from issue #84)
+
 ## 1.14.0
 - new popular partup algorithm
 - @mention all partners or all supporters #16
