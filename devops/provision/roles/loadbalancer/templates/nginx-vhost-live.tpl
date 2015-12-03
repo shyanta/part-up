@@ -1,7 +1,7 @@
 proxy_cache_path /tmp/nginx/{{ item.environment }} levels=1:2 keys_zone={{ item.environment }}:8m max_size=100m inactive=10m;
 
 upstream {{ item.environment }} {
-    ip_hash;
+    sticky secure;
 
     {% for ip in groups['appservers-' + item.environment] %}
     server {{ hostvars[ip]['ansible_eth1']['ipv4']['address'] }}:3000;
@@ -64,6 +64,8 @@ server {
         proxy_cache_valid 200 1m;
         proxy_cache_bypass $http_cache_control;
         add_header X-Proxy-Cache $upstream_cache_status;
+
+        add_header X-Upstream $upstream_addr;
 
         proxy_pass http://{{ item.environment }};
     }
