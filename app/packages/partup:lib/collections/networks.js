@@ -167,7 +167,7 @@ Network.prototype.canUpperJoin = function(upperId) {
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addUpper = function(upperId) {
-    Networks.update(this._id, {$addToSet: {uppers: upperId}});
+    Networks.update(this._id, {$addToSet: {uppers: upperId}, $inc: {upper_count: 1}});
     Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
     this.removeAllUpperInvites(upperId);
 };
@@ -259,7 +259,7 @@ Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
  * @param {String} upperId the user id of the user that should be accepted
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
-    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}});
+    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}, $inc: {upper_count: 1}});
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $addToSet: {networks: this._id}});
     this.removeAllUpperInvites(upperId);
 };
@@ -306,7 +306,7 @@ Network.prototype.removeAllUpperInvites = function(upperId) {
  * @param {String} upperId the user id of the user that is leaving the network
  */
 Network.prototype.leave = function(upperId) {
-    Networks.update(this._id, {$pull: {uppers: upperId}});
+    Networks.update(this._id, {$pull: {uppers: upperId}, $inc: {upper_count: -1}});
     Meteor.users.update(upperId, {$pull: {networks: this._id}});
 };
 
