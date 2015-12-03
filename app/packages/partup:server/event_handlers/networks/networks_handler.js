@@ -95,6 +95,9 @@ Event.on('networks.new_pending_upper', function(network, pendingUpper) {
  * Generate a notification for the network uppers to notify the new upper
  */
 Event.on('networks.uppers.inserted', function(newUpper, network) {
+    // Don't do this on public networks
+    if (network.isPublic()) return;
+
     var notificationType = 'partups_networks_new_upper';
 
     // Send notifications to all uppers in network
