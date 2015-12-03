@@ -54,7 +54,7 @@ Partup.client.embed = {
         }
 
         // Add featured by user data
-        if (get(network, 'featured.by_upper._id')) {
+        if (users && get(network, 'featured.by_upper._id')) {
             network.featured.by_upperObject = mout.object.find(users, {_id: network.featured.by_upper._id});
 
             // Embed user

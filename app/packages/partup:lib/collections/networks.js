@@ -458,3 +458,21 @@ Networks.findForUser = function(user, userId) {
     var networks = user.networks || [];
     return Networks.guardedFind(userId, {_id: {'$in': networks}});
 };
+
+/**
+ * Find the networks for a user
+ *
+ * @memberOf Networks
+ * @param {String} loggedInUserId
+ * @param {Object} options - mongo query options
+ * @return {Mongo.Cursor}
+ */
+Networks.findForDiscoverFilter = function(loggedInUserId, options) {
+    options = options || {};
+
+    options.sort = options.sort || {};
+    //TODO: add sort rule for loggedInUserId existance in network.uppers
+    options.sort.upper_count = -1;
+
+    return Networks.guardedFind(loggedInUserId, {}, options);
+};
