@@ -89,7 +89,11 @@ Template.app_network_uppers.onRendered(function() {
         template.states.loading_infinite_scroll = true;
 
         // Call the API for data
-        HTTP.get('/networks/' + template.data.networkSlug + '/uppers' + mout.queryString.encode(query), function(error, response) {
+        HTTP.get('/networks/' + template.data.networkSlug + '/uppers' + mout.queryString.encode(query), {
+            headers: {
+                Authorization: 'Bearer ' + Accounts._storedLoginToken()
+            }
+        }, function(error, response) {
             if (error || !response.data.users || response.data.users.length === 0) {
                 template.states.loading_infinite_scroll = false;
                 template.states.paging_end_reached.set(true);
