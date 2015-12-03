@@ -1,5 +1,7 @@
 /**
- * Please prefill values using Partup.client.discover.setPrefill(key, value); before changing route to Discover
+ * If you want to prefill values:
+ * Use Partup.client.discover.setPrefill(key, value); before changing route
+ * to Discover
  */
 
 Template.app_discover_filter.onCreated(function() {
