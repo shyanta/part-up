@@ -43,8 +43,7 @@
                                                 {{# if data.upper }}
                                                      <li style="
                                                         {{# with position }}
-                                                            top: {{ y }}px;
-                                                            left: {{ x }}px;
+                                                            transform: translate3d({{x}}px, {{y}}px, 0);
                                                             transition-delay: {{ delay }}s;
                                                         {{/ with }}
                                                     " data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ data.upper._id }}">
