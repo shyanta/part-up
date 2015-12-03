@@ -15,7 +15,7 @@ Template.NetworkSelector.onCreated(function() {
 
         var networks = response.data.networks.map(function(network) {
             Partup.client.embed.network(network, response.data['cfs.images.filerecord']);
-            network.iconObject = network.iconObject || Images.findOne({_id: network.icon});
+            network.iconObject = network.iconObject || Images.findOne({_id: network.icon}) || network.imageObject || Images.findOne({_id: network.image});
             return network;
         });
 
