@@ -167,7 +167,11 @@ var partupDetailLayout = {
             self.preScroll();
             self.checkInterval();
         };
-        self.debouncedScrollChecker = lodash.debounce(onReRender, 500, true);
+        self.debouncedScrollChecker = lodash.debounce(onReRender, 50, {
+            leading: true,
+            maxWait: 500,
+            trailing: true
+        });
         $(window).on('pu:componentRendered', self.debouncedScrollChecker);
 
         self.onScrollStart = function() {
