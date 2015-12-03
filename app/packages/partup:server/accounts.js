@@ -9,27 +9,29 @@ Accounts.validateLoginAttempt(function(attempt) {
 });
 
 Accounts.onLogin(function(data) {
-    var user = data.user;
-    var logins = user.logins || [];
+    Meteor.defer(function() {
+        var user = data.user;
+        var logins = user.logins || [];
 
-    d('User [' + user._id + '] has logged in');
+        d('User [' + user._id + '] has logged in');
 
-    var now = new Date;
-    var todayFormatted = now.toISOString().slice(0, 10);
-    var daysLoggedInFormatted = logins.map(function(login) {
-        return login.toISOString().slice(0, 10);
+        var now = new Date;
+        var todayFormatted = now.toISOString().slice(0, 10);
+        var daysLoggedInFormatted = logins.map(function(login) {
+            return login.toISOString().slice(0, 10);
+        });
+
+        var userAlreadyLoggedInToday = daysLoggedInFormatted.indexOf(todayFormatted) > -1;
+
+        if (!userAlreadyLoggedInToday) {
+            // We are using the extended $push syntax, $slice with a negative
+            // number means we save the latest x amount of items.
+            Meteor.users.update({_id: user._id}, {$push: {logins: {$each: [now], $slice: -25}}});
+            d('User [' + user._id + '] first login today, saving');
+        } else {
+            d('User [' + user._id + '] already logged in earlier today, not saving');
+        }
     });
-
-    var userAlreadyLoggedInToday = daysLoggedInFormatted.indexOf(todayFormatted) > -1;
-
-    if (!userAlreadyLoggedInToday) {
-        // We are using the extended $push syntax, $slice with a negative
-        // number means we save the latest x amount of items.
-        Meteor.users.update({_id: user._id}, {$push: {logins: {$each: [now], $slice: -25}}});
-        d('User [' + user._id + '] first login today, saving');
-    } else {
-        d('User [' + user._id + '] already logged in earlier today, not saving');
-    }
 });
 
 Accounts.onCreateUser(function(options, user) {
