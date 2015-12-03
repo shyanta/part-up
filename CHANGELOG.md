@@ -7,6 +7,9 @@
 - Use sticky sessions in loadbalancer instead of iphash
 - Improve count for updates on part-up in user menu #85
 - Fixed partup details updates through footer scrolling issues (leftover from issue #84)
+- New discover tribes filter functionality and styling
+- Fix meurs test for people with + in mail address
+- Tile performance update
 
 ## 1.14.0
 - new popular partup algorithm
