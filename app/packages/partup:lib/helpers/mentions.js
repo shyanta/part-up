@@ -54,14 +54,14 @@ Partup.helpers.mentions.decode = function(message) {
     return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, function(m, users) {
         // decode supporter mentions
         var name = 'Supporters';
-        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-group">' + name + '</a>';
+        return '<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="' + users + '" class="pu-mention-group">' + name + '</a>';
     }).replace(/\[Partners:(?:([^\]]+))?\]/g, function(m, users) {
         // decode upper mentions
         var name = 'Partners';
-        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-group">' + name + '</a>';
+        return '<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="' + users + '" class="pu-mention-group">' + name + '</a>';
     }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
         // decode invividual mentions
-        return '<a data-usercard="' + id + '" class="pu-mention-user">' + name + '</a>';
+        return '<a href="{{ pathFor \'profile\' ' + id + ' }}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="' + id + '" class="pu-mention-user">' + name + '</a>';
     });
 };
 

@@ -18,7 +18,7 @@ Router.route('/networks/:slug/partups/count', {where: 'server'}).get(function() 
 
     var network = Networks.guardedFind(this.userId, {slug: params.slug}).fetch().pop();
     if (!network) {
-        response.statusCode = 400;
+        response.statusCode = 404;
         return response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
     }
 
@@ -42,7 +42,7 @@ Router.route('/networks/:slug/uppers/count', {where: 'server'}).get(function() {
 
     var network = Networks.guardedFind(this.userId, {slug: params.slug}).fetch().pop();
     if (!network) {
-        response.statusCode = 400;
+        response.statusCode = 404;
         response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
     }
 

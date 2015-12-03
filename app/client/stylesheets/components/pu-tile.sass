@@ -1,20 +1,17 @@
 .pu-tile
-    position: relative
+    display: block
     border: 2px solid $color-border-light
-    width: $grid-column * 3 + $grid-gap * 2
     border-radius: 4px
-    background: #fff
-    color: $color-text
-    text-decoration: none
+    padding: 20px
+    background-color: $color-background
 
-    &:hover,
-    &:active
-        color: $color-text
-
-    &-profile
+    .pu-spinner
         display: block
-        font-size: 16px
-        color: $color-text
-        background-color: $color-background
-        padding: 15px 20px
-        min-height: 60px
+        margin-left: auto
+        margin-right: auto
+
+    .pu-partuptile
+        margin: -20px
+
+    .pu-upper
+        margin-bottom: -8px

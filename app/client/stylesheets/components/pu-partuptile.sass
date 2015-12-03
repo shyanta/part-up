@@ -1,13 +1,4 @@
 .pu-partuptile
-    position: relative
-    border: 2px solid $color-border-light
-    width: 100%
-    border-radius: 4px
-    background: #fff
-    color: $color-text
-    max-width: 310px
-    margin: 0 auto
-
     header
         padding: 20px 20px 15px
 
@@ -74,19 +65,17 @@
     .pu-partupcircle
         margin-bottom: 20px - 9px
 
-    .pu-sub-inner
-        z-index: 3
-
-    .pu-sub-radial
-        z-index: 2
+        .pu-sub-partuplink
+            z-index: 1
 
     .pu-sub-avatar-list
         position: absolute
-        z-index: 1
+        z-index: 0
         top: 0
         left: 0
         right: -20px
         bottom: 0
+        list-style: none
 
         li
             position: absolute

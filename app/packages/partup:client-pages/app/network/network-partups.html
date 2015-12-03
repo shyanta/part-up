@@ -1,7 +1,7 @@
 <template name="app_network_partups">
     <header class="pu-sub-header">
         <h2 class="pu-title">
-            {{# if partupsLoading }}
+            {{# if countLoading }}
                 {{_ 'pages-app-network-partups-loading' }}
                 {{> Spinner type='small' }}
             {{ else }}
@@ -30,7 +30,9 @@
 
     <div data-infinitescroll-container>
         {{# ColumnTilesLayout instance=columnTilesLayout }}
-            {{> PartupTile }}
+            <div class="pu-tile">
+                {{> PartupTile }}
+            </div>
         {{/ ColumnTilesLayout }}
 
         {{# unless endReached }}

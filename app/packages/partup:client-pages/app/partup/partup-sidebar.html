@@ -86,12 +86,14 @@
                 <section>
                     <h2>{{_ 'pages-app-partup-uppers_title' }}</h2>
                     <ul class="pu-list pu-list-users">
-                        {{#each partupUppers }}
+                        {{# each partupUppers }}
                             <li>
-                                <figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure>
-                                <p data-usercard="{{ _id }}">{{ profile.name }}</p>
+                                <a href="{{ pathFor 'profile' _id=_id }}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}">
+                                    <figure class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure>
+                                    <p>{{ profile.name }}</p>
+                                </a>
                             </li>
-                        {{/each }}
+                        {{/ each }}
                     </ul>
                     <!-- <a data-invite class="pu-button pu-button-icon">
                         <i class="picon-person-plus"></i>
@@ -107,7 +109,7 @@
                         <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
                         <ul class="pu-list pu-list-horizontal pu-list-avatars">
                             {{#each partupSupporters }}
-                                <li><figure data-usercard="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure></li>
+                                <li><figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure></li>
                             {{/each }}
                         </ul>
                     {{else}}

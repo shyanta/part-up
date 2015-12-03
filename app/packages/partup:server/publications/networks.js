@@ -53,21 +53,19 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
         slug: Match.Optional(String),
     });
 
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
     check(parameters, {
-        limit: Match.Optional(String),
-        skip: Match.Optional(String),
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number),
         userId: Match.Optional(String),
     });
 
-    parameters = {
-        limit: parameters.limit,
-        skip: parameters.skip,
-    };
-
     var options = {};
-
-    if (parameters.limit) options.limit = parseInt(parameters.limit);
-    if (parameters.skip) options.skip = parseInt(parameters.skip);
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
 
     return {
         find: function() {
@@ -81,7 +79,8 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
             {find: Meteor.users.findUppersForPartup, children: [
                 {find: Images.findForUser}
             ]},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            children: [
                 {find: Images.findForNetwork}
             ]}
         ]
@@ -103,15 +102,19 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
         slug: Match.Optional(String),
     });
 
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
     check(parameters, {
-        limit: Match.Optional(String),
-        skip: Match.Optional(String),
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number),
+        userId: Match.Optional(String),
     });
 
     var options = {};
-
-    if (parameters.limit) options.limit = parseInt(parameters.limit);
-    if (parameters.skip) options.skip = parseInt(parameters.skip);
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
 
     return {
         find: function() {

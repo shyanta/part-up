@@ -45,6 +45,10 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
 
         // Wait for new columns to render
         Meteor.defer(function() {
+            if (!C._template) {
+                throw new Error('ColumnTilesLayout: no template defined');
+            }
+
             _columnElements = C._template.$('[data-column]');
             if (mout.lang.isFunction(cb)) {
                 cb.call(C);

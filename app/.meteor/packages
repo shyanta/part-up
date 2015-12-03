@@ -66,7 +66,6 @@ partup:client-admin-createtribe
 partup:client-admin-featured-networks
 partup:client-admin-featured-partups
 partup:client-autocomplete
-partup:client-columns-layout
 partup:client-comments
 partup:client-contribution
 partup:client-copy-to-clipboard
@@ -96,7 +95,8 @@ partup:client-resetpassword
 partup:client-selectors
 partup:client-spinner
 partup:client-update
-partup:client-usercard
+partup:client-hover-container
+partup:client-upper-tile
 partup:meteor-bender
 partup:client-invite-to-partup
 partup:client-column-tiles-layout
