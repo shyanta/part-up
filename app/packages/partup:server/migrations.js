@@ -703,6 +703,23 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 28,
+    name: 'Add upper_count to network',
+    up: function() {
+        Networks.find().fetch().forEach(function(network) {
+            Networks.update(network._id, {
+                $set: {
+                    upper_count: (network.uppers || []).length
+                }
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
 Meteor.startup(function() {
-    Migrations.migrateTo(27);
+    Migrations.migrateTo(28);
 });

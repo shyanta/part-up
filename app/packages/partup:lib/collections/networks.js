@@ -161,25 +161,13 @@ Network.prototype.canUpperJoin = function(upperId) {
 };
 
 /**
- * Add invited Upper to Network
- *
- * @memberOf Networks
- * @param {String} upperId the user id of the user to be added
- */
-Network.prototype.addInvitedUpper = function(upperId) {
-    Networks.update(this._id, {$addToSet: {uppers: upperId}});
-    Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
-    this.removeAllUpperInvites(upperId);
-};
-
-/**
  * Add Upper to Network
  *
  * @memberOf Networks
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addUpper = function(upperId) {
-    Networks.update(this._id, {$addToSet: {uppers: upperId}});
+    Networks.update(this._id, {$addToSet: {uppers: upperId}, $inc: {upper_count: 1}});
     Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
     this.removeAllUpperInvites(upperId);
 };
@@ -271,7 +259,7 @@ Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
  * @param {String} upperId the user id of the user that should be accepted
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
-    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}});
+    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}, $inc: {upper_count: 1}});
     Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $addToSet: {networks: this._id}});
     this.removeAllUpperInvites(upperId);
 };
@@ -318,7 +306,7 @@ Network.prototype.removeAllUpperInvites = function(upperId) {
  * @param {String} upperId the user id of the user that is leaving the network
  */
 Network.prototype.leave = function(upperId) {
-    Networks.update(this._id, {$pull: {uppers: upperId}});
+    Networks.update(this._id, {$pull: {uppers: upperId}, $inc: {upper_count: -1}});
     Meteor.users.update(upperId, {$pull: {networks: this._id}});
 };
 
@@ -469,4 +457,22 @@ Networks.findForPartup = function(partup, userId) {
 Networks.findForUser = function(user, userId) {
     var networks = user.networks || [];
     return Networks.guardedFind(userId, {_id: {'$in': networks}});
+};
+
+/**
+ * Find the networks for a user
+ *
+ * @memberOf Networks
+ * @param {String} loggedInUserId
+ * @param {Object} options - mongo query options
+ * @return {Mongo.Cursor}
+ */
+Networks.findForDiscoverFilter = function(loggedInUserId, options) {
+    options = options || {};
+
+    options.sort = options.sort || {};
+    //TODO: add sort rule for loggedInUserId existance in network.uppers
+    options.sort.upper_count = -1;
+
+    return Networks.guardedFind(loggedInUserId, {}, options);
 };

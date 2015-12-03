@@ -24,7 +24,9 @@
                     <li>
                         <a href="#" class="pu-networktile" data-select-network="{{ _id }}">
                             <div class="pu-sub-figurecontainer">
-                                <figure style="{{#with icon }}background-image: url({{ partupImageUrl id=. }});{{/with }}"></figure>
+                                <figure style="
+                                    {{# with partupGetImageUrl iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                                "></figure>
                             </div>
                             <div class="pu-sub-namecontainer">
                                 <span>{{ name }}</span>

@@ -15,6 +15,26 @@ Meteor.publishComposite('networks.list', function() {
 });
 
 /**
+ * Publish a list of open-for-user-networks ordered by upper_count
+ */
+Meteor.publishComposite('networks.discoverfilter', function(urlParams, parameters, user) {
+    if (this.unblock) this.unblock();
+
+    var userId = user ? user._id : this.userId;
+
+    return {
+        find: function() {
+            return Networks.findForDiscoverFilter(userId);
+        },
+        children: [
+            {find: Images.findForNetwork}
+        ]
+    };
+}, {url: 'networks-discoverfilter', getArgsFromRequest: function(request) {
+    return [request.params, request.query, request.user];
+}});
+
+/**
  * Publish a network
  *
  * @param {String} networkSlug
