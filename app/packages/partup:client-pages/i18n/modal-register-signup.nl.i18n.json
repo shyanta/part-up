@@ -29,5 +29,6 @@
     "pages-modal-register-signup-error_Error": "Het inloggen is mislukt, probeer het nog een keer",
     "pages-modal-register-signup-error_user-registered-with-username-and-password": "Je bent geregistreerd met een gebruikersnaam en wachtwoord combinatie, log je daar ook weer mee in?",
     "pages-modal-register-signup-error_user-registered-with-linkedin": "Je bent geregistreerd met linkedin, log je daar ook weer mee in?",
-    "pages-modal-register-signup-error_user-registered-with-facebook": "Je bent geregistreerd met facebook, log je daar ook weer mee in?"
+    "pages-modal-register-signup-error_user-registered-with-facebook": "Je bent geregistreerd met facebook, log je daar ook weer mee in?",
+    "pages-modal-register-signup-error_email-already-exists": "Dit email adres is al in gebruik"
 }
