@@ -39,6 +39,8 @@
                                 {{# if data.upper }}
                                      <li style="
                                         {{# with avatarPosition }}
+                                            -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
+                                            -moz-transform: translate3d({{x}}px, {{y}}px, 0);
                                             transform: translate3d({{x}}px, {{y}}px, 0);
                                             transition-delay: {{ delay }}s;
                                         {{/ with }}
@@ -50,6 +52,8 @@
                                 {{ else }}
                                     <li class="pu-avatar pu-avatar-more" style="
                                         {{# with avatarPosition }}
+                                            -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
+                                            -moz-transform: translate3d({{x}}px, {{y}}px, 0);
                                             transform: translate3d({{x}}px, {{y}}px, 0);
                                             transition-delay: {{ delay }}s;
                                         {{/ with }}

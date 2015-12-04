@@ -43,6 +43,8 @@
                                                 {{# if data.upper }}
                                                      <li style="
                                                         {{# with position }}
+                                                            -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
+                                                            -moz-transform: translate3d({{x}}px, {{y}}px, 0);
                                                             transform: translate3d({{x}}px, {{y}}px, 0);
                                                             transition-delay: {{ delay }}s;
                                                         {{/ with }}
@@ -54,8 +56,9 @@
                                                 {{ else }}
                                                     <li class="pu-avatar pu-avatar-more" style="
                                                         {{# with position }}
-                                                            top: {{ y }}px;
-                                                            left: {{ x }}px;
+                                                            -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
+                                                            -moz-transform: translate3d({{x}}px, {{y}}px, 0);
+                                                            transform: translate3d({{x}}px, {{y}}px, 0);
                                                             transition-delay: {{ delay }}s;
                                                         {{/ with }}
                                                     ">{{ data.remainingUppers }}</li>
