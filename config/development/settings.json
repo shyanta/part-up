@@ -1,7 +1,7 @@
 {
     "public": {
         "aws": {
-            "bucket": "pu-development",
+            "bucket": "partup-production",
             "region": "eu-west-1"
         },
         "facebookAppId": "361617237358681",
