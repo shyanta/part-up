@@ -132,6 +132,7 @@ Package.onUse(function(api) {
         'event_handlers/networks/networks_handler.js',
         'event_handlers/invites/activities_invites_handler.js',
         'event_handlers/invites/networks_invites_handler.js',
+        'event_handlers/notifications/notifications_handler.js',
         'fixtures/users.js',
         'fixtures/partups.js',
         'fixtures/updates.js',
