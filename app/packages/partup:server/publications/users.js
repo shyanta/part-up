@@ -164,7 +164,11 @@ Meteor.publishComposite('users.loggedin', function() {
 
     return {
         find: function() {
-            return Meteor.users.findSinglePrivateProfile(this.userId);
+            if (this.userId) {
+                return Meteor.users.findSinglePrivateProfile(this.userId);
+            } else {
+                this.ready();
+            }
         },
         children: [
             {find: Images.findForUser},
