@@ -176,7 +176,9 @@ AutoForm.hooks({
                     return;
                 }
 
-                AutoForm.resetForm('editMessageForm');
+                try {
+                    AutoForm.resetForm('editMessageForm');
+                } catch (err) {}
                 template.mentionsInput.reset();
                 self.done();
                 parent.uploadedPhotos.set([]);
