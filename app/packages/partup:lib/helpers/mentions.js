@@ -61,7 +61,7 @@ Partup.helpers.mentions.decode = function(message) {
         return '<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="' + users + '" class="pu-mention-group">' + name + '</a>';
     }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
         // decode invividual mentions
-        return '<a href="{{ pathFor \'profile\' ' + id + ' }}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="' + id + '" class="pu-mention-user">' + name + '</a>';
+        return '<a href="' + Router.path('profile', {_id: id}) + '" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="' + id + '" class="pu-mention-user">' + name + '</a>';
     });
 };
 

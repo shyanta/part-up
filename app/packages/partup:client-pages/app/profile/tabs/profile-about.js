@@ -14,10 +14,14 @@ Template.app_profile_about.onCreated(function() {
             // the expected height of a tile as best
             // as possible, synchronously,
             // using the given partup object
-            return 1;
+            return 1000;
         }
 
     });
+});
+
+Template.app_profile_about.onRendered(function() {
+    var template = this;
 
     template.handle = null;
     template.refresh = function() {

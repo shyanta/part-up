@@ -629,6 +629,7 @@ Partups.findUpperPartupsForUser = function(user, parameters, loggedInUserId) {
         options.count = true;
     } else {
         options.limit = parseInt(parameters.limit);
+        options.skip = parseInt(parameters.skip);
         options.sort = parameters.sort || {updated_at: -1};
     }
 
@@ -663,6 +664,7 @@ Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId)
     if (parameters.count) {
         options.count = true;
     } else {
+        options.skip = parseInt(parameters.skip);
         options.limit = parseInt(parameters.limit);
         options.sort = parameters.sort || {updated_at: -1};
     }
