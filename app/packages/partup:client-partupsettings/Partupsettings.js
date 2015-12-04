@@ -46,6 +46,7 @@ Template.Partupsettings.onCreated(function() {
     template.tagsInputStates = new ReactiveDict();
     template.showNetworkDropdown = new ReactiveVar(false);
     template.currentCurrency = new ReactiveVar('EUR');
+    template.formId = template.data.FORM_ID;
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
@@ -89,46 +90,50 @@ Template.Partupsettings.onCreated(function() {
         }
     });
 
-    Template.autoForm.onRendered(function() {
-        // Set the focuspoint input values to the form every time they change
-        this.autorun(function() {
-            if (!template.view.isRendered) return;
+});
 
-            var x = template.imageSystem.focuspoint.get('x');
-            var y = template.imageSystem.focuspoint.get('y');
-            var form = template.find('#' + template.data.FORM_ID);
-            if (!form) return;
+Template.autoForm.onRendered(function() {
+    var template = this.parent();
+    if (template.view.name !== 'Template.Partupsettings') return;
 
-            form.elements.focuspoint_x_input.value = x;
-            form.elements.focuspoint_y_input.value = y;
+    // Set the focuspoint input values to the form every time they change
+    this.autorun(function() {
+        if (!template.view.isRendered) return;
 
-        });
+        var x = template.imageSystem.focuspoint.get('x');
+        var y = template.imageSystem.focuspoint.get('y');
+        var form = template.find('#' + template.data.FORM_ID);
+        if (!form) return;
 
-        // Update the tagsInputStates when the tags change
-        this.autorun(function() {
-            var tags = AutoForm.getFieldValue('tags_input');
-            if (tags) tags = tags.trim();
+        form.elements.focuspoint_x_input.value = x;
+        form.elements.focuspoint_y_input.value = y;
 
-            template.tagsInputStates.set('tags', !!tags);
-        });
+    });
 
-        // Bind datepicker
-        var options = Partup.client.datepicker.options;
-        options.startDate = new Date();
+    // Update the tagsInputStates when the tags change
+    this.autorun(function() {
+        var tags = AutoForm.getFieldValue('tags_input');
+        if (tags) tags = tags.trim();
 
-        var dateChangeHandler = function(event) {
-            event.currentTarget.nextElementSibling.value = event.date;
-            $(event.currentTarget.nextElementSibling).trigger('blur');
-        };
+        template.tagsInputStates.set('tags', !!tags);
+    });
 
-        this.autorun(function() {
-            var end_date = AutoForm.getFieldValue('end_date');
-            template.end_date_datepicker = template
-                .$('[bootstrap-datepicker]')
-                .datepicker(options)
-                .datepicker('setDate', end_date)
-                .on('changeDate clearDate', dateChangeHandler);
-        });
+    // Bind datepicker
+    var options = Partup.client.datepicker.options;
+    options.startDate = new Date();
+
+    var dateChangeHandler = function(event) {
+        event.currentTarget.nextElementSibling.value = event.date;
+        $(event.currentTarget.nextElementSibling).trigger('blur');
+    };
+
+    this.autorun(function() {
+        var end_date = AutoForm.getFieldValue('end_date');
+        template.end_date_datepicker = template
+            .$('[bootstrap-datepicker]')
+            .datepicker(options)
+            .datepicker('setDate', end_date)
+            .on('changeDate clearDate', dateChangeHandler);
     });
 });
 
