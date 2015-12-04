@@ -18,6 +18,10 @@ Template.app_profile_about.onCreated(function() {
         }
 
     });
+});
+
+Template.app_profile_about.onRendered(function() {
+    var template = this;
 
     template.handle = null;
     template.refresh = function() {
