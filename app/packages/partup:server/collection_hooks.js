@@ -83,3 +83,6 @@ Contributions.after.remove(basicAfterRemove('partups.contributions'));
 Ratings.after.insert(basicAfterInsert('partups.contributions.ratings'));
 Ratings.after.update(basicAfterUpdate('partups.contributions.ratings'));
 Ratings.after.remove(basicAfterRemove('partups.contributions.ratings'));
+
+// Notifications Events
+Notifications.after.insert(basicAfterInsert('partups.notifications'));

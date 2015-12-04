@@ -46,5 +46,8 @@
     "dropdown-notification-partup_created_in_network": "__creator__ has created __partup__ in __network__",
     "dropdown-notification-partups_new_comment_in_involved_conversation": "__commenter__ replied to a conversation you're involved in",
     "dropdown-notification-partups_networks_new_upper": "__upper__ is now a member of __network__",
-    "dropdown-notification-partups_networks_upper_left": "__upper__ has left __network__"
+    "dropdown-notification-partups_networks_upper_left": "__upper__ has left __network__",
+    "dropdown-notification-multiple_comments_in_conversation_since_visit": "__upper__ and __others_count__ others have replied on a conversation you're involved in",
+    "dropdown-notification-partups_multiple_updates_since_visit": "__upper__ and __others_count__ others placed updates",
+    "dropdown-notification-partups_multiple_updates_since_visit_single_person": "__upper__ placed multiple updates"
 }
