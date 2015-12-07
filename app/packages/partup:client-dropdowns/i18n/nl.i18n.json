@@ -48,6 +48,6 @@
     "dropdown-notification-partups_networks_new_upper": "__upper__ is lid geworden van __network__",
     "dropdown-notification-partups_networks_upper_left": "__upper__ heeft __network__ verlaten",
     "dropdown-notification-multiple_comments_in_conversation_since_visit": "__upper__ en __others_count__ anderen reageerden op een conversatie waarbij je betrokken bent",
-    "dropdown-notification-partups_multiple_updates_since_visit": "__upper__ en __others_count__ anderen plaatsten updates",
+    "dropdown-notification-partups_multiple_updates_since_visit": "__upper__ en __others_count__ ander(en) plaatsten updates",
     "dropdown-notification-partups_multiple_updates_since_visit_single_person": "__upper__ plaatste meerdere updates"
 }
