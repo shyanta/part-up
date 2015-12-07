@@ -82,38 +82,35 @@ Template.Profilesettings.onCreated(function() {
 Template.Profilesettings.onRendered(function() {
     var template = this;
     Meteor.setTimeout(function() {
-        console.log(document.getElementById('file-picker'));
-        var fileInput = new mOxie.FileInput({
-            browse_button: 'file-picker', // or document.getElementById('file-picker')
-            accept: [
-                {title: "Image files", extensions: "jpg,gif,png"} // accept only images
-            ],
-            multiple: true // allow multiple file selection
-        });
-        fileInput.onchange = function(event) {
-            // do something to files array
-            console.info(event.target.files); // or this.files or fileInput.file
-            Partup.client.uploader.eachFile(event, function(file) {
+        var button = template.find('[data-browse-photos]');
+        var input = template.find('[data-hidden-fileinput]');
+        console.log(button, input)
+        console.log('wut')
+        Partup.client.uploader.create({
+            buttonElement: button,
+            fileInput: input,
+            onFileChange: function(fileInputEvent) {
+                console.log('huh');
+                Partup.client.uploader.eachFile(fileInputEvent, function(file) {
+                    template.uploadingProfilePicture.set(true);
 
-                template.uploadingProfilePicture.set(true);
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            template.parent().uploadingProfilePicture.set(false);
+                            return;
+                        }
 
-                Partup.client.uploader.uploadImage(file, function(error, image) {
-                    if (error) {
-                        Partup.client.notify.error(TAPi18n.__(error.reason));
+                        template.$('input[name=image]').val(image._id);
+                        template.currentImageId.set(image._id);
+
                         template.uploadingProfilePicture.set(false);
-                        return;
-                    }
-
-                    template.$('input[name=image]').val(image._id);
-                    template.currentImageId.set(image._id);
-
-                    template.uploadingProfilePicture.set(false);
+                    });
                 });
-            });
-        };
+            }
+        });
 
-        fileInput.init(); // initialize
-    },1000);
+    }, 2000)
 });
 
 /*************************************************************/
@@ -191,26 +188,13 @@ Template.Profilesettings.events({
     //     event.preventDefault();
 
     //     // in stead fire click event on file input
-    //     var input = $('input[data-profile-picture-input]');
-    //     input.click();
+    //     // var input = $('input[data-profile-picture-input]');
+    //     // input.click();
+    //     Partup.client.uploader.click(template, function(fileInputEvent) {
+
+
+    //     });
     // },
     // 'change [data-profile-picture-input]': function(event, template) {
-    //     Partup.client.uploader.eachFile(event, function(file) {
-
-    //         template.uploadingProfilePicture.set(true);
-
-    //         Partup.client.uploader.uploadImage(file, function(error, image) {
-    //             if (error) {
-    //                 Partup.client.notify.error(TAPi18n.__(error.reason));
-    //                 template.uploadingProfilePicture.set(false);
-    //                 return;
-    //             }
-
-    //             template.$('input[name=image]').val(image._id);
-    //             template.currentImageId.set(image._id);
-
-    //             template.uploadingProfilePicture.set(false);
-    //         });
-    //     });
     // }
 });

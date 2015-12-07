@@ -19,10 +19,9 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
 
     busboy.on('file', Meteor.bindEnvironment(function(fieldname, file, filename, encoding, mimetype) {
         var extension = path.extname(filename);
-        // console.log(file)
         var imageExtension = (/\.(jpg|jpeg|png)$/i).test(extension);
         var imageMimetype = (/\/(jpg|jpeg|png)$/i).test(mimetype);
-        console.log(imageExtension, imageMimetype)
+
         // Validate that the file is a valid image
         if (!imageExtension && !imageMimetype) {
             response.statusCode = 400;

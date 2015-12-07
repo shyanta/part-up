@@ -13,21 +13,12 @@ Partup.client.uploader = {
      * @param {Function} callback
      */
     uploadImage: function(file, callback) {
-        function isIE() {
-            var ua = window.navigator.userAgent;
-            var msie = ua.indexOf("MSIE ");
-
-            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
-                return true;
-            }
-
-           return false;
-        }
         var img = document.createElement('img');
         var canvas = document.createElement('canvas');
         var self = this;
-        var IE = true;//isIE();
-        console.log('is IE: ' + IE);
+
+        var IE = this.isIE();
+
         var userId = Meteor.userId();
         // TODO: Error if user is not loggedin
         // console.log(file);
@@ -37,12 +28,7 @@ Partup.client.uploader = {
             var reader = new FileReader();
         }
         reader.onload = function(e) {
-            // console.log(e)
             img.src = e.target.result;
-        };
-        reader.onerror = function(e) {
-            console.log(arguments)
-            // img.src = e.target.result;
         };
         // console.log(reader)
         reader.readAsDataURL(file);
@@ -87,11 +73,10 @@ Partup.client.uploader = {
                 var newFile = new File([resizedFile], file.name);
             }
 
-            console.log(newFile);
-
             var token = Accounts._storedLoginToken();
             if (IE) {
                 var xhr = new mOxie.XMLHttpRequest();
+                // xhr.responseType = 'blob';
             } else {
                 var xhr = new XMLHttpRequest();
             }
@@ -103,27 +88,17 @@ Partup.client.uploader = {
             } else {
                 var formData = new FormData();
             }
-            console.log(newFile);
+
             formData.append('file', newFile);
 
-            // formData.each(function(item) {
-            //     console.log(item)
-            // })
-            // formData.append('filename', file.name)
-            console.log(formData);
             // return
             xhr.addEventListener('load', function(){
-                // console.log(arguments);
-                // if (IE) {
-                //     var data = xhr.responseText;
-                // } else {
-                    var data = JSON.parse(xhr.responseText);
-                // }
+                var data = JSON.parse(xhr.responseText);
 
                 if (data.error) {
                     callback(data.error);
                 }
-                // console.log(data);
+
                 Meteor.subscribe('images.one', data.image);
                 Meteor.autorun(function(computation) {
                     var image = Images.findOne({_id: data.image});
@@ -137,9 +112,7 @@ Partup.client.uploader = {
 
             });
 
-            // formData.filename = file.name;
             xhr.send(formData);
-            // console.log(xhr);
         };
     },
 
@@ -217,6 +190,46 @@ Partup.client.uploader = {
                 });
             });
         });
+    },
+
+    create: function(options) {
+        var buttonElement = options.buttonElement || null;
+        var fileInput = options.fileInput || null;
+        var isIE = this.isIE();
+        if (isIE) {
+            fileInput = new mOxie.FileInput({
+                browse_button: buttonElement, // or document.getElementById('file-picker')
+                accept: [
+                    {title: 'Image files', extensions: 'jpg,gif,png'} // accept only images
+                ],
+                multiple: true // allow multiple file selection
+            });
+            fileInput.onchange = function(event) {
+                options.onFileChange(event);
+            };
+
+            fileInput.init(); // initialize q
+        } else {
+            buttonElement.addEventListener('click', function(event) {
+                console.log('click')
+                $(fileInput).click();
+            });
+            fileInput.addEventListener('change', function(event) {
+                options.onFileChange(event);
+            });
+        }
+
+    },
+
+    isIE: function() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+            return true;
+        }
+
+       return false;
     }
 
 };
