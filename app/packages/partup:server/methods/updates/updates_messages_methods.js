@@ -91,6 +91,9 @@ Meteor.methods({
         try {
             var message = Updates.findOne({_id: messageId, upper_id: upper._id});
             if (message) {
+                // Don't remove when message has comments
+                if (message.comments && message.comments.length > 0) throw new Meteor.Error(400, 'partup_message_already_has_comments');
+
                 Updates.remove({_id: message._id});
             }
         } catch (error) {
