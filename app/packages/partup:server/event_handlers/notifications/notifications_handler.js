@@ -70,7 +70,7 @@ Event.on('partups.notifications.inserted', function(upperId, notification) {
         } else {
             // There is no group notification, so check if we need to create one
             console.log(unreadNotifications.length);
-            if (unreadNotifications.length < 2) return;
+            if (unreadNotifications.length < 3) return;
 
             // We need to create a group notification at this point, so flag the single notifications
             Notifications.update({_id: {$in: notificationIds}}, {$set: {grouped: true}});
