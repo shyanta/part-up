@@ -139,7 +139,12 @@ Meteor.methods({
         try {
             var update = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
             if (update) {
-                Updates.update({_id: updateId, 'comments._id': commentId}, {$pull: {comments: {_id: commentId}}});
+                Updates.update({
+                    _id: updateId, 'comments._id': commentId
+                }, {
+                    $pull: {comments: {_id: commentId}},
+                    $inc: {comments_count: -1}
+                });
             }
         } catch (error) {
             Log.error(error);
