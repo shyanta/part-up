@@ -27,7 +27,9 @@ Partup.client.uploader = {
         } else {
             var reader = new FileReader();
         }
+        console.log('created reader');
         reader.onload = function(e) {
+            console.log('reader loaded');
             img.src = e.target.result;
         };
         // console.log(reader)
@@ -35,6 +37,7 @@ Partup.client.uploader = {
 
 
         img.onload = function() {
+            console.log('image loaded');
             var width = img.naturalWidth;
             var height = img.naturalHeight;
 
@@ -72,6 +75,7 @@ Partup.client.uploader = {
             } else {
                 var newFile = new File([resizedFile], file.name);
             }
+            console.log('created file');
 
             var token = Accounts._storedLoginToken();
             if (IE) {
@@ -80,24 +84,28 @@ Partup.client.uploader = {
             } else {
                 var xhr = new XMLHttpRequest();
             }
-            // console.log(xhr);
-            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload?token=' + token, false);
+            console.log('created xhr');
+            var url = Meteor.absoluteUrl() + 'images/upload?token=' + token;
+            // var url = 'https://3a99bcc0.ngrok.io/images/upload?token=' + token;
+            console.log(url);
+            xhr.open('POST', url, true);
 
             if (IE) {
                 var formData = new mOxie.FormData();
             } else {
                 var formData = new FormData();
             }
-
+            console.log('created formdata');
             formData.append('file', newFile);
 
             // return
-            xhr.addEventListener('load', function(){
+            xhr.addEventListener('load', function() {
+                console.log(xhr.responseText);
                 var data = JSON.parse(xhr.responseText);
-
-                if (data.error) {
-                    callback(data.error);
-                }
+                console.log(data)
+                // if (data.error) {
+                //     callback(data.error);
+                // }
 
                 Meteor.subscribe('images.one', data.image);
                 Meteor.autorun(function(computation) {
@@ -110,6 +118,13 @@ Partup.client.uploader = {
                     }
                 });
 
+            });
+            xhr.addEventListener('error', function() {
+                console.log(xhr.responseText)
+                for (var i = 0; i < arguments.length; i++) {
+
+                    console.log(JSON.stringify(arguments[i]))
+                };
             });
 
             xhr.send(formData);
@@ -202,12 +217,17 @@ Partup.client.uploader = {
                 accept: [
                     {title: 'Image files', extensions: 'jpg,gif,png'} // accept only images
                 ],
-                multiple: true // allow multiple file selection
+                multiple: true, // allow multiple file selection
+                runtime_order: 'flash,silverlight,html5',
             });
             fileInput.onchange = function(event) {
+                console.log('changed input')
                 options.onFileChange(event);
             };
-
+            buttonElement.addEventListener('click', function(event) {
+                console.log('button clicked')
+                event.preventDefault();
+            })
             fileInput.init(); // initialize q
         } else {
             buttonElement.addEventListener('click', function(event) {
@@ -229,7 +249,12 @@ Partup.client.uploader = {
             return true;
         }
 
-       return false;
+        if (/Edge\/12./i.test(navigator.userAgent)){
+           // this is Microsoft Edge
+           return true;
+        }
+
+       return true;
     }
 
 };
