@@ -102,12 +102,18 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var comment = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
+            var comment = Updates.findOne({
+                _id: updateId,
+                'comments._id': commentId,
+                'comments.creator._id': upper._id
+            });
             if (comment) {
-                Updates.update({_id: updateId, 'comments._id': commentId}, {$set: {
-                    'comments.$.content': fields.content,
-                    'comments.$.updated_at': new Date()
-                }});
+                Updates.update({_id: updateId, 'comments._id': commentId}, {
+                    $set: {
+                        'comments.$.content': fields.content,
+                        'comments.$.updated_at': new Date()
+                    }
+                });
             }
         } catch (error) {
             Log.error(error);
@@ -152,7 +158,10 @@ Meteor.methods({
         try {
             var update = Updates.findOne({_id: updateId, 'upper_data._id': Meteor.userId()});
             if (update && update._id) {
-                Updates.update({_id: updateId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_comments': []}});
+                Updates.update({
+                    _id: updateId,
+                    'upper_data._id': Meteor.userId()
+                }, {$set: {'upper_data.$.new_comments': []}});
             }
         } catch (error) {
             Log.error(error);
