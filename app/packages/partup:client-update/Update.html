@@ -84,7 +84,7 @@
                                 {{/ if}}
                                 {{#if partupEquals update.data.upper_id currentUserId }}
                                     <footer class="pu-sub-useractions">
-                                        <a href="#" data-edit-message><span>{{_ 'update-editmessage-edit'}}</span></a><a href="#" data-remove-message><span>{{_ 'update-editmessage-remove'}}</span></a>
+                                        <a href="#" data-edit-message><span>{{_ 'update-editmessage-edit'}}</span></a>{{#if update.hasNoComments}}<a href="#" data-remove-message><span>{{_ 'update-editmessage-remove'}}</span></a>{{/if}}
                                     </footer>
                                 {{/if}}
                             </article>

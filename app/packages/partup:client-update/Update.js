@@ -150,6 +150,13 @@ Template.Update.helpers({
 
             commentable: function() {
                 return !self.metadata.is_contribution && !self.metadata.is_system;
+            },
+            hasNoComments: function() {
+                if (update.comments) {
+                    return update.comments.length <= 0;
+                } else {
+                    return true;
+                }
             }
         };
     },
