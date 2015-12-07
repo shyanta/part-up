@@ -48,7 +48,6 @@ Event.on('partups.notifications.inserted', function(upperId, notification) {
             if (notification.type_data.commenter) upperIds.push(notification.type_data.commenter._id);
             notificationIds.push(notification._id);
         });
-
         // Now check if there is already a grouped notification for this user
         query = {
             for_upper_id: notification.for_upper_id,
@@ -64,12 +63,11 @@ Event.on('partups.notifications.inserted', function(upperId, notification) {
             Notifications.update(groupNotification._id, {
                 $set: {
                     'type_data.latest_upper': latestUpper,
-                    'type_data.others_count': lodash.unique(upperIds).length - 1 // All uppers minus latest one
+                    'type_data.others_count': lodash.unique(upperIds).length - 1 // Don't include latest upper
                 }
             });
         } else {
             // There is no group notification, so check if we need to create one
-            console.log(unreadNotifications.length);
             if (unreadNotifications.length < 3) return;
 
             // We need to create a group notification at this point, so flag the single notifications
@@ -85,7 +83,7 @@ Event.on('partups.notifications.inserted', function(upperId, notification) {
                 clicked: false
             };
             newNotification.type_data.latest_upper = latestUpper;
-            newNotification.type_data.others_count = lodash.unique(upperIds).length - 1;
+            newNotification.type_data.others_count = lodash.unique(upperIds).length - 1; // Don't include latest upper
 
             Notifications.insert(newNotification);
         }
