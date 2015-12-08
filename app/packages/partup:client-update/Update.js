@@ -212,6 +212,8 @@ Template.Update.events({
                         Partup.client.notify.error(error.reason);
                         return;
                     }
+                    $(template.view.firstNode()).remove();
+                    Blaze.remove(template.view);
                     Partup.client.notify.success('Message removed');
                 });
             }

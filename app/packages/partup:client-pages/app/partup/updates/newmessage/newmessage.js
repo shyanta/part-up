@@ -222,7 +222,9 @@ AutoForm.hooks({
                 analytics.track('new message created', {
                     partupId: partupId
                 });
-                AutoForm.resetForm('newMessageForm');
+                try {
+                    AutoForm.resetForm('newMessageForm');
+                } catch (err) {}
                 template.mentionsInput.reset();
                 self.done();
                 parent.uploadedPhotos.set([]);

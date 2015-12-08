@@ -161,10 +161,13 @@
                 span
                     text-decoration: underline
 
-                &:last-child:before
+                &:first-child:after
                     content: '•'
                     margin-left: 5px
                     margin-right: 5px
+
+                &:last-child:after
+                    content: ''
         &:hover
             .pu-sub-useractions
                 opacity: 1
