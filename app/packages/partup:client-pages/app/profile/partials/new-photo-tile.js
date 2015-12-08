@@ -9,35 +9,6 @@ Template.NewPhotoTile.onCreated(function() {
     template.imageId = new ReactiveVar();
     template.submitting = new ReactiveVar(false);
 });
-Template.NewPhotoTile.events({
-    'click [data-image-browse], touchend [data-image-browse]': function(event, template) {
-        event.preventDefault();
-
-        // in stead fire click event on file input
-        var input = $('input[data-image-input]');
-        input.click();
-    },
-    'change [data-image-input]': function(event, template) {
-        event.preventDefault();
-        Partup.client.uploader.eachFile(event, function(file) {
-            template.uploadingPhoto.set(true);
-
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                if (error) {
-                    Partup.client.notify.error(__('profilesettings-form-image-error'));
-                    template.uploadingPhoto.set(false);
-                    return;
-                }
-                console.log(image)
-                template.$('input[name=image]').val(image._id);
-                template.imageId.set(image._id);
-
-                template.uploadingPhoto.set(false);
-            });
-
-        });
-    }
-});
 Template.NewPhotoTile.helpers({
     formSchema: Partup.schemas.forms.tile,
     placeholders: placeholders,
@@ -46,6 +17,31 @@ Template.NewPhotoTile.helpers({
     },
     imageId: function() {
         return Template.instance().imageId.get();
+    },
+    imageInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-image-browse',
+            input: 'data-image-input',
+            onFileChange: function(event) {
+                Partup.client.uploader.eachFile(event, function(file) {
+                    template.uploadingPhoto.set(true);
+
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        if (error) {
+                            Partup.client.notify.error(__('profilesettings-form-image-error'));
+                            template.uploadingPhoto.set(false);
+                            return;
+                        }
+                        template.$('input[name=image]').val(image._id);
+                        template.imageId.set(image._id);
+
+                        template.uploadingPhoto.set(false);
+                    });
+
+                });
+            }
+        }
     }
 });
 AutoForm.hooks({

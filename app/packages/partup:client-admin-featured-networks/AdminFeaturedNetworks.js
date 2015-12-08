@@ -67,6 +67,31 @@ Template.AdminFeaturedNetworks.helpers({
     },
     uploadingNetworkLogo: function() {
         return Template.instance().uploadingNetworkLogo.get();
+    },
+    logoInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-browse-photos',
+            input: 'data-network-logo-input',
+            onFileChange: function(event) {
+                Partup.client.uploader.eachFile(event, function(file) {
+                    template.uploadingNetworkLogo.set(true);
+
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            template.uploadingNetworkLogo.set(false);
+                            return;
+                        }
+                        template.$('input[name=logo]').val(image._id);
+                        template.currentLogoId.set(image._id);
+
+                        template.uploadingNetworkLogo.set(false);
+                    });
+
+                });
+            }
+        }
     }
 });
 
@@ -80,31 +105,6 @@ Template.AdminFeaturedNetworks.events({
                 Partup.client.notify.error(err.reason);
                 return;
             }
-        });
-    },
-    'click [data-browse-photos]': function(event, template) {
-        event.preventDefault();
-
-        // in stead fire click event on file input
-        var input = $('input[data-network-logo-input]');
-        input.click();
-    },
-    'change [data-network-logo-input]': function(event, template) {
-        Partup.client.uploader.eachFile(event, function(file) {
-            template.uploadingNetworkLogo.set(true);
-
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                if (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    template.uploadingNetworkLogo.set(false);
-                    return;
-                }
-                template.$('input[name=logo]').val(image._id);
-                template.currentLogoId.set(image._id);
-
-                template.uploadingNetworkLogo.set(false);
-            });
-
         });
     }
 });

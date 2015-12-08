@@ -25,17 +25,15 @@
                 {{else}}
                     <figure style="background-image:url(/images/smile.png)" class="pu-imagepreview pu-imagepreview-profile"></figure>
                 {{/if}}
-                <button type="button" class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
-                    <span>{{_ 'profilesettings-form-image-button'}}</span>
-                    {{#if uploadingProfilePicture}}
-                        {{> Spinner color='inverted' type='small'}}
-                    {{/if}}
-                </button>
-
-                <input type="file" class="pu-fileinput" data-hidden-fileinput>
-                <!-- TODO DISABLED UNTIL IMPLEMENTED
-                    <p class="pu-paragraph">{{{_ 'profilesettings-form-image-import' }}}</p>
-                -->
+                {{# FileInput inputSettings=imageInput}}
+                    <button type="button" class="pu-button pu-button-secondary {{#if uploadingProfilePicture}}pu-state-loading{{/if}}" data-browse-photos>
+                        <span>{{_ 'profilesettings-form-image-button'}}</span>
+                        {{#if uploadingProfilePicture}}
+                            {{> Spinner color='inverted' type='small'}}
+                        {{/if}}
+                    </button>
+                    <input type="file" class="pu-fileinput" data-hidden-fileinput>
+                {{/FileInput}}
                 {{> afFieldInput name="image" type="hidden" }}
             </div>
         </div>

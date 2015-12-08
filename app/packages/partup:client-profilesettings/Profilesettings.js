@@ -59,7 +59,7 @@ Template.Profilesettings.onCreated(function() {
     template.autorun(function() {
         // get the current image
         var imageId = Template.instance().currentImageId.get();
-        var image = Images.findOne({_id:imageId});
+        var image = Images.findOne({_id: imageId});
         if (!image) return;
 
         // load image from url
@@ -79,25 +79,22 @@ Template.Profilesettings.onCreated(function() {
 
 });
 
-Template.Profilesettings.onRendered(function() {
-    var template = this;
-    Meteor.setTimeout(function() {
-        var button = template.find('[data-browse-photos]');
-        var input = template.find('[data-hidden-fileinput]');
-        console.log(button, input)
-        console.log('wut')
-        Partup.client.uploader.create({
-            buttonElement: button,
-            fileInput: input,
-            onFileChange: function(fileInputEvent) {
-                console.log('huh');
-                Partup.client.uploader.eachFile(fileInputEvent, function(file) {
-                    template.uploadingProfilePicture.set(true);
-
+/*************************************************************/
+/* Widget helpers */
+/*************************************************************/
+Template.Profilesettings.helpers({
+    imageInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-browse-photos',
+            input: 'data-hidden-fileinput',
+            onFileChange: function(event) {
+                template.uploadingProfilePicture.set(true);
+                Partup.client.uploader.eachFile(event, function(file) {
                     Partup.client.uploader.uploadImage(file, function(error, image) {
                         if (error) {
                             Partup.client.notify.error(TAPi18n.__(error.reason));
-                            template.parent().uploadingProfilePicture.set(false);
+                            template.uploadingProfilePicture.set(false);
                             return;
                         }
 
@@ -107,16 +104,10 @@ Template.Profilesettings.onRendered(function() {
                         template.uploadingProfilePicture.set(false);
                     });
                 });
+
             }
-        });
-
-    }, 2000)
-});
-
-/*************************************************************/
-/* Widget helpers */
-/*************************************************************/
-Template.Profilesettings.helpers({
+        };
+    },
     formSchema: function() {
         return Partup.schemas.forms.profileSettings;
     },
@@ -178,23 +169,4 @@ Template.Profilesettings.helpers({
     locationSelectionReactiveVar: function() {
         return Template.instance().locationSelection;
     }
-});
-
-/*************************************************************/
-/* Widget events */
-/*************************************************************/
-Template.Profilesettings.events({
-    // 'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
-    //     event.preventDefault();
-
-    //     // in stead fire click event on file input
-    //     // var input = $('input[data-profile-picture-input]');
-    //     // input.click();
-    //     Partup.client.uploader.click(template, function(fileInputEvent) {
-
-
-    //     });
-    // },
-    // 'change [data-profile-picture-input]': function(event, template) {
-    // }
 });
