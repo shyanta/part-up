@@ -27,9 +27,7 @@ Partup.client.uploader = {
         } else {
             var reader = new FileReader();
         }
-        console.log('created reader');
         reader.onload = function(e) {
-            console.log('reader loaded');
             img.src = e.target.result;
         };
         // console.log(reader)
@@ -37,7 +35,6 @@ Partup.client.uploader = {
 
 
         img.onload = function() {
-            console.log('image loaded');
             var width = img.naturalWidth;
             var height = img.naturalHeight;
 
@@ -75,18 +72,15 @@ Partup.client.uploader = {
             } else {
                 var newFile = new File([resizedFile], file.name);
             }
-            console.log('created file');
 
             var token = Accounts._storedLoginToken();
             if (IE) {
                 var xhr = new mOxie.XMLHttpRequest();
-                // xhr.responseType = 'blob';
             } else {
                 var xhr = new XMLHttpRequest();
             }
-            console.log('created xhr');
-            var url = Meteor.absoluteUrl() + 'images/upload?token=' + token;
-            // var url = 'https://3a99bcc0.ngrok.io/images/upload?token=' + token;
+            var location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            var url = location + '/images/upload?token=' + token;
             console.log(url);
             xhr.open('POST', url, true);
 
@@ -95,18 +89,14 @@ Partup.client.uploader = {
             } else {
                 var formData = new FormData();
             }
-            console.log('created formdata');
             formData.append('file', newFile);
 
-            // return
-            xhr.addEventListener('load', function() {
-                console.log(xhr.responseText);
+            var loadHandler = function(e) {
                 var data = JSON.parse(xhr.responseText);
-                console.log(data)
-                // if (data.error) {
-                //     callback(data.error);
-                // }
-
+                if (data.error) {
+                    callback(data.error);
+                    return;
+                }
                 Meteor.subscribe('images.one', data.image);
                 Meteor.autorun(function(computation) {
                     var image = Images.findOne({_id: data.image});
@@ -117,16 +107,19 @@ Partup.client.uploader = {
                         });
                     }
                 });
+                xhr.removeEventListener('load', loadHandler);
+                xhr.removeEventListener('error', errorHandler);
+            };
 
-            });
-            xhr.addEventListener('error', function() {
-                console.log(xhr.responseText)
-                for (var i = 0; i < arguments.length; i++) {
+            var errorHandler = function(e) {
+                xhr.removeEventListener('load', loadHandler);
+                xhr.removeEventListener('error', errorHandler);
+            };
 
-                    console.log(JSON.stringify(arguments[i]))
-                };
-            });
+            xhr.addEventListener('load', loadHandler);
+            xhr.addEventListener('error', errorHandler);
 
+            console.log('start xhr load');
             xhr.send(formData);
         };
     },
@@ -207,9 +200,19 @@ Partup.client.uploader = {
         });
     },
 
+    /**
+     * Create file input, uses FileReader polyfill for unsupported brwosers
+     *
+     * @memberOf Partup.client
+     * @param {Object} options
+     * @param {Element} options.buttonElement
+     * @param {Element} options.fileInput
+     * @param {Boolean} options.multiple
+     */
     create: function(options) {
         var buttonElement = options.buttonElement || null;
         var fileInput = options.fileInput || null;
+        var multiple = options.multiple || false;
         var isIE = this.isIE();
         if (isIE) {
             fileInput = new mOxie.FileInput({
@@ -217,21 +220,15 @@ Partup.client.uploader = {
                 accept: [
                     {title: 'Image files', extensions: 'jpg,gif,png'} // accept only images
                 ],
-                multiple: true, // allow multiple file selection
-                runtime_order: 'flash,silverlight,html5',
+                multiple: multiple, // allow multiple file selection
+                runtime_order: 'flash,silverlight,html4,html5',
             });
             fileInput.onchange = function(event) {
-                console.log('changed input')
                 options.onFileChange(event);
             };
-            buttonElement.addEventListener('click', function(event) {
-                console.log('button clicked')
-                event.preventDefault();
-            })
-            fileInput.init(); // initialize q
+            fileInput.init();
         } else {
             buttonElement.addEventListener('click', function(event) {
-                console.log('click')
                 $(fileInput).click();
             });
             fileInput.addEventListener('change', function(event) {
@@ -243,18 +240,18 @@ Partup.client.uploader = {
 
     isIE: function() {
         var ua = window.navigator.userAgent;
-        var msie = ua.indexOf("MSIE ");
+        var msie = ua.indexOf('MSIE ');
 
         if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
             return true;
         }
 
-        if (/Edge\/12./i.test(navigator.userAgent)){
-           // this is Microsoft Edge
-           return true;
+        if (/Edge\/12./i.test(navigator.userAgent)) {
+            // this is Microsoft Edge
+            return true;
         }
 
-       return true;
+        return false;
     }
 
 };

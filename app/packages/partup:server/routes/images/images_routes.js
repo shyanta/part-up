@@ -22,6 +22,10 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
         var imageExtension = (/\.(jpg|jpeg|png)$/i).test(extension);
         var imageMimetype = (/\/(jpg|jpeg|png)$/i).test(mimetype);
 
+        if (!imageExtension && imageMimetype) {
+            filename = filename + '.jpg';
+        }
+
         // Validate that the file is a valid image
         if (!imageExtension && !imageMimetype) {
             response.statusCode = 400;
@@ -29,7 +33,6 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
             response.end(JSON.stringify({error: {reason:'error-imageupload-invalidimage'}}));
             return;
         }
-
         var size = 0;
         var buffers = [];
 
@@ -45,7 +48,6 @@ Router.route('/images/upload', {where: 'server'}).post(function() {
                 response.end(JSON.stringify({error: {reason: 'error-imageupload-toolarge'}}));
                 return;
             }
-
             var body = Buffer.concat(buffers);
             var image = Partup.server.services.images.upload(filename, body, mimetype);
 
