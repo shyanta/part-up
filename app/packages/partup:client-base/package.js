@@ -23,9 +23,6 @@ Package.onUse(function(api) {
         'package-tap.i18n',
 
         'client/base-64-polyfill.js',
-        'client/json.js',
-        'client/blob.js', // required for fileuploader
-        'client/addeventlistener.js', // required for fileuploader
         'client/uint8array.js', // required for fileuploader
         'client/moxie.js',
         'client/requestanimationframe-polyfill.js',
