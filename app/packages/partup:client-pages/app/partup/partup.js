@@ -39,10 +39,16 @@ Template.app_partup.onCreated(function() {
                 if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
             }
         }
-
+        partup.upper_data.forEach(function(data) {
+            if (data._id === Meteor.userId()) {
+                // if (data.new_updates[0] === update._id) {
+                Session.set('lastupdate', data.new_updates[0]);
+                // }
+            }
+        });
         if (typeof partup._id === 'string') {
             // Reset new updates for current user
-            Meteor.call('partups.reset_new_updates', partup._id);
+            // Meteor.call('partups.reset_new_updates', partup._id);
         }
     };
 
