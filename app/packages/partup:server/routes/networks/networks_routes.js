@@ -40,7 +40,7 @@ Router.route('/networks/:slug/uppers/count', {where: 'server'}).get(function() {
 
     var userId = request.user ? request.user._id : null;
 
-    var network = Networks.guardedFind(userId, {slug: params.slug}).fetch().pop();
+    var network = Networks.guardedFind(userId, {slug: params.slug}, {}).fetch().pop();
     if (!network) {
         response.statusCode = 404;
         response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
