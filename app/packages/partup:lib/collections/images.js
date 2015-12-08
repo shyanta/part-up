@@ -68,7 +68,8 @@ Images.findForNotification = function(notification) {
         case 'partups_networks_new_upper': images = [get(notification, 'type_data.upper.image')]; break;
         case 'partups_networks_upper_left': images = [get(notification, 'type_data.upper.image')]; break;
         case 'multiple_comments_in_conversation_since_visit': images = [get(notification, 'type_data.latest_upper.image')]; break;
-        case 'partups_multiple_updates_since_visit': images = [get(notification, 'type_data.latest_upper.image')]; break;
+        case 'partups_multiple_updates_since_visit': images = [get(notification, 'type_data.partup.image')]; break;
+        case 'networks_multiple_new_uppers_since_visit': images = [get(notification, 'type_data.network.image')]; break;
         default: return;
     }
 
