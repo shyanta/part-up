@@ -117,24 +117,6 @@ Template.autoForm.onRendered(function() {
 
         template.tagsInputStates.set('tags', !!tags);
     });
-
-    // Bind datepicker
-    var options = Partup.client.datepicker.options;
-    options.startDate = new Date();
-
-    var dateChangeHandler = function(event) {
-        event.currentTarget.nextElementSibling.value = event.date;
-        $(event.currentTarget.nextElementSibling).trigger('blur');
-    };
-
-    this.autorun(function() {
-        var end_date = AutoForm.getFieldValue('end_date');
-        template.end_date_datepicker = template
-            .$('[bootstrap-datepicker]')
-            .datepicker(options)
-            .datepicker('setDate', end_date)
-            .on('changeDate clearDate', dateChangeHandler);
-    });
 });
 
 Template.Partupsettings.onRendered(function() {
@@ -157,6 +139,16 @@ Template.Partupsettings.onRendered(function() {
 });
 
 Template.Partupsettings.helpers({
+    datePicker: function() {
+        var template = Template.instance();
+        var value = AutoForm.getFieldValue('end_date');
+        console.log(this);
+        return {
+            input: 'data-bootstrap-datepicker',
+            autoFormInput: 'data-autoform-field',
+            prefillValueKey: 'end_date' // autoform key
+        };
+    },
     partup: function() {
         return this.currentPartup;
     },
@@ -394,9 +386,6 @@ Template.Partupsettings.helpers({
 });
 
 Template.Partupsettings.events({
-    'click [bootstrap-datepicker], touchend [bootstrap-datepicker]': function(event, template) {
-        $(event.target).closest('label').click();
-    },
     'keyup [data-max]': function(event, template) {
         var $inputElement = $(event.currentTarget);
         var max = parseInt($inputElement.attr('maxlength'));
@@ -411,10 +400,6 @@ Template.Partupsettings.events({
     'change .autoform-tags-field [data-schema-key]': function(event, template) {
         var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
         template.imageSystem.getSuggestions(tags);
-    },
-    'click [data-removedate]': function(event, template) {
-        event.preventDefault();
-        template.end_date_datepicker.datepicker('update', '');
     },
     'change [data-type]': function(event, template) {
         var input = template.find('[data-type] :checked');

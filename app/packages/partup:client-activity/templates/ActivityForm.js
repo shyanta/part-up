@@ -44,24 +44,16 @@ Template.ActivityForm.helpers({
     },
     placeholders: Partup.services.placeholders.activity,
     schema: Partup.schemas.forms.startActivities,
+    datePicker: function() {
+        var template = Template.instance();
+        return {
+            input: 'data-bootstrap-datepicker',
+            autoFormInput: 'data-autoform-input'
+        };
+    },
     showExtraFields: function() {
         var template = Template.instance();
         var showExtraFields = template.showExtraFields.get();
-
-        if (showExtraFields) {
-
-            // Wait for rendering, then bind bootstrap-datepicker
-            Meteor.defer(function() {
-                var options = Partup.client.datepicker.options;
-                options.startDate = new Date();
-                template.end_date_datepicker = template
-                    .$('[bootstrap-datepicker]')
-                    .datepicker(options)
-                    .on('changeDate clearDate', function(event) {
-                        event.currentTarget.nextElementSibling.value = event.date;
-                    });
-            });
-        }
 
         return showExtraFields;
     },
@@ -74,9 +66,6 @@ Template.ActivityForm.helpers({
 /* Widget events */
 /*************************************************************/
 Template.ActivityForm.events({
-    'click [bootstrap-datepicker], touchend [bootstrap-datepicker]': function(event, template) {
-        $(event.target).closest('label').click();
-    },
     'click [data-activity-extra-fields]': function(event, template) {
         event.preventDefault();
         template.showExtraFields.set(true);
@@ -110,10 +99,6 @@ Template.ActivityForm.events({
     },
     'click [data-activity-close]': function(event, template) {
         template.data.edit.set(false);
-    },
-    'click [data-activity-remove-date]': function eventsClickRemoveDate (event, template) {
-        event.preventDefault();
-        template.end_date_datepicker.datepicker('update', '');
     }
 });
 

@@ -123,9 +123,11 @@
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if}}">
                 <div class="pu-inputholder pu-inputholder-lefticon">
                     <span class="pu-sub-input">
-                        <input type="text" bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ formPlaceholders.end_date }}" readonly>
-                        {{> afFieldInput name='end_date' type='hidden' }}
-                        <a href="#" class="pu-sub-remove picon-times" data-removedate tabindex="-1"></a>
+                        {{#DatePicker inputSettings=datePicker}}
+                            <input type="text" data-bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ formPlaceholders.end_date }}" readonly>
+                            {{> afFieldInput name='end_date' type='hidden' data-autoform-input="" }}
+                            <a href="#" class="pu-sub-remove picon-times" data-remove-date tabindex="-1"></a>
+                        {{/DatePicker}}
                     </span>
                     <span class="pu-icon"><i class="picon-calendar-check"></i></span>
                 </div>
