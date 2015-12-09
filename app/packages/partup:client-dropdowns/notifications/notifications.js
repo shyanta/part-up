@@ -15,6 +15,8 @@ Template.DropdownNotifications.onCreated(function() {
             document.title = 'Part-up';
         }
     });
+    template.subscribe('notifications.for_upper', Meteor.userId());
+    template.limit = new ReactiveVar(10);
 });
 Template.DropdownNotifications.onRendered(function() {
     var template = this;
@@ -36,6 +38,10 @@ Template.DropdownNotifications.events({
         template.dropdownOpen.set(false);
         var notificationId = $(event.currentTarget).data('notification');
         Meteor.call('notifications.clicked', notificationId);
+    },
+    'click [data-loadmore]': function(event, template) {
+        event.preventDefault();
+        template.limit.set(template.limit.get() + 10);
     }
 });
 
@@ -44,8 +50,21 @@ Template.DropdownNotifications.helpers({
         return Template.instance().dropdownOpen.get();
     },
     notifications: function() {
-        var parameters = {sort: {created_at: -1}, limit: 25};
-        return Notifications.findForUser(Meteor.user(), {}, parameters);
+        var limit = Template.instance().limit.get();
+        var parameters = {sort: {created_at: -1}, limit: limit};
+        var shownNotifications = Notifications.findForUser(Meteor.user(), {}, parameters);
+        var totalNotifications = Notifications.findForUser(Meteor.user()).count();
+        return {
+            data: function() {
+                return shownNotifications;
+            },
+            count: function() {
+                return totalNotifications;
+            },
+            canLoadMore: function() {
+                return limit <= totalNotifications;
+            }
+        }
     },
     totalNewNotifications: function() {
         return Notifications.findForUser(Meteor.user(), {'new': true});
