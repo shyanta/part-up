@@ -167,11 +167,6 @@ Template.app_partup_updates.onCreated(function() {
 Template.app_partup_updates.onRendered(function() {
     var tpl = this;
 
-    if (typeof this.data.partupId === 'string') {
-        // Reset new updates for current user
-        // Meteor.call('partups.reset_new_updates', this.data.partupId);
-    }
-
     /**
      * Infinite scroll
      */
@@ -298,11 +293,11 @@ Template.app_partup_updates.helpers({
     showNewUpdatesSeparator: function() {
         var update = this;
         var tpl = Template.instance();
-        var lastUpdate = Session.get('lastupdate');
+        var firstUnseenUpdate = Partup.client.updates.firstUnseenUpdate(update.partup_id).get();
         var showNewUpdatesSeparator = false;
 
-        if (lastUpdate === update._id) {
-            showNewUpdatesSeparator = true;
+        if (firstUnseenUpdate === this._id) {
+            showNewUpdatesSeparator = 'bottom';
         } else {
             // WARNING: this helper assumes that the list is always sorted by TIME_FIELD
             var TIME_FIELD = 'updated_at';
@@ -323,7 +318,7 @@ Template.app_partup_updates.helpers({
             var currentUpdateIsOlder = moment(update[TIME_FIELD]).diff(rememberedRefreshMoment) < 0;
             // Return true when the previous update is newer
             // and the current update older than the remember refresh date
-            showNewUpdatesSeparator = previousUpdateIsNewer && currentUpdateIsOlder;
+            showNewUpdatesSeparator = previousUpdateIsNewer && currentUpdateIsOlder ? 'top' : false;
         }
 
         // Unset the rememberedRefreshDate after a few seconds when the line is in view
@@ -338,6 +333,7 @@ Template.app_partup_updates.helpers({
                         $(element).removeClass('pu-state-active');
 
                         Meteor.setTimeout(function() {
+                            Partup.client.updates.firstUnseenUpdate(update.partup_id).reset();
                             tpl.updates.refreshDate_remembered.set(undefined);
                         }, HIDE_LINE_ANIMATION_DURATION);
                     }, HIDE_LINE_TIMEOUT);
@@ -386,7 +382,7 @@ Template.app_partup_updates.events({
 
         if (typeof template.data.partupId === 'string') {
             // Reset new updates for current user
-            // Meteor.call('partups.reset_new_updates', template.data.partupId);
+            Meteor.call('partups.reset_new_updates', template.data.partupId);
         }
     }
 });
