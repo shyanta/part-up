@@ -2,22 +2,22 @@
  * Helper for updates page
  *
  * @class updates
- * @memberof Partup.client
+ * @memberOf Partup.client
  */
 Partup.client.updates = {
 
     /**
      * List of updates caused by the current user
      *
-     * @memberof Partup.client.updates
+     * @memberOf Partup.client.updates
      */
     updates_causedby_currentuser: new ReactiveVar([]),
 
     /**
      * Add update to list of updates caused by the current user
      *
-     * @memberof Partup.client.updates
-     * @param update_id {String}    _id of the update caused by the current user
+     * @memberOf Partup.client.updates
+     * @param {String} update_id _id of the update caused by the current user
      */
     addUpdateToUpdatesCausedByCurrentuser: function(update_id) {
         var current_list = this.updates_causedby_currentuser.get();
@@ -28,7 +28,7 @@ Partup.client.updates = {
     /**
      * Reset the caused-by-current-user array
      *
-     * @memberof Partup.client.updates
+     * @memberOf Partup.client.updates
      */
     resetUpdatesCausedByCurrentuser: function() {
         this.updates_causedby_currentuser.set([]);

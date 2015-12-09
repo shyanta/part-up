@@ -387,6 +387,7 @@ AutoForm.addHooks(null, {
             }
             AutoForm.resetForm(self.formId); // reset form before call is successfull
             template.mentionsInput.reset();
+            Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
 
             Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
                 template.submittingForm.set(false);
@@ -399,8 +400,6 @@ AutoForm.addHooks(null, {
 
                 template.messageRows.set(1);
                 template.tooManyCharacters.set(false);
-
-                Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(updateId);
 
                 template.submitButtonActive.set(false);
                 self.done();
