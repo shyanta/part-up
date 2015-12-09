@@ -37,6 +37,7 @@
     "dropdown-notification-partups_networks_accepted": "You are now member of __network__",
     "dropdown-notification-partups_networks_new_pending_upper": "__pending_upper__ is asking permission to access __network__",
     "dropdown-notification-contributions_ratings_inserted": "__rater__ rated your contribution",
+    "dropdown-notification-updates_first_comment": "__commenter__ commented on an update",
     "dropdown-notification-partups_messages_inserted": "__creator__ placed a message",
     "dropdown-notification-partups_activities_inserted": "__creator__ created a new activity",
     "dropdown-notification-partups_contributions_inserted": "__creator__ added a contribution",
