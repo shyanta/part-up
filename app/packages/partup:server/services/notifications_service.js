@@ -30,7 +30,7 @@ Partup.server.services.notifications = {
                 'type_data.commenter._id': options.typeData.commenter._id
             });
             // Nothing else to do here
-            //if (isAlreadyNotified) return;
+            if (isAlreadyNotified) return;
         }
 
         notification.for_upper_id = options.userId;
