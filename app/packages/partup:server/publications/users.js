@@ -177,9 +177,6 @@ Meteor.publishComposite('users.loggedin', function() {
             },
             children: [
                 {find: Images.findForNetwork}
-            ]},
-            {find: Notifications.findForUser, children: [
-                {find: Images.findForNotification}
             ]}
         ]
     };
