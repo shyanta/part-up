@@ -74,6 +74,7 @@
         &.picon-message:before
             vertical-align: sub
 
+
     &-smallicon
         i.picon-times
             font-size: 12px
@@ -136,6 +137,20 @@
 
             i
                 color: darken($color-text-subtle, 10%)
+
+    &-grey
+        background-color: $color-background-secondary
+        color: $color-text-subtle
+        font-weight: 600
+
+        &:focus
+            background-color: $color-background-secondary
+            color: $color-text-subtle
+
+        &:hover,
+        &:active
+            background-color: darken($color-background-secondary, 10%)
+            color: $color-text-subtle
 
     &-icononly
         i
