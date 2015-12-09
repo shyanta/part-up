@@ -17,6 +17,12 @@ Template.DropdownNotifications.onCreated(function() {
     });
     template.subscribe('notifications.for_upper', Meteor.userId());
     template.limit = new ReactiveVar(10);
+    template.resetLimit = function() {
+        Meteor.setTimeout(function() {
+            template.limit.set(10);
+            $(template.find('[data-clickoutside-close] ul')).scrollTop(0);
+        },200);
+    };
 });
 Template.DropdownNotifications.onRendered(function() {
     var template = this;
@@ -25,11 +31,13 @@ Template.DropdownNotifications.onRendered(function() {
         template.dropdownOpen.set(false);
         next();
     });
+    Partup.client.elements.onClickOutside([template.find('[data-clickoutside-close]')], template.resetLimit);
 });
 
 Template.DropdownNotifications.onDestroyed(function() {
     var template = this;
     ClientDropdowns.removeOutsideDropdownClickHandler(template);
+    Partup.client.elements.offClickOutside(template.resetLimit);
 });
 
 Template.DropdownNotifications.events({
