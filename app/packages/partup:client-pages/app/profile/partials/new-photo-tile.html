@@ -5,14 +5,16 @@
         <div class="pu-formfield">
             <div class="pu-upload">
                 <figure style="{{#with imageId}}background-image:url('{{ partupImageUrl id=. }}');{{/with}}" class="pu-imagepreview pu-sub-bordered"></figure>
-                <button type="button" class="pu-button pu-button-secondary {{# if uploadingPhoto }}pu-state-loading{{/ if }}" data-image-browse>
-                    <span>{{_ 'pages-app-profile-image-button' }}</span>
-                    {{> Spinner color='inverted' type='small' }}
-                </button>
+                {{#FileInput inputSettings=imageInput}}
+                    <button type="button" class="pu-button pu-button-secondary {{# if uploadingPhoto }}pu-state-loading{{/ if }}" data-image-browse>
+                        <span>{{_ 'pages-app-profile-image-button' }}</span>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
 
-                <span class="pu-hint">{{_ 'pages-app-profile-image-info' }}</span>
+                    <span class="pu-hint">{{_ 'pages-app-profile-image-info' }}</span>
 
-                <input type="file" class="pu-fileinput" data-image-input>
+                    <input type="file" class="pu-fileinput" data-image-input>
+                {{/FileInput}}
                 {{> afFieldInput name="image_id" type="hidden" value=imageId }}
             </div>
         </div>

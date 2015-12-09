@@ -366,6 +366,30 @@ Template.Partupsettings.helpers({
     },
     currentCurrency: function() {
         return Template.instance().currentCurrency.get();
+    },
+    imageInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-browse-photos',
+            input: 'data-imageupload',
+            onFileChange: function(event) {
+                Partup.client.uploader.eachFile(event, function(file) {
+                    template.loading.set('image-uploading', true);
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            template.loading.set('image-uploading', false);
+                            return;
+                        }
+                        template.loading.set('image-uploading', false);
+                        template.imageSystem.currentImageId.set(image._id);
+                        template.imageSystem.uploaded.set(true);
+                        var focuspoint = template.imageSystem.focuspoint.get();
+                        if (focuspoint) focuspoint.reset();
+                    });
+                });
+            }
+        }
     }
 });
 
@@ -373,38 +397,11 @@ Template.Partupsettings.events({
     'click [bootstrap-datepicker], touchend [bootstrap-datepicker]': function(event, template) {
         $(event.target).closest('label').click();
     },
-    'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
-        event.preventDefault();
-
-        // in stead fire click event on file input
-        var input = $('input[data-imageupload]');
-        input.click();
-    },
     'keyup [data-max]': function(event, template) {
         var $inputElement = $(event.currentTarget);
         var max = parseInt($inputElement.attr('maxlength'));
         var charactersLeftVar = $inputElement.data('characters-left-var');
         template[charactersLeftVar].set(max - $inputElement.val().length);
-    },
-    'change [data-imageupload]': function(event, template) {
-        $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
-
-        Partup.client.uploader.eachFile(event, function(file) {
-            template.loading.set('image-uploading', true);
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                if (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    template.loading.set('image-uploading', false);
-                    return;
-                }
-                template.loading.set('image-uploading', false);
-                template.imageSystem.currentImageId.set(image._id);
-                template.imageSystem.uploaded.set(true);
-                var focuspoint = template.imageSystem.focuspoint.get();
-                if (focuspoint) focuspoint.reset();
-            });
-        });
-
     },
     'click [data-imageremove]': function(event, template) {
         var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();

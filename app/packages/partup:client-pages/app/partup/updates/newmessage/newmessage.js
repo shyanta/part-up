@@ -74,38 +74,39 @@ Template.app_partup_updates_newmessage.helpers({
             text: this.type_data.new_value,
             images: this.type_data.images || []
         };
+    },
+    imageInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-browse-photos',
+            input: 'data-photo-input',
+            multiple: true,
+            onFileChange: function(event) {
+                template.uploadingPhotos.set(true);
+                var total = template.totalPhotos.get();
+                Partup.client.uploader.eachFile(event, function(file) {
+                    if (total === template.maxPhotos) return;
+
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        template.uploadingPhotos.set(false);
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            return;
+                        }
+                        var uploaded = template.uploadedPhotos.get();
+                        uploaded.push(image._id);
+                        template.uploadedPhotos.set(uploaded);
+                    });
+                    total++;
+                    template.totalPhotos.set(total);
+                });
+            }
+        }
     }
 });
 
 // events
 Template.app_partup_updates_newmessage.events({
-    'click [data-browse-photos], touchend [data-browse-photos]': function eventClickBrowse(event, template) {
-        event.preventDefault();
-
-        // in stead fire click event on file input
-        var input = $('input[data-photo-input]');
-        input.click();
-    },
-    'change [data-photo-input]': function eventChangeFile(event, template) {
-        template.uploadingPhotos.set(true);
-        var total = Template.instance().totalPhotos.get();
-        Partup.client.uploader.eachFile(event, function(file) {
-            if (total === template.maxPhotos) return;
-
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                template.uploadingPhotos.set(false);
-                if (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    return;
-                }
-                var uploaded = template.uploadedPhotos.get();
-                uploaded.push(image._id);
-                template.uploadedPhotos.set(uploaded);
-            });
-            total++;
-            Template.instance().totalPhotos.set(total);
-        });
-    },
     'click [data-dismiss]': function clearForm(event, template) {
         template.uploadedPhotos.set([]);
     },

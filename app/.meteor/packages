@@ -100,7 +100,9 @@ partup:client-upper-tile
 partup:meteor-bender
 partup:client-invite-to-partup
 partup:client-column-tiles-layout
+partup:client-forminputs
 standard-minifiers
+
 meteor-base
 mobile-experience
 mongo

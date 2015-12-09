@@ -34,13 +34,15 @@
                 <a class=" pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
             </div>
             <div class="cell last">
-                <input type="file" class="pu-fileinput" multiple data-photo-input>
-                <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}} {{#if photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
-                    <span>{{_ 'pages-app-partup-updates-newmessage-addphoto'}}</span>
-                    {{#if uploadingPhotos}}
-                        {{> Spinner color='inverted' type='small'}}
-                    {{/if}}
-                </button>
+                {{#FileInput inputSettings=imageInput}}
+                    <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}} {{#if photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
+                        <span>{{_ 'pages-app-partup-updates-newmessage-addphoto'}}</span>
+                        {{#if uploadingPhotos}}
+                            {{> Spinner color='inverted' type='small'}}
+                        {{/if}}
+                    </button>
+                    <input type="file" class="pu-fileinput" multiple data-photo-input>
+                {{/FileInput}}
             </div>
         </footer>
     {{/autoForm}}

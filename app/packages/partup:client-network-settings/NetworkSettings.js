@@ -39,6 +39,58 @@ Template.NetworkSettings.onCreated(function() {
 });
 
 Template.NetworkSettings.helpers({
+    imageInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-image-browse',
+            input: 'data-image-input',
+            onFileChange: function(event) {
+                Partup.client.uploader.eachFile(event, function(file) {
+                    template.uploading.set('image', true);
+
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        template.uploading.set('image', false);
+
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            return;
+                        }
+
+                        template.find('[name=image]').value = image._id;
+                        template.current.set('image', image._id);
+                    });
+
+                });
+
+            }
+        };
+    },
+    iconInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-icon-browse',
+            input: 'data-icon-input',
+            onFileChange: function(event) {
+                Partup.client.uploader.eachFile(event, function(file) {
+                    template.uploading.set('icon', true);
+
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        template.uploading.set('icon', false);
+
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            return;
+                        }
+
+                        template.find('[name=icon]').value = image._id;
+                        template.current.set('icon', image._id);
+                    });
+
+                });
+
+            }
+        };
+    },
     formSchema: Partup.schemas.forms.network,
     placeholders: {
         name: function() {
@@ -148,50 +200,6 @@ Template.NetworkSettings.helpers({
 Template.NetworkSettings.events({
     'input [maxlength]': function(e, template) {
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
-    },
-    'click [data-image-browse], touchend [data-image-browse]': function(event, template) {
-        event.preventDefault();
-        template.find('[data-image-input]').click();
-    },
-    'change [data-image-input]': function(event, template) {
-        Partup.client.uploader.eachFile(event, function(file) {
-            template.uploading.set('image', true);
-
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                template.uploading.set('image', false);
-
-                if (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    return;
-                }
-
-                template.find('[name=image]').value = image._id;
-                template.current.set('image', image._id);
-            });
-
-        });
-    },
-    'click [data-icon-browse], touchend [data-icon-browse]': function(event, template) {
-        event.preventDefault();
-        template.find('[data-icon-input]').click();
-    },
-    'change [data-icon-input]': function(event, template) {
-        Partup.client.uploader.eachFile(event, function(file) {
-            template.uploading.set('icon', true);
-
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                template.uploading.set('icon', false);
-
-                if (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    return;
-                }
-
-                template.find('[name=icon]').value = image._id;
-                template.current.set('icon', image._id);
-            });
-
-        });
     }
 });
 

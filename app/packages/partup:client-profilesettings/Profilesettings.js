@@ -59,7 +59,7 @@ Template.Profilesettings.onCreated(function() {
     template.autorun(function() {
         // get the current image
         var imageId = Template.instance().currentImageId.get();
-        var image = Images.findOne({_id:imageId});
+        var image = Images.findOne({_id: imageId});
         if (!image) return;
 
         // load image from url
@@ -76,18 +76,38 @@ Template.Profilesettings.onCreated(function() {
         // set image url to be loaded
         loadImage.src = Partup.helpers.url.getImageUrl(image);
     });
+
 });
-
-// Template.Profilesettings.onRendered(function() {
-//     $('label').click(function() {
-
-//     });
-// });
 
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
 Template.Profilesettings.helpers({
+    imageInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-browse-photos',
+            input: 'data-hidden-fileinput',
+            onFileChange: function(event) {
+                template.uploadingProfilePicture.set(true);
+                Partup.client.uploader.eachFile(event, function(file) {
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            template.uploadingProfilePicture.set(false);
+                            return;
+                        }
+
+                        template.$('input[name=image]').val(image._id);
+                        template.currentImageId.set(image._id);
+
+                        template.uploadingProfilePicture.set(false);
+                    });
+                });
+
+            }
+        };
+    },
     formSchema: function() {
         return Partup.schemas.forms.profileSettings;
     },
@@ -148,37 +168,5 @@ Template.Profilesettings.helpers({
     },
     locationSelectionReactiveVar: function() {
         return Template.instance().locationSelection;
-    }
-});
-
-/*************************************************************/
-/* Widget events */
-/*************************************************************/
-Template.Profilesettings.events({
-    'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
-        event.preventDefault();
-
-        // in stead fire click event on file input
-        var input = $('input[data-profile-picture-input]');
-        input.click();
-    },
-    'change [data-profile-picture-input]': function(event, template) {
-        Partup.client.uploader.eachFile(event, function(file) {
-
-            template.uploadingProfilePicture.set(true);
-
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                if (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    template.uploadingProfilePicture.set(false);
-                    return;
-                }
-
-                template.$('input[name=image]').val(image._id);
-                template.currentImageId.set(image._id);
-
-                template.uploadingProfilePicture.set(false);
-            });
-        });
     }
 });
