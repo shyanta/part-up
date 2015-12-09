@@ -14,6 +14,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'fileinput.html',
-        'fileinput.js'
+        'fileinput.js',
+        'datepicker.html',
+        'datepicker.js'
     ], 'client');
 });
