@@ -142,12 +142,14 @@ Meteor.methods({
     /**
     * Returns user data to superadmins only
     */
-    'users.admin_all': function() {
+    'users.admin_all': function(selector, options) {
         var user = Meteor.users.findOne(this.userId);
         if (!User(user).isAdmin()) {
             return;
         }
-        return Meteor.users.findForAdminList().fetch();
+        var selector = selector || {};
+        var option = options || {};
+        return Meteor.users.findForAdminList(selector, options).fetch();
     },
 
     /**

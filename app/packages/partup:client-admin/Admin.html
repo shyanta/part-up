@@ -23,6 +23,7 @@
             <div class="pu-sub-column">
                 <h2>Other</h2>
                 <ul>
+                    <li>users: {{userStats.counts.users}}</li>
                     <li>notifications: {{userStats.counts.notifications}}</li>
                     <li>activities: {{userStats.counts.activities}}</li>
                     <li>contributions: {{userStats.counts.contributions}}</li>
@@ -30,8 +31,12 @@
                 </ul>
             </div>
         </div>
-        <h2>Users ({{userCount}})</h2>
-        <table>
+        <h2>Users</h2>
+        <form class="usersearch">
+            <input data-usersearchfield placeholder="search for user name"/>
+            <button data-search>search</button>
+        </form>
+        <table style="width:900px">
             <thead>
                 <tr>
                     <td>Naam</td>
@@ -51,15 +56,16 @@
                     <td>{{partupDateCustom createdAt 'DD-MM-YYYY'}}</td>
                     <td>
                         {{#if isUserActive . }}
-                            <a href="#" data-deactivate-user>deactiveren</a>
+                            <a href="#" data-deactivate-user>x</a>
                         {{else}}
-                            <a href="#" data-reactivate-user>activeren</a>
+                            <a href="#" data-reactivate-user>o</a>
                         {{/if}}
                         -
-                            <a href="#" data-impersonate-user>inloggen</a>
+                            <a href="#" data-impersonate-user>login</a>
                     </td>
                 </tr>
             {{/each }}
         </table>
+        <button data-showmore>show more</button>
     </div>
 </template>
