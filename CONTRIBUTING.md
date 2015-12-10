@@ -5,6 +5,7 @@ This guideline details the preferred way of making contributions to the part-up.
 ## Branches
 - `develop`: the main integration branch. All code committed to `develop` should be ready for a release branch.
 - `master`: points to the latest git commit that is deployed to production
+- `MD*.*.*`: points to a release branch, only fixes for that release should be pushed to that branch
 - all other branches are considered feature/fix branches
 
 ## Featurebranches
@@ -35,7 +36,7 @@ The type could be one of the following:
 - **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation.
 
 ### Scope
-The scope could be anything specifying context of the commit change. For example `eps`, `gulp`, `klantdomein`, `cbCheckbox` etc.
+The scope could be anything specifying context of the commit change. For example `notifications`, `dropdown`, `partupdetail`, etc.
 
 ### Subject
 The subject contains succinct description of the change:
