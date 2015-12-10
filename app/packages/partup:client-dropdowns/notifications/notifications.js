@@ -15,13 +15,13 @@ Template.DropdownNotifications.onCreated(function() {
             document.title = 'Part-up';
         }
     });
-    template.subscribe('notifications.for_upper', Meteor.userId());
     template.limit = new ReactiveVar(10);
+    template.subscribe('notifications.for_upper', template.limit.get());
     template.resetLimit = function() {
         Meteor.setTimeout(function() {
             template.limit.set(10);
             $(template.find('[data-clickoutside-close] ul')).scrollTop(0);
-        },200);
+        }, 200);
     };
 });
 Template.DropdownNotifications.onRendered(function() {
@@ -50,6 +50,7 @@ Template.DropdownNotifications.events({
     'click [data-loadmore]': function(event, template) {
         event.preventDefault();
         template.limit.set(template.limit.get() + 10);
+        template.subscribe('notifications.for_upper', template.limit.get());
     }
 });
 
