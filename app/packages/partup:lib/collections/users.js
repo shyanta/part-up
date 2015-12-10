@@ -176,10 +176,17 @@ Meteor.users.findActiveUsers = function(selector, options) {
  * @param {Contributions} contribution
  * @return {Mongo.Cursor}
  */
-Meteor.users.findForAdminList = function() {
-    return Meteor.users.find({}, {
+Meteor.users.findForAdminList = function(selector, options) {
+    selector = selector || {};
+
+    var limit = options.limit;
+    var page = options.page;
+
+    return Meteor.users.find(selector, {
         fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1, 'createdAt':1, 'deactivatedAt':1},
-        sort: {'createdAt': 1}
+        sort: {'createdAt': -1},
+        limit: limit,
+        skip: limit * page
     });
 };
 
@@ -191,6 +198,7 @@ Meteor.users.findStatsForAdmin = function() {
             'facebook': Meteor.users.find({'services.facebook':{'$exists':true}}).count()
         },
         'counts': {
+            'users': Meteor.users.find({}).count(),
             'notifications': Notifications.find({}).count(),
             'activities': Activities.find({}).count(),
             'contributions': Contributions.find({}).count(),

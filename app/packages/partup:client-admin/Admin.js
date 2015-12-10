@@ -5,33 +5,29 @@ Template.Admin.onCreated(function() {
     self.partupstats = new ReactiveVar([]);
     self.userstats = new ReactiveVar([]);
 
-    self.refresh = function() {
-        Meteor.call('users.admin_all', function(error, results) {
-            self.users.set(results);
-        });
-        Meteor.call('users.admin_stats', function(error, results) {
-            self.userstats.set(results);
-        });
-        Meteor.call('partups.admin_all', function(error, results) {
-            self.partupstats.set(results);
-        });
-    }
+    self.page = 0;
+    self.limit = 10;
 
-    self.refresh();
+    Meteor.call('users.admin_all', {}, {
+        page: self.page,
+        limit: self.limit
+    }, function(error, results) {
+        self.page = 1;
+        self.users.set(results);
+    });
+    Meteor.call('users.admin_stats', function(error, results) {
+        self.userstats.set(results);
+    });
+    Meteor.call('partups.admin_all', function(error, results) {
+        self.partupstats.set(results);
+    });
+
 });
 
 Template.Admin.helpers({
     users: function() {
         var users = Template.instance().users.get();
         return users;
-    },
-    userCount: function() {
-        var users = Template.instance().users.get();
-        if (users) {
-            return users.length;
-        } else {
-            return '';
-        }
     },
     userStats: function() {
         return Template.instance().userstats.get();
@@ -48,6 +44,31 @@ Template.Admin.helpers({
 });
 
 Template.Admin.events({
+    'submit .usersearch': function(event, template) {
+        event.preventDefault();
+        template.page = 0;
+        var query = template.find('[data-usersearchfield]').value;
+        Meteor.call('users.admin_all', {
+            'profile.name':{$regex:query, $options:'i'}
+        },
+        {
+            limit: 100,
+            page: template.page
+        }, function(error, results) {
+            template.users.set(results);
+        });
+    },
+    'click [data-showmore]': function(event, template) {
+        Meteor.call('users.admin_all', {}, {
+            page: template.page,
+            limit: template.limit
+        }, function(error, results) {
+            var currentUsers = template.users.get();
+            var newUserList = currentUsers.concat(results);
+            template.users.set(newUserList);
+            template.page++;
+        });
+    },
     'click [data-deactivate-user]': function(event, template) {
         event.preventDefault();
         var userId = this._id;
