@@ -47,7 +47,11 @@
                     {{#each upperPartups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' slug=slug }}">
-                                <figure class="pu-avatar" style="background-image:url('{{ partupImageUrl id=image store='80x80'}}');"></figure>
+                                <figure class="pu-avatar" style="
+                                    {{# with partupGetImageUrl imageObject '80x80' }}
+                                        background-image: url('{{ . }}');
+                                    {{/ with }}
+                                "></figure>
                                 <p>{{ name }}</p>
                                 {{#if newUpdates}}
                                     <span class="pu-sub-newupdates">{{newUpdates}}</span>
@@ -75,7 +79,11 @@
                     {{#each supporterPartups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' slug=slug }}">
-                                <figure class="pu-avatar" style="background-image:url('{{ partupImageUrl id=image store='80x80'}}');"></figure>
+                                <figure class="pu-avatar" style="
+                                    {{# with partupGetImageUrl imageObject '80x80' }}
+                                        background-image: url('{{ . }}');
+                                    {{/ with }}
+                                "></figure>
                                 <p>{{ name }}</p>
                                 {{#if newUpdates}}
                                     <span class="pu-sub-newupdates">{{newUpdates}}</span>
