@@ -86,6 +86,9 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
 
     /* -------------------------------------------------- */
 
+    // Check if a new comment notification needs to be created
+    if (comment.type === 'motivation') return; // Nope
+
     // Collect all uppers that should receive a new comment notification
     var involvedUppers = update.getInvolvedUppers();
 
@@ -99,7 +102,7 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     Meteor.users.find({_id: {$in: filteredUppers}}).fetch().forEach(function(notifiedUpper) {
         var notificationOptions = {
             userId: notifiedUpper._id,
-            type: 'partups_new_comment_in_involved_conversation',
+            type: notificationType,
             typeData: {
                 commenter: {
                     _id: comment.creator._id,
