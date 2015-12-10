@@ -37,5 +37,7 @@ Router.onBeforeAction(function(request, response, next) {
     'networks.:slug.uppers.count',
     'users.count',
     'users.:id.upperpartups.count',
-    'users.:id.supporterpartups.count'
+    'users.:id.supporterpartups.count',
+    'users.:id.upperpartups',
+    'users.:id.supporterpartups'
 ]});

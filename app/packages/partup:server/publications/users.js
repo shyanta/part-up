@@ -21,32 +21,18 @@ Meteor.publishComposite('users.one', function(userId) {
 /**
  * Publish all partups a user is upper in
  *
- * @param {Object} urlParams
- * @param {Object} parameters
+ * @param {Object} request
+ * @param {Object} params
  */
-Meteor.publishComposite('users.one.upperpartups', function(urlParams, parameters) {
-    if (this.unblock) this.unblock();
-
-    check(urlParams, {
-        id: Match.Optional(String),
-    });
-
-    parameters = parameters || {};
-    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
-    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
-
-    check(parameters, {
-        limit: Match.Optional(Number),
-        skip: Match.Optional(Number)
-    });
-
+Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
     var options = {};
-    if (parameters.limit) options.limit = parameters.limit;
-    if (parameters.skip) options.skip = parameters.skip;
+
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
 
     return {
         find: function() {
-            var user = Meteor.users.findOne(urlParams.id);
+            var user = Meteor.users.findOne(params.id);
             if (!user) return;
 
             return Partups.findUpperPartupsForUser(user, options, this.userId);
@@ -57,14 +43,13 @@ Meteor.publishComposite('users.one.upperpartups', function(urlParams, parameters
                 {find: Images.findForUser}
             ]},
             {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
-            children: [
-                {find: Images.findForNetwork}
-            ]}
+                children: [
+                    {find: Images.findForNetwork}
+                ]
+            }
         ]
     };
-}, {url: 'users/:id/upperpartups', getArgsFromRequest: function(request) {
-    return [request.params, request.query];
-}});
+});
 
 /**
  * Publish a count of all partups a user is upper in
@@ -85,32 +70,18 @@ Meteor.publish('users.one.upperpartups.count', function(userId) {
 /**
  * Publish all partups a user is supporter of
  *
- * @param {Object} urlParams
- * @param {Object} parameters
+ * @param {Object} request
+ * @param {Object} params
  */
-Meteor.publishComposite('users.one.supporterpartups', function(urlParams, parameters) {
-    if (this.unblock) this.unblock();
-
-    check(urlParams, {
-        id: Match.Optional(String),
-    });
-
-    parameters = parameters || {};
-    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
-    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
-
-    check(parameters, {
-        limit: Match.Optional(Number),
-        skip: Match.Optional(Number)
-    });
-
+Meteor.routeComposite('users/:id/supporterpartups', function(request, params) {
     var options = {};
-    if (parameters.limit) options.limit = parameters.limit;
-    if (parameters.skip) options.skip = parameters.skip;
+
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
 
     return {
         find: function() {
-            var user = Meteor.users.findOne(urlParams.id);
+            var user = Meteor.users.findOne(params.id);
             if (!user) return;
 
             return Partups.findSupporterPartupsForUser(user, options, this.userId);
@@ -127,9 +98,7 @@ Meteor.publishComposite('users.one.supporterpartups', function(urlParams, parame
             ]}
         ]
     };
-}, {url: 'users/:id/supporterpartups', getArgsFromRequest: function(request) {
-    return [request.params, request.query];
-}});
+});
 
 /**
  * Publish a count of all partups a user is supporter of

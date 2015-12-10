@@ -84,6 +84,7 @@ Package.onUse(function(api) {
         'namespace.js',
         'constants.js',
         'bootstrap.js',
+        'routes/composite.js',
         'compile_email_templates.js',
         'accounts.js',
         'accounts_email_configuration.js',
