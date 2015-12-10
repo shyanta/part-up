@@ -26,10 +26,8 @@ Template.DropdownProfile.onCreated(function() {
     };
 
     // Partups headers for http calls
-    var httpOptions = {
-        headers: {
-            Authorization: 'Bearer ' + Accounts._storedLoginToken()
-        }
+    var query = {
+        token: Accounts._storedLoginToken()
     };
 
     // Dropdown opened state + callback
@@ -38,7 +36,7 @@ Template.DropdownProfile.onCreated(function() {
 
         // (Re)load upper partups
         template.states.loadingUpperpartups.set(true);
-        HTTP.get('/user/' + user._id + '/upperpartups', httpOptions, function(error, response) {
+        HTTP.get('/users/' + user._id + '/upperpartups' + mout.queryString.encode(query), function(error, response) {
             if (error || !response.data.partups || response.data.partups.length === 0) {
                 template.states.loadingUpperpartups.set(false);
                 return;
@@ -55,7 +53,7 @@ Template.DropdownProfile.onCreated(function() {
 
         // (Re)load supporter partups
         template.states.loadingSupporterpartups.set(true);
-        HTTP.get('/user/' + user._id + '/upperpartups', httpOptions, function(error, response) {
+        HTTP.get('/users/' + user._id + '/supporterpartups' + mout.queryString.encode(query), function(error, response) {
             if (error || !response.data.partups || response.data.partups.length === 0) {
                 template.states.loadingSupporterpartups.set(false);
                 return;
@@ -178,7 +176,7 @@ Template.DropdownProfile.helpers({
         if (!user) return [];
 
         var networkId = Template.instance().currentNetwork.get() || undefined;
-        var allPartups = Template.instance().results.upperpartups.get();
+        var allPartups = Template.instance().results.supporterpartups.get();
 
         if (!networkId) return sortPartups(allPartups, user);
 

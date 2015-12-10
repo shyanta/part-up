@@ -21,22 +21,33 @@ var compositionToResult = function(userId, find, children) {
     var cursor = find();
     if (! cursor) return;
 
-    var items = cursor.fetch();
+    var documents = cursor.fetch();
     var collectionName = cursor._cursorDescription.collectionName;
 
-    items.forEach(function(item) {
-        result[collectionName] = result[collectionName] ? result[collectionName] : [];
-        result[collectionName].push(item);
+    documents.forEach(function(document) {
+        result[collectionName] = result[collectionName] || [];
+        result[collectionName].push(document);
+        if (collectionName === 'cfs.images.filerecord') {
+            console.log(document);
+        }
 
         if (children) {
             children.forEach(function(childComposition) {
-                result = mout.object.merge(result,
-                    compositionToResult(
-                        userId,
-                        childComposition.find.bind({userId: userId}, item),
-                        childComposition.children
-                    )
+                var r = compositionToResult(
+                    userId,
+                    childComposition.find.bind({userId: userId}, document),
+                    childComposition.children
                 );
+
+                Object.keys(r).forEach(function(collectionName) {
+                    result[collectionName] = result[collectionName] || [];
+
+                    var documents = r[collectionName];
+
+                    documents.forEach(function(document) {
+                        result[collectionName].push(document);
+                    });
+                });
             });
         }
     });
