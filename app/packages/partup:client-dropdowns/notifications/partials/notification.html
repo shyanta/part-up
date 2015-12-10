@@ -211,7 +211,7 @@
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partups_user_mentioned' partup=notification.type_data.partup.name mentioning_upper=notification.type_data.mentioning_upper.name }}</p>
-                <time>{{ partupDateNotification notification.created_at }}</time>
+                <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.partup.name}}</time>
             </article>
         </a>
     {{/if}}
@@ -225,6 +225,93 @@
             </figure>
             <article>
                 <p>{{_ 'dropdown-notification-partup_created_in_network' partup=notification.type_data.partup.name network=notification.type_data.network.name creator=notification.type_data.creator.name }}</p>
+                <time>{{ partupDateNotification notification.created_at }}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- new comment in conversation the upper is involved in -->
+    {{#if partupEqualsExactly notification.type 'partups_new_comment_in_involved_conversation' }}
+        <a href="{{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.commenter.image }}');"
+                data-usercard="{{ notification.type_data.commenter._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-partups_new_comment_in_involved_conversation' commenter=notification.type_data.commenter.name}}</p>
+                <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.partup.name}}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- new member in tribe -->
+    {{#if partupEqualsExactly notification.type 'partups_networks_new_upper' }}
+        <a href="{{pathFor route='network-uppers' slug=notification.type_data.network.slug}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.upper.image }}');"
+                data-usercard="{{ notification.type_data.upper._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-partups_networks_new_upper' upper=notification.type_data.upper.name network=notification.type_data.network.name}}</p>
+                <time>{{ partupDateNotification notification.created_at }}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- member has left tribe -->
+    {{#if partupEqualsExactly notification.type 'partups_networks_upper_left' }}
+        <a href="{{pathFor route='network-detail' slug=notification.type_data.network.slug}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.upper.image }}');"
+                data-usercard="{{ notification.type_data.upper._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-partups_networks_upper_left' upper=notification.type_data.upper.name network=notification.type_data.network.name}}</p>
+                <time>{{ partupDateNotification notification.created_at }}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- grouped conversation notification -->
+    {{#if partupEqualsExactly notification.type 'multiple_comments_in_conversation_since_visit' }}
+        <a href="{{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.latest_upper.image }}');"
+                data-usercard="{{ notification.type_data.latest_upper._id }}">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-multiple_comments_in_conversation_since_visit' upper=notification.type_data.latest_upper.name others_count=notification.type_data.others_count}}</p>
+                <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.partup.name}}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- grouped partup notification -->
+    {{#if partupEqualsExactly notification.type 'partups_multiple_updates_since_visit' }}
+        <a href="{{pathFor route='partup' slug=notification.type_data.partup.slug}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                style="background-image: url('{{ partupImageUrl id=notification.type_data.latest_upper.image }}');"
+                data-usercard="{{ notification.type_data.latest_upper._id }}">
+            </figure>
+            <article>
+                {{#if partupEqualsExactly notification.type_data.others_count 0}}
+                    <p>{{_ 'dropdown-notification-partups_multiple_updates_since_visit_single_person' upper=notification.type_data.latest_upper.name}}</p>
+                {{else}}
+                    <p>{{_ 'dropdown-notification-partups_multiple_updates_since_visit' upper=notification.type_data.latest_upper.name others_count=notification.type_data.others_count}}</p>
+                {{/if}}
+                <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.partup.name}}</time>
+            </article>
+        </a>
+    {{/if}}
+
+    <!-- grouped network notification -->
+    {{#if partupEqualsExactly notification.type 'networks_multiple_new_uppers_since_visit' }}
+        <a href="{{pathFor route='network-uppers' slug=notification.type_data.network.slug}}">
+            <figure class="pu-avatar pu-avatar-plain"
+                    style="background-image: url('{{ partupImageUrl id=notification.type_data.network.image }}');">
+            </figure>
+            <article>
+                <p>{{_ 'dropdown-notification-networks_multiple_new_uppers_since_visit' upper=notification.type_data.latest_upper.name others_count=notification.type_data.others_count network=notification.type_data.network.name}}</p>
                 <time>{{ partupDateNotification notification.created_at }}</time>
             </article>
         </a>

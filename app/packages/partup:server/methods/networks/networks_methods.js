@@ -254,7 +254,7 @@ Meteor.methods({
                 // Instantly add user when invited by an admin
                 if (network.isUpperInvitedByAdmin(user._id)) {
                     network.addUpper(user._id);
-                    Event.emit('networks.uppers.inserted', user._id, network._id);
+                    Event.emit('networks.uppers.inserted', user, network);
                     return Log.debug('User added to closed network due to admin invite.');
                 }
 
@@ -270,8 +270,7 @@ Meteor.methods({
                 // Check if the user is invited
                 if (network.isUpperInvited(user._id)) {
                     network.addUpper(user._id);
-                    Event.emit('networks.accepted', user._id, network._id, user._id);
-                    Event.emit('networks.uppers.inserted', user._id, network._id);
+                    Event.emit('networks.uppers.inserted', user, network);
                     return Log.debug('User added to invitational network.');
                 } else {
                     if (network.addPendingUpper(user._id)) {
@@ -285,7 +284,7 @@ Meteor.methods({
             if (network.isPublic()) {
                 // Allow user instantly
                 network.addUpper(user._id);
-                Event.emit('networks.uppers.inserted', user._id, network._id);
+                Event.emit('networks.uppers.inserted', user, network);
                 return Log.debug('User added to public network.');
             }
 
@@ -384,7 +383,7 @@ Meteor.methods({
 
         try {
             network.leave(user._id);
-            Event.emit('networks.uppers.removed', user._id, network._id);
+            Event.emit('networks.uppers.removed', user, network);
 
             return {
                 network_id: network._id,

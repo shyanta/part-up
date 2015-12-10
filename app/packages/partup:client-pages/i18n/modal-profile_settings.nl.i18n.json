@@ -42,6 +42,18 @@
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_partup":"Part-up uitnodiging email ingeschakeld",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_partup":"Part-up uitnodiging email uitgeschakeld",
 
+    "modal-profilesettings-email-partups_new_comment_in_involved_conversation": "wanneer er een reactie wordt geplaatst op een conversatie waar je aan deelneemt",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_new_comment_in_involved_conversation": "Reactie op deelnemende conversatie email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_new_comment_in_involved_conversation": "Reactie op deelnemende conversatie email uitgeschakeld",
+
+    "modal-profilesettings-email-partups_networks_new_upper": "wanneer een nieuwe upper lid wordt van één van je tribes",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_new_upper": "Nieuwe upper in tribe email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_new_upper": "Nieuwe upper in tribe email uitgeschakeld",
+
+    "modal-profilesettings-email-partups_networks_upper_left": "wanneer een upper jouw tribe verlaat",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_upper_left": "Tribe verlaten email ingeschakeld",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_upper_left": "Tribe verlaten email uitgeschakeld",
+
     "modal-profilesettings-email-updatesuccess-disabled-all": "Alle automatische mails zijn vanaf nu uitgeschakeld",
     "modal-profilesettings-email-updatesuccess-disabled-one": "Deze automatische mail is vanaf nu uitgeschakeld",
     "modal-profilesettings-email-updateerror-disabled": "Er ging iets verkeerd, probeer het opnieuw",

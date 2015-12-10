@@ -43,6 +43,13 @@
     "dropdown-notification-partups_contributions_inserted": "__creator__ voegde een bijdrage toe",
     "dropdown-notification-partups_contributions_proposed": "__creator__ stelde een bijdrage voor",
     "dropdown-notification-partups_ratings_reminder": "Vergeet niet beoordelingen toe te voegen voor je partners in __partup__",
-    "dropdown-notification-partups_user_mentioned": "__mentioning_upper__ heeft je genoemd in __partup__",
-    "dropdown-notification-partup_created_in_network": "__creator__ heeft __partup__ aangemaakt in __network__"
+    "dropdown-notification-partups_user_mentioned": "__mentioning_upper__ noemde je",
+    "dropdown-notification-partup_created_in_network": "__creator__ heeft __partup__ aangemaakt in __network__",
+    "dropdown-notification-partups_new_comment_in_involved_conversation": "__commenter__ reageerde op een conversatie waarbij je betrokken bent",
+    "dropdown-notification-partups_networks_new_upper": "__upper__ is lid geworden van __network__",
+    "dropdown-notification-partups_networks_upper_left": "__upper__ heeft __network__ verlaten",
+    "dropdown-notification-multiple_comments_in_conversation_since_visit": "__upper__ en __others_count__ anderen reageerden op een conversatie waarbij je betrokken bent",
+    "dropdown-notification-partups_multiple_updates_since_visit": "__upper__ en __others_count__ ander(en) plaatsten updates",
+    "dropdown-notification-partups_multiple_updates_since_visit_single_person": "__upper__ plaatste meerdere updates",
+    "dropdown-notification-networks_multiple_new_uppers_since_visit": "__upper__ en __others_count__ anderen zijn lid geworden van __network__"
 }

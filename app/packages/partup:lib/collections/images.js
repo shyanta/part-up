@@ -64,7 +64,12 @@ Images.findForNotification = function(notification) {
         case 'partups_contributions_rejected': images = [get(notification, 'type_data.rejecter.image')]; break;
         case 'partups_user_mentioned': images = [get(notification, 'type_data.mentioning_upper.image')]; break;
         case 'contributions_ratings_inserted': images = [get(notification, 'type_data.rater.image')]; break;
-        case 'updates_first_comment': images = [get(notification, 'type_data.commenter.image')]; break;
+        case 'partups_new_comment_in_involved_conversation': images = [get(notification, 'type_data.commenter.image')]; break;
+        case 'partups_networks_new_upper': images = [get(notification, 'type_data.upper.image')]; break;
+        case 'partups_networks_upper_left': images = [get(notification, 'type_data.upper.image')]; break;
+        case 'multiple_comments_in_conversation_since_visit': images = [get(notification, 'type_data.latest_upper.image')]; break;
+        case 'partups_multiple_updates_since_visit': images = [get(notification, 'type_data.partup.image')]; break;
+        case 'networks_multiple_new_uppers_since_visit': images = [get(notification, 'type_data.network.image')]; break;
         default: return;
     }
 

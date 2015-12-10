@@ -77,7 +77,10 @@ Accounts.onCreateUser(function(options, user) {
                     partup_created_in_network: true,
                     partups_networks_new_pending_upper: true,
                     partups_networks_accepted: true,
-                    invite_upper_to_partup: true
+                    invite_upper_to_partup: true,
+                    partups_new_comment_in_involved_conversation: true,
+                    partups_networks_new_upper: true,
+                    partups_networks_upper_left: true
                 },
                 unsubscribe_email_token: Random.secret()
             }
@@ -108,7 +111,10 @@ Accounts.onCreateUser(function(options, user) {
                     partup_created_in_network: true,
                     partups_networks_new_pending_upper: true,
                     partups_networks_accepted: true,
-                    invite_upper_to_partup: true
+                    invite_upper_to_partup: true,
+                    partups_new_comment_in_involved_conversation: true,
+                    partups_networks_new_upper: true,
+                    partups_networks_upper_left: true
                 },
                 unsubscribe_email_token: Random.secret()
             }

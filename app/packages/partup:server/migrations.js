@@ -720,6 +720,24 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 29,
+    name: 'Set new email notification setting',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.settings.email.partups_new_comment_in_involved_conversation': true,
+                'profile.settings.email.partups_networks_new_upper': true,
+                'profile.settings.email.partups_networks_upper_left': true
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+
 Meteor.startup(function() {
-    Migrations.migrateTo(28);
+    Migrations.migrateTo(29);
 });

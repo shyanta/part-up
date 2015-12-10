@@ -42,6 +42,18 @@
     "modal-profilesettings-email-updatesuccess-enabled-invite_upper_to_partup":"Invite to part-up email enabled",
     "modal-profilesettings-email-updatesuccess-disabled-invite_upper_to_partup":"Invite to part-up email disabled",
 
+    "modal-profilesettings-email-partups_new_comment_in_involved_conversation": "when an upper replies to a conversation you're involved in",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_new_comment_in_involved_conversation": "Involved conversation reply email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_new_comment_in_involved_conversation": "Involved conversation reply email disabled",
+
+    "modal-profilesettings-email-partups_networks_new_upper": "when an upper joins a tribe you're a member of",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_new_upper": "New upper in tribe email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_new_upper": "New upper in tribe email disabled",
+
+    "modal-profilesettings-email-partups_networks_upper_left": "when an upper has left your tribe",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_networks_upper_left": "Left tribe email enabled",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_networks_upper_left": "Left tribe email disabled",
+
     "modal-profilesettings-email-updatesuccess-disabled-all": "Disabled all automatic emails",
     "modal-profilesettings-email-updatesuccess-disabled-one": "Disabled the automatic email",
     "modal-profilesettings-email-updateerror-disabled": "Something went wrong, please try again",

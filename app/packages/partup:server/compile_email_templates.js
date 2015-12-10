@@ -11,6 +11,9 @@ var templates = [
     'partup_created_in_network',
     'partups_networks_new_pending_upper',
     'partups_networks_accepted',
+    'partups_new_comment_in_involved_conversation',
+    'partups_networks_new_upper',
+    'partups_networks_upper_left',
     'custom',
     'verify_account',
     'reset_password'
