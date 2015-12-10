@@ -109,7 +109,11 @@
                         <h2>{{_ 'pages-app-partup-supporters_title'}} ({{ numberOfSupporters }})</h2>
                         <ul class="pu-list pu-list-horizontal pu-list-avatars">
                             {{#each partupSupporters }}
-                                <li><figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure></li>
+                                <li>
+                                  <a href="{{ pathFor 'profile' _id=_id }}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}">
+                                    <figure data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}" class="pu-avatar pu-avatar-{{#if status.online }}online{{ else }}offline{{/if }}" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure>
+                                  </a>
+                                </li>
                             {{/each }}
                         </ul>
                     {{else}}
