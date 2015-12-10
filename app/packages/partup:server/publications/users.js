@@ -1,13 +1,4 @@
 /**
- * Publish a count of all users
- */
-Meteor.publish('users.count', function() {
-    this.unblock();
-
-    Counts.publish(this, 'users', Meteor.users.find());
-});
-
-/**
  * Publish a user
  *
  * @param {String} userId
