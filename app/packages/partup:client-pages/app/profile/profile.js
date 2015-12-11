@@ -6,25 +6,8 @@ var Subs = new SubsManager({
 Template.app_profile.onCreated(function() {
     var template = this;
 
-    template.profileId = new ReactiveVar();
-
-    var profile_sub;
-
-    template.autorun(function() {
-        var id = Template.currentData().profileId;
-        if (typeof id == 'string') {
-            profile_sub = Meteor.subscribe('users.one', id); // subs manager fails here
-        }
-    });
-
-    template.autorun(function() {
-        if (!profile_sub.ready()) return;
-
-        var user = Meteor.users.findOne(template.data.profileId);
-        if (!user) return Router.pageNotFound('profile');
-
-        template.profileId.set(user._id);
-    });
+    var profileId = template.data.profileId;
+    template.subscribe('users.one', profileId);
 
     template.autorun(function() {
         var scrolled = Partup.client.scroll.pos.get() > 100;
@@ -54,6 +37,18 @@ Template.app_profile.onCreated(function() {
             clickedElement.parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
         }
     };
+    template.profileLoaded = new ReactiveVar(false);
+    template.autorun(function(computation) {
+        var loaded = template.profileLoaded.get();
+        if (!loaded) return;
+        Tracker.nonreactive(function() {
+            var profile = Meteor.users.findOne(template.data.profileId);
+            var isViewable = User(profile).aboutPageIsViewable();
+            if (!isViewable) {
+                Router.replaceYieldTemplate('app_profile_upper_partups', 'app_profile');
+            }
+        });
+    });
 });
 
 /*************************************************************/
@@ -61,30 +56,35 @@ Template.app_profile.onCreated(function() {
 /*************************************************************/
 Template.app_profile.helpers({
     profile: function() {
-        var user = Meteor.users.findOne(this.profileId);
-        if (!user) return;
+        var profile = Meteor.users.findOne(this.profileId);
+        if (!profile) return;
 
-        profile = user.profile;
-        profile.participation_score = User(user).getReadableScore();
-        return profile;
-    },
+        // hide about page when there is no content
+        Template.instance().profileLoaded.set(true);
 
-    firstname: function() {
-        var user = Meteor.users.findOne(this.profileId);
-        return User(user).getFirstname();
-    },
-
-    getRoundedScore: function() {
-        var user = Meteor.users.findOne(this.profileId);
-        return User(user).getReadableScore();
+        return {
+            data: profile.profile,
+            hasAboutSection: function() {
+                return User(profile).aboutPageIsViewable();
+            },
+            firstname: function() {
+                return User(profile).getFirstname();
+            },
+            roundedScore: function() {
+                return User(profile).getReadableScore();
+            },
+            isCurrentUser: function() {
+                return profile._id === Meteor.userId();
+            },
+            hasTilesOrIsCurrentUser: function() {
+                var viewable = User(pofile).aboutPageIsViewable();
+                return viewable;
+            }
+        };
     },
 
     shrinkHeader: function() {
         return Partup.client.scroll.pos.get() > 100;
-    },
-
-    isCurrentusersProfile: function() {
-        return this.profileId === Meteor.userId();
     },
     textHasOverflown: function() {
         var template = Template.instance();
@@ -93,12 +93,6 @@ Template.app_profile.helpers({
         var expander = $(template.find('[data-expander-parent]'));
         if (expander.length && expander[0].scrollHeight > expander.innerHeight()) return true;
         return false;
-    },
-
-    profileHasTilesOrIsCurrentUser: function() {
-        var userProfile = Meteor.users.findOne({_id: this.profileId});
-        var viewable = User(userProfile).aboutPageIsViewable();
-        return viewable;
     }
 });
 
