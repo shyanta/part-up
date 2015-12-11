@@ -1,4 +1,17 @@
 /*
+ * Count route for /users
+ */
+Router.route('/users/count', {where: 'server'}).get(function() {
+    var request = this.request;
+    var response = this.response;
+
+    // We are going to respond in JSON format
+    response.setHeader('Content-Type', 'application/json');
+
+    return response.end(JSON.stringify({error: false, count: Meteor.users.find().count()}));
+});
+
+/*
  * Count route for /users/:id/upperpartups
  */
 Router.route('/users/:id/upperpartups/count', {where: 'server'}).get(function() {

@@ -21,9 +21,20 @@ var facebookLoading = new ReactiveVar(false);
 var linkedinLoading = new ReactiveVar(false);
 
 Template.modal_register_signup.onCreated(function() {
+    var template = this;
+
     submitting.set(false);
     facebookLoading.set(false);
     linkedinLoading.set(false);
+
+    template.userCount = new ReactiveVar();
+
+    HTTP.get('/users/count', function(error, response) {
+        if (error || !response || !mout.lang.isString(response.content)) { return; }
+
+        var content = JSON.parse(response.content);
+        template.userCount.set(content.count);
+    });
 });
 
 /*************************************************************/
@@ -33,11 +44,7 @@ Template.modal_register_signup.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: placeholders,
     totalNumberOfUppers: function() {
-        var count = Counts.get('users');
-        if (count)
-            return count + 1;
-        else
-            return '';
+        return Template.instance().userCount.get();
     },
     submitting: function() {
         return submitting.get();
