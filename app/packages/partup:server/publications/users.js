@@ -85,11 +85,34 @@ Meteor.routeComposite('users/:id/supporterpartups', function(request, params) {
 });
 
 /**
+ * Publish all networks a user is in
+ *
+ * @param {Object} request
+ * @param {Object} params
+ */
+Meteor.routeComposite('users/:id/networks', function(request, params) {
+    var options = {};
+
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
+
+    return {
+        find: function() {
+            var user = Meteor.users.findOne(params.id);
+            if (!user) return;
+
+            return Networks.findForUser(user, this.userId);
+        },
+        children: [
+            {find: Images.findForNetwork}
+        ]
+    };
+});
+
+/**
  * Publish the loggedin user
  */
 Meteor.publishComposite('users.loggedin', function() {
-    // this.unblock();
-
     return {
         find: function() {
             if (this.userId) {
@@ -99,13 +122,7 @@ Meteor.publishComposite('users.loggedin', function() {
             }
         },
         children: [
-            {find: Images.findForUser},
-            {find: function(user) {
-                return Networks.findForUser(user, this.userId);
-            },
-            children: [
-                {find: Images.findForNetwork}
-            ]}
+            {find: Images.findForUser}
         ]
     };
 });

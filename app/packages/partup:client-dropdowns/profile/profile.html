@@ -4,7 +4,7 @@
         {{ label }}
     </button>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-        {{#if networks.count}}
+        {{#if networks}}
             <nav class="pu-profiletabs">
                 {{#unless disableUp}}
                     <header>
@@ -23,7 +23,7 @@
                         </li>
                     {{/each}}
                 </ul>
-                {{#if partupHigherThan networks.count maxTabs}}
+                {{#if partupHigherThan networks.length maxTabs}}
                     {{#unless disableDown}}
                         <footer>
                             <a class="pu-button pu-button-dropdowntab" href="#" data-down><i class="picon-caret-slim-down"></i></a>

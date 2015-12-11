@@ -6,7 +6,7 @@ Template.DropdownProfile.onCreated(function() {
         template.windowHeight.set(windowHeight);
     };
     $(window).on('resize', template.resizeHandler);
-    template.currentNetwork = new ReactiveVar();
+    template.currentNetwork = new ReactiveVar(undefined, function(a,b) { console.log(a,b); });
     template.disableUp = new ReactiveVar(true);
     template.disableDown = new ReactiveVar(false);
 
@@ -16,13 +16,15 @@ Template.DropdownProfile.onCreated(function() {
     // Placeholder for states (such as loading states)
     template.states = {
         loadingUpperpartups: new ReactiveVar(false),
-        loadingSupporterpartups: new ReactiveVar(false)
+        loadingSupporterpartups: new ReactiveVar(false),
+        loadingNetworks: new ReactiveVar(false)
     };
 
     // Placeholder for results
     template.results = {
         upperpartups: new ReactiveVar([]),
-        supporterpartups: new ReactiveVar([])
+        supporterpartups: new ReactiveVar([]),
+        networks: new ReactiveVar([])
     };
 
     // Partups headers for http calls
@@ -65,6 +67,23 @@ Template.DropdownProfile.onCreated(function() {
                 Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
 
                 return partup;
+            }));
+        });
+
+        // (Re)load networks
+        template.states.loadingNetworks.set(true);
+        HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
+            if (error || !response.data.networks || response.data.networks.length === 0) {
+                template.states.loadingNetworks.set(false);
+                return;
+            }
+
+            var result = response.data;
+
+            template.results.networks.set(result.networks.map(function(network) {
+                Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
+
+                return network;
             }));
         });
     });
@@ -164,11 +183,11 @@ Template.DropdownProfile.helpers({
 
         if (!networkId) return sortPartups(allPartups, user);
 
-        var partupsInNetwork = lodash.find(allPartups, function(partup) {
+        var partupsInNetwork = lodash.filter(allPartups, function(partup) {
             return partup.network_id === networkId;
         });
 
-        return sortPartups(partupsInNetwork);
+        return sortPartups(partupsInNetwork, user);
     },
 
     supporterPartups: function() {
@@ -180,11 +199,11 @@ Template.DropdownProfile.helpers({
 
         if (!networkId) return sortPartups(allPartups, user);
 
-        var partupsInNetwork = lodash.find(allPartups, function(partup) {
+        var partupsInNetwork = lodash.filter(allPartups, function(partup) {
             return partup.network_id === networkId;
         });
 
-        return sortPartups(partupsInNetwork);
+        return sortPartups(partupsInNetwork, user);
     },
 
     newUpdates: function() {
@@ -207,10 +226,7 @@ Template.DropdownProfile.helpers({
     },
 
     networks: function() {
-        var user = Meteor.user();
-        if (!user) return [];
-
-        return Networks.findForUser(user);
+        return Template.instance().results.networks.get();
     },
 
     maxTabs: function() {
