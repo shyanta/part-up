@@ -52,22 +52,6 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
 });
 
 /**
- * Publish a count of all partups a user is upper in
- *
- * @param {String} userId
- */
-Meteor.publish('users.one.upperpartups.count', function(userId) {
-    check(userId, String);
-
-    this.unblock();
-
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
-
-    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartupsForUser(user, {count:true}, this.userId));
-});
-
-/**
  * Publish all partups a user is supporter of
  *
  * @param {Object} request
@@ -98,22 +82,6 @@ Meteor.routeComposite('users/:id/supporterpartups', function(request, params) {
             ]}
         ]
     };
-});
-
-/**
- * Publish a count of all partups a user is supporter of
- *
- * @param {String} userId
- */
-Meteor.publish('users.one.supporterpartups.count', function(userId) {
-    check(userId, String);
-
-    this.unblock();
-
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
-
-    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartupsForUser(user, {count: true}, this.userId));
 });
 
 /**
