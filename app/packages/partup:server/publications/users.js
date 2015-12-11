@@ -52,22 +52,6 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
 });
 
 /**
- * Publish a count of all partups a user is upper in
- *
- * @param {String} userId
- */
-Meteor.publish('users.one.upperpartups.count', function(userId) {
-    check(userId, String);
-
-    this.unblock();
-
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
-
-    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartupsForUser(user, {count:true}, this.userId));
-});
-
-/**
  * Publish all partups a user is supporter of
  *
  * @param {Object} request
@@ -101,27 +85,34 @@ Meteor.routeComposite('users/:id/supporterpartups', function(request, params) {
 });
 
 /**
- * Publish a count of all partups a user is supporter of
+ * Publish all networks a user is in
  *
- * @param {String} userId
+ * @param {Object} request
+ * @param {Object} params
  */
-Meteor.publish('users.one.supporterpartups.count', function(userId) {
-    check(userId, String);
+Meteor.routeComposite('users/:id/networks', function(request, params) {
+    var options = {};
 
-    this.unblock();
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
 
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
+    return {
+        find: function() {
+            var user = Meteor.users.findOne(params.id);
+            if (!user) return;
 
-    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartupsForUser(user, {count: true}, this.userId));
+            return Networks.findForUser(user, this.userId);
+        },
+        children: [
+            {find: Images.findForNetwork}
+        ]
+    };
 });
 
 /**
  * Publish the loggedin user
  */
 Meteor.publishComposite('users.loggedin', function() {
-    // this.unblock();
-
     return {
         find: function() {
             if (this.userId) {
@@ -131,13 +122,7 @@ Meteor.publishComposite('users.loggedin', function() {
             }
         },
         children: [
-            {find: Images.findForUser},
-            {find: function(user) {
-                return Networks.findForUser(user, this.userId);
-            },
-            children: [
-                {find: Images.findForNetwork}
-            ]}
+            {find: Images.findForUser}
         ]
     };
 });
