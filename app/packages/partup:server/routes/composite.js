@@ -27,9 +27,6 @@ var compositionToResult = function(userId, find, children) {
     documents.forEach(function(document) {
         result[collectionName] = result[collectionName] || [];
         result[collectionName].push(document);
-        if (collectionName === 'cfs.images.filerecord') {
-            console.log(document);
-        }
 
         if (children) {
             children.forEach(function(childComposition) {

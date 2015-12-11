@@ -1,7 +1,3 @@
-Template.modal_register.onCreated(function() {
-    this.subscribe('users.count');
-});
-
 /*************************************************************/
 /* Page events */
 /*************************************************************/
