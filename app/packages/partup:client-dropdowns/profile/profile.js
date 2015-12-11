@@ -6,7 +6,7 @@ Template.DropdownProfile.onCreated(function() {
         template.windowHeight.set(windowHeight);
     };
     $(window).on('resize', template.resizeHandler);
-    template.currentNetwork = new ReactiveVar(undefined, function(a,b) { console.log(a,b); });
+    template.currentNetwork = new ReactiveVar();
     template.disableUp = new ReactiveVar(true);
     template.disableDown = new ReactiveVar(false);
 
