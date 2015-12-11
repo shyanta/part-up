@@ -36,15 +36,17 @@ var compositionToResult = function(userId, find, children) {
                     childComposition.children
                 );
 
-                Object.keys(r).forEach(function(collectionName) {
-                    result[collectionName] = result[collectionName] || [];
+                if (r) {
+                    Object.keys(r).forEach(function(collectionName) {
+                        result[collectionName] = result[collectionName] || [];
 
-                    var documents = r[collectionName];
+                        var documents = r[collectionName];
 
-                    documents.forEach(function(document) {
-                        result[collectionName].push(document);
+                        documents.forEach(function(document) {
+                            result[collectionName].push(document);
+                        });
                     });
-                });
+                }
             });
         }
     });
