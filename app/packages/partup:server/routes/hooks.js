@@ -32,6 +32,7 @@ Router.onBeforeAction(function(request, response, next) {
     next();
 }, {where: 'server', except: [
     'ping',
+    'partups.discover',
     'partups.discover.count',
     'networks.:slug.partups.count',
     'networks.:slug.uppers.count',
