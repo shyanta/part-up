@@ -56,13 +56,13 @@
                     <td>{{profile.phonenumber}}</td>
                     <td>{{partupDateCustom createdAt 'DD-MM-YYYY'}}</td>
                     <td>
-                        {{#if isUserActive . }}
-                            <a href="#" data-deactivate-user>x</a>
-                        {{else}}
-                            <a href="#" data-reactivate-user>o</a>
-                        {{/if}}
+                        <a href="#" data-impersonate-user>login</a>
                         -
-                            <a href="#" data-impersonate-user>login</a>
+                        {{#if isUserActive . }}
+                            <a href="#" data-deactivate-user>deactivate</a>
+                        {{else}}
+                            <a href="#" data-reactivate-user>reactivate</a>
+                        {{/if}}
                     </td>
                 </tr>
             {{/each }}
