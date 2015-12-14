@@ -36,6 +36,7 @@ Template.app_partup_updates.onCreated(function() {
             Tracker.nonreactive(function() {
                 var options = tpl.updates.options.get();
                 tpl.updates.model = Updates.findForPartup(tpl.updates.partup, options);
+
             });
             return tpl.updates.model.fetch();
         },
@@ -67,7 +68,7 @@ Template.app_partup_updates.onCreated(function() {
 
             tpl.updates.loading.set(true);
 
-            var sub = Subs.subscribe('updates.from_partup', tpl.partupId, options, function() {
+            var sub = tpl.subscribe('updates.from_partup', tpl.partupId, options, function() {
                 tpl.updates.updateModel();
                 tpl.updates.updateView();
             });
@@ -95,8 +96,9 @@ Template.app_partup_updates.onCreated(function() {
             var options = tpl.updates.options.get();
             options.limit = b;
 
+
             tpl.updates.infinite_scroll_loading.set(true);
-            var sub = Subs.subscribe('updates.from_partup', tpl.partupId, options, function() {
+            var sub = tpl.subscribe('updates.from_partup', tpl.partupId, options, function() {
                 var modelUpdates = tpl.updates.updateModel();
                 var viewUpdates = tpl.updates.view.get();
 
@@ -122,6 +124,7 @@ Template.app_partup_updates.onCreated(function() {
         }),
 
         increaseLimit: function() {
+
             tpl.updates.limit.set(tpl.updates.limit.get() + tpl.updates.INCREMENT);
         },
 
@@ -142,6 +145,7 @@ Template.app_partup_updates.onCreated(function() {
             // Save the partup
             tpl.updates.partup = partup;
             tpl.updates.model = Updates.findForPartup(partup);
+
 
             Tracker.nonreactive(function() {
                 // When the model changes and the view is empty, update the view with the model
@@ -248,6 +252,7 @@ Template.app_partup_updates.helpers({
     },
 
     metaDataForUpdate: function() {
+
         var update = this;
         var updateUpper = Meteor.users.findOne({_id: update.upper_id});
 
