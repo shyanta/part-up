@@ -38,6 +38,9 @@ Template.Admin.helpers({
     getMail: function(user) {
         return User(user).getEmail();
     },
+    getToken: function () {
+        return Accounts._storedLoginToken();
+    },
     isUserActive: function(user) {
         return User(user).isActive();
     }
