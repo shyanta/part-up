@@ -51,6 +51,10 @@ Package.onUse(function(api) {
         'app/discover/partials/discover-filter.js',
         'app/discover/partials/discover-page.html',
         'app/discover/partials/discover-page.js',
+        'app/discover/partials/tile/tile.html',
+        'app/discover/partials/tile/tile.js',
+        'app/discover/partials/tile/featured.html',
+        'app/discover/partials/tile/featured.js',
 
         // App:network
         'app/network/network.html',
@@ -127,6 +131,13 @@ Package.onUse(function(api) {
         // App:partup:activities
         'app/partup/activities/activities.html',
         'app/partup/activities/activities.js',
+        'app/partup/activities/activity/activity.html',
+        'app/partup/activities/activity/activity.js',
+        'app/partup/activities/activity/form/placeholders.js',
+        'app/partup/activities/activity/form/form.html',
+        'app/partup/activities/activity/form/form.js',
+        'app/partup/activities/activity/view/view.html',
+        'app/partup/activities/activity/view/view.js',
         'app/partup/activities/newactivity-restricted/newactivity-restricted.html',
         'app/partup/activities/newactivity-restricted/newactivity-restricted.js',
 
@@ -165,6 +176,9 @@ Package.onUse(function(api) {
         // Modal:forgot/resetpasword
         'modal/forgotpassword/forgotpassword.html',
         'modal/forgotpassword/forgotpassword.js',
+        'modal/forgotpassword/form/form.html',
+        'modal/forgotpassword/form/form.js',
+
         'modal/resetpassword/resetpassword.html',
         'modal/resetpassword/resetpassword.js',
 
@@ -224,66 +238,91 @@ Package.onUse(function(api) {
     ];
 
     var languageFiles = [
-        'i18n/app-notfound.en.i18n.json',
-        'i18n/app-notfound.nl.i18n.json',
-        'i18n/app-home.en.i18n.json',
-        'i18n/app-home.nl.i18n.json',
-        'i18n/app-about.en.i18n.json',
-        'i18n/app-about.nl.i18n.json',
-        'i18n/app-pricing.en.i18n.json',
-        'i18n/app-pricing.nl.i18n.json',
-        'i18n/app-discover.en.i18n.json',
-        'i18n/app-discover.nl.i18n.json',
-        'i18n/app-networks.en.i18n.json',
-        'i18n/app-networks.nl.i18n.json',
-        'i18n/app-partup.en.i18n.json',
-        'i18n/app-partup.nl.i18n.json',
-        'i18n/app-partup-takepart.en.i18n.json',
-        'i18n/app-partup-takepart.nl.i18n.json',
-        'i18n/app-partup-updates.en.i18n.json',
-        'i18n/app-partup-updates.nl.i18n.json',
-        'i18n/app-partup-updates-newmessage.en.i18n.json',
-        'i18n/app-partup-updates-newmessage.nl.i18n.json',
-        'i18n/app-partup-update.en.i18n.json',
-        'i18n/app-partup-update.nl.i18n.json',
-        'i18n/app-partup-activities.en.i18n.json',
-        'i18n/app-partup-activities.nl.i18n.json',
-        'i18n/app-profile.en.i18n.json',
-        'i18n/app-profile.nl.i18n.json',
-        'i18n/modal-login.en.i18n.json',
-        'i18n/modal-login.nl.i18n.json',
-        'i18n/modal-register-signup.en.i18n.json',
-        'i18n/modal-register-signup.nl.i18n.json',
-        'i18n/modal-register-details.en.i18n.json',
-        'i18n/modal-register-details.nl.i18n.json',
-        'i18n/modal-forgotpassword.en.i18n.json',
-        'i18n/modal-forgotpassword.nl.i18n.json',
-        'i18n/modal-resetpassword.en.i18n.json',
-        'i18n/modal-resetpassword.nl.i18n.json',
-        'i18n/modal-invite_to_activity.en.i18n.json',
-        'i18n/modal-invite_to_activity.nl.i18n.json',
-        'i18n/modal-invite_to_partup.en.i18n.json',
-        'i18n/modal-invite_to_partup.nl.i18n.json',
-        'i18n/modal-partup_settings.en.i18n.json',
-        'i18n/modal-partup_settings.nl.i18n.json',
-        'i18n/modal-create_intro.en.i18n.json',
-        'i18n/modal-create_intro.nl.i18n.json',
-        'i18n/modal-create.en.i18n.json',
-        'i18n/modal-create.nl.i18n.json',
-        'i18n/modal-create-details.en.i18n.json',
-        'i18n/modal-create-details.nl.i18n.json',
-        'i18n/modal-create-activities.en.i18n.json',
-        'i18n/modal-create-activities.nl.i18n.json',
-        'i18n/modal-create-promote.en.i18n.json',
-        'i18n/modal-create-promote.nl.i18n.json',
-        'i18n/modal-network_settings.en.i18n.json',
-        'i18n/modal-network_settings.nl.i18n.json',
-        'i18n/modal-profile_settings.en.i18n.json',
-        'i18n/modal-profile_settings.nl.i18n.json',
-        'i18n/modal-network_invite.en.i18n.json',
-        'i18n/modal-network_invite.nl.i18n.json',
-        'i18n/modal-admin.en.i18n.json',
-        'i18n/modal-admin.nl.i18n.json'
+        'i18n/app/error/notfound.en.i18n.json',
+        'i18n/app/error/notfound.nl.i18n.json',
+
+        'i18n/app/home/en.i18n.json',
+        'i18n/app/home/nl.i18n.json',
+
+        'i18n/app/about/en.i18n.json',
+        'i18n/app/about/nl.i18n.json',
+
+        'i18n/app/pricing/en.i18n.json',
+        'i18n/app/pricing/nl.i18n.json',
+
+        'i18n/app/discover/en.i18n.json',
+        'i18n/app/discover/nl.i18n.json',
+        'i18n/app/discover/partials/en.i18n.json',
+        'i18n/app/discover/partials/nl.i18n.json',
+
+        'i18n/app/network/en.i18n.json',
+        'i18n/app/network/nl.i18n.json',
+
+        'i18n/app/partup/en.i18n.json',
+        'i18n/app/partup/nl.i18n.json',
+        'i18n/app/partup/takepart/en.i18n.json',
+        'i18n/app/partup/takepart/nl.i18n.json',
+        'i18n/app/partup/updates/en.i18n.json',
+        'i18n/app/partup/updates/nl.i18n.json',
+        'i18n/app/partup/updates/newmessage/en.i18n.json',
+        'i18n/app/partup/updates/newmessage/nl.i18n.json',
+        'i18n/app/partup/updates/update/en.i18n.json',
+        'i18n/app/partup/updates/update/nl.i18n.json',
+
+        'i18n/app/partup/activities/en.i18n.json',
+        'i18n/app/partup/activities/nl.i18n.json',
+        'i18n/app/partup/activities/activity/en.i18n.json',
+        'i18n/app/partup/activities/activity/nl.i18n.json',
+
+        'i18n/app/profile/en.i18n.json',
+        'i18n/app/profile/nl.i18n.json',
+
+        'i18n/modal/login/en.i18n.json',
+        'i18n/modal/login/nl.i18n.json',
+        'i18n/modal/register/signup/en.i18n.json',
+        'i18n/modal/register/signup/nl.i18n.json',
+        'i18n/modal/register/details/en.i18n.json',
+        'i18n/modal/register/details/nl.i18n.json',
+
+        'i18n/modal/forgotpassword/en.i18n.json',
+        'i18n/modal/forgotpassword/nl.i18n.json',
+        'i18n/modal/forgotpassword/form/en.i18n.json',
+        'i18n/modal/forgotpassword/form/nl.i18n.json',
+
+        'i18n/modal/resetpassword/en.i18n.json',
+        'i18n/modal/resetpassword/nl.i18n.json',
+
+        'i18n/modal/invite/activity/en.i18n.json',
+        'i18n/modal/invite/activity/nl.i18n.json',
+        'i18n/modal/invite/partup/en.i18n.json',
+        'i18n/modal/invite/partup/nl.i18n.json',
+        'i18n/modal/invite/network/en.i18n.json',
+        'i18n/modal/invite/network/nl.i18n.json',
+
+        'i18n/modal/settings/partup/edit/en.i18n.json',
+        'i18n/modal/settings/partup/edit/nl.i18n.json',
+
+        'i18n/modal/settings/partup/create/en.i18n.json',
+        'i18n/modal/settings/partup/create/nl.i18n.json',
+
+        'i18n/modal/settings/partup/create/intro/en.i18n.json',
+        'i18n/modal/settings/partup/create/intro/nl.i18n.json',
+
+        'i18n/modal/settings/partup/create/details/en.i18n.json',
+        'i18n/modal/settings/partup/create/details/nl.i18n.json',
+        'i18n/modal/settings/partup/create/activities/en.i18n.json',
+        'i18n/modal/settings/partup/create/activities/nl.i18n.json',
+        'i18n/modal/settings/partup/create/promote/en.i18n.json',
+        'i18n/modal/settings/partup/create/promote/nl.i18n.json',
+
+        'i18n/modal/settings/network/en.i18n.json',
+        'i18n/modal/settings/network/nl.i18n.json',
+
+        'i18n/modal/settings/profile/en.i18n.json',
+        'i18n/modal/settings/profile/nl.i18n.json',
+
+        'i18n/modal/settings/admin/en.i18n.json',
+        'i18n/modal/settings/admin/nl.i18n.json'
     ];
 
     api.addFiles(clientFiles.concat(languageFiles), 'client');
