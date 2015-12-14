@@ -142,7 +142,6 @@ Template.Partupsettings.helpers({
     datePicker: function() {
         var template = Template.instance();
         var value = AutoForm.getFieldValue('end_date');
-        console.log(this);
         return {
             input: 'data-bootstrap-datepicker',
             autoFormInput: 'data-autoform-input',
