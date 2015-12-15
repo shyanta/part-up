@@ -13,6 +13,33 @@ Partup.client.updates = {
      */
     updates_causedby_currentuser: new ReactiveVar([]),
 
+    waitForUpdateBool: new ReactiveVar(false),
+
+    // these were unnessesary, but maybe usefull in the future
+    setWaitForUpdate: function(bool) {
+        var self = this;
+        if (bool) {
+            self.waitForUpdateBool.set(true);
+        } else {
+            Meteor.defer(function() {
+                self.waitForUpdateBool.set(false);
+            });
+        }
+    },
+
+    waitForUpdate: function(template, callback) {
+        var self = this;
+        Tracker.nonreactive(function() {
+            template.autorun(function(c) {
+                var wait = self.waitForUpdateBool.get();
+                if (!wait) {
+                    c.stop();
+                    callback();
+                }
+            });
+        });
+    },
+
     /**
      * Add update to list of updates caused by the current user
      *

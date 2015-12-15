@@ -32,11 +32,9 @@ Template.app_partup_updates.onCreated(function() {
         model: null,
         updateModel: function() {
             if (!tpl.updates.partup) return;
-
             Tracker.nonreactive(function() {
                 var options = tpl.updates.options.get();
                 tpl.updates.model = Updates.findForPartup(tpl.updates.partup, options);
-
             });
             return tpl.updates.model.fetch();
         },
@@ -95,7 +93,6 @@ Template.app_partup_updates.onCreated(function() {
 
             var options = tpl.updates.options.get();
             options.limit = b;
-
 
             tpl.updates.infinite_scroll_loading.set(true);
             var sub = tpl.subscribe('updates.from_partup', tpl.partupId, options, function() {
@@ -207,6 +204,9 @@ Template.app_partup_updates.helpers({
         if (!template.updates.model) return 0;
 
         var refreshDate = template.updates.refreshDate.get();
+
+        var wait = Partup.client.updates.waitForUpdateBool.get();
+        if (wait) return 0;
 
         var updates_causedby_currentuser = Partup.client.updates.updates_causedby_currentuser.get();
 

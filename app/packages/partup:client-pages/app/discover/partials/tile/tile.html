@@ -1,0 +1,110 @@
+<template name="PartupTile">
+    <article class="pu-partuptile">
+
+        <!-- Tags -->
+        {{# unless HIDE_TAGS }}
+            {{# with partup.mappedTags }}
+                <ul class="pu-sub-partup-tags">
+                    {{# each . }}
+                        <li style="transition-delay: {{ delay }}s"><span class="pu-tag">{{ tag }}</span></li>
+                    {{/ each }}
+                </ul>
+            {{/ with }}
+        {{/unless}}
+
+        {{# with partup }}
+
+            <!-- Name of the Part-up -->
+            <header>
+                <h2>
+                    <a href="{{pathFor 'partup' slug=slug }}">{{ name }}</a>
+                </h2>
+            </header>
+
+            <section>
+
+                <!-- Image (circle), uppers, and progress  -->
+                <div class="pu-partupcircle">
+                    <a href="{{pathFor 'partup' slug=slug }}" class="pu-sub-partuplink">
+                        {{# with boundedProgress }}<canvas class="pu-sub-radial" data-percent="{{ . }}"></canvas>{{/ with }}
+                        <figure class="pu-sub-inner" style="
+                            {{# with partupGetImageUrl imageObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                        " data-partup-tile-focuspoint></figure>
+                    </a>
+
+                    <!-- Uppers -->
+                    {{# if avatars }}
+                        <ul class="pu-sub-avatar-list">
+                            {{# each avatars }}
+                                {{# if data.upper }}
+                                     <li style="
+                                        {{# with avatarPosition }}
+                                            -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
+                                            -moz-transform: translate3d({{x}}px, {{y}}px, 0);
+                                            transform: translate3d({{x}}px, {{y}}px, 0);
+                                            transition-delay: {{ delay }}s;
+                                        {{/ with }}
+                                    " data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ data.upper._id }}">
+                                        <a href="{{ pathFor 'profile' _id=data.upper._id }}" class="pu-avatar pu-avatar-partuptile">
+                                            <img src="{{ partupGetImageUrl data.upper.profile.imageObject '80x80' }}" alt="" class="pu-sub-image">
+                                        </a>
+                                    </li>
+                                {{ else }}
+                                    <li class="pu-avatar pu-avatar-more" style="
+                                        {{# with avatarPosition }}
+                                            -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
+                                            -moz-transform: translate3d({{x}}px, {{y}}px, 0);
+                                            transform: translate3d({{x}}px, {{y}}px, 0);
+                                            transition-delay: {{ delay }}s;
+                                        {{/ with }}
+                                    ">{{ data.remainingUppers }}</li>
+                                {{/ if }}
+                            {{/ each }}
+                        </ul>
+                    {{/ if }}
+                </div>
+
+                <!-- Description -->
+                <p>{{ description }}</p>
+
+                <!-- Stats (activities, supporters, days active) -->
+                <ul class="pu-sub-partup-stats">
+                    <li>
+                        <strong>{{ activityCount }}</strong>
+                        <span>{{_ 'partuptile-activities' }}</span>
+                    </li>
+                    <li>
+                        <strong>{{ supporterCount }}</strong>
+                        <span>{{_ 'partuptile-supporters' }}</span>
+                    </li>
+                    <li>
+                        <strong>{{ dayCount }}</strong>
+                        <span>{{_ 'partuptile-days-active' }}</span>
+                    </li>
+                </ul>
+            </section>
+
+        {{/ with }}
+
+        <!-- Network -->
+        {{# unless HIDE_NETWORKTILE }}
+            {{# with partup.networkObject }}
+                <footer>
+                    <a href="{{ pathFor 'network-detail' slug }}" class="pu-networktile">
+                        <div class="pu-sub-wrapper">
+                            <div class="pu-sub-figurecontainer">
+                                <figure style="
+                                    {{# with partupGetImageUrl iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                                "></figure>
+                            </div>
+                            <div class="pu-sub-namecontainer">
+                                <span>{{ name }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </footer>
+            {{/ with }}
+        {{/ unless }}
+
+    </article>
+</template>
