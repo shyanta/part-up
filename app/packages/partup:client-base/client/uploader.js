@@ -229,6 +229,7 @@ Partup.client.uploader = {
             fileInput.init();
         } else {
             buttonElement.addEventListener('click', function(event) {
+                event.preventDefault();
                 $(fileInput).click();
             });
             fileInput.addEventListener('change', function(event) {
