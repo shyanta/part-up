@@ -8,7 +8,9 @@
 - Make better use of new updates divider line (#93 & #57)
 - Major refactoring and ops actions that reduce cpu server spike (#92)
 - Improve count for updates on part-up in user menu (#85)
+- Improve performance switching between updates and activities
 - Comment "edited" label now always visible
+- Fixed english labels in app (#111)
 - Fixed Loading a profile url directly or in new tab does not load profile correctly (#123)
 - Fixed new part-ups not on discover (#103)
 - Fixed end date on datepicker (#101)
