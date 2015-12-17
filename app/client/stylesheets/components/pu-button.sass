@@ -283,24 +283,26 @@
         border-bottom: 2px solid transparent
         font-weight: 600
         font-size: 16px
+        transition: none
 
         &:hover
             color: $color-text-secondary
             background-color: $color-background-secondary
             border-color: rgba($color-text-secondary, .2)
+            transform: none
 
         &:active
-            transform: none
             background-color: $color-background-secondary
             color: $color-text-secondary
             border-color: rgba($color-text-secondary, .5)
+            transform: none
 
         &:focus
             color: $color-text-secondary
 
         &.pu-state-active
             border-color: $color-text-secondary
-            cursor: default
+            pointer-events: none
 
         &-secondary
             background-color: transparent

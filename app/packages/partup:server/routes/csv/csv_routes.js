@@ -85,3 +85,96 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
 
     request.pipe(busboy);
 });
+
+Router.route('/csv/admin/users', {where: 'server'}).get(function() {
+    var request = this.request;
+    var response = this.response;
+
+    if(!request.user) {
+        response.statusCode = 403;
+        response.end(JSON.stringify({error: {reason: 'error-unauthorized'}}));
+        return;
+    }
+
+    if(!User(request.user).isAdmin()) {
+        response.statusCode = 403;
+        response.end(JSON.stringify({error: {reason: 'error-unauthorized'}}));
+        return;
+    }
+    response.setHeader('Content-disposition', 'attachment; filename=userdump.csv');
+    response.setHeader('Content-type', 'text/csv');
+
+    return exportCSV(response);
+});
+
+var exportCSV = function(responseStream) {
+    var userStream = createStream();
+    var Future = Npm.require('fibers/future');
+    var fut = new Future();
+    var users = {};
+
+    CSV()
+        .from(userStream)
+        .to(responseStream, {delimiter:';'})
+        .on('error', function(error){
+            console.error('Error streaming CSV export: ', error.message);
+        })
+        .on('end', function(count){
+            responseStream.end();
+            fut.return();
+        });
+
+    userStream.write(['_id','profile.name','profile.phonenumber','registered_emails','createdAt','deactivatedAt']);
+    users = Meteor.users.findForAdminList({}, {}).fetch();
+    var count = 0;
+    users.forEach(function(user) {
+        var objectUser = User(user);
+        var createdAt = user.createdAt ? new Date(user.createdAt).toString() : undefined;
+        var deactivatedAt = user.deactivatedAt ? new Date(user.deactivatedAt).toString() : undefined;
+        userStream.write([
+            user._id,
+            user.profile.name,
+            user.profile.phonenumber,
+            objectUser.getEmail(),
+            createdAt,
+            deactivatedAt
+        ]);
+        count++;
+        if (count >= users.length) {
+            userStream.end()
+        }
+    });
+
+    return fut.wait();
+}
+
+//Creates and returns a Duplex(Read/Write) Node stream
+//Used to pipe users from .find() Cursor into our CSV stream parser.
+var createStream = function(){
+    var stream = Npm.require('stream');
+    var myStream = new stream.Stream();
+    myStream.readable = true;
+    myStream.writable = true;
+
+    myStream.write = function (data) {
+        myStream.emit('data', data);
+        return true; // true means 'yes i am ready for more data now'
+        // OR return false and emit('drain') when ready later
+    };
+
+    myStream.end = function (data) {
+        //Node convention to emit last data with end
+        if (arguments.length)
+            myStream.write(data);
+
+        // no more writes after end
+        myStream.writable = false;
+        myStream.emit('end');
+    };
+
+    myStream.destroy = function () {
+        myStream.writable = false;
+    };
+
+    return myStream;
+};

@@ -204,9 +204,12 @@ AutoForm.hooks({
             // close popup before call is made, an error notifier
             // will be the feedback when it fails
             Partup.client.popup.close();
+            Partup.client.updates.setWaitForUpdate(true);
 
             Meteor.call('updates.messages.insert', partupId, insertDoc, function(error, result) {
                 parent.submitting.set(false);
+                Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(result._id);
+                Partup.client.updates.setWaitForUpdate(false);
 
                 // Error
                 if (error) {

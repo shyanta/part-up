@@ -240,7 +240,8 @@ Template.DropdownProfile.helpers({
 
     selectedNetwork: function() {
         var networkId = Template.instance().currentNetwork.get();
-        var network = Networks.findOne({_id: networkId});
+
+        var network = lodash.find(Template.instance().results.networks.get(), {_id: networkId});
         return network;
     },
     disableUp: function() {

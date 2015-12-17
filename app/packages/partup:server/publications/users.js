@@ -57,7 +57,7 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
  * @param {Object} request
  * @param {Object} params
  */
-Meteor.routeComposite('users/:id/supporterpartups', function(request, params) {
+Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
     var options = {};
 
     if (request.limit) options.limit = parseInt(request.query.limit);
@@ -90,7 +90,7 @@ Meteor.routeComposite('users/:id/supporterpartups', function(request, params) {
  * @param {Object} request
  * @param {Object} params
  */
-Meteor.routeComposite('users/:id/networks', function(request, params) {
+Meteor.routeComposite('/users/:id/networks', function(request, params) {
     var options = {};
 
     if (request.limit) options.limit = parseInt(request.query.limit);

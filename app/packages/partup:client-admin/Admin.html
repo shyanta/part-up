@@ -31,11 +31,12 @@
                 </ul>
             </div>
         </div>
-        <h2>Users</h2>
+        <h2>Users (<a target="_blank" href="/csv/admin/users?token={{getToken}}">csv export</a>)</h2>
         <form class="usersearch">
             <input data-usersearchfield placeholder="search for user name"/>
             <button data-search>search</button>
         </form>
+        <br/>
         <table style="width:900px">
             <thead>
                 <tr>
@@ -55,13 +56,13 @@
                     <td>{{profile.phonenumber}}</td>
                     <td>{{partupDateCustom createdAt 'DD-MM-YYYY'}}</td>
                     <td>
-                        {{#if isUserActive . }}
-                            <a href="#" data-deactivate-user>x</a>
-                        {{else}}
-                            <a href="#" data-reactivate-user>o</a>
-                        {{/if}}
+                        <a href="#" data-impersonate-user>login</a>
                         -
-                            <a href="#" data-impersonate-user>login</a>
+                        {{#if isUserActive . }}
+                            <a href="#" data-deactivate-user>deactivate</a>
+                        {{else}}
+                            <a href="#" data-reactivate-user>reactivate</a>
+                        {{/if}}
                     </td>
                 </tr>
             {{/each }}

@@ -60,7 +60,6 @@ partup:server
 partup:client-base
 partup:client-pages
 
-partup:client-activity
 partup:client-admin
 partup:client-admin-createtribe
 partup:client-admin-featured-networks
@@ -73,7 +72,6 @@ partup:client-dropdown
 partup:client-dropdowns
 partup:client-focuspoint
 partup:client-footer
-partup:client-forgotpassword
 partup:client-gallery
 partup:client-header
 partup:client-invite-to-activity
@@ -84,7 +82,6 @@ partup:client-network-settings
 partup:client-network-settings-bulkinvite
 partup:client-network-settings-requests
 partup:client-network-settings-uppers
-partup:client-partup-tile
 partup:client-partupsettings
 partup:client-popup
 partup:client-profilesettings

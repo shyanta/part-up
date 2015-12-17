@@ -1,4 +1,26 @@
 # CHANGELOG
+## 1.16.0
+- Notifications (#15)
+- New notifications (#4 + #89)
+- Grouped notifications (#14)
+- supporters in sidebar now clickable (#115)
+- Admin panel refactor for performance (#120)
+- Make better use of new updates divider line (#93 & #57)
+- Major refactoring and ops actions that reduce cpu server spike (#92)
+- Improve count for updates on part-up in user menu (#85)
+- Improve performance switching between updates and activities
+- Comment "edited" label now always visible
+- Fixed english labels in app (#111)
+- Fixed Loading a profile url directly or in new tab does not load profile correctly (#123)
+- Fixed new part-ups not on discover (#103)
+- Fixed end date on datepicker (#101)
+- Fixed image upload in Edge, IE11 and IE10 (#82)
+- Fixed English button labels on activity (#111)
+- Fixed tags not visible on discover (#104)
+- fix(tag-search): disabled tag discover search for the end_date update labels
+- feat(messages): don't allow deletion of a message when it has comments
+- fix(comments): always show edited state
+
 ## 1.15.0
 - Upgrade to meteor 1.2 (fixes case sensitive email problems and quicker build time)
 - Refactored profile and tribe tiles to use same new columns as discover and home
