@@ -15,8 +15,8 @@
                     {{# each userRequests }}
                         <tr>
                             <td>
-                                <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');"  data-usercard="{{_id}}"></figure>
-                                <span class="pu-sub-name" data-usercard="{{_id}}">{{ profile.name }}</span>
+                                <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=profile.image }}');"></figure>
+                                <a href="{{ pathFor 'profile' _id=_id }}" class="pu-sub-name" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}">{{ profile.name }}</a>
                             </td>
                             <td class="pu-sub-inviter">
 

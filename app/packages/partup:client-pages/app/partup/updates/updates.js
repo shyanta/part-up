@@ -32,7 +32,6 @@ Template.app_partup_updates.onCreated(function() {
         model: null,
         updateModel: function() {
             if (!tpl.updates.partup) return;
-
             Tracker.nonreactive(function() {
                 var options = tpl.updates.options.get();
                 tpl.updates.model = Updates.findForPartup(tpl.updates.partup, options);
@@ -67,7 +66,7 @@ Template.app_partup_updates.onCreated(function() {
 
             tpl.updates.loading.set(true);
 
-            var sub = Subs.subscribe('updates.from_partup', tpl.partupId, options, function() {
+            var sub = tpl.subscribe('updates.from_partup', tpl.partupId, options, function() {
                 tpl.updates.updateModel();
                 tpl.updates.updateView();
             });
@@ -96,7 +95,7 @@ Template.app_partup_updates.onCreated(function() {
             options.limit = b;
 
             tpl.updates.infinite_scroll_loading.set(true);
-            var sub = Subs.subscribe('updates.from_partup', tpl.partupId, options, function() {
+            var sub = tpl.subscribe('updates.from_partup', tpl.partupId, options, function() {
                 var modelUpdates = tpl.updates.updateModel();
                 var viewUpdates = tpl.updates.view.get();
 
@@ -122,6 +121,7 @@ Template.app_partup_updates.onCreated(function() {
         }),
 
         increaseLimit: function() {
+
             tpl.updates.limit.set(tpl.updates.limit.get() + tpl.updates.INCREMENT);
         },
 
@@ -142,6 +142,7 @@ Template.app_partup_updates.onCreated(function() {
             // Save the partup
             tpl.updates.partup = partup;
             tpl.updates.model = Updates.findForPartup(partup);
+
 
             Tracker.nonreactive(function() {
                 // When the model changes and the view is empty, update the view with the model
@@ -166,11 +167,6 @@ Template.app_partup_updates.onCreated(function() {
  */
 Template.app_partup_updates.onRendered(function() {
     var tpl = this;
-
-    if (typeof this.data.partupId === 'string') {
-        // Reset new updates for current user
-        Meteor.call('partups.reset_new_updates', this.data.partupId);
-    }
 
     /**
      * Infinite scroll
@@ -208,6 +204,9 @@ Template.app_partup_updates.helpers({
         if (!template.updates.model) return 0;
 
         var refreshDate = template.updates.refreshDate.get();
+
+        var wait = Partup.client.updates.waitForUpdateBool.get();
+        if (wait) return 0;
 
         var updates_causedby_currentuser = Partup.client.updates.updates_causedby_currentuser.get();
 
@@ -253,6 +252,7 @@ Template.app_partup_updates.helpers({
     },
 
     metaDataForUpdate: function() {
+
         var update = this;
         var updateUpper = Meteor.users.findOne({_id: update.upper_id});
 
@@ -298,28 +298,33 @@ Template.app_partup_updates.helpers({
     showNewUpdatesSeparator: function() {
         var update = this;
         var tpl = Template.instance();
+        var firstUnseenUpdate = Partup.client.updates.firstUnseenUpdate(update.partup_id).get();
+        var showNewUpdatesSeparator = false;
 
-        // WARNING: this helper assumes that the list is always sorted by TIME_FIELD
-        var TIME_FIELD = 'updated_at';
+        if (firstUnseenUpdate === this._id) {
+            showNewUpdatesSeparator = 'bottom';
+        } else {
+            // WARNING: this helper assumes that the list is always sorted by TIME_FIELD
+            var TIME_FIELD = 'updated_at';
 
-        // Find remembered refreshDate
-        var rememberedRefreshDate = tpl.updates.refreshDate_remembered.get();
-        if (!rememberedRefreshDate) return false;
-        var rememberedRefreshMoment = moment(rememberedRefreshDate);
+            // Find remembered refreshDate
+            var rememberedRefreshDate = tpl.updates.refreshDate_remembered.get();
+            if (!rememberedRefreshDate) return false;
+            var rememberedRefreshMoment = moment(rememberedRefreshDate);
 
-        // Find previous update
-        var updates = tpl.updates.view.get();
-        var currentIndex = lodash.findIndex(updates, update);
-        var previousUpdate = updates[currentIndex - 1];
-        if (!previousUpdate) return false;
+            // Find previous update
+            var updates = tpl.updates.view.get();
+            var currentIndex = lodash.findIndex(updates, update);
+            var previousUpdate = updates[currentIndex - 1];
+            if (!previousUpdate) return false;
 
-        // Date comparisons
-        var previousUpdateIsNewer = moment(previousUpdate[TIME_FIELD]).diff(rememberedRefreshMoment) > 0;
-        var currentUpdateIsOlder = moment(update[TIME_FIELD]).diff(rememberedRefreshMoment) < 0;
-
-        // Return true when the previous update is newer
-        // and the current update older than the remember refresh date
-        var showNewUpdatesSeparator = previousUpdateIsNewer && currentUpdateIsOlder;
+            // Date comparisons
+            var previousUpdateIsNewer = moment(previousUpdate[TIME_FIELD]).diff(rememberedRefreshMoment) > 0;
+            var currentUpdateIsOlder = moment(update[TIME_FIELD]).diff(rememberedRefreshMoment) < 0;
+            // Return true when the previous update is newer
+            // and the current update older than the remember refresh date
+            showNewUpdatesSeparator = previousUpdateIsNewer && currentUpdateIsOlder ? 'top' : false;
+        }
 
         // Unset the rememberedRefreshDate after a few seconds when the line is in view
         var HIDE_LINE_TIMEOUT = 8000;
@@ -333,6 +338,7 @@ Template.app_partup_updates.helpers({
                         $(element).removeClass('pu-state-active');
 
                         Meteor.setTimeout(function() {
+                            Partup.client.updates.firstUnseenUpdate(update.partup_id).reset();
                             tpl.updates.refreshDate_remembered.set(undefined);
                         }, HIDE_LINE_ANIMATION_DURATION);
                     }, HIDE_LINE_TIMEOUT);

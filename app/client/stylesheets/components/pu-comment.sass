@@ -1,5 +1,5 @@
 .pu-comment
-    >figure,
+    > a,
     > div
         display: inline-block
         vertical-align: top
@@ -11,8 +11,10 @@
             margin-bottom: -1px
             line-height: 1.4em
             margin-top: -3px
-    figure
+
+    > a
         margin-right: 5px
+        text-decoration: none
 
         &.pu-sub-line
             height: 2px
@@ -20,11 +22,44 @@
             width: 30px
             vertical-align: middle
 
+    .pu-sub-author
+        font-weight: 600
+        color: $color-text
+        text-decoration: none
+
+        &:hover
+            text-decoration: underline
+
     time
         color: $color-text-subtle
         transition: opacity .2s
         font-weight: 700
         font-size: 11px
+
+    .pu-sub-edit
+        font-size: 11px
+        opacity: 0
+        color: $color-text-subtle
+        transition: opacity .2s
+        text-decoration: none
+
+        span
+            text-decoration: underline
+
+        &:before
+            content: '•'
+            margin-left: 5px
+            margin-right: 5px
+
+    .pu-sub-remove
+        font-size: 11px
+        color: $color-text-subtle
+
+    &:hover,
+    &:active
+        .pu-sub-edit
+            color: $color-text-subtle
+            opacity: 1
 
     &-systemmessage
         p

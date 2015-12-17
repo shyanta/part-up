@@ -15,6 +15,26 @@ Meteor.publishComposite('networks.list', function() {
 });
 
 /**
+ * Publish a list of open-for-user-networks ordered by upper_count
+ */
+Meteor.publishComposite('networks.discoverfilter', function(urlParams, parameters, user) {
+    if (this.unblock) this.unblock();
+
+    var userId = user ? user._id : this.userId;
+
+    return {
+        find: function() {
+            return Networks.findForDiscoverFilter(userId);
+        },
+        children: [
+            {find: Images.findForNetwork}
+        ]
+    };
+}, {url: 'networks-discoverfilter', getArgsFromRequest: function(request) {
+    return [request.params, request.query, request.user];
+}});
+
+/**
  * Publish a network
  *
  * @param {String} networkSlug
@@ -38,25 +58,39 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
             }
         ]
     };
-}, {url: 'networks/:0'});
+});
 
 /**
  * Publish all partups in a network
  *
- * @param {String} networkSlug
+ * @param {Object} urlParams
+ * @param {Object} parameters
  */
-Meteor.publishComposite('networks.one.partups', function(networkSlug, parameters) {
-    this.unblock();
+Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) {
+    if (this.unblock) this.unblock();
+
+    check(urlParams, {
+        slug: Match.Optional(String),
+    });
 
     parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
+    check(parameters, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number),
+        userId: Match.Optional(String),
+    });
+
+    var options = {};
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
 
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+            var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
             if (!network) return;
-
-            var options = {};
-            if (parameters.limit) options.limit = parseInt(parameters.limit);
 
             return Partups.findForNetwork(network, {}, options, this.userId);
         },
@@ -65,73 +99,57 @@ Meteor.publishComposite('networks.one.partups', function(networkSlug, parameters
             {find: Meteor.users.findUppersForPartup, children: [
                 {find: Images.findForUser}
             ]},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            children: [
                 {find: Images.findForNetwork}
             ]}
         ]
     };
-});
-
-/**
- * Publish a count of all partups in a network
- *
- * @param {String} networkSlug
- */
-Meteor.publish('networks.one.partups.count', function(networkSlug) {
-    this.unblock();
-
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
-    if (!network) return;
-
-    Counts.publish(this, 'networks.one.partups.filterquery', Partups.findForNetwork(network, {}, {}, this.userId));
-});
+}, {url: 'networks/:slug/partups', getArgsFromRequest: function(request) {
+    return [request.params, request.query];
+}});
 
 /**
  * Publish all uppers in a network
  *
- * @param {String} networkSlug
- * @param {Object} options
+ * @param {Object} urlParams
+ * @param {Object} parameters
  */
-Meteor.publishComposite('networks.one.uppers', function(networkSlug, options) {
-    this.unblock();
+Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
+    if (this.unblock) this.unblock();
+
+    check(urlParams, {
+        slug: Match.Optional(String),
+    });
+
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
+    check(parameters, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number),
+        userId: Match.Optional(String),
+    });
+
+    var options = {};
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
 
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+            var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
             if (!network) return;
 
-            return Networks.guardedFind(this.userId, {_id: network._id}, {limit: 1});
+            return Meteor.users.findUppersForNetwork(network, options);
         },
         children: [
-            {find: Meteor.users.findUppersForNetwork, children: [
-                {find: Images.findForUser}
-            ]}
+            {find: Images.findForUser}
         ]
     };
-});
-
-/**
- * Publish a count of all uppers in a network
- *
- * @param {String} networkSlug
- * @param {Object} options
- */
-Meteor.publish('networks.one.uppers.count', function(networkSlug, options) {
-    this.unblock();
-
-    options = options || {};
-    parameters = parameters || {};
-    var parameters = {
-        count: true
-    };
-
-    var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
-    if (!network) return;
-
-    var uppers = network.uppers || [];
-
-    Counts.publish(this, 'networks.one.uppers.filterquery', Meteor.users.findMultiplePublicProfiles(uppers, options, parameters), {noWarnings: true});
-});
+}, {url: 'networks/:slug/uppers', getArgsFromRequest: function(request) {
+    return [request.params, request.query];
+}});
 
 /**
  * Publish all pending uppers in a network

@@ -6,8 +6,10 @@ var d = Debug('event_handlers:updates_comments_handler');
 Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
     update = new Update(update);
     var commenterId = upper._id;
+    var notifiedUppers = [];
 
     // Parse message for user mentions
+    var limitExceeded = Partup.helpers.mentions.exceedsLimit(comment.content);
     var mentions = Partup.helpers.mentions.extract(comment.content);
     var process = function(user) {
         if (partup.isViewableByUser(user._id)) {
@@ -35,6 +37,8 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             // Send the notification
             Partup.server.services.notifications.send(notificationOptions);
 
+            notifiedUppers.push(user._id);
+
             // Set the email details
             var emailOptions = {
                 type: 'upper_mentioned_in_partup',
@@ -56,70 +60,87 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             Partup.server.services.emails.send(emailOptions);
         }
     };
-    mentions.forEach(function(mention) {
-        if (mention.type === 'single') {
-            // Retrieve the user from the database (ensures that the user does indeed exists!)
-            if (mention._id === commenterId) return;
-            var user = Meteor.users.findOne(mention._id);
-            process(user);
-        } else if (mention.type === 'group') {
-            // Retrieve each user from the database (ensures that the user does indeed exists!)
-            mention.users.forEach(function(userId) {
-                if (userId === commenterId) return;
-                var user = Meteor.users.findOne(userId);
+    if (!limitExceeded) {
+        mentions.forEach(function(mention) {
+            if (mention.type === 'single') {
+                // Retrieve the user from the database (ensures that the user does indeed exists!)
+                if (mention._id === commenterId) return;
+                var user = Meteor.users.findOne(mention._id);
                 process(user);
-            });
-        }
-    });
+            } else if (mention.type === 'group') {
+                // Retrieve each user from the database (ensures that the user does indeed exists!)
+                mention.users.forEach(function(userId) {
+                    if (userId === commenterId) return;
+                    var user = Meteor.users.findOne(userId);
+                    process(user);
+                });
+            }
+        });
+    }
 
-    // Add the comment to new comment list for all users of this partup
+    /* -------------------------------------------------- */
+
+    // Add the comment to new comment list for the targeted users
     var upperIds = partup.getUsers();
     update.addNewCommentToUpperData(comment, upperIds);
 
-    // We only want to continue if the update currently has
-    // no comments which means that it's the first comment
-    var comments = update.comments || [];
+    /* -------------------------------------------------- */
 
-    // We want to find out if the comment is the first one, but
-    // we'll need to filter out the system messages and the
-    // messages created by the creator of the update
-    comments = comments.filter(function(comment) {
-        return comment.type !== 'system' && comment.creator._id !== update.upper_id;
+    // Check if a new comment notification needs to be created
+    if (comment.type === 'motivation') return; // Nope
+
+    // Collect all uppers that should receive a new comment notification
+    var involvedUppers = update.getInvolvedUppers();
+
+    // Filter the creator of the comment and the already mentioned uppers
+    var filteredUppers = involvedUppers.filter(function(upperId) {
+        return (upperId !== commenterId && notifiedUppers.indexOf(upperId) < 0);
     });
 
-    if (comments.length > 0) {
-        d('Not the first comment, so not generating a notification for the owner of the update, length: ', comments.length);
-        return;
-    }
+    var notificationType = 'partups_new_comment_in_involved_conversation';
 
-    // We are not going to generate a notification if the creator
-    // of the message was the same as the creator of the update
-    if (comment.creator._id === update.upper_id) {
-        d('The creator of the comment is also the creator of the update, so we wont generate a notification.');
-        return;
-    }
-
-    // This can only be the first human comment by now, so prepare the notification
-    var notificationOptions = {
-        userId: update.upper_id,
-        type: 'updates_first_comment',
-        typeData: {
-            commenter: {
-                _id: comment.creator._id,
-                name: comment.creator.name,
-                image: comment.creator.image
-            },
-            partup: {
-                _id: partup._id,
-                name: partup.name,
-                slug: partup.slug
-            },
-            update: {
-                _id: update._id
+    Meteor.users.find({_id: {$in: filteredUppers}}).fetch().forEach(function(notifiedUpper) {
+        var notificationOptions = {
+            userId: notifiedUpper._id,
+            type: notificationType,
+            typeData: {
+                commenter: {
+                    _id: comment.creator._id,
+                    name: comment.creator.name,
+                    image: comment.creator.image
+                },
+                partup: {
+                    _id: partup._id,
+                    name: partup.name,
+                    slug: partup.slug
+                },
+                update: {
+                    _id: update._id
+                }
             }
-        }
-    };
+        };
 
-    // Send the notification
-    Partup.server.services.notifications.send(notificationOptions);
+        // Send the notification
+        Partup.server.services.notifications.send(notificationOptions);
+
+        // Set the email details
+        var emailOptions = {
+            type: notificationType,
+            toAddress: User(notifiedUpper).getEmail(),
+            subject: TAPi18n.__('emails-' + notificationType + '-subject', {}, User(notifiedUpper).getLocale()),
+            locale: User(notifiedUpper).getLocale(),
+            typeData: {
+                name: User(notifiedUpper).getFirstname(),
+                upperName: notifiedUpper.profile.name,
+                partupName: partup.name,
+                url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id,
+                unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + notifiedUpper.profile.settings.unsubscribe_email_token,
+                unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + notifiedUpper.profile.settings.unsubscribe_email_token
+            },
+            userEmailPreferences: notifiedUpper.profile.settings.email
+        };
+
+        // Send the email
+        Partup.server.services.emails.send(emailOptions);
+    });
 });

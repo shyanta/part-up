@@ -90,6 +90,12 @@
         span
             font-weight: 600
 
+            &.pu-sub-seperator
+                &:before
+                    content: '•'
+                    margin-left: 5px
+                    margin-right: 5px
+
     &-fieldwithbutton
         li
             display: table
@@ -180,18 +186,27 @@
                 margin-top: 1px
                 margin-bottom: -1px
 
+            a
+                display: inline-block
+                color: $color-text
+                text-decoration: none
+
+                &:hover
+                    p
+                        text-decoration: underline
+
         &-hovercard
             li:last-child
                 margin-bottom: 0
 
 
     &-suggestiontiles
-        margin: -5px
+        margin: -4px -5px
 
         li
             width: 50%
             float: left
-            padding: 5px
+            padding: 4px 5px
 
             a
                 color: $color-text

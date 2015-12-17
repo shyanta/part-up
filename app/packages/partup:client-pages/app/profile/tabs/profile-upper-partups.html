@@ -1,7 +1,7 @@
 <template name="app_profile_upper_partups">
     <header class="pu-sub-header">
         <h2 class="pu-title">
-            {{# if partupsLoading }}
+            {{# if countLoading }}
                 {{_ 'pages-app-profile-upper-partups-loading' }}
                 {{> Spinner type='small' }}
             {{ else }}
@@ -18,12 +18,16 @@
     </header>
 
     <div data-infinitescroll-container>
-        {{> ColumnsLayout
-            COLUMNS=amountOfColumns
-            TEMPLATE="PartupTile"
-            addHook=addToLayoutHook
-            clearHook=clearLayoutHook
-            rerenderHook=rerenderLayoutHook
-        }}
+        {{# ColumnTilesLayout instance=columnTilesLayout }}
+            <div class="pu-tile">
+                {{> PartupTile }}
+            </div>
+        {{/ ColumnTilesLayout }}
+
+        {{# unless endReached }}
+            <div class="pu-sub-loading-infinite-scroll">
+                {{> Spinner }}
+            </div>
+        {{/ unless }}
     </div>
 </template>

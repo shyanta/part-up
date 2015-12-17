@@ -17,7 +17,9 @@ Template.NetworkSettingsUppers.onCreated(function() {
     var userId = Meteor.userId();
 
     var network_sub = Subs.subscribe('networks.one', tpl.data.networkSlug);
-    Subs.subscribe('networks.one.uppers', tpl.data.networkSlug);
+    Subs.subscribe('networks.one.uppers', {
+        slug: tpl.data.networkSlug
+    });
 
     tpl.autorun(function(computation) {
         if (network_sub.ready()) {

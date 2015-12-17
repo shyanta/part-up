@@ -1,7 +1,7 @@
 <template name="app_network_uppers">
     <header class="pu-sub-header">
         <h2 class="pu-title">
-            {{# if uppersLoading }}
+            {{# if countLoading }}
                 {{_ 'pages-app-network-uppers-loading' }}
                 {{> Spinner type='small' }}
             {{ else }}
@@ -19,12 +19,16 @@
     </header>
 
     <div data-infinitescroll-container>
-        {{> ColumnsLayout
-            COLUMNS=amountOfColumns
-            TEMPLATE="UserTileCard"
-            addHook=addToLayoutHook
-            clearHook=clearLayoutHook
-            rerenderHook=rerenderLayoutHook
-        }}
+        {{# ColumnTilesLayout instance=columnTilesLayout }}
+            <div class="pu-tile">
+                {{> UpperTile }}
+            </div>
+        {{/ ColumnTilesLayout }}
+
+        {{# unless endReached }}
+            <div class="pu-sub-loading-infinite-scroll">
+                {{> Spinner }}
+            </div>
+        {{/ unless }}
     </div>
 </template>

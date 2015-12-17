@@ -73,9 +73,10 @@ Meteor.methods({
             partup.addNewUpdateToUpperData(update);
 
             Event.emit('updates.comments.inserted', upper, partup, update, comment);
-
+            var mentionsWarning = Partup.helpers.mentions.exceedsLimit(fields.content);
             return {
-                _id: comment._id
+                _id: comment._id,
+                warning: mentionsWarning || undefined
             };
         } catch (error) {
             Log.error(error);
@@ -101,16 +102,53 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var comment = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
+            var comment = Updates.findOne({
+                _id: updateId,
+                'comments._id': commentId,
+                'comments.creator._id': upper._id
+            });
             if (comment) {
-                Updates.update({_id: updateId, 'comments._id': commentId}, {$set: {
-                    'comments.$.content': fields.content,
-                    'comments.$.updated_at': new Date()
-                }});
+                Updates.update({_id: updateId, 'comments._id': commentId}, {
+                    $set: {
+                        'comments.$.content': fields.content,
+                        'comments.$.updated_at': new Date()
+                    }
+                });
             }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partup_comment_could_not_be_updated');
+        }
+    },
+
+    /**
+     * Remove a comment
+     *
+     * @param {string} updateId
+     * @param {string} commentId
+     */
+    'updates.comments.remove': function(updateId, commentId) {
+        check(updateId, String);
+        check(commentId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var update = Updates.findOne({_id: updateId, 'comments._id': commentId, 'comments.creator._id': upper._id});
+            if (update) {
+                Updates.update({
+                    _id: updateId, 'comments._id': commentId
+                }, {
+                    $pull: {comments: {_id: commentId}},
+                    $inc: {comments_count: -1}
+                });
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_comment_could_not_be_removed');
         }
     },
 
@@ -125,7 +163,10 @@ Meteor.methods({
         try {
             var update = Updates.findOne({_id: updateId, 'upper_data._id': Meteor.userId()});
             if (update && update._id) {
-                Updates.update({_id: updateId, 'upper_data._id': Meteor.userId()}, {$set: {'upper_data.$.new_comments': []}});
+                Updates.update({
+                    _id: updateId,
+                    'upper_data._id': Meteor.userId()
+                }, {$set: {'upper_data.$.new_comments': []}});
             }
         } catch (error) {
             Log.error(error);

@@ -4,7 +4,7 @@
         {{ label }}
     </button>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-        {{#if networks.count}}
+        {{#if networks}}
             <nav class="pu-profiletabs">
                 {{#unless disableUp}}
                     <header>
@@ -23,7 +23,7 @@
                         </li>
                     {{/each}}
                 </ul>
-                {{#if partupHigherThan networks.count maxTabs}}
+                {{#if partupHigherThan networks.length maxTabs}}
                     {{#unless disableDown}}
                         <footer>
                             <a class="pu-button pu-button-dropdowntab" href="#" data-down><i class="picon-caret-slim-down"></i></a>
@@ -36,7 +36,7 @@
             {{#if selectedNetwork}}
                 <header class="pu-dropdownitem pu-dropdownheader">
                     <a href="{{ pathFor 'network-detail' slug=selectedNetwork.slug }}">
-                        <figure class="pu-avatar pu-avatar-square" style="background-image:url('{{ partupImageUrl id=selectedNetwork.image store='80x80'}}');"></figure>
+                        <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl selectedNetwork.imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
                         <p>{{ selectedNetwork.name }}</p>
                     </a>
                 </header>
@@ -47,7 +47,11 @@
                     {{#each upperPartups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' slug=slug }}">
-                                <figure class="pu-avatar" style="background-image:url('{{ partupImageUrl id=image store='80x80'}}');"></figure>
+                                <figure class="pu-avatar" style="
+                                    {{# with partupGetImageUrl imageObject '80x80' }}
+                                        background-image: url('{{ . }}');
+                                    {{/ with }}
+                                "></figure>
                                 <p>{{ name }}</p>
                                 {{#if newUpdates}}
                                     <span class="pu-sub-newupdates">{{newUpdates}}</span>
@@ -75,7 +79,11 @@
                     {{#each supporterPartups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' slug=slug }}">
-                                <figure class="pu-avatar" style="background-image:url('{{ partupImageUrl id=image store='80x80'}}');"></figure>
+                                <figure class="pu-avatar" style="
+                                    {{# with partupGetImageUrl imageObject '80x80' }}
+                                        background-image: url('{{ . }}');
+                                    {{/ with }}
+                                "></figure>
                                 <p>{{ name }}</p>
                                 {{#if newUpdates}}
                                     <span class="pu-sub-newupdates">{{newUpdates}}</span>

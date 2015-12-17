@@ -46,6 +46,7 @@ Template.Partupsettings.onCreated(function() {
     template.tagsInputStates = new ReactiveDict();
     template.showNetworkDropdown = new ReactiveVar(false);
     template.currentCurrency = new ReactiveVar('EUR');
+    template.formId = template.data.FORM_ID;
 
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
@@ -89,46 +90,32 @@ Template.Partupsettings.onCreated(function() {
         }
     });
 
-    Template.autoForm.onRendered(function() {
-        // Set the focuspoint input values to the form every time they change
-        this.autorun(function() {
-            if (!template.view.isRendered) return;
+});
 
-            var x = template.imageSystem.focuspoint.get('x');
-            var y = template.imageSystem.focuspoint.get('y');
-            var form = template.find('#' + template.data.FORM_ID);
-            if (!form) return;
+Template.autoForm.onRendered(function() {
+    var template = this.parent();
+    if (template.view.name !== 'Template.Partupsettings') return;
 
-            form.elements.focuspoint_x_input.value = x;
-            form.elements.focuspoint_y_input.value = y;
+    // Set the focuspoint input values to the form every time they change
+    this.autorun(function() {
+        if (!template.view.isRendered) return;
 
-        });
+        var x = template.imageSystem.focuspoint.get('x');
+        var y = template.imageSystem.focuspoint.get('y');
+        var form = template.find('#' + template.data.FORM_ID);
+        if (!form) return;
 
-        // Update the tagsInputStates when the tags change
-        this.autorun(function() {
-            var tags = AutoForm.getFieldValue('tags_input');
-            if (tags) tags = tags.trim();
+        form.elements.focuspoint_x_input.value = x;
+        form.elements.focuspoint_y_input.value = y;
 
-            template.tagsInputStates.set('tags', !!tags);
-        });
+    });
 
-        // Bind datepicker
-        var options = Partup.client.datepicker.options;
-        options.startDate = new Date();
+    // Update the tagsInputStates when the tags change
+    this.autorun(function() {
+        var tags = AutoForm.getFieldValue('tags_input');
+        if (tags) tags = tags.trim();
 
-        var dateChangeHandler = function(event) {
-            event.currentTarget.nextElementSibling.value = event.date;
-            $(event.currentTarget.nextElementSibling).trigger('blur');
-        };
-
-        this.autorun(function() {
-            var end_date = AutoForm.getFieldValue('end_date');
-            template.end_date_datepicker = template
-                .$('[bootstrap-datepicker]')
-                .datepicker(options)
-                .datepicker('setDate', end_date)
-                .on('changeDate clearDate', dateChangeHandler);
-        });
+        template.tagsInputStates.set('tags', !!tags);
     });
 });
 
@@ -152,6 +139,15 @@ Template.Partupsettings.onRendered(function() {
 });
 
 Template.Partupsettings.helpers({
+    datePicker: function() {
+        var template = Template.instance();
+        var value = AutoForm.getFieldValue('end_date');
+        return {
+            input: 'data-bootstrap-datepicker',
+            autoFormInput: 'data-autoform-input',
+            prefillValueKey: 'end_date' // autoform key
+        };
+    },
     partup: function() {
         return this.currentPartup;
     },
@@ -361,45 +357,39 @@ Template.Partupsettings.helpers({
     },
     currentCurrency: function() {
         return Template.instance().currentCurrency.get();
+    },
+    imageInput: function() {
+        var template = Template.instance();
+        return {
+            button: 'data-browse-photos',
+            input: 'data-imageupload',
+            onFileChange: function(event) {
+                Partup.client.uploader.eachFile(event, function(file) {
+                    template.loading.set('image-uploading', true);
+                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                        if (error) {
+                            Partup.client.notify.error(TAPi18n.__(error.reason));
+                            template.loading.set('image-uploading', false);
+                            return;
+                        }
+                        template.loading.set('image-uploading', false);
+                        template.imageSystem.currentImageId.set(image._id);
+                        template.imageSystem.uploaded.set(true);
+                        var focuspoint = template.imageSystem.focuspoint.get();
+                        if (focuspoint) focuspoint.reset();
+                    });
+                });
+            }
+        }
     }
 });
 
 Template.Partupsettings.events({
-    'click [bootstrap-datepicker], touchend [bootstrap-datepicker]': function(event, template) {
-        $(event.target).closest('label').click();
-    },
-    'click [data-browse-photos], touchend [data-browse-photos]': function(event, template) {
-        event.preventDefault();
-
-        // in stead fire click event on file input
-        var input = $('input[data-imageupload]');
-        input.click();
-    },
     'keyup [data-max]': function(event, template) {
         var $inputElement = $(event.currentTarget);
         var max = parseInt($inputElement.attr('maxlength'));
         var charactersLeftVar = $inputElement.data('characters-left-var');
         template[charactersLeftVar].set(max - $inputElement.val().length);
-    },
-    'change [data-imageupload]': function(event, template) {
-        $('[data-imageupload]').replaceWith($('[data-imageupload]').clone(true));
-
-        Partup.client.uploader.eachFile(event, function(file) {
-            template.loading.set('image-uploading', true);
-            Partup.client.uploader.uploadImage(file, function(error, image) {
-                if (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    template.loading.set('image-uploading', false);
-                    return;
-                }
-                template.loading.set('image-uploading', false);
-                template.imageSystem.currentImageId.set(image._id);
-                template.imageSystem.uploaded.set(true);
-                var focuspoint = template.imageSystem.focuspoint.get();
-                if (focuspoint) focuspoint.reset();
-            });
-        });
-
     },
     'click [data-imageremove]': function(event, template) {
         var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();
@@ -409,10 +399,6 @@ Template.Partupsettings.events({
     'change .autoform-tags-field [data-schema-key]': function(event, template) {
         var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
         template.imageSystem.getSuggestions(tags);
-    },
-    'click [data-removedate]': function(event, template) {
-        event.preventDefault();
-        template.end_date_datepicker.datepicker('update', '');
     },
     'change [data-type]': function(event, template) {
         var input = template.find('[data-type] :checked');

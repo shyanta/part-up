@@ -35,7 +35,26 @@ Template.app_home.onCreated(function() {
             // the expected height of a tile as best
             // as possible, synchronously,
             // using the given partup object
-            return 1;
+            var BASE_HEIGHT = 308;
+            var MARGIN = 18;
+
+            var _partup = tileData.partup;
+
+            var NAME_PADDING = 40;
+            var NAMe_LINEHEIGHT = 22;
+            var nameCharsPerLine = 0.099 * (columnWidth - NAME_PADDING);
+            var nameLines = Math.ceil(_partup.name.length / nameCharsPerLine);
+            var name = nameLines * NAMe_LINEHEIGHT;
+
+            var DESCRIPTION_PADDING = 40;
+            var DESCRIPTION_LINEHEIGHT = 22;
+            var descriptionCharsPerLine = 0.145 * (columnWidth - DESCRIPTION_PADDING);
+            var descriptionLines = Math.ceil(_partup.description.length / descriptionCharsPerLine);
+            var description = descriptionLines * DESCRIPTION_LINEHEIGHT;
+
+            var tribe = _partup.network ? 47 : 0;
+
+            return BASE_HEIGHT + MARGIN + name + description + tribe;
         }
 
     });

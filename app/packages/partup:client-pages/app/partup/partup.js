@@ -39,10 +39,9 @@ Template.app_partup.onCreated(function() {
                 if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
             }
         }
-
         if (typeof partup._id === 'string') {
             // Reset new updates for current user
-            Meteor.call('partups.reset_new_updates', partup._id);
+            Partup.client.updates.firstUnseenUpdate(partup._id).set();
         }
     };
 
@@ -167,7 +166,11 @@ var partupDetailLayout = {
             self.preScroll();
             self.checkInterval();
         };
-        self.debouncedScrollChecker = lodash.debounce(onReRender, 500, true);
+        self.debouncedScrollChecker = lodash.debounce(onReRender, 50, {
+            leading: true,
+            maxWait: 500,
+            trailing: true
+        });
         $(window).on('pu:componentRendered', self.debouncedScrollChecker);
 
         self.onScrollStart = function() {

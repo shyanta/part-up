@@ -1,60 +1,74 @@
-
 Template.app_profile_about.onCreated(function() {
-    var tpl = this;
-    tpl.loadingProfile = new ReactiveVar(true);
-    var profileId = tpl.data.profileId;
+    var template = this;
 
-    tpl.tiles = {
+    // Column layout
+    template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
-        // States
-        loading: new ReactiveVar(false),
+        // Initial amount of columns
+        columns: 2,
 
-        // Namespace for columns layout functions (added by helpers)
-        layout: {
-            items: [],
-            count: new ReactiveVar(0)
-        },
+        // This function will be called for each tile
+        calculateApproximateTileHeight: function(tileData, columnWidth) {
 
-        // Options reactive variable (on change, clear the layout and re-add all partups)
-        init: function(results) {
-            if (typeof profileId == 'string') {
-                tpl.tilesSubscription = tpl.subscribe('tiles.profile', profileId, {
-                    onReady: function() {
-                        var tiles = Tiles.find({upper_id: profileId}).fetch();
-                        var user = Meteor.users.findOne(profileId);
-                        if (!tiles || !tiles.length && Meteor.userId() === profileId) {
-                            tiles.push({
-                                type: 'image',
-                                placeholder: true
-                            });
-                        }
-                        var meurs = {};
-                        if (user.profile.meurs) {
-                            meurs = user.profile.meurs;
-                        }
-                        if ((meurs.results && meurs.results.length) || Meteor.userId() === profileId) {
-                            tiles.unshift({
-                                type: 'result',
-                                user: user,
-                                meurs: meurs
-                            });
-                        }
-                        tpl.loadingProfile.set(false);
-                        tpl.tiles.layout.items = tpl.tiles.layout.clear();
-                        tpl.tiles.layout.items = tpl.tiles.layout.add(tiles);
-                    }
+            // The goal of this formula is to approach
+            // the expected height of a tile as best
+            // as possible, synchronously,
+            // using the given partup object
+            return 1000;
+        }
+
+    });
+});
+
+Template.app_profile_about.onRendered(function() {
+    var template = this;
+
+    template.handle = null;
+    template.refresh = function() {
+        if (template.handle) template.handle.stop();
+
+        template.handle = template.subscribe('tiles.profile', template.data.profileId, {
+            onReady: function() {
+                var tiles = Tiles.find({upper_id: template.data.profileId}).fetch();
+                var user = Meteor.users.findOne(template.data.profileId);
+                var isMine = Meteor.userId() === template.data.profileId;
+
+                if (!tiles || !tiles.length && isMine) {
+                    tiles.push({
+                        type: 'image',
+                        placeholder: true
+                    });
+                }
+
+                var meurs = {};
+                if (user.profile.meurs) {
+                    meurs = user.profile.meurs;
+                }
+
+                if ((meurs.results && meurs.results.length) || isMine) {
+                    tiles.unshift({
+                        type: 'result',
+                        user: user,
+                        meurs: meurs
+                    });
+                }
+
+                // Add tiles to the column layout
+                template.columnTilesLayout.clear(function() {
+                    template.columnTilesLayout.addTiles(tiles);
                 });
             }
-        },
-        refresh: function(res) {
-            var results = res || false;
-            tpl.tilesSubscription.stop();
-            tpl.tiles.init(results);
-        }
+        });
     };
 
     // First run
-    tpl.tiles.init();
+    template.refresh();
+});
+
+Template.app_profile_about.helpers({
+    columnTilesLayout: function() {
+        return Template.instance().columnTilesLayout;
+    }
 });
 
 Template.app_profile_about.events({
@@ -64,7 +78,7 @@ Template.app_profile_about.events({
         Partup.client.popup.open({
             id: 'new-' + type
         }, function(result) {
-            template.tiles.refresh();
+            template.refresh();
         });
     },
     'click [data-start-test]': function(event, template) {
@@ -87,7 +101,7 @@ Template.app_profile_about.events({
                         return;
                     }
                     Partup.client.notify.success('Tile removed');
-                    template.tiles.refresh();
+                    template.refresh();
                 });
             }
         });
@@ -100,45 +114,7 @@ Template.app_profile_about.helpers({
         var user = Meteor.users.findOne(this.profileId);
         return User(user).getFirstname();
     },
-    isCurrentusersProfile: function() {
+    isMine: function() {
         return this.profileId === Meteor.userId();
-    },
-
-    // We use this trick to be able to call a function in a child template.
-    // The child template directly calls 'addToLayoutHook' with a callback.
-    // We save that callback, so we can call it later and the child template can react to it.
-    addToLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.tiles.layout.add = callback;
-        };
-    },
-    clearLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.tiles.layout.clear = callback;
-        };
-    },
-    rerenderLayoutHook: function() {
-        var tpl = Template.instance();
-
-        return function registerCallback(callback) {
-            tpl.tiles.layout.rerender = callback;
-        };
-    },
-    amountOfColumns: function() {
-        // var tpl = Template.instance();
-        // var smaller = Partup.client.screen.size.get('width') < Partup.client.grid.getWidth(5) + 80;
-        // Meteor.defer(function() {
-        //     tpl.tiles.layout.rerender();
-        // });
-        // return smaller ? 1 : 2;
-        return 2;
-    },
-
-    profileLoading: function() {
-        return Template.instance().loadingProfile.get();
     }
 });

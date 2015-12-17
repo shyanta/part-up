@@ -6,8 +6,8 @@ Part-up
 - ensure [imagemagick][im] is installed (OS X: `brew
   install imagemagick`)
 - ensure [meteor](https://www.meteor.com/install) is installed
-- `cd app`
-- `meteor`
+- `./start` (in the root folder of the app)
+- App running at: http://localhost:3000/
 
 [im]: http://www.imagemagick.org/
 

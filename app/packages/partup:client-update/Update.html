@@ -1,5 +1,4 @@
 <template name="Update">
-
     <section class="pu-update">
         <aside>
 
@@ -10,7 +9,7 @@
                 </figure>
             {{ else }}
                 <figure class="pu-avatar pu-avatar-update">
-                    <a href="{{ pathFor route='profile' _id=metadata.updateUpper._id }}" rel="author" data-usercard="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#with metadata.updateUpper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with}}"></a>
+                    <a href="{{ pathFor route='profile' _id=metadata.updateUpper._id }}" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ metadata.updateUpper._id }}" class="pu-sub-image" style="{{#with metadata.updateUpper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with}}"></a>
                 </figure>
             {{/ if }}
 
@@ -64,6 +63,18 @@
                         </section>
                     {{/ with}}
                 {{ else }}
+                    <!-- edit message popup -->
+                    {{#if partupEquals update.data.upper_id currentUserId }}
+                        {{#if partupIsPopupActive editMessagePopupId }}
+                            {{#contentFor "PopupTitle"}}
+                                {{_ 'update-editmessage-title'}}
+                            {{/contentFor}}
+                            {{#contentFor region="PopupContent" data=update.data}}
+                                {{> app_partup_updates_newmessage }}
+                            {{/contentFor}}
+                        {{/if}}
+                    {{/if}}
+
                     {{# with update.data.type_data }}
                         <section>
                             <article class="pu-block pu-block-message">
@@ -71,6 +82,11 @@
                                 {{# if images }}
                                     {{> ImageGallery images=images updateId=update.data._id}}
                                 {{/ if}}
+                                {{#if partupEquals update.data.upper_id currentUserId }}
+                                    <footer class="pu-sub-useractions">
+                                        <a href="#" data-edit-message><span>{{_ 'update-editmessage-edit'}}</span></a>{{#if update.hasNoComments}}<a href="#" data-remove-message><span>{{_ 'update-editmessage-remove'}}</span></a>{{/if}}
+                                    </footer>
+                                {{/if}}
                             </article>
                         </section>
                     {{/ with}}
@@ -112,8 +128,8 @@
                 {{#with update.data.type_data }}
                     <section>
                         <ul class="pu-list pu-list-horizontal pu-list-tags pu-list-arrows">
-                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal old_end_date }}</span></li>
-                            <li><span class="pu-tag pu-tag-angular">{{ partupDateNormal new_end_date }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular pu-tag-disableglobalclick">{{ partupDateNormal old_end_date }}</span></li>
+                            <li><span class="pu-tag pu-tag-angular pu-tag-disableglobalclick">{{ partupDateNormal new_end_date }}</span></li>
                         </ul>
                     </section>
                 {{/with}}

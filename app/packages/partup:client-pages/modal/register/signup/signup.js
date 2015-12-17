@@ -16,6 +16,27 @@ var placeholders = {
     }
 };
 
+var submitting = new ReactiveVar(false);
+var facebookLoading = new ReactiveVar(false);
+var linkedinLoading = new ReactiveVar(false);
+
+Template.modal_register_signup.onCreated(function() {
+    var template = this;
+
+    submitting.set(false);
+    facebookLoading.set(false);
+    linkedinLoading.set(false);
+
+    template.userCount = new ReactiveVar();
+
+    HTTP.get('/users/count', function(error, response) {
+        if (error || !response || !mout.lang.isString(response.content)) { return; }
+
+        var content = JSON.parse(response.content);
+        template.userCount.set(content.count);
+    });
+});
+
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
@@ -23,11 +44,16 @@ Template.modal_register_signup.helpers({
     formSchema: Partup.schemas.forms.registerRequired,
     placeholders: placeholders,
     totalNumberOfUppers: function() {
-        var count = Counts.get('users');
-        if (count)
-            return count + 1;
-        else
-            return '';
+        return Template.instance().userCount.get();
+    },
+    submitting: function() {
+        return submitting.get();
+    },
+    facebookLoading: function() {
+        return facebookLoading.get();
+    },
+    linkedinLoading: function() {
+        return linkedinLoading.get();
     }
 });
 
@@ -38,13 +64,15 @@ Template.modal_register_signup.events({
     'click [data-signupfacebook]': function(event) {
         event.preventDefault();
 
+        facebookLoading.set(true);
         Meteor.loginWithFacebook({
             requestPermissions: ['email'],
             loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
         }, function(error) {
+            facebookLoading.set(false);
 
             if (error) {
-                Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
+                Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.reason)));
                 return;
             }
 
@@ -71,13 +99,15 @@ Template.modal_register_signup.events({
     'click [data-signuplinkedin]': function(event) {
         event.preventDefault();
 
+        linkedinLoading.set(true);
         Meteor.loginWithLinkedin({
             requestPermissions: ['r_emailaddress'],
             loginStyle: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup'
         }, function(error) {
+            linkedinLoading.set(false);
 
             if (error) {
-                Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
+                Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.reason)));
                 return false;
             }
 
@@ -118,6 +148,7 @@ Template.modal_register_signup.events({
 AutoForm.hooks({
     'pages-modal-register-signupForm': {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
+            submitting.set(true);
             var self = this;
             var submittedDoc = insertDoc;
             var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
@@ -141,12 +172,16 @@ AutoForm.hooks({
                             partup_created_in_network: true,
                             partups_networks_new_pending_upper: true,
                             partups_networks_accepted: true,
-                            invite_upper_to_partup: true
+                            invite_upper_to_partup: true,
+                            partups_new_comment_in_involved_conversation: true,
+                            partups_networks_new_upper: true,
+                            partups_networks_upper_left: true
                         },
                         unsubscribe_email_token: Random.secret()
                     }
                 }
             }, function(error) {
+                submitting.set(false);
 
                 // Error cases
                 if (error && error.message) {
@@ -155,7 +190,7 @@ AutoForm.hooks({
                             Partup.client.forms.addStickyFieldError(self, 'email', 'emailExists');
                             break;
                         default:
-                            Partup.client.notify.error(__('pages-modal-register-signup-error_' + error.reason));
+                            Partup.client.notify.error(__('pages-modal-register-signup-error_' + Partup.client.strings.slugify(error.reason)));
                     }
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));

@@ -703,4 +703,41 @@ Migrations.add({
     }
 });
 
-Migrations.migrateTo(27);
+Migrations.add({
+    version: 28,
+    name: 'Add upper_count to network',
+    up: function() {
+        Networks.find().fetch().forEach(function(network) {
+            Networks.update(network._id, {
+                $set: {
+                    upper_count: (network.uppers || []).length
+                }
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+Migrations.add({
+    version: 29,
+    name: 'Set new email notification setting',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.settings.email.partups_new_comment_in_involved_conversation': true,
+                'profile.settings.email.partups_networks_new_upper': true,
+                'profile.settings.email.partups_networks_upper_left': true
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+
+Meteor.startup(function() {
+    Migrations.migrateTo(29);
+});

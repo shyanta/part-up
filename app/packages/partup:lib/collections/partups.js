@@ -313,6 +313,7 @@ Partup.prototype.addNewUpdateToUpperData = function(update) {
     var upper_data = this.upper_data || [];
     upper_data.forEach(function(upperData) {
         if (upperData._id === update.upper_id) return;
+        if (upperData._id === Meteor.userId()) return;
         upperData.new_updates.push(update._id);
     });
 
@@ -323,6 +324,7 @@ Partup.prototype.addNewUpdateToUpperData = function(update) {
     var newUpperIds = _.difference(this.getUsers(), currentUpperDataIds);
     newUpperIds.forEach(function(upperId) {
         if (upperId === update.upper_id) return;
+        if (upperId === Meteor.userId()) return;
         upper_data.push({
             _id: upperId,
             new_updates: [update._id]
@@ -627,6 +629,7 @@ Partups.findUpperPartupsForUser = function(user, parameters, loggedInUserId) {
         options.count = true;
     } else {
         options.limit = parseInt(parameters.limit);
+        options.skip = parseInt(parameters.skip);
         options.sort = parameters.sort || {updated_at: -1};
     }
 
@@ -661,6 +664,7 @@ Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId)
     if (parameters.count) {
         options.count = true;
     } else {
+        options.skip = parseInt(parameters.skip);
         options.limit = parseInt(parameters.limit);
         options.sort = parameters.sort || {updated_at: -1};
     }

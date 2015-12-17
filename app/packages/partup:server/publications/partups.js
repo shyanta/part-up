@@ -10,8 +10,8 @@
  * @param {number} parameters.skip
  * @param {string} parameters.language
  */
-Meteor.publishComposite('partups.discover', function(parameters) {
-    check(parameters, {
+Meteor.routeComposite('/partups/discover', function(request, parameters) {
+    check(parameters.query, {
         networkId: Match.Optional(String),
         locationId: Match.Optional(String),
         sort: Match.Optional(String),
@@ -22,20 +22,20 @@ Meteor.publishComposite('partups.discover', function(parameters) {
         userId: Match.Optional(String),
     });
 
+    parameters = {
+        networkId: parameters.query.networkId,
+        locationId: parameters.query.locationId,
+        sort: parameters.query.sort,
+        textSearch: parameters.query.textSearch,
+        limit: parameters.query.limit,
+        skip: parameters.query.skip,
+        language: (parameters.query.language === 'all') ? undefined : parameters.query.language
+    };
+
     var options = {};
 
     if (parameters.limit) options.limit = parseInt(parameters.limit);
     if (parameters.skip) options.skip = parseInt(parameters.skip);
-
-    parameters = {
-        networkId: parameters.networkId,
-        locationId: parameters.locationId,
-        sort: parameters.sort,
-        textSearch: parameters.textSearch,
-        limit: parameters.limit,
-        skip: parameters.skip,
-        language: (parameters.language === 'all') ? undefined : parameters.language
-    };
 
     return {
         find: function() {
@@ -57,9 +57,7 @@ Meteor.publishComposite('partups.discover', function(parameters) {
             ]}
         ]
     };
-}, {url: '/partups/discover', getArgsFromRequest: function(request) {
-    return [request.query];
-}});
+});
 
 /**
  * Publish multiple partups by ids

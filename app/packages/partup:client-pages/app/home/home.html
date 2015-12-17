@@ -72,14 +72,17 @@
                             </p>
                         </header>
                         <div class="pu-sub-partups">
+                            {{# ColumnTilesLayout instance=columnTilesLayout }}
+                                <div class="pu-tile">
+                                    {{> PartupTile }}
+                                </div>
+                            {{/ ColumnTilesLayout }}
+
                             {{# if popularPartupsLoading }}
                                 <div class="pu-sub-loading">
                                     {{> Spinner }}
                                 </div>
                             {{/ if }}
-                            {{# ColumnTilesLayout instance=columnTilesLayout }}
-                                {{> PartupTile }}
-                            {{/ ColumnTilesLayout }}
                         </div>
                         <footer class="pu-sub-popularpartupsfooter">
                             <p class="pu-sub-discoverbutton">

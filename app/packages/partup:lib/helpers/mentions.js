@@ -1,7 +1,7 @@
 /**
  * @namespace Helpers
  * @name Partup.helpers.mentions
- * @memberof Partup.helpers
+ * @memberOf Partup.helpers
  */
 Partup.helpers.mentions = {};
 
@@ -10,7 +10,7 @@ Partup.helpers.mentions = {};
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.extract
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  *
@@ -44,7 +44,7 @@ Partup.helpers.mentions.extract = function(message) {
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.decode
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  *
@@ -54,14 +54,41 @@ Partup.helpers.mentions.decode = function(message) {
     return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, function(m, users) {
         // decode supporter mentions
         var name = 'Supporters';
-        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-group">' + name + '</a>';
+        return '<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="' + users + '" class="pu-mention-group">' + name + '</a>';
     }).replace(/\[Partners:(?:([^\]]+))?\]/g, function(m, users) {
         // decode upper mentions
         var name = 'Partners';
-        return '<a data-usercard="group" data-usercard-list="' + users + '" class="pu-mention-group">' + name + '</a>';
+        return '<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="' + users + '" class="pu-mention-group">' + name + '</a>';
     }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
         // decode invividual mentions
-        return '<a data-usercard="' + id + '" class="pu-mention-user">' + name + '</a>';
+        return '<a href="' + Router.path('profile', {_id: id}) + '" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="' + id + '" class="pu-mention-user">' + name + '</a>';
+    });
+};
+
+/**
+ * Replace mentions in a message with hyperlinks
+ *
+ * @namespace Helpers
+ * @name Partup.helpers.mentions.decodeForInput
+ * @memberOf Partup.helpers.mentions
+ *
+ * @param {String} message
+ *
+ * @return {String}
+ */
+Partup.helpers.mentions.decodeForInput = function(message) {
+    if (!message && !message.length) return '';
+    return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, function(m, users) {
+        // decode supporter mentions
+        var name = 'Supporters';
+        return '@' + name;
+    }).replace(/\[Partners:(?:([^\]]+))?\]/g, function(m, users) {
+        // decode upper mentions
+        var name = 'Partners';
+        return '@' + name;
+    }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
+        // decode invividual mentions
+        return '@' + name;
     });
 };
 
@@ -70,7 +97,7 @@ Partup.helpers.mentions.decode = function(message) {
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.encode
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  * @param {Array} mentions
@@ -100,7 +127,6 @@ Partup.helpers.mentions.encode = function(message, mentions) {
                 // encodedMention = encodedMention + '!empty!';
             }
 
-
             // final part of encoded mention -> [partners:<user_id>,<user_id>]
             encodedMention = encodedMention + ']';
 
@@ -114,14 +140,14 @@ Partup.helpers.mentions.encode = function(message, mentions) {
     return message;
 };
 var replaceAll = function(str, find, replace) {
-  return str.replace(new RegExp(find, 'g'), replace);
+    return str.replace(new RegExp(find, 'g'), replace);
 };
 /**
  * Get the true character count of a message without the encoded mess of mentions
  *
  * @namespace Helpers
  * @name Partup.helpers.mentions.getTrueCharacterCount
- * @memberof Partup.helpers.mentions
+ * @memberOf Partup.helpers.mentions
  *
  * @param {String} message
  *
@@ -159,6 +185,17 @@ Partup.helpers.mentions.getTrueCharacterCount = function(message) {
         count = count - combinedCount(supporterMentionsArray);
     }
     return count;
+};
+
+Partup.helpers.mentions.exceedsLimit = function(message) {
+    var mentions = Partup.helpers.mentions.extract(message);
+    var users = lodash.filter(mentions, {type: 'single'});
+    if (users.length > 100) return 'tooManyUserMentions';
+    var partners = lodash.find(mentions, {name: 'Partners'});
+    if (partners && partners.users && partners.users.length > 100) return 'tooManyPartnerMentions';
+    var supporters = lodash.find(mentions, {name: 'Supporters'});
+    if (supporters && supporters.users && supporters.users.length > 100) return 'tooManySupporterMentions';
+    return false;
 };
 
 // mention helpers

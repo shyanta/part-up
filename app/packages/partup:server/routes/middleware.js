@@ -11,6 +11,7 @@ JsonRoutes.Middleware.use(function(request, response, next) {
         /\/partups\/discover\/count??((?!userId).)*$/, // /partups/discover/count?query (only if userId is not present)
         /\/partups\/home\/[a-zA-Z]+$/, // /partups/home/en
         /\/partups\/featured_one_random\/[a-zA-Z]+$/, // /partups/featured_one_random/en
+        /\/users\/count$/, // /users/count
     ];
 
     var shouldCache = false;

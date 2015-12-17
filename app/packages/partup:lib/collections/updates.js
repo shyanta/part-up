@@ -122,6 +122,35 @@ Update.prototype.isLatestUpdateOfItsPartup = function() {
 };
 
 /**
+ * Check if an given upper is involved in this update
+ *
+ * @memberOf Updates
+ *
+ * @return {[String]}
+ */
+Update.prototype.getInvolvedUppers = function() {
+    // Start with the creator of the update
+    var uppers = [this.upper_id];
+
+    // Add contributors if update is an activity
+    if (this.type_data && this.type_data.activity_id) {
+        Contributions.find({activity_id: this.type_data.activity_id}, {upper_id: 1}).fetch().forEach(function(contribution) {
+            uppers.push(contribution.upper_id);
+        });
+    }
+
+    // Add uppers that commented on update
+    if (this.comments && this.comments.length > 0) {
+        this.comments.forEach(function(comment) {
+            uppers.push(comment.creator._id);
+        });
+    }
+
+    // Remove duplicates and return array
+    return lodash.unique(uppers);
+};
+
+/**
  * @namespace Updates
  * @memberOf Collection
  */

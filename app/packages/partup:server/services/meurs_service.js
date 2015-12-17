@@ -68,7 +68,7 @@ Partup.server.services.meurs = {
             authToken: token,
             userName: userId,
             password: '@1Aa' + Random.id(),
-            email: email
+            email: email.replace('+', '')
         });
 
         return result.data.q4youID;

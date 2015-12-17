@@ -78,20 +78,10 @@ Router.route('/profile/:_id', {
         };
     },
     onBeforeAction: function() {
-        var userProfile = Meteor.users.findOne({_id: this.params._id});
-        var viewable = User(userProfile).aboutPageIsViewable();
-
         // when `?results_ready=true` this call must be made
         var resultsReady = this.params.query.results_ready || false;
         if (resultsReady) Meteor.call('meurs.get_results', this.params._id);
-        if (!viewable) {
-            this.render('app', {to: 'main'});
-            this.render('app_profile', {to: 'app'});
-            this.render('app_profile_upper_partups', {to: 'app_profile'});
-        } else {
-            this.render();
-        }
-
+        this.next();
     }
 });
 
@@ -797,6 +787,11 @@ if (Meteor.isClient) {
         if (data) currentRoute.state.set('data', data);
         currentRoute.render('app', {to: 'main'}); // this is so it also works for modals
         currentRoute.render('app_notfound', {to: 'app'});
+    };
+
+    Router.replaceYieldTemplate = function(newTemplate, target) {
+        var currentRoute = this.current();
+        currentRoute.render(newTemplate, {to: target});
     };
 } else {
     Router.route('/dreams/:path(.*)', {

@@ -12,6 +12,7 @@
 
     "dropdowns-notifications-button-opennotificationsdropdown": "Notifications",
     "dropdowns-notifications-placeholder-nonotifications": "You don't have any notifications yet",
+    "dropdowns-notifications-button-loadmore": "Show more",
     "dropdowns-notifications-button-managenotifications": "Manage notifications",
 
     "dropdowns-updatesactions-label": "Show:",
@@ -43,6 +44,13 @@
     "dropdown-notification-partups_contributions_inserted": "__creator__ added a contribution",
     "dropdown-notification-partups_contributions_proposed": "__creator__ proposed a contribution",
     "dropdown-notification-partups_ratings_reminder": "Don't forget to rate your partners in __partup__",
-    "dropdown-notification-partups_user_mentioned": "__mentioning_upper__ has mentioned you in __partup__",
-    "dropdown-notification-partup_created_in_network": "__creator__ has created __partup__ in __network__"
+    "dropdown-notification-partups_user_mentioned": "__mentioning_upper__ mentioned you",
+    "dropdown-notification-partup_created_in_network": "__creator__ has created __partup__ in __network__",
+    "dropdown-notification-partups_new_comment_in_involved_conversation": "__commenter__ replied to a conversation you're involved in",
+    "dropdown-notification-partups_networks_new_upper": "__upper__ is now a member of __network__",
+    "dropdown-notification-partups_networks_upper_left": "__upper__ has left __network__",
+    "dropdown-notification-multiple_comments_in_conversation_since_visit": "__upper__ and __others_count__ others have replied on a conversation you're involved in",
+    "dropdown-notification-partups_multiple_updates_since_visit": "__upper__ and __others_count__ other(s) placed updates",
+    "dropdown-notification-partups_multiple_updates_since_visit_single_person": "__upper__ placed multiple updates",
+    "dropdown-notification-networks_multiple_new_uppers_since_visit": "__upper__ and __others_count__ others joined __network__"
 }

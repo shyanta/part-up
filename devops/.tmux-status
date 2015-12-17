@@ -4,6 +4,8 @@ PARTUP_STAGING=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --ma
 PARTUP_ACCEPTANCE=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 5 https://pu-acceptance.lifely.nl/ping)
 PARTUP_PRODUCTION=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 5 https://part-up.com/ping)
 
+echo -n "#[fg=colour3]Part-up"
+
 if [ $PARTUP_STAGING -eq "200" ]; then
     VERSION=$(curl https://pu-staging.lifely.nl/VERSION | jq -r .version)
     echo -n "#[fg=colour2] STAG ($VERSION) ✔"

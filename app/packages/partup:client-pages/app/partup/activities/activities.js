@@ -43,7 +43,7 @@ Template.app_partup_activities.onCreated(function() {
 
     // Partup findOne and activities subscription
     tpl.activities.loading.set(true);
-    var sub = Subs.subscribe('activities.from_partup', tpl.partupId);
+    var sub = tpl.subscribe('activities.from_partup', tpl.partupId);
 
     tpl.autorun(function(c) {
         var partup = Partups.findOne(tpl.partupId);

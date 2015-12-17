@@ -17,15 +17,22 @@ Partup.client.uploader = {
         var canvas = document.createElement('canvas');
         var self = this;
 
+        var IE = this.isIE();
+
         var userId = Meteor.userId();
         // TODO: Error if user is not loggedin
-
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-
+        // console.log(file);
+        if (IE) {
+            var reader = new mOxie.FileReader();
+        } else {
+            var reader = new FileReader();
+        }
         reader.onload = function(e) {
             img.src = e.target.result;
         };
+        // console.log(reader)
+        reader.readAsDataURL(file);
+
 
         img.onload = function() {
             var width = img.naturalWidth;
@@ -58,34 +65,62 @@ Partup.client.uploader = {
 
             var resizedFile = self.dataURLToBlob(dataUrl);
 
-            var newFile = new File([resizedFile], file.name);
+            if (IE) {
 
-            newFile.type = resizedFile.type;
-
-            var token = Accounts._storedLoginToken();
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', Meteor.absoluteUrl() + 'images/upload?token=' + token, false);
-
-            var formData = new FormData();
-            formData.append('file', newFile);
-            xhr.send(formData);
-
-            var data = JSON.parse(xhr.responseText);
-
-            if (data.error) {
-                callback(data.error);
+                resizedFile.name = file.name;
+                var newFile = new mOxie.File(null, resizedFile);
+            } else {
+                var newFile = new File([resizedFile], file.name);
             }
 
-            Meteor.subscribe('images.one', data.image);
-            Meteor.autorun(function(computation) {
-                var image = Images.findOne({_id: data.image});
-                if (image) {
-                    computation.stop();
-                    Tracker.nonreactive(function() {
-                        callback(null, image);
-                    });
+            var token = Accounts._storedLoginToken();
+            if (IE) {
+                var xhr = new mOxie.XMLHttpRequest();
+            } else {
+                var xhr = new XMLHttpRequest();
+            }
+            var location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            var url = location + '/images/upload?token=' + token;
+            console.log(url);
+            xhr.open('POST', url, true);
+
+            if (IE) {
+                var formData = new mOxie.FormData();
+            } else {
+                var formData = new FormData();
+            }
+            formData.append('file', newFile);
+
+            var loadHandler = function(e) {
+                var data = JSON.parse(xhr.responseText);
+                if (data.error) {
+                    callback(data.error);
+                    return;
                 }
-            });
+                Meteor.subscribe('images.one', data.image);
+                Meteor.autorun(function(computation) {
+                    var image = Images.findOne({_id: data.image});
+                    if (image) {
+                        computation.stop();
+                        Tracker.nonreactive(function() {
+                            callback(null, image);
+                        });
+                    }
+                });
+                xhr.removeEventListener('load', loadHandler);
+                xhr.removeEventListener('error', errorHandler);
+            };
+
+            var errorHandler = function(e) {
+                xhr.removeEventListener('load', loadHandler);
+                xhr.removeEventListener('error', errorHandler);
+            };
+
+            xhr.addEventListener('load', loadHandler);
+            xhr.addEventListener('error', errorHandler);
+
+            console.log('start xhr load');
+            xhr.send(formData);
         };
     },
 
@@ -163,6 +198,61 @@ Partup.client.uploader = {
                 });
             });
         });
+    },
+
+    /**
+     * Create file input, uses FileReader polyfill for unsupported brwosers
+     *
+     * @memberOf Partup.client
+     * @param {Object} options
+     * @param {Element} options.buttonElement
+     * @param {Element} options.fileInput
+     * @param {Boolean} options.multiple
+     */
+    create: function(options) {
+        var buttonElement = options.buttonElement || null;
+        var fileInput = options.fileInput || null;
+        var multiple = options.multiple || false;
+        var isIE = this.isIE();
+        if (isIE) {
+            fileInput = new mOxie.FileInput({
+                browse_button: buttonElement, // or document.getElementById('file-picker')
+                accept: [
+                    {title: 'Image files', extensions: 'jpg,gif,png'} // accept only images
+                ],
+                multiple: multiple, // allow multiple file selection
+                runtime_order: 'flash,silverlight,html4,html5',
+            });
+            fileInput.onchange = function(event) {
+                options.onFileChange(event);
+            };
+            fileInput.init();
+        } else {
+            buttonElement.addEventListener('click', function(event) {
+                event.preventDefault();
+                $(fileInput).click();
+            });
+            fileInput.addEventListener('change', function(event) {
+                options.onFileChange(event);
+            });
+        }
+
+    },
+
+    isIE: function() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+            return true;
+        }
+
+        if (/Edge\/12./i.test(navigator.userAgent)) {
+            // this is Microsoft Edge
+            return true;
+        }
+
+        return false;
     }
 
 };

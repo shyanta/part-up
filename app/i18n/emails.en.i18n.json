@@ -9,5 +9,8 @@
     "emails-invite_upper_to_network-subject": "Invitation for tribe __network__",
     "emails-partup_created_in_network-subject": "New part-up created in tribe __network__",
     "emails-partups_networks_new_pending_upper-subject": "__upper__ is asking for permission to join tribe __network__",
-    "emails-partups_networks_accepted-subject": "You have been accepted to tribe __network__"
+    "emails-partups_networks_accepted-subject": "You have been accepted to tribe __network__",
+    "emails-partups_new_comment_in_involved_conversation-subject": "There is a reply on a conversation you're involved in",
+    "emails-partups_networks_new_upper-subject": "New upper in tribe __network__",
+    "emails-partups_networks_upper_left-subject": "An upper has left tribe __network__"
 }

@@ -181,8 +181,8 @@ Meteor.methods({
     /**
      * Copy activities from one Partup to another
      *
-     * @param  {string} fromPartupId
-     * @param  {string} toPartupId
+     * @param  {String} fromPartupId
+     * @param  {String} toPartupId
      */
     'activities.copy': function(fromPartupId, toPartupId) {
         check(fromPartupId, String);

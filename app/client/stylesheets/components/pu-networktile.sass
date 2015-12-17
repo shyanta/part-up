@@ -1,6 +1,6 @@
 .pu-networktile
-    width: 100%
-    display: table
+    display: block
+    position: relative
     color: $color-text
     text-decoration: none
     font-size: 16px
@@ -8,8 +8,10 @@
     transition: background .2s
 
     .pu-sub-figurecontainer
-        display: table-cell
-        vertical-align: middle
+        display: block
+        position: absolute
+        top: 2px
+        left: 0
 
     figure
         width: 16px
@@ -20,15 +22,11 @@
         background-color: #eee
 
     .pu-sub-namecontainer
-        display: table-cell
-        width: 100%
-        vertical-align: top
-        padding-left: 10px
-
-    span
         display: block
-        margin-top: -2px
-        margin-bottom: -7px
+        padding-left: 24px
+        white-space: nowrap
+        text-overflow: ellipsis
+        overflow: hidden
 
     &:after
         content: ''

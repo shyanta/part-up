@@ -9,8 +9,10 @@
 178.62.82.115 name=partup-acceptance-london1-02
 
 [appservers-production]
-46.101.51.124 name=partup-production-london1-01
-178.62.67.36 name=partup-production-london1-02
+178.62.88.196 name=partup-production-london1-04
+46.101.10.191 name=partup-production-london1-05
+178.62.125.185 name=partup-production-london1-06
+46.101.1.145 name=partup-production-london1-07
 
 [appservers-all:children]
 appservers-staging

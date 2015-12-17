@@ -1,13 +1,4 @@
 /**
- * Publish a count of all users
- */
-Meteor.publish('users.count', function() {
-    this.unblock();
-
-    Counts.publish(this, 'users', Meteor.users.find());
-});
-
-/**
  * Publish a user
  *
  * @param {String} userId
@@ -30,84 +21,54 @@ Meteor.publishComposite('users.one', function(userId) {
 /**
  * Publish all partups a user is upper in
  *
- * @param {String} userId
- * @param {Object} parameters
+ * @param {Object} request
+ * @param {Object} params
  */
-Meteor.publishComposite('users.one.upperpartups', function(userId, parameters) {
-    check(userId, String);
+Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
+    var options = {};
 
-    parameters = parameters || {};
-    check(parameters, {
-        limit: Match.Optional(Number),
-        sort: Match.Optional(String),
-        count: Match.Optional(Boolean)
-    });
-
-    this.unblock();
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
 
     return {
         find: function() {
-            var user = Meteor.users.findOne(userId);
+            var user = Meteor.users.findOne(params.id);
             if (!user) return;
 
-            return Partups.findUpperPartupsForUser(user, parameters, this.userId);
+            return Partups.findUpperPartupsForUser(user, options, this.userId);
         },
         children: [
             {find: Images.findForPartup},
             {find: Meteor.users.findUppersForPartup, children: [
                 {find: Images.findForUser}
             ]},
-            {find: Meteor.users.findSupportersForPartup},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
-                {find: Images.findForNetwork}
-            ]}
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+                children: [
+                    {find: Images.findForNetwork}
+                ]
+            }
         ]
     };
-});
-
-/**
- * Publish a count of all partups a user is upper in
- *
- * @param {String} userId
- */
-Meteor.publish('users.one.upperpartups.count', function(userId) {
-    check(userId, String);
-
-    this.unblock();
-
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
-
-    Counts.publish(this, 'users.one.upperpartups.filterquery', Partups.findUpperPartupsForUser(user, {count:true}, this.userId));
 });
 
 /**
  * Publish all partups a user is supporter of
  *
- * @param {String} userId
- * @param {Object} parameters
- * @param {Number} parameters.limit
- * @param {String} parameters.sort
- * @param {Boolean} parameters.count
+ * @param {Object} request
+ * @param {Object} params
  */
-Meteor.publishComposite('users.one.supporterpartups', function(userId, parameters) {
-    check(userId, String);
+Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
+    var options = {};
 
-    parameters = parameters || {};
-    check(parameters, {
-        limit: Match.Optional(Number),
-        sort: Match.Optional(String),
-        count: Match.Optional(Boolean)
-    });
-
-    this.unblock();
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
 
     return {
         find: function() {
-            var user = Meteor.users.findOne(userId);
+            var user = Meteor.users.findOne(params.id);
             if (!user) return;
 
-            return Partups.findSupporterPartupsForUser(user, parameters, this.userId);
+            return Partups.findSupporterPartupsForUser(user, options, this.userId);
         },
         children: [
             {find: Images.findForPartup},
@@ -115,7 +76,8 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
                 {find: Images.findForUser}
             ]},
             {find: Meteor.users.findSupportersForPartup},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            children: [
                 {find: Images.findForNetwork}
             ]}
         ]
@@ -123,42 +85,44 @@ Meteor.publishComposite('users.one.supporterpartups', function(userId, parameter
 });
 
 /**
- * Publish a count of all partups a user is supporter of
+ * Publish all networks a user is in
  *
- * @param {String} userId
+ * @param {Object} request
+ * @param {Object} params
  */
-Meteor.publish('users.one.supporterpartups.count', function(userId) {
-    check(userId, String);
+Meteor.routeComposite('/users/:id/networks', function(request, params) {
+    var options = {};
 
-    this.unblock();
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
 
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
+    return {
+        find: function() {
+            var user = Meteor.users.findOne(params.id);
+            if (!user) return;
 
-    Counts.publish(this, 'users.one.supporterpartups.filterquery', Partups.findSupporterPartupsForUser(user, {count: true}, this.userId));
+            return Networks.findForUser(user, this.userId);
+        },
+        children: [
+            {find: Images.findForNetwork}
+        ]
+    };
 });
 
 /**
  * Publish the loggedin user
  */
 Meteor.publishComposite('users.loggedin', function() {
-    // this.unblock();
-
     return {
         find: function() {
-            return Meteor.users.findSinglePrivateProfile(this.userId);
+            if (this.userId) {
+                return Meteor.users.findSinglePrivateProfile(this.userId);
+            } else {
+                this.ready();
+            }
         },
         children: [
-            {find: Images.findForUser},
-            {find: function(user) {
-                return Networks.findForUser(user, this.userId);
-            },
-            children: [
-                {find: Images.findForNetwork}
-            ]},
-            {find: Notifications.findForUser, children: [
-                {find: Images.findForNotification}
-            ]}
+            {find: Images.findForUser}
         ]
     };
 });

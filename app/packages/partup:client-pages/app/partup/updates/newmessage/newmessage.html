@@ -1,10 +1,10 @@
 <template name="app_partup_updates_newmessage">
-    {{#autoForm schema=formSchema id="newMessageForm" class="pu-form pu-form-popup" }}
+    {{#autoForm schema=formSchema id=state.formId class="pu-form pu-form-popup" doc=formDoc }}
         <label class="pu-formfield">
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
                     <div class="pu-message {{#if uploadedPhotos.length}}pu-message-haspictures{{/ if}}">
-                        {{> afFieldInput name="text" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
+                        {{> afFieldInput name="text" data-message-input="" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
                         {{#if uploadedPhotos.length}}
                             <ul class="pu-sub-photos">
                                 {{#each uploadedPhotos}}
@@ -21,8 +21,12 @@
         </label>
         <footer class="pu-row">
             <div class="cell">
-                <button class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
-                    <span>{{_ 'pages-app-partup-updates-newmessage-submit'}}</span>
+                <button class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-submit>
+                    {{#if state.edit}}
+                        <span>{{_ 'pages-app-partup-updates-editmessage-submit'}}</span>
+                    {{else}}
+                        <span>{{_ 'pages-app-partup-updates-newmessage-submit'}}</span>
+                    {{/if}}
                     {{> Spinner color='inverted' type='small' }}
                 </button>
             </div>
@@ -30,13 +34,15 @@
                 <a class=" pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
             </div>
             <div class="cell last">
-                <input type="file" class="pu-fileinput" multiple data-photo-input>
-                <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}} {{#if photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
-                    <span>{{_ 'pages-app-partup-updates-newmessage-addphoto'}}</span>
-                    {{#if uploadingPhotos}}
-                        {{> Spinner color='inverted' type='small'}}
-                    {{/if}}
-                </button>
+                {{#FileInput inputSettings=imageInput}}
+                    <button class="pu-button pu-button-secondary {{#if uploadingPhotos}}pu-state-loading{{/if}} {{#if photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
+                        <span>{{_ 'pages-app-partup-updates-newmessage-addphoto'}}</span>
+                        {{#if uploadingPhotos}}
+                            {{> Spinner color='inverted' type='small'}}
+                        {{/if}}
+                    </button>
+                    <input type="file" class="pu-fileinput" multiple data-photo-input>
+                {{/FileInput}}
             </div>
         </footer>
     {{/autoForm}}
