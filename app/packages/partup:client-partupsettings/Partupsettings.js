@@ -48,6 +48,8 @@ Template.Partupsettings.onCreated(function() {
     template.currentCurrency = new ReactiveVar('EUR');
     template.formId = template.data.FORM_ID;
 
+    template.subscribe('networks.list');
+
     template.autorun(function() {
         var partup = Template.currentData().currentPartup;
         if (!partup) return;
