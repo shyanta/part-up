@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.16.1
+- Fixed Tribes dropdown in create part-up incomplete #137
+
 ## 1.16.0
 - Notifications (#15)
 - New notifications (#4 + #89)
