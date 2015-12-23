@@ -1,0 +1,53 @@
+meteor:
+  build: .
+  links:
+    - mongo
+  environment:
+    AWS_ACCESS_KEY_ID: "AKIAIS3THTV347PY4KIQ"
+    AWS_SECRET_ACCESS_KEY: "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"
+    AWS_BUCKET_REGION: "eu-west-1"
+    AWS_BUCKET_NAME: "pu-development"
+    FACEBOOK_APP_ID: "361617237358681"
+    FACEBOOK_APP_SECRET: "56eb9b45da0ce70ff5e2ab6d13a4882e"
+    FLICKR_API_KEY: "8bbc8a9cbe7bce17824c8290929f9288"
+    FLICKR_SECRET_KEY: "94f9b96b1d18f0dc"
+    GOOGLE_API_KEY: "AIzaSyBdK5Dais_cwk5A2zqBYdCn53hAG23rIrI"
+    KADIRA_APP_ID: "zcDKfyy9iNLkMficj"
+    KADIRA_APP_SECRET: "2426dd9a-cb7f-4f0c-ab43-372addf7844c"
+    LINKEDIN_API_KEY: "77llc0vucc0zi6"
+    LINKEDIN_SECRET_KEY: "zsLKqLDm2cKPnx5S"
+    MAIL_URL: ""
+    METEOR_SETTINGS:
+    >
+      {
+          "public": {
+              "aws": {
+                  "bucket": "pu-development",
+                  "region": "eu-west-1"
+              },
+              "facebookAppId": "361617237358681",
+              "analyticsSettings": {
+                  "Google Analytics": {
+                      "trackingId": "UA-34557675-15"
+                  }
+              },
+              "intercom": {
+                  "id": "",
+                  "allowAnonymous": true
+              }
+
+          }
+      }
+    MONGO_URL: mongodb://mongo:27017 meteor
+    NEW_RELIC_LICENSE_KEY: "203f063296ccd628ed816bcbc73c79b5443221b3"
+    NEW_RELIC_NO_CONFIG_FILE: "true"
+    NEW_RELIC_APP_NAME: "partup-local"
+    ROOT_URL: http://localhost:80
+    TZ: Europe/Amsterdam
+  ports:
+    - 80
+mongo:
+  image: mongo:2
+  command: mongod --smallfiles
+  ports:
+   - 27017
