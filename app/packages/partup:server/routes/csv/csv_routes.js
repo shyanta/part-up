@@ -129,8 +129,8 @@ var exportCSV = function(responseStream) {
     var count = 0;
     users.forEach(function(user) {
         var objectUser = User(user);
-        var createdAt = user.createdAt ? new Date(user.createdAt).toString() : undefined;
-        var deactivatedAt = user.deactivatedAt ? new Date(user.deactivatedAt).toString() : undefined;
+        var createdAt = user.createdAt ? moment(new Date(user.createdAt)).format('DD-MM-YYYY') : undefined;
+        var deactivatedAt = user.deactivatedAt ? moment(new Date(user.deactivatedAt)).format('DD-MM-YYYY') : undefined;
         userStream.write([
             user._id,
             user.profile.name,

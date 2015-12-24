@@ -19,7 +19,7 @@ Part-up
 # Frontend
 
 ## Structure
-We have four types of application parts: *layout*, *page*, *widget* and *small component*. The explanation below points out their uses. Grahpic: **app/packages/partup:client-pages/app** and for the modals **app/packages/partup:client-pages/modal**. 
+We have four types of application parts: *layout*, *page*, *widget* and *small component*. The explanation below points out their uses. Grahpic: **app/packages/partup:client-pages/app** and for the modals **app/packages/partup:client-pages/modal**.
 
 ### Layout
 Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The Sass file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality.
@@ -68,7 +68,7 @@ The whole app is made up of small styled components. These components are not fu
 
 ## Deployment
 - `cd devops`
-- `./devops deploy <environment>`
+- `./devops provision <environment> all --tags=app` (provide the SHA hash of the commit to be deployed, make sure it is build by Jenkins upfront)
 
 ## MongoDB
 

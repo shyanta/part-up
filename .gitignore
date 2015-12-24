@@ -21,6 +21,7 @@ app/public/VERSION
 
 # Backups
 backups
+translation-exports
 
 # Saved pictures
 app/uploads
