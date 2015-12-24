@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.16.2
+- fix(emails): fixed commenter name in "conversation reply email", fix #141
+- fix(csvexport): changed dates to google drive importable date
+
 ## 1.16.1
 - Fixed Tribes dropdown in create part-up incomplete #137
 
