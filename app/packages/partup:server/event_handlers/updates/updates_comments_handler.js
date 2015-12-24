@@ -131,7 +131,7 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             locale: User(notifiedUpper).getLocale(),
             typeData: {
                 name: User(notifiedUpper).getFirstname(),
-                upperName: notifiedUpper.profile.name,
+                upperName: comment.creator.name,
                 partupName: partup.name,
                 url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + update._id,
                 unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + notifiedUpper.profile.settings.unsubscribe_email_token,
