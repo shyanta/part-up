@@ -76,8 +76,7 @@ The whole app is made up of small styled components. These components are not fu
  2. If everything is OK, create a new branch ```git checkout -b MD*.**.* // whatever release version you need ``` Please check the [CHANGELOG.md](https://github.com/part-up/part-up/blob/develop/CHANGELOG.md) to understand the version management of this project.  For more information about Semantic Versioning please take a look at: http://semver.org/ 
  3. Update the CHANGELOG.md.
  
- For each fix or feature changes please include the commit message/description and if possible the related issue number, eg. ```fix(emails): fixed commenter name in "conversation reply email", fix #141
- ```
+ For each fix or feature changes please include the commit message/description and if possible the related issue number, eg. ```fix(emails): fixed commenter name in "conversation reply email", fix #141```
  4. Commit your updated CHANGELOG.md. 
  
  **Tip**: ``` git commit -am "docs(changelog): add changelog MD*.**.* // whatever release version you need" ```
