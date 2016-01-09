@@ -140,7 +140,21 @@ Partup.client.scroll = {
         }, duration, 'swing', function() {
             if (callback) callback.apply(window);
         });
-    }
+    },
+    scrollToAndFocusErrorField: function() {
+       Meteor.setTimeout(function () {
+         try {
+           var $invalid = $('.pu-state-invalid:first');
+           var $label = $invalid.parent().find('.pu-label');
+           var $progresspager = $('.pu-progresspager');
+           var $header = $('.pu-header');
+           var offsetTop = ($progresspager) ? $label.offset().top - 10 : 0;
+           Partup.client.scroll.to($label.get(0), Math.abs(offsetTop), { duration: 100 });
+           $input = $invalid.find('input:visible, textarea:visible').first();
+           $input.get(0).focus();
+         } catch(e) {}
+       }, 0);
+     }
 };
 
 Partup.client.scroll.triggerUpdate();
