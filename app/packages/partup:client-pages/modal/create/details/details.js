@@ -95,7 +95,7 @@ var createOrUpdatePartup = function createOrUpdatePartup(partupId, insertDoc, ca
 /*************************************************************/
 var afHooks = {};
 afHooks[FORM_ID] = {
-    onError: Template.modal.__helpers.get('scrollToAndFocusErrorField'),
+    onError: Partup.client.scroll.scrollToAndFocusErrorField,
     onSubmit: function(insertDoc) {
         var self = this;
         var submissionType = Session.get('partials.create-partup.submission-type') || 'next';
