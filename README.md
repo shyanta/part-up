@@ -66,7 +66,7 @@ The whole app is made up of small styled components. These components are not fu
 
 # DevOps
 
-## Deployment
+## Quick deployment
 - `cd devops`
 - `./devops provision <environment> all --tags=app` (provide the SHA hash of the commit to be deployed, make sure it is build by Jenkins upfront)
 
