@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.16.3
+- feat(part-up-details): Scroll and focus on the first invalid field (#156)
+
 ## 1.16.2
 - fix(emails): fixed commenter name in "conversation reply email", fix #141
 - fix(csvexport): changed dates to google drive importable date
