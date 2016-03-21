@@ -94,6 +94,8 @@ Package.onUse(function(api) {
             'app/network/tabs/closed.js',
             'app/network/tabs/about.html',
             'app/network/tabs/about.js',
+            'app/network/tabs/chat.html',
+            'app/network/tabs/chat.js',
 
             // App:profile
             'app/profile/profile.html',

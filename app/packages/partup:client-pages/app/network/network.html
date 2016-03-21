@@ -40,6 +40,17 @@
                                     {{_ 'pages-app-network-tab-button-about'}}
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ pathFor route='network-chat' slug=data.network.slug }}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-chat' class='pu-state-active'}}">
+                                    <i class="picon-chart"></i>
+                                    {{_ 'pages-app-network-tab-button-chat'}}
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- actions -->
+                        <ul class="pu-list pu-list-horizontal pu-sub-right">
                             {{# with data.network }}
                                 {{# if isAdmin currentUser._id }}
                                     <li>
