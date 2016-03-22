@@ -1,0 +1,76 @@
+.pu-chatbox
+    position: relative
+    border: 2px solid #eee
+    border-radius: 4px
+    margin-top: 50px
+    padding: 18px 18px
+
+    > header
+        font-weight: bold
+
+        span
+            font-size: 13px
+            color: $color-text-subtle
+
+    .pu-avatar
+        width: 32px
+        height: 32px
+        position: absolute
+        top: 0
+
+    &:after, &:before
+        top: 20px
+        border: solid transparent
+        content: " "
+        height: 0
+        width: 0
+        position: absolute
+        pointer-events: none
+
+    &-send
+        background: #fff
+
+        .pu-avatar
+            right: -50px
+
+        &:after, &:before
+            left: 100%
+
+        &:after
+            border-color: rgba(255, 255, 255, 0)
+            border-left-color: #fff
+            border-width: 8px
+            margin-top: -8px
+
+        &:before
+            border-color: rgba(238, 238, 238, 0)
+            border-left-color: #eee
+            border-width: 11px
+            margin-top: -11px
+
+    &-receive
+        background: #eee
+
+        .pu-avatar
+            left: -50px
+
+        &:after, &:before
+            right: 100%
+
+        &:after
+            border-color: rgba(255, 255, 255, 0)
+            border-right-color: #eee
+            border-width: 8px
+            margin-top: -8px
+
+        &:before
+            border-color: rgba(238, 238, 238, 0)
+            border-right-color: #eee
+            border-width: 11px
+            margin-top: -11px
+
+
+
+
+
+
