@@ -12,7 +12,7 @@ $border-radius: 4px
 
     &-receive
         .pu-avatar
-            left: -48px
+            left: -42px
 
         .pu-list
             li
@@ -23,13 +23,16 @@ $border-radius: 4px
                     border-top-left-radius: $border-radius
                     border-top-right-radius: $border-radius
                     border-bottom-right-radius: $border-radius
-                    padding-bottom: 0
-                    margin-bottom: -7px
                     font-weight: bold
 
-                    span
+                    span.data
                         font-size: 13px
                         color: $color-text-subtle
+
+                    span.content
+                        display: block
+                        font-weight: normal
+                        margin-top: -4px;
 
                 &:last-child p
                     border-top-right-radius: $border-radius
@@ -45,7 +48,7 @@ $border-radius: 4px
                     border-bottom-right-radius: $border-radius
 
             &:after, &:before
-                right: 99.6%
+                right: 99.8%
                 top: 18px
                 border: solid transparent
                 content: " "
@@ -57,14 +60,14 @@ $border-radius: 4px
             &:after
                 border-color: rgba(255, 255, 255, 0)
                 border-right-color: #eee
-                border-width: 8px
-                margin-top: -8px
+                border-width: 7px
+                margin-top: -7px
 
             &:before
                 border-color: rgba(238, 238, 238, 0)
                 border-right-color: #eee
-                border-width: 11px
-                margin-top: -11px
+                border-width: 10px
+                margin-top: -10px
 
     &-send
         .pu-avatar
@@ -90,7 +93,7 @@ $border-radius: 4px
                     span.content
                         display: block
                         font-weight: normal
-                        margin-top: -5px;
+                        margin-top: -4px;
 
                 &:last-child p
                     border-top-left-radius: $border-radius
@@ -104,6 +107,7 @@ $border-radius: 4px
                     border: 2px solid #eee
                     border-top-left-radius: $border-radius
                     border-bottom-left-radius: $border-radius
+                    text-align: left
 
             &:after, &:before
                 left: 99.8%
