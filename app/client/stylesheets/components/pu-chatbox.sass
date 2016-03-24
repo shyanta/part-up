@@ -1,3 +1,5 @@
+$border-radius: 4px
+
 .pu-chatbox
     position: relative
     margin-bottom: 20px
@@ -6,188 +8,45 @@
         width: 32px
         height: 32px
         position: absolute
-        top: 0
-
-            // &:after, &:before
-            //     left: 100%
-            //     top: 20px
-            //     border: solid transparent
-            //     content: " "
-            //     height: 0
-            //     width: 0
-            //     position: absolute
-            //     pointer-events: none
-
-            // &:after
-            //     border-color: rgba(255, 255, 255, 0)
-            //     border-left-color: #fff
-            //     border-width: 8px
-            //     margin-top: -8px
-
-            // &:before
-            //     border-color: rgba(238, 238, 238, 0)
-            //     border-left-color: #eee
-            //     border-width: 11px
-            //     margin-top: -11px
-
-    .pu-list
-        li
-            display: block
-            margin-bottom: 2px
-
-            &:first-child p
-                border-top-left-radius: 14px
-                border-top-right-radius: 14px
-                // border-top: none
-                // border-top-left-radius: 0
-                // padding-top: 0
-                // margin-top: -3px
-                font-weight: bold
-
-                span
-                    font-size: 13px
-                    color: $color-text-subtle
-
-            p
-                display: inline-block
-                padding: 8px 18px
-                background: #eee
-                border: 2px solid #eee
-                // border-top-left-radius: 14px
-                // border-bottom-left-radius: 14px
-                // margin-bottom: 2px
-
-
-                &:last-child
-                    // border-top-left-radius: 14px
-                    // border-bottom-right-radius: 14px
-                    // border-bottom-left-radius: 14px
-
-
-
+        top: 2px
 
     &-receive
-        > header
-            border-top: 2px solid #eee
-            border-right: 2px solid #eee
-            border-left: 2px solid #eee
-            border-top-left-radius: 14px
-            border-top-right-radius: 14px
-            font-weight: bold
-            padding-top: 8px
-            padding-left: 18px
-            background: #eee
-
-            span
-                font-size: 13px
-                color: $color-text-subtle
-
-            &:after, &:before
-                right: 100%
-                top: 20px
-                border: solid transparent
-                content: " "
-                height: 0
-                width: 0
-                position: absolute
-                pointer-events: none
-
-            &:after
-                border-color: rgba(255, 255, 255, 0)
-                border-right-color: #eee
-                border-width: 8px
-                margin-top: -8px
-
-            &:before
-                border-color: rgba(238, 238, 238, 0)
-                border-right-color: #eee
-                border-width: 11px
-                margin-top: -11px
+        .pu-avatar
+            left: -48px
 
         .pu-list
             li
                 display: block
-                padding: 8px 18px
-                background: #eee
-                border: 2px solid #eee
-                border-top-right-radius: 14px
-                border-bottom-right-radius: 14px
                 margin-bottom: 2px
 
-                &:first-child
-                    border-top: none
-                    border-top-right-radius: 0
-                    padding-top: 0
-                    margin-top: -3px
+                &:first-child p
+                    border-top-left-radius: $border-radius
+                    border-top-right-radius: $border-radius
+                    border-bottom-right-radius: $border-radius
+                    padding-bottom: 0
+                    margin-bottom: -7px
+                    font-weight: bold
 
-                &:last-child
-                    border-top-right-radius: 14px
-                    border-bottom-right-radius: 14px
-                    border-bottom-left-radius: 14px
+                    span
+                        font-size: 13px
+                        color: $color-text-subtle
 
+                &:last-child p
+                    border-top-right-radius: $border-radius
+                    border-bottom-right-radius: $border-radius
+                    border-bottom-left-radius: $border-radius
 
+                p
+                    display: inline-block
+                    padding: 8px 18px
+                    background: #eee
+                    border: 2px solid #eee
+                    border-top-right-radius: $border-radius
+                    border-bottom-right-radius: $border-radius
 
-// .pu-chatbox
-//     background: #fff
-//     position: relative
-//     border: 2px solid #eee
-//     border-radius: 4px
-//     margin-top: 50px
-//     padding: 18px 18px
-
-//     > header
-//         font-weight: bold
-
-//         span
-//             font-size: 13px
-//             color: $color-text-subtle
-
-//     .pu-avatar
-//         width: 32px
-//         height: 32px
-//         position: absolute
-//         top: 0
-
-//     &-send
-//         background: #fff
-
-//         .pu-avatar
-//             right: -50px
-
-
-
-        &:after, &:before
-            left: 100%
-            top: 20px
-            border: solid transparent
-            content: " "
-            height: 0
-            width: 0
-            position: absolute
-            pointer-events: none
-
-        &:after
-            border-color: rgba(255, 255, 255, 0)
-            border-left-color: #fff
-            border-width: 8px
-            margin-top: -8px
-
-        &:before
-            border-color: rgba(238, 238, 238, 0)
-            border-left-color: #eee
-            border-width: 11px
-            margin-top: -11px
-
-    &-receive
-        background: #eee
-
-        .pu-avatar
-            left: 0
-
-        &:first-child
             &:after, &:before
-                right: 100%
-                top: 20px
+                right: 99.6%
+                top: 18px
                 border: solid transparent
                 content: " "
                 height: 0
@@ -206,6 +65,69 @@
                 border-right-color: #eee
                 border-width: 11px
                 margin-top: -11px
+
+    &-send
+        .pu-avatar
+            right: -42px
+
+        .pu-list
+            text-align: right
+
+            li
+                display: block
+                margin-bottom: 2px
+
+                &:first-child p
+                    border-top-left-radius: $border-radius
+                    border-top-right-radius: $border-radius
+                    border-bottom-left-radius: $border-radius
+                    font-weight: bold
+
+                    span.data
+                        font-size: 13px
+                        color: $color-text-subtle
+
+                    span.content
+                        display: block
+                        font-weight: normal
+                        margin-top: -5px;
+
+                &:last-child p
+                    border-top-left-radius: $border-radius
+                    border-bottom-right-radius: $border-radius
+                    border-bottom-left-radius: $border-radius
+
+                p
+                    display: inline-block
+                    padding: 8px 18px
+                    background: #fff
+                    border: 2px solid #eee
+                    border-top-left-radius: $border-radius
+                    border-bottom-left-radius: $border-radius
+
+            &:after, &:before
+                left: 99.8%
+                top: 18px
+                border: solid transparent
+                content: " "
+                height: 0
+                width: 0
+                position: absolute
+                pointer-events: none
+
+            &:after
+                border-color: rgba(255, 255, 255, 0)
+                border-left-color: #fff
+                border-width: 7px
+                margin-top: -7px
+
+            &:before
+                border-color: rgba(238, 238, 238, 0)
+                border-left-color: #eee
+                border-width: 10px
+                margin-top: -10px
+
+
 
 
 
