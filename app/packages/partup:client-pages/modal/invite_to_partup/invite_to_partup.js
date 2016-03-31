@@ -2,6 +2,7 @@ Template.modal_invite_to_partup.onCreated(function() {
     var template = this;
     var partupId = template.data.partupId;
     template.userIds = new ReactiveVar([]);
+    template.loading = new ReactiveVar(true);
     var currentQuery = '';
 
     template.states = {
@@ -36,10 +37,11 @@ Template.modal_invite_to_partup.onCreated(function() {
             limit: PAGING_INCREMENT,
             skip: page * PAGING_INCREMENT
         };
-
+        template.loading.set(true);
         // this meteor call still needs to be created
         Meteor.call('partups.user_suggestions', partupId, options, function(error, userIds) {
             if (query !== currentQuery) return;
+            template.loading.set(false);
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }

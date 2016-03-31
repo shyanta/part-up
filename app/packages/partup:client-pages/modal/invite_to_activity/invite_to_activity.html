@@ -27,16 +27,20 @@
                 </form>
                 <div class="pu-invite-suggestions">
                     <p>{{_ 'pages-modal-activity_invite-suggestions-label' }}</p>
-                    {{#if data.suggestionIds.length}}
-                        <ul>
-                            {{# each data.suggestionIds }}
-                                <li>
-                                    {{> InviteTile userId=. partupId=data.partupId activityId=data.activityId highlight=data.textsearch }}
-                                </li>
-                            {{/ each }}
-                        </ul>
+                    {{#if state.loading}}
+                        {{> Spinner}}
                     {{else}}
-                        <p class="pu-sub-placeholder">{{_ 'pages-modal-activity_invite-suggestions-placeholder'}}</p>
+                        {{#if data.suggestionIds.length}}
+                            <ul>
+                                {{# each data.suggestionIds }}
+                                    <li>
+                                        {{> InviteTile userId=. partupId=data.partupId activityId=data.activityId highlight=data.textsearch }}
+                                    </li>
+                                {{/ each }}
+                            </ul>
+                        {{else}}
+                            <p class="pu-sub-placeholder">{{_ 'pages-modal-activity_invite-suggestions-placeholder'}}</p>
+                        {{/if}}
                     {{/if}}
                 </div>
             </div>
