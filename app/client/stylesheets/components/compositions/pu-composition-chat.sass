@@ -1,22 +1,36 @@
 .pu-composition-chat
+    .pu-chat main
+        width: 780px
+        float: left
+        display: inline-block
 
-    .pu-linkpreview
-        margin-top: 8px
-        margin-bottom: 8px
+        .pu-linkpreview
+            margin-top: 8px
+            margin-bottom: 8px
 
-    footer
-        .pu-formfield
-            display: table
+        footer
+            .pu-formfield
+                display: table
 
-            .pu-sub-tablecell-input
-                display: table-cell
-                width: 100%
+                .pu-sub-tablecell-input
+                    display: table-cell
+                    width: 100%
 
-            .pu-sub-tablecell-button
-                display: table-cell
+                .pu-sub-tablecell-button
+                    display: table-cell
 
-            button
-                height: 44px
-                width: 94px
-                margin-left: 12px
-                vertical-align: middle
+                button
+                    height: 44px
+                    width: 94px
+                    margin-left: 12px
+                    vertical-align: middle
+
+    .pu-chat aside
+        width: 378px
+        float: left
+        display: inline-block
+
+    @media screen and (min-width: 1092px)
+        .pu-sidebar .pu-sidebar-wrap
+            width: 378px
+
