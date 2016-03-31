@@ -1,7 +1,7 @@
 Partup.helpers.pdfExtensions = ['.pdf'];
 Partup.helpers.docExtensions = ['.doc', '.docx', '.rtf'];
-Partup.helpers.presentationExtensions = ['.pps', '.ppsx', '.ppt'];
-Partup.helpers.fallbackFileExtensions = ['.csv', '.xls', '.xlsx', '.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg'];
+Partup.helpers.presentationExtensions = ['.pps', '.ppsx', '.ppt', '.pptx'];
+Partup.helpers.fallbackFileExtensions = ['.csv', '.xls', '.xlsx', '.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key'];
 Partup.helpers.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
 
 DropboxChooser = function (options) {
