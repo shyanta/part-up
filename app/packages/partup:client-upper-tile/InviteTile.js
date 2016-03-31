@@ -27,6 +27,7 @@ Template.InviteTile.helpers({
         var user = Meteor.users.findOne({_id: template.data.userId});
         var currentUser = Meteor.user();
         var tags = user.profile.tags || [];
+
         return {
             user: function() {
                 return user;
@@ -38,8 +39,9 @@ Template.InviteTile.helpers({
                 var text = template.searchQuery.get();
                 var highlight = Partup.client.sanitize(text);
                 var description = user.profile.description || '';
-                var text = description.length ? description.split(highlight).join('<span>' + highlight + '</span>') : '';
-                return text;
+                var descriptionArray = description.length ? description.split(highlight) : [];
+                var outputText = descriptionArray.length ? descriptionArray.join('<span>' + highlight + '</span>') : text;
+                return outputText;
             },
             highlightTags: function() {
                 var text = template.searchQuery.get();

@@ -2,6 +2,7 @@ Template.modal_network_invite.onCreated(function() {
     var template = this;
     var userId = Meteor.userId();
     var networkSlug = template.data.networkSlug;
+    var currentQuery = '';
     template.userIds = new ReactiveVar([]);
 
     template.states = {
@@ -11,6 +12,7 @@ Template.modal_network_invite.onCreated(function() {
 
     var PAGING_INCREMENT = 10;
     template.searchQuery = new ReactiveVar(undefined, function(prevQuery, query) {
+        currentQuery = query;
         if (prevQuery !== query) {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
@@ -44,6 +46,7 @@ Template.modal_network_invite.onCreated(function() {
 
         // this meteor call still needs to be created
         Meteor.call('networks.user_suggestions', networkSlug, options, function(error, userIds) {
+            if (query !== currentQuery) return;
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }

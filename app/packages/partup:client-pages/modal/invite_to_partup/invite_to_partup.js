@@ -2,6 +2,7 @@ Template.modal_invite_to_partup.onCreated(function() {
     var template = this;
     var partupId = template.data.partupId;
     template.userIds = new ReactiveVar([]);
+    var currentQuery = '';
 
     template.states = {
         loading_infinite_scroll: false,
@@ -9,6 +10,7 @@ Template.modal_invite_to_partup.onCreated(function() {
     };
     var PAGING_INCREMENT = 10;
     template.searchQuery = new ReactiveVar(undefined, function(prevQuery, query) {
+        currentQuery = query;
         if (prevQuery !== query) {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
@@ -37,6 +39,7 @@ Template.modal_invite_to_partup.onCreated(function() {
 
         // this meteor call still needs to be created
         Meteor.call('partups.user_suggestions', partupId, options, function(error, userIds) {
+            if (query !== currentQuery) return;
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }

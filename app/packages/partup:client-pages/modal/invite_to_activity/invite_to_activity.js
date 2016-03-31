@@ -2,6 +2,7 @@ Template.modal_invite_to_activity.onCreated(function() {
     var template = this;
     var partupId = template.data.partupId;
     var activityId = template.data.activityId;
+    var currentQuery = '';
 
     template.userIds = new ReactiveVar([]);
 
@@ -11,6 +12,7 @@ Template.modal_invite_to_activity.onCreated(function() {
     };
     var PAGING_INCREMENT = 10;
     template.searchQuery = new ReactiveVar(undefined, function(prevQuery, query) {
+        currentQuery = query;
         if (prevQuery !== query) {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
@@ -39,6 +41,7 @@ Template.modal_invite_to_activity.onCreated(function() {
 
         // this meteor call still needs to be created
         Meteor.call('activities.user_suggestions', activityId, options, function(error, userIds) {
+            if (query !== currentQuery) return;
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }
