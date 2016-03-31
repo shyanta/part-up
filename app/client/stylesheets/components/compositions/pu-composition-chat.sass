@@ -1,8 +1,10 @@
 .pu-composition-chat
-    .pu-chat main
-        width: 780px
-        float: left
-        display: inline-block
+    $sidebar-width: 378px
+    display: table
+
+    main
+        display: table-cell
+        vertical-align: top
 
         .pu-linkpreview
             margin-top: 8px
@@ -11,6 +13,7 @@
         footer
             .pu-formfield
                 display: table
+                width: 100%
 
                 .pu-sub-tablecell-input
                     display: table-cell
@@ -25,12 +28,18 @@
                     margin-left: 12px
                     vertical-align: middle
 
-    .pu-chat aside
-        width: 378px
-        float: left
-        display: inline-block
+    aside
+        display: table-cell
+        vertical-align: top
+        width: $sidebar-width
 
-    @media screen and (min-width: 1092px)
+    @media screen and (min-width: ($breakpoint-desktop + 50px))
         .pu-sidebar .pu-sidebar-wrap
-            width: 378px
+            width: $sidebar-width
 
+    @media screen and (min-width: ($breakpoint-desktop + 100px))
+        .pu-chat-wrapper
+            min-width: 780px
+
+        .pu-sidebar .pu-sidebar-wrap
+            width: $sidebar-width
