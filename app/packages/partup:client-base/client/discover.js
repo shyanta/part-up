@@ -71,11 +71,11 @@ Partup.client.discover = {
         for (key in this.DEFAULT_QUERY) {
             var value = _prefill[key];
             if (!value) { continue; }
-
             this.query.set(key, value);
         }
-
-        _prefill = {};
+        _.defer(function() {
+            _prefill = {};
+        });
     },
 
     /*

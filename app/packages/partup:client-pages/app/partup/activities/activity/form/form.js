@@ -48,7 +48,8 @@ Template.ActivityForm.helpers({
         var template = Template.instance();
         return {
             input: 'data-bootstrap-datepicker',
-            autoFormInput: 'data-autoform-input'
+            autoFormInput: 'data-autoform-input',
+            prefillValueKey: 'end_date', // autoform key
         };
     },
     showExtraFields: function() {

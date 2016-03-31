@@ -3,7 +3,7 @@ Template.DatePicker.onRendered(function() {
     var input = template.data.inputSettings.input;
     var options = Partup.client.datepicker.options;
     var autoFormInput = template.data.inputSettings.autoFormInput || 'data-autoform-input';
-    options.startDate = new Date();
+    options.startDate = template.data.inputSettings.startDate || undefined;
 
     var dateChangeHandler = function(event) {
         var autoFormInputElement = $('[' + autoFormInput + ']');
