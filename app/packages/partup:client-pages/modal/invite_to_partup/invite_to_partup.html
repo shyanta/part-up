@@ -28,21 +28,22 @@
                 </form>
                 <div class="pu-invite-suggestions">
                     <p>{{_ 'pages-modal-partup_invite-suggestions-label' }}</p>
-                    {{#if state.loading}}
-                        {{> Spinner}}
-                    {{else}}
-                        {{#if data.suggestionIds.length}}
-                            <ul>
-                                {{# each data.suggestionIds }}
-                                    <li>
-                                        {{> InviteTile userId=. partupId=data.partupId highlight=data.textsearch }}
-                                    </li>
-                                {{/ each }}
-                            </ul>
+                    {{#if data.suggestionIds.length}}
+                        <ul>
+                            {{# each data.suggestionIds }}
+                                <li>
+                                    {{> InviteTile userId=. partupId=data.partupId highlight=data.textsearch }}
+                                </li>
+                            {{/ each }}
+                        </ul>
+                    {{/if}}
+                    {{#unless data.suggestionIds.length}}
+                        {{#if state.loading}}
+                            {{> Spinner}}
                         {{else}}
                             <p class="pu-sub-placeholder">{{_ 'pages-modal-partup_invite-suggestions-placeholder'}}</p>
                         {{/if}}
-                    {{/if}}
+                    {{/unless}}
                 </div>
             </div>
         </div>
