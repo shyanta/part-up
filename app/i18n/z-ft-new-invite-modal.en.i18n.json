@@ -16,5 +16,9 @@
 
     "pages-modal-network_invite-suggestions-label": "Uppers recommended for your tribe",
     "pages-modal-partup_invite-suggestions-label": "Uppers recommended for your part-up",
-    "pages-modal-activity_invite-suggestions-label": "Uppers recommended for your activity"
+    "pages-modal-activity_invite-suggestions-label": "Uppers recommended for your activity",
+
+    "pages-modal-network_invite-suggestions-placeholder": "no results",
+    "pages-modal-partup_invite-suggestions-placeholder": "no results",
+    "pages-modal-activity_invite-suggestions-placeholder": "no results"
 }

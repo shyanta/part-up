@@ -25,12 +25,9 @@
                         </div>
                     </div>
                 </form>
-
-                <!-- {{# if state.loading }}
-                    {{> Spinner }}
-                {{ else }} -->
-                    <div class="pu-invite-suggestions">
-                        <p>{{_ 'pages-modal-network_invite-suggestions-label' }}</p>
+                <div class="pu-invite-suggestions">
+                    <p>{{_ 'pages-modal-network_invite-suggestions-label' }}</p>
+                    {{#if data.suggestionIds.length}}
                         <ul>
                             {{# each data.suggestionIds }}
                                 <li>
@@ -38,8 +35,10 @@
                                 </li>
                             {{/ each }}
                         </ul>
-                    </div>
-                <!-- {{/ if }} -->
+                    {{else}}
+                        <p class="pu-sub-placeholder">{{_ 'pages-modal-network_invite-suggestions-placeholder'}}</p>
+                    {{/if}}
+                </div>
             </section>
         </div>
     </article>

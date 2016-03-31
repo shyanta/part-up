@@ -16,5 +16,9 @@
 
     "pages-modal-network_invite-suggestions-label": "Uppers aanbevolen voor jouw tribe",
     "pages-modal-partup_invite-suggestions-label": "Uppers aanbevolen voor jouw part-up",
-    "pages-modal-activity_invite-suggestions-label": "Uppers aanbevolen voor jouw activiteit"
+    "pages-modal-activity_invite-suggestions-label": "Uppers aanbevolen voor jouw activiteit",
+
+    "pages-modal-network_invite-suggestions-placeholder": "geen resultaten",
+    "pages-modal-partup_invite-suggestions-placeholder": "geen resultaten",
+    "pages-modal-activity_invite-suggestions-placeholder": "geen resultaten"
 }
