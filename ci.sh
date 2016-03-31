@@ -37,10 +37,9 @@ if [ "${service_name}" != "${service}" ] ; then
     --env-file ./.cloud-env \
     -e MONGO_URL=mongodb://staging-mongo-1,staging-mongo-2,staging-mongo-3/${image_tag}-meteor?replicaSet=rs01 \
     -e ROOT_URL=https://${vhost} \
-		-e VIRTUAL_HOST=https://${vhost} \
-		-e FORCE_SSL=TRUE \
-		-e NODE_ENV=staging \
-		-e NEW_RELIC_APP_NAME=${service_name} \
+    -e VIRTUAL_HOST=${vhost} \
+    -e NODE_ENV=staging \
+    -e NEW_RELIC_APP_NAME=${service_name} \
     --tag staging \
     --autoredeploy \
     --autorestart ALWAYS \
