@@ -5,7 +5,7 @@
                 <header>
                     <form id="" class="pu-form pu-search" novalidate="novalidate">
                         <label class="pu-formfield">
-                            <span class="pu-label">Chat</span>
+                            <span class="pu-label">{{_ 'pages-app-network-chat-title' }}</span>
                             <span class="pu-sub-input">
                                 <input type="text" name="email" placeholder="" class="pu-input form-control" autofocus="" required="" maxlength="255">
                                 <i class="picon-search"></i>
@@ -99,13 +99,13 @@
                     <label class="pu-formfield">
                         <div class="pu-sub-tablecell-input">
                             <span class="pu-sub-input">
-                                <input type="text" name="partup_name" placeholder="Type message..." class="pu-input form-control">
+                                <input type="text" name="partup_name" placeholder="{{_ 'pages-app-network-chat-placeholder' }}" class="pu-input form-control">
                             </span>
                             <span class="pu-sub-error"></span>
                         </div>
                         <div class="pu-sub-tablecell-button">
                             <button type="submit" class="pu-button">
-                                <span>Send</span>
+                                <span>{{_ 'pages-app-network-chat-button-send' }}</span>
                             </button>
                         </div>
                     </label>
@@ -115,7 +115,7 @@
                 <section>
                     <div class="pu-sidebar-wrap">
                         <section>
-                            <p>This chat is <strong>public</strong> and <strong>accessible</strong> for everyone</p>
+                            <p>{{{_ 'pages-app-network-chat-sidebar-text' }}}</p>
                         </section>
                         <section>
                             <h2>Active uppers</h2>
