@@ -16,15 +16,14 @@
         {{# with selectedNetwork }}
             <article class="pu-selection">
                 <p>{{ featured.comment }} <a href="{{ pathFor route='network' slug=slug }}">{{_ 'pages-app-home-featurednetworks-view-url' }}</a></p>
-
                 <div class="pu-sub-author pu-row">
                     <div class="cell">
                         <figure class="pu-avatar pu-avatar-tiny"
                             style="{{# with partupGetImageUrl featured.by_upperObject.profile.imageObject '80x80' }}background-image: url('{{ . }}'){{/ with }}"
-                            data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ featured.by_upper._id }}"></figure>
+                            data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ featured.by_upperObject._id }}"></figure>
                     </div>
                     <p class="cell stretch last">
-                        <strong data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ featured.by_upper._id }}">{{ featured.by_upperObject.profile.name }}</strong>,
+                        <strong data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ featured.by_upperObject._id }}">{{ featured.by_upperObject.profile.name }}</strong>,
                         {{ featured.by_upper.title }}
                     </p>
                 </div>
