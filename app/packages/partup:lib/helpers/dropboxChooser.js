@@ -1,8 +1,9 @@
 Partup.helpers.pdfExtensions = ['.pdf'];
-Partup.helpers.docExtensions = ['.doc', '.docx', '.rtf'];
+Partup.helpers.docExtensions = ['.doc', '.docx', '.rtf', '.pages', '.txt'];
 Partup.helpers.presentationExtensions = ['.pps', '.ppsx', '.ppt', '.pptx'];
-Partup.helpers.fallbackFileExtensions = ['.csv', '.xls', '.xlsx', '.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key'];
+Partup.helpers.fallbackFileExtensions = ['.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key', '.keynote'];
 Partup.helpers.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
+Partup.helpers.spreadSheetExtensions = ['.xls', '.xlsx', '.numbers', '.csv'];
 
 DropboxChooser = function (options) {
         this.options = _.extend({
@@ -117,6 +118,9 @@ var DropboxRenderer = function () {
         }
         else if (_.include(Partup.helpers.pdfExtensions, extension)) {
             svgFileName = 'icon_pdf.svg';
+        }
+        else if (_.include(Partup.helpers.spreadSheetExtensions, extension)) {
+            svgFileName = 'icon_xls.svg';
         }
 
         return svgFileName;
