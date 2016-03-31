@@ -9,7 +9,7 @@ Template.FeaturedNetworks.helpers({
     selectedNetwork: function() {
         var template = Template.instance();
         var selected = template.selectedSlug.get();
-        console.log(selected);
+
         return _.find(template.data.networks, function(item) {
             return item.slug == selected;
         });
