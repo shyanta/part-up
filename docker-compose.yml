@@ -12,5 +12,6 @@ services:
     environment:
       MONGO_URL: mongodb://mongo/partup
       ROOT_URL: http://localhost:8080
+      NODE_ENV: development
     ports:
       - "3000:3000"
