@@ -11,7 +11,7 @@ image_name="partup/partup:${image_tag}"
 
 echo "{\"version\": \"`git describe`\", \"deploydate\": \"`date +\"%Y-%m-%dT%H:%M:%SZ\"`\"}" > app/public/VERSION
 
-docker build -t ${image_name} app/
+docker build --pull -t ${image_name} app/
 
 docker push ${image_name}
 
