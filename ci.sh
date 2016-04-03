@@ -32,7 +32,7 @@ if [ "${service_name}" != "${service}" ] ; then
 
   echo "Creating service ${service_name}"
   docker-cloud service create \
-  	-n ${service_name} \
+    -n ${service_name} \
     --memory 512 \
     --env-file ./.cloud-env \
     -e MONGO_URL=mongodb://staging-mongo-1,staging-mongo-2,staging-mongo-3/${image_tag}-meteor?replicaSet=rs01 \
@@ -58,7 +58,7 @@ if [ "${service_name}" != "${service}" ] ; then
   	linkCmd="${linkCmd} --link-service ${l}:${l}"
   done
   docker-cloud service set ${linkCmd} staging-haproxy
-	docker-cloud service redeploy staging-haproxy
 else
   echo "Service ${service_name} already exists.. Not changing"
 fi
+
