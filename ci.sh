@@ -19,6 +19,13 @@ docker run --rm -v "$(pwd)/app":/code -v "$(pwd)/app-build":/out partup/meteor-b
 echo "Building the final image.."
 docker build --pull -t ${image_name} .
 
+tag=$(git describe --exact-match 2>/dev/null || echo "")
+if [ $tag ]; then
+  echo "Creating a docker image for tag (version): $tag"
+  docker tag ${image_name} partup/partup:$tag
+  docker push partup/partup:$tag
+fi
+
 docker push ${image_name}
 
 if [ ! -f config/development/env-encrypted ] ; then
@@ -67,4 +74,3 @@ if [ "${service_name}" != "${service}" ] ; then
 else
   echo "Service ${service_name} already exists.. Not changing"
 fi
-
