@@ -12,7 +12,9 @@ Template.NetworkSettings.onCreated(function() {
         onReady: function() {
             var network = Networks.findOne({slug: template.data.networkSlug});
             if (!network) Router.pageNotFound('network');
-            if (network.isClosedForUpper(userId)) Router.pageNotFound('network');
+            if (network.isClosedForUpper(userId)) {
+                Router.pageNotFound('network');
+            }
         }
     });
     template.charactersLeft = new ReactiveDict();

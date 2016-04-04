@@ -1,6 +1,3 @@
-app/.meteor/local
-app/packages/*/.build*
-devops
-devops-new
-docs
-backups
+*
+!app-build/meteor-app.tgz
+

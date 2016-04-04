@@ -8,9 +8,10 @@ Template.FeaturedNetworks.onCreated(function() {
 Template.FeaturedNetworks.helpers({
     selectedNetwork: function() {
         var template = Template.instance();
+        var selected = template.selectedSlug.get();
 
-        return mout.object.find(template.data.networks, {
-            slug: template.selectedSlug.get()
+        return _.find(template.data.networks, function(item) {
+            return item.slug == selected;
         });
     },
     networkLogo: function() {
