@@ -62,7 +62,8 @@ Meteor.methods({
                     type_data: {
                         old_value: message.type_data.new_value,
                         new_value: fields.text,
-                        images: fields.images
+                        images: fields.images,
+                        documents: fields.documents
                     },
                     updated_at: new Date()
                 }});

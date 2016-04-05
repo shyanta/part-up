@@ -143,12 +143,59 @@ Partup.schemas.forms.updateComment = new SimpleSchema([updateCommentBaseSchema])
  * @name newMessage
  * @memberof Partup.schemas.forms
  */
+
+/**
+ * Based on dropboxFile object response, but this is also the preferred
+ * object file for every other services e.g. GoogleDrive
+ * https://www.dropbox.com/developers/chooser
+ * @type {SimpleSchema}
+ */
+
+var DocumentSchema = new SimpleSchema({
+    _id: {
+        type: String
+    },
+    name: {
+        type: String,
+        optional: true
+    },
+    link: {
+        type: String,
+        optional: true
+    },
+    bytes: {
+        type: Number,
+        optional: true
+    },
+    icon: {
+        type: String,
+        optional: true
+    },
+    thumbnailLink: {
+        type: String,
+        optional: true
+    },
+    is_dir: {
+        type: Boolean,
+        optional: true
+    },
+    isDir: {
+        type: Boolean,
+        optional: true
+    }
+});
+
+
 Partup.schemas.forms.newMessage = new SimpleSchema({
     text: {
         type: String
     },
     images: {
         type: [String],
+        optional: true
+    },
+    documents: {
+        type: [DocumentSchema],
         optional: true
     }
 });

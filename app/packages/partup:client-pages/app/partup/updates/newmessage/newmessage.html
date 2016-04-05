@@ -3,16 +3,34 @@
         <label class="pu-formfield">
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
-                    <div class="pu-message {{#if data.uploadedPhotos.length}}pu-message-haspictures{{/ if}}">
+                    <div class="pu-message {{#if hasUploadedMedia }}pu-message-haspictures{{/ if}}">
                         {{> afFieldInput name="text" data-message-input="" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
-                        {{#if data.uploadedPhotos.length}}
+                        {{#if hasUploadedMedia}}
                             <ul class="pu-sub-photos">
-                                {{#each data.uploadedPhotos}}
+                                {{#each uploadedPhotos}}
                                     <li>
-                                        <figure class="pu-thumbnail pu-thumbnail-removable" style="background-image:url('{{ partupImageUrl id=. }}')" data-remove-upload="{{ . }}"></figure>
+                                        <figure data-type="image" class="pu-thumbnail pu-thumbnail-removable"
+                                                style="background-image:url('{{ partupImageUrl id=. }}')"
+                                                data-remove-upload="{{ . }}"></figure>
                                     </li>
                                 {{/each}}
+                                {{#each uploadedDocuments}}
+                                    <li>
+                                        <figure data-type="document" class="pu-doc-icon pu-thumbnail-removable"
+                                                style="background-image:url('/images/add-media-icons/{{ DropboxRenderer.getSvgIcon name }}');"
+                                                data-remove-upload="{{ _id }}"></figure>
+                                    </li>
+                                {{/each}}
+                                {{#if mediaLimitReached}}{{else}}
+                                    <li class="pu-media-counter">
+                                        <div>
+                                            <strong>{{imagesLeft}} </strong>{{_ 'pages-app-partup-updates-newmessage-counter-images' }}
+                                            <strong>{{documentsLeft}} </strong>{{_ 'pages-app-partup-updates-newmessage-counter-documents' }} {{_ 'pages-app-partup-updates-newmessage-media-left' }}
+                                        </div>
+                                    </li>
+                                {{/if}}
                             </ul>
+
                         {{/if}}
                     </div>
                 </span>
@@ -21,7 +39,7 @@
         </label>
         <footer class="pu-row">
             <div class="cell">
-                <button class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-submit>
+                <button class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-submit>
                     {{#if state.edit}}
                         <span>{{_ 'pages-app-partup-updates-editmessage-submit'}}</span>
                     {{else}}
@@ -31,17 +49,36 @@
                 </button>
             </div>
             <div class="cell stretch">
-                <a class=" pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
+                <a class=" pu-button pu-button-text pu-button-text-subtle"
+                   data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
             </div>
             <div class="cell last">
                 {{#FileInput inputSettings=imageInput}}
-                    <button class="pu-button pu-button-secondary {{#if state.uploadingPhotos}}pu-state-loading{{/if}} {{#if state.photoLimitReached}}pu-state-disabled{{/if}}" data-browse-photos>
-                        <span>{{_ 'pages-app-partup-updates-newmessage-addphoto'}}</span>
-                        {{#if state.uploadingPhotos}}
-                            {{> Spinner color='inverted' type='small'}}
-                        {{/if}}
-                    </button>
-                    <input type="file" class="pu-fileinput" multiple data-photo-input>
+                    <div class="pu-dropdown-add-media  pu-formdropdown" data-toggle-add-media-menu>
+                        <div class="pu-sub-container">
+                            <button class="pu-button pu-button-input pu-button-input-keepbuttonheight {{#if uploadingMedia }}pu-state-loading{{/if}} {{#if mediaLimitReached }}pu-state-disabled{{/if}}">
+                                {{_ 'pages-app-partup-updates-newmessage-addmedia' }}
+                                {{#if uploadingMedia }}
+                                    {{> Spinner color='inverted' type='small'}}
+                                {{/if}}
+                                <i class="picon-caret-down"></i>
+                            </button>
+                            <ul class="pu-dropdown pu-dropdown-form" data-clickoutside-close>
+                                <li class="pu-dropdownitem pu-dropdownitem-small">
+                                    <a data-browse-photos href="#"
+                                       class="{{#if photoLimitReached }}pu-state-disabled{{/if}}">
+                                        <i class="picon-icon__upload"></i> {{_ 'dropdowns-updatesactions-computer' }}
+                                        <span class="pu-media-types-description">{{_ 'dropdowns-updatesactions-computer-types' }}</span>
+                                    </a>
+                                </li>
+                                <li class="pu-dropdownitem pu-dropdownitem-small">
+                                    {{> DropboxChooser }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input {{ disabledImageUploadFile }} accept="{{ imageExtensions }}" type="file" class="pu-fileinput"
+                                                         multiple data-photo-input style="visibility: hidden;">
                 {{/FileInput}}
             </div>
         </footer>

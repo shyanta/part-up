@@ -17,7 +17,8 @@ Partup.transformers.update = {
             partup_id: partupId,
             type_data: {
                 new_value: fields.text,
-                images: fields.images
+                images: fields.images,
+                documents: fields.documents
             },
             comments_count: 0,
             upper_id: upper._id,

@@ -1,10 +1,67 @@
+/** re-usable functions for this newmesage.js template */
 var placeholders = {
-    'text': function() {
+    'text': function () {
         return TAPi18n.__('pages-app-partup-updates-newmessage-placeholder');
     }
 };
 
-Template.app_partup_updates_newmessage.onCreated(function() {
+function uploadingMedia() {
+    var uploading = [
+        Template.instance().uploadingPhotos.get(),
+        Template.instance().uploadingDocuments.get()
+    ];
+
+    uploading = _.countBy(uploading, function (value) {
+        return (value) ? 'isActive' : 'notActive';
+    });
+
+    return uploading.isActive > 0;
+}
+
+function mediaLimitReached() {
+    var mediaItems = Template.instance().uploadedPhotos.get().length +
+        Template.instance().uploadedDocuments.get().length;
+
+    return mediaItems === Template.instance().maxMediaItems;
+}
+
+function photoLimitReached() {
+    return Template.instance().uploadedPhotos.get().length === Template.instance().maxPhotos;
+}
+
+function documentLimitReached() {
+    return Template.instance().uplodedDocuments.get().length === Template.instance().maxDocuments;
+}
+
+function toggleMenu($toggleContainer) {
+    var $button = $toggleContainer.find('.pu-sub-container button');
+    var $ul = $toggleContainer.find('ul.pu-dropdown');
+    var $icon = $button.find('i');
+
+    var openMenu = function () {
+        $toggleContainer.addClass('pu-formdropdown-active');
+        $ul.addClass('pu-dropdown-active');
+        $icon.removeClass('picon-caret-down');
+        $icon.addClass('picon-caret-up');
+    };
+
+    var closeMenu = function () {
+        $toggleContainer.removeClass('pu-formdropdown-active');
+        $ul.removeClass('pu-dropdown-active');
+        $icon.addClass('picon-caret-down');
+        $icon.removeClass('picon-caret-up');
+    };
+
+    if ($icon.hasClass('picon-caret-down')) {
+        openMenu();
+        $(document).one('click', closeMenu);
+    } else {
+        closeMenu();
+    }
+}
+/** end re-usable functions for this newmesage.js template */
+
+Template.app_partup_updates_newmessage.onCreated(function () {
     var template = this;
 
     template.uploadingPhotos = new ReactiveVar(false);
@@ -14,9 +71,17 @@ Template.app_partup_updates_newmessage.onCreated(function() {
     template.maxPhotos = 4;
     template.submitting = new ReactiveVar(false);
     template.partupId = this.data.partup_id || this.data.partupId;
+
+    template.uploadingDocuments = new ReactiveVar(false);
+    var documents = this.data._id && this.data.type_data.documents ? this.data.type_data.documents : [];
+    template.uploadedDocuments = new ReactiveVar(documents);
+    template.totalDocuments = new ReactiveVar(0);
+    template.maxDocuments = 2;
+
+    template.maxMediaItems = template.maxPhotos + template.maxDocuments;
 });
 
-Template.afFieldInput.onRendered(function() {
+Template.afFieldInput.onRendered(function () {
     // makes sure it only goes on if it's a mentions input
     if (!this.data.hasOwnProperty('data-message-input')) return;
 
@@ -35,7 +100,7 @@ Template.afFieldInput.onRendered(function() {
     });
 });
 
-Template.app_partup_updates_newmessage.onDestroyed(function() {
+Template.app_partup_updates_newmessage.onDestroyed(function () {
     var tpl = this;
     if (tpl.mentionsInput) tpl.mentionsInput.destroy();
 });
@@ -44,56 +109,75 @@ Template.app_partup_updates_newmessage.onDestroyed(function() {
 Template.app_partup_updates_newmessage.helpers({
     formSchema: Partup.schemas.forms.newMessage,
     placeholders: placeholders,
-    data: function() {
-        var self = this;
-        var template = Template.instance();
-        return {
-            submitting: function() {
-                return template.submitting.get();
-            },
-            uploadedPhotos: function() {
-                return template.uploadedPhotos.get();
-            }
-        };
+    uploadingPhotos: function () {
+        return Template.instance().uploadingPhotos.get();
     },
-    state: function() {
+    uploadedPhotos: function () {
+        return Template.instance().uploadedPhotos.get();
+    },
+    photoLimitReached: photoLimitReached,
+    uploadingDocuments: function () {
+        return Template.instance().uploadingDocuments.get();
+    },
+    uploadedDocuments: function () {
+        return Template.instance().uploadedDocuments.get();
+    },
+    documentLimitReached: documentLimitReached,
+    mediaLimitReached: mediaLimitReached,
+    uploadingMedia: uploadingMedia,
+    hasUploadedMedia: function () {
+        return (
+            Template.instance().uploadedPhotos.get().length ||
+            Template.instance().uploadedDocuments.get().length
+        )
+    },
+    imagesLeft: function() {
+      return  Template.instance().maxPhotos - Template.instance().uploadedPhotos.get().length;
+    },
+    documentsLeft: function() {
+        return  Template.instance().maxDocuments - Template.instance().uploadedDocuments.get().length;
+    },
+    submitting: function () {
+        return Template.instance().submitting.get();
+    },
+    state: function () {
         var self = this;
         var template = Template.instance();
         return {
-            edit: function() {
+            edit: function () {
                 return self._id ? true : false;
             },
-            formId: function() {
+            formId: function () {
                 return self._id ? 'editMessageForm' : 'newMessageForm';
-            },
-            uploadingPhotos: function() {
-                return template.uploadingPhotos.get();
-            },
-            photoLimitReached: function() {
-                return template.totalPhotos.get() >= 4 || template.uploadedPhotos.get().length >= 4;
             }
         };
     },
-    formDoc: function() {
+    formDoc: function () {
         if (!this._id) return;
         return {
             text: this.type_data.new_value,
-            images: this.type_data.images || []
+            images: this.type_data.images || [],
+            documents: this.type_data.documents || []
         };
     },
-    imageInput: function() {
+    imageInput: function () {
         var template = Template.instance();
         return {
             button: 'data-browse-photos',
             input: 'data-photo-input',
             multiple: true,
-            onFileChange: function(event) {
+            onFileChange: function (event) {
+
                 template.uploadingPhotos.set(true);
+
+                // toggle (close) the add media dropdown menu
+                $('[data-toggle-add-media-menu]').trigger('click');
+
                 var total = Math.max(template.totalPhotos.get(), template.uploadedPhotos.get().length);
-                Partup.client.uploader.eachFile(event, function(file) {
+                Partup.client.uploader.eachFile(event, function (file) {
                     if (total === template.maxPhotos) return;
 
-                    Partup.client.uploader.uploadImage(file, function(error, image) {
+                    Partup.client.uploader.uploadImage(file, function (error, image) {
                         template.uploadingPhotos.set(false);
                         if (error) {
                             Partup.client.notify.error(TAPi18n.__(error.reason));
@@ -108,15 +192,30 @@ Template.app_partup_updates_newmessage.helpers({
                 });
             }
         };
+    },
+    DropboxRenderer: Partup.helpers.DropboxRenderer,
+    disabledImageUploadFile: function () {
+        return (photoLimitReached()) ? 'disabled' : '';
+    },
+    imageExtensions: function() {
+        return Partup.helpers.imageExtensions.join(', ');
     }
 });
 
 // events
 Template.app_partup_updates_newmessage.events({
+    'click [data-toggle-add-media-menu]': function (event, template) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        if (!mediaLimitReached()) {
+            toggleMenu($(event.currentTarget));
+        }
+    },
     'click [data-dismiss]': function clearForm(event, template) {
         template.uploadedPhotos.set([]);
+        template.uploadedDocuments.set([]);
     },
-    'click [data-remove-upload]': function removeUpload(event, template) {
+    'click [data-type="image"][data-remove-upload]': function removeUpload(event, template) {
         var imageId = $(event.currentTarget).data('remove-upload');
         // template.uploadedPhotos.set([]);
         var uploadedPhotos = template.uploadedPhotos.get();
@@ -125,6 +224,15 @@ Template.app_partup_updates_newmessage.events({
         var total = Template.instance().totalPhotos.get();
         total--;
         Template.instance().totalPhotos.set(total);
+    },
+    'click [data-type="document"][data-remove-upload]': function removeUpload(event, template) {
+        var documentId = $(event.currentTarget).data('remove-upload');
+        var uploadedDocuments = template.uploadedDocuments.get();
+        uploadedDocuments = _.without(uploadedDocuments, _.findWhere(uploadedDocuments, {_id: documentId}));
+        template.uploadedDocuments.set(uploadedDocuments);
+        var total = Template.instance().totalDocuments.get();
+        total--;
+        Template.instance().totalDocuments.set(total);
     }
 });
 
@@ -133,7 +241,7 @@ Template.app_partup_updates_newmessage.events({
 /*************************************************************/
 AutoForm.hooks({
     editMessageForm: {
-        onSubmit: function(insertDoc, updateDoc, currentDoc) {
+        onSubmit: function (insertDoc, updateDoc, currentDoc) {
             var self = this;
             var parent = Template.instance().parent();
             var template = self.template.parent();
@@ -146,11 +254,14 @@ AutoForm.hooks({
             insertDoc.images = uploadedPhotos;
             insertDoc.text = parent.mentionsInput.getValue();
 
+            var uploadedDocuments = parent.uploadedDocuments.get();
+            insertDoc.documents = uploadedDocuments;
+
             // close popup before call is made, an error notifier
             // will be the feedback when it fails
             Partup.client.popup.close();
 
-            Meteor.call('updates.messages.update', updateId, insertDoc, function(error, result) {
+            Meteor.call('updates.messages.update', updateId, insertDoc, function (error, result) {
                 parent.submitting.set(false);
 
                 // Error
@@ -162,17 +273,19 @@ AutoForm.hooks({
 
                 try {
                     AutoForm.resetForm('editMessageForm');
-                } catch (err) {}
+                } catch (err) {
+                }
                 template.mentionsInput.reset();
                 self.done();
                 parent.uploadedPhotos.set([]);
+                parent.uploadedDocuments.set([]);
             });
 
             return false;
         }
     },
     newMessageForm: {
-        onSubmit: function(insertDoc, updateDoc, currentDoc) {
+        onSubmit: function (insertDoc, updateDoc, currentDoc) {
             var self = this;
             var parent = Template.instance().parent();
             var template = self.template.parent();
@@ -184,12 +297,15 @@ AutoForm.hooks({
             insertDoc.images = uploadedPhotos;
             insertDoc.text = parent.mentionsInput.getValue();
 
+            var uploadedDocuments = parent.uploadedDocuments.get();
+            insertDoc.documents = uploadedDocuments;
+
             // close popup before call is made, an error notifier
             // will be the feedback when it fails
             Partup.client.popup.close();
             Partup.client.updates.setWaitForUpdate(true);
 
-            Meteor.call('updates.messages.insert', partupId, insertDoc, function(error, result) {
+            Meteor.call('updates.messages.insert', partupId, insertDoc, function (error, result) {
                 parent.submitting.set(false);
                 Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(result._id);
                 Partup.client.updates.setWaitForUpdate(false);
@@ -211,10 +327,12 @@ AutoForm.hooks({
                 });
                 try {
                     AutoForm.resetForm('newMessageForm');
-                } catch (err) {}
+                } catch (err) {
+                }
                 template.mentionsInput.reset();
                 self.done();
                 parent.uploadedPhotos.set([]);
+                parent.uploadedDocuments.set([]);
                 Partup.client.events.emit('partup:updates:message_added');
             });
 
