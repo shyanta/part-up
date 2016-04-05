@@ -1,7 +1,25 @@
 # CHANGELOG
 
-## 1.17
+## 1.17.1
+- fix(tagsquery): reset prefilled query after code has run to prevent early reset fixing #293
+- should not upload more than 4 images in EDIT MESSAGE mode #294
+- When icon font is updated, the previous font stays cached in browser after deployment #302
+- Misalignment in "+x" circle on partup tribe #303
+- Archived-date or -flag is missing in datadump #305
+- Clicking on backdrop overlay of new/edit message modal caused the modal to close. #326
+- Upper profile not showing meurs test results when logged in (and shows when not logged in) #178
+- Integrate Dropbox part-up messages #185
+- Bug since last release: admins can't access tribe settings #306
+- Add endless scroll to invite modal search results #274
+- Change name search to full text profile search on invite modal #272
+- Add content explanation to search result on invite modal #271
+- Add relation explanation to search result in invite modals #270
+- Add search criteria to invite emails #269
+- Allow to invite up to 10 people by email at once #268
+- Add partners to upper profile #146
+- Invited upper should not move to the end of the list #13
 
+## 1.17
 - being able to run partup and the api with neo4j in one command. PR #290
 - fix(swarm): improved the explorer a bit more for mobile/tablet #263
 - fix(swarm): read more button shows on mobile #264
