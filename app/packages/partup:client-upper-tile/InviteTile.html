@@ -32,9 +32,9 @@
             </article>
             <article>
                 <ul class="pu-list pu-list-horizontal pu-list-tags {{#if data.highlightText}}pu-highlighttags{{/if}}">
-                    {{#each data.user.profile.tags}}
+                    {{#each data.highlightTags.tags}}
                         <li>
-                            <a href="#" class="pu-tag {{#unless partupContainsOneInArray . data.highlightTags }}
+                            <a href="#" class="pu-tag {{#unless partupContainsOneInArray . data.highlightTags.highlight }}
                                 pu-tag-dim
                             {{/unless}}">{{ . }}</a>
                         </li>

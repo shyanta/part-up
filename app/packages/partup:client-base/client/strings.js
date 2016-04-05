@@ -59,6 +59,37 @@ Partup.client.strings = {
 
     partupSlugToId: function(slug) {
         return slug.split('-').pop();
+    },
+
+    shortenLeft: function(string, maxCharacters) {
+        if (!string) return '';
+        if (string.length <= maxCharacters) return string;
+        var removeCount = string.length - maxCharacters;
+        return '...' + string.substr(removeCount);
+    },
+
+    shortenRight: function(string, maxCharacters) {
+        if (!string) return '';
+        if (string.length <= maxCharacters) return string;
+        return string.substr(0, maxCharacters - 1) + '...';
+    },
+
+    shortenLeftRight: function(string, middle, maxCharacters) {
+        var strings = this.splitCaseInsensitive(string, middle);
+        var leftInputString = strings[0] || '';
+        var rightInputString = strings[1] || '';
+
+        if ((leftInputString.length + rightInputString.length) <= maxCharacters) return strings;
+
+        var leftString = this.shortenLeft(leftInputString, Math.round(maxCharacters / 2));
+        var rightString = this.shortenRight(rightInputString, Math.round(maxCharacters / 2));
+        return [leftString, rightString];
+    },
+
+    splitCaseInsensitive: function(string, split) {
+        var splitString = new RegExp(split, 'i');
+        var strings = string.split(splitString);
+        return strings;
     }
 
 };
