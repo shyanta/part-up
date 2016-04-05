@@ -1,7 +1,7 @@
 /**
  * Generate a notification and email when an invite gets sent
  */
-Event.on('invites.inserted.network', function(inviter, network, invitee) {
+Event.on('invites.inserted.network', function(inviter, network, invitee, searchQuery) {
     // Set the notification details
     var notificationOptions = {
         userId: invitee._id,
@@ -35,6 +35,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee) {
             networkName: network.name,
             networkDescription: network.description,
             inviterName: inviter.profile.name,
+            searchQuery: searchQuery,
             url: Meteor.absoluteUrl() + 'tribes/' + network.slug,
             unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/invite_upper_to_network/' + invitee.profile.settings.unsubscribe_email_token,
             unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + invitee.profile.settings.unsubscribe_email_token

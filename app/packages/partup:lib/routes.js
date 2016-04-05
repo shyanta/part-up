@@ -115,6 +115,20 @@ Router.route('/profile/:_id/supporter', {
     }
 });
 
+Router.route('/profile/:_id/partners', {
+    name: 'profile-partners',
+    where: 'client',
+    yieldRegions: {
+        'app': {to: 'main'},
+        'app_profile': {to: 'app'},
+        'app_profile_partners': {to: 'app_profile'}
+    },
+    data: function() {
+        return {
+            profileId: this.params._id
+        };
+    }
+});
 
 /*************************************************************/
 /* Profile settings modal */

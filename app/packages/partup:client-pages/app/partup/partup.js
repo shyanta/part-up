@@ -195,12 +195,6 @@ var partupDetailLayout = {
         sidebarDebugger.log('detach');
         self.attached = false;
 
-        self.container.style.height = '';
-        self.left.style.position = '';
-        self.left.style.top = '';
-        self.right.style.position = '';
-        self.right.style.top = '';
-
         window.removeEventListener('resize', self.onWindowResize);
         window.removeEventListener('resize', self.onResize);
         $(window).off('scroll', self.onScroll);

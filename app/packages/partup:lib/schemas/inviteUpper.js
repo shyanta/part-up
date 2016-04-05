@@ -1,13 +1,18 @@
 /**
  * New message Form
  * @name inviteUpper
- * @memberof Partup.schemas.forms
+ * @memberOf Partup.schemas.forms
  */
 Partup.schemas.forms.inviteUpper = new SimpleSchema({
-    name: {
+    invitees: {
+        type: [Object],
+        minCount: 1,
+        maxCount: 10
+    },
+    'invitees.$.name': {
         type: String
     },
-    email: {
+    'invitees.$.email': {
         type: String,
         max: 255,
         regEx: Partup.services.validators.email

@@ -10,19 +10,29 @@ Template.InviteToNetwork.onCreated(function() {
 });
 
 Template.InviteToNetwork.helpers({
-    formSchema: Partup.schemas.forms.inviteUpper,
-    submitting: function() {
-        return Template.instance().submitting.get();
-    },
-    defaultDoc: function() {
-        var network = Networks.findOne(this.networkId);
-
+    form: function() {
+        var template = Template.instance();
+        var network = Networks.findOne(template.data.networkId);
+        var user = Meteor.user();
         return {
-            message: TAPi18n.__('invite-to-network-popup-message-prefill', {
-                networkName: network.name,
-                networkDescription: network.description,
-                inviterName: Meteor.user().profile.name
-            })
+            schema: Partup.schemas.forms.inviteUpper,
+            doc: function() {
+                return {
+                    message: TAPi18n.__('invite-to-network-popup-message-prefill', {
+                        networkName: network.name,
+                        networkDescription: network.description,
+                        inviterName: Meteor.user().profile.name
+                    })
+                };
+            }
+        };
+    },
+    state: function() {
+        var template = Template.instance();
+        return {
+            submitting: function() {
+                return template.submitting.get();
+            },
         };
     }
 });

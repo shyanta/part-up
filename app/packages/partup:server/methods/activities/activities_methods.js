@@ -232,16 +232,18 @@ Meteor.methods({
      *
      * @param {string} activityId
      * @param {Object} options
-     * @param {string} options.locationId
      * @param {string} options.query
+     * @param {Number} options.limit
+     * @param {Number} options.skip
      *
      * @return {[string]}
      */
     'activities.user_suggestions': function(activityId, options) {
         check(activityId, String);
         check(options, {
-            locationId: Match.Optional(String),
-            query: Match.Optional(String)
+            query: Match.Optional(String),
+            limit: Match.Optional(Number),
+            skip: Match.Optional(Number)
         });
 
         this.unblock();
@@ -264,10 +266,14 @@ Meteor.methods({
      * Invite someone to an activity
      *
      * @param {string} activityId
-     * @param {string} email
-     * @param {string} name
+     * @param {Object} fields
+     * @param {[Object]} fields.invitees
+     * @param {String} fields.invitees.name
+     * @param {String} fields.invitees.email
+     * @param {String} fields.message
      */
     'activities.invite_by_email': function(activityId, fields) {
+        check(activityId, String);
         check(fields, Partup.schemas.forms.inviteUpper);
 
         var inviter = Meteor.user();
@@ -287,32 +293,38 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!Invites.findOne({
-            activity_id: activityId,
-            invitee_email: fields.email,
-            type: Invites.INVITE_TYPE_ACTIVITY_EMAIL
+        var invitees = fields.invitees || [];
+
+        invitees.forEach(function(invitee) {
+            var isAlreadyInvited = !!Invites.findOne({
+                activity_id: activityId,
+                invitee_email: invitee.email,
+                type: Invites.INVITE_TYPE_ACTIVITY_EMAIL
+            });
+
+            if (isAlreadyInvited) {
+                //@TODO How to handle this scenario? Because now, we just skip to the next invitee
+                //throw new Meteor.Error(403, 'email_is_already_invited_to_network');
+                return;
+            }
+
+            var accessToken = Random.secret();
+
+            var invite = {
+                type: Invites.INVITE_TYPE_ACTIVITY_EMAIL,
+                activity_id: activity._id,
+                inviter_id: inviter._id,
+                invitee_name: invitee.name,
+                invitee_email: invitee.email,
+                message: fields.message,
+                access_token: accessToken,
+                created_at: new Date
+            };
+
+            Invites.insert(invite);
+
+            Event.emit('invites.inserted.activity.by_email', inviter, partup, activity, invitee.email, invitee.name, fields.message, accessToken);
         });
-
-        if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'email_is_already_invited_to_activity');
-        }
-
-        var accessToken = Random.secret();
-
-        var invite = {
-            type: Invites.INVITE_TYPE_ACTIVITY_EMAIL,
-            activity_id: activity._id,
-            inviter_id: inviter._id,
-            invitee_name: fields.name,
-            invitee_email: fields.email,
-            message: fields.message,
-            access_token: accessToken,
-            created_at: new Date
-        };
-
-        Invites.insert(invite);
-
-        Event.emit('invites.inserted.activity.by_email', inviter, partup, activity, fields.email, fields.name, fields.message, accessToken);
     },
 
     /**
@@ -320,10 +332,12 @@ Meteor.methods({
      *
      * @param {string} activityId
      * @param {string} inviteeId
+     * @param {string} searchQuery
      */
-    'activities.invite_existing_upper': function(activityId, inviteeId) {
+    'activities.invite_existing_upper': function(activityId, inviteeId, searchQuery) {
         check(activityId, String);
         check(inviteeId, String);
+        check(searchQuery, Match.Optional(String));
 
         var inviter = Meteor.user();
         if (!inviter) {
@@ -367,6 +381,6 @@ Meteor.methods({
             Partups.update(partup._id, {$addToSet: {invites: invitee._id}});
         }
 
-        Event.emit('invites.inserted.activity', inviter, partup, activity, invitee);
+        Event.emit('invites.inserted.activity', inviter, partup, activity, invitee, searchQuery);
     }
 });

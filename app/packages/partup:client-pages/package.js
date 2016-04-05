@@ -93,12 +93,14 @@ Package.onUse(function(api) {
             'app/profile/profile.js',
 
             // App: profile tabs
-            'app/profile/tabs/profile-upper-partups.html',
-            'app/profile/tabs/profile-upper-partups.js',
-            'app/profile/tabs/profile-supporter-partups.html',
-            'app/profile/tabs/profile-supporter-partups.js',
-            'app/profile/tabs/profile-about.html',
-            'app/profile/tabs/profile-about.js',
+            'app/profile/tabs/upper-partups.html',
+            'app/profile/tabs/upper-partups.js',
+            'app/profile/tabs/supporter-partups.html',
+            'app/profile/tabs/supporter-partups.js',
+            'app/profile/tabs/about.html',
+            'app/profile/tabs/about.js',
+            'app/profile/tabs/partners.html',
+            'app/profile/tabs/partners.js',
 
             // App: profile tiles
             'app/profile/partials/profile/profile.html',

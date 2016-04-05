@@ -15,7 +15,9 @@ Package.onUse(function(api) {
     api.addFiles([
 
         'UpperTile.html',
-        'UpperTile.js'
+        'UpperTile.js',
+        'InviteTile.html',
+        'InviteTile.js'
 
     ], 'client');
 

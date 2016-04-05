@@ -112,6 +112,31 @@ Meteor.routeComposite('/users/:id/networks', function(request, params) {
 });
 
 /**
+ * Publish all partners a user worked with
+ *
+ * @param {Object} request
+ * @param {Object} params
+ */
+Meteor.routeComposite('/users/:id/partners', function(request, params) {
+    var options = {};
+
+    if (request.limit) options.limit = parseInt(request.query.limit);
+    if (request.skip) options.skip = parseInt(request.query.skip);
+
+    return {
+        find: function() {
+            var user = Meteor.users.findOne(params.id);
+            if (!user) return;
+
+            return Meteor.users.findPartnersForUpper(user);
+        },
+        children: [
+            {find: Images.findForUser}
+        ]
+    };
+});
+
+/**
  * Publish the loggedin user
  */
 Meteor.publishComposite('users.loggedin', function() {

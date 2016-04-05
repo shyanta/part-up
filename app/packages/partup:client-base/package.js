@@ -31,6 +31,7 @@ Package.onUse(function(api) {
 
         'client/Debugger.js',
         'autoform/afFieldInput.js',
+        'autoform/arrayHelpers.js',
         'client/error.js',
         'client/isMobile.js',
         'client/events.js',
@@ -84,6 +85,7 @@ Package.onUse(function(api) {
         'helpers/autolink.js',
         'helpers/mobileHelpers.js',
         'helpers/browserTest.js',
+        'helpers/math.js',
 
         'bootstrap.js',
         'analytics.js'

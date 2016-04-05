@@ -74,3 +74,24 @@ Router.route('/users/:id/supporterpartups/count', {where: 'server'}).get(functio
 
     return response.end(JSON.stringify({error: false, count: partups.count()}));
 });
+
+/*
+ * Count route for /users/:id/partners
+ */
+Router.route('/users/:id/partners/count', {where: 'server'}).get(function() {
+    var response = this.response;
+    var params = this.params;
+
+    // We are going to respond in JSON format
+    response.setHeader('Content-Type', 'application/json');
+
+    var user = Meteor.users.findOne(params.id);
+    if (!user) {
+        response.statusCode = 404;
+        return response.end(JSON.stringify({error: {reason: 'error-user-notfound'}}));
+    }
+
+    var partners = Meteor.users.findPartnersForUpper(user);
+
+    return response.end(JSON.stringify({error: false, count: partners.count()}));
+});

@@ -1,0 +1,24 @@
+{
+    "pages-app-profile-partners-nav": "Partners",
+
+    "invitetile-relevance-partups-count": "1 part-up in common",
+    "invitetile-relevance-partups-count_plural": "__count__ part-ups in common",
+    "invitetile-relevance-networks-count": "1 tribe in common",
+    "invitetile-relevance-networks-count_plural": "__count__ tribes in common",
+    "invitetile-relevance-supporter-count": "supported 1 of your part-ups",
+    "invitetile-relevance-supporter-count_plural": "supported __count__ of your part-ups",
+
+    "pages-app-profile-partners-prefix": "__name__ has",
+    "pages-app-profile-partners-count": "1 partner",
+    "pages-app-profile-partners-count_plural": "__count__ partners",
+    "pages-app-profile-partners-none": "No partners",
+    "pages-app-profile-partners-loading": "Loading partners",
+
+    "pages-modal-network_invite-suggestions-label": "Uppers recommended for your tribe",
+    "pages-modal-partup_invite-suggestions-label": "Uppers recommended for your part-up",
+    "pages-modal-activity_invite-suggestions-label": "Uppers recommended for your activity",
+
+    "pages-modal-network_invite-suggestions-placeholder": "no results",
+    "pages-modal-partup_invite-suggestions-placeholder": "no results",
+    "pages-modal-activity_invite-suggestions-placeholder": "no results"
+}

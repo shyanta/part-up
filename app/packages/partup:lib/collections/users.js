@@ -103,6 +103,8 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
  *
  * @memberOf Meteor.users
  * @param {Network} network
+ * @param {Object} options
+ * @param {Object} parameters
  * @return {Mongo.Cursor}
  */
 Meteor.users.findUppersForNetwork = function(network, options, parameters) {
@@ -136,6 +138,32 @@ Meteor.users.findUppersForPartup = function(partup) {
 Meteor.users.findSupportersForPartup = function(partup) {
     var supporters = partup.supporters || [];
     return Meteor.users.findMultiplePublicProfiles(supporters);
+};
+
+/**
+ * Find the partners of an upper
+ *
+ * @memberOf Meteor.users
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findPartnersForUpper = function(upper) {
+    var upper_partups = upper.upperOf || [];
+    var upper_partners = [];
+
+    // Gather all upper IDs from the partups the user is partner of
+    upper_partups.forEach(function(partupId) {
+        var partup = Partups.findOne(partupId);
+        var partup_uppers = partup.uppers || [];
+        upper_partners.push.apply(upper_partners, partup_uppers);
+    });
+
+    // Remove duplicates and the requested user from the partner list
+    var partners = lodash.chain(upper_partners)
+        .unique()
+        .pull(upper._id)
+        .value();
+
+    return Meteor.users.findMultiplePublicProfiles(partners);
 };
 
 /**
@@ -175,7 +203,8 @@ Meteor.users.findForContribution = function(contribution) {
  * Safely find users that are not disabled
  *
  * @memberOf Meteor.users
- * @param {Contributions} contribution
+ * @param {Object} selector
+ * @param {Object} options
  * @return {Mongo.Cursor}
  */
 Meteor.users.findActiveUsers = function(selector, options) {
@@ -194,7 +223,8 @@ Meteor.users.findActiveUsers = function(selector, options) {
  * Find for admin list
  *
  * @memberOf Meteor.users
- * @param {Contributions} contribution
+ * @param {Object} selector
+ * @param {Object} options
  * @return {Mongo.Cursor}
  */
 Meteor.users.findForAdminList = function(selector, options) {
@@ -212,7 +242,7 @@ Meteor.users.findForAdminList = function(selector, options) {
 };
 
 Meteor.users.findStatsForAdmin = function() {
-    var results = {
+    return {
         'servicecounts': {
             'password': Meteor.users.find({'services.password':{'$exists':true}}).count(),
             'linkedin': Meteor.users.find({'services.linkedin':{'$exists':true}}).count(),
@@ -226,7 +256,6 @@ Meteor.users.findStatsForAdmin = function() {
             'ratings': Ratings.find({}).count()
         }
     };
-    return results;
 };
 
 /**
@@ -245,7 +274,6 @@ Meteor.users.findByUnsubscribeEmailToken = function(token) {
  * @ignore
  */
 User = function(user) {
-
     return {
 
         /**

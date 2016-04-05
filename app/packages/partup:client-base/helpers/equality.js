@@ -50,6 +50,17 @@ Template.registerHelper('partupContainsOne', function(a, b) {
     return contains;
 });
 
+Template.registerHelper('partupContainsOneInArray', function(a, b) {
+    if (!a || !b) return false;
+    var contains = false;
+    for (var i = 0; i < b.length; i++) {
+        if (a === b[i]) {
+            contains = true;
+        }
+    };
+    return contains;
+});
+
 Template.registerHelper('partupOneIsTrue', function(a, b) {
     if (a) return true;
     if (b) return true;

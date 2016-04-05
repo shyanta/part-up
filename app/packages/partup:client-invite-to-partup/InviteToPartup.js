@@ -1,27 +1,35 @@
-/**
- * Render invite to part-up functionality
- *
- * @module client-invite-to-partup
- *
- */
 Template.InviteToPartup.onCreated(function() {
     var template = this;
     template.submitting = new ReactiveVar(false);
+    template.invites = new ReactiveVar([{
+        name: 'name',
+        email: 'email'
+    }]);
 });
 
 Template.InviteToPartup.helpers({
-    formSchema: Partup.schemas.forms.inviteUpper,
-    submitting: function() {
-        return Template.instance().submitting.get();
-    },
-    defaultDoc: function() {
-        var partup = Partups.findOne(this.partupId);
-
+    form: function() {
+        var template = Template.instance();
+        var partup = Partups.findOne(template.data.partupId);
+        var user = Meteor.user();
         return {
-            message: TAPi18n.__('invite-to-partup-popup-message-prefill', {
-                partupName: partup.name,
-                inviterName: Meteor.user().profile.name
-            })
+            schema: Partup.schemas.forms.inviteUpper,
+            doc: function() {
+                return {
+                    message: TAPi18n.__('invite-to-partup-popup-message-prefill', {
+                        partupName: partup.name,
+                        inviterName: user.profile.name
+                    })
+                };
+            }
+        };
+    },
+    state: function() {
+        var template = Template.instance();
+        return {
+            submitting: function() {
+                return template.submitting.get();
+            },
         };
     }
 });

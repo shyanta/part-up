@@ -1,67 +1,29 @@
 .pu-invite-suggestions
-    padding: 0
-    list-style: none
+    background: #F9F9F9
+    border-radius: 5px
+    margin-left: -40px
+    margin-right: -40px
+    padding: 25px 40px 35px 40px
 
-    li
-        display: table
-        width: 100%
-        padding: 20px 0
-        border-bottom: 2px solid #eee
+    > p
+        margin-bottom: 20px
 
-        > a, > p
-            display: table-cell
+        &.pu-sub-placeholder
+            margin-bottom: 0
+            padding: 40px
+            font-family: $font-secondary
+            color: #ccc
+            font-weight: 700
+            text-align: center
 
-        > a:first-child
-            width: 70px
+    > ul
+        list-style: none
+        padding-left: 0
 
-    .pu-sub-image
-        display: table-cell
-        vertical-align: middle
-        width: 60px
+        @include add-list-spacing(20px)
+        @extend %clearfix
 
-    .pu-avatar
-        width: 60px
-        height: 60px
+        > li
+            float: left
+            line-height: 0
 
-    .pu-sub-identity
-        display: table-cell
-        padding: 0 0 0 10px
-        vertical-align: middle
-        max-width: 300px
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
-
-    .pu-sub-name
-        color: inherit
-        font-weight: bold
-        text-decoration: none
-
-        &:hover
-            text-decoration: underline
-
-    .pu-sub-location
-        display: block
-        font-weight: normal
-
-    .pu-sub-right
-        display: table-cell
-        text-align: right
-        vertical-align: middle
-        min-width: 200px
-
-    .pu-button
-        margin: 10px 0 0 10px
-
-    .pu-sub-percentage
-        display: inline-block
-        width: 50px
-        height: 50px
-        margin: 5px 0 0 10px
-        border-radius: 50%
-        background: $color-primary
-        color: #fff
-        font-size: 18px
-        font-weight: bold
-        line-height: 52px
-        text-align: center
