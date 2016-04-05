@@ -52,7 +52,24 @@ Template.InviteTile.helpers({
                         if (item.indexOf(searchtag) > -1) highlightTags.push(item);
                     });
                 });
-                return highlightTags;
+
+                tags.sort(function(first, second) {
+                    var firstMatches = 0;
+                    var secondMatches = 0;
+
+                    _.each(highlightTags, function(item) {
+                        if (first.indexOf(item)) firstMatches++;
+                        if (second.indexOf(item)) secondMatches++;
+                    });
+
+                    return firstMatches - secondMatches;
+
+                });
+
+                return {
+                    highlight: highlightTags,
+                    tags: tags
+                };
             },
             relevance: function() {
                 var userPartups = user.upperOf || [];
