@@ -1,7 +1,7 @@
 /**
  * Generate a notification and email when an invite gets sent
  */
-Event.on('invites.inserted.activity', function(inviter, partup, activity, invitee) {
+Event.on('invites.inserted.activity', function(inviter, partup, activity, invitee, searchQuery) {
     // Check if there is already an invite update
     var inviteUpdate = Updates.findOne({partup_id: partup._id, upper_id: inviter._id, type: 'partups_invited'}, {sort: {updated_at: -1}});
 
@@ -64,6 +64,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
             activityName: activity.name,
             activityDescription: activity.description,
             inviterName: inviter.profile.name,
+            searchQuery: searchQuery,
             url: Meteor.absoluteUrl() + 'partups/' + partup.slug,
             unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/invite_upper_to_partup_activity/' + invitee.profile.settings.unsubscribe_email_token,
             unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + invitee.profile.settings.unsubscribe_email_token

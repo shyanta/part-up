@@ -102,6 +102,7 @@ Network.prototype.isClosed = function() {
 Network.prototype.isClosedForUpper = function(upperId) {
     if (this.isPublic()) return false;
     if (!upperId) return true;
+    if (this.isAdmin(upperId)) return false;
     if (this.hasMember(upperId)) return false;
 
     return true;

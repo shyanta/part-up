@@ -16,6 +16,8 @@ Package.onUse(function(api) {
         'fileinput.html',
         'fileinput.js',
         'datepicker.html',
-        'datepicker.js'
+        'datepicker.js',
+        'multi-invite-input.html',
+        'multi-invite-input.js'
     ], 'client');
 });

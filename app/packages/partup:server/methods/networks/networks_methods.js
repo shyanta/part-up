@@ -84,11 +84,13 @@ Meteor.methods({
      *
      * @param {String} networkId
      * @param {Object} fields
-     * @param {String} fields.name
-     * @param {String} fields.email
+     * @param {[Object]} fields.invitees
+     * @param {String} fields.invitees.name
+     * @param {String} fields.invitees.email
      * @param {String} fields.message
      */
     'networks.invite_by_email': function(networkId, fields) {
+        check(networkId, String);
         check(fields, Partup.schemas.forms.inviteUpper);
 
         var inviter = Meteor.user();
@@ -103,35 +105,41 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!Invites.findOne({
-            network_id: networkId,
-            invitee_email: fields.email,
-            type: Invites.INVITE_TYPE_NETWORK_EMAIL
+        var invitees = fields.invitees || [];
+
+        invitees.forEach(function(invitee) {
+            var isAlreadyInvited = !!Invites.findOne({
+                network_id: networkId,
+                invitee_email: invitee.email,
+                type: Invites.INVITE_TYPE_NETWORK_EMAIL
+            });
+
+            if (isAlreadyInvited) {
+                //@TODO How to handle this scenario? Because now, we just skip to the next invitee
+                //throw new Meteor.Error(403, 'email_is_already_invited_to_network');
+                return;
+            }
+
+            var accessToken = Random.secret();
+
+            var invite = {
+                type: Invites.INVITE_TYPE_NETWORK_EMAIL,
+                network_id: network._id,
+                inviter_id: inviter._id,
+                invitee_name: invitee.name,
+                invitee_email: invitee.email,
+                message: fields.message,
+                access_token: accessToken,
+                created_at: new Date
+            };
+
+            Invites.insert(invite);
+
+            // Save the access token to the network to allow access
+            Networks.update(network._id, {$addToSet: {access_tokens: accessToken}});
+
+            Event.emit('invites.inserted.network.by_email', inviter, network, invitee.email, invitee.name, fields.message, accessToken);
         });
-
-        if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'email_is_already_invited_to_network');
-        }
-
-        var accessToken = Random.secret();
-
-        var invite = {
-            type: Invites.INVITE_TYPE_NETWORK_EMAIL,
-            network_id: network._id,
-            inviter_id: inviter._id,
-            invitee_name: fields.name,
-            invitee_email: fields.email,
-            message: fields.message,
-            access_token: accessToken,
-            created_at: new Date
-        };
-
-        Invites.insert(invite);
-
-        // Save the access token to the network to allow access
-        Networks.update(network._id, {$addToSet: {access_tokens: accessToken}});
-
-        Event.emit('invites.inserted.network.by_email', inviter, network, fields.email, fields.name, fields.message, accessToken);
     },
 
     /**
@@ -144,6 +152,7 @@ Meteor.methods({
      * @param {Object[]} invitees
      */
     'networks.invite_by_email_bulk': function(networkId, fields, invitees) {
+        check(networkId, String);
         check(fields, Partup.schemas.forms.networkBulkinvite);
 
         if (!invitees || (invitees.length < 1 || invitees.length > 200)) {
@@ -207,10 +216,12 @@ Meteor.methods({
      *
      * @param {String} networkId
      * @param {String} inviteeId
+     * @param {String} searchQuery
      */
-    'networks.invite_existing_upper': function(networkId, inviteeId) {
+    'networks.invite_existing_upper': function(networkId, inviteeId, searchQuery) {
         check(networkId, String);
         check(inviteeId, String);
+        check(searchQuery, Match.Optional(String));
 
         var inviter = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
@@ -224,7 +235,12 @@ Meteor.methods({
         }
 
         var invitee = Meteor.users.findOneOrFail(inviteeId);
-        var isAlreadyInvited = !!Invites.findOne({network_id: networkId, invitee_id: invitee._id, inviter_id: inviter._id, type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER});
+        var isAlreadyInvited = !!Invites.findOne({
+            network_id: networkId,
+            invitee_id: invitee._id,
+            inviter_id: inviter._id,
+            type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER
+        });
         if (isAlreadyInvited) {
             throw new Meteor.Error(403, 'user_is_already_invited_to_network');
         }
@@ -240,7 +256,7 @@ Meteor.methods({
 
         Invites.insert(invite);
 
-        Event.emit('invites.inserted.network', inviter, network, invitee);
+        Event.emit('invites.inserted.network', inviter, network, invitee, searchQuery);
     },
 
     /**
@@ -486,7 +502,10 @@ Meteor.methods({
         var swarm = Swarms.guardedMetaFind({slug: swarmSlug}, {limit: 1}).fetch().pop();
         try {
             query = query.replace(/-/g, ' '); // Replace dashes with spaces
-            return Networks.guardedMetaFind({slug: new RegExp('.*' + query + '.*', 'i'), swarms: {$nin: [swarm._id]}}, {limit: 30}).fetch();
+            return Networks.guardedMetaFind({
+                slug: new RegExp('.*' + query + '.*', 'i'),
+                swarms: {$nin: [swarm._id]}
+            }, {limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'networks_could_not_be_autocompleted');
@@ -496,18 +515,20 @@ Meteor.methods({
     /**
      * Get user suggestions for a given network
      *
-     * @param {String} networkId
+     * @param {String} networkSlug
      * @param {Object} options
-     * @param {String} options.locationId
      * @param {String} options.query
+     * @param {Number} options.limit
+     * @param {Number} options.skip
      *
      * @return {Array}
      */
-    'networks.user_suggestions': function(networkId, options) {
-        check(networkId, String);
+    'networks.user_suggestions': function(networkSlug, options) {
+        check(networkSlug, String);
         check(options, {
-            locationId: Match.Optional(String),
-            query: Match.Optional(String)
+            query: Match.Optional(String),
+            limit: Match.Optional(Number),
+            skip: Match.Optional(Number)
         });
 
         this.unblock();
@@ -518,7 +539,7 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var users = Partup.server.services.matching.matchUppersForNetwork(networkId, options);
+        var users = Partup.server.services.matching.matchUppersForNetwork(networkSlug, options);
 
         // We are returning an array of IDs instead of an object
         return users.map(function(user) {
@@ -594,10 +615,12 @@ Meteor.methods({
         };
 
         try {
-            Networks.update(networkId, {$set: {
-                'featured': featured,
-                'language': fields.language
-            }});
+            Networks.update(networkId, {
+                $set: {
+                    'featured': featured,
+                    'language': fields.language
+                }
+            });
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_could_not_be_featured');

@@ -60,11 +60,15 @@
                             <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'pages-modal-register-signup-form-password-tooltip' }}</p></span>
                         </a>
                     </span>
-
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='password' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput type='password' name='password' placeholder=placeholders.password class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='password' }}</span>
                     </div>
+                </label>
+
+            </fieldset>
+            <fieldset class="pu-formfield pu-formfield-nolabel">
+                <label>
                     <div class="pu-sub-validations {{#if afFieldIsInvalid name='confirmPassword' }}pu-state-invalid{{/if}}">
                         <span class="pu-sub-input">{{> afFieldInput type='password' name='confirmPassword' placeholder=placeholders.confirmPassword class="pu-input" }}</span>
                         <span class="pu-sub-error">{{ afFieldMessage name='confirmPassword' }}</span>

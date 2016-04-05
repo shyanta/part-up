@@ -13,6 +13,7 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup:lib',
+        'partup:client-dropdowns',
         'reactive-dict',
         'reactive-var',
         'aldeed:autoform',
@@ -93,12 +94,14 @@ Package.onUse(function(api) {
             'app/profile/profile.js',
 
             // App: profile tabs
-            'app/profile/tabs/profile-upper-partups.html',
-            'app/profile/tabs/profile-upper-partups.js',
-            'app/profile/tabs/profile-supporter-partups.html',
-            'app/profile/tabs/profile-supporter-partups.js',
-            'app/profile/tabs/profile-about.html',
-            'app/profile/tabs/profile-about.js',
+            'app/profile/tabs/upper-partups.html',
+            'app/profile/tabs/upper-partups.js',
+            'app/profile/tabs/supporter-partups.html',
+            'app/profile/tabs/supporter-partups.js',
+            'app/profile/tabs/about.html',
+            'app/profile/tabs/about.js',
+            'app/profile/tabs/partners.html',
+            'app/profile/tabs/partners.js',
 
             // App: profile tiles
             'app/profile/partials/profile/profile.html',
@@ -127,6 +130,10 @@ Package.onUse(function(api) {
             // App:partup:gallery (update)
             'app/partup/gallery/gallery.html',
             'app/partup/gallery/gallery.js',
+
+            // App:partup:document-renderer (update)
+            'app/partup/document-renderer/document-renderer.html',
+            'app/partup/document-renderer/document-renderer.js',
 
             // App:partup:updates
             'app/partup/updates/updates.html',

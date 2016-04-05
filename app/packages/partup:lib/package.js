@@ -80,7 +80,8 @@ Package.onUse(function(api) {
         'helpers/mentions.js',
         'helpers/normalize.js',
         'helpers/interpolateEmailMessage.js',
-        'helpers/url.js'
+        'helpers/url.js',
+        'helpers/dropboxChooser.js'
     ]);
 
     api.addFiles([

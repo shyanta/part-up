@@ -147,7 +147,8 @@ Template.Partupsettings.helpers({
         return {
             input: 'data-bootstrap-datepicker',
             autoFormInput: 'data-autoform-input',
-            prefillValueKey: 'end_date' // autoform key
+            prefillValueKey: 'end_date', // autoform key
+            startDate: new Date()
         };
     },
     partup: function() {

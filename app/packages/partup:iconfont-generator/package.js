@@ -6,14 +6,10 @@ Package.describe({
 });
 
 Package.registerBuildPlugin({
-    name: 'andrefgneves:iconfont',
-
-    use: ['coffeescript@1.0.6'],
-
+    name: 'partup:iconfont-generator',
     sources: [
-        'plugin/iconfont.coffee'
+        'plugin/iconfont.js'
     ],
-
     npmDependencies: {
         'fs-extra':         '0.16.5',
         'lodash':           '2.4.1',
@@ -26,11 +22,11 @@ Package.registerBuildPlugin({
     }
 });
 
-Package.onUse(function (api) {
-    api.add_files('plugin/stylesheet.tpl', 'server', { isAsset: true });
+Package.onUse(function(api) {
+    api.add_files('plugin/stylesheet.tpl', 'server', {isAsset: true});
 });
 
-Package.on_test(function (api) {
+Package.on_test(function(api) {
     api.use('andrefgneves:iconfont');
     api.use('tinytest');
 

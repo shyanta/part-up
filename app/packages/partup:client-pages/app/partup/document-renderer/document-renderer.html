@@ -1,0 +1,21 @@
+<template name="DocumentRenderer">
+    <ul class="document-icons icons-{{documents.length}}-layout">
+        {{# each documents }}
+            <a href="{{DropboxRenderer.createPreviewLinkFromDirectLink  link name}}" target="_blank">
+                <li>
+                    <div class="file-download">
+                        <figure class="pu-download-icon" style="background-image:url('/images/add-media-icons/icon__download.svg');"></figure>
+                    </div>
+                    <div class="file-icon">
+                        <figure class="pu-doc-icon"
+                                style="background-image:url('/images/add-media-icons/{{ DropboxRenderer.getSvgIcon name }}');"></figure>
+                    </div>
+                    <div class="file-information">
+                        <p class="file-name">{{name}}</p>
+                        <p class="file-bytes">{{DropboxRenderer.bytesToSize bytes}}</p>
+                    </div>
+                </li>
+            </a>
+        {{/ each }}
+    </ul>
+</template>

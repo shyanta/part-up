@@ -1,0 +1,74 @@
+<template name="InviteTile">
+    <article class="pu-invitetile">
+        {{#if state.loading}}
+            {{> Spinner }}
+        {{else}}
+            <header>
+                <a href="{{ pathFor route='profile' _id=data.user._id }}" class="pu-sub-figure">
+                    <figure class="pu-avatar pu-avatar-medium" style="{{#with data.user.profile.image}}background-image: url({{ partupImageUrl id=. store='80x80' }});{{/with}}">
+                        <span class="pu-score pu-score-small">{{ data.participationScore }}</span>
+                    </figure>
+                </a>
+                <div class="pu-sub-title">
+                    <h4>
+                        <a href="{{ pathFor route='profile' _id=data.user._id }}">{{ data.user.profile.name }}</a>
+                    </h4>
+                    <p>{{ data.user.profile.location.city }}</p>
+                    {{#if data.relevance.partnerInSamePartupsCount }}
+                        <p class="pu-relevance">{{_ 'invitetile-relevance-partups-count' count=data.relevance.partnerInSamePartupsCount }}</p>
+                    {{else}}
+                        {{#if data.relevance.memberOfSameNetworkCount}}
+                            <p class="pu-relevance">{{_ 'invitetile-relevance-networks-count' count=data.relevance.memberOfSameNetworkCount }}</p>
+                        {{else}}
+                            {{#if data.relevance.supporterOfPartupsCurrentUserIsPartnerOfCount }}
+                                <p class="pu-relevance">{{_ 'invitetile-relevance-supporter-count' count=data.relevance.supporterOfPartupsCurrentUserIsPartnerOfCount }}</p>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </header>
+            <article>
+                <p class="pu-highlighttext">{{{ data.highlightText }}}</p>
+            </article>
+            <article>
+                <ul class="pu-list pu-list-horizontal pu-list-tags {{#if data.highlightText}}pu-highlighttags{{/if}}">
+                    {{#each data.highlightTags.tags}}
+                        <li>
+                            <a href="#" class="pu-tag {{#unless partupContainsOneInArray . data.highlightTags.highlight }}
+                                pu-tag-dim
+                            {{/unless}}">{{ . }}</a>
+                        </li>
+                    {{/each}}
+                </ul>
+            </article>
+            <footer>
+                <button {{state.inviteButtonType}} type="button"
+                    class="pu-button
+                        {{#if state.alreadyPartner }}
+                            pu-button-positivestate
+                        {{ else }}
+                            {{# if state.inviteSent }}
+                                pu-button-success
+                            {{/ if }}
+                        {{/ if }}
+                        {{# if state.inviteLoadingForUser }}
+                            pu-state-loading pu-state-disabled
+                        {{/ if }}">
+                    <span>
+                        {{# if state.alreadyPartner }}
+                            {{_ 'pages-modal-invite_to_partup-button-already-partner' }}
+                        {{ else }}
+                            {{# if state.inviteSent }}
+                                {{_ 'pages-modal-invite_to_partup-button-invited-upper' }}
+                            {{ else }}
+                                {{_ 'pages-modal-invite_to_partup-button-invite-upper' }}
+                            {{/ if }}
+                        {{/ if }}
+                    </span>
+                    <i class="picon-check pu-sub-success"></i>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
+            </footer>
+        {{/if}}
+    </article>
+</template>

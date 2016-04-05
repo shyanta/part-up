@@ -17,12 +17,18 @@
             {{# if type_data.images }}
                 {{> ImageGallery images=type_data.images updateId=_id}}
             {{/ if}}
+
+            {{# if type_data.documents }}
+                {{> DocumentRenderer documents=type_data.documents updateId=_id}}
+            {{/ if}}
+
             {{#if partupEquals upper_id currentUserId }}
                 <footer class="pu-sub-useractions">
                     <a href="#" data-edit-message><span>{{_ 'update-editmessage-edit'}}</span></a>{{#if hasNoComments}}<a href="#" data-remove-message><span>{{_ 'update-editmessage-remove'}}</span></a>{{/if}}
                 </footer>
             {{/if}}
         </article>
+
     </section>
 
 </template>

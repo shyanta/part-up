@@ -12,9 +12,6 @@ var activityBaseSchema = new SimpleSchema({
     },
     end_date: {
         type: Date,
-        min: function() {
-            return new Date();
-        },
         optional: true
     },
     name: {

@@ -10,20 +10,29 @@ Template.InviteToActivity.onCreated(function() {
 });
 
 Template.InviteToActivity.helpers({
-    formSchema: Partup.schemas.forms.inviteUpper,
-    submitting: function() {
-        return Template.instance().submitting.get();
-    },
-    defaultDoc: function() {
+    form: function() {
+        var template = Template.instance();
         var activity = Activities.findOne(this.activityId);
         var partup = Partups.findOne(activity.partup_id);
-
         return {
-            message: TAPi18n.__('invite-to-activity-popup-message-prefill', {
-                partupName: partup.name,
-                activityName: activity.name,
-                inviterName: Meteor.user().profile.name
-            })
+            schema: Partup.schemas.forms.inviteUpper,
+            doc: function() {
+                return {
+                    message: TAPi18n.__('invite-to-activity-popup-message-prefill', {
+                        partupName: partup.name,
+                        activityName: activity.name,
+                        inviterName: Meteor.user().profile.name
+                    })
+                };
+            }
+        };
+    },
+    state: function() {
+        var template = Template.instance();
+        return {
+            submitting: function() {
+                return template.submitting.get();
+            },
         };
     }
 });

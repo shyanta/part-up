@@ -9,37 +9,44 @@
     </p>
 
 
-    {{#autoForm schema=formSchema id="inviteToNetworkForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=defaultDoc }}
-        <div class="pu-row">
-            <div class="cell top">
-
-                <!-- Name of invitee -->
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'invite-to-network-popup-input-name'}}</span>
-                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='name' }}pu-state-invalid{{/if}}">
-                        <span class="pu-sub-input">
-                            {{> afFieldInput name='name' class="pu-input" }}
-                        </span>
-                        <span class="pu-sub-error">{{ afFieldMessage name='name' }}</span>
+    {{#autoForm schema=form.schema id="inviteToNetworkForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=form.doc }}
+        {{#MultiInviteInput formId="inviteToNetworkForm" fieldName="invitees" }}
+            {{#afEachArrayItem name='invitees'}}
+                <div data-inputrow="{{ afArrayFieldIsLastVisible }}" class="pu-row pu-inputrow">
+                    <div class="cell top">
+                        <label class="pu-formfield">
+                            {{#if afArrayFieldIsFirstVisible}}
+                                <span class="pu-label">{{_ 'invite-to-partup-popup-input-name'}}</span>
+                            {{/if}}
+                            <div class="pu-sub-validations {{#if afFieldIsInvalid name=current.name }}pu-state-invalid{{/if}}">
+                                <span class="pu-sub-input">
+                                    {{> afFieldInput name=current.name class="pu-input" }}
+                                </span>
+                                <span class="pu-sub-error">{{ afFieldMessage name=current.name }}</span>
+                            </div>
+                        </label>
                     </div>
-                </label>
-
-            </div>
-            <div class="cell top">
-
-                <!-- Emailaddress of invitee -->
-                <label class="pu-formfield">
-                    <span class="pu-label">{{_ 'invite-to-network-popup-input-email'}}</span>
-                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='email' }}pu-state-invalid{{/if}}">
-                        <span class="pu-sub-input">
-                            {{> afFieldInput name='email' class="pu-input" }}
-                        </span>
-                        <span class="pu-sub-error">{{ afFieldMessage name='email' }}</span>
+                    <div class="cell top">
+                        <label class="pu-formfield">
+                            {{#if afArrayFieldIsFirstVisible}}
+                                <span class="pu-label">{{_ 'invite-to-partup-popup-input-email'}}</span>
+                            {{/if}}
+                            <div class="pu-sub-validations {{#if afFieldIsInvalid name=current.email }}pu-state-invalid{{/if}}">
+                                <span class="pu-sub-input">
+                                    {{> afFieldInput name=current.email class="pu-input" }}
+                                </span>
+                                <span class="pu-sub-error">{{ afFieldMessage name=current.email }}</span>
+                            </div>
+                        </label>
                     </div>
-                </label>
-
-            </div>
-        </div>
+                    <div class="cell bottom">
+                        <label class="pu-formfield">
+                            <button class="pu-button pu-button-icononly pu-button-gray" data-remove data-first="{{afArrayFieldIsFirstVisible}}" data-last="{{afArrayFieldIsLastVisible}}"><i class="picon-times"></i></button>
+                        </label>
+                    </div>
+                </div>
+            {{/afEachArrayItem}}
+        {{/MultiInviteInput}}
 
         <!-- Custom email message for invitee -->
         <label class="pu-formfield">
@@ -54,7 +61,7 @@
 
         <footer class="pu-sub-formfooter pu-row pu-row-scalable">
             <div class="cell stretch">
-                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                <button type="submit" class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}">
                     <span>{{_ 'invite-to-network-popup-form-copy-confirm'}}</span>
                     {{> Spinner color='inverted' type='small' }}
                 </button>
