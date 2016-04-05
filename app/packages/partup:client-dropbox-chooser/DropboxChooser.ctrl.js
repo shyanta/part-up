@@ -7,6 +7,9 @@ if (Meteor.isClient) {
 
     Template.DropboxChooser.onRendered(function () {
 
+        /**
+         * part-up webapp, Dropbox Developer console
+         */
         Dropbox.init({appKey: 'le3ovpnhqs4qy9g'});
 
         var template = Template.instance().parent();
