@@ -26,6 +26,7 @@ Template.InviteTile.helpers({
         var data = Template.currentData();
         var user = Meteor.users.findOne({_id: template.data.userId});
         var currentUser = Meteor.user();
+        if (!user) return;
         var tags = user.profile.tags || [];
 
         return {
@@ -39,8 +40,12 @@ Template.InviteTile.helpers({
                 var text = template.searchQuery.get();
                 var highlight = Partup.client.sanitize(text);
                 var description = user.profile.description || '';
-                var descriptionArray = description.length ? description.split(highlight) : [];
-                var outputText = descriptionArray.length ? descriptionArray.join('<span>' + highlight + '</span>') : text;
+                var descriptionArray = Partup.client.strings.splitCaseInsensitive(description, highlight);
+                if (descriptionArray.length <= 1) return description;
+
+                var maxCharacters = 100 - highlight.length;
+                var outputArray = Partup.client.strings.shortenLeftRight(description, highlight, maxCharacters);
+                var outputText = outputArray.join('<span>' + highlight + '</span>');
                 return outputText;
             },
             highlightTags: function() {
@@ -48,18 +53,23 @@ Template.InviteTile.helpers({
                 var highlightTags = [];
                 var searchtags = text.split(' ');
                 _.each(searchtags, function(searchtag) {
+                    var stag = searchtag.toLowerCase();
                     _.each(tags, function(item) {
-                        if (item.indexOf(searchtag) > -1) highlightTags.push(item);
+                        var tag = item.toLowerCase();
+                        if (item.indexOf(stag) > -1) highlightTags.push(item);
                     });
                 });
 
                 tags.sort(function(first, second) {
+                    var firstString = first.toLowerCase();
+                    var secondString = second.toLowerCase();
                     var firstMatches = 0;
                     var secondMatches = 0;
 
                     _.each(highlightTags, function(item) {
-                        if (first.indexOf(item)) firstMatches++;
-                        if (second.indexOf(item)) secondMatches++;
+                        var tag = item.toLowerCase();
+                        if (firstString.indexOf(tag)) firstMatches++;
+                        if (secondString.indexOf(tag)) secondMatches++;
                     });
 
                     return firstMatches - secondMatches;
