@@ -91,6 +91,7 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
     if (parameters.onlyActive) selector.deactivatedAt = {$exists: false};
 
     options.fields = publicUserFields;
+    if (parameters.isAdminOfNetwork) options.fields.emails = 1;
 
     options.limit = parameters.count ? undefined : parseInt(options.limit) || undefined;
     options.sort = parameters.count ? undefined : options.sort || undefined;
@@ -110,7 +111,7 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 Meteor.users.findUppersForNetwork = function(network, options, parameters) {
     var uppers = network.uppers || [];
 
-    var parameters = parameters || {};
+    parameters = parameters || {};
     parameters.onlyActive = true;
 
     return this.findMultiplePublicProfiles(uppers, options, parameters);

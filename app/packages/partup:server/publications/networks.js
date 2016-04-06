@@ -146,7 +146,11 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
             var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
             if (!network) return;
 
-            return Meteor.users.findUppersForNetwork(network, options);
+            if (network.isNetworkAdmin(this.userId)) {
+                parameters.isAdminOfNetwork = true;
+            }
+
+            return Meteor.users.findUppersForNetwork(network, options, parameters);
         },
         children: [
             {find: Images.findForUser}
