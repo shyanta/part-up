@@ -105,22 +105,22 @@ var DropboxRenderer = function () {
      */
     function getSvgIcon(fileName) {
         var extension = dropboxChooser.getExtensionFromFileName(fileName);
-        var svgFileName = 'icon_file.svg';
+        var svgFileName = 'file.svg';
 
         if (_.include(Partup.helpers.fallbackFileExtensions, extension)) {
-            svgFileName = 'icon_file.svg';
+            svgFileName = 'file.svg';
         }
         else if (_.include(Partup.helpers.presentationExtensions, extension)) {
-            svgFileName = 'icon_ppt.svg';
+            svgFileName = 'ppt.svg';
         }
         else if (_.include(Partup.helpers.docExtensions, extension)) {
-            svgFileName = 'icon_doc.svg';
+            svgFileName = 'doc.svg';
         }
         else if (_.include(Partup.helpers.pdfExtensions, extension)) {
-            svgFileName = 'icon_pdf.svg';
+            svgFileName = 'pdf.svg';
         }
         else if (_.include(Partup.helpers.spreadSheetExtensions, extension)) {
-            svgFileName = 'icon_xls.svg';
+            svgFileName = 'xls.svg';
         }
 
         return svgFileName;

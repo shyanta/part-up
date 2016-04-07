@@ -176,7 +176,7 @@ var generateStylesheets = function(compileStep, options) {
         fontSrcs.push(getFontSrcURL({
             baseURL: options.fontFaceBaseURL,
             fontName: options.fontName,
-            extension: '.eot'
+            extension: '.eot' + '?v=' + new Date().getTime()
         }));
     }
     var srcs = [];
