@@ -6,15 +6,8 @@
         {{# if data.network.uppers }}
         <!-- <h3>{{_ 'network-settings-uppers-listheading' }}</h3> -->
 
-        <form id="" class="pu-form pu-search {{#if data.searchQuery}}pu-state-active{{/if}}" novalidate="novalidate">
-            <label class="pu-formfield">
-                <span class="pu-label">6 uppers </span>
-                <span class="pu-sub-input">
-                    <input type="text" name="email" placeholder="" class="pu-input form-control" autofocus="" required="" maxlength="255" data-search>
-                    <i class="picon-search"></i>
-                </span>
-            </label>
-        </form>
+        {{> SearchInput inputSettings=form.searchInput}}
+
 
         <ul class="pu-list pu-list-lineseparated">
             {{# each data.uppers }}

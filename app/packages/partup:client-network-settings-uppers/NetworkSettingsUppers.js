@@ -11,6 +11,7 @@ Template.NetworkSettingsUppers.onCreated(function() {
     var userId = Meteor.userId();
 
     template.searchQuery = new ReactiveVar();
+    template.reactiveLabel = new ReactiveVar('No uppers');
 
     template.subscription = template.subscribe('networks.one', template.data.networkSlug, {
         onReady: function() {
@@ -34,6 +35,7 @@ Template.NetworkSettingsUppers.helpers({
         var searchQuery = template.searchQuery.get();
         if (searchQuery) searchOptions['profile.name'] = {$regex: searchQuery, $options: 'i'};
         var uppers = Meteor.users.find(searchOptions).fetch();
+        template.reactiveLabel.set(uppers.length + ' uppers');
         var self = this;
         return {
             network: function() {
@@ -48,6 +50,17 @@ Template.NetworkSettingsUppers.helpers({
             },
             searchQuery: function() {
                 return template.searchQuery.get();
+            }
+        };
+    },
+    form: function() {
+        var template = Template.instance();
+        return {
+            searchInput: function() {
+                return {
+                    reactiveLabel: template.reactiveLabel,
+                    reactiveSearchQuery: template.searchQuery
+                };
             }
         };
     }
@@ -67,9 +80,6 @@ Template.NetworkSettingsUppers.events({
 
             Partup.client.notify.success(TAPi18n.__('network-settings-uppers-upper-removed'));
         });
-    },
-    'input [data-search]': function(event, template) {
-        template.searchQuery.set(event.target.value);
     },
     'click [data-toggle]': function(event) {
         event.preventDefault();

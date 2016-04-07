@@ -20,6 +20,8 @@ Package.onUse(function(api) {
         'multi-invite-input.html',
         'multi-invite-input.js',
         'wysiwyg.html',
-        'wysiwyg.js'
+        'wysiwyg.js',
+        'searchinput.html',
+        'searchinput.js'
     ], 'client');
 });
