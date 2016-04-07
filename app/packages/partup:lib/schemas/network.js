@@ -56,6 +56,10 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: Object,
         optional: true
     },
+    contentblocks: {
+        type: [String],
+        regEx: SimpleSchema.RegEx.Id
+    },
     created_at: {
         type: Date,
         defaultValue: new Date()
