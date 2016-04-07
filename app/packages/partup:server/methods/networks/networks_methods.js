@@ -34,6 +34,7 @@ Meteor.methods({
             ];
             network.most_active_partups = [];
             network.common_tags = [];
+            network.contentblocks = [];
 
             network._id = Networks.insert(network);
 
@@ -710,8 +711,10 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
 
+        if (!user || network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
         try {
-            if (network.isNetworkAdmin(user._id) && network.hasMember(userId)) {
+            if (network.hasMember(userId)) {
                 network.addAdmin(userId);
             }
         } catch (error) {
@@ -733,13 +736,38 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
 
+        if (!user || network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
         try {
-            if (network.isNetworkAdmin(user._id) && network.hasMember(userId) && network.admins.length > 1) {
+            if (network.hasMember(userId) && network.admins.length > 1) {
                 network.removeAdmin(userId);
             }
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_user_could_not_be_removed_as_admin');
+        }
+    },
+
+    /**
+     * Update a ContentBlock sequence
+     *
+     * @param {String} networkSlug
+     * @param {[String]} contentBlockSequence
+     */
+    'networks.contentblocks_sequence': function(networkSlug, contentBlockSequence) {
+        check(networkSlug, String);
+        check(contentBlockSequence, [String]);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        if (!user || network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Networks.update(network._id, {contentblocks: contentBlockSequence})
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
         }
     }
 });
