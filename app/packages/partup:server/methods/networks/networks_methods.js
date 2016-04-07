@@ -734,7 +734,7 @@ Meteor.methods({
         var network = Networks.findOne({slug: networkSlug});
 
         try {
-            if (network.isNetworkAdmin(user._id) && network.hasMember(userId)) {
+            if (network.isNetworkAdmin(user._id) && network.hasMember(userId) && network.admins.length > 1) {
                 network.removeAdmin(userId);
             }
         } catch (error) {
