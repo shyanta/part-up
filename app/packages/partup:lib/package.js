@@ -70,6 +70,7 @@ Package.onUse(function(api) {
         'schemas/language.js',
         'schemas/tile.js',
         'schemas/swarm.js',
+        'schemas/contentblock.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
