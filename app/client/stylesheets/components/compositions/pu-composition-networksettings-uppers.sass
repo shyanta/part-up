@@ -1,59 +1,32 @@
 .pu-composition-networksettings-uppers
-    .pu-list
+    > .pu-list
         margin-top: 15px
     h3
         margin-top: 20px
         font-size: 16px
 
-    .pu-form
-    	.pu-formfield
-    		.pu-label
-    			float: left
-
-    		.pu-sub-input
-    			float: left
-    			margin-top: -15px
-    			margin-left: 15px
-
-    			input.pu-input.form-control
-    				width: 52px
-    				transition: width 200ms
-
-    			input.pu-input.form-control:focus
-    				width: 490px
-    				padding-left: 45px
-
-    			.picon-search
-    				position: absolute
-    				top: 14px
-    				left: 16px
-    				font-size: 18px
-    				color: $color-button-gray-background
-
     // left arrow
     .pu-sub-input:after,
     .pu-sub-input:before
-    	right: 96%
-    	top: 50%
-    	border: solid transparent
-    	content: " "
-    	height: 0
-    	width: 0
-    	position: absolute
-    	pointer-events: none
-    	z-index: 2
+        right: 96%
+        top: 50%
+        border: solid transparent
+        content: " "
+        height: 0
+        width: 0
+        position: absolute
+        pointer-events: none
+        z-index: 2
 
     .pu-sub-input:after
-    	//border-color: rgba(136, 183, 213, 0)
-    	border-right-color: #fff
-    	border-width: 8px
-    	margin-top: -8px
+        border-right-color: #fff
+        border-width: 8px
+        margin-top: -8px
 
     .pu-sub-input:before
-    	//border-color: rgba(194, 225, 245, 0)
-    	border-right-color: #eee
-    	border-width: 11px
-    	margin-top: -11px
+        border-right-color: #eee
+        border-width: 11px
+        margin-top: -11px
 
 
     .pu-sub-name
@@ -61,50 +34,37 @@
         text-decoration: none
 
     .pu-sub-mail
-    	position: absolute
-    	top: 10px
-    	left: 45%
+        position: absolute
+        top: 10px
+        left: 45%
 
     .pu-sub-status
-    	position: absolute
-    	top: 10px
-    	right: 52px
-    	font-weight: bold
-    	color: $color-primary
+        color: $color-primary
+        position: absolute
+        top: 10px
+        right: 52px
+        font-weight: bold
 
-    .pu-upper-settings
-    	position: absolute
-    	top: 52px
-    	right: 0
-    	width: 190px
-    	border: 2px solid #eee
-    	border-radius: 5px
-    	background-color: #fff
-    	z-index: 1
+    .pu-uppersettings
+        position: absolute
+        display: none
+        top: 52px
+        right: 0
+        width: 190px
+        border: 2px solid #eeeeee
+        border-radius: 5px
+        background-color: #ffffff
+        z-index: 1
 
-    	&-delete
-    		color: $color-alert-error
+        .pu-sub-delete
+            button, a
+                color: $color-alert-error
 
-    	.pu-list-lineseparated
-    		margin-top: 0px
-    		border-bottom: 0px
+        &.pu-state-active
+            display: block
 
-    		li
-    			padding: 20px
-    			border-top: 2px solid #eee
-    			display: block
-    			background-color: #fff
+        .pu-dropdownitem
+            border-bottom: 2px solid #eee
 
-    			&:first-child
-    				border-top: 0px
-
-
-
-
-
-
-
-
-
-
-
+            &:last-child
+                border-bottom: 0

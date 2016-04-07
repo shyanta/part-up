@@ -12,7 +12,8 @@ Package.onUse(function(api) {
 
     api.use([
         'templating',
-        'aldeed:autoform'
+        'aldeed:autoform',
+        'reactive-dict'
     ], 'client');
 
     api.addFiles([
