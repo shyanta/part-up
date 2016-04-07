@@ -52,6 +52,7 @@ Package.onUse(function(api) {
         'collections/languages.js',
         'collections/tiles.js',
         'collections/swarms.js',
+        'collections/contentblock.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -125,6 +126,7 @@ Package.onUse(function(api) {
     api.export('Languages');
     api.export('Tiles');
     api.export('Swarms');
+    api.export('ContentBlocks');
 
     // Globals
     api.export('get');
