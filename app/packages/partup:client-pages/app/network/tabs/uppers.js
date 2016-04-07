@@ -116,6 +116,15 @@ Template.app_network_uppers.onRendered(function() {
 });
 
 Template.app_network_uppers.helpers({
+    networkInviteTileSettings: function() {
+        var template = Template.instance();
+        return {
+            template: 'NetworkInviteTile',
+            data: {
+                networkSlug: template.data.networkSlug
+            }
+        };
+    },
     columnTilesLayout: function() {
         return Template.instance().columnTilesLayout;
     },
