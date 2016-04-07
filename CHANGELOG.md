@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.17.2
+- fix(icons): icons are properly aligned again on all windows browsers #346
+
 ## 1.17.1
 - fix(tagsquery): reset prefilled query after code has run to prevent early reset fixing #293
 - should not upload more than 4 images in EDIT MESSAGE mode #294
