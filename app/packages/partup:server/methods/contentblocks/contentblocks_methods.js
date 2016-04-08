@@ -35,7 +35,21 @@ Meteor.methods({
         check(contentBlockId, String);
         check(fields, Partup.schemas.forms.contentBlock);
 
-        // @TODO
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var contentBlockData = Partup.transformers.contentBlock.fromFormContentBlock(fields);
+
+            ContentBlocks.update(contentBlockId, {$set: contentBlockData});
+
+            return {
+                _id: contentBlockData._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'contentblock_could_not_be_updated');
+        }
     },
 
     /**

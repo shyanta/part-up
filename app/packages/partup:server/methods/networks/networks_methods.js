@@ -772,6 +772,30 @@ Meteor.methods({
         }
     },
 
+    /**
+     * Update a ContentBlock sequence
+     *
+     * @param {String} networkSlug
+     * @param {String} contentBlockId
+     * @param {mixed[]} fields
+     */
+    'networks.contentblock_update': function(networkSlug, contentBlockId, fields) {
+        check(networkSlug, String);
+        check(fields, Partup.schemas.forms.contentBlock);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        if (!user || !network.isNetworkAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Meteor.call('contentblocks.update', contentBlockId, fields);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
+        }
+    },
+
      * @param {[String]} contentBlockSequence
      */
     'networks.contentblocks_sequence': function(networkSlug, contentBlockSequence) {
