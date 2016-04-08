@@ -26,12 +26,10 @@
 
         <div data-infinitescroll-container>
 
-            <!-- Loading/rendering state -->
-            {{# if updatesLoading }}
+            <!-- REMOVED LOADER UNTILL INFINITE SCROLL IS PERMANENTLY FIXED -->
+            <!-- {{# if updatesLoading }}
                 <section class="pu-update">
                     <aside>
-
-                        <!-- Loader indicator where normally a user avatar would be -->
                         <figure class="pu-avatar pu-avatar-update">
                             <span class="pu-sub-image pu-sub-image-loader">
                                 {{> Loader ALIGNMENT='center' COLOR='white' SIZE='small' }}
@@ -40,8 +38,9 @@
 
                     </aside>
                 </section>
-            {{ else }}
+            {{ else }} -->
 
+            {{#unless updatesLoading}}
                 <!-- Reveal new updates -->
                 {{#if newUpdatesCount }}
                     <p class="pu-update pu-sub-revealupdatesbutton">
@@ -99,12 +98,10 @@
 
                 {{/each }}
 
-                <!-- Infinite scroll loader -->
-                {{# if updatesLoadingMore }}
+                <!-- REMOVED LOADER UNTILL INFINITE SCROLL IS PERMANENTLY FIXED -->
+                <!-- {{# if updatesLoadingMore }}
                     <section class="pu-update">
                         <aside>
-
-                            <!-- Loader indicator where normally a user avatar would be -->
                             <figure class="pu-avatar pu-avatar-update">
                                 <span class="pu-sub-image pu-sub-image-loader">
                                     {{> Loader ALIGNMENT='center' COLOR='white' SIZE='small' }}
@@ -113,9 +110,9 @@
 
                         </aside>
                     </section>
-                {{/ if }}
+                {{/ if }} -->
 
-            {{/ if }}
+            {{/ unless }}
 
         </div>
 
