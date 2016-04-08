@@ -10,7 +10,6 @@ Template.ColumnTilesLayout.onRendered(function() {
 Template.ColumnTilesLayout.helpers({
     firstBlockSettings: function() {
         var template = Template.instance();
-        console.log(template.firstBlockSettings.get());
         return template.firstBlockSettings.get();
     },
     columns: function() {
