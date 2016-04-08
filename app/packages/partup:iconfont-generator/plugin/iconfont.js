@@ -6,6 +6,7 @@ var md5 = Npm.require('MD5');
 var svg2ttf = Npm.require('svg2ttf');
 var ttf2eot = Npm.require('ttf2eot');
 var ttf2woff = Npm.require('ttf2woff');
+var ttf2woff2 = Npm.require('ttf2woff2');
 var svgicons2svgfont = Npm.require('svgicons2svgfont');
 var optionsFile = path.join(process.cwd(), 'iconfont.json');
 var cacheFilePath = path.join(process.cwd(), '.meteor/iconfont.cache');
@@ -25,18 +26,18 @@ var handler = function(compileStep) {
         classPrefix: 'icon-',
         stylesheetFilename: null,
         stylesheetTemplate: '.meteor/local/isopacks/andrefgneves_iconfont/os/packages/andrefgneves_iconfont/plugin/stylesheet.tpl',
-        types: ['svg', 'ttf', 'eot', 'woff']
+        types: ['svg', 'ttf', 'eot', 'woff', 'woff2']
     }, options);
     if (!options.types || !options.types.length) {
         return;
     }
     options.files = getFiles(options.src);
     if (didInvalidateCache(options)) {
-        console.log('\n[iconfont] generating');
         options.fontFaceURLS = {};
         options.types = _.map(options.types, function(type) {
             return type.toLowerCase();
         });
+        console.log('\n[iconfont] generating');
         return generateFonts(compileStep, options);
     }
 };
@@ -70,13 +71,16 @@ var generateCacheChecksum = function(options) {
 
 var generateFonts = function(compileStep, options) {
     return generateSVGFont(options.files, options, function(svgFontPath) {
-        if (_.intersection(options.types, ['ttf', 'eot', 'woff']).length) {
+        if (_.intersection(options.types, ['ttf', 'eot', 'woff', 'woff2']).length) {
             generateTTFFont(svgFontPath, options, function(ttfFontPath) {
                 if (_.contains(options.types, 'eot')) {
                     generateEOTFont(ttfFontPath, options);
                 }
                 if (_.contains(options.types, 'woff')) {
-                    return generateWoffFont(ttfFontPath, options);
+                    generateWoffFont(ttfFontPath, options);
+                }
+                if (_.contains(options.types, 'woff2')) {
+                    return generateWoff2Font(ttfFontPath, options);
                 }
             });
         }
@@ -163,6 +167,20 @@ var generateWoffFont = function(ttfFontPath, options, done) {
     }
 };
 
+var generateWoff2Font = function(ttfFontPath, options, done) {
+    var ttf = fs.readFileSync(ttfFontPath);
+    var font = ttf2woff2(ttf);
+    var tempFile = temp.openSync(options.fontName + '-woff2');
+    fs.writeFileSync(tempFile.path, font);
+    var eotDestPath = path.join(process.cwd(), options.dest, options.fontName + '.woff2');
+    fs.createFileSync(eotDestPath);
+    fs.writeFileSync(eotDestPath, font);
+    options.fontFaceURLS.woff2 = path.join(options.fontFaceBaseURL, options.fontName + '.woff2');
+    if (_.isFunction(done)) {
+        return done(tempFile.path);
+    }
+};
+
 var generateStylesheets = function(compileStep, options) {
     var fontSrcs = [];
     var glyphCodepointMap = {};
@@ -172,13 +190,6 @@ var generateStylesheets = function(compileStep, options) {
     _.each(options.glyphs, function(glyph) {
         return glyphCodepointMap[glyph.name] = glyph.codepoint.toString(16);
     });
-    if (_.contains(options.types, 'eot')) {
-        fontSrcs.push(getFontSrcURL({
-            baseURL: options.fontFaceBaseURL,
-            fontName: options.fontName,
-            extension: '.eot' + '?v=' + new Date().getTime()
-        }));
-    }
     var srcs = [];
     _.each(options.types, function(type) {
         switch (type) {
@@ -210,8 +221,22 @@ var generateStylesheets = function(compileStep, options) {
                     extension: '.woff' + '?v=' + new Date().getTime(),
                     format: 'woff'
                 }));
+            case 'woff2':
+                return srcs.push(getFontSrcURL({
+                    baseURL: options.fontFaceBaseURL,
+                    fontName: options.fontName,
+                    extension: '.woff2' + '?v=' + new Date().getTime(),
+                    format: 'woff2'
+                }));
         }
     });
+    if (_.contains(options.types, 'eot')) {
+        srcs.push(getFontSrcURL({
+            baseURL: options.fontFaceBaseURL,
+            fontName: options.fontName,
+            extension: '.eot' + '?v=' + new Date().getTime()
+        }));
+    }
     fontSrcs.push(srcs.join(', '));
     if (!options.stylesheets) {
         var stylesheets = {};

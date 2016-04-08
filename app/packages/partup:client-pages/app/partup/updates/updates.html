@@ -119,5 +119,13 @@
 
         </div>
 
+        {{#unless updatesEndReached}}
+            <button class="pu-temporary-loadmore pu-button pu-button-secondary {{#if partupOneIsTrue updatesLoadingMore updatesLoading}}pu-state-disabled pu-state-loading{{/if}}" data-trigger-load>
+                {{_ 'pages-app-partup-updates-load_more_updates' }}
+                {{#if partupOneIsTrue updatesLoadingMore updatesLoading}}
+                     {{> Spinner color='inverted' type='small'}}
+                {{/if}}
+            </button>
+        {{/unless}}
     </div>
 </template>

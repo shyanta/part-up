@@ -344,6 +344,9 @@ Template.app_partup_updates.helpers({
  * Updates events
  */
 Template.app_partup_updates.events({
+    'click [data-trigger-load]': function(event, template) {
+        template.updates.increaseLimit();
+    },
     'click [data-newmessage-popup]': function(event, template) {
         event.preventDefault();
 
