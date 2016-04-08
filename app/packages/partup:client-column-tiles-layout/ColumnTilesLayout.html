@@ -1,13 +1,13 @@
 <template name="ColumnTilesLayout">
     <section class="pu-columnslayout">
-        {{#with firstBlockSettings}}
-            fhgdsjaghfjhdskagfhjsagfhjdgfkhjsdah
-            {{ log data }}
-            {{> Template.dynamic template=name data=data }}
-        {{/with}}
         {{# each columns }}
             <ul class="pu-sub-column" data-column style="{{# with columnWidth }}width: {{ . }}%;{{/ with }}">
-                {{# each . }}
+                {{#if partupEqualsExactly index 0 }}
+                    {{#with firstBlockSettings}}
+                        {{> Template.dynamic template=template data=data }}
+                    {{/with}}
+                {{/if}}
+                {{# each items }}
                     <li class="pu-sub-tile pu-sub-tile-rendered">
                         {{> UI.contentBlock . }}
                     </li>
