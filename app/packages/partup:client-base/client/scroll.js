@@ -24,7 +24,7 @@ Partup.client.scroll = {
         }, 10);
 
         // Trigger a position update when the user scrolls
-        $(window).scroll(d);
+        $(document).on('scroll', d);
 
         // Trigger a position update when every template is being rendered
         Template.onRendered(function() {
