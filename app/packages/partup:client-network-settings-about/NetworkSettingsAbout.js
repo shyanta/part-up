@@ -2,7 +2,7 @@ Template.NetworkSettingsAbout.onCreated(function() {
     var template = this;
     var userId = Meteor.userId();
 
-    template.subscription = template.subscribe('networks.one', template.data.networkSlug, {
+    template.subscribe('networks.one', template.data.networkSlug, {
         onReady: function() {
             var network = Networks.findOne({slug: template.data.networkSlug});
             if (!network) Router.pageNotFound('network');
@@ -41,18 +41,22 @@ Template.NetworkSettingsAbout.helpers({
         var network = Networks.findOne({slug: template.data.networkSlug});
         if (!network) return;
         var contentBlocksArr = network.contentblocks || [];
-        var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}});
+        var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}}).fetch();
 
         return {
             network: function() {
                 return network;
             },
             contentBlocks: function() {
-                console.log(contentBlocks)
                 return contentBlocks;
             }
         };
     }
 });
 
-
+Template.NetworkSettingsAbout.events({
+    'click [data-create]': function(event, template) {
+        event.preventDefault();
+        Meteor.call('networks.contentblock_insert', template.data.networkSlug, {type: 'paragraph'});
+    }
+});

@@ -157,6 +157,7 @@ Package.onUse(function(api) {
         'publications/tiles.js',
         'publications/notifications.js',
         'publications/swarms.js',
+        'publications/contentblocks.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',

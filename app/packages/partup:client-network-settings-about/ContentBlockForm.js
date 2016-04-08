@@ -22,6 +22,12 @@ Template.ContentBlockForm.helpers({
     }
 });
 
+Template.ContentBlockForm.event({
+    'click [data-remove]': function(event, template) {
+
+    }
+});
+
 AutoForm.addHooks('contentBlockForm', {
     onSubmit: function(doc) {
         var self = this;
