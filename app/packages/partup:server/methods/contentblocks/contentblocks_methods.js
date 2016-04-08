@@ -55,25 +55,19 @@ Meteor.methods({
     /**
      * Remove a contentBlock
      *
-     * @param {String} networkSlug
      * @param {String} contentBlockId
      */
-    'contentblocks.remove': function(networkSlug, contentBlockId) {
-        check(networkSlug, String);
+    'contentblocks.remove': function(contentBlockId) {
         check(contentBlockId, String);
-        // @TODO better solution
-        //var user = Meteor.user();
-        //var network = Networks.findOneOrFail({slug: networkSlug});
-        //
-        //if (!user) throw new Meteor.Error(401, 'unauthorized');
-        //
-        //
-        //try {
-        //    ContentBlocks.remove({_id: contentBlockId});
-        //    networks.update(networkId, {$pull: {contentblocks: contentBlockId}});
-        //} catch (error) {
-        //    Log.error(error);
-        //    throw new Meteor.Error(400, 'contentblock_could_not_be_removed');
-        //}
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            ContentBlocks.remove({_id: contentBlockId});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'contentblock_could_not_be_removed');
+        }
     }
 });

@@ -749,7 +749,7 @@ Meteor.methods({
     },
 
     /**
-     * Update a ContentBlock sequence
+     * Insert a ContentBlock
      *
      * @param {String} networkSlug
      * @param {mixed[]} fields
@@ -773,7 +773,7 @@ Meteor.methods({
     },
 
     /**
-     * Update a ContentBlock sequence
+     * Update a ContentBlock
      *
      * @param {String} networkSlug
      * @param {String} contentBlockId
@@ -793,6 +793,30 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
+        }
+    },
+
+    /**
+     * Remove a ContentBlock
+     *
+     * @param {String} networkSlug
+     * @param {String} contentBlockId
+     */
+    'networks.contentblock_remove': function(networkSlug, contentBlockId) {
+        check(networkSlug, String);
+        check(contentBlockId, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        if (!user || !network.isNetworkAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Networks.update(network._id, {$pull: {contentblocks: contentBlockId}});
+            ContentBlocks.remove(contentBlockId);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_removed');
         }
     },
 
