@@ -20,6 +20,6 @@ Partup.schemas.forms.contentBlock = new SimpleSchema({
     },
     type: {
         type: String,
-        allowedValues: ['paragraph']
+        allowedValues: ['intro', 'paragraph']
     }
 });
