@@ -820,19 +820,31 @@ Meteor.methods({
         }
     },
 
+    /**
+     * Update a ContentBlock sequence
+     *
+     * @param {String} networkSlug
      * @param {[String]} contentBlockSequence
      */
-    'networks.contentblocks_sequence': function(networkSlug, contentBlockSequence) {
+    'networks.contentblock_sequence': function(networkSlug, contentBlockSequence) {
         check(networkSlug, String);
         check(contentBlockSequence, [String]);
 
         var user = Meteor.user();
-        var network = Networks.findOne({slug: networkSlug});
+        var network = Networks.findOneOrFail({slug: networkSlug});
 
-        if (!user || network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+        // Check if length of new array is the same as the current length
+        if (network.contentblocks.length !== contentBlockSequence.length) throw new Meteor.Error(400, 'network_contentblocks_not_matching');
+
+        // Check if given IDs are legit
+        contentBlockSequence.forEach(function(contentBlockId) {
+            if (!network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+        });
 
         try {
-            Networks.update(network._id, {contentblocks: contentBlockSequence})
+            Networks.update(network._id, {$set: {contentblocks: contentBlockSequence}})
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
