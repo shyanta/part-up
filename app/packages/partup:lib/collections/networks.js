@@ -355,6 +355,17 @@ Network.prototype.removeAdmin = function(upperId) {
 };
 
 /**
+ * Checks if a ContentBlock belongs to this network
+ *
+ * @memberOf Networks
+ * @param {String} contentBlockId
+ */
+Network.prototype.hasContentBlock = function(contentBlockId) {
+    var contentBlocks = this.contentblocks || [];
+    return mout.lang.isString(contentBlockId) && contentBlocks.indexOf(contentBlockId) > -1;
+};
+
+/**
  Networks, also known as "Tribes" are entities that group users and partups
  @namespace Networks
  */
