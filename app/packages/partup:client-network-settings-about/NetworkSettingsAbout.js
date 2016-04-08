@@ -11,6 +11,11 @@ Template.NetworkSettingsAbout.onCreated(function() {
             }
         }
     });
+    template.subscribe('contentblocks.by_network_slug', template.data.networkSlug, {
+        onReady: function() {
+            console.log('done');
+        }
+    });
     template.charactersLeft = new ReactiveDict();
     template.submitting = new ReactiveVar();
     template.current = new ReactiveDict();
@@ -18,58 +23,36 @@ Template.NetworkSettingsAbout.onCreated(function() {
 
     template.locationSelection = new ReactiveVar();
 
-    template.autorun(function() {
-        var network = Networks.findOne({slug: template.data.networkSlug});
-        if (!network) return;
-
-        if (network.location && network.location.place_id) template.locationSelection.set(network.location);
-
-        network = Partup.transformers.network.toFormNetwork(network);
-
-        var formSchema = Partup.schemas.forms.network._schema;
-        var valueLength;
-
-        ['description', 'name', 'tags_input', 'location_input', 'website'].forEach(function(n) {
-            valueLength = network[n] ? network[n].length : 0;
-            template.charactersLeft.set(n, formSchema[n].max - valueLength);
-        });
-    });
-});
-
-Template.NetworkSettingsAbout.onRendered(function() {
-    // this.$('#summernote-intro').summernote();
-    // this.$('#summernote-intro').trumbowyg();
-
-    // this.$('#summernote-p').trumbowyg();
 });
 
 Template.NetworkSettingsAbout.helpers({
-    form: function() {
+    config: function() {
         var template = Template.instance();
         return {
-            introInput: {
-                input: 'data-intro',
-                className: 'pu-textarea pu-wysiwyg',
-                placeholder: 'Schrijf een intro'
-            },
-            paragraphInput: {
-                input: 'data-paragraph',
-                className: 'pu-textarea pu-wysiwyg',
-                placeholder: 'Paragraaf'
+            introFormSettings: function() {
+                return {
+                    type: 'intro'
+                };
             }
         };
     },
     data: function() {
         var template = Template.instance();
         var network = Networks.findOne({slug: template.data.networkSlug});
+        if (!network) return;
+        var contentBlocksArr = network.contentblocks || [];
+        var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}});
+
         return {
             network: function() {
                 return network;
+            },
+            contentBlocks: function() {
+                console.log(contentBlocks)
+                return contentBlocks;
             }
         };
     }
 });
 
-Template.NetworkSettingsAbout.events({
 
-});

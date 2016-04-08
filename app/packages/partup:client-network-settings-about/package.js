@@ -19,7 +19,9 @@ Package.onUse(function(api) {
     api.addFiles([
 
         'NetworkSettingsAbout.html',
-        'NetworkSettingsAbout.js'
+        'NetworkSettingsAbout.js',
+        'ContentBlockForm.html',
+        'ContentBlockForm.js'
 
     ], 'client');
 

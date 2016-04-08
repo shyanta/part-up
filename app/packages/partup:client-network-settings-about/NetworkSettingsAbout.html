@@ -2,59 +2,16 @@
     <div class="pu-composition pu-composition-defaultmodal pu-composition-networksettings-about">
         <h2 class="pu-title pu-title-modal">{{_ 'network-settings-about-title' }}</h2>
         <p>{{{_ 'network-settings-about-paragraph' }}}</p>
-        <form id="1quoteForm" class="pu-form pu-block pu-block-active" novalidate="novalidate">
-            <label class="pu-formfield">
-                <span class="pu-label">
-                    {{_ 'network-settings-about-form-page-title' }}
-                    <!-- <a class="pu-hint">
-                        max 75 characters
-                    </a> -->
-                </span>
-                <div class="pu-sub-validations">
-                    <span class="pu-sub-input">
-                        <input type="text" name="title" placeholder="{{_ 'network-settings-about-form-page-placeholder-title' }}" class="pu-input form-control" data-schema-key="title" maxlength="75">
-                    </span>
-                    <span class="pu-sub-error"></span>
-                </div>
-            </label>
-            <div class="pu-formfield">
-                <span class="pu-label">
-                    {{_ 'network-settings-about-form-intro' }}
-                    <a class="pu-hint">
-                        400 characters left
-                    </a>
-                </span>
-                <div class="pu-sub-validations">
-                    <span class="pu-sub-input">
-                        {{# Wysiwyg inputSettings=form.introInput }}
-                            <input type="hidden" data-intro>
-                        {{/ Wysiwyg}}
-                    </span>
-                    <span class="pu-sub-error"></span>
-                </div>
-            </div>
-            <footer class="pu-sub-formfooter pu-row pu-row-scalable">
-                <div class="cell">
-                    <button type="submit" class="pu-button">
-                        <span>{{_ 'network-settings-about-form-btn-save' }}</span>
-                    </button>
-                </div>
-                <div class="cell stretch"><button type="button" class="pu-button pu-button-gray" data-close="">{{_ 'network-settings-about-form-btn-close' }}</button></div>
-                <!-- <div class="cell">
-                    <a class="pu-button pu-button-text pu-button-text-subtle" data-remove="">Remove</a>
-                </div> -->
-            </footer>
-        </form>
+        {{#each data.contentBlocks}}
+            {{> ContentBlockForm formSettings=config.introFormSettings }}
+        {{/each}}
         <p class="pu-textline pu-textline-divider">
             <span>{{_ 'network-settings-about-textline' }}</span>
         </p>
-        <form id="1quoteForm" class="pu-form pu-block pu-block-active" novalidate="novalidate">
+        <!-- <form id="1quoteForm" class="pu-form pu-block pu-block-active" novalidate="novalidate">
             <label class="pu-formfield">
                 <span class="pu-label">
                     {{_ 'network-settings-about-form-title' }}
-                    <!-- <a class="pu-hint">
-                        max 75 characters
-                    </a> -->
                 </span>
                 <div class="pu-sub-validations">
                     <span class="pu-sub-input">
@@ -66,9 +23,6 @@
             <div class="pu-formfield">
                 <span class="pu-label">
                     {{_ 'network-settings-about-form-text' }}
-                    <!-- <a class="pu-hint">
-                        Max 180 characters
-                    </a> -->
                 </span>
                 <div class="pu-sub-validations">
                     <span class="pu-sub-input">
@@ -101,11 +55,8 @@
                     </button>
                 </div>
                 <div class="cell stretch"><button type="button" class="pu-button pu-button-gray" data-close="">{{_ 'network-settings-about-form-btn-close' }}</button></div>
-                <!-- <div class="cell">
-                    <a class="pu-button pu-button-text pu-button-text-subtle" data-remove="">Remove</a>
-                </div> -->
             </footer>
-        </form>
+        </form> -->
         <section class="pu-block pu-block-result">
             <p><strong>Bladielala</strong></p>
             <p>Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris</p>
