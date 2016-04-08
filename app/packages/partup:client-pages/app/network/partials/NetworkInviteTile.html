@@ -1,5 +1,11 @@
 <template name="NetworkInviteTile">
-    <article class="pu-profiletile pu-profiletile-placeholder">
-        {{networkSlug}} okokok
+    <article class="pu-tile pu-tile-placeholder">
+        <h3>Invite uppers to this tribe</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur beatae, ullam totam quia! Molestias consequatur, reiciendis tempora aspernatur dolorum reprehenderit!</p>
+         <!-- invite button -->
+         <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=data.networkSlug }}">
+             <i class="picon-person-plus picon-large"></i>
+             {{_ 'pages-app-network-actions-button-invite'}}
+         </a>
     </article>
 </template>

@@ -160,6 +160,19 @@ Template.app_network_partups.onRendered(function() {
 });
 
 Template.app_network_partups.helpers({
+    configs: function() {
+        var template = Template.instance();
+        return {
+            networkStartPartupTileSettings: function() {
+                return {
+                    template: 'NetworkStartPartupTile',
+                    data: {
+                        networkSlug: template.data.networkSlug
+                    }
+                };
+            },
+        };
+    },
     data: function() {
         var template = Template.instance();
         var self = this;
@@ -211,24 +224,4 @@ Template.app_network_partups.helpers({
     }
 });
 
-Template.app_network_partups.events({
-    'click [data-create-partup-in-tribe]': function(event, template) {
-        event.preventDefault();
 
-        var networkSlug = template.data.networkSlug;
-        var network = Networks.findOne({slug: networkSlug});
-
-        Session.set('createPartupForNetworkById', network._id);
-
-        Intent.go({route: 'create-details'}, function(slug) {
-            if (slug) {
-                Router.go('partup', {
-                    slug: slug
-                });
-            } else {
-                this.back();
-            }
-            Session.set('createPartupForNetworkById', false);
-        });
-    }
-});

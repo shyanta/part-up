@@ -79,6 +79,8 @@ Package.onUse(function(api) {
             'app/network/partials/joinbutton.js',
             'app/network/partials/NetworkInviteTile.html',
             'app/network/partials/NetworkInviteTile.js',
+            'app/network/partials/NetworkStartPartupTile.html',
+            'app/network/partials/NetworkStartPartupTile.js',
             'app/network/partials/uppers.html',
             'app/network/partials/uppers.js',
             'app/network/partials/partups.html',

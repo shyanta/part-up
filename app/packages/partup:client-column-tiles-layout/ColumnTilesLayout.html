@@ -4,7 +4,9 @@
             <ul class="pu-sub-column" data-column style="{{# with columnWidth }}width: {{ . }}%;{{/ with }}">
                 {{#if partupEqualsExactly index 0 }}
                     {{#with firstBlockSettings}}
-                        {{> Template.dynamic template=template data=data }}
+                        <li class="pu-sub-tile pu-sub-tile-rendered">
+                            {{> Template.dynamic template=template data=data }}
+                        </li>
                     {{/with}}
                 {{/if}}
                 {{# each items }}

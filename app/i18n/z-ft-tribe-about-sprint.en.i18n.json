@@ -19,5 +19,10 @@
 	"pages-app-network-tab-button-about" : "About",
 
 	"pages-app-about-page-contact-title" : "Admin(s)",
-	"pages-app-about-page-contact-text" : "Do you want to be the first to hear about the latest Part-up developments? Sign up for newsletter, the Part-update."
+	"pages-app-about-page-contact-text" : "Do you want to be the first to hear about the latest Part-up developments? Sign up for newsletter, the Part-update.",
+
+	"pages-app-network-partups-start_button": "Start a part-up",
+	"pages-app-network-partups-start_title": "Start a part-up in this tribe",
+	"pages-app-network-partups-start_intro": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex reiciendis repudiandae quo libero, possimus obcaecati quam porro, consequuntur mollitia qui."
+
 }
