@@ -11,17 +11,14 @@ Meteor.methods({
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var data = {
-                _id: Random.id(),
-                title: fields.title,
-                text: fields.text,
-                type: fields.type
+            var contentBlockData = Partup.transformers.contentBlock.fromFormContentBlock(fields);
+            contentBlockData._id = Random.id();
+
+            ContentBlocks.insert(contentBlockData);
+
+            return {
+                _id: contentBlockData._id
             };
-            Log.debug(data);
-
-            var contentBlock = ContentBlocks.insert(data);
-
-            return contentBlock._id;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'contentblock_could_not_be_inserted');

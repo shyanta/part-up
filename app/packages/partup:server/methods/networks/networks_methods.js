@@ -752,6 +752,26 @@ Meteor.methods({
      * Update a ContentBlock sequence
      *
      * @param {String} networkSlug
+     * @param {mixed[]} fields
+     */
+    'networks.contentblock_insert': function(networkSlug, fields) {
+        check(networkSlug, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        if (!user || !network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var contentBlockFields = Partup.transformers.contentBlock.fromFormContentBlock(fields);
+            var contentBlock = Meteor.call('contentblocks.insert', contentBlockFields);
+            Networks.update(network._id, {$addToSet: {contentblocks: contentBlock._id}})
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_inserted');
+        }
+    },
+
      * @param {[String]} contentBlockSequence
      */
     'networks.contentblocks_sequence': function(networkSlug, contentBlockSequence) {
