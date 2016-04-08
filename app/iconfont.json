@@ -4,8 +4,8 @@
     "fontName": "partup-icons",
     "fontFaceBaseURL": "/fonts/icons",
     "classPrefix": "picon-",
-    "types": [ "svg", "ttf", "eot", "woff" ],
+    "types": [ "woff2", "woff", "ttf" ],
     "stylesheets": {
-        "stylesheets/font-faces/_picons.css": "client/stylesheets/templates/_picons.tpl"
+        "stylesheets/font-faces/_picons.sass": "client/stylesheets/templates/_picons.tpl"
     }
 }

@@ -94,26 +94,22 @@ Template.app_partup_updates.onCreated(function() {
             options.limit = b;
 
             tpl.updates.infinite_scroll_loading.set(true);
-            var sub = tpl.subscribe('updates.from_partup', tpl.partup._id, options, function() {
-                var modelUpdates = tpl.updates.updateModel();
-                var viewUpdates = tpl.updates.view.get();
+            var sub = tpl.subscribe('updates.from_partup', tpl.partup._id, options, {
+                onReady: function() {
+                    var modelUpdates = tpl.updates.updateModel();
+                    var viewUpdates = tpl.updates.view.get();
 
-                var difference = modelUpdates.length - viewUpdates.length;
-                var end_reached = difference < tpl.updates.INCREMENT;
-                tpl.updates.end_reached.set(end_reached);
+                    var difference = modelUpdates.length - viewUpdates.length;
+                    var end_reached = difference < tpl.updates.INCREMENT;
+                    tpl.updates.end_reached.set(end_reached);
 
-                var addedUpdates = mout.array.filter(modelUpdates, function(update) {
-                    return !mout.array.find(viewUpdates, function(_update) {
-                        return update._id === _update._id;
+                    var addedUpdates = mout.array.filter(modelUpdates, function(update) {
+                        return !mout.array.find(viewUpdates, function(_update) {
+                            return update._id === _update._id;
+                        });
                     });
-                });
 
-                tpl.updates.addToView(addedUpdates);
-            });
-
-            tpl.autorun(function(c) {
-                if (sub.ready()) {
-                    c.stop();
+                    tpl.updates.addToView(addedUpdates);
                     tpl.updates.infinite_scroll_loading.set(false);
                 }
             });
@@ -344,6 +340,9 @@ Template.app_partup_updates.helpers({
  * Updates events
  */
 Template.app_partup_updates.events({
+    'click [data-trigger-load]': function(event, template) {
+        template.updates.increaseLimit();
+    },
     'click [data-newmessage-popup]': function(event, template) {
         event.preventDefault();
 

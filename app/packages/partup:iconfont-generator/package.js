@@ -19,6 +19,7 @@ Package.registerBuildPlugin({
         'temp':             '0.7.0',
         'ttf2eot':          '1.3.0',
         'ttf2woff':         '1.2.0',
+        'ttf2woff2':        '2.0.3',
     }
 });
 

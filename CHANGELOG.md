@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.17.3
+- fix(icons): fix font-icon loading console warnings
+- "load more updates" button on the partup-detail as fallback for non triggering infinite scroll.
+- fix infinite scroll issue
+
 ## 1.17.2
 - fix(icons): icons are properly aligned again on all windows browsers #346
 
