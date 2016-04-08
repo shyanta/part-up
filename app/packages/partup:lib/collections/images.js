@@ -103,6 +103,10 @@ Images.findForSwarm = function(swarm) {
     return Images.find({_id: swarm.image}, {limit: 1});
 };
 
+Images.findForContentBlock = function(contentBlock) {
+    return Images.find({_id: {'$in': contentBlock.images}});
+};
+
 Images.allow({
     insert: function(userId, document) {
         return !!userId;

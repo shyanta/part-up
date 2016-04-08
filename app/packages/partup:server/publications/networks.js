@@ -185,6 +185,29 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
 });
 
 /**
+ * Publish all ContentBlocks in a network
+ *
+ * @param {String} networkSlug
+ */
+Meteor.publishComposite('networks.one.contentblocks', function(networkSlug) {
+    this.unblock();
+
+    return {
+        find: function() {
+            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+            if (!network) return;
+
+            var contentBlocks = network.contentblocks || [];
+
+            return contentBlocks;
+        },
+        children: [
+            {find: Images.findForContentBlock}
+        ]
+    };
+});
+
+/**
  * Publish all featured partups
  */
 Meteor.publishComposite('networks.featured_all', function(language) {
