@@ -6,8 +6,7 @@
 Partup.schemas.forms.contentBlock = new SimpleSchema({
     title: {
         type: String,
-        optional: true,
-        regEx: SimpleSchema.RegEx.Id
+        optional: true
     },
     text: {
         type: String,
