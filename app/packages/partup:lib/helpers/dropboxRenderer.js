@@ -1,10 +1,7 @@
 var DropboxRenderer = function () {
 
     return {
-        getFileIdFromDirectLink: getFileIdFromDirectLink,
-        createPreviewLinkFromDirectLink: createPreviewLinkFromDirectLink,
-        getSvgIcon: Partup.helpers.getSvgIcon,
-        bytesToSize: Partup.helpers.bytesToSize
+        createPreviewLinkFromDirectLink: createPreviewLinkFromDirectLink
     };
 
     function getFileIdFromDirectLink(fileUrl) {
