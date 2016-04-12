@@ -17,7 +17,7 @@
                                 {{#each uploadedDocuments}}
                                     <li>
                                         <figure data-type="document" class="pu-doc-icon pu-thumbnail-removable"
-                                                style="background-image:url('/images/add-media-icons/{{ getSvgIcon name }}');"
+                                                style="background-image:url('/images/add-media-icons/{{ getSvgIcon . }}');"
                                                 data-remove-upload="{{ _id }}"></figure>
                                     </li>
                                 {{/each}}
@@ -73,6 +73,9 @@
                                 </li>
                                 <li class="pu-dropdownitem pu-dropdownitem-small">
                                     {{> DropboxChooser }}
+                                </li>
+                                <li class="pu-dropdownitem pu-dropdownitem-small">
+                                    {{> GoogleDrivePicker }}
                                 </li>
                             </ul>
                         </div>

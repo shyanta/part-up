@@ -82,7 +82,8 @@ Package.onUse(function(api) {
         'helpers/interpolateEmailMessage.js',
         'helpers/url.js',
         'helpers/fileUploader.js',
-        'helpers/dropboxRenderer.js'
+        'helpers/dropboxRenderer.js',
+        'helpers/googleDriveRenderer.js'
     ]);
 
     api.addFiles([

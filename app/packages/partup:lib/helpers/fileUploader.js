@@ -1,8 +1,8 @@
+Partup.helpers.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
 Partup.helpers.pdfExtensions = ['.pdf'];
 Partup.helpers.docExtensions = ['.doc', '.docx', '.rtf', '.pages', '.txt'];
 Partup.helpers.presentationExtensions = ['.pps', '.ppsx', '.ppt', '.pptx'];
 Partup.helpers.fallbackFileExtensions = ['.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key', '.keynote'];
-Partup.helpers.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
 Partup.helpers.spreadSheetExtensions = ['.xls', '.xlsx', '.numbers', '.csv'];
 Partup.helpers.allowedExtensions = {
     images: Partup.helpers.imageExtensions,
@@ -10,7 +10,8 @@ Partup.helpers.allowedExtensions = {
         Partup.helpers.pdfExtensions,
         Partup.helpers.docExtensions,
         Partup.helpers.presentationExtensions,
-        Partup.helpers.fallbackFileExtensions
+        Partup.helpers.fallbackFileExtensions,
+        Partup.helpers.spreadSheetExtensions
     ])
 };
 
@@ -24,7 +25,7 @@ Partup.helpers.getExtensionFromFileName = function (fileName) {
     var match = fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
     if (match) { return match[0]; }
     // if file.name does not have .[ext] return a default doc
-    return _.first(Partup.helpers.docExtensions);
+    return _.first(Partup.helpers.fallbackFileExtensions);
 };
 
 Partup.helpers.fileNameIsDoc = function (fileName) {
@@ -39,27 +40,37 @@ Partup.helpers.fileNameIsImage = function (fileName) {
     );
 };
 
-Partup.helpers.getSvgIcon = function (fileName) {
-    var extension = Partup.helpers.getExtensionFromFileName(fileName);
+Partup.helpers.getSvgIcon = function (file) {
+    var extension = Partup.helpers.getExtensionFromFileName(file.name);
     var svgFileName = 'file.svg';
 
-    if (_.include(Partup.helpers.fallbackFileExtensions, extension)) {
-        svgFileName = 'file.svg';
+    if(file.mimeType.indexOf('presentation') > -1) {
+        return 'ppt.svg';
     }
-    else if (_.include(Partup.helpers.presentationExtensions, extension)) {
-        svgFileName = 'ppt.svg';
+    else if(file.mimeType.indexOf('document') > -1){
+        return 'doc.svg';
     }
-    else if (_.include(Partup.helpers.docExtensions, extension)) {
-        svgFileName = 'doc.svg';
+    else if(file.mimeType.indexOf('spreadsheet') > -1){
+        return 'xls.svg';
     }
-    else if (_.include(Partup.helpers.pdfExtensions, extension)) {
-        svgFileName = 'pdf.svg';
+    else {
+        if (_.include(Partup.helpers.fallbackFileExtensions, extension)) {
+            svgFileName = 'file.svg';
+        }
+        else if (_.include(Partup.helpers.presentationExtensions, extension)) {
+            svgFileName = 'ppt.svg';
+        }
+        else if (_.include(Partup.helpers.docExtensions, extension)) {
+            svgFileName = 'doc.svg';
+        }
+        else if (_.include(Partup.helpers.pdfExtensions, extension)) {
+            svgFileName = 'pdf.svg';
+        }
+        else if (_.include(Partup.helpers.spreadSheetExtensions, extension)) {
+            svgFileName = 'xls.svg';
+        }
+        return svgFileName;
     }
-    else if (_.include(Partup.helpers.spreadSheetExtensions, extension)) {
-        svgFileName = 'xls.svg';
-    }
-
-    return svgFileName;
 };
 
 // from http://scratch99.com/web-development/javascript/convert-bytes-to-mb-kb/

@@ -7,8 +7,8 @@ Template.DocumentRenderer.helpers({
         if(client.indexOf('dropbox') > -1) {
             return Partup.helpers.DropboxRenderer().createPreviewLinkFromDirectLink(file.link, file.name);
         }
-        else if(client.indexOf('gstatic') > -1) {
-
+        else if(client.indexOf('google') > -1) {
+            return Partup.helpers.GoogleDriveRenderer().createPreviewLinkFromDirectLink(file.link);
         }
         else { /* perhaps partup 404 no file found */ return ''; }
     }
