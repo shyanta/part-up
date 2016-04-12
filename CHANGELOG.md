@@ -1,7 +1,8 @@
 # CHANGELOG
 
 ## 1.17.4
-- fix tribe admin page showing tribe 404 #352 
+- fix tribe admin page showing tribe 404 #352
+- fix redirect to discover in chrome ios on specific url load #352
 
 ## 1.17.3
 - fix(icons): fix font-icon loading console warnings
