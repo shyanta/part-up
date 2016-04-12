@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.17.4
+- fix tribe admin page showing tribe 404 #352 
+
 ## 1.17.3
 - fix(icons): fix font-icon loading console warnings
 - "load more updates" button on the partup-detail as fallback for non triggering infinite scroll.
