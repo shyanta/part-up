@@ -22,9 +22,8 @@ Partup.helpers.getAllExtensions = function () {
 
 Partup.helpers.getExtensionFromFileName = function (fileName) {
     var match = fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
-    if (match) {
-        return match[0];
-    }
+    if (match) { return match[0]; }
+    // if file.name does not have .[ext] return a default doc
     return _.first(Partup.helpers.docExtensions);
 };
 
