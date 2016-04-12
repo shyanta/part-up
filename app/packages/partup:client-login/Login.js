@@ -21,12 +21,16 @@ var formPlaceholders = {
 if (isChrome) {
     // Success callback when using loginStyle: redirect
     Accounts.onLogin(function() {
-        if (Router) Router.go('discover');
+        if (Router && Router.current().route.getName() === 'login') {
+            Router.go('discover');
+        }
     });
 
     // Failure callback when using loginStyle: redirect
     Accounts.onLoginFailure(function() {
-        if (Router) Router.go('discover');
+        if (Router && Router.current().route.getName() === 'login') {
+            Router.go('discover');
+        }
     });
 }
 
