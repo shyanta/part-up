@@ -6,27 +6,29 @@ if (Meteor.isClient) {
     // The Client ID obtained from the Google Developers Console. Replace with your own Client ID.
     var clientId = "625218626012-tepgtc2r68tusb5hnkm0nja8ism9tj4p.apps.googleusercontent.com";
 
-    // Scope to use to access user's photos.
+    // Scope to use to access user's drive.
     var scope = ['https://www.googleapis.com/auth/drive'];
 
-    var pickerApiLoaded = false;
     var oauthToken;
 
-
-
     Template.GoogleDrivePicker.onRendered(function () {
-
-        gapi.load('auth', {'callback': onAuthApiLoad});
-        gapi.load('picker', {'callback': onPickerApiLoad});
 
         var template = Template.instance().parent();
 
         var $mediaTrigger = jQuery('[data-google-drive-picker]');
 
-        function onAuthApiLoad() {
+        Promise.all([
+            'auth',
+            'picker'
+        ].map(function (api) {
+            return new Promise(function (resolve) {
+                gapi.load(api, {'callback': () => resolve(api)});
+            });
+        })).then(function () {
             $mediaTrigger.off('click', authorize);
             $mediaTrigger.on('click', authorize);
-        }
+        });
+
 
         function authorize() {
             window.gapi.auth.authorize(
@@ -38,9 +40,6 @@ if (Meteor.isClient) {
                 handleAuthResult);
         }
 
-        function onPickerApiLoad() {
-            pickerApiLoaded = true;
-        }
 
         function handleAuthResult(authResult) {
             if (authResult && !authResult.error) {
@@ -50,7 +49,7 @@ if (Meteor.isClient) {
         }
 
         function createPicker() {
-            if (pickerApiLoaded && oauthToken) {
+            if (oauthToken) {
                 var picker = new google.picker
                     .PickerBuilder()
                     .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
