@@ -71,10 +71,14 @@ if (Meteor.isClient) {
 
             function createPicker() {
                 if (oauthToken) {
+
+                    var docsView = new google.picker.DocsView();
+                    docsView.setIncludeFolders(true);
+
                     var picker = new google.picker
                         .PickerBuilder()
                         .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-                        .addView(google.picker.ViewId.DOCS)
+                        .addView(docsView)
                         .addView(new google.picker.DocsUploadView())
                         .setDeveloperKey(developerKey)
                         .setOAuthToken(oauthToken)
