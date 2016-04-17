@@ -110,20 +110,20 @@ if (Meteor.isClient) {
                     var mappedFile = file;
                     mappedFile.icon = file.iconUrl.toString();
                     mappedFile.bytes = parseInt(file.sizeBytes);
-                    mappedFile.link = file.url.toString();
                     mappedFile.name = file.name.toString();
                     mappedFile.mimeType = file.mimeType.toString();
 
-                    mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
-
                     if (allowImageUpload(template, mappedFile)) {
+                        mappedFile.link = 'https://docs.google.com/uc?id=' + file.id;
+                        mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
                         uploadPromises.push(
                             Partup.helpers.partupUploadPhoto(template, mappedFile)
                         );
                     }
                     else if (allowDocumentUpload(template, mappedFile)) {
+                        mappedFile.link = file.url.toString();
+                        mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
                         mappedFile._id = new Meteor.Collection.ObjectID()._str;
-
                         uploadPromises.push(
                             Partup.helpers.partupUploadDoc(template, mappedFile)
                         );
