@@ -108,11 +108,11 @@ if (Meteor.isClient) {
                     settingPromises.push(GoogleDrivePicker.setDefaultPermission(file));
 
                     var mappedFile = file;
-                    mappedFile.icon = mappedFile.iconUrl.toString();
-                    mappedFile.bytes = parseInt(mappedFile.sizeBytes);
-                    mappedFile.link = mappedFile.url.toString();
-                    mappedFile.name = mappedFile.name.toString();
-                    mappedFile.mimeType = mappedFile.mimeType.toString();
+                    mappedFile.icon = file.iconUrl.toString();
+                    mappedFile.bytes = parseInt(file.sizeBytes);
+                    mappedFile.link = file.url.toString();
+                    mappedFile.name = file.name.toString();
+                    mappedFile.mimeType = file.mimeType.toString();
 
                     mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
 
