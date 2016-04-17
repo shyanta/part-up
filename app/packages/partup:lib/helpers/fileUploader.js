@@ -45,14 +45,17 @@ Partup.helpers.getSvgIcon = function (file) {
     var extension = Partup.helpers.getExtensionFromFileName(file.name);
     var svgFileName = 'file.svg';
 
-    if(file.mimeType.indexOf('presentation') > -1) {
-        return 'ppt.svg';
-    }
-    else if(file.mimeType.indexOf('document') > -1){
-        return 'doc.svg';
-    }
-    else if(file.mimeType.indexOf('spreadsheet') > -1){
-        return 'xls.svg';
+
+    if(file.mimeType) {
+        if(file.mimeType.indexOf('presentation') > -1) {
+            return 'ppt.svg';
+        }
+        else if(file.mimeType.indexOf('document') > -1){
+            return 'doc.svg';
+        }
+        else if(file.mimeType.indexOf('spreadsheet') > -1){
+            return 'xls.svg';
+        }
     }
     else {
         if (_.include(Partup.helpers.fallbackFileExtensions, extension)) {
