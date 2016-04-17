@@ -7,9 +7,31 @@ if (Meteor.isClient) {
     var clientId = "625218626012-tepgtc2r68tusb5hnkm0nja8ism9tj4p.apps.googleusercontent.com";
 
     // Scope to use to access user's drive.
-    var scope = ['https://www.googleapis.com/auth/drive'];
+    var scope = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.file'];
 
     var oauthToken;
+
+    GoogleDrivePicker = GoogleDrivePicker || {};
+
+    GoogleDrivePicker.setDefaultPermission = function (file) {
+        var request = window.gapi.client.drive.permissions.create({
+            fileId: file.id,
+            sendNotificationEmail: false,
+            transferOwnership: false,
+            role: 'reader',
+            type: 'anyone'
+        });
+
+        return new Promise(function (resolve, reject) {
+            request.execute(function (resp) {
+                if (resp.error) {
+                    reject(resp);
+                } else {
+                    resolve(resp);
+                }
+            });
+        });
+    };
 
     Template.GoogleDrivePicker.onRendered(function () {
 
@@ -19,47 +41,47 @@ if (Meteor.isClient) {
 
         Promise.all([
             'auth',
-            'picker'
+            'picker',
+            'client'
         ].map(function (api) {
             return new Promise(function (resolve) {
-                gapi.load(api, {'callback': () => resolve(api)});
+                window.gapi.load(api, {'callback': () => resolve(api)});
             });
         })).then(function () {
-            $mediaTrigger.off('click', authorize);
-            $mediaTrigger.on('click', authorize);
+            window.gapi.client.load('drive', 'v3', function () {
+                $mediaTrigger.off('click', authorize);
+                $mediaTrigger.on('click', authorize);
+            });
         });
 
 
         function authorize() {
-            window.gapi.auth.authorize(
-                {
-                    'client_id': clientId,
-                    'scope': scope,
-                    'immediate': false
-                },
-                handleAuthResult);
+            window.gapi.auth.authorize({
+                'client_id': clientId,
+                'scope': scope,
+                'immediate': false
+            }, handleAuthResult);
         }
-
 
         function handleAuthResult(authResult) {
             if (authResult && !authResult.error) {
                 oauthToken = authResult.access_token;
             }
             createPicker();
-        }
 
-        function createPicker() {
-            if (oauthToken) {
-                var picker = new google.picker
-                    .PickerBuilder()
-                    .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-                    .addView(google.picker.ViewId.DOCS)
-                    .addView(new google.picker.DocsUploadView())
+            function createPicker() {
+                if (oauthToken) {
+                    var picker = new google.picker
+                        .PickerBuilder()
+                        .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+                        .addView(google.picker.ViewId.DOCS)
+                        .addView(new google.picker.DocsUploadView())
 
-                    .setOAuthToken(oauthToken)
-                    .setCallback(pickerCallback)
-                    .build();
-                picker.setVisible(true);
+                        .setOAuthToken(oauthToken)
+                        .setCallback(pickerCallback)
+                        .build();
+                    picker.setVisible(true);
+                }
             }
         }
 
@@ -78,9 +100,13 @@ if (Meteor.isClient) {
             $('[data-toggle-add-media-menu]').trigger('click');
 
             var uploadPromises = [];
+            var settingPromises = [];
 
             if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                 data.docs.forEach(function (file) {
+
+                    settingPromises.push(GoogleDrivePicker.setDefaultPermission(file));
+
                     var mappedFile = file;
                     mappedFile.icon = mappedFile.iconUrl.toString();
                     mappedFile.bytes = parseInt(mappedFile.sizeBytes);
@@ -121,7 +147,10 @@ if (Meteor.isClient) {
                             template.uploadingDocuments.set(false);
                         }
                     });
+                });
 
+                Promise.all(settingPromises).catch(function (resp) {
+                    Partup.client.notify.error(TAPi18n.__(resp.error.message));
                 });
             }
         }
