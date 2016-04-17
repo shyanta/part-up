@@ -1,9 +1,10 @@
-Partup.helpers.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
-Partup.helpers.pdfExtensions = ['.pdf'];
-Partup.helpers.docExtensions = ['.doc', '.docx', '.rtf', '.pages', '.txt'];
-Partup.helpers.presentationExtensions = ['.pps', '.ppsx', '.ppt', '.pptx'];
-Partup.helpers.fallbackFileExtensions = ['.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key', '.keynote'];
-Partup.helpers.spreadSheetExtensions = ['.xls', '.xlsx', '.numbers', '.csv'];
+Partup.helpers.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png', '.GIF', '.JPG', '.JPEG', '.PNG'];
+Partup.helpers.docExtensions = ['.doc', '.docx', '.rtf', '.pages', '.txt', '.DOC', '.DOCX', '.RTF', '.PAGES', '.TXT'];
+Partup.helpers.pdfExtensions = ['.pdf', '.PDF'];
+Partup.helpers.presentationExtensions = ['.pps', '.ppsx', '.ppt', '.pptx', '.PPS', '.PPSX', '.PPT', '.PPTX'];
+Partup.helpers.fallbackFileExtensions = ['.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key', '.keynote', '.AI', '.BMP', '.EPS', '.PSD', '.TIFF', '.TIF', '.SVG', '.KEY', '.KEYNOTE'];
+Partup.helpers.spreadSheetExtensions = ['.xls', '.xlsx', '.numbers', '.csv', '.XLS', '.XLSX', '.NUMBERS', '.CSV'];
+
 Partup.helpers.allowedExtensions = {
     images: Partup.helpers.imageExtensions,
     docs: _.flatten([
