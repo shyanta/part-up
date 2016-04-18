@@ -22,9 +22,14 @@ Partup.helpers.getAllExtensions = function () {
     }).flatten().value();
 };
 
+function matchExtension(fileName) {
+    return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
+}
 Partup.helpers.getExtensionFromFileName = function (fileName) {
-    var match = fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
-    if (match) { return match[0]; }
+    var match = matchExtension(fileName);
+    if (match) {
+        return match[0];
+    }
     // if file.name does not have .[ext] return a default doc
     return _.first(Partup.helpers.fallbackFileExtensions);
 };
@@ -42,23 +47,12 @@ Partup.helpers.fileNameIsImage = function (fileName) {
 };
 
 Partup.helpers.getSvgIcon = function (file) {
-    var extension = Partup.helpers.getExtensionFromFileName(file.name);
     var svgFileName = 'file.svg';
 
+    // if there's extension in the file name
+    if (matchExtension(file.name)) {
+        var extension = Partup.helpers.getExtensionFromFileName(file.name);
 
-    if(file.mimeType) {
-        if(file.mimeType.indexOf('presentation') > -1) {
-            return 'ppt.svg';
-        }
-        else if(file.mimeType.indexOf('document') > -1){
-            return 'doc.svg';
-        }
-        else if(file.mimeType.indexOf('spreadsheet') > -1){
-            return 'xls.svg';
-        }
-        return svgFileName;
-    }
-    else {
         if (_.include(Partup.helpers.fallbackFileExtensions, extension)) {
             svgFileName = 'file.svg';
         }
@@ -74,8 +68,30 @@ Partup.helpers.getSvgIcon = function (file) {
         else if (_.include(Partup.helpers.spreadSheetExtensions, extension)) {
             svgFileName = 'xls.svg';
         }
-        return svgFileName;
+        // otherwise fallback to file.svg
+        return svgFileName
+    } else {
+        // if there's no extension in the file name,
+        // for example google sheet, google docs or google slide
+        // check the mimeType
+        if (file.mimeType) {
+            if (file.mimeType.indexOf('presentation') > -1) {
+                return 'ppt.svg';
+            }
+            else if (file.mimeType.indexOf('document') > -1) {
+                return 'doc.svg';
+            }
+            else if (file.mimeType.indexOf('spreadsheet') > -1) {
+                return 'xls.svg';
+            }
+            // otherwise fallback to file.svg
+            return svgFileName;
+        } else {
+            // otherwise fallback to file.svg
+            return svgFileName;
+        }
     }
+
 };
 
 // from http://scratch99.com/web-development/javascript/convert-bytes-to-mb-kb/

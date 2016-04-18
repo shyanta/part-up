@@ -80,7 +80,7 @@ if (Meteor.isClient) {
                         .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
                         .addView(docsView)
                         .addView(new google.picker.DocsUploadView())
-                        .setDeveloperKey(developerKey)
+                        // .setDeveloperKey(developerKey)
                         .setOAuthToken(oauthToken)
                         .setCallback(pickerCallback)
                         .build();
