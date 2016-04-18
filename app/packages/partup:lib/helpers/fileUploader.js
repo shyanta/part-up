@@ -97,7 +97,7 @@ Partup.helpers.getSvgIcon = function (file) {
 // from http://scratch99.com/web-development/javascript/convert-bytes-to-mb-kb/
 Partup.helpers.bytesToSize = function (bytes) {
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) return '';
+    if (bytes == 0) return '&nbsp;';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
     if (i == 0) return bytes + ' ' + sizes[i];
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
