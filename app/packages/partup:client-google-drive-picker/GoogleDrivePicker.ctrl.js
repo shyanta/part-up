@@ -1,10 +1,10 @@
 if (Meteor.isClient) {
 
     // The Browser API key obtained from the Google Developers Console.
-    var developerKey = 'AIzaSyCOkQptZG9lk74yJ8p5p-1e5AawvWERnvI';
+    var developerKey = 'AIzaSyAN_WmzOOIcrkLCobAyUqTTQPRtAaD8lkM';
 
     // The Client ID obtained from the Google Developers Console. Replace with your own Client ID.
-    var clientId = "625218626012-tepgtc2r68tusb5hnkm0nja8ism9tj4p.apps.googleusercontent.com";
+    var clientId = "963161275015-ktpmjsjtr570htbmbkuepthb1st8o99o.apps.googleusercontent.com";
 
     // Scope to use to access user's drive.
     var scope = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.file'];
@@ -80,7 +80,7 @@ if (Meteor.isClient) {
                         .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
                         .addView(docsView)
                         .addView(new google.picker.DocsUploadView())
-                        // .setDeveloperKey(developerKey)
+                        .setDeveloperKey(developerKey)
                         .setOAuthToken(oauthToken)
                         .setCallback(pickerCallback)
                         .build();
