@@ -56,6 +56,7 @@ Partup.helpers.getSvgIcon = function (file) {
         else if(file.mimeType.indexOf('spreadsheet') > -1){
             return 'xls.svg';
         }
+        return svgFileName;
     }
     else {
         if (_.include(Partup.helpers.fallbackFileExtensions, extension)) {
