@@ -45,7 +45,9 @@ if (Meteor.isClient) {
             'client'
         ].map(function (api) {
             return new Promise(function (resolve) {
-                window.gapi.load(api, {'callback': () => resolve(api)});
+                window.gapi.load(api, {'callback': function() { 
+                  resolve(api)
+                }});
             });
         })).then(function () {
             window.gapi.client.load('drive', 'v3', function () {
