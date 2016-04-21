@@ -83,6 +83,10 @@ if (Meteor.isClient) {
                     }
                 });
 
+            }).catch(function(error) {
+                Partup.client.notify.error(TAPi18n.__(error.reason));
+                template.uploadingPhotos.set(false);
+                template.uploadingDocuments.set(false);
             });
 
         }
