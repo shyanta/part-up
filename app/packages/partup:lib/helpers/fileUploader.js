@@ -108,7 +108,6 @@ Partup.helpers.partupUploadPhoto = function (template, mappedFile) {
     return new Promise(function (resolve, reject) {
         Partup.client.uploader.uploadImageByUrl(mappedFile.link, function (error, image) {
             if (error) {
-                Partup.client.notify.error(TAPi18n.__(error.reason));
                 return reject(error);
             }
             mappedFile._id = image._id;
