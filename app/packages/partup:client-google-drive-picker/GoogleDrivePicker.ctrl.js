@@ -9,7 +9,7 @@ if (Meteor.isClient) {
     // Scope to use to access user's drive.
     var scope = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.file'];
 
-    var oauthToken;
+    var accessToken;
 
     GoogleDrivePicker = GoogleDrivePicker || {};
 
@@ -60,36 +60,41 @@ if (Meteor.isClient) {
 
 
         function authorize() {
-            window.gapi.auth.authorize({
-                'client_id': clientId,
-                'scope': scope,
-                'immediate': true
-            }, handleAuthResult);
+            var token = window.gapi.auth.getToken();
+            if (!token) {
+                window.gapi.auth.authorize({
+                    'client_id': clientId,
+                    'scope': scope,
+                    'immediate': false
+                }, handleAuthResult);
+            } else {
+                createPicker(token.access_token);
+            }
         }
 
         function handleAuthResult(authResult) {
             if (authResult && !authResult.error) {
-                oauthToken = authResult.access_token;
+                accessToken = authResult.access_token;
             }
-            createPicker();
+            createPicker(accessToken);
+        }
 
-            function createPicker() {
-                if (oauthToken) {
+        function createPicker(accessToken) {
+            if (accessToken) {
 
-                    var docsView = new google.picker.DocsView();
-                    docsView.setIncludeFolders(true);
+                var docsView = new google.picker.DocsView();
+                docsView.setIncludeFolders(true);
 
-                    var picker = new google.picker
-                        .PickerBuilder()
-                        .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-                        .addView(docsView)
-                        .addView(new google.picker.DocsUploadView())
-                        // .setDeveloperKey(developerKey)
-                        .setOAuthToken(oauthToken)
-                        .setCallback(pickerCallback)
-                        .build();
-                    picker.setVisible(true);
-                }
+                var picker = new google.picker
+                    .PickerBuilder()
+                    .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+                    .addView(docsView)
+                    .addView(new google.picker.DocsUploadView())
+                    // .setDeveloperKey(developerKey)
+                    .setOAuthToken(accessToken)
+                    .setCallback(pickerCallback)
+                    .build();
+                picker.setVisible(true);
             }
         }
 
@@ -105,7 +110,9 @@ if (Meteor.isClient) {
 
         function pickerCallback(data) {
 
-            $('[data-toggle-add-media-menu]').trigger('click');
+            setTimeout(function() {
+                $('[data-toggle-add-media-menu]').trigger('click');
+            }, 100);
 
             var uploadPromises = [];
             var settingPromises = [];
