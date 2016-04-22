@@ -175,21 +175,22 @@ if (Meteor.isClient) {
                     .then(function () {
                         data.docs.forEach(function (file) {
                             var mappedFile = file;
-
-                            /** BEGIN MAPPING */
                             mappedFile.icon = file.iconUrl.toString();
-                            mappedFile.bytes = !isNaN(parseInt(file.sizeBytes)) ? parseInt(file.sizeBytes) : 0;
+                            mappedFile.bytes = parseInt(file.sizeBytes);
                             mappedFile.name = file.name.toString();
                             mappedFile.mimeType = file.mimeType.toString();
 
                             if (allowImageUpload(template, mappedFile)) {
                                 mappedFile.link = 'https://docs.google.com/uc?id=' + file.id;
+                                mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
                                 uploadPromises.push(
                                     Partup.helpers.partupUploadPhoto(template, mappedFile)
                                 );
                             }
                             else if (allowDocumentUpload(template, mappedFile)) {
                                 mappedFile.link = file.url.toString();
+                                mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
+                                mappedFile._id = new Meteor.Collection.ObjectID()._str;
                                 uploadPromises.push(
                                     Partup.helpers.partupUploadDoc(template, mappedFile)
                                 );
