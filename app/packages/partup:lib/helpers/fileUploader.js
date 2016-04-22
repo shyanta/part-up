@@ -103,6 +103,8 @@ Partup.helpers.bytesToSize = function (bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 };
 
+function getMappedDocumentSchemes(mappedFile) { return _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType', '_id'); }
+
 Partup.helpers.partupUploadPhoto = function (template, mappedFile) {
     template.uploadingPhotos.set(true);
     return new Promise(function (resolve, reject) {
@@ -111,6 +113,7 @@ Partup.helpers.partupUploadPhoto = function (template, mappedFile) {
                 return reject(error);
             }
             mappedFile._id = image._id;
+            mappedFile = getMappedDocumentSchemes(mappedFile);
             resolve(mappedFile);
         });
     });
@@ -118,6 +121,8 @@ Partup.helpers.partupUploadPhoto = function (template, mappedFile) {
 
 Partup.helpers.partupUploadDoc = function (template, mappedFile) {
     template.uploadingDocuments.set(true);
+    mappedFile._id = new Meteor.Collection.ObjectID()._str;
+    mappedFile = getMappedDocumentSchemes(mappedFile);
     return new Promise(function (resolve, reject) {
         resolve(mappedFile);
     });
