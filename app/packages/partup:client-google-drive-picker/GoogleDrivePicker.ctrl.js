@@ -85,15 +85,23 @@ if (Meteor.isClient) {
                 var docsView = new google.picker.DocsView();
                 docsView.setIncludeFolders(true);
 
-                var picker = new google.picker
-                    .PickerBuilder()
-                    .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-                    .addView(docsView)
-                    .addView(new google.picker.DocsUploadView())
-                    // .setDeveloperKey(developerKey)
-                    .setOAuthToken(accessToken)
-                    .setCallback(pickerCallback)
-                    .build();
+                var pickerBuilder = new google.picker
+                    .PickerBuilder();
+
+                pickerBuilder.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
+                pickerBuilder.addView(docsView);
+                pickerBuilder.addView(new google.picker.DocsUploadView());
+                // .setDeveloperKey(developerKey)
+                pickerBuilder.setOAuthToken(accessToken);
+                pickerBuilder.setCallback(pickerCallback);
+
+                /**
+                 * Set the preferred dialog size. The dialog will be auto-centered.
+                 * It has a minimum size of (566,350) and a maximum size of (1051,650).
+                 */
+                pickerBuilder.setSize(jQuery(document).outerWidth(), jQuery(document).outerHeight());
+
+                var picker = pickerBuilder.build();
                 picker.setVisible(true);
             }
         }
@@ -110,7 +118,7 @@ if (Meteor.isClient) {
 
         function pickerCallback(data) {
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $('[data-toggle-add-media-menu]').trigger('click');
             }, 100);
 
