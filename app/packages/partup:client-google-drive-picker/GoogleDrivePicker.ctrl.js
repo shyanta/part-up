@@ -1,5 +1,43 @@
 if (Meteor.isClient) {
 
+    function isMobile() {
+        try {
+            document.createEvent("TouchEvent");
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    }
+
+    function preventZoom(e) {
+        var t2 = e.timeStamp
+            , t1 = $(this).data('lastTouch') || t2
+            , dt = t2 - t1
+            , fingers = e.originalEvent.touches.length;
+        $(this).data('lastTouch', t2);
+        if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+
+        e.preventDefault(); // double tap - prevent the zoom
+        // also synthesize click events we just swallowed up
+        jQuery(this).trigger('click').trigger('click');
+    }
+
+    (function (jQuery) {
+        jQuery.fn.nodoubletapzoom = function () {
+            if (isMobile()) {
+                $(this).on('touchstart', preventZoom);
+            }
+        };
+
+        jQuery.fn.doubletapzoom = function () {
+            if (isMobile()) {
+                $(this).off('touchstart', preventZoom);
+            }
+        };
+    })(jQuery);
+
+
     // The Browser API key obtained from the Google Developers Console.
     var developerKey = 'AIzaSyAN_WmzOOIcrkLCobAyUqTTQPRtAaD8lkM';
 
@@ -118,6 +156,8 @@ if (Meteor.isClient) {
 
         function pickerCallback(data) {
 
+            jQuery(document).nodoubletapzoom();
+
             setTimeout(function () {
                 $('[data-toggle-add-media-menu]').trigger('click');
             }, 100);
@@ -126,6 +166,7 @@ if (Meteor.isClient) {
             var settingPromises = [];
 
             if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+
                 data.docs.forEach(function (file) {
                     settingPromises.push(GoogleDrivePicker.setDefaultPermission(file));
                 });
@@ -181,6 +222,8 @@ if (Meteor.isClient) {
                         template.uploadingPhotos.set(false);
                         template.uploadingDocuments.set(false);
                     });
+            } else {
+                jQuery(document).doubletapzoom();
             }
         }
     });
