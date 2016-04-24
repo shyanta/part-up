@@ -193,7 +193,7 @@ Template.app_partup_updates_newmessage.helpers({
             }
         };
     },
-    DropboxRenderer: Partup.helpers.DropboxRenderer,
+    getSvgIcon: Partup.helpers.getSvgIcon,
     disabledImageUploadFile: function () {
         return (photoLimitReached()) ? 'disabled' : '';
     },
