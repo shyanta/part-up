@@ -12,6 +12,7 @@ Meteor.routeComposite = function(route, callback) {
 
         // We are going to respond in JSON format
         response.setHeader('Content-Type', 'application/json');
+        response.setHeader('Access-Control-Allow-Origin', '*');
 
         return response.end(JSON.stringify(result));
     });
