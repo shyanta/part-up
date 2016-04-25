@@ -136,7 +136,7 @@ if (Meteor.isClient) {
                         data.docs.forEach(function (file) {
                             var mappedFile = file;
                             mappedFile.icon = file.iconUrl.toString();
-                            mappedFile.bytes = parseInt(file.sizeBytes);
+                            mappedFile.bytes = (!isNaN(file.sizeBytes)) ? parseInt(file.sizeBytes) : 0;
                             mappedFile.name = file.name.toString();
                             mappedFile.mimeType = file.mimeType.toString();
 
@@ -183,7 +183,7 @@ if (Meteor.isClient) {
                         template.uploadingPhotos.set(false);
                         template.uploadingDocuments.set(false);
                     });
-            } 
+            }
         }
     });
 }
