@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.17.5
+- Allow CORS in HTTP calls PR #386
+- Endless scroll not triggered on anything but Mac+Chrome #347
+- Notifications images publication PR #396
+- Add Google drive file picker to add message modal #385
+
 ## 1.17.4
 - fix tribe admin page showing tribe 404 #352
 - fix redirect to discover in chrome ios on specific url load #352
