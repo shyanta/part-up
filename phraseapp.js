@@ -2,8 +2,10 @@ var prompt = require('prompt');
 var optimist = require('optimist');
 var YAML = require('json2yaml');
 var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 var fs = require('fs');
 var prettyjson = require('prettyjson');
+var Promise = require('bluebird');
 
 
 function writeYAMLFileAndRunPhraseApp(result, pushSources, pullTargets) {
@@ -25,26 +27,29 @@ function writeYAMLFileAndRunPhraseApp(result, pushSources, pullTargets) {
     });
 
 
-    fs.writeFile(phraseAppConfigFile, phraseAppConfiguration, function (err) {
-        if (err) {
-            return console.log(err);
-        }
-
-        exec('phraseapp ' + result.command, function (err, stdout, stderr) {
+    return new Promise(function(resolve) {
+        fs.writeFile(phraseAppConfigFile, phraseAppConfiguration, function (err) {
             if (err) {
                 return console.log(err);
             }
-
-            if (stderr) {
-                console.log(prettyjson.render(stderr));
-            }
-
-            console.log(prettyjson.render(stdout));
-
-            fs.unlinkSync(phraseAppConfigFile);
-
+            exec('phraseapp ' + result.command, function (err, stdout, stderr) {
+                execLogHandler(err, stdout, stderr);
+                resolve(fs.unlinkSync(phraseAppConfigFile));
+            });
         });
     });
+}
+
+function execLogHandler(err, stdout, stderr) {
+    if (err) {
+        return console.log(err);
+    }
+
+    if (stderr) {
+        console.log(prettyjson.render(stderr));
+    }
+
+    console.log(prettyjson.render(stdout));
 }
 
 prompt.override = optimist.argv;
@@ -111,9 +116,9 @@ prompt.get([
 
             _result.command = result.command;
 
-            var split =  _result.fileNames.split(',');
+            var split = _result.fileNames.split(',');
 
-            if(split.length) {
+            if (split.length) {
                 _result.fileNames.split(',').forEach(function (fileName) {
                     pushSources.push(
                         {
@@ -139,10 +144,28 @@ prompt.get([
 
         });
     } else if (result.command === 'pull') {
-        prompt.get([accessToken], function (err, _result) {
+        prompt.get([
+            {
+                name: 'commitAndPush',
+                description: 'want this pull to be committed and push to staging? yes/no',
+                type: 'string',
+                default: 'no'
+            },
+            accessToken
+        ], function (err, _result) {
             _result.command = result.command;
 
-            writeYAMLFileAndRunPhraseApp(_result, pushSources, pullTargets);
+            if(_result.commitAndPush.toLowerCase() === 'yes') {
+
+                writeYAMLFileAndRunPhraseApp(_result, pushSources, pullTargets)
+                    .then(function() {
+                        spawn('sh', [ './phraseapp-commit-push.sh' ], {}, function(err, stdout, stderr) {
+                            execLogHandler(err, stdout, stderr);
+                        });
+                    });
+            } else {
+                writeYAMLFileAndRunPhraseApp(_result, pushSources, pullTargets);
+            }
         });
     }
 });
