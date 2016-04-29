@@ -136,6 +136,25 @@ GOOGLE_API_KEY
 
 `cd config/development && ansible-vault edit env.sh-encrypted`
 
+## Phraseapp translation
+```install Phraseapp CLI https://phraseapp.com/docs/developers/cli/installation/```
+
+```npm install```
+
+After all the node_modules deps are installed 
+run 
+
+``` npm run-script pull-translation ```
+
+or 
+
+
+``` npm run-script push-translation ```
+
+and follow the prompt instruction
+
+**ask [tlimpanont](http://github.com/tlimpanont) for the push & pull access_token** 
+
 # License
 
 Copyright (C) 2016 Part-up
