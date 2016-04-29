@@ -91,7 +91,7 @@ if (Meteor.isClient) {
                 pickerBuilder.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
                 pickerBuilder.addView(docsView);
                 pickerBuilder.addView(new google.picker.DocsUploadView());
-                pickerBuilder.setDeveloperKey(developerKey);
+                // pickerBuilder.setDeveloperKey(developerKey);
                 pickerBuilder.setOAuthToken(accessToken);
                 pickerBuilder.setCallback(pickerCallback);
 
