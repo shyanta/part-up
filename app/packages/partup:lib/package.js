@@ -81,7 +81,9 @@ Package.onUse(function(api) {
         'helpers/normalize.js',
         'helpers/interpolateEmailMessage.js',
         'helpers/url.js',
-        'helpers/dropboxChooser.js'
+        'helpers/fileUploader.js',
+        'helpers/dropboxRenderer.js',
+        'helpers/googleDriveRenderer.js'
     ]);
 
     api.addFiles([

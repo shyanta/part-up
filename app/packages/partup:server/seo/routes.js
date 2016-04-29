@@ -5,7 +5,8 @@ var SeoRouter = Picker.filter(function(request, response) {
         /^facebookexternalhit/i, // Facebook
         /^linkedinbot/i, // LinkedIn
         /^twitterbot/i, // Twitter
-        /^slackbot-linkexpanding/i // Slack
+        /^slackbot-linkexpanding/i, // Slack
+        /^bingbot/i // Bing
     ];
 
     var userAgent = request.headers['user-agent'];

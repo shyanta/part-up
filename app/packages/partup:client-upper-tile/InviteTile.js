@@ -36,6 +36,9 @@ Template.InviteTile.helpers({
             participationScore: function() {
                 return User(user).getReadableScore();
             },
+            searchQuery: function() {
+                return template.searchQuery.get();
+            },
             highlightText: function() {
                 var text = template.searchQuery.get();
                 var highlight = Partup.client.sanitize(text);

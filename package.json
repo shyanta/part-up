@@ -1,0 +1,25 @@
+{
+  "name": "part-up",
+  "description": "Part-up =================",
+  "scripts": {
+    "pull-translation": "node phraseapp.js --command pull --access_token 193b1cb74df9b522e06166c3dc17d5a7055ff9e17bf5ae93c8a97cf3b97a9780",
+    "push-translation": "node phraseapp.js --command push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/part-up/part-up.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/part-up/part-up/issues"
+  },
+  "homepage": "https://github.com/part-up/part-up#readme",
+  "devDependencies": {
+    "bluebird": "^3.3.5",
+    "json2yaml": "^1.1.0",
+    "npm-build-tools": "^2.2.5",
+    "optimist": "^0.6.1",
+    "prettyjson": "^1.1.3",
+    "prompt": "^1.0.0"
+  }
+}

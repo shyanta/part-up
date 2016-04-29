@@ -50,12 +50,12 @@ Images.findForNotification = function(notification) {
     var images = [];
 
     switch (notification.type) {
-        case 'partups_messages_inserted':
-        case 'partups_activities_inserted':
-        case 'partups_contributions_inserted':
+        case 'partups_messages_inserted': images = [get(notification, 'type_data.creator.image')]; break;
+        case 'partups_activities_inserted': images = [get(notification, 'type_data.creator.image')]; break;
+        case 'partups_contributions_inserted': images = [get(notification, 'type_data.creator.image')]; break;
         case 'partups_contributions_proposed': images = [get(notification, 'type_data.creator.image')]; break;
-        case 'partups_networks_accepted':
-        case 'partups_networks_invited': images = [get(notification, 'type_data.network.image'), get(notification, 'type_data.inviter.image')]; break;
+        case 'partups_networks_accepted': images = [get(notification, 'type_data.creator.image')]; break;
+        case 'partups_networks_invited': images = [get(notification, 'type_data.inviter.image')]; break;
         case 'partups_networks_new_pending_upper': images = [get(notification, 'type_data.pending_upper.image')]; break;
         case 'partups_supporters_added': images = [get(notification, 'type_data.supporter.image')]; break;
         case 'partup_activities_invited': images = [get(notification, 'type_data.inviter.image')]; break;
@@ -68,7 +68,7 @@ Images.findForNotification = function(notification) {
         case 'partups_networks_new_upper': images = [get(notification, 'type_data.upper.image')]; break;
         case 'partups_networks_upper_left': images = [get(notification, 'type_data.upper.image')]; break;
         case 'multiple_comments_in_conversation_since_visit': images = [get(notification, 'type_data.latest_upper.image')]; break;
-        case 'partups_multiple_updates_since_visit': images = [get(notification, 'type_data.partup.image')]; break;
+        case 'partups_multiple_updates_since_visit': images = [get(notification, 'type_data.latest_upper.image')]; break;
         case 'networks_multiple_new_uppers_since_visit': images = [get(notification, 'type_data.network.image')]; break;
         default: return;
     }
