@@ -5,6 +5,8 @@
 - Endless scroll not triggered on anything but Mac+Chrome #347
 - Notifications images publication PR #396
 - Add Google drive file picker to add message modal #385
+- not all the footer links are linked to the correct url/phrase app keys #389
+- missing bingbot in SEO routes #390
 
 ## 1.17.4
 - fix tribe admin page showing tribe 404 #352
