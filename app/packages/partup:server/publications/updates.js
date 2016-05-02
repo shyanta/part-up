@@ -6,6 +6,7 @@ var updateChildren = [
         {find: Images.findForUser}
     ]},
     {find: Images.findForUpdate},
+    {find: Images.findForUpdateComments},
     {find: Activities.findForUpdate},
     {find: Contributions.findForUpdate, children: [
         {find: Activities.findForContribution},
