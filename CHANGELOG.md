@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.17.6
+- fix dropbox share links are save as temporary links, set it to permanent share period #404
+
 ## 1.17.5
 - Allow CORS in HTTP calls PR #386
 - Endless scroll not triggered on anything but Mac+Chrome #347
