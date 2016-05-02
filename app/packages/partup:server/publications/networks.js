@@ -81,7 +81,8 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
         limit: Match.Optional(Number),
         skip: Match.Optional(Number),
         userId: Match.Optional(String),
-        archived: Match.Optional(String)
+        archived: Match.Optional(String),
+        textSearch: Match.Optional(String)
     });
 
     var options = {};
