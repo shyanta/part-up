@@ -125,7 +125,7 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
     if (this.unblock) this.unblock();
 
     check(urlParams, {
-        slug: Match.Optional(String),
+        slug: Match.Optional(String)
     });
 
     parameters = parameters || {};
@@ -136,6 +136,7 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
         limit: Match.Optional(Number),
         skip: Match.Optional(Number),
         userId: Match.Optional(String),
+        textSearch: Match.Optional(String)
     });
 
     var options = {};

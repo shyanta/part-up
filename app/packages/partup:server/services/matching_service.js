@@ -71,10 +71,12 @@ Partup.server.services.matching = {
      * @param {Number} searchOptions.skip
      * @param {[String]} tags
      * @param {[String]} excludedUppers
+     * @param {String} networkId
 
      * @return {[String]}
      */
-    findMatchingUppers: function(searchOptions, tags, excludedUppers) {
+    findMatchingUppers: function(searchOptions, tags, excludedUppers, networkId) {
+        networkId = networkId || undefined;
         var selector = {};
 
         // Exclude the current logged in user from the results
@@ -108,6 +110,10 @@ Partup.server.services.matching = {
             // Exclude provided uppers from result
             excludedUppers = excludedUppers || [];
             selector['_id'] = {$nin: excludedUppers};
+        }
+
+        if (networkId) {
+            selector['networks'] = {$in: networkId};
         }
 
         // Set options
