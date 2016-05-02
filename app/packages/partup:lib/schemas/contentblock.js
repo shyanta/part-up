@@ -13,8 +13,8 @@ Partup.schemas.forms.contentBlock = new SimpleSchema({
         max: 999,
         optional: true
     },
-    images: {
-        type: [String],
+    image: {
+        type: String,
         optional: true,
         regEx: SimpleSchema.RegEx.Id
     },

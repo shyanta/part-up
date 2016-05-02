@@ -15,7 +15,7 @@ Partup.transformers.contentBlock = {
             _id: contentBlock._id,
             title: contentBlock.title,
             text: contentBlock.text,
-            images: contentBlock.images
+            image: contentBlock.image
         };
     },
 
@@ -32,7 +32,7 @@ Partup.transformers.contentBlock = {
 
         if (fields.title) data.title = sanitizeHtml(fields.title);
         if (fields.text) data.text = sanitizeHtml(fields.text);
-        if (fields.images) data.images = fields.images;
+        if (fields.images) data.image = fields.image;
 
         return data;
     }
