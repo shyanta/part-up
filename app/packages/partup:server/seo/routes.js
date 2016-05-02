@@ -186,3 +186,50 @@ SeoRouter.route('/:slug', function(params, request, response) {
     response.setHeader('Content-Type', 'text/html');
     response.end(html);
 });
+
+/**
+ * SEO Route for the Network About page
+ */
+SeoRouter.route('/tribes/:slug/about', function(params, request, response) {
+    var slug = params.slug;
+    var network = Networks.findOne({slug: slug});
+
+    if (!network) {
+        response.statusCode = 404;
+        return response.end();
+    }
+
+    var image = Images.findOne(network.image);
+
+    SSR.compileTemplate('seo_network_about', Assets.getText('private/templates/seo/network_about.html'));
+
+    Template.seo_network_about.helpers({
+        getAboutUrl: function() {
+            return Meteor.absoluteUrl() + 'tribes/' + network.slug + '/about';
+        },
+        getAboutTitle: function() {
+            if (!network.contentblocks) return network.name;
+            var contentblockId = network.contentblocks[0];
+            var contentblock = ContentBlocks.findOne(contentblockId);
+            if (!contentblock) return network.name;
+            return contentblock.title ? contentblock.title : network.name;
+        },
+        getAboutDescription: function() {
+            if (!network.contentblocks) return network.description;
+            var contentblockId = network.contentblocks[0];
+            var contentblock = ContentBlocks.findOne(contentblockId);
+            if (!contentblock) return network.description;
+            return contentblock.text ? contentblock.text : network.description;
+        },
+        getImageUrl: function() {
+            if (!image) return Meteor.absoluteUrl() + 'images/partup-logo.png';
+
+            return Partup.helpers.url.getImageUrl(image);
+        }
+    });
+
+    var html = SSR.render('seo_network_about', network);
+
+    response.setHeader('Content-Type', 'text/html');
+    response.end(html);
+});

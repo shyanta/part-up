@@ -75,6 +75,7 @@ Package.onUse(function(api) {
         'private/templates/seo/partup.html',
         'private/templates/seo/profile.html',
         'private/templates/seo/network.html',
+        'private/templates/seo/network_about.html',
         'private/templates/seo/swarm.html',
         'private/templates/seo/home.html'
     ], ['server'], {isAsset: true});
