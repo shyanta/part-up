@@ -5,8 +5,17 @@ var DropboxRenderer = function () {
     };
 
     function getFileIdFromDirectLink(fileUrl) {
-        var match = fileUrl.match(/view\/(\w+)/);
-        if(match) { return match[1]; }
+
+        var matchViewPath = fileUrl.match(/view\/(\w+)/);
+        var matchSPath = fileUrl.match(/s\/(\w+)/);
+
+        if(matchViewPath) {
+            return matchViewPath[1];
+        }
+        else if(matchSPath) {
+            return matchSPath[1];
+        }
+
         // return un-existing id for fallback
         return new Meteor.Collection.ObjectID()._str;
     }
