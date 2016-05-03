@@ -5,14 +5,17 @@ Meteor.publishComposite('contentblocks.by_network_slug', function(networkSlug) {
 
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
-            if (!network) return;
-
-            var contentBlocks = network.contentblocks || [];
-            return ContentBlocks.find({_id: {$in: contentBlocks}});
+            return Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1});
         },
         children: [
-            {find: Images.findForContentBlock}
+            {
+                find: function(network) {
+                    return ContentBlocks.find({_id: {$in: network.contentblocks || []}});
+                },
+                children: [
+                    {find: Images.findForContentBlock}
+                ]
+            }
         ]
     };
 });

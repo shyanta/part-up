@@ -32,7 +32,8 @@ Partup.transformers.contentBlock = {
 
         if (fields.title) data.title = sanitizeHtml(fields.title);
         if (fields.text) data.text = sanitizeHtml(fields.text);
-        if (fields.images) data.image = fields.image;
+
+        if (fields.image) data.image = fields.image;
 
         return data;
     }
