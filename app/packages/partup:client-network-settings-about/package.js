@@ -21,7 +21,9 @@ Package.onUse(function(api) {
         'NetworkSettingsAbout.html',
         'NetworkSettingsAbout.js',
         'ContentBlockForm.html',
-        'ContentBlockForm.js'
+        'ContentBlockForm.js',
+        'ContentBlockView.html',
+        'ContentBlockView.js'
 
     ], 'client');
 

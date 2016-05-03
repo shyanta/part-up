@@ -1,124 +1,85 @@
 <template name="app_network_about">
     <div class="pu-composition-about">
     	<section class="pu-wrap pu-contentpage">
-    		<article class="pu-article">
-    			<h1 class="pu-accent pu-header-light">About Permanent Future Lab</h1>
-    			<p class="pu-paragraph pu-paragraph-xlarge">Lorem ipsum dolor sit amet on a mission to give everyone a future full of jobs. We believe that in the near future, access to work will be more important than having a job-for-life. This movement is already spreading over the world. By providing the engine for short-term, project-based teams, Part-up accelerates this movement.</p>
-                <ul class="pu-list pu-list-horizontal">
-                    <li>
-                        <a class="pu-metadata" href="#" data-location="">
-                            <i class="picon-location"></i>
-                            <span>Amsterdam</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pu-metadata" href="https://Lifely.nl" target="_blank">
-                            <i class="picon-monitor"></i>
-                            <span>Lifely.nl</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="pu-list pu-list-horizontal pu-list-tags">
-                    <li>
-                        <a href="#" class="pu-tag">design</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pu-tag">ux</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pu-tag">photography</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pu-tag">nonprofit</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pu-tag">design</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pu-tag">ux</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pu-tag">photography</a>
-                    </li>
-                    <li>
-                        <a href="#" class="pu-tag">nonprofit</a>
-                    </li>
-                </ul>
-    		</article>
 
-    		<article class="pu-article pu-sub-section">
-    			<h2 class="pu-subtitle">Tribe goals</h2>
-    	        <p class="pu-paragraph pu-paragraph-large">Nulla facilisi. Nam mauris quis At Part-up, we are on a mission to give everyone a future full of jobs. We believe that in the near future, access to work will be more important than having.</p>
-                <p class="pu-quote">"Phasellus quis we are on a mission to give everyone. This movement is already spreading over the world. By providing the engine for short-term."</p>
-    	        <p class="pu-paragraph pu-paragraph-large">With Part-up your best teams are only a click away. We believe the collaborative and sharing economy provides for a better future. We take part by sharing ownership of Part-up and returning profit to the community. Together we can make our dreams work!</p>
-    	    </article>
-    	    <img src="/images/about-image.jpg" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">
+            {{#with data.introBlock}}
+                <article class="pu-article pu-contentblock pu-contentblock-intro">
+                    <h1>{{ title }}</h1>
+                    {{{ text }}}
+                    <ul class="pu-list pu-list-horizontal">
+                        {{#with location}}
+                            <li>
+                                <a class="pu-metadata" href="#" data-location>
+                                    <i class="picon-location"></i>
+                                    <span>{{ city }}</span>
+                                </a>
+                            </li>
+                        {{/with}}
+                        {{#with website}}
+                            <li>
+                                <a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
+                                    <i class="picon-monitor"></i>
+                                    <span>{{ partupCleanUrl .}}</span>
+                                </a>
+                            </li>
+                        {{/with}}
+                    </ul>
+                    {{#if tags}}
+                        <ul class="pu-list pu-list-horizontal pu-list-tags">
+                            {{#each tags}}
+                                <li>
+                                    <a href="#" class="pu-tag">{{.}}</a>
+                                </li>
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                </article>
+            {{else}}
+                <article class="pu-article pu-state-loading">
+                    {{> Spinner}}
+                </article>
+            {{/with}}
 
-
-    	    <article class="pu-article pu-sub-section">
-    	        <h2 class="pu-subtitle">Rules</h2>
-    	        <p class="pu-paragraph pu-paragraph-large">Maecenas er turpis eros. Part-up is the new marketplace for teamwork. A part-up is a temporary team working together to realize a dream, idea or project. </p>
-
-                <ul class="pu-list pu-list-large pu-list-arrows-secondary">
-                    <li>Nulla tortor odio, bla bla testztt</li>
-                    <li>part-up is a temporary team</li>
-                    <li>part-up is a temporary team</li>
-                    <li>part-up is a temporary team</li>
-                </ul>
-
-    	        <p class="pu-paragraph pu-paragraph-large">We believe teamwork will be a lot easier if you have the freedom to choose your teammates and your activities. We developed our matching algorithm to help you find the best team members.</p>
-    	    </article>
+            {{#each data.contentBlocks}}
+                <article class="pu-article pu-sub-section pu-contentblock">
+                    <h2>{{ title }}</h2>
+                    {{{ text }}}
+                </article>
+                {{#with image}}
+                    <img src="{{data.imageUrl . }}" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">
+                {{/with}}
+            {{else}}
+                <article class="pu-article pu-state-loading">
+                    {{> Spinner}}
+                </article>
+            {{/each}}
 
     	    <article class="pu-article pu-article-morespace pu-sub-section">
                 <h2 class="pu-subtitle">{{_ 'pages-app-about-page-contact-title'}}</h2>
-                <p class="pu-paragraph">{{_ 'pages-app-about-page-contact-text'}}<a href="http://part-up.us9.list-manage.com/subscribe?u=1e35cbcef2bb540986eadc486&amp;id=c43cd4f4ac" target="_blank">Sign up</a> for newsletter, the Part-update. Or follow Part-up on <a href="https://facebook.com/partupcom" target="_blank">Facebook</a> or <a href="https://twitter.com/partupcom" target="_blank">Twitter.</a></p>
+                <p class="pu-paragraph">{{_ 'pages-app-about-page-contact-text'}} <a href="http://part-up.us9.list-manage.com/subscribe?u=1e35cbcef2bb540986eadc486&amp;id=c43cd4f4ac" target="_blank">Sign up</a> for newsletter, the Part-update. Or follow Part-up on <a href="https://facebook.com/partupcom" target="_blank">Facebook</a> or <a href="https://twitter.com/partupcom" target="_blank">Twitter.</a></p>
                 <ul class="pu-list pu-list-horizontal">
-                    <li>
-                        <article class="pu-face">
-                            <a href="/profile/6Nnh97XHdxYZXubZe" class="pu-avatar pu-avatar-extralarge" style="background-image:url(/images/founders/laurens/profile_picture.jpg);"></a>
-                            <ul class="pu-list">
-                                <li><a href="/profile/6Nnh97XHdxYZXubZe">Laurens Waling</a></li>
-                                <li>+316 1003 5001</li>
-                                <li><a href="mailto:laurens@part-up.com">laurens@part-up.com</a></li>
-                            </ul>
-                            <ul class="pu-list pu-list-horizontal pu-sub-socials">
-                                <li><a href="https://instagram.com/laurenswaling" target="_blank"><i class="picon-instagram"></i></a></li>
-                                <li><a href="https://twitter.com/laurenswaling" target="_blank"><i class="picon-twitter"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/laurens" target="_blank"><i class="picon-linkedin"></i></a></li>
-                                <li><a href="https://www.facebook.com/laurenswaling?_rdr=p" target="_blank"><i class="picon-facebook"></i></a></li>
-                            </ul>
-                        </article>
-                    </li>
-                     <li>
-                        <article class="pu-face">
-                            <a href="/profile/pbnjsmy75oDNP3vok" class="pu-avatar pu-avatar-extralarge" style="background-image:url(/images/founders/ralph/profile_picture.jpg);"></a>
-                            <ul class="pu-list">
-                                <li><a href="/profile/pbnjsmy75oDNP3vok">Ralph Boeije</a></li>
-                                <li>+316 1709 4018</li>
-                                <li><a href="mailto:ralph@part-up.com">ralph@part-up.com</a></li>
-                            </ul>
-                            <ul class="pu-list pu-list-horizontal pu-sub-socials">
-                                <li><a href="https://www.facebook.com/ralphboeije?_rdr=p" target="_blank"><i class="picon-facebook"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/ralphboeije" target="_blank"><i class="picon-linkedin"></i></a></li>
-                                <li><a href="https://twitter.com/ralph_b" target="_blank"><i class="picon-twitter"></i></a></li>
-                            </ul>
-                        </article>
-                    </li>
-                     <li>
-                        <article class="pu-face">
-                            <a href="/profile/sgFxtsL7AoNRCDk7y" class="pu-avatar pu-avatar-extralarge" style="background-image:url(/images/founders/erik/profile_picture.jpg);"></a>
-                            <ul class="pu-list">
-                                <li><a href="/profile/sgFxtsL7AoNRCDk7y">Erik Soonieus</a></li>
-                                <li>+316 1649 6956</li>
-                                <li><a href="mailto:erik@part-up.com">erik@part-up.com</a></li>
-                            </ul>
-                            <ul class="pu-list pu-list-horizontal pu-sub-socials">
-                                <li><a href="https://www.facebook.com/erik.soonieus" target="_blank"><i class="picon-facebook"></i></a></li>
-                                <li><a href="https://www.linkedin.com/in/eriksoonieus" target="_blank"><i class="picon-linkedin"></i></a></li>
-                                <li><a href="https://www.twitter.com/eriksoonieus" target="_blank"><i class="picon-twitter"></i></a></li>
-                            </ul>
-                        </article>
-                    </li>
+                    {{#each data.admins}}
+                        <li>
+                            <article class="pu-face">
+                                <a href="{{pathFor route='profile' _id=_id}}" class="pu-avatar pu-avatar-extralarge" style="background-image:url('{{ partupImageUrl id=profile.image store='360x360'}}');"></a>
+                                <ul class="pu-list">
+                                    <li><a href="/profile/6Nnh97XHdxYZXubZe">{{ profile.name }}</a></li>
+                                    <li>{{ profile.phonenumber }}</li>
+                                    <li><a href="mailto:{{ data.email .}}">{{ data.email . }}</a></li>
+                                </ul>
+                                <ul class="pu-list pu-list-horizontal pu-sub-socials">
+                                    {{#if profile.data.facebook_url}}<li><a href="{{ profile.data.facebook_url }}" target="_blank"><i class="picon-facebook"></i></a></li>{{/if}}
+                                    {{#if profile.data.linkedin_url}}<li><a href="{{ profile.data.linkedin_url }}" target="_blank"><i class="picon-linkedin"></i></a></li>{{/if}}
+                                    {{#if profile.data.twitter_url}}<li><a href="{{ profile.data.twitter_url }}" target="_blank"><i class="picon-twitter"></i></a></li>{{/if}}
+                                    {{#if profile.data.instagram_url}}<li><a href="{{ profile.data.instagram_url }}" target="_blank"><i class="picon-instagram"></i></a></li>{{/if}}
+                                </ul>
+                            </article>
+                        </li>
+                    {{else}}
+                        <li>
+                            {{> Spinner}}
+                        </li>
+                    {{/each}}
                 </ul>
             </article>
     	</section>
