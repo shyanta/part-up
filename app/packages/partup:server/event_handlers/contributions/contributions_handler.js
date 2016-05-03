@@ -44,10 +44,6 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
                 },
                 update: {
                     _id: updateId
-                },
-                activity: {
-                    _id: activity._id,
-                    update_id: activity.update_id
                 }
             }
         };
@@ -75,10 +71,6 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
                 },
                 update: {
                     _id: updateId
-                },
-                activity: {
-                    _id: activity._id,
-                    update_id: activity.update_id
                 }
             }
         };
