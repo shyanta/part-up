@@ -27,7 +27,7 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
     if (!partup) return Log.error('Partup [' + contribution.partup_id + '] for Contribution [' + contribution._id + '] could not be found?');
 
     var activity = Activities.findOne(rating.activity_id);
-    if (!partup) return Log.error('Activity [' + rating.activity_id + '] for Rating [' + rating._id + '] could not be found?');
+    if (!activity) return Log.error('Activity [' + rating.activity_id + '] for Rating [' + rating._id + '] could not be found?');
 
     var notificationOptions = {
         userId: contributionUpper._id,
