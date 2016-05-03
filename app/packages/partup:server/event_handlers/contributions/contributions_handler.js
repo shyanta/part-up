@@ -43,7 +43,7 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
                     slug: partup.slug
                 },
                 update: {
-                    _id: updateId
+                    _id: activity.update_id
                 }
             }
         };
@@ -70,7 +70,7 @@ Event.on('partups.contributions.inserted', function(userId, contribution) {
                     slug: partup.slug
                 },
                 update: {
-                    _id: updateId
+                    _id: activity.update_id
                 }
             }
         };
