@@ -14,7 +14,7 @@ Partup.client.sanitizeOutputHTML = function(value) {
     return value.replace(/<strong><br><\/strong>/g, '<br>')
         .replace(/<p><br><\/p>/g, '<br>')
         .replace(/<strong><\/strong>/g, '')
-        .replace(/<p><\/p>/g, '')
+        // .replace(/<p><\/p>/g, '')
         .replace(/ ?face=[\d\D]* ?/g, '')
         .replace(/ ?font-family:[\d\D]*; ?/g, '')
         .replace(/ ?font-family:[\d\D]*; ?/g, '')
@@ -25,6 +25,10 @@ Partup.client.sanitizeOutputHTML = function(value) {
         .replace(/ ?color:[\d\D]*; ?/g, '')
         .replace(/ ?id="null" ?/g, '')
         .replace(/ ?text-align: left; ?/g, '')
+        .replace(/href=?/g, 'target="_blank" href=')
         .replace(/ style=""/g, '')
-        .replace(/<>/g, '');
+        .replace(/<>/g, '')
+        .replace(/<br>/g, '')
+        .replace(/<br\/>/g, '')
+        .replace(/<br \/>/g, '');
 };

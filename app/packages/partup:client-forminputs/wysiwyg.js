@@ -19,7 +19,7 @@ Template.Wysiwyg.onRendered(function() {
             },
         },
         btns: [
-            ['bold', 'italic', 'underline', 'strikethrough'],
+            ['bold'],
             ['unorderedList'],
             ['formattingCustom'],
             ['link'],
@@ -31,6 +31,7 @@ Template.Wysiwyg.onRendered(function() {
         resetCss: true,
         prefix: 'pu-wysiwyg-'
     });
+    if (settings.prefill) $(template.editor).trumbowyg('html', settings.prefill);
 
     template.outputHandler = function(event) {
         var output = Partup.client.sanitizeOutputHTML(template.editor.trumbowyg('html'));
