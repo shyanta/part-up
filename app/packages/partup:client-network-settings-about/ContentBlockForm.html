@@ -1,5 +1,5 @@
 <template name="ContentBlockForm">
-    {{# autoForm id=form.id schema=form.schema validation="submitThenKeyup" class="pu-form pu-block pu-block-active" }}
+    {{# autoForm id=form.id schema=form.schema doc=form.doc validation="submitThenKeyup" class="pu-form pu-block pu-block-active" }}
         {{> afFieldInput name="type" type="hidden" value=form.type}}
         <label class="pu-formfield">
             <span class="pu-label">
@@ -7,7 +7,7 @@
             </span>
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
-                    {{> afFieldInput name="title" type="text" class="pu-input form-control" }}
+                    {{> afFieldInput name="title" type="text" class="pu-input form-control"}}
                 </span>
                 <span class="pu-sub-error">{{ afFieldMessage name='title' }}</span>
             </div>
@@ -19,7 +19,7 @@
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
                     {{# Wysiwyg inputSettings=form.contentBlockInput }}
-                        <input type="hidden" data-paragraph>
+                        {{> afFieldInput name="text" type="hidden" data-paragraph=""}}
                     {{/ Wysiwyg}}
                 </span>
                 <span class="pu-sub-error"></span>
@@ -31,28 +31,32 @@
                     <span class="pu-label">
                         {{_ 'network-settings-about-form-img' }}
                     </span>
-                    <figure style="background-image:url('/images/smile.png')" class="pu-imagepreview pu-imagepreview-logo">
-                    </figure>
-                    <button type="button" class="pu-button pu-button-secondary" data-image-browse="">
-                        <span>{{_ 'network-settings-about-form-img-upload' }}</span>
-                    </button>
-                    <span class="pu-hint">{{_ 'network-settings-about-form-img-hint' }}</span>
-                    <input type="file" class="pu-fileinput" data-image-input="">
-                    <input type="hidden" name="image" data-schema-key="image">
+                    <figure style="background-image:url('{{ data.imageUrl }}')" class="pu-imagepreview pu-imagepreview-logo"></figure>
+                    {{# FileInput inputSettings=form.imageInput }}
+                        <button type="button" class="pu-button pu-button-secondary {{# if state.imageUploading }}pu-state-loading{{/ if }}" data-image-browse>
+                            <span>{{_ 'network-settings-about-form-img-upload' }}</span>
+                            {{> Spinner color='inverted' type='small' }}
+                        </button>
+
+                        <span class="pu-hint">{{_ 'network-settings-about-form-img-hint' }}</span>
+                        <input type="file" class="pu-fileinput" data-image-input>
+                    {{/FileInput}}
+                    {{> afFieldInput name="image" type="hidden" }}
                 </div>
             </div>
         {{/if}}
         <footer class="pu-sub-formfooter pu-row pu-row-scalable">
             <div class="cell">
-                <button type="submit" class="pu-button">
+                <button type="submit" class="pu-button {{# if state.submitting }}pu-state-disabled pu-state-loading{{/ if }}">
                     <span>{{_ 'network-settings-about-form-btn-save' }}</span>
+                    {{> Spinner color='inverted' type='small' }}
                 </button>
             </div>
             <div class="cell stretch">
-                <button type="button" class="pu-button pu-button-gray" data-close="">{{_ 'network-settings-about-form-btn-close' }}</button>
+                <button type="button" class="pu-button pu-button-gray {{# if state.submitting }}pu-state-disabled{{/ if }}" data-close>{{_ 'network-settings-about-form-btn-close' }}</button>
             </div>
             <div class="cell last">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-remove>remove</a>
+                <button type="button" class="pu-button pu-button-text pu-button-text-subtle {{# if state.submitting }}pu-state-disabled{{/ if }}" data-remove>remove</button>
             </div>
         </footer>
     {{/ autoForm }}

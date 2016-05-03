@@ -1,53 +1,107 @@
 Template.ContentBlockForm.onCreated(function() {
     var template = this;
-    template.settings = new ReactiveVar(template.data.formSettings);
+    template.settings = template.data.formSettings;
+    template.uploading = new ReactiveVar(false);
+    template.submitting = new ReactiveVar(false);
+    template.currentImage = new ReactiveVar();
+    var blockId = template.data.block._id;
+    AutoForm.addHooks(blockId, {
+        onSubmit: function(doc) {
+            var self = this;
+            self.event.preventDefault();
+            template.submitting.set(true);
+
+            template.settings.onSubmit(blockId, doc, function() {
+                template.submitting.set(false);
+                self.done();
+            });
+
+            return false;
+        }
+    });
 });
 
 Template.ContentBlockForm.helpers({
+    data: function() {
+        var template = Template.instance();
+        return {
+            imageUrl: function() {
+                var imageId = template.currentImage.get();
+
+                if (!imageId) return '/images/smile.png';
+
+                if (imageId) {
+                    var image = Images.findOne({_id: imageId});
+                    if (image) return Partup.helpers.url.getImageUrl(image, '360x360');
+                }
+
+            }
+        };
+    },
+    state: function() {
+        var template = Template.instance();
+        return {
+            imageUploading: function() {
+                return !!template.uploading.get();
+            },
+            submitting: function() {
+                return !!template.submitting.get();
+            }
+        };
+    },
     form: function() {
         var template = Template.instance();
-        var settings = template.settings.get();
+        var settings = template.settings;
         return {
             contentBlockInput: {
-                input: 'data-intro',
+                input: 'data-paragraph',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: 'Schrijf een intro'
+                placeholder: 'Schrijf een intro',
+                prefill: template.data.block.text || false
             },
+            doc: template.data.block,
             schema: Partup.schemas.forms.contentBlock,
-            id: 'contentBlockForm',
+            id: template.data.block._id,
             type: function() {
                 return settings.type;
-            }
+            },
+            imageInput: function() {
+                return {
+                    button: 'data-image-browse',
+                    input: 'data-image-input',
+                    onFileChange: function(event) {
+                        Partup.client.uploader.eachFile(event, function(file) {
+                            template.uploading.set(true);
+
+                            Partup.client.uploader.uploadImage(file, function(error, image) {
+                                template.uploading.set(false);
+
+                                if (error) {
+                                    Partup.client.notify.error(TAPi18n.__(error.reason));
+                                    return;
+                                }
+
+                                template.find('[name=image]').value = image._id;
+                                template.currentImage.set(image._id);
+                            });
+
+                        });
+
+                    }
+                };
+            },
         };
     }
 });
 
-Template.ContentBlockForm.event({
+Template.ContentBlockForm.events({
     'click [data-remove]': function(event, template) {
-
-    }
-});
-
-AutoForm.addHooks('contentBlockForm', {
-    onSubmit: function(doc) {
-        var self = this;
-        var template = self.template.parent();
-
-        template.submitting.set(true);
-
-        Meteor.call('networks.contentblock_insert', template.data.networkSlug, doc, function(err) {
-            template.submitting.set(false);
-
-            if (err && err.message) {
-                Partup.client.notify.error(err.reason);
-                return;
-            }
-
-            Partup.client.notify.success(TAPi18n.__('network-settings-form-saved'));
-            self.done();
-        });
-
-        return false;
+        event.preventDefault();
+        template.settings.onRemove(template.data.block._id);
+    },
+    'click [data-close]': function(event, template) {
+        event.preventDefault();
+        template.settings.onClose(template.data.block._id);
     }
 });
 
