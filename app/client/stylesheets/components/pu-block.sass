@@ -145,9 +145,20 @@
     &-result
         padding: 40px
 
-        p
+        h3
+            font-size: 16px
+
+        p, blockquote
+            padding-top: 10px
+            padding-bottom: 10px
+            line-height: 1.4em
             word-break: break-word
             padding-right: 60px
+
+        blockquote
+            text-align: center
+            &:before, &:after
+                content: '"'
 
         .pu-list
             position: absolute
