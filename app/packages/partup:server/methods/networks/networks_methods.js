@@ -766,6 +766,7 @@ Meteor.methods({
             var contentBlockFields = Partup.transformers.contentBlock.fromFormContentBlock(fields);
             var contentBlock = Meteor.call('contentblocks.insert', contentBlockFields);
             Networks.update(network._id, {$addToSet: {contentblocks: contentBlock._id}})
+            return contentBlock._id;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_contentblocks_could_not_be_inserted');
@@ -844,7 +845,7 @@ Meteor.methods({
         });
 
         try {
-            Networks.update(network._id, {$set: {contentblocks: contentBlockSequence}})
+            Networks.update(network._id, {$set: {contentblocks: contentBlockSequence}});
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
