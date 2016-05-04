@@ -63,6 +63,9 @@ Template.NetworkSettingsUppers.helpers({
                 };
             }
         };
+    },
+    getToken: function () {
+        return Accounts._storedLoginToken();
     }
 });
 

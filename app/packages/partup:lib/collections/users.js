@@ -84,8 +84,10 @@ Meteor.users.findSinglePublicProfile = function(userId) {
  * @return {Mongo.Cursor}
  */
 Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters) {
+    userIds = userIds || [];
     options = options || {};
     parameters = parameters || {};
+
     var selector = {_id: {$in: userIds}};
 
     if (parameters.onlyActive) selector.deactivatedAt = {$exists: false};

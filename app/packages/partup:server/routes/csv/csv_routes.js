@@ -107,11 +107,36 @@ Router.route('/csv/admin/users', {where: 'server'}).get(function() {
     return exportCSV(response);
 });
 
-var exportCSV = function(responseStream) {
+Router.route('/csv/tribe/uppers', {where: 'server'}).get(function() {
+    var request = this.request;
+    var response = this.response;
+
+    if (!request.query.id || !request.user) {
+        response.statusCode = 403;
+        response.end(JSON.stringify({error: {reason: 'error-unauthorized'}}));
+        return;
+    }
+
+    var network = Networks.findOneOrFail(request.query.id);
+    if (!network.isAdmin(request.user._id)) {
+        response.statusCode = 403;
+        response.end(JSON.stringify({error: {reason: 'error-unauthorized'}}));
+        return;
+    }
+
+    response.setHeader('Content-disposition', 'attachment; filename=tribe-uppers.csv');
+    response.setHeader('Content-type', 'text/csv');
+
+    return exportCSV(response, network.uppers);
+});
+
+var exportCSV = function(responseStream, userIds) {
+    userIds = userIds || [];
     var userStream = createStream();
     var Future = Npm.require('fibers/future');
     var fut = new Future();
     var users = {};
+    var userSelector = userIds.length > 0 ? {_id: {$in: userIds}} : {};
 
     CSV()
         .from(userStream)
@@ -125,7 +150,8 @@ var exportCSV = function(responseStream) {
         });
 
     userStream.write(['_id','profile.name','profile.phonenumber','registered_emails','createdAt','deactivatedAt']);
-    users = Meteor.users.findForAdminList({}, {}).fetch();
+    users = Meteor.users.findForAdminList(userSelector, {}).fetch();
+
     var count = 0;
     users.forEach(function(user) {
         var objectUser = User(user);
@@ -146,7 +172,7 @@ var exportCSV = function(responseStream) {
     });
 
     return fut.wait();
-}
+};
 
 //Creates and returns a Duplex(Read/Write) Node stream
 //Used to pipe users from .find() Cursor into our CSV stream parser.

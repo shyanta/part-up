@@ -6,6 +6,8 @@
         {{# if data.network.uppers }}
         <!-- <h3>{{_ 'network-settings-uppers-listheading' }}</h3> -->
 
+        <a target="_blank" href="/csv/tribe/uppers?token={{getToken}}&id={{data.network._id}}">csv export</a>
+
         {{> SearchInput inputSettings=form.searchInput}}
 
 
