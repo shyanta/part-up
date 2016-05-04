@@ -756,16 +756,24 @@ Meteor.methods({
      */
     'networks.contentblock_insert': function(networkSlug, fields) {
         check(networkSlug, String);
+        check(fields, Partup.schemas.forms.contentBlock);
 
         var user = Meteor.user();
         var network = Networks.findOneOrFail({slug: networkSlug});
 
         if (!user || !network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
+        // Only 1 'intro' type allowed
+        if (fields.type === 'intro') {
+            var introBlock = ContentBlocks.findOne({_id: {$in: network.contentblocks}, type: 'intro'});
+            if (introBlock) throw new Meteor.Error(400, 'network_contentblocks_intro_already_exists');
+        }
+
         try {
             var contentBlockFields = Partup.transformers.contentBlock.fromFormContentBlock(fields);
             var contentBlock = Meteor.call('contentblocks.insert', contentBlockFields);
-            Networks.update(network._id, {$addToSet: {contentblocks: contentBlock._id}})
+            Networks.update(network._id, {$addToSet: {contentblocks: contentBlock._id}});
+
             return contentBlock._id;
         } catch (error) {
             Log.error(error);
