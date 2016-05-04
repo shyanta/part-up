@@ -16,8 +16,9 @@ _steps/
 app/packages/tests-proxy/
 app/.demeteorized
 
-# Generated version file
+# Generated build files
 app/public/VERSION
+app-build
 
 # Backups
 backups
