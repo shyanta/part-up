@@ -7,13 +7,22 @@ Template.CookieLawBar.onRendered(function() {
 
     var $cookiebar = jQuery('#cookie-bar');
     var $cookiebarButton = $cookiebar.find('.cb-enable');
+    $cookiebarButton.on('click', function() { jQuery('#intercom-launcher').css({ bottom: 20 }); });
 
     $cookiebarButton.parent().after($cookiebarButton);
-
     var $moreInfoText = '<a  class="more-info" target="_blank" href="'+TAPi18n.__('cookie-more-info-url')+'">'+TAPi18n.__('cookie-more-info')+'</a>';
 
     $cookiebar.find('p').html(TAPi18n.__('cookie-policy-text'));
     $cookiebar.find('p').append($moreInfoText);
+
+    waitUntil(function(){
+        return (jQuery('#intercom-launcher').length > 0 || jQuery('#intercom-launcher').is(':visible')) &&
+            (Cookie.get('cb-enabled') === 'enabled' ||  jQuery('#cookie-bar').length > 0);
+    }, function(){
+        jQuery('#intercom-launcher').css({ bottom: 80 });
+    }, function(){
+
+    });
 
 });
 /**

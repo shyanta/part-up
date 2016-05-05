@@ -13,6 +13,7 @@ Package.onUse(function(api) {
     ], 'client');
     
     api.addFiles([
+        'wait-until.js',
         'CookieLawBar.html',
         'CookieLawBar.js'
     ], 'client');
