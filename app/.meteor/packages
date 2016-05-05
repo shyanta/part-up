@@ -118,5 +118,7 @@ meteorhacks:kadira-profiler
 partup:client-network-tile
 partup:client-google-drive-picker
 partup:client-dropbox-chooser
+partup:cookie-law-bar
 #mike:mocha
 #velocity:console-reporter
+smowden:jquery-cookiebar
