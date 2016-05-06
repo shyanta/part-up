@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.17.7
+- fix(imagemagick): added policy.xml to fix imagetragick vulnerability #408
+- Create a (minimalistic) cookie wall #312
+
 ## 1.17.6
 - fix dropbox share links are save as temporary links, set it to permanent share period #404
 
