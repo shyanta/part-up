@@ -5,7 +5,7 @@ services:
     image: mongo:3
 
   meteor:
-    build: app/
+    build: .
     links:
       - mongo
     env_file: config/development/env
