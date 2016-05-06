@@ -35,9 +35,43 @@
                     {{/if}}
                 </article>
             {{else}}
-                <article class="pu-article pu-state-loading">
-                    {{> Spinner}}
-                </article>
+                {{#if state.contentblocksAvailable}}
+                    <article class="pu-article pu-contentblock pu-contentblock-intro">
+                        <h1>{{_ 'pages-app-network-tab-about-placeholder-title'}}</h1>
+                        <p>{{_ 'pages-app-network-tab-about-placeholder-intro'}}</p>
+                        <ul class="pu-list pu-list-horizontal">
+                            {{#with data.network.location}}
+                                <li>
+                                    <a class="pu-metadata" href="#" data-location>
+                                        <i class="picon-location"></i>
+                                        <span>{{ city }}</span>
+                                    </a>
+                                </li>
+                            {{/with}}
+                            {{#with data.network.website}}
+                                <li>
+                                    <a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
+                                        <i class="picon-monitor"></i>
+                                        <span>{{ partupCleanUrl .}}</span>
+                                    </a>
+                                </li>
+                            {{/with}}
+                        </ul>
+                        {{#if data.network.tags}}
+                            <ul class="pu-list pu-list-horizontal pu-list-tags">
+                                {{#each tags}}
+                                    <li>
+                                        <a href="#" class="pu-tag">{{.}}</a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}
+                    </article>
+                {{else}}
+                    <article class="pu-article pu-state-loading">
+                        {{> Spinner}}
+                    </article>
+                {{/if}}
             {{/with}}
 
             {{#each data.contentBlocks}}
@@ -49,9 +83,11 @@
                     <img src="{{data.imageUrl . }}" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">
                 {{/with}}
             {{else}}
-                <article class="pu-article pu-state-loading">
-                    {{> Spinner}}
-                </article>
+                {{#unless state.contentblocksAvailable}}
+                    <article class="pu-article pu-state-loading">
+                        {{> Spinner}}
+                    </article>
+                {{/unless}}
             {{/each}}
 
     	    <article class="pu-article pu-article-morespace pu-sub-section">

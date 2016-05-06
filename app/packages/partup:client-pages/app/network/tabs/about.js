@@ -1,11 +1,24 @@
 Template.app_network_about.onCreated(function() {
     var template = this;
-    template.subscribe('contentblocks.by_network_slug', template.data.networkSlug);
+    template.contentblocksAvailable = new ReactiveVar(false);
+    template.subscribe('contentblocks.by_network_slug', template.data.networkSlug, {
+        onReady: function() {
+            template.contentblocksAvailable.set(true);
+        }
+    });
     var network = Networks.findOne({slug: template.data.networkSlug});
     template.subscribe('users.by_ids', network.admins);
 });
 
 Template.app_network_about.helpers({
+    state: function() {
+        var template = Template.instance();
+        return {
+            contentblocksAvailable: function() {
+                return template.contentblocksAvailable.get();
+            }
+        };
+    },
     data: function() {
         var compare = function(a, b) {
             var first = contentBlocksArr.indexOf(a._id);

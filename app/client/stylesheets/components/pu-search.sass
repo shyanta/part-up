@@ -80,7 +80,7 @@
 .pu-searchinput
     padding-left: 20px
     padding-right: 20px
-    transition: padding .5s
+    transition: padding .2s
 
     &:after, &:before
         right: 95%
@@ -147,12 +147,16 @@
                 left: 12px
 
             &::-webkit-input-placeholder
+                transition-delay: .3s
                 color: $color-text-subtle
             &::-moz-placeholder
+                transition-delay: .3s
                 color: $color-text-subtle
             &:-ms-input-placeholder
+                transition-delay: .3s
                 color: $color-text-subtle
             &:-moz-placeholder
+                transition-delay: .3s
                 color: $color-text-subtle
 
 .pu-flexible
@@ -175,7 +179,7 @@
                 white-space: nowrap
 
             &:first-child
-                transition: max-width .4s ease-in-out
+                transition: max-width .2s ease-out
 
                 > span
                     height: 46px
@@ -184,7 +188,6 @@
 
         > div.pu-sub-center
             width: 100%
-            z-index: 999
             position: relative
 
         > div:nth-of-type(3)

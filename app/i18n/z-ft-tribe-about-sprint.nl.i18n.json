@@ -29,7 +29,10 @@
 	"network-settings-about-contentblock-placeholder-title": "Lorem ipsum dolor sit amet.",
 	"network-settings-about-contentblock-placeholder-intro": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio fugiat omnis, impedit pariatur, suscipit perferendis, ullam ad beatae reprehenderit, assumenda nesciunt. Nemo eveniet dolorum quod. Repellendus alias necessitatibus pariatur, harum voluptate iste exercitationem, deleniti expedita ut doloribus non corrupti beatae.",
 
-	"network-settings-uppers-button-csv-export": "Exporteer csv"
+	"network-settings-uppers-button-csv-export": "Exporteer csv",
+
+	"pages-app-network-tab-about-placeholder-title": "Geen inhoud",
+	"pages-app-network-tab-about-placeholder-intro": "De about pagina heeft nog geen inhoud"
 
 }
 
