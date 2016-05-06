@@ -61,7 +61,7 @@ Template.app_network_uppers.onCreated(function() {
         query.skip = page * PAGING_INCREMENT;
         query.userId = Meteor.userId();
         query.textSearch = template.searchQuery.get();
-        console.log(query)
+
         // Update state(s)
         template.states.loading_infinite_scroll = true;
 
