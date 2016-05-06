@@ -24,10 +24,25 @@ Template.SearchInput.events({
     'input [data-search]': function(event, template) {
         template.searchQuery.set(event.target.value);
     },
+    'mouseover [data-flexible-center]': function(event, template) {
+        $(event.currentTarget).parent().addClass('start');
+        _.defer(function() {
+            $(event.currentTarget).parent().addClass('active');
+        });
+    },
     'focus [data-search]': function(event, template) {
-        $(event.currentTarget).closest('form').addClass('pu-state-active');
+        template.focussed = true;
     },
     'blur [data-search]': function(event, template) {
-        if (!template.searchQuery.get()) $(event.currentTarget).closest('form').removeClass('pu-state-active');
+        if (!$(event.target).val()) {
+            template.focussed = false;
+            $('[data-flexible-center]').parent().removeClass('active');
+        }
     },
+    'mouseleave [data-flexible-center]': function(event, template) {
+        if (!template.focussed) $(event.currentTarget).parent().removeClass('active');
+    },
+    'transitionend [data-flexible-center]': function(event, template) {
+        $(event.currentTarget).parent().removeClass('start');
+    }
 });

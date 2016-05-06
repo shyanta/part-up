@@ -12,7 +12,16 @@ Template.NetworkSettingsAbout.onCreated(function() {
             }
         }
     });
-    template.subscribe('contentblocks.by_network_slug', template.data.networkSlug);
+    template.subscribe('contentblocks.by_network_slug', template.data.networkSlug, {
+        onReady: function() {
+            var introBlock = ContentBlocks.findOne({type: 'intro'});
+            if (introBlock) return;
+            console.log('MAKE')
+            Meteor.call('networks.contentblock_insert', template.data.networkSlug, {type: 'intro'}, function(err, blockId) {
+                template.editBlock(blockId);
+            });
+        }
+    });
 
     template.charactersLeft = new ReactiveDict();
     template.submitting = new ReactiveVar();
@@ -111,12 +120,6 @@ Template.NetworkSettingsAbout.helpers({
         var contentBlocksArr = network.contentblocks || [];
         var introBlock = ContentBlocks.findOne({_id: {$in: contentBlocksArr}, type: 'intro'});
         var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}, type: 'paragraph'});
-
-        if (!introBlock) {
-            Meteor.call('networks.contentblock_insert', template.data.networkSlug, {type: 'intro'}, function(err, blockId) {
-                template.editBlock(blockId);
-            });
-        }
 
         return {
             network: function() {

@@ -7,8 +7,11 @@ var getAmountOfColumns = function(screenwidth) {
 Template.app_network_partups.onCreated(function() {
     var template = this;
     template.getArchivedPartups = false;
+
     // Partup result count
     template.partupCount = new ReactiveVar();
+
+    template.reactiveLabel = new ReactiveVar('No part-ups');
 
     // States such as loading states
     template.states = {
@@ -51,13 +54,14 @@ Template.app_network_partups.onCreated(function() {
 
     });
 
-    template.initialize = function(filter) {
+    template.initialize = function(filter, searchQuery) {
         template.getArchivedPartups = filter === 'archived' ? true : false;
 
         var query = {};
         query.userId =  Meteor.userId();
         query.token =  Accounts._storedLoginToken();
         query.archived = template.getArchivedPartups;
+        query.textSearch = template.searchQuery.get();
 
         // Get count
         template.states.partupCountLoading.set(true);
@@ -83,6 +87,7 @@ Template.app_network_partups.onCreated(function() {
         query.skip = page * PAGING_INCREMENT;
         query.userId = Meteor.userId();
         query.archived = template.getArchivedPartups;
+        query.textSearch = template.searchQuery.get();
 
         // Update state(s)
         template.states.loadingInfiniteScroll = true;
@@ -120,15 +125,27 @@ Template.app_network_partups.onCreated(function() {
         });
     });
 
-    var switchFilter = function(filter) {
+    var switchFilter = function() {
+        var filter = template.filter.get();
+        var query = template.searchQuery.get();
         template.columnTilesLayout.clear(function() {
-            template.initialize(filter);
+            template.initialize(filter, query);
         });
     };
 
     template.filter = new ReactiveVar('active', function(a, b) {
         if (a !== b) switchFilter(b);
     });
+
+    template.searchQuery = new ReactiveVar(undefined, function(a, b) {
+        if (a !== b) switchFilter(b);
+    });
+
+    var setSearchQuery = function(query) {
+        console.log(query)
+        template.searchQuery.set(query);
+    };
+    template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
 
     template.initialize('active');
 });
@@ -159,6 +176,38 @@ Template.app_network_partups.onRendered(function() {
     });
 });
 
+Template.app_network_partups.events({
+    'mouseover [data-flexible-center]': function(event, template) {
+        $(event.currentTarget).parent().addClass('start');
+        _.defer(function() {
+            $(event.currentTarget).parent().addClass('active');
+        });
+    },
+    'input [data-search]': function(event, template) {
+        template.throttledSetSearchQuery(event.currentTarget.value);
+        // console.log(template.searchQuery.get());
+    },
+    'focus [data-search]': function(event, template) {
+        $(event.currentTarget).parent().addClass('start');
+        _.defer(function() {
+            template.focussed = true;
+            $(event.currentTarget).parent().addClass('active');
+        });
+    },
+    'blur [data-search]': function(event, template) {
+        if (!$(event.target).val()) {
+            template.focussed = false;
+            $('[data-flexible-center]').parent().removeClass('active');
+        }
+    },
+    'mouseleave [data-flexible-center]': function(event, template) {
+        if (!template.focussed) $(event.currentTarget).parent().removeClass('active');
+    },
+    'transitionend [data-flexible-center]': function(event, template) {
+        $(event.currentTarget).parent().removeClass('start');
+    }
+});
+
 Template.app_network_partups.helpers({
     configs: function() {
         var template = Template.instance();
@@ -171,6 +220,17 @@ Template.app_network_partups.helpers({
                     }
                 };
             },
+        };
+    },
+    form: function() {
+        var template = Template.instance();
+        return {
+            searchInput: function() {
+                return {
+                    reactiveLabel: template.reactiveLabel,
+                    reactiveSearchQuery: template.searchQuery
+                };
+            }
         };
     },
     data: function() {
@@ -212,7 +272,9 @@ Template.app_network_partups.helpers({
             partupsLoading: function(selection) {
                 return TAPi18n.__('pages-app-network-partups-' + selection + '-loading');
             },
-            partupsCount: function(selection, count) {
+            partupsCount: function() {
+                var count = template.partupCount.get();
+                var selection = template.filter.get();
                 return TAPi18n.__('pages-app-network-partups-' + selection + '-count', {
                     count: count
                 });
