@@ -27,6 +27,8 @@
 	"pages-app-network-tab-button-settings": "Settings",
 
 	"network-settings-about-contentblock-placeholder-title": "Lorem ipsum dolor sit amet.",
-	"network-settings-about-contentblock-placeholder-intro": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio fugiat omnis, impedit pariatur, suscipit perferendis, ullam ad beatae reprehenderit, assumenda nesciunt. Nemo eveniet dolorum quod. Repellendus alias necessitatibus pariatur, harum voluptate iste exercitationem, deleniti expedita ut doloribus non corrupti beatae."
+	"network-settings-about-contentblock-placeholder-intro": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio fugiat omnis, impedit pariatur, suscipit perferendis, ullam ad beatae reprehenderit, assumenda nesciunt. Nemo eveniet dolorum quod. Repellendus alias necessitatibus pariatur, harum voluptate iste exercitationem, deleniti expedita ut doloribus non corrupti beatae.",
+
+	"network-settings-uppers-button-csv-export": "Export csv"
 
 }

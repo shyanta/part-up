@@ -1,12 +1,11 @@
 <template name="NetworkSettingsUppers">
     <div class="pu-composition pu-composition-defaultmodal pu-composition-networksettings-uppers">
         <h2 class="pu-title pu-title-modal">{{_ 'network-settings-uppers-title' }}</h2>
-        <p>{{_ 'network-settings-uppers-paragraph' }}</p>
+        <p class="pu-description-modal">{{_ 'network-settings-uppers-paragraph' }}</p>
 
         {{# if data.network.uppers }}
-        <!-- <h3>{{_ 'network-settings-uppers-listheading' }}</h3> -->
 
-        <a target="_blank" href="/csv/tribe/uppers?token={{getToken}}&id={{data.network._id}}">csv export</a>
+        <a class="pu-button pu-button-text pu-button-no-side-padding" target="_blank" href="/csv/tribe/uppers?token={{getToken}}&id={{data.network._id}}">{{_ 'network-settings-uppers-button-csv-export' }}</a>
 
         {{> SearchInput inputSettings=form.searchInput}}
 
