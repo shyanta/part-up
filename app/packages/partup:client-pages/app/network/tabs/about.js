@@ -7,12 +7,17 @@ Template.app_network_about.onCreated(function() {
 
 Template.app_network_about.helpers({
     data: function() {
+        var compare = function(a, b) {
+            var first = contentBlocksArr.indexOf(a._id);
+            var second = contentBlocksArr.indexOf(b._id);
+            return first > second;
+        };
         var template = Template.instance();
         var network = Networks.findOne({slug: template.data.networkSlug});
         if (!network) return;
         var contentBlocksArr = network.contentblocks || [];
         var introBlock = ContentBlocks.findOne({_id: {$in: contentBlocksArr}, type: 'intro'});
-        var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}, type: 'paragraph'});
+        var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}, type: 'paragraph'}).fetch().sort(compare);
 
         if (network && introBlock) {
             introBlock.tags = network.tags || [];

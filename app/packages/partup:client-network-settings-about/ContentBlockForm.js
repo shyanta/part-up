@@ -7,6 +7,8 @@ Template.ContentBlockForm.onCreated(function() {
     var blockId = template.data.block._id;
     AutoForm.addHooks(blockId, {
         onSubmit: function(doc) {
+            if (template.view.isDestroyed) return false;
+
             var self = this;
             self.event.preventDefault();
             template.submitting.set(true);

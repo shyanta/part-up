@@ -10,13 +10,13 @@ Template.NetworkSettingsAbout.onCreated(function() {
             if (network.isClosedForUpper(userId)) {
                 Router.pageNotFound('network');
             }
+            template.blockSequence = network.contentblocks;
         }
     });
     template.subscribe('contentblocks.by_network_slug', template.data.networkSlug, {
         onReady: function() {
             var introBlock = ContentBlocks.findOne({type: 'intro'});
             if (introBlock) return;
-            console.log('MAKE')
             Meteor.call('networks.contentblock_insert', template.data.networkSlug, {type: 'intro'}, function(err, blockId) {
                 template.editBlock(blockId);
             });
@@ -28,6 +28,7 @@ Template.NetworkSettingsAbout.onCreated(function() {
     template.current = new ReactiveDict();
     template.uploading = new ReactiveDict();
     template.editingBlocks = new ReactiveVar([]);
+    template.blockSequence = [];
 
     template.locationSelection = new ReactiveVar();
 
@@ -72,9 +73,29 @@ Template.NetworkSettingsAbout.onCreated(function() {
     };
 
     template.upBlock = function(blockId) {
+        var introBlock = ContentBlocks.findOne({type: 'intro'});
+        var sequence = template.blockSequence;
+        var currentIndex = sequence.indexOf(blockId);
+        if (!sequence[currentIndex - 1] || sequence[currentIndex - 1] == introBlock._id) return;
+        var memorize = sequence[currentIndex - 1];
+        sequence[currentIndex - 1] = blockId;
+        sequence[currentIndex] = memorize;
+        sequence.unshift(introBlock._id);
+        Meteor.call('networks.contentblock_sequence', networkSlug, sequence, function(error, results) {
+        });
     };
 
     template.downBlock = function(blockId) {
+        var introBlock = ContentBlocks.findOne({type: 'intro'});
+        var sequence = template.blockSequence;
+        var currentIndex = sequence.indexOf(blockId);
+        if (!sequence[currentIndex + 1] || sequence[currentIndex + 1] == introBlock._id) return;
+        var memorize = sequence[currentIndex + 1];
+        sequence[currentIndex + 1] = blockId;
+        sequence[currentIndex] = memorize;
+        sequence.unshift(introBlock._id);
+        Meteor.call('networks.contentblock_sequence', networkSlug, sequence, function(error, results) {
+        });
     };
 });
 
@@ -114,12 +135,22 @@ Template.NetworkSettingsAbout.helpers({
         };
     },
     data: function() {
+        var compare = function(a, b) {
+            var first = contentBlocksArr.indexOf(a._id);
+            var second = contentBlocksArr.indexOf(b._id);
+            return first > second;
+        };
         var template = Template.instance();
         var network = Networks.findOne({slug: template.data.networkSlug});
         if (!network) return;
         var contentBlocksArr = network.contentblocks || [];
         var introBlock = ContentBlocks.findOne({_id: {$in: contentBlocksArr}, type: 'intro'});
-        var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}, type: 'paragraph'});
+        var contentBlocks = ContentBlocks.find({_id: {$in: contentBlocksArr}, type: 'paragraph'}).fetch().sort(compare);
+
+        template.blockSequence = _.filter(contentBlocksArr, function(item) {
+            if (!introBlock) return true;
+            return item !== introBlock._id;
+        });
 
         return {
             network: function() {
