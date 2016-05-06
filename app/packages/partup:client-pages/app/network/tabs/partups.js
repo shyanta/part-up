@@ -11,8 +11,6 @@ Template.app_network_partups.onCreated(function() {
     // Partup result count
     template.partupCount = new ReactiveVar();
 
-    template.reactiveLabel = new ReactiveVar('No part-ups');
-
     // States such as loading states
     template.states = {
         loadingInfiniteScroll: false,
@@ -54,7 +52,7 @@ Template.app_network_partups.onCreated(function() {
 
     });
 
-    template.initialize = function(filter, searchQuery) {
+    template.initialize = function(filter) {
         template.getArchivedPartups = filter === 'archived' ? true : false;
 
         var query = {};
@@ -127,9 +125,8 @@ Template.app_network_partups.onCreated(function() {
 
     var switchFilter = function() {
         var filter = template.filter.get();
-        var query = template.searchQuery.get();
         template.columnTilesLayout.clear(function() {
-            template.initialize(filter, query);
+            template.initialize(filter);
         });
     };
 
@@ -137,12 +134,11 @@ Template.app_network_partups.onCreated(function() {
         if (a !== b) switchFilter(b);
     });
 
-    template.searchQuery = new ReactiveVar(undefined, function(a, b) {
+    template.searchQuery = new ReactiveVar('', function(a, b) {
         if (a !== b) switchFilter(b);
     });
 
     var setSearchQuery = function(query) {
-        console.log(query)
         template.searchQuery.set(query);
     };
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
@@ -185,7 +181,6 @@ Template.app_network_partups.events({
     },
     'input [data-search]': function(event, template) {
         template.throttledSetSearchQuery(event.currentTarget.value);
-        // console.log(template.searchQuery.get());
     },
     'focus [data-search]': function(event, template) {
         $(event.currentTarget).parent().addClass('start');
@@ -220,17 +215,6 @@ Template.app_network_partups.helpers({
                     }
                 };
             },
-        };
-    },
-    form: function() {
-        var template = Template.instance();
-        return {
-            searchInput: function() {
-                return {
-                    reactiveLabel: template.reactiveLabel,
-                    reactiveSearchQuery: template.searchQuery
-                };
-            }
         };
     },
     data: function() {
