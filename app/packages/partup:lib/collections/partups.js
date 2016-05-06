@@ -632,11 +632,12 @@ Partups.findForNetwork = function(network, parameters, options, loggedInUserId) 
 
         var textSearchSelector = {$text: {$search: textSearch}};
         var tagSelector = {tags: {$in: [textSearch]}};
+        var slugSelector = {slug: new RegExp('.*' + textSearch.replace(/ /g,'-') + '.*', 'i')};
 
         options.fields = {score: {$meta: 'textScore'}};
         options.sort['score'] = {$meta: 'textScore'};
 
-        selector.$or = [textSearchSelector, tagSelector];
+        selector.$or = [textSearchSelector, tagSelector, slugSelector];
     }
 
     return this.guardedFind(loggedInUserId, selector, options);

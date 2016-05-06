@@ -90,7 +90,8 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
     if (parameters.skip) options.skip = parameters.skip;
 
     var selector = {
-        archived: (parameters.archived) ? JSON.parse(parameters.archived) : false
+        archived: (parameters.archived) ? JSON.parse(parameters.archived) : false,
+        textSearch: (parameters.textSearch) ? parameters.textSearch : undefined
     };
 
     return {
