@@ -8,6 +8,8 @@ RUN apt-get update && \
     apt-get autoclean && \
     apt-get clean
 
+COPY imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
+
 ADD app-build/meteor-app.tgz /app
 
 CMD node /app/main.js
