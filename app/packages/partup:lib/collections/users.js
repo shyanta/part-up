@@ -87,13 +87,40 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
     userIds = userIds || [];
     options = options || {};
     parameters = parameters || {};
+    var textSearch = parameters.textSearch || undefined;
 
     var selector = {_id: {$in: userIds}};
-
     if (parameters.onlyActive) selector.deactivatedAt = {$exists: false};
 
     options.fields = publicUserFields;
-    if (parameters.isAdminOfNetwork) options.fields.emails = 1;
+    if (parameters.isAdminOfNetwork) {
+        options.fields.emails = 1;
+    }
+
+    // Filter the uppers that match the text search
+    if (textSearch) {
+        Log.debug('Searching for [' + textSearch + ']');
+
+        // Remove accents that might have been added to the query
+        var searchQuery = mout.string.replaceAccents(textSearch.toLowerCase());
+
+        // Set the search criteria
+        var searchCriteria = [
+            {'profile.normalized_name': new RegExp('.*' + searchQuery + '.*', 'i')},
+            {'profile.description': new RegExp('.*' + searchQuery + '.*', 'i')},
+            {'profile.tags': new RegExp('.*' + searchQuery + '.*', 'i')},
+            {'profile.location.city': new RegExp('.*' + searchQuery + '.*', 'i')}
+        ];
+
+        // Search for separate tags if multiple words are detected in searchQuery
+        var multipleWordsQuery = searchQuery.split(' ');
+        if (multipleWordsQuery.length > 1) {
+            searchCriteria.push({'profile.tags': {$in: multipleWordsQuery}});
+        }
+
+        // Combine it in an $or selector
+        selector = {$and: [selector, {$or: searchCriteria}]};
+    }
 
     options.limit = parameters.count ? undefined : parseInt(options.limit) || undefined;
     options.sort = parameters.count ? undefined : options.sort || undefined;
