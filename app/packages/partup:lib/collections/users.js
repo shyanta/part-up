@@ -116,10 +116,6 @@ Meteor.users.findUppersForNetwork = function(network, options, parameters) {
     parameters = parameters || {};
     parameters.onlyActive = true;
 
-    if (parameters.hasOwnProperty('textSearch')) {
-        uppers = Partup.server.services.matching.findMatchingUppers({query: parameters.textSearch}, [],[], network._id);
-    }
-
     return this.findMultiplePublicProfiles(uppers, options, parameters);
 };
 
