@@ -249,7 +249,7 @@ Meteor.methods({
         Meteor.users.update(this.userId, {
             $addToSet: {
                 'push_notification_devices': {
-                    registrationId: registrationId,
+                    registration_id: registrationId,
                     uuid: device.uuid,
                     manufacturer: device.manufacturer,
                     model: device.model,

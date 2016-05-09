@@ -443,7 +443,7 @@ User = function(user) {
         },
 
         /**
-         * Function to calculate application icon badge number
+         * Function to calculate application icon badge number (iOS only, for now)
          *
          * @returns {Number} app icon badge number
          */
