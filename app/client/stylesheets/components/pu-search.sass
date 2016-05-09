@@ -92,6 +92,7 @@
         position: absolute
         pointer-events: none
         z-index: 2
+        pointer-events: none
 
     &:after
         border-color: rgba(136, 183, 213, 0)
@@ -109,6 +110,13 @@
         z-index: -1
         left: -18px + 20px
 
+    &:hover
+        input
+            border-color: $color-border
+
+        &:before
+            border-right-color: $color-border
+
     .picon-search
         position: absolute
         top: 14px
@@ -117,10 +125,12 @@
         color: $color-button-gray-background
         z-index: 2
         transition: color .5s, left .5s
+        pointer-events: none
 
     input
         width: 44px
         transition: width .5s, padding .5s
+        cursor: pointer
 
         &::-webkit-input-placeholder
             color: #fff
@@ -134,6 +144,10 @@
         &:-moz-placeholder
             color: #fff
             transition: color .2s
+
+        &:focus
+            &:hover
+                cursor: auto
 
 .pu-flexible-center.active,
 .pu-flexible-center.value

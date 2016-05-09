@@ -140,10 +140,11 @@ Template.app_network_uppers.onRendered(function() {
 });
 
 Template.app_network_uppers.events({
-    'mouseover [data-flexible-center]': function(event, template) {
+    'click [data-flexible-center]': function(event, template) {
         $(event.currentTarget).parent().addClass('start');
         _.defer(function() {
             $(event.currentTarget).parent().addClass('active');
+            $('[data-search]').focus();
         });
     },
     'input [data-search]': function(event, template) {
