@@ -220,5 +220,43 @@ Meteor.methods({
             has_member: network.hasMember(userId)
         } : false;
         return response;
+    },
+
+    /**
+     * Register a device for push notifications
+     */
+    'users.register_pushnotifications_device': function(registrationId, device) {
+        check(this.userId, String);
+        check(registrationId, String);
+        check(device.uuid, String);
+        check(device.manufacturer, String);
+        check(device.model, String);
+        check(device.version, String);
+        check(device.platform, String);
+
+        // Remove old push notification device by uuid
+        Meteor.users.update({
+            _id: this.userId
+        }, {
+            $pull: {
+                'push_notification_devices': {
+                    uuid: device.uuid
+                }
+            }
+        });
+
+        // Insert new push notification device
+        Meteor.users.update(this.userId, {
+            $addToSet: {
+                'push_notification_devices': {
+                    registrationId: registrationId,
+                    uuid: device.uuid,
+                    manufacturer: device.manufacturer,
+                    model: device.model,
+                    platform: device.platform,
+                    version: device.version
+                }
+            }
+        });
     }
 });
