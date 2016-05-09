@@ -440,6 +440,15 @@ User = function(user) {
             if (user.profile.tiles && user.profile.tiles.length > 0) return true;
 
             return false;
+        },
+
+        /**
+         * Function to calculate application icon badge number
+         *
+         * @returns {Number} app icon badge number
+         */
+        calculateApplicationIconBadgeNumber: function() {
+            return 0;
         }
     };
 };

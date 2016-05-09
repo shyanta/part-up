@@ -94,6 +94,7 @@ Package.onUse(function(api) {
         'collection_hooks.js',
         'factories/updates_factory.js',
         'services/cache_service.js',
+        'services/app_notifications_service.js',
         'services/notifications_service.js',
         'services/system_messages_service.js',
         'services/email_service.js',
@@ -221,5 +222,7 @@ Npm.depends({
     'pluralize': '1.1.2',
     'slug': '0.9.1',
     'winston': '0.9.0',
-    'gm': '1.20.0'
+    'gm': '1.20.0',
+    'apn': '1.7.5',
+    'gcm': '1.0.1'
 });
