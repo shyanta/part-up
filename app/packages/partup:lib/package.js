@@ -53,6 +53,7 @@ Package.onUse(function(api) {
         'collections/tiles.js',
         'collections/swarms.js',
         'collections/contentblock.js',
+        'collections/chats.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
