@@ -189,6 +189,8 @@ Package.onUse(function(api) {
         'methods/tiles/tiles_methods.js',
         'methods/swarms/swarms_methods.js',
         'methods/contentblocks/contentblocks_methods.js',
+        'methods/chats/chats_methods.js',
+        'methods/chatmessages/chatmessages_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',

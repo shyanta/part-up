@@ -54,6 +54,7 @@ Package.onUse(function(api) {
         'collections/swarms.js',
         'collections/contentblock.js',
         'collections/chats.js',
+        'collections/chatmessages.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -130,6 +131,8 @@ Package.onUse(function(api) {
     api.export('Tiles');
     api.export('Swarms');
     api.export('ContentBlocks');
+    api.export('Chats');
+    api.export('ChatMessages');
 
     // Globals
     api.export('get');
