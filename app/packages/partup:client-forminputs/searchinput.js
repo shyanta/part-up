@@ -24,10 +24,11 @@ Template.SearchInput.events({
     'input [data-search]': function(event, template) {
         template.searchQuery.set(event.target.value);
     },
-    'mouseover [data-flexible-center]': function(event, template) {
+    'click [data-flexible-center]': function(event, template) {
         $(event.currentTarget).parent().addClass('start');
         _.defer(function() {
             $(event.currentTarget).parent().addClass('active');
+            $('[data-search]').focus();
         });
     },
     'focus [data-search]': function(event, template) {

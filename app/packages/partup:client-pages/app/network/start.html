@@ -18,10 +18,10 @@
                     <figure class="pu-avatar pu-avatar-responsive pu-avatar-square" style="{{#with data.network.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
                     <h1>{{data.network.name}}</h1>
                     <h3>{{data.network.description}}</h3>
-                    {{#with data.network.displayTags}}
+                    {{#with data.network.displayTags data.network.slug}}
                         <ul class="pu-list pu-list-horizontal pu-list-tags">
                             {{#each .}}
-                                <li><a href="#" class="pu-tag pu-tag-dark">{{.}}</a></li>
+                                <li><a href="#" class="pu-tag pu-tag-dark">{{tag}}</a></li>
                             {{/each}}
                         </ul>
                     {{/with}}

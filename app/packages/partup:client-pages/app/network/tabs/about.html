@@ -82,12 +82,6 @@
                 {{#with image}}
                     <img src="{{data.imageUrl . }}" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">
                 {{/with}}
-            {{else}}
-                {{#unless state.contentblocksAvailable}}
-                    <article class="pu-article pu-state-loading">
-                        {{> Spinner}}
-                    </article>
-                {{/unless}}
             {{/each}}
 
     	    <article class="pu-article pu-article-morespace pu-sub-section">

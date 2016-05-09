@@ -311,7 +311,7 @@ Network.prototype.leave = function(upperId) {
     Meteor.users.update(upperId, {$pull: {networks: this._id}});
 };
 
-Network.prototype.displayTags = function() {
+Network.prototype.displayTags = function(slug) {
     var maxTags = 5;
     var tags = [];
     var commonTags = this.common_tags || [];
@@ -320,7 +320,10 @@ Network.prototype.displayTags = function() {
     _.times(maxTags, function() {
         var tag = commonTags.shift();
         if (!tag) return;
-        tags.push(tag.tag);
+        tags.push({
+            tag: tag.tag,
+            networkSlug: slug || ''
+        });
     });
 
     if (tags.length === maxTags) return tags;
@@ -328,7 +331,10 @@ Network.prototype.displayTags = function() {
     _.times((maxTags - tags.length), function() {
         var tag = customTags.shift();
         if (!tag) return;
-        tags.push(tag);
+        tags.push({
+            tag: tag,
+            networkSlug: slug || ''
+        });
     });
 
     return tags;

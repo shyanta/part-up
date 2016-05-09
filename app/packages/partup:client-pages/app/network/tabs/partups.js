@@ -123,8 +123,8 @@ Template.app_network_partups.onCreated(function() {
         });
     });
 
-    var switchFilter = function() {
-        var filter = template.filter.get();
+    var switchFilter = function(filter) {
+        var filter = filter || template.filter.get();
         template.columnTilesLayout.clear(function() {
             template.initialize(filter);
         });
@@ -134,8 +134,10 @@ Template.app_network_partups.onCreated(function() {
         if (a !== b) switchFilter(b);
     });
 
-    template.searchQuery = new ReactiveVar('', function(a, b) {
-        if (a !== b) switchFilter(b);
+    var routeQuery = Router.current().params.query.tag || '';
+
+    template.searchQuery = new ReactiveVar(routeQuery, function(a, b) {
+        if (a !== b) switchFilter();
     });
 
     var setSearchQuery = function(query) {
@@ -148,7 +150,16 @@ Template.app_network_partups.onCreated(function() {
 
 Template.app_network_partups.onRendered(function() {
     var template = this;
-
+    if (template.searchQuery.get()) {
+        $('[data-search]').val(template.searchQuery.get());
+        Meteor.defer(function() {
+            $('[data-flexible-center]').parent().addClass('start');
+            _.defer(function() {
+                $('[data-flexible-center]').parent().addClass('active');
+                $('[data-search]').focus();
+            });
+        });
+    }
     // When the screen size alters
     template.autorun(function() {
         var screenWidth = Partup.client.screen.size.get('width');
@@ -174,10 +185,20 @@ Template.app_network_partups.onRendered(function() {
 
 Template.app_network_partups.events({
     'click [data-flexible-center]': function(event, template) {
+        event.preventDefault();
         $(event.currentTarget).parent().addClass('start');
         _.defer(function() {
             $(event.currentTarget).parent().addClass('active');
             $('[data-search]').focus();
+        });
+    },
+    'click [data-clear]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('[data-search]').val('');
+        _.defer(function() {
+            template.throttledSetSearchQuery('');
+            $('[data-search]').blur();
         });
     },
     'input [data-search]': function(event, template) {

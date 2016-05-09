@@ -141,10 +141,20 @@ Template.app_network_uppers.onRendered(function() {
 
 Template.app_network_uppers.events({
     'click [data-flexible-center]': function(event, template) {
+        event.preventDefault();
         $(event.currentTarget).parent().addClass('start');
         _.defer(function() {
             $(event.currentTarget).parent().addClass('active');
             $('[data-search]').focus();
+        });
+    },
+    'click [data-clear]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('[data-search]').val('');
+        _.defer(function() {
+            template.throttledSetSearchQuery('');
+            $('[data-search]').blur();
         });
     },
     'input [data-search]': function(event, template) {
