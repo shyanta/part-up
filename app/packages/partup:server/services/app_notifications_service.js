@@ -8,40 +8,44 @@ Meteor.startup(function() {
     /**
      * Apple Push Notification
      */
-    var apnConnection = new apn.Connection({
-        pfx: process.env.PUSH_APPLE_APN_PFX,
-    });
+    if (process.env.PUSH_APPLE_APN_PFX) {
+        var apnConnection = new apn.Connection({
+            pfx: new Buffer(process.env.PUSH_APPLE_APN_PFX, 'base64'),
+        });
 
-    sendApnNotification = function(device, user, message, payload, badge, collapseKey) {
-        var apnDevice = new apn.Device(device.registration_id);
-        var note = new apn.Notification();
+        sendApnNotification = function(device, user, message, payload, badge) {
+            var apnDevice = new apn.Device(device.registration_id);
+            var note = new apn.Notification();
 
-        note.badge = badge;
-        note.alert = message;
-        note.payload = payload;
+            note.badge = badge;
+            note.alert = message;
+            note.payload = payload;
 
-        apnConnection.pushNotification(note, apnDevice);
-    };
+            apnConnection.pushNotification(note, apnDevice);
+        };
+    }
 
     /**
      * Google Cloud Messaging
      */
-    // var gcmConnection = new gcm.GCM(
-    //     process.env.PUSH_GOOGLE_GCM_API || ''
-    // );
+    if (process.env.PUSH_GOOGLE_GCM_API) {
+        var gcmConnection = new gcm.GCM(
+            process.env.PUSH_GOOGLE_GCM_API
+        );
 
-    sendGcmNotification = function(device, user, message, payload, collapseKey) {
-        var note = {
-            registration_id: device.registration_id,
-            collapse_key: collapseKey
+        sendGcmNotification = function(device, user, message, payload, collapseKey) {
+            var note = {
+                registration_id: device.registration_id,
+                collapse_key: collapseKey
+            };
+
+            forOwn(payload || {}, function(val, key) {
+                note['data.' + key] = val;
+            });
+
+            gcmConnection.send(note);
         };
-
-        forOwn(payload || {}, function(val, key){
-            note['data.' + key] = val;
-        });
-
-        gcmConnection.send(note);
-    };
+    }
 });
 
 /**
@@ -80,9 +84,13 @@ Partup.server.services.app_notifications = {
                             badge = User(user).calculateApplicationIconBadgeNumber();
                         }
 
-                        sendApnNotification(device, user, message, payload, badge, collapseKey);
+                        if (sendApnNotification) {
+                            sendApnNotification(device, user, message, payload, badge);
+                        }
                     } else if (device.platform === 'Android') {
-                        sendGcmNotification(device, user, message, payload, collapseKey);
+                        if (sendGcmNotification) {
+                            sendGcmNotification(device, user, message, payload, collapseKey);
+                        }
                     }
                 });
             }
