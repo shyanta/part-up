@@ -4,7 +4,7 @@ if (process.env.PARTUP_CRON_ENABLED && process.env.PUSH_APPLE_APN_PFX) {
     var feedback = new apn.Feedback({
         pfx: new Buffer(process.env.PUSH_APPLE_APN_PFX, 'base64'),
         batchFeedback: true,
-        interval: process.env.PUSH_APPLE_APN_CLEANUP_INTERVAL || 300
+        interval: Partup.constants.PUSH_APPLE_APN_CLEANUP_INTERVAL
     });
 
     feedback.on('feedback', Meteor.bindEnvironment(function(devices) {
