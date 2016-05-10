@@ -254,7 +254,8 @@ Meteor.methods({
                     manufacturer: device.manufacturer,
                     model: device.model,
                     platform: device.platform,
-                    version: device.version
+                    version: device.version,
+                    createdAt: new Date()
                 }
             }
         });
