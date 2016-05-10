@@ -8,6 +8,27 @@ var Chat = function(document) {
 };
 
 /**
+ * Set a user as typing
+ *
+ * @memberOf Chats
+ * @param {String} userId the user id of the user that started typing
+ * @param {Date} typingDate the front-end date of when the user started typing
+ */
+Chat.prototype.startedTyping = function(userId, typingDate) {
+    Chats.update(this._id, {$addToSet: {started_typing: {upper_id: userId, date: typingDate}}});
+};
+
+/**
+ * Unset a typing user
+ *
+ * @memberOf Chats
+ * @param {String} userId the user id of the user that stopped typing
+ */
+Chat.prototype.stoppedTyping = function(userId) {
+    Chats.update({_id: this._id, 'started_typing.upper_id': userId}, {$pull: {started_typing: {upper_id: userId}}});
+};
+
+/**
  @namespace Chats
  */
 Chats = new Mongo.Collection('chats', {
