@@ -1,10 +1,9 @@
-if (process.env.PARTUP_CRON_ENABLED) {
+if (process.env.PARTUP_CRON_ENABLED && process.env.PUSH_APPLE_APN_PFX) {
     var apn = Npm.require('apn');
 
     var feedback = new apn.Feedback({
         pfx: process.env.PUSH_APPLE_APN_PFX,
         batchFeedback: true,
-        production: true,
         interval: process.env.PUSH_APPLE_APN_CLEANUP_INTERVAL || 5
     });
 

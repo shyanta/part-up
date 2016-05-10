@@ -10,7 +10,6 @@ Meteor.startup(function() {
      */
     var apnConnection = new apn.Connection({
         pfx: process.env.PUSH_APPLE_APN_PFX,
-        production: true
     });
 
     sendApnNotification = function(device, user, message, payload, badge, collapseKey) {
