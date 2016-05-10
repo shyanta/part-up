@@ -15,7 +15,7 @@ var ChatMessage = function(document) {
  * @return {Boolean}
  */
 ChatMessage.prototype.addToSeen = function(upperId) {
-    ChatMessages.update(this._id, {$addToSet: {seen: upperId}});
+    ChatMessages.update(this._id, {$addToSet: {seen_by: upperId}});
 };
 
 /**
@@ -26,7 +26,7 @@ ChatMessage.prototype.addToSeen = function(upperId) {
  * @return {Boolean}
  */
 ChatMessage.prototype.addToRead = function(upperId) {
-    ChatMessages.update(this._id, {$addToSet: {read: upperId}});
+    ChatMessages.update(this._id, {$addToSet: {read_by: upperId}});
 };
 
 /**
