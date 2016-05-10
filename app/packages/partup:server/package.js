@@ -200,6 +200,7 @@ Package.onUse(function(api) {
         'cron/update_swarm_network_stats.js',
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
+        'cron/push_apple_cleanup_devices.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);
