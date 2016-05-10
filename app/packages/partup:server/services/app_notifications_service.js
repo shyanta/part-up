@@ -1,16 +1,16 @@
-
 var apn = Npm.require('apn'); // Apple Push Notification
 var gcm = Npm.require('gcm'); // Google Cloud Messaging
 
 var sendApnNotification, sendGcmNotification;
 
-// Bring up connections with notification services
 Meteor.startup(function() {
+
     /**
      * Apple Push Notification
      */
     var apnConnection = new apn.Connection({
-        pfx: process.env.PUSH_APPLE_APN_PFX || ''
+        pfx: process.env.PUSH_APPLE_APN_PFX,
+        production: true
     });
 
     sendApnNotification = function(device, user, message, payload, badge, collapseKey) {
@@ -27,9 +27,9 @@ Meteor.startup(function() {
     /**
      * Google Cloud Messaging
      */
-    var gcmConnection = new gcm.GCM(
-        process.env.PUSH_GOOGLE_GCM_API || ''
-    );
+    // var gcmConnection = new gcm.GCM(
+    //     process.env.PUSH_GOOGLE_GCM_API || ''
+    // );
 
     sendGcmNotification = function(device, user, message, payload, collapseKey) {
         var note = {
@@ -76,13 +76,13 @@ Partup.server.services.app_notifications = {
 
                 var badge;
                 devices.forEach(function(device) {
-                    if (device.platform === 'ios') {
+                    if (device.platform === 'iOS') {
                         if (typeof badge === 'undefined') {
                             badge = User(user).calculateApplicationIconBadgeNumber();
                         }
 
                         sendApnNotification(device, user, message, payload, badge, collapseKey);
-                    } else if (device.platform === 'android') {
+                    } else if (device.platform === 'Android') {
                         sendGcmNotification(device, user, message, payload, collapseKey);
                     }
                 });
