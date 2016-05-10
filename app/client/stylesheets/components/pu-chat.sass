@@ -12,12 +12,22 @@
             width: 100%
 
     &-wrapper
-    	height: calc(100vh - 500px)
-    	overflow: auto
-    	background: #fff
-    	padding: 22px 80px
-    	border-left: 2px solid #eee
-    	border-right: 2px solid #eee
+        height: calc(100vh - 500px)
+        background: #fff
+        border-right: 2px solid #eee
+        border-left: 2px solid #eee
+
+        > div
+            height: 100%
+            overflow: auto
+            pointer-events: none
+            padding: 22px 80px
+            opacity: 0
+            transition: opacity .2s
+
+        &.pu-state-active > div
+            pointer-events: auto
+            opacity: 1
 
     footer
         padding: 20px
@@ -36,5 +46,3 @@
 
         .pu-sidebar-wrap > section:after
             background-color: #eee
-
-
