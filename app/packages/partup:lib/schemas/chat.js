@@ -5,11 +5,7 @@
  * @private
  */
 var chatBaseSchema = new SimpleSchema({
-    network_id: {
-        type: String,
-        optional: true,
-        regEx: SimpleSchema.RegEx.Id
-    }
+    //
 });
 
 /**

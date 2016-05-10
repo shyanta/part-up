@@ -52,6 +52,11 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: [String],
         regEx: SimpleSchema.RegEx.Id
     },
+    chat_id: {
+        type: String,
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
+    },
     common_tags: {
         type: Object,
         optional: true
