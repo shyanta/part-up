@@ -15,8 +15,7 @@ Meteor.methods({
                 _id: Random.id(),
                 created_at: new Date(),
                 creator_id: user._id,
-                private: fields.private,
-                started_typing: new Date(),
+                started_typing: {},
                 updated_at: new Date()
             };
 
