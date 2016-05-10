@@ -5,6 +5,10 @@
  * @private
  */
 var chatMessageBaseSchema = new SimpleSchema({
+    chat_id: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
     content: {
         type: String
     }
@@ -17,10 +21,6 @@ var chatMessageBaseSchema = new SimpleSchema({
  */
 Partup.schemas.entities.chatMessage = new SimpleSchema([chatMessageBaseSchema, {
     _id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
-    chat_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },

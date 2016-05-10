@@ -9,9 +9,6 @@ var chatBaseSchema = new SimpleSchema({
         type: String,
         optional: true,
         regEx: SimpleSchema.RegEx.Id
-    },
-    private: {
-        type: Boolean
     }
 });
 
@@ -34,6 +31,13 @@ Partup.schemas.entities.chat = new SimpleSchema([chatBaseSchema, {
         regEx: SimpleSchema.RegEx.Id
     },
     started_typing: {
+        type: Object
+    },
+    'started_typing.$.upper_id': {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+    'started_typing.$.date': {
         type: Date,
         defaultValue: new Date()
     },

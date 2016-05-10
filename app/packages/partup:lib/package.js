@@ -73,6 +73,8 @@ Package.onUse(function(api) {
         'schemas/tile.js',
         'schemas/swarm.js',
         'schemas/contentblock.js',
+        'schemas/chat.js',
+        'schemas/chatmessage.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
