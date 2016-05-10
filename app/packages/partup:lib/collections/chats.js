@@ -8,7 +8,6 @@ var Chat = function(document) {
 };
 
 /**
- Chats are entities that group networks (also known as tribes)
  @namespace Chats
  */
 Chats = new Mongo.Collection('chats', {

@@ -19,9 +19,9 @@ Meteor.methods({
                 updated_at: new Date()
             };
 
-            if (fields.network_id) chat.network_id = fields.network_id;
+            Chats.insert(chat);
 
-            return Chats.insert(chat);
+            return chat._id;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'chat_could_not_be_inserted');

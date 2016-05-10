@@ -21,7 +21,47 @@ Meteor.methods({
                 seen_by: [],
                 updated_at: new Date()
             };
-            return ChatMessages.insert(chatMessage);
+
+            ChatMessages.insert(chatMessage);
+
+            return chatMessage._id;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'chatmessage_could_not_be_inserted');
+        }
+    },
+
+    /**
+     * Add upper to seen list
+     *
+     * @param {String} chatMessageId
+     */
+    'chatmessages.seen': function(chatMessageId) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var chatMessage = ChatMessages.findOne(chatMessageId);
+            chatMessage.addToSeen(user._id);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'chatmessage_could_not_be_inserted');
+        }
+    },
+
+    /**
+     * Add upper to read list (and automatically to seen)
+     *
+     * @param {String} chatMessageId
+     */
+    'chatmessages.read': function(chatMessageId) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var chatMessage = ChatMessages.findOne(chatMessageId);
+            chatMessage.addToSeen(user._id);
+            chatMessage.addToRead(user._id);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'chatmessage_could_not_be_inserted');
