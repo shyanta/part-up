@@ -106,7 +106,9 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
             {find: Meteor.users.findUppersForPartup, children: [
                 {find: Images.findForUser}
             ]},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            {find: function(partup) {
+                return Networks.findForPartup(partup, this.userId);
+            },
             children: [
                 {find: Images.findForNetwork}
             ]}
@@ -183,6 +185,35 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
         },
         children: [
             {find: Images.findForUser}
+        ]
+    };
+});
+
+/**
+ * Publish the network chat
+ *
+ * @param {String} networkSlug
+ */
+Meteor.publishComposite('networks.one.chat', function(networkSlug) {
+    this.unblock();
+
+    return {
+        find: function() {
+            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+            if (!network || !network.chat_id) return;
+
+            return Chats.find({_id: network.chat_id});
+        },
+        children: [
+            {find: function(chat) {
+                return ChatMessages.find({chat_id: chat._id});
+            }},
+            {find: function() {
+                var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+                return Meteor.users.findUppersForNetwork(network, {}, {});
+            }, children: [
+                {find: Images.findForUser}
+            ]}
         ]
     };
 });
