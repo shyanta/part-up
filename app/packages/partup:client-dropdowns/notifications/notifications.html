@@ -6,7 +6,7 @@
         {{ label }}
     </button>
     <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton" data-clickoutside-close>
-        <ul>
+        <ul data-preventscroll>
             {{#each notifications.data}}
                 <li class="pu-notification {{#unless new}}pu-notification-viewed{{/unless}} {{#if clicked}}pu-notification-clicked{{/if}}" data-notification="{{ _id }}">
                     {{> Notification notification=.}}

@@ -32,7 +32,7 @@
                 {{/if}}
             </nav>
         {{/if}}
-        <section>
+        <section data-preventscroll>
             {{#if selectedNetwork}}
                 <header class="pu-dropdownitem pu-dropdownheader">
                     <a href="{{ pathFor 'network' slug=selectedNetwork.slug query='show=false' }}">
