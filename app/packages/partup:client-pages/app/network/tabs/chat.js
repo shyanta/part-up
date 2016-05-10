@@ -1,12 +1,12 @@
-Template.app_network_chat.events({
-    'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation
-});
-
-Template.app_network_chat.onRendered(function() {
-    Meteor.setTimeout(function() {
-        $('[data-reversed-scroller]')[0].scrollTop = $('[data-reversed-scroller]')[0].scrollHeight;
-        $('[data-reversed-scroller-wrapper]').addClass('pu-state-active');
-    }, 500);
+Template.app_network_chat.helpers({
+    data: function() {
+        var template = Template.instance();
+        return {
+            network: function() {
+                return Networks.findOne({slug: template.data.networkSlug});
+            }
+        };
+    }
 });
 /*
 'use strict';

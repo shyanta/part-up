@@ -1,0 +1,81 @@
+<template name="NetworkChat">
+    <div class="pu-chat">
+        <main>
+            <header>
+                <form class="pu-form pu-flexible-center" novalidate>
+                    <div>
+                        <span>
+                            <h2 class="pu-title">
+                                {{_ 'pages-app-network-chat-title' }}
+                            </h2>
+                        </span>
+                    </div>
+                    <div class="pu-sub-center" data-flexible-center>
+                        <span>
+                            <div class="pu-searchinput">
+                                <input type="text" placeholder="Search a message in this chat" class="pu-input form-control" data-search>
+                                <i class="picon-search"></i>
+                                <i class="picon-times" data-clear></i>
+                            </div>
+                        </span>
+                    </div>
+                </form>
+            </header>
+            <article class="pu-chat-wrapper" data-reversed-scroller-wrapper>
+                <div data-preventscroll data-reversed-scroller>
+
+                    {{#each data.messages}}
+                        {{> ChatMessage message=.}}
+                    {{/each}}
+                    <p class="pu-textline pu-textline-light">
+                        <span>Do 1/12/2015</span>
+                    </p>
+
+                    <p class="pu-textline pu-textline-colour">
+                        <span>
+                            New messages
+                            <i class="picon-arrow-down"></i>
+                        </span>
+                    </p>
+                </div>
+            </article>
+            <footer>
+                <label class="pu-formfield">
+                    <div class="pu-sub-tablecell-input">
+                        <span class="pu-sub-input">
+                            <input type="text" name="partup_name" placeholder="{{_ 'pages-app-network-chat-placeholder' }}" class="pu-input form-control">
+                        </span>
+                        <span class="pu-sub-error"></span>
+                    </div>
+                    <div class="pu-sub-tablecell-button">
+                        <button type="submit" class="pu-button">
+                            <span>{{_ 'pages-app-network-chat-button-send' }}</span>
+                        </button>
+                    </div>
+                </label>
+            </footer>
+        </main>
+        <aside class="pu-sidebar">
+            <section>
+                <div class="pu-sidebar-wrap" data-preventscroll>
+                    <section>
+                        <p>{{{_ 'pages-app-network-chat-sidebar-text' }}}</p>
+                    </section>
+                    <section>
+                        <h2>Active uppers</h2>
+                        <ul class="pu-list pu-list-users">
+                            {{#each data.uppers}}
+                            <li>
+                                <a href="/profile/xGK9dvEWXDrQabfBN" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="xGK9dvEWXDrQabfBN">
+                                    <figure class="pu-avatar pu-avatar-online" style="background-image: url('https://s3-eu-west-1.amazonaws.com/partup-production/80x80/images/jXQPe4TmM7cJvrTJq-jXQPe4TmM7cJvrTJq.jpg')"></figure>
+                                    <p>{{profile.name}}</p>
+                                </a>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </section>
+                </div>
+            </section>
+        </aside>
+    </div>
+</template>
