@@ -142,25 +142,55 @@ Partup.client.scroll = {
         });
     },
     scrollToAndFocusErrorField: function() {
-      // wait for .invalid class to be presented in the DOM
-      Meteor.setTimeout(function(){
-        try {
-          var $invalid = $('.pu-state-invalid:first');
-          var $label = $invalid.parent().find('.pu-label');
-          var $progressPager = $('.pu-progresspager');
-          var $header = $('.pu-header');
-          var extraOffsetTop = 10;
-          var offsetTop = ($progressPager.length && $header.length)
-          // we have to substract the height of header and progress page if
-          // the elements are visible on the page
-          ? $label.offset().top - extraOffsetTop - ( $header.outerHeight() + $progressPager.outerHeight() )
-          // else we have no offset
-          : 0;
-          Partup.client.scroll.to($label.get(0), offsetTop, { duration: 100 });
-          $input = $invalid.find('input:visible, textarea:visible').first();
-          $input.get(0).focus();
-        } catch(e) {}
-      }, 100); // should be enough to wait and scroll to the element
+        // wait for .invalid class to be presented in the DOM
+        Meteor.setTimeout(function() {
+            try {
+                var $invalid = $('.pu-state-invalid:first');
+                var $label = $invalid.parent().find('.pu-label');
+                var $progressPager = $('.pu-progresspager');
+                var $header = $('.pu-header');
+                var extraOffsetTop = 10;
+                var offsetTop = ($progressPager.length && $header.length)
+                // we have to substract the height of header and progress page if
+                // the elements are visible on the page
+                ? $label.offset().top - extraOffsetTop - ($header.outerHeight() + $progressPager.outerHeight())
+                // else we have no offset
+                : 0;
+                Partup.client.scroll.to($label.get(0), offsetTop, {duration: 100});
+                $input = $invalid.find('input:visible, textarea:visible').first();
+                $input.get(0).focus();
+            } catch (e) {}
+        }, 100); // should be enough to wait and scroll to the element
+    },
+    /*
+     * Use this for elements with overflow: scroll where you don't
+     * want any parent elements to scroll when scrollBottom or
+     * scrollTop are reached
+     *
+     * Usage:
+     * Template.app_network_chat.events({
+     *     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation
+     * });
+     *
+     * NOTE: Important to use both DOMMouseScroll and mousewheel events for maximum browser coverage
+     */
+    preventScrollPropagation: function(event) {
+        var scrollTop = event.currentTarget.scrollTop;
+        var scrollHeight = event.currentTarget.scrollHeight - event.currentTarget.clientHeight;
+        var delta = (event.type == 'DOMMouseScroll' ? event.originalEvent.detail * -40 : event.originalEvent.wheelDelta);
+        var scrollingUp = delta > 0;
+        var prevent = function() {
+            event.stopPropagation();
+            event.preventDefault();
+            event.returnValue = false;
+            return false;
+        };
+
+        if (scrollHeight === scrollTop && !scrollingUp) {
+            return prevent();
+        } else if (scrollTop === 0 && scrollingUp) {
+            return prevent();
+        }
     }
 };
 
