@@ -19,6 +19,28 @@ Meteor.publishComposite('users.one', function(userId) {
 });
 
 /**
+ * Publish user chats
+ *
+ * @param {String} userId
+ */
+Meteor.publishComposite('users.one.chats', function(userId) {
+    check(userId, String);
+
+    this.unblock();
+
+    return {
+        find: function() {
+            return Chats.findForUser(userId);
+        },
+        children: [
+            {find: function(chat) {
+                return ChatMessages.find({chat_id: chat._id});
+            }}
+        ]
+    };
+});
+
+/**
  * Publish all partups a user is upper in
  *
  * @param {Object} request
