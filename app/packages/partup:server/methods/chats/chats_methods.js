@@ -14,7 +14,6 @@ Meteor.methods({
             var chat = {
                 _id: Random.id(),
                 created_at: new Date(),
-                creator_id: user._id,
                 started_typing: {},
                 updated_at: new Date()
             };
