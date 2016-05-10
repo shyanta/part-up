@@ -3,18 +3,27 @@
         <div class="pu-chat">
             <main>
                 <header>
-                    <form id="" class="pu-form pu-search" novalidate="novalidate">
-                        <label class="pu-formfield">
-                            <span class="pu-label">{{_ 'pages-app-network-chat-title' }}</span>
-                            <span class="pu-sub-input">
-                                <input type="text" name="email" placeholder="" class="pu-input form-control" autofocus="" required="" maxlength="255">
-                                <i class="picon-search"></i>
+                    <form class="pu-form pu-flexible-center" novalidate>
+                        <div>
+                            <span>
+                                <h2 class="pu-title">
+                                    {{_ 'pages-app-network-chat-title' }}
+                                </h2>
                             </span>
-                        </label>
+                        </div>
+                        <div class="pu-sub-center" data-flexible-center>
+                            <span>
+                                <div class="pu-searchinput">
+                                    <input type="text" placeholder="{{_ 'pages-app-network-uppers-search-placeholder'}}" class="pu-input form-control" data-search>
+                                    <i class="picon-search"></i>
+                                    <i class="picon-times" data-clear></i>
+                                </div>
+                            </span>
+                        </div>
                     </form>
                 </header>
                 <article>
-                    <div class="pu-chat-wrapper">
+                    <div class="pu-chat-wrapper" data-preventscroll>
                         <div class="pu-chatbox pu-chatbox-send">
                             <a href="/profile/YQmjmhfrxRe5TF6p7">
                                 <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="YQmjmhfrxRe5TF6p7" style="background-image: url('https://s3-eu-west-1.amazonaws.com/partup-production/80x80/images/2LzgE8C9NtTXB95y3-2LzgE8C9NtTXB95y3.jpg')"></figure>
@@ -127,7 +136,7 @@
             </main>
             <aside class="pu-sidebar">
                 <section>
-                    <div class="pu-sidebar-wrap">
+                    <div class="pu-sidebar-wrap" data-preventscroll>
                         <section>
                             <p>{{{_ 'pages-app-network-chat-sidebar-text' }}}</p>
                         </section>

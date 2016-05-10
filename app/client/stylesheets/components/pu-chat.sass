@@ -1,15 +1,18 @@
 .pu-chat
-    main > header
-        padding: 33px 32px 19px 32px
-        border: 2px solid #eee
-        background: #fff
-        border-top-left-radius: 4px
-        position: relative
-        margin: auto
-        width: 100%
+    height: 100%
+    main
+        height: 100%
+        > header
+            padding: 33px 32px 19px 32px
+            border: 2px solid #eee
+            background: #fff
+            border-top-left-radius: 4px
+            position: relative
+            margin: auto
+            width: 100%
 
     &-wrapper
-    	height: 475px
+    	height: calc(100vh - 500px)
     	overflow: auto
     	background: #fff
     	padding: 22px 80px
@@ -28,8 +31,8 @@
         border-bottom-right-radius: 4px
 
         .pu-sidebar-wrap
-            height: 646px
-            overflow: auto;
+            height: calc(100vh - 316px)
+            overflow: auto
 
         .pu-sidebar-wrap > section:after
             background-color: #eee
