@@ -26,6 +26,9 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
     var partup = Partups.findOne(contribution.partup_id);
     if (!partup) return Log.error('Partup [' + contribution.partup_id + '] for Contribution [' + contribution._id + '] could not be found?');
 
+    var activity = Activities.findOne(rating.activity_id);
+    if (!activity) return Log.error('Activity [' + rating.activity_id + '] for Rating [' + rating._id + '] could not be found?');
+
     var notificationOptions = {
         userId: contributionUpper._id,
         type: 'contributions_ratings_inserted',
@@ -41,7 +44,7 @@ Event.on('partups.contributions.ratings.inserted', function(userId, rating) {
                 slug: partup.slug
             },
             update: {
-                _id: contribution.update_id
+                _id: activity.update_id
             }
         }
     };
