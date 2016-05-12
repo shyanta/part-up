@@ -880,7 +880,7 @@ Meteor.methods({
 
         try {
             var chat_id = Meteor.call('chats.insert', fields);
-            Networks.update(network._id, {chat_id: chat_id});
+            Networks.update(network._id, {$set: {chat_id: chat_id}});
 
             return chat_id;
         } catch (error) {
