@@ -192,7 +192,8 @@ var DocumentSchema = new SimpleSchema({
 
 Partup.schemas.forms.newMessage = new SimpleSchema({
     text: {
-        type: String
+        type: String,
+        max: 10000
     },
     images: {
         type: [String],
