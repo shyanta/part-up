@@ -202,19 +202,25 @@ Meteor.publishComposite('networks.one.chat', function(networkSlug) {
             var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
             if (!network || !network.chat_id) return;
 
-            return Chats.find({_id: network.chat_id});
+            return Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1});
         },
-        children: [
-            {find: function(chat) {
-                return ChatMessages.find({chat_id: chat._id});
-            }},
-            {find: function() {
-                var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
+        children: [{
+            find: function(network) {
+                return Chats.find({_id: network.chat_id});
+            },
+            children: [{
+                find: function(chat) {
+                    return ChatMessages.find({chat_id: chat._id});
+                }
+            }]
+        },{
+            find: function(network) {
                 return Meteor.users.findUppersForNetwork(network, {}, {});
-            }, children: [
-                {find: Images.findForUser}
-            ]}
-        ]
+            },
+            children: [{
+                find: Images.findForUser
+            }]
+        }]
     };
 });
 

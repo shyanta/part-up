@@ -3,7 +3,13 @@ Template.NetworkChat.onCreated(function() {
     var networkSlug = template.data.networkSlug;
     template.subscribe('networks.one.chat', networkSlug, {
         onReady: function() {
-
+            var chat = Chats.findOne();
+            console.log(networkSlug);
+            if (!chat) {
+                Meteor.call('networks.chat_insert', networkSlug, {}, function(err, res) {
+                    console.log(err, res);
+                });
+            }
         }
     });
     template.searchQuery = new ReactiveVar('', function(a, b) {
@@ -24,7 +30,6 @@ Template.NetworkChat.onRendered(function() {
         $('[data-reversed-scroller-wrapper]').addClass('pu-state-active');
     }, 500);
 });
-
 
 Template.NetworkChat.helpers({
     data: function() {
