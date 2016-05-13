@@ -121,7 +121,7 @@ Images.findForSwarm = function(swarm) {
 };
 
 Images.findForContentBlock = function(contentBlock) {
-    return Images.find({_id: {'$in': contentBlock.images || []}});
+    return Images.find({_id: contentBlock.image});
 };
 
 Images.allow({
