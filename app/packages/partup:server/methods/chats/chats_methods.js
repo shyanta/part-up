@@ -14,7 +14,7 @@ Meteor.methods({
             var chat = {
                 _id: Random.id(),
                 created_at: new Date(),
-                started_typing: {},
+                started_typing: [],
                 updated_at: new Date()
             };
 
@@ -34,7 +34,8 @@ Meteor.methods({
      * @param {Date} typingDate
      */
     'chats.started_typing': function(chatId, typingDate) {
-        check(String, chatId);
+        console.log(chatId, typingDate);
+        check(chatId, String);
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
@@ -54,7 +55,7 @@ Meteor.methods({
      * @param {String} chatId
      */
     'chats.stopped_typing': function(chatId) {
-        check(String, chatId);
+        check(chatId, String);
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');

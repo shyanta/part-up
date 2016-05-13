@@ -873,7 +873,8 @@ Meteor.methods({
 
         var user = Meteor.user();
         var network = Networks.findOneOrFail({slug: networkSlug});
-        if (!user || !network.hasMember(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         // Only 1 chat allowed
         if (network.chat_id) return network.chat_id;

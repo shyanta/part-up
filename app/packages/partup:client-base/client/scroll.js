@@ -179,18 +179,22 @@ Partup.client.scroll = {
         var scrollHeight = event.currentTarget.scrollHeight - event.currentTarget.clientHeight;
         var delta = (event.type == 'DOMMouseScroll' ? event.originalEvent.detail * -40 : event.originalEvent.wheelDelta);
         var scrollingUp = delta > 0;
-        var prevent = function() {
-            event.stopPropagation();
-            event.preventDefault();
-            event.returnValue = false;
-            return false;
-        };
 
-        if (scrollHeight === scrollTop && !scrollingUp) {
-            return prevent();
-        } else if (scrollTop === 0 && scrollingUp) {
-            return prevent();
+        if (event.currentTarget.scrollHeight > event.currentTarget.clientHeight) {
+            var prevent = function() {
+                event.stopPropagation();
+                event.preventDefault();
+                event.returnValue = false;
+                return false;
+            };
+
+            if (scrollHeight === scrollTop && !scrollingUp) {
+                return prevent();
+            } else if (scrollTop === 0 && scrollingUp) {
+                return prevent();
+            }
         }
+
     }
 };
 

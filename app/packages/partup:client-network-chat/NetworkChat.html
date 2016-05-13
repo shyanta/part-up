@@ -43,7 +43,7 @@
                 <label class="pu-formfield">
                     <div class="pu-sub-tablecell-input">
                         <span class="pu-sub-input">
-                            <input type="text" name="partup_name" placeholder="{{_ 'pages-app-network-chat-placeholder' }}" class="pu-input form-control">
+                            <input data-submit="return" type="text" name="partup_name" placeholder="{{_ 'pages-app-network-chat-placeholder' }}" class="pu-input form-control">
                         </span>
                         <span class="pu-sub-error"></span>
                     </div>
@@ -66,9 +66,14 @@
                         <ul class="pu-list pu-list-users">
                             {{#each data.uppers}}
                             <li>
-                                <a href="/profile/xGK9dvEWXDrQabfBN" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="xGK9dvEWXDrQabfBN">
-                                    <figure class="pu-avatar pu-avatar-online" style="background-image: url('https://s3-eu-west-1.amazonaws.com/partup-production/80x80/images/jXQPe4TmM7cJvrTJq-jXQPe4TmM7cJvrTJq.jpg')"></figure>
-                                    <p>{{profile.name}}</p>
+                                <a href="{{ pathFor route='profile' _id=_id}}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{_id}}">
+                                    <figure class="pu-avatar pu-avatar-online" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');"></figure>
+                                    <p>{{ profile.name }}</p>
+                                    <span class="pu-typing">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </span>
                                 </a>
                             </li>
                             {{/each}}
