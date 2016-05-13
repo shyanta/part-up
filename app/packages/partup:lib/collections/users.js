@@ -92,7 +92,8 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
     var selector = {_id: {$in: userIds}};
     if (parameters.onlyActive) selector.deactivatedAt = {$exists: false};
 
-    options.fields = publicUserFields;
+    options.fields = _.clone(publicUserFields);
+
     if (parameters.isAdminOfNetwork) {
         options.fields.emails = 1;
     }
