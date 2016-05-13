@@ -127,16 +127,20 @@ Router.route('/csv/tribe/uppers', {where: 'server'}).get(function() {
     response.setHeader('Content-disposition', 'attachment; filename=tribe-uppers.csv');
     response.setHeader('Content-type', 'text/csv');
 
-    return exportCSV(response, network.uppers);
+    return exportCSV(response, network.uppers, true);
 });
 
-var exportCSV = function(responseStream, userIds) {
+var exportCSV = function(responseStream, userIds, ignoreDeactivatedUsers) {
     userIds = userIds || [];
     var userStream = createStream();
     var Future = Npm.require('fibers/future');
     var fut = new Future();
     var users = {};
     var userSelector = userIds.length > 0 ? {_id: {$in: userIds}} : {};
+
+    if (ignoreDeactivatedUsers) {
+        userSelector.deactivatedAt = {$exists: false};
+    };
 
     CSV()
         .from(userStream)
@@ -148,23 +152,36 @@ var exportCSV = function(responseStream, userIds) {
             responseStream.end();
             fut.return();
         });
-
-    userStream.write(['_id','profile.name','profile.phonenumber','registered_emails','createdAt','deactivatedAt']);
+    if (ignoreDeactivatedUsers) {
+        userStream.write(['_id','profile.name','profile.phonenumber','registered_emails','createdAt']);
+    } else {
+        userStream.write(['_id','profile.name','profile.phonenumber','registered_emails','createdAt','deactivatedAt']);
+    }
     users = Meteor.users.findForAdminList(userSelector, {}).fetch();
 
     var count = 0;
     users.forEach(function(user) {
         var objectUser = User(user);
         var createdAt = user.createdAt ? moment(new Date(user.createdAt)).format('DD-MM-YYYY') : undefined;
-        var deactivatedAt = user.deactivatedAt ? moment(new Date(user.deactivatedAt)).format('DD-MM-YYYY') : undefined;
-        userStream.write([
-            user._id,
-            user.profile.name,
-            user.profile.phonenumber,
-            objectUser.getEmail(),
-            createdAt,
-            deactivatedAt
-        ]);
+        if (ignoreDeactivatedUsers) {
+            userStream.write([
+                user._id,
+                user.profile.name,
+                user.profile.phonenumber,
+                objectUser.getEmail(),
+                createdAt
+            ]);
+        } else {
+            var deactivatedAt = user.deactivatedAt ? moment(new Date(user.deactivatedAt)).format('DD-MM-YYYY') : undefined;
+            userStream.write([
+                user._id,
+                user.profile.name,
+                user.profile.phonenumber,
+                objectUser.getEmail(),
+                createdAt,
+                deactivatedAt
+            ]);
+        }
         count++;
         if (count >= users.length) {
             userStream.end()

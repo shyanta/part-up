@@ -157,7 +157,7 @@ Event.on('networks.uppers.inserted', function(newUpper, network) {
 Event.on('networks.uppers.removed', function(upper, network) {
     var notificationType = 'partups_networks_upper_left';
 
-    var admins = Meteor.users.find({_id: {$in: network.admins}});
+    var admins = Meteor.users.find({_id: {$in: network.admins || []}});
 
     admins.forEach(function(networkAdmin) {
         var notificationOptions = {

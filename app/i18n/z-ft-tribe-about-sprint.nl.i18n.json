@@ -34,7 +34,16 @@
 	"network-settings-uppers-button-csv-export": "Exporteer csv",
 
 	"pages-app-network-tab-about-placeholder-title": "Geen inhoud",
-	"pages-app-network-tab-about-placeholder-intro": "De about pagina heeft nog geen inhoud"
+	"pages-app-network-tab-about-placeholder-intro": "De about pagina heeft nog geen inhoud",
+
+	"network-settings-uppers-admin-removed": "__name__ is geen admin meer",
+	"network-settings-uppers-upper-removed": "__name__ is verwijderd uit deze tribe",
+	"network-settings-uppers-admin-added": "__name__ is nu een admin",
+
+	"network-settings-uppers-label-admin": "Admin",
+	"network-settings-uppers-button-remove-admin": "Verwijder admin rol",
+	"network-settings-uppers-button-add-admin": "Admin rol toevoegen",
+	"network-settings-uppers-button-remove-user": "Tribe lidmaatschap beëindigen"
 
 }
 

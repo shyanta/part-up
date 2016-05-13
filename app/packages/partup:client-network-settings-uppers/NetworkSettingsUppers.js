@@ -64,50 +64,60 @@ Template.NetworkSettingsUppers.helpers({
             }
         };
     },
-    getToken: function () {
+    getToken: function() {
         return Accounts._storedLoginToken();
     }
 });
 
 Template.NetworkSettingsUppers.events({
-    'click [data-upper-remove]': function(e, template) {
-        var btn = $(e.target).closest('[data-upper-remove]');
-        var upperId = btn.data('upper-remove');
-        var network = Networks.findOne({slug: template.data.networkSlug});
-
-        Meteor.call('networks.remove_upper', network._id, upperId, function(err) {
-            if (err && err.reason) {
-                Partup.client.notify.error(err.reason);
-                return;
-            }
-
-            Partup.client.notify.success(TAPi18n.__('network-settings-uppers-upper-removed'));
-        });
-    },
     'click [data-toggle]': function(event) {
         event.preventDefault();
-        // $('[data-toggle-target]').removeClass('pu-state-active');
         $(event.currentTarget).next('[data-toggle-target]').toggleClass('pu-state-active');
+        $('[data-toggle-target]').not($(event.currentTarget).next('[data-toggle-target]')[0]).removeClass('pu-state-active');
     },
     'click [data-make-admin]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
-        Meteor.call('networks.make_admin', template.data.networkSlug, this._id, function() {
-            console.log(arguments);
+        var name = this.profile.name;
+        Meteor.call('networks.make_admin', template.data.networkSlug, this._id, function(err, res) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.success(TAPi18n.__('network-settings-uppers-admin-added', {
+                name: name
+            }));
         });
     },
     'click [data-remove-admin]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
-        Meteor.call('networks.remove_admin', template.data.networkSlug, this._id, function() {
-            console.log(arguments);
+        var name = this.profile.name;
+        Meteor.call('networks.remove_admin', template.data.networkSlug, this._id, function(err, res) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.warning(TAPi18n.__('network-settings-uppers-admin-removed', {
+                name: name
+            }));
         });
     },
     'click [data-delete]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
-        Meteor.call('networks.remove_upper', template.networkId, this._id, function() {
-            console.log(arguments);
+        var name = this.profile.name;
+        Meteor.call('networks.remove_upper', template.networkId, this._id, function(err, res) {
+            if (err && err.reason) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+
+            Partup.client.notify.warning(TAPi18n.__('network-settings-uppers-upper-removed', {
+                name: name
+            }));
         });
     }
 });

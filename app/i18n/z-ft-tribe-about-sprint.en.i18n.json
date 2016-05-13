@@ -34,6 +34,16 @@
 	"network-settings-uppers-button-csv-export": "Export csv",
 
 	"pages-app-network-tab-about-placeholder-title": "No content",
-	"pages-app-network-tab-about-placeholder-intro": "The about page still has no content"
+	"pages-app-network-tab-about-placeholder-intro": "The about page still has no content",
+
+	"network-settings-uppers-admin-removed": "__name__ is no longer an admin",
+	"network-settings-uppers-upper-removed": "__name__ is removed from this tribe",
+	"network-settings-uppers-admin-added": "__name__ is now an admin",
+
+	"network-settings-uppers-label-admin": "Admin",
+	"network-settings-uppers-button-remove-admin": "Remove admin role",
+	"network-settings-uppers-button-add-admin": "Add admin role",
+	"network-settings-uppers-button-remove-user": "End tribe membership"
+
 
 }
