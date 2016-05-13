@@ -28,8 +28,8 @@
 	"pages-app-network-partups-start_intro": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex reiciendis repudiandae quo libero, possimus obcaecati quam porro, consequuntur mollitia qui.",
 	"pages-app-network-tab-button-settings": "Settings",
 
-	"network-settings-about-contentblock-placeholder-title": "Lorem ipsum dolor sit amet.",
-	"network-settings-about-contentblock-placeholder-intro": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio fugiat omnis, impedit pariatur, suscipit perferendis, ullam ad beatae reprehenderit, assumenda nesciunt. Nemo eveniet dolorum quod. Repellendus alias necessitatibus pariatur, harum voluptate iste exercitationem, deleniti expedita ut doloribus non corrupti beatae.",
+	"network-settings-about-contentblock-placeholder-title": "No content",
+	"network-settings-about-contentblock-placeholder-intro": "Click the edit button to add content to this block.",
 
 	"network-settings-uppers-button-csv-export": "Export csv",
 
