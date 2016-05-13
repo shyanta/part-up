@@ -761,11 +761,11 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail({slug: networkSlug});
 
-        if (!user || !network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
 
         // Only 1 'intro' type allowed
         if (fields.type === 'intro') {
-            var introBlock = ContentBlocks.findOne({_id: {$in: network.contentblocks}, type: 'intro'});
+            var introBlock = ContentBlocks.findOne({_id: {$in: network.contentblocks || []}, type: 'intro'});
             if (introBlock) throw new Meteor.Error(400, 'network_contentblocks_intro_already_exists');
         }
 
