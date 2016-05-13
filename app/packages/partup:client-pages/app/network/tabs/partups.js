@@ -184,6 +184,9 @@ Template.app_network_partups.onRendered(function() {
 });
 
 Template.app_network_partups.events({
+    'submit [data-nosubmit]': function(event, template) {
+        event.preventDefault();
+    },
     'click [data-flexible-center]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).parent().addClass('start');

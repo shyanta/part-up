@@ -140,6 +140,9 @@ Template.app_network_uppers.onRendered(function() {
 });
 
 Template.app_network_uppers.events({
+    'submit [data-nosubmit]': function(event, template) {
+        event.preventDefault();
+    },
     'click [data-flexible-center]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).parent().addClass('start');
