@@ -23,15 +23,8 @@ Partup.schemas.entities.chat = new SimpleSchema([chatBaseSchema, {
         defaultValue: new Date()
     },
     started_typing: {
-        type: [Object]
-    },
-    'started_typing.$.upper_id': {
-        type: String,
+        type: [String],
         regEx: SimpleSchema.RegEx.Id
-    },
-    'started_typing.$.date': {
-        type: Date,
-        defaultValue: new Date()
     },
     updated_at: {
         type: Date,

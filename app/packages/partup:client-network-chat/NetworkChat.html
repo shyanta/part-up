@@ -25,7 +25,7 @@
                 <div data-preventscroll data-reversed-scroller>
 
                     {{#each data.messages}}
-                        {{> ChatMessage message=.}}
+                        {{> ChatMessage data=.}}
                     {{/each}}
                     <p class="pu-textline pu-textline-light">
                         <span>Do 1/12/2015</span>
@@ -63,21 +63,29 @@
                     </section>
                     <section>
                         <h2>Active uppers</h2>
-                        <ul class="pu-list pu-list-users">
-                            {{#each data.uppers}}
-                            <li>
-                                <a href="{{ pathFor route='profile' _id=_id}}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{_id}}">
-                                    <figure class="pu-avatar pu-avatar-online" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');"></figure>
-                                    <p>{{ profile.name }}</p>
-                                    <span class="pu-typing">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </span>
-                                </a>
-                            </li>
-                            {{/each}}
-                        </ul>
+                        {{#if data.uppers.length}}
+                            <ul class="pu-list pu-list-users">
+                                {{#each data.uppers}}
+                                {{#unless partupEquals _id currentUserId}}
+                                <li>
+                                    <a href="{{ pathFor route='profile' _id=_id}}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{_id}}">
+                                        <figure class="pu-avatar pu-avatar-online" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');"></figure>
+                                        <p>{{ profile.name }}</p>
+                                        {{#if partupContainsOneInArray _id data.chat.started_typing}}
+                                        <span class="pu-typing">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </span>
+                                        {{/if}}
+                                    </a>
+                                </li>
+                                {{/unless}}
+                                {{/each}}
+                            </ul>
+                        {{else}}
+                            <p>No active uppers</p>
+                        {{/if}}
                     </section>
                 </div>
             </section>

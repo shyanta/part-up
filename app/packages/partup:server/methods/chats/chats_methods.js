@@ -34,7 +34,6 @@ Meteor.methods({
      * @param {Date} typingDate
      */
     'chats.started_typing': function(chatId, typingDate) {
-        console.log(chatId, typingDate);
         check(chatId, String);
 
         var user = Meteor.user();

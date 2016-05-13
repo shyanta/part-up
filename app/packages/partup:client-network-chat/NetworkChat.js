@@ -35,6 +35,21 @@ Template.NetworkChat.onCreated(function() {
             options.onSuccess();
         });
     };
+    var typingStarted = false;
+    template.stopTyping = function() {
+        Meteor.call('chats.stopped_typing', template.chatId, function() {
+            typingStarted = false;
+        });
+    };
+    var stopTimeout;
+    template.startedTyping = function() {
+        if (!typingStarted) {
+            Meteor.call('chats.started_typing', template.chatId, new Date());
+            typingStarted = true;
+        }
+        if (stopTimeout) clearTimeout(stopTimeout);
+        stopTimeout = setTimeout(template.stopTyping, 2000);
+    };
 });
 
 Template.NetworkChat.onRendered(function() {
@@ -53,20 +68,18 @@ Template.NetworkChat.helpers({
                 return Meteor.users.find({'status.online': true});
             },
             messages: function() {
-                return ChatMessages.find();
+                var messages = ChatMessages.find().fetch();
+                return Partup.client.chatmessages.groupByCreatorId(messages);
             },
             chat: function() {
-                var chat = Chats.find();
-                console.log(chat);
-                return chat;
+                return Chats.findOne();
             }
         };
     }
 });
 Template.NetworkChat.events({
     'keydown [data-submit=return]': function(event, template) {
-
-        Meteor.call('chats.started_typing', template.chatId, new Date());
+        template.startedTyping();
         // determine keycode (with cross browser compatibility)
         var pressedKey = event.which ? event.which : event.keyCode;
 
@@ -79,6 +92,7 @@ Template.NetworkChat.events({
                 onSuccess: function() {
                     event.currentTarget.value = '';
                     if (pos === height) {
+                        template.stopTyping();
                         $('[data-reversed-scroller]')[0].scrollTop = $('[data-reversed-scroller]')[0].scrollHeight;
                     }
                 }
