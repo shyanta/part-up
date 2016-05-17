@@ -32,10 +32,22 @@ Template.Wysiwyg.onRendered(function() {
         prefix: 'pu-wysiwyg-'
     });
     if (settings.prefill) $(template.editor).trumbowyg('html', settings.prefill);
+    var wrapInParagraphIfNoTagsArePresent = function(string) {
+        var hasTags = /<[a-z][\s\S]*>/i.test(string);
+
+        if (hasTags) {
+            return string;
+        } else {
+            return '<p>' + string + '</p>';
+        }
+    };
 
     template.outputHandler = function(event) {
         var output = Partup.client.sanitizeOutputHTML(template.editor.trumbowyg('html'));
-        $('[' + settings.input + ']').val(output);
+
+        var wrappedOutput = wrapInParagraphIfNoTagsArePresent(output);
+
+        $('[' + settings.input + ']').val(wrappedOutput);
     };
 
     template.editor.on('tbwchange', template.outputHandler);

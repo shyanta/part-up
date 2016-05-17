@@ -27,8 +27,8 @@ Template.ContentBlockForm.helpers({
     data: function() {
         var template = Template.instance();
         return {
-            imageUrl: function() {
-                var imageId = template.currentImage.get();
+            imageUrl: function(id) {
+                var imageId = id || template.currentImage.get();
 
                 if (!imageId) return '/images/smile.png';
 

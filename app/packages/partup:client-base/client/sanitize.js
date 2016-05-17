@@ -11,7 +11,7 @@ Partup.client.sanitize = function(text) {
 
 Partup.client.sanitizeOutputHTML = function(value) {
     // https://github.com/Alex-D/Trumbowyg/issues/203#issuecomment-157725913
-    return value.replace(/<strong><br><\/strong>/g, '<br>')
+    var returnValue = value.replace(/<strong><br><\/strong>/g, '<br>')
         .replace(/<p><br><\/p>/g, '<br>')
         .replace(/<strong><\/strong>/g, '')
         // .replace(/<p><\/p>/g, '')
@@ -31,4 +31,6 @@ Partup.client.sanitizeOutputHTML = function(value) {
         .replace(/<br>/g, '')
         .replace(/<br\/>/g, '')
         .replace(/<br \/>/g, '');
+
+    return returnValue;
 };
