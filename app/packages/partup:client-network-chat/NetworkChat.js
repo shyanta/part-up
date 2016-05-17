@@ -26,14 +26,22 @@ Template.NetworkChat.onCreated(function() {
     };
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
 
-    template.sendMessage = function(value, options) {
+    template.sendMessage = function() {
+        var value = $('[data-messageinput]').val();
         if (!value) return false;
+        var scroller = $('[data-reversed-scroller]')[0];
+        var pos = scroller.scrollTop;
+        var height = scroller.scrollHeight - scroller.clientHeight;
         Meteor.call('chatmessages.insert', {
             chat_id: template.chatId,
             content: value
         }, function(err, res) {
             if (err) return Partup.client.notify.error('Error sending message');
-            options.onSuccess();
+            $('[data-messageinput]')[0].value = '';
+            if (pos === height) {
+                template.stopTyping();
+                scroller.scrollTop = scroller.scrollHeight;
+            }
         });
     };
     var typingStarted = false;
@@ -94,15 +102,6 @@ Template.NetworkChat.helpers({
                 return Chats.findOne();
             }
         };
-    },
-    state: function() {
-        var template = Template.instance();
-        return {
-            isNewDay: function(data) {
-                console.log(data);
-                return true;
-            }
-        };
     }
 });
 Template.NetworkChat.events({
@@ -114,17 +113,7 @@ Template.NetworkChat.events({
         // check if it's the 'return' key and if shift is NOT held down
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();
-            var pos = $('[data-reversed-scroller]')[0].scrollTop;
-            var height = $('[data-reversed-scroller]')[0].scrollHeight - $('[data-reversed-scroller]')[0].clientHeight;
-            template.sendMessage(event.currentTarget.value, {
-                onSuccess: function() {
-                    event.currentTarget.value = '';
-                    if (pos === height) {
-                        template.stopTyping();
-                        $('[data-reversed-scroller]')[0].scrollTop = $('[data-reversed-scroller]')[0].scrollHeight;
-                    }
-                }
-            });
+            template.sendMessage();
         }
     },
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
@@ -135,6 +124,10 @@ Template.NetworkChat.events({
             $(event.currentTarget).parent().addClass('active');
             $('[data-search]').focus();
         });
+    },
+    'click [data-send]': function(event, template) {
+        event.preventDefault();
+        template.sendMessage();
     },
     'click [data-clear]': function(event, template) {
         event.preventDefault();
