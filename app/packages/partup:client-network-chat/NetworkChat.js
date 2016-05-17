@@ -27,6 +27,7 @@ Template.NetworkChat.onCreated(function() {
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
 
     template.sendMessage = function(value, options) {
+        if (!value) return false;
         Meteor.call('chatmessages.insert', {
             chat_id: template.chatId,
             content: value
@@ -50,6 +51,18 @@ Template.NetworkChat.onCreated(function() {
         if (stopTimeout) clearTimeout(stopTimeout);
         stopTimeout = setTimeout(template.stopTyping, 2000);
     };
+
+    template.ajustScrollOffset = function() {
+        var element = $('[data-reversed-scroller]')[0];
+        if (!element) return;
+        var pos = element.scrollTop;
+        var height = element.scrollHeight - element.clientHeight;
+        _.defer(function() {
+            if (pos === height) {
+                element.scrollTop = element.scrollHeight;
+            }
+        });
+    };
 });
 
 Template.NetworkChat.onRendered(function() {
@@ -64,15 +77,30 @@ Template.NetworkChat.helpers({
         var template = Template.instance();
         var network = Networks.findOne({slug: template.data.networkSlug});
         return {
-            uppers: function() {
-                return Meteor.users.find({'status.online': true});
+            activeUppers: function() {
+                return Meteor.users.find({'status.online': true, _id: {$not: Meteor.userId()}});
+            },
+            messagesGroupedByDay: function(messages) {
+                return Partup.client.chatmessages.groupByCreationDay(messages);
+            },
+            messagesGroupedByUser: function(messages) {
+                return Partup.client.chatmessages.groupByCreatorId(messages);
             },
             messages: function() {
-                var messages = ChatMessages.find().fetch();
-                return Partup.client.chatmessages.groupByCreatorId(messages);
+                template.ajustScrollOffset();
+                return ChatMessages.find({}, {limit: 100, sort: {created_at: -1}}).fetch().reverse();
             },
             chat: function() {
                 return Chats.findOne();
+            }
+        };
+    },
+    state: function() {
+        var template = Template.instance();
+        return {
+            isNewDay: function(data) {
+                console.log(data);
+                return true;
             }
         };
     }

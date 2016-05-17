@@ -24,19 +24,21 @@
             <article class="pu-chat-wrapper" data-reversed-scroller-wrapper>
                 <div data-preventscroll data-reversed-scroller>
 
-                    {{#each data.messages}}
-                        {{> ChatMessage data=.}}
+                    {{#each data.messagesGroupedByDay data.messages}}
+                        <p class="pu-textline pu-textline-light">
+                            <span>{{ partupDayOfWeek day}} {{ partupDateDayMonthYear day }}</span>
+                        </p>
+                        {{#each data.messagesGroupedByUser messages}}
+                            {{> ChatMessage data=.}}
+                        {{/each}}
                     {{/each}}
-                    <p class="pu-textline pu-textline-light">
-                        <span>Do 1/12/2015</span>
-                    </p>
 
-                    <p class="pu-textline pu-textline-colour">
+                    <!-- <p class="pu-textline pu-textline-colour">
                         <span>
                             New messages
                             <i class="picon-arrow-down"></i>
                         </span>
-                    </p>
+                    </p> -->
                 </div>
             </article>
             <footer>
@@ -63,24 +65,18 @@
                     </section>
                     <section>
                         <h2>Active uppers</h2>
-                        {{#if data.uppers.length}}
+                        {{#if data.activeUppers.count}}
                             <ul class="pu-list pu-list-users">
-                                {{#each data.uppers}}
-                                {{#unless partupEquals _id currentUserId}}
+                                {{#each data.activeUppers}}
                                 <li>
                                     <a href="{{ pathFor route='profile' _id=_id}}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{_id}}">
                                         <figure class="pu-avatar pu-avatar-online" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');"></figure>
                                         <p>{{ profile.name }}</p>
                                         {{#if partupContainsOneInArray _id data.chat.started_typing}}
-                                        <span class="pu-typing">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </span>
+                                            {{>NetworkChat_typing_indicator}}
                                         {{/if}}
                                     </a>
                                 </li>
-                                {{/unless}}
                                 {{/each}}
                             </ul>
                         {{else}}
@@ -91,4 +87,11 @@
             </section>
         </aside>
     </div>
+</template>
+<template name="NetworkChat_typing_indicator">
+    <span class="pu-typing">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
 </template>

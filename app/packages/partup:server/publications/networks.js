@@ -210,7 +210,7 @@ Meteor.publishComposite('networks.one.chat', function(networkSlug) {
             },
             children: [{
                 find: function(chat) {
-                    return ChatMessages.find({chat_id: chat._id});
+                    return ChatMessages.find({chat_id: chat._id}, {limit: 100, sort: {created_at: -1}});
                 }
             }]
         },{
