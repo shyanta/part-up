@@ -190,9 +190,9 @@ Template.app_network_partups.events({
     'click [data-flexible-center]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).parent().addClass('start');
+        $('[data-search]').focus();
         _.defer(function() {
             $(event.currentTarget).parent().addClass('active');
-            $('[data-search]').focus();
         });
     },
     'click [data-clear]': function(event, template) {
@@ -219,9 +219,6 @@ Template.app_network_partups.events({
             template.focussed = false;
             $('[data-flexible-center]').parent().removeClass('active');
         }
-    },
-    'mouseleave [data-flexible-center]': function(event, template) {
-        if (!template.focussed) $(event.currentTarget).parent().removeClass('active');
     },
     'transitionend [data-flexible-center]': function(event, template) {
         $(event.currentTarget).parent().removeClass('start');

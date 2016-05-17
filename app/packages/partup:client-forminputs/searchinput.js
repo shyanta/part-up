@@ -26,9 +26,9 @@ Template.SearchInput.events({
     },
     'click [data-flexible-center]': function(event, template) {
         $(event.currentTarget).parent().addClass('start');
+        $('[data-search]').focus();
         _.defer(function() {
             $(event.currentTarget).parent().addClass('active');
-            $('[data-search]').focus();
         });
     },
     'focus [data-search]': function(event, template) {
