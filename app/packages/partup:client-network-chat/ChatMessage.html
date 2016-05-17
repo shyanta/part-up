@@ -1,13 +1,13 @@
 <template name="ChatMessage">
-    <div class="pu-chatbox {{#if partupEquals data.creator_id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}}">
+    <div class="pu-chatbox {{#if partupEquals data.creator._id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}}">
         <a href="/profile/YQmjmhfrxRe5TF6p7">
-            <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="YQmjmhfrxRe5TF6p7" style="background-image: url('https://s3-eu-west-1.amazonaws.com/partup-production/80x80/images/2LzgE8C9NtTXB95y3-2LzgE8C9NtTXB95y3.jpg')"></figure>
+            <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{data.creator._id}}" style="background-image:url('{{ partupImageUrl id=data.creator.profile.image store='360x360'}}');"></figure>
         </a>
         <ul class="pu-list">
             {{#each data.messages}}
             <li>
                 <div class="pu-chatmessage">
-                    {{#if creator}}<p class="pu-sub-chatname">{{ creator.profile.name }} <span class="pu-sub-chattime">{{ created_at }}</span></p>{{/if}}
+                    {{#if creator}}<p class="pu-sub-chatname">{{ creator.profile.name }} <span class="pu-sub-chattime">{{ partupDateTime created_at }}</span></p>{{/if}}
                     <p>{{ content }}</p>
                     {{#if preview}}
                         <div class="pu-linkpreview">
@@ -24,37 +24,4 @@
             {{/each}}
         </ul>
     </div>
-    <!-- <div class="pu-chatbox pu-chatbox-receive">
-
-        <a href="/profile/YQmjmhfrxRe5TF6p7" >
-            <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="YQmjmhfrxRe5TF6p7" style="background-image: url('https://s3-eu-west-1.amazonaws.com/partup-production/80x80/images/2LzgE8C9NtTXB95y3-2LzgE8C9NtTXB95y3.jpg')"></figure>
-        </a>
-        <ul class="pu-list">
-            <li>
-                <div class="pu-chatmessage">
-                    <p class="pu-sub-chatname">Hampim Verlaan <span class="pu-sub-chattime">9:27 pm</span></p>
-                    <p>haha Ok doei</p>
-                </div>
-            </li>
-            <li>
-                <div class="pu-chatmessage">
-                    <p>Blabla text in a chat box yes thats what we want! Blabla text in a chat box yes thats what we want! Blabla text in a chat box yes thats what we want! Blabla text in a chat box</p>
-                </div>
-            </li>
-            <li>
-                <div class="pu-chatmessage">
-                    <p>This could also be nice <a href="">http://thisisalinkthisisalinkjajaja...</a></p>
-
-                    <div class="pu-linkpreview">
-                        <figure style="background-image: url('http://www.nationsencyclopedia.com/photos/norway-climate-1715.jpg');" >
-                        </figure>
-                        <div class="pu-linkpreview-description">
-                            <p class="pu-sub-title">Some lorem</p>
-                            <p class="pu-sub-intro">Some lorem ipsum self made blabla. Some lorem ipsum self made blabla. Some lorem ipsum self made blabla. </p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div> -->
 </template>
