@@ -50,10 +50,10 @@ Meteor.startup(function() {
 
 /**
  @namespace Partup server app notifications service
- @name Partup.server.services.app_notifications
+ @name Partup.server.services.pushnotifications
  @memberof Partup.server.services
  */
-Partup.server.services.app_notifications = {
+Partup.server.services.pushnotifications = {
 
     /**
      * Send app notifications to all mobile phones of a set of users
