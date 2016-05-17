@@ -43,7 +43,7 @@ Template.modal_partup_settings.events({
             onConfirm: function() {
                 Meteor.call('partups.remove', template.data.partupId, function(error) {
                     if (error) {
-                        Partup.client.notify.error(error.reason);
+                        Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
                     } else {
                         Router.go('discover');
                     }
@@ -62,7 +62,7 @@ Template.modal_partup_settings.events({
             onConfirm: function() {
                 Meteor.call('partups.archive', template.data.partupId, function(error) {
                     if (error) {
-                        Partup.client.notify.error(error.reason);
+                        Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
                     } else {
                         Intent.return('partup-settings', {
                             fallback_route: {
@@ -82,7 +82,7 @@ Template.modal_partup_settings.events({
         var partup = Partups.findOne(template.data.partupId);
         Meteor.call('partups.unarchive', template.data.partupId, function(error) {
             if (error) {
-                Partup.client.notify.error(error.reason);
+                Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             } else {
                 Intent.return('partup-settings', {
                     fallback_route: {
@@ -100,7 +100,7 @@ Template.modal_partup_settings.events({
 var updatePartup = function(partupId, insertDoc, callback) {
     Meteor.call('partups.update', partupId, insertDoc, function(error, res) {
         if (error && error.reason) {
-            Partup.client.notify.error(error.reason);
+            Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             AutoForm.validateForm(self.formId);
             self.done(new Error(error.message));
             return;
@@ -126,7 +126,7 @@ AutoForm.hooks({
 
             Meteor.call('partups.update', partup._id, insertDoc, function(error, res) {
                 if (error && error.reason) {
-                    Partup.client.notify.error(error.reason);
+                    Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
                     AutoForm.validateForm(self.formId);
                     self.done(new Error(error.message));
                     return;
