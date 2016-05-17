@@ -71,3 +71,10 @@ Template.Wysiwyg.helpers({
         };
     }
 });
+
+Template.Wysiwyg.events({
+    'click [contenteditable]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).focus();
+    }
+})
