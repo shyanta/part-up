@@ -12,6 +12,7 @@
 	"network-settings-about-form-title" : "Title",
 	"network-settings-about-form-placeholder-title" : "Give your paragraph a title",
 	"network-settings-about-form-text" : "Text",
+	"network-settings-about-form-placeholder-text" : "Enter your paragraph",
 	"network-settings-about-form-img" : "Image",
 	"network-settings-about-form-img-upload" : "Upload new image",
 	"network-settings-about-form-img-hint" : "Max size: 1200px x 520px",

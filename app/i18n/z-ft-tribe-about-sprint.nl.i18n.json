@@ -12,6 +12,7 @@
 	"network-settings-about-form-title" : "Titel",
 	"network-settings-about-form-placeholder-title" : "Geef je paragraaf een titel",
 	"network-settings-about-form-text" : "Tekst",
+	"network-settings-about-form-placeholder-text" : "Voer je paragraaf in",
 	"network-settings-about-form-img" : "Afbeelding",
 	"network-settings-about-form-img-upload" : "Upload een nieuwe afbeelding",
 	"network-settings-about-form-img-hint" : "Max grootte: 1200px x 520px",

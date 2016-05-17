@@ -58,7 +58,7 @@ Template.ContentBlockForm.helpers({
             contentBlockInput: {
                 input: 'data-paragraph',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: 'Schrijf een intro',
+                placeholder: TAPi18n.__('network-settings-about-form-placeholder-text'),
                 prefill: template.data.block.text || false
             },
             doc: template.data.block,
