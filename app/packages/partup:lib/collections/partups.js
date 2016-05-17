@@ -630,14 +630,12 @@ Partups.findForNetwork = function(network, parameters, options, loggedInUserId) 
     if (textSearch) {
         Log.debug('Searching for [' + textSearch + ']');
 
-        var textSearchSelector = {$text: {$search: textSearch}};
         var tagSelector = {tags: {$in: [textSearch]}};
         var slugSelector = {slug: new RegExp('.*' + textSearch.replace(/ /g,'-') + '.*', 'i')};
+        var nameSelector = {name: new RegExp('.*' + textSearch + '.*', 'i')};
+        var descriptionSelector = {description: new RegExp('.*' + textSearch + '.*', 'i')};
 
-        options.fields = {score: {$meta: 'textScore'}};
-        options.sort['score'] = {$meta: 'textScore'};
-
-        selector.$or = [textSearchSelector, tagSelector, slugSelector];
+        selector.$or = [tagSelector, slugSelector, nameSelector, descriptionSelector];
     }
 
     return this.guardedFind(loggedInUserId, selector, options);
