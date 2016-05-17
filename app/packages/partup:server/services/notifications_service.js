@@ -42,6 +42,13 @@ Partup.server.services.notifications = {
 
         d('Notification created for user [' + notification.for_upper_id + '] with type [' + notification.type + ']');
 
-        Notifications.insert(notification);
+        var notificationId = Notifications.insert(notification);
+
+        Partup.server.services.pushnotifications.send([for_upper_id], false, 'New notification', {
+            _id: notificationId,
+            type: notification.type,
+            type_data: notification.type_data,
+            created_at: notification.created_at
+        });
     }
 };
