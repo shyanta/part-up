@@ -7,13 +7,14 @@
 	"network-settings-about-form-intro" : "Introductie",
 	"network-settings-about-form-btn-save" : "Oplaan",
 	"network-settings-about-form-btn-close" : "Cancel",
+	"network-settings-about-form-btn-remove" : "verwijder",
 	"network-settings-about-textline" : "Paragrafen",
 	"network-settings-about-form-title" : "Titel",
 	"network-settings-about-form-placeholder-title" : "Geef je paragraaf een titel",
 	"network-settings-about-form-text" : "Tekst",
 	"network-settings-about-form-img" : "Afbeelding",
 	"network-settings-about-form-img-upload" : "Upload een nieuwe afbeelding",
-	"network-settings-about-form-img-hint" : "Max breedte: 400px",
+	"network-settings-about-form-img-hint" : "Max grootte: 1200px x 520px",
 	"network-settings-about-add-form" : "Voeg een content blok toe",
 
 	"pages-app-network-tab-button-about" : "Over",
@@ -35,6 +36,7 @@
 
 	"pages-app-network-tab-about-placeholder-title": "Geen inhoud",
 	"pages-app-network-tab-about-placeholder-intro": "De about pagina heeft nog geen inhoud",
+	"pages-app-network-tab-about-placeholder-intro-title-placeholder": "Over __tribe__",
 
 	"network-settings-uppers-admin-removed": "__name__ is geen admin meer",
 	"network-settings-uppers-upper-removed": "__name__ is verwijderd uit deze tribe",

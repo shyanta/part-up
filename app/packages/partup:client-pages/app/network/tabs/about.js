@@ -48,13 +48,6 @@ Template.app_network_about.helpers({
             contentBlocks: function() {
                 return contentBlocks;
             },
-            imageUrl: function(imageId) {
-                if (!imageId) return false;
-                if (imageId) {
-                    var image = Images.findOne({_id: imageId});
-                    if (image) return Partup.helpers.url.getImageUrl(image, '360x360');
-                }
-            },
             admins: function() {
                 return Meteor.users.find({_id: {$in: network.admins}});
             },

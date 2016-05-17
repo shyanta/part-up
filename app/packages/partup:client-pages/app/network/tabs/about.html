@@ -2,12 +2,20 @@
     <div class="pu-composition-about">
     	<section class="pu-wrap pu-contentpage">
 
-            {{#with data.introBlock}}
+            {{#if data.introBlock}}
                 <article class="pu-article pu-contentblock pu-contentblock-intro">
-                    <h1>{{ title }}</h1>
-                    {{{ text }}}
+                    {{#if data.introBlock.title}}
+                        <h1>{{ data.introBlock.title }}</h1>
+                    {{ else }}
+                        <h1>{{_ 'pages-app-network-tab-about-placeholder-intro-title-placeholder' tribe=data.network.name}}</h1>
+                    {{/if}}
+                    {{#if data.introBlock.text}}
+                        {{{ data.introBlock.text }}}
+                    {{ else }}
+                        {{ data.network.description }}
+                    {{/if}}
                     <ul class="pu-list pu-list-horizontal">
-                        {{#with location}}
+                        {{#with data.introBlock.location}}
                             <li>
                                 <a class="pu-metadata" href="#" data-location>
                                     <i class="picon-location"></i>
@@ -15,7 +23,7 @@
                                 </a>
                             </li>
                         {{/with}}
-                        {{#with website}}
+                        {{#with data.introBlock.website}}
                             <li>
                                 <a class="pu-metadata" href="{{ partupHTTP . }}" target="_blank">
                                     <i class="picon-monitor"></i>
@@ -24,15 +32,15 @@
                             </li>
                         {{/with}}
                     </ul>
-                    {{#if tags}}
+                    {{#with data.network.displayTags data.network.slug}}
                         <ul class="pu-list pu-list-horizontal pu-list-tags">
-                            {{#each tags}}
+                            {{#each .}}
                                 <li>
-                                    <a href="#" class="pu-tag">{{.}}</a>
+                                    <a href="#" class="pu-tag">{{tag}}</a>
                                 </li>
                             {{/each}}
                         </ul>
-                    {{/if}}
+                    {{/with}}
                 </article>
             {{else}}
                 {{#if state.contentblocksAvailable}}
@@ -72,7 +80,7 @@
                         {{> Spinner}}
                     </article>
                 {{/if}}
-            {{/with}}
+            {{/if}}
 
             {{#each data.contentBlocks}}
                 <article class="pu-article pu-sub-section pu-contentblock">
@@ -80,7 +88,7 @@
                     {{{ text }}}
                 </article>
                 {{#with image}}
-                    <img src="{{data.imageUrl . }}" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">
+                    <img src="{{ partupImageUrl id=. store='1200x520' }}" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">
                 {{/with}}
             {{/each}}
 

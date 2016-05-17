@@ -57,7 +57,7 @@
             </div>
             {{#if partupNotEquals form.type 'intro'}}
                 <div class="cell last">
-                    <button type="button" class="pu-button pu-button-text pu-button-text-subtle {{# if state.submitting }}pu-state-disabled{{/ if }}" data-remove>remove</button>
+                    <button type="button" class="pu-button pu-button-text pu-button-text-subtle {{# if state.submitting }}pu-state-disabled{{/ if }}" data-remove>{{_ 'network-settings-about-form-btn-remove'}}</button>
                 </div>
             {{/if}}
         </footer>
