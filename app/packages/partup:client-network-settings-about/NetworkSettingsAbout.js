@@ -138,7 +138,7 @@ Template.NetworkSettingsAbout.helpers({
         var compare = function(a, b) {
             var first = contentBlocksArr.indexOf(a._id);
             var second = contentBlocksArr.indexOf(b._id);
-            return first > second;
+            return first > second ? 1 : -1;
         };
         var template = Template.instance();
         var network = Networks.findOne({slug: template.data.networkSlug});
