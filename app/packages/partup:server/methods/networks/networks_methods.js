@@ -715,6 +715,7 @@ Meteor.methods({
 
         try {
             if (network.hasMember(userId)) {
+                if (network.admins.length > 10) throw new Meteor.Error(400, 'network_admin_limit_reached');
                 network.addAdmin(userId);
             }
         } catch (error) {
