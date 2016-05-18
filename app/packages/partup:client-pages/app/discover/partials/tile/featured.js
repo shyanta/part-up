@@ -7,7 +7,7 @@ Template.PartupTileFeatured.onCreated(function() {
 
     // Transform partup
     var partup = template.data.partup;
-
+    template.subscribe('users.one', partup.featured.by_upper._id);
     // -- Partup details
     partup.name = Partup.helpers.url.capitalizeFirstLetter(partup.name);
     partup.imageObject = partup.imageObject || Images.findOne({_id: partup.image});
@@ -81,7 +81,6 @@ Template.PartupTileFeatured_commentbox.helpers({
     featured_by_user: function() {
         var partup = this;
         if (!partup) return;
-
         return Meteor.users.findOne(partup.featured.by_upper._id);
     },
     featured_by_user_title: function() {
