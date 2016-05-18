@@ -194,8 +194,24 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
  *
  * @param {String} networkSlug
  */
-Meteor.publishComposite('networks.one.chat', function(networkSlug) {
-    this.unblock();
+Meteor.publishComposite('networks.one.chat', function(networkSlug, parameters) {
+    if (this.unblock) this.unblock();
+
+    check(networkSlug, String);
+
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
+    check(parameters, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number)
+    });
+
+    var options = {};
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
+    options.sort = {created_at: -1};
 
     return {
         find: function() {
@@ -208,7 +224,7 @@ Meteor.publishComposite('networks.one.chat', function(networkSlug) {
             },
             children: [{
                 find: function(chat) {
-                    return ChatMessages.find({chat_id: chat._id}, {limit: 100, sort: {created_at: -1}});
+                    return ChatMessages.find({chat_id: chat._id}, options);
                 }
             }]
         },{
