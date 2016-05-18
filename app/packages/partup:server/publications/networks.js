@@ -199,13 +199,11 @@ Meteor.publishComposite('networks.one.chat', function(networkSlug) {
 
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: networkSlug}).fetch().pop();
-            if (!network || !network.chat_id) return;
-
             return Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1});
         },
         children: [{
             find: function(network) {
+                if (!network.chat_id) return;
                 return Chats.find({_id: network.chat_id});
             },
             children: [{
