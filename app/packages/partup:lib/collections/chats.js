@@ -15,7 +15,12 @@ var Chat = function(document) {
  * @param {Date} typingDate the front-end date of when the user started typing
  */
 Chat.prototype.startedTyping = function(userId, typingDate) {
-    Chats.update(this._id, {$addToSet: {started_typing: userId}});
+    var typingObject = Chats.find({_id: this._id, 'started_typing.upper_id': userId}).fetch();
+    if (typingObject.length > 0) {
+        Chats.update({_id: this._id, 'started_typing.upper_id': userId}, {$set: {'started_typing.$.date': typingDate}});
+    } else {
+        Chats.update(this._id, {$push: {started_typing: {upper_id: userId, date: typingDate}}});
+    }
 };
 
 /**
@@ -25,7 +30,7 @@ Chat.prototype.startedTyping = function(userId, typingDate) {
  * @param {String} userId the user id of the user that stopped typing
  */
 Chat.prototype.stoppedTyping = function(userId) {
-    Chats.update(this._id, {$pull: {started_typing: userId}});
+    Chats.update(this._id, {$pull: {started_typing: {upper_id: userId}}});
 };
 
 /**
