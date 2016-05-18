@@ -10,7 +10,9 @@ var chatMessageBaseSchema = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Id
     },
     content: {
-        type: String
+        type: String,
+        min: 1,
+        max: 1000
     }
 });
 
