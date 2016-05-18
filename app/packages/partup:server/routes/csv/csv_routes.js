@@ -153,7 +153,7 @@ var exportCSV = function(responseStream, userIds, ignoreDeactivatedUsers) {
             fut.return();
         });
     if (ignoreDeactivatedUsers) {
-        userStream.write(['_id','profile.name','profile.phonenumber','registered_emails','createdAt']);
+        userStream.write(['user id','name','phonenumber','e-mail','member since']);
     } else {
         userStream.write(['_id','profile.name','profile.phonenumber','registered_emails','createdAt','deactivatedAt']);
     }
