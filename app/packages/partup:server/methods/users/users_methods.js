@@ -259,5 +259,27 @@ Meteor.methods({
                 }
             }
         });
+    },
+
+    /**
+     * Start a chat with the provided users
+     */
+    'users.start_chat': function(userIds) {
+        check(userIds, [String]);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        userIds.unshift(user._id);
+
+        try {
+            var chatId = Meteor.call('chats.insert', fields);
+            Chats.update(chatId, {$set: {creator_id: user._id}});
+            Meteor.users.update({_id: {$in: userIds}}, {$addToSet: {chats: chatId}});
+
+            return chatId;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
+        }
     }
 });

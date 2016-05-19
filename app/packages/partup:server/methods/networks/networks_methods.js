@@ -876,14 +876,14 @@ Meteor.methods({
 
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
-        // Only 1 chat allowed
+        // Only 1 chat per network allowed
         if (network.chat_id) return network.chat_id;
 
         try {
-            var chat_id = Meteor.call('chats.insert', fields);
-            Networks.update(network._id, {$set: {chat_id: chat_id}});
+            var chatId = Meteor.call('chats.insert', fields);
+            Networks.update(network._id, {$set: {chat_id: chatId}});
 
-            return chat_id;
+            return chatId;
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
