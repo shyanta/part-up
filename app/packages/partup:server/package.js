@@ -30,7 +30,8 @@ Package.onUse(function(api) {
         'random',
         'peerlibrary:aws-sdk',
         'simple:rest',
-        'simple:json-routes'
+        'simple:json-routes',
+        'ecmascript'
     ], ['server']);
 
     api.addFiles([
@@ -223,7 +224,5 @@ Npm.depends({
     'pluralize': '1.1.2',
     'slug': '0.9.1',
     'winston': '0.9.0',
-    'gm': '1.20.0',
-    'apn': '1.7.5',
-    'gcm': '1.0.1'
+    'gm': '1.20.0'
 });

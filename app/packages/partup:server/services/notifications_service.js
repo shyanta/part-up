@@ -1,3 +1,7 @@
+'use strict';
+
+import { NotificationModel } from 'part-up-js-models';
+
 var d = Debug('services:notifications');
 
 // Check notifications.md for all active notifications
@@ -42,13 +46,35 @@ Partup.server.services.notifications = {
 
         d('Notification created for user [' + notification.for_upper_id + '] with type [' + notification.type + ']');
 
-        var notificationId = Notifications.insert(notification);
+        notification._id = Notifications.insert(notification);
 
-        Partup.server.services.pushnotifications.send([for_upper_id], false, 'New notification', {
-            _id: notificationId,
-            type: notification.type,
-            type_data: notification.type_data,
-            created_at: notification.created_at
+        // Send push notification
+        const receivers = [notification.for_upper_id];
+        const filterDevices = () => true; // all devices
+        const n = new NotificationModel(notification);
+        const message = n.getText((key, data) => {
+
+            // Issue #436
+            if (key === 'notification-partups_archived') {
+                key = 'notification-partup_archived_by_upper';
+            }
+            if (key === 'notification-partups_unarchived') {
+                key = 'notification-partup_unarchived_by_upper';
+            }
+
+            key = `dropdown-${key}`; // Issue #437
+
+            return TAPi18n.__(key, data.replace);
         });
+        const payload = {
+            notification: {
+                _id: n._id,
+                type: n.type,
+                type_data: n.type_data,
+                created_at: n.created_at
+            }
+        };
+
+        Partup.server.services.pushnotifications.send(receivers, filterDevices, message, payload);
     }
 };
