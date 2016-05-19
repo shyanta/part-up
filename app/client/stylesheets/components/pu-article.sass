@@ -26,6 +26,9 @@
     h3
         font-size: 18px
 
+    .pu-header-light
+        font-weight: 500
+
     > ul
         margin-top: 30px
 
@@ -39,8 +42,12 @@
             > li
                 margin-top: 0
 
-    .pu-face
-        margin-right: 50px
+    > ul.pu-list-large
+        > li
+            margin-top: 12px
+
+            &:first-child
+                margin-top: 0
 
     &-morespace
         > .pu-list
@@ -103,6 +110,9 @@
     &-wide
         padding-left: 0
         padding-right: 0
+
+    &.pu-state-loading
+        text-align: center
 
     &-videos
         font-size: 0

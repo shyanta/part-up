@@ -521,19 +521,20 @@ Partups.guardedMetaFind = function(selector, options) {
  * Find the partups used in the discover page
  *
  * @memberof Partups
+ * @param userId
  * @param {Object} options
+ * @param parameters
  * @return {Cursor}
  */
 Partups.findForDiscover = function(userId, options, parameters) {
     var selector = {};
 
-    var options = options || {};
+    options = options || {};
     options.limit = options.limit ? parseInt(options.limit) : undefined;
     options.skip = options.skip ? parseInt(options.skip) : 0;
     options.sort = options.sort || {};
 
-    var parameters = parameters || {};
-
+    parameters = parameters || {};
     var sort = parameters.sort || undefined;
     var textSearch = parameters.textSearch || undefined;
     var locationId = parameters.locationId || undefined;
@@ -613,6 +614,7 @@ Partups.findForNetwork = function(network, parameters, options, loggedInUserId) 
     parameters = parameters || {};
     options = options || {};
     options.sort = options.sort || {};
+    var textSearch = parameters.textSearch || undefined;
 
     var selector = {
         network_id: network._id
@@ -622,6 +624,18 @@ Partups.findForNetwork = function(network, parameters, options, loggedInUserId) 
 
     if (parameters.hasOwnProperty('archived')) {
         selector.archived_at = {$exists: parameters.archived};
+    }
+
+    // Filter the partups that match the text search
+    if (textSearch) {
+        Log.debug('Searching for [' + textSearch + ']');
+
+        var tagSelector = {tags: {$in: [textSearch]}};
+        var slugSelector = {slug: new RegExp('.*' + textSearch.replace(/ /g,'-') + '.*', 'i')};
+        var nameSelector = {name: new RegExp('.*' + textSearch + '.*', 'i')};
+        var descriptionSelector = {description: new RegExp('.*' + textSearch + '.*', 'i')};
+
+        selector.$or = [tagSelector, slugSelector, nameSelector, descriptionSelector];
     }
 
     return this.guardedFind(loggedInUserId, selector, options);

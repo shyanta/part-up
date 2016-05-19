@@ -84,13 +84,44 @@ Meteor.users.findSinglePublicProfile = function(userId) {
  * @return {Mongo.Cursor}
  */
 Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters) {
-    var options = options || {};
-    var parameters = parameters || {};
-    var selector = {_id: {$in: userIds}};
+    userIds = userIds || [];
+    options = options || {};
+    parameters = parameters || {};
+    var textSearch = parameters.textSearch || undefined;
 
+    var selector = {_id: {$in: userIds}};
     if (parameters.onlyActive) selector.deactivatedAt = {$exists: false};
 
-    options.fields = publicUserFields;
+    options.fields = _.clone(publicUserFields);
+
+    if (parameters.isAdminOfNetwork) {
+        options.fields.emails = 1;
+    }
+
+    // Filter the uppers that match the text search
+    if (textSearch) {
+        Log.debug('Searching for [' + textSearch + ']');
+
+        // Remove accents that might have been added to the query
+        var searchQuery = mout.string.replaceAccents(textSearch.toLowerCase());
+
+        // Set the search criteria
+        var searchCriteria = [
+            {'profile.normalized_name': new RegExp('.*' + searchQuery + '.*', 'i')},
+            {'profile.description': new RegExp('.*' + searchQuery + '.*', 'i')},
+            {'profile.tags': new RegExp('.*' + searchQuery + '.*', 'i')},
+            {'profile.location.city': new RegExp('.*' + searchQuery + '.*', 'i')}
+        ];
+
+        // Search for separate tags if multiple words are detected in searchQuery
+        var multipleWordsQuery = searchQuery.split(' ');
+        if (multipleWordsQuery.length > 1) {
+            searchCriteria.push({'profile.tags': {$in: multipleWordsQuery}});
+        }
+
+        // Combine it in an $or selector
+        selector = {$and: [selector, {$or: searchCriteria}]};
+    }
 
     options.limit = parameters.count ? undefined : parseInt(options.limit) || undefined;
     options.sort = parameters.count ? undefined : options.sort || undefined;
@@ -110,7 +141,7 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 Meteor.users.findUppersForNetwork = function(network, options, parameters) {
     var uppers = network.uppers || [];
 
-    var parameters = parameters || {};
+    parameters = parameters || {};
     parameters.onlyActive = true;
 
     return this.findMultiplePublicProfiles(uppers, options, parameters);
@@ -362,7 +393,7 @@ User = function(user) {
          */
         isSomeNetworkAdmin: function() {
             if (!user) return false;
-            return !!Networks.findOne({admin_id: user._id});
+            return !!Networks.findOne({admins: {$in: [user._id]}});
         },
 
         /**

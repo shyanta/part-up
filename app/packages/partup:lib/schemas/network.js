@@ -48,13 +48,17 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-    admin_id: {
-        type: String,
+    admins: {
+        type: [String],
         regEx: SimpleSchema.RegEx.Id
     },
     common_tags: {
         type: Object,
         optional: true
+    },
+    contentblocks: {
+        type: [String],
+        regEx: SimpleSchema.RegEx.Id
     },
     created_at: {
         type: Date,
@@ -183,8 +187,9 @@ Partup.schemas.forms.networkCreate = new SimpleSchema([networkBaseSchema, {
  * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.networkEdit = new SimpleSchema({
-    admin_id: {
-        type: String
+    admins: {
+        type: [String],
+        regEx: SimpleSchema.RegEx.Id
     }
 });
 

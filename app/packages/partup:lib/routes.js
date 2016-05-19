@@ -635,6 +635,22 @@ Router.route('/tribes/:slug/uppers', {
     }
 });
 
+
+Router.route('/tribes/:slug/about', {
+    name: 'network-about',
+    where: 'client',
+    yieldRegions: {
+        'app':                  {to: 'main'},
+        'app_network':          {to: 'app'},
+        'app_network_about':   {to: 'app_network'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
 Router.route('/tribes/:slug/invite', {
     name: 'network-invite',
     where: 'client',
@@ -704,6 +720,21 @@ Router.route('/tribes/:slug/settings/requests', {
         'modal':                           {to: 'main'},
         'modal_network_settings':          {to: 'modal'},
         'modal_network_settings_requests': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+Router.route('/tribes/:slug/settings/about', {
+    name: 'network-settings-about',
+    where: 'client',
+    yieldRegions: {
+        'modal':                         {to: 'main'},
+        'modal_network_settings':        {to: 'modal'},
+        'modal_network_settings_about': {to: 'modal_network_settings'}
     },
     data: function() {
         return {

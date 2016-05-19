@@ -81,7 +81,8 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
         limit: Match.Optional(Number),
         skip: Match.Optional(Number),
         userId: Match.Optional(String),
-        archived: Match.Optional(String)
+        archived: Match.Optional(String),
+        textSearch: Match.Optional(String)
     });
 
     var options = {};
@@ -89,7 +90,8 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
     if (parameters.skip) options.skip = parameters.skip;
 
     var selector = {
-        archived: (parameters.archived) ? JSON.parse(parameters.archived) : false
+        archived: (parameters.archived) ? JSON.parse(parameters.archived) : false,
+        textSearch: (parameters.textSearch) ? parameters.textSearch : undefined
     };
 
     return {
@@ -124,7 +126,7 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
     if (this.unblock) this.unblock();
 
     check(urlParams, {
-        slug: Match.Optional(String),
+        slug: Match.Optional(String)
     });
 
     parameters = parameters || {};
@@ -135,6 +137,7 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
         limit: Match.Optional(Number),
         skip: Match.Optional(Number),
         userId: Match.Optional(String),
+        textSearch: Match.Optional(String)
     });
 
     var options = {};
@@ -146,7 +149,11 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
             var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
             if (!network) return;
 
-            return Meteor.users.findUppersForNetwork(network, options);
+            if (network.isNetworkAdmin(this.userId)) {
+                parameters.isAdminOfNetwork = true;
+            }
+
+            return Meteor.users.findUppersForNetwork(network, options, parameters);
         },
         children: [
             {find: Images.findForUser}
@@ -204,7 +211,6 @@ Meteor.publishComposite('networks.featured_all', function(language) {
     };
 }, {url: '/networks/featured/:0'});
 
-
 /**
  * Publish all networks for admin panel
  */
@@ -221,10 +227,10 @@ Meteor.publishComposite('networks.admin_all', function() {
         children: [
             {find: Images.findForNetwork},
             {find: function(network) {
-                return Meteor.users.findSinglePublicProfile(network.admin_id);
+                return Meteor.users.findMultiplePublicProfiles(network.admins);
             }, children: [
                 {find: Images.findForUser}
-            ]},
+            ]}
         ]
     };
 });

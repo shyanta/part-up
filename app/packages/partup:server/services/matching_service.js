@@ -71,7 +71,6 @@ Partup.server.services.matching = {
      * @param {Number} searchOptions.skip
      * @param {[String]} tags
      * @param {[String]} excludedUppers
-
      * @return {[String]}
      */
     findMatchingUppers: function(searchOptions, tags, excludedUppers) {

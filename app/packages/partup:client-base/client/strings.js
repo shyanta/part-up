@@ -4,7 +4,7 @@ Partup.client.strings = {
      * Slugify helper
      *
      * @memberof Partup.client
-     * @param {String} string to slugify
+     * @param {String} stringToSlugify
      */
     slugify: function(stringToSlugify) {
 
@@ -28,7 +28,7 @@ Partup.client.strings = {
      * turns text into emojis using emoji.js
      * See: https://github.com/iamcal/js-emoji
      * @memberof Partup.client
-     * @param {String} string to emoji
+     * @param {String} stringToEmoji
      */
     emojify: function(stringToEmoji) {
 

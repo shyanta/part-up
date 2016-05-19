@@ -75,6 +75,7 @@ Package.onUse(function(api) {
         'private/templates/seo/partup.html',
         'private/templates/seo/profile.html',
         'private/templates/seo/network.html',
+        'private/templates/seo/network_about.html',
         'private/templates/seo/swarm.html',
         'private/templates/seo/home.html'
     ], ['server'], {isAsset: true});
@@ -157,6 +158,7 @@ Package.onUse(function(api) {
         'publications/tiles.js',
         'publications/notifications.js',
         'publications/swarms.js',
+        'publications/contentblocks.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
@@ -185,6 +187,7 @@ Package.onUse(function(api) {
         'methods/uploads/uploads_methods.js',
         'methods/tiles/tiles_methods.js',
         'methods/swarms/swarms_methods.js',
+        'methods/contentblocks/contentblocks_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',

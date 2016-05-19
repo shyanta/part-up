@@ -8,14 +8,14 @@
                     <article class="pu-talltile">
                         <header>
                             <ul class="pu-list pu-list-horizontal pu-list-tags">
-                                {{#with displayTags }}
+                                {{#with displayTags slug }}
                                     {{# each . }}
                                         <li>
-                                            <a href="#" class="pu-tag pu-tag-inverted">{{.}}</a>
+                                            <a href="{{pathFor route='network-detail' slug=networkSlug query=tagQuery}}" class="pu-tag pu-tag-inverted pu-tag-disable">{{tag}}</a>
                                         </li>
-                                    {{ else }}
-                                        <li class="pu-sub-placeholder">{{_ 'swarm-content-network-notags'}}</li>
                                     {{/ each }}
+                                {{ else }}
+                                    <li class="pu-sub-placeholder">{{_ 'swarm-content-network-notags'}}</li>
                                 {{/with }}
                             </ul>
                         </header>

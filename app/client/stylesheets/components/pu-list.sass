@@ -13,8 +13,24 @@
     &.pu-state-hidden
         display: none
 
+    &-large
+        > li
+            font-size: 18px
+
     &-right
         text-align: right
+
+    &-center
+        text-align: center
+        text-align-last: center
+
+        > li
+            text-align: auto
+            text-align-last: auto
+
+    &-justify
+        text-align: justify
+        text-align-last: justify
 
     &-horizontal
         font-size: 0
@@ -156,6 +172,20 @@
                     margin-right: 11px
                     color: #ccc
 
+    &-arrows-secondary
+        li
+            position: relative
+            margin-left: 25px
+
+            &:before
+                content: '\e004'
+                font: normal normal normal 9px 'partup-icons'
+                position: absolute
+                top: 3px
+                right: 100%
+                margin-right: 11px
+                color: $color-secondary
+
     &-features
         li
             $item-count: 3
@@ -247,7 +277,7 @@
         border-bottom: 2px solid #eee
         padding: 0px
 
-        li
+        > li
             padding: 10px 0
             border-top: 2px solid #eee
             @extend %clearfix
@@ -256,7 +286,7 @@
                 float: left
 
 
-        .pu-sub-name
+        .pu-sub-upperinfo
             float: left
             margin: 0 0 0 10px
             line-height: 40px
@@ -267,6 +297,7 @@
             margin: 0 0 0 10px
             line-height: 40px
 
+        .pu-sub-settings,
         .pu-sub-remove,
         .pu-sub-button
             float: right
@@ -281,6 +312,14 @@
             line-height: 30px
             text-align: center
             vertical-align: middle
+
+        .pu-sub-settings
+            background: $color-button-gray-background
+            color: #fff
+
+            .picon-cog
+                font-size: 16px
+                margin-right: 0
 
         .pu-sub-button
             margin-right: 5px

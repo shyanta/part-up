@@ -77,6 +77,10 @@ Package.onUse(function(api) {
 
             'app/network/partials/joinbutton.html',
             'app/network/partials/joinbutton.js',
+            'app/network/partials/NetworkInviteTile.html',
+            'app/network/partials/NetworkInviteTile.js',
+            'app/network/partials/NetworkStartPartupTile.html',
+            'app/network/partials/NetworkStartPartupTile.js',
             'app/network/partials/uppers.html',
             'app/network/partials/uppers.js',
             'app/network/partials/partups.html',
@@ -88,6 +92,8 @@ Package.onUse(function(api) {
             'app/network/tabs/uppers.js',
             'app/network/tabs/closed.html',
             'app/network/tabs/closed.js',
+            'app/network/tabs/about.html',
+            'app/network/tabs/about.js',
 
             // App:profile
             'app/profile/profile.html',
@@ -248,6 +254,7 @@ Package.onUse(function(api) {
             'modal/network_settings/requests/requests.html',
             'modal/network_settings/uppers/uppers.html',
             'modal/network_settings/bulkinvite/bulkinvite.html',
+            'modal/network_settings/about/about.html',
 
             // Modal:create_intro
             'modal/create_intro/create_intro.html',
