@@ -88,6 +88,7 @@ Package.onUse(function(api) {
         'helpers/mobileHelpers.js',
         'helpers/browserTest.js',
         'helpers/math.js',
+        'helpers/delayed.js',
 
         'bootstrap.js',
         'analytics.js'

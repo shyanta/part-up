@@ -3,7 +3,9 @@
 	"pages-app-network-chat-title"		: "Chat",
 	"pages-app-network-chat-placeholder" : "Type message...",
 	"pages-app-network-chat-button-send" : "Send",
-	"pages-app-network-chat-sidebar-text" : "This chat is <strong>public</strong> and <strong>accessible</strong> for everyone"
+	"pages-app-network-chat-sidebar-text" : "This chat is <strong>public</strong> and <strong>accessible</strong> for everyone",
+
+    "pages-app-network-chat-activeuppers-label": "Only you"
 }
 
 

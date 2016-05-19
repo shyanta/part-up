@@ -71,6 +71,8 @@
         margin: 20px 0
         font-size: 14px !important
         font-weight: bold
+        height: 23px
+        transition: height .2s, margin .2s, opacity .2s
 
         span
             background-color: $color-background
@@ -78,3 +80,35 @@
         &:after
             border-top: 2px solid $color-primary
             top: 50%
+
+        + .pu-textline-light
+            display: none
+
+        &.hide
+            height: 0px
+            margin: 0px
+            opacity: 0
+
+        &.invisible
+            visibility: hidden
+
+    &-hover
+        position: absolute
+        right: 80px
+        left: 80px
+        z-index: 10000
+
+        > span
+            color: #fff
+            background-color: lighten(#57c0c9, 10%)
+            padding: 7px 15px
+            border-radius: 4px
+            cursor: pointer
+            margin-top: -7px
+            transition: background-color .2s
+
+            &:hover
+                background-color: #57c0c9
+
+        &:after
+            display: none

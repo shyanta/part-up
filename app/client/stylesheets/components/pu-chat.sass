@@ -16,6 +16,7 @@
         background: #fff
         border-right: 2px solid #eee
         border-left: 2px solid #eee
+        position: relative
 
         > div
             height: 100%
@@ -24,10 +25,18 @@
             padding: 22px 80px
             opacity: 0
             transition: opacity .2s
+            position: relative
 
         &.pu-state-active > div
             pointer-events: auto
             opacity: 1
+
+        > .pu-textline-hover
+            &:first-child
+                top: 0
+
+            &:last-child
+                bottom: 0
 
     footer
         padding: 20px

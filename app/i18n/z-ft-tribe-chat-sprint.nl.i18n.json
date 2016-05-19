@@ -3,6 +3,8 @@
 	"pages-app-network-chat-title"		: "Chat",
 	"pages-app-network-chat-placeholder" : "Type bericht...",
 	"pages-app-network-chat-button-send" : "Verstuur",
-	"pages-app-network-chat-sidebar-text" : "Deze chat is <strong>openbaar</strong> en <strong>toegankelijk</strong> voor iedereen"
+	"pages-app-network-chat-sidebar-text" : "Deze chat is <strong>openbaar</strong> en <strong>toegankelijk</strong> voor iedereen",
+
+    "pages-app-network-chat-activeuppers-label": "Alleen jij"
 }
 
