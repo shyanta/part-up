@@ -15,8 +15,8 @@ var Chat = function(document) {
  * @param {Date} typingDate the front-end date of when the user started typing
  */
 Chat.prototype.startedTyping = function(userId, typingDate) {
-    var typingObject = Chats.find({_id: this._id, 'started_typing.upper_id': userId}).fetch();
-    if (typingObject.length > 0) {
+    var typingObject = Chats.findOne({_id: this._id, 'started_typing.upper_id': userId});
+    if (typingObject) {
         Chats.update({_id: this._id, 'started_typing.upper_id': userId}, {$set: {'started_typing.$.date': typingDate}});
     } else {
         Chats.update(this._id, {$push: {started_typing: {upper_id: userId, date: typingDate}}});

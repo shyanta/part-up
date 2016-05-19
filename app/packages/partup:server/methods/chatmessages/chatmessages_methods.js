@@ -40,8 +40,8 @@ Meteor.methods({
         check(chatMessageId, String);
 
         var user = Meteor.user();
-        var chatMessage = ChatMessages.findOneOrFail(chatMessageId);
-        if (!user || chatMessage.creator_id !== user._id) throw new Meteor.Error(401, 'unauthorized');
+        var chatMessage = ChatMessages.findOne(chatMessageId);
+        if (!user || !chatMessage || chatMessage.creator_id !== user._id) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             ChatMessages.remove(chatMessage._id);
@@ -56,6 +56,8 @@ Meteor.methods({
      * @param {String} chatMessageId
      */
     'chatmessages.seen': function(chatMessageId) {
+        check(chatMessageId, String);
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
@@ -74,6 +76,8 @@ Meteor.methods({
      * @param {String} chatMessageId
      */
     'chatmessages.read': function(chatMessageId) {
+        check(chatMessageId, String);
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
