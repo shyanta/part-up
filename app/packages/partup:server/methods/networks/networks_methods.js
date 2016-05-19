@@ -19,7 +19,7 @@ Meteor.methods({
             network.privacy_type = fields.privacy_type;
             network.slug = Partup.server.services.slugify.slugify(fields.name);
             network.uppers = [user._id];
-            network.admin_id = user._id;
+            network.admins = [user._id];
             network.created_at = new Date();
             network.updated_at = new Date();
             network.stats = {
@@ -34,6 +34,7 @@ Meteor.methods({
             ];
             network.most_active_partups = [];
             network.common_tags = [];
+            network.contentblocks = [];
 
             network._id = Networks.insert(network);
 
@@ -447,6 +448,11 @@ Meteor.methods({
         }
 
         try {
+            // Remove user from admin list (if admin)
+            if (network.isNetworkAdmin(upperId)) {
+                network.removeAdmin(upperId);
+            }
+
             network.leave(upperId);
             Event.emit('networks.uppers.removed', user._id, network._id);
 
@@ -663,10 +669,6 @@ Meteor.methods({
 
         var network = Networks.findOneOrFail({slug: networkSlug});
 
-        if (fields.admin_id) {
-            var adminUser = Meteor.users.findOneOrFail(fields.admin_id);
-        }
-
         try {
             Networks.update(network._id, {$set: fields});
         } catch (error) {
@@ -693,6 +695,169 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_access_token_could_not_be_converted_to_invite');
+        }
+    },
+
+    /**
+     * Give a user admin rights
+     *
+     * @param {String} networkSlug
+     * @param {String} userId
+     * */
+    'networks.make_admin': function(networkSlug, userId) {
+        check(networkSlug, String);
+        check(userId, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            if (network.hasMember(userId)) {
+                if (network.admins.length > 10) throw new Meteor.Error(400, 'network_admin_limit_reached');
+                network.addAdmin(userId);
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_user_could_not_be_made_admin');
+        }
+    },
+
+    /**
+     * Remove admin rights from user
+     *
+     * @param {String} networkSlug
+     * @param {String} userId
+     * */
+    'networks.remove_admin': function(networkSlug, userId) {
+        check(networkSlug, String);
+        check(userId, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            if (network.hasMember(userId) && network.admins.length > 1) {
+                network.removeAdmin(userId);
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_user_could_not_be_removed_as_admin');
+        }
+    },
+
+    /**
+     * Insert a ContentBlock
+     *
+     * @param {String} networkSlug
+     * @param {mixed[]} fields
+     */
+    'networks.contentblock_insert': function(networkSlug, fields) {
+        check(networkSlug, String);
+        check(fields, Partup.schemas.forms.contentBlock);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+
+        // Only 1 'intro' type allowed
+        if (fields.type === 'intro') {
+            var introBlock = ContentBlocks.findOne({_id: {$in: network.contentblocks || []}, type: 'intro'});
+            if (introBlock) throw new Meteor.Error(400, 'network_contentblocks_intro_already_exists');
+        }
+
+        try {
+            var contentBlockFields = Partup.transformers.contentBlock.fromFormContentBlock(fields);
+            var contentBlock = Meteor.call('contentblocks.insert', contentBlockFields);
+            Networks.update(network._id, {$addToSet: {contentblocks: contentBlock._id}});
+
+            return contentBlock._id;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_inserted');
+        }
+    },
+
+    /**
+     * Update a ContentBlock
+     *
+     * @param {String} networkSlug
+     * @param {String} contentBlockId
+     * @param {mixed[]} fields
+     */
+    'networks.contentblock_update': function(networkSlug, contentBlockId, fields) {
+        check(networkSlug, String);
+        check(fields, Partup.schemas.forms.contentBlock);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        if (!user || !network.isNetworkAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Meteor.call('contentblocks.update', contentBlockId, fields);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
+        }
+    },
+
+    /**
+     * Remove a ContentBlock
+     *
+     * @param {String} networkSlug
+     * @param {String} contentBlockId
+     */
+    'networks.contentblock_remove': function(networkSlug, contentBlockId) {
+        check(networkSlug, String);
+        check(contentBlockId, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        if (!user || !network.isNetworkAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Networks.update(network._id, {$pull: {contentblocks: contentBlockId}});
+            ContentBlocks.remove(contentBlockId);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_removed');
+        }
+    },
+
+    /**
+     * Update a ContentBlock sequence
+     *
+     * @param {String} networkSlug
+     * @param {[String]} contentBlockSequence
+     */
+    'networks.contentblock_sequence': function(networkSlug, contentBlockSequence) {
+        check(networkSlug, String);
+        check(contentBlockSequence, [String]);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        if (!user || !network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+        // Check if length of new array is the same as the current length
+        if (network.contentblocks.length !== contentBlockSequence.length) throw new Meteor.Error(400, 'network_contentblocks_not_matching');
+
+        // Check if given IDs are legit
+        contentBlockSequence.forEach(function(contentBlockId) {
+            if (!network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+        });
+
+        try {
+            Networks.update(network._id, {$set: {contentblocks: contentBlockSequence}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
         }
     }
 });

@@ -7,7 +7,7 @@
         font-size: 12px
         font-weight: 700
 
-    > a
+    > a, > button
         display: block
         text-decoration: none
         color: $color-text-secondary
@@ -42,7 +42,7 @@
         padding-top: 10px
 
     &-empty
-        a
+        a, button
             font-size: 14px
             font-weight: 700
             color: $color-text-subtle
@@ -55,8 +55,15 @@
                 color: $color-text-subtle
 
     &-small
-        a
+        a, button
+            outline: 0
             margin: 0
             padding: 0 12px
             border-radius: 0
+            border: 0
+            width: 100%
+            background-color: #fff
+            font-size: 16px
+            text-align: left
+            font-family: $font-primary
 

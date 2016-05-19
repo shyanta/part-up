@@ -95,12 +95,33 @@ Images.findForUpdate = function(update) {
     return Images.find({_id: {'$in': images}});
 };
 
+/**
+ * Find images for the comments in an update
+ *
+ * @memberOf Images
+ * @param {Update} update
+ * @return {Mongo.Cursor}
+ */
+Images.findForUpdateComments = function(update) {
+    update = update || {};
+
+    var imageIds = (update.comments || []).map(function(comment) {
+        return comment.creator.image;
+    });
+
+    return Images.find({_id: {'$in': imageIds}});
+};
+
 Images.findForTile = function(tile) {
     return Images.find({_id: tile.image_id}, {limit: 1});
 };
 
 Images.findForSwarm = function(swarm) {
     return Images.find({_id: swarm.image}, {limit: 1});
+};
+
+Images.findForContentBlock = function(contentBlock) {
+    return Images.find({_id: contentBlock.image});
 };
 
 Images.allow({

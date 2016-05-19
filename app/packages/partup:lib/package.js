@@ -52,6 +52,7 @@ Package.onUse(function(api) {
         'collections/languages.js',
         'collections/tiles.js',
         'collections/swarms.js',
+        'collections/contentblock.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -69,6 +70,7 @@ Package.onUse(function(api) {
         'schemas/language.js',
         'schemas/tile.js',
         'schemas/swarm.js',
+        'schemas/contentblock.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -76,6 +78,7 @@ Package.onUse(function(api) {
         'transformers/contributions.js',
         'transformers/network.js',
         'transformers/swarm.js',
+        'transformers/contentblock.js',
         'helpers/parselocale.js',
         'helpers/mentions.js',
         'helpers/normalize.js',
@@ -125,6 +128,7 @@ Package.onUse(function(api) {
     api.export('Languages');
     api.export('Tiles');
     api.export('Swarms');
+    api.export('ContentBlocks');
 
     // Globals
     api.export('get');

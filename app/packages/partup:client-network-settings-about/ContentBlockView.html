@@ -1,0 +1,26 @@
+<template name="ContentBlockView">
+    <section class="pu-block pu-block-result">
+        <h3>
+            {{#if data.block.title}}
+                {{ data.block.title }}
+            {{else}}
+                {{_ 'network-settings-about-contentblock-placeholder-title' }}
+            {{/if}}
+        </h3>
+        {{#if data.block.text}}
+            {{{ data.block.text }}}
+        {{else}}
+            <p>{{_ 'network-settings-about-contentblock-placeholder-intro' }}</p>
+        {{/if}}
+        {{#with data.imageUrl data.block.image}}
+            <img src="{{ . }} " alt="">
+        {{/with}}
+        <ul class="pu-list pu-list-buttons">
+            {{#if partupEquals data.block.type 'paragraph' }}
+                <li><button type="button" class="pu-button pu-button-action" data-up><i class="picon-arrow-up"></i></button></li>
+                <li><button type="button" class="pu-button pu-button-action" data-down><i class="picon-arrow-down"></i></button></li>
+            {{/if}}
+            <li><button type="button" class="pu-button pu-button-action" data-edit><i class="picon-pencil"></i></button></li>
+        </ul>
+    </section>
+</template>

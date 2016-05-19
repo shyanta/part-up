@@ -7,6 +7,7 @@ var getAmountOfColumns = function(screenwidth) {
 Template.app_network_partups.onCreated(function() {
     var template = this;
     template.getArchivedPartups = false;
+
     // Partup result count
     template.partupCount = new ReactiveVar();
 
@@ -58,6 +59,7 @@ Template.app_network_partups.onCreated(function() {
         query.userId =  Meteor.userId();
         query.token =  Accounts._storedLoginToken();
         query.archived = template.getArchivedPartups;
+        query.textSearch = template.searchQuery.get();
 
         // Get count
         template.states.partupCountLoading.set(true);
@@ -83,6 +85,7 @@ Template.app_network_partups.onCreated(function() {
         query.skip = page * PAGING_INCREMENT;
         query.userId = Meteor.userId();
         query.archived = template.getArchivedPartups;
+        query.textSearch = template.searchQuery.get();
 
         // Update state(s)
         template.states.loadingInfiniteScroll = true;
@@ -121,6 +124,7 @@ Template.app_network_partups.onCreated(function() {
     });
 
     var switchFilter = function(filter) {
+        var filter = filter || template.filter.get();
         template.columnTilesLayout.clear(function() {
             template.initialize(filter);
         });
@@ -130,12 +134,32 @@ Template.app_network_partups.onCreated(function() {
         if (a !== b) switchFilter(b);
     });
 
+    var routeQuery = Router.current().params.query.tag || '';
+
+    template.searchQuery = new ReactiveVar(routeQuery, function(a, b) {
+        if (a !== b) switchFilter();
+    });
+
+    var setSearchQuery = function(query) {
+        template.searchQuery.set(query);
+    };
+    template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
+
     template.initialize('active');
 });
 
 Template.app_network_partups.onRendered(function() {
     var template = this;
-
+    if (template.searchQuery.get()) {
+        $('[data-search]').val(template.searchQuery.get());
+        Meteor.defer(function() {
+            $('[data-flexible-center]').parent().addClass('start');
+            _.defer(function() {
+                $('[data-flexible-center]').parent().addClass('active');
+                $('[data-search]').focus();
+            });
+        });
+    }
     // When the screen size alters
     template.autorun(function() {
         var screenWidth = Partup.client.screen.size.get('width');
@@ -159,7 +183,62 @@ Template.app_network_partups.onRendered(function() {
     });
 });
 
+Template.app_network_partups.events({
+    'submit [data-nosubmit]': function(event, template) {
+        event.preventDefault();
+    },
+    'click [data-flexible-center]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).parent().addClass('start');
+        $('[data-search]').focus();
+        _.defer(function() {
+            $(event.currentTarget).parent().addClass('active');
+        });
+    },
+    'click [data-clear]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('[data-search]').val('');
+        _.defer(function() {
+            template.throttledSetSearchQuery('');
+            $('[data-search]').blur();
+        });
+    },
+    'input [data-search]': function(event, template) {
+        template.throttledSetSearchQuery(event.currentTarget.value);
+    },
+    'focus [data-search]': function(event, template) {
+        $(event.currentTarget).parent().addClass('start');
+        _.defer(function() {
+            template.focussed = true;
+            $(event.currentTarget).parent().addClass('active');
+        });
+    },
+    'blur [data-search]': function(event, template) {
+        if (!$(event.target).val()) {
+            template.focussed = false;
+            $('[data-flexible-center]').parent().removeClass('active');
+        }
+    },
+    'transitionend [data-flexible-center]': function(event, template) {
+        $(event.currentTarget).parent().removeClass('start');
+    }
+});
+
 Template.app_network_partups.helpers({
+    configs: function() {
+        var template = Template.instance();
+        return {
+            networkStartPartupTileSettings: function() {
+                return {
+                    template: 'NetworkStartPartupTile',
+                    data: {
+                        networkSlug: template.data.networkSlug
+                    }
+                };
+            },
+        };
+    },
     data: function() {
         var template = Template.instance();
         var self = this;
@@ -199,7 +278,9 @@ Template.app_network_partups.helpers({
             partupsLoading: function(selection) {
                 return TAPi18n.__('pages-app-network-partups-' + selection + '-loading');
             },
-            partupsCount: function(selection, count) {
+            partupsCount: function() {
+                var count = template.partupCount.get();
+                var selection = template.filter.get();
                 return TAPi18n.__('pages-app-network-partups-' + selection + '-count', {
                     count: count
                 });
@@ -211,24 +292,4 @@ Template.app_network_partups.helpers({
     }
 });
 
-Template.app_network_partups.events({
-    'click [data-create-partup-in-tribe]': function(event, template) {
-        event.preventDefault();
 
-        var networkSlug = template.data.networkSlug;
-        var network = Networks.findOne({slug: networkSlug});
-
-        Session.set('createPartupForNetworkById', network._id);
-
-        Intent.go({route: 'create-details'}, function(slug) {
-            if (slug) {
-                Router.go('partup', {
-                    slug: slug
-                });
-            } else {
-                this.back();
-            }
-            Session.set('createPartupForNetworkById', false);
-        });
-    }
-});

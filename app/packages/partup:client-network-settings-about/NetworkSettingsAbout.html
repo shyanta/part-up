@@ -1,0 +1,34 @@
+<template name="NetworkSettingsAbout">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-networksettings-about">
+
+        <h2 class="pu-title pu-title-modal">{{_ 'network-settings-about-title' }}</h2>
+        <p>{{{_ 'network-settings-about-paragraph' }}}</p>
+
+        {{#with data.introBlock}}
+            {{#if partupContainsOneInArray _id state.editingBlocks }}
+                {{> ContentBlockForm formSettings=config.introFormSettings block=.}}
+            {{ else }}
+                {{> ContentBlockView settings=config.introBlockSettings block=. }}
+            {{/if}}
+        {{/with}}
+
+        <p class="pu-textline pu-textline-divider">
+            <span>{{_ 'network-settings-about-textline' }}</span>
+        </p>
+
+        {{#each data.contentBlocks}}
+            {{#if partupContainsOneInArray _id state.editingBlocks }}
+                {{> ContentBlockForm formSettings=config.paragraphFormSettings block=. }}
+            {{ else }}
+                {{> ContentBlockView settings=config.paragraphBlockSettings block=. }}
+            {{/if}}
+        {{/each}}
+
+
+        {{#unless state.maxReached}}
+            <div class="pu-block pu-block-action">
+                <button class="pu-button" data-create>Create content block</button>
+            </div>
+        {{/unless}}
+    </div>
+</template>

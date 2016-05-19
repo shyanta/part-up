@@ -2,6 +2,8 @@ FROM node:0.10-slim
 
 EXPOSE 3000
 
+VOLUME /tmp /var/tmp
+
 RUN apt-get update && \
     apt-get install -y imagemagick --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* && \

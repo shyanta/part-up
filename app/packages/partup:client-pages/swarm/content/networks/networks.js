@@ -28,6 +28,12 @@ Template.swarm_content_networks.onRendered(function() {
 
 });
 
+Template.swarm_content_networks.helpers({
+    tagQuery: function() {
+        return 'tag=' + this.tag;
+    }
+});
+
 Template.swarm_content_networks.events({
     'click [data-right]': function(event, template) {
         var leftPos = $('[data-horizontal-scroll]').scrollLeft();

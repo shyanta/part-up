@@ -25,49 +25,41 @@
                             <li>
                                 <a href="{{ pathFor route='network-detail' slug=data.network.slug }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}}">
-                                    <i class="picon-globe"></i>
                                     {{_ 'pages-app-network-tab-button-partups'}}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ pathFor route='network-uppers' slug=data.network.slug }}"
                                     class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-uppers' class='pu-state-active'}}">
-                                    <i class="picon-chart"></i>
                                     {{_ 'pages-app-network-tab-button-uppers'}}
                                 </a>
                             </li>
-                        </ul>
-
-                        <!-- actions -->
-                        <ul class="pu-list pu-list-horizontal pu-sub-right">
+                            <li>
+                                <a href="{{ pathFor route='network-about' slug=data.network.slug }}"
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-about' class='pu-state-active'}}">
+                                    {{_ 'pages-app-network-tab-button-about'}}
+                                </a>
+                            </li>
                             {{# with data.network }}
-
-                                <!-- settings button -->
                                 {{# if isAdmin currentUser._id }}
                                     <li>
                                         <a href="{{pathFor 'network-settings' slug=slug}}" data-open-networksettings
-                                            class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                            <i class="picon-cog"></i>
+                                            class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-secondary-subtle">
+                                            {{_ 'pages-app-network-tab-button-settings'}}
                                         </a>
                                     </li>
                                 {{/ if}}
-
+                            {{/with}}
+                        </ul>
+                        {{# with data.network }}
+                            <!-- actions -->
+                            <ul class="pu-list pu-list-horizontal pu-sub-right">
                                 <!-- join or leave button -->
                                 <li class="pu-sub-button">
                                     {{> app_network_joinbutton network=. }}
                                 </li>
-                                <!-- invite button -->
-                                {{# if canUpperInvite currentUser._id }}
-                                    <li class="pu-sub-button">
-                                        <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=slug }}">
-                                            <i class="picon-person-plus picon-large"></i>
-                                            {{_ 'pages-app-network-actions-button-invite'}}
-                                        </a>
-                                    </li>
-                                {{/ if }}
-                            {{/ with }}
-
-                        </ul>
+                            </ul>
+                        {{/with}}
                     </nav>
                 </div>
             </section>

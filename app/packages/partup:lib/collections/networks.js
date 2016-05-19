@@ -32,7 +32,7 @@ var Network = function(document) {
  */
 Network.prototype.isNetworkAdmin = function(userId) {
     if (!userId) return false;
-    return mout.lang.isString(userId) && (userId === this.admin_id);
+    return mout.lang.isString(userId) && (this.admins.indexOf(userId) > -1);
 };
 
 /**
@@ -311,7 +311,7 @@ Network.prototype.leave = function(upperId) {
     Meteor.users.update(upperId, {$pull: {networks: this._id}});
 };
 
-Network.prototype.displayTags = function() {
+Network.prototype.displayTags = function(slug) {
     var maxTags = 5;
     var tags = [];
     var commonTags = this.common_tags || [];
@@ -320,7 +320,10 @@ Network.prototype.displayTags = function() {
     _.times(maxTags, function() {
         var tag = commonTags.shift();
         if (!tag) return;
-        tags.push(tag.tag);
+        tags.push({
+            tag: tag.tag,
+            networkSlug: slug || ''
+        });
     });
 
     if (tags.length === maxTags) return tags;
@@ -328,10 +331,44 @@ Network.prototype.displayTags = function() {
     _.times((maxTags - tags.length), function() {
         var tag = customTags.shift();
         if (!tag) return;
-        tags.push(tag);
+        tags.push({
+            tag: tag,
+            networkSlug: slug || ''
+        });
     });
 
     return tags;
+};
+
+/**
+ * Make a user an admin
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being added as an admin
+ */
+Network.prototype.addAdmin = function(upperId) {
+    Networks.update(this._id, {$push: {admins: upperId}});
+};
+
+/**
+ * Remove user from admins
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being removed from admins
+ */
+Network.prototype.removeAdmin = function(upperId) {
+    Networks.update(this._id, {$pull: {admins: upperId}});
+};
+
+/**
+ * Checks if a ContentBlock belongs to this network
+ *
+ * @memberOf Networks
+ * @param {String} contentBlockId
+ */
+Network.prototype.hasContentBlock = function(contentBlockId) {
+    var contentBlocks = this.contentblocks || [];
+    return mout.lang.isString(contentBlockId) && contentBlocks.indexOf(contentBlockId) > -1;
 };
 
 /**
@@ -347,7 +384,7 @@ Networks = new Mongo.Collection('networks', {
 // Add indices
 if (Meteor.isServer) {
     Networks._ensureIndex('slug');
-    Networks._ensureIndex('admin_id');
+    Networks._ensureIndex('admins');
     Networks._ensureIndex('privacy_type');
 }
 
@@ -378,8 +415,8 @@ Networks.NETWORK_CLOSED = NETWORK_CLOSED;
  * @return {Cursor}
  */
 Networks.guardedMetaFind = function(selector, options) {
-    var selector = selector || {};
-    var options = options || {};
+    selector = selector || {};
+    options = options || {};
 
     // Make sure that if the callee doesn't pass the fields
     // key used in the options parameter, we set it with
@@ -388,7 +425,7 @@ Networks.guardedMetaFind = function(selector, options) {
     options.fields = {_id: 1};
 
     // The fields that should be available on each network
-    var unguardedFields = ['_id', 'name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language', 'tags', 'location', 'stats', 'swarms', 'background_image', 'common_tags', 'most_active_partups', 'most_active_uppers', 'admin_id'];
+    var unguardedFields = ['_id', 'name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language', 'tags', 'location', 'stats', 'swarms', 'background_image', 'common_tags', 'most_active_partups', 'most_active_uppers', 'admins'];
 
     unguardedFields.forEach(function(unguardedField) {
         options.fields[unguardedField] = 1;
@@ -409,8 +446,8 @@ Networks.guardedMetaFind = function(selector, options) {
 Networks.guardedFind = function(userId, selector, options) {
     if (Meteor.isClient) return this.find(selector, options);
 
-    var selector = selector || {};
-    var options = options || {};
+    selector = selector || {};
+    options = options || {};
 
     // The fields that should never be exposed
     var guardedFields = ['access_tokens'];
@@ -431,7 +468,7 @@ Networks.guardedFind = function(userId, selector, options) {
         guardedCriterias.push({'uppers': {'$in': [userId]}});
 
         // Of course the admin of a network always has the needed rights
-        guardedCriterias.push({'admin_id': userId});
+        guardedCriterias.push({'admins': {'$in': [userId]}});
     }
 
     // Guarding selector that needs to be fulfilled
