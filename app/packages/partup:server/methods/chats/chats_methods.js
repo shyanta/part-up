@@ -66,5 +66,27 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'chats_started_typing_could_not_be_updated');
         }
+    },
+
+    /**
+     * Start a chat with the provided users
+     */
+    'chats.start_for_users': function(userIds) {
+        check(userIds, [String]);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        userIds.unshift(user._id);
+
+        try {
+            var chatId = Meteor.call('chats.insert');
+            Chats.update(chatId, {$set: {creator_id: user._id}});
+            Meteor.users.update({_id: {$in: userIds}}, {$addToSet: {chats: chatId}});
+
+            return chatId;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
+        }
     }
 });
