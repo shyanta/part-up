@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 1.17.8
+- Move invite button to placeholder tile on uppers tab #328
+- Move add part-up in this tribe to placeholder tile #327
+- Add search feature on tribe uppers #301
+- Add search feature on tribe part-ups #300
+- Add about tab to tribe page #299
+- Add About page to tribe settings #298
+- Add upper email address to tribe admin page Uppers tab #284
+- Different on-click result for tags #262
+- Tribe admin transfer #205
+- Tribe about page settings #204
+- Add Heap Analytics to Part-up #310
+
 ## 1.17.7
 - fix(imagemagick): added policy.xml to fix imagetragick vulnerability #408
 - Create a (minimalistic) cookie wall #312
