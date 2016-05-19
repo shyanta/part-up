@@ -3,6 +3,7 @@ Template.NetworkChat.onCreated(function() {
     var networkSlug = template.data.networkSlug;
     var chatId = undefined;
 
+    template.MAX_TYPING_PAUSE = 5000; // 5s
     template.oldestNewMessage = new ReactiveVar(undefined);
     template.overscroll = new ReactiveVar(false);
     template.underscroll = new ReactiveVar(false);
@@ -47,14 +48,15 @@ Template.NetworkChat.onCreated(function() {
     };
 
     var resetTypingStateTimeout;
-    template.enableTypingState = function() {
+    var enableTypingState = function() {
         if (!isTyping) {
             Meteor.call('chats.started_typing', chatId, new Date());
             isTyping = true;
         }
         if (resetTypingStateTimeout) clearTimeout(resetTypingStateTimeout);
-        resetTypingStateTimeout = setTimeout(template.resetTypingState, 2000);
+        resetTypingStateTimeout = setTimeout(template.resetTypingState, template.MAX_TYPING_PAUSE);
     };
+    template.throttledEnableTypingState = _.throttle(enableTypingState, (template.MAX_TYPING_PAUSE / 2), {leading: true, trailing: false});
 
     template.sendMessage = function(message) {
         if (!message) return false;
@@ -253,14 +255,13 @@ Template.NetworkChat.helpers({
                 if (!typing_user) return false;
                 var started_typing_date = new Date(typing_user.date).getTime();
                 var now = new Date().getTime();
-                return now - started_typing_date < 2000;
+                return now - started_typing_date < template.MAX_TYPING_PAUSE;
             }
         };
     }
 });
 Template.NetworkChat.events({
     'keydown [data-submit=return]': function(event, template) {
-        template.enableTypingState();
         // determine keycode (with cross browser compatibility)
         var pressedKey = event.which ? event.which : event.keyCode;
 
@@ -268,6 +269,8 @@ Template.NetworkChat.events({
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();
             template.sendMessage($('[data-messageinput]').val());
+        } else {
+            template.throttledEnableTypingState();
         }
     },
     'click [data-send]': function(event, template) {
