@@ -4,7 +4,6 @@ set -eu
 
 # Doing this in two steps so that the script fails if GIT_BRANCH is not set.
 git_branch=${GIT_BRANCH}
-vault_password=${VAULT_PASS}
 
 image_tag=${git_branch#*/}
 image_name="partup/partup:${image_tag}"
@@ -27,4 +26,3 @@ if [ $tag ]; then
 fi
 
 docker push ${image_name}
-
