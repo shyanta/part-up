@@ -97,7 +97,7 @@
                                     <a href="{{ pathFor route='profile' _id=_id}}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{_id}}">
                                         <figure class="pu-avatar pu-avatar-online" style="background-image:url('{{ partupImageUrl id=profile.image store='360x360'}}');"></figure>
                                         <p>{{ profile.name }}</p>
-                                        {{#if partupContainsOneInArray _id data.chat.started_typing}}
+                                        {{#if state.started_typing _id}}
                                             {{>NetworkChat_typing_indicator}}
                                         {{/if}}
                                     </a>

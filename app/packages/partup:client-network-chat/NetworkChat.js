@@ -37,7 +37,6 @@ Template.NetworkChat.onCreated(function() {
     // typing
     var isTyping = false;
     template.resetTypingState = function() {
-        template.resetMessageInput();
         Meteor.call('chats.stopped_typing', chatId, function() {
             isTyping = false;
         });
@@ -69,7 +68,7 @@ Template.NetworkChat.onCreated(function() {
             content: message
         }, function(err, res) {
             if (err) return Partup.client.notify.error('Error sending message');
-
+            template.resetMessageInput();
             template.resetTypingState();
 
             if (currentPosition === bottomPosition) {
@@ -240,12 +239,21 @@ Template.NetworkChat.helpers({
     },
     state: function() {
         var template = Template.instance();
+        var chat = Chats.findOne();
         return {
             overscroll: function() {
                 return template.overscroll.get();
             },
             underscroll: function() {
                 return template.underscroll.get();
+            },
+            started_typing: function(user_id) {
+                if (!chat.started_typing) return false;
+                var typing_user = lodash.find(chat.started_typing, {upper_id: user_id});
+                if (!typing_user) return false;
+                var started_typing_date = new Date(typing_user.date).getTime();
+                var now = new Date().getTime();
+                return now - started_typing_date < 2000;
             }
         };
     }
