@@ -32,6 +32,25 @@ Meteor.methods({
     },
 
     /**
+     * Remove a chat message from the chat
+     *
+     * @param {String} chatMessageId
+     */
+    'chatmessages.remove': function(chatMessageId) {
+        check(chatMessageId, String);
+
+        var user = Meteor.user();
+        var chatMessage = ChatMessages.findOneOrFail(chatMessageId);
+        if (!user || chatMessage.creator_id !== user._id) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            ChatMessages.remove(chatMessage._id);
+        } catch (error) {
+            throw new Meteor.Error(400, 'chatmessage_could_not_be_deleted');
+        }
+    },
+
+    /**
      * Add upper to seen list
      *
      * @param {String} chatMessageId
