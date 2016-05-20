@@ -10,7 +10,7 @@
                             </h2>
                         </span>
                     </div>
-                    <div class="pu-sub-center" data-flexible-center>
+                    <!-- <div class="pu-sub-center" data-flexible-center>
                         <span>
                             <div class="pu-searchinput">
                                 <input type="text" placeholder="Search a message in this chat" class="pu-input form-control" data-search>
@@ -18,7 +18,7 @@
                                 <i class="picon-times" data-clear></i>
                             </div>
                         </span>
-                    </div>
+                    </div> -->
                 </form>
             </header>
             <article class="pu-chat-wrapper {{#if state.fullyLoaded}}pu-state-active{{/if}}" data-reversed-scroller-wrapper>
@@ -26,7 +26,7 @@
                 {{#if data.messages.new.length}}{{#if state.overscroll}}
                     <p class="pu-textline pu-textline-colour pu-textline-hover">
                         <span data-scrollto>
-                            New messages
+                            {{_ 'pages-app-network-chat-label-newmessages'}}
                             <i class="picon-arrow-up"></i>
                         </span>
                     </p>
@@ -53,7 +53,7 @@
                     {{#if data.messages.new.length}}
                         <p class="pu-textline pu-textline-colour" data-new-messages-divider>
                             <span>
-                                New messages
+                                {{_ 'pages-app-network-chat-label-newmessages'}}
                                 <i class="picon-arrow-down"></i>
                             </span>
                         </p>
@@ -72,7 +72,7 @@
                 {{#if data.messages.new.length}}{{#if state.underscroll}}
                     <p class="pu-textline pu-textline-colour pu-textline-hover">
                         <span data-scrollto>
-                            New messages
+                            {{_ 'pages-app-network-chat-label-newmessages'}}
                             <i class="picon-arrow-down"></i>
                         </span>
                     </p>
@@ -103,7 +103,7 @@
                         {{#if data.network.isClosed}}<p>{{{_ 'pages-app-network-chat-sidebar-text-clodes' }}}</p>{{/if}}
                     </section>
                     <section>
-                        <h2>Active uppers</h2>
+                        <h2>{{_ 'pages-app-network-chat-title-activeuppers'}}</h2>
                         {{#if data.activeUppers.count}}
                             <ul class="pu-list pu-list-users">
                                 {{#each data.activeUppers}}
@@ -117,7 +117,7 @@
                                     </a>
                                 </li>
                                 {{/each}}
-                                <li>And you</li>
+                                <li>{{_ 'pages-app-network-chat-users-you'}}</li>
                             </ul>
                         {{else}}
                             <p>{{_ 'pages-app-network-chat-activeuppers-label' }}</p>
