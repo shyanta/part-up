@@ -71,22 +71,32 @@ Meteor.methods({
     /**
      * Start a chat with the provided users
      */
-    'chats.start_for_users': function(userIds) {
+    'chats.start_with_users': function(userIds) {
         check(userIds, [String]);
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
-        userIds.unshift(user._id);
+        var chatId = undefined;
 
         try {
-            var chatId = Meteor.call('chats.insert');
+            // If the chat is with 1 user then check if there is already a chat going on
+            if (userIds.length < 2) {
+                var userChats = user.chats || [];
+                var recipient = Meteor.users.findOne({chats: {$in: userChats}, _id: {$in: userIds, $ne: user._id}});
+                if (recipient) {
+                    return lodash.intersection(userChats, recipient.chats)[0];
+                }
+            }
+
+            chatId = Meteor.call('chats.insert', {});
             Chats.update(chatId, {$set: {creator_id: user._id}});
-            Meteor.users.update({_id: {$in: userIds}}, {$addToSet: {chats: chatId}});
+            userIds.unshift(user._id);
+            Meteor.users.update({_id: {$in: userIds}}, {$push: {chats: chatId}}, {multi: true});
 
             return chatId;
         } catch (error) {
             Log.error(error);
-            throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
+            throw new Meteor.Error(400, 'chat_could_not_be_started');
         }
     }
 });
