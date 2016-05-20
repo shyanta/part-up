@@ -22,6 +22,7 @@
                 </form>
             </header>
             <article class="pu-chat-wrapper" data-reversed-scroller-wrapper>
+                <!-- Top new messages button -->
                 {{#if data.messages.new.length}}{{#if state.overscroll}}
                     <p class="pu-textline pu-textline-colour pu-textline-hover">
                         <span data-scrollto>
@@ -30,7 +31,16 @@
                         </span>
                     </p>
                 {{/if}}{{/if}}
+                <header class="pu-sticky-user pu-sticky-user-visible" data-sticky-avatar>
+                    <a href="{{pathFor route='profile' _id=data.stickyAvatar._id}}">
+                        <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{data.stickyAvatar._id}}" data-avatar></figure>
+                    </a>
+                </header>
+                <!-- messages container -->
                 <div data-preventscroll data-reversed-scroller>
+                    <!-- <button class="pu-button" data-load-old>Load older messages</button> -->
+                    {{#if state.limitReached}}<p class="pu-textline pu-textline-light pu-textline-light-nostripe"><span>{{_ 'pages-app-network-chat-label-top'}}</span></p>{{/if}}
+                    <!-- old messages -->
                     {{#each data.messagesGroupedByDay data.messages.old}}
                         <p class="pu-textline pu-textline-light">
                             <span>{{ partupDayOfWeek day }} {{ partupDateDayMonthYear day }}</span>
@@ -39,6 +49,7 @@
                             {{> ChatMessage data=.}}
                         {{/each}}
                     {{/each}}
+                    <!-- New messages divider -->
                     {{#if data.messages.new.length}}
                         <p class="pu-textline pu-textline-colour" data-new-messages-divider>
                             <span>
@@ -47,6 +58,7 @@
                             </span>
                         </p>
                     {{/if}}
+                    <!-- new messages -->
                     {{#each data.messagesGroupedByDay data.messages.new}}
                         <p class="pu-textline pu-textline-light">
                             <span>{{ partupDayOfWeek day }} {{ partupDateDayMonthYear day }}</span>
@@ -55,8 +67,8 @@
                             {{> ChatMessage data=.}}
                         {{/each}}
                     {{/each}}
-
                 </div>
+                <!-- New messages bottom button -->
                 {{#if data.messages.new.length}}{{#if state.underscroll}}
                     <p class="pu-textline pu-textline-colour pu-textline-hover">
                         <span data-scrollto>

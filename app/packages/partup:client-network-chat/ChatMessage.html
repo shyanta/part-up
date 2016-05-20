@@ -1,11 +1,11 @@
 <template name="ChatMessage">
-    <div class="pu-chatbox {{#if partupEquals data.creator._id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}}">
-        <a href="/profile/YQmjmhfrxRe5TF6p7">
+    <div class="pu-chatbox {{#if partupEquals data.creator._id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}} pu-chatbox-avatar-top" data-message-user-id="{{data.creator._id}}" data-message-user-image-id="{{ data.creator.profile.image }}">
+        <a href="{{pathFor route='profile' _id=data.creator._id}}">
             <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{data.creator._id}}" style="background-image:url('{{ partupImageUrl id=data.creator.profile.image store='360x360'}}');"></figure>
         </a>
         <ul class="pu-list">
             {{#each data.messages}}
-            <li data-message-id="{{ _id }}">
+            <li data-chat-message-id="{{ _id }}">
                 <div class="pu-chatmessage {{#if chatTimeoutHasPassed _id 100 }}pu-chatmessage-loaded{{/if}}">
                     {{#if creator}}<p class="pu-sub-chatname">{{ creator.profile.name }} <span class="pu-sub-chattime">{{ partupDateTime created_at }}</span></p>{{/if}}
                     <p>{{{ partupAutolink content }}}</p>

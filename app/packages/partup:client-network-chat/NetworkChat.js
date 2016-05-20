@@ -4,36 +4,65 @@ Template.NetworkChat.onCreated(function() {
     var chatId = undefined;
 
     template.MAX_TYPING_PAUSE = 5000; // 5s
+    template.LIMIT = 100;
     template.oldestNewMessage = new ReactiveVar(undefined);
     template.overscroll = new ReactiveVar(false);
     template.underscroll = new ReactiveVar(false);
+    template.stickyAvatar = new ReactiveVar(undefined);
 
-    template.subscribe('networks.one.chat', networkSlug, {
-        onReady: function() {
-            var chat = Chats.findOne();
-            if (chat) {
-                chatId = chat._id;
-                return;
-            }
+    var initializeChat = function() {
+        var chat = Chats.findOne();
+        if (chat) {
+            chatId = chat._id;
+            return;
+        }
 
-            Meteor.call('networks.chat_insert', networkSlug, {}, function(err, chat_id) {
-                if (err) return Partup.client.notify.error('Error initializing tribe chat');
-                chatId = chat_id;
-                Partup.client.notify.success('Tribe chat initialized');
+        Meteor.call('networks.chat_insert', networkSlug, {}, function(err, chat_id) {
+            if (err) return Partup.client.notify.error('Error initializing tribe chat');
+            chatId = chat_id;
+            Partup.client.notify.success('Tribe chat initialized');
+        });
+    };
+
+    var chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: template.LIMIT}, {onReady: initializeChat});
+    template.limitReached = new ReactiveVar(false);
+    template.messageLimit = new ReactiveVar(template.LIMIT, function(oldLimit, newLimit) {
+        if (oldLimit !== newLimit) {
+            chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: newLimit}, {
+                onReady: function() {
+                    var messagesCount = ChatMessages.find({}, {limit: newLimit, sort: {created_at: 1}}).count();
+                    var totalNewMessages = messagesCount - oldLimit;
+                    if (totalNewMessages < 1) {
+                        template.limitReached.set(true);
+                    } else {
+                        _.defer(function() {
+                            template.ajustScrollOffsetByMessageCount(totalNewMessages);
+                            template.loadingOlderMessages = false;
+                        });
+                    }
+                }
             });
         }
     });
 
-    // search
-    template.searchQuery = new ReactiveVar('', function(a, b) {
-        if (a !== b) {
-            // do something
-        }
-    });
-    var setSearchQuery = function(query) {
-        template.searchQuery.set(query);
+    template.ajustScrollOffsetByMessageCount = function(count) {
+        var offset = $('[data-chat-message-id]')
+            .slice(0, count)
+            .map(function() {
+                return $(this).outerHeight(true);
+            })
+            .toArray()
+            .reduce(function(prevHeight, curHeight) {
+                return prevHeight + curHeight;
+            });
+        template.scrollContainer[0].scrollTop = offset;
     };
-    template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
+
+    template.loadOlderMessages = function() {
+        template.loadingOlderMessages = true;
+        if (template.limitReached.get()) return;
+        template.messageLimit.set(template.messageLimit.get() + template.LIMIT);
+    };
 
     // typing
     var isTyping = false;
@@ -67,7 +96,7 @@ Template.NetworkChat.onCreated(function() {
 
         Meteor.call('chatmessages.insert', {
             chat_id: chatId,
-            content: message
+            content: Partup.client.strings.emojify(message)
         }, function(err, res) {
             if (err) return Partup.client.notify.error('Error sending message');
             template.resetMessageInput();
@@ -171,15 +200,64 @@ Template.NetworkChat.onCreated(function() {
         }
     };
 
+    template.stickyUserAvatarHandler = function() {
+        var imageId = undefined;
+        var userId = undefined;
+
+        $('[data-message-user-image-id]').each(function() {
+            var elm = $(this);
+            var offsetTop = elm.position().top;
+            var bottomOffsetTop = offsetTop + elm.outerHeight(true);
+
+            if (offsetTop < 25 && bottomOffsetTop > 68) {
+                imageId = elm.attr('data-message-user-image-id');
+                userId = elm.attr('data-message-user-id');
+                var avatar = Images.findOne({_id: imageId});
+                var image = Partup.helpers.url.getImageUrl(avatar, '80x80');
+                $('[data-avatar]').css('background-image', 'url(' + image + ')');
+                elm.addClass('pu-chatbox-noavatar');
+
+            } else {
+                // $('[data-avatar]').css('background-image', 'none');
+                elm.removeClass('pu-chatbox-noavatar');
+            }
+            if (offsetTop < 0) {
+                elm.addClass('pu-chatbox-avatar-bottom').removeClass('pu-chatbox-avatar-top');
+            } else {
+                elm.addClass('pu-chatbox-avatar-top').removeClass('pu-chatbox-avatar-bottom');
+            }
+        });
+        if (userId === Meteor.userId()) {
+            $('[data-sticky-avatar]').addClass('pu-sticky-user-right');
+        } else {
+            $('[data-sticky-avatar]').removeClass('pu-sticky-user-right');
+        }
+        if (!imageId) $('[data-avatar]').css('background-image', 'none');
+        template.stickyAvatar.set(userId);
+    };
+
+    // search
+    template.searchQuery = new ReactiveVar('', function(a, b) {
+        if (a !== b) {
+            // do something
+        }
+    });
+    var setSearchQuery = function(query) {
+        template.searchQuery.set(query);
+    };
+    template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
+
     // message storage
     var localCollection = [];
     template.messages = new ReactiveVar([]);
     template.autorun(function() {
-        var messages = ChatMessages.find({}, {limit: 100, sort: {created_at: 1}}).fetch();
+        var limit = template.messageLimit.get();
+        var messages = ChatMessages.find({}, {limit: limit, sort: {created_at: 1}}).fetch();
         localCollection = localCollection.concat(messages);
         localCollection = mout.array.unique(localCollection, function(message1, message2) {
             return message1._id === message2._id;
         });
+        // localCollection = mout.array.sortBy(localCollection, 'created_at');
         var lastMessage = localCollection[localCollection.length - 1];
         if (lastMessage) template.rememberOldestNewMessage(lastMessage);
         template.messages.set(localCollection);
@@ -236,6 +314,11 @@ Template.NetworkChat.helpers({
             },
             chat: function() {
                 return Chats.findOne();
+            },
+            stickyAvatar: function() {
+                var activeId = template.stickyAvatar.get();
+                if (!activeId) return false;
+                return Meteor.users.findOne(template.stickyAvatar.get());
             }
         };
     },
@@ -249,7 +332,14 @@ Template.NetworkChat.helpers({
             underscroll: function() {
                 return template.underscroll.get();
             },
+            limitReached: function() {
+                return template.limitReached.get();
+            },
+            stickyAvatar: function() {
+                return Meteor.users.findOne(template.stickyAvatar.get());
+            },
             started_typing: function(user_id) {
+                if (!chat) return
                 if (!chat.started_typing) return false;
                 var typing_user = lodash.find(chat.started_typing, {upper_id: user_id});
                 if (!typing_user) return false;
@@ -280,6 +370,16 @@ Template.NetworkChat.events({
     'click [data-scrollto]': function(event, template) {
         event.preventDefault();
         template.scrollToNewMessages();
+    },
+    'click [data-load-old]': function(event, template) {
+        event.preventDefault();
+        template.loadOlderMessages();
+    },
+    'scroll [data-reversed-scroller]': function(event, template) {
+        if (event.currentTarget.scrollTop < 200 && !template.loadingOlderMessages) {
+            template.loadOlderMessages();
+        }
+        template.stickyUserAvatarHandler();
     },
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'DOMMouseScroll [data-reversed-scroller], mousewheel [data-reversed-scroller]': function(event, template) {
