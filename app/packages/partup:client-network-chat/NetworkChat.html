@@ -21,7 +21,7 @@
                     </div>
                 </form>
             </header>
-            <article class="pu-chat-wrapper" data-reversed-scroller-wrapper>
+            <article class="pu-chat-wrapper {{#if state.fullyLoaded}}pu-state-active{{/if}}" data-reversed-scroller-wrapper>
                 <!-- Top new messages button -->
                 {{#if data.messages.new.length}}{{#if state.overscroll}}
                     <p class="pu-textline pu-textline-colour pu-textline-hover">
@@ -98,7 +98,9 @@
             <section>
                 <div class="pu-sidebar-wrap" data-preventscroll>
                     <section>
-                        <p>{{{_ 'pages-app-network-chat-sidebar-text' }}}</p>
+                        {{#if data.network.isPublic}}<p>{{{_ 'pages-app-network-chat-sidebar-text-open' }}}</p>{{/if}}
+                        {{#if data.network.isInvitational}}<p>{{{_ 'pages-app-network-chat-sidebar-text-invite' }}}</p>{{/if}}
+                        {{#if data.network.isClosed}}<p>{{{_ 'pages-app-network-chat-sidebar-text-clodes' }}}</p>{{/if}}
                     </section>
                     <section>
                         <h2>Active uppers</h2>

@@ -9,17 +9,21 @@ Template.NetworkChat.onCreated(function() {
     template.overscroll = new ReactiveVar(false);
     template.underscroll = new ReactiveVar(false);
     template.stickyAvatar = new ReactiveVar(undefined);
+    template.initialized = new ReactiveVar(false);
+    template.rendered = new ReactiveVar(false);
 
     var initializeChat = function() {
         var chat = Chats.findOne();
         if (chat) {
             chatId = chat._id;
+            template.initialized.set(true);
             return;
         }
 
         Meteor.call('networks.chat_insert', networkSlug, {}, function(err, chat_id) {
             if (err) return Partup.client.notify.error('Error initializing tribe chat');
             chatId = chat_id;
+            template.initialized.set(true);
             Partup.client.notify.success('Tribe chat initialized');
         });
     };
@@ -153,6 +157,7 @@ Template.NetworkChat.onCreated(function() {
     template.focusHandler = function(event) {
         template.focussed = true;
         template.stickyNewMessagesDividerHandler(true);
+        $('[data-messageinput]').focus();
     };
     template.blurHandler = function(event) {
         template.focussed = false;
@@ -257,7 +262,6 @@ Template.NetworkChat.onCreated(function() {
         localCollection = mout.array.unique(localCollection, function(message1, message2) {
             return message1._id === message2._id;
         });
-        // localCollection = mout.array.sortBy(localCollection, 'created_at');
         var lastMessage = localCollection[localCollection.length - 1];
         if (lastMessage) template.rememberOldestNewMessage(lastMessage);
         template.messages.set(localCollection);
@@ -269,7 +273,9 @@ Template.NetworkChat.onRendered(function() {
     template.scrollContainer = $('[data-reversed-scroller]');
     Meteor.setTimeout(function() {
         template.scrollContainer[0].scrollTop = template.scrollContainer[0].scrollHeight;
-        $('[data-reversed-scroller-wrapper]').addClass('pu-state-active');
+        Meteor.setTimeout(function() {
+            template.rendered.set(true);
+        }, 150);
     }, 100);
 });
 
@@ -315,6 +321,9 @@ Template.NetworkChat.helpers({
             chat: function() {
                 return Chats.findOne();
             },
+            network: function() {
+                return network;
+            },
             stickyAvatar: function() {
                 var activeId = template.stickyAvatar.get();
                 if (!activeId) return false;
@@ -338,8 +347,11 @@ Template.NetworkChat.helpers({
             stickyAvatar: function() {
                 return Meteor.users.findOne(template.stickyAvatar.get());
             },
+            fullyLoaded: function() {
+                return template.initialized.get() && template.rendered.get();
+            },
             started_typing: function(user_id) {
-                if (!chat) return
+                if (!chat) return false;
                 if (!chat.started_typing) return false;
                 var typing_user = lodash.find(chat.started_typing, {upper_id: user_id});
                 if (!typing_user) return false;
