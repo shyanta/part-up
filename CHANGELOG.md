@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.18.1
+- fix(tribeuppers): add translation for hardcoded invite uppers tile
+
 ## 1.17.8
 - Move invite button to placeholder tile on uppers tab #328
 - Move add part-up in this tribe to placeholder tile #327
