@@ -160,6 +160,7 @@ Package.onUse(function(api) {
         'publications/notifications.js',
         'publications/swarms.js',
         'publications/contentblocks.js',
+        'publications/chats.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',

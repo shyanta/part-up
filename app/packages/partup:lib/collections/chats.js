@@ -52,10 +52,5 @@ Chats = new Mongo.Collection('chats', {
 Chats.findForUser = function(userId) {
     var user = Meteor.users.findOneOrFail(userId);
     var userChats = user.chats || [];
-    var chatIds = [];
-    userChats.forEach(function(chatObject) {
-        chatIds.push(chatObject.chat_id);
-    });
-
-    return Chats.find({_id: {$in: chatIds}});
+    return Chats.find({_id: {$in: userChats}});
 };
