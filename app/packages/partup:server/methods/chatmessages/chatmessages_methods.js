@@ -89,5 +89,32 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'chatmessage_could_not_be_inserted');
         }
+    },
+
+    /**
+     * Search chatmessages in a network
+     *
+     * @param {String} networkSlug
+     * @param {String} query
+     * @param {Object} options
+     */
+    'chatmessages.search_in_network': function(networkSlug, query, options) {
+        check(networkSlug, String);
+        check(query, String);
+        check(options, {
+            limit: Match.Optional(Number),
+            skip: Match.Optional(Number)
+        });
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail({slug: networkSlug});
+        if (!user || !network.hasMember(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            return ChatMessages.find({content: new RegExp('.*' + query + '.*', 'i')}, options).fetch();
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'chatmessages_could_not_be_searched');
+        }
     }
 });
