@@ -27,9 +27,11 @@ Meteor.publishComposite('users.one', function(userId) {
 Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
     var options = {};
 
-    if (request.limit) options.limit = parseInt(request.query.limit);
-    if (request.skip) options.skip = parseInt(request.query.skip);
-    if (request.query.archived) options.archived = JSON.parse(request.query.archived);
+    if (request.query) {
+        if (request.query.limit) options.limit = parseInt(request.query.limit);
+        if (request.query.skip) options.skip = parseInt(request.query.skip);
+        if (request.query.archived) options.archived = JSON.parse(request.query.archived);
+    }
 
     return {
         find: function() {
@@ -61,9 +63,11 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
 Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
     var options = {};
 
-    if (request.limit) options.limit = parseInt(request.query.limit);
-    if (request.skip) options.skip = parseInt(request.query.skip);
-    if (request.query.archived) options.archived = JSON.parse(request.query.archived);
+    if (request.query) {
+        if (request.query.limit) options.limit = parseInt(request.query.limit);
+        if (request.query.skip) options.skip = parseInt(request.query.skip);
+        if (request.query.archived) options.archived = JSON.parse(request.query.archived);
+    }
 
     return {
         find: function() {
@@ -95,8 +99,10 @@ Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
 Meteor.routeComposite('/users/:id/networks', function(request, params) {
     var options = {};
 
-    if (request.limit) options.limit = parseInt(request.query.limit);
-    if (request.skip) options.skip = parseInt(request.query.skip);
+    if (request.query) {
+        if (request.query.limit) options.limit = parseInt(request.query.limit);
+        if (request.query.skip) options.skip = parseInt(request.query.skip);
+    }
 
     return {
         find: function() {
@@ -120,8 +126,10 @@ Meteor.routeComposite('/users/:id/networks', function(request, params) {
 Meteor.routeComposite('/users/:id/partners', function(request, params) {
     var options = {};
 
-    if (request.limit) options.limit = parseInt(request.query.limit);
-    if (request.skip) options.skip = parseInt(request.query.skip);
+    if (request.query) {
+        if (request.query.limit) options.limit = parseInt(request.query.limit);
+        if (request.query.skip) options.skip = parseInt(request.query.skip);
+    }
 
     return {
         find: function() {
