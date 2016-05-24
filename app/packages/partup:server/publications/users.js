@@ -106,6 +106,22 @@ Meteor.routeComposite('/users/:id/networks', function(request, params) {
 
     return {
         find: function() {
+            return Meteor.users.find(params.id, {fields: {networks: 1}});
+        },
+        children: [
+            {
+                find: function(user) {
+                    return Networks.findForUser(user, this.userId, options);
+                },
+                children: [
+                    {find: Images.findForNetwork}
+                ]
+            }
+        ]
+    };
+
+    return {
+        find: function() {
             var user = Meteor.users.findOne(params.id);
             if (!user) return;
 
