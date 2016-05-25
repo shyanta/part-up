@@ -48,7 +48,11 @@
                 <a href="{{pathFor 'network' slug }}">{{ name }}</a>,
                 ({{ privacyType privacy_type }}),
                 ({{ upperCount . }} uppers),
-                (<a href="{{ pathFor 'profile' _id=getNetworkAdmin._id }}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ getNetworkAdmin._id }}"><figure class="pu-avatar pu-avatar-micro" style="background-image: url('{{ partupImageUrl id=getNetworkAdmin.profile.image }}');"></figure> {{ getNetworkAdmin.profile.name }}</a>)
+                (
+                {{#each networkAdmins}}
+                        <a href="{{ pathFor 'profile' _id=_id }}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}"><figure class="pu-avatar pu-avatar-micro" style="background-image: url('{{ partupImageUrl id=profile.image }}');"></figure> {{ profile.name }}</a>
+                {{/each}}
+                )
             </p>
             <button type="button" class="pu-sub-remove pu-button pu-button-checkmark pu-button-checkmark-deny" data-network-remove="{{ _id }}"> <i class="picon-times"></i> </button>
             <button type="button" class="pu-sub-button" data-network-edit="{{ slug }}"><i class="picon-pencil"></i></button>
