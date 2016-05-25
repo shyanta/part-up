@@ -22,7 +22,11 @@ Meteor.methods({
                 updated_at: new Date()
             };
 
+            // Insert message
             ChatMessages.insert(chatMessage);
+
+            // Update the chat
+            Chats.update(fields.chat_id, {$set: {updated_at: new Date()}});
 
             return chatMessage._id;
         } catch (error) {
