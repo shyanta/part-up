@@ -8,7 +8,6 @@ Meteor.publishComposite('chats.for_upper', function(options) {
 
     return {
         find: function() {
-            // @TODO: Add chats from tribes
             return Chats.findForUser(this.userId);
         },
         children: [

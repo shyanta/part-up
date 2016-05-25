@@ -51,6 +51,16 @@ Chats = new Mongo.Collection('chats', {
  */
 Chats.findForUser = function(userId) {
     var user = Meteor.users.findOneOrFail(userId);
+
+    // Begin with the private chats
     var userChats = user.chats || [];
-    return Chats.find({_id: {$in: userChats}});
+
+    // And now collect the tribe chats
+    var networks = Networks.find({_id: {$in: user.networks || []}});
+    networks.forEach(function(network) {
+        if (network.chat_id) userChats.push(network.chat_id);
+    });
+
+    // Return the IDs ordered by most recent
+    return Chats.find({_id: {$in: userChats}}, {sort: {updated_at: -1}});
 };
