@@ -40,9 +40,8 @@ Template.AdminCreateTribe.helpers({
     currentNetwork: function() {
         return Template.instance().currentNetwork;
     },
-    getNetworkAdmin: function() {
-        var user = Meteor.users.findOne(this.admin_id);
-        return user;
+    networkAdmins: function() {
+        return Meteor.users.find({_id: {$in: this.admins}});
     }
 });
 
