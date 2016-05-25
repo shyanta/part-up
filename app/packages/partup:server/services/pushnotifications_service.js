@@ -1,9 +1,10 @@
 'use strict';
 
-import apn from 'apn'; // Apple Push Notification
-import gcm from 'gcm'; // Google Cloud Messaging
+var apn = require('apn'); // Apple Push Notification
+var gcm = require('gcm'); // Google Cloud Messaging
 
-var sendApnNotification, sendGcmNotification;
+var sendApnNotification;
+var sendGcmNotification;
 
 Meteor.startup(function() {
 

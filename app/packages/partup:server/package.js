@@ -30,8 +30,7 @@ Package.onUse(function(api) {
         'random',
         'peerlibrary:aws-sdk',
         'simple:rest',
-        'simple:json-routes',
-        'ecmascript'
+        'simple:json-routes'
     ], ['server']);
 
     api.addFiles([

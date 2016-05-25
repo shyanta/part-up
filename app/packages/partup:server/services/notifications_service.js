@@ -1,6 +1,6 @@
 'use strict';
 
-import { NotificationModel } from 'part-up-js-models';
+var NotificationModel = require('part-up-js-models').NotificationModel;
 
 var d = Debug('services:notifications');
 
@@ -49,10 +49,12 @@ Partup.server.services.notifications = {
         notification._id = Notifications.insert(notification);
 
         // Send push notification
-        const receivers = [notification.for_upper_id];
-        const filterDevices = () => true; // all devices
-        const n = new NotificationModel(notification);
-        const message = n.getText((key, data) => {
+        var receivers = [notification.for_upper_id];
+        var filterDevices = function() {
+            return true;
+        }; // all devices
+        var n = new NotificationModel(notification);
+        var message = n.getText(function(key, data) {
 
             // Issue #436
             if (key === 'notification-partups_archived') {
@@ -62,11 +64,12 @@ Partup.server.services.notifications = {
                 key = 'notification-partup_unarchived_by_upper';
             }
 
-            key = `dropdown-${key}`; // Issue #437
+            key = 'dropdown' + key; // Issue #437
 
             return TAPi18n.__(key, data.replace);
         });
-        const payload = {
+
+        var payload = {
             notification: {
                 _id: n._id,
                 type: n.type,
