@@ -34,6 +34,18 @@ Chat.prototype.stoppedTyping = function(userId) {
 };
 
 /**
+ * Get the unread chat count
+ *
+ * @memberOf Chats
+ * @param {String} userId
+ * @return {Mongo.Cursor}
+ */
+Chat.prototype.getUnreadCountForUser = function(userId) {
+    var user = Meteor.users.findOneOrFail(userId);
+    return ChatMessages.find({chat_id: this._id, read_by: {$nin: [user._id]}}).count();
+};
+
+/**
  @namespace Chats
  */
 Chats = new Mongo.Collection('chats', {
