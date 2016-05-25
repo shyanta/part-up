@@ -1,7 +1,7 @@
 'use strict';
 
-var apn = require('apn'); // Apple Push Notification
-var gcm = require('gcm'); // Google Cloud Messaging
+var apn = Npm.require('apn'); // Apple Push Notification
+var gcm = Npm.require('gcm'); // Google Cloud Messaging
 
 var sendApnNotification;
 var sendGcmNotification;

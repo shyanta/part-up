@@ -1,6 +1,6 @@
 'use strict';
 
-var apn = require('apn');
+var apn = Npm.require('apn');
 
 if (process.env.PARTUP_CRON_ENABLED && process.env.PUSH_APPLE_APN_PFX) {
     var feedback = new apn.Feedback({

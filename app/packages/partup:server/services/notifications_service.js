@@ -1,6 +1,6 @@
 'use strict';
 
-var NotificationModel = require('part-up-js-models').NotificationModel;
+var NotificationModel = Npm.require('part-up-js-models').NotificationModel;
 
 var d = Debug('services:notifications');
 
