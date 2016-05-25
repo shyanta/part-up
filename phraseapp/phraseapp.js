@@ -146,7 +146,8 @@ prompt.get([
         prompt.get([
             {
                 name: 'commitAndPush',
-                description: 'want this pull to be committed and push to staging? yes/no',
+                description: 'want this pull to be committed and push to staging? \n ' +
+                'make sure that the working directory is clean and there is nothing to commit yes/no',
                 type: 'string',
                 default: 'no'
             },
