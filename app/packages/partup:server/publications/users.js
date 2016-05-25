@@ -120,17 +120,6 @@ Meteor.routeComposite('/users/:id/networks', function(request, params) {
         ]
     };
 
-    return {
-        find: function() {
-            var user = Meteor.users.findOne(params.id);
-            if (!user) return;
-
-            return Networks.findForUser(user, this.userId);
-        },
-        children: [
-            {find: Images.findForNetwork}
-        ]
-    };
 });
 
 /**
