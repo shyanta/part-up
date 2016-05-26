@@ -38,19 +38,26 @@ Meteor.methods({
      * @param {string} searchString
      * @param {string} group
      * @param {string} partupId
+     * @param {object} options
      */
-    'users.autocomplete': function(searchString, group, partupId) {
+    'users.autocomplete': function(searchString, group, partupId, options) {
+        options = options || {};
+        options.chatSearch = options.chatSearch || false;
         check(searchString, String);
         check(group, Match.Optional(String));
         check(partupId, Match.Optional(String));
-
+        check(options, {
+            chatSearch: Match.Optional(Boolean)
+        });
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             // Remove accents that might have been added to the query
             searchString = mout.string.replaceAccents(searchString.toLowerCase());
-            var suggestions = Meteor.users.findActiveUsers({'profile.normalized_name': new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
+            var selector = {'profile.normalized_name': new RegExp('.*' + searchString + '.*', 'i')};
+            if (options.chatSearch) selector._id = {$ne: user._id};
+            var suggestions = Meteor.users.findActiveUsers(selector, {limit: 30}).fetch();
             switch (group) {
                 case 'partners':
                     var partners = Meteor.users.findActiveUsers({upperOf: {$in: [partupId]}}).fetch();
