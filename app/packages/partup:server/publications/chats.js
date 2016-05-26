@@ -51,7 +51,7 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
             {
                 find: function(user) {
                     if (user.chats.indexOf(chatId) === -1) return;
-                    return Chats.find(this.userId);
+                    return Chats.findForUser(this.userId);
                 },
                 children: [
                     {
@@ -62,9 +62,12 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
                             {find: Images.findForUser}
                         ]
                     },
-                    {find: function(chat) {
-                        return ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
-                    }}
+                    {
+                        find: function(chat) {
+                            const cursor = ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
+                            return cursor;
+                        }
+                    }
                 ]
             }
         ]
