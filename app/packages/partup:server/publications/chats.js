@@ -64,8 +64,8 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
                     },
                     {
                         find: function(chat) {
-                            const cursor = ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
-                            return cursor;
+                            chatMessagesOptions.sort = {created_at: -1};
+                            return ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
                         }
                     }
                 ]
