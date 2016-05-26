@@ -78,6 +78,9 @@ Meteor.methods({
         if (!user) throw new Meteor.Error(401, 'unauthorized');
         var chatId = undefined;
 
+        // Don't allow chat's with yourself
+        if (userIds.indexOf(user._id) > -1) throw new Meteor.Error(401, 'chat_could_not_be_started');
+
         try {
             // If the chat is with 1 user then check if there is already a chat going on
             if (userIds.length < 2) {
