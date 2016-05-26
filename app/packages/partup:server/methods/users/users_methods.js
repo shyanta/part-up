@@ -42,13 +42,12 @@ Meteor.methods({
      */
     'users.autocomplete': function(searchString, group, partupId, options) {
         options = options || {};
-        options.chatSearch = options.chatSearch || false;
+
         check(searchString, String);
-        check(group, Match.Optional(String));
-        check(partupId, Match.Optional(String));
-        check(options, {
-            chatSearch: Match.Optional(Boolean)
-        });
+        if (group) check(group, String);
+        if (partupId) check(partupId, String);
+        if (options.chatSearch) check(options.chatSearch, Boolean);
+
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
 
