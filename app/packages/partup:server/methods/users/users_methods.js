@@ -76,7 +76,14 @@ Meteor.methods({
                     });
                     break;
             }
-            return suggestions;
+
+            return suggestions.map(function(user) {
+                if (options.chatSearch) {
+                    user.embeddedImage = Images.findForUser(user).fetch().pop();
+                }
+
+                return user;
+            });
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'users_could_not_be_autocompleted');
