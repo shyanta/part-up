@@ -44,7 +44,8 @@ var privateUserFields = mout.object.merge({
     'profile.phonenumber': 1,
     'profile.settings': 1,
     'pending_networks': 1,
-    'roles': 1
+    'roles': 1,
+    'chats': 1
 }, publicUserFields);
 
 // Add indices
