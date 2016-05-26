@@ -9,15 +9,22 @@ Meteor.publishComposite('chats.for_loggedin_user', function(options) {
 
     return {
         find: function() {
-            return Chats.findForUser(this.userId, options);
+            return Meteor.users.find(this.userId, {fields: {chats: 1}});
         },
         children: [
-            {find: function(chat) {
-                return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
-            }},
-            {find: function(chat) {
-                return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
-            }}
+            {
+                find: function(user) {
+                    return Chats.findForUser(user._id, options);
+                },
+                children: [
+                    {find: function(chat) {
+                        return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
+                    }},
+                    {find: function(chat) {
+                        return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
+                    }}
+                ]
+            }
         ]
     };
 });
