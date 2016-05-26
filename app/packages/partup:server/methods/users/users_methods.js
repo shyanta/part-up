@@ -41,6 +41,8 @@ Meteor.methods({
      */
     'users.autocomplete': function(searchString, group, partupId) {
         check(searchString, String);
+        check(group, Match.Optional(String));
+        check(partupId, Match.Optional(String));
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
