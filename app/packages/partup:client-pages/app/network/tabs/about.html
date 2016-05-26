@@ -101,7 +101,7 @@
                             <article class="pu-face">
                                 <a href="{{pathFor route='profile' _id=_id}}" class="pu-avatar pu-avatar-extralarge" style="background-image:url('{{ partupImageUrl id=profile.image store='360x360'}}');"></a>
                                 <ul class="pu-list">
-                                    <li><a href="/profile/6Nnh97XHdxYZXubZe">{{ profile.name }}</a></li>
+                                    <li><a href="{{pathFor route='profile' _id=_id}}">{{ profile.name }}</a></li>
                                     <li>{{ profile.phonenumber }}</li>
                                     <li><a href="mailto:{{ data.email .}}">{{ data.email . }}</a></li>
                                 </ul>
