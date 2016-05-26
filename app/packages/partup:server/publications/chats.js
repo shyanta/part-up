@@ -17,9 +17,14 @@ Meteor.publishComposite('chats.for_loggedin_user', function(options) {
                     return Chats.findForUser(user._id, options);
                 },
                 children: [
-                    {find: function(chat) {
-                        return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
-                    }},
+                    {
+                        find: function(chat) {
+                            return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
+                        },
+                        children: [
+                            {find: Images.findForUser}
+                        ]
+                    },
                     {find: function(chat) {
                         return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
                     }}
@@ -49,9 +54,14 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
                     return Chats.find(this.userId);
                 },
                 children: [
-                    {find: function(chat) {
-                        return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
-                    }},
+                    {
+                        find: function(chat) {
+                            return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
+                        },
+                        children: [
+                            {find: Images.findForUser}
+                        ]
+                    },
                     {find: function(chat) {
                         return ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
                     }}
