@@ -1,6 +1,7 @@
-Meteor.publishComposite('chats.for_upper', function(options) {
+Meteor.publishComposite('chats.for_loggedin_user', function(options) {
     this.unblock();
 
+    options = options || {};
     check(options, {
         limit: Match.Optional(Number),
         skip: Match.Optional(Number)
