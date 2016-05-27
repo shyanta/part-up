@@ -35,7 +35,8 @@ var publicUserFields = {
     'average_rating': 1,
     'networks': 1,
     'completeness': 1,
-    'participation_score': 1
+    'participation_score': 1,
+    'chats': 1
 };
 
 //user fields exposed to logged in user
@@ -44,7 +45,8 @@ var privateUserFields = mout.object.merge({
     'profile.phonenumber': 1,
     'profile.settings': 1,
     'pending_networks': 1,
-    'roles': 1
+    'roles': 1,
+    'chats': 1
 }, publicUserFields);
 
 // Add indices
@@ -96,6 +98,11 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 
     if (parameters.isAdminOfNetwork) {
         options.fields.emails = 1;
+    }
+
+    if (parameters.hackyReplaceSelectorWithChatId) {
+        delete selector._id;
+        selector.chats = {$in: [parameters.hackyReplaceSelectorWithChatId]};
     }
 
     // Filter the uppers that match the text search

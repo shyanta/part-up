@@ -1,0 +1,17 @@
+{
+	"pages-app-network-tab-button-chat": "Chat",
+	"pages-app-network-chat-title"		: "Chat",
+	"pages-app-network-chat-placeholder" : "Type message...",
+	"pages-app-network-chat-button-send" : "Send",
+    "pages-app-network-chat-sidebar-text-open" : "This chat is <strong>public</strong> and <strong>accessible</strong> for everyone",
+    "pages-app-network-chat-sidebar-text-closed" : "This chat is <strong>closed</strong> and only <strong>accessible</strong> for tribe members",
+	"pages-app-network-chat-sidebar-text-invite" : "This chat is <strong>closed</strong> and only <strong>accessible</strong> for invited tribe members",
+
+    "pages-app-network-chat-activeuppers-label": "Only you",
+    "pages-app-network-chat-label-top": "Congratulations! You have reached the top 🎉",
+    "pages-app-network-chat-label-newmessages": "New messages",
+    "pages-app-network-chat-title-activeuppers": "Active Uppers",
+    "pages-app-network-chat-users-you": "And you"
+}
+
+
