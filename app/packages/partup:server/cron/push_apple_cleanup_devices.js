@@ -9,6 +9,8 @@ if (process.env.PARTUP_CRON_ENABLED && process.env.PUSH_APPLE_APN_PFX) {
         interval: Partup.constants.PUSH_APPLE_APN_CLEANUP_INTERVAL
     });
 
+    console.log('Listening to apple push notification feedback');
+
     feedback.on('feedback', Meteor.bindEnvironment(function(devices) {
         var ids = devices.map(function(item) {
             return item.device.token.toString('hex');

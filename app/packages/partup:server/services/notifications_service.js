@@ -64,7 +64,7 @@ Partup.server.services.notifications = {
                 key = 'notification-partup_unarchived_by_upper';
             }
 
-            key = 'dropdown' + key; // Issue #437
+            key = 'dropdown-' + key; // Issue #437
 
             return TAPi18n.__(key, data.replace);
         });
