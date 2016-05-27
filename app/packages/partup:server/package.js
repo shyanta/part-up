@@ -95,6 +95,7 @@ Package.onUse(function(api) {
         'factories/updates_factory.js',
         'services/cache_service.js',
         'services/notifications_service.js',
+        'services/pushnotifications_service.js',
         'services/system_messages_service.js',
         'services/email_service.js',
         'services/images_service.js',
@@ -199,6 +200,7 @@ Package.onUse(function(api) {
         'cron/update_swarm_network_stats.js',
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
+        'cron/push_apple_cleanup_devices.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);
@@ -221,5 +223,9 @@ Npm.depends({
     'pluralize': '1.1.2',
     'slug': '0.9.1',
     'winston': '0.9.0',
-    'gm': '1.20.0'
+    'gm': '1.20.0',
+    'apn': '1.7.5',
+    'gcm': '1.0.1',
+    'moment': '2.13.0',
+    'part-up-js-models': 'git://github.com/part-up/js-models.git#1.0.0'
 });
