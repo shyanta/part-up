@@ -63,6 +63,11 @@ Partups.after.insert(basicAfterInsert('partups'));
 Partups.after.update(basicAfterUpdate('partups'));
 Partups.after.remove(basicAfterRemove('partups'));
 
+// Networks Events
+Networks.after.insert(basicAfterInsert('networks'));
+Networks.after.update(basicAfterUpdate('networks'));
+Networks.after.remove(basicAfterRemove('networks'));
+
 // Activity Events
 Activities.after.insert(basicAfterInsert('partups.activities'));
 Activities.after.update(basicAfterUpdate('partups.activities'));
