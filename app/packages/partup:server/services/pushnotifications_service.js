@@ -39,14 +39,25 @@ Meteor.startup(function() {
         sendGcmNotification = function(device, user, message, payload, collapseKey) {
             var note = {
                 registration_id: device.registration_id,
-                collapse_key: collapseKey
+                'data.title': 'Part-up',
+                'data.body': message
             };
 
-            forOwn(payload || {}, function(val, key) {
-                note['data.' + key] = val;
-            });
+            if (collapseKey) {
+                note.collapse_key = collapseKey;
+            }
 
-            gcmConnection.send(note);
+
+            // _.forOwn(payload || {}, function(val, key) {
+            //     note['data.' + key] = val;
+            // });
+
+            gcmConnection.send(note, function(err, messageId) {
+                if (err) {
+                    console.log(err);
+                }
+                console.log("sent message with ID: ", messageId);
+            });
         };
     }
 });
