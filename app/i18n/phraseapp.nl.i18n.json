@@ -333,6 +333,8 @@
   "header-desktop-start_partup": "Start een part-up",
   "header-mobile-discover": "Discover",
   "header-mobile-login": "Inloggen",
+  "header-mobile-part-up-for-organisations": "Organisaties",
+  "header-mobile-part-up-for-organisations-url": "http://transitie.part-up.com/",
   "header-mobile-signup": "Aanmelden",
   "header-mobile-start_partup": "Start",
   "header-notifications": "Notificaties",
