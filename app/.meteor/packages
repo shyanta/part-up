@@ -47,7 +47,7 @@ sergeyt:typeahead
 service-configuration
 simple:rest
 splendido:accounts-meld
-stevezhu:lodash
+stevezhu:lodash@3.10.1
 tap:i18n
 tmeasday:publish-counts@0.7.1
 yogiben:autoform-tags@0.1.3
@@ -124,3 +124,5 @@ partup:cookie-law-bar
 smowden:jquery-cookiebar
 chuangbo:cookie
 partup:client-network-settings-about
+es5-shim
+partup:client-network-chat

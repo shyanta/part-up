@@ -53,6 +53,8 @@ Package.onUse(function(api) {
         'collections/tiles.js',
         'collections/swarms.js',
         'collections/contentblock.js',
+        'collections/chats.js',
+        'collections/chatmessages.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -71,6 +73,8 @@ Package.onUse(function(api) {
         'schemas/tile.js',
         'schemas/swarm.js',
         'schemas/contentblock.js',
+        'schemas/chat.js',
+        'schemas/chatmessage.js',
         'transformers/activity.js',
         'transformers/partup.js',
         'transformers/user.js',
@@ -129,6 +133,8 @@ Package.onUse(function(api) {
     api.export('Tiles');
     api.export('Swarms');
     api.export('ContentBlocks');
+    api.export('Chats');
+    api.export('ChatMessages');
 
     // Globals
     api.export('get');

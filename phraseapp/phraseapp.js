@@ -6,6 +6,7 @@ var execFile = require('child_process').execFile;
 var fs = require('fs');
 var prettyjson = require('prettyjson');
 var Promise = require('bluebird');
+var path = require('path');
 
 function execLogHandler(err, stdout, stderr) {
     if (err) {
@@ -146,7 +147,8 @@ prompt.get([
         prompt.get([
             {
                 name: 'commitAndPush',
-                description: 'want this pull to be committed and push to staging? yes/no',
+                description: 'want this pull to be committed and push to staging? \n ' +
+                'make sure that the working directory is clean and there is nothing to commit yes/no',
                 type: 'string',
                 default: 'no'
             },
@@ -158,7 +160,7 @@ prompt.get([
 
                 writeYAMLFileAndRunPhraseApp(_result, pushSources, pullTargets)
                     .then(function() {
-                        execFile('sh', [ './phraseapp-commit-push.sh' ], function(err, stdout, stderr) {
+                        execFile('sh', [ path.resolve(__dirname, 'phraseapp-commit-push.sh') ], function(err, stdout, stderr) {
                             execLogHandler(err, stdout, stderr);
                         });
                     });

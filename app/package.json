@@ -7,6 +7,8 @@
     "url": "git@github.com:part-up/part-up.git"
   },
   "engines": {
-    "node" : "0.10.36"
+    "node": "0.10.36"
+  },
+  "dependencies": {
   }
 }

@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 1.19.0
+- Tribe chat "currently typing" #417
+- Tribe chat sidebar #416
+- Tribe chat window #414
+- App - Chat pushnotificatie #373
+- feat(meteor): update to 1.3.2.4
+- fix(moment): fix moment according to ES6 modules
+- feat(ecmascript): add packages to add support for es2015+ (also in client side code)
+- fix(admin): show all admins on admin tribe page fix #446
+- Update homepage layout for public viewers #452
+- Fix hyperlink in name of tribe admin on tribe about page #456
+- ops(cron): not supplying PARTUP_CRON_ENABLED=0 environment variable to non cron instances anymore
+- feat(meteor): upgraded meteor packages (only scss was downgraded to avoid issues)
+- fix(upgrade): fix upgrade issue with bootstrap inclusion
+- fix(upgrade): downgrade lodash to version 3 for compatibility
+- feat(app-push-notifications): provide a method to register a push notification device
+- fix(networks-route): add support for pagination
+- fix(publications): fix paginations
+- refactor(userspublication): remove abundant/old return statement
+
 ## 1.18.1
 - fix(tribeuppers): add translation for hardcoded invite uppers tile
 

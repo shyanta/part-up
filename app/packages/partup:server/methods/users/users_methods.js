@@ -38,9 +38,15 @@ Meteor.methods({
      * @param {string} searchString
      * @param {string} group
      * @param {string} partupId
+     * @param {object} options
      */
-    'users.autocomplete': function(searchString, group, partupId) {
+    'users.autocomplete': function(searchString, group, partupId, options) {
+        options = options || {};
+
         check(searchString, String);
+        if (group) check(group, String);
+        if (partupId) check(partupId, String);
+        if (options.chatSearch) check(options.chatSearch, Boolean);
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
@@ -48,7 +54,9 @@ Meteor.methods({
         try {
             // Remove accents that might have been added to the query
             searchString = mout.string.replaceAccents(searchString.toLowerCase());
-            var suggestions = Meteor.users.findActiveUsers({'profile.normalized_name': new RegExp('.*' + searchString + '.*', 'i')}, {limit: 30}).fetch();
+            var selector = {'profile.normalized_name': new RegExp('.*' + searchString + '.*', 'i')};
+            if (options.chatSearch) selector._id = {$ne: user._id};
+            var suggestions = Meteor.users.findActiveUsers(selector, {limit: 30}).fetch();
             switch (group) {
                 case 'partners':
                     var partners = Meteor.users.findActiveUsers({upperOf: {$in: [partupId]}}).fetch();
@@ -68,7 +76,14 @@ Meteor.methods({
                     });
                     break;
             }
-            return suggestions;
+
+            return suggestions.map(function(user) {
+                if (options.chatSearch) {
+                    user.embeddedImage = Images.findForUser(user).fetch().pop();
+                }
+
+                return user;
+            });
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'users_could_not_be_autocompleted');
@@ -220,5 +235,66 @@ Meteor.methods({
             has_member: network.hasMember(userId)
         } : false;
         return response;
+    },
+
+    /**
+     * Register a device for push notifications
+     */
+    'users.register_pushnotifications_device': function(registrationId, device) {
+        check(this.userId, String);
+        check(registrationId, String);
+        check(device.uuid, String);
+        check(device.manufacturer, String);
+        check(device.model, String);
+        check(device.version, String);
+        check(device.platform, String);
+
+        // Remove old push notification device by uuid
+        Meteor.users.update({
+            _id: this.userId
+        }, {
+            $pull: {
+                'push_notification_devices': {
+                    uuid: device.uuid
+                }
+            }
+        });
+
+        // Insert new push notification device
+        Meteor.users.update(this.userId, {
+            $addToSet: {
+                'push_notification_devices': {
+                    registration_id: registrationId,
+                    uuid: device.uuid,
+                    manufacturer: device.manufacturer,
+                    model: device.model,
+                    platform: device.platform,
+                    version: device.version,
+                    createdAt: new Date()
+                }
+            }
+        });
+    },
+
+    /**
+     * Start a chat with the provided users
+     */
+    'users.start_chat': function(userIds) {
+        check(userIds, [String]);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        userIds.unshift(user._id);
+
+        try {
+            var chatId = Meteor.call('chats.insert', fields);
+            Chats.update(chatId, {$set: {creator_id: user._id}});
+            Meteor.users.update({_id: {$in: userIds}}, {$addToSet: {chats: chatId}});
+
+            return chatId;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
+        }
     }
 });

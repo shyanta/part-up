@@ -44,6 +44,7 @@
 @import "client/stylesheets/components/compositions/pu-composition-startpartup-promote.sass";
 @import "client/stylesheets/components/compositions/pu-composition-startpartupintromodal.sass";
 @import "client/stylesheets/components/compositions/pu-composition-tribestart.sass";
+@import "client/stylesheets/components/compositions/pu-composition-chat.sass";
 @import "client/stylesheets/components/data-usercard.sass";
 @import "client/stylesheets/components/datepicker.sass";
 @import "client/stylesheets/components/pu-accent.sass";
@@ -216,3 +217,9 @@
 @import "client/stylesheets/components/trumbowyg.sass";
 @import "client/stylesheets/components/pu-search.sass";
 @import "client/stylesheets/components/pu-contentblock.sass";
+
+@import "client/stylesheets/components/pu-chat.sass";
+@import "client/stylesheets/components/pu-chatbox.sass";
+@import "client/stylesheets/components/pu-linkpreview.sass";
+@import "client/stylesheets/components/pu-typing.sass";
+@import "client/stylesheets/components/pu-chatmessage.sass";

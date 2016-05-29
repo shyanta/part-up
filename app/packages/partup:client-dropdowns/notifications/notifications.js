@@ -41,6 +41,7 @@ Template.DropdownNotifications.onDestroyed(function() {
 });
 
 Template.DropdownNotifications.events({
+    'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-notification]': function(event, template) {
         template.dropdownOpen.set(false);

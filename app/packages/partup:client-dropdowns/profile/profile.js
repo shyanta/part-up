@@ -132,6 +132,7 @@ var sortPartups = function(partups, user) {
 };
 
 Template.DropdownProfile.events({
+    'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-logout]': function eventClickLogout (event, template) {
         event.preventDefault();
