@@ -743,6 +743,7 @@
   "pages-app-network-uppers-none": "No uppers found",
   "pages-app-network-uppers-search-placeholder": "Search an upper in this tribe",
   "pages-app-network-uppers-suffix": "in this tribe",
+  "pages-app-notfound-backbutton": "{EN-pages-app-notfound-backbutton}",
   "pages-app-notfound-default-description": "Bummer, we could not find the page you are looking for.",
   "pages-app-notfound-default-title": "Not found",
   "pages-app-notfound-networkstart-button": "Discover part-up",
