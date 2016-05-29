@@ -1,0 +1,16 @@
+{
+	"pages-app-network-tab-button-chat": "Chat",
+	"pages-app-network-chat-title"		: "Chat",
+	"pages-app-network-chat-placeholder" : "Type bericht...",
+	"pages-app-network-chat-button-send" : "Verstuur",
+    "pages-app-network-chat-sidebar-text-open" : "Deze chat is <strong>openbaar</strong> en <strong>toegankelijk</strong> voor iedereen",
+    "pages-app-network-chat-sidebar-text-closed" : "Deze chat is <strong>gesloten</strong> en alleen <strong>toegankelijk</strong> voor tribe leden",
+    "pages-app-network-chat-sidebar-text-invite" : "Deze chat is <strong>gesloten</strong> en alleen <strong>toegankelijk</strong> op basis van uitnodiging",
+
+    "pages-app-network-chat-activeuppers-label": "Alleen jij",
+    "pages-app-network-chat-label-top": "Gefeliciteerd! Je hebt de top bereikt 🎉",
+    "pages-app-network-chat-label-newmessages": "Nieuwe berichten",
+    "pages-app-network-chat-title-activeuppers": "Actieve Uppers",
+    "pages-app-network-chat-users-you": "En jij"
+}
+

@@ -106,7 +106,9 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
             {find: Meteor.users.findUppersForPartup, children: [
                 {find: Images.findForUser}
             ]},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            {find: function(partup) {
+                return Networks.findForPartup(partup, this.userId);
+            },
             children: [
                 {find: Images.findForNetwork}
             ]}
@@ -184,6 +186,58 @@ Meteor.publishComposite('networks.one.pending_uppers', function(networkSlug) {
         children: [
             {find: Images.findForUser}
         ]
+    };
+});
+
+/**
+ * Publish the network chat
+ *
+ * @param {String} networkSlug
+ */
+Meteor.publishComposite('networks.one.chat', function(networkSlug, parameters) {
+    // Temp disable
+    return;
+
+    if (this.unblock) this.unblock();
+
+    check(networkSlug, String);
+
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
+    check(parameters, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number)
+    });
+
+    var options = {};
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
+    options.sort = {created_at: -1};
+
+    return {
+        find: function() {
+            return Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1});
+        },
+        children: [{
+            find: function(network) {
+                if (!network.chat_id) return;
+                return Chats.find({_id: network.chat_id});
+            },
+            children: [{
+                find: function(chat) {
+                    return ChatMessages.find({chat_id: chat._id}, options);
+                }
+            }]
+        },{
+            find: function(network) {
+                return Meteor.users.findUppersForNetwork(network, {}, {});
+            },
+            children: [{
+                find: Images.findForUser
+            }]
+        }]
     };
 });
 

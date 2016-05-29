@@ -1,6 +1,15 @@
 /*************************************************************/
 /* Global date formatter helpers */
 /*************************************************************/
+
+Template.registerHelper('partupDayOfWeek', function(date) {
+    return moment(date).format('dddd');
+});
+
+Template.registerHelper('partupDateDayMonthYear', function(date) {
+    return moment(date).format('L');
+});
+
 Template.registerHelper('partupDateNormal', function(date) {
     return moment(date).format('LL');
 });

@@ -1,3 +1,7 @@
+'use strict';
+
+var NotificationModel = Npm.require('part-up-js-models').NotificationModel;
+
 var d = Debug('services:notifications');
 
 // Check notifications.md for all active notifications
@@ -42,6 +46,38 @@ Partup.server.services.notifications = {
 
         d('Notification created for user [' + notification.for_upper_id + '] with type [' + notification.type + ']');
 
-        Notifications.insert(notification);
+        notification._id = Notifications.insert(notification);
+
+        // Send push notification
+        var receivers = [notification.for_upper_id];
+        var filterDevices = function() {
+            return true;
+        }; // all devices
+        var n = new NotificationModel(notification);
+        var message = n.getText(function(key, data) {
+
+            // Issue #436
+            if (key === 'notification-partups_archived') {
+                key = 'notification-partup_archived_by_upper';
+            }
+            if (key === 'notification-partups_unarchived') {
+                key = 'notification-partup_unarchived_by_upper';
+            }
+
+            key = 'dropdown-' + key; // Issue #437
+
+            return TAPi18n.__(key, data.replace);
+        });
+
+        var payload = {
+            notification: {
+                _id: n._id,
+                type: n.type,
+                type_data: n.type_data,
+                created_at: n.created_at
+            }
+        };
+
+        Partup.server.services.pushnotifications.send(receivers, filterDevices, message, payload);
     }
 };

@@ -1,0 +1,49 @@
+.pu-composition-chat
+    $sidebar-width: 378px
+    display: table
+    height: calc(100vh - 300px)
+
+    main
+        display: table-cell
+        vertical-align: top
+
+        .pu-linkpreview
+            margin-top: 8px
+            margin-bottom: 8px
+
+            &-description
+                width: 287px
+
+        footer
+            .pu-formfield
+                display: table
+                width: 100%
+
+                .pu-sub-tablecell-input
+                    display: table-cell
+                    width: 100%
+
+                .pu-sub-tablecell-button
+                    display: table-cell
+
+                button
+                    height: 44px
+                    width: 94px
+                    margin-left: 12px
+                    vertical-align: middle
+
+    aside
+        display: table-cell
+        vertical-align: top
+        width: $sidebar-width
+
+    @media screen and (min-width: ($breakpoint-desktop + 50px))
+        .pu-sidebar .pu-sidebar-wrap
+            width: $sidebar-width
+
+    @media screen and (min-width: ($breakpoint-desktop + 100px))
+        .pu-chat-wrapper
+            min-width: 780px
+
+        .pu-sidebar .pu-sidebar-wrap
+            width: $sidebar-width

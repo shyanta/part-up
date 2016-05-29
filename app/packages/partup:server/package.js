@@ -95,6 +95,7 @@ Package.onUse(function(api) {
         'factories/updates_factory.js',
         'services/cache_service.js',
         'services/notifications_service.js',
+        'services/pushnotifications_service.js',
         'services/system_messages_service.js',
         'services/email_service.js',
         'services/images_service.js',
@@ -159,6 +160,7 @@ Package.onUse(function(api) {
         'publications/notifications.js',
         'publications/swarms.js',
         'publications/contentblocks.js',
+        'publications/chats.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
@@ -188,6 +190,8 @@ Package.onUse(function(api) {
         'methods/tiles/tiles_methods.js',
         'methods/swarms/swarms_methods.js',
         'methods/contentblocks/contentblocks_methods.js',
+        'methods/chats/chats_methods.js',
+        'methods/chatmessages/chatmessages_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
@@ -199,6 +203,7 @@ Package.onUse(function(api) {
         'cron/update_swarm_network_stats.js',
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
+        'cron/push_apple_cleanup_devices.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);
@@ -221,5 +226,9 @@ Npm.depends({
     'pluralize': '1.1.2',
     'slug': '0.9.1',
     'winston': '0.9.0',
-    'gm': '1.20.0'
+    'gm': '1.20.0',
+    'apn': '1.7.5',
+    'gcm': '1.0.1',
+    'moment': '2.13.0',
+    'part-up-js-models': 'git://github.com/part-up/js-models.git#1.0.0'
 });
