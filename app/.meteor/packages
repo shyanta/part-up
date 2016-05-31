@@ -121,7 +121,6 @@ partup:client-dropbox-chooser
 partup:cookie-law-bar
 #mike:mocha
 #velocity:console-reporter
-smowden:jquery-cookiebar
 chuangbo:cookie
 partup:client-network-settings-about
 es5-shim
