@@ -4,14 +4,13 @@ if (Meteor.isClient) {
         var $intercomLauncher = jQuery('#intercom-launcher');
 
         if (Cookie.get('cb-enabled') && Cookie.get('cb-enabled') === 'enabled') {
-            $cookiebar.remove();
+            $cookiebar.hide();
         } else {
             $cookiebar.show();
         }
 
         waitUntil(function(){
-            return (jQuery('#intercom-launcher').length > 0 || jQuery('#intercom-launcher').is(':visible')) &&
-                (Cookie.get('cb-enabled') === 'enabled' ||  jQuery('#cookie-bar').length > 0);
+            return (jQuery('#intercom-launcher').is(':visible') && jQuery('#cookie-bar').is(':visible'));
         }, function(){
             jQuery('#intercom-launcher').css({ bottom: 80 });
         }, function(){
@@ -23,9 +22,8 @@ if (Meteor.isClient) {
         'click .cb-enable': function (event) {
             var $cookiebar = jQuery(event.currentTarget).parent();
             Cookie.set('cb-enabled', 'enabled');
-            $cookiebar.slideUp('fast', function() {
-                jQuery('#intercom-launcher').css({ bottom: 20 });
-            });
+            $cookiebar.hide();
+            jQuery('#intercom-launcher').css({ bottom: 20 });
             event.preventDefault();
         }
     })

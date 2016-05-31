@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.19.2
+-  fix(cookiebar): update translation and fix already accepted cookie intercom button position
+-  fix(public-header): remove data-register triggering on organisation link
+
 ## 1.19.1
 - Fix showing private / closed part-ups
 - Fix Cookie bar is not displaying text with the corresponding application language #468
