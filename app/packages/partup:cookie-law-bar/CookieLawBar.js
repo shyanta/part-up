@@ -1,30 +1,36 @@
-Template.CookieLawBar.onRendered(function() {
+if (Meteor.isClient) {
+    Template.CookieLawBar.onRendered(function () {
+        var $cookiebar = jQuery('#cookie-bar');
+        var $intercomLauncher = jQuery('#intercom-launcher');
 
-    jQuery.cookieBar({
-        acceptText:  TAPi18n.__('cookie-accept-text'),
-        policyText: TAPi18n.__('cookie-policy-text')
-    });
+        if (Cookie.get('cb-enabled') && Cookie.get('cb-enabled') === 'enabled') {
+            $cookiebar.remove();
+        } else {
+            $cookiebar.show();
+        }
 
-    var $cookiebar = jQuery('#cookie-bar');
-    var $cookiebarButton = $cookiebar.find('.cb-enable');
-    $cookiebarButton.on('click', function() { jQuery('#intercom-launcher').css({ bottom: 20 }); });
+        waitUntil(function(){
+            return (jQuery('#intercom-launcher').length > 0 || jQuery('#intercom-launcher').is(':visible')) &&
+                (Cookie.get('cb-enabled') === 'enabled' ||  jQuery('#cookie-bar').length > 0);
+        }, function(){
+            jQuery('#intercom-launcher').css({ bottom: 80 });
+        }, function(){
 
-    $cookiebarButton.parent().after($cookiebarButton);
-    var $moreInfoText = '<a  class="more-info" target="_blank" href="'+TAPi18n.__('cookie-more-info-url')+'">'+TAPi18n.__('cookie-more-info')+'</a>';
-
-    $cookiebar.find('p').html(TAPi18n.__('cookie-policy-text'));
-    $cookiebar.find('p').append($moreInfoText);
-
-    waitUntil(function(){
-        return (jQuery('#intercom-launcher').length > 0 || jQuery('#intercom-launcher').is(':visible')) &&
-            (Cookie.get('cb-enabled') === 'enabled' ||  jQuery('#cookie-bar').length > 0);
-    }, function(){
-        jQuery('#intercom-launcher').css({ bottom: 80 });
-    }, function(){
+        });
 
     });
+    Template.CookieLawBar.events({
+        'click .cb-enable': function (event) {
+            var $cookiebar = jQuery(event.currentTarget).parent();
+            Cookie.set('cb-enabled', 'enabled');
+            $cookiebar.slideUp('fast', function() {
+                jQuery('#intercom-launcher').css({ bottom: 20 });
+            });
+            event.preventDefault();
+        }
+    })
+}
 
-});
 /**
  acceptButton: true,
 
