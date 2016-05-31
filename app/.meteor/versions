@@ -12,7 +12,6 @@ autoupdate@1.2.9
 babel-compiler@6.6.4
 babel-runtime@0.1.8
 base64@1.0.8
-benjaminrh:jquery-cookie@0.1.0
 binary-heap@1.0.8
 blaze@2.1.7
 blaze-html-templates@1.0.4
@@ -61,7 +60,7 @@ iron:core@1.0.11
 iron:dynamic-template@1.0.12
 iron:layout@1.0.12
 iron:location@1.0.11
-iron:middleware-stack@1.0.11
+iron:middleware-stack@1.1.0
 iron:router@1.0.12
 iron:url@1.0.11
 jquery@1.11.8
@@ -180,9 +179,8 @@ sergeyt:typeahead@0.11.1_8
 service-configuration@1.0.9
 session@1.1.5
 sha@1.0.7
-simple:json-routes@2.1.0
-simple:rest@1.1.1
-smowden:jquery-cookiebar@1.0.2
+simple:json-routes@1.0.4
+simple:rest@0.2.3
 spacebars@1.0.11
 spacebars-compiler@1.0.11
 splendido:accounts-emails-field@1.2.0

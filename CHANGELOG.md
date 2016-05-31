@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.19.1
+- Fix showing private / closed part-ups
+- Fix Cookie bar is not displaying text with the corresponding application language #468
+
 ## 1.19.0
 - Tribe chat "currently typing" #417
 - Tribe chat sidebar #416
