@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.19.1
+- Fix showing private / closed part-ups
+
 ## 1.19.0
 - Tribe chat "currently typing" #417
 - Tribe chat sidebar #416
