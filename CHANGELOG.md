@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.19.3
+-  fix(cookiebar): set cookie expires 2147483647
+
+
 ## 1.19.2
 -  fix(cookiebar): update translation and fix already accepted cookie intercom button position
 -  fix(public-header): remove data-register triggering on organisation link

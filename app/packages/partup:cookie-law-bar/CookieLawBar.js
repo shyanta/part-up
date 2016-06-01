@@ -21,7 +21,9 @@ if (Meteor.isClient) {
     Template.CookieLawBar.events({
         'click .cb-enable': function (event) {
             var $cookiebar = jQuery(event.currentTarget).parent();
-            Cookie.set('cb-enabled', 'enabled');
+            Cookie.set('cb-enabled', 'enabled', {
+                expires: 2147483647
+            });
             $cookiebar.hide();
             jQuery('#intercom-launcher').css({ bottom: 20 });
             event.preventDefault();
