@@ -3,7 +3,7 @@ if (Meteor.isClient) {
         var $cookiebar = jQuery('#cookie-bar');
         var $intercomLauncher = jQuery('#intercom-launcher');
 
-        if (Cookie.get('cb-enabled') && Cookie.get('cb-enabled') === 'enabled') {
+        if (Cookies.get('cb-enabled') && Cookies.get('cb-enabled') === 'enabled') {
             $cookiebar.hide();
         } else {
             $cookiebar.show();
@@ -21,7 +21,7 @@ if (Meteor.isClient) {
     Template.CookieLawBar.events({
         'click .cb-enable': function (event) {
             var $cookiebar = jQuery(event.currentTarget).parent();
-            Cookie.set('cb-enabled', 'enabled');
+            Cookies.set('cb-enabled', 'enabled', { expires: Infinity });
             $cookiebar.hide();
             jQuery('#intercom-launcher').css({ bottom: 20 });
             event.preventDefault();

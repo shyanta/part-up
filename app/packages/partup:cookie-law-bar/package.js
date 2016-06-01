@@ -11,9 +11,10 @@ Package.onUse(function(api) {
         'templating',
         'partup:lib'
     ], 'client');
-    
+
     api.addFiles([
         'wait-until.js',
+        'cookies.min.js',
         'CookieLawBar.html',
         'CookieLawBar.js'
     ], 'client');
