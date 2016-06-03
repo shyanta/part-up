@@ -12,7 +12,6 @@ autoupdate@1.2.9
 babel-compiler@6.6.4
 babel-runtime@0.1.8
 base64@1.0.8
-benjaminrh:jquery-cookie@0.1.0
 binary-heap@1.0.8
 blaze@2.1.7
 blaze-html-templates@1.0.4
@@ -184,7 +183,6 @@ session@1.1.5
 sha@1.0.7
 simple:json-routes@1.0.4
 simple:rest@0.2.3
-smowden:jquery-cookiebar@1.0.2
 spacebars@1.0.11
 spacebars-compiler@1.0.11
 splendido:accounts-emails-field@1.2.0
