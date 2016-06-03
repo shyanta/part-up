@@ -26,7 +26,11 @@
                         </ul>
                     {{/with}}
                     <!-- join or leave button -->
-                    {{> app_network_joinbutton network=data.network }}
+                    {{#if data.network.hasMember currentUserId}}
+                        <a href="{{ pathFor route='network-detail' slug=data.network.slug }}" class="pu-button">{{_ 'pages-app-network-start-button-gototribe'}}</a>
+                    {{else}}
+                        {{> app_network_joinbutton network=data.network }}
+                    {{/if}}
                 </header>
                 {{# unless data.network.isClosedForUpper currentUserId }}
                     <footer>
