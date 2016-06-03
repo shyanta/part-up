@@ -30,7 +30,7 @@ Partup.client.windowTitle = (function() {
 
       composeWindowTitle();
   },
-  setNotificationsCount = function(notificationsCountIn) { 
+  setNotificationsCount = function(notificationsCountIn) {
     notificationsCount = notificationsCountIn;
 
     composeWindowTitle();
@@ -43,10 +43,10 @@ Partup.client.windowTitle = (function() {
   	return;
   },
   composeWindowTitle = function() {
-    if (notificationCount > 0) {
-        windowTitle = '(' + notificationCount + ') ' + appName;
+    if (notificationsCount > 0) {
+        windowTitle = '(' + notificationsCount + ') ' + appName;
     } else {
-        windowTitle = appName;
+        windowTitle = appName + "";
     }
 
     if (contextName !== "") {
@@ -69,3 +69,5 @@ Partup.client.windowTitle = (function() {
     setContextName: setContextName
   };
 }());
+
+Partup.client.windowTitle.init();

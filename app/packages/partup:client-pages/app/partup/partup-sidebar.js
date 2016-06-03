@@ -42,7 +42,9 @@ Template.app_partup_sidebar.onRendered(function() {
 /*************************************************************/
 Template.app_partup_sidebar.helpers({
     partup: function() {
-        return Partups.findOne(this.partupId);
+        let partup = Partups.findOne(this.partupId);
+        Partup.client.windowTitle.setContextName(partup.name);
+        return partup;
     },
 
     showInviteButton: function() {
