@@ -159,7 +159,7 @@ Template.InviteTile.events({
         var activity = Activities.findOne(activityId);
         var invitingUserId = template.data.userId;
         var invitingUser = Meteor.users.findOne({_id: invitingUserId});
-        var searchQuery = template.searchQuery.get() || undefined;
+        var searchQuery = template.searchQuery.get() || '';
 
         if (User(invitingUser).isPartnerInPartup(template.data.partupId) || activity.isUpperInvited(invitingUserId)) return;
 
@@ -177,7 +177,7 @@ Template.InviteTile.events({
     'click [data-network-invite]': function(event, template) {
         var invitingUserId = template.data.userId;
         var network = Networks.findOne({slug: template.data.networkSlug});
-        var searchQuery = template.searchQuery.get() || undefined;
+        var searchQuery = template.searchQuery.get() || '';
 
         if (network.hasMember(invitingUserId) || network.isUpperInvited(invitingUserId)) return;
 
