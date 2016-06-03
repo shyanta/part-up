@@ -11,6 +11,8 @@ var Subs = new SubsManager({
 Template.app_partup.onCreated(function() {
     var tpl = this;
 
+debugger;
+
     tpl.partupId = new ReactiveVar();
 
     var partup_sub;
