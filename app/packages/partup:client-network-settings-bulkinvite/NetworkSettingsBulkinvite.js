@@ -86,34 +86,38 @@ Template.NetworkSettingsBulkinvite.events({
         template.csv_too_many_addresses.set(false);
 
         var file = event.currentTarget.files[0];
-
         var token = Accounts._storedLoginToken();
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', Meteor.absoluteUrl() + 'csv/parse?token=' + token, false);
+        xhr.addEventListener('load', function() {
+            var data = JSON.parse(xhr.responseText);
+
+            if (data.error) {
+                Partup.client.notify.error(TAPi18n.__(data.error.reason));
+                console.error('Result from uploading & parsing CSV:', TAPi18n.__(data.error.reason));
+                template.csv_invalid.set(true);
+
+                if (error.reason == 'too_many_email_addresses') {
+                    template.csv_too_many_addresses.set(true);
+                }
+
+                return;
+            }
+
+            template.invitees.set(data.result);
+            template.parsing.set(false);
+
+            var jqInput = $(event.currentTarget.value);
+            jqInput.replaceWith(jqInput.val('').clone(true));
+        });
+        xhr.open('POST', Meteor.absoluteUrl() + 'csv/parse?token=' + token);
 
         var formData = new FormData();
         formData.append('file', file);
         xhr.send(formData);
-
-        var data = JSON.parse(xhr.responseText);
-
-        if (data.error) {
-            Partup.client.notify.error(TAPi18n.__(data.error.reason));
-            console.error('Result from uploading & parsing CSV:', TAPi18n.__(data.error.reason));
-            template.csv_invalid.set(true);
-
-            if (error.reason == 'too_many_email_addresses') {
-                template.csv_too_many_addresses.set(true);
-            }
-
-            return;
-        }
-
-        template.invitees.set(data.result);
-        template.parsing.set(false);
-
-        var jqInput = $(event.currentTarget.value);
-        jqInput.replaceWith(jqInput.val('').clone(true));
+    },
+    'click [data-browse-file]': function(evemt, template) {
+        event.preventDefault();
+        $('[data-csv-file]').click();
     }
 });
 
