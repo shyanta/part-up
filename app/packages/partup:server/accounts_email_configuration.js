@@ -15,7 +15,8 @@ Accounts.emailTemplates.resetPassword.subject = function(user) {
 Accounts.emailTemplates.resetPassword.html = function(user, url) {
     return SSR.render('email-reset_password-' + User(user).getLocale(), {
         user: user,
-        url: url.replace('/#', '')
+        url: url.replace('/#', ''),
+        baseUrl: Meteor.absoluteUrl()
     });
 };
 
@@ -29,6 +30,7 @@ Accounts.emailTemplates.verifyEmail.html = function(user, url) {
     return SSR.render('email-verify_account-' + User(user).getLocale(), {
         user: user,
         url: url.replace('/#', ''),
-        count: Meteor.users.find().count() - 1
+        count: Meteor.users.find().count() - 1,
+        baseUrl: Meteor.absoluteUrl()
     });
 };
