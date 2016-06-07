@@ -184,7 +184,8 @@ Meteor.users.findSupportersForPartup = function(partup) {
  * @memberOf Meteor.users
  * @return {Mongo.Cursor}
  */
-Meteor.users.findPartnersForUpper = function(upper) {
+Meteor.users.findPartnersForUpper = function(upper, options) {
+    var options = options || {};
     var upper_partups = upper.upperOf || [];
     var upper_partners = [];
 
@@ -201,7 +202,7 @@ Meteor.users.findPartnersForUpper = function(upper) {
         .pull(upper._id)
         .value();
 
-    return Meteor.users.findMultiplePublicProfiles(partners);
+    return Meteor.users.findMultiplePublicProfiles(partners, options);
 };
 
 /**
