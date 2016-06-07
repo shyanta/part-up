@@ -1,3 +1,8 @@
+Router.isHomePage = new ReactiveVar(false);
+Router.onBeforeAction(function(req, res, next) {
+    Router.isHomePage.set(/^\/$/.test(req.url));
+    next();
+});
 /**
  * This namespace contains router helpers etc
  * @namespace Router

@@ -1,6 +1,9 @@
 Template.Header_personal.helpers({
     notificationslabel: function() {
         return TAPi18n.__('header-notifications');
+    },
+    isHomePage: function() {
+        return  Router.isHomePage.get();
     }
 });
 
