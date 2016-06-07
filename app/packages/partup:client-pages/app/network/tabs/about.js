@@ -6,8 +6,7 @@ Template.app_network_about.onCreated(function() {
             template.contentblocksAvailable.set(true);
         }
     });
-    var network = Networks.findOne({slug: template.data.networkSlug});
-    template.subscribe('users.by_ids', network.admins);
+    template.subscribe('admins.by_network_slug', template.data.networkSlug);
 });
 
 Template.app_network_about.helpers({

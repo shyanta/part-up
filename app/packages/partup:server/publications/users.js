@@ -183,3 +183,26 @@ Meteor.publishComposite('users.by_ids', function(userIds) {
         ]
     };
 });
+
+/**
+ * Publish public network admin profiles by network slug
+ *
+ * @param {String} networkSlug
+ */
+Meteor.publishComposite('admins.by_network_slug', function(networkSlug) {
+    check(networkSlug, String);
+
+    this.unblock();
+
+    var network = Networks.findOne({slug: networkSlug});
+    if (!network.hasMember(this.userId)) return;
+
+    return {
+        find: function() {
+            return Meteor.users.findMultipleNetworkAdminProfiles(network.admins);
+        },
+        children: [
+            {find: Images.findForUser}
+        ]
+    };
+});

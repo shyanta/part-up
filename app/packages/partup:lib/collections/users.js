@@ -49,6 +49,12 @@ var privateUserFields = mout.object.merge({
     'chats': 1
 }, publicUserFields);
 
+// Admin fields exposed to network users
+var publicNetworkAdminFields = mout.object.merge({
+    'emails': 1,
+    'profile.phonenumber': 1
+}, publicUserFields);
+
 // Add indices
 if (Meteor.isServer) {
     Meteor.users._ensureIndex('participation_score');
@@ -132,6 +138,27 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 
     options.limit = parameters.count ? undefined : parseInt(options.limit) || undefined;
     options.sort = parameters.count ? undefined : options.sort || undefined;
+
+    return Meteor.users.find(selector, options);
+};
+
+/**
+ * Find admins and expose their public network fields
+ *
+ * @memberOf Meteor.users
+ * @param {[String]} userIds
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findMultipleNetworkAdminProfiles = function(userIds) {
+    userIds = userIds || [];
+
+    var selector = {
+        _id: {$in: userIds},
+        deactivatedAt: {$exists: false}
+    };
+    var options = {
+        fields: _.clone(publicNetworkAdminFields)
+    };
 
     return Meteor.users.find(selector, options);
 };
