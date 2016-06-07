@@ -138,16 +138,10 @@ Meteor.routeComposite('/users/:id/partners', function(request, params) {
 
     return {
         find: function() {
-            return Meteor.users.find({_id: params.id}, {limit: 1});
+            var user = Meteor.users.findOne({_id: params.id});
+            return Meteor.users.findPartnersForUpper(user, options);
         },
-        children: [
-            {
-                find: function(user) {
-                    return Meteor.users.findPartnersForUpper(user, options);
-                },
-                children: [{find: Images.findForUser}]
-            }
-        ]
+        children: [{find: Images.findForUser}]
     };
 });
 
