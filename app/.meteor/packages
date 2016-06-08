@@ -100,7 +100,6 @@ partup:meteor-bender
 partup:client-invite-to-partup
 partup:client-column-tiles-layout
 partup:client-forminputs
-standard-minifiers
 
 meteor-base
 mobile-experience
@@ -126,3 +125,4 @@ partup:client-network-settings-about
 es5-shim
 partup:client-network-chat
 anonyfox:scrape
+standard-minifiers-js
