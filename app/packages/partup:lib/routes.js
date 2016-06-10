@@ -28,6 +28,10 @@ Router.route('', {
     yieldRegions: {
         'app':      {to: 'main'},
         'app_home': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Home");
+        this.next();
     }
 });
 
@@ -40,6 +44,10 @@ Router.route('/discover', {
     yieldRegions: {
         'app':          {to: 'main'},
         'app_discover': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Discover");
+        this.next();
     }
 });
 
@@ -192,6 +200,10 @@ Router.route('/start', {
     yieldRegions: {
         'modal':              {to: 'main'},
         'modal_create_intro': {to: 'modal'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Create Partup");
+        this.next();
     }
 });
 
@@ -256,6 +268,10 @@ Router.route('/login', {
     yieldRegions: {
         'modal':       {to: 'main'},
         'modal_login': {to: 'modal'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Log in");
+        this.next();
     }
 });
 
@@ -268,6 +284,10 @@ Router.route('/forgot-password', {
     yieldRegions: {
         'modal':                {to: 'main'},
         'modal_forgotpassword': {to: 'modal'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Forgot password");
+        this.next();
     }
 });
 
@@ -354,6 +374,10 @@ Router.route('/register', {
         'modal':                 {to: 'main'},
         'modal_register':        {to: 'modal'},
         'modal_register_signup': {to: 'modal_register'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Register");
+        this.next();
     }
 });
 
@@ -548,6 +572,10 @@ Router.route('/about', {
     yieldRegions: {
         'app':      {to: 'main'},
         'app_about': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("About");
+        this.next();
     }
 });
 
@@ -557,6 +585,10 @@ Router.route('/pricing', {
     yieldRegions: {
         'app':      {to: 'main'},
         'app_pricing': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Pricing");
+        this.next();
     }
 });
 
@@ -874,6 +906,9 @@ Router.route('/(.*)', {
     yieldRegions: {
         'app':          {to: 'main'},
         'app_notfound': {to: 'app'}
+    },
+    action: function() {
+        Partup.client.windowTitle.setContextName("404 Not found");
     }
 });
 

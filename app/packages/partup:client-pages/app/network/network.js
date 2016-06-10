@@ -34,6 +34,8 @@ Template.app_network.helpers({
         var network = Networks.findOne({slug: networkSlug});
         if (!network) return false;
 
+        Partup.client.windowTitle.setContextName(network.name);
+
         return {
             network: function() {
                 return network;

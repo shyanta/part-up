@@ -42,6 +42,9 @@ Template.swarm.helpers({
         var template = Template.instance();
         var swarm = Swarms.findOne({slug: template.data.slug});
         if (!swarm) return false;
+
+        Partup.client.windowTitle.setContextName(swarm.name);
+
         return {
             swarm: function() {
                 return swarm;

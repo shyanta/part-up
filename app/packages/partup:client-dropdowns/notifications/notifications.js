@@ -9,11 +9,7 @@ Template.DropdownNotifications.onCreated(function() {
     //Update the number of notifications in the title
     template.autorun(function() {
         var numberOfNotifications = Notifications.findForUser(Meteor.user(), {'new': true}).count();
-        if (numberOfNotifications > 0) {
-            document.title = '(' + numberOfNotifications + ')' + ' Part-up';
-        } else {
-            document.title = 'Part-up';
-        }
+        Partup.client.windowTitle.setNotificationsCount(numberOfNotifications);
     });
     template.limit = new ReactiveVar(10);
     template.subscribe('notifications.for_upper', template.limit.get());

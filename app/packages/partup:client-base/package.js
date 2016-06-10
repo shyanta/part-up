@@ -62,6 +62,7 @@ Package.onUse(function(api) {
         'client/prompt.js',
         'client/window.js',
         'client/url.js',
+        'client/windowtitle.js',
         'client/responsive.js',
         'client/notifications.js',
         'client/embed.js',
