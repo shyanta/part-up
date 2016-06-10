@@ -137,7 +137,7 @@ Template.DropdownProfile.events({
     'click [data-logout]': function eventClickLogout (event, template) {
         event.preventDefault();
         Partup.client.windowTitle.setNotificationsCount(0);
-        Meteor.logout();
+        Partup.client.user.logout();
     },
     'click [data-select-network]': function changeNetwork (event, template) {
         event.preventDefault();
