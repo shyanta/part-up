@@ -92,6 +92,8 @@ Package.onUse(function(api) {
         'helpers/browserTest.js',
         'helpers/math.js',
         'helpers/delayed.js',
+        'helpers/RenderBlock/RenderBlock.html',
+        'helpers/RenderBlock/RenderBlock.js',
 
         'bootstrap.js',
         'analytics.js'
