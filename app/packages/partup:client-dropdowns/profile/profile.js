@@ -134,18 +134,18 @@ var sortPartups = function(partups, user) {
 Template.DropdownProfile.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
-    'click [data-logout]': function eventClickLogout (event, template) {
+    'click [data-logout]': function eventClickLogout(event, template) {
         event.preventDefault();
         Meteor.logout();
     },
-    'click [data-select-network]': function changeNetwork (event, template) {
+    'click [data-select-network]': function changeNetwork(event, template) {
         event.preventDefault();
         var networkId = $(event.currentTarget).data('select-network') || undefined;
         template.currentNetwork.set(networkId);
     },
-    'click [data-settings]': function openSettings (event, template) {
+    'click [data-settings]': function openSettings(event, template) {
         event.preventDefault();
-        Intent.go({route: 'profile-settings', params:{_id: Meteor.userId()}});
+        Intent.go({route: 'profile-settings', params: {_id: Meteor.userId()}});
     },
     'click [data-down]': function(event, template) {
         event.preventDefault();

@@ -179,6 +179,18 @@ Router.route('/profile/:_id/settings/email', {
 });
 
 /*************************************************************/
+/* Show Recommendations */
+/*************************************************************/
+Router.route('/recommendations', {
+    name: 'recommendations',
+    where: 'client',
+    yieldRegions: {
+        'modal':              {to: 'main'},
+        'modal_recommendations': {to: 'modal'}
+    }
+});
+
+/*************************************************************/
 /* Create Partup */
 /*************************************************************/
 Router.route('/start', {

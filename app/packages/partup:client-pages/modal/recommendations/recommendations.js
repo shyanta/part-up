@@ -1,7 +1,7 @@
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
-Template.modal_create_intro.helpers({
+Template.modal_recommendations.helpers({
     'user': function helperUser() {
         return Meteor.user();
     },
@@ -14,9 +14,9 @@ Template.modal_create_intro.helpers({
 /*************************************************************/
 /* Page events */
 /*************************************************************/
-Template.modal_create_intro.events({
+Template.modal_recommendations.events({
     'click [data-closepage]': function eventClickClosePage(event, template) {
         event.preventDefault();
-        Intent.return('create');
+        //Intent.return('create'); //TODO: 324
     }
 });
