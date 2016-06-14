@@ -1,6 +1,6 @@
 var appName = 'Part-up';
 var contextName = '';
-var defaultDelimiter = '' - '';
+var defaultDelimiter = ' - ';
 var notificationsCount = 0;
 var windowTitle = '';
 
