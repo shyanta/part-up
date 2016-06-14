@@ -7,8 +7,14 @@ Meteor.methods({
     'chatmessages.insert': function(fields) {
         check(fields, Partup.schemas.forms.chatMessage);
 
+        this.unblock();
+
         var user = Meteor.user();
-        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        // Check if message is for a network, and if the user is member of the network
+        var network = Networks.findOne({chat_id: fields.chat_id});
+
+        if (!user || (network && !network.hasMember(user._id))) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             var chatMessage = {
@@ -24,6 +30,12 @@ Meteor.methods({
 
             // Insert message
             ChatMessages.insert(chatMessage);
+
+            Event.emit('chats.messages.inserted', user._id, chatMessage._id, chatMessage.content);
+
+            // Increase counters
+            var chat = Chats.findOneOrFail(fields.chat_id);
+            chat.incrementCounter(user._id);
 
             // Update the chat
             Chats.update(fields.chat_id, {$set: {updated_at: new Date()}});
@@ -103,9 +115,6 @@ Meteor.methods({
      * @param {Object} options
      */
     'chatmessages.search_in_network': function(networkSlug, query, options) {
-        // Temp disable
-        return;
-
         check(networkSlug, String);
         check(query, String);
         check(options, {

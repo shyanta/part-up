@@ -15,7 +15,8 @@ Meteor.methods({
                 _id: Random.id(),
                 created_at: new Date(),
                 started_typing: [],
-                updated_at: new Date()
+                updated_at: new Date(),
+                counter: []
             };
 
             Chats.insert(chat);
@@ -65,6 +66,26 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'chats_started_typing_could_not_be_updated');
+        }
+    },
+
+    /**
+     * Reset unread counter for current user
+     *
+     * @param {String} chatId
+     */
+    'chats.reset_counter': function(chatId) {
+        check(chatId, String);
+
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            var chat = Chats.findOneOrFail(chatId);
+            chat.resetCounterForUser(user._id);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'chats_counter_reset_could_not_be_completed');
         }
     },
 

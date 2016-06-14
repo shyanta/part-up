@@ -868,9 +868,6 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'networks.chat_insert': function(networkSlug, fields) {
-        // Temp disable
-        return;
-
         check(networkSlug, String);
         check(fields, Partup.schemas.forms.chat);
 
@@ -885,6 +882,12 @@ Meteor.methods({
         try {
             var chatId = Meteor.call('chats.insert', fields);
             Networks.update(network._id, {$set: {chat_id: chatId}});
+
+            // Add the users to the counter
+            var chat = Chats.findOneOrFail(chatId);
+            network.uppers.forEach(function(upperId) {
+                chat.addUserToCounter(upperId);
+            });
 
             return chatId;
         } catch (error) {

@@ -3,50 +3,76 @@ Template.NetworkChat.onCreated(function() {
     var networkSlug = template.data.networkSlug;
     var chatId = undefined;
 
+    template.searching = false;
     template.MAX_TYPING_PAUSE = 5000; // 5s
     template.LIMIT = 100;
-    template.oldestNewMessage = new ReactiveVar(undefined);
+    template.SEARCH_LIMIT = 50;
+    template.oldestUnreadMessage = new ReactiveVar(undefined);
     template.overscroll = new ReactiveVar(false);
     template.underscroll = new ReactiveVar(false);
     template.stickyAvatar = new ReactiveVar(undefined);
     template.initialized = new ReactiveVar(false);
     template.rendered = new ReactiveVar(false);
+    // template.sendingMessage = new ReactiveVar(false);
+    template.userIsAtScrollBottom = true;
+    template.focussed = true;
 
-    var initializeChat = function() {
-        var chat = Chats.findOne();
-        if (chat) {
-            chatId = chat._id;
+    var initialize = function(chat_id) {
+        startMessageCollector(chat_id);
+        Meteor.setTimeout(function() {
             template.initialized.set(true);
-            return;
-        }
-
-        Meteor.call('networks.chat_insert', networkSlug, {}, function(err, chat_id) {
-            if (err) return Partup.client.notify.error('Error initializing tribe chat');
-            chatId = chat_id;
-            template.initialized.set(true);
-            Partup.client.notify.success('Tribe chat initialized');
-        });
+        }, 1000);
     };
 
-    var chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: template.LIMIT}, {onReady: initializeChat});
-    template.limitReached = new ReactiveVar(false);
-    template.messageLimit = new ReactiveVar(template.LIMIT, function(oldLimit, newLimit) {
-        if (oldLimit !== newLimit) {
-            chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: newLimit}, {
-                onReady: function() {
-                    var messagesCount = ChatMessages.find({}, {limit: newLimit, sort: {created_at: 1}}).count();
-                    var totalNewMessages = messagesCount - oldLimit;
-                    if (totalNewMessages < 1) {
-                        template.limitReached.set(true);
-                    } else {
-                        _.defer(function() {
-                            template.ajustScrollOffsetByMessageCount(totalNewMessages);
-                            template.loadingOlderMessages = false;
-                        });
-                    }
-                }
+    var resetUnreadMessagesIndicatorBadge = function() {
+        Meteor.call('chats.reset_counter', chatId);
+    };
+
+    var resetIndicatorBadgeIfMessageDividerIsOnScreen = function() {
+        Meteor.setTimeout(function() {
+            if (!template.dividerLineIsVisible() || !template.focussed) return;
+            resetUnreadMessagesIndicatorBadge();
+            template.hideLine();
+        }, 4000);
+    };
+
+    var chatSubscriptionHandler = function() {
+        var network = Networks.findOne({slug: networkSlug});
+        var chat = Chats.findOne({_id: network.chat_id || 0});
+        if (chat) {
+            // if a chat is available, continue
+            chatId = chat._id;
+            initialize(chat._id);
+        } else {
+            // if a chat is not available, create one
+            Meteor.call('networks.chat_insert', networkSlug, {}, function(err, chat_id) {
+                if (err) return Partup.client.notify.error('Error initializing tribe chat');
+                chatId = chat_id;
+                initialize(chat_id);
+                Partup.client.notify.success('Tribe chat initialized');
             });
         }
+    };
+
+    var chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: template.SEARCH_LIMIT}, {onReady: chatSubscriptionHandler});
+    template.limitReached = new ReactiveVar(false);
+    template.messageLimit = new ReactiveVar(template.LIMIT, function(oldLimit, newLimit) {
+        if (oldLimit === newLimit) return;
+
+        chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: newLimit}, {
+            onReady: function() {
+                var messagesCount = ChatMessages.find({chat_id: chatId}, {limit: newLimit, sort: {created_at: 1}}).count();
+                var totalNewMessages = messagesCount - oldLimit;
+                if (totalNewMessages < 1) {
+                    template.limitReached.set(true);
+                } else {
+                    _.defer(function() {
+                        template.ajustScrollOffsetByMessageCount(totalNewMessages);
+                        template.loadingOlderMessages = false;
+                    });
+                }
+            }
+        });
     });
 
     template.ajustScrollOffsetByMessageCount = function(count) {
@@ -76,7 +102,7 @@ Template.NetworkChat.onCreated(function() {
         });
     };
 
-    template.resetMessageInput = function() {
+    template.clearMessageInput = function() {
         $('[data-messageinput]')[0].value = '';
     };
 
@@ -93,35 +119,43 @@ Template.NetworkChat.onCreated(function() {
 
     template.sendMessage = function(message) {
         if (!message) return false;
+
+        // var sendingMessage = template.sendingMessage.get();
+        // if (sendingMessage) return;
+
+        // template.sendingMessage.set(true);
+
         var scroller = template.scrollContainer;
 
-        var currentPosition = scroller.scrollTop;
-        var bottomPosition = scroller[0].scrollHeight - scroller[0].clientHeight;
+        var network = Networks.findOne({slug: networkSlug});
+        var userId = Meteor.userId();
+        if (!network.hasMember(userId)) {
+            // template.sendingMessage.set(false);
+            return Partup.client.notify.error(TAPi18n.__('pages-app-network-chat-send-message-permission-denied'));
+        }
+        template.instantlyScrollToBottom();
+        template.clearMessageInput();
 
         Meteor.call('chatmessages.insert', {
             chat_id: chatId,
             content: Partup.client.strings.emojify(message)
         }, function(err, res) {
+            // template.sendingMessage.set(false);
             if (err) return Partup.client.notify.error('Error sending message');
-            template.resetMessageInput();
             template.resetTypingState();
-
-            if (currentPosition === bottomPosition) {
-                scroller[0].scrollTop = scroller[0].scrollHeight;
-            } else {
-                scroller.animate({
-                    scrollTop: scroller[0].scrollHeight
-                }, 500);
-            }
+            template.onNewMessageRender(template.instantlyScrollToBottom);
         });
     };
 
-    template.rememberOldestNewMessage = function(oldestNewMessage) {
-        if (!template.focussed && oldestNewMessage) {
-            if (!template.oldestNewMessage.get()) template.oldestNewMessage.set(oldestNewMessage);
-        } else if (template.focussed) {
+    template.rememberOldestUnreadMessage = function(oldestUnreadMessage) {
+        if (!template.oldestUnreadMessage.get()) {
+            template.oldestUnreadMessage.set(oldestUnreadMessage);
         }
-        template.ajustScrollOffset();
+    };
+
+    template.instantlyScrollToBottom = function() {
+        var element = template.scrollContainer[0];
+        element.scrollTop = element.scrollHeight;
     };
 
     template.ajustScrollOffset = function() {
@@ -131,11 +165,20 @@ Template.NetworkChat.onCreated(function() {
         var pos = element.scrollTop;
         var height = element.scrollHeight - element.clientHeight;
         _.defer(function() {
-            if (pos === height) {
-                element.scrollTop = element.scrollHeight;
-            }
+            if (pos === height || template.userIsAtScrollBottom) template.instantlyScrollToBottom();
             template.stickyNewMessagesDividerHandler();
         });
+    };
+
+    template.scrollBottomCheck = function() {
+        var element = template.scrollContainer[0];
+        var pos = element.scrollTop;
+        var height = element.scrollHeight - element.clientHeight;
+        if (pos === height) {
+            template.userIsAtScrollBottom = true;
+        } else {
+            template.userIsAtScrollBottom = false;
+        }
     };
 
     template.scrollToNewMessages = function() {
@@ -153,17 +196,25 @@ Template.NetworkChat.onCreated(function() {
         });
     };
 
-    template.focussed = true;
-    template.focusHandler = function(event) {
+    template.windowFocusHandler = function(event) {
         template.focussed = true;
         template.stickyNewMessagesDividerHandler(true);
         $('[data-messageinput]').focus();
     };
-    template.blurHandler = function(event) {
+    template.windowBlurHandler = function(event) {
         template.focussed = false;
     };
-    $(window).on('focus', template.focusHandler);
-    $(window).on('blur', template.blurHandler);
+    $(window).on('focus', template.windowFocusHandler);
+    $(window).on('blur', template.windowBlurHandler);
+
+    template.dividerLineIsVisible = function() {
+        var dividerElement = $('[data-new-messages-divider]');
+        if (!dividerElement[0]) return false; // maybe it's already hidden, I dunno
+
+        var scrollElement = template.scrollContainer;
+        var scrollDest = dividerElement[0].offsetTop - (scrollElement[0].clientHeight - (dividerElement[0].clientHeight * 1.5));
+        return scrollElement.scrollTop() >= scrollDest;
+    };
 
     template.hideTimeout;
     template.hideLine = function() {
@@ -173,24 +224,65 @@ Template.NetworkChat.onCreated(function() {
         var underscroll = template.underscroll.get();
         if (overscroll || underscroll) return;
 
-        var dividerElement = $('[data-new-messages-divider]');
-        if (!dividerElement[0]) return; // maybe it's already hidden, I dunno
-
         // check if the divider line is visible for the user, then hide it
-        var scrollElement = template.scrollContainer;
-        var scrollDest = dividerElement[0].offsetTop - (scrollElement[0].clientHeight - (dividerElement[0].clientHeight * 1.5));
-        if (scrollElement.scrollTop() >= scrollDest) {
-            dividerElement.addClass('hide');
+        if (!template.dividerLineIsVisible()) return;
 
-            // remove the oldestNewMessage when the divider has faded out
-            Meteor.setTimeout(function() {
-                template.oldestNewMessage.set(undefined);
-            }, 250);
-        }
+        var dividerElement = $('[data-new-messages-divider]');
+        dividerElement.addClass('hide');
+
+        // remove the oldestUnreadMessage when the divider has faded out
+        Meteor.setTimeout(function() {
+            template.oldestUnreadMessage.set(undefined);
+            resetUnreadMessagesIndicatorBadge();
+        }, 250);
     };
     template.delayedHideLine = function(delay) {
         if (template.hideTimeout) clearTimeout(template.hideTimeout);
         template.hideTimeout = setTimeout(template.hideLine, delay);
+    };
+
+    template.newMessagesDividerHandler = function(messages) {
+        var chat = Chats.findOne(chatId);
+        var userId = Meteor.userId();
+        var counter = lodash.find(chat.counter, {user_id: userId});
+
+        // get the unread messages count
+        var unreadMessagesCount = counter ? counter.unread_count : 0;
+
+        // stop if the user is not focussed or if there are no unread messages
+        if (template.focussed && unreadMessagesCount <= 0) return;
+
+        // if user is focussed stop here
+        if (template.focussed && template.initialized.get()) return;
+
+        // returns the oldest unread message with n offset
+        // offset = 0 is oldest, offset = 1 is second oldest
+        var returnOldestUnreadMessageWithOffset = function(n) {
+            return messages[messages.length - ((unreadMessagesCount + 1) - n)];
+        };
+
+        var offset = 0;
+        var oldestUnreadMessage = returnOldestUnreadMessageWithOffset(offset);
+
+        // stop if there is no oldest unread message
+        if (!oldestUnreadMessage) return;
+
+        // make sure the oldest unread message is not the current user's message
+        while (oldestUnreadMessage.creator_id === userId) {
+            offset++;
+            var newOldestMessage = returnOldestUnreadMessageWithOffset(offset);
+            if (!newOldestMessage) {
+                oldestUnreadMessage = undefined;
+                break;
+            }
+            oldestUnreadMessage = newOldestMessage;
+            if (offset == unreadMessagesCount) break;
+        }
+
+        // again, stop if there is no oldest unread message
+        if (!oldestUnreadMessage) return;
+
+        template.rememberOldestUnreadMessage(oldestUnreadMessage);
     };
 
     template.stickyNewMessagesDividerHandler = function(hideWhenViewed) {
@@ -219,11 +311,13 @@ Template.NetworkChat.onCreated(function() {
                 userId = elm.attr('data-message-user-id');
                 var avatar = Images.findOne({_id: imageId});
                 var image = Partup.helpers.url.getImageUrl(avatar, '80x80');
-                $('[data-avatar]').css('background-image', 'url(' + image + ')');
+                $('[data-avatar]').css({
+                    'background-image': 'url(' + image + ')',
+                    'background-color': '#eee'
+                });
                 elm.addClass('pu-chatbox-noavatar');
 
             } else {
-                // $('[data-avatar]').css('background-image', 'none');
                 elm.removeClass('pu-chatbox-noavatar');
             }
             if (offsetTop < 0) {
@@ -237,35 +331,101 @@ Template.NetworkChat.onCreated(function() {
         } else {
             $('[data-sticky-avatar]').removeClass('pu-sticky-user-right');
         }
-        if (!imageId) $('[data-avatar]').css('background-image', 'none');
+        if (!imageId) {
+            $('[data-avatar]').css({
+                'background-image': 'none',
+                'background-color': 'transparent'
+            });
+        }
         template.stickyAvatar.set(userId);
     };
 
     // search
-    template.searchQuery = new ReactiveVar('', function(a, b) {
-        if (a !== b) {
-            // do something
-        }
+    template.searchQuery = new ReactiveVar('', function(oldValue, newValue) {
+        if (oldValue === newValue) return;
+
+        template.searching = (typeof newValue === 'string') && newValue.length;
+        if (!template.searching) return;
+
+        Meteor.call('chatmessages.search_in_network', networkSlug, newValue, {limit: template.LIMIT}, function(err, res) {
+            template.messages.set(res);
+            _.defer(template.instantlyScrollToBottom);
+        });
     });
     var setSearchQuery = function(query) {
         template.searchQuery.set(query);
     };
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
 
-    // message storage
-    var localCollection = [];
+    // messages
+    var localChatMessagesCollection = [];
     template.messages = new ReactiveVar([]);
-    template.autorun(function() {
-        var limit = template.messageLimit.get();
-        var messages = ChatMessages.find({}, {limit: limit, sort: {created_at: 1}}).fetch();
-        localCollection = localCollection.concat(messages);
-        localCollection = mout.array.unique(localCollection, function(message1, message2) {
-            return message1._id === message2._id;
+    var startMessageCollector = function(chat_id) {
+
+        // gets chatmessages and stores them in localChatMessagesCollection
+        template.autorun(function(computation) {
+            // run this autorun when the searchquery changes
+            var searchQuery = template.searchQuery.get();
+            // var sendingMessage = template.sendingMessage.get();
+
+            // don't do anything if the user is searching
+            // or if a message is not processed yet (scraper)
+            // if (template.searching || sendingMessage) return;
+            if (template.searching) return;
+
+            var limit = template.messageLimit.get();
+            var messages = ChatMessages
+                .find({chat_id: chat_id}, {limit: limit, sort: {created_at: 1}})
+                .fetch();
+
+            // store messages locally and filter out duplicates
+            localChatMessagesCollection = localChatMessagesCollection.concat(messages);
+            localChatMessagesCollection = mout.array.unique(localChatMessagesCollection, function(message1, message2) {
+                return message1._id === message2._id;
+            });
+
+            // wrapped in nonreactive to prevent unnecessary autorun
+            Tracker.nonreactive(function() {
+                template.newMessagesDividerHandler(localChatMessagesCollection);
+                template.messages.set(localChatMessagesCollection);
+            });
         });
-        var lastMessage = localCollection[localCollection.length - 1];
-        if (lastMessage) template.rememberOldestNewMessage(lastMessage);
-        template.messages.set(localCollection);
-    });
+
+        // marks all messages as seen (not read) in current chat
+        template.autorun(function() {
+            // var sendingMessage = template.sendingMessage.get();
+            // if (template.searching || sendingMessage) return;
+            if (template.searching) return;
+
+            if (template.focussed) {
+                ChatMessages
+                    .find({chat_id: chatId, read_by: {$nin: [Meteor.userId()]}, seen_by: {$nin: [Meteor.userId()]}})
+                    .forEach(function(message) {
+                        Meteor.call('chatmessages.read', message._id);
+                    });
+
+                resetUnreadMessagesIndicatorBadge();
+            } else {
+                ChatMessages
+                    .find({chat_id: chatId, seen_by: {$nin: [Meteor.userId()]}})
+                    .forEach(function(message) {
+                        Meteor.call('chatmessages.seen', message._id);
+                    });
+            }
+        });
+
+        resetIndicatorBadgeIfMessageDividerIsOnScreen();
+    };
+
+    var newMessageListeneners = [];
+    template.onNewMessageRender = function(callback) {
+        newMessageListeneners.push(callback);
+    };
+    template.newMessagesDidRender = function() {
+        newMessageListeneners.forEach(function() {
+            newMessageListeneners.pop().call();
+        });
+    };
 });
 
 Template.NetworkChat.onRendered(function() {
@@ -281,9 +441,8 @@ Template.NetworkChat.onRendered(function() {
 
 Template.NetworkChat.onDestroyed(function() {
     var template = this;
-    $(window).off('focus', template.focusHandler);
-    $(window).off('blur', template.blurHandler);
-    Meteor.clearInterval(template.chatTimer);
+    $(window).off('focus', template.windowFocusHandler);
+    $(window).off('blur', template.windowBlurHandler);
     Partup.client.chat.destroy();
 });
 
@@ -293,7 +452,10 @@ Template.NetworkChat.helpers({
         var network = Networks.findOne({slug: template.data.networkSlug});
         return {
             activeUppers: function() {
-                return Meteor.users.find({'status.online': true, _id: {$not: Meteor.userId(), $in: network.uppers || []}});
+                return Meteor.users.find({'status.online': true, _id: {$in: network.uppers || []}});
+            },
+            messagesGroupedByDelay: function(messages) {
+                return Partup.client.chatmessages.groupByDelay(messages, {seconds: 20});
             },
             messagesGroupedByDay: function(messages) {
                 return Partup.client.chatmessages.groupByCreationDay(messages);
@@ -303,8 +465,9 @@ Template.NetworkChat.helpers({
             },
             messages: function() {
                 var messages = template.messages.get();
-                var oldestNewMessage = template.oldestNewMessage.get();
-                var dateBorder = oldestNewMessage ? oldestNewMessage.created_at : new Date();
+                var oldestUnreadMessage = template.oldestUnreadMessage.get();
+                var dateBorder = oldestUnreadMessage ? oldestUnreadMessage.created_at : new Date();
+                template.ajustScrollOffset();
                 return {
                     old: function() {
                         return _.filter(messages, function(message) {
@@ -358,12 +521,31 @@ Template.NetworkChat.helpers({
                 var started_typing_date = new Date(typing_user.date).getTime();
                 var now = new Date().getTime();
                 return now - started_typing_date < template.MAX_TYPING_PAUSE;
+            },
+            reactiveQuery: function() {
+                return template.searchQuery;
+            },
+            // sendingMessage: function() {
+            //     return template.sendingMessage.get();
+            // }
+        };
+    },
+    handlers: function() {
+        var template = Template.instance();
+        return {
+            onMessageRender: function() {
+                return template.newMessagesDidRender;
             }
         };
     }
 });
 Template.NetworkChat.events({
     'keydown [data-submit=return]': function(event, template) {
+        // var sendingMessage = template.sendingMessage.get();
+        // if (sendingMessage) {
+        //     event.preventDefault();
+        // }
+
         // determine keycode (with cross browser compatibility)
         var pressedKey = event.which ? event.which : event.keyCode;
 
@@ -371,6 +553,7 @@ Template.NetworkChat.events({
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();
             template.sendMessage($('[data-messageinput]').val());
+            return false;
         } else {
             template.throttledEnableTypingState();
         }
@@ -387,50 +570,30 @@ Template.NetworkChat.events({
         event.preventDefault();
         template.loadOlderMessages();
     },
+    'click [data-new-messages-divider]': function(event, template) {
+        template.hideLine();
+    },
     'scroll [data-reversed-scroller]': function(event, template) {
-        if (event.currentTarget.scrollTop < 200 && !template.loadingOlderMessages) {
+        template.scrollBottomCheck();
+        if (event.currentTarget.scrollTop < 200 && !template.loadingOlderMessages && !template.searching) {
             template.loadOlderMessages();
         }
-        template.stickyUserAvatarHandler();
+        if (!Partup.client.browser.isSafari()) template.stickyUserAvatarHandler();
     },
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'DOMMouseScroll [data-reversed-scroller], mousewheel [data-reversed-scroller]': function(event, template) {
         template.stickyNewMessagesDividerHandler(true);
     },
-    // 'click [data-flexible-center]': function(event, template) {
-    //     event.preventDefault();
-    //     $(event.currentTarget).parent().addClass('start');
-    //     _.defer(function() {
-    //         $(event.currentTarget).parent().addClass('active');
-    //         $('[data-search]').focus();
-    //     });
-    // },
-    // 'click [data-clear]': function(event, template) {
-    //     event.preventDefault();
-    //     event.stopPropagation();
-    //     $('[data-search]').val('');
-    //     _.defer(function() {
-    //         template.throttledSetSearchQuery('');
-    //         $('[data-search]').blur();
-    //     });
-    // },
-    // 'input [data-search]': function(event, template) {
-    //     template.throttledSetSearchQuery(event.currentTarget.value);
-    // },
-    // 'focus [data-search]': function(event, template) {
-    //     $(event.currentTarget).parent().addClass('start');
-    //     _.defer(function() {
-    //         template.focussed = true;
-    //         $(event.currentTarget).parent().addClass('active');
-    //     });
-    // },
-    // 'blur [data-search]': function(event, template) {
-    //     if (!$(event.target).val()) {
-    //         template.focussed = false;
-    //         $('[data-flexible-center]').parent().removeClass('active');
-    //     }
-    // },
-    // 'transitionend [data-flexible-center]': function(event, template) {
-    //     $(event.currentTarget).parent().removeClass('start');
-    // }
+    'click [data-clear]': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('[data-search]').val('');
+        _.defer(function() {
+            template.throttledSetSearchQuery('');
+            $('[data-search]').blur();
+        });
+    },
+    'input [data-search]': function(event, template) {
+        template.throttledSetSearchQuery(event.currentTarget.value);
+    }
 });
