@@ -43,13 +43,13 @@ Meteor.methods({
             Chats.update(chat._id, {$set: {updated_at: new Date()}});
 
             // Find possible network
-            const network = Networks.findOne({chat_id: chat._id});
+            var network = Networks.findOne({chat_id: chat._id});
 
             if (!network) {
                 // It's a 1-on-1 chat!
 
                 // Find participants
-                const receivers = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
+                var receivers = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
                     .map(function(user) {
                         return user._id;
                     })
