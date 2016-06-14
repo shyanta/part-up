@@ -195,11 +195,13 @@ Template.app_discover_page.helpers({
 });
 
 Template.app_discover_page.events({
-    'click: #reccomendationsBtn': function() {
-        alert('recommendations is clicked');
+    'click: #recommendationsBtn': function() {
+        event.preventDefault();     //TODO: Is this statement necessary?
+        console.log('recommendations is clicked');
     },
     'click [data-open-profilesettings]': function(event, template) {
         event.preventDefault();
+        console.log('Something else is clicked');
 
         Intent.go({
             route: 'profile',

@@ -17,6 +17,8 @@
                         {{/if}}
                     </span>
                 {{/ if }}
+
+                <button id="recommendationsBtn" class="pu-button pu-button-large">{{_ 'pages-app-discover-btn-recommendations' }}</button>
             </h2>
 
             {{# if showProfileCompletion }}
@@ -24,8 +26,7 @@
                     <a href="{{ pathFor 'profile' _id=currentUserId }}" data-open-profilesettings>{{_ 'pages-app-discover-profilecompletion' profileCompletion=profileCompletion }}</a>
                 </p>
             {{/ if }}
-
-            <button id="recommendationsBtn" class="pu-button pu-button-large">Your recommendations part-ups 1</button> // TODO: ft324
+          
         </header>
 
         <!-- Content (partup-tiles) -->

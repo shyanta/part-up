@@ -647,7 +647,6 @@ Router.route('/tribes/:slug/uppers', {
     }
 });
 
-
 Router.route('/tribes/:slug/about', {
     name: 'network-about',
     where: 'client',
@@ -813,8 +812,8 @@ Router.route('/:slug', {
                     query: self.params.query
                 });
 
-            // if it is neither a swarm or network, continue rendering the swarm page
-            // the page will handle a "not found" exception by itself
+                // if it is neither a swarm or network, continue rendering the swarm page
+                // the page will handle a "not found" exception by itself
             } else {
                 self.render();
             }
