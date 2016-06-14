@@ -31,7 +31,8 @@ Package.onUse(function(api) {
         'peerlibrary:aws-sdk',
         'simple:rest',
         'simple:json-routes',
-        'anonyfox:scrape'
+        'anonyfox:scrape',
+        '3stack:accounts-logout-hook'
     ], ['server']);
 
     api.addFiles([

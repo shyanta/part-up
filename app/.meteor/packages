@@ -34,7 +34,6 @@ meteorhacks:subs-manager
 meteorhacks:unblock
 mizzao:user-status
 momentjs:moment
-#msavin:mongol
 mrt:jquery-mousewheel
 okgrow:analytics
 pauli:accounts-linkedin
@@ -126,3 +125,4 @@ es5-shim
 partup:client-network-chat
 anonyfox:scrape
 standard-minifiers-js
+3stack:accounts-logout-hook
