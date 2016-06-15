@@ -43,7 +43,11 @@ Template.app_partup_sidebar.onRendered(function() {
 Template.app_partup_sidebar.helpers({
     partup: function() {
         var partup = Partups.findOne(this.partupId);
-        Partup.client.windowTitle.setContextName(partup.name);
+
+        if (partup) {
+            Partup.client.windowTitle.setContextName(partup.name);
+        }
+
         return partup;
     },
 
