@@ -89,7 +89,7 @@ Partup.server.services.pushnotifications = {
                         }
 
                         if (sendApnNotification) {
-                            sendApnNotification(device, user, message, payload, badge);
+                            sendApnNotification(device, user, message, payload, badge || 1);
                         }
                     } else if (device.platform === 'Android') {
                         if (sendGcmNotification) {
