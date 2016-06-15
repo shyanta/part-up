@@ -65,13 +65,13 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
 
     return {
         find: function() {
-            return Meteor.users.find({_id: this.userId});
+            return Meteor.users.find(this.userId, {fields: {chats: 1}});
         },
         children: [
             {
                 find: function(user) {
                     if (user.chats && user.chats.indexOf(chatId) === -1) return;
-                    return Chats.findForUser(this.userId);
+                    return Chats.findForUser(this.userId, {private: true});
                 },
                 children: [
                     {
