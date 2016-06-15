@@ -306,7 +306,7 @@ Template.NetworkChat.onCreated(function() {
             var offsetTop = elm.position().top;
             var bottomOffsetTop = offsetTop + elm.outerHeight(true);
 
-            if (offsetTop < 25 && bottomOffsetTop > 68) {
+            if (offsetTop < 5 && bottomOffsetTop > 48) {
                 imageId = elm.attr('data-message-user-image-id');
                 userId = elm.attr('data-message-user-id');
                 var avatar = Images.findOne({_id: imageId});
