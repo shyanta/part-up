@@ -141,7 +141,7 @@ Chats.findForUser = function(userId, parameters, options) {
     if (parameters.private) {
         // Add the private chats
         var userChats = user.chats || [];
-        chatIds.concat(userChats);
+        chatIds = chatIds.concat(userChats);
     }
 
     if (parameters.networks) {
