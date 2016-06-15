@@ -1,5 +1,43 @@
 # CHANGELOG
 
+## 1.20.0
+- fix Forgot password is still case sensitive #445
+- fix(invite): 'Match failed' error resolved. fixing issue #427
+- fix(tribestart): invite button closes tribe start for members fixing #443
+- fix(navbar): tweaked the app width a bit, fixing #65
+- fix(tribestart): Read more button fixes #421
+- fix(tribestart): bold link styling #421
+- fix(email-images): confirmation mail images now showing #394
+- fix(edge): bulk upload fix #379
+- fix(mentions): Mentions are possible with 1 character and usernames that have 3 parts are searchable
+- fix(profile): added authorization token and userid to http gets to get correct results. fixing #477
+- fix(intercom): clear intercom session on logout
+- fix(profile): fixed infinite scroll issue mentioned in issue #380
+- fix(profile): dont't show the profile uppertile in partners #380
+- feat(personal-header): part-up-for-organisations in header only when user is on HomePage #470
+- feat(triibe-about): phone number and email address of tribe admins now visible for tribe members #457
+- feat Dynamic context on Window Title #428
+- feat(chat): re-enabled the chat
+- feat(chat): search through messages
+- feat(chats): abolity to retrieve private and network chats separately
+- feat(chat): chat search with highlighting
+- fix(notifications): don't mail notifications to deactivated users #459
+- feat(chat): group messages by chat for otifications
+- feat(chat): check if a user is member of a network when inserting a network chatmessage
+- feat(chat): new counter schema
+- feat(chats): chat counter helpers and implementation for networks
+- feat(counter): increase unread_counter on new message
+- feat(chat): reset unread_counter for current user
+- feat(migration): migration for chat counters
+- feat(migration): minor change to latest migration for edge cases
+- feat(chat): dropdown with indicator for read and seen states
+- feat(chat): mark messages as read and seen, also the messages divider shows unread messages on chat load
+- feat(chat): indicator badge
+- feat(chat): link previews
+- feat(renderblock): renderblock template that allows onRendered callbacks for small sections of templates
+- feat(private chat): send mobile pushnotification to chat message receivers
+- feat(push-notification): show app icon badge when notification is sent
+
 ## 1.19.3
 -  fix(cookiebar): set cookie expires 2147483647
 
