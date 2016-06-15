@@ -455,7 +455,7 @@ Template.NetworkChat.helpers({
                 return Meteor.users.find({'status.online': true, _id: {$in: network.uppers || []}});
             },
             messagesGroupedByDelay: function(messages) {
-                return Partup.client.chatmessages.groupByDelay(messages, {seconds: 20});
+                return Partup.client.chatmessages.groupByDelay(messages, {seconds: 120});
             },
             messagesGroupedByDay: function(messages) {
                 return Partup.client.chatmessages.groupByCreationDay(messages);
