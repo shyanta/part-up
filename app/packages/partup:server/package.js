@@ -232,5 +232,6 @@ Npm.depends({
     'gm': '1.20.0',
     'apn': '1.7.5',
     'moment': '2.13.0',
+    'node-metainspector': '1.3.0',
     'part-up-js-models': 'git://github.com/part-up/js-models.git#1.0.0'
 });
