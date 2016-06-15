@@ -4,6 +4,7 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
     // FIXME: hack is necessary for backwards compatibility. please remove after app 1.2.3 publication
     if (!options) {
         options = parameters;
+        parameters = {private: true};
     }
 
     parameters = parameters || {};
