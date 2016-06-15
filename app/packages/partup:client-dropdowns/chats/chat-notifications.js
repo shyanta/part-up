@@ -40,9 +40,8 @@ Template.DropdownChatNotifications.helpers({
     data: function() {
         var userId = Meteor.userId();
         var chats = Chats.find({}, {fields: {_id: 1, counter: 1}, sort: {updated_at: -1}})
-            .fetch()
             .map(function(chat) {
-                var message = ChatMessages.findOne({chat_id: chat._id});
+                var message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
                 if (message) {
                     chat.hasMessages = true;
                     chat.messagesHaveBeenSeen = message.isSeenByUpper(userId);
