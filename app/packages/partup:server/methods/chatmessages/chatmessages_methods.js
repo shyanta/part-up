@@ -146,6 +146,9 @@ Meteor.methods({
      * @param {Object} options
      */
     'chatmessages.search_in_network': function(networkSlug, query, options) {
+        //disabled until security bug #511 fixed
+        return false;
+
         check(networkSlug, String);
         check(query, String);
         check(options, {

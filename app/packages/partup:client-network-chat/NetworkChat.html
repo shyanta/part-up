@@ -81,18 +81,18 @@
         <aside class="pu-sidebar">
             <section>
                 <div class="pu-sidebar-wrap" data-preventscroll>
-                    <section>
-                        <div class="pu-search pu-clearinput">
-                            <input type="text" placeholder="{{_ 'pages-app-network-chat-search-input-placeholder'}}" class="pu-input form-control" data-search>
-                            {{#if state.reactiveQuery.get}}
-                                <i class="picon-times" data-clear></i>
-                            {{/if}}
-                            <i class="picon-search"></i>
-                        </div>
-                        {{#if data.network.isPublic}}<p>{{{_ 'pages-app-network-chat-sidebar-text-open' }}}</p>{{/if}}
-                        {{#if data.network.isInvitational}}<p>{{{_ 'pages-app-network-chat-sidebar-text-invite' }}}</p>{{/if}}
-                        {{#if data.network.isClosed}}<p>{{{_ 'pages-app-network-chat-sidebar-text-clodes' }}}</p>{{/if}}
-                    </section>
+                    <!-- <section> -->
+                    <!--     <div class="pu&#45;search pu&#45;clearinput"> -->
+                    <!--         <input type="text" placeholder="{{_ 'pages&#45;app&#45;network&#45;chat&#45;search&#45;input&#45;placeholder'}}" class="pu&#45;input form&#45;control" data&#45;search> -->
+                    <!--         {{#if state.reactiveQuery.get}} -->
+                    <!--             <i class="picon&#45;times" data&#45;clear></i> -->
+                    <!--         {{/if}} -->
+                    <!--         <i class="picon&#45;search"></i> -->
+                    <!--     </div> -->
+                    <!--     {{#if data.network.isPublic}}<p>{{{_ 'pages&#45;app&#45;network&#45;chat&#45;sidebar&#45;text&#45;open' }}}</p>{{/if}} -->
+                    <!--     {{#if data.network.isInvitational}}<p>{{{_ 'pages&#45;app&#45;network&#45;chat&#45;sidebar&#45;text&#45;invite' }}}</p>{{/if}} -->
+                    <!--     {{#if data.network.isClosed}}<p>{{{_ 'pages&#45;app&#45;network&#45;chat&#45;sidebar&#45;text&#45;clodes' }}}</p>{{/if}} -->
+                    <!-- </section> -->
                     <section>
                         <h2>{{_ 'pages-app-network-chat-title-activeuppers'}}</h2>
                         {{#if data.activeUppers.count}}
