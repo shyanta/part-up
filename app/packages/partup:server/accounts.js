@@ -11,6 +11,8 @@ Accounts.validateLoginAttempt(function(attempt) {
 Accounts.onLogin(function(data) {
     Meteor.defer(function() {
         var user = data.user;
+        User(user).pruneDevices();
+
         var logins = user.logins || [];
 
         d('User [' + user._id + '] has logged in');

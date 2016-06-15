@@ -496,7 +496,7 @@ User = function(user) {
                 });
 
             var uuidsOfDevicesToBeRemoved = (user.push_notification_devices || []).filter(function(device) {
-                return !device.loginToken || !mout.array.contains(allUserHashedTokens, device.loginToken);
+                return device.loginToken && !mout.array.contains(allUserHashedTokens, device.loginToken);
             }).map(function(device) {
                 return device.uuid;
             });
