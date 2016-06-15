@@ -1,3 +1,8 @@
+Router.isHomePage = new ReactiveVar(false);
+Router.onBeforeAction(function(req, res, next) {
+    Router.isHomePage.set(/^\/$/.test(req.url));
+    next();
+});
 /**
  * This namespace contains router helpers etc
  * @namespace Router
@@ -23,6 +28,10 @@ Router.route('', {
     yieldRegions: {
         'app':      {to: 'main'},
         'app_home': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Home");
+        this.next();
     }
 });
 
@@ -35,6 +44,10 @@ Router.route('/discover', {
     yieldRegions: {
         'app':          {to: 'main'},
         'app_discover': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Discover");
+        this.next();
     }
 });
 
@@ -187,6 +200,10 @@ Router.route('/start', {
     yieldRegions: {
         'modal':              {to: 'main'},
         'modal_create_intro': {to: 'modal'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Create Partup");
+        this.next();
     }
 });
 
@@ -251,6 +268,10 @@ Router.route('/login', {
     yieldRegions: {
         'modal':       {to: 'main'},
         'modal_login': {to: 'modal'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Log in");
+        this.next();
     }
 });
 
@@ -263,6 +284,10 @@ Router.route('/forgot-password', {
     yieldRegions: {
         'modal':                {to: 'main'},
         'modal_forgotpassword': {to: 'modal'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Forgot password");
+        this.next();
     }
 });
 
@@ -349,6 +374,10 @@ Router.route('/register', {
         'modal':                 {to: 'main'},
         'modal_register':        {to: 'modal'},
         'modal_register_signup': {to: 'modal_register'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Register");
+        this.next();
     }
 });
 
@@ -543,6 +572,10 @@ Router.route('/about', {
     yieldRegions: {
         'app':      {to: 'main'},
         'app_about': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("About");
+        this.next();
     }
 });
 
@@ -552,6 +585,10 @@ Router.route('/pricing', {
     yieldRegions: {
         'app':      {to: 'main'},
         'app_pricing': {to: 'app'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Pricing");
+        this.next();
     }
 });
 
@@ -652,20 +689,20 @@ Router.route('/tribes/:slug/about', {
 });
 
 // Temporarily disabled for mobile chat release
-// Router.route('/tribes/:slug/chat', {
-//     name: 'network-chat',
-//     where: 'client',
-//     yieldRegions: {
-//         'app':                  {to: 'main'},
-//         'app_network':          {to: 'app'},
-//         'app_network_chat':   {to: 'app_network'}
-//     },
-//     data: function() {
-//         return {
-//             networkSlug: this.params.slug
-//         };
-//     }
-// });
+Router.route('/tribes/:slug/chat', {
+    name: 'network-chat',
+    where: 'client',
+    yieldRegions: {
+        'app':                  {to: 'main'},
+        'app_network':          {to: 'app'},
+        'app_network_chat':   {to: 'app_network'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
 
 Router.route('/tribes/:slug/invite', {
     name: 'network-invite',
@@ -869,6 +906,9 @@ Router.route('/(.*)', {
     yieldRegions: {
         'app':          {to: 'main'},
         'app_notfound': {to: 'app'}
+    },
+    action: function() {
+        Partup.client.windowTitle.setContextName("404 Not found");
     }
 });
 

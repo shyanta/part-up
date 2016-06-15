@@ -7,11 +7,21 @@ var Chat = function(document) {
     _.extend(this, document);
 };
 
+Chat.prototype.unreadCount = function() {
+    var countObject = _.find(this.counter || [], {user_id: Meteor.userId()}) || {};
+    return countObject.unread_count || 0;
+};
+
+Chat.prototype.hasUnreadMessages = function() {
+    var countObject = _.find(this.counter || [], {user_id: Meteor.userId()}) || {};
+    return !!countObject.unread_count;
+};
+
 /**
  * Set a user as typing
  *
  * @memberOf Chats
- * @param {String} userId the user id of the user that started typing
+ * @param {String} userId the id of the user that started typing
  * @param {Date} typingDate the front-end date of when the user started typing
  */
 Chat.prototype.startedTyping = function(userId, typingDate) {
@@ -27,22 +37,79 @@ Chat.prototype.startedTyping = function(userId, typingDate) {
  * Unset a typing user
  *
  * @memberOf Chats
- * @param {String} userId the user id of the user that stopped typing
+ * @param {String} userId the id of the user that stopped typing
  */
 Chat.prototype.stoppedTyping = function(userId) {
     Chats.update(this._id, {$pull: {started_typing: {upper_id: userId}}});
 };
 
 /**
- * Get the unread chat count
+ * Add a user to the counter array
  *
  * @memberOf Chats
- * @param {String} userId
- * @return {Mongo.Cursor}
+ * @param {String} userId the id of the user that needs to be added
  */
-Chat.prototype.getUnreadCountForUser = function(userId) {
-    var user = Meteor.users.findOneOrFail(userId);
-    return ChatMessages.find({chat_id: this._id, read_by: {$nin: [user._id]}}).count();
+Chat.prototype.addUserToCounter = function(userId) {
+    Chats.update({
+        _id: this._id,
+        'counter.user_id': {
+            $ne: userId
+        }
+    }, {
+        $push: {
+            counter: {
+                user_id: userId,
+                unread_count: 0
+            }
+        }
+    });
+};
+
+/**
+ * Increment unread messages counter
+ *
+ * @memberOf Chats
+ * @param {String} creatorUserId the id of the creator of a message
+ */
+Chat.prototype.incrementCounter = function(creatorUserId) {
+    var counter = Chats.findOneOrFail(this._id).counter;
+    counter.forEach(function(counter) {
+        if (counter.user_id === creatorUserId) return;
+        counter.unread_count++
+    });
+    Chats.update(this._id, {$set: {counter: counter}});
+};
+
+/**
+ * Reset unread messages counter
+ *
+ * @memberOf Chats
+ * @param {String} userId the id of the user to reset
+ */
+Chat.prototype.resetCounterForUser = function(userId) {
+    Chats.update({
+        _id: this._id,
+        'counter.user_id': userId
+    }, {
+        $set: {
+            'counter.$.unread_count': 0
+        }
+    });
+};
+
+/**
+ * Remove a user from the counter array
+ *
+ * @memberOf Chats
+ * @param {String} userId the id of the user that needs to be removed
+ */
+Chat.prototype.removeUserFromCounter = function(userId) {
+    Chats.update({
+        _id: this._id,
+        'counter.user_id': userId
+    }, {
+        $pull: {counter: {user_id: userId}}
+    });
 };
 
 /**
@@ -59,25 +126,37 @@ Chats = new Mongo.Collection('chats', {
  *
  * @memberOf Chats
  * @param {String} userId
+ * @param {Object} parameters
+ * @param {Boolean} parameters.private Set true when you need to incluce the private chats
+ * @param {Boolean} parameters.networks Set true when you need to incluce the network chats
+ * @param {Object} options
  * @return {Mongo.Cursor}
  */
-Chats.findForUser = function(userId, options) {
+Chats.findForUser = function(userId, parameters, options) {
     options = options || {};
+    parameters = parameters || {};
     var user = Meteor.users.findOneOrFail(userId);
+    var chatIds = [];
 
-    // Begin with the private chats
-    var userChats = user.chats || [];
+    if (parameters.private) {
+        // Add the private chats
+        var userChats = user.chats || [];
+        chatIds = chatIds.concat(userChats);
+    }
 
-    // And now collect the tribe chats
-    var networks = Networks.find({_id: {$in: user.networks || []}});
-    networks.forEach(function(network) {
-        if (network.chat_id) userChats.push(network.chat_id);
-    });
+    if (parameters.networks) {
+        // And now collect the tribe chats
+        var userNetworks = user.networks || [];
+        var networks = Networks.find({_id: {$in: userNetworks}});
+        networks.forEach(function(network) {
+            if (network.chat_id) chatIds.push(network.chat_id);
+        });
+    }
 
     if (!options.sort) {
         options.sort = {updated_at: -1};
     }
 
     // Return the IDs ordered by most recent
-    return Chats.find({_id: {$in: userChats}}, options);
+    return Chats.find({_id: {$in: chatIds}}, options);
 };

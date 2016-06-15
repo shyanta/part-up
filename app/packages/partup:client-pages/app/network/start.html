@@ -17,7 +17,9 @@
                 <header class="pu-highlight pu-highlight-inverted">
                     <figure class="pu-avatar pu-avatar-responsive pu-avatar-square" style="{{#with data.network.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
                     <h1>{{data.network.name}}</h1>
-                    <h3>{{data.network.description}}</h3>
+                    <h3>
+                        {{data.network.description}} <a class="pu-link pu-link-strong" href="{{pathFor route='network-about' slug=data.network.slug}}">Read More</a>
+                    </h3>
                     {{#with data.network.displayTags data.network.slug}}
                         <ul class="pu-list pu-list-horizontal pu-list-tags">
                             {{#each .}}
@@ -26,7 +28,11 @@
                         </ul>
                     {{/with}}
                     <!-- join or leave button -->
-                    {{> app_network_joinbutton network=data.network }}
+                    {{#if data.network.hasMember currentUserId}}
+                        <a href="{{ pathFor route='network-detail' slug=data.network.slug }}" class="pu-button">{{_ 'pages-app-network-start-button-gototribe'}}</a>
+                    {{else}}
+                        {{> app_network_joinbutton network=data.network }}
+                    {{/if}}
                 </header>
                 {{# unless data.network.isClosedForUpper currentUserId }}
                     <footer>

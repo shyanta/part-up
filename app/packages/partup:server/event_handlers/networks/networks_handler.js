@@ -4,6 +4,12 @@
 Event.on('networks.accepted', function(userId, networkId, upperId) {
     var network = Networks.findOneOrFail(networkId);
     var acceptedUpper = Meteor.users.findOneOrFail(upperId);
+    if (!User(acceptedUpper).isActive()) return; // Ignore deactivated accounts
+
+    // Add upper to chat counter
+    var chat = Chats.findOneOrFail(network.chat_id);
+    chat.addUserToCounter(acceptedUpper._id);
+
     var notificationType = 'partups_networks_accepted';
 
     // Send notifications to accepted upper
@@ -100,11 +106,16 @@ Event.on('networks.new_pending_upper', function(network, pendingUpper) {
  * Generate a notification for the network uppers to notify the new upper
  */
 Event.on('networks.uppers.inserted', function(newUpper, network) {
+    // Add upper to chat counter
+    var chat = Chats.findOneOrFail(network.chat_id);
+    chat.addUserToCounter(newUpper._id);
+
     var notificationType = 'partups_networks_new_upper';
 
     // Send notifications to all uppers in network
     var networkUppers = network.uppers || [];
     Meteor.users.find({_id: {$in: networkUppers}}).forEach(function(networkUpper) {
+        if (!User(networkUpper).isActive()) return; // Ignore deactivated accounts
         // Don't notify the upper that just joined
         if (networkUpper._id === newUpper._id) return;
 
@@ -155,6 +166,10 @@ Event.on('networks.uppers.inserted', function(newUpper, network) {
  * Generate a notification for all network admins to notify that an upper left
  */
 Event.on('networks.uppers.removed', function(upper, network) {
+    // Remove upper from chat counter
+    var chat = Chats.findOneOrFail(network.chat_id);
+    chat.removeUserFromCounter(upper._id);
+
     var notificationType = 'partups_networks_upper_left';
 
     var admins = Meteor.users.find({_id: {$in: network.admins || []}});

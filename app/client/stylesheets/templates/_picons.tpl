@@ -20,6 +20,7 @@
     font-size: 1em
 
 <% _.forEach(glyphCodepointMap, function(codepoint, name) { %>
+$<%= classPrefix %><%= name %>-content: '\<%= codepoint %>'
 .<%= classPrefix %><%= name %>:before
-    content: '\<%= codepoint %>'
+    content: $<%= classPrefix %><%= name %>-content
 <% }); %>

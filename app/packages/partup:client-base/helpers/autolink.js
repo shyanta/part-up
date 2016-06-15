@@ -1,5 +1,6 @@
 // full documentation for Autolinker at http://gregjacobs.github.io/Autolinker.js/docs/#!/api/Autolinker
 Template.registerHelper('partupAutolink', function(text) {
+
     var jaja = Autolinker.link(text, {
         twitter: false, // to not parse twitter handles
         hashtag: false, // do not parse hashtags
@@ -24,4 +25,16 @@ Template.registerHelper('partupAutolink', function(text) {
     });
 
     return jaja;
+});
+
+Template.registerHelper('partupHighlight', function(message) {
+    var template = Template.instance();
+    var text = template.highlight.get();
+    if (!text.length) return message;
+    var highlight = Partup.client.sanitize(text);
+    var description = message || '';
+    var descriptionArray = Partup.client.strings.splitCaseInsensitive(description, highlight);
+    if (descriptionArray.length <= 1) return description;
+    var outputText = descriptionArray.join('<span>' + highlight + '</span>');
+    return outputText;
 });

@@ -19,6 +19,8 @@ Package.onUse(function(api) {
         'partup:client-copy-to-clipboard',
         'lifely:mout',
         'iron:router',
+        'reactive-dict',
+        'reactive-var',
         'http'
     ]);
 

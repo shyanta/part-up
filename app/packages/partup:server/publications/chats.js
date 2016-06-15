@@ -1,7 +1,18 @@
-Meteor.publishComposite('chats.for_loggedin_user', function(options) {
+Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options) {
     this.unblock();
 
+    // FIXME: hack is necessary for backwards compatibility. please remove after app 1.2.3 publication
+    if (!options) {
+        options = parameters;
+        parameters = {private: true};
+    }
+
+    parameters = parameters || {};
     options = options || {};
+    check(parameters, {
+        private: Match.Optional(Boolean),
+        networks: Match.Optional(Boolean)
+    });
     check(options, {
         limit: Match.Optional(Number),
         skip: Match.Optional(Number)
@@ -11,25 +22,35 @@ Meteor.publishComposite('chats.for_loggedin_user', function(options) {
         find: function() {
             return Meteor.users.find(this.userId, {fields: {chats: 1}});
         },
-        children: [
-            {
-                find: function(user) {
-                    return Chats.findForUser(user._id, options);
-                },
-                children: [
-                    {
-                        find: function(chat) {
-                            return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
-                        },
-                        children: [
-                            {find: Images.findForUser}
-                        ]
+        children: [{
+            find: function(user) {
+                return Chats.findForUser(user._id, parameters, options);
+            },
+            children: [{
+                    find: function(chat) {
+                        return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
                     },
-                    {find: function(chat) {
+                    children: [
+                        {find: Images.findForUser}
+                    ]
+                },{
+                    find: function(chat) {
                         return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
-                    }}
-                ]
-            }
+                    },
+                    children: [
+                        {find: function(chatMessage) {
+                            return Meteor.users.find(chatMessage.creator_id);
+                        }}
+                    ]
+                },{
+                    find: function(chat) {
+                        return Networks.find({chat_id: chat._id}, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1}, limit: 1});
+                    },
+                    children: [
+                        {find: Images.findForNetwork}
+                    ]
+                }
+            ]}
         ]
     };
 });
@@ -45,13 +66,13 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
 
     return {
         find: function() {
-            return Meteor.users.find({_id: this.userId});
+            return Meteor.users.find(this.userId, {fields: {chats: 1}});
         },
         children: [
             {
                 find: function(user) {
-                    if (user.chats.indexOf(chatId) === -1) return;
-                    return Chats.findForUser(this.userId);
+                    if (user.chats && user.chats.indexOf(chatId) === -1) return;
+                    return Chats.findForUser(this.userId, {private: true});
                 },
                 children: [
                     {
