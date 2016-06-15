@@ -1,3 +1,4 @@
+var MetaInspector = Npm.require('node-metainspector');
 var d = Debug('services:scrape');
 
 /**
@@ -12,6 +13,20 @@ Partup.server.services.scrape = {
      * @return {Object}
      */
     website: function(url) {
-        return Scrape.website(url);
+        var scraper = Meteor.wrapAsync(function(url, callback) {
+            var client = new MetaInspector(url, {timeout: 5000});
+
+            client.on('fetch', function() {
+                return callback(null, client);
+            });
+
+            client.on('error', function() {
+                return callback(null);
+            });
+
+            client.fetch();
+        });
+
+        return scraper(url);
     }
 };

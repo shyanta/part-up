@@ -2,7 +2,6 @@
  * Check for scrapable content
  */
 
-/* disabled scraper until feedback is implemented
 Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
     if (!userId || !chatMessageId) return;
 
@@ -10,20 +9,19 @@ Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
     var regex = new RegExp('(http[s]?:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?');
     var url = content.match(regex);
     if (url && url.length > 0) {
-        var result = Partup.server.services.scrape.website(url[0]);
+        var data = Partup.server.services.scrape.website(url[0]);
 
-        // stop if there is no scrape data
-        if (!Object.keys(result).length) return;
+        // Stop if there is no scraped data
+        if (!data || !data.title) return;
 
-        var data = {
-            title: result.title,
-            description: result.description,
-            image: result.image,
-            domain: result.domain,
-            language: result.lang,
-            url: url[0]
+        var preview_data = {
+            url: data.url,
+            title: data.ogTitle ? data.ogTitle : data.title,
+            description: data.ogDescription ? data.ogDescription : data.description,
+            image: data.image ? data.image : data.images[0],
+            domain: data.host
         };
-        ChatMessages.update(chatMessageId, {$set: {preview_data: data}});
+
+        ChatMessages.update(chatMessageId, {$set: {preview_data: preview_data}});
     }
 });
-*/
