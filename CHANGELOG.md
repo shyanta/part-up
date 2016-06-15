@@ -1,4 +1,6 @@
 # CHANGELOG
+## 1.20.1
+- mitigate chat search security issue
 
 ## 1.20.0
 - fix Forgot password is still case sensitive #445
