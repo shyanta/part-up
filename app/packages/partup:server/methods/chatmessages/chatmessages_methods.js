@@ -161,7 +161,7 @@ Meteor.methods({
         if (!user || !network.hasMember(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            return ChatMessages.find({content: new RegExp('.*' + query + '.*', 'i')}, options).fetch();
+            return ChatMessages.find({chat_id: network.chat_id, content: new RegExp('.*' + query + '.*', 'i')}, options).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'chatmessages_could_not_be_searched');
