@@ -14,6 +14,17 @@ Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
         // Stop if there is no scraped data
         if (!data || !data.title) return;
 
+        // Scrape again with seo snippets available for partup routes
+        if (data.host == 'part-up.com') {
+            data = Partup.server.services.scrape.website(url[0] + '?_escaped_fragment_');
+            // If still not available (like on a /chat route), scrape the part-up root page
+            if (!data.description) {
+                data = Partup.server.services.scrape.website('https://part-up.com/?_escaped_fragment_');
+            }
+            // Change the URL to link to back to the original URL
+            data.url = url[0];
+        }
+
         var preview_data = {
             url: data.url,
             title: data.ogTitle ? data.ogTitle : data.title,
