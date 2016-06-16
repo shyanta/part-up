@@ -181,7 +181,7 @@ Router.route('/profile/:_id/settings/email', {
 /*************************************************************/
 /* Show Recommendations */
 /*************************************************************/
-Router.route('/recommendations', {
+Router.route('/recommendations/:_id', {
     name: 'recommendations',
     where: 'client',
     yieldRegions: {

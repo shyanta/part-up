@@ -192,16 +192,25 @@ Template.app_discover_page.helpers({
         if (!user.completeness) return '...';
         return user.completeness;
     },
+    showRecommendationsBtn: function() {
+        var user = Meteor.user();
+        if (!user) return false;
+        return true;
+    }
 });
 
 Template.app_discover_page.events({
-    'click: #recommendationsBtn': function() {
+    'click .recommendationsBtn': function(event, template) {
         event.preventDefault();     //TODO: Is this statement necessary?
-        console.log('recommendations is clicked');
+        Intent.go({
+            route: 'recommendations',
+            params: {
+                _id: Meteor.userId()  //TODO: Why give userId in params; copied from profile code
+            }
+        });
     },
     'click [data-open-profilesettings]': function(event, template) {
         event.preventDefault();
-        console.log('Something else is clicked');
 
         Intent.go({
             route: 'profile',
