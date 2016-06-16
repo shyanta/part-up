@@ -42,11 +42,8 @@ Meteor.methods({
             // Update the chat
             Chats.update(chat._id, {$set: {updated_at: new Date()}});
 
-            // Find possible network
-            var network = Networks.findOne({chat_id: chat._id});
-
+            // If it's a private chat
             if (!network) {
-                // It's a 1-on-1 chat!
 
                 // Find participants
                 var receivers = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
