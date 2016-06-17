@@ -482,8 +482,7 @@ Meteor.methods({
         }
 
         try {
-            query = query.replace(/-/g, ' '); // Replace dashes with spaces
-            return Networks.guardedMetaFind({slug: new RegExp('.*' + query + '.*', 'i')}, {limit: 30}).fetch();
+            return Networks.guardedMetaFind({name: new RegExp('.*' + query + '.*', 'i')}, {name: 1, limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'networks_could_not_be_autocompleted');
@@ -507,11 +506,10 @@ Meteor.methods({
         }
         var swarm = Swarms.guardedMetaFind({slug: swarmSlug}, {limit: 1}).fetch().pop();
         try {
-            query = query.replace(/-/g, ' '); // Replace dashes with spaces
             return Networks.guardedMetaFind({
-                slug: new RegExp('.*' + query + '.*', 'i'),
+                name: new RegExp('.*' + query + '.*', 'i'),
                 swarms: {$nin: [swarm._id]}
-            }, {limit: 30}).fetch();
+            }, {name: 1, limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'networks_could_not_be_autocompleted');

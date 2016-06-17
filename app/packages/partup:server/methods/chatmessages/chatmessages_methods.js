@@ -36,17 +36,13 @@ Meteor.methods({
             Event.emit('chats.messages.inserted', user._id, chatMessage._id, chatMessage.content);
 
             // Increase counters
-            var chat = Chats.findOneOrFail(fields.chat_id);
             chat.incrementCounter(user._id);
 
             // Update the chat
             Chats.update(chat._id, {$set: {updated_at: new Date()}});
 
-            // Find possible network
-            var network = Networks.findOne({chat_id: chat._id});
-
+            // If it's a private chat
             if (!network) {
-                // It's a 1-on-1 chat!
 
                 // Find participants
                 var receivers = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
@@ -161,7 +157,7 @@ Meteor.methods({
         if (!user || !network.hasMember(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            return ChatMessages.find({content: new RegExp('.*' + query + '.*', 'i')}, options).fetch();
+            return ChatMessages.find({chat_id: network.chat_id, content: new RegExp('.*' + query + '.*', 'i')}, options).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'chatmessages_could_not_be_searched');

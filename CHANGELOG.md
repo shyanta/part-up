@@ -1,4 +1,12 @@
 # CHANGELOG
+
+## 1.20.2
+- fix(chat): search on tribe chat won't show content of private chats in app anymore #511
+- feat(tribes): improved the tribe autocompletion #458
+- Remove the invitation sentence to improve one's profile #523
+- feat(updates): improved stopped supporting copy #478
+- fix(networkchat): re-enable the search feature of network chat
+
 ## 1.20.1
 - mitigate chat search security issue
 
