@@ -154,7 +154,13 @@ Meteor.methods({
         if (!user || !network.hasMember(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            return ChatMessages.find({chat_id: network.chat_id, content: new RegExp('.*' + query + '.*', 'i')}, options).fetch();
+            // Set the search criteria
+            var searchCriteria = [
+                {content: new RegExp('.*' + query + '.*', 'i')},
+                {'preview_data.title': new RegExp('.*' + query + '.*', 'i')},
+                {'preview_data.description': new RegExp('.*' + query + '.*', 'i')}
+            ];
+            return ChatMessages.find({$and: [{chat_id: network.chat_id}, {$or: searchCriteria}]}, options).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'chatmessages_could_not_be_searched');
