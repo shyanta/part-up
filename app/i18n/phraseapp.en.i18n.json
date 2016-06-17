@@ -221,6 +221,8 @@
   "dropdowns-activitiesactions-option-default": "All activities",
   "dropdowns-activitiesactions-option-my-activities": "My activities",
   "dropdowns-activitiesactions-option-open-activities": "Available activities",
+  "dropdowns-chat-notifications-button-loadmore": "Load more",
+  "dropdowns-chat-notifications-placeholder-nonotifications": "No chats yet",
   "dropdowns-networksactions-label": "Show:",
   "dropdowns-networksactions-option-active": "Active part-ups",
   "dropdowns-networksactions-option-all": "All part-ups",
