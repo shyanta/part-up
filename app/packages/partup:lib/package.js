@@ -144,3 +144,11 @@ Package.onUse(function(api) {
     api.export('get');
     api.export('set');
 });
+
+Package.onTest(function(api) {
+  api.use(['ecmascript', 'tinytest', 'underscore']);
+
+  api.addFiles([
+    'helpers/fileUploader.tests.js'
+  ]);
+});

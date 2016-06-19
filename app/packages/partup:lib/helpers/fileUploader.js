@@ -126,3 +126,5 @@ Partup.helpers.fileUploader.partupUploadDoc = function (template, mappedFile) {
 };
 
 FileUploader = Partup.helpers.fileUploader;
+
+export default FileUploader;
