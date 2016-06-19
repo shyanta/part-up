@@ -8,6 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
+        'ecmascript',
         'stevezhu:lodash',
         'mongo',
         'tracker',
@@ -137,6 +138,7 @@ Package.onUse(function(api) {
     api.export('ContentBlocks');
     api.export('Chats');
     api.export('ChatMessages');
+    api.export('FileUploader');
 
     // Globals
     api.export('get');

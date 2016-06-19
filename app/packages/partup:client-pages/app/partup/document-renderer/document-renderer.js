@@ -1,6 +1,6 @@
 Template.DocumentRenderer.helpers({
-    getSvgIcon: Partup.helpers.getSvgIcon,
-    bytesToSize: Partup.helpers.bytesToSize,
+    getSvgIcon: Partup.helpers.fileUploader.getSvgIcon,
+    bytesToSize: Partup.helpers.fileUploader.bytesToSize,
     previewLink: function(file) {
         var client = new URL(file.link).host;
 

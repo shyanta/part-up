@@ -107,6 +107,8 @@ blaze-html-templates
 session
 jquery
 tracker
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
 logging
 reload
 random
@@ -121,7 +123,6 @@ partup:cookie-law-bar
 #mike:mocha
 #velocity:console-reporter
 partup:client-network-settings-about
-es5-shim
 partup:client-network-chat
 anonyfox:scrape
 standard-minifiers-js

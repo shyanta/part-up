@@ -1,71 +1,73 @@
-Partup.helpers.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png', '.GIF', '.JPG', '.JPEG', '.PNG'];
-Partup.helpers.docExtensions = ['.doc', '.docx', '.rtf', '.pages', '.txt', '.DOC', '.DOCX', '.RTF', '.PAGES', '.TXT'];
-Partup.helpers.pdfExtensions = ['.pdf', '.PDF'];
-Partup.helpers.presentationExtensions = ['.pps', '.ppsx', '.ppt', '.pptx', '.PPS', '.PPSX', '.PPT', '.PPTX'];
-Partup.helpers.fallbackFileExtensions = ['.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key', '.keynote', '.AI', '.BMP', '.EPS', '.PSD', '.TIFF', '.TIF', '.SVG', '.KEY', '.KEYNOTE'];
-Partup.helpers.spreadSheetExtensions = ['.xls', '.xlsx', '.numbers', '.csv', '.XLS', '.XLSX', '.NUMBERS', '.CSV'];
+Partup.helpers.fileUploader = {};
 
-Partup.helpers.allowedExtensions = {
-    images: Partup.helpers.imageExtensions,
+Partup.helpers.fileUploader.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png', '.GIF', '.JPG', '.JPEG', '.PNG'];
+Partup.helpers.fileUploader.docExtensions = ['.doc', '.docx', '.rtf', '.pages', '.txt', '.DOC', '.DOCX', '.RTF', '.PAGES', '.TXT'];
+Partup.helpers.fileUploader.pdfExtensions = ['.pdf', '.PDF'];
+Partup.helpers.fileUploader.presentationExtensions = ['.pps', '.ppsx', '.ppt', '.pptx', '.PPS', '.PPSX', '.PPT', '.PPTX'];
+Partup.helpers.fileUploader.fallbackFileExtensions = ['.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key', '.keynote', '.AI', '.BMP', '.EPS', '.PSD', '.TIFF', '.TIF', '.SVG', '.KEY', '.KEYNOTE'];
+Partup.helpers.fileUploader.spreadSheetExtensions = ['.xls', '.xlsx', '.numbers', '.csv', '.XLS', '.XLSX', '.NUMBERS', '.CSV'];
+
+Partup.helpers.fileUploader.allowedExtensions = {
+    images: Partup.helpers.fileUploader.imageExtensions,
     docs: _.flatten([
-        Partup.helpers.pdfExtensions,
-        Partup.helpers.docExtensions,
-        Partup.helpers.presentationExtensions,
-        Partup.helpers.fallbackFileExtensions,
-        Partup.helpers.spreadSheetExtensions
+        Partup.helpers.fileUploader.pdfExtensions,
+        Partup.helpers.fileUploader.docExtensions,
+        Partup.helpers.fileUploader.presentationExtensions,
+        Partup.helpers.fileUploader.fallbackFileExtensions,
+        Partup.helpers.fileUploader.spreadSheetExtensions
     ])
 };
 
-Partup.helpers.getAllExtensions = function () {
-    return _.chain(Partup.helpers.allowedExtensions).keys().map(function (type) {
-        return Partup.helpers.allowedExtensions[type];
+Partup.helpers.fileUploader.getAllExtensions = function () {
+    return _.chain(Partup.helpers.fileUploader.allowedExtensions).keys().map(function (type) {
+        return Partup.helpers.fileUploader.allowedExtensions[type];
     }).flatten().value();
 };
 
 function matchExtension(fileName) {
     return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
 }
-Partup.helpers.getExtensionFromFileName = function (fileName) {
+Partup.helpers.fileUploader.getExtensionFromFileName = function (fileName) {
     var match = matchExtension(fileName);
     if (match) {
         return match[0];
     }
     // if file.name does not have .[ext] return a default doc
-    return _.first(Partup.helpers.fallbackFileExtensions);
+    return _.first(Partup.helpers.fileUploader.fallbackFileExtensions);
 };
 
-Partup.helpers.fileNameIsDoc = function (fileName) {
-    return _.include(Partup.helpers.allowedExtensions.docs,
-        Partup.helpers.getExtensionFromFileName(fileName)
+Partup.helpers.fileUploader.fileNameIsDoc = function (fileName) {
+    return _.include(Partup.helpers.fileUploader.allowedExtensions.docs,
+        Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
 };
 
-Partup.helpers.fileNameIsImage = function (fileName) {
-    return _.include(Partup.helpers.allowedExtensions.images,
-        Partup.helpers.getExtensionFromFileName(fileName)
+Partup.helpers.fileUploader.fileNameIsImage = function (fileName) {
+    return _.include(Partup.helpers.fileUploader.allowedExtensions.images,
+        Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
 };
 
-Partup.helpers.getSvgIcon = function (file) {
+Partup.helpers.fileUploader.getSvgIcon = function (file) {
     var svgFileName = 'file.svg';
 
     // if there's extension in the file name
     if (matchExtension(file.name)) {
-        var extension = Partup.helpers.getExtensionFromFileName(file.name);
+        var extension = Partup.helpers.fileUploader.getExtensionFromFileName(file.name);
 
-        if (_.include(Partup.helpers.fallbackFileExtensions, extension)) {
+        if (_.include(Partup.helpers.fileUploader.fallbackFileExtensions, extension)) {
             svgFileName = 'file.svg';
         }
-        else if (_.include(Partup.helpers.presentationExtensions, extension)) {
+        else if (_.include(Partup.helpers.fileUploader.presentationExtensions, extension)) {
             svgFileName = 'ppt.svg';
         }
-        else if (_.include(Partup.helpers.docExtensions, extension)) {
+        else if (_.include(Partup.helpers.fileUploader.docExtensions, extension)) {
             svgFileName = 'doc.svg';
         }
-        else if (_.include(Partup.helpers.pdfExtensions, extension)) {
+        else if (_.include(Partup.helpers.fileUploader.pdfExtensions, extension)) {
             svgFileName = 'pdf.svg';
         }
-        else if (_.include(Partup.helpers.spreadSheetExtensions, extension)) {
+        else if (_.include(Partup.helpers.fileUploader.spreadSheetExtensions, extension)) {
             svgFileName = 'xls.svg';
         }
         // otherwise fallback to file.svg
@@ -95,7 +97,7 @@ Partup.helpers.getSvgIcon = function (file) {
 };
 
 // from http://scratch99.com/web-development/javascript/convert-bytes-to-mb-kb/
-Partup.helpers.bytesToSize = function (bytes) {
+Partup.helpers.fileUploader.bytesToSize = function (bytes) {
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '&nbsp;';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
@@ -103,7 +105,7 @@ Partup.helpers.bytesToSize = function (bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 };
 
-Partup.helpers.partupUploadPhoto = function (template, mappedFile) {
+Partup.helpers.fileUploader.partupUploadPhoto = function (template, mappedFile) {
     template.uploadingPhotos.set(true);
     return new Promise(function (resolve, reject) {
         Partup.client.uploader.uploadImageByUrl(mappedFile.link, function (error, image) {
@@ -116,9 +118,11 @@ Partup.helpers.partupUploadPhoto = function (template, mappedFile) {
     });
 };
 
-Partup.helpers.partupUploadDoc = function (template, mappedFile) {
+Partup.helpers.fileUploader.partupUploadDoc = function (template, mappedFile) {
     template.uploadingDocuments.set(true);
     return new Promise(function (resolve, reject) {
         resolve(mappedFile);
     });
 };
+
+FileUploader = Partup.helpers.fileUploader;
