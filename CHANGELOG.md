@@ -6,7 +6,7 @@
 - Revert "fix(chatsearch): temp disable, mitigate issue #511"
 - feat(scraper): implemented improved web scraper
 - feat(chats): also search in scraped metadata
-feat(scraper): URL preview for part-up.com now fetches the right html tags #503
+- feat(scraper): URL preview for part-up.com now fetches the right html tags #503
 
 ## 1.20.2
 - fix(chat): search on tribe chat won't show content of private chats in app anymore #511
