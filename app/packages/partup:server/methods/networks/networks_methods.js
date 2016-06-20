@@ -482,8 +482,7 @@ Meteor.methods({
         }
 
         try {
-            query = query.replace(/-/g, ' '); // Replace dashes with spaces
-            return Networks.guardedMetaFind({slug: new RegExp('.*' + query + '.*', 'i')}, {limit: 30}).fetch();
+            return Networks.guardedMetaFind({name: new RegExp('.*' + query + '.*', 'i')}, {name: 1, limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'networks_could_not_be_autocompleted');
@@ -507,11 +506,10 @@ Meteor.methods({
         }
         var swarm = Swarms.guardedMetaFind({slug: swarmSlug}, {limit: 1}).fetch().pop();
         try {
-            query = query.replace(/-/g, ' '); // Replace dashes with spaces
             return Networks.guardedMetaFind({
-                slug: new RegExp('.*' + query + '.*', 'i'),
+                name: new RegExp('.*' + query + '.*', 'i'),
                 swarms: {$nin: [swarm._id]}
-            }, {limit: 30}).fetch();
+            }, {name: 1, limit: 30}).fetch();
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'networks_could_not_be_autocompleted');
@@ -868,9 +866,6 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'networks.chat_insert': function(networkSlug, fields) {
-        // Temp disable
-        return;
-
         check(networkSlug, String);
         check(fields, Partup.schemas.forms.chat);
 
@@ -885,6 +880,12 @@ Meteor.methods({
         try {
             var chatId = Meteor.call('chats.insert', fields);
             Networks.update(network._id, {$set: {chat_id: chatId}});
+
+            // Add the users to the counter
+            var chat = Chats.findOneOrFail(chatId);
+            network.uppers.forEach(function(upperId) {
+                chat.addUserToCounter(upperId);
+            });
 
             return chatId;
         } catch (error) {

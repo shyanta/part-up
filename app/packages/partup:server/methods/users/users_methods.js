@@ -240,7 +240,7 @@ Meteor.methods({
     /**
      * Register a device for push notifications
      */
-    'users.register_pushnotifications_device': function(registrationId, device) {
+    'users.register_pushnotifications_device': function(registrationId, device, loginToken) {
         check(this.userId, String);
         check(registrationId, String);
         check(device.uuid, String);
@@ -248,6 +248,18 @@ Meteor.methods({
         check(device.model, String);
         check(device.version, String);
         check(device.platform, String);
+        check(loginToken, Match.Optional(String));
+
+        if (loginToken) {
+            var hashedLoginToken = Accounts._hashLoginToken(loginToken);
+            var loginTokenValid = !!Meteor.users.findOne({
+                '_id': this.userId,
+                'services.resume.loginTokens.hashedToken': hashedLoginToken
+            });
+            if (!loginTokenValid) {
+                throw 'loginToken is expired';
+            }
+        }
 
         // Remove old push notification device by uuid
         Meteor.users.update({
@@ -270,6 +282,7 @@ Meteor.methods({
                     model: device.model,
                     platform: device.platform,
                     version: device.version,
+                    loginToken: loginToken && hashedLoginToken || null,
                     createdAt: new Date()
                 }
             }

@@ -34,9 +34,17 @@ Template.app_network.helpers({
         var network = Networks.findOne({slug: networkSlug});
         if (!network) return false;
 
+        Partup.client.windowTitle.setContextName(network.name);
+
         return {
             network: function() {
                 return network;
+            },
+            unreadChatMessages: function() {
+                if (!network.chat_id) return false;
+                var chat = Chats.findOne({_id: network.chat_id});
+                if (!chat) return false;
+                return chat.hasUnreadMessages();
             },
             isInvitePending: function() {
                 var user = Meteor.user();
@@ -57,6 +65,9 @@ Template.app_network.helpers({
         return {
             shrinkHeader: function() {
                 return Partup.client.scroll.pos.get() > 100;
+            },
+            currentPageIsChat: function() {
+                return Router.current().route.getName() === 'network-chat';
             }
         };
     }

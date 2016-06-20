@@ -180,18 +180,6 @@ Template.app_discover_page.helpers({
     countLoading: function() {
         return Template.instance().states.count_loading.get();
     },
-    showProfileCompletion: function() {
-        var user = Meteor.user();
-        if (!user) return false;
-        if (!user.completeness) return false;
-        return user.completeness < 100;
-    },
-    profileCompletion: function() {
-        var user = Meteor.user();
-        if (!user) return false;
-        if (!user.completeness) return '...';
-        return user.completeness;
-    },
     showRecommendationsBtn: function() {
         var user = Meteor.user();
         if (!user) return false;
@@ -206,16 +194,6 @@ Template.app_discover_page.events({
             route: 'recommendations',
             params: {
                 _id: Meteor.userId()  //TODO: Why give userId in params; copied from profile code
-            }
-        });
-    },
-    'click [data-open-profilesettings]': function(event, template) {
-        event.preventDefault();
-
-        Intent.go({
-            route: 'profile',
-            params: {
-                _id: Meteor.userId()
             }
         });
     }

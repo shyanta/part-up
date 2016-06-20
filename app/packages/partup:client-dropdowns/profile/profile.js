@@ -136,7 +136,8 @@ Template.DropdownProfile.events({
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-logout]': function eventClickLogout(event, template) {
         event.preventDefault();
-        Meteor.logout();
+        Partup.client.windowTitle.setNotificationsCount(0);
+        Partup.client.user.logout();
     },
     'click [data-select-network]': function changeNetwork(event, template) {
         event.preventDefault();

@@ -78,6 +78,8 @@ Template.app_profile_supporter_partups.onCreated(function() {
 
         // Add some parameters to the query
         var query = {};
+        query.userId =  Meteor.userId();
+        query.token =  Accounts._storedLoginToken();
         query.limit = PAGING_INCREMENT;
         query.skip = page * PAGING_INCREMENT;
         query.archived = template.getArchivedPartups;

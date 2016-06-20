@@ -32,14 +32,9 @@ $border-radius: 4px
             display: block
             margin-bottom: 2px
 
-            &:first-child .pu-chatmessage
-                .pu-sub-chatname
-                    font-weight: bold
-                    margin-bottom: 1px;
+            &:first-child .pu-chatmessage .pu-sub-chatname
+                display: block
 
-                .pu-sub-chattime
-                    font-size: 13px
-                    color: $color-text-subtle
 
         &:after, &:before
             top: 18px
@@ -51,6 +46,9 @@ $border-radius: 4px
             pointer-events: none
 
     &-receive
+        .pu-sub-chattime-outside
+            right: calc(100% + 8px)
+
         .pu-avatar
             left: -45px
 
@@ -68,27 +66,30 @@ $border-radius: 4px
 
                 .pu-chatmessage
                     display: inline-block
-                    padding: 10px 18px
+                    padding: 6px 12px
                     background: #eee
                     border: 2px solid #eee
                     border-top-right-radius: $border-radius
                     border-bottom-right-radius: $border-radius
 
             &:after
-                right: 99.7%
+                right: calc(100% - 1px)
                 border-color: rgba(255, 255, 255, 0)
+                border-right-color: #eee
+                border-width: 5px
+                margin-top: -5px
+
+            &:before
+                right: calc(100% - 1px)
+                border-color: rgba(238, 238, 238, 0)
                 border-right-color: #eee
                 border-width: 7px
                 margin-top: -7px
 
-            &:before
-                right: 99.7%
-                border-color: rgba(238, 238, 238, 0)
-                border-right-color: #eee
-                border-width: 10px
-                margin-top: -10px
-
     &-send
+        .pu-sub-chattime-outside
+            left: calc(100% + 8px)
+
         .pu-avatar
             right: -45px
 
@@ -108,7 +109,7 @@ $border-radius: 4px
 
                 .pu-chatmessage
                     display: inline-block
-                    padding: 10px 18px
+                    padding: 6px 12px
                     background: #fff
                     border: 2px solid #eee
                     border-top-left-radius: $border-radius
@@ -116,18 +117,18 @@ $border-radius: 4px
                     text-align: left
 
             &:after
-                left: 99.7%
+                left: calc(100% - 2px)
                 border-color: rgba(255, 255, 255, 0)
                 border-left-color: #fff
-                border-width: 7px
-                margin-top: -7px
+                border-width: 5px
+                margin-top: -5px
 
             &:before
-                left: 99.7%
+                left: calc(100% - 2px)
                 border-color: rgba(238, 238, 238, 0)
                 border-left-color: #eee
-                border-width: 10px
-                margin-top: -10px
+                border-width: 8px
+                margin-top: -8px
 
     &-noavatar
         .pu-avatar

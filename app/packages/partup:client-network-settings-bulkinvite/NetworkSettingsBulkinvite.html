@@ -14,8 +14,8 @@
                 <div class="pu-sub-validations {{#if state.csvInvalid }}pu-state-invalid{{/if}}">
                     <span class="pu-sub-input">
                         <div class="pu-upload pu-upload-large">
-                            <input type="file" name="csv" id="browseCsv" class="pu-input-hidden" data-csv-file accept=".csv">
-                            <label for="browseCsv" class="pu-button pu-button-secondary {{# if parsing }}pu-state-loading pu-state-disabled{{/ if }}">
+                            <input type="file" name="csv" class="pu-input-hidden" data-csv-file accept=".csv">
+                            <button data-browse-file type="button" class="pu-button pu-button-secondary {{# if parsing }}pu-state-loading pu-state-disabled{{/ if }}">
                                 {{# unless data.currentCsvInvitees }}
                                     <!-- Browse copy -->
                                     {{_ 'network-settings-bulkinvite-csv_import_button' }}
@@ -26,7 +26,7 @@
 
                                 <!-- Parsing spinner -->
                                 {{> Spinner color='inverted' type='small' }}
-                            </label>
+                            </button>
                             <span>
                                 <!-- Addresses count -->
                                 {{# if data.currentCsvInvitees }}

@@ -49,6 +49,12 @@ var privateUserFields = mout.object.merge({
     'chats': 1
 }, publicUserFields);
 
+// Admin fields exposed to network users
+var publicNetworkAdminFields = mout.object.merge({
+    'emails': 1,
+    'profile.phonenumber': 1
+}, publicUserFields);
+
 // Add indices
 if (Meteor.isServer) {
     Meteor.users._ensureIndex('participation_score');
@@ -137,6 +143,27 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
 };
 
 /**
+ * Find admins and expose their public network fields
+ *
+ * @memberOf Meteor.users
+ * @param {[String]} userIds
+ * @return {Mongo.Cursor}
+ */
+Meteor.users.findMultipleNetworkAdminProfiles = function(userIds) {
+    userIds = userIds || [];
+
+    var selector = {
+        _id: {$in: userIds},
+        deactivatedAt: {$exists: false}
+    };
+    var options = {
+        fields: _.clone(publicNetworkAdminFields)
+    };
+
+    return Meteor.users.find(selector, options);
+};
+
+/**
  * Find the uppers in a network
  *
  * @memberOf Meteor.users
@@ -184,7 +211,8 @@ Meteor.users.findSupportersForPartup = function(partup) {
  * @memberOf Meteor.users
  * @return {Mongo.Cursor}
  */
-Meteor.users.findPartnersForUpper = function(upper) {
+Meteor.users.findPartnersForUpper = function(upper, options) {
+    var options = options || {};
     var upper_partups = upper.upperOf || [];
     var upper_partners = [];
 
@@ -201,7 +229,7 @@ Meteor.users.findPartnersForUpper = function(upper) {
         .pull(upper._id)
         .value();
 
-    return Meteor.users.findMultiplePublicProfiles(partners);
+    return Meteor.users.findMultiplePublicProfiles(partners, options);
 };
 
 /**
@@ -456,6 +484,32 @@ User = function(user) {
          */
         calculateApplicationIconBadgeNumber: function() {
             return 0;
+        },
+
+        /**
+         * Remove a users push notification devices which aren't coupled with existing loginTokens (anymore)
+         */
+        pruneDevices: function() {
+            var allUserHashedTokens = (mout.object.get(user, 'services.resume.loginTokens') || []);
+            allUserHashedTokens = allUserHashedTokens.map(function(o) {
+                    return o.hashedToken;
+                });
+
+            var uuidsOfDevicesToBeRemoved = (user.push_notification_devices || []).filter(function(device) {
+                return device.loginToken && !mout.array.contains(allUserHashedTokens, device.loginToken);
+            }).map(function(device) {
+                return device.uuid;
+            });
+
+            Meteor.users.update({
+                _id: user._id
+            }, {
+                $pull: {
+                    'push_notification_devices': {
+                        'uuid': {$in: uuidsOfDevicesToBeRemoved}
+                    }
+                }
+            });
         }
     };
 };

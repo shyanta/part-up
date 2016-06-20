@@ -11,6 +11,8 @@ Accounts.validateLoginAttempt(function(attempt) {
 Accounts.onLogin(function(data) {
     Meteor.defer(function() {
         var user = data.user;
+        User(user).pruneDevices();
+
         var logins = user.logins || [];
 
         d('User [' + user._id + '] has logged in');
@@ -32,6 +34,13 @@ Accounts.onLogin(function(data) {
             d('User [' + user._id + '] already logged in earlier today, not saving');
         }
     });
+});
+
+Accounts.afterLogout(function(userId){
+    var user = Meteor.users.findOne(userId);
+    if (user) {
+        User(user).pruneDevices();
+    }
 });
 
 var defaultEmailObject = {

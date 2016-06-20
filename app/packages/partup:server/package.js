@@ -30,7 +30,9 @@ Package.onUse(function(api) {
         'random',
         'peerlibrary:aws-sdk',
         'simple:rest',
-        'simple:json-routes'
+        'simple:json-routes',
+        'anonyfox:scrape',
+        '3stack:accounts-logout-hook'
     ], ['server']);
 
     api.addFiles([
@@ -112,6 +114,7 @@ Package.onUse(function(api) {
         'services/partup_popularity_calculator_service.js',
         'services/swarms_service.js',
         'services/networks_service.js',
+        'services/scrape_service.js',
         'seo/routes.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
@@ -138,6 +141,7 @@ Package.onUse(function(api) {
         'event_handlers/invites/networks_invites_handler.js',
         'event_handlers/notifications/notifications_handler.js',
         'event_handlers/swarms/swarms_handler.js',
+        'event_handlers/chats/chatmessages_handler.js',
         'fixtures/users.js',
         'fixtures/partups.js',
         'fixtures/updates.js',
@@ -203,7 +207,6 @@ Package.onUse(function(api) {
         'cron/update_swarm_network_stats.js',
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
-        'cron/push_apple_cleanup_devices.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);
@@ -228,7 +231,7 @@ Npm.depends({
     'winston': '0.9.0',
     'gm': '1.20.0',
     'apn': '1.7.5',
-    'gcm': '1.0.1',
     'moment': '2.13.0',
+    'node-metainspector': '1.3.0',
     'part-up-js-models': 'git://github.com/part-up/js-models.git#1.0.0'
 });
