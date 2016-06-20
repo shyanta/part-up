@@ -1,3 +1,7 @@
+if(!Partup) {
+  Partup = { helpers: { fileUploader: {} } };
+}
+
 Partup.helpers.fileUploader = {};
 
 Partup.helpers.fileUploader.imageExtensions = ['.gif', '.jpg', '.jpeg', '.png', '.GIF', '.JPG', '.JPEG', '.PNG'];
