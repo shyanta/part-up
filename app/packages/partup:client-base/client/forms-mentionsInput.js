@@ -18,9 +18,7 @@ var MentionsInput = function(input, partupId, options) {
     this._setEvents();
 };
 
-// old regex for 2 word matching
-// var mentionRegex = /(?:^|[\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]+)@([^\s@]{1,}[^\s]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,})$/i;
-var mentionRegex = /(?:^|[\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]+)@([^\s@]{1,}[^\s]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,})$/i;
+var mentionRegex = /(?:^|[\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]+)@([^\s@]{3,}[^\s]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,})$/i;
 
 /**
  * Build required elements
@@ -164,8 +162,7 @@ MentionsInput.prototype.hideSuggestions = function() {
  *
  */
 MentionsInput.prototype.checkCaretPosition = function() {
-    var mentionsValue = this.getValue();
-    var substr = mentionsValue.substr(0, this.getValue().length);
+    var substr = this.input.value.substr(0, this.input.selectionStart);
     var match = substr.match(mentionRegex);
 
     if (!match) {
