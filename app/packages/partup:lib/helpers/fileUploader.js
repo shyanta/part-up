@@ -31,27 +31,46 @@ Partup.helpers.fileUploader.getAllExtensions = function () {
 function matchExtension(fileName) {
     return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
 }
+/**
+ * Get the extension from filename
+ * @param fileName filename.ext (e.g. filename.docx)
+ * @returns {string} extension like .docx
+ */
 Partup.helpers.fileUploader.getExtensionFromFileName = function (fileName) {
     var match = matchExtension(fileName);
     if (match) {
         return match[0];
     }
     // if file.name does not have .[ext] return a default doc
-    return _.first(Partup.helpers.fileUploader.fallbackFileExtensions);
+    return _.sample(Partup.helpers.fileUploader.fallbackFileExtensions);
 };
 
+/**
+ * Check whether the filename is a Doc type defined by the allowedExtensions array
+ * @param fileName
+ * @returns {boolean}
+ */
 Partup.helpers.fileUploader.fileNameIsDoc = function (fileName) {
     return _.include(Partup.helpers.fileUploader.allowedExtensions.docs,
         Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
 };
 
+/**
+ * Check whether the filename is a Image type defined by the allowedExtensions array
+ * @param {string} fileName
+ * @returns {boolean}
+ */
 Partup.helpers.fileUploader.fileNameIsImage = function (fileName) {
     return _.include(Partup.helpers.fileUploader.allowedExtensions.images,
         Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
 };
 
+/**
+ * @param {object} file - DocumentSchema in /packages/partup:lib/schemas/update.js
+ * @returns {string} filename - The svg icon [file.svg | ppt.svg | doc.svg | pdf.svg | xls.svg]
+ */
 Partup.helpers.fileUploader.getSvgIcon = function (file) {
     var svgFileName = 'file.svg';
 
