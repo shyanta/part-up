@@ -1,3 +1,5 @@
+import {FileUploader} from 'meteor/partup:lib';
+
 /** re-usable functions for this newmesage.js template */
 var placeholders = {
     'text': function () {
@@ -193,12 +195,12 @@ Template.app_partup_updates_newmessage.helpers({
             }
         };
     },
-    getSvgIcon: Partup.helpers.getSvgIcon,
+    getSvgIcon: FileUploader.getSvgIcon,
     disabledImageUploadFile: function () {
         return (photoLimitReached()) ? 'disabled' : '';
     },
     imageExtensions: function() {
-        return Partup.helpers.imageExtensions.join(', ');
+        return FileUploader.imageExtensions.join(', ');
     }
 });
 
