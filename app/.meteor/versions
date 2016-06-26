@@ -157,7 +157,6 @@ partup:client-selectors@0.0.1
 partup:client-spinner@0.0.1
 partup:client-update@0.0.1
 partup:client-upper-tile@0.0.1
-partup:cookie-law-bar@0.0.1
 partup:lib@0.0.1
 partup:meteor-bender@0.1.7
 partup:newrelic@0.0.1
