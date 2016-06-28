@@ -157,7 +157,6 @@ partup:client-selectors@0.0.1
 partup:client-spinner@0.0.1
 partup:client-update@0.0.1
 partup:client-upper-tile@0.0.1
-partup:cookie-law-bar@0.0.1
 partup:lib@0.0.1
 partup:meteor-bender@0.1.7
 partup:newrelic@0.0.1
@@ -171,6 +170,10 @@ percolate:migrations@0.9.8
 percolate:synced-cron@1.3.2
 percolate:velocityjs@1.0.0
 practicalmeteor:chai@2.1.0_1
+practicalmeteor:loglevel@1.2.0_2
+practicalmeteor:mocha@2.4.5_4
+practicalmeteor:mocha-core@1.0.0
+practicalmeteor:sinon@1.14.1_2
 promise@0.6.7
 raix:eventemitter@0.1.3
 random@1.0.9
@@ -198,6 +201,7 @@ tap:i18n@1.8.2
 templating@1.1.9
 templating-tools@1.0.4
 tmeasday:publish-counts@0.7.3
+tmeasday:test-reporter-helpers@0.2.1
 tracker@1.0.13
 ui@1.0.11
 underscore@1.0.8

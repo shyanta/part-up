@@ -6,8 +6,6 @@
 
 
 3stack:accounts-logout-hook
-#mike:mocha
-#velocity:console-reporter
 accounts-facebook
 accounts-password
 aldeed:autoform-bs-datepicker
@@ -97,7 +95,6 @@ partup:client-selectors
 partup:client-spinner
 partup:client-update
 partup:client-upper-tile
-partup:cookie-law-bar
 partup:lib
 partup:meteor-bender
 partup:newrelic
@@ -107,6 +104,8 @@ peerlibrary:aws-sdk
 percolate:intercom
 percolate:migrations
 percolate:synced-cron
+practicalmeteor:chai
+practicalmeteor:mocha
 random
 reactive-var
 reload
@@ -124,4 +123,3 @@ tmeasday:publish-counts@0.7.1
 tracker
 yogiben:autoform-tags@0.1.3
 zimme:active-route
-practicalmeteor:chai
