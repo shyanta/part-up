@@ -1,1 +1,1 @@
-import './ui/components/cookie-law-bar/CookieLawBar';
+import './ui/components/cookie-law-bar/client/CookieLawBar';
