@@ -34,3 +34,4 @@ app/public/uploads
 
 node_modules
 .phraseapp.yml
+npm-debug.log
