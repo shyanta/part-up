@@ -8,15 +8,14 @@ Package.describe({
 Package.onUse(function(api) {
 
     api.use([
-        'templating',
-        'partup:lib'
+        'ecmascript',
+        'templating'
     ], 'client');
 
 
     api.addFiles([
 
         'dropins.min.js',
-        'dropbox.min.js',
 
         'DropboxChooser.html',
         'DropboxChooser.ctrl.js'
