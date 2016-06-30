@@ -1,10 +1,13 @@
+console.log('recommend-page 1'); //TODO: remove
+
 var PAGING_INCREMENT = 32;
 
 var getAmountOfColumns = function(screenwidth) {
+    //debugger;
     return screenwidth > Partup.client.grid.getWidth(11) + 80 ? 4 : 3;
 };
 
-Template.app_discover_page.onCreated(function() {
+Template.app_recommend_page.onCreated(function() {
     var template = this;
 
     // States such as loading states
@@ -52,7 +55,7 @@ Template.app_discover_page.onCreated(function() {
     });
 });
 
-Template.app_discover_page.onRendered(function() {
+Template.app_recommend_page.onRendered(function() {
     var template = this;
 
     // When the screen size alters
@@ -88,8 +91,10 @@ Template.app_discover_page.onRendered(function() {
         // Update state(s)
         template.states.loading_infinite_scroll = true;
 
+        console.log('Process step recomend-page.js')
+
         // Call the API for data
-        HTTP.get('/partups/discover' + mout.queryString.encode(query), {
+        HTTP.get('/partups/recommendations' + mout.queryString.encode(query), {
             beforeSend: function(_request) {
                 template.partupsXMLHttpRequest = _request;
             }
@@ -102,7 +107,8 @@ Template.app_discover_page.onRendered(function() {
                 return;
             }
 
-            //  response.data contains all discovered part-ups with all relevant users.
+            // response.data contains all (is 4 at this moment) part-ups and related users //TODO: nog relevant???
+            // important: the part-ups are not necessiraly sorted according the api-order
             var result = response.data;
             template.states.paging_end_reached.set(result.partups.length < PAGING_INCREMENT);
 
@@ -140,11 +146,7 @@ Template.app_discover_page.onRendered(function() {
         template.columnTilesLayout.clear();
 
         template.states.count_loading.set(true);
-        HTTP.get('/partups/discover/count' + mout.queryString.encode(query), {
-            beforeSend: function(request) {
-                template.countXMLHttpRequest = request;
-            }
-        }, function(error, response) {
+        HTTP.get('/partups/discover/count', function(error, response) {
             template.countXMLHttpRequest = null;
             template.states.count_loading.set(false);
             if (error || !response || !mout.lang.isString(response.content)) { return; }
@@ -168,7 +170,7 @@ Template.app_discover_page.onRendered(function() {
 
 });
 
-Template.app_discover_page.helpers({
+Template.app_recommend_page.helpers({
     columnTilesLayout: function() {
         return Template.instance().columnTilesLayout;
     },
@@ -180,20 +182,9 @@ Template.app_discover_page.helpers({
     },
     countLoading: function() {
         return Template.instance().states.count_loading.get();
-    },
-    showRecommendationsBtn: function() {
-        var user = Meteor.user();
-        if (!user) return false;
-        return true;
     }
 });
 
-Template.app_discover_page.events({
-    'click #recommendationsBtn': function(event, template) {
-        event.preventDefault();
-        console.log('Button clicked'); //TODO: remove
-        Intent.go({
-            route: 'recommendations'
-        });
-    }
+Template.app_recommend_page.events({
+
 });

@@ -1,0 +1,21 @@
+<template name="app_recommend_page">
+    <section class="pu-composition pu-composition-discover">
+
+        <!-- Content (partup-tiles) -->
+        <div data-infinitescroll-container>
+            {{# ColumnTilesLayout instance=columnTilesLayout }}
+                <div class="pu-tile">
+                    {{> PartupTile }}
+                </div>
+            {{/ ColumnTilesLayout }}
+
+            {{# unless endReached }}
+                <div class="pu-sub-loading-infinite-scroll">
+                    {{> Spinner }}
+                </div>
+            {{/ unless }}
+        </div>
+
+    </section>
+
+</template>

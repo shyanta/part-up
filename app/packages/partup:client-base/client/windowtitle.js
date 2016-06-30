@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * Window Title function for global use
  *
@@ -14,7 +13,7 @@ Partup.client.windowTitle = (function() {
   defaultDelimiter,
   isDisplayName,
   notificationsCount,
-  windowTitle = "";
+  windowTitle;
 
   init = function () {
     appName = "Part-up";
@@ -72,7 +71,6 @@ Partup.client.windowTitle = (function() {
 }());
 
 Partup.client.windowTitle.init();
-=======
 var appName = 'Part-up';
 var contextName = '';
 var defaultDelimiter = ' - ';
@@ -112,4 +110,3 @@ Partup.client.windowTitle = {
     setNotificationsCount: setNotificationsCount,
     setContextName: setContextName
 };
->>>>>>> develop

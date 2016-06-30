@@ -59,6 +59,42 @@ Meteor.routeComposite('/partups/discover', function(request, parameters) {
     };
 });
 
+
+/**
+ * Publish multiple partups for recommendations
+ */
+Meteor.routeComposite('/partups/recommendations', function() {
+
+    var partupIds = [
+      'WxrpPuJkhafJB3gfF',
+      'vGaxNojSerdizDPjb',
+      'ASfRYBAzo2ayYk5si',
+      'gJngF65ZWyS9f3NDE'
+    ];
+
+    return {
+      find: function() {
+          return Partups.find({_id: {$in: partupIds}});
+      },
+      children: [
+          {find: Images.findForPartup},
+          {find: Meteor.users.findUppersForPartup, children: [
+              {find: Images.findForUser}
+          ]},
+          {find: function(partup) {
+              if (!get(partup, 'featured.active')) return;
+              return Meteor.users.findSinglePublicProfile(partup.featured.by_upper._id);
+          }, children: [
+              {find: Images.findForUser}
+          ]},
+          {find: function(partup) { return Networks.findForPartup(partup, this.userId); }, children: [
+              {find: Images.findForNetwork}
+          ]}
+        ]
+    };
+});
+
+
 /**
  * Publish multiple partups by ids
  *

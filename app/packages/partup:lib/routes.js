@@ -191,15 +191,20 @@ Router.route('/profile/:_id/settings/email', {
     }
 });
 
+
 /*************************************************************/
-/* Show Recommendations */
+/* Recommendations */
 /*************************************************************/
-Router.route('/recommendations/:_id', {
+Router.route('/recommendations', {
     name: 'recommendations',
     where: 'client',
     yieldRegions: {
         'modal':              {to: 'main'},
         'modal_recommendations': {to: 'modal'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Recommendations");
+        this.next();
     }
 });
 
