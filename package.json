@@ -7,6 +7,7 @@
     "push-translation": "node ./phraseapp/phraseapp.js --command push",
     "start": "./start",
     "test": "./test",
+    "test:watch": "./test_watch",
     "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=./app/tests/e2e",
     "test:e2e:watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=./app/tests/e2e"
   },

@@ -75,7 +75,7 @@ start() {
   else
     cd "$APP"
     echo "Starting your app in $NODE_ENV."
-    local CMD="$METEOR --settings ../$settings_file test --once --driver-package dispatch:mocha-phantomjs"
+    local CMD="$METEOR --settings ../$settings_file test --driver-package practicalmeteor:mocha --port 4000"
     echo "$CMD"
     eval $CMD
   fi
