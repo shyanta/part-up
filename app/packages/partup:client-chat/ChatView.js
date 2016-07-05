@@ -93,7 +93,6 @@ Template.ChatView.onCreated(function() {
         // remove the oldestUnreadMessage when the divider has faded out
         Meteor.setTimeout(function() {
             template.oldestUnreadMessage.set(undefined);
-            resetUnreadMessagesIndicatorBadge();
         }, 250);
     };
     template.delayedHideLine = function(delay) {
@@ -120,8 +119,10 @@ Template.ChatView.onCreated(function() {
 
     template.newMessagesDividerHandler = function(messages) {
         var chat = Chats.findOne(chatId);
+        if (!chat) return;
+
         var userId = Meteor.userId();
-        var counter = lodash.find(chat.counter, {user_id: userId});
+        var counter = lodash.find(chat.counter || [], {user_id: userId});
 
         // get the unread messages count
         var unreadMessagesCount = counter ? counter.unread_count : 0;
