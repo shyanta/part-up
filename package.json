@@ -8,8 +8,8 @@
     "start": "./start",
     "test": "./test",
     "test:watch": "./test_watch",
-    "test:e2e": "chimp --ddp=http://localhost:3000 --mocha --path=./app/tests/e2e",
-    "test:e2e:watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=./app/tests/e2e"
+    "test:e2e": "chimp --ddp=http://localhost:3000 --path=./app/tests/cucumber/features",
+    "test:e2e:watch": "chimp --ddp=http://localhost:3000 --watch --path=./app/tests/cucumber/features"
   },
   "repository": {
     "type": "git",
