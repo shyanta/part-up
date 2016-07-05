@@ -12,5 +12,6 @@
     "dropdowns-chat-notifications-button-loadmore": "Show more",
     "dropdowns-chat-notifications-toggle-one-on-one": "Personal chat",
     "dropdowns-chat-notifications-toggle-network": "Tribe chat",
-    "pages-one-on-one-chat-sidebar-start-placeholder": "Click to start chatting.."
+    "pages-one-on-one-chat-sidebar-start-placeholder": "Click to start chatting..",
+    "dropdowns-chat-notifications-button-chats": "Start a chat"
 }
