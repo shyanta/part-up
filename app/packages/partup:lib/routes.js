@@ -808,8 +808,11 @@ Router.route('/chats', {
         'app_chat':             {to: 'app'}
     },
     data: function() {
+        var route = this;
+        var startChatUserId = route.params.query.user_id || false;
         return {
-            chatId: this.params.hash
+            chatId: this.params.hash,
+            startChatUserId: startChatUserId
         };
     }
 });

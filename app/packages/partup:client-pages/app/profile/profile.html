@@ -84,18 +84,33 @@
                                     {{_ 'pages-app-profile-partners-nav' }}
                                 </a>
                             </li>
-                        </ul>
-                        <!-- actions -->
-                        <ul class="pu-list pu-list-horizontal pu-sub-right">
-                            {{# if profile.isCurrentUser }}
+                            {{# if partupEquals currentUserId profile.profileId }}
                                 <li>
                                     <a href="{{pathFor 'profile-settings' _id=profileId}}" data-open-profilesettings
-                                        class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                        <i class="picon-cog"></i>
+                                        class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-secondary-subtle">
+                                        {{_ 'pages-app-network-tab-button-settings'}}
                                     </a>
                                 </li>
                             {{/ if }}
                         </ul>
+                        <!-- actions -->
+                        {{# unless partupEquals currentUserId profile.profileId }}
+                        <ul class="pu-list pu-list-horizontal pu-sub-right">
+                            <li class="pu-sub-button">
+                                {{#if profile.chatIdWithCurrentUser}}
+                                    <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button pu-button-gray">
+                                        <i class="picon-chat"></i>
+                                        Go to chat
+                                    </a>
+                                {{else}}
+                                    <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
+                                        <i class="picon-chat"></i>
+                                        Start chat
+                                    </a>
+                                {{/if}}
+                            </li>
+                        </ul>
+                        {{/unless}}
                     </nav>
                 </div>
             </section>

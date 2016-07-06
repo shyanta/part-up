@@ -10,7 +10,8 @@
         {{# with settings.coords.bottom }} bottom: {{ . }}px; {{/ with }}
         {{# with settings.coords.left }}   left: {{ . }}px;   {{/ with }}
         {{# with settings.coords.right }}  right: {{ . }}px;  {{/ with }}
-    ">
+    " data-card>
+        <span></span>
         {{# if tileTemplate }}
             {{> Template.dynamic template=tileTemplate data=tileData }}
         {{/ if }}
