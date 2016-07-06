@@ -237,6 +237,18 @@
             transform: none // prevent movement
             background-color: transparent
 
+        span.mobile
+            display: block
+
+            @media screen and (min-width: 1042px)
+                display: none
+
+        span.desktop
+            display: none
+
+            @media screen and (min-width: 1042px)
+                display: block
+
         &-profiledropdown
             &:after
                 content: ''

@@ -14,12 +14,19 @@
                 {{# if isMobile }}
                     {{_ 'header-mobile-start_partup' }}
                 {{ else }}
-                    {{_ 'header-desktop-start_partup' }}
+                    <span class="desktop">
+                        {{_ 'header-desktop-start_partup' }}
+                    </span>
+                    <span class="mobile">
+                        {{_ 'header-mobile-start_partup' }}
+                    </span>
                 {{/ if }}
             </a>
         </li>
-        <li>
-            {{> DropdownMenu }}
-        </li>
+        {{#unless isMobile}}
+            <li>
+                {{> DropdownMenu }}
+            </li>
+        {{/unless}}
     </ul>
 </template>
