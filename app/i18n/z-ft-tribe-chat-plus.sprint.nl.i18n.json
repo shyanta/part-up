@@ -18,5 +18,7 @@
     "partup-uppertile-open-existing-chat": "Chat",
     "partup-uppertile-start-new-chat": "Chat",
     "ages-app-profile-open-existing-chat": "Ga naar chat",
-    "pages-app-profile-start-new-chat": "Start chat"
+    "pages-app-profile-start-new-chat": "Start chat",
+    "pages-app-chat-label-noresults": "Geen resultaten voor \"__searchquery__\"",
+    "pages-app-chat-label-showingresults": "Resultaten voor \"__searchquery__\" getoond"
 }

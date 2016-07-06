@@ -13,6 +13,11 @@
             <a href="{{pathFor route='profile' _id=data.stickyAvatar._id}}">
                 <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{data.stickyAvatar._id}}" data-avatar></figure>
             </a>
+            {{#if state.reactiveHighlight.get}}
+                <p class="pu-sub-highlight">
+                    {{ translations.showingResults }}
+                </p>
+            {{/if}}
         </header>
         <!-- messages container -->
         <div data-preventscroll data-reversed-scroller>
@@ -20,7 +25,11 @@
             <!-- old messages -->
             {{#if state.chatEmpty}}
                 <p class="pu-chat-placeholder">
-                    <span>{{ state.placeholderText }}</span>
+                    {{#if state.reactiveHighlight.get}}
+                        <span>{{ translations.noresultsResults }}</span>
+                    {{else}}
+                        <span>{{ state.placeholderText }}</span>
+                    {{/if}}
                 </p>
             {{/if}}
             {{#each data.messagesGroupedByDay data.messages.old}}

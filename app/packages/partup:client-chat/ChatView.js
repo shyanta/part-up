@@ -369,6 +369,21 @@ Template.ChatView.helpers({
                 return template.newMessagesDidRender;
             }
         };
+    },
+    translations: function() {
+        var template = Template.instance();
+        return {
+            noresultsResults: function() {
+                return TAPi18n.__('pages-app-chat-label-noresults', {
+                    searchquery: template.data.config.reactiveHighlight.get()
+                });
+            },
+            showingResults: function() {
+                return TAPi18n.__('pages-app-chat-label-showingresults', {
+                    searchquery: template.data.config.reactiveHighlight.get()
+                });
+            }
+        };
     }
 });
 
