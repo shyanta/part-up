@@ -1,6 +1,7 @@
 Template.OneOnOneChat.onCreated(function() {
     var template = this;
-    var chatId = template.data.chatId || undefined;
+    var chatId =  template.data.chatId || undefined;
+    var startChatUserId = template.data.startChatUserId || undefined;
     template.initialized = new ReactiveVar(false);
     template.activeChat = new ReactiveVar(undefined);
     template.chatPerson = new ReactiveVar(undefined);
@@ -14,6 +15,7 @@ Template.OneOnOneChat.onCreated(function() {
     template.startNewChat = function(userId) {
         Meteor.call('chats.start_with_users', [userId], function(err, chat_id) {
             if (err) return Partup.client.notify.error('nope');
+            if (template.view.isDestroyed) return;
             template.initializeChat(chat_id, Meteor.users.findOne(userId));
         });
     };
@@ -38,7 +40,7 @@ Template.OneOnOneChat.onCreated(function() {
     };
 
     template.resetUnreadMessagesIndicatorBadge = function() {
-        Meteor.call('chats.reset_counter', chatId);
+        if (chatId) Meteor.call('chats.reset_counter', chatId);
     };
 
     var localChatMessagesCollection = [];
@@ -70,6 +72,8 @@ Template.OneOnOneChat.onCreated(function() {
     };
     if (chatId) {
         template.initializeChat(chatId);
+    } else if (startChatUserId) {
+        template.startNewChat(startChatUserId);
     }
     template.autorun(function() {
         var controller = Iron.controller();
