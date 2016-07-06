@@ -7,9 +7,9 @@
                         background-image: url('{{ . }}');
                     {{/ with }}
                 ">
-                    {{# with user.participation_scoreReadable }}
-                        <span class="pu-score">{{ . }}</span>
-                    {{/ with }}
+                    {{# if user.participation_scoreReadable }}
+                        <span class="pu-score {{#if user.status.online}}pu-score-green{{/if}}">{{ user.participation_scoreReadable }}</span>
+                    {{/ if }}
                 </figure>
             </a>
 

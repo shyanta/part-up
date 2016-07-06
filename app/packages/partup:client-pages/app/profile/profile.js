@@ -59,6 +59,10 @@ Template.app_profile.helpers({
             hasAboutSection: function() {
                 return User(profile).aboutPageIsViewable();
             },
+            online: function() {
+                if (!profile.status) return false;
+                return profile.status.online;
+            },
             profileId: function() {
                 return data.profileId;
             },

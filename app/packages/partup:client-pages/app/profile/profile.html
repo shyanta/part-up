@@ -8,7 +8,7 @@
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <div class="pu-info {{#unless profile.data.tags}} pu-info-minimal{{/unless}}">
                         <figure class="pu-avatar pu-avatar-extralarge" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');">
-                            <span class="pu-score pu-score-large">{{ profile.roundedScore }}</span>
+                            <span class="pu-score pu-score-large {{#if profile.online }}pu-score-green{{/if}}">{{ profile.roundedScore }}</span>
                         </figure>
                         <div>
                             <h3>
