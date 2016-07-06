@@ -1,15 +1,15 @@
 <template name="DropdownChatNotifications">
     <button class="pu-button pu-button-header pu-button-header-desktop pu-button-header-nostripe" data-toggle-menu="chat-notifications">
         <!-- bell icon -->
-        <i class="picon-chat pu-badge {{#unless data.allMessagesAreSeen chats }}pu-badge-active{{/unless}}"></i>
+        <i class="picon-chat pu-badge {{#if data.totalPersonalMessages }}pu-badge-active{{/if}} {{#if data.totalTribeMessages }}pu-badge-active{{/if}}"></i>
 
         {{ label }}
     </button>
     <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
         <header>
             <div class="pu-toggle">
-                <button class="{{#if private}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}</button>
-                <button class="{{#unless private}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}}</button>
+                <button class="{{#if private}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}} {{#if data.totalPersonalMessages }}({{ data.totalPersonalMessages }}){{/if}}</button>
+                <button class="{{#unless private}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}} {{#if data.totalTribeMessages }}({{ data.totalTribeMessages }}){{/if}}</button>
             </div>
         </header>
         <ul data-preventscroll>

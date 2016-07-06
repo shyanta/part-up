@@ -1,12 +1,21 @@
 Template.DropdownChatNotifications.onCreated(function() {
     var template = this;
     template.private = new ReactiveVar(true);
-    template.dropdownOpen = new ReactiveVar(false, function(a, b) {
-        if (a === b || b) return;
-        var messages = ChatMessages.find({seen_by: {$nin: [Meteor.userId()]}}).forEach(function(message) {
+    template.dropdownOpen = new ReactiveVar(false);
+    template.setDropdownState = function(state, notificationId) {
+        var query = {
+            seen_by: {$nin: [Meteor.userId()]}
+        };
+        if (template.private.get()) {
+            query.chat_id = notificationId;
+        } else {
+
+        }
+        var messages = ChatMessages.find(query).forEach(function(message) {
             Meteor.call('chatmessages.seen', message._id);
         });
-    });
+        template.dropdownOpen.set(state);
+    };
     template.subscribe('chats.for_loggedin_user', {networks: true, private: true}, {});
 });
 Template.DropdownChatNotifications.onRendered(function() {
@@ -27,7 +36,8 @@ Template.DropdownChatNotifications.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'click [data-notification]': function(event, template) {
-        template.dropdownOpen.set(false);
+        var notificationId = $(event.currentTarget).data('notification');
+        template.setDropdownState(false);
     },
     'click [data-private]': function(event, template) {
         event.preventDefault();
@@ -81,12 +91,23 @@ Template.DropdownChatNotifications.helpers({
             chats: function() {
                 return chats;
             },
-            allMessagesAreSeen: function() {
-                var seen = true;
-                chats.forEach(function(chat) {
-                    if (!chat.messagesHaveBeenSeen && chat.message) seen = false;
-                });
-                return seen;
+            totalTribeMessages: function() {
+                return Chats
+                    .findForUser(userId, {networks: true})
+                    .map(function(chat) {
+                        return lodash.find(chat.counter, {user_id: userId}).unread_count;
+                    }).reduce(function(prev, curr) {
+                        return prev + curr;
+                    }, 0);
+            },
+            totalPersonalMessages: function() {
+                return Chats
+                    .findForUser(userId, {private: true})
+                    .map(function(chat) {
+                        return lodash.find(chat.counter, {user_id: userId}).unread_count;
+                    }).reduce(function(prev, curr) {
+                        return prev + curr;
+                    }, 0);
             }
         };
     }
