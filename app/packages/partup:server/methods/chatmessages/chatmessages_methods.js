@@ -9,12 +9,16 @@ Meteor.methods({
 
         this.unblock();
 
+        // Check if user is logged in
         var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
 
         // Check if message is for a network, and if the user is member of the network
         var network = Networks.findOne({chat_id: fields.chat_id});
+        if (network && !network.hasMember(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
-        if (!user || (network && !network.hasMember(user._id))) throw new Meteor.Error(401, 'unauthorized');
+        // Check if user is actually part of this chat
+        if (!user.chats || user.chats.indexOf(fields.chat_id) < 0) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             var chat = Chats.findOneOrFail(fields.chat_id);
