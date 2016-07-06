@@ -61,14 +61,15 @@ Template.DropdownChatNotifications.helpers({
     },
     data: function() {
         var template = Template.instance();
-        var getPrivate = template.private.get();
         var userId = Meteor.userId();
-        var user = Meteor.user();
+        if (!userId) return;
+
+        var getPrivate = template.private.get();
         var chats = Chats.findForUser(userId, {networks: !getPrivate, private: getPrivate}, {fields: {_id: 1, counter: 1, created_at: 1}, sort: {updated_at: -1}})
             .map(function(chat) {
                 if (getPrivate) {
                     chat.upper = Meteor.users
-                        .findOne({_id: {$nin: [user._id]}, chats: {$in: [chat._id]}});
+                        .findOne({_id: {$nin: [userId]}, chats: {$in: [chat._id]}});
                 }
                 var message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
                 if (message) {
