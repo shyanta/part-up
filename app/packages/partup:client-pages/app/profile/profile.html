@@ -100,12 +100,12 @@
                                 {{#if profile.chatIdWithCurrentUser}}
                                     <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button pu-button-gray">
                                         <i class="picon-chat"></i>
-                                        Go to chat
+                                        {{_ 'pages-app-profile-open-existing-chat' }}
                                     </a>
                                 {{else}}
                                     <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
                                         <i class="picon-chat"></i>
-                                        Start chat
+                                        {{_ 'pages-app-profile-start-new-chat' }}
                                     </a>
                                 {{/if}}
                             </li>

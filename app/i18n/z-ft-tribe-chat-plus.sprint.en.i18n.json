@@ -14,5 +14,9 @@
     "dropdowns-chat-notifications-toggle-network": "Tribe chat",
     "pages-one-on-one-chat-sidebar-start-placeholder": "Click to start chatting..",
     "dropdowns-chat-notifications-button-chats": "Start a chat",
-    "pages-app-profile-tab-button-settings": "Settings"
+    "pages-app-profile-tab-button-settings": "Settings",
+    "partup-uppertile-open-existing-chat": "Chat",
+    "partup-uppertile-start-new-chat": "Chat",
+    "ages-app-profile-open-existing-chat": "Go to chat",
+    "pages-app-profile-start-new-chat": "Start chat"
 }
