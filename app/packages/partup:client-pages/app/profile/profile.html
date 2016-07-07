@@ -8,7 +8,7 @@
                 <div class="pu-wrap pu-wrap-columnlayout">
                     <div class="pu-info {{#unless profile.data.tags}} pu-info-minimal{{/unless}}">
                         <figure class="pu-avatar pu-avatar-extralarge" style="background-image:url('{{ partupImageUrl id=profile.data.image store='360x360'}}');">
-                            <span class="pu-score pu-score-large">{{ profile.roundedScore }}</span>
+                            <span class="pu-score pu-score-large {{#if profile.online }}pu-score-green{{/if}}">{{ profile.roundedScore }}</span>
                         </figure>
                         <div>
                             <h3>
@@ -84,18 +84,33 @@
                                     {{_ 'pages-app-profile-partners-nav' }}
                                 </a>
                             </li>
-                        </ul>
-                        <!-- actions -->
-                        <ul class="pu-list pu-list-horizontal pu-sub-right">
-                            {{# if profile.isCurrentUser }}
+                            {{# if partupEquals currentUserId profile.profileId }}
                                 <li>
                                     <a href="{{pathFor 'profile-settings' _id=profileId}}" data-open-profilesettings
-                                        class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-icon pu-button-spinning">
-                                        <i class="picon-cog"></i>
+                                        class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-secondary-subtle">
+                                        {{_ 'pages-app-network-tab-button-settings'}}
                                     </a>
                                 </li>
                             {{/ if }}
                         </ul>
+                        <!-- actions -->
+                        {{# unless partupEquals currentUserId profile.profileId }}
+                        <ul class="pu-list pu-list-horizontal pu-sub-right">
+                            <li class="pu-sub-button">
+                                {{#if profile.chatIdWithCurrentUser}}
+                                    <a href="{{ pathFor route='chats' hash=profile.chatIdWithCurrentUser }}" class="pu-button pu-button-gray">
+                                        <i class="picon-chat"></i>
+                                        {{_ 'pages-app-profile-open-existing-chat' }}
+                                    </a>
+                                {{else}}
+                                    <a href="{{ pathFor route='chats' query=profile.startChatQuery }}" class="pu-button">
+                                        <i class="picon-chat"></i>
+                                        {{_ 'pages-app-profile-start-new-chat' }}
+                                    </a>
+                                {{/if}}
+                            </li>
+                        </ul>
+                        {{/unless}}
                     </nav>
                 </div>
             </section>

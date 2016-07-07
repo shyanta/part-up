@@ -18,8 +18,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'NetworkChat.html',
         'NetworkChat.js',
-        'ChatMessage.html',
-        'ChatMessage.js'
+        'NetworkChatSidebar.html',
+        'NetworkChatSidebar.js'
     ], 'client');
 
 });

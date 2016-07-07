@@ -8,7 +8,9 @@ Template.DropdownNotifications.onCreated(function() {
 
     //Update the number of notifications in the title
     template.autorun(function() {
-        var numberOfNotifications = Notifications.findForUser(Meteor.user(), {'new': true}).count();
+        var user = Meteor.user();
+        if (!user) return;
+        var numberOfNotifications = Notifications.findForUser(user, {'new': true}).count();
         Partup.client.windowTitle.setNotificationsCount(numberOfNotifications);
     });
     template.limit = new ReactiveVar(10);

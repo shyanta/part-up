@@ -797,6 +797,27 @@ Router.route('/tribes/:slug/settings/about', {
 });
 
 /*************************************************************/
+/* Chats */
+/*************************************************************/
+
+Router.route('/chats', {
+    name: 'chats',
+    where: 'client',
+    yieldRegions: {
+        'app':                  {to: 'main'},
+        'app_chat':             {to: 'app'}
+    },
+    data: function() {
+        var route = this;
+        var startChatUserId = route.params.query.user_id || false;
+        return {
+            chatId: this.params.hash,
+            startChatUserId: startChatUserId
+        };
+    }
+});
+
+/*************************************************************/
 /* Swarm */
 /*************************************************************/
 
