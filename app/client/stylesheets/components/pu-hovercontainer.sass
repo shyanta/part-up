@@ -14,6 +14,13 @@
     border: 2px solid $color-border
     transition: opacity $animation-duration
 
+    > span
+        display: block
+        position: absolute
+        left: 0px
+        right: 0px
+        height: 20px
+
     &:after, &:before
         border: solid transparent
         content: ""
@@ -51,6 +58,9 @@
                 border-width: 11px
                 margin-bottom: -14px
 
+            > span
+                bottom: -20px
+
         &.pu-position-bottom
             margin-top: 10px
             &:after, &:before
@@ -67,6 +77,9 @@
                 border-bottom-color: $color-border
                 border-width: 11px
                 margin-top: -14px
+
+            > span
+                top: -20px
 
         &.pu-position-right
             margin-left: -235px

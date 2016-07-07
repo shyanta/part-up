@@ -54,8 +54,13 @@ Package.onUse(function(api) {
 
         'chats/chat-notifications.html',
         'chats/chat-notifications.js',
-        'chats/notification/chat-notification.html',
-        'chats/notification/chat-notification.js',
+        'chats/notification/chat-group-notification.html',
+        'chats/notification/chat-group-notification.js',
+        'chats/notification/chat-1-on-1-notification.html',
+        'chats/notification/chat-1-on-1-notification.js',
+
+        'menu/menu.html',
+        'menu/menu.js',
 
         'profile/profile.html',
         'profile/profile.js',
