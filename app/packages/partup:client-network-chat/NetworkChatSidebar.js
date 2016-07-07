@@ -12,6 +12,9 @@ Template.NetworkChatSidebar.helpers({
             },
             activeUppers: function() {
                 return Meteor.users.find({'status.online': true, _id: {$in: network.uppers || []}});
+            },
+            network: function() {
+                return network;
             }
         };
     },
