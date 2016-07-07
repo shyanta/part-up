@@ -26,23 +26,46 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
             find: function(user) {
                 return Chats.findForUser(user._id, parameters, options);
             },
-            children: [{
-                    find: function(chat) {
+            children: [
+                {
+                    find: function(chat, user) {
                         return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
                     },
                     children: [
                         {find: Images.findForUser}
                     ]
-                },{
-                    find: function(chat) {
+                },
+
+                // Latest chat message (+ creator)
+                {
+                    find: function(chat, user) {
                         return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
                     },
                     children: [
-                        {find: function(chatMessage) {
+                        {find: function(chatMessage, chat, user) {
                             return Meteor.users.find(chatMessage.creator_id);
                         }}
                     ]
-                },{
+                },
+
+                // All unread chat messages for counting purpose
+                {
+                    find: function(chat, user) {
+                        return ChatMessages.find({
+                            chat_id: chat._id,
+                            read_by: {
+                                $nin: [user._id]
+                            }
+                        }, {
+                            fields: {
+                                chat_id: 1,
+                                read_by: 1
+                            }
+                        });
+                    }
+                },
+
+                {
                     find: function(chat) {
                         return Networks.find({chat_id: chat._id}, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1}, limit: 1});
                     },
