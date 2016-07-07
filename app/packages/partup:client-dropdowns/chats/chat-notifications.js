@@ -96,7 +96,8 @@ Template.DropdownChatNotifications.helpers({
                 return Chats
                     .findForUser(userId, {networks: true})
                     .map(function(chat) {
-                        return lodash.find(chat.counter, {user_id: userId}).unread_count;
+                        var counter = lodash.find(chat.counter, {user_id: userId});
+                        return counter ? counter.unread_count : 0;
                     }).reduce(function(prev, curr) {
                         return prev + curr;
                     }, 0);
@@ -105,7 +106,8 @@ Template.DropdownChatNotifications.helpers({
                 return Chats
                     .findForUser(userId, {private: true})
                     .map(function(chat) {
-                        return lodash.find(chat.counter, {user_id: userId}).unread_count;
+                        var counter = lodash.find(chat.counter, {user_id: userId});
+                        return counter ? counter.unread_count : 0;
                     }).reduce(function(prev, curr) {
                         return prev + curr;
                     }, 0);
