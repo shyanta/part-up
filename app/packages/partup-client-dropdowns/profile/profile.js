@@ -6,9 +6,7 @@ Template.DropdownProfile.onCreated(function() {
         template.windowHeight.set(windowHeight);
     };
     $(window).on('resize', template.resizeHandler);
-    template.currentNetwork = new ReactiveVar();
-    template.disableUp = new ReactiveVar(true);
-    template.disableDown = new ReactiveVar(false);
+    template.activeTab = new ReactiveVar('partners');
 
     // Current user
     var user = Meteor.user();
@@ -89,20 +87,6 @@ Template.DropdownProfile.onCreated(function() {
         });
     });
 
-    var oldJoinedNetworks;
-    template.autorun(function() {
-        var joinedNetworks = user.networks || false;
-        if (!joinedNetworks) return;
-
-        Tracker.nonreactive(function() {
-            if (joinedNetworks !== oldJoinedNetworks) {
-                template.currentNetwork.set(undefined);
-                oldJoinedNetworks = joinedNetworks;
-            }
-        });
-
-    });
-
 });
 
 Template.DropdownProfile.onRendered(function() {
@@ -139,38 +123,22 @@ Template.DropdownProfile.events({
         Partup.client.windowTitle.setNotificationsCount(0);
         Partup.client.user.logout();
     },
-    'click [data-select-network]': function changeNetwork (event, template) {
-        event.preventDefault();
-        var networkId = $(event.currentTarget).data('select-network') || undefined;
-        template.currentNetwork.set(networkId);
-    },
     'click [data-settings]': function openSettings (event, template) {
         event.preventDefault();
         Intent.go({route: 'profile-settings', params:{_id: Meteor.userId()}});
     },
-    'click [data-down]': function(event, template) {
-        event.preventDefault();
-        var list = $(template.find('[data-list]'));
-        list.scrollTop(list.scrollTop() + 200);
-        template.disableUp.set(false);
-        if (list[0].scrollHeight - list.height() === list.scrollTop()) {
-            template.disableDown.set(true);
-        }
-    },
-    'click [data-up]': function(event, template) {
-        event.preventDefault();
-        var list = $(template.find('[data-list]'));
-        list.scrollTop(list.scrollTop() - 200);
-        template.disableDown.set(false);
-        if (list.scrollTop() === 0) {
-            template.disableUp.set(true);
-        }
+    'click [data-tab-toggle]': function(event, template) {
+        template.activeTab.set($(event.currentTarget).data('tab-toggle'));
     }
 });
 
 Template.DropdownProfile.helpers({
     notifications: function() {
         return Notifications.findForUser(Meteor.user());
+    },
+
+    activeTab: function() {
+        return Template.instance().activeTab.get();
     },
 
     menuOpen: function() {
@@ -181,32 +149,18 @@ Template.DropdownProfile.helpers({
         var user = Meteor.user();
         if (!user) return [];
 
-        var networkId = Template.instance().currentNetwork.get() || undefined;
         var allPartups = Template.instance().results.upperpartups.get();
 
-        if (!networkId) return sortPartups(allPartups, user);
-
-        var partupsInNetwork = lodash.filter(allPartups, function(partup) {
-            return partup.network_id === networkId;
-        });
-
-        return sortPartups(partupsInNetwork, user);
+        return sortPartups(allPartups, user);
     },
 
     supporterPartups: function() {
         var user = Meteor.user();
         if (!user) return [];
 
-        var networkId = Template.instance().currentNetwork.get() || undefined;
         var allPartups = Template.instance().results.supporterpartups.get();
 
-        if (!networkId) return sortPartups(allPartups, user);
-
-        var partupsInNetwork = lodash.filter(allPartups, function(partup) {
-            return partup.network_id === networkId;
-        });
-
-        return sortPartups(partupsInNetwork, user);
+        return sortPartups(allPartups, user);
     },
 
     newUpdates: function() {
@@ -224,33 +178,7 @@ Template.DropdownProfile.helpers({
         return Meteor.user();
     },
 
-    networkId: function() {
-        return Template.instance().currentNetwork.get();
-    },
-
     networks: function() {
         return Template.instance().results.networks.get();
-    },
-
-    maxTabs: function() {
-        var number = 8;
-        var windowHeight = Template.instance().windowHeight.get();
-        if (windowHeight < 610) {
-            number = 5;
-        }
-        return number;
-    },
-
-    selectedNetwork: function() {
-        var networkId = Template.instance().currentNetwork.get();
-
-        var network = lodash.find(Template.instance().results.networks.get(), {_id: networkId});
-        return network;
-    },
-    disableUp: function() {
-        return Template.instance().disableUp.get();
-    },
-    disableDown: function() {
-        return Template.instance().disableDown.get();
     }
 });
