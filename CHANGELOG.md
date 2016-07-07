@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## 1.21.0
+- 1 on 1 chat partup website #492
+ - chore(partup:server): add needed npm package to be able to run mocha integration tests with driver-package
+ - feat(chat): completely detached chat template and logic from the NetworkChat to re-use everything in the 1-on-1 chat
+ - feat(chat): 1-on-1 chat start
+ - feat(footer): start of meny footer
+ - feat(menu): moved footer to a "more" menu
+ - feat(chat): made it faster with emty and loading state
+ - feat(chat): add users in private chat to unread counter
+ - feat(chat): sidebar start and dropdown for 1-on-1 messages
+ - feat(chat): 1-on-1 chats reachable with url
+ - fix(chats): count on empty chats array
+ - fix(menu): removed socials from about menu
+ - fix(chatdropdown): truncate long tribe chat lines, fixing #517
+ - feat(more-header): add ios and android download links and remove sprint i18n files
+ - fix(chat): show searching state by INDICATING THE CURRENT SEARCH QUERY
+ - fix(header): fixed header displacement on IE
+ - fix(1on1chat): add check to see if user is allowed to insert chat message
+- How to test your Meteor application #528
+    - Write unit test for helpers/fileUploader.js #527
+    - Write an acceptance test using Chimp to do basic form login #530
+    - Write an acceptance using Chimp for cookie bar feature #532
+    - Add unit-tests for helpers/fileUploader.js #529
+    - Write integration tests for cooking bar feature #531
+
 ## 1.20.3
 - Revert "fix(mentions): Mentions are possible with 1 character and user names that have 3 parts are searchable"
 - Revert "fix(networkchat): re-enable the search feature of network chat"
