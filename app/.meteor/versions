@@ -41,8 +41,6 @@ deepwell:bootstrap-datepicker2@1.3.0
 deps@1.0.12
 diff-sequence@1.0.5
 digilord:sugarjs@1.4.1
-dispatch:mocha-phantomjs@0.1.6
-dispatch:phantomjs-tests@0.0.5
 djedi:sanitize-html@1.11.3
 dsyko:meteor-node-csv@0.3.7
 ecmascript@0.4.3
