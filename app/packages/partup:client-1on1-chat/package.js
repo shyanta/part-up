@@ -10,6 +10,7 @@ Package.onUse(function(api) {
     ], ['client', 'server']);
 
     api.use([
+        'partup:client-base',
         'templating',
         'partup:lib',
         'reactive-var'
