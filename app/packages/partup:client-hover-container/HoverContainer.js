@@ -31,6 +31,7 @@ Template.HoverContainer.onRendered(function() {
 
     var show = function(event) {
         $trigger = $(this);
+        $card = $('[data-card]');
 
         // Gather data for tile
         var tileTemplate = $trigger.data('hovercontainer') || '';
@@ -89,8 +90,39 @@ Template.HoverContainer.onRendered(function() {
             delayedShow();
         }
 
+        var onTrigger = true;
+        var onCard = false;
+        var initHideListener = function() {
+            var hideWhenOffCardAndTrigger = function() {
+                lodash.defer(function() {
+                    if (!onTrigger && !onCard) {
+                        hide();
+                        $card.off('mouseleave', leaveCard);
+                        $trigger.off('mouseleave', leaveTrigger);
+                        $card.off('mouseenter', enterCard);
+                    }
+                });
+            };
+
+            var leaveCard = function() {
+                onCard = false;
+                hideWhenOffCardAndTrigger();
+            };
+            var leaveTrigger = function() {
+                onTrigger = false;
+                hideWhenOffCardAndTrigger();
+            };
+            var enterCard = function() {
+                onCard = true;
+            };
+
+            $card.on('mouseleave', leaveCard);
+            $trigger.on('mouseleave', leaveTrigger);
+            $card.on('mouseenter', enterCard);
+        };
+
         // Hide the card on mouse leave
-        $trigger.on('mouseleave', hide);
+        initHideListener();
     };
 
     $('body').on('mouseenter', '[data-hovercontainer]', show);

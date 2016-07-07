@@ -1,6 +1,8 @@
+import {FileUploader} from 'meteor/partup:lib';
+
 Template.DocumentRenderer.helpers({
-    getSvgIcon: Partup.helpers.getSvgIcon,
-    bytesToSize: Partup.helpers.bytesToSize,
+    getSvgIcon: FileUploader.getSvgIcon,
+    bytesToSize: FileUploader.bytesToSize,
     previewLink: function(file) {
         var client = new URL(file.link).host;
 

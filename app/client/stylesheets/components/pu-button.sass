@@ -237,6 +237,18 @@
             transform: none // prevent movement
             background-color: transparent
 
+        span.mobile
+            display: block
+
+            @media screen and (min-width: 1100px)
+                display: none
+
+        span.desktop
+            display: none
+
+            @media screen and (min-width: 1100px)
+                display: block
+
         &-profiledropdown
             &:after
                 content: ''
@@ -919,6 +931,14 @@
 
             i
                 color: darken($color-primary-deepdark, 5%)
+
+    &-compact
+        padding: 8px
+        height: 31px
+
+        > i
+            font-size: 9px
+            margin-right: 2px
 
     @media screen and (min-width: $breakpoint-desktop)
         &-header

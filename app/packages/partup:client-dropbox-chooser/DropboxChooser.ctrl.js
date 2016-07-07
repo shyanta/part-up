@@ -1,3 +1,5 @@
+import {FileUploader} from 'meteor/partup:lib';
+
 if (Meteor.isClient) {
 
     Template.DropboxChooser.onRendered(function () {
@@ -44,23 +46,23 @@ if (Meteor.isClient) {
 
         function getExtensions() {
             if (template.uploadedPhotos.get().length >= template.maxPhotos) {
-                return Partup.helpers.allowedExtensions.docs
+                return FileUploader.allowedExtensions.docs
             }
             else if (template.uploadedDocuments.get().length >= template.maxDocuments) {
-                return Partup.helpers.allowedExtensions.images
+                return FileUploader.allowedExtensions.images
             }
             else {
-                return Partup.helpers.getAllExtensions();
+                return FileUploader.getAllExtensions();
             }
         }
 
         function allowImageUpload(template, file) {
-            return (Partup.helpers.fileNameIsImage(file.name)
+            return (FileUploader.fileNameIsImage(file.name)
             && template.uploadedPhotos.get().length < template.maxPhotos)
         }
 
         function allowDocumentUpload(template, file) {
-            return (Partup.helpers.fileNameIsDoc(file.name)
+            return (FileUploader.fileNameIsDoc(file.name)
             && template.uploadedDocuments.get().length < template.maxDocuments);
         }
 
@@ -99,7 +101,7 @@ if (Meteor.isClient) {
                         mappedFile = _.omit(mappedFile, 'previewLink');
 
                         uploadPromises.push(
-                            Partup.helpers.partupUploadPhoto(template, mappedFile)
+                            FileUploader.partupUploadPhoto(template, mappedFile)
                         );
                     }
                     else if (allowDocumentUpload(template, mappedFile)) {
@@ -109,7 +111,7 @@ if (Meteor.isClient) {
                         mappedFile = _.omit(mappedFile, 'previewLink');
 
                         uploadPromises.push(
-                            Partup.helpers.partupUploadDoc(template, mappedFile)
+                            FileUploader.partupUploadDoc(template, mappedFile)
                         );
                     }
                 });

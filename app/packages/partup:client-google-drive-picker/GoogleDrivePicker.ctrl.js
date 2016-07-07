@@ -1,3 +1,5 @@
+import {FileUploader} from 'meteor/partup:lib';
+
 if (Meteor.isClient) {
 
     // The Browser API key obtained from the Google Developers Console.
@@ -107,12 +109,12 @@ if (Meteor.isClient) {
         }
 
         function allowImageUpload(template, file) {
-            return (Partup.helpers.fileNameIsImage(file.name)
+            return (FileUploader.fileNameIsImage(file.name)
             && template.uploadedPhotos.get().length < template.maxPhotos)
         }
 
         function allowDocumentUpload(template, file) {
-            return (Partup.helpers.fileNameIsDoc(file.name)
+            return (FileUploader.fileNameIsDoc(file.name)
             && template.uploadedDocuments.get().length < template.maxDocuments);
         }
 
@@ -144,7 +146,7 @@ if (Meteor.isClient) {
                                 mappedFile.link = 'https://docs.google.com/uc?id=' + file.id;
                                 mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
                                 uploadPromises.push(
-                                    Partup.helpers.partupUploadPhoto(template, mappedFile)
+                                    FileUploader.partupUploadPhoto(template, mappedFile)
                                 );
                             }
                             else if (allowDocumentUpload(template, mappedFile)) {
@@ -152,7 +154,7 @@ if (Meteor.isClient) {
                                 mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
                                 mappedFile._id = new Meteor.Collection.ObjectID()._str;
                                 uploadPromises.push(
-                                    Partup.helpers.partupUploadDoc(template, mappedFile)
+                                    FileUploader.partupUploadDoc(template, mappedFile)
                                 );
                             }
                         });

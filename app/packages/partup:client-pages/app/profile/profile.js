@@ -59,6 +59,13 @@ Template.app_profile.helpers({
             hasAboutSection: function() {
                 return User(profile).aboutPageIsViewable();
             },
+            online: function() {
+                if (!profile.status) return false;
+                return profile.status.online;
+            },
+            profileId: function() {
+                return data.profileId;
+            },
             firstname: function() {
                 return User(profile).getFirstname();
             },
@@ -68,6 +75,21 @@ Template.app_profile.helpers({
             hasTilesOrIsCurrentUser: function() {
                 var viewable = User(pofile).aboutPageIsViewable();
                 return viewable;
+            },
+            chatIdWithCurrentUser: function() {
+                return Chats
+                    .findForUser(Meteor.userId(), {private: true})
+                    .map(function(chat) {
+                        return chat._id;
+                    })
+                    .filter(function(chatId) {
+                        var chats = profile.chats || [];
+                        return chats.indexOf(chatId) > -1;
+                    })
+                    .pop();
+            },
+            startChatQuery: function() {
+                return 'user_id=' + data.profileId;
             }
         };
     },
