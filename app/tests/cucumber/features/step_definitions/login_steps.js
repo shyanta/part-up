@@ -1,57 +1,34 @@
-(function() {
-    'use strict';
+module.exports = function() {
+  
+  this.Given(/^I navigate to "([^"]*)"$/, function(relativePath) {
+    browser.url(process.env.ROOT_URL + relativePath);
+  });
 
-    var assert = require('assert');
+  this.When(/^I enter my authentication information$/, function() {
+    browser.element('[name="email"], [name="password"]').waitForExist();
+    browser.setValue('[name="email"]', 'user@example.com');
+    browser.setValue('[name="password"]', 'user');
+    browser.click('[type=submit]');
+  });
 
-    module.exports = function() {
+  this.Then(/^I should see my username "([^"]*)"$/, function(expectedUsername) {
+    var element = browser.element('.pu-button-header-profiledropdown');
+    element.waitForExist();
 
-        // You can use normal require here, cucumber is NOT run in a Meteor context (by design)
-        var url = require('url');
+    expect(element.getText()).toBe(expectedUsername);
+  });
 
-        this.Given(/^I navigate to "([^"]*)"$/, function(relativePath, callback) {
-            // WebdriverIO supports Promises/A+ out the box, so you can return that too
-            this.browser. // this.browser is a pre-configured WebdriverIO + PhantomJS instance
-            url(url.resolve(process.env.HOST, relativePath)). // process.env.HOST always points to the mirror
-            call(callback);
-        });
 
-        this.When(/^I enter my authentication information$/, function(callback) {
-            this.browser.
-            waitForExist('body *').
-            waitForVisible('body *').
-            setValue('[name="email"]', 'user@example.com').
-            setValue('[name="password"]', 'user').
-            click('[type=submit]').
-            call(callback);
-        });
 
-        this.When(/^I enter wrong login information$/, function(callback) {
-            this.browser.
-            waitForExist('body *').
-            waitForVisible('body *').
-            setValue('[name="email"]', 'user@example.com').
-            setValue('[name="password"]', 'bad password').
-            click('[type=submit]').
-            call(callback);
-        });
+  this.When(/^I enter wrong login information$/, function() {
+    browser.element('[name="email"]').setValue('user@example.com');
+    browser.element('[type="password"]').setValue('bad password');
+    browser.element('[type=submit]').click();
+  });
 
-        this.Then(/^I should see my username "([^"]*)"$/, function(expectedUsername, callback) {
-            this.browser.
-            waitForExist('.pu-composition-register .pu-title-modal').
-            getText('.pu-composition-register .pu-title-modal').then(function(text) {
-                assert(text.substr(expectedUsername), true);
-                callback();
-            });
-        });
-
-        this.Then(/^I should see an error$/, function(callback) {
-            this.browser.
-            waitForExist('.pu-sub-error').
-            getText('.pu-sub-error').then(function(text) {
-                assert(text, 'Unknown validation error');
-                callback();
-            });
-        });
-    };
-
-})();
+  this.Then(/^I should see an error$/, function() {
+    var element = browser.element('.pu-state-invalid .pu-sub-error');
+    element.waitForExist();
+    expect(element.getText()).toBe('This password is incorrect');
+  });
+};
