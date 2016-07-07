@@ -66,17 +66,5 @@ Template.app_network_start.events({
                 slug: networkSlug
             }
         });
-    },
-    'click [data-openchat]': function(event, template) {
-        event.preventDefault();
-
-        Partup.client.prompt.confirm({
-            title: TAPi18n.__('pages-app-network-start-message-title'),
-            message: TAPi18n.__('pages-app-network-start-message-description'),
-            confirmButton: TAPi18n.__('pages-app-network-start-message-confirmbutton'),
-            onConfirm: function() {
-
-            }
-        });
     }
 });
