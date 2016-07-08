@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.21.1
+- Update the Google Drive API client lib source code
+
 ## 1.21.0
 - 1 on 1 chat partup website #492
  - chore(partup:server): add needed npm package to be able to run mocha integration tests with driver-package

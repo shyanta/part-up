@@ -117,3 +117,43 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
         ]
     };
 });
+
+Meteor.publishComposite('chats.unread_messages_for_count', function(parameters) {
+    this.unblock();
+
+    parameters = parameters || {};
+    check(parameters, {
+        private: Match.Optional(Boolean),
+        networks: Match.Optional(Boolean)
+    });
+
+    return {
+        find: function() {
+            return Meteor.users.find(this.userId, {fields: {chats: 1}});
+        },
+        children: [
+            {
+                find: function(user) {
+                    return Chats.findForUser(user._id, parameters);
+                },
+                children: [
+                    {
+                        find: function(chat, user) {
+                            return ChatMessages.find({
+                                chat_id: chat._id,
+                                read_by: {
+                                    $nin: [user._id]
+                                }
+                            }, {
+                                fields: {
+                                    chat_id: 1,
+                                    read_by: 1
+                                }
+                            });
+                        }
+                    }
+                ]
+            }
+        ]
+    };
+});
