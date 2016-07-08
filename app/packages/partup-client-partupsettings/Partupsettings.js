@@ -47,6 +47,7 @@ Template.Partupsettings.onCreated(function() {
     template.showNetworkDropdown = new ReactiveVar(false);
     template.currentCurrency = new ReactiveVar('EUR');
     template.formId = template.data.FORM_ID;
+    template.preselectedNetwork = new ReactiveVar(undefined);
 
     template.subscribe('networks.list');
 
@@ -137,6 +138,7 @@ Template.Partupsettings.onRendered(function() {
         template.showNetworkDropdown.set(true);
         template.selectedPrivacyType.set('network');
         template.selectedPrivacyNetwork.set(selectedNetworkId);
+        template.preselectedNetwork.set(selectedNetworkId);
     }
 });
 
@@ -349,6 +351,11 @@ Template.Partupsettings.helpers({
     },
     selectedPrivacyNetwork: function() {
         return Template.instance().selectedPrivacyNetwork.get();
+    },
+    preselectedNetwork: function() {
+        var network_id = Template.instance().preselectedNetwork.get();
+        var network = Networks.findOne(network_id);
+        return network;
     },
     tagsInputIsEmpty: function() {
         var template = Template.instance();

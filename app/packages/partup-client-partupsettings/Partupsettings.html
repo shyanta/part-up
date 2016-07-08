@@ -158,6 +158,15 @@
 
         {{# if CREATE }}
             <div class="pu-formfield">
+                {{#if preselectedNetwork }}
+                <span class="pu-label">
+                    {{_ 'partupsettings-form-privacy-preselected-label' }}
+                    <a class="pu-hint pu-tooltip">
+                        <i class="picon-question"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-privacy-preselected-tooltip'}}</p></span>
+                    </a>
+                </span>
+                {{else}}
                 <span class="pu-label">
                     {{_ 'partupsettings-form-privacy-label' }}
                     <a class="pu-hint pu-tooltip">
@@ -165,8 +174,11 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-privacy-tooltip' }}</p></span>
                     </a>
                 </span>
-
+                {{/if}}
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='privacy_type_input' }}pu-state-invalid{{/if}} {{#if afFieldIsInvalid name='network_id' }}pu-state-invalid{{/if}}">
+                    {{#if preselectedNetwork }}
+                    <span class="pu-sub-input"><input type="text" class="pu-input pu-input-noneditable pu-input-nointeraction" disabled value="{{preselectedNetwork.name}}"></span>
+                    {{else}}
                     <div class="pu-sub-input">
                         <fieldset class="pu-sub-radiogroup pu-paragraph" data-privacy-type>
                             {{# each privacyTypes }}
@@ -186,6 +198,7 @@
                             {{/ if }}
                         </fieldset>
                     </div>
+                    {{/if}}
                     <span class="pu-sub-error">
                         {{ afFieldMessage name='privacy_type_input' }}
                         {{ afFieldMessage name='network_id' }}
