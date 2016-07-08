@@ -2,7 +2,7 @@
     <a href="{{pathFor route='partup-update' slug=notification.type_data.partup.slug update_id=notification.type_data.update._id}}">
         <figure class="pu-avatar pu-avatar-plain"
             style="background-image: url('{{ partupImageUrl id=notification.type_data.latest_upper.image }}');"
-            data-usercard="{{ notification.type_data.latest_upper._id }}">
+            data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ notification.type_data.latest_upper._id }}">
         </figure>
         <article>
             <p>{{_ 'dropdown-notification-multiple_comments_in_conversation_since_visit' upper=notification.type_data.latest_upper.name others_count=notification.type_data.others_count}}</p>

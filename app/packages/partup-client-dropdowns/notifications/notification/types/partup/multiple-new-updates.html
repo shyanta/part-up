@@ -2,7 +2,7 @@
     <a href="{{pathFor route='partup' slug=notification.type_data.partup.slug}}">
         <figure class="pu-avatar pu-avatar-plain"
             style="background-image: url('{{ partupImageUrl id=notification.type_data.latest_upper.image }}');"
-            data-usercard="{{ notification.type_data.latest_upper._id }}">
+            data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ notification.type_data.latest_upper._id }}">
         </figure>
         <article>
             {{#if partupEqualsExactly notification.type_data.others_count 0}}
