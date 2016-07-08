@@ -118,14 +118,14 @@ var sortPartups = function(partups, user) {
 Template.DropdownProfile.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
-    'click [data-logout]': function eventClickLogout (event, template) {
+    'click [data-logout]': function(event, template) {
         event.preventDefault();
         Partup.client.windowTitle.setNotificationsCount(0);
         Partup.client.user.logout();
     },
-    'click [data-settings]': function openSettings (event, template) {
+    'click [data-settings]': function(event, template) {
         event.preventDefault();
-        Intent.go({route: 'profile-settings', params:{_id: Meteor.userId()}});
+        Intent.go({route: 'profile-settings', params: {_id: Meteor.userId()}});
     },
     'click [data-tab-toggle]': function(event, template) {
         template.activeTab.set($(event.currentTarget).data('tab-toggle'));
