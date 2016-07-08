@@ -83,7 +83,7 @@ Template.DropdownProfile.onCreated(function() {
                 Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
 
                 return network;
-            }));
+            }).sort(Partup.client.sort.alphabeticallyASC));
         });
     });
 
