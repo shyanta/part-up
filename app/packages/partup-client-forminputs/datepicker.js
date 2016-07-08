@@ -18,10 +18,6 @@ Template.DatePicker.onRendered(function() {
         .datepicker(options)
         .datepicker('setDate', prefillValue)
         .on('changeDate clearDate', dateChangeHandler);
-
-    $('[' + autoFormInput + ']').on('touchstart', function() {
-        template.end_date_datepicker.datepicker('show');
-    });
 });
 
 Template.DatePicker.onDestroyed(function() {
