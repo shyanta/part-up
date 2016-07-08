@@ -124,12 +124,18 @@
                 <div class="pu-inputholder pu-inputholder-lefticon">
                     <span class="pu-sub-input">
                         {{#DatePicker inputSettings=datePicker}}
-                            <input type="text" data-bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ formPlaceholders.end_date }}" readonly>
                             {{> afFieldInput name='end_date' type='hidden' data-autoform-input="" }}
-                            <a href="#" class="pu-sub-remove picon-times" data-remove-date tabindex="-1"></a>
+                            <!-- {{#if isProbablyTouchScreen}} -->
+                                <div type="text" data-bootstrap-datepicker class="pu-datepicker pu-datepicker-inline" placeholder="{{ formPlaceholders.end_date }}" readonly></div>
+                            <!-- {{else}}
+                                <input type="text" data-bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ formPlaceholders.end_date }}" readonly>
+                                <a href="#" class="pu-sub-remove picon-times" data-remove-date tabindex="-1"></a>
+                            {{/if}} -->
                         {{/DatePicker}}
                     </span>
-                    <span class="pu-icon"><i class="picon-calendar-check"></i></span>
+                    <!-- {{#unless isProbablyTouchScreen}}
+                        <span class="pu-icon"><i class="picon-calendar-check"></i></span>
+                    {{/unless}} -->
                 </div>
                 <span class="pu-sub-error">{{ afFieldMessage name='end_date' }}</span>
             </div>

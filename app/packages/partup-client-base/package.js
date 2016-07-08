@@ -95,6 +95,7 @@ Package.onUse(function(api) {
         'helpers/browserTest.js',
         'helpers/math.js',
         'helpers/delayed.js',
+        'helpers/touch.js',
         'helpers/RenderBlock/RenderBlock.html',
         'helpers/RenderBlock/RenderBlock.js',
 
