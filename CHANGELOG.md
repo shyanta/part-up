@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.21.2
+- Update new pricing url page to link to http://swarmorganizing.com and http://swarmorganizing.nl
+
 ## 1.21.1
 - Update the Google Drive API client lib source code
 
