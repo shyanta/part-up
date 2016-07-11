@@ -2,11 +2,17 @@ Template.AutocompleteAdvanced.onCreated(function() {
     var tpl = this;
     this.selection = this.data.selection || new ReactiveVar();
     this.id = Random.id();
+    if (this.data.hasValueVar) {
+        this.onInput = function(event) {
+            tpl.data.hasValueVar.set(event.currentTarget.value);
+        };
+    }
 });
 
 Template.AutocompleteAdvanced.onRendered(function() {
     this.forminput = this.find('input[name]');
     this.forminput.type = 'hidden';
+    $('[data-input]').on('input', this.onInput);
 });
 
 Template.AutocompleteAdvanced.helpers({

@@ -48,6 +48,7 @@ Template.Partupsettings.onCreated(function() {
     template.currentCurrency = new ReactiveVar('EUR');
     template.formId = template.data.FORM_ID;
     template.preselectedNetwork = new ReactiveVar(undefined);
+    template.locationHasValueVar = new ReactiveVar(undefined);
 
     template.subscribe('networks.list');
 
@@ -339,6 +340,9 @@ Template.Partupsettings.helpers({
     },
     locationSelectionReactiveVar: function() {
         return Template.instance().selectedLocation;
+    },
+    locationHasValueVar: function() {
+        return Template.instance().locationHasValueVar;
     },
     networkPreSelected: function() {
         var selectedNetworkId = Session.get('createPartupForNetworkById');
