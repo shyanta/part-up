@@ -19,6 +19,7 @@ Package.onUse(function(api) {
     api.addFiles([
 
         'client/base-64-polyfill.js',
+        'client/bind-polyfill.js',
         'client/uint8array.js', // required for fileuploader
         'client/moxie.js',
         'client/requestanimationframe-polyfill.js',
