@@ -23,7 +23,7 @@ Template.app_partup_activities.onCreated(function() {
             var filter = tpl.activities.filter.get();
 
             var activities = Activities
-                .findForPartup(tpl.partup, {sort: {end_date: -1}}, {archived: !!options.archived})
+                .findForPartup(tpl.partup, {}, {archived: !!options.archived})
                 .fetch()
                 .filter(function(activity, idx) {
                     if (filter === 'my-activities')
@@ -33,7 +33,9 @@ Template.app_partup_activities.onCreated(function() {
                         return Contributions.findForActivity(activity).count() === 0;
 
                     return true;
-                });
+                })
+                .sort(Partup.client.sort.dateASC.bind(null, 'created_at'))
+                .sort(Partup.client.sort.dateASC.bind(null, 'end_date'));
 
             return activities;
         }
