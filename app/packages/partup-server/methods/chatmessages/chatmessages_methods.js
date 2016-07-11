@@ -65,11 +65,16 @@ Meteor.methods({
                 var payload = {
                     chat: {
                         _id: chat._id,
-                        username: user.profile.name
+                        username: user.profile.name, // deprecated
+                        name: user.profile.name,
+                        type: 'private',
+                        networkSlug: undefined
                     }
                 };
 
                 Partup.server.services.pushnotifications.send(receivers, filterDevices, message, payload);
+            } else {
+                //todo
             }
 
 

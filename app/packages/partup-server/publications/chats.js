@@ -18,62 +18,114 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
         skip: Match.Optional(Number)
     });
 
+    const latestChatMessage = function() {
+        return {
+            find: function(chat) {
+                return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
+            },
+            children: [
+                {find: function(chatMessage, chat) {
+                    return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
+                }}
+            ]
+        };
+    };
+
+    const allUnreadChatMessages = function() {
+        return {
+            find: function(chat, user) {
+                return ChatMessages.find({
+                    chat_id: chat._id,
+                    read_by: {
+                        $nin: [user._id]
+                    }
+                }, {
+                    fields: {
+                        chat_id: 1,
+                        read_by: 1
+                    }
+                });
+            }
+        };
+    };
+
     return {
         find: function() {
             return Meteor.users.findSinglePrivateProfile(this.userId);
         },
-        children: [{
-            find: function(user) {
-                return Chats.findForUser(user._id, parameters, options);
-            },
-            children: [
-                {
-                    find: function(chat, user) {
-                        return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
-                    },
-                    children: [
-                        {find: Images.findForUser}
-                    ]
-                },
+        children: [
 
-                // Latest chat message (+ creator)
-                {
-                    find: function(chat, user) {
-                        return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
-                    },
-                    children: [
-                        {find: function(chatMessage, chat, user) {
-                            return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
-                        }}
-                    ]
+            /**
+             * All network chats + children
+             */
+            {
+                find: function(user) {
+                    if (!parameters.networks) return;
+                    return Networks.find({
+                        _id: {
+                            $in: user.networks || []
+                        }
+                    }, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1, uppers: 1}});
                 },
+                children: [
+                    // Network image
+                    {
+                        find: Images.findForNetwork
+                    },
 
-                // All unread chat messages for counting purpose
-                {
-                    find: function(chat, user) {
-                        return ChatMessages.find({
-                            chat_id: chat._id,
-                            read_by: {
-                                $nin: [user._id]
+                    // Network uppers
+                    {
+                        find: function(network) {
+                            return Meteor.users.findMultiplePublicProfiles(network.uppers, {});
+                        },
+                        children: [
+                            {find: Images.findForUser}
+                        ]
+                    },
+
+                    // Network chats
+                    {
+                        find: function(network) {
+                            return Chats.find(network.chat_id, options);
+                        },
+                        children: [
+                            latestChatMessage(),
+                            {
+                                find: function(chat, network, user) {
+                                    return allUnreadChatMessages().find(chat, user);
+                                },
+                                children: allUnreadChatMessages().children || []
                             }
-                        }, {
-                            fields: {
-                                chat_id: 1,
-                                read_by: 1
-                            }
-                        });
+                        ]
                     }
-                },
+                ]
+            },
 
-                {
-                    find: function(chat) {
-                        return Networks.find({chat_id: chat._id}, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1}, limit: 1});
+            /**
+             * All private chats + children
+             */
+            {
+                find: function(user) {
+                    if (!parameters.private) return;
+                    return Chats.findForUser(user._id, {private: true}, options);
+                },
+                children: [
+
+                    // Chat users
+                    {
+                        find: function(chat) {
+                            return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
+                        },
+                        children: [
+                            {find: Images.findForUser}
+                        ]
                     },
-                    children: [
-                        {find: Images.findForNetwork}
-                    ]
-                }
-            ]}
+
+                    // Children
+                    latestChatMessage(),
+                    allUnreadChatMessages()
+                ]
+            }
         ]
     };
 });
