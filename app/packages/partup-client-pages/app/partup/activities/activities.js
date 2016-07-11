@@ -73,6 +73,22 @@ Template.app_partup_activities.helpers({
     // Loading state
     activitiesLoading: function() {
         return Template.instance().activities.loading.get();
+    },
+
+    createCallback: function() {
+        var template = Template.instance();
+        return function(activityId) {
+            Meteor.defer(function() {
+
+                Partup.client.scroll.to(template.find('[data-activity-id=' + activityId + ']'), 0, {
+                    duration: 250,
+                    callback: function() {
+                        template.$('[data-activity-id=' + activityId + ']').addClass('pu-state-highlight');
+                    }
+                });
+
+            });
+        };
     }
 
 });
