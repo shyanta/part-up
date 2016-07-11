@@ -2,6 +2,30 @@
 
     {{#autoForm schema=startPartupSchema id=FORM_ID doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
 
+        {{# if CREATE }}
+            {{#if preselectedNetwork }}
+            <div class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'partupsettings-form-privacy-preselected-label' }}
+                    <a class="pu-hint pu-tooltip">
+                        <i class="picon-question"></i>
+                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-privacy-preselected-tooltip'}}</p></span>
+                    </a>
+                </span>
+
+                <div class="pu-network-preview">
+                    <div>
+                        <figure class="pu-avatar pu-avatar-square" style="{{# with partupImageById preselectedNetwork.image}}background-image:url('{{ . }}');{{/ with}}"></figure>
+                        <p>{{ preselectedNetwork.name }}</p>
+                    </div>
+                </div>
+
+                {{> afFieldInput type='hidden' name='privacy_type_input' value=selectedPrivacyType }}
+                {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }}
+            </div>
+            {{/if}}
+        {{/ if }}
+
         <!-- Name -->
         <label class="pu-formfield">
             <span class="pu-label">
@@ -154,17 +178,9 @@
             </div>
         </label>
 
+        {{#unless preselectedNetwork}}
         {{# if CREATE }}
             <div class="pu-formfield">
-                {{#if preselectedNetwork }}
-                <span class="pu-label">
-                    {{_ 'partupsettings-form-privacy-preselected-label' }}
-                    <a class="pu-hint pu-tooltip">
-                        <i class="picon-question"></i>
-                        <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-privacy-preselected-tooltip'}}</p></span>
-                    </a>
-                </span>
-                {{else}}
                 <span class="pu-label">
                     {{_ 'partupsettings-form-privacy-label' }}
                     <a class="pu-hint pu-tooltip">
@@ -172,11 +188,7 @@
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-privacy-tooltip' }}</p></span>
                     </a>
                 </span>
-                {{/if}}
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='privacy_type_input' }}pu-state-invalid{{/if}} {{#if afFieldIsInvalid name='network_id' }}pu-state-invalid{{/if}}">
-                    {{#if preselectedNetwork }}
-                    <span class="pu-sub-input"><input type="text" class="pu-input pu-input-noneditable pu-input-nointeraction" disabled value="{{preselectedNetwork.name}}"></span>
-                    {{else}}
                     <div class="pu-sub-input">
                         <fieldset class="pu-sub-radiogroup pu-paragraph" data-privacy-type>
                             {{# each privacyTypes }}
@@ -196,7 +208,6 @@
                             {{/ if }}
                         </fieldset>
                     </div>
-                    {{/if}}
                     <span class="pu-sub-error">
                         {{ afFieldMessage name='privacy_type_input' }}
                         {{ afFieldMessage name='network_id' }}
@@ -207,6 +218,7 @@
                 </div>
             </div>
         {{/ if }}
+        {{/unless}}
 
         <div class="pu-formfield">
             <span class="pu-label">
