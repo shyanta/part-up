@@ -161,3 +161,16 @@ Chats.findForUser = function(userId, parameters, options) {
     // Return the IDs ordered by most recent
     return Chats.find({_id: {$in: chatIds}}, options);
 };
+
+/**
+ * Remove a chat and all of its messages
+ *
+ * @memberOf Chats
+ * @param {String} chatId
+ */
+Chats.removeFull = function(chatId) {
+    var chat = Chats.findOneOrFail(chatId);
+
+    ChatMessages.remove({chat_id: chatId})
+    Chats.remove({_id: chatId});
+};

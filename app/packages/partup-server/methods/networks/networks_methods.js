@@ -581,6 +581,7 @@ Meteor.methods({
 
         try {
             Networks.remove(networkId);
+            Chats.removeFull(network.chat_id);
             Meteor.users.update(user._id, {$pull: {networks: network._id}});
             var network_swarms = Swarms.find({networks: {$in: [networkId]}}).fetch();
             network_swarms.forEach(function(swarm) {
