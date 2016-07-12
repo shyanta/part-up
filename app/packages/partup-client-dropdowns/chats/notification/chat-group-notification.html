@@ -6,7 +6,11 @@
         <article>
             <p>{{ data.network.name }} {{#if data.chat.hasUnreadMessages}}({{data.chat.unreadCount}}){{/if}}</p>
             <span>
-                <span>{{ data.creator.profile.name }}: {{ data.message.content }}</span>
+                {{#if data.showLastMessage }}
+                    <span>{{ data.creator.profile.name }}: {{ data.message.content }}</span>
+                {{else}}
+                    <span>&nbsp;</span>
+                {{/if}}
                 <time>{{ partupDateNotification created_at }}</time>
             </span>
         </article>

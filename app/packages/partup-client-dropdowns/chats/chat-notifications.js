@@ -79,13 +79,6 @@ Template.DropdownChatNotifications.helpers({
                     chat.message = message;
                 }
                 return chat;
-            })
-            .filter(function(chat) {
-                if (!getPrivate) {
-                    return !!chat.hasMessages;
-                } else {
-                    return true;
-                }
             });
 
         return {
