@@ -48,10 +48,14 @@ Template.Wysiwyg.onRendered(function() {
 
         var wrappedOutput = wrapInParagraphIfNoTagsArePresent(output);
 
+        if (settings.characterCountVar) settings.characterCountVar.set(wrappedOutput.length);
+
         $('[' + settings.input + ']').val(wrappedOutput);
     };
 
     template.editor.on('tbwchange', template.outputHandler);
+
+    lodash.defer(template.outputHandler);
 });
 
 Template.Wysiwyg.onDestroyed(function() {

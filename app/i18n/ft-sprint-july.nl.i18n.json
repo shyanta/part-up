@@ -8,5 +8,7 @@
 
     "partupsettings-form-privacy-preselected-label": "Deze part-up zal in deze tribe worden aangemaakt:",
     "partupsettings-form-privacy-preselected-tooltip": "Een part-up is standaard zichtbaar voor iedereen. Uppers met een premium account kunnen ook besloten part-ups starten die alleen zichtbaar zijn voor uppers die je zelf uitnodigt. Als je lid bent van een tribe kun je hieronder kiezen bij welke tribe deze nieuwe part-up hoort. De privacy instelling van de tribe bepaalt dan de zichtbaarheid van de part-up.",
-    "partupsettings-form-location_input-error-has-value-but-no-location-selected": "Selecteer aub een locatie"
+    "partupsettings-form-location_input-error-has-value-but-no-location-selected": "Selecteer aub een locatie",
+
+    "network-settings-about-form-error-text-too-long": "Maximaal __max__ karakters toegestaan"
 }

@@ -11,6 +11,7 @@ Partup.client.sanitize = function(text) {
 
 Partup.client.sanitizeOutputHTML = function(value) {
     // https://github.com/Alex-D/Trumbowyg/issues/203#issuecomment-157725913
+    if (!value) return '';
     var returnValue = value.replace(/<strong><br><\/strong>/g, '<br>')
         .replace(/<p><br><\/p>/g, '<br>')
         .replace(/<strong><\/strong>/g, '')
