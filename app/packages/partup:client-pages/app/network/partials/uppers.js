@@ -3,8 +3,8 @@ Template.app_network_start_uppers.onCreated(function() {
     var upperIds = template.data.uppers.uppers || [];
     template.noUppers = new ReactiveVar(false);
     template.MAX_UPPERS = 7; // 7
-    template.subscribe('users.by_ids', template.data.uppers.uppers);
-    if (!template.data.uppers.uppers.length) template.noUppers.set(true);
+    template.subscribe('users.by_ids', upperIds);
+    if (!upperIds.length) template.noUppers.set(true);
 });
 Template.app_network_start_uppers.helpers({
     data: function() {

@@ -3,7 +3,7 @@ Template.app_network_start_partups.onCreated(function() {
     template.MAX_PARTUPS = 3; // 3
     template.activeImage = new ReactiveVar();
     template.noPartups = new ReactiveVar(false);
-    var partups = template.data.partups.partups;
+    var partups = template.data.partups.partups || [];
     var networkId = template.data.partups.networkId;
     if (partups.length) {
         template.subscribe('partups.by_ids', partups, {
@@ -25,7 +25,7 @@ Template.app_network_start_partups.onCreated(function() {
 Template.app_network_start_partups.helpers({
     data: function() {
         var template = Template.instance();
-        var partupIds = template.data.partups.partups;
+        var partupIds = template.data.partups.partups || [];
         var networkId = template.data.partups.networkId;
         var partups;
         if (partupIds.length) partups = Partups.find({_id: {$in: template.data.partups.partups}}).fetch();
