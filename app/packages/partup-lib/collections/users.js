@@ -217,8 +217,9 @@ Meteor.users.findSupportersForPartup = function(partup) {
  * @memberOf Meteor.users
  * @return {Mongo.Cursor}
  */
-Meteor.users.findPartnersForUpper = function(upper, options) {
+Meteor.users.findPartnersForUpper = function(upper, options, sortingOptions) {
     var options = options || {};
+    var sortingOptions = sortingOptions || {};
     var upper_partups = upper.upperOf || [];
     var upper_partners = [];
 
@@ -228,12 +229,28 @@ Meteor.users.findPartnersForUpper = function(upper, options) {
         var partup_uppers = partup.uppers || [];
         upper_partners.push.apply(upper_partners, partup_uppers);
     });
+    var upperCount = {};
+    upper_partners.forEach(function(partnerId) {
+        upperCount[partnerId] ? upperCount[partnerId]++ : upperCount[partnerId] = 1;
+    });
 
     // Remove duplicates and the requested user from the partner list
     var partners = lodash.chain(upper_partners)
         .unique()
         .pull(upper._id)
         .value();
+
+    // this exception is for the profile/:id/partners
+    if (sortingOptions.sortByPartnerFrequency) {
+        partners.sort(function(a, b) {
+            if (upperCount[a] < upperCount[b]) return 1;
+            if (upperCount[a] > upperCount[b]) return -1;
+            return 0;
+        });
+        if (options && options.limit) {
+            partners = partners.slice(options.skip || 0, options.limit);
+        }
+    }
 
     return Meteor.users.findMultiplePublicProfiles(partners, options);
 };
