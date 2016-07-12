@@ -20,7 +20,7 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
 
     return {
         find: function() {
-            return Meteor.users.find(this.userId, {fields: {chats: 1}});
+            return Meteor.users.findSinglePrivateProfile(this.userId);
         },
         children: [{
             find: function(user) {
@@ -43,7 +43,7 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                     },
                     children: [
                         {find: function(chatMessage, chat, user) {
-                            return Meteor.users.find(chatMessage.creator_id);
+                            return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
                         }}
                     ]
                 },
@@ -89,7 +89,7 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
 
     return {
         find: function() {
-            return Meteor.users.find(this.userId, {fields: {chats: 1}});
+            return Meteor.users.findSinglePrivateProfile(this.userId);
         },
         children: [
             {
@@ -129,7 +129,7 @@ Meteor.publishComposite('chats.unread_messages_for_count', function(parameters) 
 
     return {
         find: function() {
-            return Meteor.users.find(this.userId, {fields: {chats: 1}});
+            return Meteor.users.findSinglePrivateProfile(this.userId);
         },
         children: [
             {
