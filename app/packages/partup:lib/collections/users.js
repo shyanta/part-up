@@ -13,47 +13,53 @@ Meteor.users.deny({
 });
 
 //user fields to all users
-var publicUserFields = {
-    'profile.description': 1,
-    'profile.facebook_url': 1,
-    'profile.image': 1,
-    'profile.instagram_url': 1,
-    'profile.linkedin_url': 1,
-    'profile.location': 1,
-    'profile.name': 1,
-    'profile.skype': 1,
-    'profile.tags': 1,
-    'profile.twitter_url': 1,
-    'profile.website': 1,
-    'profile.meurs.results': 1,
-    'profile.meurs.fetched_results': 1,
-    'profile.tiles': 1,
-    'status.online': 1,
-    'partups': 1,
-    'upperOf': 1,
-    'supporterOf': 1,
-    'average_rating': 1,
-    'networks': 1,
-    'completeness': 1,
-    'participation_score': 1,
-    'chats': 1
+var getPublicUserFields = function() {
+    return {
+        'profile.description': 1,
+        'profile.facebook_url': 1,
+        'profile.image': 1,
+        'profile.instagram_url': 1,
+        'profile.linkedin_url': 1,
+        'profile.location': 1,
+        'profile.name': 1,
+        'profile.skype': 1,
+        'profile.tags': 1,
+        'profile.twitter_url': 1,
+        'profile.website': 1,
+        'profile.meurs.results': 1,
+        'profile.meurs.fetched_results': 1,
+        'profile.tiles': 1,
+        'status.online': 1,
+        'partups': 1,
+        'upperOf': 1,
+        'supporterOf': 1,
+        'average_rating': 1,
+        'networks': 1,
+        'completeness': 1,
+        'participation_score': 1,
+        'chats': 1
+    };
 };
 
 //user fields exposed to logged in user
-var privateUserFields = mout.object.merge({
-    'emails': 1,
-    'profile.phonenumber': 1,
-    'profile.settings': 1,
-    'pending_networks': 1,
-    'roles': 1,
-    'chats': 1
-}, publicUserFields);
+var getPrivateUserFields = function() {
+    return mout.object.merge({
+        'emails': 1,
+        'profile.phonenumber': 1,
+        'profile.settings': 1,
+        'pending_networks': 1,
+        'roles': 1,
+        'chats': 1
+    }, getPublicUserFields());
+};
 
 // Admin fields exposed to network users
-var publicNetworkAdminFields = mout.object.merge({
-    'emails': 1,
-    'profile.phonenumber': 1
-}, publicUserFields);
+var getPublicNetworkAdminFields = function() {
+    return mout.object.merge({
+        'emails': 1,
+        'profile.phonenumber': 1
+    }, getPublicUserFields());
+};
 
 // Add indices
 if (Meteor.isServer) {
@@ -68,7 +74,7 @@ if (Meteor.isServer) {
  * @return {Mongo.Cursor}
  */
 Meteor.users.findSinglePrivateProfile = function(userId) {
-    return Meteor.users.find({_id: userId}, {fields: privateUserFields});
+    return Meteor.users.find({_id: userId}, {fields: getPrivateUserFields()});
 };
 
 /**
@@ -79,7 +85,7 @@ Meteor.users.findSinglePrivateProfile = function(userId) {
  * @return {Mongo.Cursor}
  */
 Meteor.users.findSinglePublicProfile = function(userId) {
-    return Meteor.users.find({_id: userId}, {fields: publicUserFields});
+    return Meteor.users.find({_id: userId}, {fields: getPublicUserFields()});
 };
 
 /**
@@ -100,7 +106,7 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
     var selector = {_id: {$in: userIds}};
     if (parameters.onlyActive) selector.deactivatedAt = {$exists: false};
 
-    options.fields = _.clone(publicUserFields);
+    options.fields = getPublicUserFields();
 
     if (parameters.isAdminOfNetwork) {
         options.fields.emails = 1;
@@ -157,7 +163,7 @@ Meteor.users.findMultipleNetworkAdminProfiles = function(userIds) {
         deactivatedAt: {$exists: false}
     };
     var options = {
-        fields: _.clone(publicNetworkAdminFields)
+        fields: getPublicNetworkAdminFields()
     };
 
     return Meteor.users.find(selector, options);
@@ -276,12 +282,9 @@ Meteor.users.findForContribution = function(contribution) {
 Meteor.users.findActiveUsers = function(selector, options) {
     selector = selector || {};
     options = options || {};
-    if (!options.fields) {
-        options.fields = publicUserFields;
-    }
 
     selector.deactivatedAt = {$exists: false};
-    options.fields = publicUserFields;
+    options.fields = getPublicUserFields();
     return Meteor.users.find(selector, options);
 };
 
@@ -332,7 +335,7 @@ Meteor.users.findStatsForAdmin = function() {
  * @return {Mongo.Cursor}
  */
 Meteor.users.findByUnsubscribeEmailToken = function(token) {
-    return Meteor.users.find({'profile.settings.unsubscribe_email_token': token}, {'_id': 1, 'profile.settings.email': 1}, {});
+    return Meteor.users.find({'profile.settings.unsubscribe_email_token': token}, {fields: {'_id': 1, 'profile.settings.email': 1}});
 };
 
 /**
