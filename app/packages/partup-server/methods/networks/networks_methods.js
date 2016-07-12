@@ -36,6 +36,11 @@ Meteor.methods({
             network.common_tags = [];
             network.contentblocks = [];
 
+            // Create chat for network
+            network.chat_id = Meteor.call('chats.insert', {});
+            var chat = Chats.findOneOrFail(network.chat_id);
+            chat.addUserToCounter(user._id);
+
             network._id = Networks.insert(network);
 
             Meteor.users.update(user._id, {$addToSet: {networks: network._id}});
@@ -856,41 +861,6 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
-        }
-    },
-
-    /**
-     * Insert a ContentBlock
-     *
-     * @param {String} networkSlug
-     * @param {mixed[]} fields
-     */
-    'networks.chat_insert': function(networkSlug, fields) {
-        check(networkSlug, String);
-        check(fields, Partup.schemas.forms.chat);
-
-        var user = Meteor.user();
-        var network = Networks.findOneOrFail({slug: networkSlug});
-
-        if (!user) throw new Meteor.Error(401, 'unauthorized');
-
-        // Only 1 chat per network allowed
-        if (network.chat_id) return network.chat_id;
-
-        try {
-            var chatId = Meteor.call('chats.insert', fields);
-            Networks.update(network._id, {$set: {chat_id: chatId}});
-
-            // Add the users to the counter
-            var chat = Chats.findOneOrFail(chatId);
-            network.uppers.forEach(function(upperId) {
-                chat.addUserToCounter(upperId);
-            });
-
-            return chatId;
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
         }
     }
 });
