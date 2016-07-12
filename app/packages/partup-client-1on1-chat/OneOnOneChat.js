@@ -40,7 +40,9 @@ Template.OneOnOneChat.onCreated(function() {
     };
 
     template.resetUnreadMessagesIndicatorBadge = function() {
-        if (chatId) Meteor.call('chats.reset_counter', chatId);
+        lodash.defer(function() {
+            if (chatId) Meteor.call('chats.reset_counter', chatId);
+        });
     };
 
     var localChatMessagesCollection = [];
