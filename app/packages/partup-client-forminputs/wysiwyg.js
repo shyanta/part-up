@@ -12,6 +12,7 @@ Template.Wysiwyg.onRendered(function() {
     template.className.set(settings.className);
 
     template.editor = template.$('[data-wysiwyg]').trumbowyg({
+        removeformatPasted: true,
         btnsDef: {
             formattingCustom: {
                 dropdown: ['blockquote', 'p'],
