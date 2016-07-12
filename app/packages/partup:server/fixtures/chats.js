@@ -1,0 +1,42 @@
+Meteor.startup(function() {
+    if (process.env.NODE_ENV.match(/development|staging/)) {
+        if (!Chats.find().count()) {
+
+            /* 1 */
+            Chats.insert({
+                _id: 'fMpNncPh4Qua6NANH',
+                'created_at' : new Date('2015-07-21T15:47:33.225Z'),
+                'updated_at' : new Date('2015-07-21T15:47:33.225Z'),
+                started_typing: [],
+                counter: []
+            });
+
+            /* 2 */
+            Chats.insert({
+                _id: 'JSGpNRF5R3gjEWcGf',
+                'created_at' : new Date('2015-07-21T15:47:33.225Z'),
+                'updated_at' : new Date('2015-07-21T15:47:33.225Z'),
+                started_typing: [],
+                counter: []
+            });
+
+            /* 3 */
+            Chats.insert({
+                _id: '9nTogbMy6Ddjfh6NP',
+                'created_at' : new Date('2015-07-21T15:47:33.225Z'),
+                'updated_at' : new Date('2015-07-21T15:47:33.225Z'),
+                started_typing: [],
+                counter: []
+            });
+
+            /* 4 */
+            Chats.insert({
+                _id: 'wioZDD9bTkT2eDF4c',
+                'created_at' : new Date('2015-07-21T15:47:33.225Z'),
+                'updated_at' : new Date('2015-07-21T15:47:33.225Z'),
+                started_typing: [],
+                counter: []
+            });
+        }
+    }
+});
