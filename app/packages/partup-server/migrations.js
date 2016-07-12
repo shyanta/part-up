@@ -786,6 +786,41 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 32,
+    name: 'Make sure all networks have chats',
+    up: function() {
+        Networks.find({
+            chat_id: {
+                $exists: false
+            }
+        }).forEach(function(network) {
+            var chatId = Chats.insert({
+                'created_at' : new Date(),
+                'updated_at' : new Date(),
+                started_typing: [],
+                counter: network.uppers.map(function(userId) {
+                    return {
+                        user_id: userId,
+                        unread_count: 0
+                    };
+                })
+            });
+
+            var chat = Chats.findOne(chatId);
+
+            Networks.update(network._id, {
+                $set: {
+                    chat_id: chatId
+                }
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
 Meteor.startup(function() {
-    Migrations.migrateTo(31);
+    Migrations.migrateTo(32);
 });
