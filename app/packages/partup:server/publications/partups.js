@@ -63,14 +63,27 @@ Meteor.routeComposite('/partups/discover', function(request, parameters) {
 /**
  * Publish multiple partups for recommendations
  */
+
+function getRecommendedIds() {
+
+  try {
+    var result = HTTP.get('http://www.json-generator.com/api/json/get/cevZMrFPpK?indent=2', {});
+    return result.data.partupIds;
+  } catch (e) {
+    // Got a network error, time-out or HTTP error in the 400 or 500 range.
+    console.log('getRecommendedIds error: ' + e);
+    return null;
+  }
+
+}
+
 Meteor.routeComposite('/partups/recommendations', function() {
 
-    var partupIds = [
-      'WxrpPuJkhafJB3gfF',
-      'vGaxNojSerdizDPjb',
-      'ASfRYBAzo2ayYk5si',
-      'gJngF65ZWyS9f3NDE'
-    ];
+    var partupIds = getRecommendedIds();
+
+    if (partupIds.length === 0) {
+      return;
+    }
 
     return {
       find: function() {
@@ -92,6 +105,7 @@ Meteor.routeComposite('/partups/recommendations', function() {
           ]}
         ]
     };
+
 });
 
 

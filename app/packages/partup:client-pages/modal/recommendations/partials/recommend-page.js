@@ -1,4 +1,4 @@
-console.log('recommend-page 1'); //TODO: remove
+
 
 var PAGING_INCREMENT = 32;
 
