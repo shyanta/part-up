@@ -413,9 +413,8 @@ Template.Partupsettings.events({
         template.imageSystem.getSuggestions(tags);
     },
     'change [data-type]': function(event, template) {
-        var input = template.find('[data-type] :checked');
+        var input = template.find('[data-type] label > :checked');
         if (!input) return;
-
         template.selectedType.set(input.value);
         setTimeout(function() {
             template.$('[name=type]').trigger('blur');
