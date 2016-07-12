@@ -4,7 +4,8 @@
  @memberof Partup.services
  */
 Partup.services.validators = {
-    tagsSeparatedByComma: /^\s*(\w|-|&|\.)*(\s*,?\s*(\w|-|&|\.)*)*\s*$/,
+    // tagsSeparatedByComma: /^\s*(\w|-|&|\.)*(\s*,?\s*(\w|-|&|\.)*)*\s*$/, // old
+    tagsSeparatedByComma: /^\s*(\w|-|&|\.|[^\x00-\x7F\w])*(\s*,?\s*(\w|-|&|\.|[^\x00-\x7F\w])*)*\s*$/, // new with unicode support
 
     // minimum 8 characters, at least 1 number, at least 1 capital letter
     password: /(?=^.{8,}$)(?=.*\d)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
