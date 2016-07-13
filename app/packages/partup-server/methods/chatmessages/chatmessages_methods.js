@@ -47,20 +47,41 @@ Meteor.methods({
             // Update the chat
             Chats.update(chat._id, {$set: {updated_at: new Date()}});
 
-            // If it's a private chat
-            if (!network) {
+            // Send push notifications to devices
+            if (network) {
 
-                // Find participants
-                var receivers = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
+                // Network chat
+                var receiverIds = Meteor.users.find({_id: {$in: network.uppers}}).fetch()
                     .map(function(user) {
                         return user._id;
                     })
                     .filter(function(id) {
-                        return id !== user._id;
+                        return id !== user._id; // filter current user
+                    });
+                var message = user.profile.name + ' in ' + network.name + ': ' + fields.content; //todo TAPi18n.__('', {sender: user.profile.name, network: network.name, message: fields.content});
+                var payload = {
+                    chat: {
+                        _id: chat._id,
+                        name: network.name,
+                        type: 'networks',
+                        networkSlug: network.slug
+                    }
+                };
+
+            } else {
+
+                // Private chat
+
+                // Find participants
+                var receiverIds = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
+                    .map(function(user) {
+                        return user._id;
+                    })
+                    .filter(function(id) {
+                        return id !== user._id; // filter current user
                     });
 
                 // Send push notification
-                var filterDevices = function() {return true; }; // all devices
                 var message = user.profile.name + ': ' + fields.content; //todo TAPi18n.__('', {sender: user.profile.name, message: fields.content});
                 var payload = {
                     chat: {
@@ -71,12 +92,10 @@ Meteor.methods({
                         networkSlug: undefined
                     }
                 };
-
-                Partup.server.services.pushnotifications.send(receivers, filterDevices, message, payload);
-            } else {
-                //todo
             }
 
+            var filterDevices = function() {return true; }; // all devices
+            Partup.server.services.pushnotifications.send(receiverIds, filterDevices, message, payload);
 
             return chatMessage._id;
         } catch (error) {
