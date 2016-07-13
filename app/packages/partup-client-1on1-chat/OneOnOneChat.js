@@ -82,6 +82,28 @@ Template.OneOnOneChat.onCreated(function() {
         var hash = controller.getParams().hash;
         template.initializeChat(hash);
     });
+
+    // quick switcher
+    template.quickSwitcher = function(event) {
+        var pressedKey = event.which ? event.which : event.keyCode;
+
+        // mac CMD + K
+        if (event.metaKey && pressedKey === 75) $('[data-search]').focus();
+
+        // mac + windows CTRL + K
+        if (event.ctrlKey && pressedKey === 75) {
+            event.preventDefault();
+            $('[data-search]').focus();
+        }
+        // CMD + T won't work or be acceptable since it opens a new browser tab
+
+    };
+    $(window).on('keydown', template.quickSwitcher);
+});
+
+Template.OneOnOneChat.onDestroyed(function() {
+    var template = this;
+    $(window).off('keydown', template.quickSwitcher);
 });
 
 Template.OneOnOneChat.helpers({
