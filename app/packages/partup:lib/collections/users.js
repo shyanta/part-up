@@ -481,12 +481,26 @@ User = function(user) {
         },
 
         /**
-         * Function to calculate application icon badge number (iOS only, for now)
+         * Function to calculate application icon badge number (iOS only)
+         * Sum of unseen notifications and unread chat messages
          *
          * @returns {Number} app icon badge number
          */
         calculateApplicationIconBadgeNumber: function() {
-            return 0;
+            if (!user) return 0;
+
+            const unseenNotifications = Notifications.findForUser(user, {
+                new: true
+            }).count();
+
+            const unreadChatMessages = Chats.findForUser(user._id, {
+                private: true
+            }).fetch().reduce(function(sum, chat) {
+                var countObject = (chat.counter || []).find({user_id: user._id}) || {};
+                return sum + countObject.unread_count || 0;
+            }, 0);
+
+            return unseenNotifications + unreadChatMessages;
         },
 
         /**
