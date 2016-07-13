@@ -130,6 +130,32 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
     };
 });
 
+Meteor.publishComposite('chats.for_loggedin_user.for_count', function(parameters, options) {
+    this.unblock();
+
+    parameters = parameters || {};
+    check(parameters, {
+        private: Match.Optional(Boolean),
+        networks: Match.Optional(Boolean)
+    });
+
+    return {
+        find: function() {
+            return Meteor.users.findSinglePrivateProfile(this.userId);
+        },
+        children: [{
+            find: function(user) {
+                return Chats.findForUser(user._id, parameters, options);
+            },
+            children: [{
+                find: function(chat, user) {
+                    return Networks.find({chat_id: chat._id}, {fields: {chat_id: 1, uppers: 1}, limit: 1});
+                }
+            }]
+        }]
+    };
+});
+
 Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
     this.unblock();
     check(chatId, String);
@@ -162,46 +188,6 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
                         find: function(chat) {
                             chatMessagesOptions.sort = {created_at: -1};
                             return ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
-                        }
-                    }
-                ]
-            }
-        ]
-    };
-});
-
-Meteor.publishComposite('chats.unread_messages_for_count', function(parameters) {
-    this.unblock();
-
-    parameters = parameters || {};
-    check(parameters, {
-        private: Match.Optional(Boolean),
-        networks: Match.Optional(Boolean)
-    });
-
-    return {
-        find: function() {
-            return Meteor.users.findSinglePrivateProfile(this.userId);
-        },
-        children: [
-            {
-                find: function(user) {
-                    return Chats.findForUser(user._id, parameters);
-                },
-                children: [
-                    {
-                        find: function(chat, user) {
-                            return ChatMessages.find({
-                                chat_id: chat._id,
-                                read_by: {
-                                    $nin: [user._id]
-                                }
-                            }, {
-                                fields: {
-                                    chat_id: 1,
-                                    read_by: 1
-                                }
-                            });
                         }
                     }
                 ]
