@@ -16,7 +16,7 @@ Template.OneOnOneChat.onCreated(function() {
         Meteor.call('chats.start_with_users', [userId], function(err, chat_id) {
             if (err) return Partup.client.notify.error('nope');
             if (template.view.isDestroyed) return;
-            template.initializeChat(chat_id, Meteor.users.findOne(userId));
+            Router.go(window.location.pathname + '#' + chat_id);
         });
     };
 

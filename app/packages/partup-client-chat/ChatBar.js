@@ -50,7 +50,15 @@ Template.ChatBar.onCreated(function() {
         var chatId = template.data.config.chatId ? template.data.config.chatId : template.data.config.reactiveChatId.get();
 
         Tracker.nonreactive(continueOnCreated.bind(template, chatId));
+        Meteor.defer(function() {
+            if (template.data.config.reactiveChatId) $('[data-messageinput]').focus();
+        });
     });
+});
+
+Template.ChatBar.onRendered(function() {
+    var template = this;
+    if (template.data.config.chatId) $('[data-messageinput]').focus();
 });
 
 Template.ChatBar.events({
