@@ -484,17 +484,25 @@ User = function(user) {
          * Function to calculate application icon badge number (iOS only)
          * Sum of unseen notifications and unread chat messages
          *
-         * @returns {Number} app icon badge number
+         * @param {String} appVersion - Version of the app to calculate the badge for
+         * @returns {Number}
          */
-        calculateApplicationIconBadgeNumber: function() {
+        calculateIosAppBadge: function(appVersion) {
             if (!user) return 0;
+
+            // Apps before 1.4.0 don't call the reset function (correctly),
+            // so keep giving them "1"
+            if (!appVersion || appVersion === 'unknown') {
+                return 1;
+            }
 
             const unseenNotifications = Notifications.findForUser(user, {
                 new: true
             }).count();
 
             const unreadChatMessages = Chats.findForUser(user._id, {
-                private: true
+                private: true,
+                networks: true
             }).fetch().reduce(function(sum, chat) {
                 var countObject = (chat.counter || []).find({user_id: user._id}) || {};
                 return sum + countObject.unread_count || 0;

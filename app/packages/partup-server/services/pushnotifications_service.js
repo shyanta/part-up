@@ -81,15 +81,15 @@ Partup.server.services.pushnotifications = {
 
             if (devices.length > 0) {
 
-                var iosBadge;
+                var badgeForAppVersion = {};
                 devices.forEach(function(device) {
                     if (device.platform === 'iOS') {
-                        if (typeof iosBadge === 'undefined') {
-                            iosBadge = User(user).calculateApplicationIconBadgeNumber();
+                        if (typeof badgeForAppVersion[device.appVersion] === 'undefined') {
+                            badgeForAppVersion[device.appVersion] = User(user).calculateIosAppBadge(device.appVersion);
                         }
 
                         if (sendApnNotification) {
-                            sendApnNotification(device, user, message, payload, iosBadge || 1);
+                            sendApnNotification(device, user, message, payload, badgeForAppVersion[device.appVersion] || 1);
                         }
                     } else if (device.platform === 'Android') {
                         if (sendGcmNotification) {
