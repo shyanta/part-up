@@ -15,14 +15,21 @@
         <div class="pu-formfield">
             <span class="pu-label">
                 {{_ 'network-settings-about-form-text' }}
+                <a class="pu-hint">
+                    {{#if partupLowerThan state.textCharactersLeft Partup.schemas.forms.contentBlock._schema.text.max }}
+                        {{_ 'partupsettings-form-name-validation-left' state.textCharactersLeft }}
+                    {{else}}
+                        {{_ 'partupsettings-form-name-validation' Partup.schemas.forms.contentBlock._schema.text.max }}
+                    {{/if}}
+                </a>
             </span>
-            <div class="pu-sub-validations">
+            <div class="pu-sub-validations {{#if partupLowerThan state.textCharactersLeft 0 }}pu-state-invalid{{/if}}">
                 <span class="pu-sub-input">
                     {{# Wysiwyg inputSettings=form.contentBlockInput }}
                         {{> afFieldInput name="text" type="hidden" data-paragraph=""}}
                     {{/ Wysiwyg}}
                 </span>
-                <span class="pu-sub-error"></span>
+                <span class="pu-sub-error">{{#if partupLowerThan state.textCharactersLeft 0 }}{{_ 'network-settings-about-form-error-text-too-long' max=Partup.schemas.forms.contentBlock._schema.text.max }}{{/if}}</span>
             </div>
         </div>
         {{#if partupEquals form.type 'paragraph' }}

@@ -23,7 +23,7 @@ Template.app_partup_activities.onCreated(function() {
             var filter = tpl.activities.filter.get();
 
             var activities = Activities
-                .findForPartup(tpl.partup, {sort: {end_date: -1}}, {archived: !!options.archived})
+                .findForPartup(tpl.partup, {}, {archived: !!options.archived})
                 .fetch()
                 .filter(function(activity, idx) {
                     if (filter === 'my-activities')
@@ -33,7 +33,9 @@ Template.app_partup_activities.onCreated(function() {
                         return Contributions.findForActivity(activity).count() === 0;
 
                     return true;
-                });
+                })
+                .sort(Partup.client.sort.dateASC.bind(null, 'created_at'))
+                .sort(Partup.client.sort.dateASC.bind(null, 'end_date'));
 
             return activities;
         }
@@ -71,6 +73,22 @@ Template.app_partup_activities.helpers({
     // Loading state
     activitiesLoading: function() {
         return Template.instance().activities.loading.get();
+    },
+
+    createCallback: function() {
+        var template = Template.instance();
+        return function(activityId) {
+            Meteor.defer(function() {
+
+                Partup.client.scroll.to(template.find('[data-activity-id=' + activityId + ']'), 0, {
+                    duration: 250,
+                    callback: function() {
+                        template.$('[data-activity-id=' + activityId + ']').addClass('pu-state-highlight');
+                    }
+                });
+
+            });
+        };
     }
 
 });

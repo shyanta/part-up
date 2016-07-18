@@ -17,7 +17,7 @@ Template.NetworkSelector.onCreated(function() {
             Partup.client.embed.network(network, response.data['cfs.images.filerecord']);
             network.iconObject = network.iconObject || Images.findOne({_id: network.icon}) || network.imageObject || Images.findOne({_id: network.image});
             return network;
-        });
+        }).sort(Partup.client.sort.alphabeticallyASC.bind(null, 'name'));
 
         template.networks.set(networks);
     });
@@ -41,5 +41,6 @@ Template.NetworkSelector.events({
         var network = lodash.find(networks, {_id: networkId});
 
         if (template.data.onSelect) template.data.onSelect(network);
-    }
+    },
+    'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation
 });

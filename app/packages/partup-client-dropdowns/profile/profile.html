@@ -4,105 +4,63 @@
         {{ label }}
     </button>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-        {{#if networks}}
-            <nav class="pu-profiletabs">
-                {{#unless disableUp}}
-                    <header>
-                        <a class="pu-button pu-button-dropdowntab" href="#" data-up><i class="picon-caret-slim-up"></i></a>
-                    </header>
-                {{/unless}}
-                <ul class="pu-list pu-list-right {{#if disableUp}}pu-state-large{{/if}} {{#if disableDown}}pu-state-large{{/if}}" data-list>
-                    <li>
-                        <a href="#" class="pu-button pu-button-dropdowntab {{#unless networkId}}pu-button-dropdowntab-active{{/unless}} pu-button-dropdowntab-all-partups" data-select-network>
-                            <figure class="pu-sub-logobutton"></figure>
-                        </a>
-                    </li>
-                    {{#each networks}}
-                        <li>
-                            <a href="#" class="pu-button pu-button-dropdowntab {{#if partupEquals networkId _id}}pu-button-dropdowntab-active{{/if}}" data-select-network="{{ _id }}">{{ name }}</a>
-                        </li>
-                    {{/each}}
-                </ul>
-                {{#if partupHigherThan networks.length maxTabs}}
-                    {{#unless disableDown}}
-                        <footer>
-                            <a class="pu-button pu-button-dropdowntab" href="#" data-down><i class="picon-caret-slim-down"></i></a>
-                        </footer>
-                    {{/unless}}
-                {{/if}}
-            </nav>
-        {{/if}}
+        <header>
+            <div class="pu-toggle pu-toggle-three">
+                <button class="{{#if partupEquals activeTab 'partners' }}pu-state-active{{/if}}" data-tab-toggle="partners">{{_ 'dropdowns-profile-tab-partner-partups'}}</button>
+                <button class="{{#if partupEquals activeTab 'supporters' }}pu-state-active{{/if}}" data-tab-toggle="supporters">{{_ 'dropdowns-profile-tab-supporter-partups'}}</button>
+                <button class="{{#if partupEquals activeTab 'tribes' }}pu-state-active{{/if}}" data-tab-toggle="tribes">{{_ 'dropdowns-profile-tab-tribes'}}</button>
+            </div>
+        </header>
         <section data-preventscroll>
-            {{#if selectedNetwork}}
-                <header class="pu-dropdownitem pu-dropdownheader">
-                    <a href="{{ pathFor 'network' slug=selectedNetwork.slug query='show=false' }}">
-                        <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl selectedNetwork.imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
-                        <p>{{ selectedNetwork.name }}</p>
-                    </a>
-                </header>
-            {{/if}}
-            <p>{{_ 'dropdowns-profile-title-upperpartups'}}</p>
+            <p>
+                {{#if partupEquals activeTab 'partners' }}{{_ 'dropdowns-profile-tab-title-partner-partups'}}{{/if}}
+                {{#if partupEquals activeTab 'supporters' }}{{_ 'dropdowns-profile-tab-title-supporter-partups'}}{{/if}}
+                <!-- {{#if partupEquals activeTab 'tribes' }}{{_ 'dropdowns-profile-tab-title-tribes'}}{{/if}} -->
+            </p>
             <ul class="pu-list">
-                {{#if upperPartups.length}}
+                {{#if partupEquals activeTab 'partners' }}
                     {{#each upperPartups}}
-                        <li class="pu-dropdownitem">
-                            <a href="{{pathFor 'partup' slug=slug }}">
-                                <figure class="pu-avatar" style="
-                                    {{# with partupGetImageUrl imageObject '80x80' }}
-                                        background-image: url('{{ . }}');
-                                    {{/ with }}
-                                "></figure>
-                                <p>{{ name }}</p>
-                                {{#if newUpdates}}
-                                    <span class="pu-sub-newupdates">{{newUpdates}}</span>
-                                {{/if}}
-                            </a>
-                        </li>
-                    {{/each}}
-                {{else}}
-                    <li class="pu-dropdownitem pu-dropdownitem-empty">
-                        <a>
-                            <p>
-                                {{#if networkId}}
-                                    {{_ 'dropdowns-profile-title-upperpartups-notfound-network' network=selectedNetwork.name}}
-                                {{else}}
-                                    {{_ 'dropdowns-profile-title-upperpartups-notfound'}}
-                                {{/if}}
-                            </p>
+                    <li class="pu-dropdownitem">
+                        <a href="{{pathFor 'partup' slug=slug }}">
+                            {{#if newUpdates}}
+                                <span class="pu-sub-newupdates">{{newUpdates}}</span>
+                            {{/if}}
+                            <figure class="pu-avatar" style="
+                                {{# with partupGetImageUrl imageObject '80x80' }}
+                                    background-image: url('{{ . }}');
+                                {{/ with }}
+                            "></figure>
+                            <p>{{ name }}</p>
                         </a>
                     </li>
+                    {{/each}}
                 {{/if}}
-            </ul>
-            <p>{{_ 'dropdowns-profile-title-supporterpartups'}}</p>
-            <ul class="pu-list">
-                {{#if supporterPartups.length}}
+                {{#if partupEquals activeTab 'supporters' }}
                     {{#each supporterPartups}}
                         <li class="pu-dropdownitem">
                             <a href="{{pathFor 'partup' slug=slug }}">
+                                {{#if newUpdates}}
+                                    <span class="pu-sub-newupdates">{{newUpdates}}</span>
+                                {{/if}}
                                 <figure class="pu-avatar" style="
                                     {{# with partupGetImageUrl imageObject '80x80' }}
                                         background-image: url('{{ . }}');
                                     {{/ with }}
                                 "></figure>
                                 <p>{{ name }}</p>
-                                {{#if newUpdates}}
-                                    <span class="pu-sub-newupdates">{{newUpdates}}</span>
-                                {{/if}}
                             </a>
                         </li>
                     {{/each}}
-                {{else}}
-                    <li class="pu-dropdownitem pu-dropdownitem-empty">
-                        <a>
-                            <p>
-                                {{#if networkId}}
-                                    {{_ 'dropdowns-profile-title-supporterpartups-notfound-network' network=selectedNetwork.name}}
-                                {{else}}
-                                    {{_ 'dropdowns-profile-title-supporterpartups-notfound'}}
-                                {{/if}}
-                            </p>
+                {{/if}}
+                {{#if partupEquals activeTab 'tribes'}}
+                    {{#each networks}}
+                    <li class="pu-dropdownitem">
+                        <a href="{{ pathFor 'network' slug=slug query='show=false' }}">
+                            <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
+                            <p>{{ name }}</p>
                         </a>
                     </li>
+                    {{/each}}
                 {{/if}}
             </ul>
         </section>

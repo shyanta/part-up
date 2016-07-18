@@ -19,6 +19,7 @@ Package.onUse(function(api) {
     api.addFiles([
 
         'client/base-64-polyfill.js',
+        'client/bind-polyfill.js',
         'client/uint8array.js', // required for fileuploader
         'client/moxie.js',
         'client/requestanimationframe-polyfill.js',
@@ -71,6 +72,8 @@ Package.onUse(function(api) {
         'client/user.js',
         'client/browser.js',
         'client/chat.js',
+        'client/sort.js',
+
         'helpers/sanitize.js',
         'helpers/log.js',
         'helpers/partupResponsive.js',
@@ -93,6 +96,7 @@ Package.onUse(function(api) {
         'helpers/browserTest.js',
         'helpers/math.js',
         'helpers/delayed.js',
+        'helpers/touch.js',
         'helpers/RenderBlock/RenderBlock.html',
         'helpers/RenderBlock/RenderBlock.js',
 

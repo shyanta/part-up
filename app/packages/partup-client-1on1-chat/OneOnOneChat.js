@@ -16,7 +16,7 @@ Template.OneOnOneChat.onCreated(function() {
         Meteor.call('chats.start_with_users', [userId], function(err, chat_id) {
             if (err) return Partup.client.notify.error('nope');
             if (template.view.isDestroyed) return;
-            template.initializeChat(chat_id, Meteor.users.findOne(userId));
+            Router.go(window.location.pathname + '#' + chat_id);
         });
     };
 
@@ -40,7 +40,9 @@ Template.OneOnOneChat.onCreated(function() {
     };
 
     template.resetUnreadMessagesIndicatorBadge = function() {
-        if (chatId) Meteor.call('chats.reset_counter', chatId);
+        lodash.defer(function() {
+            if (chatId) Meteor.call('chats.reset_counter', chatId);
+        });
     };
 
     var localChatMessagesCollection = [];
@@ -80,6 +82,28 @@ Template.OneOnOneChat.onCreated(function() {
         var hash = controller.getParams().hash;
         template.initializeChat(hash);
     });
+
+    // quick switcher
+    template.quickSwitcher = function(event) {
+        var pressedKey = event.which ? event.which : event.keyCode;
+
+        // mac CMD + K
+        if (event.metaKey && pressedKey === 75) $('[data-search]').focus();
+
+        // mac + windows CTRL + K
+        if (event.ctrlKey && pressedKey === 75) {
+            event.preventDefault();
+            $('[data-search]').focus();
+        }
+        // CMD + T won't work or be acceptable since it opens a new browser tab
+
+    };
+    $(window).on('keydown', template.quickSwitcher);
+});
+
+Template.OneOnOneChat.onDestroyed(function() {
+    var template = this;
+    $(window).off('keydown', template.quickSwitcher);
 });
 
 Template.OneOnOneChat.helpers({

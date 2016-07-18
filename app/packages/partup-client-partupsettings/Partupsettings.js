@@ -47,6 +47,8 @@ Template.Partupsettings.onCreated(function() {
     template.showNetworkDropdown = new ReactiveVar(false);
     template.currentCurrency = new ReactiveVar('EUR');
     template.formId = template.data.FORM_ID;
+    template.preselectedNetwork = new ReactiveVar(undefined);
+    template.locationHasValueVar = new ReactiveVar(undefined);
 
     template.subscribe('networks.list');
 
@@ -137,13 +139,12 @@ Template.Partupsettings.onRendered(function() {
         template.showNetworkDropdown.set(true);
         template.selectedPrivacyType.set('network');
         template.selectedPrivacyNetwork.set(selectedNetworkId);
+        template.preselectedNetwork.set(selectedNetworkId);
     }
 });
 
 Template.Partupsettings.helpers({
     datePicker: function() {
-        var template = Template.instance();
-        var value = AutoForm.getFieldValue('end_date');
         return {
             input: 'data-bootstrap-datepicker',
             autoFormInput: 'data-autoform-input',
@@ -340,6 +341,9 @@ Template.Partupsettings.helpers({
     locationSelectionReactiveVar: function() {
         return Template.instance().selectedLocation;
     },
+    locationHasValueVar: function() {
+        return Template.instance().locationHasValueVar;
+    },
     networkPreSelected: function() {
         var selectedNetworkId = Session.get('createPartupForNetworkById');
         return this._id === selectedNetworkId;
@@ -349,6 +353,11 @@ Template.Partupsettings.helpers({
     },
     selectedPrivacyNetwork: function() {
         return Template.instance().selectedPrivacyNetwork.get();
+    },
+    preselectedNetwork: function() {
+        var network_id = Template.instance().preselectedNetwork.get();
+        var network = Networks.findOne(network_id);
+        return network;
     },
     tagsInputIsEmpty: function() {
         var template = Template.instance();
@@ -404,9 +413,8 @@ Template.Partupsettings.events({
         template.imageSystem.getSuggestions(tags);
     },
     'change [data-type]': function(event, template) {
-        var input = template.find('[data-type] :checked');
+        var input = template.find('[data-type] label > :checked');
         if (!input) return;
-
         template.selectedType.set(input.value);
         setTimeout(function() {
             template.$('[name=type]').trigger('blur');

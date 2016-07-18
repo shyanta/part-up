@@ -118,7 +118,7 @@ Template.modal_network_invite.events({
 
         Intent.return('network', {
             fallback_route: {
-                name: 'network',
+                name: 'network-uppers',
                 params: {
                     slug: network.slug
                 }

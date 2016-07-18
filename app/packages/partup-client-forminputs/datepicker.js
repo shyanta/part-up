@@ -20,6 +20,11 @@ Template.DatePicker.onRendered(function() {
         .on('changeDate clearDate', dateChangeHandler);
 });
 
+Template.DatePicker.onDestroyed(function() {
+    var template = this;
+    template.end_date_datepicker.datepicker('destroy');
+});
+
 Template.DatePicker.events({
     'click [data-remove-date]': function(event, template) {
         event.preventDefault();

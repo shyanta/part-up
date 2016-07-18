@@ -18,6 +18,8 @@ Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
         if (data.host == 'part-up.com') {
             data = Partup.server.services.scrape.website(url[0] + '?_escaped_fragment_');
             // If still not available (like on a /chat route), scrape the part-up root page
+            if (!data || !data.title) return;
+
             if (!data.description) {
                 data = Partup.server.services.scrape.website('https://part-up.com/?_escaped_fragment_');
             }
@@ -28,7 +30,7 @@ Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
         var preview_data = {
             url: data.url,
             title: data.ogTitle ? data.ogTitle : data.title,
-            description: data.ogDescription ? data.ogDescription : data.description,
+            description: data.ogDescription ? data.ogDescription : data.description ? data.description : undefined,
             image: data.image ? data.image : data.images[0],
             domain: data.host
         };

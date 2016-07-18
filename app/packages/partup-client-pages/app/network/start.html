@@ -42,7 +42,7 @@
                         </section>
                         <section>
                             {{> app_network_start_uppers uppers=data.activeUppers }}
-                            <a class="pu-button pu-button-translucent" href="#" data-openchat>{{_ 'pages-app-network-start-button-activity' }}</a>
+                            <a class="pu-button pu-button-translucent" href="{{ pathFor route='network-chat' slug=data.network.slug }}">{{_ 'pages-app-network-start-button-activity' }}</a>
                         </section>
                     </footer>
                 {{/unless}}

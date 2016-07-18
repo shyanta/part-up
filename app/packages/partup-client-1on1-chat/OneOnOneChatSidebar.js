@@ -2,6 +2,7 @@ Template.OneOnOneChatSidebar.onCreated(function() {
     var template = this;
     template.searchValue = new ReactiveVar(undefined);
     template.searchResults = new ReactiveVar(undefined);
+    template.selectedIndex = new ReactiveVar(0);
 
     var searchUser = function(query) {
         template.searchValue.set(query);
@@ -10,7 +11,10 @@ Template.OneOnOneChatSidebar.onCreated(function() {
         Meteor.call('users.autocomplete', query, undefined, undefined, {chatSearch: true}, function(err, users) {
             if (err) return Partup.client.notify.error('something went wrong');
 
-            if (query === currentQuery) template.searchResults.set(users);
+            if (query === currentQuery) {
+                template.searchResults.set(users);
+                template.selectedIndex.set(0);
+            }
         });
     };
     template.throttledSearchUser = _.throttle(searchUser, 500, {trailing: true});
@@ -52,6 +56,9 @@ Template.OneOnOneChatSidebar.helpers({
         return {
             activeChat: function() {
                 return template.data.config.reactiveActiveChat.get();
+            },
+            selectedIndex: function() {
+                return template.selectedIndex.get();
             }
         };
     }
@@ -61,6 +68,22 @@ Template.OneOnOneChatSidebar.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'input [data-search]': function(event, template) {
         template.throttledSearchUser(event.currentTarget.value);
+    },
+    'keyup [data-search]': function(event, template) {
+        var pressedKey = event.which ? event.which : event.keyCode;
+        if (pressedKey === 40) {
+            // down
+            var results = template.searchResults.get();
+            var max = results ? results.length - 1 : 0;
+            template.selectedIndex.set(template.selectedIndex.curValue < max ? template.selectedIndex.curValue + 1 : max);
+        } else if (pressedKey === 38) {
+            // up
+            template.selectedIndex.set(template.selectedIndex.curValue > 0 ? template.selectedIndex.curValue - 1 : 0);
+        } else if (pressedKey === 13) {
+            // return
+            $('[data-index=' + template.selectedIndex.curValue + ']').trigger('click');
+            $('[data-search]').val('');
+        }
     },
     'click [data-clear]': function(event, template) {
         event.preventDefault();
@@ -73,15 +96,11 @@ Template.OneOnOneChatSidebar.events({
     },
     'click [data-start]': function(event, template) {
         event.preventDefault();
+        $('[data-search]').val('');
+        $('[data-search]').blur();
         var userId = $(event.currentTarget).data('start');
         template.data.config.onStartChat(userId);
         template.throttledSearchUser('');
-    },
-    'click [data-initialize]': function(event, template) {
-        event.preventDefault();
-        var chatId = $(event.currentTarget).data('initialize');
-        var person = $(event.currentTarget).data('person');
-        template.data.config.onInitializeChat(chatId, Meteor.users.findOne(person));
-        template.throttledSearchUser('');
+        template.selectedIndex.set(0);
     }
 });

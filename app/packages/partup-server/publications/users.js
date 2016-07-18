@@ -139,7 +139,7 @@ Meteor.routeComposite('/users/:id/partners', function(request, params) {
     return {
         find: function() {
             var user = Meteor.users.findOne({_id: params.id});
-            return Meteor.users.findPartnersForUpper(user, options);
+            return Meteor.users.findPartnersForUpper(user, options, {sortByPartnerFrequency: true});
         },
         children: [{find: Images.findForUser}]
     };

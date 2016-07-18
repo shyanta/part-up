@@ -12,6 +12,7 @@ Template.Wysiwyg.onRendered(function() {
     template.className.set(settings.className);
 
     template.editor = template.$('[data-wysiwyg]').trumbowyg({
+        removeformatPasted: true,
         btnsDef: {
             formattingCustom: {
                 dropdown: ['blockquote', 'p'],
@@ -47,10 +48,14 @@ Template.Wysiwyg.onRendered(function() {
 
         var wrappedOutput = wrapInParagraphIfNoTagsArePresent(output);
 
+        if (settings.characterCountVar) settings.characterCountVar.set(wrappedOutput.length);
+
         $('[' + settings.input + ']').val(wrappedOutput);
     };
 
     template.editor.on('tbwchange', template.outputHandler);
+
+    lodash.defer(template.outputHandler);
 });
 
 Template.Wysiwyg.onDestroyed(function() {

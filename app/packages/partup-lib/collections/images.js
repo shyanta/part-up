@@ -70,6 +70,7 @@ Images.findForNotification = function(notification) {
         case 'multiple_comments_in_conversation_since_visit': images = [get(notification, 'type_data.latest_upper.image')]; break;
         case 'partups_multiple_updates_since_visit': images = [get(notification, 'type_data.latest_upper.image')]; break;
         case 'networks_multiple_new_uppers_since_visit': images = [get(notification, 'type_data.network.image')]; break;
+        case 'partup_created_in_network': images = [get(notification, 'type_data.creator.image')]; break;
         default: return;
     }
 

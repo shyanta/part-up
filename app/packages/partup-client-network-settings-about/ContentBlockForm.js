@@ -4,6 +4,7 @@ Template.ContentBlockForm.onCreated(function() {
     template.uploading = new ReactiveVar(false);
     template.submitting = new ReactiveVar(false);
     template.currentImage = new ReactiveVar();
+    template.characterCount = new ReactiveVar(0);
     var blockId = template.data.block._id;
     AutoForm.addHooks(blockId, {
         onSubmit: function(doc) {
@@ -48,6 +49,9 @@ Template.ContentBlockForm.helpers({
             },
             submitting: function() {
                 return !!template.submitting.get();
+            },
+            textCharactersLeft: function() {
+                return Partup.schemas.forms.contentBlock._schema.text.max - template.characterCount.get();
             }
         };
     },
@@ -59,7 +63,9 @@ Template.ContentBlockForm.helpers({
                 input: 'data-paragraph',
                 className: 'pu-textarea pu-wysiwyg',
                 placeholder: TAPi18n.__('network-settings-about-form-placeholder-text'),
-                prefill: template.data.block.text || false
+                prefill: template.data.block.text || false,
+                maxCharacters: Partup.schemas.forms.contentBlock._schema.text.max,
+                characterCountVar: template.characterCount
             },
             doc: template.data.block,
             schema: Partup.schemas.forms.contentBlock,
