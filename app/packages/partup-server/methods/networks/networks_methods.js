@@ -23,11 +23,11 @@ Meteor.methods({
             network.created_at = new Date();
             network.updated_at = new Date();
             network.stats = {
-                'activity_count' : 0,
-                'partner_count' : 0,
-                'partup_count' : 0,
-                'supporter_count' : 0,
-                'upper_count' : 1
+                'activity_count': 0,
+                'partner_count': 0,
+                'partup_count': 0,
+                'supporter_count': 0,
+                'upper_count': 1
             },
             network.most_active_uppers = [
                 user._id
@@ -90,7 +90,7 @@ Meteor.methods({
      *
      * @param {String} networkId
      * @param {Object} fields
-     * @param {[Object]} fields.invitees
+     * @param {Object[]} fields.invitees
      * @param {String} fields.invitees.name
      * @param {String} fields.invitees.email
      * @param {String} fields.message
@@ -838,7 +838,7 @@ Meteor.methods({
      * Update a ContentBlock sequence
      *
      * @param {String} networkSlug
-     * @param {[String]} contentBlockSequence
+     * @param {String[]} contentBlockSequence
      */
     'networks.contentblock_sequence': function(networkSlug, contentBlockSequence) {
         check(networkSlug, String);
