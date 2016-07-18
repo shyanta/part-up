@@ -17,6 +17,31 @@ Chat.prototype.hasUnreadMessages = function() {
     return !!countObject.unread_count;
 };
 
+Chat.prototype.removeFull = function() {
+    Meteor.users.update({
+        chats: {
+            $in: [this._id]
+        }
+    }, {
+        $pull: {
+            chats: this._id
+        }
+    }, {
+        multi: true
+    });
+
+    Networks.update({
+        chat_id: this._id
+    }, {
+        $unset: {
+            chat_id: null
+        }
+    });
+
+    ChatMessages.remove({chat_id: this._id});
+    Chats.remove({_id: this._id});
+};
+
 /**
  * Set a user as typing
  *

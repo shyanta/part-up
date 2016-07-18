@@ -240,7 +240,7 @@ Meteor.methods({
     /**
      * Register a device for push notifications
      */
-    'users.register_pushnotifications_device': function(registrationId, device, loginToken) {
+    'users.register_pushnotifications_device': function(registrationId, device, loginToken, appVersion) {
         check(this.userId, String);
         check(registrationId, String);
         check(device.uuid, String);
@@ -249,6 +249,7 @@ Meteor.methods({
         check(device.version, String);
         check(device.platform, String);
         check(loginToken, Match.Optional(String));
+        check(appVersion, Match.Optional(String));
 
         if (loginToken) {
             var hashedLoginToken = Accounts._hashLoginToken(loginToken);
@@ -283,7 +284,8 @@ Meteor.methods({
                     platform: device.platform,
                     version: device.version,
                     loginToken: loginToken && hashedLoginToken || null,
-                    createdAt: new Date()
+                    createdAt: new Date(),
+                    appVersion: appVersion || 'unknown'
                 }
             }
         });

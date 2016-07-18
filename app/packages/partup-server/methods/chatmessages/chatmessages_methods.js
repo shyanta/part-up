@@ -47,31 +47,60 @@ Meteor.methods({
             // Update the chat
             Chats.update(chat._id, {$set: {updated_at: new Date()}});
 
-            // If it's a private chat
-            if (!network) {
+            var receiverIds = [],
+                message,
+                payload = {},
+                filterDevices = function() { return true; }; // all devices by default
 
-                // Find participants
-                var receivers = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
+            // Send push notifications to devices
+            if (network) {
+
+                // Network chat
+                receiverIds = Meteor.users.find({_id: {$in: network.uppers}}).fetch()
                     .map(function(user) {
                         return user._id;
                     })
                     .filter(function(id) {
-                        return id !== user._id;
+                        return id !== user._id; // filter current user
                     });
-
-                // Send push notification
-                var filterDevices = function() {return true; }; // all devices
-                var message = user.profile.name + ': ' + fields.content; //todo TAPi18n.__('', {sender: user.profile.name, message: fields.content});
-                var payload = {
+                message = user.profile.name + ' in ' + network.name + ': ' + fields.content; //todo TAPi18n.__('', {sender: user.profile.name, network: network.name, message: fields.content});
+                payload = {
                     chat: {
                         _id: chat._id,
-                        username: user.profile.name
+                        name: network.name,
+                        type: 'networks',
+                        networkSlug: network.slug
                     }
                 };
+                filterDevices = function(device) {
+                    // Filter devices with app releases before 1.4.0
+                    // Since they don't have the network chat feature
+                    return device.appVersion && device.appVersion !== 'unknown';
+                };
 
-                Partup.server.services.pushnotifications.send(receivers, filterDevices, message, payload);
+            } else {
+
+                // Private chat
+                receiverIds = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
+                    .map(function(user) {
+                        return user._id;
+                    })
+                    .filter(function(id) {
+                        return id !== user._id; // filter current user
+                    });
+                message = user.profile.name + ': ' + fields.content; //todo TAPi18n.__('', {sender: user.profile.name, message: fields.content});
+                payload = {
+                    chat: {
+                        _id: chat._id,
+                        username: user.profile.name, // To support apps before 1.4.0
+                        name: user.profile.name,
+                        type: 'private',
+                        networkSlug: undefined
+                    }
+                };
             }
 
+            Partup.server.services.pushnotifications.send(receiverIds, filterDevices, message, payload);
 
             return chatMessage._id;
         } catch (error) {
