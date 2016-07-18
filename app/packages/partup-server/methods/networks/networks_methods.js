@@ -23,11 +23,11 @@ Meteor.methods({
             network.created_at = new Date();
             network.updated_at = new Date();
             network.stats = {
-                'activity_count' : 0,
-                'partner_count' : 0,
-                'partup_count' : 0,
-                'supporter_count' : 0,
-                'upper_count' : 1
+                'activity_count': 0,
+                'partner_count': 0,
+                'partup_count': 0,
+                'supporter_count': 0,
+                'upper_count': 1
             },
             network.most_active_uppers = [
                 user._id
@@ -35,6 +35,11 @@ Meteor.methods({
             network.most_active_partups = [];
             network.common_tags = [];
             network.contentblocks = [];
+
+            // Create chat for network
+            network.chat_id = Meteor.call('chats.insert', {});
+            var chat = Chats.findOneOrFail(network.chat_id);
+            chat.addUserToCounter(user._id);
 
             network._id = Networks.insert(network);
 
@@ -85,7 +90,7 @@ Meteor.methods({
      *
      * @param {String} networkId
      * @param {Object} fields
-     * @param {[Object]} fields.invitees
+     * @param {Object[]} fields.invitees
      * @param {String} fields.invitees.name
      * @param {String} fields.invitees.email
      * @param {String} fields.message
@@ -576,6 +581,7 @@ Meteor.methods({
 
         try {
             Networks.remove(networkId);
+            Chats.removeFull(network.chat_id);
             Meteor.users.update(user._id, {$pull: {networks: network._id}});
             var network_swarms = Swarms.find({networks: {$in: [networkId]}}).fetch();
             network_swarms.forEach(function(swarm) {
@@ -832,7 +838,7 @@ Meteor.methods({
      * Update a ContentBlock sequence
      *
      * @param {String} networkSlug
-     * @param {[String]} contentBlockSequence
+     * @param {String[]} contentBlockSequence
      */
     'networks.contentblock_sequence': function(networkSlug, contentBlockSequence) {
         check(networkSlug, String);
@@ -856,41 +862,6 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
-        }
-    },
-
-    /**
-     * Insert a ContentBlock
-     *
-     * @param {String} networkSlug
-     * @param {mixed[]} fields
-     */
-    'networks.chat_insert': function(networkSlug, fields) {
-        check(networkSlug, String);
-        check(fields, Partup.schemas.forms.chat);
-
-        var user = Meteor.user();
-        var network = Networks.findOneOrFail({slug: networkSlug});
-
-        if (!user) throw new Meteor.Error(401, 'unauthorized');
-
-        // Only 1 chat per network allowed
-        if (network.chat_id) return network.chat_id;
-
-        try {
-            var chatId = Meteor.call('chats.insert', fields);
-            Networks.update(network._id, {$set: {chat_id: chatId}});
-
-            // Add the users to the counter
-            var chat = Chats.findOneOrFail(chatId);
-            network.uppers.forEach(function(upperId) {
-                chat.addUserToCounter(upperId);
-            });
-
-            return chatId;
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
         }
     }
 });

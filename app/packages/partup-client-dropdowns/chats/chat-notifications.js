@@ -71,21 +71,13 @@ Template.DropdownChatNotifications.helpers({
                     chat.upper = Meteor.users
                         .findOne({_id: {$nin: [userId]}, chats: {$in: [chat._id]}});
                 }
-                var message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
-                if (message) {
-                    chat.hasMessages = true;
-                    chat.messagesHaveBeenSeen = message.isSeenByUpper(userId);
-                    chat.messagesHaveBeenRead = !chat.hasUnreadMessages();
-                    chat.message = message;
-                }
+
+                chat.message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
+                chat.hasMessages = !!chat.message;
+                chat.messagesHaveBeenSeen = !chat.message || chat.message.isSeenByUpper(userId);
+                chat.messagesHaveBeenRead = !chat.message || !chat.hasUnreadMessages();
+
                 return chat;
-            })
-            .filter(function(chat) {
-                if (!getPrivate) {
-                    return !!chat.hasMessages;
-                } else {
-                    return true;
-                }
             });
 
         return {

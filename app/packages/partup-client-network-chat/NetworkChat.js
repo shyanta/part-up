@@ -25,13 +25,6 @@ Template.NetworkChat.onCreated(function() {
         if (chat) {
             // if a chat is available, continue
             initialize(chat._id);
-        } else {
-            // if a chat is not available, create one
-            Meteor.call('networks.chat_insert', networkSlug, {}, function(err, chat_id) {
-                if (err) return Partup.client.notify.error('Error initializing tribe chat');
-                initialize(chat_id);
-                Partup.client.notify.success('Tribe chat initialized');
-            });
         }
     };
 

@@ -26,7 +26,8 @@ Meteor.startup(function() {
                     'comment' : '"This is the first featured network"'
                 },
                 'language': 'en',
-                'stats': {}
+                'stats': {},
+                'chat_id': 'fMpNncPh4Qua6NANH'
             });
 
             /* 2 */
@@ -52,7 +53,8 @@ Meteor.startup(function() {
                         'invited_by_id' : 'K5c5M4Pbdg3B82wQH'
                     }
                 ],
-                'stats': {}
+                'stats': {},
+                'chat_id': 'JSGpNRF5R3gjEWcGf'
             });
 
             /* 3 */
@@ -86,7 +88,8 @@ Meteor.startup(function() {
                 'pending_uppers' : [
                     'a7qcp5RHnh5rfaeW9'
                 ],
-                'stats': {}
+                'stats': {},
+                'chat_id': '9nTogbMy6Ddjfh6NP'
             });
 
             /* 4 */
@@ -115,7 +118,8 @@ Meteor.startup(function() {
                     'comment' : '"Dit is een gefeaturede tribe"'
                 },
                 'language': 'nl',
-                'stats': {}
+                'stats': {},
+                'chat_id': 'wioZDD9bTkT2eDF4c'
             });
         }
     }

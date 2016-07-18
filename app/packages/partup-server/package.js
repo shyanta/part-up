@@ -153,6 +153,7 @@ Package.onUse(function(api) {
         'fixtures/networks.js',
         'fixtures/invites.js',
         'fixtures/images.js',
+        'fixtures/chats.js',
         'publications/activities.js',
         'publications/partups.js',
         'publications/images.js',

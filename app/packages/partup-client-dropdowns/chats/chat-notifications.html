@@ -19,7 +19,7 @@
                         {{> ChatOneOnOneNotification chat=. }}
                     </li>
                 {{else}}
-                    <li class="pu-notification pu-notification-chat pu-notification-wide {{#if messagesHaveBeenSeen }}pu-notification-viewed{{/if}} {{#if messagesHaveBeenRead}}pu-notification-clicked{{/if}}" data-notification="{{ _id }}">
+                    <li class="pu-notification pu-notification-chat pu-notification-wide {{#if messagesHaveBeenSeen }}pu-notification-viewed{{/if}} {{#if messagesHaveBeenRead}}pu-notification-clicked{{/if}} {{#unless message}}pu-notification-no-messages{{/unless}}" data-notification="{{ _id }}">
                         {{> ChatGroupNotification chat=. }}
                     </li>
                 {{/if}}
