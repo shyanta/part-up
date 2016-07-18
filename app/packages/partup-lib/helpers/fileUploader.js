@@ -1,5 +1,9 @@
-if(!Partup) {
-  Partup = { helpers: { fileUploader: {} } };
+if (!Partup) {
+    Partup = {
+        helpers: {
+            fileUploader: {}
+        }
+    };
 }
 
 Partup.helpers.fileUploader = {};
@@ -22,8 +26,8 @@ Partup.helpers.fileUploader.allowedExtensions = {
     ])
 };
 
-Partup.helpers.fileUploader.getAllExtensions = function () {
-    return _.chain(Partup.helpers.fileUploader.allowedExtensions).keys().map(function (type) {
+Partup.helpers.fileUploader.getAllExtensions = function() {
+    return _.chain(Partup.helpers.fileUploader.allowedExtensions).keys().map(function(type) {
         return Partup.helpers.fileUploader.allowedExtensions[type];
     }).flatten().value();
 };
@@ -33,10 +37,11 @@ function matchExtension(fileName) {
 }
 /**
  * Get the extension from filename
- * @param fileName filename.ext (e.g. filename.docx)
+ *
+ * @param {string} fileName filename.ext (e.g. filename.docx)
  * @returns {string} extension like .docx
  */
-Partup.helpers.fileUploader.getExtensionFromFileName = function (fileName) {
+Partup.helpers.fileUploader.getExtensionFromFileName = function(fileName) {
     var match = matchExtension(fileName);
     if (match) {
         return match[0];
@@ -47,10 +52,11 @@ Partup.helpers.fileUploader.getExtensionFromFileName = function (fileName) {
 
 /**
  * Check whether the filename is a Doc type defined by the allowedExtensions array
- * @param fileName
+ *
+ * @param {string} fileName
  * @returns {boolean}
  */
-Partup.helpers.fileUploader.fileNameIsDoc = function (fileName) {
+Partup.helpers.fileUploader.fileNameIsDoc = function(fileName) {
     return _.include(Partup.helpers.fileUploader.allowedExtensions.docs,
         Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
@@ -58,20 +64,21 @@ Partup.helpers.fileUploader.fileNameIsDoc = function (fileName) {
 
 /**
  * Check whether the filename is a Image type defined by the allowedExtensions array
+ *
  * @param {string} fileName
  * @returns {boolean}
  */
-Partup.helpers.fileUploader.fileNameIsImage = function (fileName) {
+Partup.helpers.fileUploader.fileNameIsImage = function(fileName) {
     return _.include(Partup.helpers.fileUploader.allowedExtensions.images,
         Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
 };
 
 /**
- * @param {object} file - DocumentSchema in /packages/partup:lib/schemas/update.js
+ * @param {object} file - DocumentSchema in /packages/partup-lib/schemas/update.js
  * @returns {string} filename - The svg icon [file.svg | ppt.svg | doc.svg | pdf.svg | xls.svg]
  */
-Partup.helpers.fileUploader.getSvgIcon = function (file) {
+Partup.helpers.fileUploader.getSvgIcon = function(file) {
     var svgFileName = 'file.svg';
 
     // if there's extension in the file name
@@ -80,21 +87,17 @@ Partup.helpers.fileUploader.getSvgIcon = function (file) {
 
         if (_.include(Partup.helpers.fileUploader.fallbackFileExtensions, extension)) {
             svgFileName = 'file.svg';
-        }
-        else if (_.include(Partup.helpers.fileUploader.presentationExtensions, extension)) {
+        } else if (_.include(Partup.helpers.fileUploader.presentationExtensions, extension)) {
             svgFileName = 'ppt.svg';
-        }
-        else if (_.include(Partup.helpers.fileUploader.docExtensions, extension)) {
+        } else if (_.include(Partup.helpers.fileUploader.docExtensions, extension)) {
             svgFileName = 'doc.svg';
-        }
-        else if (_.include(Partup.helpers.fileUploader.pdfExtensions, extension)) {
+        } else if (_.include(Partup.helpers.fileUploader.pdfExtensions, extension)) {
             svgFileName = 'pdf.svg';
-        }
-        else if (_.include(Partup.helpers.fileUploader.spreadSheetExtensions, extension)) {
+        } else if (_.include(Partup.helpers.fileUploader.spreadSheetExtensions, extension)) {
             svgFileName = 'xls.svg';
         }
         // otherwise fallback to file.svg
-        return svgFileName
+        return svgFileName;
     } else {
         // if there's no extension in the file name,
         // for example google sheet, google docs or google slide
@@ -102,11 +105,9 @@ Partup.helpers.fileUploader.getSvgIcon = function (file) {
         if (file.mimeType) {
             if (file.mimeType.indexOf('presentation') > -1) {
                 return 'ppt.svg';
-            }
-            else if (file.mimeType.indexOf('document') > -1) {
+            } else if (file.mimeType.indexOf('document') > -1) {
                 return 'doc.svg';
-            }
-            else if (file.mimeType.indexOf('spreadsheet') > -1) {
+            } else if (file.mimeType.indexOf('spreadsheet') > -1) {
                 return 'xls.svg';
             }
             // otherwise fallback to file.svg
@@ -120,7 +121,7 @@ Partup.helpers.fileUploader.getSvgIcon = function (file) {
 };
 
 // from http://scratch99.com/web-development/javascript/convert-bytes-to-mb-kb/
-Partup.helpers.fileUploader.bytesToSize = function (bytes) {
+Partup.helpers.fileUploader.bytesToSize = function(bytes) {
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '&nbsp;';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
@@ -128,10 +129,10 @@ Partup.helpers.fileUploader.bytesToSize = function (bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 };
 
-Partup.helpers.fileUploader.partupUploadPhoto = function (template, mappedFile) {
+Partup.helpers.fileUploader.partupUploadPhoto = function(template, mappedFile) {
     template.uploadingPhotos.set(true);
-    return new Promise(function (resolve, reject) {
-        Partup.client.uploader.uploadImageByUrl(mappedFile.link, function (error, image) {
+    return new Promise(function(resolve, reject) {
+        Partup.client.uploader.uploadImageByUrl(mappedFile.link, function(error, image) {
             if (error) {
                 return reject(error);
             }
@@ -141,9 +142,9 @@ Partup.helpers.fileUploader.partupUploadPhoto = function (template, mappedFile) 
     });
 };
 
-Partup.helpers.fileUploader.partupUploadDoc = function (template, mappedFile) {
+Partup.helpers.fileUploader.partupUploadDoc = function(template, mappedFile) {
     template.uploadingDocuments.set(true);
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         resolve(mappedFile);
     });
 };
