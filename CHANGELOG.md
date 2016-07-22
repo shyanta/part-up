@@ -1,10 +1,8 @@
 # CHANGELOG
 
-## 1.21.4
-- chore(dropbox): update dropbox source code
-
 ## 1.21.3   
 - fix(chats): fix security hole for users
+- chore(dropbox): update dropbox source code
 
 ## 1.21.2
 - Update new pricing url page to link to http://swarmorganizing.com and http://swarmorganizing.nl
