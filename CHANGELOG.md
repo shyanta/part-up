@@ -1,5 +1,9 @@
 # CHANGELOG
-## 1.21.3
+
+## 1.21.4
+- chore(dropbox): update dropbox source code
+
+## 1.21.3   
 - fix(chats): fix security hole for users
 
 ## 1.21.2
