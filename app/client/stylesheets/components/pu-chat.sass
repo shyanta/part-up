@@ -73,10 +73,14 @@
             overflow: auto
             pointer-events: none
             padding: 10px 65px
-            padding-bottom: 18px
             opacity: 0
             transition: opacity .2s
             position: relative
+            // padding-bottom dowsn't work for Firefox for some reason so I put a margin-bottom on it's last-child
+            // solution reference: http://stackoverflow.com/a/10723008/5189511
+            // padding-bottom: 18px
+            > *:last-child
+                margin-bottom: 18px
 
         &.pu-state-active > div,
         &.pu-state-active > .pu-sticky-user
@@ -106,6 +110,7 @@
             background-size: initial
             background-repeat: no-repeat
             background-position: center
+            margin-bottom: 0px !important
             span
                 margin-top: 50px
                 background-color: #fff

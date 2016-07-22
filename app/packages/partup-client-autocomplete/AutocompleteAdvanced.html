@@ -1,0 +1,13 @@
+<template name="AutocompleteAdvanced">
+    {{# if selection }}
+        <input type="text" value="{{ label selection }}" class="pu-input pu-input-selection" readonly data-input>
+        <a href="#" class="pu-sub-remove picon-times" data-clear>
+        </a>
+    {{ else }}
+        {{# Autocomplete onSelect=onInterceptedSelect onQuery=onInterceptedQuery }}
+            <input type="text" placeholder="{{ placeholder }}" class="pu-input" data-queryinput="{{ id }}" {{ selectorAttribute }} data-input>
+        {{/ Autocomplete }}
+    {{/ if }}
+
+    {{> UI.contentBlock }}
+</template>

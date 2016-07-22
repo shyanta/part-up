@@ -1,0 +1,14 @@
+{
+    "dropdowns-profile-tab-title-partner-partups": "Partner part-ups",
+    "dropdowns-profile-tab-title-supporter-partups": "Supporter part-ups",
+    "dropdowns-profile-tab-title-tribes": "Tribes",
+    "dropdowns-profile-tab-partner-partups": "Partner",
+    "dropdowns-profile-tab-supporter-partups": "Supporter",
+    "dropdowns-profile-tab-tribes": "Tribes",
+
+    "partupsettings-form-privacy-preselected-label": "This part-up will be created in:",
+    "partupsettings-form-privacy-preselected-tooltip": "A part-up is public by default and visible for everyone. Uppers with a premium account can start private part-ups that are only visible to invited uppers. If you are a tribe member you can select the right tribe this new part-up belongs to. The tribe settings then define the visibility of the part-up.",
+    "partupsettings-form-location_input-error-has-value-but-no-location-selected": "Please select a location",
+
+    "network-settings-about-form-error-text-too-long": "Only __max__ characters allowed"
+}

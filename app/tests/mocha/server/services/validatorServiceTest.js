@@ -18,7 +18,7 @@ if (!(typeof MochaWeb === 'undefined')) {
 
                 it('works with incorrect specialchar input', function(done) {
                     var tagsWithSpecialchars = 'tüst,tést2';
-                    chai.assert.isFalse(tagsSeparatedByComma.test(tagsWithSpecialchars));
+                    chai.assert.isTrue(tagsSeparatedByComma.test(tagsWithSpecialchars));
                     done();
                 });
 

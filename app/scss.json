@@ -1,5 +1,9 @@
 {
     "useIndex" : true,
     "indexFilePath" : "client/stylesheets/main.scss",
-    "enableAutoprefixer": true
+    "enableAutoprefixer": true,
+    "autoprefixerOptions": {
+        "browsers": ["> 1%", "last 15 versions", "ie 9"],
+        "cascade": false
+    }
 }
