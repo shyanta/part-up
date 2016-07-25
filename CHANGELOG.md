@@ -2,7 +2,9 @@
 
 ## 1.21.4
 - chore(dropbox): update dropbox source code
-@todo add missing changelog
+- @todo add missing changelog
+- ...
+- ...
 
 ## 1.21.3   
 - fix(chats): fix security hole for users
