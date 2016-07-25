@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## 1.21.4
+- chore(dropbox): update dropbox source code
+@todo add missing changelog
+
 ## 1.21.3   
 - fix(chats): fix security hole for users
-- chore(dropbox): update dropbox source code
+
 
 ## 1.21.2
 - Update new pricing url page to link to http://swarmorganizing.com and http://swarmorganizing.nl
@@ -191,7 +195,7 @@
 - fix(swarm): read more button shows on mobile #264
 - fix(quotes): align to bottom #266
 - feat(swarm): add compatibility for case insensitive swarm slugs, fix #282
-- fix(tribestart): created a partups publication by networkId for the fallback on 
+- fix(tribestart): created a partups publication by networkId for the fallback on
 the tribestart page, also created a fallback for no partups and uppers fixing #291 and #292
 - fix(activepartups): fixed displaced parties in issue #201
 - fix(tribestart): hide partups+uppers footer from tribestart when trib…e is closed fixing #201
@@ -240,15 +244,15 @@ the tribestart page, also created a fallback for no partups and uppers fixing #2
 - fix(autocomplete): security patch
 
 ## 1.16.6
-- fix(pricing): updated the new pricing policy fixing #163 
+- fix(pricing): updated the new pricing policy fixing #163
 - fix(motivation): give each comment field form a unique ID to prevent conflicting behaviour on the same update fixes #228
 - fix(comments): fix Comments posted to different message than commented on #236
 hack(comments): created a rerender hack for the update detail, this fixes the wrong comment bug for now
 - Copy changes as requested in issues #223 and #133
-- fix(file-uploader): fixed the RegEdge to allow for file upload in the Edge browser 
+- fix(file-uploader): fixed the RegEdge to allow for file upload in the Edge browser
 
 ## 1.16.5
-- feat(analytics): add second google analytics tracker, issue #160 
+- feat(analytics): add second google analytics tracker, issue #160
 - fix(notifications): mentions in partup messages now only generate one notification when partners are mentioned, fixes #150
 - fix(tribe-uppers): only show activate uppers on the tribe uppers overview, fixes #159
 - fix(verify-email): fix empty page when clicking the URL, Fix issue #143
