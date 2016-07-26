@@ -2,9 +2,48 @@
 
 ## 1.21.4
 - chore(dropbox): update dropbox source code
-- @todo add missing changelog
-- ...
-- ...
+- refactor(application): remove the colon in the local atmospere package names and re-link the new pac
+  closes #602
+- feat(chats): add compatibility for mobile tribe
+- feat(fixtures): update fixtures to create chat for every network
+- fix(chat): add migration to add chat to existing networks without a chat
+- fix(chat-dropdown): also show tribe chats without chat messages
+- fix(chats-dropdown): fix chat tile state for empty chat
+- fix(chats): fix directory location of new file after naming big rewrite
+- feat(push-notifications): add push notifications for tribe chat messages
+- feat(chat): add server-side function to remove a chat
+- fix(push-notifications): don't send network-chat-message pushnotifications to devices with app releases before 1.4.0
+- feat(profile-dropdown): profile dropdown partner/supporters/tribes toggle, resolve #493
+- fix(chat): enabled "join conversation" button fixing #518
+- fix(usermenu): tribes have no title fixing #48
+- fix(start-partup): Pre-selected tribe is now non-editeble, fixing #351
+- fix(chat): fixed incorrect margins for firefox fixing #514
+- fix(tribes): changed order of tribes to alphabetically in both tribe selector and user menu, fixing #393
+- fix(notifications): added new type to notification images publication, I also fixed the not-working usercards on notifications. Fixing #460
+- fix(notifications): removed stray log
+- fix(partupsettings): Changed the date input in partup-settings to a more visual style, this also fixes issue #485
+- fix(datepicker): show inline datepicker on touch devices for activities
+- fix(IE8): polyfill for function.bind
+- fix(sort): made the sorting helpers more generic by using function.bind and implemented it into activity sorting
+- feat(activities): scroll to new activity, resolve #152
+- fix(partup): tribe partup start styled like discussed with pim
+- fix(partupsettings): better feedback for location input fixing #154
+- fix(tags): allow unicode (Basic Multilingual Plane) characters in par-up tags fixing #430
+- fix(tests): tests should allow tags with special characters
+- fix(partupsettings): fixed the incorrect value bug for type of organization in a part-up fixing #224
+- fix(chat): unread count reset with a defer, this could possibly be the fix for #590
+- fix(partup): increased the margin at the bottom of a part-up page fixing the issue with comments under the fold fixing #307
+- fix(partners): made some improvements on the sorting of partners, the chunks that are returned al least have more frequent-partners than each following chunk, but the sorting of each chunk is still off.
+- fix(chat): fixed chat scraper issue with partup urls fixing #594
+- fix(about): remove pasted formatting to prevent conflicts with the wyswig editor fix for #568
+- fix(about): give the user feedback for max-characters in contentblocks
+- fix(tribe-invite): invite modal closing now takes you to the uppers tab fixing #536
+- fix(dropdown): changed html order to make float:right work in firefox fixing #515
+- feat(chat): Chats autofocus on message bar, also when searching the user can navigate the list with arrow keys and initialize by pressing the return key
+- feat(chat): added quick switcher: try cmd+K in one-on-one chat
+- fix(license): fix license on part-up devops script package.json
+- fix(css): re-enable css processing (minification and autoprefixer)
+- feat(devops): upgraded cron server to bigger machine, changed ip in inventory
 
 ## 1.21.3   
 - fix(chats): fix security hole for users
