@@ -1,7 +1,10 @@
 {
   "name": "part-up",
   "description": "Part-up =================",
+  "version": "1.21.4",
   "scripts": {
+    "cz": "git-cz",
+    "changelog-from-latest": "conventional-changelog -p angular -i CHANGELOG.md -s -a",
     "chimp": "chimp",
     "pull-translation": "node ./phraseapp/phraseapp.js --command pull --access_token 193b1cb74df9b522e06166c3dc17d5a7055ff9e17bf5ae93c8a97cf3b97a9780",
     "push-translation": "node ./phraseapp/phraseapp.js --command push",
@@ -22,6 +25,8 @@
   "devDependencies": {
     "bluebird": "^3.3.5",
     "chimp": "^0.35.0",
+    "commitizen": "^2.8.2",
+    "conventional-changelog-cli": "^1.2.0",
     "cz-conventional-changelog": "^1.1.6",
     "json2yaml": "^1.1.0",
     "npm-build-tools": "^2.2.5",
