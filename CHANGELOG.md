@@ -14,7 +14,6 @@
 * **chat-dropdown:** also show tribe chats without chat messages ([4175a35](https://github.com/part-up/part-up/commit/4175a35))
 * **chat-dropdown:** fix tribe chat tiles (alignements and consistency) ([3332400](https://github.com/part-up/part-up/commit/3332400))
 * **chats:** fix directory location of new file after naming big rewrite ([259b79a](https://github.com/part-up/part-up/commit/259b79a))
-* **chats:** fix security hole for users ([875c2e0](https://github.com/part-up/part-up/commit/875c2e0))
 * **chats-dropdown:** fix chat tile state for empty chat ([e2e7344](https://github.com/part-up/part-up/commit/e2e7344))
 * **css:** re-enable css processing (minification and autoprefixer) ([406c6e4](https://github.com/part-up/part-up/commit/406c6e4))
 * **datepicker:** show inline datepicker on touch devices for activities ([6056fbc](https://github.com/part-up/part-up/commit/6056fbc))
@@ -40,7 +39,6 @@
 * **tribe-invite:** invite modal closing now takes you to the uppers tab fixing [#536](https://github.com/part-up/part-up/issues/536) ([558ea8f](https://github.com/part-up/part-up/commit/558ea8f))
 * **tribes:** changed order of tribes to alphabetically in both tribe selector and user menu, fixing [#393](https://github.com/part-up/part-up/issues/393) ([851ff31](https://github.com/part-up/part-up/commit/851ff31))
 * **usermenu:** tribes have no title fixing [#48](https://github.com/part-up/part-up/issues/48) ([09c8bcf](https://github.com/part-up/part-up/commit/09c8bcf))
-* **users:** point to publicUserFields, privateUserFields, etc using getter functions to make the objects immutable ([3ae0036](https://github.com/part-up/part-up/commit/3ae0036))
 
 
 ### Features
@@ -60,6 +58,17 @@
 ### Performance Improvements
 
 * **chats:** remove publication of all unread chat messages ([1c3293f](https://github.com/part-up/part-up/commit/1c3293f))
+
+
+
+<a name="1.21.3"></a>
+## [1.21.3](https://github.com/part-up/part-up/compare/1.21.2...1.21.3) (2016-07-12)
+
+
+### Bug Fixes
+
+* **chats:** fix security hole for users ([875c2e0](https://github.com/part-up/part-up/commit/875c2e0))
+* **users:** point to publicUserFields, privateUserFields, etc using getter functions to make the objects immutable ([3ae0036](https://github.com/part-up/part-up/commit/3ae0036))
 
 
 
@@ -628,6 +637,9 @@
 
 ### Bug Fixes
 
+* **docker:** remove depricated docker file to avoid confusion ([d15e37d](https://github.com/part-up/part-up/commit/d15e37d))
+* **infinite-scroll:** removed updates loader since it is unnecessary with a load more button ([689ae47](https://github.com/part-up/part-up/commit/689ae47))
+* **infinite-scroll:** set scroll event listener on document instead of window to fix the infinte scoll issue ([0687c5c](https://github.com/part-up/part-up/commit/0687c5c))
 * **login:** fix redirect to discover in chrome ios on specific url load fix [#352](https://github.com/part-up/part-up/issues/352) ([c4c6018](https://github.com/part-up/part-up/commit/c4c6018)), closes [#352](https://github.com/part-up/part-up/issues/352)
 * **networks:** fix tribe admin race condition by exposing admin_id in public metadata fix [#352](https://github.com/part-up/part-up/issues/352) ([a962f13](https://github.com/part-up/part-up/commit/a962f13)), closes [#352](https://github.com/part-up/part-up/issues/352)
 
@@ -639,10 +651,7 @@
 
 ### Bug Fixes
 
-* **docker:** remove depricated docker file to avoid confusion ([d15e37d](https://github.com/part-up/part-up/commit/d15e37d))
 * **iconfonts:** removed svg and eot fonts, added support for woff2 font type, also the correct file is nouw outputted in .sass format, so no extra action is needed to implement the font-icon css ([fa5de7a](https://github.com/part-up/part-up/commit/fa5de7a))
-* **infinite-scroll:** removed updates loader since it is unnecessary with a load more button ([689ae47](https://github.com/part-up/part-up/commit/689ae47))
-* **infinite-scroll:** set scroll event listener on document instead of window to fix the infinte scoll issue ([0687c5c](https://github.com/part-up/part-up/commit/0687c5c))
 * **partup:** implemented temporary load more button on partup-updates page ([d2101f2](https://github.com/part-up/part-up/commit/d2101f2))
 
 
@@ -1223,3 +1232,6 @@
 
 * **encrypted-env:** add encrypted development environment variables protected with a password (using ansible-vault) ([9cb4fc8](https://github.com/part-up/part-up/commit/9cb4fc8))
 * **part-up:** open-sourcing part-up codebase ([14b3357](https://github.com/part-up/part-up/commit/14b3357))
+
+
+
