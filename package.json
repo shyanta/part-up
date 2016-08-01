@@ -5,8 +5,8 @@
   "scripts": {
     "gulp": "gulp",
     "commit": "git-cz",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "chimp": "chimp",
+    "conventional-release": "gulp release-it",
     "pull-translation": "node ./phraseapp/phraseapp.js --command pull --access_token 193b1cb74df9b522e06166c3dc17d5a7055ff9e17bf5ae93c8a97cf3b97a9780",
     "push-translation": "node ./phraseapp/phraseapp.js --command push",
     "start": "./start",
