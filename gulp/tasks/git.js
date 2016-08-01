@@ -4,6 +4,7 @@ import gulp from 'gulp';
 import help from 'gulp-help';
 import git from 'gulp-git';
 import tagVersion from 'gulp-tag-version';
+import path from 'path';
 
 // provide help through "gulp help" -- the help text is the second gulp task argument (https://www.npmjs.com/package/gulp-help/)
 help(gulp);
@@ -14,13 +15,8 @@ gulp.task('pull', function (done) {
 });
 
 gulp.task('add', function () {
-  return gulp.src(['./*', '!dist', '!build', '!' + path.resolve(__dirname, '../../', 'node_modules'), '!' + path.resolve(__dirname, '../../', 'bower_components'), '!'])
+  return gulp.src([path.resolve(__dirname, '../../', 'CHANGELOG.md'), path.resolve(__dirname, '../../', 'package.json')])
     .pipe(git.add());
-});
-
-gulp.task('push', function (done) {
-  git.push('origin', null, { args: '--tags' });
-  done();
 });
 
 gulp.task('commit', function () {
@@ -34,4 +30,9 @@ gulp.task('commit', function () {
 gulp.task('tag', function () {
   return gulp.src(path.resolve(__dirname, '../../', 'package.json'))
     .pipe(tagVersion());
+});
+
+gulp.task('push', function (done) {
+  git.push('origin', null, { args: '--tags' });
+  done();
 });
