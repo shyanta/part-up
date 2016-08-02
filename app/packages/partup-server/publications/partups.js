@@ -77,10 +77,6 @@ function getRecommendedIds(encryptionKey) {
     var url = Npm.require('url');
     var recommendationApiUrl = url.resolve(apiRoot, '/partups/recommended/for/user/' + encryptionKey);
     var result = HTTP.get(recommendationApiUrl, {});
-    console.log(result);
-    console.log(result.content);
-    console.log(result.statusCode);
-    console.log(result.headers)
     return result.data.partUpIds;
   } catch (e) {
     // Got a network error, time-out or HTTP error in the 400 or 500 range.
