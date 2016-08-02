@@ -1,0 +1,57 @@
+<template name="OneOnOneChatSidebar">
+    <section>
+        <div class="pu-sidebar-wrap" data-preventscroll>
+            <section class="pu-sidebar-search">
+                <div class="pu-search pu-clearinput">
+                    <input type="text" placeholder="Search an upper to chat with" class="pu-input form-control" data-search>
+                    {{#if data.searchValue}}
+                        <i class="picon-times" data-clear></i>
+                    {{/if}}
+                    <i class="picon-search"></i>
+                </div>
+            </section>
+            <section>
+                <ul class="pu-list">
+                    {{#if data.searchValue }}
+                    {{#each data.searchResults}}
+                        <li class="pu-notification pu-notification-chat pu-notification-slim pu-notification-viewed pu-notification-tall {{#if partupEquals @index state.selectedIndex}}pu-notification-active{{/if}}">
+                            <button data-start="{{ _id }}" data-index="{{ @index }}">
+                                <figure class="pu-avatar pu-avatar-middle {{#if status.online}}pu-avatar-online{{else}}pu-avatar-offline{{/if}}" style="background-image:url('{{ partupImageObjectUrl object=embeddedImage store='360x360'}}');"></figure>
+                                <article>
+                                    <p>{{ profile.name }}</p>
+                                    <span>{{_ 'pages-one-on-one-chat-sidebar-start-placeholder'}}</span>
+                                </article>
+                            </button>
+                        </li>
+                    {{else}}
+                        <li class="pu-notification pu-notification-chat pu-notification-slim pu-notification-empty">
+                            <p>{{_ 'pages-one-on-one-chat-sidebar-search-placeholder'}}</p>
+                        </li>
+                    {{/each}}
+                    {{else}}
+                    {{#each data.chats}}
+                        <li class="pu-notification pu-notification-chat pu-notification-slim pu-notification-tall {{#if partupEquals _id state.activeChat }}pu-notification-active pu-notification-viewed{{/if}} {{#if messagesHaveBeenSeen }}pu-notification-viewed{{/if}} {{#unless message }}pu-notification-viewed{{/unless}}">
+                            <a href="{{pathFor route='chats' hash=_id }}">
+                                <figure class="pu-avatar pu-avatar-middle {{#if upper.status.online}}pu-avatar-online{{else}}pu-avatar-offline{{/if}}" style="background-image:url('{{ partupImageUrl id=upper.profile.image store='360x360'}}');"></figure>
+                                <article>
+                                    <p>{{ upper.profile.name }} {{#if hasUnreadMessages}}({{unreadCount}}){{/if}}</p>
+                                    {{#if message }}
+                                        <span><span>{{ message.content }}</span> <time>{{ partupDateNotification message.created_at }}</time></span>
+                                    {{else}}
+                                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> <time>{{ partupDateNotification created_at }}</time></span>
+                                    {{/if}}
+                                </article>
+                            </a>
+                                <!-- {{#if state.started_typing _id}}
+                                    {{#unless partupEquals _id currentUserId }}
+                                        {{> ChatTypingIndicator}}
+                                    {{/unless}}
+                                {{/if}} -->
+                        </li>
+                    {{/each}}
+                    {{/if}}
+                </ul>
+            </section>
+        </div>
+    </section>
+</template>

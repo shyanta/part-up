@@ -1,0 +1,54 @@
+<template name="UpperTile">
+    <article class="pu-upper {{#if hover}}active{{/if}}">
+        <header>
+            <a href="{{ pathFor 'profile' _id=user._id }}" class="pu-sub-figure">
+                <figure class="pu-avatar pu-avatar-large" style="
+                    {{# with partupGetImageUrl user.profile.imageObject '360x360' }}
+                        background-image: url('{{ . }}');
+                    {{/ with }}
+                ">
+                    {{# if user.participation_scoreReadable }}
+                        <span class="pu-score {{#if user.status.online}}pu-score-green{{/if}}">{{ user.participation_scoreReadable }}</span>
+                    {{/ if }}
+                </figure>
+            </a>
+
+            <div class="pu-sub-title">
+                <h4>
+                    <a href="{{ pathFor 'profile' _id=user._id }}">{{ user.profile.name }}</a>
+                </h4>
+                <p>{{ user.profile.location.city }}</p>
+            </div>
+        </header>
+        <article>
+            <p>{{ user.profile.description }}</p>
+        </article>
+        <footer>
+            <ul class="pu-stats">
+                <li>
+                    <span>{{ user.upperOf.length }}</span>
+                    <span>{{_ 'upper-tile-partups' }}</span>
+                </li>
+                <li>
+                    <span>{{ user.supporterOf.length }}</span>
+                    <span>{{_ 'upper-tile-supporter' }}</span>
+                </li>
+                {{# unless partupEquals currentUserId user._id }}
+                <li class="pu-sub-button">
+                    {{#if p.chatIdWithCurrentUser}}
+                        <a href="{{ pathFor route='chats' hash=p.chatIdWithCurrentUser }}" class="pu-button pu-button-compact">
+                            <i class="picon-chat"></i>
+                            {{_ 'partup-uppertile-open-existing-chat' }}
+                        </a>
+                    {{else}}
+                        <a href="{{ pathFor route='chats' query=p.startChatQuery }}" class="pu-button pu-button-compact">
+                            <i class="picon-chat"></i>
+                            {{_ 'partup-uppertile-start-new-chat' }}
+                        </a>
+                    {{/if}}
+                </li>
+                {{/unless}}
+            </ul>
+        </footer>
+    </article>
+</template>

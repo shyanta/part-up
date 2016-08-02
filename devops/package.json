@@ -1,7 +1,7 @@
 {
   "name": "Part-up-devops",
   "author": "Partup",
-  "license": "AGPLv3",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git@github.com:part-up/part-up.git"

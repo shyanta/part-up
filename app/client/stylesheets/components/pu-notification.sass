@@ -7,13 +7,21 @@
     border-bottom: 2px solid $color-border-light
     overflow: hidden
 
-    a
+    a,
+    button
+        font-size: 15px
+        font-family: $font-primary
         text-decoration: none
         padding: 20px 20px 10px
         display: block
         transition: background-color $animation-duration
         line-height: 0
         color: $color-text-secondary
+        text-align: left
+        width: 100%
+        border: 0
+        background-color: transparent
+        outline: none
 
         &:hover,
         &:active,
@@ -34,6 +42,9 @@
             padding: 2px 0px 7px 0px
             color: $color-text-subtle
             font-size: 14px
+            text-overflow: ellipsis
+            white-space: nowrap
+            overflow: hidden
 
         p
             font-weight: 700
@@ -76,3 +87,66 @@
 
         &:after
             display: none
+
+    &-no-messages
+        &:after
+            display: none
+
+    &-slim
+        article
+            max-width: 275px
+            width: 100%
+
+    &-wide
+        article
+            max-width: 347px
+            width: 100%
+
+    &-tall
+        button, a
+            padding: 20px 20px 10px
+
+        article
+            padding: 12px 0 10px
+
+    &-chat
+        article
+            time
+                padding: 0
+                color: $color-text-subtle
+                font-size: 12px
+                float: right
+                width: auto
+
+            > span
+                width: 100%
+                white-space: nowrap
+                line-height: 1.2em
+                padding: 2px 0px 7px 0px
+                line-height: 1.2em
+                font-size: 14px
+                float: left
+
+            > span > span
+                color: $color-text-subtle
+                width: 200px
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
+                display: inline-block
+        .pu-avatar:after
+            border-color: #fff
+
+        &.pu-notification-slim
+            article > span > span
+                width: 160px
+
+    &-active
+        background-color: #fff
+        a,button
+            background-color: #fff
+            &:hover,
+            &:active,
+            &:focus
+                background-color: #fff
+                color: $color-text

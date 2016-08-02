@@ -1,0 +1,18 @@
+<template name="ChatGroupNotification">
+    <a href="{{pathFor route='network-chat' slug=data.network.slug}}">
+        <figure class="pu-avatar pu-avatar-plain pu-avatar-square"
+            style="background-image: url('{{ partupImageUrl id=data.network.image }}');">
+        </figure>
+        <article>
+            <p>{{ data.network.name }} {{#if data.chat.hasUnreadMessages}}({{data.chat.unreadCount}}){{/if}}</p>
+            <span>
+                {{#if data.showLastMessage }}
+                    <span>{{ data.creator.profile.name }}: {{ data.message.content }}</span>
+                {{else}}
+                    <span>&nbsp;</span>
+                {{/if}}
+                <time>{{ partupDateNotification created_at }}</time>
+            </span>
+        </article>
+    </a>
+</template>
