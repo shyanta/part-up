@@ -87,6 +87,7 @@ Template.app_recommend_page.onRendered(function() {
         query.skip = page * PAGING_INCREMENT;
         query.userId = Meteor.userId();
         query.token = Accounts._storedLoginToken();
+        query.authToken = query.token;
 
         // Update state(s)
         template.states.loading_infinite_scroll = true;

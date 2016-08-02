@@ -64,22 +64,37 @@ Meteor.routeComposite('/partups/discover', function(request, parameters) {
  * Publish multiple partups for recommendations
  */
 
-function getRecommendedIds() {
+function getRecommendedIds(encryptionKey) {
+
+  console.log('/partups/recommended/for/user/' + encryptionKey);
 
   try {
-    var result = HTTP.get('http://www.json-generator.com/api/json/get/cevZMrFPpK?indent=2', {});
+    var result = HTTP.get('/partups/recommended/for/user/' + encryptionKey, {});
     return result.data.partupIds;
   } catch (e) {
     // Got a network error, time-out or HTTP error in the 400 or 500 range.
     console.log('getRecommendedIds error: ' + e);
-    return null;
+    return []
   }
-
 }
 
-Meteor.routeComposite('/partups/recommendations', function() {
+function createEncryptionKey(userId, storedLoginToken) {
+  var crypto = Npm.require('crypto');
+  var hash = crypto.createHash('md5');
+  hash.update(storedLoginToken);
+  var key = hash.digest('hex');
+  var cipher = crypto.createCipheriv('aes-128-ecb', new Buffer(key, 'hex'), new Buffer(0));
+  return cipher.update(userId, 'utf-8', 'base64') + cipher.final('base64');
+}
 
-    var partupIds = getRecommendedIds();
+Meteor.routeComposite('/partups/recommendations', function(request, parameters) {
+
+  var storedLoginToken = parameters.query.authToken;
+  var userId = parameters.query.userId;
+
+  var encryptionKey = createEncryptionKey(userId, storedLoginToken);
+
+  var partupIds = getRecommendedIds(encryptionKey);
 
     if (partupIds.length === 0) {
       return;
