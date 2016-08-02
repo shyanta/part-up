@@ -81,7 +81,7 @@ function getRecommendedIds(encryptionKey) {
     console.log(result.content);
     console.log(result.statusCode);
     console.log(result.headers)
-    return result.data.partupIds;
+    return result.data.partUpIds;
   } catch (e) {
     // Got a network error, time-out or HTTP error in the 400 or 500 range.
     console.log('getRecommendedIds error: ' + e);
