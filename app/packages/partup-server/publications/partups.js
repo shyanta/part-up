@@ -66,10 +66,16 @@ Meteor.routeComposite('/partups/discover', function(request, parameters) {
 
 function getRecommendedIds(encryptionKey) {
 
-  console.log('/partups/recommended/for/user/' + encryptionKey);
+  var apiRoot = process.env.API_ROOT_URL;
+
+  if (!apiRoot) {
+    console.log('ERROR: API_ROOT_URL not set.');
+    return [];
+  }
 
   try {
-    var result = HTTP.get('/partups/recommended/for/user/' + encryptionKey, {});
+    var url = url.resolve(apiRoot, '/partups/recommended/for/user/' + encryptionKey);
+    var result = HTTP.get(url, {});
     return result.data.partupIds;
   } catch (e) {
     // Got a network error, time-out or HTTP error in the 400 or 500 range.
@@ -78,23 +84,30 @@ function getRecommendedIds(encryptionKey) {
   }
 }
 
-function createEncryptionKey(userId, storedLoginToken) {
+function createEncryptionKey(userId, apiKey) {
   var crypto = Npm.require('crypto');
   var hash = crypto.createHash('md5');
-  hash.update(storedLoginToken);
+  hash.update(apiKey);
   var key = hash.digest('hex');
   var cipher = crypto.createCipheriv('aes-128-ecb', new Buffer(key, 'hex'), new Buffer(0));
-  return cipher.update(userId, 'utf-8', 'base64') + cipher.final('base64');
+  var encrypted = cipher.update(userId, 'utf-8', 'base64') + cipher.final('base64');
+  return encrypted.replace(/\+/g,'-').replace(/\//g,'_');
 }
 
 Meteor.routeComposite('/partups/recommendations', function(request, parameters) {
 
-  var storedLoginToken = parameters.query.authToken;
   var userId = parameters.query.userId;
+  var apiKey = process.env.EVENT_ENDPOINT_AUTHORIZATION;
 
-  var encryptionKey = createEncryptionKey(userId, storedLoginToken);
+  var encryptedUpperId;
+  if (!apiKey) {
+    console.log('ERROR: EVENT_ENDPOINT_AUTHORIZATION not set.');
+    encryptedUpperId = userId;
+  } else {
+    encryptedUpperId = createEncryptionKey(userId, apiKey);
+  }
 
-  var partupIds = getRecommendedIds(encryptionKey);
+  var partupIds = getRecommendedIds(encryptedUpperId);
 
     if (partupIds.length === 0) {
       return;

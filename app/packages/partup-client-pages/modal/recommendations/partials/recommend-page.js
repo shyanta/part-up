@@ -87,12 +87,8 @@ Template.app_recommend_page.onRendered(function() {
         query.skip = page * PAGING_INCREMENT;
         query.userId = Meteor.userId();
         query.token = Accounts._storedLoginToken();
-        query.authToken = query.token;
-
         // Update state(s)
         template.states.loading_infinite_scroll = true;
-
-        console.log('Process step recomend-page.js')
 
         // Call the API for data
         HTTP.get('/partups/recommendations' + mout.queryString.encode(query), {
