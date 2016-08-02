@@ -8,7 +8,13 @@ help(gulp);
 
 gulp.task('changelog', function () {
 
-  return gulp.src(path.resolve(__dirname, '../../', 'CHANGELOG.md'), { buffer: false })
-    .pipe(conventionalChangelog({ preset: 'angular', releaseCount: 0}))
+  return gulp.src(path.resolve(__dirname, '../../', 'CHANGELOG.md'), {buffer: false})
+    .pipe(
+      conventionalChangelog(
+        {preset: 'angular', releaseCount: 0},
+        {},
+        {merges: undefined, noMerges: undefined}
+      )
+    )
     .pipe(gulp.dest(path.resolve(__dirname, '../../')));
 });
