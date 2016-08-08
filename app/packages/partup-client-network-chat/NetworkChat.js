@@ -67,7 +67,9 @@ Template.NetworkChat.onCreated(function() {
         if (!template.searching) return;
 
         Meteor.call('chatmessages.search_in_network', networkSlug, newValue, {limit: template.LIMIT}, function(err, res) {
-            template.reactiveMessages.set(res);
+            if (err) return;
+            var results = res.sort(Partup.client.sort.dateASC.bind(null, 'created_at'));
+            template.reactiveMessages.set(results);
             _.defer(Partup.client.chat.instantlyScrollToBottom);
         });
     });
