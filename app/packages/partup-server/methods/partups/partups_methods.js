@@ -515,5 +515,48 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'partup_could_not_be_unarchived');
         }
+    },
+
+    /**
+     * Change the network a partup belongs to
+     *
+     * @param {String} partupId
+     * @param {String} networkSlug
+     */
+    'partups.change_network': function(partupId, networkSlug) {
+        check(partupId, String);
+        check(networkSlug, String);
+
+        var upper = Meteor.user();
+        if (!upper || (!User(upper).isAdmin())) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var network = Networks.findOne({slug: networkSlug});
+        var partup = Partups.findOneOrFail(partupId);
+
+        // Update the new privacy type, but only if it's not a network_admins type
+        if (partup.privacy_type !== Partups.NETWORK_ADMINS) {
+            var privacyType = undefined;
+            switch (network.privacy_type) {
+                case Networks.NETWORK_PUBLIC:
+                    privacyType = Partups.NETWORK_PUBLIC;
+                    break;
+                case Networks.NETWORK_INVITE:
+                    privacyType = Partups.NETWORK_INVITE;
+                    break;
+                case Networks.NETWORK_CLOSED:
+                    privacyType = Partups.NETWORK_CLOSED;
+                    break;
+            }
+        }
+
+        var newData = {network_id: network._id};
+        if (privacyType !== undefined) {
+            newData.privacy_type = privacyType;
+        }
+
+        // Set the updated data
+        Partups.update(partup._id, {$set: newData});
     }
 });
