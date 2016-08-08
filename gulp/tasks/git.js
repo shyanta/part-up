@@ -33,6 +33,6 @@ gulp.task('tag', function () {
 });
 
 gulp.task('push', function (done) {
-  git.push('origin', null, { args: '--tags' });
+  git.push('origin', null, { args: '--tags -u' });
   done();
 });
