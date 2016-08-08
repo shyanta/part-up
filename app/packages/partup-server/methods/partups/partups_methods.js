@@ -257,13 +257,12 @@ Meteor.methods({
     * Returns partup stats to superadmins only
     */
     'partups.admin_all': function(selector, options) {
-        var user = Meteor.users.findOne(this.userId);
-        if (!User(user).isAdmin()) {
-            return;
-        }
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
-        var selector = selector || {};
-        var option = options || {};
+        selector = selector || {};
+        options = options || {};
         return Partups.findForAdminList(selector, options).fetch();
     },
 
@@ -271,10 +270,10 @@ Meteor.methods({
     * Returns partup stats to superadmins only
     */
     'partups.admin_stats': function() {
-        var user = Meteor.users.findOne(this.userId);
-        if (!User(user).isAdmin()) {
-            return;
-        }
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
         return Partups.findStatsForAdmin();
     },
 
