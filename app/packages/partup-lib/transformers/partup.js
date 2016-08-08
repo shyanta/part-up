@@ -36,6 +36,8 @@ Partup.transformers.partup = {
             fields.privacy_type_input = 'public';
         } else if (partup.privacy_type === Partups.PRIVATE) {
             fields.privacy_type_input = 'private';
+        } else if (partup.privacy_type === Partups.NETWORK_ADMINS) {
+            fields.privacy_type_input = 'network_admins';
         } else if (partup.privacy_type === Partups.NETWORK_PUBLIC ||
             partup.privacy_type === Partups.NETWORK_INVITE ||
             partup.privacy_type === Partups.NETWORK_CLOSED) {
@@ -75,6 +77,8 @@ Partup.transformers.partup = {
             partup.privacy_type = Partups.PUBLIC;
         } else if (fields.privacy_type_input === 'private') {
             partup.privacy_type = Partups.PRIVATE;
+        } else if (fields.privacy_type_input === 'network_admins') {
+            partup.privacy_type = Partups.NETWORK_ADMINS;
         } else if (fields.privacy_type_input === 'network') {
             var network = Networks.findOneOrFail(fields.network_id);
             partup.network_id = network._id;
