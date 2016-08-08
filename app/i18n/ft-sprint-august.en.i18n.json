@@ -4,5 +4,10 @@
     "pages-app-network-start-label-archived": "Archived since",
     "pages-app-network-chat-highlight-context": "Showing messages from",
     "pagesapp-network-chat-highlight-jump-to-present": "Jump to present",
-    "pages-app-network-chat-highlight-context-no-date": "the past"
+    "pages-app-network-chat-highlight-context-no-date": "the past",
+    "partupsettings-form-network-privacy-public": "Everybody in the tribe",
+    "partupsettings-form-network-privacy-collegues": "Collegues",
+    "partupsettings-form-network-privacy-admins": "Admins",
+    "partupsettings-form-network-privacy-label": "Who can see this part-up?",
+    "partupsettings-form-network-privacy-hint": "Geef hier aan wie in de tribe toegang heeft tot deze part-up. Iedereen, collega's of alleen admins."
 }
