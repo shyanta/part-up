@@ -863,5 +863,45 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'network_contentblocks_could_not_be_updated');
         }
+    },
+
+    /**
+     * Archive a network
+     *
+     * @param {String} networkSlug
+     * */
+    'networks.archive': function(networkSlug) {
+        check(networkSlug, String);
+
+        var user = Meteor.user();
+        if (!user || User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+        var network = Networks.findOne({slug: networkSlug});
+
+        try {
+            Networks.update(network._id, {$set: {archived_at: new Date()}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'network_could_not_be_archived');
+        }
+    },
+
+    /**
+     * Unarchive a network
+     *
+     * @param {String} networkSlug
+     */
+    'networks.unarchive': function(networkSlug) {
+        check(networkSlug, String);
+
+        var user = Meteor.user();
+        if (!user || User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+        var network = Networks.findOne({slug: networkSlug});
+
+        try {
+            Networks.update(network._id, {$unset: {archived_at: ''}});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(500, 'network_could_not_be_unarchived');
+        }
     }
 });
