@@ -240,7 +240,7 @@ Template.ChatView.onCreated(function() {
         });
     };
 
-    template.onMessageClick = function(message) {
+    template.onMessageClick = function(event, message) {
         var searching = false;
         if (template.data.config.reactiveHighlight) {
             searching = !!template.data.config.reactiveHighlight.curValue;

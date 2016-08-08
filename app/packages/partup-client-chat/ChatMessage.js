@@ -38,6 +38,17 @@ Template.ChatMessage.helpers({
 Template.ChatMessage.events({
     'click [data-chat-message-id]': function(event, template) {
         var messageId = $(event.currentTarget).data('chat-message-id');
-        if (template.data.onMessageClick) template.data.onMessageClick(this);
+        if (template.data.onMessageClick) template.data.onMessageClick(event, this);
+    },
+    'click [data-chat-message-id] a': function(event, template) {
+        if (!template.data.onMessageClick) return;
+        var destination = $(event.currentTarget).attr('href');
+        var location = window.location;
+        if (destination.indexOf(location.pathname) > -1 && destination.indexOf(location.host) > -1) {
+            event.preventDefault();
+            event.stopPropagation();
+            var hash = destination.substring(destination.indexOf('#'));
+            template.data.onMessageClick(event, {hash: hash.split('#').join('')});
+        }
     }
 });

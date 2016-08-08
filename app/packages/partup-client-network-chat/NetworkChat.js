@@ -77,11 +77,19 @@ Template.NetworkChat.onCreated(function() {
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
 
     template.onMessageClick = function(messageClickEvent) {
-        if (!messageClickEvent.searching && !Partup.client.chat.showingContext) return;
-        var message_id = messageClickEvent.message._id;
+        var message_id;
+        if (messageClickEvent.message.hash) {
+            message_id = messageClickEvent.message.hash;
+        } else if (!messageClickEvent.searching && !Partup.client.chat.showingContext) {
+            return;
+        } else {
+            message_id = messageClickEvent.message._id;
+        }
         Meteor.call('chatmessages.get_context', networkSlug, message_id, {limit: 50}, function(err, res) {
+            if (err) return;
             template.reactiveMessages.set(res);
-            Partup.client.chat.showMessageContext(messageClickEvent.message);
+            var fullMessage = lodash.find(res, {_id: messageClickEvent.message._id || messageClickEvent.message.hash});
+            Partup.client.chat.showMessageContext(fullMessage);
         });
     };
 
