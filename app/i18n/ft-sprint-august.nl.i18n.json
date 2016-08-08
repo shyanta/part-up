@@ -10,6 +10,11 @@
     "partupsettings-form-network-privacy-admins": "Admins",
     "partupsettings-form-network-privacy-label": "Wie kan deze part-up zien?",
     "partupsettings-form-network-privacy-hint": "Geef hier aan wie in de tribe toegang heeft tot deze part-up. Iedereen, collega's of alleen admins.",
-    "pages-app-partup-status_text-network-admins": "This part-up is part of <a href=\"__path__\"><strong>__network__</strong></a> tribe and is only open to tribe admins."
+    "pages-app-partup-status_text-network-admins": "This part-up is part of <a href=\"__path__\"><strong>__network__</strong></a> tribe and is only open to tribe admins.",
+
+    "partup-tile-label-admins-only-short": "admins",
+    "partup-tile-label-admins-only": "alleen toegankelijk voor admins",
+    "partup-tile-label-collegues-only-short": "collega's",
+    "partup-tile-label-collegues-only": "alleen toegankelijk voor collega's"
 
 }

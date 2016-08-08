@@ -133,6 +133,18 @@ Template.PartupTile.helpers({
     },
     showStartQuery: function() {
         return this.userIsDefinitlyMember ? (this.archived_at ? 'show=true' : 'show=false' ) : '';
+    },
+    adminsOnly: function(partup) {
+        return partup.privacy_type === Partups.NETWORK_ADMINS;
+    },
+    colleguesOnly: function(partup) {
+        // return partup.privacy_type === Partups.NETWORK_COLLEGUES; // disable untill implemented
+        return undefined;
+    },
+    adminsOrColleguesOnly: function(partup) {
+        if (partup.privacy_type === Partups.NETWORK_ADMINS) return 'partup-tile-label-admins-only';
+        // if (partup.privacy_type === Partups.NETWORK_COLLEGUES) return 'partup-tile-label-collegues-only'; // disable untill implemented
+        return undefined;
     }
 });
 

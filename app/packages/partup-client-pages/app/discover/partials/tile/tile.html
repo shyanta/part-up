@@ -26,20 +26,41 @@
 
         <!-- Network -->
         {{# unless HIDE_NETWORKTILE }}
-            {{# with partup.networkObject }}
+            {{# if partup.networkObject }}
                 <footer>
-                    <a href="{{ pathFor route='network' slug=slug query=showStartQuery }}" class="pu-networktile">
+                    <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
                         <div class="pu-sub-wrapper">
                             <div class="pu-sub-figurecontainer">
                                 <figure style="
-                                    {{# with partupGetImageUrl iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                                    {{# with partupGetImageUrl partup.networkObject.iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
                                 "></figure>
                             </div>
                             <div class="pu-sub-namecontainer">
-                                <span>{{ name }}</span>
+                                <span>{{ partup.networkObject.name }}</span>
+                                {{#if adminsOnly partup }}
+                                    <span>{{_ 'partup-tile-label-admins-only-short' }}</span>
+                                {{/if}}
+                                {{#if colleguesOnly partup}}
+                                    <span>{{_ 'partup-tile-label-collegues-only-short' }}</span>
+                                {{/if}}
                             </div>
                         </div>
                     </a>
+                </footer>
+            {{/ if }}
+        {{ else }}
+            {{# with adminsOrColleguesOnly partup }}
+                <footer>
+                    <div class="pu-networktile pu-networktile-condensed">
+                        <div class="pu-sub-wrapper">
+                            <div class="pu-sub-figurecontainer">
+                            </div>
+                            <div class="pu-sub-namecontainer">
+                                <span></span>
+                                <span>{{_ . }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </footer>
             {{/ with }}
         {{/ unless }}
