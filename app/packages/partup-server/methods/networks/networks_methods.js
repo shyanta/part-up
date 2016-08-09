@@ -874,7 +874,7 @@ Meteor.methods({
         check(networkSlug, String);
 
         var user = Meteor.user();
-        if (!user || User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
         var network = Networks.findOne({slug: networkSlug});
 
         try {
@@ -894,7 +894,7 @@ Meteor.methods({
         check(networkSlug, String);
 
         var user = Meteor.user();
-        if (!user || User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
         var network = Networks.findOne({slug: networkSlug});
 
         try {
