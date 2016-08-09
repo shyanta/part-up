@@ -241,6 +241,7 @@ Template.ChatView.onCreated(function() {
     };
 
     template.onMessageClick = function(event, message) {
+        if (!template.data.config.onMessageClick) return;
         var searching = false;
         if (template.data.config.reactiveHighlight) {
             searching = !!template.data.config.reactiveHighlight.curValue;
