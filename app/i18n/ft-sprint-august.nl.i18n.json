@@ -15,6 +15,9 @@
     "partup-tile-label-admins-only-short": "admins",
     "partup-tile-label-admins-only": "alleen toegankelijk voor admins",
     "partup-tile-label-collegues-only-short": "collega's",
-    "partup-tile-label-collegues-only": "alleen toegankelijk voor collega's"
+    "partup-tile-label-collegues-only": "alleen toegankelijk voor collega's",
+
+    "pages-app-partup-update-not-found-placeholder-title": "Update not found, it may have been deleted..",
+    "pages-app-partup-update-not-found-placeholder-date": "Date unknown"
 
 }
