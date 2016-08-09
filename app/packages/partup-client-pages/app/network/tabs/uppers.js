@@ -185,6 +185,8 @@ Template.app_network_uppers.events({
 Template.app_network_uppers.helpers({
     networkInviteTileSettings: function() {
         var template = Template.instance();
+        var network = Networks.findOne({slug: template.data.networkSlug});
+        if (network.archived_at) return undefined;
         return {
             template: 'NetworkInviteTile',
             data: {

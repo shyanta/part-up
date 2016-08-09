@@ -230,8 +230,10 @@ Template.app_network_partups.events({
 Template.app_network_partups.helpers({
     configs: function() {
         var template = Template.instance();
+        var network = Networks.findOne({slug: template.data.networkSlug});
         return {
             networkStartPartupTileSettings: function() {
+                if (network.archived_at) return undefined;
                 return {
                     template: 'NetworkStartPartupTile',
                     data: {
