@@ -23,6 +23,28 @@
                 {{> afFieldInput type='hidden' name='privacy_type_input' value=selectedPrivacyType }}
                 {{> afFieldInput type='hidden' name='network_id' value=selectedPrivacyNetwork }}
             </div>
+            {{# if showNetworkDropdown }}
+                {{# if selectedPrivacyNetwork }}
+                    <div class="pu-formfield">
+                        <span class="pu-label">
+                            {{_ 'partupsettings-form-network-privacy-label' }}
+                            <a class="pu-hint pu-tooltip">
+                                <i class="picon-question"></i>
+                                <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-network-privacy-hint' }}</p></span>
+                            </a>
+                        </span>
+                        <div class="pu-sub-validations">
+                            <div class="pu-sub-input">
+                                <select class="pu-input" data-partup-privacy-network>
+                                    {{#each networkPrivacyTypes selectedPrivacyNetwork}}
+                                        <option value="{{ value }}" selected="{{ networkPrivacyChecked }}">{{_ label}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                {{/ if }}
+            {{/ if }}
             {{/if}}
         {{/ if }}
 
