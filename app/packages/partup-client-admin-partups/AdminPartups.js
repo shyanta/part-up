@@ -1,6 +1,5 @@
 Template.AdminPartups.onCreated(function() {
     var template = this;
-    template.subscribe('partups.featured_all');
     template.partups = new ReactiveVar([]);
     template.page = 0;
     template.limit = 20;
@@ -46,10 +45,10 @@ Template.AdminPartups.events({
     'click [data-delete]': function(event, template) {
         alert('not yet implemented');
     },
-    'click [data-edit]': function(event, template) {
+    'click [data-change-tribe]': function(event, template) {
         template.currentPartup.set(this);
         Partup.client.popup.open({
-            id: 'popup.admin-edit-partup'
+            id: 'popup.admin-change-tribe'
         });
     },
     'submit .partupsearch': function(event, template) {

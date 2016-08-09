@@ -3,13 +3,23 @@
         Edit {{ partup.name }}
     {{/contentFor}}
 
-    {{#autoForm schema=formSchema id="adminEditPartupForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
+    {{#autoForm schema=formSchema id="adminEditPartupTribeForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
         <div class="pu-row">
             <label class="pu-formfield">
-                <span class="pu-label">Tribe ID</span>
+                <span class="pu-label">Tribe</span>
                 <div class="pu-sub-validations">
                     <span class="pu-sub-input">
-                        {{> afFieldInput name='network_id' class="pu-input" }}
+                        <span class="pu-sub-input">
+                            {{# AutocompleteAdvanced
+                            placeholder=networkFieldPlaceholder
+                            label=networkLabel
+                            selection=networkSelectionReactiveVar
+                            onQuery=networkQuery
+                            formValue=networkFormvalue }}
+                                {{> afFieldInput name='network_id' type="hidden" }}
+
+                            {{/ AutocompleteAdvanced }}
+                        </span>
                     </span>
                     <span class="pu-sub-error">ERROR</span>
                 </div>

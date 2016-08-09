@@ -40,6 +40,10 @@
     {{/autoForm}}
 
     <h2>Tribes</h2>
+    <form class="pu-row tribesearch">
+        <div class="cell stretch"><input class="pu-input" data-tribesearchfield placeholder="Search for tribe by name"/></div>
+        <div class="cell"><button class="pu-button" data-search>Search</button></div>
+    </form>
     <ul class="pu-list pu-list-lineseparated  pu-list-admin">
         <li>
             <p class="pu-sub-info pu-sub-info-header">
@@ -51,7 +55,7 @@
             </p>
         </li>
         {{# each networks }}
-        <li>
+        <li class="{{#if archived_at}}pu-state-archived{{/if}}">
             <!-- <figure class="pu-avatar" style="background-image: url('{{ partupImageUrl id=image }}');"></figure> -->
             <p class="pu-sub-info ">
                 <span class="pu-sub-id">{{ _id }}</span>
@@ -70,11 +74,20 @@
             <button type="button" class="pu-sub-settings pu-button pu-button-checkmark" data-toggle><i class="picon-cog"></i></button>
             <div class="pu-uppersettings" data-toggle-target>
                 <ul class="pu-list">
-                    <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-delete">
-                        <button  data-network-remove="{{ _id }}">remove</button>
-                    </li>
+                    {{#if archived_at}}
+                        <li class="pu-dropdownitem pu-dropdownitem-small">
+                            <button  data-network-unarchive="{{ slug }}">unarchive</button>
+                        </li>
+                    {{else}}
+                        <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-delete">
+                            <button  data-network-archive="{{ slug }}">archive</button>
+                        </li>
+                    {{/if}}
                     <li class="pu-dropdownitem pu-dropdownitem-small">
                         <button data-network-edit="{{ slug }}">edit</button>
+                    </li>
+                    <li class="pu-dropdownitem pu-dropdownitem-small pu-sub-delete">
+                        <button  data-network-remove="{{ _id }}">remove</button>
                     </li>
                 </ul>
             </div>
@@ -88,5 +101,10 @@
 
         {{/ each }}
     </ul>
+    <div class="pu-row">
+        <div class="cell stretch">
+            <button data-showmore class="pu-button pu-button-gray pu-sub-loadmore">show more</button>
+        </div>
+    </div>
 
 </template>

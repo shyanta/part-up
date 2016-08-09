@@ -1,6 +1,12 @@
 Template.AdminCreateTribe.onCreated(function() {
-    this.subscribe('networks.admin_all');
-    this.currentNetwork = new ReactiveVar('');
+    var template = this;
+    template.subscribe('networks.admin_all');
+    template.currentNetwork = new ReactiveVar('');
+    template.searchQuery = new ReactiveVar(undefined, function(a, b) {
+        if (a === b) return;
+        template.limit.set(50);
+    });
+    template.limit = new ReactiveVar(50);
 });
 
 var placeholders = {
@@ -29,7 +35,14 @@ Template.AdminCreateTribe.helpers({
         return privacyTypeOptions;
     },
     networks: function() {
-        return Networks.find();
+        var template = Template.instance();
+        var opts = {};
+        var query = template.searchQuery.get();
+        var limit = template.limit.get();
+        if (query) {
+            opts = {'name': {$regex: query, $options: 'i'}};
+        }
+        return Networks.find(opts, {limit: limit});
     },
     privacyType: function(type) {
         var pType = _.findWhere(privacyTypeOptions, {value: type});
@@ -40,10 +53,10 @@ Template.AdminCreateTribe.helpers({
         return network.uppers ? network.uppers.length : 0;
     },
     currentNetwork: function() {
-        return Template.instance().currentNetwork;
+        return Template.instance().currentNetwork.get();
     },
     networkAdmins: function() {
-        return Meteor.users.find({_id: {$in: this.admins ? this.admins : []}});
+        return Meteor.users.find({_id: {$in: this.admins || []}});
     }
 });
 
@@ -63,6 +76,15 @@ Template.AdminCreateTribe.events({
         event.preventDefault();
         Intent.return('create-network');
     },
+    'submit .tribesearch': function(event, template) {
+        event.preventDefault();
+
+        var query = template.find('[data-tribesearchfield]').value;
+        template.searchQuery.set(query);
+    },
+    'click [data-showmore]': function(event, template) {
+        template.limit.set(template.limit.curValue + 50);
+    },
     'click [data-network-edit]': function(event, template) {
         var networkSlug = $(event.currentTarget).data('network-edit');
         template.currentNetwork.set(networkSlug);
@@ -75,20 +97,48 @@ Template.AdminCreateTribe.events({
         var network = Networks.findOne(networkId);
         Partup.client.prompt.confirm({
             title: 'Are you sure you want to delete this tribe?',
-            message: 'There are still ' + network.stats.partup_count + ' active part-ups in this tribe.',
+            message: 'There are still ' + network.stats.partup_count + ' active part-ups and ' + network.stats.upper_count + ' active uppers in this tribe. This action cannot be undone',
             onConfirm: function() {
-                Partup.client.prompt.confirm({
-                    title: 'Are you REALLY sure you want to delete this tribe?',
-                    message: 'There are still ' + network.stats.upper_count + ' active uppers in this tribe.',
-                    onConfirm: function() {
-                        Meteor.call('networks.remove', networkId, function(error) {
-                            if (error) {
-                                Partup.client.notify.error(TAPi18n.__('pages-modal-admin-createtribe-error-' + error.reason));
-                                return;
-                            }
-                            Partup.client.notify.success('Tribe removed correctly');
-                        });
+                Meteor.call('networks.remove', networkId, function(error) {
+                    if (error) {
+                        Partup.client.notify.error(TAPi18n.__('pages-modal-admin-createtribe-error-' + error.reason));
+                        return;
                     }
+                    Partup.client.notify.success('Tribe removed correctly');
+                });
+            }
+        });
+    },
+    'click [data-network-archive]': function(event, template) {
+        var networkSlug = $(event.currentTarget).data('network-archive');
+        var network = Networks.findOne({slug: networkSlug});
+        Partup.client.prompt.confirm({
+            title: 'Are you sure you want to archive this tribe?',
+            message: 'There are still ' + network.stats.partup_count + ' active part-ups and ' + network.stats.upper_count + ' active uppers in this tribe.',
+            onConfirm: function() {
+                Meteor.call('networks.archive', networkSlug, function(error) {
+                    if (error) {
+                        Partup.client.notify.error(TAPi18n.__('pages-modal-admin-createtribe-error-' + error.reason));
+                        return;
+                    }
+                    Partup.client.notify.success('Tribe archived correctly');
+                });
+            }
+        });
+    },
+    'click [data-network-unarchive]': function(event, template) {
+        var networkSlug = $(event.currentTarget).data('network-unarchive');
+        var network = Networks.findOne({slug: networkSlug});
+        Partup.client.prompt.confirm({
+            title: 'Are you sure you want to archive this tribe?',
+            message: 'There are still ' + network.stats.partup_count + ' active part-ups and ' + network.stats.upper_count + ' active uppers in this tribe.',
+            onConfirm: function() {
+                Meteor.call('networks.unarchive', networkSlug, function(error) {
+                    if (error) {
+                        Partup.client.notify.error(TAPi18n.__('pages-modal-admin-createtribe-error-' + error.reason));
+                        return;
+                    }
+                    Partup.client.notify.success('Tribe unarchived correctly');
                 });
             }
         });

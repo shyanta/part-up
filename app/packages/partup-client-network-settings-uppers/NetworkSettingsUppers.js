@@ -30,7 +30,7 @@ Template.NetworkSettingsUppers.helpers({
         var network = Networks.findOne({slug: template.data.networkSlug});
         if (!network) return;
         var searchOptions = {
-            _id: {$in: network.uppers}
+            _id: {$in: network.uppers || []}
         };
         var searchQuery = template.searchQuery.get();
         if (searchQuery) searchOptions['profile.name'] = {$regex: searchQuery, $options: 'i'};

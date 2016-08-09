@@ -1,6 +1,6 @@
 <template name="AdminPartups">
 
-    {{#if partupIsPopupActive 'popup.admin-edit-partup' }}
+    {{#if partupIsPopupActive 'popup.admin-change-tribe' }}
         {{#contentFor region="PopupContent" data=. }}
             {{> EditPartup partup=currentPartup }}
         {{/contentFor}}
@@ -8,7 +8,7 @@
 
     <h2>Part-ups</h2>
     <form class="pu-row partupsearch">
-        <div class="cell stretch"><input class="pu-input" data-partupsearchfield placeholder="Search for partup name"/></div>
+        <div class="cell stretch"><input class="pu-input" data-partupsearchfield placeholder="Search for partup by name"/></div>
         <div class="cell"><button class="pu-button" data-search>Search</button></div>
     </form>
     <ul class="pu-list pu-list-lineseparated pu-list-admin">
@@ -37,7 +37,7 @@
                             <button data-delete data-partup-id="{{ _id }}">delete</button>
                         </li>
                         <li class="pu-dropdownitem pu-dropdownitem-small">
-                            <button data-edit data-partup-id="{{ _id }}">edit</button>
+                            <button data-change-tribe data-partup-id="{{ _id }}">change tribe</button>
                         </li>
                     </ul>
                 </div>

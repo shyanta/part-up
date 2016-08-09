@@ -523,16 +523,16 @@ Meteor.methods({
      * @param {String} partupId
      * @param {String} networkSlug
      */
-    'partups.change_network': function(partupId, networkSlug) {
+    'partups.change_network': function(partupId, networkId) {
         check(partupId, String);
-        check(networkSlug, String);
+        check(networkId, String);
 
         var upper = Meteor.user();
         if (!upper || (!User(upper).isAdmin())) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var network = Networks.findOne({slug: networkSlug});
+        var network = Networks.findOne(networkId);
         var partup = Partups.findOneOrFail(partupId);
 
         // Update the new privacy type, but only if it's not a network_admins type
