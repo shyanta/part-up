@@ -903,5 +903,55 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'network_could_not_be_unarchived');
         }
+    },
+
+    /**
+     * Give a user colleague rights
+     *
+     * @param {String} networkSlug
+     * @param {String} userId
+     * */
+    'networks.make_colleague': function(networkSlug, userId) {
+        check(networkSlug, String);
+        check(userId, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            if (network.hasMember(userId)) {
+                network.addColleague(userId);
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_user_could_not_be_made_colleague');
+        }
+    },
+
+    /**
+     * Remove user from colleague list
+     *
+     * @param {String} networkSlug
+     * @param {String} userId
+     * */
+    'networks.remove_colleague': function(networkSlug, userId) {
+        check(networkSlug, String);
+        check(userId, String);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            if (network.hasMember(userId)) {
+                network.removeColleague(userId);
+            }
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_user_could_not_be_removed_as_colleague');
+        }
     }
 });

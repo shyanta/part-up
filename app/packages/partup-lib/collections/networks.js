@@ -372,6 +372,26 @@ Network.prototype.hasContentBlock = function(contentBlockId) {
 };
 
 /**
+ * Add a user to the colleague list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being added as a colleague
+ */
+Network.prototype.addColleague = function(upperId) {
+    Networks.update(this._id, {$push: {colleagues: upperId}});
+};
+
+/**
+ * Remove user from colleagues list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being removed from colleagues
+ */
+Network.prototype.removeColleague = function(upperId) {
+    Networks.update(this._id, {$pull: {colleagues: upperId}});
+};
+
+/**
  Networks, also known as "Tribes" are entities that group users and partups
  @namespace Networks
  */
