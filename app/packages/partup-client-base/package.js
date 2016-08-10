@@ -100,6 +100,7 @@ Package.onUse(function(api) {
         'helpers/lineBreakToBr.js',
         'helpers/RenderBlock/RenderBlock.html',
         'helpers/RenderBlock/RenderBlock.js',
+        'helpers/IE.js',
 
         'bootstrap.js',
         'analytics.js'
