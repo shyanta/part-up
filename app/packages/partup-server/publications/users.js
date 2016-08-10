@@ -195,7 +195,6 @@ Meteor.publishComposite('admins.by_network_slug', function(networkSlug) {
     this.unblock();
 
     var network = Networks.findOne({slug: networkSlug});
-    if (!network.hasMember(this.userId)) return;
 
     return {
         find: function() {
