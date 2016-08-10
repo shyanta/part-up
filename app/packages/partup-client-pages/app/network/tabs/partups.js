@@ -183,6 +183,15 @@ Template.app_network_partups.onRendered(function() {
     });
 
     template.initialize('active');
+
+    template.blurSearchInput = function() {
+        template.$('[data-search]').blur();
+    };
+    $(window).on('blur', template.blurSearchInput);
+});
+Template.app_network_partups.onDestroyed(function() {
+    var template = this;
+    $(window).off('blur', template.blurSearchInput);
 });
 
 Template.app_network_partups.events({
