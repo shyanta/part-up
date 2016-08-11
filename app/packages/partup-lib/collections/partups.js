@@ -32,6 +32,11 @@ var NETWORK_ADMINS = 6;
  * @memberof Partups
  * @private
  */
+var NETWORK_COLLEAGUES = 7;
+/**
+ * @memberof Partups
+ * @private
+ */
 var TYPE = {
     CHARITY: 'charity',
     ENTERPRISING: 'enterprising',
@@ -409,6 +414,11 @@ Partups.NETWORK_CLOSED = NETWORK_CLOSED;
  * @public
  */
 Partups.NETWORK_ADMINS = NETWORK_ADMINS;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.NETWORK_COLLEAGUES = NETWORK_COLLEAGUES;
 /**
  * @memberof Partups
  * @public
