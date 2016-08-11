@@ -715,7 +715,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
 
-        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin()) || network.isNetworkColleague(userId)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             if (network.hasMember(userId)) {
@@ -918,7 +918,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
 
-        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin()) || network.isNetworkAdmin(userId)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             if (network.hasMember(userId)) {
