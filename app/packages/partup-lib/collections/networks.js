@@ -392,6 +392,18 @@ Network.prototype.removeColleague = function(upperId) {
 };
 
 /**
+ * Check if given user is a colleague in this network
+ *
+ * @memberOf Networks
+ * @param {String} userId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isNetworkColleague = function(userId) {
+    if (!userId || !this.colleagues) return false;
+    return mout.lang.isString(userId) && (this.colleagues.indexOf(userId) > -1);
+};
+
+/**
  Networks, also known as "Tribes" are entities that group users and partups
  @namespace Networks
  */
