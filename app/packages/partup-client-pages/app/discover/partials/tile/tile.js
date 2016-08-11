@@ -138,12 +138,11 @@ Template.PartupTile.helpers({
         return partup.privacy_type === Partups.NETWORK_ADMINS;
     },
     colleguesOnly: function(partup) {
-        // return partup.privacy_type === Partups.NETWORK_COLLEGUES; // disable untill implemented
-        return undefined;
+        return partup.privacy_type === Partups.NETWORK_COLLEAGUES;
     },
     adminsOrColleguesOnly: function(partup) {
         if (partup.privacy_type === Partups.NETWORK_ADMINS) return 'partup-tile-label-admins-only';
-        // if (partup.privacy_type === Partups.NETWORK_COLLEGUES) return 'partup-tile-label-collegues-only'; // disable untill implemented
+        if (partup.privacy_type === Partups.NETWORK_COLLEAGUES) return 'partup-tile-label-colleagues-only';
         return undefined;
     }
 });

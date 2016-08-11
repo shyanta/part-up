@@ -160,6 +160,9 @@ Template.app_partup_sidebar.helpers({
             case Partups.NETWORK_ADMINS:
                 status.push(TAPi18n.__('pages-app-partup-status_text-network-admins', {network: Partup.client.sanitize(networkText), path: networkPath}));
                 break;
+            case Partups.NETWORK_COLLEAGUES:
+                status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues', {network: Partup.client.sanitize(networkText), path: networkPath}));
+                break;
         }
 
         return status.join(' ');
