@@ -27,7 +27,7 @@
                         <ul class="pu-list pu-list-horizontal">
                             <li>
                                 <a href="{{ pathFor route='network-detail' slug=data.network.slug }}"
-                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}}">
+                                    class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='network-detail' class='pu-state-active'}} {{ isActiveRoute name='network' class='pu-state-active'}}">
                                     {{_ 'pages-app-network-tab-button-partups'}}
                                 </a>
                             </li>
