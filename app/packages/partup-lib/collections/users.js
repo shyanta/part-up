@@ -449,7 +449,7 @@ User = function(user) {
         },
 
         /**
-         * Check if user is admin of some tribe
+         * Check if user is admin of some network
          *
          * @return {Boolean}
          */
@@ -459,7 +459,7 @@ User = function(user) {
         },
 
         /**
-         * Check if user is admin of a specific tribe
+         * Check if user is admin of a specific network
          *
          * @return {Boolean}
          */
@@ -476,6 +476,16 @@ User = function(user) {
         isSwarmAdmin: function(swarmId) {
             if (!user) return false;
             return !!Swarms.findOne({_id: swarmId, admin_id: user._id});
+        },
+
+        /**
+         * Check if user is colleague of a specific network
+         *
+         * @return {Boolean}
+         */
+        isColleagueOfNetwork: function(networkId) {
+            if (!user) return false;
+            return !!Networks.findOne({_id: networkId, colleagues: {$in: [user._id]}});
         },
 
         /**
