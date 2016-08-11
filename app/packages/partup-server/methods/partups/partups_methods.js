@@ -521,7 +521,7 @@ Meteor.methods({
      * Change the network a partup belongs to
      *
      * @param {String} partupId
-     * @param {String} networkSlug
+     * @param {String} networkId
      */
     'partups.change_network': function(partupId, networkId) {
         check(partupId, String);
@@ -535,8 +535,8 @@ Meteor.methods({
         var network = Networks.findOne(networkId);
         var partup = Partups.findOneOrFail(partupId);
 
-        // Update the new privacy type, but only if it's not a network_admins type
-        if (partup.privacy_type !== Partups.NETWORK_ADMINS) {
+        // Update the new privacy type, but only if it's not a network_admins or network_colleagues type
+        if (partup.privacy_type !== Partups.NETWORK_ADMINS || partup.privacy_type !== Partups.NETWORK_COLLEAGUES) {
             var privacyType = undefined;
             switch (network.privacy_type) {
                 case Networks.NETWORK_PUBLIC:
