@@ -155,6 +155,7 @@ Partup.prototype.isViewableByUser = function(userId, accessToken) {
     if (this.privacy_type === NETWORK_PUBLIC) return true;
     var user = Meteor.users.findOne(userId);
     if (this.privacy_type === NETWORK_ADMINS && User(user).isAdminOfNetwork(this.network_id)) return true;
+    if (this.privacy_type === NETWORK_COLLEAGUES && (User(user).isColleagueOfNetwork(this.network_id) || User(user).isAdminOfNetwork(this.network_id))) return true;
     if (this.privacy_type === PRIVATE || this.privacy_type === NETWORK_INVITE || this.privacy_type === NETWORK_CLOSED) {
         var accessTokens = this.access_tokens || [];
         if (accessTokens.indexOf(accessToken) > -1) return true;
@@ -243,7 +244,7 @@ Partup.prototype.remove = function() {
     Meteor.users.update({_id: {$in: supporters}}, {$pull: {'supporterOf': this._id}}, {multi: true});
     Meteor.users.update({_id: {$in: uppers}}, {$pull: {'upperOf': this._id}}, {multi: true});
 
-    Partups.update(this._id, {$set:{deleted_at: new Date}});
+    Partups.update(this._id, {$set: {deleted_at: new Date}});
 };
 
 /**
@@ -622,7 +623,7 @@ Partups.findForDiscover = function(userId, options, parameters) {
  */
 Partups.findForUpdate = function(userId, update) {
     if (!update.partup_id) return;
-    return this.guardedFind(userId, {_id: update.partup_id}, {limit:1});
+    return this.guardedFind(userId, {_id: update.partup_id}, {limit: 1});
 };
 
 /**
@@ -656,7 +657,7 @@ Partups.findForNetwork = function(network, parameters, options, loggedInUserId) 
         Log.debug('Searching for [' + textSearch + ']');
 
         var tagSelector = {tags: {$in: [textSearch]}};
-        var slugSelector = {slug: new RegExp('.*' + textSearch.replace(/ /g,'-') + '.*', 'i')};
+        var slugSelector = {slug: new RegExp('.*' + textSearch.replace(/ /g, '-') + '.*', 'i')};
         var nameSelector = {name: new RegExp('.*' + textSearch + '.*', 'i')};
         var descriptionSelector = {description: new RegExp('.*' + textSearch + '.*', 'i')};
 
@@ -781,7 +782,16 @@ Partups.findForAdminList = function(selector, options) {
     var limit = options.limit;
     var page = options.page;
     return this.find(selector, {
-        fields: {'_id': 1, 'slug': 1, 'name': 1, 'description': 1, 'creator_id': 1, 'created_at': 1, 'network_id': 1, 'language': 1},
+        fields: {
+            '_id': 1,
+            'slug': 1,
+            'name': 1,
+            'description': 1,
+            'creator_id': 1,
+            'created_at': 1,
+            'network_id': 1,
+            'language': 1
+        },
         sort: {'created_at': -1},
         limit: limit,
         skip: limit * page
