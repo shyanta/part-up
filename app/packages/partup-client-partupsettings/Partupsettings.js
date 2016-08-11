@@ -234,17 +234,22 @@ Template.Partupsettings.helpers({
     },
     networkPrivacyTypes: function(network_id) {
         var network = Networks.findOne(network_id);
+        var user = Meteor.user();
+        var isAdmin = User(user).isAdminOfNetwork(network_id);
+        var isColleague = false;//User(user).isColleagueOfNetwork(network_id);
         var types = [
             {
                 label: 'partupsettings-form-network-privacy-public',
                 value: 'network'
-            },
-            // {
-            //     label: 'partupsettings-form-network-privacy-collegues',
-            //     value: 'network_collegues'
-            // }
+            }
         ];
-        if (User(Meteor.user()).isAdminOfNetwork(network_id)) {
+        if (isAdmin || isColleague) {
+            types.push({
+                label: 'partupsettings-form-network-privacy-colleagues',
+                value: 'network_colleagues'
+            });
+        }
+        if (isAdmin) {
             types.push({
                 label: 'partupsettings-form-network-privacy-admins',
                 value: 'network_admins'
