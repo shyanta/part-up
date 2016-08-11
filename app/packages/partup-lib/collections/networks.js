@@ -450,6 +450,8 @@ Networks.guardedMetaFind = function(selector, options) {
     selector = selector || {};
     options = options || {};
 
+    selector.archived_at = {$exists: false};
+
     // Make sure that if the callee doesn't pass the fields
     // key used in the options parameter, we set it with
     // the _id fields, so we do not publish all fields
@@ -476,6 +478,8 @@ Networks.guardedMetaFind = function(selector, options) {
  * @return {Mongo.Cursor}
  */
 Networks.guardedFind = function(userId, selector, options) {
+    selector.archived_at = {$exists: false};
+
     if (Meteor.isClient) return this.find(selector, options);
 
     selector = selector || {};
