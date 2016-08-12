@@ -101,6 +101,8 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
 
             if (network.isNetworkAdmin(this.userId)) {
                 options.isAdminOfNetwork = true;
+            } else if (network.isNetworkColleague(this.userId)) {
+                options.isColleagueInNetwork = true;
             }
 
             return Partups.findForNetwork(network, selector, options, this.userId);

@@ -455,14 +455,9 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
     selector = selector || {};
     options = options || {};
 
-    var privacyTypes = [Partups.PUBLIC, Partups.NETWORK_PUBLIC];
-    if (options.isAdminOfNetwork) {
-        privacyTypes.push(Partups.NETWORK_ADMINS);
-        delete options.isAdminOfNetwork;
-    }
     var guardedCriterias = [
         // Either the partup is public or belongs to a public network
-        {'privacy_type': {'$in': privacyTypes}}
+        {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}}
     ];
 
     // If an access token is provided, we allow access if it matches one of the partups access tokens
@@ -484,11 +479,25 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
         // Of course the creator of a partup always has the needed rights
         guardedCriterias.push({'creator_id': userId});
 
-        // Everyone who is part of the network the partup is part of can view it
-        guardedCriterias.push({'network_id': {'$in': networks}});
+        // Check if upper is invited, so has the rights to view a partup in a closed network
+        guardedCriterias.push({'invites': {'$in': [userId]}});
 
         // Check if upper is invited, so has the rights to view a partup in a closed network
         guardedCriterias.push({'invites': {'$in': [userId]}});
+
+        // Check privacy settings
+        if (options.isAdminOfNetwork) {
+            // Admins may view all
+            guardedCriterias.push({'network_id': {'$in': networks}});
+            delete options.isAdminOfNetwork;
+        } else if (options.isColleagueInNetwork) {
+            // Colleagues: hide admin partups
+            guardedCriterias.push({$and: [{'network_id': {'$in': networks}}, {privacy_type: {$ne: Partups.NETWORK_ADMINS}}]});
+            delete options.isColleagueInNetwork;
+        } else {
+            // Regular members: hide colleague and admin partups
+            guardedCriterias.push({$and: [{'network_id': {'$in': networks}}, {privacy_type: {$nin: [Partups.NETWORK_COLLEAGUES, Partups.NETWORK_ADMINS]}}]});
+        }
     }
 
     var finalSelector = {};
