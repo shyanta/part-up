@@ -27,26 +27,28 @@
         <!-- Network -->
         {{# unless HIDE_NETWORKTILE }}
             {{# if partup.networkObject }}
-                <footer>
-                    <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
-                        <div class="pu-sub-wrapper">
-                            <div class="pu-sub-figurecontainer">
-                                <figure style="
-                                    {{# with partupGetImageUrl partup.networkObject.iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
-                                "></figure>
+                {{#unless partup.networkObject.archived_at}}
+                    <footer>
+                        <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
+                            <div class="pu-sub-wrapper">
+                                <div class="pu-sub-figurecontainer">
+                                    <figure style="
+                                        {{# with partupGetImageUrl partup.networkObject.iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                                    "></figure>
+                                </div>
+                                <div class="pu-sub-namecontainer">
+                                    <span>{{ partup.networkObject.name }}</span>
+                                    {{#if adminsOnly partup }}
+                                        <span>{{_ 'partup-tile-label-admins-only-short' }}</span>
+                                    {{/if}}
+                                    {{#if colleguesOnly partup}}
+                                        <span>{{_ 'partup-tile-label-colleagues-only-short' }}</span>
+                                    {{/if}}
+                                </div>
                             </div>
-                            <div class="pu-sub-namecontainer">
-                                <span>{{ partup.networkObject.name }}</span>
-                                {{#if adminsOnly partup }}
-                                    <span>{{_ 'partup-tile-label-admins-only-short' }}</span>
-                                {{/if}}
-                                {{#if colleguesOnly partup}}
-                                    <span>{{_ 'partup-tile-label-colleagues-only-short' }}</span>
-                                {{/if}}
-                            </div>
-                        </div>
-                    </a>
-                </footer>
+                        </a>
+                    </footer>
+                {{/unless}}
             {{/ if }}
         {{ else }}
             {{# with adminsOrColleguesOnly partup }}
