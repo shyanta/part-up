@@ -91,6 +91,7 @@ Template.Admin.events({
                         return;
                     }
                     Partup.client.notify.success('user deactivated');
+                    $(event.currentTarget).closest('[data-userr]').addClass('pu-state-archived');
                 });
             }
         });
@@ -119,6 +120,7 @@ Template.Admin.events({
                         return;
                     }
                     Partup.client.notify.success('user reactivated');
+                    $(event.currentTarget).closest('[data-userr]').removeClass('pu-state-archived');
                 });
             }
         });

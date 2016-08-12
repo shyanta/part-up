@@ -47,7 +47,7 @@
                 </p>
             </li>
             {{# each users }}
-                <li>
+                <li class="{{#if deactivatedAt}}pu-state-archived{{/if}}" data-userr>
                     <p class="pu-sub-info">
                         <span class="pu-sub-id"><span>{{_id}}</span></span>
                         <a href="{{ pathFor route='profile' _id=_id }}" class="pu-sub-name"  data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}">{{profile.name}}</a>
@@ -64,7 +64,7 @@
                                 </li>
                             {{else}}
                                 <li class="pu-dropdownitem pu-dropdownitem-small">
-                                    <button data-deactivate-user>reactivate</button>
+                                    <button data-reactivate-user>reactivate</button>
                                 </li>
                             {{/if}}
                             <li class="pu-dropdownitem pu-dropdownitem-small">
