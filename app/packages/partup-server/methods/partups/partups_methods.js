@@ -532,7 +532,7 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var network = Networks.findOne(networkId);
+        var network = Networks.findOneOrFail(networkId);
         var partup = Partups.findOneOrFail(partupId);
 
         // Update the new privacy type, but only if it's not a network_admins or network_colleagues type

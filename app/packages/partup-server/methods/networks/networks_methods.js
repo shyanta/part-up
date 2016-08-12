@@ -28,7 +28,7 @@ Meteor.methods({
                 'partup_count': 0,
                 'supporter_count': 0,
                 'upper_count': 1
-            },
+            }
             network.most_active_uppers = [
                 user._id
             ];
@@ -348,7 +348,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.isNetworkAdmin(user._id)) {
+        if (!network.isAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -385,7 +385,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail(networkId);
 
-        if (!network.isNetworkAdmin(user._id)) {
+        if (!network.isAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -436,19 +436,19 @@ Meteor.methods({
     },
 
     /**
-     * Remove an upper from a network as admin
+     * Remove an upper from a network
      *
-     * @param {String} networkId
+     * @param {String} networkSlug
      * @param {String} upperId
      */
-    'networks.remove_upper': function(networkId, upperId) {
-        check(networkId, String);
+    'networks.remove_upper': function(networkSlug, upperId) {
+        check(networkSlug, String);
         check(upperId, String);
 
         var user = Meteor.user();
-        var network = Networks.findOneOrFail(networkId);
+        var network = Networks.findOne({slug: networkSlug});
 
-        if (!network.isAdmin(user._id) || network.isNetworkAdmin(upperId)) {
+        if (!network.isAdmin(user._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -714,8 +714,7 @@ Meteor.methods({
 
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
-
-        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin()) || network.isNetworkColleague(userId)) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id) || network.isNetworkColleague(userId)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             if (network.hasMember(userId)) {
@@ -741,7 +740,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
 
-        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             if (network.hasMember(userId) && network.admins.length > 1) {
@@ -766,7 +765,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail({slug: networkSlug});
 
-        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
         // Only 1 'intro' type allowed
         if (fields.type === 'intro') {
@@ -800,7 +799,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail({slug: networkSlug});
 
-        if (!user || !network.isNetworkAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             Meteor.call('contentblocks.update', contentBlockId, fields);
@@ -823,7 +822,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail({slug: networkSlug});
 
-        if (!user || !network.isNetworkAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id) || !network.hasContentBlock(contentBlockId)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             Networks.update(network._id, {$pull: {contentblocks: contentBlockId}});
@@ -847,7 +846,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOneOrFail({slug: networkSlug});
 
-        if (!user || !network.isNetworkAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
         // Check if length of new array is the same as the current length
         if (network.contentblocks.length !== contentBlockSequence.length) throw new Meteor.Error(400, 'network_contentblocks_not_matching');
@@ -918,7 +917,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
 
-        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin()) || network.isNetworkAdmin(userId)) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id) || network.isNetworkAdmin(userId)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             if (network.hasMember(userId)) {
@@ -943,7 +942,7 @@ Meteor.methods({
         var user = Meteor.user();
         var network = Networks.findOne({slug: networkSlug});
 
-        if (!user || !(network.isNetworkAdmin(user._id) || User(user).isAdmin())) throw new Meteor.Error(401, 'unauthorized');
+        if (!user || !network.isAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             if (network.hasMember(userId)) {
