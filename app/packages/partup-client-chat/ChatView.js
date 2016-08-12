@@ -279,19 +279,19 @@ Template.ChatView.onCreated(function() {
             if (template.searching) return;
 
             if (template.focussed) {
-                ChatMessages
-                    .find({chat_id: chatId, read_by: {$nin: [Meteor.userId()]}, seen_by: {$nin: [Meteor.userId()]}})
-                    .forEach(function(message) {
-                        Meteor.call('chatmessages.read', message._id);
-                    });
+                // ChatMessages
+                //     .find({chat_id: chatId, read_by: {$nin: [Meteor.userId()]}, seen_by: {$nin: [Meteor.userId()]}})
+                //     .forEach(function(message) {
+                //         // Meteor.call('chatmessages.read', message._id);
+                //     });
 
                 template.data.config.onNewMessagesViewed();
             } else {
-                ChatMessages
-                    .find({chat_id: chatId, seen_by: {$nin: [Meteor.userId()]}})
-                    .forEach(function(message) {
-                        Meteor.call('chatmessages.seen', message._id);
-                    });
+                // ChatMessages
+                //     .find({chat_id: chatId, seen_by: {$nin: [Meteor.userId()]}})
+                //     .forEach(function(message) {
+                //         // Meteor.call('chatmessages.seen', message._id);
+                //     });
             }
         });
 
