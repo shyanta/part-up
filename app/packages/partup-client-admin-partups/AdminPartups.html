@@ -22,7 +22,7 @@
             </p>
         </li>
         {{#each partups}}
-            <li>
+            <li class="{{#if archived_at}}pu-state-archived{{/if}}">
                 <p class="pu-sub-info">
                     <span class="pu-sub-id"><span>{{ _id }}</span></span>
                     <a href="{{pathFor route='partup' slug=slug }}" class="pu-sub-name">{{name}}</a>

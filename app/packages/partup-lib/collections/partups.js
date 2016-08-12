@@ -798,6 +798,7 @@ Partups.findForAdminList = function(selector, options) {
             'description': 1,
             'creator_id': 1,
             'created_at': 1,
+            'archived_at': 1,
             'network_id': 1,
             'language': 1
         },
