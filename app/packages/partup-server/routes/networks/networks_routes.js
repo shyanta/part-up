@@ -26,12 +26,6 @@ Router.route('/networks/:slug/partups/count', {where: 'server'}).get(function() 
         return response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
     }
 
-    if (network.isNetworkAdmin(userId)) {
-        options.isAdminOfNetwork = true;
-    } else if (network.isNetworkColleague(userId)) {
-        options.isColleagueInNetwork = true;
-    }
-
     var partups = Partups.findForNetwork(network, parameters, options, userId);
 
     return response.end(JSON.stringify({error: false, count: partups.count()}));

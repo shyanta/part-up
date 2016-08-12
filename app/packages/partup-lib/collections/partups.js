@@ -486,18 +486,18 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
         guardedCriterias.push({'invites': {'$in': [userId]}});
 
         // Check privacy settings
-        if (options.isAdminOfNetwork) {
-            // Admins may view all
-            guardedCriterias.push({'network_id': {'$in': networks}});
-            delete options.isAdminOfNetwork;
-        } else if (options.isColleagueInNetwork) {
-            // Colleagues: hide admin partups
-            guardedCriterias.push({$and: [{'network_id': {'$in': networks}}, {privacy_type: {$ne: Partups.NETWORK_ADMINS}}]});
-            delete options.isColleagueInNetwork;
-        } else {
-            // Regular members: hide colleague and admin partups
-            guardedCriterias.push({$and: [{'network_id': {'$in': networks}}, {privacy_type: {$nin: [Partups.NETWORK_COLLEAGUES, Partups.NETWORK_ADMINS]}}]});
-        }
+        networks.forEach(function(networkId) {
+            if (User(user).isAdminOfNetwork(networkId)) {
+                // Admins may view all
+                guardedCriterias.push({network_id: networkId});
+            } else if (User(user).isColleagueOfNetwork(networkId)) {
+                // Colleagues: hide admin partups
+                guardedCriterias.push({$and: [{network_id: networkId}, {privacy_type: {$ne: Partups.NETWORK_ADMINS}}]});
+            } else {
+                // Regular members: hide colleague and admin partups
+                guardedCriterias.push({$and: [{network_id: networkId}, {privacy_type: {$nin: [Partups.NETWORK_COLLEAGUES, Partups.NETWORK_ADMINS]}}]});
+            }
+        });
     }
 
     var finalSelector = {};
