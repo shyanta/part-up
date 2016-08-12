@@ -28,7 +28,7 @@ Meteor.methods({
                 'partup_count': 0,
                 'supporter_count': 0,
                 'upper_count': 1
-            }
+            };
             network.most_active_uppers = [
                 user._id
             ];

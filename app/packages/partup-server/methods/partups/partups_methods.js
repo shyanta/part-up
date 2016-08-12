@@ -535,8 +535,8 @@ Meteor.methods({
         var network = Networks.findOneOrFail(networkId);
         var partup = Partups.findOneOrFail(partupId);
 
-        // Update the new privacy type, but only if it's not a network_admins or network_colleagues type
-        if (partup.privacy_type !== Partups.NETWORK_ADMINS || partup.privacy_type !== Partups.NETWORK_COLLEAGUES) {
+        // Update the new privacy type, but only if it's neither of network_admins or network_colleagues type
+        if (partup.privacy_type !== Partups.NETWORK_ADMINS && partup.privacy_type !== Partups.NETWORK_COLLEAGUES) {
             var privacyType = undefined;
             switch (network.privacy_type) {
                 case Networks.NETWORK_PUBLIC:
