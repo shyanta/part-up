@@ -36,9 +36,14 @@
                                 <article>
                                     <p>{{ upper.profile.name }} {{#if hasUnreadMessages}}({{unreadCount}}){{/if}}</p>
                                     {{#if message }}
-                                        <span><span>{{ message.content }}</span> <time>{{ partupDateNotification message.created_at }}</time></span>
+                                        <span><span>{{ message.content }}</span> {{#unless state.started_typing upper._id _id}}<time>{{ partupDateNotification message.created_at }}</time>{{/unless}}</span>
                                     {{else}}
-                                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> <time>{{ partupDateNotification created_at }}</time></span>
+                                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> {{#unless state.started_typing upper._id _id}}<time>{{ partupDateNotification created_at }}</time>{{/unless}}</span>
+                                    {{/if}}
+                                    {{#if state.started_typing upper._id _id}}
+                                        <div class="typing-container">
+                                            {{> ChatTypingIndicator}}
+                                        </div>
                                     {{/if}}
                                 </article>
                             </a>

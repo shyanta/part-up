@@ -59,6 +59,16 @@ Template.OneOnOneChatSidebar.helpers({
             },
             selectedIndex: function() {
                 return template.selectedIndex.get();
+            },
+            started_typing: function(user_id, chat_id) {
+                var chat = Chats.findOne(chat_id);
+                if (!chat) return false;
+                if (!chat.started_typing) return false;
+                var typing_user = lodash.find(chat.started_typing, {upper_id: user_id});
+                if (!typing_user) return false;
+                var started_typing_date = new Date(typing_user.date).getTime();
+                var now = new Date().getTime();
+                return now - started_typing_date < Partup.client.chat.MAX_TYPING_PAUSE;
             }
         };
     }
