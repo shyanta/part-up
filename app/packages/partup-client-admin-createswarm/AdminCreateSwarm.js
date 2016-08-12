@@ -38,7 +38,11 @@ Template.AdminCreateSwarm.events({
     },
     'click [data-closepage]': function eventClickClosePage (event, template) {
         event.preventDefault();
-        Intent.return('create-swarm');
+        Intent.return('create-swarm', {
+            fallback_route: {
+                name: 'discover'
+            }
+        });
     },
     'click [data-swarm-edit]': function(event, template) {
         var swarmSlug = $(event.currentTarget).data('swarm-edit');

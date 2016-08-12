@@ -3,12 +3,13 @@ Template.Header_nav.events({
         event.preventDefault();
 
         Intent.go({route: 'create'}, function(slug) {
+
             if (slug) {
                 Router.go('partup', {
                     slug: slug
                 });
             } else {
-                this.back();
+                Router.go('discover');
             }
         });
     },

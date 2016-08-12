@@ -74,7 +74,11 @@ Template.AdminCreateTribe.events({
     },
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
-        Intent.return('create-network');
+        Intent.return('create-network', {
+            fallback_route: {
+                name: 'discover'
+            }
+        });
     },
     'submit .tribesearch': function(event, template) {
         event.preventDefault();
