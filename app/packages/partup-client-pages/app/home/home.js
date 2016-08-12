@@ -125,6 +125,9 @@ Template.app_home.onRendered(function() {
                 })
                 .shuffle()
                 .slice(0, 5)
+                .filter(function(item) {
+                    return !item.archived_at;
+                })
                 .value();
 
             template.featured_networks.set(networks);

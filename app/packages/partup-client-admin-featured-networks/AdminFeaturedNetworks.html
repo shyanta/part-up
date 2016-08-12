@@ -125,7 +125,7 @@
             </p>
         </li>
         {{#each featuredNetworks}}
-            <li>
+            <li class="{{#if archived_at}}pu-state-archived{{/if}}">
                 <p class="pu-sub-info">
                     <span class="pu-sub-id">{{ _id }}</span>
                     <a href="{{ pathFor route='network' slug=slug }}" class="pu-sub-name">{{ name }}</a>
