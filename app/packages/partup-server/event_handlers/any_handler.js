@@ -34,7 +34,7 @@ Event.onAny(function() {
             }
         });
     } else {
-        Log.debug('Event store endpoint is not configured.');
+        //Log.debug('Event store endpoint is not configured.');
     }
 });
 
