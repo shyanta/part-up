@@ -40,12 +40,16 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
             /**
              * All network chats + children
              */
+
             {
                 find: function(user) {
                     if (!parameters.networks) return;
                     return Networks.find({
                         _id: {
                             $in: user.networks || []
+                        },
+                        archived_at: {
+                            $exists: false
                         }
                     }, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1, uppers: 1}});
                 },
