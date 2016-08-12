@@ -35,9 +35,6 @@ Template.OneOnOneChatSidebar.helpers({
 
                         var message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
                         if (message) {
-                            chat.hasMessages = true;
-                            chat.messagesHaveBeenSeen = message.isSeenByUpper(user._id);
-                            chat.messagesHaveBeenRead = !chat.hasUnreadMessages();
                             chat.message = message;
                         }
                         return chat;

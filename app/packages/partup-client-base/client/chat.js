@@ -50,6 +50,8 @@ Partup.client.chat = {
     clearMessageContext: function() {
         if (!this._current_chat) return;
 
+        if (!this._current_chat.activeContext.curValue) return;
+
         if (this._current_chat.data.config.onClearContext) this._current_chat.data.config.onClearContext('');
 
         $('.pu-state-highlight').removeClass('pu-state-highlight');

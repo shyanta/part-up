@@ -81,6 +81,8 @@ Template.ChatBar.events({
         // determine keycode (with cross browser compatibility)
         var pressedKey = event.which ? event.which : event.keyCode;
 
+        Partup.client.chat.clearMessageContext();
+
         // check if it's the 'return' key and if shift is NOT held down
         if (pressedKey == 13 && !event.shiftKey) {
             event.preventDefault();

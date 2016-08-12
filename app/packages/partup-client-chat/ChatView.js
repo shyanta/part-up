@@ -85,7 +85,6 @@ Template.ChatView.onCreated(function() {
     template.hideTimeout;
     template.hideLine = function() {
         if (template.hideTimeout) clearTimeout(template.hideTimeout);
-        template.data.config.onNewMessagesViewed();
 
         var overscroll = template.overscroll.get();
         var underscroll = template.underscroll.get();
@@ -105,6 +104,7 @@ Template.ChatView.onCreated(function() {
     template.delayedHideLine = function(delay) {
         if (template.hideTimeout) clearTimeout(template.hideTimeout);
         template.hideTimeout = setTimeout(template.hideLine, delay);
+        template.data.config.onNewMessagesViewed();
     };
 
     template.windowFocusHandler = function(event) {
@@ -272,29 +272,7 @@ Template.ChatView.onCreated(function() {
             });
         });
 
-        // marks all messages as seen (not read) in current chat
-        template.autorun(function() {
-            // var sendingMessage = template.sendingMessage.get();
-            // if (template.searching || sendingMessage) return;
-            if (template.searching) return;
-
-            if (template.focussed) {
-                // ChatMessages
-                //     .find({chat_id: chatId, read_by: {$nin: [Meteor.userId()]}, seen_by: {$nin: [Meteor.userId()]}})
-                //     .forEach(function(message) {
-                //         // Meteor.call('chatmessages.read', message._id);
-                //     });
-
-                template.data.config.onNewMessagesViewed();
-            } else {
-                // ChatMessages
-                //     .find({chat_id: chatId, seen_by: {$nin: [Meteor.userId()]}})
-                //     .forEach(function(message) {
-                //         // Meteor.call('chatmessages.seen', message._id);
-                //     });
-            }
-        });
-
+        template.data.config.onNewMessagesViewed();
         handleNewMessagesViewedIfMessageDividerIsOnScreen();
     };
 });
