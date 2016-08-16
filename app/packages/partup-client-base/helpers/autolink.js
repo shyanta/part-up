@@ -1,3 +1,5 @@
+import * as Autolinker from './Autolinkjs';
+
 // full documentation for Autolinker at http://gregjacobs.github.io/Autolinker.js/docs/#!/api/Autolinker
 Template.registerHelper('partupAutolink', function(text) {
 

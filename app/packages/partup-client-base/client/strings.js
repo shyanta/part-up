@@ -90,6 +90,17 @@ Partup.client.strings = {
         var splitString = new RegExp(split, 'i');
         var strings = string.split(splitString);
         return strings;
+    },
+    renderToMarkdownWithEmoji(rawNewValue) {
+      let md = require('markdown-it')({ breaks: true, html: false});
+      let emoji = require('markdown-it-emoji');
+      md.use(emoji);
+
+      return Partup.helpers.mentions.decode(md.render(rawNewValue));
     }
 
 };
+
+strings = Partup.client.strings;
+
+export default strings;
