@@ -1,9 +1,12 @@
-Template.update_partups_message_added.helpers({
-    messageContent: function() {
+var md = require('markdown-it')({ breaks: true, html: false});
+var emoji = require('markdown-it-emoji');
+md.use(emoji);
+
+  Template.update_partups_message_added.helpers({
+    messageContent: function () {
         var self = this;
-        return Partup.client.strings.emojify(
-            Partup.client.strings.newlineToBreak(Partup.helpers.mentions.decode(Partup.client.sanitize(self.type_data.new_value)))
-        );
+        var rawNewValue = self.type_data.new_value;
+        return Partup.helpers.mentions.decode(md.render(rawNewValue));
     },
 
     hasNoComments: function() {
@@ -16,4 +19,4 @@ Template.update_partups_message_added.helpers({
     editMessagePopupId: function() {
         return 'edit-message-' + this._id;
     }
-});
+  });
