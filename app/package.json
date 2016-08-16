@@ -10,5 +10,6 @@
     "node": "0.10.36"
   },
   "dependencies": {
+    "markdown-it": "^7.0.0"
   }
 }
