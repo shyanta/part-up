@@ -29,7 +29,7 @@ gulp.task('commit', function () {
 
 gulp.task('tag', function () {
   return gulp.src(path.resolve(__dirname, '../../', 'package.json'))
-    .pipe(tagVersion());
+    .pipe(tagVersion({prefix: ''}));
 });
 
 gulp.task('push', function (done) {
