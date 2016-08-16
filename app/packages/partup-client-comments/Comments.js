@@ -1,3 +1,5 @@
+import {strings} from 'meteor/partup-client-base';
+
 // jscs:disable
 /**
  * Widget to render comments and a comment field
@@ -195,9 +197,7 @@ Template.Comments.helpers({
     },
     formSchema: Partup.schemas.forms.updateComment,
     content: function() {
-        return Partup.client.strings.emojify(
-			Partup.helpers.mentions.decode(Partup.client.sanitize(this.content))
-		);
+        return strings.renderInlineToMarkdownWithEmoji(this.content);
     },
     systemMessage: function(content) {
         return TAPi18n.__('comment-field-content-' + content);

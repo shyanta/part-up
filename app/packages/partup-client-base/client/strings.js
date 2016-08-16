@@ -1,3 +1,5 @@
+const md = require('markdown-it')( { breaks: true, html: false});
+
 Partup.client.strings = {
 
     /**
@@ -94,11 +96,10 @@ Partup.client.strings = {
         return strings;
     },
     renderToMarkdownWithEmoji(rawNewValue) {
-      let md = require('markdown-it')({ breaks: true, html: false});
-      let emoji = require('markdown-it-emoji');
-      md.use(emoji);
-
-      return Partup.helpers.mentions.decode(md.render(rawNewValue));
+        return Partup.helpers.mentions.decode(md.render(this.emojify(rawNewValue)));
+    },
+    renderInlineToMarkdownWithEmoji(rawNewValue) {
+        return Partup.helpers.mentions.decode(md.renderInline(this.emojify(rawNewValue)));
     }
 
 };
