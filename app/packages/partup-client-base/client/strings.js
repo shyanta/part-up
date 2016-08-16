@@ -32,6 +32,8 @@ Partup.client.strings = {
      */
     emojify: function(stringToEmoji) {
 
+        var emoji = require('./emoji');
+
         if (typeof stringToEmoji !== 'string') {
             return stringToEmoji;
         }
