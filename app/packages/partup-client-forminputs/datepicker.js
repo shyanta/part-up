@@ -29,5 +29,10 @@ Template.DatePicker.events({
     'click [data-remove-date]': function(event, template) {
         event.preventDefault();
         template.end_date_datepicker.datepicker('update', '');
+    },
+    'click .disabled': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
     }
 });

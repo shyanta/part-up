@@ -29,7 +29,8 @@ Template.app_network_uppers.onCreated(function() {
             // as possible, synchronously,
             // using the given upper object
             return 500;
-        }
+        },
+        columns: getAmountOfColumns(Partup.client.screen.size.get('width'))
     });
 
     template.initialize = function(filter, searchQuery) {
@@ -137,6 +138,16 @@ Template.app_network_uppers.onRendered(function() {
         var nextPage = template.page.get() + 1;
         template.page.set(nextPage);
     });
+
+    template.blurSearchInput = function() {
+        template.$('[data-search]').blur();
+    };
+    $(window).on('blur', template.blurSearchInput);
+});
+
+Template.app_network_uppers.onDestroyed(function() {
+    var template = this;
+    $(window).off('blur', template.blurSearchInput);
 });
 
 Template.app_network_uppers.events({
@@ -184,6 +195,8 @@ Template.app_network_uppers.events({
 Template.app_network_uppers.helpers({
     networkInviteTileSettings: function() {
         var template = Template.instance();
+        var network = Networks.findOne({slug: template.data.networkSlug});
+        if (network.archived_at) return undefined;
         return {
             template: 'NetworkInviteTile',
             data: {

@@ -1,4 +1,5 @@
 <template name="status_noconnection">
+    {{# unless partupIE9 }}
     <section class="pu-overlay pu-overlay-connectionstatus {{#unless partupRefreshed}}{{#unless connected}}pu-overlay-active{{/unless}}{{/unless}}">
         <section>
             <article class="pu-connectionstatus">
@@ -14,4 +15,5 @@
             </article>
         </section>
     </section>
+    {{/ unless }}
 </template>

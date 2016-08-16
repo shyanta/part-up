@@ -73,9 +73,6 @@ Template.DropdownChatNotifications.helpers({
                 }
 
                 chat.message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
-                chat.hasMessages = !!chat.message;
-                chat.messagesHaveBeenSeen = !chat.message || chat.message.isSeenByUpper(userId);
-                chat.messagesHaveBeenRead = !chat.message || !chat.hasUnreadMessages();
 
                 return chat;
             });
@@ -88,8 +85,7 @@ Template.DropdownChatNotifications.helpers({
                 return Chats
                     .findForUser(userId, {networks: true})
                     .map(function(chat) {
-                        var counter = lodash.find(chat.counter, {user_id: userId});
-                        return counter ? counter.unread_count : 0;
+                        return chat.unreadCount();
                     }).reduce(function(prev, curr) {
                         return prev + curr;
                     }, 0);
@@ -98,8 +94,7 @@ Template.DropdownChatNotifications.helpers({
                 return Chats
                     .findForUser(userId, {private: true})
                     .map(function(chat) {
-                        var counter = lodash.find(chat.counter, {user_id: userId});
-                        return counter ? counter.unread_count : 0;
+                        return chat.unreadCount();
                     }).reduce(function(prev, curr) {
                         return prev + curr;
                     }, 0);

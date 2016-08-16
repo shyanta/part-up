@@ -1,31 +1,62 @@
 <template name="app_partup_update">
     <div class="pu-composition pu-composition-partupdetailupdateitem">
+        {{#if subscriptionReady}}
+                <!-- Header buttons -->
+                <header class="pu-pageheader">
+                    <section>
+                        <a class="pu-button" href="{{ pathFor 'partup' slug=partup.slug }}">
+                            {{_ 'pages-app-partup-update-back_to_overview' }}
+                        </a>
+                    </section>
+                </header>
 
-        <!-- Header buttons -->
-        <header class="pu-pageheader">
-            <section>
-                <a class="pu-button" href="{{ pathFor 'partup' slug=partup.slug }}">
-                    {{_ 'pages-app-partup-update-back_to_overview' }}
-                </a>
-            </section>
-        </header>
+            {{#if metaDataForUpdate}}
+                <!-- Timeline -->
+                <div class="pu-sub-timeline {{# if isAnotherDay metaDataForUpdate.updated_at }}pu-sub-makespaceforthedayheader{{/ if }}">
 
-        <!-- Timeline -->
-        <div class="pu-sub-timeline {{# if isAnotherDay metaDataForUpdate.updated_at }}pu-sub-makespaceforthedayheader{{/ if }}">
+                    <!-- Day header -->
+                    {{# if isAnotherDay metaDataForUpdate.updated_at }}
+                        <section class="pu-sub-dayheader">
+                            {{ partupDatePartupTimeline metaDataForUpdate.updated_at }}
+                            <i class="picon-arrow-down"></i>
+                        </section>
+                    {{/ if }}
 
-            <!-- Day header -->
-            {{# if isAnotherDay metaDataForUpdate.updated_at }}
-                <section class="pu-sub-dayheader">
-                    {{ partupDatePartupTimeline metaDataForUpdate.updated_at }}
-                    <i class="picon-arrow-down"></i>
-                </section>
-            {{/ if }}
+                </div>
 
-        </div>
-
-        <!-- The update itself -->
-        {{#if rerenderHack}}
-            {{> Update LINK=false updateId=updateId metadata=metaDataForUpdate FORCE_COMMENTFORM=true IS_DETAIL=true }}
+                <!-- The update itself -->
+                {{#if rerenderHack}}
+                    {{> Update LINK=false updateId=updateId metadata=metaDataForUpdate FORCE_COMMENTFORM=true IS_DETAIL=true }}
+                {{/if}}
+            {{else}}
+                {{> _app_partup_update_placeholder}}
+            {{/if}}
+        {{else}}
+            {{> Spinner}}
         {{/if}}
     </div>
+</template>
+<template name="_app_partup_update_placeholder">
+    <div class="pu-sub-timeline pu-sub-makespaceforthedayheader">
+        <!-- Day header -->
+        <section class="pu-sub-dayheader">
+            {{_ 'pages-app-partup-update-not-found-placeholder-date' }}
+            <i class="picon-arrow-down"></i>
+        </section>
+    </div>
+    <section class="pu-update">
+        <aside>
+            <figure class="pu-avatar pu-avatar-update pu-avatar-system">
+                <a href="#" rel="author" class="pu-sub-image" style="background-image: url('/images/system-avatar.png');"></a>
+            </figure>
+            <p class="pu-sub-time">
+                <time></time>
+            </p>
+        </aside>
+        <section>
+            <header>
+                <h3>{{_ 'pages-app-partup-update-not-found-placeholder-title' }}</h3>
+            </header>
+        </section>
+    </section>
 </template>

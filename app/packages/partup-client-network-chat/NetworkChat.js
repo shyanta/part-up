@@ -7,6 +7,7 @@ Template.NetworkChat.onCreated(function() {
     template.LIMIT = 50;
     template.SEARCH_LIMIT = 50;
     template.initialized = new ReactiveVar(false);
+    template.bottomBarHeight = new ReactiveVar(68);
     // template.sendingMessage = new ReactiveVar(false);
 
     var initialize = function(chat_id) {
@@ -52,7 +53,7 @@ Template.NetworkChat.onCreated(function() {
     });
 
     template.loadOlderMessages = function() {
-        if (template.loadingOlderMessages || template.searching) return;
+        if (template.loadingOlderMessages || template.searching || Partup.client.chat.showingContext) return;
         template.loadingOlderMessages = true;
         if (template.limitReached.get()) return;
         template.messageLimit.set(template.messageLimit.get() + 10);
@@ -66,7 +67,9 @@ Template.NetworkChat.onCreated(function() {
         if (!template.searching) return;
 
         Meteor.call('chatmessages.search_in_network', networkSlug, newValue, {limit: template.LIMIT}, function(err, res) {
-            template.reactiveMessages.set(res);
+            if (err) return;
+            var results = res.sort(Partup.client.sort.dateASC.bind(null, 'created_at'));
+            template.reactiveMessages.set(results);
             _.defer(Partup.client.chat.instantlyScrollToBottom);
         });
     });
@@ -74,6 +77,23 @@ Template.NetworkChat.onCreated(function() {
         template.searchQuery.set(query);
     };
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
+
+    template.onMessageClick = function(messageClickEvent) {
+        var message_id;
+        if (messageClickEvent.message.hash) {
+            message_id = messageClickEvent.message.hash;
+        } else if (!messageClickEvent.searching && !Partup.client.chat.showingContext) {
+            return;
+        } else {
+            message_id = messageClickEvent.message._id;
+        }
+        Meteor.call('chatmessages.get_context', networkSlug, message_id, {limit: 50}, function(err, res) {
+            if (err) return;
+            template.reactiveMessages.set(res);
+            var fullMessage = lodash.find(res, {_id: messageClickEvent.message._id || messageClickEvent.message.hash});
+            Partup.client.chat.showMessageContext(fullMessage);
+        });
+    };
 
     // messages
     var localChatMessagesCollection = [];
@@ -89,7 +109,7 @@ Template.NetworkChat.onCreated(function() {
             // don't do anything if the user is searching
             // or if a message is not processed yet (scraper)
             // if (template.searching || sendingMessage) return;
-            if (template.searching) return;
+            if (template.searching || Partup.client.chat.showingContext) return;
 
             var limit = template.messageLimit.get();
             var messages = ChatMessages
@@ -107,6 +127,20 @@ Template.NetworkChat.onCreated(function() {
                 template.reactiveMessages.set(localChatMessagesCollection);
             });
         });
+
+        template.autorun(function(c) {
+            c.stop();
+            var controller = Iron.controller();
+            var hash = controller.getParams().hash;
+            if (hash) {
+                template.onMessageClick({
+                    searching: true,
+                    message: {
+                        _id: hash
+                    }
+                });
+            }
+        });
     };
 });
 
@@ -121,14 +155,18 @@ Template.NetworkChat.helpers({
                     chatId: network.chat_id,
                     onScrollTop: template.loadOlderMessages,
                     onNewMessagesViewed: template.resetUnreadMessagesIndicatorBadge,
+                    onMessageClick: template.onMessageClick,
+                    placeholderText: TAPi18n.__('pages-app-network-chat-empty-placeholder'),
                     reactiveMessages: template.reactiveMessages,
                     reactiveHighlight:  template.searchQuery,
-                    placeholderText: TAPi18n.__('pages-app-network-chat-empty-placeholder')
+                    reactiveBottomBarHeight: template.bottomBarHeight,
+                    onClearContext: template.throttledSetSearchQuery
                 };
             },
             bottomBar: function() {
                 return {
-                    chatId: network.chat_id
+                    chatId: network.chat_id,
+                    reactiveBottomBarHeight: template.bottomBarHeight
                 };
             },
             sideBar: function() {
