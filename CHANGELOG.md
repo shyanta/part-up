@@ -1,3 +1,114 @@
+<a name="1.21.5"></a>
+## [1.21.5](https://github.com/part-up/part-up/compare/1.21.4...v1.21.5) (2016-08-16)
+
+
+### Bug Fixes
+
+* **admin:** allow admins to archive networks ([6d8124a](https://github.com/part-up/part-up/commit/6d8124a))
+* **admin:** confirmation prompt provides more information before deleting a tribe ([482e4ab](https://github.com/part-up/part-up/commit/482e4ab))
+* **admin:** descriptions expandable ([2383d36](https://github.com/part-up/part-up/commit/2383d36))
+* **admin:** partup links fixed ([1b2abff](https://github.com/part-up/part-up/commit/1b2abff))
+* **admin:** reactivate user ([2bdf648](https://github.com/part-up/part-up/commit/2bdf648))
+* **admin:** show archived state of partups aswell ([b6bbbb7](https://github.com/part-up/part-up/commit/b6bbbb7))
+* **admin:** start of admin make-over ([95867ae](https://github.com/part-up/part-up/commit/95867ae))
+* **archived_tribes:** fixed count coloring of archived tribes ([a4879d1](https://github.com/part-up/part-up/commit/a4879d1))
+* **chat:** 1-on-1 chat unreaqd status fix [#598](https://github.com/part-up/part-up/issues/598) ([bc3e814](https://github.com/part-up/part-up/commit/bc3e814)), closes [#598](https://github.com/part-up/part-up/issues/598)
+* **chat:** chatmessage box autogrows on shift-enter ([32a77b8](https://github.com/part-up/part-up/commit/32a77b8))
+* **chat:** fixed ordering of chat search, also tweaked the css a bit ([a3ab05c](https://github.com/part-up/part-up/commit/a3ab05c))
+* **chat:** limit scrape size to 200kb ([64f30f4](https://github.com/part-up/part-up/commit/64f30f4))
+* **chat:** onmessage click disabled in 1on1 chat ([f176afb](https://github.com/part-up/part-up/commit/f176afb))
+* **chat:** removed messages read state auorunner, also disable context search when user starts typing ([59dc72f](https://github.com/part-up/part-up/commit/59dc72f))
+* **colleagues:** display correct labels for colleague level part-ups ([6bd9100](https://github.com/part-up/part-up/commit/6bd9100))
+* **columnslayout:** Set initial columnslayout total columns to prevent render issues, fixing [#607](https://github.com/part-up/part-up/issues/607) ([4364ba2](https://github.com/part-up/part-up/commit/4364ba2))
+* **comment:** commentfield autogrow fix. fixes [#489](https://github.com/part-up/part-up/issues/489) ([a7ae43c](https://github.com/part-up/part-up/commit/a7ae43c)), closes [#489](https://github.com/part-up/part-up/issues/489)
+* **creatuser:** disabled expensive and error prone call to get_locale in creation of user ([5664160](https://github.com/part-up/part-up/commit/5664160))
+* **datepicker:** fixed datepicker where the year would set to 0 fixong [#621](https://github.com/part-up/part-up/issues/621) ([100373d](https://github.com/part-up/part-up/commit/100373d))
+* **discover:** hide network if archived ([3277f90](https://github.com/part-up/part-up/commit/3277f90))
+* **discover:** prevent discover filter inputs from wrapping to new line on iOS. fixing [#55](https://github.com/part-up/part-up/issues/55) ([c285f34](https://github.com/part-up/part-up/commit/c285f34))
+* **getlocale:** disabled getlocale to temporarily fix performance issues and errors in backend ([acf31e4](https://github.com/part-up/part-up/commit/acf31e4))
+* **home:** add column calculator to home columntileslayout as well ([b7721f9](https://github.com/part-up/part-up/commit/b7721f9))
+* **IE9:** Disabled the overlay for IE9 to prevent the flickering UI fixing [#487](https://github.com/part-up/part-up/issues/487) ([c090e5a](https://github.com/part-up/part-up/commit/c090e5a))
+* **intent:** fixed modal where close button would not work fixing [#488](https://github.com/part-up/part-up/issues/488) ([e48a204](https://github.com/part-up/part-up/commit/e48a204))
+* **networks:** hide archived networks in partupsettings and chats dropdown ([aec4cd1](https://github.com/part-up/part-up/commit/aec4cd1))
+* **pagecontent:** removed overflow hidden from pagecontent component ([cbb2f09](https://github.com/part-up/part-up/commit/cbb2f09))
+* **partup:** fixed white-space issue on new updates button fixing [#619](https://github.com/part-up/part-up/issues/619) ([5abdc74](https://github.com/part-up/part-up/commit/5abdc74))
+* **partup:** show admin-only privacy type in partup ([1c75a4e](https://github.com/part-up/part-up/commit/1c75a4e))
+* **search:** fixed bug where blurring the window caused the search input to close without blurring the input. fixing [#429](https://github.com/part-up/part-up/issues/429) ([a2dd595](https://github.com/part-up/part-up/commit/a2dd595))
+* **tribe:** archived tribes have all actions disabled in frontend ([baf624e](https://github.com/part-up/part-up/commit/baf624e))
+* **tribe:** disable buttons on archived state ([1699326](https://github.com/part-up/part-up/commit/1699326))
+* **tribe:** minor styling tweak ([1c5fb2f](https://github.com/part-up/part-up/commit/1c5fb2f))
+* **tribe:** partups tab active when show=false ([646cb8b](https://github.com/part-up/part-up/commit/646cb8b))
+* **tribe-about:** remove 'isMember' check from tribe about admins publication fixing [#510](https://github.com/part-up/part-up/issues/510) ([c0c4c88](https://github.com/part-up/part-up/commit/c0c4c88))
+* **tribes:** archived tribes are still published, but hidden in the frontend unless a user specifically enters the tribe url ([f77717c](https://github.com/part-up/part-up/commit/f77717c))
+* **tribes:** archived tribes not shown on home ([25990f9](https://github.com/part-up/part-up/commit/25990f9))
+* **updates:** implemented a "not found" placeholder for the update detail page ([189ecd7](https://github.com/part-up/part-up/commit/189ecd7))
+
+
+### Chores
+
+* **package.json:** use npm run commit instead of npm run cz ([09e6adc](https://github.com/part-up/part-up/commit/09e6adc))
+
+
+### Documentation
+
+* **CHANGELOG.md:** changelog based on git conventional commit message (angular) ([cbc25a4](https://github.com/part-up/part-up/commit/cbc25a4))
+
+
+### Features
+
+* **admin:** (un)archive network methods ([4729034](https://github.com/part-up/part-up/commit/4729034))
+* **admin:** added edit partup popup ([0d6437d](https://github.com/part-up/part-up/commit/0d6437d))
+* **admin:** backend implementation to move part-ups in and out of tribes [#392](https://github.com/part-up/part-up/issues/392) ([fb041b6](https://github.com/part-up/part-up/commit/fb041b6))
+* **admin:** makeover for the admin page ([2be3fef](https://github.com/part-up/part-up/commit/2be3fef))
+* **admin:** move partups in and out of networks, also archive tribes ([9f614d7](https://github.com/part-up/part-up/commit/9f614d7))
+* **admin:** partups overview ([74099b6](https://github.com/part-up/part-up/commit/74099b6))
+* **admin:** partups show more button ([138ef83](https://github.com/part-up/part-up/commit/138ef83))
+* **admin:** set network id when creating network_admins partup ([deb5ab6](https://github.com/part-up/part-up/commit/deb5ab6))
+* **admin:** set partup privacy setting based on FE input ([11b4922](https://github.com/part-up/part-up/commit/11b4922))
+* **admin:** updated admin partups methods ([b09f807](https://github.com/part-up/part-up/commit/b09f807))
+* **admin_partup:** added privacy type to create_partup ([be2f307](https://github.com/part-up/part-up/commit/be2f307))
+* **chat:** chat message images expanded ([d1f9cd2](https://github.com/part-up/part-up/commit/d1f9cd2))
+* **chat:** jump to context in chat search ([de1891c](https://github.com/part-up/part-up/commit/de1891c))
+* **chat:** render line breaks in chat message ([3a70329](https://github.com/part-up/part-up/commit/3a70329))
+* **chat:** search messages, click a message to view it's context ([8b2455f](https://github.com/part-up/part-up/commit/8b2455f))
+* **chat:** started typing indicator for 1-on-1 chat ([4fc9b0f](https://github.com/part-up/part-up/commit/4fc9b0f))
+* **chat:** urls of same chat don't open a new window ([0d77054](https://github.com/part-up/part-up/commit/0d77054))
+* **chatmessages:** method to get context of a chat message ([fd143d3](https://github.com/part-up/part-up/commit/fd143d3))
+* **colleage:** added user helper to check if user is colleague of a specific tribe ([8d7ee83](https://github.com/part-up/part-up/commit/8d7ee83))
+* **colleague:** added helper to check if user is a network colelague ([acc3e80](https://github.com/part-up/part-up/commit/acc3e80))
+* **colleagues:** added privacy type for colleague partups ([6e720f1](https://github.com/part-up/part-up/commit/6e720f1))
+* **colleagues:** make colleague partups visible for colleagues and admins. also some code formatting ([3e492b0](https://github.com/part-up/part-up/commit/3e492b0))
+* **colleagues:** updated the partup transformer ([51a2e47](https://github.com/part-up/part-up/commit/51a2e47))
+* **logging:** only log event endpoint configuration once (on startup) if needed ([40eb266](https://github.com/part-up/part-up/commit/40eb266))
+* **menu.html:** some links open target blank and re-order ([c6f12d5](https://github.com/part-up/part-up/commit/c6f12d5))
+* **network:** introduced colleague property and implemented backend functionality ([f357aa6](https://github.com/part-up/part-up/commit/f357aa6))
+* **network:** only change privacy type of partup on network change when they are neither colleagues or admins types ([7ee436e](https://github.com/part-up/part-up/commit/7ee436e))
+* **network:** set partup privacy restrictions for different roles ([954a4e7](https://github.com/part-up/part-up/commit/954a4e7))
+* **network:** update count with partup restrictions ([0447533](https://github.com/part-up/part-up/commit/0447533))
+* **network:** updated method checks ([7f29ce0](https://github.com/part-up/part-up/commit/7f29ce0))
+* **network:** updated privacy settings logic to also take the discover page into account ([045750c](https://github.com/part-up/part-up/commit/045750c))
+* **network:** updated publications and stat services to not include archived networks ([306bc99](https://github.com/part-up/part-up/commit/306bc99))
+* **network-roles:** don't make a user admin if already colleague and vice vera ([e0144ef](https://github.com/part-up/part-up/commit/e0144ef))
+* **networks:** don't change privacy type of colleagues partup when changing networks ([5614ac9](https://github.com/part-up/part-up/commit/5614ac9))
+* **networks:** only show specific partup types to admins ([7ebcecc](https://github.com/part-up/part-up/commit/7ebcecc))
+* **partners:** improved order of partners on new profile partners tab [#340](https://github.com/part-up/part-up/issues/340) ([cd3997f](https://github.com/part-up/part-up/commit/cd3997f))
+* **partup:** select group when starting partup from tribe ([83beae1](https://github.com/part-up/part-up/commit/83beae1))
+* **partups:** label for admins/collegue partups on partup tiles ([8dfb873](https://github.com/part-up/part-up/commit/8dfb873))
+* **stats:** not able anymore to increase the number of email shares manually [#465](https://github.com/part-up/part-up/issues/465) ([fbc41b8](https://github.com/part-up/part-up/commit/fbc41b8))
+* **tribe:** archived label ([a75cd83](https://github.com/part-up/part-up/commit/a75cd83))
+* **tribe:** archived tribes always show start ([7cf12c7](https://github.com/part-up/part-up/commit/7cf12c7))
+* **tribe:** assign and unassign roles, also create part-ups for colleagues level ([5c80e79](https://github.com/part-up/part-up/commit/5c80e79))
+* **tribe:** tribe start archived state ([5a27e0a](https://github.com/part-up/part-up/commit/5a27e0a))
+* **tribes:** added tribe admin privacy type and disabled viewing by non-admins ([3848026](https://github.com/part-up/part-up/commit/3848026))
+
+
+### BREAKING CHANGES
+
+* package.json: S: npm run commit instead of npm run cz
+* CHANGELOG.md: S: convential commit messages max to 1.16.4 version
+
+
+
 <a name="1.21.4"></a>
 ## [1.21.4](https://github.com/part-up/part-up/compare/1.21.3...1.21.4) (2016-07-26)
 
