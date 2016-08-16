@@ -1,17 +1,29 @@
-var Subs = new SubsManager({
-    cacheLimit: 1,
-    expireIn: 10
-});
-
 Template.app_partup_update.onCreated(function() {
     var template = this;
     template.rerenderHack = new ReactiveVar(true);
+    template.subscriptionReady = new ReactiveVar(false);
     template.autorun(function(computation) {
         var data = Template.currentData();
         if (data.updateId && data.partupId) {
+            computation.onStop(function() {
+                var sub1done = false;
+                var sub2done = false;
+                var sub1cb = function() {
+                    sub1done = true;
+                    template.subscriptionReady.set(sub1done && sub2done);
+                };
+                var sub2cb = function() {
+                    sub2done = true;
+                    template.subscriptionReady.set(sub1done && sub2done);
+                };
+                template.subscribe('partups.one', data.partupId, undefined, {
+                    onReady: sub1cb
+                });
+                template.subscribe('updates.one', data.updateId, {
+                    onReady: sub2cb
+                });
+            });
             computation.stop();
-            Subs.subscribe('partups.one', data.partupId);
-            Subs.subscribe('updates.one', data.updateId);
         }
     });
     var updateId;
@@ -41,7 +53,8 @@ Template.app_partup_update.helpers({
     },
     metaDataForUpdate: function() {
         var update = Updates.findOne(this.updateId);
-        if (!update) return {};
+
+        if (!update) return undefined;
 
         var partup = Partups.findOne(update.partup_id);
         if (!partup) return {};
@@ -77,5 +90,8 @@ Template.app_partup_update.helpers({
     },
     isAnotherDay: function(date) {
         return Partup.client.moment.isAnotherDay(moment(), moment(date));
+    },
+    subscriptionReady: function() {
+        return Template.instance().subscriptionReady.get();
     }
 });

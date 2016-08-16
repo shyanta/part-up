@@ -20,7 +20,7 @@ Meteor.methods({
             // Merge the old profile so empty fields do not get overwritten
             var mergedProfile = _.extend(upper.profile, userFields.profile);
 
-            Meteor.users.update(upper._id, {$set:{profile: mergedProfile}});
+            Meteor.users.update(upper._id, {$set: {profile: mergedProfile}});
             Event.emit('users.updated', upper._id, userFields);
 
             return {
@@ -129,7 +129,7 @@ Meteor.methods({
         if (!User(subject).isActive()) throw new Meteor.Error(400, 'user_is_inactive');
 
         try {
-            Meteor.users.update(subject._id, {$set:{
+            Meteor.users.update(subject._id, {$set: {
                 deactivatedAt: new Date()
             }});
 
@@ -162,7 +162,7 @@ Meteor.methods({
         if (User(subject).isActive()) throw new Meteor.Error(400, 'user_is_active');
 
         try {
-            Meteor.users.update(subject._id, {$unset:{
+            Meteor.users.update(subject._id, {$unset: {
                 deactivatedAt: ''
             }});
 
@@ -222,8 +222,11 @@ Meteor.methods({
     'users.get_locale': function() {
         this.unblock();
 
-        var ipAddress = this.connection.clientAddress;
-        return Partup.server.services.locale.get_locale(ipAddress);
+        // NOTE: disabled getlocale service to try and fix perf issues
+        // var ipAddress = this.connection.clientAddress;
+        // return Partup.server.services.locale.get_locale(ipAddress);
+
+        return 'nl';
     },
 
     /**
@@ -311,5 +314,24 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'network_chat_could_not_be_inserted');
         }
+    },
+
+    /**
+     * Order set of parners by occurrence
+     * @param userId
+     * @param partners
+     */
+    'users.order_partners': function(userId, partners) {
+        check(userId, String);
+        check(partners, [Object]);
+
+        var upper = Meteor.users.findOne(userId);
+        var upperPartups = upper.upperOf || [];
+
+        partners.forEach(function(partner) {
+           partner.partner_count = lodash.intersection(upperPartups, partner.upperOf).length;
+        });
+
+        return lodash.sortByOrder(partners, ['partner_count', 'participation_score'], ['desc', 'desc']);
     }
 });

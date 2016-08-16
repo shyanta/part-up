@@ -36,7 +36,7 @@ Accounts.onLogin(function(data) {
     });
 });
 
-Accounts.afterLogout(function(userId){
+Accounts.afterLogout(function(userId) {
     var user = Meteor.users.findOne(userId);
     if (user) {
         User(user).pruneDevices();
@@ -159,7 +159,11 @@ Accounts.onCreateUser(function(options, user) {
     user.flags = {
         dailyDigestEmailHasBeenSent: false
     };
-    user.profile.settings.locale = Meteor.call('users.get_locale');
+
+    // NOTE: replaced heavy and errorprone get_locale call with fallback
+    if (!user.profile.settings.locale) {
+        user.profile.settings.locale = 'nl';
+    }
 
     return user;
 });

@@ -14,7 +14,7 @@ if (process.env.PARTUP_CRON_ENABLED) {
             });
 
             // Now update the networks that aren't in a network
-            Networks.find({_id: {$nin: updated_networks}}).forEach(function(networkId) {
+            Networks.find({_id: {$nin: updated_networks}, archived_at: {$exists: false}}).forEach(function(networkId) {
                 var network = Networks.findOne(networkId);
                 Partup.server.services.networks.updateStats(network);
             });

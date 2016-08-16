@@ -48,7 +48,8 @@ Template.app_network_partups.onCreated(function() {
             var tribe = _partup.network ? 47 : 0;
 
             return BASE_HEIGHT + MARGIN + name + description + tribe;
-        }
+        },
+        columns: getAmountOfColumns(Partup.client.screen.size.get('width'))
 
     });
 
@@ -115,7 +116,6 @@ Template.app_network_partups.onCreated(function() {
                     HIDE_NETWORKTILE: true
                 };
             });
-
             // Add tiles to the column layout
             template.columnTilesLayout.addTiles(tiles, function callback() {
                 template.states.loadingInfiniteScroll = false;
@@ -145,7 +145,6 @@ Template.app_network_partups.onCreated(function() {
     };
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
 
-    template.initialize('active');
 });
 
 Template.app_network_partups.onRendered(function() {
@@ -160,6 +159,7 @@ Template.app_network_partups.onRendered(function() {
             });
         });
     }
+
     // When the screen size alters
     template.autorun(function() {
         var screenWidth = Partup.client.screen.size.get('width');
@@ -181,6 +181,17 @@ Template.app_network_partups.onRendered(function() {
         var nextPage = template.page.get() + 1;
         template.page.set(nextPage);
     });
+
+    template.initialize('active');
+
+    template.blurSearchInput = function() {
+        template.$('[data-search]').blur();
+    };
+    $(window).on('blur', template.blurSearchInput);
+});
+Template.app_network_partups.onDestroyed(function() {
+    var template = this;
+    $(window).off('blur', template.blurSearchInput);
 });
 
 Template.app_network_partups.events({
@@ -228,8 +239,10 @@ Template.app_network_partups.events({
 Template.app_network_partups.helpers({
     configs: function() {
         var template = Template.instance();
+        var network = Networks.findOne({slug: template.data.networkSlug});
         return {
             networkStartPartupTileSettings: function() {
+                if (network.archived_at) return undefined;
                 return {
                     template: 'NetworkStartPartupTile',
                     data: {

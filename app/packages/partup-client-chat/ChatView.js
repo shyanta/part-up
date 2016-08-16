@@ -1,7 +1,7 @@
 Template.ChatView.onCreated(function() {
     var template = this;
     var chatId = template.data.config.chatId;
-    if (!chatId) throw "No chatId was provided";
+    if (!chatId) throw 'No chatId was provided';
     template.stickyAvatar = new ReactiveVar(undefined);
     template.initialized = new ReactiveVar(false);
     template.rendered = new ReactiveVar(false);
@@ -11,6 +11,13 @@ Template.ChatView.onCreated(function() {
     template.oldestUnreadMessage = new ReactiveVar(undefined);
     template.userIsAtScrollBottom = true;
     template.focussed = true;
+    template.activeContext = new ReactiveVar(false);
+
+    if (template.data.config.reactiveBottomBarHeight) {
+        template.data.config.reactiveBottomBarHeight.equalsFunc = function(a, b) {
+            template.instantlyScrollToBottom();
+        };
+    }
 
     template.init = function() {
         Partup.client.chat.initialize(template);
@@ -21,7 +28,6 @@ Template.ChatView.onCreated(function() {
     var handleNewMessagesViewedIfMessageDividerIsOnScreen = function() {
         Meteor.setTimeout(function() {
             if (!template.dividerLineIsVisible() || !template.focussed) return;
-            template.data.config.onNewMessagesViewed();
             template.hideLine();
         }, 4000);
     };
@@ -98,6 +104,7 @@ Template.ChatView.onCreated(function() {
     template.delayedHideLine = function(delay) {
         if (template.hideTimeout) clearTimeout(template.hideTimeout);
         template.hideTimeout = setTimeout(template.hideLine, delay);
+        template.data.config.onNewMessagesViewed();
     };
 
     template.windowFocusHandler = function(event) {
@@ -233,6 +240,19 @@ Template.ChatView.onCreated(function() {
         });
     };
 
+    template.onMessageClick = function(event, message) {
+        if (!template.data.config.onMessageClick) return;
+        var searching = false;
+        if (template.data.config.reactiveHighlight) {
+            searching = !!template.data.config.reactiveHighlight.curValue;
+        }
+        template.data.config.onMessageClick({
+            message: message,
+            searching: searching,
+            target: $('[data-chat-message-id=' + message._id + ']')
+        });
+    };
+
     var newMessageListeneners = [];
     template.onNewMessageRender = function(callback) {
         newMessageListeneners.push(callback);
@@ -252,29 +272,7 @@ Template.ChatView.onCreated(function() {
             });
         });
 
-        // marks all messages as seen (not read) in current chat
-        template.autorun(function() {
-            // var sendingMessage = template.sendingMessage.get();
-            // if (template.searching || sendingMessage) return;
-            if (template.searching) return;
-
-            if (template.focussed) {
-                ChatMessages
-                    .find({chat_id: chatId, read_by: {$nin: [Meteor.userId()]}, seen_by: {$nin: [Meteor.userId()]}})
-                    .forEach(function(message) {
-                        Meteor.call('chatmessages.read', message._id);
-                    });
-
-                template.data.config.onNewMessagesViewed();
-            } else {
-                ChatMessages
-                    .find({chat_id: chatId, seen_by: {$nin: [Meteor.userId()]}})
-                    .forEach(function(message) {
-                        Meteor.call('chatmessages.seen', message._id);
-                    });
-            }
-        });
-
+        template.data.config.onNewMessagesViewed();
         handleNewMessagesViewedIfMessageDividerIsOnScreen();
     };
 });
@@ -359,6 +357,18 @@ Template.ChatView.helpers({
             },
             placeholderText: function() {
                 return template.data.config.placeholderText;
+            },
+            bottomOffset: function() {
+                return template.data.config.reactiveBottomBarHeight.get();
+            },
+            activeContext: function() {
+                var message = template.activeContext.get();
+                if (!message) return false;
+                if (message.created_at) return message;
+                return {
+                    _id: message._id,
+                    no_date: TAPi18n.__('pages-app-network-chat-highlight-context-no-date')
+                };
             }
         };
     },
@@ -367,6 +377,9 @@ Template.ChatView.helpers({
         return {
             onMessageRender: function() {
                 return template.newMessagesDidRender;
+            },
+            onMessageClick: function() {
+                return template.onMessageClick;
             }
         };
     },
@@ -405,6 +418,9 @@ Template.ChatView.events({
     'click [data-scrollto]': function(event, template) {
         event.preventDefault();
         template.scrollToNewMessages();
+    },
+    'click [data-clear-context]': function(event, template) {
+        Partup.client.chat.clearMessageContext();
     }
 });
 

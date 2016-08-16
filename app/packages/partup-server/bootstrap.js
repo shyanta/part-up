@@ -34,6 +34,11 @@ AWS.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 AWS.config.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 AWS.config.region = process.env.AWS_BUCKET_REGION;
 
+// Check event endpoint config
+if (!process.env.EVENT_ENDPOINT_URL && !process.env.EVENT_ENDPOINT_AUTHORIZATION) {
+    Log.debug('Event store endpoint is not configured.');
+}
+
 // Browser Policy
 Meteor.startup(function() {
 

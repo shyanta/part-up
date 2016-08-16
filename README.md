@@ -66,15 +66,17 @@ The whole app is made up of small styled components. These components are not fu
 - user is member of open and invite tribe and created a partups in these tribes
 - judy is invited for closed tribe
 
-# Unit / Integration tests
+# Application testing
 
-- disable tests
-    - `cd app`
-    - `meteor remove mike:mocha`
-- enable tests
-    - `cd app`
-    - `meteor add mike:mocha`
-    - `meteor add xolvio:cucumber`
+Please take a look as this epic:  https://github.com/part-up/part-up/issues/528 
+There is a specific chapter written about how to test a meteor application like part-up.com.
+
+### Unit and integration testing
+`npm run test:watch`
+
+### End to end test
+`npm run test:e2e`
+
 
 # DevOps
 

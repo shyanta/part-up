@@ -9,14 +9,12 @@ Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
     var regex = new RegExp('(http[s]?:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?');
     var url = content.match(regex);
     if (url && url.length > 0) {
-        var data = Partup.server.services.scrape.website(url[0]);
-
-        // Stop if there is no scraped data
-        if (!data || !data.title) return;
+        var matchedUrl = url[0];
+        var data = Partup.server.services.scrape.website(matchedUrl);
 
         // Scrape again with seo snippets available for partup routes
         if (data.host == 'part-up.com') {
-            data = Partup.server.services.scrape.website(url[0] + '?_escaped_fragment_');
+            data = Partup.server.services.scrape.website(matchedUrl + '?_escaped_fragment_');
             // If still not available (like on a /chat route), scrape the part-up root page
             if (!data || !data.title) return;
 
@@ -24,16 +22,31 @@ Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
                 data = Partup.server.services.scrape.website('https://part-up.com/?_escaped_fragment_');
             }
             // Change the URL to link to back to the original URL
-            data.url = url[0];
+            data.url = matchedUrl;
         }
 
-        var preview_data = {
-            url: data.url,
-            title: data.ogTitle ? data.ogTitle : data.title,
-            description: data.ogDescription ? data.ogDescription : data.description ? data.description : undefined,
-            image: data.image ? data.image : data.images[0],
-            domain: data.host
+        var preview_data = {};
+
+        var isImage = function(url) {
+            return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
         };
+
+        // Stop if there is no scraped data
+        if (!data) return;
+
+        if (data.title) {
+            preview_data.url = data.url;
+            preview_data.title = data.ogTitle ? data.ogTitle : data.title;
+            preview_data.description = data.ogDescription ? data.ogDescription : data.description ? data.description : undefined;
+            preview_data.image = data.image ? data.image : data.images[0];
+            preview_data.domain = data.host;
+
+        } else if (isImage(matchedUrl)) {
+            preview_data.url = data.url;
+            preview_data.type = 'image';
+        } else {
+            return;
+        }
 
         ChatMessages.update(chatMessageId, {$set: {preview_data: preview_data}});
     }

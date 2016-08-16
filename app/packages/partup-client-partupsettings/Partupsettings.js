@@ -232,6 +232,31 @@ Template.Partupsettings.helpers({
     userNetworks: function() {
         return Networks.findForUser(Meteor.user(), Meteor.userId());
     },
+    networkPrivacyTypes: function(network_id) {
+        var network = Networks.findOne(network_id);
+        var user = Meteor.user();
+        var isAdmin = User(user).isAdminOfNetwork(network_id);
+        var isColleague = false;//User(user).isColleagueOfNetwork(network_id);
+        var types = [
+            {
+                label: 'partupsettings-form-network-privacy-public',
+                value: 'network'
+            }
+        ];
+        if (isAdmin || isColleague) {
+            types.push({
+                label: 'partupsettings-form-network-privacy-colleagues',
+                value: 'network_colleagues'
+            });
+        }
+        if (isAdmin) {
+            types.push({
+                label: 'partupsettings-form-network-privacy-admins',
+                value: 'network_admins'
+            });
+        }
+        return types;
+    },
     privacyTypes: function() {
         var types = [
             {
@@ -365,7 +390,16 @@ Template.Partupsettings.helpers({
         return !template.tagsInputStates.get('tags') && !template.tagsInputStates.get('input');
     },
     privacyChecked: function() {
-        return this.value === Template.instance().selectedPrivacyType.get();
+        var selected = Template.instance().selectedPrivacyType.get();
+        if (this.value === 'network') {
+            if (this.value === selected) return true;
+            return selected === 'network_admins';
+        }
+        return this.value === selected;
+    },
+    networkPrivacyChecked: function() {
+        var selected = Template.instance().selectedPrivacyType.get();
+        return this.value === selected;
     },
     currentCurrency: function() {
         return Template.instance().currentCurrency.get();
@@ -433,6 +467,10 @@ Template.Partupsettings.events({
         setTimeout(function() {
             template.$('[name=network_id]').trigger('blur');
         });
+    },
+    'change [data-partup-privacy-network]': function(event, template) {
+        var input = template.find('[data-partup-privacy-network] :checked');
+        template.selectedPrivacyType.set(input.value);
     },
     'click .pu-tooltip': function(event) {
         event.preventDefault();

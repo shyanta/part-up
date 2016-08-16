@@ -67,6 +67,36 @@
             .pu-button
                 margin-bottom: 20px
 
+    .pu-sub-archivedfooter
+        background-color: rgba(#000, .5)
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 0
+        padding: 20px
+        text-align: center
+        color: #fff
+        font-weight: 700
+        text-transform: uppercase
+        z-index: 1
+
+        i
+            margin-right: 5px
+
+    &-archived
+        > footer section > ul .pu-avatar,
+        .pu-accordion li.item .pu-avatar,
+        .pu-count
+            border-color: #494949
+
+        .pu-count
+            background-color: #2f2f2f
+
+        .pu-tag-dark
+            background-color: darken(#494949, 10%)
+            &::after
+                background-color: darken(#494949, 10%)
+
     @media screen and (min-height: 1000px)
         padding-top: 100px
 

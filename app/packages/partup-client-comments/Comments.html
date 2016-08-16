@@ -104,9 +104,9 @@
             >
                 <li class="{{#if state.messageTooLong}}pu-state-error{{/if}}">
                     {{# if isMotivation }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-sub-comment' data='commentfield' data-submit="return" placeholder=placeholders.comment data-validate-keyup=""}}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment data-validate-keyup=""}}
                     {{ else }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data='commentfield' data-submit="return" placeholder=placeholders.comment rows=state.messageRows }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment rows=state.messageRows }}
                     {{/ if }}
                     {{#if state.messageTooLong}}
                         <span class="pu-sub-error">{{_ 'widgetcommentfield-comment-maxreached'}}</span>

@@ -157,6 +157,12 @@ Template.app_partup_sidebar.helpers({
             case Partups.NETWORK_CLOSED:
                 status.push(TAPi18n.__('pages-app-partup-status_text-network-closed', {network: Partup.client.sanitize(networkText), path: networkPath}));
                 break;
+            case Partups.NETWORK_ADMINS:
+                status.push(TAPi18n.__('pages-app-partup-status_text-network-admins', {network: Partup.client.sanitize(networkText), path: networkPath}));
+                break;
+            case Partups.NETWORK_COLLEAGUES:
+                status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues', {network: Partup.client.sanitize(networkText), path: networkPath}));
+                break;
         }
 
         return status.join(' ');
@@ -247,11 +253,6 @@ Template.app_partup_sidebar.events({
         var subject = '';
         var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
         window.location.href = shareUrl;
-
-        Meteor.call('partups.increase_email_share_count', partup._id);
-        analytics.track('partup share mail', {
-            partupId: partup._id,
-        });
     },
 
     'click [data-open-takepart-popup]': function(event, template) {

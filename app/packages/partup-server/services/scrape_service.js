@@ -14,14 +14,14 @@ Partup.server.services.scrape = {
      */
     website: function(url) {
         var scraper = Meteor.wrapAsync(function(url, callback) {
-            var client = new MetaInspector(url, {timeout: 5000});
+            var client = new MetaInspector(url, {timeout: 5000, limit: 200000});
 
             client.on('fetch', function() {
                 return callback(null, client);
             });
 
-            client.on('error', function() {
-                return callback(null);
+            client.on('error', function(error) {
+                return callback(Log.error(error.message));
             });
 
             client.fetch();

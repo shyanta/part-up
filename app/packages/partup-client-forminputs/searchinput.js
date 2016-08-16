@@ -6,6 +6,19 @@ Template.SearchInput.onCreated(function() {
 
 });
 
+Template.SearchInput.onRendered(function() {
+    var template = this;
+    template.blurSearchInput = function() {
+        template.$('[data-search]').blur();
+    };
+    $(window).on('blur', template.blurSearchInput);
+});
+
+Template.SearchInput.onDestroyed(function() {
+    var template = this;
+    $(window).off('blur', template.blurSearchInput);
+});
+
 Template.SearchInput.helpers({
     data: function() {
         var template = Template.instance();
