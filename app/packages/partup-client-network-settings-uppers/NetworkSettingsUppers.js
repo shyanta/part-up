@@ -22,6 +22,18 @@ Template.NetworkSettingsUppers.onCreated(function() {
         }
     });
     template.subscribe('networks.one.uppers', {slug: template.data.networkSlug});
+
+    template.callMethod = function(method, networkSlug, userId, userName, successKey) {
+        Meteor.call(method, networkSlug, userId, function(err, res) {
+            if (err) {
+                Partup.client.notify.error(err.reason);
+                return;
+            }
+            Partup.client.notify.success(TAPi18n.__(successKey, {
+                name: userName
+            }));
+        });
+    };
 });
 
 Template.NetworkSettingsUppers.helpers({
@@ -30,7 +42,7 @@ Template.NetworkSettingsUppers.helpers({
         var network = Networks.findOne({slug: template.data.networkSlug});
         if (!network) return;
         var searchOptions = {
-            _id: {$in: network.uppers}
+            _id: {$in: network.uppers || []}
         };
         var searchQuery = template.searchQuery.get();
         if (searchQuery) searchOptions['profile.name'] = {$regex: searchQuery, $options: 'i'};
@@ -45,6 +57,7 @@ Template.NetworkSettingsUppers.helpers({
                 _.each(uppers, function(upper) {
                     upper.email = User(upper).getEmail() || false;
                     upper.isNetworkAdmin = network.isNetworkAdmin(upper._id);
+                    upper.isNetworkColleague = network.isNetworkColleague(upper._id);
                 });
                 return uppers;
             },
@@ -78,46 +91,26 @@ Template.NetworkSettingsUppers.events({
     'click [data-make-admin]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
-        var name = this.profile.name;
-        Meteor.call('networks.make_admin', template.data.networkSlug, this._id, function(err, res) {
-            if (err) {
-                Partup.client.notify.error(err.reason);
-                return;
-            }
-
-            Partup.client.notify.success(TAPi18n.__('network-settings-uppers-admin-added', {
-                name: name
-            }));
-        });
+        template.callMethod('networks.make_admin', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-admin-added');
+    },
+    'click [data-make-colleague]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
+        template.callMethod('networks.make_colleague', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-added');
     },
     'click [data-remove-admin]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
-        var name = this.profile.name;
-        Meteor.call('networks.remove_admin', template.data.networkSlug, this._id, function(err, res) {
-            if (err) {
-                Partup.client.notify.error(err.reason);
-                return;
-            }
-
-            Partup.client.notify.warning(TAPi18n.__('network-settings-uppers-admin-removed', {
-                name: name
-            }));
-        });
+        template.callMethod('networks.remove_admin', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-admin-removed');
+    },
+    'click [data-remove-colleague]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
+        template.callMethod('networks.remove_colleague', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-removed');
     },
     'click [data-delete]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
-        var name = this.profile.name;
-        Meteor.call('networks.remove_upper', template.networkId, this._id, function(err, res) {
-            if (err && err.reason) {
-                Partup.client.notify.error(err.reason);
-                return;
-            }
-
-            Partup.client.notify.warning(TAPi18n.__('network-settings-uppers-upper-removed', {
-                name: name
-            }));
-        });
+        template.callMethod('networks.remove_upper', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-upper-removed');
     }
 });

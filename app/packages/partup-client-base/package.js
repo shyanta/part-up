@@ -98,8 +98,10 @@ Package.onUse(function (api) {
         'helpers/math.js',
         'helpers/delayed.js',
         'helpers/touch.js',
+        'helpers/lineBreakToBr.js',
         'helpers/RenderBlock/RenderBlock.html',
         'helpers/RenderBlock/RenderBlock.js',
+        'helpers/IE.js',
 
         'bootstrap.js',
         'analytics.js'

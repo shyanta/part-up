@@ -372,6 +372,38 @@ Network.prototype.hasContentBlock = function(contentBlockId) {
 };
 
 /**
+ * Add a user to the colleague list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being added as a colleague
+ */
+Network.prototype.addColleague = function(upperId) {
+    Networks.update(this._id, {$push: {colleagues: upperId}});
+};
+
+/**
+ * Remove user from colleagues list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being removed from colleagues
+ */
+Network.prototype.removeColleague = function(upperId) {
+    Networks.update(this._id, {$pull: {colleagues: upperId}});
+};
+
+/**
+ * Check if given user is a colleague in this network
+ *
+ * @memberOf Networks
+ * @param {String} userId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isNetworkColleague = function(userId) {
+    if (!userId || !this.colleagues) return false;
+    return mout.lang.isString(userId) && (this.colleagues.indexOf(userId) > -1);
+};
+
+/**
  Networks, also known as "Tribes" are entities that group users and partups
  @namespace Networks
  */
@@ -425,7 +457,7 @@ Networks.guardedMetaFind = function(selector, options) {
     options.fields = {_id: 1};
 
     // The fields that should be available on each network
-    var unguardedFields = ['_id', 'name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language', 'tags', 'location', 'stats', 'swarms', 'background_image', 'common_tags', 'most_active_partups', 'most_active_uppers', 'admins'];
+    var unguardedFields = ['_id', 'name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language', 'tags', 'location', 'stats', 'swarms', 'background_image', 'common_tags', 'most_active_partups', 'most_active_uppers', 'admins', 'archived_at'];
 
     unguardedFields.forEach(function(unguardedField) {
         options.fields[unguardedField] = 1;

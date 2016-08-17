@@ -15,6 +15,18 @@ Partup.client.browser = {
         return false;
     },
 
+    msieversion: function() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+
+        if (msie > 0) {// If Internet Explorer, return version number
+            return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)));
+        } else {// If another browser, return 0
+            return 0;
+        }
+
+    },
+
     isSafari: function() {
         var ua = window.navigator.userAgent;
 

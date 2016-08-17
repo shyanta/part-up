@@ -1,0 +1,40 @@
+<template name="EditPartup">
+    {{#contentFor "PopupTitle"}}
+        Edit {{ partup.name }}
+    {{/contentFor}}
+
+    {{#autoForm schema=formSchema id="adminEditPartupTribeForm" class="pu-form pu-form-popup" validation="submitThenBlur" }}
+        <div class="pu-row">
+            <label class="pu-formfield">
+                <span class="pu-label">Tribe</span>
+                <div class="pu-sub-validations">
+                    <span class="pu-sub-input">
+                        <span class="pu-sub-input">
+                            {{# AutocompleteAdvanced
+                            placeholder=networkFieldPlaceholder
+                            label=networkLabel
+                            selection=networkSelectionReactiveVar
+                            onQuery=networkQuery
+                            formValue=networkFormvalue }}
+                                {{> afFieldInput name='network_id' type="hidden" }}
+
+                            {{/ AutocompleteAdvanced }}
+                        </span>
+                    </span>
+                    <span class="pu-sub-error">ERROR</span>
+                </div>
+            </label>
+        </div>
+        <footer class="pu-sub-formfooter pu-row pu-row-scalable">
+            <div class="cell stretch">
+                <button type="submit" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                    <span>Save</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
+            </div>
+            <div class="cell">
+                <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>Cancel</a>
+            </div>
+        </footer>
+    {{/autoForm}}
+</template>

@@ -8,14 +8,14 @@ Template._EditTribe.onCreated(function() {
 Template._EditTribe.helpers({
     formSchema: Partup.schemas.forms.networkEdit,
     fieldsFromNetworkAdmin: function() {
-        var network = Networks.findOne({slug: Template.instance().data.networkSlug.get()});
-        return Partup.transformers.network.toFormNetworkAdmin(network)
+        var network = Networks.findOne({slug: Template.instance().data.networkSlug});
+        return Partup.transformers.network.toFormNetworkAdmin(network);
     },
     submitting: function() {
         return Template.instance().submitting.get();
     },
     networkSlug: function() {
-        return Template.instance().data.networkSlug.get();
+        return Template.instance().data.networkSlug;
     }
 });
 
@@ -28,7 +28,7 @@ AutoForm.hooks({
             var parent = Template.instance().parent();
             parent.submitting.set(true);
 
-            Meteor.call('networks.admin_update', template.data.networkSlug.get(), insertDoc, function(error, result) {
+            Meteor.call('networks.admin_update', template.data.networkSlug, insertDoc, function(error, result) {
                 parent.submitting.set(false);
                 if (error) {
                     return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));

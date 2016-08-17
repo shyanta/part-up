@@ -51,7 +51,11 @@ AutoForm.hooks({
                 }
 
                 self.done();
-                Intent.return('reset-password');
+                Intent.return('reset-password', {
+                    fallback_route: {
+                        name: 'login'
+                    }
+                });
 
             });
 

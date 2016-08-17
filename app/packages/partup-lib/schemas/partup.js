@@ -166,7 +166,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     privacy_type: {
         type: Number,
         min: 1,
-        max: 5
+        max: 7
     },
     shared_count: {
         type: Object
@@ -281,7 +281,9 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
         allowedValues: [
             'public',
             'private',
-            'network'
+            'network',
+            'network_admins',
+            'network_colleagues'
         ]
     }
 }]);
@@ -303,5 +305,12 @@ Partup.schemas.forms.featurePartup = new SimpleSchema({
     },
     job_title: {
         type: String
+    }
+});
+
+Partup.schemas.forms.editPartup = new SimpleSchema({
+    network_id: {
+        type: String,
+        optional: true
     }
 });

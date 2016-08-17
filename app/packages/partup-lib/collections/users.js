@@ -218,8 +218,8 @@ Meteor.users.findSupportersForPartup = function(partup) {
  * @return {Mongo.Cursor}
  */
 Meteor.users.findPartnersForUpper = function(upper, options, sortingOptions) {
-    var options = options || {};
-    var sortingOptions = sortingOptions || {};
+    options = options || {};
+    sortingOptions = sortingOptions || {};
     var upper_partups = upper.upperOf || [];
     var upper_partners = [];
 
@@ -240,11 +240,18 @@ Meteor.users.findPartnersForUpper = function(upper, options, sortingOptions) {
         .pull(upper._id)
         .value();
 
-    // this exception is for the profile/:id/partners
+    // this exception is for the profile/:id/partners route
     if (sortingOptions.sortByPartnerFrequency) {
         partners.sort(function(a, b) {
             if (upperCount[a] < upperCount[b]) return 1;
             if (upperCount[a] > upperCount[b]) return -1;
+
+            // If the count is the same, order by participation score
+            var userAScore = Meteor.users.findSinglePublicProfile(a).fetch()[0].participation_score;
+            var userBScore = Meteor.users.findSinglePublicProfile(b).fetch()[0].participation_score;
+            if (userAScore < userBScore) return 1;
+            if (userAScore > userBScore) return -1;
+
             return 0;
         });
         if (options && options.limit) {
@@ -442,13 +449,23 @@ User = function(user) {
         },
 
         /**
-         * Check if user is admin of some tribe
+         * Check if user is admin of some network
          *
          * @return {Boolean}
          */
         isSomeNetworkAdmin: function() {
             if (!user) return false;
             return !!Networks.findOne({admins: {$in: [user._id]}});
+        },
+
+        /**
+         * Check if user is admin of a specific network
+         *
+         * @return {Boolean}
+         */
+        isAdminOfNetwork: function(networkId) {
+            if (!user) return false;
+            return !!Networks.findOne({_id: networkId, admins: {$in: [user._id]}});
         },
 
         /**
@@ -459,6 +476,16 @@ User = function(user) {
         isSwarmAdmin: function(swarmId) {
             if (!user) return false;
             return !!Swarms.findOne({_id: swarmId, admin_id: user._id});
+        },
+
+        /**
+         * Check if user is colleague of a specific network
+         *
+         * @return {Boolean}
+         */
+        isColleagueOfNetwork: function(networkId) {
+            if (!user) return false;
+            return !!Networks.findOne({_id: networkId, colleagues: {$in: [user._id]}});
         },
 
         /**

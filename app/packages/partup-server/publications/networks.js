@@ -285,3 +285,32 @@ Meteor.publishComposite('networks.admin_all', function() {
         ]
     };
 });
+
+/**
+ * Publish a network
+ *
+ * @param {String} networkSlug
+ */
+Meteor.publishComposite('networks.admin_one', function(networkId) {
+    check(networkId, String);
+
+    if (this.unblock) this.unblock();
+
+    var user = Meteor.users.findOne(this.userId);
+    if (!User(user).isAdmin()) return;
+
+    return {
+        find: function() {
+            return Networks.guardedMetaFind({_id: networkId}, {limit: 1});
+        },
+        children: [
+            {find: Images.findForNetwork},
+            {find: Invites.findForNetwork},
+            {
+                find: function() {
+                    return Networks.find({_id: networkId}, {limit: 1});
+                }
+            }
+        ]
+    };
+});

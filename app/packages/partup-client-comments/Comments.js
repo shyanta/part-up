@@ -321,7 +321,7 @@ Template.Comments.events({
         }
     },
     // textarea height manipulators
-    'input [data=commentfield]': function(event, template) {
+    'input [data-commentfield]': function(event, template) {
         template.submitButtonActive.set(!!event.currentTarget.value);
         if (event.currentTarget.offsetHeight < event.currentTarget.scrollHeight) {
             template.messageRows.set(template.messageRows.get() + 1);

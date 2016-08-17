@@ -30,7 +30,7 @@ Template.NetworkChatSidebar.helpers({
                 var started_typing_date = new Date(typing_user.date).getTime();
                 var now = new Date().getTime();
                 return now - started_typing_date < Partup.client.chat.MAX_TYPING_PAUSE;
-            },
+            }
         };
     }
 });
