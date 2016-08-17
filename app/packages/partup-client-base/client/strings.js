@@ -105,10 +105,10 @@ Partup.client.strings = {
             gfm: true,
             tables: true,
             breaks: true,
-            pedantic: false,
+            pedantic: true,
             sanitize: true,
             smartLists: true,
-            smartypants: false
+            smartypants: true
         });
 
         return Partup.helpers.mentions.decode(marked(this.emojify(rawNewValue)));
