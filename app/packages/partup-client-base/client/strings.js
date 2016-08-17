@@ -1,5 +1,3 @@
-const md = require('markdown-it')( { breaks: true, html: false});
-
 Partup.client.strings = {
 
     /**
@@ -96,10 +94,24 @@ Partup.client.strings = {
         return strings;
     },
     renderToMarkdownWithEmoji(rawNewValue) {
-        return Partup.helpers.mentions.decode(md.render(this.emojify(rawNewValue)));
-    },
-    renderInlineToMarkdownWithEmoji(rawNewValue) {
-        return Partup.helpers.mentions.decode(md.renderInline(this.emojify(rawNewValue)));
+        const marked = require('marked');
+        let renderer = new marked.Renderer();
+        renderer.paragraph = function (text, level) {
+            return text + '<br />';
+        };
+
+        marked.setOptions({
+            renderer: renderer,
+            gfm: true,
+            tables: true,
+            breaks: true,
+            pedantic: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false
+        });
+
+        return Partup.helpers.mentions.decode(marked(this.emojify(rawNewValue)));
     }
 
 };
