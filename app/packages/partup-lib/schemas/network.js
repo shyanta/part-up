@@ -57,6 +57,11 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         optional: true,
         regEx: SimpleSchema.RegEx.Id
     },
+    colleagues: {
+        type: [String],
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id
+    },
     common_tags: {
         type: Object,
         optional: true

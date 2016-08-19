@@ -540,6 +540,16 @@ Router.route('/admin', {
     }
 });
 
+Router.route('/admin/partups', {
+    name: 'admin-partups',
+    where: 'client',
+    yieldRegions: {
+        'modal':                            {to: 'main'},
+        'modal_admin':                      {to: 'modal'},
+        'modal_admin_partups':              {to: 'modal_admin'}
+    }
+});
+
 Router.route('/admin/featured-partups', {
     name: 'admin-featured-partups',
     where: 'client',

@@ -2,7 +2,7 @@
 /* Page helpers */
 /*************************************************************/
 Template.modal_create_intro.helpers({
-    'user': function helperUser() {
+    'user': function helperUser () {
         return Meteor.user();
     },
     'first_name': function helpFirstName() {
@@ -15,8 +15,12 @@ Template.modal_create_intro.helpers({
 /* Page events */
 /*************************************************************/
 Template.modal_create_intro.events({
-    'click [data-closepage]': function eventClickClosePage(event, template) {
+    'click [data-closepage]': function(event, template) {
         event.preventDefault();
-        Intent.return('create');
+        Intent.return('create', {
+            fallback_route: {
+                name: 'home'
+            }
+        });
     }
 });

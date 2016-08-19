@@ -7,8 +7,10 @@ Event.on('networks.accepted', function(userId, networkId, upperId) {
     if (!User(acceptedUpper).isActive()) return; // Ignore deactivated accounts
 
     // Add upper to chat counter
-    var chat = Chats.findOneOrFail(network.chat_id);
-    chat.addUserToCounter(acceptedUpper._id);
+    var chat = Chats.findOne(network.chat_id);
+    if (chat) {
+        chat.addUserToCounter(acceptedUpper._id);
+    }
 
     var notificationType = 'partups_networks_accepted';
 
@@ -107,8 +109,10 @@ Event.on('networks.new_pending_upper', function(network, pendingUpper) {
  */
 Event.on('networks.uppers.inserted', function(newUpper, network) {
     // Add upper to chat counter
-    var chat = Chats.findOneOrFail(network.chat_id);
-    chat.addUserToCounter(newUpper._id);
+    var chat = Chats.findOne(network.chat_id);
+    if (chat) {
+        chat.addUserToCounter(newUpper._id);
+    }
 
     var notificationType = 'partups_networks_new_upper';
 
@@ -167,8 +171,10 @@ Event.on('networks.uppers.inserted', function(newUpper, network) {
  */
 Event.on('networks.uppers.removed', function(upper, network) {
     // Remove upper from chat counter
-    var chat = Chats.findOneOrFail(network.chat_id);
-    chat.removeUserFromCounter(upper._id);
+    var chat = Chats.findOne(network.chat_id);
+    if (chat) {
+        chat.removeUserFromCounter(upper._id);
+    }
 
     var notificationType = 'partups_networks_upper_left';
 

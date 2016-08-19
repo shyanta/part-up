@@ -35,6 +35,11 @@ Partup.server.services.swarms = {
         networks.forEach(function(networkId) {
             // Retrieve the network
             var network = Networks.findOne(networkId);
+            // Don't count archived networks
+            if (network.archived_at) {
+                swarm_stats.network_count--;
+                return;
+            }
 
             // Initialize stats counters
             var network_stats = {

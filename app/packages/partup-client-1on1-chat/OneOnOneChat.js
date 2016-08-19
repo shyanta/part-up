@@ -5,6 +5,7 @@ Template.OneOnOneChat.onCreated(function() {
     template.initialized = new ReactiveVar(false);
     template.activeChat = new ReactiveVar(undefined);
     template.chatPerson = new ReactiveVar(undefined);
+    template.bottomBarHeight = new ReactiveVar(68);
 
     template.subscribe('chats.for_loggedin_user', {private: true}, {}, {
         onReady: function() {
@@ -40,9 +41,7 @@ Template.OneOnOneChat.onCreated(function() {
     };
 
     template.resetUnreadMessagesIndicatorBadge = function() {
-        lodash.defer(function() {
-            if (chatId) Meteor.call('chats.reset_counter', chatId);
-        });
+        if (chatId) Meteor.call('chats.reset_counter', chatId);
     };
 
     var localChatMessagesCollection = [];
@@ -140,7 +139,8 @@ Template.OneOnOneChat.helpers({
             },
             bottomBar: function() {
                 return {
-                    reactiveChatId: template.activeChat
+                    reactiveChatId: template.activeChat,
+                    reactiveBottomBarHeight: template.bottomBarHeight
                 };
             },
             messageView: function() {
@@ -150,6 +150,7 @@ Template.OneOnOneChat.helpers({
                     onNewMessagesViewed: template.resetUnreadMessagesIndicatorBadge,
                     reactiveMessages: template.reactiveMessages,
                     reactiveHighlight:  new ReactiveVar(''),
+                    reactiveBottomBarHeight: template.bottomBarHeight,
                     placeholderText: TAPi18n.__('pages-one-on-one-chat-empty-placeholder', {
                         person: chatPerson.profile.name
                     })

@@ -256,11 +256,24 @@ Meteor.methods({
     /**
     * Returns partup stats to superadmins only
     */
-    'partups.admin_all': function() {
-        var user = Meteor.users.findOne(this.userId);
-        if (!User(user).isAdmin()) {
-            return;
-        }
+    'partups.admin_all': function(selector, options) {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
+        selector = selector || {};
+        options = options || {};
+        return Partups.findForAdminList(selector, options).fetch();
+    },
+
+    /**
+    * Returns partup stats to superadmins only
+    */
+    'partups.admin_stats': function() {
+        var user = Meteor.user();
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
         return Partups.findStatsForAdmin();
     },
 
@@ -298,23 +311,6 @@ Meteor.methods({
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'partup_new_updates_could_not_be_reset');
-        }
-    },
-
-    /**
-     * Increase email share count
-     *
-     * @param {String} partupId
-     */
-    'partups.increase_email_share_count': function(partupId) {
-        check(partupId, String);
-
-        try {
-            var partup = Partups.findOneOrFail(partupId);
-            partup.increaseEmailShareCount();
-        } catch (error) {
-            Log.error(error);
-            throw new Meteor.Error(400, 'partup_email_share_count_could_not_be_updated');
         }
     },
 
@@ -519,5 +515,48 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(500, 'partup_could_not_be_unarchived');
         }
+    },
+
+    /**
+     * Change the network a partup belongs to
+     *
+     * @param {String} partupId
+     * @param {String} networkId
+     */
+    'partups.change_network': function(partupId, networkId) {
+        check(partupId, String);
+        check(networkId, String);
+
+        var upper = Meteor.user();
+        if (!upper || (!User(upper).isAdmin())) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var network = Networks.findOneOrFail(networkId);
+        var partup = Partups.findOneOrFail(partupId);
+
+        // Update the new privacy type, but only if it's neither of network_admins or network_colleagues type
+        if (partup.privacy_type !== Partups.NETWORK_ADMINS && partup.privacy_type !== Partups.NETWORK_COLLEAGUES) {
+            var privacyType = undefined;
+            switch (network.privacy_type) {
+                case Networks.NETWORK_PUBLIC:
+                    privacyType = Partups.NETWORK_PUBLIC;
+                    break;
+                case Networks.NETWORK_INVITE:
+                    privacyType = Partups.NETWORK_INVITE;
+                    break;
+                case Networks.NETWORK_CLOSED:
+                    privacyType = Partups.NETWORK_CLOSED;
+                    break;
+            }
+        }
+
+        var newData = {network_id: network._id};
+        if (privacyType !== undefined) {
+            newData.privacy_type = privacyType;
+        }
+
+        // Set the updated data
+        Partups.update(partup._id, {$set: newData});
     }
 });
