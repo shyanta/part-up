@@ -93,11 +93,13 @@ Partup.client.strings = {
         var strings = string.split(splitString);
         return strings;
     },
-    renderToMarkdownWithEmoji(rawNewValue) {
+    renderToMarkdownWithEmoji(rawNewValue, _extraCssClass) {
+        var extraCssClass = '';
+        if(_extraCssClass) { extraCssClass = _extraCssClass };
         const marked = require('marked');
         let renderer = new marked.Renderer();
-        renderer.paragraph = function (text, level) {
-            return text + '<br />';
+        renderer.paragraph = function (text) {
+            return '<p class="pu-paragraph '+_extraCssClass+'">' + text + '</p>';
         };
 
         marked.setOptions({

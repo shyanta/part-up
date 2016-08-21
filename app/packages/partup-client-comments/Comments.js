@@ -197,7 +197,9 @@ Template.Comments.helpers({
     },
     formSchema: Partup.schemas.forms.updateComment,
     content: function() {
-        return strings.renderToMarkdownWithEmoji(this.content);
+        return Partup.client.strings.emojify(
+            Partup.helpers.mentions.decode(Partup.client.sanitize(this.content))
+        );
     },
     systemMessage: function(content) {
         return TAPi18n.__('comment-field-content-' + content);
