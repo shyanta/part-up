@@ -95,7 +95,7 @@ Partup.client.strings = {
     },
     renderToMarkdownWithEmoji(rawNewValue, _extraCssClass) {
         var extraCssClass = '';
-        if(_extraCssClass) { extraCssClass = _extraCssClass };
+        if(_extraCssClass) { extraCssClass = _extraCssClass }
         const marked = require('marked');
         let renderer = new marked.Renderer();
         renderer.paragraph = function (text) {
@@ -113,7 +113,20 @@ Partup.client.strings = {
             smartypants: true
         });
 
-        return Partup.helpers.mentions.decode(marked(this.emojify(rawNewValue)));
+        var content = Partup.helpers.mentions.decode(marked(this.emojify(rawNewValue)));
+
+        var $content = jQuery(content);
+
+        $content.find('[href]').filter(function(index, element) {
+            var url = jQuery(element).attr('href');
+            var hostname = new URL(url).hostname;
+            return hostname !== new URL(window.location).hostname;
+        }).each(function(index, element) {
+            var pattern = new RegExp('(href="'+jQuery(element).attr('href')+'")');
+            content = content.replace(pattern, '$1 target=\"_blank\"');
+        });
+
+        return content;
     }
 
 };
