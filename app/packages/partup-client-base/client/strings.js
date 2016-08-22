@@ -1,3 +1,6 @@
+import partupAutolinker from '../helpers/autolink';
+import * as Autolinker from '../helpers/Autolinkjs';
+
 Partup.client.strings = {
 
     /**
@@ -94,39 +97,24 @@ Partup.client.strings = {
         return strings;
     },
     renderToMarkdownWithEmoji(rawNewValue, _extraCssClass) {
-        var extraCssClass = '';
-        if(_extraCssClass) { extraCssClass = _extraCssClass }
         const marked = require('marked');
         let renderer = new marked.Renderer();
+        marked.setOptions({renderer: renderer});
+
+        let extraCssClass = '';
+        if(_extraCssClass) { extraCssClass = _extraCssClass }
+
         renderer.paragraph = function (text) {
-            return '<p class="pu-paragraph '+_extraCssClass+'">' + text + '</p>';
+            return '<p class="pu-paragraph '+ extraCssClass +'">' + text + '</p>';
         };
 
-        marked.setOptions({
-            renderer: renderer,
-            gfm: true,
-            tables: true,
-            breaks: true,
-            pedantic: true,
-            sanitize: true,
-            smartLists: true,
-            smartypants: true
-        });
-
-        var content = Partup.helpers.mentions.decode(marked(this.emojify(rawNewValue)));
-
-        var $content = jQuery(content);
-
-        $content.find('[href]').filter(function(index, element) {
-            var url = jQuery(element).attr('href');
-            var hostname = new URL(url).hostname;
-            return hostname !== new URL(window.location).hostname;
-        }).each(function(index, element) {
-            var pattern = new RegExp('(href="'+jQuery(element).attr('href')+'")');
-            content = content.replace(pattern, '$1 target=\"_blank\"');
-        });
-
-        return content;
+        return Partup.helpers.mentions.decode(
+            partupAutolinker(
+                marked(
+                    this.emojify(rawNewValue)
+                )
+            )
+        );
     }
 
 };
