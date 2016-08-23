@@ -116,7 +116,7 @@ Meteor.routeComposite('/partups/recommendations', function(request, parameters) 
 
     return {
       find: function() {
-          return Partups.find({_id: {$in: partupIds}});
+          return Partups.guardedFind(userId, {_id: {$in: partupIds}});
       },
       children: [
           {find: Images.findForPartup},
