@@ -1,3 +1,13 @@
+<a name="1.21.6"></a>
+## [1.21.6](https://github.com/part-up/part-up/compare/v1.21.5...v1.21.6) (2016-08-25)
+
+
+### Bug Fixes
+
+* **chatmessages-handler:** remove scraper feat for performance reasons ([39e9455](https://github.com/part-up/part-up/commit/39e9455))
+
+
+
 <a name="1.21.5"></a>
 ## [1.21.5](https://github.com/part-up/part-up/compare/1.21.4...v1.21.5) (2016-08-16)
 
