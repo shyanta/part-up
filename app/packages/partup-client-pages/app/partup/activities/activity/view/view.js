@@ -1,3 +1,5 @@
+import {strings} from 'meteor/partup-client-base';
+
 /*************************************************************/
 /* Widget initial */
 /*************************************************************/
@@ -16,6 +18,9 @@ Template.ActivityView.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.ActivityView.helpers({
+    renderWithMarkdown: function(text) {
+        return strings.renderToMarkdownWithEmoji(text, 'pu-sub-description');
+    },
     partup: function() {
         if (!this.activity) return;
         return Partups.findOne(this.activity.partup_id);

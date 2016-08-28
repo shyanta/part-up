@@ -17,7 +17,8 @@
                                 {{#each uploadedDocuments}}
                                     <li>
                                         <figure data-type="document" class="pu-doc-icon pu-thumbnail-removable"
-                                                style="background-image:url('/images/add-media-icons/{{ getSvgIcon . }}');"
+                                                style="background-image:url('/images/add-media-icons/{{ getSvgIcon
+                                                        . }}');"
                                                 data-remove-upload="{{ _id }}"></figure>
                                     </li>
                                 {{/each}}
@@ -25,8 +26,12 @@
                                     <li class="pu-media-counter">
                                         <div>
                                             {{_ 'pages-app-partup-updates-newmessage-counter-still' }}
-                                            <strong>{{imagesLeft}} </strong>{{_ 'pages-app-partup-updates-newmessage-counter-images' }} {{_ 'pages-app-partup-updates-newmessage-counter-and' }}
-                                            <strong>{{documentsLeft}} </strong>{{_ 'pages-app-partup-updates-newmessage-counter-documents' }} {{_ 'pages-app-partup-updates-newmessage-media-left' }}
+                                            <strong>{{imagesLeft}} </strong>{{_
+                                                'pages-app-partup-updates-newmessage-counter-images' }} {{_
+                                                'pages-app-partup-updates-newmessage-counter-and' }}
+                                            <strong>{{documentsLeft}} </strong>{{_
+                                                'pages-app-partup-updates-newmessage-counter-documents' }} {{_
+                                                'pages-app-partup-updates-newmessage-media-left' }}
                                         </div>
                                     </li>
                                 {{/if}}
@@ -35,6 +40,15 @@
                         {{/if}}
                     </div>
                 </span>
+                <div class="markdown-support">
+                    <svg aria-hidden="true" class="octicon octicon-markdown" height="16" version="1.1"
+                         viewBox="0 0 16 16" width="16">
+                        <path d="M14.85 3H1.15C.52 3 0 3.52 0 4.15v7.69C0 12.48.52 13 1.15 13h13.69c.64 0 1.15-.52 1.15-1.15v-7.7C16 3.52 15.48 3 14.85 3zM9 11H7V8L5.5 9.92 4 8v3H2V5h2l1.5 2L7 5h2v6zm2.99.5L9.5 8H11V5h2v3h1.5l-2.51 3.5z"></path>
+                    </svg>
+                    <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
+                       {{_ 'styling-with-markdown-is-supported' }}
+                    </a>
+                </div>
                 <span class="pu-sub-error">ERROR</span>
             </div>
         </label>
@@ -57,7 +71,9 @@
                 {{#FileInput inputSettings=imageInput}}
                     <div class="pu-dropdown-add-media  pu-formdropdown" data-toggle-add-media-menu>
                         <div class="pu-sub-container">
-                            <button class="pu-button pu-button-input pu-button-input-keepbuttonheight {{#if uploadingMedia }}pu-state-loading{{/if}} {{#if mediaLimitReached }}pu-state-disabled{{/if}}">
+                            <button class="pu-button pu-button-input pu-button-input-keepbuttonheight {{#if
+                                    uploadingMedia }}pu-state-loading{{/if}} {{#if
+                                    mediaLimitReached }}pu-state-disabled{{/if}}">
                                 {{_ 'pages-app-partup-updates-newmessage-addmedia' }}
                                 {{#if uploadingMedia }}
                                     {{> Spinner color='inverted' type='small'}}
@@ -69,7 +85,8 @@
                                     <a data-browse-photos href="#"
                                        class="{{#if photoLimitReached }}pu-state-disabled{{/if}}">
                                         <i class="picon-upload"></i> {{_ 'dropdowns-updatesactions-computer' }}
-                                        <span class="pu-media-types-description">{{_ 'dropdowns-updatesactions-computer-types' }}</span>
+                                        <span class="pu-media-types-description">{{_
+                                                'dropdowns-updatesactions-computer-types' }}</span>
                                     </a>
                                 </li>
                                 <li class="pu-dropdownitem pu-dropdownitem-small">
