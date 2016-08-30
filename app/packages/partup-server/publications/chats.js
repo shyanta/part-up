@@ -151,7 +151,7 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
             {
                 find: function(user) {
                     if (user.chats && user.chats.indexOf(chatId) === -1) return;
-                    return Chats.findForUser(this.userId, {private: true});
+                    return Chats.findOneForUser(this.userId, chatId, {});
                 },
                 children: [
                     {
