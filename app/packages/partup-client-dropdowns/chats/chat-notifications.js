@@ -2,18 +2,7 @@ Template.DropdownChatNotifications.onCreated(function() {
     var template = this;
     template.private = new ReactiveVar(true);
     template.dropdownOpen = new ReactiveVar(false);
-    template.setDropdownState = function(state, notificationId) {
-        var query = {
-            seen_by: {$nin: [Meteor.userId()]}
-        };
-        if (template.private.get()) {
-            query.chat_id = notificationId;
-        } else {
-
-        }
-        var messages = ChatMessages.find(query).forEach(function(message) {
-            Meteor.call('chatmessages.seen', message._id);
-        });
+    template.setDropdownState = function(state) {
         template.dropdownOpen.set(state);
     };
     template.subscribe('chats.for_loggedin_user', {networks: true, private: true}, {});
@@ -35,10 +24,6 @@ Template.DropdownChatNotifications.onDestroyed(function() {
 Template.DropdownChatNotifications.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
-    'click [data-notification]': function(event, template) {
-        var notificationId = $(event.currentTarget).data('notification');
-        template.setDropdownState(false);
-    },
     'click [data-private]': function(event, template) {
         event.preventDefault();
         template.private.set(true);
@@ -63,14 +48,21 @@ Template.DropdownChatNotifications.helpers({
         var template = Template.instance();
         var userId = Meteor.userId();
         if (!userId) return;
-
         var getPrivate = template.private.get();
-        var chats = Chats.findForUser(userId, {networks: !getPrivate, private: getPrivate}, {fields: {_id: 1, counter: 1, created_at: 1}, sort: {updated_at: -1}})
+
+        var networkChats = Chats.findForUser(userId, {networks: true}, {fields: {_id: 1, counter: 1, created_at: 1}, sort: {updated_at: -1}})
             .map(function(chat) {
-                if (getPrivate) {
-                    chat.upper = Meteor.users
-                        .findOne({_id: {$nin: [userId]}, chats: {$in: [chat._id]}});
-                }
+                chat.message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
+
+                if (chat.message) chat.message.creator = Meteor.users.findOne({_id: chat.message.creator_id});
+
+                return chat;
+            });
+
+        var privateChats = Chats.findForUser(userId, {private: true}, {fields: {_id: 1, counter: 1, created_at: 1}, sort: {updated_at: -1}})
+            .map(function(chat) {
+                chat.creator = Meteor.users
+                    .findOne({_id: {$nin: [userId]}, chats: {$in: [chat._id]}});
 
                 chat.message = ChatMessages.findOne({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
 
@@ -79,11 +71,11 @@ Template.DropdownChatNotifications.helpers({
 
         return {
             chats: function() {
-                return chats;
+                if (getPrivate) return privateChats;
+                return networkChats;
             },
             totalTribeMessages: function() {
-                return Chats
-                    .findForUser(userId, {networks: true})
+                return networkChats
                     .map(function(chat) {
                         return chat.unreadCount();
                     }).reduce(function(prev, curr) {
@@ -91,14 +83,19 @@ Template.DropdownChatNotifications.helpers({
                     }, 0);
             },
             totalPersonalMessages: function() {
-                return Chats
-                    .findForUser(userId, {private: true})
+                return privateChats
                     .map(function(chat) {
                         return chat.unreadCount();
                     }).reduce(function(prev, curr) {
                         return prev + curr;
                     }, 0);
             }
+        };
+    },
+    notificationClickHandler: function() {
+        var template = Template.instance();
+        return function() {
+            template.setDropdownState(false);
         };
     }
 });

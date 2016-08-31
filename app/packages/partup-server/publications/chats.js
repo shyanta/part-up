@@ -176,7 +176,7 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
                     },
                     {
                         find: function(chat) {
-                            if (!chatMessagesOptions.sort) chatMessagesOptions.sort = {created_at: -1};
+                            chatMessagesOptions.sort = {created_at: -1};
                             return ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
                         }
                         // no User publication for ChatMessage is required, since this publication already publishes all the chat users
