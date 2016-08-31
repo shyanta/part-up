@@ -134,9 +134,6 @@ var continueLogin = function() {
         Meteor.call('networks.convert_access_token_to_invite', networkSlug, networkAccessToken);
     }
 
-    // as requested in Add Heap Analytics to Part-up #310
-    heap.identify({handle: user._id});
-
     // Return if intent callback is present
     Intent.return('login', {
         arguments: [user],
