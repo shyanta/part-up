@@ -4,7 +4,7 @@ Template.NetworkChat.onCreated(function() {
     var chatId = undefined;
 
     template.searching = false;
-    template.LIMIT = 50;
+    template.LIMIT = 20;
     template.SEARCH_LIMIT = 50;
     template.initialized = new ReactiveVar(false);
     template.bottomBarHeight = new ReactiveVar(68);
@@ -56,7 +56,7 @@ Template.NetworkChat.onCreated(function() {
         if (template.loadingOlderMessages || template.searching || Partup.client.chat.showingContext) return;
         template.loadingOlderMessages = true;
         if (template.limitReached.get()) return;
-        template.messageLimit.set(template.messageLimit.get() + 10);
+        template.messageLimit.set(template.messageLimit.get() + template.LIMIT);
     };
 
     // search
@@ -87,7 +87,7 @@ Template.NetworkChat.onCreated(function() {
         } else {
             message_id = messageClickEvent.message._id;
         }
-        Meteor.call('chatmessages.get_context', networkSlug, message_id, {limit: 50}, function(err, res) {
+        Meteor.call('chatmessages.get_context', networkSlug, message_id, {limit: template.SEARCH_LIMIT}, function(err, res) {
             if (err) return;
             template.reactiveMessages.set(res);
             var fullMessage = lodash.find(res, {_id: messageClickEvent.message._id || messageClickEvent.message.hash});

@@ -6,12 +6,9 @@ Template.OneOnOneChat.onCreated(function() {
     template.activeChat = new ReactiveVar(undefined);
     template.chatPerson = new ReactiveVar(undefined);
     template.bottomBarHeight = new ReactiveVar(68);
-
-    template.subscribe('chats.for_loggedin_user', {private: true}, {}, {
-        onReady: function() {
-            template.initialized.set(true);
-        }
-    });
+    template.initialized.set(true);
+    // this subscription is redundant because the chat-dropdown is already subscribed to the same publication
+    // template.subscribe('chats.for_loggedin_user', {networks: true, private: true}, {});
 
     template.startNewChat = function(userId) {
         Meteor.call('chats.start_with_users', [userId], function(err, chat_id) {
@@ -24,10 +21,13 @@ Template.OneOnOneChat.onCreated(function() {
     var currentChatId = undefined;
     template.activeChatSubscription = undefined;
     template.activeChatSubscriptionReady = new ReactiveVar(false);
+    var chatMessageOptions = {
+        limit: 20
+    };
     template.initializeChat = function(chatId, person) {
         template.activeChat.set(chatId);
         template.activeChatSubscriptionReady.set(false);
-        template.activeChatSubscription = template.subscribe('chats.by_id', chatId, {limit: 50}, {
+        template.activeChatSubscription = template.subscribe('chats.by_id', chatId, chatMessageOptions, {
             onReady: function() {
                 if (person) {
                     template.chatPerson.set(person);
@@ -56,7 +56,7 @@ Template.OneOnOneChat.onCreated(function() {
             if (chat_id !== currentChatId) return computation.stop();
             // var limit = template.messageLimit.get();
             var messages = ChatMessages
-                .find({chat_id: chat_id}, {limit: 50, sort: {created_at: 1}})
+                .find({chat_id: chat_id}, {limit: 20, sort: {created_at: 1}})
                 .fetch();
 
             // store messages locally and filter out duplicates
@@ -79,7 +79,10 @@ Template.OneOnOneChat.onCreated(function() {
     template.autorun(function() {
         var controller = Iron.controller();
         var hash = controller.getParams().hash;
-        template.initializeChat(hash);
+        if (chatId !== hash) {
+            template.initializeChat(hash);
+            chatId = hash;
+        }
     });
 
     // quick switcher
