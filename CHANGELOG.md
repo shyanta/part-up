@@ -1,5 +1,15 @@
+<a name="1.21.8"></a>
+## [1.21.8](https://github.com/part-up/part-up/compare/1.21.7...v1.21.8) (2016-08-31)
+
+
+### Bug Fixes
+
+* **login.js:** remove heap global login implementation ([c09b0b6](https://github.com/part-up/part-up/commit/c09b0b6)), closes [#651](https://github.com/part-up/part-up/issues/651)
+
+
+
 <a name="1.21.7"></a>
-## [1.21.7](https://github.com/part-up/part-up/compare/v1.21.6...v1.21.7) (2016-08-28)
+## [1.21.7](https://github.com/part-up/part-up/compare/v1.21.6...1.21.7) (2016-08-28)
 
 
 ### Features
