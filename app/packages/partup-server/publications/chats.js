@@ -152,7 +152,8 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
         chat_id: 1,
         content: 1,
         created_at: 1,
-        creator_id: 1
+        creator_id: 1,
+        preview_data: 1
     };
 
     return {

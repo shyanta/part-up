@@ -113,18 +113,18 @@ Template.NetworkChat.onCreated(function() {
 
             var limit = template.messageLimit.get();
             var messages = ChatMessages
-                .find({chat_id: chat_id}, {limit: limit, sort: {created_at: 1}})
+                .find({chat_id: chat_id}, {sort: {created_at: 1}})
                 .fetch();
 
             // store messages locally and filter out duplicates
-            localChatMessagesCollection = localChatMessagesCollection.concat(messages);
-            localChatMessagesCollection = mout.array.unique(localChatMessagesCollection, function(message1, message2) {
-                return message1._id === message2._id;
-            });
+            // localChatMessagesCollection = localChatMessagesCollection.concat(messages);
+            // localChatMessagesCollection = mout.array.unique(localChatMessagesCollection, function(message1, message2) {
+            //     return message1._id === message2._id;
+            // });
 
             // wrapped in nonreactive to prevent unnecessary autorun
             Tracker.nonreactive(function() {
-                template.reactiveMessages.set(localChatMessagesCollection);
+                template.reactiveMessages.set(messages);
             });
         });
 

@@ -26,51 +26,39 @@ Template.ChatView.onCreated(function() {
     };
 
     var handleNewMessagesViewedIfMessageDividerIsOnScreen = function() {
-        Meteor.setTimeout(function() {
-            if (!template.dividerLineIsVisible() || !template.focussed) return;
-            template.hideLine();
-        }, 4000);
+        // Meteor.setTimeout(function() {
+        //     if (!template.dividerLineIsVisible() || !template.focussed) return;
+        //     template.hideLine();
+        // }, 4000);
     };
 
-    template.scrollBottomCheck = function() {
-        var element = template.scrollContainer[0];
-        var pos = element.scrollTop;
-        var height = element.scrollHeight - element.clientHeight;
-        if (pos === height) {
-            template.userIsAtScrollBottom = true;
-        } else {
-            template.userIsAtScrollBottom = false;
-        }
-    };
+    // template.scrollBottomCheck = function() {
+    //     var element = template.scrollContainer[0];
+    //     var pos = element.scrollTop;
+    //     var height = element.scrollHeight - element.clientHeight;
+    //     if (pos === height) {
+    //         template.userIsAtScrollBottom = true;
+    //     } else {
+    //         template.userIsAtScrollBottom = false;
+    //     }
+    // };
 
-    template.ajustScrollOffsetByMessageCount = function(count) {
-        var offset = $('[data-chat-message-id]')
-            .slice(0, count)
-            .map(function() {
-                return $(this).outerHeight(true);
-            })
-            .toArray()
-            .reduce(function(prevHeight, curHeight) {
-                return prevHeight + curHeight;
-            });
-        template.scrollContainer[0].scrollTop = offset;
-    };
-
-    template.ajustScrollOffset = function() {
-        if (!template.scrollContainer) return;
-        var element = template.scrollContainer[0];
-        if (!element) return;
-        var pos = element.scrollTop;
-        var height = element.scrollHeight - element.clientHeight;
-        _.defer(function() {
-            if (pos === height || template.userIsAtScrollBottom) template.instantlyScrollToBottom();
-            template.stickyNewMessagesDividerHandler();
-        });
-    };
+    // template.ajustScrollOffsetByMessageCount = function(count) {
+    //     var offset = $('[data-chat-message-id]')
+    //         .slice(0, count)
+    //         .map(function() {
+    //             return $(this).outerHeight(true);
+    //         })
+    //         .toArray()
+    //         .reduce(function(prevHeight, curHeight) {
+    //             return prevHeight + curHeight;
+    //         });
+    //     template.scrollContainer[0].scrollTop = offset;
+    // };
 
     template.instantlyScrollToBottom = function() {
         var element = template.scrollContainer[0];
-        element.scrollTop = element.scrollHeight;
+        element.scrollTop = 0;
     };
 
     template.dividerLineIsVisible = function() {
@@ -138,7 +126,7 @@ Template.ChatView.onCreated(function() {
         if (template.focussed && unreadMessagesCount <= 0) return;
 
         // if user is focussed stop here
-        if (template.focussed && template.initialized.get()) return;
+        if (template.focussed && template.initialized.curValue) return;
 
         // returns the oldest unread message with n offset
         // offset = 0 is oldest, offset = 1 is second oldest
@@ -182,48 +170,48 @@ Template.ChatView.onCreated(function() {
         }
     };
 
-    template.stickyUserAvatarHandler = function() {
-        var imageId = undefined;
-        var userId = undefined;
+    // template.stickyUserAvatarHandler = function() {
+    //     var imageId = undefined;
+    //     var userId = undefined;
 
-        $('[data-message-user-image-id]').each(function() {
-            var elm = $(this);
-            var offsetTop = elm.position().top;
-            var bottomOffsetTop = offsetTop + elm.outerHeight(true);
+    //     $('[data-message-user-image-id]').each(function() {
+    //         var elm = $(this);
+    //         var offsetTop = elm.position().top;
+    //         var bottomOffsetTop = offsetTop + elm.outerHeight(true);
 
-            if (offsetTop < 5 && bottomOffsetTop > 48) {
-                imageId = elm.attr('data-message-user-image-id');
-                userId = elm.attr('data-message-user-id');
-                var avatar = Images.findOne({_id: imageId});
-                var image = Partup.helpers.url.getImageUrl(avatar, '80x80');
-                $('[data-avatar]').css({
-                    'background-image': 'url(' + image + ')',
-                    'background-color': '#eee'
-                });
-                elm.addClass('pu-chatbox-noavatar');
+    //         if (offsetTop < 5 && bottomOffsetTop > 48) {
+    //             imageId = elm.attr('data-message-user-image-id');
+    //             userId = elm.attr('data-message-user-id');
+    //             var avatar = Images.findOne({_id: imageId});
+    //             var image = Partup.helpers.url.getImageUrl(avatar, '80x80');
+    //             $('[data-avatar]').css({
+    //                 'background-image': 'url(' + image + ')',
+    //                 'background-color': '#eee'
+    //             });
+    //             elm.addClass('pu-chatbox-noavatar');
 
-            } else {
-                elm.removeClass('pu-chatbox-noavatar');
-            }
-            if (offsetTop < 0) {
-                elm.addClass('pu-chatbox-avatar-bottom').removeClass('pu-chatbox-avatar-top');
-            } else {
-                elm.addClass('pu-chatbox-avatar-top').removeClass('pu-chatbox-avatar-bottom');
-            }
-        });
-        if (userId === Meteor.userId()) {
-            $('[data-sticky-avatar]').addClass('pu-sticky-user-right');
-        } else {
-            $('[data-sticky-avatar]').removeClass('pu-sticky-user-right');
-        }
-        if (!imageId) {
-            $('[data-avatar]').css({
-                'background-image': 'none',
-                'background-color': 'transparent'
-            });
-        }
-        template.stickyAvatar.set(userId);
-    };
+    //         } else {
+    //             elm.removeClass('pu-chatbox-noavatar');
+    //         }
+    //         if (offsetTop < 0) {
+    //             elm.addClass('pu-chatbox-avatar-bottom').removeClass('pu-chatbox-avatar-top');
+    //         } else {
+    //             elm.addClass('pu-chatbox-avatar-top').removeClass('pu-chatbox-avatar-bottom');
+    //         }
+    //     });
+    //     if (userId === Meteor.userId()) {
+    //         $('[data-sticky-avatar]').addClass('pu-sticky-user-right');
+    //     } else {
+    //         $('[data-sticky-avatar]').removeClass('pu-sticky-user-right');
+    //     }
+    //     if (!imageId) {
+    //         $('[data-avatar]').css({
+    //             'background-image': 'none',
+    //             'background-color': 'transparent'
+    //         });
+    //     }
+    //     template.stickyAvatar.set(userId);
+    // };
 
     template.scrollToNewMessages = function() {
         template.overscroll.set(false);
@@ -231,7 +219,7 @@ Template.ChatView.onCreated(function() {
 
         var dividerElement = $('[data-new-messages-divider]');
         var scrollElement = template.scrollContainer;
-        var scrollDest = dividerElement[0].offsetTop - (dividerElement.outerHeight(true));
+        var scrollDest = dividerElement[0].offsetTop - (scrollElement.height());
 
         scrollElement.animate({
             scrollTop: scrollDest
@@ -275,17 +263,16 @@ Template.ChatView.onCreated(function() {
         template.data.config.onNewMessagesViewed();
         handleNewMessagesViewedIfMessageDividerIsOnScreen();
     };
+
+    template.scrollHandler = function() {
+        template.stickyNewMessagesDividerHandler(true);
+    };
 });
 
 Template.ChatView.onRendered(function() {
     var template = this;
-    template.scrollContainer = $('[data-reversed-scroller]');
-    Meteor.setTimeout(function() {
-        template.scrollContainer[0].scrollTop = template.scrollContainer[0].scrollHeight;
-        Meteor.setTimeout(function() {
-            template.rendered.set(true);
-        }, 10);
-    }, 10);
+    template.scrollContainer = $('[data-pu-reversed-scroller]');
+    template.rendered.set(true);
     template.init();
 });
 
@@ -313,7 +300,7 @@ Template.ChatView.helpers({
                 var messages = template.data.config.reactiveMessages.get();
                 var oldestUnreadMessage = template.oldestUnreadMessage.get();
                 var dateBorder = oldestUnreadMessage ? oldestUnreadMessage.created_at : new Date();
-                template.ajustScrollOffset();
+                // template.ajustScrollOffset();
                 return {
                     old: function() {
                         return _.filter(messages, function(message) {
@@ -380,6 +367,9 @@ Template.ChatView.helpers({
             },
             onMessageClick: function() {
                 return template.onMessageClick;
+            },
+            onScroll: function() {
+                return template.scrollHandler;
             }
         };
     },
@@ -401,17 +391,18 @@ Template.ChatView.helpers({
 });
 
 Template.ChatView.events({
-    'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
-    'DOMMouseScroll [data-reversed-scroller], mousewheel [data-reversed-scroller]': function(event, template) {
-        template.stickyNewMessagesDividerHandler(true);
-    },
-    'scroll [data-reversed-scroller]': function(event, template) {
-        template.scrollBottomCheck();
-        if (event.currentTarget.scrollTop < 50) {
-            template.data.config.onScrollTop();
-        }
-        if (!Partup.client.browser.isSafari()) template.stickyUserAvatarHandler();
-    },
+    // 'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
+    // 'DOMMouseScroll [data-pu-reversed-scroller], mousewheel [data-reversed-scroller]': function(event, template) {
+
+    //     // console.log(template.dividerLineIsVisible());
+    // },
+    // 'scroll [data-reversed-scroller]': function(event, template) {
+    //     template.scrollBottomCheck();
+    //     if (event.currentTarget.scrollTop < 50) {
+    //         template.data.config.onScrollTop();
+    //     }
+    //     if (!Partup.client.browser.isSafari()) template.stickyUserAvatarHandler();
+    // },
     'click [data-new-messages-divider]': function(event, template) {
         template.hideLine();
     },

@@ -23,7 +23,7 @@ var continueOnCreated = function(chatId) {
         if (resetTypingStateTimeout) clearTimeout(resetTypingStateTimeout);
         resetTypingStateTimeout = setTimeout(template.resetTypingState, Partup.client.chat.MAX_TYPING_PAUSE);
     };
-    template.throttledEnableTypingState = _.throttle(enableTypingState, (Partup.client.chat.MAX_TYPING_PAUSE / 2), {leading: true, trailing: false});
+    template.throttledEnableTypingState = _.throttle(enableTypingState, (Partup.client.chat.MAX_TYPING_PAUSE - 100), {leading: true, trailing: false});
 
     template.sendMessage = function(message) {
         if (!message) return false;

@@ -7,6 +7,7 @@ Template.OneOnOneChat.onCreated(function() {
     template.chatPerson = new ReactiveVar(undefined);
     template.bottomBarHeight = new ReactiveVar(68);
     template.initialized.set(true);
+    template.LIMIT = 20;
     // this subscription is redundant because the chat-dropdown is already subscribed to the same publication
     // template.subscribe('chats.for_loggedin_user', {networks: true, private: true}, {});
 
@@ -22,7 +23,7 @@ Template.OneOnOneChat.onCreated(function() {
     template.activeChatSubscription = undefined;
     template.activeChatSubscriptionReady = new ReactiveVar(false);
     var chatMessageOptions = {
-        limit: 20
+        limit: template.LIMIT
     };
     template.initializeChat = function(chatId, person) {
         template.activeChat.set(chatId);
@@ -56,18 +57,18 @@ Template.OneOnOneChat.onCreated(function() {
             if (chat_id !== currentChatId) return computation.stop();
             // var limit = template.messageLimit.get();
             var messages = ChatMessages
-                .find({chat_id: chat_id}, {limit: 20, sort: {created_at: 1}})
+                .find({chat_id: chat_id}, {sort: {created_at: 1}})
                 .fetch();
 
             // store messages locally and filter out duplicates
-            localChatMessagesCollection = localChatMessagesCollection.concat(messages);
-            localChatMessagesCollection = mout.array.unique(localChatMessagesCollection, function(message1, message2) {
-                return message1._id === message2._id;
-            });
+            // localChatMessagesCollection = localChatMessagesCollection.concat(messages);
+            // localChatMessagesCollection = mout.array.unique(localChatMessagesCollection, function(message1, message2) {
+            //     return message1._id === message2._id;
+            // });
 
             // wrapped in nonreactive to prevent unnecessary autorun
             Tracker.nonreactive(function() {
-                template.reactiveMessages.set(localChatMessagesCollection);
+                template.reactiveMessages.set(messages);
             });
         });
     };
