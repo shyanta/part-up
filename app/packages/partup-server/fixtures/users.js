@@ -131,7 +131,10 @@ Meteor.startup(function() {
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
-                }
+                },
+                'chats': [
+                    '9yscDD9bTkT2eDF4c'
+                ]
             });
 
             Meteor.users.insert({
@@ -242,7 +245,10 @@ Meteor.startup(function() {
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
-                }
+                },
+                'chats': [
+                    '9yscDD9bTkT2eDF4c'
+                ]
             });
 
             Meteor.users.insert({
