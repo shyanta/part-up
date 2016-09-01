@@ -1,7 +1,7 @@
 Part-up
 =================
 
-[![Join the chat at https://gitter.im/part-up/part-up](https://badges.gitter.im/part-up/part-up.svg)](https://gitter.im/part-up/part-up?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[Join the conversation of the Platform Development tribe on Part-up] (https://part-up.com/tribes/development/chat)
 
 # Installation
 
