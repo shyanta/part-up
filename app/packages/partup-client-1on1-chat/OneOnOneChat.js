@@ -2,11 +2,10 @@ Template.OneOnOneChat.onCreated(function() {
     var template = this;
     var chatId =  template.data.chatId || undefined;
     var startChatUserId = template.data.startChatUserId || undefined;
-    template.initialized = new ReactiveVar(false);
     template.activeChat = new ReactiveVar(undefined);
     template.chatPerson = new ReactiveVar(undefined);
     template.bottomBarHeight = new ReactiveVar(68);
-    template.initialized.set(true);
+    template.loadingOlderMessages = false;
     template.LIMIT = 20;
     // this subscription is redundant because the chat-dropdown is already subscribed to the same publication
     // template.subscribe('chats.for_loggedin_user', {networks: true, private: true}, {});
@@ -41,8 +40,32 @@ Template.OneOnOneChat.onCreated(function() {
         });
     };
 
+    template.limitReached = new ReactiveVar(false);
+    template.messageLimit = new ReactiveVar(template.LIMIT, function(oldLimit, newLimit) {
+        if (oldLimit === newLimit) return;
+        chatMessageOptions.limit = newLimit;
+        chatSubscription = template.subscribe('chats.by_id', chatId, chatMessageOptions, {
+            onReady: function() {
+                var messagesCount = ChatMessages.find({chat_id: chatId}, {limit: newLimit}).count();
+                var totalNewMessages = messagesCount - oldLimit;
+                if (totalNewMessages < 1) {
+                    template.limitReached.set(true);
+                } else {
+                    template.loadingOlderMessages = false;
+                }
+            }
+        });
+    });
+
     template.resetUnreadMessagesIndicatorBadge = function() {
         if (chatId) Meteor.call('chats.reset_counter', chatId);
+    };
+
+    template.loadOlderMessages = function() {
+        if (template.loadingOlderMessages) return;
+        template.loadingOlderMessages = true;
+        if (template.limitReached.get()) return;
+        template.messageLimit.set(template.messageLimit.get() + template.LIMIT);
     };
 
     var localChatMessagesCollection = [];
@@ -55,16 +78,11 @@ Template.OneOnOneChat.onCreated(function() {
         // gets chatmessages and stores them in localChatMessagesCollection
         template.autorun(function(computation) {
             if (chat_id !== currentChatId) return computation.stop();
-            // var limit = template.messageLimit.get();
+
+            var limit = template.messageLimit.get();
             var messages = ChatMessages
                 .find({chat_id: chat_id}, {sort: {created_at: 1}})
                 .fetch();
-
-            // store messages locally and filter out duplicates
-            // localChatMessagesCollection = localChatMessagesCollection.concat(messages);
-            // localChatMessagesCollection = mout.array.unique(localChatMessagesCollection, function(message1, message2) {
-            //     return message1._id === message2._id;
-            // });
 
             // wrapped in nonreactive to prevent unnecessary autorun
             Tracker.nonreactive(function() {
@@ -72,6 +90,7 @@ Template.OneOnOneChat.onCreated(function() {
             });
         });
     };
+
     if (chatId) {
         template.initializeChat(chatId);
     } else if (startChatUserId) {
@@ -121,9 +140,6 @@ Template.OneOnOneChat.helpers({
     state: function() {
         var template = Template.instance();
         return {
-            initialized: function() {
-                return template.initialized.get();
-            },
             selectedChat: function() {
                 return template.activeChat.get();
             }
@@ -150,7 +166,10 @@ Template.OneOnOneChat.helpers({
             messageView: function() {
                 return {
                     chatId: chatId,
-                    onScrollTop: lodash.noop,
+                    onScrollTop: {
+                        handler: template.loadOlderMessages,
+                        offset: 400
+                    },
                     onNewMessagesViewed: template.resetUnreadMessagesIndicatorBadge,
                     reactiveMessages: template.reactiveMessages,
                     reactiveHighlight:  new ReactiveVar(''),

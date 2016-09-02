@@ -32,6 +32,14 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
         }
     };
 
+    var chatOptions = options;
+    chatOptions.fields = {
+        _id: 1,
+        updated_at: 1,
+        created_at: 1,
+        counter: {$elemMatch: {user_id: this.userId}}
+    };
+
     return {
         find: function() {
             return Meteor.users.findSinglePrivateProfile(this.userId);
@@ -59,8 +67,6 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                 },{
                     // Network chats
                     find: function(network) {
-                        var chatOptions = options;
-                        chatOptions.fields = {_id: 1, updated_at: 1, created_at: 1};
                         return Chats.find(network.chat_id, chatOptions);
                     },
                     children: [{
@@ -89,8 +95,6 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
             {
                 find: function(user) {
                     if (!parameters.private) return;
-                    var chatOptions = options;
-                    chatOptions.fields = {_id: 1, updated_at: 1, created_at: 1};
                     return Chats.findForUser(user._id, {private: true}, chatOptions);
                 },
                 children: [{

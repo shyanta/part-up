@@ -9,8 +9,8 @@
         <div class="pu-dropdown pu-dropdown-notifications {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
             <header>
                 <div class="pu-toggle">
-                    <button class="{{#if private}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}} {{#if chatData.totalPersonalMessages }}({{ chatData.totalPersonalMessages }}){{/if}}</button>
-                    <button class="{{#unless private}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}} {{#if chatData.totalTribeMessages }}({{ chatData.totalTribeMessages }}){{/if}}</button>
+                    <button class="{{#if private}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}{{#with chatData.totalPersonalMessages }} ({{ . }}){{/with}}</button>
+                    <button class="{{#unless private}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}}{{#with chatData.totalTribeMessages }} ({{ . }}){{/with}}</button>
                 </div>
             </header>
             <ul data-preventscroll>

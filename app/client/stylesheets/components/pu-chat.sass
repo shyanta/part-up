@@ -206,10 +206,12 @@
         border-bottom-left-radius: 4px
 
 .pu-reversed-scroller
+    position: relative
     overflow: scroll
     transform: rotate(180deg) scale(-1, 1)
 
     > ul
         list-style: none
+        padding: 0
         > li
             transform: rotate(180deg) scale(-1, 1)

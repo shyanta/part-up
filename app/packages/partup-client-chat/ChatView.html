@@ -1,6 +1,6 @@
 <template name="ChatView">
     {{#let chatData=data chatState=state chatTranslations=translations}}
-    <article class="pu-chat-wrapper pu-state-active" data-reversed-scroller-wrapper style="bottom: {{chatState.bottomOffset}}px;">
+    <article class="pu-chat-wrapper pu-state-active {{#if chatState.activeContext }}pu-state-context{{/if}}{{#if chatState.reactiveHighlight.get}} pu-state-context{{/if}}" data-reversed-scroller-wrapper style="bottom: {{chatState.bottomOffset}}px;">
         <!-- Top new messages button -->
         {{#if chatData.messages.new.length}}{{#if chatState.overscroll}}
             <p class="pu-textline pu-textline-colour pu-textline-hover">
@@ -33,9 +33,12 @@
             {{#each chatData.messagesGroupedByDay chatData.messages.new}}
                 {{#each chatData.messagesGroupedByDelay messages}}
                     {{#each chatData.messagesGroupedByUser messages}}
-                        {{#ReversedItem}}{{> ChatMessage data=. highlight=chatState.reactiveHighlight onNewMessageRender=handlers.onMessageRender onMessageClick=handlers.onMessageClick }}{{/ReversedItem}}
+                        {{#ReversedItem}}
+                            {{> ChatMessage data=. highlight=chatState.reactiveHighlight onNewMessageRender=handlers.onMessageRender onMessageClick=handlers.onMessageClick }}
+                        {{/ReversedItem}}
                     {{/each}}
                 {{/each}}
+
                 {{#ReversedItem}}
                     <p class="pu-textline pu-textline-light">
                         <span>{{ partupDayOfWeek day }} {{ partupDateDayMonthYear day }}</span>
