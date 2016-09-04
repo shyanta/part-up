@@ -66,10 +66,10 @@ Meteor.routeComposite('/partups/discover', function(request, parameters) {
 
 function getRecommendedIds(encryptionKey) {
 
-  var apiRoot = process.env.API_ROOT_URL;
+  var apiRoot = process.env.ROOT_URL;
 
   if (!apiRoot) {
-    console.log('ERROR: API_ROOT_URL not set.');
+    console.log('ERROR:ROOT_URL not set.');
     return [];
   }
 
