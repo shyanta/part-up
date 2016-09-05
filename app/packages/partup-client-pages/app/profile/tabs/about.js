@@ -9,7 +9,6 @@ Template.app_profile_about.onCreated(function() {
 
         // This function will be called for each tile
         calculateApproximateTileHeight: function(tileData, columnWidth) {
-
             // The goal of this formula is to approach
             // the expected height of a tile as best
             // as possible, synchronously,
@@ -56,9 +55,7 @@ Template.app_profile_about.onRendered(function() {
                     displayTiles = displayTiles.concat(tiles);
                 }
 
-                template.columnTilesLayout.clear(function() {
-                    template.columnTilesLayout.addTiles(displayTiles);
-                });
+                template.columnTilesLayout.addTiles(displayTiles);
             }
         });
     };
