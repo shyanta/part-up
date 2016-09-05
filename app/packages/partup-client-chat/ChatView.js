@@ -26,10 +26,10 @@ Template.ChatView.onCreated(function() {
     };
 
     var handleNewMessagesViewedIfMessageDividerIsOnScreen = function() {
-        // Meteor.setTimeout(function() {
-        //     if (!template.dividerLineIsVisible() || !template.focussed) return;
-        //     template.hideLine();
-        // }, 4000);
+        Meteor.setTimeout(function() {
+            if (!template.dividerLineIsVisible() || !template.focussed) return;
+            template.hideLine();
+        }, 4000);
     };
 
     // template.scrollBottomCheck = function() {
@@ -73,6 +73,7 @@ Template.ChatView.onCreated(function() {
     template.hideTimeout;
     template.hideLine = function() {
         if (template.hideTimeout) clearTimeout(template.hideTimeout);
+        template.data.config.onNewMessagesViewed();
 
         var overscroll = template.overscroll.get();
         var underscroll = template.underscroll.get();
