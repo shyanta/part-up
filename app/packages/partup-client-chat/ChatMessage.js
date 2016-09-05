@@ -30,7 +30,7 @@ Template.ChatMessage.helpers({
             .sanitize()
             .autoLink()
             .lineBreakToBr()
-            .parseMentions()
+            .parseMentions({link: true})
             .emojify();
 
         if (highlightText) message.highlight(highlightText);

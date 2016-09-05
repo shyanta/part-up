@@ -30,8 +30,12 @@ Partup.client.message.prototype.lineBreakToBr = function() {
     return this;
 };
 
-Partup.client.message.prototype.parseMentions = function() {
-    this.content = Partup.helpers.mentions.decode(this.content);
+Partup.client.message.prototype.parseMentions = function(options) {
+    var options = options || {};
+    var link = options.link || false;
+    var userId = Meteor.userId();
+    if (link) this.content = Partup.helpers.mentions.decodeForChatMessage(this.content, userId);
+    if (!link) this.content = Partup.helpers.mentions.decodeForNotification(this.content, userId);
     return this;
 };
 

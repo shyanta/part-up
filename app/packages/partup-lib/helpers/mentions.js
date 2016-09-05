@@ -69,6 +69,47 @@ Partup.helpers.mentions.decode = function(message) {
  * Replace mentions in a message with hyperlinks
  *
  * @namespace Helpers
+ * @name Partup.helpers.mentions.decodeForChatMessage
+ * @memberOf Partup.helpers.mentions
+ *
+ * @param {String} message
+ *
+ * @return {String}
+ */
+Partup.helpers.mentions.decodeForChatMessage = function(message, userId) {
+    return message.replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
+        var classNames = 'pu-mention-user';
+        // if the mention is the current user, add a class
+        if (userId === id) classNames += ' pu-mention-user-current';
+        // decode invividual mentions
+        return '<a href="' + Router.path('profile', {_id: id}) + '" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="' + id + '" class="' + classNames + '">' + name + '</a>';
+    });
+};
+
+/**
+ * Replace mentions in a message with hyperlinks
+ *
+ * @namespace Helpers
+ * @name Partup.helpers.mentions.decodeForChatMessage
+ * @memberOf Partup.helpers.mentions
+ *
+ * @param {String} message
+ *
+ * @return {String}
+ */
+Partup.helpers.mentions.decodeForNotification = function(message, userId) {
+    return message.replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, function(m, id, name) {
+        // if the mention is the current user, add a class
+        if (userId === id) return '<strong class="highlight">' + name + '</strong>';
+        // decode invividual mentions
+        return name;
+    });
+};
+
+/**
+ * Replace mentions in a message with hyperlinks
+ *
+ * @namespace Helpers
  * @name Partup.helpers.mentions.decodeForInput
  * @memberOf Partup.helpers.mentions
  *

@@ -12,9 +12,9 @@
                 <article>
                     <p>{{ chatNotificationData.creator.profile.name }} {{#with chatNotificationData.unreadCount}}({{.}}){{/with}}</p>
                     {{#if chatNotificationData.message }}
-                        <span><span>{{ chatNotificationData.message.content }}</span> <time>{{ partupDateCustom chatNotificationData.message.created_at 'dd D MMMM - hh:mm' }}</time></span>
+                        <span><span>{{{ formatted chatNotificationData.message.content }}}</span> <time>{{ partupDateCustom chatNotificationData.message.created_at 'dd D MMMM - HH:mm' }}</time></span>
                     {{else}}
-                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> <time>{{ partupDateCustom chatNotificationData.created_at 'dd Do MMMM - hh:mm' }}</time></span>
+                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> <time>{{ partupDateCustom chatNotificationData.created_at 'dd D MMMM - HH:mm' }}</time></span>
                     {{/if}}
                 </article>
             </a>

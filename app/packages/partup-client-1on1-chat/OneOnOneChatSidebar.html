@@ -36,9 +36,9 @@
                                 <article>
                                     <p>{{ upper.profile.name }} {{#if unreadCount}}({{unreadCount}}){{/if}}</p>
                                     {{#if message }}
-                                        <span><span>{{ message.content }}</span> {{#unless state.started_typing upper._id _id}}<time>{{ partupDateNotification message.created_at }}</time>{{/unless}}</span>
+                                        <span><span>{{ message.content }}</span> {{#unless state.started_typing upper._id _id}}<time>{{ partupDateCustom message.created_at 'dd D MMMM - HH:mm' }}</time>{{/unless}}</span>
                                     {{else}}
-                                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> {{#unless state.started_typing upper._id _id}}<time>{{ partupDateNotification created_at }}</time>{{/unless}}</span>
+                                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> {{#unless state.started_typing upper._id _id}}<time>{{ partupDateCustom created_at 'dd D MMMM - HH:mm' }}</time>{{/unless}}</span>
                                     {{/if}}
                                     {{#if state.started_typing upper._id _id}}
                                         <div class="typing-container">

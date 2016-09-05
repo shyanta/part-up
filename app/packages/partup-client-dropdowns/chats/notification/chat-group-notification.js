@@ -7,6 +7,13 @@ Template.ChatGroupNotification.helpers({
     },
     network: function() {
         return Networks.findOne({chat_id: Template.instance().data.chat._id});
+    },
+    formatted: function(content) {
+        return new Partup.client.message(content)
+            .sanitize()
+            .parseMentions({link: false})
+            .emojify()
+            .getContent();
     }
 });
 
