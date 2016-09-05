@@ -2,63 +2,32 @@ Template.ChatView.onCreated(function() {
     var template = this;
     var chatId = template.data.config.chatId;
     if (!chatId) throw 'No chatId was provided';
-    template.stickyAvatar = new ReactiveVar(undefined);
-    template.initialized = new ReactiveVar(false);
-    template.rendered = new ReactiveVar(false);
+
     template.overscroll = new ReactiveVar(false);
     template.underscroll = new ReactiveVar(false);
     template.chatEmpty = new ReactiveVar(false);
     template.oldestUnreadMessage = new ReactiveVar(undefined);
-    template.userIsAtScrollBottom = true;
-    template.focussed = true;
     template.activeContext = new ReactiveVar(false);
+
+    template.initialized = false;
+    template.windowFocus = true;
 
     if (template.data.config.reactiveBottomBarHeight) {
         template.data.config.reactiveBottomBarHeight.equalsFunc = function(a, b) {
+            // when the chatbar height changes (due to typing), the view should scroll to bottom
             template.instantlyScrollToBottom();
         };
     }
 
-    template.init = function() {
-        Partup.client.chat.initialize(template);
-        start();
-        template.initialized.set(true);
-    };
-
     var handleNewMessagesViewedIfMessageDividerIsOnScreen = function() {
         Meteor.setTimeout(function() {
-            if (!template.dividerLineIsVisible() || !template.focussed) return;
-            template.hideLine();
+            if (!template.dividerLineIsVisible() || !template.windowFocus) return;
+            template.hideNewMessagesDivider();
         }, 4000);
     };
 
-    // template.scrollBottomCheck = function() {
-    //     var element = template.scrollContainer[0];
-    //     var pos = element.scrollTop;
-    //     var height = element.scrollHeight - element.clientHeight;
-    //     if (pos === height) {
-    //         template.userIsAtScrollBottom = true;
-    //     } else {
-    //         template.userIsAtScrollBottom = false;
-    //     }
-    // };
-
-    // template.ajustScrollOffsetByMessageCount = function(count) {
-    //     var offset = $('[data-chat-message-id]')
-    //         .slice(0, count)
-    //         .map(function() {
-    //             return $(this).outerHeight(true);
-    //         })
-    //         .toArray()
-    //         .reduce(function(prevHeight, curHeight) {
-    //             return prevHeight + curHeight;
-    //         });
-    //     template.scrollContainer[0].scrollTop = offset;
-    // };
-
     template.instantlyScrollToBottom = function() {
-        var element = template.scrollContainer[0];
-        element.scrollTop = 0;
+        template.scrollContainer[0].scrollTop = 0;
     };
 
     template.dividerLineIsVisible = function() {
@@ -71,7 +40,7 @@ Template.ChatView.onCreated(function() {
     };
 
     template.hideTimeout;
-    template.hideLine = function() {
+    template.hideNewMessagesDivider = function() {
         if (template.hideTimeout) clearTimeout(template.hideTimeout);
         template.data.config.onNewMessagesViewed();
 
@@ -90,22 +59,23 @@ Template.ChatView.onCreated(function() {
             template.oldestUnreadMessage.set(undefined);
         }, 250);
     };
-    template.delayedHideLine = function(delay) {
+    template.delayedHideNewMessagesDivider = function(delay) {
         if (template.hideTimeout) clearTimeout(template.hideTimeout);
-        template.hideTimeout = setTimeout(template.hideLine, delay);
+        template.hideTimeout = setTimeout(template.hideNewMessagesDivider, delay);
         template.data.config.onNewMessagesViewed();
     };
 
-    template.windowFocusHandler = function(event) {
-        template.focussed = true;
-        template.stickyNewMessagesDividerHandler(true);
-        $('[data-messageinput]').focus();
+    // autofocus on chatbar input field
+    template.onWindowFocus = function(event) {
+        template.windowFocus = true;
+        template.stickyNewMessagesDividerHandler({hideLine: true});
+        if ($(template.data.config.messageInputSelector)[0]) $(template.data.config.messageInputSelector).focus();
     };
-    template.windowBlurHandler = function(event) {
-        template.focussed = false;
+    template.onWindowBlur = function(event) {
+        template.windowFocus = false;
     };
-    $(window).on('focus', template.windowFocusHandler);
-    $(window).on('blur', template.windowBlurHandler);
+    $(window).on('focus', template.onWindowFocus);
+    $(window).on('blur', template.onWindowBlur);
 
     template.rememberOldestUnreadMessage = function(oldestUnreadMessage) {
         if (!template.oldestUnreadMessage.get()) {
@@ -124,10 +94,10 @@ Template.ChatView.onCreated(function() {
         var unreadMessagesCount = counter ? counter.unread_count : 0;
 
         // stop if the user is not focussed or if there are no unread messages
-        if (template.focussed && unreadMessagesCount <= 0) return;
+        if (template.windowFocus && unreadMessagesCount <= 0) return;
 
         // if user is focussed stop here
-        if (template.focussed && template.initialized.curValue) return;
+        if (template.windowFocus && template.initialized) return;
 
         // returns the oldest unread message with n offset
         // offset = 0 is oldest, offset = 1 is second oldest
@@ -159,59 +129,16 @@ Template.ChatView.onCreated(function() {
         template.rememberOldestUnreadMessage(oldestUnreadMessage);
     };
 
-    template.stickyNewMessagesDividerHandler = function(hideWhenViewed) {
+    template.stickyNewMessagesDividerHandler = function(options) {
         if ($('[data-new-messages-divider]')[0]) {
             var overscroll = $('[data-new-messages-divider]').position().top < 0;
             var underscroll = $('[data-new-messages-divider]').position().top > (template.scrollContainer[0].clientHeight - $('[data-new-messages-divider]').outerHeight(true));
             template.overscroll.set(overscroll);
             template.underscroll.set(underscroll);
-            if (!overscroll && hideWhenViewed) {
-                template.delayedHideLine(1000);
+            if (!overscroll && (options && options.hideLine)) {
+                template.delayedHideNewMessagesDivider(1000);
             }
         }
-    };
-
-    template.stickyUserAvatarHandler = function() {
-        var imageId = undefined;
-        var userId = undefined;
-
-        $('[data-message-user-image-id]').each(function() {
-            var elm = $(this);
-            var offsetTop = elm.position().top;
-            var bottomOffsetTop = offsetTop + elm.outerHeight(true);
-
-            if (offsetTop < 5 && bottomOffsetTop > 48) {
-                imageId = elm.attr('data-message-user-image-id');
-                userId = elm.attr('data-message-user-id');
-                var avatar = Images.findOne({_id: imageId});
-                var image = Partup.helpers.url.getImageUrl(avatar, '80x80');
-                $('[data-avatar]').css({
-                    'background-image': 'url(' + image + ')',
-                    'background-color': '#eee'
-                });
-                elm.addClass('pu-chatbox-noavatar');
-
-            } else {
-                elm.removeClass('pu-chatbox-noavatar');
-            }
-            if (offsetTop < 0) {
-                elm.addClass('pu-chatbox-avatar-bottom').removeClass('pu-chatbox-avatar-top');
-            } else {
-                elm.addClass('pu-chatbox-avatar-top').removeClass('pu-chatbox-avatar-bottom');
-            }
-        });
-        if (userId === Meteor.userId()) {
-            $('[data-sticky-avatar]').addClass('pu-sticky-user-right');
-        } else {
-            $('[data-sticky-avatar]').removeClass('pu-sticky-user-right');
-        }
-        if (!imageId) {
-            $('[data-avatar]').css({
-                'background-image': 'none',
-                'background-color': 'transparent'
-            });
-        }
-        template.stickyAvatar.set(userId);
     };
 
     template.scrollToNewMessages = function() {
@@ -225,7 +152,7 @@ Template.ChatView.onCreated(function() {
         scrollElement.animate({
             scrollTop: scrollDest
         }, 300, function() {
-            template.delayedHideLine(1000);
+            template.delayedHideNewMessagesDivider(1000);
         });
     };
 
@@ -252,7 +179,15 @@ Template.ChatView.onCreated(function() {
         });
     };
 
-    var start = function() {
+    template.scrollHandler = function(customScrollEvent) {
+        template.stickyNewMessagesDividerHandler({hideLine: true});
+        if (template.data.config.onScrollTop) {
+            var offset = template.data.config.onScrollTop.offset || 0;
+            if (customScrollEvent.top.offset <= offset) template.data.config.onScrollTop.handler();
+        }
+    };
+
+    var initialize = function() {
         template.autorun(function() {
             var messages = template.data.config.reactiveMessages.get();
             Tracker.nonreactive(function() {
@@ -265,74 +200,58 @@ Template.ChatView.onCreated(function() {
         handleNewMessagesViewedIfMessageDividerIsOnScreen();
     };
 
-    template.scrollHandler = function(customScrollEvent) {
-        template.stickyNewMessagesDividerHandler(true);
-        if (template.data.config.onScrollTop) {
-            var offset = template.data.config.onScrollTop.offset || 0;
-            if (customScrollEvent.top.offset <= offset) template.data.config.onScrollTop.handler();
-        }
-        // if (!Partup.client.browser.isChromeOrSafari()) template.stickyUserAvatarHandler();
+    template.initialize = function() {
+        Partup.client.chat.initialize(template);
+        initialize();
+        template.initialized = true;
     };
+
 });
 
 Template.ChatView.onRendered(function() {
     var template = this;
     template.scrollContainer = $('[data-pu-reversed-scroller]');
-    template.rendered.set(true);
-    template.init();
+    template.initialize();
 });
 
 Template.ChatView.onDestroyed(function() {
     var template = this;
-    $(window).off('focus', template.windowFocusHandler);
-    $(window).off('blur', template.windowBlurHandler);
+    $(window).off('focus', template.onWindowFocus);
+    $(window).off('blur', template.onWindowBlur);
     Partup.client.chat.destroy();
 });
 
 Template.ChatView.helpers({
-    data: function() {
+    messagesData: function() {
         var template = Template.instance();
+        var messages = template.data.config.reactiveMessages.get();
+        var oldestUnreadMessage = template.oldestUnreadMessage.get();
+        var dateBorder = oldestUnreadMessage ? oldestUnreadMessage.created_at : new Date();
         return {
-            messagesGroupedByDelay: function(messages) {
-                return Partup.client.chatmessages.groupByDelay(messages, {seconds: 120});
+            old: function() {
+                return _.filter(messages, function(message) {
+                    return message.created_at < dateBorder;
+                });
             },
-            messagesGroupedByDay: function(messages) {
-                return Partup.client.chatmessages.groupByCreationDay(messages);
-            },
-            messagesGroupedByUser: function(messages) {
-                return Partup.client.chatmessages.groupByCreatorId(messages);
-            },
-            messages: function() {
-                var messages = template.data.config.reactiveMessages.get();
-                var oldestUnreadMessage = template.oldestUnreadMessage.get();
-                var dateBorder = oldestUnreadMessage ? oldestUnreadMessage.created_at : new Date();
-                // template.ajustScrollOffset();
-                return {
-                    old: function() {
-                        return _.filter(messages, function(message) {
-                            return message.created_at < dateBorder;
-                        });
-                    },
-                    new: function() {
-                        return _.filter(messages, function(message) {
-                            return message.created_at >= dateBorder;
-                        });
-                    }
-                };
-            },
-            stickyAvatar: function() {
-                var activeId = template.stickyAvatar.get();
-                if (!activeId) return false;
-                return Meteor.users.findOne(template.stickyAvatar.get());
+            new: function() {
+                return _.filter(messages, function(message) {
+                    return message.created_at >= dateBorder;
+                });
             }
         };
+    },
+    groupByDelay: function(messages) {
+        return Partup.client.chatmessages.groupByDelay(messages || [], {seconds: 180});
+    },
+    groupByDay: function(messages) {
+        return Partup.client.chatmessages.groupByCreationDay(messages || []);
+    },
+    groupByUser: function(messages) {
+        return Partup.client.chatmessages.groupByCreatorId(messages || []);
     },
     state: function() {
         var template = Template.instance();
         return {
-            fullyLoaded: function() {
-                return template.initialized.get() && template.rendered.get();
-            },
             reactiveHighlight: function() {
                 return template.data.config.reactiveHighlight;
             },
@@ -398,7 +317,7 @@ Template.ChatView.helpers({
 
 Template.ChatView.events({
     'click [data-new-messages-divider]': function(event, template) {
-        template.hideLine();
+        template.hideNewMessagesDivider();
     },
     'click [data-scrollto]': function(event, template) {
         event.preventDefault();
