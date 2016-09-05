@@ -821,6 +821,21 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 33,
+    name: 'Add network mentions to default email notification setting',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.settings.email.upper_mentioned_in_network_chat': true
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
 Meteor.startup(function() {
-    Migrations.migrateTo(32);
+    Migrations.migrateTo(33);
 });
