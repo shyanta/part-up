@@ -4,6 +4,7 @@
     "emails-invite-user-subject": "Invitation for Part-up %s",
     "emails-dailydigest-subject": "Notifications Part-up.com",
     "emails-upper_mentioned_in_partup-subject": "Someone mentioned you in part-up __partup__",
+    "emails-upper_mentioned_in_network_chat-subject": "Someone mentioned you in the __network__ tribe chat",
     "emails-invite_upper_to_partup_activity-subject": "Invitation for activity __activity__ in part-up __partup__",
     "emails-invite_upper_to_partup-subject": "Invitation to join part-up __partup__",
     "emails-invite_upper_to_network-subject": "Invitation for tribe __network__",
