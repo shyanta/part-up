@@ -26,7 +26,17 @@ Partup.client.message.prototype.autoLink = function() {
 };
 
 Partup.client.message.prototype.lineBreakToBr = function() {
-    this.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    this.content = this.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    return this;
+};
+
+Partup.client.message.prototype.parseMentions = function() {
+    this.content = Partup.helpers.mentions.decode(this.content);
+    return this;
+};
+
+Partup.client.message.prototype.emojify = function() {
+    this.content = Partup.client.strings.emojify(this.content);
     return this;
 };
 
