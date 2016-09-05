@@ -14,11 +14,6 @@ Partup.client.chat = {
 
         this._current_chat.instantlyScrollToBottom();
     },
-    ajustScrollOffsetByMessageCount: function(count) {
-        if (!this._current_chat) return;
-
-        // this._current_chat.ajustScrollOffsetByMessageCount(count);
-    },
     onNewMessageRender: function(cb) {
         if (!this._current_chat) return;
 

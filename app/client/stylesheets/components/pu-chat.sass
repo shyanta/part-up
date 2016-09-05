@@ -38,8 +38,6 @@
             width: 100%
 
     &-wrapper
-        // border-right: 2px solid #eee
-        // border-left: 2px solid #eee
         border-top: 2px solid #eee
         position: absolute
         bottom: 68px
@@ -47,7 +45,7 @@
         left: 0
         top: 0
 
-        > .pu-sticky-user
+        > .pu-highlightbar
             position: absolute
             background-color: transparent
             padding: 5px 20px
@@ -59,15 +57,6 @@
             opacity: 0
             transition: opacity .2s
 
-            .pu-avatar
-                width: 32px
-                height: 32px
-                background-color: transparent
-                pointer-events: all
-
-            &-right
-                text-align: right
-
             .pu-sub-highlight
                 position: absolute
                 top: 0
@@ -76,9 +65,9 @@
                 bottom: 0
                 text-align: center
                 font-weight: bold
-                padding: 15px
+                padding: 20px
                 color: $color-text
-                line-height: 11px
+                line-height: 0
                 background-color: #ddd
 
         > div
@@ -96,7 +85,7 @@
                 margin-bottom: 18px
 
         &.pu-state-active > div,
-        &.pu-state-active > .pu-sticky-user
+        &.pu-state-active > .pu-highlightbar
             opacity: 1
 
         &.pu-state-active > div

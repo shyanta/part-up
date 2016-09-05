@@ -150,13 +150,15 @@ Template.NetworkChat.helpers({
                     reactiveMessages: template.reactiveMessages,
                     reactiveHighlight:  template.searchQuery,
                     reactiveBottomBarHeight: template.bottomBarHeight,
-                    onClearContext: template.throttledSetSearchQuery
+                    onClearContext: template.throttledSetSearchQuery,
+                    messageInputSelector: '[data-messageinput]'
                 };
             },
             bottomBar: function() {
                 return {
                     chatId: network.chat_id,
-                    reactiveBottomBarHeight: template.bottomBarHeight
+                    reactiveBottomBarHeight: template.bottomBarHeight,
+                    messageInputSelector: '[data-messageinput]'
                 };
             },
             sideBar: function() {

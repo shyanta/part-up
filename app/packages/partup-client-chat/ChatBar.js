@@ -71,6 +71,9 @@ Template.ChatBar.onRendered(function() {
 Template.ChatBar.helpers({
     rows: function() {
         return Template.instance().rows.get();
+    },
+    selector: function() {
+        return Template.instance().data.config.messageInputSelector.split('[').join('').split(']').join('');
     }
 });
 

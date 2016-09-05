@@ -160,7 +160,8 @@ Template.OneOnOneChat.helpers({
             bottomBar: function() {
                 return {
                     reactiveChatId: template.activeChat,
-                    reactiveBottomBarHeight: template.bottomBarHeight
+                    reactiveBottomBarHeight: template.bottomBarHeight,
+                    messageInputSelector: '[data-messageinput]'
                 };
             },
             messageView: function() {
@@ -176,7 +177,8 @@ Template.OneOnOneChat.helpers({
                     reactiveBottomBarHeight: template.bottomBarHeight,
                     placeholderText: TAPi18n.__('pages-one-on-one-chat-empty-placeholder', {
                         person: chatPerson.profile.name
-                    })
+                    }),
+                    messageInputSelector: '[data-messageinput]'
                 };
             }
         };
