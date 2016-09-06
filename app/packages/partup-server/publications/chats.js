@@ -135,8 +135,11 @@ Meteor.publishComposite('chats.for_loggedin_user.for_count', function(parameters
             },
             children: [{
                 find: function(chat, user) {
-                    return Networks.find({chat_id: chat._id}, {fields: {chat_id: 1, uppers: 1}, limit: 1});
-                }
+                    return Networks.find({chat_id: chat._id}, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1, uppers: 1}, limit: 1});
+                },
+                children: [
+                    {find: Images.findForNetwork}
+                ]
             }]
         }]
     };
