@@ -1,5 +1,34 @@
+<a name="1.21.9"></a>
+## [1.21.9](https://github.com/part-up/part-up/compare/1.21.8...v1.21.9) (2016-09-06)
+
+
+### Bug Fixes
+
+* **activity-form:** replace with i18n doc url ([6fea493](https://github.com/part-up/part-up/commit/6fea493)), closes [#649](https://github.com/part-up/part-up/issues/649)
+* **chat:** clear new messages ([fd8923a](https://github.com/part-up/part-up/commit/fd8923a))
+* **chat:** created a findOneForUser helper and optimized the chats.by_id publication ([bf930c7](https://github.com/part-up/part-up/commit/bf930c7))
+* **chat:** fixed chat list margins for when scrollbars are enabled on mac ([7462c43](https://github.com/part-up/part-up/commit/7462c43))
+* **chat:** improved chat performance ([27381cc](https://github.com/part-up/part-up/commit/27381cc))
+* **chat:** in the process of implementing the reversed scrollcontainer ([6e7b8d3](https://github.com/part-up/part-up/commit/6e7b8d3))
+* **chat:** increased chat performance ([a254d7e](https://github.com/part-up/part-up/commit/a254d7e))
+* **chat:** increased chat performance ([4c44051](https://github.com/part-up/part-up/commit/4c44051))
+* **chat:** optimized chat and chatnotifications ([f75c7af](https://github.com/part-up/part-up/commit/f75c7af))
+* **chat:** optimized chat performance ([84b112d](https://github.com/part-up/part-up/commit/84b112d))
+* **chats:** fields fix causing mobile app problems ([d913928](https://github.com/part-up/part-up/commit/d913928))
+* **chats:** fix publication to unsure all data networks need to show up ([921eecc](https://github.com/part-up/part-up/commit/921eecc))
+* **newmessage:** replace i18n markdown doc key ([19ef632](https://github.com/part-up/part-up/commit/19ef632)), closes [#649](https://github.com/part-up/part-up/issues/649)
+* **scraper:** fixed bug that caused the scraper to error when a source couldn't be scraped [#641](https://github.com/part-up/part-up/issues/641) ([6503537](https://github.com/part-up/part-up/commit/6503537)), closes [#641](https://github.com/part-up/part-up/issues/641)
+
+
+### Features
+
+* **chat:** better reversed scroller container ([8115c2e](https://github.com/part-up/part-up/commit/8115c2e))
+* **fixtures:** added chat fixtures for 1-on-1 and tribe chat ([985bfd2](https://github.com/part-up/part-up/commit/985bfd2))
+
+
+
 <a name="1.21.8"></a>
-## [1.21.8](https://github.com/part-up/part-up/compare/1.21.7...v1.21.8) (2016-08-31)
+## [1.21.8](https://github.com/part-up/part-up/compare/1.21.7...1.21.8) (2016-08-31)
 
 
 ### Bug Fixes
