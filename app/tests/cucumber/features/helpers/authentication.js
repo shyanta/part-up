@@ -1,4 +1,4 @@
-class LoginHelper {
+class Authentication {
     constructor() {
 
     }
@@ -9,6 +9,13 @@ class LoginHelper {
         console.log(userEmail);
         console.log(userPassword);
         browser.click('[type=submit]');
+        browser.element('.pu-sub-personal .pu-button-avatar').waitForExist();
+    }
+    logout() {
+        browser.element('.pu-sub-personal .pu-button-avatar').waitForExist();
+        browser.element('.pu-sub-personal .pu-button-avatar').click();
+        browser.waitForExist('[data-logout]');
+        browser.click('[data-logout]');
     }
     logInAsAdmin() {
         // console.log('as admin');
@@ -26,4 +33,4 @@ class LoginHelper {
     }
 }
 
-export default new LoginHelper();
+export default new Authentication();

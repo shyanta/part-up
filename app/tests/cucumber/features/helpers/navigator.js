@@ -1,5 +1,10 @@
+let baseUrl = process.env.ROOT_URL;
+
 export default  {
     gotoPage: (urlSlug) => {
-        browser.url(`${process.env.ROOT_URL}/${urlSlug}`);
+        browser.url(`${baseUrl}/${urlSlug}`);
+    },
+    gotoHomePage: () => {
+        browser.url(`${baseUrl}`);
     }
 }
