@@ -1,3 +1,12 @@
+var NETWORK_FIELDS = {
+    name: 1,
+    slug: 1,
+    chat_id: 1,
+    image: 1,
+    admins: 1,
+    uppers: 1
+};
+
 Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options) {
     this.unblock();
 
@@ -37,7 +46,7 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
         _id: 1,
         updated_at: 1,
         created_at: 1,
-        counter: {$elemMatch: {user_id: this.userId}}
+        counter: 1
     };
 
     return {
@@ -60,33 +69,34 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                         archived_at: {
                             $exists: false
                         }
-                    }, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1, uppers: 1}});
+                    }, {fields: NETWORK_FIELDS});
                 },
-                children: [{
-                    find: Images.findForNetwork
-                },{
-                    // Network chats
-                    find: function(network) {
-                        return Chats.find(network.chat_id, chatOptions);
-                    },
-                    children: [{
-                        // Latest chatmessage
-                        find: function(chat) {
-                            return ChatMessages.find({chat_id: chat._id}, latestChatMessageOptions);
+                children: [
+                    {find: Images.findForNetwork},
+                    {
+                        // Network chats
+                        find: function(network) {
+                            return Chats.find(network.chat_id, chatOptions);
                         },
-                        children: [
-                            {
-                                // Chatmessage User
-                                find: function(chatMessage, chat) {
-                                    return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
-                                },
-                                children: [{
-                                    find: Images.findForUser
-                                }]
-                            }
-                        ]
-                    }]
-                }]
+                        children: [{
+                            // Latest chatmessage
+                            find: function(chat) {
+                                return ChatMessages.find({chat_id: chat._id}, latestChatMessageOptions);
+                            },
+                            children: [
+                                {
+                                    // Chatmessage User
+                                    find: function(chatMessage, chat) {
+                                        return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
+                                    },
+                                    children: [{
+                                        find: Images.findForUser
+                                    }]
+                                }
+                            ]
+                        }]
+                    }
+                ]
             },
 
             /**
@@ -135,7 +145,7 @@ Meteor.publishComposite('chats.for_loggedin_user.for_count', function(parameters
             },
             children: [{
                 find: function(chat, user) {
-                    return Networks.find({chat_id: chat._id}, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1, uppers: 1}, limit: 1});
+                    return Networks.find({chat_id: chat._id}, {fields: NETWORK_FIELDS, limit: 1});
                 },
                 children: [
                     {find: Images.findForNetwork}
