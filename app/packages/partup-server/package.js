@@ -154,6 +154,7 @@ Package.onUse(function(api) {
         'fixtures/invites.js',
         'fixtures/images.js',
         'fixtures/chats.js',
+        'fixtures/chatmessages.js',
         'publications/activities.js',
         'publications/partups.js',
         'publications/images.js',

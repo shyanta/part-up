@@ -40,5 +40,19 @@ Partup.client.browser = {
         }
 
         return is_safari;
+    },
+    isChromeOrSafari: function() {
+        var ua = window.navigator.userAgent;
+
+        var is_chrome = ua.indexOf('Chrome') > -1;
+        var is_safari = ua.indexOf('Safari') > -1;
+
+        // Chrome has both "Chrome" and "Safari" in the string.
+        // Safari only has "Safari".
+        if (is_chrome && is_safari) {
+            is_safari = false;
+        }
+
+        return is_safari;
     }
 };

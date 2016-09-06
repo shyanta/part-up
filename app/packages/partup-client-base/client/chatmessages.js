@@ -22,7 +22,7 @@ Partup.client.chatmessages = {
             }
         });
 
-        return outputArray;
+        return outputArray.reverse();
     },
     groupByCreationDay: function(messages) {
         var outputArray = [];
@@ -39,7 +39,7 @@ Partup.client.chatmessages = {
             }
         });
 
-        return outputArray;
+        return outputArray.reverse();
     },
     groupByCreatorId: function(messages) {
         var outputArray = [];
@@ -54,7 +54,7 @@ Partup.client.chatmessages = {
                 });
             }
         });
-        return outputArray;
+        return outputArray.reverse();
     },
     groupByChat: function(messages) {
         var outputObject = {};
