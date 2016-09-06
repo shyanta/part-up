@@ -9,6 +9,8 @@
     "chimp": "chimp",
     "release": "gulp release-it",
     "release-notes": "npm run conventional-github-releaser -p angular -r 0",
+    "deploy:production": "cd ./devops && ./devops provision production all --tags=app && cd ../",
+    "deploy:acceptance": "cd ./devops && ./devops provision acceptance all --tags=app && cd ../",
     "pull-translation": "node ./phraseapp/phraseapp.js --command pull --access_token 193b1cb74df9b522e06166c3dc17d5a7055ff9e17bf5ae93c8a97cf3b97a9780",
     "push-translation": "node ./phraseapp/phraseapp.js --command push",
     "start": "./start",
