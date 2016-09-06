@@ -1,44 +1,42 @@
 <template name="ChatMessage">
-    <div class="pu-chatbox {{#if partupEquals data.messageCreator._id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}} pu-chatbox-avatar-top" data-message-user-id="{{data.messageCreator._id}}" data-message-user-image-id="{{ data.messageCreator.profile.image }}">
-        <a href="{{pathFor route='profile' _id=data.messageCreator._id}}">
-            <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{data.messageCreator._id}}" style="{{#with data.messageCreator.profile.image}}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with}}"></figure>
-        </a>
-        <ul class="pu-list">
-            {{#each data.messages}}
-                {{#RenderBlock onRendered=handlers.onNewMessageRender}}
-                    <li data-chat-message-id="{{ _id }}">
-                        <div class="pu-chatmessage {{#if chatTimeoutHasPassed _id 10 }}pu-chatmessage-loaded{{/if}}">
-                            {{#if creator}}
-                                <p class="pu-sub-chatname">{{ creator.profile.name }} <span class="pu-sub-chattime">{{ partupDateTime created_at }}</span></p>
-                            {{else}}
-                                <span class="pu-sub-chattime pu-sub-chattime-outside">{{ partupDateTime created_at }}</span>
-                            {{/if}}
-                            <p class="pu-highlighttext">
-                                {{#with partupSanitize          content }}
-                                {{#with partupHighlight         . data.highlight }}
-                                {{#with partupAutolink          . }}
-                                    {{{ partupLineBreakToBr     . }}}
-                                {{/with}}{{/with}}{{/with}}
-                            </p>
-                            {{#with preview_data }}
-                                {{#if partupEquals type 'image'}}
-                                    <a href="{{url}}" target="_blank" class="pu-linkpreview pu-linkpreview-minimal">
-                                        <img src="{{url}}" alt="">
-                                    </a>
+    {{#let messageData=data messageHandlers=handlers}}
+        <div class="pu-chatbox {{#if partupEquals messageData.messageCreator._id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}} pu-chatbox-avatar-top" data-message-user-id="{{messageData.messageCreator._id}}" data-message-user-image-id="{{ messageData.messageCreator.profile.image }}">
+            <a href="{{pathFor route='profile' _id=messageData.messageCreator._id}}">
+                <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{messageData.messageCreator._id}}" style="{{#with messageData.messageCreator.profile.image}}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with}}"></figure>
+            </a>
+            <ul class="pu-list">
+                {{#each messageData.messages}}
+                    {{#RenderBlock onRendered=messageHandlers.onNewMessageRender}}
+                        <li data-chat-message-id="{{ _id }}">
+                            <div class="pu-chatmessage">
+                                {{#if creator}}
+                                    <p class="pu-sub-chatname">{{ creator.profile.name }} <span class="pu-sub-chattime">{{ partupDateTime created_at }}</span></p>
                                 {{else}}
-                                    <a href="{{url}}" target="_blank" class="pu-linkpreview">
-                                        {{#with image}}<figure style="background-image: url('{{ . }}');" ></figure>{{/with}}
-                                        <div class="pu-linkpreview-description">
-                                            <p class="pu-sub-title">{{ title }}</p>
-                                            <p class="pu-sub-intro">{{ description }}</p>
-                                        </div>
-                                    </a>
+                                    <span class="pu-sub-chattime pu-sub-chattime-outside">{{ partupDateTime created_at }}</span>
                                 {{/if}}
-                            {{/with}}
-                        </div>
-                    </li>
-                {{/RenderBlock}}
-            {{/each}}
-        </ul>
-    </div>
+                                <p class="pu-highlighttext">
+                                    {{{ chatMessage content messageData.highlight }}}
+                                </p>
+                                {{#with preview_data }}
+                                    {{#if partupEquals type 'image'}}
+                                        <a href="{{url}}" target="_blank" class="pu-linkpreview pu-linkpreview-minimal">
+                                            <img src="{{url}}" alt="">
+                                        </a>
+                                    {{else}}
+                                        <a href="{{url}}" target="_blank" class="pu-linkpreview">
+                                            {{#with image}}<figure style="background-image: url('{{ . }}');" ></figure>{{/with}}
+                                            <div class="pu-linkpreview-description">
+                                                <p class="pu-sub-title">{{ title }}</p>
+                                                <p class="pu-sub-intro">{{ description }}</p>
+                                            </div>
+                                        </a>
+                                    {{/if}}
+                                {{/with}}
+                            </div>
+                        </li>
+                    {{/RenderBlock}}
+                {{/each}}
+            </ul>
+        </div>
+    {{/let}}
 </template>

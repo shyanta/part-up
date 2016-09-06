@@ -37,6 +37,24 @@ Meteor.startup(function() {
                 started_typing: [],
                 counter: []
             });
+
+            /* 5 */
+            Chats.insert({
+                _id: '9yscDD9bTkT2eDF4c',
+                'created_at' : new Date('2015-07-21T15:47:33.225Z'),
+                'updated_at' : new Date('2015-07-21T15:47:33.225Z'),
+                started_typing: [],
+                counter: []
+            });
+
+            /* 6 */
+            Chats.insert({
+                _id: 'e6qqFXCFTrE5TNHbE',
+                'created_at' : new Date('2015-07-21T15:47:33.225Z'),
+                'updated_at' : new Date('2015-07-21T15:47:33.225Z'),
+                started_typing: [],
+                counter: []
+            });
         }
     }
 });

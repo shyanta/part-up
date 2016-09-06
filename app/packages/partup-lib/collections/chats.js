@@ -188,6 +188,33 @@ Chats.findForUser = function(userId, parameters, options) {
 };
 
 /**
+ * Find chats for a single user
+ *
+ * @memberOf Chats
+ * @param {String} userId
+ * @param {Object} parameters
+ * @param {Boolean} parameters.private Set true when you need to incluce the private chats
+ * @param {Boolean} parameters.networks Set true when you need to incluce the network chats
+ * @param {Object} options
+ * @return {Mongo.Cursor}
+ */
+Chats.findOneForUser = function(userId, chatId, options) {
+    options = options || {};
+
+    var user = Meteor.users.findOne(userId);
+    if (!user) return;
+
+    if (!user.chats.indexOf(chatId) === -1) return;
+
+    if (!options.sort) {
+        options.sort = {updated_at: -1};
+    }
+
+    // Return the IDs ordered by most recent
+    return Chats.find({_id: chatId}, options);
+};
+
+/**
  * Remove a chat and all of its messages
  *
  * @memberOf Chats

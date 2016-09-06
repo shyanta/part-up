@@ -74,6 +74,7 @@ Package.onUse(function (api) {
         'client/browser.js',
         'client/chat.js',
         'client/sort.js',
+        'client/message.js',
 
         'helpers/sanitize.js',
         'helpers/log.js',

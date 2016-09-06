@@ -1,3 +1,12 @@
+var NETWORK_FIELDS = {
+    name: 1,
+    slug: 1,
+    chat_id: 1,
+    image: 1,
+    admins: 1,
+    uppers: 1
+};
+
 Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options) {
     this.unblock();
 
@@ -18,17 +27,26 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
         skip: Match.Optional(Number)
     });
 
-    const latestChatMessage = function() {
-        return {
-            find: function(chat) {
-                return ChatMessages.find({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1});
-            },
-            children: [
-                {find: function(chatMessage, chat) {
-                    return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
-                }}
-            ]
-        };
+    var latestChatMessageOptions = {
+        sort: {
+            created_at: -1
+        },
+        limit: 1,
+        fields: {
+            _id: 1,
+            chat_id: 1,
+            content: 1,
+            created_at: 1,
+            creator_id: 1
+        }
+    };
+
+    var chatOptions = options;
+    chatOptions.fields = {
+        _id: 1,
+        updated_at: 1,
+        created_at: 1,
+        counter: 1
     };
 
     return {
@@ -51,32 +69,32 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                         archived_at: {
                             $exists: false
                         }
-                    }, {fields: {name: 1, slug: 1, chat_id: 1, image: 1, admins: 1, uppers: 1}});
+                    }, {fields: NETWORK_FIELDS});
                 },
                 children: [
-                    // Network image
+                    {find: Images.findForNetwork},
                     {
-                        find: Images.findForNetwork
-                    },
-
-                    // Network uppers
-                    {
+                        // Network chats
                         find: function(network) {
-                            return Meteor.users.findMultiplePublicProfiles(network.uppers, {});
+                            return Chats.find(network.chat_id, chatOptions);
                         },
-                        children: [
-                            {find: Images.findForUser}
-                        ]
-                    },
-
-                    // Network chats
-                    {
-                        find: function(network) {
-                            return Chats.find(network.chat_id, options);
-                        },
-                        children: [
-                            latestChatMessage()
-                        ]
+                        children: [{
+                            // Latest chatmessage
+                            find: function(chat) {
+                                return ChatMessages.find({chat_id: chat._id}, latestChatMessageOptions);
+                            },
+                            children: [
+                                {
+                                    // Chatmessage User
+                                    find: function(chatMessage, chat) {
+                                        return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
+                                    },
+                                    children: [{
+                                        find: Images.findForUser
+                                    }]
+                                }
+                            ]
+                        }]
                     }
                 ]
             },
@@ -87,22 +105,22 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
             {
                 find: function(user) {
                     if (!parameters.private) return;
-                    return Chats.findForUser(user._id, {private: true}, options);
+                    return Chats.findForUser(user._id, {private: true}, chatOptions);
                 },
-                children: [
-
-                    // Chat users
-                    {
-                        find: function(chat) {
-                            return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
-                        },
-                        children: [
-                            {find: Images.findForUser}
-                        ]
+                children: [{
+                    find: function(chat) {
+                        return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
                     },
-
-                    latestChatMessage()
-                ]
+                    children: [{
+                        find: Images.findForUser
+                    }]
+                },{
+                    // Latest chatmessage
+                    find: function(chat) {
+                        return ChatMessages.find({chat_id: chat._id}, latestChatMessageOptions);
+                    }
+                    // no User publication for ChatMessage is required, since this publication already publishes all the chat users
+                }]
             }
         ]
     };
@@ -127,8 +145,11 @@ Meteor.publishComposite('chats.for_loggedin_user.for_count', function(parameters
             },
             children: [{
                 find: function(chat, user) {
-                    return Networks.find({chat_id: chat._id}, {fields: {chat_id: 1, uppers: 1}, limit: 1});
-                }
+                    return Networks.find({chat_id: chat._id}, {fields: NETWORK_FIELDS, limit: 1});
+                },
+                children: [
+                    {find: Images.findForNetwork}
+                ]
             }]
         }]
     };
@@ -143,6 +164,15 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
         skip: Match.Optional(Number)
     });
 
+    chatMessagesOptions.fields = {
+        _id: 1,
+        chat_id: 1,
+        content: 1,
+        created_at: 1,
+        creator_id: 1,
+        preview_data: 1
+    };
+
     return {
         find: function() {
             return Meteor.users.findSinglePrivateProfile(this.userId);
@@ -151,7 +181,7 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
             {
                 find: function(user) {
                     if (user.chats && user.chats.indexOf(chatId) === -1) return;
-                    return Chats.findForUser(this.userId, {private: true});
+                    return Chats.findOneForUser(this.userId, chatId, {});
                 },
                 children: [
                     {
@@ -167,6 +197,7 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
                             chatMessagesOptions.sort = {created_at: -1};
                             return ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
                         }
+                        // no User publication for ChatMessage is required, since this publication already publishes all the chat users
                     }
                 ]
             }

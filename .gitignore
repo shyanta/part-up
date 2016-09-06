@@ -1,3 +1,6 @@
+.gradle
+docker-compose.yml~
+
 # NPM
 app/packages/*/.npm
 

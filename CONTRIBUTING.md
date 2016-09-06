@@ -1,6 +1,6 @@
 # Contributing to part-up.com
 
-This guideline details the preferred way of making contributions to the part-up.com codebase.
+This guideline details the preferred way of making contributions to the part-up.com codebase. If you have any questions, please [join the conversation of the Platform Development tribe on Part-up] (https://part-up.com/tribes/development/chat).
 
 ## Branches
 - `develop`: the main integration branch. All code committed to `develop` should be ready for a release branch.
