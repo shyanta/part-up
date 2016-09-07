@@ -2,12 +2,12 @@
  * Check for scrapable content
  */
 
-Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
-    if (!userId || !chatMessageId) return;
+Event.on('chats.messages.inserted', function(upper, chatMessage, network) {
+    if (!upper || !chatMessage) return;
 
     // // Check if an URL is present
      var regex = new RegExp('(http[s]?:\\/\\/(www\\.)?|(www\\.)?){1}([0-9A-Za-z-\\.@:%_\‌​+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?');
-     var url = content.match(regex);
+     var url = chatMessage.content.match(regex);
      if (url && url.length > 0) {
          var matchedUrl = url[0];
          var data = Partup.server.services.scrape.website(matchedUrl);
@@ -47,6 +47,6 @@ Event.on('chats.messages.inserted', function(userId, chatMessageId, content) {
              return;
          }
 
-         ChatMessages.update(chatMessageId, {$set: {preview_data: preview_data}});
+         ChatMessages.update(chatMessage._id, {$set: {preview_data: preview_data}});
      }
 });
