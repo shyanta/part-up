@@ -69,14 +69,18 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                         archived_at: {
                             $exists: false
                         }
-                    }, {fields: NETWORK_FIELDS});
+                    }, {
+                        fields: NETWORK_FIELDS,
+                        skip: chatOptions.skip,
+                        limit: chatOptions.limit
+                    });
                 },
                 children: [
                     {find: Images.findForNetwork},
                     {
                         // Network chats
                         find: function(network) {
-                            return Chats.find(network.chat_id, chatOptions);
+                            return Chats.find(network.chat_id, {fields: chatOptions.fields});
                         },
                         children: [{
                             // Latest chatmessage
