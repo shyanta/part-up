@@ -1,0 +1,7 @@
+{
+    "emails-upper_mentioned_in_network_chat-subject": "Someone mentioned you in the __network__ tribe chat",
+    "dropdown-notification-upper_mentioned_in_network_chat": "__mentioning_upper__ mentioned you in the chat",
+    "modal-profilesettings-email-updatesuccess-disabled-upper_mentioned_in_network_chat": "Tribe mention email disabled",
+    "modal-profilesettings-email-updatesuccess-enabled-upper_mentioned_in_network_chat": "Tribe mention email enabled",
+    "modal-profilesettings-email-upper_mentioned_in_network_chat": "when you're mentioned in a tribe chat"
+}
