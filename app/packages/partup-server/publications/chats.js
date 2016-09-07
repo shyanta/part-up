@@ -62,14 +62,7 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
             {
                 find: function(user) {
                     if (!parameters.networks) return;
-                    return Networks.find({
-                        _id: {
-                            $in: user.networks || []
-                        },
-                        archived_at: {
-                            $exists: false
-                        }
-                    }, {
+                    return Networks.findUnarchivedForUser(user, user._id, {
                         fields: NETWORK_FIELDS,
                         skip: chatOptions.skip,
                         limit: chatOptions.limit

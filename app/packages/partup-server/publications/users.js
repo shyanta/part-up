@@ -141,7 +141,11 @@ Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
  * @param {Object} params
  */
 Meteor.routeComposite('/users/:id/networks', function(request, params) {
-    var options = {};
+    var options = {
+        sort: {
+            name: 1
+        }
+    };
 
     if (request.query) {
         if (request.query.limit) options.limit = parseInt(request.query.limit);
@@ -155,7 +159,7 @@ Meteor.routeComposite('/users/:id/networks', function(request, params) {
         children: [
             {
                 find: function(user) {
-                    return Networks.findForUser(user, this.userId, options);
+                    return Networks.findUnarchivedForUser(user, this.userId, options);
                 },
                 children: [
                     {find: Images.findForNetwork}
