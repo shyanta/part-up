@@ -26,10 +26,12 @@ Meteor.publishComposite('users.one', function(userId) {
  */
 Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
     var options = {};
+    var skip;
+    var limit;
 
     if (request.query) {
-        if (request.query.limit) options.limit = parseInt(request.query.limit);
-        if (request.query.skip) options.skip = parseInt(request.query.skip);
+        if (request.query.limit) limit = parseInt(request.query.limit);
+        if (request.query.skip) skip = parseInt(request.query.skip);
         if (request.query.archived) options.archived = JSON.parse(request.query.archived);
     }
 
@@ -38,7 +40,27 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
             var user = Meteor.users.findOne(params.id);
             if (!user) return;
 
-            return Partups.findUpperPartupsForUser(user, options, this.userId);
+            const getUpdatesCountForUser = function(partup) {
+                const upperData = partup.upper_data.find(function(ud) { return ud._id === user._id; });
+                return upperData ? upperData.new_updates.length : 0;
+            };
+
+            var result = Partups.findUpperPartupsForUser(user, options, this.userId)
+                .fetch()
+                .sort(function(a, b) {
+                    return getUpdatesCountForUser(b) - getUpdatesCountForUser(a);
+                })
+                .slice(skip, skip + limit);
+
+            // Fake cursor for routeComposite
+            return {
+                fetch: function() {
+                    return result;
+                },
+                _cursorDescription: {
+                    collectionName: 'partups'
+                }
+            };
         },
         children: [
             {find: Images.findForPartup},
@@ -62,10 +84,12 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
  */
 Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
     var options = {};
+    var skip;
+    var limit;
 
     if (request.query) {
-        if (request.query.limit) options.limit = parseInt(request.query.limit);
-        if (request.query.skip) options.skip = parseInt(request.query.skip);
+        if (request.query.limit) limit = parseInt(request.query.limit);
+        if (request.query.skip) skip = parseInt(request.query.skip);
         if (request.query.archived) options.archived = JSON.parse(request.query.archived);
     }
 
@@ -74,7 +98,27 @@ Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
             var user = Meteor.users.findOne(params.id);
             if (!user) return;
 
-            return Partups.findSupporterPartupsForUser(user, options, this.userId);
+            const getUpdatesCountForUser = function(partup) {
+                const upperData = partup.upper_data.find(function(ud) { return ud._id === user._id; });
+                return upperData ? upperData.new_updates.length : 0;
+            };
+
+            var result = Partups.findSupporterPartupsForUser(user, options, this.userId)
+                .fetch()
+                .sort(function(a, b) {
+                    return getUpdatesCountForUser(b) - getUpdatesCountForUser(a);
+                })
+                .slice(skip, skip + limit);
+
+            // Fake cursor for routeComposite
+            return {
+                fetch: function() {
+                    return result;
+                },
+                _cursorDescription: {
+                    collectionName: 'partups'
+                }
+            };
         },
         children: [
             {find: Images.findForPartup},
