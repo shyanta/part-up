@@ -21,6 +21,7 @@ Meteor.startup(function() {
 
             note.badge = badge;
             note.alert = message;
+            note.sound = 'ping.aiff';
             note.payload = {
                 payload: JSON.stringify(payload)
             };
