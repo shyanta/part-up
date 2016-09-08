@@ -45,7 +45,8 @@ Meteor.startup(function() {
                     data: mout.object.mixIn({}, {
                         title: 'Part-up',
                         body: message,
-                        payload: JSON.stringify(payload)
+                        payload: JSON.stringify(payload),
+                        sound: 'default'
                     })
                 }
             });
