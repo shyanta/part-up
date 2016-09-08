@@ -333,5 +333,24 @@ Meteor.methods({
         });
 
         return lodash.sortByOrder(partners, ['partner_count', 'participation_score'], ['desc', 'desc']);
+    },
+
+    /**
+     * Order network uppers tab by admins first, then colleagues (in group order based on upper score) and then on upper score
+     * @param networkSlug
+     * @param uppers
+     */
+    'users.order_network_uppers': function(networkSlug, uppers) {
+        check(networkSlug, String);
+        check(uppers, [Object]);
+
+        var network = Networks.findOneOrFail({slug: networkSlug});
+
+        uppers.forEach(function(upper) {
+            upper.admin = (network.admins.indexOf(upper._id) > -1) ? upper.participation_score : -1;
+            upper.colleague = (network.colleagues.indexOf(upper._id) > -1) ? upper.participation_score : -1;
+        });
+
+        return lodash.sortByOrder(uppers, ['admin', 'colleague', 'participation_score'], ['desc', 'desc', 'desc']);
     }
 });
