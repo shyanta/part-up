@@ -8,6 +8,13 @@ Template.ChatOneOnOneNotification.helpers({
     },
     chat: function() {
         return Template.instance().data.chat;
+    },
+    formatted: function(content) {
+        return new Partup.client.message(content)
+            .sanitize()
+            .parseMentions({link: false})
+            .emojify()
+            .getContent();
     }
 });
 

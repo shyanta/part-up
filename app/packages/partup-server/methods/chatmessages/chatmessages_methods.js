@@ -39,7 +39,7 @@ Meteor.methods({
             // Insert message
             ChatMessages.insert(chatMessage);
 
-            Event.emit('chats.messages.inserted', user._id, chatMessage._id, chatMessage.content);
+            Event.emit('chats.messages.inserted', user, chatMessage, network);
 
             // Increase counters
             chat.incrementCounter(user._id);

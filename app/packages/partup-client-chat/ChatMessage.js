@@ -29,7 +29,9 @@ Template.ChatMessage.helpers({
         var message = new Partup.client.message(content)
             .sanitize()
             .autoLink()
-            .lineBreakToBr();
+            .lineBreakToBr()
+            .parseMentions({link: true})
+            .emojify();
 
         if (highlightText) message.highlight(highlightText);
 

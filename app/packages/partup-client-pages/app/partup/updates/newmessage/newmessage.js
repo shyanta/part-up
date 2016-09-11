@@ -95,7 +95,8 @@ Template.afFieldInput.onRendered(function () {
     if (template.mentionsInput) template.mentionsInput.destroy();
 
     var input = template.find('[data-message-input]');
-    template.mentionsInput = Partup.client.forms.MentionsInput(input, template.partupId, {
+    template.mentionsInput = Partup.client.forms.MentionsInput(input, {
+        partupId: template.partupId,
         autoFocus: true,
         autoAjustHeight: true,
         prefillValue: currentValue

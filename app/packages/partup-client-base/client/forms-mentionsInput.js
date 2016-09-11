@@ -3,15 +3,15 @@
  *
  * @param {Element} input
  */
-var MentionsInput = function(input, partupId, options) {
+var MentionsInput = function(input, options) {
     var options = options || {};
     if (!(this instanceof MentionsInput)) {
-        return new MentionsInput(input, partupId, options);
+        return new MentionsInput(input, options);
     }
     this.autoFocus = options.autoFocus || false;
     this.prefillValue = options.prefillValue || undefined;
     this.autoAjustHeight = options.autoAjustHeight || false;
-    this.partupId = partupId || false;
+    this.partupId = options.partupId || undefined;
     this.input = input;
     this.setValue(this.prefillValue);
     this._build();
@@ -178,8 +178,10 @@ MentionsInput.prototype.checkCaretPosition = function() {
 
     var group = undefined;
     var partupId = this.partupId;
-    if ('partners'.indexOf(query.toLowerCase()) > -1) group = 'partners';
-    if ('supporters'.indexOf(query.toLowerCase()) > -1) group = 'supporters';
+    if (partupId) {
+        if ('partners'.indexOf(query.toLowerCase()) > -1) group = 'partners';
+        if ('supporters'.indexOf(query.toLowerCase()) > -1) group = 'supporters';
+    }
 
     var self = this;
     Meteor.call('users.autocomplete', query, group, partupId, function(error, users) {

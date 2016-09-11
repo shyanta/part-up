@@ -29,17 +29,17 @@ var continueOnCreated = function(chatId) {
         if (!message) return false;
 
         Partup.client.chat.instantlyScrollToBottom();
-        template.clearMessageInput();
 
         Meteor.call('chatmessages.insert', {
             chat_id: chatId,
-            content: Partup.client.strings.emojify(message)
+            content: template.mentionsInput.getValue()
         }, function(err, res) {
             // template.sendingMessage.set(false);
             if (err) return Partup.client.notify.error('Error sending message');
             template.resetTypingState();
             Partup.client.chat.onNewMessageRender(Partup.client.chat.instantlyScrollToBottom);
         });
+        template.clearMessageInput();
     };
 
     template.ajustHeight = function() {
@@ -66,6 +66,15 @@ Template.ChatBar.onCreated(function() {
 Template.ChatBar.onRendered(function() {
     var template = this;
     if (template.data.config.chatId) $('[data-messageinput]').focus();
+
+    var input = template.find('[data-mentionsinput]');
+    if (template.mentionsInput) template.mentionsInput.destroy();
+    template.mentionsInput = Partup.client.forms.MentionsInput(input);
+});
+
+Template.ChatBar.onDestroyed(function() {
+    var template = this;
+    if (template.mentionsInput) template.mentionsInput.destroy();
 });
 
 Template.ChatBar.helpers({

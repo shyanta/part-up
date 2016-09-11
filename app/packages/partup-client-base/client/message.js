@@ -26,7 +26,21 @@ Partup.client.message.prototype.autoLink = function() {
 };
 
 Partup.client.message.prototype.lineBreakToBr = function() {
-    this.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    this.content = this.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    return this;
+};
+
+Partup.client.message.prototype.parseMentions = function(options) {
+    var options = options || {};
+    var link = options.link || false;
+    var userId = Meteor.userId();
+    if (link) this.content = Partup.helpers.mentions.decodeForChatMessage(this.content, userId);
+    if (!link) this.content = Partup.helpers.mentions.decodeForNotification(this.content, userId);
+    return this;
+};
+
+Partup.client.message.prototype.emojify = function() {
+    this.content = Partup.client.strings.emojify(this.content);
     return this;
 };
 

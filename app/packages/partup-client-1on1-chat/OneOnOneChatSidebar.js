@@ -68,6 +68,13 @@ Template.OneOnOneChatSidebar.helpers({
                 return now - started_typing_date < Partup.client.chat.MAX_TYPING_PAUSE;
             }
         };
+    },
+    formatted: function(content) {
+        return new Partup.client.message(content)
+            .sanitize()
+            .parseMentions({link: false})
+            .emojify()
+            .getContent();
     }
 });
 

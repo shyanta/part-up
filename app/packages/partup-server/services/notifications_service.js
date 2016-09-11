@@ -4,8 +4,6 @@ var NotificationModel = Npm.require('part-up-js-models').NotificationModel;
 
 var d = Debug('services:notifications');
 
-// Check notifications.md for all active notifications
-
 /**
  @namespace Partup server notifications service
  @name Partup.server.services.notifications

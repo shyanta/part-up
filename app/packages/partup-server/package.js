@@ -62,6 +62,8 @@ Package.onUse(function(api) {
         'private/emails/custom.nl.html',
         'private/emails/upper_mentioned_in_partup.en.html',
         'private/emails/upper_mentioned_in_partup.nl.html',
+        'private/emails/upper_mentioned_in_network_chat.en.html',
+        'private/emails/upper_mentioned_in_network_chat.nl.html',
         'private/emails/partup_created_in_network.en.html',
         'private/emails/partup_created_in_network.nl.html',
         'private/emails/partups_networks_new_pending_upper.en.html',
@@ -236,7 +238,7 @@ Npm.depends({
     'apn': '1.7.5',
     'moment': '2.13.0',
     'node-metainspector': '1.3.0',
-    'part-up-js-models': 'git://github.com/part-up/js-models.git#1.0.0',
+    'part-up-js-models': 'git://github.com/part-up/js-models.git#1.1.1',
     'pkginfo': '0.4.0',
     'cycle': '1.0.3',
     'stack-trace': '0.0.9'

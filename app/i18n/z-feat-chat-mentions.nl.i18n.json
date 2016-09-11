@@ -1,0 +1,7 @@
+{
+    "emails-upper_mentioned_in_network_chat-subject": "Iemand heeft je naam genoemd in de __network__ tribe chat",
+    "dropdown-notification-upper_mentioned_in_network_chat": "__mentioning_upper__ noemde je in de chat",
+    "modal-profilesettings-email-updatesuccess-disabled-upper_mentioned_in_network_chat": "Tribe mention email uitgeschakeld",
+    "modal-profilesettings-email-updatesuccess-enabled-upper_mentioned_in_network_chat": "Tribe mention email ingeschakeld",
+    "modal-profilesettings-email-upper_mentioned_in_network_chat": "wanneer je wordt genoemd in een tribe chat"
+}

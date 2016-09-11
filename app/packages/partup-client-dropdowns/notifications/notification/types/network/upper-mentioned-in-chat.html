@@ -1,0 +1,12 @@
+<template name="notification_upper_mentioned_in_network_chat">
+    <a href="{{pathFor route='network-chat-message' slug=notification.type_data.network.slug chat_message_id=notification.type_data.chat_message._id}}">
+        <figure class="pu-avatar pu-avatar-plain"
+            style="background-image: url('{{ partupImageUrl id=notification.type_data.mentioning_upper.image }}');"
+            data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ notification.type_data.mentioning_upper._id }}">
+        </figure>
+        <article>
+            <p>{{_ 'dropdown-notification-upper_mentioned_in_network_chat' network=notification.type_data.network.name mentioning_upper=notification.type_data.mentioning_upper.name }}</p>
+            <time>{{ partupDateNotification notification.created_at }} {{_ 'dropdown-notification-location' location=notification.type_data.network.name}}</time>
+        </article>
+    </a>
+</template>

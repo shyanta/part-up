@@ -13,11 +13,11 @@
                     <p>{{ notificationNetwork.name }} {{#if chatNotificationData.hasUnreadMessages}}({{chatNotificationData.unreadCount}}){{/if}}</p>
                     <span>
                         {{#if chatNotificationData.message }}
-                            <span>{{ chatNotificationData.message.creator.profile.name }}: {{ chatNotificationData.message.content }}</span>
+                            <span>{{ chatNotificationData.message.creator.profile.name }}: {{{ formatted chatNotificationData.message.content }}}</span>
                         {{else}}
                             <span>&nbsp;</span>
                         {{/if}}
-                        <time>{{ partupDateCustom chatNotificationData.message.created_at 'dd D MMMM - hh:mm' }}</time>
+                        <time>{{ partupDateCustom chatNotificationData.message.created_at 'dd D MMMM - HH:mm' }}</time>
                     </span>
                 </article>
             </a>
