@@ -173,7 +173,7 @@ Chats.findForUser = function(userId, parameters, options) {
     if (parameters.networks) {
         // And now collect the tribe chats
         var userNetworks = user.networks || [];
-        var networks = Networks.find({_id: {$in: userNetworks}});
+        var networks = Networks.find({_id: {$in: userNetworks}, archived_at: {$exists: false}});
         networks.forEach(function(network) {
             if (network.chat_id) chatIds.push(network.chat_id);
         });

@@ -483,11 +483,16 @@ Networks.guardedFind = function(userId, selector, options) {
 
     // The fields that should never be exposed
     var guardedFields = ['access_tokens'];
-    options.fields = options.fields || {};
-
-    guardedFields.forEach(function(guardedField) {
-        options.fields[guardedField] = 0;
-    });
+    if (!options.fields) {
+        options.fields = {};
+        guardedFields.forEach(function(guardedField) {
+            options.fields[guardedField] = 0;
+        });
+    } else {
+        guardedFields.forEach(function(guardedField) {
+            delete options.fields[guardedField];
+        });
+    }
 
     var guardedCriterias = [
         // The network is open, which means everyone can access it
@@ -550,6 +555,19 @@ Networks.findForPartup = function(partup, userId) {
 Networks.findForUser = function(user, userId, options) {
     var networks = user.networks || [];
     return Networks.guardedFind(userId, {_id: {'$in': networks}}, options);
+};
+
+/**
+ * Find the unarchivednetworks for a user
+ *
+ * @memberOf Networks
+ * @param {User} user
+ * @param {String} userId
+ * @return {Mongo.Cursor}
+ */
+Networks.findUnarchivedForUser = function(user, userId, options) {
+    var networks = user.networks || [];
+    return Networks.guardedFind(userId, {$and: [{_id: {'$in': networks}}, {archived_at: {$exists: false}}]}, options);
 };
 
 /**
