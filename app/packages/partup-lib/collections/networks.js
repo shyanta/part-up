@@ -287,6 +287,11 @@ Network.prototype.rejectPendingUpper = function(upperId) {
  * @param {String} upperId id of the user whose invites have to be removed
  */
 Network.prototype.removeAllUpperInvites = function(upperId) {
+    // Retrieve all invites for this upper on this network
+    Invites.find({network_id: this._id, invitee_id: upperId}).fetch().forEach(function(invite) {
+        Meteor.users.update(upperId, {$addToSet: {'profile.invited_data.invites': invite}});
+    });
+
     // Clear out the invites from Invites collection
     Invites.remove({network_id: this._id, invitee_id: upperId});
 
