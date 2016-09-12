@@ -328,7 +328,7 @@ Meteor.users.findForAdminList = function(selector, options) {
     var page = options.page;
 
     return Meteor.users.find(selector, {
-        fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1, 'createdAt':1, 'deactivatedAt':1},
+        fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1, 'profile.invited_data.invites': 1, 'createdAt':1, 'deactivatedAt':1},
         sort: {'createdAt': -1},
         limit: limit,
         skip: limit * page
@@ -487,6 +487,16 @@ User = function(user) {
         isColleagueOfNetwork: function(networkId) {
             if (!user) return false;
             return !!Networks.findOne({_id: networkId, colleagues: {$in: [user._id]}});
+        },
+
+        /**
+         * Check if user is invited
+         *
+         * @return {Boolean}
+         */
+        isInvited: function() {
+            if (!user) return false;
+            return user.profile.invited_data && user.profile.invited_data.invites && user.profile.invited_data.invites.length > 0
         },
 
         /**
