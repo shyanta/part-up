@@ -26,8 +26,8 @@ Meteor.publishComposite('users.one', function(userId) {
  */
 Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
     var options = {};
-    var skip;
-    var limit;
+    var skip = 0;
+    var limit = 100;
 
     if (request.query) {
         if (request.query.limit) limit = parseInt(request.query.limit);
@@ -84,8 +84,8 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
  */
 Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
     var options = {};
-    var skip;
-    var limit;
+    var skip = 0;
+    var limit = 100;
 
     if (request.query) {
         if (request.query.limit) limit = parseInt(request.query.limit);
