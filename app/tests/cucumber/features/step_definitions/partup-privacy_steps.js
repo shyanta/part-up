@@ -5,6 +5,19 @@ import locators from '../helpers/locators';
 module.exports = function () {
     let privateCssSelector = 'h2 a[href="/partups/super-secret-closed-ing-partup-CJETReuE6uo2eF7eW"]';
 
+    // this function is run before testing each scenario.
+    // it makes sure that we're using a test (i.e. empty) database.
+    this.Before(function (scenario) {
+        // console.log(`Meteor running: ${server._original.host}:${server._original.port}`);
+        // console.log(`About to test: '${scenario.getName()}'`);
+    });
+
+    // this function is run after testing each scenario
+    this.After(function (scenario) {
+        // TODO: clean DB, to prevent side-effects between tests
+        // console.log('Test finished');
+    });
+
     this.Given(/^The user is logged in as Admin$/, function () {
         navigator.gotoPage('login');
         authentication.logInAsAdmin();
