@@ -37,7 +37,7 @@ if (Meteor.isClient) {
 
     Template.GoogleDrivePicker.onRendered(function () {
 
-        var template = Template.instance().parent();
+        let mediaUploader = Template.instance().data.mediaUploader;
 
         var $mediaTrigger = jQuery('[data-google-drive-picker]');
 
@@ -108,14 +108,14 @@ if (Meteor.isClient) {
             }
         }
 
-        function allowImageUpload(template, file) {
+        function allowImageUpload(mediaUploader, file) {
             return (FileUploader.fileNameIsImage(file.name)
-            && template.uploadedPhotos.get().length < template.maxPhotos)
+            && mediaUploader.uploadedPhotos.get().length < mediaUploader.maxPhotos)
         }
 
-        function allowDocumentUpload(template, file) {
+        function allowDocumentUpload(mediaUploader, file) {
             return (FileUploader.fileNameIsDoc(file.name)
-            && template.uploadedDocuments.get().length < template.maxDocuments);
+            && mediaUploader.uploadedDocuments.get().length < mediaUploader.maxDocuments);
         }
 
         function pickerCallback(data) {
@@ -142,48 +142,48 @@ if (Meteor.isClient) {
                             mappedFile.name = file.name.toString();
                             mappedFile.mimeType = file.mimeType.toString();
 
-                            if (allowImageUpload(template, mappedFile)) {
+                            if (allowImageUpload(mediaUploader, mappedFile)) {
                                 mappedFile.link = 'https://docs.google.com/uc?id=' + file.id;
                                 mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
                                 uploadPromises.push(
-                                    FileUploader.partupUploadPhoto(template, mappedFile)
+                                    FileUploader.partupUploadPhoto(mediaUploader, mappedFile)
                                 );
                             }
-                            else if (allowDocumentUpload(template, mappedFile)) {
+                            else if (allowDocumentUpload(mediaUploader, mappedFile)) {
                                 mappedFile.link = file.url.toString();
                                 mappedFile = _.pick(mappedFile, 'icon', 'bytes', 'link', 'name', 'mimeType');
                                 mappedFile._id = new Meteor.Collection.ObjectID()._str;
                                 uploadPromises.push(
-                                    FileUploader.partupUploadDoc(template, mappedFile)
+                                    FileUploader.partupUploadDoc(mediaUploader, mappedFile)
                                 );
                             }
                         });
 
                         Promise.all(uploadPromises).then(function (files) {
                             files.forEach(function (file) {
-                                if (allowImageUpload(template, file)) {
-                                    var uploaded = template.uploadedPhotos.get();
+                                if (allowImageUpload(mediaUploader, file)) {
+                                    var uploaded = mediaUploader.uploadedPhotos.get();
                                     uploaded.push(file._id);
-                                    template.uploadedPhotos.set(uploaded);
-                                    template.uploadingPhotos.set(false);
+                                    mediaUploader.uploadedPhotos.set(uploaded);
+                                    mediaUploader.uploadingPhotos.set(false);
                                 }
-                                else if (allowDocumentUpload(template, file)) {
-                                    uploaded = template.uploadedDocuments.get();
+                                else if (allowDocumentUpload(mediaUploader, file)) {
+                                    uploaded = mediaUploader.uploadedDocuments.get();
                                     uploaded.push(file);
-                                    template.uploadedDocuments.set(uploaded);
-                                    template.uploadingDocuments.set(false);
+                                    mediaUploader.uploadedDocuments.set(uploaded);
+                                    mediaUploader.uploadingDocuments.set(false);
                                 }
                             });
                         }).catch(function (error) {
                             Partup.client.notify.error(TAPi18n.__(error.reason));
-                            template.uploadingPhotos.set(false);
-                            template.uploadingDocuments.set(false);
+                            mediaUploader.uploadingPhotos.set(false);
+                            mediaUploader.uploadingDocuments.set(false);
                         });
                     })
                     .catch(function (error) {
                         Partup.client.notify.error(TAPi18n.__(error.message));
-                        template.uploadingPhotos.set(false);
-                        template.uploadingDocuments.set(false);
+                        mediaUploader.uploadingPhotos.set(false);
+                        mediaUploader.uploadingDocuments.set(false);
                     });
             }
         }
