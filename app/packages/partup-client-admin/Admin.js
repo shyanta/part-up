@@ -43,6 +43,9 @@ Template.Admin.helpers({
     isUserActive: function(user) {
         return User(user).isActive();
     },
+    isUserInvited: function(user) {
+        return User(user).isInvited();
+    },
 });
 
 Template.Admin.events({
