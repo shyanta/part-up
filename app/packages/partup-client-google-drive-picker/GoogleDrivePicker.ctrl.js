@@ -20,8 +20,8 @@ if (Meteor.isClient) {
             fileId: file.id,
             sendNotificationEmail: false,
             transferOwnership: false,
-            role: 'reader',
-            type: 'anyone'
+            role: 'writer',
+            type: 'group'
         });
 
         return new Promise(function (resolve, reject) {
