@@ -347,8 +347,8 @@ Meteor.methods({
         var network = Networks.findOneOrFail({slug: networkSlug});
 
         uppers.forEach(function(upper) {
-            upper.admin = (network.admins.indexOf(upper._id) > -1) ? upper.participation_score : -1;
-            upper.colleague = (network.colleagues.indexOf(upper._id) > -1) ? upper.participation_score : -1;
+            upper.admin = (network.admins && network.admins.indexOf(upper._id) > -1) ? upper.participation_score : -1;
+            upper.colleague = (network.colleagues && network.colleagues.indexOf(upper._id) > -1) ? upper.participation_score : -1;
         });
 
         return lodash.sortByOrder(uppers, ['admin', 'colleague', 'participation_score'], ['desc', 'desc', 'desc']);
