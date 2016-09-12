@@ -47,7 +47,7 @@ Router.route('/networks/:slug/uppers/count', {where: 'server'}).get(function() {
     var network = Networks.guardedFind(userId, {slug: params.slug}, {}).fetch().pop();
     if (!network) {
         response.statusCode = 404;
-        response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
+        return response.end(JSON.stringify({error: {reason: 'error-network-notfound'}}));
     }
 
     var uppers = Meteor.users.findMultiplePublicProfiles(network.uppers, {}, {
