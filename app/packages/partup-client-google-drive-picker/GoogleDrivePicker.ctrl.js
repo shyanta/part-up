@@ -20,6 +20,7 @@ if (Meteor.isClient) {
             fileId: file.id,
             sendNotificationEmail: false,
             transferOwnership: false,
+            // check https://developers.google.com/drive/v2/reference/permissions
             role: 'writer',
             type: 'group'
         });
