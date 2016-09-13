@@ -4,7 +4,6 @@ class LocatorsHelper {
     }
 
     getTextFromElement(cssSelector) {
-        browser.waitForExist(cssSelector);
         var element = browser.element(cssSelector);
         element.waitForExist();
         return element.getText();
