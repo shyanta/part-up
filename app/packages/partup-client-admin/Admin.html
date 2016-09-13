@@ -42,6 +42,7 @@
                     <span class="pu-sub-id">ID</span>
                     <span class="pu-sub-name">Name</span>
                     <span class="pu-sub-content">Email</span>
+                    <span class="pu-sub-invited">Invited</span>
                     <span class="pu-sub-highlight">Phone</span>
                     <span class="pu-sub-date">Created</span>
                 </p>
@@ -52,6 +53,7 @@
                         <span class="pu-sub-id"><span>{{_id}}</span></span>
                         <a href="{{ pathFor route='profile' _id=_id }}" class="pu-sub-name"  data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ _id }}">{{profile.name}}</a>
                         <span class="pu-sub-content">{{getMail . }}</span>
+                        <span class="pu-sub-invited">{{#if isUserInvited . }}Yes{{/if}}</span>
                         <span class="pu-sub-highlight">{{profile.phonenumber}}</span>
                         <span class="pu-sub-date">{{partupDateCustom createdAt 'DD-MM-YY'}}</span>
                     </p>

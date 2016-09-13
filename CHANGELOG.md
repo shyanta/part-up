@@ -1,3 +1,75 @@
+<a name="1.21.9"></a>
+## [1.21.9](https://github.com/part-up/part-up/compare/1.21.8...v1.21.9) (2016-09-06)
+
+
+### Bug Fixes
+
+* **activity-form:** replace with i18n doc url ([6fea493](https://github.com/part-up/part-up/commit/6fea493)), closes [#649](https://github.com/part-up/part-up/issues/649)
+* **chat:** clear new messages ([fd8923a](https://github.com/part-up/part-up/commit/fd8923a))
+* **chat:** created a findOneForUser helper and optimized the chats.by_id publication ([bf930c7](https://github.com/part-up/part-up/commit/bf930c7))
+* **chat:** fixed chat list margins for when scrollbars are enabled on mac ([7462c43](https://github.com/part-up/part-up/commit/7462c43))
+* **chat:** improved chat performance ([27381cc](https://github.com/part-up/part-up/commit/27381cc))
+* **chat:** in the process of implementing the reversed scrollcontainer ([6e7b8d3](https://github.com/part-up/part-up/commit/6e7b8d3))
+* **chat:** increased chat performance ([a254d7e](https://github.com/part-up/part-up/commit/a254d7e))
+* **chat:** increased chat performance ([4c44051](https://github.com/part-up/part-up/commit/4c44051))
+* **chat:** optimized chat and chatnotifications ([f75c7af](https://github.com/part-up/part-up/commit/f75c7af))
+* **chat:** optimized chat performance ([84b112d](https://github.com/part-up/part-up/commit/84b112d))
+* **chats:** fields fix causing mobile app problems ([d913928](https://github.com/part-up/part-up/commit/d913928))
+* **chats:** fix publication to unsure all data networks need to show up ([921eecc](https://github.com/part-up/part-up/commit/921eecc))
+* **newmessage:** replace i18n markdown doc key ([19ef632](https://github.com/part-up/part-up/commit/19ef632)), closes [#649](https://github.com/part-up/part-up/issues/649)
+* **scraper:** fixed bug that caused the scraper to error when a source couldn't be scraped [#641](https://github.com/part-up/part-up/issues/641) ([6503537](https://github.com/part-up/part-up/commit/6503537)), closes [#641](https://github.com/part-up/part-up/issues/641)
+
+
+### Features
+
+* **chat:** better reversed scroller container ([8115c2e](https://github.com/part-up/part-up/commit/8115c2e))
+* **fixtures:** added chat fixtures for 1-on-1 and tribe chat ([985bfd2](https://github.com/part-up/part-up/commit/985bfd2))
+
+
+
+<a name="1.21.8"></a>
+## [1.21.8](https://github.com/part-up/part-up/compare/1.21.7...1.21.8) (2016-08-31)
+
+
+### Bug Fixes
+
+* **login.js:** remove heap global login implementation ([c09b0b6](https://github.com/part-up/part-up/commit/c09b0b6)), closes [#651](https://github.com/part-up/part-up/issues/651)
+
+
+
+<a name="1.21.7"></a>
+## [1.21.7](https://github.com/part-up/part-up/compare/v1.21.6...1.21.7) (2016-08-28)
+
+
+### Features
+
+* **main.html:** remove heap and add vwo tracking code ([49e29d5](https://github.com/part-up/part-up/commit/49e29d5)), closes [#624](https://github.com/part-up/part-up/issues/624)
+
+
+
+<a name="1.21.6"></a>
+## [1.21.6](https://github.com/part-up/part-up/compare/v1.21.5...v1.21.6) (2016-08-25)
+
+
+### Bug Fixes
+
+* **chatmessages-handler:** remove scraper feat for performance reasons ([39e9455](https://github.com/part-up/part-up/commit/39e9455))
+* **markdown-style:** img in paragraph is 100% width ([a233202](https://github.com/part-up/part-up/commit/a233202))
+* **markdown-style:** paragraph need more vertical space ([a2b046d](https://github.com/part-up/part-up/commit/a2b046d))
+* **strings-helper:** prevent adding html stuffs - santize markdown ([cb744b5](https://github.com/part-up/part-up/commit/cb744b5))
+* **strings-helper:** replace markdown-it with marked lib ([dcaf7db](https://github.com/part-up/part-up/commit/dcaf7db))
+
+
+### Features
+
+* **activity-form:** open target blank for external link and add markdown support icon ([1866e13](https://github.com/part-up/part-up/commit/1866e13))
+* **activity-view:** enable markdown support ([24810b0](https://github.com/part-up/part-up/commit/24810b0))
+* **markdown-hightlight:** able to highlight code with github style ([97cde31](https://github.com/part-up/part-up/commit/97cde31))
+* **messages-added.html:** add markdown support notification ([4bd1734](https://github.com/part-up/part-up/commit/4bd1734))
+* **strings-helper:** combine partupAutolinker ([20bd8ab](https://github.com/part-up/part-up/commit/20bd8ab))
+
+
+
 <a name="1.21.5"></a>
 ## [1.21.5](https://github.com/part-up/part-up/compare/1.21.4...v1.21.5) (2016-08-16)
 
@@ -34,6 +106,7 @@
 * **partup:** fixed white-space issue on new updates button fixing [#619](https://github.com/part-up/part-up/issues/619) ([5abdc74](https://github.com/part-up/part-up/commit/5abdc74))
 * **partup:** show admin-only privacy type in partup ([1c75a4e](https://github.com/part-up/part-up/commit/1c75a4e))
 * **search:** fixed bug where blurring the window caused the search input to close without blurring the input. fixing [#429](https://github.com/part-up/part-up/issues/429) ([a2dd595](https://github.com/part-up/part-up/commit/a2dd595))
+* **strings:** require emoji ([c76a9df](https://github.com/part-up/part-up/commit/c76a9df))
 * **tribe:** archived tribes have all actions disabled in frontend ([baf624e](https://github.com/part-up/part-up/commit/baf624e))
 * **tribe:** disable buttons on archived state ([1699326](https://github.com/part-up/part-up/commit/1699326))
 * **tribe:** minor styling tweak ([1c5fb2f](https://github.com/part-up/part-up/commit/1c5fb2f))
@@ -79,8 +152,10 @@
 * **colleagues:** added privacy type for colleague partups ([6e720f1](https://github.com/part-up/part-up/commit/6e720f1))
 * **colleagues:** make colleague partups visible for colleagues and admins. also some code formatting ([3e492b0](https://github.com/part-up/part-up/commit/3e492b0))
 * **colleagues:** updated the partup transformer ([51a2e47](https://github.com/part-up/part-up/commit/51a2e47))
+* **comment:** support markdown with renderInline ([d147a8c](https://github.com/part-up/part-up/commit/d147a8c))
 * **logging:** only log event endpoint configuration once (on startup) if needed ([40eb266](https://github.com/part-up/part-up/commit/40eb266))
 * **menu.html:** some links open target blank and re-order ([c6f12d5](https://github.com/part-up/part-up/commit/c6f12d5))
+* **message-added:** markdown support ([34da385](https://github.com/part-up/part-up/commit/34da385))
 * **network:** introduced colleague property and implemented backend functionality ([f357aa6](https://github.com/part-up/part-up/commit/f357aa6))
 * **network:** only change privacy type of partup on network change when they are neither colleagues or admins types ([7ee436e](https://github.com/part-up/part-up/commit/7ee436e))
 * **network:** set partup privacy restrictions for different roles ([954a4e7](https://github.com/part-up/part-up/commit/954a4e7))
@@ -95,6 +170,7 @@
 * **partup:** select group when starting partup from tribe ([83beae1](https://github.com/part-up/part-up/commit/83beae1))
 * **partups:** label for admins/collegue partups on partup tiles ([8dfb873](https://github.com/part-up/part-up/commit/8dfb873))
 * **stats:** not able anymore to increase the number of email shares manually [#465](https://github.com/part-up/part-up/issues/465) ([fbc41b8](https://github.com/part-up/part-up/commit/fbc41b8))
+* **strings:** export strings helpers as importable with renderToMarkdown ([d585fb9](https://github.com/part-up/part-up/commit/d585fb9))
 * **tribe:** archived label ([a75cd83](https://github.com/part-up/part-up/commit/a75cd83))
 * **tribe:** archived tribes always show start ([7cf12c7](https://github.com/part-up/part-up/commit/7cf12c7))
 * **tribe:** assign and unassign roles, also create part-ups for colleagues level ([5c80e79](https://github.com/part-up/part-up/commit/5c80e79))

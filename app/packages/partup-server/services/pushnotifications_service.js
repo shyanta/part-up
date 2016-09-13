@@ -21,6 +21,7 @@ Meteor.startup(function() {
 
             note.badge = badge;
             note.alert = message;
+            note.sound = 'ping.aiff';
             note.payload = {
                 payload: JSON.stringify(payload)
             };
@@ -44,7 +45,8 @@ Meteor.startup(function() {
                     data: mout.object.mixIn({}, {
                         title: 'Part-up',
                         body: message,
-                        payload: JSON.stringify(payload)
+                        payload: JSON.stringify(payload),
+                        sound: 'default'
                     })
                 }
             });

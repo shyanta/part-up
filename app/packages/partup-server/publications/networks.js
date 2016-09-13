@@ -213,6 +213,15 @@ Meteor.publishComposite('networks.one.chat', function(networkSlug, parameters) {
     if (parameters.skip) options.skip = parameters.skip;
     options.sort = {created_at: -1};
 
+    options.fields = {
+        _id: 1,
+        chat_id: 1,
+        content: 1,
+        created_at: 1,
+        creator_id: 1,
+        preview_data: 1
+    };
+
     return {
         find: function() {
             return Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1});

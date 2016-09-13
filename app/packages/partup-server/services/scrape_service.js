@@ -21,7 +21,7 @@ Partup.server.services.scrape = {
             });
 
             client.on('error', function(error) {
-                return callback(Log.error(error.message));
+                return callback(Log.error(error));
             });
 
             client.fetch();

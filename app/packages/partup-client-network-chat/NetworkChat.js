@@ -4,19 +4,18 @@ Template.NetworkChat.onCreated(function() {
     var chatId = undefined;
 
     template.searching = false;
-    template.LIMIT = 50;
-    template.SEARCH_LIMIT = 50;
-    template.initialized = new ReactiveVar(false);
+    template.LIMIT = 20;
+    template.SEARCH_LIMIT = 20;
     template.bottomBarHeight = new ReactiveVar(68);
-    // template.sendingMessage = new ReactiveVar(false);
+    template.loadingOlderMessages = false;
 
     var initialize = function(chat_id) {
         chatId = chat_id;
         startMessageCollector(chat_id);
-        template.initialized.set(true);
     };
 
     template.resetUnreadMessagesIndicatorBadge = function() {
+        if (!chatId) return;
         Meteor.call('chats.reset_counter', chatId);
     };
 
@@ -26,6 +25,7 @@ Template.NetworkChat.onCreated(function() {
         if (chat) {
             // if a chat is available, continue
             initialize(chat._id);
+            Meteor.call('chats.reset_counter', chat._id);
         }
     };
 
@@ -36,17 +36,12 @@ Template.NetworkChat.onCreated(function() {
 
         chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: newLimit}, {
             onReady: function() {
-                var messagesCount = ChatMessages.find({chat_id: chatId}, {limit: newLimit, sort: {created_at: 1}}).count();
+                var messagesCount = ChatMessages.find({chat_id: chatId}, {limit: newLimit}).count();
                 var totalNewMessages = messagesCount - oldLimit;
                 if (totalNewMessages < 1) {
                     template.limitReached.set(true);
                 } else {
-                    _.defer(function() {
-                        Partup.client.chat.ajustScrollOffsetByMessageCount(totalNewMessages);
-                        setTimeout(function() {
-                            template.loadingOlderMessages = false;
-                        }, 500);
-                    });
+                    template.loadingOlderMessages = false;
                 }
             }
         });
@@ -56,7 +51,7 @@ Template.NetworkChat.onCreated(function() {
         if (template.loadingOlderMessages || template.searching || Partup.client.chat.showingContext) return;
         template.loadingOlderMessages = true;
         if (template.limitReached.get()) return;
-        template.messageLimit.set(template.messageLimit.get() + 10);
+        template.messageLimit.set(template.messageLimit.get() + template.LIMIT);
     };
 
     // search
@@ -87,7 +82,7 @@ Template.NetworkChat.onCreated(function() {
         } else {
             message_id = messageClickEvent.message._id;
         }
-        Meteor.call('chatmessages.get_context', networkSlug, message_id, {limit: 50}, function(err, res) {
+        Meteor.call('chatmessages.get_context', networkSlug, message_id, {limit: template.SEARCH_LIMIT}, function(err, res) {
             if (err) return;
             template.reactiveMessages.set(res);
             var fullMessage = lodash.find(res, {_id: messageClickEvent.message._id || messageClickEvent.message.hash});
@@ -104,27 +99,19 @@ Template.NetworkChat.onCreated(function() {
         template.autorun(function(computation) {
             // run this autorun when the searchquery changes
             var searchQuery = template.searchQuery.get();
-            // var sendingMessage = template.sendingMessage.get();
 
             // don't do anything if the user is searching
             // or if a message is not processed yet (scraper)
-            // if (template.searching || sendingMessage) return;
             if (template.searching || Partup.client.chat.showingContext) return;
 
             var limit = template.messageLimit.get();
             var messages = ChatMessages
-                .find({chat_id: chat_id}, {limit: limit, sort: {created_at: 1}})
+                .find({chat_id: chat_id}, {sort: {created_at: 1}})
                 .fetch();
-
-            // store messages locally and filter out duplicates
-            localChatMessagesCollection = localChatMessagesCollection.concat(messages);
-            localChatMessagesCollection = mout.array.unique(localChatMessagesCollection, function(message1, message2) {
-                return message1._id === message2._id;
-            });
 
             // wrapped in nonreactive to prevent unnecessary autorun
             Tracker.nonreactive(function() {
-                template.reactiveMessages.set(localChatMessagesCollection);
+                template.reactiveMessages.set(messages);
             });
         });
 
@@ -153,20 +140,25 @@ Template.NetworkChat.helpers({
             messageView: function() {
                 return {
                     chatId: network.chat_id,
-                    onScrollTop: template.loadOlderMessages,
+                    onScrollTop: {
+                        handler: template.loadOlderMessages,
+                        offset: 400
+                    },
                     onNewMessagesViewed: template.resetUnreadMessagesIndicatorBadge,
                     onMessageClick: template.onMessageClick,
                     placeholderText: TAPi18n.__('pages-app-network-chat-empty-placeholder'),
                     reactiveMessages: template.reactiveMessages,
                     reactiveHighlight:  template.searchQuery,
                     reactiveBottomBarHeight: template.bottomBarHeight,
-                    onClearContext: template.throttledSetSearchQuery
+                    onClearContext: template.throttledSetSearchQuery,
+                    messageInputSelector: '[data-messageinput]'
                 };
             },
             bottomBar: function() {
                 return {
                     chatId: network.chat_id,
-                    reactiveBottomBarHeight: template.bottomBarHeight
+                    reactiveBottomBarHeight: template.bottomBarHeight,
+                    messageInputSelector: '[data-messageinput]'
                 };
             },
             sideBar: function() {
@@ -189,14 +181,6 @@ Template.NetworkChat.helpers({
             },
             reactiveMessages: function() {
                 return template.reactiveMessages;
-            }
-        };
-    },
-    state: function() {
-        var template = Template.instance();
-        return {
-            initialized: function() {
-                return template.initialized.get();
             }
         };
     }

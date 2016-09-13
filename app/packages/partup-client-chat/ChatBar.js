@@ -23,23 +23,23 @@ var continueOnCreated = function(chatId) {
         if (resetTypingStateTimeout) clearTimeout(resetTypingStateTimeout);
         resetTypingStateTimeout = setTimeout(template.resetTypingState, Partup.client.chat.MAX_TYPING_PAUSE);
     };
-    template.throttledEnableTypingState = _.throttle(enableTypingState, (Partup.client.chat.MAX_TYPING_PAUSE / 2), {leading: true, trailing: false});
+    template.throttledEnableTypingState = _.throttle(enableTypingState, (Partup.client.chat.MAX_TYPING_PAUSE - 100), {leading: true, trailing: false});
 
     template.sendMessage = function(message) {
         if (!message) return false;
 
         Partup.client.chat.instantlyScrollToBottom();
-        template.clearMessageInput();
 
         Meteor.call('chatmessages.insert', {
             chat_id: chatId,
-            content: Partup.client.strings.emojify(message)
+            content: template.mentionsInput.getValue()
         }, function(err, res) {
             // template.sendingMessage.set(false);
             if (err) return Partup.client.notify.error('Error sending message');
             template.resetTypingState();
             Partup.client.chat.onNewMessageRender(Partup.client.chat.instantlyScrollToBottom);
         });
+        template.clearMessageInput();
     };
 
     template.ajustHeight = function() {
@@ -66,11 +66,23 @@ Template.ChatBar.onCreated(function() {
 Template.ChatBar.onRendered(function() {
     var template = this;
     if (template.data.config.chatId) $('[data-messageinput]').focus();
+
+    var input = template.find('[data-mentionsinput]');
+    if (template.mentionsInput) template.mentionsInput.destroy();
+    template.mentionsInput = Partup.client.forms.MentionsInput(input);
+});
+
+Template.ChatBar.onDestroyed(function() {
+    var template = this;
+    if (template.mentionsInput) template.mentionsInput.destroy();
 });
 
 Template.ChatBar.helpers({
     rows: function() {
         return Template.instance().rows.get();
+    },
+    selector: function() {
+        return Template.instance().data.config.messageInputSelector.split('[').join('').split(']').join('');
     }
 });
 

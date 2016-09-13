@@ -1,7 +1,7 @@
-// full documentation for Autolinker at http://gregjacobs.github.io/Autolinker.js/docs/#!/api/Autolinker
-Template.registerHelper('partupAutolink', function(text) {
+import * as Autolinker from './Autolinkjs';
 
-    var jaja = Autolinker.link(text, {
+var autolinker = function(text) {
+    return Autolinker.link(text, {
         twitter: false, // to not parse twitter handles
         hashtag: false, // do not parse hashtags
         phone: false, // i've set this to false, because it does not work with dutch phone-number formatting
@@ -12,7 +12,7 @@ Template.registerHelper('partupAutolink', function(text) {
         // this replacefunction is for emails only
         // autolinker will put a target="_blank" on all urls
         // if newWindow is true
-        replaceFn: function(linker, match) {
+        replaceFn: function (linker, match) {
             var type = match.getType();
             if (type === 'email') {
                 var email = match.getEmail();
@@ -23,8 +23,10 @@ Template.registerHelper('partupAutolink', function(text) {
             return tag;
         }
     });
-
-    return jaja;
+};
+// full documentation for Autolinker at http://gregjacobs.github.io/Autolinker.js/docs/#!/api/Autolinker
+Template.registerHelper('partupAutolink', function(text) {
+    return autolinker(text);
 });
 
 Template.registerHelper('partupHighlight', function(message, highlightText) {
@@ -37,3 +39,5 @@ Template.registerHelper('partupHighlight', function(message, highlightText) {
     var outputText = descriptionArray.join('<span>' + highlight + '</span>');
     return outputText;
 });
+
+export default autolinker;

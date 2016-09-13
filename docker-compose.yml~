@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  mongo:
+    image: mongo:3
+
+  meteor:
+    build: develop/
+    links:
+      - mongo
+    env_file: config/development/env
+    environment:
+      MONGO_URL: mongodb://mongo/partup
+      ROOT_URL: http://localhost:8080
+      NODE_ENV: development
+    ports:
+      - "3000:3000"

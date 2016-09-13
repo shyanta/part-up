@@ -1,18 +1,26 @@
 <template name="ChatGroupNotification">
-    <a href="{{pathFor route='network-chat' slug=data.network.slug}}">
-        <figure class="pu-avatar pu-avatar-plain pu-avatar-square"
-            style="background-image: url('{{ partupImageUrl id=data.network.image }}');">
-        </figure>
-        <article>
-            <p>{{ data.network.name }} {{#if data.chat.hasUnreadMessages}}({{data.chat.unreadCount}}){{/if}}</p>
-            <span>
-                {{#if data.showLastMessage }}
-                    <span>{{ data.creator.profile.name }}: {{ data.message.content }}</span>
-                {{else}}
-                    <span>&nbsp;</span>
-                {{/if}}
-                <time>{{ partupDateNotification created_at }}</time>
-            </span>
-        </article>
-    </a>
+    {{#let chatNotificationData=chat notificationNetwork=network }}
+        <li class="pu-notification pu-notification-chat pu-notification-wide
+            {{#unless chatNotificationData.message}}pu-notification-no-messages{{/unless}}
+            {{#unless chatNotificationData.unreadCount }}pu-notification-viewed pu-notification-clicked{{/unless}}"
+            data-notification="{{ _id }}"
+        >
+            <a href="{{pathFor route='network-chat' slug=notificationNetwork.slug}}">
+                <figure class="pu-avatar pu-avatar-plain pu-avatar-square"
+                    style="background-image: url('{{ partupImageUrl id=notificationNetwork.image }}');">
+                </figure>
+                <article>
+                    <p>{{ notificationNetwork.name }} {{#if chatNotificationData.hasUnreadMessages}}({{chatNotificationData.unreadCount}}){{/if}}</p>
+                    <span>
+                        {{#if chatNotificationData.message }}
+                            <span>{{ chatNotificationData.message.creator.profile.name }}: {{{ formatted chatNotificationData.message.content }}}</span>
+                        {{else}}
+                            <span>&nbsp;</span>
+                        {{/if}}
+                        <time>{{ partupDateCustom chatNotificationData.message.created_at 'dd D MMMM - HH:mm' }}</time>
+                    </span>
+                </article>
+            </a>
+        </li>
+    {{/let}}
 </template>

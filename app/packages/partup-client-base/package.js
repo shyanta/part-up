@@ -4,9 +4,10 @@ Package.describe({
     summary: ''
 });
 
-Package.onUse(function(api) {
+Package.onUse(function (api) {
 
     api.use([
+        'ecmascript',
         'partup-lib',
         'momentjs:moment',
         'chrismbeckett:toastr',
@@ -73,6 +74,7 @@ Package.onUse(function(api) {
         'client/browser.js',
         'client/chat.js',
         'client/sort.js',
+        'client/message.js',
 
         'helpers/sanitize.js',
         'helpers/log.js',
@@ -106,5 +108,7 @@ Package.onUse(function(api) {
         'analytics.js'
 
     ], ['client']);
+
+    api.export('strings');
 
 });

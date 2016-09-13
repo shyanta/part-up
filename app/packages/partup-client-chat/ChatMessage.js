@@ -25,6 +25,18 @@ Template.ChatMessage.helpers({
             }
         };
     },
+    chatMessage: function(content, highlightText) {
+        var message = new Partup.client.message(content)
+            .sanitize()
+            .autoLink()
+            .lineBreakToBr()
+            .parseMentions({link: true})
+            .emojify();
+
+        if (highlightText) message.highlight(highlightText);
+
+        return message.getContent();
+    },
     handlers: function() {
         var template = Template.instance();
         return {

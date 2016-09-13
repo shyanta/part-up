@@ -4,6 +4,7 @@
     "emails-invite-user-subject": "Uitnodigen voor Part-up %s",
     "emails-dailydigest-subject": "Notificaties op Part-up.com",
     "emails-upper_mentioned_in_partup-subject": "Iemand heeft je naam genoemd in part-up __partup__",
+    "emails-upper_mentioned_in_network_chat-subject": "Iemand heeft je naam genoemd in de __network__ tribe chat",
     "emails-invite_upper_to_partup_activity-subject": "Uitnodiging voor de activiteit __activity__ in part-up __partup__",
     "emails-invite_upper_to_partup-subject": "Uitnodiging voor de part-up __partup__",
     "emails-invite_upper_to_network-subject": "Uitnodiging voor de tribe __network__",

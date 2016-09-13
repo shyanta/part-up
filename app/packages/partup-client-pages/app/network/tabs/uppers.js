@@ -78,20 +78,22 @@ Template.app_network_uppers.onCreated(function() {
                 return;
             }
 
-            var result = response.data;
-            template.states.paging_end_reached.set(result.users.length < PAGING_INCREMENT);
+            var unorderedResult = response.data.users;
+            Meteor.call('users.order_network_uppers', template.data.networkSlug, unorderedResult, function(error, result) {
+                template.states.paging_end_reached.set(result.length < PAGING_INCREMENT);
 
-            var tiles = result.users.map(function(user) {
-                Partup.client.embed.user(user, result['cfs.images.filerecord']);
+                var tiles = result.map(function(user) {
+                    Partup.client.embed.user(user, result['cfs.images.filerecord']);
 
-                return {
-                    user: user
-                };
-            });
+                    return {
+                        user: user
+                    };
+                });
 
-            // Add tiles to the column layout
-            template.columnTilesLayout.addTiles(tiles, function callback() {
-                template.states.loading_infinite_scroll = false;
+                // Add tiles to the column layout
+                template.columnTilesLayout.addTiles(tiles, function callback() {
+                    template.states.loading_infinite_scroll = false;
+                });
             });
         });
     });

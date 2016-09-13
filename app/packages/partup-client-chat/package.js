@@ -10,6 +10,7 @@ Package.onUse(function(api) {
     ], ['client', 'server']);
 
     api.use([
+        'ecmascript',
         'templating',
         'partup-lib',
         'reactive-var'
@@ -22,7 +23,9 @@ Package.onUse(function(api) {
         'ChatMessage.js',
         'ChatBar.html',
         'ChatBar.js',
-        'ChatTypingIndicator.html'
+        'ChatTypingIndicator.html',
+        'ReversedScroller.html',
+        'ReversedScroller.js'
     ], 'client');
 
 });

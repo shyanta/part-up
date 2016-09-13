@@ -1,3 +1,5 @@
+import {strings} from 'meteor/partup-client-base';
+
 // jscs:disable
 /**
  * Widget to render comments and a comment field
@@ -64,7 +66,7 @@ Template.Comments.onRendered(function() {
     template.list = template.find('[data-comments-container]');
     template.input = template.find('[name=content]');
     var partupId = template.data.update.partup_id;
-    template.mentionsInput = Partup.client.forms.MentionsInput(template.input, partupId);
+    template.mentionsInput = Partup.client.forms.MentionsInput(template.input, {partupId: partupId});
     Partup.client.elements.onClickOutside([template.list], template.resetEditCommentForm);
 });
 
@@ -80,7 +82,8 @@ Template.afFieldInput.onRendered(function() {
     if (template.mentionsEditInput) template.mentionsEditInput.destroy();
 
     var input = template.find('[data-update-comment]');
-    template.mentionsEditInput = Partup.client.forms.MentionsInput(input, template.data.update.partup_id, {
+    template.mentionsEditInput = Partup.client.forms.MentionsInput(input, {
+        partupId: template.data.update.partup_id,
         autoFocus: true,
         autoAjustHeight: true,
         prefillValue: currentComment
@@ -196,8 +199,8 @@ Template.Comments.helpers({
     formSchema: Partup.schemas.forms.updateComment,
     content: function() {
         return Partup.client.strings.emojify(
-			Partup.helpers.mentions.decode(Partup.client.sanitize(this.content))
-		);
+            Partup.helpers.mentions.decode(Partup.client.sanitize(this.content))
+        );
     },
     systemMessage: function(content) {
         return TAPi18n.__('comment-field-content-' + content);

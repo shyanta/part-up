@@ -730,6 +730,22 @@ Router.route('/tribes/:slug/chat', {
     }
 });
 
+Router.route('/tribes/:slug/chat#:chat_message_id', {
+    name: 'network-chat-message',
+    where: 'client',
+    yieldRegions: {
+        'app':                  {to: 'main'},
+        'app_network':          {to: 'app'},
+        'app_network_chat':     {to: 'app_network'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug,
+            chatMessageId: this.params.chat_message_id
+        };
+    }
+});
+
 Router.route('/tribes/:slug/invite', {
     name: 'network-invite',
     where: 'client',

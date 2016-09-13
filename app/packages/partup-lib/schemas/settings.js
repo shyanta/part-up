@@ -22,6 +22,10 @@ Partup.schemas.entities.settings = new SimpleSchema({
         type: Boolean,
         optional: true
     },
+    'email.upper_mentioned_in_network_chat': {
+        type: Boolean,
+        optional: true
+    },
     'email.invite_upper_to_partup_activity': {
         type: Boolean,
         optional: true

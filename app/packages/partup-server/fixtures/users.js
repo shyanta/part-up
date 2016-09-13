@@ -43,6 +43,7 @@ Meteor.startup(function() {
                         'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
+                            'upper_mentioned_in_network_chat': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
                             'partup_created_in_network': true,
@@ -131,7 +132,10 @@ Meteor.startup(function() {
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
-                }
+                },
+                'chats': [
+                    '9yscDD9bTkT2eDF4c'
+                ]
             });
 
             Meteor.users.insert({
@@ -175,6 +179,7 @@ Meteor.startup(function() {
                         'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
+                            'upper_mentioned_in_network_chat': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
                             'partup_created_in_network': true,
@@ -242,7 +247,10 @@ Meteor.startup(function() {
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
-                }
+                },
+                'chats': [
+                    '9yscDD9bTkT2eDF4c'
+                ]
             });
 
             Meteor.users.insert({
@@ -286,6 +294,7 @@ Meteor.startup(function() {
                         'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
+                            'upper_mentioned_in_network_chat': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
                             'partup_created_in_network': true,
@@ -415,6 +424,7 @@ Meteor.startup(function() {
                         'email': {
                             'dailydigest': true,
                             'upper_mentioned_in_partup': true,
+                            'upper_mentioned_in_network_chat': true,
                             'invite_upper_to_partup_activity': true,
                             'invite_upper_to_network': true,
                             'partup_created_in_network': true,

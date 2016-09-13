@@ -22,7 +22,7 @@ var compositionToResult = function(userId, find, children) {
     var result = {};
 
     var cursor = find();
-    if (! cursor) return;
+    if (!cursor) return;
 
     var documents = cursor.fetch();
     var collectionName = cursor._cursorDescription.collectionName;

@@ -31,6 +31,7 @@ Package.onUse(function(api) {
         'notifications/notification/types/network/new-member.html',
         'notifications/notification/types/network/new-pending-upper.html',
         'notifications/notification/types/network/partup-created.html',
+        'notifications/notification/types/network/upper-mentioned-in-chat.html',
 
         'notifications/notification/types/partup/activities-invited.html',
         'notifications/notification/types/partup/contribution-accepted.html',

@@ -6,24 +6,21 @@ Template.ChatOneOnOneNotification.helpers({
         var template = Template.instance();
         return 'chat-id=' + template.data.chat._id;
     },
-    data: function() {
-        var template = Template.instance();
-        var chat = template.data.chat;
-        var chatId = chat._id;
-        var message = chat.message;
-        return {
-            message: function() {
-                return message;
-            },
-            creator: function() {
-                return Meteor.users.findOne(message.creator_id);
-            },
-            chat: function() {
-                return chat;
-            },
-            network: function() {
-                return Networks.findOne({chat_id: chatId});
-            }
-        };
+    chat: function() {
+        return Template.instance().data.chat;
+    },
+    formatted: function(content) {
+        return new Partup.client.message(content)
+            .sanitize()
+            .parseMentions({link: false})
+            .emojify()
+            .getContent();
+    }
+});
+
+Template.ChatOneOnOneNotification.events({
+    'click [data-notification]': function(event, template) {
+        var notificationId = $(event.currentTarget).data('notification');
+        template.data.onClick();
     }
 });

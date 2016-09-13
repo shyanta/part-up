@@ -8,6 +8,7 @@ var templates = [
     'invite_upper_to_partup',
     'invite_email_address_to_partup',
     'upper_mentioned_in_partup',
+    'upper_mentioned_in_network_chat',
     'partup_created_in_network',
     'partups_networks_new_pending_upper',
     'partups_networks_accepted',
