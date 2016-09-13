@@ -1,3 +1,5 @@
+let cookieName = "cb-enabled";
+
 class CookiebarHelper {
     constructor() {
     }
@@ -8,6 +10,17 @@ class CookiebarHelper {
             browser.click('[class=cb-enable]');
         }
     }
+
+    deleteCookie() {
+        browser.cookie('delete', cookieName);
+    }
+
+    postCookie() {
+        browser.cookie('post', {name: cookieName, value: 'enabled'});
+        browser.refresh();
+        browser.waitForExist('body *');
+    }
+
 }
 
 export default new CookiebarHelper();

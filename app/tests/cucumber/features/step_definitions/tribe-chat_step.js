@@ -14,14 +14,14 @@ module.exports = function () {
     // this function is run before testing each scenario.
     // it makes sure that we're using a test (i.e. empty) database.
     this.Before(function (scenario) {
-        console.log(`Meteor running: ${server._original.host}:${server._original.port}`);
-        console.log(`About to test: '${scenario.getName()}'`);
+        // console.log(`Meteor running: ${server._original.host}:${server._original.port}`);
+        // console.log(`About to test: '${scenario.getName()}'`);
     });
 
     // this function is run after testing each scenario
     this.After(function (scenario) {
         // TODO: clean DB, to prevent side-effects between tests
-        console.log('Test finished');
+        // console.log('Test finished');
     });
 
     this.Given(/^The user logs in as Judy on page "([^"]*)"$/, function (loginUrl) {
@@ -35,6 +35,7 @@ module.exports = function () {
     });
 
     this.When(/^Click 'I Understand' if cookie-bar is displayed$/, function () {
+        // cookiebar.postCookie();
         cookiebar.clickCookiebarIfExists();
     });
 
