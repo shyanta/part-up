@@ -21,8 +21,8 @@ if (Meteor.isClient) {
             sendNotificationEmail: false,
             transferOwnership: false,
             // check https://developers.google.com/drive/v2/reference/permissions
-            role: 'writer',
-            type: 'group'
+            role: 'reader',
+            type: 'anyone'
         });
 
         return new Promise(function (resolve, reject) {
