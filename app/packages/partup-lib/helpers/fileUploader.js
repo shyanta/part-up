@@ -129,8 +129,8 @@ Partup.helpers.fileUploader.bytesToSize = function(bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 };
 
-Partup.helpers.fileUploader.partupUploadPhoto = function(template, mappedFile) {
-    template.uploadingPhotos.set(true);
+Partup.helpers.fileUploader.partupUploadPhoto = function(mediaUploader, mappedFile) {
+    mediaUploader.uploadingPhotos.set(true);
     return new Promise(function(resolve, reject) {
         Partup.client.uploader.uploadImageByUrl(mappedFile.link, function(error, image) {
             if (error) {
@@ -142,8 +142,8 @@ Partup.helpers.fileUploader.partupUploadPhoto = function(template, mappedFile) {
     });
 };
 
-Partup.helpers.fileUploader.partupUploadDoc = function(template, mappedFile) {
-    template.uploadingDocuments.set(true);
+Partup.helpers.fileUploader.partupUploadDoc = function(mediaUploader, mappedFile) {
+    mediaUploader.uploadingDocuments.set(true);
     return new Promise(function(resolve, reject) {
         resolve(mappedFile);
     });
