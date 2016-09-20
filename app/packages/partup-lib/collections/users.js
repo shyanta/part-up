@@ -103,8 +103,7 @@ Meteor.users.findMultiplePublicProfiles = function(userIds, options, parameters)
     parameters = parameters || {};
     var textSearch = parameters.textSearch || undefined;
 
-    var selector = {};
-    if (userIds.length) selector._id = {$in: userIds};
+    var selector = {_id: {$in: userIds}};
     if (parameters.onlyActive) selector.deactivatedAt = {$exists: false};
 
     options.fields = getPublicUserFields();
