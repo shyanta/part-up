@@ -5,8 +5,8 @@ Part-up
 
 # Installation
 
-- ensure [imagemagick][im] is installed (OS X: `brew
-  install imagemagick`)
+- ensure [imagemagick][im] is installed (OS X: `brew install imagemagick`)
+- ensure [ansible](https://valdhaus.co/writings/ansible-mac-osx/) is installed (OS X: `brew install ansible`)
 - ensure [meteor](https://www.meteor.com/install) is installed
 - make sure you have all the correct environment variables set, which can be done in two ways:
     1. generate the development configuration using `cd config/development && ./decrypt` (this requires a password, which can be requested from the Part-up team)
