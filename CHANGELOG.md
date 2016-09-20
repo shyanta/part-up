@@ -1,3 +1,13 @@
+<a name="1.22.1"></a>
+## [1.22.1](https://github.com/part-up/part-up/compare/1.22.0...v1.22.1) (2016-09-20)
+
+
+### Bug Fixes
+
+* **gd-api:** change api src code ([7fee899](https://github.com/part-up/part-up/commit/7fee899))
+
+
+
 <a name="1.22.0"></a>
 # [1.22.0](https://github.com/part-up/part-up/compare/1.21.10...1.22.0) (2016-09-20)
 
