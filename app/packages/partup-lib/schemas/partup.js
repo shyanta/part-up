@@ -283,7 +283,9 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
             'private',
             'network',
             'network_admins',
-            'network_colleagues'
+            'network_colleagues',
+            'network_colleagues_custom_a',
+            'netword_colleagues_custom_b'
         ]
     }
 }]);

@@ -37,6 +37,16 @@ var NETWORK_COLLEAGUES = 7;
  * @memberof Partups
  * @private
  */
+var NETWORK_COLLEAGUES_CUSTOM_A = 8;
+/**
+ * @memberof Partups
+ * @private
+ */
+var NETWORK_COLLEAGUES_CUSTOM_B = 9;
+/**
+ * @memberof Partups
+ * @private
+ */
 var TYPE = {
     CHARITY: 'charity',
     ENTERPRISING: 'enterprising',
