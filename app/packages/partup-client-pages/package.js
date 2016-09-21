@@ -263,6 +263,7 @@ Package.onUse(function(api) {
             'modal/network_settings/uppers/uppers.html',
             'modal/network_settings/bulkinvite/bulkinvite.html',
             'modal/network_settings/about/about.html',
+            'modal/network_settings/access/access.html',
 
             // Modal:recommendations
             'modal/recommendations/recommendations.html',

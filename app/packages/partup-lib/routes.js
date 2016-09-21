@@ -838,6 +838,21 @@ Router.route('/tribes/:slug/settings/about', {
     }
 });
 
+Router.route('/tribes/:slug/settings/access', {
+    name: 'network-settings-access',
+    where: 'client',
+    yieldRegions: {
+        'modal':                         {to: 'main'},
+        'modal_network_settings':        {to: 'modal'},
+        'modal_network_settings_access': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
 /*************************************************************/
 /* Chats */
 /*************************************************************/
