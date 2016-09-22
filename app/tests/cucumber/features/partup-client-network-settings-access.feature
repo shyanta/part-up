@@ -33,24 +33,26 @@ Feature:
 
   @tribe_partup_start
   Scenario: Create tribe part-up with new access type
-    Given I have role 'NETWORK_ADMINS'
+    Given I can have any access level
+    And   I'm a tribe member
     And   I have configured custom access levels
     When  I navigate to [/tribes/<tribe>]
     And   I press 'Start a part-up in this tribe'
-    Then  I should see two extra options for 'Who can see this part-up?'
+    Then  I see all access levels defined in the tribe settings that are available
+          for my access level in the dropdown of for 'Who can see this part-up'
 
   @tribe_partup_filter
   Scenario: Show the partup tiles the user is allowed to see
-    Given I have a custom access level
-    And   custom access levels are defined for the tribe
+    Given I can have any access level
+    And   I'm a tribe member
     When  I navigate to [/tribes/<tribe>] or [/tribes/<tribe>/partups]
     And   I see a list of partup tiles
-    Then  I can see the access level of each partup tile
-    And   I only see the partup tiles I'm allowed to see (own access level and below)
+    Then  I can only see the partup tiles that are available for my access level
+    And   I can see the access level of each partup tile
 
   @partup_settings_change
   Scenario: Manage access type for tribe part-up
-    Given I can have any role
+    Given I can have any access level
     And   I'm a tribe member
     When  I navigate to [/partups/<partup>]
     And   I press the 'cog icon' to go to partup settings
@@ -59,7 +61,7 @@ Feature:
 
   @access_with_invite_token
   Scenario: Allow access for user with lower access level using invite token
-    Given I can have any role
+    Given I can have any access level
     When  I navigate to [/partups/<partup>]
     And   I press 'Invite' to invite a user with lower access level
     Then  invited user should be able accept the invite
