@@ -264,6 +264,7 @@ Package.onUse(function(api) {
             'modal/network_settings/bulkinvite/bulkinvite.html',
             'modal/network_settings/about/about.html',
             'modal/network_settings/access/access.html',
+            'modal/network_settings/partups/partups.html',
 
             // Modal:recommendations
             'modal/recommendations/recommendations.html',

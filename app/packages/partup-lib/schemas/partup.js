@@ -166,7 +166,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     privacy_type: {
         type: Number,
         min: 1,
-        max: 7
+        max: 9
     },
     shared_count: {
         type: Object

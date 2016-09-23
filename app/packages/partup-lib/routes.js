@@ -853,6 +853,21 @@ Router.route('/tribes/:slug/settings/access', {
     }
 });
 
+Router.route('/tribes/:slug/settings/partups', {
+    name: 'network-settings-partups',
+    where: 'client',
+    yieldRegions: {
+        'modal':                         {to: 'main'},
+        'modal_network_settings':        {to: 'modal'},
+        'modal_network_settings_partups': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
 /*************************************************************/
 /* Chats */
 /*************************************************************/

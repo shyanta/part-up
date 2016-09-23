@@ -1,9 +1,9 @@
 /**
- * Render a widget to view/edit a single network's custom access settings
+ * Render a widget to view/edit a single network's partups settings
  *
  * @param {Number} networkSlug
  */
-Template.NetworkSettingsAccess.onCreated(function() {
+Template.NetworkSettingsPartups.onCreated(function() {
     var template = this;
     var userId = Meteor.userId();
 
@@ -16,5 +16,5 @@ Template.NetworkSettingsAccess.onCreated(function() {
     });
 });
 
-Template.NetworkSettingsAccess.helpers({
+Template.NetworkSettingsPartups.helpers({
 });
