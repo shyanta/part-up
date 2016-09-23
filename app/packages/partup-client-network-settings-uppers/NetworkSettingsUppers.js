@@ -58,6 +58,8 @@ Template.NetworkSettingsUppers.helpers({
                     upper.email = User(upper).getEmail() || false;
                     upper.isNetworkAdmin = network.isNetworkAdmin(upper._id);
                     upper.isNetworkColleague = network.isNetworkColleague(upper._id);
+                    upper.isNetworkColleagueCustomA = network.isNetworkColleagueCustomA(upper._id);
+                    upper.isNetworkColleagueCustomB = network.isNetworkColleagueCustomB(upper._id);
                 });
                 return uppers;
             },
@@ -98,6 +100,16 @@ Template.NetworkSettingsUppers.events({
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
         template.callMethod('networks.make_colleague', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-added');
     },
+    'click [data-make-colleague-custom-a]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
+        template.callMethod('networks.make_colleague_custom_a', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-custom-a-added');
+    },
+    'click [data-make-colleague-custom-b]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
+        template.callMethod('networks.make_colleague_custom_b', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-custom-b-added');
+    },
     'click [data-remove-admin]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
@@ -107,6 +119,16 @@ Template.NetworkSettingsUppers.events({
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
         template.callMethod('networks.remove_colleague', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-removed');
+    },
+    'click [data-remove-colleague-custom-a]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
+        template.callMethod('networks.remove_colleague_custom_a', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-custom-a-removed');
+    },
+    'click [data-remove-colleague]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
+        template.callMethod('networks.remove_colleague_custom_b', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-custom-b-removed');
     },
     'click [data-delete]': function(event, template) {
         event.preventDefault();

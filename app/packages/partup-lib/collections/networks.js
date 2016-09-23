@@ -387,6 +387,26 @@ Network.prototype.addColleague = function(upperId) {
 };
 
 /**
+ * Add a user to the colleagues_custom_a list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being added as a colleague
+ */
+Network.prototype.addColleagueCustomA = function(upperId) {
+    Networks.update(this._id, {$push: {colleagues_custom_a: upperId}});
+};
+
+/**
+ * Add a user to the colleagues_custom_b list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being added as a colleague
+ */
+Network.prototype.addColleagueCustomB = function(upperId) {
+    Networks.update(this._id, {$push: {colleagues_custom_b: upperId}});
+};
+
+/**
  * Remove user from colleagues list
  *
  * @memberOf Networks
@@ -394,6 +414,26 @@ Network.prototype.addColleague = function(upperId) {
  */
 Network.prototype.removeColleague = function(upperId) {
     Networks.update(this._id, {$pull: {colleagues: upperId}});
+};
+
+/**
+ * Remove user from colleagues_custom_a list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being removed from colleagues
+ */
+Network.prototype.removeColleagueCustomA = function(upperId) {
+    Networks.update(this._id, {$pull: {colleagues_custom_a: upperId}});
+};
+
+/**
+ * Remove user from colleagues_custom_b list
+ *
+ * @memberOf Networks
+ * @param {String} upperId the user id of the user that is being removed from colleagues
+ */
+Network.prototype.removeColleagueCustomB = function(upperId) {
+    Networks.update(this._id, {$pull: {colleagues_custom_b: upperId}});
 };
 
 /**
@@ -406,6 +446,30 @@ Network.prototype.removeColleague = function(upperId) {
 Network.prototype.isNetworkColleague = function(userId) {
     if (!userId || !this.colleagues) return false;
     return mout.lang.isString(userId) && (this.colleagues.indexOf(userId) > -1);
+};
+
+/**
+ * Check if given user is a colleague_custom_a in this network
+ *
+ * @memberOf Networks
+ * @param {String} userId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isNetworkColleagueCustomA = function(userId) {
+    if (!userId || !this.colleagues_custom_a) return false;
+    return mout.lang.isString(userId) && (this.colleagues_custom_a.indexOf(userId) > -1);
+};
+
+/**
+ * Check if given user is a colleagues_custom_b in this network
+ *
+ * @memberOf Networks
+ * @param {String} userId the user id of the user to be checked
+ * @return {Boolean}
+ */
+Network.prototype.isNetworkColleagueCustomB = function(userId) {
+    if (!userId || !this.colleagues_custom_b) return false;
+    return mout.lang.isString(userId) && (this.colleagues_custom_b.indexOf(userId) > -1);
 };
 
 /**
