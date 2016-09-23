@@ -125,7 +125,7 @@ Template.NetworkSettingsUppers.events({
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
         template.callMethod('networks.remove_colleague_custom_a', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-custom-a-removed');
     },
-    'click [data-remove-colleague]': function(event, template) {
+    'click [data-remove-colleague-custom-b]': function(event, template) {
         event.preventDefault();
         $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
         template.callMethod('networks.remove_colleague_custom_b', template.data.networkSlug, this._id, this.profile.name, 'network-settings-uppers-colleague-custom-b-removed');
