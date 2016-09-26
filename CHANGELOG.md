@@ -1,5 +1,15 @@
+<a name="1.22.2"></a>
+## [1.22.2](https://github.com/part-up/part-up/compare/1.22.1...v1.22.2) (2016-09-26)
+
+
+### Bug Fixes
+
+* **forms:** removed peerlibrary:blaze-components package and added blaze-html-templates fixing the bender-animating issue that prevented forms from working ([272e16d](https://github.com/part-up/part-up/commit/272e16d))
+
+
+
 <a name="1.22.1"></a>
-## [1.22.1](https://github.com/part-up/part-up/compare/1.22.0...v1.22.1) (2016-09-20)
+## [1.22.1](https://github.com/part-up/part-up/compare/1.22.0...1.22.1) (2016-09-20)
 
 
 ### Bug Fixes
