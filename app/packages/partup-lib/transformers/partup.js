@@ -40,6 +40,10 @@ Partup.transformers.partup = {
             fields.privacy_type_input = 'network_admins';
         } else if (partup.privacy_type === Partups.NETWORK_COLLEAGUES) {
             fields.privacy_type_input = 'network_colleagues';
+        } else if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_A) {
+            fields.privacy_type_input = 'network_colleagues_custom_a';
+        } else if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_B) {
+            fields.privacy_type_input = 'network_colleagues_custom_b';
         } else if (partup.privacy_type === Partups.NETWORK_PUBLIC ||
             partup.privacy_type === Partups.NETWORK_INVITE ||
             partup.privacy_type === Partups.NETWORK_CLOSED) {
@@ -75,7 +79,11 @@ Partup.transformers.partup = {
         if (newLocation) partup.location = newLocation;
 
         // Set network ID if needed
-        if (fields.privacy_type_input === 'network' || fields.privacy_type_input === 'network_admins' || fields.privacy_type_input === 'network_colleagues') {
+        if (fields.privacy_type_input === 'network' ||
+            fields.privacy_type_input === 'network_admins' ||
+            fields.privacy_type_input === 'network_colleagues' ||
+            fields.privacy_type_input === 'network_colleagues_custom_a' ||
+            fields.privacy_type_input === 'network_colleagues_custom_b') {
             var network = Networks.findOneOrFail(fields.network_id);
             partup.network_id = network._id;
         }
@@ -89,6 +97,10 @@ Partup.transformers.partup = {
             partup.privacy_type = Partups.NETWORK_ADMINS;
         } else if (fields.privacy_type_input === 'network_colleagues') {
             partup.privacy_type = Partups.NETWORK_COLLEAGUES;
+        } else if (fields.privacy_type_input === 'network_colleagues_custom_a') {
+            partup.privacy_type = Partups.NETWORK_COLLEAGUES_CUSTOM_A;
+        } else if (fields.privacy_type_input === 'network_colleagues_custom_b') {
+            partup.privacy_type = Partups.NETWORK_COLLEAGUES_CUSTOM_B;
         } else if (fields.privacy_type_input === 'network') {
             switch (network.privacy_type) {
                 case Networks.NETWORK_PUBLIC:

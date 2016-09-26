@@ -143,6 +143,8 @@ Template.PartupTile.helpers({
     adminsOrColleguesOnly: function(partup) {
         if (partup.privacy_type === Partups.NETWORK_ADMINS) return 'partup-tile-label-admins-only';
         if (partup.privacy_type === Partups.NETWORK_COLLEAGUES) return 'partup-tile-label-colleagues-only';
+        if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_A) return 'partup-tile-label-colleagues-custom-a-only';
+        if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_B) return 'partup-tile-label-colleagues-custom-b-only';
         return undefined;
     }
 });

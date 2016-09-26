@@ -236,24 +236,53 @@ Template.Partupsettings.helpers({
         var network = Networks.findOne(network_id);
         var user = Meteor.user();
         var isAdmin = User(user).isAdminOfNetwork(network_id);
-        // var isColleague = User(user).isColleagueOfNetwork(network_id);
+        var isColleague = User(user).isColleagueOfNetwork(network_id);
+        var isColleagueCustomA = User(user).isColleagueCustomAOfNetwork(network_id);
+        var isColleagueCustomB = User(user).isColleagueCustomBOfNetwork(network_id);
         var types = [
             {
                 label: 'partupsettings-form-network-privacy-public',
                 value: 'network'
             }
         ];
-        if (isAdmin) {
+        if (isColleagueCustomB) {
             types.push({
-                label: 'partupsettings-form-network-privacy-colleagues',
-                value: 'network_colleagues'
-            },{
-                label: 'partupsettings-form-network-privacy-colleagues-custom-a',
-                value: 'network_colleagues_custom_a'
-            },{
                 label: 'partupsettings-form-network-privacy-colleagues-custom-b',
                 value: 'network_colleagues_custom_b'
-            },{
+            });
+        }
+        if (isColleagueCustomA) {
+            types.push({
+                label: 'partupsettings-form-network-privacy-colleagues-custom-b',
+                value: 'network_colleagues_custom_b'
+            }, {
+                label: 'partupsettings-form-network-privacy-colleagues-custom-a',
+                value: 'network_colleagues_custom_a'
+            });
+        }
+        if (isColleague) {
+            types.push({
+                label: 'partupsettings-form-network-privacy-colleagues-custom-b',
+                value: 'network_colleagues_custom_b'
+            }, {
+                label: 'partupsettings-form-network-privacy-colleagues-custom-a',
+                value: 'network_colleagues_custom_a'
+            }, {
+                label: 'partupsettings-form-network-privacy-colleagues',
+                value: 'network_colleagues'
+            });
+        }
+        if (isAdmin) {
+            types.push({
+                label: 'partupsettings-form-network-privacy-colleagues-custom-b',
+                value: 'network_colleagues_custom_b'
+            }, {
+                label: 'partupsettings-form-network-privacy-colleagues-custom-a',
+                value: 'network_colleagues_custom_a'
+            }, {
+                label: 'partupsettings-form-network-privacy-colleagues',
+                value: 'network_colleagues'
+            }, {
                 label: 'partupsettings-form-network-privacy-admins',
                 value: 'network_admins'
             });

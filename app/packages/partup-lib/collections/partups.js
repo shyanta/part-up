@@ -173,22 +173,37 @@ Partup.prototype.hasInvitedUpper = function(userId) {
  * @return {Boolean}
  */
 Partup.prototype.isViewableByUser = function(userId, accessToken) {
-    if (this.privacy_type === PUBLIC) return true;
-    if (this.privacy_type === NETWORK_PUBLIC) return true;
     var user = Meteor.users.findOne(userId);
-    if (this.privacy_type === NETWORK_ADMINS && User(user).isAdminOfNetwork(this.network_id)) return true;
-    if (this.privacy_type === NETWORK_COLLEAGUES && (User(user).isColleagueOfNetwork(this.network_id) || User(user).isAdminOfNetwork(this.network_id))) return true;
-    if (this.privacy_type === PRIVATE || this.privacy_type === NETWORK_INVITE || this.privacy_type === NETWORK_CLOSED) {
-        var accessTokens = this.access_tokens || [];
-        if (accessTokens.indexOf(accessToken) > -1) return true;
+    var isAdminOfNetwork = User(user).isAdminOfNetwork(this.network_id);
+    var isColleagueOfNetwork = User(user).isColleagueOfNetwork(this.network_id);
+    var isColleagueCustumAOfNetwork = User(user).isColleagueCustomAOfNetwork(this.network_id);
+    var isColleagueCustumBOfNetwork = User(user).isColleagueCustomBOfNetwork(this.network_id);
 
-        if (!user) return false;
-        var networks = user.networks || [];
-        if (networks.indexOf(this.network_id) > -1) return true;
+    switch(this.privacy_type) {
+        case PUBLIC:
+        case NETWORK_PUBLIC:
+            return true;
+        case NETWORK_ADMINS:
+            if (isAdminOfNetwork) return true;
+        case NETWORK_COLLEAGUES:
+            if (isAdminOfNetwork || isColleagueOfNetwork) return true;
+        case NETWORK_COLLEAGUES_CUSTOM_A:
+            if (isAdminOfNetwork || isColleagueOfNetwork || isColleagueCustumAOfNetwork) return true;
+        case NETWORK_COLLEAGUES_CUSTOM_B:
+            if (isAdminOfNetwork || isColleagueOfNetwork || isColleagueCustumAOfNetwork || isColleagueCustumBOfNetwork) return true;
+        case PRIVATE:
+        case NETWORK_INVITE:
+        case NETWORK_CLOSED:
+            var accessTokens = this.access_tokens || [];
+            if (accessTokens.indexOf(accessToken) > -1) return true;
 
-        if (this.hasSupporter(userId)) return true;
-        if (this.hasUpper(userId)) return true;
-        if (this.hasInvitedUpper(userId)) return true;
+            if (!user) return false;
+            var networks = user.networks || [];
+            if (networks.indexOf(this.network_id) > -1) return true;
+
+            if (this.hasSupporter(userId)) return true;
+            if (this.hasUpper(userId)) return true;
+            if (this.hasInvitedUpper(userId)) return true;
     }
 
     return false;
@@ -457,6 +472,16 @@ Partups.NETWORK_COLLEAGUES = NETWORK_COLLEAGUES;
  * @memberof Partups
  * @public
  */
+Partups.NETWORK_COLLEAGUES_CUSTOM_A = NETWORK_COLLEAGUES_CUSTOM_A;
+/**
+ * @memberof Partups
+ * @public
+ */
+Partups.NETWORK_COLLEAGUES_CUSTOM_B = NETWORK_COLLEAGUES_CUSTOM_B;
+/**
+ * @memberof Partups
+ * @public
+ */
 Partups.TYPE = TYPE;
 /**
  * @memberof Partups
@@ -525,10 +550,40 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
                 guardedCriterias.push({network_id: networkId});
             } else if (User(user).isColleagueOfNetwork(networkId)) {
                 // Colleagues: hide admin partups
-                guardedCriterias.push({$and: [{network_id: networkId}, {privacy_type: {$ne: Partups.NETWORK_ADMINS}}]});
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$ne: Partups.NETWORK_ADMINS}}
+                ]});
+            } else if (User(user).isColleagueCustomAOfNetwork(networkId)) {
+                // colleagues_custom_a: hide admin and collegues partups
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$nin: [
+                        Partups.NETWORK_ADMINS,
+                        Partups.NETWORK_COLLEAGUES
+                    ]}}
+                ]});
+            } else if (User(user).isColleagueCustomBOfNetwork(networkId)) {
+                // colleagues_custom_a: hide admin and collegue and colleagues_custom_a partups
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$nin: [
+                        Partups.NETWORK_ADMINS,
+                        Partups.NETWORK_COLLEAGUES,
+                        Partups.NETWORK_COLLEAGUES_CUSTOM_A
+                    ]}}
+                ]});
             } else {
-                // Regular members: hide colleague and admin partups
-                guardedCriterias.push({$and: [{network_id: networkId}, {privacy_type: {$nin: [Partups.NETWORK_COLLEAGUES, Partups.NETWORK_ADMINS]}}]});
+                // Regular members: hide all colleague and admin partups
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$nin: [
+                        Partups.NETWORK_ADMINS,
+                        Partups.NETWORK_COLLEAGUES,
+                        Partups.NETWORK_COLLEAGUES_CUSTOM_A,
+                        Partups.NETWORK_COLLEAGUES_CUSTOM_B
+                    ]}}
+                ]});
             }
         });
     }
