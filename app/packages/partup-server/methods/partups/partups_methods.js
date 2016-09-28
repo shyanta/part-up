@@ -188,7 +188,10 @@ Meteor.methods({
         selector._id = {$ne: exceptPartupId};
 
         if (onlyPublic) {
-            selector.privacy_type = {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]};
+            selector.privacy_type = {'$in': [
+                Partups.privacy_types.PUBLIC,
+                Partups.privacy_types.NETWORK_PUBLIC
+            ]};
         }
 
         try {
@@ -529,17 +532,18 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         // Update the new privacy type, but only if it's neither of network_admins or network_colleagues type
-        if (partup.privacy_type !== Partups.NETWORK_ADMINS && partup.privacy_type !== Partups.NETWORK_COLLEAGUES) {
+        if (partup.privacy_type !== Partups.privacy_types.NETWORK_ADMINS &&
+            partup.privacy_type !== Partups.privacy_types.NETWORK_COLLEAGUES) {
             var privacyType = undefined;
             switch (network.privacy_type) {
                 case Networks.NETWORK_PUBLIC:
-                    privacyType = Partups.NETWORK_PUBLIC;
+                    privacyType = Partups.privacy_types.NETWORK_PUBLIC;
                     break;
                 case Networks.NETWORK_INVITE:
-                    privacyType = Partups.NETWORK_INVITE;
+                    privacyType = Partups.privacy_types.NETWORK_INVITE;
                     break;
                 case Networks.NETWORK_CLOSED:
-                    privacyType = Partups.NETWORK_CLOSED;
+                    privacyType = Partups.privacy_types.NETWORK_CLOSED;
                     break;
             }
         }

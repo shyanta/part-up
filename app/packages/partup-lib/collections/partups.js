@@ -435,49 +435,20 @@ if (Meteor.isServer) {
 
 /**
  * @memberof Partups
- * @public
+ * @private
  */
-Partups.PUBLIC = PUBLIC;
-/**
- * @memberof Partups
- * @public
- */
-Partups.PRIVATE = PRIVATE;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_PUBLIC = NETWORK_PUBLIC;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_INVITE = NETWORK_INVITE;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_CLOSED = NETWORK_CLOSED;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_ADMINS = NETWORK_ADMINS;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_COLLEAGUES = NETWORK_COLLEAGUES;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_COLLEAGUES_CUSTOM_A = NETWORK_COLLEAGUES_CUSTOM_A;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_COLLEAGUES_CUSTOM_B = NETWORK_COLLEAGUES_CUSTOM_B;
+Partups.privacy_types = {
+    PUBLIC,
+    PRIVATE,
+    NETWORK_PUBLIC,
+    NETWORK_INVITE,
+    NETWORK_CLOSED,
+    NETWORK_ADMINS,
+    NETWORK_COLLEAGUES,
+    NETWORK_COLLEAGUES_CUSTOM_A,
+    NETWORK_COLLEAGUES_CUSTOM_B
+};
+
 /**
  * @memberof Partups
  * @public
@@ -515,7 +486,10 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
 
     var guardedCriterias = [
         // Either the partup is public or belongs to a public network
-        {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}}
+        {'privacy_type': {'$in': [
+            Partups.privacy_types.PUBLIC,
+            Partups.privacy_types.NETWORK_PUBLIC
+        ]}}
     ];
 
     // If an access token is provided, we allow access if it matches one of the partups access tokens
@@ -552,15 +526,15 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
                 // Colleagues: hide admin partups
                 guardedCriterias.push({$and: [
                     {network_id: networkId},
-                    {privacy_type: {$ne: Partups.NETWORK_ADMINS}}
+                    {privacy_type: {$ne: Partups.privacy_types.NETWORK_ADMINS}}
                 ]});
             } else if (User(user).isColleagueCustomAOfNetwork(networkId)) {
                 // colleagues_custom_a: hide admin and collegues partups
                 guardedCriterias.push({$and: [
                     {network_id: networkId},
                     {privacy_type: {$nin: [
-                        Partups.NETWORK_ADMINS,
-                        Partups.NETWORK_COLLEAGUES
+                        Partups.privacy_types.NETWORK_ADMINS,
+                        Partups.privacy_types.NETWORK_COLLEAGUES
                     ]}}
                 ]});
             } else if (User(user).isColleagueCustomBOfNetwork(networkId)) {
@@ -568,9 +542,9 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
                 guardedCriterias.push({$and: [
                     {network_id: networkId},
                     {privacy_type: {$nin: [
-                        Partups.NETWORK_ADMINS,
-                        Partups.NETWORK_COLLEAGUES,
-                        Partups.NETWORK_COLLEAGUES_CUSTOM_A
+                        Partups.privacy_types.NETWORK_ADMINS,
+                        Partups.privacy_types.NETWORK_COLLEAGUES,
+                        Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A
                     ]}}
                 ]});
             } else {
@@ -578,10 +552,10 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
                 guardedCriterias.push({$and: [
                     {network_id: networkId},
                     {privacy_type: {$nin: [
-                        Partups.NETWORK_ADMINS,
-                        Partups.NETWORK_COLLEAGUES,
-                        Partups.NETWORK_COLLEAGUES_CUSTOM_A,
-                        Partups.NETWORK_COLLEAGUES_CUSTOM_B
+                        Partups.privacy_types.NETWORK_ADMINS,
+                        Partups.privacy_types.NETWORK_COLLEAGUES,
+                        Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A,
+                        Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B
                     ]}}
                 ]});
             }

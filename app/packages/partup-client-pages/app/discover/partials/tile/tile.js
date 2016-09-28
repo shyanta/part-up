@@ -135,16 +135,16 @@ Template.PartupTile.helpers({
         return this.userIsDefinitlyMember ? (this.archived_at ? 'show=true' : 'show=false' ) : '';
     },
     adminsOnly: function(partup) {
-        return partup.privacy_type === Partups.NETWORK_ADMINS;
+        return partup.privacy_type === Partups.privacy_types.NETWORK_ADMINS;
     },
     colleguesOnly: function(partup) {
-        return partup.privacy_type === Partups.NETWORK_COLLEAGUES;
+        return partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES;
     },
     adminsOrColleguesOnly: function(partup) {
-        if (partup.privacy_type === Partups.NETWORK_ADMINS) return 'partup-tile-label-admins-only';
-        if (partup.privacy_type === Partups.NETWORK_COLLEAGUES) return 'partup-tile-label-colleagues-only';
-        if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_A) return 'partup-tile-label-colleagues-custom-a-only';
-        if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_B) return 'partup-tile-label-colleagues-custom-b-only';
+        if (partup.privacy_type === Partups.privacy_types.NETWORK_ADMINS) return 'partup-tile-label-admins-only';
+        if (partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES) return 'partup-tile-label-colleagues-only';
+        if (partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A) return 'partup-tile-label-colleagues-custom-a-only';
+        if (partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B) return 'partup-tile-label-colleagues-custom-b-only';
         return undefined;
     }
 });

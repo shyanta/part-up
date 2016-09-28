@@ -259,7 +259,7 @@ Meteor.startup(function() {
                    tags: Fake.fromArray([[Fake.word()], [Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word()], [Fake.word(), Fake.word(), Fake.word(), Fake.word()]]),
                    uppers: ['K5c5M4Pbdg3B82wQH', 'K5c5M4Pbdg3B82wQI'],
                    location: undefined,
-                   privacy_type: Partups.PUBLIC,
+                   privacy_type: Partups.privacy_types.PUBLIC,
                    image: 'FTHbg6wbPxjiA4Y8w',
                    created_at : new Date('2015-03-26T16:25:07.816Z'),
                    end_date: new Date('2015-06-01T10:00:07.100Z'),

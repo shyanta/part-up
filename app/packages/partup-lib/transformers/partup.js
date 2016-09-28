@@ -32,21 +32,21 @@ Partup.transformers.partup = {
         };
 
         // Determine privacy type
-        if (partup.privacy_type === Partups.PUBLIC) {
+        if (partup.privacy_type === Partups.privacy_types.PUBLIC) {
             fields.privacy_type_input = 'public';
-        } else if (partup.privacy_type === Partups.PRIVATE) {
+        } else if (partup.privacy_type === Partups.privacy_types.PRIVATE) {
             fields.privacy_type_input = 'private';
-        } else if (partup.privacy_type === Partups.NETWORK_ADMINS) {
+        } else if (partup.privacy_type === Partups.privacy_types.NETWORK_ADMINS) {
             fields.privacy_type_input = 'network_admins';
-        } else if (partup.privacy_type === Partups.NETWORK_COLLEAGUES) {
+        } else if (partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES) {
             fields.privacy_type_input = 'network_colleagues';
-        } else if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_A) {
+        } else if (partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A) {
             fields.privacy_type_input = 'network_colleagues_custom_a';
-        } else if (partup.privacy_type === Partups.NETWORK_COLLEAGUES_CUSTOM_B) {
+        } else if (partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B) {
             fields.privacy_type_input = 'network_colleagues_custom_b';
-        } else if (partup.privacy_type === Partups.NETWORK_PUBLIC ||
-            partup.privacy_type === Partups.NETWORK_INVITE ||
-            partup.privacy_type === Partups.NETWORK_CLOSED) {
+        } else if (partup.privacy_type === Partups.privacy_types.NETWORK_PUBLIC ||
+            partup.privacy_type === Partups.privacy_types.NETWORK_INVITE ||
+            partup.privacy_type === Partups.privacy_types.NETWORK_CLOSED) {
             fields.privacy_type_input = partup.network_id;
         }
 
@@ -90,27 +90,27 @@ Partup.transformers.partup = {
 
         // Determine privacy type
         if (fields.privacy_type_input === 'public') {
-            partup.privacy_type = Partups.PUBLIC;
+            partup.privacy_type = Partups.privacy_types.PUBLIC;
         } else if (fields.privacy_type_input === 'private') {
-            partup.privacy_type = Partups.PRIVATE;
+            partup.privacy_type = Partups.privacy_types.PRIVATE;
         } else if (fields.privacy_type_input === 'network_admins') {
-            partup.privacy_type = Partups.NETWORK_ADMINS;
+            partup.privacy_type = Partups.privacy_types.NETWORK_ADMINS;
         } else if (fields.privacy_type_input === 'network_colleagues') {
-            partup.privacy_type = Partups.NETWORK_COLLEAGUES;
+            partup.privacy_type = Partups.privacy_types.NETWORK_COLLEAGUES;
         } else if (fields.privacy_type_input === 'network_colleagues_custom_a') {
-            partup.privacy_type = Partups.NETWORK_COLLEAGUES_CUSTOM_A;
+            partup.privacy_type = Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A;
         } else if (fields.privacy_type_input === 'network_colleagues_custom_b') {
-            partup.privacy_type = Partups.NETWORK_COLLEAGUES_CUSTOM_B;
+            partup.privacy_type = Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B;
         } else if (fields.privacy_type_input === 'network') {
             switch (network.privacy_type) {
                 case Networks.NETWORK_PUBLIC:
-                    partup.privacy_type = Partups.NETWORK_PUBLIC;
+                    partup.privacy_type = Partups.privacy_types.NETWORK_PUBLIC;
                     break;
                 case Networks.NETWORK_INVITE:
-                    partup.privacy_type = Partups.NETWORK_INVITE;
+                    partup.privacy_type = Partups.privacy_types.NETWORK_INVITE;
                     break;
                 case Networks.NETWORK_CLOSED:
-                    partup.privacy_type = Partups.NETWORK_CLOSED;
+                    partup.privacy_type = Partups.privacy_types.NETWORK_CLOSED;
                     break;
             }
         }
