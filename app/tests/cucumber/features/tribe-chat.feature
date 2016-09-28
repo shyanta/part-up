@@ -10,6 +10,6 @@ Feature: Partup Tribe Chat
     And Click 'I Understand' if cookie-bar is displayed
     And Type the message "Hello there"
     And Click the Send button
-    And Then type the message "I'm Judy"
+    And Then type the message "I Judy"
     And Click the Send button again
-    Then Should see the messages "Hello there" and "I'm Judy"
+    Then Should see the messages "Hello there" and "I Judy"

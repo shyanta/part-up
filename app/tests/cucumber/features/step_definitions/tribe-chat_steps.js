@@ -7,10 +7,15 @@ import cookiebar from '../helpers/cookiebar';
 
 let messageTextarea = '[name="partup_name"]';
 let sendButton = '[class=pu-button]';
-let cssSelectorChatText = ".pu-highlighttext";
+let cssSelectorChatText = ".pu-chatbox .pu-highlighttext";
 
 module.exports = function () {
 
+    this.After(function() {
+        server.execute( function() {
+            ChatMessages.remove({});
+        });
+    });
     // this function is run before testing each scenario.
     // it makes sure that we're using a test (i.e. empty) database.
     this.Before(function (scenario) {
@@ -27,7 +32,7 @@ module.exports = function () {
     this.Given(/^The user logs in as Judy on page "([^"]*)"$/, function (loginUrl) {
         navigator.gotoPage(loginUrl);
         authentication.loginAsJudy();
-    }); 
+    });
 
     this.When(/^Navigate to Chats "([^"]*)"$/, function (chatsUrl) {
         navigator.gotoPage(chatsUrl);
@@ -56,6 +61,7 @@ module.exports = function () {
     });
 
     this.Then(/^Should see the messages "([^"]*)" and "([^"]*)"$/, function (prevMessageExpected, lastMessageExpected) {
+        browser.waitForExist(cssSelectorChatText);
         let lastMessageShown = locators.getTextFromElements(cssSelectorChatText, -1);
         let prevMessageShown = locators.getTextFromElements(cssSelectorChatText, -2);
         expect(
