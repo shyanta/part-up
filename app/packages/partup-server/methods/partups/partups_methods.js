@@ -7,7 +7,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.insert': function(fields) {
-        check(fields, Partup.schemas.forms.partupCreate);
+        check(fields, Partup.schemas.forms.partup);
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
@@ -51,7 +51,7 @@ Meteor.methods({
      */
     'partups.update': function(partupId, fields) {
         check(partupId, String);
-        check(fields, Partup.schemas.forms.partupUpdate);
+        check(fields, Partup.schemas.forms.partup);
 
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);

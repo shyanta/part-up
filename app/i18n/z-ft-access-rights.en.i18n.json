@@ -18,5 +18,6 @@
   "partupsettings-form-network-privacy-colleagues-custom-a": "Custom A (silver)",
   "partupsettings-form-network-privacy-colleagues-custom-b": "Custom B (bronze)",
   "partup-tile-label-colleagues-custom-a-only": "Core, co-creators (silver)",
-  "partup-tile-label-colleagues-custom-b-only": "Core, co-creators (bronze)"
+  "partup-tile-label-colleagues-custom-b-only": "Core, co-creators (bronze)",
+  "partupsettings-form-privacy-preselected-label-change": "This part-up belongs to tribe:"
 }

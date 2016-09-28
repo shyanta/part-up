@@ -449,6 +449,17 @@ Partups.privacy_types = {
     NETWORK_COLLEAGUES_CUSTOM_B
 };
 
+Partups.getPrivacyTypeByValue = function(value) {
+    if (!value) return false;
+    var types = Partups.privacy_types;
+    for (type in types) {
+        if (types[type] === value) {
+            return type;
+        }
+    }
+    return false;
+}
+
 /**
  * @memberof Partups
  * @public

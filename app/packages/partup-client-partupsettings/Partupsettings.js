@@ -141,6 +141,19 @@ Template.Partupsettings.onRendered(function() {
         template.selectedPrivacyNetwork.set(selectedNetworkId);
         template.preselectedNetwork.set(selectedNetworkId);
     }
+
+    // when editing an existing network part-up
+    var currentPartupNetworkId = this.data.currentPartup.network_id;
+    var currentPartupPrivacyType = this.data.currentPartup.privacy_type;
+
+    if (currentPartupNetworkId) {
+        template.showNetworkDropdown.set(true);
+        var privacyType = Partups.getPrivacyTypeByValue(currentPartupPrivacyType);
+        var privacyTypeValue = privacyType.toLowerCase().replace('network_public', 'network');
+        template.selectedPrivacyType.set(privacyTypeValue);
+        template.selectedPrivacyNetwork.set(currentPartupNetworkId);
+        template.preselectedNetwork.set(currentPartupNetworkId);
+    }
 });
 
 Template.Partupsettings.helpers({
@@ -156,11 +169,7 @@ Template.Partupsettings.helpers({
         return this.currentPartup;
     },
     startPartupSchema: function() {
-        if (this.CREATE) {
-            return Partup.schemas.forms.partupCreate;
-        } else {
-            return Partup.schemas.forms.partupUpdate;
-        }
+         return Partup.schemas.forms.partup;
     },
     formPlaceholders: function() {
         return formPlaceholders;
