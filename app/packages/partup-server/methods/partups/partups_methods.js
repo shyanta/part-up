@@ -536,13 +536,13 @@ Meteor.methods({
             partup.privacy_type !== Partups.privacy_types.NETWORK_COLLEAGUES) {
             var privacyType = undefined;
             switch (network.privacy_type) {
-                case Networks.NETWORK_PUBLIC:
+                case Networks.privacy_types.NETWORK_PUBLIC:
                     privacyType = Partups.privacy_types.NETWORK_PUBLIC;
                     break;
-                case Networks.NETWORK_INVITE:
+                case Networks.privacy_types.NETWORK_INVITE:
                     privacyType = Partups.privacy_types.NETWORK_INVITE;
                     break;
-                case Networks.NETWORK_CLOSED:
+                case Networks.privacy_types.NETWORK_CLOSED:
                     privacyType = Partups.privacy_types.NETWORK_CLOSED;
                     break;
             }

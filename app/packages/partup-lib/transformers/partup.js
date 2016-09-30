@@ -103,13 +103,13 @@ Partup.transformers.partup = {
             partup.privacy_type = Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B;
         } else if (fields.privacy_type_input === 'network') {
             switch (network.privacy_type) {
-                case Networks.NETWORK_PUBLIC:
+                case Networks.privacy_types.NETWORK_PUBLIC:
                     partup.privacy_type = Partups.privacy_types.NETWORK_PUBLIC;
                     break;
-                case Networks.NETWORK_INVITE:
+                case Networks.privacy_types.NETWORK_INVITE:
                     partup.privacy_type = Partups.privacy_types.NETWORK_INVITE;
                     break;
-                case Networks.NETWORK_CLOSED:
+                case Networks.privacy_types.NETWORK_CLOSED:
                     partup.privacy_type = Partups.privacy_types.NETWORK_CLOSED;
                     break;
             }

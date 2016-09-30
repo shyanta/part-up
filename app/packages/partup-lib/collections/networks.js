@@ -493,18 +493,11 @@ if (Meteor.isServer) {
  * @memberOf Networks
  * @public
  */
-Networks.NETWORK_PUBLIC = NETWORK_PUBLIC;
-/**
- * @memberOf Networks
- * @public
- */
-Networks.NETWORK_INVITE = NETWORK_INVITE;
-/**
- * @memberOf Networks
- * @public
- */
-Networks.NETWORK_CLOSED = NETWORK_CLOSED;
-
+Networks.privacy_types = {
+    NETWORK_PUBLIC,
+    NETWORK_INVITE,
+    NETWORK_CLOSED
+}
 /**
  * Modified version of Collection.find that makes
  * sure the user (or guest) can only retrieve
@@ -565,7 +558,7 @@ Networks.guardedFind = function(userId, selector, options) {
 
     var guardedCriterias = [
         // The network is open, which means everyone can access it
-        {'privacy_type': {'$in': [Networks.NETWORK_PUBLIC]}},
+        {'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}},
     ];
 
     // Some extra rules that are only applicable to users that are logged in
