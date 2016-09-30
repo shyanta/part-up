@@ -51,7 +51,7 @@ Template.app_recommend_page.onCreated(function() {
 
             return BASE_HEIGHT + MARGIN + name + description + tribe;
         },
-        columns: 3
+        columns: getAmountOfColumns(Partup.client.screen.size.get('width'))
 
     });
 });
@@ -165,6 +165,9 @@ Template.app_recommend_page.onRendered(function() {
         var nextPage = template.page.get() + 1;
         template.page.set(nextPage);
     });
+
+    // RESET TILES WIDTH, SAME AS DISCOVER PAGE TILES
+    jQuery('.pu-recommendation-modal .pu-columnslayout .pu-sub-column').width(276);
 });
 
 Template.app_recommend_page.helpers({
