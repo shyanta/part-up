@@ -2,5 +2,6 @@
   "pages-app-discover-btn-recommendations": "Your recommended part-ups",
   "pages-modal-recommendations-close": "Close",
   "pages-modal-recommendations-paragraph": "Here some text for a paragraph",
-  "pages-modal-recommendations-title": "Selected part-ups for you to discover"
+  "pages-modal-recommendations-title": "Selected part-ups for you to discover",
+  "pages-modal-recommendations-no-recommendations-title": "There are no interesting part-ups for you"
 }

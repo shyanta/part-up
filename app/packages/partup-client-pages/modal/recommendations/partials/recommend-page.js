@@ -1,20 +1,19 @@
-
-
 var PAGING_INCREMENT = 32;
 
-var getAmountOfColumns = function(screenwidth) {
+var getAmountOfColumns = function (screenwidth) {
     //debugger;
     return screenwidth > Partup.client.grid.getWidth(11) + 80 ? 4 : 3;
 };
 
-Template.app_recommend_page.onCreated(function() {
+Template.app_recommend_page.onCreated(function () {
     var template = this;
 
     // States such as loading states
     template.states = {
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false),
-        count_loading: new ReactiveVar(false)
+        count_loading: new ReactiveVar(false),
+        recommendation_results: new ReactiveVar([])
     };
 
     // Partup result count
@@ -24,7 +23,7 @@ Template.app_recommend_page.onCreated(function() {
     template.columnTilesLayout = new Partup.client.constructors.ColumnTilesLayout({
 
         // This function will be called for each tile
-        calculateApproximateTileHeight: function(tileData, columnWidth) {
+        calculateApproximateTileHeight: function (tileData, columnWidth) {
 
             // The goal of this formula is to approach
             // the expected height of a tile as best
@@ -56,11 +55,11 @@ Template.app_recommend_page.onCreated(function() {
     });
 });
 
-Template.app_recommend_page.onRendered(function() {
+Template.app_recommend_page.onRendered(function () {
     var template = this;
 
     // When the screen size alters
-    template.autorun(function() {
+    template.autorun(function () {
         var screenWidth = Partup.client.screen.size.get('width');
         var columns = getAmountOfColumns(screenWidth);
 
@@ -74,7 +73,7 @@ Template.app_recommend_page.onRendered(function() {
 
     // When the page changes due to infinite scroll
     template.partupsXMLHttpRequest = null;
-    template.page = new ReactiveVar(false, function(previousPage, page) {
+    template.page = new ReactiveVar(false, function (previousPage, page) {
 
         // Cancel possibly ongoing request
         if (template.partupsXMLHttpRequest) {
@@ -93,10 +92,10 @@ Template.app_recommend_page.onRendered(function() {
 
         // Call the API for data
         HTTP.get('/partups/recommendations' + mout.queryString.encode(query), {
-            beforeSend: function(_request) {
+            beforeSend: function (_request) {
                 template.partupsXMLHttpRequest = _request;
             }
-        }, function(error, response) {
+        }, function (error, response) {
             template.partupsXMLHttpRequest = null;
 
             if (error || !response.data.partups || response.data.partups.length === 0) {
@@ -108,9 +107,12 @@ Template.app_recommend_page.onRendered(function() {
             // response.data contains all (is 4 at this moment) part-ups and related users //TODO: nog relevant???
             // important: the part-ups are not necessiraly sorted according the api-order
             var result = response.data;
+
+            template.states.recommendation_results.set(result.partups);
+
             template.states.paging_end_reached.set(result.partups.length < PAGING_INCREMENT);
 
-            var tiles = result.partups.map(function(partup) {
+            var tiles = result.partups.map(function (partup) {
                 Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
 
                 return {
@@ -127,7 +129,7 @@ Template.app_recommend_page.onRendered(function() {
 
     // When the query changes
     template.countXMLHttpRequest = null;
-    template.autorun(function() {
+    template.autorun(function () {
         if (template.countXMLHttpRequest) {
             template.countXMLHttpRequest.abort();
             template.countXMLHttpRequest = null;
@@ -144,10 +146,12 @@ Template.app_recommend_page.onRendered(function() {
         template.columnTilesLayout.clear();
 
         template.states.count_loading.set(true);
-        HTTP.get('/partups/discover/count', function(error, response) {
+        HTTP.get('/partups/discover/count', function (error, response) {
             template.countXMLHttpRequest = null;
             template.states.count_loading.set(false);
-            if (error || !response || !mout.lang.isString(response.content)) { return; }
+            if (error || !response || !mout.lang.isString(response.content)) {
+                return;
+            }
 
             var content = JSON.parse(response.content);
             template.count.set(content.count);
@@ -159,8 +163,10 @@ Template.app_recommend_page.onRendered(function() {
         template: template,
         element: template.find('[data-infinitescroll-container]'),
         offset: 1800
-    }, function() {
-        if (template.states.loading_infinite_scroll || template.states.paging_end_reached.curValue) { return; }
+    }, function () {
+        if (template.states.loading_infinite_scroll || template.states.paging_end_reached.curValue) {
+            return;
+        }
 
         var nextPage = template.page.get() + 1;
         template.page.set(nextPage);
@@ -171,20 +177,21 @@ Template.app_recommend_page.onRendered(function() {
 });
 
 Template.app_recommend_page.helpers({
-    columnTilesLayout: function() {
+    haveRecommendations: function () {
+        return (Template.instance().states.recommendation_results.get().length);
+    },
+    columnTilesLayout: function () {
         return Template.instance().columnTilesLayout;
     },
-    endReached: function() {
+    endReached: function () {
         return Template.instance().states.paging_end_reached.get();
     },
-    count: function() {
+    count: function () {
         return Template.instance().count.get();
     },
-    countLoading: function() {
+    countLoading: function () {
         return Template.instance().states.count_loading.get();
     }
 });
 
-Template.app_recommend_page.events({
-
-});
+Template.app_recommend_page.events({});
