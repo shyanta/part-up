@@ -9,21 +9,12 @@
 
     <article class="pu-page">
         <div class="pu-sub-pagecontent">
-            <div class="pu-wrap">
-                <div class="pu-wrap-modal">
-
-                    <!-- Title -->
-                    <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-recommendations-title' }}</h2>
-
-                    <!-- Intro paragraphs -->
-                    <p>{{_ 'pages-modal-recommendations-paragraph' }}</p>
-
-                </div>
+            <div class="pu-wrap" style="max-width: inherit;">
                 <div class="pu-wrap-columnlayout">
-
+                    <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-recommendations-title' }}</h2>
+                    <br />
                     <!-- Content (partup-tiles) -->
                     {{> app_recommend_page }}
-
                 </div>
             </div>
         </div>

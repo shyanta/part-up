@@ -192,7 +192,6 @@ Template.app_discover_page.helpers({
 Template.app_discover_page.events({
     'click #recommendationsBtn': function(event, template) {
         event.preventDefault();
-        console.log('Button clicked'); //TODO: remove
         Intent.go({
             route: 'recommendations'
         });
