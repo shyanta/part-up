@@ -18,10 +18,10 @@ gulp.task('bump', function (done) {
    * introduced a feature or made a backwards-incompatible release.
    */
 
-  conventionalRecommendedBump({ preset: 'angular' }, function (err, importance) {
+  conventionalRecommendedBump({ preset: 'angular' }, function (err, result) {
     // Get all the files to bump version in
     gulp.src([path.resolve(__dirname, '../../', 'package.json')])
-      .pipe(bump({ type: importance }))
+      .pipe(bump({ type: result.releaseType }))
       .pipe(gulp.dest(path.resolve(__dirname, '../../')));
     done();
   });

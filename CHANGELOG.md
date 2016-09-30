@@ -1,5 +1,70 @@
+<a name="1.22.2"></a>
+## [1.22.2](https://github.com/part-up/part-up/compare/1.22.1...v1.22.2) (2016-09-26)
+
+
+### Bug Fixes
+
+* **forms:** removed peerlibrary:blaze-components package and added blaze-html-templates fixing the bender-animating issue that prevented forms from working ([272e16d](https://github.com/part-up/part-up/commit/272e16d))
+
+
+
+<a name="1.22.1"></a>
+## [1.22.1](https://github.com/part-up/part-up/compare/1.22.0...1.22.1) (2016-09-20)
+
+
+### Bug Fixes
+
+* **gd-api:** change api src code ([7fee899](https://github.com/part-up/part-up/commit/7fee899))
+
+
+
+<a name="1.22.0"></a>
+# [1.22.0](https://github.com/part-up/part-up/compare/1.21.10...1.22.0) (2016-09-20)
+
+
+### Bug Fixes
+
+* **gd-ctrl:** write group does not work without emailadress ([9044e32](https://github.com/part-up/part-up/commit/9044e32))
+* **markdown-sass:** remove top bottom space and do css line break ([e8098c1](https://github.com/part-up/part-up/commit/e8098c1)), closes [#677](https://github.com/part-up/part-up/issues/677)
+* **users:** fixed a publication bug where all users were published ([77071a4](https://github.com/part-up/part-up/commit/77071a4))
+
+
+
+<a name="1.21.10"></a>
+## [1.21.10](https://github.com/part-up/part-up/compare/1.21.9...1.21.10) (2016-09-15)
+
+
+### Bug Fixes
+
+* **chats:** filter archived networks ([835d2dd](https://github.com/part-up/part-up/commit/835d2dd))
+* **chats:** fix pagination for network-chats ([fa8649f](https://github.com/part-up/part-up/commit/fa8649f))
+* **network-uppers:** fixed bug where uppers wouldn't show when no colleagues and/or admins were set ([f500eab](https://github.com/part-up/part-up/commit/f500eab))
+* **partups:** add defaults for limit and skip in upperpartups and supporterpartups to fix partups in profile dropdown ([7f2c974](https://github.com/part-up/part-up/commit/7f2c974))
+* **partups:** fix sorting in upper/supporter partups routes ([ab34f8a](https://github.com/part-up/part-up/commit/ab34f8a))
+* **profile:** fixed the profile about page ([4606fc3](https://github.com/part-up/part-up/commit/4606fc3))
+* **routing:** return the error response ([b2ef5c7](https://github.com/part-up/part-up/commit/b2ef5c7))
+
+
+### Features
+
+* **chat:** render mention correctly in private chat sidebar ([32cec13](https://github.com/part-up/part-up/commit/32cec13))
+* **fixtures:** added fixtures for profile tiles ([a9f87c1](https://github.com/part-up/part-up/commit/a9f87c1))
+* **gd-ctrl:** change permission role to group and write ([32a728a](https://github.com/part-up/part-up/commit/32a728a))
+* **handler:** added the handler logic that checks for mentions and then sends the notification and email if ([58f8f29](https://github.com/part-up/part-up/commit/58f8f29))
+* **handler:** updated the arguments in chat message handler ([44b9556](https://github.com/part-up/part-up/commit/44b9556))
+* **invites:** add accepted invites to user data before removing from invites collection ([d404c4f](https://github.com/part-up/part-up/commit/d404c4f))
+* **invites:** show if invited on admin screen ([85d4dc7](https://github.com/part-up/part-up/commit/85d4dc7))
+* **network-uppers:** Order network uppers tab by admins first, then colleagues (in group order based on upper score) and then on upper score [#442](https://github.com/part-up/part-up/issues/442) ([0252fa9](https://github.com/part-up/part-up/commit/0252fa9))
+* **notification:** added the dropdown notification and added the route to link to message ([1f888b4](https://github.com/part-up/part-up/commit/1f888b4))
+* **package:** updated the external NotificationModel npm package to support the new notification and updated our reference to it ([6bcc98a](https://github.com/part-up/part-up/commit/6bcc98a))
+* **push-notifications:** also enable sounds and vibrations for Android ([42a9e7d](https://github.com/part-up/part-up/commit/42a9e7d))
+* **push-notifications:** enable sound in iOS push notifications ([b7c277e](https://github.com/part-up/part-up/commit/b7c277e))
+* **translations:** added translations to be imported in phraseapp ([59bfc33](https://github.com/part-up/part-up/commit/59bfc33))
+
+
+
 <a name="1.21.9"></a>
-## [1.21.9](https://github.com/part-up/part-up/compare/1.21.8...v1.21.9) (2016-09-06)
+## [1.21.9](https://github.com/part-up/part-up/compare/1.21.8...1.21.9) (2016-09-06)
 
 
 ### Bug Fixes
@@ -23,7 +88,13 @@
 ### Features
 
 * **chat:** better reversed scroller container ([8115c2e](https://github.com/part-up/part-up/commit/8115c2e))
+* **chat:** mentions in chat ([07cca2d](https://github.com/part-up/part-up/commit/07cca2d))
+* **chat:** mentions in chat ([d7d8f6e](https://github.com/part-up/part-up/commit/d7d8f6e))
 * **fixtures:** added chat fixtures for 1-on-1 and tribe chat ([985bfd2](https://github.com/part-up/part-up/commit/985bfd2))
+* **notifications:** added new notification type ([1c24dc4](https://github.com/part-up/part-up/commit/1c24dc4))
+* **notifications:** added notification email toggle in user settings ([fae6277](https://github.com/part-up/part-up/commit/fae6277))
+* **notifications:** added notification emails ([d2a2b6c](https://github.com/part-up/part-up/commit/d2a2b6c))
+* **notifications:** updated user fixtures and added migration ([16d32c4](https://github.com/part-up/part-up/commit/16d32c4))
 
 
 

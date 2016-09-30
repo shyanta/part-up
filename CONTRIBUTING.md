@@ -35,7 +35,7 @@ we use the git commit messages to **generate the change log**.
 </div>
 
 *If you do not follow the convention you will not be able to commit your work! 
-We have git-pre hooks built-in to check ensure you're committing according to the convential format.*
+We have git-pre hooks built-in to ensure you're committing the code according to conventional format.*
 
 4. Push
 5. Create PR
