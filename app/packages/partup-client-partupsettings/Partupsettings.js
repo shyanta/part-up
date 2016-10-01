@@ -143,16 +143,18 @@ Template.Partupsettings.onRendered(function() {
     }
 
     // when editing an existing network part-up
-    var currentPartupNetworkId = this.data.currentPartup.network_id;
-    var currentPartupPrivacyType = this.data.currentPartup.privacy_type;
+    if (this.data.currentPartup) {
+        var currentPartupNetworkId = this.data.currentPartup.network_id || false;
+        var currentPartupPrivacyType = this.data.currentPartup.privacy_type;
 
-    if (currentPartupNetworkId) {
-        template.showNetworkDropdown.set(true);
-        var privacyType = Partups.getPrivacyTypeByValue(currentPartupPrivacyType);
-        var privacyTypeValue = privacyType.toLowerCase().replace('network_public', 'network');
-        template.selectedPrivacyType.set(privacyTypeValue);
-        template.selectedPrivacyNetwork.set(currentPartupNetworkId);
-        template.preselectedNetwork.set(currentPartupNetworkId);
+        if (currentPartupNetworkId) {
+            template.showNetworkDropdown.set(true);
+            var privacyType = Partups.getPrivacyTypeByValue(currentPartupPrivacyType);
+            var privacyTypeValue = privacyType.toLowerCase().replace('network_public', 'network');
+            template.selectedPrivacyType.set(privacyTypeValue);
+            template.selectedPrivacyNetwork.set(currentPartupNetworkId);
+            template.preselectedNetwork.set(currentPartupNetworkId);
+        }
     }
 });
 
@@ -248,53 +250,63 @@ Template.Partupsettings.helpers({
         var isColleague = User(user).isColleagueOfNetwork(network_id);
         var isColleagueCustomA = User(user).isColleagueCustomAOfNetwork(network_id);
         var isColleagueCustomB = User(user).isColleagueCustomBOfNetwork(network_id);
-        var types = [
-            {
-                label: 'partupsettings-form-network-privacy-public',
-                value: 'network'
-            }
+        var networkPartupPrivacyType = Partups.privacy_types[
+            Object.keys(Networks.privacy_types)
+                .filter(type => Networks.privacy_types[type] === network.privacy_type)
         ];
+        var types = [{
+            label: network.privacy_type_labels && network.privacy_type_labels[networkPartupPrivacyType]
+                ? TAPi18n.__('partupsettings-form-network-custom-privacy-label', {
+                    name: network.privacy_type_labels[networkPartupPrivacyType]})
+                : TAPi18n.__('partupsettings-form-network-privacy-public'),
+            value: 'network'
+        }];
+        var typeAdmin = {
+            label: network.privacy_type_labels && network.privacy_type_labels[6]
+                ? TAPi18n.__('partupsettings-form-network-custom-privacy-label', {
+                    name: network.privacy_type_labels[6]})
+                : TAPi18n.__('partupsettings-form-network-privacy-admins'),
+            value: 'network_admins'
+        };
+        var typeColleague = {
+            label: network.privacy_type_labels && network.privacy_type_labels[7]
+                ? TAPi18n.__('partupsettings-form-network-custom-privacy-label', {
+                    name: network.privacy_type_labels[7]})
+                : TAPi18n.__('partupsettings-form-network-privacy-colleagues'),
+            value: 'network_colleagues'
+        };
+        var typeColleagueCustomA = {
+            label: network.privacy_type_labels && network.privacy_type_labels[8]
+                ? TAPi18n.__('partupsettings-form-network-custom-privacy-label', {
+                    name: network.privacy_type_labels[8]})
+                : TAPi18n.__('partupsettings-form-network-privacy-colleagues-custom-a'),
+            value: 'network_colleagues_custom_a'
+        };
+        var typeColleagueCustomB = {
+            label: network.privacy_type_labels && network.privacy_type_labels[9]
+                ? TAPi18n.__('partupsettings-form-network-custom-privacy-label', {
+                    name: network.privacy_type_labels[9]})
+                : TAPi18n.__('partupsettings-form-network-privacy-colleagues-custom-b'),
+            value: 'network_colleagues_custom_b'
+        };
+
+        // if user is Colleague custom B
         if (isColleagueCustomB) {
-            types.push({
-                label: 'partupsettings-form-network-privacy-colleagues-custom-b',
-                value: 'network_colleagues_custom_b'
-            });
-        }
-        if (isColleagueCustomA) {
-            types.push({
-                label: 'partupsettings-form-network-privacy-colleagues-custom-b',
-                value: 'network_colleagues_custom_b'
-            }, {
-                label: 'partupsettings-form-network-privacy-colleagues-custom-a',
-                value: 'network_colleagues_custom_a'
-            });
-        }
-        if (isColleague) {
-            types.push({
-                label: 'partupsettings-form-network-privacy-colleagues-custom-b',
-                value: 'network_colleagues_custom_b'
-            }, {
-                label: 'partupsettings-form-network-privacy-colleagues-custom-a',
-                value: 'network_colleagues_custom_a'
-            }, {
-                label: 'partupsettings-form-network-privacy-colleagues',
-                value: 'network_colleagues'
-            });
-        }
-        if (isAdmin) {
-            types.push({
-                label: 'partupsettings-form-network-privacy-colleagues-custom-b',
-                value: 'network_colleagues_custom_b'
-            }, {
-                label: 'partupsettings-form-network-privacy-colleagues-custom-a',
-                value: 'network_colleagues_custom_a'
-            }, {
-                label: 'partupsettings-form-network-privacy-colleagues',
-                value: 'network_colleagues'
-            }, {
-                label: 'partupsettings-form-network-privacy-admins',
-                value: 'network_admins'
-            });
+            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
+        // if user is Colleague custom A
+        } else if (isColleagueCustomA) {
+            if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
+            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
+        // if user is Colleague
+        } else if (isColleague) {
+            types.push(typeColleague);
+            if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
+            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
+        // if user is Admin
+        } else if (isAdmin) {
+            types.push(typeAdmin, typeColleague);
+            if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
+            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
         }
         return types;
     },
