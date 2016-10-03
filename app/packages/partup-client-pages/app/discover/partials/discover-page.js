@@ -183,9 +183,12 @@ Template.app_discover_page.helpers({
         return Template.instance().states.count_loading.get();
     },
     showRecommendationsBtn: function() {
-        var user = Meteor.user();
-        if (!user) return false;
-        return true;
+        /**
+         * out-comment the lines to enable the recommendation button again
+         */
+        // var user = Meteor.user();
+        // if (!user) return false;
+        return false;
     }
 });
 
