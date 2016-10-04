@@ -880,3 +880,7 @@ Partups.findForAdminList = function(selector, options) {
         skip: limit * page
     });
 };
+
+Partups.findInNetwork = function(networkId) {
+    return this.find({'network_id': networkId}, { fields: { 'privacy_type': 1 } });
+};

@@ -86,6 +86,37 @@ Meteor.methods({
     },
 
     /**
+     * Update a Network Access
+     *
+     * @param {String} networkId
+     * @param {mixed[]} fields
+     */
+    'networks.updateAccess': function(networkId, fields) {
+        check(networkId, String);
+        check(fields, Partup.schemas.forms.networkAccess);
+
+        var user = Meteor.user();
+        var network = Networks.findOneOrFail(networkId);
+
+        if (!user || !network.isAdmin(user._id)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        try {
+            var newNetworkFields = Partup.transformers.networkAccess.fromFormNetworkAccess(fields);
+
+            Networks.update(networkId, {$set: newNetworkFields});
+
+            return {
+                _id: network._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_could_not_be_updated');
+        }
+    },
+
+    /**
      * Invite someone to a network
      *
      * @param {String} networkId

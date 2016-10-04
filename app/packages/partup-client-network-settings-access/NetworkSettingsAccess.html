@@ -1,6 +1,149 @@
 <template name="NetworkSettingsAccess">
-  <div class="pu-composition pu-composition-defaultmodal pu-composition-networksettings-access">
-    <h2 class="pu-title pu-title-modal">{{_ 'network-settings-access-title' }}</h2>
-    <p>{{_ 'network-settings-access-intro-paragraph' }}</p>
-  </div>
+
+    <div class="pu-composition pu-composition-defaultmodal">
+        <h2 class="pu-title pu-title-modal">
+            {{_ 'network-settings-access-title' }}
+        </h2>
+        <p>{{_ 'network-settings-access-intro-paragraph' }}</p>
+
+        {{# autoForm id='NetworkSettingsAccessForm' schema=form.schema doc=form.fieldsForNetworkAccess validation="submitThenKeyup" class="pu-form" }}
+
+            <div class="pu-formfield">
+                {{> afFieldInput
+                    id="colleagues_custom_a_enabled"
+                    name="colleagues_custom_a_enabled"
+                    type="boolean-checkbox"
+                    disabled=data.hasActivePartupsCustomA
+                }}
+            </div>
+
+            <div class="pu-formfield">
+                {{> afFieldInput
+                    id="colleagues_custom_b_enabled"
+                    name="colleagues_custom_b_enabled"
+                    type="boolean-checkbox"
+                    disabled=data.hasActivePartupsCustomB
+                }}
+            </div>
+
+            <!-- label_admins -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-access-form-admins-label'}}
+                    <a class="pu-hint">
+                        {{# if partupLowerThan state.labelAdminsCharactersLeft form.schema._schema.label_admins.max }}
+                            {{_ 'network-settings-form-characters-left' state.labelAdminsCharactersLeft }}
+                        {{ else }}
+                            {{_ 'network-settings-form-characters' form.schema._schema.label_admins.max }}
+                        {{/ if }}
+                    </a>
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='label_admins' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            id='label_admins'
+                            name='label_admins'
+                            class='pu-input'
+                            maxlength=form.schema._schema.label_admins.max
+                        }}
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='label_admins' }}</span>
+                </div>
+            </label>
+
+            <!-- label_colleagues -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-access-form-colleagues-label'}}
+                    <a class="pu-hint">
+                        {{# if partupLowerThan state.labelColleaguesCharactersLeft form.schema._schema.label_colleagues.max }}
+                            {{_ 'network-settings-form-characters-left' state.labelColleaguesCharactersLeft }}
+                        {{ else }}
+                            {{_ 'network-settings-form-characters' form.schema._schema.label_colleagues.max }}
+                        {{/ if }}
+                    </a>
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='label_colleagues' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            id='label_colleagues'
+                            name='label_colleagues'
+                            class='pu-input'
+                            maxlength=form.schema._schema.label_colleagues.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='label_colleagues' }}</span>
+                </div>
+            </label>
+
+            <!-- label_colleagues_custom_a -->
+            {{# unless afFieldValueIs name="colleagues_custom_a_enabled" value=false }}
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-access-form-colleagues-custom-a-label'}}
+                    <a class="pu-hint">
+                        {{# if partupLowerThan state.labelColleaguesCustomACharactersLeft form.schema._schema.label_colleagues_custom_a.max }}
+                            {{_ 'network-settings-form-characters-left' state.labelColleaguesCustomACharactersLeft }}
+                        {{ else }}
+                            {{_ 'network-settings-form-characters' form.schema._schema.label_colleagues_custom_a.max }}
+                        {{/ if }}
+                    </a>
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='label_colleagues_custom_a' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            id='label_colleagues_custom_a'
+                            name='label_colleagues_custom_a'
+                            class='pu-input'
+                            maxlength=form.schema._schema.label_colleagues_custom_a.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='label_colleagues_custom_a' }}</span>
+                </div>
+            </label>
+            {{/ unless }}
+
+            <!-- label_colleagues_custom_b -->
+            {{# unless afFieldValueIs name="colleagues_custom_b_enabled" value=false }}
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-access-form-colleagues-custom-b-label'}}
+                    <a class="pu-hint">
+                        {{# if partupLowerThan state.labelColleaguesCustomBCharactersLeft form.schema._schema.label_colleagues_custom_b.max }}
+                            {{_ 'network-settings-form-characters-left' state.labelColleaguesCustomBCharactersLeft }}
+                        {{ else }}
+                            {{_ 'network-settings-form-characters' form.schema._schema.label_colleagues_custom_b.max }}
+                        {{/ if }}
+                    </a>
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='label_colleagues_custom_b' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            id='label_colleagues_custom_b'
+                            name='label_colleagues_custom_b'
+                            class='pu-input'
+                            maxlength=form.schema._schema.colleagues_custom_b.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='label_colleagues_custom_b' }}</span>
+                </div>
+            </label>
+            {{/ unless }}
+
+            <div class="pu-formfield">
+                <button type="submit" class="pu-button {{# if state.submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                    <span>{{_ 'network-settings-form-submit' }}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
+            </div>
+
+        {{/ autoForm }}
+    </div>
 </template>

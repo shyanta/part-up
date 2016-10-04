@@ -665,5 +665,17 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partner_request_could_not_be_rejected');
         }
+    },
+
+   /**
+    * Returns partup stats to superadmins only
+    */
+    'partups.in_network': function(network) {
+        var user = Meteor.user();
+        if (!network) throw new Meteor.Error(401, 'unauthorized')
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+
+        return Partups.findInNetwork(network._id).fetch();
     }
 });
