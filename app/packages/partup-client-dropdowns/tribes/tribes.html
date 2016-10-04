@@ -1,0 +1,20 @@
+<template name="DropdownTribes">
+    <button class="pu-button pu-button-header {{# unless partupResponsive }}pu-button-header-desktop{{/ unless }}" data-toggle-menu="menu">
+        My Tribes
+    </button>
+    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close>
+        <ul class="pu-list">
+            {{#each networks}}
+                <li class='pu-dropdown-simple__tribe'>
+                    <a href="{{ pathFor 'network' slug=slug query='show=false' }}">
+                        <figure class="pu-avatar pu-avatar-tiny pu-avatar-square" style="{{# with partupGetImageUrl imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
+                        <span>{{ name }}</span>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+        <ul class="pu-list">
+            <li><a href="{{pathFor 'discover'}}">Discover</a></li>
+        </ul>
+    </div>
+</template>

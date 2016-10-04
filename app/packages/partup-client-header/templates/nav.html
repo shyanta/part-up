@@ -1,5 +1,8 @@
 <template name="Header_nav">
     <ul class="pu-list pu-list-horizontal">
+        <li>
+            {{> DropdownTribes }}
+        </li>
         {{#unless isMobile}}
             <li>
                 {{> DropdownMenu }}

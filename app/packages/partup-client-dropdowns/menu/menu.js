@@ -1,7 +1,6 @@
 Template.DropdownMenu.onCreated(function() {
     var template = this;
     template.dropdownOpen = new ReactiveVar(false);
-    template.subscribe('chats.for_loggedin_user', {networks: true}, {});
 });
 Template.DropdownMenu.onRendered(function() {
     var template = this;
