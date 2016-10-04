@@ -16,7 +16,7 @@ Template.modal_create_details.helpers({
     currentPartup: function() {
         var partupId = Session.get('partials.create-partup.current-partup');
         var partup = Partups.findOne({_id: partupId});
-        if (!partup) return;
+        if (!partup) return undefined;
 
         return partup;
     },
