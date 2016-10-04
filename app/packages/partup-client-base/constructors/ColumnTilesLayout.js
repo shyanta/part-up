@@ -73,7 +73,7 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
                 var tileHeight = _options.calculateApproximateTileHeight(tile, _columnElements.eq(0).width());
 
                 columnHeights[shortestColumn] += tileHeight;
-                columns[shortestColumn].push(tile);
+                if (columns[shortestColumn]) columns[shortestColumn].push(tile);
             });
             C.columns.set(columns);
 
