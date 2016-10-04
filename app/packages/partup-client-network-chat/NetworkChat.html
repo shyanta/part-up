@@ -1,14 +1,16 @@
 <template name="NetworkChat">
     <div class="pu-chat">
-        <main class="pu-chat-main pu-chat-main-left">
-            {{> ChatView config=config.messageView }}
+        {{#if data.chatId}}
+            <main class="pu-chat-main pu-chat-main-left">
+                {{> ChatView config=config.messageView }}
 
-            {{#if data.network.hasMember currentUserId }}
-                {{> ChatBar config=config.bottomBar }}
-            {{/if}}
-        </main>
-        <aside class="pu-sidebar pu-sidebar-right">
-            {{> NetworkChatSidebar config=config.sideBar }}
-        </aside>
+                {{#if data.network.hasMember currentUserId }}
+                    {{> ChatBar config=config.bottomBar }}
+                {{/if}}
+            </main>
+            <aside class="pu-sidebar pu-sidebar-right">
+                {{> NetworkChatSidebar config=config.sideBar }}
+            </aside>
+        {{/if}}
     </div>
 </template>

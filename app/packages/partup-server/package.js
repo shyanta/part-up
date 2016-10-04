@@ -216,10 +216,6 @@ Package.onUse(function(api) {
         'package-tap.i18n'
     ], ['server']);
 
-    api.addFiles([
-        'methods/latencycompensation.js',
-    ], ['client']);
-
     api.export('Log', ['server']);
 });
 

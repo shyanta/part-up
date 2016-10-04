@@ -1,5 +1,5 @@
 <a name="1.22.2"></a>
-## [1.22.2](https://github.com/part-up/part-up/compare/1.22.1...v1.22.2) (2016-09-26)
+## [1.22.2](https://github.com/part-up/part-up/compare/1.22.1...1.22.2) (2016-09-26)
 
 
 ### Bug Fixes
@@ -9,23 +9,15 @@
 
 
 <a name="1.22.1"></a>
-## [1.22.1](https://github.com/part-up/part-up/compare/1.22.0...1.22.1) (2016-09-20)
+## [1.22.1](https://github.com/part-up/part-up/compare/1.21.10...1.22.1) (2016-09-20)
 
 
 ### Bug Fixes
 
 * **gd-api:** change api src code ([7fee899](https://github.com/part-up/part-up/commit/7fee899))
-
-
-
-<a name="1.22.0"></a>
-# [1.22.0](https://github.com/part-up/part-up/compare/1.21.10...1.22.0) (2016-09-20)
-
-
-### Bug Fixes
-
 * **gd-ctrl:** write group does not work without emailadress ([9044e32](https://github.com/part-up/part-up/commit/9044e32))
 * **markdown-sass:** remove top bottom space and do css line break ([e8098c1](https://github.com/part-up/part-up/commit/e8098c1)), closes [#677](https://github.com/part-up/part-up/issues/677)
+* **recommend-page:** add calculations columns ([4b46f8b](https://github.com/part-up/part-up/commit/4b46f8b))
 * **users:** fixed a publication bug where all users were published ([77071a4](https://github.com/part-up/part-up/commit/77071a4))
 
 
@@ -41,6 +33,7 @@
 * **network-uppers:** fixed bug where uppers wouldn't show when no colleagues and/or admins were set ([f500eab](https://github.com/part-up/part-up/commit/f500eab))
 * **partups:** add defaults for limit and skip in upperpartups and supporterpartups to fix partups in profile dropdown ([7f2c974](https://github.com/part-up/part-up/commit/7f2c974))
 * **partups:** fix sorting in upper/supporter partups routes ([ab34f8a](https://github.com/part-up/part-up/commit/ab34f8a))
+* **partups-collection:** mimic guaredFind function with this.unblock ([cc2b4bc](https://github.com/part-up/part-up/commit/cc2b4bc))
 * **profile:** fixed the profile about page ([4606fc3](https://github.com/part-up/part-up/commit/4606fc3))
 * **routing:** return the error response ([b2ef5c7](https://github.com/part-up/part-up/commit/b2ef5c7))
 
@@ -82,7 +75,7 @@
 * **chats:** fields fix causing mobile app problems ([d913928](https://github.com/part-up/part-up/commit/d913928))
 * **chats:** fix publication to unsure all data networks need to show up ([921eecc](https://github.com/part-up/part-up/commit/921eecc))
 * **newmessage:** replace i18n markdown doc key ([19ef632](https://github.com/part-up/part-up/commit/19ef632)), closes [#649](https://github.com/part-up/part-up/issues/649)
-* **scraper:** fixed bug that caused the scraper to error when a source couldn't be scraped [#641](https://github.com/part-up/part-up/issues/641) ([6503537](https://github.com/part-up/part-up/commit/6503537)), closes [#641](https://github.com/part-up/part-up/issues/641)
+* **scraper:** fixed bug that caused the scraper to error when a source couldn't be scraped [#641](https://github.com/part-up/part-up/issues/641) ([6503537](https://github.com/part-up/part-up/commit/6503537))
 
 
 ### Features
@@ -155,7 +148,7 @@
 * **admin:** show archived state of partups aswell ([b6bbbb7](https://github.com/part-up/part-up/commit/b6bbbb7))
 * **admin:** start of admin make-over ([95867ae](https://github.com/part-up/part-up/commit/95867ae))
 * **archived_tribes:** fixed count coloring of archived tribes ([a4879d1](https://github.com/part-up/part-up/commit/a4879d1))
-* **chat:** 1-on-1 chat unreaqd status fix [#598](https://github.com/part-up/part-up/issues/598) ([bc3e814](https://github.com/part-up/part-up/commit/bc3e814)), closes [#598](https://github.com/part-up/part-up/issues/598)
+* **chat:** 1-on-1 chat unreaqd status fix [#598](https://github.com/part-up/part-up/issues/598) ([bc3e814](https://github.com/part-up/part-up/commit/bc3e814))
 * **chat:** chatmessage box autogrows on shift-enter ([32a77b8](https://github.com/part-up/part-up/commit/32a77b8))
 * **chat:** fixed ordering of chat search, also tweaked the css a bit ([a3ab05c](https://github.com/part-up/part-up/commit/a3ab05c))
 * **chat:** limit scrape size to 200kb ([64f30f4](https://github.com/part-up/part-up/commit/64f30f4))
@@ -163,7 +156,7 @@
 * **chat:** removed messages read state auorunner, also disable context search when user starts typing ([59dc72f](https://github.com/part-up/part-up/commit/59dc72f))
 * **colleagues:** display correct labels for colleague level part-ups ([6bd9100](https://github.com/part-up/part-up/commit/6bd9100))
 * **columnslayout:** Set initial columnslayout total columns to prevent render issues, fixing [#607](https://github.com/part-up/part-up/issues/607) ([4364ba2](https://github.com/part-up/part-up/commit/4364ba2))
-* **comment:** commentfield autogrow fix. fixes [#489](https://github.com/part-up/part-up/issues/489) ([a7ae43c](https://github.com/part-up/part-up/commit/a7ae43c)), closes [#489](https://github.com/part-up/part-up/issues/489)
+* **comment:** commentfield autogrow fix. fixes [#489](https://github.com/part-up/part-up/issues/489) ([a7ae43c](https://github.com/part-up/part-up/commit/a7ae43c))
 * **creatuser:** disabled expensive and error prone call to get_locale in creation of user ([5664160](https://github.com/part-up/part-up/commit/5664160))
 * **datepicker:** fixed datepicker where the year would set to 0 fixong [#621](https://github.com/part-up/part-up/issues/621) ([100373d](https://github.com/part-up/part-up/commit/100373d))
 * **discover:** hide network if archived ([3277f90](https://github.com/part-up/part-up/commit/3277f90))
@@ -177,6 +170,7 @@
 * **partup:** fixed white-space issue on new updates button fixing [#619](https://github.com/part-up/part-up/issues/619) ([5abdc74](https://github.com/part-up/part-up/commit/5abdc74))
 * **partup:** show admin-only privacy type in partup ([1c75a4e](https://github.com/part-up/part-up/commit/1c75a4e))
 * **search:** fixed bug where blurring the window caused the search input to close without blurring the input. fixing [#429](https://github.com/part-up/part-up/issues/429) ([a2dd595](https://github.com/part-up/part-up/commit/a2dd595))
+* **server:partups:** url needs require('url') ([a4ca67e](https://github.com/part-up/part-up/commit/a4ca67e))
 * **strings:** require emoji ([c76a9df](https://github.com/part-up/part-up/commit/c76a9df))
 * **tribe:** archived tribes have all actions disabled in frontend ([baf624e](https://github.com/part-up/part-up/commit/baf624e))
 * **tribe:** disable buttons on archived state ([1699326](https://github.com/part-up/part-up/commit/1699326))
@@ -240,6 +234,8 @@
 * **partners:** improved order of partners on new profile partners tab [#340](https://github.com/part-up/part-up/issues/340) ([cd3997f](https://github.com/part-up/part-up/commit/cd3997f))
 * **partup:** select group when starting partup from tribe ([83beae1](https://github.com/part-up/part-up/commit/83beae1))
 * **partups:** label for admins/collegue partups on partup tiles ([8dfb873](https://github.com/part-up/part-up/commit/8dfb873))
+* **server:partups:** add crypto encryption with authToken and userId ([266c085](https://github.com/part-up/part-up/commit/266c085))
+* **server:partups:** Fixed encryption code ([a120346](https://github.com/part-up/part-up/commit/a120346))
 * **stats:** not able anymore to increase the number of email shares manually [#465](https://github.com/part-up/part-up/issues/465) ([fbc41b8](https://github.com/part-up/part-up/commit/fbc41b8))
 * **strings:** export strings helpers as importable with renderToMarkdown ([d585fb9](https://github.com/part-up/part-up/commit/d585fb9))
 * **tribe:** archived label ([a75cd83](https://github.com/part-up/part-up/commit/a75cd83))
@@ -251,8 +247,8 @@
 
 ### BREAKING CHANGES
 
-* package.json: S: npm run commit instead of npm run cz
-* CHANGELOG.md: S: convential commit messages max to 1.16.4 version
+* package.json: npm run commit instead of npm run cz
+* CHANGELOG.md: convential commit messages max to 1.16.4 version
 
 
 
@@ -263,12 +259,12 @@
 ### Bug Fixes
 
 * **about:** give the user feedback for max-characters in contentblocks ([b0d2ff3](https://github.com/part-up/part-up/commit/b0d2ff3))
-* **about:** remove pasted formatting to prevent conflicts with the wyswig editor fix for [#568](https://github.com/part-up/part-up/issues/568) ([7add7f7](https://github.com/part-up/part-up/commit/7add7f7)), closes [#568](https://github.com/part-up/part-up/issues/568)
+* **about:** remove pasted formatting to prevent conflicts with the wyswig editor fix for [#568](https://github.com/part-up/part-up/issues/568) ([7add7f7](https://github.com/part-up/part-up/commit/7add7f7))
 * **chat:** add migration to add chat to existing networks without a chat ([9680e8d](https://github.com/part-up/part-up/commit/9680e8d))
 * **chat:** enabled "join conversation" button fixing [#518](https://github.com/part-up/part-up/issues/518) ([5dd057e](https://github.com/part-up/part-up/commit/5dd057e))
 * **chat:** fixed chat scraper issue with partup urls fixing [#594](https://github.com/part-up/part-up/issues/594) ([64d4749](https://github.com/part-up/part-up/commit/64d4749))
 * **chat:** fixed incorrect margins for firefox fixing [#514](https://github.com/part-up/part-up/issues/514) ([20c9f41](https://github.com/part-up/part-up/commit/20c9f41))
-* **chat:** unread count reset with a defer, this could possibly be the fix for [#590](https://github.com/part-up/part-up/issues/590) ([9a38da0](https://github.com/part-up/part-up/commit/9a38da0)), closes [#590](https://github.com/part-up/part-up/issues/590)
+* **chat:** unread count reset with a defer, this could possibly be the fix for [#590](https://github.com/part-up/part-up/issues/590) ([9a38da0](https://github.com/part-up/part-up/commit/9a38da0))
 * **chat-dropdown:** also show tribe chats without chat messages ([4175a35](https://github.com/part-up/part-up/commit/4175a35))
 * **chat-dropdown:** fix tribe chat tiles (alignements and consistency) ([3332400](https://github.com/part-up/part-up/commit/3332400))
 * **chats:** fix directory location of new file after naming big rewrite ([259b79a](https://github.com/part-up/part-up/commit/259b79a))
@@ -286,7 +282,7 @@
 * **partup:** increased the margin at the bottom of a part-up page fixing the issue with comments under the fold fixing [#307](https://github.com/part-up/part-up/issues/307) ([e602178](https://github.com/part-up/part-up/commit/e602178))
 * **partup:** tribe partup start styled like discussed with pim ([c020b09](https://github.com/part-up/part-up/commit/c020b09))
 * **partupsettings:** better feedback for location input fixing [#154](https://github.com/part-up/part-up/issues/154) ([179f552](https://github.com/part-up/part-up/commit/179f552))
-* **partupsettings:** Changed the date input in partup-settings to a more visual style, this also fixes issue [#485](https://github.com/part-up/part-up/issues/485) ([fad1463](https://github.com/part-up/part-up/commit/fad1463)), closes [#485](https://github.com/part-up/part-up/issues/485)
+* **partupsettings:** Changed the date input in partup-settings to a more visual style, this also fixes issue [#485](https://github.com/part-up/part-up/issues/485) ([fad1463](https://github.com/part-up/part-up/commit/fad1463))
 * **partupsettings:** fixed the incorrect value bug for type of organization in a part-up fixing [#224](https://github.com/part-up/part-up/issues/224) ([168ded3](https://github.com/part-up/part-up/commit/168ded3))
 * **push-notifications:** don't send network-chat-message pushnotifications to devices with app releases before 1.4.0 ([74a5e3e](https://github.com/part-up/part-up/commit/74a5e3e))
 * **sort:** made the sorting helpers more generic by using function.bind and implemented it into activity sorting ([505f678](https://github.com/part-up/part-up/commit/505f678))
@@ -301,7 +297,7 @@
 
 ### Features
 
-* **activities:** scroll to new activity, resolve [#152](https://github.com/part-up/part-up/issues/152) ([a18f88b](https://github.com/part-up/part-up/commit/a18f88b)), closes [#152](https://github.com/part-up/part-up/issues/152)
+* **activities:** scroll to new activity, resolve [#152](https://github.com/part-up/part-up/issues/152) ([a18f88b](https://github.com/part-up/part-up/commit/a18f88b))
 * **chat:** add server-side function to remove a chat ([065ab0d](https://github.com/part-up/part-up/commit/065ab0d))
 * **chat:** added quick switcher: try cmd+K in one-on-one chat ([b509b50](https://github.com/part-up/part-up/commit/b509b50))
 * **chat:** Chats autofocus on message bar, also when searching the user can navigate the list with arrow keys and initialize by pressing the return key ([829e6fd](https://github.com/part-up/part-up/commit/829e6fd))
@@ -309,7 +305,7 @@
 * **chats:** add compatibility for mobile tribe ([69f1550](https://github.com/part-up/part-up/commit/69f1550))
 * **devops:** upgraded cron server to bigger machine, changed ip in inventory ([95add3f](https://github.com/part-up/part-up/commit/95add3f))
 * **fixtures:** update fixtures to create chat for every network ([18912be](https://github.com/part-up/part-up/commit/18912be))
-* **profile-dropdown:** profile dropdown partner/supporters/tribes toggle, resolve [#493](https://github.com/part-up/part-up/issues/493) ([020aec3](https://github.com/part-up/part-up/commit/020aec3)), closes [#493](https://github.com/part-up/part-up/issues/493)
+* **profile-dropdown:** profile dropdown partner/supporters/tribes toggle, resolve [#493](https://github.com/part-up/part-up/issues/493) ([020aec3](https://github.com/part-up/part-up/commit/020aec3))
 * **push-notifications:** add push notifications for tribe chat messages ([5f7cf44](https://github.com/part-up/part-up/commit/5f7cf44))
 
 
@@ -359,12 +355,12 @@
 * **1on1chat:** add check to see if user is allowed to insert chat message ([a2085a4](https://github.com/part-up/part-up/commit/a2085a4))
 * **chat:** add start chat ability via url ([4088e11](https://github.com/part-up/part-up/commit/4088e11))
 * **chat:** count on empty counters in chat dropdown ([b2a12ee](https://github.com/part-up/part-up/commit/b2a12ee))
-* **chat:** fixed translation issue on network chat. fixes [#585](https://github.com/part-up/part-up/issues/585) ([60d405e](https://github.com/part-up/part-up/commit/60d405e)), closes [#585](https://github.com/part-up/part-up/issues/585)
+* **chat:** fixed translation issue on network chat. fixes [#585](https://github.com/part-up/part-up/issues/585) ([60d405e](https://github.com/part-up/part-up/commit/60d405e))
 * **chat:** redirect user to home page after logging out in chat ([fe1e611](https://github.com/part-up/part-up/commit/fe1e611))
 * **chat:** reset new messages divider for one on one chat fixing [#569](https://github.com/part-up/part-up/issues/569) ([a971e9f](https://github.com/part-up/part-up/commit/a971e9f))
 * **chat:** show searching state by INDICATING THE CURRENT SEARCH QUERY ([4422aa6](https://github.com/part-up/part-up/commit/4422aa6))
 * **chat:** sidebar width fix ([efa4c23](https://github.com/part-up/part-up/commit/efa4c23))
-* **chat:** translation fix [#537](https://github.com/part-up/part-up/issues/537) ([43afd0f](https://github.com/part-up/part-up/commit/43afd0f)), closes [#537](https://github.com/part-up/part-up/issues/537)
+* **chat:** translation fix [#537](https://github.com/part-up/part-up/issues/537) ([43afd0f](https://github.com/part-up/part-up/commit/43afd0f))
 * **chat-dropdown:** added  start a chat button to dropdown ([3b06ee6](https://github.com/part-up/part-up/commit/3b06ee6))
 * **chatdropdown:** truncate long tribe chat lines, fixing [#517](https://github.com/part-up/part-up/issues/517) ([1e671e5](https://github.com/part-up/part-up/commit/1e671e5))
 * **chats:** count on empty chats array ([d5b2068](https://github.com/part-up/part-up/commit/d5b2068))
@@ -485,7 +481,7 @@
 * **chats:** add temporary backwards compatibility for chat publication in 1.2.2 app version (to be removed after 1.2.3 release in appstores) ([88141aa](https://github.com/part-up/part-up/commit/88141aa))
 * **chats-publication:** fix backwards compatibility for 1.2.2 app ([354a87b](https://github.com/part-up/part-up/commit/354a87b))
 * **dropdown-profile.js:** Replaced meteor logout with partup.client logout ([927f1f3](https://github.com/part-up/part-up/commit/927f1f3))
-* **edge:** bulk upload fix [#379](https://github.com/part-up/part-up/issues/379) ([a9e763a](https://github.com/part-up/part-up/commit/a9e763a)), closes [#379](https://github.com/part-up/part-up/issues/379)
+* **edge:** bulk upload fix [#379](https://github.com/part-up/part-up/issues/379) ([a9e763a](https://github.com/part-up/part-up/commit/a9e763a))
 * **email-images:** confirmation mail images now showing [#394](https://github.com/part-up/part-up/issues/394) ([efa983b](https://github.com/part-up/part-up/commit/efa983b))
 * **es6:** remove es6 code ([a06afc2](https://github.com/part-up/part-up/commit/a06afc2))
 * **icons:** Added sass variables that make all the icon content available. This is usefull for third party packages that don't alow for much flexibility in the generated html. fixing [#466](https://github.com/part-up/part-up/issues/466) ([1b46182](https://github.com/part-up/part-up/commit/1b46182))
@@ -505,7 +501,7 @@
 * **partup-sidebar:** add check to prevent exception when calling Partup.client.windowTitle.setContextName() ([b8b1192](https://github.com/part-up/part-up/commit/b8b1192))
 * **profile:** added authorization token and userid to http gets to get correct results. fixing [#477](https://github.com/part-up/part-up/issues/477) ([694d9c1](https://github.com/part-up/part-up/commit/694d9c1))
 * **profile:** dont't show the profile uppertile in partners [#380](https://github.com/part-up/part-up/issues/380) ([0ddd304](https://github.com/part-up/part-up/commit/0ddd304))
-* **profile:** fixed infinite scroll issue mentioned in issue [#380](https://github.com/part-up/part-up/issues/380) ([937c41e](https://github.com/part-up/part-up/commit/937c41e)), closes [#380](https://github.com/part-up/part-up/issues/380)
+* **profile:** fixed infinite scroll issue mentioned in issue [#380](https://github.com/part-up/part-up/issues/380) ([937c41e](https://github.com/part-up/part-up/commit/937c41e))
 * **prune-devices:** add fallback for users who don't have the push_notification_devices array yet ([a1736ec](https://github.com/part-up/part-up/commit/a1736ec))
 * **prune-devices:** make register-device-id backwards compatible ([f073d92](https://github.com/part-up/part-up/commit/f073d92))
 * **push-notification-devices:** prune devices when a user logs out ([1ed037e](https://github.com/part-up/part-up/commit/1ed037e))
@@ -514,7 +510,7 @@
 * **single-chat-publication:** guard user fields and fix empty chat messages screen ([f541ec4](https://github.com/part-up/part-up/commit/f541ec4))
 * **tribestart:** bold link styling [#421](https://github.com/part-up/part-up/issues/421) ([0949c60](https://github.com/part-up/part-up/commit/0949c60))
 * **tribestart:** invite button closes tribe start for members fixing [#443](https://github.com/part-up/part-up/issues/443) ([2b703f7](https://github.com/part-up/part-up/commit/2b703f7))
-* **tribestart:** Read more button fixes [#421](https://github.com/part-up/part-up/issues/421) ([d795119](https://github.com/part-up/part-up/commit/d795119)), closes [#421](https://github.com/part-up/part-up/issues/421)
+* **tribestart:** Read more button fixes [#421](https://github.com/part-up/part-up/issues/421) ([d795119](https://github.com/part-up/part-up/commit/d795119))
 * **windowtitle:** fix defaultDelimiter - value ([b573735](https://github.com/part-up/part-up/commit/b573735))
 * **windowtitle:** fix es6 code which was breaking build [@annotatedjs](https://github.com/annotatedjs) ([5dc4cf1](https://github.com/part-up/part-up/commit/5dc4cf1))
 
@@ -579,7 +575,7 @@
 
 * **cookie-bar:** make the text reactive to application language settings ([281d6d6](https://github.com/part-up/part-up/commit/281d6d6))
 * **publications:** downgrade simple:json-rest to re-enable hidden/private partups showing when authorized ([38a932d](https://github.com/part-up/part-up/commit/38a932d))
-* **upgrade:** update iron middleware package to fix incompatibility with latest chrome on win10 (fixes [#471](https://github.com/part-up/part-up/issues/471)) ([5211b02](https://github.com/part-up/part-up/commit/5211b02)), closes [#471](https://github.com/part-up/part-up/issues/471)
+* **upgrade:** update iron middleware package to fix incompatibility with latest chrome on win10 (fixes [#471](https://github.com/part-up/part-up/issues/471)) ([5211b02](https://github.com/part-up/part-up/commit/5211b02))
 
 
 
@@ -590,7 +586,7 @@
 ### Bug Fixes
 
 * **about-profile-name-href-link:** replace hard-coded with pathFor profile and _id ([73c4030](https://github.com/part-up/part-up/commit/73c4030))
-* **admin:** show all admins on admin tribe page fix [#446](https://github.com/part-up/part-up/issues/446) ([0b26734](https://github.com/part-up/part-up/commit/0b26734)), closes [#446](https://github.com/part-up/part-up/issues/446)
+* **admin:** show all admins on admin tribe page fix [#446](https://github.com/part-up/part-up/issues/446) ([0b26734](https://github.com/part-up/part-up/commit/0b26734))
 * **android-notifications:** correctly send android push notification ([dbcad66](https://github.com/part-up/part-up/commit/dbcad66))
 * **app-push-notifications:** add production flag to enable notifications ([fdc88f3](https://github.com/part-up/part-up/commit/fdc88f3))
 * **app-push-notifications:** better fallback for APN devices cleanup cron interval ([998182d](https://github.com/part-up/part-up/commit/998182d))
@@ -728,7 +724,7 @@
 ### Bug Fixes
 
 * **about:** admins are aligned to center, this behaviour has the best looking layout behaviour ([e4ccb69](https://github.com/part-up/part-up/commit/e4ccb69))
-* **about:** fixed most bugs in issue [#299](https://github.com/part-up/part-up/issues/299) ([1c5fdd3](https://github.com/part-up/part-up/commit/1c5fdd3)), closes [#299](https://github.com/part-up/part-up/issues/299)
+* **about:** fixed most bugs in issue [#299](https://github.com/part-up/part-up/issues/299) ([1c5fdd3](https://github.com/part-up/part-up/commit/1c5fdd3))
 * **about:** implemented the sorting fix on the about page ([1d6b24f](https://github.com/part-up/part-up/commit/1d6b24f))
 * **about:** placeholders and translations ([d43f8ef](https://github.com/part-up/part-up/commit/d43f8ef))
 * **about:** removed margin on faces and align properly ([d758f08](https://github.com/part-up/part-up/commit/d758f08))
@@ -757,9 +753,9 @@
 * **translation:** removed lorem ipsum ([613878e](https://github.com/part-up/part-up/commit/613878e))
 * **translations:** about page translations ([caf5571](https://github.com/part-up/part-up/commit/caf5571))
 * **tribe-about:** fixed the initialization of the about page fixing [#298](https://github.com/part-up/part-up/issues/298) ([abd7d6b](https://github.com/part-up/part-up/commit/abd7d6b))
-* **tribe-uppers:** fixed bugs reported in issue [#284](https://github.com/part-up/part-up/issues/284) ([b7b4c3f](https://github.com/part-up/part-up/commit/b7b4c3f)), closes [#284](https://github.com/part-up/part-up/issues/284)
+* **tribe-uppers:** fixed bugs reported in issue [#284](https://github.com/part-up/part-up/issues/284) ([b7b4c3f](https://github.com/part-up/part-up/commit/b7b4c3f))
 * **tribeadmin:** change csv header copy from technical keys to readable words ([23f50a1](https://github.com/part-up/part-up/commit/23f50a1))
-* **tribepartupsearch:** change search method to implement similar regex search in network search partups as user invite modal (fixes [#300](https://github.com/part-up/part-up/issues/300)) ([30660b0](https://github.com/part-up/part-up/commit/30660b0)), closes [#300](https://github.com/part-up/part-up/issues/300)
+* **tribepartupsearch:** change search method to implement similar regex search in network search partups as user invite modal (fixes [#300](https://github.com/part-up/part-up/issues/300)) ([30660b0](https://github.com/part-up/part-up/commit/30660b0))
 * **tribes:** fix security leak by ensuring use clean copy of public user fields constant on each separate request. ([d44253b](https://github.com/part-up/part-up/commit/d44253b))
 * **wysiwyg:** added view html button ([e48ee8a](https://github.com/part-up/part-up/commit/e48ee8a))
 * **wyswig:** onclick focus on contenteditable fields that immediatly focus on ios when tapped one time instead of two, fixing [#298](https://github.com/part-up/part-up/issues/298) ([358471a](https://github.com/part-up/part-up/commit/358471a))
@@ -904,8 +900,8 @@
 
 ### Bug Fixes
 
-* **login:** fix redirect to discover in chrome ios on specific url load fix [#352](https://github.com/part-up/part-up/issues/352) ([c4c6018](https://github.com/part-up/part-up/commit/c4c6018)), closes [#352](https://github.com/part-up/part-up/issues/352)
-* **networks:** fix tribe admin race condition by exposing admin_id in public metadata fix [#352](https://github.com/part-up/part-up/issues/352) ([a962f13](https://github.com/part-up/part-up/commit/a962f13)), closes [#352](https://github.com/part-up/part-up/issues/352)
+* **login:** fix redirect to discover in chrome ios on specific url load fix [#352](https://github.com/part-up/part-up/issues/352) ([c4c6018](https://github.com/part-up/part-up/commit/c4c6018))
+* **networks:** fix tribe admin race condition by exposing admin_id in public metadata fix [#352](https://github.com/part-up/part-up/issues/352) ([a962f13](https://github.com/part-up/part-up/commit/a962f13))
 
 
 
@@ -944,7 +940,7 @@
 * **404:** added translations and created a new 404 page for tribestart ([d16c590](https://github.com/part-up/part-up/commit/d16c590))
 * **404:** tribe start tags not clickable when it's a 404 page ([618ecc8](https://github.com/part-up/part-up/commit/618ecc8))
 * **accordion:** height fix ([40f4323](https://github.com/part-up/part-up/commit/40f4323))
-* **activepartups:** fixed displaced parties in issue [#201](https://github.com/part-up/part-up/issues/201) ([c5fc5bd](https://github.com/part-up/part-up/commit/c5fc5bd)), closes [#201](https://github.com/part-up/part-up/issues/201)
+* **activepartups:** fixed displaced parties in issue [#201](https://github.com/part-up/part-up/issues/201) ([c5fc5bd](https://github.com/part-up/part-up/commit/c5fc5bd))
 * **activity:** pass along prefillValueKey to prefill end_date when editing. fixing [#267](https://github.com/part-up/part-up/issues/267) ([6146f96](https://github.com/part-up/part-up/commit/6146f96))
 * **app:** reload the app template when the current user chaned (logout/login) ([6eb2649](https://github.com/part-up/part-up/commit/6eb2649))
 * **auto form:** include helper for array manipulation ([6ab7e1c](https://github.com/part-up/part-up/commit/6ab7e1c))
@@ -1011,7 +1007,7 @@
 * **tribeadmin:** initialize stats / most active / common tags variables when creating tribe ([0bde6f1](https://github.com/part-up/part-up/commit/0bde6f1))
 * **tribestart:** avatars clickable ([6aae3d7](https://github.com/part-up/part-up/commit/6aae3d7))
 * **tribestart:** created a partups publication by networkId for the fallback on the tribestart page, also created a fallback for no partups and uppers fixing [#291](https://github.com/part-up/part-up/issues/291) and [#292](https://github.com/part-up/part-up/issues/292) ([87c5801](https://github.com/part-up/part-up/commit/87c5801))
-* **tribestart:** fallback for IE with fixes issue [#201](https://github.com/part-up/part-up/issues/201) ([5df97de](https://github.com/part-up/part-up/commit/5df97de)), closes [#201](https://github.com/part-up/part-up/issues/201)
+* **tribestart:** fallback for IE with fixes issue [#201](https://github.com/part-up/part-up/issues/201) ([5df97de](https://github.com/part-up/part-up/commit/5df97de))
 * **tribestart:** fixed the twitchiness of the accordion a bit ([fdf906b](https://github.com/part-up/part-up/commit/fdf906b))
 * **tribestart:** hide partups+uppers footer from tribestart when tribe is closed fixing [#201](https://github.com/part-up/part-up/issues/201) ([8a490e9](https://github.com/part-up/part-up/commit/8a490e9))
 * **tribestart:** image uploader loading state ([6234681](https://github.com/part-up/part-up/commit/6234681))
@@ -1103,7 +1099,7 @@
 * **search:** sort display tags by most relevant ([d650056](https://github.com/part-up/part-up/commit/d650056))
 * **stats:** updated stats cron to also update the networks that are not in a swarm ([accdf8d](https://github.com/part-up/part-up/commit/accdf8d))
 * **stylesheet:** add new svg icons for and generator icon fonts ([f967063](https://github.com/part-up/part-up/commit/f967063))
-* **swarm:** add compatibility for case insensitive swarm slugs, fix [#282](https://github.com/part-up/part-up/issues/282) ([b21dc70](https://github.com/part-up/part-up/commit/b21dc70)), closes [#282](https://github.com/part-up/part-up/issues/282)
+* **swarm:** add compatibility for case insensitive swarm slugs, fix [#282](https://github.com/part-up/part-up/issues/282) ([b21dc70](https://github.com/part-up/part-up/commit/b21dc70))
 * **swarm:** implemented common tags in swarm page networks by creating a collection helper that returns the common_tags with additional tags by user input ([68e7eee](https://github.com/part-up/part-up/commit/68e7eee))
 * **tags:** highlight tags by search query ([c3c22b8](https://github.com/part-up/part-up/commit/c3c22b8))
 * **tiles:** added fields check ([0c11ee4](https://github.com/part-up/part-up/commit/0c11ee4))
@@ -1139,7 +1135,7 @@
 * **message:** fixed new message button margin fixing [#54](https://github.com/part-up/part-up/issues/54) ([f881aef](https://github.com/part-up/part-up/commit/f881aef))
 * **notifications:** enable new upper in tribe notification for public tribes [#158](https://github.com/part-up/part-up/issues/158) ([a6612a2](https://github.com/part-up/part-up/commit/a6612a2))
 * **register:** extra guard for profile name when registering through facebook or linkedin ([9a84743](https://github.com/part-up/part-up/commit/9a84743))
-* **tribe-notifications:** fixed bug where invite networks didn't receive notifications for uninvited requests [#231](https://github.com/part-up/part-up/issues/231) ([4f7f925](https://github.com/part-up/part-up/commit/4f7f925)), closes [#231](https://github.com/part-up/part-up/issues/231)
+* **tribe-notifications:** fixed bug where invite networks didn't receive notifications for uninvited requests [#231](https://github.com/part-up/part-up/issues/231) ([4f7f925](https://github.com/part-up/part-up/commit/4f7f925))
 
 
 
@@ -1154,30 +1150,24 @@
 
 ### Bug Fixes
 
-* **archive:** disabled all filter until possible implementation ([f873da8](https://github.com/part-up/part-up/commit/f873da8))
 * **archive filter:** alignment corrected in network ([c57f1de](https://github.com/part-up/part-up/commit/c57f1de))
 * **archive_filter:** column actions have a max height to prevent layout issues ([2067b0c](https://github.com/part-up/part-up/commit/2067b0c))
 * **archived part:** fixed part archived state fixing [#253](https://github.com/part-up/part-up/issues/253) ([108d2c4](https://github.com/part-up/part-up/commit/108d2c4))
 * **archived_partup:** removed stray log ([985038a](https://github.com/part-up/part-up/commit/985038a))
-* **archived_partups:** account for archived parties in count query ([7735405](https://github.com/part-up/part-up/commit/7735405))
 * **archived_partups:** added a update type ([a680280](https://github.com/part-up/part-up/commit/a680280))
 * **archived_partups:** check to see if the response is the right one by comparing the archived boolean fixing [#251](https://github.com/part-up/part-up/issues/251) ([f4ab113](https://github.com/part-up/part-up/commit/f4ab113))
 * **archived_partups:** fixed the count on networks page ([997a5b4](https://github.com/part-up/part-up/commit/997a5b4))
-* **archived_partups:** translations for network page ([a15c6ef](https://github.com/part-up/part-up/commit/a15c6ef))
 * **archived-partups:** adjusted the upper avatars and the count so they all align properly fixing [#252](https://github.com/part-up/part-up/issues/252) ([60c0217](https://github.com/part-up/part-up/commit/60c0217))
 * **avatars:** fixed avatar url on party archived tile ([397db22](https://github.com/part-up/part-up/commit/397db22))
-* **columns layout:** return deferred callback if the template does not exist ([683c5c2](https://github.com/part-up/part-up/commit/683c5c2))
-* **comment:** error handling in comment update fixes [#130](https://github.com/part-up/part-up/issues/130) ([3443aa6](https://github.com/part-up/part-up/commit/3443aa6)), closes [#130](https://github.com/part-up/part-up/issues/130)
+* **comment:** error handling in comment update fixes [#130](https://github.com/part-up/part-up/issues/130) ([3443aa6](https://github.com/part-up/part-up/commit/3443aa6))
 * **daily-digest:** provide a fallback to a user's locale when it's not compatible with a mail template ([f1b2965](https://github.com/part-up/part-up/commit/f1b2965))
 * **emoji:** cleanup old emoji dependency, update documentation ([024886b](https://github.com/part-up/part-up/commit/024886b))
 * **i18n:** last of the missing __ refactors ([3da6f8b](https://github.com/part-up/part-up/commit/3da6f8b))
-* **icons:** fixed false errors ([205939f](https://github.com/part-up/part-up/commit/205939f))
 * **icons:** tag icon updated ([b6c576f](https://github.com/part-up/part-up/commit/b6c576f))
-* **invite:** fixed hover cards on party and network invite to fix issue [#129](https://github.com/part-up/part-up/issues/129) ([acde9cb](https://github.com/part-up/part-up/commit/acde9cb)), closes [#129](https://github.com/part-up/part-up/issues/129)
-* **invite:** tweaked the saying of the upper list to fix [#12](https://github.com/part-up/part-up/issues/12) ([52cf32d](https://github.com/part-up/part-up/commit/52cf32d)), closes [#12](https://github.com/part-up/part-up/issues/12)
-* **invites:** removed blur event listener to prevent form submission on input blur, this fixes [#140](https://github.com/part-up/part-up/issues/140) ([e2695b6](https://github.com/part-up/part-up/commit/e2695b6)), closes [#140](https://github.com/part-up/part-up/issues/140)
-* **location:** fixed bug where new location didn't get stored [#53](https://github.com/part-up/part-up/issues/53) ([b6af174](https://github.com/part-up/part-up/commit/b6af174)), closes [#53](https://github.com/part-up/part-up/issues/53)
-* **partuptile:** do not init focus point if the party is archived ([0fddaaf](https://github.com/part-up/part-up/commit/0fddaaf))
+* **invite:** fixed hover cards on party and network invite to fix issue [#129](https://github.com/part-up/part-up/issues/129) ([acde9cb](https://github.com/part-up/part-up/commit/acde9cb))
+* **invite:** tweaked the saying of the upper list to fix [#12](https://github.com/part-up/part-up/issues/12) ([52cf32d](https://github.com/part-up/part-up/commit/52cf32d))
+* **invites:** removed blur event listener to prevent form submission on input blur, this fixes [#140](https://github.com/part-up/part-up/issues/140) ([e2695b6](https://github.com/part-up/part-up/commit/e2695b6))
+* **location:** fixed bug where new location didn't get stored [#53](https://github.com/part-up/part-up/issues/53) ([b6af174](https://github.com/part-up/part-up/commit/b6af174))
 * **partuptile:** fixed an annoying pertrusion of partup tags ([d6908ec](https://github.com/part-up/part-up/commit/d6908ec))
 * **profile:** tags don;t break the layout ([d3ba75a](https://github.com/part-up/part-up/commit/d3ba75a))
 * **quotes:** align to bottom ([c2ec4c1](https://github.com/part-up/part-up/commit/c2ec4c1))
@@ -1198,24 +1188,25 @@
 * **archive-partup:** fixed the publication find that can now toggle between archived an active partups ([0b07db5](https://github.com/part-up/part-up/commit/0b07db5))
 * **archive-partup:** sort tribe partups on popularity ([5927247](https://github.com/part-up/part-up/commit/5927247))
 * **archive-partups:** added new update and notification on both archive and unarchive ([c67657a](https://github.com/part-up/part-up/commit/c67657a))
-* **archived_partups:** implement in networks ([c10ee33](https://github.com/part-up/part-up/commit/c10ee33))
-* **archived_partups:** implemented the active/inactive filter on profile Partner and Supporter ([8bba558](https://github.com/part-up/part-up/commit/8bba558))
 * **arhcive-partup:** Fixed some translation errors related to archive and unarchive functionality ([1e23311](https://github.com/part-up/part-up/commit/1e23311))
 * **error-msg:** added missing error messages ([a9bad8b](https://github.com/part-up/part-up/commit/a9bad8b))
 * **mailgun:** add mailgun tags to track emails ([b584b96](https://github.com/part-up/part-up/commit/b584b96))
 * **notifications:** new notifications for archiving and unarchiving parties ([ff7447a](https://github.com/part-up/part-up/commit/ff7447a))
 * **partup-archive:** sort partups on user profile by popularity ([d532733](https://github.com/part-up/part-up/commit/d532733))
 * **stats:** reduced the swarm stats update interval to every 2 hours ([9033129](https://github.com/part-up/part-up/commit/9033129))
-* **swarms:** replaced total upper count in content block with unique uppers in swarm count ([f7a0d93](https://github.com/part-up/part-up/commit/f7a0d93))
 
 
 
 <a name="1.16.8"></a>
-## [1.16.8](https://github.com/part-up/part-up/compare/1.16.7...1.16.8) (2016-02-23)
+## [1.16.8](https://github.com/part-up/part-up/compare/1.16.7...1.16.8) (2016-02-24)
 
 
 ### Bug Fixes
 
+* **archive:** disabled all filter until possible implementation ([f873da8](https://github.com/part-up/part-up/commit/f873da8))
+* **archived_partups:** account for archived parties in count query ([7735405](https://github.com/part-up/part-up/commit/7735405))
+* **archived_partups:** translations for network page ([a15c6ef](https://github.com/part-up/part-up/commit/a15c6ef))
+* **columns layout:** return deferred callback if the template does not exist ([683c5c2](https://github.com/part-up/part-up/commit/683c5c2))
 * **dropdown:** translations for supporter and upper filter ([699e634](https://github.com/part-up/part-up/commit/699e634))
 * **explorer:** fix header for mobile ([82c25d3](https://github.com/part-up/part-up/commit/82c25d3))
 * **footer icons:** fix hover ([c6860f8](https://github.com/part-up/part-up/commit/c6860f8))
@@ -1224,12 +1215,14 @@
 * **header:** mobile and tablet ([f140bac](https://github.com/part-up/part-up/commit/f140bac))
 * **headings:** fix headings width and margin ([903c845](https://github.com/part-up/part-up/commit/903c845))
 * **icons:** added archive icon ([78cdc32](https://github.com/part-up/part-up/commit/78cdc32))
+* **icons:** fixed false errors ([205939f](https://github.com/part-up/part-up/commit/205939f))
 * **methods:** simplify errorhandling (throw inside findOneOrFail is not caught here anyway) ([533a87e](https://github.com/part-up/part-up/commit/533a87e))
 * **network card:** fix feedback pim ([d703583](https://github.com/part-up/part-up/commit/d703583))
 * **network card:** fix padding, line-height and arrow ([f2fbfc2](https://github.com/part-up/part-up/commit/f2fbfc2))
 * **network card:** removed delay ([069cbcb](https://github.com/part-up/part-up/commit/069cbcb))
 * **partup:** made archived state conditional ([b237136](https://github.com/part-up/part-up/commit/b237136))
 * **partuptile:** archived part tile state ([09315f8](https://github.com/part-up/part-up/commit/09315f8))
+* **partuptile:** do not init focus point if the party is archived ([0fddaaf](https://github.com/part-up/part-up/commit/0fddaaf))
 * **quites:** fix padding/margin and whitespace in html ([ce4018a](https://github.com/part-up/part-up/commit/ce4018a))
 * **quote:** fix height mobile/desktop ([815d116](https://github.com/part-up/part-up/commit/815d116))
 * **quote:** fix height mobile/desktop ([04517a6](https://github.com/part-up/part-up/commit/04517a6))
@@ -1277,8 +1270,8 @@
 * **swarm:** settings not accessible by non-admins ([cd33d0d](https://github.com/part-up/part-up/commit/cd33d0d))
 * **swarm:** show max tribes left ([b1d34f4](https://github.com/part-up/part-up/commit/b1d34f4))
 * **swarm:** swarm routes have been updated to "swarms" ([1090b1f](https://github.com/part-up/part-up/commit/1090b1f))
-* **swarm:** upper count in upper list ([94a325b](https://github.com/part-up/part-up/commit/94a325b))
 * **swarm:** upper count in upper list ([dda37c9](https://github.com/part-up/part-up/commit/dda37c9))
+* **swarm:** upper count in upper list ([94a325b](https://github.com/part-up/part-up/commit/94a325b))
 * **swarm:** uppers list ([c599e00](https://github.com/part-up/part-up/commit/c599e00))
 * **swarms:** remove console logs ([bd3bb85](https://github.com/part-up/part-up/commit/bd3bb85))
 * **swarms:** subscribe to users by id (show related uppers at bottom of page) ([d71c7e4](https://github.com/part-up/part-up/commit/d71c7e4))
@@ -1304,6 +1297,8 @@
 * **archive-partup:** exclude archived partups from swarm/network stats ([7251a3a](https://github.com/part-up/part-up/commit/7251a3a))
 * **archive-partup:** filter archived partups from discover page ([1925e06](https://github.com/part-up/part-up/commit/1925e06))
 * **archive-partup:** show and hide archived partups on profile page ([35f3782](https://github.com/part-up/part-up/commit/35f3782))
+* **archived_partups:** implement in networks ([c10ee33](https://github.com/part-up/part-up/commit/c10ee33))
+* **archived_partups:** implemented the active/inactive filter on profile Partner and Supporter ([8bba558](https://github.com/part-up/part-up/commit/8bba558))
 * **dropdown:** added filter dropdowns to all pages where it is needed ([5987279](https://github.com/part-up/part-up/commit/5987279))
 * **network:** filter dropdown for network page ([e3e405e](https://github.com/part-up/part-up/commit/e3e405e))
 * **partup-archive:** removed unnecessary archived property from partup collection ([d7c9360](https://github.com/part-up/part-up/commit/d7c9360))
@@ -1316,6 +1311,7 @@
 * **swarms:** quotes now have a limit of 180 chars ([d09c7a5](https://github.com/part-up/part-up/commit/d09c7a5))
 * **swarms:** remove duplicates from swarm and network stats counter ([f162c7d](https://github.com/part-up/part-up/commit/f162c7d))
 * **swarms:** remove network id from swarm when the tribe gets deleted ([34e9639](https://github.com/part-up/part-up/commit/34e9639))
+* **swarms:** replaced total upper count in content block with unique uppers in swarm count ([f7a0d93](https://github.com/part-up/part-up/commit/f7a0d93))
 * **swarms:** set new max char count for intro and description ([caac619](https://github.com/part-up/part-up/commit/caac619))
 * **swarms:** stats update should run on all environments ([0e0f440](https://github.com/part-up/part-up/commit/0e0f440))
 * **swarms:** swarm image publication reference fix ([9fa8f3c](https://github.com/part-up/part-up/commit/9fa8f3c))
@@ -1389,7 +1385,7 @@
 * **file-uploader:** fixed the RegEdge to allow for file upload in the Edge browser ([e3c95bb](https://github.com/part-up/part-up/commit/e3c95bb))
 * **guard:** removed empty guardedCriteria that caused errors. Can be put back when criteria arise ([9d30965](https://github.com/part-up/part-up/commit/9d30965))
 * **ie9:** removed style files specific for IE9, not necessary in meteor 1.2 ([0f5be32](https://github.com/part-up/part-up/commit/0f5be32))
-* **motivation:** give each comment field form a unique ID to prevent conflicting behaviour on the same update fixes [#228](https://github.com/part-up/part-up/issues/228) ([c9fd196](https://github.com/part-up/part-up/commit/c9fd196)), closes [#228](https://github.com/part-up/part-up/issues/228)
+* **motivation:** give each comment field form a unique ID to prevent conflicting behaviour on the same update fixes [#228](https://github.com/part-up/part-up/issues/228) ([c9fd196](https://github.com/part-up/part-up/commit/c9fd196))
 * **pricing:** updated the new pricing policy fixing [#163](https://github.com/part-up/part-up/issues/163) ([ff82e8d](https://github.com/part-up/part-up/commit/ff82e8d))
 * **styling:** did some minor refactoring so components can be used better ([ae0c308](https://github.com/part-up/part-up/commit/ae0c308))
 * **swarm:** background fix ([f46df92](https://github.com/part-up/part-up/commit/f46df92))
@@ -1473,7 +1469,7 @@
 * **html-in-message:** allow html in a message (rendered sanitized) ([53555c1](https://github.com/part-up/part-up/commit/53555c1))
 * **mentions:** allow for people to be mentioned in comments and messages, while staying secure ([ec29997](https://github.com/part-up/part-up/commit/ec29997))
 * **message:** fix safari file upload ([55888f0](https://github.com/part-up/part-up/commit/55888f0))
-* **meta:** add google notranslate meta header to avoid page translation fix [#124](https://github.com/part-up/part-up/issues/124) ([7b78670](https://github.com/part-up/part-up/commit/7b78670)), closes [#124](https://github.com/part-up/part-up/issues/124)
+* **meta:** add google notranslate meta header to avoid page translation fix [#124](https://github.com/part-up/part-up/issues/124) ([7b78670](https://github.com/part-up/part-up/commit/7b78670))
 * **partups:** fix insert handler error ([c22662d](https://github.com/part-up/part-up/commit/c22662d))
 * **pu-dropdown:** remove overflow hidden which hides tribes menu on the left ([b600224](https://github.com/part-up/part-up/commit/b600224))
 * **pu-dropdown:** removes displaced scrollbar on chrome ([9228bea](https://github.com/part-up/part-up/commit/9228bea))

@@ -21,9 +21,7 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
 
     var _measureColumnHeights = function() {
         _columnElements = C._template.$('[data-column]');
-        if (!_columnElements || !_columnElements.length) {
-            throw new Error('ColumnTilesLayout: could not find any columns');
-        }
+        if (!_columnElements || !_columnElements.length) return [];
 
         var heights = [];
 
@@ -75,7 +73,7 @@ Partup.client.constructors.ColumnTilesLayout = function(options) {
                 var tileHeight = _options.calculateApproximateTileHeight(tile, _columnElements.eq(0).width());
 
                 columnHeights[shortestColumn] += tileHeight;
-                columns[shortestColumn].push(tile);
+                if (columns[shortestColumn]) columns[shortestColumn].push(tile);
             });
             C.columns.set(columns);
 

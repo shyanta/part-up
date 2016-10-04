@@ -53,16 +53,16 @@
             <span class="pu-label">
                 {{_ 'partupsettings-form-name-label' }}
                 <a class="pu-hint">
-                    {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.name.max}}
+                    {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.partup_name.max}}
                         {{_ 'partupsettings-form-name-validation-left' nameCharactersLeft }}
                     {{else}}
-                        {{_ 'partupsettings-form-name-validation' Partup.schemas.entities.partup._schema.name.max }}
+                        {{_ 'partupsettings-form-name-validation' Partup.schemas.entities.partup._schema.partup_name.max }}
                     {{/if}}
                 </a>
             </span>
 
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='partup_name' }}pu-state-invalid{{/if}}">
-                <span class="pu-sub-input">{{> afFieldInput name='partup_name' placeholder=formPlaceholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.name.max" data-characters-left-var="nameCharactersLeft" autofocus=true }}</span>
+                <span class="pu-sub-input">{{> afFieldInput name='partup_name' placeholder=formPlaceholders.name class="pu-input" data-max="Partup.schemas.entities.partup._schema.partup_name.max" data-characters-left-var="nameCharactersLeft" autofocus=true }}</span>
                 <span class="pu-sub-error">{{ afFieldMessage name='partup_name' }}</span>
             </div>
         </label>

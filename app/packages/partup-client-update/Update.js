@@ -185,7 +185,7 @@ Template.Update.events({
                         return;
                     }
                     $(template.view.firstNode()).remove();
-                    Blaze.remove(template.view);
+                    if (template.view) Blaze.remove(template.view);
                     Partup.client.notify.success('Message removed');
                 });
             }

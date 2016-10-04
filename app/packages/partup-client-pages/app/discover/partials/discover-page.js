@@ -103,6 +103,7 @@ Template.app_discover_page.onRendered(function() {
                 return;
             }
 
+            //  response.data contains all discovered part-ups with all relevant users.
             var result = response.data;
             template.states.paging_end_reached.set(result.partups.length < PAGING_INCREMENT);
 
@@ -180,8 +181,22 @@ Template.app_discover_page.helpers({
     },
     countLoading: function() {
         return Template.instance().states.count_loading.get();
+    },
+    showRecommendationsBtn: function() {
+        /**
+         * out-comment the lines to enable the recommendation button again
+         */
+        // var user = Meteor.user();
+        // if (!user) return false;
+        return false;
     }
 });
 
 Template.app_discover_page.events({
+    'click #recommendationsBtn': function(event, template) {
+        event.preventDefault();
+        Intent.go({
+            route: 'recommendations'
+        });
+    }
 });
