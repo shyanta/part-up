@@ -264,6 +264,12 @@ Package.onUse(function(api) {
             'modal/network_settings/bulkinvite/bulkinvite.html',
             'modal/network_settings/about/about.html',
 
+            // Modal:recommendations
+            'modal/recommendations/recommendations.html',
+            'modal/recommendations/recommendations.js',
+            'modal/recommendations/partials/recommend-page.html',
+            'modal/recommendations/partials/recommend-page.js',
+
             // Modal:create_intro
             'modal/create_intro/create_intro.html',
             'modal/create_intro/create_intro.js',
