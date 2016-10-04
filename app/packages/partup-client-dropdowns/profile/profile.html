@@ -1,78 +1,16 @@
 <template name="DropdownProfile">
-    <button class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="profile">
+    <button class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown" data-toggle-menu="profile">
         <figure class="pu-avatar pu-avatar-small" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
         {{ label }}
     </button>
-    <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-        <header>
-            <div class="pu-toggle pu-toggle-three">
-                <button class="{{#if partupEquals activeTab 'partners' }}pu-state-active{{/if}}" data-tab-toggle="partners">{{_ 'dropdowns-profile-tab-partner-partups'}}</button>
-                <button class="{{#if partupEquals activeTab 'supporters' }}pu-state-active{{/if}}" data-tab-toggle="supporters">{{_ 'dropdowns-profile-tab-supporter-partups'}}</button>
-                <button class="{{#if partupEquals activeTab 'tribes' }}pu-state-active{{/if}}" data-tab-toggle="tribes">{{_ 'dropdowns-profile-tab-tribes'}}</button>
-            </div>
-        </header>
-        <section data-preventscroll>
-            <p>
-                {{#if partupEquals activeTab 'partners' }}{{_ 'dropdowns-profile-tab-title-partner-partups'}}{{/if}}
-                {{#if partupEquals activeTab 'supporters' }}{{_ 'dropdowns-profile-tab-title-supporter-partups'}}{{/if}}
-                <!-- {{#if partupEquals activeTab 'tribes' }}{{_ 'dropdowns-profile-tab-title-tribes'}}{{/if}} -->
-            </p>
-            <ul class="pu-list">
-                {{#if partupEquals activeTab 'partners' }}
-                    {{#each upperPartups}}
-                    <li class="pu-dropdownitem">
-                        <a href="{{pathFor 'partup' slug=slug }}">
-                            {{#if newUpdates}}
-                                <span class="pu-sub-newupdates">{{newUpdates}}</span>
-                            {{/if}}
-                            <figure class="pu-avatar" style="
-                                {{# with partupGetImageUrl imageObject '80x80' }}
-                                    background-image: url('{{ . }}');
-                                {{/ with }}
-                            "></figure>
-                            <p>{{ name }}</p>
-                        </a>
-                    </li>
-                    {{/each}}
-                {{/if}}
-                {{#if partupEquals activeTab 'supporters' }}
-                    {{#each supporterPartups}}
-                        <li class="pu-dropdownitem">
-                            <a href="{{pathFor 'partup' slug=slug }}">
-                                {{#if newUpdates}}
-                                    <span class="pu-sub-newupdates">{{newUpdates}}</span>
-                                {{/if}}
-                                <figure class="pu-avatar" style="
-                                    {{# with partupGetImageUrl imageObject '80x80' }}
-                                        background-image: url('{{ . }}');
-                                    {{/ with }}
-                                "></figure>
-                                <p>{{ name }}</p>
-                            </a>
-                        </li>
-                    {{/each}}
-                {{/if}}
-                {{#if partupEquals activeTab 'tribes'}}
-                    {{#each networks}}
-                    <li class="pu-dropdownitem">
-                        {{#unless archived_at}}
-                            <a href="{{ pathFor 'network' slug=slug query='show=false' }}">
-                                <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
-                                <p>{{ name }}</p>
-                            </a>
-                        {{/unless}}
-                    </li>
-                    {{/each}}
-                {{/if}}
-            </ul>
-        </section>
-
-        <footer>
-            <ul class="pu-list pu-list-horizontal">
-                <li><a class="pu-button pu-button-header pu-button-header-desktop pu-button-header-nostripe" href="{{ pathFor route='profile' _id=currentUser._id }}">{{_ 'dropdowns-profile-button-myprofile'}}</a></li>
-                <li><a class="pu-button pu-button-header pu-button-header-desktop" href="#" data-settings>{{_ 'dropdowns-profile-button-settings'}}</a></li>
-                <li><a class="pu-button pu-button-header pu-button-header-desktop" href="#" data-logout>{{_ 'dropdowns-profile-button-logout'}}</a></li>
-            </ul>
-        </footer>
+    <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close style="left: auto;">
+        <ul class="pu-list">
+            <li><a href="{{ pathFor route='profile' _id=currentUser._id }}">{{_ 'dropdowns-profile-button-myprofile'}}</a></li>
+            <li><a href="#" data-settings>{{_ 'dropdowns-profile-button-settings'}}</a></li>
+        </ul>
+        <ul class="pu-list">
+            <li><a href="#" data-logout>{{_ 'dropdowns-profile-button-logout'}}</a></li>
+        </ul>
     </div>
+
 </template>
