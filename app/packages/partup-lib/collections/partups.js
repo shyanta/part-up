@@ -882,5 +882,8 @@ Partups.findForAdminList = function(selector, options) {
 };
 
 Partups.findInNetwork = function(networkId) {
-    return this.find({'network_id': networkId}, { fields: { 'privacy_type': 1 } });
+    return this.find({
+        'network_id': networkId,
+        'deleted_at': { $exists: false }
+    }, { fields: { 'privacy_type': 1 } });
 };
