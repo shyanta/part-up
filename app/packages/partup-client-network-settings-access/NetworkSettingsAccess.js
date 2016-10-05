@@ -9,7 +9,7 @@ Template.NetworkSettingsAccess.onCreated(function() {
     var userId = Meteor.userId();
     var network = Networks.findOne({slug: template.data.networkSlug});
 
-    template.partupsInNetwork = new ReactiveVar;
+    template.partupsInNetwork = new ReactiveVar();
 
     Meteor.call('partups.in_network', network, {
     }, function(error, results) {
@@ -48,10 +48,10 @@ Template.NetworkSettingsAccess.onCreated(function() {
 Template.NetworkSettingsAccess.helpers({
     data: function() {
         var template = Template.instance();
+        var partups = template.partupsInNetwork.get();
 
         return {
             hasActivePartupsCustomA: function () {
-                var partups = template.partupsInNetwork.get();
                 if (partups) {
                     var PartupsCustomA = partups.filter(item => item.privacy_type === 8);
                     return !!PartupsCustomA.length;
@@ -59,7 +59,6 @@ Template.NetworkSettingsAccess.helpers({
                 return true; // disable in case we don't have the info about the partups
             },
             hasActivePartupsCustomB: function () {
-                var partups = template.partupsInNetwork.get();
                 if (partups) {
                     var PartupsCustomB = partups.filter(item => item.privacy_type === 9);
                     return !!PartupsCustomB.length;
@@ -70,16 +69,31 @@ Template.NetworkSettingsAccess.helpers({
     },
     form: function() {
         var template = Template.instance();
-        // var userId = Meteor.userId();
-        var network = Networks.findOne({slug: template.data.networkSlug});
-        if (!network) return;
-
         return {
             schema: Partup.schemas.forms.networkAccess,
             fieldsForNetworkAccess: function() {
+                var network = Networks.findOne({slug: template.data.networkSlug});
+                if (!network) return;
+
                 return Partup.transformers.networkAccess.toFormNetworkAccess(network);
             }
         };
+    },
+    placeholders: function () {
+        return {
+            admins: function() {
+                return TAPi18n.__('network-settings-uppers-label-admin');
+            },
+            colleagues: function() {
+                return TAPi18n.__('network-settings-uppers-label-colleague');
+            },
+            colleagues_custom_a: function() {
+                return TAPi18n.__('network-settings-uppers-label-colleague-custom-a');
+            },
+            colleagues_custom_b: function() {
+                return TAPi18n.__('network-settings-uppers-label-colleague-custom-b');
+            }
+        }
     },
     state: function() {
         var template = Template.instance();
