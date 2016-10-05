@@ -53,14 +53,18 @@ Template.NetworkSettingsAccess.helpers({
         return {
             hasActivePartupsCustomA: function () {
                 if (partups) {
-                    var PartupsCustomA = partups.filter(item => item.privacy_type === 8);
+                    var PartupsCustomA = partups.filter(function(item) {
+                        return item.privacy_type === 8;
+                    });
                     return !!PartupsCustomA.length;
                 }
                 return true; // disable in case we don't have the info about the partups
             },
             hasActivePartupsCustomB: function () {
                 if (partups) {
-                    var PartupsCustomB = partups.filter(item => item.privacy_type === 9);
+                    var PartupsCustomB = partups.filter(function(item) {
+                        return item.privacy_type === 9;
+                    });
                     return !!PartupsCustomB.length;
                 }
                 return true; // disable in case we don't have the info about the partups
