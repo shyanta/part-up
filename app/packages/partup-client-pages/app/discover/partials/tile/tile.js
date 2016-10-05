@@ -158,7 +158,7 @@ Template.PartupTile.helpers({
         var privacyTypeLabels = partup.networkObject.privacy_type_labels;
         if (privacyTypeLabels && privacyTypeLabels[partup.privacy_type]) {
             if (partup.privacy_type === 6) {
-                return TAPi18n.__('partup-tile-admin-label-custom', { name: privacyTypeLabels[partup.privacy_type]});
+                return TAPi18n.__('partup-tile-label-admin-custom', { name: privacyTypeLabels[partup.privacy_type]});
             }
             return TAPi18n.__('partup-tile-label-custom', { name: privacyTypeLabels[partup.privacy_type]});
         }

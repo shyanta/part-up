@@ -28,38 +28,40 @@
         {{# unless HIDE_NETWORKTILE }}
             {{# if partup.networkObject }}
                 {{#unless partup.networkObject.archived_at}}
-
-                    <footer>
-                        <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
-                            <div class="pu-sub-wrapper">
-                                <div class="pu-sub-figurecontainer">
-                                    <figure style="
-                                        {{# with partupGetImageUrl partup.networkObject.iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
-                                    "></figure>
+                    {{# with shortLabel partup }}
+                        <footer>
+                            <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
+                                <div class="pu-sub-wrapper">
+                                    <div class="pu-sub-figurecontainer">
+                                        <figure style="
+                                            {{# with partupGetImageUrl partup.networkObject.iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                                        "></figure>
+                                    </div>
+                                    <div class="pu-sub-namecontainer">
+                                        <span>{{ partup.networkObject.name }}</span>
+                                        <span>{{ . }}</span>
+                                    </div>
                                 </div>
-                                <div class="pu-sub-namecontainer">
-                                    <span>{{ partup.networkObject.name }}</span>
-                                    {{# with shortLabel partup }}<span>{{ . }}</span>{{/ with }}
-                                </div>
-                            </div>
-                        </a>
-                    </footer>
-
+                            </a>
+                        </footer>
+                    {{/ with }}
                 {{/unless}}
             {{/ if }}
         {{ else }}
-            <footer>
-                <div class="pu-networktile pu-networktile-condensed">
-                    <div class="pu-sub-wrapper">
-                        <div class="pu-sub-figurecontainer">
-                        </div>
-                        <div class="pu-sub-namecontainer">
-                            <span></span>
-                            {{# with longLabel partup }}<span>{{ . }}</span>{{/ with }}
+            {{# with longLabel partup }}
+                <footer>
+                    <div class="pu-networktile pu-networktile-condensed">
+                        <div class="pu-sub-wrapper">
+                            <div class="pu-sub-figurecontainer">
+                            </div>
+                            <div class="pu-sub-namecontainer">
+                                <span></span>
+                                <span>{{ . }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
+            {{/ with }}
         {{/ unless }}
 
     </article>
