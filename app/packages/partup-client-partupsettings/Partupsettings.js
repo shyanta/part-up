@@ -250,20 +250,22 @@ Template.Partupsettings.helpers({
         var isColleague = User(user).isColleagueOfNetwork(network_id);
         var isColleagueCustomA = User(user).isColleagueCustomAOfNetwork(network_id);
         var isColleagueCustomB = User(user).isColleagueCustomBOfNetwork(network_id);
-        var networkPartupPrivacyType = Partups.privacy_types[
+        var networkPrivacyType =
             Object.keys(Networks.privacy_types)
-                .filter(type => Networks.privacy_types[type] === network.privacy_type)
-        ];
+                .filter(function(type) {
+                    return Networks.privacy_types[type] === network.privacy_type;
+                });
+        var privacyType = Partups.privacy_types[networkPrivacyType];
         var types = [{
-            label: network.privacy_type_labels && network.privacy_type_labels[networkPartupPrivacyType]
+            label: network.privacy_type_labels && network.privacy_type_labels[privacyType]
                 ? TAPi18n.__('partupsettings-form-network-custom-privacy-label', {
-                    name: network.privacy_type_labels[networkPartupPrivacyType]})
+                    name: network.privacy_type_labels[privacyType]})
                 : TAPi18n.__('partupsettings-form-network-privacy-public'),
             value: 'network'
         }];
         var typeAdmin = {
             label: network.privacy_type_labels && network.privacy_type_labels[6]
-                ? TAPi18n.__('partupsettings-form-network-custom-privacy-label', {
+                ? TAPi18n.__('partupsettings-form-network-custom-privacy-label-admins', {
                     name: network.privacy_type_labels[6]})
                 : TAPi18n.__('partupsettings-form-network-privacy-admins'),
             value: 'network_admins'

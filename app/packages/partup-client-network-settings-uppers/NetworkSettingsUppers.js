@@ -105,7 +105,7 @@ Template.NetworkSettingsUppers.helpers({
             searchQuery: function() {
                 return template.searchQuery.get();
             },
-            privacyTypeLabelAdd(privacyType) {
+            privacyTypeLabelAdd: function(privacyType) {
                 switch(privacyType) {
                     case 'network_admins':
                         return network.privacy_type_labels && network.privacy_type_labels[6]
@@ -126,7 +126,7 @@ Template.NetworkSettingsUppers.helpers({
                 }
                 return false;
             },
-            privacyTypeLabelRemove(privacyType) {
+            privacyTypeLabelRemove: function(privacyType) {
                 switch(privacyType) {
                     case 'network_admins':
                         return network.privacy_type_labels && network.privacy_type_labels[6]
