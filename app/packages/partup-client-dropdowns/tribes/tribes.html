@@ -2,11 +2,11 @@
     <button class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="tribes">
         My Tribes
     </button>
-    <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close data-preventscroll>
-        <section>
+    <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+        <section class='main' data-preventscroll>
             <ul class="pu-list">
                 {{#each networks}}
-                    <li class='pu-dropdownitem'>
+                    <li class='pu-dropdownitem {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}'>
                         <a href="{{ pathFor 'network' slug=slug query='show=false' }}" data-hover="{{ _id }}">
                             <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
                             <span>{{ name }}</span>
@@ -14,9 +14,72 @@
                     </li>
                 {{/each}}
             </ul>
-            <ul class="pu-list">
+            <footer>
+                <a href="{{pathFor 'discover'}}">Discover</a>
+            </footer>
+            <!-- <ul class="pu-list">
                 <li><a href="{{pathFor 'discover'}}">Discover</a></li>
+            </ul> -->
+        </section>
+        <section class='aside {{#if showPartups}}active{{/if}}' data-preventscroll>
+            <div>
+            <p>My part-ups</p>
+            <ul class="pu-list">
+                {{#unless loadingUpperpartups}}
+                {{#each upperPartups}}
+                    <li class="pu-dropdownitem">
+                        <a href="{{pathFor 'partup' slug=slug }}">
+                            {{#if newUpdates}}
+                                <span class="pu-sub-newupdates">{{newUpdates}}</span>
+                            {{/if}}
+                            <figure class="pu-avatar" style="
+                                {{# with partupGetImageUrl imageObject '80x80' }}
+                                    background-image: url('{{ . }}');
+                                {{/ with }}
+                            "></figure>
+                            <p>{{ name }}</p>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="pu-dropdownitem">
+                        <span>No partups found</span>
+                    </li>
+                {{/each}}
+                {{else}}
+                    <li class="pu-dropdownitem">
+                        <span>{{> Spinner}}</span>
+                    </li>
+                {{/unless}}
             </ul>
+            <p>Supporter part-ups</p>
+            <ul class="pu-list">
+                {{#unless loadingSupporterpartups}}
+                {{#each supporterPartups}}
+                    <li class="pu-dropdownitem">
+                        <a href="{{pathFor 'partup' slug=slug }}">
+                            {{#if newUpdates}}
+                                <span class="pu-sub-newupdates">{{newUpdates}}</span>
+                            {{/if}}
+                            <figure class="pu-avatar" style="
+                                {{# with partupGetImageUrl imageObject '80x80' }}
+                                    background-image: url('{{ . }}');
+                                {{/ with }}
+                            "></figure>
+                            <p>{{ name }}</p>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="pu-dropdownitem">
+                        <span>No partups found</span>
+                    </li>
+                {{/each}}
+                {{else}}
+                    <li class="pu-dropdownitem">
+                        <span>{{> Spinner}}</span>
+                    </li>
+                {{/unless}}
+            </ul>
+            </div>
         </section>
     </div>
 </template>

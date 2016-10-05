@@ -14,6 +14,8 @@ Template.DropdownTribes.onCreated(function() {
     // Current user
     var user = Meteor.user();
 
+    template.showPartups = new ReactiveVar(false);
+
     // Placeholder for states (such as loading states)
     template.states = {
         loadingUpperpartups: new ReactiveVar(false),
@@ -55,12 +57,12 @@ Template.DropdownTribes.onCreated(function() {
 
     template.activeTribe = new ReactiveVar(undefined, function(a, tribeId) {
         if (!tribeId) return;
-        console.log(tribeId)
+
         // (Re)load upper partups
         template.states.loadingUpperpartups.set(true);
         HTTP.get('/users/' + user._id + '/upperpartups' + mout.queryString.encode(query), function(error, response) {
+            template.states.loadingUpperpartups.set(false);
             if (error || !response.data.partups || response.data.partups.length === 0) {
-                template.states.loadingUpperpartups.set(false);
                 return;
             }
 
@@ -78,8 +80,8 @@ Template.DropdownTribes.onCreated(function() {
         // (Re)load supporter partups
         template.states.loadingSupporterpartups.set(true);
         HTTP.get('/users/' + user._id + '/supporterpartups' + mout.queryString.encode(query), function(error, response) {
+            template.states.loadingSupporterpartups.set(false);
             if (error || !response.data.partups || response.data.partups.length === 0) {
-                template.states.loadingSupporterpartups.set(false);
                 return;
             }
 
@@ -112,14 +114,36 @@ Template.DropdownTribes.onDestroyed(function() {
 Template.DropdownTribes.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
-    'mouseover [data-hover]': function(event, template) {
-        template.activeTribe.set($(event.currentTarget).data('hover'));
+    'mouseenter [data-hover]': function(event, template) {
+        var tribeId = $(event.currentTarget).data('hover');
+        template.showPartups.set(false);
+        setTimeout(function() {
+            if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
+            setTimeout(function() {
+                template.showPartups.set(true);
+            }, 100);
+        }, 200);
+    },
+    'mouseleave [data-clickoutside-close]': function(event, template) {
+        template.showPartups.set(false);
     }
 });
 
 Template.DropdownTribes.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
+    },
+    showPartups: function() {
+        return Template.instance().showPartups.get();
+    },
+    currentTribe: function() {
+        return Template.instance().activeTribe.get();
+    },
+    loadingUpperpartups: function() {
+        return Template.instance().states.loadingUpperpartups.get();
+    },
+    loadingSupporterpartups: function() {
+        return Template.instance().states.loadingSupporterpartups.get();
     },
     networks: function() {
         return Template.instance().results.networks.get();
