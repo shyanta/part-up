@@ -34,6 +34,7 @@ Template.DropdownTribes.onCreated(function() {
         token: Accounts._storedLoginToken(),
         archived: false
     };
+    template.activeTribe = new ReactiveVar(undefined);
 
     template.dropdownOpen = new ReactiveVar(false, function(a, hasBeenOpened) {
         if (!hasBeenOpened) return;
@@ -53,10 +54,6 @@ Template.DropdownTribes.onCreated(function() {
                 return network;
             }).sort(Partup.client.sort.alphabeticallyASC.bind(null, 'name')));
         });
-    });
-
-    template.activeTribe = new ReactiveVar(undefined, function(a, tribeId) {
-        if (!tribeId) return;
 
         // (Re)load upper partups
         template.states.loadingUpperpartups.set(true);
@@ -72,8 +69,6 @@ Template.DropdownTribes.onCreated(function() {
                 Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
 
                 return partup;
-            }).filter(function(item) {
-                return item.network_id === tribeId;
             }));
         });
 
@@ -91,8 +86,6 @@ Template.DropdownTribes.onCreated(function() {
                 Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
 
                 return partup;
-            }).filter(function(item) {
-                return item.network_id === tribeId;
             }));
         });
     });
@@ -117,7 +110,8 @@ Template.DropdownTribes.events({
     'mouseenter [data-hover]': function(event, template) {
         var tribeId = $(event.currentTarget).data('hover');
         template.showPartups.set(false);
-        setTimeout(function() {
+        clearTimeout(template.loadTimeout);
+        template.loadTimeout = setTimeout(function() {
             if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
             setTimeout(function() {
                 template.showPartups.set(true);
@@ -149,19 +143,25 @@ Template.DropdownTribes.helpers({
         return Template.instance().results.networks.get();
     },
     upperPartups: function() {
+        var tribeId = Template.instance().activeTribe.get();
         var user = Meteor.user();
         if (!user) return [];
 
-        var allPartups = Template.instance().results.upperpartups.get();
+        var allPartups = Template.instance().results.upperpartups.get().filter(function(item) {
+            return item.network_id === tribeId;
+        });
 
         return sortPartups(allPartups, user);
     },
 
     supporterPartups: function() {
+        var tribeId = Template.instance().activeTribe.get();
         var user = Meteor.user();
         if (!user) return [];
 
-        var allPartups = Template.instance().results.supporterpartups.get();
+        var allPartups = Template.instance().results.supporterpartups.get().filter(function(item) {
+            return item.network_id === tribeId;
+        });
 
         return sortPartups(allPartups, user);
     },
