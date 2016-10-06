@@ -880,10 +880,3 @@ Partups.findForAdminList = function(selector, options) {
         skip: limit * page
     });
 };
-
-Partups.findInNetwork = function(networkId) {
-    return this.find({
-        'network_id': networkId,
-        'deleted_at': { $exists: false }
-    }, { fields: { 'privacy_type': 1 } });
-};

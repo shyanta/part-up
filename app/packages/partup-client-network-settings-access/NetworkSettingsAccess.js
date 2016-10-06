@@ -108,6 +108,12 @@ Template.NetworkSettingsAccess.helpers({
             labelColleaguesCharactersLeft: function() {
                 return template.charactersLeft.get('label_colleagues');
             },
+            labelColleaguesCustomACharactersLeft: function() {
+                return template.charactersLeft.get('label_colleagues_custom_a');
+            },
+            labelColleaguesCustomBCharactersLeft: function() {
+                return template.charactersLeft.get('label_colleagues_custom_b');
+            },
             submitting: function() {
                 return template.submitting.get();
             }

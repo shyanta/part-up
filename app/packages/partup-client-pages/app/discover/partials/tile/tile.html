@@ -28,23 +28,21 @@
         {{# unless HIDE_NETWORKTILE }}
             {{# if partup.networkObject }}
                 {{#unless partup.networkObject.archived_at}}
-                    {{# with shortLabel partup }}
-                        <footer>
-                            <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
-                                <div class="pu-sub-wrapper">
-                                    <div class="pu-sub-figurecontainer">
-                                        <figure style="
-                                            {{# with partupGetImageUrl partup.networkObject.iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
-                                        "></figure>
-                                    </div>
-                                    <div class="pu-sub-namecontainer">
-                                        <span>{{ partup.networkObject.name }}</span>
-                                        <span>{{ . }}</span>
-                                    </div>
+                    <footer>
+                        <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
+                            <div class="pu-sub-wrapper">
+                                <div class="pu-sub-figurecontainer">
+                                    <figure style="
+                                        {{# with partupGetImageUrl partup.networkObject.iconObject '360x360' }}background-image: url('{{ . }}');{{/ with }}
+                                    "></figure>
                                 </div>
-                            </a>
-                        </footer>
-                    {{/ with }}
+                                <div class="pu-sub-namecontainer">
+                                    <span>{{ partup.networkObject.name }}</span>
+                                    {{# with shortLabel partup }}<span>{{ . }}</span>{{/ with }}
+                                </div>
+                            </div>
+                        </a>
+                    </footer>
                 {{/unless}}
             {{/ if }}
         {{ else }}

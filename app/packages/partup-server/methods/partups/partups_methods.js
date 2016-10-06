@@ -672,10 +672,12 @@ Meteor.methods({
     */
     'partups.in_network': function(network) {
         var user = Meteor.user();
-        if (!network) throw new Meteor.Error(401, 'unauthorized')
+        if (!network) throw new Meteor.Error(401, 'unauthorized');
         if (!user) throw new Meteor.Error(401, 'unauthorized');
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+        var selector = {network_id: network._id};
+        var options = {fields: {privacy_type: 1}};
 
-        return Partups.findInNetwork(network._id).fetch();
+        return Partups.guardedFind(user._id, selector, options).fetch();
     }
 });

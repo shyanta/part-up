@@ -33,7 +33,7 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
         optional: true,
         max: 10,
         custom: function() {
-            var required = this.field('colleagues_custom_a_enabled').value === true;
+            var required = this.field('colleagues_custom_a_enabled').value !== false;
             if (required && !this.isSet) {
                 return 'required';
             }
@@ -44,7 +44,7 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
         optional: true,
         max: 10,
         custom: function() {
-            var required = this.field('colleagues_custom_b_enabled').value === true;
+            var required = this.field('colleagues_custom_b_enabled').value !== false;
             if (required && !this.isSet) {
                 return 'required';
             }
