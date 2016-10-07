@@ -12,7 +12,39 @@ Template.app_partup_takepart.helpers({
 AutoForm.hooks({
     becomePartnerForm: {
         onSubmit: function(insertDoc, updateDoc, currentDoc) {
-            console.log('dhjsfhdfkhdasfjkh');
+            var self = this;
+            var template = self.template.parent();
+
+            var parent = Template.instance().parent();
+            parent.submitting.set(true);
+
+            Meteor.call('partups.partner_request', template.data.partupId, insertDoc, function(error, updateId) {
+                console.log(updateId);
+                if (error) {
+                    return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+                }
+
+                if (!updateId) {
+                    // Upper is already partner
+                    parent.submitting.set(false);
+                    Partup.client.popup.close();
+                }
+
+                insertDoc.type = 'motivation';
+
+                Meteor.call('updates.comments.insert', updateId, insertDoc, function(error, result) {
+                    if (error) {
+                        return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+                    }
+
+                    parent.submitting.set(false);
+                });
+
+                Partup.client.notify.success(TAPi18n.__('partup-partner-request-popup-success'));
+                Partup.client.popup.close();
+            });
+
+            return false;
         }
     }
 });
