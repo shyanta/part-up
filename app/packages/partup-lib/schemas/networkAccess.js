@@ -4,6 +4,13 @@
  * @memberof Partup.schemas.forms
  */
 Partup.schemas.forms.networkAccess = new SimpleSchema({
+    create_partup_restricted: {
+        label: function() {
+            return TAPi18n.__('network-settings-access-form-create_partup_restricted-label');
+        },
+        optional: true,
+        type: Boolean
+    },
     colleagues_custom_a_enabled: {
         label: function() {
             return TAPi18n.__('network-settings-access-form-colleagues_custom_a_enabled-label');

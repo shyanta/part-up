@@ -13,6 +13,7 @@ Partup.transformers.networkAccess = {
      */
     'toFormNetworkAccess': function(network) {
         return {
+            create_partup_restricted: network.create_partup_restricted,
             colleagues_custom_a_enabled: network.colleagues_custom_a_enabled,
             colleagues_custom_b_enabled: network.colleagues_custom_b_enabled,
             label_admins: network.privacy_type_labels ? network.privacy_type_labels[6] : '',
@@ -30,6 +31,7 @@ Partup.transformers.networkAccess = {
      */
     'fromFormNetworkAccess': function(fields) {
         var network = {
+            create_partup_restricted: fields.create_partup_restricted,
             privacy_type_labels: {
                 '6': fields.label_admins,
                 '7': fields.label_colleagues,
