@@ -592,5 +592,38 @@ Meteor.methods({
             throw new Meteor.Error(400, 'unable_to_partner_request');
         }
     },
+
+    /**
+     * Accept a partner request
+     *
+     * @param {string} updateId
+     */
+    'partups.partner_accept': function(updateId) {
+        check(updateId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        var update = Updates.findOneOrFail(updateId);
+
+        if (!upper || !User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+
+        var requester = Meteor.users.findOneOrFail(update.upper_id);
+        var partup = Partups.findOneOrFail(update.partup_id);
+
+        try {
+            partup.makePartner(requester._id);
+
+            // Update the update type
+            Updates.update(update._id, {$set: {type: 'partups_uppers_added'}});
+
+            // Post system message
+            Partup.server.services.system_messages.send(upper, update._id, 'system_partner_accepted', {update_timestamp: false});
+
+            Event.emit('partups.partner_request.accepted', upper, partup, requester._id, update._id);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partner_request_could_not_be_accepted');
+        }
     }
 });
