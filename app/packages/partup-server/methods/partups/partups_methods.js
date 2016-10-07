@@ -235,8 +235,7 @@ Meteor.methods({
     /**
      * Unfeature a specific partup (superadmin only)
      *
-     * @param {string} kId
-     * @param {mixed[]} fields
+     * @param {string} partupId
      */
     'partups.unfeature': function(partupId) {
         check(partupId, String);
@@ -558,5 +557,40 @@ Meteor.methods({
 
         // Set the updated data
         Partups.update(partup._id, {$set: newData});
+    },
+
+    /**
+     * Insert a partner request update
+     *
+     * @param {string} partupId
+     */
+    'partups.partner_request': function(partupId) {
+        check(partupId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        var partup = Partups.findOneOrFail(partupId);
+
+        try {
+            // Check if the upper is not already partner
+            if (partup.hasUpper(upper._id)) {
+                return false;
+            }
+
+            var partner_update = Partup.factories.updatesFactory.make(upper._id, partup._id, 'partups_partner_request', {});
+            var updateId = Updates.insert(partner_update);
+
+            Event.emit('partups.partner_requested', upper, partup, updateId);
+            console.log(updateId);
+
+            return updateId;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'unable_to_partner_request');
+        }
+    },
     }
 });
