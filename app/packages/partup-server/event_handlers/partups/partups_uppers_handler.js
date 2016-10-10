@@ -40,6 +40,28 @@ Event.on('partups.partner_requested', function(requester, partup, updateId) {
     partup.uppers.forEach(function(partnerId) {
         notificationOptions.userId = partnerId;
         Partup.server.services.notifications.send(notificationOptions);
+
+        var partner = Meteor.users.findOne(partnerId);
+
+        // Set the email details
+        var emailOptions = {
+            type: 'partups_partner_request',
+            toAddress: User(partner).getEmail(),
+            subject: TAPi18n.__('emails-partups_partner_request-subject', {partup: partup.name}, User(partner).getLocale()),
+            locale: User(partner).getLocale(),
+            typeData: {
+                name: User(partner).getFirstname(),
+                requestingUpper: requester.profile.name,
+                partupName: partup.name,
+                url: Meteor.absoluteUrl() + 'partups/' + partup.slug + '/updates/' + updateId,
+                unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/partups_partner_request/' + partner.profile.settings.unsubscribe_email_token,
+                unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + partner.profile.settings.unsubscribe_email_token
+            },
+            userEmailPreferences: partner.profile.settings.email
+        };
+
+        // Send the email
+        Partup.server.services.emails.send(emailOptions);
     });
 });
 
