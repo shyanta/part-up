@@ -2,6 +2,7 @@
     "pages-app-partup-become_partner": "Become Partner",
     "pages-app-partup-become_partner-title": "What motivates you to become a partner in this part-up?",
     "update-type-partups_partner_request-title": "__name__ would like to become partner in this part-up",
+    "update-type-partups_partner_rejected-title": "__name__ is rejected to become partner in this part-up",
     "emails-partups_partner_request-subject": "Someone would like to become partner in part-up __partup__",
     "dropdown-notification-partups_partner_request": "__requester__ would like to become partner",
     "dropdown-notification-partups_partner_accepted": "__accepter__ has accepted your request to become partner",

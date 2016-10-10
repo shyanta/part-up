@@ -642,6 +642,10 @@ Meteor.methods({
         if (!upper || !User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
+
+            // Update the update type
+            Updates.update(update._id, {$set: {type: 'partups_partner_rejected'}});
+
             // Post system message
             Partup.server.services.system_messages.send(upper, update._id, 'system_partner_rejected', {update_timestamp: false});
 

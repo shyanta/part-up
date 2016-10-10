@@ -2,6 +2,7 @@
     "pages-app-partup-become_partner": "Word Partner",
     "pages-app-partup-become_partner-title": "Wat motiveert je om een partner te worden van deze part-up?",
     "update-type-partups_partner_request-title": "__name__ zou partner in deze part-up willen worden",
+    "update-type-partups_partner_rejected-title": "__name__ is geweigerd om partner te worden in deze part-up",
     "emails-partups_partner_request-subject": "Iemand wilt partner worden in part-up __partup__",
     "dropdown-notification-partups_partner_request": "__requester__ wil partner worden",
     "dropdown-notification-partups_partner_accepted": "__accepter__ heeft je partner aanvraag geaccepteerd",
