@@ -1,6 +1,6 @@
 <template name="DropdownTribes">
     <button class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="tribes">
-        My Tribes
+        {{_ 'mytribes-button-menu' }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
     </button>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
         <section class='main' data-preventscroll>
@@ -15,15 +15,15 @@
                 {{/each}}
             </ul>
             <footer>
-                <a href="{{pathFor 'discover'}}">Discover</a>
+                <a href="{{pathFor 'discover'}}">{{_ 'mytribes-button-discover' }}</a>
             </footer>
-            <!-- <ul class="pu-list">
-                <li><a href="{{pathFor 'discover'}}">Discover</a></li>
-            </ul> -->
         </section>
         <section class='aside {{#if showPartups}}active{{/if}}' data-preventscroll>
             <div>
-            <p>My part-ups</p>
+            <header>
+                <a href="{{pathFor 'network' slug=currentTribeFull.slug }}">{{_ 'mytribes-button-view' }} <i class="picon-caret-slim-right"></i></a>
+            </header>
+            <p>{{_ 'mytribes-title-partups'}}</p>
             <ul class="pu-list">
                 {{#unless loadingUpperpartups}}
                 {{#each upperPartups}}
@@ -42,7 +42,7 @@
                     </li>
                 {{else}}
                     <li class="pu-dropdownitem">
-                        <span>No partups found</span>
+                        <span>{{_ 'mytribes-placeholder-no-partups'}}</span>
                     </li>
                 {{/each}}
                 {{else}}
@@ -51,7 +51,7 @@
                     </li>
                 {{/unless}}
             </ul>
-            <p>Supporter part-ups</p>
+            <p>{{_ 'mytribes-title-supporter-partups'}}</p>
             <ul class="pu-list">
                 {{#unless loadingSupporterpartups}}
                 {{#each supporterPartups}}
@@ -70,7 +70,7 @@
                     </li>
                 {{else}}
                     <li class="pu-dropdownitem">
-                        <span>No partups found</span>
+                        <span>{{_ 'mytribes-placeholder-no-supporter-partups'}}</span>
                     </li>
                 {{/each}}
                 {{else}}

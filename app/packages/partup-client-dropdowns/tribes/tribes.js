@@ -133,6 +133,12 @@ Template.DropdownTribes.helpers({
     currentTribe: function() {
         return Template.instance().activeTribe.get();
     },
+    currentTribeFull: function() {
+        var template = Template.instance();
+        var networks = template.results.networks.get();
+        var networkId = template.activeTribe.get();
+        return lodash.find(networks, {_id: networkId});
+    },
     loadingUpperpartups: function() {
         return Template.instance().states.loadingUpperpartups.get();
     },
