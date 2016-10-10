@@ -575,11 +575,15 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         try {
-            // Check if the upper is not already partner
-            if (partup.hasUpper(upper._id)) {
+            // Check if the upper is not already a (pending) partner
+            if (partup.hasUpper(upper._id) || partup.hasPendingPartner(upper._id)) {
                 return false;
             }
 
+            // Add upper to pending partner list
+            Partups.update(partup._id, {$push: {pending_partners: upper._id}});
+
+            // Create the update
             var partner_update = Partup.factories.updatesFactory.make(upper._id, partup._id, 'partups_partner_request', {});
             var updateId = Updates.insert(partner_update);
 
@@ -605,12 +609,16 @@ Meteor.methods({
         var upper = Meteor.user();
         var update = Updates.findOneOrFail(updateId);
 
-        if (!upper || !User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
 
         var requester = Meteor.users.findOneOrFail(update.upper_id);
         var partup = Partups.findOneOrFail(update.partup_id);
 
         try {
+            // Remove upper from pending partner list
+            Partups.update(partup._id, {$pull: {pending_partners: update.upper_id}});
+
             partup.makePartner(requester._id);
 
             // Update the update type
@@ -639,9 +647,14 @@ Meteor.methods({
         var upper = Meteor.user();
         var update = Updates.findOneOrFail(updateId);
 
-        if (!upper || !User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+
+        var partup = Partups.findOneOrFail(update.partup_id);
 
         try {
+            // Remove upper from pending partner list
+            Partups.update(partup._id, {$pull: {pending_partners: update.upper_id}});
 
             // Update the update type
             Updates.update(update._id, {$set: {type: 'partups_partner_rejected'}});
