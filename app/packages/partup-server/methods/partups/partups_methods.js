@@ -584,7 +584,6 @@ Meteor.methods({
             var updateId = Updates.insert(partner_update);
 
             Event.emit('partups.partner_requested', upper, partup, updateId);
-            console.log(updateId);
 
             return updateId;
         } catch (error) {
