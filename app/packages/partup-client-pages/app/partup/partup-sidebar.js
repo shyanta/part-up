@@ -72,6 +72,14 @@ Template.app_partup_sidebar.helpers({
         return partup.hasUpper(user._id);
     },
 
+    isPendingPartner: function() {
+        var user = Meteor.user();
+        if (!user) return false;
+        var partup = Partups.findOne(this.partupId);
+        if (!partup) return false;
+        return (partup.pending_partners || []).indexOf(user._id) > -1;
+    },
+
     partupUppers: function() {
         var partup = Partups.findOne(this.partupId);
         if (!partup) return;
