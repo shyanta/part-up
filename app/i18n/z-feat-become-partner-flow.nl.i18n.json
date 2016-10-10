@@ -2,6 +2,7 @@
     "pages-app-partup-become_partner": "Word Partner",
     "pages-app-partup-become_partner-title": "Wat motiveert je om een partner te worden van deze part-up?",
     "update-type-partups_partner_request-title": "__name__ zou partner in deze part-up willen worden",
+    "emails-partups_partner_request-subject": "Iemand wilt partner worden in part-up __partup__",
     "dropdown-notification-partups_partner_request": "__requester__ wil partner worden",
     "dropdown-notification-partups_partner_accepted": "__accepter__ heeft je partner aanvraag geaccepteerd",
     "dropdown-notification-partups_partner_rejected": "__rejecter__ heeft je partner aanvraag geweigerd",
@@ -10,4 +11,7 @@
     "partup-request-partnership-button-cancel": "Annuleer",
     "partup-request-partnership-button-without-motivation": "Aanvragen zonder motivatie",
     "partup-request-partnership-button-with-motivation": "Deel motivatie"
+    "modal-profilesettings-email-updatesuccess-disabled-partups_partner_request": "Partner aanvraag email uitgeschakeld",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_partner_request": "Partner aanvraag email ingeschakeld",
+    "modal-profilesettings-email-partups_partner_request": "wanneer een upper partner wilt worden in een part-up"
 }

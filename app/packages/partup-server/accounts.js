@@ -55,7 +55,8 @@ var defaultEmailObject = {
     partups_new_comment_in_involved_conversation: true,
     partups_networks_new_upper: true,
     partups_networks_upper_left: true,
-    upper_mentioned_in_network_chat: true
+    upper_mentioned_in_network_chat: true,
+    partups_partner_request: true
 };
 
 Accounts.onCreateUser(function(options, user) {
