@@ -39,7 +39,7 @@ Event.on('partups.partner_requested', function(requester, partup, updateId) {
     // Send to all partners
     partup.uppers.forEach(function(partnerId) {
         notificationOptions.userId = partnerId;
-        //Partup.server.services.notifications.send(notificationOptions);
+        Partup.server.services.notifications.send(notificationOptions);
     });
 });
 
@@ -68,7 +68,7 @@ Event.on('partups.partner_request.accepted', function(accepter, partup, upperId,
         }
     };
 
-    //Partup.server.services.notifications.send(notificationOptions);
+    Partup.server.services.notifications.send(notificationOptions);
 });
 
 
@@ -98,5 +98,5 @@ Event.on('partups.partner_request.rejected', function(rejecter, partupId, upperI
         }
     };
 
-    //Partup.server.services.notifications.send(notificationOptions);
+    Partup.server.services.notifications.send(notificationOptions);
 });
