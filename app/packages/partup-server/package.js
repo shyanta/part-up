@@ -65,6 +65,8 @@ Package.onUse(function(api) {
         'private/emails/upper_mentioned_in_network_chat.nl.html',
         'private/emails/partup_created_in_network.en.html',
         'private/emails/partup_created_in_network.nl.html',
+        'private/emails/partups_partner_request.en.html',
+        'private/emails/partups_partner_request.nl.html',
         'private/emails/partups_networks_new_pending_upper.en.html',
         'private/emails/partups_networks_new_pending_upper.nl.html',
         'private/emails/partups_networks_accepted.en.html',
