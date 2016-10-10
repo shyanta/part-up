@@ -1,11 +1,30 @@
+Template.app_partup_takepart.onCreated(function() {
+    this.submitting = new ReactiveVar(false);
+});
+
 Template.app_partup_takepart.helpers({
     partup: function() {
         return Partups.findOne({_id: this.partupId});
     },
     form: function() {
         return {
-            schema: Partup.schemas.entities.updateComment
+            schema: Partup.schemas.forms.updateComment
         };
+    },
+    submitting: function() {
+        return Template.instance().submitting.get();
+    }
+});
+
+Template.app_partup_takepart.events({
+    'click [data-submit-no-motivation]': function(event, template) {
+        Meteor.call('partups.partner_request', template.data.partupId, function(error) {
+            if (error) {
+                return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+            }
+            Partup.client.notify.success(TAPi18n.__('partup-partner-request-popup-success'));
+            Partup.client.popup.close();
+        });
     }
 });
 
@@ -18,8 +37,8 @@ AutoForm.hooks({
             var parent = Template.instance().parent();
             parent.submitting.set(true);
 
-            Meteor.call('partups.partner_request', template.data.partupId, insertDoc, function(error, updateId) {
-                console.log(updateId);
+            Meteor.call('partups.partner_request', template.data.partupId, function(error, updateId) {
+
                 if (error) {
                     return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
                 }

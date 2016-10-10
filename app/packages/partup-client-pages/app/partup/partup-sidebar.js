@@ -248,9 +248,21 @@ Template.app_partup_sidebar.events({
     },
 
     'click [data-open-takepart-popup]': function(event, template) {
-        Partup.client.popup.open({
-            id: 'take-part'
-        });
+        if (Meteor.user()) {
+            Partup.client.popup.open({
+                id: 'take-part'
+            });
+        } else {
+            Intent.go({
+                route: 'login'
+            }, function(user) {
+                if (user) {
+                    Partup.client.popup.open({
+                        id: 'take-part'
+                    });
+                }
+            });
+        }
     },
 
     'click [data-invite]': function(event, template) {

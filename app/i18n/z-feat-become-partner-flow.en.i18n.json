@@ -4,5 +4,10 @@
     "update-type-partups_partner_request-title": "__name__ would like to become partner in this part-up",
     "dropdown-notification-partups_partner_request": "__requester__ has asked to become partner",
     "dropdown-notification-partups_partner_accepted": "__accepter__ has accepted your request to become partner",
-    "dropdown-notification-partups_partner_rejected": "__rejecter__ has rejected your request to become partner"
+    "dropdown-notification-partups_partner_rejected": "__rejecter__ has rejected your request to become partner",
+    "update-partner-request-button-accept": "Accept",
+    "update-partner-request-button-decline": "Decline",
+    "partup-request-partnership-button-cancel": "Cancel",
+    "partup-request-partnership-button-without-motivation": "Request without motivation",
+    "partup-request-partnership-button-with-motivation": "Share motivation"
 }

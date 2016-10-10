@@ -4,5 +4,10 @@
     "update-type-partups_partner_request-title": "__name__ zou partner in deze part-up willen worden",
     "dropdown-notification-partups_partner_request": "__requester__ wil partner worden",
     "dropdown-notification-partups_partner_accepted": "__accepter__ heeft je partner aanvraag geaccepteerd",
-    "dropdown-notification-partups_partner_rejected": "__rejecter__ heeft je partner aanvraag geweigerd"
+    "dropdown-notification-partups_partner_rejected": "__rejecter__ heeft je partner aanvraag geweigerd",
+    "update-partner-request-button-accept": "Accepteer",
+    "update-partner-request-button-decline": "Weiger",
+    "partup-request-partnership-button-cancel": "Annuleer",
+    "partup-request-partnership-button-without-motivation": "Aanvragen zonder motivatie",
+    "partup-request-partnership-button-with-motivation": "Deel motivatie"
 }
