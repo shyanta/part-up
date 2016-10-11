@@ -3,14 +3,17 @@
         {{_ 'mytribes-button-menu' }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
     </button>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
-        <section class='main' data-preventscroll>
-            <ul class="pu-list">
+        <section class='main' data-preventscroll >
+            <ul class="pu-list" data-hidehohover>
                 {{#each networks}}
-                    <li class='pu-dropdownitem {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}'>
-                        <a href="{{ pathFor 'network' slug=slug query='show=false' }}" data-hover="{{ _id }}">
-                            <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
-                            <span>{{ name }}</span>
-                        </a>
+                    <li class='pu-dropdownitem pu-extended-hover {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}' data-hohover>
+                        <div class="pu-extended-hover__container" data-outer>
+                            <a href="{{ pathFor 'network' slug=slug query='show=false' }}" data-hover="{{ _id }}" >
+                                <figure class="pu-avatar pu-avatar-square" style="{{# with partupGetImageUrl imageObject '80x80'}}background-image:url('{{ . }}');{{/ with}}"></figure>
+                                <span>{{ name }}</span>
+                            </a>
+                        </div>
+                        <div class="pu-extended-hover__extend" data-inner></div>
                     </li>
                 {{/each}}
             </ul>

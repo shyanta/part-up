@@ -89,6 +89,14 @@ Template.DropdownTribes.onCreated(function() {
             }));
         });
     });
+
+    template.handleXPos = function(event) {
+        $(event.currentTarget).parent().find('[data-inner]').css({
+            left: (event.offsetX - 30) + 'px',
+            display: 'block',
+            pointerEvents: 'auto'
+        });
+    };
 });
 Template.DropdownTribes.onRendered(function() {
     var template = this;
@@ -107,16 +115,28 @@ Template.DropdownTribes.onDestroyed(function() {
 Template.DropdownTribes.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
+    'scroll [data-hidehohover], DOMMouseScroll [data-hidehohover], mousewheel [data-hidehohover]': function(event, template) {
+        clearTimeout(template.scrollTimer);
+        $(event.currentTarget).addClass('scrolling');
+        template.scrollTimer = setTimeout(function() {$(event.currentTarget).removeClass('scrolling');}, 200);
+    },
+    'mouseenter [data-hohover]': function(event, template) {
+        $(event.currentTarget).css('z-index', 2);
+        $(event.currentTarget).find('[data-outer]').on('mousemove', template.handleXPos);
+    },
     'mouseenter [data-hover]': function(event, template) {
         var tribeId = $(event.currentTarget).data('hover');
         template.showPartups.set(false);
-        clearTimeout(template.loadTimeout);
-        template.loadTimeout = setTimeout(function() {
-            if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
-            setTimeout(function() {
-                template.showPartups.set(true);
-            }, 100);
-        }, 200);
+        if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
+        template.showPartups.set(true);
+    },
+    'mouseleave [data-hohover]': function(event, template) {
+        $(event.currentTarget).css('z-index', 1);
+        $(event.currentTarget).find('[data-inner]').css({
+            display: 'none',
+            pointerEvents: 'none'
+        });
+        $(event.currentTarget).find('[data-outer]').off('mousemove', template.handleXPos);
     },
     'mouseleave [data-clickoutside-close]': function(event, template) {
         template.showPartups.set(false);

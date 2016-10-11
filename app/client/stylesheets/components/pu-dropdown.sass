@@ -56,11 +56,30 @@
                     text-decoration: underline
 
         .main
+
             ul
-                border-right: 2px solid $color-header
+                // border-right: 2px solid $color-header
                 border-left: 2px solid $color-header
-                min-height: 250px
-                padding-top: 5px
+                min-height: 242px
+                overflow-x: hidden
+                max-height: 294px
+
+                .pu-dropdownitem
+                    border-right: 2px solid $color-header
+                    transition: none
+
+                    a
+                        margin-right: 0
+
+                &:after
+                    content: ''
+                    display: block
+                    position: absolute
+                    right: 0
+                    top: 0
+                    bottom: 0
+                    width: 2px
+                    background-color: $color-header
 
             footer
                 border-left: 2px solid $color-header
