@@ -116,16 +116,16 @@ Template.DropdownTribes.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
     'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
     'scroll [data-hidehohover], DOMMouseScroll [data-hidehohover], mousewheel [data-hidehohover]': function(event, template) {
-        clearTimeout(template.scrollTimer);
+        // clearTimeout(template.scrollTimer);
         $(event.currentTarget).addClass('scrolling');
-        template.scrollTimer = setTimeout(function() {$(event.currentTarget).removeClass('scrolling');}, 200);
+        // template.scrollTimer = setTimeout(function() {$(event.currentTarget).removeClass('scrolling');}, 200);
     },
     'mouseenter [data-hohover]': function(event, template) {
-        $('[data-hidehohover]').removeClass('scrolling');
         $(event.currentTarget).css('z-index', 2);
         $(event.currentTarget).find('[data-outer]').on('mousemove', template.handleXPos);
     },
     'mouseenter [data-hover]': function(event, template) {
+        $('[data-hidehohover]').removeClass('scrolling');
         var tribeId = $(event.currentTarget).data('hover');
         template.showPartups.set(false);
         if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);

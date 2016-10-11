@@ -58,11 +58,13 @@
         .main
 
             ul
-                // border-right: 2px solid $color-header
                 border-left: 2px solid $color-header
                 min-height: 242px
                 overflow-x: hidden
                 max-height: 294px
+
+                &::-webkit-scrollbar
+                    display: none
 
                 .pu-dropdownitem
                     border-right: 2px solid $color-header
