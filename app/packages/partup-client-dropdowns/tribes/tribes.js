@@ -37,7 +37,25 @@ Template.DropdownTribes.onCreated(function() {
     template.activeTribe = new ReactiveVar(undefined);
 
     template.dropdownOpen = new ReactiveVar(false, function(a, hasBeenOpened) {
-        if (!hasBeenOpened) return;
+        if (!hasBeenOpened) {
+            $('.pu-page').css({
+                '-webkit-filter': 'none',
+                '-moz-filter': 'none',
+                '-ms-filter': 'none',
+                'filter': 'none',
+                pointerEvents: 'auto'
+            });
+            return;
+        }
+
+        $('.pu-page').css({
+            '-webkit-filter': 'brightness(89%)',
+            '-moz-filter': 'brightness(89%)',
+            '-ms-filter': 'brightness(89%)',
+            'filter': 'brightness(89%)',
+            'pointer-events': 'none'
+        });
+
         // (Re)load networks
         template.states.loadingNetworks.set(true);
         HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
