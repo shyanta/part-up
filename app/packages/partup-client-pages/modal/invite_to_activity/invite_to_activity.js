@@ -24,6 +24,26 @@ Template.modal_invite_to_activity.onCreated(function() {
 
     template.subscribe('partups.one', partupId);
     template.subscribe('activities.from_partup', partupId);
+
+    template.networks = new ReactiveVar([]);
+    var user = Meteor.user();
+    var query = {
+        token: Accounts._storedLoginToken(),
+        archived: false
+    };
+
+    HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
+        if (error || !response.data.networks || response.data.networks.length === 0) return;
+
+        var result = response.data;
+
+        template.networks.set(result.networks.map(function(network) {
+            Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
+
+            return network;
+        }).sort(Partup.client.sort.alphabeticallyASC.bind(null, 'name')));
+    });
+
     // Submit filter form
     template.submitFilterForm = function() {
         Meteor.defer(function() {
@@ -80,6 +100,9 @@ Template.modal_invite_to_activity.helpers({
             },
             activityId: function() {
                 return template.data.activityId;
+            },
+            userTribes: function() {
+                return template.networks.get();
             }
         };
     },
@@ -110,6 +133,9 @@ Template.modal_invite_to_activity.events({
                 }
             }
         });
+    },
+    'change [data-filter-tribe]': function(event, template) {
+        console.log(event.currentTarget.value);
     },
     'submit form#suggestionsQuery': function(event, template) {
         event.preventDefault();
