@@ -121,6 +121,7 @@ Template.DropdownTribes.events({
         template.scrollTimer = setTimeout(function() {$(event.currentTarget).removeClass('scrolling');}, 200);
     },
     'mouseenter [data-hohover]': function(event, template) {
+        $('[data-hidehohover]').removeClass('scrolling');
         $(event.currentTarget).css('z-index', 2);
         $(event.currentTarget).find('[data-outer]').on('mousemove', template.handleXPos);
     },
