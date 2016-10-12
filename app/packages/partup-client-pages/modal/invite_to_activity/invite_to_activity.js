@@ -52,12 +52,15 @@ Template.modal_invite_to_activity.onCreated(function() {
         });
     };
 
+    template.selectedNetwork = new ReactiveVar('all');
+
     template.page = new ReactiveVar(false, function(previousPage, page) {
         var query = template.searchQuery.get() || '';
         var options = {
             query: query,
             limit: PAGING_INCREMENT,
-            skip: page * PAGING_INCREMENT
+            skip: page * PAGING_INCREMENT,
+            network: template.selectedNetwork.get()
         };
         template.loading.set(true);
         // this meteor call still needs to be created
@@ -135,7 +138,7 @@ Template.modal_invite_to_activity.events({
         });
     },
     'change [data-filter-tribe]': function(event, template) {
-        console.log(event.currentTarget.value);
+        template.selectedNetwork.set(event.currentTarget.value);
     },
     'submit form#suggestionsQuery': function(event, template) {
         event.preventDefault();
