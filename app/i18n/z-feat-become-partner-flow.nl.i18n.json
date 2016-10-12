@@ -15,5 +15,7 @@
     "modal-profilesettings-email-updatesuccess-disabled-partups_partner_request": "Partner aanvraag email uitgeschakeld",
     "modal-profilesettings-email-updatesuccess-enabled-partups_partner_request": "Partner aanvraag email ingeschakeld",
     "modal-profilesettings-email-partups_partner_request": "wanneer een upper partner wilt worden in een part-up",
-    "pages-app-partup-become_partner-pending": "Wacht op goedkeuring"
+    "pages-app-partup-become_partner-pending": "Wacht op goedkeuring",
+    "comment-field-content-system_partner_rejected": "heeft de aanvraag geweigerd",
+    "comment-field-content-system_partner_accepted": "heeft de aanvraag geaccepteerd"
 }
