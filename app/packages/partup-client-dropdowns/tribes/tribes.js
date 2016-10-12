@@ -123,6 +123,9 @@ Template.DropdownTribes.onRendered(function() {
         template.dropdownOpen.set(false);
         next();
     });
+
+    var width = template.$('[data-toggle-menu]').outerWidth();
+    $('[data-before]').css('width', width - 19);
 });
 
 Template.DropdownTribes.onDestroyed(function() {

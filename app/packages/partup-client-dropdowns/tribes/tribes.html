@@ -6,6 +6,7 @@
         {{_ 'mytribes-button-menu' }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
     </button>
     <div class="pu-dropdown pu-dropdown-profile pu-profilemenu {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+        <span class="background" data-before></span>
         <section class='main' data-preventscroll >
             <ul class="pu-list" data-hidehohover>
                 {{#each networks}}
