@@ -113,6 +113,9 @@ Template.modal_invite_to_activity.helpers({
             },
             userTribes: function() {
                 return template.networks.get();
+            },
+            partup: function() {
+                return Partups.findOne(template.data.partupId);
             }
         };
     },
