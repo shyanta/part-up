@@ -52,7 +52,14 @@ Template.modal_invite_to_activity.onCreated(function() {
         });
     };
 
-    template.selectedNetwork = new ReactiveVar('all');
+    template.selectedNetwork = new ReactiveVar('all', function(prev, curr) {
+        if (prev !== curr) {
+            template.userIds.set([]);
+            template.states.paging_end_reached.set(false);
+            template.states.loading_infinite_scroll = false;
+            _.defer(function() { template.page.set(0); });
+        }
+    });
 
     template.page = new ReactiveVar(false, function(previousPage, page) {
         var query = template.searchQuery.get() || '';
@@ -139,6 +146,7 @@ Template.modal_invite_to_activity.events({
     },
     'change [data-filter-tribe]': function(event, template) {
         template.selectedNetwork.set(event.currentTarget.value);
+        template.submitFilterForm();
     },
     'submit form#suggestionsQuery': function(event, template) {
         event.preventDefault();
