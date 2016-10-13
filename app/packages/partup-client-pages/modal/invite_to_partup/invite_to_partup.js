@@ -20,7 +20,12 @@ Template.modal_invite_to_partup.onCreated(function() {
         }
     });
 
-    template.subscribe('partups.one', template.data.partupId);
+    template.subscribe('partups.one', template.data.partupId, function() {
+        var partup = Partups.findOne(template.data.partupId);
+        var networks = template.networks.get();
+        var network = lodash.find(networks, {_id: partup.network_id || undefined});
+        template.selectedNetwork.set(network ? network.slug : 'all');
+    });
 
     template.networks = new ReactiveVar([]);
     var user = Meteor.user();

@@ -22,7 +22,12 @@ Template.modal_invite_to_activity.onCreated(function() {
         }
     });
 
-    template.subscribe('partups.one', partupId);
+    template.subscribe('partups.one', partupId, function() {
+        var partup = Partups.findOne(partupId);
+        var networks = template.networks.get();
+        var network = lodash.find(networks, {_id: partup.network_id || undefined});
+        template.selectedNetwork.set(network ? network.slug : 'all');
+    });
     template.subscribe('activities.from_partup', partupId);
 
     template.networks = new ReactiveVar([]);
