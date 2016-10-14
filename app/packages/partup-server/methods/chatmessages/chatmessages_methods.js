@@ -24,7 +24,6 @@ Meteor.methods({
 
         try {
             var chat = Chats.findOneOrFail(fields.chat_id);
-
             var chatMessage = {
                 _id: Random.id(),
                 chat_id: chat._id,
@@ -38,7 +37,6 @@ Meteor.methods({
 
             // Insert message
             ChatMessages.insert(chatMessage);
-
             Event.emit('chats.messages.inserted', user, chatMessage, network);
 
             // Increase counters
@@ -54,7 +52,6 @@ Meteor.methods({
 
             // Send push notifications to devices
             if (network) {
-
                 // Network chat
                 receiverIds = Meteor.users.find({_id: {$in: network.uppers}}).fetch()
                     .map(function(user) {
@@ -79,7 +76,6 @@ Meteor.methods({
                 };
 
             } else {
-
                 // Private chat
                 receiverIds = Meteor.users.find({chats: {$in: [chat._id]}}).fetch()
                     .map(function(user) {

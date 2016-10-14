@@ -527,6 +527,7 @@ Meteor.methods({
      * @param {String} networkSlug
      * @param {Object} options
      * @param {String} options.query
+     * @param {Boolean} options.invited_in_network
      * @param {Number} options.limit
      * @param {Number} options.skip
      *
@@ -536,6 +537,7 @@ Meteor.methods({
         check(networkSlug, String);
         check(options, {
             query: Match.Optional(String),
+            invited_in_network: Match.Optional(String),
             limit: Match.Optional(Number),
             skip: Match.Optional(Number)
         });

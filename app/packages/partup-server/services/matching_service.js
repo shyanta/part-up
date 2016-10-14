@@ -31,6 +31,7 @@ Partup.server.services.matching = {
      * @param {String} networkSlug
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
+     * @param {String} searchOptions.invited_in_network
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      *
@@ -70,6 +71,7 @@ Partup.server.services.matching = {
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
      * @param {String} searchOptions.network
+     * @param {String} searchOptions.invited_in_network
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      * @param {[String]} tags
@@ -110,6 +112,17 @@ Partup.server.services.matching = {
             // Exclude provided uppers from result
             excludedUppers = excludedUppers || [];
             selector['_id'] = {$nin: excludedUppers};
+        }
+
+        // Apply invited filter for network
+        if (searchOptions.invited_in_network) {
+            var network_invited = lodash.unique(Invites.find({
+                type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+                network_id: searchOptions.invited_in_network
+            }).map(function(invited) {
+                return invited.invitee_id;
+            }));
+            selector['_id'] = {$in: network_invited};
         }
 
         // Apply networks filter
