@@ -52,6 +52,7 @@ Partup.server.services.matching = {
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
      * @param {String} searchOptions.network
+     * @param {String} searchOptions.invited_in_partup
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      *
@@ -72,6 +73,7 @@ Partup.server.services.matching = {
      * @param {String} searchOptions.query
      * @param {String} searchOptions.network
      * @param {String} searchOptions.invited_in_network
+     * @param {String} searchOptions.invited_in_partup
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      * @param {[String]} tags
@@ -123,6 +125,17 @@ Partup.server.services.matching = {
                 return invited.invitee_id;
             }));
             selector['_id'] = {$in: network_invited};
+        }
+
+        // Apply invited filter for partup
+        if (searchOptions.invited_in_partup) {
+            var invited = lodash.unique(Invites.find({
+                type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER,
+                partup_id: searchOptions.invited_in_partup
+            }).map(function(invited) {
+                return invited.invitee_id;
+            }));
+            selector['_id'] = {$in: invited};
         }
 
         // Apply networks filter

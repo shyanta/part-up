@@ -434,10 +434,11 @@ Meteor.methods({
     /**
      * Get user suggestions for a given partup
      *
-     * @param {string} partupId
+     * @param {String} partupId
      * @param {Object} options
-     * @param {string} options.query
-     * @param {string} options.network
+     * @param {String} options.query
+     * @param {String} options.invited_in_partup
+     * @param {String} options.network
      * @param {Number} options.limit
      * @param {Number} options.skip
      *
@@ -448,6 +449,7 @@ Meteor.methods({
         check(options, {
             query: Match.Optional(String),
             network: Match.Optional(String),
+            invited_in_partup: Match.Optional(String),
             limit: Match.Optional(Number),
             skip: Match.Optional(Number)
         });
