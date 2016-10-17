@@ -20,7 +20,6 @@ Package.onUse(function(api) {
         'percolate:synced-cron',
         'reywood-publish-composite',
         'service-configuration',
-        'splendido:accounts-meld',
         'percolate:migrations',
         'tap:i18n',
         'lifely:mout',
