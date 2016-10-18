@@ -793,7 +793,8 @@
         &:hover
             background-color: rgba($color-primary, .3)
 
-    &-success
+    &-success,
+    &-pending
         background-color: white
         border: 2px solid $color-alert-success
         pointer-events: none
@@ -811,6 +812,12 @@
         &:hover
             background-color: white
             color: $color-alert-success
+
+    &-pending
+        pointer-events: none
+        background-color: transparent
+        border: 2px solid $color-secondary
+        color: $color-secondary
 
     &-positivestate
         background-color: white

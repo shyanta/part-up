@@ -1,0 +1,22 @@
+{
+    "pages-app-partup-become_partner": "Become Partner",
+    "pages-app-partup-become_partner-title": "What motivates you to become a partner in this part-up?",
+    "update-type-partups_partner_request-title": "__name__ would like to become partner in this part-up",
+    "update-type-partups_partner_rejected-title": "__name__ is rejected to become partner in this part-up",
+    "emails-partups_partner_request-subject": "Someone would like to become partner in part-up __partup__",
+    "dropdown-notification-partups_partner_request": "__requester__ would like to become partner",
+    "dropdown-notification-partups_partner_accepted": "__accepter__ has accepted your request to become partner",
+    "dropdown-notification-partups_partner_rejected": "__rejecter__ has rejected your request to become partner",
+    "update-partner-request-button-accept": "Accept",
+    "update-partner-request-button-decline": "Decline",
+    "partup-request-partnership-button-cancel": "Cancel",
+    "partup-request-partnership-button-without-motivation": "Request without motivation",
+    "partup-request-partnership-button-with-motivation": "Share motivation",
+    "modal-profilesettings-email-updatesuccess-disabled-partups_partner_request": "Partner request email disabled",
+    "modal-profilesettings-email-updatesuccess-enabled-partups_partner_request": "Partner request email enabled",
+    "modal-profilesettings-email-partups_partner_request": "when an upper wants to become a partner in a part-up",
+    "pages-app-partup-become_partner-pending": "Pending approval",
+    "comment-field-content-system_partner_rejected": "rejected the request",
+    "comment-field-content-system_partner_accepted": "accepted the request",
+    "partup-partner-request-popup-success": "Partnership on part-up requested"
+}

@@ -12,8 +12,8 @@ Template.UpperTile.helpers({
         var profile = Template.instance().data.user;
         return {
             chatIdWithCurrentUser: function() {
-                return Chats
-                    .findForUser(Meteor.userId(), {private: true})
+                var userId = Meteor.userId();
+                return (Chats.findForUser(userId, {private: true}) || [])
                     .map(function(chat) {
                         return chat._id;
                     })

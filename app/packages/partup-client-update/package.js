@@ -46,7 +46,9 @@ Package.onUse(function(api) {
         'types/archived.html',
         'types/archived.js',
         'types/unarchived.html',
-        'types/unarchived.js'
+        'types/unarchived.js',
+        'types/partner-request.html',
+        'types/partner-request.js'
     ], 'client');
 
 });

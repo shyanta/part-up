@@ -52,6 +52,9 @@ Package.onUse(function(api) {
         'notifications/notification/types/partup/user-mention.html',
         'notifications/notification/types/partup/archived.html',
         'notifications/notification/types/partup/unarchived.html',
+        'notifications/notification/types/partup/partner-request.html',
+        'notifications/notification/types/partup/partner-accepted.html',
+        'notifications/notification/types/partup/partner-rejected.html',
 
         'chats/chat-notifications.html',
         'chats/chat-notifications.js',

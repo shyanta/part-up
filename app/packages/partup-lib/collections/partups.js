@@ -131,6 +131,18 @@ Partup.prototype.hasUpper = function(userId) {
 };
 
 /**
+ * Check if given user is a pending partner of this partup
+ *
+ * @memberof Partups
+ * @param {String} userId the id of the user that should be checked
+ * @return {Boolean}
+ */
+Partup.prototype.hasPendingPartner = function(userId) {
+    if (!this.pending_partners) return false;
+    return mout.lang.isString(userId) && this.pending_partners.indexOf(userId) > -1;
+};
+
+/**
  * Check if given user is on the invite list of this partup
  *
  * @memberof Partups
@@ -219,6 +231,17 @@ Partup.prototype.makeSupporterPartner = function(upperId) {
 Partup.prototype.makePartnerSupporter = function(upperId) {
     Partups.update(this._id, {$pull: {'uppers': upperId}, $addToSet: {'supporters': upperId}});
     Meteor.users.update(upperId, {$pull: {'upperOf': this._id}, $addToSet: {'supporterOf': this._id}});
+};
+
+/**
+ * Promote a user from supporter to partner
+ *
+ * @memberof Partups
+ * @param {String} upperId the user that gets promoted
+ */
+Partup.prototype.makePartner = function(upperId) {
+    Partups.update(this._id, {$pull: {'supporters': upperId, 'invites': upperId}, $addToSet: {'uppers': upperId}});
+    Meteor.users.update(upperId, {$pull: {'supporterOf': this._id}, $addToSet: {'upperOf': this._id}});
 };
 
 /**

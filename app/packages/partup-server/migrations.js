@@ -836,6 +836,22 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 34,
+    name: 'Add new email notification setting',
+    up: function() {
+        Meteor.users.find().forEach(function(user) {
+            Meteor.users.update(user._id, {$set: {
+                'profile.settings.email.partups_partner_request': true
+            }});
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
+
 Meteor.startup(function() {
-    Migrations.migrateTo(33);
+    Migrations.migrateTo(34);
 });
