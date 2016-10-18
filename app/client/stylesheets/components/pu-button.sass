@@ -232,11 +232,6 @@
             text-decoration: none
             color: $color-text-inverted
 
-        &:active
-            color: $color-primary-dark
-            transform: none // prevent movement
-            background-color: transparent
-
         span.mobile
             display: block
 
@@ -250,36 +245,22 @@
                 display: block
 
         &-profiledropdown
-            &:after
-                content: ''
-                transition: opacity 0.1s, transform $animation-duration, max-height .2s
-                opacity: 0
-                transform: translateY(5px)
-                position: absolute
-                border: 13px solid $color-header
-                background-color: $color-background
-                border-top-left-radius: 13px + 4px
-                border-top-right-radius: 13px + 4px
-                border-bottom: 0
-                left: 0
-                right: 0
-                bottom: 0
-                top: -8px
-                max-height: 48px
-                z-index: -1
+            z-index: 2
 
             &-active
                 color: $color-text-secondary
 
                 &:hover,
-                &:focus,
-                &:active
+                &:focus
                     color: $color-text-secondary
 
-                &:after
-                    opacity: 1
-                    transform: translateY(0)
-                    max-height: 55px
+                // &:after
+                //     opacity: 1
+                //     transform: translateY(0)
+                //     max-height: 55px
+            i
+                font-size: 12px
+                vertical-align: baseline
 
         &-desktop
             @include button_header_desktop

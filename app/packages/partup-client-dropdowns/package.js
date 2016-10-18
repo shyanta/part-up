@@ -66,6 +66,9 @@ Package.onUse(function(api) {
         'menu/menu.html',
         'menu/menu.js',
 
+        'tribes/tribes.html',
+        'tribes/tribes.js',
+
         'profile/profile.html',
         'profile/profile.js',
 
