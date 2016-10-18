@@ -116,6 +116,7 @@ Template.InviteTile.helpers({
                 return false;
             },
             alreadyPartner: function() {
+                if (template.inviteType.curValue === 'partup-activity-invite') return false;
                 if (partup) return User(user).isPartnerInPartup(partup._id);
                 if (network) return network.hasMember(user._id);
                 return false;
@@ -161,7 +162,7 @@ Template.InviteTile.events({
         var invitingUser = Meteor.users.findOne({_id: invitingUserId});
         var searchQuery = template.searchQuery.get() || '';
 
-        if (User(invitingUser).isPartnerInPartup(template.data.partupId) || activity.isUpperInvited(invitingUserId)) return;
+        // if (User(invitingUser).isPartnerInPartup(template.data.partupId) || activity.isUpperInvited(invitingUserId)) return;
 
         template.inviting.set(true);
         Meteor.call('activities.invite_existing_upper', activityId, invitingUserId, searchQuery, function(err) {

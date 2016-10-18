@@ -437,6 +437,7 @@ Meteor.methods({
      * @param {string} partupId
      * @param {Object} options
      * @param {string} options.query
+     * @param {string} options.network
      * @param {Number} options.limit
      * @param {Number} options.skip
      *
@@ -446,6 +447,7 @@ Meteor.methods({
         check(partupId, String);
         check(options, {
             query: Match.Optional(String),
+            network: Match.Optional(String),
             limit: Match.Optional(Number),
             skip: Match.Optional(Number)
         });

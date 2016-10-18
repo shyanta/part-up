@@ -20,7 +20,31 @@ Template.modal_invite_to_partup.onCreated(function() {
         }
     });
 
-    template.subscribe('partups.one', template.data.partupId);
+    template.subscribe('partups.one', template.data.partupId, function() {
+        var partup = Partups.findOne(template.data.partupId);
+        var networks = template.networks.get();
+        var network = lodash.find(networks, {_id: partup.network_id || undefined});
+        template.selectedNetwork.set(network ? network.slug : 'all');
+    });
+
+    template.networks = new ReactiveVar([]);
+    var user = Meteor.user();
+    var query = {
+        token: Accounts._storedLoginToken(),
+        archived: false
+    };
+
+    HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
+        if (error || !response.data.networks || response.data.networks.length === 0) return;
+
+        var result = response.data;
+
+        template.networks.set(result.networks.map(function(network) {
+            Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
+
+            return network;
+        }).sort(Partup.client.sort.alphabeticallyASC.bind(null, 'name')));
+    });
 
     // Submit filter form
     template.submitFilterForm = function() {
@@ -30,12 +54,22 @@ Template.modal_invite_to_partup.onCreated(function() {
         });
     };
 
+    template.selectedNetwork = new ReactiveVar('all', function(prev, curr) {
+        if (prev !== curr) {
+            template.userIds.set([]);
+            template.states.paging_end_reached.set(false);
+            template.states.loading_infinite_scroll = false;
+            _.defer(function() { template.page.set(0); });
+        }
+    });
+
     template.page = new ReactiveVar(false, function(previousPage, page) {
         var query = template.searchQuery.get() || '';
         var options = {
             query: query,
             limit: PAGING_INCREMENT,
-            skip: page * PAGING_INCREMENT
+            skip: page * PAGING_INCREMENT,
+            network: template.selectedNetwork.get()
         };
         template.loading.set(true);
         // this meteor call still needs to be created
@@ -87,6 +121,12 @@ Template.modal_invite_to_partup.helpers({
             },
             partupId: function() {
                 return template.data.partupId;
+            },
+            userTribes: function() {
+                return template.networks.get();
+            },
+            partup: function() {
+                return Partups.findOne(template.data.partupId);
             }
         };
     },
@@ -117,6 +157,10 @@ Template.modal_invite_to_partup.events({
                 }
             }
         });
+    },
+    'change [data-filter-tribe]': function(event, template) {
+        template.selectedNetwork.set(event.currentTarget.value);
+        template.submitFilterForm();
     },
     'submit form#suggestionsQuery': function(event, template) {
         event.preventDefault();

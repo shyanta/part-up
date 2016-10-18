@@ -10,6 +10,7 @@ Partup.server.services.matching = {
      * @param {String} activityId
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
+     * @param {String} searchOptions.network
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      *
@@ -49,6 +50,7 @@ Partup.server.services.matching = {
      * @param {String} partupId
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
+     * @param {String} searchOptions.network
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      *
@@ -67,6 +69,7 @@ Partup.server.services.matching = {
      *
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
+     * @param {String} searchOptions.network
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      * @param {[String]} tags
@@ -107,6 +110,20 @@ Partup.server.services.matching = {
             // Exclude provided uppers from result
             excludedUppers = excludedUppers || [];
             selector['_id'] = {$nin: excludedUppers};
+        }
+
+        // Apply networks filter
+        if (searchOptions.network == 'all') {
+            // Get IDs of all public networks
+            var networkIds = Networks.find({privacy_type: Networks.NETWORK_PUBLIC}, {_id: 1}).map(function(network) {
+                return network._id;
+            });
+            selector['networks'] = {$in: networkIds};
+        } else if (searchOptions.network != '') {
+            var network = Networks.findOne({slug: searchOptions.network});
+            if (network && network.hasMember(Meteor.userId())) {
+                selector['networks'] = {$in: [network._id]};
+            }
         }
 
         // Set options

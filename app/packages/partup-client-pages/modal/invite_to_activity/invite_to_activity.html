@@ -16,12 +16,32 @@
 
                 <form id="suggestionsQuery" class="pu-filterbar-wrap">
                     <div class="pu-filterbar pu-filterbar-large">
-                        <div class="pu-sub-input pu-sub-input-large">
-                            <input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Designer" data-search-query-input>
-                            {{# if data.textsearch }}
-                                <i class="pu-sub-reset picon-times" data-reset-search-query-input></i>
-                            {{/ if }}
-                            <i class="picon-search"></i>
+                        <div class="pu-row">
+                            <div class="cell">
+                                <p class="pu-sub-label">{{_ 'pages-modal-invite_to_activity-search-label'}}</p>
+                            </div>
+                            <div class="cell">
+                                <div class="pu-sub-input pu-sub-input-large">
+                                    <input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Designer" data-search-query-input>
+                                    {{# if data.textsearch }}
+                                        <i class="pu-sub-reset picon-times" data-reset-search-query-input></i>
+                                    {{/ if }}
+                                    <i class="picon-search"></i>
+                                </div>
+                            </div>
+                            <div class="cell">
+                                <p class="pu-sub-label">{{_ 'pages-modal-invite_to_activity-filter-label'}}</p>
+                            </div>
+                            <div class="cell">
+                                <div class="pu-sub-input pu-sub-input-large pu-sub-input-select">
+                                    <select name="" id="" class="pu-input pu-input-filter" data-filter-tribe>
+                                        <option value="all">Alle tribes</option>
+                                        {{#each data.userTribes}}
+                                            <option value="{{slug}}" selected="{{ partupEquals data.partup.network_id _id }}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
