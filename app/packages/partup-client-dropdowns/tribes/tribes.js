@@ -190,12 +190,22 @@ Template.DropdownTribes.helpers({
     networks: function() {
         return Template.instance().results.networks.get();
     },
+    hasPartupsWithoutNetwork: function() {
+        var upperPartups = Template.instance().results.upperpartups.get().filter(function(item) {
+            return !item.network_id;
+        });
+        var supporterPartups = Template.instance().results.supporterpartups.get().filter(function(item) {
+            return !item.network_id;
+        });
+        return (upperPartups.length || supporterPartups.length);
+    },
     upperPartups: function() {
         var tribeId = Template.instance().activeTribe.get();
         var user = Meteor.user();
         if (!user) return [];
 
         var allPartups = Template.instance().results.upperpartups.get().filter(function(item) {
+            if (tribeId === 'none') return !item.network_id;
             return item.network_id === tribeId;
         });
 
@@ -208,6 +218,7 @@ Template.DropdownTribes.helpers({
         if (!user) return [];
 
         var allPartups = Template.instance().results.supporterpartups.get().filter(function(item) {
+            if (tribeId === 'none') return !item.network_id;
             return item.network_id === tribeId;
         });
 
