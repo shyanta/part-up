@@ -11,6 +11,7 @@ Template.InviteToPartup.helpers({
     form: function() {
         var template = Template.instance();
         var partup = Partups.findOne(template.data.partupId);
+        if (!partup) return;
         var user = Meteor.user();
         return {
             schema: Partup.schemas.forms.inviteUpper,

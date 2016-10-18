@@ -3,6 +3,7 @@ Template.modal_invite_to_partup.onCreated(function() {
     var partupId = template.data.partupId;
     template.userIds = new ReactiveVar([]);
     template.loading = new ReactiveVar(true);
+    template.activeTab = new ReactiveVar(0);
     var currentQuery = '';
 
     template.states = {
@@ -135,6 +136,9 @@ Template.modal_invite_to_partup.helpers({
         return {
             loading: function() {
                 return template.loading.get();
+            },
+            activeTab: function() {
+                return template.activeTab.get();
             }
         };
     }
@@ -174,5 +178,8 @@ Template.modal_invite_to_partup.events({
     },
     'keyup [data-search-query-input]': function(e, template) {
         template.submitFilterForm();
+    },
+    'click [data-switch-tab]': function(event, template) {
+        template.activeTab.set($(event.currentTarget).data('switch-tab'));
     }
 });
