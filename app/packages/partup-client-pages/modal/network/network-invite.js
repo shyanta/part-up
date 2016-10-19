@@ -6,6 +6,15 @@ Template.modal_network_invite.onCreated(function() {
     template.userIds = new ReactiveVar([]);
     template.loading = new ReactiveVar(true);
 
+    template.activeTab = new ReactiveVar(0, function(prev, curr) {
+        if (prev !== curr) {
+            template.userIds.set([]);
+            template.states.paging_end_reached.set(false);
+            template.states.loading_infinite_scroll = false;
+            _.defer(function() { template.page.set(0); });
+        }
+    });
+
     template.states = {
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false)
@@ -105,6 +114,9 @@ Template.modal_network_invite.helpers({
         return {
             loading: function() {
                 return template.loading.get();
+            },
+            activeTab: function() {
+                return template.activeTab.get();
             }
         };
     }
@@ -138,5 +150,8 @@ Template.modal_network_invite.events({
     },
     'keyup [data-search-query-input]': function(e, template) {
         template.submitFilterForm();
+    },
+    'click [data-switch-tab]': function(event, template) {
+        template.activeTab.set($(event.currentTarget).data('switch-tab'));
     }
 });

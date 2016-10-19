@@ -24,6 +24,11 @@ Template.InviteToNetwork.helpers({
                         inviterName: Meteor.user().profile.name
                     })
                 };
+            },
+            classNames: function() {
+                var cNames = 'pu-form';
+                if (!template.data.nopopup) cName += ' pu-form-popup';
+                return cNames;
             }
         };
     },

@@ -8,7 +8,7 @@
         {{_ 'invite-to-partup-popup-placeholder-explaination'}}
     </p>
 
-    {{#autoForm schema=form.schema id="inviteToPartupForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=form.doc}}
+    {{#autoForm schema=form.schema id="inviteToPartupForm" class=form.classNames validation="submitThenBlur" doc=form.doc}}
         {{#MultiInviteInput formId="inviteToPartupForm" fieldName="invitees" }}
             {{#afEachArrayItem name='invitees'}}
                 <div data-inputrow="{{ afArrayFieldIsLastVisible }}" class="pu-row pu-inputrow">
