@@ -54,6 +54,8 @@ Template.modal_network_invite.onCreated(function() {
         });
     };
 
+    template.callIteration = 0;
+
     template.page = new ReactiveVar(false, function(previousPage, page) {
         var query = template.searchQuery.get() || '';
         var options = {
@@ -64,9 +66,12 @@ Template.modal_network_invite.onCreated(function() {
         };
         template.loading.set(true);
         // this meteor call still needs to be created
+        template.callIteration++;
+        var currentCallIteration = template.callIteration;
         Meteor.call('networks.user_suggestions', networkSlug, options, function(error, userIds) {
-            template.loading.set(false);
             if (query !== currentQuery) return;
+            if (currentCallIteration !== template.callIteration) return;
+            template.loading.set(false);
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }

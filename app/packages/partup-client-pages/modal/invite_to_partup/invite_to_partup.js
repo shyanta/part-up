@@ -80,6 +80,8 @@ Template.modal_invite_to_partup.onCreated(function() {
         }
     });
 
+    template.callIteration = 0;
+
     template.page = new ReactiveVar(false, function(previousPage, page) {
         if (page === 'reset') return;
         var query = template.searchQuery.get() || '';
@@ -92,9 +94,12 @@ Template.modal_invite_to_partup.onCreated(function() {
         };
         template.loading.set(true);
         // this meteor call still needs to be created
+        template.callIteration++;
+        var currentCallIteration = template.callIteration;
         Meteor.call('partups.user_suggestions', partupId, options, function(error, userIds) {
-            template.loading.set(false);
             if (query !== currentQuery) return;
+            if (currentCallIteration !== template.callIteration) return;
+            template.loading.set(false);
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }
