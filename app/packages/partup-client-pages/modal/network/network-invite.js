@@ -30,9 +30,9 @@ Template.modal_network_invite.onCreated(function() {
             _.defer(function() { template.page.set(0); });
         }
     });
-
+    var network;
     template.subscribe('networks.one', networkSlug, function() {
-        var network = Networks.findOne({slug: networkSlug});
+        network = Networks.findOne({slug: networkSlug});
         if (!network || network.isClosedForUpper(userId)) {
             Router.pageNotFound();
         }
@@ -51,7 +51,8 @@ Template.modal_network_invite.onCreated(function() {
         var options = {
             query: query,
             limit: PAGING_INCREMENT,
-            skip: page * PAGING_INCREMENT
+            skip: page * PAGING_INCREMENT,
+            invited_in_network: template.activeTab.curValue === 2 ? network._id : undefined
         };
         template.loading.set(true);
         // this meteor call still needs to be created
