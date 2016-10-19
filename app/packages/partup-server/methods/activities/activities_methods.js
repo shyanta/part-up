@@ -357,16 +357,6 @@ Meteor.methods({
             throw new Meteor.Error(401, 'unauthorized');
         }
 
-        var isAlreadyInvited = !!Invites.findOne({
-            activity_id: activityId,
-            invitee_id: invitee._id,
-            inviter_id: inviter._id,
-            type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER
-        });
-        if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'user_is_already_invited_to_activity');
-        }
-
         var invite = {
             type: Invites.INVITE_TYPE_ACTIVITY_EXISTING_UPPER,
             activity_id: activity._id,
