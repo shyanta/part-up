@@ -3,7 +3,14 @@ Template.modal_invite_to_partup.onCreated(function() {
     var partupId = template.data.partupId;
     template.userIds = new ReactiveVar([]);
     template.loading = new ReactiveVar(true);
-    template.activeTab = new ReactiveVar(0);
+    template.activeTab = new ReactiveVar(0, function(prev, curr) {
+        if (prev !== curr) {
+            template.userIds.set([]);
+            template.states.paging_end_reached.set(false);
+            template.states.loading_infinite_scroll = false;
+            _.defer(function() { template.page.set(0); });
+        }
+    });
     var currentQuery = '';
 
     template.states = {
@@ -70,7 +77,8 @@ Template.modal_invite_to_partup.onCreated(function() {
             query: query,
             limit: PAGING_INCREMENT,
             skip: page * PAGING_INCREMENT,
-            network: template.selectedNetwork.get()
+            network: template.selectedNetwork.get(),
+            invited_in_partup: template.activeTab.curValue === 2 ? partupId : undefined
         };
         template.loading.set(true);
         // this meteor call still needs to be created

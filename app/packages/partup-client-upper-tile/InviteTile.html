@@ -42,32 +42,47 @@
                 </ul>
             </article>
             <footer>
-                <button {{state.inviteButtonType}} type="button"
-                    class="pu-button
-                        {{#if state.alreadyPartner }}
-                            pu-button-positivestate
-                        {{ else }}
-                            {{# if state.inviteSent }}
-                                pu-button-success
-                            {{/ if }}
-                        {{/ if }}
-                        {{# if state.inviteLoadingForUser }}
-                            pu-state-loading pu-state-disabled
-                        {{/ if }}">
-                    <span>
-                        {{# if state.alreadyPartner }}
-                            {{_ 'pages-modal-invite_to_partup-button-already-partner' }}
-                        {{ else }}
-                            {{# if state.inviteSent }}
-                                {{_ 'pages-modal-invite_to_partup-button-invited-upper' }}
+                {{#if reinvite}}
+                    <button {{state.inviteButtonType}} data-reinvite type="button"
+                        class="pu-button {{# if state.inviteLoadingForUser }}pu-state-loading pu-state-disabled{{/ if }} {{# if state.reInviteSent }}pu-button-success{{/ if }}">
+                        <span>
+                            {{#if state.reInviteSent}}
+                                Re-invited
+                            {{else}}
+                                Re-send invite
+                            {{/if}}
+                        </span>
+                        <i class="picon-check pu-sub-success"></i>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                {{else}}
+                    <button {{state.inviteButtonType}} type="button"
+                        class="pu-button
+                            {{#if state.alreadyPartner }}
+                                pu-button-positivestate
                             {{ else }}
-                                {{_ 'pages-modal-invite_to_partup-button-invite-upper' }}
+                                {{# if state.inviteSent }}
+                                    pu-button-success
+                                {{/ if }}
                             {{/ if }}
-                        {{/ if }}
-                    </span>
-                    <i class="picon-check pu-sub-success"></i>
-                    {{> Spinner color='inverted' type='small' }}
-                </button>
+                            {{# if state.inviteLoadingForUser }}
+                                pu-state-loading pu-state-disabled
+                            {{/ if }}">
+                        <span>
+                            {{# if state.alreadyPartner }}
+                                {{_ 'pages-modal-invite_to_partup-button-already-partner' }}
+                            {{ else }}
+                                {{# if state.inviteSent }}
+                                    {{_ 'pages-modal-invite_to_partup-button-invited-upper' }}
+                                {{ else }}
+                                    {{_ 'pages-modal-invite_to_partup-button-invite-upper' }}
+                                {{/ if }}
+                            {{/ if }}
+                        </span>
+                        <i class="picon-check pu-sub-success"></i>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                {{/if}}
             </footer>
         {{/if}}
     </article>

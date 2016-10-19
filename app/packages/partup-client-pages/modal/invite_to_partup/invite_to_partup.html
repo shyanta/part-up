@@ -11,24 +11,21 @@
             <div class="pu-wrap pu-wrap-modal">
                 <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-invite_to_partup-title'}}</h2>
                 <p class="pu-description-modal">{{_ 'pages-modal-invite_to_partup-explanation'}}</p>
-               <!--  <a class="pu-button pu-button-text pu-button-text-underline pu-button-no-side-padding" href="#" data-popup="popup.invite-to-partup">
-                    <i class="picon-caret-slim-right"></i>{{_ 'pages-modal-invite_to_partup-button_invite' }}
-                </a> -->
                 <nav class="pu-navigation pu-navigation-header pu-navigation-tabs">
                     <ul class="pu-list pu-list-horizontal">
                         <li>
                             <button data-switch-tab="0" class="pu-button pu-button-nav pu-button-nav-secondary {{#if partupEquals state.activeTab 0}}pu-state-active{{/if}}">
-                                Invite on Part-up
+                                {{_ 'pages-modal-invite_to_partup-tab-label-invite' }}
                             </button>
                         </li>
                         <li>
                             <button data-switch-tab="1" class="pu-button pu-button-nav pu-button-nav-secondary {{#if partupEquals state.activeTab 1}}pu-state-active{{/if}}">
-                                Invite by email
+                                {{_ 'pages-modal-invite_to_partup-tab-label-email' }}
                             </button>
                         </li>
                         <li>
                             <button data-switch-tab="2" class="pu-button pu-button-nav pu-button-nav-secondary {{#if partupEquals state.activeTab 2}}pu-state-active{{/if}}">
-                                Pending invites
+                                {{_ 'pages-modal-invite_to_partup-tab-label-pending' }}
                             </button>
                         </li>
                     </ul>
@@ -99,7 +96,7 @@
                             <ul>
                                 {{# each data.suggestionIds }}
                                     <li>
-                                        {{> InviteTile userId=. partupId=data.partupId highlight=data.textsearch }}
+                                        {{> InviteTile userId=. partupId=data.partupId highlight=data.textsearch reinvite=true}}
                                     </li>
                                 {{/ each }}
                             </ul>

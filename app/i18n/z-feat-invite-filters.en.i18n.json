@@ -2,5 +2,9 @@
     "pages-modal-invite_to_activity-search-label": "View",
     "pages-modal-invite_to_activity-filter-label": "in",
     "pages-modal-invite_to_partup-search-label": "View",
-    "pages-modal-invite_to_partup-filter-label": "in"
+    "pages-modal-invite_to_partup-filter-label": "in",
+    "pages-modal-invite_to_partup-tab-label-invite": "Invite on Part-up",
+    "pages-modal-invite_to_partup-tab-label-email": "Invite by email",
+    "pages-modal-invite_to_partup-tab-label-pending": "Pending invites",
+    "pages-modal-partup_invite-pending-placeholder": "No pending invites"
 }
