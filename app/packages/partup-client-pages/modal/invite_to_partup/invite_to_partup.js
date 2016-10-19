@@ -3,12 +3,21 @@ Template.modal_invite_to_partup.onCreated(function() {
     var partupId = template.data.partupId;
     template.userIds = new ReactiveVar([]);
     template.loading = new ReactiveVar(true);
+
+    var resetPage = function() {
+        _.defer(function() {
+            template.page.set('reset');
+            _.defer(function() { template.page.set(0); });
+        });
+    };
+
     template.activeTab = new ReactiveVar(0, function(prev, curr) {
         if (prev !== curr) {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            template.searchQuery.set('');
+            resetPage();
         }
     });
     var currentQuery = '';
@@ -24,7 +33,7 @@ Template.modal_invite_to_partup.onCreated(function() {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            resetPage();
         }
     });
 
@@ -67,11 +76,12 @@ Template.modal_invite_to_partup.onCreated(function() {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            resetPage();
         }
     });
 
     template.page = new ReactiveVar(false, function(previousPage, page) {
+        if (page === 'reset') return;
         var query = template.searchQuery.get() || '';
         var options = {
             query: query,
@@ -83,8 +93,8 @@ Template.modal_invite_to_partup.onCreated(function() {
         template.loading.set(true);
         // this meteor call still needs to be created
         Meteor.call('partups.user_suggestions', partupId, options, function(error, userIds) {
-            if (query !== currentQuery) return;
             template.loading.set(false);
+            if (query !== currentQuery) return;
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }

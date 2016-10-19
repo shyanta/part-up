@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </form>
-                        <p>{{_ 'pages-modal-network_invite-suggestions-label' }}</p>
+                        <p class='pu-invite-suggestions-label'>{{_ 'pages-modal-network_invite-reinvite-suggestions-label' }}</p>
                         {{#if data.suggestionIds.length}}
                             <ul>
                                 {{# each data.suggestionIds }}
@@ -79,7 +79,7 @@
                     <!-- Pending invites -->
 
                     {{#if partupEquals state.activeTab 2}}
-                        <p>{{_ 'pages-modal-network_invite-suggestions-label' }}</p>
+                        <p class='pu-invite-suggestions-label'>{{_ 'pages-modal-network_invite-reinvite-suggestions-label' }}</p>
                         {{#if data.suggestionIds.length}}
                             <ul>
                                 {{# each data.suggestionIds }}
@@ -93,7 +93,7 @@
                             {{#if state.loading}}
                                 {{> Spinner}}
                             {{else}}
-                                <p class="pu-sub-placeholder">{{_ 'pages-modal-network_invite-suggestions-placeholder'}}</p>
+                                <p class="pu-sub-placeholder">{{_ 'pages-modal-network_invite-reinvite-suggestions-placeholder'}}</p>
                             {{/if}}
                         {{/unless}}
                     {{/if}}

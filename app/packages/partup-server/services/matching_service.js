@@ -62,7 +62,6 @@ Partup.server.services.matching = {
         var partup = Partups.findOneOrFail(partupId);
         var tags = partup.tags || [];
         var uppers = partup.uppers || [];
-        console.log('hoi7')
         return this.findMatchingUppers(searchOptions, tags, uppers);
     },
 

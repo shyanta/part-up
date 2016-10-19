@@ -6,12 +6,20 @@ Template.modal_network_invite.onCreated(function() {
     template.userIds = new ReactiveVar([]);
     template.loading = new ReactiveVar(true);
 
+    var resetPage = function() {
+        _.defer(function() {
+            template.page.set('reset');
+            _.defer(function() { template.page.set(0); });
+        });
+    };
+
     template.activeTab = new ReactiveVar(0, function(prev, curr) {
         if (prev !== curr) {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            template.searchQuery.set('');
+            resetPage();
         }
     });
 
@@ -27,7 +35,7 @@ Template.modal_network_invite.onCreated(function() {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            resetPage();
         }
     });
     var network;
@@ -57,8 +65,8 @@ Template.modal_network_invite.onCreated(function() {
         template.loading.set(true);
         // this meteor call still needs to be created
         Meteor.call('networks.user_suggestions', networkSlug, options, function(error, userIds) {
-            if (query !== currentQuery) return;
             template.loading.set(false);
+            if (query !== currentQuery) return;
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
             }
