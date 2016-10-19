@@ -62,7 +62,7 @@ Partup.server.services.matching = {
         var partup = Partups.findOneOrFail(partupId);
         var tags = partup.tags || [];
         var uppers = partup.uppers || [];
-
+        console.log('hoi7')
         return this.findMatchingUppers(searchOptions, tags, uppers);
     },
 
@@ -82,7 +82,6 @@ Partup.server.services.matching = {
      */
     findMatchingUppers: function(searchOptions, tags, excludedUppers) {
         var selector = {};
-
         // Exclude the current logged in user from the results
         selector['_id'] = {$nin: [Meteor.userId()]};
 
@@ -163,14 +162,9 @@ Partup.server.services.matching = {
         var results = Meteor.users.findActiveUsers(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)
-        if (!searchOptions.query) {
-            var iteration = 0;
-            while (results.length === 0) {
-                if (iteration === 0) delete selector['profile.tags'];
-
-                results = Meteor.users.findActiveUsers(selector, options).fetch();
-                iteration++;
-            }
+        if (!searchOptions.query && results.length === 0) {
+            delete selector['profile.tags'];
+            results = Meteor.users.findActiveUsers(selector, options).fetch();
         }
 
         return results;
