@@ -1,7 +1,11 @@
 <template name="InviteToPartup">
-    {{#contentFor "PopupTitle"}}
-        {{_ 'invite-to-partup-popup-title'}}
-    {{/contentFor}}
+    {{#if nopopup}}
+        <p class='pu-invite-suggestions-label'>{{_ 'invite-to-partup-popup-title'}}</p>
+    {{else}}
+        {{#contentFor "PopupTitle"}}
+            {{_ 'invite-to-partup-popup-title'}}
+        {{/contentFor}}
+    {{/if}}
 
     <p>
         {{_ 'invite-to-partup-popup-explaination'}}<br/><br/>

@@ -1,7 +1,11 @@
 <template name="InviteToNetwork">
-    {{#contentFor "PopupTitle"}}
-        {{_ 'invite-to-network-popup-title'}}
-    {{/contentFor}}
+    {{#if nopopup}}
+        <p class='pu-invite-suggestions-label'>{{_ 'invite-to-network-popup-title'}}</p>
+    {{else}}
+        {{#contentFor "PopupTitle"}}
+            {{_ 'invite-to-network-popup-title'}}
+        {{/contentFor}}
+    {{/if}}
 
     <p>
         {{_ 'invite-to-network-popup-explaination'}}<br/><br/>
