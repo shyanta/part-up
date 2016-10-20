@@ -31,6 +31,7 @@ Partup.server.services.matching = {
      * @param {String} networkSlug
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
+     * @param {String} searchOptions.invited_in_network
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      *
@@ -51,6 +52,7 @@ Partup.server.services.matching = {
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
      * @param {String} searchOptions.network
+     * @param {String} searchOptions.invited_in_partup
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      *
@@ -60,7 +62,6 @@ Partup.server.services.matching = {
         var partup = Partups.findOneOrFail(partupId);
         var tags = partup.tags || [];
         var uppers = partup.uppers || [];
-
         return this.findMatchingUppers(searchOptions, tags, uppers);
     },
 
@@ -70,6 +71,8 @@ Partup.server.services.matching = {
      * @param {Object} searchOptions
      * @param {String} searchOptions.query
      * @param {String} searchOptions.network
+     * @param {String} searchOptions.invited_in_network
+     * @param {String} searchOptions.invited_in_partup
      * @param {Number} searchOptions.limit
      * @param {Number} searchOptions.skip
      * @param {[String]} tags
@@ -78,7 +81,6 @@ Partup.server.services.matching = {
      */
     findMatchingUppers: function(searchOptions, tags, excludedUppers) {
         var selector = {};
-
         // Exclude the current logged in user from the results
         selector['_id'] = {$nin: [Meteor.userId()]};
 
@@ -112,6 +114,28 @@ Partup.server.services.matching = {
             selector['_id'] = {$nin: excludedUppers};
         }
 
+        // Apply invited filter for network
+        if (searchOptions.invited_in_network) {
+            var network_invited = lodash.unique(Invites.find({
+                type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+                network_id: searchOptions.invited_in_network
+            }).map(function(invited) {
+                return invited.invitee_id;
+            }));
+            selector['_id'] = {$in: network_invited};
+        }
+
+        // Apply invited filter for partup
+        if (searchOptions.invited_in_partup) {
+            var invited = lodash.unique(Invites.find({
+                type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER,
+                partup_id: searchOptions.invited_in_partup
+            }).map(function(invited) {
+                return invited.invitee_id;
+            }));
+            selector['_id'] = {$in: invited};
+        }
+
         // Apply networks filter
         if (searchOptions.network == 'all') {
             // Get IDs of all public networks
@@ -137,14 +161,9 @@ Partup.server.services.matching = {
         var results = Meteor.users.findActiveUsers(selector, options).fetch();
 
         // If there are no results, we remove some matching steps (only when no search options were provided)
-        if (!searchOptions.query) {
-            var iteration = 0;
-            while (results.length === 0) {
-                if (iteration === 0) delete selector['profile.tags'];
-
-                results = Meteor.users.findActiveUsers(selector, options).fetch();
-                iteration++;
-            }
+        if (!searchOptions.query && results.length === 0) {
+            delete selector['profile.tags'];
+            results = Meteor.users.findActiveUsers(selector, options).fetch();
         }
 
         return results;

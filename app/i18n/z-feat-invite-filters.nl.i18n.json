@@ -2,5 +2,13 @@
     "pages-modal-invite_to_activity-search-label": "Zoek",
     "pages-modal-invite_to_activity-filter-label": "in",
     "pages-modal-invite_to_partup-search-label": "Zoek",
-    "pages-modal-invite_to_partup-filter-label": "in"
+    "pages-modal-invite_to_partup-filter-label": "in",
+    "pages-modal-invite_to_partup-tab-label-invite": "Uitnodigen via Part-up",
+    "pages-modal-invite_to_partup-tab-label-email": "Uitnodigen via email",
+    "pages-modal-invite_to_partup-tab-label-pending": "Openstaande uitnodigingen",
+    "pages-modal-partup_invite-pending-placeholder": "Geen openstaande uitnodigingen",
+    "pages-modal-partup_invite-reinvite-suggestions-label": "Al uitgenodigde uppers",
+    "pages-modal-partup_invite-reinvite-suggestions-placeholder": "Geen openstaande uitnodigingen",
+    "pages-modal-network_invite-reinvite-suggestions-label": "Al uitgenodigde uppers",
+    "pages-modal-network_invite-reinvite-suggestions-placeholder": "Geen openstaande uitnodigingen"
 }

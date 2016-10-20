@@ -1,7 +1,12 @@
 <template name="InviteToActivity">
-    {{#contentFor "PopupTitle"}}
-        {{_ 'invite-to-activity-popup-title'}}
-    {{/contentFor}}
+
+    {{#if nopopup}}
+        <p class='pu-invite-suggestions-label'>{{_ 'invite-to-activity-popup-title'}}</p>
+    {{else}}
+        {{#contentFor "PopupTitle"}}
+            {{_ 'invite-to-activity-popup-title'}}
+        {{/contentFor}}
+    {{/if}}
 
     <p>
         {{_ 'invite-to-activity-popup-explaination'}}<br/><br/>

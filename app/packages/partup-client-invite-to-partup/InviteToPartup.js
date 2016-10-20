@@ -11,6 +11,7 @@ Template.InviteToPartup.helpers({
     form: function() {
         var template = Template.instance();
         var partup = Partups.findOne(template.data.partupId);
+        if (!partup) return;
         var user = Meteor.user();
         return {
             schema: Partup.schemas.forms.inviteUpper,
@@ -21,6 +22,11 @@ Template.InviteToPartup.helpers({
                         inviterName: user.profile.name
                     })
                 };
+            },
+            classNames: function() {
+                var cNames = 'pu-form';
+                if (!template.data.nopopup) cName += ' pu-form-popup';
+                return cNames;
             }
         };
     },

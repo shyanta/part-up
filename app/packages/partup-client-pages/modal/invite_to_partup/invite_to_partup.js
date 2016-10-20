@@ -3,6 +3,23 @@ Template.modal_invite_to_partup.onCreated(function() {
     var partupId = template.data.partupId;
     template.userIds = new ReactiveVar([]);
     template.loading = new ReactiveVar(true);
+
+    var resetPage = function() {
+        _.defer(function() {
+            template.page.set('reset');
+            _.defer(function() { template.page.set(0); });
+        });
+    };
+
+    template.activeTab = new ReactiveVar(0, function(prev, curr) {
+        if (prev !== curr) {
+            template.userIds.set([]);
+            template.states.paging_end_reached.set(false);
+            template.states.loading_infinite_scroll = false;
+            template.searchQuery.set('');
+            resetPage();
+        }
+    });
     var currentQuery = '';
 
     template.states = {
@@ -16,7 +33,7 @@ Template.modal_invite_to_partup.onCreated(function() {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            resetPage();
         }
     });
 
@@ -59,22 +76,29 @@ Template.modal_invite_to_partup.onCreated(function() {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            resetPage();
         }
     });
 
+    template.callIteration = 0;
+
     template.page = new ReactiveVar(false, function(previousPage, page) {
+        if (page === 'reset') return;
         var query = template.searchQuery.get() || '';
         var options = {
             query: query,
             limit: PAGING_INCREMENT,
             skip: page * PAGING_INCREMENT,
-            network: template.selectedNetwork.get()
+            network: template.selectedNetwork.get(),
+            invited_in_partup: template.activeTab.curValue === 2 ? partupId : undefined
         };
         template.loading.set(true);
         // this meteor call still needs to be created
+        template.callIteration++;
+        var currentCallIteration = template.callIteration;
         Meteor.call('partups.user_suggestions', partupId, options, function(error, userIds) {
             if (query !== currentQuery) return;
+            if (currentCallIteration !== template.callIteration) return;
             template.loading.set(false);
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
@@ -135,6 +159,9 @@ Template.modal_invite_to_partup.helpers({
         return {
             loading: function() {
                 return template.loading.get();
+            },
+            activeTab: function() {
+                return template.activeTab.get();
             }
         };
     }
@@ -174,5 +201,8 @@ Template.modal_invite_to_partup.events({
     },
     'keyup [data-search-query-input]': function(e, template) {
         template.submitFilterForm();
+    },
+    'click [data-switch-tab]': function(event, template) {
+        template.activeTab.set($(event.currentTarget).data('switch-tab'));
     }
 });

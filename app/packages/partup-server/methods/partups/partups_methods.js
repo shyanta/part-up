@@ -340,16 +340,6 @@ Meteor.methods({
 
         var invitee = Meteor.users.findOneOrFail(inviteeId);
 
-        var isAlreadyInvited = !!Invites.findOne({
-            partup_id: partup._id,
-            invitee_id: invitee._id,
-            inviter_id: inviter._id,
-            type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER
-        });
-        if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'user_is_already_invited_to_partup');
-        }
-
         var invite = {
             type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER,
             partup_id: partup._id,
@@ -434,10 +424,11 @@ Meteor.methods({
     /**
      * Get user suggestions for a given partup
      *
-     * @param {string} partupId
+     * @param {String} partupId
      * @param {Object} options
-     * @param {string} options.query
-     * @param {string} options.network
+     * @param {String} options.query
+     * @param {String} options.invited_in_partup
+     * @param {String} options.network
      * @param {Number} options.limit
      * @param {Number} options.skip
      *
@@ -448,6 +439,7 @@ Meteor.methods({
         check(options, {
             query: Match.Optional(String),
             network: Match.Optional(String),
+            invited_in_partup: Match.Optional(String),
             limit: Match.Optional(Number),
             skip: Match.Optional(Number)
         });

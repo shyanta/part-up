@@ -66,6 +66,8 @@ Template.modal_invite_to_activity.onCreated(function() {
         }
     });
 
+    template.callIteration = 0;
+
     template.page = new ReactiveVar(false, function(previousPage, page) {
         var query = template.searchQuery.get() || '';
         var options = {
@@ -76,8 +78,11 @@ Template.modal_invite_to_activity.onCreated(function() {
         };
         template.loading.set(true);
         // this meteor call still needs to be created
+        template.callIteration++;
+        var currentCallIteration = template.callIteration;
         Meteor.call('activities.user_suggestions', activityId, options, function(error, userIds) {
             if (query !== currentQuery) return;
+            if (currentCallIteration !== template.callIteration) return;
             template.loading.set(false);
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
