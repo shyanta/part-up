@@ -1,3 +1,22 @@
+<a name="1.23.0"></a>
+# [1.23.0](https://github.com/part-up/part-up/compare/1.22.2...1.23.0) (2016-10-04)
+
+
+### Bug Fixes
+
+* **activities:** fixes the "Exception while simulating the effect of invoking 'activities.insert'" bug while adding activities during startup creation [#678](https://github.com/part-up/part-up/issues/678) ([69bcd60](https://github.com/part-up/part-up/commit/69bcd60))
+* **chat:** wait for chatId to fix [#680](https://github.com/part-up/part-up/issues/680) ([d95fc22](https://github.com/part-up/part-up/commit/d95fc22))
+* **columnslayout:** fixed another exception ([9cf947f](https://github.com/part-up/part-up/commit/9cf947f))
+* **columnslayout:** return empty array instead of throwing an error every time ([1cb91ef](https://github.com/part-up/part-up/commit/1cb91ef))
+* **discover-page:** remove the recommendation button for now due testing phase ([fb8c234](https://github.com/part-up/part-up/commit/fb8c234))
+* **errors:** fixed the 'Exception in template helper: [sprintf] expecting number but found undefined' error ([4e6af60](https://github.com/part-up/part-up/commit/4e6af60))
+* **recommend-page:** also handles empty partupIds case ([3a071e6](https://github.com/part-up/part-up/commit/3a071e6))
+* **recommend-page:** let the route handle all var and undefined values ([5cfdeb5](https://github.com/part-up/part-up/commit/5cfdeb5)), closes [#324](https://github.com/part-up/part-up/issues/324)
+* **recommend-page:** make tiles width same as discover page ([ea65ac4](https://github.com/part-up/part-up/commit/ea65ac4))
+* **recommend-page:** returning 3 columns and narrow padding top ([8255395](https://github.com/part-up/part-up/commit/8255395))
+
+
+
 <a name="1.22.2"></a>
 ## [1.22.2](https://github.com/part-up/part-up/compare/1.22.1...1.22.2) (2016-09-26)
 
