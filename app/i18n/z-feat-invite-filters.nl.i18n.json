@@ -10,5 +10,10 @@
     "pages-modal-partup_invite-reinvite-suggestions-label": "Al uitgenodigde uppers",
     "pages-modal-partup_invite-reinvite-suggestions-placeholder": "Geen openstaande uitnodigingen",
     "pages-modal-network_invite-reinvite-suggestions-label": "Al uitgenodigde uppers",
-    "pages-modal-network_invite-reinvite-suggestions-placeholder": "Geen openstaande uitnodigingen"
+    "pages-modal-network_invite-reinvite-suggestions-placeholder": "Geen openstaande uitnodigingen",
+    "pages-modal-invite_to_partup-filter-option-all-tribes": "Alle tribes",
+    "pages-modal-invite_to_activity-filter-option-all-tribes": "Alle tribes",
+    "pages-modal-network_invite-tab-label-invite": "Uitnodigen via part-up",
+    "pages-modal-network_invite-tab-label-email": "Uitnodigen via e-mail",
+    "pages-modal-network_invite-tab-label-pending": "Openstaande uitnodigingen"
 }

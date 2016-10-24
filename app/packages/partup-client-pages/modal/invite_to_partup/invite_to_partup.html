@@ -55,7 +55,7 @@
                                     <div class="cell">
                                         <div class="pu-sub-input pu-sub-input-large pu-sub-input-select">
                                             <select name="" id="" class="pu-input pu-input-filter" data-filter-tribe>
-                                                <option value="all">Alle tribes</option>
+                                                <option value="all">{{_ 'pages-modal-invite_to_partup-filter-option-all-tribes'}}</option>
                                                 {{#each data.userTribes}}
                                                     <option value="{{slug}}" selected="{{ partupEquals data.partup.network_id _id }}">{{name}}</option>
                                                 {{/each}}
