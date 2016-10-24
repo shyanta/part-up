@@ -9,7 +9,8 @@
         "analyticsSettings": {
             "Google Analytics": {
                 "trackingId": "UA-34557675-15"
-            }
+            },
+            "autorun": false
         },
         "secondGATracker": "UA-34557675-17",
         "intercom": {

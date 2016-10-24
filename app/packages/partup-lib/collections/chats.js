@@ -97,12 +97,29 @@ Chat.prototype.addUserToCounter = function(userId) {
  * @param {String} creatorUserId the id of the creator of a message
  */
 Chat.prototype.incrementCounter = function(creatorUserId) {
-    var counter = Chats.findOneOrFail(this._id).counter;
-    counter.forEach(function(counter) {
+    var chat = Chats.findOneOrFail(this._id);
+
+    // The counter array is sporadically empty, so fix that
+    if (chat.counter.length < 1) {
+        var chatUppers = Meteor.users.find({chats: {$in: [this._id]}}, {fields: {_id: 1}}).map(function(upper) {
+            return upper._id;
+        });
+
+        var self = this;
+        chatUppers.forEach(function(upperId) {
+            self.addUserToCounter(upperId);
+        });
+
+        // Re-fetch chat object for further operations
+        chat = Chats.findOneOrFail(this._id);
+    }
+
+    chat.counter.forEach(function(counter) {
         if (counter.user_id === creatorUserId) return;
         counter.unread_count++
     });
-    Chats.update(this._id, {$set: {counter: counter}});
+
+    Chats.update(this._id, {$set: {counter: chat.counter}});
 };
 
 /**

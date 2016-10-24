@@ -53,17 +53,6 @@ Partup.server.services.notifications = {
         }; // all devices
         var n = new NotificationModel(notification);
         var message = n.getText(function(key, data) {
-
-            // Issue #436
-            if (key === 'notification-partups_archived') {
-                key = 'notification-partup_archived_by_upper';
-            }
-            if (key === 'notification-partups_unarchived') {
-                key = 'notification-partup_unarchived_by_upper';
-            }
-
-            key = 'dropdown-' + key; // Issue #437
-
             return TAPi18n.__(key, data.replace);
         });
 

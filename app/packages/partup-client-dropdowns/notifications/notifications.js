@@ -58,10 +58,11 @@ Template.DropdownNotifications.helpers({
         return Template.instance().dropdownOpen.get();
     },
     notifications: function() {
+        var user = Meteor.user();
         var limit = Template.instance().limit.get();
         var parameters = {sort: {created_at: -1}, limit: limit};
-        var shownNotifications = Notifications.findForUser(Meteor.user(), {}, parameters);
-        var totalNotifications = Notifications.findForUser(Meteor.user()).count();
+        var shownNotifications = Notifications.findForUser(user, {}, parameters);
+        var totalNotifications = (Notifications.findForUser(user) || {count: function() {return 0;}}) .count();
         return {
             data: function() {
                 return shownNotifications;

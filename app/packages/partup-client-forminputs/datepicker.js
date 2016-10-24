@@ -34,5 +34,15 @@ Template.DatePicker.events({
         event.preventDefault();
         event.stopPropagation();
         return false;
+    },
+    'click tbody': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    },
+    'click tr': function(event, template) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
     }
 });

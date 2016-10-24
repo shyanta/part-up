@@ -1,5 +1,5 @@
 .pu-datepicker
-    cursor: pointer
+    pointer-events: none
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button,
     &::-webkit-calendar-picker-indicator
@@ -31,6 +31,10 @@
 
     div
         padding: 0
+
+    td, th
+        &:not(.disabled)
+            pointer-events: auto
 
     table
         thead

@@ -118,7 +118,6 @@ service-configuration
 session
 simple:rest
 spacebars
-splendido:accounts-meld
 standard-minifiers
 stevezhu:lodash@3.10.1
 tap:i18n

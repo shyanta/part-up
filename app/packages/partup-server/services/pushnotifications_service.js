@@ -71,36 +71,37 @@ Partup.server.services.pushnotifications = {
      * @param collapseKey {String} - collapse notifications with the same collapseKey
      */
     send: function(userIds, filterDevices, message, payload, collapseKey) {
-        userIds.forEach(function(id) {
-            var user = Meteor.users.findOne(id);
-            check(user, Object);
+        Meteor.defer(function() {
+            userIds.forEach(function(id) {
+                var user = Meteor.users.findOne(id);
+                check(user, Object);
 
-            var devices = (user.push_notification_devices || [])
-                .filter(function(device) {
-                    if (!filterDevices) return true;
-                    return filterDevices(device, user);
-                });
+                var devices = (user.push_notification_devices || [])
+                    .filter(function(device) {
+                        if (!filterDevices) return true;
+                        return filterDevices(device, user);
+                    });
 
-            if (devices.length > 0) {
+                if (devices.length > 0) {
 
-                var badgeForAppVersion = {};
-                devices.forEach(function(device) {
-                    if (device.platform === 'iOS') {
-                        if (typeof badgeForAppVersion[device.appVersion] === 'undefined') {
-                            badgeForAppVersion[device.appVersion] = User(user).calculateIosAppBadge(device.appVersion);
+                    var badgeForAppVersion = {};
+                    devices.forEach(function(device) {
+                        if (device.platform === 'iOS') {
+                            if (typeof badgeForAppVersion[device.appVersion] === 'undefined') {
+                                badgeForAppVersion[device.appVersion] = User(user).calculateIosAppBadge(device.appVersion);
+                            }
+
+                            if (sendApnNotification) {
+                                sendApnNotification(device, user, message, payload, badgeForAppVersion[device.appVersion] || 1);
+                            }
+                        } else if (device.platform === 'Android') {
+                            if (sendGcmNotification) {
+                                sendGcmNotification(device, user, message, payload, collapseKey);
+                            }
                         }
-
-                        if (sendApnNotification) {
-                            sendApnNotification(device, user, message, payload, badgeForAppVersion[device.appVersion] || 1);
-                        }
-                    } else if (device.platform === 'Android') {
-                        if (sendGcmNotification) {
-                            sendGcmNotification(device, user, message, payload, collapseKey);
-                        }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     }
-
 };

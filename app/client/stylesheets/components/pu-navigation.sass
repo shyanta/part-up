@@ -44,6 +44,26 @@
         background-color: transparent
         padding-left: 0
 
+    &-tabs
+        white-space: nowrap
+        position: relative
+
+        .pu-button
+            padding-bottom: 20px
+
+            &.pu-state-active
+                color: $color-primary
+                border-color: $color-primary
+
+        &:after
+            content: ''
+            height: 2px
+            background-color: #eee
+            position: absolute
+            left: -40px
+            right: -40px
+            bottom: 0
+
     &-full
 
         .pu-list-horizontal

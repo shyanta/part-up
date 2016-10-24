@@ -235,8 +235,7 @@ Meteor.methods({
     /**
      * Unfeature a specific partup (superadmin only)
      *
-     * @param {string} kId
-     * @param {mixed[]} fields
+     * @param {string} partupId
      */
     'partups.unfeature': function(partupId) {
         check(partupId, String);
@@ -341,16 +340,6 @@ Meteor.methods({
 
         var invitee = Meteor.users.findOneOrFail(inviteeId);
 
-        var isAlreadyInvited = !!Invites.findOne({
-            partup_id: partup._id,
-            invitee_id: invitee._id,
-            inviter_id: inviter._id,
-            type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER
-        });
-        if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'user_is_already_invited_to_partup');
-        }
-
         var invite = {
             type: Invites.INVITE_TYPE_PARTUP_EXISTING_UPPER,
             partup_id: partup._id,
@@ -435,9 +424,11 @@ Meteor.methods({
     /**
      * Get user suggestions for a given partup
      *
-     * @param {string} partupId
+     * @param {String} partupId
      * @param {Object} options
-     * @param {string} options.query
+     * @param {String} options.query
+     * @param {String} options.invited_in_partup
+     * @param {String} options.network
      * @param {Number} options.limit
      * @param {Number} options.skip
      *
@@ -447,6 +438,8 @@ Meteor.methods({
         check(partupId, String);
         check(options, {
             query: Match.Optional(String),
+            network: Match.Optional(String),
+            invited_in_partup: Match.Optional(String),
             limit: Match.Optional(Number),
             skip: Match.Optional(Number)
         });
@@ -558,5 +551,115 @@ Meteor.methods({
 
         // Set the updated data
         Partups.update(partup._id, {$set: newData});
+    },
+
+    /**
+     * Insert a partner request update
+     *
+     * @param {string} partupId
+     */
+    'partups.partner_request': function(partupId) {
+        check(partupId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        var partup = Partups.findOneOrFail(partupId);
+
+        try {
+            // Check if the upper is not already a (pending) partner
+            if (partup.hasUpper(upper._id) || partup.hasPendingPartner(upper._id)) {
+                return false;
+            }
+
+            // Add upper to pending partner list
+            Partups.update(partup._id, {$push: {pending_partners: upper._id}});
+
+            // Create the update
+            var partner_update = Partup.factories.updatesFactory.make(upper._id, partup._id, 'partups_partner_request', {});
+            var updateId = Updates.insert(partner_update);
+
+            Event.emit('partups.partner_requested', upper, partup, updateId);
+
+            return updateId;
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'unable_to_partner_request');
+        }
+    },
+
+    /**
+     * Accept a partner request
+     *
+     * @param {string} updateId
+     */
+    'partups.partner_accept': function(updateId) {
+        check(updateId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        var update = Updates.findOneOrFail(updateId);
+
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+
+        var requester = Meteor.users.findOneOrFail(update.upper_id);
+        var partup = Partups.findOneOrFail(update.partup_id);
+
+        try {
+            // Remove upper from pending partner list
+            Partups.update(partup._id, {$pull: {pending_partners: update.upper_id}});
+
+            partup.makePartner(requester._id);
+
+            // Update the update type
+            Updates.update(update._id, {$set: {type: 'partups_uppers_added'}});
+
+            // Post system message
+            Partup.server.services.system_messages.send(upper, update._id, 'system_partner_accepted', {update_timestamp: false});
+
+            Event.emit('partups.partner_request.accepted', upper, partup, requester._id, update._id);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partner_request_could_not_be_accepted');
+        }
+    },
+
+    /**
+     * Reject a partner request
+     *
+     * @param {string} updateId
+     */
+    'partups.partner_reject': function(updateId) {
+        check(updateId, String);
+
+        this.unblock();
+
+        var upper = Meteor.user();
+        var update = Updates.findOneOrFail(updateId);
+
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(upper).isPartnerInPartup(update.partup_id)) throw new Meteor.Error(401, 'unauthorized');
+
+        var partup = Partups.findOneOrFail(update.partup_id);
+
+        try {
+            // Remove upper from pending partner list
+            Partups.update(partup._id, {$pull: {pending_partners: update.upper_id}});
+
+            // Update the update type
+            Updates.update(update._id, {$set: {type: 'partups_partner_rejected'}});
+
+            // Post system message
+            Partup.server.services.system_messages.send(upper, update._id, 'system_partner_rejected', {update_timestamp: false});
+
+            Event.emit('partups.partner_request.rejected', upper, update.partup_id, update.upper_id, update._id);
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partner_request_could_not_be_rejected');
+        }
     }
 });

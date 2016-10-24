@@ -1,10 +1,10 @@
 .pu-filterbar
     white-space: nowrap
-    > .pu-sub-input
+    .pu-sub-input
         max-width: 120px
 
-    > .pu-sub-label,
-    > .pu-sub-input
+    .pu-sub-label,
+    .pu-sub-input
         margin-left: 10px
         position: relative
         display: inline-block
@@ -29,7 +29,7 @@
             &:hover
                 color: $color-text
 
-    > .pu-sub-label
+    .pu-sub-label
         font-size: 16px
         font-weight: bold
         line-height: 43px
@@ -39,42 +39,52 @@
         display: block
         clear: both
 
-    > .pu-sub-submit
+    .pu-sub-submit
         display: none
 
     .pu-modal &
         margin: 20px 0
         padding: 20px
         border-radius: 5px
-        background: #eee
+        // background: #eee
 
     @media screen and (min-width: grid(12))
-        > .pu-sub-input
+        .pu-sub-input
             max-width: 150px
 
-        > .pu-sub-label,
-        > .pu-sub-input
+        .pu-sub-label,
+        .pu-sub-input
             margin-left: 20px
 
     // This min-width value should depend on the filterbar with the biggest content
     @media screen and (min-width: 1032px)
-        > .pu-sub-label
+        .pu-sub-label
             font-size: 18px
 
     &-large
-        > .pu-sub-input-large
+        .pu-sub-input
+            max-width: 100%
+            width: 100%
+
+        .pu-sub-label
+            margin-left: 12px
+        .pu-sub-input-large
             max-width: 100%
 
             .pu-input
-                padding: 12px 43px;
+                padding: 12px 43px
+
 
             .picon-search
                 position: absolute
                 top: 14px
                 left: 18px
 
+        .pu-sub-input-select
+            // width: 200px
+
         .pu-modal &
-            margin: 26px -40px 20px -40px
+            margin: 0px -40px 20px -40px
             padding: 20px 40px
 
 

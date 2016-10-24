@@ -1,8 +1,3 @@
-var Subs = new SubsManager({
-    cacheLimit: 1,
-    expireIn: 10
-});
-
 /**
  * Updates created
  */
@@ -59,7 +54,6 @@ Template.app_partup_updates.onCreated(function() {
         // Options reactive variable (on change, update the whole view model)
         options: new ReactiveVar({}, function(a, b) {
             tpl.updates.resetLimit();
-
             var options = b;
             options.limit = tpl.updates.limit.get();
 
@@ -79,7 +73,7 @@ Template.app_partup_updates.onCreated(function() {
         }),
 
         // Filter reactive variable (on change, set value to the tpl.options reactive var)
-        filter: new ReactiveVar('default', function(oldFilter, newFilter) {
+        filter: new ReactiveVar('messages', function(oldFilter, newFilter) {
             var options = tpl.updates.options.get();
             options.filter = newFilter;
             tpl.updates.options.set(options);
@@ -138,7 +132,7 @@ Template.app_partup_updates.onCreated(function() {
     });
 
     // First run
-    tpl.updates.options.set({});
+    tpl.updates.options.set({filter: 'messages'});
 });
 
 /**

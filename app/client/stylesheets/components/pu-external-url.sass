@@ -1,39 +1,21 @@
 li a.pu-external-url,
 p a.pu-external-url,
 .pu-external-url
+    $link-color: #57c0c9
     text-decoration: none
-    color: #57c0c9
+    color: $link-color
     position: relative
     transition: color .2s
+    border-width: 0 0 4px 0
+    border-style: solid
+    text-decoration: none
+    border-image: linear-gradient(to bottom, transparent 0%, transparent 50%, rgba($link-color, 0.2) 50%, rgba($link-color, 0.2) 100%, transparent 100%, transparent 100%) 100
 
-    &:after
-        content: ''
-        position: absolute
-        bottom: -3px
-        right: 0
-        left: 0
-        height: 2px
-        transition: bottom .2s, background-color .2s
-        background-color: lighten(#57c0c9, 30%)
-
-    &:hover,
-    &:active,
-    &:focus
-        color: #57c0c9
-        &:after
-            bottom: 0px
-            background-color: #57c0c9
+    &:hover
+        border-image: linear-gradient(to bottom, transparent 0%, transparent 0%, $link-color 0%, $link-color 50%, transparent 50%, transparent 100%) 100
 
 .pu-comment
     li a.pu-external-url,
     p a.pu-external-url,
     .pu-external-url
-        &:after
-            bottom: 0px
-            height: 1px
-
-        &:hover,
-        &:active,
-        &:focus
-            &:after
-                bottom: 1px
+        border-width: 0 0 2px 0

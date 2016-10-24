@@ -6,6 +6,23 @@ Template.modal_network_invite.onCreated(function() {
     template.userIds = new ReactiveVar([]);
     template.loading = new ReactiveVar(true);
 
+    var resetPage = function() {
+        _.defer(function() {
+            template.page.set('reset');
+            _.defer(function() { template.page.set(0); });
+        });
+    };
+
+    template.activeTab = new ReactiveVar(0, function(prev, curr) {
+        if (prev !== curr) {
+            template.userIds.set([]);
+            template.states.paging_end_reached.set(false);
+            template.states.loading_infinite_scroll = false;
+            template.searchQuery.set('');
+            resetPage();
+        }
+    });
+
     template.states = {
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false)
@@ -18,12 +35,12 @@ Template.modal_network_invite.onCreated(function() {
             template.userIds.set([]);
             template.states.paging_end_reached.set(false);
             template.states.loading_infinite_scroll = false;
-            _.defer(function() { template.page.set(0); });
+            resetPage();
         }
     });
-
+    var network;
     template.subscribe('networks.one', networkSlug, function() {
-        var network = Networks.findOne({slug: networkSlug});
+        network = Networks.findOne({slug: networkSlug});
         if (!network || network.isClosedForUpper(userId)) {
             Router.pageNotFound();
         }
@@ -37,17 +54,23 @@ Template.modal_network_invite.onCreated(function() {
         });
     };
 
+    template.callIteration = 0;
+
     template.page = new ReactiveVar(false, function(previousPage, page) {
         var query = template.searchQuery.get() || '';
         var options = {
             query: query,
             limit: PAGING_INCREMENT,
-            skip: page * PAGING_INCREMENT
+            skip: page * PAGING_INCREMENT,
+            invited_in_network: template.activeTab.curValue === 2 ? network._id : undefined
         };
         template.loading.set(true);
         // this meteor call still needs to be created
+        template.callIteration++;
+        var currentCallIteration = template.callIteration;
         Meteor.call('networks.user_suggestions', networkSlug, options, function(error, userIds) {
             if (query !== currentQuery) return;
+            if (currentCallIteration !== template.callIteration) return;
             template.loading.set(false);
             if (error) {
                 return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
@@ -105,6 +128,9 @@ Template.modal_network_invite.helpers({
         return {
             loading: function() {
                 return template.loading.get();
+            },
+            activeTab: function() {
+                return template.activeTab.get();
             }
         };
     }
@@ -138,5 +164,8 @@ Template.modal_network_invite.events({
     },
     'keyup [data-search-query-input]': function(e, template) {
         template.submitFilterForm();
+    },
+    'click [data-switch-tab]': function(event, template) {
+        template.activeTab.set($(event.currentTarget).data('switch-tab'));
     }
 });

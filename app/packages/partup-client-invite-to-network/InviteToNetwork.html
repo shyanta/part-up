@@ -1,7 +1,11 @@
 <template name="InviteToNetwork">
-    {{#contentFor "PopupTitle"}}
-        {{_ 'invite-to-network-popup-title'}}
-    {{/contentFor}}
+    {{#if nopopup}}
+        <p class='pu-invite-suggestions-label'>{{_ 'invite-to-network-popup-title'}}</p>
+    {{else}}
+        {{#contentFor "PopupTitle"}}
+            {{_ 'invite-to-network-popup-title'}}
+        {{/contentFor}}
+    {{/if}}
 
     <p>
         {{_ 'invite-to-network-popup-explaination'}}<br/><br/>
@@ -9,7 +13,7 @@
     </p>
 
 
-    {{#autoForm schema=form.schema id="inviteToNetworkForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=form.doc }}
+    {{#autoForm schema=form.schema id="inviteToNetworkForm" class=form.classNames validation="submitThenBlur" doc=form.doc }}
         {{#MultiInviteInput formId="inviteToNetworkForm" fieldName="invitees" }}
             {{#afEachArrayItem name='invitees'}}
                 <div data-inputrow="{{ afArrayFieldIsLastVisible }}" class="pu-row pu-inputrow">
@@ -59,16 +63,29 @@
             </div>
         </label>
 
-        <footer class="pu-sub-formfooter pu-row pu-row-scalable">
-            <div class="cell stretch">
-                <button type="submit" class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}">
-                    <span>{{_ 'invite-to-network-popup-form-copy-confirm'}}</span>
-                    {{> Spinner color='inverted' type='small' }}
-                </button>
-            </div>
-            <div class="cell">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'invite-to-network-popup-close'}}</a>
-            </div>
-        </footer>
+        {{#if nopopup}}
+            <footer class="pu-sub-formfooter pu-row pu-row-scalable">
+                <div class="cell stretch">
+                </div>
+                <div class="cell">
+                    <button type="submit" class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                        <span>{{_ 'invite-to-network-popup-form-copy-confirm'}}</span>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                </div>
+            </footer>
+        {{else}}
+            <footer class="pu-sub-formfooter pu-row pu-row-scalable">
+                <div class="cell stretch">
+                    <button type="submit" class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                        <span>{{_ 'invite-to-network-popup-form-copy-confirm'}}</span>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                </div>
+                <div class="cell">
+                    <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'invite-to-network-popup-close'}}</a>
+                </div>
+            </footer>
+        {{/if}}
     {{/autoForm}}
 </template>

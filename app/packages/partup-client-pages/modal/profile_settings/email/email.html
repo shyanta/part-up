@@ -94,6 +94,15 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <p class="pu-sub-name">{{_ 'modal-profilesettings-email-partups_partner_request' }}</p>
+                <div class="pu-sub-actions">
+                    <div class="pu-switch {{#if email.partups_partner_request}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
+                        <button type="button" class="pu-button pu-button-checkmark pu-button-checkmark-confirm" data-enable="partups_partner_request"> <i class="picon-check"></i> </button>
+                        <button type="button" class="pu-button pu-button-checkmark pu-button-checkmark-deny" data-disable="partups_partner_request"> <i class="picon-times"></i> </button>
+                    </div>
+                </div>
+            </li>
 
             <!-- for tribe admins only-->
             {{#if isSomeNetworkAdmin}}

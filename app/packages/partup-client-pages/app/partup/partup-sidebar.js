@@ -51,14 +51,6 @@ Template.app_partup_sidebar.helpers({
         return partup;
     },
 
-    showInviteButton: function() {
-
-        var user = Meteor.user();
-        if (!user) return false;
-
-        return true;
-    },
-
     numberOfSupporters: function() {
         var partup = Partups.findOne(this.partupId);
         if (!partup) return '...';
@@ -78,6 +70,14 @@ Template.app_partup_sidebar.helpers({
         var partup = Partups.findOne(this.partupId);
         if (!partup) return false;
         return partup.hasUpper(user._id);
+    },
+
+    isPendingPartner: function() {
+        var user = Meteor.user();
+        if (!user) return false;
+        var partup = Partups.findOne(this.partupId);
+        if (!partup) return false;
+        return (partup.pending_partners || []).indexOf(user._id) > -1;
     },
 
     partupUppers: function() {
@@ -246,7 +246,7 @@ Template.app_partup_sidebar.events({
         var user = Meteor.user();
         var currentUrl = Router.url('partup', {slug: partup.slug});
         if (!user) {
-            var body = TAPi18n.__('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name:partup.name});
+            var body = TAPi18n.__('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name: partup.name});
         } else {
             var body = TAPi18n.__('pages-app-partup-share_mail', {url: currentUrl, partup_name: partup.name, user_name: user.profile.name});
         }
@@ -256,9 +256,21 @@ Template.app_partup_sidebar.events({
     },
 
     'click [data-open-takepart-popup]': function(event, template) {
-        Partup.client.popup.open({
-            id: 'take-part'
-        });
+        if (Meteor.user()) {
+            Partup.client.popup.open({
+                id: 'take-part'
+            });
+        } else {
+            Intent.go({
+                route: 'login'
+            }, function(user) {
+                if (user) {
+                    Partup.client.popup.open({
+                        id: 'take-part'
+                    });
+                }
+            });
+        }
     },
 
     'click [data-invite]': function(event, template) {

@@ -241,15 +241,6 @@ Meteor.methods({
         }
 
         var invitee = Meteor.users.findOneOrFail(inviteeId);
-        var isAlreadyInvited = !!Invites.findOne({
-            network_id: networkId,
-            invitee_id: invitee._id,
-            inviter_id: inviter._id,
-            type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER
-        });
-        if (isAlreadyInvited) {
-            throw new Meteor.Error(403, 'user_is_already_invited_to_network');
-        }
 
         // Store invite
         var invite = {
@@ -527,6 +518,7 @@ Meteor.methods({
      * @param {String} networkSlug
      * @param {Object} options
      * @param {String} options.query
+     * @param {Boolean} options.invited_in_network
      * @param {Number} options.limit
      * @param {Number} options.skip
      *
@@ -536,6 +528,7 @@ Meteor.methods({
         check(networkSlug, String);
         check(options, {
             query: Match.Optional(String),
+            invited_in_network: Match.Optional(String),
             limit: Match.Optional(Number),
             skip: Match.Optional(Number)
         });

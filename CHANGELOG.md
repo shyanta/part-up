@@ -1,3 +1,105 @@
+<a name="1.24.0"></a>
+# [1.24.0](https://github.com/part-up/part-up/compare/1.23.0...1.24.0) (2016-10-24)
+
+
+### Bug Fixes
+
+* **analytics:** minimize analytics logs on every page switch ([56fe52f](https://github.com/part-up/part-up/commit/56fe52f))
+* **becomepartner:** pending approval button ([8b0cb9a](https://github.com/part-up/part-up/commit/8b0cb9a))
+* **chat:** fixes notifications for personal chat messages not showing on web [#666](https://github.com/part-up/part-up/issues/666) ([dbfdbcd](https://github.com/part-up/part-up/commit/dbfdbcd))
+* **chat:** improved url regex for chatmessage ([deca468](https://github.com/part-up/part-up/commit/deca468))
+* **datepicker:** no more 0 dates ([f37399e](https://github.com/part-up/part-up/commit/f37399e))
+* **external-url:** fixed the underlying issue of the external url, fixing [#553](https://github.com/part-up/part-up/issues/553) ([d3766f5](https://github.com/part-up/part-up/commit/d3766f5))
+* **filterbar:** styling fixes ([2034bcd](https://github.com/part-up/part-up/commit/2034bcd))
+* **filters:** filter switch causes update ([d266243](https://github.com/part-up/part-up/commit/d266243))
+* **invite:** allow invite to activity for partners (WIP) ([12a6b15](https://github.com/part-up/part-up/commit/12a6b15))
+* **invite:** display only pending invites in pending invites tab ([6085aca](https://github.com/part-up/part-up/commit/6085aca))
+* **invite:** filter preselect ([3f92489](https://github.com/part-up/part-up/commit/3f92489))
+* **invite:** pre-select current tribe ([0c4e3b7](https://github.com/part-up/part-up/commit/0c4e3b7))
+* **invite:** prevent duplicate search results ([b482d88](https://github.com/part-up/part-up/commit/b482d88))
+* **invite:** translation labels ([efb75a5](https://github.com/part-up/part-up/commit/efb75a5))
+* **invitemodal:** finishing touches, added translations ([206e16e](https://github.com/part-up/part-up/commit/206e16e))
+* **inviteModal:** pass network filter in search ([4645f72](https://github.com/part-up/part-up/commit/4645f72))
+* **invites:** finishing styling, fixed margins and font-sizes ([bba68cf](https://github.com/part-up/part-up/commit/bba68cf))
+* **invites:** fixed some duplicate translations ([903ba18](https://github.com/part-up/part-up/commit/903ba18))
+* **matchingService:** Removed a unnessecary while loop that was very blocking ([35dfc3a](https://github.com/part-up/part-up/commit/35dfc3a))
+* **my tribes:** finishing touches ([540ba20](https://github.com/part-up/part-up/commit/540ba20))
+* **my tribes:** optimized loading of partups ([3ce18e7](https://github.com/part-up/part-up/commit/3ce18e7))
+* **mytribes:** dropdown backdrop ([e76dd66](https://github.com/part-up/part-up/commit/e76dd66))
+* **mytribes:** final touches ([2885e18](https://github.com/part-up/part-up/commit/2885e18))
+* **mytribes:** fixed scrolling bug ([fe8be1c](https://github.com/part-up/part-up/commit/fe8be1c))
+* **mytribes:** overlapping activities number fix ([59e587f](https://github.com/part-up/part-up/commit/59e587f))
+* **mytribes:** scrollbar fix ([d4310f6](https://github.com/part-up/part-up/commit/d4310f6))
+* **notifications:** fixed unhandled notification error on logout ([bfacd81](https://github.com/part-up/part-up/commit/bfacd81))
+* **notifications:** this commit fixes [#436](https://github.com/part-up/part-up/issues/436) and [#437](https://github.com/part-up/part-up/issues/437) ([dd6f8bf](https://github.com/part-up/part-up/commit/dd6f8bf))
+* **partner-flow:** add missing translation for success toaster ([5c500a3](https://github.com/part-up/part-up/commit/5c500a3))
+* **translation:** fixed broken json files ([6464b47](https://github.com/part-up/part-up/commit/6464b47))
+* **updates:** set default filter to messages only ([c4982fc](https://github.com/part-up/part-up/commit/c4982fc))
+
+
+### Features
+
+* **becomepartner:** become partner accept and decline flow fully implemented ([1ee2685](https://github.com/part-up/part-up/commit/1ee2685))
+* **emails:** use notifications[@part](https://github.com/part)-up.com as sender of emails instead of info [#702](https://github.com/part-up/part-up/issues/702) ([0007b86](https://github.com/part-up/part-up/commit/0007b86))
+* **invite:** filter by invite in partup ([a178152](https://github.com/part-up/part-up/commit/a178152))
+* **invite:** filter on invited in network ([19c9807](https://github.com/part-up/part-up/commit/19c9807))
+* **invite:** implemented resend invite to tribe ([45ebdbe](https://github.com/part-up/part-up/commit/45ebdbe))
+* **invite:** removed popup and added some tabs (WIP) ([0e3e493](https://github.com/part-up/part-up/commit/0e3e493))
+* **invite-filter:** WIP filter bar for partup invite, still needs method implementation ([5dcd20c](https://github.com/part-up/part-up/commit/5dcd20c))
+* **invites:** allow new invite in backend ([2db42df](https://github.com/part-up/part-up/commit/2db42df))
+* **invites:** allow new invites for tribes also ([9ecced4](https://github.com/part-up/part-up/commit/9ecced4))
+* **meld:** removed accounts-meld package ([3d5e4af](https://github.com/part-up/part-up/commit/3d5e4af))
+* **my tribes:** my tribes menu start ([f5de029](https://github.com/part-up/part-up/commit/f5de029))
+* **mytribes:** hover allows for margin-of-error by user when moving the cursor to the sub-menu ([9607779](https://github.com/part-up/part-up/commit/9607779))
+* **mytribes:** my tribes dropdown ([e5b0628](https://github.com/part-up/part-up/commit/e5b0628))
+* **mytribes:** other tribes tab ([92ca187](https://github.com/part-up/part-up/commit/92ca187))
+* **navigation:** cleaned navigation and profile menu according to new design ([53a3285](https://github.com/part-up/part-up/commit/53a3285))
+* **notifications:** added the new dropdown notifications ([21a98e6](https://github.com/part-up/part-up/commit/21a98e6))
+* **notifications:** updated the external notification repository and enabled the notifications ([c02cdcc](https://github.com/part-up/part-up/commit/c02cdcc))
+* **partner-flow:** added accept partner method ([5bd5d3e](https://github.com/part-up/part-up/commit/5bd5d3e))
+* **partner-flow:** added event handlers for request, accept and reject partner methods ([cd26195](https://github.com/part-up/part-up/commit/cd26195))
+* **partner-flow:** added make partner helper to partup collection ([f5e3351](https://github.com/part-up/part-up/commit/f5e3351))
+* **partner-flow:** added pending_partner state to partup ([062460e](https://github.com/part-up/part-up/commit/062460e))
+* **partner-flow:** added reject partner method ([14dc0e3](https://github.com/part-up/part-up/commit/14dc0e3))
+* **partner-flow:** added request partner method ([03e045a](https://github.com/part-up/part-up/commit/03e045a))
+* **partner-flow:** added system message translations ([1826d3e](https://github.com/part-up/part-up/commit/1826d3e))
+* **partner-flow:** email templates ([faf4891](https://github.com/part-up/part-up/commit/faf4891))
+* **partner-flow:** image publications ([31e394f](https://github.com/part-up/part-up/commit/31e394f))
+* **partner-flow:** integrated new email setting ([a95a583](https://github.com/part-up/part-up/commit/a95a583))
+* **partner-flow:** send email to partners on partner request ([66cb0fd](https://github.com/part-up/part-up/commit/66cb0fd))
+* **partner-flow:** tried to take a shot at FE integration (work in progress) ([d93054a](https://github.com/part-up/part-up/commit/d93054a))
+* **partner-flow:** update the request update on reject ([0978fb3](https://github.com/part-up/part-up/commit/0978fb3))
+* **partner-popup:** partner popup for new partner flow ([d1489dd](https://github.com/part-up/part-up/commit/d1489dd))
+* **resend invite:** resend invite button ([1e0fb3f](https://github.com/part-up/part-up/commit/1e0fb3f))
+* **update:** aded translations ([5a309ac](https://github.com/part-up/part-up/commit/5a309ac))
+* **user-suggestions:** added filter by tribe to part-up invite [#691](https://github.com/part-up/part-up/issues/691) ([7ffb6d6](https://github.com/part-up/part-up/commit/7ffb6d6))
+
+
+### Performance Improvements
+
+* **services:** unblocked email and pushnotification service ([8944e11](https://github.com/part-up/part-up/commit/8944e11))
+
+
+
+<a name="1.23.0"></a>
+# [1.23.0](https://github.com/part-up/part-up/compare/1.22.2...1.23.0) (2016-10-04)
+
+
+### Bug Fixes
+
+* **activities:** fixes the "Exception while simulating the effect of invoking 'activities.insert'" bug while adding activities during startup creation [#678](https://github.com/part-up/part-up/issues/678) ([69bcd60](https://github.com/part-up/part-up/commit/69bcd60))
+* **chat:** wait for chatId to fix [#680](https://github.com/part-up/part-up/issues/680) ([d95fc22](https://github.com/part-up/part-up/commit/d95fc22))
+* **columnslayout:** fixed another exception ([9cf947f](https://github.com/part-up/part-up/commit/9cf947f))
+* **columnslayout:** return empty array instead of throwing an error every time ([1cb91ef](https://github.com/part-up/part-up/commit/1cb91ef))
+* **discover-page:** remove the recommendation button for now due testing phase ([fb8c234](https://github.com/part-up/part-up/commit/fb8c234))
+* **errors:** fixed the 'Exception in template helper: [sprintf] expecting number but found undefined' error ([4e6af60](https://github.com/part-up/part-up/commit/4e6af60))
+* **recommend-page:** also handles empty partupIds case ([3a071e6](https://github.com/part-up/part-up/commit/3a071e6))
+* **recommend-page:** let the route handle all var and undefined values ([5cfdeb5](https://github.com/part-up/part-up/commit/5cfdeb5)), closes [#324](https://github.com/part-up/part-up/issues/324)
+* **recommend-page:** make tiles width same as discover page ([ea65ac4](https://github.com/part-up/part-up/commit/ea65ac4))
+* **recommend-page:** returning 3 columns and narrow padding top ([8255395](https://github.com/part-up/part-up/commit/8255395))
+
+
+
 <a name="1.22.2"></a>
 ## [1.22.2](https://github.com/part-up/part-up/compare/1.22.1...1.22.2) (2016-09-26)
 

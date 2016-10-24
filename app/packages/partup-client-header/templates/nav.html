@@ -1,27 +1,7 @@
 <template name="Header_nav">
     <ul class="pu-list pu-list-horizontal">
         <li>
-            <a href="{{ pathFor 'discover' }}" class="pu-button pu-button-header {{# unless partupResponsive }}pu-button-header-desktop{{/ unless }}">
-                {{# if isMobile }}
-                    {{_ 'header-mobile-discover' }}
-                {{ else }}
-                    {{_ 'header-desktop-discover' }}
-                {{/ if }}
-            </a>
-        </li>
-        <li>
-            <a href="{{ pathFor 'create' }}" class="pu-button pu-button-header {{# unless partupResponsive }}pu-button-header-desktop{{/ unless }}" data-start="">
-                {{# if isMobile }}
-                    {{_ 'header-mobile-start_partup' }}
-                {{ else }}
-                    <span class="desktop">
-                        {{_ 'header-desktop-start_partup' }}
-                    </span>
-                    <span class="mobile">
-                        {{_ 'header-mobile-start_partup' }}
-                    </span>
-                {{/ if }}
-            </a>
+            {{> DropdownTribes }}
         </li>
         {{#unless isMobile}}
             <li>
