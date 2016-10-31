@@ -1,50 +1,50 @@
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var PUBLIC = 1;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var PRIVATE = 2;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_PUBLIC = 3;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_INVITE = 4;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_CLOSED = 5;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_ADMINS = 6;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_COLLEAGUES = 7;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_COLLEAGUES_CUSTOM_A = 8;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_COLLEAGUES_CUSTOM_B = 9;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var TYPE = {
@@ -54,7 +54,7 @@ var TYPE = {
     ORGANIZATION: 'organization'
 };
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var PHASE = {
@@ -74,7 +74,7 @@ var Partup = function(document) {
 /**
  * Check if a given user can edit this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {User} user the user object
  * @return {Boolean}
  */
@@ -87,7 +87,7 @@ Partup.prototype.isEditableBy = function(user) {
 /**
  * Check if a given user is the creator of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {User} user the user object
  * @return {Boolean}
  */
@@ -98,7 +98,7 @@ Partup.prototype.isCreatedBy = function(user) {
 /**
  * Check if a given user can remove this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {User} user the user object
  * @return {Boolean}
  */
@@ -119,7 +119,7 @@ Partup.prototype.isRemoved = function() {
 /**
  * Check if given user is a supporter of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
@@ -131,7 +131,7 @@ Partup.prototype.hasSupporter = function(userId) {
 /**
  * Check if given user is an upper in this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
@@ -143,7 +143,7 @@ Partup.prototype.hasUpper = function(userId) {
 /**
  * Check if given user is a pending partner of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
@@ -155,7 +155,7 @@ Partup.prototype.hasPendingPartner = function(userId) {
 /**
  * Check if given user is on the invite list of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user to check against
  * @return {Boolean}
  */
@@ -167,7 +167,7 @@ Partup.prototype.hasInvitedUpper = function(userId) {
 /**
  * Check if given user has the right to view the partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId
  * @param {String} accessToken
  * @return {Boolean}
@@ -224,7 +224,7 @@ Partup.prototype.hasEnded = function() {
 /**
  * Make the upper a supporter
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that becomes a supporter
  */
 Partup.prototype.makeSupporter = function(upperId) {
@@ -239,7 +239,7 @@ Partup.prototype.makeSupporter = function(upperId) {
 /**
  * Promote a user from supporter to partner
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that gets promoted
  */
 Partup.prototype.makeSupporterPartner = function(upperId) {
@@ -250,7 +250,7 @@ Partup.prototype.makeSupporterPartner = function(upperId) {
 /**
  * Demote a user from partner to supporter
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that gets demoted
  */
 Partup.prototype.makePartnerSupporter = function(upperId) {
@@ -261,7 +261,7 @@ Partup.prototype.makePartnerSupporter = function(upperId) {
 /**
  * Promote a user from supporter to partner
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that gets promoted
  */
 Partup.prototype.makePartner = function(upperId) {
@@ -434,7 +434,7 @@ if (Meteor.isServer) {
 }
 
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 Partups.privacy_types = {
@@ -461,12 +461,12 @@ Partups.getPrivacyTypeByValue = function(value) {
 }
 
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @public
  */
 Partups.TYPE = TYPE;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @public
  */
 Partups.PHASE = PHASE;
@@ -479,7 +479,7 @@ Partups.PHASE = PHASE;
  * Modified version of Collection.find that makes sure the
  * user (or guest) can only retrieve authorized entities
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId
  * @param {Object} selector
  * @param {Object} options
@@ -597,7 +597,7 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
  * sure the user (or guest) can only retrieve
  * fields that are publicly available
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Object} selector
  * @param {Object} options
  * @return {Cursor}
@@ -628,7 +628,7 @@ Partups.guardedMetaFind = function(selector, options) {
 /**
  * Find the partups used in the discover page
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param userId
  * @param {Object} options
  * @param parameters
@@ -711,7 +711,7 @@ Partups.findForUpdate = function(userId, update) {
 /**
  * Find the partups in a network
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Network} network
  * @param {Object} parameters
  * @param {Object} options
@@ -752,7 +752,7 @@ Partups.findForNetwork = function(network, parameters, options, loggedInUserId) 
 /**
  * Find the partups that a user is upper of
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Object} user
  * @param {Object} parameters
  * @param {Number} parameters.limit
@@ -789,7 +789,7 @@ Partups.findUpperPartupsForUser = function(user, parameters, loggedInUserId) {
 /**
  * Find the partups that a user supporter of
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Object} user
  * @param {Object} parameters
  * @param {Number} parameters.limit
