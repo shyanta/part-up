@@ -51,4 +51,10 @@
             </ul>
         </footer>
     </article>
+    {{#if network}}
+        {{#if network.isNetworkAdmin user._id}}<span class="pu-upper__label">{{ roleLabel.admin }}</span>{{/if}}
+        {{#if network.isNetworkColleague user._id}}<span class="pu-upper__label">{{ roleLabel.collegue }}</span>{{/if}}
+        {{#if network.isNetworkColleagueCustomA user._id}}<span class="pu-upper__label">{{ roleLabel.customA }}</span>{{/if}}
+        {{#if network.isNetworkColleagueCustomB user._id}}<span class="pu-upper__label">{{ roleLabel.customB }}</span>{{/if}}
+    {{/if}}
 </template>

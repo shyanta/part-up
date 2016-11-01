@@ -73,5 +73,13 @@
   "networksettings-partups-privacy-type-change-confirm-title": "Weet je het ZEKER?",
   "networksettings-partups-privacy-type-change-confirm-message": "Aandacht: Als je het toegangsniveau aanpast, zal de nieuwe groep toegang hebben tot de volledige inhoud van de partup.",
   "networksettings-partups-privacy-type-change-confirm-button-confirm": "Toegangsniveau toepassen",
-  "networksettings-partups-privacy-type-change-confirm-button-cancel": "Annuleren"
+  "networksettings-partups-privacy-type-change-confirm-button-cancel": "Annuleren",
+  "network-uppers-access-level-label-admin": "__label__",
+  "network-uppers-access-level-label-admin-default": "Admin",
+  "network-uppers-access-level-label-collegue": "__label__",
+  "network-uppers-access-level-label-collegue-default": "Collega",
+  "network-uppers-access-level-label-custom-a": "__label__",
+  "network-uppers-access-level-label-custom-a-default": "Custom A",
+  "network-uppers-access-level-label-custom-b": "__label__",
+  "network-uppers-access-level-label-custom-b-default": "Custom B"
 }

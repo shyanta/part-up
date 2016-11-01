@@ -73,5 +73,13 @@
   "networksettings-partups-privacy-type-change-confirm-title": "Are you SURE?",
   "networksettings-partups-privacy-type-change-confirm-message": "Remember: If you change the access level, all the uppers on the new access level will be able to see everything in the partup.",
   "networksettings-partups-privacy-type-change-confirm-button-confirm": "Apply acces level",
-  "networksettings-partups-privacy-type-change-confirm-button-cancel": "Cancel"
+  "networksettings-partups-privacy-type-change-confirm-button-cancel": "Cancel",
+  "network-uppers-access-level-label-admin": "__label__",
+  "network-uppers-access-level-label-admin-default": "Admin",
+  "network-uppers-access-level-label-collegue": "__label__",
+  "network-uppers-access-level-label-collegue-default": "Collegue",
+  "network-uppers-access-level-label-custom-a": "__label__",
+  "network-uppers-access-level-label-custom-a-default": "Custom A",
+  "network-uppers-access-level-label-custom-b": "__label__",
+  "network-uppers-access-level-label-custom-b-default": "Custom B"
 }
