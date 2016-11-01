@@ -27,39 +27,7 @@
                                 Change access rights to {{ name }}
                             {{/contentFor}}
                             {{#contentFor region="PopupContent" data=.}}
-                                <form class='pu-form pu-form-popup'>
-                                    <div class="pu-formfield">
-                                        <span class="pu-label">
-                                            Part-up privacy type {{ name }}
-                                        </span>
-                                    </div>
-                                    <div class="pu-sub-validations">
-                                        <div class="pu-sub-input">
-                                            <select class="pu-input" data-partup-privacy>
-                                                <option value=''>select privacy type</option>
-                                                {{#each partupPrivacyTypes network_id}}
-                                                    <option value="{{ value }}" selected="{{ partupEquals value privacy_type }}">{{ label }}</option>
-                                                {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="pu-formfield">
-
-                                    </div>
-                                    <footer class="pu-row">
-                                        <div class="cell">
-                                            <button type='button' class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-save>
-                                                Save
-                                            </button>
-                                        </div>
-                                        <div class="cell stretch">
-                                        </div>
-                                        <div class="cell last">
-                                            <a class=" pu-button pu-button-text pu-button-text-subtle"
-                                               data-dismiss>cancel</a>
-                                        </div>
-                                    </footer>
-                                </form>
+                                {{> NetworkSettingsPartups_form data=. }}
                             {{/contentFor}}
                         {{/if}}
                     </li>
@@ -69,4 +37,42 @@
             <ul class="pu-network-uppers"><li><p>{{_ 'network-settings-partups-nopartups' }}</p></li></ul>
         {{/ if }}
     </div>
+</template>
+
+<template name='NetworkSettingsPartups_form'>
+    {{#let partup=data}}
+        <form class='pu-form pu-form-popup'>
+            <div class="pu-formfield">
+                <span class="pu-label">
+                    Part-up privacy type {{ partup.name }}
+                </span>
+            </div>
+            <div class="pu-sub-validations">
+                <div class="pu-sub-input">
+                    <select class="pu-input" data-partup-privacy>
+                        <option value=''>select privacy type</option>
+                        {{#each partupPrivacyTypes partup.network_id}}
+                            <option value="{{ value }}" selected="{{ partupEquals value partup.privacy_type }}">{{ label }}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="pu-formfield">
+
+            </div>
+            <footer class="pu-row">
+                <div class="cell">
+                    <button type='button' class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-save="{{ partup._id }}">
+                        Save
+                    </button>
+                </div>
+                <div class="cell stretch">
+                </div>
+                <div class="cell last">
+                    <a class=" pu-button pu-button-text pu-button-text-subtle"
+                       data-dismiss>cancel</a>
+                </div>
+            </footer>
+        </form>
+    {{/let}}
 </template>

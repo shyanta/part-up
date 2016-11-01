@@ -171,7 +171,7 @@ Template.Partupsettings.helpers({
         return this.currentPartup;
     },
     startPartupSchema: function() {
-         return Partup.schemas.forms.partup;
+        return Partup.schemas.forms.partup;
     },
     formPlaceholders: function() {
         return formPlaceholders;

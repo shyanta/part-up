@@ -64,10 +64,27 @@ Template.NetworkSettingsPartups.helpers({
     },
     partupPopupId: function() {
         return 'partup-' + this._id;
+    }
+});
+
+Template.NetworkSettingsPartups.events({
+    'click [data-toggle]': function(event) {
+        event.preventDefault();
+        $(event.currentTarget).next('[data-toggle-target]').toggleClass('pu-state-active');
+        $('[data-toggle-target]').not($(event.currentTarget).next('[data-toggle-target]')[0]).removeClass('pu-state-active');
     },
+    'click [data-edit]': function(event, template) {
+        event.preventDefault();
+        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
+        Partup.client.popup.open({
+            id: 'partup-' + $(event.currentTarget).data('edit')
+        });
+    }
+});
+
+Template.NetworkSettingsPartups_form.helpers({
     partupPrivacyTypes: function(network_id) {
         var partupNetwork = Networks.findOne({_id: network_id});
-
         var types = [{
             value: Partups.privacy_types.NETWORK_ADMINS,
             label: 'Admins'
@@ -75,6 +92,8 @@ Template.NetworkSettingsPartups.helpers({
             value: Partups.privacy_types.NETWORK_COLLEAGUES,
             label: 'Collegues'
         }];
+
+        if (!partupNetwork) return types;
 
         if (partupNetwork.colleagues_custom_a_enabled) {
             types.push({
@@ -94,24 +113,23 @@ Template.NetworkSettingsPartups.helpers({
     }
 });
 
-Template.NetworkSettingsPartups.events({
-    'click [data-toggle]': function(event) {
-        event.preventDefault();
-        $(event.currentTarget).next('[data-toggle-target]').toggleClass('pu-state-active');
-        $('[data-toggle-target]').not($(event.currentTarget).next('[data-toggle-target]')[0]).removeClass('pu-state-active');
-    },
+Template.NetworkSettingsPartups_form.events({
     'click [data-dismiss]': function(event, template) {
         Partup.client.popup.close();
     },
-    'click [data-edit]': function(event, template) {
-        event.preventDefault();
-        $(event.currentTarget).closest('[data-toggle-target]').toggleClass('pu-state-active');
-        Partup.client.popup.open({
-            id: 'partup-' + $(event.currentTarget).data('edit')
-        });
-    },
     'click [data-save]': function(event, template) {
         event.preventDefault();
-        console.log('huh');
+        var partupId = $(event.currentTarget).data('save');
+        var privacyType = parseInt($('[data-partup-privacy]').val());
+        Meteor.call('partups.change_privacy_type', partupId, privacyType, function(error, res) {
+            if (error) {
+                return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+            }
+
+            Partup.client.notify.success('Privacy type saved');
+            Partup.client.popup.close();
+        });
     }
 });
+
+

@@ -123,7 +123,7 @@ AutoForm.hooks({
             var partup = this.template.parent().data.currentPartup;
             var submitBtn = template.find('[type=submit]');
             template.submitting.set(true);
-
+            console.log('update', insertDoc)
             Meteor.call('partups.update', partup._id, insertDoc, function(error, res) {
                 if (error && error.reason) {
                     Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));

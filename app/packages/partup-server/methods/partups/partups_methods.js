@@ -43,6 +43,35 @@ Meteor.methods({
         }
     },
 
+    'partups.change_privacy_type': function(partupId, privacy_type) {
+        check(partupId, String);
+
+        var user = Meteor.user();
+        var partup = Partups.findOneOrFail(partupId);
+        if (!partup.isEditableBy(user)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var isValidPrivacyType = false;
+        for (var key in Partups.privacy_types) {
+            if (Partups.privacy_types[key] === privacy_type) {
+                isValidPrivacyType = true;
+            }
+        }
+
+        if (!isValidPrivacyType) throw new Meteor.Error(400, 'Privacy type should match one of \'Partups.privacy_types\'');
+
+        try {
+            Partups.update(partupId, {$set: {privacy_type: privacy_type}});
+            return {
+                _id: partup._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_could_not_be_updated');
+        }
+    },
+
     /**
      * Update a Partup
      *
