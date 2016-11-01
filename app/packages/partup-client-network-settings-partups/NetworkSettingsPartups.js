@@ -64,6 +64,18 @@ Template.NetworkSettingsPartups.helpers({
     },
     partupPopupId: function() {
         return 'partup-' + this._id;
+    },
+    readablePrivacyType: function(type, network_id) {
+        var partupNetwork = Networks.findOne({_id: network_id});
+        return {
+            3: 'Everybody in this tribe',
+            4: 'Invite basis only',
+            5: '(Closed) Invite basis only',
+            6: partupNetwork.privacy_type_labels[6] || 'Core team',
+            7: partupNetwork.privacy_type_labels[7] || 'Co-creators and higher',
+            8: partupNetwork.privacy_type_labels[8] || 'Custom A and higher',
+            9: partupNetwork.privacy_type_labels[9] || 'Custom B and higher'
+        }[type];
     }
 });
 
@@ -86,11 +98,14 @@ Template.NetworkSettingsPartups_form.helpers({
     partupPrivacyTypes: function(network_id) {
         var partupNetwork = Networks.findOne({_id: network_id});
         var types = [{
+            value: Partups.privacy_types.NETWORK_PUBLIC,
+            label: 'Everybody in this tribe'
+        },{
             value: Partups.privacy_types.NETWORK_ADMINS,
-            label: 'Admins'
+            label: partupNetwork.privacy_type_labels[6] || 'Core team'
         },{
             value: Partups.privacy_types.NETWORK_COLLEAGUES,
-            label: 'Collegues'
+            label: partupNetwork.privacy_type_labels[7] || 'Co-creators and higher'
         }];
 
         if (!partupNetwork) return types;
@@ -98,14 +113,14 @@ Template.NetworkSettingsPartups_form.helpers({
         if (partupNetwork.colleagues_custom_a_enabled) {
             types.push({
                 value: Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A,
-                label: 'Custom A'
+                label: partupNetwork.privacy_type_labels[8] || 'Custom A and higher'
             });
         }
 
         if (partupNetwork.colleagues_custom_b_enabled) {
             types.push({
                 value: Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B,
-                label: 'Custom B'
+                label: partupNetwork.privacy_type_labels[9] || 'Custom B and higher'
             });
         }
 

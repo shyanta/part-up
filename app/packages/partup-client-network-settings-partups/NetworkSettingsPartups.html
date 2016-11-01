@@ -13,6 +13,7 @@
                         <figure class="pu-avatar pu-avatar-square" style="background-image: url('{{ partupImageUrl id=image }}');"></figure>
                         <p class="pu-sub-upperinfo">
                             <a href="{{ pathFor 'partup' slug=slug }}" class="pu-sub-name">{{ name }}</a>
+                            <span class="pu-sub-status">{{ readablePrivacyType privacy_type network_id }}</span>
                         </p>
                         <button type="button" class="pu-sub-settings pu-button pu-button-checkmark" data-toggle><i class="picon-cog"></i></button>
                         <div class="pu-uppersettings" data-toggle-target>
@@ -24,7 +25,7 @@
                         </div>
                         {{#if partupIsPopupActive partupPopupId }}
                             {{#contentFor region="PopupTitle" data=.}}
-                                Change access rights to {{ name }}
+                                {{ name }}
                             {{/contentFor}}
                             {{#contentFor region="PopupContent" data=.}}
                                 {{> NetworkSettingsPartups_form data=. }}
@@ -44,13 +45,12 @@
         <form class='pu-form pu-form-popup'>
             <div class="pu-formfield">
                 <span class="pu-label">
-                    Part-up privacy type {{ partup.name }}
+                    Who can see this part-up?
                 </span>
             </div>
             <div class="pu-sub-validations">
                 <div class="pu-sub-input">
                     <select class="pu-input" data-partup-privacy>
-                        <option value=''>select privacy type</option>
                         {{#each partupPrivacyTypes partup.network_id}}
                             <option value="{{ value }}" selected="{{ partupEquals value partup.privacy_type }}">{{ label }}</option>
                         {{/each}}
