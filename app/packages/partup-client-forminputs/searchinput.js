@@ -3,6 +3,7 @@ Template.SearchInput.onCreated(function() {
     var settings = template.data.inputSettings;
     template.searchQuery = settings.reactiveSearchQuery;
     template.label = settings.reactiveLabel;
+    template.placeholder = settings.reactivePlaceholder || new ReactiveVar('Search for uppers');
 
 });
 
@@ -28,6 +29,9 @@ Template.SearchInput.helpers({
             },
             label: function() {
                 return template.label.get();
+            },
+            inputPlaceholder: function() {
+                return template.placeholder.get();
             }
         };
     }

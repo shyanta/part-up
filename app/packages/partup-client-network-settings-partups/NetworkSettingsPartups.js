@@ -11,7 +11,7 @@ Template.NetworkSettingsPartups.onCreated(function() {
     var userId = Meteor.userId();
 
     template.searchQuery = new ReactiveVar();
-    template.reactiveLabel = new ReactiveVar('No partups');
+    template.reactiveLabel = new ReactiveVar(TAPi18n.__('network-settings-partups-search-label-empty'));
 
     template.subscription = template.subscribe('networks.one', template.data.networkSlug, {
         onReady: function() {
@@ -36,7 +36,7 @@ Template.NetworkSettingsPartups.helpers({
         var searchQuery = template.searchQuery.get();
         if (searchQuery) searchOptions.name = {$regex: searchQuery, $options: 'i'};
         var partups = Partups.find(searchOptions).fetch();
-        template.reactiveLabel.set(partups.length + ' partups');
+        template.reactiveLabel.set(TAPi18n.__('network-settings-partups-search-label-count', {count: partups.length}));
 
         var self = this;
         return {
@@ -57,7 +57,8 @@ Template.NetworkSettingsPartups.helpers({
             searchInput: function() {
                 return {
                     reactiveLabel: template.reactiveLabel,
-                    reactiveSearchQuery: template.searchQuery
+                    reactiveSearchQuery: template.searchQuery,
+                    reactivePlaceholder: new ReactiveVar(TAPi18n.__('network-settings-partups-search-placeholder'))
                 };
             }
         };
@@ -67,15 +68,16 @@ Template.NetworkSettingsPartups.helpers({
     },
     readablePrivacyType: function(type, network_id) {
         var partupNetwork = Networks.findOne({_id: network_id});
+        if (!partupNetwork || !partupNetwork.privacy_type_labels) return '-';
         return {
-            3: 'Everybody in this tribe',
-            4: 'Invite basis only',
-            5: '(Closed) Invite basis only',
-            6: partupNetwork.privacy_type_labels[6] || 'Core team',
-            7: partupNetwork.privacy_type_labels[7] || 'Co-creators and higher',
-            8: partupNetwork.privacy_type_labels[8] || 'Custom A and higher',
-            9: partupNetwork.privacy_type_labels[9] || 'Custom B and higher'
-        }[type];
+            3: TAPi18n.__('networksettings-partups-privacy-type-label-public'),
+            4: TAPi18n.__('networksettings-partups-privacy-type-label-invite'),
+            5: TAPi18n.__('networksettings-partups-privacy-type-label-closed'),
+            6: TAPi18n.__('networksettings-partups-privacy-type-label-admin', {label: (partupNetwork.privacy_type_labels[6] || TAPi18n.__('networksettings-partups-privacy-type-label-admin-default'))}),
+            7: TAPi18n.__('networksettings-partups-privacy-type-label-collegue', {label: (partupNetwork.privacy_type_labels[7] || TAPi18n.__('networksettings-partups-privacy-type-label-collegue-default'))}),
+            8: TAPi18n.__('networksettings-partups-privacy-type-label-custom-a', {label: (partupNetwork.privacy_type_labels[8] || TAPi18n.__('networksettings-partups-privacy-type-label-custom-a-default'))}),
+            9: TAPi18n.__('networksettings-partups-privacy-type-label-custom-b', {label: (partupNetwork.privacy_type_labels[9] || TAPi18n.__('networksettings-partups-privacy-type-label-custom-b-default'))})
+        }[type] || '-';
     }
 });
 
@@ -99,13 +101,13 @@ Template.NetworkSettingsPartups_form.helpers({
         var partupNetwork = Networks.findOne({_id: network_id});
         var types = [{
             value: Partups.privacy_types.NETWORK_PUBLIC,
-            label: 'Everybody in this tribe'
+            label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-public')
         },{
             value: Partups.privacy_types.NETWORK_ADMINS,
-            label: partupNetwork.privacy_type_labels[6] || 'Core team'
+            label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-admin', {label: (partupNetwork.privacy_type_labels[6] || TAPi18n.__('networksettings-partups-privacy-type-label-admin-default'))})
         },{
             value: Partups.privacy_types.NETWORK_COLLEAGUES,
-            label: partupNetwork.privacy_type_labels[7] || 'Co-creators and higher'
+            label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-collegue', {label: (partupNetwork.privacy_type_labels[7] || TAPi18n.__('networksettings-partups-privacy-type-label-colegues-default'))})
         }];
 
         if (!partupNetwork) return types;
@@ -113,14 +115,14 @@ Template.NetworkSettingsPartups_form.helpers({
         if (partupNetwork.colleagues_custom_a_enabled) {
             types.push({
                 value: Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A,
-                label: partupNetwork.privacy_type_labels[8] || 'Custom A and higher'
+                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-custom-a', {label: (partupNetwork.privacy_type_labels[8] || TAPi18n.__('networksettings-partups-privacy-type-label-custom-a-default'))})
             });
         }
 
         if (partupNetwork.colleagues_custom_b_enabled) {
             types.push({
                 value: Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B,
-                label: partupNetwork.privacy_type_labels[9] || 'Custom B and higher'
+                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-custom-b', {label: (partupNetwork.privacy_type_labels[9] || TAPi18n.__('networksettings-partups-privacy-type-label-custom-b-default'))})
             });
         }
 
@@ -136,13 +138,22 @@ Template.NetworkSettingsPartups_form.events({
         event.preventDefault();
         var partupId = $(event.currentTarget).data('save');
         var privacyType = parseInt($('[data-partup-privacy]').val());
-        Meteor.call('partups.change_privacy_type', partupId, privacyType, function(error, res) {
-            if (error) {
-                return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
-            }
 
-            Partup.client.notify.success('Privacy type saved');
-            Partup.client.popup.close();
+        Partup.client.prompt.confirm({
+            title: TAPi18n.__('networksettings-partups-privacy-type-change-confirm-title'),
+            message: TAPi18n.__('networksettings-partups-privacy-type-change-confirm-message'),
+            confirmButton: TAPi18n.__('networksettings-partups-privacy-type-change-confirm-button-confirm'),
+            cancelButton: TAPi18n.__('networksettings-partups-privacy-type-change-confirm-button-cancel'),
+            onConfirm: function() {
+                Meteor.call('partups.change_privacy_type', partupId, privacyType, function(error, res) {
+                    if (error) {
+                        return Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+                    }
+
+                    Partup.client.notify.success(TAPi18n.__('networksettings-partups-privacy-type-popup-save-success'));
+                    Partup.client.popup.close();
+                });
+            }
         });
     }
 });
