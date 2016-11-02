@@ -472,6 +472,22 @@ Network.prototype.isNetworkColleagueCustomB = function(userId) {
     return mout.lang.isString(userId) && (this.colleagues_custom_b.indexOf(userId) > -1);
 };
 
+Network.prototype.colleaguesRoleEnabled = function() {
+    if (this.hasOwnProperty('colleagues_default_enabled')) {
+        return this.colleagues_default_enabled;
+    } else {
+        return !!(this.colleagues ? this.colleagues.length : false);
+    }
+};
+
+Network.prototype.customARoleEnabled = function() {
+    return !!this.colleagues_custom_a_enabled;
+};
+
+Network.prototype.customBRoleEnabled = function() {
+    return !!this.colleagues_custom_b_enabled;
+};
+
 /**
  Networks, also known as "Tribes" are entities that group users and partups
  @namespace Networks

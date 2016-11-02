@@ -29,16 +29,10 @@ Template.NetworkSettingsAccess.onCreated(function() {
             }
 
             template.create_partup_restricted.set(network.create_partup_restricted);
-            var colleaguesAreEnabled = function(network) {
-                if (network.hasOwnProperty('colleagues_default_enabled')) {
-                    return network.colleagues_default_enabled;
-                } else {
-                    return !!(network.colleagues ? network.colleagues.length : false);
-                }
-            };
-            template.colleagues_default_enabled.set(colleaguesAreEnabled(network));
-            template.colleagues_custom_a_enabled.set(network.colleagues_custom_a_enabled);
-            template.colleagues_custom_b_enabled.set(network.colleagues_custom_b_enabled);
+
+            template.colleagues_default_enabled.set(network.colleaguesRoleEnabled());
+            template.colleagues_custom_a_enabled.set(network.customARoleEnabled());
+            template.colleagues_custom_b_enabled.set(network.customBRoleEnabled());
         }
     });
 

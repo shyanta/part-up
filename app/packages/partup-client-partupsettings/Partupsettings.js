@@ -294,22 +294,22 @@ Template.Partupsettings.helpers({
 
         // if user is Colleague custom B
         if (isColleagueCustomB) {
-            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
+            if (network.customBRoleEnabled()) types.push(typeColleagueCustomB);
         // if user is Colleague custom A
         } else if (isColleagueCustomA) {
-            if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
-            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
+            if (network.customARoleEnabled()) types.push(typeColleagueCustomA);
+            if (network.customBRoleEnabled()) types.push(typeColleagueCustomB);
         // if user is Colleague
         } else if (isColleague) {
-            if (network.colleagues_default_enabled) types.push(typeColleague);
-            if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
-            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
+            if (network.colleaguesRoleEnabled()) types.push(typeColleague);
+            if (network.customARoleEnabled()) types.push(typeColleagueCustomA);
+            if (network.customBRoleEnabled()) types.push(typeColleagueCustomB);
         // if user is Admin
         } else if (isAdmin) {
             types.push(typeAdmin);
-            if (network.colleagues_default_enabled) types.push(typeColleague);
-            if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
-            if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
+            if (network.colleaguesRoleEnabled()) types.push(typeColleague);
+            if (network.customARoleEnabled()) types.push(typeColleagueCustomA);
+            if (network.customBRoleEnabled()) types.push(typeColleagueCustomB);
         }
         return types;
     },
