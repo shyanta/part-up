@@ -8,31 +8,53 @@
 
         {{# autoForm id='NetworkSettingsAccessForm' schema=form.schema doc=form.fieldsForNetworkAccess validation="submitThenKeyup" class="pu-form" }}
 
-            <div class="pu-formfield">
+            <label data-switch="create_partup_restricted" class="pu-formfield">
+                <div class="pu-switch {{#if data.create_partup_restricted}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}}">
+                    <span>{{_ 'network-settings-access-form-create_partup_restricted-label' }}</span>
+                    <button type="button">
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm"><i class="picon-check"></i></div>
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny"><i class="picon-times"></i></div>
+                    </button>
+                </div>
                 {{> afFieldInput
-                    id="create_partup_restricted"
                     name="create_partup_restricted"
-                    type="boolean-checkbox"
+                    class="pu-jaja"
+                    type="hidden"
+                    value=data.create_partup_restricted
                 }}
-            </div>
+            </label>
 
-            <div class="pu-formfield">
+            <label data-switch="{{#unless data.hasActivePartupsCustomA}}colleagues_custom_a_enabled{{/unless}}" class="pu-formfield">
+                <div class="pu-switch {{#if data.colleagues_custom_a_enabled}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}} {{#if data.hasActivePartupsCustomA}}pu-switch-noneditable{{/if}}">
+                    <span>{{_ 'network-settings-access-form-colleagues_custom_a_enabled-label' }}</span>
+                    <button type="button" >
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm"><i class="picon-check"></i></div>
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny"><i class="picon-times"></i></div>
+                    </button>
+                </div>
                 {{> afFieldInput
-                    id="colleagues_custom_a_enabled"
                     name="colleagues_custom_a_enabled"
-                    type="boolean-checkbox"
+                    type="hidden"
                     disabled=data.hasActivePartupsCustomA
+                    value=data.colleagues_custom_a_enabled
                 }}
-            </div>
+            </label>
 
-            <div class="pu-formfield">
+            <label data-switch="{{#unless data.hasActivePartupsCustomB}}colleagues_custom_b_enabled{{/unless}}" class="pu-formfield">
+                <div class="pu-switch {{#if data.colleagues_custom_b_enabled}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}} {{#if data.hasActivePartupsCustomB}}pu-switch-noneditable{{/if}}">
+                    <span>{{_ 'network-settings-access-form-colleagues_custom_b_enabled-label' }}</span>
+                    <button type="button" >
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm"><i class="picon-check"></i></div>
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny"><i class="picon-times"></i></div>
+                    </button>
+                </div>
                 {{> afFieldInput
-                    id="colleagues_custom_b_enabled"
                     name="colleagues_custom_b_enabled"
-                    type="boolean-checkbox"
+                    type="hidden"
                     disabled=data.hasActivePartupsCustomB
+                    value=data.colleagues_custom_b_enabled
                 }}
-            </div>
+            </label>
 
             <!-- label_admins -->
             <label class="pu-formfield">
@@ -156,4 +178,8 @@
 
         {{/ autoForm }}
     </div>
+</template>
+
+<template name="afBooleanCheckboxCustom">
+  <input type="checkbox" value="true" {{atts}} />
 </template>

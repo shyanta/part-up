@@ -8,6 +8,9 @@ Template.NetworkSettingsAccess.onCreated(function() {
     var template = this;
     var userId = Meteor.userId();
     var network = Networks.findOne({slug: template.data.networkSlug});
+    template.create_partup_restricted = new ReactiveVar(false);
+    template.colleagues_custom_a_enabled = new ReactiveVar(false);
+    template.colleagues_custom_b_enabled = new ReactiveVar(false);
 
     template.partupsInNetwork = new ReactiveVar();
 
@@ -23,6 +26,10 @@ Template.NetworkSettingsAccess.onCreated(function() {
             if (network.isClosedForUpper(userId)) {
                 Router.pageNotFound('network');
             }
+
+            template.create_partup_restricted.set(network.create_partup_restricted);
+            template.colleagues_custom_a_enabled.set(network.colleagues_custom_a_enabled);
+            template.colleagues_custom_b_enabled.set(network.colleagues_custom_b_enabled);
         }
     });
 
@@ -68,8 +75,17 @@ Template.NetworkSettingsAccess.helpers({
                     return !!PartupsCustomB.length;
                 }
                 return true; // disable in case we don't have the info about the partups
+            },
+            create_partup_restricted: function() {
+                return template.create_partup_restricted.get();
+            },
+            colleagues_custom_a_enabled: function() {
+                return template.colleagues_custom_a_enabled.get();
+            },
+            colleagues_custom_b_enabled: function() {
+                return template.colleagues_custom_b_enabled.get();
             }
-        }
+        };
     },
     form: function() {
         var template = Template.instance();
@@ -83,7 +99,7 @@ Template.NetworkSettingsAccess.helpers({
             }
         };
     },
-    placeholders: function () {
+    placeholders: function() {
         return {
             admins: function() {
                 return TAPi18n.__('network-settings-uppers-label-admin');
@@ -97,7 +113,7 @@ Template.NetworkSettingsAccess.helpers({
             colleagues_custom_b: function() {
                 return TAPi18n.__('network-settings-uppers-label-colleague-custom-b');
             }
-        }
+        };
     },
     state: function() {
         var template = Template.instance();
@@ -117,13 +133,19 @@ Template.NetworkSettingsAccess.helpers({
             submitting: function() {
                 return template.submitting.get();
             }
-        }
+        };
     }
 });
 
 Template.NetworkSettingsAccess.events({
     'input [maxlength]': function(e, template) {
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
+    },
+    'click [data-switch]': function(event, template) {
+        event.preventDefault();
+        var field = $(event.currentTarget).attr('data-switch');
+        console.log(field);
+        if (field) template[field].set(!template[field].curValue);
     }
 });
 
@@ -134,7 +156,7 @@ AutoForm.addHooks('NetworkSettingsAccessForm', {
         var network = Networks.findOne({slug: template.data.networkSlug});
 
         template.submitting.set(true);
-
+        console.log(doc)
         Meteor.call('networks.updateAccess', network._id, doc, function(err) {
             template.submitting.set(false);
 
