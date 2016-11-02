@@ -54,12 +54,13 @@
     &-noneditable
         cursor: not-allowed
         opacity: .5
-        .pu-button-checkmark-confirm,
-        .pu-button-checkmark-deny
-            color: $color-text-subtle
-            background-color: $color-background-secondary
 
-            &:hover,
-            &:active
-                background-color: $color-background-secondary
-                color: $color-text-subtle
+        .pu-button.pu-button-checkmark-deny,
+        .pu-button.pu-button-checkmark-confirm
+            cursor: not-allowed
+
+            &:active,
+            &:hover
+                cursor: not-allowed
+                transform: none
+
