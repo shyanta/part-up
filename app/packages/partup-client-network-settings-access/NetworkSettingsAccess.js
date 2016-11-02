@@ -29,14 +29,14 @@ Template.NetworkSettingsAccess.onCreated(function() {
             }
 
             template.create_partup_restricted.set(network.create_partup_restricted);
-            var colleguesAreEnabled = function(network) {
+            var colleaguesAreEnabled = function(network) {
                 if (network.hasOwnProperty('colleagues_default_enabled')) {
                     return network.colleagues_default_enabled;
                 } else {
-                    return !!(network.collegues ? network.collegues.length : false);
+                    return !!(network.colleagues ? network.colleagues.length : false);
                 }
             };
-            template.colleagues_default_enabled.set(colleguesAreEnabled(network));
+            template.colleagues_default_enabled.set(colleaguesAreEnabled(network));
             template.colleagues_custom_a_enabled.set(network.colleagues_custom_a_enabled);
             template.colleagues_custom_b_enabled.set(network.colleagues_custom_b_enabled);
         }
@@ -165,7 +165,6 @@ Template.NetworkSettingsAccess.events({
     'click [data-switch]': function(event, template) {
         event.preventDefault();
         var field = $(event.currentTarget).attr('data-switch');
-        console.log(field);
         if (field) template[field].set(!template[field].curValue);
     }
 });
@@ -177,7 +176,9 @@ AutoForm.addHooks('NetworkSettingsAccessForm', {
         var network = Networks.findOne({slug: template.data.networkSlug});
 
         template.submitting.set(true);
-        console.log(doc)
+        doc.colleagues_default_enabled = doc.colleagues_default_enabled || false;
+        doc.colleagues_custom_a_enabled = doc.colleagues_custom_a_enabled || false;
+        doc.colleagues_custom_b_enabled = doc.colleagues_custom_b_enabled || false;
         Meteor.call('networks.updateAccess', network._id, doc, function(err) {
             template.submitting.set(false);
 

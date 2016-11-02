@@ -8,7 +8,7 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
         optional: true,
         type: Boolean
     },
-    collegues_default_enabled: {
+    colleagues_default_enabled: {
         optional: true,
         type: Boolean
     },

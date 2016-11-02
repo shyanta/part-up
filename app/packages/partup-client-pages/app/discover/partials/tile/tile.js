@@ -137,7 +137,7 @@ Template.PartupTile.helpers({
     adminsOnly: function(partup) {
         return partup.privacy_type === Partups.privacy_types.NETWORK_ADMINS;
     },
-    colleguesOnly: function(partup) {
+    colleaguesOnly: function(partup) {
         return partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES;
     },
     shortLabel: function(partup) {
