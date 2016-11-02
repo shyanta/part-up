@@ -14,6 +14,7 @@ Partup.transformers.networkAccess = {
     'toFormNetworkAccess': function(network) {
         return {
             create_partup_restricted: network.create_partup_restricted,
+            colleagues_default_enabled: network.colleagues_default_enabled,
             colleagues_custom_a_enabled: network.colleagues_custom_a_enabled,
             colleagues_custom_b_enabled: network.colleagues_custom_b_enabled,
             label_admins: network.privacy_type_labels ? network.privacy_type_labels[6] : '',
@@ -39,6 +40,15 @@ Partup.transformers.networkAccess = {
                 '9': fields.label_colleagues_custom_b,
             }
         };
+
+        if (_.isBoolean(fields.colleagues_default_enabled)) {
+            network.colleagues_default_enabled = fields.colleagues_default_enabled;
+            // clean up the user 'access levels'
+            if (fields.colleagues_default_enabled === false) {
+                network.colleagues = [];
+            }
+        }
+
         if (_.isBoolean(fields.colleagues_custom_a_enabled)) {
             network.colleagues_custom_a_enabled = fields.colleagues_custom_a_enabled;
             // clean up the user 'access levels'

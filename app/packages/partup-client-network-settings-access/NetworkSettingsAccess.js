@@ -9,6 +9,7 @@ Template.NetworkSettingsAccess.onCreated(function() {
     var userId = Meteor.userId();
     var network = Networks.findOne({slug: template.data.networkSlug});
     template.create_partup_restricted = new ReactiveVar(false);
+    template.colleagues_default_enabled = new ReactiveVar(false);
     template.colleagues_custom_a_enabled = new ReactiveVar(false);
     template.colleagues_custom_b_enabled = new ReactiveVar(false);
 
@@ -28,6 +29,14 @@ Template.NetworkSettingsAccess.onCreated(function() {
             }
 
             template.create_partup_restricted.set(network.create_partup_restricted);
+            var colleguesAreEnabled = function(network) {
+                if (network.hasOwnProperty('colleagues_default_enabled')) {
+                    return network.colleagues_default_enabled;
+                } else {
+                    return !!(network.collegues ? network.collegues.length : false);
+                }
+            };
+            template.colleagues_default_enabled.set(colleguesAreEnabled(network));
             template.colleagues_custom_a_enabled.set(network.colleagues_custom_a_enabled);
             template.colleagues_custom_b_enabled.set(network.colleagues_custom_b_enabled);
         }
@@ -58,7 +67,16 @@ Template.NetworkSettingsAccess.helpers({
         var partups = template.partupsInNetwork.get();
 
         return {
-            hasActivePartupsCustomA: function () {
+            hasActivePartupsCollegues: function() {
+                if (partups) {
+                    var PartupsCollegues = partups.filter(function(item) {
+                        return item.privacy_type === 7;
+                    });
+                    return !!PartupsCollegues.length;
+                }
+                return true; // disable in case we don't have the info about the partups
+            },
+            hasActivePartupsCustomA: function() {
                 if (partups) {
                     var PartupsCustomA = partups.filter(function(item) {
                         return item.privacy_type === 8;
@@ -67,7 +85,7 @@ Template.NetworkSettingsAccess.helpers({
                 }
                 return true; // disable in case we don't have the info about the partups
             },
-            hasActivePartupsCustomB: function () {
+            hasActivePartupsCustomB: function() {
                 if (partups) {
                     var PartupsCustomB = partups.filter(function(item) {
                         return item.privacy_type === 9;
@@ -78,6 +96,9 @@ Template.NetworkSettingsAccess.helpers({
             },
             create_partup_restricted: function() {
                 return template.create_partup_restricted.get();
+            },
+            colleagues_default_enabled: function() {
+                return template.colleagues_default_enabled.get();
             },
             colleagues_custom_a_enabled: function() {
                 return template.colleagues_custom_a_enabled.get();

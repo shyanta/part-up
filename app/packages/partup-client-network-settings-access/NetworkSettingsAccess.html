@@ -24,6 +24,22 @@
                 }}
             </label>
 
+            <label data-switch="{{#unless data.hasActivePartupsCollegues}}colleagues_default_enabled{{/unless}}" class="pu-formfield">
+                <div class="pu-switch {{#if data.colleagues_default_enabled}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}} {{#if data.hasActivePartupsCollegues}}pu-switch-noneditable{{/if}}">
+                    <span>{{_ 'network-settings-access-form-colleagues_default_enabled-label' }}</span>
+                    <button type="button" >
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-confirm"><i class="picon-check"></i></div>
+                        <div class="pu-button pu-button-checkmark pu-button-checkmark-deny"><i class="picon-times"></i></div>
+                    </button>
+                </div>
+                {{> afFieldInput
+                    name="colleagues_default_enabled"
+                    type="hidden"
+                    disabled=data.hasActivePartupsCollegues
+                    value=data.colleagues_default_enabled
+                }}
+            </label>
+
             <label data-switch="{{#unless data.hasActivePartupsCustomA}}colleagues_custom_a_enabled{{/unless}}" class="pu-formfield">
                 <div class="pu-switch {{#if data.colleagues_custom_a_enabled}}pu-switch-enabled{{else}}pu-switch-disabled{{/if}} {{#if data.hasActivePartupsCustomA}}pu-switch-noneditable{{/if}}">
                     <span>{{_ 'network-settings-access-form-colleagues_custom_a_enabled-label' }}</span>

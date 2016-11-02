@@ -301,12 +301,13 @@ Template.Partupsettings.helpers({
             if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
         // if user is Colleague
         } else if (isColleague) {
-            types.push(typeColleague);
+            if (network.colleagues_default_enabled) types.push(typeColleague);
             if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
             if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
         // if user is Admin
         } else if (isAdmin) {
-            types.push(typeAdmin, typeColleague);
+            types.push(typeAdmin);
+            if (network.colleagues_default_enabled) types.push(typeColleague);
             if (network.colleagues_custom_a_enabled) types.push(typeColleagueCustomA);
             if (network.colleagues_custom_b_enabled) types.push(typeColleagueCustomB);
         }

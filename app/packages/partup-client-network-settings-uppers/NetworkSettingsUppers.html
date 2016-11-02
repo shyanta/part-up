@@ -26,9 +26,11 @@
                                 <li class="pu-dropdownitem pu-dropdownitem-small">
                                     <button data-make-admin>{{ data.privacyTypeLabelAdd 'network_admins' }}</button>
                                 </li>
+                                {{#if data.network.colleagues_default_enabled}}
                                 <li class="pu-dropdownitem pu-dropdownitem-small">
                                     <button data-make-colleague>{{ data.privacyTypeLabelAdd 'network_colleagues' }}</button>
                                 </li>
+                                {{/if}}
                                 {{#if data.network.colleagues_custom_a_enabled}}
                                 <li class="pu-dropdownitem pu-dropdownitem-small">
                                     <button data-make-colleague-custom-a>{{ data.privacyTypeLabelAdd 'network_colleagues_custom_a' }}</button>

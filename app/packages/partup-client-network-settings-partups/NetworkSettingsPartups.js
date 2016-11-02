@@ -105,12 +105,16 @@ Template.NetworkSettingsPartups_form.helpers({
         },{
             value: Partups.privacy_types.NETWORK_ADMINS,
             label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-admin', {label: ((partupNetwork.privacy_type_labels && partupNetwork.privacy_type_labels[6]) || TAPi18n.__('networksettings-partups-privacy-type-label-admin-default'))})
-        },{
-            value: Partups.privacy_types.NETWORK_COLLEAGUES,
-            label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-collegue', {label: ((partupNetwork.privacy_type_labels && partupNetwork.privacy_type_labels[7]) || TAPi18n.__('networksettings-partups-privacy-type-label-collegue-default'))})
         }];
 
         if (!partupNetwork) return types;
+
+        if (partupNetwork.colleagues_default_enabled) {
+            types.push({
+                value: Partups.privacy_types.NETWORK_COLLEAGUES,
+                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-collegue', {label: ((partupNetwork.privacy_type_labels && partupNetwork.privacy_type_labels[7]) || TAPi18n.__('networksettings-partups-privacy-type-label-collegue-default'))})
+            });
+        }
 
         if (partupNetwork.colleagues_custom_a_enabled) {
             types.push({

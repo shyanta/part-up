@@ -8,6 +8,10 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
         optional: true,
         type: Boolean
     },
+    collegues_default_enabled: {
+        optional: true,
+        type: Boolean
+    },
     colleagues_custom_a_enabled: {
         optional: true,
         type: Boolean
@@ -25,6 +29,12 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
         type: String,
         optional: true,
         max: 10,
+        custom: function() {
+            var required = this.field('colleagues_default_enabled').value !== false;
+            if (required && !this.isSet) {
+                return 'required';
+            }
+        }
     },
     label_colleagues_custom_a: {
         type: String,
