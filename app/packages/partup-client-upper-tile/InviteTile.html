@@ -47,9 +47,9 @@
                         class="pu-button {{# if state.inviteLoadingForUser }}pu-state-loading pu-state-disabled{{/ if }} {{# if state.reInviteSent }}pu-button-success{{/ if }}">
                         <span>
                             {{#if state.reInviteSent}}
-                                Re-invited
+                                {{_ 'invitetile-button-re-invite-sent'}}
                             {{else}}
-                                Re-send invite
+                                {{_ 'invitetile-button-send-re-invite'}}
                             {{/if}}
                         </span>
                         <i class="picon-check pu-sub-success"></i>
