@@ -176,6 +176,7 @@ AutoForm.addHooks('NetworkSettingsAccessForm', {
         var network = Networks.findOne({slug: template.data.networkSlug});
 
         template.submitting.set(true);
+        doc.create_partup_restricted = doc.create_partup_restricted || false;
         doc.colleagues_default_enabled = doc.colleagues_default_enabled || false;
         doc.colleagues_custom_a_enabled = doc.colleagues_custom_a_enabled || false;
         doc.colleagues_custom_b_enabled = doc.colleagues_custom_b_enabled || false;

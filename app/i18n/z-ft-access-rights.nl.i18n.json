@@ -3,6 +3,7 @@
   "network-settings-access-intro-paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis tempor metus, ut blandit quam. Sed ut rutrum arcu. Phasellus id enim accumsan, ultrices tellus at, vulputate ex. Vivamus a ex urna. Proin sit amet faucibus justo.",
   "network-settings-access-form-admins-label": "Label voor: core team",
   "network-settings-access-form-colleagues-label": "Label voor: co-creators",
+  "network-settings-access-form-colleagues_default_enabled-label": "Toegangsniveau co-creators inschakelen",
   "network-settings-access-form-colleagues-custom-a-label": "Label voor: custom a",
   "network-settings-access-form-colleagues_custom_a_enabled-label": "Toegangsniveau custom a inschakelen",
   "network-settings-access-form-colleagues-custom-b-label": "Label voor: custom b",
