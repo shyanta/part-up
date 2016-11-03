@@ -14,20 +14,20 @@ Template.NetworkChat.onCreated(function() {
         startMessageCollector(chat_id);
     };
 
-    template.resetUnreadMessagesIndicatorBadge = function() {
-        if (!chatId) return;
-        Meteor.call('chats.reset_counter', chatId);
-    };
-
     var chatSubscriptionHandler = function() {
         var network = Networks.findOne({slug: networkSlug});
         var chat = Chats.findOne({_id: network.chat_id || 0});
         if (chat) {
             // if a chat is available, continue
             initialize(chat._id);
-            Meteor.call('chats.reset_counter', chat._id);
         }
     };
+
+    template.autorun(function() {
+        var network = Networks.findOne({slug: networkSlug});
+        var chat = Chats.findOne({_id: network.chat_id || 0});
+        Meteor.call('chats.reset_counter', chat._id);
+    });
 
     var chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: template.SEARCH_LIMIT}, {onReady: chatSubscriptionHandler});
     template.limitReached = new ReactiveVar(false);
@@ -144,7 +144,7 @@ Template.NetworkChat.helpers({
                         handler: template.loadOlderMessages,
                         offset: 400
                     },
-                    onNewMessagesViewed: template.resetUnreadMessagesIndicatorBadge,
+                    onNewMessagesViewed: lodash.noop,
                     onMessageClick: template.onMessageClick,
                     placeholderText: TAPi18n.__('pages-app-network-chat-empty-placeholder'),
                     reactiveMessages: template.reactiveMessages,
