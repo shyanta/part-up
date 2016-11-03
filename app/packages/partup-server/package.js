@@ -205,7 +205,7 @@ Package.onUse(function(api) {
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
-        'cron/send_ratings_reminder_notification.js',
+        //'cron/send_ratings_reminder_notification.js',
         'cron/send_daily_digest_users.js',
         'cron/update_shared_count.js',
         'cron/calculate_partup_popularity_score_for_partups.js',
