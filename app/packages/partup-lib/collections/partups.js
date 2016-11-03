@@ -438,15 +438,15 @@ if (Meteor.isServer) {
  * @private
  */
 Partups.privacy_types = {
-    PUBLIC,
-    PRIVATE,
-    NETWORK_PUBLIC,
-    NETWORK_INVITE,
-    NETWORK_CLOSED,
-    NETWORK_ADMINS,
-    NETWORK_COLLEAGUES,
-    NETWORK_COLLEAGUES_CUSTOM_A,
-    NETWORK_COLLEAGUES_CUSTOM_B
+    PUBLIC: PUBLIC,
+    PRIVATE: PRIVATE,
+    NETWORK_PUBLIC: NETWORK_PUBLIC,
+    NETWORK_INVITE: NETWORK_INVITE,
+    NETWORK_CLOSED: NETWORK_CLOSED,
+    NETWORK_ADMINS: NETWORK_ADMINS,
+    NETWORK_COLLEAGUES: NETWORK_COLLEAGUES,
+    NETWORK_COLLEAGUES_CUSTOM_A: NETWORK_COLLEAGUES_CUSTOM_A,
+    NETWORK_COLLEAGUES_CUSTOM_B: NETWORK_COLLEAGUES_CUSTOM_B
 };
 
 Partups.getPrivacyTypeByValue = function(value) {
@@ -458,7 +458,7 @@ Partups.getPrivacyTypeByValue = function(value) {
         }
     }
     return false;
-}
+};
 
 /**
  * @memberOf Partups

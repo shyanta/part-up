@@ -510,10 +510,11 @@ if (Meteor.isServer) {
  * @public
  */
 Networks.privacy_types = {
-    NETWORK_PUBLIC,
-    NETWORK_INVITE,
-    NETWORK_CLOSED
-}
+    NETWORK_PUBLIC: NETWORK_PUBLIC,
+    NETWORK_INVITE: NETWORK_INVITE,
+    NETWORK_CLOSED: NETWORK_CLOSED
+};
+
 /**
  * Modified version of Collection.find that makes
  * sure the user (or guest) can only retrieve
