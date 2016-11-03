@@ -43,7 +43,7 @@ Meteor.methods({
         }
     },
 
-    'partups.change_privacy_type': function(partupId, privacy_type) {
+    'partups.change_privacy_type': function(partupId, newPrivacyType) {
         check(partupId, String);
 
         var user = Meteor.user();
@@ -54,7 +54,7 @@ Meteor.methods({
 
         var isValidPrivacyType = false;
         for (var key in Partups.privacy_types) {
-            if (Partups.privacy_types[key] === privacy_type) {
+            if (Partups.privacy_types[key] === newPrivacyType) {
                 isValidPrivacyType = true;
             }
         }
@@ -62,7 +62,12 @@ Meteor.methods({
         if (!isValidPrivacyType) throw new Meteor.Error(400, 'Privacy type should match one of \'Partups.privacy_types\'');
 
         try {
-            Partups.update(partupId, {$set: {privacy_type: privacy_type}});
+            var oldPrivacyType = partup.privacy_type;
+            Partups.update(partupId, {$set: {privacy_type: newPrivacyType}});
+
+            // Send notifications
+            Event.emit('partups.privacy_type_changed', user._id, partup, oldPrivacyType, newPrivacyType);
+
             return {
                 _id: partup._id
             };
@@ -85,6 +90,7 @@ Meteor.methods({
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
         var oldLanguage = partup.language;
+        var oldPrivacyType = partup.privacy_type;
 
         var uppers = partup.uppers || [];
 
@@ -107,6 +113,11 @@ Meteor.methods({
             Partups.update(partupId, {$set: newPartupFields});
 
             Event.emit('partups.language.updated', oldLanguage, newPartupFields.language);
+
+            if (partup.network_id && (partup.privacy_type != oldPrivacyType)) {
+                // Send notifications to new accessed users
+                Event.emit('partups.privacy_type_changed', user._id, partup, oldPrivacyType);
+            }
 
             return {
                 _id: partup._id
