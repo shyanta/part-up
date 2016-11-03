@@ -17,17 +17,41 @@ Event.on('partups.inserted', function(userId, partup) {
     });
     Updates.insert(update_systemmessage);
 
-    // If the Partup has been created in a Network, notify all its users
+    // If the Partup has been created in a Network, notify its specific users
     if (partup.network_id) {
         var network = Networks.findOneOrFail(partup.network_id);
         var creator = Meteor.users.findOneOrFail(userId);
+        var recipients = network.admins; // Always send to admins
 
-        network.uppers.forEach(function(upperId) {
-            // Dont send a notification to the creator of the partup
+        if (partup.privacy_type == Partups.privacy_types.NETWORK_PUBLIC ||
+            partup.privacy_type == Partups.privacy_types.NETWORK_INVITE ||
+            partup.privacy_type == Partups.privacy_types.NETWORK_CLOSED
+        ) {
+            // Add all network uppers
+            recipients.push.apply(recipients, network.uppers);
+        } else {
+            if (partup.privacy_type >= Partups.privacy_types.NETWORK_COLLEAGUES) {
+                // Add colleagues
+                recipients.push.apply(recipients, network.colleagues);
+            }
+            if (partup.privacy_type >= Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A) {
+                // Add custom A uppers
+                recipients.push.apply(recipients, network.colleagues_custom_a);
+            }
+            if (partup.privacy_type >= Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B) {
+                // Add custom B uppers
+                recipients.push.apply(recipients, network.colleagues_custom_b);
+            }
+            if (partup.privacy_type > Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B) {
+                // Add custom B uppers
+                recipients.push.apply(recipients, network.colleagues_custom_b);
+            }
+        }
+
+        recipients.forEach(function(upperId) {
+            // Don't send a notification to the creator of the partup
             if (upperId === creator._id) return;
-
             var upper = Meteor.users.findOneOrFail(upperId);
-
             if (!User(upper).isActive()) return; // Ignore deactivated accounts
 
             // Set the notification details
