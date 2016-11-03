@@ -14,14 +14,18 @@
                         <a href="{{ pathFor route='profile' _id=data.user._id }}">{{ data.user.profile.name }}</a>
                     </h4>
                     <p>{{ data.user.profile.location.city }}</p>
-                    {{#if data.relevance.partnerInSamePartupsCount }}
-                        <p class="pu-relevance">{{_ 'invitetile-relevance-partups-count' count=data.relevance.partnerInSamePartupsCount }}</p>
+                    {{#if data.relevance.partnerInThisPartup }}
+                        <p class="pu-relevance pu-relevance-amplified">{{_ 'invitetile-relevance-partups-partner-current-partup'}}</p>
                     {{else}}
-                        {{#if data.relevance.memberOfSameNetworkCount}}
-                            <p class="pu-relevance">{{_ 'invitetile-relevance-networks-count' count=data.relevance.memberOfSameNetworkCount }}</p>
+                        {{#if data.relevance.partnerInSamePartupsCount }}
+                            <p class="pu-relevance">{{_ 'invitetile-relevance-partups-count' count=data.relevance.partnerInSamePartupsCount }}</p>
                         {{else}}
-                            {{#if data.relevance.supporterOfPartupsCurrentUserIsPartnerOfCount }}
-                                <p class="pu-relevance">{{_ 'invitetile-relevance-supporter-count' count=data.relevance.supporterOfPartupsCurrentUserIsPartnerOfCount }}</p>
+                            {{#if data.relevance.memberOfSameNetworkCount}}
+                                <p class="pu-relevance">{{_ 'invitetile-relevance-networks-count' count=data.relevance.memberOfSameNetworkCount }}</p>
+                            {{else}}
+                                {{#if data.relevance.supporterOfPartupsCurrentUserIsPartnerOfCount }}
+                                    <p class="pu-relevance">{{_ 'invitetile-relevance-supporter-count' count=data.relevance.supporterOfPartupsCurrentUserIsPartnerOfCount }}</p>
+                                {{/if}}
                             {{/if}}
                         {{/if}}
                     {{/if}}
