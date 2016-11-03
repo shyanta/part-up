@@ -13,12 +13,7 @@ Template.NetworkSettingsAccess.onCreated(function() {
     template.colleagues_custom_a_enabled = new ReactiveVar(false);
     template.colleagues_custom_b_enabled = new ReactiveVar(false);
 
-    template.partupsInNetwork = new ReactiveVar();
-
-    Meteor.call('partups.in_network', network, {
-    }, function(error, results) {
-        template.partupsInNetwork.set(results);
-    });
+    template.subscribe('networks.one.partups', {slug: template.data.networkSlug});
 
     template.subscription = template.subscribe('networks.one', template.data.networkSlug, {
         onReady: function() {
@@ -58,8 +53,9 @@ Template.NetworkSettingsAccess.onCreated(function() {
 Template.NetworkSettingsAccess.helpers({
     data: function() {
         var template = Template.instance();
-        var partups = template.partupsInNetwork.get();
-
+        var network = Networks.findOne({slug: template.data.networkSlug});
+        if (!network) return;
+        var partups = Partups.find({network_id: network._id}).fetch();
         return {
             hasActivePartupsCollegues: function() {
                 if (partups) {

@@ -472,6 +472,14 @@ Network.prototype.isNetworkColleagueCustomB = function(userId) {
     return mout.lang.isString(userId) && (this.colleagues_custom_b.indexOf(userId) > -1);
 };
 
+Network.prototype.startPartupRestrictedToAdmins = function() {
+    if (this.hasOwnProperty('create_partup_restricted')) {
+        return this.create_partup_restricted;
+    } else {
+        return false;
+    }
+};
+
 Network.prototype.colleaguesRoleEnabled = function() {
     if (this.hasOwnProperty('colleagues_default_enabled')) {
         return this.colleagues_default_enabled;

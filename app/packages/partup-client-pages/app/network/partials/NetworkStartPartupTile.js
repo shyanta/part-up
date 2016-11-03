@@ -6,9 +6,11 @@ Template.NetworkStartPartupTile.helpers({
         var userId = Meteor.userId();
 
         return {
-            createPartupAllowed: function () {
-                return network.create_partup_restricted === false ||
-                    network.admins.indexOf(userId) >= 0;
+            currentUserCanCreatePartup: function() {
+                if (network.startPartupRestrictedToAdmins()) {
+                    return network.isNetworkAdmin(userId);
+                }
+                return true;
             }
         }
     }
