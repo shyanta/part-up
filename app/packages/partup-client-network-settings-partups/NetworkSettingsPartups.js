@@ -109,21 +109,21 @@ Template.NetworkSettingsPartups_form.helpers({
 
         if (!partupNetwork) return types;
 
-        if (partupNetwork.colleagues_default_enabled) {
+        if (partupNetwork.colleaguesRoleEnabled()) {
             types.push({
                 value: Partups.privacy_types.NETWORK_COLLEAGUES,
                 label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-collegue', {label: ((partupNetwork.privacy_type_labels && partupNetwork.privacy_type_labels[7]) || TAPi18n.__('networksettings-partups-privacy-type-label-collegue-default'))})
             });
         }
 
-        if (partupNetwork.colleagues_custom_a_enabled) {
+        if (partupNetwork.customARoleEnabled()) {
             types.push({
                 value: Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A,
                 label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-custom-a', {label: ((partupNetwork.privacy_type_labels && partupNetwork.privacy_type_labels[8]) || TAPi18n.__('networksettings-partups-privacy-type-label-custom-a-default'))})
             });
         }
 
-        if (partupNetwork.colleagues_custom_b_enabled) {
+        if (partupNetwork.customBRoleEnabled()) {
             types.push({
                 value: Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B,
                 label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-custom-b', {label: ((partupNetwork.privacy_type_labels && partupNetwork.privacy_type_labels[9]) || TAPi18n.__('networksettings-partups-privacy-type-label-custom-b-default'))})
