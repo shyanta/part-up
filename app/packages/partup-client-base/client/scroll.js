@@ -84,10 +84,7 @@ Partup.client.scroll = {
         };
         var debounced_trigger = lodash.debounce(trigger, INFINITE_SCROLL_DEBOUNCE);
 
-        options.template.autorun(function() {
-            self.pos.get();
-            Tracker.nonreactive(debounced_trigger);
-        });
+        self.pos.equalsFunc = debounced_trigger;
     },
 
     /**

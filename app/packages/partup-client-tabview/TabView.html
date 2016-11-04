@@ -1,0 +1,25 @@
+<!--
+    USAGE:
+    {{#TabView onToggleTab=onToggleTabHook defaultActiveTab=1 }}
+        // Navigation
+        <ul>
+            <li><button {{ tabButton 1 }} class="{{#if activeTab 1 }}tab-active{{/if}}">Tab 1</button></li>
+            <li><button {{ tabButton 2 }} class="{{#if activeTab 2 }}tab-active{{/if}}">Tab 2</button></li>
+            <li><button {{ tabButton 3 }} class="{{#if activeTab 3 }}tab-active{{/if}}">Tab 3</button></li>
+        </ul>
+        {{#if activeTab 1 }}
+            ...Content of tab 1
+        {{/if}}
+        {{#if activeTab 2 }}
+            ...Content of tab 2
+        {{/if}}
+        {{#if activeTab 3 }}
+            ...Content of tab 3
+        {{/if}}
+        ...repeat till infinity
+    {{/TabView}}
+ -->
+
+<template name="TabView">
+    {{> UI.contentBlock state}}
+</template>
