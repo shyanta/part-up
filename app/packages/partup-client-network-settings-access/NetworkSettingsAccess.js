@@ -56,33 +56,25 @@ Template.NetworkSettingsAccess.helpers({
         var network = Networks.findOne({slug: template.data.networkSlug});
         if (!network) return;
         var partups = Partups.find({network_id: network._id}).fetch();
+        if (!partups) return;
         return {
             hasActivePartupsCollegues: function() {
-                if (partups) {
-                    var PartupsCollegues = partups.filter(function(item) {
-                        return item.privacy_type === 7;
-                    });
-                    return !!PartupsCollegues.length;
-                }
-                return true; // disable in case we don't have the info about the partups
+                var PartupsCollegues = (partups || []).filter(function(item) {
+                    return item.privacy_type === 7;
+                });
+                return !!PartupsCollegues.length;
             },
             hasActivePartupsCustomA: function() {
-                if (partups) {
-                    var PartupsCustomA = partups.filter(function(item) {
-                        return item.privacy_type === 8;
-                    });
-                    return !!PartupsCustomA.length;
-                }
-                return true; // disable in case we don't have the info about the partups
+                var PartupsCustomA = (partups || []).filter(function(item) {
+                    return item.privacy_type === 8;
+                });
+                return !!PartupsCustomA.length;
             },
             hasActivePartupsCustomB: function() {
-                if (partups) {
-                    var PartupsCustomB = partups.filter(function(item) {
-                        return item.privacy_type === 9;
-                    });
-                    return !!PartupsCustomB.length;
-                }
-                return true; // disable in case we don't have the info about the partups
+                var PartupsCustomB = (partups || []).filter(function(item) {
+                    return item.privacy_type === 9;
+                });
+                return !!PartupsCustomB.length;
             },
             create_partup_restricted: function() {
                 return template.create_partup_restricted.get();
