@@ -7,7 +7,7 @@ Meteor.methods({
      * @param {mixed[]} fields
      */
     'partups.insert': function(fields) {
-        check(fields, Partup.schemas.forms.partupCreate);
+        check(fields, Partup.schemas.forms.partup);
 
         var user = Meteor.user();
         if (!user) throw new Meteor.Error(401, 'unauthorized');
@@ -43,6 +43,40 @@ Meteor.methods({
         }
     },
 
+    'partups.change_privacy_type': function(partupId, newPrivacyType) {
+        check(partupId, String);
+
+        var user = Meteor.user();
+        var partup = Partups.findOneOrFail(partupId);
+        if (!partup.isEditableBy(user)) {
+            throw new Meteor.Error(401, 'unauthorized');
+        }
+
+        var isValidPrivacyType = false;
+        for (var key in Partups.privacy_types) {
+            if (Partups.privacy_types[key] === newPrivacyType) {
+                isValidPrivacyType = true;
+            }
+        }
+
+        if (!isValidPrivacyType) throw new Meteor.Error(400, 'Privacy type should match one of \'Partups.privacy_types\'');
+
+        try {
+            var oldPrivacyType = partup.privacy_type;
+            Partups.update(partupId, {$set: {privacy_type: newPrivacyType}});
+
+            // Send notifications
+            Event.emit('partups.privacy_type_changed', user._id, partup, oldPrivacyType, newPrivacyType);
+
+            return {
+                _id: partup._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_could_not_be_updated');
+        }
+    },
+
     /**
      * Update a Partup
      *
@@ -51,11 +85,12 @@ Meteor.methods({
      */
     'partups.update': function(partupId, fields) {
         check(partupId, String);
-        check(fields, Partup.schemas.forms.partupUpdate);
+        check(fields, Partup.schemas.forms.partup);
 
         var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
         var oldLanguage = partup.language;
+        var oldPrivacyType = partup.privacy_type;
 
         var uppers = partup.uppers || [];
 
@@ -78,6 +113,11 @@ Meteor.methods({
             Partups.update(partupId, {$set: newPartupFields});
 
             Event.emit('partups.language.updated', oldLanguage, newPartupFields.language);
+
+            if (partup.network_id && (newPartupFields.privacy_type != oldPrivacyType)) {
+                // Send notifications to new accessed users
+                Event.emit('partups.privacy_type_changed', user._id, partup, oldPrivacyType, newPartupFields.privacy_type);
+            }
 
             return {
                 _id: partup._id
@@ -188,7 +228,10 @@ Meteor.methods({
         selector._id = {$ne: exceptPartupId};
 
         if (onlyPublic) {
-            selector.privacy_type = {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]};
+            selector.privacy_type = {'$in': [
+                Partups.privacy_types.PUBLIC,
+                Partups.privacy_types.NETWORK_PUBLIC
+            ]};
         }
 
         try {
@@ -529,17 +572,18 @@ Meteor.methods({
         var partup = Partups.findOneOrFail(partupId);
 
         // Update the new privacy type, but only if it's neither of network_admins or network_colleagues type
-        if (partup.privacy_type !== Partups.NETWORK_ADMINS && partup.privacy_type !== Partups.NETWORK_COLLEAGUES) {
+        if (partup.privacy_type !== Partups.privacy_types.NETWORK_ADMINS &&
+            partup.privacy_type !== Partups.privacy_types.NETWORK_COLLEAGUES) {
             var privacyType = undefined;
             switch (network.privacy_type) {
-                case Networks.NETWORK_PUBLIC:
-                    privacyType = Partups.NETWORK_PUBLIC;
+                case Networks.privacy_types.NETWORK_PUBLIC:
+                    privacyType = Partups.privacy_types.NETWORK_PUBLIC;
                     break;
-                case Networks.NETWORK_INVITE:
-                    privacyType = Partups.NETWORK_INVITE;
+                case Networks.privacy_types.NETWORK_INVITE:
+                    privacyType = Partups.privacy_types.NETWORK_INVITE;
                     break;
-                case Networks.NETWORK_CLOSED:
-                    privacyType = Partups.NETWORK_CLOSED;
+                case Networks.privacy_types.NETWORK_CLOSED:
+                    privacyType = Partups.privacy_types.NETWORK_CLOSED;
                     break;
             }
         }
@@ -661,5 +705,19 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partner_request_could_not_be_rejected');
         }
+    },
+
+   /**
+    * Returns partup stats to superadmins only
+    */
+    'partups.in_network': function(network) {
+        var user = Meteor.user();
+        if (!network) throw new Meteor.Error(401, 'unauthorized');
+        if (!user) throw new Meteor.Error(401, 'unauthorized');
+        if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
+        var selector = {network_id: network._id};
+        var options = {fields: {privacy_type: 1}};
+
+        return Partups.guardedFind(user._id, selector, options).fetch();
     }
 });

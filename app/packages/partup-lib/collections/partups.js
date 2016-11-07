@@ -1,40 +1,50 @@
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var PUBLIC = 1;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var PRIVATE = 2;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_PUBLIC = 3;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_INVITE = 4;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_CLOSED = 5;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_ADMINS = 6;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var NETWORK_COLLEAGUES = 7;
 /**
- * @memberof Partups
+ * @memberOf Partups
+ * @private
+ */
+var NETWORK_COLLEAGUES_CUSTOM_A = 8;
+/**
+ * @memberOf Partups
+ * @private
+ */
+var NETWORK_COLLEAGUES_CUSTOM_B = 9;
+/**
+ * @memberOf Partups
  * @private
  */
 var TYPE = {
@@ -44,7 +54,7 @@ var TYPE = {
     ORGANIZATION: 'organization'
 };
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @private
  */
 var PHASE = {
@@ -64,7 +74,7 @@ var Partup = function(document) {
 /**
  * Check if a given user can edit this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {User} user the user object
  * @return {Boolean}
  */
@@ -77,7 +87,7 @@ Partup.prototype.isEditableBy = function(user) {
 /**
  * Check if a given user is the creator of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {User} user the user object
  * @return {Boolean}
  */
@@ -88,7 +98,7 @@ Partup.prototype.isCreatedBy = function(user) {
 /**
  * Check if a given user can remove this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {User} user the user object
  * @return {Boolean}
  */
@@ -109,7 +119,7 @@ Partup.prototype.isRemoved = function() {
 /**
  * Check if given user is a supporter of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
@@ -121,7 +131,7 @@ Partup.prototype.hasSupporter = function(userId) {
 /**
  * Check if given user is an upper in this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
@@ -133,7 +143,7 @@ Partup.prototype.hasUpper = function(userId) {
 /**
  * Check if given user is a pending partner of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user that should be checked
  * @return {Boolean}
  */
@@ -145,7 +155,7 @@ Partup.prototype.hasPendingPartner = function(userId) {
 /**
  * Check if given user is on the invite list of this partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId the id of the user to check against
  * @return {Boolean}
  */
@@ -157,28 +167,43 @@ Partup.prototype.hasInvitedUpper = function(userId) {
 /**
  * Check if given user has the right to view the partup
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId
  * @param {String} accessToken
  * @return {Boolean}
  */
 Partup.prototype.isViewableByUser = function(userId, accessToken) {
-    if (this.privacy_type === PUBLIC) return true;
-    if (this.privacy_type === NETWORK_PUBLIC) return true;
     var user = Meteor.users.findOne(userId);
-    if (this.privacy_type === NETWORK_ADMINS && User(user).isAdminOfNetwork(this.network_id)) return true;
-    if (this.privacy_type === NETWORK_COLLEAGUES && (User(user).isColleagueOfNetwork(this.network_id) || User(user).isAdminOfNetwork(this.network_id))) return true;
-    if (this.privacy_type === PRIVATE || this.privacy_type === NETWORK_INVITE || this.privacy_type === NETWORK_CLOSED) {
-        var accessTokens = this.access_tokens || [];
-        if (accessTokens.indexOf(accessToken) > -1) return true;
+    var isAdminOfNetwork = User(user).isAdminOfNetwork(this.network_id);
+    var isColleagueOfNetwork = User(user).isColleagueOfNetwork(this.network_id);
+    var isColleagueCustumAOfNetwork = User(user).isColleagueCustomAOfNetwork(this.network_id);
+    var isColleagueCustumBOfNetwork = User(user).isColleagueCustomBOfNetwork(this.network_id);
 
-        if (!user) return false;
-        var networks = user.networks || [];
-        if (networks.indexOf(this.network_id) > -1) return true;
+    switch(this.privacy_type) {
+        case PUBLIC:
+        case NETWORK_PUBLIC:
+            return true;
+        case NETWORK_ADMINS:
+            if (isAdminOfNetwork) return true;
+        case NETWORK_COLLEAGUES:
+            if (isAdminOfNetwork || isColleagueOfNetwork) return true;
+        case NETWORK_COLLEAGUES_CUSTOM_A:
+            if (isAdminOfNetwork || isColleagueOfNetwork || isColleagueCustumAOfNetwork) return true;
+        case NETWORK_COLLEAGUES_CUSTOM_B:
+            if (isAdminOfNetwork || isColleagueOfNetwork || isColleagueCustumAOfNetwork || isColleagueCustumBOfNetwork) return true;
+        case PRIVATE:
+        case NETWORK_INVITE:
+        case NETWORK_CLOSED:
+            var accessTokens = this.access_tokens || [];
+            if (accessTokens.indexOf(accessToken) > -1) return true;
 
-        if (this.hasSupporter(userId)) return true;
-        if (this.hasUpper(userId)) return true;
-        if (this.hasInvitedUpper(userId)) return true;
+            if (!user) return false;
+            var networks = user.networks || [];
+            if (networks.indexOf(this.network_id) > -1) return true;
+
+            if (this.hasSupporter(userId)) return true;
+            if (this.hasUpper(userId)) return true;
+            if (this.hasInvitedUpper(userId)) return true;
     }
 
     return false;
@@ -199,7 +224,7 @@ Partup.prototype.hasEnded = function() {
 /**
  * Make the upper a supporter
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that becomes a supporter
  */
 Partup.prototype.makeSupporter = function(upperId) {
@@ -214,7 +239,7 @@ Partup.prototype.makeSupporter = function(upperId) {
 /**
  * Promote a user from supporter to partner
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that gets promoted
  */
 Partup.prototype.makeSupporterPartner = function(upperId) {
@@ -225,7 +250,7 @@ Partup.prototype.makeSupporterPartner = function(upperId) {
 /**
  * Demote a user from partner to supporter
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that gets demoted
  */
 Partup.prototype.makePartnerSupporter = function(upperId) {
@@ -236,7 +261,7 @@ Partup.prototype.makePartnerSupporter = function(upperId) {
 /**
  * Promote a user from supporter to partner
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} upperId the user that gets promoted
  */
 Partup.prototype.makePartner = function(upperId) {
@@ -409,47 +434,39 @@ if (Meteor.isServer) {
 }
 
 /**
- * @memberof Partups
- * @public
+ * @memberOf Partups
+ * @private
  */
-Partups.PUBLIC = PUBLIC;
+Partups.privacy_types = {
+    PUBLIC: PUBLIC,
+    PRIVATE: PRIVATE,
+    NETWORK_PUBLIC: NETWORK_PUBLIC,
+    NETWORK_INVITE: NETWORK_INVITE,
+    NETWORK_CLOSED: NETWORK_CLOSED,
+    NETWORK_ADMINS: NETWORK_ADMINS,
+    NETWORK_COLLEAGUES: NETWORK_COLLEAGUES,
+    NETWORK_COLLEAGUES_CUSTOM_A: NETWORK_COLLEAGUES_CUSTOM_A,
+    NETWORK_COLLEAGUES_CUSTOM_B: NETWORK_COLLEAGUES_CUSTOM_B
+};
+
+Partups.getPrivacyTypeByValue = function(value) {
+    if (!value) return false;
+    var types = Partups.privacy_types;
+    for (type in types) {
+        if (types[type] === value) {
+            return type;
+        }
+    }
+    return false;
+};
+
 /**
- * @memberof Partups
- * @public
- */
-Partups.PRIVATE = PRIVATE;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_PUBLIC = NETWORK_PUBLIC;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_INVITE = NETWORK_INVITE;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_CLOSED = NETWORK_CLOSED;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_ADMINS = NETWORK_ADMINS;
-/**
- * @memberof Partups
- * @public
- */
-Partups.NETWORK_COLLEAGUES = NETWORK_COLLEAGUES;
-/**
- * @memberof Partups
+ * @memberOf Partups
  * @public
  */
 Partups.TYPE = TYPE;
 /**
- * @memberof Partups
+ * @memberOf Partups
  * @public
  */
 Partups.PHASE = PHASE;
@@ -462,7 +479,7 @@ Partups.PHASE = PHASE;
  * Modified version of Collection.find that makes sure the
  * user (or guest) can only retrieve authorized entities
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {String} userId
  * @param {Object} selector
  * @param {Object} options
@@ -480,7 +497,10 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
 
     var guardedCriterias = [
         // Either the partup is public or belongs to a public network
-        {'privacy_type': {'$in': [Partups.PUBLIC, Partups.NETWORK_PUBLIC]}}
+        {'privacy_type': {'$in': [
+            Partups.privacy_types.PUBLIC,
+            Partups.privacy_types.NETWORK_PUBLIC
+        ]}}
     ];
 
     // If an access token is provided, we allow access if it matches one of the partups access tokens
@@ -515,10 +535,40 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
                 guardedCriterias.push({network_id: networkId});
             } else if (User(user).isColleagueOfNetwork(networkId)) {
                 // Colleagues: hide admin partups
-                guardedCriterias.push({$and: [{network_id: networkId}, {privacy_type: {$ne: Partups.NETWORK_ADMINS}}]});
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$ne: Partups.privacy_types.NETWORK_ADMINS}}
+                ]});
+            } else if (User(user).isColleagueCustomAOfNetwork(networkId)) {
+                // colleagues_custom_a: hide admin and collegues partups
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$nin: [
+                        Partups.privacy_types.NETWORK_ADMINS,
+                        Partups.privacy_types.NETWORK_COLLEAGUES
+                    ]}}
+                ]});
+            } else if (User(user).isColleagueCustomBOfNetwork(networkId)) {
+                // colleagues_custom_a: hide admin and collegue and colleagues_custom_a partups
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$nin: [
+                        Partups.privacy_types.NETWORK_ADMINS,
+                        Partups.privacy_types.NETWORK_COLLEAGUES,
+                        Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A
+                    ]}}
+                ]});
             } else {
-                // Regular members: hide colleague and admin partups
-                guardedCriterias.push({$and: [{network_id: networkId}, {privacy_type: {$nin: [Partups.NETWORK_COLLEAGUES, Partups.NETWORK_ADMINS]}}]});
+                // Regular members: hide all colleague and admin partups
+                guardedCriterias.push({$and: [
+                    {network_id: networkId},
+                    {privacy_type: {$nin: [
+                        Partups.privacy_types.NETWORK_ADMINS,
+                        Partups.privacy_types.NETWORK_COLLEAGUES,
+                        Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A,
+                        Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B
+                    ]}}
+                ]});
             }
         });
     }
@@ -547,7 +597,7 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
  * sure the user (or guest) can only retrieve
  * fields that are publicly available
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Object} selector
  * @param {Object} options
  * @return {Cursor}
@@ -578,7 +628,7 @@ Partups.guardedMetaFind = function(selector, options) {
 /**
  * Find the partups used in the discover page
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param userId
  * @param {Object} options
  * @param parameters
@@ -661,7 +711,7 @@ Partups.findForUpdate = function(userId, update) {
 /**
  * Find the partups in a network
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Network} network
  * @param {Object} parameters
  * @param {Object} options
@@ -702,7 +752,7 @@ Partups.findForNetwork = function(network, parameters, options, loggedInUserId) 
 /**
  * Find the partups that a user is upper of
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Object} user
  * @param {Object} parameters
  * @param {Number} parameters.limit
@@ -739,7 +789,7 @@ Partups.findUpperPartupsForUser = function(user, parameters, loggedInUserId) {
 /**
  * Find the partups that a user supporter of
  *
- * @memberof Partups
+ * @memberOf Partups
  * @param {Object} user
  * @param {Object} parameters
  * @param {Number} parameters.limit

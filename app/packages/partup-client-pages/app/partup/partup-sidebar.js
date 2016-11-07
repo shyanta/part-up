@@ -142,26 +142,40 @@ Template.app_partup_sidebar.helpers({
         }
 
         switch (partup.privacy_type) {
-            case Partups.PUBLIC:
+            case Partups.privacy_types.PUBLIC:
                 status.push(TAPi18n.__('pages-app-partup-status_text-public'));
                 break;
-            case Partups.PRIVATE:
+            case Partups.privacy_types.PRIVATE:
                 status.push(TAPi18n.__('pages-app-partup-status_text-private'));
                 break;
-            case Partups.NETWORK_PUBLIC:
+            case Partups.privacy_types.NETWORK_PUBLIC:
                 status.push(TAPi18n.__('pages-app-partup-status_text-network-public', {network: Partup.client.sanitize(networkText), path: networkPath}));
                 break;
-            case Partups.NETWORK_INVITE:
+            case Partups.privacy_types.NETWORK_INVITE:
                 status.push(TAPi18n.__('pages-app-partup-status_text-network-invite', {network: Partup.client.sanitize(networkText), path: networkPath}));
                 break;
-            case Partups.NETWORK_CLOSED:
+            case Partups.privacy_types.NETWORK_CLOSED:
                 status.push(TAPi18n.__('pages-app-partup-status_text-network-closed', {network: Partup.client.sanitize(networkText), path: networkPath}));
                 break;
-            case Partups.NETWORK_ADMINS:
-                status.push(TAPi18n.__('pages-app-partup-status_text-network-admins', {network: Partup.client.sanitize(networkText), path: networkPath}));
+            case Partups.privacy_types.NETWORK_ADMINS:
+                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+                    ? status.push(TAPi18n.__('pages-app-partup-status_text-network-admins-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-admins', {network: Partup.client.sanitize(networkText), path: networkPath}));
                 break;
-            case Partups.NETWORK_COLLEAGUES:
-                status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues', {network: Partup.client.sanitize(networkText), path: networkPath}));
+            case Partups.privacy_types.NETWORK_COLLEAGUES:
+                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+                    ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues', {network: Partup.client.sanitize(networkText), path: networkPath}));
+                break;
+            case Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A:
+                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+                    ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues-custom-a', {network: Partup.client.sanitize(networkText), path: networkPath}));
+                break;
+            case Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B:
+                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+                    ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues-custom-b', {network: Partup.client.sanitize(networkText), path: networkPath}));
                 break;
         }
 

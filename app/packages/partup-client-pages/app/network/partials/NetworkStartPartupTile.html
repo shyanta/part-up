@@ -1,10 +1,19 @@
 <template name="NetworkStartPartupTile">
     <article class="pu-tile pu-tile-placeholder">
-        <h3>{{_ 'pages-app-network-partups-start_title' }}</h3>
-        <p>{{_ 'pages-app-network-partups-start_intro' }}</p>
-         <!-- invite button -->
-         <a class="pu-button pu-button-icon" href="{{ pathFor 'create-details' }}" data-create-partup-in-tribe>
-             {{_ 'pages-app-network-partups-start_button' }}
-         </a>
+         {{# if data.currentUserCanCreatePartup }}
+             <h3>{{_ 'pages-app-network-partups-start_title' }}</h3>
+             <p>{{_ 'pages-app-network-partups-start_intro' }}</p>
+             <!-- invite button -->
+             <a class="pu-button pu-button-icon" href="{{ pathFor 'create-details' }}" data-create-partup-in-tribe>
+                {{_ 'pages-app-network-partups-start_button' }}
+             </a>
+         {{ else }}
+             <h3>{{_ 'pages-app-network-start-chat_title' }}</h3>
+             <p>{{_ 'pages-app-network-start-chat_intro' }}</p>
+             <!-- chat button -->
+             <a class="pu-button pu-button-icon" data-start-chat-in-tribe>
+                 <i class="picon-chat"></i>{{_ 'pages-app-network-start-chat_button' }}
+             </a>
+         {{/ if }}
     </article>
 </template>

@@ -38,12 +38,7 @@
                                 </div>
                                 <div class="pu-sub-namecontainer">
                                     <span>{{ partup.networkObject.name }}</span>
-                                    {{#if adminsOnly partup }}
-                                        <span>{{_ 'partup-tile-label-admins-only-short' }}</span>
-                                    {{/if}}
-                                    {{#if colleguesOnly partup}}
-                                        <span>{{_ 'partup-tile-label-colleagues-only-short' }}</span>
-                                    {{/if}}
+                                    {{# with shortLabel partup }}<span>{{ . }}</span>{{/ with }}
                                 </div>
                             </div>
                         </a>
@@ -51,7 +46,7 @@
                 {{/unless}}
             {{/ if }}
         {{ else }}
-            {{# with adminsOrColleguesOnly partup }}
+            {{# with longLabel partup }}
                 <footer>
                     <div class="pu-networktile pu-networktile-condensed">
                         <div class="pu-sub-wrapper">
@@ -59,7 +54,7 @@
                             </div>
                             <div class="pu-sub-namecontainer">
                                 <span></span>
-                                <span>{{_ . }}</span>
+                                <span>{{ . }}</span>
                             </div>
                         </div>
                     </div>

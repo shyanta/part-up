@@ -489,6 +489,26 @@ User = function(user) {
         },
 
         /**
+         * Check if user is colleague of a specific network
+         *
+         * @return {Boolean}
+         */
+        isColleagueCustomAOfNetwork: function(networkId) {
+            if (!user) return false;
+            return !!Networks.findOne({_id: networkId, colleagues_custom_a: {$in: [user._id]}});
+        },
+
+        /**
+         * Check if user is colleague of a specific network
+         *
+         * @return {Boolean}
+         */
+        isColleagueCustomBOfNetwork: function(networkId) {
+            if (!user) return false;
+            return !!Networks.findOne({_id: networkId, colleagues_custom_b: {$in: [user._id]}});
+        },
+
+        /**
          * Check if user is invited
          *
          * @return {Boolean}

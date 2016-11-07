@@ -1,0 +1,78 @@
+<template name="NetworkSettingsPartups">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-networksettings-uppers">
+        <h2 class="pu-title pu-title-modal">{{_ 'networksettings-partups-title' }}</h2>
+        <p class="pu-description-modal">{{_ 'networksettings-partups-paragraph' }}</p>
+
+        {{# if data.network }}
+
+            {{> SearchInput inputSettings=form.searchInput}}
+
+            <ul class="pu-list pu-list-lineseparated">
+                {{# each data.partups }}
+                    <li>
+                        <figure class="pu-avatar pu-avatar-square" style="background-image: url('{{ partupImageUrl id=image }}');"></figure>
+                        <p class="pu-sub-upperinfo">
+                            <a href="{{ pathFor 'partup' slug=slug }}" class="pu-sub-name">{{ name }}</a>
+                            <span class="pu-sub-status">{{ readablePrivacyType privacy_type network_id }}</span>
+                        </p>
+                        <button type="button" class="pu-sub-settings pu-button pu-button-checkmark" data-toggle><i class="picon-cog"></i></button>
+                        <div class="pu-uppersettings" data-toggle-target>
+                            <ul class="pu-list">
+                                <li class="pu-dropdownitem pu-dropdownitem-small">
+                                    <button data-edit="{{ _id }}">{{_ 'networksettings-partups-button-edit-access-level-partup'}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                        {{#if partupIsPopupActive partupPopupId }}
+                            {{#contentFor region="PopupTitle" data=.}}
+                                {{ name }}
+                            {{/contentFor}}
+                            {{#contentFor region="PopupContent" data=.}}
+                                {{> NetworkSettingsPartups_form data=. }}
+                            {{/contentFor}}
+                        {{/if}}
+                    </li>
+                {{/ each }}
+            </ul>
+        {{ else }}
+            <ul class="pu-network-uppers"><li><p>{{_ 'network-settings-partups-nopartups' }}</p></li></ul>
+        {{/ if }}
+    </div>
+</template>
+
+<template name='NetworkSettingsPartups_form'>
+    {{#let partup=data}}
+        <form class='pu-form pu-form-popup'>
+            <div class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'networksettings-partups-privacy-type-popup-label-input'}}
+                </span>
+            </div>
+            <div class="pu-sub-validations">
+                <div class="pu-sub-input">
+                    <select class="pu-input" data-partup-privacy>
+                        {{#each partupPrivacyTypes partup.network_id}}
+                            <option value="{{ value }}" selected="{{ partupEquals value partup.privacy_type }}">{{ label }}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="pu-formfield">
+
+            </div>
+            <footer class="pu-row">
+                <div class="cell">
+                    <button type='button' class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}" data-save="{{ partup._id }}">
+                        {{_ 'networksettings-partups-privacy-type-popup-button-save'}}
+                    </button>
+                </div>
+                <div class="cell stretch">
+                </div>
+                <div class="cell last">
+                    <a class=" pu-button pu-button-text pu-button-text-subtle"
+                       data-dismiss>{{_ 'networksettings-partups-privacy-type-popup-button-cancel'}}</a>
+                </div>
+            </footer>
+        </form>
+    {{/let}}
+</template>
