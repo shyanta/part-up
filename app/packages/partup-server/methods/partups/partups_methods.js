@@ -114,9 +114,9 @@ Meteor.methods({
 
             Event.emit('partups.language.updated', oldLanguage, newPartupFields.language);
 
-            if (partup.network_id && (partup.privacy_type != oldPrivacyType)) {
+            if (partup.network_id && (newPartupFields.privacy_type != oldPrivacyType)) {
                 // Send notifications to new accessed users
-                Event.emit('partups.privacy_type_changed', user._id, partup, oldPrivacyType);
+                Event.emit('partups.privacy_type_changed', user._id, partup, oldPrivacyType, newPartupFields.privacy_type);
             }
 
             return {
