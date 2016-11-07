@@ -191,7 +191,7 @@ Updates.findForActivity = function(activity) {
  * @return {Mongo.Cursor}
  */
 Updates.findForPartup = function(partup, parameters, userId) {
-    var parameters = parameters || {};
+    parameters = parameters || {};
 
     if (Meteor.isClient && !userId) {
         userId = Meteor.userId();
@@ -218,6 +218,10 @@ Updates.findForPartup = function(partup, parameters, userId) {
             selector.type = {$regex: '.*message.*'};
         } else if (filter === 'contributions') {
             selector.type = {$regex: '.*contributions.*'};
+        } else if (filter === 'documents') {
+            selector.has_documents = true;
+        } else if (filter === 'links') {
+            selector.has_links = true;
         }
     }
 
