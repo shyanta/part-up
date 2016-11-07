@@ -12,7 +12,7 @@ Template.NetworkStartPartupTile.helpers({
                 }
                 return true;
             }
-        }
+        };
     }
 });
 
@@ -25,7 +25,7 @@ Template.NetworkStartPartupTile.events({
 
         Session.set('createPartupForNetworkById', network._id);
 
-        Intent.go({route: 'create-details'}, function(slug) {
+        Intent.go({route: 'create-details', params: {slug: networkSlug}}, function(slug) {
             if (slug) {
                 Router.go('partup', {
                     slug: slug

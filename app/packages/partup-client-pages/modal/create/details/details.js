@@ -106,7 +106,7 @@ afHooks[FORM_ID] = {
         var possiblyExistingPartupId = Session.get('partials.create-partup.current-partup');
         createOrUpdatePartup(possiblyExistingPartupId, insertDoc, function(partup) {
 
-            Router.go('create-activities', {_id: partup._id});
+            Router.go('create-activities', {_id: partup._id, slug: template.data.networkSlug});
             Session.set('createPartupForNetworkById', false);
         }, self);
 

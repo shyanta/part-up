@@ -134,7 +134,14 @@ Template.Partupsettings.onRendered(function() {
         });
     }, 500);
 
-    var selectedNetworkId = Session.get('createPartupForNetworkById');
+    var selectedNetworkId = undefined;
+    if (template.data.networkSlug) {
+        var network = Networks.findOne({slug: template.data.networkSlug});
+        selectedNetworkId = network._id;
+    } else {
+        selectedNetworkId = template.data.currentPartup.network_id;
+    }
+
     if (selectedNetworkId) {
         template.showNetworkDropdown.set(true);
         template.selectedPrivacyType.set('network');
@@ -426,7 +433,7 @@ Template.Partupsettings.helpers({
         return Template.instance().locationHasValueVar;
     },
     networkPreSelected: function() {
-        var selectedNetworkId = Session.get('createPartupForNetworkById');
+        var selectedNetworkId = Template.instance().data.networkSlug;
         return this._id === selectedNetworkId;
     },
     selectedPrivacyType: function() {
@@ -437,7 +444,7 @@ Template.Partupsettings.helpers({
     },
     preselectedNetwork: function() {
         var network_id = Template.instance().preselectedNetwork.get();
-        var network = Networks.findOne(network_id);
+        var network = Networks.findOne({_id: network_id});
         return network;
     },
     tagsInputIsEmpty: function() {

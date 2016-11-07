@@ -1,3 +1,16 @@
+Template.modal_create.onCreated(function() {
+    var template = this;
+    template.networkLoaded = new ReactiveVar(false);
+    var networkSlug = template.data.networkSlug;
+    template.networkSubscription = template.subscribe('networks.one', networkSlug, {
+        onReady: function() {
+            var network = Networks.findOne({slug: networkSlug});
+            if (!network) Router.pageNotFound('network');
+            template.networkLoaded.set(true);
+        }
+    });
+});
+
 /*************************************************************/
 /* Page helpers */
 /*************************************************************/
@@ -7,6 +20,9 @@ Template.modal_create.helpers({
     },
     partup: function() {
         return Partups.findOne({_id: this.partupId});
+    },
+    networkLoaded: function() {
+        return Template.instance().networkLoaded.get();
     }
 });
 
