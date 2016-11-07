@@ -1,7 +1,8 @@
 var PAGING_INCREMENT = 32;
 
 var getAmountOfColumns = function(screenwidth) {
-    return screenwidth > Partup.client.grid.getWidth(11) + 80 ? 4 : 3;
+    var minWidth = 300;
+    return Math.min(Math.floor(screenwidth / minWidth), 4);
 };
 
 Template.app_discover_page.onCreated(function() {

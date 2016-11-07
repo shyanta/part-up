@@ -2,6 +2,7 @@ Template.app_partup.onCreated(function() {
     var tpl = this;
 
     tpl.partupId = new ReactiveVar();
+    tpl.sectionActive = new ReactiveVar(false);
 
     var partup_sub;
 
@@ -61,9 +62,24 @@ Template.app_partup.onRendered(function() {
         if (!partup) return;
     });
 });
+Template.app_partup.events({
+    'click [data-open-section-button]': function(event, template) {
+        event.preventDefault();
+        template.sectionActive.set(true);
+    },
+    'click [data-close-section]': function(event, template) {
+        if (template.sectionActive.curValue) {
+            event.preventDefault();
+            template.sectionActive.set(false);
+        }
+    }
+});
 
 Template.app_partup.helpers({
     partupIsLoaded: function() {
         return Partups.findOne({_id: this.partupId});
+    },
+    sectionActive: function() {
+        return Template.instance().sectionActive.get();
     }
 });

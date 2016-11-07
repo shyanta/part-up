@@ -2,6 +2,12 @@
     <nav class="pu-navigation">
         <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
         <ul class="pu-list pu-list-horizontal">
+            <li class="pu-sub-section-button">
+                <a href="#" class="pu-button pu-button-nav" data-open-section-button>
+                    <i class="picon-caret-slim-right"></i>
+                    Menu
+                </a>
+            </li>
             <li>
                 <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup' class='pu-state-active'}}">
                     <i class="picon-globe"></i>

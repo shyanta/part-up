@@ -1,14 +1,17 @@
 <template name="app_partup">
     <article class="pu-page pu-page-partup">
-        <section class="pu-partuppagelayout {{#unless partupAnyMobile}}pu-partuppagelayout-active{{/unless}}">
-            <div class="pu-partuppagelayout__left pu-partuppagelayout__content">
-                {{> app_partup_sidebar }}
+        <section class="pu-partuppagelayout {{#unless partupAnyMobile}}pu-partuppagelayout-active{{/unless}} {{#if sectionActive}}pu-partuppagelayout--section-is-active{{/if}}">
+            <div class="pu-partuppagelayout__left {{#if sectionActive}}pu-partuppagelayout__left--is-active{{/if}}">
+                <button class="pu-partuppagelayout__closebutton pu-button pu-button-grey" data-close-section><i class="picon-caret-slim-left"></i></button>
+                <div class="pu-partuppagelayout__content">
+                    {{> app_partup_sidebar }}
+                </div>
             </div>
             <div class="pu-partuppagelayout__right">
                 <div class="pu-sub-partupdetail-navigation">
                     {{> app_partup_navigation }}
                 </div>
-                <div class="pu-sub-partupdetail-content pu-partuppagelayout__content" data-infinitescroll-container>
+                <div class="pu-sub-partupdetail-content pu-partuppagelayout__content" data-infinitescroll-container data-close-section>
                     {{# if partupIsLoaded }}
                         {{> yield region='app_partup' }}
                     {{ else }}
