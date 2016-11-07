@@ -140,13 +140,12 @@ Template.app_partup_updates.onCreated(function() {
  */
 Template.app_partup_updates.onRendered(function() {
     var tpl = this;
-
     /**
      * Infinite scroll
      */
     Partup.client.scroll.infinite({
         template: tpl,
-        element: tpl.find('[data-infinitescroll-container]'),
+        element: $('[data-infinitescroll-container]')[0],
         offset: 200
     }, function() {
         if (tpl.updates.loading.get() || tpl.updates.infinite_scroll_loading.get() || tpl.updates.end_reached.get()) return;
