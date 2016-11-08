@@ -91,7 +91,7 @@ Template.DropdownProfile.onCreated(function() {
 
 Template.DropdownProfile.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=profile]');
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=profile]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();
@@ -117,7 +117,7 @@ Template.DropdownProfile.onDestroyed(function() {
 
 Template.DropdownProfile.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
     'click [data-logout]': function(event, template) {
         event.preventDefault();
         Partup.client.windowTitle.setNotificationsCount(0);

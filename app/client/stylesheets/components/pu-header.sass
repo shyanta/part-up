@@ -7,7 +7,19 @@
     .pu-sub-mobilebar
         background-color: $color-primary
         border-bottom: 2px solid rgba(#fff, .2)
+        overflow-y: hidden
         @extend %clearfix
+
+        > div
+            overflow-x: scroll
+            overflow-y: hidden
+            transition: height 0ms
+
+        &.submenu-active
+            overflow-y: visible
+            > div
+                height: 100vh
+                transition: height 200ms
 
     .pu-sub-logo
         text-align: center

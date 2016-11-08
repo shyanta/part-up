@@ -20,6 +20,7 @@
         z-index: 1
         transition: transform 200ms
         transform: translateX(-100vw)
+        background-color: #eee
 
         &--is-active
             transform: translateX(0px)
@@ -38,11 +39,14 @@
         position: relative
         height: calc(100% - 70px)
 
+        &-fixedwidth
+            overflow-x: hidden
+
     button.pu-partuppagelayout__closebutton
         position: absolute
         top: 16px
         right: 20px
-        z-index: 2
+        z-index: 12
         width: 40px
         height: 40px
         text-align: center
@@ -54,9 +58,14 @@
             border-color: $color-primary
 
     &--section-is-active
+        overflow: hidden
 
         .pu-partuppagelayout__right
             filter: brightness(89%)
+
+            .pu-partuppagelayout__content
+                -webkit-overflow-scrolling: auto
+                overflow: hidden
 
     @media screen and (min-width: 420px)
         &__left
