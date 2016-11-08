@@ -32,60 +32,7 @@ Template.DropdownProfile.onCreated(function() {
     };
 
     // Dropdown opened state + callback
-    template.dropdownOpen = new ReactiveVar(false, function(a, hasBeenOpened) {
-        // if (!hasBeenOpened) return;
-
-        // // (Re)load upper partups
-        // template.states.loadingUpperpartups.set(true);
-        // HTTP.get('/users/' + user._id + '/upperpartups' + mout.queryString.encode(query), function(error, response) {
-        //     if (error || !response.data.partups || response.data.partups.length === 0) {
-        //         template.states.loadingUpperpartups.set(false);
-        //         return;
-        //     }
-
-        //     var result = response.data;
-
-        //     template.results.upperpartups.set(result.partups.map(function(partup) {
-        //         Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
-
-        //         return partup;
-        //     }));
-        // });
-
-        // // (Re)load supporter partups
-        // template.states.loadingSupporterpartups.set(true);
-        // HTTP.get('/users/' + user._id + '/supporterpartups' + mout.queryString.encode(query), function(error, response) {
-        //     if (error || !response.data.partups || response.data.partups.length === 0) {
-        //         template.states.loadingSupporterpartups.set(false);
-        //         return;
-        //     }
-
-        //     var result = response.data;
-
-        //     template.results.supporterpartups.set(result.partups.map(function(partup) {
-        //         Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
-
-        //         return partup;
-        //     }));
-        // });
-
-        // // (Re)load networks
-        // template.states.loadingNetworks.set(true);
-        // HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
-        //     if (error || !response.data.networks || response.data.networks.length === 0) {
-        //         template.states.loadingNetworks.set(false);
-        //         return;
-        //     }
-
-        //     var result = response.data;
-
-        //     template.results.networks.set(result.networks.map(function(network) {
-        //         Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
-
-        //         return network;
-        //     }).sort(Partup.client.sort.alphabeticallyASC.bind(null, 'name')));
-        // });
-    });
+    template.dropdownOpen = new ReactiveVar(false);
 
 });
 

@@ -6,6 +6,26 @@
 ClientDropdowns = {
     preventCloseAll: false,
     partupNavigationSubmenuActive: new ReactiveVar(false),
+    ajustBrightness: function(active) {
+        if (!active) {
+            $('.pu-page').css({
+                '-webkit-filter': 'none',
+                '-moz-filter': 'none',
+                '-ms-filter': 'none',
+                'filter': 'none',
+                pointerEvents: 'auto'
+            });
+            return;
+        }
+
+        $('.pu-page').css({
+            '-webkit-filter': 'brightness(89%)',
+            '-moz-filter': 'brightness(89%)',
+            '-ms-filter': 'brightness(89%)',
+            'filter': 'brightness(89%)',
+            'pointer-events': 'none'
+        });
+    },
     addOutsideDropdownClickHandler: function(template, dropdownSelector, buttonSelector, onClose) {
 
         // find the dropdown
@@ -57,6 +77,11 @@ Meteor.startup(function() {
         ClientDropdowns.partupNavigationSubmenuActive.set(false);
         this.next();
     });
-})
+
+    Meteor.autorun(function() {
+        var active = ClientDropdowns.partupNavigationSubmenuActive.get();
+        ClientDropdowns.ajustBrightness(active);
+    });
+});
 
 Partup.client.ClientDropdowns = ClientDropdowns;
