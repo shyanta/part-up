@@ -1,6 +1,11 @@
 /*************************************************************/
 /* Partial rendered */
 /*************************************************************/
+
+Template.app_partup_navigation.onCreated(function() {
+    var template = this;
+    template.shareDropdownState = new ReactiveVar(false);
+});
 Template.app_partup_navigation.onRendered(function() {
     var template = this;
     // Offset to improve window resizing behaviour
@@ -40,10 +45,17 @@ Template.app_partup_navigation.helpers({
     },
     backgroundWidth: function() {
         return Session.get('partials.partup-detail-navigation.background-width') || 0;
+    },
+    shareDropdownState: function() {
+        return Template.instance().shareDropdownState;
     }
 });
 
 Template.app_partup_navigation.events({
+    'click [data-open-share-dropdown]': function(event, template) {
+        event.preventDefault();
+        template.shareDropdownState.set(!template.shareDropdownState.curValue);
+    },
     'click [data-openpartupsettings]': function(event, template) {
         event.preventDefault();
 
@@ -55,5 +67,52 @@ Template.app_partup_navigation.events({
                 slug: partup.slug
             }
         });
-    }
+    },
+    'click [data-share-facebook]': function(event, template) {
+        var partup = Partups.findOne(template.data.partupId);
+        var currentUrl = Router.url('partup', {slug: partup.slug});
+        var shareUrl = Partup.client.socials.generateFacebookShareUrl(currentUrl);
+        window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share facebook', {
+            partupId: partup._id,
+        });
+    },
+
+    'click [data-share-twitter]': function(event, template) {
+        var partup = Partups.findOne(template.data.partupId);
+        var currentUrl = Router.url('partup', {slug: partup.slug});
+        var message = partup.name;
+        var shareUrl = Partup.client.socials.generateTwitterShareUrl(message, currentUrl);
+        window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share twitter', {
+            partupId: partup._id,
+        });
+    },
+
+    'click [data-share-linkedin]': function(event, template) {
+        var partup = Partups.findOne(template.data.partupId);
+        var currentUrl = Router.url('partup', {slug: partup.slug});
+        var shareUrl = Partup.client.socials.generateLinkedInShareUrl(currentUrl);
+        window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
+
+        analytics.track('partup share linkedin', {
+            partupId: partup._id,
+        });
+    },
+
+    'click [data-share-mail]': function(event, template) {
+        var partup = Partups.findOne(template.data.partupId);
+        var user = Meteor.user();
+        var currentUrl = Router.url('partup', {slug: partup.slug});
+        if (!user) {
+            var body = TAPi18n.__('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name: partup.name});
+        } else {
+            var body = TAPi18n.__('pages-app-partup-share_mail', {url: currentUrl, partup_name: partup.name, user_name: user.profile.name});
+        }
+        var subject = '';
+        var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
+        window.location.href = shareUrl;
+    },
 });

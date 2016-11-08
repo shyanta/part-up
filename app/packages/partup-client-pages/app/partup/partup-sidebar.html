@@ -46,7 +46,7 @@
             </ul>
             <p class="pu-sub-abstract">{{#with partupSanitize partup.description }}{{{ partupAutolink . }}}{{/with}}</p>
             <ul class="pu-list pu-partup-meta">
-                <li><i class="picon-calendar-check"></i>{{_ 'pages-app-partup-active-untill-info'}} {{statusText.activeTill}}</li>
+                <li><i class="picon-calendar-check"></i> {{_ 'pages-app-partup-active-untill-info'}} {{statusText.activeTill}}</li>
                 <li><i class="picon-location"></i> {{statusText.location}}</li>
             </ul>
             <ul class="pu-list pu-list-horizontal pu-list-tags">
@@ -61,43 +61,6 @@
     <aside class="pu-sidebar">
         <section class="pu-sub-dark">
             <div class="pu-sidebar-wrap">
-                <!-- <section>
-                    <h2>{{_ 'pages-app-partup-share_title' }}</h2>
-                    <ul class="pu-list pu-list-horizontal pu-sub-socials">
-                        <li>
-                            <a class="pu-button pu-button-social pu-button-social-twitter" data-share-twitter>
-                                <i class="picon-twitter"></i>
-                                {{# with partup.shared_count.twitter }}
-                                    <span>{{ . }}</span>
-                                {{/ with }}
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pu-button pu-button-social pu-button-social-facebook" data-share-facebook>
-                                <i class="picon-facebook"></i>
-                                {{# with partup.shared_count.facebook }}
-                                    <span>{{ . }}</span>
-                                {{/ with }}
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pu-button pu-button-social pu-button-social-linkedin" data-share-linkedin>
-                                <i class="picon-linkedin"></i>
-                                {{# with partup.shared_count.linkedin }}
-                                    <span>{{ . }}</span>
-                                {{/ with }}
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pu-button pu-button-social" data-share-mail>
-                                <i class="picon-monkeytail"></i>
-                                {{# with partup.shared_count.email }}
-                                    <span>{{ . }}</span>
-                                {{/ with }}
-                            </a>
-                        </li>
-                    </ul>
-                </section> -->
                 <section>
                     <h2>{{_ 'pages-app-partup-uppers_title' }}</h2>
                     <ul class="pu-list pu-list-users">
