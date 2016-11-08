@@ -81,5 +81,10 @@ Template.app_partup.helpers({
     },
     sectionActive: function() {
         return Template.instance().sectionActive.get();
+    },
+    network: function() {
+        var partup = Partups.findOne({_id: this.partupId});
+        if (!partup) return
+        return Networks.findOne({_id: partup.network_id});
     }
 });

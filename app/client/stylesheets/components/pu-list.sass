@@ -77,6 +77,11 @@
 
     &-comments
         min-height: 10px
+
+        li
+            overflow: hidden
+            white-space: normal
+
         li + li
                 margin-top: 10px
 
@@ -202,6 +207,7 @@
             margin-bottom: 20px - 8px
 
     &-avatars
+        white-space: normal
         li
             margin-right: 10px
             margin-bottom: 10px - 4px
@@ -371,6 +377,13 @@
         text-align: left
         li
             margin-right: 20px
+
+    &-spaced
+        li
+            margin-right: 10px
+
+            &:last-child
+                margin-right: 0
 
     &-horizontalscroller
         white-space: nowrap

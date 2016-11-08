@@ -113,73 +113,75 @@ Template.app_partup_sidebar.helpers({
         var partup = Partups.findOne(this.partupId);
         if (!partup) return '';
 
-        var city = mout.object.get(partup, 'location.city') || mout.object.get(partup, 'location.country');
+        var location = mout.object.get(partup, 'location.city') || mout.object.get(partup, 'location.country');
+        var date = moment(partup.end_date).format('LL');
 
-        var status = [];
-        if (partup.type === Partups.TYPE.COMMERCIAL || partup.type === Partups.TYPE.ORGANIZATION) {
-            status.push(TAPi18n.__('pages-app-partup-status_text-with-budget', {
-                date: moment(partup.end_date).format('LL'),
-                city: Partup.client.sanitize(city),
-                budget: Partup.client.sanitize(prettyBudget(partup))
-            }));
-        } else {
-            status.push(TAPi18n.__('pages-app-partup-status_text-without-budget', {
-                date: moment(partup.end_date).format('LL'),
-                city: Partup.client.sanitize(city)
-            }));
-        }
+        return {activeTill: date, location: location};
+        // var status = [];
+        // if (partup.type === Partups.TYPE.COMMERCIAL || partup.type === Partups.TYPE.ORGANIZATION) {
+        //     status.push(TAPi18n.__('pages-app-partup-status_text-with-budget', {
+        //         date: moment(partup.end_date).format('LL'),
+        //         city: Partup.client.sanitize(city),
+        //         budget: Partup.client.sanitize(prettyBudget(partup))
+        //     }));
+        // } else {
+        //     status.push(TAPi18n.__('pages-app-partup-status_text-without-budget', {
+        //         date: moment(partup.end_date).format('LL'),
+        //         city: Partup.client.sanitize(city)
+        //     }));
+        // }
 
-        var networkText = '';
-        var networkPath = '';
-        if (partup.network_id) {
-            var network = Networks.findOne({_id: partup.network_id});
-            if (network) {
-                networkText = network.name;
-                var query = {};
-                if (network.hasMember(Meteor.userId())) query.show = false;
-                networkPath = Router.path('network', {slug: network.slug}, {query: query});
-            }
-        }
+        // var networkText = '';
+        // var networkPath = '';
+        // if (partup.network_id) {
+        //     var network = Networks.findOne({_id: partup.network_id});
+        //     if (network) {
+        //         networkText = network.name;
+        //         var query = {};
+        //         if (network.hasMember(Meteor.userId())) query.show = false;
+        //         networkPath = Router.path('network', {slug: network.slug}, {query: query});
+        //     }
+        // }
 
-        switch (partup.privacy_type) {
-            case Partups.privacy_types.PUBLIC:
-                status.push(TAPi18n.__('pages-app-partup-status_text-public'));
-                break;
-            case Partups.privacy_types.PRIVATE:
-                status.push(TAPi18n.__('pages-app-partup-status_text-private'));
-                break;
-            case Partups.privacy_types.NETWORK_PUBLIC:
-                status.push(TAPi18n.__('pages-app-partup-status_text-network-public', {network: Partup.client.sanitize(networkText), path: networkPath}));
-                break;
-            case Partups.privacy_types.NETWORK_INVITE:
-                status.push(TAPi18n.__('pages-app-partup-status_text-network-invite', {network: Partup.client.sanitize(networkText), path: networkPath}));
-                break;
-            case Partups.privacy_types.NETWORK_CLOSED:
-                status.push(TAPi18n.__('pages-app-partup-status_text-network-closed', {network: Partup.client.sanitize(networkText), path: networkPath}));
-                break;
-            case Partups.privacy_types.NETWORK_ADMINS:
-                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
-                    ? status.push(TAPi18n.__('pages-app-partup-status_text-network-admins-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
-                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-admins', {network: Partup.client.sanitize(networkText), path: networkPath}));
-                break;
-            case Partups.privacy_types.NETWORK_COLLEAGUES:
-                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
-                    ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
-                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues', {network: Partup.client.sanitize(networkText), path: networkPath}));
-                break;
-            case Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A:
-                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
-                    ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
-                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues-custom-a', {network: Partup.client.sanitize(networkText), path: networkPath}));
-                break;
-            case Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B:
-                network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
-                    ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
-                    : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues-custom-b', {network: Partup.client.sanitize(networkText), path: networkPath}));
-                break;
-        }
+        // switch (partup.privacy_type) {
+        //     case Partups.privacy_types.PUBLIC:
+        //         status.push(TAPi18n.__('pages-app-partup-status_text-public'));
+        //         break;
+        //     case Partups.privacy_types.PRIVATE:
+        //         status.push(TAPi18n.__('pages-app-partup-status_text-private'));
+        //         break;
+        //     case Partups.privacy_types.NETWORK_PUBLIC:
+        //         status.push(TAPi18n.__('pages-app-partup-status_text-network-public', {network: Partup.client.sanitize(networkText), path: networkPath}));
+        //         break;
+        //     case Partups.privacy_types.NETWORK_INVITE:
+        //         status.push(TAPi18n.__('pages-app-partup-status_text-network-invite', {network: Partup.client.sanitize(networkText), path: networkPath}));
+        //         break;
+        //     case Partups.privacy_types.NETWORK_CLOSED:
+        //         status.push(TAPi18n.__('pages-app-partup-status_text-network-closed', {network: Partup.client.sanitize(networkText), path: networkPath}));
+        //         break;
+        //     case Partups.privacy_types.NETWORK_ADMINS:
+        //         network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+        //             ? status.push(TAPi18n.__('pages-app-partup-status_text-network-admins-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+        //             : status.push(TAPi18n.__('pages-app-partup-status_text-network-admins', {network: Partup.client.sanitize(networkText), path: networkPath}));
+        //         break;
+        //     case Partups.privacy_types.NETWORK_COLLEAGUES:
+        //         network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+        //             ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+        //             : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues', {network: Partup.client.sanitize(networkText), path: networkPath}));
+        //         break;
+        //     case Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_A:
+        //         network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+        //             ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+        //             : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues-custom-a', {network: Partup.client.sanitize(networkText), path: networkPath}));
+        //         break;
+        //     case Partups.privacy_types.NETWORK_COLLEAGUES_CUSTOM_B:
+        //         network.privacy_type_labels && network.privacy_type_labels[partup.privacy_type]
+        //             ? status.push(TAPi18n.__('pages-app-partup-status_text-custom', {network: Partup.client.sanitize(networkText), path: networkPath, name: network.privacy_type_labels[partup.privacy_type]}))
+        //             : status.push(TAPi18n.__('pages-app-partup-status_text-network-colleagues-custom-b', {network: Partup.client.sanitize(networkText), path: networkPath}));
+        //         break;
+        // }
 
-        return status.join(' ');
+        // return status.join(' ');
     }
 });
 
