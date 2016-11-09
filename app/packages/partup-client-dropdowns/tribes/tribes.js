@@ -217,5 +217,11 @@ Template.DropdownTribes.helpers({
             }
         });
         return count;
+    },
+
+    showDiscover: function() {
+        var user = Meteor.user();
+        if (!user) return true;
+        return !User(user).isMemberOfAnyNetwork() && !User(user).isMemberOfAnyPartup();
     }
 });
