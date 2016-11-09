@@ -544,7 +544,40 @@ Networks.guardedMetaFind = function(selector, options) {
     options.fields = {_id: 1};
 
     // The fields that should be available on each network
-    var unguardedFields = ['_id', 'name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language', 'tags', 'location', 'stats', 'swarms', 'background_image', 'common_tags', 'most_active_partups', 'most_active_uppers', 'admins', 'archived_at'];
+    var unguardedFields = [
+        '_id',
+        'name',
+        'description',
+        'website',
+        'slug',
+        'icon',
+        'image',
+        'privacy_type',
+        'pending_uppers',
+        'invites',
+        'language',
+        'tags',
+        'location',
+        'stats',
+        'swarms',
+        'background_image',
+        'common_tags',
+        'most_active_partups',
+        'most_active_uppers',
+        'admins',
+        'archived_at',
+        'create_partup_restricted',
+        'colleagues_default_enabled',
+        'colleagues_custom_a_enabled',
+        'colleagues_custom_b_enabled',
+        'label_admins',
+        'label_colleagues',
+        'label_colleagues_custom_a',
+        'label_colleagues_custom_b',
+        'collegues',
+        'collegues_custom_a',
+        'collegues_custom_b'
+    ];
 
     unguardedFields.forEach(function(unguardedField) {
         options.fields[unguardedField] = 1;
