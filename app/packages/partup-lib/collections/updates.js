@@ -218,6 +218,9 @@ Updates.findForPartup = function(partup, parameters, userId) {
             selector.type = {$regex: '.*message.*'};
         } else if (filter === 'contributions') {
             selector.type = {$regex: '.*contributions.*'};
+        } else if (filter === 'documents-links') {
+            selector.has_documents = true;
+            selector.has_links = true;
         } else if (filter === 'documents') {
             selector.has_documents = true;
         } else if (filter === 'links') {
