@@ -412,6 +412,18 @@ Partup.prototype.isArchived = function() {
     return !!this.archived;
 };
 
+Partup.prototype.privacyMatches = function(type) {
+    var privacyType = Partups.privacy_types[type.toUpperCase()];
+    if (privacyType) return privacyType === this.privacy_type;
+
+    var networkTypes = [3, 4, 5];
+    var partupHasNetworkType = networkTypes[networkTypes.indexOf(this.privacy_type)];
+    if (partupHasNetworkType && type === 'network') {
+        return true;
+    }
+    return false;
+};
+
 /**
  * Partups describe collaborations between several uppers
  * @namespace Partups

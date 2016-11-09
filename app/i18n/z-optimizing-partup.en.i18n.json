@@ -6,5 +6,9 @@
     "pages-app-partup-level-label-partup": "Part-up",
     "pages-app-partup-level-label-tribe": "Tribe",
     "pages-app-partup-menu_share-button": "Share",
-    "pages-app-partup-menu_menu-button": "Menu"
+    "pages-app-partup-menu_menu-button": "Menu",
+    "pages-modal-partup_settings-submit-privacytype-confirmation-title": "Are you sure?",
+    "pages-modal-partup_settings-submit-privacytype-confirmation-message": "If you change the privacy type of your part-up, all content will be visible to the uppers in this access level.",
+    "pages-modal-partup_settings-submit-privacytype-confirmation-confirm-button": "Save",
+    "pages-modal-partup_settings-submit-privacytype-confirmation-cancel-button": "Cancel"
 }
