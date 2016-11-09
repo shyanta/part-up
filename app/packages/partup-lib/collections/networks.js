@@ -484,7 +484,7 @@ Network.prototype.colleaguesRoleEnabled = function() {
     if (this.hasOwnProperty('colleagues_default_enabled')) {
         return this.colleagues_default_enabled;
     } else {
-        return !!(this.colleagues ? this.colleagues.length : false);
+        return this.hasColleagues();
     }
 };
 
@@ -494,6 +494,35 @@ Network.prototype.customARoleEnabled = function() {
 
 Network.prototype.customBRoleEnabled = function() {
     return !!this.colleagues_custom_b_enabled;
+};
+
+Network.prototype.hasColleagues = function() {
+    return !!(this.colleagues ? this.colleagues.length : false);
+};
+Network.prototype.hasColleaguesCustomA = function() {
+    return !!(this.colleagues_custom_a ? this.colleagues_custom_a.length : false);
+};
+Network.prototype.hasColleaguesCustomB = function() {
+    return !!(this.colleagues_custom_b ? this.colleagues_custom_b.length : false);
+};
+
+Network.prototype.hasPartupsWithColleaguesRoleEnabled = function(partups) {
+    var PartupsColleagues = (partups || []).filter(function(item) {
+        return item.privacy_type === 7;
+    });
+    return !!PartupsColleagues.length;
+};
+Network.prototype.hasPartupsWithColleaguesCustomARoleEnabled = function(partups) {
+    var PartupsCustomA = (partups || []).filter(function(item) {
+        return item.privacy_type === 8;
+    });
+    return !!PartupsCustomA.length;
+};
+Network.prototype.hasPartupsWithColleaguesCustomBRoleEnabled = function(partups) {
+    var PartupsCustomB = (partups || []).filter(function(item) {
+        return item.privacy_type === 9;
+    });
+    return !!PartupsCustomB.length;
 };
 
 /**
