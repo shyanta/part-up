@@ -1,12 +1,11 @@
 <template name="Header_nav">
     <ul class="pu-list pu-list-horizontal">
+        <li class="pu-sub-logo"><a href="{{ pathFor 'home' }}">{{> Header_logo }}</a></li>
         <li>
             {{> DropdownTribes }}
         </li>
-        {{#unless isMobile}}
-            <li>
-                {{> DropdownMenu }}
-            </li>
-        {{/unless}}
+        <li>
+            {{> DropdownMenu }}
+        </li>
     </ul>
 </template>
