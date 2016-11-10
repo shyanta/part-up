@@ -146,10 +146,11 @@ Meteor.publishComposite('networks.one.uppers', function(urlParams, parameters) {
     if (parameters.limit) options.limit = parameters.limit;
     if (parameters.skip) options.skip = parameters.skip;
 
+    var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
+    if (!network) return;
+
     return {
         find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
-            if (!network) return;
 
             if (network.isNetworkAdmin(this.userId)) {
                 parameters.isAdminOfNetwork = true;
