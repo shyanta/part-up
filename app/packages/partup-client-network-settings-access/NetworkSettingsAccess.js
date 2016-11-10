@@ -146,7 +146,7 @@ Template.NetworkSettingsAccess.events({
         var field = $(event.currentTarget).attr('data-switch');
         if (field) template[field].set(!template[field].curValue);
 
-        $('#NetworkSettingsAccessForm').submit();
+        _.defer(function() {$('#NetworkSettingsAccessForm').submit();});
     }
 });
 
