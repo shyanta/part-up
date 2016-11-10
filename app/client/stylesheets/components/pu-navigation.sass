@@ -95,3 +95,27 @@
 
                     &.pu-sub-button
                         padding-top: 15px
+    &-compact
+        height: 60px
+
+        .pu-list-horizontal
+            li
+                margin-right: 20px
+
+        .pu-button-nav
+            height: 60px
+            padding: 25px 0 0
+            font-size: 14px
+
+            i
+                font-size: 14px
+
+    @media screen and (min-width: $breakpoint-tablet + 1px)
+        &-compact
+            .pu-list-horizontal
+                li
+                    margin-right: 40px
+
+                &.pu-sub-compact-list
+                    li
+                        margin-right: 20px

@@ -1,5 +1,5 @@
 <template name="app_partup_navigation">
-    <nav class="pu-navigation">
+    <nav class="pu-navigation pu-navigation-compact">
         <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
         <ul class="pu-list pu-list-horizontal">
             <li class="pu-sub-section-button">
@@ -27,7 +27,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="pu-list pu-list-horizontal pu-sub-right">
+        <ul class="pu-list pu-list-horizontal pu-sub-right pu-sub-compact-list">
             {{# with partup }}
                 {{# if isEditableBy currentUser }}
                     <li>
