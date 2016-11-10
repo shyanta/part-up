@@ -22,7 +22,7 @@
             </li>
             <li>
                 <a href="{{pathFor 'partup-documents' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-documents' class='pu-state-active'}}">
-                    <i class="picon-monitor"></i>
+                    <i class="picon-documents"></i>
                     {{_ 'pages-app-partup-menu_documents'}}
                 </a>
             </li>
@@ -39,7 +39,7 @@
             {{/ with }}
             <li>
                 <a href="#" data-open-share-dropdown class="pu-button pu-button-nav">
-                    <i class="picon-network"></i>
+                    <i class="picon-share"></i>
                     {{_ 'pages-app-partup-menu_share-button'}}
                 </a>
                 {{> Dropdown toggle=shareDropdownState template="partup_share_dropdown" data=. position='left' }}
