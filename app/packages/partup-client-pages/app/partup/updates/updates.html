@@ -21,7 +21,9 @@
                     {{_ 'pages-app-partup-updates-new_message' }}
                 </a>
             </section>
+            {{#if pageIsUpdates}}
             <aside>{{> PartialDropdownUpdatesActions reactiveVar=filterReactiveVar}}</aside>
+            {{/if}}
         </header>
 
         <div>

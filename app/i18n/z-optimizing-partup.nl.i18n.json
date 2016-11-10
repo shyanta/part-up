@@ -10,5 +10,6 @@
     "pages-modal-partup_settings-submit-privacytype-confirmation-title": "Weet je het zeker?",
     "pages-modal-partup_settings-submit-privacytype-confirmation-message": "Als je het toegangsniveau veranderd dan zal alle inhoud die normaal niet zichtbaar is voor het nieuwe toegangsniveau wel beschikbaar zijn.",
     "pages-modal-partup_settings-submit-privacytype-confirmation-confirm-button": "Opslaan",
-    "pages-modal-partup_settings-submit-privacytype-confirmation-cancel-button": "Annuleren"
+    "pages-modal-partup_settings-submit-privacytype-confirmation-cancel-button": "Annuleren",
+    "pages-app-partup-menu_documents": "Documenten & links"
 }
