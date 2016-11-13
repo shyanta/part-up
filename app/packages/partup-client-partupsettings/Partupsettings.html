@@ -2,11 +2,12 @@
 
     {{#autoForm schema=startPartupSchema id=FORM_ID doc=fieldsFromPartup class="pu-form" validation="submitThenBlur" }}
 
-        {{# if CREATE }}
-            {{#if preselectedNetwork }}
+        {{#if preselectedNetwork }}
             <div class="pu-formfield">
                 <span class="pu-label">
-                    {{_ 'partupsettings-form-privacy-preselected-label' }}
+                    {{# if CREATE }}{{_ 'partupsettings-form-privacy-preselected-label' }}{{ /if }}
+                    {{# unless CREATE }}{{_ 'partupsettings-form-privacy-preselected-label-change' }}{{ /unless }}
+
                     <a class="pu-hint pu-tooltip">
                         <i class="picon-question"></i>
                         <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'partupsettings-form-privacy-preselected-tooltip'}}</p></span>
@@ -37,7 +38,7 @@
                             <div class="pu-sub-input">
                                 <select class="pu-input" data-partup-privacy-network>
                                     {{#each networkPrivacyTypes selectedPrivacyNetwork}}
-                                        <option value="{{ value }}" selected="{{ networkPrivacyChecked }}">{{_ label}}</option>
+                                        <option value="{{ value }}" selected="{{ networkPrivacyChecked }}">{{label}}</option>
                                     {{/each}}
                                 </select>
                             </div>
@@ -45,7 +46,6 @@
                     </div>
                 {{/ if }}
             {{/ if }}
-            {{/if}}
         {{/ if }}
 
         <!-- Name -->

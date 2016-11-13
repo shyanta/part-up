@@ -3,6 +3,8 @@ Template.ChatView.onCreated(function() {
     var chatId = template.data.config.chatId;
     if (!chatId) throw 'No chatId was provided';
 
+    Session.set('partup-current-active-chat', chatId);
+
     template.overscroll = new ReactiveVar(false);
     template.underscroll = new ReactiveVar(false);
     template.chatEmpty = new ReactiveVar(false);
@@ -10,7 +12,6 @@ Template.ChatView.onCreated(function() {
     template.activeContext = new ReactiveVar(false);
 
     template.initialized = false;
-    template.windowFocus = true;
 
     if (template.data.config.reactiveBottomBarHeight) {
         template.data.config.reactiveBottomBarHeight.equalsFunc = function(a, b) {
@@ -21,7 +22,7 @@ Template.ChatView.onCreated(function() {
 
     var handleNewMessagesViewedIfMessageDividerIsOnScreen = function() {
         Meteor.setTimeout(function() {
-            if (!template.dividerLineIsVisible() || !template.windowFocus) return;
+            if (!template.dividerLineIsVisible()) return;
             template.hideNewMessagesDivider();
         }, 4000);
     };
@@ -65,18 +66,6 @@ Template.ChatView.onCreated(function() {
         template.data.config.onNewMessagesViewed();
     };
 
-    // autofocus on chatbar input field
-    template.onWindowFocus = function(event) {
-        template.windowFocus = true;
-        template.stickyNewMessagesDividerHandler({hideLine: true});
-        if ($(template.data.config.messageInputSelector)[0]) $(template.data.config.messageInputSelector).focus();
-    };
-    template.onWindowBlur = function(event) {
-        template.windowFocus = false;
-    };
-    $(window).on('focus', template.onWindowFocus);
-    $(window).on('blur', template.onWindowBlur);
-
     template.rememberOldestUnreadMessage = function(oldestUnreadMessage) {
         if (!template.oldestUnreadMessage.get()) {
             template.oldestUnreadMessage.set(oldestUnreadMessage);
@@ -93,11 +82,11 @@ Template.ChatView.onCreated(function() {
         // get the unread messages count
         var unreadMessagesCount = counter ? counter.unread_count : 0;
 
-        // stop if the user is not focussed or if there are no unread messages
-        if (template.windowFocus && unreadMessagesCount <= 0) return;
+        // if there are no unread messages
+        if (unreadMessagesCount <= 0) return;
 
         // if user is focussed stop here
-        if (template.windowFocus && template.initialized) return;
+        if (template.initialized) return;
 
         // returns the oldest unread message with n offset
         // offset = 0 is oldest, offset = 1 is second oldest
@@ -216,9 +205,8 @@ Template.ChatView.onRendered(function() {
 
 Template.ChatView.onDestroyed(function() {
     var template = this;
-    $(window).off('focus', template.onWindowFocus);
-    $(window).off('blur', template.onWindowBlur);
     Partup.client.chat.destroy();
+    Session.set('partup-current-active-chat', undefined);
 });
 
 Template.ChatView.helpers({

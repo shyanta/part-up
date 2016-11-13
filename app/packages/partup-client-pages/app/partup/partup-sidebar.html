@@ -42,7 +42,7 @@
                                 {{> contentFor region="PopupContent" data=. template="app_partup_takepart" }}
                             {{/if}}
                         {{/ if }}
-                        {{#if isUpperInPartup}}
+                        {{#if partupOneIsTrue isUpperInPartup isSupporter}}
                             <li class="pu-sub-button">
                                 <a href="#" class="pu-button" data-invite>
                                     <i class="picon-person-plus picon-large"></i>

@@ -49,6 +49,7 @@ Template.DropdownChatNotifications.helpers({
         var userId = Meteor.userId();
         if (!userId) return;
         var getPrivate = template.private.get();
+        var currentActiveChatId = Session.get('partup-current-active-chat');
 
         var networkChats = Chats.findForUser(userId, {networks: true}, {fields: {_id: 1, counter: 1, created_at: 1}, sort: {updated_at: -1}})
             .map(function(chat) {
@@ -77,6 +78,7 @@ Template.DropdownChatNotifications.helpers({
             totalTribeMessages: function() {
                 return networkChats
                     .map(function(chat) {
+                        if (chat._id === currentActiveChatId) return 0;
                         return chat.unreadCount();
                     }).reduce(function(prev, curr) {
                         return prev + curr;
@@ -85,6 +87,7 @@ Template.DropdownChatNotifications.helpers({
             totalPersonalMessages: function() {
                 return privateChats
                     .map(function(chat) {
+                        if (chat._id === currentActiveChatId) return 0;
                         return chat.unreadCount();
                     }).reduce(function(prev, curr) {
                         return prev + curr;

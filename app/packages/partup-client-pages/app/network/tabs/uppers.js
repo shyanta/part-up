@@ -86,7 +86,8 @@ Template.app_network_uppers.onCreated(function() {
                     Partup.client.embed.user(user, result['cfs.images.filerecord']);
 
                     return {
-                        user: user
+                        user: user,
+                        network: Networks.findOne({slug: template.data.networkSlug})
                     };
                 });
 

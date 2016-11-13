@@ -57,9 +57,12 @@ Template.OneOnOneChat.onCreated(function() {
         });
     });
 
-    template.resetUnreadMessagesIndicatorBadge = function() {
-        if (chatId) Meteor.call('chats.reset_counter', chatId);
-    };
+    template.autorun(function() {
+        var chat = Chats.findOne({_id: chatId});
+        if (chatId) {
+            Meteor.call('chats.reset_counter', chatId);
+        }
+    });
 
     template.loadOlderMessages = function() {
         if (template.loadingOlderMessages) return;
@@ -171,7 +174,7 @@ Template.OneOnOneChat.helpers({
                         handler: template.loadOlderMessages,
                         offset: 400
                     },
-                    onNewMessagesViewed: template.resetUnreadMessagesIndicatorBadge,
+                    onNewMessagesViewed: lodash.noop,
                     reactiveMessages: template.reactiveMessages,
                     reactiveHighlight:  new ReactiveVar(''),
                     reactiveBottomBarHeight: template.bottomBarHeight,

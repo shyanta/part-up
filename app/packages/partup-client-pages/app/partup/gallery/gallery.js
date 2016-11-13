@@ -4,6 +4,9 @@ Template.ImageGallery.onCreated(function() {
 Template.ImageGallery.helpers({
     popupId: function() {
         return this.updateId + '_gallery';
+    },
+    singleImage: function() {
+        return Template.instance().data.images.length === 1;
     }
 });
 

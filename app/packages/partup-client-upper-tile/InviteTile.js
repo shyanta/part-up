@@ -100,6 +100,9 @@ Template.InviteTile.helpers({
                     },
                     supporterOfPartupsCurrentUserIsPartnerOfCount: function() {
                         return _.intersection(userSupporter, currentUserPartups).length;
+                    },
+                    partnerInThisPartup: function() {
+                        return _.intersection([template.data.partupId], userPartups).length;
                     }
                 };
             }

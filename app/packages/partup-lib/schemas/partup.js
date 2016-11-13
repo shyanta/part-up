@@ -166,7 +166,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     privacy_type: {
         type: Number,
         min: 1,
-        max: 7
+        max: 9
     },
     shared_count: {
         type: Object
@@ -233,7 +233,7 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
  * @name partupUpdate
  * @memberOf Partup.schemas.forms
  */
-Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
+Partup.schemas.forms.partup = new SimpleSchema([partupBaseSchema, {
     focuspoint_x_input: {
         type: Number,
         min: 0,
@@ -267,15 +267,7 @@ Partup.schemas.forms.partupUpdate = new SimpleSchema([partupBaseSchema, {
             type: 'tags',
             afFieldInput: tagsConfiguration
         }
-    }
-}]);
-
-/**
- * start partup create form schema
- * @name partupCreate
- * @memberOf Partup.schemas.forms
- */
-Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partupUpdate, {
+    },
     privacy_type_input: {
         type: String,
         allowedValues: [
@@ -283,7 +275,9 @@ Partup.schemas.forms.partupCreate = new SimpleSchema([Partup.schemas.forms.partu
             'private',
             'network',
             'network_admins',
-            'network_colleagues'
+            'network_colleagues',
+            'network_colleagues_custom_a',
+            'network_colleagues_custom_b'
         ]
     }
 }]);

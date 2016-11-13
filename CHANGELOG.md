@@ -1,3 +1,13 @@
+<a name="1.24.1"></a>
+## [1.24.1](https://github.com/part-up/part-up/compare/1.24.0...1.24.1) (2016-10-24)
+
+
+### Bug Fixes
+
+* **translations:** removed z-files ([a479f2e](https://github.com/part-up/part-up/commit/a479f2e))
+
+
+
 <a name="1.24.0"></a>
 # [1.24.0](https://github.com/part-up/part-up/compare/1.23.0...1.24.0) (2016-10-24)
 
