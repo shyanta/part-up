@@ -1,3 +1,68 @@
+<a name="1.25.0"></a>
+# [1.25.0](https://github.com/part-up/part-up/compare/1.24.1...1.25.0) (2016-11-13)
+
+
+### Bug Fixes
+
+* **access-rights:** added translations ([6e9aeb9](https://github.com/part-up/part-up/commit/6e9aeb9))
+* **access-rights:** changing privacy level through partup setting now also sends notifications ([9f69e7f](https://github.com/part-up/part-up/commit/9f69e7f))
+* **access-rights:** fixed first load of tribe access page ([ff2fcc1](https://github.com/part-up/part-up/commit/ff2fcc1))
+* **access-rights:** fixed the json errors ([b351639](https://github.com/part-up/part-up/commit/b351639))
+* **access-rights:** fixed toggles ([ae0337a](https://github.com/part-up/part-up/commit/ae0337a))
+* **access-rights:** users can use the start partup button in a tribe again ([d3c0b44](https://github.com/part-up/part-up/commit/d3c0b44))
+* **chat:** don't show unread chat notifications when chat is active fixing [#715](https://github.com/part-up/part-up/issues/715) ([b9a8f5f](https://github.com/part-up/part-up/commit/b9a8f5f))
+* **emailsettings:** implemented new switch in email settings ([7665135](https://github.com/part-up/part-up/commit/7665135))
+* **invite:** added translations for re-invite buttons fixing [#732](https://github.com/part-up/part-up/issues/732) ([fe872d3](https://github.com/part-up/part-up/commit/fe872d3))
+* **invite:** allow supporters to invite uppers fixes [#739](https://github.com/part-up/part-up/issues/739) ([8f6b576](https://github.com/part-up/part-up/commit/8f6b576))
+* **invite:** show button for partners [#739](https://github.com/part-up/part-up/issues/739) ([0d34372](https://github.com/part-up/part-up/commit/0d34372))
+* **invitetile:** added 'partner in this partup' flag on invite tile fixing [#727](https://github.com/part-up/part-up/issues/727) ([e79dbfc](https://github.com/part-up/part-up/commit/e79dbfc))
+* **media:** added URL polyfill to fix broken links on IE ([0ba0fcf](https://github.com/part-up/part-up/commit/0ba0fcf))
+* **new message:** single image renders in largest format [#308](https://github.com/part-up/part-up/issues/308) ([5cf2d34](https://github.com/part-up/part-up/commit/5cf2d34))
+* **partup-settings:** fixes missing roles in partup visibility option ([6ce6ae0](https://github.com/part-up/part-up/commit/6ce6ae0))
+* **takrpart:** frmoved cancel button. fixing [#729](https://github.com/part-up/part-up/issues/729) ([a3bd0c5](https://github.com/part-up/part-up/commit/a3bd0c5))
+
+
+### Features
+
+* **access-right:** ES6 to ES5, small tweaks ([6506e6a](https://github.com/part-up/part-up/commit/6506e6a))
+* **access-right:** seperate i18n and add member access management ([92a446f](https://github.com/part-up/part-up/commit/92a446f))
+* **access-rights:** add gherkin spec ([1cba39a](https://github.com/part-up/part-up/commit/1cba39a))
+* **access-rights:** add partup-client-network-settings-partup ([8dedc6e](https://github.com/part-up/part-up/commit/8dedc6e))
+* **access-rights:** add placeholders, short label for partup tile ([8fce40b](https://github.com/part-up/part-up/commit/8fce40b))
+* **access-rights:** added switch to toggle the co-creator role ([7167833](https://github.com/part-up/part-up/commit/7167833))
+* **access-rights:** change access level in partup settings ([d5c5100](https://github.com/part-up/part-up/commit/d5c5100))
+* **access-rights:** Convert 2 more cases from ES6 to ES5 ([c3336ce](https://github.com/part-up/part-up/commit/c3336ce))
+* **access-rights:** deleted partups can't prevent a custom label to be disabled ([d2e4342](https://github.com/part-up/part-up/commit/d2e4342))
+* **access-rights:** display custom labels ([9172f7a](https://github.com/part-up/part-up/commit/9172f7a))
+* **access-rights:** Fix a small bug in the [data-remove-colleague-custom-b] event handler ([9d735f0](https://github.com/part-up/part-up/commit/9d735f0))
+* **access-rights:** fix bugs, use guardedfind, partup custom statustext ([6ef3ac6](https://github.com/part-up/part-up/commit/6ef3ac6))
+* **access-rights:** Fix partup tiles ([81f592b](https://github.com/part-up/part-up/commit/81f592b))
+* **access-rights:** forgot to remove a line in package.js for client pages ([171eb35](https://github.com/part-up/part-up/commit/171eb35))
+* **access-rights:** implement helpers in tribe privacy change dropdown ([6328637](https://github.com/part-up/part-up/commit/6328637))
+* **access-rights:** integrated the switch for acces tights toggle ([f15a251](https://github.com/part-up/part-up/commit/f15a251))
+* **access-rights:** limit notifications to the right access levels [#656](https://github.com/part-up/part-up/issues/656) ([4cf33d8](https://github.com/part-up/part-up/commit/4cf33d8))
+* **access-rights:** manages access rights in tribe ([a5c64e4](https://github.com/part-up/part-up/commit/a5c64e4))
+* **access-rights:** move network privacy types to a Networks.privacy_types object ([f61b971](https://github.com/part-up/part-up/commit/f61b971))
+* **access-rights:** move privacy types to a Partups.privacy_types object ([8625489](https://github.com/part-up/part-up/commit/8625489))
+* **access-rights:** notify tribe members of an existing part-up in their access level [#740](https://github.com/part-up/part-up/issues/740) ([c3a7bbc](https://github.com/part-up/part-up/commit/c3a7bbc))
+* **access-rights:** partup filtering on access level ([89418a1](https://github.com/part-up/part-up/commit/89418a1))
+* **access-rights:** remove the partups tab in tribe settings ([d89fc44](https://github.com/part-up/part-up/commit/d89fc44))
+* **access-rights:** removed xolvio:backdoor package ([7f32e37](https://github.com/part-up/part-up/commit/7f32e37))
+* **access-rights:** restrict partup create in network ([423e3d2](https://github.com/part-up/part-up/commit/423e3d2))
+* **access-rights:** update gherkin spec ([5ce4c76](https://github.com/part-up/part-up/commit/5ce4c76))
+* **access-rights:** update gherkin spec ([ea3daed](https://github.com/part-up/part-up/commit/ea3daed))
+* **access-rights:** update Gherkin spec ([7af4be0](https://github.com/part-up/part-up/commit/7af4be0))
+* **access-rights:** user tile label to display access rights ([2b177a4](https://github.com/part-up/part-up/commit/2b177a4))
+* **notifications:** removed notification for rating [#731](https://github.com/part-up/part-up/issues/731) ([2cada93](https://github.com/part-up/part-up/commit/2cada93))
+* **partup-access-rights-tab:** added /partups route to tribe settings, added overview of partups in this tribe and created the edit access-rights modal ([af58b28](https://github.com/part-up/part-up/commit/af58b28))
+* **partup-client-network-setting-access:** add access tab in tribe settings ([0a2d39b](https://github.com/part-up/part-up/commit/0a2d39b))
+* **partup-tribe-access-level:** translations and a confirm prompt ([219b5a9](https://github.com/part-up/part-up/commit/219b5a9))
+* **partupsettings:** add 2 access levels ([ad68942](https://github.com/part-up/part-up/commit/ad68942))
+* **tribe-admin-partup-privacy-type:** Created and implemented method to ajust the privacy type of a partup in tribe settings ([20e205b](https://github.com/part-up/part-up/commit/20e205b))
+* **tribe-partup-access:** integrated custom labels ([12d9f56](https://github.com/part-up/part-up/commit/12d9f56))
+
+
+
 <a name="1.24.1"></a>
 ## [1.24.1](https://github.com/part-up/part-up/compare/1.24.0...1.24.1) (2016-10-24)
 

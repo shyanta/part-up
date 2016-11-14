@@ -59,22 +59,19 @@ Template.NetworkSettingsAccess.helpers({
         if (!partups) return;
         return {
             hasActivePartupsCollegues: function() {
-                var PartupsCollegues = (partups || []).filter(function(item) {
-                    return item.privacy_type === 7;
-                });
-                return !!PartupsCollegues.length;
+                var networkHasColleagues = network.hasColleagues();
+                var networkHasPartupsWithColleguesRoleEnabled = network.hasPartupsWithColleaguesRoleEnabled(partups);
+                return networkHasPartupsWithColleguesRoleEnabled || networkHasColleagues;
             },
             hasActivePartupsCustomA: function() {
-                var PartupsCustomA = (partups || []).filter(function(item) {
-                    return item.privacy_type === 8;
-                });
-                return !!PartupsCustomA.length;
+                var networkHasColleaguesCustomA = network.hasColleaguesCustomA();
+                var networkHasPartupsWithColleaguesCustomARoleEnabled = network.hasPartupsWithColleaguesCustomARoleEnabled(partups);
+                return networkHasPartupsWithColleaguesCustomARoleEnabled || networkHasColleaguesCustomA;
             },
             hasActivePartupsCustomB: function() {
-                var PartupsCustomB = (partups || []).filter(function(item) {
-                    return item.privacy_type === 9;
-                });
-                return !!PartupsCustomB.length;
+                var networkHasPartupsWithColleaguesCustomBRoleEnabled = network.hasPartupsWithColleaguesCustomBRoleEnabled(partups);
+                var networkHasColleaguesCustomB = network.hasColleaguesCustomB();
+                return networkHasPartupsWithColleaguesCustomBRoleEnabled || networkHasColleaguesCustomB;
             },
             create_partup_restricted: function() {
                 return template.create_partup_restricted.get();
@@ -148,6 +145,8 @@ Template.NetworkSettingsAccess.events({
         event.preventDefault();
         var field = $(event.currentTarget).attr('data-switch');
         if (field) template[field].set(!template[field].curValue);
+
+        _.defer(function() {$('#NetworkSettingsAccessForm').submit();});
     }
 });
 
@@ -156,12 +155,12 @@ AutoForm.addHooks('NetworkSettingsAccessForm', {
         var self = this;
         var template = self.template.parent();
         var network = Networks.findOne({slug: template.data.networkSlug});
-
+        var partups = Partups.find({network_id: network._id}).fetch();
         template.submitting.set(true);
         doc.create_partup_restricted = doc.create_partup_restricted || false;
-        doc.colleagues_default_enabled = doc.colleagues_default_enabled || false;
-        doc.colleagues_custom_a_enabled = doc.colleagues_custom_a_enabled || false;
-        doc.colleagues_custom_b_enabled = doc.colleagues_custom_b_enabled || false;
+        doc.colleagues_default_enabled = network.hasPartupsWithColleaguesRoleEnabled(partups) || network.hasColleagues() ? true : (doc.colleagues_default_enabled || false);
+        doc.colleagues_custom_a_enabled = network.hasPartupsWithColleaguesCustomARoleEnabled(partups) || network.hasColleaguesCustomA() ? true : (doc.colleagues_custom_a_enabled || false);
+        doc.colleagues_custom_b_enabled = network.hasPartupsWithColleaguesCustomBRoleEnabled(partups) || network.hasColleaguesCustomB() ? true : (doc.colleagues_custom_b_enabled || false);
         Meteor.call('networks.updateAccess', network._id, doc, function(err) {
             template.submitting.set(false);
 

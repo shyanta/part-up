@@ -28,6 +28,8 @@ Partup.factories.updatesFactory = {
         update.type = updateType;
         update.type_data = updateTypeData;
         update.comments_count = 0;
+        update.has_documents = false;
+        update.has_links = false;
         update.created_at = new Date();
         update.updated_at = new Date();
         update.upper_data = [];
@@ -57,6 +59,8 @@ Partup.factories.updatesFactory = {
         update.type = updateType;
         update.type_data = updateTypeData;
         update.comments_count = 0;
+        update.has_documents = false;
+        update.has_links = false;
         update.created_at = new Date();
         update.updated_at = new Date();
 

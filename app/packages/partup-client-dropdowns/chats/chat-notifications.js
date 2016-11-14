@@ -9,7 +9,7 @@ Template.DropdownChatNotifications.onCreated(function() {
 });
 Template.DropdownChatNotifications.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=chat-notifications]');
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=chat-notifications]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();
@@ -23,7 +23,7 @@ Template.DropdownChatNotifications.onDestroyed(function() {
 
 Template.DropdownChatNotifications.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
     'click [data-private]': function(event, template) {
         event.preventDefault();
         template.private.set(true);

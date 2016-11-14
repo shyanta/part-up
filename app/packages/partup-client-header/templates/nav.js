@@ -14,3 +14,11 @@ Template.Header_nav.events({
         });
     },
 });
+
+Template.Header_nav.helpers({
+    showDiscover: function() {
+        var user = Meteor.user();
+        if (!user) return true;
+        return !User(user).isMemberOfAnyNetwork() && !User(user).isMemberOfAnyPartup();
+    }
+});

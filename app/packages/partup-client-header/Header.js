@@ -11,5 +11,8 @@ Meteor.startup(function() {
 Template.Header.helpers({
     isMobile: function() {
         return Partup.client.responsive.is() && isMobile.get();
+    },
+    subMenuActive: function() {
+        return Partup.client.ClientDropdowns.partupNavigationSubmenuActive.get();
     }
 });

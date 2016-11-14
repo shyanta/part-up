@@ -1,7 +1,4 @@
 <template name="DropdownTribes">
-    {{#unless currentUser}}
-        <a href="{{pathFor 'discover'}}" class="pu-button pu-button-header pu-button-header-desktop">{{_ 'mytribes-button-discover' }}</a>
-    {{else}}
     <button class="pu-button pu-button-header pu-button-header-desktop pu-button-avatar pu-button-header-profiledropdown {{# if menuOpen }}pu-button-header-profiledropdown-active{{/ if }}" data-toggle-menu="tribes">
         {{_ 'mytribes-button-menu' }} {{#unless menuOpen}}<i class="picon-caret-slim-down"></i>{{/unless}}{{#if menuOpen}}<i class="picon-caret-slim-up"></i>{{/if}}
     </button>
@@ -102,5 +99,4 @@
             </div>
         </section>
     </div>
-    {{/unless}}
 </template>

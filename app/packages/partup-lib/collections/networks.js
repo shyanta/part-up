@@ -484,7 +484,7 @@ Network.prototype.colleaguesRoleEnabled = function() {
     if (this.hasOwnProperty('colleagues_default_enabled')) {
         return this.colleagues_default_enabled;
     } else {
-        return !!(this.colleagues ? this.colleagues.length : false);
+        return this.hasColleagues();
     }
 };
 
@@ -494,6 +494,35 @@ Network.prototype.customARoleEnabled = function() {
 
 Network.prototype.customBRoleEnabled = function() {
     return !!this.colleagues_custom_b_enabled;
+};
+
+Network.prototype.hasColleagues = function() {
+    return !!(this.colleagues ? this.colleagues.length : false);
+};
+Network.prototype.hasColleaguesCustomA = function() {
+    return !!(this.colleagues_custom_a ? this.colleagues_custom_a.length : false);
+};
+Network.prototype.hasColleaguesCustomB = function() {
+    return !!(this.colleagues_custom_b ? this.colleagues_custom_b.length : false);
+};
+
+Network.prototype.hasPartupsWithColleaguesRoleEnabled = function(partups) {
+    var PartupsColleagues = (partups || []).filter(function(item) {
+        return item.privacy_type === 7;
+    });
+    return !!PartupsColleagues.length;
+};
+Network.prototype.hasPartupsWithColleaguesCustomARoleEnabled = function(partups) {
+    var PartupsCustomA = (partups || []).filter(function(item) {
+        return item.privacy_type === 8;
+    });
+    return !!PartupsCustomA.length;
+};
+Network.prototype.hasPartupsWithColleaguesCustomBRoleEnabled = function(partups) {
+    var PartupsCustomB = (partups || []).filter(function(item) {
+        return item.privacy_type === 9;
+    });
+    return !!PartupsCustomB.length;
 };
 
 /**
@@ -544,7 +573,40 @@ Networks.guardedMetaFind = function(selector, options) {
     options.fields = {_id: 1};
 
     // The fields that should be available on each network
-    var unguardedFields = ['_id', 'name', 'description', 'website', 'slug', 'icon', 'image', 'privacy_type', 'pending_uppers', 'invites', 'language', 'tags', 'location', 'stats', 'swarms', 'background_image', 'common_tags', 'most_active_partups', 'most_active_uppers', 'admins', 'archived_at'];
+    var unguardedFields = [
+        '_id',
+        'name',
+        'description',
+        'website',
+        'slug',
+        'icon',
+        'image',
+        'privacy_type',
+        'pending_uppers',
+        'invites',
+        'language',
+        'tags',
+        'location',
+        'stats',
+        'swarms',
+        'background_image',
+        'common_tags',
+        'most_active_partups',
+        'most_active_uppers',
+        'admins',
+        'archived_at',
+        'create_partup_restricted',
+        'colleagues_default_enabled',
+        'colleagues_custom_a_enabled',
+        'colleagues_custom_b_enabled',
+        'label_admins',
+        'label_colleagues',
+        'label_colleagues_custom_a',
+        'label_colleagues_custom_b',
+        'collegues',
+        'collegues_custom_a',
+        'collegues_custom_b'
+    ];
 
     unguardedFields.forEach(function(unguardedField) {
         options.fields[unguardedField] = 1;

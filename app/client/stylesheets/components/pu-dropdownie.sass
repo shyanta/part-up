@@ -10,6 +10,7 @@
     transform: scale(0.9)
     transition: opacity .2s, transform .2s
     z-index: 10
+    white-space: nowrap
 
     .pu-sub-arrow
         display: block
@@ -38,6 +39,14 @@
         pointer-events: auto
         transform: none
         transition: opacity .2s, transform .2s cubic-bezier(.27,.75,.5,1.52)
+
+    &-left
+        transform-origin: 100% 0
+        right: 0
+
+        .pu-sub-arrow
+            left: auto
+            right: 20px
 
 
 .pu-dropdownie-container

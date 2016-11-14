@@ -2,8 +2,8 @@
     position: relative
     z-index: 2
     background: $color-background
-    min-height: 100%
     transition: filter 150ms
+    min-height: calc(100vh - 60px)
 
     &-chat
         height: 100%
@@ -15,6 +15,12 @@
         border-bottom: 2px solid $color-border-light
         min-width: $breakpoint-desktop
         transition: padding .2s, min-height .2s
+        width: 100vw
+        -webkit-overflow-scrolling: touch
+        overflow-x: scroll
+        display: block
+        min-width: 0
+        white-space: nowrap
 
         &-title
             min-height: 128px
@@ -111,6 +117,7 @@
             padding-right: 80px
             padding-bottom: 80px
             padding-left: 40px
+            height: calc(100% - 60px)
 
     &-error
         .pu-sub-pagecontent
@@ -123,6 +130,7 @@
     &-overlay
         background-color: $color-primary
         position: relative
+        min-height: 100%
 
         &-dark
             background-color: #494949

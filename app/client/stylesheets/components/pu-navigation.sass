@@ -5,6 +5,23 @@
     font-family: $font-secondary
     font-weight: 600
     padding-left: 40px
+    z-index: 11
+
+    .pu-dropdownie
+        position: absolute
+
+        p
+            font-size: 16px
+            font-weight: 600
+            color: $color-text
+            margin-bottom: 10px
+
+        ul.pu-list li
+            margin-right: 10px
+            margin-left: 0
+
+            &:last-child
+                margin-right: 0
 
     > .pu-sub-background
         background-color: $color-background-secondary
@@ -78,3 +95,27 @@
 
                     &.pu-sub-button
                         padding-top: 15px
+    &-compact
+        height: 60px
+
+        .pu-list-horizontal
+            li
+                margin-right: 20px
+
+        .pu-button-nav
+            height: 60px
+            padding: 25px 0 0
+            font-size: 14px
+
+            i
+                font-size: 14px
+
+    @media screen and (min-width: $breakpoint-tablet + 1px)
+        &-compact
+            .pu-list-horizontal
+                li
+                    margin-right: 40px
+
+                &.pu-sub-compact-list
+                    li
+                        margin-right: 20px

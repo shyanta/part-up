@@ -17,7 +17,7 @@
                         {{> Spinner color='inverted'}}
                     {{/ with }}
                 </div>
-                <div class="pu-tribebackground pu-state-loaded" style="{{#with data.network.background_image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></div>
+                <div class="pu-tribebackground pu-state-loaded" style="{{#if data.network.background_image}}{{#with data.network.background_image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}{{/if}}"></div>
             </section>
             <section>
                 <div class="pu-wrap pu-wrap-columnlayout">

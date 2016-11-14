@@ -851,7 +851,33 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 35,
+    name: 'Set has_documents and has_links properties to current updates',
+    up: function() {
+        Updates.find().fetch().forEach(function(update) {
+            var hasDocuments = update.type_data.documents && update.type_data.documents.length > 0 ? true : false;
+            var content = update.type_data.new_value;
+            if (content && typeof content === 'string') {
+                var hasUrl = content.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
+                hasUrl = hasUrl && hasUrl.length > 0 ? true : false;
+            } else {
+                hasUrl = false;
+            }
+
+            Updates.update(update._id, {
+                $set: {
+                    has_documents: hasDocuments,
+                    has_links: hasUrl
+                }
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
 
 Meteor.startup(function() {
-    Migrations.migrateTo(34);
+    Migrations.migrateTo(35);
 });

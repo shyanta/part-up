@@ -122,26 +122,41 @@ AutoForm.hooks({
 
             var partup = this.template.parent().data.currentPartup;
             var submitBtn = template.find('[type=submit]');
-            template.submitting.set(true);
-            console.log('update', insertDoc)
-            Meteor.call('partups.update', partup._id, insertDoc, function(error, res) {
-                if (error && error.reason) {
-                    Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
-                    AutoForm.validateForm(self.formId);
-                    self.done(new Error(error.message));
-                    return;
-                }
+            var privacyTypeMatches = partup.privacyMatches(insertDoc.privacy_type_input);
 
-                template.submitting.set(false);
-                Intent.return('partup-settings', {
-                    fallback_route: {
-                        name: 'partup',
-                        params: {
-                            slug: partup.slug
-                        }
+            var continueSubmitting = function() {
+                template.submitting.set(true);
+                Meteor.call('partups.update', partup._id, insertDoc, function(error, res) {
+                    if (error && error.reason) {
+                        Partup.client.notify.error(TAPi18n.__('base-errors-' + error.reason));
+                        AutoForm.validateForm(self.formId);
+                        self.done(new Error(error.message));
+                        return;
                     }
+
+                    template.submitting.set(false);
+                    Intent.return('partup-settings', {
+                        fallback_route: {
+                            name: 'partup',
+                            params: {
+                                slug: partup.slug
+                            }
+                        }
+                    });
                 });
-            });
+            };
+
+            if (privacyTypeMatches) {
+                continueSubmitting();
+            } else {
+                Partup.client.prompt.confirm({
+                    title: TAPi18n.__('pages-modal-partup_settings-submit-privacytype-confirmation-title'),
+                    message: TAPi18n.__('pages-modal-partup_settings-submit-privacytype-confirmation-message'),
+                    confirmButton: TAPi18n.__('pages-modal-partup_settings-submit-privacytype-confirmation-confirm-button'),
+                    cancelButton: TAPi18n.__('pages-modal-partup_settings-submit-privacytype-confirmation-cancel-button'),
+                    onConfirm: continueSubmitting
+                });
+            }
 
             return false;
         }
