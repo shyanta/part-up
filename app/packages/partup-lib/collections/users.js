@@ -393,6 +393,23 @@ User = function(user) {
             return upperOf.indexOf(partupId) > -1;
         },
 
+        isMemberOfAnyPartup: function() {
+            if (!user) return false;
+            var upperOf = user.upperOf || [];
+            var isPartner = !!upperOf.length;
+            var supporterOf = user.supporterOf || [];
+            var isSupporter = !!supporterOf.length;
+            return isSupporter || isPartner;
+        },
+
+        isMemberOfAnyNetwork: function() {
+            if (!user) return false;
+
+            if (user.networks && user.networks.length) return true;
+
+            return false;
+        },
+
         /**
          * Get user's locale code
          */

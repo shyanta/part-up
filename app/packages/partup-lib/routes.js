@@ -209,74 +209,6 @@ Router.route('/recommendations', {
 });
 
 /*************************************************************/
-/* Create Partup */
-/*************************************************************/
-Router.route('/start', {
-    name: 'create',
-    where: 'client',
-    yieldRegions: {
-        'modal':              {to: 'main'},
-        'modal_create_intro': {to: 'modal'}
-    },
-    onBeforeAction: function() {
-        Partup.client.windowTitle.setContextName("Create Partup");
-        this.next();
-    }
-});
-
-Router.route('/start/details', {
-    name: 'create-details',
-    where: 'client',
-    yieldRegions: {
-        'modal':                {to: 'main'},
-        'modal_create':         {to: 'modal'},
-        'modal_create_details': {to: 'modal_create'}
-    }
-});
-
-Router.route('/start/:_id/activities', {
-    name: 'create-activities',
-    where: 'client',
-    yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_create':            {to: 'modal'},
-        'modal_create_activities': {to: 'modal_create'}
-    },
-    data: function() {
-        return {
-            partupId: this.params._id
-        };
-    },
-    action: function() {
-        if (Meteor.isClient) {
-            Session.set('partials.create-partup.current-partup', this.params._id);
-        }
-        this.render();
-    }
-});
-
-Router.route('/start/:_id/promote', {
-    name: 'create-promote',
-    where: 'client',
-    yieldRegions: {
-        'modal':                {to: 'main'},
-        'modal_create':         {to: 'modal'},
-        'modal_create_promote': {to: 'modal_create'}
-    },
-    data: function() {
-        return {
-            partupId: this.params._id
-        };
-    },
-    action: function() {
-        if (Meteor.isClient) {
-            Session.set('partials.create-partup.current-partup', this.params._id);
-        }
-        this.render();
-    }
-});
-
-/*************************************************************/
 /* Login flow */
 /*************************************************************/
 Router.route('/login', {
@@ -469,6 +401,22 @@ Router.route('/partups/:slug/activities', {
     data: function() {
         return {
             partupId: Partup.client.strings.partupSlugToId(this.params.slug)
+        };
+    }
+});
+
+Router.route('/partups/:slug/documents', {
+    name: 'partup-documents',
+    where: 'client',
+    yieldRegions: {
+        'app':                {to: 'main'},
+        'app_partup':         {to: 'app'},
+        'app_partup_updates': {to: 'app_partup'}
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
+            defaultFilter: 'documents-links'
         };
     }
 });
@@ -681,6 +629,68 @@ Router.route('/tribes/:slug/partups', {
         return {
             networkSlug: this.params.slug
         };
+    }
+});
+
+/*************************************************************/
+/* Networks. Create Partup */
+/*************************************************************/
+Router.route('/tribes/:slug/partups/create', {
+    name: 'create-details',
+    where: 'client',
+    yieldRegions: {
+        'modal':                {to: 'main'},
+        'modal_create':         {to: 'modal'},
+        'modal_create_details': {to: 'modal_create'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
+Router.route('/tribes/:slug/partups/create/:_id/activities', {
+    name: 'create-activities',
+    where: 'client',
+    yieldRegions: {
+        'modal':                   {to: 'main'},
+        'modal_create':            {to: 'modal'},
+        'modal_create_activities': {to: 'modal_create'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug,
+            partupId: this.params._id
+        };
+    },
+    action: function() {
+        if (Meteor.isClient) {
+            Session.set('partials.create-partup.current-partup', this.params._id);
+        }
+        this.render();
+    }
+});
+
+Router.route('/tribes/:slug/partups/create/:_id/promote', {
+    name: 'create-promote',
+    where: 'client',
+    yieldRegions: {
+        'modal':                {to: 'main'},
+        'modal_create':         {to: 'modal'},
+        'modal_create_promote': {to: 'modal_create'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug,
+            partupId: this.params._id
+        };
+    },
+    action: function() {
+        if (Meteor.isClient) {
+            Session.set('partials.create-partup.current-partup', this.params._id);
+        }
+        this.render();
     }
 });
 

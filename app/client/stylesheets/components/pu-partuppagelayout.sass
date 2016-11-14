@@ -1,95 +1,97 @@
 .pu-partuppagelayout
-    $pagecontainer-maxwidth: grid(12)
-    $sidebar-width: 350px
-    display: table
-    min-width: $breakpoint-desktop
-    max-width: $pagecontainer-maxwidth
-    margin-left: auto
-    margin-right: auto
+    font-size: 0
+    height: calc(100vh - 60px)
+    -webkit-overflow-scrolling: touch
+    overflow-x: scroll
+    white-space: nowrap
 
-    .pu-sub-partupdetail-content
-        transform: translateZ(0)
-        min-width: 1024px - $sidebar-width
-
-    > .pu-spinner
-        display: block
-        margin-left: auto
-        margin-right: auto
-        margin-top: 200px
-
-    .pu-sub-partupdetail-left
-        display: table-cell
+    &__left,
+    &__right
+        display: inline-block
+        font-size: 16px
         vertical-align: top
+        height: 100%
+        overflow: hidden
+        white-space: normal
 
-    .pu-sub-partupdetail-right
-        display: table-cell
-        vertical-align: top
-        width: $sidebar-width
+    &__left
+        width: 100vw
+        position: absolute
+        left: 0
+        z-index: 1
+        transition: transform 200ms
+        transform: translateX(-100vw)
+        background-color: #eee
 
-    @media screen and (min-width: $breakpoint-desktop)
-        &-active
-            .pu-sub-partupdetail-left
-                position: absolute
-                z-index: 1
-                top: 0
-                left: 0
-                right: 350px
+        &--is-active
+            transform: translateX(0px)
 
-                .pu-sub-partupdetail-navigation
-                    position: fixed
-                    top: $spacing-app-headerheight
-                    left: 0
-                    right: 350px
-                    z-index: 2
-                    transform: translateZ(0) // fixes flickering header on scroll
+    &__right
+        width: 100%
+        position: relative
+        z-index: 0
+        transition: filter 200ms
+        background-color: #fff
+        min-width: 650px
 
-                .pu-sub-partupdetail-content
-                    padding-top: $spacing-app-partupnavheight + $spacing-app-partupnavpaddingtop
+    &__content
+        -webkit-overflow-scrolling: touch
+        overflow: scroll
+        position: relative
+        height: calc(100% - 60px)
 
-            .pu-sub-partupdetail-right
-                float: none
-                position: absolute
-                top: 0
-                right: 0
-                width: 350px
+        &-fixedwidth
+            overflow-x: hidden
 
-    @media screen and (min-width: ($breakpoint-desktop + 50px))
-        .pu-sub-partupdetail-right
-            width: 380px
+    button.pu-partuppagelayout__closebutton
+        position: absolute
+        top: 10px
+        right: 20px
+        z-index: 12
+        width: 40px
+        height: 40px
+        text-align: center
+        padding: 12px
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2)
 
-        &-active
-            .pu-sub-partupdetail-left
-                right: 350px
+    .pu-navigation
+        .pu-button-nav.pu-state-active
+            border-color: $color-primary
 
-                .pu-sub-partupdetail-navigation
-                    right: 350px
+    &--section-is-active
+        overflow: hidden
 
-            .pu-sub-partupdetail-right
-                width: 350px
+        .pu-partuppagelayout__right
+            filter: brightness(89%)
 
-    @media screen and (min-width: ($breakpoint-desktop + 100px))
-        .pu-sub-partupdetail-right
+            .pu-partuppagelayout__content
+                -webkit-overflow-scrolling: auto
+                overflow: hidden
+
+    @media screen and (min-width: 420px)
+        &__left
             width: 420px
+            transform: translateX(-420px)
 
-        &-active
-            .pu-sub-partupdetail-left
-                right: 420px
+            &--is-active
+                transform: translateX(0px)
 
-                .pu-sub-partupdetail-navigation
-                    right: 420px
+    @media screen and (min-width: $breakpoint-tablet + 1px)
+        button.pu-partuppagelayout__closebutton
+            display: none
 
-            .pu-sub-partupdetail-right
-                width: 420px
+        &__left
+            position: relative
+            width: 420px
+            display: inline-block
+            transform: none
 
-    @media screen and (min-width: $pagecontainer-maxwidth + $spacing-app-pagepadding * 2)
-        &-active
-            .pu-sub-partupdetail-left,
-            .pu-sub-partupdetail-left .pu-sub-partupdetail-navigation
-                left: 50%
-                right: 50%
-                margin: 0 -199px 0 -619px
+        &__right
+            width: calc(100% - 420px)
 
-            .pu-sub-partupdetail-right
-                left: 50%
-                width: auto
-                margin: 0 0 0 199px
+            .pu-sub-section-button
+                display: none
+
+        &--section-is-active
+            .pu-partuppagelayout__right
+                filter: none

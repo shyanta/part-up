@@ -24,7 +24,7 @@ Template.DropdownNotifications.onCreated(function() {
 });
 Template.DropdownNotifications.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=notifications]');
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=notifications]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();
@@ -40,7 +40,7 @@ Template.DropdownNotifications.onDestroyed(function() {
 
 Template.DropdownNotifications.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
     'click [data-notification]': function(event, template) {
         template.dropdownOpen.set(false);
         var notificationId = $(event.currentTarget).data('notification');

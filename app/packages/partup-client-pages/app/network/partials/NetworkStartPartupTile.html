@@ -4,7 +4,7 @@
              <h3>{{_ 'pages-app-network-partups-start_title' }}</h3>
              <p>{{_ 'pages-app-network-partups-start_intro' }}</p>
              <!-- invite button -->
-             <a class="pu-button pu-button-icon" href="{{ pathFor 'create-details' }}" data-create-partup-in-tribe>
+             <a class="pu-button pu-button-icon" href="{{ pathFor route='create-details' slug=networkSlug }}" data-create-partup-in-tribe>
                 {{_ 'pages-app-network-partups-start_button' }}
              </a>
          {{ else }}

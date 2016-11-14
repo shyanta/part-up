@@ -10,7 +10,7 @@
     border-top-right-radius: 4px
     padding-top: 10px
     padding-bottom: 10px
-    min-width: 240px - 2px
+    min-width: 150px
     z-index: 2
     top: 55px
     max-height: 546px
@@ -20,6 +20,9 @@
     pointer-events: none
     transform: translateY(5px)
     transition: opacity 0.1s, transform .2s
+
+    .pu-notification-empty p
+        white-space: normal
 
     [data-before]
         position: absolute
@@ -232,6 +235,7 @@
     &-form
         position: relative
         // display: none
+        min-width: 230px
         border-color: $color-border
         left: auto
         right: auto

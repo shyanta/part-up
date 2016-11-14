@@ -272,10 +272,6 @@ Package.onUse(function(api) {
             'modal/recommendations/partials/recommend-page.html',
             'modal/recommendations/partials/recommend-page.js',
 
-            // Modal:create_intro
-            'modal/create_intro/create_intro.html',
-            'modal/create_intro/create_intro.js',
-
             // Modal:create
             'modal/create/create.html',
             'modal/create/create.js',

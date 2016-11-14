@@ -4,7 +4,7 @@ Template.DropdownMenu.onCreated(function() {
 });
 Template.DropdownMenu.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=menu]');
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=menu]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();
@@ -18,7 +18,7 @@ Template.DropdownMenu.onDestroyed(function() {
 
 Template.DropdownMenu.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler,
+    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
     'click [data-feedback]': function(event, template) {
         event.preventDefault();
         var $intercom = $('#intercom-launcher');

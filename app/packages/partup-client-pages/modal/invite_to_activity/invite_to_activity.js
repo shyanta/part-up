@@ -74,7 +74,7 @@ Template.modal_invite_to_activity.onCreated(function() {
             query: query,
             limit: PAGING_INCREMENT,
             skip: page * PAGING_INCREMENT,
-            network: template.selectedNetwork.get()
+            network: template.selectedNetwork.curValue === 'all' ? undefined : template.selectedNetwork.curValue
         };
         template.loading.set(true);
         // this meteor call still needs to be created

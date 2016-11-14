@@ -1,7 +1,13 @@
 <template name="app_partup_navigation">
-    <nav class="pu-navigation">
+    <nav class="pu-navigation pu-navigation-compact">
         <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
         <ul class="pu-list pu-list-horizontal">
+            <li class="pu-sub-section-button">
+                <a href="#" class="pu-button pu-button-nav" data-open-section-button>
+                    <i class="picon-caret-slim-right"></i>
+                    {{_ 'pages-app-partup-menu_menu-button'}}
+                </a>
+            </li>
             <li>
                 <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup' class='pu-state-active'}}">
                     <i class="picon-globe"></i>
@@ -14,8 +20,14 @@
                     {{_ 'pages-app-partup-menu_activities'}}
                 </a>
             </li>
+            <li>
+                <a href="{{pathFor 'partup-documents' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-documents' class='pu-state-active'}}">
+                    <i class="picon-documents"></i>
+                    {{_ 'pages-app-partup-menu_documents'}}
+                </a>
+            </li>
         </ul>
-        <ul class="pu-list pu-list-horizontal pu-sub-right">
+        <ul class="pu-list pu-list-horizontal pu-sub-right pu-sub-compact-list">
             {{# with partup }}
                 {{# if isEditableBy currentUser }}
                     <li>
@@ -25,6 +37,51 @@
                     </li>
                 {{/ if }}
             {{/ with }}
+            <li>
+                <a href="#" data-open-share-dropdown class="pu-button pu-button-nav">
+                    <i class="picon-share"></i>
+                    {{_ 'pages-app-partup-menu_share-button'}}
+                </a>
+                {{> Dropdown toggle=shareDropdownState template="partup_share_dropdown" data=. position='left' }}
+            </li>
         </ul>
     </nav>
+</template>
+
+<template name="partup_share_dropdown">
+    <p>{{_ 'pages-app-partup-share_title' }}</p>
+    <ul class="pu-list pu-list-horizontal pu-sub-socials">
+        <li>
+            <a class="pu-button pu-button-social pu-button-social-twitter" data-share-twitter>
+                <i class="picon-twitter"></i>
+                {{# with partup.shared_count.twitter }}
+                    <span>{{ . }}</span>
+                {{/ with }}
+            </a>
+        </li>
+        <li>
+            <a class="pu-button pu-button-social pu-button-social-facebook" data-share-facebook>
+                <i class="picon-facebook"></i>
+                {{# with partup.shared_count.facebook }}
+                    <span>{{ . }}</span>
+                {{/ with }}
+            </a>
+        </li>
+        <li>
+            <a class="pu-button pu-button-social pu-button-social-linkedin" data-share-linkedin>
+                <i class="picon-linkedin"></i>
+                {{# with partup.shared_count.linkedin }}
+                    <span>{{ . }}</span>
+                {{/ with }}
+            </a>
+        </li>
+        <li>
+            <a class="pu-button pu-button-social" data-share-mail>
+                <i class="picon-monkeytail"></i>
+                {{# with partup.shared_count.email }}
+                    <span>{{ . }}</span>
+                {{/ with }}
+            </a>
+        </li>
+    </ul>
 </template>

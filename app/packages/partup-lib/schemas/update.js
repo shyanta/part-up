@@ -105,6 +105,14 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
         type: Number,
         defaultValue: 0
     },
+    has_documents: {
+        type: Boolean,
+        defaultValue: false
+    },
+    has_links: {
+        type: Boolean,
+        defaultValue: false
+    },
     partup_id: {
         type: String,
         regEx: SimpleSchema.RegEx.Id

@@ -3,6 +3,7 @@
  */
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
+    var defaultFilter = tpl.data.defaultFilter || 'messages';
 
     tpl.partup = Partups.findOne(tpl.data.partupId);
 
@@ -73,7 +74,7 @@ Template.app_partup_updates.onCreated(function() {
         }),
 
         // Filter reactive variable (on change, set value to the tpl.options reactive var)
-        filter: new ReactiveVar('messages', function(oldFilter, newFilter) {
+        filter: new ReactiveVar(defaultFilter, function(oldFilter, newFilter) {
             var options = tpl.updates.options.get();
             options.filter = newFilter;
             tpl.updates.options.set(options);
@@ -132,7 +133,7 @@ Template.app_partup_updates.onCreated(function() {
     });
 
     // First run
-    tpl.updates.options.set({filter: 'messages'});
+    tpl.updates.options.set({filter: defaultFilter});
 });
 
 /**
@@ -140,13 +141,12 @@ Template.app_partup_updates.onCreated(function() {
  */
 Template.app_partup_updates.onRendered(function() {
     var tpl = this;
-
     /**
      * Infinite scroll
      */
     Partup.client.scroll.infinite({
         template: tpl,
-        element: tpl.find('[data-infinitescroll-container]'),
+        element: $('[data-infinitescroll-container]')[0],
         offset: 200
     }, function() {
         if (tpl.updates.loading.get() || tpl.updates.infinite_scroll_loading.get() || tpl.updates.end_reached.get()) return;
@@ -263,6 +263,10 @@ Template.app_partup_updates.helpers({
 
     updatesEndReached: function() {
         return Template.instance().updates.end_reached.get();
+    },
+
+    pageIsUpdates: function() {
+        return !Template.instance().data.defaultFilter;
     },
 
     // New updates separator

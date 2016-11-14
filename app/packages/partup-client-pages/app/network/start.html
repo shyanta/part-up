@@ -58,7 +58,7 @@
                     </div>
                 {{/if}}
             {{/unless}}
-            <div class="pu-tribebackground {{#if state.loaded}}pu-state-loaded{{/if}}" style="{{#with data.network.background_image }}background-image:url('{{ partupImageUrl id=. store='1200x520'}}');{{/with }}"></div>
+            <div class="pu-tribebackground {{#if state.loaded}}pu-state-loaded{{/if}}" style="{{#if data.network.background_image}}{{#with data.network.background_image }}background-image:url('{{ partupImageUrl id=. store='1200x520'}}');{{/with }}{{/if}}"></div>
         </div>
 
     </article>

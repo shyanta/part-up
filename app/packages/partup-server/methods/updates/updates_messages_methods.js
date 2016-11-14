@@ -58,6 +58,10 @@ Meteor.methods({
         try {
             var message = Updates.findOne({_id: updateId, upper_id: upper._id});
             if (message) {
+                var hasUrl = fields.text.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
+                hasUrl = hasUrl && hasUrl.length > 0 ? true : false;
+                var hasDocuments = fields.documents && fields.documents.length > 0 ? true : false;
+
                 Updates.update({_id: message._id}, {$set: {
                     type_data: {
                         old_value: message.type_data.new_value,
@@ -65,6 +69,8 @@ Meteor.methods({
                         images: fields.images,
                         documents: fields.documents
                     },
+                    has_documents: hasDocuments,
+                    has_links: hasUrl,
                     updated_at: new Date()
                 }});
             }
