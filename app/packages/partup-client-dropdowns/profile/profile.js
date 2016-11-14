@@ -11,20 +11,6 @@ Template.DropdownProfile.onCreated(function() {
     // Current user
     var user = Meteor.user();
 
-    // // Placeholder for states (such as loading states)
-    // template.states = {
-    //     loadingUpperpartups: new ReactiveVar(false),
-    //     loadingSupporterpartups: new ReactiveVar(false),
-    //     loadingNetworks: new ReactiveVar(false)
-    // };
-
-    // // Placeholder for results
-    // template.results = {
-    //     upperpartups: new ReactiveVar([]),
-    //     supporterpartups: new ReactiveVar([]),
-    //     networks: new ReactiveVar([])
-    // };
-
     // Partups headers for http calls
     var query = {
         token: Accounts._storedLoginToken(),
@@ -50,17 +36,6 @@ Template.DropdownProfile.onDestroyed(function() {
     $(window).off('resize', template.resizeHandler);
     ClientDropdowns.removeOutsideDropdownClickHandler(template);
 });
-
-// var sortPartups = function(partups, user) {
-//     return lodash.sortByOrder(partups, function(partup) {
-//         var upper_data = lodash.find(partup.upper_data, '_id', user._id);
-//         if (upper_data && upper_data.new_updates) {
-//             return upper_data.new_updates.length;
-//         } else {
-//             return 0;
-//         }
-//     }, ['desc']);
-// };
 
 Template.DropdownProfile.events({
     'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
@@ -91,35 +66,6 @@ Template.DropdownProfile.helpers({
     menuOpen: function() {
         return Template.instance().dropdownOpen.get();
     },
-
-    // upperPartups: function() {
-    //     var user = Meteor.user();
-    //     if (!user) return [];
-
-    //     var allPartups = Template.instance().results.upperpartups.get();
-
-    //     return sortPartups(allPartups, user);
-    // },
-
-    // supporterPartups: function() {
-    //     var user = Meteor.user();
-    //     if (!user) return [];
-
-    //     var allPartups = Template.instance().results.supporterpartups.get();
-
-    //     return sortPartups(allPartups, user);
-    // },
-
-    // newUpdates: function() {
-    //     if (!this.upper_data) return;
-    //     var count = null;
-    //     this.upper_data.forEach(function(upperData) {
-    //         if (upperData._id === Meteor.userId()) {
-    //             count = upperData.new_updates.length;
-    //         }
-    //     });
-    //     return count;
-    // },
 
     user: function() {
         return Meteor.user();

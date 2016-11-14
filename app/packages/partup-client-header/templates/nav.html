@@ -2,7 +2,11 @@
     <ul class="pu-list pu-list-horizontal">
         <li class="pu-sub-logo"><a href="{{ pathFor 'home' }}">{{> Header_logo }}</a></li>
         <li>
-            {{> DropdownTribes }}
+            {{#if showDiscover}}
+                <a href="{{pathFor 'discover'}}" class="pu-button pu-button-header pu-button-header-desktop">{{_ 'mytribes-button-discover' }}</a>
+            {{else}}
+                {{> DropdownTribes }}
+            {{/if}}
         </li>
         <li>
             {{> DropdownMenu }}
