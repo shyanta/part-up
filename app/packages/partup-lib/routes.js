@@ -38,25 +38,25 @@ Router.route('', {
 /*************************************************************/
 /* Discover */
 /*************************************************************/
-// Router.route('/discover', {
-//     name: 'discover',
-//     where: 'client',
-//     yieldRegions: {
-//         'app':                  {to: 'main'},
-//         'app_discover':         {to: 'app'},
-//         'app_discover_tribes':  {to: 'app_discover'}
-//     },
-//     onBeforeAction: function() {
-//         Partup.client.windowTitle.setContextName('Discover');
-//         this.next();
-//     }
-// });
+Router.route('/discover', {
+    name: 'discover',
+    where: 'client',
+    yieldRegions: {
+        'app':                  {to: 'main'},
+        'app_discover':         {to: 'app'},
+        'app_discover_tribes':  {to: 'app_discover'}
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName('Discover');
+        this.next();
+    }
+});
 
 /*************************************************************/
 /* Discover */
 /*************************************************************/
-Router.route('/discover', {
-    name: 'discover',
+Router.route('/discover/partups', {
+    name: 'discover-partups',
     where: 'client',
     yieldRegions: {
         'app':                  {to: 'main'},
