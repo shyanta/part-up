@@ -20,3 +20,20 @@
 - name: docker | install docker-py
   pip: name=docker-py version=1.2.3
   tags: docker
+
+- name: docker | start logspout container
+  docker:
+    command: "{{ docker.syslog }}"
+    env:
+      SYSLOG_HOSTNAME: "{{ ansible_nodename }}"
+    name: logspout
+    image: "gliderlabs/logspout"
+    username: "{{ docker.registry.username }}"
+    email: "{{ docker.registry.email }}"
+    password: "{{ docker.registry.password }}"
+    state: reloaded
+    restart_policy: always
+    pull: always
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  tags: docker

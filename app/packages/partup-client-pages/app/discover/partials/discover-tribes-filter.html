@@ -1,0 +1,36 @@
+<template name="app_discover_tribes_filter">
+    <div class="pu-discovermenu">
+        <form class="pu-form" data-form>
+            <div class="pu-formfield">
+                <span class="pu-label">Show me</span>
+                <input type="text" class="pu-input" data-search-query>
+            </div>
+            <!-- SECTOR INPUT: Needs implementation -->
+            <!-- <div class="pu-formfield">
+                <span class="pu-label">Sector</span>
+                <input type="text" class="pu-input">
+            </div> -->
+            <!-- TYPE INPUT: Needs implementation -->
+            <!-- <div class="pu-formfield">
+                <span class="pu-label">Type</span>
+                <input type="text" class="pu-input">
+            </div> -->
+            <div class="pu-formfield">
+                <span class="pu-label">Location</span>
+                {{# AutocompleteAdvanced
+                        placeholder='Location'
+                        label=state.locationLabel
+                        selection=state.selectedLocationReactiveVar
+                        onQuery=hooks.locationQuery
+                        hasValueVar=state.locationHasValueVar
+                        formValue=state.locationFormvalue }}
+                    <input type="hidden" name='location_input' class="pu-input" data-input="">
+                {{/ AutocompleteAdvanced }}
+            </div>
+            <div class="pu-formfield">
+                <span class="pu-label">Language</span>
+                {{> DiscoverPartupsLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
+            </div>
+        </form>
+    </div>
+</template>

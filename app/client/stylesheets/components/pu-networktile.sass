@@ -1,43 +1,161 @@
 .pu-networktile
-    display: block
-    position: relative
-    color: $color-text
-    text-decoration: none
-    font-size: 16px
-    line-height: 1.4em
-    transition: background .2s
-    padding: 15px 20px
+    $color-border: #eee
+    height: 240px
+    width: 864px
+    border: 2px solid $color-border
+    border-radius: 4px
+    font-size: 0
+    background-color: #fff
+    overflow: hidden
 
-    .pu-sub-figurecontainer
-        display: block
-        position: absolute
-        top: 2px
-        left: 0
+    &__image, &__meta, &__extra
+        height: 100%
+        display: inline-block
+        font-size: 16px
+        vertical-align: top
+        position: relative
 
-    figure
-        width: 16px
-        height: 16px
-        border-radius: 2px
-        background-position: center
+    &__image
+        width: 230px
+        background-color: $color-border
         background-size: cover
-        background-color: #eee
+        background-position: center
+        background-image: url('images/tribestart-small.jpg')
 
-    .pu-sub-namecontainer
-        display: block
-        padding-left: 24px
-        white-space: nowrap
-        text-overflow: ellipsis
+        .pu-avatar
+            position: absolute
+            right: -20px
+            top: 13px
+            z-index: 1
+            border: 2px solid $color-border
+
+    &__meta
+        width: 400px
+        padding: 15px 30px
+
+        h3
+            font-size: 16px
+            line-height: 16px
+            margin-bottom: 5px
+
+        p
+            $font-size: 14px
+            $line-height: 1.6
+            $lines-to-show: 3
+            $height: $font-size * $line-height * $lines-to-show
+            display: block
+            display: -webkit-box
+            max-width: 400px
+            max-height: $height
+            margin: 0 auto
+            font-size: $font-size
+            line-height: $line-height
+            -webkit-line-clamp: $lines-to-show
+            -webkit-box-orient: vertical
+            overflow: hidden
+            text-overflow: ellipsis
+            margin-bottom: 20px
+            position: relative
+            width: 100%
+            height: $height
+
+            span
+                background-color: #fff
+                position: absolute
+                right: 0
+                bottom: 1px
+                color: $color-secondary
+                text-decoration: underline
+                @extend %pre-gradient
+
+        .pu-list-pipe-seperated
+            font-size: 12px
+            color: $color-text-subtle
+            margin-bottom: 15px
+
+            > li
+                font-size: 12px
+        .pu-list-tags
+
+            > li
+                font-size: 14px
+                margin-bottom: 5px
+
+
+        &:after
+            content: ''
+            position: absolute
+            top: 20px
+            bottom: 20px
+            right: 0
+            width: 2px
+            background-color: $color-border
+
+    &__extra
+        width: 230px
         overflow: hidden
+        padding: 25px
 
-        span + span
-            float: right
-            opacity: .5
-            text-transform: lowercase
+        .pu-networktile__avatars
+            height: 88px
+            margin-bottom: 25px
+            li
+                margin-right: -10px
+                margin-bottom: -10px
 
-    &:after
-        content: ''
-        display: block
-        clear: left
+                .pu-sub-count
+                    background-color: $color-primary
 
-    &-condensed
-        padding: 10px 20px
+                    span
+                        color: #fff
+                        vertical-align: middle
+                        line-height: 46px
+                        text-align: center
+                        width: 46px
+                        display: block
+                        font-weight: bold
+
+
+        .pu-list-pipe-seperated
+            li
+                font-size: 14px
+                color: $color-primary
+                margin-bottom: 5px
+
+                &:last-child
+                    color: $color-secondary
+                    text-decoration: underline
+
+                &:after
+                    color: $color-text-subtle
+
+        .pu-avatar
+            border: 2px solid #fff
+            position: relative
+
+            &:before, &:after
+                content: ''
+                position: absolute
+                top: 0
+                right: 0
+                bottom: 0
+                left: 0
+                border-radius: 50%
+
+            &:after
+                top: -6px
+                left: -6px
+                bottom: -6px
+                right: -6px
+                border: 2px solid #fff
+
+            &:before
+                top: -4px
+                left: -4px
+                bottom: -4px
+                right: -4px
+                border: 2px solid $color-border
+
+
+
+

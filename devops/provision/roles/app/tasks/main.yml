@@ -17,7 +17,7 @@
 
 - name: docker | start application
   docker:
-    name: app
+    name: cron
     image: "partup/partup:{{ tag }}"
     username: "{{ docker.registry.username }}"
     email: "{{ docker.registry.email }}"

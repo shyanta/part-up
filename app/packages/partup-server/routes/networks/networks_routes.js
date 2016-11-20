@@ -1,4 +1,29 @@
 /*
+ * Count route for /networks/discover
+ */
+Router.route('/networks/discover/count', {where: 'server'}).get(function() {
+    var request = this.request;
+    var response = this.response;
+
+    // We are going to respond in JSON format
+    response.setHeader('Content-Type', 'application/json');
+
+    var parameters = {
+        locationId: request.query.locationId,
+        sort: request.query.sort,
+        textSearch: request.query.textSearch,
+        limit: request.query.limit,
+        skip: request.query.skip,
+        language: (request.query.language === 'all') ? undefined : request.query.language
+    };
+
+    var userId = request.user ? request.user._id : null;
+    var networks = Networks.findForDiscover(userId, {}, parameters);
+
+    return response.end(JSON.stringify({error: false, count: networks.count()}));
+});
+
+/*
  * Count route for /networks/:0/partups
  */
 Router.route('/networks/:slug/partups/count', {where: 'server'}).get(function() {

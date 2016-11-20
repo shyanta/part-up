@@ -385,6 +385,15 @@
             &:last-child
                 margin-right: 0
 
+    &-pipe-seperated
+        li
+            &:after
+                content: '|'
+                margin: 0 5px
+
+            &:last-child:after
+                display: none
+
     &-horizontalscroller
         white-space: nowrap
         overflow: scroll

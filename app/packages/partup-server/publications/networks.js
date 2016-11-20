@@ -1,4 +1,56 @@
 /**
+ * Publish multiple networks for discover
+ *
+ * @param {Object} parameters
+ * @param {string} parameters.textSearch
+ * @param {string} parameters.locationId
+ * @param {string} parameters.language
+ * @param {string} parameters.sort
+ * @param {number} parameters.limit
+ * @param {number} parameters.skip
+ */
+Meteor.routeComposite('/tribes/discover', function(request, parameters) {
+    check(parameters.query, {
+        textSearch: Match.Optional(String),
+        locationId: Match.Optional(String),
+        language: Match.Optional(String),
+        sort: Match.Optional(String),
+        limit: Match.Optional(String),
+        skip: Match.Optional(String),
+        userId: Match.Optional(String)
+    });
+
+    parameters = {
+        textSearch: parameters.query.textSearch,
+        locationId: parameters.query.locationId,
+        language: (parameters.query.language === 'all') ? undefined : parameters.query.language,
+        sort: parameters.query.sort,
+        limit: parameters.query.limit,
+        skip: parameters.query.skip,
+        notArchived: true
+    };
+
+    var options = {};
+
+    if (parameters.limit) options.limit = parseInt(parameters.limit);
+    if (parameters.skip) options.skip = parseInt(parameters.skip);
+
+    return {
+        find: function() {
+            return Networks.findForDiscover(this.userId, options, parameters);
+        },
+        children: [
+            {find: Images.findForNetwork},
+            {
+                find: Meteor.users.findUppersForNetwork, children: [
+                {find: Images.findForUser}
+            ]
+            }
+        ]
+    };
+});
+
+/**
  * Publish a list of networks
  */
 Meteor.publishComposite('networks.list', function() {

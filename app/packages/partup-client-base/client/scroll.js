@@ -12,7 +12,6 @@ Partup.client.scroll = {
     _initialized: false,
     init: function() {
         if (!window) return;
-
         var self = this;
         if (this._initialized) return console.warn('scroll.js: cannot initialize multiple times');
 
@@ -24,7 +23,7 @@ Partup.client.scroll = {
         }, 10);
 
         // Trigger a position update when the user scrolls
-        $(document).on('scroll', d);
+        window.addEventListener('scroll', d, {passive: true});
 
         // Trigger a position update when every template is being rendered
         Template.onRendered(function() {
@@ -70,6 +69,8 @@ Partup.client.scroll = {
     infinite: function(options, callback) {
         var self = this;
 
+        console.log(options);
+
         options = options || {};
         options.offset = mout.lang.isNumber(options.offset) ? options.offset : INFINITE_SCROLL_OFFSET;
         if (!options.template) return;
@@ -84,7 +85,31 @@ Partup.client.scroll = {
         };
         var debounced_trigger = lodash.debounce(trigger, INFINITE_SCROLL_DEBOUNCE);
 
-        self.pos.equalsFunc = debounced_trigger;
+        self.pos.equalsFunc = function() {
+            debounced_trigger();
+        };
+    },
+
+    customInfinite: function(options, trigger) {
+        options = options || {};
+        var container = options.container;
+        var template = options.template;
+
+        var debounced_trigger = lodash.debounce(trigger, INFINITE_SCROLL_DEBOUNCE);
+
+        var destroy = function() {
+            container.removeEventListener('scroll', onScroll);
+        };
+
+        var onScroll = function(event) {
+            if (template.view.isDestroyed) return destroy();
+            var elem = $(event.currentTarget);
+            if (elem[0].scrollHeight - elem.scrollTop() - options.offset < elem.outerHeight()) {
+                debounced_trigger();
+            }
+        };
+
+        container.addEventListener('scroll', onScroll, {passive: true});
     },
 
     /**

@@ -16,12 +16,11 @@
                         {{# if data.upper }}
                              <li style="
                                 {{# with avatarPosition }}
-                                    -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
-                                    -moz-transform: translate3d({{x}}px, {{y}}px, 0);
-                                    transform: translate3d({{x}}px, {{y}}px, 0);
-                                    transition-delay: {{ delay }}s;
+                                    -webkit-transform: translateX({{x}}px) translateY({{y}}px);
+                                    -moz-transform: translateX({{x}}px) translateY({{y}}px);
+                                    transform: translateX({{x}}px) translateY({{y}}px);
                                 {{/ with }}
-                            " data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ data.upper._id }}">
+                            ">
                                 <a href="{{ pathFor 'profile' _id=data.upper._id }}" class="pu-avatar pu-avatar-partuptile">
                                     <img src="{{ partupGetImageUrl data.upper.profile.imageObject '80x80' }}" alt="" class="pu-sub-image">
                                 </a>
@@ -29,10 +28,9 @@
                         {{ else }}
                             <li class="pu-avatar pu-avatar-more" style="
                                 {{# with avatarPosition }}
-                                    -webkit-transform: translate3d({{x}}px, {{y}}px, 0);
-                                    -moz-transform: translate3d({{x}}px, {{y}}px, 0);
-                                    transform: translate3d({{x}}px, {{y}}px, 0);
-                                    transition-delay: {{ delay }}s;
+                                    -webkit-transform: translateX({{x}}px) translateY({{y}}px);
+                                    -moz-transform: translateX({{x}}px) translateY({{y}}px);
+                                    transform: translateX({{x}}px) translateY({{y}}px);
                                 {{/ with }}
                             ">{{ data.remainingUppers }}</li>
                         {{/ if }}

@@ -171,10 +171,10 @@ Template.PartupTile.helpers({
 });
 
 Template.PartupTile.events({
-    'mouseenter .pu-partupcircle': function(event, template) {
+    'mouseenter .pu-partuptile': function(event, template) {
         template.data.partup.hovering.set(true);
     },
-    'mouseleave .pu-partupcircle': function(event, template) {
+    'mouseleave .pu-partuptile': function(event, template) {
         template.data.partup.hovering.set(false);
     }
 });
