@@ -1,3 +1,40 @@
+<a name="1.26.0"></a>
+# [1.26.0](https://github.com/part-up/part-up/compare/1.25.0...1.26.0) (2016-11-14)
+
+
+### Bug Fixes
+
+* **access-rights:** Autosubmit on toggle. Fixing [#751](https://github.com/part-up/part-up/issues/751) ([2563a98](https://github.com/part-up/part-up/commit/2563a98))
+* **access-rights:** correct validation when toggling the access rights [#751](https://github.com/part-up/part-up/issues/751) ([d1b8b38](https://github.com/part-up/part-up/commit/d1b8b38))
+* **access-rights:** fixed the access rights page to show the correct labels and states ([779597b](https://github.com/part-up/part-up/commit/779597b))
+* **access-rights:** only require label fields when the role is enabled, fixing [#752](https://github.com/part-up/part-up/issues/752) ([f62bbcb](https://github.com/part-up/part-up/commit/f62bbcb))
+* **dropdowns:** ajust background color with all dropdowns ([0d3ad03](https://github.com/part-up/part-up/commit/0d3ad03))
+* **ft-access-rights:** added warning when changing privacy levels [#753](https://github.com/part-up/part-up/issues/753) ([63dcfc3](https://github.com/part-up/part-up/commit/63dcfc3))
+* **my-tribes:** moved the check to see if user has tribes. Also removed pathFor 'create' links ([28a5e1a](https://github.com/part-up/part-up/commit/28a5e1a))
+* **naviagtion:** only show scrollbar when nessecary ([3810c93](https://github.com/part-up/part-up/commit/3810c93))
+* **navigation:** fixed home navigation ([641f7c7](https://github.com/part-up/part-up/commit/641f7c7))
+* **navigation:** show discover if user is not member of tribes or partups ([e56e3a2](https://github.com/part-up/part-up/commit/e56e3a2))
+* **pagelayout:** sidebar altered to match the new design ([5b74e49](https://github.com/part-up/part-up/commit/5b74e49))
+* **partup:** cocreators can select cocreators fixing [#756](https://github.com/part-up/part-up/issues/756) ([06761d8](https://github.com/part-up/part-up/commit/06761d8))
+* **partup:** fixed the broken navigation ([17e6437](https://github.com/part-up/part-up/commit/17e6437))
+* **tribw-uppers:** fixed the images on tribe/uppers. fixing [#742](https://github.com/part-up/part-up/issues/742) ([b5f3458](https://github.com/part-up/part-up/commit/b5f3458))
+
+
+### Features
+
+* **documents:** created documents & links tab fixing [#720](https://github.com/part-up/part-up/issues/720) ([4da7a1a](https://github.com/part-up/part-up/commit/4da7a1a))
+* **partup:** added new icons for redesign ([7ea8be0](https://github.com/part-up/part-up/commit/7ea8be0))
+* **partup:** share dropdown ([fe26f57](https://github.com/part-up/part-up/commit/fe26f57))
+* **partup-redesign:** added links and documents filter to partup updates filter ([8babf2c](https://github.com/part-up/part-up/commit/8babf2c))
+* **partup-redesign:** added translations for update filters ([f28ec69](https://github.com/part-up/part-up/commit/f28ec69))
+* **partup-redesign:** added updates filter for documents & links only ([2a75ed6](https://github.com/part-up/part-up/commit/2a75ed6))
+* **partup-redesign:** include update filters in dropdown menu ([509a7a7](https://github.com/part-up/part-up/commit/509a7a7))
+* **redesign:** add has_documents and has_links properties to new updates ([e92c6b8](https://github.com/part-up/part-up/commit/e92c6b8))
+* **redesign:** added migration to add has_documents and has_links to old updates ([396ba65](https://github.com/part-up/part-up/commit/396ba65))
+* **redesign:** check has_ properties on message update ([9483b63](https://github.com/part-up/part-up/commit/9483b63))
+
+
+
 <a name="1.25.0"></a>
 # [1.25.0](https://github.com/part-up/part-up/compare/1.24.1...1.25.0) (2016-11-13)
 
