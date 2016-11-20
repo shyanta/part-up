@@ -1,0 +1,43 @@
+.pu-discovermenu
+    width: 275px
+    padding: 20px
+    padding-bottom: 25px
+    background-color: $color-background-secondary
+    border-radius: 4px
+    font-size: 16px
+
+    .pu-formdropdown
+        height: 46px
+        z-index: 1
+
+        .pu-sub-container
+            overflow: hidden
+
+        &-active
+            z-index: 7
+
+            .pu-sub-container
+                -webkit-overflow-scrolling: touch
+                overflow-x: hidden
+                overflow-y: auto
+
+        .pu-button-input-keepbuttonheight
+            height: 42px
+
+    .pu-input,
+    .pu-formdropdown .pu-sub-container
+        border-color: $color-border
+
+        &:hover,
+        &:focus,
+        &:active
+            border-color: darken($color-border, 10%)
+
+
+    .pu-sub-remove
+        text-decoration: none
+        color: #ccc
+        position: absolute
+        top: 39px
+        font-size: 12px
+        right: 15px

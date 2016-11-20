@@ -526,6 +526,60 @@ Network.prototype.hasPartupsWithColleaguesCustomBRoleEnabled = function(partups)
 };
 
 /**
+ * Create the partup_names object for the given partupId
+ *
+ * @memberOf Networks
+ */
+Network.prototype.createPartupName = function(partupId, partupName) {
+    Networks.update({
+        _id: this._id,
+        'partup_names._id': {
+            $ne: partupId
+        }
+    }, {
+        $push: {
+            partup_names: {
+                _id: partupId,
+                name: partupName
+            }
+        }
+    });
+};
+
+/**
+ * Update the partup_name object for the given partupId
+ *
+ * @memberOf Networks
+ */
+Network.prototype.updatePartupName = function(partupId, partupName) {
+    Log.debug(partupId);
+    Log.debug(partupName);
+
+    Networks.update({
+        _id: this._id,
+        'partup_names._id': partupId
+    }, {
+        $set: {
+            'partup_names.$.name': partupName
+        }
+    });
+};
+
+/**
+ * Remove the partup_name object for the given partupId
+ *
+ * @memberOf Networks
+ */
+Network.prototype.removePartupName = function(partupId) {
+    Networks.update({
+        _id: this._id,
+        'partup_names._id': partupId
+    }, {
+        $pull: {partup_names: {_id: partupId}}
+    });
+};
+
+/**
  Networks, also known as "Tribes" are entities that group users and partups
  @namespace Networks
  */
@@ -537,6 +591,7 @@ Networks = new Mongo.Collection('networks', {
 
 // Add indices
 if (Meteor.isServer) {
+    Networks._ensureIndex({'name': 'text', 'description': 'text'}, {language_override: 'idioma'});
     Networks._ensureIndex('slug');
     Networks._ensureIndex('admins');
     Networks._ensureIndex('privacy_type');
@@ -616,6 +671,73 @@ Networks.guardedMetaFind = function(selector, options) {
 };
 
 /**
+ * Find the networks used in the discover page
+ *
+ * @memberOf Networks
+ * @param userId
+ * @param {Object} options
+ * @param parameters
+ * @return {Cursor}
+ */
+Networks.findForDiscover = function(userId, options, parameters) {
+    var selector = {};
+
+    options = options || {};
+    options.limit = options.limit ? parseInt(options.limit) : undefined;
+    options.skip = options.skip ? parseInt(options.skip) : 0;
+    options.sort = options.sort || {};
+
+    parameters = parameters || {};
+    var sort = parameters.sort || undefined;
+    var textSearch = parameters.textSearch || undefined;
+    var locationId = parameters.locationId || undefined;
+    var language = parameters.language || undefined;
+    var notArchived = parameters.notArchived || undefined;
+
+    if (sort) {
+        // Sort the networks from the newest to the oldest
+        if (sort === 'new') {
+            options.sort['created_at'] = -1;
+        }
+
+        // Sort the networks from the most popular to the least popular
+        if (sort === 'popular') {
+            options.sort['popularity'] = -1;
+        }
+    }
+
+    // Filter the networks that match the text search
+    if (textSearch) {
+        Log.debug('Searching networks for [' + textSearch + ']');
+
+        var textSearchSelector = {$text: {$search: textSearch}};
+        var tagSelector = {tags: {$in: [textSearch]}};
+        var partupNameSelector = {'partup_names.name': new RegExp('.*' + textSearch + '.*', 'i')};
+
+        options.fields = {score: {$meta: 'textScore'}};
+        options.sort['score'] = {$meta: 'textScore'};
+
+        selector.$or = [textSearchSelector, tagSelector, partupNameSelector];
+    }
+
+    // Filter the networks on language
+    if (language) {
+        selector['language'] = language;
+    }
+
+    // Filter the networks that are in a given location
+    if (locationId) {
+        selector['location.place_id'] = locationId;
+    }
+
+    if (notArchived) {
+        selector['archived_at'] = {$exists: false};
+    }
+
+    return this.guardedFind(userId, selector, options);
+};
+
+/**
  * Networks collection helpers
  *
  * @memberOf Networks
@@ -631,7 +753,10 @@ Networks.guardedFind = function(userId, selector, options) {
     options = options || {};
 
     // The fields that should never be exposed
-    var guardedFields = ['access_tokens'];
+    var guardedFields = [
+        'access_tokens',
+        'partup_names'
+    ];
     if (!options.fields) {
         options.fields = {};
         guardedFields.forEach(function(guardedField) {
@@ -645,7 +770,7 @@ Networks.guardedFind = function(userId, selector, options) {
 
     var guardedCriterias = [
         // The network is open, which means everyone can access it
-        {'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}},
+        {'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}}
     ];
 
     // Some extra rules that are only applicable to users that are logged in
@@ -699,6 +824,7 @@ Networks.findForPartup = function(partup, userId) {
  * @memberOf Networks
  * @param {User} user
  * @param {String} userId
+ * @param options
  * @return {Mongo.Cursor}
  */
 Networks.findForUser = function(user, userId, options) {
@@ -712,6 +838,7 @@ Networks.findForUser = function(user, userId, options) {
  * @memberOf Networks
  * @param {User} user
  * @param {String} userId
+ * @param options
  * @return {Mongo.Cursor}
  */
 Networks.findUnarchivedForUser = function(user, userId, options) {

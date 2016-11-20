@@ -22,7 +22,7 @@
                 <div class="pu-sub-partupdetail-navigation">
                     {{> app_partup_navigation }}
                 </div>
-                <div class="pu-sub-partupdetail-content pu-partuppagelayout__content" data-infinitescroll-container data-close-section>
+                <div class="pu-sub-partupdetail-content pu-partuppagelayout__content" data-close-section data-infinitescroll-container>
                     {{# if partupIsLoaded }}
                         {{> yield region='app_partup' }}
                     {{ else }}

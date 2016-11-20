@@ -1,0 +1,30 @@
+<template name="app_discover_partups_filter">
+    <div class="pu-discovermenu">
+        <form class="pu-form" data-form>
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'pages-app-discover-filter-textsearch-label' }}</span>
+                <input type="text" class="pu-input" data-search-query placeholder="{{_ 'pages-app-discover-filter-textsearch-placeholder' }}">
+            </div>
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'pages-app-discover-filter-networkfilter-label' }}</span>
+                {{> DiscoverPartupsTribeSelector reactiveVar=state.selectedTribeReactiveVar options=data.networks }}
+            </div>
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'pages-app-discover-filter-locationfilter-label' }}</span>
+                {{# AutocompleteAdvanced
+                            placeholder='Location'
+                            label=state.locationLabel
+                            selection=state.selectedLocationReactiveVar
+                            onQuery=hooks.locationQuery
+                            hasValueVar=state.locationHasValueVar
+                            formValue=state.locationFormvalue }}
+                    <input type="hidden" name='location_input' class="pu-input" data-input="">
+                {{/ AutocompleteAdvanced }}
+            </div>
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'pages-app-discover-filter-language-label' }}</span>
+                {{> DiscoverPartupsLanguageSelector reactiveVar=state.selectedLanguageReactiveVar }}
+            </div>
+        </form>
+    </div>
+</template>

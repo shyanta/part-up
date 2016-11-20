@@ -184,7 +184,7 @@ Meteor.users.findUppersForNetwork = function(network, options, parameters) {
     parameters = parameters || {};
     parameters.onlyActive = true;
 
-    return this.findMultiplePublicProfiles(uppers, options, parameters);
+    return Meteor.users.findMultiplePublicProfiles(uppers, options, parameters);
 };
 
 /**

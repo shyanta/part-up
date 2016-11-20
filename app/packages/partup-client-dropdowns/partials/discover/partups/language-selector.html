@@ -1,0 +1,30 @@
+<template name='DiscoverPartupsLanguageSelector'>
+    <div class="pu-formdropdown {{#if menuOpen}}pu-formdropdown-active{{/if}}">
+        <div class="pu-sub-container" data-container>
+            <button class="pu-button pu-button-input pu-button-input-keepbuttonheight" data-toggle-menu>
+                {{ selectedOption.native_name }}
+                <i class="{{#if menuOpen}} picon-caret-up {{else}} picon-caret-down {{/if}}"></i>
+            </button>
+            <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
+                {{#with emptyOption}}
+                    {{#unless selected .}}
+                        <li class="pu-dropdownitem pu-dropdownitem-small">
+                            <a href="#" data-select-option data-toggle-menu>
+                                {{ native_name }}
+                            </a>
+                        </li>
+                    {{/unless}}
+                {{/with}}
+                {{#each options}}
+                    {{#unless selected . }}
+                        <li class="pu-dropdownitem pu-dropdownitem-small">
+                            <a href="#" data-select-option data-toggle-menu>
+                                {{ native_name }}
+                            </a>
+                        </li>
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

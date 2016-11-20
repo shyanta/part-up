@@ -1,0 +1,59 @@
+<template name="app_discover_tribes">
+    <section class="pu-composition pu-composition-discover">
+
+        <!-- Header -->
+        <header class="pu-sub-header">
+            <form class="pu-form pu-flexible-center" novalidate data-nosubmit>
+                <div>
+                    <span>
+                        <h2 class="pu-title">
+                            {{_ 'pages-app-discover-heading' }}
+
+                            {{# if countLoading }}
+                                {{> Spinner type='small' }}
+                            {{ else }}
+                                <span class="pu-sub-countlabel">
+                                    {{#if count}}
+                                        {{_ 'pages-app-discover-xpartups' count=count }}
+                                    {{else}}
+                                        {{_ 'pages-app-discover-nopartups' }}
+                                    {{/if}}
+                                </span>
+                            {{/ if }}
+
+                        </h2>
+
+                        {{# if showRecommendationsBtn }}
+                            <button id="recommendationsBtn" class="pu-button pu-button-large pu-sub-right">
+                              {{_ 'pages-app-discover-btn-recommendations' }}
+                            </button>
+                        {{/ if }}
+                    </span>
+                </div>
+                <div class="pu-sub-center">
+                    <span></span>
+                </div>
+                <div>
+                    <span>
+                        <!-- FILTER -->
+                    </span>
+                </div>
+            </form>
+
+        </header>
+
+        <!-- Content (partup-tiles) -->
+        <div data-infinitescroll-container class="pu-discoverlayout">
+            {{> app_discover_tribes_filter }}
+            <ul class="pu-list pu-discover-list">
+                {{#each data.networks}}
+                    <li>
+                        {{> TribeTile tribe=. }}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+
+    </section>
+
+</template>

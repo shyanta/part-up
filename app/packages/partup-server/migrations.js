@@ -878,6 +878,30 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 36,
+    name: 'Set partup_names property on all networks',
+    up: function() {
+        Networks.find().fetch().forEach(function(network) {
+            var partupNames = Partups.find({network_id: network._id, deleted_at: {$exists: false}, archived_at: {$exists: false}}, {_id: 1, name: 1}).map(function(partup) {
+                return {
+                    _id: partup._id,
+                    name: partup.name
+                };
+            });
+
+            Networks.update(network._id, {
+                $set: {
+                    partup_names: partupNames
+                }
+            });
+        });
+    },
+    down: function() {
+        //
+    }
+});
+
 Meteor.startup(function() {
-    Migrations.migrateTo(35);
+    Migrations.migrateTo(36);
 });

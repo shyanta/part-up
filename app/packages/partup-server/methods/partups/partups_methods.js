@@ -33,6 +33,11 @@ Meteor.methods({
             Partups.insert(newPartup);
             Meteor.users.update(user._id, {$addToSet: {'upperOf': newPartup._id}});
 
+            if (newPartup.network_id) {
+                var network = Networks.findOneOrFail(newPartup.network_id);
+                network.createPartupName(newPartup._id, newPartup.name);
+            }
+
             return {
                 _id: newPartup._id,
                 slug: newPartup.slug
@@ -101,13 +106,21 @@ Meteor.methods({
         try {
             var newPartupFields = Partup.transformers.partup.fromFormStartPartup(fields);
 
-            // update the slug when the name has changed
-            if (fields.name) {
+            // Update the slug and network info when the name has changed
+            if (fields.partup_name) {
+                // Update slug
                 var document = {
                     _id: partup._id,
                     name: newPartupFields.name
                 };
                 newPartupFields.slug = Partup.server.services.slugify.slugifyDocument(document, 'name');
+
+                // Update network info
+                if (partup.network_id) {
+                    Log.debug('3');
+                    var network = Networks.findOneOrFail(partup.network_id);
+                    network.updatePartupName(partup._id, newPartupFields.name);
+                }
             }
 
             Partups.update(partupId, {$set: newPartupFields});
@@ -146,6 +159,12 @@ Meteor.methods({
         try {
             partup.remove();
 
+            // Update network info
+            if (partup.network_id) {
+                var network = Networks.findOneOrFail(partup.network_id);
+                network.removePartupName(partupId);
+            }
+
             return {
                 _id: partup._id
             };
@@ -159,12 +178,12 @@ Meteor.methods({
      * Discover partups based on provided filters
      *
      * @param {Object} parameters
-     * @param {string} options.networkId
-     * @param {string} options.locationId
-     * @param {string} options.sort
-     * @param {string} options.textSearch
-     * @param {number} options.limit
-     * @param {string} options.language
+     * @param {string} parameters.networkId
+     * @param {string} parameters.locationId
+     * @param {string} parameters.sort
+     * @param {string} parameters.textSearch
+     * @param {number} parameters.limit
+     * @param {string} parameters.language
      */
     'partups.discover': function(parameters) {
         check(parameters, {
@@ -258,7 +277,7 @@ Meteor.methods({
 
         try {
             var author = Meteor.users.findOne(fields.author_id);
-            featured = {
+            var featured = {
                 'active': true,
                 'by_upper': {
                     '_id': author._id,
@@ -521,6 +540,11 @@ Meteor.methods({
         try {
             Partups.update(partup._id, {$set: {archived_at: new Date()}});
 
+            // Update network info
+            if (partup.network_id) {
+                var network = Networks.findOneOrFail(partup.network_id);
+                network.removePartupName(partupId);
+            }
             Event.emit('partups.archived', upper._id, partup);
         } catch (error) {
             Log.error(error);
@@ -546,6 +570,11 @@ Meteor.methods({
         try {
             Partups.update(partup._id, {$unset: {archived_at: ''}});
 
+            // Update network info
+            if (partup.network_id) {
+                var network = Networks.findOneOrFail(partup.network_id);
+                network.createPartupName(partup._id, partup.name);
+            }
             Event.emit('partups.unarchived', upper._id, partup);
         } catch (error) {
             Log.error(error);
@@ -570,6 +599,7 @@ Meteor.methods({
 
         var network = Networks.findOneOrFail(networkId);
         var partup = Partups.findOneOrFail(partupId);
+        var oldNetwork = Networks.findOneOrFail(partup.network_id);
 
         // Update the new privacy type, but only if it's neither of network_admins or network_colleagues type
         if (partup.privacy_type !== Partups.privacy_types.NETWORK_ADMINS &&
@@ -595,6 +625,10 @@ Meteor.methods({
 
         // Set the updated data
         Partups.update(partup._id, {$set: newData});
+
+        // Update networks info
+        oldNetwork.removePartupName(partup._id);
+        network.createPartupName(partup._id, partup.name);
     },
 
     /**

@@ -144,9 +144,9 @@ Template.app_partup_updates.onRendered(function() {
     /**
      * Infinite scroll
      */
-    Partup.client.scroll.infinite({
+    Partup.client.scroll.customInfinite({
         template: tpl,
-        element: $('[data-infinitescroll-container]')[0],
+        container: $('[data-infinitescroll-container]')[0],
         offset: 200
     }, function() {
         if (tpl.updates.loading.get() || tpl.updates.infinite_scroll_loading.get() || tpl.updates.end_reached.get()) return;

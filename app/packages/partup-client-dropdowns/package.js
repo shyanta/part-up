@@ -83,7 +83,14 @@ Package.onUse(function(api) {
         'partials/profile/upper-actions.html',
         'partials/profile/upper-actions.js',
         'partials/profile/supporter-actions.html',
-        'partials/profile/supporter-actions.js'
+        'partials/profile/supporter-actions.js',
+
+        'partials/discover/partups/tribe-selector.html',
+        'partials/discover/partups/tribe-selector.js',
+        'partials/discover/partups/language-selector.html',
+        'partials/discover/partups/language-selector.js',
+        'partials/discover/partups/sort-selector.html',
+        'partials/discover/partups/sort-selector.js'
     ], 'client');
 
 });

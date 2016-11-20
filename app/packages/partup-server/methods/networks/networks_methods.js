@@ -35,6 +35,7 @@ Meteor.methods({
             network.most_active_partups = [];
             network.common_tags = [];
             network.contentblocks = [];
+            network.partup_names = [];
 
             // Create chat for network
             network.chat_id = Meteor.call('chats.insert', {});

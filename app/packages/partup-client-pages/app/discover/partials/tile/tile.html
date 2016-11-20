@@ -6,7 +6,7 @@
             {{# with partup.mappedTags }}
                 <ul class="pu-sub-partup-tags">
                     {{# each . }}
-                        <li style="transition-delay: {{ delay }}s"><span class="pu-tag">{{ tag }}</span></li>
+                        <li><span class="pu-tag">{{ tag }}</span></li>
                     {{/ each }}
                 </ul>
             {{/ with }}
@@ -29,7 +29,7 @@
             {{# if partup.networkObject }}
                 {{#unless partup.networkObject.archived_at}}
                     <footer>
-                        <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-networktile">
+                        <a href="{{ pathFor route='network' slug=partup.networkObject.slug query=showStartQuery }}" class="pu-network-strip">
                             <div class="pu-sub-wrapper">
                                 <div class="pu-sub-figurecontainer">
                                     <figure style="
@@ -48,7 +48,7 @@
         {{ else }}
             {{# with longLabel partup }}
                 <footer>
-                    <div class="pu-networktile pu-networktile-condensed">
+                    <div class="pu-network-strip pu-network-strip-condensed">
                         <div class="pu-sub-wrapper">
                             <div class="pu-sub-figurecontainer">
                             </div>

@@ -1,12 +1,23 @@
 var PAGING_INCREMENT = 32;
 
 var getAmountOfColumns = function(screenwidth) {
+    screenwidth -= 294;
     var minWidth = 300;
-    return Math.min(Math.floor(screenwidth / minWidth), 4);
+    return Math.min(Math.floor(screenwidth / minWidth), 3);
 };
 
-Template.app_discover_page.onCreated(function() {
+Template.app_discover_partups.onCreated(function() {
     var template = this;
+
+    template.sorting = new ReactiveVar(undefined, function(a, b) {
+        Partup.client.discover.current_query.sort = b.value || undefined;
+        for (key in Partup.client.discover.DEFAULT_QUERY) {
+            var fieldValue          = Partup.client.discover.current_query[key];
+            var defaultFieldValue   = Partup.client.discover.DEFAULT_QUERY[key];
+
+            Partup.client.discover.query.set(key, fieldValue || defaultFieldValue);
+        }
+    });
 
     // States such as loading states
     template.states = {
@@ -54,7 +65,7 @@ Template.app_discover_page.onCreated(function() {
     });
 });
 
-Template.app_discover_page.onRendered(function() {
+Template.app_discover_partups.onRendered(function() {
     var template = this;
 
     // When the screen size alters
@@ -155,22 +166,20 @@ Template.app_discover_page.onRendered(function() {
             template.count.set(content.count);
         });
     });
-
     // Infinite scroll
     Partup.client.scroll.infinite({
         template: template,
-        element: template.find('[data-infinitescroll-container]'),
-        offset: 1800
+        element: $('[data-infinitescroll-container ]')[0],
+        offset: 200
     }, function() {
         if (template.states.loading_infinite_scroll || template.states.paging_end_reached.curValue) { return; }
-
         var nextPage = template.page.get() + 1;
         template.page.set(nextPage);
     });
 
 });
 
-Template.app_discover_page.helpers({
+Template.app_discover_partups.helpers({
     columnTilesLayout: function() {
         return Template.instance().columnTilesLayout;
     },
@@ -183,21 +192,7 @@ Template.app_discover_page.helpers({
     countLoading: function() {
         return Template.instance().states.count_loading.get();
     },
-    showRecommendationsBtn: function() {
-        /**
-         * out-comment the lines to enable the recommendation button again
-         */
-        // var user = Meteor.user();
-        // if (!user) return false;
-        return false;
-    }
-});
-
-Template.app_discover_page.events({
-    'click #recommendationsBtn': function(event, template) {
-        event.preventDefault();
-        Intent.go({
-            route: 'recommendations'
-        });
+    sortReactiveVar: function() {
+        return Template.instance().sorting;
     }
 });

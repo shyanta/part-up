@@ -1,0 +1,48 @@
+<template name="TribeTile">
+    <div class="pu-networktile">
+        <figure class="pu-networktile__image" style="{{#with partupImageObjectUrl object=data.tribe.backgroundImageObject store='360x360'}}background-image: url({{.}});{{/with}}">
+            <figure class="pu-avatar pu-avatar-square" style="{{#with partupImageObjectUrl object=data.tribe.imageObject store='360x360'}}background-image: url({{.}});{{/with}}"></figure>
+        </figure>
+        <div class="pu-networktile__meta">
+            <h3>{{ data.tribe.name }}</h3>
+            {{> MostActivePartups partups=data.activePartups }}
+            <p>{{ data.tribe.description }}<span>Read more</span></p>
+            <ul class="pu-list pu-list-horizontal pu-list-tags">
+                <!-- TODO use displayTags (partup-based) -->
+                {{#each data.tribe.tags}}
+                    <li class="pu-tag pu-tag-dark pu-tag-disable">{{ . }}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="pu-networktile__extra">
+            {{> MostActiveUppers uppers=data.activeUppers }}
+            <!-- TRIBE NEEDS: still needs implementation -->
+            <!-- <ul class="pu-list pu-list-horizontal pu-list-pipe-seperated">
+                <li>Back-end Developer</li>
+                <li>Designer</li>
+                <li>Product Owner</li>
+                <li>5 more</li>
+            </ul> -->
+        </div>
+    </div>
+</template>
+
+<template name="MostActivePartups">
+    <ul class="pu-list pu-list-horizontal pu-list-pipe-seperated">
+        <li>Active partups: {{data.totalActivePartupCount}}</li>
+        <!-- <li>Last active: {{data.mostActivePartup.updated_at}}</li> -->
+        <!-- STATE ICON: needs implementation -->
+        <!-- <li><i class="picon-bell"></i></li> -->
+    </ul>
+</template>
+
+<template name="MostActiveUppers">
+    <ul class="pu-list pu-list-horizontal pu-networktile__avatars">
+        {{#each data.uppers}}
+            <li><figure class="pu-avatar pu-avatar-middle" style="{{#with profile.image}}background-image: url('{{ partupImageUrl id=. store='80x80' }}'){{/with}}"></figure></li>
+        {{/each}}
+        {{#if data.remainingUppers}}
+            <li><figure class="pu-avatar pu-avatar-middle pu-sub-count"><span>+{{data.remainingUppers}}</span></figure></li>
+        {{/if}}
+    </ul>
+</template>

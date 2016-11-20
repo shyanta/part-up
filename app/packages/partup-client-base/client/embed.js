@@ -39,6 +39,11 @@ Partup.client.embed = {
         var embed = this;
 
         // Add network iconObject
+        if (network.background_image) {
+            network.backgroundImageObject = mout.object.find(images, {_id: network.background_image});
+        }
+
+        // Add network iconObject
         if (network.icon) {
             network.iconObject = mout.object.find(images, {_id: network.icon});
         }
