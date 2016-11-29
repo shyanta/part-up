@@ -20,7 +20,10 @@
                             </li>
                             {{# if showRecommendationsBtn }}
                                 <li>
-                                    <a href="{{pathFor 'recommendations'}}" class="pu-button pu-button-nav pu-button-nav-secondary">{{_ 'pages-app-discover-btn-recommendations' }}</a>
+                                    <a href="{{pathFor 'discover-recommendations'}}"
+                                        class="pu-button pu-button-nav pu-button-nav-secondary {{ isActiveRoute name='discover-recommendations' class='pu-state-active'}}">
+                                        {{_ 'pages-app-discover-btn-recommendations' }}
+                                    </a>
                                 </li>
                             {{/ if }}
                         </ul>
