@@ -7,24 +7,25 @@
 Template.app_discover_tribes_filter.onCreated(function() {
     var template = this;
     var updateQuery = function() {
-        for (key in Partup.client.discover.DEFAULT_QUERY) {
-            var fieldValue          = Partup.client.discover.current_query[key];
-            var defaultFieldValue   = Partup.client.discover.DEFAULT_QUERY[key];
+        for (key in Partup.client.discover.DEFAULT_TRIBE_QUERY) {
+            var fieldValue          = Partup.client.discover.current_tribe_query[key];
+            var defaultFieldValue   = Partup.client.discover.DEFAULT_TRIBE_QUERY[key];
 
-            Partup.client.discover.query.set(key, fieldValue || defaultFieldValue);
+            Partup.client.discover.tribe_query.set(key, fieldValue || defaultFieldValue);
         }
     };
     template.searchQuery = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.textSearch = b || undefined;
+        console.log('jaja')
+        Partup.client.discover.current_tribe_query.textSearch = b || undefined;
         updateQuery();
     });
     template.selectedLocation = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.locationId = b._id || undefined;
+        Partup.client.discover.current_tribe_query.locationId = (b && b.id) || undefined;
         updateQuery();
     });
     template.locationHasValueVar = new ReactiveVar(undefined);
     template.selectedLanguage = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_query.language = b._id || undefined;
+        Partup.client.discover.current_tribe_query.language = (b && b._id) || undefined;
         updateQuery();
     });
 });

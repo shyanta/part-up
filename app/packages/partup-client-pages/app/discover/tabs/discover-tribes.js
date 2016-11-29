@@ -55,6 +55,13 @@ Template.app_discover_tribes.onCreated(function() {
             template.networks.set(tiles);
         });
     });
+
+    template.autorun(function() {
+        template.states.paging_end_reached.set(false);
+        template.query = Partup.client.discover.composeTribeQueryObject();
+        template.page.set(0);
+        template.networks.set([]);
+    });
 });
 
 Template.app_discover_tribes.onRendered(function() {
