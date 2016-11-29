@@ -157,8 +157,12 @@ Template.Partupsettings.onRendered(function() {
         if (currentPartupNetworkId) {
             template.showNetworkDropdown.set(true);
             var privacyType = Partups.getPrivacyTypeByValue(currentPartupPrivacyType);
-            var privacyTypeValue = privacyType.toLowerCase().replace('network_public', 'network');
-            template.selectedPrivacyType.set(privacyTypeValue);
+            // privacyLowerCaseValue
+            var plcValue = privacyType.toLowerCase();
+            if (plcValue === 'network_public' || plcValue === 'network_invite' || plcValue === 'network_closed') {
+                plcValue = 'network';
+            }
+            template.selectedPrivacyType.set(plcValue);
             template.selectedPrivacyNetwork.set(currentPartupNetworkId);
             template.preselectedNetwork.set(currentPartupNetworkId);
         }
