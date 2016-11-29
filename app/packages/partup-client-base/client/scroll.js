@@ -69,8 +69,6 @@ Partup.client.scroll = {
     infinite: function(options, callback) {
         var self = this;
 
-        console.log(options);
-
         options = options || {};
         options.offset = mout.lang.isNumber(options.offset) ? options.offset : INFINITE_SCROLL_OFFSET;
         if (!options.template) return;
